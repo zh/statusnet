@@ -1,0 +1,23 @@
+Starting with tag:
+[TAG 0.3.2
+Evan Prodromou <evan@controlyourself.ca>**20080619150226] 
+[need a profileurl for new users
+Evan Prodromou <evan@controlyourself.ca>**20080619151803] 
+[cant remove last openid, public xrds includes immediate
+Evan Prodromou <evan@controlyourself.ca>**20080619153231
+ 
+ Added a check to make sure the user doesn't remove their last OpenID
+ if they don't also have a password.
+ 
+ Also, put the finishimmediate URL in the publicxrds so that e.g.
+ Yahoo! doesn't get snippy.
+ 
+] 
+[fetch the oid before showing it
+Evan Prodromou <evan@controlyourself.ca>**20080619153719] 
+[had order of arguments for oid_link_user backwards in finishaddopenid
+Evan Prodromou <evan@controlyourself.ca>**20080619155042] 
+[Don't repeat "Remove OpenID" header
+Evan Prodromou <evan@controlyourself.ca>**20080619155154] 
+[posting from a form takes you back to the same page
+Evan Prodromou <evan@controlyourself.ca>**20080619161814] 

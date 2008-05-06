@@ -1,0 +1,205 @@
+Starting with tag:
+[TAG 0.6.1
+Evan Prodromou <evan@controlyourself.ca>**20081006041249] 
+[fixup return value of XMPP channel on setting notification
+Evan Prodromou <evan@controlyourself.ca>**20081006054425] 
+[Twitter-compatible API - direct_messages/new.json was not answering
+zach@controlyourself.ca**20081006153715] 
+[Twitter bridge - was checking the wrong bit (!) for reply sync preference
+zach@controlyourself.ca**20081007004432] 
+[Adapted stoica theme for iPhone use
+Ken Sheppardson <laconica@kshep.net>**20080816181321] 
+[Adapted stoica theme for iphone use
+Ken Sheppardson <laconica@kshep.net>**20080816181845] 
+[Renamed 'mobile' theme to more appropriate 'iphone'
+Ken Sheppardson <laconica@kshep.net>**20080816200437] 
+[enjitqueuehandler
+Ken Sheppardson <laconica@kshep.net>**20080904215328] 
+[Skip remote notices
+Ken Sheppardson <laconica@kshep.net>**20080905032903] 
+[enjit queue handler (from kshep)
+Evan Prodromou <evan@controlyourself.ca>**20081008164624] 
+[add about 60px
+Evan Prodromou <evan@controlyourself.ca>**20081012155650] 
+[add about 60px to default theme, too
+Evan Prodromou <evan@controlyourself.ca>**20081012161211] 
+[fixup margins in stoica theme
+Evan Prodromou <evan@prodromou.name>**20081012162719] 
+[fixup margin and padding in default theme
+Evan Prodromou <evan@controlyourself.ca>**20081012162810] 
+[Twitter-compatible API - added favorites/favorites to list of methods only requiring bare auth
+zach@controlyourself.ca**20081015163112] 
+[Twitter-compatible API:
+zach@controlyourself.ca**20081017023638
+   - Filled in favorites tags in statuses
+   - Filled in more tags in user/show, including undocumented features
+   - Better error handling and more consistent error messages
+   - Code clean-up and refactoring
+   - Removed huge obnoxious comments
+] 
+[try to make replies point to the clicked-on notice
+Evan Prodromou <evan@controlyourself.ca>**20081020170245] 
+[don't overwrite replies in notices
+Evan Prodromou <evan@controlyourself.ca>**20081020170828] 
+[add a little debugging for replyto
+Evan Prodromou <evan@controlyourself.ca>**20081020171033] 
+[more specific selector for updating replies
+Evan Prodromou <evan@controlyourself.ca>**20081020172117] 
+[more value updates
+Evan Prodromou <evan@controlyourself.ca>**20081020172305] 
+[move update of replyto value to correct area
+Evan Prodromou <evan@controlyourself.ca>**20081020172549] 
+[correct number of args to saveNew in newnotice
+Evan Prodromou <evan@controlyourself.ca>**20081020173108] 
+[force util.js to reload on version change
+Evan Prodromou <evan@controlyourself.ca>**20081020174231] 
+[accidentally setting replies to 'false'
+Evan Prodromou <evan@controlyourself.ca>**20081020174956] 
+[add 'invite-only' mode for registration
+Evan Prodromou <evan@controlyourself.ca>**20081021182822] 
+[full sentence for invite-only error
+Evan Prodromou <evan@controlyourself.ca>**20081021183035] 
+[try to synch changes in stoica theme to default theme
+Evan Prodromou <evan@controlyourself.ca>**20081021192914] 
+[try to force background on favorite heart in default
+Evan Prodromou <evan@controlyourself.ca>**20081021193501] 
+[try to set correct background color on hover, too
+Evan Prodromou <evan@controlyourself.ca>**20081021193612] 
+[change "stoica" theme to "identica"
+Evan Prodromou <evan@controlyourself.ca>**20081021194440] 
+[move identica ie[67].css to default
+Evan Prodromou <evan@controlyourself.ca>**20081021194833] 
+[make identica theme use default theme, only include differences
+Evan Prodromou <evan@controlyourself.ca>**20081021201853] 
+[fix link color in identica theme
+Evan Prodromou <evan@controlyourself.ca>**20081021202455] 
+[add is_readonly() to api.php
+Evan Prodromou <evan@prodromou.name>**20081024201234] 
+[remove unused noticesWithFriendsWindow from User
+Evan Prodromou <evan@controlyourself.ca>**20081022210428] 
+[add atom and RSS 2.0 link elements to head of profile page
+Evan Prodromou <evan@controlyourself.ca>**20081023212659] 
+[Twitter-compatible API - checks for is_readonly() now work!
+zach@controlyourself.ca**20081024213745] 
+[Twitter-compatible API - removed debugging statement
+zach@controlyourself.ca**20081024215101] 
+[add an index to subscription token
+Evan Prodromou <evan@controlyourself.ca>**20081022192750] 
+[add SUP link to User RSS
+Evan Prodromou <evan@controlyourself.ca>**20081025022849] 
+[override initrss
+Evan Prodromou <evan@controlyourself.ca>**20081025023252] 
+[fixed use of header()
+Evan Prodromou <evan@controlyourself.ca>**20081025023347] 
+[a SUP action to product correct SUP json output
+Evan Prodromou <evan@controlyourself.ca>**20081026033353] 
+[add SUP links to RSS and Atom, too
+Evan Prodromou <evan@controlyourself.ca>**20081026145326] 
+[fix calls to show_rss_timeline
+Evan Prodromou <evan@controlyourself.ca>**20081026145749] 
+[handle seconds argument to SUP
+Evan Prodromou <evan@controlyourself.ca>**20081026150623] 
+[Twitter bridge - change regex to look for mb @-replies
+zach@controlyourself.ca**20081027191629] 
+[heuristics for paren linking (thanks @brion!)
+Evan Prodromou <evan@controlyourself.ca>**20081102090241] 
+[Twitter-compatible API - properly encode and decode UTF-8 HTML entities
+zach@controlyourself.ca**20081103211653] 
+[Better UTF-8 escaped entity handling. Fixed bad chars in all RSS feeds.
+zach@controlyourself.ca**20081104084027] 
+[use correct class for avatar deletion so memcached is updated
+Evan Prodromou <evan@controlyourself.ca>**20081113063850] 
+[notice inbox
+Evan Prodromou <evan@controlyourself.ca>**20081022203600] 
+[save notice to inbox on saveNew
+Evan Prodromou <evan@controlyourself.ca>**20081022205621] 
+[better prefix for Notice_inbox.php
+Evan Prodromou <evan@controlyourself.ca>**20081022205823] 
+[change User to use notice inboxes rather than subscription
+Evan Prodromou <evan@controlyourself.ca>**20081022210445] 
+[blow inboxes
+Evan Prodromou <evan@controlyourself.ca>**20081023203505] 
+[Twitter-compatible API - since_id and before_id were polluting the cache and generating bad SQL
+zach@controlyourself.ca**20081104053359
+ (Also cleaned out some extra whitespace.)
+] 
+[created timestamp on notice_inbox
+Evan Prodromou <evan@controlyourself.ca>**20081112172517] 
+[notice_inbox.id -> notice_inbox.notice_id
+Evan Prodromou <evan@controlyourself.ca>**20081112173627] 
+[add a script to populate notice inboxes
+Evan Prodromou <evan@controlyourself.ca>**20081112181117] 
+[correct method for querying
+Evan Prodromou <evan@controlyourself.ca>**20081112181327] 
+[some memory and execution time management
+Evan Prodromou <evan@controlyourself.ca>**20081112181533] 
+[add created to notice update
+Evan Prodromou <evan@controlyourself.ca>**20081112185117] 
+[check for errors in fixup_inboxes
+Evan Prodromou <evan@controlyourself.ca>**20081112185146] 
+[add LOW_PRIORITY and IGNORE extensions for INSERT
+Evan Prodromou <evan@controlyourself.ca>**20081112190828] 
+[Fix error when maildaemon tries to report a message parsing error
+CiaranG <ciaran@ciarang.com>**20081007083521] 
+[Only log locale sets that fail
+CiaranG <ciaran@ciarang.com>**20081007145232] 
+[Fix to previous fix :(
+CiaranG <ciaran@ciarang.com>**20081007155038] 
+[Script to update laconica.pot from source, and the results of running it
+CiaranG <ciaran@ciarang.com>**20081013200837] 
+[Twitter-compatible API - don't strip XML-illegal chars from JSON output
+zach@controlyourself.ca**20081106225721] 
+[CSRF Protection for login and new notice. Ticket #503
+zach@controlyourself.ca**20081111022330] 
+[trac31 url_auto_shortening by sgmurphy
+millette@controlyourself.ca**20081106205926] 
+[trac31 forgot actions/othersettings.php file
+millette@controlyourself.ca**20081106210552] 
+[trac31 added othersettings fancy url
+millette@controlyourself.ca**20081106224006] 
+[added Shorturl_api to add support for ur1, 2tu and other services lacking a native api - trac31
+millette@controlyourself.ca**20081107193831] 
+[trac31 added 3 more short url services: ur1.ca, 2tu.ru and ptiturl.com
+millette@controlyourself.ca**20081107194735] 
+[trac31 added bit.ly support
+millette@controlyourself.ca**20081107201926] 
+[trac31 don't shorten URLs prefixed with a *
+millette@controlyourself.ca**20081107203039] 
+[trac31 revert the "don't shorten URLs prefixed with a *" patch since we automatically shorten in notices > 140 chars
+millette@controlyourself.ca**20081107222100] 
+[trac31 pg support, fixing 2tu typo, set ur1.ca as default service
+millette@controlyourself.ca**20081113152718] 
+[trac31 shorten all URLs even if notice is already <= 140 chars
+millette@controlyourself.ca**20081113153216] 
+[trac31 forgot about twitapi, now fixed.
+millette@controlyourself.ca**20081113164741] 
+[trac31 let * preceding a url prevent its shortening.
+millette@controlyourself.ca**20081113170234] 
+[trac31 added longurl title to anchors when applicable. Also removed * url prefix feature to prevent short urls.
+millette@controlyourself.ca**20081113182834] 
+[Conflict resolution patch for newnotice.php (zach vs. millette)
+zach@controlyourself.ca**20081113195237] 
+[add inboxed and regenerate data objects
+Evan Prodromou <evan@prodromou.name>**20081113210209] 
+[add documentation on notice inboxes
+Evan Prodromou <evan@prodromou.name>**20081113214544] 
+[different query based on config var and user inbox status
+Evan Prodromou <evan@prodromou.name>**20081113215734] 
+[update inboxed flag in fixup inboxes
+Evan Prodromou <evan@prodromou.name>**20081113220335] 
+[Ticket 753
+tryggvib@hi.is**20081113024833] 
+[Bug fix for ticket 753
+tryggvib@hi.is**20081113212214] 
+[Ticket 753 bugfix, characters/digits only
+tryggvib@hi.is**20081113213119] 
+[clear memcached cache in fixup_inboxes
+Evan Prodromou <evan@prodromou.name>**20081113223514] 
+[take a command-line argument to start with a particular user ID
+Evan Prodromou <evan@prodromou.name>**20081114015930] 
+[add Net Socket
+Evan Prodromou <evan@prodromou.name>**20081114021217] 
+[update README
+Evan Prodromou <evan@prodromou.name>**20081114025715] 
+[remove 'nudge' -- it won't be in this release
+Evan Prodromou <evan@prodromou.name>**20081114032817] 

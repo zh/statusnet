@@ -1,0 +1,83 @@
+Starting with tag:
+[TAG 0.4.1
+Evan Prodromou <evan@controlezvous.ca>**20080702183853] 
+[invert title and content in rss action
+Evan Prodromou <evan@prodromou.name>**20080702214011] 
+[update using a config'd server
+Evan Prodromou <evan@controlezvous.ca>**20080703165043] 
+[add a display url function to display URLs
+Evan Prodromou <evan@prodromou.name>**20080703170347] 
+[add a queued notice item
+Evan Prodromou <evan@prodromou.name>**20080704040746] 
+[enqueue notices for offline broadcast
+Evan Prodromou <evan@prodromou.name>**20080704050425] 
+[a couple of things to make queue items work
+Evan Prodromou <evan@controlezvous.ca>**20080704052240] 
+[info about stuff getting queued
+Evan Prodromou <evan@prodromou.name>**20080704053846] 
+[some logging for queues
+Evan Prodromou <evan@prodromou.name>**20080704055259] 
+[don't worry about old claims
+Evan Prodromou <evan@prodromou.name>**20080704060213] 
+[log some errors for missed inserts
+Evan Prodromou <evan@prodromou.name>**20080704062056] 
+[problem with dates in db error
+Evan Prodromou <evan@controlezvous.ca>**20080704071726] 
+[don't treat notice_id like a sequence
+Evan Prodromou <evan@prodromou.name>**20080704082418] 
+[better notices on commands and errors
+Evan Prodromou <evan@prodromou.name>**20080704201716] 
+[Validate action parameter
+Gina Haeussge <osd@foosel.net>**20080704194114
+ 
+ Make sure the action request parameter only consists of a-z, A-Z, 0-9, _ or -
+ to discourage tampering with the following require_once.
+] 
+[spaces on avatars
+Evan Prodromou <evan@prodromou.name>**20080704210954] 
+[fix galleries
+Evan Prodromou <evan@prodromou.name>**20080704221336] 
+[a little more error-checking in the queuedaemon
+Evan Prodromou <evan@prodromou.name>**20080705002207] 
+[error notices
+Evan Prodromou <evan@prodromou.name>**20080705005602] 
+[nickname in profile, member since in profile
+Evan Prodromou <evan@prodromou.name>**20080705064303] 
+[move member since to statistics
+Evan Prodromou <evan@prodromou.name>**20080705064618] 
+[debugging code for rm
+Evan Prodromou <evan@prodromou.name>**20080705161602] 
+[better debugging
+Evan Prodromou <evan@prodromou.name>**20080705161801] 
+[rememberme debugging
+Evan Prodromou <evan@prodromou.name>**20080705162142] 
+[move queuedaemon into xmppdaemon
+Evan Prodromou <evan@prodromou.name>**20080705172837] 
+[fix checkbox width
+Test Server 1 <test1@dev.controlezvous.ca>**20080627171700] 
+[some whitespace differences
+Test Server 1 <test1@dev.controlezvous.ca>**20080703124652] 
+[change to use SVN version of XMPPHP
+Evan Prodromou <evan@dev.controlezvous.ca>**20080705174045] 
+[don't use old inarow variable
+Evan Prodromou <evan@prodromou.name>**20080705183955] 
+[use method instead of now-protected attribute for xmpp
+Evan Prodromou <evan@prodromou.name>**20080705184729] 
+[if not a POST, redirect to subscriptions
+Evan Prodromou <evan@prodromou.name>**20080705213637] 
+[add queueing variables to confirm_address
+Evan Prodromou <evan@prodromou.name>**20080706031234] 
+[optionally queue jabber confirmations
+Evan Prodromou <evan@prodromou.name>**20080706035707] 
+[restrict confirmations in queue to jabber addresses
+Evan Prodromou <evan@prodromou.name>**20080706035838] 
+[broadcast directly from xmpp daemon
+Evan Prodromou <evan@boursin.controlezvous.ca>**20080704072909] 
+[fixup disconnected to use method
+Evan Prodromou <evan@boursin.controlezvous.ca>**20080705202412] 
+[debugging on the live server
+Evan Prodromou <evan@boursin.controlezvous.ca>**20080706061437] 
+[enable confirmation queue
+Evan Prodromou <evan@dev.controlezvous.ca>**20080706071319] 
+[fixes on bourdin for confirm claims
+Evan Prodromou <evan@boursin.controlezvous.ca>**20080706090309] 

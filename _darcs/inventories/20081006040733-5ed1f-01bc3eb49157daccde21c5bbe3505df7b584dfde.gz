@@ -1,0 +1,352 @@
+Starting with tag:
+[TAG 0.6.0
+Evan Prodromou <evan@controlyourself.ca>**20080923045458] 
+[403 for a message that isn't yours.
+Evan Prodromou <evan@controlyourself.ca>**20080923050637] 
+[change how Foreign_link fetches, and fix mixup between user-ids and foreign-ids in twittersettings
+Evan Prodromou <evan@controlyourself.ca>**20080923054413] 
+[change twitter username to allow uppercase letters and underscores
+Evan Prodromou <evan@controlyourself.ca>**20080923060314] 
+[incorrect message info shown in title
+Evan Prodromou <evan@controlyourself.ca>**20080923063029] 
+[append LACONICA_VERSION to css files to force reload
+Evan Prodromou <evan@controlyourself.ca>**20080923065021] 
+[make it look like a query
+Evan Prodromou <evan@controlyourself.ca>**20080923065211] 
+[try some fiddling to get message notification going out
+Evan Prodromou <evan@controlyourself.ca>**20080923072150] 
+[Twitter bridge - fix to allow linking to 'protected' Twitter users
+Zach Copley <zach@controlyourself.ca>**20080923074529] 
+[was notifying user name not object
+Evan Prodromou <evan@controlyourself.ca>**20080923080246] 
+[comma to dot
+Evan Prodromou <evan@controlyourself.ca>**20080923080855] 
+[Twitter bridge: Hack to get around PHP cURL's use of @ as a metachar,
+Zach Copley <zach@controlyourself.ca>**20080923083632
+ which was keeping @reply messages from getting posted to Twitter.
+] 
+[Twitter bridge - Changed Twitter username length check from 64 chars to Twitter max of 15.
+Zach Copley <zach@controlyourself.ca>**20080923084145] 
+[rationalize Zach's change of length with my added _ and caps
+Evan Prodromou <evan@controlyourself.ca>**20080923174302] 
+[user -> this
+Evan Prodromou <evan@controlyourself.ca>**20080923181648] 
+[better logic around protecting messages
+Evan Prodromou <evan@controlyourself.ca>**20080923182024] 
+[note privacy of login credentials and private messages
+Evan Prodromou <evan@controlyourself.ca>**20080923183035] 
+[Added option to add disable attr to common_checkbox()
+Zach Copley <zach@controlyourself.ca>**20080923213829] 
+[README - Added mbstring to the list of required PHP5 extensions
+Zach Copley <zach@controlyourself.ca>**20080923221439] 
+[Twitter bridge - Bugfix: You can now turn off brige via prefs
+Zach Copley <zach@controlyourself.ca>**20080923231921] 
+[Twitter bridge - pref setting to turn off sending @-replies to Twitter
+Zach Copley <zach@controlyourself.ca>**20080924023615] 
+[Twitter bridge - fixed another bug that kept prefs from saving properly
+Zach Copley <zach@controlyourself.ca>**20080924052431] 
+[Twitter bridge - Was using the wrong idiom to update foreign_link
+Zach Copley <zach@controlyourself.ca>**20080924060455
+ objs, which was causing UI inconsistencies. Fixed.
+ 
+] 
+[change foreign links flags code to use bitmasks
+Evan Prodromou <evan@controlyourself.ca>**20080924150834
+ 
+ Zach was doing a lot of integer comparisons on the Foreign_link sync
+ fields. I switched them to use named bitmasks instead. I also switched
+ the semantics of bit 3 to be the opposite of what Zach had -- I find
+ lots of double-negatives in a checkbox to be hard to read.
+ 
+] 
+[Fix ticket 662
+mac65@mac65.com**20080922213314
+ The user_timeline action for the Twitter API was not reading the page 
+ argument. Added in one line to assign the page argument. Tested on local 
+ install and it worked.
+ 
+] 
+[Fix ticket 460
+mac65@mac65.com**20080922223429
+ The show action for the twitter user API was using subscribed instead of 
+ subscriber to grab the friends_count.
+] 
+[default sending local @ replies to Twitter
+Evan Prodromou <evan@controlyourself.ca>**20080924161708] 
+[change the rule for detecting replies.
+Evan Prodromou <evan@controlyourself.ca>**20080924200710] 
+[change handle() to use message-getting helper
+Evan Prodromou <evan@controlyourself.ca>**20080924202211] 
+[put message form on inbox and outbox
+Evan Prodromou <evan@controlyourself.ca>**20080924204131] 
+[correct url for new message form
+Evan Prodromou <evan@controlyourself.ca>**20080924210254] 
+[redirect to outbox after posting
+Evan Prodromou <evan@controlyourself.ca>**20080924210459] 
+[better redirect to outbox
+Evan Prodromou <evan@controlyourself.ca>**20080924210757] 
+[try to clean up user-without-profile errors
+Evan Prodromou <evan@controlyourself.ca>**20080926145008] 
+[caching layer for DB/DataObject
+Evan Prodromou <evan@controlyourself.ca>**20080926160941
+ 
+ I added a new class, Memcached_DataObject, that will (optionally)
+ fetch data out of a memcached server if it's available. This only
+ works on 'staticGet'.
+ 
+ Methods that write to the database (insert, update, delete) will clear
+ and set the cache correctly, too.
+ 
+] 
+[prepend Memcached_DataObject require with INSTALLDIR
+Evan Prodromou <evan@controlyourself.ca>**20080926161540] 
+[rename cached object file
+Evan Prodromou <evan@controlyourself.ca>**20080926161652] 
+[path correct in require_once for memcached
+Evan Prodromou <evan@controlyourself.ca>**20080926161824] 
+[better handling of staticGet
+Evan Prodromou <evan@controlyourself.ca>**20080926161946] 
+[try to make some static/non-static stuff work right
+Evan Prodromou <evan@controlyourself.ca>**20080926162347] 
+[better deletes and key names
+Evan Prodromou <evan@controlyourself.ca>**20080926163030] 
+[handle one-argument calls to staticGet
+Evan Prodromou <evan@controlyourself.ca>**20080926163357] 
+[hack to make keys work
+Evan Prodromou <evan@controlyourself.ca>**20080926163555] 
+[don't record null key values
+Evan Prodromou <evan@controlyourself.ca>**20080926164021] 
+[Memcache returns false on cache miss
+Evan Prodromou <evan@controlyourself.ca>**20080926164413] 
+[another false-for-error
+Evan Prodromou <evan@controlyourself.ca>**20080926164532] 
+[log a db error for inserting the notice
+Evan Prodromou <evan@controlyourself.ca>**20080926165029] 
+[add some more info on notice update
+Evan Prodromou <evan@controlyourself.ca>**20080926165201] 
+[wasn't returning results of update
+Evan Prodromou <evan@controlyourself.ca>**20080926165310] 
+[handle multiple memcached servers
+Evan Prodromou <evan@controlyourself.ca>**20080926195501] 
+[move memcache connections to util.php
+Evan Prodromou <evan@controlyourself.ca>**20080926200102] 
+[slightly better check on $orig in update()
+Evan Prodromou <evan@controlyourself.ca>**20080927123507] 
+[single function for important streams, with memcached support
+Evan Prodromou <evan@controlyourself.ca>**20080928120119
+ 
+ I moved the 4 streams for a user (with friends, faves, replies,
+ personal) into functions on the User object. Added a helper function
+ in Notice for making notice streams. Also, will fetch notice streams
+ out of the memcached server, if possible. Made the API, RSS, and HTML
+ output all use the same streams (hopefully cached).
+ 
+ Added some code to Notice to blow the cache when a notice is posted.
+ Also, added code to favor and disfavor actions to blow the faves
+ cache, too.
+ 
+] 
+[shownotices takes user rather than profile in showstream
+Evan Prodromou <evan@controlyourself.ca>**20080928120616] 
+[change arguments to Notice::publicStream
+Evan Prodromou <evan@controlyourself.ca>**20080928132747] 
+[lost paren in Notice
+Evan Prodromou <evan@controlyourself.ca>**20080928132846] 
+[add some debugging stuff to Notice
+Evan Prodromou <evan@prodromou.name>**20080928171407] 
+[move noticewrapper to classes
+Evan Prodromou <evan@controlyourself.ca>**20080928171538] 
+[remove noticewrapper
+Evan Prodromou <evan@controlyourself.ca>**20080928171634] 
+[another debug notice
+Evan Prodromou <evan@controlyourself.ca>**20080928172002] 
+[exact check on memcached results
+Evan Prodromou <evan@controlyourself.ca>**20080928173558] 
+[correct some SQL and add some spaces
+Evan Prodromou <evan@controlyourself.ca>**20080928174316] 
+[remove debugging code for notice streams
+Evan Prodromou <evan@controlyourself.ca>**20080928174814] 
+[remove unneeded find() in userrss.php
+Evan Prodromou <evan@controlyourself.ca>**20080928175156] 
+[fancy url for favorites rss
+Evan Prodromou <evan@controlyourself.ca>**20080928175626] 
+[add favoritesrss
+Evan Prodromou <evan@controlyourself.ca>**20080928180132] 
+[cache tag streams in Memcached, too
+Evan Prodromou <evan@controlyourself.ca>**20080928180904] 
+[sync function names
+Evan Prodromou <evan@controlyourself.ca>**20080928181017] 
+[add some whitespace to the qry for tags
+Evan Prodromou <evan@controlyourself.ca>**20080928181121] 
+[pass tag parameter along to stream query
+Evan Prodromou <evan@controlyourself.ca>**20080928181255] 
+[fixup tag display code
+Evan Prodromou <evan@controlyourself.ca>**20080928181503] 
+[blow the cached streams for tags on a new notice
+Evan Prodromou <evan@controlyourself.ca>**20080928181812] 
+[note about stream_select() bug in PHP 5.2.x
+Evan Prodromou <evan@controlyourself.ca>**20080928191022] 
+[guarded call to conn method in xmppqueuehandler
+Evan Prodromou <evan@controlyourself.ca>**20080929205504] 
+[blow cache in Notice for tags
+Evan Prodromou <evan@controlyourself.ca>**20080929222107] 
+[trying to fix up pages in tags
+Evan Prodromou <evan@controlyourself.ca>**20080929230047] 
+[log a warning on recovery of old recovery codes
+Evan Prodromou <evan@controlyourself.ca>**20080930124452] 
+[use two-arg constructor for confirmation code
+Evan Prodromou <evan@controlyourself.ca>**20080930130530] 
+[don't encache on insert; misses timestamps
+Evan Prodromou <evan@controlyourself.ca>**20080930130844] 
+[some extlibs that were missing from 0.6.0
+Evan Prodromou <evan@controlyourself.ca>**20080930133847] 
+[Add Lithuanian to list of supported languages
+CiaranG <ciaran@ciarang.com>**20080923140710] 
+[Added Swedish to list of languages
+CiaranG <ciaran@ciarang.com>**20080923184851] 
+[PostgreSQL: New tables for private messages and invitations (untested)
+CiaranG <ciaran@ciarang.com>**20080923214601] 
+[PostgreSQL: Corrections to the two new table definitions
+CiaranG <ciaran@ciarang.com>**20080924113550] 
+[Add a sys_get_temp_dir substitute to extlib for easier installation on versions that lack it
+CiaranG <ciaran@ciarang.com>**20080924150828] 
+[A load of translations, including de_DE,es,it_IT,nl_NL,en_GB
+CiaranG <ciaran@ciarang.com>**20080924194608] 
+[Translations updates using script
+CiaranG <ciaran@ciarang.com>**20080924205318] 
+[More translations
+CiaranG <ciaran@ciarang.com>**20080924210153] 
+[Updates to the update_translations script
+CiaranG <ciaran@ciarang.com>**20080925092854] 
+[Latest translation updates
+CiaranG <ciaran@ciarang.com>**20080925113246] 
+[Another batch of translations
+CiaranG <ciaran@ciarang.com>**20080926104442] 
+[Fix error in xmpp help
+CiaranG <ciaran@ciarang.com>**20080926214627] 
+[Make stopdaemons.sh work no matter where it runs from
+CiaranG <ciaran@ciarang.com>**20080927210355] 
+[PostgreSQL: Put a default on confirm_address.address_extra to mimic mysql's behaviour when a not-null field is not set in a new record
+CiaranG <ciaran@ciarang.com>**20080929060227] 
+[Fix problem with tags in different locales (Ticket #679)
+CiaranG <ciaran@ciarang.com>**20080924092031] 
+[use profile URL instead of local URL
+Evan Prodromou <evan@controlyourself.ca>**20080930210542] 
+[Fix replies tab pagination issue
+support@bambeeq.com**20081001010741
+ Problem:
+ Before / After links in replies tab don't work. When clicked they show "No such user" error.
+ How to reproduce:
+ 1. Access http://identi.ca/evan/replies
+ 2. Click on Before button
+ 
+] 
+[remove unused helper function
+Evan Prodromou <evan@controlyourself.ca>**20081002144628] 
+[add methods to Memcached_DataObject for caching compound keys
+Evan Prodromou <evan@controlyourself.ca>**20081002144715] 
+[use pkeyGet for Avatar
+Evan Prodromou <evan@controlyourself.ca>**20081002144749] 
+[try to use caching functions where possible in User
+Evan Prodromou <evan@controlyourself.ca>**20081002162513] 
+[incorrect function call in Fave
+Evan Prodromou <evan@controlyourself.ca>**20081002162604] 
+[don't try to free faves in User
+Evan Prodromou <evan@controlyourself.ca>**20081002162739] 
+[only put notices that are local in the sitemap
+Evan Prodromou <evan@controlyourself.ca>**20081003192826] 
+[better instructions in the password recovery page
+Evan Prodromou <evan@controlyourself.ca>**20081004232554] 
+[more output in daemon.php
+Evan Prodromou <evan@controlezvous.ca>**20081005000851] 
+[explicitly load classes for queuehandler
+Evan Prodromou <evan@controlyourself.ca>**20081005191505] 
+[XMPP Direct Messaging / Last notice
+nick@cloudspider.com**20081003011145
+ 
+ Direct messaging now works under XMPP, the command syntax is 'd $nick 
+ $message'. Also, a command to fetch a users last notice is in there 
+ ('last $nick'). Notification of the recipient of a message is not yet 
+ supported.
+ 
+] 
+[more specific profile-get is slightly more efficient
+Evan Prodromou <evan@controlyourself.ca>**20081004021158] 
+[basics of the command interpreter
+Evan Prodromou <evan@controlyourself.ca>**20081004021442] 
+[move DB_DataObject ini files to more common name.
+Evan Prodromou <evan@controlyourself.ca>**20081004142205] 
+[move fave notification to mail library
+Evan Prodromou <evan@controlyourself.ca>**20081004154454] 
+[fill out commands, move to separate file
+Evan Prodromou <evan@controlyourself.ca>**20081004154846] 
+[add channels and use command interpreter in different channels
+Evan Prodromou <evan@controlyourself.ca>**20081004163213] 
+[text -> content in newnotice
+Evan Prodromou <evan@controlyourself.ca>**20081004170136] 
+[correct use of $user to $this->user
+Evan Prodromou <evan@controlyourself.ca>**20081004170342] 
+[correctly refer to notice as a notice
+Evan Prodromou <evan@controlyourself.ca>**20081004170550] 
+[different message source per command channel
+Evan Prodromou <evan@controlyourself.ca>**20081004173427] 
+[typo in message command
+Evan Prodromou <evan@controlyourself.ca>**20081004173609] 
+[common_client_error -> common_user_error
+Evan Prodromou <evan@controlyourself.ca>**20081004173734] 
+[FaveCommand -> FavCommand
+Evan Prodromou <evan@controlyourself.ca>**20081004173957] 
+[check for notification flags in FavCommand
+Evan Prodromou <evan@controlyourself.ca>**20081004174519] 
+[cleanup whitespace in lib/mail.php
+Evan Prodromou <evan@controlyourself.ca>**20081004174552] 
+[correct output for Get command
+Evan Prodromou <evan@controlyourself.ca>**20081004182028] 
+[Combined language patches that got missed due to repo dependencies
+CiaranG <ciaran@ciarang.com>**20081002181338] 
+[pt_BR translation now has a new file ID
+CiaranG <ciaran@ciarang.com>**20081004143747] 
+[New pt_BR translation, 100% complete
+CiaranG <ciaran@ciarang.com>**20081004144441] 
+[Update q-value for completed pt_BR translation
+CiaranG <ciaran@ciarang.com>**20081004144545] 
+[Twitter bridge -- more explicit checking of noticesync bits
+Zach Copley <zach@controlyourself.ca>**20080926190543] 
+[Twitter-API: Viewing direct msgs in xml and json now work
+Zach Copley <zach@controlyourself.ca>**20080924234857] 
+[Twitter-compatible API - rss and atom feeds for direct messages
+Zach Copley <zach@controlyourself.ca>**20080926012015] 
+[Twitter-compatible API: Direct messages work (everything but destroy())
+Zach Copley <zach@controlyourself.ca>**20080929050826] 
+[Twitter-compatible API - added source links to statuses/notices
+zach@controlyourself.ca**20080930175354] 
+[Twitter-compatible API - Favorites now working!
+zach@controlyourself.ca**20080930194435] 
+[Twitter-compatible API - factored out redundant JSON printing functions
+zach@controlyourself.ca**20080930212526] 
+[Add support for since_id and before_id to Twitter API. Ticket #540.
+mac65@mac65.com**20081001001233] 
+[Twitter-compatible API - Added content-type checks to several methods. Calling an API
+zach@controlyourself.ca**20081001020959
+ method with a bad content type used to return a blank page.
+] 
+[Twitter-compatible API - cleaned up sloppy control flow: exit() statements everywhere
+zach@controlyourself.ca**20081001025421] 
+[fix deleted function after synch from Zach
+Evan Prodromou <evan@controlyourself.ca>**20081004194218] 
+[change stoica.ini to laconica.ini in config.php.sample
+Evan Prodromou <evan@controlyourself.ca>**20081004194611] 
+[Fixed up conflict (over white space) in User.php
+Zach Copley <zach@controlyourself.ca>**20081005181350] 
+[Another patch to fix up whitespace conflicts in User.php
+Zach Copley <zach@controlyourself.ca>**20081005181614] 
+[Twitter-compatible API - hooked in command interpreter
+zach@controlyourself.ca**20081005030915] 
+[Added OnCommand and OffCommand to the list of cmds the Twitter API
+zach@controlyourself.ca**20081005183850
+ supports thru statuses/update
+] 
+[update README with info about 0.6.1 plus some forgotten stuff
+Evan Prodromou <evan@controlyourself.ca>**20081006040646] 
+[increment the version
+Evan Prodromou <evan@controlyourself.ca>**20081006040713] 

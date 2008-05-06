@@ -1,0 +1,319 @@
+Starting with tag:
+[TAG 0.6.2
+Evan Prodromou <evan@controlezvous.ca>**20081118173307] 
+[♫ Don't you forget about me ♫
+Evan Prodromou <evan@prodromou.name>**20081118024947] 
+[add some extra checks to avoid remote subscriptions to local users
+Evan Prodromou <evan@prodromou.name>**20081118180644] 
+[check URI before sending
+Evan Prodromou <evan@prodromou.name>**20081118192227] 
+[hide certain users from the public stream
+Evan Prodromou <evan@prodromou.name>**20081120183722
+ 
+ On identi.ca, certain users (http://identi.ca/derricklo) publish 5-10
+ automated notices every half hour or hour. This can flood the public
+ stream, making it unreadable for casual readers.
+ 
+ We don't want to prevent anyone from using the site for personal use.
+ However, if their personal use clouds up the public space, we can
+ gently remove them from that public space without interfering with
+ their personal activity.
+ 
+ So: this change prevents selected people's notices from appearing in
+ the public stream. It's hand-configured by an administrator, and
+ probably doesn't scale beyond 10-20 blacklisted users. It's a stopgap
+ measure.
+ 
+] 
+[clean up list of expected features in faq
+Evan Prodromou <evan@prodromou.name>**20081120210045] 
+[inbox particular users
+Evan Prodromou <evan@prodromou.name>**20081121162600] 
+[variable name change bug
+Evan Prodromou <evan@prodromou.name>**20081121162918] 
+[notice inbox only when not already exists
+Evan Prodromou <evan@prodromou.name>**20081121184132] 
+[double-cache to get newer items
+Evan Prodromou <evan@prodromou.name>**20081122124151] 
+[whitespace cleanup
+Evan Prodromou <evan@prodromou.name>**20081122124235] 
+[use cached fave stream to save DB hits for faves
+Evan Prodromou <evan@prodromou.name>**20081122163347] 
+[messed up logic for passing faves
+Evan Prodromou <evan@prodromou.name>**20081122163552] 
+[blow last cache for faves
+Evan Prodromou <evan@prodromou.name>**20081122165234] 
+[if all faves in cache, skip
+Evan Prodromou <evan@prodromou.name>**20081122192857] 
+[blow last caches on notice delete
+Evan Prodromou <evan@prodromou.name>**20081124003240
+ 
+ We do some extra caching of streams, at ';last'. If a notice is
+ deleted, we need to blow those caches, too. So, this deletes them.
+ 
+] 
+[trac626 Put a list of feed links
+csarven@controlyourself.ca**20081114210506] 
+[trac626 Bugfix: Atom URL missing a dot
+csarven@controlyourself.ca**20081114214315] 
+[trac626 Update: Moving illustrations to the default theme
+csarven@controlyourself.ca**20081114220805] 
+[trac670 trac689 Favorites (duplicate id, background image, JavaScript)
+csarven@controlyourself.ca**20081115033549] 
+[Favorite icons change
+csarven@controlyourself.ca**20081115043955
+ Favorite (heart) icon is from the Tango Icon Library:
+ http://tango.freedesktop.org/Tango_Icon_Library
+ 
+ Disfavor (broken heart) icon is created by modifying the favorite icon.
+] 
+[Nudge feature
+csarven@controlyourself.ca**20081116022735] 
+[added nudge.php action file
+csarven@controlyourself.ca**20081116033155] 
+[fix nudge typo and add emailnotifynudge to laconica.ini
+millette@controlyourself.ca**20081117001644] 
+[emailnotifynudge added to User.php class manually (how to auto-gen?)
+millette@controlyourself.ca**20081117003010] 
+[nudge: only show it when other person has enabled it.
+millette@controlyourself.ca**20081117154147] 
+[nudge : added js code to enable ajax
+millette@controlyourself.ca**20081117173144] 
+[nudge: better nudge email, better nudge disable language.
+millette@controlyourself.ca**20081117175627] 
+[small nudge enhancements
+millette@controlyourself.ca**20081118155643] 
+[Favorites icon changes
+csarven@controlyourself.ca**20081117181511
+ Favorite (full heart) is using the twotone icon library from
+ http://www.upstartblogger.com/free-twotone-icons
+ 
+ Disfavor (empty heart with outline) is a modified version
+] 
+[Feed icon change
+csarven@controlyourself.ca**20081118185649] 
+[Checkmark icon change
+csarven@controlyourself.ca**20081118190030] 
+[Favor icon states fixed
+csarven@controlyourself.ca**20081118194444] 
+[Twitter bridge - don't delete Twitter users. Update them instead.
+zach@controlyourself.ca**20081114053044] 
+[trac685 Twitter bridge - Sync Twitter friends
+zach@controlyourself.ca**20081117024624] 
+[trac685 Twitter bridge - Shell script to sync all users' Twitter friends
+Zach Copley <zach@controlyourself.ca>**20081119011128] 
+[Twitter bridge - fixed a bad call to Foreign_user
+Zach Copley <zach@controlyourself.ca>**20081119200839] 
+[Twitter bridge - shell script wasn't checking FOREIGN_FRIEND_RECV bit
+Zach Copley <zach@controlyourself.ca>**20081119204501] 
+[abstract people lists from search results
+Evan Prodromou <evan@prodromou.name>**20081120105027] 
+[correct constructor for PeopleSearchResults
+Evan Prodromou <evan@prodromou.name>**20081120105223] 
+[better looping in profile list
+Evan Prodromou <evan@prodromou.name>**20081120105726] 
+[display subscriptions/subscribers as a list
+Evan Prodromou <evan@prodromou.name>**20081120113839] 
+[do page offsets correctly (depending on display type)
+Evan Prodromou <evan@prodromou.name>**20081120114137] 
+[increase PROFILES_PER_PAGE from 10 to 20
+Evan Prodromou <evan@prodromou.name>**20081120114156] 
+[remove unnecessary variables from subs query
+Evan Prodromou <evan@prodromou.name>**20081120122352] 
+[correct pagination criteria
+Evan Prodromou <evan@prodromou.name>**20081120122411] 
+[fix empty results
+Evan Prodromou <evan@prodromou.name>**20081120122620] 
+[show error on empty gallery
+Evan Prodromou <evan@prodromou.name>**20081120122709] 
+[stop trying to get count from query
+Evan Prodromou <evan@prodromou.name>**20081120123146] 
+[links to different display options for subscriptions
+Evan Prodromou <evan@prodromou.name>**20081120142914] 
+[add nickname to list/icons links
+Evan Prodromou <evan@prodromou.name>**20081120143045] 
+[forgot my dollar sign
+Evan Prodromou <evan@prodromou.name>**20081120143203] 
+[more pagination math
+Evan Prodromou <evan@prodromou.name>**20081120143840] 
+[add all params to subscribers
+Evan Prodromou <evan@prodromou.name>**20081120144300] 
+[break ties using profile ID for order
+Evan Prodromou <evan@prodromou.name>**20081120145619] 
+[try to fix up pagination again
+Evan Prodromou <evan@prodromou.name>**20081120145814] 
+[New public tabs - Public, Recent tags, Featured, and Favorited
+Zach Copley <zach@controlyourself.ca>**20081120071930] 
+[add new config variables
+Evan Prodromou <evan@prodromou.name>**20081120201502] 
+[more ajax coming (un-sub)
+millette@controlyourself.ca**20081118174857] 
+[Copy of (un)subscribe forms in util.php
+csarven@controlyourself.ca**20081120202448
+ Will remove the copies in showstream.php once everything is okay.
+] 
+[common_(un)subscribe_form
+Evan Prodromou <evan@prodromou.name>**20081120203528] 
+[float subscribe button right in profile list
+Evan Prodromou <evan@prodromou.name>**20081120204022] 
+[fixup CSS for profile_single
+Evan Prodromou <evan@prodromou.name>**20081120204147] 
+[fixup this pointer
+Evan Prodromou <evan@prodromou.name>**20081120204347] 
+[don't show sub/unsub on your own record!
+Evan Prodromou <evan@prodromou.name>**20081120204725] 
+[whitespace diff on Notice_inbox
+Evan Prodromou <evan@prodromou.name>**20081120205319] 
+[whitespace diffs in User.php
+Evan Prodromou <evan@prodromou.name>**20081120205421] 
+[add profile tags to DB
+Evan Prodromou <evan@prodromou.name>**20081120205506] 
+[let users set their own profile tags from profilesettings
+Evan Prodromou <evan@prodromou.name>**20081120214821] 
+[fix require in Profile_tag.php
+Evan Prodromou <evan@prodromou.name>**20081120214945] 
+[correct tags method for user
+Evan Prodromou <evan@prodromou.name>**20081120215222] 
+[correct name for param
+Evan Prodromou <evan@prodromou.name>**20081120215508] 
+[show self-tags
+Evan Prodromou <evan@prodromou.name>**20081120215751] 
+[add peopletag action for tagged people
+Evan Prodromou <evan@prodromou.name>**20081120224207] 
+[fix instructions in peopletag
+Evan Prodromou <evan@prodromou.name>**20081120224429] 
+[p-wrapper for instructions
+Evan Prodromou <evan@prodromou.name>**20081120224540] 
+[bad page
+Evan Prodromou <evan@prodromou.name>**20081120224708] 
+[fix timestamp name
+Evan Prodromou <evan@prodromou.name>**20081120224918] 
+[links to people tags
+Evan Prodromou <evan@prodromou.name>**20081120225137] 
+[show self-tags in profile list
+Evan Prodromou <evan@prodromou.name>**20081120225917] 
+[sphinx search of people
+millette@controlyourself.ca**20081120211347] 
+[Only show 'Recent tags' tab for tag cloud, not for tag streams
+Zach Copley <zach@controlyourself.ca>**20081120212142] 
+[Public tabs - only show 'Featured' tab when featured users are defined in config.php
+Zach Copley <zach@controlyourself.ca>**20081120213022] 
+[Public tabs - added instructions for 'Featured' and 'Favorited'; removed notice input boxes
+Zach Copley <zach@controlyourself.ca>**20081120214557] 
+[(Un)Subscribe form using ajaxForm()
+csarven@controlyourself.ca**20081120232655] 
+[tag other users
+Evan Prodromou <evan@prodromou.name>**20081121002038] 
+[fix $profile in profilelist
+Evan Prodromou <evan@prodromou.name>**20081121002402] 
+[fix link to tagother
+Evan Prodromou <evan@prodromou.name>**20081121003108] 
+[fix some stuff with tagother link
+Evan Prodromou <evan@prodromou.name>**20081121003338] 
+[a little better presentation for tag-other
+Evan Prodromou <evan@prodromou.name>**20081121003608] 
+[missed $tags in setTags
+Evan Prodromou <evan@prodromou.name>**20081121003655] 
+[importNode bugfix for undefined node
+csarven@controlyourself.ca**20081120234923] 
+[only show tags if there's a logged-in user
+Evan Prodromou <evan@prodromou.name>**20081121004336] 
+[Don't allow user to send a new message or nudge right after subscribing to another contact
+csarven@controlyourself.ca**20081120235752] 
+[fancy url for tagother
+Evan Prodromou <evan@prodromou.name>**20081121005216] 
+[show tags that the owner added, not that the current user added
+Evan Prodromou <evan@prodromou.name>**20081121005631] 
+[Public 'Featured' tab now shows profiles instead of notices!
+Zach Copley <zach@controlyourself.ca>**20081121005338] 
+[Tag markup and styling for tag_self, tag_user, form#tag_user
+csarven@controlyourself.ca**20081121023827] 
+[fancier urls for tagged subscriptions/subscribers
+Evan Prodromou <evan@prodromou.name>**20081121025749] 
+[fix tag links in subs
+Evan Prodromou <evan@prodromou.name>**20081121154218] 
+[Linking directly from Your tags instead of Tag user
+csarven@controlyourself.ca**20081121031811] 
+[rel-bookmark not required because hAtom is not present
+csarven@controlyourself.ca**20081121153517] 
+[Profile CSS bugfix
+csarven@controlyourself.ca**20081121155829] 
+[Removing empty element no longer in use
+csarven@controlyourself.ca**20081121160208] 
+[Fixing bio alignment
+csarven@controlyourself.ca**20081121161645] 
+[sphinx search for notices
+millette@controlyourself.ca**20081120215041] 
+[sphinx integration for notices and profiles
+millette@controlyourself.ca**20081123185136] 
+[conflict resolution on people search
+millette@controlyourself.ca**20081123190555] 
+[sphinx: fallback if no connection
+millette@controlyourself.ca**20081123201616] 
+[EXPERIMENTAL PATCH #3 - ajax response for newnotice.php
+Zach Copley <zach@controlyourself.ca>**20081122043145] 
+[merge save and ajax save
+Evan Prodromou <evan@prodromou.name>**20081123014003] 
+[PostNotice AJAX working in all browsers except IE
+csarven@controlyourself.ca**20081123015559] 
+[Don't display avatars when posting to personal streams via ajax
+Zach Copley <zach@controlyourself.ca>**20081123022902] 
+[Set encoding for xml response in newnotice.php to UTF-8
+Zach Copley <zach@controlyourself.ca>**20081123183613] 
+[Send raw UTF-8 chars instead of escaped entities in newnotice.php's ajax response
+Zach Copley <zach@controlyourself.ca>**20081123193727] 
+[Allow the toggling of XMLWriter's indenting on and off
+Zach Copley <zach@controlyourself.ca>**20081123211348
+ 
+ IE needs and unindented XML response in for ajax calls.
+] 
+[Added 'Help' menu item to the header menu (in addition to the footer menu)
+Zach Copley <zach@controlyourself.ca>**20081123212532] 
+[Removed JS alert and minor cleanup
+csarven@controlyourself.ca**20081123213458] 
+[sphinx search config.php.sample defaults
+millette@controlyourself.ca**20081124005402] 
+[filter galleries by tag
+Evan Prodromou <evan@prodromou.name>**20081124013928] 
+[show dropdown of tags only when tags are available and add tags function to profile
+Evan Prodromou <evan@prodromou.name>**20081124015802] 
+[don't get self-tags
+Evan Prodromou <evan@prodromou.name>**20081124015927] 
+[fix tag link
+Evan Prodromou <evan@prodromou.name>**20081124020029] 
+[better tag handling for profile lists
+Evan Prodromou <evan@prodromou.name>**20081124024434] 
+[sphinx documentation and sample config file
+millette@controlyourself.ca**20081124023036] 
+[include action in tags
+csarven@controlyourself.ca**20081124025308] 
+[only get tags for this profile list type
+Evan Prodromou <evan@prodromou.name>**20081124031549] 
+[Make replies to @#
+Evan Prodromou <evan@prodromou.name>**20081124034952] 
+[little better handling of @#
+Evan Prodromou <evan@prodromou.name>**20081124035814] 
+[incorrect use of match results
+Evan Prodromou <evan@prodromou.name>**20081124040224] 
+[nudge: added rule to htaccess.sample (and removed duplicate line)
+millette@controlyourself.ca**20081124033659] 
+[Added stanza about Twitter friends syncing to the README
+Zach Copley <zach@controlyourself.ca>**20081124041832] 
+[README for new version
+Evan Prodromou <evan@prodromou.name>**20081124043723] 
+[sphinx scripts
+millette@controlyourself.ca**20081124044435] 
+[Subscriptions tag filtering and views
+csarven@controlyourself.ca**20081124045319] 
+[retain links in List and Icon switch
+Evan Prodromou <evan@controlyourself.ca>**20081124045924] 
+[sphinx documentation for the provided scripts
+millette@controlyourself.ca**20081124050037] 
+[fixing README conflict
+millette@controlyourself.ca**20081124050556] 
+[redirect on a post from tag dropdown
+Evan Prodromou <evan@controlyourself.ca>**20081124051429] 
+[correct self_url without cookie stuff
+Evan Prodromou <evan@controlyourself.ca>**20081124052250] 
+[Tag filtering CSS fixes for IE
+csarven@controlyourself.ca**20081124052230] 
