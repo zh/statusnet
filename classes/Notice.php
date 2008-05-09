@@ -23,4 +23,14 @@ class Notice extends DB_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+
+	// XXX: if profile_id changes, this goes invalid. To be fair, that's a very edge case
+	static $profile;
+	
+	function getProfile() {
+		if (!$this->profile) {
+			$this->profile = Profile::staticGet($this->profile_id);
+		}
+		return $this->profile;
+	}
 }
