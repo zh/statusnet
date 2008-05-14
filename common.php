@@ -68,11 +68,58 @@ function common_show_header($pagetitle) {
 				   $pagetitle . " - " . $config['site']['name']);
 	common_element_end('head');
 	common_element_start('body');
+	common_head_menu();
 }
 
 function common_show_footer() {
+	common_foot_menu();
 	common_element_end('body');
 	common_element_end('html');
+}
+
+function common_head_menu() {
+	$user = common_current_user();
+	common_element_start('ul', 'headmenu');
+	common_menu_item(common_local_url('doc', array('title' => 'help')),
+					 _t('Help'));
+	if ($user) {
+		common_menu_item(common_local_url('all', array('nickname' => 
+													   $user->nickname)),
+						 _t('Home'));
+		common_menu_item(common_local_url('showstream', array('nickname' =>
+															  $user->nickname)),
+						 _t('Profile'),  $user->fullname || $user->nickname);
+		common_menu_item(common_local_url('settings'),
+						 _t('Settings'));
+		common_menu_item(common_local_url('logout'),
+						 _t('Logout'));
+	} else {
+		common_menu_item(common_local_url('login'),
+						 _t('Login'));
+		common_menu_item(common_local_url('register'),
+						 _t('Register'));
+	}
+	common_element_end('ul');
+}
+
+function common_foot_menu() {
+	common_element_start('ul', 'footmenu');
+	common_menu_item(common_local_url('doc', array('title' => 'about')),
+					 _t('About'));
+	common_menu_item(common_local_url('doc', array('title' => 'help')),
+					 _t('Help'));
+	common_menu_item(common_local_url('doc', array('title' => 'privacy')),
+					 _t('Privacy'));
+}
+
+function common_menu_item($url, $text, $title=NULL) {
+	$attrs['href'] = $url;
+	if ($title) {
+		$attrs['title'] = $title;
+	}
+	common_element_start('li', 'menuitem');
+	common_element('a', $attrs, $text);
+	common_element_end('li');
 }
 
 # salted, hashed passwords are stored in the DB
