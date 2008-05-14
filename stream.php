@@ -1,5 +1,7 @@
 <?php
 
+if (!defined('MICROBLOG')) { exit(1) }
+
 define('NOTICES_PER_PAGE', 20);
 
 class StreamAction extends Action {

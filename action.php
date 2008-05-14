@@ -1,5 +1,7 @@
 <?php
 
+if (!defined('MICROBLOG')) { exit(1) }
+
 class Action { // lawsuit
 
 	var $args;

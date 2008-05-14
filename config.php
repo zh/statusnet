@@ -1,5 +1,7 @@
 <?php
 
+if (!defined('MICROBLOG')) { exit(1) }
+
 $dsn = array(
 			     'phptype'  => 'pgsql',
 			     'username' => 'someuser',

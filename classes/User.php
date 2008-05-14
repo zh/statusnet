@@ -1,4 +1,5 @@
 <?php
+if (!defined('MICROBLOG')) { exit(1) }
 /**
  * Table Definition for user
  */

@@ -31,4 +31,3 @@ class SettingsAction extends Action {
 		} else {
 			$this->show_form();
 		}
-				

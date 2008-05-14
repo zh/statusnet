@@ -1,5 +1,7 @@
 <?php
 
+if (!defined('MICROBLOG')) { exit(1) }
+
 # global configuration object
 
 // default configuration, overwritten in config.php

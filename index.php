@@ -1,6 +1,7 @@
 <?php
 
 define('INSTALLDIR', dirname(__FILE__));
+define('MICROBLOG', true);
 
 require_once(INSTALLDIR . "/common.php");
 
