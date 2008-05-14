@@ -37,7 +37,8 @@ class ShownoticeAction extends Action {
 										'class' => 'nickname'),
 							 $profile->nickname);
 		# FIXME: URL, image, video, audio
-		common_element('span', array('class' => 'content'), $notice->content);
+		common_element('span', array('class' => 'content'),
+					   $notice->content);
 		common_element('span', array('class' => 'date'),
 					   common_date_string($notice->created));
 		common_end_element('div');

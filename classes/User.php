@@ -21,4 +21,16 @@ class User extends DB_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+	
+	function getProfile() {
+		return Profile::staticGet($this->$id);
+	}
+	
+	function isSubscribed($other) {
+		assert(!is_null($other));
+		$sub = DB_DataObject::factory('subscription');
+		$sub->subscriber = $this->id;
+		$sub->subscribed = $other->id;
+		return $sub->find();
+	}
 }

@@ -9,34 +9,43 @@ class ShowstreamAction extends StreamAction {
 		
 		parent::handle($args);
 
-		$nickname = $this->arg('profile');
-		$profile = Profile::staticGet('nickname', strtolower($nickname));
-	
-		if (!$profile) {
+		$nickname = common_canonicalize_nickname($this->arg('profile'));
+		$user = User::staticGet('nickname', $nickname);
+
+		if (!$user) {
 			$this->no_such_user();
 		} 
-		
-		$user = User::staticGet($profile->id);
-		
-		if (!$user) {
-			// remote profile
-			$this->no_such_user();
+
+		$profile = $user->getProfile();
+
+		if (!$profile) {
+			common_server_error(_t('User record exists without profile.'));
 		}
 		
 		# Looks like we're good; show the header
 		
 		common_show_header($profile->nickname);
+
+		$cur = common_current_user();
 		
-		if ($profile->id == current_user()->id) {
+		if ($cur && $profile->id == $cur->id) {
 			$this->notice_form();
 		}
 	
 		$this->show_profile($profile);
 
 		$this->show_last_notice($profile);
+
+		if ($cur) {
+			if ($cur->isSubscribed($profile)) {
+				$this->show_unsubscribe_form($profile);
+			} else {
+				$this->show_subscribe_form($profile);
+			}
+		}
 		
 		$this->show_statistics($profile);
-		
+
 		$this->show_subscriptions($profile);
 		
 		$this->show_notices($profile);
@@ -75,13 +84,33 @@ class ShowstreamAction extends StreamAction {
 			common_element('div', 'bio', $profile->bio);
 		}
 	}
+
+	function show_subscribe_form($profile) {
+		common_start_element('form', array('id' => 'subscribe', 'method' => 'POST',
+										   'action' => common_local_url('subscribe')));
+		common_element('input', array('id' => 'subscribeto',
+									  'name' => 'subscribeto',
+									  'type' => 'hidden',
+									  'value' => $profile->nickname));
+		common_element('input', array('type' => 'submit'), _t('subscribe'));
+		common_end_element('form');
+	}
+
+	function show_unsubscribe_form($profile) {
+		common_start_element('form', array('id' => 'unsubscribe', 'method' => 'POST',
+										   'action' => common_local_url('unsubscribe')));
+		common_element('input', array('id' => 'unsubscribeto',
+									  'name' => 'unsubscribeto',
+									  'type' => 'hidden',
+									  'value' => $profile->nickname));
+		common_element('input', array('type' => 'submit'), _t('unsubscribe'));
+		common_end_element('form');
+	}
 	
 	function show_subscriptions($profile) {
-
-		# XXX: add a limit
 		
+		# XXX: add a limit
 		$subs = $profile->getLink('id', 'subscription', 'subscriber');
-
 		common_start_element('div', 'subscriptions');
 		
 		$cnt = 0;
@@ -113,7 +142,7 @@ class ShowstreamAction extends StreamAction {
 															 array('profile' => $profile->nickname))
 								  'class' => 'moresubscriptions'),
 					   _t('All subscriptions'));
-		
+
 		common_end_element('div');
 	}
 
@@ -174,7 +203,8 @@ class ShowstreamAction extends StreamAction {
 		
 		while ($notice->fetch()) {
 			# FIXME: URL, image, video, audio
-			common_element('span', array('class' => 'content'), $notice->content);
+			common_element('span', array('class' => 'content'), 
+						   $notice->content);
 			common_element('span', array('class' => 'date'),
 						   common_date_string($notice->created));
 		}

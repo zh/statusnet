@@ -9,7 +9,7 @@ $actionfile = INSTALLDIR."/actions/$action.php";
 
 if (file_exists($actionfile)) {
 	require_once($actionfile);
-	$action_function = 'handle_' . $action;
+	$action_class = ucfirst($action) . "Action";
 	if (function_exists($action_function)) {
 	call_user_func($action_function);
 } else {

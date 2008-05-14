@@ -18,6 +18,7 @@ create table profile (
 
 create table user (
     id integer primary key comment 'foreign key to profile table' references profile (id),
+    nickname varchar(64) unique key comment 'nickname or username, duped in profile',
     password varchar(255) comment 'salted password, can be null for OpenID users',
     email varchar(255) unique key comment 'email address for password recovery etc.',
     created datetime not null comment 'date this record was created',
@@ -49,7 +50,7 @@ create table notice (
     id integer auto_increment primary key comment 'unique identifier',
     profile_id integer not null comment 'who made the update' references profile (id),
     content varchar(140) comment 'update content',
-    rendered varchar(140) comment 'pre-rendered content',
+    /* XXX: cache rendered content. */
     url varchar(255) comment 'URL of any attachment (image, video, bookmark, whatever)',
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified',
