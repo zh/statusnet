@@ -51,9 +51,21 @@ class ShownoticeAction extends Action {
 		$profile = $notice->getProfile();
 		# XXX: RDFa
 		common_start_element('div', array('class' => 'notice'));
-		# FIXME: add the avatar
+		$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
+		if ($avatar) {
+			common_element('img', array('src' => $avatar->url,
+										'class' => 'avatar profile',
+										'width' => AVATAR_PROFILE_SIZE,
+										'height' => AVATAR_PROFILE_SIZE,
+										'alt' => 
+										($profile->fullname) ? $profile->fullname : 
+										                       $profile->nickname));
+		}
 		common_start_element('a', array('href' => $profile->profileurl,
-										'class' => 'nickname'),
+										'class' => 'nickname',
+										'title' => 
+										($profile->fullname) ? $profile->fullname : 
+										                       $profile->nickname)),
 							 $profile->nickname);
 		# FIXME: URL, image, video, audio
 		common_element('span', array('class' => 'content'),

@@ -33,7 +33,6 @@ class Notice extends DB_DataObject
     public $id;                              // int(4)  primary_key not_null
     public $profile_id;                      // int(4)   not_null
     public $content;                         // varchar(140)  
-    public $rendered;                        // varchar(140)  
     public $url;                             // varchar(255)  
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP

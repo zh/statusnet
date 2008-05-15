@@ -16,37 +16,23 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+  
 if (!defined('LACONICA')) { exit(1) }
 
 class SettingsAction extends Action {
-	
+
 	function handle($args) {
 		parent::handle($args);
-		if ($this->arg('METHOD') == 'POST') {
-			$nickname = $this->arg('nickname');
-			$fullname = $this->arg('fullname');
-			$email = $this->arg('email');
-			$homepage = $this->arg('homepage');
-			$bio = $this->arg('bio');
-			$location = $this->arg('location');
-			$oldpass = $this->arg('oldpass');
-			$password = $this->arg('password');
-			$confirm = $this->arg('confirm');
-			
-			if ($password) {
-				if ($password != $confirm) {
-					$this->show_form(_t('Passwords don\'t match.'));
-				}
-			} else if (
-			
-			$error = $this->save_settings($nickname, $fullname, $email, $homepage,
-										  $bio, $location, $password);
-			if (!$error) {
-				$this->show_form(_t('Settings saved.'), TRUE);
-			} else {
-				$this->show_form($error);
-			}
-		} else {
-			$this->show_form();
-		}
+	}
+
+	function settings_menu() {
+		common_element_start('ul', 'headmenu');
+		common_menu_item(common_local_url('editprofile'),
+						 _t('Profile'));
+		common_menu_item(common_local_url('avatar'),
+						 _t('Avatar'));
+		common_menu_item(common_local_url('password'),
+						 _t('Password'));
+		common_element_end('ul');
+	}
+}

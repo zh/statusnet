@@ -30,6 +30,7 @@ class User extends DB_DataObject
 
     public $__table = 'user';                            // table name
     public $id;                              // int(4)  primary_key not_null
+    public $nickname;                        // varchar(64)  unique_key
     public $password;                        // varchar(255)  
     public $email;                           // varchar(255)  unique_key
     public $created;                         // datetime()   not_null

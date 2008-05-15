@@ -27,14 +27,24 @@ class StreamAction extends Action {
 		parent::handle($args);
 	}
 
+	# XXX: for 'showstream' repeats same avatar over and over
 	function show_notice($notice) {
 		$profile = $notice->getProfile();
 		# XXX: RDFa
 		common_start_element('div', array('class' => 'notice'));
-		# FIXME: add the avatar
-		common_start_element('a', array('href' => $profile->profileurl,
-										'class' => 'nickname'),
-							 $profile->nickname);
+		$avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
+		common_start_element('a', array('href' => $profile->profileurl));
+		common_element('img', array('src' => ($avatar) ? $avatar->url : DEFAULT_STREAM_AVATAR,
+									'class' => 'avatar stream',
+									'width' => AVATAR_STREAM_SIZE,
+									'height' => AVATAR_STREAM_SIZE,
+									'alt' => 
+									($profile->fullname) ? $profile->fullname : 
+									$profile->nickname));
+		common_end_element('a');
+		common_element('a', array('href' => $profile->profileurl,
+								  'class' => 'nickname'),
+					   $profile->nickname);
 		# FIXME: URL, image, video, audio
 		common_element('span', array('class' => 'content'), $notice->content);
 		common_element('span', array('class' => 'date'),

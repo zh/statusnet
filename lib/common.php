@@ -19,6 +19,10 @@
 
 if (!defined('LACONICA')) { exit(1) }
 
+define('AVATAR_PROFILE_SIZE', 96);
+define('AVATAR_STREAM_SIZE', 48);
+define('AVATAR_MINI_SIZE', 24);
+
 # global configuration object
 
 // default configuration, overwritten in config.php
@@ -108,7 +112,7 @@ function common_head_menu() {
 		common_menu_item(common_local_url('showstream', array('nickname' =>
 															  $user->nickname)),
 						 _t('Profile'),  $user->fullname || $user->nickname);
-		common_menu_item(common_local_url('settings'),
+		common_menu_item(common_local_url('profilesettings'),
 						 _t('Settings'));
 		common_menu_item(common_local_url('logout'),
 						 _t('Logout'));
@@ -139,6 +143,13 @@ function common_menu_item($url, $text, $title=NULL) {
 	common_element_start('li', 'menuitem');
 	common_element('a', $attrs, $text);
 	common_element_end('li');
+}
+
+function common_input($id, $label) {
+	common_element('label', array('for' => $id), $label);
+	common_element('input', array('name' => $id,
+								  'type' => 'text',
+								  'id' => $id));
 }
 
 # salted, hashed passwords are stored in the DB

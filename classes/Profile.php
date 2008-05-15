@@ -45,4 +45,31 @@ class Profile extends DB_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+	
+	function getAvatar($width, $height=NULL) {
+		$avatar = DB_DataObject::factory('avatar');
+		$avatar->profile_id = $this->id;
+		$avatar->width = $width;
+		if (is_null($height)) {
+			$avatar->height = $width;
+		} else {
+			$avatar->height = $height;
+		}
+		if ($avatar->find(true)) {
+			return $avatar;
+		} else {
+			return NULL;
+		}
+	}
+	
+	function getOriginalAvatar() {
+		$avatar = DB_DataObject::factory('avatar');
+		$avatar->profile_id = $this->id;
+		$avatar->original = true;
+		if ($avatar->find(true)) {
+			return $avatar;
+		} else {
+			return NULL;
+		}
+	}
 }

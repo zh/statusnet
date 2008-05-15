@@ -64,9 +64,14 @@ class SubscribedAction extends Action {
 											           $subs->nickname,
 											'href' => $subs->profileurl,
 											'class' => 'subscription'));
-			common_element('img', array('src' => $subs->avatar,
-										'class' => 'avatar'));
+			$avatar = $subs->getAvatar(AVATAR_STREAM_SIZE);
+			common_element('img', array('src' => (($avatar) ? $avatar->url : DEFAULT_STREAM_AVATAR),
+										'width' => AVATAR_STREAM_SIZE,
+										'height' => AVATAR_STREAM_SIZE,
+										'class' => 'avatar stream'));
 			common_end_element('a');
+
+			# XXX: subscribe form here
 			
 			if ($idx % SUBSCRIPTIONS_PER_ROW == 0) {
 				common_end_element('div');

@@ -14,6 +14,18 @@ create table profile (
     index profile_nickname_idx (nickname)
 );
 
+create table avatar (
+    profile_id integer not null comment 'foreign key to profile table' references profile (id),
+    width integer not null comment 'image width',
+    height integer not null comment 'image height',
+    original boolean default false comment 'uploaded by user or generated?',
+    mediatype varchar(32) not null comment 'file type',
+    url varchar(255) unique key comment 'avatar location',
+    
+    constraint primary key (profile_id, width, height),
+    index avatar_profile_id_idx (profile_id),
+);
+
 /* local users */
 
 create table user (

@@ -86,6 +86,14 @@ class ShowstreamAction extends StreamAction {
 	
 	function show_profile($profile) {
 		common_start_element('div', 'profile');
+		$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
+		if ($avatar) {
+			common_element('img', array('src' => $avatar->url,
+										'class' => 'avatar profile',
+										'width' => AVATAR_PROFILE_SIZE,
+										'height' => AVATAR_PROFILE_SIZE,
+										'title' => $profile->nickname));
+		}
 		common_element('span', 'nickname', $profile->nickname);
 		if ($profile->fullname) {
 			if ($profile->homepage) {
@@ -144,8 +152,11 @@ class ShowstreamAction extends StreamAction {
 											           $subs->nickname,
 											'href' => $subs->profileurl,
 											'class' => 'subscription'));
-			common_element('img', array('src' => $subs->avatar,
-										'class' => 'avatar'));
+			$avatar = $subs->getAvatar(AVATAR_MINI_SIZE);
+			common_element('img', array('src' => (($avatar) ? $avatar->url : DEFAULT_MINI_AVATAR),
+										'width' => AVATAR_MINI_SIZE,
+										'height' => AVATAR_MINI_SIZE,
+										'class' => 'avatar mini'));
 			common_end_element('a');
 			
 			if ($cnt % SUBSCRIPTIONS_PER_ROW == 0) {
