@@ -29,28 +29,32 @@ define('MAX_AVATAR_SIZE', 256 * 1024);
 
 # global configuration object
 
+require_once('PEAR.php');
+require_once('DB_DataObject.php');
+
 // default configuration, overwritten in config.php
 
 $config =
   array('site' =>
-		array('name' => 'Just another µB',
+		array('name' => 'Just another Laconica microblog',
 			  'server' => 'localhost',
 			  'path' => '/'),
 		'avatar' =>
 		array('directory' => INSTALLDIR . 'files',
 			  'path' => '/files'),
-		'dsn' =>
-		array('phptype' => 'mysql',
-			  'username' => 'stoica',
-			  'password' => 'apasswd',
-			  'hostspec' => 'localhost',
-			  'database' => 'thedb')
-		'dboptions' =>
-		array('debug' => 2,
-			  'portability' => DB_PORTABILITY_ALL));
+		'db' => &PEAR::getStaticProperty('DB_DataObject','options'),
+);
+
+$config['db'] = 
+  array('database' => 'YOU HAVE TO SET THIS IN config.php',
+	    'schema_location' => $INSTALLDIR . '/classes',
+		'class_location' => $INSTALLDIR . '/classes',
+		'require_prefix' => 'classes/',
+		'class_prefix' => '',
+        'db_driver' => 'MDB2',
+		'quote_identifiers' => false);
 
 require_once(INSTALLDIR . '/config.php');
-require_once('DB.php');
 
 # Show a server error
 

@@ -1,0 +1,19 @@
+<?php
+/* -*- mode: php -*- */
+
+if (!defined('LACONICA')) { exit(1) }
+
+# We get called by common.php, $config is a tree with lots of config
+# options
+# These are for configuring your URLs
+
+$config['site']['name'] = 'Just another Laconica microblog';
+$config['site']['server'] = 'localhost';
+$config['site']['path'] = 'laconica';
+
+# This is a PEAR DB DSN, see http://pear.php.net/manual/en/package.database.db.intro-dsn.php
+# Set it to match your actual database
+
+$config['db']['database'] = 'mysql://laconica:microblog@localhost/laconica';
+
+
