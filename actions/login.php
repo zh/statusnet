@@ -56,11 +56,11 @@ class LoginAction extends Action {
 		common_element_start('form', array('method' => 'POST',
 										   'id' => 'login',
 										   'action' => common_local_url('login')));
-		common_element('label', array('for' => 'username'),
+		common_element('label', array('for' => 'nickname'),
 					   _t('Name'));
-		common_element('input', array('name' => 'username',
+		common_element('input', array('name' => 'nickname',
 									  'type' => 'text',
-									  'id' => 'username'));
+									  'id' => 'nickname'));
 		common_element('label', array('for' => 'password'),
 					   _t('Password'));
 		common_element('input', array('name' => 'password',
@@ -68,12 +68,12 @@ class LoginAction extends Action {
 									  'id' => 'password'));
 		common_element('input', array('name' => 'submit',
 									  'type' => 'submit',
-									  'id' => 'submit'),
-					   _t('Login'));
+									  'id' => 'submit',
+									  'value' => _t('Login')));
 		common_element('input', array('name' => 'cancel',
 									  'type' => 'button',
-									  'id' => 'cancel'),
-					   _t('Cancel'));
+									  'id' => 'cancel',
+									  'value' => _t('Cancel')));
 		common_element_end('form');
 	}
 }

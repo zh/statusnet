@@ -125,7 +125,7 @@ class RegisterAction extends Action {
 		common_element('input', array('name' => 'submit',
 									  'type' => 'submit',
 									  'id' => 'submit',
-									  'value' => _t('Login')));
+									  'value' => _t('Register')));
 		common_element('input', array('name' => 'cancel',
 									  'type' => 'button',
 									  'id' => 'cancel',
