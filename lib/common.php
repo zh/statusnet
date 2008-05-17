@@ -20,7 +20,7 @@
 /* XXX: break up into separate modules (HTTP, HTML, user, files) */
 
 
-if (!defined('LACONICA')) { exit(1) }
+if (!defined('LACONICA')) { exit(1); }
 
 define('AVATAR_PROFILE_SIZE', 96);
 define('AVATAR_STREAM_SIZE', 48);
@@ -41,9 +41,10 @@ $config =
 			  'path' => '/'),
 		'avatar' =>
 		array('directory' => INSTALLDIR . 'files',
-			  'path' => '/files'),
-		'db' => &PEAR::getStaticProperty('DB_DataObject','options'),
+			  'path' => '/files')
 );
+
+$config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
 
 $config['db'] = 
   array('database' => 'YOU HAVE TO SET THIS IN config.php',
@@ -279,10 +280,10 @@ function commmon_date_string($dt) {
 }
 
 function common_redirect($url, $code=307) {
-	static $status = (301 => "Moved Permanently",
-					  302 => "Found",
-					  303 => "See Other",
-					  307 => "Temporary Redirect");
+	static $status = array(301 => "Moved Permanently",
+						   302 => "Found",
+						   303 => "See Other",
+						   307 => "Temporary Redirect");
 	header("Status: ${code} $status[$code]");
 	header("Location: $url");
 	common_element('a', array('href' => $url), $url);
@@ -299,4 +300,6 @@ function common_broadcast_notices($id) {
 
 // XXX: set up gettext
 
-function _t($str) { $str }
+function _t($str) { 
+	return $str;
+}

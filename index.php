@@ -28,10 +28,8 @@ $actionfile = INSTALLDIR."/actions/$action.php";
 if (file_exists($actionfile)) {
 	require_once($actionfile);
 	$action_class = ucfirst($action) . "Action";
-	if (function_exists($action_function)) {
-	call_user_func($action_function);
+	call_user_func(array($action_class, 'handle'), $_REQUEST);
 } else {
 	common_user_error(_t('Unknown action'));
 }
 
-?>

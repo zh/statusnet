@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1) }
+if (!defined('LACONICA')) { exit(1); }
 
 class LogoutAction extends Action {
 	function handle($args) {

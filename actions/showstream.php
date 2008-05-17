@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1) }
+if (!defined('LACONICA')) { exit(1); }
 
 define('SUBSCRIPTIONS_PER_ROW', 5);
 define('SUBSCRIPTIONS', 80);
@@ -169,7 +169,7 @@ class ShowstreamAction extends StreamAction {
 		}
 
 		common_element('a', array('href' => common_local_url('subscriptions', 
-															 array('profile' => $profile->nickname))
+															 array('profile' => $profile->nickname)),
 								  'class' => 'moresubscriptions'),
 					   _t('All subscriptions'));
 

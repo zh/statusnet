@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1) }
+if (!defined('LACONICA')) { exit(1); }
 
 class ShownoticeAction extends Action {
 
@@ -64,8 +64,8 @@ class ShownoticeAction extends Action {
 		common_start_element('a', array('href' => $profile->profileurl,
 										'class' => 'nickname',
 										'title' => 
-										($profile->fullname) ? $profile->fullname : 
-										                       $profile->nickname)),
+										($profile->fullname) ? $profile->fullname :
+										                       $profile->nickname),
 							 $profile->nickname);
 		# FIXME: URL, image, video, audio
 		common_element('span', array('class' => 'content'),
