@@ -267,6 +267,11 @@ function common_local_url($action, $args) {
 	return "/index.php?action=${action}${extra}";
 }
 
+function commmon_date_string($dt) {
+	// XXX: do some sexy date formatting
+	return date(DATE_RFC822);
+}
+
 // XXX: set up gettext
 
 function _t($str) { $str }
