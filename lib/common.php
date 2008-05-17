@@ -227,11 +227,10 @@ function common_set_user($nickname) {
 function common_current_user() {
 	static $user = NULL; # FIXME: global memcached
 	if (is_null($user)) {
-		if (common_have_session()) {
-			$id = $_SESSION['userid'];
-			if ($id) {
-				$user = User::staticGet($id);
-			}
+		common_ensure_session();
+		$id = $_SESSION['userid'];
+		if ($id) {
+			$user = User::staticGet($id);
 		}
 	}
 	return $user;
