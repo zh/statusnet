@@ -273,7 +273,8 @@ function common_local_url($action, $args=NULL) {
 			$extra .= "&${key}=${value}";
 		}
 	}
-	return "http://".$config['site']['server'].'/'.$config['site']['path']."/index.php?action=${action}${extra}";
+	$pathpart = ($config['site']['path']) ? $config['site']['path']."/" : '';
+	return "http://".$config['site']['server'].'/'.$pathpart."index.php?action=${action}${extra}";
 }
 
 function commmon_date_string($dt) {
