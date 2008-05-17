@@ -22,7 +22,7 @@ if (!defined('LACONICA')) { exit(1); }
 class RegisterAction extends Action {
 	
 	function handle($args) {
-		parent::handle($args);
+		parent::handle($this, $args);
 		
 		if (common_logged_in()) {
 			common_user_error(_t('Already logged in.'));
