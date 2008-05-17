@@ -294,7 +294,8 @@ function common_local_url($action, $args=NULL) {
 
 function common_date_string($dt) {
 	// XXX: do some sexy date formatting
-	return date(DATE_RFC822, $dt);
+	// return date(DATE_RFC822, $dt);
+	return $dt;
 }
 
 function common_redirect($url, $code=307) {
