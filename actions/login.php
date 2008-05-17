@@ -38,7 +38,12 @@ class LoginAction extends Action {
 		$nickname = $this->arg('nickname');
 		$password = $this->arg('password');
 		if (common_check_user($nickname, $password)) {
-			common_set_user($nickname);
+			# success!
+			if (!common_set_user($nickname)) {
+				common_server_error(_t('Error setting user.'));
+				return;
+			}
+			# success!			
 			common_redirect(common_local_url('all',
 											 array('nickname' =>
 												   $nickname)));
