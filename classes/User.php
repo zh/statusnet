@@ -43,7 +43,13 @@ class User extends DB_DataObject
     ###END_AUTOCODE
 	
 	function getProfile() {
-		return Profile::staticGet($this->$id);
+		$profile = DB_DataObject::factory('profile');
+		$profile->id = $this->id;
+		if ($profile->find()) {
+			$profile->fetch();
+			return $profile;
+		}
+		return NULL;
 	}
 	
 	function isSubscribed($other) {
