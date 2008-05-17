@@ -30,7 +30,7 @@ class ShowstreamAction extends StreamAction {
 		
 		parent::handle($args);
 
-		$nickname = common_canonical_nickname($this->arg('profile'));
+		$nickname = common_canonical_nickname($this->arg('nickname'));
 		$user = User::staticGet('nickname', $nickname);
 
 		if (!$user) {
@@ -171,7 +171,7 @@ class ShowstreamAction extends StreamAction {
 		}
 
 		common_element('a', array('href' => common_local_url('subscriptions', 
-															 array('profile' => $profile->nickname)),
+															 array('nickname' => $profile->nickname)),
 								  'class' => 'moresubscriptions'),
 					   _t('All subscriptions'));
 
