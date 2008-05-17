@@ -34,9 +34,9 @@ class Action { // lawsuit
 		}
 	}
 	
-	function handle($args) {
+	function handle($argarray) {
 		$this->args = array();
-		foreach ($args as $k => $v) {
+		foreach ($argarray as $k => $v) {
 			$this->args[$k] = $v;
 		}
 	}
