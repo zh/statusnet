@@ -47,17 +47,17 @@ class SubscriptionsAction extends Action {
 
 		$subs_count = $subs->find();
 		
-		common_start_element('div', 'subscriptions');
+		common_element_start('div', 'subscriptions');
 		
 		$idx = 0;
 		
 		while ($subs->fetch()) {
 			$idx++;
 			if ($idx % SUBSCRIPTIONS_PER_ROW == 1) {
-				common_start_element('div', 'row');
+				common_element_start('div', 'row');
 			}
 
-			common_start_element('a', array('title' => $subs->fullname ||
+			common_element_start('a', array('title' => $subs->fullname ||
 											           $subs->nickname,
 											'href' => $subs->profileurl,
 											'class' => 'subscription'));
@@ -66,12 +66,12 @@ class SubscriptionsAction extends Action {
 										'width' => AVATAR_STREAM_SIZE,
 										'height' => AVATAR_STREAM_SIZE,
 										'class' => 'avatar stream'));
-			common_end_element('a');
+			common_element_end('a');
 
 			# XXX: subscribe form here
 			
 			if ($idx % SUBSCRIPTIONS_PER_ROW == 0) {
-				common_end_element('div');
+				common_element_end('div');
 			}
 			
 			if ($idx == SUBSCRIPTIONS_PER_PAGE) {
@@ -96,6 +96,6 @@ class SubscriptionsAction extends Action {
 									  'class' => 'next'),
 					   _t('Next'));
 		}
-		common_end_element('div');
+		common_element_end('div');
 	}
 }

@@ -101,7 +101,7 @@ class RegisterAction extends Action {
 		common_show_header(_t('Login'));
 		common_element_start('form', array('method' => 'POST',
 										   'id' => 'login',
-										   'action' => common_local_url('login')));
+										   'action' => common_local_url('register')));
 		common_element('label', array('for' => 'username'),
 					   _t('Name'));
 		common_element('input', array('name' => 'username',

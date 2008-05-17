@@ -31,9 +31,9 @@ class StreamAction extends Action {
 	function show_notice($notice) {
 		$profile = $notice->getProfile();
 		# XXX: RDFa
-		common_start_element('div', array('class' => 'notice'));
+		common_element_start('div', array('class' => 'notice'));
 		$avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
-		common_start_element('a', array('href' => $profile->profileurl));
+		common_element_start('a', array('href' => $profile->profileurl));
 		common_element('img', array('src' => ($avatar) ? $avatar->url : DEFAULT_STREAM_AVATAR,
 									'class' => 'avatar stream',
 									'width' => AVATAR_STREAM_SIZE,
@@ -41,7 +41,7 @@ class StreamAction extends Action {
 									'alt' => 
 									($profile->fullname) ? $profile->fullname : 
 									$profile->nickname));
-		common_end_element('a');
+		common_element_end('a');
 		common_element('a', array('href' => $profile->profileurl,
 								  'class' => 'nickname'),
 					   $profile->nickname);
@@ -51,6 +51,6 @@ class StreamAction extends Action {
 		common_element('a', array('class' => 'notice',
 								  'href' => $noticeurl),
 					   common_date_string($notice->created));
-		common_end_element('div');
+		common_element_end('div');
 	}
 }

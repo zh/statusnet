@@ -50,7 +50,7 @@ class ShownoticeAction extends Action {
 	function show_notice($notice) {
 		$profile = $notice->getProfile();
 		# XXX: RDFa
-		common_start_element('div', array('class' => 'notice'));
+		common_element_start('div', array('class' => 'notice'));
 		$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
 		if ($avatar) {
 			common_element('img', array('src' => $avatar->url,
@@ -61,17 +61,17 @@ class ShownoticeAction extends Action {
 										($profile->fullname) ? $profile->fullname : 
 										                       $profile->nickname));
 		}
-		common_start_element('a', array('href' => $profile->profileurl,
-										'class' => 'nickname',
-										'title' => 
-										($profile->fullname) ? $profile->fullname :
-										                       $profile->nickname),
-							 $profile->nickname);
+		common_element('a', array('href' => $profile->profileurl,
+								  'class' => 'nickname',
+								  'title' => 
+								  ($profile->fullname) ? $profile->fullname :
+								  $profile->nickname),
+					   $profile->nickname);
 		# FIXME: URL, image, video, audio
 		common_element('span', array('class' => 'content'),
 					   $notice->content);
 		common_element('span', array('class' => 'date'),
 					   common_date_string($notice->created));
-		common_end_element('div');
+		common_element_end('div');
 	}
 }

@@ -46,13 +46,13 @@ class PublicAction extends StreamAction {
 
 		$notice->find();
 
-		common_start_element('div', 'notices');
+		common_element_start('div', 'notices');
 
 		while ($notice->fetch()) {
 			$this->show_notice($notice);
 		}
 
-		common_end_element('div');
+		common_element_end('div');
 	}
 }
 

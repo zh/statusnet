@@ -25,7 +25,7 @@ class ProfilesettingsAction extends SettingsAction {
 		common_show_header(_t('Profile settings'));
 		$this->settings_menu();
 		$this->message($msg, $success);
-		common_start_element('form', array('method' => 'POST',
+		common_element_start('form', array('method' => 'POST',
 										   'id' => 'profilesettings',
 										   'action' => 
 										   common_local_url('profilesettings')));
@@ -43,6 +43,7 @@ class ProfilesettingsAction extends SettingsAction {
 									  'type' => 'button',
 									  'id' => 'cancel'),
 					   _t('Cancel'));
+		common_element_end('form');
 		common_show_footer();
 	}
 	

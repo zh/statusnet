@@ -25,7 +25,7 @@ class PasswordAction extends SettingsAction {
 		common_show_header(_t('Change password'));
 		$this->settings_menu();
 		$this->message($msg, $success);
-		common_start_element('form', array('method' => 'POST',
+		common_element_start('form', array('method' => 'POST',
 										   'id' => 'password',
 										   'action' => 
 										   common_local_url('password')));
@@ -40,6 +40,7 @@ class PasswordAction extends SettingsAction {
 									  'type' => 'button',
 									  'id' => 'cancel'),
 					   _t('Cancel'));
+		common_element_end('form');
 	}
 	
 	function handle_post() {

@@ -46,7 +46,7 @@ class AvatarAction extends SettingsAction {
 										'height' => AVATAR_PROFILE_SIZE));
 		}
 
-		common_start_element('form', array('enctype' => 'multipart/form-data',
+		common_element_start('form', array('enctype' => 'multipart/form-data',
 										   'method' => 'POST',
 										   'id' => 'avatar',
 										   'action' =>
@@ -62,6 +62,7 @@ class AvatarAction extends SettingsAction {
 									  'type' => 'submit',
 									  'id' => 'submit'),
 					   _t('Upload'));
+		common_element_end('form');
 	}
 
 	function handle_post() {

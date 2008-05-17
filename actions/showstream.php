@@ -77,15 +77,15 @@ class ShowstreamAction extends StreamAction {
 	}
 	
 	function notice_form() {
-		common_start_element('form', array('id' => 'newnotice', 'method' => 'POST',
+		common_element_start('form', array('id' => 'newnotice', 'method' => 'POST',
 										   'action' => common_local_url('newnotice')));
 		common_element('textarea', array('rows' => 4, 'cols' => 80, 'id' => 'content'));
 		common_element('input', array('type' => 'submit'), 'Send');
-		common_end_element('form');
+		common_element_end('form');
 	}
 	
 	function show_profile($profile) {
-		common_start_element('div', 'profile');
+		common_element_start('div', 'profile');
 		$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
 		if ($avatar) {
 			common_element('img', array('src' => $avatar->url,
@@ -113,42 +113,42 @@ class ShowstreamAction extends StreamAction {
 	}
 
 	function show_subscribe_form($profile) {
-		common_start_element('form', array('id' => 'subscribe', 'method' => 'POST',
+		common_element_start('form', array('id' => 'subscribe', 'method' => 'POST',
 										   'action' => common_local_url('subscribe')));
 		common_element('input', array('id' => 'subscribeto',
 									  'name' => 'subscribeto',
 									  'type' => 'hidden',
 									  'value' => $profile->nickname));
 		common_element('input', array('type' => 'submit'), _t('subscribe'));
-		common_end_element('form');
+		common_element_end('form');
 	}
 
 	function show_unsubscribe_form($profile) {
-		common_start_element('form', array('id' => 'unsubscribe', 'method' => 'POST',
+		common_element_start('form', array('id' => 'unsubscribe', 'method' => 'POST',
 										   'action' => common_local_url('unsubscribe')));
 		common_element('input', array('id' => 'unsubscribeto',
 									  'name' => 'unsubscribeto',
 									  'type' => 'hidden',
 									  'value' => $profile->nickname));
 		common_element('input', array('type' => 'submit'), _t('unsubscribe'));
-		common_end_element('form');
+		common_element_end('form');
 	}
 	
 	function show_subscriptions($profile) {
 		
 		# XXX: add a limit
 		$subs = $profile->getLink('id', 'subscription', 'subscriber');
-		common_start_element('div', 'subscriptions');
+		common_element_start('div', 'subscriptions');
 		
 		$cnt = 0;
 		
 		while ($subs->fetch()) {
 			$cnt++;
 			if ($cnt % SUBSCRIPTIONS_PER_ROW == 1) {
-				common_start_element('div', 'row');
+				common_element_start('div', 'row');
 			}
 
-			common_start_element('a', array('title' => $subs->fullname ||
+			common_element_start('a', array('title' => $subs->fullname ||
 											           $subs->nickname,
 											'href' => $subs->profileurl,
 											'class' => 'subscription'));
@@ -157,10 +157,10 @@ class ShowstreamAction extends StreamAction {
 										'width' => AVATAR_MINI_SIZE,
 										'height' => AVATAR_MINI_SIZE,
 										'class' => 'avatar mini'));
-			common_end_element('a');
+			common_element_end('a');
 			
 			if ($cnt % SUBSCRIPTIONS_PER_ROW == 0) {
-				common_end_element('div');
+				common_element_end('div');
 			}
 			
 			if ($cnt == SUBSCRIPTIONS) {
@@ -173,7 +173,7 @@ class ShowstreamAction extends StreamAction {
 								  'class' => 'moresubscriptions'),
 					   _t('All subscriptions'));
 
-		common_end_element('div');
+		common_element_end('div');
 	}
 
 	function show_statistics($profile) {
@@ -192,14 +192,14 @@ class ShowstreamAction extends StreamAction {
 		$notice_count = $notice->count();
 		
 		# Other stats...?
-		common_start_element('dl', 'statistics');
+		common_element_start('dl', 'statistics');
 		common_element('dt', _t('Subscriptions'));
 		common_element('dd', $subs_count);
 		common_element('dt', _t('Subscribers'));
 		common_element('dd', $subbed_count);
 		common_element('dt', _t('Notices'));
 		common_element('dd', $notice_count);
-		common_end_element('dl');
+		common_element_end('dl');
 	}
 	
 	function show_notices($profile) {
@@ -215,13 +215,13 @@ class ShowstreamAction extends StreamAction {
 		
 		$notice->find();
 
-		common_start_element('div', 'notices');
+		common_element_start('div', 'notices');
 		
 		while ($notice->fetch()) {
 			$this->show_notice($notice);
 		}
 		
-		common_end_element('div');
+		common_element_end('div');
 	}
 	
 	function show_last_notice($profile) {

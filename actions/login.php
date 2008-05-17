@@ -53,7 +53,7 @@ class LoginAction extends Action {
 		if (!is_null($error)) {
 			common_element('div', array('class' => 'error'), $msg);
 		}
-		common_start_element('form', array('method' => 'POST',
+		common_element_start('form', array('method' => 'POST',
 										   'id' => 'login',
 										   'action' => common_local_url('login')));
 		common_element('label', array('for' => 'username'),
@@ -74,5 +74,6 @@ class LoginAction extends Action {
 									  'type' => 'button',
 									  'id' => 'cancel'),
 					   _t('Cancel'));
+		common_element_end('form');
 	}
 }
