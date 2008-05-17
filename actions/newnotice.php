@@ -27,7 +27,7 @@ class NewnoticeAction extends Action {
 
 		if (!common_logged_in()) {
 			common_user_error(_t('Not logged in.'));
-		} else if ($this->arg('METHOD') == 'POST') {
+		} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$id = $this->save_new_notice();
 
 			if ($id) {

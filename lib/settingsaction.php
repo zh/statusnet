@@ -26,8 +26,7 @@ class SettingsAction extends Action {
 		if (!common_logged_in()) {
 			common_user_error(_t('Not logged in.'));
 			return;
-		}
-		if ($this->arg('METHOD') == 'POST') {
+		} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$this->handle_post();
 		} else {
 			$this->show_form();

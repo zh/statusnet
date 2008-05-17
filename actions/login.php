@@ -25,7 +25,7 @@ class LoginAction extends Action {
 		parent::handle($args);
 		if (common_logged_in()) {
 			common_user_error(_t('Already logged in.'));
-		} else if ($this->arg('METHOD') == 'POST') {
+		} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$this->check_login();
 		} else {
 			$this->show_form();

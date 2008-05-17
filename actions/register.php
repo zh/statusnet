@@ -26,7 +26,7 @@ class RegisterAction extends Action {
 		
 		if (common_logged_in()) {
 			common_user_error(_t('Already logged in.'));
-		} else if ($this->arg('METHOD') == 'POST') {
+		} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$this->try_register();
 		} else {
 			$this->show_form();
