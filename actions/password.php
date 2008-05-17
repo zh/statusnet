@@ -21,26 +21,10 @@ if (!defined('LACONICA')) { exit(1) }
 
 class PasswordAction extends SettingsAction {
 	
-	function handle($args) {
-		parent::handle($args);
-		if (!common_logged_in()) {
-			common_user_error(_t('Not logged in.'));
-			return;
-		}
-		if ($this->arg('METHOD') == 'POST') {
-			$this->handle_post();
-		} else {
-			$this->show_form();
-		}
-	}
-
 	function show_form($msg=NULL, $success=false) {
 		common_show_header(_t('Change password'));
 		$this->settings_menu();
-		if ($msg) {
-			common_element('div', ($success) ? 'success' : 'error',
-						   $msg);
-		}
+		$this->message($msg, $success);
 		common_start_element('form', array('method' => 'POST',
 										   'id' => 'password',
 										   'action' => 

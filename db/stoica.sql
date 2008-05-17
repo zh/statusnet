@@ -16,10 +16,11 @@ create table profile (
 
 create table avatar (
     profile_id integer not null comment 'foreign key to profile table' references profile (id),
+    original boolean default false comment 'uploaded by user or generated?',
     width integer not null comment 'image width',
     height integer not null comment 'image height',
-    original boolean default false comment 'uploaded by user or generated?',
     mediatype varchar(32) not null comment 'file type',
+    filename varchar(255) null comment 'local filename, if local',
     url varchar(255) unique key comment 'avatar location',
     
     constraint primary key (profile_id, width, height),

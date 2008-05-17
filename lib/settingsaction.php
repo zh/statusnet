@@ -23,8 +23,33 @@ class SettingsAction extends Action {
 
 	function handle($args) {
 		parent::handle($args);
+		if (!common_logged_in()) {
+			common_user_error(_t('Not logged in.'));
+			return;
+		}
+		if ($this->arg('METHOD') == 'POST') {
+			$this->handle_post();
+		} else {
+			$this->show_form();
+		}
 	}
 
+	# override!
+	function handle_post() {
+		return false;
+	}
+	
+	function show_form($msg=NULL, $success=false) {
+		return false;
+	}
+
+	function show_message($msg, $success) {
+		if ($msg) {
+			common_element('div', ($success) ? 'success' : 'error',
+						   $msg);
+		}
+	}
+	
 	function settings_menu() {
 		common_element_start('ul', 'headmenu');
 		common_menu_item(common_local_url('editprofile'),

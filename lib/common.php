@@ -22,6 +22,7 @@ if (!defined('LACONICA')) { exit(1) }
 define('AVATAR_PROFILE_SIZE', 96);
 define('AVATAR_STREAM_SIZE', 48);
 define('AVATAR_MINI_SIZE', 24);
+define('MAX_AVATAR_SIZE', 256 * 1024);
 
 # global configuration object
 
@@ -30,6 +31,9 @@ define('AVATAR_MINI_SIZE', 24);
 $config =
   array('site' =>
 		array('name' => 'Just another µB'),
+		'avatar' =>
+		array('directory' => INSTALLDIR . 'files',
+			  'path' => '/files'),
 		'dsn' =>
 		array('phptype' => 'mysql',
 			  'username' => 'stoica',
@@ -226,6 +230,28 @@ function common_render_content($text) {
 	# XXX: # tags
 	# XXX: machine tags
 	return htmlspecialchars($text);
+}
+
+// where should the avatar go for this user?
+
+function common_avatar_filename($user, $extension, $size=NULL) {
+	global $config;
+
+	if ($size) {
+		return $user->id . '-' . $size . $extension;
+	} else {
+		return $user->id . '-original' . $extension;
+	}
+}
+
+function common_avatar_path($filename) {
+	global $config;
+	return $config['avatar']['directory'] . '/' . $filename;
+}
+
+function common_avatar_url($filename) {
+	global $config;
+	return $config['avatar']['path'] . '/' . $filename;
 }
 
 // XXX: set up gettext

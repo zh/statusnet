@@ -1,7 +1,7 @@
 + login
 + register
 + settings
-- upload avatar
++ upload avatar
 - default avatar
 + change password
 + settings menu
@@ -18,9 +18,10 @@
 + header menu
 + footer menu
 + disallow direct to PHP files
+- require valid nicknames
+- store canonical username for comparison and fetch
 - use only canonical usernames
 - use only canonical email addresses
-- require valid nicknames
 - common_local_url()
 - configuration system ($config)
 - RSS 1.0 feeds of a user's notices
@@ -28,10 +29,12 @@
 - RSS 1.0 feed of all public notices
 - RDF dump of entire site
 - FOAF dump for user
-- delete a notice
-- licenses
+- license on showstream
+- license on shownotice
 - design from Open Source Web Designs
+- TOS checkbox on register
 - release 0.1
+- delete a notice
 - gettext
 - subscribe remote
 - add subscriber remote
