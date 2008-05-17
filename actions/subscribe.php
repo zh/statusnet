@@ -48,7 +48,7 @@ class SubscribeAction extends Action {
 		$sub->subscriber = $user->id;
 		$sub->subscribed = $other->id;
 		
-		$sub->created = time();
+		$sub->created = DB_DataObject_Cast::dateTime(); # current time
 		
 		if (!$sub->insert()) {
 			common_server_error(_t('Couldn\'t create subscription.'));

@@ -81,7 +81,7 @@ class RegisterAction extends Action {
 		# TODO: wrap this in a transaction!
 		$profile = new Profile();
 		$profile->nickname = $nickname;
-		$profile->created = date(DATE_RFC822); # current time
+		$profile->created = DB_DataObject_Cast::dateTime(); # current time
 		$id = $profile->insert();
 		if (!$id) {
 			return FALSE;
@@ -91,7 +91,7 @@ class RegisterAction extends Action {
 		$user->nickname = $nickname;
 		$user->password = common_munge_password($password, $id);
 		$user->email = $email;
-		$user->created = date(DATE_RFC822); # current time
+		$user->created =  DB_DataObject_Cast::dateTime(); # current time
 		$result = $user->insert();
 		if (!$result) {
 			# Try to clean up...

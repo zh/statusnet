@@ -47,8 +47,8 @@ class NewnoticeAction extends Action {
 		$notice = DB_DataObject::factory('notice');
 		assert($notice);
 		$notice->profile_id = $user->id; # user id *is* profile id
+		$notice->created = DB_DataObject_Cast::dateTime();
 		$notice->content = $this->arg('content');
-		$notice->created = date(DATE_RFC822); # current time
 		return $notice->insert();
 	}
 	
