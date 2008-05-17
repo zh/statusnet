@@ -68,7 +68,7 @@ class RegisterAction extends Action {
 	# checks if *CANONICAL* email exists
 	
 	function email_exists($email) {
-		$email = common_canonicalize_email($email);
+		$email = common_canonical_email($email);
 		$user = User::staticGet('email', $email);
 		return ($user !== false);
 	}
