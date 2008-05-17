@@ -98,7 +98,7 @@ class RegisterAction extends Action {
 	
 	function show_form($error=NULL) {
 		
-		common_show_header(_t('Login'));
+		common_show_header(_t('Register'));
 		common_element_start('form', array('method' => 'POST',
 										   'id' => 'login',
 										   'action' => common_local_url('register')));
