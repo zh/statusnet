@@ -23,6 +23,7 @@
 + new notice redirects to notice page
 + date in shown notice links to notice page
 + common_redirect()
++ configuration system ($config)
 + release 0.1
 - doc action
 - default to doc, title = main
@@ -30,11 +31,12 @@
 - default HTML type
 - set Content-Type
 - show current values in profile settings
+- save profile URL in profilesettings
+- save profile URL on registration
 - require valid nicknames
 - store canonical username for comparison and fetch
 - use only canonical usernames
 - use only canonical email addresses
-- configuration system ($config)
 - RSS 1.0 feeds of a user's notices
 - RSS 1.0 dump of a user's notices
 - RSS 1.0 feed of all public notices

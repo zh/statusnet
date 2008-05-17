@@ -81,6 +81,7 @@ class RegisterAction extends Action {
 		# TODO: wrap this in a transaction!
 		$profile = new Profile();
 		$profile->nickname = $nickname;
+		$profile->profileurl = common_profile_url($nickname);
 		$profile->created = DB_DataObject_Cast::dateTime(); # current time
 		$id = $profile->insert();
 		if (!$id) {

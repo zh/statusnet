@@ -317,6 +317,10 @@ function common_broadcast_notices($id) {
 	return true;
 }
 
+function common_profile_url($nickname) {
+	return common_local_url('showstream', array('nickname' => $nickname));
+}
+
 // XXX: set up gettext
 
 function _t($str) { 

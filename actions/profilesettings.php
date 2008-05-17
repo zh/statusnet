@@ -78,7 +78,8 @@ class ProfilesettingsAction extends SettingsAction {
 		$profile->homepage = $this->arg('homepage');
 		$profile->bio = $this->arg('bio');
 		$profile->location = $this->arg('location');
-
+		$profile->profileurl = common_profile_url($nickname);
+		
 		if (!$profile->update()) {
 			common_server_error(_t('Couldnt save profile.'));
 			return;
