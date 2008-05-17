@@ -27,7 +27,7 @@ class Action { // lawsuit
 	}
 	
 	function arg($key) {
-		if (array_has_key($this->args, $key)) {
+		if (array_key_exists($key, $this->args)) {
 			return $this->args[$key];
 		} else {
 			return NULL;
