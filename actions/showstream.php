@@ -19,6 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
+require_once(INSTALLDIR.'/lib/stream.php');
+
 define('SUBSCRIPTIONS_PER_ROW', 5);
 define('SUBSCRIPTIONS', 80);
 

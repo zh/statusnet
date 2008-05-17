@@ -19,6 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
+require_once(INSTALLDIR.'/actions/showstream.php');
+
 class AllAction extends ShowstreamAction {
 
 	// XXX: push this up to a common function.
