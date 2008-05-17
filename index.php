@@ -20,7 +20,7 @@
 define('INSTALLDIR', dirname(__FILE__));
 define('LACONICA', true);
 
-require_once(INSTALLDIR . "/common.php");
+require_once(INSTALLDIR . "/lib/common.php");
 
 $action = $_REQUEST['action'];
 $actionfile = INSTALLDIR."/actions/$action.php";
@@ -32,4 +32,3 @@ if (file_exists($actionfile)) {
 } else {
 	common_user_error(_t('Unknown action'));
 }
-
