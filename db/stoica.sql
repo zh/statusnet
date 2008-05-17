@@ -24,7 +24,7 @@ create table avatar (
     url varchar(255) unique key comment 'avatar location',
     
     constraint primary key (profile_id, width, height),
-    index avatar_profile_id_idx (profile_id),
+    index avatar_profile_id_idx (profile_id)
 );
 
 /* local users */
