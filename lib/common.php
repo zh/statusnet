@@ -58,12 +58,12 @@ $config['db'] =
 require_once(INSTALLDIR.'/config.php');
 require_once(INSTALLDIR.'/lib/action.php');
 
-require_once(INSTALLDIR.'classes/Avatar.php');
-require_once(INSTALLDIR.'classes/Notice.php');
-require_once(INSTALLDIR.'classes/Profile.php');
-require_once(INSTALLDIR.'classes/Remote_profile.php');
-require_once(INSTALLDIR.'classes/Subscription.php');
-require_once(INSTALLDIR.'classes/User.php');
+require_once(INSTALLDIR.'/classes/Avatar.php');
+require_once(INSTALLDIR.'/classes/Notice.php');
+require_once(INSTALLDIR.'/classes/Profile.php');
+require_once(INSTALLDIR.'/classes/Remote_profile.php');
+require_once(INSTALLDIR.'/classes/Subscription.php');
+require_once(INSTALLDIR.'/classes/User.php');
 
 # Show a server error
 
