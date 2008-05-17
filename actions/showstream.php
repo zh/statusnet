@@ -30,7 +30,7 @@ class ShowstreamAction extends StreamAction {
 		
 		parent::handle($args);
 
-		$nickname = common_canonicalize_nickname($this->arg('profile'));
+		$nickname = common_canonical_nickname($this->arg('profile'));
 		$user = User::staticGet('nickname', $nickname);
 
 		if (!$user) {
