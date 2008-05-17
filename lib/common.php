@@ -30,7 +30,7 @@ define('MAX_AVATAR_SIZE', 256 * 1024);
 # global configuration object
 
 require_once('PEAR.php');
-require_once('DB_DataObject.php');
+require_once('DB/DataObject.php');
 
 // default configuration, overwritten in config.php
 
