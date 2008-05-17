@@ -33,7 +33,9 @@ define('MAX_AVATAR_SIZE', 256 * 1024);
 
 $config =
   array('site' =>
-		array('name' => 'Just another µB'),
+		array('name' => 'Just another µB',
+			  'server' => 'localhost',
+			  'path' => '/'),
 		'avatar' =>
 		array('directory' => INSTALLDIR . 'files',
 			  'path' => '/files'),
@@ -258,18 +260,37 @@ function common_avatar_url($filename) {
 }
 
 function common_local_url($action, $args) {
+	global $config;
 	/* XXX: pretty URLs */
 	$extra = '';
 	foreach ($args as $key => $value) {
 		$extra .= "&${key}=${value}";
 	}
-	/* XXX: correct path */
-	return "/index.php?action=${action}${extra}";
+	return "http://".$config['site']['server'].'/'.$config['site']['path']."/index.php?action=${action}${extra}";
 }
 
 function commmon_date_string($dt) {
 	// XXX: do some sexy date formatting
 	return date(DATE_RFC822);
+}
+
+function common_redirect($url, $code=307) {
+	static $status = (301 => "Moved Permanently",
+					  302 => "Found",
+					  303 => "See Other",
+					  307 => "Temporary Redirect");
+	header("Status: ${code} $status[$code]");
+	header("Location: $url");
+	common_element('a', array('href' => $url), $url);
+}
+
+function common_broadcast_notices($id) {
+	// XXX: broadcast notices to remote subscribers
+	// XXX: broadcast notices to SMS
+	// XXX: broadcast notices to Jabber
+	// XXX: broadcast notices to other IM
+	// XXX: use a queue system like http://code.google.com/p/microapps/wiki/NQDQ
+	return true;
 }
 
 // XXX: set up gettext

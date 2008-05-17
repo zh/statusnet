@@ -28,15 +28,12 @@ class NewnoticeAction extends Action {
 		if (!common_logged_in()) {
 			common_user_error(_t('Not logged in.'));
 		} else if ($this->arg('METHOD') == 'POST') {
-			if ($this->save_new_notice()) {
-				# XXX: smarter redirects
-				$user = common_current_user();
-				assert(!is_null($user)); # see if... above
-				# XXX: redirect to source
-				# XXX: use Ajax instead of a redirect
-				common_redirect(common_local_url('all',
-												 array('nickname' =>
-													   $user->nickname)));
+			$id = $this->save_new_notice();
+
+			if ($id) {
+				common_broadcast_notices($id);
+				common_redirect(common_local_url('shownotice',
+												 array('notice' => $id)), 303);
 			} else {
 				common_server_error(_t('Problem saving notice.'));
 			}
