@@ -264,12 +264,14 @@ function common_avatar_url($filename) {
 	return $config['avatar']['path'] . '/' . $filename;
 }
 
-function common_local_url($action, $args) {
+function common_local_url($action, $args=NULL) {
 	global $config;
 	/* XXX: pretty URLs */
 	$extra = '';
-	foreach ($args as $key => $value) {
-		$extra .= "&${key}=${value}";
+	if ($args) {
+		foreach ($args as $key => $value) {
+			$extra .= "&${key}=${value}";
+		}
 	}
 	return "http://".$config['site']['server'].'/'.$config['site']['path']."/index.php?action=${action}${extra}";
 }
