@@ -236,6 +236,13 @@ function common_canonical_nickname($nickname) {
 	return strtolower($nickname);
 }
 
+# get canonical version of email for comparison
+function common_canonical_email($email) {
+	# XXX: canonicalize UTF-8
+	# XXX: lcase the domain part
+	return $email;
+}
+
 function common_render_content($text) {
 	# XXX: @ messages
 	# XXX: # tags
