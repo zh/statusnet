@@ -52,7 +52,7 @@ class RegisterAction extends Action {
 			$this->show_form(_t('Passwords don\'t match.'));
 		} else if ($this->register_user($nickname, $password, $email)) {
 			common_set_user($nickname);
-			common_redirect(common_local_url('settings'));
+			common_redirect(common_local_url('profilesettings'));
 		} else {
 			$this->show_form(_t('Invalid username or password.'));
 		}

@@ -19,6 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
+require_once(INSTALLDIR.'/lib/settingsaction.php');
+
 class ProfilesettingsAction extends SettingsAction {
 	
 	function show_form($msg=NULL, $success=false) {
