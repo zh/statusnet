@@ -48,8 +48,8 @@ $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
 
 $config['db'] = 
   array('database' => 'YOU HAVE TO SET THIS IN config.php',
-	    'schema_location' => $INSTALLDIR . '/classes',
-		'class_location' => $INSTALLDIR . '/classes',
+	    'schema_location' => INSTALLDIR . '/classes',
+		'class_location' => INSTALLDIR . '/classes',
 		'require_prefix' => 'classes/',
 		'class_prefix' => '',
         'db_driver' => 'MDB2',
