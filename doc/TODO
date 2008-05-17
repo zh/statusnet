@@ -18,11 +18,11 @@
 + header menu
 + footer menu
 + disallow direct to PHP files
++ common_local_url()
 - require valid nicknames
 - store canonical username for comparison and fetch
 - use only canonical usernames
 - use only canonical email addresses
-- common_local_url()
 - configuration system ($config)
 - RSS 1.0 feeds of a user's notices
 - RSS 1.0 dump of a user's notices
@@ -33,7 +33,14 @@
 - license on shownotice
 - design from Open Source Web Designs
 - TOS checkbox on register
+- pretty URLs
 - release 0.1
+- content negotiation for interface language
+- content negotiation for content type
+- content negotiation for encoding
+- content negotiation for charset
+- If-Modified-Since support
+- Vary
 - delete a notice
 - gettext
 - subscribe remote

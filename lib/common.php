@@ -17,6 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/* XXX: break up into separate modules (HTTP, HTML, user, files) */
+
+
 if (!defined('LACONICA')) { exit(1) }
 
 define('AVATAR_PROFILE_SIZE', 96);
@@ -252,6 +255,16 @@ function common_avatar_path($filename) {
 function common_avatar_url($filename) {
 	global $config;
 	return $config['avatar']['path'] . '/' . $filename;
+}
+
+function common_local_url($action, $args) {
+	/* XXX: pretty URLs */
+	$extra = '';
+	foreach ($args as $key => $value) {
+		$extra .= "&${key}=${value}";
+	}
+	/* XXX: correct path */
+	return "/index.php?action=${action}${extra}";
 }
 
 // XXX: set up gettext
