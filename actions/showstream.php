@@ -35,12 +35,14 @@ class ShowstreamAction extends StreamAction {
 
 		if (!$user) {
 			$this->no_such_user();
+			return;
 		}
 
 		$profile = $user->getProfile();
 
 		if (!$profile) {
 			common_server_error(_t('User record exists without profile.'));
+			return;			
 		}
 
 		# Looks like we're good; show the header
