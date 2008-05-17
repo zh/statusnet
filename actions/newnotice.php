@@ -29,7 +29,7 @@ class NewnoticeAction extends Action {
 			common_user_error(_t('Not logged in.'));
 		} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$id = $this->save_new_notice();
-#			if ($id) {
+			if ($id) {
 				common_broadcast_notices($id);
 				common_redirect(common_local_url('shownotice',
 												 array('notice' => $id)), 303);
