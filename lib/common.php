@@ -240,7 +240,7 @@ function common_current_user() {
 # get canonical version of nickname for comparison
 function common_canonical_nickname($nickname) {
 	# XXX: UTF-8 canonicalization (like combining chars)
-	return strtolower($nickname);
+	return $nickname;
 }
 
 # get canonical version of email for comparison

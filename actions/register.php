@@ -38,7 +38,7 @@ class RegisterAction extends Action {
 		$password = $this->arg('password');
 		$confirm = $this->arg('confirm');
 		$email = $this->arg('email');
-		
+
 		# Input scrubbing
 		
 		$nickname = common_canonical_nickname($nickname);
