@@ -58,7 +58,7 @@ class NewnoticeAction extends Action {
 										   'action' => common_local_url('newnotice')));
 		common_element('span', 'nickname', $profile->nickname);
 		common_element('textarea', array('rows' => 4, 'cols' => 80, 'id' => 'content'));
-		common_element('input', array('type' => 'submit'), 'Send');
+		common_element('input', array('type' => 'submit', 'value' => 'Send'));
 		common_element_end('form');
 	}
 }
