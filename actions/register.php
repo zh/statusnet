@@ -124,12 +124,12 @@ class RegisterAction extends Action {
 									  'id' => 'email'));
 		common_element('input', array('name' => 'submit',
 									  'type' => 'submit',
-									  'id' => 'submit'),
-					   _t('Login'));
+									  'id' => 'submit',
+									  'value' => _t('Login')));
 		common_element('input', array('name' => 'cancel',
 									  'type' => 'button',
-									  'id' => 'cancel'),
-					   _t('Cancel'));
+									  'id' => 'cancel',
+									  'value' => _t('Cancel')));
 		common_element_end('form');
 	}
 }
