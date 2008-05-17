@@ -55,7 +55,8 @@ $config['db'] =
         'db_driver' => 'MDB2',
 		'quote_identifiers' => false);
 
-require_once(INSTALLDIR . '/config.php');
+require_once(INSTALLDIR.'/config.php');
+require_once(INSTALLDIR.'/lib/action.php');
 
 # Show a server error
 
