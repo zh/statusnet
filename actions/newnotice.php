@@ -29,8 +29,7 @@ class NewnoticeAction extends Action {
 			common_user_error(_t('Not logged in.'));
 		} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$id = $this->save_new_notice();
-
-			if ($id) {
+#			if ($id) {
 				common_broadcast_notices($id);
 				common_redirect(common_local_url('shownotice',
 												 array('notice' => $id)), 303);
@@ -49,7 +48,7 @@ class NewnoticeAction extends Action {
 		assert($notice);
 		$notice->profile_id = $user->id; # user id *is* profile id
 		$notice->content = $this->arg('content');
-		$notice->created = time();
+		$notice->created = date(DATE_RFC822); # current time
 		return $notice->insert();
 	}
 	
@@ -57,7 +56,9 @@ class NewnoticeAction extends Action {
 		common_element_start('form', array('id' => 'newnotice', 'method' => 'POST',
 										   'action' => common_local_url('newnotice')));
 		common_element('span', 'nickname', $profile->nickname);
-		common_element('textarea', array('rows' => 4, 'cols' => 80, 'id' => 'content'));
+		common_element('textarea', array('rows' => 4, 'cols' => 80,
+										 'name' => 'content', 
+										 'id' => 'content'));
 		common_element('input', array('type' => 'submit', 'value' => 'Send'));
 		common_element_end('form');
 	}

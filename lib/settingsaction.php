@@ -42,7 +42,7 @@ class SettingsAction extends Action {
 		return false;
 	}
 
-	function show_message($msg, $success) {
+	function message($msg, $success) {
 		if ($msg) {
 			common_element('div', ($success) ? 'success' : 'error',
 						   $msg);

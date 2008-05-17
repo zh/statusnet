@@ -81,7 +81,7 @@ class RegisterAction extends Action {
 		# TODO: wrap this in a transaction!
 		$profile = new Profile();
 		$profile->nickname = $nickname;
-		$profile->created = time();
+		$profile->created = date(DATE_RFC822); # current time
 		$id = $profile->insert();
 		if (!$id) {
 			return FALSE;
@@ -91,7 +91,7 @@ class RegisterAction extends Action {
 		$user->nickname = $nickname;
 		$user->password = common_munge_password($password, $id);
 		$user->email = $email;
-		$user->created = time();
+		$user->created = date(DATE_RFC822); # current time
 		$result = $user->insert();
 		if (!$result) {
 			# Try to clean up...
@@ -135,5 +135,6 @@ class RegisterAction extends Action {
 									  'id' => 'cancel',
 									  'value' => _t('Cancel')));
 		common_element_end('form');
+		common_show_footer();
 	}
 }

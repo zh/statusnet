@@ -81,7 +81,9 @@ class ShowstreamAction extends StreamAction {
 	function notice_form() {
 		common_element_start('form', array('id' => 'newnotice', 'method' => 'POST',
 										   'action' => common_local_url('newnotice')));
-		common_element('textarea', array('rows' => 4, 'cols' => 80, 'id' => 'content'));
+		common_element('textarea', array('rows' => 4, 'cols' => 80,
+										 'name' => 'content', 
+										 'id' => 'content'));
 		common_element('input', array('type' => 'submit', 'value' => 'Send'));
 		common_element_end('form');
 	}

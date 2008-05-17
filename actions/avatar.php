@@ -123,7 +123,7 @@ class AvatarAction extends SettingsAction {
 		$avatar->filename = $filename;
 		$avatar->original = true;
 		$avatar->url = common_avatar_url($filename);
-
+		$avatar->created = date(DATE_RFC822); # current time
 		foreach (array(AVATAR_PROFILE_SIZE, AVATAR_STREAM_SIZE, AVATAR_MINI_SIZE) as $size) {
 			$scaled[] = $this->scale_avatar($user, $avatar, $size);
 		}
@@ -181,6 +181,7 @@ class AvatarAction extends SettingsAction {
 		$scaled->mediatype = ($avatar->mediattype == 'image/jpeg') ? 'image/jpeg' : 'image/png';
 		$scaled->filename = $filename;
 		$scaled->url = common_avatar_url($filename);
+		$scaled->created = date(DATE_RFC822); # current time
 		
 		return $scaled;
 	}
