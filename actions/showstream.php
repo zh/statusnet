@@ -190,8 +190,8 @@ class ShowstreamAction extends StreamAction {
 		$subbed_count = $subbed->count();
 		
 		$notices = DB_DataObject::factory('notice');
-		$notice->profile_id = $profile->id;
-		$notice_count = $notice->count();
+		$notices->profile_id = $profile->id;
+		$notice_count = $notices->count();
 		
 		# Other stats...?
 		common_element_start('dl', 'statistics');
