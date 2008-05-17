@@ -99,7 +99,7 @@ class RegisterAction extends Action {
 	function show_form($error=NULL) {
 		
 		common_show_header(_t('Login'));
-		common_start_element('form', array('method' => 'POST',
+		common_element_start('form', array('method' => 'POST',
 										   'id' => 'login',
 										   'action' => common_local_url('login')));
 		common_element('label', array('for' => 'username'),
@@ -130,5 +130,6 @@ class RegisterAction extends Action {
 									  'type' => 'button',
 									  'id' => 'cancel'),
 					   _t('Cancel'));
+		common_element_end('form');
 	}
 }
