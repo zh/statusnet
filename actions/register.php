@@ -102,11 +102,11 @@ class RegisterAction extends Action {
 		common_element_start('form', array('method' => 'POST',
 										   'id' => 'login',
 										   'action' => common_local_url('register')));
-		common_element('label', array('for' => 'username'),
+		common_element('label', array('for' => 'nickname'),
 					   _t('Name'));
-		common_element('input', array('name' => 'username',
+		common_element('input', array('name' => 'nickname',
 									  'type' => 'text',
-									  'id' => 'username'));
+									  'id' => 'nickname'));
 		common_element('label', array('for' => 'password'),
 					   _t('Password'));
 		common_element('input', array('name' => 'password',
