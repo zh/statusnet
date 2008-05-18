@@ -24,6 +24,8 @@ require_once(INSTALLDIR.'/lib/settingsaction.php');
 class ProfilesettingsAction extends SettingsAction {
 	
 	function show_form($msg=NULL, $success=false) {
+		$user = common_current_user();
+		$profile = $user->getProfile();
 		common_show_header(_t('Profile settings'));
 		$this->settings_menu();
 		$this->message($msg, $success);
@@ -31,20 +33,23 @@ class ProfilesettingsAction extends SettingsAction {
 										   'id' => 'profilesettings',
 										   'action' => 
 										   common_local_url('profilesettings')));
-		common_input('nickname', _t('Nickname'));
-		common_input('fullname', _t('Full name'));
-		common_input('email', _t('Email address'));		
-		common_input('homepage', _t('Homepage'));				
-		common_input('bio', _t('Bio'));
-		common_input('location', _t('Location'));
+		# too much common patterns here... abstractable?
+		common_input('nickname', _t('Nickname'), 
+					 ($this->arg('nickname')) ? $this->arg('nickname') : $profile->nickname);
+		common_input('fullname', _t('Full name'),
+					 ($this->arg('fullname')) ? $this->arg('fullname') : $profile->fullname);
+		common_input('email', _t('Email address'),
+					 ($this->arg('email')) ? $this->arg('email') : $user->email);
+		common_input('homepage', _t('Homepage'),
+					 ($this->arg('homepage')) ? $this->arg('homepage') : $profile->homepage);				
+		common_input('bio', _t('Bio'),
+					 ($this->arg('bio')) ? $this->arg('bio') : $profile->bio);
+		common_input('location', _t('Location'),
+					 ($this->arg('location')) ? $this->arg('location') : $profile->location);
 		common_element('input', array('name' => 'submit',
 									  'type' => 'submit',
-									  'id' => 'submit'),
-					   _t('Login'));
-		common_element('input', array('name' => 'cancel',
-									  'type' => 'button',
-									  'id' => 'cancel'),
-					   _t('Cancel'));
+									  'id' => 'submit',
+									  'value' => _t('Save')));
 		common_element_end('form');
 		common_show_footer();
 	}

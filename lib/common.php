@@ -168,11 +168,15 @@ function common_menu_item($url, $text, $title=NULL) {
 	common_element_end('li');
 }
 
-function common_input($id, $label) {
+function common_input($id, $label, $value=NULL) {
 	common_element('label', array('for' => $id), $label);
-	common_element('input', array('name' => $id,
-								  'type' => 'text',
-								  'id' => $id));
+	$attrs = array('name' => $id,
+				   'type' => 'text',
+				   'id' => $id);
+	if ($value) {
+		$attrs['value'] = htmlspecialchars($value);
+	}
+	common_element('input', $attrs);
 }
 
 # salted, hashed passwords are stored in the DB
