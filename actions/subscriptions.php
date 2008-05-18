@@ -33,7 +33,9 @@ class SubscriptionsAction extends Action {
 			$this->no_such_user();
 		}
 		$page = $this->arg('page') || 1;
+		common_show_header($profile->nickname . ": " . _t('Subscriptions'));
 		$this->show_subscriptions($profile, $page);
+		common_show_footer();
 	}
 
 	function show_subscriptions($profile, $page) {
