@@ -30,9 +30,9 @@ class AllAction extends ShowstreamAction {
 		$notice = DB_DataObject::factory('notice');
 		
 		# XXX: chokety and bad
- 		
-		$notice->whereAdd('EXISTS (SELECT subscribed from subscription where subscriber = {$profile->id})', 'OR');
-		$notice->whereAdd('profile_id = {$profile->id}', 'OR');
+
+		$notice->whereAdd('EXISTS (SELECT subscribed from subscription where subscriber = '.$profile->id.')', 'OR');
+		$notice->whereAdd('profile_id = ' . $profile->id, 'OR');
 		
 		$notice->orderBy('created DESC');
 		
