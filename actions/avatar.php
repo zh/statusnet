@@ -205,8 +205,10 @@ class AvatarAction extends SettingsAction {
 		$avatar->profile_id = $user->id;
 		$avatar->find();
 		while ($avatar->fetch()) {
+			unlink(common_avatar_path($avatar->filename));
 			$avatar->delete();
 		}
+		return true;
 	}
 }
 
