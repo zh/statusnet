@@ -59,7 +59,7 @@ class ShowstreamAction extends StreamAction {
 
 		$this->show_last_notice($profile);
 
-		if ($cur) {
+		if ($cur && $cur->id != $profile->id) {
 			if ($cur->isSubscribed($profile)) {
 				$this->show_unsubscribe_form($profile);
 			} else {
@@ -125,7 +125,7 @@ class ShowstreamAction extends StreamAction {
 									  'name' => 'subscribeto',
 									  'type' => 'hidden',
 									  'value' => $profile->nickname));
-		common_element('input', array('type' => 'submit'), _t('subscribe'));
+		common_element('input', array('type' => 'submit', 'value' => _t('Subscribe')));
 		common_element_end('form');
 	}
 
