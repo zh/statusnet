@@ -41,8 +41,8 @@ $config =
 			  'server' => 'localhost',
 			  'path' => '/'),
 		'avatar' =>
-		array('directory' => INSTALLDIR . '/files',
-			  'path' => '/files')
+		array('directory' => INSTALLDIR . '/avatar',
+			  'path' => '/avatar')
 );
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
