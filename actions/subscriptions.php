@@ -38,7 +38,7 @@ class SubscriptionsAction extends Action {
 
 	function show_subscriptions($profile, $page) {
 
-		$sub = DB_DataObject::factory('subscriptions');
+		$sub = DB_DataObject::factory('subscription');
 		$sub->subscriber = $profile->id;
 		
 		# We ask for an extra one to know if we need to do another page
