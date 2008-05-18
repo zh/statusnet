@@ -22,6 +22,8 @@ create table avatar (
     mediatype varchar(32) not null comment 'file type',
     filename varchar(255) null comment 'local filename, if local',
     url varchar(255) unique key comment 'avatar location',
+    created datetime not null comment 'date this record was created',
+    modified timestamp comment 'date this record was modified',
     
     constraint primary key (profile_id, width, height),
     index avatar_profile_id_idx (profile_id)

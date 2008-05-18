@@ -102,7 +102,7 @@ class AvatarAction extends SettingsAction {
 			$this->show_form(_t('Unsupported image file format.'));
 			return;
 		}
-		
+
 		$user = common_current_user();
 
 		$filename = common_avatar_filename($user, image_type_to_extension($info[2]));
@@ -124,6 +124,7 @@ class AvatarAction extends SettingsAction {
 		$avatar->original = true;
 		$avatar->url = common_avatar_url($filename);
 		$avatar->created = DB_DataObject_Cast::dateTime(); # current time
+
 		foreach (array(AVATAR_PROFILE_SIZE, AVATAR_STREAM_SIZE, AVATAR_MINI_SIZE) as $size) {
 			$scaled[] = $this->scale_avatar($user, $avatar, $size);
 		}
@@ -153,26 +154,26 @@ class AvatarAction extends SettingsAction {
 
 		$this->show_form(_t('Avatar updated.'), true);
 	}
-	
+
 	function scale_avatar($user, $avatar, $size) {
 		$image_s = imagecreatetruecolor($size, $size);
 		$image_a = $this->avatar_to_image($avatar);
-		
+
 		$square = min($avatar->width, $avatar->height);
-		
+
 		imagecopyresampled($image_s, $image_a, 0, 0, 0, 0,
 						   $size, $size, $square, $square);
 
 		$ext = ($avatar->mediattype == 'image/jpeg') ? ".jpg" : ".png";
-		
+
 		$filename = common_avatar_filename($user, $ext, $size);
-		
+
 		if ($avatar->mediatype == 'image/jpeg') {
 			imagejpeg($image_s, common_avatar_path($filename));
 		} else {
 			imagepng($image_s, common_avatar_path($filename));
 		}
-		
+
 		$scaled = DB_DataObject::factory('avatar');
 		$scaled->profile_id = $avatar->profile_id;
 		$scaled->width = $size;
@@ -182,16 +183,16 @@ class AvatarAction extends SettingsAction {
 		$scaled->filename = $filename;
 		$scaled->url = common_avatar_url($filename);
 		$scaled->created = DB_DataObject_Cast::dateTime(); # current time
-		
+
 		return $scaled;
 	}
-	
+
 	function avatar_to_image($avatar) {
 		$filepath = common_avatar_path($avatar->filename);
 		if ($avatar->mediatype == 'image/gif') {
 			return imagecreatefromgif($filepath);
 		} else if ($avatar->mediatype == 'image/jpeg') {
-			return imagecreatefromjpeg($filepath);			
+			return imagecreatefromjpeg($filepath);
 		} else if ($avatar->mediatype == 'image/png') {
 			return imagecreatefrompng($filepath);
 		} else {
@@ -199,7 +200,7 @@ class AvatarAction extends SettingsAction {
 			return NULL;
 		}
 	}
-	
+
 	function delete_old_avatars($user) {
 		$avatar = DB_DataObject::factory('avatar');
 		$avatar->profile_id = $user->id;
