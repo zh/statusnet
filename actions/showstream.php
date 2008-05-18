@@ -190,15 +190,15 @@ class ShowstreamAction extends StreamAction {
 		// XXX: WORM cache this
 		$subs = DB_DataObject::factory('subscription');
 		$subs->subscriber = $profile->id;
-		$subs_count = $subs->count();
+		$subs_count = $subs->count() || 0;
 
 		$subbed = DB_DataObject::factory('subscription');
 		$subbed->subscribed = $profile->id;
-		$subbed_count = $subbed->count();
+		$subbed_count = $subbed->count() || 0;
 
 		$notices = DB_DataObject::factory('notice');
 		$notices->profile_id = $profile->id;
-		$notice_count = $notices->count();
+		$notice_count = $notices->count() || 0;
 
 		# Other stats...?
 		common_element_start('dl', 'statistics');
@@ -220,7 +220,7 @@ class ShowstreamAction extends StreamAction {
 
 		$page = $this->arg('page') || 1;
 
-		$notice->limit((($page-1)*NOTICES_PER_PAGE) + 1, NOTICES_PER_PAGE);
+		$notice->limit((($page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE);
 
 		$notice->find();
 
@@ -229,7 +229,7 @@ class ShowstreamAction extends StreamAction {
 		while ($notice->fetch()) {
 			$this->show_notice($notice);
 		}
-
+		# XXX: show a link for the next page
 		common_element_end('div');
 	}
 
@@ -237,7 +237,7 @@ class ShowstreamAction extends StreamAction {
 		$notice = DB_DataObject::factory('notice');
 		$notice->profile_id = $profile->id;
 		$notice->orderBy('created DESC');
-		$notice->limit(1, 1);
+		$notice->limit(0, 1);
 		$notice->find();
 
 		while ($notice->fetch()) {

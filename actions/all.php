@@ -38,7 +38,7 @@ class AllAction extends ShowstreamAction {
 		
 		$page = $this->arg('page') || 1;
 		
-		$notice->limit((($page-1)*NOTICES_PER_PAGE) + 1, NOTICES_PER_PAGE);
+		$notice->limit((($page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE);
 		
 		$notice->find();
 		
@@ -48,6 +48,7 @@ class AllAction extends ShowstreamAction {
 			$this->show_notice($notice);
 		}
 		
+		# XXX: show a link for the next page
 		common_element_end('div');
 	}
 }

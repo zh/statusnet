@@ -44,7 +44,7 @@ class PublicAction extends StreamAction {
 		# XXX: filter out private notifications
 
 		$notice->orderBy('created DESC');
-		$notice->limit((($page-1)*NOTICES_PER_PAGE) + 1, NOTICES_PER_PAGE);
+		$notice->limit((($page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE);
 
 		$notice->find();
 
