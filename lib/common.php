@@ -41,7 +41,7 @@ $config =
 			  'server' => 'localhost',
 			  'path' => '/'),
 		'avatar' =>
-		array('directory' => INSTALLDIR . 'files',
+		array('directory' => INSTALLDIR . '/files',
 			  'path' => '/files')
 );
 
