@@ -38,12 +38,12 @@ class SubscriptionsAction extends Action {
 
 	function show_subscriptions($profile, $page) {
 
-		$sub = DB_DataObject::factory('subscription');
-		$sub->subscriber = $profile->id;
+		$subs = DB_DataObject::factory('subscription');
+		$subs->subscriber = $profile->id;
 		
 		# We ask for an extra one to know if we need to do another page
 		
-		$sub->limit((($page-1)*SUBSCRIPTIONS_PER_PAGE)+1, SUBSCRIPTIONS_PER_PAGE + 1);
+		$subs->limit((($page-1)*SUBSCRIPTIONS_PER_PAGE)+1, SUBSCRIPTIONS_PER_PAGE + 1);
 
 		$subs_count = $subs->find();
 		
