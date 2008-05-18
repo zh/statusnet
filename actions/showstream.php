@@ -190,15 +190,27 @@ class ShowstreamAction extends StreamAction {
 		// XXX: WORM cache this
 		$subs = DB_DataObject::factory('subscription');
 		$subs->subscriber = $profile->id;
-		$subs_count = $subs->count() || 0;
+		$subs_count = $subs->count();
 
+		if (!$subs_count) {
+			$subs_count = 0;
+		}
+		
 		$subbed = DB_DataObject::factory('subscription');
 		$subbed->subscribed = $profile->id;
-		$subbed_count = $subbed->count() || 0;
+		$subbed_count = $subbed->count();
 
+		if (!$subbed_count) {
+			$subbed_count = 0;
+		}
+		
 		$notices = DB_DataObject::factory('notice');
 		$notices->profile_id = $profile->id;
-		$notice_count = $notices->count() || 0;
+		$notice_count = $notices->count();
+		
+		if (!$notice_count) {
+			$notice_count = 0;
+		}
 
 		# Other stats...?
 		common_element_start('dl', 'statistics');
