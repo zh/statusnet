@@ -36,7 +36,9 @@ class SubscribedAction extends Action {
 		}
 		
 		$page = $this->arg('page') || 1;
+		common_show_header($profile->nickname . ": " . _t('Subscribers'));
 		$this->show_subscribed($profile, $page);
+		common_show_footer();
 	}
 
 	function show_subscribed($profile, $page) {
