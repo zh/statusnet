@@ -42,7 +42,7 @@ class ShowstreamAction extends StreamAction {
 
 		if (!$profile) {
 			common_server_error(_t('User record exists without profile.'));
-			return;			
+			return;
 		}
 
 		# Looks like we're good; show the header
@@ -84,7 +84,7 @@ class ShowstreamAction extends StreamAction {
 		common_element_start('form', array('id' => 'newnotice', 'method' => 'POST',
 										   'action' => common_local_url('newnotice')));
 		common_element('textarea', array('rows' => 4, 'cols' => 80,
-										 'name' => 'content', 
+										 'name' => 'content',
 										 'id' => 'content'));
 		common_element('input', array('type' => 'submit', 'value' => 'Send'));
 		common_element_end('form');
@@ -92,9 +92,9 @@ class ShowstreamAction extends StreamAction {
 
 	function show_profile($profile) {
 		common_element_start('div', 'profile');
-		
+
 		common_element('h2', 'nickname', $profile->nickname);
-		
+
 		$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
 		if ($avatar) {
 			common_element('img', array('src' => $avatar->url,
@@ -150,7 +150,7 @@ class ShowstreamAction extends StreamAction {
 		common_element_start('div', 'subscriptions');
 
 		common_element('h2', 'subscriptions', _t('Subscriptions'));
-		
+
 		$cnt = 0;
 
 		if ($subs) {
@@ -199,7 +199,7 @@ class ShowstreamAction extends StreamAction {
 		if (!$subs_count) {
 			$subs_count = 0;
 		}
-		
+
 		$subbed = DB_DataObject::factory('subscription');
 		$subbed->subscribed = $profile->id;
 		$subbed_count = $subbed->count();
@@ -207,18 +207,18 @@ class ShowstreamAction extends StreamAction {
 		if (!$subbed_count) {
 			$subbed_count = 0;
 		}
-		
+
 		$notices = DB_DataObject::factory('notice');
 		$notices->profile_id = $profile->id;
 		$notice_count = $notices->count();
-		
+
 		if (!$notice_count) {
 			$notice_count = 0;
 		}
 
 		common_element_start('div', 'statistics');
 		common_element('h2', 'statistics', _t('Statistics'));
-		
+
 		# Other stats...?
 		common_element_start('dl', 'statistics');
 		common_element('dt', _t('Subscriptions'));
@@ -228,7 +228,7 @@ class ShowstreamAction extends StreamAction {
 		common_element('dt', _t('Notices'));
 		common_element('dd', $notice_count);
 		common_element_end('dl');
-		
+
 		common_element_end('div');
 	}
 
@@ -247,7 +247,7 @@ class ShowstreamAction extends StreamAction {
 
 		common_element_start('div', 'notices');
 		common_element('h2', 'notices', _t('Notices'));
-		
+
 		while ($notice->fetch()) {
 			$this->show_notice($notice);
 		}
@@ -256,7 +256,7 @@ class ShowstreamAction extends StreamAction {
 	}
 
 	function show_last_notice($profile) {
-		
+
 		common_element_start('div', 'lastnotice');
 		common_element('h2', 'lastnotice', _t('Currently'));
 
@@ -264,7 +264,7 @@ class ShowstreamAction extends StreamAction {
 		$notice->profile_id = $profile->id;
 		$notice->orderBy('created DESC');
 		$notice->limit(0, 1);
-		
+
 		if ($notice->find(true)) {
 			# FIXME: URL, image, video, audio
 			common_element('span', array('class' => 'content'),
@@ -272,7 +272,7 @@ class ShowstreamAction extends StreamAction {
 			common_element('span', array('class' => 'date'),
 						   common_date_string($notice->created));
 		}
-		
+
 		common_element_end('div');
 	}
 }
