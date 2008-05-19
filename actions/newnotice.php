@@ -53,6 +53,7 @@ class NewnoticeAction extends Action {
 	}
 	
 	function show_form() {
+		common_show_header(_t('New notice'));
 		common_element_start('form', array('id' => 'newnotice', 'method' => 'POST',
 										   'action' => common_local_url('newnotice')));
 		common_element('span', 'nickname', $profile->nickname);
@@ -61,5 +62,6 @@ class NewnoticeAction extends Action {
 										 'id' => 'content'));
 		common_element('input', array('type' => 'submit', 'value' => 'Send'));
 		common_element_end('form');
+		common_show_footer();
 	}
 }

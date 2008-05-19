@@ -23,6 +23,11 @@ define('LACONICA', true);
 require_once(INSTALLDIR . "/lib/common.php");
 
 $action = $_REQUEST['action'];
+
+if (!$action) {
+	common_redirect(common_local_url('public'));
+}
+
 $actionfile = INSTALLDIR."/actions/$action.php";
 
 if (file_exists($actionfile)) {

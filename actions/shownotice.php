@@ -36,7 +36,7 @@ class ShownoticeAction extends Action {
 		
 		# Looks like we're good; show the header
 	
-		common_show_header($profile->nickname);
+		common_show_header($profile->nickname." status on ".$notice->created);
 	
 		$this->show_notice($notice);
 	

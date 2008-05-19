@@ -92,6 +92,9 @@ class ShowstreamAction extends StreamAction {
 
 	function show_profile($profile) {
 		common_element_start('div', 'profile');
+		
+		common_element('h2', 'nickname', $profile->nickname);
+		
 		$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
 		if ($avatar) {
 			common_element('img', array('src' => $avatar->url,
@@ -100,7 +103,6 @@ class ShowstreamAction extends StreamAction {
 										'height' => AVATAR_PROFILE_SIZE,
 										'title' => $profile->nickname));
 		}
-		common_element('span', 'nickname', $profile->nickname);
 		if ($profile->fullname) {
 			if ($profile->homepage) {
 				common_element('a', array('href' => $profile->homepage,
@@ -136,7 +138,7 @@ class ShowstreamAction extends StreamAction {
 									  'name' => 'unsubscribeto',
 									  'type' => 'hidden',
 									  'value' => $profile->nickname));
-		common_element('input', array('type' => 'submit'), _t('unsubscribe'));
+		common_element('input', array('type' => 'submit'), _t('Unsubscribe'));
 		common_element_end('form');
 	}
 
@@ -147,6 +149,8 @@ class ShowstreamAction extends StreamAction {
 
 		common_element_start('div', 'subscriptions');
 
+		common_element('h2', 'subscriptions', _t('Subscriptions'));
+		
 		$cnt = 0;
 
 		if ($subs) {
@@ -212,6 +216,9 @@ class ShowstreamAction extends StreamAction {
 			$notice_count = 0;
 		}
 
+		common_element_start('div', 'statistics');
+		common_element('h2', 'statistics', _t('Statistics'));
+		
 		# Other stats...?
 		common_element_start('dl', 'statistics');
 		common_element('dt', _t('Subscriptions'));
@@ -221,6 +228,8 @@ class ShowstreamAction extends StreamAction {
 		common_element('dt', _t('Notices'));
 		common_element('dd', $notice_count);
 		common_element_end('dl');
+		
+		common_element_end('div');
 	}
 
 	function show_notices($profile) {
@@ -237,7 +246,8 @@ class ShowstreamAction extends StreamAction {
 		$notice->find();
 
 		common_element_start('div', 'notices');
-
+		common_element('h2', 'notices', _t('Notices'));
+		
 		while ($notice->fetch()) {
 			$this->show_notice($notice);
 		}
@@ -246,18 +256,23 @@ class ShowstreamAction extends StreamAction {
 	}
 
 	function show_last_notice($profile) {
+		
+		common_element_start('div', 'lastnotice');
+		common_element('h2', 'lastnotice', _t('Currently'));
+
 		$notice = DB_DataObject::factory('notice');
 		$notice->profile_id = $profile->id;
 		$notice->orderBy('created DESC');
 		$notice->limit(0, 1);
-		$notice->find();
-
-		while ($notice->fetch()) {
+		
+		if ($notice->find(true)) {
 			# FIXME: URL, image, video, audio
 			common_element('span', array('class' => 'content'),
 						   $notice->content);
 			common_element('span', array('class' => 'date'),
 						   common_date_string($notice->created));
 		}
+		
+		common_element_end('div');
 	}
 }

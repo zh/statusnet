@@ -43,6 +43,7 @@ class AllAction extends ShowstreamAction {
 		$notice->find();
 		
 		common_element_start('div', 'notices');
+		common_element('h2', 'notices', _t('Notices'));
 
 		while ($notice->fetch()) {
 			$this->show_notice($notice);

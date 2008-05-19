@@ -114,6 +114,7 @@ function common_show_header($pagetitle) {
 				   $pagetitle . " - " . $config['site']['name']);
 	common_element_end('head');
 	common_element_start('body');
+	common_element('h1', 'title', $pagetitle);
 	common_head_menu();
 }
 
