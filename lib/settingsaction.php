@@ -51,7 +51,7 @@ class SettingsAction extends Action {
 	
 	function settings_menu() {
 		common_element_start('ul', 'headmenu');
-		common_menu_item(common_local_url('editprofile'),
+		common_menu_item(common_local_url('profilesettings'),
 						 _t('Profile'));
 		common_menu_item(common_local_url('avatar'),
 						 _t('Avatar'));
