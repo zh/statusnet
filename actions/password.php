@@ -36,13 +36,10 @@ class PasswordAction extends SettingsAction {
 		common_password('confirm', _t('Confirm'));
 		common_element('input', array('name' => 'submit',
 									  'type' => 'submit',
-									  'id' => 'submit'),
-					   _t('Login'));
-		common_element('input', array('name' => 'cancel',
-									  'type' => 'button',
-									  'id' => 'cancel'),
-					   _t('Cancel'));
+									  'id' => 'submit',
+									  'value' => _t('Change')));
 		common_element_end('form');
+		common_show_footer();
 	}
 
 	function handle_post() {
