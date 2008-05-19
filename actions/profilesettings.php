@@ -67,11 +67,13 @@ class ProfilesettingsAction extends SettingsAction {
 		
 		# FIXME: scrub input
 		# FIXME: transaction!
+
+		$original = clone($user);
 		
 		$user->nickname = $this->arg('nickname');
 		$user->email = $this->arg('email');
 		
-		if (!$user->update()) {
+		if (!$user->update($original)) {
 			common_server_error(_t('Couldnt update user.'));
 			return;
 		}

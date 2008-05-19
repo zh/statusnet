@@ -80,5 +80,6 @@ class LoginAction extends Action {
 									  'id' => 'cancel',
 									  'value' => _t('Cancel')));
 		common_element_end('form');
+		common_show_footer();
 	}
 }
