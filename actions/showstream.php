@@ -167,7 +167,7 @@ class ShowstreamAction extends StreamAction {
 				$avatar = $subs->getAvatar(AVATAR_MINI_SIZE);
 				common_element('img', array('src' => (($avatar) ? $avatar->url : DEFAULT_MINI_AVATAR),
 											'width' => AVATAR_MINI_SIZE,
-										'height' => AVATAR_MINI_SIZE,
+											'height' => AVATAR_MINI_SIZE,
 											'class' => 'avatar mini'));
 				common_element_end('a');
 
@@ -194,7 +194,8 @@ class ShowstreamAction extends StreamAction {
 		// XXX: WORM cache this
 		$subs = DB_DataObject::factory('subscription');
 		$subs->subscriber = $profile->id;
-		$subs_count = $subs->count();
+		$subs->whereAdd("subscriber=".$profile->id);
+		$subs_count = $subs->count(DB_DATAOBJECT_WHEREADD_ONLY);
 
 		if (!$subs_count) {
 			$subs_count = 0;
@@ -202,7 +203,8 @@ class ShowstreamAction extends StreamAction {
 
 		$subbed = DB_DataObject::factory('subscription');
 		$subbed->subscribed = $profile->id;
-		$subbed_count = $subbed->count();
+		$subbed->whereAdd("subscribed=".$profile->id);
+		$subbed_count = $subbed->count(DB_DATAOBJECT_WHEREADD_ONLY);
 
 		if (!$subbed_count) {
 			$subbed_count = 0;
