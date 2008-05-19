@@ -221,12 +221,12 @@ class ShowstreamAction extends StreamAction {
 
 		# Other stats...?
 		common_element_start('dl', 'statistics');
-		common_element('dt', _t('Subscriptions'));
-		common_element('dd', $subs_count);
-		common_element('dt', _t('Subscribers'));
-		common_element('dd', $subbed_count);
-		common_element('dt', _t('Notices'));
-		common_element('dd', $notice_count);
+		common_element('dt', 'subscriptions', _t('Subscriptions'));
+		common_element('dd', 'subscriptions', $subs_count);
+		common_element('dt', 'subscribers', _t('Subscribers'));
+		common_element('dd', 'subscribers', $subbed_count);
+		common_element('dt', 'notices', _t('Notices'));
+		common_element('dd', 'notices', $notice_count);
 		common_element_end('dl');
 
 		common_element_end('div');
