@@ -179,6 +179,14 @@ function common_input($id, $label, $value=NULL) {
 	common_element('input', $attrs);
 }
 
+function common_password($id, $label) {
+	common_element('label', array('for' => $id), $label);
+	$attrs = array('name' => $id,
+				   'type' => 'password',
+				   'id' => $id);
+	common_element('input', $attrs);
+}
+
 # salted, hashed passwords are stored in the DB
 
 function common_munge_password($id, $password) {
