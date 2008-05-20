@@ -1,0 +1,11 @@
+/**************************************************************
+   AUTHOR:  Pat Heard (fullahead.org)
+   DATE:    2006.09.12 
+   PURPOSE: Fixes IE's major problems
+ **************************************************************/
+
+#content {  
+  /* takes care of POS IE and it's support for transparent .png */
+  background: none;
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/bg/content.png',sizingMethod='scale');
+}
