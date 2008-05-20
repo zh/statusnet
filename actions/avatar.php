@@ -67,6 +67,7 @@ class AvatarAction extends SettingsAction {
 									  'id' => 'submit',
 									  'value' =>_t('Upload')));
 		common_element_end('form');
+		common_show_footer();
 	}
 
 	function handle_post() {
