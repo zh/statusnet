@@ -50,9 +50,4 @@ class Notice extends DB_DataObject
 	function validateContent() {
 		return Validate::string($this->content, array('min_length' => 1, 'max_length' => 140));
 	}
-
-	function validateUrl() {
-		return is_null($this->url) || (strlen($this->url) == 0) ||
-		  Validate::uri($this->url, array('allowed_schemes' => array('http', 'https')));
-	}
 }
