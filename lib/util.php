@@ -175,7 +175,7 @@ function common_head_menu() {
 }
 
 function common_foot_menu() {
-	common_element_start('ul', 'footmenu');
+	common_element_start('ul', 'footmenu menuish');
 	common_menu_item(common_local_url('doc', array('title' => 'about')),
 					 _t('About'));
 	common_menu_item(common_local_url('doc', array('title' => 'help')),

@@ -1,11 +1,9 @@
 /**************************************************************
    AUTHOR:  Pat Heard (fullahead.org)
-   DATE:    2006.09.12 
+   DATE:    2006.09.12
    PURPOSE: Controls the layout of the site and styles
             the menus
  **************************************************************/
-
-
 
 /**************************************************************
    #wrapper & #content: wrapper positions and sets the width
@@ -16,36 +14,31 @@
   width: 589px;
   height: 100%;
   margin: 0 auto;
-  
+
   text-align: left;
 }
 
-
-#content { 
+#content {
   float: left;
   width: 589px;
   height: 100%;
-  min-height: 100%; 
-  
+  min-height: 100%;
+
   background: url(../image/content.gif) repeat-y top center;
 }
 
-
 #content[id] {
-  height: auto;  
+  height: auto;
   background: url(../image/content.png) repeat-y top center;
 }
-
-
-
 
 /**************************************************************
    #header: Holds the site title and header images
  **************************************************************/
 
 #header {
-  padding: 60px 0 2em 49px;  
-  background: url(../image/header.jpg) no-repeat top center;  
+  padding: 60px 0 2em 49px;
+  background: url(../image/header.jpg) no-repeat top center;
 }
 
 /* Forces IE to set the hasLayout flag and show the header at the height of its contents \*/
@@ -54,11 +47,10 @@
 }
 /* End hide from IE-mac */
 
-
 #header h1,
 #header h2 {
   margin: 0;
-  padding: 0;  
+  padding: 0;
   background: none;
 }
 
@@ -69,18 +61,15 @@
   color: #6E310B;
 }
 
-
-
-
 /**************************************************************
    #menu: The top level site menu
  **************************************************************/
 
 ul#menu {
   width: 491px;
-  margin: 0 auto;  
+  margin: 0 auto;
   padding: 0 !important;
-  padding: 0 0 0 10px;  
+  padding: 0 0 0 10px;
 }
 
 ul#menu li {
@@ -91,13 +80,13 @@ ul#menu li {
 }
 
 ul#menu li a {
-  float: left;  
+  float: left;
   padding: 15px 0 5px 0;
 
   font: 400 1.54em georgia, serif;
   text-align: center;
   text-decoration: none;
-  
+
   color: #61804E;
   border-bottom: 1px solid #D3F1B6;
 }
@@ -137,17 +126,14 @@ ul.five li a {
    #page: Holds the main page content.
  **************************************************************/
 
-#page {  
+#page {
   float: left;
-  clear: both;   
+  clear: both;
   width: 491px !important;
   width: 100%;
-  
-  padding: 2em 49px;  
+
+  padding: 2em 49px;
 }
-
-
-
 
 /**************************************************************
    .footer: Site footer
@@ -159,9 +145,6 @@ ul.five li a {
   clear: both;
 }
 
-
-
-
 /**************************************************************
    .bigLinks: Large, clickable links
  **************************************************************/
@@ -170,7 +153,7 @@ ul.bigLinks {
   margin: 10px 0;
   padding: 0;
   list-style: none;
-  
+
 }
 
 ul.bigLinks li {
@@ -181,7 +164,7 @@ ul.bigLinks li {
 }
 
 ul.bigLinks li a,
-ul.bigLinks li a:visited {  
+ul.bigLinks li a:visited {
   display: block;
 
   margin: 10px 0;
@@ -189,7 +172,7 @@ ul.bigLinks li a:visited {
 
   text-decoration: none;
   background-color: #FFF;
-  border: 0;  
+  border: 0;
 }
 
 ul.bigLinks li a:hover {
@@ -199,7 +182,7 @@ ul.bigLinks li a:hover {
 }
 
 ul.bigLinks li a span.title {
-  color: #5E9040;  
+  color: #5E9040;
   border-bottom: 1px solid #B8E78B;
 }
 
@@ -216,8 +199,6 @@ ul.bigLinks li a span.desc {
 ul.bigLinks li a:hover span.desc {
   color: #555;
 }
-
-
 
 /**************************************************************
    Width classes used by the site columns
@@ -247,8 +228,6 @@ ul.bigLinks li a:hover span.desc {
   width: 23%;
 }
 
-
-
 /**************************************************************
    Alignment classes
  **************************************************************/
@@ -269,8 +248,6 @@ ul.bigLinks li a:hover span.desc {
   text-align: right;
 }
 
-
-
 /**************************************************************
    Generic display classes
  **************************************************************/
@@ -284,11 +261,11 @@ ul.bigLinks li a:hover span.desc {
 }
 
 .big {
-  font-size: 1.3em;  
+  font-size: 1.3em;
 }
 
 .small {
-  font-size: 0.85em;  
+  font-size: 0.85em;
 }
 
 .bold {
@@ -311,7 +288,6 @@ ul.bigLinks li a:hover span.desc {
   color: #512103;
 }
 
-
 .greenBg {
   padding: 0 10px;
   background-color: #F1FFE3;
@@ -324,7 +300,7 @@ ul.bigLinks li a:hover span.desc {
   border-top: 1px solid #BDEDDE;
 }
 
-
-
-
-
+ul.menuish {
+  display: inline;
+  list-style: none;
+}
