@@ -72,4 +72,33 @@ class Profile extends DB_DataObject
 			return NULL;
 		}
 	}
+	
+	function validateNickname() {
+		return Validate::string($this->nickname, array('min_length' => 1, 'max_length' => 64,
+													   'format' => VALIDATE_ALPHA_LOWER . VALIDATE_NUM));
+	}
+	
+	function validateProfileurl() {
+		return Validate::uri($this->profileurl, array('allowed_schemes' => array('http', 'https')));
+	}
+	
+	function validateHomepage() {
+		return (is_null($this->homepage) ||
+				Validate::uri($this->homepage, array('allowed_schemes' => array('http', 'https'))));
+	}
+		
+	function validateBio() {
+		return is_null($this->bio) || 
+		  Validate::string($this->bio, array('min_length' => 1, 'max_length' => 140));
+	}
+	
+	function validateLocation() {
+		return is_null($this->location) ||
+		  Validate::string($this->location, array('min_length' => 1, 'max_length' => 255));
+	}
+	
+	function validateFullname() {
+		return is_null($this->fullname) ||
+		  Validate::string($this->fullname, array('min_length' => 1, 'max_length' => 255));
+	}
 }

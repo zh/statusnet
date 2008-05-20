@@ -22,6 +22,7 @@ if (!defined('LACONICA')) { exit(1); }
  * Table Definition for user
  */
 require_once 'DB/DataObject.php';
+require_once 'Validate.php';
 
 class User extends DB_DataObject 
 {
@@ -58,5 +59,14 @@ class User extends DB_DataObject
 		$sub->subscriber = $this->id;
 		$sub->subscribed = $other->id;
 		return $sub->find();
+	}
+	
+	function validateEmail() {
+		return Validate::email($this->email, true);
+	}
+	
+	function validateNickname() {
+		return Validate::string($this->nickname, array('min_length' => 1, 'max_length' => 64,
+													   'format' => VALIDATE_ALPHA_LOWER . VALIDATE_NUM));
 	}
 }

@@ -25,4 +25,16 @@ class Avatar extends DB_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+	
+	function validateMediatype() {
+		return Validate::string($this->mediatype, array('min_length' => 1, 'max_length' => 32));
+	}
+	
+	function validateFilename() {
+		return Validate::string($this->filename, array('min_length' => 1, 'max_length' => 255));
+	}
+	
+	function validateUrl() {
+		return Validate::uri($this->url, array('allowed_schemes' => array('http', 'https')));
+	}
 }

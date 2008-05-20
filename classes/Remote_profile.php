@@ -40,4 +40,9 @@ class Remote_profile extends DB_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+	
+	function validateUrl() {
+		return is_null($this->url) ||
+		  Validate::uri($this->url, array('allowed_schemes' => array('http', 'https')));
+	}
 }
