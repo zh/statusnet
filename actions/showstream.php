@@ -123,6 +123,7 @@ class ShowstreamAction extends StreamAction {
 		if ($profile->bio) {
 			common_element('div', 'bio', $profile->bio);
 		}
+		common_element_end('div');
 	}
 
 	function show_subscribe_form($profile) {
