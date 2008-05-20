@@ -55,9 +55,9 @@ class ShowstreamAction extends StreamAction {
 			common_notice_form();
 		}
 
-		$this->show_notices($profile);
-
 		$this->show_sidebar($profile);
+		
+		$this->show_notices($profile);
 		
 		common_show_footer();
 	}
