@@ -377,6 +377,20 @@ function common_profile_url($nickname) {
 	return common_local_url('showstream', array('nickname' => $nickname));
 }
 
+function common_notice_form() {
+	common_element_start('form', array('id' => 'newnotice', 'method' => 'POST',
+									   'action' => common_local_url('newnotice')));
+	common_element_start('p');
+	common_element('label', array('for' => 'content'), _t('What\'s up?'));
+	common_element('textarea', array('rows' => 3, 'cols' => 40,
+									 'name' => 'content',
+									 'id' => 'content', 
+									 'class' => 'width75'),
+				   ' ');
+	common_submit('submit', _t('Send'));
+	common_element_end('form');
+	}
+
 // XXX: set up gettext
 
 function _t($str) {

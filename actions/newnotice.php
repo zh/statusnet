@@ -58,18 +58,10 @@ class NewnoticeAction extends Action {
 			return NULL;
 		}
 	}
-
+	
 	function show_form() {
 		common_show_header(_t('New notice'));
-		common_element_start('form', array('id' => 'newnotice', 'method' => 'POST',
-										   'action' => common_local_url('newnotice')));
-		common_element('span', 'nickname', $profile->nickname);
-		common_element('textarea', array('rows' => 3, 'cols' => 60,
-										 'name' => 'content',
-										 'id' => 'content'),
-					   ' ');
-		common_submit('submit', _t('Send'));
-		common_element_end('form');
+		common_notice_form();
 		common_show_footer();
 	}
 }

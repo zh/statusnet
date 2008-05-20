@@ -52,12 +52,23 @@ class ShowstreamAction extends StreamAction {
 		$cur = common_current_user();
 
 		if ($cur && $profile->id == $cur->id) {
-			$this->notice_form();
+			common_notice_form();
 		}
 
 		$this->show_notices($profile);
 
-		common_element_start('div', 'sidebar width33 floatRight greenBg');
+		$this->show_sidebar($profile);
+		
+		common_show_footer();
+	}
+
+	function no_such_user() {
+		common_user_error('No such user');
+	}
+
+	function show_sidebar($profile) {
+
+		common_element_start('div', 'sidebar width25 floatRight greenBg');
 
 		$this->show_profile($profile);
 
@@ -76,25 +87,8 @@ class ShowstreamAction extends StreamAction {
 		$this->show_subscriptions($profile);
 
 		common_element_end('div');
-
-		common_show_footer();
 	}
-
-	function no_such_user() {
-		common_user_error('No such user');
-	}
-
-	function notice_form() {
-		common_element_start('form', array('id' => 'newnotice', 'method' => 'POST',
-										   'action' => common_local_url('newnotice')));
-		common_element('textarea', array('rows' => 3, 'cols' => 60,
-										 'name' => 'content',
-										 'id' => 'content'),
-					   ' ');
-		common_submit('submit', _t('Send'));
-		common_element_end('form');
-	}
-
+	
 	function show_profile($profile) {
 		common_element_start('div', 'profile');
 
@@ -255,12 +249,16 @@ class ShowstreamAction extends StreamAction {
 
 		$notice->find();
 
-		common_element_start('div', 'notices width66 floatLeft');
-		common_element('h2', 'notices', _t('Notices'));
+		common_element_start('div', 'notices width75 floatLeft');
 
+		common_element_start('ul', 'bigLinks');
+		
 		while ($notice->fetch()) {
 			$this->show_notice($notice);
 		}
+		
+		common_element_end('ul');
+		
 		# XXX: show a link for the next page
 		common_element_end('div');
 	}
@@ -279,10 +277,22 @@ class ShowstreamAction extends StreamAction {
 			# FIXME: URL, image, video, audio
 			common_element('span', array('class' => 'content'),
 						   $notice->content);
-			common_element('span', array('class' => 'date'),
-						   common_date_string($notice->created));
 		}
 
 		common_element_end('div');
+	}
+	
+	function show_notice($notice) {
+		$profile = $notice->getProfile();
+		# XXX: RDFa
+		common_element_start('li', array('class' => 'notice',
+										 'id' => 'notice-' . $notice->id));
+		$noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
+		# FIXME: URL, image, video, audio
+		common_element_start('a', array('class' => 'notice',
+								  'href' => $noticeurl));
+		common_element('span', 'title', common_date_string($notice->created));
+		common_element('span', 'desc', $notice->content);
+		common_element_end('li');
 	}
 }

@@ -21,9 +21,41 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/actions/showstream.php');
 
-class AllAction extends ShowstreamAction {
+class AllAction extends StreamAction {
 
-	// XXX: push this up to a common function.
+	function handle($args) {
+
+		parent::handle($args);
+
+		$nickname = common_canonical_nickname($this->arg('nickname'));
+		$user = User::staticGet('nickname', $nickname);
+
+		if (!$user) {
+			$this->no_such_user();
+			return;
+		}
+
+		$profile = $user->getProfile();
+
+		if (!$profile) {
+			common_server_error(_t('User record exists without profile.'));
+			return;
+		}
+
+		# Looks like we're good; show the header
+
+		common_show_header($profile->nickname . _t(" and friends"));
+
+		$cur = common_current_user();
+
+		if ($cur && $profile->id == $cur->id) {
+			common_notice_form();
+		}
+
+		$this->show_notices($profile);
+		
+		common_show_footer();
+	}
 
 	function show_notices($profile) {
 
@@ -42,7 +74,7 @@ class AllAction extends ShowstreamAction {
 
 		$notice->find();
 
-		common_element_start('div', 'notices');
+		common_element_start('div', 'notices width100');
 		common_element('h2', 'notices', _t('Notices'));
 
 		while ($notice->fetch()) {

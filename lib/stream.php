@@ -27,7 +27,6 @@ class StreamAction extends Action {
 		parent::handle($args);
 	}
 
-	# XXX: for 'showstream' repeats same avatar over and over
 	function show_notice($notice) {
 		$profile = $notice->getProfile();
 		# XXX: RDFa
@@ -36,7 +35,7 @@ class StreamAction extends Action {
 		$avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
 		common_element_start('a', array('href' => $profile->profileurl));
 		common_element('img', array('src' => ($avatar) ? $avatar->url : DEFAULT_STREAM_AVATAR,
-									'class' => 'avatar stream floatLeft',
+									'class' => 'avatar stream',
 									'width' => AVATAR_STREAM_SIZE,
 									'height' => AVATAR_STREAM_SIZE,
 									'alt' =>
