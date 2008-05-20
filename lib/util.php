@@ -92,12 +92,36 @@ function common_show_header($pagetitle) {
 }
 
 function common_show_footer() {
-	global $xw;
+	global $xw, $config;
 	common_foot_menu();
+	common_license_block();
 	common_element_end('body');
 	common_element_end('html');
 	$xw->endDocument();
 	$xw->flush();
+}
+
+function common_text($txt) {
+	global $xw;
+	$xw->text($txt);
+}
+
+function common_license_block() {
+	global $config, $xw;
+	common_element_start('div', 'license');
+	common_element_start('a', array('class' => 'license',
+									'rel' => 'license',
+									href => $config['license']['url']));
+	common_element('img', array('class' => 'license',
+								'src' => $config['license']['image']));
+	common_element_end('a');
+	common_text(_t('Unless otherwise specified, contents of this site are copyright by the contributors and available under the '));
+	common_element('a', array('class' => 'license',
+							  'rel' => 'license',
+							  href => $config['license']['url']),
+				   $config['license']['name']);
+	common_text(_t('. Contributors should be attributed by full name or nickname.'));
+	common_element_end('div');
 }
 
 function common_head_menu() {
