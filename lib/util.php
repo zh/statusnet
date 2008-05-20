@@ -217,8 +217,11 @@ function common_password($id, $label) {
 }
 
 function common_submit($id, $label) {
+	global $xw;
 	common_element_start('p');
-	common_element('label', NULL, ' ');
+	common_element_start('label', array('for' => $id));
+	$xw->writeRaw('&nbsp;');
+	common_element_end('label');
 	common_element('input', array('type' => 'submit',
 								  'id' => $id,
 								  'name' => $id,
