@@ -63,10 +63,7 @@ class LoginAction extends Action {
 										   'action' => common_local_url('login')));
 		common_input('nickname', _t('Nickname'));
 		common_password('password', _t('Password'));
-		common_element('input', array('name' => 'submit',
-									  'type' => 'submit',
-									  'id' => 'submit',
-									  'value' => _t('Login')));
+		common_submit('submit', _t('Login'));
 		common_element_end('form');
 		common_show_footer();
 	}
