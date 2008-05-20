@@ -55,6 +55,8 @@ class ShowstreamAction extends StreamAction {
 			$this->notice_form();
 		}
 
+		$this->show_notices($profile);
+
 		common_element_start('div', 'sidebar width33 floatRight greenBg');
 
 		$this->show_profile($profile);
@@ -74,8 +76,6 @@ class ShowstreamAction extends StreamAction {
 		$this->show_subscriptions($profile);
 
 		common_element_end('div');
-
-		$this->show_notices($profile);
 
 		common_show_footer();
 	}
@@ -255,7 +255,7 @@ class ShowstreamAction extends StreamAction {
 
 		$notice->find();
 
-		common_element_start('div', 'notices');
+		common_element_start('div', 'notices width66 floatLeft');
 		common_element('h2', 'notices', _t('Notices'));
 
 		while ($notice->fetch()) {
