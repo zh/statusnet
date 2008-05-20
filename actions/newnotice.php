@@ -48,7 +48,7 @@ class NewnoticeAction extends Action {
 		assert($notice);
 		$notice->profile_id = $user->id; # user id *is* profile id
 		$notice->created = DB_DataObject_Cast::dateTime();
-		$notice->content = $this->arg('content');
+		$notice->content = trim($this->arg('content'));
 		return $notice->insert();
 	}
 	
@@ -57,10 +57,10 @@ class NewnoticeAction extends Action {
 		common_element_start('form', array('id' => 'newnotice', 'method' => 'POST',
 										   'action' => common_local_url('newnotice')));
 		common_element('span', 'nickname', $profile->nickname);
-		common_element_start('textarea', array('rows' => 4, 'cols' => 80,
-											   'name' => 'content',
-											   'id' => 'content'));
-		common_element_end('textarea');
+		common_element('textarea', array('rows' => 4, 'cols' => 80,
+										 'name' => 'content',
+										 'id' => 'content'),
+					   ' ');
 		common_element('input', array('type' => 'submit', 'value' => 'Send'));
 		common_element_end('form');
 		common_show_footer();
