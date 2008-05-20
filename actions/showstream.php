@@ -68,7 +68,7 @@ class ShowstreamAction extends StreamAction {
 
 	function show_sidebar($profile) {
 
-		common_element_start('div', 'sidebar width25 floatRight greenBg');
+		common_element_start('div', 'sidebar width33 floatRight greenBg');
 
 		$this->show_profile($profile);
 
@@ -249,7 +249,7 @@ class ShowstreamAction extends StreamAction {
 
 		$notice->find();
 
-		common_element_start('div', 'notices width75 floatLeft');
+		common_element_start('div', 'notices width66 floatLeft');
 
 		common_element_start('ul', 'bigLinks');
 		
