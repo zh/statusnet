@@ -67,6 +67,8 @@ function common_element($tag, $attrs=NULL, $content=NULL) {
 
 function common_show_header($pagetitle) {
 	global $config, $xw;
+
+	header('Content-Type: application/xhtml+xml');
 	
 	$xw = new XMLWriter();
 	$xw->openURI('php://output');
