@@ -85,16 +85,39 @@ function common_show_header($pagetitle) {
 	common_element_start('head');
 	common_element('title', NULL, 
 				   $pagetitle . " - " . $config['site']['name']);
+	common_element('link', array('rel' => 'stylesheet',
+								 'type' => 'text/css',
+								 'href' => $config['site']['path'] . 'theme/default/style/html.css',
+								 'media' => 'screen, projection, tv'));
+	common_element('link', array('rel' => 'stylesheet',
+								 'type' => 'text/css',
+								 'href' => $config['site']['path'] . 'theme/default/style/layout.css',
+								 'media' => 'screen, projection, tv'));
+	common_element('link', array('rel' => 'stylesheet',
+								 'type' => 'text/css',
+								 'href' => $config['site']['path'] . 'theme/default/style/print.css',
+								 'media' => 'print'));
 	common_element_end('head');
 	common_element_start('body');
+	common_element_start('div', array('id' => 'wrapper'));
+	common_element_start('div', array('id' => 'content'));
+	common_element_start('div', array('id' => 'header'));	
 	common_element('h1', 'title', $pagetitle);
+	common_element('h2', 'subtitle', $config['site']['name']);
+	common_element_end('div');
 	common_head_menu();
+	common_element_start('div', array('id' => 'page'));
 }
 
 function common_show_footer() {
 	global $xw, $config;
+	common_element_start('p', 'footer');
 	common_foot_menu();
 	common_license_block();
+	common_element_end('p');
+	common_element_end('div');
+	common_element_end('div');
+	common_element_end('div');
 	common_element_end('body');
 	common_element_end('html');
 	$xw->endDocument();
@@ -127,7 +150,7 @@ function common_license_block() {
 
 function common_head_menu() {
 	$user = common_current_user();
-	common_element_start('ul', 'headmenu');
+	common_element_start('ul', array('id' => 'menu', 'class' => ($user) ? 'five' : 'three'));
 	common_menu_item(common_local_url('doc', array('title' => 'help')),
 					 _t('Help'));
 	if ($user) {
