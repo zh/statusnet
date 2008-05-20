@@ -50,7 +50,7 @@ class ShownoticeAction extends Action {
 	function show_notice($notice) {
 		$profile = $notice->getProfile();
 		# XXX: RDFa
-		common_element_start('div', array('class' => 'notice'));
+		common_element_start('div', array('class' => 'notice greenBg'));
 		$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
 		if ($avatar) {
 			common_element('img', array('src' => $avatar->url,
