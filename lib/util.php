@@ -71,6 +71,7 @@ function common_show_header($pagetitle) {
 	header('Content-Type: application/xhtml+xml');
 	
 	$xw = new XMLWriter();
+	$xw->setIndent(true);
 	$xw->openURI('php://output');
 	$xw->startDocument('1.0', 'UTF-8');
 	$xw->writeDTD('html', '-//W3C//DTD XHTML 1.0 Strict//EN',
