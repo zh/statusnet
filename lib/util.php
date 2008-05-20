@@ -112,10 +112,10 @@ function common_show_header($pagetitle) {
 
 function common_show_footer() {
 	global $xw, $config;
-	common_element_start('p', 'footer');
+	common_element_start('div', 'footer');
 	common_foot_menu();
 	common_license_block();
-	common_element_end('p');
+	common_element_end('div');
 	common_element_end('div');
 	common_element_end('div');
 	common_element_end('div');

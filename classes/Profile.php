@@ -84,7 +84,7 @@ class Profile extends DB_DataObject
 
 	function validateHomepage() {
 		return (strlen($this->homepage) == 0) ||
-		  Validate::uri($this->homepage, array('allowed_schemes' => array('http', 'https'))));
+		  Validate::uri($this->homepage, array('allowed_schemes' => array('http', 'https')));
 	}
 
 	function validateBio() {
