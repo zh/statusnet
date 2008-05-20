@@ -387,6 +387,7 @@ function common_notice_form() {
 									 'id' => 'content', 
 									 'class' => 'width75'),
 				   ' ');
+	common_element_end('p');
 	common_submit('submit', _t('Send'));
 	common_element_end('form');
 	}
