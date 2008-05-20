@@ -42,8 +42,8 @@ class ProfilesettingsAction extends SettingsAction {
 					 ($this->arg('email')) ? $this->arg('email') : $user->email);
 		common_input('homepage', _t('Homepage'),
 					 ($this->arg('homepage')) ? $this->arg('homepage') : $profile->homepage);
-		common_input('bio', _t('Bio'),
-					 ($this->arg('bio')) ? $this->arg('bio') : $profile->bio);
+		common_textarea('bio', _t('Bio'),
+						($this->arg('bio')) ? $this->arg('bio') : $profile->bio);
 		common_input('location', _t('Location'),
 					 ($this->arg('location')) ? $this->arg('location') : $profile->location);
 		common_submit('submit', _t('Save'));

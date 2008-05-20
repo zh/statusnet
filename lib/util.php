@@ -232,6 +232,17 @@ function common_submit($id, $label) {
 	common_element_end('p');
 }
 
+function common_textarea($id, $label, $content=NULL) {
+	common_element_start('p');
+	common_element('label', array('for' => $id), $label);
+	common_element('textarea', array('rows' => 3, 'cols' => 40,
+									 'name' => $id,
+									 'id' => $id, 
+									 'class' => 'width50'),
+				   ($content) ? $content : ' ');
+	common_element_end('p');
+}
+
 # salted, hashed passwords are stored in the DB
 
 function common_munge_password($id, $password) {
@@ -381,14 +392,7 @@ function common_profile_url($nickname) {
 function common_notice_form() {
 	common_element_start('form', array('id' => 'newnotice', 'method' => 'POST',
 									   'action' => common_local_url('newnotice')));
-	common_element_start('p');
-	common_element('label', array('for' => 'content'), _t('What\'s up?'));
-	common_element('textarea', array('rows' => 3, 'cols' => 40,
-									 'name' => 'content',
-									 'id' => 'content', 
-									 'class' => 'width50'),
-				   ' ');
-	common_element_end('p');
+	common_textarea('content', _t('What\'s up?'));
 	common_submit('submit', _t('Send'));
 	common_element_end('form');
 }
