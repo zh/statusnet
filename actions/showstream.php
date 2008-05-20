@@ -194,8 +194,7 @@ class ShowstreamAction extends StreamAction {
 		// XXX: WORM cache this
 		$subs = DB_DataObject::factory('subscription');
 		$subs->subscriber = $profile->id;
-		$subs->whereAdd("subscriber=".$profile->id);
-		$subs_count = $subs->count(DB_DATAOBJECT_WHEREADD_ONLY);
+		$subs_count = $subs->count();
 
 		if (!$subs_count) {
 			$subs_count = 0;
@@ -203,8 +202,7 @@ class ShowstreamAction extends StreamAction {
 
 		$subbed = DB_DataObject::factory('subscription');
 		$subbed->subscribed = $profile->id;
-		$subbed->whereAdd("subscribed=".$profile->id);
-		$subbed_count = $subbed->count(DB_DATAOBJECT_WHEREADD_ONLY);
+		$subbed_count = $subbed->count();
 
 		if (!$subbed_count) {
 			$subbed_count = 0;
