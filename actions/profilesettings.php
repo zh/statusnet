@@ -76,7 +76,7 @@ class ProfilesettingsAction extends SettingsAction {
 			$this->show_form(_t('Error saving user; invalid.'));
 			return;
 		}
-		
+
 		if (!$user->update($original)) {
 			common_server_error(_t('Couldnt update user.'));
 			return;
@@ -99,7 +99,7 @@ class ProfilesettingsAction extends SettingsAction {
 			$this->show_form(_t('Error saving profile; invalid.'));
 			return;
 		}
-		
+
 		if (!$profile->update($orig_profile)) {
 			common_server_error(_t('Couldnt save profile.'));
 			return;

@@ -129,7 +129,7 @@ class AvatarAction extends SettingsAction {
 		$avatar->created = DB_DataObject_Cast::dateTime(); # current time
 
 		$val = $avatar->validate();
-		
+
 		if ($val !== TRUE) {
 			$err = '';
 			foreach ($val as $k=>$v) {
@@ -138,7 +138,7 @@ class AvatarAction extends SettingsAction {
 				return;
 			}
 		}
-		
+
 		foreach (array(AVATAR_PROFILE_SIZE, AVATAR_STREAM_SIZE, AVATAR_MINI_SIZE) as $size) {
 			$scaled[] = $this->scale_avatar($user, $avatar, $size);
 		}

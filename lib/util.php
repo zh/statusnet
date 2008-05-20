@@ -1,18 +1,18 @@
 <?php
-/* 
+/*
  * Laconica - a distributed open-source microblogging tool
  * Copyright (C) 2008, Controlez-Vous, Inc.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -69,7 +69,7 @@ function common_show_header($pagetitle) {
 	global $config, $xw;
 
 	header('Content-Type: application/xhtml+xml');
-	
+
 	$xw = new XMLWriter();
 	$xw->openURI('php://output');
 	$xw->setIndent(true);
@@ -78,13 +78,13 @@ function common_show_header($pagetitle) {
 				  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd');
 
 	# FIXME: correct language for interface
-	
+
 	common_element_start('html', array('xmlns' => 'http://www.w3.org/1999/xhtml',
 									   'xml:lang' => 'en',
 									   'lang' => 'en'));
-	
+
 	common_element_start('head');
-	common_element('title', NULL, 
+	common_element('title', NULL,
 				   $pagetitle . " - " . $config['site']['name']);
 	common_element('link', array('rel' => 'stylesheet',
 								 'type' => 'text/css',
@@ -102,7 +102,7 @@ function common_show_header($pagetitle) {
 	common_element_start('body');
 	common_element_start('div', array('id' => 'wrapper'));
 	common_element_start('div', array('id' => 'content'));
-	common_element_start('div', array('id' => 'header'));	
+	common_element_start('div', array('id' => 'header'));
 	common_element('h1', 'title', $pagetitle);
 	common_element('h2', 'subtitle', $config['site']['name']);
 	common_element_end('div');
@@ -155,7 +155,7 @@ function common_head_menu() {
 	common_menu_item(common_local_url('doc', array('title' => 'help')),
 					 _t('Help'));
 	if ($user) {
-		common_menu_item(common_local_url('all', array('nickname' => 
+		common_menu_item(common_local_url('all', array('nickname' =>
 													   $user->nickname)),
 						 _t('Home'));
 		common_menu_item(common_local_url('showstream', array('nickname' =>
@@ -243,7 +243,7 @@ function common_check_user($nickname, $password) {
 	if (is_null($user)) {
 		return false;
 	} else {
-		return (0 == strcmp(common_munge_password($password, $user->id), 
+		return (0 == strcmp(common_munge_password($password, $user->id),
 							$user->password));
 	}
 }
@@ -379,6 +379,6 @@ function common_profile_url($nickname) {
 
 // XXX: set up gettext
 
-function _t($str) { 
+function _t($str) {
 	return $str;
 }

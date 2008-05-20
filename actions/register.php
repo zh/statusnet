@@ -1,18 +1,18 @@
 <?php
-/* 
+/*
  * Laconica - a distributed open-source microblogging tool
  * Copyright (C) 2008, Controlez-Vous, Inc.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -20,10 +20,10 @@
 if (!defined('LACONICA')) { exit(1); }
 
 class RegisterAction extends Action {
-	
+
 	function handle($args) {
 		parent::handle($args);
-		
+
 		if (common_logged_in()) {
 			common_user_error(_t('Already logged in.'));
 		} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -40,10 +40,10 @@ class RegisterAction extends Action {
 		$email = $this->arg('email');
 
 		# Input scrubbing
-		
+
 		$nickname = common_canonical_nickname($nickname);
 		$email = common_canonical_email($email);
-		
+
 		if ($this->nickname_exists($nickname)) {
 			$this->show_form(_t('Username already exists.'));
 		} else if ($this->email_exists($email)) {
@@ -63,14 +63,14 @@ class RegisterAction extends Action {
 	}
 
 	# checks if *CANONICAL* nickname exists
-	
+
 	function nickname_exists($nickname) {
 		$user = User::staticGet('nickname', $nickname);
 		return ($user !== false);
 	}
 
 	# checks if *CANONICAL* email exists
-	
+
 	function email_exists($email) {
 		$email = common_canonical_email($email);
 		$user = User::staticGet('email', $email);
@@ -83,7 +83,7 @@ class RegisterAction extends Action {
 		$profile->nickname = $nickname;
 		$profile->profileurl = common_profile_url($nickname);
 		$profile->created = DB_DataObject_Cast::dateTime(); # current time
-		
+
 		$val = $profile->validate();
 		if ($val !== TRUE) {
 			# XXX: some feedback here, please!
@@ -99,7 +99,7 @@ class RegisterAction extends Action {
 		$user->password = common_munge_password($password, $id);
 		$user->email = $email;
 		$user->created =  DB_DataObject_Cast::dateTime(); # current time
-		
+
 		$val = $user->validate();
 		if ($val !== TRUE) {
 			# XXX: some feedback here, please!
@@ -107,7 +107,7 @@ class RegisterAction extends Action {
 			$profile->delete();
 			return FALSE;
 		}
-		
+
 		$result = $user->insert();
 		if (!$result) {
 			# Try to clean up...
@@ -115,9 +115,9 @@ class RegisterAction extends Action {
 		}
 		return $result;
 	}
-	
+
 	function show_form($error=NULL) {
-		
+
 		common_show_header(_t('Register'));
 		common_element_start('form', array('method' => 'POST',
 										   'id' => 'login',
