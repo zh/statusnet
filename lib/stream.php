@@ -31,7 +31,8 @@ class StreamAction extends Action {
 	function show_notice($notice) {
 		$profile = $notice->getProfile();
 		# XXX: RDFa
-		common_element_start('div', array('class' => 'notice'));
+		common_element_start('div', array('class' => 'notice',
+										  'id' => 'notice-' . $notice->id));
 		$avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
 		common_element_start('a', array('href' => $profile->profileurl));
 		common_element('img', array('src' => ($avatar) ? $avatar->url : DEFAULT_STREAM_AVATAR,
