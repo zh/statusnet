@@ -70,6 +70,13 @@ class ProfilesettingsAction extends SettingsAction {
 		$user->nickname = $this->arg('nickname');
 		$user->email = $this->arg('email');
 
+		$val = $user->validate();
+		if ($val !== TRUE) {
+			# XXX: better validation
+			$this->show_form(_t('Error saving user; invalid.'));
+			return;
+		}
+		
 		if (!$user->update($original)) {
 			common_server_error(_t('Couldnt update user.'));
 			return;
@@ -86,6 +93,13 @@ class ProfilesettingsAction extends SettingsAction {
 		$profile->location = $this->arg('location');
 		$profile->profileurl = common_profile_url($nickname);
 
+		$val = $profile->validate();
+		if ($val !== TRUE) {
+			# XXX: some feedback here, please!
+			$this->show_form(_t('Error saving profile; invalid.'));
+			return;
+		}
+		
 		if (!$profile->update($orig_profile)) {
 			common_server_error(_t('Couldnt save profile.'));
 			return;

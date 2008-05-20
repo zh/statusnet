@@ -83,6 +83,12 @@ class RegisterAction extends Action {
 		$profile->nickname = $nickname;
 		$profile->profileurl = common_profile_url($nickname);
 		$profile->created = DB_DataObject_Cast::dateTime(); # current time
+		
+		$val = $profile->validate();
+		if ($val !== TRUE) {
+			# XXX: some feedback here, please!
+			return FALSE;
+		}
 		$id = $profile->insert();
 		if (!$id) {
 			return FALSE;
@@ -93,6 +99,15 @@ class RegisterAction extends Action {
 		$user->password = common_munge_password($password, $id);
 		$user->email = $email;
 		$user->created =  DB_DataObject_Cast::dateTime(); # current time
+		
+		$val = $user->validate();
+		if ($val !== TRUE) {
+			# XXX: some feedback here, please!
+			# Try to clean up...
+			$profile->delete();
+			return FALSE;
+		}
+		
 		$result = $user->insert();
 		if (!$result) {
 			# Try to clean up...

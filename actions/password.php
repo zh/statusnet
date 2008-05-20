@@ -64,6 +64,12 @@ class PasswordAction extends SettingsAction {
 
 		$user->password = common_munge_password($newpassword, $user->id);
 
+		$val = $user->validate();
+		if ($val !== TRUE) {
+			$this->show_form(_t('Error saving user; invalid.'));
+			return;
+		}
+		
 		if (!$user->update($original)) {
 			common_server_error(_t('Can\'t save new password.'));
 			return;

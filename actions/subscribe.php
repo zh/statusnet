@@ -49,6 +49,14 @@ class SubscribeAction extends Action {
 		$sub->subscribed = $other->id;
 		
 		$sub->created = DB_DataObject_Cast::dateTime(); # current time
+
+		$val = $sub->validate();
+		
+		if ($val !== TRUE) {
+			# XXX: give some error notice
+			common_server_error(_t('Subscription did not validate.'));
+			return;
+		}
 		
 		if (!$sub->insert()) {
 			common_server_error(_t('Couldn\'t create subscription.'));
