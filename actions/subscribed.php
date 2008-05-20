@@ -62,15 +62,19 @@ class SubscribedAction extends Action {
 				common_element_start('div', 'row');
 			}
 
-			common_element_start('a', array('title' => $subs->fullname ||
-											           $subs->nickname,
+			common_element_start('a', array('title' => ($subs->fullname) ?
+											$subs->fullname :
+											$subs->nickname,
 											'href' => $subs->profileurl,
 											'class' => 'subscription'));
 			$avatar = $subs->getAvatar(AVATAR_STREAM_SIZE);
 			common_element('img', array('src' => (($avatar) ? $avatar->url : DEFAULT_STREAM_AVATAR),
 										'width' => AVATAR_STREAM_SIZE,
 										'height' => AVATAR_STREAM_SIZE,
-										'class' => 'avatar stream'));
+										'class' => 'avatar stream',
+										'alt' => ($subs->fullname) ?
+											$subs->fullname :
+											$subs->nickname));
 			common_element_end('a');
 
 			# XXX: subscribe form here

@@ -36,7 +36,8 @@ class AvatarAction extends SettingsAction {
 			common_element('img', array('src' => $original->url,
 										'class' => 'avatar original',
 										'width' => $original->width,
-										'height' => $original->height));
+										'height' => $original->height,
+										'alt' => $user->nickname));
 		}
 
 		$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
@@ -45,7 +46,8 @@ class AvatarAction extends SettingsAction {
 			common_element('img', array('src' => $avatar->url,
 										'class' => 'avatar profile',
 										'width' => AVATAR_PROFILE_SIZE,
-										'height' => AVATAR_PROFILE_SIZE));
+										'height' => AVATAR_PROFILE_SIZE,
+										'alt' => $user->nickname));
 		}
 
 		common_element_start('form', array('enctype' => 'multipart/form-data',

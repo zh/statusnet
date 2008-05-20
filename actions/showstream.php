@@ -102,7 +102,7 @@ class ShowstreamAction extends StreamAction {
 										'class' => 'avatar profile',
 										'width' => AVATAR_PROFILE_SIZE,
 										'height' => AVATAR_PROFILE_SIZE,
-										'title' => $profile->nickname));
+										'alt' => $profile->nickname));
 		}
 		if ($profile->fullname) {
 			if ($profile->homepage) {
@@ -161,7 +161,8 @@ class ShowstreamAction extends StreamAction {
 					common_element_start('div', 'row');
 				}
 
-				common_element_start('a', array('title' => $subs->fullname ||
+				common_element_start('a', array('title' => ($subs->fullname) ?
+												$subs->fullname :
 												$subs->nickname,
 												'href' => $subs->profileurl,
 												'class' => 'subscription'));
@@ -169,7 +170,10 @@ class ShowstreamAction extends StreamAction {
 				common_element('img', array('src' => (($avatar) ? $avatar->url : DEFAULT_MINI_AVATAR),
 											'width' => AVATAR_MINI_SIZE,
 											'height' => AVATAR_MINI_SIZE,
-											'class' => 'avatar mini'));
+											'class' => 'avatar mini',
+											'alt' =>  ($subs->fullname) ?
+												$subs->fullname :
+												$subs->nickname));
 				common_element_end('a');
 
 				if ($cnt % SUBSCRIPTIONS_PER_ROW == 0) {
