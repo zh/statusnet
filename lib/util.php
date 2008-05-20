@@ -36,32 +36,50 @@ function common_user_error($msg, $code=200) {
 	common_show_footer();
 }
 
+$xw = null;
+
 # Start an HTML element
 function common_element_start($tag, $attrs=NULL) {
-	print "<$tag";
+	global $xw;
+	$xw->startElement($tag);
 	if (is_array($attrs)) {
 		foreach ($attrs as $name => $value) {
-			print " $name='$value'";
+			$xw->writeAttribute($name, $value);
 		}
 	} else if (is_string($attrs)) {
-		print " class='$attrs'";
+		$xw->writeAttribute('class', $attrs);
 	}
-	print '>';
 }
 
 function common_element_end($tag) {
-	print "</$tag>";
+	global $xw;
+	$xw->endElement();
 }
 
 function common_element($tag, $attrs=NULL, $content=NULL) {
     common_element_start($tag, $attrs);
-	if ($content) print htmlspecialchars($content);
+	if ($content) {
+		global $xw;
+		$xw->text($content);
+	}
 	common_element_end($tag);
 }
 
 function common_show_header($pagetitle) {
-	global $config;
-	common_element_start('html');
+	global $config, $xw;
+	
+	$xw = new XMLWriter();
+	$xw->openURI('php://output');
+	$xw->startDocument('1.0', 'UTF-8');
+	$xw->writeDTD('html', '-//W3C//DTD XHTML 1.0 Strict//EN',
+				  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd');
+
+	# FIXME: correct language for interface
+	
+	common_element_start('html', array('xmlns' => 'http://www.w3.org/1999/xhtml',
+									   'xml:lang' => 'en',
+									   'lang' => 'en'));
+	
 	common_element_start('head');
 	common_element('title', NULL, 
 				   $pagetitle . " - " . $config['site']['name']);
@@ -72,9 +90,12 @@ function common_show_header($pagetitle) {
 }
 
 function common_show_footer() {
+	global $xw;
 	common_foot_menu();
 	common_element_end('body');
 	common_element_end('html');
+	$xw->endDocument();
+	$xw->flush();
 }
 
 function common_head_menu() {
