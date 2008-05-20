@@ -61,24 +61,12 @@ class LoginAction extends Action {
 		common_element_start('form', array('method' => 'POST',
 										   'id' => 'login',
 										   'action' => common_local_url('login')));
-		common_element('label', array('for' => 'nickname'),
-					   _t('Name'));
-		common_element('input', array('name' => 'nickname',
-									  'type' => 'text',
-									  'id' => 'nickname'));
-		common_element('label', array('for' => 'password'),
-					   _t('Password'));
-		common_element('input', array('name' => 'password',
-									  'type' => 'password',									  
-									  'id' => 'password'));
+		common_input('nickname', _t('Nickname'));
+		common_password('password', _t('Password'));
 		common_element('input', array('name' => 'submit',
 									  'type' => 'submit',
 									  'id' => 'submit',
 									  'value' => _t('Login')));
-		common_element('input', array('name' => 'cancel',
-									  'type' => 'button',
-									  'id' => 'cancel',
-									  'value' => _t('Cancel')));
 		common_element_end('form');
 		common_show_footer();
 	}

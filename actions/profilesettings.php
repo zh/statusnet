@@ -46,10 +46,7 @@ class ProfilesettingsAction extends SettingsAction {
 					 ($this->arg('bio')) ? $this->arg('bio') : $profile->bio);
 		common_input('location', _t('Location'),
 					 ($this->arg('location')) ? $this->arg('location') : $profile->location);
-		common_element('input', array('name' => 'submit',
-									  'type' => 'submit',
-									  'id' => 'submit',
-									  'value' => _t('Save')));
+		common_submit('submit', _t('Save'));
 		common_element_end('form');
 		common_show_footer();
 	}

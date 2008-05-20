@@ -194,6 +194,7 @@ function common_menu_item($url, $text, $title=NULL) {
 }
 
 function common_input($id, $label, $value=NULL) {
+	common_element_start('p');
 	common_element('label', array('for' => $id), $label);
 	$attrs = array('name' => $id,
 				   'type' => 'text',
@@ -202,14 +203,26 @@ function common_input($id, $label, $value=NULL) {
 		$attrs['value'] = htmlspecialchars($value);
 	}
 	common_element('input', $attrs);
+	comon_element_end('p');
 }
 
 function common_password($id, $label) {
+	common_element_start('p');
 	common_element('label', array('for' => $id), $label);
 	$attrs = array('name' => $id,
 				   'type' => 'password',
 				   'id' => $id);
 	common_element('input', $attrs);
+	comon_element_end('p');
+}
+
+function common_submit($id, $label) {
+	common_element_start('p');
+	common_element('input', array('type' => 'submit',
+								  'id' => $id,
+								  'name' => $id,
+								  'value' => $label));
+	comon_element_end('p');
 }
 
 # salted, hashed passwords are stored in the DB
