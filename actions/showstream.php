@@ -293,6 +293,7 @@ class ShowstreamAction extends StreamAction {
 								  'href' => $noticeurl));
 		common_element('span', 'title', common_date_string($notice->created));
 		common_element('span', 'desc', $notice->content);
+		common_element_end('a');
 		common_element_end('li');
 	}
 }

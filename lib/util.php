@@ -385,12 +385,12 @@ function common_notice_form() {
 	common_element('textarea', array('rows' => 3, 'cols' => 40,
 									 'name' => 'content',
 									 'id' => 'content', 
-									 'class' => 'width75'),
+									 'class' => 'width50'),
 				   ' ');
 	common_element_end('p');
 	common_submit('submit', _t('Send'));
 	common_element_end('form');
-	}
+}
 
 // XXX: set up gettext
 
