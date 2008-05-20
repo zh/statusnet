@@ -218,10 +218,12 @@ function common_password($id, $label) {
 
 function common_submit($id, $label) {
 	common_element_start('p');
+	common_element('label', NULL, ' ');
 	common_element('input', array('type' => 'submit',
 								  'id' => $id,
 								  'name' => $id,
-								  'value' => $label));
+								  'value' => $label,
+								  'class' => 'button'));
 	common_element_end('p');
 }
 
