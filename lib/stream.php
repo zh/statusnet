@@ -36,7 +36,7 @@ class StreamAction extends Action {
 		$avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
 		common_element_start('a', array('href' => $profile->profileurl));
 		common_element('img', array('src' => ($avatar) ? $avatar->url : DEFAULT_STREAM_AVATAR,
-									'class' => 'avatar stream',
+									'class' => 'avatar stream floatLeft',
 									'width' => AVATAR_STREAM_SIZE,
 									'height' => AVATAR_STREAM_SIZE,
 									'alt' =>
