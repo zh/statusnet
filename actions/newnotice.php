@@ -48,7 +48,8 @@ class NewnoticeAction extends Action {
 		assert($notice);
 		$notice->profile_id = $user->id; # user id *is* profile id
 		$notice->created = DB_DataObject_Cast::dateTime();
-		$notice->content = trim($this->arg('content'));
+		# Default theme uses 'content' for something else
+		$notice->content = trim($this->arg('noticecontent'));
 
 		$val = $notice->validate();
 		if ($val === TRUE) {

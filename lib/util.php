@@ -235,7 +235,8 @@ function common_submit($id, $label) {
 function common_textarea($id, $label, $content=NULL) {
 	common_element_start('p');
 	common_element('label', array('for' => $id), $label);
-	common_element('textarea', array('rows' => 3, 'cols' => 40,
+	common_element('textarea', array('rows' => 3,
+									 'cols' => 40,
 									 'name' => $id,
 									 'id' => $id, 
 									 'class' => 'width50'),
@@ -392,7 +393,7 @@ function common_profile_url($nickname) {
 function common_notice_form() {
 	common_element_start('form', array('id' => 'newnotice', 'method' => 'POST',
 									   'action' => common_local_url('newnotice')));
-	common_textarea('content', _t('What\'s up?'));
+	common_textarea('noticecontent', _t('What\'s up?'));
 	common_submit('submit', _t('Send'));
 	common_element_end('form');
 }
