@@ -182,6 +182,7 @@ function common_foot_menu() {
 					 _t('Help'));
 	common_menu_item(common_local_url('doc', array('title' => 'privacy')),
 					 _t('Privacy'));
+	common_element_end('ul');
 }
 
 function common_menu_item($url, $text, $title=NULL) {
