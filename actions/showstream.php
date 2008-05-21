@@ -159,7 +159,14 @@ class ShowstreamAction extends StreamAction {
 		global $config;
 		
 		# XXX: add a limit
-		$subs = $profile->getLink('id', 'subscription', 'subscriber');
+		$subs = DB_DataObject::factory('subscription');
+		$subs->subscriber = $profile->id;
+
+		# We ask for an extra one to know if we need to do another page
+
+		$subs->limit(0, SUBSCRIPTIONS);
+
+		$subs_count = $subs->find();
 
 		common_element_start('div', 'subscriptions');
 

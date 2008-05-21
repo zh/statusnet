@@ -45,7 +45,7 @@ class SubscriptionsAction extends Action {
 
 		# We ask for an extra one to know if we need to do another page
 
-		$subs->limit((($page-1)*SUBSCRIPTIONS_PER_PAGE)+1, SUBSCRIPTIONS_PER_PAGE + 1);
+		$subs->limit((($page-1)*SUBSCRIPTIONS_PER_PAGE), SUBSCRIPTIONS_PER_PAGE + 1);
 
 		$subs_count = $subs->find();
 
