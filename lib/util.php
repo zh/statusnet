@@ -373,7 +373,7 @@ function common_default_avatar($size) {
 							  AVATAR_STREAM_SIZE => 'stream',
 							  AVATAR_MINI_SIZE => 'mini');
 	global $config;
-	return "http://".$config['site']['server'].$config['avatar']['path'].'/'.$config['avatar']['default'][$sizenames[$size]];
+	return "http://".$config['site']['server'].$config['site']['path'].'/'.$config['avatar']['default'][$sizenames[$size]];
 }
 
 function common_local_url($action, $args=NULL) {
