@@ -19,6 +19,11 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
+# XXX: make distinct from similar definitions in showstream.php
+
+define('SUBSCRIPTIONS_PER_ROW', 10);
+define('SUBSCRIPTIONS_PER_PAGE', 80);
+
 class SubscribedAction extends Action {
 
 	# Who is subscribed to a given user?
@@ -46,6 +51,8 @@ class SubscribedAction extends Action {
 		
 		$subs = DB_DataObject::factory('subscription');
 		$subs->subscribed = $profile->id;
+
+		$subs->orderBy('created DESC');
 
 		# We ask for an extra one to know if we need to do another page
 
