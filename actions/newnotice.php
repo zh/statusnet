@@ -28,14 +28,7 @@ class NewnoticeAction extends Action {
 		if (!common_logged_in()) {
 			common_user_error(_t('Not logged in.'));
 		} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-			$id = $this->save_new_notice();
-			if ($id) {
-				common_broadcast_notices($id);
-				common_redirect(common_local_url('shownotice',
-												 array('notice' => $id)), 303);
-			} else {
-				common_server_error(_t('Problem saving notice.'));
-			}
+			$this->save_new_notice();
 		} else {
 			$this->show_form();
 		}
@@ -60,7 +53,15 @@ class NewnoticeAction extends Action {
 			return;
 		}
 
-		return $notice->insert();
+		$id = $notice->insert();
+		
+		if ($id) {
+			common_broadcast_notices($id);
+			common_redirect(common_local_url('shownotice',
+											 array('notice' => $id)), 303);
+		} else {
+			common_server_error(_t('Problem saving notice.'));
+		}
 	}
 
 	function show_form($msg=NULL) {
