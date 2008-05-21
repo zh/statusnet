@@ -380,6 +380,11 @@ function common_date_string($dt) {
 	return $dt;
 }
 
+function common_date_w3dtf($dt) {
+	$t = strtotime($dt);
+	return date(DATE_W3C, $t);
+}
+
 function common_redirect($url, $code=307) {
 	static $status = array(301 => "Moved Permanently",
 						   302 => "Found",

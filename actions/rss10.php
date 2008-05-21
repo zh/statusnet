@@ -50,6 +50,8 @@ class Rss10Action extends Action {
 		common_start_xml();
 		common_element_start('rdf:RDF', array('xmlns:rdf' =>
 											  'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
+											  'xmlns:dc' =>
+											  'http://purl.org/dc/elements/1.1/',
 											  'xmlns' => 'http://purl.org/rss/1.0/'));
 
 		$notices = $this->get_notices($user, $limit);
@@ -120,11 +122,12 @@ class Rss10Action extends Action {
 	}
 	
 	function show_item($notice) {
-		$nurl = common_local_url('shownotice', array('notice' => $n->id));
+		$nurl = common_local_url('shownotice', array('notice' => $notice->id));
 		common_element_start('item', array('rdf:about' => $nurl));
 		common_element('title', NULL, $notice->created);
 		common_element('link', NULL, $nurl);
 		common_element('description', NULL, common_render_content($notice->content));
+		common_element('dc:date', NULL, common_date_w3dtf($notice->created));
 		common_element_end('item');
 	}
 }
