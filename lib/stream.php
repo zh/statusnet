@@ -28,6 +28,7 @@ class StreamAction extends Action {
 	}
 
 	function show_notice($notice) {
+		global $config;
 		$profile = $notice->getProfile();
 		# XXX: RDFa
 		common_element_start('div', array('class' => 'notice',
