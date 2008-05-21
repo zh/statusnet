@@ -117,7 +117,7 @@ class ProfilesettingsAction extends SettingsAction {
 		$profile->location = $location;
 		$profile->profileurl = common_profile_url($nickname);
 
-		if (!$profile->update($orig_profile)) {
+		if (FALSE === $profile->update($orig_profile)) {
 			common_server_error(_t('Couldnt save profile.'));
 			return;
 		}
