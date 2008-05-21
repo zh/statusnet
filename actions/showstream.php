@@ -92,8 +92,6 @@ class ShowstreamAction extends StreamAction {
 	function show_profile($profile) {
 		common_element_start('div', 'profile');
 
-		common_element('h2', 'nickname', $profile->nickname);
-
 		$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
 		if ($avatar) {
 			common_element('img', array('src' => $avatar->url,
@@ -108,11 +106,11 @@ class ShowstreamAction extends StreamAction {
 										  'class' => 'fullname'),
 							   $profile->fullname);
 			} else {
-				common_element('span', 'fullname', $profile->fullname);
+				common_element('div', 'fullname', $profile->fullname);
 			}
 		}
 		if ($profile->location) {
-			common_element('span', 'location', $profile->location);
+			common_element('div', 'location', $profile->location);
 		}
 		if ($profile->bio) {
 			common_element('div', 'bio', $profile->bio);
