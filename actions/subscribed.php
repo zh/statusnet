@@ -69,7 +69,7 @@ class SubscribedAction extends Action {
 											'href' => $subs->profileurl,
 											'class' => 'subscription'));
 			$avatar = $subs->getAvatar(AVATAR_STREAM_SIZE);
-			common_element('img', array('src' => (($avatar) ? $avatar->url : $config['avatar']['default']['stream']),
+			common_element('img', array('src' => (($avatar) ? $avatar->url : common_default_avatar(AVATAR_STREAM_SIZE)),
 										'width' => AVATAR_STREAM_SIZE,
 										'height' => AVATAR_STREAM_SIZE,
 										'class' => 'avatar stream',

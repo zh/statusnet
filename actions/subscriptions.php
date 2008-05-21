@@ -68,7 +68,7 @@ class SubscriptionsAction extends Action {
 			common_element('img', 
 						   array('src' => 
 								 (($avatar) ? $avatar->url : 
-								  $config['avatar']['default']['stream']),
+								  common_default_avatar(AVATAR_STREAM_SIZE)),
 								 'width' => AVATAR_STREAM_SIZE,
 								 'height' => AVATAR_STREAM_SIZE,
 								 'class' => 'avatar stream',

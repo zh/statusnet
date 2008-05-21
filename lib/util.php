@@ -368,6 +368,14 @@ function common_avatar_url($filename) {
 	return "http://".$config['site']['server'].$config['avatar']['path'].'/'.$filename;
 }
 
+function common_default_avatar($size) {
+	static $sizenames = array(AVATAR_PROFILE_SIZE => 'profile',
+							  AVATAR_STREAM_SIZE => 'stream',
+							  AVATAR_MINI_SIZE => 'mini');
+	global $config;
+	return "http://".$config['site']['server'].$config['avatar']['path'].'/'.$config['avatar']['default'][$sizenames[$size]];
+}
+
 function common_local_url($action, $args=NULL) {
 	global $config;
 	/* XXX: pretty URLs */
