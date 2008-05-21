@@ -206,6 +206,11 @@ class ShowstreamAction extends StreamAction {
 			}
 		}
 
+		# close any unclosed row
+		if ($cnt % SUBSCRIPTIONS_PER_ROW != 0) {
+			common_element_end('div');
+		}
+
 		common_element('a', array('href' => common_local_url('subscriptions',
 															 array('nickname' => $profile->nickname)),
 								  'class' => 'moresubscriptions'),
