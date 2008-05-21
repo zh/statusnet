@@ -46,8 +46,4 @@ class Notice extends DB_DataObject
 	function getProfile() {
 		return Profile::staticGet($this->profile_id);
 	}
-
-	function validateContent() {
-		return Validate::string($this->content, array('min_length' => 1, 'max_length' => 140));
-	}
 }

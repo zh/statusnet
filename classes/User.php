@@ -60,13 +60,4 @@ class User extends DB_DataObject
 		$sub->subscribed = $other->id;
 		return $sub->find();
 	}
-
-	function validateEmail() {
-		return Validate::email($this->email, true);
-	}
-
-	function validateNickname() {
-		return Validate::string($this->nickname, array('min_length' => 1, 'max_length' => 64,
-													   'format' => VALIDATE_ALPHA_LOWER . VALIDATE_NUM));
-	}
 }
