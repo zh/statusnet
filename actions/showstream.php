@@ -172,42 +172,42 @@ class ShowstreamAction extends StreamAction {
 
 		common_element('h2', 'subscriptions', _t('Subscriptions'));
 
-		$cnt = 0;
+		$idx = 0;
 
-		if ($subs) {
-			while ($subs->fetch()) {
-				$cnt++;
-				if ($cnt % SUBSCRIPTIONS_PER_ROW == 1) {
-					common_element_start('div', 'row');
-				}
-
-				common_element_start('a', array('title' => ($subs->fullname) ?
-												$subs->fullname :
-												$subs->nickname,
-												'href' => $subs->profileurl,
-												'class' => 'subscription'));
-				$avatar = $subs->getAvatar(AVATAR_MINI_SIZE);
-				common_element('img', array('src' => (($avatar) ? $avatar->url :  common_default_avatar(AVATAR_MINI_SIZE)),
-											'width' => AVATAR_MINI_SIZE,
-											'height' => AVATAR_MINI_SIZE,
-											'class' => 'avatar mini',
-											'alt' =>  ($subs->fullname) ?
-												$subs->fullname :
-												$subs->nickname));
-				common_element_end('a');
-
-				if ($cnt % SUBSCRIPTIONS_PER_ROW == 0) {
-					common_element_end('div');
-				}
-
-				if ($cnt == SUBSCRIPTIONS) {
-					break;
-				}
+		while ($subs->fetch()) {
+			$idx++;
+			if ($idx % SUBSCRIPTIONS_PER_ROW == 1) {
+				common_element_start('div', 'row');
+			}
+			
+			$other = Profile::staticGet($subs->subscribed);
+			
+			common_element_start('a', array('title' => ($other->fullname) ?
+											$other->fullname :
+											$other->nickname,
+											'href' => $other->profileurl,
+											'class' => 'subscription'));
+			$avatar = $other->getAvatar(AVATAR_MINI_SIZE);
+			common_element('img', array('src' => (($avatar) ? $avatar->url :  common_default_avatar(AVATAR_MINI_SIZE)),
+										'width' => AVATAR_MINI_SIZE,
+										'height' => AVATAR_MINI_SIZE,
+										'class' => 'avatar mini',
+										'alt' =>  ($other->fullname) ?
+										$other->fullname :
+										$other->nickname));
+			common_element_end('a');
+			
+			if ($idx % SUBSCRIPTIONS_PER_ROW == 0) {
+				common_element_end('div');
+			}
+			
+			if ($idx == SUBSCRIPTIONS) {
+				break;
 			}
 		}
 
 		# close any unclosed row
-		if ($cnt % SUBSCRIPTIONS_PER_ROW != 0) {
+		if ($idx % SUBSCRIPTIONS_PER_ROW != 0) {
 			common_element_end('div');
 		}
 
@@ -224,27 +224,15 @@ class ShowstreamAction extends StreamAction {
 		// XXX: WORM cache this
 		$subs = DB_DataObject::factory('subscription');
 		$subs->subscriber = $profile->id;
-		$subs_count = $subs->count();
-
-		if (!$subs_count) {
-			$subs_count = 0;
-		}
+		$subs_count = (int) $subs->count();
 
 		$subbed = DB_DataObject::factory('subscription');
 		$subbed->subscribed = $profile->id;
-		$subbed_count = $subbed->count();
-
-		if (!$subbed_count) {
-			$subbed_count = 0;
-		}
+		$subbed_count = (int) $subbed->count();
 
 		$notices = DB_DataObject::factory('notice');
 		$notices->profile_id = $profile->id;
-		$notice_count = $notices->count();
-
-		if (!$notice_count) {
-			$notice_count = 0;
-		}
+		$notice_count = (int) $notices->count();
 
 		common_element_start('div', 'statistics');
 		common_element('h2', 'statistics', _t('Statistics'));
