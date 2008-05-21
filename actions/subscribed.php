@@ -42,7 +42,8 @@ class SubscribedAction extends Action {
 	}
 
 	function show_subscribed($profile, $page) {
-
+		global $config;
+		
 		$subs = DB_DataObject::factory('subscription');
 		$subs->subscribed = $profile->id;
 
@@ -68,7 +69,7 @@ class SubscribedAction extends Action {
 											'href' => $subs->profileurl,
 											'class' => 'subscription'));
 			$avatar = $subs->getAvatar(AVATAR_STREAM_SIZE);
-			common_element('img', array('src' => (($avatar) ? $avatar->url : DEFAULT_STREAM_AVATAR),
+			common_element('img', array('src' => (($avatar) ? $avatar->url : $config['avatar']['default']['stream']),
 										'width' => AVATAR_STREAM_SIZE,
 										'height' => AVATAR_STREAM_SIZE,
 										'class' => 'avatar stream',

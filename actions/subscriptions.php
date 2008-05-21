@@ -65,13 +65,16 @@ class SubscriptionsAction extends Action {
 											'href' => $subs->profileurl,
 											'class' => 'subscription'));
 			$avatar = $subs->getAvatar(AVATAR_STREAM_SIZE);
-			common_element('img', array('src' => (($avatar) ? $avatar->url : DEFAULT_STREAM_AVATAR),
-										'width' => AVATAR_STREAM_SIZE,
-										'height' => AVATAR_STREAM_SIZE,
-										'class' => 'avatar stream',
-										'alt' => ($subs->fullname) ?
-										$subs->fullname :
-										$subs->nickname));
+			common_element('img', 
+						   array('src' => 
+								 (($avatar) ? $avatar->url : 
+								  $config['avatar']['default']['stream']),
+								 'width' => AVATAR_STREAM_SIZE,
+								 'height' => AVATAR_STREAM_SIZE,
+								 'class' => 'avatar stream',
+								 'alt' => ($subs->fullname) ?
+								 $subs->fullname :
+								 $subs->nickname));
 			common_element_end('a');
 
 			# XXX: subscribe form here

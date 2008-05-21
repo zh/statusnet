@@ -34,7 +34,7 @@ class StreamAction extends Action {
 										  'id' => 'notice-' . $notice->id));
 		$avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
 		common_element_start('a', array('href' => $profile->profileurl));
-		common_element('img', array('src' => ($avatar) ? $avatar->url : DEFAULT_STREAM_AVATAR,
+		common_element('img', array('src' => ($avatar) ? $avatar->url : $config['avatar']['default']['stream'],
 									'class' => 'avatar stream',
 									'width' => AVATAR_STREAM_SIZE,
 									'height' => AVATAR_STREAM_SIZE,

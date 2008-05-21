@@ -143,7 +143,8 @@ class ShowstreamAction extends StreamAction {
 	}
 
 	function show_subscriptions($profile) {
-
+		global $config;
+		
 		# XXX: add a limit
 		$subs = $profile->getLink('id', 'subscription', 'subscriber');
 
@@ -166,7 +167,7 @@ class ShowstreamAction extends StreamAction {
 												'href' => $subs->profileurl,
 												'class' => 'subscription'));
 				$avatar = $subs->getAvatar(AVATAR_MINI_SIZE);
-				common_element('img', array('src' => (($avatar) ? $avatar->url : DEFAULT_MINI_AVATAR),
+				common_element('img', array('src' => (($avatar) ? $avatar->url : $config['avatar']['default']['mini']),
 											'width' => AVATAR_MINI_SIZE,
 											'height' => AVATAR_MINI_SIZE,
 											'class' => 'avatar mini',

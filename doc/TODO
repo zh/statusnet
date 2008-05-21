@@ -30,7 +30,7 @@
 + add H2 for each page section
 - doc action
 + default to public stream
-- default avatar
++ default avatar
 + default HTML type
 + set Content-Type
 + show current values in profile settings
@@ -43,8 +43,8 @@
 + validate newnotice form results
 + remove validation code from classes
 + use only canonical usernames
-- use only canonical email addresses
 - RSS 1.0 feeds of a user's notices
+- RSS 1.0 feeds of a user's notices + friends
 - RSS 1.0 dump of a user's notices
 - RSS 1.0 feed of all public notices
 - RDF dump of entire site
@@ -52,17 +52,21 @@
 - license on showstream
 - license on shownotice
 - TOS checkbox on register
-- pretty URLs
 - instructions
 - deal with PHP quotes escaping
 + fix layout of textarea
 + make notices into "big links"
 - fix spacing on notices
+- fix spacing in profile
 - limit entry in textarea to 140 chars
 - add a next page link to showstream
 - add a next page link to public
 - add a next page link to all
+- source link in footer menu
+- AGPL notification
 - release 0.2
+- pretty URLs
+- use only canonical email addresses
 - license per notice
 - allow mixed-case usernames
 - allow non-latin usernames

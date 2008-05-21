@@ -45,7 +45,11 @@ $config =
 			  'image' => 'http://i.creativecommons.org/l/by/3.0/88x31.png'),
 		'avatar' =>
 		array('directory' => INSTALLDIR . '/avatar',
-			  'path' => '/avatar')
+			  'path' => '/avatar',
+			  'default' => 
+			  array('profile' => INSTALLDIR .'theme/default/image/default-avatar-profile.png',
+					'stream' => INSTALLDIR .'theme/default/image/default-avatar-stream.png',
+					'mini' => INSTALLDIR .'theme/default/image/default-avatar-mini.png'))
 );
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
