@@ -47,7 +47,7 @@ class ShowstreamAction extends StreamAction {
 
 		# Looks like we're good; show the header
 
-		common_show_header($profile->nickname);
+		common_show_header($profile->nickname, array($this, 'show_header'), $user);
 
 		$cur = common_current_user();
 
@@ -62,6 +62,14 @@ class ShowstreamAction extends StreamAction {
 		common_show_footer();
 	}
 
+	function show_header($user) {
+		common_element('link', array('rel' => 'alternate',
+									 'href' => common_local_url('rss10', array('nickname' =>
+																			   $user->nickname)),
+									 'type' => 'application/rdf+xml',
+									 'title' => _t('Notice feed for ') . $user->nickname));
+	}
+	
 	function no_such_user() {
 		common_user_error('No such user');
 	}

@@ -82,7 +82,7 @@ function common_end_xml() {
 	$xw->flush();
 }
 
-function common_show_header($pagetitle) {
+function common_show_header($pagetitle, $callable=NULL, $data=NULL) {
 	global $config, $xw;
 
 	header('Content-Type: application/xhtml+xml');
@@ -112,6 +112,13 @@ function common_show_header($pagetitle) {
 								 'type' => 'text/css',
 								 'href' => $config['site']['path'] . 'theme/default/style/print.css',
 								 'media' => 'print'));
+	if ($callable) {
+		if ($data) {
+			call_user_func($callable, $data);
+		} else {
+			call_user_func($callable);
+		}
+	}
 	common_element_end('head');
 	common_element_start('body');
 	common_element_start('div', array('id' => 'wrapper'));
