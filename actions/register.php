@@ -34,18 +34,27 @@ class RegisterAction extends Action {
 	}
 
 	function try_register() {
-		$nickname = $this->arg('nickname');
+		$nickname = $this->trimmed('nickname');
+		$email = $this->trimmed('email');
+		
+		# We don't trim these... whitespace is OK in a password!
+		
 		$password = $this->arg('password');
 		$confirm = $this->arg('confirm');
-		$email = $this->arg('email');
 
 		# Input scrubbing
 
 		$nickname = common_canonical_nickname($nickname);
 		$email = common_canonical_email($email);
 
-		if ($this->nickname_exists($nickname)) {
-			$this->show_form(_t('Username already exists.'));
+		if (!Validate::email($email, true)) {
+			$this->show_form(_t('Not a valid email address.'));
+		} else if (!Validate::string($nickname, array('min_length' => 1,
+													  'max_length' => 64,
+													  'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
+			$this->show_form(_t('Nickname must have only letters and numbers and no spaces.'));
+		} else if ($this->nickname_exists($nickname)) {
+			$this->show_form(_t('Nickname already exists.'));
 		} else if ($this->email_exists($email)) {
 			$this->show_form(_t('Email address already exists.'));
 		} else if ($password != $confirm) {
@@ -84,11 +93,6 @@ class RegisterAction extends Action {
 		$profile->profileurl = common_profile_url($nickname);
 		$profile->created = DB_DataObject_Cast::dateTime(); # current time
 
-		$val = $profile->validate();
-		if ($val !== TRUE) {
-			# XXX: some feedback here, please!
-			return FALSE;
-		}
 		$id = $profile->insert();
 		if (!$id) {
 			return FALSE;
@@ -99,14 +103,6 @@ class RegisterAction extends Action {
 		$user->password = common_munge_password($password, $id);
 		$user->email = $email;
 		$user->created =  DB_DataObject_Cast::dateTime(); # current time
-
-		$val = $user->validate();
-		if ($val !== TRUE) {
-			# XXX: some feedback here, please!
-			# Try to clean up...
-			$profile->delete();
-			return FALSE;
-		}
 
 		$result = $user->insert();
 		if (!$result) {

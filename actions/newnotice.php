@@ -49,19 +49,22 @@ class NewnoticeAction extends Action {
 		$notice->profile_id = $user->id; # user id *is* profile id
 		$notice->created = DB_DataObject_Cast::dateTime();
 		# Default theme uses 'content' for something else
-		$notice->content = trim($this->arg('noticecontent'));
+		$notice->content = $this->trimmed('noticecontent');
 
-		$val = $notice->validate();
-		if ($val === TRUE) {
-			return $notice->insert();
-		} else {
-			// XXX: display some info
-			return NULL;
+		if (!$notice->content) {
+			$this->show_form(_t('No content!'));
+		} else if (strlen($notice->content) > 140) {
+			$this->show_form(_t('Notice content too long.'));
 		}
+		
+		return $notice->insert();
 	}
 	
-	function show_form() {
+	function show_form($msg=NULL) {
 		common_show_header(_t('New notice'));
+		if ($msg) {
+			common_element('div', 'error', $msg);
+		}
 		common_notice_form();
 		common_show_footer();
 	}

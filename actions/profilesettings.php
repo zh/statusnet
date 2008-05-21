@@ -52,30 +52,54 @@ class ProfilesettingsAction extends SettingsAction {
 	}
 
 	function handle_post() {
-		$nickname = $this->arg('nickname');
-		$fullname = $this->arg('fullname');
-		$email = $this->arg('email');
-		$homepage = $this->arg('homepage');
-		$bio = $this->arg('bio');
-		$location = $this->arg('location');
+		
+		$nickname = $this->trimmed('nickname');
+		$fullname = $this->trimmed('fullname');
+		$email = $this->trimmed('email');
+		$homepage = $this->trimmed('homepage');
+		$bio = $this->trimmed('bio');
+		$location = $this->trimmed('location');
 
+		# Some validation
+		
+		if (!Validate::email($email, true)) {
+			$this->show_form(_t('Not a valid email address.'));
+			return;
+		} else if (!Validate::string($nickname, array('min_length' => 1,
+													  'max_length' => 64,
+													  'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
+			$this->show_form(_t('Nickname must have only letters and numbers and no spaces.'));
+			return;
+		} else if (!is_null($homepage) && (strlen($homepage) > 0) &&
+				   !Validate::uri($homepage, array('allowed_schemes' => array('http', 'https')))) {
+			$this->show_form(_t('Homepage is not a valid URL.'));
+			return;
+		} else if (!is_null($fullname) && strlen($fullname) > 255) {
+			$this->show_form(_t('Fullname is too long (max 255 chars).'));
+			return;
+		} else if (!is_null($bio) && strlen($bio) > 140) {
+			$this->show_form(_t('Bio is too long (max 140 chars).'));
+			return;
+		} else if (!is_null($location) && strlen($location) > 255) {
+			$this->show_form(_t('Location is too long (max 255 chars).'));
+			return;
+		} else if ($this->nickname_exists($nickname)) {
+			$this->show_form(_t('Nickname already exists.'));
+			return;
+		} else if ($this->email_exists($email)) {
+			$this->show_form(_t('Email address already exists.'));
+			return;
+		}
+		
 		$user = common_current_user();
 		assert(!is_null($user)); # should already be checked
 
-		# FIXME: scrub input
 		# FIXME: transaction!
 
 		$original = clone($user);
 
-		$user->nickname = $this->arg('nickname');
-		$user->email = $this->arg('email');
-
-		$val = $user->validate();
-		if ($val !== TRUE) {
-			# XXX: better validation
-			$this->show_form(_t('Error saving user; invalid.'));
-			return;
-		}
+		$user->nickname = $nickname;
+		$user->email = $email;
 
 		if (!$user->update($original)) {
 			common_server_error(_t('Couldnt update user.'));
@@ -87,18 +111,11 @@ class ProfilesettingsAction extends SettingsAction {
 		$orig_profile = clone($profile);
 
 		$profile->nickname = $user->nickname;
-		$profile->fullname = $this->arg('fullname');
-		$profile->homepage = $this->arg('homepage');
-		$profile->bio = $this->arg('bio');
-		$profile->location = $this->arg('location');
+		$profile->fullname = $fullname;
+		$profile->homepage = $homepage;
+		$profile->bio = $bio;
+		$profile->location = $location;
 		$profile->profileurl = common_profile_url($nickname);
-
-		$val = $profile->validate();
-		if ($val !== TRUE) {
-			# XXX: some feedback here, please!
-			$this->show_form(_t('Error saving profile; invalid.'));
-			return;
-		}
 
 		if (!$profile->update($orig_profile)) {
 			common_server_error(_t('Couldnt save profile.'));
@@ -106,5 +123,25 @@ class ProfilesettingsAction extends SettingsAction {
 		}
 
 		$this->show_form(_t('Settings saved.'), TRUE);
+	}
+	
+	function nickname_exists($nickname) {
+		$user = common_current_user();
+		$other = User::staticGet('nickname', $nickname);
+		if (!$other) {
+			return false;
+		} else {
+			return $other->id != $user->id;
+		}
+	}
+	
+	function email_exists($email) {
+		$user = common_current_user();
+		$other = User::staticGet('email', $email);
+		if (!$other) {
+			return false;
+		} else {
+			return $other->id != $user->id;
+		}
 	}
 }

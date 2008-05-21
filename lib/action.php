@@ -34,6 +34,11 @@ class Action { // lawsuit
 		}
 	}
 
+	function trimmed($key) {
+		$arg = $this->arg($key);
+		return (is_string($arg)) ? trim($arg) : $arg;
+	}
+	
 	function handle($argarray) {
 		$this->args = array();
 		foreach ($argarray as $k => $v) {
