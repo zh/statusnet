@@ -42,6 +42,7 @@ class NewnoticeAction extends Action {
 	}
 
 	function save_new_notice() {
+
 		$user = common_current_user();
 		assert($user); # XXX: maybe an error instead...
 		$notice = DB_DataObject::factory('notice');
@@ -53,13 +54,15 @@ class NewnoticeAction extends Action {
 
 		if (!$notice->content) {
 			$this->show_form(_t('No content!'));
+			return;
 		} else if (strlen($notice->content) > 140) {
 			$this->show_form(_t('Notice content too long.'));
+			return;
 		}
-		
+
 		return $notice->insert();
 	}
-	
+
 	function show_form($msg=NULL) {
 		common_show_header(_t('New notice'));
 		if ($msg) {
