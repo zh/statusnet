@@ -37,16 +37,21 @@ class UnsubscribeAction extends Action {
 			common_server_error(_t('Not subscribed!.'));
 		}
 
-		$sub = new Subscription();
+		$sub = DB_DataObject::factory('subscription');
+		
 		$sub->subscriber = $user->id;
 		$sub->subscribed = $other->id;
 
+		$sub->find(true);
+
+		// note we checked for existence above
+		
 		if (!$sub->delete()) {
 			common_server_error(_t('Couldn\'t delete subscription.'));
 			return;
 		}
 
-		common_redirect(common_local_url('all', array('nickname' =>
-													  $user->nickname)));
+		common_redirect(common_local_url('subscriptions', array('nickname' =>
+																$user->nickname)));
 	}
 }

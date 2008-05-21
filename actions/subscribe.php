@@ -50,20 +50,12 @@ class SubscribeAction extends Action {
 
 		$sub->created = DB_DataObject_Cast::dateTime(); # current time
 
-		$val = $sub->validate();
-
-		if ($val !== TRUE) {
-			# XXX: give some error notice
-			common_server_error(_t('Subscription did not validate.'));
-			return;
-		}
-
 		if (!$sub->insert()) {
 			common_server_error(_t('Couldn\'t create subscription.'));
 			return;
 		}
 
-		common_redirect(common_local_url('all', array('nickname' =>
-													  $user->nickname)));
+		common_redirect(common_local_url('subscriptions', array('nickname' =>
+																$user->nickname)));
 	}
 }
