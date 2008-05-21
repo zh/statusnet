@@ -358,7 +358,7 @@ function common_avatar_path($filename) {
 
 function common_avatar_url($filename) {
 	global $config;
-	return $config['avatar']['path'] . '/' . $filename;
+	return "http://".$config['site']['server'].$config['avatar']['path'].'/'.$filename;
 }
 
 function common_local_url($action, $args=NULL) {
