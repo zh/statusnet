@@ -61,17 +61,20 @@ class SubscriptionsAction extends Action {
 		$idx = 0;
 
 		while ($subs->fetch()) {
+			
 			$idx++;
 			if ($idx % SUBSCRIPTIONS_PER_ROW == 1) {
 				common_element_start('div', 'row');
 			}
 
-			common_element_start('a', array('title' => ($subs->fullname) ?
-											$subs->fullname :
-											$subs->nickname,
-											'href' => $subs->profileurl,
+			$other = Profile::staticGet($subs->subscribed);
+			
+			common_element_start('a', array('title' => ($other->fullname) ?
+											$other->fullname :
+											$other->nickname,
+											'href' => $other->profileurl,
 											'class' => 'subscription'));
-			$avatar = $subs->getAvatar(AVATAR_STREAM_SIZE);
+			$avatar = $other->getAvatar(AVATAR_STREAM_SIZE);
 			common_element('img', 
 						   array('src' => 
 								 (($avatar) ? $avatar->url : 
@@ -79,9 +82,9 @@ class SubscriptionsAction extends Action {
 								 'width' => AVATAR_STREAM_SIZE,
 								 'height' => AVATAR_STREAM_SIZE,
 								 'class' => 'avatar stream',
-								 'alt' => ($subs->fullname) ?
-								 $subs->fullname :
-								 $subs->nickname));
+								 'alt' => ($other->fullname) ?
+								 $other->fullname :
+								 $other->nickname));
 			common_element_end('a');
 
 			# XXX: subscribe form here
