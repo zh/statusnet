@@ -174,7 +174,7 @@ class ShowstreamAction extends StreamAction {
 												'href' => $subs->profileurl,
 												'class' => 'subscription'));
 				$avatar = $subs->getAvatar(AVATAR_MINI_SIZE);
-				common_element('img', array('src' => (($avatar) ? $avatar->url :  common_default_avatar(AVATAR_MINI_SIZE),
+				common_element('img', array('src' => (($avatar) ? $avatar->url :  common_default_avatar(AVATAR_MINI_SIZE)),
 											'width' => AVATAR_MINI_SIZE,
 											'height' => AVATAR_MINI_SIZE,
 											'class' => 'avatar mini',
