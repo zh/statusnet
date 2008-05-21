@@ -101,13 +101,14 @@ class ShowstreamAction extends StreamAction {
 										'alt' => $profile->nickname));
 		}
 		if ($profile->fullname) {
+			common_element_start('div', 'fullname');
 			if ($profile->homepage) {
-				common_element('a', array('href' => $profile->homepage,
-										  'class' => 'fullname'),
+				common_element('a', array('href' => $profile->homepage),
 							   $profile->fullname);
 			} else {
-				common_element('div', 'fullname', $profile->fullname);
+				common_text($profile->fullname);
 			}
+			common_element_end('div');
 		}
 		if ($profile->location) {
 			common_element('div', 'location', $profile->location);

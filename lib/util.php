@@ -65,17 +65,31 @@ function common_element($tag, $attrs=NULL, $content=NULL) {
 	common_element_end($tag);
 }
 
+function common_start_xml($doc=NULL, $public=NULL, $system=NULL) {
+	global $xw;
+	$xw = new XMLWriter();
+	$xw->openURI('php://output');
+	$xw->setIndent(true);
+	$xw->startDocument('1.0', 'UTF-8');
+	if ($doc) {
+		$xw->writeDTD($doc, $public, $system);
+	}
+}
+
+function common_end_xml() {
+	global $xw;
+	$xw->endDocument();
+	$xw->flush();
+}
+
 function common_show_header($pagetitle) {
 	global $config, $xw;
 
 	header('Content-Type: application/xhtml+xml');
 
-	$xw = new XMLWriter();
-	$xw->openURI('php://output');
-	$xw->setIndent(true);
-	$xw->startDocument('1.0', 'UTF-8');
-	$xw->writeDTD('html', '-//W3C//DTD XHTML 1.0 Strict//EN',
-				  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd');
+	common_start_xml('html',
+					 '-//W3C//DTD XHTML 1.0 Strict//EN',
+					 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd');
 
 	# FIXME: correct language for interface
 
@@ -121,8 +135,7 @@ function common_show_footer() {
 	common_element_end('div');
 	common_element_end('body');
 	common_element_end('html');
-	$xw->endDocument();
-	$xw->flush();
+	common_end_xml();
 }
 
 function common_text($txt) {
