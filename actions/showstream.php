@@ -82,6 +82,8 @@ class ShowstreamAction extends StreamAction {
 
 		$this->show_last_notice($profile);
 
+		$cur = common_current_user();
+
 		if ($cur && $cur->id != $profile->id) {
 			if ($cur->isSubscribed($profile)) {
 				$this->show_unsubscribe_form($profile);
