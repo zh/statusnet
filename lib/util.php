@@ -172,8 +172,7 @@ function common_license_block() {
 function common_head_menu() {
 	$user = common_current_user();
 	common_element_start('ul', array('id' => 'menu', 'class' => ($user) ? 'five' : 'three'));
-	common_menu_item(common_local_url('doc', array('title' => 'help')),
-					 _t('Help'));
+	common_menu_item(common_local_url('public'), _t('Public'));
 	if ($user) {
 		common_menu_item(common_local_url('all', array('nickname' =>
 													   $user->nickname)),
@@ -201,6 +200,8 @@ function common_foot_menu() {
 	common_menu_item(common_local_url('doc', array('title' => 'help')),
 					 _t('Help'));
 	common_menu_item(common_local_url('doc', array('title' => 'privacy')),
+					 _t('Privacy'));
+	common_menu_item(common_local_url('doc', array('title' => 'source')),
 					 _t('Privacy'));
 	common_element_end('ul');
 }

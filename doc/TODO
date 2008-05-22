@@ -46,9 +46,9 @@
 + fix layout of textarea
 + make notices into "big links"
 + RSS 1.0 feeds of a user's notices
-- RSS 1.0 feeds of a user's notices + friends
++ RSS 1.0 feeds of a user's notices + friends
 + RSS 1.0 dump of a user's notices
-- RSS 1.0 feed of all public notices
++ RSS 1.0 feed of all public notices
 - FOAF dump for user
 - license on showstream
 - license on shownotice
@@ -62,46 +62,50 @@
 - add a next page link to showstream
 - add a next page link to public
 - add a next page link to all
-- source link in footer menu
-- public stream link in top menu
++ source link in footer menu
++ public stream link in top menu
+- about doc
+- help doc
+- privacy doc
+- source doc
 - AGPL notification
 - gettext
 - pretty URLs
++ dump, fix, undump database
+- subscribe remote
+- add subscriber remote
+- send remote notice
+- receive remote notice
 - release 0.2
 - Automatically linkify URLs in notices
-- RDF dump of entire site
+- tinyurl-ification of URLs
 - use only canonical email addresses
 - license per notice
 - allow mixed-case usernames
 - allow non-latin usernames
 - store canonical username for comparison and fetch
-- site logo
 - set Last-Modified
 - XML sitemap generation
+- themes
 - theme per site
 - theme per profile
 - email confirmation for registration
 - change cookie handling for anon users to be more cache-friendly
-- subscribe remote
-- add subscriber remote
-- send remote notice
-- receive remote notice
-- confirmation email
-- tinyurl-ification of URLs
 - jQuery for as much as possible
-- themes
-- RDFa for stream pages
-- RDFa for subscriber pages
-- RDFa for subscribed pages
-- plugins and hooks
 - content negotiation for interface language
 - content negotiation for content type
 - content negotiation for encoding
 - content negotiation for charset
 - If-Modified-Since support
 - Vary
-- delete a notice
+- site logo
 - release 0.3
+- RDF dump of entire site
+- delete a notice
+- plugins and hooks
+- RDFa for stream pages
+- RDFa for subscriber pages
+- RDFa for subscribed pages
 - @ messages
 - # tags
 - L: location
@@ -124,8 +128,8 @@
 - release 0.5
 - Twitter-compatible API
 - Pownce-compatible API
-- include twitter subscriptions
-- include Pownce subscriptions
+- include twitter subscriptions (push and pull)
+- include Pownce subscriptions (push and pull)
 - privacy
 - Wrap DB_DataObject with memcached caching layer
 - login throttle to prevent brute-force attacks
