@@ -40,9 +40,10 @@ class Action { // lawsuit
 	}
 	
 	function handle($argarray) {
+		$strip = get_magic_quotes_gpc();
 		$this->args = array();
 		foreach ($argarray as $k => $v) {
-			$this->args[$k] = $v;
+			$this->args[$k] = ($strip) ? stripslashes($v) : $v;
 		}
 	}
 }
