@@ -83,12 +83,14 @@ class Rss10Action extends Action {
 
 		common_element_start('items');
 		common_element_start('rdf:Seq');
-		foreach ($notices as $n) {
+		
+		foreach ($notices as $notice) {
 			common_element('rdf:li', array('rdf:resource' => $notice->uri));
 		}
 		
 		common_element_end('rdf:Seq');
 		common_element_end('items');
+		
 		common_element_end('channel');
 	}
 
