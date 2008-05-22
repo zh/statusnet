@@ -24,7 +24,7 @@ if (!defined('LACONICA')) { exit(1); }
  */
 require_once 'DB/DataObject.php';
 
-class Notice extends DB_DataObject
+class Notice extends DB_DataObject 
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -32,8 +32,9 @@ class Notice extends DB_DataObject
     public $__table = 'notice';                          // table name
     public $id;                              // int(4)  primary_key not_null
     public $profile_id;                      // int(4)   not_null
-    public $content;                         // varchar(140)
-    public $url;                             // varchar(255)
+    public $uri;                             // varchar(255)  unique_key
+    public $content;                         // varchar(140)  
+    public $url;                             // varchar(255)  
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 

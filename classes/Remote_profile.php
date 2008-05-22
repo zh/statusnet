@@ -24,14 +24,16 @@ if (!defined('LACONICA')) { exit(1); }
  */
 require_once 'DB/DataObject.php';
 
-class Remote_profile extends DB_DataObject
+class Remote_profile extends DB_DataObject 
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'remote_profile';                  // table name
     public $id;                              // int(4)  primary_key not_null
-    public $url;                             // varchar(255)  unique_key
+    public $uri;                             // varchar(255)  unique_key
+    public $postnoticeurl;                   // varchar(255)  
+    public $updateprofileurl;                // varchar(255)  
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 

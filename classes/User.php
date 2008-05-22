@@ -24,7 +24,7 @@ if (!defined('LACONICA')) { exit(1); }
 require_once 'DB/DataObject.php';
 require_once 'Validate.php';
 
-class User extends DB_DataObject
+class User extends DB_DataObject 
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -32,8 +32,9 @@ class User extends DB_DataObject
     public $__table = 'user';                            // table name
     public $id;                              // int(4)  primary_key not_null
     public $nickname;                        // varchar(64)  unique_key
-    public $password;                        // varchar(255)
+    public $password;                        // varchar(255)  
     public $email;                           // varchar(255)  unique_key
+    public $uri;                             // varchar(255)  unique_key
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
