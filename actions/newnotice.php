@@ -55,13 +55,22 @@ class NewnoticeAction extends Action {
 
 		$id = $notice->insert();
 		
-		if ($id) {
-			common_broadcast_notices($id);
-			common_redirect(common_local_url('shownotice',
-											 array('notice' => $id)), 303);
-		} else {
+		if (!$id) {
 			common_server_error(_t('Problem saving notice.'));
+			return;
 		}
+
+		$orig = clone($notice);
+		$notice->uri = common_mint_tag('notice:' . $id);
+		
+		if (!$notice->update($orig)) {
+			common_server_error(_t('Problem saving notice.'));
+			return;
+		}
+		
+		common_broadcast_notice($notice);
+		common_redirect(common_local_url('shownotice',
+										 array('notice' => $id)), 303);
 	}
 
 	function show_form($msg=NULL) {

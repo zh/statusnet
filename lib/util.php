@@ -411,7 +411,7 @@ function common_redirect($url, $code=307) {
 	common_element('a', array('href' => $url), $url);
 }
 
-function common_broadcast_notices($id) {
+function common_broadcast_notice($notice) {
 	// XXX: broadcast notices to remote subscribers
 	// XXX: broadcast notices to SMS
 	// XXX: broadcast notices to Jabber

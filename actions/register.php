@@ -103,7 +103,8 @@ class RegisterAction extends Action {
 		$user->password = common_munge_password($password, $id);
 		$user->email = $email;
 		$user->created =  DB_DataObject_Cast::dateTime(); # current time
-
+		$user->uri = common_mint_tag('user:'.$id);
+		
 		$result = $user->insert();
 		if (!$result) {
 			# Try to clean up...
