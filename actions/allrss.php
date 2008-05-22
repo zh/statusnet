@@ -46,7 +46,7 @@ class AllrssAction extends Rss10Action {
 		
 		$notice = DB_DataObject::factory('notice');
 
-		$notice->whereAdd('EXISTS (SELECT subscribed from subscription where subscriber = '.$profile->id.' and subscribed = notice.profile_id)', 'OR');
+		$notice->whereAdd('EXISTS (SELECT subscribed from subscription where subscriber = '.$user->id.' and subscribed = notice.profile_id)', 'OR');
 		$notice->whereAdd('profile_id = ' . $user->id, 'OR');
 
 		$notice->orderBy('created DESC');
@@ -71,7 +71,7 @@ class AllrssAction extends Rss10Action {
 				   'link' => common_local_url('all',
 											 array('nickname' =>
 												   $user->nickname)),
-				   'description' => _t('Microblog feed for ') . $user->nickname);
+				   'description' => _t('Feed for friends of ') . $user->nickname);
 		return $c;
 	}
 	
