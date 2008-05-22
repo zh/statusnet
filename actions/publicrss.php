@@ -19,49 +19,47 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-require_once(INSTALLDIR.'/lib/stream.php');
+require_once(INSTALLDIR.'/lib/rssaction.php');
 
-class PublicAction extends StreamAction {
+// Formatting of RSS handled by Rss10Action
 
-	function handle($args) {
-		parent::handle($args);
+class PublicrssAction extends Rss10Action {
 
-		$page = $this->arg('page') || 1;
-
-		common_show_header(_t('Public timeline'), array($this, 'show_header'));
-
-		# XXX: Public sidebar here?
-
-		$this->show_notices($page);
-
-		common_show_footer();
-	}
-
-	function show_header() {
-		common_element('link', array('rel' => 'alternate',
-									 'href' => common_local_url('publicrss'),
-									 'type' => 'application/rss+xml',
-									 'title' => _t('Public Stream Feed')));
+	function init() {
+		return true;
 	}
 	
-	function show_notices($page) {
-
+	function get_notices($limit=0) {
+		
+		$user = $this->user;
+		$notices = array();
+		
 		$notice = DB_DataObject::factory('notice');
-
-		# XXX: filter out private notifications
-
+		
 		$notice->orderBy('created DESC');
-		$notice->limit((($page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE);
-
-		$notice->find();
-
-		common_element_start('div', 'notices');
-
-		while ($notice->fetch()) {
-			$this->show_notice($notice);
+		
+		if ($limit != 0) {
+			$notice->limit(0, $limit);
 		}
-
-		common_element_end('div');
+		$notice->find();
+		
+		while ($notice->fetch()) {
+			$notices[] = clone($notice);
+		}
+		
+		return $notices;
+	}
+	
+	function get_channel() {
+		global $config;
+		$c = array('url' => common_local_url('publicrss'),
+				   'title' => $config['site']['name'] . _t(' Public Stream'),
+				   'link' => common_local_url('public'),
+				   'description' => _t('All updates for ') . $config['site']['name']);
+		return $c;
+	}
+	
+	function get_image() {
+		return NULL;
 	}
 }
-

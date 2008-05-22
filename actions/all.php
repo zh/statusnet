@@ -44,7 +44,8 @@ class AllAction extends StreamAction {
 
 		# Looks like we're good; show the header
 
-		common_show_header($profile->nickname . _t(" and friends"));
+		common_show_header($profile->nickname . _t(" and friends"),
+						   array($this, 'show_header'), $user);
 
 		$cur = common_current_user();
 
@@ -55,6 +56,14 @@ class AllAction extends StreamAction {
 		$this->show_notices($profile);
 		
 		common_show_footer();
+	}
+	
+	function show_header($user) {
+		common_element('link', array('rel' => 'alternate',
+									 'href' => common_local_url('allrss', array('nickname' =>
+																			   $user->nickname)),
+									 'type' => 'application/rss+xml',
+									 'title' => _t('Feed for friends of ') . $user->nickname));
 	}
 
 	function show_notices($profile) {
