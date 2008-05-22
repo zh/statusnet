@@ -28,7 +28,6 @@
 + design from Open Source Web Designs
 + add H1 to each page
 + add H2 for each page section
-- doc action
 + default to public stream
 + default avatar
 + default HTML type
@@ -49,38 +48,38 @@
 + RSS 1.0 feeds of a user's notices + friends
 + RSS 1.0 dump of a user's notices
 + RSS 1.0 feed of all public notices
++ deal with PHP quotes escaping
++ source link in footer menu
++ public stream link in top menu
++ dump, fix, undump database
++ release 0.2
+- subscribe remote
+- add subscriber remote
+- send remote notice
+- receive remote notice
+- pretty URLs
+- doc action
+- about doc
+- help doc
+- privacy doc
+- source doc
 - FOAF dump for user
-- license on showstream
-- license on shownotice
 - license in RSS feeds
 - TOS checkbox on register
 - instructions
-+ deal with PHP quotes escaping
 - fix spacing on notices
 - fix spacing in profile
 - limit entry in textarea to 140 chars
 - add a next page link to showstream
 - add a next page link to public
 - add a next page link to all
-+ source link in footer menu
-+ public stream link in top menu
-- about doc
-- help doc
-- privacy doc
-- source doc
 - AGPL notification
 - gettext
-- pretty URLs
-+ dump, fix, undump database
-- subscribe remote
-- add subscriber remote
-- send remote notice
-- receive remote notice
-- release 0.2
+- release 0.3
+- license per notice
 - Automatically linkify URLs in notices
 - tinyurl-ification of URLs
 - use only canonical email addresses
-- license per notice
 - allow mixed-case usernames
 - allow non-latin usernames
 - store canonical username for comparison and fetch
@@ -99,7 +98,7 @@
 - If-Modified-Since support
 - Vary
 - site logo
-- release 0.3
+- release 0.4
 - RDF dump of entire site
 - delete a notice
 - plugins and hooks
@@ -117,7 +116,7 @@
 - video notices
 - audio notices
 - license per attachment
-- release 0.4
+- release 0.5
 - forward notices to Jabber
 - forward notices to other IM
 - forward notices to mobile phone
@@ -125,7 +124,7 @@
 - receive notices from other IM
 - receive notices from mobile phone
 - machine tags
-- release 0.5
+- release 0.6
 - Twitter-compatible API
 - Pownce-compatible API
 - include twitter subscriptions (push and pull)
