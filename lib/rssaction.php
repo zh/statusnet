@@ -108,7 +108,7 @@ class Rss10Action extends Action {
 	
 	function show_item($notice) {
 		$nurl = common_local_url('shownotice', array('notice' => $notice->id));
-		common_element_start('item', array('rdf:about' => $nurl));
+		common_element_start('item', array('rdf:about' => $notice->uri));
 		common_element('title', NULL, $notice->created);
 		common_element('link', NULL, $nurl);
 		common_element('description', NULL, common_render_content($notice->content));
