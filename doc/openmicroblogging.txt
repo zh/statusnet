@@ -69,45 +69,28 @@ Discovery
 The remote service recovers a YADIS document from the profile URL, as
 described in YADIS 1.0.
 
-The remote service looks for a service of this type:
+The remote service looks for the URIs of Service of these types:
 
-    http://openmicroblogging.org/protocol/0.1
-
-The service must include the following 5 URLs. [*]_
-
-omb:requestToken
+http://openmicroblogging.org/protocol/0.1/requestToken
     Request Token URL, as in OAuth 1.0
 
-omb:userAuthorization
+http://openmicroblogging.org/protocol/0.1/userAuthorization
     User Authorization URL, as in OAuth 1.0
 
-omb:accessToken
+http://openmicroblogging.org/protocol/0.1/accessToken
     Access Token URL, as in OAuth 1.0
 
-omb:postNotice
+http://openmicroblogging.org/protocol/0.1/postNotice
     Post Notice URL, as defined below.
 
-omb:updateProfile
+http://openmicroblogging.org/protocol/0.1/updateProfile
     Update Profile URL, as defined below.
 
-It must also include the following URI:
-
-omb:identifier
+http://openmicroblogging.org/protocol/0.1/identifier
     identifier URI for the user with this profile URL.
-    
-Here, omb: is the namespace prefix for:
 
-    http://openmicroblogging.org/xmlns/0.1
-
-The YADIS URI defined for the service can be ignored.
-
-.. [*] I decided to use a separate namespace with 5 elements to enable
-   having different providers for general OAuth and specific OµB. A
-   future version of this document may have a mode that allows a
-   single URL defined in the <URI> element with an additional URL
-   parameter like 'action=requesttoken', 'action=userauthorization' or
-   something similar. But that simplifies the YADIS doc at the expense
-   of the rest of the protocol.
+If any of the URIs is unavailable, the remote service MUST stop
+processing.
 
 Authorization
 =============

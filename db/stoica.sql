@@ -36,6 +36,7 @@ create table user (
     nickname varchar(64) unique key comment 'nickname or username, duped in profile',
     password varchar(255) comment 'salted password, can be null for OpenID users',
     email varchar(255) unique key comment 'email address for password recovery etc.',
+    uri varchar(255) unique key comment 'universally unique identifier, usually a tag URI',
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified'
 );
@@ -44,7 +45,9 @@ create table user (
 
 create table remote_profile (
     id integer primary key comment 'foreign key to profile table' references profile (id),
-    url varchar(255) unique key comment 'URL we use for updates from this profile (distinct from "home page" url)',
+    uri varchar(255) unique key comment 'universally unique identifier, usually a tag URI',
+    postnoticeurl varchar(255) comment 'URL we use for posting notices',
+    updateprofileurl varchar(255) comment 'URL we use for updates to this profile',
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified'
 );
@@ -64,6 +67,7 @@ create table subscription (
 create table notice (
     id integer auto_increment primary key comment 'unique identifier',
     profile_id integer not null comment 'who made the update' references profile (id),
+    uri varchar(255) unique key comment 'universally unique identifier, usually a tag URI',
     content varchar(140) comment 'update content',
     /* XXX: cache rendered content. */
     url varchar(255) comment 'URL of any attachment (image, video, bookmark, whatever)',

@@ -432,6 +432,13 @@ function common_notice_form() {
 	common_element_end('form');
 }
 
+function common_mint_tag($extra) {
+	global $config;
+	return 
+	  'tag:'.$config['tag']['authority'].','.
+	  $config['tag']['date'].':'$config['tag']['prefix'].$extra;
+}
+
 // XXX: set up gettext
 
 function _t($str) {
