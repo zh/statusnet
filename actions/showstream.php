@@ -64,7 +64,7 @@ class ShowstreamAction extends StreamAction {
 
 	function show_header($user) {
 		common_element('link', array('rel' => 'alternate',
-									 'href' => common_local_url('rss10', array('nickname' =>
+									 'href' => common_local_url('userrss', array('nickname' =>
 																			   $user->nickname)),
 									 'type' => 'application/rss+xml',
 									 'title' => _t('Notice feed for ') . $user->nickname));

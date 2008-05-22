@@ -46,4 +46,16 @@ class Action { // lawsuit
 			$this->args[$k] = ($strip) ? stripslashes($v) : $v;
 		}
 	}
+	
+	function boolean($key, $def=false) {
+		$arg = $this->arg($key);
+		return (is_null($arg)) ? $def : 
+		(strcasecmp($arg, 'true')) ? true :
+		(strcasecmp($arg, 'yes')) ? true : 
+		(strcasecmp($arg, '1')) ? true :
+		(strcasecmp($arg, 'false')) ? false :
+		(strcasecmp($arg, 'no')) ? false : 
+		(strcasecmp($arg, '0')) ? false :
+		$def;
+	}
 }
