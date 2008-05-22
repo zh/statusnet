@@ -436,7 +436,7 @@ function common_mint_tag($extra) {
 	global $config;
 	return 
 	  'tag:'.$config['tag']['authority'].','.
-	  $config['tag']['date'].':'$config['tag']['prefix'].$extra;
+	  $config['tag']['date'].':'.$config['tag']['prefix'].$extra;
 }
 
 // XXX: set up gettext
