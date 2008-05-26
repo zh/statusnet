@@ -59,24 +59,24 @@ class XrdsAction extends Action {
 
 		common_element('Type', NULL, 'xri://$xrds*simple');
 
-		$this->show_service(OAUTH_ENDPONT_REQUEST,
+		$this->show_service(OAUTH_ENDPOINT_REQUEST,
 							common_local_url('requesttoken'),
 							array(OAUTH_AUTH_HEADER, OAUTH_POST_BODY),
 							array(OAUTH_HMAC_SHA1),
 							$user->uri);
 
-		$this->show_service(OAUTH_ENDPONT_AUTHORIZE,
+		$this->show_service(OAUTH_ENDPOINT_AUTHORIZE,
 							common_local_url('userauthorization'),
 							array(OAUTH_AUTH_HEADER, OAUTH_POST_BODY),
 							array(OAUTH_HMAC_SHA1),
 							$user->uri);
 
-		$this->show_service(OAUTH_ENDPONT_ACCESS,
+		$this->show_service(OAUTH_ENDPOINT_ACCESS,
 							common_local_url('accesstoken'),
 							array(OAUTH_AUTH_HEADER, OAUTH_POST_BODY),
 							array(OAUTH_HMAC_SHA1));
 
-		$this->show_service(OAUTH_ENDPONT_RESOURCE,
+		$this->show_service(OAUTH_ENDPOINT_RESOURCE,
 							NULL,
 							array(OAUTH_AUTH_HEADER, OAUTH_POST_BODY),
 							array(OAUTH_HMAC_SHA1));
@@ -92,10 +92,10 @@ class XrdsAction extends Action {
 		
 		common_element('Type', NULL, 'xri://$xrds*simple');
 		
-		$this->show_service(OMB_ENDPONT_POSTNOTICE,
+		$this->show_service(OMB_ENDPOINT_POSTNOTICE,
 							common_local_url('postnotice'));
 
-		$this->show_service(OMB_ENDPONT_UPDATEPROFILE,
+		$this->show_service(OMB_ENDPOINT_UPDATEPROFILE,
 							common_local_url('updateprofile'));
 
 		common_element_end('XRD');
