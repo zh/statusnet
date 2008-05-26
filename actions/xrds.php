@@ -63,13 +63,13 @@ class XrdsAction extends Action {
 							common_local_url('requesttoken'),
 							array(OAUTH_AUTH_HEADER, OAUTH_POST_BODY),
 							array(OAUTH_HMAC_SHA1),
-							$user->getUri());
+							$user->uri);
 
 		$this->show_service(OAUTH_ENDPONT_AUTHORIZE,
 							common_local_url('userauthorization'),
 							array(OAUTH_AUTH_HEADER, OAUTH_POST_BODY),
 							array(OAUTH_HMAC_SHA1),
-							$user->getUri());
+							$user->uri);
 
 		$this->show_service(OAUTH_ENDPONT_ACCESS,
 							common_local_url('accesstoken'),
@@ -116,10 +116,23 @@ class XrdsAction extends Action {
 		common_end_xml();
 	}
 	
-	function show_service($type, $uri, $params=NULL, $signature=NULL, $localId=NULL) {
+	function show_service($type, $uri, $params=NULL, $sigs=NULL, $localId=NULL) {
 		common_element_start('Service');
-		common_element('Type', $type);
-		common_element('URI', $uri);
+		common_element('URI', NULL, $uri);
+		common_element('Type', NULL, $type);
+		if ($params) {
+			foreach ($params as $param) {
+				common_element('Type', NULL, $param);
+			}
+		}
+		if ($sigs) {
+			foreach ($sigs as $sig) {
+				common_element('Type', NULL, $sig);
+			}
+		}
+		if ($localId) {
+			common_element('LocalID', NULL, $localID);
+		}
 		common_element_end('Service');
 	}
 }
