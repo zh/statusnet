@@ -13,7 +13,7 @@ users of another service, given the other users' permission.
 Enabling technologies
 =====================
 
-Depends on OAuth 1.0, YADIS 1.0.
+Depends on OAuth 1.0, OAuth Discovery 1.0, YADIS 1.0.
 
 We piggy-back additional information onto these protocols to pass
 microblogging information back and forth.
@@ -33,9 +33,9 @@ listener
 listenee
     the user sending notices.
 remote service
-    the listenee's service.
+    the listenee's microblogging service.
 local service
-    the listener's service.
+    the listener's microblogging service.
 profile URL
     "home" URL for the listener, typically their profile page on a
     microblogging site.
@@ -60,34 +60,32 @@ notice URI
 Initiation
 ==========
 
-The user submits their profile URL to the remote service somehow --
+The user submits their profile URL [*] to the remote service somehow --
 for example, with an HTML form on the remote service's Web site. 
 
+.. [*] For OAuth Discovery, this is the "protected resource". It may
+   be more correct that the protected resource is the postNotice URL
+   (see below), but the listener will be more familiar with their own
+   profile URL. So there will have to be discovery of the postNotice
+   URL anyways, and it might as well all be done in one step.
+   
 Discovery
 =========
 
 The remote service recovers a YADIS document from the profile URL, as
-described in YADIS 1.0.
+described in OAuth Discovery.
 
-The remote service looks for the URIs of Service of these types:
+The request token service must have a LocalID associated with it,
+containing the identifier URI for the listener.
 
-http://openmicroblogging.org/protocol/0.1/requestToken
-    Request Token URL, as in OAuth 1.0
-
-http://openmicroblogging.org/protocol/0.1/userAuthorization
-    User Authorization URL, as in OAuth 1.0
-
-http://openmicroblogging.org/protocol/0.1/accessToken
-    Access Token URL, as in OAuth 1.0
+The following two extra services must be included in the YADIS
+document, with accompanying URIs.
 
 http://openmicroblogging.org/protocol/0.1/postNotice
     Post Notice URL, as defined below.
 
 http://openmicroblogging.org/protocol/0.1/updateProfile
     Update Profile URL, as defined below.
-
-http://openmicroblogging.org/protocol/0.1/identifier
-    identifier URI for the user with this profile URL.
 
 If any of the URIs is unavailable, the remote service MUST stop
 processing.
@@ -202,6 +200,12 @@ omb_listener_avatar
 This will allow the remote service to display information about the
 listener in the listenee's "listeners" or "subscribers" list.
 
+Access token
+------------
+
+The access token step of the OAuth protocol requires no additional
+parameters.
+
 Posting a Notice
 ================
 
@@ -289,18 +293,25 @@ omb_listenee_license
     The default license URL for the listenee's stream. A change in the
     default license only applies to future notices; notices previous
     to the update SHOULD be treated as under the old license.
-omb_listener_fullname
-    The full name of the listener. Up to 255 chars.
-omb_listener_homepage
-    The home page of the listener.
-omb_listener_bio
-    A brief biography of the listener; less than 140 chars.
-omb_listener_location
-    Physical location of the listener; less that 255 chars.
-omb_listener_avatar
+omb_listenee_fullname
+    The full name of the listenee. Up to 255 chars.
+omb_listenee_homepage
+    The home page of the listenee.
+omb_listenee_bio
+    A brief biography of the listenee; less than 140 chars.
+omb_listenee_location
+    Physical location of the listenee; less that 255 chars.
+omb_listenee_avatar
     URL of a 96px by 96px image in PNG, GIF or JPEG format representing
-    the listener.
+    the listenee.
 
 Missing parameters should not be construed to mean that the profile
 field has been blanked. The remote service MUST set the parameter to
 an empty string to show that the field is blank.
+
+References
+==========
+
+* OAuth: http://oauth.net/
+* OAuth Discovery: http://oauth.net/discovery/1.0
+* XRDS Simple: http://xrds-simple.net/core/1.0/
