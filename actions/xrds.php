@@ -19,8 +19,19 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-define('OPENMICROBLOGGING01', 'http://openmicroblogging.org/protocol/0.1');
+define('OAUTH_NAMESPACE', 'http://oauth.net/core/1.0/');
+define('OMB_NAMESPACE', 'http://openmicroblogging.org/protocol/0.1');
+define('OAUTH_DISCOVERY', 'http://oauth.net/discovery/1.0');
 
+define('OMB_ENDPOINT_UPDATEPROFILE', OMB_NAMESPACE.'updateProfile');
+define('OAUTH_ENDPOINT_REQUEST', OAUTH_NAMESPACE.'endpoint/request');
+define('OAUTH_ENDPOINT_AUTHORIZE', OAUTH_NAMESPACE.'endpoint/authorize');
+define('OAUTH_ENDPOINT_ACCESS', OAUTH_NAMESPACE.'endpoint/access');
+define('OAUTH_ENDPOINT_RESOURCE', OAUTH_NAMESPACE.'endpoint/resource');
+define('OAUTH_AUTH_HEADER', OAUTH_NAMESPACE.'parameters/auth-header');
+define('OAUTH_POST_BODY', OAUTH_NAMESPACE.'parameters/post-body');
+define('OAUTH_HMAC_SHA1', OAUTH_NAMESPACE.'signature/HMAC-SHA1');
+	   
 class XrdsAction extends Action {
 
 	function handle($args) {
@@ -39,28 +50,73 @@ class XrdsAction extends Action {
 		header('Content-Type: application/rdf+xml');
 
 		common_start_xml();
-		common_element_start('xrds:XRDS', array('xmlns:xrds' => 'xri://$xrds',
-												'xmlns' => 'xri://$xrd*($v*2.0)'));
-		common_element_start('XRD');
-
-		$this->show_service(OPENMICROBLOGGING01.'/identifier',
-							$user->uri);
-
-		# XXX: decide whether to include user's ID/nickname in postNotice URL
+		common_element_start('XRDS', array('xmlns' => 'xri://$xrds'));
 		
-		foreach (array('requestToken', 'userAuthorization',
-					   'accessToken', 'postNotice',
-					   'updateProfile') as $type) {
-			$this->show_service(OPENMICROBLOGGING01.'/'.$type,
-								common_local_url(strtolower($type)));
-		}
+		common_element_start('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
+		                                  'xml:id' => 'oauth',
+										  'xmlns:simple' => 'http://xrds-simple.net/core/1.0',
+										  'version' => '2.0'));
+
+		common_element('Type', NULL, 'xri://$xrds*simple');
+
+		$this->show_service(OAUTH_ENDPONT_REQUEST,
+							common_local_url('requesttoken'),
+							array(OAUTH_AUTH_HEADER, OAUTH_POST_BODY),
+							array(OAUTH_HMAC_SHA1),
+							$user->getUri());
+
+		$this->show_service(OAUTH_ENDPONT_AUTHORIZE,
+							common_local_url('userauthorization'),
+							array(OAUTH_AUTH_HEADER, OAUTH_POST_BODY),
+							array(OAUTH_HMAC_SHA1),
+							$user->getUri());
+
+		$this->show_service(OAUTH_ENDPONT_ACCESS,
+							common_local_url('accesstoken'),
+							array(OAUTH_AUTH_HEADER, OAUTH_POST_BODY),
+							array(OAUTH_HMAC_SHA1));
+
+		$this->show_service(OAUTH_ENDPONT_RESOURCE,
+							NULL,
+							array(OAUTH_AUTH_HEADER, OAUTH_POST_BODY),
+							array(OAUTH_HMAC_SHA1));
 		
 		common_element_end('XRD');
-		common_element_end('xrds:XRDS');
+		
+		# XXX: decide whether to include user's ID/nickname in postNotice URL
+		
+		common_element_start('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
+		                                  'xml:id' => 'omb',
+										  'xmlns:simple' => 'http://xrds-simple.net/core/1.0',
+										  'version' => '2.0'));
+		
+		common_element('Type', NULL, 'xri://$xrds*simple');
+		
+		$this->show_service(OMB_ENDPONT_POSTNOTICE,
+							common_local_url('postnotice'));
+
+		$this->show_service(OMB_ENDPONT_UPDATEPROFILE,
+							common_local_url('updateprofile'));
+
+		common_element_end('XRD');
+		
+		common_element_start('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
+										  'version' => '2.0'));
+
+		common_element('Type', NULL, 'xri://$xrds*simple');
+		
+		$this->show_service(OAUTH_DISCOVERY,
+							'#oauth');
+		$this->show_service(OMB_NAMESPACE,
+							'#omb');
+		
+		common_element_end('XRD');
+		
+		common_element_end('XRDS');
 		common_end_xml();
 	}
 	
-	function show_service($type, $uri) {
+	function show_service($type, $uri, $params=NULL, $signature=NULL, $localId=NULL) {
 		common_element_start('Service');
 		common_element('Type', $type);
 		common_element('URI', $uri);
