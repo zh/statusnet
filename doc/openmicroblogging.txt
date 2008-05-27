@@ -60,7 +60,7 @@ notice URI
 Initiation
 ==========
 
-The user submits their profile URL [*] to the remote service somehow --
+The user submits their profile URL [*]_ to the remote service somehow --
 for example, with an HTML form on the remote service's Web site. 
 
 .. [*] For OAuth Discovery, this is the "protected resource". It may
@@ -96,11 +96,12 @@ Authorization
 The remote service must go through the OAuth 1.0 dance to get
 authorization to post notices and update profiles.
 
-In all OAuth, the consumer key should be blank (''), unless the remote
-server and local service have negotiated another key. Such negotiation
-is out-of-scope for this document, and we assume an "open" network of
-microblogging services. But if you want to have that kind of network,
-do it with this key.
+In all OAuth, the consumer key should be the root URL for the
+microblogging service, if available. The secret should be the blank
+string (''), unless the remote server and local service have negotiated
+another key. Such negotiation is out-of-scope for this document, and we
+assume an "open" network of microblogging services. But if you want to
+have that kind of network, do it with this key.
 
 The remote service MUST do OAuth for every new listener, regardless of
 whether they've already received authorization for posting to the
@@ -253,17 +254,17 @@ The local service makes no guarantees about the delivery of the notice
 to anyone.
 
 The remote service SHOULD NOT send a message with the same notice URL
-to the same postNotice URL more than once. [2]_ If the request returns
+to the same postNotice URL more than once. [*]_ If the request returns
 a 403 Unauthorized message, the remote service SHOULD NOT post
 messages to the same URL again with the same listenee, until another
-listener has gone through the OAuth dance. [3]_
+listener has gone through the OAuth dance. [*]_
 
-.. [2] A half-assed optimization. A local service may have a lot of
+.. [*] A half-assed optimization. A local service may have a lot of
    listeners listening to the same listenee. It would be pointless to
    have the remote service post the same notice 100 times to the same
    service. However, if the local service wants fine-grained control,
    it can have a different postNotice URL for each listener.
-.. [3] If there's one postNotice URL per listener, the 403 message
+.. [*] If there's one postNotice URL per listener, the 403 message
    means the listener has told the local service not to allow posting
    any more ("unsubscribed"). If there's one postNotice URL per local
    service, it means that the count of listeners has dropped to 0.

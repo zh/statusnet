@@ -22,6 +22,60 @@ if (!defined('LACONICA')) { exit(1); }
 class UserauthorizationAction extends Action {
 	function handle($args) {
 		parent::handle($args);
-		common_server_error(_t('Not yet implemented.'));
+		
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			$this->send_authorization();
+		} else {
+			try {
+				$req = $this->get_request();
+				$server = common_oauth_server();
+				list($consumer, $token) = $server->verify_request($req);
+			} catch (OAuthException $e) {
+				$this->clear_request();
+				common_server_error($e->getMessage());
+				return;
+			}
+			
+			if (common_logged_in()) {
+				$this->show_form($req);
+			} else {
+				common_return_to(common_local_url('userauthorization'));
+				common_redirect(common_local_url('login'));
+			}
+		}
+	}
+	
+	function store_request($req) {
+		common_ensure_session();
+		$_SESSION['userauthorizationrequest'] = $req;
+	}
+	
+	function get_request() {
+		common_ensure_session();		
+		$req = $_SESSION['userauthorizationrequest'];
+		if (!$req) {
+			# XXX: may have an uncaught exception
+			$req = OAuthRequest::from_request();
+			$this->store_request($req);
+		}
+		return $req;
+	}
+	
+	function show_form($req) {
+		common_show_header(_t('Authorize subscription'));
+
+		common_show_footer();
+	}
+	
+	function send_authorization() {
+		$req = $this->get_request();
+		if (!$req) {
+			common_user_error(_t('No authorization request!'));
+			return;
+		}
+		
+		if ($this->boolean('authorize')) {
+			
+		}
 	}
 }

@@ -68,6 +68,10 @@ class ShowstreamAction extends StreamAction {
 																			   $user->nickname)),
 									 'type' => 'application/rss+xml',
 									 'title' => _t('Notice feed for ') . $user->nickname));
+		# for remote subscriptions etc.
+		common_element('meta', array('http-equiv' => 'X-XRDS-Location',
+									 'content' => common_local_url('xrds', array('nickname' =>
+																			   $user->nickname))));
 	}
 	
 	function no_such_user() {

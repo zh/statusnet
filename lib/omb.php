@@ -19,11 +19,15 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
+require_once('OAuth.php');
+
 define('OAUTH_NAMESPACE', 'http://oauth.net/core/1.0/');
 define('OMB_NAMESPACE', 'http://openmicroblogging.org/protocol/0.1');
+define('OMB_VERSION_01', 'http://openmicroblogging.org/protocol/0.1');
 define('OAUTH_DISCOVERY', 'http://oauth.net/discovery/1.0');
 
 define('OMB_ENDPOINT_UPDATEPROFILE', OMB_NAMESPACE.'updateProfile');
+define('OMB_ENDPOINT_POSTNOTICE', OMB_NAMESPACE.'postNotice');
 define('OAUTH_ENDPOINT_REQUEST', OAUTH_NAMESPACE.'endpoint/request');
 define('OAUTH_ENDPOINT_AUTHORIZE', OAUTH_NAMESPACE.'endpoint/authorize');
 define('OAUTH_ENDPOINT_ACCESS', OAUTH_NAMESPACE.'endpoint/access');
@@ -32,3 +36,18 @@ define('OAUTH_AUTH_HEADER', OAUTH_NAMESPACE.'parameters/auth-header');
 define('OAUTH_POST_BODY', OAUTH_NAMESPACE.'parameters/post-body');
 define('OAUTH_HMAC_SHA1', OAUTH_NAMESPACE.'signature/HMAC-SHA1');
 	   
+function omb_oauth_consumer() {
+	static $con = null;
+	if (!$con) {
+		$con = new OAuthConsumer(common_root_url(), '');
+	}
+	return $con;
+}
+
+function omb_hmac_sha1() {
+	static $hmac_method = NULL;
+	if (!$hmac_method) {
+		$hmac_method = new OAuthSignatureMethod_HMAC_SHA1();
+	}
+	return $hmac_method;
+}

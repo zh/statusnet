@@ -1,0 +1,221 @@
+<?php
+/*
+ * Laconica - a distributed open-source microblogging tool
+ * Copyright (C) 2008, Controlez-Vous, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+if (!defined('LACONICA')) { exit(1); }
+
+require_once(INSTALLDIR.'/lib/omb.php');
+require_once('Auth/Yadis/Yadis.php');
+
+class FinishremotesubscribeAction extends Action {
+	
+	function handle($args) {
+		
+		parent::handle($args);
+
+		if (common_logged_in()) {
+			common_user_error(_t('You can use the local subscription!'));
+		    return;
+		}
+		
+		$nonce = $this->trimmed('nonce');
+		
+		if (!$omb) {
+			common_user_error(_t('No nonce returned!'));
+			return;
+		}
+		
+		$omb = $_SESSION[$nonce];
+		
+		if (!$omb) {
+			common_user_error(_t('Not expecting this response!'));
+			return;
+		}
+
+		$req = OAuthRequest::from_request();
+
+		$token = $req->get_parameter('oauth_token');
+
+		# I think this is the success metric
+		
+		if ($token != $omb['token']) {
+			common_user_error(_t('Not authorized.'));
+			return;
+		}
+		
+		$version = $req->get_parameter('omb_version');
+		
+		if ($version != OMB_VERSION_01) {
+			common_user_error(_t('Unknown version of OMB protocol.'));
+			return;
+		}
+		
+		$nickname = $req->get_parameter('omb_listener_nickname');
+		
+		if (!$nickname) {
+			common_user_error(_t('No nickname provided by remote server.'));
+			return;
+		}
+
+		$profile_url = $req->get_parameter('omb_listener_profile');
+		
+		if (!$profile_url) {
+			common_user_error(_t('No profile URL returned by server.'));
+			return;
+		}
+
+		if (!Validate::uri($profile_url, array('allowed_schemes' => array('http', 'https')))) {
+			common_user_error(_t('Invalid profile URL returned by server.'));
+			return;
+		}
+
+		$user = User::staticGet('uri', $omb['listenee']);
+		
+		if (!$user) {
+			common_user_error(_t('User being listened to doesn\'t exist.'));
+			return;
+		}
+		
+		$fullname = $req->get_parameter('omb_listener_fullname');
+		$homepage = $req->get_parameter('omb_listener_homepage');
+		$bio = $req->get_parameter('omb_listener_bio');
+		$location = $req->get_parameter('omb_listener_location');
+		$avatar_url = $req->get_parameter('omb_listener_avatar');
+
+		list($newtok, $newsecret) = $this->access_token($omb);
+		
+		if (!$newtok || !$newsecret) {
+			common_user_error(_t('Couldn\'t convert request tokens to access tokens.'));
+			return;
+		}
+		
+		# XXX: possible attack point; subscribe and return someone else's profile URI
+		
+		$remote = Remote_profile::staticGet('uri', $omb['listener']);
+		
+		if ($remote) {
+			$exists = true;
+			$profile = Profile::staticGet($remote->id);
+			$orig_remote = clone($remote);
+			$orig_profile = clone($profile);
+			# XXX: compare current postNotice and updateProfile URLs to the ones
+			# stored in the DB to avoid (possibly...) above attack
+		} else {
+			$exists = false;
+			$remote = new Remote_profile();
+			$remote->uri = $omb['listener'];
+			$profile = new Profile();
+		}
+
+		$profile->nickname = $nickname;
+		$profile->profileurl = $profile_url;
+		
+		if ($fullname) {
+			$profile->fullname = $fullname;
+		}
+		if ($homepage) {
+			$profile->homepage = $homepage;
+		}
+		if ($bio) {
+			$profile->bio = $bio;
+		}
+		if ($location) {
+			$profile->location = $location;
+		}
+		
+		if ($exists) {
+			$profile->update($orig_profile);
+		} else {
+			$profile->created = DB_DataObject_Cast::dateTime(); # current time
+			$id = $profile->insert();
+			$remote->id = $id;
+		}
+
+		if ($avatar_url) {
+			$this->add_avatar($avatar_url);
+		}
+
+		$remote->postnoticeurl = $omb[OMB_ENDPOINT_POSTNOTICE];
+		$remote->updateprofileurl = $omb[OMB_ENDPOINT_UPDATEPROFILE];
+
+		if ($exists) {
+			$remote->update($orig_remote);
+		} else {
+			$remote->created = DB_DataObject_Cast::dateTime(); # current time
+			$remote->insert;
+		}
+		
+		$sub = new Subscription();
+		$sub->subscriber = $remote->id;
+		$sub->subscribed = $user->id;
+		$sub->token = $newtok;
+		$sub->secret = $newsecret;
+		$sub->created = DB_DataObject_Cast::dateTime(); # current time
+		
+		if (!$sub->insert()) {
+			common_user_error(_t('Couldn\'t insert new subscription.'));
+			return;
+		}
+
+		# Clear the data
+		unset($_SESSION[$nonce]);
+		
+		# If we show subscriptions in reverse chron order, this should
+		# show up close to the top of the page
+		
+		common_redirect(common_local_url('subscribed', array('nickname' =>
+															 $user->nickname)));
+	}
+	
+	function access_token($omb) {
+		
+		$con = omb_oauth_consumer();
+		$tok = new OAuthToken($omb['token'], $omb['secret']);
+
+		$url = $omb[OAUTH_ENDPOINT_ACCESS][0];
+		
+		# XXX: Is this the right thing to do? Strip off GET params and make them
+		# POST params? Seems wrong to me.
+		
+		$parsed = parse_url($url);
+		$params = array();
+		parse_str($parsed['query'], $params);
+
+		$req = OAuthRequest::from_consumer_and_token($con, $tok, "POST", $url, $params);
+		
+		$req->set_parameter('omb_version', OMB_VERSION_01);
+		
+		# XXX: test to see if endpoint accepts this signature method
+
+		$req->sign_request(omb_hmac_sha1(), $con, NULL);
+		
+		# We re-use this tool's fetcher, since it's pretty good
+		
+		$fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
+		$result = $fetcher->post($req->get_normalized_http_url(),
+								 $req->to_postdata());
+		
+		if ($result->status != 200) {
+			return NULL;
+		}
+
+		parse_str($result->body, $return);
+		
+		return array($return['oauth_token'], $return['oauth_token_secret']);
+	}
+}

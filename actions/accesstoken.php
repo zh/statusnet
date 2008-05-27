@@ -22,6 +22,13 @@ if (!defined('LACONICA')) { exit(1); }
 class AccesstokenAction extends Action {
 	function handle($args) {
 		parent::handle($args);
-		common_server_error(_t('Not yet implemented.'));
+		try {
+			$req = OAuthRequest::from_request();
+			$server = common_oauth_server();
+			$token = $server->fetch_access_token($req);
+			print $token;
+		} catch (OAuthException $e) {
+			common_server_error($e->getMessage());
+		}
 	}
 }

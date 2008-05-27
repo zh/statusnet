@@ -19,9 +19,18 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
+require_once(INSTALLDIR.'/lib/omb.php');
+
 class RequesttokenAction extends Action {
 	function handle($args) {
 		parent::handle($args);
-		common_server_error(_t('Not yet implemented.'));
+		try {
+			$req = OAuthRequest::from_request();
+			$server = common_oauth_server();
+			$token = $server->fetch_request_token($req);
+			print $token;
+		} catch (OAuthException $e) {
+			common_server_error($e->getMessage());
+		}
 	}
 }

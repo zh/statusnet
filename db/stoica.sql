@@ -56,6 +56,7 @@ create table subscription (
     subscriber integer not null comment 'profile listening',
     subscribed integer not null comment 'profile being listened to',
     token varchar(255) comment 'authorization token',
+    secret varchar(255) comment 'token secret',
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified',
 

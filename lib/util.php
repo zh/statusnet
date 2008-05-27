@@ -439,6 +439,14 @@ function common_mint_tag($extra) {
 	  $config['tag']['date'].':'.$config['tag']['prefix'].$extra;
 }
 
+# Should make up a reasonable root URL
+
+function common_root_url() {
+	global $config;
+	$pathpart = ($config['site']['path']) ? $config['site']['path']."/" : '';
+	return "http://".$config['site']['server'].'/'.$pathpart;
+}
+
 // XXX: set up gettext
 
 function _t($str) {

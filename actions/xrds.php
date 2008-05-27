@@ -107,7 +107,9 @@ class XrdsAction extends Action {
 	
 	function show_service($type, $uri, $params=NULL, $sigs=NULL, $localId=NULL) {
 		common_element_start('Service');
-		common_element('URI', NULL, $uri);
+		if ($uri) {
+			common_element('URI', NULL, $uri);
+		}
 		common_element('Type', NULL, $type);
 		if ($params) {
 			foreach ($params as $param) {
