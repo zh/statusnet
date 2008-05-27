@@ -33,6 +33,7 @@ class Subscription extends DB_DataObject
     public $subscriber;                      // int(4)  primary_key not_null
     public $subscribed;                      // int(4)  primary_key not_null
     public $token;                           // varchar(255)  
+    public $secret;                          // varchar(255)  
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 

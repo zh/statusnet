@@ -447,6 +447,38 @@ function common_root_url() {
 	return "http://".$config['site']['server'].'/'.$pathpart;
 }
 
+# returns $bytes bytes of random data as a hexadecimal string
+# "good" here is a goal and not a guarantee
+
+function common_good_rand($bytes) {
+	# XXX: use random.org...?
+	if (file_exists('/dev/urandom')) {
+		return common_urandom($bytes);
+	} else { # FIXME: this is probably not good enough
+		return common_mtrand($bytes);
+	}
+}
+
+function common_urandom($bytes) {
+	$h = fopen('/dev/urandom', 'rb');
+	# should not block
+	$src = fread($h, $bytes);
+	fclose($h);
+	$enc = '';
+	for ($i = 0; $i < $bytes; $i++) {
+		$enc .= sprintf("%02x", (ord($src[$i])));
+	}
+	return $enc;
+}
+
+function common_mtrand($bytes) {
+	$enc = '';
+	for ($i = 0; $i < $bytes; $i++) {
+		$enc .= sprintf("%02x", mt_rand(0, 255));
+	}
+	return $enc;
+}
+
 // XXX: set up gettext
 
 function _t($str) {

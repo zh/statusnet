@@ -77,3 +77,39 @@ create table notice (
 
     index notice_profile_id_idx (profile_id)
 );
+
+/* tables for OAuth */
+
+create table consumer (
+    consumer_key varchar(255) primary key comment 'unique identifier, root URL',
+    seed char(32) not null comment 'seed for new tokens by this consumer',
+    
+    created datetime not null comment 'date this record was created',
+    modified timestamp comment 'date this record was modified'
+);
+
+create table token (
+    consumer_key varchar(255) not null comment 'unique identifier, root URL' references consumer (consumer_key),
+    tok char(32) not null comment 'identifying value',
+    secret char(32) not null comment 'secret value',
+    type tinyint not null default 0 comment 'request or access',
+    state tinyint default 0 comment 'for requests; 0 = initial, 1 = authorized, 2 = used',
+    
+    created datetime not null comment 'date this record was created',
+    modified timestamp comment 'date this record was modified',
+    
+    constraint primary key (consumer_key, tok)
+);
+
+create table nonce (
+    consumer_key varchar(255) not null comment 'unique identifier, root URL',
+    tok char(32) not null comment 'identifying value',
+    nonce char(32) not null comment 'nonce',
+    ts datetime not null comment 'timestamp sent',
+    
+    created datetime not null comment 'date this record was created',
+    modified timestamp comment 'date this record was modified',
+    
+    constraint primary key (consumer_key, tok, nonce),
+    constraint foreign key (consumer_key, tok) references token (consumer_key, tok)
+);
