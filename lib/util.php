@@ -349,13 +349,13 @@ function common_render_content($text) {
 
 // where should the avatar go for this user?
 
-function common_avatar_filename($user, $extension, $size=NULL) {
+function common_avatar_filename($user, $extension, $size=NULL, $extra=NULL) {
 	global $config;
 
 	if ($size) {
-		return $user->id . '-' . $size . $extension;
+		return $user->id . '-' . $size . (($extra) ? $extra : '') . $extension;
 	} else {
-		return $user->id . '-original' . $extension;
+		return $user->id . '-original' . (($extra) ? $extra : '') . $extension;
 	}
 }
 
@@ -479,6 +479,10 @@ function common_mtrand($bytes) {
 	return $enc;
 }
 
+function common_timestamp() {
+	return date('YmdHisu');
+}
+	
 // XXX: set up gettext
 
 function _t($str) {

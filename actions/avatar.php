@@ -108,7 +108,7 @@ class AvatarAction extends SettingsAction {
 
 		$user = common_current_user();
 
-		$filename = common_avatar_filename($user, image_type_to_extension($info[2]));
+		$filename = common_avatar_filename($user, image_type_to_extension($info[2]), NULL, common_timestamp());
 		$filepath = common_avatar_path($filename);
 
 		if (!move_uploaded_file($_FILES['avatarfile']['tmp_name'], $filepath)) {
@@ -166,9 +166,9 @@ class AvatarAction extends SettingsAction {
 		imagecopyresampled($image_s, $image_a, 0, 0, 0, 0,
 						   $size, $size, $square, $square);
 
-		$ext = ($avatar->mediattype == 'image/jpeg') ? ".jpg" : ".png";
+		$ext = ($avatar->mediattype == 'image/jpeg') ? ".jpeg" : ".png";
 
-		$filename = common_avatar_filename($user, $ext, $size);
+		$filename = common_avatar_filename($user, $ext, $size, common_timestamp());
 
 		if ($avatar->mediatype == 'image/jpeg') {
 			imagejpeg($image_s, common_avatar_path($filename));
