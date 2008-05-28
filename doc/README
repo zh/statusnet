@@ -1,14 +1,13 @@
 This package requires PHP 5.x and the following PHP Pear libraries:
 
-- DB_DataObject
-- Validate
-- XMLWriter
+- DB_DataObject http://pear.php.net/package/DB_DataObject
+- Validate http://pear.php.net/package/Validate
+- XMLWriter (built-in)
 - Auth_Yadis from OpenIDEnabled (not the PEAR version!). I decided
   to use the openidenabled.com version since it's more widely
   implemented, seems to be better supported, and it may make sense to
   use the openidenabled.com libraries for OpenID auth sometime in the
   future. Note that this is no longer distributed separately; it's only
   in the openidenabled.com OpenID PHP tarball.
-- OAuth.php from http://oauth.googlecode.com/svn/code/php/
-
+  
   

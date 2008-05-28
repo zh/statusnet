@@ -150,6 +150,11 @@ function common_text($txt) {
 	$xw->text($txt);
 }
 
+function common_raw($xml) {
+	global $xw;
+	$xw->writeRaw($xml);
+}
+
 function common_license_block() {
 	global $config, $xw;
 	common_element_start('p', 'license greenBg');
