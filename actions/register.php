@@ -47,7 +47,9 @@ class RegisterAction extends Action {
 		$nickname = common_canonical_nickname($nickname);
 		$email = common_canonical_email($email);
 
-		if (!Validate::email($email, true)) {
+		if (!$this->boolean('license')) {
+			$this->show_form(_t('You can\'t register if you don\'t agree to the license.'));
+		} else if (!Validate::email($email, true)) {
 			$this->show_form(_t('Not a valid email address.'));
 		} else if (!Validate::string($nickname, array('min_length' => 1,
 													  'max_length' => 64,
@@ -114,7 +116,8 @@ class RegisterAction extends Action {
 	}
 
 	function show_form($error=NULL) {
-
+		global $config;
+		
 		common_show_header(_t('Register'));
 		common_element_start('form', array('method' => 'POST',
 										   'id' => 'login',
@@ -123,6 +126,18 @@ class RegisterAction extends Action {
 		common_password('password', _t('Password'));
 		common_password('confirm', _t('Confirm'));
 		common_input('email', _t('Email'));
+		common_element_start('p');
+		common_element_start('label', array('for' => 'license'));
+		common_text(_t('My text and files are available under '));
+		common_element('a', array(href => $config['license']['url']),
+					   $config['license']['title']);
+		common_text(_t(' except this private data: password, email address, IM address, phone number.'));
+		common_element_end('label');
+		common_element('input', array('type' => 'checkbox',
+									  'id' => 'license',
+									  'name' => 'license',
+									  'value' => 'true'));
+		common_element_end('p');
 		common_submit('submit', _t('Register'));
 		common_element_end('form');
 		common_show_footer();
