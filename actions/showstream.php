@@ -261,7 +261,7 @@ class ShowstreamAction extends StreamAction {
 
 		$notice->orderBy('created DESC');
 
-		$page = $this->arg('page') || 1;
+		$page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 
 		$notice->limit((($page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE + 1);
 
