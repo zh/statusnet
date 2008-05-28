@@ -160,12 +160,14 @@ function common_license_block() {
 								'src' => $config['license']['image'],
 								'alt' => $config['license']['title']));
 	common_element_end('a');
+	common_element_start('span', 'floatRight');
 	common_text(_t('Unless otherwise specified, contents of this site are copyright by the contributors and available under the '));
 	common_element('a', array('class' => 'license',
 							  'rel' => 'license',
 							  href => $config['license']['url']),
 				   $config['license']['title']);
 	common_text(_t('. Contributors should be attributed by full name or nickname.'));
+	common_element_end('span');
 	common_element_end('p');
 }
 
