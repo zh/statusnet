@@ -153,14 +153,14 @@ function common_text($txt) {
 function common_license_block() {
 	global $config, $xw;
 	common_element_start('p', 'license');
-	common_element_start('a', array('class' => 'license floatLeft',
+	common_element_start('a', array('class' => 'license floatLeft width25',
 									'rel' => 'license',
 									href => $config['license']['url']));
 	common_element('img', array('class' => 'license',
 								'src' => $config['license']['image'],
 								'alt' => $config['license']['title']));
 	common_element_end('a');
-	common_element_start('span', 'floatRight');
+	common_element_start('span', 'floatRight width75');
 	common_text(_t('Unless otherwise specified, contents of this site are copyright by the contributors and available under the '));
 	common_element('a', array('class' => 'license',
 							  'rel' => 'license',
