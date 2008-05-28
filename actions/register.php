@@ -131,12 +131,10 @@ class RegisterAction extends Action {
 									  'id' => 'license',
 									  'name' => 'license',
 									  'value' => 'true'));
-		common_element_start('label', array('for' => 'license'));
 		common_text(_t('My text and files are available under '));
 		common_element('a', array(href => $config['license']['url']),
 					   $config['license']['title']);
 		common_text(_t(' except this private data: password, email address, IM address, phone number.'));
-		common_element_end('label');
 		common_element_end('p');
 		common_submit('submit', _t('Register'));
 		common_element_end('form');
