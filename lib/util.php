@@ -202,7 +202,7 @@ function common_foot_menu() {
 	common_menu_item(common_local_url('doc', array('title' => 'privacy')),
 					 _t('Privacy'));
 	common_menu_item(common_local_url('doc', array('title' => 'source')),
-					 _t('Privacy'));
+					 _t('Source'));
 	common_element_end('ul');
 }
 
