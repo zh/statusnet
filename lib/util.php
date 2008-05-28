@@ -353,9 +353,9 @@ function common_avatar_filename($user, $extension, $size=NULL, $extra=NULL) {
 	global $config;
 
 	if ($size) {
-		return $user->id . '-' . $size . (($extra) ? $extra : '') . $extension;
+		return $user->id . '-' . $size . (($extra) ? ('-' . $extra) : '') . $extension;
 	} else {
-		return $user->id . '-original' . (($extra) ? $extra : '') . $extension;
+		return $user->id . '-original' . (($extra) ? ('-' . $extra) : '') . $extension;
 	}
 }
 
@@ -480,7 +480,7 @@ function common_mtrand($bytes) {
 }
 
 function common_timestamp() {
-	return date('YmdHisu');
+	return date('YmdHis');
 }
 	
 // XXX: set up gettext
