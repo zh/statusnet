@@ -27,7 +27,7 @@ class DocAction extends Action {
 		parent::handle($args);
 		$title = $this->trimmed('title');
 		$filename = INSTALLDIR.'/doc/'.$title;
-		if (!file_exists()) {
+		if (!file_exists($filename)) {
 			common_user_error(_t('No such document.'));
 			return;
 		}
