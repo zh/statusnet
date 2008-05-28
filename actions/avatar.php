@@ -62,10 +62,7 @@ class AvatarAction extends SettingsAction {
 		common_element('input', array('name' => 'avatarfile',
 									  'type' => 'file',
 									  'id' => 'avatarfile'));
-		common_element('input', array('name' => 'submit',
-									  'type' => 'submit',
-									  'id' => 'submit',
-									  'value' =>_t('Upload')));
+		common_submit('submit', _t('Upload'));
 		common_element_end('form');
 		common_show_footer();
 	}
