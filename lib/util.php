@@ -152,7 +152,7 @@ function common_text($txt) {
 
 function common_license_block() {
 	global $config, $xw;
-	common_element_start('p', 'license');
+	common_element_start('p', 'license greenBg');
 	common_element_start('span', 'floatLeft width25');
 	common_element_start('a', array('class' => 'license',
 									'rel' => 'license',
