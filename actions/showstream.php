@@ -286,8 +286,8 @@ class ShowstreamAction extends StreamAction {
 			common_element_start('span', 'floatLeft width25');
 			common_element('a', array('href' => common_local_url('showstream', 
 																 array('nickname' => $profile->nickname,
-																	   'page' => $page-1))
-									  'class' => 'newer')
+																	   'page' => $page-1)),
+									  'class' => 'newer'),
 						   _t('Newer'));
 			common_element_end('span');
 		}
@@ -296,8 +296,8 @@ class ShowstreamAction extends StreamAction {
 			common_element_start('span', 'floatRight width25');
 			common_element('a', array('href' => common_local_url('showstream', 
 																 array('nickname' => $profile->nickname,
-																	   'page' => $page+1))
-									  'class' => 'older')
+																	   'page' => $page+1)),
+									  'class' => 'older'),
 						   _t('Older'));
 			common_element_end('span');
 		}
