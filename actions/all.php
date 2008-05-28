@@ -77,17 +77,42 @@ class AllAction extends StreamAction {
 
 		$notice->orderBy('created DESC');
 
-		$page = $this->arg('page') || 1;
+		$page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 
-		$notice->limit((($page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE);
+		$notice->limit((($page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE + 1);
 
-		$notice->find();
+		$cnt = $notice->find();
 
 		common_element_start('div', 'notices width100');
 		common_element('h2', 'notices', _t('Notices'));
 
-		while ($notice->fetch()) {
-			$this->show_notice($notice);
+		for ($i = 0; $i < min($cnt, NOTICES_PER_PAGE); $i++) {
+			if ($notice->fetch()) {
+				$this->show_notice($notice);
+			} else {
+				// shouldn't happen!
+				break;
+			}
+		}
+
+		if ($page > 1) {
+			common_element_start('span', 'floatLeft width25');
+			common_element('a', array('href' => common_local_url('all',
+																 array('nickname' => $profile->nickname,
+																	   'page' => $page-1)),
+									  'class' => 'newer'),
+						   _t('Newer'));
+			common_element_end('span');
+		}
+		
+		if ($cnt > NOTICES_PER_PAGE) {
+			common_element_start('span', 'floatRight width25');
+			common_element('a', array('href' => common_local_url('all', 
+																 array('nickname' => $profile->nickname,
+																	   'page' => $page+1)),
+									  'class' => 'older'),
+						   _t('Older'));
+			common_element_end('span');
 		}
 
 		# XXX: show a link for the next page
