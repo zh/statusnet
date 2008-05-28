@@ -34,7 +34,7 @@ class StreamAction extends Action {
 		common_element_start('div', array('class' => 'notice',
 										  'id' => 'notice-' . $notice->id));
 		$avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
-		common_element_start('span', 'floatLeft width10');
+		common_element_start('span', 'floatLeft width25');
 		common_element_start('a', array('href' => $profile->profileurl));
 		common_element('img', array('src' => ($avatar) ? $avatar->url : common_default_avatar(AVATAR_STREAM_SIZE),
 									'class' => 'avatar stream floatLeft',
@@ -45,7 +45,7 @@ class StreamAction extends Action {
 									$profile->nickname));
 		common_element_end('a');
 		common_element_end('span');
-		common_element_start('span', 'floatRight width90');
+		common_element_start('span', 'floatRight width75');
 		common_element('a', array('href' => $profile->profileurl,
 								  'class' => 'nickname'),
 					   $profile->nickname);
