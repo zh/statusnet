@@ -128,17 +128,6 @@ class AvatarAction extends SettingsAction {
 		$avatar->url = common_avatar_url($filename);
 		$avatar->created = DB_DataObject_Cast::dateTime(); # current time
 
-		$val = $avatar->validate();
-
-		if ($val !== TRUE) {
-			$err = '';
-			foreach ($val as $k=>$v) {
-				$err .= _t('Something wrong with ') . $k;
-				$this->show_form($err);
-				return;
-			}
-		}
-
 		foreach (array(AVATAR_PROFILE_SIZE, AVATAR_STREAM_SIZE, AVATAR_MINI_SIZE) as $size) {
 			$scaled[] = $this->scale_avatar($user, $avatar, $size);
 		}
