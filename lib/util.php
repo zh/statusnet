@@ -365,7 +365,7 @@ function common_at_link($sender_id, $nickname) {
 	$recipient->whereAdd('EXISTS (SELECT subscribed from subscription where subscriber = '.$sender_id.' and subscribed = id)', 'AND');
 	$recipient->whereAdd('nickname = "' . trim($nickname) . '"', 'AND');
 	if ($recipient->find(TRUE)) {
-		return '<a href="'.$recipient->profileurl.'" class="atlink tolistenee">'.$nickname.'</a>';
+		return '<a href="'.htmlspecialchars($recipient->profileurl).'" class="atlink tolistenee">'.$nickname.'</a>';
 	}
 	# Try to find profiles that listen to this profile and that have this nickname
 	$recipient = new Profile();
@@ -373,7 +373,7 @@ function common_at_link($sender_id, $nickname) {
 	$recipient->whereAdd('EXISTS (SELECT subscriber from subscription where subscribed = '.$sender_id.' and subscriber = id)', 'AND');
 	$recipient->whereAdd('nickname = "' . trim($nickname) . '"', 'AND');
 	if ($recipient->find(TRUE)) {
-		return '<a href="'.$recipient->profileurl.'" class="atlink tolistener">'.$nickname.'</a>';
+		return '<a href="'.htmlspecialchars($recipient->profileurl).'" class="atlink tolistener">'.$nickname.'</a>';
 	}
 	# If this is a local user, try to find a local user with that nickname.
 	$sender = User::staticGet($sender_id);
@@ -381,7 +381,7 @@ function common_at_link($sender_id, $nickname) {
 		$recipient_user = User::staticGet('nickname', $nickname);
 		if ($recipient_user) {
 			$recipient = $recipient->getProfile();
-			return '<a href="'.$recipient->profileurl.'" class="atlink usertouser">'.$nickname.'</a>';
+			return '<a href="'.htmlspecialchars($recipient->profileurl).'" class="atlink usertouser">'.$nickname.'</a>';
 		}
 	}
 	# Otherwise, no links. @messages from local users to remote users,
