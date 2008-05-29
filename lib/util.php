@@ -352,7 +352,7 @@ function common_canonical_email($email) {
 function common_render_content($text, $notice) {
 	$r = htmlspecialchars($text);
 	$id = $notice->profile_id;
-	$r = preg_replace('/(^|\s)@([\w-]+)($|\s)/e', "'\\1'.@common_at_link($id, '\\2').'\\3'", $r);
+	$r = preg_replace('/(^|\s)@([\w-]+)($|\s)/e', "'\\1@'.common_at_link($id, '\\2').'\\3'", $r);
 	# XXX: # tags
 	# XXX: machine tags
 	return $r;
