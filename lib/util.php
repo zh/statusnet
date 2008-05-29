@@ -353,7 +353,7 @@ function common_render_content($text, $notice=NULL) {
 	$r = htmlspecialchars($text);
 	if ($notice) {
 		$id = $notice->profile_id;
-		$r = preg_replace('/\b@([\w-]{1-64})\b/e', "@common_at_link($id, '\\1')", $r);
+		$r = preg_replace('/\b@([\w-]+)\b/e', "@common_at_link($id, '\\1')", $r);
 	}
 	# XXX: # tags
 	# XXX: machine tags
