@@ -269,8 +269,6 @@ class ShowstreamAction extends StreamAction {
 
 		common_element_start('div', 'notices width66 floatLeft');
 
-		common_element_start('ul', 'notices');
-
 		for ($i = 0; $i < min($cnt, NOTICES_PER_PAGE); $i++) {
 			if ($notice->fetch()) {
 				$this->show_notice($notice);
@@ -279,8 +277,6 @@ class ShowstreamAction extends StreamAction {
 				break;
 			}
 		}
-		
-		common_element_end('ul');
 
 		if ($page > 1) {
 			common_element_start('span', 'floatLeft width25');
@@ -329,16 +325,16 @@ class ShowstreamAction extends StreamAction {
 	function show_notice($notice) {
 		$profile = $notice->getProfile();
 		# XXX: RDFa
-		common_element_start('li', array('class' => 'notice',
-										 'id' => 'notice-' . $notice->id));
+		common_element_start('div', array('class' => 'notice',
+										  'id' => 'notice-' . $notice->id));
 		$noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
 		# FIXME: URL, image, video, audio
+		common_element_start('span', array('class' => 'content'));
+		common_raw(common_render_content($notice->content));
+		common_element_end('span');
 		common_element('a', array('class' => 'notice',
 								  'href' => $noticeurl),
 					   common_date_string($notice->created));
-		common_element_start('span', array('class' => 'desc'));
-		common_raw(common_render_content($notice->content));
-		common_element_end('span');
-		common_element_end('li');
+		common_element_end('div');
 	}
 }
