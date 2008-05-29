@@ -47,7 +47,9 @@ class StreamAction extends Action {
 								  'class' => 'nickname'),
 					   $profile->nickname);
 		# FIXME: URL, image, video, audio
-		common_element('span', array('class' => 'content'), $notice->content);
+		common_element_start('span', array('class' => 'content'));
+		common_raw(common_render_content($notice->content));
+		common_element_end('span');
 		$noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
 		common_element('a', array('class' => 'notice',
 								  'href' => $noticeurl),

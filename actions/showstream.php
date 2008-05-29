@@ -269,7 +269,7 @@ class ShowstreamAction extends StreamAction {
 
 		common_element_start('div', 'notices width66 floatLeft');
 
-		common_element_start('ul', 'bigLinks');
+		common_element_start('ul', 'notices');
 
 		for ($i = 0; $i < min($cnt, NOTICES_PER_PAGE); $i++) {
 			if ($notice->fetch()) {
@@ -318,8 +318,9 @@ class ShowstreamAction extends StreamAction {
 
 		if ($notice->find(true)) {
 			# FIXME: URL, image, video, audio
-			common_element('span', array('class' => 'content'),
-						   $notice->content);
+			common_element_start('span', array('class' => 'content'));
+			common_raw(common_render_content($notice->content));
+			common_element_end('span');
 		}
 
 		common_element_end('div');
@@ -332,11 +333,12 @@ class ShowstreamAction extends StreamAction {
 										 'id' => 'notice-' . $notice->id));
 		$noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
 		# FIXME: URL, image, video, audio
-		common_element_start('a', array('class' => 'notice',
-								  'href' => $noticeurl));
-		common_element('span', 'title', common_date_string($notice->created));
-		common_element('span', 'desc', $notice->content);
-		common_element_end('a');
+		common_element('a', array('class' => 'notice',
+								  'href' => $noticeurl),
+					   common_date_string($notice->created));
+		common_element_start('span', array('class' => 'desc'));
+		common_raw(common_render_content($notice->content));
+		common_element_end('span');
 		common_element_end('li');
 	}
 }
