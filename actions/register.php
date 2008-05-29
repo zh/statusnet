@@ -34,6 +34,7 @@ class RegisterAction extends Action {
 	}
 
 	function try_register() {
+		print_r($this->args);
 		$nickname = $this->trimmed('nickname');
 		$email = $this->trimmed('email');
 		
