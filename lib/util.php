@@ -349,12 +349,10 @@ function common_canonical_email($email) {
 	return $email;
 }
 
-function common_render_content($text, $notice=NULL) {
+function common_render_content($text, $notice) {
 	$r = htmlspecialchars($text);
-	if ($notice) {
-		$id = $notice->profile_id;
-		$r = preg_replace('/\b@([\w-]+)\b/e', "ATLINK*** \\1 ***", $r);
-	}
+	$id = $notice->profile_id;
+	$r = preg_replace('/\b@([\w-]+)\b/e', "@common_at_link($id,'\\1')", $r);
 	# XXX: # tags
 	# XXX: machine tags
 	return $r;
