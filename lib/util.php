@@ -349,11 +349,47 @@ function common_canonical_email($email) {
 	return $email;
 }
 
-function common_render_content($text) {
-	# XXX: @ messages
+function common_render_content($text, $notice=NULL) {
+	$r = htmlspecialchars($text);
+	if ($notice) {
+		$id = $notice->profile_id;
+		$r = preg_replace('/\b@([\w-]{1-64})\b/e', "@common_at_link($id, '\\1')", $r);
+	}
 	# XXX: # tags
 	# XXX: machine tags
-	return htmlspecialchars($text);
+	return $r;
+}
+
+function common_at_link($profile_id, $nickname) {
+	# Try to find profiles this profile is subscribed to that have this nickname
+	$profile = new Profile();
+	# XXX: chokety and bad
+	$profile->whereAdd('EXISTS (SELECT subscribed from subscription where subscriber = '.$profile_id.' and subscribed = id)', 'AND');
+	$profile->whereAdd('nickname = "' . trim($nickname) . '"', 'AND');
+	if ($profile->find(TRUE)) {
+		return '<a href="'.$profile->profileurl.'" class="atlink tolistenee">'.$nickname.'</a>';
+	}
+	# Try to find profiles that listen to this profile and that have this nickname
+	$profile = new Profile();
+	# XXX: chokety and bad
+	$profile->whereAdd('EXISTS (SELECT subscriber from subscription where subscribed = '.$profile_id.' and subscriber = id)', 'AND');
+	$profile->whereAdd('nickname = "' . trim($nickname) . '"', 'AND');
+	if ($profile->find(TRUE)) {
+		return '<a href="'.$profile->profileurl.'" class="atlink tolistener">'.$nickname.'</a>';
+	}
+	# If this is a local user, try to find a local user with that nickname.
+	$sender = User::staticGet($profile_id);
+	if ($sender) {
+		$recipient = User::staticGet('nickname', $nickname);
+		if ($recipient) {
+			$profile = $recipient->getProfile();
+			return '<a href="'.$profile->profileurl.'" class="atlink usertouser">'.$nickname.'</a>';
+		}
+	}
+	# Otherwise, no links. @messages from local users to remote users,
+	# or from remote users to other remote users, are just
+	# outside our ability to make intelligent guesses about
+	return $nickname;
 }
 
 // where should the avatar go for this user?

@@ -69,7 +69,7 @@ class ShownoticeAction extends Action {
 					   $profile->nickname);
 		# FIXME: URL, image, video, audio
 		common_element_start('span', array('class' => 'content'));
-		common_raw(common_render_content($notice->content));
+		common_raw(common_render_content($notice->content, $notice));
 		common_element_end('span');
 		common_element('span', array('class' => 'date'),
 					   common_date_string($notice->created));
