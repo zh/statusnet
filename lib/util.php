@@ -355,7 +355,7 @@ function common_render_content($text, $notice) {
 	$r = htmlspecialchars($text);
 	$id = $notice->profile_id;
 	$r = preg_replace('/(^|\b)@([\w-]+)($|\b)/e', "'\\1@'.common_at_link($id, '\\2').'\\3'", $r);
-	$r = preg_replace('(^|\b)(https?|ftp)://[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|]', '<a href="\0" class="extlink">\0</a>', $r);
+#	$r = preg_replace('(^|\b)(https?|ftp)://[-A-Z0-9+&@#/%?=~_|!:,.;]*[-A-Z0-9+&@#/%=~_|]', '<a href="\0" class="extlink">\0</a>', $r);
 	# XXX: # tags
 	# XXX: machine tags
 	return $r;
