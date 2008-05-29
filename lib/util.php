@@ -349,10 +349,13 @@ function common_canonical_email($email) {
 	return $email;
 }
 
+define('URL_REGEX', '^|[ \t\r\n])((ftp|http|https|gopher|mailto|news|nntp|telnet|wais|file|prospero|aim|webcal):(([A-Za-z0-9$_.+!*(),;/?:@&~=-])|%[A-Fa-f0-9]{2}){2,}(#([a-zA-Z0-9][a-zA-Z0-9$_.+!*(),;/?:@&~=%-]*))?([A-Za-z0-9$_+!*();/?:~-]))');
+
 function common_render_content($text, $notice) {
 	$r = htmlspecialchars($text);
 	$id = $notice->profile_id;
 	$r = preg_replace('/(^|\s)@([\w-]+)($|\s)/e', "'\\1@'.common_at_link($id, '\\2').'\\3'", $r);
+	$r = preg_replace('/'.URL_REGEX.'/', '<a href="\\0" class="extlink">\\0</a>', $r);
 	# XXX: # tags
 	# XXX: machine tags
 	return $r;
