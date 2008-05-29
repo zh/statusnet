@@ -352,6 +352,7 @@ function common_canonical_email($email) {
 function common_render_content($text, $notice=NULL) {
 	$r = htmlspecialchars($text);
 	if ($notice) {
+		print('Got a notice, checking for atlinks.');
 		$id = $notice->profile_id;
 		$r = preg_replace('/\b@([\w-]+)\b/e', "ATLINK*** \\1 ***", $r);
 	}
