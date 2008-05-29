@@ -48,14 +48,16 @@ class Action { // lawsuit
 	}
 	
 	function boolean($key, $def=false) {
-		$arg = $this->arg($key);
-		return (is_null($arg)) ? $def : 
-		(strcasecmp($arg, 'true') == 0) ? true :
-		(strcasecmp($arg, 'yes') == 0) ? true : 
-		(strcasecmp($arg, '1') == 0) ? true :
-		(strcasecmp($arg, 'false') == 0) ? false :
-		(strcasecmp($arg, 'no') == 0) ? false : 
-		(strcasecmp($arg, '0') == 0) ? false :
-		$def;
+		$arg = strtolower($this->trimmed($key));
+		
+		if (is_null($arg)) {
+			return $def;
+		} else if (in_array($arg, array('true', 'yes', '1'))) {
+			return true;
+		} else if (in_array($arg, array('false', 'no', '0'))) {
+			return false;
+		} else {
+			return $def;
+		}
 	}
 }
