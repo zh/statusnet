@@ -353,7 +353,7 @@ function common_render_content($text, $notice=NULL) {
 	$r = htmlspecialchars($text);
 	if ($notice) {
 		$id = $notice->profile_id;
-		$r = preg_replace('/\b@([\w-]+)\b/e', "@common_at_link($id, '\\1')", $r);
+		$r = preg_replace('/\b@([\w-]+)\b/e', "ATLINK*** \\1 ***", $r);
 	}
 	# XXX: # tags
 	# XXX: machine tags
@@ -361,7 +361,6 @@ function common_render_content($text, $notice=NULL) {
 }
 
 function common_at_link($sender_id, $nickname) {
-	print_r('atlink generator got called');
 	# Try to find profiles this profile is subscribed to that have this nickname
 	$recipient = new Profile();
 	# XXX: chokety and bad
