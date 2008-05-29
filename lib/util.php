@@ -360,30 +360,31 @@ function common_render_content($text, $notice=NULL) {
 	return $r;
 }
 
-function common_at_link($profile_id, $nickname) {
+function common_at_link($sender_id, $nickname) {
+	print_r('atlink generator got called');
 	# Try to find profiles this profile is subscribed to that have this nickname
-	$profile = new Profile();
+	$recipient = new Profile();
 	# XXX: chokety and bad
-	$profile->whereAdd('EXISTS (SELECT subscribed from subscription where subscriber = '.$profile_id.' and subscribed = id)', 'AND');
-	$profile->whereAdd('nickname = "' . trim($nickname) . '"', 'AND');
-	if ($profile->find(TRUE)) {
-		return '<a href="'.$profile->profileurl.'" class="atlink tolistenee">'.$nickname.'</a>';
+	$recipient->whereAdd('EXISTS (SELECT subscribed from subscription where subscriber = '.$sender_id.' and subscribed = id)', 'AND');
+	$recipient->whereAdd('nickname = "' . trim($nickname) . '"', 'AND');
+	if ($recipient->find(TRUE)) {
+		return '<a href="'.$recipient->profileurl.'" class="atlink tolistenee">'.$nickname.'</a>';
 	}
 	# Try to find profiles that listen to this profile and that have this nickname
-	$profile = new Profile();
+	$recipient = new Profile();
 	# XXX: chokety and bad
-	$profile->whereAdd('EXISTS (SELECT subscriber from subscription where subscribed = '.$profile_id.' and subscriber = id)', 'AND');
-	$profile->whereAdd('nickname = "' . trim($nickname) . '"', 'AND');
-	if ($profile->find(TRUE)) {
-		return '<a href="'.$profile->profileurl.'" class="atlink tolistener">'.$nickname.'</a>';
+	$recipient->whereAdd('EXISTS (SELECT subscriber from subscription where subscribed = '.$sender_id.' and subscriber = id)', 'AND');
+	$recipient->whereAdd('nickname = "' . trim($nickname) . '"', 'AND');
+	if ($recipient->find(TRUE)) {
+		return '<a href="'.$recipient->profileurl.'" class="atlink tolistener">'.$nickname.'</a>';
 	}
 	# If this is a local user, try to find a local user with that nickname.
-	$sender = User::staticGet($profile_id);
+	$sender = User::staticGet($sender_id);
 	if ($sender) {
-		$recipient = User::staticGet('nickname', $nickname);
-		if ($recipient) {
-			$profile = $recipient->getProfile();
-			return '<a href="'.$profile->profileurl.'" class="atlink usertouser">'.$nickname.'</a>';
+		$recipient_user = User::staticGet('nickname', $nickname);
+		if ($recipient_user) {
+			$recipient = $recipient->getProfile();
+			return '<a href="'.$recipient->profileurl.'" class="atlink usertouser">'.$nickname.'</a>';
 		}
 	}
 	# Otherwise, no links. @messages from local users to remote users,
