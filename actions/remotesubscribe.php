@@ -52,6 +52,7 @@ class RemotesubscribeAction extends Action {
 		common_input('profile', _t('Profile URL'));
 		common_submit('submit', _t('Subscribe'));
 		common_element_end('form');
+		common_show_footer();
 	}
 	
 	function remote_subscription() {
