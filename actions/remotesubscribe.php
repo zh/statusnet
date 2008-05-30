@@ -118,6 +118,7 @@ class RemotesubscribeAction extends Action {
 		$omb = array();
 		$services = $yadis->services(); # ordered by priority
 		if (!$services) {
+			common_debug('remotesubscribe.php: Got no services back from XRDS.');
 			return NULL;
 		}
 		
