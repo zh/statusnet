@@ -85,14 +85,16 @@ class RemotesubscribeAction extends Action {
 			return;
 		}
 
-		if (!$yadis->xrds) {
+        $xrds =& Auth_Yadis_XRDS::parseXRDS($yadis->response_text);
+
+		if (!$xrds) {
 			$this->show_form(_t('Not a valid profile URL (no XRDS defined).'));
 			return;
 		}
 		
-		common_debug('remotesubscribe.php: XRDS is "'.print_r($yadis->xrds,TRUE).'"');
+		common_debug('remotesubscribe.php: XRDS is "'.print_r($xrds,TRUE).'"');
 
-		$omb = $this->getOmb($yadis);
+		$omb = $this->getOmb($xrds);
 		
 		if (!$omb) {
 			$this->show_form(_t('Not a valid profile URL (incorrect services).'));
@@ -118,12 +120,12 @@ class RemotesubscribeAction extends Action {
 		return $user;
 	}
 
-	function getOmb($yadis) {
+	function getOmb($xrds) {
 	    static $endpoints = array(OMB_ENDPOINT_UPDATEPROFILE, OMB_ENDPOINT_POSTNOTICE,
 								  OAUTH_ENDPOINT_REQUEST, OAUTH_ENDPOINT_AUTHORIZE,
 								  OAUTH_ENDPOINT_ACCESS);
 		$omb = array();
-		$services = $yadis->services(); # ordered by priority
+		$services = $xrds->services(); # ordered by priority
 		if (!$services) {
 			common_debug('remotesubscribe.php: Got no services back from XRDS.');
 			return NULL;
