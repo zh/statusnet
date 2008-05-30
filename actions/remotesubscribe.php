@@ -82,6 +82,8 @@ class RemotesubscribeAction extends Action {
 			$this->show_form(_t('Not a valid profile URL (no YADIS document).'));
 			return;
 		}
+
+		print_r($yadis);
 		
 		$omb = $this->getOmb($yadis);
 		
