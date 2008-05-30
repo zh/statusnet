@@ -558,7 +558,7 @@ function common_ensure_syslog() {
 	static $initialized = false;
 	if (!$initialized) {
 		define_syslog_variables();
-		openlog("laconica", LOG_PID, LOG_USER);
+		openlog("laconica", 0, LOG_USER);
 		$initialized = true;
 	}
 }
