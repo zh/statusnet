@@ -77,7 +77,9 @@ class RemotesubscribeAction extends Action {
 		
 		$fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
 		$yadis = Auth_Yadis_Yadis::discover($profile, $fetcher);
-		
+
+		common_debug('remotesubscribe.php: XRDS discovery result: "'.print_r($yadis, TRUE) .'"');
+					 
 		if (!$yadis || $yadis->fail) {
 			$this->show_form(_t('Not a valid profile URL (no YADIS document).'));
 			return;

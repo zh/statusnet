@@ -553,3 +553,21 @@ function common_timestamp() {
 function _t($str) {
 	return $str;
 }
+
+function common_ensure_syslog() {
+	static $initialized = false;
+	if (!$initialized) {
+		define_syslog_variables();
+		openlog("laconica", LOG_PID, LOG_USER);
+		$initialized = true;
+	}
+}
+
+function common_log($priority, $msg) {
+	common_ensure_syslog();
+	syslog($priority, $msg);
+}
+
+function common_debug($msg) {
+	common_log(LOG_DEBUG, $msg);
+}
