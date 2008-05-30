@@ -80,7 +80,7 @@ class RemotesubscribeAction extends Action {
 
 		common_debug('remotesubscribe.php: XRDS discovery result: "'.print_r($yadis, TRUE) .'"');
 					 
-		if (!$yadis || $yadis->fail) {
+		if (!$yadis || $yadis->failed) {
 			$this->show_form(_t('Not a valid profile URL (no YADIS document).'));
 			return;
 		}
