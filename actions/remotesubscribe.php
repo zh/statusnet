@@ -114,6 +114,10 @@ class RemotesubscribeAction extends Action {
 								  OAUTH_ENDPOINT_ACCESS);
 		$omb = array();
 		$services = $yadis->services(); # ordered by priority
+		if (!$services) {
+			return NULL;
+		}
+		
 		foreach ($services as $service) {
 			$types = $service->matchTypes($endpoints);
 			foreach ($types as $type) {
