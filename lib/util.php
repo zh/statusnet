@@ -238,6 +238,13 @@ function common_input($id, $label, $value=NULL) {
 	common_element_end('p');
 }
 
+function common_hidden($id, $value) {
+	common_element('input', array('name' => $id,
+								  'type' => 'hidden',
+								  'id' => $id,
+								  'value' => $value));
+}
+
 function common_password($id, $label) {
 	common_element_start('p');
 	common_element('label', array('for' => $id), $label);

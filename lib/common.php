@@ -17,8 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* XXX: break up into separate modules (HTTP, HTML, user, files) */
-
 if (!defined('LACONICA')) { exit(1); }
 
 define('AVATAR_PROFILE_SIZE', 96);

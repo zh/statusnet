@@ -60,8 +60,8 @@
 - server side of user authorization
 - server side of request token
 - server side of access token
-- OAuth store
-- log of consumers who ask for access
++ OAuth store
++ log of consumers who ask for access
 - receive remote notice
 - send remote notice
 - subscribe form for not-logged-in users on showstream
@@ -83,10 +83,12 @@
 + add a next page link to all
 - AGPL notification
 - Check licenses of all libraries for compatibility
-- gettext
++ @ messages
++ Automatically linkify URLs in notices
 - release 0.3
+- email notification on subscriptions
+- gettext
 - license per notice
-- Automatically linkify URLs in notices
 - tinyurl-ification of URLs
 - use only canonical email addresses
 - allow mixed-case usernames
@@ -98,6 +100,8 @@
 - theme per site
 - theme per profile
 - email confirmation for registration
+- email options
+- email newsletter
 - change cookie handling for anon users to be more cache-friendly
 - jQuery for as much as possible
 - content negotiation for interface language
@@ -114,7 +118,6 @@
 - RDFa for stream pages
 - RDFa for subscriber pages
 - RDFa for subscribed pages
-- @ messages
 - # tags
 - L: location
 - hreviews
@@ -134,6 +137,7 @@
 - receive notices from mobile phone
 - machine tags
 - release 0.6
+- OAuth for third-party tools (desktop, other sites)
 - Twitter-compatible API
 - Pownce-compatible API
 - include twitter subscriptions (push and pull)

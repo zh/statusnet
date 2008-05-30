@@ -88,12 +88,16 @@ class ShowstreamAction extends StreamAction {
 
 		$cur = common_current_user();
 
-		if ($cur && $cur->id != $profile->id) {
-			if ($cur->isSubscribed($profile)) {
-				$this->show_unsubscribe_form($profile);
-			} else {
-				$this->show_subscribe_form($profile);
+		if ($cur) {
+			if ($cur->id != $profile->id) {
+				if ($cur->isSubscribed($profile)) {
+					$this->show_unsubscribe_form($profile);
+				} else {
+					$this->show_subscribe_form($profile);
+				}
 			}
+		} else {
+			$this->show_remote_subscribe_form($profile);
 		}
 
 		$this->show_statistics($profile);
@@ -146,6 +150,15 @@ class ShowstreamAction extends StreamAction {
 		common_element_end('form');
 	}
 
+	function show_remote_subscribe_form($profile) {
+		common_element_start('form', array('id' => 'remotesubscribe', 'method' => 'POST',
+										   'action' => common_local_url('remotesubscribe')));
+		common_hidden('nickname', $profile->nickname);
+		common_input('profile', _t('Profile'));
+		common_submit('submit',_t('Subscribe'));
+		common_element_end('form');
+	}
+	
 	function show_unsubscribe_form($profile) {
 		common_element_start('form', array('id' => 'unsubscribe', 'method' => 'POST',
 										   'action' => common_local_url('unsubscribe')));
