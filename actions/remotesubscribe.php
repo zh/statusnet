@@ -85,6 +85,13 @@ class RemotesubscribeAction extends Action {
 			return;
 		}
 
+		if (!$yadis->xrds) {
+			$this->show_form(_t('Not a valid profile URL (no XRDS defined).'));
+			return;
+		}
+		
+		common_debug('remotesubscribe.php: XRDS is "'.print_r($yadis->xrds,TRUE).'"');
+
 		$omb = $this->getOmb($yadis);
 		
 		if (!$omb) {
