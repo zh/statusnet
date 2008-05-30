@@ -431,6 +431,23 @@ function common_default_avatar($size) {
 }
 
 function common_local_url($action, $args=NULL) {
+	global $config;
+	if ($config['site']['fancy']) {
+		return common_fancy_url($action, $args);
+	} else {
+		return common_simple_url($action, $args);
+	}
+}
+
+function common_fancy_url($action, $args=NULL) {
+	switch (strtolower($action)) {
+	 default:
+		return common_simple_url($action, $args);
+	}
+}
+
+function common_simple_url($action, $args=NULL) {
+	global $config;
 	/* XXX: pretty URLs */
 	$extra = '';
 	if ($args) {
