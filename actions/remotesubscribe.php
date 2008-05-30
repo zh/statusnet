@@ -78,7 +78,7 @@ class RemotesubscribeAction extends Action {
 		$fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
 		$yadis = Auth_Yadis_Yadis::discover($profile, $fetcher);
 
-		common_debug('remotesubscribe.php: XRDS discovery result: "'.print_r($yadis, TRUE) .'"');
+		common_debug('remotesubscribe.php: XRDS discovery failure? "'.$yadis->failed.'"');
 					 
 		if (!$yadis || $yadis->failed) {
 			$this->show_form(_t('Not a valid profile URL (no YADIS document).'));
@@ -121,7 +121,10 @@ class RemotesubscribeAction extends Action {
 			return NULL;
 		}
 		
+		common_debug('remotesubscribe.php: XRDS service count: '.count($services));
+		
 		foreach ($services as $service) {
+			common_debug('remotesubscribe.php: XRDS service "'.print_r($service,TRUE).'"');
 			$types = $service->matchTypes($endpoints);
 			foreach ($types as $type) {
 				# We take the first one, since it's the highest priority
