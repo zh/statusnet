@@ -102,15 +102,15 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL) {
 				   $pagetitle . " - " . $config['site']['name']);
 	common_element('link', array('rel' => 'stylesheet',
 								 'type' => 'text/css',
-								 'href' => $config['site']['path'] . 'theme/default/style/html.css',
+								 'href' => common_path('theme/default/style/html.css'),
 								 'media' => 'screen, projection, tv'));
 	common_element('link', array('rel' => 'stylesheet',
 								 'type' => 'text/css',
-								 'href' => $config['site']['path'] . 'theme/default/style/layout.css',
+								 'href' => common_path('theme/default/style/layout.css'),
 								 'media' => 'screen, projection, tv'));
 	common_element('link', array('rel' => 'stylesheet',
 								 'type' => 'text/css',
-								 'href' => $config['site']['path'] . 'theme/default/style/print.css',
+								 'href' => common_path('theme/default/style/print.css'),
 								 'media' => 'print'));
 	if ($callable) {
 		if ($data) {
@@ -407,12 +407,11 @@ function common_avatar_filename($user, $extension, $size=NULL, $extra=NULL) {
 
 function common_avatar_path($filename) {
 	global $config;
-	return $config['avatar']['directory'] . '/' . $filename;
+	return INSTALLDIR . '/avatar/' . $filename;
 }
 
 function common_avatar_url($filename) {
-	global $config;
-	return "http://".$config['site']['server'].$config['avatar']['path'].'/'.$filename;
+	return common_path('avatar/'.$filename);
 }
 
 function common_default_avatar($size) {
@@ -420,11 +419,11 @@ function common_default_avatar($size) {
 							  AVATAR_STREAM_SIZE => 'stream',
 							  AVATAR_MINI_SIZE => 'mini');
 	global $config;
-	return "http://".$config['site']['server'].$config['site']['path'].'/'.$config['avatar']['default'][$sizenames[$size]];
+	
+	return common_path($config['avatar']['default'][$sizenames[$size]]);
 }
 
 function common_local_url($action, $args=NULL) {
-	global $config;
 	/* XXX: pretty URLs */
 	$extra = '';
 	if ($args) {
@@ -432,8 +431,13 @@ function common_local_url($action, $args=NULL) {
 			$extra .= "&${key}=${value}";
 		}
 	}
+	return common_path("index.php?action=${action}${extra}");
+}
+
+function common_path($relative) {
+	global $config;
 	$pathpart = ($config['site']['path']) ? $config['site']['path']."/" : '';
-	return "http://".$config['site']['server'].'/'.$pathpart."index.php?action=${action}${extra}";
+	return "http://".$config['site']['server'].'/'.$pathpart.$relative;
 }
 
 function common_date_string($dt) {
@@ -488,9 +492,7 @@ function common_mint_tag($extra) {
 # Should make up a reasonable root URL
 
 function common_root_url() {
-	global $config;
-	$pathpart = ($config['site']['path']) ? $config['site']['path']."/" : '';
-	return "http://".$config['site']['server'].'/'.$pathpart;
+	return common_path('');
 }
 
 # returns $bytes bytes of random data as a hexadecimal string
