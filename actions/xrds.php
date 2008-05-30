@@ -36,7 +36,7 @@ class XrdsAction extends Action {
 
 	function show_xrds($user) {
 		
-		header('Content-Type: application/rdf+xml');
+		header('Content-Type: application/xrds+xml');
 
 		common_start_xml();
 		common_element_start('XRDS', array('xmlns' => 'xri://$xrds'));

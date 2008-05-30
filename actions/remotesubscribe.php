@@ -83,8 +83,6 @@ class RemotesubscribeAction extends Action {
 			return;
 		}
 
-		print_r($yadis);
-		
 		$omb = $this->getOmb($yadis);
 		
 		if (!$omb) {
