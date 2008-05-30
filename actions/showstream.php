@@ -45,7 +45,12 @@ class ShowstreamAction extends StreamAction {
 			return;
 		}
 
-		# Looks like we're good; show the header
+		# Looks like we're good; start output
+		
+		# For YADIS discovery, we also have a <meta> tag
+
+		header('X-XRDS-Location: '. common_local_url('xrds', array('nickname' =>
+																   $user->nickname)));
 
 		common_show_header($profile->nickname, array($this, 'show_header'), $user);
 
