@@ -29,7 +29,10 @@ class UserauthorizationAction extends Action {
 			try {
 				$req = $this->get_request();
 				$server = common_oauth_server();
-				list($consumer, $token) = $server->verify_request($req);
+				$server->get_version($req);
+				$consumer = $server->get_consumer($req);
+				$token = $server->get_token($req, $consumer, "request");
+				$server->check_signature($req, $consumer, $token);
 			} catch (OAuthException $e) {
 				$this->clear_request();
 				common_server_error($e->getMessage());
@@ -39,7 +42,8 @@ class UserauthorizationAction extends Action {
 			if (common_logged_in()) {
 				$this->show_form($req);
 			} else {
-				common_return_to(common_local_url('userauthorization'));
+				# Go log in, and then come back
+				common_set_returnto(common_local_url('userauthorization'));
 				common_redirect(common_local_url('login'));
 			}
 		}
@@ -56,7 +60,9 @@ class UserauthorizationAction extends Action {
 		if (!$req) {
 			# XXX: may have an uncaught exception
 			$req = OAuthRequest::from_request();
-			$this->store_request($req);
+			if ($req) {
+				$this->store_request($req);
+			}
 		}
 		return $req;
 	}
@@ -69,6 +75,7 @@ class UserauthorizationAction extends Action {
 	
 	function send_authorization() {
 		$req = $this->get_request();
+		
 		if (!$req) {
 			common_user_error(_t('No authorization request!'));
 			return;

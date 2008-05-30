@@ -23,7 +23,7 @@ require_once(INSTALLDIR.'/lib/omb.php');
 
 class LaconicaOAuthDataStore extends OAuthDataStore {
 
-	# We just keep a record of who's contacted us
+	# We keep a record of who's contacted us
 	
 	function lookup_consumer($consumer_key) {
 		$con = new Consumer('key', $consumer_key);

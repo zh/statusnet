@@ -525,6 +525,16 @@ function common_mtrand($bytes) {
 	return $enc;
 }
 
+function common_set_returnto($url) {
+	common_ensure_session();
+	$_SESSION['returnto'] = $url;
+}
+
+function common_get_returnto() {
+	common_ensure_session();
+	return $_SESSION['returnto'];
+}
+
 function common_timestamp() {
 	return date('YmdHis');
 }

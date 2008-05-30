@@ -44,9 +44,16 @@ class LoginAction extends Action {
 				return;
 			}
 			# success!
-			common_redirect(common_local_url('all',
-											 array('nickname' =>
-												   $nickname)));
+			$url = common_get_returnto();
+			if ($url) {
+				# We don't have to return to it again
+				common_set_returnto(NULL);
+			} else {
+				$url = common_local_url('all',
+										array('nickname' =>
+											  $nickname));
+			}
+			common_redirect($url);
 		} else {
 			$this->show_form(_t('Incorrect username or password.'));
 		}

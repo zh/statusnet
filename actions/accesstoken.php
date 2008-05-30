@@ -24,7 +24,7 @@ class AccesstokenAction extends Action {
 		parent::handle($args);
 		try {
 			$req = OAuthRequest::from_request();
-			$server = common_oauth_server();
+			$server = omb_oauth_server();
 			$token = $server->fetch_access_token($req);
 			print $token;
 		} catch (OAuthException $e) {

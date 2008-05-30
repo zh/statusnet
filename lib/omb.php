@@ -20,6 +20,7 @@
 if (!defined('LACONICA')) { exit(1); }
 
 require_once('OAuth.php');
+require_once(INSTALLDIR.'lib/oauthstore.php');
 
 define('OAUTH_NAMESPACE', 'http://oauth.net/core/1.0/');
 define('OMB_NAMESPACE', 'http://openmicroblogging.org/protocol/0.1');
@@ -42,6 +43,14 @@ function omb_oauth_consumer() {
 		$con = new OAuthConsumer(common_root_url(), '');
 	}
 	return $con;
+}
+
+function omb_oauth_server() {
+	static $server = null;
+	if ($server) {
+		$server = new OAuthServer(new LaconicaOAuthStore());
+	}
+	return $server;
 }
 
 function omb_hmac_sha1() {
