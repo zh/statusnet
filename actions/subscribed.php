@@ -21,7 +21,7 @@ if (!defined('LACONICA')) { exit(1); }
 
 # XXX: make distinct from similar definitions in showstream.php
 
-define('SUBSCRIPTIONS_PER_ROW', 10);
+define('SUBSCRIPTIONS_PER_ROW', 8);
 define('SUBSCRIPTIONS_PER_PAGE', 80);
 
 class SubscribedAction extends Action {
