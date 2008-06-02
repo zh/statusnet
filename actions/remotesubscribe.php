@@ -129,7 +129,7 @@ class RemotesubscribeAction extends Action {
 
 		# XXX: the following code could probably be refactored to eliminate dupes
 		
-		$oauth_service = $xrds->services(array($this, 'matchOAuth'));
+		$oauth_service = $xrds->services(omb_match_service(OAUTH_DISCOVERY));
 		
 		if (!$oauth_service) {
 			return NULL;
@@ -138,7 +138,7 @@ class RemotesubscribeAction extends Action {
 		$xrd = $this->getXRD($oauth_service, $xrds);
 		$this->addServices($xrd, $oauth_endpoints, $omb);
 
-		$omb_service = $xrds->services(array($this, 'matchOMB'));
+		$omb_service = $xrds->services(omb_match_service(OMB_NAMESPACE));
 
 		if (!$omb_service) {
 			return NULL;
@@ -183,9 +183,7 @@ class RemotesubscribeAction extends Action {
 
 	function addServices($xrd, $types, &$omb) {
 		foreach ($types as $type) {
-			$filter = create_function('$s', 
-									  'return RemotesubscribeAction::matchService($s, \''.$type.'\'');
-			$matches = $xrd->services($filter);
+			$matches = $xrd->services(omb_match_service($type));
 			if ($matches) {
 				$omb[$type] = $services[0];
 			} else {
@@ -194,22 +192,6 @@ class RemotesubscribeAction extends Action {
 			}
 		}
 		return true;
-	}
-	
-	function matchOAuth($service) {
-		return $this->matchService($service, OAUTH_DISCOVERY);
-	}
-
-	function matchOMB($service) {
-		return $this->matchService($service, OMB_VERSION_01);
-	}
-
-	function matchService($service, $type) {
-		if ($service && $service->matchTypes(array($type))) {
-			return TRUE;
-		} else {
-			return FALSE;
-		}
 	}
 	
 	function request_token($omb) {
