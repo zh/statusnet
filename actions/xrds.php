@@ -57,8 +57,7 @@ class XrdsAction extends Action {
 		$this->show_service(OAUTH_ENDPOINT_AUTHORIZE,
 							common_local_url('userauthorization'),
 							array(OAUTH_AUTH_HEADER, OAUTH_POST_BODY),
-							array(OAUTH_HMAC_SHA1),
-							$user->uri);
+							array(OAUTH_HMAC_SHA1));
 
 		$this->show_service(OAUTH_ENDPOINT_ACCESS,
 							common_local_url('accesstoken'),

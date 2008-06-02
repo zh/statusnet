@@ -186,7 +186,7 @@ class RemotesubscribeAction extends Action {
 		# XXX: check that we got all the services we needed
 
 		foreach (array_merge($omb_endpoints, $oauth_endpoints) as $type) {
-			if (!array_key_exists($type, $omb)) {
+			if (!array_key_exists($type, $omb) || !$omb[$type]) {
 				common_debug('remotesubscribe.php - could not find type "'.$type.'"');
 				return NULL;
 			}
