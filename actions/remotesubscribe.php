@@ -129,7 +129,7 @@ class RemotesubscribeAction extends Action {
 
 		# XXX: the following code could probably be refactored to eliminate dupes
 		
-		$oauth_service = $xrds->services(omb_match_service(OAUTH_DISCOVERY));
+		$oauth_service = $xrds->services(omb_service_filter(OAUTH_DISCOVERY));
 		
 		if (!$oauth_service) {
 			return NULL;
@@ -138,7 +138,7 @@ class RemotesubscribeAction extends Action {
 		$xrd = $this->getXRD($oauth_service, $xrds);
 		$this->addServices($xrd, $oauth_endpoints, $omb);
 
-		$omb_service = $xrds->services(omb_match_service(OMB_NAMESPACE));
+		$omb_service = $xrds->services(omb_service_filter(OMB_NAMESPACE));
 
 		if (!$omb_service) {
 			return NULL;
@@ -183,7 +183,7 @@ class RemotesubscribeAction extends Action {
 
 	function addServices($xrd, $types, &$omb) {
 		foreach ($types as $type) {
-			$matches = $xrd->services(omb_match_service($type));
+			$matches = $xrd->services(omb_service_filter($type));
 			if ($matches) {
 				$omb[$type] = $services[0];
 			} else {
