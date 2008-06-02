@@ -336,10 +336,9 @@ class RemotesubscribeAction extends Action {
 			$req->set_parameter('omb_listenee_avatar', $avatar->url);
 		}
 
-		$nonce = $this->make_nonce();
-
-		$req->set_parameter('oauth_callback', common_local_url('finishremotesubscribe',
-															   array('nonce' => $nonce)));
+		# XXX: add a nonce to prevent replay attacks
+		
+		$req->set_parameter('oauth_callback', common_local_url('finishremotesubscribe'));
 
 		# XXX: test to see if endpoint accepts this signature method
 
@@ -351,7 +350,7 @@ class RemotesubscribeAction extends Action {
 		$omb['token'] = $token;
 		$omb['secret'] = $secret;
 
-		$_SESSION[$nonce] = $omb;
+		$_SESSION['oauth_authorization_request'] = $omb;
 
 		# Redirect to authorization service
 

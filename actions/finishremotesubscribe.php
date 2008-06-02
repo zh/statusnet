@@ -33,14 +33,7 @@ class FinishremotesubscribeAction extends Action {
 		    return;
 		}
 		
-		$nonce = $this->trimmed('nonce');
-		
-		if (!$omb) {
-			common_user_error(_t('No nonce returned!'));
-			return;
-		}
-		
-		$omb = $_SESSION[$nonce];
+		$omb = $_SESSION['oauth_authorization_request'];
 		
 		if (!$omb) {
 			common_user_error(_t('Not expecting this response!'));
@@ -173,7 +166,7 @@ class FinishremotesubscribeAction extends Action {
 		}
 
 		# Clear the data
-		unset($_SESSION[$nonce]);
+		unset($_SESSION['oauth_authorization_request']);
 		
 		# If we show subscriptions in reverse chron order, this should
 		# show up close to the top of the page
@@ -187,7 +180,7 @@ class FinishremotesubscribeAction extends Action {
 		$con = omb_oauth_consumer();
 		$tok = new OAuthToken($omb['token'], $omb['secret']);
 
-		$url = $omb[OAUTH_ENDPOINT_ACCESS][0];
+		$url = omb_service_uri($omb[OAUTH_ENDPOINT_ACCESS]);
 		
 		# XXX: Is this the right thing to do? Strip off GET params and make them
 		# POST params? Seems wrong to me.
