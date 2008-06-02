@@ -66,7 +66,7 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
 		}
 	}
 	
-	function fetch_request_token($consumer) {
+	function new_request_token($consumer) {
 		$t = new Token();
 		$t->consumer_key = $consumer->consumer_key;
 		$t->tok = common_good_rand(16);
@@ -81,7 +81,13 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
 		}
 	}
 
-	function fetch_access_token($token, $consumer) {
+	# defined in OAuthDataStore, but not implemented anywhere
+	
+	function fetch_request_token($consumer) {
+		return $this->new_request_token($consumer);
+	}
+	
+	function new_access_token($token, $consumer) {
 		$rt = new Token();
 		$rt->consumer_key = $consumer->consumer_key;
 		$rt->tok = $token;
@@ -107,5 +113,11 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
 		} else {
 			return NULL;
 		}
+	}
+	
+	# defined in OAuthDataStore, but not implemented anywhere
+	
+	function fetch_access_token($consumer) {
+		return $this->new_access_token($consumer);
 	}
 }
