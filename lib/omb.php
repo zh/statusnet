@@ -86,6 +86,9 @@ function omb_service_uri($service) {
 }
 
 function omb_local_id($service) {
+	if (!$service) {
+		return NULL;
+	}
 	$els = $service->getElements('LocalID');
 	return ($els) ? $els[0] : NULL;
 }

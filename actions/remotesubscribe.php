@@ -223,7 +223,7 @@ class RemotesubscribeAction extends Action {
 		foreach ($types as $type) {
 			$matches = $xrd->services(omb_service_filter($type));
 			if ($matches) {
-				$omb[$type] = $services[0];
+				$omb[$type] = $matches[0];
 			} else {
 				# no match for type
 				return false;
