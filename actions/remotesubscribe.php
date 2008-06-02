@@ -187,11 +187,13 @@ class RemotesubscribeAction extends Action {
 
 		foreach (array_merge($omb_endpoints, $oauth_endpoints) as $type) {
 			if (!array_key_exists($type, $omb)) {
+				common_debug('remotesubscribe.php - could not find type "'.$type.'"');
 				return NULL;
 			}
 		}
 
 		if (!omb_local_id($omb[OAUTH_ENDPOINT_REQUEST])) {
+			common_debug('remotesubscribe.php - request token service has no LocalID.');
 			return NULL;
 		}
 
