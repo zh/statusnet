@@ -28,10 +28,16 @@ class UserauthorizationAction extends Action {
 		} else {
 			try {
 				$req = $this->get_request();
+				if (!$req) {
+					common_server_error(_t('Cannot find request'));
+				}
+				common_debug('userauthorization.php - $req = "'.print_r($req,TRUE).'"');
 				$server = common_oauth_server();
 				$server->get_version($req);
 				$consumer = $server->get_consumer($req);
+				common_debug('userauthorization.php - $consumer = "'.print_r($consumer,TRUE).'"');
 				$token = $server->get_token($req, $consumer, "request");
+				common_debug('userauthorization.php - $token = "'.print_r($token,TRUE).'"');
 				$server->check_signature($req, $consumer, $token);
 			} catch (OAuthException $e) {
 				$this->clear_request();
