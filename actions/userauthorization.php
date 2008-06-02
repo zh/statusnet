@@ -27,13 +27,16 @@ class UserauthorizationAction extends Action {
 			$this->send_authorization();
 		} else {
 			try {
+				common_debug('userauthorization.php - fetching request');
 				$req = $this->get_request();
 				if (!$req) {
 					common_server_error(_t('Cannot find request'));
 				}
 				common_debug('userauthorization.php - $req = "'.print_r($req,TRUE).'"');
 				$server = common_oauth_server();
+				common_debug('userauthorization.php - checking request version');
 				$server->get_version($req);
+				common_debug('userauthorization.php - getting the consumer');
 				$consumer = $server->get_consumer($req);
 				common_debug('userauthorization.php - $consumer = "'.print_r($consumer,TRUE).'"');
 				$token = $server->get_token($req, $consumer, "request");
