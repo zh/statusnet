@@ -48,7 +48,7 @@ function omb_oauth_consumer() {
 function omb_oauth_server() {
 	static $server = null;
 	if (!$server) {
-		$server = new OAuthServer(new LaconicaOAuthStore());
+		$server = new OAuthServer(new LaconicaOAuthDataStore());
 	}
 	return $server;
 }
