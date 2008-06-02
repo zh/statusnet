@@ -89,7 +89,7 @@ function omb_local_id($service) {
 	if (!$service) {
 		return NULL;
 	}
-	$els = $service->getElements('LocalID');
+	$els = $service->getElements('xrd:LocalID');
 	return ($els) ? $els[0] : NULL;
 }
 	
