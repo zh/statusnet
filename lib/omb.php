@@ -90,6 +90,10 @@ function omb_local_id($service) {
 		return NULL;
 	}
 	$els = $service->getElements('xrd:LocalID');
-	return ($els) ? $els[0] : NULL;
+	if (!$els) {
+		return NULL;
+	}
+	$el = $els[0];
+	return $service->parser->content($el);
 }
 	
