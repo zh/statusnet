@@ -63,7 +63,7 @@ function omb_hmac_sha1() {
 
 function omb_service_filter($type) {
 	return create_function('$s', 
-						   'return omb_match_service($s, \''.$type.'\'');
+						   'return omb_match_service($s, \''.$type.'\');');
 }
 	
 function omb_match_service($service, $type) {
