@@ -197,6 +197,7 @@ class RemotesubscribeAction extends Action {
 			return NULL;
 		}
 
+		common_debug('remotesubscribe.php - this looks like a good OMB: "'.print_r($omb,TRUE).'"');
 		return $omb;
 	}
 
@@ -299,6 +300,8 @@ class RemotesubscribeAction extends Action {
 
 		$url = omb_service_uri($omb[OAUTH_ENDPOINT_AUTHORIZE]);
 
+		common_debug('remotesubscribe.php - user authorization URI = "' . $url . '"');
+		
 		# XXX: Is this the right thing to do? Strip off GET params and make them
 		# POST params? Seems wrong to me.
 
