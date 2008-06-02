@@ -121,7 +121,7 @@ class XrdsAction extends Action {
 			}
 		}
 		if ($localId) {
-			common_element('LocalID', NULL, $localID);
+			common_element('LocalID', NULL, $localId);
 		}
 		common_element_end('Service');
 	}
