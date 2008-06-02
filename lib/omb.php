@@ -53,6 +53,7 @@ function omb_oauth_server() {
 	static $server = null;
 	if (!$server) {
 		$server = new OAuthServer(new LaconicaOAuthDataStore());
+		$server->add_signature_method(omb_hmac_sha1());
 	}
 	return $server;
 }
