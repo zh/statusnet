@@ -190,6 +190,7 @@ class RemotesubscribeAction extends Action {
 				common_debug('remotesubscribe.php - could not find type "'.$type.'"');
 				return NULL;
 			}
+			common_debug('remotesubscribe.php - key ="'.$type.'" and URI ="'.omb_service_uri($omb[$type]).'"');
 		}
 
 		if (!omb_local_id($omb[OAUTH_ENDPOINT_REQUEST])) {
@@ -197,7 +198,6 @@ class RemotesubscribeAction extends Action {
 			return NULL;
 		}
 
-		common_debug('remotesubscribe.php - this looks like a good OMB: "'.print_r($omb,TRUE).'"');
 		return $omb;
 	}
 
