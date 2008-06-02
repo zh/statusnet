@@ -358,4 +358,8 @@ class RemotesubscribeAction extends Action {
 		common_redirect($req->to_url());
 		return;
 	}
+	
+	function make_nonce() {
+		return common_good_rand(16);
+	}
 }

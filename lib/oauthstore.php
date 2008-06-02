@@ -26,7 +26,7 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
 	# We keep a record of who's contacted us
 	
 	function lookup_consumer($consumer_key) {
-		$con = new Consumer('key', $consumer_key);
+		$con = Consumer::staticGet('consumer_key', $consumer_key);
 		if (!$con) {
 			$con = new Consumer();
 			$con->consumer_key = $consumer_key;
