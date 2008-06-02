@@ -75,6 +75,9 @@ function omb_match_service($service, $type) {
 }
 
 function omb_service_uri($service) {
+	if (!$service) {
+		return NULL;
+	}
 	$uris = $service->getURIs();
 	if (!$uris) {
 		return NULL;

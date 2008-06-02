@@ -129,23 +129,55 @@ class RemotesubscribeAction extends Action {
 
 		# XXX: the following code could probably be refactored to eliminate dupes
 		
+		common_debug('remotesubscribe.php - looking for oauth discovery service');
+		
 		$oauth_service = $xrds->services(omb_service_filter(OAUTH_DISCOVERY));
 		
 		if (!$oauth_service) {
+			common_debug('remotesubscribe.php - failed to find oauth discovery service');
 			return NULL;
 		}
 
+		common_debug('remotesubscribe.php - looking for oauth discovery XRD');
+		
 		$xrd = $this->getXRD($oauth_service, $xrds);
-		$this->addServices($xrd, $oauth_endpoints, $omb);
+		
+		if (!$xrd) {
+			common_debug('remotesubscribe.php - failed to find oauth discovery XRD');
+			return NULL;
+		}
+		
+		common_debug('remotesubscribe.php - adding OAuth services from XRD');
+		
+		if (!$this->addServices($xrd, $oauth_endpoints, $omb)) {
+			common_debug('remotesubscribe.php - failed to add OAuth services');
+			return NULL;
+		}
 
+		common_debug('remotesubscribe.php - looking for OMB discovery service');
+		
 		$omb_service = $xrds->services(omb_service_filter(OMB_NAMESPACE));
 
 		if (!$omb_service) {
+			common_debug('remotesubscribe.php - failed to find OMB discovery service');
 			return NULL;
 		}
 
+		common_debug('remotesubscribe.php - looking for OMB discovery XRD');
+		
 		$xrd = $this->getXRD($omb_service, $xrds);
-		$this->addServices($xrd, $omb_endpoints, $omb);
+
+		if (!$xrd) {
+			common_debug('remotesubscribe.php - failed to find OMB discovery XRD');
+			return NULL;
+		}
+		
+		common_debug('remotesubscribe.php - adding OMB services from XRD');
+		
+		if (!$this->addServices($xrd, $omb_endpoints, $omb)) {
+			common_debug('remotesubscribe.php - failed to add OMB services');
+			return NULL;
+		}
 		
 		# XXX: check that we got all the services we needed
 		
