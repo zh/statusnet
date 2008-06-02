@@ -22,10 +22,11 @@
 # Show a server error
 
 function common_server_error($msg) {
-	header('Status: 500 Server Error');
+	header('HTTP/1.1 500 Server Error');
 	header('Content-type: text/plain');
 
 	print $msg;
+	print "\n";
 	exit();
 }
 

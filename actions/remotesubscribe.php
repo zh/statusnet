@@ -277,6 +277,7 @@ class RemotesubscribeAction extends Action {
 
 		if ($result->status != 200) {
 			common_debug('remotesubscribe.php - request token status = "' . $result->status . '"');
+			common_debug('remotesubscribe.php - request token body = "' . $result->body . '"');
 			return NULL;
 		}
 
