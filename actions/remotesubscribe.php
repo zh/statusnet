@@ -211,7 +211,9 @@ class RemotesubscribeAction extends Action {
 			$attrs = $parser->attributes($node);
 			if (array_key_exists('xml:id', $attrs) &&
 				$attrs['xml:id'] == $id) {
-				return new Auth_Yadis_XRDS($parser, array($node));
+				# XXX: trick the constructor into thinking this is the only node
+				$bogus_nodes = array($node);
+				return new Auth_Yadis_XRDS($parser, $bogus_nodes);
 			}
 		}
 		return NULL;
