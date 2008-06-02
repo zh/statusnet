@@ -27,8 +27,8 @@ define('OMB_NAMESPACE', 'http://openmicroblogging.org/protocol/0.1');
 define('OMB_VERSION_01', 'http://openmicroblogging.org/protocol/0.1');
 define('OAUTH_DISCOVERY', 'http://oauth.net/discovery/1.0');
 
-define('OMB_ENDPOINT_UPDATEPROFILE', OMB_NAMESPACE.'updateProfile');
-define('OMB_ENDPOINT_POSTNOTICE', OMB_NAMESPACE.'postNotice');
+define('OMB_ENDPOINT_UPDATEPROFILE', OMB_NAMESPACE.'/updateProfile');
+define('OMB_ENDPOINT_POSTNOTICE', OMB_NAMESPACE.'/postNotice');
 define('OAUTH_ENDPOINT_REQUEST', OAUTH_NAMESPACE.'endpoint/request');
 define('OAUTH_ENDPOINT_AUTHORIZE', OAUTH_NAMESPACE.'endpoint/authorize');
 define('OAUTH_ENDPOINT_ACCESS', OAUTH_NAMESPACE.'endpoint/access');
