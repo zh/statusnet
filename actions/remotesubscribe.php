@@ -246,6 +246,8 @@ class RemotesubscribeAction extends Action {
 		$params = array();
 		parse_str($parsed['query'], $params);
 
+		common_debug('remotesubscribe.php - building a POST message for request token call');
+		
 		$req = OAuthRequest::from_consumer_and_token($con, NULL, "POST", $url, $params);
 
 		$listener = omb_local_id($omb[OAUTH_ENDPOINT_REQUEST]);
@@ -254,6 +256,8 @@ class RemotesubscribeAction extends Action {
 			return NULL;
 		}
 
+		common_debug('remotesubscribe.php - request token listener = "' . $listener . '"');
+		
 		$req->set_parameter('omb_listener', $listener);
 		$req->set_parameter('omb_version', OMB_VERSION_01);
 
@@ -264,15 +268,25 @@ class RemotesubscribeAction extends Action {
 		# We re-use this tool's fetcher, since it's pretty good
 
 		$fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
+		
+		common_debug('remotesubscribe.php - request token URL = "'.$req->get_normalized_http_url().'"');
+		common_debug('remotesubscribe.php - request token data = "'.$req->to_postdata().'"');
+		
 		$result = $fetcher->post($req->get_normalized_http_url(),
 								 $req->to_postdata());
 
 		if ($result->status != 200) {
+			common_debug('remotesubscribe.php - request token status = "' . $result->status . '"');
 			return NULL;
 		}
 
+		common_debug('remotesubscribe.php - request token body = "' . $result->body . '"');
+		
 		parse_str($result->body, $return);
 
+		common_debug('remotesubscribe.php - request token token = "' . $return['oauth_token'] . '"');
+		common_debug('remotesubscribe.php - request token secret = "' . $return['oauth_token_secret'] . '"');
+		
 		return array($return['oauth_token'], $return['oauth_token_secret']);
 	}
 
