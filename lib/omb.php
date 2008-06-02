@@ -60,3 +60,17 @@ function omb_hmac_sha1() {
 	}
 	return $hmac_method;
 }
+
+function omb_service_uri($service) {
+	$uris = $service->getURIs();
+	if (!$uris) {
+		return NULL;
+	}
+	return $uris[0];
+}
+
+function omb_local_id($service) {
+	$els = $service->getElements('LocalID');
+	return ($els) ? $els[0] : NULL;
+}
+	

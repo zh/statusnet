@@ -121,53 +121,101 @@ class RemotesubscribeAction extends Action {
 	}
 
 	function getOmb($xrds) {
-	    static $endpoints = array(OMB_ENDPOINT_UPDATEPROFILE, OMB_ENDPOINT_POSTNOTICE,
-								  OAUTH_ENDPOINT_REQUEST, OAUTH_ENDPOINT_AUTHORIZE,
-								  OAUTH_ENDPOINT_ACCESS);
+		
+	    static $omb_endpoints = array(OMB_ENDPOINT_UPDATEPROFILE, OMB_ENDPOINT_POSTNOTICE);
+		static $oauth_endpoints = array(OAUTH_ENDPOINT_REQUEST, OAUTH_ENDPOINT_AUTHORIZE,
+										OAUTH_ENDPOINT_ACCESS);
 		$omb = array();
-		$services = $xrds->services(); # ordered by priority
-		if (!$services) {
-			common_debug('remotesubscribe.php: Got no services back from XRDS.');
+
+		# XXX: the following code could probably be refactored to eliminate dupes
+		
+		$oauth_service = $xrds->services(array($this, 'matchOAuth'));
+		
+		if (!$oauth_service) {
 			return NULL;
 		}
-		
-		common_debug('remotesubscribe.php: XRDS service count: '.count($services));
-		
-		foreach ($services as $service) {
-			common_debug('remotesubscribe.php: XRDS service "'.print_r($service,TRUE).'"');
-			$types = $service->matchTypes($endpoints);
-			foreach ($types as $type) {
-				# We take the first one, since it's the highest priority
-				if (!array_key_exists($type, $omb)) {
-					# URIs is an array, priority-ordered
-					$omb[$type] = $service->getURIs();
-					# Special handling for request
-					if ($type == OAUTH_ENDPOINT_REQUEST) {
-						$nodes = $service->getElements('LocalID');
-						if (!$nodes) {
-							# error
-							return NULL;
-						}
-						$omb['listener'] = $service->parser->content($nodes[0]);
-					}
-				}
-			}
+
+		$xrd = $this->getXRD($oauth_service, $xrds);
+		$this->addServices($xrd, $oauth_endpoints, $omb);
+
+		$omb_service = $xrds->services(array($this, 'matchOMB'));
+
+		if (!$omb_service) {
+			return NULL;
 		}
-		foreach ($endpoints as $ep) {
-			if (!array_key_exists($ep, $omb)) {
+
+		$xrd = $this->getXRD($omb_service, $xrds);
+		$this->addServices($xrd, $omb_endpoints, $omb);
+		
+		# XXX: check that we got all the services we needed
+		
+		foreach (array_merge($omb_endpoints, $oauth_endpoints) as $type) {
+			if (!array_key_exists($type, $omb)) {
 				return NULL;
 			}
 		}
-		if (!array_key_exists('listener', $omb)) {
+		
+		if (!omb_local_id($omb[OAUTH_ENDPOINT_REQUEST])) {
 			return NULL;
 		}
+		
 		return $omb;
+	}
+
+	function getXRD($main_service, $main_xrds) {
+		$uri = omb_service_uri($main_service);
+		if (strpos($uri, "#") !== 0) {
+			# FIXME: more rigorous handling of external service definitions
+			return NULL;
+		}
+		$id = substr($uri, 1);
+		$nodes = $main_xrds->allXrdNodes;
+		$parser = $main_xrds->parser;
+		foreach ($nodes as $node) {
+			$attrs = $parser->attributes($node);
+			if (array_key_exists('xml:id', $attrs) &&
+				$attrs['xml:id'] == $id) {
+				return new Auth_Yadis_XRDS($parser, array($node));
+			}
+		}
+		return NULL;
+	}
+
+	function addServices($xrd, $types, &$omb) {
+		foreach ($types as $type) {
+			$filter = create_function('$s', 
+									  'return RemotesubscribeAction::matchService($s, \''.$type.'\'');
+			$matches = $xrd->services($filter);
+			if ($matches) {
+				$omb[$type] = $services[0];
+			} else {
+				# no match for type
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	function matchOAuth($service) {
+		return $this->matchService($service, OAUTH_DISCOVERY);
+	}
+
+	function matchOMB($service) {
+		return $this->matchService($service, OMB_VERSION_01);
+	}
+
+	function matchService($service, $type) {
+		if ($service && $service->matchTypes(array($type))) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
 	}
 	
 	function request_token($omb) {
 		$con = omb_oauth_consumer();
 
-		$url = $omb[OAUTH_ENDPOINT_REQUEST][0];
+		$url = omb_service_uri($omb[OAUTH_ENDPOINT_REQUEST]);
 		
 		# XXX: Is this the right thing to do? Strip off GET params and make them
 		# POST params? Seems wrong to me.
@@ -177,8 +225,14 @@ class RemotesubscribeAction extends Action {
 		parse_str($parsed['query'], $params);
 
 		$req = OAuthRequest::from_consumer_and_token($con, NULL, "POST", $url, $params);
+
+		$listener = omb_local_id($omb[OAUTH_ENDPOINT_REQUEST]);
 		
-		$req->set_parameter('omb_listener', $omb['listener']);
+		if (!$listener) {
+			return NULL;
+		}
+		
+		$req->set_parameter('omb_listener', $listener);
 		$req->set_parameter('omb_version', OMB_VERSION_01);
 		
 		# XXX: test to see if endpoint accepts this signature method
@@ -206,7 +260,7 @@ class RemotesubscribeAction extends Action {
 		$con = omb_oauth_consumer();
 		$tok = new OAuthToken($token, $secret);
 		
-		$url = $omb[OAUTH_ENDPOINT_AUTHORIZE][0];
+		$url = omb_service_uri($omb[OAUTH_ENDPOINT_AUTHORIZE]);
 		
 		# XXX: Is this the right thing to do? Strip off GET params and make them
 		# POST params? Seems wrong to me.
@@ -222,7 +276,7 @@ class RemotesubscribeAction extends Action {
 		# user decide if they really want to authorize the subscription.
 		
 		$req->set_parameter('omb_version', OMB_VERSION_01);
-		$req->set_parameter('omb_listener', $omb['listener']);
+		$req->set_parameter('omb_listener', omb_local_id($omb[OAUTH_ENDPOINT_REQUEST]));
 		$req->set_parameter('omb_listenee', $user->uri);
 		$req->set_parameter('omb_listenee_profile', common_profile_url($user->nickname));
 		$req->set_parameter('omb_listenee_nickname', $user->nickname);
