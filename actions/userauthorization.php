@@ -19,6 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
+require_once(INSTALLDIR.'/lib/omb.php');
+
 class UserauthorizationAction extends Action {
 	function handle($args) {
 		parent::handle($args);
@@ -33,7 +35,7 @@ class UserauthorizationAction extends Action {
 					common_server_error(_t('Cannot find request'));
 				}
 				common_debug('userauthorization.php - $req = "'.print_r($req,TRUE).'"');
-				$server = common_oauth_server();
+				$server = omb_oauth_server();
 				common_debug('userauthorization.php - checking request version');
 				$server->get_version($req);
 				common_debug('userauthorization.php - getting the consumer');

@@ -76,8 +76,6 @@ function omb_service_filter($type) {
 }
 	
 function omb_match_service($service, $type) {
-	common_debug('omb.php - omb_match_service called with args "'.omb_service_uri($service).
-				 '","'.$type.'"');
 	return in_array($type, $service->getTypes());
 }
 

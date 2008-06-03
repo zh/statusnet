@@ -78,8 +78,6 @@ class RemotesubscribeAction extends Action {
 		$fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
 		$yadis = Auth_Yadis_Yadis::discover($profile, $fetcher);
 
-		common_debug('remotesubscribe.php: XRDS discovery failure? "'.$yadis->failed.'"');
-
 		if (!$yadis || $yadis->failed) {
 			$this->show_form(_t('Not a valid profile URL (no YADIS document).'));
 			return;
@@ -91,8 +89,6 @@ class RemotesubscribeAction extends Action {
 			$this->show_form(_t('Not a valid profile URL (no XRDS defined).'));
 			return;
 		}
-
-		common_debug('remotesubscribe.php: XRDS is "'.print_r($xrds,TRUE).'"');
 
 		$omb = $this->getOmb($xrds);
 
@@ -129,57 +125,39 @@ class RemotesubscribeAction extends Action {
 
 		# XXX: the following code could probably be refactored to eliminate dupes
 
-		common_debug('remotesubscribe.php - looking for oauth discovery service');
-
 		$oauth_services = omb_get_services($xrds, OAUTH_DISCOVERY);
 
 		if (!$oauth_services) {
-			common_debug('remotesubscribe.php - failed to find oauth discovery service');
 			return NULL;
 		}
 
 		$oauth_service = $oauth_services[0];
 
-		common_debug('remotesubscribe.php - looking for oauth discovery XRD');
-
 		$oauth_xrd = $this->getXRD($oauth_service, $xrds);
 
 		if (!$oauth_xrd) {
-			common_debug('remotesubscribe.php - failed to find oauth discovery XRD');
 			return NULL;
 		}
-
-		common_debug('remotesubscribe.php - adding OAuth services from XRD');
 
 		if (!$this->addServices($oauth_xrd, $oauth_endpoints, $omb)) {
-			common_debug('remotesubscribe.php - failed to add OAuth services');
 			return NULL;
 		}
-
-		common_debug('remotesubscribe.php - looking for OMB discovery service');
 
 		$omb_services = omb_get_services($xrds, OMB_NAMESPACE);
 
 		if (!$omb_services) {
-			common_debug('remotesubscribe.php - failed to find OMB discovery service');
 			return NULL;
 		}
 
 		$omb_service = $omb_services[0];
 
-		common_debug('remotesubscribe.php - looking for OMB discovery XRD');
-
 		$omb_xrd = $this->getXRD($omb_service, $xrds);
 
 		if (!$omb_xrd) {
-			common_debug('remotesubscribe.php - failed to find OMB discovery XRD');
 			return NULL;
 		}
 
-		common_debug('remotesubscribe.php - adding OMB services from XRD');
-
 		if (!$this->addServices($omb_xrd, $omb_endpoints, $omb)) {
-			common_debug('remotesubscribe.php - failed to add OMB services');
 			return NULL;
 		}
 
@@ -187,14 +165,11 @@ class RemotesubscribeAction extends Action {
 
 		foreach (array_merge($omb_endpoints, $oauth_endpoints) as $type) {
 			if (!array_key_exists($type, $omb) || !$omb[$type]) {
-				common_debug('remotesubscribe.php - could not find type "'.$type.'"');
 				return NULL;
 			}
-			common_debug('remotesubscribe.php - key ="'.$type.'" and URI ="'.omb_service_uri($omb[$type]).'"');
 		}
 
 		if (!omb_local_id($omb[OAUTH_ENDPOINT_REQUEST])) {
-			common_debug('remotesubscribe.php - request token service has no LocalID.');
 			return NULL;
 		}
 
@@ -225,11 +200,7 @@ class RemotesubscribeAction extends Action {
 	function addServices($xrd, $types, &$omb) {
 		foreach ($types as $type) {
 			$matches = omb_get_services($xrd, $type);
-			common_debug('remotesubscribe.php - ' . count($matches) . ' matches for "'.$type.'"');
 			if ($matches) {
-				foreach ($matches as $match) {
-					common_debug('remotesubscribe.php - "' . omb_service_uri($match) . '" matches "'.$type.'"');
-				}
 				$omb[$type] = $matches[0];
 			} else {
 				# no match for type
@@ -251,8 +222,6 @@ class RemotesubscribeAction extends Action {
 		$params = array();
 		parse_str($parsed['query'], $params);
 
-		common_debug('remotesubscribe.php - building a POST message for request token call');
-		
 		$req = OAuthRequest::from_consumer_and_token($con, NULL, "POST", $url, $params);
 
 		$listener = omb_local_id($omb[OAUTH_ENDPOINT_REQUEST]);
@@ -261,8 +230,6 @@ class RemotesubscribeAction extends Action {
 			return NULL;
 		}
 
-		common_debug('remotesubscribe.php - request token listener = "' . $listener . '"');
-		
 		$req->set_parameter('omb_listener', $listener);
 		$req->set_parameter('omb_version', OMB_VERSION_01);
 
@@ -274,25 +241,15 @@ class RemotesubscribeAction extends Action {
 
 		$fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
 		
-		common_debug('remotesubscribe.php - request token URL = "'.$req->get_normalized_http_url().'"');
-		common_debug('remotesubscribe.php - request token data = "'.$req->to_postdata().'"');
-		
 		$result = $fetcher->post($req->get_normalized_http_url(),
 								 $req->to_postdata());
 
 		if ($result->status != 200) {
-			common_debug('remotesubscribe.php - request token status = "' . $result->status . '"');
-			common_debug('remotesubscribe.php - request token body = "' . $result->body . '"');
 			return NULL;
 		}
 
-		common_debug('remotesubscribe.php - request token body = "' . $result->body . '"');
-		
 		parse_str($result->body, $return);
 
-		common_debug('remotesubscribe.php - request token token = "' . $return['oauth_token'] . '"');
-		common_debug('remotesubscribe.php - request token secret = "' . $return['oauth_token_secret'] . '"');
-		
 		return array($return['oauth_token'], $return['oauth_token_secret']);
 	}
 
@@ -304,8 +261,6 @@ class RemotesubscribeAction extends Action {
 
 		$url = omb_service_uri($omb[OAUTH_ENDPOINT_AUTHORIZE]);
 
-		common_debug('remotesubscribe.php - user authorization URI = "' . $url . '"');
-		
 		# XXX: Is this the right thing to do? Strip off GET params and make them
 		# POST params? Seems wrong to me.
 
