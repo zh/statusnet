@@ -228,7 +228,7 @@ class RemotesubscribeAction extends Action {
 			common_debug('remotesubscribe.php - ' . count($matches) . ' matches for "'.$type.'"');
 			if ($matches) {
 				foreach ($matches as $match) {
-					common_debug('remotesubscribe.php - "' . get_service_uri($match) . '" matches "'.$type.'"');
+					common_debug('remotesubscribe.php - "' . omb_service_uri($match) . '" matches "'.$type.'"');
 				}
 				$omb[$type] = $matches[0];
 			} else {
