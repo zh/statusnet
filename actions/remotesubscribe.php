@@ -131,7 +131,7 @@ class RemotesubscribeAction extends Action {
 
 		common_debug('remotesubscribe.php - looking for oauth discovery service');
 
-		$oauth_services = $xrds->services(omb_service_filter(OAUTH_DISCOVERY));
+		$oauth_services = omb_get_services($xrds, OAUTH_DISCOVERY);
 
 		if (!$oauth_services) {
 			common_debug('remotesubscribe.php - failed to find oauth discovery service');
@@ -158,7 +158,7 @@ class RemotesubscribeAction extends Action {
 
 		common_debug('remotesubscribe.php - looking for OMB discovery service');
 
-		$omb_services = $xrds->services(omb_service_filter(OMB_NAMESPACE));
+		$omb_services = omb_get_services($xrds, OMB_NAMESPACE);
 
 		if (!$omb_services) {
 			common_debug('remotesubscribe.php - failed to find OMB discovery service');
@@ -224,7 +224,7 @@ class RemotesubscribeAction extends Action {
 
 	function addServices($xrd, $types, &$omb) {
 		foreach ($types as $type) {
-			$matches = $xrd->services(omb_service_filter($type));
+			$matches = omb_get_services($xrd, $type);
 			common_debug('remotesubscribe.php - ' . count($matches) . ' matches for "'.$type.'"');
 			if ($matches) {
 				foreach ($matches as $match) {

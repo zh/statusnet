@@ -66,6 +66,10 @@ function omb_hmac_sha1() {
 	return $hmac_method;
 }
 
+function omb_get_services($xrd, $type) {
+	return $xrd->services(array(omb_service_filter($type)));
+}
+
 function omb_service_filter($type) {
 	return create_function('$s', 
 						   'return omb_match_service($s, \''.$type.'\');');
