@@ -72,13 +72,9 @@ function omb_service_filter($type) {
 }
 	
 function omb_match_service($service, $type) {
-	if ($service) {
-		$types = $service->matchTypes(array($type));
-		if (in_array($type, $types)) {
-			return TRUE;
-		}
-	}
-	return FALSE;
+	common_debug('omb.php - omb_match_service called with args "'.omb_service_uri($service).
+				 '","'.$type.'"');
+	return in_array($type, $service->getTypes());
 }
 
 function omb_service_uri($service) {
