@@ -36,8 +36,6 @@ class UserauthorizationAction extends Action {
 				}
 				common_debug('userauthorization.php - $req = "'.print_r($req,TRUE).'"');
 				$server = omb_oauth_server();
-				common_debug('userauthorization.php - checking request version');
-				$server->get_version($req);
 				common_debug('userauthorization.php - getting the consumer');
 				$consumer = $server->get_consumer($req);
 				common_debug('userauthorization.php - $consumer = "'.print_r($consumer,TRUE).'"');
