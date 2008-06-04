@@ -36,10 +36,12 @@ class UserauthorizationAction extends Action {
 				$req = $this->get_stored_request();
 				if (!$req) {
 					# this must be a new request
+					common_debug('userauthorization.php - getting new request');
 					$req = $this->get_new_request();
 					if (!$req) {
 						common_server_error(_t('No request found!'));
 					}
+					common_debug('userauthorization.php - validating request');
 					# XXX: only validate new requests, since nonce is one-time use
 					$this->validate_request($req);
 				}
@@ -50,11 +52,15 @@ class UserauthorizationAction extends Action {
 			}
 			
 			if (common_logged_in()) {
+				common_debug('userauthorization.php - showing form');
 				$this->show_form($req);
 			} else {
+				common_debug('userauthorization.php - storing request in session');
 				# Go log in, and then come back
 				$this->store_request($req);
+				common_debug('userauthorization.php - saving URL for returnto');
 				common_set_returnto(common_local_url('userauthorization'));
+				common_debug('userauthorization.php - redirecting to login');				
 				common_redirect(common_local_url('login'));
 			}
 		}
