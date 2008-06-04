@@ -37,11 +37,11 @@ class UserauthorizationAction extends Action {
 				if (!$req) {
 					# this must be a new request
 					$req = $this->get_new_request();
+					if (!$req) {
+						common_server_error(_t('No request found!'));
+					}
 					# XXX: only validate new requests, since nonce is one-time use
 					$this->validate_request($req);
-				}
-				if (!$req) {
-					common_server_error(_t('No request found!'));
 				}
 			} catch (OAuthException $e) {
 				$this->clear_request();
@@ -312,11 +312,12 @@ class UserauthorizationAction extends Action {
 
 	function get_new_request() {
 		$req = OAuthRequest::from_request();
+		return $req;
 	}
 	
 	# Throws an OAuthException if anything goes wrong
 	
-	function validate_request($req) {
+	function validate_request(&$req) {
 		# OAuth stuff -- have to copy from OAuth.php since they're
 		# all private methods, and there's no user-authentication method
 		$this->check_version($req);
@@ -397,7 +398,7 @@ class UserauthorizationAction extends Action {
 	
 	# Snagged from OAuthServer
 	
-	function check_version($req) {
+	function check_version(&$req) {
 		$version = $req->get_parameter("oauth_version");
 		if (!$version) {
 			$version = 1.0;
