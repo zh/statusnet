@@ -106,9 +106,21 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
 				$rt->state = 2; # used
 				if (!$rt->update($orig_rt)) {
 					return NULL;
+				} 
+				# Update subscription
+				# XXX: mixing levels here
+				$sub = Subscription::staticGet('token', $rt->tok);
+				if (!$sub) {
+					return NULL;
+				}
+				$orig_sub = clone($sub);
+				$sub->token = $at->tok;
+				$sub->secret = $at->secret;
+				if (!$sub->update($orig_sub)) {
+					return NULL;
 				} else {
 					return new OAuthToken($at->tok, $at->secret);
-				}
+				}					
 			}
 		} else {
 			return NULL;

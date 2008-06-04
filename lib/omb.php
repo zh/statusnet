@@ -42,7 +42,7 @@ define('OAUTH_POST_BODY', OAUTH_NAMESPACE.'parameters/post-body');
 define('OAUTH_HMAC_SHA1', OAUTH_NAMESPACE.'signature/HMAC-SHA1');
 	   
 function omb_oauth_consumer() {
-	static $con = null;
+	static $con = NULL;
 	if (!$con) {
 		$con = new OAuthConsumer(common_root_url(), '');
 	}
@@ -52,10 +52,18 @@ function omb_oauth_consumer() {
 function omb_oauth_server() {
 	static $server = null;
 	if (!$server) {
-		$server = new OAuthServer(new LaconicaOAuthDataStore());
+		$server = new OAuthServer(omb_oauth_datastore());
 		$server->add_signature_method(omb_hmac_sha1());
 	}
 	return $server;
+}
+
+function omb_oauth_datastore() {
+	static $store = NULL;
+	if (!$store) {
+		$store = new LaconicaOAuthDataStore();
+	}
+	return $store;
 }
 
 function omb_hmac_sha1() {

@@ -589,3 +589,7 @@ function common_log($priority, $msg) {
 function common_debug($msg) {
 	common_log(LOG_DEBUG, $msg);
 }
+
+function common_valid_http_url($url) {
+	return Validate::uri($url, array('allowed_schemes' => array('http', 'https')));
+}
