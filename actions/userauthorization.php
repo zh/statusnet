@@ -340,8 +340,9 @@ class UserauthorizationAction extends Action {
 		$this->check_nonce($datastore, $req, $consumer, $token);
 		common_debug('checking signature', __FILE__);
 		$this->check_signature($req, $consumer, $token);
-		common_debug('checking signature', __FILE__);		
+		common_debug('validating omb stuff', __FILE__);		
 		$this->validate_omb($req);
+		common_debug('done validating', __FILE__);				
 		return true;
 	}
 
@@ -440,7 +441,7 @@ class UserauthorizationAction extends Action {
 
 	# Mostly cadged from OAuthServer
 	
-	function get_token(&$req, $consumer, $datastore) {/*{{{*/
+	function get_token($datastore, &$req, $consumer) {/*{{{*/
 		$token_field = @$req->get_parameter('oauth_token');
 		$token = $datastore->lookup_token($consumer, 'request', $token_field);
 		if (!$token) {
