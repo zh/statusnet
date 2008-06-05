@@ -577,20 +577,22 @@ function common_ensure_syslog() {
 	if (!$initialized) {
 		global $config;
 		define_syslog_variables();
-		openlog($config['site']['appname'], 0, LOG_USER);
+		openlog($config['syslog']['appname'], 0, LOG_USER);
 		$initialized = true;
 	}
 }
 
 function common_log($priority, $msg, $filename=NULL) {
 	common_ensure_syslog();
-	if ($filename) {
-		syslog($priority, basename($filename).' - '.$msg);
-	}
+	syslog($priority, $msg);
 }
 
 function common_debug($msg, $filename=NULL) {
-	common_log(LOG_DEBUG, $msg, $filename);
+	if ($filename) {
+		common_log(LOG_DEBUG, basename($filename).' - '.$msg);
+	} else {
+		common_log(LOG_DEBUG, $msg);
+	}
 }
 
 function common_valid_http_url($url) {
