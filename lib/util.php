@@ -403,13 +403,13 @@ function common_at_link($sender_id, $nickname) {
 
 // where should the avatar go for this user?
 
-function common_avatar_filename($user, $extension, $size=NULL, $extra=NULL) {
+function common_avatar_filename($id, $extension, $size=NULL, $extra=NULL) {
 	global $config;
 
 	if ($size) {
-		return $user->id . '-' . $size . (($extra) ? ('-' . $extra) : '') . $extension;
+		return $id . '-' . $size . (($extra) ? ('-' . $extra) : '') . $extension;
 	} else {
-		return $user->id . '-original' . (($extra) ? ('-' . $extra) : '') . $extension;
+		return $id . '-original' . (($extra) ? ('-' . $extra) : '') . $extension;
 	}
 }
 

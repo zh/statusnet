@@ -24,7 +24,7 @@ if (!defined('LACONICA')) { exit(1); }
  */
 require_once 'DB/DataObject.php';
 
-class Profile extends DB_DataObject 
+class Profile extends DB_DataObject
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -32,11 +32,11 @@ class Profile extends DB_DataObject
     public $__table = 'profile';                         // table name
     public $id;                              // int(4)  primary_key not_null
     public $nickname;                        // varchar(64)   not_null
-    public $fullname;                        // varchar(255)  
-    public $profileurl;                      // varchar(255)  
-    public $homepage;                        // varchar(255)  
-    public $bio;                             // varchar(140)  
-    public $location;                        // varchar(255)  
+    public $fullname;                        // varchar(255)
+    public $profileurl;                      // varchar(255)
+    public $homepage;                        // varchar(255)
+    public $bio;                             // varchar(140)
+    public $location;                        // varchar(255)
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
@@ -71,5 +71,66 @@ class Profile extends DB_DataObject
 		} else {
 			return NULL;
 		}
+	}
+
+	static function setOriginal($source) {
+
+		$info = @getimagesize($source);
+
+		if (!$info) {
+			return NULL;
+		}
+
+		$filename = common_avatar_filename($this,
+										   image_type_to_extension($info[2]),
+										   NULL, common_timestamp());
+		$filepath = common_avatar_path($filename);
+
+		copy($source, $filepath);
+
+		$avatar = new Avatar();
+
+		$avatar->profile_id = $this->id;
+		$avatar->width = $info[0];
+		$avatar->height = $info[1];
+		$avatar->mediatype = image_type_to_mime_type($info[2]);
+		$avatar->filename = $filename;
+		$avatar->original = true;
+		$avatar->url = common_avatar_url($filename);
+		$avatar->created = DB_DataObject_Cast::dateTime(); # current time
+
+		# XXX: start a transaction here
+
+		if (!$this->delete_avatars()) {
+			@unlink($filepath);
+			return NULL;
+		}
+
+		if (!$avatar->insert()) {
+			@unlink($filepath);
+			return NULL;
+		}
+
+		foreach (array(AVATAR_PROFILE_SIZE, AVATAR_STREAM_SIZE, AVATAR_MINI_SIZE) as $size) {
+			# We don't do a scaled one if original is our scaled size
+			if (!($avatar->width == $size && $avatar->height == $size)) {
+				$s = $avatar->scale($size);
+				if (!$s) {
+					return NULL;
+				}
+			}
+		}
+
+		return $avatar;
+	}
+
+	function delete_avatars() {
+		$avatar = DB_DataObject::factory('avatar');
+		$avatar->profile_id = $this->id;
+		$avatar->find();
+		while ($avatar->fetch()) {
+			$avatar->delete();
+		}
+		return true;
 	}
 }

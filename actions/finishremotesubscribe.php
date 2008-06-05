@@ -140,7 +140,7 @@ class FinishremotesubscribeAction extends Action {
 		}
 
 		if ($avatar_url) {
-			$this->add_avatar($avatar_url);
+			$this->add_avatar($profile, $avatar_url);
 		}
 
 		$remote->postnoticeurl = $omb[OMB_ENDPOINT_POSTNOTICE];
@@ -173,6 +173,12 @@ class FinishremotesubscribeAction extends Action {
 		
 		common_redirect(common_local_url('subscribed', array('nickname' =>
 															 $user->nickname)));
+	}
+	
+	function add_avatar($profile, $url) {
+		$temp_filename = tempnam(sys_get_temp_dir(), 'listener_avatar');
+		copy($url, $temp_filename);
+		return $profile->setOriginal($temp_filename);
 	}
 	
 	function access_token($omb) {

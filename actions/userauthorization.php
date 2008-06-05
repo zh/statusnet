@@ -257,7 +257,7 @@ class UserauthorizationAction extends Action {
 		}
 
 		if ($avatar_url) {
-			$this->add_avatar($profile->id, $avatar_url);
+			$this->add_avatar($profile, $avatar_url);
 		}
 
 		$user = common_current_user();
@@ -278,47 +278,9 @@ class UserauthorizationAction extends Action {
 	}
 
 	function add_avatar($profile, $url) {
-		$temp_filename = tempnam(sys_get_temp_dir(), 'ombavatar');
+		$temp_filename = tempnam(sys_get_temp_dir(), 'listenee_avatar');
 		copy($url, $temp_filename);
-		$info = @getimagesize($temp_filename);
-		$filename = common_avatar_filename($profile, image_type_to_extension($info[2]), NULL, common_timestamp());
-		$filepath = common_avatar_path($filename);
-		copy($temp_filename, $filename);
-		
-		$avatar = DB_DataObject::factory('avatar');
-
-		$avatar->profile_id = $profile->id;
-		$avatar->width = $info[0];
-		$avatar->height = $info[1];
-		$avatar->mediatype = image_type_to_mime_type($info[2]);
-		$avatar->filename = $filename;
-		$avatar->original = true;
-		$avatar->url = common_avatar_url($filename);
-		$avatar->created = DB_DataObject_Cast::dateTime(); # current time
-
-		foreach (array(AVATAR_STREAM_SIZE, AVATAR_MINI_SIZE) as $size) {
-			$scaled[] = $this->scale_avatar($user, $avatar, $size);
-		}
-
-		# XXX: start a transaction here
-
-		if (!$this->delete_old_avatars($user)) {
-			@unlink($filepath);
-			common_server_error(_t('Error deleting old avatars.'));
-			return;
-		}
-		if (!$avatar->insert()) {
-			@unlink($filepath);
-			common_server_error(_t('Error inserting avatar.'));
-			return;
-		}
-
-		foreach ($scaled as $s) {
-			if (!$s->insert()) {
-				common_server_error(_t('Error inserting scaled avatar.'));
-				return;
-			}
-		}
+		return $profile->setOriginal($temp_filename);
 	}
 	
 	function show_accept_message($tok) {
