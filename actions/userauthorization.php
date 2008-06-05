@@ -305,7 +305,7 @@ class UserauthorizationAction extends Action {
 		$_SESSION['userauthorizationrequest'] = $req;
 	}
 	
-	function clear_request($req) {
+	function clear_request() {
 		common_ensure_session();
 		unset($_SESSION['userauthorizationrequest']);
 	}
