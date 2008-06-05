@@ -598,3 +598,11 @@ function common_debug($msg, $filename=NULL) {
 function common_valid_http_url($url) {
 	return Validate::uri($url, array('allowed_schemes' => array('http', 'https')));
 }
+
+function common_valid_tag($tag) {
+	if (preg_match('/^tag:(.*?),(\d{4}(-\d{2}(-\d{2})?)?):(.*)$/', $tag, $matches)) {
+		return (Validate::email($matches[1]) || 
+				preg_match('/^([\w-\.]+)$/', $matches[1]));
+	}
+	return false;
+}
