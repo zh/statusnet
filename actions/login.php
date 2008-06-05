@@ -60,7 +60,6 @@ class LoginAction extends Action {
 	}
 
 	function show_form($error=NULL) {
-
 		common_show_header(_t('Login'));
 		if (!is_null($error)) {
 			common_element('div', array('class' => 'error'), $msg);

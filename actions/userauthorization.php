@@ -30,39 +30,34 @@ class UserauthorizationAction extends Action {
 			# We've shown the form, now post user's choice
 			$this->send_authorization();
 		} else {
+			if (!common_logged_in()) {
+				# Go log in, and then come back
+				common_debug('userauthorization.php - saving URL for returnto');
+				common_set_returnto(common_local_url('userauthorization'),
+								    $this->args);
+				common_debug('userauthorization.php - redirecting to login');				
+				common_redirect(common_local_url('login'));
+				return;
+			}
 			try {
-				common_debug('userauthorization.php - fetching request');
-				# We get called after login if we have a stored request
-				$req = $this->get_stored_request();
+				# this must be a new request
+				common_debug('userauthorization.php - getting new request');
+				$req = $this->get_new_request();
 				if (!$req) {
-					# this must be a new request
-					common_debug('userauthorization.php - getting new request');
-					$req = $this->get_new_request();
-					if (!$req) {
-						common_server_error(_t('No request found!'));
-					}
-					common_debug('userauthorization.php - validating request');
-					# XXX: only validate new requests, since nonce is one-time use
-					$this->validate_request($req);
+					common_server_error(_t('No request found!'));
 				}
+				common_debug('userauthorization.php - validating request');
+				# XXX: only validate new requests, since nonce is one-time use
+				$this->validate_request($req);
+				common_debug('userauthorization.php - showing form');
+				$this->store_request($req);
+				$this->show_form($req);
 			} catch (OAuthException $e) {
 				$this->clear_request();
 				common_server_error($e->getMessage());
 				return;
 			}
 			
-			if (common_logged_in()) {
-				common_debug('userauthorization.php - showing form');
-				$this->show_form($req);
-			} else {
-				common_debug('userauthorization.php - storing request in session');
-				# Go log in, and then come back
-				$this->store_request($req);
-				common_debug('userauthorization.php - saving URL for returnto');
-				common_set_returnto(common_local_url('userauthorization'));
-				common_debug('userauthorization.php - redirecting to login');				
-				common_redirect(common_local_url('login'));
-			}
 		}
 	}
 
@@ -206,7 +201,8 @@ class UserauthorizationAction extends Action {
 		# FIXME: we should really do this when the consumer comes
 		# back for an access token. If they never do, we've got stuff in a 
 		# weird state.
-		
+	
+		$nickname = $req->get_parameter('omb_listenee_nickname');
 		$fullname = $req->get_parameter('omb_listenee_fullname');
 		$profile_url = $req->get_parameter('omb_listenee_profile');		
 		$homepage = $req->get_parameter('omb_listenee_homepage');
@@ -225,7 +221,7 @@ class UserauthorizationAction extends Action {
 		} else {
 			$exists = false;
 			$remote = new Remote_profile();
-			$remote->uri = $omb['listener'];
+			$remote->uri = $listenee;
 			$profile = new Profile();
 		}
 
@@ -253,15 +249,15 @@ class UserauthorizationAction extends Action {
 			$remote->id = $id;
 		}
 
-		if ($avatar_url) {
-			$this->add_avatar($avatar_url);
-		}
-
 		if ($exists) {
 			$remote->update($orig_remote);
 		} else {
 			$remote->created = DB_DataObject_Cast::dateTime(); # current time
 			$remote->insert();
+		}
+
+		if ($avatar_url) {
+			$this->add_avatar($profile->id, $avatar_url);
 		}
 
 		$user = common_current_user();
@@ -278,6 +274,50 @@ class UserauthorizationAction extends Action {
 		if (!$sub->insert()) {
 			common_user_error(_t('Couldn\'t insert new subscription.'));
 			return;
+		}
+	}
+
+	function add_avatar($profile, $url) {
+		$temp_filename = tempnam(sys_get_temp_dir(), 'ombavatar');
+		copy($url, $temp_filename);
+		$info = @getimagesize($temp_filename);
+		$filename = common_avatar_filename($profile, image_type_to_extension($info[2]), NULL, common_timestamp());
+		$filepath = common_avatar_path($filename);
+		copy($temp_filename, $filename);
+		
+		$avatar = DB_DataObject::factory('avatar');
+
+		$avatar->profile_id = $profile->id;
+		$avatar->width = $info[0];
+		$avatar->height = $info[1];
+		$avatar->mediatype = image_type_to_mime_type($info[2]);
+		$avatar->filename = $filename;
+		$avatar->original = true;
+		$avatar->url = common_avatar_url($filename);
+		$avatar->created = DB_DataObject_Cast::dateTime(); # current time
+
+		foreach (array(AVATAR_STREAM_SIZE, AVATAR_MINI_SIZE) as $size) {
+			$scaled[] = $this->scale_avatar($user, $avatar, $size);
+		}
+
+		# XXX: start a transaction here
+
+		if (!$this->delete_old_avatars($user)) {
+			@unlink($filepath);
+			common_server_error(_t('Error deleting old avatars.'));
+			return;
+		}
+		if (!$avatar->insert()) {
+			@unlink($filepath);
+			common_server_error(_t('Error inserting avatar.'));
+			return;
+		}
+
+		foreach ($scaled as $s) {
+			if (!$s->insert()) {
+				common_server_error(_t('Error inserting scaled avatar.'));
+				return;
+			}
 		}
 	}
 	
@@ -404,8 +444,21 @@ class UserauthorizationAction extends Action {
 			throw new OAuthException("Location too long '$location'");
 		}
 		$avatar = $req->get_parameter('omb_listenee_avatar');
-		if ($avatar && (!common_valid_http_url($avatar) || strlen($avatar) > 255)) {
-			throw new OAuthException("Invalid avatar '$avatar'");
+		if ($avatar) {
+			if (!common_valid_http_url($avatar) || strlen($avatar) > 255) {
+				throw new OAuthException("Invalid avatar URL '$avatar'");
+			}
+			$size = @getimagesize($avatar);
+			if (!$size) {
+				throw new OAuthException("Can't read avatar URL '$avatar'");
+			}
+			if ($size[0] != AVATAR_PROFILE_SIZE || $size[1] != AVATAR_PROFILE_SIZE) {
+				throw new OAuthException("Wrong size image at '$avatar'");
+			}
+			if (!in_array($size[2], array(IMAGETYPE_GIF, IMAGETYPE_JPEG,
+										  IMAGETYPE_PNG))) {
+				throw new OAuthException("Wrong image type for '$avatar'");
+			}
 		}
 		$callback = $req->get_parameter('oauth_callback');
 		if ($callback && !common_valid_http_url($callback)) {
