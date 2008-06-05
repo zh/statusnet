@@ -365,9 +365,7 @@ class UserauthorizationAction extends Action {
 			throw new OAuthException("Listener URI '$listener' not found here");
 		}
 		$listenee = $req->get_parameter('omb_listenee');
-		if (!Validate::uri($listenee)) {
-			throw new OAuthException("Listenee URI '$listenee' not a valid URI");
-		} else if (strlen($listenee) > 255) {
+		if (strlen($listenee) > 255) {
 			throw new OAuthException("Listenee URI '$listenee' too long");
 		}
 		$nickname = $req->get_parameter('omb_listenee_nickname');
