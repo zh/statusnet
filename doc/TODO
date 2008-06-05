@@ -58,13 +58,15 @@
 - subscribe remote
 - add subscriber remote
 - server side of user authorization
-- server side of request token
++ server side of request token
 - server side of access token
 + OAuth store
 + log of consumers who ask for access
 - receive remote notice
 - send remote notice
-- subscribe form for not-logged-in users on showstream
+- receive remote profile update
+- send remote profile update
++ subscribe form for not-logged-in users on showstream
 - pretty URLs
 + doc action
 + about doc
@@ -85,36 +87,40 @@
 - Check licenses of all libraries for compatibility
 + @ messages
 + Automatically linkify URLs in notices
+- themes
+- theme per site
 - release 0.3
+- format times per user
+- timezone preferences in Profile settings
 - email notification on subscriptions
+- content negotiation for interface language
+- user preference for interface language
 - gettext
-- license per notice
 - tinyurl-ification of URLs
+- set Last-Modified
+- XML sitemap generation
+- email confirmation for registration
+- email options
+- change cookie handling for anon users to be more cache-friendly
+- jQuery for as much as possible
+- content negotiation for content type
+- content negotiation for encoding
+- If-Modified-Since support
+- Vary
+- site logo
+- check license compatibility for remote subscribe
+- release 0.4
+- content negotiation for charset (iconv?)
+- license per notice
 - use only canonical email addresses
 - allow mixed-case usernames
 - allow non-latin usernames
 - store canonical username for comparison and fetch
-- set Last-Modified
-- XML sitemap generation
-- themes
-- theme per site
 - theme per profile
-- email confirmation for registration
-- email options
 - email newsletter
-- change cookie handling for anon users to be more cache-friendly
-- jQuery for as much as possible
-- content negotiation for interface language
-- content negotiation for content type
-- content negotiation for encoding
-- content negotiation for charset
-- If-Modified-Since support
-- Vary
-- site logo
-- release 0.4
 - RDF dump of entire site
 - delete a notice
-- plugins and hooks
+- plugins and hooks and other extensibility
 - RDFa for stream pages
 - RDFa for subscriber pages
 - RDFa for subscribed pages
@@ -123,16 +129,16 @@
 - hreviews
 - stay logged in between sessions
 - use RSS as a subscription
+- license per attachment
+- forward notices to Jabber
+- receive notices from Jabber
+- release 0.5
 - URL notices
 - image notices
 - video notices
 - audio notices
-- license per attachment
-- release 0.5
-- forward notices to Jabber
 - forward notices to other IM
 - forward notices to mobile phone
-- receive notices from Jabber
 - receive notices from other IM
 - receive notices from mobile phone
 - machine tags
