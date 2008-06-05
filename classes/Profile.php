@@ -73,7 +73,7 @@ class Profile extends DB_DataObject
 		}
 	}
 
-	static function setOriginal($source) {
+	function setOriginal($source) {
 
 		$info = @getimagesize($source);
 
