@@ -326,13 +326,21 @@ class UserauthorizationAction extends Action {
 	function validate_request(&$req) {
 		# OAuth stuff -- have to copy from OAuth.php since they're
 		# all private methods, and there's no user-authentication method
+		common_debug('checking version', __FILE__);
 		$this->check_version($req);
+		common_debug('getting datastore', __FILE__);		
 		$datastore = omb_oauth_datastore();
+		common_debug('getting consumer', __FILE__);
 		$consumer = $this->get_consumer($datastore, $req);
+		common_debug('getting token', __FILE__);		
 		$token = $this->get_token($datastore, $req, $consumer);
+		common_debug('checking timestamp', __FILE__);
 		$this->check_timestamp($req);
+		common_debug('checking nonce', __FILE__);		
 		$this->check_nonce($datastore, $req, $consumer, $token);
+		common_debug('checking signature', __FILE__);
 		$this->check_signature($req, $consumer, $token);
+		common_debug('checking signature', __FILE__);		
 		$this->validate_omb($req);
 		return true;
 	}

@@ -575,19 +575,22 @@ function _t($str) {
 function common_ensure_syslog() {
 	static $initialized = false;
 	if (!$initialized) {
+		global $config;
 		define_syslog_variables();
-		openlog("laconica", 0, LOG_USER);
+		openlog($config['site']['appname'], 0, LOG_USER);
 		$initialized = true;
 	}
 }
 
-function common_log($priority, $msg) {
+function common_log($priority, $msg, $filename=NULL) {
 	common_ensure_syslog();
-	syslog($priority, $msg);
+	if ($filename) {
+		syslog($priority, basename($filename).' - '.$msg);
+	}
 }
 
-function common_debug($msg) {
-	common_log(LOG_DEBUG, $msg);
+function common_debug($msg, $filename=NULL) {
+	common_log(LOG_DEBUG, $msg, $filename);
 }
 
 function common_valid_http_url($url) {

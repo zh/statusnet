@@ -35,6 +35,7 @@ require_once('DB/DataObject/Cast.php'); # for dates
 $config =
   array('site' =>
 		array('name' => 'Just another Laconica microblog',
+			  'appname' => 'laconica', # for syslog
 			  'server' => 'localhost',
 			  'path' => '/',
 			  'fancy' => false),
