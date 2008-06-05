@@ -81,7 +81,7 @@ class Profile extends DB_DataObject
 			return NULL;
 		}
 
-		$filename = common_avatar_filename($this,
+		$filename = common_avatar_filename($this->id,
 										   image_type_to_extension($info[2]),
 										   NULL, common_timestamp());
 		$filepath = common_avatar_path($filename);
