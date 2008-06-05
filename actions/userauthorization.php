@@ -408,7 +408,7 @@ class UserauthorizationAction extends Action {
 			throw new OAuthException("Invalid avatar '$avatar'");
 		}
 		$callback = $req->get_parameter('oauth_callback');
-		if ($avatar && common_valid_http_url($callback)) {
+		if ($callback && !common_valid_http_url($callback)) {
 			throw new OAuthException("Invalid callback URL '$callback'");
 		}
 	}
