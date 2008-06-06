@@ -194,7 +194,7 @@ class FinishremotesubscribeAction extends Action {
 
 		common_debug('using request token "'.$tok.'"', __FILE__);
 		
-		$url = omb_service_uri($omb[OAUTH_ENDPOINT_ACCESS]);
+		$url = $omb['access_token_url'];
 
 		common_debug('using access token url "'.$url.'"', __FILE__);
 		
