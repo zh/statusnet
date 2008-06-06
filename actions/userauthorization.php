@@ -185,15 +185,22 @@ class UserauthorizationAction extends Action {
 	}
 
 	function authorize_token(&$req) {
-		$consumer_key = @$req->get_parameter('oauth_consumer_key');
-		$token_field = @$req->get_parameter('oauth_token');
+		$consumer_key = $req->get_parameter('oauth_consumer_key');
+		$token_field = $req->get_parameter('oauth_token');
+		common_debug('consumer key = "'.$consumer_key.'"', __FILE__);
+		common_debug('token field = "'.$token_field.'"', __FILE__);		
 		$rt = new Token();
 		$rt->consumer_key = $consumer_key;
 		$rt->tok = $token_field;
-		if ($rt->find(TRUE)) {
+		$rt->type = 0;
+		$rt->state = 0;
+		common_debug('request token to look up: "'.print_r($rt,TRUE).'"');
+		if ($rt->find(true)) {
+			common_debug('found request token to authorize', __FILE__);
 			$orig_rt = clone($rt);
 			$rt->state = 1; # Authorized but not used
 			if ($rt->update($orig_rt)) {
+				common_debug('updated request token so it is authorized', __FILE__);
 				return true;
 			}
 		}
