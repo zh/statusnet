@@ -186,11 +186,17 @@ class FinishremotesubscribeAction extends Action {
 	}
 	
 	function access_token($omb) {
+
+		common_debug('starting request for access token', __FILE__);
 		
 		$con = omb_oauth_consumer();
 		$tok = new OAuthToken($omb['token'], $omb['secret']);
 
+		common_debug('using request token "'.$tok.'"', __FILE__);
+		
 		$url = omb_service_uri($omb[OAUTH_ENDPOINT_ACCESS]);
+
+		common_debug('using access token url "'.$url.'"', __FILE__);
 		
 		# XXX: Is this the right thing to do? Strip off GET params and make them
 		# POST params? Seems wrong to me.
@@ -208,10 +214,15 @@ class FinishremotesubscribeAction extends Action {
 		$req->sign_request(omb_hmac_sha1(), $con, $tok);
 		
 		# We re-use this tool's fetcher, since it's pretty good
+
+		common_debug('posting to access token url "'.$req->get_normalized_http_url().'"', __FILE__);
+		common_debug('posting request data "'.$req->to_postdata().'"', __FILE__);
 		
 		$fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
 		$result = $fetcher->post($req->get_normalized_http_url(),
 								 $req->to_postdata());
+
+		common_debug('got result: "'.print_r($result,TRUE).'"', __FILE__);
 		
 		if ($result->status != 200) {
 			return NULL;
