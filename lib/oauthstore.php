@@ -39,10 +39,10 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
 		return new OAuthConsumer($con->consumer_key, '');
 	}
 	
-	function lookup_token($consumer, $token_type, $token) {
+	function lookup_token($consumer, $token_type, $token_key) {
 		$t = new Token();
 		$t->consumer_key = $consumer->key;
-		$t->tok = $token;
+		$t->tok = $token_key;
 		$t->type = ($token_type == 'access') ? 1 : 0;
 		if ($t->find(true)) {
 			return new OAuthToken($t->tok, $t->secret);
@@ -54,7 +54,7 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
 	function lookup_nonce($consumer, $token, $nonce, $timestamp) {
 		$n = new Nonce();
 		$n->consumer_key = $consumer->key;
-		$n->tok = $token;
+		$n->tok = $token->key;
 		$n->nonce = $nonce;
 		if ($n->find(TRUE)) {
 			return TRUE;
@@ -67,7 +67,6 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
 	}
 	
 	function new_request_token($consumer) {
-		common_debug('new_request_token("'.$consumer->key.'")', __FILE__);
 		$t = new Token();
 		$t->consumer_key = $consumer->key;
 		$t->tok = common_good_rand(16);
@@ -91,8 +90,9 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
 	function new_access_token($token, $consumer) {
 		$rt = new Token();
 		$rt->consumer_key = $consumer->key;
-		$rt->tok = $token;
-		if ($rt->find(TRUE) && $rt->state == 1) {
+		$rt->tok = $token->key;
+		$rt->type = 0; # request
+		if ($rt->find(TRUE) && $rt->state == 1) { # authorized
 			$at = new Token();
 			$at->consumer_key = $consumer->key;
 			$at->tok = common_good_rand(16);
