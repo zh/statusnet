@@ -205,7 +205,7 @@ class FinishremotesubscribeAction extends Action {
 		
 		# XXX: test to see if endpoint accepts this signature method
 
-		$req->sign_request(omb_hmac_sha1(), $con, NULL);
+		$req->sign_request(omb_hmac_sha1(), $con, $tok);
 		
 		# We re-use this tool's fetcher, since it's pretty good
 		
