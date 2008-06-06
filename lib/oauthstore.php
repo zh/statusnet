@@ -67,12 +67,13 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
 	}
 	
 	function new_request_token($consumer) {
+		common_debug('new_request_token("'.$consumer->consumer_key.'")', __FILE__);
 		$t = new Token();
 		$t->consumer_key = $consumer->consumer_key;
 		$t->tok = common_good_rand(16);
 		$t->secret = common_good_rand(16);
 		$t->type = 0; # request
-		$t->state = 0;
+		$t->state = 0; # unauthorized
 		$t->created = DB_DataObject_Cast::dateTime();
 		if (!$t->insert()) {
 			return NULL;
