@@ -117,8 +117,9 @@ function omb_broadcast_remote_subscribers($notice) {
 	common_debug('starting broadcast for notice #'.$notice->id, __FILE__);
 	$sub = new Subscription();
 	$sub->subscribed = $notice->profile_id;
+	$sub->selectAs();
 	$rp = new Remote_profile();
-	$sub->addJoin($rp, 'INNER', NULL, 'subscriber');
+	$sub->joinAdd($rp, 'INNER', NULL, 'subscriber');
 	if ($sub->find()) {
 		common_debug('Found subscriptions for '.$notice->id, __FILE__);
 		$posted = array();
