@@ -81,7 +81,7 @@ class FinishremotesubscribeAction extends Action {
 
 		common_debug('listenee: "'.$omb['listenee'].'"', __FILE__);
 		
-		$user = User::staticGet('uri', $omb['listenee']);
+		$user = User::staticGet('nickname', $omb['listenee']);
 		
 		if (!$user) {
 			common_user_error(_t('User being listened to doesn\'t exist.'));
