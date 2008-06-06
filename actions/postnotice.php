@@ -76,7 +76,7 @@ class PostnoticeAction extends Action {
 		if (!$notice) {
 			$notice = new Notice();
 			$notice->profile_id = $remote_profile->id;
-			$notice->uri = $notice->uri;
+			$notice->uri = $notice_uri;
 			$notice->content = $content;
 			if ($notice_url) {
 				$notice->url = $notice_url;
