@@ -114,15 +114,19 @@ function omb_local_id($service) {
 	
 function omb_broadcast_remote_subscribers($notice) {
 	# First, get remote users subscribed to this profile
+	common_debug('starting broadcast for notice #'.$notice->id, __FILE__);
 	$sub = new Subscription();
 	$sub->subscribed = $notice->profile_id;
 	$rp = new Remote_profile();
 	$sub->addJoin($rp, 'INNER', NULL, 'subscriber');
 	if ($sub->find()) {
+		common_debug('Found subscriptions for '.$notice->id, __FILE__);		
 		$posted = array();
 		while ($sub->fetch()) {
+			common_debug('Subscription by profile '.$sub->subscriber, __FILE__);		
 			if (!$posted[$rp->postnoticeurl]) {
 				if (omb_post_notice($notice, $rp, $sub)) {
+					common_debug('successful update to '.$rp->postnoticeurl, __FILE__);		
 					$posted[$rp->postnoticeurl] = TRUE;
 				}
 			}
