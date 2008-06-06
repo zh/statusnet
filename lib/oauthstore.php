@@ -88,11 +88,13 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
 	}
 	
 	function new_access_token($token, $consumer) {
+		common_debug('new_access_token("'.$token->key.'","'.$consumer->key.'")', __FILE__);
 		$rt = new Token();
 		$rt->consumer_key = $consumer->key;
 		$rt->tok = $token->key;
 		$rt->type = 0; # request
 		if ($rt->find(TRUE) && $rt->state == 1) { # authorized
+			common_debug('request token found.', __FILE__);
 			$at = new Token();
 			$at->consumer_key = $consumer->key;
 			$at->tok = common_good_rand(16);
@@ -100,26 +102,32 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
 			$at->type = 1; # access
 			$at->created = DB_DataObject_Cast::dateTime();
 			if (!$at->insert()) {
+				$e = $at->_lastError;
+				common_debug('access token "'.$at->tok.'" not inserted: "'.$e->message.'"', __FILE__);
 				return NULL;
 			} else {
+				common_debug('access token "'.$at->tok.'" inserted', __FILE__);
 				# burn the old one
 				$orig_rt = clone($rt);
 				$rt->state = 2; # used
 				if (!$rt->update($orig_rt)) {
 					return NULL;
 				} 
+				common_debug('request token "'.$rt->tok.'" updated', __FILE__);
 				# Update subscription
 				# XXX: mixing levels here
 				$sub = Subscription::staticGet('token', $rt->tok);
 				if (!$sub) {
 					return NULL;
 				}
+				common_debug('subscription for request token found', __FILE__);
 				$orig_sub = clone($sub);
 				$sub->token = $at->tok;
 				$sub->secret = $at->secret;
 				if (!$sub->update($orig_sub)) {
 					return NULL;
 				} else {
+					common_debug('subscription updated to use access token', __FILE__);
 					return new OAuthToken($at->tok, $at->secret);
 				}					
 			}
