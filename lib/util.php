@@ -529,7 +529,9 @@ function common_redirect($url, $code=307) {
 function common_broadcast_notice($notice, $remote=false) {
 	// XXX: optionally use a queue system like http://code.google.com/p/microapps/wiki/NQDQ
 	if (!$remote) {
-		common_broadcast_remote_subscribers($notice);
+		# Make sure we have the OMB stuff
+		require_once(INSTALLDIR.'/lib/omb.php');
+		omb_broadcast_remote_subscribers($notice);
 	}
 	// XXX: broadcast notices to Jabber
 	// XXX: broadcast notices to SMS
@@ -537,66 +539,6 @@ function common_broadcast_notice($notice, $remote=false) {
 	return true;
 }
 
-function common_broadcast_remote_subscribers($notice) {
-	# First, get remote users subscribed to this profile
-	$sub = new Subscription();
-	$sub->subscribed = $notice->profile_id;
-	$rp = new Remote_profile();
-	$sub->addJoin($rp, 'INNER', NULL, 'subscriber');
-	if ($sub->find()) {
-		$posted = array();
-		while ($sub->fetch()) {
-			if (!$posted[$rp->postnoticeurl]) {
-				if (common_post_notice($notice, $rp, $sub)) {
-					$posted[$rp->postnoticeurl] = TRUE;
-				}
-			}
-		}
-	}
-}
-
-function common_post_notice($notice, $remote_profile, $subscription) {
-	global $config; # for license URL
-	$user = User::staticGet('id', $notice->profile_id);
-	$con = omb_oauth_consumer();
-	$token = new OAuthToken($subscription->token, $subscription->secret);
-	$url = $remote_profile->postnoticeurl;
-	$parsed = parse_url($url);
-	$params = array();
-	parse_str($parsed['query'], $params);
-	$req = OAuthRequest::from_consumer_and_token($con, $token,
-												 "POST", $url, $params);
-	$req->set_parameter('omb_version', OMB_VERSION_01);
-	$req->set_parameter('omb_listenee', $user->uri);
-	$req->set_parameter('omb_notice', $notice->uri);
-	$req->set_parameter('omb_notice_content', $notice->content);
-	$req->set_parameter('omb_notice_url', common_local_url('shownotice',
-														   array('notice' =>
-																 $notice->id)));
-	$req->set_parameter('omb_notice_license', $config['license']['url']);
-	$req->sign_request(omb_hmac_sha1(), $con, $tok);
-
-	# We re-use this tool's fetcher, since it's pretty good
-
-	$fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
-
-	$result = $fetcher->post($req->get_normalized_http_url(),
-							 $req->to_postdata());
-
-	if ($result->status == 403) { # not authorized, don't send again
-		$subscription->delete();
-		return false;
-	} else if ($result->status != 200) {
-		return false;
-	} else { # success!
-		parse_str($result->body, $return);
-		if ($return['omb_version'] == OMB_VERSION_01) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-}
 
 function common_profile_url($nickname) {
 	return common_local_url('showstream', array('nickname' => $nickname));
