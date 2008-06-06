@@ -140,21 +140,34 @@ class FinishremotesubscribeAction extends Action {
 		} else {
 			$profile->created = DB_DataObject_Cast::dateTime(); # current time
 			$id = $profile->insert();
+			if (!$id) {
+				common_server_error(_t('Error inserting new profile'));
+				return;
+			}
 			$remote->id = $id;
 		}
 
 		if ($avatar_url) {
-			$this->add_avatar($profile, $avatar_url);
+			if (!$this->add_avatar($profile, $avatar_url)) {
+				common_server_error(_t('Error inserting avatar'));
+				return;
+			}
 		}
 
-		$remote->postnoticeurl = $omb[OMB_ENDPOINT_POSTNOTICE];
-		$remote->updateprofileurl = $omb[OMB_ENDPOINT_UPDATEPROFILE];
+		$remote->postnoticeurl = $omb['post_notice_url'];
+		$remote->updateprofileurl = $omb['update_profile_url'];
 
 		if ($exists) {
-			$remote->update($orig_remote);
+			if (!$remote->update($orig_remote)) {
+				common_server_error(_t('Error updating remote profile'));
+				return;
+			}
 		} else {
 			$remote->created = DB_DataObject_Cast::dateTime(); # current time
-			$remote->insert;
+			if (!$remote->insert()) {
+				common_server_error(_t('Error inserting remote profile'));
+				return;
+			}
 		}
 		
 		$sub = new Subscription();

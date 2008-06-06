@@ -313,6 +313,8 @@ class RemotesubscribeAction extends Action {
 		$omb['secret'] = $secret;
 		# call doesn't work after bounce back so we cache; maybe serialization issue...?
 		$omb['access_token_url'] = omb_service_uri($omb[OAUTH_ENDPOINT_ACCESS]);
+		$omb['post_notice_url'] = omb_service_uri($omb[OMB_ENDPOINT_POSTNOTICE]);
+		$omb['update_profile_url'] = omb_service_uri($omb[OMB_ENDPOINT_UPDATEPROFILE]);
 
 		$_SESSION['oauth_authorization_request'] = $omb;
 
