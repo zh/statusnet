@@ -40,6 +40,8 @@ class FinishremotesubscribeAction extends Action {
 			return;
 		}
 
+		common_debug('stored request: '.print_r($omb,true), __FILE__);
+		
 		$req = OAuthRequest::from_request();
 
 		$token = $req->get_parameter('oauth_token');
@@ -77,6 +79,8 @@ class FinishremotesubscribeAction extends Action {
 			return;
 		}
 
+		common_debug('listenee: "'.$omb['listenee'].'"', __FILE__);
+		
 		$user = User::staticGet('uri', $omb['listenee']);
 		
 		if (!$user) {
