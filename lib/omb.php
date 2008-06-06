@@ -151,7 +151,8 @@ function omb_post_notice($notice, $remote_profile, $subscription) {
 														   array('notice' =>
 																 $notice->id)));
 	$req->set_parameter('omb_notice_license', $config['license']['url']);
-	$req->sign_request(omb_hmac_sha1(), $con, $tok);
+	
+	$req->sign_request(omb_hmac_sha1(), $con, $token);
 
 	# We re-use this tool's fetcher, since it's pretty good
 
