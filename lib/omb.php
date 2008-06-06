@@ -123,6 +123,8 @@ function omb_broadcast_remote_subscribers($notice) {
 		common_debug('Found subscriptions for '.$notice->id, __FILE__);
 		$posted = array();
 		while ($sub->fetch()) {
+			common_debug('sub = '.print_r($sub,TRUE), __FILE__);
+			common_debug('rp = '.print_r($rp,TRUE), __FILE__);			
 			common_debug('Subscription by profile '.$sub->subscriber, __FILE__);
 			if (!$posted[$rp->postnoticeurl]) {
 				common_debug('Not yet posted to '.$rp->postnoticeurl, __FILE__);
