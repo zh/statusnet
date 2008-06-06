@@ -114,23 +114,16 @@ function omb_local_id($service) {
 
 function omb_broadcast_remote_subscribers($notice) {
 	# First, get remote users subscribed to this profile
-	common_debug('starting broadcast for notice #'.$notice->id, __FILE__);
 	# XXX: use a join here rather than looping through results
 	$sub = new Subscription();
 	$sub->subscribed = $notice->profile_id;
 	if ($sub->find()) {
-		common_debug('Found subscriptions for '.$notice->id, __FILE__);
 		$posted = array();
 		while ($sub->fetch()) {
-			common_debug('sub = '.print_r($sub,TRUE), __FILE__);
-			common_debug('Subscription by profile '.$sub->subscriber, __FILE__);
 			$rp = Remote_profile::staticGet('id', $sub->subscriber);
 			if ($rp) {
-				common_debug('subscriber '.$rp->id.' is remote.', __FILE__);
 				if (!$posted[$rp->postnoticeurl]) {
-					common_debug('Not yet posted to '.$rp->postnoticeurl, __FILE__);
 					if (omb_post_notice($notice, $rp, $sub)) {
-						common_debug('successful update to '.$rp->postnoticeurl, __FILE__);
 						$posted[$rp->postnoticeurl] = TRUE;
 					}
 				}
@@ -141,14 +134,10 @@ function omb_broadcast_remote_subscribers($notice) {
 
 function omb_post_notice($notice, $remote_profile, $subscription) {
 	global $config; # for license URL
-	common_debug('Getting user '.$notice->profile_id, __FILE__);
 	$user = User::staticGet('id', $notice->profile_id);
-	common_debug('Got user "'.$user->nickname.'"', __FILE__);
 	$con = omb_oauth_consumer();
 	$token = new OAuthToken($subscription->token, $subscription->secret);
-	common_debug('Token: "'.$token->key.'","'.$token->secret.'"', __FILE__);
 	$url = $remote_profile->postnoticeurl;
-	common_debug('Postnotice URL is "'.$url.'"', __FILE__);
 	$parsed = parse_url($url);
 	$params = array();
 	parse_str($parsed['query'], $params);
@@ -168,9 +157,6 @@ function omb_post_notice($notice, $remote_profile, $subscription) {
 
 	$fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
 
-	common_debug('Posting to URL "'.$req->get_normalized_http_url().'"', __FILE__);
-	common_debug('Sending POST data "'.$req->to_postdata().'"', __FILE__);
-	
 	$result = $fetcher->post($req->get_normalized_http_url(),
 							 $req->to_postdata());
 
