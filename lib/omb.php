@@ -26,6 +26,8 @@ require_once(INSTALLDIR.'/classes/Consumer.php');
 require_once(INSTALLDIR.'/classes/Nonce.php');
 require_once(INSTALLDIR.'/classes/Token.php');
 
+require_once('Auth/Yadis/Yadis.php');
+
 define('OAUTH_NAMESPACE', 'http://oauth.net/core/1.0/');
 define('OMB_NAMESPACE', 'http://openmicroblogging.org/protocol/0.1');
 define('OMB_VERSION_01', 'http://openmicroblogging.org/protocol/0.1');

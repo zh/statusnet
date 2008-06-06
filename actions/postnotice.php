@@ -20,7 +20,6 @@
 if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/omb.php');
-require_once('Auth/Yadis/Yadis.php');
 
 class PostnoticeAction extends Action {
 	function handle($args) {
