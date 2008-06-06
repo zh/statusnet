@@ -42,7 +42,7 @@ define('OAUTH_ENDPOINT_RESOURCE', OAUTH_NAMESPACE.'endpoint/resource');
 define('OAUTH_AUTH_HEADER', OAUTH_NAMESPACE.'parameters/auth-header');
 define('OAUTH_POST_BODY', OAUTH_NAMESPACE.'parameters/post-body');
 define('OAUTH_HMAC_SHA1', OAUTH_NAMESPACE.'signature/HMAC-SHA1');
-	   
+
 function omb_oauth_consumer() {
 	static $con = NULL;
 	if (!$con) {
@@ -81,10 +81,10 @@ function omb_get_services($xrd, $type) {
 }
 
 function omb_service_filter($type) {
-	return create_function('$s', 
+	return create_function('$s',
 						   'return omb_match_service($s, \''.$type.'\');');
 }
-	
+
 function omb_match_service($service, $type) {
 	return in_array($type, $service->getTypes());
 }
@@ -111,7 +111,7 @@ function omb_local_id($service) {
 	$el = $els[0];
 	return $service->parser->content($el);
 }
-	
+
 function omb_broadcast_remote_subscribers($notice) {
 	# First, get remote users subscribed to this profile
 	common_debug('starting broadcast for notice #'.$notice->id, __FILE__);
@@ -120,13 +120,14 @@ function omb_broadcast_remote_subscribers($notice) {
 	$rp = new Remote_profile();
 	$sub->addJoin($rp, 'INNER', NULL, 'subscriber');
 	if ($sub->find()) {
-		common_debug('Found subscriptions for '.$notice->id, __FILE__);		
+		common_debug('Found subscriptions for '.$notice->id, __FILE__);
 		$posted = array();
 		while ($sub->fetch()) {
-			common_debug('Subscription by profile '.$sub->subscriber, __FILE__);		
+			common_debug('Subscription by profile '.$sub->subscriber, __FILE__);
 			if (!$posted[$rp->postnoticeurl]) {
+				common_debug('Not yet posted to '.$rp->postnoticeurl, __FILE__);
 				if (omb_post_notice($notice, $rp, $sub)) {
-					common_debug('successful update to '.$rp->postnoticeurl, __FILE__);		
+					common_debug('successful update to '.$rp->postnoticeurl, __FILE__);
 					$posted[$rp->postnoticeurl] = TRUE;
 				}
 			}
@@ -136,10 +137,14 @@ function omb_broadcast_remote_subscribers($notice) {
 
 function omb_post_notice($notice, $remote_profile, $subscription) {
 	global $config; # for license URL
+	common_debug('Getting user '.$notice->profile_id, __FILE__);
 	$user = User::staticGet('id', $notice->profile_id);
+	common_debug('Got user "'.$user->nickname.'"', __FILE__);
 	$con = omb_oauth_consumer();
 	$token = new OAuthToken($subscription->token, $subscription->secret);
+	common_debug('Token: "'.$token->key.'","'.$token->secret.'"', __FILE__);
 	$url = $remote_profile->postnoticeurl;
+	common_debug('Postnotice URL is "'.$url.'"', __FILE__);
 	$parsed = parse_url($url);
 	$params = array();
 	parse_str($parsed['query'], $params);
@@ -159,13 +164,20 @@ function omb_post_notice($notice, $remote_profile, $subscription) {
 
 	$fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
 
+	common_debug('Posting to URL "'.$req->get_normalized_http_url().'"', __FILE__);
+	common_debug('Sending POST data "'.$req->to_postdata().'"', __FILE__);
+	
 	$result = $fetcher->post($req->get_normalized_http_url(),
 							 $req->to_postdata());
 
+	common_debug('Got HTTP result "'.print_r($result,TRUE).'"', __FILE__);
+	
 	if ($result->status == 403) { # not authorized, don't send again
+		common_debug('403 result, deleting subscription', __FILE__);
 		$subscription->delete();
 		return false;
 	} else if ($result->status != 200) {
+		common_debug('Error status '.$result->status, __FILE__);		
 		return false;
 	} else { # success!
 		parse_str($result->body, $return);
