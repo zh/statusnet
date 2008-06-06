@@ -115,23 +115,24 @@ function omb_local_id($service) {
 function omb_broadcast_remote_subscribers($notice) {
 	# First, get remote users subscribed to this profile
 	common_debug('starting broadcast for notice #'.$notice->id, __FILE__);
+	# XXX: use a join here rather than looping through results
 	$sub = new Subscription();
 	$sub->subscribed = $notice->profile_id;
-	$sub->selectAs();
-	$rp = new Remote_profile();
-	$sub->joinAdd($rp, 'INNER', NULL, 'subscriber');
 	if ($sub->find()) {
 		common_debug('Found subscriptions for '.$notice->id, __FILE__);
 		$posted = array();
 		while ($sub->fetch()) {
 			common_debug('sub = '.print_r($sub,TRUE), __FILE__);
-			common_debug('rp = '.print_r($rp,TRUE), __FILE__);			
 			common_debug('Subscription by profile '.$sub->subscriber, __FILE__);
-			if (!$posted[$rp->postnoticeurl]) {
-				common_debug('Not yet posted to '.$rp->postnoticeurl, __FILE__);
-				if (omb_post_notice($notice, $rp, $sub)) {
-					common_debug('successful update to '.$rp->postnoticeurl, __FILE__);
-					$posted[$rp->postnoticeurl] = TRUE;
+			$rp = Remote_profile::staticGet('id', $sub->subscriber);
+			if ($rp) {
+				common_debug('subscriber '.$rp->id.' is remote.', __FILE__);
+				if (!$posted[$rp->postnoticeurl]) {
+					common_debug('Not yet posted to '.$rp->postnoticeurl, __FILE__);
+					if (omb_post_notice($notice, $rp, $sub)) {
+						common_debug('successful update to '.$rp->postnoticeurl, __FILE__);
+						$posted[$rp->postnoticeurl] = TRUE;
+					}
 				}
 			}
 		}
