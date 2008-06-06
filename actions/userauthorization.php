@@ -258,18 +258,27 @@ class UserauthorizationAction extends Action {
 		} else {
 			$profile->created = DB_DataObject_Cast::dateTime(); # current time
 			$id = $profile->insert();
+			if (!$id) {
+				return FALSE;
+			}
 			$remote->id = $id;
 		}
 
 		if ($exists) {
-			$remote->update($orig_remote);
+			if (!$remote->update($orig_remote)) {
+				return FALSE;
+			}
 		} else {
 			$remote->created = DB_DataObject_Cast::dateTime(); # current time
-			$remote->insert();
+			if (!$remote->insert()) {
+				return FALSE;
+			}
 		}
 
 		if ($avatar_url) {
-			$this->add_avatar($profile, $avatar_url);
+			if (!$this->add_avatar($profile, $avatar_url)) {
+				return FALSE;
+			}
 		}
 
 		$user = common_current_user();
@@ -284,9 +293,10 @@ class UserauthorizationAction extends Action {
 		$sub->created = DB_DataObject_Cast::dateTime(); # current time
 		
 		if (!$sub->insert()) {
-			common_user_error(_t('Couldn\'t insert new subscription.'));
-			return;
+			return FALSE;
 		}
+		
+		return TRUE;
 	}
 
 	function add_avatar($profile, $url) {
@@ -378,6 +388,10 @@ class UserauthorizationAction extends Action {
 		if (!$user) {
 			throw new OAuthException("Listener URI '$listener' not found here");
 		}
+		$cur = common_current_user();
+		if ($cur->id != $user->id) {
+			throw new OAuthException("Can't add for another user!");
+		}
 		$listenee = $req->get_parameter('omb_listenee');
 		if (!Validate::uri($listenee) &&
 			!common_valid_tag($listenee)) {
@@ -385,6 +399,15 @@ class UserauthorizationAction extends Action {
 		}
 		if (strlen($listenee) > 255) {
 			throw new OAuthException("Listenee URI '$listenee' too long");
+		}
+		$remote = Remote_profile::staticGet('uri', $listenee);
+		if ($remote) {
+			$sub = new Subscription();
+			$sub->subscriber = $user->id;
+			$sub->subscribed = $remote->id;
+			if ($sub->find(TRUE)) {
+				throw new OAuthException("Already subscribed to user!");
+			}
 		}
 		$nickname = $req->get_parameter('omb_listenee_nickname');
 		if (!Validate::string($nickname, array('min_length' => 1,
