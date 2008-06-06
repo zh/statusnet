@@ -482,6 +482,47 @@ function common_local_url($action, $args=NULL) {
 
 function common_fancy_url($action, $args=NULL) {
 	switch (strtolower($action)) {
+	 case 'public':
+		return common_path('');
+	 case 'publicrss':
+		return common_path('rss');
+	 case 'doc':
+		return common_path('doc/'.$args['title']);
+	 case 'login':
+	 case 'logout':
+	 case 'register':
+	 case 'subscribe':
+	 case 'unsubscribe':
+		return common_path('main/'.$action);
+	 case 'accesstoken':
+	 case 'requesttoken':
+	 case 'postnotice':
+	 case 'userauthorization':
+		return common_path('omb/'.$action);
+	 case 'remotesubscribe':
+		return common_path('omb/subscribe');
+	 case 'finishremotesubscribe':
+		return common_path('omb/finish');
+	 case 'avatar':
+	 case 'password':
+		return common_path('settings/'.$action);
+	 case 'profilesettings':
+		return common_path('settings/profile');
+	 case 'newnotice':
+		return common_path('notice/new');
+	 case 'shownotice':
+		return common_path('notice/'.$args['notice']);
+	 case 'subscriptions':
+	 case 'subscribed':
+	 case 'xrds':		
+	 case 'all':
+		return common_path($args['nickname'].'/'.$action);
+	 case 'allrss':
+		return common_path($args['nickname'].'/all/rss');
+	 case 'userrss':
+		return common_path($args['nickname'].'/rss');
+	 case 'showstream':
+		return common_path($args['nickname']);
 	 default:
 		return common_simple_url($action, $args);
 	}
