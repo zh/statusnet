@@ -21,8 +21,21 @@
 
 # Show a server error
 
-function common_server_error($msg) {
-	header('HTTP/1.1 500 Server Error');
+function common_server_error($msg, $code=500) {
+	static $status = array(500 => 'Internal Server Error',
+						   501 => 'Not Implemented',
+						   502 => 'Bad Gateway',
+						   503 => 'Service Unavailable',
+						   504 => 'Gateway Timeout',
+						   505 => 'HTTP Version Not Supported');
+
+	if (!array_key_exists($code, $status)) {
+		$code = 500;
+	}
+
+	$status_string = $status[$code];
+
+	header('HTTP/1.1 '.$code.' '.$status_string);
 	header('Content-type: text/plain');
 
 	print $msg;
@@ -31,7 +44,34 @@ function common_server_error($msg) {
 }
 
 # Show a user error
-function common_user_error($msg, $code=200) {
+function common_user_error($msg, $code=400) {
+	static $status = array(400 => 'Bad Request',
+						   401 => 'Unauthorized',
+						   402 => 'Payment Required',
+						   403 => 'Forbidden',
+						   404 => 'Not Found',
+						   405 => 'Method Not Allowed',
+						   406 => 'Not Acceptable',
+						   407 => 'Proxy Authentication Required',
+						   408 => 'Request Timeout',
+						   409 => 'Conflict',
+						   410 => 'Gone',
+						   411 => 'Length Required',
+						   412 => 'Precondition Failed',
+						   413 => 'Request Entity Too Large',
+						   414 => 'Request-URI Too Long',
+						   415 => 'Unsupported Media Type',
+						   416 => 'Requested Range Not Satisfiable',
+						   417 => 'Expectation Failed');
+
+	if (!array_key_exists($code, $status)) {
+		$code = 400;
+	}
+
+	$status_string = $status[$code];
+
+	header('HTTP/1.1 '.$code.' '.$status_string);
+
 	common_show_header('Error');
 	common_element('div', array('class' => 'error'), $msg);
 	common_show_footer();
@@ -276,7 +316,7 @@ function common_textarea($id, $label, $content=NULL) {
 	common_element('textarea', array('rows' => 3,
 									 'cols' => 40,
 									 'name' => $id,
-									 'id' => $id, 
+									 'id' => $id,
 									 'class' => 'width50'),
 				   ($content) ? $content : ' ');
 	common_element_end('p');
@@ -427,7 +467,7 @@ function common_default_avatar($size) {
 							  AVATAR_STREAM_SIZE => 'stream',
 							  AVATAR_MINI_SIZE => 'mini');
 	global $config;
-	
+
 	return common_path($config['avatar']['default'][$sizenames[$size]]);
 }
 
@@ -486,13 +526,76 @@ function common_redirect($url, $code=307) {
 	common_element('a', array('href' => $url), $url);
 }
 
-function common_broadcast_notice($notice) {
-	// XXX: broadcast notices to remote subscribers
-	// XXX: broadcast notices to SMS
+function common_broadcast_notice($notice, $remote=false) {
+	// XXX: optionally use a queue system like http://code.google.com/p/microapps/wiki/NQDQ
+	if (!$remote) {
+		common_broadcast_remote_subscribers($notice);
+	}
 	// XXX: broadcast notices to Jabber
+	// XXX: broadcast notices to SMS
 	// XXX: broadcast notices to other IM
-	// XXX: use a queue system like http://code.google.com/p/microapps/wiki/NQDQ
 	return true;
+}
+
+function common_broadcast_remote_subscribers($notice) {
+	# First, get remote users subscribed to this profile
+	$sub = new Subscription();
+	$sub->subscribed = $notice->profile_id;
+	$rp = new Remote_profile();
+	$sub->addJoin($rp, 'INNER', NULL, 'subscriber');
+	if ($sub->find()) {
+		$posted = array();
+		while ($sub->fetch()) {
+			if (!$posted[$rp->postnoticeurl]) {
+				if (common_post_notice($notice, $rp, $sub)) {
+					$posted[$rp->postnoticeurl] = TRUE;
+				}
+			}
+		}
+	}
+}
+
+function common_post_notice($notice, $remote_profile, $subscription) {
+	global $config; # for license URL
+	$user = User::staticGet('id', $notice->profile_id);
+	$con = omb_oauth_consumer();
+	$token = new OAuthToken($subscription->token, $subscription->secret);
+	$url = $remote_profile->postnoticeurl;
+	$parsed = parse_url($url);
+	$params = array();
+	parse_str($parsed['query'], $params);
+	$req = OAuthRequest::from_consumer_and_token($con, $token,
+												 "POST", $url, $params);
+	$req->set_parameter('omb_version', OMB_VERSION_01);
+	$req->set_parameter('omb_listenee', $user->uri);
+	$req->set_parameter('omb_notice', $notice->uri);
+	$req->set_parameter('omb_notice_content', $notice->content);
+	$req->set_parameter('omb_notice_url', common_local_url('shownotice',
+														   array('notice' =>
+																 $notice->id)));
+	$req->set_parameter('omb_notice_license', $config['license']['url']);
+	$req->sign_request(omb_hmac_sha1(), $con, $tok);
+
+	# We re-use this tool's fetcher, since it's pretty good
+
+	$fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
+
+	$result = $fetcher->post($req->get_normalized_http_url(),
+							 $req->to_postdata());
+
+	if ($result->status == 403) { # not authorized, don't send again
+		$subscription->delete();
+		return false;
+	} else if ($result->status != 200) {
+		return false;
+	} else { # success!
+		parse_str($result->body, $return);
+		if ($return['omb_version'] == OMB_VERSION_01) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
 
 function common_profile_url($nickname) {
@@ -509,7 +612,7 @@ function common_notice_form() {
 
 function common_mint_tag($extra) {
 	global $config;
-	return 
+	return
 	  'tag:'.$config['tag']['authority'].','.
 	  $config['tag']['date'].':'.$config['tag']['prefix'].$extra;
 }
@@ -565,7 +668,7 @@ function common_get_returnto() {
 function common_timestamp() {
 	return date('YmdHis');
 }
-	
+
 // XXX: set up gettext
 
 function _t($str) {
@@ -601,7 +704,7 @@ function common_valid_http_url($url) {
 
 function common_valid_tag($tag) {
 	if (preg_match('/^tag:(.*?),(\d{4}(-\d{2}(-\d{2})?)?):(.*)$/', $tag, $matches)) {
-		return (Validate::email($matches[1]) || 
+		return (Validate::email($matches[1]) ||
 				preg_match('/^([\w-\.]+)$/', $matches[1]));
 	}
 	return false;
