@@ -33,8 +33,9 @@ class UserauthorizationAction extends Action {
 			if (!common_logged_in()) {
 				# Go log in, and then come back
 				common_debug('userauthorization.php - saving URL for returnto');
-				common_set_returnto(common_local_url('userauthorization'),
-								    $this->args);
+				$argsclone = clone($args);
+				unset($argsclone['action']);
+				common_set_returnto(common_local_url('userauthorization', $argsclone));
 				common_debug('userauthorization.php - redirecting to login');				
 				common_redirect(common_local_url('login'));
 				return;
