@@ -132,8 +132,12 @@ class UserauthorizationAction extends Action {
 		$callback = $req->get_parameter('oauth_callback');
 
 		if ($this->arg('accept')) {
-			$this->authorize_token($req);
-			$this->save_remote_profile($req);
+			if (!$this->authorize_token($req)) {
+				common_server_error(_t('Error authorizing token'));
+			}
+			if (!$this->save_remote_profile($req)) {
+				common_server_error(_t('Error saving remote profile'));
+			}
 			if (!$callback) {
 				$this->show_accept_message($req->get_parameter('oauth_token'));
 			} else {
