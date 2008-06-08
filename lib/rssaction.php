@@ -68,6 +68,7 @@ class Rss10Action extends Action {
 	}
 
 	function show_channel($notices) {
+		global $config;
 
 		$channel = $this->get_channel();
 		$image = $this->get_image();
