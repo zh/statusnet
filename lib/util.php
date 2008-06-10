@@ -516,6 +516,7 @@ function common_fancy_url($action, $args=NULL) {
 	 case 'subscribed':
 	 case 'xrds':		
 	 case 'all':
+	 case 'foaf':
 		return common_path($args['nickname'].'/'.$action);
 	 case 'allrss':
 		return common_path($args['nickname'].'/all/rss');
