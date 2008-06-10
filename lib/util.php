@@ -238,12 +238,14 @@ function common_nav_menu() {
 }
 
 function common_views_menu() {
+	common_element_start('ul', array('id' => 'nav_views'));
 	common_menu_item(common_local_url('all', array('nickname' =>
 												   $user->nickname)),
 					 _t('Home'));
 	common_menu_item(common_local_url('showstream', array('nickname' =>
 														  $user->nickname)),
 					 _t('Profile'),  $user->fullname || $user->nickname);
+	common_element_end('ul');
 }
 
 function common_foot_menu() {
