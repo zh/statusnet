@@ -76,8 +76,8 @@ class ShowstreamAction extends StreamAction {
 		common_element('link', array('rel' => 'meta',
 									 'href' => common_local_url('foaf', array('nickname' =>
 																			  $user->nickname)),
-									 'type' => 'application/rdr+xml',
-									 'title' => 'FOAF');
+									 'type' => 'application/rdf+xml',
+									 'title' => 'FOAF'));
 		# for remote subscriptions etc.
 		common_element('meta', array('http-equiv' => 'X-XRDS-Location',
 									 'content' => common_local_url('xrds', array('nickname' =>
