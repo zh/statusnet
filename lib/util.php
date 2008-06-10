@@ -226,6 +226,8 @@ function common_nav_menu() {
 	$user = common_current_user();
 	common_element_start('ul', array('id' => 'nav'));
 	common_menu_item(common_local_url('public'), _t('Public'));
+	common_menu_item(common_local_url('doc', array('title' => 'help')),
+					 _t('Help'));
 	if ($user) {
 		common_menu_item(common_local_url('profilesettings'),
 						 _t('Settings'));
@@ -253,8 +255,6 @@ function common_foot_menu() {
 	common_element_start('ul', array('id' => 'nav_sub'));
 	common_menu_item(common_local_url('doc', array('title' => 'about')),
 					 _t('About'));
-	common_menu_item(common_local_url('doc', array('title' => 'help')),
-					 _t('Help'));
 	common_menu_item(common_local_url('doc', array('title' => 'privacy')),
 					 _t('Privacy'));
 	common_menu_item(common_local_url('doc', array('title' => 'source')),
@@ -267,7 +267,7 @@ function common_menu_item($url, $text, $title=NULL) {
 	if ($title) {
 		$attrs['title'] = $title;
 	}
-	common_element_start('li', 'menuitem');
+	common_element_start('li');
 	common_element('a', $attrs, $text);
 	common_element_end('li');
 }
