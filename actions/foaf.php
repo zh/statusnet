@@ -90,7 +90,7 @@ class FoafAction extends Action {
 				$scaled = $profile->getAvatar($size);
 				if (!$scaled->original) { # sometimes the original has one of our scaled sizes
 					common_element_start('thumbnail');
-					common_element('Image', array('rdf:about', $scaled->url));
+					common_element('Image', array('rdf:about' => $scaled->url));
 					common_element_end('thumbnail');
 				}
 			}
@@ -112,7 +112,7 @@ class FoafAction extends Action {
 				} else {
 					$other = User::staticGet($sub->subscribed);
 				}
-				common_element('knows', array('rdf:about', $other->uri));
+				common_element('knows', array('rdf:resource' => $other->uri));
 				$person[$other->uri] = array(LISTENEE, $other);
 			}
 		}
@@ -147,7 +147,7 @@ class FoafAction extends Action {
 			$profile = Profile::staticGet($p[1]->id);
 			common_element_start('Person', array('rdf:about' => $uri));
 			if ($p[0] == LISTENER || $p[0] == BOTH) {
-				common_element('knows', array('rdf:about', $user->uri));
+				common_element('knows', array('rdf:resource' => $user->uri));
 			}
 			$this->show_microblogging_account($profile, ($p[1] instanceof User) ?
 											  common_root_url() : NULL);
