@@ -47,12 +47,6 @@ class AllAction extends StreamAction {
 		common_show_header($profile->nickname . _t(" and friends"),
 						   array($this, 'show_header'), $user);
 
-		$cur = common_current_user();
-
-		if ($cur && $profile->id == $cur->id) {
-			common_notice_form();
-		}
-
 		$this->show_notices($profile);
 		
 		common_show_footer();
@@ -83,39 +77,20 @@ class AllAction extends StreamAction {
 
 		$cnt = $notice->find();
 
-		common_element_start('div', 'notices width100');
-		common_element('h2', 'notices', _t('Notices'));
-
-		for ($i = 0; $i < min($cnt, NOTICES_PER_PAGE); $i++) {
-			if ($notice->fetch()) {
-				$this->show_notice($notice);
-			} else {
-				// shouldn't happen!
-				break;
+		if ($cnt > 0) {
+			common_element_start('ul', array('id' => 'notices'));
+			for ($i = 0; $i < min($cnt, NOTICES_PER_PAGE); $i++) {
+				if ($notice->fetch()) {
+					$this->show_notice($notice);
+				} else {
+					// shouldn't happen!
+					break;
+				}
 			}
-		}
-
-		if ($page > 1) {
-			common_element_start('span', 'floatLeft width25');
-			common_element('a', array('href' => common_local_url('all',
-																 array('nickname' => $profile->nickname,
-																	   'page' => $page-1)),
-									  'class' => 'newer'),
-						   _t('Newer'));
-			common_element_end('span');
+			common_element_end('ul');
 		}
 		
-		if ($cnt > NOTICES_PER_PAGE) {
-			common_element_start('span', 'floatRight width25');
-			common_element('a', array('href' => common_local_url('all', 
-																 array('nickname' => $profile->nickname,
-																	   'page' => $page+1)),
-									  'class' => 'older'),
-						   _t('Older'));
-			common_element_end('span');
-		}
-
-		# XXX: show a link for the next page
-		common_element_end('div');
+		common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
+						  $page, 'all', array('nickname' => $profile->nickname));
 	}
 }

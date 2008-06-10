@@ -169,12 +169,12 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $notice=NULL
 								($config['site']['logo']) : theme_path('logo.png'),
 								'alt' => $config['site']['name'],
 								'id' => 'logo'));
-	if ($notice && common_logged_in()) {
+	if (common_logged_in()) {
 		common_notice_form();
 	}
 	common_element_end('div');
 	common_element_start('div', array('id' => 'content'));
-	if ($notice && common_logged_in()) {
+	if (common_logged_in()) {
 		common_views_menu();
 	}
 }
