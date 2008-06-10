@@ -184,10 +184,8 @@ function common_show_footer() {
 	global $xw, $config;
 	common_element_end('div'); # content div
 	common_foot_menu();
-	common_element_start('div', 'footer');
-	global $config, $xw;
-	common_element('img', array('class' => 'license',
-								'id' => 'cc',
+	common_element_start('div', array('id' => 'footer'));
+	common_element('img', array('id' => 'cc',
 								'src' => $config['license']['image'],
 								'alt' => $config['license']['title']));
 	common_element_start('p');
