@@ -185,7 +185,19 @@ function common_show_footer() {
 	common_element_end('div'); # content div
 	common_foot_menu();
 	common_element_start('div', 'footer');
-	common_license_block();
+	global $config, $xw;
+	common_element('img', array('class' => 'license',
+								'id' => 'cc',
+								'src' => $config['license']['image'],
+								'alt' => $config['license']['title']));
+	common_element_start('p');
+	common_text(_t('Unless otherwise specified, contents of this site are copyright by the contributors and available under the '));
+	common_element('a', array('class' => 'license',
+							  'rel' => 'license',
+							  href => $config['license']['url']),
+				   $config['license']['title']);
+	common_text(_t('. Contributors should be attributed by full name or nickname.'));
+	common_element_end('p');
 	common_element_end('div');
 	common_element_end('div');
 	common_element_end('body');
@@ -201,25 +213,6 @@ function common_text($txt) {
 function common_raw($xml) {
 	global $xw;
 	$xw->writeRaw($xml);
-}
-
-function common_license_block() {
-	global $config, $xw;
-	common_element_start('p', 'license');
-	common_element_start('a', array('class' => 'license',
-									'rel' => 'license',
-									href => $config['license']['url']));
-	common_element('img', array('class' => 'license',
-								'src' => $config['license']['image'],
-								'alt' => $config['license']['title']));
-	common_element_end('a');
-	common_text(_t('Unless otherwise specified, contents of this site are copyright by the contributors and available under the '));
-	common_element('a', array('class' => 'license',
-							  'rel' => 'license',
-							  href => $config['license']['url']),
-				   $config['license']['title']);
-	common_text(_t('. Contributors should be attributed by full name or nickname.'));
-	common_element_end('p');
 }
 
 function common_nav_menu() {
