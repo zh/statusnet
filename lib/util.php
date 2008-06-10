@@ -204,8 +204,7 @@ function common_raw($xml) {
 
 function common_license_block() {
 	global $config, $xw;
-	common_element_start('p', 'license greenBg');
-	common_element_start('span', 'floatLeft width25');
+	common_element_start('p', 'license');
 	common_element_start('a', array('class' => 'license',
 									'rel' => 'license',
 									href => $config['license']['url']));
@@ -213,15 +212,12 @@ function common_license_block() {
 								'src' => $config['license']['image'],
 								'alt' => $config['license']['title']));
 	common_element_end('a');
-	common_element_end('span');
-	common_element_start('span', 'floatRight width75');
 	common_text(_t('Unless otherwise specified, contents of this site are copyright by the contributors and available under the '));
 	common_element('a', array('class' => 'license',
 							  'rel' => 'license',
 							  href => $config['license']['url']),
 				   $config['license']['title']);
 	common_text(_t('. Contributors should be attributed by full name or nickname.'));
-	common_element_end('span');
 	common_element_end('p');
 }
 
@@ -700,4 +696,38 @@ function common_valid_tag($tag) {
 				preg_match('/^([\w-\.]+)$/', $matches[1]));
 	}
 	return false;
+}
+
+# Does a little before-after block for next/prev page
+
+function common_pagination($have_before, $have_after, $page, $action, $args=NULL) {		
+	
+	if ($have_before || $have_after) {
+		common_element_start('div', array('id' => 'pagination'));
+		common_element_start('ul', array('id' => 'nav_pagination'));
+	}
+	
+	if ($have_before) {
+		$pargs = array('page' => $page-1);
+		$newargs = ($args) ? array_merge($args,$pargs) : $pargs;
+										 
+		common_element_start('li', 'before');
+		common_element('a', array('href' => common_local_url($action, $newargs)),
+					   _t('« Before'));
+		common_element_end('li');
+	}
+
+	if ($have_after) {
+		$pargs = array('page' => $page+1);
+		$newargs = ($args) ? array_merge($args,$pargs) : $pargs;
+		common_element_start('li', 'after');
+		common_element('a', array('href' => common_local_url($action, $newargs)),
+						   _t('After »'));
+		common_element_end('li');
+	}
+	
+	if ($have_before || $have_after) {
+		common_element_end('ul');
+		common_element_end('div');
+	}
 }

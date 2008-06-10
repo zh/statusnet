@@ -58,35 +58,21 @@ class PublicAction extends StreamAction {
 
 		$cnt = $notice->find();
 
-		common_element_start('div', 'notices');
-
-		for ($i = 0; $i < min($cnt, NOTICES_PER_PAGE); $i++) {
-			if ($notice->fetch()) {
-				$this->show_notice($notice);
-			} else {
-				// shouldn't happen!
-				break;
+		if ($cnt > 0) {
+			common_element_start('ul', array('id' => 'notices'));
+			for ($i = 0; $i < min($cnt, NOTICES_PER_PAGE); $i++) {
+				if ($notice->fetch()) {
+					$this->show_notice($notice);
+				} else {
+					// shouldn't happen!
+					break;
+				}
 			}
-		}
-
-		if ($page > 1) {
-			common_element_start('span', 'floatLeft width25');
-			common_element('a', array('href' => common_local_url('public',
-																 array('page' => $page-1)),
-									  'class' => 'newer'),
-						   _t('Newer'));
-			common_element_end('span');
+			common_element_end('ul');
 		}
 		
-		if ($cnt > NOTICES_PER_PAGE) {
-			common_element_start('span', 'floatRight width25');
-			common_element('a', array('href' => common_local_url('public',
-																 array('page' => $page+1)),
-									  'class' => 'older'),
-						   _t('Older'));
-			common_element_end('span');
-		}
-		common_element_end('div');
+		common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
+						  $page, 'public');
 	}
 }
 

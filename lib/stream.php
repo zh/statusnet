@@ -31,7 +31,7 @@ class StreamAction extends Action {
 		global $config;
 		$profile = $notice->getProfile();
 		# XXX: RDFa
-		common_element_start('div', array('class' => 'notice',
+		common_element_start('li', array('class' => 'notice_single',
 										  'id' => 'notice-' . $notice->id));
 		$avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
 		common_element_start('a', array('href' => $profile->profileurl));
@@ -47,13 +47,15 @@ class StreamAction extends Action {
 								  'class' => 'nickname'),
 					   $profile->nickname);
 		# FIXME: URL, image, video, audio
-		common_element_start('span', array('class' => 'content'));
+		common_element_start('p', array('class' => 'content'));
 		common_raw(common_render_content($notice->content, $notice));
-		common_element_end('span');
+		common_element_end('p');
 		$noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
+		common_element_start('p', 'time');
 		common_element('a', array('class' => 'notice',
 								  'href' => $noticeurl),
 					   common_date_string($notice->created));
-		common_element_end('div');
+		common_element_end('p');
+		common_element_end('li');
 	}
 }
