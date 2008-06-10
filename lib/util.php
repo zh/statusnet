@@ -595,7 +595,7 @@ function common_notice_form() {
 	common_element('label', array('for' => 'status_update',
 								  'id' => 'status_label'),
 				   _t('What\'s up, ').$user->nickname.'?');
-	common_element('textarea', 'status_textarea');
+	common_element('textarea', array('id' => 'status_textarea'));
 	common_element('input', array('id' => 'status_submit',
 								  'type' => 'submit',
 								  'value' => _t('Send')));
