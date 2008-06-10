@@ -32,7 +32,9 @@ class ShownoticeAction extends StreamAction {
 			$this->no_such_notice();
 		}
 
-		if (!$notice->getProfile()) {
+		$profile = $notice->getProfile();
+		
+		if (!$profile) {
 			$this->no_such_notice();
 		}
 
