@@ -19,7 +19,7 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-require_once(INSTALLDIR.'lib/stream.php');
+require_once(INSTALLDIR.'/lib/stream.php');
 
 class ShownoticeAction extends StreamAction {
 
