@@ -46,7 +46,7 @@ class ShowstreamAction extends StreamAction {
 		}
 
 		# Looks like we're good; start output
-		
+
 		# For YADIS discovery, we also have a <meta> tag
 
 		header('X-XRDS-Location: '. common_local_url('xrds', array('nickname' =>
@@ -61,9 +61,9 @@ class ShowstreamAction extends StreamAction {
 		}
 
 		$this->show_sidebar($profile);
-		
+
 		$this->show_notices($profile);
-		
+
 		common_show_footer();
 	}
 
@@ -78,7 +78,7 @@ class ShowstreamAction extends StreamAction {
 									 'content' => common_local_url('xrds', array('nickname' =>
 																			   $user->nickname))));
 	}
-	
+
 	function no_such_user() {
 		common_user_error('No such user');
 	}
@@ -111,7 +111,7 @@ class ShowstreamAction extends StreamAction {
 
 		common_element_end('div');
 	}
-	
+
 	function show_profile($profile) {
 		common_element_start('div', 'profile');
 
@@ -156,14 +156,22 @@ class ShowstreamAction extends StreamAction {
 	}
 
 	function show_remote_subscribe_form($profile) {
-		common_element_start('form', array('id' => 'remotesubscribe', 'method' => 'POST',
+		common_element_start('form', array('id' => 'remotesubscribe',
+										   'method' => 'POST',
 										   'action' => common_local_url('remotesubscribe')));
 		common_hidden('nickname', $profile->nickname);
-		common_input('profile', _t('Profile'));
-		common_submit('submit',_t('Subscribe'));
+		common_element('input', array('name' => 'profile',
+									  'type' => 'text',
+									  'id' => 'profile',
+									  'size' => '15'));
+		common_element('input', array('type' => 'submit',
+									  'id' => 'submit',
+									  'name' => 'submit',
+									  'value' => _t('Subscribe'),
+									  'class' => 'button'));
 		common_element_end('form');
 	}
-	
+
 	function show_unsubscribe_form($profile) {
 		common_element_start('form', array('id' => 'unsubscribe', 'method' => 'POST',
 										   'action' => common_local_url('unsubscribe')));
@@ -179,7 +187,7 @@ class ShowstreamAction extends StreamAction {
 
 	function show_subscriptions($profile) {
 		global $config;
-		
+
 		# XXX: add a limit
 		$subs = DB_DataObject::factory('subscription');
 		$subs->subscriber = $profile->id;
@@ -201,9 +209,9 @@ class ShowstreamAction extends StreamAction {
 			if ($idx % SUBSCRIPTIONS_PER_ROW == 1) {
 				common_element_start('div', 'row');
 			}
-			
+
 			$other = Profile::staticGet($subs->subscribed);
-			
+
 			common_element_start('a', array('title' => ($other->fullname) ?
 											$other->fullname :
 											$other->nickname,
@@ -218,11 +226,11 @@ class ShowstreamAction extends StreamAction {
 										$other->fullname :
 										$other->nickname));
 			common_element_end('a');
-			
+
 			if ($idx % SUBSCRIPTIONS_PER_ROW == 0) {
 				common_element_end('div');
 			}
-			
+
 			if ($idx == SUBSCRIPTIONS) {
 				break;
 			}
@@ -298,24 +306,24 @@ class ShowstreamAction extends StreamAction {
 
 		if ($page > 1) {
 			common_element_start('span', 'floatLeft width25');
-			common_element('a', array('href' => common_local_url('showstream', 
+			common_element('a', array('href' => common_local_url('showstream',
 																 array('nickname' => $profile->nickname,
 																	   'page' => $page-1)),
 									  'class' => 'newer'),
 						   _t('Newer'));
 			common_element_end('span');
 		}
-		
+
 		if ($cnt > NOTICES_PER_PAGE) {
 			common_element_start('span', 'floatRight width25');
-			common_element('a', array('href' => common_local_url('showstream', 
+			common_element('a', array('href' => common_local_url('showstream',
 																 array('nickname' => $profile->nickname,
 																	   'page' => $page+1)),
 									  'class' => 'older'),
 						   _t('Older'));
 			common_element_end('span');
 		}
-		
+
 		# XXX: show a link for the next page
 		common_element_end('div');
 	}
@@ -339,7 +347,7 @@ class ShowstreamAction extends StreamAction {
 
 		common_element_end('div');
 	}
-	
+
 	function show_notice($notice) {
 		$profile = $notice->getProfile();
 		# XXX: RDFa
