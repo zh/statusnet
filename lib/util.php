@@ -232,6 +232,7 @@ function common_nav_menu() {
 }
 
 function common_views_menu() {
+	$user = common_current_user();
 	common_element_start('ul', array('id' => 'nav_views'));
 	common_menu_item(common_local_url('all', array('nickname' =>
 												   $user->nickname)),
