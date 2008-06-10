@@ -494,15 +494,6 @@ function common_fancy_url($action, $args=NULL) {
 	 case 'subscribe':
 	 case 'unsubscribe':
 		return common_path('main/'.$action);
-	 case 'accesstoken':
-	 case 'requesttoken':
-	 case 'postnotice':
-	 case 'userauthorization':
-		return common_path('omb/'.$action);
-	 case 'remotesubscribe':
-		return common_path('omb/subscribe');
-	 case 'finishremotesubscribe':
-		return common_path('omb/finish');
 	 case 'avatar':
 	 case 'password':
 		return common_path('settings/'.$action);

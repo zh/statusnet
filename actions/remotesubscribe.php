@@ -308,6 +308,7 @@ class RemotesubscribeAction extends Action {
 		# store all our info here
 
 		$omb['listenee'] = $user->nickname;
+		$omb['listener'] = omb_local_id($omb[OAUTH_ENDPOINT_REQUEST]);
 		$omb['token'] = $token;
 		$omb['secret'] = $secret;
 		# call doesn't work after bounce back so we cache; maybe serialization issue...?
