@@ -123,7 +123,7 @@ function common_end_xml() {
 	$xw->flush();
 }
 
-function common_show_header($pagetitle, $callable=NULL, $data=NULL) {
+function common_show_header($pagetitle, $callable=NULL, $data=NULL, $notice=NULL) {
 	global $config, $xw;
 
 	header('Content-Type: application/xhtml+xml');
@@ -143,16 +143,15 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL) {
 				   $pagetitle . " - " . $config['site']['name']);
 	common_element('link', array('rel' => 'stylesheet',
 								 'type' => 'text/css',
-								 'href' => common_path('theme/default/style/html.css'),
+								 'href' => theme_path('display.css'),
 								 'media' => 'screen, projection, tv'));
-	common_element('link', array('rel' => 'stylesheet',
-								 'type' => 'text/css',
-								 'href' => common_path('theme/default/style/layout.css'),
-								 'media' => 'screen, projection, tv'));
-	common_element('link', array('rel' => 'stylesheet',
-								 'type' => 'text/css',
-								 'href' => common_path('theme/default/style/print.css'),
-								 'media' => 'print'));
+	foreach (array(6,7) as $ver) {
+		if (file_exists(theme_file('ie'.$ver.'.css'))) {
+			# Yes, IE people should be put in jail.
+			$xw->writeComment('[if lte IE '.$ver.']><link rel="stylesheet" type="text/css" '.
+							  'href="'.theme_path('ie'.$ver.'.css').' /><![endif]');
+		}
+	}
 	if ($callable) {
 		if ($data) {
 			call_user_func($callable, $data);
@@ -162,23 +161,30 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL) {
 	}
 	common_element_end('head');
 	common_element_start('body');
-	common_element_start('div', array('id' => 'wrapper'));
-	common_element_start('div', array('id' => 'content'));
+	common_element_start('div', array('id' => 'wrap'));
 	common_element_start('div', array('id' => 'header'));
-	common_element('h1', 'title', $pagetitle);
-	common_element('h2', 'subtitle', $config['site']['name']);
+	common_nav_menu();
+	common_element_start('a', array('href' => common_local_url('public')));
+	common_element('img', array('src' => ($config['site']['logo']) ? 
+								($config['site']['logo']) : theme_path('logo.png'),
+								'alt' => $config['site']['name'],
+								'id' => 'logo'));
+	if ($notice && common_logged_in()) {
+		common_notice_form();
+	}
 	common_element_end('div');
-	common_head_menu();
-	common_element_start('div', array('id' => 'page'));
+	common_element_start('div', array('id' => 'content'));
+	if ($notice && common_logged_in()) {
+		common_views_menu();
+	}
 }
 
 function common_show_footer() {
 	global $xw, $config;
-	common_element_start('div', 'footer');
+	common_element_end('div'); # content div
 	common_foot_menu();
+	common_element_start('div', 'footer');
 	common_license_block();
-	common_element_end('div');
-	common_element_end('div');
 	common_element_end('div');
 	common_element_end('div');
 	common_element_end('body');
@@ -219,28 +225,29 @@ function common_license_block() {
 	common_element_end('p');
 }
 
-function common_head_menu() {
+function common_nav_menu() {
 	$user = common_current_user();
-	common_element_start('ul', array('id' => 'menu', 'class' => ($user) ? 'five' : 'three'));
+	common_element_start('ul', array('id' => 'nav'));
 	common_menu_item(common_local_url('public'), _t('Public'));
 	if ($user) {
-		common_menu_item(common_local_url('all', array('nickname' =>
-													   $user->nickname)),
-						 _t('Home'));
-		common_menu_item(common_local_url('showstream', array('nickname' =>
-															  $user->nickname)),
-						 _t('Profile'),  $user->fullname || $user->nickname);
 		common_menu_item(common_local_url('profilesettings'),
 						 _t('Settings'));
 		common_menu_item(common_local_url('logout'),
 						 _t('Logout'));
 	} else {
-		common_menu_item(common_local_url('login'),
-						 _t('Login'));
-		common_menu_item(common_local_url('register'),
-						 _t('Register'));
+		common_menu_item(common_local_url('login'), _t('Login'));
+		common_menu_item(common_local_url('register'), _t('Register'));
 	}
 	common_element_end('ul');
+}
+
+function common_views_menu() {
+	common_menu_item(common_local_url('all', array('nickname' =>
+												   $user->nickname)),
+					 _t('Home'));
+	common_menu_item(common_local_url('showstream', array('nickname' =>
+														  $user->nickname)),
+					 _t('Profile'),  $user->fullname || $user->nickname);
 }
 
 function common_foot_menu() {
@@ -577,11 +584,21 @@ function common_profile_url($nickname) {
 	return common_local_url('showstream', array('nickname' => $nickname));
 }
 
+# Don't call if nobody's logged in
+
 function common_notice_form() {
-	common_element_start('form', array('id' => 'newnotice', 'method' => 'POST',
+	$user = common_current_user();
+	assert(!is_null($user));
+	common_element_start('form', array('id' => 'status_form',
+									   'method' => 'POST',
 									   'action' => common_local_url('newnotice')));
-	common_textarea('noticecontent', _t('What\'s up?'));
-	common_submit('submit', _t('Send'));
+	common_element('label', array('for' => 'status_update',
+								  'id' => 'status_label'),
+				   _t('What\'s up, ').$user->nickname.'?');
+	common_element('textarea', 'status_textarea');
+	common_element('input', array('id' => 'status_submit',
+								  'type' => 'submit',
+								  'value' => _t('Send')));
 	common_element_end('form');
 }
 

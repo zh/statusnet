@@ -36,6 +36,7 @@ $config =
   array('site' =>
 		array('name' => 'Just another Laconica microblog',
 			  'server' => 'localhost',
+			  'theme' => 'default',
 			  'path' => '/',
 			  'fancy' => false),
 		'syslog' =>
@@ -69,6 +70,7 @@ $config['db'] =
 require_once(INSTALLDIR.'/config.php');
 require_once(INSTALLDIR.'/lib/util.php');
 require_once(INSTALLDIR.'/lib/action.php');
+require_once(INSTALLDIR.'/lib/theme.php');
 
 require_once(INSTALLDIR.'/classes/Avatar.php');
 require_once(INSTALLDIR.'/classes/Notice.php');

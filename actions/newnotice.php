@@ -43,7 +43,7 @@ class NewnoticeAction extends Action {
 		$notice->profile_id = $user->id; # user id *is* profile id
 		$notice->created = DB_DataObject_Cast::dateTime();
 		# Default theme uses 'content' for something else
-		$notice->content = $this->trimmed('noticecontent');
+		$notice->content = $this->trimmed('status_textarea');
 
 		if (!$notice->content) {
 			$this->show_form(_t('No content!'));
