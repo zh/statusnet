@@ -19,7 +19,9 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class ShownoticeAction extends Action {
+require_once(INSTALLDIR.'lib/stream.php');
+
+class ShownoticeAction extends StreamAction {
 
 	function handle($args) {
 		parent::handle($args);
@@ -36,43 +38,16 @@ class ShownoticeAction extends Action {
 
 		# Looks like we're good; show the header
 
-		common_show_header($profile->nickname." status on ".$notice->created);
+		common_show_header($profile->nickname."'s status on ".common_date_string($notice->created));
 
+		common_element_start('ul', array('id' => 'notices'));
 		$this->show_notice($notice);
+		common_element_end('ul');
 
 		common_show_footer();
 	}
 
 	function no_such_notice() {
 		common_user_error('No such notice.');
-	}
-
-	function show_notice($notice) {
-		$profile = $notice->getProfile();
-		# XXX: RDFa
-		common_element_start('div', array('class' => 'notice greenBg'));
-		$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
-		if ($avatar) {
-			common_element('img', array('src' => $avatar->url,
-										'class' => 'avatar profile',
-										'width' => AVATAR_PROFILE_SIZE,
-										'height' => AVATAR_PROFILE_SIZE,
-										'alt' =>
-										($profile->fullname) ? $profile->fullname :
-										                       $profile->nickname));
-		}
-		common_element('a', array('href' => $profile->profileurl,
-								  'class' => 'nickname',
-								  'title' =>
-								  ($profile->fullname) ? $profile->fullname :
-								  $profile->nickname),
-					   $profile->nickname);
-		# FIXME: URL, image, video, audio
-		common_element_start('span', array('class' => 'content'));
-		common_raw(common_render_content($notice->content, $notice));
-		common_element_end('span');
-		common_element('span', array('class' => 'date'),
-					   common_date_string($notice->created));
-		common_element_end('div');
 	}
 }
