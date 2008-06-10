@@ -251,7 +251,7 @@ function common_views_menu() {
 }
 
 function common_foot_menu() {
-	common_element_start('ul', 'footmenu menuish');
+	common_element_start('ul', array('id' => 'nav_sub'));
 	common_menu_item(common_local_url('doc', array('title' => 'about')),
 					 _t('About'));
 	common_menu_item(common_local_url('doc', array('title' => 'help')),
