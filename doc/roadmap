@@ -1,3 +1,17 @@
+Roadmap
+-------
+
+This is a roadmap of tasks for different versions of the
+[Laconica](http://laconi.ca/) software. It's meant to help answer the
+question, "Is Laconica ever going to have such-and-such a feature?" or
+"When will Laconica do such-and-such?"
+
+Release 0.1
+-----------
+
+This was an internal milestone release, mostly for developing the core
+functionality.
+
 + login
 + register
 + settings
@@ -24,7 +38,14 @@
 + date in shown notice links to notice page
 + common_redirect()
 + configuration system ($config)
-+ release 0.1
+
+Release 0.2
+-----------
+
+Another internal milestone. Bumped up from cruddy caveman HTML to a
+borrowed design from [OSWD](http://www.oswd.org/), added a lot of RSS
+generation, and more careful form validation.
+
 + design from Open Source Web Designs
 + add H1 to each page
 + add H2 for each page section
@@ -52,7 +73,13 @@
 + source link in footer menu
 + public stream link in top menu
 + dump, fix, undump database
-+ release 0.2
+
+Release 0.3
+-----------
+
+First public release (theoretically). Added distributed subscriptions,
+"fancy" URLs, and a new graphic design for stoi.ca.
+
 + YADIS document link on showstream
 + YADIS document
 + subscribe remote
@@ -70,11 +97,11 @@
 + pretty URLs
 + doc action
 + about doc
-- help doc
++ help doc
 - FAQ doc
 + privacy doc
 + source doc
-- roadmap doc
++ roadmap doc
 - contact doc
 - add a way to stick variables into documents
 + FOAF document for user
@@ -120,7 +147,10 @@
 + correct use of views menu in settings
 + correct use of views menu in streams
 - INSTALL file
-- release 0.3
+
+Release 0.4
+-----------
+
 - microid for profile page
 - format times per user
 - timezone preferences in Profile settings
@@ -142,7 +172,10 @@
 - site logo
 - check license compatibility for remote subscribe
 - optional FOAF URL in openmicroblogging exchange
-- release 0.4
+
+Release 0.5
+-----------
+
 - content negotiation for charset (iconv?)
 - license per notice
 - use only canonical email addresses
@@ -165,7 +198,10 @@
 - license per attachment
 - forward notices to Jabber
 - receive notices from Jabber
-- release 0.5
+
+Release 0.6
+-----------
+
 - URL notices
 - image notices
 - video notices
@@ -175,7 +211,10 @@
 - receive notices from other IM
 - receive notices from mobile phone
 - machine tags
-- release 0.6
+
+Release 1.0
+-----------
+
 - OAuth for third-party tools (desktop, other sites)
 - Twitter-compatible API
 - Pownce-compatible API
@@ -185,6 +224,10 @@
 - Wrap DB_DataObject with memcached caching layer
 - login throttle to prevent brute-force attacks
 - form token in login to prevent XSS
-- release 1.0
+
+Post-1.0
+--------
+
 - Atom Publishing Protocol
 - "Universal" public feed
+- global registry (LDAP at openmicroblogging.net, maybe?)
