@@ -50,13 +50,20 @@ class SettingsAction extends Action {
 	}
 
 	function settings_menu() {
+		$action = $this->trimmed('action');
 		common_element_start('ul', array('id' => 'nav_views'));
 		common_menu_item(common_local_url('profilesettings'),
-						 _t('Profile'));
+						 _t('Profile'), 
+						 _t('Change your profile settings'),
+						 $action == 'profilesettings');
 		common_menu_item(common_local_url('avatar'),
-						 _t('Avatar'));
+						 _t('Avatar'), 
+						 _t('Upload a new profile image'),
+						 $action == 'avatar');
 		common_menu_item(common_local_url('password'),
-						 _t('Password'));
+						 _t('Password'), 
+						 _t('Change your password'),
+						 $action == 'password');
 		common_element_end('ul');
 	}
 }
