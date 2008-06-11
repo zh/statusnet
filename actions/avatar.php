@@ -33,7 +33,10 @@ class AvatarAction extends SettingsAction {
 						   _t('You can upload a new "avatar" (user picture) here. ' .
 							  'You can\'t edit the picture after you upload it, so you should ' .
 							  'edit it in your desktop image-manipulation software first. ' .
-							  'Everything works best if your picture is more or less square. '));
+							  'Everything works best if your picture is more or less square. ' . 
+							  'And remember: your image will be released under the site license, ' .
+							  'So don\'t upload images that don\'t belong to you or that you don\'t ' .
+							  'want to share.'));
 		}
 
 		$user = common_current_user();
