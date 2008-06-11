@@ -53,7 +53,9 @@ class ShowstreamAction extends StreamAction {
 																   $user->nickname)));
 
 		common_show_header($profile->nickname, array($this, 'show_header'), $user);
-
+		
+		$this->views_menu();
+		
 		$this->show_profile($profile);
 
 		$this->show_notices($profile);

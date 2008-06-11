@@ -46,7 +46,9 @@ class AllAction extends StreamAction {
 
 		common_show_header($profile->nickname . _t(" and friends"),
 						   array($this, 'show_header'), $user);
-
+		
+		$this->views_menu();
+		
 		$this->show_notices($profile);
 		
 		common_show_footer();

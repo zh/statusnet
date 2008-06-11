@@ -232,19 +232,6 @@ function common_nav_menu() {
 	common_element_end('ul');
 }
 
-function common_views_menu($selected=NULL) {
-	$user = common_current_user();
-	common_element_start('ul', array('id' => 'nav_views'));
-	common_menu_item(common_local_url('all', array('nickname' =>
-												   $user->nickname)),
-					 _t('Home'));
-	common_menu_item(common_local_url('showstream', array('nickname' =>
-														  $user->nickname)),
-					 _t('Profile'),  
-					 ($user->fullname) ? $user->fullname : $user->nickname);
-	common_element_end('ul');
-}
-
 function common_foot_menu() {
 	common_element_start('ul', array('id' => 'nav_sub'));
 	common_menu_item(common_local_url('doc', array('title' => 'about')),
@@ -256,12 +243,16 @@ function common_foot_menu() {
 	common_element_end('ul');
 }
 
-function common_menu_item($url, $text, $title=NULL) {
+function common_menu_item($url, $text, $title=NULL, $is_selected) {
+	$lattrs = array();
+	if ($is_selected) {
+		$lattrs['class'] = 'current';
+	}
+	common_element_start('li', $lattrs);
 	$attrs['href'] = $url;
 	if ($title) {
 		$attrs['title'] = $title;
 	}
-	common_element_start('li');
 	common_element('a', $attrs, $text);
 	common_element_end('li');
 }

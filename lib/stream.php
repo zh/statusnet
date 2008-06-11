@@ -27,6 +27,24 @@ class StreamAction extends Action {
 		parent::handle($args);
 	}
 
+	function views_menu() {
+		$action = $this->trimmed('action');
+		$nickname = $this->trimmed('nickname');
+		
+		common_element_start('ul', array('id' => 'nav_views'));
+		common_menu_item(common_local_url('showstream', array('nickname' =>
+															  $nickname)),
+						 _t('Profile'),  
+						 ($user->fullname) ? $user->fullname : $nickname,
+						 $action == 'showstream');
+		common_element_end('ul');
+		common_menu_item(common_local_url('all', array('nickname' =>
+													   $nickname)),
+						 _t('All'),
+						 _t('All'),
+						 $action == 'all');
+	}
+	
 	function show_notice($notice) {
 		global $config;
 		$profile = $notice->getProfile();
