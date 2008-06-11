@@ -50,7 +50,7 @@ class SettingsAction extends Action {
 	}
 
 	function settings_menu() {
-		common_element_start('ul', 'settingsmenu menuish');
+		common_element_start('ul', array('id' => 'nav_views'));
 		common_menu_item(common_local_url('profilesettings'),
 						 _t('Profile'));
 		common_menu_item(common_local_url('avatar'),

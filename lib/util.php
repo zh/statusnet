@@ -175,9 +175,6 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $notice=NULL
 	}
 	common_element_end('div');
 	common_element_start('div', array('id' => 'content'));
-	if (common_logged_in()) {
-		common_views_menu();
-	}
 }
 
 function common_show_footer() {
@@ -216,6 +213,10 @@ function common_raw($xml) {
 function common_nav_menu() {
 	$user = common_current_user();
 	common_element_start('ul', array('id' => 'nav'));
+	if ($user) {
+		common_menu_item(common_local_url('all', array('nickname' => $user->nickname)),
+						 _t('Home'));
+	}
 	common_menu_item(common_local_url('public'), _t('Public'));
 	common_menu_item(common_local_url('doc', array('title' => 'help')),
 					 _t('Help'));
@@ -231,7 +232,7 @@ function common_nav_menu() {
 	common_element_end('ul');
 }
 
-function common_views_menu() {
+function common_views_menu($selected=NULL) {
 	$user = common_current_user();
 	common_element_start('ul', array('id' => 'nav_views'));
 	common_menu_item(common_local_url('all', array('nickname' =>
@@ -239,7 +240,8 @@ function common_views_menu() {
 					 _t('Home'));
 	common_menu_item(common_local_url('showstream', array('nickname' =>
 														  $user->nickname)),
-					 _t('Profile'),  $user->fullname || $user->nickname);
+					 _t('Profile'),  
+					 ($user->fullname) ? $user->fullname : $user->nickname);
 	common_element_end('ul');
 }
 
@@ -297,14 +299,10 @@ function common_password($id, $label) {
 function common_submit($id, $label) {
 	global $xw;
 	common_element_start('p');
-	common_element_start('label', array('for' => $id));
-	$xw->writeRaw('&nbsp;');
-	common_element_end('label');
 	common_element('input', array('type' => 'submit',
 								  'id' => $id,
 								  'name' => $id,
-								  'value' => $label,
-								  'class' => 'button'));
+								  'value' => $label));
 	common_element_end('p');
 }
 
@@ -314,8 +312,7 @@ function common_textarea($id, $label, $content=NULL) {
 	common_element('textarea', array('rows' => 3,
 									 'cols' => 40,
 									 'name' => $id,
-									 'id' => $id,
-									 'class' => 'width50'),
+									 'id' => $id),
 				   ($content) ? $content : ' ');
 	common_element_end('p');
 }
