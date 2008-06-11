@@ -243,7 +243,7 @@ function common_foot_menu() {
 	common_element_end('ul');
 }
 
-function common_menu_item($url, $text, $title=NULL, $is_selected) {
+function common_menu_item($url, $text, $title=NULL, $is_selected=false) {
 	$lattrs = array();
 	if ($is_selected) {
 		$lattrs['class'] = 'current';
