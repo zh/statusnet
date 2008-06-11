@@ -56,14 +56,6 @@ class ShowstreamAction extends StreamAction {
 						   array($this, 'show_header'), $user,
 						   array($this, 'show_top'));
 
-		$cur = common_current_user();
-		
-		if ($cur && $cur->id == $profile->id) {
-			common_notice_form();
-		}
-		
-		$this->views_menu();
-		
 		$this->show_profile($profile);
 
 		$this->show_notices($profile);
