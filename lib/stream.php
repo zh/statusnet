@@ -37,12 +37,12 @@ class StreamAction extends Action {
 						 _t('Profile'),  
 						 ($user->fullname) ? $user->fullname : $nickname,
 						 $action == 'showstream');
-		common_element_end('ul');
 		common_menu_item(common_local_url('all', array('nickname' =>
 													   $nickname)),
 						 _t('All'),
 						 _t('All'),
 						 $action == 'all');
+		common_element_end('ul');
 	}
 	
 	function show_notice($notice) {
