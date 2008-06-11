@@ -26,8 +26,8 @@ class ProfilesettingsAction extends SettingsAction {
 	function show_form($msg=NULL, $success=false) {
 		$user = common_current_user();
 		$profile = $user->getProfile();
-		common_show_header(_t('Profile settings'));
-		$this->settings_menu();
+		common_show_header(_t('Profile settings'), NULL, NULL, array($this, 'settings_menu'));
+
 		if ($msg) {
 			$this->message($msg, $success);
 		} else {

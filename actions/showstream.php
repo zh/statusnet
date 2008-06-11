@@ -52,7 +52,9 @@ class ShowstreamAction extends StreamAction {
 		header('X-XRDS-Location: '. common_local_url('xrds', array('nickname' =>
 																   $user->nickname)));
 
-		common_show_header($profile->nickname, array($this, 'show_header'), $user);
+		common_show_header($profile->nickname, 
+						   array($this, 'show_header'), $user,
+						   array($this, 'show_top'));
 
 		$cur = common_current_user();
 		
@@ -69,6 +71,17 @@ class ShowstreamAction extends StreamAction {
 		common_show_footer();
 	}
 
+	function show_top($user) {
+		
+		$cur = common_current_user();
+		
+		if ($cur && $cur->id == $user->id) {
+			common_notice_form();
+		}
+		
+		$this->views_menu();
+	}
+	
 	function show_header($user) {
 		common_element('link', array('rel' => 'alternate',
 									 'href' => common_local_url('userrss', array('nickname' =>

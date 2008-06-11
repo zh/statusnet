@@ -123,7 +123,7 @@ function common_end_xml() {
 	$xw->flush();
 }
 
-function common_show_header($pagetitle, $callable=NULL, $data=NULL, $notice=NULL) {
+function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=NULL) {
 	global $config, $xw;
 
 	header('Content-Type: application/xhtml+xml');
@@ -170,6 +170,13 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $notice=NULL
 								'alt' => $config['site']['name'],
 								'id' => 'logo'));
 	common_element_end('a');
+	if ($headercall) {
+		if ($data) {
+			call_user_func($headercall, $data);
+		} else {
+			call_user_func($headercall);
+		}
+	}
 	common_element_end('div');
 	common_element_start('div', array('id' => 'content'));
 }

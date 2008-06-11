@@ -45,15 +45,8 @@ class AllAction extends StreamAction {
 		# Looks like we're good; show the header
 
 		common_show_header($profile->nickname . _t(" and friends"),
-						   array($this, 'show_header'), $user);
-		
-		$cur = common_current_user();
-		
-		if ($cur && $cur->id == $profile->id) {
-			common_notice_form();
-		}
-		
-		$this->views_menu();
+						   array($this, 'show_header'), $user,
+						   array($this, 'show_top'));
 		
 		$this->show_notices($profile);
 		
@@ -68,6 +61,16 @@ class AllAction extends StreamAction {
 									 'title' => _t('Feed for friends of ') . $user->nickname));
 	}
 
+	function show_top($user) {
+		$cur = common_current_user();
+		
+		if ($cur && $cur->id == $user->id) {
+			common_notice_form();
+		}
+		
+		$this->views_menu();
+	}
+	
 	function show_notices($profile) {
 
 		$notice = DB_DataObject::factory('notice');

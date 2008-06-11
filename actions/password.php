@@ -24,8 +24,7 @@ require_once(INSTALLDIR.'/lib/settingsaction.php');
 class PasswordAction extends SettingsAction {
 
 	function show_form($msg=NULL, $success=false) {
-		common_show_header(_t('Change password'));
-		$this->settings_menu();
+		common_show_header(_t('Change password'), NULL, NULL, array($this, 'settings_menu'));
 		if ($msg) {
 			$this->message($msg, $success);
 		} else {
