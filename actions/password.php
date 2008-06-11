@@ -26,7 +26,12 @@ class PasswordAction extends SettingsAction {
 	function show_form($msg=NULL, $success=false) {
 		common_show_header(_t('Change password'));
 		$this->settings_menu();
-		$this->message($msg, $success);
+		if ($msg) {
+			$this->message($msg, $success);
+		} else {
+			common_element('div', 'instructions', 
+						   _t('You can change your password here. Choose a good one!'));
+		}
 		common_element_start('form', array('method' => 'POST',
 										   'id' => 'password',
 										   'action' =>

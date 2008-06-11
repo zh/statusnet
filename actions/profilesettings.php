@@ -28,7 +28,14 @@ class ProfilesettingsAction extends SettingsAction {
 		$profile = $user->getProfile();
 		common_show_header(_t('Profile settings'));
 		$this->settings_menu();
-		$this->message($msg, $success);
+		if ($msg) {
+			$this->message($msg, $success);
+		} else {
+			common_element('div', 'instructions', 
+						   _t('You can update your personal profile info here so people know more about you. ' .
+							  'Nickname must be 1-64 lowercase letters or numbers -- no punctuation or spaces. ' .
+							  'Full name, bio, and location can be whatever you want. Email address should be valid.'));
+		}
 		common_element_start('form', array('method' => 'POST',
 										   'id' => 'profilesettings',
 										   'action' =>

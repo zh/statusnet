@@ -121,6 +121,11 @@ class RegisterAction extends Action {
 		common_show_header(_t('Register'));
 		if ($error) {
 			common_element('div', 'error', $error);
+		} else {
+			common_element('div', 'instructions', 
+						   _t('You can create a new account with the following form. ' .
+							  'Your user name must be 1-64 characters, only lowercase letters or numbers. ' .
+							  'Passwords have to match, and your email address should be valid.'));
 		}
 		common_element_start('form', array('method' => 'POST',
 										   'id' => 'login',

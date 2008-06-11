@@ -26,7 +26,15 @@ class AvatarAction extends SettingsAction {
 	function show_form($msg=NULL, $success=false) {
 		common_show_header(_t('Avatar'));
 		$this->settings_menu();
-		$this->message($msg, $success);
+		if ($msg) {
+			$this->message($msg, $success);
+		} else {
+			common_element('div', 'instructions', 
+						   _t('You can upload a new "avatar" (user picture) here. ' .
+							  'You can\'t edit the picture after you upload it, so you should ' .
+							  'edit it in your desktop image-manipulation software first. ' .
+							  'Everything works best if your picture is more or less square. '));
+		}
 
 		$user = common_current_user();
 		$profile = $user->getProfile();

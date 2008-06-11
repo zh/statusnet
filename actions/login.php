@@ -63,6 +63,11 @@ class LoginAction extends Action {
 		common_show_header(_t('Login'));
 		if ($error) {
 			common_element('div', array('class' => 'error'), $error);
+		} else {
+			common_element('div', 'instructions', 
+						   _t('Login with your username and password. ' .
+							  'Don\'t have a username yet? Choose register above. ' .
+							  '(Forgot your password? No way to get it back... yet. It\'s on the TODO list!)'));
 		}
 		common_element_start('form', array('method' => 'POST',
 										   'id' => 'login',
