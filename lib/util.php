@@ -170,9 +170,6 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $notice=NULL
 								'alt' => $config['site']['name'],
 								'id' => 'logo'));
 	common_element_end('a');
-	if (common_logged_in()) {
-		common_notice_form();
-	}
 	common_element_end('div');
 	common_element_start('div', array('id' => 'content'));
 }

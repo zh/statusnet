@@ -47,6 +47,12 @@ class AllAction extends StreamAction {
 		common_show_header($profile->nickname . _t(" and friends"),
 						   array($this, 'show_header'), $user);
 		
+		$cur = common_current_user();
+		
+		if ($cur && $cur->id == $profile->id) {
+			common_notice_form();
+		}
+		
 		$this->views_menu();
 		
 		$this->show_notices($profile);
