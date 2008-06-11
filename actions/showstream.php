@@ -60,7 +60,7 @@ class ShowstreamAction extends StreamAction {
 			common_notice_form();
 		}
 
-		$this->show_sidebar($profile);
+		$this->show_profile($profile);
 
 		$this->show_notices($profile);
 
@@ -88,62 +88,62 @@ class ShowstreamAction extends StreamAction {
 		common_user_error('No such user');
 	}
 
-	function show_sidebar($profile) {
+	function show_profile($profile) {
 
-		common_element_start('div', 'sidebar width33 floatRight greenBg');
+		common_element_start('div', array('id' => 'profile'));
 
-		$this->show_profile($profile);
+		$this->show_personal($profile);
 
 		$this->show_last_notice($profile);
 
 		$cur = common_current_user();
-
-		if ($cur) {
-			if ($cur->id != $profile->id) {
-				if ($cur->isSubscribed($profile)) {
-					$this->show_unsubscribe_form($profile);
-				} else {
-					$this->show_subscribe_form($profile);
-				}
-			}
-		} else {
-			$this->show_remote_subscribe_form($profile);
-		}
-
-		$this->show_statistics($profile);
 
 		$this->show_subscriptions($profile);
 
 		common_element_end('div');
 	}
 
-	function show_profile($profile) {
-		common_element_start('div', 'profile');
+	function show_personal($profile) {
 
 		$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
 		if ($avatar) {
+			common_element_start('div', array('id' => 'profile_avatar'));
 			common_element('img', array('src' => $avatar->url,
 										'class' => 'avatar profile',
 										'width' => AVATAR_PROFILE_SIZE,
 										'height' => AVATAR_PROFILE_SIZE,
 										'alt' => $profile->nickname));
-		}
-		if ($profile->fullname) {
-			common_element_start('div', 'fullname');
-			if ($profile->homepage) {
-				common_element('a', array('href' => $profile->homepage),
-							   $profile->fullname);
+			$cur = common_current_user();
+			if ($cur) {
+				if ($cur->id != $profile->id) {
+					if ($cur->isSubscribed($profile)) {
+						$this->show_unsubscribe_form($profile);
+					} else {
+						$this->show_subscribe_form($profile);
+					}
+				}
 			} else {
-				common_text($profile->fullname);
+				$this->show_remote_subscribe_form($profile);
 			}
 			common_element_end('div');
 		}
+		common_element_start('div', array('id' => 'profile_information'));
+		
+		if ($profile->fullname) {
+			common_element('h1', NULL, $profile->fullname);
+		}
 		if ($profile->location) {
-			common_element('div', 'location', $profile->location);
+			common_element('p', 'location', $profile->location);
 		}
 		if ($profile->bio) {
-			common_element('div', 'bio', $profile->bio);
+			common_element('p', 'description', htmlspecialchars($profile->bio));
 		}
+		if ($profile->homepage) {
+			common_element('p', 'website', $profile->homepage);
+		}
+		
+		$this->show_statistics($profile);
+
 		common_element_end('div');
 	}
 
@@ -203,54 +203,47 @@ class ShowstreamAction extends StreamAction {
 
 		$subs_count = $subs->find();
 
-		common_element_start('div', 'subscriptions');
+		common_element_start('div', array('id' => 'subscriptions'));
 
-		common_element('h2', 'subscriptions', _t('Subscriptions'));
+		common_element('h2', NULL, _t('Subscriptions'));
 
-		$idx = 0;
+		if ($subs_count > 0) {
+			
+			common_element_start('ul', array('id' => 'subscriptions_avatars'));
+			
+			while ($subs->fetch()) {
 
-		while ($subs->fetch()) {
-			$idx++;
-			if ($idx % SUBSCRIPTIONS_PER_ROW == 1) {
-				common_element_start('div', 'row');
-			}
+				$other = Profile::staticGet($subs->subscribed);
 
-			$other = Profile::staticGet($subs->subscribed);
-
-			common_element_start('a', array('title' => ($other->fullname) ?
+				common_element_start('li');
+				common_element_start('a', array('title' => ($other->fullname) ?
+												$other->fullname :
+												$other->nickname,
+												'href' => $other->profileurl,
+												'class' => 'subscription'));
+				$avatar = $other->getAvatar(AVATAR_MINI_SIZE);
+				common_element('img', array('src' => (($avatar) ? $avatar->url :  common_default_avatar(AVATAR_MINI_SIZE)),
+											'width' => AVATAR_MINI_SIZE,
+											'height' => AVATAR_MINI_SIZE,
+											'class' => 'avatar mini',
+											'alt' =>  ($other->fullname) ?
 											$other->fullname :
-											$other->nickname,
-											'href' => $other->profileurl,
-											'class' => 'subscription'));
-			$avatar = $other->getAvatar(AVATAR_MINI_SIZE);
-			common_element('img', array('src' => (($avatar) ? $avatar->url :  common_default_avatar(AVATAR_MINI_SIZE)),
-										'width' => AVATAR_MINI_SIZE,
-										'height' => AVATAR_MINI_SIZE,
-										'class' => 'avatar mini',
-										'alt' =>  ($other->fullname) ?
-										$other->fullname :
-										$other->nickname));
-			common_element_end('a');
-
-			if ($idx % SUBSCRIPTIONS_PER_ROW == 0) {
-				common_element_end('div');
+											$other->nickname));
+				common_element_end('a');
+				common_element_end('li');
 			}
-
-			if ($idx == SUBSCRIPTIONS) {
-				break;
-			}
+			common_element_end('ul');
 		}
 
-		# close any unclosed row
-		if ($idx % SUBSCRIPTIONS_PER_ROW != 0) {
-			common_element_end('div');
-		}
-
+		common_element_start('p', array('id' => 'subscriptions_viewall'));
+		
 		common_element('a', array('href' => common_local_url('subscriptions',
 															 array('nickname' => $profile->nickname)),
 								  'class' => 'moresubscriptions'),
 					   _t('All subscriptions'));
 
+		common_element_end('p');
+		
 		common_element_end('div');
 	}
 
@@ -298,45 +291,27 @@ class ShowstreamAction extends StreamAction {
 
 		$cnt = $notice->find();
 
-		common_element_start('div', 'notices width66 floatLeft');
-
-		for ($i = 0; $i < min($cnt, NOTICES_PER_PAGE); $i++) {
-			if ($notice->fetch()) {
-				$this->show_notice($notice);
-			} else {
-				// shouldn't happen!
-				break;
+		if ($cnt > 0) {
+			common_element_start('ul', array('id' => 'notices'));
+			
+			for ($i = 0; $i < min($cnt, NOTICES_PER_PAGE); $i++) {
+				if ($notice->fetch()) {
+					$this->show_notice($notice);
+				} else {
+					// shouldn't happen!
+					break;
+				}
 			}
+			
+			common_element_end('ul');
 		}
-
-		if ($page > 1) {
-			common_element_start('span', 'floatLeft width25');
-			common_element('a', array('href' => common_local_url('showstream',
-																 array('nickname' => $profile->nickname,
-																	   'page' => $page-1)),
-									  'class' => 'newer'),
-						   _t('Newer'));
-			common_element_end('span');
-		}
-
-		if ($cnt > NOTICES_PER_PAGE) {
-			common_element_start('span', 'floatRight width25');
-			common_element('a', array('href' => common_local_url('showstream',
-																 array('nickname' => $profile->nickname,
-																	   'page' => $page+1)),
-									  'class' => 'older'),
-						   _t('Older'));
-			common_element_end('span');
-		}
-
-		# XXX: show a link for the next page
-		common_element_end('div');
+		common_pagination($page>1, $cnt>NOTICES_PER_PAGE, $page,
+						  'showstream', array('nickname' => $profile->nickname));
 	}
 
 	function show_last_notice($profile) {
 
-		common_element_start('div', 'lastnotice');
-		common_element('h2', 'lastnotice', _t('Currently'));
+		common_element('h2', NULL, _t('Currently'));
 
 		$notice = DB_DataObject::factory('notice');
 		$notice->profile_id = $profile->id;
@@ -345,27 +320,27 @@ class ShowstreamAction extends StreamAction {
 
 		if ($notice->find(true)) {
 			# FIXME: URL, image, video, audio
-			common_element_start('span', array('class' => 'content'));
+			common_element_start('p', array('class' => 'notice_current'));
 			common_raw(common_render_content($notice->content, $notice));
-			common_element_end('span');
+			common_element_end('p');
 		}
-
-		common_element_end('div');
 	}
 
 	function show_notice($notice) {
 		$profile = $notice->getProfile();
 		# XXX: RDFa
-		common_element_start('div', array('class' => 'notice',
-										  'id' => 'notice-' . $notice->id));
+		common_element_start('li', array('class' => 'notice_single',
+										 'id' => 'notice-' . $notice->id));
 		$noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
 		# FIXME: URL, image, video, audio
-		common_element_start('span', array('class' => 'content'));
+		common_element_start('p');
 		common_raw(common_render_content($notice->content, $notice));
-		common_element_end('span');
+		common_element_end('p');
+		common_element_start('p', array('class' => 'time'));
 		common_element('a', array('class' => 'notice',
 								  'href' => $noticeurl),
 					   common_date_string($notice->created));
-		common_element_end('div');
+		common_element_end('p');
+		common_element_end('li');
 	}
 }
