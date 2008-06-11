@@ -456,9 +456,7 @@ function common_default_avatar($size) {
 	static $sizenames = array(AVATAR_PROFILE_SIZE => 'profile',
 							  AVATAR_STREAM_SIZE => 'stream',
 							  AVATAR_MINI_SIZE => 'mini');
-	global $config;
-
-	return common_path($config['avatar']['default'][$sizenames[$size]]);
+	return theme_path('default-avatar-'.$sizenames[$size].'.png');
 }
 
 function common_local_url($action, $args=NULL) {

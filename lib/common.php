@@ -49,12 +49,7 @@ $config =
 		'license' =>
 		array('url' => 'http://creativecommons.org/licenses/by/3.0/',
 			  'title' => 'Creative Commons Attribution 3.0',
-			  'image' => 'http://i.creativecommons.org/l/by/3.0/88x31.png'),
-		'avatar' =>
-		array('default' => 
-			  array('profile' => 'theme/default/image/default-avatar-profile.png',
-					'stream' => 'theme/default/image/default-avatar-stream.png',
-					'mini' => 'theme/default/image/default-avatar-mini.png')));
+			  'image' => 'http://i.creativecommons.org/l/by/3.0/88x31.png'));
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
 
