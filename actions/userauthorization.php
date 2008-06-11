@@ -74,10 +74,10 @@ class UserauthorizationAction extends Action {
 		$avatar = $req->get_parameter('omb_listenee_avatar');
 		
 		common_show_header(_t('Authorize subscription'));
-		common_element('p', _t('Please check these details to make sure '.
-							   'that you want to subscribe to this user\'s notices. '.
-							   'If you didn\'t just ask to subscribe to someone\'s notices, '.
-							   'click "Cancel".'));
+		common_element('p', NULL, _t('Please check these details to make sure '.
+									 'that you want to subscribe to this user\'s notices. '.
+									 'If you didn\'t just ask to subscribe to someone\'s notices, '.
+									 'click "Cancel".'));
 		common_element_start('div', 'profile');
 		if ($avatar) {
 			common_element('img', array('src' => $avatar,
