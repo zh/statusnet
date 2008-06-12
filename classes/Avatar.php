@@ -31,7 +31,7 @@ class Avatar extends DB_DataObject
 	function delete() {
 		$filename = $this->filename;
 		if (parent::delete()) {
-			unlink(common_avatar_path($filename));
+			@unlink(common_avatar_path($filename));
 		}
 	}
 
