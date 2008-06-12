@@ -22,6 +22,17 @@ if (!defined('LACONICA')) { exit(1); }
 class UpdateprofileAction extends Action {
 	function handle($args) {
 		parent::handle($args);
-		common_server_error(_t('Not yet implemented.'));
+		try {
+			$req = OAuthRequest::from_request();
+			# Note: server-to-server function!
+			$server = omb_oauth_server();
+			list($consumer, $token) = $server->verify_request($req);
+			if ($this->update_profile($req, $consumer, $token)) {
+				print "omb_version=".OMB_VERSION_01;
+			}
+		} catch (OAuthException $e) {
+			common_server_error($e->getMessage());
+			return;
+		}
 	}
 }
