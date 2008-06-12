@@ -184,7 +184,7 @@ function omb_broadcast_profile($profile) {
 	# First, get remote users subscribed to this profile
 	# XXX: use a join here rather than looping through results
 	$sub = new Subscription();
-	$sub->subscribed = $notice->profile_id;
+	$sub->subscribed = $profile->id;
 	if ($sub->find()) {
 		$updated = array();
 		while ($sub->fetch()) {
