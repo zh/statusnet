@@ -133,6 +133,8 @@ class ProfilesettingsAction extends SettingsAction {
 			return;
 		}
 
+		common_broadcast_profile($profile);
+		
 		$this->show_form(_t('Settings saved.'), TRUE);
 	}
 	

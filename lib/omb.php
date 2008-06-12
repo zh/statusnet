@@ -179,3 +179,80 @@ function omb_post_notice($notice, $remote_profile, $subscription) {
 		}
 	}
 }
+
+function omb_broadcast_profile($profile) {
+	# First, get remote users subscribed to this profile
+	# XXX: use a join here rather than looping through results
+	$sub = new Subscription();
+	$sub->subscribed = $notice->profile_id;
+	if ($sub->find()) {
+		$updated = array();
+		while ($sub->fetch()) {
+			$rp = Remote_profile::staticGet('id', $sub->subscriber);
+			if ($rp) {
+				if (!$updated[$rp->updateprofileurl]) {
+					if (omb_update_profile($profile, $rp, $sub)) {
+						$updated[$rp->updateprofileurl] = TRUE;
+					}
+				}
+			}
+		}
+	}
+}
+
+function omb_update_profile($profile, $remote_profile, $subscription) {
+	global $config; # for license URL
+	$user = User::staticGet('id', $notice->profile_id);
+	$con = omb_oauth_consumer();
+	$token = new OAuthToken($subscription->token, $subscription->secret);
+	$url = $remote_profile->postnoticeurl;
+	$parsed = parse_url($url);
+	$params = array();
+	parse_str($parsed['query'], $params);
+	$req = OAuthRequest::from_consumer_and_token($con, $token,
+												 "POST", $url, $params);
+	$req->set_parameter('omb_version', OMB_VERSION_01);
+	$req->set_parameter('omb_listenee', $user->uri);
+	$req->set_parameter('omb_listenee_profile', common_profile_url($user->nickname));
+	$req->set_parameter('omb_listenee_nickname', $user->nickname);
+	
+	# We use blanks to force emptying any existing values in these optional fields
+	
+	$req->set_parameter('omb_listenee_fullname',
+						($profile->fullname) ? $profile->fullname : '');
+	$req->set_parameter('omb_listenee_homepage', 
+						($profile->homepage) ? $profile->homepage : '');
+	$req->set_parameter('omb_listenee_bio', 
+						($profile->bio) ? $profile->bio : '');
+	$req->set_parameter('omb_listenee_location',
+						($profile->location) ? $profile->location : '');
+	
+	$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
+	$req->set_parameter('omb_listenee_avatar', 
+						($avatar) ? $avatar->url : '');
+	
+	$req->sign_request(omb_hmac_sha1(), $con, $token);
+
+	# We re-use this tool's fetcher, since it's pretty good
+
+	$fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
+
+	$result = $fetcher->post($req->get_normalized_http_url(),
+							 $req->to_postdata());
+
+	if ($result->status == 403) { # not authorized, don't send again
+		common_debug('403 result, deleting subscription', __FILE__);
+		$subscription->delete();
+		return false;
+	} else if ($result->status != 200) {
+		common_debug('Error status '.$result->status, __FILE__);		
+		return false;
+	} else { # success!
+		parse_str($result->body, $return);
+		if ($return['omb_version'] == OMB_VERSION_01) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+}

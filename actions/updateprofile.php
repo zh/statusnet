@@ -19,6 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
+require_once(INSTALLDIR.'/lib/omb.php');
+
 class UpdateprofileAction extends Action {
 	function handle($args) {
 		parent::handle($args);
@@ -33,6 +35,138 @@ class UpdateprofileAction extends Action {
 		} catch (OAuthException $e) {
 			common_server_error($e->getMessage());
 			return;
+		}
+	}
+	
+	function update_profile($req, $consumer, $token) {
+		$version = $req->get_parameter('omb_version');
+		if ($version != OMB_VERSION_01) {
+			common_user_error(_t('Unsupported OMB version'), 400);
+			return false;
+		}
+		# First, check to see if listenee exists
+		$listenee =  $req->get_parameter('omb_listenee');
+		$remote = Remote_profile::staticGet('uri', $listenee);
+		if (!$remote) {
+			common_user_error(_t('Profile unknown'), 404);
+			return false;
+		}
+		# Second, check to see if they should be able to post updates!
+		# We see if there are any subscriptions to that remote user with
+		# the given token.
+		
+		$sub = new Subscription();
+		$sub->subscribed = $remote->id;
+		$sub->token = $token->key;
+		if (!$sub->find(true)) {
+			common_user_error(_t('You did not send us that profile'), 403);
+			return false;
+		}
+		
+		$profile = Profile::staticGet('id', $remote->id);
+		if (!$profile) {
+			# This one is our fault
+			common_server_error(_t('Remote profile with no matching profile'), 500);
+			return false;
+		}
+		$nickname = $req->get_parameter('omb_listenee_nickname');
+		if (!Validate::string($nickname, array('min_length' => 1,
+											   'max_length' => 64,
+											   'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
+			common_user_error(_t('Nickname must have only letters and numbers and no spaces.'));
+			return false;
+		}
+		$profile_url = $req->get_parameter('omb_listenee_profile');
+		if (!common_valid_http_url($profile_url)) {
+			common_user_error(_t("Invalid profile URL '$profile_url'."));
+			return false;
+		}
+		$license = $req->get_parameter('omb_listenee_license');
+		if (!common_valid_http_url($license)) {
+			common_user_error(_t("Invalid license URL '$license'."));
+			return false;
+		}
+		# optional stuff
+		$fullname = $req->get_parameter('omb_listenee_fullname');
+		if ($fullname && strlen($fullname) > 255) {
+			common_user_error(_t("Full name '$fullname' too long."));
+			return false;
+		}
+		$homepage = $req->get_parameter('omb_listenee_homepage');
+		if ($homepage && (!common_valid_http_url($homepage) || strlen($homepage) > 255)) {
+			common_user_error(_t("Invalid homepage '$homepage'"));
+			return false;
+		}
+		$bio = $req->get_parameter('omb_listenee_bio');
+		if ($bio && strlen($bio) > 140) {
+			common_user_error(_t("Bio too long '$bio'"));
+			return false;
+		}
+		$location = $req->get_parameter('omb_listenee_location');
+		if ($location && strlen($location) > 255) {
+			common_user_error(_t("Location too long '$location'"));
+			return false;
+		}
+		$avatar = $req->get_parameter('omb_listenee_avatar');
+		if ($avatar) {
+			if (!common_valid_http_url($avatar) || strlen($avatar) > 255) {
+				common_user_error(_t("Invalid avatar URL '$avatar'"));
+				return false;
+			}
+			$size = @getimagesize($avatar);
+			if (!$size) {
+				common_user_error(_t("Can't read avatar URL '$avatar'"));
+				return false;
+			}
+			if ($size[0] != AVATAR_PROFILE_SIZE || $size[1] != AVATAR_PROFILE_SIZE) {
+				common_user_error(_t("Wrong size image at '$avatar'"));
+				return false;
+			}
+			if (!in_array($size[2], array(IMAGETYPE_GIF, IMAGETYPE_JPEG,
+										  IMAGETYPE_PNG))) {
+				common_user_error(_t("Wrong image type for '$avatar'"));
+				return false;
+			}
+		}
+		
+		$orig_profile = clone($profile);
+		
+		if ($nickname) {
+			$profile->nickname = $nickname;
+		}
+		if ($profile_url) {
+			$profile->profileurl = $profile_url;
+		}
+		if ($fullname) {
+			$profile->fullname = $fullname;
+		}
+		if ($homepage) {
+			$profile->homepage = $homepage;
+		}
+		if ($bio) {
+			$profile->bio = $bio;
+		}
+		if ($location) {
+			$profile->location = $location;
+		}
+		
+		if (!$profile->update($orig_profile)) {
+			common_server_error(_t('Could not save new profile info'), 500);
+			return false;
+		} else {
+			if ($avatar) {
+				$temp_filename = tempnam(sys_get_temp_dir(), 'listenee_avatar');
+				copy($avatar, $temp_filename);
+				if (!$profile->setOriginal($temp_filename)) {
+					common_server_error(_t('Could not save avatar info'), 500);
+					return false;
+				}
+			}
+			header('HTTP/1.1 200 OK');
+			header('Content-type: text/plain');
+			print 'Updated profile';
+			print "\n";
+			return true;
 		}
 	}
 }

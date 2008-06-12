@@ -569,6 +569,13 @@ function common_broadcast_notice($notice, $remote=false) {
 	return true;
 }
 
+function common_broadcast_profile($profile) {
+	// XXX: optionally use a queue system like http://code.google.com/p/microapps/wiki/NQDQ
+	require_once(INSTALLDIR.'/lib/omb.php');
+	omb_broadcast_profile($profile);
+	// XXX: Other broadcasts...?
+	return true;
+}
 
 function common_profile_url($nickname) {
 	return common_local_url('showstream', array('nickname' => $nickname));

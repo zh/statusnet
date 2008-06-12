@@ -175,9 +175,9 @@ class ShowstreamAction extends StreamAction {
 										   'method' => 'POST',
 										   'action' => common_local_url('remotesubscribe')));
 		common_hidden('nickname', $profile->nickname);
-		common_element('input', array('name' => 'profile',
+		common_element('input', array('name' => 'profile_url',
 									  'type' => 'text',
-									  'id' => 'profile',
+									  'id' => 'profile_url',
 									  'size' => '15'));
 		common_element('input', array('type' => 'submit',
 									  'id' => 'submit',
