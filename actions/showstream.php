@@ -146,7 +146,10 @@ class ShowstreamAction extends StreamAction {
 			common_element('p', 'description', htmlspecialchars($profile->bio));
 		}
 		if ($profile->homepage) {
-			common_element('p', 'website', $profile->homepage);
+			common_element_start('p', 'website');
+			common_element('a', array('href' => $profile->homepage),
+						   $profile->homepage);
+			common_element_end('p');
 		}
 		
 		$this->show_statistics($profile);
