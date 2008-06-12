@@ -203,13 +203,12 @@ class ShowstreamAction extends StreamAction {
 	function show_subscriptions($profile) {
 		global $config;
 
-		# XXX: add a limit
 		$subs = DB_DataObject::factory('subscription');
 		$subs->subscriber = $profile->id;
 
 		# We ask for an extra one to know if we need to do another page
 
-		$subs->limit(0, SUBSCRIPTIONS);
+		$subs->limit(0, SUBSCRIPTIONS + 1);
 
 		$subs_count = $subs->find();
 
@@ -221,7 +220,12 @@ class ShowstreamAction extends StreamAction {
 			
 			common_element_start('ul', array('id' => 'subscriptions_avatars'));
 			
-			while ($subs->fetch()) {
+			for ($i = 0; $i < min($subs_count, SUBSCRIPTIONS); $i++) {
+				
+				if (!$subs->fetch()) {
+					common_debug('Weirdly, broke out of subscriptions loop early', __FILE__);
+					break;
+				}
 
 				$other = Profile::staticGet($subs->subscribed);
 
@@ -242,17 +246,19 @@ class ShowstreamAction extends StreamAction {
 				common_element_end('a');
 				common_element_end('li');
 			}
+			
 			common_element_end('ul');
 		}
 
-		common_element_start('p', array('id' => 'subscriptions_viewall'));
-		
-		common_element('a', array('href' => common_local_url('subscriptions',
-															 array('nickname' => $profile->nickname)),
-								  'class' => 'moresubscriptions'),
-					   _t('All subscriptions'));
-
-		common_element_end('p');
+		if ($subs_count > SUBSCRIPTIONS) {
+			common_element_start('p', array('id' => 'subscriptions_viewall'));
+			
+			common_element('a', array('href' => common_local_url('subscriptions',
+																 array('nickname' => $profile->nickname)),
+									  'class' => 'moresubscriptions'),
+						   _t('All subscriptions'));
+			common_element_end('p');
+		}
 		
 		common_element_end('div');
 	}
