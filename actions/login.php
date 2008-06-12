@@ -66,8 +66,7 @@ class LoginAction extends Action {
 		} else {
 			common_element('div', 'instructions', 
 						   _t('Login with your username and password. ' .
-							  'Don\'t have a username yet? Choose register above. ' .
-							  '(Forgot your password? No way to get it back... yet. It\'s on the TODO list!)'));
+							  'Don\'t have a username yet? Choose register above. '));
 		}
 		common_element_start('form', array('method' => 'POST',
 										   'id' => 'login',

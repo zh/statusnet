@@ -31,10 +31,9 @@ class ProfilesettingsAction extends SettingsAction {
 		if ($msg) {
 			$this->message($msg, $success);
 		} else {
-			common_element('div', 'instructions', 
-						   _t('You can update your personal profile info here so people know more about you. ' .
-							  'Nickname must be 1-64 lowercase letters or numbers -- no punctuation or spaces. ' .
-							  'Full name, bio, and location can be whatever you want. Email address should be valid.'));
+			common_element('div', 'instructions',
+						   _t('You can update your personal profile info here '.
+							  'so people know more about you. '));
 		}
 		common_element_start('form', array('method' => 'POST',
 										   'id' => 'profilesettings',
@@ -42,17 +41,22 @@ class ProfilesettingsAction extends SettingsAction {
 										   common_local_url('profilesettings')));
 		# too much common patterns here... abstractable?
 		common_input('nickname', _t('Nickname'),
-					 ($this->arg('nickname')) ? $this->arg('nickname') : $profile->nickname);
+					 ($this->arg('nickname')) ? $this->arg('nickname') : $profile->nickname,
+					 _t('1-64 lowercase letters or numbers, no punctuation or spaces'));
 		common_input('fullname', _t('Full name'),
 					 ($this->arg('fullname')) ? $this->arg('fullname') : $profile->fullname);
 		common_input('email', _t('Email address'),
-					 ($this->arg('email')) ? $this->arg('email') : $user->email);
+					 ($this->arg('email')) ? $this->arg('email') : $user->email,
+					 _t('Used only for updates, announcements, and password recovery'));
 		common_input('homepage', _t('Homepage'),
-					 ($this->arg('homepage')) ? $this->arg('homepage') : $profile->homepage);
+					 ($this->arg('homepage')) ? $this->arg('homepage') : $profile->homepage,
+					 _t('URL of your homepage, blog, or profile on another site'));
 		common_textarea('bio', _t('Bio'),
-						($this->arg('bio')) ? $this->arg('bio') : $profile->bio);
+						($this->arg('bio')) ? $this->arg('bio') : $profile->bio,
+						_t('Describe yourself and your interests in 140 chars'));
 		common_input('location', _t('Location'),
-					 ($this->arg('location')) ? $this->arg('location') : $profile->location);
+					 ($this->arg('location')) ? $this->arg('location') : $profile->location,
+					 _t('Where you are, like "City, State (or Region), Country"'));
 		common_submit('submit', _t('Save'));
 		common_element_end('form');
 		common_show_footer();

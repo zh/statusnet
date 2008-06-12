@@ -36,8 +36,10 @@ class PasswordAction extends SettingsAction {
 										   'action' =>
 										   common_local_url('password')));
 		common_password('oldpassword', _t('Old password'));
-		common_password('newpassword', _t('New password'));
-		common_password('confirm', _t('Confirm'));
+		common_password('newpassword', _t('New password'),
+						_t('6 or more characters'));
+		common_password('confirm', _t('Confirm'),
+						_t('same as password above'));
 		common_submit('submit', _t('Change'));
 		common_element_end('form');
 		common_show_footer();

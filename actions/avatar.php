@@ -40,7 +40,7 @@ class AvatarAction extends SettingsAction {
 
 		$user = common_current_user();
 		$profile = $user->getProfile();
-		$original = $profile->getOriginal();
+		$original = $profile->getOriginalAvatar();
 
 		if ($original) {
 			common_element('img', array('src' => $original->url,

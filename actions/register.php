@@ -123,17 +123,19 @@ class RegisterAction extends Action {
 			common_element('div', 'error', $error);
 		} else {
 			common_element('div', 'instructions', 
-						   _t('You can create a new account with the following form. ' .
-							  'Your user name must be 1-64 characters, only lowercase letters or numbers. ' .
-							  'Passwords have to match, and your email address should be valid.'));
+						   _t('You can create a new account to start posting notices. '));
 		}
 		common_element_start('form', array('method' => 'POST',
 										   'id' => 'login',
 										   'action' => common_local_url('register')));
-		common_input('nickname', _t('Nickname'));
-		common_password('password', _t('Password'));
-		common_password('confirm', _t('Confirm'));
-		common_input('email', _t('Email'));
+		common_input('nickname', _t('Nickname'), NULL,
+					 _t('1-64 lowercase letters or numbers, no punctuation or spaces'));
+		common_password('password', _t('Password'),						
+						_t('6 or more characters'));
+		common_password('confirm', _t('Confirm'),
+						_t('Same as password above'));
+		common_input('email', _t('Email'), NULL,
+					 _t('Used only for updates, announcements, and password recovery'));
 		common_element_start('p');
 		common_element('input', array('type' => 'checkbox',
 									  'id' => 'license',

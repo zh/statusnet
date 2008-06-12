@@ -261,7 +261,7 @@ function common_menu_item($url, $text, $title=NULL, $is_selected=false) {
 	common_element_end('li');
 }
 
-function common_input($id, $label, $value=NULL) {
+function common_input($id, $label, $value=NULL,$instructions=NULL) {
 	common_element_start('p');
 	common_element('label', array('for' => $id), $label);
 	$attrs = array('name' => $id,
@@ -271,6 +271,9 @@ function common_input($id, $label, $value=NULL) {
 		$attrs['value'] = htmlspecialchars($value);
 	}
 	common_element('input', $attrs);
+	if ($instructions) {
+		common_element('span', 'input_instructions', $instructions);
+	}
 	common_element_end('p');
 }
 
@@ -281,13 +284,16 @@ function common_hidden($id, $value) {
 								  'value' => $value));
 }
 
-function common_password($id, $label) {
+function common_password($id, $label, $instructions=NULL) {
 	common_element_start('p');
 	common_element('label', array('for' => $id), $label);
 	$attrs = array('name' => $id,
 				   'type' => 'password',
 				   'id' => $id);
 	common_element('input', $attrs);
+	if ($instructions) {
+		common_element('span', 'input_instructions', $instructions);
+	}
 	common_element_end('p');
 }
 
@@ -301,7 +307,7 @@ function common_submit($id, $label) {
 	common_element_end('p');
 }
 
-function common_textarea($id, $label, $content=NULL) {
+function common_textarea($id, $label, $content=NULL, $instructions=NULL) {
 	common_element_start('p');
 	common_element('label', array('for' => $id), $label);
 	common_element('textarea', array('rows' => 3,
@@ -309,6 +315,9 @@ function common_textarea($id, $label, $content=NULL) {
 									 'name' => $id,
 									 'id' => $id),
 				   ($content) ? $content : ' ');
+	if ($instructions) {
+		common_element('span', 'input_instructions', $instructions);
+	}
 	common_element_end('p');
 }
 

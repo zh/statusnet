@@ -41,14 +41,17 @@ class RemotesubscribeAction extends Action {
 
 	function show_form($err=NULL) {
 		$nickname = $this->trimmed('nickname');
+		$profile = $this->trimmed('profile');
 		common_show_header(_t('Remote subscribe'));
 		if ($err) {
 			common_element('div', 'error', $err);
 		}
 		common_element_start('form', array('id' => 'remotesubscribe', 'method' => 'POST',
 										   'action' => common_local_url('remotesubscribe')));
-		common_input('nickname', _t('User nickname'), $nickname);
-		common_input('profile', _t('Profile URL'));
+		common_input('nickname', _t('User nickname'), $nickname,
+					 _t('Nickname of the user you want to follow'));
+		common_input('profile', _t('Profile URL'), $profile,
+					 _t('URL of your profile on another compatible microblogging service'));
 		common_submit('submit', _t('Subscribe'));
 		common_element_end('form');
 		common_show_footer();
