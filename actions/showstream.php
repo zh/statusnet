@@ -283,9 +283,17 @@ class ShowstreamAction extends StreamAction {
 
 		# Other stats...?
 		common_element_start('dl', 'statistics');
-		common_element('dt', 'subscriptions', _t('Subscriptions'));
+		common_element_start('dt', 'subscriptions');
+		common_element('a', array('href' => common_local_url('subscriptions',
+															 array('nickname' => $profile->nickname))),
+					   _t('Subscriptions'));
+		common_element_end('dt');
 		common_element('dd', 'subscriptions', $subs_count);
-		common_element('dt', 'subscribers', _t('Subscribers'));
+		common_element_start('dt', 'subscribers');
+		common_element('a', array('href' => common_local_url('subscribed',
+															 array('nickname' => $profile->nickname))),
+					   _t('Subscribers'));
+		common_element_end('dt');
 		common_element('dd', 'subscribers', $subbed_count);
 		common_element('dt', 'notices', _t('Notices'));
 		common_element('dd', 'notices', $notice_count);
