@@ -237,9 +237,13 @@ function omb_update_profile($profile, $remote_profile, $subscription) {
 
 	$fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
 
+	common_debug('request URL = '.$req->get_normalized_http_url(), __FILE__);
+	common_debug('postdata = '.$req->to_postdata(), __FILE__);
 	$result = $fetcher->post($req->get_normalized_http_url(),
 							 $req->to_postdata());
 
+	common_debug('Got HTTP result "'.print_r($result,TRUE).'"', __FILE__);
+	
 	if ($result->status == 403) { # not authorized, don't send again
 		common_debug('403 result, deleting subscription', __FILE__);
 		$subscription->delete();
