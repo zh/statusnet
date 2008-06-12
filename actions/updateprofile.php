@@ -70,20 +70,20 @@ class UpdateprofileAction extends Action {
 			return false;
 		}
 		$nickname = $req->get_parameter('omb_listenee_nickname');
-		if (!Validate::string($nickname, array('min_length' => 1,
-											   'max_length' => 64,
-											   'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
+		if ($nickname && !Validate::string($nickname, array('min_length' => 1,
+															'max_length' => 64,
+															'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
 			$this->client_error(_t('Nickname must have only letters and numbers and no spaces.'));
 			return false;
 		}
-		$profile_url = $req->get_parameter('omb_listenee_profile');
-		if (!common_valid_http_url($profile_url)) {
-			$this->client_error(_t("Invalid profile URL '$profile_url'."));
+		$license = $req->get_parameter('omb_listenee_license');
+		if ($license && !common_valid_http_url($license)) {
+			$this->client_error(_t("Invalid license URL '$license'"));
 			return false;
 		}
-		$license = $req->get_parameter('omb_listenee_license');
-		if (!common_valid_http_url($license)) {
-			$this->client_error(_t("Invalid license URL '$license'."));
+		$profile_url = $req->get_parameter('omb_listenee_profile');
+		if ($profile_url && !common_valid_http_url($profile_url)) {
+			$this->client_error(_t("Invalid profile URL '$profile_url'."));
 			return false;
 		}
 		# optional stuff
