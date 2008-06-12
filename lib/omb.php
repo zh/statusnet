@@ -202,10 +202,10 @@ function omb_broadcast_profile($profile) {
 
 function omb_update_profile($profile, $remote_profile, $subscription) {
 	global $config; # for license URL
-	$user = User::staticGet('id', $notice->profile_id);
+	$user = User::staticGet('id', $profile->profile_id);
 	$con = omb_oauth_consumer();
 	$token = new OAuthToken($subscription->token, $subscription->secret);
-	$url = $remote_profile->postnoticeurl;
+	$url = $remote_profile->updateprofileurl;
 	$parsed = parse_url($url);
 	$params = array();
 	parse_str($parsed['query'], $params);
@@ -213,8 +213,8 @@ function omb_update_profile($profile, $remote_profile, $subscription) {
 												 "POST", $url, $params);
 	$req->set_parameter('omb_version', OMB_VERSION_01);
 	$req->set_parameter('omb_listenee', $user->uri);
-	$req->set_parameter('omb_listenee_profile', common_profile_url($user->nickname));
-	$req->set_parameter('omb_listenee_nickname', $user->nickname);
+	$req->set_parameter('omb_listenee_profile', common_profile_url($profile->nickname));
+	$req->set_parameter('omb_listenee_nickname', $profile->nickname);
 	
 	# We use blanks to force emptying any existing values in these optional fields
 	
