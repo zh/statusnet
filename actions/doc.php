@@ -31,7 +31,11 @@ class DocAction extends Action {
 			common_user_error(_t('No such document.'));
 			return;
 		}
-		$output = Markdown(file_get_contents($filename));
+		$c = file_get_contents($filename);
+		$c = preg_replace('/%%action.(\w+)%%/e', "common_local_url('\\1')", $c);
+		$c = preg_replace('/%%doc.(\w+)%%/e', "common_local_url('doc', array('title'=>'\\1'))", $c);
+		$c = preg_replace('/%%(\w+).(\w+)%%/e', '$config[\'\\1\'][\'\\2\']', $c);
+		$output = Markdown($c);
 		common_show_header(_t(ucfirst($title)));
 		common_raw($output);
 		common_show_footer();
