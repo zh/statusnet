@@ -833,3 +833,8 @@ function common_negotiate_type($cprefs, $sprefs) {
 
 	return $besttype;
 }
+
+function common_config($main, $sub) {
+	global $config;
+	return $config[$main][$sub];
+}
