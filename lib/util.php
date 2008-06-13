@@ -205,6 +205,16 @@ function common_show_footer() {
 	common_element_end('div'); # content div
 	common_foot_menu();
 	common_element_start('div', array('id' => 'footer'));
+	common_element_start('p', 'laconica');
+	common_text(_t('This site is running the '));
+	common_element('a', array('class' => 'software',
+							  href => 'http://laconi.ca/'),
+				   'Laconica');
+	common_text(_t('microblogging tool, version ' . LACONICA_VERSION . ', available under the '));
+	common_element('a', array(href => 'http://www.fsf.org/licensing/licenses/agpl-3.0.html'),
+				   'GNU Affero General Public License');
+	common_text(_t('.'));
+	common_element_end('p');
 	common_element('img', array('id' => 'cc',
 								'src' => $config['license']['image'],
 								'alt' => $config['license']['title']));
