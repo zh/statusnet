@@ -178,12 +178,17 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 	common_element_start('div', array('id' => 'wrap'));
 	common_element_start('div', array('id' => 'header'));
 	common_nav_menu();
-	common_element_start('a', array('href' => common_local_url('public')));
-	common_element('img', array('src' => ($config['site']['logo']) ? 
-								($config['site']['logo']) : theme_path('logo.png'),
-								'alt' => $config['site']['name'],
-								'id' => 'logo'));
-	common_element_end('a');
+	if ($config['site']['logo'] || file_exists(theme_file('logo.png'))) {
+		common_element_start('a', array('href' => common_local_url('public')));
+		common_element('img', array('src' => ($config['site']['logo']) ?
+									($config['site']['logo']) : theme_path('logo.png'),
+									'alt' => $config['site']['name'],
+									'id' => 'logo'));
+		common_element_end('a');
+	}
+	common_element('h1', 'pagetitle', $pagetitle);
+	common_element('h2', 'sitename', $config['site']['name']);
+	
 	if ($headercall) {
 		if ($data) {
 			call_user_func($headercall, $data);
