@@ -35,6 +35,10 @@ class PublicrssAction extends Rss10Action {
 		$notices = array();
 		
 		$notice = DB_DataObject::factory('notice');
+
+		# FIXME: bad performance
+		
+		$notice->whereAdd('EXISTS (SELECT user.id from user where user.id = notice.profile_id)');
 		
 		$notice->orderBy('created DESC');
 		

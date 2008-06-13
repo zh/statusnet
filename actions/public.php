@@ -48,7 +48,9 @@ class PublicAction extends StreamAction {
 
 		$notice = DB_DataObject::factory('notice');
 
-		# XXX: filter out private notifications
+		# FIXME: bad performance
+		
+		$notice->whereAdd('EXISTS (SELECT user.id from user where user.id = notice.profile_id)');
 
 		$notice->orderBy('created DESC');
 		
