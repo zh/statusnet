@@ -91,8 +91,8 @@ First public release (theoretically). Added distributed subscriptions,
 + log of consumers who ask for access
 + receive remote notice
 + send remote notice
-- receive remote profile update
-- send remote profile update
++ receive remote profile update
++ send remote profile update
 + subscribe form for not-logged-in users on showstream
 + pretty URLs
 + doc action
@@ -138,8 +138,8 @@ First public release (theoretically). Added distributed subscriptions,
 - graphic refresh on remotesubscribe
 + graphic refresh on shownotice
 + graphic refresh on showstream
-- graphic refresh on subscribed
-- graphic refresh on subscriptions
++ graphic refresh on subscribed
++ graphic refresh on subscriptions
 + graphic refresh on userauthorization
 - update default theme to use new, more semantic, HTML
 - subscribe/unsubscribe on subscriptions page
@@ -147,10 +147,12 @@ First public release (theoretically). Added distributed subscriptions,
 + correct use of views menu in settings
 + correct use of views menu in streams
 - INSTALL file
+- content negotiation for content type
 
 Release 0.4
 -----------
 
+- jQuery for as much as possible
 - microid for profile page
 - format times per user
 - timezone preferences in Profile settings
@@ -164,8 +166,6 @@ Release 0.4
 - email confirmation for registration
 - email options
 - change cookie handling for anon users to be more cache-friendly
-- jQuery for as much as possible
-- content negotiation for content type
 - content negotiation for encoding
 - If-Modified-Since support
 - Vary

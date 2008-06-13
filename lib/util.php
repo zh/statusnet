@@ -123,10 +123,24 @@ function common_end_xml() {
 	$xw->flush();
 }
 
+define('PAGE_TYPE_PREFS', 'application/xhtml+xml,text/html;q=0.7,application/xml;q=0.3,text/xml;q=0.2');
+	   
 function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=NULL) {
 	global $config, $xw;
 
-	header('Content-Type: application/xhtml+xml');
+	$httpaccept = isset($_SERVER['HTTP_ACCEPT']) ? $_SERVER['HTTP_ACCEPT'] : NULL;
+
+	# XXX: allow content negotiation for RDF, RSS, or XRDS
+	
+	$type = common_negotiate_type(common_accept_to_prefs($httpaccept),
+								  common_accept_to_prefs(PAGE_TYPE_PREFS));
+
+	if (!$type) {
+		common_client_error(_t('This page is not available in a media type you accept'), 406);
+		exit(0);
+	}
+	
+	header('Content-Type: '.$type);
 
 	common_start_xml('html',
 					 '-//W3C//DTD XHTML 1.0 Strict//EN',
@@ -735,4 +749,82 @@ function common_pagination($have_before, $have_after, $page, $action, $args=NULL
 		common_element_end('ul');
 		common_element_end('div');
 	}
+}
+
+/* Following functions are copied from MediaWiki GlobalFunctions.php
+ * and written by Evan Prodromou. */
+
+function common_accept_to_prefs($accept, $def = '*/*') {
+	# No arg means accept anything (per HTTP spec)
+	if(!$accept) {
+		return array($def => 1);
+	}
+
+	$prefs = array();
+
+	$parts = explode(',', $accept);
+
+	foreach($parts as $part) {
+		# FIXME: doesn't deal with params like 'text/html; level=1'
+		@list($value, $qpart) = explode(';', $part);
+		$match = array();
+		if(!isset($qpart)) {
+			$prefs[$value] = 1;
+		} elseif(preg_match('/q\s*=\s*(\d*\.\d+)/', $qpart, $match)) {
+			$prefs[$value] = $match[1];
+		}
+	}
+
+	return $prefs;
+}
+
+function common_mime_type_match($type, $avail) {
+	if(array_key_exists($type, $avail)) {
+		return $type;
+	} else {
+		$parts = explode('/', $type);
+		if(array_key_exists($parts[0] . '/*', $avail)) {
+			return $parts[0] . '/*';
+		} elseif(array_key_exists('*/*', $avail)) {
+			return '*/*';
+		} else {
+			return NULL;
+		}
+	}
+}
+
+function common_negotiate_type($cprefs, $sprefs) {
+	$combine = array();
+
+	foreach(array_keys($sprefs) as $type) {
+		$parts = explode('/', $type);
+		if($parts[1] != '*') {
+			$ckey = common_mime_type_match($type, $cprefs);
+			if($ckey) {
+				$combine[$type] = $sprefs[$type] * $cprefs[$ckey];
+			}
+		}
+	}
+
+	foreach(array_keys($cprefs) as $type) {
+		$parts = explode('/', $type);
+		if($parts[1] != '*' && !array_key_exists($type, $sprefs)) {
+			$skey = common_mime_type_match($type, $sprefs);
+			if($skey) {
+				$combine[$type] = $sprefs[$skey] * $cprefs[$type];
+			}
+		}
+	}
+
+	$bestq = 0;
+	$besttype = NULL;
+
+	foreach(array_keys($combine) as $type) {
+		if($combine[$type] > $bestq) {
+			$besttype = $type;
+			$bestq = $combine[$type];
+		}
+	}
+
+	return $besttype;
 }
