@@ -116,6 +116,7 @@ class Rss10Action extends Action {
 		common_element('link', NULL, $nurl);
 		common_element('description', NULL, $notice->content);
 		common_element('dc:date', NULL, common_date_w3dtf($notice->created));
+		common_element('dc:creator', NULL, ($profile->fullname) ? $profile->fullname : $profile->nickname);
 		common_element('cc:licence', array('rdf:resource' => $config['license']['url']));
 		common_element_end('item');
 	}
