@@ -1,13 +1,20 @@
 /* CSS Document */
 
+html {
+	background-color: #d8e2d7;
+
+	}
 body {
+	position: absolute;
+	width: 100%;
 	margin: 0;
 	padding: 0;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 10px;
 	line-height: 12px;
+	min-height: 100%;
 	color: #193441;
-	background: url(bg-header.gif) repeat-x #FCFFF5;
+	background: url(bg-body.gif) repeat-y top center;
 	}
 a {
 	color: #C15D42;
@@ -24,55 +31,24 @@ h1 {
 	}
 
 
-
-/* ----- Forms General Style ----- */
-form {
-	clear: left;
-	margin: 0 auto;
-	padding: 0;
-	width: 540px;
-	}
-form label {
-	display: block;
-	font-size: 12px;
-	font-weight: bold;
-	line-height: 15px;
-	}
-form input {
-	border: 1px solid #CCC;
-	}
-input.submit  {
-	display: block;
-	margin: 10px 0;
-	padding: 2px;
-	background-color: #C15D42;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 12px;
-	font-weight: bold;
-	color: #FCFFF5;
-	cursor: pointer;
-	border: 0;
-	}
-input.submit:hover {
-	background-color: #ab5138;
-	}
-
-
-
-
 #wrap {
 	margin: 0 auto;
+	padding: 0 20px;
 	width: 760px;
+	background: url(bg-header.gif) repeat-x #FCFFF5;
 	}			
 #header {
+	position: relative;
 	margin: 0 auto;
 	width: 540px;
-	height: 36px;
+	height: 170px;
+	/*border: 1px solid #FF0;*/
 	}
 #logo {
-	margin-top: 6px;
+	margin-top: 9px;
 	}		
 	
+/* ===== Begin Navigation Styling ===== */
 	
 /* ----- Navigation ------ */	
 #nav {
@@ -88,78 +64,24 @@ input.submit:hover {
 	}
 #nav li a {
 	display: block;
-	padding: 9px 12px 12px 24px;
+	padding: 9px 12px 12px 12px;
 	color: #91AA9D;
 	}
 #nav li a:hover {
 	text-decoration: underline;
 	}
-	
-	
-	
-/* ----- Status Form ----- */
-#status_form {
-	height: 106px;
-	}
-#status_form p {
-	margin: 0;
-	padding: 0;
-	}	
-#status_label {
-	display: block;
-	clear: both;
-	padding-top: 15px;
-	font-size: 18px;
-	font-weight: bold;
-	line-height: 36px;
-	color: #91AA9D;
-	}
-#status_textarea {
-	display: block;
-	float: left;
-	width: 422px;
-	height: 35px;
-	padding: 5px;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 12px;
-	color: #193441;
-	border: 0;
-	}
-#status_submit {
-	display: block;
-	float: left;
-	margin-left: 4px;
-	width: 63px;
-	height: 45px;
-	background-color: #C15D42;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-weight: bold;
-	font-size: 14px;
-	color: #FCFFF5;
-	cursor: pointer;
-	border: 0;
-	}
-#status_submit:hover {
-	background-color: #ab5138;
-	}	
-
-
-
-#content {
-	clear: left;
-	margin: 0 auto;
-	}	
-
 
 /* ----- Tabs ----- */
 #nav_views {
-	clear: both;
 	margin: 0 auto;
 	padding: 0;
+	position: absolute;
+	bottom: 0;
 	list-style-type: none;
 	font-size: 14px;
 	font-weight: bold;
 	width: 540px;
+	/*height: 30px;*/
 	}
 #nav_views li {
 	display: block;
@@ -168,7 +90,7 @@ input.submit:hover {
 	}
 #nav_views li a {
 	display: block;
-	margin: 0 0 36px 0;
+	margin: 0;
 	padding: 4px 12px 3px 12px;
 	color: #FCFFF5;
 	background-color: #91AA9D;
@@ -189,20 +111,73 @@ input.submit:hover {
 	color: #FCFFF5;
 	background-color: #3F606F;
 	border-right: 1px solid #6A8787;
-	}			
+	}
+	
+/* ----- Nav Footer ----- */	
+#nav_sub {
+	clear: both;
+	margin: 18px auto 0 auto;
+	padding: 0;
+	list-style-type: none;
+	font-size: 11px;
+	font-weight: bold;
+	line-height: 21px;
+	border-top: 1px solid #D8E2D7;
+	width: 540px;
+	}
+#nav_sub li {
+	display: block;
+	float: left;
+	}
+#nav_sub li a {
+	padding: 6px 24px 6px 0;
+	}	
+#nav_sub li a:hover {
+	text-decoration: underline;
+	}
+/* ===== End Navigation Styling ===== */
+
+#content {
+	clear: left;
+	margin: 40px 0 45px 0;
+	padding: 0 110px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 14px;
+	line-height: 18px;
+	/*border: 1px solid #F00;*/
+	}
+#content h2 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	}
+#content label {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	}	
+.instructions, .success {
+	margin: 0 0 36px 0;
+	font-weight: normal;
+	padding: 10px;
+	border: 1px solid #91AA9D;
+	
+}		
+
+
+			
 
 	
 /* ----- Profile -----*/
 #profile {
 	clear: left;
-	/*background-color: #000;*/
-	padding-top: 10px;
+	margin: 0 -110px;
+	padding: 10px 0 0 0;
+	min-height: 170px;
 	border-top: 1px solid #D8E2D7;
 	font-family: Georgia, "Times New Roman", Times, serif;
 	}
 #profile h1 {
 	margin: 0;
-	padding: 0 0 3px 0;
+	padding: 0;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 14px;
 	}
@@ -226,7 +201,7 @@ input.submit:hover {
 #profile p.notice_current {
 	font-size: 18px;
 	line-height: 21px;
-	min-height: 96px;
+	/*min-height: 96px;*/
 	}		
 	
 #profile_avatar {
@@ -235,41 +210,56 @@ input.submit:hover {
 	}
 #profile_avatar img {
 	margin-bottom: 5px;
+	}
+.avatar.profile {
+	float: none;
+	clear: left;
+	margin: 0 10px 5px 0;
+	}
+.avatar.original {
+	margin: 0 10px 18px 0;
+	}			
+a.nickname {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 12px;
+	padding-right: 3px;
 	}	
 #profile_information {
 	float: left;
+	position: relative;
 	width: 270px;
+	height: 200px;
 	}
 	
-#statistics {
-	clear: left;
-	/*margin-left: 108px;*/
+.statistics {
+	margin-top: 18px;
 	}
-#statistics h2 {
+.statistics h2 {
 	margin: 12px 0 3px 0;
 	}		
-#statistics dl {
+dl.statistics {
 	margin: 0;
 	font-size: 12px;
 	line-height: 14px;
 	}
-#statistics dt, #statistics dd {
+.statistics dt, .statistics dd {
 	float: left;
 	margin: 0;
 	}
-#statistics dt {
+.statistics dt {
 	clear: left;
 	width: 96px;
 	}
-#statistics dd {
+.statistics dd {
 	clear: right;
 	}	
-#statistics dt:after {
+.statistics dt:after {
 	content: ":";
 	}
 #subscriptions {
 	float: left;
-	margin-bottom: 30px;
+	margin: 18px 0 30px 0;
 	}		
 #subscriptions_avatars {
 	/*float: left;*/
@@ -289,27 +279,8 @@ input.submit:hover {
 	}
 
 
-
-.action_subscription {
-	clear: left;
-	width: 96px;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-weight: bold;
-	text-transform: uppercase;
-	background-color: #C15D42;
-	}
-.action_subscription a {
-	font-size: 10px;
-	line-height: 24px;
-	padding: 6px 7px;
-	color: #FFF;
-	}	
-.action_subscription a:hover {
-	text-decoration: none;
-	background-color: #ab5138;
-	}	
-
-
+	
+	
 #notices {
 	clear: both;
 	margin: 0 auto;
@@ -317,6 +288,7 @@ input.submit:hover {
 	list-style-type: none;
 	width: 540px;
 	border-top: 1px solid #D8E2D7;
+	/*border: 1px solid #F00;*/
 	}
 #notices a:hover {
 	text-decoration: underline;
@@ -343,13 +315,8 @@ input.submit:hover {
 .avatar {
 	float: left;
 	margin: 0 10px 0 0;
-	}	
-p.nickname {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-weight: bold;
-	font-size: 12px;
-	padding-right: 3px;
 	}
+
 p.time {
 	display: block;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -391,33 +358,11 @@ p.time a {
 	color: #FCFFF5;
 	text-decoration: none;
 	}
-
-#nav_sub {
-	clear: both;
-	margin: 18px auto 0 auto;
-	padding: 0;
-	list-style-type: none;
-	font-size: 11px;
-	font-weight: bold;
-	line-height: 21px;
-	border-top: 1px solid #D8E2D7;
-	width: 540px;
-	}
-#nav_sub li {
-	display: block;
-	float: left;
-	}
-#nav_sub li a {
-	padding: 6px 24px 6px 0;
-	}	
-#nav_sub li a:hover {
-	text-decoration: underline;
-	}
-					
+			
 #footer {
-	clear: left;
+	clear: both;
 	margin: 0 auto;
-	/*padding-top: 6px;*/
+	padding: 0 0 36px 0;
 	width: 540px;
 	border-top: 1px solid #D8E2D7;
 	}
@@ -427,4 +372,136 @@ p.time a {
 #cc {
 	float: left;
 	margin: 12px 10px 0 0;
+	}
+
+/* ===== Begin Forms Styling ===== */
+
+/* ----- Forms General Style ----- */
+form {
+	margin: 0 auto;
+	padding: 0;
+	}
+form {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
 	}	
+form label {
+	display: block;
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 18px;
+	}
+form input {
+	border: 1px solid #D8E2D7;
+	width: 264px;
+	}
+input#submit  {
+	display: block;
+	margin: 18px 0;
+	padding: 4px;
+	font-weight: bold;
+	color: #FCFFF5;
+	background-color: #C15D42;
+	cursor: pointer;
+	border: 0;
+	width: auto;
+	}
+input#submit:hover {
+	background-color: #904632;
+	}
+textarea, input {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #193441;
+	padding: 3px;
+	}
+textarea:focus, input:focus {
+	background-color: #f0f6eb;
+	}		
+textarea {
+	width: 270px;
+	border: 1px solid #D8E2D7;
+	}
+.input_instructions {
+	display: block;
+	font-size: 11px;
+	line-height: 21px;
+	color: #91aa9d;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	}	
+	
+/* ----- Status Form ----- */
+#status_form {
+	height: 106px;
+	}
+#status_form p {
+	margin: 0;
+	padding: 0;
+	}	
+#status_label {
+	display: block;
+	clear: both;
+	padding-top: 15px;
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 36px;
+	color: #91AA9D;
+	}
+#status_textarea {
+	display: block;
+	float: left;
+	width: 463px;
+	height: 35px;
+	padding: 5px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #193441;
+	border: 0;
+	}
+#status_submit {
+	display: block;
+	float: left;
+	margin: 1px 0 0 4px;
+	width: 63px;
+	height: 45px;
+	background-color: #C15D42;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 14px;
+	color: #FCFFF5;
+	cursor: pointer;
+	border: 0;
+	}
+#status_submit:hover {
+	background-color: #904632;
+	}
+	
+/* ----- Subscribe Form ----- */
+#subscribe .button, #unsubscribe .button, #remotesubscribe .button {
+	margin: 0;
+	width: 96px;
+	height: 27px;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 10px;
+	text-transform: uppercase;
+	background-color: #c15d42;
+	color: #fcfff5;
+	border: 0;
+	}	
+#subscribe .button:hover, #unsubscribe .button:hover {
+	background-color: #904632;
+	cursor: pointer;
+	}
+input#profile_url {
+	width: 88px;
+	padding: 3px;
+	margin: 0 0 10px 0;
+	}
+/* ----- Login Form -----*/	
+input#license {
+	width: auto;
+	}
+	
+/* ===== End Forms Styling ===== */
+		
