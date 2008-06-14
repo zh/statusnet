@@ -32,16 +32,20 @@ class StreamAction extends Action {
 		$nickname = $this->trimmed('nickname');
 		
 		common_element_start('ul', array('id' => 'nav_views'));
+		common_menu_item(common_local_url('public'),
+						 _t('Public'),
+						 _t('Public stream'),
+						 $action == 'public');
+		common_menu_item(common_local_url('all', array('nickname' =>
+													   $nickname)),
+						 _t('Personal'),
+						 (($user->fullname) ? $user->fullname : $nickname) . _t(' and friends'),
+						 $action == 'all');
 		common_menu_item(common_local_url('showstream', array('nickname' =>
 															  $nickname)),
 						 _t('Profile'),  
 						 ($user->fullname) ? $user->fullname : $nickname,
 						 $action == 'showstream');
-		common_menu_item(common_local_url('all', array('nickname' =>
-													   $nickname)),
-						 _t('All'),
-						 _t('All'),
-						 $action == 'all');
 		common_element_end('ul');
 	}
 	

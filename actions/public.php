@@ -28,7 +28,9 @@ class PublicAction extends StreamAction {
 
 		$page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 
-		common_show_header(_t('Public timeline'), array($this, 'show_header'));
+		common_show_header(_t('Public timeline'), 
+						   array($this, 'show_header'), NULL,  
+						   array($this, 'show_top'));
 
 		# XXX: Public sidebar here?
 
@@ -37,6 +39,15 @@ class PublicAction extends StreamAction {
 		common_show_footer();
 	}
 
+	function show_top($user) {
+
+		if (common_logged_in()) {
+			common_notice_form();
+		}
+		
+		$this->views_menu();
+	}
+	
 	function show_header() {
 		common_element('link', array('rel' => 'alternate',
 									 'href' => common_local_url('publicrss'),
