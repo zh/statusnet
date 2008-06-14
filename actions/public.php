@@ -39,7 +39,7 @@ class PublicAction extends StreamAction {
 		common_show_footer();
 	}
 
-	function show_top($user) {
+	function show_top() {
 
 		if (common_logged_in()) {
 			common_notice_form();
