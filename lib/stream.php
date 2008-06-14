@@ -28,23 +28,26 @@ class StreamAction extends Action {
 	}
 
 	function views_menu() {
+		
+		$user = NULL;
 		$action = $this->trimmed('action');
 		$nickname = $this->trimmed('nickname');
+
+		if ($nickname) {
+			$user = User::staticGet('nickname', $nickname);
+		}
 		
 		common_element_start('ul', array('id' => 'nav_views'));
-		common_menu_item(common_local_url('public'),
-						 _t('Public'),
-						 _t('Public stream'),
-						 $action == 'public');
+		
 		common_menu_item(common_local_url('all', array('nickname' =>
 													   $nickname)),
 						 _t('Personal'),
-						 (($user->fullname) ? $user->fullname : $nickname) . _t(' and friends'),
+						 (($user && $user->fullname) ? $user->fullname : $nickname) . _t(' and friends'),
 						 $action == 'all');
 		common_menu_item(common_local_url('showstream', array('nickname' =>
 															  $nickname)),
 						 _t('Profile'),  
-						 ($user->fullname) ? $user->fullname : $nickname,
+						 ($user && $user->fullname) ? $user->fullname : $nickname,
 						 $action == 'showstream');
 		common_element_end('ul');
 	}

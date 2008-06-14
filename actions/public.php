@@ -40,12 +40,9 @@ class PublicAction extends StreamAction {
 	}
 
 	function show_top() {
-
 		if (common_logged_in()) {
 			common_notice_form();
 		}
-		
-		$this->views_menu();
 	}
 	
 	function show_header() {
