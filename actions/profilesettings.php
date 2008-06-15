@@ -112,7 +112,9 @@ class ProfilesettingsAction extends SettingsAction {
 		$user->nickname = $nickname;
 		$user->email = $email;
 
-		if (!$user->update($original)) {
+		common_debug('Updating, nickname ="'.$user->nickname.'" and email ="'.$user->email.'"');
+		
+		if (FALSE === $user->update($original)) {
 			common_server_error(_t('Couldnt update user.'));
 			return;
 		}
