@@ -51,7 +51,7 @@ function mail_notify_from() {
 	if ($config['mail']['notifyfrom']) {
 		return $config['mail']['notifyfrom'];
 	} else {
-		return 'Do Not Reply <nobody@'.$config['site']['server'].'>';
+		return $config['site']['name'] . ' <noreply@'.$config['site']['server'].'>';
 	}
 }
  
