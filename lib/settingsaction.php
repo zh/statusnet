@@ -64,6 +64,20 @@ class SettingsAction extends Action {
 						 _t('Password'), 
 						 _t('Change your password'),
 						 $action == 'password');
+		if (false) {
+			common_menu_item(common_local_url('emailsettings'),
+							 _t('Email'),
+							 _t('Address and preferences'),
+							 $action == 'emailsettings');
+			common_menu_item(common_local_url('imsettings'),
+							 _t('IM'), 
+							 _t('Notifications by instant messenger'),
+							 $action == 'imsettings');
+			common_menu_item(common_local_url('phonesettings'),
+							 _t('Phone'), 
+							 _t('Notifications by phone'),
+							 $action == 'phonesettings');
+		}
 		common_element_end('ul');
 	}
 }

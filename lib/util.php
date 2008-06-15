@@ -509,7 +509,11 @@ function common_local_url($action, $args=NULL) {
 function common_fancy_url($action, $args=NULL) {
 	switch (strtolower($action)) {
 	 case 'public':
-		return common_path('');
+		if ($args && $args['page']) {
+			return common_path('?page=' . $args['page']);
+		} else {
+			return common_path('');
+		}
 	 case 'publicrss':
 		return common_path('rss');
 	 case 'doc':
@@ -529,18 +533,27 @@ function common_fancy_url($action, $args=NULL) {
 		return common_path('notice/new');
 	 case 'shownotice':
 		return common_path('notice/'.$args['notice']);
-	 case 'subscriptions':
-	 case 'subscribed':
 	 case 'xrds':		
-	 case 'all':
 	 case 'foaf':
 		return common_path($args['nickname'].'/'.$action);
+	 case 'subscriptions':
+	 case 'subscribed':
+	 case 'all':
+		if ($args && $args['page']) {
+			return common_path($args['nickname'].'/'.$action.'?page=' . $args['page']);
+		} else {
+			return common_path($args['nickname'].'/'.$action);
+		}
 	 case 'allrss':
 		return common_path($args['nickname'].'/all/rss');
 	 case 'userrss':
 		return common_path($args['nickname'].'/rss');
 	 case 'showstream':
-		return common_path($args['nickname']);
+		if ($args && $args['page']) {
+			return common_path($args['nickname'].'?page=' . $args['page']);
+		} else {
+			return common_path($args['nickname']);
+		}
 	 default:
 		return common_simple_url($action, $args);
 	}
