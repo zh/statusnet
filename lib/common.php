@@ -51,7 +51,11 @@ $config =
 		'license' =>
 		array('url' => 'http://creativecommons.org/licenses/by/3.0/',
 			  'title' => 'Creative Commons Attribution 3.0',
-			  'image' => 'http://i.creativecommons.org/l/by/3.0/88x31.png'));
+			  'image' => 'http://i.creativecommons.org/l/by/3.0/88x31.png'),
+		'mail' =>
+		array('backend' => 'mail',
+			  'params' => NULL)
+		);
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
 
@@ -68,6 +72,7 @@ require_once(INSTALLDIR.'/config.php');
 require_once(INSTALLDIR.'/lib/util.php');
 require_once(INSTALLDIR.'/lib/action.php');
 require_once(INSTALLDIR.'/lib/theme.php');
+require_once(INSTALLDIR.'/lib/mail.php');
 
 require_once(INSTALLDIR.'/classes/Avatar.php');
 require_once(INSTALLDIR.'/classes/Notice.php');

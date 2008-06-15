@@ -55,7 +55,44 @@ class SubscribeAction extends Action {
 			return;
 		}
 
+		$this->notify($other, $user);
+
 		common_redirect(common_local_url('subscriptions', array('nickname' =>
 																$user->nickname)));
+	}
+	
+	function notify($listenee, $listener) {
+		# XXX: add other notifications (Jabber, SMS) here
+		# XXX: queue this and handle it offline
+		$this->notify_email($listenee, $listener);
+	}
+	
+	function notify_email($listenee, $listener) {
+		if ($listenee->email) {
+			global $config;
+			$profile = $listenee->getProfile();
+			$other = $listener->getProfile();
+			$name = $profile->getBestName();
+			$other_name = $other->getBestName();
+			$recipients = $listenee->email;
+			$headers['From'] = mail_notify_from();
+			$headers['To'] = $name . ' <' . $listenee->email . '>';
+			$headers['Subject'] = $other_name . _t(' is now listening to your notices on ') . $config['site']['name'];
+
+			$body = 
+			  ($other->fullname) ? 
+			  ($other->fullname . ' (' . $other->nickname . ')') : $other->nickname;
+
+			$body .= _t(' is now listening to your notices on ') . $config['site']['name'] . '.';
+			$body .= "\n\n";
+			$body .= "\t".$other->profileurl;
+			$body .= "\n\n";
+			$body .= _t('Faithfully yours, ');
+			$body .= "\n";
+			$body .= $config['site']['name'];
+			$body .= "\n";
+
+			mail_send($recipients, $headers, $body);
+		}
 	}
 }

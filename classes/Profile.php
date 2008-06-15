@@ -133,4 +133,8 @@ class Profile extends DB_DataObject
 		}
 		return true;
 	}
+	
+	function getBestName() {
+		return ($this->fullname) ? $this->fullname : $this->nickname;
+	}
 }
