@@ -113,27 +113,26 @@ class ShowstreamAction extends StreamAction {
 	function show_personal($profile) {
 
 		$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
-		if ($avatar) {
-			common_element_start('div', array('id' => 'profile_avatar'));
-			common_element('img', array('src' => $avatar->url,
-										'class' => 'avatar profile',
-										'width' => AVATAR_PROFILE_SIZE,
-										'height' => AVATAR_PROFILE_SIZE,
-										'alt' => $profile->nickname));
-			$cur = common_current_user();
-			if ($cur) {
-				if ($cur->id != $profile->id) {
-					if ($cur->isSubscribed($profile)) {
-						$this->show_unsubscribe_form($profile);
-					} else {
-						$this->show_subscribe_form($profile);
-					}
+		common_element_start('div', array('id' => 'profile_avatar'));
+		common_element('img', array('src' => ($avatar) ? $avatar->url : common_default_avatar(AVATAR_PROFILE_SIZE),
+									'class' => 'avatar profile',
+									'width' => AVATAR_PROFILE_SIZE,
+									'height' => AVATAR_PROFILE_SIZE,
+									'alt' => $profile->nickname));
+		$cur = common_current_user();
+		if ($cur) {
+			if ($cur->id != $profile->id) {
+				if ($cur->isSubscribed($profile)) {
+					$this->show_unsubscribe_form($profile);
+				} else {
+					$this->show_subscribe_form($profile);
 				}
-			} else {
-				$this->show_remote_subscribe_form($profile);
 			}
-			common_element_end('div');
+		} else {
+			$this->show_remote_subscribe_form($profile);
 		}
+		common_element_end('div');
+
 		common_element_start('div', array('id' => 'profile_information'));
 		
 		if ($profile->fullname) {
