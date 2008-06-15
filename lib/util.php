@@ -760,7 +760,7 @@ function common_pagination($have_before, $have_after, $page, $action, $args=NULL
 										 
 		common_element_start('li', 'before');
 		common_element('a', array('href' => common_local_url($action, $newargs)),
-					   _t('« Before'));
+					   _t('« After'));
 		common_element_end('li');
 	}
 
@@ -769,7 +769,7 @@ function common_pagination($have_before, $have_after, $page, $action, $args=NULL
 		$newargs = ($args) ? array_merge($args,$pargs) : $pargs;
 		common_element_start('li', 'after');
 		common_element('a', array('href' => common_local_url($action, $newargs)),
-						   _t('After »'));
+						   _t('Before »'));
 		common_element_end('li');
 	}
 	

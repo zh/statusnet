@@ -1,7 +1,7 @@
 RewriteEngine On
 
-RewriteRule ^$ index.php?action=public [L]
-RewriteRule ^rss$ index.php?action=publicrss [L]
+RewriteRule ^$ index.php?action=public [L,QSA]
+RewriteRule ^rss$ index.php?action=publicrss [L,QSA]
 
 RewriteRule ^doc/about$ index.php?action=doc&title=about [L,QSA]
 RewriteRule ^doc/help$ index.php?action=doc&title=help [L,QSA]
