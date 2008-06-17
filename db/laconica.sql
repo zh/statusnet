@@ -113,3 +113,31 @@ create table nonce (
     constraint primary key (consumer_key, tok, nonce),
     constraint foreign key (consumer_key, tok) references token (consumer_key, tok)
 );
+
+/* One-to-many relationship of user to openid_url */
+
+create table user_openid (
+    url varchar(255) primary key comment 'OpenID URL',
+    user_id integer not null unique key comment 'user owning this URL' references user (id),
+    created datetime not null comment 'date this record was created',
+    modified timestamp comment 'date this record was modified'
+);
+
+/* These are used by JanRain OpenID library */
+
+create table oid_associations (
+    server_url BLOB,
+    handle VARCHAR(255),
+    secret BLOB,
+    issued INTEGER,
+    lifetime INTEGER,
+    assoc_type VARCHAR(64),
+    PRIMARY KEY (server_url(255), handle)
+);
+
+create table oid_nonces (
+    server_url VARCHAR(2047),
+    timestamp INTEGER,
+    salt CHAR(40),
+    UNIQUE (server_url(255), timestamp, salt)
+);
