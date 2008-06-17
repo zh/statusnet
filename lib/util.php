@@ -168,7 +168,7 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 	}
 	
 	common_element('script', array('type' => 'text/javascript',
-								   'src' => common_path('js/jsquery.min.js')),
+								   'src' => common_path('js/jquery.min.js')),
 				   ' ');
 						 
 	if ($callable) {
