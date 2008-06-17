@@ -35,6 +35,6 @@ function oid_store() {
 
 function oid_consumer() {
 	$store = oid_store();
-	$consumer = Auth_OpenID_Consumer($store);
+	$consumer = new Auth_OpenID_Consumer($store);
 	return $consumer;
 }
