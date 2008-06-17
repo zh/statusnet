@@ -166,6 +166,11 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 							  'href="'.theme_path('ie'.$ver.'.css').' /><![endif]');
 		}
 	}
+	
+	common_element('script', array('type' => 'text/javascript',
+								   'src' => common_path('js/jsquery.min.js')),
+				   ' ');
+						 
 	if ($callable) {
 		if ($data) {
 			call_user_func($callable, $data);
