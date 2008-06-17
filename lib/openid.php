@@ -28,7 +28,7 @@ function oid_store() {
 		# Can't be called statically
 		$user = new User();
 		$conn = $user->getDatabaseConnection();
-		$store = new Auth_OpenID_SQLStore($conn);
+		$store = new Auth_OpenID_MySQLStore($conn);
 	}
 	return $store;
 }
