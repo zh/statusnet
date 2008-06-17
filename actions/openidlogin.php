@@ -113,7 +113,12 @@ class OpenidloginAction extends Action {
 			$form_id = 'openid_message';
 			$form_html = $auth_request->formMarkup($trust_root, $process_url,
 												   false, array('id' => $form_id));
-
+			
+			# XXX: This is cheap, but things choke if we don't escape ampersands
+			# in the HTML attributes
+			
+			$form_html = preg_replace('/&/', '&amp;', $form_html);
+			
 			// Display an error if the form markup couldn't be generated;
 			// otherwise, render the HTML.
 			if (Auth_OpenID::isFailure($form_html)) {
