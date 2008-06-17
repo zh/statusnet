@@ -19,7 +19,9 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
+require_once('Auth/OpenID.php');
 require_once('Auth/OpenID/Consumer.php');
+require_once('Auth/OpenID/SReg.php');
 require_once('Auth/OpenID/MySQLStore.php');
 
 function oid_store() {
