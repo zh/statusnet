@@ -133,7 +133,7 @@ class OpenidloginAction extends Action {
 				common_element('script', NULL,
 							   '$(document).ready(function() { ' .
 							   '    $("#'. $form_id .'").submit(); '.
-							   '}');
+							   '});');
 				common_show_footer();
 			}
 		}
