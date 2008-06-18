@@ -50,12 +50,16 @@ function oid_link_user($id, $canonical, $display) {
 	$oid->canonical = $canonical;
 	$oid->display = $display;
 	$oid->created = DB_DataObject_Cast::dateTime();
-		
+
+    common_debug('oid = '.print_r($oid, TRUE), __FILE__);
+	
 	if (!$oid->insert()) {
 		$err = PEAR::getStaticProperty('DB_DataObject','lastError');
 		common_debug('DB error ' . $err->code . ': ' . $err->message, __FILE__);
 		return false;
 	}
+
+    common_debug('oid = '.print_r($oid, TRUE), __FILE__);
 	
 	return true;
 }
