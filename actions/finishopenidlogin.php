@@ -28,9 +28,9 @@ class FinishopenidloginAction extends Action {
 		if (common_logged_in()) {
 			common_user_error(_t('Already logged in.'));
 		} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-			if ($this->boolean('create')) {
+			if ($this->arg('create')) {
 				$this->create_new_user();
-			} else if ($this->boolean('connect')) {
+			} else if ($this->arg('connect')) {
 				$this->connect_user();
 			} else {
 				common_debug(print_r($this->args, true), __FILE__);
