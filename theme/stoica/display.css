@@ -1,4 +1,5 @@
 /* CSS Document */
+/* Design & CSS by Marie-Claude Doyon */
 
 html {
 	background-color: #d8e2d7;
@@ -36,24 +37,37 @@ h1 {
 	padding: 0 20px;
 	width: 760px;
 	background: url(bg-header.gif) repeat-x #FCFFF5;
+	
 	}			
 #header {
 	position: relative;
 	margin: 0 auto;
 	width: 540px;
-	height: 170px;
+	height: 216px;
 	/*border: 1px solid #FF0;*/
+	/*background-color: #193441;*/
 	}
 #logo {
 	margin-top: 9px;
 	}		
 
 #header h1.pagetitle {
-	display: none;
+	/*display: none;*/
+	margin: 0;
+	padding: 0;
+	/*font-family: Georgia, "Times New Roman", Times, serif;*/
+	font-size: 15px;
+/*	font-weight: normal;
+	font-style: italic;*/
+	line-height: 24px;
+	color: #FCFFF5;
 }
 
 #header h2.sitename {
 	display: none;
+	margin: 0;
+	padding: 0;
+	color: #FCFFF5;
 }
 	
 /* ===== Begin Navigation Styling ===== */
@@ -162,15 +176,21 @@ h1 {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	}	
-.instructions, .success {
-	margin: 0 0 36px 0;
+.instructions, .success, .error {
+	position: relative;
+	top: -130px;
 	font-weight: normal;
+	margin: -36px 0 0 0;
 	padding: 10px;
 	border: 1px solid #91AA9D;
-	
-}		
-
-
+	color: #FCFFF5;
+	}		
+.success {
+	background-color: #48705b;
+	}	
+.error {
+	background-color: #ce3728;
+	}
 			
 
 	
@@ -276,7 +296,7 @@ dl.statistics {
 	list-style-type: none;
 	width: 270px;
 	}	
-#subscriptions_avatars li {
+#subscriptions_avatars li .avatar.mini {
 	float: left;
 	margin: 0 3px 3px 0;
 	padding: 0;
@@ -379,7 +399,7 @@ p.time a {
 	}	
 #cc {
 	float: left;
-	margin: 12px 10px 0 0;
+	margin: 3px 10px 0 0;
 	}
 
 /* ===== Begin Forms Styling ===== */
@@ -440,19 +460,21 @@ textarea {
 	
 /* ----- Status Form ----- */
 #status_form {
-	height: 106px;
+	height: 96px;
+	/*background-color: #F00;*/
 	}
 #status_form p {
-	margin: 0;
+	margin: 36px 0 0 0;
 	padding: 0;
 	}	
 #status_label {
 	display: block;
 	clear: both;
-	padding-top: 15px;
+	margin: 0;
+	padding: 0 0 3px 0;
 	font-size: 18px;
 	font-weight: bold;
-	line-height: 36px;
+	line-height: 24px;
 	color: #91AA9D;
 	}
 #status_textarea {
@@ -510,6 +532,10 @@ input#profile_url {
 input#license {
 	width: auto;
 	}
+/* ----- Avatar Form -----*/
+form {
+	clear: left;
+}
 	
 /* ===== End Forms Styling ===== */
 		
