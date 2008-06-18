@@ -366,8 +366,8 @@ function common_textarea($id, $label, $content=NULL, $instructions=NULL) {
 
 # salted, hashed passwords are stored in the DB
 
-function common_munge_password($id, $password) {
-	return md5($id . $password);
+function common_munge_password($password, $id) {
+	return md5($password . $id);
 }
 
 # check if a username exists and has matching password
