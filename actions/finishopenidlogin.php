@@ -264,15 +264,8 @@ class FinishopenidloginAction extends Action {
 			$profile->delete();
 		}
 
-		$oid = new User_openid();
-		$oid->display = $display;
-		$oid->canonical = $canonical;
-		$oid->user_id = $id;
-		$oid->created = DB_DataObject_Cast::dateTime();
 		
-		$result = $oid->insert();
-
-		if (!$result) {
+		if (!oid_link_user($user->id, $canonical, $display) {
 			# Try to clean up...
 			$user->delete();
 			$profile->delete();
@@ -303,14 +296,10 @@ class FinishopenidloginAction extends Action {
 			return;
 		}
 		
-		$oid = new User_openid();
-		$oid->display = $display;
-		$oid->canonical = $canonical;
-		$oid->user_id = $user->id;
-		$oid->created = DB_DataObject_Cast::dateTime();
+		$result = oid_link_user($user->id, $canonical, $display);
 		
-		if (!$oid->insert()) {
-			common_server_error(_t('Error connecting OpenID.'));
+		if (!$result) {
+			common_server_error(_t('Error connecting user to OpenID.'));
 			return;
 		}
 		

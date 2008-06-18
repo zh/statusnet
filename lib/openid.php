@@ -42,3 +42,20 @@ function oid_consumer() {
 	$consumer = new Auth_OpenID_Consumer($store);
 	return $consumer;
 }
+
+function oid_link_user($id, $canonical, $display) {
+	
+	$oid = new User_openid();
+	$oid->user_id = $id;
+	$oid->canonical = $canonical;
+	$oid->display = $display;
+	$oid->created = DB_DataObject_Cast::dateTime();
+		
+	if (!$oid->insert()) {
+		$err = PEAR::getStaticProperty('DB_DataObject','lastError');
+		common_debug('DB error ' . $err->code . ': ' . $err->message, __FILE__);
+		return false;
+	}
+	
+	return true;
+}

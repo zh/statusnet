@@ -64,7 +64,8 @@ class FinishaddopenidAction extends Action {
 				$this->message(_t('This OpenID is already associated with user "') . $user->nickname . _t('"'));
 			} else {
 				$cur = common_current_user();
-				if (!$this->connect_user($cur, $display, $canonical)) {
+				$result = oid_link_user($cur->id, $display, $canonical);
+				if (!$result) {
 					$this->message(_t('Error connecting user'));
 					return;
 				}
@@ -134,26 +135,6 @@ class FinishaddopenidAction extends Action {
 			return false;
 		}
 		
-		return true;
-	}
-
-	function connect_user($user, $display, $canonical) {
-
-		$id = $user->id;
-		
-		$oid = new User_openid();
-		$oid->display = $display;
-		$oid->canonical = $canonical;
-		$oid->user_id = $id;
-		$oid->created = DB_DataObject_Cast::dateTime();
-		
-		$result = $oid->insert();
-		
-		if (!$result) {
-			$err = PEAR::getStaticProperty('DB_DataObject','lastError');
-			common_debug('DB error ' . $err->code . ': ' . $err->message, __FILE__);
-			return false;
-		}
 		return true;
 	}
 }
