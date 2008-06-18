@@ -193,7 +193,10 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 									'id' => 'logo'));
 		common_element_end('a');
 	} else {
-		common_element('p', array('id' => 'branding'), $config['site']['name']);
+		common_element_start('p', array('id' => 'branding'));
+		common_element('a', array('href' => common_local_url('public')),
+					   $config['site']['name']);
+		common_element_end('p');
 	}
 	
 	common_element('h1', 'pagetitle', $pagetitle);
