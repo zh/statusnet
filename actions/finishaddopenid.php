@@ -58,6 +58,10 @@ class FinishaddopenidAction extends Action {
 				$sreg = $sreg_resp->contents();
 			}
 
+			common_debug(print_r($sreg, TRUE), __FILE__);
+			common_debug(print_r($display, TRUE), __FILE__);
+			common_debug(print_r($canonical, TRUE), __FILE__);
+			
 			$other =& $this->get_user($canonical);
 
 			if ($other) {
