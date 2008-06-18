@@ -346,11 +346,11 @@ function common_submit($id, $label) {
 function common_textarea($id, $label, $content=NULL, $instructions=NULL) {
 	common_element_start('p');
 	common_element('label', array('for' => $id), $label);
-	common_element_start('textarea', array('rows' => 3,
-										   'cols' => 40,
-										   'name' => $id,
-										   'id' => $id));
-	common_element_end('textarea');
+	common_element('textarea', array('rows' => 3,
+									 'cols' => 40,
+									 'name' => $id,
+									 'id' => $id),
+				   ($content) ? $content : ' ');
 	if ($instructions) {
 		common_element('span', 'input_instructions', $instructions);
 	}
@@ -646,9 +646,9 @@ function common_notice_form() {
 	common_element('label', array('for' => 'status_update',
 								  'id' => 'status_label'),
 				   _t('What\'s up, ').$user->nickname.'?');
-	common_element_start('textarea', array('id' => 'status_textarea',
-										   'name' => 'status_textarea'));
-	common_element_end('textarea');
+	common_element('textarea', array('id' => 'status_textarea',
+									 'name' => 'status_textarea'),
+				   ' ');
 	common_element('input', array('id' => 'status_submit',
 								  'name' => 'status_submit',
 								  'type' => 'submit',
