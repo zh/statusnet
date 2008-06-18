@@ -12,7 +12,7 @@ class User_openid extends DB_DataObject
     public $__table = 'user_openid';                     // table name
     public $canonical;                       // varchar(255)  primary_key not_null
     public $display;                         // varchar(255)  unique_key not_null
-    public $user_id;                         // int(4)  unique_key not_null
+    public $user_id;                         // int(4)   not_null
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
