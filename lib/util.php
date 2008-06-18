@@ -615,7 +615,12 @@ function common_redirect($url, $code=307) {
 						   307 => "Temporary Redirect");
 	header("Status: ${code} $status[$code]");
 	header("Location: $url");
+	
+	common_start_xml('a',
+					 '-//W3C//DTD XHTML 1.0 Strict//EN',
+					 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd');
 	common_element('a', array('href' => $url), $url);
+	common_end_xml();
 }
 
 function common_broadcast_notice($notice, $remote=false) {
