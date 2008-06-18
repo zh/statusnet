@@ -44,8 +44,17 @@ class OpenidsettingsAction extends SettingsAction {
 		common_element('p', NULL,
 					   _t('If you want to add an OpenID to your account, ' .
 						  'enter it in the box below and click "Add".'));
-		common_input('openid_url', _t('OpenID URL'));
-		common_submit('add', _t('Add'));
+		common_element_start('p');
+		common_element('label', array('for' => 'openid_url'),
+					   _t('OpenID URL'));
+		common_element('input', array('name' => 'openid_url',
+									  'type' => 'text',
+									  'id' => 'openid_url'));
+		common_element('input', array('type' => 'submit',
+									  'id' => 'add',
+									  'name' => 'add',
+									  'value' => _t('Add')));
+		common_element_end('p');
 		common_element_end('form');
 
 		$oid = new User_openid();
@@ -60,17 +69,23 @@ class OpenidsettingsAction extends SettingsAction {
 			$idx = 0;
 			
 			while ($oid->fetch()) {
-				common_element_start('p');
 				common_element_start('form', array('method' => 'POST',
-												   'id' => 'openiddelete-' . $idx,
+												   'id' => 'openiddelete' . $idx,
 												   'action' =>
 												   common_local_url('openidsettings')));
+				common_element_start('p');
 				common_element('a', array('href' => $oid->canonical),
 							   $oid->display);
-				common_hidden('openid_url', $oid->canonical);
-				common_submit('remove', _t('Remove'));
-				common_element_end('form');
+				common_element('input', array('type' => 'hidden',
+											  'id' => 'openid_url'.$idx,
+											  'name' => 'openid_url',
+											  'value' => $oid->canonical));
+				common_element('input', array('type' => 'submit',
+											  'id' => 'remove'.$idx,
+											  'name' => 'remove',
+											  'value' => _t('Add')));
 				common_element_end('p');
+				common_element_end('form');
 				$idx++;
 			}
 		}
