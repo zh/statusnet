@@ -266,6 +266,7 @@ function common_nav_menu() {
 	} else {
 		common_menu_item(common_local_url('login'), _t('Login'));
 		common_menu_item(common_local_url('register'), _t('Register'));
+		common_menu_item(common_local_url('openidlogin'), _t('OpenID'));
 	}
 	common_element_end('ul');
 }
@@ -529,6 +530,8 @@ function common_fancy_url($action, $args=NULL) {
 	 case 'subscribe':
 	 case 'unsubscribe':
 		return common_path('main/'.$action);
+	 case 'openidlogin':
+		return common_path('main/openid');
 	 case 'avatar':
 	 case 'password':
 		return common_path('settings/'.$action);

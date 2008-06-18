@@ -83,7 +83,7 @@ class OpenidsettingsAction extends SettingsAction {
 				common_element('input', array('type' => 'submit',
 											  'id' => 'remove'.$idx,
 											  'name' => 'remove',
-											  'value' => _t('Add')));
+											  'value' => _t('Remove')));
 				common_element_end('p');
 				common_element_end('form');
 				$idx++;
