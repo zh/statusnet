@@ -530,6 +530,8 @@ function common_fancy_url($action, $args=NULL) {
 		}
 	 case 'publicrss':
 		return common_path('rss');
+	 case 'publicxrds':
+		return common_path('xrds');
 	 case 'doc':
 		return common_path('doc/'.$args['title']);
 	 case 'login':

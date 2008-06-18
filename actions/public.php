@@ -28,6 +28,8 @@ class PublicAction extends StreamAction {
 
 		$page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 
+		header('X-XRDS-Location: '. common_local_url('publicxrds'));
+		
 		common_show_header(_t('Public timeline'), 
 						   array($this, 'show_header'), NULL,  
 						   array($this, 'show_top'));
@@ -50,6 +52,9 @@ class PublicAction extends StreamAction {
 									 'href' => common_local_url('publicrss'),
 									 'type' => 'application/rss+xml',
 									 'title' => _t('Public Stream Feed')));
+		# for client side of OpenID authentication
+		common_element('meta', array('http-equiv' => 'X-XRDS-Location',
+									 'content' => common_local_url('publicxrds')));
 	}
 	
 	function show_notices($page) {
