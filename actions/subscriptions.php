@@ -72,9 +72,6 @@ class SubscriptionsAction extends Action {
 		while ($subs->fetch()) {
 			
 			$idx++;
-			if ($idx % SUBSCRIPTIONS_PER_ROW == 1) {
-				common_element_start('div', 'row');
-			}
 
 			$other = Profile::staticGet($subs->subscribed);
 			
@@ -98,32 +95,14 @@ class SubscriptionsAction extends Action {
 
 			# XXX: subscribe form here
 
-			if ($idx % SUBSCRIPTIONS_PER_ROW == 0) {
-				common_element_end('div');
-			}
-
 			if ($idx == SUBSCRIPTIONS_PER_PAGE) {
 				break;
 			}
 		}
 
-		if ($page > 1) {
-			common_element('a', array('href' =>
-									  common_local_url('subscriptions',
-													   array('nickname' => $profile->nickname,
-															 'page' => $page - 1)),
-									  'class' => 'prev'),
-					   _t('Previous'));
-		}
-
-		if ($subs_count > SUBSCRIPTIONS_PER_PAGE) {
-			common_element('a', array('href' =>
-									  common_local_url('subscriptions',
-													   array('nickname' => $profile->nickname,
-															 'page' => $page + 1)),
-									  'class' => 'next'),
-					   _t('Next'));
-		}
 		common_element_end('div');
+		
+		common_pagination($page > 1, $subs_count > SUBSCRIPTIONS_PER_PAGE,
+						  $page, 'subscriptions', array('nickname' => $profile->nickname));
 	}
 }
