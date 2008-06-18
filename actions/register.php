@@ -115,16 +115,19 @@ class RegisterAction extends Action {
 		return $result;
 	}
 
+	function show_top($error=NULL) {
+		if ($error) {
+			common_element('p', 'error', $error);
+		} else {
+			common_element('p', 'instructions', 
+						   _t('You can create a new account to start posting notices.'));
+		}
+	}
+	
 	function show_form($error=NULL) {
 		global $config;
 
-		common_show_header(_t('Register'));
-		if ($error) {
-			common_element('div', 'error', $error);
-		} else {
-			common_element('div', 'instructions', 
-						   _t('You can create a new account to start posting notices. '));
-		}
+		common_show_header(_t('Register'), NULL, $error, array($this, 'show_top'));
 		common_element_start('form', array('method' => 'POST',
 										   'id' => 'login',
 										   'action' => common_local_url('register')));

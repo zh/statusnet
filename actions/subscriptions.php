@@ -38,11 +38,20 @@ class SubscriptionsAction extends Action {
 			$this->no_such_user();
 		}
 		$page = $this->arg('page') || 1;
-		common_show_header($profile->nickname . ": " . _t('Subscriptions'));
+		common_show_header($profile->nickname . ": " . _t('Subscriptions'),
+						   NULL, $profile,
+						   array($this, 'show_top'));
 		$this->show_subscriptions($profile, $page);
 		common_show_footer();
 	}
 
+	function show_top($profile) {
+		$user = common_current_user();
+		common_element('p', 'instructions',
+					   _t('These are the people whose notices ') .
+					   (($user && ($user->id == $profile->id)) ? _t('you listen to.') : ($profile->nickname . _t(' listens to.'))));
+	}
+	
 	function show_subscriptions($profile, $page) {
 
 		$subs = DB_DataObject::factory('subscription');

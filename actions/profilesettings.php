@@ -23,18 +23,25 @@ require_once(INSTALLDIR.'/lib/settingsaction.php');
 
 class ProfilesettingsAction extends SettingsAction {
 
-	function show_form($msg=NULL, $success=false) {
-		$user = common_current_user();
-		$profile = $user->getProfile();
-		common_show_header(_t('Profile settings'), NULL, NULL, array($this, 'settings_menu'));
-
+	function show_top($arr) {
+		$msg = $arr[0];
+		$success = $arr[1];
 		if ($msg) {
 			$this->message($msg, $success);
 		} else {
 			common_element('div', 'instructions',
 						   _t('You can update your personal profile info here '.
-							  'so people know more about you. '));
+							  'so people know more about you.'));
 		}
+		$this->settings_menu();
+	}
+	
+	function show_form($msg=NULL, $success=false) {
+		$user = common_current_user();
+		$profile = $user->getProfile();
+		common_show_header(_t('Profile settings'), NULL, array($msg, $success),
+						   array($this, 'show_top'));
+
 		common_element_start('form', array('method' => 'POST',
 										   'id' => 'profilesettings',
 										   'action' =>

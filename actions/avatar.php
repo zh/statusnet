@@ -23,20 +23,25 @@ require_once(INSTALLDIR.'/lib/settingsaction.php');
 
 class AvatarAction extends SettingsAction {
 
-	function show_form($msg=NULL, $success=false) {
-		common_show_header(_t('Avatar'), NULL, NULL, array($this, 'settings_menu'));
+	function show_top($arr) {
+		$msg = $arr[0];
+		$success = $arr[1];
 		if ($msg) {
 			$this->message($msg, $success);
 		} else {
 			common_element('div', 'instructions', 
-						   _t('You can upload a new "avatar" (user picture) here. ' .
-							  'You can\'t edit the picture after you upload it, so you should ' .
-							  'edit it in your desktop image-manipulation software first. ' .
-							  'Everything works best if your picture is more or less square. ' . 
-							  'And remember: your image will be released under the site license, ' .
-							  'So don\'t upload images that don\'t belong to you or that you don\'t ' .
+						   _t('Upload a new "avatar" (user image) here. ' .
+							  'You can\'t edit the picture after you upload it, so ' .
+							  'make sure it\'s more or less square. ' . 
+							  'It must be under the site license, also. ' .
+							  'Use a picture that belongs to you and that you ' .
 							  'want to share.'));
 		}
+		$this->settings_menu();
+	}
+	
+	function show_form($msg=NULL, $success=false) {
+		common_show_header(_t('Avatar'), NULL, array($msg, $success), array($this, 'show_top'));
 
 		$user = common_current_user();
 		$profile = $user->getProfile();

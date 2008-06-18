@@ -60,14 +60,7 @@ class LoginAction extends Action {
 	}
 
 	function show_form($error=NULL) {
-		common_show_header(_t('Login'));
-		if ($error) {
-			common_element('div', array('class' => 'error'), $error);
-		} else {
-			common_element('div', 'instructions', 
-						   _t('Login with your username and password. ' .
-							  'Don\'t have a username yet? Choose register above. '));
-		}
+		common_show_header(_t('Login'), NULL, $error, array($this, 'show_top'));
 		common_element_start('form', array('method' => 'POST',
 										   'id' => 'login',
 										   'action' => common_local_url('login')));
@@ -76,5 +69,15 @@ class LoginAction extends Action {
 		common_submit('submit', _t('Login'));
 		common_element_end('form');
 		common_show_footer();
+	}
+	
+	function show_top($error=NULL) {
+		if ($error) {
+			common_element('p', 'error', $error);
+		} else {
+			common_element('p', 'instructions', 
+						   _t('Login with your username and password. ' .
+							  'Don\'t have a username yet? Choose register above. '));
+		}
 	}
 }

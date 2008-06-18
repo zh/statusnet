@@ -41,9 +41,18 @@ class SubscribedAction extends Action {
 		}
 
 		$page = $this->arg('page') || 1;
-		common_show_header($profile->nickname . ": " . _t('Subscribers'));
+		common_show_header($profile->nickname . ": " . _t('Subscribers'),
+						   NULL, $profile,
+						   array($this, 'show_top'));
 		$this->show_subscribed($profile, $page);
 		common_show_footer();
+	}
+
+	function show_top($profile) {
+		$user = common_current_user();
+		common_element('p', 'instructions',
+					   _t('These are the people who listen to ') .
+					   (($user && ($user->id == $profile->id)) ? _t('your notices.') : ($profile->nickname . _t('\'s notices.'))));
 	}
 
 	function show_subscribed($profile, $page) {
