@@ -278,6 +278,7 @@ class FinishopenidloginAction extends Action {
 			$profile->delete();
 		}
 		
+		common_set_user($user->nickname);
 		common_redirect(common_local_url('profilesettings'));
 	}
 	
@@ -334,9 +335,13 @@ class FinishopenidloginAction extends Action {
 	function best_new_nickname($display, $sreg) {
 		
 		# Try the passed-in nickname
-		
-		if ($sreg['nickname'] && $this->is_new_nickname($sreg['nickname'])) {
-			return $sreg['nickname'];
+
+
+		if ($sreg['nickname']) {
+			$nickname = $this->nicknamize($sreg['nickname']);
+			if ($this->is_new_nickname($nickname)) {
+				return $nickname;
+			}
 		}
 
 		# Try the full name
