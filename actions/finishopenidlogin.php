@@ -33,6 +33,7 @@ class FinishopenidloginAction extends Action {
 			} else if ($this->boolean('connect')) {
 				$this->connect_user();
 			} else {
+				common_debug(print_r($this->args, true), __FILE__);
 				$this->show_form(_t('Something weird happened.'),
 								 $this->trimmed('newname'));
 			}
@@ -66,7 +67,7 @@ class FinishopenidloginAction extends Action {
 					 _t('1-64 lowercase letters or numbers, no punctuation or spaces'));
 		common_submit('create', _t('Create'));
 		common_element('h2', NULL,
-					   'Create new account');
+					   'Connect existing account');
 		common_element('p', NULL,
 					   _t('If you already have an account, login with your username and password '.
 						  'to connect it to your OpenID.'));
