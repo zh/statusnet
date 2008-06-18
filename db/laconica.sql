@@ -12,7 +12,7 @@ create table profile (
     modified timestamp comment 'date this record was modified',
 
     index profile_nickname_idx (nickname)
-);
+) ENGINE=InnoDB;
 
 create table avatar (
     profile_id integer not null comment 'foreign key to profile table' references profile (id),
@@ -27,7 +27,7 @@ create table avatar (
     
     constraint primary key (profile_id, width, height),
     index avatar_profile_id_idx (profile_id)
-);
+) ENGINE=InnoDB;
 
 /* local users */
 
@@ -39,7 +39,7 @@ create table user (
     uri varchar(255) unique key comment 'universally unique identifier, usually a tag URI',
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified'
-);
+) ENGINE=InnoDB;
 
 /* remote people */
 
@@ -50,7 +50,7 @@ create table remote_profile (
     updateprofileurl varchar(255) comment 'URL we use for updates to this profile',
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified'
-);
+) ENGINE=InnoDB;
 
 create table subscription (
     subscriber integer not null comment 'profile listening',
@@ -63,7 +63,7 @@ create table subscription (
     constraint primary key (subscriber, subscribed),
     index subscription_subscriber_idx (subscriber),
     index subscription_subscribed_idx (subscribed)
-);
+) ENGINE=InnoDB;
 
 create table notice (
     id integer auto_increment primary key comment 'unique identifier',
@@ -76,7 +76,7 @@ create table notice (
     modified timestamp comment 'date this record was modified',
 
     index notice_profile_id_idx (profile_id)
-);
+) ENGINE=InnoDB;
 
 /* tables for OAuth */
 
@@ -86,7 +86,7 @@ create table consumer (
     
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified'
-);
+) ENGINE=InnoDB;
 
 create table token (
     consumer_key varchar(255) not null comment 'unique identifier, root URL' references consumer (consumer_key),
@@ -99,7 +99,7 @@ create table token (
     modified timestamp comment 'date this record was modified',
     
     constraint primary key (consumer_key, tok)
-);
+) ENGINE=InnoDB;
 
 create table nonce (
     consumer_key varchar(255) not null comment 'unique identifier, root URL',
@@ -112,16 +112,17 @@ create table nonce (
     
     constraint primary key (consumer_key, tok, nonce),
     constraint foreign key (consumer_key, tok) references token (consumer_key, tok)
-);
+) ENGINE=InnoDB;
 
 /* One-to-many relationship of user to openid_url */
 
 create table user_openid (
-    url varchar(255) primary key comment 'OpenID URL',
+    canonical varchar(255) primary key comment 'Canonical true URL',
+    display varchar(255) not null unique key comment 'URL for viewing, may be different from canonical',
     user_id integer not null unique key comment 'user owning this URL' references user (id),
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified'
-);
+) ENGINE=InnoDB;
 
 /* These are used by JanRain OpenID library */
 
@@ -133,11 +134,11 @@ create table oid_associations (
     lifetime INTEGER,
     assoc_type VARCHAR(64),
     PRIMARY KEY (server_url(255), handle)
-);
+) ENGINE=InnoDB;
 
 create table oid_nonces (
     server_url VARCHAR(2047),
     timestamp INTEGER,
     salt CHAR(40),
     UNIQUE (server_url(255), timestamp, salt)
-);
+) ENGINE=InnoDB;
