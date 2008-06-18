@@ -129,7 +129,7 @@ class OpenidsettingsAction extends SettingsAction {
 			return;
 		}
 		$oid->delete();
-		$this->show_form(_t('OpenID removed.', true));
+		$this->show_form(_t('OpenID removed.'), true);
 		return;
 	}
 }
