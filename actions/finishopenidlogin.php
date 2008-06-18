@@ -264,8 +264,9 @@ class FinishopenidloginAction extends Action {
 			$profile->delete();
 		}
 
+		$result = oid_link_user($user->id, $canonical, $display);
 		
-		if (!oid_link_user($user->id, $canonical, $display) {
+		if (!$result) {
 			# Try to clean up...
 			$user->delete();
 			$profile->delete();
