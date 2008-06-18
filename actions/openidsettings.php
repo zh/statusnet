@@ -65,7 +65,7 @@ class OpenidsettingsAction extends SettingsAction {
 			
 			common_element('h2', NULL, _t('OpenID'));
 			common_element('p', NULL,
-						   _t('You can remove an OpenID from your account ',
+						   _t('You can remove an OpenID from your account '.
 							  'by clicking the button marked "Delete" next to it.'));
 			$idx = 0;
 			

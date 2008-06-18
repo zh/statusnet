@@ -69,9 +69,10 @@ class FinishaddopenidAction extends Action {
 				$this->message(_t('This OpenID is already associated with user "') . $other->nickname . _t('"'));
 			} else {
 				$cur =& common_current_user();
+				common_debug('cur = ' .print_r($cur, TRUE), __FILE__);
 				$result = oid_link_user($cur->id, $display, $canonical);
 				if (!$result) {
-					$this->message(_t('Error connecting user'));
+					$this->message(_t('Error connecting user.'));
 					return;
 				}
 				if ($sreg) {
