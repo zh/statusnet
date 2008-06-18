@@ -95,7 +95,7 @@ function oid_authenticate($openid_url, $returnto) {
 		$auth_request->addExtension($sreg_request);
 	}
 	
-	$trust_root = common_local_url($public);
+	$trust_root = common_local_url('public');
 	$process_url = common_local_url($returnto);
 	
 	if ($auth_request->shouldSendRedirect()) {
