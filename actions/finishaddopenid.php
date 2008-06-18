@@ -34,7 +34,7 @@ class FinishaddopenidAction extends Action {
 
 	function try_login() {
 
-		$consumer = oid_consumer();
+		$consumer =& oid_consumer();
 
 		$response = $consumer->complete(common_local_url('finishaddopenid'));
 
@@ -58,12 +58,12 @@ class FinishaddopenidAction extends Action {
 				$sreg = $sreg_resp->contents();
 			}
 
-			$other = $this->get_user($canonical);
+			$other =& $this->get_user($canonical);
 
 			if ($other) {
 				$this->message(_t('This OpenID is already associated with user "') . $user->nickname . _t('"'));
 			} else {
-				$cur = common_current_user();
+				$cur =& common_current_user();
 				$result = oid_link_user($cur->id, $display, $canonical);
 				if (!$result) {
 					$this->message(_t('Error connecting user'));
@@ -96,9 +96,9 @@ class FinishaddopenidAction extends Action {
 		return $user;
 	}
 
-	function update_user($user, $sreg) {
+	function update_user(&$user, $sreg) {
 
-		$profile = $user->getProfile();
+		$profile =& $user->getProfile();
 
 		$orig_profile = clone($profile);
 
