@@ -186,7 +186,7 @@ class FinishopenidloginAction extends Action {
 					 $_SESSION['openid_sreg']);
 	}
 	
-	function create_new_login() {
+	function create_new_user() {
 		
 		$nickname = $this->trimmed('newname');
 		
