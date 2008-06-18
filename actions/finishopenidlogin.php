@@ -279,7 +279,7 @@ class FinishopenidloginAction extends Action {
 		}
 		
 		common_set_user($user->nickname);
-		common_redirect(common_local_url('profilesettings'));
+		common_redirect(common_local_url('showstream', array('nickname' => $user->nickname));
 	}
 	
 	function connect_user() {
