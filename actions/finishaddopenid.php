@@ -58,18 +58,18 @@ class FinishaddopenidAction extends Action {
 				$sreg = $sreg_resp->contents();
 			}
 
-			$user = $this->get_user($canonical);
+			$other = $this->get_user($canonical);
 
-			if ($user) {
+			if ($other) {
 				$this->message(_t('This OpenID is already associated with user "') . $user->nickname . _t('"'));
 			} else {
-				$user = common_current_user();
-				if (!$this->connect_user($user, $display, $canonical)) {
+				$cur = common_current_user();
+				if (!$this->connect_user($cur, $display, $canonical)) {
 					$this->message(_t('Error connecting user'));
 					return;
 				}
 				if ($sreg) {
-					if (!$this->update_user($user, $sreg)) {
+					if (!$this->update_user($cur, $sreg)) {
 						$this->message(_t('Error updating profile'));
 						return;
 					}
@@ -139,13 +139,17 @@ class FinishaddopenidAction extends Action {
 
 	function connect_user($user, $display, $canonical) {
 
+		$id = $user->id;
+		
 		$oid = new User_openid();
 		$oid->display = $display;
 		$oid->canonical = $canonical;
-		$oid->user_id = $user->id;
+		$oid->user_id = $id;
 		$oid->created = DB_DataObject_Cast::dateTime();
-
-		if (!$oid->insert()) {
+		
+		$result = $oid->insert();
+		
+		if (!$result) {
 			$err = PEAR::getStaticProperty('DB_DataObject','lastError');
 			common_debug('DB error ' . $err->code . ': ' . $err->message, __FILE__);
 			return false;
