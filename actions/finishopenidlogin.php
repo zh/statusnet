@@ -179,8 +179,7 @@ class FinishopenidloginAction extends Action {
 		$_SESSION['openid_sreg'] = $sreg;				
 	}
 
-	function get_saved_values($display, $canonical, $sreg) {
-		common_ensure_session();
+	function get_saved_values() {
 		return array($_SESSION['openid_display'],
 					 $_SESSION['openid_canonical'],
 					 $_SESSION['openid_sreg']);
