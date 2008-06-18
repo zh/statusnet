@@ -119,9 +119,11 @@ create table nonce (
 create table user_openid (
     canonical varchar(255) primary key comment 'Canonical true URL',
     display varchar(255) not null unique key comment 'URL for viewing, may be different from canonical',
-    user_id integer not null unique key comment 'user owning this URL' references user (id),
+    user_id integer not null comment 'user owning this URL' references user (id),
     created datetime not null comment 'date this record was created',
-    modified timestamp comment 'date this record was modified'
+    modified timestamp comment 'date this record was modified',
+    
+    index user_openid_user_id_idx (user_id)
 ) ENGINE=InnoDB;
 
 /* These are used by JanRain OpenID library */
