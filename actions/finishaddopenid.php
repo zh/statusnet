@@ -148,6 +148,8 @@ class FinishaddopenidAction extends Action {
 		common_debug('Saving ' . print_r($oid, TRUE), __FILE__);
 		
 		if (!$oid->insert()) {
+			$err = PEAR::getStaticProperty('DB_DataObject','lastError');
+			common_debug('DB error ' . $err->code . ': ' . $err->message, __FILE__);
 			return false;
 		}
 	}
