@@ -41,7 +41,7 @@ class ShownoticeAction extends StreamAction {
 		# Looks like we're good; show the header
 
 		common_show_header($profile->nickname."'s status on ".common_date_string($notice->created),
-						   NULL, $user,
+						   NULL, $profile,
 						   array($this, 'show_top'));
 
 		common_element_start('ul', array('id' => 'notices'));
