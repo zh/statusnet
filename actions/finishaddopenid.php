@@ -61,7 +61,7 @@ class FinishaddopenidAction extends Action {
 			$other =& $this->get_user($canonical);
 
 			if ($other) {
-				$this->message(_t('This OpenID is already associated with user "') . $user->nickname . _t('"'));
+				$this->message(_t('This OpenID is already associated with user "') . $other->nickname . _t('"'));
 			} else {
 				$cur =& common_current_user();
 				$result = oid_link_user($cur->id, $display, $canonical);
