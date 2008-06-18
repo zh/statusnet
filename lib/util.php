@@ -557,7 +557,7 @@ function common_fancy_url($action, $args=NULL) {
 	 case 'foaf':
 		return common_path($args['nickname'].'/'.$action);
 	 case 'subscriptions':
-	 case 'subscribed':
+	 case 'subscribers':
 	 case 'all':
 		if ($args && $args['page']) {
 			return common_path($args['nickname'].'/'.$action.'?page=' . $args['page']);

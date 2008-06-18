@@ -187,7 +187,7 @@ class FinishremotesubscribeAction extends Action {
 		# If we show subscriptions in reverse chron order, this should
 		# show up close to the top of the page
 		
-		common_redirect(common_local_url('subscribed', array('nickname' =>
+		common_redirect(common_local_url('subscribers', array('nickname' =>
 															 $user->nickname)));
 	}
 	

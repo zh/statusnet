@@ -289,7 +289,7 @@ class ShowstreamAction extends StreamAction {
 		common_element_end('dt');
 		common_element('dd', 'subscriptions', $subs_count);
 		common_element_start('dt', 'subscribers');
-		common_element('a', array('href' => common_local_url('subscribed',
+		common_element('a', array('href' => common_local_url('subscribers',
 															 array('nickname' => $profile->nickname))),
 					   _t('Subscribers'));
 		common_element_end('dt');

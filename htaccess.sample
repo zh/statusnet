@@ -26,7 +26,7 @@ RewriteRule ^notice/new$ index.php?action=newnotice [L,QSA]
 RewriteRule ^notice/(\d+)$ index.php?action=shownotice&notice=$1 [L,QSA]
 
 RewriteRule ^(\w+)/subscriptions$ index.php?action=subscriptions&nickname=$1 [L,QSA]
-RewriteRule ^(\w+)/subscribed$ index.php?action=subscribed&nickname=$1 [L,QSA]
+RewriteRule ^(\w+)/subscribers$ index.php?action=subscribers&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/xrds$ index.php?action=xrds&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/rss$ index.php?action=userrss&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/all$ index.php?action=all&nickname=$1 [L,QSA]
