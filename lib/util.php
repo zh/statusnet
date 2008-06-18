@@ -190,9 +190,11 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 									'alt' => $config['site']['name'],
 									'id' => 'logo'));
 		common_element_end('a');
+	} else {
+		common_element('p', 'branding', $config['site']['name']);
 	}
+	
 	common_element('h1', 'pagetitle', $pagetitle);
-	common_element('h2', 'sitename', $config['site']['name']);
 	
 	if ($headercall) {
 		if ($data) {
