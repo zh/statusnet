@@ -33,7 +33,7 @@ class FinishaddopenidAction extends Action {
 	}
 
 	function try_login() {
-		
+
 		$consumer = oid_consumer();
 
 		$response = $consumer->complete(common_local_url('finishaddopenid'));
@@ -59,15 +59,22 @@ class FinishaddopenidAction extends Action {
 			}
 
 			$user = $this->get_user($canonical);
-			
+
 			if ($user) {
 				$this->message(_t('This OpenID is already associated with user "') . $user->nickname . _t('"'));
 			} else {
 				$user = common_current_user();
-				$this->connect_user($user, $display, $canonical);
-				if ($sreg) {
-					$this->update_user($user, $sreg);
+				if (!$this->connect_user($user, $display, $canonical)) {
+					$this->message(_t('Error connecting user'));
+					return;
 				}
+				if ($sreg) {
+					if (!$this->update_user($user, $sreg)) {
+						$this->message(_t('Error updating profile'));
+						return;
+					}
+				}
+				# success!
 				common_redirect(common_local_url('openidsettings'));
 			}
 		}
@@ -78,7 +85,7 @@ class FinishaddopenidAction extends Action {
 		common_element('p', NULL, $msg);
 		common_show_footer();
 	}
-	
+
 	function get_user($canonical) {
 		$user = NULL;
 		$oid = User_openid::staticGet('canonical', $canonical);
@@ -89,15 +96,15 @@ class FinishaddopenidAction extends Action {
 	}
 
 	function update_user($user, $sreg) {
-		
+
 		$profile = $user->getProfile();
 
 		$orig_profile = clone($profile);
-		
+
 		if ($sreg['fullname'] && strlen($sreg['fullname']) <= 255) {
 			$profile->fullname = $sreg['fullname'];
 		}
-		
+
 		if ($sreg['country']) {
 			if ($sreg['postcode']) {
 				# XXX: use postcode to get city and region
@@ -110,35 +117,36 @@ class FinishaddopenidAction extends Action {
 
 		# XXX save language if it's passed
 		# XXX save timezone if it's passed
-		
+
 		if (!$profile->update($orig_profile)) {
 			common_server_error(_t('Error saving the profile.'));
-			return;
+			return false;
 		}
 
 		$orig_user = clone($user);
-		
+
 		if ($sreg['email'] && Validate::email($sreg['email'], true)) {
 			$user->email = $sreg['email'];
 		}
-		
+
 		if (!$user->update($orig_user)) {
 			common_server_error(_t('Error saving the user.'));
-			return;
+			return false;
 		}
-	}
-	
-	function connect_user($user, $display, $canonical) {
 		
+		return true;
+	}
+
+	function connect_user($user, $display, $canonical) {
+
 		$oid = new User_openid();
 		$oid->display = $display;
 		$oid->canonical = $canonical;
 		$oid->user_id = $user->id;
 		$oid->created = DB_DataObject_Cast::dateTime();
-		
+
 		if (!$oid->insert()) {
-			common_server_error(_t('Error connecting OpenID.'));
-			return;
+			return false;
 		}
 	}
 }
