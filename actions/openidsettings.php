@@ -19,41 +19,95 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
+require_once(INSTALLDIR.'/lib/settingsaction.php');
 require_once(INSTALLDIR.'/lib/openid.php');
 
-class OpenidloginAction extends Action {
+class OpenidsettingsAction extends SettingsAction {
 
-	function handle($args) {
-		parent::handle($args);
-		if (common_logged_in()) {
-			common_user_error(_t('Already logged in.'));
-		} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-			$this->start_openid_login();
-		} else {
-			$this->show_form();
-		}
-	}
+	function show_form($msg=NULL, $success=false) {
+		
+		$user = common_current_user();
+		
+		common_show_header(_t('OpenID settings'), NULL, NULL, array($this, 'settings_menu'));
 
-	function show_form($error=NULL) {
-		common_show_header(_t('OpenID Login'));
-		if ($error) {
-			common_element('div', array('class' => 'error'), $error);
+		if ($msg) {
+			$this->message($msg, $success);
 		} else {
 			common_element('div', 'instructions',
-						   _t('Login with an OpenID account.'));
+						   _t('Manage your associated OpenIDs from here.'));
 		}
 		common_element_start('form', array('method' => 'POST',
-										   'id' => 'openidlogin',
-										   'action' => common_local_url('openidlogin')));
+										   'id' => 'openidadd',
+										   'action' =>
+										   common_local_url('openidsettings')));
+		common_element('h2', NULL, _t('Add OpenID'));
+		common_element('p', NULL,
+					   _t('If you want to add an OpenID to your account, ',
+						  'enter it in the box below and click "Add".'));
 		common_input('openid_url', _t('OpenID URL'));
-		common_submit('submit', _t('Login'));
+		common_submit('add', _t('Add'));
 		common_element_end('form');
+
+		$oid = new User_openid();
+		$oid->user_id = $user->id;
+		
+		if ($oid->find()) {
+			
+			common_element('h2', NULL, _t('OpenID'));
+			common_element('p', NULL,
+						   _t('You can remove an OpenID from your account ',
+							  'by clicking the button marked "Delete" next to it.'));
+			$idx = 0;
+			
+			while ($oid->fetch()) {
+				common_element_start('p');
+				common_element_start('form', array('method' => 'POST',
+												   'id' => 'openiddelete-' . $idx,
+												   'action' =>
+												   common_local_url('openidsettings')));
+				common_element('a', array('href' => $oid->canonical),
+							   $oid->display);
+				common_hidden('openid_url', $oid->canonical);
+				common_submit('remove', _t('Remove'));
+				common_element_end('form');
+				common_element_end('p');
+				$idx++;
+			}
+		}
+		
 		common_show_footer();
 	}
 
-	function start_openid_login() {
-		# XXX: form token in $_SESSION to prevent XSS
-		# XXX: login throttle
+	function handle_post() {
+		if ($this->arg('add')) {
+			$this->add_openid();
+		} else if ($this->arg('remove')) {
+			$this->remove_openid();
+		} else {
+			$this->show_form(_t('Something weird happened.'));
+		}
+	}
+
+	function remove_openid() {
+		
+		$openid_url = $this->trimmed('openid_url');
+		$oid = User_openid::staticGet('canonical', $openid_url);
+		if (!$oid) {
+			$this->show_form(_t('No such OpenID.'));
+			return;
+		}
+		$cur = common_current_user();
+		if (!$cur || $oid->user_id != $cur->id) {
+			$this->show_form(_t('That OpenID does not belong to you.'));
+			return;
+		}
+		$oid->delete();
+		$this->show_form(_t('OpenID removed.', true));
+		return;
+	}
+	
+	function add_openid() {
+		
 		$openid_url = $this->trimmed('openid_url');
 
 		$consumer = oid_consumer();
@@ -92,7 +146,7 @@ class OpenidloginAction extends Action {
 		}
 
 		$trust_root = common_root_url();
-		$process_url = common_local_url('finishopenidlogin');
+		$process_url = common_local_url('finishaddopenid');
 
 		if ($auth_request->shouldSendRedirect()) {
 			$redirect_url = $auth_request->redirectURL($trust_root,
