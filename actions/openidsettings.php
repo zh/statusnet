@@ -34,6 +34,8 @@ class OpenidsettingsAction extends SettingsAction {
 			common_element('div', 'instructions',
 						   _t('Manage your associated OpenIDs from here.'));
 		}
+		
+		$this->settings_menu();
 	}
 	
 	function show_form($msg=NULL, $success=false) {
