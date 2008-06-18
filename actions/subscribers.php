@@ -21,26 +21,26 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/gallery.php');
 
-class SubscriptionsAction extends GalleryAction {
+class SubscribersAction extends GalleryAction {
 
 	function gallery_type() {
-		return _t('Subscriptions');
+		return _t('Subscribers');
 	}
 
 	function get_instructions(&$profile) {
 		$user =& common_current_user();
 		if ($user && ($user->id == $profile->id)) {
-			return _t('These are the people whose notices you listen to.');
+			return _t('These are the people who listen to your notices.');
 		} else {
-			return _t('These are the people whose notices ') . $profile->nickname . _t(' listens to.');
+			return _t('These are the people who listen to ') . $profile->nickname . _t('\'s notices.');
 		}
 	}
 
 	function define_subs(&$subs, &$profile) {
-		$subs->subscriber = $profile->id;
+		$subs->subscribed = $profile->id;
 	}
 	
 	function div_class() {
-		return 'subscriptions';
+		return 'subscribers';
 	}
 }

@@ -19,14 +19,10 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-# XXX: make distinct from similar definitions in showstream.php
+define('AVATARS_PER_ROW', 8);
+define('AVATARS_PER_PAGE', 80);
 
-define('SUBSCRIPTIONS_PER_ROW', 8);
-define('SUBSCRIPTIONS_PER_PAGE', 80);
-
-class SubscribedAction extends Action {
-
-	# Who is subscribed to a given user?
+class GalleryAction extends Action {
 
 	function handle($args) {
 		parent::handle($args);
@@ -34,49 +30,53 @@ class SubscribedAction extends Action {
 		$profile = Profile::staticGet('nickname', $nickname);
 		if (!$profile) {
 			$this->no_such_user();
+			return;
 		}
 		$user = User::staticGet($profile->id);
 		if (!$user) {
 			$this->no_such_user();
+			return;
 		}
-
 		$page = $this->arg('page') || 1;
-		common_show_header($profile->nickname . ": " . _t('Subscribers'),
+		common_show_header($profile->nickname . ": " . $this->gallery_type(),
 						   NULL, $profile,
 						   array($this, 'show_top'));
-		$this->show_subscribed($profile, $page);
+		$this->show_gallery($profile, $page);
 		common_show_footer();
 	}
 
-	function show_top($profile) {
-		$user = common_current_user();
-		common_element('p', 'instructions',
-					   _t('These are the people who listen to ') .
-					   (($user && ($user->id == $profile->id)) ? _t('your notices.') : ($profile->nickname . _t('\'s notices.'))));
+	function no_such_user() {
+		$this->client_error(_t('No such user.'));
 	}
+	
+	function show_top($profile) {
+		common_element('p', 'instructions',
+					   $this->get_instructions($profile));
+	}
+	
+	function show_gallery($profile, $page) {
 
-	function show_subscribed($profile, $page) {
-		global $config;
+		$subs = new Subscription();
 		
-		$subs = DB_DataObject::factory('subscription');
-		$subs->subscribed = $profile->id;
-
+		$this->define_subs($subs, $profile);
+		
 		$subs->orderBy('created DESC');
 
 		# We ask for an extra one to know if we need to do another page
 
-		$subs->limit((($page-1)*SUBSCRIPTIONS_PER_PAGE), SUBSCRIPTIONS_PER_PAGE + 1);
+		$subs->limit((($page-1)*AVATARS_PER_PAGE), AVATARS_PER_PAGE + 1);
 
 		$subs_count = $subs->find();
 
-		common_element_start('div', 'subscriptions');
+		common_element_start('div', $this->div_class());
 
 		$idx = 0;
 
 		while ($subs->fetch()) {
+			
 			$idx++;
 
-			$other = Profile::staticGet($subs->subscriber);
+			$other = Profile::staticGet($subs->subscribed);
 			
 			common_element_start('a', array('title' => ($other->fullname) ?
 											$other->fullname :
@@ -84,25 +84,47 @@ class SubscribedAction extends Action {
 											'href' => $other->profileurl,
 											'class' => 'subscription'));
 			$avatar = $other->getAvatar(AVATAR_STREAM_SIZE);
-			common_element('img', array('src' => (($avatar) ? $avatar->url : common_default_avatar(AVATAR_STREAM_SIZE)),
-										'width' => AVATAR_STREAM_SIZE,
-										'height' => AVATAR_STREAM_SIZE,
-										'class' => 'avatar stream',
-										'alt' => ($other->fullname) ?
-											$other->fullname :
-											$other->nickname));
+			common_element('img', 
+						   array('src' => 
+								 (($avatar) ? $avatar->url : 
+								  common_default_avatar(AVATAR_STREAM_SIZE)),
+								 'width' => AVATAR_STREAM_SIZE,
+								 'height' => AVATAR_STREAM_SIZE,
+								 'class' => 'avatar stream',
+								 'alt' => ($other->fullname) ?
+								 $other->fullname :
+								 $other->nickname));
 			common_element_end('a');
 
 			# XXX: subscribe form here
 
-			if ($idx == SUBSCRIPTIONS_PER_PAGE) {
+			if ($idx == AVATARS_PER_PAGE) {
 				break;
 			}
 		}
 
 		common_element_end('div');
 		
-		common_pagination($page > 1, $subs_count > SUBSCRIPTIONS_PER_PAGE,
-						  $page, 'subscribed', array('nickname' => $profile->nickname));
+		common_pagination($page > 1, 
+						  $subs_count > AVATARS_PER_PAGE,
+						  $page, 
+						  $this->trimmed('action'), 
+						  array('nickname' => $profile->nickname));
+	}
+	
+	function gallery_type() {
+		return NULL;
+	}
+
+	function get_instructions(&$profile) {
+		return NULL;
+	}
+
+	function define_subs(&$subs, &$profile) {
+		return;
+	}
+	
+	function div_class() {
+		return '';
 	}
 }
