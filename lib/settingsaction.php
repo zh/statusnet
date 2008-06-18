@@ -64,6 +64,10 @@ class SettingsAction extends Action {
 						 _t('Password'), 
 						 _t('Change your password'),
 						 $action == 'password');
+		common_menu_item(common_local_url('openidsettings'),
+						 _t('OpenID'), 
+						 _t('Add or remove OpenIDs'),
+						 $action == 'openidsettings');
 		if (false) {
 			common_menu_item(common_local_url('emailsettings'),
 							 _t('Email'),
