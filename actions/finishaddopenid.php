@@ -45,9 +45,7 @@ class FinishaddopenidAction extends Action {
 			// Authentication failed; display the error message.
 			$this->message(_t('OpenID authentication failed: ') . $response->message);
 		} else if ($response->status == Auth_OpenID_SUCCESS) {
-			// This means the authentication succeeded; extract the
-			// identity URL and Simple Registration data (if it was
-			// returned).
+			
 			$display = $response->getDisplayIdentifier();
 			$canonical = ($response->endpoint && $response->endpoint->canonicalID) ?
 			  $response->endpoint->canonicalID : $display;
@@ -57,33 +55,23 @@ class FinishaddopenidAction extends Action {
 			if ($sreg_resp) {
 				$sreg = $sreg_resp->contents();
 			}
-
-			common_debug('response = ' .print_r($response, TRUE), __FILE__);
-			common_debug('sreg = ' .print_r($sreg, TRUE), __FILE__);
-			common_debug('display = ' .print_r($display, TRUE), __FILE__);
-			common_debug('canonical = ' .print_r($canonical, TRUE), __FILE__);
 			
-			$other =& $this->get_user($canonical);
-
-			if ($other) {
-				$this->message(_t('This OpenID is already associated with user "') . $other->nickname . _t('"'));
-			} else {
-				$cur =& common_current_user();
-				common_debug('cur = ' .print_r($cur, TRUE), __FILE__);
-				$result = oid_link_user($cur->id, $display, $canonical);
-				if (!$result) {
-					$this->message(_t('Error connecting user.'));
+			$cur =& common_current_user();
+			common_debug('cur = ' .print_r($cur, TRUE), __FILE__);
+			$result = oid_link_user($cur->id, $display, $canonical);
+			
+			if (!$result) {
+				$this->message(_t('Error connecting user.'));
+				return;
+			}
+			if ($sreg) {
+				if (!$this->update_user($cur, $sreg)) {
+					$this->message(_t('Error updating profile'));
 					return;
 				}
-				if ($sreg) {
-					if (!$this->update_user($cur, $sreg)) {
-						$this->message(_t('Error updating profile'));
-						return;
-					}
-				}
-				# success!
-				common_redirect(common_local_url('openidsettings'));
 			}
+			# success!
+			common_redirect(common_local_url('openidsettings'));
 		}
 	}
 
