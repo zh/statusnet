@@ -49,8 +49,8 @@ class FinishaddopenidAction extends Action {
 			// identity URL and Simple Registration data (if it was
 			// returned).
 			$display = $response->getDisplayIdentifier();
-			$canonical = ($response->endpoint->canonicalID) ?
-			  $response->endpoint->canonicalID : $response->getDisplayIdentifier();
+			$canonical = ($response->endpoint && $response->endpoint->canonicalID) ?
+			  $response->endpoint->canonicalID : $display;
 
 			$sreg_resp = Auth_OpenID_SRegResponse::fromSuccessResponse($response);
 
@@ -58,6 +58,7 @@ class FinishaddopenidAction extends Action {
 				$sreg = $sreg_resp->contents();
 			}
 
+			common_debug(print_r($response, TRUE), __FILE__);
 			common_debug(print_r($sreg, TRUE), __FILE__);
 			common_debug(print_r($display, TRUE), __FILE__);
 			common_debug(print_r($canonical, TRUE), __FILE__);
