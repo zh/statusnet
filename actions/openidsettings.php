@@ -42,7 +42,7 @@ class OpenidsettingsAction extends SettingsAction {
 										   common_local_url('openidsettings')));
 		common_element('h2', NULL, _t('Add OpenID'));
 		common_element('p', NULL,
-					   _t('If you want to add an OpenID to your account, ',
+					   _t('If you want to add an OpenID to your account, ' .
 						  'enter it in the box below and click "Add".'));
 		common_input('openid_url', _t('OpenID URL'));
 		common_submit('add', _t('Add'));
