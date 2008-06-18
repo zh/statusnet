@@ -28,7 +28,8 @@ class OpenidloginAction extends Action {
 		if (common_logged_in()) {
 			common_user_error(_t('Already logged in.'));
 		} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-			$result = oid_authenticate($this->trimmed('openid_url'), 'finishopenidlogin');
+			$result = oid_authenticate($this->trimmed('openid_url'),
+									   'finishopenidlogin');
 			if (is_string($result)) { # error message
 				$this->show_form($result);
 			}
@@ -45,9 +46,10 @@ class OpenidloginAction extends Action {
 			common_element('div', 'instructions',
 						   _t('Login with an OpenID account.'));
 		}
+		$formaction = common_local_url('openidlogin');
 		common_element_start('form', array('method' => 'POST',
 										   'id' => 'openidlogin',
-										   'action' => common_local_url('openidlogin')));
+										   'action' => $formaction));
 		common_input('openid_url', _t('OpenID URL'));
 		common_submit('submit', _t('Login'));
 		common_element_end('form');

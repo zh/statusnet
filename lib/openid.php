@@ -62,79 +62,78 @@ function oid_link_user($id, $canonical, $display) {
 
 function oid_authenticate($openid_url, $returnto) {
 		
-		$consumer = oid_consumer();
-
-		if (!$consumer) {
-			common_server_error(_t('Cannot instantiate OpenID consumer object.'));
-			return false;
-		}
-
-		common_ensure_session();
-
-		$auth_request = $consumer->begin($openid_url);
-
-		// Handle failure status return values.
-		if (!$auth_request) {
-			return _t('Not a valid OpenID.');
-		} else if (Auth_OpenID::isFailure($auth_request)) {
-			return _t('OpenID failure: ') . $auth_request->message;
-		}
-
-		$sreg_request = Auth_OpenID_SRegRequest::build(// Required
-													   array(),
-													   // Optional
-													   array('nickname',
-															 'email',
-															 'fullname',
-															 'language',
-															 'timezone',
-															 'postcode',
-															 'country'));
-
-		if ($sreg_request) {
-			$auth_request->addExtension($sreg_request);
-		}
-
-		$trust_root = common_root_url();
-		$process_url = common_local_url($returnto);
-
-		if ($auth_request->shouldSendRedirect()) {
-			$redirect_url = $auth_request->redirectURL($trust_root,
-													   $process_url);
-			if (!$redirect_url) {
-			} else if (Auth_OpenID::isFailure($redirect_url)) {
-				return _t('Could not redirect to server: ') . $redirect_url->message;
-			} else {
-				common_redirect($redirect_url);
-			}
+	$consumer = oid_consumer();
+	
+	if (!$consumer) {
+		common_server_error(_t('Cannot instantiate OpenID consumer object.'));
+		return false;
+	}
+	
+	common_ensure_session();
+	
+	$auth_request = $consumer->begin($openid_url);
+	
+	// Handle failure status return values.
+	if (!$auth_request) {
+		return _t('Not a valid OpenID.');
+	} else if (Auth_OpenID::isFailure($auth_request)) {
+		return _t('OpenID failure: ') . $auth_request->message;
+	}
+	
+	$sreg_request = Auth_OpenID_SRegRequest::build(// Required
+												   array(),
+												   // Optional
+												   array('nickname',
+														 'email',
+														 'fullname',
+														 'language',
+														 'timezone',
+														 'postcode',
+														 'country'));
+	
+	if ($sreg_request) {
+		$auth_request->addExtension($sreg_request);
+	}
+	
+	$trust_root = common_root_url();
+	$process_url = common_local_url($returnto);
+	
+	if ($auth_request->shouldSendRedirect()) {
+		$redirect_url = $auth_request->redirectURL($trust_root,
+												   $process_url);
+		if (!$redirect_url) {
+		} else if (Auth_OpenID::isFailure($redirect_url)) {
+			return _t('Could not redirect to server: ') . $redirect_url->message;
 		} else {
-			// Generate form markup and render it.
-			$form_id = 'openid_message';
-			$form_html = $auth_request->formMarkup($trust_root, $process_url,
-												   false, array('id' => $form_id));
-			
-			# XXX: This is cheap, but things choke if we don't escape ampersands
-			# in the HTML attributes
-			
-			$form_html = preg_replace('/&/', '&amp;', $form_html);
-			
-			// Display an error if the form markup couldn't be generated;
-			// otherwise, render the HTML.
-			if (Auth_OpenID::isFailure($form_html)) {
-				$this->show_form(_t('Could not create OpenID form: ') . $form_html->message);
-			} else {
-				common_show_header(_t('OpenID Auto-Submit'));
-				common_element('p', 'instructions',
-							   _t('This form should automatically submit itself. '.
-								  'If not, click the submit button to go to your '.
-								  'OpenID provider.'));
-				common_raw($form_html);
-				common_element('script', NULL,
-							   '$(document).ready(function() { ' .
-							   '    $("#'. $form_id .'").submit(); '.
-							   '});');
-				common_show_footer();
-			}
+			common_redirect($redirect_url);
+		}
+	} else {
+		// Generate form markup and render it.
+		$form_id = 'openid_message';
+		$form_html = $auth_request->formMarkup($trust_root, $process_url,
+											   false, array('id' => $form_id));
+		
+		# XXX: This is cheap, but things choke if we don't escape ampersands
+		# in the HTML attributes
+		
+		$form_html = preg_replace('/&/', '&amp;', $form_html);
+		
+		// Display an error if the form markup couldn't be generated;
+		// otherwise, render the HTML.
+		if (Auth_OpenID::isFailure($form_html)) {
+			$this->show_form(_t('Could not create OpenID form: ') . $form_html->message);
+		} else {
+			common_show_header(_t('OpenID Auto-Submit'));
+			common_element('p', 'instructions',
+						   _t('This form should automatically submit itself. '.
+							  'If not, click the submit button to go to your '.
+							  'OpenID provider.'));
+			common_raw($form_html);
+			common_element('script', NULL,
+						   '$(document).ready(function() { ' .
+						   '    $("#'. $form_id .'").submit(); '.
+						   '});');
+			common_show_footer();
 		}
 	}
 }
