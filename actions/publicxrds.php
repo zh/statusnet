@@ -35,7 +35,6 @@ class PublicxrdsAction extends Action {
 		common_element_start('XRDS', array('xmlns' => 'xri://$xrds'));
 		
 		common_element_start('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
-		                                  'xml:id' => 'oauth',
 										  'xmlns:simple' => 'http://xrds-simple.net/core/1.0',
 										  'version' => '2.0'));
 
