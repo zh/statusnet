@@ -338,6 +338,7 @@ function common_submit($id, $label) {
 	common_element('input', array('type' => 'submit',
 								  'id' => $id,
 								  'name' => $id,
+								  'class' => 'submit',
 								  'value' => $label));
 	common_element_end('p');
 }

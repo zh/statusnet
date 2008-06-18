@@ -164,7 +164,7 @@ class ShowstreamAction extends StreamAction {
 									  'type' => 'hidden',
 									  'value' => $profile->nickname));
 		common_element('input', array('type' => 'submit',
-									  'class' => 'button',
+									  'class' => 'submit',
 									  'value' => _t('Subscribe')));
 		common_element_end('form');
 	}
@@ -182,7 +182,7 @@ class ShowstreamAction extends StreamAction {
 									  'id' => 'submit',
 									  'name' => 'submit',
 									  'value' => _t('Subscribe'),
-									  'class' => 'button'));
+									  'class' => 'submit'));
 		common_element_end('form');
 	}
 
@@ -194,7 +194,7 @@ class ShowstreamAction extends StreamAction {
 									  'type' => 'hidden',
 									  'value' => $profile->nickname));
 		common_element('input', array('type' => 'submit',
-									  'class' => 'button',
+									  'class' => 'submit',
 									  'value' => _t('Unsubscribe')));
 		common_element_end('form');
 	}
