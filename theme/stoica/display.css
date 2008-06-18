@@ -37,7 +37,6 @@ h1 {
 	padding: 0 20px;
 	width: 760px;
 	background: url(bg-header.gif) repeat-x #FCFFF5;
-	
 	}			
 #header {
 	position: relative;
@@ -50,17 +49,25 @@ h1 {
 #logo {
 	margin-top: 9px;
 	}		
-
+p#branding {
+	margin: 0;
+	padding: 6px 0 3px 0;
+	color: #fbf2d7;
+	font-size: 21px;
+	font-weight: bold;
+	line-height: 27px;
+	}
+p#branding a {
+	color: #dab134;
+	}
+	
 #header h1.pagetitle {
-	/*display: none;*/
 	margin: 0;
 	padding: 0;
-	/*font-family: Georgia, "Times New Roman", Times, serif;*/
 	font-size: 15px;
-/*	font-weight: normal;
-	font-style: italic;*/
 	line-height: 24px;
 	color: #FCFFF5;
+	color: #d8e2d7;
 }
 
 #header h2.sitename {
@@ -86,7 +93,7 @@ h1 {
 	}
 #nav li a {
 	display: block;
-	padding: 9px 12px 12px 12px;
+	padding: 9px 9px 12px 9px;
 	color: #91AA9D;
 	}
 #nav li a:hover {
@@ -166,7 +173,6 @@ h1 {
 	font-family: Georgia, "Times New Roman", Times, serif;
 	font-size: 14px;
 	line-height: 18px;
-	/*border: 1px solid #F00;*/
 	}
 #content h2 {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -177,11 +183,12 @@ h1 {
 	font-size: 12px;
 	}	
 .instructions, .success, .error {
-	position: relative;
-	top: -130px;
 	font-weight: normal;
-	margin: -36px 0 0 0;
+	margin: 36px 0 0 0;
 	padding: 10px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 13px;
+	line-height: 15px;
 	border: 1px solid #91AA9D;
 	color: #FCFFF5;
 	}		
@@ -229,9 +236,7 @@ h1 {
 #profile p.notice_current {
 	font-size: 18px;
 	line-height: 21px;
-	/*min-height: 96px;*/
 	}		
-	
 #profile_avatar {
 	float: left;
 	margin-right: 4px;
@@ -259,7 +264,6 @@ a.nickname {
 	width: 270px;
 	height: 200px;
 	}
-	
 .statistics {
 	margin-top: 18px;
 	}
@@ -305,7 +309,13 @@ dl.statistics {
 #subscriptions_viewall {
 	clear: left;
 	}
+/* ----- End Profile -----*/
 
+/* ----- Begin Subscriptions & Subscribers -----*/
+
+.subscriptions {
+	overflow: auto;
+}
 
 	
 	
