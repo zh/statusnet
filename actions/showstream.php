@@ -204,7 +204,8 @@ class ShowstreamAction extends StreamAction {
 
 		$subs = DB_DataObject::factory('subscription');
 		$subs->subscriber = $profile->id;
-
+		$subs->orderBy('created DESC');
+		
 		# We ask for an extra one to know if we need to do another page
 
 		$subs->limit(0, SUBSCRIPTIONS + 1);

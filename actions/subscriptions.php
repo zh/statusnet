@@ -43,4 +43,8 @@ class SubscriptionsAction extends GalleryAction {
 	function div_class() {
 		return 'subscriptions';
 	}
+	
+	function get_other(&$subs) {
+		return $subs->subscribed;
+	}
 }

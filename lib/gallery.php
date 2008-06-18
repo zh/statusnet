@@ -68,15 +68,25 @@ class GalleryAction extends Action {
 
 		$subs_count = $subs->find();
 
-		common_element_start('div', $this->div_class());
+		if ($subs_count == 0) {
+			common_element('p', _t('Nobody to show!'));
+			return;
+		}
+		
+		common_element_start('ul', $this->div_class());
 
-		$idx = 0;
-
-		while ($subs->fetch()) {
+		for ($idx = 0; $idx < min($subs_count, AVATARS_PER_PAGE); $idx++) {
 			
-			$idx++;
+			$result = $subs->fetch();
+			
+			if (!$result) {
+				common_debug('Ran out of subscribers too early.', __FILE__);
+				break;
+			}
 
-			$other = Profile::staticGet($subs->subscribed);
+			$other = Profile::staticGet($this->get_other($subs));
+
+			common_element_start('li');
 			
 			common_element_start('a', array('title' => ($other->fullname) ?
 											$other->fullname :
@@ -97,14 +107,12 @@ class GalleryAction extends Action {
 			common_element_end('a');
 
 			# XXX: subscribe form here
-
-			if ($idx == AVATARS_PER_PAGE) {
-				break;
-			}
+			
+			common_element_end('li');
 		}
 
-		common_element_end('div');
-		
+		common_element_end('ul');
+
 		common_pagination($page > 1, 
 						  $subs_count > AVATARS_PER_PAGE,
 						  $page, 
@@ -122,6 +130,10 @@ class GalleryAction extends Action {
 
 	function define_subs(&$subs, &$profile) {
 		return;
+	}
+
+	function get_other(&$subs) {
+		return NULL;
 	}
 	
 	function div_class() {
