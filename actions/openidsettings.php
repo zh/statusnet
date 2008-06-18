@@ -24,18 +24,25 @@ require_once(INSTALLDIR.'/lib/openid.php');
 
 class OpenidsettingsAction extends SettingsAction {
 
-	function show_form($msg=NULL, $success=false) {
+	function show_top($arr) {
+		$msg = $arr[0];
+		$success = $arr[1];
 		
-		$user = common_current_user();
-		
-		common_show_header(_t('OpenID settings'), NULL, NULL, array($this, 'settings_menu'));
-
 		if ($msg) {
 			$this->message($msg, $success);
 		} else {
 			common_element('div', 'instructions',
 						   _t('Manage your associated OpenIDs from here.'));
 		}
+	}
+	
+	function show_form($msg=NULL, $success=false) {
+		
+		$user = common_current_user();
+		
+		common_show_header(_t('OpenID settings'), NULL, array($msg, $success),
+						   array($this, 'show_top'));
+
 		common_element_start('form', array('method' => 'POST',
 										   'id' => 'openidadd',
 										   'action' =>

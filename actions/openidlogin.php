@@ -38,14 +38,17 @@ class OpenidloginAction extends Action {
 		}
 	}
 
-	function show_form($error=NULL) {
-		common_show_header(_t('OpenID Login'));
+	function show_top($error=NULL) {
 		if ($error) {
 			common_element('div', array('class' => 'error'), $error);
 		} else {
 			common_element('div', 'instructions',
 						   _t('Login with an OpenID account.'));
 		}
+	}
+	
+	function show_form($error=NULL) {
+		common_show_header(_t('OpenID Login'), NULL, $error, array($this, 'show_top'));
 		$formaction = common_local_url('openidlogin');
 		common_element_start('form', array('method' => 'POST',
 										   'id' => 'openidlogin',
