@@ -145,6 +145,8 @@ class FinishaddopenidAction extends Action {
 		$oid->user_id = $user->id;
 		$oid->created = DB_DataObject_Cast::dateTime();
 
+		common_debug('Saving ' . print_r($oid, TRUE), __FILE__);
+		
 		if (!$oid->insert()) {
 			return false;
 		}
