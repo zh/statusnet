@@ -91,7 +91,6 @@ class OpenidsettingsAction extends SettingsAction {
 				
 			} else {
 			
-				common_element('h2', NULL, _t('Remove OpenID'));
 				common_element('p', NULL,
 							   _t('You can remove an OpenID from your account '.
 								  'by clicking the button marked "Remove".'));
