@@ -69,15 +69,25 @@ class NewnoticeAction extends Action {
 		}
 		
 		common_broadcast_notice($notice);
-		common_redirect(common_local_url('shownotice',
-										 array('notice' => $id)), 303);
+		$returnto = $this->trimmed('returnto');
+		if ($returnto) {
+			$url = common_local_url($returnto,
+									array('nickname' => $user->nickname));
+		} else {
+			$url = common_local_url('shownotice',
+									array('notice' => $id));
+		}
+		common_redirect($url, 303);
 	}
 
-	function show_form($msg=NULL) {
-		common_show_header(_t('New notice'));
+	function show_top($msg=NULL) {
 		if ($msg) {
 			common_element('div', 'error', $msg);
 		}
+	}
+	
+	function show_form($msg=NULL) {
+		common_show_header(_t('New notice'), NULL, $msg, array($this, 'show_top'));
 		common_notice_form();
 		common_show_footer();
 	}

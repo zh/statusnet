@@ -43,7 +43,7 @@ class PublicAction extends StreamAction {
 
 	function show_top() {
 		if (common_logged_in()) {
-			common_notice_form();
+			common_notice_form('public');
 		}
 	}
 	

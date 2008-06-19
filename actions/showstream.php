@@ -68,7 +68,7 @@ class ShowstreamAction extends StreamAction {
 		$cur = common_current_user();
 		
 		if ($cur && $cur->id == $user->id) {
-			common_notice_form();
+			common_notice_form('showstream');
 		}
 		
 		$this->views_menu();

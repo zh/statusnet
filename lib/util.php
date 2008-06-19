@@ -650,7 +650,7 @@ function common_profile_url($nickname) {
 
 # Don't call if nobody's logged in
 
-function common_notice_form() {
+function common_notice_form($action=NULL) {
 	$user = common_current_user();
 	assert(!is_null($user));
 	common_element_start('form', array('id' => 'status_form',
@@ -663,6 +663,9 @@ function common_notice_form() {
 	common_element('textarea', array('id' => 'status_textarea',
 									 'name' => 'status_textarea'),
 				   ' ');
+	if ($action) {
+		common_hidden('returnto', $action);
+	}
 	common_element('input', array('id' => 'status_submit',
 								  'name' => 'status_submit',
 								  'type' => 'submit',
