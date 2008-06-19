@@ -887,3 +887,12 @@ function common_config($main, $sub) {
 	global $config;
 	return $config[$main][$sub];
 }
+
+function common_copy_args($from) {
+	$to = array();
+	$strip = get_magic_quotes_gpc();
+	foreach ($from as $k => $v) {
+		$to[$k] = ($strip) ? stripslashes($v) : $v;
+	}
+	return $to;
+}

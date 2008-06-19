@@ -95,7 +95,7 @@ function oid_get_user($openid_url) {
 function oid_check_immediate($openid_url, $backto=NULL) {
 	if (!$backto) {
 		$action = $_REQUEST['action'];
-		$args = clone($_GET);
+		$args = common_copy_args($_GET);
 		unset($args['action']);
 		$backto = common_local_url($action, $args);
 	}
