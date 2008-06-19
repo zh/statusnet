@@ -65,7 +65,7 @@ $config['db'] =
 		'class_location' => INSTALLDIR . '/classes',
 		'require_prefix' => 'classes/',
 		'class_prefix' => '',
-        'db_driver' => 'MDB2',
+        'db_driver' => 'DB', # XXX: JanRain libs only work with DB
 		'quote_identifiers' => false);
 
 require_once(INSTALLDIR.'/config.php');
