@@ -39,6 +39,7 @@ class FinishimmediateAction extends Action {
 			
 			if ($user) {
 				oid_update_user($user, $sreg);
+				oid_set_last($display); # refresh for another year
 				common_set_user($user->nickname);
 				$this->go_backto();
 				return;
