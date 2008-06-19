@@ -81,10 +81,13 @@ class OpenidsettingsAction extends SettingsAction {
 				common_element('p', NULL,
 							   _t('Removing your only OpenID would make it impossible to log in! ' .
 								  'If you need to remove it, add another OpenID first.'));
-				common_element_start('p');
-				common_element('a', array('href' => $oid->canonical),
-							   $oid->display);
-				common_element_end('p');
+				
+				if ($oid->fetch()) {
+					common_element_start('p');
+					common_element('a', array('href' => $oid->canonical),
+								   $oid->display);
+					common_element_end('p');
+				}
 				
 			} else {
 			
