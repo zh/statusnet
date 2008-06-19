@@ -23,7 +23,7 @@ require_once(INSTALLDIR.'/lib/settingsaction.php');
 require_once(INSTALLDIR.'/lib/openid.php');
 
 class OpenidsettingsAction extends SettingsAction {
-
+	
 	function show_top($arr) {
 		$msg = $arr[0];
 		$success = $arr[1];
@@ -44,7 +44,7 @@ class OpenidsettingsAction extends SettingsAction {
 		
 		common_show_header(_t('OpenID settings'), NULL, array($msg, $success),
 						   array($this, 'show_top'));
-
+		
 		common_element_start('form', array('method' => 'POST',
 										   'id' => 'openidadd',
 										   'action' =>
@@ -66,18 +66,18 @@ class OpenidsettingsAction extends SettingsAction {
 									  'value' => _t('Add')));
 		common_element_end('p');
 		common_element_end('form');
-
+		
 		$oid = new User_openid();
 		$oid->user_id = $user->id;
-
+		
 		$cnt = $oid->find();
-
+		
 		if ($cnt > 0) {
 			
 			common_element('h2', NULL, _t('Remove OpenID'));
 			
 			if ($cnt == 1 && !$user->password) {
-
+				
 				common_element('p', NULL,
 							   _t('Removing your only OpenID would make it impossible to log in! ' .
 								  'If you need to remove it, add another OpenID first.'));
@@ -90,7 +90,7 @@ class OpenidsettingsAction extends SettingsAction {
 				}
 				
 			} else {
-			
+				
 				common_element('p', NULL,
 							   _t('You can remove an OpenID from your account '.
 								  'by clicking the button marked "Remove".'));
@@ -99,7 +99,7 @@ class OpenidsettingsAction extends SettingsAction {
 				while ($oid->fetch()) {
 					common_element_start('form', array('method' => 'POST',
 													   'id' => 'openiddelete' . $idx,
-												   'action' =>
+													   'action' =>
 													   common_local_url('openidsettings')));
 					common_element_start('p');
 					common_element('a', array('href' => $oid->canonical),
@@ -118,9 +118,9 @@ class OpenidsettingsAction extends SettingsAction {
 					$idx++;
 				}
 			}
-			
-			common_show_footer();
 		}
+		
+		common_show_footer();
 	}
 	
 	function handle_post() {
@@ -135,7 +135,7 @@ class OpenidsettingsAction extends SettingsAction {
 			$this->show_form(_t('Something weird happened.'));
 		}
 	}
-
+	
 	function remove_openid() {
 		
 		$openid_url = $this->trimmed('openid_url');
