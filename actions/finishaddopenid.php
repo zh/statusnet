@@ -72,7 +72,7 @@ class FinishaddopenidAction extends Action {
 			
 			$cur->query('BEGIN');
 			
-			$result = oid_link_user($cur->id, $display, $canonical);
+			$result = oid_link_user($cur->id, $canonical, $display);
 			
 			if (!$result) {
 				$this->message(_t('Error connecting user.'));
