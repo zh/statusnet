@@ -29,6 +29,11 @@ class FinishopenidloginAction extends Action {
 			common_user_error(_t('Already logged in.'));
 		} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			if ($this->arg('create')) {
+				if (!$this->boolean('license')) {
+					$this->show_form(_t('You can\'t register if you don\'t agree to the license.'),
+									 $this->trimmed('newname'));
+					return;
+				}
 				$this->create_new_user();
 			} else if ($this->arg('connect')) {
 				$this->connect_user();
@@ -42,8 +47,7 @@ class FinishopenidloginAction extends Action {
 		}
 	}
 
-	function show_form($error=NULL, $username=NULL) {
-		common_show_header(_t('OpenID Account Setup'));
+	function show_top($error=NULL) {
 		if ($error) {
 			common_element('div', array('class' => 'error'), $error);
 		} else {
@@ -54,7 +58,13 @@ class FinishopenidloginAction extends Action {
 						   _t(' so we must connect your OpenID to a local account. ' .
 							  ' You can either create a new account, or connect with ' .
 							  ' your existing account, if you have one.'));
-		}
+		}		
+	}
+	
+	function show_form($error=NULL, $username=NULL) {
+		common_show_header(_t('OpenID Account Setup'), NULL, $error,
+						   array($this, 'show_top'));
+
 		common_element_start('form', array('method' => 'POST',
 										   'id' => 'account_connect',
 										   'action' => common_local_url('finishopenidlogin')));
@@ -65,6 +75,16 @@ class FinishopenidloginAction extends Action {
 		common_input('newname', _t('New nickname'),
 					 ($username) ? $username : '',
 					 _t('1-64 lowercase letters or numbers, no punctuation or spaces'));
+		common_element_start('p');
+		common_element('input', array('type' => 'checkbox',
+									  'id' => 'license',
+									  'name' => 'license',
+									  'value' => 'true'));
+		common_text(_t('My text and files are available under '));
+		common_element('a', array(href => common_config('license', 'url')),
+					   common_config('license', 'title'));
+		common_text(_t(' except this private data: password, email address, IM address, phone number.'));
+		common_element_end('p');
 		common_submit('create', _t('Create'));
 		common_element('h2', NULL,
 					   'Connect existing account');
