@@ -218,7 +218,7 @@ function oid_update_user(&$user, &$sreg) {
 	
 	if (!$profile->update($orig_profile)) {
 		common_server_error(_t('Error saving the profile.'));
-		return;
+		return false;
 	}
 	
 	$orig_user = clone($user);
@@ -229,6 +229,8 @@ function oid_update_user(&$user, &$sreg) {
 	
 	if (!$user->update($orig_user)) {
 		common_server_error(_t('Error saving the user.'));
-		return;
+		return false;
 	}
+	
+	return true;
 }
