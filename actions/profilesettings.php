@@ -112,16 +112,13 @@ class ProfilesettingsAction extends SettingsAction {
 		$user = common_current_user();
 		assert(!is_null($user)); # should already be checked
 
-		# FIXME: transaction!
-
+		$user->query('BEGIN');
+		
 		$original = clone($user);
 
 		$user->nickname = $nickname;
 		$user->email = $email;
 
-		common_debug('Updating, nickname ="'.$user->nickname.'" and email ="'.$user->email.'"');
-		common_debug('Original, nickname ="'.$original->nickname.'" and email ="'.$original->email.'"');
-		
 		$result = $user->update($original);
 		
 		if (!$result) {

@@ -57,10 +57,6 @@ function oid_link_user($id, $canonical, $display) {
 		return false;
 	}
 	
-	# For some reason, autocommit is turned off
-	
-	$oid->query('COMMIT');
-	
 	return true;
 }
 

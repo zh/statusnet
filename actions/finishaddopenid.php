@@ -55,9 +55,23 @@ class FinishaddopenidAction extends Action {
 			if ($sreg_resp) {
 				$sreg = $sreg_resp->contents();
 			}
-			
+
 			$cur =& common_current_user();
-			common_debug('cur = ' .print_r($cur, TRUE), __FILE__);
+			$other = $this->get_user($canonical);
+			
+			if ($other) {
+				if ($other->id == $cur->id) {
+					$this->message(_t('You already have this OpenID!'));
+				} else {
+					$this->message(_t('Someone else already has this OpenID.'));
+				}
+				return;
+			}
+
+			# start a transaction
+			
+			$cur->query('BEGIN');
+			
 			$result = oid_link_user($cur->id, $display, $canonical);
 			
 			if (!$result) {
@@ -70,7 +84,11 @@ class FinishaddopenidAction extends Action {
 					return;
 				}
 			}
+			
 			# success!
+			
+			$cur->query('COMMIT');
+			
 			common_redirect(common_local_url('openidsettings'));
 		}
 	}
