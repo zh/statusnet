@@ -21,15 +21,44 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/openid.php');
 
-class LogoutAction extends Action {
+class FinishimmediateAction extends Action {
+
 	function handle($args) {
 		parent::handle($args);
-		if (!common_logged_in()) {
-			common_user_error(_t('Not logged in.'));
-		} else {
-			common_set_user(NULL);
-			oid_clear_last();
-			common_redirect(common_local_url('public'));
+		
+		$consumer = oid_consumer();
+
+		$response = $consumer->complete(common_local_url('finishimmediate'));
+
+		if ($response->status == Auth_OpenID_SUCCESS) {
+			$display = $response->getDisplayIdentifier();
+			$canonical = ($response->endpoint->canonicalID) ?
+			  $response->endpoint->canonicalID : $response->getDisplayIdentifier();
+
+			$user = $this->get_user($canonical);
+			
+			if ($user) {
+				$this->update_user($user, $sreg);
+				common_set_user($user->nickname);
+				$this->go_backto();
+				return;
+			}
 		}
+
+		# Failure! Clear openid so we don't try it again
+		
+		oid_clear_last();
+		$this->go_backto();
+		return;
+	}
+	
+	function go_backto() {
+		common_ensure_session();
+		$backto = $_SESSION['openid_immediate_backto'];
+		if (!$backto) {
+			# gar. Well, push them to the public page
+			$backto = common_local_url('public');
+		}
+		common_redirect($backto);
 	}
 }

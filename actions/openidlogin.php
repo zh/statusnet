@@ -28,13 +28,15 @@ class OpenidloginAction extends Action {
 		if (common_logged_in()) {
 			common_user_error(_t('Already logged in.'));
 		} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-			$result = oid_authenticate($this->trimmed('openid_url'),
+			$openid_url = $this->trimmed('openid_url');
+			$result = oid_authenticate($openid_url,
 									   'finishopenidlogin');
 			if (is_string($result)) { # error message
-				$this->show_form($result);
+				$this->show_form($result, $openid_url);
 			}
 		} else {
-			$this->show_form();
+			$openid_url = oid_get_last();
+			$this->show_form(NULL, $openid_url);
 		}
 	}
 
@@ -47,13 +49,15 @@ class OpenidloginAction extends Action {
 		}
 	}
 	
-	function show_form($error=NULL) {
+	function show_form($error=NULL, $openid_url) {
 		common_show_header(_t('OpenID Login'), NULL, $error, array($this, 'show_top'));
 		$formaction = common_local_url('openidlogin');
 		common_element_start('form', array('method' => 'POST',
 										   'id' => 'openidlogin',
 										   'action' => $formaction));
-		common_input('openid_url', _t('OpenID URL'));
+		common_input('openid_url', _t('OpenID URL'),
+					 $openid_url,
+					 _t('Your OpenID URL'));
 		common_submit('submit', _t('Login'));
 		common_element_end('form');
 		common_show_footer();

@@ -26,6 +26,11 @@ require_once('Auth/OpenID/Consumer.php');
 require_once('Auth/OpenID/SReg.php');
 require_once('Auth/OpenID/MySQLStore.php');
 
+# About one year cookie expiry
+
+define('OPENID_COOKIE_EXPIRY', round(365.25 * 24 * 60 * 60));
+define('OPENID_COOKIE_KEY', 'lastusedopenid');
+	   
 function oid_store() {
     static $store = NULL;
 	if (!$store) {
@@ -41,6 +46,24 @@ function oid_consumer() {
 	$store = oid_store();
 	$consumer = new Auth_OpenID_Consumer($store);
 	return $consumer;
+}
+
+function oid_clear_last() {
+	if (oid_get_last()) {
+		oid_set_last('');
+	}
+}
+
+function oid_set_last($openid_url) {
+	global $config;
+	setcookie(OPENID_COOKIE_KEY, $openid_url,
+			  time() + OPENID_COOKIE_EXPIRY,
+			  '/' . $config['site']['path'] . '/',
+			  $config['site']['server']);
+}
+
+function oid_get_last() {
+	return $_COOKIE[OPENID_COOKIE_KEY];
 }
 
 function oid_link_user($id, $canonical, $display) {
@@ -60,8 +83,28 @@ function oid_link_user($id, $canonical, $display) {
 	return true;
 }
 
-function oid_authenticate($openid_url, $returnto) {
-		
+function oid_get_user($openid_url) {
+	$user = NULL;
+	$oid = User_openid::staticGet('canonical', $openid_url);
+	if ($oid) {
+		$user = User::staticGet('id', $oid->user_id);
+	}
+	return $user;
+}
+
+function oid_check_immediate($openid_url, $backto=NULL) {
+	if (!$backto) {
+		$backto = $_SERVER['PHP_SELF'];
+	}
+	common_ensure_session();
+	$_SESSION['openid_immediate_backto'] = $backto;
+	oid_authenticate($openid_url,
+					 'finishimmediate',
+					 true);
+}
+
+function oid_authenticate($openid_url, $returnto, $immediate=false) {
+
 	$consumer = oid_consumer();
 	
 	if (!$consumer) {
@@ -100,7 +143,8 @@ function oid_authenticate($openid_url, $returnto) {
 	
 	if ($auth_request->shouldSendRedirect()) {
 		$redirect_url = $auth_request->redirectURL($trust_root,
-												   $process_url);
+												   $process_url,
+												   $immediate);
 		if (!$redirect_url) {
 		} else if (Auth_OpenID::isFailure($redirect_url)) {
 			return _t('Could not redirect to server: ') . $redirect_url->message;
@@ -111,7 +155,7 @@ function oid_authenticate($openid_url, $returnto) {
 		// Generate form markup and render it.
 		$form_id = 'openid_message';
 		$form_html = $auth_request->formMarkup($trust_root, $process_url,
-											   false, array('id' => $form_id));
+											   $immediate, array('id' => $form_id));
 		
 		# XXX: This is cheap, but things choke if we don't escape ampersands
 		# in the HTML attributes

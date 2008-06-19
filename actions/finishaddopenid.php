@@ -88,6 +88,8 @@ class FinishaddopenidAction extends Action {
 			# success!
 			
 			$cur->query('COMMIT');
+
+			oid_set_last($display);
 			
 			common_redirect(common_local_url('openidsettings'));
 		}

@@ -104,9 +104,10 @@ class FinishopenidloginAction extends Action {
 				$sreg = $sreg_resp->contents();
 			}
 
-			$user = $this->get_user($canonical);
+			$user = oid_get_user($canonical);
 			
 			if ($user) {
+				oid_set_last($display);
 				$this->update_user($user, $sreg);
 				common_set_user($user->nickname);
 				$this->go_home($user->nickname);
@@ -123,15 +124,6 @@ class FinishopenidloginAction extends Action {
 		common_show_footer();
 	}
 	
-	function get_user($canonical) {
-		$user = NULL;
-		$oid = User_openid::staticGet('canonical', $canonical);
-		if ($oid) {
-			$user = User::staticGet('id', $oid->user_id);
-		}
-		return $user;
-	}
-
 	function update_user($user, $sreg) {
 		
 		$profile = $user->getProfile();
@@ -210,7 +202,7 @@ class FinishopenidloginAction extends Action {
 		
 		# Possible race condition... let's be paranoid
 		
-		$other = $this->get_user($canonical);
+		$other = oid_get_user($canonical);
 		
 		if ($other) {
 			common_server_error(_t('Creating new account for OpenID that already has a user.'));
@@ -272,6 +264,7 @@ class FinishopenidloginAction extends Action {
 			$profile->delete();
 		}
 		
+		oid_set_last($display);
 		common_set_user($user->nickname);
 		common_redirect(common_local_url('showstream', array('nickname' => $user->nickname)));
 	}
@@ -305,6 +298,7 @@ class FinishopenidloginAction extends Action {
 		}
 		
 		$this->update_user($user, $sreg);
+		oid_set_last($display);
 		common_set_user($user->nickname);
 		$this->go_home($user->nickname);
 	}

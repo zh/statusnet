@@ -28,6 +28,21 @@ if (!$action) {
 	common_redirect(common_local_url('public'));
 }
 
+# Do an OpenID immediate request if they're not logged in
+# and they have an OpenID cookie
+
+if (!common_logged_in() &&
+	$_SERVER['REQUEST_METHOD'] == 'GET' &&
+	$action != 'finishimmediate')
+{
+	require_once(INSTALLDIR.'/lib/openid.php');
+	$openid_url = oid_get_last();
+	if ($openid_url) {
+		oid_check_immediate($openid_url);
+		return;
+	}
+}
+
 $actionfile = INSTALLDIR."/actions/$action.php";
 
 if (file_exists($actionfile)) {
