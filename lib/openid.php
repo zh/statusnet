@@ -189,11 +189,7 @@ function oid_authenticate($openid_url, $returnto, $immediate=false) {
 		if (Auth_OpenID::isFailure($form_html)) {
 			$this->show_form(_t('Could not create OpenID form: ') . $form_html->message);
 		} else {
-			common_show_header(_t('OpenID Auto-Submit'));
-			common_element('p', 'instructions',
-						   _t('This form should automatically submit itself. '.
-							  'If not, click the submit button to go to your '.
-							  'OpenID provider.'));
+			common_show_header(_t('OpenID Auto-Submit'), NULL, NULL, '_oid_print_instructions');
 			common_raw($form_html);
 			common_element('script', NULL,
 						   '$(document).ready(function() { ' .
@@ -202,6 +198,15 @@ function oid_authenticate($openid_url, $returnto, $immediate=false) {
 			common_show_footer();
 		}
 	}
+}
+
+# Half-assed attempt at a module-private function
+
+function _oid_print_instructions() {
+	common_element('p', 'instructions',
+				   _t('This form should automatically submit itself. '.
+					  'If not, click the submit button to go to your '.
+					  'OpenID provider.'));
 }
 
 # update a user from sreg parameters
