@@ -69,41 +69,58 @@ class OpenidsettingsAction extends SettingsAction {
 
 		$oid = new User_openid();
 		$oid->user_id = $user->id;
-		
-		if ($oid->find()) {
+
+		$cnt = $oid->find();
+
+		if ($cnt > 0) {
 			
-			common_element('h2', NULL, _t('OpenID'));
-			common_element('p', NULL,
-						   _t('You can remove an OpenID from your account '.
-							  'by clicking the button marked "Delete" next to it.'));
-			$idx = 0;
+			common_element('h2', NULL, _t('Remove OpenID'));
 			
-			while ($oid->fetch()) {
-				common_element_start('form', array('method' => 'POST',
-												   'id' => 'openiddelete' . $idx,
-												   'action' =>
-												   common_local_url('openidsettings')));
+			if ($cnt == 1 && !$user->password) {
+
+				common_element('p', NULL,
+							   _t('Removing your only OpenID would make it impossible to log in! ' .
+								  'If you need to remove it, add another OpenID first.'));
 				common_element_start('p');
 				common_element('a', array('href' => $oid->canonical),
 							   $oid->display);
-				common_element('input', array('type' => 'hidden',
-											  'id' => 'openid_url'.$idx,
-											  'name' => 'openid_url',
-											  'value' => $oid->canonical));
-				common_element('input', array('type' => 'submit',
-											  'id' => 'remove'.$idx,
-											  'name' => 'remove',
-											  'class' => 'submit',
-											  'value' => _t('Remove')));
 				common_element_end('p');
-				common_element_end('form');
-				$idx++;
+				
+			} else {
+			
+				common_element('h2', NULL, _t('Remove OpenID'));
+				common_element('p', NULL,
+							   _t('You can remove an OpenID from your account '.
+								  'by clicking the button marked "Remove".'));
+				$idx = 0;
+				
+				while ($oid->fetch()) {
+					common_element_start('form', array('method' => 'POST',
+													   'id' => 'openiddelete' . $idx,
+												   'action' =>
+													   common_local_url('openidsettings')));
+					common_element_start('p');
+					common_element('a', array('href' => $oid->canonical),
+								   $oid->display);
+					common_element('input', array('type' => 'hidden',
+												  'id' => 'openid_url'.$idx,
+												  'name' => 'openid_url',
+												  'value' => $oid->canonical));
+					common_element('input', array('type' => 'submit',
+												  'id' => 'remove'.$idx,
+												  'name' => 'remove',
+												  'class' => 'submit',
+												  'value' => _t('Remove')));
+					common_element_end('p');
+					common_element_end('form');
+					$idx++;
+				}
 			}
+			
+			common_show_footer();
 		}
-		
-		common_show_footer();
 	}
-
+	
 	function handle_post() {
 		if ($this->arg('add')) {
 			$result = oid_authenticate($this->trimmed('openid_url'), 'finishaddopenid');

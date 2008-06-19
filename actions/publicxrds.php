@@ -40,11 +40,10 @@ class PublicxrdsAction extends Action {
 
 		common_element('Type', NULL, 'xri://$xrds*simple');
 
-		$this->show_service(Auth_OpenID_RP_RETURN_TO_URL_TYPE,
-							common_local_url('finishopenidlogin'));
-		
-		$this->show_service(Auth_OpenID_RP_RETURN_TO_URL_TYPE,
-							common_local_url('finishaddopenid'));
+		foreach (array('finishopenidlogin', 'finishaddopenid', 'finishimmediate') as $finish) {
+			$this->show_service(Auth_OpenID_RP_RETURN_TO_URL_TYPE,
+								common_local_url($finish));
+		}
 		
 		common_element_end('XRD');
 		
