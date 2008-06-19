@@ -10,9 +10,20 @@ if (!defined('LACONICA')) { exit(1); }
 $config['site']['name'] = 'Just another Laconica microblog';
 $config['site']['server'] = 'localhost';
 $config['site']['path'] = 'laconica';
+#$config['site']['fancy'] = false;
+#$config['site']['theme'] = 'default';
 
 # This is a PEAR DB DSN, see http://pear.php.net/manual/en/package.database.db.intro-dsn.php
 # Set it to match your actual database
 
 $config['db']['database'] = 'mysql://laconica:microblog@localhost/laconica';
+#$config['db']['ini_your_db_name'] = $config['db']['schema_location'].'/stoica.ini';
+#$config['db']['debug'] = 0;
+#$config['db']['db_driver'] = 'MDB2';
+
+#$config['tag']['authority'] = $config['site']['server'];
+#$config['tag']['date'] = '2008';
+#$config['tag']['prefix'] = $config['site']['path'] . ':';
+
+#session_set_cookie_params(0, '/'. $config['site']['path'] .'/');
 
