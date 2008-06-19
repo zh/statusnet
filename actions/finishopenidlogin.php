@@ -190,6 +190,8 @@ class FinishopenidloginAction extends Action {
 		# XXX save language if it's passed
 		# XXX save timezone if it's passed
 		
+		$profile->profileurl = common_profile_url($nickname);
+		  
 		$profile->created = DB_DataObject_Cast::dateTime(); # current time
 		
 		$id = $profile->insert();
