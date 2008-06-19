@@ -94,7 +94,10 @@ function oid_get_user($openid_url) {
 
 function oid_check_immediate($openid_url, $backto=NULL) {
 	if (!$backto) {
-		$backto = $_SERVER['PHP_SELF'];
+		$action = $_REQUEST['action'];
+		$args = clone($_GET);
+		unset($args['action']);
+		$backto = common_local_url($action, $args);
 	}
 	common_debug('going back to "' . $backto . '"', __FILE__);
 	
