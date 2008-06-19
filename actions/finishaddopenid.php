@@ -57,7 +57,7 @@ class FinishaddopenidAction extends Action {
 			}
 
 			$cur =& common_current_user();
-			$other = $this->get_user($canonical);
+			$other = oid_get_user($canonical);
 			
 			if ($other) {
 				if ($other->id == $cur->id) {
@@ -79,7 +79,7 @@ class FinishaddopenidAction extends Action {
 				return;
 			}
 			if ($sreg) {
-				if (!$this->update_user($cur, $sreg)) {
+				if (!oid_update_user($cur, $sreg)) {
 					$this->message(_t('Error updating profile'));
 					return;
 				}
@@ -99,56 +99,5 @@ class FinishaddopenidAction extends Action {
 		common_show_header(_t('OpenID Login'));
 		common_element('p', NULL, $msg);
 		common_show_footer();
-	}
-
-	function get_user($canonical) {
-		$user = NULL;
-		$oid = User_openid::staticGet('canonical', $canonical);
-		if ($oid) {
-			$user = User::staticGet('id', $oid->user_id);
-		}
-		return $user;
-	}
-
-	function update_user(&$user, $sreg) {
-
-		$profile =& $user->getProfile();
-
-		$orig_profile = clone($profile);
-
-		if ($sreg['fullname'] && strlen($sreg['fullname']) <= 255) {
-			$profile->fullname = $sreg['fullname'];
-		}
-
-		if ($sreg['country']) {
-			if ($sreg['postcode']) {
-				# XXX: use postcode to get city and region
-				# XXX: also, store postcode somewhere -- it's valuable!
-				$profile->location = $sreg['postcode'] . ', ' . $sreg['country'];
-			} else {
-				$profile->location = $sreg['country'];
-			}
-		}
-
-		# XXX save language if it's passed
-		# XXX save timezone if it's passed
-
-		if (!$profile->update($orig_profile)) {
-			common_server_error(_t('Error saving the profile.'));
-			return false;
-		}
-
-		$orig_user = clone($user);
-
-		if ($sreg['email'] && Validate::email($sreg['email'], true)) {
-			$user->email = $sreg['email'];
-		}
-
-		if (!$user->update($orig_user)) {
-			common_server_error(_t('Error saving the user.'));
-			return false;
-		}
-		
-		return true;
 	}
 }

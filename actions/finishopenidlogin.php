@@ -108,7 +108,7 @@ class FinishopenidloginAction extends Action {
 			
 			if ($user) {
 				oid_set_last($display);
-				$this->update_user($user, $sreg);
+				oid_update_user($user, $sreg);
 				common_set_user($user->nickname);
 				$this->go_home($user->nickname);
 			} else {
@@ -122,46 +122,6 @@ class FinishopenidloginAction extends Action {
 		common_show_header(_t('OpenID Login'));
 		common_element('p', NULL, $msg);
 		common_show_footer();
-	}
-	
-	function update_user($user, $sreg) {
-		
-		$profile = $user->getProfile();
-
-		$orig_profile = clone($profile);
-		
-		if ($sreg['fullname'] && strlen($sreg['fullname']) <= 255) {
-			$profile->fullname = $sreg['fullname'];
-		}
-		
-		if ($sreg['country']) {
-			if ($sreg['postcode']) {
-				# XXX: use postcode to get city and region
-				# XXX: also, store postcode somewhere -- it's valuable!
-				$profile->location = $sreg['postcode'] . ', ' . $sreg['country'];
-			} else {
-				$profile->location = $sreg['country'];
-			}
-		}
-
-		# XXX save language if it's passed
-		# XXX save timezone if it's passed
-		
-		if (!$profile->update($orig_profile)) {
-			common_server_error(_t('Error saving the profile.'));
-			return;
-		}
-
-		$orig_user = clone($user);
-		
-		if ($sreg['email'] && Validate::email($sreg['email'], true)) {
-			$user->email = $sreg['email'];
-		}
-		
-		if (!$user->update($orig_user)) {
-			common_server_error(_t('Error saving the user.'));
-			return;
-		}
 	}
 	
 	function save_values($display, $canonical, $sreg) {
@@ -297,7 +257,7 @@ class FinishopenidloginAction extends Action {
 			return;
 		}
 		
-		$this->update_user($user, $sreg);
+		oid_update_user($user, $sreg);
 		oid_set_last($display);
 		common_set_user($user->nickname);
 		$this->go_home($user->nickname);

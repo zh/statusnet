@@ -181,3 +181,45 @@ function oid_authenticate($openid_url, $returnto, $immediate=false) {
 		}
 	}
 }
+
+# update a user from sreg parameters
+
+function oid_update_user(&$user, &$sreg) {
+		
+	$profile = $user->getProfile();
+	
+	$orig_profile = clone($profile);
+	
+	if ($sreg['fullname'] && strlen($sreg['fullname']) <= 255) {
+		$profile->fullname = $sreg['fullname'];
+	}
+	
+	if ($sreg['country']) {
+		if ($sreg['postcode']) {
+			# XXX: use postcode to get city and region
+			# XXX: also, store postcode somewhere -- it's valuable!
+			$profile->location = $sreg['postcode'] . ', ' . $sreg['country'];
+		} else {
+			$profile->location = $sreg['country'];
+		}
+	}
+	
+	# XXX save language if it's passed
+	# XXX save timezone if it's passed
+	
+	if (!$profile->update($orig_profile)) {
+		common_server_error(_t('Error saving the profile.'));
+		return;
+	}
+	
+	$orig_user = clone($user);
+	
+	if ($sreg['email'] && Validate::email($sreg['email'], true)) {
+		$user->email = $sreg['email'];
+	}
+	
+	if (!$user->update($orig_user)) {
+		common_server_error(_t('Error saving the user.'));
+		return;
+	}
+}
