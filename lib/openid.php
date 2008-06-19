@@ -96,8 +96,14 @@ function oid_check_immediate($openid_url, $backto=NULL) {
 	if (!$backto) {
 		$backto = $_SERVER['PHP_SELF'];
 	}
+	common_debug('going back to "' . $backto . '"', __FILE__);
+	
 	common_ensure_session();
+	
 	$_SESSION['openid_immediate_backto'] = $backto;
+	common_debug('passed-in variable is "' . $backto . '"', __FILE__);
+	common_debug('session variable is "' . $_SESSION['openid_immediate_backto'] . '"', __FILE__);
+	
 	oid_authenticate($openid_url,
 					 'finishimmediate',
 					 true);
