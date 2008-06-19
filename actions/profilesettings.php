@@ -122,7 +122,9 @@ class ProfilesettingsAction extends SettingsAction {
 		common_debug('Updating, nickname ="'.$user->nickname.'" and email ="'.$user->email.'"');
 		common_debug('Original, nickname ="'.$original->nickname.'" and email ="'.$original->email.'"');
 		
-		if (FALSE === $user->update($original)) {
+		$result = $user->update($original);
+		
+		if (!$result) {
 			common_server_error(_t('Couldnt update user.'));
 			return;
 		}
@@ -138,12 +140,16 @@ class ProfilesettingsAction extends SettingsAction {
 		$profile->location = $location;
 		$profile->profileurl = common_profile_url($nickname);
 
-		if (FALSE === $profile->update($orig_profile)) {
+		$result = $profile->update($orig_profile);
+		
+		if (!$result) {
 			common_server_error(_t('Couldnt save profile.'));
 			return;
 		}
 
 		common_broadcast_profile($profile);
+
+		$user->query('COMMIT');
 		
 		$this->show_form(_t('Settings saved.'), TRUE);
 	}
