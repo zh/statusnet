@@ -49,21 +49,34 @@ function oid_consumer() {
 }
 
 function oid_clear_last() {
-	if (oid_get_last()) {
-		oid_set_last('');
-	}
+	oid_set_last('');
 }
 
 function oid_set_last($openid_url) {
-	global $config;
-	setcookie(OPENID_COOKIE_KEY, $openid_url,
+	
+	$path = common_config('site', 'path');
+	$server = common_config('site', 'server');
+
+	if ($path && ($path != '/')) {
+		$cookiepath = '/' . $path . '/';
+	} else {
+		$cookiepath = '/';
+	}
+	
+	setcookie(OPENID_COOKIE_KEY,
+			  $openid_url,
 			  time() + OPENID_COOKIE_EXPIRY,
-			  '/' . $config['site']['path'] . '/',
-			  $config['site']['server']);
+			  $cookiepath,
+			  $server);
 }
 
 function oid_get_last() {
-	return $_COOKIE[OPENID_COOKIE_KEY];
+	$openid_url = $_COOKIE[OPENID_COOKIE_KEY];
+	if ($openid_url && strlen($openid_url) > 0) {
+		return $openid_url;
+	} else {
+		return NULL;
+	}
 }
 
 function oid_link_user($id, $canonical, $display) {

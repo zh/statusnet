@@ -27,8 +27,8 @@ class LogoutAction extends Action {
 		if (!common_logged_in()) {
 			common_user_error(_t('Not logged in.'));
 		} else {
-			common_set_user(NULL);
 			oid_clear_last();
+			common_set_user(NULL);
 			common_redirect(common_local_url('public'));
 		}
 	}
