@@ -2,7 +2,7 @@
 /* Design & CSS by Marie-Claude Doyon */
 
 html {
-	background-color: #d8e2d7;
+	background-color: #f6e5b0;
 
 	}
 body {
@@ -14,11 +14,11 @@ body {
 	font-size: 10px;
 	line-height: 12px;
 	min-height: 100%;
-	color: #193441;
-	background: url(bg-body.gif) repeat-y top center;
+	color: #701238;
+	/*background: url(bg-body.gif) repeat-y top center;*/
 	}
 a {
-	color: #C15D42;
+	color: #d1451a;
 	text-decoration: none;
 	}
 a:hover {
@@ -36,7 +36,7 @@ h1 {
 	margin: 0 auto;
 	padding: 0 20px;
 	width: 760px;
-	background: url(bg-header.gif) repeat-x #FCFFF5;
+	background: url(bg-header.gif) repeat-x #fbf2d7;
 	
 	}			
 #header {
@@ -45,12 +45,22 @@ h1 {
 	width: 540px;
 	height: 216px;
 	/*border: 1px solid #FF0;*/
-	/*background-color: #193441;*/
+	/*background-color: #701238;*/
 	}
 #logo {
 	margin-top: 9px;
 	}		
-
+p#branding {
+	margin: 0;
+	padding: 6px 0 3px 0;
+	color: #fbf2d7;
+	font-size: 21px;
+	font-weight: bold;
+	line-height: 27px;
+	}
+p#branding a {
+	color: #dab134;
+	}	
 #header h1.pagetitle {
 	/*display: none;*/
 	margin: 0;
@@ -60,15 +70,15 @@ h1 {
 /*	font-weight: normal;
 	font-style: italic;*/
 	line-height: 24px;
-	color: #FCFFF5;
-}
+	color: #fff6d5;
+	}
 
 #header h2.sitename {
 	display: none;
 	margin: 0;
 	padding: 0;
-	color: #FCFFF5;
-}
+	color: #fff6d5;
+	}
 	
 /* ===== Begin Navigation Styling ===== */
 	
@@ -86,8 +96,8 @@ h1 {
 	}
 #nav li a {
 	display: block;
-	padding: 9px 12px 12px 12px;
-	color: #91AA9D;
+	padding: 9px 9px 12px 9px;
+	color: #F60;
 	}
 #nav li a:hover {
 	text-decoration: underline;
@@ -114,25 +124,25 @@ h1 {
 	display: block;
 	margin: 0;
 	padding: 4px 12px 3px 12px;
-	color: #FCFFF5;
-	background-color: #91AA9D;
-	border-right: 1px solid #6A8787;
+	color: #fff6d5;
+	background-color: #d1451a;
+	border-right: 1px solid #dcaa3f;
 	}
 #nav_views li a:hover {
 	text-decoration: none;
 	}	
 #nav_views li.current a, #nav_views li.current a:hover {
-	color: #3F606F;
-	background-color: #FCFFF5;
-	border-right: 1px solid #6A8787;
+	color: #701238;
+	background-color: #fff6d5;
+	border-right: 1px solid #dcaa3f;
 	}
 #nav_views li.current a:hover {
-	color: #193441;
+	color: #d1451a;
 	}		
 #nav_views li a:hover {
-	color: #FCFFF5;
-	background-color: #3F606F;
-	border-right: 1px solid #6A8787;
+	color: #fff6d5;
+	background-color: #701238;
+	border-right: 1px solid #dcaa3f;
 	}
 	
 /* ----- Nav Footer ----- */	
@@ -144,7 +154,7 @@ h1 {
 	font-size: 11px;
 	font-weight: bold;
 	line-height: 21px;
-	border-top: 1px solid #D8E2D7;
+	border-top: 1px solid #dec5b5;
 	width: 540px;
 	}
 #nav_sub li {
@@ -182,8 +192,8 @@ h1 {
 	font-weight: normal;
 	margin: -36px 0 0 0;
 	padding: 10px;
-	border: 1px solid #91AA9D;
-	color: #FCFFF5;
+	border: 1px solid #dec5b5;
+	color: #fff6d5;
 	}		
 .success {
 	background-color: #48705b;
@@ -200,7 +210,7 @@ h1 {
 	margin: 0 -110px;
 	padding: 10px 0 0 0;
 	min-height: 170px;
-	border-top: 1px solid #D8E2D7;
+	border-top: 1px solid #dec5b5;
 	font-family: Georgia, "Times New Roman", Times, serif;
 	}
 #profile h1 {
@@ -215,7 +225,7 @@ h1 {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 11px;
 	text-transform: uppercase;
-	color: #91AA9D;
+	color: #dab134;
 	}	
 #profile p {
 	margin: 0 10px 0 0;
@@ -306,16 +316,13 @@ dl.statistics {
 	clear: left;
 	}
 
-
-	
-	
 #notices {
 	clear: both;
 	margin: 0 auto;
 	padding: 0;
 	list-style-type: none;
 	width: 540px;
-	border-top: 1px solid #D8E2D7;
+	border-top: 1px solid #dec5b5;
 	/*border: 1px solid #F00;*/
 	}
 #notices a:hover {
@@ -330,10 +337,10 @@ dl.statistics {
 	font-family: Georgia, "Times New Roman", Times, serif;
 	font-size: 13px;
 	line-height: 16px;
-	border-bottom: 1px solid #D8E2D7;
+	border-bottom: 1px solid #dec5b5;
 	}
 .notice_single:hover {
-	background-color: #F3F8EA;
+	background-color: #f7ebcc;
 	}	
 .notice_single p {
 	display: inline;
@@ -352,7 +359,7 @@ p.time {
 	line-height: 15px;
 	}
 p.time a {
-	color: #91AA9D;
+	color: #dab134;
 	}	
 
 #pagination {
@@ -370,7 +377,7 @@ p.time a {
 #nav_pagination li {
 	display: block;
 	float: left;
-	background-color: #91AA9D;
+	background-color: #701238;
 	}
 #nav_pagination li.before {
 	margin-right: 1px;
@@ -378,12 +385,12 @@ p.time a {
 #nav_pagination li a {
 	padding: 6px 15px;
 	line-height: 21px;
-	background-color: #91AA9D;
-	color: #FCFFF5;
+	background-color: #701238;
+	color: #fff6d5;
 	}
 #nav_pagination li a:hover {
 	background-color: #3F606F;
-	color: #FCFFF5;
+	color: #fff6d5;
 	text-decoration: none;
 	}
 			
@@ -392,7 +399,7 @@ p.time a {
 	margin: 0 auto;
 	padding: 0 0 36px 0;
 	width: 540px;
-	border-top: 1px solid #D8E2D7;
+	border-top: 1px solid #dec5b5;
 	}
 #footer p {
 	margin-top: 9px;
@@ -420,7 +427,7 @@ form label {
 	line-height: 18px;
 	}
 form input {
-	border: 1px solid #D8E2D7;
+	border: 1px solid #dec5b5;
 	width: 264px;
 	}
 input#submit  {
@@ -428,23 +435,23 @@ input#submit  {
 	margin: 18px 0;
 	padding: 4px;
 	font-weight: bold;
-	color: #FCFFF5;
-	background-color: #C15D42;
+	color: #fff6d5;
+	background-color: #F60;
 	cursor: pointer;
 	border: 0;
 	width: auto;
 	}
 input#submit:hover {
-	background-color: #904632;
+	background-color: #701238;
 	}
 textarea, input {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 12px;
-	color: #193441;
+	color: #701238;
 	padding: 3px;
 	}
 textarea:focus, input:focus {
-	background-color: #f0f6eb;
+	background-color: #f8ebc0;
 	}		
 textarea {
 	width: 270px;
@@ -454,7 +461,7 @@ textarea {
 	display: block;
 	font-size: 11px;
 	line-height: 21px;
-	color: #91aa9d;
+	color: #924959;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	}	
 	
@@ -475,7 +482,8 @@ textarea {
 	font-size: 18px;
 	font-weight: bold;
 	line-height: 24px;
-	color: #91AA9D;
+	/*color: #701238;*/
+	color: #dab134;
 	}
 #status_textarea {
 	display: block;
@@ -485,7 +493,7 @@ textarea {
 	padding: 5px;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 12px;
-	color: #193441;
+	color: #701238;
 	border: 0;
 	}
 #status_submit {
@@ -494,16 +502,16 @@ textarea {
 	margin: 1px 0 0 4px;
 	width: 63px;
 	height: 45px;
-	background-color: #C15D42;
+	background-color: #F60;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-weight: bold;
 	font-size: 14px;
-	color: #FCFFF5;
+	color: #fff6d5;
 	cursor: pointer;
 	border: 0;
 	}
 #status_submit:hover {
-	background-color: #904632;
+	background-color: #d1451a;
 	}
 	
 /* ----- Subscribe Form ----- */
@@ -515,8 +523,8 @@ textarea {
 	font-weight: bold;
 	font-size: 10px;
 	text-transform: uppercase;
-	background-color: #c15d42;
-	color: #fcfff5;
+	background-color: #F60;
+	color: #fff6d5;
 	border: 0;
 	}	
 #subscribe .button:hover, #unsubscribe .button:hover {
