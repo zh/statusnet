@@ -35,10 +35,10 @@ class FinishimmediateAction extends Action {
 			$canonical = ($response->endpoint->canonicalID) ?
 			  $response->endpoint->canonicalID : $response->getDisplayIdentifier();
 
-			$user = $this->get_user($canonical);
+			$user = oid_get_user($canonical);
 			
 			if ($user) {
-				$this->update_user($user, $sreg);
+				oid_update_user($user, $sreg);
 				common_set_user($user->nickname);
 				$this->go_backto();
 				return;
