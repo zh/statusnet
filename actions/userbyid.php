@@ -30,7 +30,8 @@ class UserbyidAction extends Action {
 		if (!$id) {
 			$this->client_error(_t('No such user.'));
 		}
-		common_redirect('showstream',
-			array('nickname' => $user->nickname));
+		$url=common_local_url('showstream',
+				array('nickname' => $user->nickname));
+		common_redirect($url, 303);
 	}
 }
