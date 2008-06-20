@@ -129,7 +129,7 @@ class RegisterAction extends Action {
 		$profile->query('COMMIT');
 
 		if ($email) {
-			mail_confirm_address($code,
+			mail_confirm_address($confirm->code,
 								 $profile->nickname,
 								 $email);
 		}
