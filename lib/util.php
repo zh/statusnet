@@ -445,7 +445,7 @@ function common_render_content($text, $notice) {
 	$r = htmlspecialchars($text);
 	$id = $notice->profile_id;
 	$r = preg_replace('@https?://\S+@', '<a href="\0" class="extlink">\0</a>', $r);
-	$r = preg_replace('/(^|\s+)@([\w-]+)/e', "'\\1@'.common_at_link($id, '\\2')", $r);
+	$r = preg_replace('/(^|\s+)@([a-z0-9]{1,64})/e', "'\\1@'.common_at_link($id, '\\2')", $r);
 	# XXX: # tags
 	# XXX: machine tags
 	return $r;
@@ -473,8 +473,7 @@ function common_at_link($sender_id, $nickname) {
 	if ($sender) {
 		$recipient_user = User::staticGet('nickname', $nickname);
 		if ($recipient_user) {
-			$recipient = $recipient->getProfile();
-			return '<a href="'.htmlspecialchars($recipient->profileurl).'" class="atlink usertouser">'.$nickname.'</a>';
+			return '<a href="'.htmlspecialchars(common_profile_url($nickname)).'" class="atlink usertouser">'.$nickname.'</a>';
 		}
 	}
 	# Otherwise, no links. @messages from local users to remote users,
