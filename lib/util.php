@@ -124,14 +124,14 @@ function common_end_xml() {
 }
 
 define('PAGE_TYPE_PREFS', 'application/xhtml+xml,text/html;q=0.7,application/xml;q=0.3,text/xml;q=0.2');
-	   
+
 function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=NULL) {
 	global $config, $xw;
 
 	$httpaccept = isset($_SERVER['HTTP_ACCEPT']) ? $_SERVER['HTTP_ACCEPT'] : NULL;
 
 	# XXX: allow content negotiation for RDF, RSS, or XRDS
-	
+
 	$type = common_negotiate_type(common_accept_to_prefs($httpaccept),
 								  common_accept_to_prefs(PAGE_TYPE_PREFS));
 
@@ -139,7 +139,7 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 		common_client_error(_t('This page is not available in a media type you accept'), 406);
 		exit(0);
 	}
-	
+
 	header('Content-Type: '.$type);
 
 	common_start_xml('html',
@@ -166,11 +166,11 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 							  'href="'.theme_path('ie'.$ver.'.css').' /><![endif]');
 		}
 	}
-	
+
 	common_element('script', array('type' => 'text/javascript',
 								   'src' => common_path('js/jquery.min.js')),
 				   ' ');
-						 
+
 	if ($callable) {
 		if ($data) {
 			call_user_func($callable, $data);
@@ -198,9 +198,9 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 					   $config['site']['name']);
 		common_element_end('p');
 	}
-	
+
 	common_element('h1', 'pagetitle', $pagetitle);
-	
+
 	if ($headercall) {
 		if ($data) {
 			call_user_func($headercall, $data);
@@ -417,12 +417,12 @@ function common_set_user($nickname) {
 function common_current_user() {
 	$user = NULL;
 	if (common_have_session()) {
-		$id = $_SESSION['userid'];	
+		$id = $_SESSION['userid'];
 		if ($id) {
 			$user = User::staticGet($id);
 		}
 	}
-	
+
 	return $user;
 }
 
@@ -552,7 +552,7 @@ function common_fancy_url($action, $args=NULL) {
 		return common_path('notice/new');
 	 case 'shownotice':
 		return common_path('notice/'.$args['notice']);
-	 case 'xrds':		
+	 case 'xrds':
 	 case 'foaf':
 		return common_path($args['nickname'].'/'.$action);
 	 case 'subscriptions':
@@ -616,7 +616,7 @@ function common_redirect($url, $code=307) {
 						   307 => "Temporary Redirect");
 	header("Status: ${code} $status[$code]");
 	header("Location: $url");
-	
+
 	common_start_xml('a',
 					 '-//W3C//DTD XHTML 1.0 Strict//EN',
 					 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd');
@@ -777,17 +777,17 @@ function common_valid_tag($tag) {
 
 # Does a little before-after block for next/prev page
 
-function common_pagination($have_before, $have_after, $page, $action, $args=NULL) {		
-	
+function common_pagination($have_before, $have_after, $page, $action, $args=NULL) {
+
 	if ($have_before || $have_after) {
 		common_element_start('div', array('id' => 'pagination'));
 		common_element_start('ul', array('id' => 'nav_pagination'));
 	}
-	
+
 	if ($have_before) {
 		$pargs = array('page' => $page-1);
 		$newargs = ($args) ? array_merge($args,$pargs) : $pargs;
-										 
+
 		common_element_start('li', 'before');
 		common_element('a', array('href' => common_local_url($action, $newargs)),
 					   _t('« After'));
@@ -802,7 +802,7 @@ function common_pagination($have_before, $have_after, $page, $action, $args=NULL
 						   _t('Before »'));
 		common_element_end('li');
 	}
-	
+
 	if ($have_before || $have_after) {
 		common_element_end('ul');
 		common_element_end('div');
