@@ -22,8 +22,8 @@ if (!defined('LACONICA')) { exit(1); }
 require_once('Mail.php');
 
 function mail_backend() {
-	static $backend = NULL; 
-	
+	static $backend = NULL;
+
 	if (!$backend) {
 		global $config;
 		$backend = Mail::factory($config['mail']['backend'],
@@ -78,6 +78,6 @@ function mail_confirm_address($code, $nickname, $address) {
 	$body .= "\n";
 	$body .= common_config('site', 'name');
 	$body .= "\n";
-	
+
 	mail_send($recipients, $headers, $body);
 }
