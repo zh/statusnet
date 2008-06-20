@@ -89,8 +89,11 @@ class RegisterAction extends Action {
 	}
 
 	function register_user($nickname, $password, $email) {
-		# TODO: wrap this in a transaction!
+		
 		$profile = new Profile();
+		
+		$profile->query('BEGIN');
+		
 		$profile->nickname = $nickname;
 		$profile->profileurl = common_profile_url($nickname);
 		$profile->created = DB_DataObject_Cast::dateTime(); # current time
@@ -103,15 +106,34 @@ class RegisterAction extends Action {
 		$user->id = $id;
 		$user->nickname = $nickname;
 		$user->password = common_munge_password($password, $id);
-		$user->email = $email;
 		$user->created =  DB_DataObject_Cast::dateTime(); # current time
 		$user->uri = common_mint_tag('user:'.$id);
 		
 		$result = $user->insert();
 		if (!$result) {
-			# Try to clean up...
-			$profile->delete();
+			return FALSE;
 		}
+
+		if ($email) {
+			$confirm = new Confirm_email();
+			$confirm->code = common_good_random(16);
+			$confirm->user_id = $user->id;
+			$confirm->email = $email;
+			
+			$result = $confirm->insert();
+			if (!$result) {
+				return FALSE;
+			}
+		}
+		
+		$profile->query('COMMIT');
+
+		if ($email) {
+			mail_confirm_address($code,
+								 $profile->nickname,
+								 $email);
+		}
+		
 		return $result;
 	}
 

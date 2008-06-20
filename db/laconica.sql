@@ -145,7 +145,7 @@ create table oid_nonces (
     UNIQUE (server_url(255), timestamp, salt)
 ) ENGINE=InnoDB;
 
-create table confirmemail (
+create table confirm_email (
     code varchar(32) not null primary key comment 'good random code',
     user_id integer not null comment 'user who requested confirmation' references user (id),
     email varchar(255) not null comment 'email address for password recovery etc.',

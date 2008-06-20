@@ -80,3 +80,4 @@ require_once(INSTALLDIR.'/classes/Profile.php');
 require_once(INSTALLDIR.'/classes/Remote_profile.php');
 require_once(INSTALLDIR.'/classes/Subscription.php');
 require_once(INSTALLDIR.'/classes/User.php');
+require_once(INSTALLDIR.'/classes/Confirm_email.php');

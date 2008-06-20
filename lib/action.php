@@ -68,4 +68,11 @@ class Action { // lawsuit
 		common_debug("User error '$code' on '$action': $msg", __FILE__);
 		common_user_error($msg, $code);
 	}
+	
+	function self_url() {
+		$action = $this->trimmed('action');
+		$args = $this->args;
+		unset($args['action']);
+		return common_local_url($action, $args);
+	}
 }

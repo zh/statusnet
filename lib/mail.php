@@ -54,4 +54,30 @@ function mail_notify_from() {
 		return $config['site']['name'] . ' <noreply@'.$config['site']['server'].'>';
 	}
 }
- 
+
+# For confirming an email address
+
+function mail_confirm_address($code, $nickname, $address) {
+	$recipients = $address;
+	$headers['From'] = mail_notify_from();
+	$headers['To'] = $nickname . ' <' . $address . '>';
+	$headers['Subject'] = _t('Email address confirmation');
+
+	$body = "Hey, $nickname.";
+	$body .= "\n\n";
+	$body .= 'Someone just entered this email address on ' . common_config('site', 'name') . '.';
+	$body .= "\n\n";
+	$body .= 'If it was you, and you want to confirm your entry, use the URL below:';
+	$body .= "\n\n";
+	$body .= "\t".common_local_url('confirmemail',
+								   array('code' => $code));
+	$body .= "\n\n";
+	$body .= 'If not, just ignore this message.';
+	$body .= "\n\n";
+	$body .= 'Thanks for your time, ';
+	$body .= "\n";
+	$body .= common_config('site', 'name');
+	$body .= "\n";
+	
+	mail_send($recipients, $headers, $body);
+}
