@@ -23,9 +23,7 @@ class Rss10Action extends Action {
 
 	function handle($args) {
 		parent::handle($args);
-		
 		$limit = (int) $this->trimmed('limit');
-		
 		$this->show_rss($limit);
 	}
 
