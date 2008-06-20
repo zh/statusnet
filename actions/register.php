@@ -116,7 +116,7 @@ class RegisterAction extends Action {
 
 		if ($email) {
 			$confirm = new Confirm_email();
-			$confirm->code = common_good_random(16);
+			$confirm->code = common_good_rand(16);
 			$confirm->user_id = $user->id;
 			$confirm->email = $email;
 			
