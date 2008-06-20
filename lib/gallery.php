@@ -19,8 +19,9 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-define('AVATARS_PER_ROW', 8);
-define('AVATARS_PER_PAGE', 80);
+# 9x9
+
+define('AVATARS_PER_PAGE', 81);
 
 class GalleryAction extends Action {
 
@@ -37,7 +38,10 @@ class GalleryAction extends Action {
 			$this->no_such_user();
 			return;
 		}
-		$page = $this->arg('page') || 1;
+		$page = $this->arg('page');
+		if (!$page) {
+			$page = 1;
+		}
 		common_show_header($profile->nickname . ": " . $this->gallery_type(),
 						   NULL, $profile,
 						   array($this, 'show_top'));
