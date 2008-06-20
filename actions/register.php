@@ -107,7 +107,7 @@ class RegisterAction extends Action {
 		$user->nickname = $nickname;
 		$user->password = common_munge_password($password, $id);
 		$user->created =  DB_DataObject_Cast::dateTime(); # current time
-		$user->uri = common_mint_tag('user:'.$id);
+		$user->uri = common_user_uri($user);
 		
 		$result = $user->insert();
 		if (!$result) {

@@ -572,6 +572,8 @@ function common_fancy_url($action, $args=NULL) {
 		}
 	 case 'confirmemail':
 		return common_path('main/confirmemail/'.$args['code']);
+	 case 'userbyid':
+	 	return common_path('user/'.$args['id']);
 	 default:
 		return common_simple_url($action, $args);
 	}
@@ -896,4 +898,13 @@ function common_copy_args($from) {
 		$to[$k] = ($strip) ? stripslashes($v) : $v;
 	}
 	return $to;
+}
+
+function common_user_uri(&$user) {
+	return common_local_url('userbyid', array('id' => $user->id));
+}
+
+function common_notice_uri(&$notice) {
+	return common_local_url('shownotice', 
+		array('notice' => $notice->id));
 }

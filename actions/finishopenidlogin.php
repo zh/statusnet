@@ -223,7 +223,7 @@ class FinishopenidloginAction extends Action {
 		$user = new User();
 		$user->id = $id;
 		$user->nickname = $nickname;
-		$user->uri = common_mint_tag('user:'.$id);
+		$user->uri = common_user_uri($user);
 		
 		if ($sreg['email'] && Validate::email($sreg['email'], true)) {
 			$user->email = $sreg['email'];

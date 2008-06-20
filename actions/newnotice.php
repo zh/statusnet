@@ -61,7 +61,7 @@ class NewnoticeAction extends Action {
 		}
 
 		$orig = clone($notice);
-		$notice->uri = common_mint_tag('notice:' . $id);
+		$notice->uri = common_notice_uri($notice);
 		
 		if (!$notice->update($orig)) {
 			common_server_error(_t('Problem saving notice.'));
