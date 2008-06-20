@@ -573,6 +573,8 @@ function common_fancy_url($action, $args=NULL) {
 		} else {
 			return common_path($args['nickname']);
 		}
+	 case 'confirmemail':
+		return common_path('main/confirmemail/'.$args['code']);
 	 default:
 		return common_simple_url($action, $args);
 	}
