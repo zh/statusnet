@@ -415,14 +415,11 @@ function common_set_user($nickname) {
 
 # who is the current user?
 function common_current_user() {
-	$user = NULL;
-	if (common_have_session()) {
-		$id = $_SESSION['userid'];
-		if ($id) {
-			$user = User::staticGet($id);
-		}
+	common_ensure_session();
+	$id = $_SESSION['userid'];
+	if ($id) {
+		$user = User::staticGet($id);
 	}
-
 	return $user;
 }
 
