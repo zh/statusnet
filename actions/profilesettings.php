@@ -114,21 +114,23 @@ class ProfilesettingsAction extends SettingsAction {
 
 		$user->query('BEGIN');
 
-		$original = clone($user);
+		if (strcmp($user->nickname, $nickname) != 0) {
+			$original = clone($user);
 		
-		$user->nickname = $nickname;
+			$user->nickname = $nickname;
 
-		common_debug('Old nickname = ' . $original->nickname . ', new nickname = ' . $user->nickname, __FILE__);
+			common_debug('Old nickname = ' . $original->nickname . ', new nickname = ' . $user->nickname, __FILE__);
 		
-		$result = $user->updateKeys($original);
+			$result = $user->updateKeys($original);
 		
-		if ($result === FALSE) {
-			common_log_db_error($user, 'UPDATE', __FILE__);
-			common_server_error(_t('Couldnt update user.'));
-			return;
+			if ($result === FALSE) {
+				common_log_db_error($user, 'UPDATE', __FILE__);
+				common_server_error(_t('Couldnt update user.'));
+				return;
+			}
 		}
 
-		if ($user->email != $email) {
+		if (strcmp($user->email, $email) != 0) {
 			
 			# We don't update email directly; it gets done by confirmemail
 			

@@ -67,7 +67,7 @@ class User extends DB_DataObject
 	function updateKeys(&$orig) {
 		$parts = array();
 		foreach (array('nickname', 'email') as $k) {
-			if ($this->$k != $orig->$k) {
+			if (strcmp($this->$k, $orig->$k) != 0) {
 				$parts[] = $k . ' = ' . $this->_quote($this->$k);
 			}
 		}
