@@ -930,15 +930,15 @@ function common_notice_uri(&$notice) {
 
 # 36 alphanums - lookalikes (0, O, 1, I) = 32 chars = 5 bits
 
-define('CODECHARS', '23456789ABCDEFGHJKLMNPQRSTUVWXYZ');
-
 function common_confirmation_code($bits) {
+	# 36 alphanums - lookalikes (0, O, 1, I) = 32 chars = 5 bits
+	static $codechars = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
 	$chars = ceil($bits/5);
 	$code = '';
 	for ($i = 0; $i < $chars; $i++) {
 		# XXX: convert to string and back
 		$num = hexdec(common_good_rand(1));
-		$code .= CODECHARS[$num%32];
+		$code .= $codechars[$num%32];
 	}
 	return $code;
 }
