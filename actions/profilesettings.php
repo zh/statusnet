@@ -117,15 +117,35 @@ class ProfilesettingsAction extends SettingsAction {
 		$original = clone($user);
 
 		$user->nickname = $nickname;
-		$user->email = $email;
 
 		$result = $user->update($original);
 		
 		if (!$result) {
+			common_log_db_error($user, 'UPDATE', __FILE__);
 			common_server_error(_t('Couldnt update user.'));
 			return;
 		}
 
+		if ($email != $original->email) {
+			
+			$confirm = new Confirm_email();
+			$confirm->code = common_good_rand(16);
+			$confirm->user_id = $user->id;
+			$confirm->email = $email;
+			
+			$result = $confirm->insert();
+			if (!$result) {
+				common_log_db_error($confirm, 'INSERT', __FILE__);
+				common_server_error(_t('Couldnt confirm email.'));
+				return FALSE;
+			}
+			# XXX: try not to do this in the middle of a transaction
+		
+			mail_confirm_address($confirm->code,
+								 $profile->nickname,
+								 $email);
+		}
+		
 		$profile = $user->getProfile();
 
 		$orig_profile = clone($profile);
@@ -140,14 +160,15 @@ class ProfilesettingsAction extends SettingsAction {
 		$result = $profile->update($orig_profile);
 		
 		if (!$result) {
+			common_log_db_error($profile, 'UPDATE', __FILE__);
 			common_server_error(_t('Couldnt save profile.'));
 			return;
 		}
 
+		$user->query('COMMIT');
+
 		common_broadcast_profile($profile);
 
-		$user->query('COMMIT');
-		
 		$this->show_form(_t('Settings saved.'), TRUE);
 	}
 	
