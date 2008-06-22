@@ -121,7 +121,7 @@ class RegisterAction extends Action {
 		if ($email) {
 			
 			$confirm = new Confirm_address();
-			$confirm->code = common_good_rand(16);
+			$confirm->code = common_confirmation_code(128);
 			$confirm->user_id = $user->id;
 			$confirm->address = $email;
 			$confirm->address_type = 'email';
