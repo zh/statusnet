@@ -113,20 +113,23 @@ class ProfilesettingsAction extends SettingsAction {
 		assert(!is_null($user)); # should already be checked
 
 		$user->query('BEGIN');
-		
-		$original = clone($user);
 
-		$user->nickname = $nickname;
-
-		$result = $user->update($original);
-		
-		if (!$result) {
-			common_log_db_error($user, 'UPDATE', __FILE__);
-			common_server_error(_t('Couldnt update user.'));
-			return;
+		if ($user->nickname != $nickname) {
+			
+			$original = clone($user);
+			
+			$user->nickname = $nickname;
+			
+			$result = $user->updateKeys($original);
+			
+			if (!$result) {
+				common_log_db_error($user, 'UPDATE', __FILE__);
+				common_server_error(_t('Couldnt update user.'));
+				return;
+			}
 		}
 
-		if ($email != $original->email) {
+		if ($email != $user->email) {
 			
 			$confirm = new Confirm_email();
 			$confirm->code = common_good_rand(16);
@@ -134,6 +137,7 @@ class ProfilesettingsAction extends SettingsAction {
 			$confirm->email = $email;
 			
 			$result = $confirm->insert();
+			
 			if (!$result) {
 				common_log_db_error($confirm, 'INSERT', __FILE__);
 				common_server_error(_t('Couldnt confirm email.'));

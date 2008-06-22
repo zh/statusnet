@@ -51,11 +51,13 @@ class ConfirmemailAction extends Action {
         $cur->query('BEGIN');
 		
         $orig_user = clone($cur);
+		
         $cur->email = $confirm_email->email;
-        $result = $cur->update($orig_user);
+        $result = $cur->updateKeys($orig_user);
 		
         if (!$result) {
 			common_log_db_error($cur, 'UPDATE', __FILE__);
+            $this->server_error(_t('Couldn\'t update user.'));
             return;
         }
 		
@@ -63,6 +65,7 @@ class ConfirmemailAction extends Action {
 		
         if (!$result) {
 			common_log_db_error($confirm_email, 'DELETE', __FILE__);
+            $this->server_error(_t('Couldn\'t delete email confirmation.'));
             return;
         }
 		
