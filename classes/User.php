@@ -61,4 +61,23 @@ class User extends DB_DataObject
 		$sub->subscribed = $other->id;
 		return $sub->find();
 	}
+
+	# 'update' won't write key columns, so we have to do it ourselves.
+	
+	function updateKeys(&$orig) {
+		$parts = array();
+		foreach (array('nickname', 'email') as $k) {
+			if ($this->$k != $orig->$k) {
+				$parts[] = $k . '="' . $this->$k . '"';
+			}
+		}
+		if (count($parts) == 0) {
+			# No changes
+			return;
+		}
+		$toupdate = implode(', ', $parts);
+		$qry = 'UPDATE ' . $this->tableName() . ' SET ' . $toupdate . 
+		  ' WHERE id = ' . $this->id;
+		return $this->query($qry);
+	}
 }
