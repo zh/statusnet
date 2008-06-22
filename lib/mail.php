@@ -69,7 +69,7 @@ function mail_confirm_address($code, $nickname, $address) {
 	$body .= "\n\n";
 	$body .= 'If it was you, and you want to confirm your entry, use the URL below:';
 	$body .= "\n\n";
-	$body .= "\t".common_local_url('confirmemail',
+	$body .= "\t".common_local_url('confirmaddress',
 								   array('code' => $code));
 	$body .= "\n\n";
 	$body .= 'If not, just ignore this message.';

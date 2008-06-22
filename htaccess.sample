@@ -16,8 +16,8 @@ RewriteRule ^main/openid$ index.php?action=openidlogin [L,QSA]
 
 RewriteRule ^main/subscribe$ index.php?action=subscribe [L,QSA]
 RewriteRule ^main/unsubscribe$ index.php?action=unsubscribe [L,QSA]
-RewriteRule ^main/confirmemail$ index.php?action=confirmemail [L,QSA]
-RewriteRule ^main/confirmemail/(.*)$ index.php?action=confirmemail&code=$1 [L,QSA]
+RewriteRule ^main/confirmaddress$ index.php?action=confirmaddress [L,QSA]
+RewriteRule ^main/confirmaddress/(.*)$ index.php?action=confirmaddress&code=$1 [L,QSA]
 
 RewriteRule ^settings/avatar$ index.php?action=avatar [L,QSA]
 RewriteRule ^settings/password$ index.php?action=password [L,QSA]
