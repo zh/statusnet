@@ -99,8 +99,10 @@ class RegisterAction extends Action {
 		$profile->created = DB_DataObject_Cast::dateTime(); # current time
 
 		$id = $profile->insert();
+		
 		if (!$id) {
-			return FALSE;
+			common_log_db_error($profile, 'INSERT', __FILE__);
+		    return FALSE;
 		}
 		$user = new User();
 		$user->id = $id;
@@ -110,11 +112,14 @@ class RegisterAction extends Action {
 		$user->uri = common_user_uri($user);
 		
 		$result = $user->insert();
+		
 		if (!$result) {
+			common_log_db_error($user, 'INSERT', __FILE__);
 			return FALSE;
 		}
 
 		if ($email) {
+			
 			$confirm = new Confirm_email();
 			$confirm->code = common_good_rand(16);
 			$confirm->user_id = $user->id;
@@ -122,6 +127,7 @@ class RegisterAction extends Action {
 			
 			$result = $confirm->insert();
 			if (!$result) {
+				common_log_db_error($confirm, 'INSERT', __FILE__);
 				return FALSE;
 			}
 		}

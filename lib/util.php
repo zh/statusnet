@@ -762,6 +762,25 @@ function common_debug($msg, $filename=NULL) {
 	}
 }
 
+function common_log_db_error($object, $verb, $filename=NULL) {
+	$objstr = common_log_objstring($ojbect);
+	$last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
+	common_log(LOG_ERROR, $last_error->message . '(' . $verb . ' on ' . $objstr . ')', $filename);
+}
+
+function common_log_objstring($object) {
+	if (is_null($object)) {
+		return "NULL";
+	}
+	$arr = $object->toArray();
+	$fields = array();
+	foreach ($arr as $k => $v) {
+		$fields[] = "$k='$v'";
+	}
+	$ojbstring = $object->tableName() . '[' . implode(',', $fields) . ']';
+	return $objstring;
+}
+
 function common_valid_http_url($url) {
 	return Validate::uri($url, array('allowed_schemes' => array('http', 'https')));
 }

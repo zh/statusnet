@@ -47,21 +47,27 @@ class ConfirmemailAction extends Action {
             $this->client_error(_t('That email address is already confirmed.'));
             return;
         }
+		
         $cur->query('BEGIN');
+		
         $orig_user = clone($cur);
         $cur->email = $confirm_email->email;
-        common_debug('cur email = "' . $cur->email . '"', __FILE__);
         $result = $cur->update($orig_user);
+		
         if (!$result) {
-            $this->server_error(_t('Error setting email address.'));
+			common_log_db_error($cur, 'UPDATE', __FILE__);
             return;
         }
+		
         $result = $confirm_email->delete();
+		
         if (!$result) {
-            $this->server_error(_t('Error deleting code.'));
+			common_log_db_error($confirm_email, 'DELETE', __FILE__);
             return;
         }
+		
         $cur->query('COMMIT');
+		
         common_show_header(_t('Confirm E-mail Address'));
         common_element('p', NULL,
                        _t('The email address "') . $cur->email . 
