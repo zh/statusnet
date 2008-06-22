@@ -133,7 +133,7 @@ class ProfilesettingsAction extends SettingsAction {
 
 		if (strcmp($user->email, $email) != 0) {
 			
-			common_debug('Updating user email from ' . $user->nickname . ' to ' . $nickname,
+			common_debug('Updating user email from ' . $user->email . ' to ' . $email,
 						 __FILE__);
 			
 			# We don't update email directly; it gets done by confirmemail
@@ -171,6 +171,9 @@ class ProfilesettingsAction extends SettingsAction {
 		$profile->location = $location;
 		$profile->profileurl = common_profile_url($nickname);
 
+		common_debug('Old profile: ' . common_log_objstring($orig_profile), __FILE__);
+		common_debug('New profile: ' . common_log_objstring($profile), __FILE__);
+		
 		$result = $profile->update($orig_profile);
 		
 		if (!$result) {
