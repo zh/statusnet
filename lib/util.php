@@ -777,7 +777,7 @@ function common_log_objstring(&$object) {
 	foreach ($arr as $k => $v) {
 		$fields[] = "$k='$v'";
 	}
-	$ojbstring = $object->tableName() . '[' . implode(',', $fields) . ']';
+	$objstring = $object->tableName() . '[' . implode(',', $fields) . ']';
 	return $objstring;
 }
 
