@@ -117,6 +117,8 @@ class ProfilesettingsAction extends SettingsAction {
 		$original = clone($user);
 		
 		$user->nickname = $nickname;
+
+		common_debug('Old nickname = ' . $original->nickname . ', new nickname = ' . $user->nickname, __FILE__);
 		
 		$result = $user->updateKeys($original);
 		
