@@ -762,13 +762,13 @@ function common_debug($msg, $filename=NULL) {
 	}
 }
 
-function common_log_db_error($object, $verb, $filename=NULL) {
-	$objstr = common_log_objstring($ojbect);
+function common_log_db_error(&$object, $verb, $filename=NULL) {
+	$objstr = common_log_objstring($object);
 	$last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
 	common_log(LOG_ERROR, $last_error->message . '(' . $verb . ' on ' . $objstr . ')', $filename);
 }
 
-function common_log_objstring($object) {
+function common_log_objstring(&$object) {
 	if (is_null($object)) {
 		return "NULL";
 	}
