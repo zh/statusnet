@@ -68,7 +68,7 @@ class User extends DB_DataObject
 		$parts = array();
 		foreach (array('nickname', 'email') as $k) {
 			if ($this->$k != $orig->$k) {
-				$parts[] = $k . '="' . $this->$k . '"';
+				$parts[] = $k . '=' . $this->_quote($this->$k);
 			}
 		}
 		if (count($parts) == 0) {
