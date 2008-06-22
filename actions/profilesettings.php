@@ -80,7 +80,7 @@ class ProfilesettingsAction extends SettingsAction {
 
 		# Some validation
 		
-		if (!Validate::email($email, true)) {
+		if (!is_null($email) && !Validate::email($email, true)) {
 			$this->show_form(_t('Not a valid email address.'));
 			return;
 		} else if (!Validate::string($nickname, array('min_length' => 1,
@@ -113,7 +113,7 @@ class ProfilesettingsAction extends SettingsAction {
 
 		$user->query('BEGIN');
 
-		if (strcmp($user->nickname, $nickname) != 0) {
+		if ($user->nickname != $nickname) {
 			
 			common_debug('Updating user nickname from ' . $user->nickname . ' to ' . $nickname,
 						 __FILE__);
@@ -131,7 +131,7 @@ class ProfilesettingsAction extends SettingsAction {
 			}
 		}
 
-		if (strcmp($user->email, $email) != 0) {
+		if ($user->email != $email) {
 			
 			common_debug('Updating user email from ' . $user->email . ' to ' . $email,
 						 __FILE__);
