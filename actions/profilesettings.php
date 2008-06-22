@@ -137,6 +137,8 @@ class ProfilesettingsAction extends SettingsAction {
 						 __FILE__);
 			
 			# We don't update email directly; it gets done by confirmemail
+
+			$confirm = new Confirm_address();
 			
 			$confirm->code = common_good_rand(16);
 			$confirm->user_id = $user->id;
