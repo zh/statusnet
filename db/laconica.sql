@@ -36,6 +36,8 @@ create table user (
     nickname varchar(64) unique key comment 'nickname or username, duped in profile',
     password varchar(255) comment 'salted password, can be null for OpenID users',
     email varchar(255) unique key comment 'email address for password recovery etc.',
+    jabber varchar(255) unique key comment 'jabber ID for notices',
+    sms varchar(64) unique key comment 'sms phone number',
     uri varchar(255) unique key comment 'universally unique identifier, usually a tag URI',
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified'
@@ -145,9 +147,10 @@ create table oid_nonces (
     UNIQUE (server_url(255), timestamp, salt)
 ) ENGINE=InnoDB;
 
-create table confirm_email (
+create table confirm_address (
     code varchar(32) not null primary key comment 'good random code',
     user_id integer not null comment 'user who requested confirmation' references user (id),
-    email varchar(255) not null comment 'email address for password recovery etc.',
+    address varchar(255) not null comment 'address (email, Jabber, SMS, etc.)',
+    address_type varchar(32) not null comment 'address type ("email", "jabber", "sms")',
     modified timestamp comment 'date this record was modified'
 );
