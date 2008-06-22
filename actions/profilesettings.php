@@ -113,6 +113,30 @@ class ProfilesettingsAction extends SettingsAction {
 
 		$user->query('BEGIN');
 
+		$profile = $user->getProfile();
+
+		$orig_profile = clone($profile);
+
+		$profile->nickname = $nickname;
+		$profile->fullname = $fullname;
+		$profile->homepage = $homepage;
+		$profile->bio = $bio;
+		$profile->location = $location;
+		$profile->profileurl = common_profile_url($nickname);
+
+		common_debug('Old profile: ' . common_log_objstring($orig_profile), __FILE__);
+		common_debug('New profile: ' . common_log_objstring($profile), __FILE__);
+		
+		$result = $profile->update($orig_profile);
+		
+		if (!$result) {
+			common_log_db_error($profile, 'UPDATE', __FILE__);
+			common_server_error(_t('Couldnt save profile.'));
+			return;
+		}
+
+		# Keys don't update correctly, so we have to handle them separately
+		
 		if (strcmp($user->nickname, $nickname) != 0) {
 			
 			common_debug('Updating user nickname from ' . $user->nickname . ' to ' . $nickname,
@@ -160,28 +184,6 @@ class ProfilesettingsAction extends SettingsAction {
 								 $email);
 		}
 		
-		$profile = $user->getProfile();
-
-		$orig_profile = clone($profile);
-
-		$profile->nickname = $user->nickname;
-		$profile->fullname = $fullname;
-		$profile->homepage = $homepage;
-		$profile->bio = $bio;
-		$profile->location = $location;
-		$profile->profileurl = common_profile_url($nickname);
-
-		common_debug('Old profile: ' . common_log_objstring($orig_profile), __FILE__);
-		common_debug('New profile: ' . common_log_objstring($profile), __FILE__);
-		
-		$result = $profile->update($orig_profile);
-		
-		if (!$result) {
-			common_log_db_error($profile, 'UPDATE', __FILE__);
-			common_server_error(_t('Couldnt save profile.'));
-			return;
-		}
-
 		$user->query('COMMIT');
 
 		common_broadcast_profile($profile);
