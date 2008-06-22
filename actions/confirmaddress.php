@@ -19,7 +19,7 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class ConfirmemailAction extends Action {
+class ConfirmaddressAction extends Action {
 
     function handle($args) {
         parent::handle($args);
