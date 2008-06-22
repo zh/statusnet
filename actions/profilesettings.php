@@ -90,6 +90,7 @@ class ProfilesettingsAction extends SettingsAction {
 			return;
 		} else if (!User::allowed_nickname($nickname)) {
 			$this->show_form(_t('Not a valid nickname.'));
+			return;
 		} else if (!is_null($homepage) && (strlen($homepage) > 0) &&
 				   !Validate::uri($homepage, array('allowed_schemes' => array('http', 'https')))) {
 			$this->show_form(_t('Homepage is not a valid URL.'));

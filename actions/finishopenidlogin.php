@@ -342,8 +342,8 @@ class FinishopenidloginAction extends Action {
 										  'max_length' => 64,
 										  'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
 			return false;
-		}
-		if (!User::allowed_nickname($str)) {
+		}	
+	if (!User::allowed_nickname($str)) {
 			return false;
 		}
 		if (User::staticGet('nickname', $str)) {
