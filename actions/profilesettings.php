@@ -138,10 +138,10 @@ class ProfilesettingsAction extends SettingsAction {
 			
 			# We don't update email directly; it gets done by confirmemail
 			
-			$confirm = new Confirm_email();
 			$confirm->code = common_good_rand(16);
 			$confirm->user_id = $user->id;
-			$confirm->email = $email;
+			$confirm->address = $email;
+			$confirm->address_type = 'email';
 			
 			$result = $confirm->insert();
 			
@@ -150,6 +150,7 @@ class ProfilesettingsAction extends SettingsAction {
 				common_server_error(_t('Couldnt confirm email.'));
 				return FALSE;
 			}
+			
 			# XXX: try not to do this in the middle of a transaction
 		
 			mail_confirm_address($confirm->code,

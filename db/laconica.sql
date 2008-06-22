@@ -29,6 +29,14 @@ create table avatar (
     index avatar_profile_id_idx (profile_id)
 ) ENGINE=InnoDB;
 
+create table sms_carrier (
+    id integer primary key comment 'primary key for SMS carrier',
+    name varchar(64) unique key comment 'name of the carrier',
+    email_pattern varchar(255) not null comment 'sprintf pattern for making an email address from a phone number',
+    created datetime not null comment 'date this record was created',
+    modified timestamp comment 'date this record was modified'
+) ENGINE=InnoDB;
+
 /* local users */
 
 create table user (
@@ -38,6 +46,7 @@ create table user (
     email varchar(255) unique key comment 'email address for password recovery etc.',
     jabber varchar(255) unique key comment 'jabber ID for notices',
     sms varchar(64) unique key comment 'sms phone number',
+    carrier integer comment 'foreign key to sms_carrier' references sms_carrier (id),
     uri varchar(255) unique key comment 'universally unique identifier, usually a tag URI',
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified'
@@ -151,6 +160,7 @@ create table confirm_address (
     code varchar(32) not null primary key comment 'good random code',
     user_id integer not null comment 'user who requested confirmation' references user (id),
     address varchar(255) not null comment 'address (email, Jabber, SMS, etc.)',
-    address_type varchar(32) not null comment 'address type ("email", "jabber", "sms")',
+    address_extra varchar(255) not null comment 'carrier ID, for SMS',
+    address_type varchar(8) not null comment 'address type ("email", "jabber", "sms")',
     modified timestamp comment 'date this record was modified'
-);
+) ENGINE=InnoDB;

@@ -120,10 +120,11 @@ class RegisterAction extends Action {
 
 		if ($email) {
 			
-			$confirm = new Confirm_email();
+			$confirm = new Confirm_address();
 			$confirm->code = common_good_rand(16);
 			$confirm->user_id = $user->id;
-			$confirm->email = $email;
+			$confirm->address = $email;
+			$confirm->address_type = 'email';
 			
 			$result = $confirm->insert();
 			if (!$result) {

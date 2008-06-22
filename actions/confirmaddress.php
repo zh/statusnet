@@ -33,27 +33,37 @@ class ConfirmemailAction extends Action {
             $this->client_error(_t('No confirmation code.'));
             return;
         }
-        $confirm_email = Confirm_email::staticGet('code', $code);
-        if (!$confirm_email) {
+        $confirm = Confirm_address::staticGet('code', $code);
+        if (!$confirm) {
             $this->client_error(_t('Confirmation code not found.'));
             return;
         }
         $cur = common_current_user();
-        if ($cur->id != $confirm_email->user_id) {
+        if ($cur->id != $confirm->user_id) {
             $this->client_error(_t('That confirmation code is not for you!'));
             return;
         }
-        if ($cur->email == $confirm_email->email) {
-            $this->client_error(_t('That email address is already confirmed.'));
-            return;
-        }
+		$type = $confirm->address_type;
+		if (!in_array($type, array('email', 'jabber', 'sms'))) {
+			$this->server_error(_t('Unrecognized address type ') . $type);
+			return;
+		}
+        if ($cur->$type == $confirm->address) {
+            $this->client_error(_t('That address has already been confirmed.'));
+			return;
+		}
 		
         $cur->query('BEGIN');
 		
         $orig_user = clone($cur);
+
+		$cur->$type = $confirm->address;
+
+		if ($type == 'sms') {
+			$cur->carrier = ($confirm->address_extra)+0;
+		}
 		
-        $cur->email = $confirm_email->email;
-        $result = $cur->updateKeys($orig_user);
+		$result = $cur->updateKeys($orig_user);
 		
         if (!$result) {
 			common_log_db_error($cur, 'UPDATE', __FILE__);
@@ -61,20 +71,20 @@ class ConfirmemailAction extends Action {
             return;
         }
 		
-        $result = $confirm_email->delete();
+        $result = $confirm->delete();
 		
         if (!$result) {
-			common_log_db_error($confirm_email, 'DELETE', __FILE__);
+			common_log_db_error($confirm, 'DELETE', __FILE__);
             $this->server_error(_t('Couldn\'t delete email confirmation.'));
             return;
         }
 		
         $cur->query('COMMIT');
-		
-        common_show_header(_t('Confirm E-mail Address'));
+
+        common_show_header(_t('Confirm Address'));
         common_element('p', NULL,
-                       _t('The email address "') . $cur->email . 
+                       _t('The address "') . $cur->email . 
                        _t('" has been confirmed for your account.'));
-        common_show_footer(_t('Confirm E-mail Address'));
+        common_show_footer();
     }
 }

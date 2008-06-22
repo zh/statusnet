@@ -36,6 +36,7 @@ class User extends DB_DataObject
     public $email;                           // varchar(255)  unique_key
     public $jabber;                          // varchar(255)  unique_key
     public $sms;                             // varchar(64)  unique_key
+    public $carrier;                         // int(4)  
     public $uri;                             // varchar(255)  unique_key
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
@@ -68,7 +69,7 @@ class User extends DB_DataObject
 	
 	function updateKeys(&$orig) {
 		$parts = array();
-		foreach (array('nickname', 'email') as $k) {
+		foreach (array('nickname', 'email', 'jabber', 'sms', 'carrier') as $k) {
 			if (strcmp($this->$k, $orig->$k) != 0) {
 				$parts[] = $k . ' = ' . $this->_quote($this->$k);
 			}

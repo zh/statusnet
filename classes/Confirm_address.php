@@ -13,7 +13,8 @@ class Confirm_address extends DB_DataObject
     public $code;                            // varchar(32)  primary_key not_null
     public $user_id;                         // int(4)   not_null
     public $address;                         // varchar(255)   not_null
-    public $address_type;                    // varchar(32)   not_null
+    public $address_extra;                   // varchar(255)   not_null
+    public $address_type;                    // varchar(8)   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
