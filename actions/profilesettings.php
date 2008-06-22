@@ -110,17 +110,18 @@ class ProfilesettingsAction extends SettingsAction {
 		}
 		
 		$user = common_current_user();
-		assert(!is_null($user)); # should already be checked
 
 		$user->query('BEGIN');
 
 		if (strcmp($user->nickname, $nickname) != 0) {
+			
+			common_debug('Updating user nickname from ' . $user->nickname . ' to ' . $nickname,
+						 __FILE__);
+			
 			$original = clone($user);
 		
 			$user->nickname = $nickname;
 
-			common_debug('Old nickname = ' . $original->nickname . ', new nickname = ' . $user->nickname, __FILE__);
-		
 			$result = $user->updateKeys($original);
 		
 			if ($result === FALSE) {
@@ -131,6 +132,9 @@ class ProfilesettingsAction extends SettingsAction {
 		}
 
 		if (strcmp($user->email, $email) != 0) {
+			
+			common_debug('Updating user email from ' . $user->nickname . ' to ' . $nickname,
+						 __FILE__);
 			
 			# We don't update email directly; it gets done by confirmemail
 			
