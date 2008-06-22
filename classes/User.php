@@ -83,4 +83,12 @@ class User extends DB_DataObject
 		  ' WHERE id = ' . $this->id;
 		return $this->query($qry);
 	}
+	
+	function allowed_nickname($nickname) {
+		# XXX: should already be validated for size, content, etc.
+		static $blacklist = array('rss', 'xrds', 'doc', 'main',
+								  'settings', 'notice', 'user');
+		$merged = array_merge($blacklist, common_config('nickname', 'blacklist'));
+		return !in_array($nickname, $merged);
+	}
 }

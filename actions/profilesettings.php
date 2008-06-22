@@ -88,6 +88,8 @@ class ProfilesettingsAction extends SettingsAction {
 													  'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
 			$this->show_form(_t('Nickname must have only letters and numbers and no spaces.'));
 			return;
+		} else if (!User::allowed_nickname($nickname)) {
+			$this->show_form(_t('Not a valid nickname.'));
 		} else if (!is_null($homepage) && (strlen($homepage) > 0) &&
 				   !Validate::uri($homepage, array('allowed_schemes' => array('http', 'https')))) {
 			$this->show_form(_t('Homepage is not a valid URL.'));

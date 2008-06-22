@@ -54,7 +54,9 @@ $config =
 			  'image' => 'http://i.creativecommons.org/l/by/3.0/88x31.png'),
 		'mail' =>
 		array('backend' => 'mail',
-			  'params' => NULL)
+			  'params' => NULL),
+		'nickname' =>
+		array('blacklist' => array())
 		);
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');

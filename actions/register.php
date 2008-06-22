@@ -57,6 +57,8 @@ class RegisterAction extends Action {
 			$this->show_form(_t('Nickname must have only lowercase letters and numbers and no spaces.'));
 		} else if ($this->nickname_exists($nickname)) {
 			$this->show_form(_t('Nickname already exists.'));
+		} else if (!User::allowed_nickname($nickname)) {
+			$this->show_form(_t('Not a valid nickname.'));
 		} else if ($this->email_exists($email)) {
 			$this->show_form(_t('Email address already exists.'));
 		} else if ($password != $confirm) {

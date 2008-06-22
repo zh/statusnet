@@ -167,6 +167,11 @@ class FinishopenidloginAction extends Action {
 			$this->show_form(_t('Nickname must have only letters and numbers and no spaces.'));
 			return;
 		}
+
+		if (!User::allowed_nickname($nickname)) {
+			$this->show_form(_t('Nickname not allowed.'));
+			return;
+		}
 		
 		if (User::staticGet('nickname', $nickname)) {
 			$this->show_form(_t('Nickname already in use. Try another one.'));
@@ -336,6 +341,9 @@ class FinishopenidloginAction extends Action {
 		if (!Validate::string($str, array('min_length' => 1,
 										  'max_length' => 64,
 										  'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
+			return false;
+		}
+		if (!User::allowed_nickname($str)) {
 			return false;
 		}
 		if (User::staticGet('nickname', $str)) {

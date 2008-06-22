@@ -33,3 +33,6 @@ $config['db']['database'] = 'mysql://laconica:microblog@localhost/laconica';
 
 #session_set_cookie_params(0, '/'. $config['site']['path'] .'/');
 
+#Standard fancy-url clashes prevented by not allowing nicknames on a blacklist
+#Add your own here. Note: empty array by default
+#$config['nickname']['blacklist'][] = 'scobleizer';
