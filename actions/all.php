@@ -31,7 +31,7 @@ class AllAction extends StreamAction {
 		$user = User::staticGet('nickname', $nickname);
 
 		if (!$user) {
-			$this->no_such_user();
+			$this->client_error(_t('No such user: ') . $nickname);
 			return;
 		}
 
