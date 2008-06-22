@@ -34,6 +34,8 @@ class User extends DB_DataObject
     public $nickname;                        // varchar(64)  unique_key
     public $password;                        // varchar(255)  
     public $email;                           // varchar(255)  unique_key
+    public $jabber;                          // varchar(255)  unique_key
+    public $sms;                             // varchar(64)  unique_key
     public $uri;                             // varchar(255)  unique_key
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
