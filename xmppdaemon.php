@@ -32,13 +32,17 @@ require_once('xmpp.php');
 class XMPPDaemon {
 
 	function XMPPDaemon() {
-		foreach (array('server', 'port', 'user', 'password', 'resource') as $attr) {
+		static $attrs = array('server', 'port', 'user', 'password',
+					   'resource');
+
+		foreach ($attrs as $attr)
+		{
 			$this->$attr = common_config('xmpp', $attr);
 		}
 	}
 
 	function connect() {
-		$this->conn = new XMPP($this->host, $this->port, $this->user,
+		$this->conn = new XMPP($this->server, $this->port, $this->user,
 							   $this->password, $this->resource);
 		if (!$this->conn) {
 			return false;
