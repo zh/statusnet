@@ -158,7 +158,7 @@ class XMPPDaemon {
 	}
 
 	function handle_session(&$pl) {
-		$conn->presence($status="Send me a message to post a notice");
+		$this->conn->presence($status="Send me a message to post a notice");
 	}
 
 	function log($level, $msg) {
