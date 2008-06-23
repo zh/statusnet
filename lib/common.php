@@ -56,7 +56,14 @@ $config =
 		array('backend' => 'mail',
 			  'params' => NULL),
 		'nickname' =>
-		array('blacklist' => array())
+		array('blacklist' => array()),
+		'xmpp' =>
+		array('enabled' => false,
+			  'server' => 'INVALID SERVER',
+			  'port' => 5222,
+			  'user' => 'update',
+			  'resource' => 'uniquename',
+			  'password' => 'blahblahblah'),
 		);
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
