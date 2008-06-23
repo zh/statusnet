@@ -24,7 +24,7 @@ require_once(INSTALLDIR . '/lib/common.php');
 require_once('xmpp.php');
 
 class XMPPDaemon {
-	
+
 	function XMPPDaemon() {
 		foreach (array('server', 'port', 'user', 'password', 'resource') as $attr) {
 			$this->$attr = common_config('xmpp', $attr);
@@ -40,10 +40,10 @@ class XMPPDaemon {
 		$this->conn->connect();
 		return !$this->conn->disconnected;
 	}
-	
+
 	function handle() {
 		while(!$this->conn->disconnected) {
-			$payloads = $this->conn->processUntil(array('message', 'presence', 
+			$payloads = $this->conn->processUntil(array('message', 'presence',
 														'end_stream', 'session_start'));
 			foreach($payloads as $event) {
 				$pl = $event[1];
@@ -95,16 +95,16 @@ class XMPPDaemon {
 		$result = $user->update($orig);
 		if (!$id) {
 			$last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-			$this->log(LOG_ERROR, 
+			$this->log(LOG_ERROR,
 					   'Could not set notify flag to ' . $notify .
-					   ' for user ' . common_log_objstring($user) . 
+					   ' for user ' . common_log_objstring($user) .
 					   ': ' . $last_error->message);
 		} else {
 			$this->log(LOG_INFO,
 					   'User ' . $user->nickname . ' set notify flag to ' . $notify);
 		}
 	}
-	
+
 	function add_notice(&$user, &$pl) {
 		$notice = new Notice();
 		$notice->profile_id = $user->id;
@@ -114,9 +114,9 @@ class XMPPDaemon {
 		$id = $notice->insert();
 		if (!$id) {
 			$last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-			$this->log(LOG_ERROR, 
-					   'Could not insert ' . common_log_objstring($notice) . 
-					   ' for user ' . common_log_objstring($user) . 
+			$this->log(LOG_ERROR,
+					   'Could not insert ' . common_log_objstring($notice) .
+					   ' for user ' . common_log_objstring($user) .
 					   ': ' . $last_error->message);
 			return;
 		}
@@ -125,9 +125,9 @@ class XMPPDaemon {
 		$result = $notice->update($orig);
 		if (!$result) {
 			$last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-			$this->log(LOG_ERROR, 
-					   'Could not add URI to ' . common_log_objstring($notice) . 
-					   ' for user ' . common_log_objstring($user) . 
+			$this->log(LOG_ERROR,
+					   'Could not add URI to ' . common_log_objstring($notice) .
+					   ' for user ' . common_log_objstring($user) .
 					   ': ' . $last_error->message);
 			return;
 		}
@@ -135,7 +135,7 @@ class XMPPDaemon {
 		$this->log(LOG_INFO,
 				   'Added notice ' . $notice->id . ' from user ' . $user->nickname);
 	}
-	
+
 	function handle_presence(&$pl) {
 		$user = User::staticGet('jabber', $pl['from']);
 		if (!$user) {
@@ -146,11 +146,11 @@ class XMPPDaemon {
 			$this->add_notice($user, $pl);
 		}
 	}
-	
+
 	function handle_session(&$pl) {
 		$conn->presence($status="Send me a message to post a notice");
 	}
-	
+
 	function log($level, $msg) {
 		common_log($level, 'XMPPDaemon('.$this->resource.'): '.$msg);
 	}
