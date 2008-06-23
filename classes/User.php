@@ -35,8 +35,11 @@ class User extends DB_DataObject
     public $password;                        // varchar(255)  
     public $email;                           // varchar(255)  unique_key
     public $jabber;                          // varchar(255)  unique_key
+    public $jabbernotify;                    // tinyint(1)  
+    public $updatefrompresence;              // tinyint(1)  
     public $sms;                             // varchar(64)  unique_key
     public $carrier;                         // int(4)  
+    public $smsnotify;                       // tinyint(1)  
     public $uri;                             // varchar(255)  unique_key
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP

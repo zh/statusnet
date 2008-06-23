@@ -21,67 +21,60 @@ if (!defined('LACONICA')) { exit(1); }
 
 class SettingsAction extends Action {
 
-	function handle($args) {
-		parent::handle($args);
-		if (!common_logged_in()) {
-			common_user_error(_t('Not logged in.'));
-			return;
-		} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-			$this->handle_post();
-		} else {
-			$this->show_form();
-		}
-	}
+    function handle($args) {
+        parent::handle($args);
+        if (!common_logged_in()) {
+            common_user_error(_t('Not logged in.'));
+            return;
+        } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $this->handle_post();
+        } else {
+            $this->show_form();
+        }
+    }
 
-	# override!
-	function handle_post() {
-		return false;
-	}
+    # override!
+    function handle_post() {
+        return false;
+    }
 
-	function show_form($msg=NULL, $success=false) {
-		return false;
-	}
+    function show_form($msg=NULL, $success=false) {
+        return false;
+    }
 
-	function message($msg, $success) {
-		if ($msg) {
-			common_element('div', ($success) ? 'success' : 'error',
-						   $msg);
-		}
-	}
+    function message($msg, $success) {
+        if ($msg) {
+            common_element('div', ($success) ? 'success' : 'error',
+                           $msg);
+        }
+    }
 
-	function settings_menu() {
-		$action = $this->trimmed('action');
-		common_element_start('ul', array('id' => 'nav_views'));
-		common_menu_item(common_local_url('profilesettings'),
-						 _t('Profile'), 
-						 _t('Change your profile settings'),
-						 $action == 'profilesettings');
-		common_menu_item(common_local_url('avatar'),
-						 _t('Avatar'), 
-						 _t('Upload a new profile image'),
-						 $action == 'avatar');
-		common_menu_item(common_local_url('password'),
-						 _t('Password'), 
-						 _t('Change your password'),
-						 $action == 'password');
-		common_menu_item(common_local_url('openidsettings'),
-						 _t('OpenID'), 
-						 _t('Add or remove OpenIDs'),
-						 $action == 'openidsettings');
-		if (false) {
-			common_menu_item(common_local_url('emailsettings'),
-							 _t('Email'),
-							 _t('Address and preferences'),
-							 $action == 'emailsettings');
-			common_menu_item(common_local_url('imsettings'),
-							 _t('IM'), 
-							 _t('Notifications by instant messenger'),
-							 $action == 'imsettings');
-			common_menu_item(common_local_url('phonesettings'),
-							 _t('Phone'), 
-							 _t('Notifications by phone'),
-							 $action == 'phonesettings');
-		}
-		common_element_end('ul');
-	}
+    function settings_menu() {
+        # action => array('prompt', 'title')
+        static $menu =
+        array('profilesettings' => 
+              array('Profile', 
+              		'Change your profile settings'),
+            'avatar' =>
+            array('Avatar',
+                  'Upload a new profile image'),
+            'password' =>
+            array('Password',
+                  'Change your password'),
+            'openidsettings' =>
+            array('OpenID', 
+                  'Add or remove OpenIDs'),
+            'imsettings' =>
+            array('IM',
+                  'Updates by instant messenger (IM)'));
+                       
+        $action = $this->trimmed('action');
+        common_element_start('ul', array('id' => 'nav_views'));
+        foreach ($menu as $menuaction => $menudesc) {
+            common_menu_item(common_local_url($menuaction),
+                    _t($menudesc[0]),
+                    _t($menudesc[1]));
+        }
+        common_element_end('ul');
+    }
 }

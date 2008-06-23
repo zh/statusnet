@@ -58,7 +58,7 @@ class XMPPDaemon {
 		$resource = $matches[3];
 		return strtolower($node.'@'.$server);
 	}
-	
+
 	function handle() {
 		while(!$this->conn->disconnected) {
 			$payloads = $this->conn->processUntil(array('message', 'presence',
@@ -81,6 +81,12 @@ class XMPPDaemon {
 	}
 
 	function handle_message(&$pl) {
+		if ($pl['type'] != 'chat') {
+			return;
+		}
+		if (strlen($pl['body']) == 0) {
+			return;
+		}
 		$from = $this->normalize_jid($pl['from']);
 		$user = User::staticGet('jabber', $from);
 		if (!$user) {
