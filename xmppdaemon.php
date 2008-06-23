@@ -156,5 +156,9 @@ class XMPPDaemon {
 	}
 }
 
+$daemon = new XMPPDaemon();
 
+if ($daemon->connect()) {
+	$daemon->handle();
+}
 ?>
