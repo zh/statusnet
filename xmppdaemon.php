@@ -17,6 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+# Abort if called from a web server
+if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
+	print "This script must be run from the command line\n";
+	exit();
+}
+
 define('INSTALLDIR', dirname(__FILE__));
 define('LACONICA', true);
 
