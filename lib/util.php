@@ -808,6 +808,38 @@ function common_redirect($url, $code=307) {
 	common_end_xml();
 }
 
+function common_save_replies($notice) {
+        # extract all @messages
+        preg_match_all('/(?:^|\s)@([a-z0-9]{1,64})/', $notice->content, $match);
+        $current_user = common_current_user();
+        $sender = $current_user->getProfile();
+        #store replied only for first @ (what user/notice what the reply directed, we assume first @ is it)
+        $reply_for = User::staticGet('nickname', $match[1][0]);
+        for ($i=0; $i<count($match[1]); $i++) {
+                $nickname = $match[1][$i];
+                #don't reply to myself
+                if ($sender->nickname == $nickname) {
+                    continue;
+                }
+                $reply = DB_DataObject::factory('reply');
+                $reply->notice_id = $notice->id;
+                $recipient_user = User::staticGet('nickname', $nickname);
+                #if recipient doesn't exist, skip
+                if (!$recipient_user) {
+                      continue;
+                }
+                $reply->user_id = $recipient_user->id;
+                $reply->created = DB_DataObject_Cast::dateTime();
+                $recipient_notice = $reply_for->getCurrentNotice();
+                $reply->replied_id = $recipient_notice->id;
+                $id = $reply->insert();
+                if (!$id) {
+                    common_server_error(_t('Problem saving reply.'));
+                    return;
+                }
+        }
+}
+
 function common_broadcast_notice($notice, $remote=false) {
 	if (common_config('queue', 'enabled')) {
 		# Do it later!

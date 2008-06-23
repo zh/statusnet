@@ -92,6 +92,19 @@ create table notice (
     index notice_profile_id_idx (profile_id)
 ) ENGINE=InnoDB;
 
+create table reply (
+    id integer auto_increment primary key comment 'unique identifier',
+    notice_id integer comment 'foreign key to notice table',
+    user_id integer comment 'foreign key to user table',
+    replied_id integer comment 'foreign key to notice table',
+    created datetime not null comment 'date this reply was created',
+
+    index notice_id_idx (notice_id),
+    index user_id_idx (user_id),
+    index replied_id_idx (replied_id)
+
+) ENGINE=InnoDB;
+
 /* tables for OAuth */
 
 create table consumer (

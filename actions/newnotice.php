@@ -36,6 +36,12 @@ class NewnoticeAction extends Action {
 
 	function save_new_notice() {
 
+                #remember the current notice
+                $current_notice = DB_DataObject::factory('notice');
+                $current_notice->limit(1);
+                $current_notice->orderBy('created DESC');
+                $current_notice->find(1);
+
 		$user = common_current_user();
 		assert($user); # XXX: maybe an error instead...
 		$notice = DB_DataObject::factory('notice');
@@ -67,7 +73,7 @@ class NewnoticeAction extends Action {
 			common_server_error(_t('Problem saving notice.'));
 			return;
 		}
-
+		
 		common_broadcast_notice($notice);
 		$returnto = $this->trimmed('returnto');
 		if ($returnto) {
