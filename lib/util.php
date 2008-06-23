@@ -44,7 +44,7 @@ function common_server_error($msg, $code=500) {
 }
 
 # Show a user error
-function common_user_error($msg, $code=400) {
+function common_client_error($msg, $code=400) {
 	static $status = array(400 => 'Bad Request',
 						   401 => 'Unauthorized',
 						   402 => 'Payment Required',
@@ -1017,7 +1017,7 @@ function common_negotiate_type($cprefs, $sprefs) {
 	}
 
 	$bestq = 0;
-	$besttype = NULL;
+	$besttype = "text/html";
 
 	foreach(array_keys($combine) as $type) {
 		if($combine[$type] > $bestq) {
