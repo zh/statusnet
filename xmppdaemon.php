@@ -88,6 +88,22 @@ class XMPPDaemon {
 			return false;
 		}
 	}
+
+	function set_notify(&$user, $notify) {
+		$orig = clone($user);
+		$user->jabbernotify = $notify;
+		$result = $user->update($orig);
+		if (!$id) {
+			$last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
+			$this->log(LOG_ERROR, 
+					   'Could not set notify flag to ' . $notify .
+					   ' for user ' . common_log_objstring($user) . 
+					   ': ' . $last_error->message);
+		} else {
+			$this->log(LOG_INFO,
+					   'User ' . $user->nickname . ' set notify flag to ' . $notify);
+		}
+	}
 	
 	function add_notice(&$user, &$pl) {
 		$notice = new Notice();
@@ -116,6 +132,8 @@ class XMPPDaemon {
 			return;
 		}
 		common_broadcast_notice($notice);
+		$this->log(LOG_INFO,
+				   'Added notice ' . $notice->id . ' from user ' . $user->nickname);
 	}
 	
 	function handle_presence(&$pl) {

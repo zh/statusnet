@@ -45,8 +45,11 @@ create table user (
     password varchar(255) comment 'salted password, can be null for OpenID users',
     email varchar(255) unique key comment 'email address for password recovery etc.',
     jabber varchar(255) unique key comment 'jabber ID for notices',
+    jabbernotify tinyint default 0 comment 'whether to send notices to jabber',    
+    updatefrompresence tinyint default 0 comment 'whether to record updates from Jabber presence notices',
     sms varchar(64) unique key comment 'sms phone number',
     carrier integer comment 'foreign key to sms_carrier' references sms_carrier (id),
+    smsnotify tinyint default 0 comment 'whether to send notices to SMS',
     uri varchar(255) unique key comment 'universally unique identifier, usually a tag URI',
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified'
