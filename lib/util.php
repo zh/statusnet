@@ -477,7 +477,7 @@ function common_remembered_user() {
 		if ($id && $code) {
 			$rm = Remember_me::staticGet($code);
 			if ($rm && ($rm->user_id == $id)) {
-				$user = User::staticGet($rm->id);
+				$user = User::staticGet($rm->user_id);
 				if ($user) {
 					# successful!
 					$result = $rm->delete();
