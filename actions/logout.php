@@ -29,7 +29,7 @@ class LogoutAction extends Action {
 		} else {
 			common_set_user(NULL);
 			common_real_login(false); # not logged in
-			common_forget_me(); # don't log back in!
+			common_forgetme(); # don't log back in!
 			common_redirect(common_local_url('public'));
 		}
 	}
