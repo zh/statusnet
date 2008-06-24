@@ -203,8 +203,10 @@ class RecoverpasswordAction extends Action {
 			$this->client_error(_t('Unexpected password reset.'));
 			return;
 		}
-		$password = $this->trimmed('password');
+
+		$password = $this->trimmed('newpassword');
 		$confirm = $this->trimmed('confirm');
+
 		if (!$password || strlen($password) < 6) {
 			$this->show_password_form(_t('Password must be 6 chars or more.'));
 			return;
