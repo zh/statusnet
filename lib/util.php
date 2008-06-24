@@ -684,6 +684,10 @@ function common_fancy_url($action, $args=NULL) {
 		return common_path('main/confirmaddress/'.$args['code']);
 	 case 'userbyid':
 	 	return common_path('user/'.$args['id']);
+	 case 'recoverpassword':
+	    return common_path('main/recoverpassword' .
+	                       ($args['code']) ? ('/' . $args['code']) :
+	                       '');
 	 default:
 		return common_simple_url($action, $args);
 	}

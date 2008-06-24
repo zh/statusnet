@@ -175,7 +175,7 @@ class RecoverpasswordAction extends Action {
 		$body .= "\n\n";
 		$body .= 'If it was you, and you want to confirm, use the URL below:';
 		$body .= "\n\n";
-		$body .= "\t".common_local_url('confirmaddress',
+		$body .= "\t".common_local_url('recoverpassword',
 								   array('code' => $confirm->code));
 		$body .= "\n\n";
 		$body .= 'If not, just ignore this message.';
@@ -190,7 +190,7 @@ class RecoverpasswordAction extends Action {
 		common_show_header(_('Password recovery requested'));
 		common_element('p', NULL,
 		               _t('Instructions for recovering your password ' .
-		                  'have been sent to the email registered to your ' .
+		                  'have been sent to the email address registered to your ' .
 		                  'account.'));
 		common_show_footer();
 	}
