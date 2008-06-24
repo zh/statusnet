@@ -163,7 +163,7 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 		if (file_exists(theme_file('ie'.$ver.'.css'))) {
 			# Yes, IE people should be put in jail.
 			$xw->writeComment('[if lte IE '.$ver.']><link rel="stylesheet" type="text/css" '.
-							  'href="'.theme_path('ie'.$ver.'.css').' /><![endif]');
+							  'href="'.theme_path('ie'.$ver.'.css').'" /><![endif]');
 		}
 	}
 
