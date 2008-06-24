@@ -90,3 +90,4 @@ require_once(INSTALLDIR.'/classes/Remote_profile.php');
 require_once(INSTALLDIR.'/classes/Subscription.php');
 require_once(INSTALLDIR.'/classes/User.php');
 require_once(INSTALLDIR.'/classes/Confirm_address.php');
+require_once(INSTALLDIR.'/classes/Remember_me.php');

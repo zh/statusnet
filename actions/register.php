@@ -69,6 +69,10 @@ class RegisterAction extends Action {
 				common_server_error(_t('Error setting user.'));
 				return;
 			}
+			common_real_login(true);
+			if ($this->boolean('rememberme')) {
+				common_rememberme();
+			}
 			common_redirect(common_local_url('profilesettings'));
 		} else {
 			$this->show_form(_t('Invalid username or password.'));
@@ -170,6 +174,9 @@ class RegisterAction extends Action {
 						_t('Same as password above'));
 		common_input('email', _t('Email'), NULL,
 					 _t('Used only for updates, announcements, and password recovery'));
+		common_checkbox('rememberme', _t('Remember me'),
+		                _t('Automatically login in the future; ' . 
+		                   'not for shared computers!'));
 		common_element_start('p');
 		common_element('input', array('type' => 'checkbox',
 									  'id' => 'license',

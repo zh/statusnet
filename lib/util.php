@@ -325,7 +325,7 @@ function common_checkbox($id, $label, $value='true',
 	common_element_start('p');
 	$attrs = array('name' => $id,
 				   'type' => 'checkbox',
-				   'id' => $id, 
+				   'id' => $id,
 				   'value' => $value);
 	if ($value) {
 		$attrs['value'] = htmlspecialchars($value);
@@ -432,14 +432,104 @@ function common_set_user($nickname) {
 	return false;
 }
 
-# who is the current user?
-function common_current_user() {
-	common_ensure_session();
-	$id = $_SESSION['userid'];
-	if ($id) {
-		$user = User::staticGet($id);
+function commmon_set_cookie($key, $value, $expiration=0) {
+	$path = common_config('site', 'path');
+	$server = common_config('site', 'server');
+
+	if ($path && ($path != '/')) {
+		$cookiepath = '/' . $path . '/';
+	} else {
+		$cookiepath = '/';
+	}
+	return setcookie($key,
+	                 $value,
+	          		 $expiration,
+			  		 $cookiepath,
+			  	     $server);
+}
+
+define('REMEMBERME', 'rememberme');
+define('REMEMBERME_EXPIRY', round(30 * 24 * 60 * 60));
+
+function common_rememberme() {
+	$user = common_current_user();
+	if (!$user) {
+		return false;
+	}
+	$rm = new Remember_me();
+	$rm->code = common_good_rand(16);
+	$rm->user = $user->id();
+	if (!$rm->insert) {
+		common_log_db_error($rm, 'INSERT', __FILE__);
+		return false;
+	}
+	common_set_cookie(REMEMBERME,
+					  $rm->user . ':' . $rm->code,
+					  time() + REMEMBERME_EXPIRY);
+}
+
+function common_remembered_user() {
+	$user = NULL;
+	# Try to remember
+	$packed = $_COOKIE[REMEMBERME];
+	if ($packed) {
+		list($id, $code) = explode(':', $packed);
+		if ($id && $code) {
+			$rm = Remember_me::staticGet($code);
+			if ($rm && $rm->id == $id) {
+				$user = User::staticGet($rm->id);
+				if ($user) {
+					# successful!
+					$result = $rm->delete();
+					if (!$result) {
+						common_log_db_error($rm, 'DELETE', __FILE__);
+						$user = NULL;
+					} else {
+						common_set_user($user);
+						common_real_login(false);
+						common_rememberme();
+					}
+				}
+			}
+		}
 	}
 	return $user;
+}
+
+# must be called with a valid user!
+
+function common_forgetme() {
+	common_set_cookie(REMEMBERME, '', 0);
+}
+
+# who is the current user?
+function common_current_user() {
+
+	if (common_have_session()) {
+		$id = $_SESSION['userid'];
+		if ($id) {
+			# note: this should cache
+			$user = User::staticGet($id);
+			return $user;
+		}
+	}
+
+	# that didn't work; try to remember
+	$user = common_remembered_user();
+	return $user;
+}
+
+# Logins that are 'remembered' aren't 'real' -- they're subject to
+# cookie-stealing. So, we don't let them do certain things. New reg,
+# OpenID, and password logins _are_ real.
+
+function common_real_login($real=true) {
+	common_ensure_session();
+	$_SESSION['real_login'] = $real;
+}
+
+function common_is_real_login() {
+	return common_logged_in() && $_SESSION['real_login'];
 }
 
 # get canonical version of nickname for comparison
@@ -944,7 +1034,7 @@ function common_user_uri(&$user) {
 }
 
 function common_notice_uri(&$notice) {
-	return common_local_url('shownotice', 
+	return common_local_url('shownotice',
 		array('notice' => $notice->id));
 }
 

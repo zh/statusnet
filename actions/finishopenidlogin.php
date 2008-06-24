@@ -130,6 +130,7 @@ class FinishopenidloginAction extends Action {
 				oid_set_last($display);
 				oid_update_user($user, $sreg);
 				common_set_user($user->nickname);
+				common_real_login(true);
 				$this->go_home($user->nickname);
 			} else {
 				$this->save_values($display, $canonical, $sreg);
@@ -253,6 +254,7 @@ class FinishopenidloginAction extends Action {
 		
 		oid_set_last($display);
 		common_set_user($user->nickname);
+		common_real_login(true);
 		common_redirect(common_local_url('showstream', array('nickname' => $user->nickname)));
 	}
 	
@@ -287,6 +289,7 @@ class FinishopenidloginAction extends Action {
 		oid_update_user($user, $sreg);
 		oid_set_last($display);
 		common_set_user($user->nickname);
+		common_real_login(true);
 		$this->go_home($user->nickname);
 	}
 	

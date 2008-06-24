@@ -43,6 +43,10 @@ class LoginAction extends Action {
 				common_server_error(_t('Error setting user.'));
 				return;
 			}
+			common_real_login(true);
+			if ($this->boolean('rememberme')) {
+				common_rememberme();
+			}
 			# success!
 			$url = common_get_returnto();
 			if ($url) {
@@ -66,6 +70,9 @@ class LoginAction extends Action {
 										   'action' => common_local_url('login')));
 		common_input('nickname', _t('Nickname'));
 		common_password('password', _t('Password'));
+		common_checkbox('rememberme', _t('Remember me'),
+		                _t('Automatically login in the future; ' . 
+		                   'not for shared computers!'));
 		common_submit('submit', _t('Login'));
 		common_element_end('form');
 		common_show_footer();
