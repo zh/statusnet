@@ -506,15 +506,15 @@ function common_forgetme() {
 
 # who is the current user?
 function common_current_user() {
-
-	common_ensure_session();
-	$id = $_SESSION['userid'];
-	if ($id) {
-		# note: this should cache
-		$user = User::staticGet($id);
-		return $user;
+	if ($_REQUEST[session_name()]) {
+		common_ensure_session();
+		$id = $_SESSION['userid'];
+		if ($id) {
+			# note: this should cache
+			$user = User::staticGet($id);
+			return $user;
+		}
 	}
-
 	# that didn't work; try to remember
 	$user = common_remembered_user();
 	return $user;
