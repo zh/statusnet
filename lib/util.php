@@ -451,7 +451,6 @@ define('REMEMBERME', 'rememberme');
 define('REMEMBERME_EXPIRY', 30 * 24 * 60 * 60);
 
 function common_rememberme() {
-	common_debug('rememberme called', __FILE__);
 	$user = common_current_user();
 	if (!$user) {
 		return false;
@@ -486,7 +485,7 @@ function common_remembered_user() {
 						common_log_db_error($rm, 'DELETE', __FILE__);
 						$user = NULL;
 					} else {
-						common_set_user($user);
+						common_set_user($user->nickname);
 						common_real_login(false);
 						# We issue a new cookie, so they can log in
 						# automatically again after this session
