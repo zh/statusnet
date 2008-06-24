@@ -82,7 +82,7 @@ class RecoverpasswordAction extends Action {
 
 	function show_top($msg=NULL) {
 		if ($msg) {
-			$this->message($msg, $success);
+            common_element('div', 'error', $msg);
 		} else {
 			common_element('div', 'instructions',
 						   _t('If you\'ve forgotten or lost your' .
@@ -94,7 +94,7 @@ class RecoverpasswordAction extends Action {
 
 	function show_password_top($msg=NULL) {
 		if ($msg) {
-			$this->message($msg, $success);
+            common_element('div', 'error', $msg);
 		} else {
 			common_element('div', 'instructions',
 						   _t('You\ve been identified . Enter a ' .
