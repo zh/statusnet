@@ -75,6 +75,10 @@ class LoginAction extends Action {
 		                   'not for shared computers!'));
 		common_submit('submit', _t('Login'));
 		common_element_end('form');
+		common_element_start('p');
+		common_element('a', array('href' => common_local_url('recoverpassword')),
+					   _t('Lost or forgotten password?'));
+		common_element_end('p');
 		common_show_footer();
 	}
 

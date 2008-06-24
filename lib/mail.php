@@ -42,8 +42,10 @@ function mail_send($recipients, $headers, $body) {
 	assert($backend); # throws an error if it's bad
 	$sent = $backend->send($recipients, $headers, $body);
 	if (PEAR::isError($sent)) {
-		common_server_error($sent->getMessage(), 500);
+		common_log(LOG_ERROR, 'Email error: ' . $sent->getMessage());
+		return false;
 	}
+	return true;
 }
 
 function mail_notify_from() {
@@ -55,7 +57,23 @@ function mail_notify_from() {
 	}
 }
 
+function mail_to_user(&$user, $subject, $body, $address=NULL) {
+	if (!$address) {
+		$address = $user->email;
+	}
+
+	$recipients = $address;
+	$profile = $user->getProfile();
+
+	$headers['From'] = mail_notify_from();
+	$headers['To'] = $profile->getBestName() . ' <' . $address . '>';
+	$headers['Subject'] = $subject;
+
+	return mail_send($recipients, $headers, $body);
+}
+
 # For confirming a Jabber address
+# XXX: change to use mail_to_user() above
 
 function mail_confirm_address($code, $nickname, $address) {
 	$recipients = $address;
