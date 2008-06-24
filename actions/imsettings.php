@@ -20,6 +20,7 @@
 if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/settingsaction.php');
+require_once(INSTALLDIR.'/lib/jabber.php');
 
 class ImsettingsAction extends SettingsAction {
 

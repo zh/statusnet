@@ -649,7 +649,8 @@ function common_broadcast_notice($notice, $remote=false) {
 		require_once(INSTALLDIR.'/lib/omb.php');
 		omb_broadcast_remote_subscribers($notice);
 	}
-	// XXX: broadcast notices to Jabber
+	require_once(INSTALLDIR.'/lib/jabber.php');
+	jabber_broadcast_notice($notice);
 	// XXX: broadcast notices to SMS
 	// XXX: broadcast notices to other IM
 	return true;

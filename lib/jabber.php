@@ -19,6 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
+require_once('xmpp.php');
+
 function jabber_valid_base_jid($jid) {
 	# Cheap but effective
 	return Validate::email($jid);
@@ -96,4 +98,31 @@ function jabber_confirm_address($code, $nickname, $address) {
 
 	jabber_send_message($address, $body);
 }
+	
+function jabber_broadcast_notice($notice) {
+	# First, get users subscribed to this profile
+	# XXX: use a join here rather than looping through results
+	$profile = Profile::staticGet($notice->profile_id);
+	if (!$profile) {
+		common_log(LOG_WARNING, 'Refusing to broadcast notice with ' .
+		           'unknown profile ' . common_log_objstring($notice),
+		           __FILE__);
+		return false;
+	}
+	$sub = new Subscription();
+	$sub->subscribed = $notice->profile_id;
+	if ($sub->find()) {
+		$msg = jabber_format_notice($profile, $notice);
+		while ($sub->fetch()) {
+			$user = User::staticGet($sub->subscriber);
+			if ($user && $user->jabber) {
+				jabber_send_message($user->jabber,
+				                    $msg);
+			}
+		}
+	}
+}
 
+function jabber_format_notice(&$profile, &$notice) {
+	return = $profile->nickname . ': ' . $notice->content;
+}
