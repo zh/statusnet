@@ -457,13 +457,13 @@ function common_rememberme() {
 	}
 	$rm = new Remember_me();
 	$rm->code = common_good_rand(16);
-	$rm->user = $user->id();
+	$rm->user_id = $user->id();
 	if (!$rm->insert()) {
 		common_log_db_error($rm, 'INSERT', __FILE__);
 		return false;
 	}
 	common_set_cookie(REMEMBERME,
-					  $rm->user . ':' . $rm->code,
+					  $rm->user_id . ':' . $rm->code,
 					  time() + REMEMBERME_EXPIRY);
 }
 
@@ -475,7 +475,7 @@ function common_remembered_user() {
 		list($id, $code) = explode(':', $packed);
 		if ($id && $code) {
 			$rm = Remember_me::staticGet($code);
-			if ($rm && $rm->id == $id) {
+			if ($rm && $rm->user_id == $id) {
 				$user = User::staticGet($rm->id);
 				if ($user) {
 					# successful!
@@ -486,6 +486,8 @@ function common_remembered_user() {
 					} else {
 						common_set_user($user);
 						common_real_login(false);
+						# We issue a new cookie, so they can log in
+						# automatically again after this session
 						common_rememberme();
 					}
 				}
