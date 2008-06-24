@@ -23,7 +23,7 @@ class LoginAction extends Action {
 
 	function handle($args) {
 		parent::handle($args);
-		if (common_logged_in()) {
+		if (common_is_real_login()) {
 			common_user_error(_t('Already logged in.'));
 		} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$this->check_login();
@@ -71,18 +71,18 @@ class LoginAction extends Action {
 		common_input('nickname', _t('Nickname'));
 		common_password('password', _t('Password'));
 		common_checkbox('rememberme', _t('Remember me'),
-		                _t('Automatically login in the future; ' . 
+		                _t('Automatically login in the future; ' .
 		                   'not for shared computers!'));
 		common_submit('submit', _t('Login'));
 		common_element_end('form');
 		common_show_footer();
 	}
-	
+
 	function show_top($error=NULL) {
 		if ($error) {
 			common_element('p', 'error', $error);
 		} else {
-			common_element('p', 'instructions', 
+			common_element('p', 'instructions',
 						   _t('Login with your username and password. ' .
 							  'Don\'t have a username yet? Choose register above. '));
 		}
