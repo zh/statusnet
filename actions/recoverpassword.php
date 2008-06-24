@@ -176,7 +176,7 @@ class RecoverpasswordAction extends Action {
 		$body .= 'If it was you, and you want to confirm, use the URL below:';
 		$body .= "\n\n";
 		$body .= "\t".common_local_url('confirmaddress',
-								   array('code' => $code));
+								   array('code' => $confirm->code));
 		$body .= "\n\n";
 		$body .= 'If not, just ignore this message.';
 		$body .= "\n\n";
@@ -185,7 +185,14 @@ class RecoverpasswordAction extends Action {
 		$body .= common_config('site', 'name');
 		$body .= "\n";
 
-		return mail_to_user($user, _t('Password recovery requested'), $body);
+		mail_to_user($user, _t('Password recovery requested'), $body);
+
+		common_show_header(_('Password recovery requested'));
+		common_element('p', NULL,
+		               _t('Instructions for recovering your password ' .
+		                  'have been sent to the email registered to your ' .
+		                  'account.'));
+		common_show_footer();
 	}
 
 	function reset_password() {
