@@ -19,6 +19,10 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
+# You have 24 hours to claim your password
+
+define(MAX_RECOVERY_TIME, 24 * 60 * 60);
+
 class RecoverpasswordAction extends Action {
 
     function handle($args) {
@@ -44,21 +48,51 @@ class RecoverpasswordAction extends Action {
 	}
 
 	function check_code() {
+
 		$code = $this->trimmed('code');
 		$confirm = Confirm_address::staticGet($code);
-		if ($confirm && $confirm->address_type == 'recover') {
-			$user = User::staticGet($confirm->user_id);
-			if ($user) {
-				$result = $confirm->delete();
-				if (!$result) {
-					common_log_db_error($confirm, 'DELETE', __FILE__);
-					common_server_error(_t('Error with confirmation code.'));
-					return;
-				}
-				$this->set_temp_user($user);
-				$this->show_password_form();
-			}
+
+		if (!$confirm) {
+			$this->client_error(_t('No such recovery code.'));
+			return;
 		}
+		if ($confirm->address_type != 'recover') {
+			$this->client_error(_t('Not a recovery code.'));
+			return;
+		}
+
+		$user = User::staticGet($confirm->user_id);
+
+		if (!$user) {
+			$this->server_error(_t('Recovery code for unknown user.'));
+			return;
+		}
+
+		$touched = strtotime($confirm->modified);
+
+		# Burn this code
+
+		$result = $confirm->delete();
+
+		if (!$result) {
+			common_log_db_error($confirm, 'DELETE', __FILE__);
+			common_server_error(_t('Error with confirmation code.'));
+			return;
+		}
+
+		# These should be reaped, but for now we just check mod time
+		# Note: it's still deleted; let's avoid a second attempt!
+
+		if ((time() - $touched) > MAX_RECOVERY_TIME) {
+			$this->client_error(_t('This confirmation code is too old. ' .
+			                       'Please start again.'));
+			return;
+		}
+
+		# Success!
+
+		$this->set_temp_user($user);
+		$this->show_password_form();
 	}
 
 	function set_temp_user(&$user) {
@@ -97,7 +131,7 @@ class RecoverpasswordAction extends Action {
             common_element('div', 'error', $msg);
 		} else {
 			common_element('div', 'instructions',
-						   _t('You\ve been identified . Enter a ' .
+						   _t('You\'ve been identified. Enter a ' .
 						      ' new password below. '));
 		}
 	}
