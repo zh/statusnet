@@ -46,7 +46,7 @@ class RecoverpasswordAction extends Action {
 	function check_code() {
 		$code = $this->trimmed('code');
 		$confirm = Confirm_address::staticGet($code);
-		if ($confirm && $confirm->type == 'recover') {
+		if ($confirm && $confirm->address_type == 'recover') {
 			$user = User::staticGet($confirm->user_id);
 			if ($user) {
 				$result = $confirm->delete();
@@ -158,7 +158,7 @@ class RecoverpasswordAction extends Action {
 
 		$confirm = new Confirm_address();
 		$confirm->code = common_confirmation_code(128);
-		$confirm->type = 'recover';
+		$confirm->address_type = 'recover';
 		$confirm->user_id = $user->id;
 		$confirm->address = $user->email;
 
