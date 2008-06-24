@@ -685,9 +685,11 @@ function common_fancy_url($action, $args=NULL) {
 	 case 'userbyid':
 	 	return common_path('user/'.$args['id']);
 	 case 'recoverpassword':
-	    return common_path('main/recoverpassword' .
-	                       ($args['code']) ? ('/' . $args['code']) :
-	                       '');
+	    $path = 'main/recoverpassword';
+	    if ($args['code']) {
+	    	$path .= '/' . $args['code'];
+		}
+	    return common_path($path);
 	 default:
 		return common_simple_url($action, $args);
 	}
