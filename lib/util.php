@@ -476,7 +476,7 @@ function common_remembered_user() {
 		list($id, $code) = explode(':', $packed);
 		if ($id && $code) {
 			$rm = Remember_me::staticGet($code);
-			if ($rm && $rm->user_id == $id) {
+			if ($rm && ($rm->user_id == $id)) {
 				$user = User::staticGet($rm->id);
 				if ($user) {
 					# successful!
