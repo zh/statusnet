@@ -457,7 +457,7 @@ function common_rememberme() {
 	}
 	$rm = new Remember_me();
 	$rm->code = common_good_rand(16);
-	$rm->user_id = $user->id();
+	$rm->user_id = $user->id;
 	if (!$rm->insert()) {
 		common_log_db_error($rm, 'INSERT', __FILE__);
 		return false;
@@ -506,13 +506,12 @@ function common_forgetme() {
 # who is the current user?
 function common_current_user() {
 
-	if (common_have_session()) {
-		$id = $_SESSION['userid'];
-		if ($id) {
-			# note: this should cache
-			$user = User::staticGet($id);
-			return $user;
-		}
+	common_ensure_session();
+	$id = $_SESSION['userid'];
+	if ($id) {
+		# note: this should cache
+		$user = User::staticGet($id);
+		return $user;
 	}
 
 	# that didn't work; try to remember
