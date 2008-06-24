@@ -49,7 +49,7 @@ class RegisterAction extends Action {
 
 		if (!$this->boolean('license')) {
 			$this->show_form(_t('You can\'t register if you don\'t agree to the license.'));
-		} else if (!Validate::email($email, true)) {
+		} else if ($email && !Validate::email($email, true)) {
 			$this->show_form(_t('Not a valid email address.'));
 		} else if (!Validate::string($nickname, array('min_length' => 1,
 													  'max_length' => 64,

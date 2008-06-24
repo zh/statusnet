@@ -80,7 +80,7 @@ class ProfilesettingsAction extends SettingsAction {
 
 		# Some validation
 		
-		if (!is_null($email) && !Validate::email($email, true)) {
+		if ($email && !Validate::email($email, true)) {
 			$this->show_form(_t('Not a valid email address.'));
 			return;
 		} else if (!Validate::string($nickname, array('min_length' => 1,
