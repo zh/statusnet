@@ -431,7 +431,7 @@ function common_set_user($nickname) {
 	return false;
 }
 
-function commmon_set_cookie($key, $value, $expiration=0) {
+function common_set_cookie($key, $value, $expiration=0) {
 	$path = common_config('site', 'path');
 	$server = common_config('site', 'server');
 
