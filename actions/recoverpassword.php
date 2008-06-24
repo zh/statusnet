@@ -204,14 +204,14 @@ class RecoverpasswordAction extends Action {
 			return;
 		}
 
-		$password = $this->trimmed('newpassword');
+		$newpassword = $this->trimmed('newpassword');
 		$confirm = $this->trimmed('confirm');
 
-		if (!$password || strlen($password) < 6) {
+		if (!$newpassword || strlen($newpassword) < 6) {
 			$this->show_password_form(_t('Password must be 6 chars or more.'));
 			return;
 		}
-		if ($password != $confirm) {
+		if ($newpassword != $confirm) {
 			$this->show_password_form(_t('Password and confirmation do not match.'));
 			return;
 		}
