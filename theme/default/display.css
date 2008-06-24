@@ -476,7 +476,7 @@ textarea {
 	padding: 0;
 	}	
 #status_label {
-	display: block;
+	display: inline;
 	clear: both;
 	margin: 0;
 	padding: 0 0 3px 0;
@@ -510,10 +510,21 @@ textarea {
 	color: #fff6d5;
 	cursor: pointer;
 	border: 0;
-	}
+	} 
 #status_submit:hover {
 	background-color: #d1451a;
 	}
+#counter {
+    position: relative;
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+    left: 255px;
+}
+
+#counter.toomuch {
+    color: red;
+}
 	
 /* ----- Subscribe Form ----- */
 #subscribe .button, #unsubscribe .button, #remotesubscribe .button {

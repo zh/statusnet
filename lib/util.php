@@ -170,6 +170,9 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 	common_element('script', array('type' => 'text/javascript',
 								   'src' => common_path('js/jquery.min.js')),
 				   ' ');
+	common_element('script', array('type' => 'text/javascript',
+								   'src' => common_path('js/util.js')),
+				   ' ');
 
 	if ($callable) {
 		if ($data) {
@@ -834,6 +837,7 @@ function common_notice_form($action=NULL, $content=NULL) {
 	common_element('label', array('for' => 'status_update',
 								  'id' => 'status_label'),
 				   _t('What\'s up, ').$user->nickname.'?');
+        common_element('span', array('id' => 'counter', 'class' => 'counter'), '140');
 	common_element('textarea', array('id' => 'status_textarea',
 									 'name' => 'status_textarea'),
 				   ($content) ? $content : ' ');
