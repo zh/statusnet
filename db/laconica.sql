@@ -167,3 +167,9 @@ create table confirm_address (
     address_type varchar(8) not null comment 'address type ("email", "jabber", "sms")',
     modified timestamp comment 'date this record was modified'
 ) ENGINE=InnoDB;
+
+create table remember_me (
+    code varchar(32) not null primary key comment 'good random code',
+    user_id integer not null comment 'user who is logged in' references user (id),
+    modified timestamp comment 'date this record was modified'
+) ENGINE=InnoDB;
