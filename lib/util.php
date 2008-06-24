@@ -448,9 +448,10 @@ function common_set_cookie($key, $value, $expiration=0) {
 }
 
 define('REMEMBERME', 'rememberme');
-define('REMEMBERME_EXPIRY', round(30 * 24 * 60 * 60));
+define('REMEMBERME_EXPIRY', 30 * 24 * 60 * 60);
 
 function common_rememberme() {
+	common_debug('rememberme called', __FILE__);
 	$user = common_current_user();
 	if (!$user) {
 		return false;
@@ -458,7 +459,8 @@ function common_rememberme() {
 	$rm = new Remember_me();
 	$rm->code = common_good_rand(16);
 	$rm->user_id = $user->id;
-	if (!$rm->insert()) {
+	$result = $rm->insert();
+	if (!$result) {
 		common_log_db_error($rm, 'INSERT', __FILE__);
 		return false;
 	}
