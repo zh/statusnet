@@ -124,5 +124,5 @@ function jabber_broadcast_notice($notice) {
 }
 
 function jabber_format_notice(&$profile, &$notice) {
-	return = $profile->nickname . ': ' . $notice->content;
+	return $profile->nickname . ': ' . $notice->content;
 }
