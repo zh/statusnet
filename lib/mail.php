@@ -55,7 +55,7 @@ function mail_notify_from() {
 	}
 }
 
-# For confirming an email address
+# For confirming a Jabber address
 
 function mail_confirm_address($code, $nickname, $address) {
 	$recipients = $address;

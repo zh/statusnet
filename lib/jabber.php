@@ -25,9 +25,75 @@ function jabber_valid_base_jid($jid) {
 }
 
 function jabber_normalize_jid($jid) {
-		preg_match("/(?:([^\@]+)\@)?([^\/]+)(?:\/(.*))?$/", $jid, $matches);
-		$node = $matches[1];
-		$server = $matches[2];
-		$resource = $matches[3];
-		return strtolower($node.'@'.$server);
+	preg_match("/(?:([^\@]+)\@)?([^\/]+)(?:\/(.*))?$/", $jid, $matches);
+	$node = $matches[1];
+	$server = $matches[2];
+	$resource = $matches[3];
+	return strtolower($node.'@'.$server);
 }
+
+function jabber_connect($resource=NULL) {
+	static $conn = NULL;
+	if (!$conn) {
+		$conn = new XMPP(common_config('xmpp', 'server'),
+					     common_config('xmpp', 'port'),
+					     common_config('xmpp', 'user'),
+					     common_config('xmpp', 'password'),
+				    	 ($resource) ? $resource : 
+				        	common_config('xmpp', 'resource'));
+				        
+		if (!$conn) {
+			return false;
+		}
+		$conn->connect(true); # try to get a persistent connection
+		if ($conn->disconnected) {
+			return false;
+		}
+        $conn->processUntil('session_start');
+	}
+	return $conn;
+}
+
+function jabber_send_message($to, $body, $type='chat', $subject=NULL) {
+	$conn = jabber_connect();
+	if (!$conn) {
+		return false;
+	}
+	$conn->message($to, $body, $type, $subject);
+	return true;
+}
+
+function jabber_send_presence($status=Null, $show='available', $to=Null) {
+	$conn = jabber_connect();
+	if (!$conn) {
+		return false;
+	}
+	$conn->presence($status, $show, $to);
+	return true;
+}
+
+function jabber_confirm_address($code, $nickname, $address) {
+
+	# FIXME: do we have to request presence first?
+	
+	$body = "Hey, $nickname.";
+	$body .= "\n\n";
+	$body .= 'Someone just entered this IM address on ';
+	$body .= common_config('site', 'name') . '.';
+	$body .= "\n\n";
+	$body .= 'If it was you, and you want to confirm your entry, ';
+	$body .= 'use the URL below:';
+	$body .= "\n\n";
+	$body .= "\t".common_local_url('confirmaddress',
+								   array('code' => $code));
+	$body .= "\n\n";
+	$body .= 'If not, just ignore this message.';
+	$body .= "\n\n";
+	$body .= 'Thanks for your time, ';
+	$body .= "\n";
+	$body .= common_config('site', 'name');
+	$body .= "\n";
+
+	jabber_send_message($address, $body);
+}
+

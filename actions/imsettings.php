@@ -82,12 +82,11 @@ class ImsettingsAction extends SettingsAction {
 		$user->query('BEGIN');
 
 		$original = clone($user);
-
-		$user->jabber = $jabber;
+		
 		$user->jabbernotify = $jabbernotify;
 		$user->updatefrompresence = $updatefrompresence;
 
-		$result = $user->updateKeys($original); # For key columns
+		$result = $user->update($original); # For key columns
 
 		if ($result === FALSE) {
 			common_log_db_error($user, 'UPDATE', __FILE__);
@@ -95,17 +94,58 @@ class ImsettingsAction extends SettingsAction {
 			return;
 		}
 
-		$result = $user->update($original); # For non-key columns
+		$confirmation_sent = false;
+		
+		if ($user->jabber != $jabber) {
+			
+			if ($jabber) {
+	    		$confirm = new Confirm_address();
+	    		$confirm->address = $jabber;
+	    		$confirm->address_type = 'jabber';
+	    		$confirm->user_id = $user->id;
+	    		$confirm->code = common_confirmation_code(64);
+	    
+				$result = $confirm->insert();
 
-		if ($result === FALSE) {
-			common_log_db_error($user, 'UPDATE', __FILE__);
-			common_server_error(_t('Couldnt update user.'));
-			return;
+				if ($result === FALSE) {
+					common_log_db_error($confirm, 'INSERT', __FILE__);
+					common_server_error(_t('Couldnt insert confirmation code.'));
+					return;
+				}
+				
+				# XXX: optionally queue for offline sending
+				
+				jabber_confirm_address($confirm->code,
+									   $user->nickname,
+									   $jabber);
+									   
+				if ($result === FALSE) {
+					common_log_db_error($confirm, 'INSERT', __FILE__);
+					common_server_error(_t('Couldnt insert confirmation code.'));
+					return;
+				}
+				
+				$confirmation_sent = false;
+			} else {
+				# Clearing the ID is free
+				$user->jabber = NULL;
+				$result = $user->updateKeys($original);
+				if ($result === FALSE) {
+					common_log_db_error($user, 'UPDATE', __FILE__);
+					common_server_error(_t('Couldnt update user.'));
+					return;
+				}
+			}
 		}
-
+		
 		$user->query('COMMIT');
 
-		$this->show_form(_t('Settings saved.'), TRUE);
+        $msg = ($confirmation_sent) ? 
+		                  _t('Settings saved. A confirmation code was ' .
+		                     ' sent to the IM address you added. ') :
+		                  _t('Settings saved.');
+		                  
+		$this->show_form($msg, TRUE);
 	}
 
 	function jabber_exists($jabber) {
