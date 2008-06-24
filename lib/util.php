@@ -319,6 +319,25 @@ function common_input($id, $label, $value=NULL,$instructions=NULL) {
 	common_element_end('p');
 }
 
+function common_checkbox($id, $label, $value='true',
+						 $instructions=NULL)
+{
+	common_element_start('p');
+	$attrs = array('name' => $id,
+				   'type' => 'checkbox',
+				   'id' => $id, 
+				   'value' => $value);
+	if ($value) {
+		$attrs['value'] = htmlspecialchars($value);
+	}
+	common_element('input', $attrs);
+	common_element('label', array('for' => $id), $label);
+	if ($instructions) {
+		common_element('span', 'input_instructions', $instructions);
+	}
+	common_element_end('p');
+}
+
 function common_hidden($id, $value) {
 	common_element('input', array('name' => $id,
 								  'type' => 'hidden',

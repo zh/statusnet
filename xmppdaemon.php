@@ -51,14 +51,6 @@ class XMPPDaemon {
 		return !$this->conn->disconnected;
 	}
 
-	function normalize_jid($jid) {
-		preg_match("/(?:([^\@]+)\@)?([^\/]+)(?:\/(.*))?$/", $jid, $matches);
-		$node = $matches[1];
-		$server = $matches[2];
-		$resource = $matches[3];
-		return strtolower($node.'@'.$server);
-	}
-
 	function handle() {
 		while(!$this->conn->disconnected) {
 			$payloads = $this->conn->processUntil(array('message', 'presence',
@@ -87,7 +79,7 @@ class XMPPDaemon {
 		if (strlen($pl['body']) == 0) {
 			return;
 		}
-		$from = $this->normalize_jid($pl['from']);
+		$from = jabber_normalize_jid($pl['from']);
 		$user = User::staticGet('jabber', $from);
 		if (!$user) {
 			$this->log(LOG_WARNING, 'Message from unknown user ' . $from);
@@ -162,7 +154,7 @@ class XMPPDaemon {
 	}
 
 	function handle_presence(&$pl) {
-		$from = $this->normalize_jid($pl['from']);
+		$from = jabber_normalize_jid($pl['from']);
 		$user = User::staticGet('jabber', $from);
 		if (!$user) {
 			$this->log(LOG_WARNING, 'Message from unknown user ' . $from);

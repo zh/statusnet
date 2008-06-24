@@ -61,11 +61,11 @@ class ImsettingsAction extends SettingsAction {
 
 	function handle_post() {
 
-		$jabber = $this->trimmed('jabber');
+		$jabber = jabber_normalize_jid($this->trimmed('jabber'));
 		$jabbernotify = $this->boolean('jabbernotify');
 		$updatefrompresence = $this->boolean('updatefrompresence');
 
-		if (!jabber_validate_jid($jabber)) {
+		if (!jabber_valid_base_jid($jabber)) {
 			$this->show_form(_('Not a valid Jabber ID'));
 			return;
 		} else if ($this->jabber_exists($jabber)) {
