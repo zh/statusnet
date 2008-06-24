@@ -319,8 +319,7 @@ function common_input($id, $label, $value=NULL,$instructions=NULL) {
 	common_element_end('p');
 }
 
-function common_checkbox($id, $label, $value='true',
-						 $instructions=NULL)
+function common_checkbox($id, $label, $instructions=NULL, $value='true')
 {
 	common_element_start('p');
 	$attrs = array('name' => $id,
