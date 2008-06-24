@@ -62,19 +62,26 @@ class ImsettingsAction extends SettingsAction {
 
 	function handle_post() {
 
-		$jabber = jabber_normalize_jid($this->trimmed('jabber'));
+		$jabber = $this->trimmed('jabber');
 		$jabbernotify = $this->boolean('jabbernotify');
 		$updatefrompresence = $this->boolean('updatefrompresence');
 
-		if (!jabber_valid_base_jid($jabber)) {
-			$this->show_form(_('Not a valid Jabber ID'));
-			return;
-		} else if ($this->jabber_exists($jabber)) {
-			$this->show_form(_('Not a valid Jabber ID'));
-			return;
-		}
-
 		# Some validation
+		
+		if ($jabber) {
+			$jabber = jabber_normalize_jid($jabber);
+			if (!$jabber) {
+			    $this->show_form(_('Cannot normalize that Jabber ID'));
+			    return;
+			}
+			if (!jabber_valid_base_jid($jabber)) {
+			    $this->show_form(_('Not a valid Jabber ID'));
+			    return;
+		    } else if ($this->jabber_exists($jabber)) {
+			    $this->show_form(_('Jabber ID already belongs to another user.'));
+			    return;
+			}
+		}
 
 		$user = common_current_user();
 
