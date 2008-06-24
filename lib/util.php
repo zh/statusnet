@@ -458,7 +458,7 @@ function common_rememberme() {
 	$rm = new Remember_me();
 	$rm->code = common_good_rand(16);
 	$rm->user = $user->id();
-	if (!$rm->insert) {
+	if (!$rm->insert()) {
 		common_log_db_error($rm, 'INSERT', __FILE__);
 		return false;
 	}
