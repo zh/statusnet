@@ -4,12 +4,13 @@ $(document).ready(function(){
             var maxLength     = 140; 
             var currentLength = $("#status_textarea").val().length;
             var remaining = 140 - currentLength;
-            $("#counter").text(remaining);
+            var counter = $("#counter");
+            counter.text(remaining);
 
             if(remaining <= 0) {
-                $("#counter").attr("class", "toomuch");
+                counter.attr("class", "toomuch");
                 } else {
-                $("#counter").attr("class", "");
+                counter.attr("class", "");
                 }
         }
 
