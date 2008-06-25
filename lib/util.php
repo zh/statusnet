@@ -99,11 +99,9 @@ function common_element_end($tag) {
 
 function common_element($tag, $attrs=NULL, $content=NULL) {
     common_element_start($tag, $attrs);
-	if ($content) {
-		global $xw;
-		$xw->text($content);
-	}
-	common_element_end($tag);
+    global $xw;
+    $xw->text($content);
+    common_element_end($tag);
 }
 
 function common_start_xml($doc=NULL, $public=NULL, $system=NULL) {
@@ -840,7 +838,7 @@ function common_notice_form($action=NULL, $content=NULL) {
         common_element('span', array('id' => 'counter', 'class' => 'counter'), '140');
 	common_element('textarea', array('id' => 'status_textarea',
 									 'name' => 'status_textarea'),
-				   ($content) ? $content : ' ');
+				   ' ');
 	if ($action) {
 		common_hidden('returnto', $action);
 	}
