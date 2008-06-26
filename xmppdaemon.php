@@ -30,6 +30,10 @@ define('LACONICA', true);
 require_once(INSTALLDIR . '/lib/common.php');
 require_once(INSTALLDIR . '/lib/jabber.php');
 
+# This is kind of clunky; we create a class to call the global functions
+# in jabber.php, which create a new XMPP class. A more elegant (?) solution
+# might be to use make this a subclass of XMPP.
+
 class XMPPDaemon {
 
 	function XMPPDaemon($resource=NULL) {
@@ -68,6 +72,7 @@ class XMPPDaemon {
 														'end_stream', 'session_start'));
 			foreach($payloads as $event) {
 				$pl = $event[1];
+				$this->log(LOG_DEBUG, "Received '$event[0]': " . print_r($pl, TRUE));
 				switch($event[0]) {
 				 case 'message':
 					$this->handle_message($pl);
@@ -171,11 +176,14 @@ class XMPPDaemon {
 			case 'subscribe':
 			    # We let anyone subscribe
 				$this->subscribed($from);
+				$this->log(LOG_INFO,
+				   'Accepted subscription from ' . $from);
 				break;
 			case 'subscribed':
 			case 'unsubscribe':
 			case 'unsubscribed':
-				# XXX: do we care?
+				$this->log(LOG_INFO,
+				   'Ignoring  "' . $pl['type'] . '" from ' . $from);
 				break;
 			default:
 				if (!$pl['type']) {
@@ -185,6 +193,8 @@ class XMPPDaemon {
 						return;
 					}
 					if ($user->updatefrompresence) {
+						$this->log(LOG_INFO, 'Updating ' . $user->nickname .
+											 ' status from presence.');
 						$this->add_notice($user, $pl);
 					}
 				}
@@ -201,6 +211,7 @@ class XMPPDaemon {
 	}
 
 	function set_status($status) {
+		$this->log(LOG_INFO, 'Setting status to "' . $status . '"');
 		jabber_send_presence($status);
 	}
 }
@@ -213,4 +224,5 @@ if ($daemon->connect()) {
 	$daemon->set_status("Send me a message to post a notice");
 	$daemon->handle();
 }
+
 ?>
