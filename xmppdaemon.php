@@ -155,13 +155,35 @@ class XMPPDaemon {
 
 	function handle_presence(&$pl) {
 		$from = jabber_normalize_jid($pl['from']);
-		$user = User::staticGet('jabber', $from);
-		if (!$user) {
-			$this->log(LOG_WARNING, 'Message from unknown user ' . $from);
-			return;
-		}
-		if ($user->updatefrompresence) {
-			$this->add_notice($user, $pl);
+		switch ($pl['type']) {
+			case 'subscribe':
+			    # We let anyone subscribe
+				$this->subscribed($from);
+				break;
+			case 'subscribed':
+			    # Are we trying to confirm this address?
+                $confirm = Confirm_address::staticGet('address', $from);
+                if ($confirm) {
+					$this->send_confirmation_code($from, $confirm);
+				}
+				# Otherwise, silently ignore
+				break;
+			case 'unsubscribe':
+			case 'unsubscribed':
+				# XXX: do we care?
+				break;
+			default:
+				if (!$pl['type']) {
+					$user = User::staticGet('jabber', $from);
+					if (!$user) {
+						$this->log(LOG_WARNING, 'Message from unknown user ' . $from);
+						return;
+					}
+					if ($user->updatefrompresence) {
+						$this->add_notice($user, $pl);
+					}
+				}
+				break;
 		}
 	}
 
@@ -171,6 +193,39 @@ class XMPPDaemon {
 
 	function log($level, $msg) {
 		common_log($level, 'XMPPDaemon('.$this->resource.'): '.$msg);
+	}
+
+	function subscribed($to) {
+		$this->special_presence('subscribed', $to);
+	}
+
+	function special_presence($type, $to=NULL, $show=NULL, $status=NULL) {
+		$to = htmlspecialchars($to);
+		$status = htmlspecialchars($status);
+		$out = "<presence";
+		if($to) $out .= " to='$to'";
+		if($type) $out .= " type='$type'";
+		if($show == 'available' and !$status) {
+			$out .= "/>";
+		} else {
+			$out .= ">";
+			if($show && ($show != 'available')) $out .= "<show>$show</show>";
+			if($status) $out .= "<status>$status</status>";
+			$out .= "</presence>";
+		}
+		$this->conn->send($out);
+	}
+
+	function send_confirmation_code($to, &$confirm) {
+		$body = 'Someone has asked to add this Jabber ID to their ' .
+		        'account on ' . common_config('site', 'name') . '. ' .
+		        'If it was you, you can confirm by clicking on this URL: ' .
+		        common_local_url('confirmaddress', array('code' => $confirm->code)) .
+		        ' . (If you cannot click it, copy-and-paste it into the ' .
+		        'address bar of your browser). If it wasn\'t you, ' .
+		        'just ignore this message.';
+
+		$this->conn->message($to, $body);
 	}
 }
 

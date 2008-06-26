@@ -44,9 +44,9 @@ function jabber_connect($resource=NULL) {
 					     common_config('xmpp', 'port'),
 					     common_config('xmpp', 'user'),
 					     common_config('xmpp', 'password'),
-				    	 ($resource) ? $resource : 
+				    	 ($resource) ? $resource :
 				        	common_config('xmpp', 'resource'));
-				        
+
 		if (!$conn) {
 			return false;
 		}
@@ -79,29 +79,34 @@ function jabber_send_presence($status=Null, $show='available', $to=Null) {
 
 function jabber_confirm_address($code, $nickname, $address) {
 
-	# FIXME: do we have to request presence first?
-	
-	$body = "Hey, $nickname.";
-	$body .= "\n\n";
-	$body .= 'Someone just entered this IM address on ';
-	$body .= common_config('site', 'name') . '.';
-	$body .= "\n\n";
-	$body .= 'If it was you, and you want to confirm your entry, ';
-	$body .= 'use the URL below:';
-	$body .= "\n\n";
-	$body .= "\t".common_local_url('confirmaddress',
-								   array('code' => $code));
-	$body .= "\n\n";
-	$body .= 'If not, just ignore this message.';
-	$body .= "\n\n";
-	$body .= 'Thanks for your time, ';
-	$body .= "\n";
-	$body .= common_config('site', 'name');
-	$body .= "\n";
+	# FIXME: above arguments are unused, we start the process with a
+	# subscription
+	# XXX: no idea what we do if the update daemon is already subscribed.
 
-	jabber_send_message($address, $body);
+	jabber_special_presence('subscribe', $address);
+
 }
-	
+
+
+function jabber_special_presence($type, $to=NULL, $show=NULL, $status=NULL) {
+	$conn = jabber_connect();
+
+	$to = htmlspecialchars($to);
+	$status = htmlspecialchars($status);
+	$out = "<presence";
+	if($to) $out .= " to='$to'";
+	if($type) $out .= " type='$type'";
+	if($show == 'available' and !$status) {
+		$out .= "/>";
+	} else {
+		$out .= ">";
+		if($show && ($show != 'available')) $out .= "<show>$show</show>";
+		if($status) $out .= "<status>$status</status>";
+		$out .= "</presence>";
+	}
+	$conn->send($out);
+}
+
 function jabber_broadcast_notice($notice) {
 	# First, get users subscribed to this profile
 	# XXX: use a join here rather than looping through results
