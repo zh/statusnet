@@ -774,7 +774,7 @@ function common_profile_url($nickname) {
 
 # Don't call if nobody's logged in
 
-function common_notice_form($action=NULL) {
+function common_notice_form($action=NULL, $content=NULL) {
 	$user = common_current_user();
 	assert(!is_null($user));
 	common_element_start('form', array('id' => 'status_form',
@@ -786,7 +786,7 @@ function common_notice_form($action=NULL) {
 				   _t('What\'s up, ').$user->nickname.'?');
 	common_element('textarea', array('id' => 'status_textarea',
 									 'name' => 'status_textarea'),
-				   ' ');
+				   ($content) ? $content : ' ');
 	if ($action) {
 		common_hidden('returnto', $action);
 	}

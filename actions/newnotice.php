@@ -49,12 +49,12 @@ class NewnoticeAction extends Action {
 			$this->show_form(_t('No content!'));
 			return;
 		} else if (strlen($notice->content) > 140) {
-			$this->show_form(_t('Notice content too long.'));
+			$this->show_form(_t('That\'s too long. Max notice size is 140 chars.'));
 			return;
 		}
 
 		$id = $notice->insert();
-		
+
 		if (!$id) {
 			common_server_error(_t('Problem saving notice.'));
 			return;
@@ -62,12 +62,12 @@ class NewnoticeAction extends Action {
 
 		$orig = clone($notice);
 		$notice->uri = common_notice_uri($notice);
-		
+
 		if (!$notice->update($orig)) {
 			common_server_error(_t('Problem saving notice.'));
 			return;
 		}
-		
+
 		common_broadcast_notice($notice);
 		$returnto = $this->trimmed('returnto');
 		if ($returnto) {
@@ -80,15 +80,17 @@ class NewnoticeAction extends Action {
 		common_redirect($url, 303);
 	}
 
-	function show_top($msg=NULL) {
-		if ($msg) {
-			common_element('div', 'error', $msg);
-		}
+	function show_top($content=NULL) {
+		common_notice_form(NULL, $content);
 	}
-	
+
 	function show_form($msg=NULL) {
-		common_show_header(_t('New notice'), NULL, $msg, array($this, 'show_top'));
-		common_notice_form();
+		$content = $this->trimmed('status_textarea');
+		common_show_header(_t('New notice'), NULL, $content,
+		                   array($this, 'show_top'));
+		if ($msg) {
+			common_element('p', 'error', $msg);
+		}
 		common_show_footer();
 	}
 }
