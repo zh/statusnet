@@ -329,7 +329,11 @@ function common_checkbox($id, $label, $instructions=NULL, $value='true')
 	if ($value) {
 		$attrs['value'] = htmlspecialchars($value);
 	}
-	common_element('input', $attrs, $label);
+	common_element('input', $attrs);
+	# XXX: use a <label>
+	common_text(' ');
+	common_element('span', 'checkbox_label', $label);
+	common_text(' ');
 	if ($instructions) {
 		common_element('span', 'input_instructions', $instructions);
 	}
