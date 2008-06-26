@@ -148,6 +148,8 @@ class ImsettingsAction extends SettingsAction {
 
 	function add_address() {
 
+		$user = common_current_user();
+
 		$jabber = $this->trimmed('jabber');
 
 		# Some validation
@@ -191,7 +193,7 @@ class ImsettingsAction extends SettingsAction {
 		# XXX: optionally queue for offline sending
 
 		if (!jabber_is_subscribed($jabber)) {
-			jabber_special_presence('subscribe', $address);
+			jabber_special_presence('subscribe', $jabber);
 		} else {
 			jabber_confirm_address($confirm->code,
 								   $user->nickname,
