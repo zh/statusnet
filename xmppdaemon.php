@@ -111,6 +111,10 @@ class XMPPDaemon {
 		if (strlen($pl['body']) == 0) {
 			return;
 		}
+
+		$from = jabber_normalize_jid($pl['from']);
+		$user = $this->get_user($from);
+
 		if (!$user) {
 			$this->log(LOG_WARNING, 'Message from unknown user ' . $from);
 			return;
