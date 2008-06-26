@@ -37,6 +37,10 @@ function jabber_normalize_jid($jid) {
 	}
 }
 
+function jabber_daemon_address() {
+	return common_config('xmpp', 'user') . '@' . common_config('xmpp', 'server');
+}
+
 function jabber_connect($resource=NULL) {
 	static $conn = NULL;
 	if (!$conn) {
