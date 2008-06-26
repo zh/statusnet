@@ -63,7 +63,8 @@ $config =
 			  'port' => 5222,
 			  'user' => 'update',
 			  'resource' => 'uniquename',
-			  'password' => 'blahblahblah'),
+			  'password' => 'blahblahblah',
+			  'host' => NULL), # only set if != server
 		);
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');

@@ -37,7 +37,7 @@ function jabber_normalize_jid($jid) {
 	}
 }
 
-function jabber_connect($resource=NULL) {
+function jabber_connect($resource=NULL, $status=NULL) {
 	static $conn = NULL;
 	if (!$conn) {
 		$conn = new XMPP(common_config('xmpp', 'server'),
@@ -45,7 +45,10 @@ function jabber_connect($resource=NULL) {
 					     common_config('xmpp', 'user'),
 					     common_config('xmpp', 'password'),
 				    	 ($resource) ? $resource :
-				        	common_config('xmpp', 'resource'));
+				        	common_config('xmpp', 'resource'),
+				         common_config('xmpp', 'host') ?
+				         common_config('xmpp', 'host') :
+				         common_config('xmpp', 'server'));
 
 		if (!$conn) {
 			return false;
@@ -55,6 +58,9 @@ function jabber_connect($resource=NULL) {
 			return false;
 		}
         $conn->processUntil('session_start');
+        if ($status) {
+        	$conn->presence($status);
+		}
 	}
 	return $conn;
 }

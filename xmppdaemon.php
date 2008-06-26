@@ -31,23 +31,27 @@ require_once(INSTALLDIR . '/lib/jabber.php');
 
 class XMPPDaemon {
 
-	function XMPPDaemon() {
+	function XMPPDaemon($resource=NULL) {
 		static $attrs = array('server', 'port', 'user', 'password',
-					   'resource');
+					   'resource', 'host');
 
 		foreach ($attrs as $attr)
 		{
 			$this->$attr = common_config('xmpp', $attr);
 		}
+
+		if ($resource) {
+			$this->resource = $resource;
+		}
 	}
 
 	function connect() {
-		$this->conn = new XMPP($this->server, $this->port, $this->user,
-							   $this->password, $this->resource);
+		$this->conn = jabber_connect($this->resource,
+								     "Send me a message to post a notice");
+		);
 		if (!$this->conn) {
 			return false;
 		}
-		$this->conn->connect();
 		return !$this->conn->disconnected;
 	}
 
@@ -181,10 +185,6 @@ class XMPPDaemon {
 		}
 	}
 
-	function handle_session(&$pl) {
-		$this->conn->presence($status="Send me a message to post a notice");
-	}
-
 	function log($level, $msg) {
 		common_log($level, 'XMPPDaemon('.$this->resource.'): '.$msg);
 	}
@@ -209,7 +209,6 @@ class XMPPDaemon {
 		}
 		$this->conn->send($out);
 	}
-
 }
 
 $daemon = new XMPPDaemon();
