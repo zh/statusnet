@@ -27,7 +27,7 @@ define('INSTALLDIR', dirname(__FILE__));
 define('LACONICA', true);
 
 require_once(INSTALLDIR . '/lib/common.php');
-require_once('xmpp.php');
+require_once(INSTALLDIR . '/lib/jabber.php');
 
 class XMPPDaemon {
 

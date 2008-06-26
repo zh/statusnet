@@ -87,7 +87,6 @@ function jabber_confirm_address($code, $nickname, $address) {
 
 }
 
-
 function jabber_special_presence($type, $to=NULL, $show=NULL, $status=NULL) {
 	$conn = jabber_connect();
 
