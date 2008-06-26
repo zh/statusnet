@@ -48,7 +48,6 @@ class XMPPDaemon {
 	function connect() {
 		$this->conn = jabber_connect($this->resource,
 								     "Send me a message to post a notice");
-		);
 		if (!$this->conn) {
 			return false;
 		}
