@@ -241,9 +241,10 @@ class ImsettingsAction extends SettingsAction {
 		}
 
 		$user->query('BEGIN');
+		$original = clone($user);
 		$user->jabber = NULL;
 		$result = $user->updateKeys($original);
-		if ($result === FALSE) {
+		if (!$result) {
 			common_log_db_error($user, 'UPDATE', __FILE__);
 			common_server_error(_t('Couldnt update user.'));
 			return;
