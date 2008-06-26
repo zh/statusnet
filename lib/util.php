@@ -787,6 +787,8 @@ function common_notice_form($action=NULL, $content=NULL) {
 	common_element('textarea', array('id' => 'status_textarea',
 									 'name' => 'status_textarea'),
 				   ($content) ? $content : ' ');
+	common_element('span', 'input_instructions',
+	               _t('Your current status, max 140 characters'));
 	if ($action) {
 		common_hidden('returnto', $action);
 	}
@@ -794,8 +796,6 @@ function common_notice_form($action=NULL, $content=NULL) {
 								  'name' => 'status_submit',
 								  'type' => 'submit',
 								  'value' => _t('Send')));
-	common_element('span', 'input_instructions',
-	               _t('Your current status, max 140 characters'));
 	common_element_end('p');
 	common_element_end('form');
 }
