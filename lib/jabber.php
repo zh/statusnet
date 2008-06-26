@@ -81,22 +81,15 @@ function jabber_send_presence($status, $show='available', $to=Null) {
 }
 
 function jabber_confirm_address($code, $nickname, $address) {
-
-	# Fire off a subscription, just in case
-
-	jabber_special_presence('subscribe', $address);
-
-	# Hopefully this goes through if we're not already subscribed
-
 	$body = 'User "' . $nickname . '" on ' . common_config('site', 'name') . ' ' .
 			'has said that your Jabber ID belongs to them. ' .
-	        'If that\'s true, you can confirm by clicking on this URL: ' .
-	        common_local_url('confirmaddress', array('code' => $code)) .
-	        ' . (If you cannot click it, copy-and-paste it into the ' .
-	        'address bar of your browser). If that user isn\'t you, ' .
-	        'or if you didn\'t request this confirmation, just ignore this message.';
+    	    'If that\'s true, you can confirm by clicking on this URL: ' .
+        	common_local_url('confirmaddress', array('code' => $code)) .
+        	' . (If you cannot click it, copy-and-paste it into the ' .
+        	'address bar of your browser). If that user isn\'t you, ' .
+        	'or if you didn\'t request this confirmation, just ignore this message.';
 
-	jabber_send_message($address, $body);
+		jabber_send_message($address, $body);
 }
 
 function jabber_special_presence($type, $to=NULL, $show=NULL, $status=NULL) {

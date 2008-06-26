@@ -47,41 +47,78 @@ class ImsettingsAction extends SettingsAction {
 										   'id' => 'imsettings',
 										   'action' =>
 										   common_local_url('imsettings')));
-		# too much common patterns here... abstractable?
-		common_input('jabber', _t('IM Address'),
-					 ($this->arg('jabber')) ? $this->arg('jabber') : $user->jabber,
-					 _t('Jabber or GTalk address, like "UserName@example.org"'));
+
+		common_element('h2', NULL, _t('Address'));
+
+		if ($user->jabber) {
+			common_element_start('p');
+			common_element('span', 'address confirmed', $user->jabber);
+			common_element('span', 'input_instructions',
+			               _t('Current confirmed Jabber/GTalk address.'));
+			common_hidden('jabber', $user->jabber);
+			common_element_end('p');
+			common_submit('remove', 'Remove');
+		} else {
+			$confirm = $this->get_confirmation();
+			if ($confirm) {
+				common_element_start('p');
+				common_element('span', 'address unconfirmed', $confirm->address);
+				common_element('span', 'input_instructions',
+			  	             _t('Current confirmed Jabber/GTalk address.'));
+				common_hidden('jabber', $confirm->address);
+				common_element_end('p');
+				common_submit('cancel', _t('Cancel'));
+			} else {
+				common_input('jabber', _t('IM Address'),
+						 	($this->arg('jabber')) ? $this->arg('jabber') : NULL,
+						 _t('Jabber or GTalk address, like "UserName@example.org"'));
+				common_submit('add', 'Add');
+			}
+		}
+
+		common_element('h2', NULL, _t('Preferences'));
+
 		common_checkbox('jabbernotify',
 		                _t('Send me notices through Jabber/GTalk.'));
 		common_checkbox('updatefrompresence',
 		                _t('Post a notice when my Jabber/GTalk status changes.'));
-		common_submit('submit', _t('Save'));
+		common_submit('save', _t('Save'));
+
 		common_element_end('form');
 		common_show_footer();
 	}
 
+	function get_confirmation() {
+		$user = common_current_user();
+		$confirm = new Confirm_address();
+		$confirm->user_id = $user->id;
+		$confirm->address_type = 'jabber';
+		if ($confirm->find(TRUE)) {
+			return $confirm;
+		} else {
+			return NULL;
+		}
+	}
+
 	function handle_post() {
 
-		$jabber = $this->trimmed('jabber');
+		if ($this->arg('save')) {
+			$this->save_preferences();
+		} else if ($this->arg('add')) {
+			$this->add_address();
+		} else if ($this->arg('cancel')) {
+			$this->cancel_confirmation();
+		} else if ($this->arg('remove')) {
+			$this->remove_address();
+		} else {
+			$this->show_form(_t('Unexpected form submission.'));
+		}
+	}
+
+	function save_preferences() {
+
 		$jabbernotify = $this->boolean('jabbernotify');
 		$updatefrompresence = $this->boolean('updatefrompresence');
-
-		# Some validation
-		
-		if ($jabber) {
-			$jabber = jabber_normalize_jid($jabber);
-			if (!$jabber) {
-			    $this->show_form(_('Cannot normalize that Jabber ID'));
-			    return;
-			}
-			if (!jabber_valid_base_jid($jabber)) {
-			    $this->show_form(_('Not a valid Jabber ID'));
-			    return;
-		    } else if ($this->jabber_exists($jabber)) {
-			    $this->show_form(_('Jabber ID already belongs to another user.'));
-			    return;
-			}
-		}
 
 		$user = common_current_user();
 
@@ -90,11 +127,11 @@ class ImsettingsAction extends SettingsAction {
 		$user->query('BEGIN');
 
 		$original = clone($user);
-		
+
 		$user->jabbernotify = $jabbernotify;
 		$user->updatefrompresence = $updatefrompresence;
 
-		$result = $user->update($original); # For key columns
+		$result = $user->update($original);
 
 		if ($result === FALSE) {
 			common_log_db_error($user, 'UPDATE', __FILE__);
@@ -102,58 +139,120 @@ class ImsettingsAction extends SettingsAction {
 			return;
 		}
 
-		$confirmation_sent = false;
-		
-		if ($user->jabber != $jabber) {
-			
-			if ($jabber) {
-	    		$confirm = new Confirm_address();
-	    		$confirm->address = $jabber;
-	    		$confirm->address_type = 'jabber';
-	    		$confirm->user_id = $user->id;
-	    		$confirm->code = common_confirmation_code(64);
-	    
-				$result = $confirm->insert();
-
-				if ($result === FALSE) {
-					common_log_db_error($confirm, 'INSERT', __FILE__);
-					common_server_error(_t('Couldnt insert confirmation code.'));
-					return;
-				}
-				
-				# XXX: optionally queue for offline sending
-				
-				jabber_confirm_address($confirm->code,
-									   $user->nickname,
-									   $jabber);
-									   
-				if ($result === FALSE) {
-					common_log_db_error($confirm, 'INSERT', __FILE__);
-					common_server_error(_t('Couldnt insert confirmation code.'));
-					return;
-				}
-				
-				$confirmation_sent = false;
-			} else {
-				# Clearing the ID is free
-				$user->jabber = NULL;
-				$result = $user->updateKeys($original);
-				if ($result === FALSE) {
-					common_log_db_error($user, 'UPDATE', __FILE__);
-					common_server_error(_t('Couldnt update user.'));
-					return;
-				}
-			}
-		}
-		
 		$user->query('COMMIT');
 
-        $msg = ($confirmation_sent) ? 
-		                  _t('Settings saved. A confirmation code was ' .
-		                     ' sent to the IM address you added. ') :
-		                  _t('Settings saved.');
-		                  
-		$this->show_form($msg, TRUE);
+		$this->show_form(_t('Preferences saved.'), true);
+	}
+
+	function add_address() {
+
+		$jabber = $this->trimmed('jabber');
+
+		# Some validation
+
+		if (!$jabber) {
+			$this->show_form(_t('No Jabber ID.'));
+			return;
+		}
+
+		$jabber = jabber_normalize_jid($jabber);
+
+		if (!$jabber) {
+		    $this->show_form(_('Cannot normalize that Jabber ID'));
+		    return;
+		}
+		if (!jabber_valid_base_jid($jabber)) {
+		    $this->show_form(_('Not a valid Jabber ID'));
+		    return;
+		} else if ($user->jabber == $jabber) {
+		    $this->show_form(_('That is already your Jabber ID.'));
+		    return;
+		} else if ($this->jabber_exists($jabber)) {
+		    $this->show_form(_('Jabber ID already belongs to another user.'));
+		    return;
+		}
+
+  		$confirm = new Confirm_address();
+   		$confirm->address = $jabber;
+   		$confirm->address_type = 'jabber';
+   		$confirm->user_id = $user->id;
+   		$confirm->code = common_confirmation_code(64);
+
+		$result = $confirm->insert();
+
+		if ($result === FALSE) {
+			common_log_db_error($confirm, 'INSERT', __FILE__);
+			common_server_error(_t('Couldnt insert confirmation code.'));
+			return;
+		}
+
+		# XXX: optionally queue for offline sending
+
+		if (!jabber_is_subscribed($jabber)) {
+			jabber_special_presence('subscribe', $address);
+		} else {
+			jabber_confirm_address($confirm->code,
+								   $user->nickname,
+								   $jabber);
+		}
+
+		$this->show_form(_t('A confirmation code was ' .
+		                    ' sent to the IM address you added. ' .
+		                    ' You must approve ' . jabber_daemon_address() .
+		                    ' for sending messages to you.'),
+		                    TRUE);
+	}
+
+	function cancel_confirmation() {
+		$jabber = $this->arg('jabber');
+		$confirm = $this->get_confirmation();
+		if (!$confirm) {
+			$this->show_form(_t('No pending confirmation to cancel.'));
+			return;
+		}
+		if ($confirm->address != $jabber) {
+			$this->show_form(_t('That is the wrong IM address.'));
+			return;
+		}
+
+        $result = $confirm->delete();
+
+        if (!$result) {
+			common_log_db_error($confirm, 'DELETE', __FILE__);
+            $this->server_error(_t('Couldn\'t delete email confirmation.'));
+            return;
+        }
+
+        $this->show_form(_t('Confirmation cancelled.'), TRUE);
+	}
+
+	function remove_address() {
+
+		$user = common_current_user();
+		$jabber = $this->arg('jabber');
+
+		# Maybe an old tab open...?
+
+		if ($user->jabber != $jabber) {
+		    $this->show_form(_t('That is not your Jabber ID.'));
+		    return;
+		}
+
+		$user->query('BEGIN');
+		$user->jabber = NULL;
+		$result = $user->updateKeys($original);
+		if ($result === FALSE) {
+			common_log_db_error($user, 'UPDATE', __FILE__);
+			common_server_error(_t('Couldnt update user.'));
+			return;
+		}
+		$user->query('COMMIT');
+
+		# Unsubscribe to the old address
+
+		jabber_special_presence('unsubscribe', $jabber);
+
+		$this->show_form(_t('The address was removed.'), TRUE);
 	}
 
 	function jabber_exists($jabber) {

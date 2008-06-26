@@ -88,6 +88,22 @@ class XMPPDaemon {
 		}
 	}
 
+	function get_user($from) {
+		$user = User::staticGet('jabber', jabber_normalize_jid($from));
+		return $user;
+	}
+
+	function get_confirmation($from) {
+		$confirm = new Confirm_address();
+		$confirm->address = $from;
+		$confirm->address_type = 'jabber';
+		if ($confirm->find(TRUE)) {
+			return $confirm;
+		} else {
+			return NULL;
+		}
+	}
+
 	function handle_message(&$pl) {
 		if ($pl['type'] != 'chat') {
 			return;
@@ -95,8 +111,6 @@ class XMPPDaemon {
 		if (strlen($pl['body']) == 0) {
 			return;
 		}
-		$from = jabber_normalize_jid($pl['from']);
-		$user = User::staticGet('jabber', $from);
 		if (!$user) {
 			$this->log(LOG_WARNING, 'Message from unknown user ' . $from);
 			return;
@@ -180,8 +194,31 @@ class XMPPDaemon {
 				   'Accepted subscription from ' . $from);
 				break;
 			case 'subscribed':
-			case 'unsubscribe':
+				$confirm = $this->get_confirmation($from);
+				if ($confirm) {
+					$user = User::staticGet($confirm->user_id);
+					if ($user) {
+						jabber_confirm_address($confirm->code,
+						                       $user->nickname,
+						                       $confirm->address);
+					} else {
+						$this->log(LOG_WARNING,
+							'got unexpected subscribed message from ' . $from);
+					}
+				}
 			case 'unsubscribed':
+				$user = $this->get_user($from);
+				if ($user) {
+					$this->set_notify($user, false);
+				}
+
+				$confirm = $this->get_confirmation($from);
+				if ($confirm) {
+					$user = User::staticGet($confirm->user_id);
+					if ($user) {
+					}
+				}
+			case 'unsubscribe':
 				$this->log(LOG_INFO,
 				   'Ignoring  "' . $pl['type'] . '" from ' . $from);
 				break;
