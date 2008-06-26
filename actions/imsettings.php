@@ -79,9 +79,11 @@ class ImsettingsAction extends SettingsAction {
 		common_element('h2', NULL, _t('Preferences'));
 
 		common_checkbox('jabbernotify',
-		                _t('Send me notices through Jabber/GTalk.'));
+		                _t('Send me notices through Jabber/GTalk.'),
+		                $user->jabbernotify);
 		common_checkbox('updatefrompresence',
-		                _t('Post a notice when my Jabber/GTalk status changes.'));
+		                _t('Post a notice when my Jabber/GTalk status changes.'),
+		                $user->updatefrompresence);
 		common_submit('save', _t('Save'));
 
 		common_element_end('form');

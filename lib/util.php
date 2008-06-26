@@ -319,15 +319,17 @@ function common_input($id, $label, $value=NULL,$instructions=NULL) {
 	common_element_end('p');
 }
 
-function common_checkbox($id, $label, $instructions=NULL, $value='true')
+function common_checkbox($id, $label, $checked=false, $instructions=NULL, $value='true')
 {
 	common_element_start('p');
 	$attrs = array('name' => $id,
 				   'type' => 'checkbox',
-				   'id' => $id,
-				   'value' => $value);
+				   'id' => $id);
 	if ($value) {
 		$attrs['value'] = htmlspecialchars($value);
+	}
+	if ($checked) {
+		$attrs['checked'] = 'checked';
 	}
 	common_element('input', $attrs);
 	# XXX: use a <label>
