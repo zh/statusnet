@@ -19,18 +19,23 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
+define('DEFAULT_RSS_LIMIT', 48);
+
 class Rss10Action extends Action {
 
 	function handle($args) {
 		parent::handle($args);
 		$limit = (int) $this->trimmed('limit');
+		if ($limit == 0) {
+			$limit = DEFAULT_RSS_LIMIT;
+		}
 		$this->show_rss($limit);
 	}
 
 	function init() {
 		return true;
 	}
-	
+
 	function get_notices() {
 		return array();
 	}
@@ -41,27 +46,27 @@ class Rss10Action extends Action {
 					 'link' => '',
 					 'description' => '');
 	}
-	
+
 	function get_image() {
 		return NULL;
 	}
-	
+
 	function show_rss($limit=0) {
-		
+
 		if (!$this->init()) {
 			return;
 		}
-		
+
 		$notices = $this->get_notices($limit);
-		
+
 		$this->init_rss();
 		$this->show_channel($notices);
 		$this->show_image();
-		
+
 		foreach ($notices as $n) {
 			$this->show_item($n);
 		}
-		
+
 		$this->end_rss();
 	}
 
@@ -70,7 +75,7 @@ class Rss10Action extends Action {
 
 		$channel = $this->get_channel();
 		$image = $this->get_image();
-		
+
 		common_element_start('channel', array('rdf:about' => $channel['url']));
 		common_element('title', NULL, $channel['title']);
 		common_element('link', NULL, $channel['link']);
@@ -83,14 +88,14 @@ class Rss10Action extends Action {
 
 		common_element_start('items');
 		common_element_start('rdf:Seq');
-		
+
 		foreach ($notices as $notice) {
 			common_element('rdf:li', array('rdf:resource' => $notice->uri));
 		}
-		
+
 		common_element_end('rdf:Seq');
 		common_element_end('items');
-		
+
 		common_element_end('channel');
 	}
 
@@ -105,7 +110,7 @@ class Rss10Action extends Action {
 			common_element_end('image');
 		}
 	}
-	
+
 	function show_item($notice) {
 		global $config;
 		$profile = Profile::staticGet($notice->profile_id);
@@ -119,7 +124,7 @@ class Rss10Action extends Action {
 		common_element('cc:licence', array('rdf:resource' => $config['license']['url']));
 		common_element_end('item');
 	}
-	
+
 	function init_rss() {
 		header('Content-Type: application/rdf+xml');
 
@@ -132,8 +137,8 @@ class Rss10Action extends Action {
 											  'http://web.resource.org/cc/',
 											  'xmlns' => 'http://purl.org/rss/1.0/'));
 	}
-	
-	function end_rss() {		
+
+	function end_rss() {
 		common_element_end('rdf:RDF');
 	}
 }
