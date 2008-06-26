@@ -88,10 +88,10 @@ function jabber_confirm_address($code, $nickname, $address) {
 
 	# Hopefully this goes through if we're not already subscribed
 
-	$body = 'User "' . $nickname . '" on ' . common_config('site', 'name') .
+	$body = 'User "' . $nickname . '" on ' . common_config('site', 'name') . ' ' .
 			'has said that your Jabber ID belongs to them. ' .
 	        'If that\'s true, you can confirm by clicking on this URL: ' .
-	        common_local_url('confirmaddress', array('code' => $confirm->code)) .
+	        common_local_url('confirmaddress', array('code' => $code)) .
 	        ' . (If you cannot click it, copy-and-paste it into the ' .
 	        'address bar of your browser). If that user isn\'t you, ' .
 	        'or if you didn\'t request this confirmation, just ignore this message.';
