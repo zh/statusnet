@@ -194,30 +194,7 @@ class XMPPDaemon {
 				   'Accepted subscription from ' . $from);
 				break;
 			case 'subscribed':
-				$confirm = $this->get_confirmation($from);
-				if ($confirm) {
-					$user = User::staticGet($confirm->user_id);
-					if ($user) {
-						jabber_confirm_address($confirm->code,
-						                       $user->nickname,
-						                       $confirm->address);
-					} else {
-						$this->log(LOG_WARNING,
-							'got unexpected subscribed message from ' . $from);
-					}
-				}
 			case 'unsubscribed':
-				$user = $this->get_user($from);
-				if ($user) {
-					$this->set_notify($user, false);
-				}
-
-				$confirm = $this->get_confirmation($from);
-				if ($confirm) {
-					$user = User::staticGet($confirm->user_id);
-					if ($user) {
-					}
-				}
 			case 'unsubscribe':
 				$this->log(LOG_INFO,
 				   'Ignoring  "' . $pl['type'] . '" from ' . $from);

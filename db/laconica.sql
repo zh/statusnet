@@ -24,7 +24,7 @@ create table avatar (
     url varchar(255) unique key comment 'avatar location',
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified',
-    
+
     constraint primary key (profile_id, width, height),
     index avatar_profile_id_idx (profile_id)
 ) ENGINE=InnoDB;
@@ -45,7 +45,7 @@ create table user (
     password varchar(255) comment 'salted password, can be null for OpenID users',
     email varchar(255) unique key comment 'email address for password recovery etc.',
     jabber varchar(255) unique key comment 'jabber ID for notices',
-    jabbernotify tinyint default 0 comment 'whether to send notices to jabber',    
+    jabbernotify tinyint default 0 comment 'whether to send notices to jabber',
     updatefrompresence tinyint default 0 comment 'whether to record updates from Jabber presence notices',
     sms varchar(64) unique key comment 'sms phone number',
     carrier integer comment 'foreign key to sms_carrier' references sms_carrier (id),
@@ -97,7 +97,7 @@ create table notice (
 create table consumer (
     consumer_key varchar(255) primary key comment 'unique identifier, root URL',
     seed char(32) not null comment 'seed for new tokens by this consumer',
-    
+
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified'
 ) ENGINE=InnoDB;
@@ -108,10 +108,10 @@ create table token (
     secret char(32) not null comment 'secret value',
     type tinyint not null default 0 comment 'request or access',
     state tinyint default 0 comment 'for requests; 0 = initial, 1 = authorized, 2 = used',
-    
+
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified',
-    
+
     constraint primary key (consumer_key, tok)
 ) ENGINE=InnoDB;
 
@@ -120,10 +120,10 @@ create table nonce (
     tok char(32) not null comment 'identifying value',
     nonce char(32) not null comment 'nonce',
     ts datetime not null comment 'timestamp sent',
-    
+
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified',
-    
+
     constraint primary key (consumer_key, tok, nonce),
     constraint foreign key (consumer_key, tok) references token (consumer_key, tok)
 ) ENGINE=InnoDB;
@@ -136,7 +136,7 @@ create table user_openid (
     user_id integer not null comment 'user owning this URL' references user (id),
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified',
-    
+
     index user_openid_user_id_idx (user_id)
 ) ENGINE=InnoDB;
 

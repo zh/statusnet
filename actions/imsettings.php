@@ -73,7 +73,9 @@ class ImsettingsAction extends SettingsAction {
 			} else {
 				common_input('jabber', _t('IM Address'),
 						 	($this->arg('jabber')) ? $this->arg('jabber') : NULL,
-						 _t('Jabber or GTalk address, like "UserName@example.org"'));
+						 _t('Jabber or GTalk address, like "UserName@example.org". ' .
+						    'Make sure to subscribe to ' . jabber_daemon_address() .
+						    ' before adding your IM address here.'));
 				common_submit('add', 'Add');
 			}
 		}
@@ -192,21 +194,19 @@ class ImsettingsAction extends SettingsAction {
 			return;
 		}
 
-		# XXX: optionally queue for offline sending
+		# XXX: queue for offline sending
 
-		if (!jabber_is_subscribed($jabber)) {
-			jabber_special_presence('subscribe', $jabber);
-		} else {
-			jabber_confirm_address($confirm->code,
-								   $user->nickname,
-								   $jabber);
-		}
+		jabber_confirm_address($confirm->code,
+							   $user->nickname,
+							   $jabber);
 
-		$this->show_form(_t('A confirmation code was ' .
-		                    ' sent to the IM address you added. ' .
-		                    ' You must approve ' . jabber_daemon_address() .
-		                    ' for sending messages to you.'),
-		                    TRUE);
+		# XXX: I18N
+
+		$msg = 'A confirmation code was sent to the IM address you added. ' .
+			' You must approve ' . jabber_daemon_address() .
+			' for sending messages to you.';
+
+		$this->show_form($msg, TRUE);
 	}
 
 	function cancel_confirmation() {
