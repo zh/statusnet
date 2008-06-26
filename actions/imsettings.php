@@ -64,7 +64,7 @@ class ImsettingsAction extends SettingsAction {
 				common_element_start('p');
 				common_element('span', 'address unconfirmed', $confirm->address);
 				common_element('span', 'input_instructions',
-			  	             _t('Awaiting confirmation on this address. Check your '
+			  	             _t('Awaiting confirmation on this address. Check your ' .
 			  	                'Jabber/GTalk account for a message with further ' .
 			  	                'instructions.'));
 				common_hidden('jabber', $confirm->address);
