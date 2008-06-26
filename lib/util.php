@@ -44,7 +44,7 @@ function common_server_error($msg, $code=500) {
 }
 
 # Show a user error
-function common_client_error($msg, $code=400) {
+function common_user_error($msg, $code=400) {
 	static $status = array(400 => 'Bad Request',
 						   401 => 'Unauthorized',
 						   402 => 'Payment Required',
@@ -136,7 +136,7 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 								  common_accept_to_prefs(PAGE_TYPE_PREFS));
 
 	if (!$type) {
-		common_client_error(_t('This page is not available in a media type you accept'), 406);
+		common_user_error(_t('This page is not available in a media type you accept'), 406);
 		exit(0);
 	}
 
