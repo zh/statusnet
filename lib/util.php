@@ -695,6 +695,8 @@ function common_fancy_url($action, $args=NULL) {
 	    	$path .= '/' . $args['code'];
 		}
 	    return common_path($path);
+	 case 'imsettings':
+	 	return common_path('settings/im');
 	 default:
 		return common_simple_url($action, $args);
 	}
