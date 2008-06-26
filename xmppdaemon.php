@@ -148,6 +148,7 @@ class XMPPDaemon {
 					   ': ' . $last_error->message);
 			return;
 		}
+		$notice->query('COMMIT');
 		common_broadcast_notice($notice);
 		$this->log(LOG_INFO,
 				   'Added notice ' . $notice->id . ' from user ' . $user->nickname);
