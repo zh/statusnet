@@ -162,13 +162,6 @@ class XMPPDaemon {
 				$this->subscribed($from);
 				break;
 			case 'subscribed':
-			    # Are we trying to confirm this address?
-                $confirm = Confirm_address::staticGet('address', $from);
-                if ($confirm) {
-					$this->send_confirmation_code($from, $confirm);
-				}
-				# Otherwise, silently ignore
-				break;
 			case 'unsubscribe':
 			case 'unsubscribed':
 				# XXX: do we care?
@@ -217,17 +210,6 @@ class XMPPDaemon {
 		$this->conn->send($out);
 	}
 
-	function send_confirmation_code($to, &$confirm) {
-		$body = 'Someone has asked to add this Jabber ID to their ' .
-		        'account on ' . common_config('site', 'name') . '. ' .
-		        'If it was you, you can confirm by clicking on this URL: ' .
-		        common_local_url('confirmaddress', array('code' => $confirm->code)) .
-		        ' . (If you cannot click it, copy-and-paste it into the ' .
-		        'address bar of your browser). If it wasn\'t you, ' .
-		        'just ignore this message.';
-
-		$this->conn->message($to, $body);
-	}
 }
 
 $daemon = new XMPPDaemon();
