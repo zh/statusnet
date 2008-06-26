@@ -138,3 +138,8 @@ function jabber_broadcast_notice($notice) {
 function jabber_format_notice(&$profile, &$notice) {
 	return $profile->nickname . ': ' . $notice->content;
 }
+
+# Dike this out for now
+function jabber_is_subscribed($address) {
+	return false;
+}
