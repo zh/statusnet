@@ -37,7 +37,7 @@ function jabber_normalize_jid($jid) {
 	}
 }
 
-function jabber_connect($resource=NULL, $status=NULL) {
+function jabber_connect($resource=NULL) {
 	static $conn = NULL;
 	if (!$conn) {
 		$conn = new XMPP(common_config('xmpp', 'host') ?
@@ -53,14 +53,11 @@ function jabber_connect($resource=NULL, $status=NULL) {
 		if (!$conn) {
 			return false;
 		}
-		$conn->connect(true); # try to get a persistent connection
+		$conn->connect(true); # true = persistent connection
 		if ($conn->disconnected) {
 			return false;
 		}
-        $conn->processUntil('session_start');
-        if ($status) {
-        	$conn->presence($status);
-		}
+    	$conn->processUntil('session_start');
 	}
 	return $conn;
 }
@@ -74,7 +71,7 @@ function jabber_send_message($to, $body, $type='chat', $subject=NULL) {
 	return true;
 }
 
-function jabber_send_presence($status=Null, $show='available', $to=Null) {
+function jabber_send_presence($status, $show='available', $to=Null) {
 	$conn = jabber_connect();
 	if (!$conn) {
 		return false;

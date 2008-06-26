@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
@@ -32,8 +33,7 @@ require_once(INSTALLDIR . '/lib/jabber.php');
 class XMPPDaemon {
 
 	function XMPPDaemon($resource=NULL) {
-		static $attrs = array('server', 'port', 'user', 'password',
-					   'resource', 'host');
+		static $attrs = array('server', 'port', 'user', 'password', 'host');
 
 		foreach ($attrs as $attr)
 		{
@@ -42,12 +42,20 @@ class XMPPDaemon {
 
 		if ($resource) {
 			$this->resource = $resource;
+		} else {
+			$this->resource = common_config('xmpp', 'resource') . 'daemon';
 		}
+
+		$this->log(LOG_INFO, "{$this->user}@{$this->server}/{$this->resource}");
 	}
 
 	function connect() {
-		$this->conn = jabber_connect($this->resource,
-								     "Send me a message to post a notice");
+		$connect_to = ($this->host) ? $this->host : $this->server;
+
+		$this->log(LOG_INFO, "Connecting to $connect_to on port $this->port");
+
+		$this->conn = jabber_connect($this->resource);
+
 		if (!$this->conn) {
 			return false;
 		}
@@ -189,30 +197,20 @@ class XMPPDaemon {
 	}
 
 	function subscribed($to) {
-		$this->special_presence('subscribed', $to);
+		jabber_special_presence('subscribed', $to);
 	}
 
-	function special_presence($type, $to=NULL, $show=NULL, $status=NULL) {
-		$to = htmlspecialchars($to);
-		$status = htmlspecialchars($status);
-		$out = "<presence";
-		if($to) $out .= " to='$to'";
-		if($type) $out .= " type='$type'";
-		if($show == 'available' and !$status) {
-			$out .= "/>";
-		} else {
-			$out .= ">";
-			if($show && ($show != 'available')) $out .= "<show>$show</show>";
-			if($status) $out .= "<status>$status</status>";
-			$out .= "</presence>";
-		}
-		$this->conn->send($out);
+	function set_status($status) {
+		jabber_send_presence($status);
 	}
 }
 
-$daemon = new XMPPDaemon();
+$resource = ($argc > 1) ? $argv[1] : NULL;
+
+$daemon = new XMPPDaemon($resource);
 
 if ($daemon->connect()) {
+	$daemon->set_status("Send me a message to post a notice");
 	$daemon->handle();
 }
 ?>
