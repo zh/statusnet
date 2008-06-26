@@ -52,9 +52,9 @@ class ConfirmaddressAction extends Action {
             $this->client_error(_t('That address has already been confirmed.'));
 			return;
 		}
-		
+
         $cur->query('BEGIN');
-		
+
         $orig_user = clone($cur);
 
 		$cur->$type = $confirm->address;
@@ -62,28 +62,28 @@ class ConfirmaddressAction extends Action {
 		if ($type == 'sms') {
 			$cur->carrier = ($confirm->address_extra)+0;
 		}
-		
+
 		$result = $cur->updateKeys($orig_user);
-		
+
         if (!$result) {
 			common_log_db_error($cur, 'UPDATE', __FILE__);
             $this->server_error(_t('Couldn\'t update user.'));
             return;
         }
-		
+
         $result = $confirm->delete();
-		
+
         if (!$result) {
 			common_log_db_error($confirm, 'DELETE', __FILE__);
             $this->server_error(_t('Couldn\'t delete email confirmation.'));
             return;
         }
-		
+
         $cur->query('COMMIT');
 
         common_show_header(_t('Confirm Address'));
         common_element('p', NULL,
-                       _t('The address "') . $cur->email . 
+                       _t('The address "') . $cur->$type .
                        _t('" has been confirmed for your account.'));
         common_show_footer();
     }
