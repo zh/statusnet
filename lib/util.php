@@ -759,7 +759,7 @@ function common_date_string($dt) {
 
 function common_exact_date($dt) {
 	$t = strtotime($dt);
-	return date(DATE_RFC822, $t);
+	return date(DATE_RFC850, $t);
 }
 
 function common_date_w3dtf($dt) {
