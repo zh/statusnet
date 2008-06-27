@@ -66,7 +66,8 @@ class ImsettingsAction extends SettingsAction {
 				common_element('span', 'input_instructions',
 			  	             _t('Awaiting confirmation on this address. Check your ' .
 			  	                'Jabber/GTalk account for a message with further ' .
-			  	                'instructions.'));
+			  	                'instructions. (Did you add '  . jabber_daemon_address() . 
+								'to your buddy list?)'));
 				common_hidden('jabber', $confirm->address);
 				common_element_end('p');
 				common_submit('cancel', _t('Cancel'));
@@ -74,8 +75,8 @@ class ImsettingsAction extends SettingsAction {
 				common_input('jabber', _t('IM Address'),
 						 	($this->arg('jabber')) ? $this->arg('jabber') : NULL,
 						 _t('Jabber or GTalk address, like "UserName@example.org". ' .
-						    'Make sure to subscribe to ' . jabber_daemon_address() .
-						    ' before adding your IM address here.'));
+						    'First, make sure to add ' . jabber_daemon_address() .
+						    ' to your buddy list in your IM client or on GTalk.'));
 				common_submit('add', 'Add');
 			}
 		}
