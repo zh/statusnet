@@ -308,6 +308,7 @@ function common_input($id, $label, $value=NULL,$instructions=NULL) {
 	common_element('label', array('for' => $id), $label);
 	$attrs = array('name' => $id,
 				   'type' => 'text',
+				   'class' => 'input_text',
 				   'id' => $id);
 	if ($value) {
 		$attrs['value'] = htmlspecialchars($value);
@@ -324,6 +325,7 @@ function common_checkbox($id, $label, $checked=false, $instructions=NULL, $value
 	common_element_start('p');
 	$attrs = array('name' => $id,
 				   'type' => 'checkbox',
+				   'class' => 'checkbox',
 				   'id' => $id);
 	if ($value) {
 		$attrs['value'] = htmlspecialchars($value);
@@ -354,6 +356,7 @@ function common_password($id, $label, $instructions=NULL) {
 	common_element('label', array('for' => $id), $label);
 	$attrs = array('name' => $id,
 				   'type' => 'password',
+				   'class' => 'password',
 				   'id' => $id);
 	common_element('input', $attrs);
 	if ($instructions) {
