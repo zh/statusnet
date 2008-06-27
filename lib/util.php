@@ -726,7 +726,40 @@ function common_path($relative) {
 function common_date_string($dt) {
 	// XXX: do some sexy date formatting
 	// return date(DATE_RFC822, $dt);
-	return $dt;
+	$t = strtotime($dt);
+	$now = time();
+	$diff = $now - $t;
+
+	if ($now < $t) { # that shouldn't happen!
+		return common_simple_date($dt);
+	} else if ($diff < 60) {
+		return _t('a few seconds ago');
+	} else if ($diff < 92) {
+		return _t('about a minute ago');
+	} else if ($diff < 3300) {
+		return _t('about ') . round($diff/60) . _t(' minutes ago');
+	} else if ($diff < 5400) {
+		return _t('about an hour ago');
+	} else if ($diff < 22 * 3600) {
+		return _t('about ') . round($diff/3600) . _t(' hours ago');
+	} else if ($diff < 37 * 3600) {
+		return _t('about a day ago');
+	} else if ($diff < 24 * 24 * 3600) {
+		return _t('about ') . round($diff/(24*3600)) . _t(' days ago');
+	} else if ($diff < 46 * 24 * 3600) {
+		return _t('about a month ago');
+	} else if ($diff < 330 * 24 * 3600) {
+		return _t('about ') . round($diff/(30*24*3600)) . _t(' months ago');
+	} else if ($diff < 480 * 24 * 3600) {
+		return _t('about a year ago');
+	} else {
+		return common_simple_date($dt);
+	}
+}
+
+function common_simple_date($dt) {
+	$t = strtotime($dt);
+	return date(DATE_RFC822, $t);
 }
 
 function common_date_w3dtf($dt) {
@@ -1065,6 +1098,8 @@ function common_confirmation_code($bits) {
 	for ($i = 0; $i < $chars; $i++) {
 		# XXX: convert to string and back
 		$num = hexdec(common_good_rand(1));
+		# XXX: randomness is too precious to throw away almost
+		# 40% of the bits we get!
 		$code .= $codechars[$num%32];
 	}
 	return $code;
