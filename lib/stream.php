@@ -28,7 +28,7 @@ class StreamAction extends Action {
 	}
 
 	function views_menu() {
-		
+
 		$user = NULL;
 		$action = $this->trimmed('action');
 		$nickname = $this->trimmed('nickname');
@@ -36,9 +36,9 @@ class StreamAction extends Action {
 		if ($nickname) {
 			$user = User::staticGet('nickname', $nickname);
 		}
-		
+
 		common_element_start('ul', array('id' => 'nav_views'));
-		
+
 		common_menu_item(common_local_url('all', array('nickname' =>
 													   $nickname)),
 						 _t('Personal'),
@@ -46,12 +46,12 @@ class StreamAction extends Action {
 						 $action == 'all');
 		common_menu_item(common_local_url('showstream', array('nickname' =>
 															  $nickname)),
-						 _t('Profile'),  
+						 _t('Profile'),
 						 ($user && $user->fullname) ? $user->fullname : $nickname,
 						 $action == 'showstream');
 		common_element_end('ul');
 	}
-	
+
 	function show_notice($notice) {
 		global $config;
 		$profile = $notice->getProfile();
@@ -78,7 +78,8 @@ class StreamAction extends Action {
 		$noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
 		common_element_start('p', 'time');
 		common_element('a', array('class' => 'notice',
-								  'href' => $noticeurl),
+								  'href' => $noticeurl,
+								  'title' => common_exact_date($notice->created)),
 					   common_date_string($notice->created));
 		common_element_end('p');
 		common_element_end('li');

@@ -731,7 +731,7 @@ function common_date_string($dt) {
 	$diff = $now - $t;
 
 	if ($now < $t) { # that shouldn't happen!
-		return common_simple_date($dt);
+		return common_exact_date($dt);
 	} else if ($diff < 60) {
 		return _t('a few seconds ago');
 	} else if ($diff < 92) {
@@ -753,11 +753,11 @@ function common_date_string($dt) {
 	} else if ($diff < 480 * 24 * 3600) {
 		return _t('about a year ago');
 	} else {
-		return common_simple_date($dt);
+		return common_exact_date($dt);
 	}
 }
 
-function common_simple_date($dt) {
+function common_exact_date($dt) {
 	$t = strtotime($dt);
 	return date(DATE_RFC822, $t);
 }

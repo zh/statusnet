@@ -33,14 +33,14 @@ class ShownoticeAction extends StreamAction {
 		}
 
 		$profile = $notice->getProfile();
-		
+
 		if (!$profile) {
 			$this->no_such_notice();
 		}
 
 		# Looks like we're good; show the header
 
-		common_show_header($profile->nickname."'s status on ".common_date_string($notice->created),
+		common_show_header($profile->nickname."'s status on ".common_exact_date($notice->created),
 						   NULL, $profile,
 						   array($this, 'show_top'));
 
@@ -53,12 +53,12 @@ class ShownoticeAction extends StreamAction {
 
 	function show_top($user) {
 		$cur = common_current_user();
-		
+
 		if ($cur && $cur->id == $user->id) {
 			common_notice_form();
 		}
 	}
-	
+
 	function no_such_notice() {
 		common_user_error('No such notice.');
 	}
