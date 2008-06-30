@@ -24,25 +24,15 @@ require_once(INSTALLDIR.'/lib/jabber.php');
 
 class ImsettingsAction extends SettingsAction {
 
-	function show_top($arr) {
-		$msg = $arr[0];
-		$success = $arr[1];
-		if ($msg) {
-			$this->message($msg, $success);
-		} else {
-			common_element('div', 'instructions',
-						   _t('You can send and receive notices through '.
-							  'Jabber/GTalk instant messages. Configure '.
-							  'your address and settings below.'));
-		}
-		$this->settings_menu();
+	function get_instructions() {
+		_t('You can send and receive notices through '.
+		   'Jabber/GTalk [instant messages](%%doc.im%%). Configure '.
+		   'your address and settings below.');
 	}
 
 	function show_form($msg=NULL, $success=false) {
 		$user = common_current_user();
-		common_show_header(_t('IM settings'), NULL, array($msg, $success),
-						   array($this, 'show_top'));
-
+		$this->form_header(_t('IM Settings'), $msg, $success);
 		common_element_start('form', array('method' => 'POST',
 										   'id' => 'imsettings',
 										   'action' =>

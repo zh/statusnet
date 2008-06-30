@@ -23,24 +23,15 @@ require_once(INSTALLDIR.'/lib/settingsaction.php');
 
 class ProfilesettingsAction extends SettingsAction {
 
-	function show_top($arr) {
-		$msg = $arr[0];
-		$success = $arr[1];
-		if ($msg) {
-			$this->message($msg, $success);
-		} else {
-			common_element('div', 'instructions',
-						   _t('You can update your personal profile info here '.
-							  'so people know more about you.'));
-		}
-		$this->settings_menu();
+	function get_instructions() {
+		return _t('You can update your personal profile info here '.
+				  'so people know more about you.');
 	}
-	
+
 	function show_form($msg=NULL, $success=false) {
 		$user = common_current_user();
 		$profile = $user->getProfile();
-		common_show_header(_t('Profile settings'), NULL, array($msg, $success),
-						   array($this, 'show_top'));
+		$this->form_header(_t('Profile settings'), $msg, $success);
 
 		common_element_start('form', array('method' => 'POST',
 										   'id' => 'profilesettings',
@@ -70,7 +61,7 @@ class ProfilesettingsAction extends SettingsAction {
 	}
 
 	function handle_post() {
-		
+
 		$nickname = $this->trimmed('nickname');
 		$fullname = $this->trimmed('fullname');
 		$email = $this->trimmed('email');
@@ -79,7 +70,7 @@ class ProfilesettingsAction extends SettingsAction {
 		$location = $this->trimmed('location');
 
 		# Some validation
-		
+
 		if ($email && !Validate::email($email, true)) {
 			$this->show_form(_t('Not a valid email address.'));
 			return;
@@ -111,22 +102,22 @@ class ProfilesettingsAction extends SettingsAction {
 			$this->show_form(_t('Email address already exists.'));
 			return;
 		}
-		
+
 		$user = common_current_user();
 
 		$user->query('BEGIN');
 
 		if ($user->nickname != $nickname) {
-			
+
 			common_debug('Updating user nickname from ' . $user->nickname . ' to ' . $nickname,
 						 __FILE__);
-			
+
 			$original = clone($user);
-		
+
 			$user->nickname = $nickname;
 
 			$result = $user->updateKeys($original);
-		
+
 			if ($result === FALSE) {
 				common_log_db_error($user, 'UPDATE', __FILE__);
 				common_server_error(_t('Couldnt update user.'));
@@ -135,34 +126,34 @@ class ProfilesettingsAction extends SettingsAction {
 		}
 
 		if ($user->email != $email) {
-			
+
 			common_debug('Updating user email from ' . $user->email . ' to ' . $email,
 						 __FILE__);
-			
+
 			# We don't update email directly; it gets done by confirmemail
 
 			$confirm = new Confirm_address();
-			
+
 			$confirm->code = common_confirmation_code(128);
 			$confirm->user_id = $user->id;
 			$confirm->address = $email;
 			$confirm->address_type = 'email';
-			
+
 			$result = $confirm->insert();
-			
+
 			if (!$result) {
 				common_log_db_error($confirm, 'INSERT', __FILE__);
 				common_server_error(_t('Couldnt confirm email.'));
 				return FALSE;
 			}
-			
+
 			# XXX: try not to do this in the middle of a transaction
-		
+
 			mail_confirm_address($confirm->code,
 								 $profile->nickname,
 								 $email);
 		}
-		
+
 		$profile = $user->getProfile();
 
 		$orig_profile = clone($profile);
@@ -176,9 +167,9 @@ class ProfilesettingsAction extends SettingsAction {
 
 		common_debug('Old profile: ' . common_log_objstring($orig_profile), __FILE__);
 		common_debug('New profile: ' . common_log_objstring($profile), __FILE__);
-		
+
 		$result = $profile->update($orig_profile);
-		
+
 		if (!$result) {
 			common_log_db_error($profile, 'UPDATE', __FILE__);
 			common_server_error(_t('Couldnt save profile.'));
@@ -191,7 +182,7 @@ class ProfilesettingsAction extends SettingsAction {
 
 		$this->show_form(_t('Settings saved.'), TRUE);
 	}
-	
+
 	function nickname_exists($nickname) {
 		$user = common_current_user();
 		$other = User::staticGet('nickname', $nickname);
@@ -201,7 +192,7 @@ class ProfilesettingsAction extends SettingsAction {
 			return $other->id != $user->id;
 		}
 	}
-	
+
 	function email_exists($email) {
 		$user = common_current_user();
 		$other = User::staticGet('email', $email);

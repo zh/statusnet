@@ -55,6 +55,28 @@ class SettingsAction extends Action {
         }
     }
 
+	function form_header($title, $msg=NULL, $success=false) {
+		common_show_header($title,
+		                   NULL,
+		                   array($msg, $success),
+						   array($this, 'show_top'));
+	}
+
+	function show_top($arr) {
+		$msg = $arr[0];
+		$success = $arr[1];
+		if ($msg) {
+			$this->message($msg, $success);
+		} else {
+			$inst = $this->get_instructions();
+			$output = common_markup_to_html($inst);
+			common_element_start('div', 'instructions');
+			common_raw($output);
+			common_element_end('div');
+		}
+		$this->settings_menu();
+	}
+
     function settings_menu() {
         # action => array('prompt', 'title')
         static $menu =
