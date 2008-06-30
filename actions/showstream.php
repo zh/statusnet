@@ -52,7 +52,7 @@ class ShowstreamAction extends StreamAction {
 		header('X-XRDS-Location: '. common_local_url('xrds', array('nickname' =>
 																   $user->nickname)));
 
-		common_show_header($profile->nickname, 
+		common_show_header($profile->nickname,
 						   array($this, 'show_header'), $user,
 						   array($this, 'show_top'));
 
@@ -64,16 +64,16 @@ class ShowstreamAction extends StreamAction {
 	}
 
 	function show_top($user) {
-		
+
 		$cur = common_current_user();
-		
+
 		if ($cur && $cur->id == $user->id) {
 			common_notice_form('showstream');
 		}
-		
+
 		$this->views_menu();
 	}
-	
+
 	function show_header($user) {
 		common_element('link', array('rel' => 'alternate',
 									 'href' => common_local_url('userrss', array('nickname' =>
@@ -129,12 +129,12 @@ class ShowstreamAction extends StreamAction {
 				}
 			}
 		} else {
-			$this->show_remote_subscribe_form($profile);
+			$this->show_remote_subscribe_link($profile);
 		}
 		common_element_end('div');
 
 		common_element_start('div', array('id' => 'profile_information'));
-		
+
 		if ($profile->fullname) {
 			common_element('h1', NULL, $profile->fullname);
 		}
@@ -150,7 +150,7 @@ class ShowstreamAction extends StreamAction {
 						   $profile->homepage);
 			common_element_end('p');
 		}
-		
+
 		$this->show_statistics($profile);
 
 		common_element_end('div');
@@ -169,21 +169,11 @@ class ShowstreamAction extends StreamAction {
 		common_element_end('form');
 	}
 
-	function show_remote_subscribe_form($profile) {
-		common_element_start('form', array('id' => 'remotesubscribe',
-										   'method' => 'POST',
-										   'action' => common_local_url('remotesubscribe')));
-		common_hidden('nickname', $profile->nickname);
-		common_element('input', array('name' => 'profile_url',
-									  'type' => 'text',
-									  'id' => 'profile_url',
-									  'size' => '15'));
-		common_element('input', array('type' => 'submit',
-									  'id' => 'submit',
-									  'name' => 'submit',
-									  'value' => _t('Subscribe'),
-									  'class' => 'submit'));
-		common_element_end('form');
+	function show_remote_subscribe_link($profile) {
+		$url = common_local_url('remotesubscribe',
+		                        array('nickname' => $profile->nickname);
+		common_element('a', array('href' => $url),
+					   _t('Subscribe'));
 	}
 
 	function show_unsubscribe_form($profile) {
@@ -205,7 +195,7 @@ class ShowstreamAction extends StreamAction {
 		$subs = DB_DataObject::factory('subscription');
 		$subs->subscriber = $profile->id;
 		$subs->orderBy('created DESC');
-		
+
 		# We ask for an extra one to know if we need to do another page
 
 		$subs->limit(0, SUBSCRIPTIONS + 1);
@@ -217,11 +207,11 @@ class ShowstreamAction extends StreamAction {
 		common_element('h2', NULL, _t('Subscriptions'));
 
 		if ($subs_count > 0) {
-			
+
 			common_element_start('ul', array('id' => 'subscriptions_avatars'));
-			
+
 			for ($i = 0; $i < min($subs_count, SUBSCRIPTIONS); $i++) {
-				
+
 				if (!$subs->fetch()) {
 					common_debug('Weirdly, broke out of subscriptions loop early', __FILE__);
 					break;
@@ -246,20 +236,20 @@ class ShowstreamAction extends StreamAction {
 				common_element_end('a');
 				common_element_end('li');
 			}
-			
+
 			common_element_end('ul');
 		}
 
 		if ($subs_count > SUBSCRIPTIONS) {
 			common_element_start('p', array('id' => 'subscriptions_viewall'));
-			
+
 			common_element('a', array('href' => common_local_url('subscriptions',
 																 array('nickname' => $profile->nickname)),
 									  'class' => 'moresubscriptions'),
 						   _t('All subscriptions'));
 			common_element_end('p');
 		}
-		
+
 		common_element_end('div');
 	}
 
@@ -317,7 +307,7 @@ class ShowstreamAction extends StreamAction {
 
 		if ($cnt > 0) {
 			common_element_start('ul', array('id' => 'notices'));
-			
+
 			for ($i = 0; $i < min($cnt, NOTICES_PER_PAGE); $i++) {
 				if ($notice->fetch()) {
 					$this->show_notice($notice);
@@ -326,7 +316,7 @@ class ShowstreamAction extends StreamAction {
 					break;
 				}
 			}
-			
+
 			common_element_end('ul');
 		}
 		common_pagination($page>1, $cnt>NOTICES_PER_PAGE, $page,
