@@ -131,9 +131,8 @@ function jabber_broadcast_notice($notice) {
 		$msg = jabber_format_notice($profile, $notice);
 		while ($sub->fetch()) {
 			$user = User::staticGet($sub->subscriber);
-			if ($user && $user->jabber) {
-				jabber_send_message($user->jabber,
-				                    $msg);
+			if ($user && $user->jabber && $user->jabbernotify) {
+				jabber_send_message($user->jabber, $msg);
 			}
 		}
 	}
