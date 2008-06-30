@@ -19,8 +19,6 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-require_once('markdown.php');
-
 class DocAction extends Action {
 
 	function handle($args) {
