@@ -171,7 +171,7 @@ class ShowstreamAction extends StreamAction {
 
 	function show_remote_subscribe_link($profile) {
 		$url = common_local_url('remotesubscribe',
-		                        array('nickname' => $profile->nickname);
+		                        array('nickname' => $profile->nickname));
 		common_element('a', array('href' => $url),
 					   _t('Subscribe'));
 	}
