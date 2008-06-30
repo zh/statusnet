@@ -25,9 +25,9 @@ require_once(INSTALLDIR.'/lib/jabber.php');
 class ImsettingsAction extends SettingsAction {
 
 	function get_instructions() {
-		_t('You can send and receive notices through '.
-		   'Jabber/GTalk [instant messages](%%doc.im%%). Configure '.
-		   'your address and settings below.');
+		return _t('You can send and receive notices through '.
+		   		'Jabber/GTalk [instant messages](%%doc.im%%). Configure '.
+		   		'your address and settings below.');
 	}
 
 	function show_form($msg=NULL, $success=false) {
