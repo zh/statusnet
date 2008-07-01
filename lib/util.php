@@ -218,14 +218,18 @@ function common_show_footer() {
 	common_foot_menu();
 	common_element_start('div', array('id' => 'footer'));
 	common_element_start('p', 'laconica');
-	common_text(_t('This site is running the '));
-	common_element('a', array('class' => 'software',
-							  href => 'http://laconi.ca/'),
-				   'Laconica');
-	common_text(_t('microblogging tool, version ' . LACONICA_VERSION . ', available under the '));
-	common_element('a', array(href => 'http://www.fsf.org/licensing/licenses/agpl-3.0.html'),
-				   'GNU Affero General Public License');
-	common_text(_t('.'));
+	if (common_config('site', 'broughtby')) {
+		$instr = _t('**%%site.name%%** is a microblogging service brought to you by [%%site.broughtby%%](%%site.broughtbyurl%%). ');
+	} else {
+		$instr = _t('**%%site.name%%** is a microblogging service. ');
+	}
+	$instr .= _t('It runs the [Laconica](http://laconi.ca/) ' .
+		         'microblogging software, version ' . LACONICA_VERSION . ', ' .
+		         'available under the ' .
+		         '[GNU Affero General Public License]' .
+		         '(http://www.fsf.org/licensing/licenses/agpl-3.0.html).');
+    $output = common_markup_to_html($instr);
+    common_raw($output);
 	common_element_end('p');
 	common_element('img', array('id' => 'cc',
 								'src' => $config['license']['image'],
@@ -288,6 +292,8 @@ function common_foot_menu() {
 					 _t('Privacy'));
 	common_menu_item(common_local_url('doc', array('title' => 'source')),
 					 _t('Source'));
+	common_menu_item(common_local_url('doc', array('title' => 'contact')),
+					 _t('Contact'));
 	common_element_end('ul');
 }
 

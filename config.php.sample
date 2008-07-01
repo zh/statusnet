@@ -18,6 +18,11 @@ $config['site']['server'] = 'localhost';
 $config['site']['path'] = 'laconica';
 #$config['site']['fancy'] = false;
 #$config['site']['theme'] = 'default';
+#For contact email, defaults to $_SERVER["SERVER_ADMIN"]
+#$config['site']['email'] = 'admin@example.net';
+#Brought by...
+#$config['site']['broughtby'] = 'Individual or Company';
+#$config['site']['broughtbyurl'] = 'http://example.net/';
 
 # This is a PEAR DB DSN, see http://pear.php.net/manual/en/package.database.db.intro-dsn.php
 # Set it to match your actual database
