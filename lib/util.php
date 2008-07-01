@@ -838,7 +838,7 @@ function common_notice_form($action=NULL, $content=NULL) {
         common_element('span', array('id' => 'counter', 'class' => 'counter'), '140');
 	common_element('textarea', array('id' => 'status_textarea',
 									 'name' => 'status_textarea'),
-				   ' ');
+				   ($content) ? $content : ' ');
 	if ($action) {
 		common_hidden('returnto', $action);
 	}
