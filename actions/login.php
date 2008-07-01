@@ -82,13 +82,22 @@ class LoginAction extends Action {
 		common_show_footer();
 	}
 
+	function get_instructions() {
+		return _t('Login with your username and password. ' .
+				  'Don\'t have a username yet? ' .
+				  '[Register](%%action.register%%) a new account, or ' .
+				  'try [OpenID](%%action.openidlogin%%). ');
+	}
+
 	function show_top($error=NULL) {
 		if ($error) {
 			common_element('p', 'error', $error);
 		} else {
-			common_element('p', 'instructions',
-						   _t('Login with your username and password. ' .
-							  'Don\'t have a username yet? Choose register above. '));
+			$instr = $this->get_instructions();
+			$output = common_markup_to_html($instr);
+			common_element_start('p', 'instructions');
+			common_raw($output);
+			common_element_end('p');
 		}
 	}
 }
