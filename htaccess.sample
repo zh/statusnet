@@ -15,6 +15,7 @@ RewriteRule ^main/login$ index.php?action=login [L,QSA]
 RewriteRule ^main/logout$ index.php?action=logout [L,QSA]
 RewriteRule ^main/register$ index.php?action=register [L,QSA]
 RewriteRule ^main/openid$ index.php?action=openidlogin [L,QSA]
+RewriteRule ^main/remote$ index.php?action=remotesubscribe [L,QSA]
 
 RewriteRule ^main/subscribe$ index.php?action=subscribe [L,QSA]
 RewriteRule ^main/unsubscribe$ index.php?action=unsubscribe [L,QSA]

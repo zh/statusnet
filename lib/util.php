@@ -656,6 +656,12 @@ function common_fancy_url($action, $args=NULL) {
 	 case 'subscribe':
 	 case 'unsubscribe':
 		return common_path('main/'.$action);
+	 case 'remotesubscribe':
+		if ($args && $args['nickname']) {
+			return common_path('main/remote?nickname=' . $args['nickname']);
+		} else {
+			return common_path('main/remote');
+		}
 	 case 'openidlogin':
 		return common_path('main/openid');
 	 case 'avatar':
