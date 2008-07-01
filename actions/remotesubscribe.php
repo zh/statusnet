@@ -43,7 +43,7 @@ class RemotesubscribeAction extends Action {
 		return _t('To subscribe, you can [login](%%action.login%%),' .
 		          ' or [register](%%action.register%%) a new ' .
 		          ' account. If you already have an account ' .
-		          ' on another microblogging site, ' .
+		          ' on a [compatible microblogging site](%%doc.openmublog%%), ' .
 		          ' enter your profile URL below.');
 	}
 
