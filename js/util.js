@@ -1,7 +1,7 @@
 $(document).ready(function(){
         // count character on keyup
-        function counter(){ 
-            var maxLength     = 140; 
+        function counter(){
+            var maxLength     = 140;
             var currentLength = $("#status_textarea").val().length;
             var remaining = 140 - currentLength;
             var counter = $("#counter");
@@ -16,7 +16,8 @@ $(document).ready(function(){
 
         if ($("#status_textarea").length) {
             $("#status_textarea").bind("keyup", counter);
+            // run once in case there's something in there
+			counter();
         }
-
 });
 
