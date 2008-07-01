@@ -39,13 +39,31 @@ class RemotesubscribeAction extends Action {
 		}
 	}
 
+	function get_instructions() {
+		return _t('To subscribe, you can [login](%%action.login%%),' .
+		          ' or [register](%%action.register%%) a new ' .
+		          ' account. If you already have an account ' .
+		          ' on another microblogging site, ' .
+		          ' enter your profile URL below.');
+	}
+
+	function show_top($err=NULL) {
+		if ($err) {
+			common_element('div', 'error', $err);
+		} else {
+			$instructions = $this->get_instructions();
+			$output = common_markup_to_html($instructions);
+			common_element_start('p', 'instructions');
+			common_raw($output);
+			common_element_end('p');
+		}
+	}
+
 	function show_form($err=NULL) {
 		$nickname = $this->trimmed('nickname');
 		$profile = $this->trimmed('profile_url');
-		common_show_header(_t('Remote subscribe'));
-		if ($err) {
-			common_element('div', 'error', $err);
-		}
+		common_show_header(_t('Remote subscribe'), NULL, $err,
+						   array($this, 'show_top'));
 		common_element_start('form', array('id' => 'remotesubscribe', 'method' => 'POST',
 										   'action' => common_local_url('remotesubscribe')));
 		common_input('nickname', _t('User nickname'), $nickname,
@@ -242,7 +260,7 @@ class RemotesubscribeAction extends Action {
 		# We re-use this tool's fetcher, since it's pretty good
 
 		$fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
-		
+
 		$result = $fetcher->post($req->get_normalized_http_url(),
 								 $req->to_postdata());
 
@@ -301,7 +319,7 @@ class RemotesubscribeAction extends Action {
 		}
 
 		# XXX: add a nonce to prevent replay attacks
-		
+
 		$req->set_parameter('oauth_callback', common_local_url('finishremotesubscribe'));
 
 		# XXX: test to see if endpoint accepts this signature method
@@ -326,7 +344,7 @@ class RemotesubscribeAction extends Action {
 		common_redirect($req->to_url());
 		return;
 	}
-	
+
 	function make_nonce() {
 		return common_good_rand(16);
 	}
