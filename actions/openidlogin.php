@@ -40,15 +40,22 @@ class OpenidloginAction extends Action {
 		}
 	}
 
+	function get_instructions() {
+		return _t('Login with an [OpenID](%%doc.openid%%) account.');
+	}
+
 	function show_top($error=NULL) {
 		if ($error) {
 			common_element('div', array('class' => 'error'), $error);
 		} else {
-			common_element('div', 'instructions',
-						   _t('Login with an OpenID account.'));
+			$instr = $this->get_instructions();
+			$output = common_markup_to_html($instr);
+			common_element_start('div', 'instructions');
+			common_raw($output);
+			common_element_end('div');
 		}
 	}
-	
+
 	function show_form($error=NULL, $openid_url) {
 		common_show_header(_t('OpenID Login'), NULL, $error, array($this, 'show_top'));
 		$formaction = common_local_url('openidlogin');
