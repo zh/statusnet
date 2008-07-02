@@ -141,7 +141,7 @@ class RecoverpasswordAction extends Action {
 		common_show_header(_t('Recover password'), NULL,
 		$msg, array($this, 'show_top'));
 
-		common_element_start('form', array('method' => 'POST',
+		common_element_start('form', array('method' => 'post',
 										   'id' => 'recoverpassword',
 										   'action' => common_local_url('recoverpassword')));
 		common_input('nicknameoremail', _t('Nickname or email'),
@@ -158,7 +158,7 @@ class RecoverpasswordAction extends Action {
 		common_show_header(_t('Reset password'), NULL,
 		$msg, array($this, 'show_password_top'));
 
-		common_element_start('form', array('method' => 'POST',
+		common_element_start('form', array('method' => 'post',
 										   'id' => 'recoverpassword',
 										   'action' => common_local_url('recoverpassword')));
 		common_password('newpassword', _t('New password'),

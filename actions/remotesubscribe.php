@@ -64,7 +64,7 @@ class RemotesubscribeAction extends Action {
 		$profile = $this->trimmed('profile_url');
 		common_show_header(_t('Remote subscribe'), NULL, $err,
 						   array($this, 'show_top'));
-		common_element_start('form', array('id' => 'remotesubscribe', 'method' => 'POST',
+		common_element_start('form', array('id' => 'remotesubscribe', 'method' => 'post',
 										   'action' => common_local_url('remotesubscribe')));
 		common_input('nickname', _t('User nickname'), $nickname,
 					 _t('Nickname of the user you want to follow'));

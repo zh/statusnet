@@ -59,7 +59,7 @@ class OpenidloginAction extends Action {
 	function show_form($error=NULL, $openid_url) {
 		common_show_header(_t('OpenID Login'), NULL, $error, array($this, 'show_top'));
 		$formaction = common_local_url('openidlogin');
-		common_element_start('form', array('method' => 'POST',
+		common_element_start('form', array('method' => 'post',
 										   'id' => 'openidlogin',
 										   'action' => $formaction));
 		common_input('openid_url', _t('OpenID URL'),

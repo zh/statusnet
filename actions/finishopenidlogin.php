@@ -58,14 +58,14 @@ class FinishopenidloginAction extends Action {
 						   _t(' so we must connect your OpenID to a local account. ' .
 							  ' You can either create a new account, or connect with ' .
 							  ' your existing account, if you have one.'));
-		}		
+		}
 	}
-	
+
 	function show_form($error=NULL, $username=NULL) {
 		common_show_header(_t('OpenID Account Setup'), NULL, $error,
 						   array($this, 'show_top'));
 
-		common_element_start('form', array('method' => 'POST',
+		common_element_start('form', array('method' => 'post',
 										   'id' => 'account_connect',
 										   'action' => common_local_url('finishopenidlogin')));
 		common_element('h2', NULL,
@@ -99,7 +99,7 @@ class FinishopenidloginAction extends Action {
 	}
 
 	function try_login() {
-		
+
 		$consumer = oid_consumer();
 
 		$response = $consumer->complete(common_local_url('finishopenidlogin'));
@@ -125,7 +125,7 @@ class FinishopenidloginAction extends Action {
 			}
 
 			$user = oid_get_user($canonical);
-			
+
 			if ($user) {
 				oid_set_last($display);
 				oid_update_user($user, $sreg);
@@ -144,12 +144,12 @@ class FinishopenidloginAction extends Action {
 		common_element('p', NULL, $msg);
 		common_show_footer();
 	}
-	
+
 	function save_values($display, $canonical, $sreg) {
 		common_ensure_session();
 		$_SESSION['openid_display'] = $display;
-		$_SESSION['openid_canonical'] = $canonical;		
-		$_SESSION['openid_sreg'] = $sreg;				
+		$_SESSION['openid_canonical'] = $canonical;
+		$_SESSION['openid_sreg'] = $sreg;
 	}
 
 	function get_saved_values() {
@@ -157,11 +157,11 @@ class FinishopenidloginAction extends Action {
 					 $_SESSION['openid_canonical'],
 					 $_SESSION['openid_sreg']);
 	}
-	
+
 	function create_new_user() {
-		
+
 		$nickname = $this->trimmed('newname');
-		
+
 		if (!Validate::string($nickname, array('min_length' => 1,
 											   'max_length' => 64,
 											   'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
@@ -173,36 +173,36 @@ class FinishopenidloginAction extends Action {
 			$this->show_form(_t('Nickname not allowed.'));
 			return;
 		}
-		
+
 		if (User::staticGet('nickname', $nickname)) {
 			$this->show_form(_t('Nickname already in use. Try another one.'));
 			return;
 		}
-		
+
 		list($display, $canonical, $sreg) = $this->get_saved_values();
-		
+
 		if (!$display || !$canonical) {
 			common_server_error(_t('Stored OpenID not found.'));
 			return;
 		}
-		
+
 		# Possible race condition... let's be paranoid
-		
+
 		$other = oid_get_user($canonical);
-		
+
 		if ($other) {
 			common_server_error(_t('Creating new account for OpenID that already has a user.'));
 			return;
 		}
-		
+
 		$profile = new Profile();
-		
+
 		$profile->nickname = $nickname;
-		
+
 		if ($sreg['fullname'] && strlen($sreg['fullname']) <= 255) {
 			$profile->fullname = $sreg['fullname'];
 		}
-		
+
 		if ($sreg['country']) {
 			if ($sreg['postcode']) {
 				# XXX: use postcode to get city and region
@@ -215,51 +215,51 @@ class FinishopenidloginAction extends Action {
 
 		# XXX save language if it's passed
 		# XXX save timezone if it's passed
-		
+
 		$profile->profileurl = common_profile_url($nickname);
-		  
+
 		$profile->created = DB_DataObject_Cast::dateTime(); # current time
-		
+
 		$id = $profile->insert();
 		if (!$id) {
 			common_server_error(_t('Error saving the profile.'));
 			return;
 		}
-		
+
 		$user = new User();
 		$user->id = $id;
 		$user->nickname = $nickname;
 		$user->uri = common_user_uri($user);
-		
+
 		if ($sreg['email'] && Validate::email($sreg['email'], true)) {
 			$user->email = $sreg['email'];
 		}
-		
+
 		$user->created = DB_DataObject_Cast::dateTime(); # current time
-		
+
 		$result = $user->insert();
-		
+
 		if (!$result) {
 			# Try to clean up...
 			$profile->delete();
 		}
 
 		$result = oid_link_user($user->id, $canonical, $display);
-		
+
 		if (!$result) {
 			# Try to clean up...
 			$user->delete();
 			$profile->delete();
 		}
-		
+
 		oid_set_last($display);
 		common_set_user($user->nickname);
 		common_real_login(true);
 		common_redirect(common_local_url('showstream', array('nickname' => $user->nickname)));
 	}
-	
+
 	function connect_user() {
-		
+
 		$nickname = $this->trimmed('nickname');
 		$password = $this->trimmed('password');
 
@@ -269,7 +269,7 @@ class FinishopenidloginAction extends Action {
 		}
 
 		# They're legit!
-		
+
 		$user = User::staticGet('nickname', $nickname);
 
 		list($display, $canonical, $sreg) = $this->get_saved_values();
@@ -278,21 +278,21 @@ class FinishopenidloginAction extends Action {
 			common_server_error(_t('Stored OpenID not found.'));
 			return;
 		}
-		
+
 		$result = oid_link_user($user->id, $canonical, $display);
-		
+
 		if (!$result) {
 			common_server_error(_t('Error connecting user to OpenID.'));
 			return;
 		}
-		
+
 		oid_update_user($user, $sreg);
 		oid_set_last($display);
 		common_set_user($user->nickname);
 		common_real_login(true);
 		$this->go_home($user->nickname);
 	}
-	
+
 	function go_home($nickname) {
 		$url = common_get_returnto();
 		if ($url) {
@@ -305,9 +305,9 @@ class FinishopenidloginAction extends Action {
 		}
 		common_redirect($url);
 	}
-	
+
 	function best_new_nickname($display, $sreg) {
-		
+
 		# Try the passed-in nickname
 
 
@@ -326,11 +326,11 @@ class FinishopenidloginAction extends Action {
 				return $fullname;
 			}
 		}
-		
+
 		# Try the URL
-		
+
 		$from_url = $this->openid_to_nickname($display);
-		
+
 		if ($from_url && $this->is_new_nickname($from_url)) {
 			return $from_url;
 		}
@@ -345,7 +345,7 @@ class FinishopenidloginAction extends Action {
 										  'max_length' => 64,
 										  'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
 			return false;
-		}	
+		}
 	if (!User::allowed_nickname($str)) {
 			return false;
 		}
@@ -354,7 +354,7 @@ class FinishopenidloginAction extends Action {
 		}
 		return true;
 	}
-	
+
 	function openid_to_nickname($openid) {
         if (Auth_Yadis_identifierScheme($openid) == 'XRI') {
 			return $this->xri_to_nickname($openid);
@@ -426,7 +426,7 @@ class FinishopenidloginAction extends Action {
 			return $this->nicknamize(array_pop($parts));
 		}
 	}
-	
+
 	function xri_base($xri) {
 		if (substr($xri, 0, 6) == 'xri://') {
 			return substr($xri, 6);
@@ -436,7 +436,7 @@ class FinishopenidloginAction extends Action {
 	}
 
 	# Given a string, try to make it work as a nickname
-	
+
 	function nicknamize($str) {
 		$str = preg_replace('/\W/', '', $str);
 		return strtolower($str);

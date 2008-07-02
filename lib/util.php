@@ -219,7 +219,7 @@ function common_show_footer() {
 	common_element_end('div'); # content div
 	common_foot_menu();
 	common_element_start('div', array('id' => 'footer'));
-	common_element_start('p', 'laconica');
+	common_element_start('div', 'laconica');
 	if (common_config('site', 'broughtby')) {
 		$instr = _t('**%%site.name%%** is a microblogging service brought to you by [%%site.broughtby%%](%%site.broughtbyurl%%). ');
 	} else {
@@ -232,7 +232,7 @@ function common_show_footer() {
 		         '(http://www.fsf.org/licensing/licenses/agpl-3.0.html).');
     $output = common_markup_to_html($instr);
     common_raw($output);
-	common_element_end('p');
+	common_element_end('div');
 	common_element('img', array('id' => 'cc',
 								'src' => $config['license']['image'],
 								'alt' => $config['license']['title']));
@@ -393,7 +393,7 @@ function common_textarea($id, $label, $content=NULL, $instructions=NULL) {
 									 'cols' => 40,
 									 'name' => $id,
 									 'id' => $id),
-				   ($content) ? $content : ' ');
+				   ($content) ? $content : '');
 	if ($instructions) {
 		common_element('span', 'input_instructions', $instructions);
 	}
@@ -830,14 +830,16 @@ function common_notice_form($action=NULL, $content=NULL) {
 	$user = common_current_user();
 	assert(!is_null($user));
 	common_element_start('form', array('id' => 'status_form',
-									   'method' => 'POST',
+									   'method' => 'post',
 									   'action' => common_local_url('newnotice')));
 	common_element_start('p');
-	common_element('label', array('for' => 'status_update',
+	common_element('label', array('for' => 'status_textarea',
 								  'id' => 'status_label'),
 				   _t('What\'s up, ').$user->nickname.'?');
         common_element('span', array('id' => 'counter', 'class' => 'counter'), '140');
 	common_element('textarea', array('id' => 'status_textarea',
+									 'cols' => 60,
+									 'rows' => 3,
 									 'name' => 'status_textarea'),
 				   ($content) ? $content : '');
 	if ($action) {

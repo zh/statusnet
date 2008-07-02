@@ -29,7 +29,7 @@ class PasswordAction extends SettingsAction {
 
 	function show_form($msg=NULL, $success=false) {
 		$this->form_header(_t('Change password'), $msg, $success);
-		common_element_start('form', array('method' => 'POST',
+		common_element_start('form', array('method' => 'post',
 										   'id' => 'password',
 										   'action' =>
 										   common_local_url('password')));

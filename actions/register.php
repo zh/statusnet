@@ -163,7 +163,7 @@ class RegisterAction extends Action {
 		global $config;
 
 		common_show_header(_t('Register'), NULL, $error, array($this, 'show_top'));
-		common_element_start('form', array('method' => 'POST',
+		common_element_start('form', array('method' => 'post',
 										   'id' => 'login',
 										   'action' => common_local_url('register')));
 		common_input('nickname', _t('Nickname'), NULL,

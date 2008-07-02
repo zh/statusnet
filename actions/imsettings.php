@@ -33,7 +33,7 @@ class ImsettingsAction extends SettingsAction {
 	function show_form($msg=NULL, $success=false) {
 		$user = common_current_user();
 		$this->form_header(_t('IM Settings'), $msg, $success);
-		common_element_start('form', array('method' => 'POST',
+		common_element_start('form', array('method' => 'post',
 										   'id' => 'imsettings',
 										   'action' =>
 										   common_local_url('imsettings')));

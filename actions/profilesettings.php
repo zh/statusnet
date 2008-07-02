@@ -33,7 +33,7 @@ class ProfilesettingsAction extends SettingsAction {
 		$profile = $user->getProfile();
 		$this->form_header(_t('Profile settings'), $msg, $success);
 
-		common_element_start('form', array('method' => 'POST',
+		common_element_start('form', array('method' => 'post',
 										   'id' => 'profilesettings',
 										   'action' =>
 										   common_local_url('profilesettings')));

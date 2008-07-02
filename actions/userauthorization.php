@@ -25,7 +25,7 @@ define('TIMESTAMP_THRESHOLD', 300);
 class UserauthorizationAction extends Action {
 	function handle($args) {
 		parent::handle($args);
-		
+
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			# We've shown the form, now post user's choice
 			$this->send_authorization();
@@ -36,7 +36,7 @@ class UserauthorizationAction extends Action {
 				$argsclone = $_GET;
 				unset($argsclone['action']);
 				common_set_returnto(common_local_url('userauthorization', $argsclone));
-				common_debug('userauthorization.php - redirecting to login');				
+				common_debug('userauthorization.php - redirecting to login');
 				common_redirect(common_local_url('login'));
 				return;
 			}
@@ -58,7 +58,7 @@ class UserauthorizationAction extends Action {
 				common_server_error($e->getMessage());
 				return;
 			}
-			
+
 		}
 	}
 
@@ -72,7 +72,7 @@ class UserauthorizationAction extends Action {
 		$bio = $req->get_parameter('omb_listenee_bio');
 		$location = $req->get_parameter('omb_listenee_location');
 		$avatar = $req->get_parameter('omb_listenee_avatar');
-		
+
 		common_show_header(_t('Authorize subscription'));
 		common_element('p', NULL, _t('Please check these details to make sure '.
 									 'that you want to subscribe to this user\'s notices. '.
@@ -111,19 +111,19 @@ class UserauthorizationAction extends Action {
 					   $license);
 		common_element_end('div');
 		common_element_end('div');
-		common_element_start('form', array('method' => 'POST',
+		common_element_start('form', array('method' => 'post',
 										   'id' => 'userauthorization',
 										   'name' => 'userauthorization',
 										   'action' => common_local_url('userauthorization')));
 		common_submit('accept', _t('Accept'));
-		common_submit('reject', _t('Reject'));		
+		common_submit('reject', _t('Reject'));
 		common_element_end('form');
 		common_show_footer();
 	}
-	
+
 	function send_authorization() {
 		$req = $this->get_stored_request();
-		
+
 		if (!$req) {
 			common_user_error(_t('No authorization request!'));
 			return;
@@ -188,7 +188,7 @@ class UserauthorizationAction extends Action {
 		$consumer_key = $req->get_parameter('oauth_consumer_key');
 		$token_field = $req->get_parameter('oauth_token');
 		common_debug('consumer key = "'.$consumer_key.'"', __FILE__);
-		common_debug('token field = "'.$token_field.'"', __FILE__);		
+		common_debug('token field = "'.$token_field.'"', __FILE__);
 		$rt = new Token();
 		$rt->consumer_key = $consumer_key;
 		$rt->tok = $token_field;
@@ -208,23 +208,23 @@ class UserauthorizationAction extends Action {
 	}
 
 	# XXX: refactor with similar code in finishremotesubscribe.php
-	
+
 	function save_remote_profile(&$req) {
 		# FIXME: we should really do this when the consumer comes
-		# back for an access token. If they never do, we've got stuff in a 
+		# back for an access token. If they never do, we've got stuff in a
 		# weird state.
-	
+
 		$nickname = $req->get_parameter('omb_listenee_nickname');
 		$fullname = $req->get_parameter('omb_listenee_fullname');
-		$profile_url = $req->get_parameter('omb_listenee_profile');		
+		$profile_url = $req->get_parameter('omb_listenee_profile');
 		$homepage = $req->get_parameter('omb_listenee_homepage');
 		$bio = $req->get_parameter('omb_listenee_bio');
 		$location = $req->get_parameter('omb_listenee_location');
 		$avatar_url = $req->get_parameter('omb_listenee_avatar');
-		
+
 		$listenee = $req->get_parameter('omb_listenee');
 		$remote = Remote_profile::staticGet('uri', $listenee);
-		
+
 		if ($remote) {
 			$exists = true;
 			$profile = Profile::staticGet($remote->id);
@@ -239,7 +239,7 @@ class UserauthorizationAction extends Action {
 
 		$profile->nickname = $nickname;
 		$profile->profileurl = $profile_url;
-		
+
 		if ($fullname) {
 			$profile->fullname = $fullname;
 		}
@@ -252,7 +252,7 @@ class UserauthorizationAction extends Action {
 		if ($location) {
 			$profile->location = $location;
 		}
-		
+
 		if ($exists) {
 			$profile->update($orig_profile);
 		} else {
@@ -291,11 +291,11 @@ class UserauthorizationAction extends Action {
 		$sub->subscribed = $remote->id;
 		$sub->token = $token->key; # NOTE: request token, not valid for use!
 		$sub->created = DB_DataObject_Cast::dateTime(); # current time
-		
+
 		if (!$sub->insert()) {
 			return FALSE;
 		}
-		
+
 		return TRUE;
 	}
 
@@ -304,10 +304,10 @@ class UserauthorizationAction extends Action {
 		copy($url, $temp_filename);
 		return $profile->setOriginal($temp_filename);
 	}
-	
+
 	function show_accept_message($tok) {
 		common_show_header(_t('Subscription authorized'));
-		common_element('p', NULL, 
+		common_element('p', NULL,
 					   _t('The subscription has been authorized, but no '.
 						  'callback URL was passed. Check with the site\'s instructions for '.
 						  'details on how to authorize the subscription. Your subscription token is:'));
@@ -317,25 +317,25 @@ class UserauthorizationAction extends Action {
 
 	function show_reject_message($tok) {
 		common_show_header(_t('Subscription rejected'));
-		common_element('p', NULL, 
+		common_element('p', NULL,
 					   _t('The subscription has been rejected, but no '.
 						  'callback URL was passed. Check with the site\'s instructions for '.
 						  'details on how to fully reject the subscription.'));
 		common_show_footer();
 	}
-	
+
 	function store_request($req) {
 		common_ensure_session();
 		$_SESSION['userauthorizationrequest'] = $req;
 	}
-	
+
 	function clear_request() {
 		common_ensure_session();
 		unset($_SESSION['userauthorizationrequest']);
 	}
-	
+
 	function get_stored_request() {
-		common_ensure_session();		
+		common_ensure_session();
 		$req = $_SESSION['userauthorizationrequest'];
 		return $req;
 	}
@@ -344,29 +344,29 @@ class UserauthorizationAction extends Action {
 		$req = OAuthRequest::from_request();
 		return $req;
 	}
-	
+
 	# Throws an OAuthException if anything goes wrong
-	
+
 	function validate_request(&$req) {
 		# OAuth stuff -- have to copy from OAuth.php since they're
 		# all private methods, and there's no user-authentication method
 		common_debug('checking version', __FILE__);
 		$this->check_version($req);
-		common_debug('getting datastore', __FILE__);		
+		common_debug('getting datastore', __FILE__);
 		$datastore = omb_oauth_datastore();
 		common_debug('getting consumer', __FILE__);
 		$consumer = $this->get_consumer($datastore, $req);
-		common_debug('getting token', __FILE__);		
+		common_debug('getting token', __FILE__);
 		$token = $this->get_token($datastore, $req, $consumer);
 		common_debug('checking timestamp', __FILE__);
 		$this->check_timestamp($req);
-		common_debug('checking nonce', __FILE__);		
+		common_debug('checking nonce', __FILE__);
 		$this->check_nonce($datastore, $req, $consumer, $token);
 		common_debug('checking signature', __FILE__);
 		$this->check_signature($req, $consumer, $token);
-		common_debug('validating omb stuff', __FILE__);		
+		common_debug('validating omb stuff', __FILE__);
 		$this->validate_omb($req);
-		common_debug('done validating', __FILE__);				
+		common_debug('done validating', __FILE__);
 		return true;
 	}
 
@@ -462,9 +462,9 @@ class UserauthorizationAction extends Action {
 			throw new OAuthException("Invalid callback URL '$callback'");
 		}
 	}
-	
+
 	# Snagged from OAuthServer
-	
+
 	function check_version(&$req) {
 		$version = $req->get_parameter("oauth_version");
 		if (!$version) {
@@ -477,13 +477,13 @@ class UserauthorizationAction extends Action {
 	}
 
 	# Snagged from OAuthServer
-	
+
 	function get_consumer($datastore, $req) {
 		$consumer_key = @$req->get_parameter("oauth_consumer_key");
 		if (!$consumer_key) {
 			throw new OAuthException("Invalid consumer key");
 		}
-		
+
 		$consumer = $datastore->lookup_consumer($consumer_key);
 		if (!$consumer) {
 			throw new OAuthException("Invalid consumer");
@@ -492,7 +492,7 @@ class UserauthorizationAction extends Action {
 	}
 
 	# Mostly cadged from OAuthServer
-	
+
 	function get_token($datastore, &$req, $consumer) {/*{{{*/
 		$token_field = @$req->get_parameter('oauth_token');
 		$token = $datastore->lookup_token($consumer, 'request', $token_field);
@@ -501,7 +501,7 @@ class UserauthorizationAction extends Action {
 		}
 		return $token;
 	}
-	
+
 	function check_timestamp(&$req) {
 		$timestamp = @$req->get_parameter('oauth_timestamp');
 		$now = time();
@@ -520,19 +520,19 @@ class UserauthorizationAction extends Action {
 		}
 		return true;
 	}
-	
+
 	function check_signature(&$req, $consumer, $token) {
 		$signature_method = $this->get_signature_method($req);
-		$signature = $req->get_parameter('oauth_signature');    
-		$valid_sig = $signature_method->check_signature($req, 
-														$consumer, 
-														$token, 
+		$signature = $req->get_parameter('oauth_signature');
+		$valid_sig = $signature_method->check_signature($req,
+														$consumer,
+														$token,
 														$signature);
 		if (!$valid_sig) {
 			throw new OAuthException("Invalid signature");
 		}
 	}
-	
+
 	function get_signature_method(&$req) {
 		$signature_method = @$req->get_parameter("oauth_signature_method");
 		if (!$signature_method) {

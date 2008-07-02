@@ -65,7 +65,7 @@ class LoginAction extends Action {
 
 	function show_form($error=NULL) {
 		common_show_header(_t('Login'), NULL, $error, array($this, 'show_top'));
-		common_element_start('form', array('method' => 'POST',
+		common_element_start('form', array('method' => 'post',
 										   'id' => 'login',
 										   'action' => common_local_url('login')));
 		common_input('nickname', _t('Nickname'));

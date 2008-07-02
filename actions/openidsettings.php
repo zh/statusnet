@@ -36,7 +36,7 @@ class OpenidsettingsAction extends SettingsAction {
 
 		$this->form_header(_t('OpenID settings'), $msg, $success);
 
-		common_element_start('form', array('method' => 'POST',
+		common_element_start('form', array('method' => 'post',
 										   'id' => 'openidadd',
 										   'action' =>
 										   common_local_url('openidsettings')));
