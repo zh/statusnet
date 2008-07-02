@@ -116,9 +116,9 @@ class Rss10Action extends Action {
 		$profile = Profile::staticGet($notice->profile_id);
 		$nurl = common_local_url('shownotice', array('notice' => $notice->id));
 		common_element_start('item', array('rdf:about' => $notice->uri));
-		common_element('title', NULL, $profile->nickname."'s status on ".common_date_string($notice->created));
+		common_element('title', NULL, $notice->content);
 		common_element('link', NULL, $nurl);
-		common_element('description', NULL, $notice->content);
+		common_element('description', NULL, $profile->nickname."'s status on ".common_exact_date($notice->created));
 		common_element('dc:date', NULL, common_date_w3dtf($notice->created));
 		common_element('dc:creator', NULL, ($profile->fullname) ? $profile->fullname : $profile->nickname);
 		common_element('cc:licence', array('rdf:resource' => $config['license']['url']));
