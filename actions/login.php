@@ -70,7 +70,7 @@ class LoginAction extends Action {
 										   'action' => common_local_url('login')));
 		common_input('nickname', _t('Nickname'));
 		common_password('password', _t('Password'));
-		common_checkbox('rememberme', _t('Remember me'),
+		common_checkbox('rememberme', _t('Remember me'), false,
 		                _t('Automatically login in the future; ' .
 		                   'not for shared computers!'));
 		common_submit('submit', _t('Login'));

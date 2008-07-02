@@ -36,9 +36,9 @@ class RegisterAction extends Action {
 	function try_register() {
 		$nickname = $this->trimmed('nickname');
 		$email = $this->trimmed('email');
-		
+
 		# We don't trim these... whitespace is OK in a password!
-		
+
 		$password = $this->arg('password');
 		$confirm = $this->arg('confirm');
 
@@ -95,17 +95,17 @@ class RegisterAction extends Action {
 	}
 
 	function register_user($nickname, $password, $email) {
-		
+
 		$profile = new Profile();
-		
+
 		$profile->query('BEGIN');
-		
+
 		$profile->nickname = $nickname;
 		$profile->profileurl = common_profile_url($nickname);
 		$profile->created = DB_DataObject_Cast::dateTime(); # current time
 
 		$id = $profile->insert();
-		
+
 		if (!$id) {
 			common_log_db_error($profile, 'INSERT', __FILE__);
 		    return FALSE;
@@ -116,29 +116,29 @@ class RegisterAction extends Action {
 		$user->password = common_munge_password($password, $id);
 		$user->created =  DB_DataObject_Cast::dateTime(); # current time
 		$user->uri = common_user_uri($user);
-		
+
 		$result = $user->insert();
-		
+
 		if (!$result) {
 			common_log_db_error($user, 'INSERT', __FILE__);
 			return FALSE;
 		}
 
 		if ($email) {
-			
+
 			$confirm = new Confirm_address();
 			$confirm->code = common_confirmation_code(128);
 			$confirm->user_id = $user->id;
 			$confirm->address = $email;
 			$confirm->address_type = 'email';
-			
+
 			$result = $confirm->insert();
 			if (!$result) {
 				common_log_db_error($confirm, 'INSERT', __FILE__);
 				return FALSE;
 			}
 		}
-		
+
 		$profile->query('COMMIT');
 
 		if ($email) {
@@ -146,7 +146,7 @@ class RegisterAction extends Action {
 								 $profile->nickname,
 								 $email);
 		}
-		
+
 		return $result;
 	}
 
@@ -154,11 +154,11 @@ class RegisterAction extends Action {
 		if ($error) {
 			common_element('p', 'error', $error);
 		} else {
-			common_element('p', 'instructions', 
+			common_element('p', 'instructions',
 						   _t('You can create a new account to start posting notices.'));
 		}
 	}
-	
+
 	function show_form($error=NULL) {
 		global $config;
 
@@ -168,14 +168,14 @@ class RegisterAction extends Action {
 										   'action' => common_local_url('register')));
 		common_input('nickname', _t('Nickname'), NULL,
 					 _t('1-64 lowercase letters or numbers, no punctuation or spaces'));
-		common_password('password', _t('Password'),						
+		common_password('password', _t('Password'),
 						_t('6 or more characters'));
 		common_password('confirm', _t('Confirm'),
 						_t('Same as password above'));
 		common_input('email', _t('Email'), NULL,
 					 _t('Used only for updates, announcements, and password recovery'));
-		common_checkbox('rememberme', _t('Remember me'),
-		                _t('Automatically login in the future; ' . 
+		common_checkbox('rememberme', _t('Remember me'), false,
+		                _t('Automatically login in the future; ' .
 		                   'not for shared computers!'));
 		common_element_start('p');
 		common_element('input', array('type' => 'checkbox',
