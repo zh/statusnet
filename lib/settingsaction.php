@@ -101,7 +101,8 @@ class SettingsAction extends Action {
         foreach ($menu as $menuaction => $menudesc) {
             common_menu_item(common_local_url($menuaction),
                     _t($menudesc[0]),
-                    _t($menudesc[1]));
+                    _t($menudesc[1]),
+                    $action == $menuaction);
         }
         common_element_end('ul');
     }
