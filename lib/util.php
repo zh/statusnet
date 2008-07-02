@@ -94,7 +94,8 @@ function common_element_start($tag, $attrs=NULL) {
 
 function common_element_end($tag) {
 	global $xw;
-	$xw->endElement();
+	# TODO: switch based on $tag
+	$xw->fullEndElement();
 }
 
 function common_element($tag, $attrs=NULL, $content=NULL) {
@@ -838,7 +839,7 @@ function common_notice_form($action=NULL, $content=NULL) {
         common_element('span', array('id' => 'counter', 'class' => 'counter'), '140');
 	common_element('textarea', array('id' => 'status_textarea',
 									 'name' => 'status_textarea'),
-				   ($content) ? $content : ' ');
+				   ($content) ? $content : '');
 	if ($action) {
 		common_hidden('returnto', $action);
 	}
