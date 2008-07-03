@@ -114,7 +114,7 @@ class ShowstreamAction extends StreamAction {
 
 		$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
 		common_element_start('div', array('id' => 'profile_avatar'));
-		common_element('img', array('src' => ($avatar) ? $avatar->url : common_default_avatar(AVATAR_PROFILE_SIZE),
+		common_element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_PROFILE_SIZE),
 									'class' => 'avatar profile',
 									'width' => AVATAR_PROFILE_SIZE,
 									'height' => AVATAR_PROFILE_SIZE,
@@ -227,7 +227,7 @@ class ShowstreamAction extends StreamAction {
 												'href' => $other->profileurl,
 												'class' => 'subscription'));
 				$avatar = $other->getAvatar(AVATAR_MINI_SIZE);
-				common_element('img', array('src' => (($avatar) ? $avatar->url :  common_default_avatar(AVATAR_MINI_SIZE)),
+				common_element('img', array('src' => (($avatar) ? common_avatar_display_url($avatar) :  common_default_avatar(AVATAR_MINI_SIZE)),
 											'width' => AVATAR_MINI_SIZE,
 											'height' => AVATAR_MINI_SIZE,
 											'class' => 'avatar mini',

@@ -625,12 +625,16 @@ function common_avatar_path($filename) {
 }
 
 function common_avatar_url($filename) {
-    $server = common_config('avatar', 'server');
-    if ($server) {
-	return 'http://'.$server.'/'.$filename;
-    } else {
 	return common_path('avatar/'.$filename);
-    }
+}
+
+function common_avatar_display_url($avatar) {
+	$server = common_config('avatar', 'server');
+	if ($server) {
+		return 'http://'.$server.'/'.$avatar->filename;
+	} else {
+		return $avatar->url;
+	}
 }
 
 function common_default_avatar($size) {
