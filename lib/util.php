@@ -625,7 +625,12 @@ function common_avatar_path($filename) {
 }
 
 function common_avatar_url($filename) {
+    $server = common_config('avatar', 'server');
+    if ($server) {
+	return 'http://'.$server.'/'.$filename;
+    } else {
 	return common_path('avatar/'.$filename);
+    }
 }
 
 function common_default_avatar($size) {
@@ -930,7 +935,7 @@ function common_ensure_syslog() {
 
 function common_log($priority, $msg, $filename=NULL) {
 	common_ensure_syslog();
-	syslog($priority, $msg);
+#	syslog($priority, $msg);
 }
 
 function common_debug($msg, $filename=NULL) {
