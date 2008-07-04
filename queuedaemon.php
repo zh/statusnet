@@ -52,11 +52,15 @@ function qd_top_item() {
 		# XXX: potential race condition
 		# can we force it to only update if claimed is still NULL
 		# (or old)?
+		qd_log(LOG_INFO, 'claiming queue item = ' . $queue->notice_id);
 		$orig = clone($qi);
 		$qi->claimed = DB_DataObject_Cast::dateTime();
 		$result = $qi->update($orig);
 		if ($result) {
+			qd_log(LOG_INFO, 'claim succeeded.');
 			return $qi;
+		} else {
+			qd_log(LOG_INFO, 'claim failed.');
 		}
 	}
 	$qi = NULL;
