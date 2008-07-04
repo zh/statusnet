@@ -173,3 +173,14 @@ create table remember_me (
     user_id integer not null comment 'user who is logged in' references user (id),
     modified timestamp comment 'date this record was modified'
 ) ENGINE=InnoDB;
+
+create table queue_item (
+
+    notice_id integer not null primary key comment 'notice queued' references notice (id),
+    created datetime not null comment 'date this record was created',
+    claimed datetime comment 'date this item was claimed',
+
+    index queue_item_created_idx (created)
+    
+) ENGINE=InnoDB;
+
