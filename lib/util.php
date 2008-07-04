@@ -820,9 +820,11 @@ function common_broadcast_notice($notice, $remote=false) {
 
 function common_enqueue_notice($notice) {
 	$qi = new Queue_item();
+        $qi->query('BEGIN');
 	$qi->notice_id = $notice->id;
 	$qi->created = DB_DataObject_Cast::dateTime();
 	$result = $qi->insert();
+        $qi->query('COMMIT');
 	return $result;
 }
 	  
