@@ -19,9 +19,9 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-# 9x9
+# 10x8
 
-define('AVATARS_PER_PAGE', 81);
+define('AVATARS_PER_PAGE', 80);
 
 class GalleryAction extends Action {
 
