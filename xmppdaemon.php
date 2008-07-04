@@ -85,6 +85,8 @@ class XMPPDaemon {
 					break;
 				}
 			}
+			# Flush DB_DataObject cache so we get fresh info
+			$GLOBALS['_DB_DATAOBJECT']['CACHE'] = array();
 		}
 	}
 

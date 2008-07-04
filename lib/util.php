@@ -808,6 +808,25 @@ function common_redirect($url, $code=307) {
 }
 
 function common_broadcast_notice($notice, $remote=false) {
+	if (common_config('queue', 'enabled')) {
+		# Do it later!
+		common_enqueue_notice($notice);
+	} else {
+		common_real_broadcast($notice, $remote);
+	}
+}
+
+# Stick the notice on the queue
+
+function common_enqueue_notice($notice) {
+	$qi = new Queue_item();
+	$qi->notice_id = $notice->id;
+	$qi->created = DB_DataObject_Cast::dateTime();
+	$result = $qi->insert();
+	return $result;
+}
+	  
+function common_real_broadcast($notice, $remote=false) {
 	// XXX: optionally use a queue system like http://code.google.com/p/microapps/wiki/NQDQ
 	if (!$remote) {
 		# Make sure we have the OMB stuff
@@ -939,7 +958,7 @@ function common_ensure_syslog() {
 
 function common_log($priority, $msg, $filename=NULL) {
 	common_ensure_syslog();
-#	syslog($priority, $msg);
+	syslog($priority, $msg);
 }
 
 function common_debug($msg, $filename=NULL) {
