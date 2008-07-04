@@ -866,7 +866,7 @@ function common_save_replies($notice) {
 function common_broadcast_notice($notice, $remote=false) {
 	if (common_config('queue', 'enabled')) {
 		# Do it later!
-		common_enqueue_notice($notice);
+		return common_enqueue_notice($notice);
 	} else {
 		return common_real_broadcast($notice, $remote);
 	}
@@ -875,23 +875,17 @@ function common_broadcast_notice($notice, $remote=false) {
 # Stick the notice on the queue
 
 function common_enqueue_notice($notice) {
-	common_log(LOG_DEBUG, 'start queueing notice ID = ' . $notice->id);
+	common_log(LOG_INFO, 'start queueing notice ID = ' . $notice->id);
 	$qi = new Queue_item();
-	common_log(LOG_DEBUG, 'got a new qi object');
 	$qi->notice_id = $notice->id;
-	common_log(LOG_DEBUG, 'got a new id:' . $qi->notice_id);
-	$qi->created = $notice->created;
-	common_log(LOG_DEBUG, 'set created date');
-        common_log(LOG_DEBUG, print_r($qi, true));
-        $result = $qi->insert();
-	common_log(LOG_DEBUG, 'inserted');
-	if (!$result) {
+	$qi->created = DB_DataObject_Cast::dateTime();
+	$result = $qi->insert();
+	if ($result === FALSE) {
 	    $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
 	    common_log(LOG_ERROR, 'DB error inserting queue item: ' . $last_error->message);
 	    return false;
 	}
-        common_log(LOG_DEBUG, print_r($qi, true));
-	common_log(LOG_DEBUG, 'complete queueing notice ID = ' . $notice->id);
+	common_log(LOG_INFO, 'complete queueing notice ID = ' . $notice->id);
 	return $result;
 }
 	  
