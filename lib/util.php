@@ -819,6 +819,7 @@ function common_broadcast_notice($notice, $remote=false) {
 # Stick the notice on the queue
 
 function common_enqueue_notice($notice) {
+	common_log(LOG_INFO, 'queueing notice ID = ' . $notice->id);
 	$qi = new Queue_item();
         $qi->query('BEGIN');
 	$qi->notice_id = $notice->id;
