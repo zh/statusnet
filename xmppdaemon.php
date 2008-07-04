@@ -85,8 +85,6 @@ class XMPPDaemon {
 					break;
 				}
 			}
-			# Flush DB_DataObject cache so we get fresh info
-			$GLOBALS['_DB_DATAOBJECT']['CACHE'] = array();
 		}
 	}
 
@@ -118,6 +116,9 @@ class XMPPDaemon {
 		$user = $this->get_user($from);
 
 		if (!$user) {
+			$this->from_site($from, 'Unknown user; go to ' . 
+							 common_local_url('imsettings') .
+							 ' to add your address to your account');
 			$this->log(LOG_WARNING, 'Message from unknown user ' . $from);
 			return;
 		}
@@ -128,14 +129,21 @@ class XMPPDaemon {
 		}
 	}
 
+	function from_site($address, $msg) {
+		$text = '['.common_config('site', 'name') . '] ' . $msg;
+		jabber_send_message($address, $text);
+	}
+	
 	function handle_command($user, $body) {
 		# XXX: localise
 		switch(trim($body)) {
 		 case 'on':
 			$this->set_notify($user, true);
+			$this->from_site($user->jabber, 'notifications on');
 			return true;
 		 case 'off':
 			$this->set_notify($user, false);
+			$this->from_site($user->jabber, 'notifications off');
 			return true;
 		 default:
 			return false;
