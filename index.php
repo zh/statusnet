@@ -24,7 +24,7 @@ require_once(INSTALLDIR . "/lib/common.php");
 
 $action = $_REQUEST['action'];
 
-if (!$action) {
+if (!$action || !preg_match('/^[a-zA-Z0-9_-]*$/', $action)) {
 	common_redirect(common_local_url('public'));
 }
 
