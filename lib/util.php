@@ -819,13 +819,16 @@ function common_broadcast_notice($notice, $remote=false) {
 # Stick the notice on the queue
 
 function common_enqueue_notice($notice) {
-	common_log(LOG_INFO, 'queueing notice ID = ' . $notice->id);
+	common_log(LOG_INFO, 'start queueing notice ID = ' . $notice->id);
 	$qi = new Queue_item();
-        $qi->query('BEGIN');
 	$qi->notice_id = $notice->id;
 	$qi->created = DB_DataObject_Cast::dateTime();
 	$result = $qi->insert();
-        $qi->query('COMMIT');
+	if ($result === FALSE) {
+		common_log_db_error($qi, 'INSERT', __FILE__);
+		return;
+	}
+	common_log(LOG_INFO, 'complete queueing notice ID = ' . $notice->id);
 	return $result;
 }
 	  
