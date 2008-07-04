@@ -41,8 +41,7 @@ function qd_top_item() {
 	
 	$qi = new Queue_item();
 	$qi->orderBy('created');
-	$qi->whereAdd('claimed is NULL', 'OR');
-	$qi->whereAdd('now() - claimed > '.CLAIM_TIMEOUT, 'OR');
+	$qi->whereAdd('claimed is NULL');
 	
 	$qi->limit(1);
 
@@ -52,7 +51,7 @@ function qd_top_item() {
 		# XXX: potential race condition
 		# can we force it to only update if claimed is still NULL
 		# (or old)?
-		qd_log(LOG_INFO, 'claiming queue item = ' . $queue->notice_id);
+		qd_log(LOG_INFO, 'claiming queue item = ' . $qi->notice_id);
 		$orig = clone($qi);
 		$qi->claimed = DB_DataObject_Cast::dateTime();
 		$result = $qi->update($orig);
@@ -65,6 +64,19 @@ function qd_top_item() {
 	}
 	$qi = NULL;
 	return NULL;
+}
+
+function qd_clear_old_claims() {
+	$qi = new Queue_item();
+	$qi->orderBy('created');
+	$qi->whereAdd('now() - claimed > '.CLAIM_TIMEOUT);
+	if ($qi->find()) {
+		while ($qi->fetch()) {
+			$orig = clone($qi);
+			$qi->claimed = NULL;
+			$qi->update($orig);
+		}
+	}
 }
 
 function qd_is_remote($notice) {
@@ -93,6 +105,7 @@ do {
 		$qi->delete();
 		$qi = NULL;
 	} else {
+		# qd_clear_old_claims();
 		# In busy times, sleep less
 		$sleeptime = 30000000/($in_a_row+1);
 		qd_log(LOG_INFO, 'sleeping ' . $sleeptime . ' microseconds');
