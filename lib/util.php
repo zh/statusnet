@@ -484,6 +484,7 @@ function common_rememberme() {
 	common_set_cookie(REMEMBERME,
 					  implode(':', array($rm->user_id, $rm->code)),
 					  time() + REMEMBERME_EXPIRY);
+	return true;
 }
 
 function common_remembered_user() {
