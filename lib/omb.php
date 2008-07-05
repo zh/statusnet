@@ -130,6 +130,7 @@ function omb_broadcast_remote_subscribers($notice) {
 			}
 		}
 	}
+	return true;
 }
 
 function omb_post_notice($notice, $remote_profile, $subscription) {

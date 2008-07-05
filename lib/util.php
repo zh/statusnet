@@ -839,10 +839,16 @@ function common_real_broadcast($notice, $remote=false) {
 		# Make sure we have the OMB stuff
 		require_once(INSTALLDIR.'/lib/omb.php');
 		$success = omb_broadcast_remote_subscribers($notice);
+		if (!$success) {
+			common_log(LOG_ERROR, 'Error in OMB broadcast for notice ' . $notice->id);
+		}
 	}
 	if ($success) {
 		require_once(INSTALLDIR.'/lib/jabber.php');
 		$success = jabber_broadcast_notice($notice);
+		if (!$success) {
+			common_log(LOG_ERROR, 'Error in jabber broadcast for notice ' . $notice->id);
+		}
 	}
 	// XXX: broadcast notices to SMS
 	// XXX: broadcast notices to other IM
