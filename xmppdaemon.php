@@ -54,6 +54,7 @@ class XMPPDaemon {
 	}
 
 	function connect() {
+
 		$connect_to = ($this->host) ? $this->host : $this->server;
 
 		$this->log(LOG_INFO, "Connecting to $connect_to on port $this->port");
@@ -63,6 +64,7 @@ class XMPPDaemon {
 		if (!$this->conn) {
 			return false;
 		}
+	    
 		return !$this->conn->isDisconnected();
 	}
 
@@ -71,7 +73,7 @@ class XMPPDaemon {
 		static $parts = array('message', 'presence',
 							  'end_stream', 'session_start');
 
-		while(!$this->conn->disconnected) {
+		while(!$this->conn->isDisconnected()) {
 
 			$payloads = $this->conn->processUntil($parts, 10);
 
