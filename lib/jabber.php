@@ -19,7 +19,7 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-require_once('xmpp.php');
+require_once('XMPPHP/XMPP.php');
 
 function jabber_valid_base_jid($jid) {
 	# Cheap but effective
@@ -44,7 +44,7 @@ function jabber_daemon_address() {
 function jabber_connect($resource=NULL) {
 	static $conn = NULL;
 	if (!$conn) {
-		$conn = new XMPP(common_config('xmpp', 'host') ?
+		$conn = new XMPPHP_XMPP(common_config('xmpp', 'host') ?
 				         common_config('xmpp', 'host') :
 				         common_config('xmpp', 'server'),
 				         common_config('xmpp', 'port'),
@@ -58,7 +58,7 @@ function jabber_connect($resource=NULL) {
 			return false;
 		}
 		$conn->connect(true); # true = persistent connection
-		if ($conn->disconnected) {
+		if ($conn->isDisconnected()) {
 			return false;
 		}
     	$conn->processUntil('session_start');
