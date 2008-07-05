@@ -63,7 +63,7 @@ class XMPPDaemon {
 		if (!$this->conn) {
 			return false;
 		}
-		return !$this->conn->disconnected;
+		return !$this->conn->isDisconnected();
 	}
 
 	function handle() {
