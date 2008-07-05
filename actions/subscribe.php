@@ -28,6 +28,13 @@ class SubscribeAction extends Action {
 			return;
 		}
 
+		$user = common_current_user();
+
+		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+			common_redirect(common_local_url('subscriptions', array('nickname' => $user->nickname)));
+			return;
+		}
+		
 		$other_nickname = $this->arg('subscribeto');
 
 		$other = User::staticGet('nickname', $other_nickname);
@@ -36,8 +43,6 @@ class SubscribeAction extends Action {
 			common_user_error(_t('No such user.'));
 			return;
 		}
-
-		$user = common_current_user();
 
 		if ($user->isSubscribed($other)) {
 			common_user_error(_t('Already subscribed!.'));

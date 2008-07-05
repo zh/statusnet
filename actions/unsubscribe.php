@@ -24,14 +24,20 @@ class UnsubscribeAction extends Action {
 			common_user_error(_t('Not logged in.'));
 			return;
 		}
+		
+		$user = common_current_user();
+
+		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+			common_redirect(common_local_url('subscriptions', array('nickname' => $user->nickname)));
+			return;
+		}
+		
 		$other_nickname = $this->arg('unsubscribeto');
 		$other = User::staticGet('nickname', $other_nickname);
 		if (!$other) {
 			common_user_error(_t('No such user.'));
 			return;
 		}
-
-		$user = common_current_user();
 
 		if (!$user->isSubscribed($other)) {
 			common_server_error(_t('Not subscribed!.'));
