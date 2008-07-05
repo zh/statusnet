@@ -141,10 +141,6 @@ class ShowstreamAction extends StreamAction {
 			common_element('h1', NULL, $profile->nickname);
 		}
 
-		# XXX: i18n
-		
-		common_element('p', 'membersince', _t('Member since: ') . 
-					   date('j M Y', strtotime($profile->created)));
 		
 		if ($profile->location) {
 			common_element('p', 'location', $profile->location);
@@ -282,6 +278,10 @@ class ShowstreamAction extends StreamAction {
 
 		# Other stats...?
 		common_element_start('dl', 'statistics');
+		common_element('dt', 'membersince', _t('Member since'));
+		common_element('dd', 'membersince', date('j M Y', 
+												 strtotime($profile->created)));
+		
 		common_element_start('dt', 'subscriptions');
 		common_element('a', array('href' => common_local_url('subscriptions',
 															 array('nickname' => $profile->nickname))),
