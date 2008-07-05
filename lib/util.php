@@ -810,9 +810,9 @@ function common_redirect($url, $code=307) {
 function common_broadcast_notice($notice, $remote=false) {
 	if (common_config('queue', 'enabled')) {
 		# Do it later!
-		common_enqueue_notice($notice);
+		return common_enqueue_notice($notice);
 	} else {
-		common_real_broadcast($notice, $remote);
+		return common_real_broadcast($notice, $remote);
 	}
 }
 
@@ -827,24 +827,26 @@ function common_enqueue_notice($notice) {
 	if ($result === FALSE) {
 	    $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
 	    common_log(LOG_ERROR, 'DB error inserting queue item: ' . $last_error->message);
-	    return;
+	    return false;
 	}
 	common_log(LOG_INFO, 'complete queueing notice ID = ' . $notice->id);
 	return $result;
 }
 	  
 function common_real_broadcast($notice, $remote=false) {
-	// XXX: optionally use a queue system like http://code.google.com/p/microapps/wiki/NQDQ
+	$success = true;
 	if (!$remote) {
 		# Make sure we have the OMB stuff
 		require_once(INSTALLDIR.'/lib/omb.php');
-		omb_broadcast_remote_subscribers($notice);
+		$success = omb_broadcast_remote_subscribers($notice);
 	}
-	require_once(INSTALLDIR.'/lib/jabber.php');
-	jabber_broadcast_notice($notice);
+	if ($success) {
+		require_once(INSTALLDIR.'/lib/jabber.php');
+		$success = jabber_broadcast_notice($notice);
+	}
 	// XXX: broadcast notices to SMS
 	// XXX: broadcast notices to other IM
-	return true;
+	return $success;
 }
 
 function common_broadcast_profile($profile) {

@@ -96,7 +96,15 @@ do {
 		if ($notice) {
 			qd_log(LOG_INFO, 'broadcasting notice ID = ' . $notice->id);
 			# XXX: what to do if broadcast fails?
-			common_real_broadcast($notice, qd_is_remote($notice));
+			$result = common_real_broadcast($notice, qd_is_remote($notice));
+			if (!$result) {
+				qd_log(LOG_WARNING, 'Failed broadcast for notice ID = ' . $notice->id);
+				$orig = $qi;
+				$qi->claimed = NULL;
+				$qi->update($orig);
+				qd_log(LOG_WARNING, 'Abandoned claim for notice ID = ' . $notice->id);
+				continue;
+			}
 			qd_log(LOG_INFO, 'finished broadcasting notice ID = ' . $notice->id);
 			$notice = NULL;
 		} else {
@@ -105,7 +113,7 @@ do {
 		$qi->delete();
 		$qi = NULL;
 	} else {
-		# qd_clear_old_claims();
+		qd_clear_old_claims();
 		# In busy times, sleep less
 		$sleeptime = 30000000/($in_a_row+1);
 		qd_log(LOG_INFO, 'sleeping ' . $sleeptime . ' microseconds');

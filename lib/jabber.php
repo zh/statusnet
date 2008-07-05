@@ -132,10 +132,18 @@ function jabber_broadcast_notice($notice) {
 		while ($sub->fetch()) {
 			$user = User::staticGet($sub->subscriber);
 			if ($user && $user->jabber && $user->jabbernotify) {
-				jabber_send_message($user->jabber, $msg);
+				common_log(LOG_INFO, 
+						   'Sending notice ' . $notice->id . ' to ' . $user->jabber,
+						   __FILE__);
+				$success = jabber_send_message($user->jabber, $msg);
+				if (!$success) {
+					# XXX: Not sure, but I think that's the right thing to do
+					return false;
+				}
 			}
 		}
 	}
+	return true;
 }
 
 function jabber_format_notice(&$profile, &$notice) {
