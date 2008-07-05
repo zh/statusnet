@@ -136,7 +136,7 @@ class ShowstreamAction extends StreamAction {
 		common_element_start('div', array('id' => 'profile_information'));
 
 		if ($profile->fullname) {
-			common_element('h1', NULL, $profile->fullname . '(' . $profile->nickname . ')');
+			common_element('h1', NULL, $profile->fullname . ' (' . $profile->nickname . ')');
 		} else {
 			common_element('h1', NULL, $profile->nickname);
 		}
