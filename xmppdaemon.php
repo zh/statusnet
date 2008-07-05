@@ -286,7 +286,7 @@ class XMPPDaemon {
 		do {
 			$qi = $this->top_queue_item();
 			if ($qi) {
-				$this->log(LOG_INFO, 'Got queue item #'.$in_a_row.' enqueued '.common_exact_date($qi->created));
+				$this->log(LOG_INFO, 'Got item enqueued '.common_exact_date($qi->created));
 				$notice = Notice::staticGet($qi->notice_id);
 				if ($notice) {
 					$this->log(LOG_INFO, 'broadcasting notice ID = ' . $notice->id);
