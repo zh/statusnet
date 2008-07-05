@@ -136,8 +136,16 @@ class ShowstreamAction extends StreamAction {
 		common_element_start('div', array('id' => 'profile_information'));
 
 		if ($profile->fullname) {
-			common_element('h1', NULL, $profile->fullname);
+			common_element('h1', NULL, $profile->fullname . '(' . $profile->nickname . ')');
+		} else {
+			common_element('h1', NULL, $profile->nickname);
 		}
+
+		# XXX: i18n
+		
+		common_element('p', 'membersince', _t('Member since: ') . 
+					   date('j M Y', strtotime($profile->created)));
+		
 		if ($profile->location) {
 			common_element('p', 'location', $profile->location);
 		}
