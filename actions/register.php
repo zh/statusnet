@@ -70,6 +70,8 @@ class RegisterAction extends Action {
 				return;
 			}
 			common_real_login(true);
+			common_debug('Remember me is "' . $this->arg('rememberme') . '"');
+			common_debug('Remember me value is "' . $this->boolean('rememberme') . '"');
 			if ($this->boolean('rememberme')) {
 				common_rememberme();
 			}
