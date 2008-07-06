@@ -73,7 +73,9 @@ class NewnoticeAction extends Action {
 			common_server_error(_t('Problem saving notice.'));
 			return;
 		}
-		
+
+        common_save_replies($notice);	
+
 		common_broadcast_notice($notice);
 		$returnto = $this->trimmed('returnto');
 		if ($returnto) {
