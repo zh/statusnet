@@ -95,7 +95,7 @@ class XMPPDaemon {
 			}
 
 			$this->broadcast_queue();
-			$this->confirmation_queue();
+#			$this->confirmation_queue();
 		}
 	}
 
@@ -325,7 +325,7 @@ class XMPPDaemon {
 	}
 	
 	function confirmation_queue() {
-		$this->clear_old_confirm_claims();
+	    # $this->clear_old_confirm_claims();
 		$this->log(LOG_INFO, 'checking for queued confirmations');
 		do {
 			$confirm = $this->next_confirm();
@@ -336,10 +336,9 @@ class XMPPDaemon {
 					$this->log(LOG_WARNING, 'Confirmation for unknown user ' . $confirm->user_id);
 					continue;
 				}
-				
 				$success = jabber_confirm_address($confirm->code,
-												  $user->nickname,
-												  $jabber);
+								  $user->nickname,
+								  $confirm->address);
 				if (!$success) {
 					$this->log(LOG_ERROR, 'Confirmation failed for ' . $confirm->address);
 					# Just let the claim age out; hopefully things work then
@@ -362,8 +361,7 @@ class XMPPDaemon {
 	
 	function next_confirm() {
 		$confirm = new Confirm_address();
-		$confirm->sent = NULL;
-		$confirm->claimed = NULL;
+		$confirm->whereAdd('claimed IS NULL');
 		# XXX: eventually we could do other confirmations in the queue, too
 		$confirm->address_type = 'jabber';
 		$confirm->orderBy('modified DESC');
