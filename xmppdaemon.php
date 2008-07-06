@@ -95,7 +95,7 @@ class XMPPDaemon {
 			}
 
 			$this->broadcast_queue();
-#			$this->confirmation_queue();
+			$this->confirmation_queue();
 		}
 	}
 
