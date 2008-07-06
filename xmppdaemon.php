@@ -315,6 +315,7 @@ class XMPPDaemon {
 
 	function clear_old_claims() {
 		$qi = new Queue_item();
+	        $qi->claimed = NULL;
 		$qi->whereAdd('now() - claimed > '.CLAIM_TIMEOUT);
 		$qi->update(DB_DATAOBJECT_WHEREADD_ONLY);
 	}
@@ -347,7 +348,7 @@ class XMPPDaemon {
 					$this->log(LOG_INFO, 'Confirmation sent for ' . $confirm->address);
 					# Mark confirmation sent
 					$original = clone($confirm);
-					$confirm->sent = DB_DataObject_Cast::dateTime();
+					$confirm->sent = $confirm->claimed;
 					$result = $confirm->update($original);
 					if (!$result) {
 						$this->log(LOG_ERROR, 'Cannot mark sent for ' . $confirm->address);
@@ -362,17 +363,20 @@ class XMPPDaemon {
 	function next_confirm() {
 		$confirm = new Confirm_address();
 		$confirm->whereAdd('claimed IS NULL');
+		$confirm->whereAdd('sent IS NULL');
 		# XXX: eventually we could do other confirmations in the queue, too
 		$confirm->address_type = 'jabber';
 		$confirm->orderBy('modified DESC');
 		$confirm->limit(1);
 		if ($confirm->find(TRUE)) {
 			$this->log(LOG_INFO, 'Claiming confirmation for ' . $confirm->address);
-			$original = clone($confirm);
+		        # working around some weird DB_DataObject behaviour
+			$confirm->whereAdd(''); # clears where stuff
+		        $original = clone($confirm);
 			$confirm->claimed = DB_DataObject_Cast::dateTime();
 			$result = $confirm->update($original);
 			if ($result) {
-				$this->log(LOG_INFO, 'Succeeded in claim!');
+				$this->log(LOG_INFO, 'Succeeded in claim! '. $result);
 				return $confirm;
 			} else {
 				$this->log(LOG_INFO, 'Failed in claim!');
@@ -384,6 +388,7 @@ class XMPPDaemon {
 	
 	function clear_old_confirm_claims() {
 		$confirm = new Confirm();
+	        $confirm->claimed = NULL;
 		$confirm->whereAdd('now() - claimed > '.CLAIM_TIMEOUT);
 		$confirm->update(DB_DATAOBJECT_WHEREADD_ONLY);
 	}

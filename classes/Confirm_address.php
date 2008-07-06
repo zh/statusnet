@@ -24,4 +24,6 @@ class Confirm_address extends DB_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+	
+    function sequenceKey() { return array(false, false); }
 }
