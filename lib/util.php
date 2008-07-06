@@ -122,7 +122,7 @@ function common_end_xml() {
 	$xw->flush();
 }
 
-define('PAGE_TYPE_PREFS', 'application/xhtml+xml,text/html;q=0.7,application/xml;q=0.3,text/xml;q=0.2');
+define('PAGE_TYPE_PREFS', 'text/html,application/xhtml+xml,application/xml;q=0.3,text/xml;q=0.2');
 
 function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=NULL) {
 	global $config, $xw;
