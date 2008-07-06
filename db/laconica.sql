@@ -165,6 +165,8 @@ create table confirm_address (
     address varchar(255) not null comment 'address (email, Jabber, SMS, etc.)',
     address_extra varchar(255) not null comment 'carrier ID, for SMS',
     address_type varchar(8) not null comment 'address type ("email", "jabber", "sms")',
+    claimed datetime comment 'date this was claimed for queueing',
+    sent datetime comment 'date this was sent for queueing',
     modified timestamp comment 'date this record was modified'
 ) ENGINE=InnoDB;
 

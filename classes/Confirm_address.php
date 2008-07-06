@@ -15,6 +15,8 @@ class Confirm_address extends DB_DataObject
     public $address;                         // varchar(255)   not_null
     public $address_extra;                   // varchar(255)   not_null
     public $address_type;                    // varchar(8)   not_null
+    public $claimed;                         // datetime()  
+    public $sent;                            // datetime()  
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
