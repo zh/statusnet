@@ -93,15 +93,16 @@ create table notice (
 ) ENGINE=InnoDB;
 
 create table reply (
-    id integer auto_increment primary key comment 'unique identifier',
-    notice_id integer comment 'foreign key to notice table',
-    user_id integer comment 'foreign key to user table',
-    replied_id integer comment 'foreign key to notice table',
-    created datetime not null comment 'date this reply was created',
 
-    index notice_id_idx (notice_id),
-    index user_id_idx (user_id),
-    index replied_id_idx (replied_id)
+    notice_id integer not null comment 'notice that is the reply' references notice (id),
+    profile_id integer not null comment 'profile replied to' references profile (id),
+    replied_id integer comment 'notice replied to (a guess)' references notice (id),
+    modified timestamp not null comment 'date this record was modified',
+
+    constraint primary key (notice_id, profile_id),
+    index reply_notice_id_idx (notice_id),
+    index reply_profile_id_idx (profile_id),
+    index reply_replied_id_idx (replied_id)
 
 ) ENGINE=InnoDB;
 
