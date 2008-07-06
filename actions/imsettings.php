@@ -185,12 +185,12 @@ class ImsettingsAction extends SettingsAction {
 			return;
 		}
 
-		# XXX: queue for offline sending
-
-		jabber_confirm_address($confirm->code,
-							   $user->nickname,
-							   $jabber);
-
+		if (!common_config('queue', 'enabled')) {
+			jabber_confirm_address($confirm->code,
+								   $user->nickname,
+								   $jabber);
+		}
+			
 		# XXX: I18N
 
 		$msg = 'A confirmation code was sent to the IM address you added. ' .
@@ -246,9 +246,7 @@ class ImsettingsAction extends SettingsAction {
 		}
 		$user->query('COMMIT');
 
-		# Unsubscribe to the old address
-
-		jabber_special_presence('unsubscribe', $jabber);
+		# XXX: unsubscribe to the old address
 
 		$this->show_form(_t('The address was removed.'), TRUE);
 	}

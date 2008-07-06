@@ -93,7 +93,7 @@ function jabber_confirm_address($code, $nickname, $address) {
         	'address bar of your browser). If that user isn\'t you, ' .
         	'or if you didn\'t request this confirmation, just ignore this message.';
 
-	jabber_send_message($address, $body);
+	return jabber_send_message($address, $body);
 }
 
 function jabber_special_presence($type, $to=NULL, $show=NULL, $status=NULL) {

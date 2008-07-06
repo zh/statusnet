@@ -93,6 +93,7 @@ class XMPPDaemon {
 			}
 
 			$this->broadcast_queue();
+			$this->confirmation_queue();
 		}
 	}
 
@@ -312,7 +313,6 @@ class XMPPDaemon {
 
 	function clear_old_claims() {
 		$qi = new Queue_item();
-		$qi->claimed = NULL;
 		$qi->whereAdd('now() - claimed > '.CLAIM_TIMEOUT);
 		$qi->update(DB_DATAOBJECT_WHEREADD_ONLY);
 	}
@@ -321,6 +321,71 @@ class XMPPDaemon {
 		$user = User::staticGet($notice->profile_id);
 		return !$user;
 	}
+	
+	function confirmation_queue() {
+		$this->clear_old_confirm_claims();
+		$this->log(LOG_INFO, 'checking for queued confirmations');
+		do {
+			$confirm = $this->next_confirm();
+			if ($confirm) {
+				$this->log(LOG_INFO, 'Sending confirmation for ' . $confirm->address);
+				$user = User::staticGet($confirm->user_id);
+				if (!$user) {
+					$this->log(LOG_WARNING, 'Confirmation for unknown user ' . $confirm->user_id);
+					continue;
+				}
+				
+				$success = jabber_confirm_address($confirm->code,
+												  $user->nickname,
+												  $jabber);
+				if (!$success) {
+					$this->log(LOG_ERROR, 'Confirmation failed for ' . $confirm->address);
+					# Just let the claim age out; hopefully things work then
+					continue;
+				} else {
+					$this->log(LOG_INFO, 'Confirmation sent for ' . $confirm->address);
+					# Mark confirmation sent
+					$original = clone($confirm);
+					$confirm->sent = DB_DataObject_Cast::dateTime();
+					$result = $confirm->update($original);
+					if (!$result) {
+						$this->log(LOG_ERROR, 'Cannot mark sent for ' . $confirm->address);
+						# Just let the claim age out; hopefully things work then
+						continue;
+					}
+				}
+			}
+		} while ($confirm);
+	}
+	
+	function next_confirm() {
+		$confirm = new Confirm_address();
+		$confirm->sent = NULL;
+		$confirm->claimed = NULL;
+		$confirm->orderBy('modified DESC');
+		$confirm->limit(1);
+		if ($confirm->find(TRUE)) {
+			$this->log(LOG_INFO, 'Claiming confirmation for ' . $confirm->address);
+			$original = clone($confirm);
+			$confirm->claimed = DB_DataObject_Cast::dateTime();
+			$result = $confirm->update($original);
+			if ($result) {
+				$this->log(LOG_INFO, 'Succeeded in claim!');
+				return $confirm;
+			} else {
+				$this->log(LOG_INFO, 'Failed in claim!');
+				return false;
+			}
+		}
+		return NULL;
+	}
+	
+	function clear_old_confirm_claims() {
+		$confirm = new Confirm();
+		$confirm->whereAdd('now() - claimed > '.CLAIM_TIMEOUT);
+		$confirm->update(DB_DATAOBJECT_WHEREADD_ONLY);
+	}
+	
 }
 
 $resource = ($argc > 1) ? $argv[1] : NULL;
