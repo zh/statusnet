@@ -362,6 +362,8 @@ class XMPPDaemon {
 		$confirm = new Confirm_address();
 		$confirm->sent = NULL;
 		$confirm->claimed = NULL;
+		# XXX: eventually we could do other confirmations in the queue, too
+		$confirm->address_type = 'jabber';
 		$confirm->orderBy('modified DESC');
 		$confirm->limit(1);
 		if ($confirm->find(TRUE)) {
