@@ -146,7 +146,7 @@ class ShowstreamAction extends StreamAction {
 			common_element('p', 'location', $profile->location);
 		}
 		if ($profile->bio) {
-			common_element('p', 'description', htmlspecialchars($profile->bio));
+			common_element('p', 'description', $profile->bio);
 		}
 		if ($profile->homepage) {
 			common_element_start('p', 'website');
