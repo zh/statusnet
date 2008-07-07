@@ -99,6 +99,6 @@ class RepliesAction extends StreamAction {
 		}
 		
 		common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
-						  $page, 'all', array('nickname' => $profile->nickname));
+						  $page, 'replies', array('nickname' => $profile->nickname));
 	}
 }
