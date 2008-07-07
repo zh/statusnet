@@ -88,9 +88,11 @@ class StreamAction extends Action {
 					   common_date_string($notice->created));
 		if ($replied_id) {
 			$replyurl = common_local_url('shownotice', array('notice' => $replied_id));
+			common_text('(');
 			common_element('a', array('class' => 'inreplyto',
 									  'href' => $replyurl),
-						   " in reply to ".$profile->nickname );
+						   _t(' in reply to...'));
+			common_text(')');
 		}
 		common_element_end('p');
 		common_element_end('li');
