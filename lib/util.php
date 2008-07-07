@@ -852,7 +852,9 @@ function common_save_replies($notice) {
 		}
 		$id = $reply->insert();
 		if (!$id) {
-			common_log_db_error($reply, 'INSERT', __FILE__);
+			$last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
+			common_log(LOG_ERROR, 'DB error inserting reply: ' . $last_error->message);
+			common_server_error('DB error inserting reply: ' . $last_error->message);
 			return;
 		}
 	}
