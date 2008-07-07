@@ -845,8 +845,10 @@ function common_save_replies($notice) {
 		$reply->notice_id = $notice->id;
 		$reply->profile_id = $recipient->id;
 		$reply->created = DB_DataObject_Cast::dateTime();
-		$recipient_notice = $reply_for->getCurrentNotice($notice->created);
-		$reply->replied_id = $recipient_notice->id;
+		if ($reply_for) {
+			$recipient_notice = $reply_for->getCurrentNotice($notice->created);
+			$reply->replied_id = $recipient_notice->id;
+		}
 		$id = $reply->insert();
 		if (!$id) {
 			common_log_db_error($reply, 'INSERT', __FILE__);
