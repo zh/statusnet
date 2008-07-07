@@ -53,6 +53,7 @@ function jabber_connect($resource=NULL) {
 				    	 ($resource) ? $resource :
 				        	common_config('xmpp', 'resource'),
 				         common_config('xmpp', 'server'));
+		$conn->autoSubscribe();
 
 		if (!$conn) {
 			return false;
