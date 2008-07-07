@@ -97,6 +97,9 @@ class User extends DB_DataObject
 
 	function getCurrentNotice($dt=NULL) {
 		$profile = $this->getProfile();
+		if (!$profile) {
+			return NULL;
+		}
 		return $profile->getCurrentNotice($dt);
 	}
 }
