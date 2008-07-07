@@ -68,20 +68,27 @@ class RepliesAction extends StreamAction {
 	function show_replies($profile) {
 
 		$reply = new Reply();
-		$notice = new Notice();
 
 		$reply->profile_id = $profile->id;
+
 		$reply->orderBy('modified DESC');
+
 		$page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
+
 		$reply->limit((($page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE + 1);
-		$reply->joinAdd($notice, 'INNER', NULL, 'notice_id');
-		
+
 		$cnt = $reply->find();
 
 		if ($cnt > 0) {
 			common_element_start('ul', array('id' => 'notices'));
 			for ($i = 0; $i < min($cnt, NOTICES_PER_PAGE); $i++) {
 				if ($reply->fetch()) {
+					$notice = new Notice();
+					$notice->id = $reply->notice_id;
+					$result = $notice->find(true);
+					if (!$result) {
+						continue;
+					}
 					$this->show_notice($notice, $reply->replied_id);
 				} else {
 					// shouldn't happen!
