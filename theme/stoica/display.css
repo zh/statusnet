@@ -1,5 +1,5 @@
 /* CSS Document */
-/* Design & CSS by Marie-Claude Doyon */
+/* Design & CSS by Marie-Claude Doyon http://www.marieclaudedoyon.com */
 
 html {
 	background-color: #d8e2d7;
@@ -14,7 +14,7 @@ body {
 	font-size: 10px;
 	line-height: 12px;
 	min-height: 100%;
-	height: 100%;
+	height: 98%;
 	color: #193441;
 	background: url(bg-body.gif) repeat-y top center;
 	}
@@ -193,6 +193,13 @@ p#branding a {
 	border: 1px solid #91AA9D;
 	color: #FCFFF5;
 	}
+.instructions a, .success a, .error a {
+	color: #d8e2d7;
+	text-decoration: underline;
+	}
+.instructions a:hover, .success a:hover, .error a:hover {
+	color: #FCFFF5;
+	}		
 .success {
 	background-color: #48705b;
 	}
@@ -306,6 +313,7 @@ dl.statistics {
 	margin: 0 3px 3px 0;
 	padding: 0;
 	line-height: 0;
+	border: 1px solid #f00;
 	}
 #subscriptions_viewall {
 	clear: left;
@@ -363,6 +371,9 @@ ul.subscriptions li, ul.subscribers li {
 	float: left;
 	margin: 5px 5px 0 0;
 	}
+.avatar.stream {
+	/*margin: 0 10px 10px 0;*/
+	}	
 
 p.time {
 	display: block;
@@ -457,7 +468,8 @@ input#submit:hover, input.submit:hover {
 	background-color: #904632;
 	}
 input.checkbox {
-	width: 18px;
+	width: 14px;
+	border: 0;
 	}	
 textarea, input {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -527,9 +539,16 @@ textarea {
 #status_submit:hover {
 	background-color: #904632;
 	}
-
+#counter {
+	position: absolute;
+	top: 140px;
+	left: -64px;
+	width: 50px;
+	font-weight: bold;
+	text-align: right;
+}
 /* ----- Subscribe Form ----- */
-#subscribe .submit, #unsubscribe .submit, #remotesubscribe .button {
+#subscribe .submit, #unsubscribe .submit, #remotesubscribe .button, #remotesubscribe {
 	margin: 0;
 	width: 96px;
 	height: 27px;
@@ -541,6 +560,12 @@ textarea {
 	color: #fcfff5;
 	border: 0;
 	}
+#remotesubscribe {
+	width: 96px;
+	height: 22px;
+	padding: 5px 0 0 0;
+	text-align: center;
+	}	
 #subscribe .button:hover, #unsubscribe .button:hover {
 	background-color: #904632;
 	cursor: pointer;
@@ -564,9 +589,9 @@ form {
 input#openid_url {
    background: url(login-bg.gif) no-repeat;
    background-color: #fff;
-   background-position: 0 50%;
+   background-position: 4px 50%;
    color: #000;
-   padding-left: 18px;
+   padding-left: 24px;
 }
 
 /* ===== End Forms Styling ===== */

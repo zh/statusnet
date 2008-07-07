@@ -1,13 +1,34 @@
 @charset "UTF-8";
 /* CSS Document */
-
+body {
+	text-align: center;
+}
+#wrap {
+	margin: 0 auto;
+	padding: 0 20px;
+	width: 800px;
+	text-align: left;
+	background: url(bg-header.gif) repeat-x #FCFFF5;
+	}
+#header {
+	position: relative;
+	margin-left: 108px;
+	}	
+#nav_views {
+	margin: 0;
+	}
 #nav_views li {
 	line-height: 19px;
 	}
 #statistics dd {
 	clear: both;
-	}		
-	
+	}
+#notices {
+	margin: 0;
+	}			
+.notice_single {
+	height: 48px;
+	}
 #profile p.notice_current {
 	height: 96px;
 	}	
@@ -15,9 +36,19 @@
 #subscriptions_avatars li {
 	margin: 0 3px 0 0;
 	}
-
+#status_textarea {
+	height: 46px;
+	}
 			
 #nav_pagination li a {
 	padding: 6px 15px;
 	line-height: 27px;
 	}
+#nav_sub {
+	position: relative;
+	margin-left: 108px;
+	}	
+#footer {
+/*	position: relative; */
+	margin-left: 108px;
+}	
