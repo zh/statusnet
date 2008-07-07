@@ -578,34 +578,48 @@ function common_render_content($text, $notice) {
 }
 
 function common_at_link($sender_id, $nickname) {
+	$sender = Profile::staticGet($sender_id);
+	$recipient = common_relative_profile($sender, $nickname);
+	if ($recipient) {
+		return '<a href="'.htmlspecialchars($recipient->profileurl).'" class="atlink">'.$nickname.'</a>';
+	} else {
+		return $nickname;
+	}
+}
+
+function common_relative_profile($sender, $nickname, $dt) {
 	# Try to find profiles this profile is subscribed to that have this nickname
 	$recipient = new Profile();
-	# XXX: chokety and bad
+	# XXX: use a join instead of a subquery
 	$recipient->whereAdd('EXISTS (SELECT subscribed from subscription where subscriber = '.$sender_id.' and subscribed = id)', 'AND');
 	$recipient->whereAdd('nickname = "' . trim($nickname) . '"', 'AND');
 	if ($recipient->find(TRUE)) {
-		return '<a href="'.htmlspecialchars($recipient->profileurl).'" class="atlink tolistenee">'.$nickname.'</a>';
+		# XXX: should probably differentiate between profiles with
+		# the same name by date of most recent update
+		return $recipient;
 	}
 	# Try to find profiles that listen to this profile and that have this nickname
 	$recipient = new Profile();
-	# XXX: chokety and bad
+	# XXX: use a join instead of a subquery
 	$recipient->whereAdd('EXISTS (SELECT subscriber from subscription where subscribed = '.$sender_id.' and subscriber = id)', 'AND');
 	$recipient->whereAdd('nickname = "' . trim($nickname) . '"', 'AND');
 	if ($recipient->find(TRUE)) {
-		return '<a href="'.htmlspecialchars($recipient->profileurl).'" class="atlink tolistener">'.$nickname.'</a>';
+		# XXX: should probably differentiate between profiles with
+		# the same name by date of most recent update
+		return $recipient;
 	}
 	# If this is a local user, try to find a local user with that nickname.
-	$sender = User::staticGet($sender_id);
+	$sender = User::staticGet($sender->id);
 	if ($sender) {
 		$recipient_user = User::staticGet('nickname', $nickname);
 		if ($recipient_user) {
-			return '<a href="'.htmlspecialchars(common_profile_url($nickname)).'" class="atlink usertouser">'.$nickname.'</a>';
+			return $recipient_user->getProfile();
 		}
 	}
 	# Otherwise, no links. @messages from local users to remote users,
 	# or from remote users to other remote users, are just
 	# outside our ability to make intelligent guesses about
-	return $nickname;
+	return NULL;
 }
 
 // where should the avatar go for this user?
@@ -810,35 +824,35 @@ function common_redirect($url, $code=307) {
 }
 
 function common_save_replies($notice) {
-        # extract all @messages
-        preg_match_all('/(?:^|\s)@([a-z0-9]{1,64})/', $notice->content, $match);
-        $current_user = common_current_user();
-        $sender = $current_user->getProfile();
-        #store replied only for first @ (what user/notice what the reply directed, we assume first @ is it)
-        $reply_for = User::staticGet('nickname', $match[1][0]);
-        for ($i=0; $i<count($match[1]); $i++) {
-                $nickname = $match[1][$i];
-                #don't reply to myself
-                if ($sender->nickname == $nickname) {
-                    continue;
-                }
-                $reply = DB_DataObject::factory('reply');
-                $reply->notice_id = $notice->id;
-                $recipient_user = User::staticGet('nickname', $nickname);
-                #if recipient doesn't exist, skip
-                if (!$recipient_user) {
-                      continue;
-                }
-                $reply->user_id = $recipient_user->id;
-                $reply->created = DB_DataObject_Cast::dateTime();
-                $recipient_notice = $reply_for->getCurrentNotice();
-                $reply->replied_id = $recipient_notice->id;
-                $id = $reply->insert();
-                if (!$id) {
-                    common_server_error(_t('Problem saving reply.'));
-                    return;
-                }
-        }
+	# extract all @messages
+	$cnt = preg_match_all('/(?:^|\s)@([a-z0-9]{1,64})/', $notice->content, $match);
+	if (!$cnt) {
+		return true;
+	}
+	$sender = Profile::staticGet($notice->profile_id);
+	# store replied only for first @ (what user/notice what the reply directed,
+	# we assume first @ is it)
+	for ($i=0; $i<count($match[1]); $i++) {
+		$nickname = $match[1][$i];
+		$recipient = common_relative_profile($sender, $nickname, $notice->created);
+		if (!$recipient) {
+			continue;
+		}
+		if ($i == 0) {
+			$reply_for = $recipient;
+		}
+		$reply = new Reply();
+		$reply->notice_id = $notice->id;
+		$reply->profile_id = $recipient->id;
+		$reply->created = DB_DataObject_Cast::dateTime();
+		$recipient_notice = $reply_for->getCurrentNotice($notice->created);
+		$reply->replied_id = $recipient_notice->id;
+		$id = $reply->insert();
+		if (!$id) {
+			common_server_error(_t('Problem saving reply.'));
+			return;
+		}
+	}
 }
 
 function common_broadcast_notice($notice, $remote=false) {

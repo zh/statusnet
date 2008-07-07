@@ -20,7 +20,6 @@
 if (!defined('LACONICA')) { exit(1); }
 
 define('NOTICES_PER_PAGE', 20);
-define('REPLIES_PER_PAGE', 20);
 
 class StreamAction extends Action {
 
@@ -48,7 +47,7 @@ class StreamAction extends Action {
 		common_menu_item(common_local_url('replies', array('nickname' =>
 															  $nickname)),
 						 _t('Replies'),  
-						 ($user && $user->fullname) ? $user->fullname : $nickname,
+						 _t('Replies to ') . (($user && $user->fullname) ? $user->fullname : $nickname),
 						 $action == 'replies');
 		common_menu_item(common_local_url('showstream', array('nickname' =>
 															  $nickname)),
@@ -91,6 +90,8 @@ class StreamAction extends Action {
 		common_element_end('li');
 	}
 
+	# XXX: these are almost identical functions!
+	
 	function show_reply($notice, $replied_id) {
 		global $config;
 		$profile = $notice->getProfile();
@@ -120,7 +121,7 @@ class StreamAction extends Action {
 		common_element('a', array('class' => 'notice',
 								  'href' => $noticeurl),
 					   common_date_string($notice->created));
-		common_element('a', array('class' => 'notice',
+		common_element('a', array('class' => 'inreplyto',
 								  'href' => $replyurl),
 					   " in reply to ".$profile->nickname );
 		common_element_end('p');

@@ -95,17 +95,8 @@ class User extends DB_DataObject
 		return !in_array($nickname, $merged);
 	}
 
-        function getCurrentNotice() {
-                $notice = DB_DataObject::factory('notice');
-                $profile = $this->getProfile();
-                $notice->profile_id = $profile->id;
-                $notice->limit(1);
-                $notice->orderBy('created DESC');
-                if ($notice->find()) {
-                        $notice->fetch();
-                        return $notice;
-                }
-                return NULL;
-        }
-
+	function getCurrentNotice($dt=NULL) {
+		$profile = $this->getProfile();
+		return $profile->getCurrentNotice($dt);
+	}
 }

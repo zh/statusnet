@@ -204,6 +204,7 @@ class XMPPDaemon {
 			return;
 		}
 		$notice->query('COMMIT');
+        common_save_replies($notice);	
 		common_real_broadcast($notice);
 		$this->log(LOG_INFO,
 				   'Added notice ' . $notice->id . ' from user ' . $user->nickname);

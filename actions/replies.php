@@ -44,7 +44,7 @@ class RepliesAction extends StreamAction {
 
 		# Looks like we're good; show the header
 
-		common_show_header($profile->nickname . _t(" and friends"),
+		common_show_header(_t("Replies to ") . $profile->nickname,
 						   array($this, 'show_header'), $user,
 						   array($this, 'show_top'));
 		
@@ -55,23 +55,21 @@ class RepliesAction extends StreamAction {
 	
 	function show_header($user) {
 		common_element('link', array('rel' => 'alternate',
-									 'href' => common_local_url('allrss', array('nickname' =>
-																			   $user->nickname)),
+									 'href' => common_local_url('repliesrss', array('nickname' =>
+																					$user->nickname)),
 									 'type' => 'application/rss+xml',
-									 'title' => _t('Feed for friends of ') . $user->nickname));
+									 'title' => _t('Feed for replies to ') . $user->nickname));
 	}
 
 	function show_top($user) {
-		$cur = common_current_user();
-		
 		$this->views_menu();
 	}
 	
 	function show_replies($profile) {
 
-		$reply = DB_DataObject::factory('reply');
+		$reply = new Reply();
 
-                $reply->user_id = $profile->id;
+		$reply->profile_id = $profile->id;
 
 		$reply->orderBy('created DESC');
 
@@ -83,11 +81,14 @@ class RepliesAction extends StreamAction {
 
 		if ($cnt > 0) {
 			common_element_start('ul', array('id' => 'replies'));
-			for ($i = 0; $i < min($cnt, REPLIES_PER_PAGE); $i++) {
+			for ($i = 0; $i < min($cnt, NOTICES_PER_PAGE); $i++) {
 				if ($reply->fetch()) {
-                                        $notice = DB_DataObject::factory('notice');
-                                        $notice->id = $reply->notice_id;
-                                        $notice->find(1);
+					$notice = new Notice();
+					$notice->id = $reply->notice_id;
+					$result = $notice->find(true);
+					if (!$result) {
+						continue;
+					}
 					$this->show_reply($notice, $reply->replied_id);
 				} else {
 					// shouldn't happen!
@@ -97,7 +98,7 @@ class RepliesAction extends StreamAction {
 			common_element_end('ul');
 		}
 		
-		common_pagination($page > 1, $cnt > REPLIES_PER_PAGE,
+		common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
 						  $page, 'all', array('nickname' => $profile->nickname));
 	}
 }

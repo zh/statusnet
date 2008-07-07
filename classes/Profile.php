@@ -137,4 +137,19 @@ class Profile extends DB_DataObject
 	function getBestName() {
 		return ($this->fullname) ? $this->fullname : $this->nickname;
 	}
+
+    # Get latest notice on or before date; default now
+	function getCurrentNotice($dt=NULL) {
+		$notice = new Notice();
+		$notice->profile_id = $this->id;
+		if ($dt) {
+			$notice->whereAdd('created < "' . $dt . '"');
+		}
+		$notice->orderBy('created DESC');
+		$notice->limit(1);
+		if ($notice->find(true)) {
+			return $notice;
+		}
+		return NULL;
+	}
 }
