@@ -587,7 +587,7 @@ function common_at_link($sender_id, $nickname) {
 	}
 }
 
-function common_relative_profile($sender, $nickname, $dt) {
+function common_relative_profile($sender, $nickname, $dt=NULL) {
 	# Try to find profiles this profile is subscribed to that have this nickname
 	$recipient = new Profile();
 	# XXX: use a join instead of a subquery
