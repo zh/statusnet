@@ -71,7 +71,7 @@ class RepliesAction extends StreamAction {
 
 		$reply->profile_id = $profile->id;
 
-		$reply->orderBy('created DESC');
+		$reply->orderBy('modified DESC');
 
 		$page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 

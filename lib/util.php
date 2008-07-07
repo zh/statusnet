@@ -844,7 +844,6 @@ function common_save_replies($notice) {
 		$reply = new Reply();
 		$reply->notice_id = $notice->id;
 		$reply->profile_id = $recipient->id;
-		$reply->created = DB_DataObject_Cast::dateTime();
 		if ($reply_for) {
 			$recipient_notice = $reply_for->getCurrentNotice($notice->created);
 			$reply->replied_id = $recipient_notice->id;
