@@ -57,7 +57,7 @@ class StreamAction extends Action {
 		common_element_end('ul');
 	}
 
-	function show_notice($notice) {
+	function show_notice($notice, $replied_id=NULL) {
 		global $config;
 		$profile = $notice->getProfile();
 		# XXX: RDFa
@@ -86,44 +86,12 @@ class StreamAction extends Action {
 								  'href' => $noticeurl,
 								  'title' => common_exact_date($notice->created)),
 					   common_date_string($notice->created));
-		common_element_end('p');
-		common_element_end('li');
-	}
-
-	# XXX: these are almost identical functions!
-	
-	function show_reply($notice, $replied_id) {
-		global $config;
-		$profile = $notice->getProfile();
-		# XXX: RDFa
-		common_element_start('li', array('class' => 'notice_single',
-										  'id' => 'notice-' . $notice->id));
-		$avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
-		common_element_start('a', array('href' => $profile->profileurl));
-		common_element('img', array('src' => ($avatar) ? $avatar->url : common_default_avatar(AVATAR_STREAM_SIZE),
-									'class' => 'avatar stream',
-									'width' => AVATAR_STREAM_SIZE,
-									'height' => AVATAR_STREAM_SIZE,
-									'alt' =>
-									($profile->fullname) ? $profile->fullname :
-									$profile->nickname));
-		common_element_end('a');
-		common_element('a', array('href' => $profile->profileurl,
-								  'class' => 'nickname'),
-					   $profile->nickname);
-		# FIXME: URL, image, video, audio
-		common_element_start('p', array('class' => 'content'));
-		common_raw(common_render_content($notice->content, $notice));
-		common_element_end('p');
-		$replyurl = common_local_url('shownotice', array('notice' => $replied_id));
-		$noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
-		common_element_start('p', 'time');
-		common_element('a', array('class' => 'notice',
-								  'href' => $noticeurl),
-					   common_date_string($notice->created));
-		common_element('a', array('class' => 'inreplyto',
-								  'href' => $replyurl),
-					   " in reply to ".$profile->nickname );
+		if ($replied_id) {
+			$replyurl = common_local_url('shownotice', array('notice' => $replied_id));
+			common_element('a', array('class' => 'inreplyto',
+									  'href' => $replyurl),
+						   " in reply to ".$profile->nickname );
+		}
 		common_element_end('p');
 		common_element_end('li');
 	}

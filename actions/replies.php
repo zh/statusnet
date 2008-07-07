@@ -80,7 +80,7 @@ class RepliesAction extends StreamAction {
 		$cnt = $reply->find();
 
 		if ($cnt > 0) {
-			common_element_start('ul', array('id' => 'replies'));
+			common_element_start('ul', array('id' => 'notices'));
 			for ($i = 0; $i < min($cnt, NOTICES_PER_PAGE); $i++) {
 				if ($reply->fetch()) {
 					$notice = new Notice();
@@ -89,7 +89,7 @@ class RepliesAction extends StreamAction {
 					if (!$result) {
 						continue;
 					}
-					$this->show_reply($notice, $reply->replied_id);
+					$this->show_notice($notice, $reply->replied_id);
 				} else {
 					// shouldn't happen!
 					break;
