@@ -847,7 +847,8 @@ function common_save_replies($notice) {
 		$reply->notice_id = $notice->id;
 		$reply->profile_id = $recipient->id;
 		if ($reply_for) {
-			$recipient_notice = $reply_for->getCurrentNotice($notice->created);
+#			$recipient_notice = $reply_for->getCurrentNotice($notice->created);
+			$recipient_notice = $reply_for->getCurrentNotice();
 			$reply->replied_id = $recipient_notice->id;
 		}
 		$id = $reply->insert();
