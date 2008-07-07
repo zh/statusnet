@@ -699,6 +699,7 @@ function common_fancy_url($action, $args=NULL) {
 	 case 'subscriptions':
 	 case 'subscribers':
 	 case 'all':
+	 case 'replies':
 		if ($args && $args['page']) {
 			return common_path($args['nickname'].'/'.$action.'?page=' . $args['page']);
 		} else {

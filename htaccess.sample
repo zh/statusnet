@@ -45,5 +45,6 @@ RewriteRule ^(\w+)/rss$ index.php?action=userrss&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/all$ index.php?action=all&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/all/rss$ index.php?action=allrss&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/foaf$ index.php?action=foaf&nickname=$1 [L,QSA]
+RewriteRule ^(\w+)/replies$ index.php?action=replies&nickname=$1 [L,QSA]
 
 RewriteRule ^(\w+)$ index.php?action=showstream&nickname=$1 [L,QSA]
