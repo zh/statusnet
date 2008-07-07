@@ -45,7 +45,7 @@ class RepliesrssAction extends Rss10Action {
 		$notices = array();
 
 		$reply = new Reply();
-		$reply->profile_id = $this->user->id;
+		$reply->profile_id = $user->id;
 		$reply->orderBy('modified DESC');
 		if ($limit) {
 			$reply->limit(0, $limit);
@@ -53,20 +53,15 @@ class RepliesrssAction extends Rss10Action {
 		
 		$cnt = $reply->find();
 
-		if ($cnt > 0) {
-			for ($i = 0; $i < min($cnt, NOTICES_PER_PAGE); $i++) {
-				if ($reply->fetch()) {
-					$notice = new Notice();
-					$notice->id = $reply->notice_id;
-					$result = $notice->find(true);
-					if (!$result) {
-						continue;
-					}
-					$notices[] = clone($notice);
-				} else {
-					// shouldn't happen!
-					break;
+		if ($cnt) {
+			while ($reply->fetch()) {
+				$notice = new Notice();
+				$notice->id = $reply->notice_id;
+				$result = $notice->find(true);
+				if (!$result) {
+					continue;
 				}
+				$notices[] = clone($notice);
 			}
 		}
 		
