@@ -849,7 +849,7 @@ function common_save_replies($notice) {
 		$reply->replied_id = $recipient_notice->id;
 		$id = $reply->insert();
 		if (!$id) {
-			common_server_error(_t('Problem saving reply.'));
+			common_log_db_error($reply, 'INSERT', __FILE__);
 			return;
 		}
 	}
