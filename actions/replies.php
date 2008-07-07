@@ -62,6 +62,12 @@ class RepliesAction extends StreamAction {
 	}
 
 	function show_top($user) {
+		$cur = common_current_user();
+		
+		if ($cur && $cur->id == $user->id) {
+			common_notice_form('replies');
+		}
+		
 		$this->views_menu();
 	}
 	
