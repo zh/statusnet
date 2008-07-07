@@ -721,6 +721,8 @@ function common_fancy_url($action, $args=NULL) {
 		}
 	 case 'allrss':
 		return common_path($args['nickname'].'/all/rss');
+	 case 'repliesrss':
+		return common_path($args['nickname'].'/replies/rss');
 	 case 'userrss':
 		return common_path($args['nickname'].'/rss');
 	 case 'showstream':
