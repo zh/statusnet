@@ -19,5 +19,14 @@ $(document).ready(function(){
             // run once in case there's something in there
 			counter();
         }
+
 });
 
+        function doreply(nick) {
+            rgx_username = /^[0-9a-zA-Z\-_.]*$/;
+            if (nick.match(rgx_username)) {
+              replyto = "@" + nick + " ";
+              document.getElementById("status_textarea").value=replyto; 
+              document.getElementById("status_textarea").focus();
+            }
+        }
