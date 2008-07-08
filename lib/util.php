@@ -93,9 +93,16 @@ function common_element_start($tag, $attrs=NULL) {
 }
 
 function common_element_end($tag) {
+	static $empty_tag = array('base', 'meta', 'link', 'hr',
+							  'br', 'param', 'img', 'area',
+							  'input', 'col'); 
 	global $xw;
-	# TODO: switch based on $tag
-	$xw->fullEndElement();
+	# TODO check namespace
+	if (in_array($tag, $empty_tag)) {
+		$xw->endElement();
+	} else {
+		$xw->fullEndElement();
+	}
 }
 
 function common_element($tag, $attrs=NULL, $content=NULL) {
