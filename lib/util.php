@@ -97,7 +97,7 @@ function common_element_end($tag) {
 							  'br', 'param', 'img', 'area',
 							  'input', 'col'); 
 	global $xw;
-	# TODO check namespace
+	# XXX: check namespace
 	if (in_array($tag, $empty_tag)) {
 		$xw->endElement();
 	} else {
@@ -106,10 +106,12 @@ function common_element_end($tag) {
 }
 
 function common_element($tag, $attrs=NULL, $content=NULL) {
-    common_element_start($tag, $attrs);
-    global $xw;
-    $xw->text($content);
-    common_element_end($tag);
+	common_element_start($tag, $attrs);
+	global $xw;
+	if ($content) {
+		$xw->text($content);
+	}
+	common_element_end($tag);
 }
 
 function common_start_xml($doc=NULL, $public=NULL, $system=NULL) {
