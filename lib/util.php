@@ -826,7 +826,7 @@ function common_date_string($dt) {
 	} else if ($diff < 37 * 3600) {
 		return _('about a day ago');
 	} else if ($diff < 24 * 24 * 3600) {
-		return sprintf(_('about %d days ago', round($diff/(24*3600))));
+		return sprintf(_('about %d days ago'), round($diff/(24*3600)));
 	} else if ($diff < 46 * 24 * 3600) {
 		return _('about a month ago');
 	} else if ($diff < 330 * 24 * 3600) {
