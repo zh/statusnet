@@ -481,6 +481,7 @@ function common_rememberme() {
 		common_log_db_error($rm, 'INSERT', __FILE__);
 		return false;
 	}
+	common_log(LOG_INFO, 'adding rememberme cookie for ' . $user->nickname);
 	common_set_cookie(REMEMBERME,
 					  implode(':', array($rm->user_id, $rm->code)),
 					  time() + REMEMBERME_EXPIRY);
@@ -504,6 +505,7 @@ function common_remembered_user() {
 						common_log_db_error($rm, 'DELETE', __FILE__);
 						$user = NULL;
 					} else {
+						common_log(LOG_INFO, 'logging in ' . $user->nickname . ' using rememberme code ' . $rm->code);
 						common_set_user($user->nickname);
 						common_real_login(false);
 						# We issue a new cookie, so they can log in

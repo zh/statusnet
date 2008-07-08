@@ -71,6 +71,7 @@ class RegisterAction extends Action {
 			}
 			common_real_login(true);
 			if ($this->boolean('rememberme')) {
+				common_debug('Adding rememberme cookie for ' . $nickname);
 				common_rememberme();
 			}
 			common_redirect(common_local_url('profilesettings'));

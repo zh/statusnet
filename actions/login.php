@@ -45,7 +45,7 @@ class LoginAction extends Action {
 			}
 			common_real_login(true);
 			if ($this->boolean('rememberme')) {
-				common_debug('Adding rememberme cookie');
+				common_debug('Adding rememberme cookie for ' . $nickname);
 				common_rememberme();
 			}
 			# success!
