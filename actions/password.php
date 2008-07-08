@@ -28,12 +28,16 @@ class PasswordAction extends SettingsAction {
 	}
 
 	function show_form($msg=NULL, $success=false) {
+		$user = common_current_user();
 		$this->form_header(_t('Change password'), $msg, $success);
 		common_element_start('form', array('method' => 'post',
 										   'id' => 'password',
 										   'action' =>
 										   common_local_url('password')));
-		common_password('oldpassword', _t('Old password'));
+		# Users who logged in with OpenID won't have a pwd
+		if ($user->password) {
+			common_password('oldpassword', _t('Old password'));
+		}
 		common_password('newpassword', _t('New password'),
 						_t('6 or more characters'));
 		common_password('confirm', _t('Confirm'),
@@ -50,7 +54,6 @@ class PasswordAction extends SettingsAction {
 
 		# FIXME: scrub input
 
-		$oldpassword = $this->arg('oldpassword');
 		$newpassword = $this->arg('newpassword');
 		$confirm = $this->arg('confirm');
 
@@ -59,9 +62,13 @@ class PasswordAction extends SettingsAction {
 			return;
 		}
 
-		if (!common_check_user($user->nickname, $oldpassword)) {
-			$this->show_form(_t('Incorrect old password'));
-			return;
+		if ($user->password) {
+			$oldpassword = $this->arg('oldpassword');
+		
+			if (!common_check_user($user->nickname, $oldpassword)) {
+				$this->show_form(_t('Incorrect old password'));
+				return;
+			}
 		}
 
 		$original = clone($user);
