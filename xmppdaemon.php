@@ -135,11 +135,22 @@ class XMPPDaemon {
 		}
 		if ($this->handle_command($user, $pl['body'])) {
 			return;
+		} else if ($this->is_autoreply($pl['body'])) {
+			$this->log(LOG_INFO, 'Ignoring auto reply from ' . $from);
+			return;
 		} else {
 			$this->add_notice($user, $pl);
 		}
 	}
 
+	function is_autoreply($txt) {
+		if (preg_match('/[\[\(]?[Aa]uto-?[Rr]eply[\]\)]/', $txt)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	function from_site($address, $msg) {
 		$text = '['.common_config('site', 'name') . '] ' . $msg;
 		jabber_send_message($address, $text);
