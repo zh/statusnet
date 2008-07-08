@@ -22,52 +22,52 @@ if (!defined('LACONICA')) { exit(1); }
 require_once(INSTALLDIR.'/lib/omb.php');
 
 class FinishremotesubscribeAction extends Action {
-	
+
 	function handle($args) {
-		
+
 		parent::handle($args);
 
 		if (common_logged_in()) {
 			common_user_error(_('You can use the local subscription!'));
 		    return;
 		}
-		
+
 		$omb = $_SESSION['oauth_authorization_request'];
-		
+
 		if (!$omb) {
 			common_user_error(_('Not expecting this response!'));
 			return;
 		}
 
 		common_debug('stored request: '.print_r($omb,true), __FILE__);
-		
+
 		$req = OAuthRequest::from_request();
 
 		$token = $req->get_parameter('oauth_token');
 
 		# I think this is the success metric
-		
+
 		if ($token != $omb['token']) {
 			common_user_error(_('Not authorized.'));
 			return;
 		}
-		
+
 		$version = $req->get_parameter('omb_version');
-		
+
 		if ($version != OMB_VERSION_01) {
 			common_user_error(_('Unknown version of OMB protocol.'));
 			return;
 		}
-		
+
 		$nickname = $req->get_parameter('omb_listener_nickname');
-		
+
 		if (!$nickname) {
 			common_user_error(_('No nickname provided by remote server.'));
 			return;
 		}
 
 		$profile_url = $req->get_parameter('omb_listener_profile');
-		
+
 		if (!$profile_url) {
 			common_user_error(_('No profile URL returned by server.'));
 			return;
@@ -79,14 +79,14 @@ class FinishremotesubscribeAction extends Action {
 		}
 
 		common_debug('listenee: "'.$omb['listenee'].'"', __FILE__);
-		
+
 		$user = User::staticGet('nickname', $omb['listenee']);
-		
+
 		if (!$user) {
 			common_user_error(_('User being listened to doesn\'t exist.'));
 			return;
 		}
-		
+
 		$fullname = $req->get_parameter('omb_listener_fullname');
 		$homepage = $req->get_parameter('omb_listener_homepage');
 		$bio = $req->get_parameter('omb_listener_bio');
@@ -94,16 +94,16 @@ class FinishremotesubscribeAction extends Action {
 		$avatar_url = $req->get_parameter('omb_listener_avatar');
 
 		list($newtok, $newsecret) = $this->access_token($omb);
-		
+
 		if (!$newtok || !$newsecret) {
 			common_user_error(_('Couldn\'t convert request tokens to access tokens.'));
 			return;
 		}
-		
+
 		# XXX: possible attack point; subscribe and return someone else's profile URI
-		
+
 		$remote = Remote_profile::staticGet('uri', $omb['listener']);
-		
+
 		if ($remote) {
 			$exists = true;
 			$profile = Profile::staticGet($remote->id);
@@ -120,7 +120,7 @@ class FinishremotesubscribeAction extends Action {
 
 		$profile->nickname = $nickname;
 		$profile->profileurl = $profile_url;
-		
+
 		if ($fullname) {
 			$profile->fullname = $fullname;
 		}
@@ -133,7 +133,7 @@ class FinishremotesubscribeAction extends Action {
 		if ($location) {
 			$profile->location = $location;
 		}
-		
+
 		if ($exists) {
 			$profile->update($orig_profile);
 		} else {
@@ -168,14 +168,14 @@ class FinishremotesubscribeAction extends Action {
 				return;
 			}
 		}
-		
+
 		$sub = new Subscription();
 		$sub->subscriber = $remote->id;
 		$sub->subscribed = $user->id;
 		$sub->token = $newtok;
 		$sub->secret = $newsecret;
 		$sub->created = DB_DataObject_Cast::dateTime(); # current time
-		
+
 		if (!$sub->insert()) {
 			common_user_error(_('Couldn\'t insert new subscription.'));
 			return;
@@ -183,65 +183,65 @@ class FinishremotesubscribeAction extends Action {
 
 		# Clear the data
 		unset($_SESSION['oauth_authorization_request']);
-		
+
 		# If we show subscriptions in reverse chron order, this should
 		# show up close to the top of the page
-		
+
 		common_redirect(common_local_url('subscribers', array('nickname' =>
 															 $user->nickname)));
 	}
-	
+
 	function add_avatar($profile, $url) {
 		$temp_filename = tempnam(sys_get_temp_dir(), 'listener_avatar');
 		copy($url, $temp_filename);
 		return $profile->setOriginal($temp_filename);
 	}
-	
+
 	function access_token($omb) {
 
 		common_debug('starting request for access token', __FILE__);
-		
+
 		$con = omb_oauth_consumer();
 		$tok = new OAuthToken($omb['token'], $omb['secret']);
 
 		common_debug('using request token "'.$tok.'"', __FILE__);
-		
+
 		$url = $omb['access_token_url'];
 
 		common_debug('using access token url "'.$url.'"', __FILE__);
-		
+
 		# XXX: Is this the right thing to do? Strip off GET params and make them
 		# POST params? Seems wrong to me.
-		
+
 		$parsed = parse_url($url);
 		$params = array();
 		parse_str($parsed['query'], $params);
 
 		$req = OAuthRequest::from_consumer_and_token($con, $tok, "POST", $url, $params);
-		
+
 		$req->set_parameter('omb_version', OMB_VERSION_01);
-		
+
 		# XXX: test to see if endpoint accepts this signature method
 
 		$req->sign_request(omb_hmac_sha1(), $con, $tok);
-		
+
 		# We re-use this tool's fetcher, since it's pretty good
 
 		common_debug('posting to access token url "'.$req->get_normalized_http_url().'"', __FILE__);
 		common_debug('posting request data "'.$req->to_postdata().'"', __FILE__);
-		
+
 		$fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
 		$result = $fetcher->post($req->get_normalized_http_url(),
 								 $req->to_postdata());
 
 		common_debug('got result: "'.print_r($result,TRUE).'"', __FILE__);
-		
+
 		if ($result->status != 200) {
 			return NULL;
 		}
 
 		parse_str($result->body, $return);
-		
+
 		return array($return['oauth_token'], $return['oauth_token_secret']);
 	}
 }

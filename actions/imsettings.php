@@ -190,7 +190,7 @@ class ImsettingsAction extends SettingsAction {
 								   $user->nickname,
 								   $jabber);
 		}
-			
+
 		# XXX: I18N
 
 		$msg = 'A confirmation code was sent to the IM address you added. ' .

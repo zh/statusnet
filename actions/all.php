@@ -47,12 +47,12 @@ class AllAction extends StreamAction {
 		common_show_header(sprintf(_("%s and friends"), $profile->nickname),
 						   array($this, 'show_header'), $user,
 						   array($this, 'show_top'));
-		
+
 		$this->show_notices($profile);
-		
+
 		common_show_footer();
 	}
-	
+
 	function show_header($user) {
 		common_element('link', array('rel' => 'alternate',
 									 'href' => common_local_url('allrss', array('nickname' =>
@@ -63,14 +63,14 @@ class AllAction extends StreamAction {
 
 	function show_top($user) {
 		$cur = common_current_user();
-		
+
 		if ($cur && $cur->id == $user->id) {
 			common_notice_form('all');
 		}
-		
+
 		$this->views_menu();
 	}
-	
+
 	function show_notices($profile) {
 
 		$notice = DB_DataObject::factory('notice');
@@ -100,7 +100,7 @@ class AllAction extends StreamAction {
 			}
 			common_element_end('ul');
 		}
-		
+
 		common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
 						  $page, 'all', array('nickname' => $profile->nickname));
 	}

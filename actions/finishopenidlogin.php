@@ -62,7 +62,7 @@ class FinishopenidloginAction extends Action {
 	}
 
 	function show_form($error=NULL, $username=NULL) {
-		common_show_header(_t('OpenID Account Setup'), NULL, $error,
+		common_show_header(_('OpenID Account Setup'), NULL, $error,
 						   array($this, 'show_top'));
 
 		common_element_start('form', array('method' => 'post',

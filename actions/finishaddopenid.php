@@ -45,7 +45,7 @@ class FinishaddopenidAction extends Action {
 			// Authentication failed; display the error message.
 			$this->message(sprintf(_('OpenID authentication failed: %s'), $response->message));
 		} else if ($response->status == Auth_OpenID_SUCCESS) {
-			
+
 			$display = $response->getDisplayIdentifier();
 			$canonical = ($response->endpoint && $response->endpoint->canonicalID) ?
 			  $response->endpoint->canonicalID : $display;
@@ -58,7 +58,7 @@ class FinishaddopenidAction extends Action {
 
 			$cur =& common_current_user();
 			$other = oid_get_user($canonical);
-			
+
 			if ($other) {
 				if ($other->id == $cur->id) {
 					$this->message(_('You already have this OpenID!'));
@@ -69,11 +69,11 @@ class FinishaddopenidAction extends Action {
 			}
 
 			# start a transaction
-			
+
 			$cur->query('BEGIN');
-			
+
 			$result = oid_link_user($cur->id, $canonical, $display);
-			
+
 			if (!$result) {
 				$this->message(_('Error connecting user.'));
 				return;
@@ -84,13 +84,13 @@ class FinishaddopenidAction extends Action {
 					return;
 				}
 			}
-			
+
 			# success!
-			
+
 			$cur->query('COMMIT');
 
 			oid_set_last($display);
-			
+
 			common_redirect(common_local_url('openidsettings'));
 		}
 	}

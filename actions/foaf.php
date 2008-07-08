@@ -24,14 +24,14 @@ define('LISTENEE', -1);
 define('BOTH', 0);
 
 class FoafAction extends Action {
-	
+
 	function handle($args) {
 		parent::handle($args);
 
 		$nickname = $this->trimmed('nickname');
-		
+
 		$user = User::staticGet('nickname', $nickname);
-		
+
 		if (!$user) {
 			common_user_error(_('No such user'), 404);
 			return;
@@ -43,7 +43,7 @@ class FoafAction extends Action {
 			common_server_error(_('User has no profile'), 500);
 			return;
 		}
-		
+
 		header('Content-Type: application/rdf+xml');
 
 		common_start_xml();
@@ -56,9 +56,9 @@ class FoafAction extends Action {
 											  'xmlns' => 'http://xmlns.com/foaf/0.1/'));
 
 		# This is the document about the user
-		
+
 		$this->show_ppd('', $user->uri);
-		
+
 		# XXX: might not be a person
 		common_element_start('Person', array('rdf:about' =>
 											 $user->uri));
@@ -101,7 +101,7 @@ class FoafAction extends Action {
 		}
 
 		# Get people user is subscribed to
-		
+
 		$person = array();
 
 		$sub = new Subscription();
@@ -146,7 +146,7 @@ class FoafAction extends Action {
 				}
 			}
 		}
-		
+
 		common_element_end('Person');
 
 		foreach ($person as $uri => $p) {
@@ -169,17 +169,17 @@ class FoafAction extends Action {
 				$this->show_ppd($foaf_url, $uri);
 			}
 		}
-		
+
 		common_element_end('rdf:RDF');
 	}
-	
+
 	function show_ppd($foaf_url, $person_uri) {
 		common_element_start('PersonalProfileDocument', array('rdf:about' => $foaf_url));
 		common_element('maker', array('rdf:resource' => $person_uri));
 		common_element('primaryTopic', array('rdf:resource' => $person_uri));
 		common_element_end('PersonalProfileDocument');
 	}
-	
+
 	function show_microblogging_account($profile, $service=NULL) {
 		# Their account
 		common_element_start('holdsAccount');

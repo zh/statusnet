@@ -70,9 +70,9 @@ class NewnoticeAction extends Action {
 			return;
 		}
 
-        common_save_replies($notice);	
+        common_save_replies($notice);
 		common_broadcast_notice($notice);
-		
+
 		$returnto = $this->trimmed('returnto');
 		if ($returnto) {
 			$url = common_local_url($returnto,

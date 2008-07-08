@@ -30,7 +30,7 @@ class AllrssAction extends Rss10Action {
 	function init() {
 		$nickname = $this->trimmed('nickname');
 		$this->user = User::staticGet('nickname', $nickname);
-		
+
 		if (!$this->user) {
 			common_user_error(_('No such nickname.'));
 			return false;
@@ -38,12 +38,12 @@ class AllrssAction extends Rss10Action {
 			return true;
 		}
 	}
-	
+
 	function get_notices($limit=0) {
-		
+
 		$user = $this->user;
 		$notices = array();
-		
+
 		$notice = DB_DataObject::factory('notice');
 
 		$notice->whereAdd('EXISTS (SELECT subscribed from subscription where subscriber = '.$user->id.' and subscribed = notice.profile_id)', 'OR');
@@ -54,14 +54,14 @@ class AllrssAction extends Rss10Action {
 			$notice->limit(0, $limit);
 		}
 		$notice->find();
-		
+
 		while ($notice->fetch()) {
 			$notices[] = clone($notice);
 		}
-		
+
 		return $notices;
 	}
-	
+
 	function get_channel() {
 		$user = $this->user;
 		$c = array('url' => common_local_url('allrss',
@@ -74,7 +74,7 @@ class AllrssAction extends Rss10Action {
 				   'description' => sprintf(_('Feed for friends of %s'), $user->nickname));
 		return $c;
 	}
-	
+
 	function get_image() {
 		$user = $this->user;
 		$profile = $user->getProfile();
