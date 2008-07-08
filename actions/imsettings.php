@@ -25,61 +25,61 @@ require_once(INSTALLDIR.'/lib/jabber.php');
 class ImsettingsAction extends SettingsAction {
 
 	function get_instructions() {
-		return _t('You can send and receive notices through '.
+		return _('You can send and receive notices through '.
 		   		'Jabber/GTalk [instant messages](%%doc.im%%). Configure '.
 		   		'your address and settings below.');
 	}
 
 	function show_form($msg=NULL, $success=false) {
 		$user = common_current_user();
-		$this->form_header(_t('IM Settings'), $msg, $success);
+		$this->form_header(_('IM Settings'), $msg, $success);
 		common_element_start('form', array('method' => 'post',
 										   'id' => 'imsettings',
 										   'action' =>
 										   common_local_url('imsettings')));
 
-		common_element('h2', NULL, _t('Address'));
+		common_element('h2', NULL, _('Address'));
 
 		if ($user->jabber) {
 			common_element_start('p');
 			common_element('span', 'address confirmed', $user->jabber);
 			common_element('span', 'input_instructions',
-			               _t('Current confirmed Jabber/GTalk address.'));
+			               _('Current confirmed Jabber/GTalk address.'));
 			common_hidden('jabber', $user->jabber);
 			common_element_end('p');
-			common_submit('remove', 'Remove');
+			common_submit('remove', _('Remove'));
 		} else {
 			$confirm = $this->get_confirmation();
 			if ($confirm) {
 				common_element_start('p');
 				common_element('span', 'address unconfirmed', $confirm->address);
 				common_element('span', 'input_instructions',
-			  	             _t('Awaiting confirmation on this address. Check your ' .
+			  	              sprintf(_('Awaiting confirmation on this address. Check your ' .
 			  	                'Jabber/GTalk account for a message with further ' .
-			  	                'instructions. (Did you add '  . jabber_daemon_address() .
-								' to your buddy list?)'));
+			  	                'instructions. (Did you add %s to your buddy list?)',
+                                 jabber_daemon_address())));
 				common_hidden('jabber', $confirm->address);
 				common_element_end('p');
-				common_submit('cancel', _t('Cancel'));
+				common_submit('cancel', _('Cancel'));
 			} else {
-				common_input('jabber', _t('IM Address'),
+				common_input('jabber', _('IM Address'),
 						 	($this->arg('jabber')) ? $this->arg('jabber') : NULL,
-						 _t('Jabber or GTalk address, like "UserName@example.org". ' .
-						    'First, make sure to add ' . jabber_daemon_address() .
-						    ' to your buddy list in your IM client or on GTalk.'));
-				common_submit('add', 'Add');
+						 sprintf(_('Jabber or GTalk address, like "UserName@example.org". ' .
+						    'First, make sure to add %s' .
+                              ' to your buddy list in your IM client or on GTalk.'), jabber_daemon_address()));
+				common_submit('add', _('Add'));
 			}
 		}
 
-		common_element('h2', NULL, _t('Preferences'));
+		common_element('h2', NULL, _('Preferences'));
 
 		common_checkbox('jabbernotify',
-		                _t('Send me notices through Jabber/GTalk.'),
+		                _('Send me notices through Jabber/GTalk.'),
 		                $user->jabbernotify);
 		common_checkbox('updatefrompresence',
-		                _t('Post a notice when my Jabber/GTalk status changes.'),
+		                _('Post a notice when my Jabber/GTalk status changes.'),
 		                $user->updatefrompresence);
-		common_submit('save', _t('Save'));
+		common_submit('save', _('Save'));
 
 		common_element_end('form');
 		common_show_footer();
@@ -108,7 +108,7 @@ class ImsettingsAction extends SettingsAction {
 		} else if ($this->arg('remove')) {
 			$this->remove_address();
 		} else {
-			$this->show_form(_t('Unexpected form submission.'));
+			$this->show_form(_('Unexpected form submission.'));
 		}
 	}
 
@@ -132,13 +132,13 @@ class ImsettingsAction extends SettingsAction {
 
 		if ($result === FALSE) {
 			common_log_db_error($user, 'UPDATE', __FILE__);
-			common_server_error(_t('Couldnt update user.'));
+			common_server_error(_('Couldnt update user.'));
 			return;
 		}
 
 		$user->query('COMMIT');
 
-		$this->show_form(_t('Preferences saved.'), true);
+		$this->show_form(_('Preferences saved.'), true);
 	}
 
 	function add_address() {
@@ -150,7 +150,7 @@ class ImsettingsAction extends SettingsAction {
 		# Some validation
 
 		if (!$jabber) {
-			$this->show_form(_t('No Jabber ID.'));
+			$this->show_form(_('No Jabber ID.'));
 			return;
 		}
 
@@ -181,7 +181,7 @@ class ImsettingsAction extends SettingsAction {
 
 		if ($result === FALSE) {
 			common_log_db_error($confirm, 'INSERT', __FILE__);
-			common_server_error(_t('Couldnt insert confirmation code.'));
+			common_server_error(_('Couldnt insert confirmation code.'));
 			return;
 		}
 
@@ -204,11 +204,11 @@ class ImsettingsAction extends SettingsAction {
 		$jabber = $this->arg('jabber');
 		$confirm = $this->get_confirmation();
 		if (!$confirm) {
-			$this->show_form(_t('No pending confirmation to cancel.'));
+			$this->show_form(_('No pending confirmation to cancel.'));
 			return;
 		}
 		if ($confirm->address != $jabber) {
-			$this->show_form(_t('That is the wrong IM address.'));
+			$this->show_form(_('That is the wrong IM address.'));
 			return;
 		}
 
@@ -216,11 +216,11 @@ class ImsettingsAction extends SettingsAction {
 
         if (!$result) {
 			common_log_db_error($confirm, 'DELETE', __FILE__);
-            $this->server_error(_t('Couldn\'t delete email confirmation.'));
+            $this->server_error(_('Couldn\'t delete email confirmation.'));
             return;
         }
 
-        $this->show_form(_t('Confirmation cancelled.'), TRUE);
+        $this->show_form(_('Confirmation cancelled.'), TRUE);
 	}
 
 	function remove_address() {
@@ -231,7 +231,7 @@ class ImsettingsAction extends SettingsAction {
 		# Maybe an old tab open...?
 
 		if ($user->jabber != $jabber) {
-		    $this->show_form(_t('That is not your Jabber ID.'));
+		    $this->show_form(_('That is not your Jabber ID.'));
 		    return;
 		}
 
@@ -241,14 +241,14 @@ class ImsettingsAction extends SettingsAction {
 		$result = $user->updateKeys($original);
 		if (!$result) {
 			common_log_db_error($user, 'UPDATE', __FILE__);
-			common_server_error(_t('Couldnt update user.'));
+			common_server_error(_('Couldnt update user.'));
 			return;
 		}
 		$user->query('COMMIT');
 
 		# XXX: unsubscribe to the old address
 
-		$this->show_form(_t('The address was removed.'), TRUE);
+		$this->show_form(_('The address was removed.'), TRUE);
 	}
 
 	function jabber_exists($jabber) {

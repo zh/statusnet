@@ -24,7 +24,7 @@ class SubscribeAction extends Action {
 		parent::handle($args);
 
 		if (!common_logged_in()) {
-			common_user_error(_t('Not logged in.'));
+			common_user_error(_('Not logged in.'));
 			return;
 		}
 
@@ -34,18 +34,18 @@ class SubscribeAction extends Action {
 			common_redirect(common_local_url('subscriptions', array('nickname' => $user->nickname)));
 			return;
 		}
-		
+
 		$other_nickname = $this->arg('subscribeto');
 
 		$other = User::staticGet('nickname', $other_nickname);
 
 		if (!$other) {
-			common_user_error(_t('No such user.'));
+			common_user_error(_('No such user.'));
 			return;
 		}
 
 		if ($user->isSubscribed($other)) {
-			common_user_error(_t('Already subscribed!.'));
+			common_user_error(_('Already subscribed!.'));
 			return;
 		}
 
@@ -56,7 +56,7 @@ class SubscribeAction extends Action {
 		$sub->created = DB_DataObject_Cast::dateTime(); # current time
 
 		if (!$sub->insert()) {
-			common_server_error(_t('Couldn\'t create subscription.'));
+			common_server_error(_('Couldn\'t create subscription.'));
 			return;
 		}
 
@@ -65,34 +65,30 @@ class SubscribeAction extends Action {
 		common_redirect(common_local_url('subscriptions', array('nickname' =>
 																$user->nickname)));
 	}
-	
+
 	function notify($listenee, $listener) {
 		# XXX: add other notifications (Jabber, SMS) here
 		# XXX: queue this and handle it offline
 		$this->notify_email($listenee, $listener);
 	}
-	
+
 	function notify_email($listenee, $listener) {
 		if ($listenee->email) {
 			global $config;
 			$profile = $listenee->getProfile();
 			$other = $listener->getProfile();
 			$name = $profile->getBestName();
-			$other_name = $other->getBestName();
+			$long_name = ($other->fullname) ? ($other->fullname . ' (' . $other->nickname . ')') : $other->nickname;
 			$recipients = $listenee->email;
 			$headers['From'] = mail_notify_from();
 			$headers['To'] = $name . ' <' . $listenee->email . '>';
-			$headers['Subject'] = $other_name . _t(' is now listening to your notices on ') . $config['site']['name'];
+			$headers['Subject'] = sprintf(_('%1$s is now listening to your notices on %2$s.'), $name, $config['site']['name']);
 
-			$body = 
-			  ($other->fullname) ? 
-			  ($other->fullname . ' (' . $other->nickname . ')') : $other->nickname;
-
-			$body .= _t(' is now listening to your notices on ') . $config['site']['name'] . '.';
+			$body  = sprintf(_('%1$s is now listening to your notices on %2$s.'), $long_name, $config['site']['name']);
 			$body .= "\n\n";
 			$body .= "\t".$other->profileurl;
 			$body .= "\n\n";
-			$body .= _t('Faithfully yours, ');
+			$body .= _('Faithfully yours, ');
 			$body .= "\n";
 			$body .= $config['site']['name'];
 			$body .= "\n";

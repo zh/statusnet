@@ -28,41 +28,41 @@ class PublicrssAction extends Rss10Action {
 	function init() {
 		return true;
 	}
-	
+
 	function get_notices($limit=0) {
-		
+
 		$user = $this->user;
 		$notices = array();
-		
+
 		$notice = DB_DataObject::factory('notice');
 
 		# FIXME: bad performance
-		
+
 		$notice->whereAdd('EXISTS (SELECT user.id from user where user.id = notice.profile_id)');
-		
+
 		$notice->orderBy('created DESC');
-		
+
 		if ($limit != 0) {
 			$notice->limit(0, $limit);
 		}
 		$notice->find();
-		
+
 		while ($notice->fetch()) {
 			$notices[] = clone($notice);
 		}
-		
+
 		return $notices;
 	}
-	
+
 	function get_channel() {
 		global $config;
 		$c = array('url' => common_local_url('publicrss'),
-				   'title' => $config['site']['name'] . _t(' Public Stream'),
+				   'title' => sprintf(_('%s Public Stream'), $config['site']['name']),
 				   'link' => common_local_url('public'),
-				   'description' => _t('All updates for ') . $config['site']['name']);
+				   'description' => sprintf(_('All updates for %s'), $config['site']['name']));
 		return $c;
 	}
-	
+
 	function get_image() {
 		return NULL;
 	}

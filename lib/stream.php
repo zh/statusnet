@@ -41,17 +41,17 @@ class StreamAction extends Action {
 
 		common_menu_item(common_local_url('all', array('nickname' =>
 													   $nickname)),
-						 _t('Personal'),
-						 (($user && $user->fullname) ? $user->fullname : $nickname) . _t(' and friends'),
+						 _('Personal'),
+						 sprintf(_('%s and friends'), (($user && $user->fullname) ? $user->fullname : $nickname)),
 						 $action == 'all');
 		common_menu_item(common_local_url('replies', array('nickname' =>
 															  $nickname)),
-						 _t('Replies'),  
-						 _t('Replies to ') . (($user && $user->fullname) ? $user->fullname : $nickname),
+						 _('Replies'),
+						 sprintf(_('Replies to %s'), (($user && $user->fullname) ? $user->fullname : $nickname)),
 						 $action == 'replies');
 		common_menu_item(common_local_url('showstream', array('nickname' =>
 															  $nickname)),
-						 _t('Profile'),
+						 _('Profile'),
 						 ($user && $user->fullname) ? $user->fullname : $nickname,
 						 $action == 'showstream');
 		common_element_end('ul');
@@ -98,7 +98,7 @@ class StreamAction extends Action {
 			common_text(' (');
 			common_element('a', array('class' => 'inreplyto',
 									  'href' => $replyurl),
-						   _t('in reply to...'));
+						   _t(' in reply to...'));
 			common_text(')');
 		}
 		common_element_start('a', 

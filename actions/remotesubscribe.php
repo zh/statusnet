@@ -28,7 +28,7 @@ class RemotesubscribeAction extends Action {
 		parent::handle($args);
 
 		if (common_logged_in()) {
-			common_user_error(_t('You can use the local subscription!'));
+			common_user_error(_('You can use the local subscription!'));
 		    return;
 		}
 
@@ -40,7 +40,7 @@ class RemotesubscribeAction extends Action {
 	}
 
 	function get_instructions() {
-		return _t('To subscribe, you can [login](%%action.login%%),' .
+		return _('To subscribe, you can [login](%%action.login%%),' .
 		          ' or [register](%%action.register%%) a new ' .
 		          ' account. If you already have an account ' .
 		          ' on a [compatible microblogging site](%%doc.openmublog%%), ' .
@@ -62,17 +62,17 @@ class RemotesubscribeAction extends Action {
 	function show_form($err=NULL) {
 		$nickname = $this->trimmed('nickname');
 		$profile = $this->trimmed('profile_url');
-		common_show_header(_t('Remote subscribe'), NULL, $err,
+		common_show_header(_('Remote subscribe'), NULL, $err,
 						   array($this, 'show_top'));
 		# id = remotesubscribe conflicts with the 
 		# button on profile page
 		common_element_start('form', array('id' => 'remsub', 'method' => 'post',
 										   'action' => common_local_url('remotesubscribe')));
-		common_input('nickname', _t('User nickname'), $nickname,
-					 _t('Nickname of the user you want to follow'));
-		common_input('profile_url', _t('Profile URL'), $profile,
-					 _t('URL of your profile on another compatible microblogging service'));
-		common_submit('submit', _t('Subscribe'));
+		common_input('nickname', _('User nickname'), $nickname,
+					 _('Nickname of the user you want to follow'));
+		common_input('profile_url', _('Profile URL'), $profile,
+					 _('URL of your profile on another compatible microblogging service'));
+		common_submit('submit', _('Subscribe'));
 		common_element_end('form');
 		common_show_footer();
 	}
@@ -81,19 +81,19 @@ class RemotesubscribeAction extends Action {
 		$user = $this->get_user();
 
 		if (!$user) {
-			$this->show_form(_t('No such user!'));
+			$this->show_form(_('No such user!'));
 			return;
 		}
 
 		$profile = $this->trimmed('profile_url');
 
 		if (!$profile) {
-			$this->show_form(_t('No such user!'));
+			$this->show_form(_('No such user!'));
 			return;
 		}
 
 		if (!Validate::uri($profile, array('allowed_schemes' => array('http', 'https')))) {
-			$this->show_form(_t('Invalid profile URL (bad format)'));
+			$this->show_form(_('Invalid profile URL (bad format)'));
 			return;
 		}
 
@@ -101,28 +101,28 @@ class RemotesubscribeAction extends Action {
 		$yadis = Auth_Yadis_Yadis::discover($profile, $fetcher);
 
 		if (!$yadis || $yadis->failed) {
-			$this->show_form(_t('Not a valid profile URL (no YADIS document).'));
+			$this->show_form(_('Not a valid profile URL (no YADIS document).'));
 			return;
 		}
 
         $xrds =& Auth_Yadis_XRDS::parseXRDS($yadis->response_text);
 
 		if (!$xrds) {
-			$this->show_form(_t('Not a valid profile URL (no XRDS defined).'));
+			$this->show_form(_('Not a valid profile URL (no XRDS defined).'));
 			return;
 		}
 
 		$omb = $this->getOmb($xrds);
 
 		if (!$omb) {
-			$this->show_form(_t('Not a valid profile URL (incorrect services).'));
+			$this->show_form(_('Not a valid profile URL (incorrect services).'));
 			return;
 		}
 
 		list($token, $secret) = $this->request_token($omb);
 
 		if (!$token || !$secret) {
-			$this->show_form(_t('Couldn\'t get a request token.'));
+			$this->show_form(_('Couldn\'t get a request token.'));
 			return;
 		}
 

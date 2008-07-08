@@ -28,7 +28,7 @@ class RecoverpasswordAction extends Action {
     function handle($args) {
         parent::handle($args);
         if (common_logged_in()) {
-			$this->client_error(_t('You are already logged in!'));
+			$this->client_error(_('You are already logged in!'));
             return;
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         	if ($this->arg('recover')) {
@@ -36,7 +36,7 @@ class RecoverpasswordAction extends Action {
             } else if ($this->arg('reset')) {
             	$this->reset_password();
 			} else {
-				$this->client_error(_t('Unexpected form.'));
+				$this->client_error(_('Unexpected form.'));
 			}
 		} else {
 			if ($this->trimmed('code')) {
@@ -53,18 +53,18 @@ class RecoverpasswordAction extends Action {
 		$confirm = Confirm_address::staticGet($code);
 
 		if (!$confirm) {
-			$this->client_error(_t('No such recovery code.'));
+			$this->client_error(_('No such recovery code.'));
 			return;
 		}
 		if ($confirm->address_type != 'recover') {
-			$this->client_error(_t('Not a recovery code.'));
+			$this->client_error(_('Not a recovery code.'));
 			return;
 		}
 
 		$user = User::staticGet($confirm->user_id);
 
 		if (!$user) {
-			$this->server_error(_t('Recovery code for unknown user.'));
+			$this->server_error(_('Recovery code for unknown user.'));
 			return;
 		}
 
@@ -76,7 +76,7 @@ class RecoverpasswordAction extends Action {
 
 		if (!$result) {
 			common_log_db_error($confirm, 'DELETE', __FILE__);
-			common_server_error(_t('Error with confirmation code.'));
+			common_server_error(_('Error with confirmation code.'));
 			return;
 		}
 
@@ -84,7 +84,7 @@ class RecoverpasswordAction extends Action {
 		# Note: it's still deleted; let's avoid a second attempt!
 
 		if ((time() - $touched) > MAX_RECOVERY_TIME) {
-			$this->client_error(_t('This confirmation code is too old. ' .
+			$this->client_error(_('This confirmation code is too old. ' .
 			                       'Please start again.'));
 			return;
 		}
@@ -119,7 +119,7 @@ class RecoverpasswordAction extends Action {
             common_element('div', 'error', $msg);
 		} else {
 			common_element('div', 'instructions',
-						   _t('If you\'ve forgotten or lost your' .
+						   _('If you\'ve forgotten or lost your' .
 						      ' password, you can get a new one sent ' .
 						      ' the email address you have stored ' .
 						      ' in your account.'));
@@ -131,41 +131,41 @@ class RecoverpasswordAction extends Action {
             common_element('div', 'error', $msg);
 		} else {
 			common_element('div', 'instructions',
-						   _t('You\'ve been identified. Enter a ' .
+						   _('You\'ve been identified. Enter a ' .
 						      ' new password below. '));
 		}
 	}
 
 	function show_form($msg=NULL) {
 
-		common_show_header(_t('Recover password'), NULL,
+		common_show_header(_('Recover password'), NULL,
 		$msg, array($this, 'show_top'));
 
 		common_element_start('form', array('method' => 'post',
 										   'id' => 'recoverpassword',
 										   'action' => common_local_url('recoverpassword')));
-		common_input('nicknameoremail', _t('Nickname or email'),
+		common_input('nicknameoremail', _('Nickname or email'),
 					 $this->trimmed('nicknameoremail'),
-		             _t('Your nickname on this server, ' .
+		             _('Your nickname on this server, ' .
 		                'or your registered email address.'));
-		common_submit('recover', _t('Recover'));
+		common_submit('recover', _('Recover'));
 		common_element_end('form');
 		common_show_footer();
 	}
 
 	function show_password_form($msg=NULL) {
 
-		common_show_header(_t('Reset password'), NULL,
+		common_show_header(_('Reset password'), NULL,
 		$msg, array($this, 'show_password_top'));
 
 		common_element_start('form', array('method' => 'post',
 										   'id' => 'recoverpassword',
 										   'action' => common_local_url('recoverpassword')));
-		common_password('newpassword', _t('New password'),
-						_t('6 or more characters, and don\'t forget it!'));
-		common_password('confirm', _t('Confirm'),
-						_t('Same as password above'));
-		common_submit('reset', _t('Reset'));
+		common_password('newpassword', _('New password'),
+						_('6 or more characters, and don\'t forget it!'));
+		common_password('confirm', _('Confirm'),
+						_('Same as password above'));
+		common_submit('reset', _('Reset'));
 		common_element_end('form');
 		common_show_footer();
 	}
@@ -173,7 +173,7 @@ class RecoverpasswordAction extends Action {
 	function recover_password() {
 		$nore = $this->trimmed('nicknameoremail');
 		if (!$nore) {
-			$this->show_form(_t('Enter a nickname or email address.'));
+			$this->show_form(_('Enter a nickname or email address.'));
 			return;
 		}
 		$user = User::staticGet('email', common_canonical_email($nore));
@@ -182,11 +182,11 @@ class RecoverpasswordAction extends Action {
 		}
 
 		if (!$user) {
-			$this->show_form(_t('No such user.'));
+			$this->show_form(_('No such user.'));
 			return;
 		}
 		if (!$user->email) {
-			$this->client_error(_t('No registered email address for that user.'));
+			$this->client_error(_('No registered email address for that user.'));
 			return;
 		}
 
@@ -198,7 +198,7 @@ class RecoverpasswordAction extends Action {
 
 		if (!$confirm->insert()) {
 			common_log_db_error($confirm, 'INSERT', __FILE__);
-			$this->server_error(_t('Error saving address confirmation.'));
+			$this->server_error(_('Error saving address confirmation.'));
 			return;
 		}
 
@@ -219,11 +219,11 @@ class RecoverpasswordAction extends Action {
 		$body .= common_config('site', 'name');
 		$body .= "\n";
 
-		mail_to_user($user, _t('Password recovery requested'), $body);
+		mail_to_user($user, _('Password recovery requested'), $body);
 
 		common_show_header(_('Password recovery requested'));
 		common_element('p', NULL,
-		               _t('Instructions for recovering your password ' .
+		               _('Instructions for recovering your password ' .
 		                  'have been sent to the email address registered to your ' .
 		                  'account.'));
 		common_show_footer();
@@ -234,7 +234,7 @@ class RecoverpasswordAction extends Action {
 		$user = $this->get_temp_user();
 
 		if (!$user) {
-			$this->client_error(_t('Unexpected password reset.'));
+			$this->client_error(_('Unexpected password reset.'));
 			return;
 		}
 
@@ -242,11 +242,11 @@ class RecoverpasswordAction extends Action {
 		$confirm = $this->trimmed('confirm');
 
 		if (!$newpassword || strlen($newpassword) < 6) {
-			$this->show_password_form(_t('Password must be 6 chars or more.'));
+			$this->show_password_form(_('Password must be 6 chars or more.'));
 			return;
 		}
 		if ($newpassword != $confirm) {
-			$this->show_password_form(_t('Password and confirmation do not match.'));
+			$this->show_password_form(_('Password and confirmation do not match.'));
 			return;
 		}
 
@@ -258,21 +258,21 @@ class RecoverpasswordAction extends Action {
 
 		if (!$user->update($original)) {
 			common_log_db_error($user, 'UPDATE', __FILE__);
-			common_server_error(_t('Can\'t save new password.'));
+			common_server_error(_('Can\'t save new password.'));
 			return;
 		}
 
 		$this->clear_temp_user();
 
 		if (!common_set_user($user->nickname)) {
-			common_server_error(_t('Error setting user.'));
+			common_server_error(_('Error setting user.'));
 			return;
 		}
 
 		common_real_login(true);
 
 		common_show_header(_('Password saved.'));
-		common_element('p', NULL, _t('New password successfully saved. ' .
+		common_element('p', NULL, _('New password successfully saved. ' .
 		                             'You are now logged in.'));
 		common_show_footer();
 	}

@@ -25,7 +25,7 @@ class RegisterAction extends Action {
 		parent::handle($args);
 
 		if (common_logged_in()) {
-			common_user_error(_t('Already logged in.'));
+			common_user_error(_('Already logged in.'));
 		} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$this->try_register();
 		} else {
@@ -48,21 +48,21 @@ class RegisterAction extends Action {
 		$email = common_canonical_email($email);
 
 		if (!$this->boolean('license')) {
-			$this->show_form(_t('You can\'t register if you don\'t agree to the license.'));
+			$this->show_form(_('You can\'t register if you don\'t agree to the license.'));
 		} else if ($email && !Validate::email($email, true)) {
-			$this->show_form(_t('Not a valid email address.'));
+			$this->show_form(_('Not a valid email address.'));
 		} else if (!Validate::string($nickname, array('min_length' => 1,
 													  'max_length' => 64,
 													  'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
-			$this->show_form(_t('Nickname must have only lowercase letters and numbers and no spaces.'));
+			$this->show_form(_('Nickname must have only lowercase letters and numbers and no spaces.'));
 		} else if ($this->nickname_exists($nickname)) {
-			$this->show_form(_t('Nickname already exists.'));
+			$this->show_form(_('Nickname already exists.'));
 		} else if (!User::allowed_nickname($nickname)) {
-			$this->show_form(_t('Not a valid nickname.'));
+			$this->show_form(_('Not a valid nickname.'));
 		} else if ($this->email_exists($email)) {
-			$this->show_form(_t('Email address already exists.'));
+			$this->show_form(_('Email address already exists.'));
 		} else if ($password != $confirm) {
-			$this->show_form(_t('Passwords don\'t match.'));
+			$this->show_form(_('Passwords don\'t match.'));
 		} else {
 			$user = $this->register_user($nickname, $password, $email);
 			if (!$user) {
@@ -71,7 +71,7 @@ class RegisterAction extends Action {
 			}				
 			# success!
 			if (!common_set_user($user)) {
-				common_server_error(_t('Error setting user.'));
+				common_server_error(_('Error setting user.'));
 				return;
 			}
 			# this is a real login
@@ -81,6 +81,8 @@ class RegisterAction extends Action {
 				common_rememberme($user);
 			}
 			common_redirect(common_local_url('profilesettings'));
+		} else {
+			$this->show_form(_t('Invalid username or password.'));
 		}
 	}
 
@@ -160,39 +162,39 @@ class RegisterAction extends Action {
 			common_element('p', 'error', $error);
 		} else {
 			common_element('div', 'instructions',
-						   _t('You can create a new account to start posting notices.'));
+						   _('You can create a new account to start posting notices.'));
 		}
 	}
 
 	function show_form($error=NULL) {
 		global $config;
 
-		common_show_header(_t('Register'), NULL, $error, array($this, 'show_top'));
+		common_show_header(_('Register'), NULL, $error, array($this, 'show_top'));
 		common_element_start('form', array('method' => 'post',
 										   'id' => 'login',
 										   'action' => common_local_url('register')));
-		common_input('nickname', _t('Nickname'), NULL,
-					 _t('1-64 lowercase letters or numbers, no punctuation or spaces'));
-		common_password('password', _t('Password'),
-						_t('6 or more characters'));
-		common_password('confirm', _t('Confirm'),
-						_t('Same as password above'));
-		common_input('email', _t('Email'), NULL,
-					 _t('Used only for updates, announcements, and password recovery'));
-		common_checkbox('rememberme', _t('Remember me'), false,
-		                _t('Automatically login in the future; ' .
+		common_input('nickname', _('Nickname'), NULL,
+					 _('1-64 lowercase letters or numbers, no punctuation or spaces'));
+		common_password('password', _('Password'),
+						_('6 or more characters'));
+		common_password('confirm', _('Confirm'),
+						_('Same as password above'));
+		common_input('email', _('Email'), NULL,
+					 _('Used only for updates, announcements, and password recovery'));
+		common_checkbox('rememberme', _('Remember me'), false,
+		                _('Automatically login in the future; ' .
 		                   'not for shared computers!'));
 		common_element_start('p');
 		common_element('input', array('type' => 'checkbox',
 									  'id' => 'license',
 									  'name' => 'license',
 									  'value' => 'true'));
-		common_text(_t('My text and files are available under '));
+		common_text(_('My text and files are available under '));
 		common_element('a', array(href => $config['license']['url']),
 					   $config['license']['title']);
-		common_text(_t(' except this private data: password, email address, IM address, phone number.'));
+		common_text(_(' except this private data: password, email address, IM address, phone number.'));
 		common_element_end('p');
-		common_submit('submit', _t('Register'));
+		common_submit('submit', _('Register'));
 		common_element_end('form');
 		common_show_footer();
 	}

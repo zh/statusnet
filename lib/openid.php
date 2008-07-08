@@ -118,7 +118,7 @@ function oid_authenticate($openid_url, $returnto, $immediate=false) {
 	$consumer = oid_consumer();
 
 	if (!$consumer) {
-		common_server_error(_t('Cannot instantiate OpenID consumer object.'));
+		common_server_error(_('Cannot instantiate OpenID consumer object.'));
 		return false;
 	}
 
@@ -128,9 +128,9 @@ function oid_authenticate($openid_url, $returnto, $immediate=false) {
 
 	// Handle failure status return values.
 	if (!$auth_request) {
-		return _t('Not a valid OpenID.');
+		return _('Not a valid OpenID.');
 	} else if (Auth_OpenID::isFailure($auth_request)) {
-		return _t('OpenID failure: ') . $auth_request->message;
+		return sprintf(_('OpenID failure: %s'), $auth_request->message);
 	}
 
 	$sreg_request = Auth_OpenID_SRegRequest::build(// Required
@@ -157,7 +157,7 @@ function oid_authenticate($openid_url, $returnto, $immediate=false) {
 												   $immediate);
 		if (!$redirect_url) {
 		} else if (Auth_OpenID::isFailure($redirect_url)) {
-			return _t('Could not redirect to server: ') . $redirect_url->message;
+			return sprintf(_('Could not redirect to server: %s'), $redirect_url->message);
 		} else {
 			common_redirect($redirect_url);
 		}
@@ -175,9 +175,9 @@ function oid_authenticate($openid_url, $returnto, $immediate=false) {
 		// Display an error if the form markup couldn't be generated;
 		// otherwise, render the HTML.
 		if (Auth_OpenID::isFailure($form_html)) {
-			$this->show_form(_t('Could not create OpenID form: ') . $form_html->message);
+			$this->show_form(sprintf(_('Could not create OpenID form: %s'), $form_html->message));
 		} else {
-			common_show_header(_t('OpenID Auto-Submit'), NULL, NULL, '_oid_print_instructions');
+			common_show_header(_('OpenID Auto-Submit'), NULL, NULL, '_oid_print_instructions');
 			common_raw($form_html);
 			common_element('script', NULL,
 						   '$(document).ready(function() { ' .
@@ -192,7 +192,7 @@ function oid_authenticate($openid_url, $returnto, $immediate=false) {
 
 function _oid_print_instructions() {
 	common_element('div', 'instructions',
-				   _t('This form should automatically submit itself. '.
+				   _('This form should automatically submit itself. '.
 					  'If not, click the submit button to go to your '.
 					  'OpenID provider.'));
 }
@@ -223,7 +223,7 @@ function oid_update_user(&$user, &$sreg) {
 	# XXX save timezone if it's passed
 
 	if (!$profile->update($orig_profile)) {
-		common_server_error(_t('Error saving the profile.'));
+		common_server_error(_('Error saving the profile.'));
 		return false;
 	}
 
@@ -234,7 +234,7 @@ function oid_update_user(&$user, &$sreg) {
 	}
 
 	if (!$user->update($orig_user)) {
-		common_server_error(_t('Error saving the user.'));
+		common_server_error(_('Error saving the user.'));
 		return false;
 	}
 

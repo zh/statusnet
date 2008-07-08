@@ -24,25 +24,25 @@ require_once(INSTALLDIR.'/lib/settingsaction.php');
 class PasswordAction extends SettingsAction {
 
 	function get_instructions() {
-		return _t('You can change your password here. Choose a good one!');
+		return _('You can change your password here. Choose a good one!');
 	}
 
 	function show_form($msg=NULL, $success=false) {
 		$user = common_current_user();
-		$this->form_header(_t('Change password'), $msg, $success);
+		$this->form_header(_('Change password'), $msg, $success);
 		common_element_start('form', array('method' => 'post',
 										   'id' => 'password',
 										   'action' =>
 										   common_local_url('password')));
 		# Users who logged in with OpenID won't have a pwd
 		if ($user->password) {
-			common_password('oldpassword', _t('Old password'));
+			common_password('oldpassword', _('Old password'));
 		}
-		common_password('newpassword', _t('New password'),
-						_t('6 or more characters'));
-		common_password('confirm', _t('Confirm'),
-						_t('same as password above'));
-		common_submit('submit', _t('Change'));
+		common_password('newpassword', _('New password'),
+						_('6 or more characters'));
+		common_password('confirm', _('Confirm'),
+						_('same as password above'));
+		common_submit('submit', _('Change'));
 		common_element_end('form');
 		common_show_footer();
 	}
@@ -58,15 +58,15 @@ class PasswordAction extends SettingsAction {
 		$confirm = $this->arg('confirm');
 
 		if (0 != strcmp($newpassword, $confirm)) {
-			$this->show_form(_t('Passwords don\'t match'));
+			$this->show_form(_('Passwords don\'t match'));
 			return;
 		}
 
 		if ($user->password) {
 			$oldpassword = $this->arg('oldpassword');
-		
+
 			if (!common_check_user($user->nickname, $oldpassword)) {
-				$this->show_form(_t('Incorrect old password'));
+				$this->show_form(_('Incorrect old password'));
 				return;
 			}
 		}
@@ -77,15 +77,15 @@ class PasswordAction extends SettingsAction {
 
 		$val = $user->validate();
 		if ($val !== TRUE) {
-			$this->show_form(_t('Error saving user; invalid.'));
+			$this->show_form(_('Error saving user; invalid.'));
 			return;
 		}
 
 		if (!$user->update($original)) {
-			common_server_error(_t('Can\'t save new password.'));
+			common_server_error(_('Can\'t save new password.'));
 			return;
 		}
 
-		$this->show_form(_t('Password saved'), true);
+		$this->show_form(_('Password saved'), true);
 	}
 }

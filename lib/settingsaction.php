@@ -24,7 +24,7 @@ class SettingsAction extends Action {
     function handle($args) {
         parent::handle($args);
         if (!common_logged_in()) {
-            common_user_error(_t('Not logged in.'));
+            common_user_error(_('Not logged in.'));
             return;
         } else if (!common_is_real_login()) {
         	# Cookie theft means that automatic logins can't
@@ -80,21 +80,30 @@ class SettingsAction extends Action {
     function settings_menu() {
         # action => array('prompt', 'title')
         static $menu =
-		  array('profilesettings' =>
-				array('Profile',
-					  'Change your profile settings'),
-				'avatar' =>
-				array('Avatar',
-					  'Upload a new profile image'),
-				'password' =>
-				array('Password',
-					  'Change your password'),
-				'openidsettings' =>
-				array('OpenID',
-					  'Add or remove OpenIDs'),
-				'imsettings' =>
-				array('IM',
-					  'Updates by instant messenger (IM)'));
-		$this->nav_menu($menu);
+        array('profilesettings' =>
+              array('Profile',
+              		'Change your profile settings'),
+            'avatar' =>
+            array('Avatar',
+                  'Upload a new profile image'),
+            'password' =>
+            array('Password',
+                  'Change your password'),
+            'openidsettings' =>
+            array('OpenID',
+                  'Add or remove OpenIDs'),
+            'imsettings' =>
+            array('IM',
+                  'Updates by instant messenger (IM)'));
+
+        $action = $this->trimmed('action');
+        common_element_start('ul', array('id' => 'nav_views'));
+        foreach ($menu as $menuaction => $menudesc) {
+            common_menu_item(common_local_url($menuaction),
+                    _t($menudesc[0]),
+                    _t($menudesc[1]),
+                    $action == $menuaction);
+        }
+        common_element_end('ul');
     }
 }

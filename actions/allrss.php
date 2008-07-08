@@ -32,7 +32,7 @@ class AllrssAction extends Rss10Action {
 		$this->user = User::staticGet('nickname', $nickname);
 		
 		if (!$this->user) {
-			common_user_error(_t('No such nickname.'));
+			common_user_error(_('No such nickname.'));
 			return false;
 		} else {
 			return true;
@@ -65,13 +65,13 @@ class AllrssAction extends Rss10Action {
 	function get_channel() {
 		$user = $this->user;
 		$c = array('url' => common_local_url('allrss',
-											 array('nickname' => 
+											 array('nickname' =>
 												   $user->nickname)),
-				   'title' => $user->nickname . _t(' and friends'),
+				   'title' => sprintf(_('%s and friends'), $user->nickname),
 				   'link' => common_local_url('all',
 											 array('nickname' =>
 												   $user->nickname)),
-				   'description' => _t('Feed for friends of ') . $user->nickname);
+				   'description' => sprintf(_('Feed for friends of %s'), $user->nickname));
 		return $c;
 	}
 	

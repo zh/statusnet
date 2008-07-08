@@ -79,7 +79,7 @@ function mail_confirm_address($code, $nickname, $address) {
 	$recipients = $address;
 	$headers['From'] = mail_notify_from();
 	$headers['To'] = $nickname . ' <' . $address . '>';
-	$headers['Subject'] = _t('Email address confirmation');
+	$headers['Subject'] = _('Email address confirmation');
 
 	$body = "Hey, $nickname.";
 	$body .= "\n\n";

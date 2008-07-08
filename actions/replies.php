@@ -38,39 +38,39 @@ class RepliesAction extends StreamAction {
 		$profile = $user->getProfile();
 
 		if (!$profile) {
-			common_server_error(_t('User record exists without profile.'));
+			common_server_error(_('User record exists without profile.'));
 			return;
 		}
 
 		# Looks like we're good; show the header
 
-		common_show_header(_t("Replies to ") . $profile->nickname,
+		common_show_header(sprintf(_("Replies to %s"), $profile->nickname),
 						   array($this, 'show_header'), $user,
 						   array($this, 'show_top'));
-		
+
 		$this->show_replies($profile);
-		
+
 		common_show_footer();
 	}
-	
+
 	function show_header($user) {
 		common_element('link', array('rel' => 'alternate',
 									 'href' => common_local_url('repliesrss', array('nickname' =>
 																					$user->nickname)),
 									 'type' => 'application/rss+xml',
-									 'title' => _t('Feed for replies to ') . $user->nickname));
+									 'title' => sprintf(_('Feed for replies to %s'), $user->nickname)));
 	}
 
 	function show_top($user) {
 		$cur = common_current_user();
-		
+
 		if ($cur && $cur->id == $user->id) {
 			common_notice_form('replies');
 		}
-		
+
 		$this->views_menu();
 	}
-	
+
 	function show_replies($profile) {
 
 		$reply = new Reply();
@@ -103,7 +103,7 @@ class RepliesAction extends StreamAction {
 			}
 			common_element_end('ul');
 		}
-		
+
 		common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
 						  $page, 'replies', array('nickname' => $profile->nickname));
 	}

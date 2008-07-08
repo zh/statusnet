@@ -41,7 +41,7 @@ class ShowstreamAction extends StreamAction {
 		$profile = $user->getProfile();
 
 		if (!$profile) {
-			common_server_error(_t('User record exists without profile.'));
+			common_server_error(_('User record exists without profile.'));
 			return;
 		}
 
@@ -79,7 +79,7 @@ class ShowstreamAction extends StreamAction {
 									 'href' => common_local_url('userrss', array('nickname' =>
 																			   $user->nickname)),
 									 'type' => 'application/rss+xml',
-									 'title' => _t('Notice feed for ') . $user->nickname));
+									 'title' => sprintf(_('Notice feed for %s'), $user->nickname)));
 		common_element('link', array('rel' => 'meta',
 									 'href' => common_local_url('foaf', array('nickname' =>
 																			  $user->nickname)),
@@ -141,7 +141,7 @@ class ShowstreamAction extends StreamAction {
 			common_element('h1', NULL, $profile->nickname);
 		}
 
-		
+
 		if ($profile->location) {
 			common_element('p', 'location', $profile->location);
 		}
@@ -169,7 +169,7 @@ class ShowstreamAction extends StreamAction {
 									  'value' => $profile->nickname));
 		common_element('input', array('type' => 'submit',
 									  'class' => 'submit',
-									  'value' => _t('Subscribe')));
+									  'value' => _('Subscribe')));
 		common_element_end('form');
 	}
 
@@ -178,7 +178,7 @@ class ShowstreamAction extends StreamAction {
 		                        array('nickname' => $profile->nickname));
 		common_element('a', array('href' => $url,
 								  'id' => 'remotesubscribe'),
-					   _t('Subscribe'));
+					   _('Subscribe'));
 	}
 
 	function show_unsubscribe_form($profile) {
@@ -190,7 +190,7 @@ class ShowstreamAction extends StreamAction {
 									  'value' => $profile->nickname));
 		common_element('input', array('type' => 'submit',
 									  'class' => 'submit',
-									  'value' => _t('Unsubscribe')));
+									  'value' => _('Unsubscribe')));
 		common_element_end('form');
 	}
 
@@ -209,7 +209,7 @@ class ShowstreamAction extends StreamAction {
 
 		common_element_start('div', array('id' => 'subscriptions'));
 
-		common_element('h2', NULL, _t('Subscriptions'));
+		common_element('h2', NULL, _('Subscriptions'));
 
 		if ($subs_count > 0) {
 
@@ -251,7 +251,7 @@ class ShowstreamAction extends StreamAction {
 			common_element('a', array('href' => common_local_url('subscriptions',
 																 array('nickname' => $profile->nickname)),
 									  'class' => 'moresubscriptions'),
-						   _t('All subscriptions'));
+						   _('All subscriptions'));
 			common_element_end('p');
 		}
 
@@ -274,27 +274,27 @@ class ShowstreamAction extends StreamAction {
 		$notice_count = (int) $notices->count();
 
 		common_element_start('div', 'statistics');
-		common_element('h2', 'statistics', _t('Statistics'));
+		common_element('h2', 'statistics', _('Statistics'));
 
 		# Other stats...?
 		common_element_start('dl', 'statistics');
-		common_element('dt', 'membersince', _t('Member since'));
-		common_element('dd', 'membersince', date('j M Y', 
+		common_element('dt', 'membersince', _('Member since'));
+		common_element('dd', 'membersince', date('j M Y',
 												 strtotime($profile->created)));
-		
+
 		common_element_start('dt', 'subscriptions');
 		common_element('a', array('href' => common_local_url('subscriptions',
 															 array('nickname' => $profile->nickname))),
-					   _t('Subscriptions'));
+					   _('Subscriptions'));
 		common_element_end('dt');
 		common_element('dd', 'subscriptions', $subs_count);
 		common_element_start('dt', 'subscribers');
 		common_element('a', array('href' => common_local_url('subscribers',
 															 array('nickname' => $profile->nickname))),
-					   _t('Subscribers'));
+					   _('Subscribers'));
 		common_element_end('dt');
 		common_element('dd', 'subscribers', $subbed_count);
-		common_element('dt', 'notices', _t('Notices'));
+		common_element('dt', 'notices', _('Notices'));
 		common_element('dd', 'notices', $notice_count);
 		common_element_end('dl');
 
@@ -334,7 +334,7 @@ class ShowstreamAction extends StreamAction {
 
 	function show_last_notice($profile) {
 
-		common_element('h2', NULL, _t('Currently'));
+		common_element('h2', NULL, _('Currently'));
 
 		$notice = $profile->getCurrentNotice();
 		

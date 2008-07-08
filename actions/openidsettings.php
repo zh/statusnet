@@ -25,7 +25,7 @@ require_once(INSTALLDIR.'/lib/openid.php');
 class OpenidsettingsAction extends SettingsAction {
 
 	function get_instructions() {
-		return _t('[OpenID](%%doc.openid%%) lets you log into many sites ' .
+		return _('[OpenID](%%doc.openid%%) lets you log into many sites ' .
 		          ' with the same user account. '.
 		          ' Manage your associated OpenIDs from here.');
 	}
@@ -34,19 +34,19 @@ class OpenidsettingsAction extends SettingsAction {
 
 		$user = common_current_user();
 
-		$this->form_header(_t('OpenID settings'), $msg, $success);
+		$this->form_header(_('OpenID settings'), $msg, $success);
 
 		common_element_start('form', array('method' => 'post',
 										   'id' => 'openidadd',
 										   'action' =>
 										   common_local_url('openidsettings')));
-		common_element('h2', NULL, _t('Add OpenID'));
+		common_element('h2', NULL, _('Add OpenID'));
 		common_element('p', NULL,
-					   _t('If you want to add an OpenID to your account, ' .
+					   _('If you want to add an OpenID to your account, ' .
 						  'enter it in the box below and click "Add".'));
 		common_element_start('p');
 		common_element('label', array('for' => 'openid_url'),
-					   _t('OpenID URL'));
+					   _('OpenID URL'));
 		common_element('input', array('name' => 'openid_url',
 									  'type' => 'text',
 									  'id' => 'openid_url'));
@@ -54,7 +54,7 @@ class OpenidsettingsAction extends SettingsAction {
 									  'id' => 'add',
 									  'name' => 'add',
 									  'class' => 'submit',
-									  'value' => _t('Add')));
+									  'value' => _('Add')));
 		common_element_end('p');
 		common_element_end('form');
 
@@ -65,12 +65,12 @@ class OpenidsettingsAction extends SettingsAction {
 
 		if ($cnt > 0) {
 
-			common_element('h2', NULL, _t('Remove OpenID'));
+			common_element('h2', NULL, _('Remove OpenID'));
 
 			if ($cnt == 1 && !$user->password) {
 
 				common_element('p', NULL,
-							   _t('Removing your only OpenID would make it impossible to log in! ' .
+							   _('Removing your only OpenID would make it impossible to log in! ' .
 								  'If you need to remove it, add another OpenID first.'));
 
 				if ($oid->fetch()) {
@@ -83,7 +83,7 @@ class OpenidsettingsAction extends SettingsAction {
 			} else {
 
 				common_element('p', NULL,
-							   _t('You can remove an OpenID from your account '.
+							   _('You can remove an OpenID from your account '.
 								  'by clicking the button marked "Remove".'));
 				$idx = 0;
 
@@ -103,7 +103,7 @@ class OpenidsettingsAction extends SettingsAction {
 												  'id' => 'remove'.$idx,
 												  'name' => 'remove',
 												  'class' => 'submit',
-												  'value' => _t('Remove')));
+												  'value' => _('Remove')));
 					common_element_end('p');
 					common_element_end('form');
 					$idx++;
@@ -123,7 +123,7 @@ class OpenidsettingsAction extends SettingsAction {
 		} else if ($this->arg('remove')) {
 			$this->remove_openid();
 		} else {
-			$this->show_form(_t('Something weird happened.'));
+			$this->show_form(_('Something weird happened.'));
 		}
 	}
 
@@ -132,16 +132,16 @@ class OpenidsettingsAction extends SettingsAction {
 		$openid_url = $this->trimmed('openid_url');
 		$oid = User_openid::staticGet('canonical', $openid_url);
 		if (!$oid) {
-			$this->show_form(_t('No such OpenID.'));
+			$this->show_form(_('No such OpenID.'));
 			return;
 		}
 		$cur = common_current_user();
 		if (!$cur || $oid->user_id != $cur->id) {
-			$this->show_form(_t('That OpenID does not belong to you.'));
+			$this->show_form(_('That OpenID does not belong to you.'));
 			return;
 		}
 		$oid->delete();
-		$this->show_form(_t('OpenID removed.'), true);
+		$this->show_form(_('OpenID removed.'), true);
 		return;
 	}
 }

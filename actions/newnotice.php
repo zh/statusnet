@@ -26,7 +26,7 @@ class NewnoticeAction extends Action {
 		# XXX: Ajax!
 
 		if (!common_logged_in()) {
-			common_user_error(_t('Not logged in.'));
+			common_user_error(_('Not logged in.'));
 		} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$this->save_new_notice();
 		} else {
@@ -46,10 +46,10 @@ class NewnoticeAction extends Action {
 		$notice->content = $this->trimmed('status_textarea');
 
 		if (!$notice->content) {
-			$this->show_form(_t('No content!'));
+			$this->show_form(_('No content!'));
 			return;
 		} else if (strlen($notice->content) > 140) {
-			$this->show_form(_t('That\'s too long. Max notice size is 140 chars.'));
+			$this->show_form(_('That\'s too long. Max notice size is 140 chars.'));
 			return;
 		}
 
@@ -58,7 +58,7 @@ class NewnoticeAction extends Action {
 		$id = $notice->insert();
 
 		if (!$id) {
-			common_server_error(_t('Problem saving notice.'));
+			common_server_error(_('Problem saving notice.'));
 			return;
 		}
 
@@ -66,7 +66,7 @@ class NewnoticeAction extends Action {
 		$notice->uri = common_notice_uri($notice);
 
 		if (!$notice->update($orig)) {
-			common_server_error(_t('Problem saving notice.'));
+			common_server_error(_('Problem saving notice.'));
 			return;
 		}
 
@@ -90,13 +90,6 @@ class NewnoticeAction extends Action {
 
 	function show_form($msg=NULL) {
 		$content = $this->trimmed('status_textarea');
-		if (!$content) {
-			$replyto = $this->trimmed('replyto');
-			$profile = Profile::staticGet('nickname', $replyto);
-			if ($profile) {
-				$content = '@' . $profile->nickname . ' ';
-			}
-		}
 		common_show_header(_t('New notice'), NULL, $content,
 		                   array($this, 'show_top'));
 		if ($msg) {

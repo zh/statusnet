@@ -50,20 +50,20 @@ class GalleryAction extends Action {
 	}
 
 	function no_such_user() {
-		$this->client_error(_t('No such user.'));
+		$this->client_error(_('No such user.'));
 	}
-	
+
 	function show_top($profile) {
 		common_element('div', 'instructions',
 					   $this->get_instructions($profile));
 	}
-	
+
 	function show_gallery($profile, $page) {
 
 		$subs = new Subscription();
-		
+
 		$this->define_subs($subs, $profile);
-		
+
 		$subs->orderBy('created DESC');
 
 		# We ask for an extra one to know if we need to do another page
@@ -73,16 +73,16 @@ class GalleryAction extends Action {
 		$subs_count = $subs->find();
 
 		if ($subs_count == 0) {
-			common_element('p', _t('Nobody to show!'));
+			common_element('p', _('Nobody to show!'));
 			return;
 		}
-		
+
 		common_element_start('ul', $this->div_class());
 
 		for ($idx = 0; $idx < min($subs_count, AVATARS_PER_PAGE); $idx++) {
-			
+
 			$result = $subs->fetch();
-			
+
 			if (!$result) {
 				common_debug('Ran out of subscribers too early.', __FILE__);
 				break;
@@ -91,16 +91,16 @@ class GalleryAction extends Action {
 			$other = Profile::staticGet($this->get_other($subs));
 
 			common_element_start('li');
-			
+
 			common_element_start('a', array('title' => ($other->fullname) ?
 											$other->fullname :
 											$other->nickname,
 											'href' => $other->profileurl,
 											'class' => 'subscription'));
 			$avatar = $other->getAvatar(AVATAR_STREAM_SIZE);
-			common_element('img', 
-						   array('src' => 
-								 (($avatar) ? common_avatar_display_url($avatar) : 
+			common_element('img',
+						   array('src' =>
+								 (($avatar) ? common_avatar_display_url($avatar) :
 								  common_default_avatar(AVATAR_STREAM_SIZE)),
 								 'width' => AVATAR_STREAM_SIZE,
 								 'height' => AVATAR_STREAM_SIZE,
@@ -111,19 +111,19 @@ class GalleryAction extends Action {
 			common_element_end('a');
 
 			# XXX: subscribe form here
-			
+
 			common_element_end('li');
 		}
 
 		common_element_end('ul');
 
-		common_pagination($page > 1, 
+		common_pagination($page > 1,
 						  $subs_count > AVATARS_PER_PAGE,
-						  $page, 
-						  $this->trimmed('action'), 
+						  $page,
+						  $this->trimmed('action'),
 						  array('nickname' => $profile->nickname));
 	}
-	
+
 	function gallery_type() {
 		return NULL;
 	}
@@ -139,7 +139,7 @@ class GalleryAction extends Action {
 	function get_other(&$subs) {
 		return NULL;
 	}
-	
+
 	function div_class() {
 		return '';
 	}

@@ -30,26 +30,26 @@ class ConfirmaddressAction extends Action {
         }
         $code = $this->trimmed('code');
         if (!$code) {
-            $this->client_error(_t('No confirmation code.'));
+            $this->client_error(_('No confirmation code.'));
             return;
         }
         $confirm = Confirm_address::staticGet('code', $code);
         if (!$confirm) {
-            $this->client_error(_t('Confirmation code not found.'));
+            $this->client_error(_('Confirmation code not found.'));
             return;
         }
         $cur = common_current_user();
         if ($cur->id != $confirm->user_id) {
-            $this->client_error(_t('That confirmation code is not for you!'));
+            $this->client_error(_('That confirmation code is not for you!'));
             return;
         }
 		$type = $confirm->address_type;
 		if (!in_array($type, array('email', 'jabber', 'sms'))) {
-			$this->server_error(_t('Unrecognized address type ') . $type);
+			$this->server_error(sprintf(_('Unrecognized address type %s'), $type));
 			return;
 		}
         if ($cur->$type == $confirm->address) {
-            $this->client_error(_t('That address has already been confirmed.'));
+            $this->client_error(_('That address has already been confirmed.'));
 			return;
 		}
 
@@ -67,7 +67,7 @@ class ConfirmaddressAction extends Action {
 
         if (!$result) {
 			common_log_db_error($cur, 'UPDATE', __FILE__);
-            $this->server_error(_t('Couldn\'t update user.'));
+            $this->server_error(_('Couldn\'t update user.'));
             return;
         }
 
@@ -75,16 +75,15 @@ class ConfirmaddressAction extends Action {
 
         if (!$result) {
 			common_log_db_error($confirm, 'DELETE', __FILE__);
-            $this->server_error(_t('Couldn\'t delete email confirmation.'));
+            $this->server_error(_('Couldn\'t delete email confirmation.'));
             return;
         }
 
         $cur->query('COMMIT');
 
-        common_show_header(_t('Confirm Address'));
+        common_show_header(_('Confirm Address'));
         common_element('p', NULL,
-                       _t('The address "') . $cur->$type .
-                       _t('" has been confirmed for your account.'));
+                       sprintf(_('The address "%s" has been confirmed for your account.'), $cur->$type));
         common_show_footer();
     }
 }

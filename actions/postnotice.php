@@ -37,39 +37,39 @@ class PostnoticeAction extends Action {
 			return;
 		}
 	}
-	
+
 	function save_notice(&$req, &$consumer, &$token) {
 		$version = $req->get_parameter('omb_version');
 		if ($version != OMB_VERSION_01) {
-			common_user_error(_t('Unsupported OMB version'), 400);
+			common_user_error(_('Unsupported OMB version'), 400);
 			return false;
 		}
 		# First, check to see
 		$listenee =  $req->get_parameter('omb_listenee');
 		$remote_profile = Remote_profile::staticGet('uri', $listenee);
 		if (!$remote_profile) {
-			common_user_error(_t('Profile unknown'), 403);
+			common_user_error(_('Profile unknown'), 403);
 			return false;
 		}
 		$sub = Subscription::staticGet('token', $token->key);
 		if (!$sub) {
-			common_user_error(_t('No such subscription'), 403);
+			common_user_error(_('No such subscription'), 403);
 			return false;
 		}
 		$content = $req->get_parameter('omb_notice_content');
 		if (!$content || strlen($content) > 140) {
-			common_user_error(_t('Invalid notice content'), 400);
+			common_user_error(_('Invalid notice content'), 400);
 			return false;
 		}
 		$notice_uri = $req->get_parameter('omb_notice');
 		if (!Validate::uri($notice_uri) &&
 			!common_valid_tag($notice_uri)) {
-			common_user_error(_t('Invalid notice uri'), 400);
+			common_user_error(_('Invalid notice uri'), 400);
 			return false;
 		}
 		$notice_url = $req->get_parameter('omb_notice_url');
 		if ($notice_url && !common_valid_http_url($notice_url)) {
-			common_user_error(_t('Invalid notice url'), 400);
+			common_user_error(_('Invalid notice url'), 400);
 			return false;
 		}
 		$notice = Notice::staticGet('uri', $notice_uri);
@@ -85,7 +85,7 @@ class PostnoticeAction extends Action {
 			$notice->created = DB_DataObject_Cast::dateTime(); # current time
 			$id = $notice->insert();
 			if (!$id) {
-				common_server_error(_t('Error inserting notice'), 500);
+				common_server_error(_('Error inserting notice'), 500);
 				return false;
 			}
 			common_save_replies($notice);	

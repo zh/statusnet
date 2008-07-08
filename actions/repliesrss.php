@@ -30,17 +30,17 @@ class RepliesrssAction extends Rss10Action {
 	function init() {
 		$nickname = $this->trimmed('nickname');
 		$this->user = User::staticGet('nickname', $nickname);
-		
+
 		if (!$this->user) {
-			common_user_error(_t('No such nickname.'));
+			common_user_error(_('No such nickname.'));
 			return false;
 		} else {
 			return true;
 		}
 	}
-	
+
 	function get_notices($limit=0) {
-		
+
 		$user = $this->user;
 		$notices = array();
 
@@ -50,7 +50,7 @@ class RepliesrssAction extends Rss10Action {
 		if ($limit) {
 			$reply->limit(0, $limit);
 		}
-		
+
 		$cnt = $reply->find();
 
 		if ($cnt) {
@@ -64,23 +64,23 @@ class RepliesrssAction extends Rss10Action {
 				$notices[] = clone($notice);
 			}
 		}
-		
+
 		return $notices;
 	}
-	
+
 	function get_channel() {
 		$user = $this->user;
 		$c = array('url' => common_local_url('repliesrss',
-											 array('nickname' => 
+											 array('nickname' =>
 												   $user->nickname)),
-				   'title' => _t("Replies to ") . $profile->nickname,
+				   'title' => sprintf(_("Replies to %s"), $profile->nickname),
 				   'link' => common_local_url('replies',
 											  array('nickname' =>
 													$user->nickname)),
-				   'description' => _t('Feed for replies to ') . $user->nickname);
+				   'description' => sprintf(_('Feed for replies to '), $user->nickname));
 		return $c;
 	}
-	
+
 	function get_image() {
 		$user = $this->user;
 		$profile = $user->getProfile();

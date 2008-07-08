@@ -30,20 +30,20 @@ class UserrssAction extends Rss10Action {
 	function init() {
 		$nickname = $this->trimmed('nickname');
 		$this->user = User::staticGet('nickname', $nickname);
-		
+
 		if (!$this->user) {
-			common_user_error(_t('No such nickname.'));
+			common_user_error(_('No such nickname.'));
 			return false;
 		} else {
 			return true;
 		}
 	}
-	
+
 	function get_notices($limit=0) {
-		
+
 		$user = $this->user;
 		$notices = array();
-		
+
 		$notice = DB_DataObject::factory('notice');
 		$notice->profile_id = $user->id; # user id === profile id
 		$notice->orderBy('created DESC');
@@ -51,26 +51,26 @@ class UserrssAction extends Rss10Action {
 			$notice->limit(0, $limit);
 		}
 		$notice->find();
-		
+
 		while ($notice->fetch()) {
 			$notices[] = clone($notice);
 		}
-		
+
 		return $notices;
 	}
-	
+
 	function get_channel() {
 		$user = $this->user;
 		$profile = $user->getProfile();
 		$c = array('url' => common_local_url('userrss',
-											 array('nickname' => 
+											 array('nickname' =>
 												   $user->nickname)),
 				   'title' => $user->nickname,
 				   'link' => $profile->profileurl,
-				   'description' => _t('Microblog by ') . $user->nickname);
+				   'description' => sprintf(_('Microblog by %s'), $user->nickname));
 		return $c;
 	}
-	
+
 	function get_image() {
 		$user = $this->user;
 		$profile = $user->getProfile();

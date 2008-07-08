@@ -24,38 +24,38 @@ require_once(INSTALLDIR.'/lib/settingsaction.php');
 class ProfilesettingsAction extends SettingsAction {
 
 	function get_instructions() {
-		return _t('You can update your personal profile info here '.
+		return _('You can update your personal profile info here '.
 				  'so people know more about you.');
 	}
 
 	function show_form($msg=NULL, $success=false) {
 		$user = common_current_user();
 		$profile = $user->getProfile();
-		$this->form_header(_t('Profile settings'), $msg, $success);
+		$this->form_header(_('Profile settings'), $msg, $success);
 
 		common_element_start('form', array('method' => 'post',
 										   'id' => 'profilesettings',
 										   'action' =>
 										   common_local_url('profilesettings')));
 		# too much common patterns here... abstractable?
-		common_input('nickname', _t('Nickname'),
+		common_input('nickname', _('Nickname'),
 					 ($this->arg('nickname')) ? $this->arg('nickname') : $profile->nickname,
-					 _t('1-64 lowercase letters or numbers, no punctuation or spaces'));
-		common_input('fullname', _t('Full name'),
+					 _('1-64 lowercase letters or numbers, no punctuation or spaces'));
+		common_input('fullname', _('Full name'),
 					 ($this->arg('fullname')) ? $this->arg('fullname') : $profile->fullname);
-		common_input('email', _t('Email address'),
+		common_input('email', _('Email address'),
 					 ($this->arg('email')) ? $this->arg('email') : $user->email,
-					 _t('Used only for updates, announcements, and password recovery'));
-		common_input('homepage', _t('Homepage'),
+					 _('Used only for updates, announcements, and password recovery'));
+		common_input('homepage', _('Homepage'),
 					 ($this->arg('homepage')) ? $this->arg('homepage') : $profile->homepage,
-					 _t('URL of your homepage, blog, or profile on another site'));
-		common_textarea('bio', _t('Bio'),
+					 _('URL of your homepage, blog, or profile on another site'));
+		common_textarea('bio', _('Bio'),
 						($this->arg('bio')) ? $this->arg('bio') : $profile->bio,
-						_t('Describe yourself and your interests in 140 chars'));
-		common_input('location', _t('Location'),
+						_('Describe yourself and your interests in 140 chars'));
+		common_input('location', _('Location'),
 					 ($this->arg('location')) ? $this->arg('location') : $profile->location,
-					 _t('Where you are, like "City, State (or Region), Country"'));
-		common_submit('submit', _t('Save'));
+					 _('Where you are, like "City, State (or Region), Country"'));
+		common_submit('submit', _('Save'));
 		common_element_end('form');
 		common_show_footer();
 	}
@@ -72,34 +72,34 @@ class ProfilesettingsAction extends SettingsAction {
 		# Some validation
 
 		if ($email && !Validate::email($email, true)) {
-			$this->show_form(_t('Not a valid email address.'));
+			$this->show_form(_('Not a valid email address.'));
 			return;
 		} else if (!Validate::string($nickname, array('min_length' => 1,
 													  'max_length' => 64,
 													  'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
-			$this->show_form(_t('Nickname must have only letters and numbers and no spaces.'));
+			$this->show_form(_('Nickname must have only letters and numbers and no spaces.'));
 			return;
 		} else if (!User::allowed_nickname($nickname)) {
-			$this->show_form(_t('Not a valid nickname.'));
+			$this->show_form(_('Not a valid nickname.'));
 			return;
 		} else if (!is_null($homepage) && (strlen($homepage) > 0) &&
 				   !Validate::uri($homepage, array('allowed_schemes' => array('http', 'https')))) {
-			$this->show_form(_t('Homepage is not a valid URL.'));
+			$this->show_form(_('Homepage is not a valid URL.'));
 			return;
 		} else if (!is_null($fullname) && strlen($fullname) > 255) {
-			$this->show_form(_t('Fullname is too long (max 255 chars).'));
+			$this->show_form(_('Fullname is too long (max 255 chars).'));
 			return;
 		} else if (!is_null($bio) && strlen($bio) > 140) {
-			$this->show_form(_t('Bio is too long (max 140 chars).'));
+			$this->show_form(_('Bio is too long (max 140 chars).'));
 			return;
 		} else if (!is_null($location) && strlen($location) > 255) {
-			$this->show_form(_t('Location is too long (max 255 chars).'));
+			$this->show_form(_('Location is too long (max 255 chars).'));
 			return;
 		} else if ($this->nickname_exists($nickname)) {
-			$this->show_form(_t('Nickname already exists.'));
+			$this->show_form(_('Nickname already exists.'));
 			return;
 		} else if ($this->email_exists($email)) {
-			$this->show_form(_t('Email address already exists.'));
+			$this->show_form(_('Email address already exists.'));
 			return;
 		}
 
@@ -120,7 +120,7 @@ class ProfilesettingsAction extends SettingsAction {
 
 			if ($result === FALSE) {
 				common_log_db_error($user, 'UPDATE', __FILE__);
-				common_server_error(_t('Couldnt update user.'));
+				common_server_error(_('Couldnt update user.'));
 				return;
 			}
 		}
@@ -143,7 +143,7 @@ class ProfilesettingsAction extends SettingsAction {
 
 			if (!$result) {
 				common_log_db_error($confirm, 'INSERT', __FILE__);
-				common_server_error(_t('Couldnt confirm email.'));
+				common_server_error(_('Couldnt confirm email.'));
 				return FALSE;
 			}
 
@@ -172,7 +172,7 @@ class ProfilesettingsAction extends SettingsAction {
 
 		if (!$result) {
 			common_log_db_error($profile, 'UPDATE', __FILE__);
-			common_server_error(_t('Couldnt save profile.'));
+			common_server_error(_('Couldnt save profile.'));
 			return;
 		}
 
@@ -180,7 +180,7 @@ class ProfilesettingsAction extends SettingsAction {
 
 		common_broadcast_profile($profile);
 
-		$this->show_form(_t('Settings saved.'), TRUE);
+		$this->show_form(_('Settings saved.'), TRUE);
 	}
 
 	function nickname_exists($nickname) {

@@ -26,7 +26,7 @@ class OpenidloginAction extends Action {
 	function handle($args) {
 		parent::handle($args);
 		if (common_logged_in()) {
-			common_user_error(_t('Already logged in.'));
+			common_user_error(_('Already logged in.'));
 		} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$openid_url = $this->trimmed('openid_url');
 			$result = oid_authenticate($openid_url,
@@ -41,7 +41,7 @@ class OpenidloginAction extends Action {
 	}
 
 	function get_instructions() {
-		return _t('Login with an [OpenID](%%doc.openid%%) account.');
+		return _('Login with an [OpenID](%%doc.openid%%) account.');
 	}
 
 	function show_top($error=NULL) {
@@ -57,15 +57,15 @@ class OpenidloginAction extends Action {
 	}
 
 	function show_form($error=NULL, $openid_url) {
-		common_show_header(_t('OpenID Login'), NULL, $error, array($this, 'show_top'));
+		common_show_header(_('OpenID Login'), NULL, $error, array($this, 'show_top'));
 		$formaction = common_local_url('openidlogin');
 		common_element_start('form', array('method' => 'post',
 										   'id' => 'openidlogin',
 										   'action' => $formaction));
-		common_input('openid_url', _t('OpenID URL'),
+		common_input('openid_url', _('OpenID URL'),
 					 $openid_url,
-					 _t('Your OpenID URL'));
-		common_submit('submit', _t('Login'));
+					 _('Your OpenID URL'));
+		common_submit('submit', _('Login'));
 		common_element_end('form');
 		common_show_footer();
 	}

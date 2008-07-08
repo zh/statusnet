@@ -29,9 +29,9 @@ class PublicAction extends StreamAction {
 		$page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 
 		header('X-XRDS-Location: '. common_local_url('publicxrds'));
-		
-		common_show_header(_t('Public timeline'), 
-						   array($this, 'show_header'), NULL,  
+
+		common_show_header(_('Public timeline'),
+						   array($this, 'show_header'), NULL,
 						   array($this, 'show_top'));
 
 		# XXX: Public sidebar here?
@@ -46,29 +46,29 @@ class PublicAction extends StreamAction {
 			common_notice_form('public');
 		}
 	}
-	
+
 	function show_header() {
 		common_element('link', array('rel' => 'alternate',
 									 'href' => common_local_url('publicrss'),
 									 'type' => 'application/rss+xml',
-									 'title' => _t('Public Stream Feed')));
+									 'title' => _('Public Stream Feed')));
 		# for client side of OpenID authentication
 		common_element('meta', array('http-equiv' => 'X-XRDS-Location',
 									 'content' => common_local_url('publicxrds')));
 	}
-	
+
 	function show_notices($page) {
 
 		$notice = DB_DataObject::factory('notice');
 
 		# FIXME: bad performance
-		
+
 		$notice->whereAdd('EXISTS (SELECT user.id from user where user.id = notice.profile_id)');
 
 		$notice->orderBy('created DESC');
-		
+
 		# We fetch one extra, to see if we need an "older" link
-		
+
 		$notice->limit((($page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE + 1);
 
 		$cnt = $notice->find();
@@ -85,7 +85,7 @@ class PublicAction extends StreamAction {
 			}
 			common_element_end('ul');
 		}
-		
+
 		common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
 						  $page, 'public');
 	}

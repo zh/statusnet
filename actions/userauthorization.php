@@ -45,7 +45,7 @@ class UserauthorizationAction extends Action {
 				common_debug('userauthorization.php - getting new request');
 				$req = $this->get_new_request();
 				if (!$req) {
-					common_server_error(_t('No request found!'));
+					common_server_error(_('No request found!'));
 				}
 				common_debug('userauthorization.php - validating request');
 				# XXX: only validate new requests, since nonce is one-time use
@@ -73,8 +73,8 @@ class UserauthorizationAction extends Action {
 		$location = $req->get_parameter('omb_listenee_location');
 		$avatar = $req->get_parameter('omb_listenee_avatar');
 
-		common_show_header(_t('Authorize subscription'));
-		common_element('p', NULL, _t('Please check these details to make sure '.
+		common_show_header(_('Authorize subscription'));
+		common_element('p', NULL, _('Please check these details to make sure '.
 									 'that you want to subscribe to this user\'s notices. '.
 									 'If you didn\'t just ask to subscribe to someone\'s notices, '.
 									 'click "Cancel".'));
@@ -115,8 +115,8 @@ class UserauthorizationAction extends Action {
 										   'id' => 'userauthorization',
 										   'name' => 'userauthorization',
 										   'action' => common_local_url('userauthorization')));
-		common_submit('accept', _t('Accept'));
-		common_submit('reject', _t('Reject'));
+		common_submit('accept', _('Accept'));
+		common_submit('reject', _('Reject'));
 		common_element_end('form');
 		common_show_footer();
 	}
@@ -125,7 +125,7 @@ class UserauthorizationAction extends Action {
 		$req = $this->get_stored_request();
 
 		if (!$req) {
-			common_user_error(_t('No authorization request!'));
+			common_user_error(_('No authorization request!'));
 			return;
 		}
 
@@ -133,10 +133,10 @@ class UserauthorizationAction extends Action {
 
 		if ($this->arg('accept')) {
 			if (!$this->authorize_token($req)) {
-				common_server_error(_t('Error authorizing token'));
+				common_server_error(_('Error authorizing token'));
 			}
 			if (!$this->save_remote_profile($req)) {
-				common_server_error(_t('Error saving remote profile'));
+				common_server_error(_('Error saving remote profile'));
 			}
 			if (!$callback) {
 				$this->show_accept_message($req->get_parameter('oauth_token'));
@@ -306,9 +306,9 @@ class UserauthorizationAction extends Action {
 	}
 
 	function show_accept_message($tok) {
-		common_show_header(_t('Subscription authorized'));
+		common_show_header(_('Subscription authorized'));
 		common_element('p', NULL,
-					   _t('The subscription has been authorized, but no '.
+					   _('The subscription has been authorized, but no '.
 						  'callback URL was passed. Check with the site\'s instructions for '.
 						  'details on how to authorize the subscription. Your subscription token is:'));
 		common_element('blockquote', 'token', $tok);
@@ -316,9 +316,9 @@ class UserauthorizationAction extends Action {
 	}
 
 	function show_reject_message($tok) {
-		common_show_header(_t('Subscription rejected'));
+		common_show_header(_('Subscription rejected'));
 		common_element('p', NULL,
-					   _t('The subscription has been rejected, but no '.
+					   _('The subscription has been rejected, but no '.
 						  'callback URL was passed. Check with the site\'s instructions for '.
 						  'details on how to fully reject the subscription.'));
 		common_show_footer();

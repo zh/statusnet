@@ -144,7 +144,7 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 								  common_accept_to_prefs(PAGE_TYPE_PREFS));
 
 	if (!$type) {
-		common_user_error(_t('This page is not available in a media type you accept'), 406);
+		common_user_error(_('This page is not available in a media type you accept'), 406);
 		exit(0);
 	}
 
@@ -230,15 +230,15 @@ function common_show_footer() {
 	common_element_start('div', array('id' => 'footer'));
 	common_element_start('div', 'laconica');
 	if (common_config('site', 'broughtby')) {
-		$instr = _t('**%%site.name%%** is a microblogging service brought to you by [%%site.broughtby%%](%%site.broughtbyurl%%). ');
+		$instr = _('**%%site.name%%** is a microblogging service brought to you by [%%site.broughtby%%](%%site.broughtbyurl%%). ');
 	} else {
-		$instr = _t('**%%site.name%%** is a microblogging service. ');
+		$instr = _('**%%site.name%%** is a microblogging service. ');
 	}
-	$instr .= _t('It runs the [Laconica](http://laconi.ca/) ' .
-		         'microblogging software, version ' . LACONICA_VERSION . ', ' .
+	$instr .= sprintf(_('It runs the [Laconica](http://laconi.ca/) ' .
+		         'microblogging software, version %s, ' .
 		         'available under the ' .
 		         '[GNU Affero General Public License]' .
-		         '(http://www.fsf.org/licensing/licenses/agpl-3.0.html).');
+		         '(http://www.fsf.org/licensing/licenses/agpl-3.0.html).'), LACONICA_VERSION);
     $output = common_markup_to_html($instr);
     common_raw($output);
 	common_element_end('div');
@@ -246,12 +246,12 @@ function common_show_footer() {
 								'src' => $config['license']['image'],
 								'alt' => $config['license']['title']));
 	common_element_start('p');
-	common_text(_t('Unless otherwise specified, contents of this site are copyright by the contributors and available under the '));
+	common_text(_('Unless otherwise specified, contents of this site are copyright by the contributors and available under the '));
 	common_element('a', array('class' => 'license',
 							  'rel' => 'license',
 							  href => $config['license']['url']),
 				   $config['license']['title']);
-	common_text(_t('. Contributors should be attributed by full name or nickname.'));
+	common_text(_('. Contributors should be attributed by full name or nickname.'));
 	common_element_end('p');
 	common_element_end('div');
 	common_element_end('div');
@@ -275,21 +275,20 @@ function common_nav_menu() {
 	common_element_start('ul', array('id' => 'nav'));
 	if ($user) {
 		common_menu_item(common_local_url('all', array('nickname' => $user->nickname)),
-						 _t('Home'));
+						 _('Home'));
 	}
 	common_menu_item(common_local_url('public'), _t('Public'));
-	common_menu_item(common_local_url('peoplesearch'), _t('Search'));
 	common_menu_item(common_local_url('doc', array('title' => 'help')),
-					 _t('Help'));
+					 _('Help'));
 	if ($user) {
 		common_menu_item(common_local_url('profilesettings'),
-						 _t('Settings'));
+						 _('Settings'));
 		common_menu_item(common_local_url('logout'),
-						 _t('Logout'));
+						 _('Logout'));
 	} else {
-		common_menu_item(common_local_url('login'), _t('Login'));
-		common_menu_item(common_local_url('register'), _t('Register'));
-		common_menu_item(common_local_url('openidlogin'), _t('OpenID'));
+		common_menu_item(common_local_url('login'), _('Login'));
+		common_menu_item(common_local_url('register'), _('Register'));
+		common_menu_item(common_local_url('openidlogin'), _('OpenID'));
 	}
 	common_element_end('ul');
 }
@@ -297,15 +296,15 @@ function common_nav_menu() {
 function common_foot_menu() {
 	common_element_start('ul', array('id' => 'nav_sub'));
 	common_menu_item(common_local_url('doc', array('title' => 'about')),
-					 _t('About'));
+					 _('About'));
 	common_menu_item(common_local_url('doc', array('title' => 'faq')),
-					 _t('FAQ'));
+					 _('FAQ'));
 	common_menu_item(common_local_url('doc', array('title' => 'privacy')),
-					 _t('Privacy'));
+					 _('Privacy'));
 	common_menu_item(common_local_url('doc', array('title' => 'source')),
-					 _t('Source'));
+					 _('Source'));
 	common_menu_item(common_local_url('doc', array('title' => 'contact')),
-					 _t('Contact'));
+					 _('Contact'));
 	common_element_end('ul');
 }
 
@@ -815,25 +814,25 @@ function common_date_string($dt) {
 	if ($now < $t) { # that shouldn't happen!
 		return common_exact_date($dt);
 	} else if ($diff < 60) {
-		return _t('a few seconds ago');
+		return _('a few seconds ago');
 	} else if ($diff < 92) {
-		return _t('about a minute ago');
+		return _('about a minute ago');
 	} else if ($diff < 3300) {
-		return _t('about ') . round($diff/60) . _t(' minutes ago');
+		return sprintf(_('about %d minutes ago'), round($diff/60));
 	} else if ($diff < 5400) {
-		return _t('about an hour ago');
+		return _('about an hour ago');
 	} else if ($diff < 22 * 3600) {
-		return _t('about ') . round($diff/3600) . _t(' hours ago');
+		return sprintf(_('about %d hours ago'), round($diff/3600));
 	} else if ($diff < 37 * 3600) {
-		return _t('about a day ago');
+		return _('about a day ago');
 	} else if ($diff < 24 * 24 * 3600) {
-		return _t('about ') . round($diff/(24*3600)) . _t(' days ago');
+		return sprintf(_('about %d days ago', round($diff/(24*3600))));
 	} else if ($diff < 46 * 24 * 3600) {
-		return _t('about a month ago');
+		return _('about a month ago');
 	} else if ($diff < 330 * 24 * 3600) {
-		return _t('about ') . round($diff/(30*24*3600)) . _t(' months ago');
+		return sprintf(_('about %d months ago'), round($diff/(30*24*3600)));
 	} else if ($diff < 480 * 24 * 3600) {
-		return _t('about a year ago');
+		return _('about a year ago');
 	} else {
 		return common_exact_date($dt);
 	}
@@ -923,7 +922,7 @@ function common_enqueue_notice($notice) {
 	common_log(LOG_DEBUG, 'complete queueing notice ID = ' . $notice->id);
 	return $result;
 }
-	  
+
 function common_real_broadcast($notice, $remote=false) {
 	$success = true;
 	if (!$remote) {
@@ -969,7 +968,7 @@ function common_notice_form($action=NULL, $content=NULL) {
 	common_element_start('p');
 	common_element('label', array('for' => 'status_textarea',
 								  'id' => 'status_label'),
-				   _t('What\'s up, ').$user->nickname.'?');
+				   sprintf(_('What\'s up, %s?'), $user->nickname));
         common_element('span', array('id' => 'counter', 'class' => 'counter'), '140');
 	common_element('textarea', array('id' => 'status_textarea',
 									 'cols' => 60,
@@ -982,7 +981,7 @@ function common_notice_form($action=NULL, $content=NULL) {
 	common_element('input', array('id' => 'status_submit',
 								  'name' => 'status_submit',
 								  'type' => 'submit',
-								  'value' => _t('Send')));
+								  'value' => _('Send')));
 	common_element_end('p');
 	common_element_end('form');
 }
@@ -1044,12 +1043,6 @@ function common_get_returnto() {
 
 function common_timestamp() {
 	return date('YmdHis');
-}
-
-// XXX: set up gettext
-
-function _t($str) {
-	return $str;
 }
 
 function common_ensure_syslog() {
@@ -1133,7 +1126,7 @@ function common_pagination($have_before, $have_after, $page, $action, $args=NULL
 
 		common_element_start('li', 'before');
 		common_element('a', array('href' => common_local_url($action, $newargs)),
-					   _t('« After'));
+					   _('« After'));
 		common_element_end('li');
 	}
 
@@ -1142,7 +1135,7 @@ function common_pagination($have_before, $have_after, $page, $action, $args=NULL
 		$newargs = ($args) ? array_merge($args,$pargs) : $pargs;
 		common_element_start('li', 'after');
 		common_element('a', array('href' => common_local_url($action, $newargs)),
-						   _t('Before »'));
+						   _('Before »'));
 		common_element_end('li');
 	}
 

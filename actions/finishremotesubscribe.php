@@ -28,14 +28,14 @@ class FinishremotesubscribeAction extends Action {
 		parent::handle($args);
 
 		if (common_logged_in()) {
-			common_user_error(_t('You can use the local subscription!'));
+			common_user_error(_('You can use the local subscription!'));
 		    return;
 		}
 		
 		$omb = $_SESSION['oauth_authorization_request'];
 		
 		if (!$omb) {
-			common_user_error(_t('Not expecting this response!'));
+			common_user_error(_('Not expecting this response!'));
 			return;
 		}
 
@@ -48,33 +48,33 @@ class FinishremotesubscribeAction extends Action {
 		# I think this is the success metric
 		
 		if ($token != $omb['token']) {
-			common_user_error(_t('Not authorized.'));
+			common_user_error(_('Not authorized.'));
 			return;
 		}
 		
 		$version = $req->get_parameter('omb_version');
 		
 		if ($version != OMB_VERSION_01) {
-			common_user_error(_t('Unknown version of OMB protocol.'));
+			common_user_error(_('Unknown version of OMB protocol.'));
 			return;
 		}
 		
 		$nickname = $req->get_parameter('omb_listener_nickname');
 		
 		if (!$nickname) {
-			common_user_error(_t('No nickname provided by remote server.'));
+			common_user_error(_('No nickname provided by remote server.'));
 			return;
 		}
 
 		$profile_url = $req->get_parameter('omb_listener_profile');
 		
 		if (!$profile_url) {
-			common_user_error(_t('No profile URL returned by server.'));
+			common_user_error(_('No profile URL returned by server.'));
 			return;
 		}
 
 		if (!Validate::uri($profile_url, array('allowed_schemes' => array('http', 'https')))) {
-			common_user_error(_t('Invalid profile URL returned by server.'));
+			common_user_error(_('Invalid profile URL returned by server.'));
 			return;
 		}
 
@@ -83,7 +83,7 @@ class FinishremotesubscribeAction extends Action {
 		$user = User::staticGet('nickname', $omb['listenee']);
 		
 		if (!$user) {
-			common_user_error(_t('User being listened to doesn\'t exist.'));
+			common_user_error(_('User being listened to doesn\'t exist.'));
 			return;
 		}
 		
@@ -96,7 +96,7 @@ class FinishremotesubscribeAction extends Action {
 		list($newtok, $newsecret) = $this->access_token($omb);
 		
 		if (!$newtok || !$newsecret) {
-			common_user_error(_t('Couldn\'t convert request tokens to access tokens.'));
+			common_user_error(_('Couldn\'t convert request tokens to access tokens.'));
 			return;
 		}
 		
@@ -140,7 +140,7 @@ class FinishremotesubscribeAction extends Action {
 			$profile->created = DB_DataObject_Cast::dateTime(); # current time
 			$id = $profile->insert();
 			if (!$id) {
-				common_server_error(_t('Error inserting new profile'));
+				common_server_error(_('Error inserting new profile'));
 				return;
 			}
 			$remote->id = $id;
@@ -148,7 +148,7 @@ class FinishremotesubscribeAction extends Action {
 
 		if ($avatar_url) {
 			if (!$this->add_avatar($profile, $avatar_url)) {
-				common_server_error(_t('Error inserting avatar'));
+				common_server_error(_('Error inserting avatar'));
 				return;
 			}
 		}
@@ -158,13 +158,13 @@ class FinishremotesubscribeAction extends Action {
 
 		if ($exists) {
 			if (!$remote->update($orig_remote)) {
-				common_server_error(_t('Error updating remote profile'));
+				common_server_error(_('Error updating remote profile'));
 				return;
 			}
 		} else {
 			$remote->created = DB_DataObject_Cast::dateTime(); # current time
 			if (!$remote->insert()) {
-				common_server_error(_t('Error inserting remote profile'));
+				common_server_error(_('Error inserting remote profile'));
 				return;
 			}
 		}
@@ -177,7 +177,7 @@ class FinishremotesubscribeAction extends Action {
 		$sub->created = DB_DataObject_Cast::dateTime(); # current time
 		
 		if (!$sub->insert()) {
-			common_user_error(_t('Couldn\'t insert new subscription.'));
+			common_user_error(_('Couldn\'t insert new subscription.'));
 			return;
 		}
 

@@ -26,7 +26,7 @@ class FinishaddopenidAction extends Action {
 	function handle($args) {
 		parent::handle($args);
 		if (!common_logged_in()) {
-			common_user_error(_t('Not logged in.'));
+			common_user_error(_('Not logged in.'));
 		} else {
 			$this->try_login();
 		}
@@ -39,11 +39,11 @@ class FinishaddopenidAction extends Action {
 		$response = $consumer->complete(common_local_url('finishaddopenid'));
 
 		if ($response->status == Auth_OpenID_CANCEL) {
-			$this->message(_t('OpenID authentication cancelled.'));
+			$this->message(_('OpenID authentication cancelled.'));
 			return;
 		} else if ($response->status == Auth_OpenID_FAILURE) {
 			// Authentication failed; display the error message.
-			$this->message(_t('OpenID authentication failed: ') . $response->message);
+			$this->message(sprintf(_('OpenID authentication failed: %s'), $response->message));
 		} else if ($response->status == Auth_OpenID_SUCCESS) {
 			
 			$display = $response->getDisplayIdentifier();
@@ -61,9 +61,9 @@ class FinishaddopenidAction extends Action {
 			
 			if ($other) {
 				if ($other->id == $cur->id) {
-					$this->message(_t('You already have this OpenID!'));
+					$this->message(_('You already have this OpenID!'));
 				} else {
-					$this->message(_t('Someone else already has this OpenID.'));
+					$this->message(_('Someone else already has this OpenID.'));
 				}
 				return;
 			}
@@ -75,12 +75,12 @@ class FinishaddopenidAction extends Action {
 			$result = oid_link_user($cur->id, $canonical, $display);
 			
 			if (!$result) {
-				$this->message(_t('Error connecting user.'));
+				$this->message(_('Error connecting user.'));
 				return;
 			}
 			if ($sreg) {
 				if (!oid_update_user($cur, $sreg)) {
-					$this->message(_t('Error updating profile'));
+					$this->message(_('Error updating profile'));
 					return;
 				}
 			}
@@ -96,7 +96,7 @@ class FinishaddopenidAction extends Action {
 	}
 
 	function message($msg) {
-		common_show_header(_t('OpenID Login'));
+		common_show_header(_('OpenID Login'));
 		common_element('p', NULL, $msg);
 		common_show_footer();
 	}

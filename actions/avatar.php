@@ -24,7 +24,7 @@ require_once(INSTALLDIR.'/lib/settingsaction.php');
 class AvatarAction extends SettingsAction {
 
     function get_instructions() {
-		return _t('Upload a new "avatar" (user image) here. ' .
+		return _('Upload a new "avatar" (user image) here. ' .
 				  'You can\'t edit the picture after you upload it, so ' .
 				  'make sure it\'s more or less square. ' .
 				  'It must be under the site license, also. ' .
@@ -34,7 +34,7 @@ class AvatarAction extends SettingsAction {
 
 	function show_form($msg=NULL, $success=false) {
 
-		$this->form_header(_t('Avatar'), $msg, $success);
+		$this->form_header(_('Avatar'), $msg, $success);
 
 		$user = common_current_user();
 		$profile = $user->getProfile();
@@ -70,7 +70,7 @@ class AvatarAction extends SettingsAction {
 		common_element('input', array('name' => 'avatarfile',
 									  'type' => 'file',
 									  'id' => 'avatarfile'));
-		common_submit('submit', _t('Upload'));
+		common_submit('submit', _('Upload'));
 		common_element_end('form');
 		common_show_footer();
 	}
@@ -82,14 +82,14 @@ class AvatarAction extends SettingsAction {
 			break;
 		 case UPLOAD_ERR_INI_SIZE:
 		 case UPLOAD_ERR_FORM_SIZE:
-			$this->show_form(_t('That file is too big.'));
+			$this->show_form(_('That file is too big.'));
 			return;
 		 case UPLOAD_ERR_PARTIAL:
 			@unlink($_FILES['avatarfile']['tmp_name']);
-			$this->show_form(_t('Partial upload.'));
+			$this->show_form(_('Partial upload.'));
 			return;
 		 default:
-			$this->show_form(_t('System error uploading file.'));
+			$this->show_form(_('System error uploading file.'));
 			return;
 		}
 
@@ -97,7 +97,7 @@ class AvatarAction extends SettingsAction {
 
 		if (!$info) {
 			@unlink($_FILES['avatarfile']['tmp_name']);
-			$this->show_form(_t('Not an image or corrupt file.'));
+			$this->show_form(_('Not an image or corrupt file.'));
 			return;
 		}
 
@@ -107,7 +107,7 @@ class AvatarAction extends SettingsAction {
 		 case IMAGETYPE_PNG:
 			break;
 		 default:
-			$this->show_form(_t('Unsupported image file format.'));
+			$this->show_form(_('Unsupported image file format.'));
 			return;
 		}
 
@@ -115,9 +115,9 @@ class AvatarAction extends SettingsAction {
 		$profile = $user->getProfile();
 
 		if ($profile->setOriginal($_FILES['avatarfile']['tmp_name'])) {
-			$this->show_form(_t('Avatar updated.'), true);
+			$this->show_form(_('Avatar updated.'), true);
 		} else {
-			$this->show_form(_t('Failed updating avatar.'));
+			$this->show_form(_('Failed updating avatar.'));
 		}
 
 		@unlink($_FILES['avatarfile']['tmp_name']);

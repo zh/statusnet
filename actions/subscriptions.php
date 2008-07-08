@@ -24,26 +24,26 @@ require_once(INSTALLDIR.'/lib/gallery.php');
 class SubscriptionsAction extends GalleryAction {
 
 	function gallery_type() {
-		return _t('Subscriptions');
+		return _('Subscriptions');
 	}
 
 	function get_instructions(&$profile) {
 		$user =& common_current_user();
 		if ($user && ($user->id == $profile->id)) {
-			return _t('These are the people whose notices you listen to.');
+			return _('These are the people whose notices you listen to.');
 		} else {
-			return _t('These are the people whose notices ') . $profile->nickname . _t(' listens to.');
+			return sprintf(_('These are the people whose notices %s listens to.'), $profile->nickname);
 		}
 	}
 
 	function define_subs(&$subs, &$profile) {
 		$subs->subscriber = $profile->id;
 	}
-	
+
 	function div_class() {
 		return 'subscriptions';
 	}
-	
+
 	function get_other(&$subs) {
 		return $subs->subscribed;
 	}

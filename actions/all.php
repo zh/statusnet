@@ -31,20 +31,20 @@ class AllAction extends StreamAction {
 		$user = User::staticGet('nickname', $nickname);
 
 		if (!$user) {
-			$this->client_error(_t('No such user: ') . $nickname);
+			$this->client_error(sprintf(_('No such user: %s'), $nickname));
 			return;
 		}
 
 		$profile = $user->getProfile();
 
 		if (!$profile) {
-			common_server_error(_t('User record exists without profile.'));
+			common_server_error(_('User record exists without profile.'));
 			return;
 		}
 
 		# Looks like we're good; show the header
 
-		common_show_header($profile->nickname . _t(" and friends"),
+		common_show_header(sprintf(_("%s and friends"), $profile->nickname),
 						   array($this, 'show_header'), $user,
 						   array($this, 'show_top'));
 		
@@ -58,7 +58,7 @@ class AllAction extends StreamAction {
 									 'href' => common_local_url('allrss', array('nickname' =>
 																			   $user->nickname)),
 									 'type' => 'application/rss+xml',
-									 'title' => _t('Feed for friends of ') . $user->nickname));
+									 'title' => sprintf(_('Feed for friends of %s'), $user->nickname)));
 	}
 
 	function show_top($user) {

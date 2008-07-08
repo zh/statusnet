@@ -25,16 +25,16 @@ require_once(INSTALLDIR . "/lib/common.php");
 $action = $_REQUEST['action'];
 
 if (!$action || !preg_match('/^[a-zA-Z0-9_-]*$/', $action)) {
-	common_redirect(common_local_url('public'));
+    common_redirect(common_local_url('public'));
 }
 
 $actionfile = INSTALLDIR."/actions/$action.php";
 
 if (file_exists($actionfile)) {
-	require_once($actionfile);
-	$action_class = ucfirst($action)."Action";
-	$action_obj = new $action_class();
-	call_user_func(array($action_obj, 'handle'), $_REQUEST);
+    require_once($actionfile);
+    $action_class = ucfirst($action)."Action";
+    $action_obj = new $action_class();
+    call_user_func(array($action_obj, 'handle'), $_REQUEST);
 } else {
-	common_user_error(_t('Unknown action'));
+    common_user_error(_('Unknown action'));
 }
