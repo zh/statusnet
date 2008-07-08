@@ -92,7 +92,7 @@ class ShowstreamAction extends StreamAction {
 	}
 
 	function no_such_user() {
-		common_user_error('No such user');
+		common_user_error(_('No such user.'));
 	}
 
 	function show_profile($profile) {

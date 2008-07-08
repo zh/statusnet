@@ -77,7 +77,7 @@ class RepliesrssAction extends Rss10Action {
 				   'link' => common_local_url('replies',
 											  array('nickname' =>
 													$user->nickname)),
-				   'description' => sprintf(_('Feed for replies to '), $user->nickname));
+				   'description' => sprintf(_('Feed for replies to %s'), $user->nickname));
 		return $c;
 	}
 

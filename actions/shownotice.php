@@ -42,7 +42,7 @@ class ShownoticeAction extends StreamAction {
 
 		# Looks like we're good; show the header
 
-		common_show_header($profile->nickname."'s status on ".common_exact_date($notice->created),
+		common_show_header(sprintf(_('%1$s\'s status on %2$s'), $profile->nickname, common_exact_date($notice->created)),
 						   NULL, $profile,
 						   array($this, 'show_top'));
 
@@ -59,5 +59,9 @@ class ShownoticeAction extends StreamAction {
 		if ($cur && $cur->id == $user->id) {
 			common_notice_form();
 		}
+	}
+
+	function no_such_notice() {
+		common_user_error('No such notice.');
 	}
 }

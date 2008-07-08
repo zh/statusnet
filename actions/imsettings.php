@@ -191,11 +191,8 @@ class ImsettingsAction extends SettingsAction {
 								   $jabber);
 		}
 
-		# XXX: I18N
-
-		$msg = 'A confirmation code was sent to the IM address you added. ' .
-			' You must approve ' . jabber_daemon_address() .
-			' for sending messages to you.';
+		$msg = sprintf(_('A confirmation code was sent to the IM address you added. ' .
+			'You must approve %s for sending messages to you.'), jabber_daemon_address());
 
 		$this->show_form($msg, TRUE);
 	}
