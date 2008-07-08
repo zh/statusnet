@@ -875,17 +875,16 @@ function common_broadcast_notice($notice, $remote=false) {
 # Stick the notice on the queue
 
 function common_enqueue_notice($notice) {
-	common_log(LOG_INFO, 'start queueing notice ID = ' . $notice->id);
 	$qi = new Queue_item();
 	$qi->notice_id = $notice->id;
-	$qi->created = DB_DataObject_Cast::dateTime();
-	$result = $qi->insert();
-	if ($result === FALSE) {
+	$qi->created = $notice->created;
+        $result = $qi->insert();
+	if (!$result) {
 	    $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
 	    common_log(LOG_ERROR, 'DB error inserting queue item: ' . $last_error->message);
 	    return false;
 	}
-	common_log(LOG_INFO, 'complete queueing notice ID = ' . $notice->id);
+	common_log(LOG_DEBUG, 'complete queueing notice ID = ' . $notice->id);
 	return $result;
 }
 	  
