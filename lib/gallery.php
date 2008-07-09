@@ -54,7 +54,7 @@ class GalleryAction extends Action {
 	}
 	
 	function show_top($profile) {
-		common_element('p', 'instructions',
+		common_element('div', 'instructions',
 					   $this->get_instructions($profile));
 	}
 	

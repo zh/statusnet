@@ -96,7 +96,7 @@ class LoginAction extends Action {
 		} else {
 			$instr = $this->get_instructions();
 			$output = common_markup_to_html($instr);
-			common_element_start('p', 'instructions');
+			common_element_start('div', 'instructions');
 			common_raw($output);
 			common_element_end('p');
 		}

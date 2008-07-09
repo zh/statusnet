@@ -155,7 +155,7 @@ class RegisterAction extends Action {
 		if ($error) {
 			common_element('p', 'error', $error);
 		} else {
-			common_element('p', 'instructions',
+			common_element('div', 'instructions',
 						   _t('You can create a new account to start posting notices.'));
 		}
 	}

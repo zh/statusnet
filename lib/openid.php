@@ -191,7 +191,7 @@ function oid_authenticate($openid_url, $returnto, $immediate=false) {
 # Half-assed attempt at a module-private function
 
 function _oid_print_instructions() {
-	common_element('p', 'instructions',
+	common_element('div', 'instructions',
 				   _t('This form should automatically submit itself. '.
 					  'If not, click the submit button to go to your '.
 					  'OpenID provider.'));

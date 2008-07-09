@@ -53,7 +53,7 @@ class RemotesubscribeAction extends Action {
 		} else {
 			$instructions = $this->get_instructions();
 			$output = common_markup_to_html($instructions);
-			common_element_start('p', 'instructions');
+			common_element_start('div', 'instructions');
 			common_raw($output);
 			common_element_end('p');
 		}
