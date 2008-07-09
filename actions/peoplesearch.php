@@ -97,7 +97,7 @@ class PeoplesearchAction extends Action {
 	}
 	
 	function show_profile($profile, $terms) {
-		common_start_element('li', array('class' => 'profile_single',
+		common_element_start('li', array('class' => 'profile_single',
 										 'id' => 'profile-' . $profile->id));
 		$avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
 		common_element_start('a', array('href' => $profile->profileurl));
