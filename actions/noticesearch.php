@@ -51,7 +51,7 @@ class NoticesearchAction extends SearchAction {
 
 		if ($cnt > 0) {
 			$terms = preg_split('/[\s,]+/', $q);
-			common_element_start('ul', array('id' => 'notice'));
+			common_element_start('ul', array('id' => 'notices'));
 			for ($i = 0; $i < min($cnt, NOTICES_PER_PAGE); $i++) {
 				if ($notice->fetch()) {
 					$this->show_notice($notice, $terms);
