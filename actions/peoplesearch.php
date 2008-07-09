@@ -31,7 +31,8 @@ class PeoplesearchAction extends Action {
 	}
 
 	function get_instructions() {
-		return _t('Search for people on %%site.name%% by their name, location, or interests.');
+		return _t('Search for people on %%site.name%% by their name, location, or interests. ' . 
+				  'Separate the terms by spaces; they must be 3 characters or more.');
 	}
 	
 	function show_top($error=NULL) {
