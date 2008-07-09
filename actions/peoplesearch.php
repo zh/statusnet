@@ -55,11 +55,11 @@ class PeoplesearchAction extends Action {
 									  'value' => _t('Search')));
 					   
 		common_element_end('p');
+		common_element_end('form');
 		if ($q) {
 			common_element('hr');
 			$this->show_results($q, $page);
 		}
-		common_element_end('form');
 		common_show_footer();
 	}
 	
