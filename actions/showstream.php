@@ -361,7 +361,14 @@ class ShowstreamAction extends StreamAction {
 		$noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
 		# FIXME: URL, image, video, audio
 		common_element_start('p');
-		common_raw(common_render_content($notice->content, $notice));
+		if ($notice->rendered) {
+			common_raw($notice->rendered);
+		} else {
+			# XXX: may be some uncooked notices in the DB,
+			# we cook them right now. This can probably disappear in future
+			# versions (>> 0.4.x)
+			common_raw(common_render_content($notice->content, $notice));
+		}
 		common_element_end('p');
 		common_element_start('p', array('class' => 'time'));
 		common_element('a', array('class' => 'permalink',
