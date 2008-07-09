@@ -34,9 +34,11 @@ class Notice extends DB_DataObject
     public $profile_id;                      // int(4)   not_null
     public $uri;                             // varchar(255)  unique_key
     public $content;                         // varchar(140)  
+    public $rendered;                        // text()  
     public $url;                             // varchar(255)  
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
+    public $reply_to;                        // int(4)  
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('Notice',$k,$v); }
