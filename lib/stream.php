@@ -86,7 +86,6 @@ class StreamAction extends Action {
 								  'href' => $noticeurl,
 								  'title' => common_exact_date($notice->created)),
 					   common_date_string($notice->created));
-		common_element('a', array('href' => "#", 'onclick' => 'javascript: doreply("'.$profile->nickname.'")', 'class' => 'replybutton'), 'reply');
 		if ($replied_id) {
 			$replyurl = common_local_url('shownotice', array('notice' => $replied_id));
 			common_text('(');
@@ -95,6 +94,13 @@ class StreamAction extends Action {
 						   _t(' in reply to...'));
 			common_text(')');
 		}
+		common_element('a', 
+					   array('href' => common_local_url('newnotice',
+                                                        array('replyto' => $profile->nickname)),
+							 'onclick' => 'doreply("'.$profile->nickname.'")',
+                             'title' => _t('reply'),
+							 'class' => 'replybutton'),
+					   _t('↺'));
 		common_element_end('p');
 		common_element_end('li');
 	}

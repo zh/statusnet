@@ -13,20 +13,23 @@ $(document).ready(function(){
                 counter.attr("class", "");
                 }
         }
-
+     
         if ($("#status_textarea").length) {
             $("#status_textarea").bind("keyup", counter);
             // run once in case there's something in there
 			counter();
         }
-
 });
 
-        function doreply(nick) {
-            rgx_username = /^[0-9a-zA-Z\-_.]*$/;
-            if (nick.match(rgx_username)) {
-              replyto = "@" + nick + " ";
-              document.getElementById("status_textarea").value=replyto; 
-              document.getElementById("status_textarea").focus();
-            }
-        }
+function doreply(nick) {
+     rgx_username = /^[0-9a-zA-Z\-_.]*$/;
+     if (nick.match(rgx_username)) {
+          replyto = "@" + nick + " ";
+          if ($("#status_textarea")) {
+               $("#status_textarea").value=replyto;
+               $("#status_textarea").focus();
+          }
+     }
+     return false;
+}
+

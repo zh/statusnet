@@ -94,6 +94,13 @@ class NewnoticeAction extends Action {
 
 	function show_form($msg=NULL) {
 		$content = $this->trimmed('status_textarea');
+		if (!$content) {
+			$replyto = $this->trimmed('replyto');
+			$profile = Profile::staticGet('nickname', $replyto);
+			if ($profile) {
+				$content = "@$profile ";
+			}
+		}
 		common_show_header(_t('New notice'), NULL, $content,
 		                   array($this, 'show_top'));
 		if ($msg) {
