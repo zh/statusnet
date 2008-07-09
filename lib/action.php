@@ -26,16 +26,16 @@ class Action { // lawsuit
 	function Action() {
 	}
 
-	function arg($key) {
+	function arg($key, $def=NULL) {
 		if (array_key_exists($key, $this->args)) {
 			return $this->args[$key];
 		} else {
-			return NULL;
+			return $def;
 		}
 	}
 
-	function trimmed($key) {
-		$arg = $this->arg($key);
+	function trimmed($key, $def=NULL) {
+		$arg = $this->arg($key, $def);
 		return (is_string($arg)) ? trim($arg) : $arg;
 	}
 	
