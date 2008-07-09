@@ -19,7 +19,7 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-require_once('xmpp.php');
+require_once('XMPPHP/XMPP.php');
 
 function jabber_valid_base_jid($jid) {
 	# Cheap but effective
