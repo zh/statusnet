@@ -595,6 +595,7 @@ function common_render_content($text, $notice) {
 	$id = $notice->profile_id;
 	$r = preg_replace('@https?://[^)\]>\s]+@', '<a href="\0" class="extlink">\0</a>', $r);
 	$r = preg_replace('/(^|\s+)@([a-z0-9]{1,64})/e', "'\\1@'.common_at_link($id, '\\2')", $r);
+	$r = preg_replace('/^T ([A-Z0-9]{1,64}) /e', "'T '.common_at_link($id, '\\1').' '", $r);
 	# XXX: # tags
 	# XXX: machine tags
 	return $r;
