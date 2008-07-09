@@ -775,9 +775,9 @@ function common_fancy_url($action, $args=NULL) {
 	 case 'imsettings':
 	 	return common_path('settings/im');
 	 case 'peoplesearch':
-		return common_path('search/people' . (($args) ? '?' . implode('&', $args)) : '');
+		return common_path('search/people' . ($args) ? ('?' . implode('&', $args)) : '');
 	 case 'noticesearch':
-		return common_path('search/notice' . (($args) ? '?' . implode('&', $args)) : '');
+		return common_path('search/notice' . ($args) ? ('?' . implode('&', $args)) : '');
 	 default:
 		return common_simple_url($action, $args);
 	}
