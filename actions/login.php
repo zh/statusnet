@@ -96,10 +96,9 @@ class LoginAction extends Action {
 			# rememberme logins have to reauthenticate before
 			# changing any profile settings (cookie-stealing protection)
 			return _t('For security reasons, ' . 
-					  'before changing your settings, ' .
 					  'please re-enter your ' .
 					  'user name and password ' . 
-					  '(or use [OpenID](%%action.openidlogin%%)).');
+  					  'before changing your settings. ');
 		} else {
 			return _t('Login with your username and password. ' .
 					  'Don\'t have a username yet? ' .
