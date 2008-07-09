@@ -43,7 +43,7 @@ class PeoplesearchAction extends Action {
 										   'action' => common_local_url('peoplesearch')));
 		common_element_start('p');
 		common_element('input', array('name' => 'q',
-									  'id' => 'q'
+									  'id' => 'q',
 									  'type' => 'text',
 									  'class' => 'input_text',
 									  'value' => ($q) ? $q : ''));
