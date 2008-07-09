@@ -872,15 +872,14 @@ function common_save_replies($notice) {
 		}
 		if ($i == 0) {
 			$reply_for = $recipient;
+			$recipient_notice = $reply_for->getCurrentNotice();
+			$orig = clone($notice);
+			$notice->reply_to = $recipient_notice->id;
+			$notice->update($orig);
 		}
 		$reply = new Reply();
 		$reply->notice_id = $notice->id;
 		$reply->profile_id = $recipient->id;
-		if ($reply_for) {
-#			$recipient_notice = $reply_for->getCurrentNotice($notice->created);
-			$recipient_notice = $reply_for->getCurrentNotice();
-			$reply->replied_id = $recipient_notice->id;
-		}
 		$id = $reply->insert();
 		if (!$id) {
 			$last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
