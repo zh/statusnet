@@ -82,7 +82,7 @@ class StreamAction extends Action {
 			common_raw($notice->rendered);
 		} else {
 			# XXX: may be some uncooked notices in the DB,
-			# we cook them right now. This can probably disappear in future
+			# we cook them right now. This should probably disappear in future
 			# versions (>> 0.4.x)
 			common_raw(common_render_content($notice->content, $notice));
 		}
