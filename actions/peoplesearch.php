@@ -69,7 +69,6 @@ class PeoplesearchAction extends SearchAction {
 	}
 	
 	function show_profile($profile, $terms) {
-		common_debug(print_r($terms, TRUE), __FILE__);
 		common_element_start('li', array('class' => 'profile_single',
 										 'id' => 'profile-' . $profile->id));
 		$avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
@@ -103,7 +102,7 @@ class PeoplesearchAction extends SearchAction {
 		if ($profile->homepage) {
 			common_element_start('p', 'website');
 			common_element('a', array('href' => $profile->homepage),
-						   $this->highlight($profile->homepage));
+						   $this->highlight($profile->homepage, $terms));
 			common_element_end('p');
 		}
 		if ($profile->bio) {
