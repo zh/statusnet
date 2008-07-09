@@ -111,21 +111,31 @@ class PeoplesearchAction extends Action {
 									($profile->fullname) ? $profile->fullname :
 									$profile->nickname));
 		common_element_end('a');
+		common_element_start('p');
 		common_element_start('a', array('href' => $profile->profileurl,
 										'class' => 'nickname'));
 		common_raw($this->highlight($profile->nickname, $terms));
 		common_element_end('a');
 		if ($profile->fullname) {
-			common_element_start('p', 'fullname');
+			common_text(' | ');
+			common_element_start('span', 'fullname');
 			common_raw($this->highlight($profile->fullname, $terms));
-			common_element_end('p');
+			common_element_end('span');
 		}
 		if ($profile->location) {
-			common_element_start('p', 'location');
+			common_text(' | ');
+			common_element_start('span', 'location');
 			common_raw($this->highlight($profile->location, $terms));
+			common_element_end('span');
+		}
+		common_element_end('p');
+		if ($profile->homepage) {
+			common_element_start('p', 'website');
+			common_element('a', array('href' => $profile->homepage),
+						   $profile->homepage);
 			common_element_end('p');
 		}
-		if ($profile->location) {
+		if ($profile->bio) {
 			common_element_start('p', 'bio');
 			common_raw($this->highlight($profile->bio, $terms));
 			common_element_end('p');
