@@ -730,7 +730,11 @@ function common_fancy_url($action, $args=NULL) {
 	 case 'openidsettings':
 		return common_path('settings/openid');
 	 case 'newnotice':
-		return common_path('notice/new');
+		if ($args && $args['replyto']) {
+			return common_path('notice/new?replyto='.$args['replyto']);
+		} else {
+			return common_path('notice/new');
+		}
 	 case 'shownotice':
 		return common_path('notice/'.$args['notice']);
 	 case 'xrds':
