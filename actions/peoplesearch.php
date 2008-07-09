@@ -101,8 +101,8 @@ class PeoplesearchAction extends SearchAction {
 		common_element_end('p');
 		if ($profile->homepage) {
 			common_element_start('p', 'website');
-			common_element('a', array('href' => $profile->homepage),
-						   $this->highlight($profile->homepage, $terms));
+			common_element_start('a', array('href' => $profile->homepage));
+			common_raw($this->highlight($profile->homepage, $terms));
 			common_element_end('p');
 		}
 		if ($profile->bio) {
