@@ -26,7 +26,10 @@ class SearchAction extends Action {
 		$this->show_form();
 	}
 
-	function show_top($error=NULL) {
+	function show_top($arr=NULL) {
+		if ($arr) {
+			$error = $arr[1];
+		}
 		if ($error) {
 			common_element('p', 'error', $error);
 		} else {
@@ -42,12 +45,17 @@ class SearchAction extends Action {
 	function get_title() {
 		return NULL;
 	}
+
+	function show_header($arr) {
+		return;
+	}
 	
 	function show_form($error=NULL) {
 		$q = $this->trimmed('q');
 		$page = $this->trimmed('page', 1);
 		
-		common_show_header($this->get_title(), NULL, $error, array($this, 'show_top'));
+		common_show_header($this->get_title(), array($this, 'show_header'), array($q, $error),
+						   array($this, 'show_top'));
 		common_element_start('form', array('method' => 'post',
 										   'id' => 'login',
 										   'action' => common_local_url($this->trimmed('action'))));

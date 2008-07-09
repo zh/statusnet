@@ -778,6 +778,8 @@ function common_fancy_url($action, $args=NULL) {
 		return common_path('search/people' . (($args) ? ('?' . http_build_query($args)) : ''));
 	 case 'noticesearch':
 		return common_path('search/notice' . (($args) ? ('?' . http_build_query($args)) : ''));
+	 case 'noticesearchrss':
+		return common_path('search/notice/rss' . (($args) ? ('?' . http_build_query($args)) : ''));
 	 default:
 		return common_simple_url($action, $args);
 	}

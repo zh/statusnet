@@ -69,6 +69,19 @@ class NoticesearchAction extends SearchAction {
 						  $page, 'noticesearch', array('q' => $q));
 	}
 
+	function show_header($arr) {
+		if ($arr) {
+			$q = $arr[0];
+		}
+		if ($q) {
+			common_element('link', array('rel' => 'alternate',
+										 'href' => common_local_url('noticesearchrss',
+																	array('q' => $q)),
+										 'type' => 'application/rss+xml',
+										 'title' => _t('Search Stream Feed')));
+		}
+	}
+	
 	# XXX: refactor and combine with StreamAction::show_notice()
 	
 	function show_notice($notice, $terms) {

@@ -35,6 +35,7 @@ RewriteRule ^settings/im$ index.php?action=imsettings [L,QSA]
 
 RewriteRule ^search/people$ index.php?action=peoplesearch [L,QSA]
 RewriteRule ^search/notice$ index.php?action=noticesearch [L,QSA]
+RewriteRule ^search/notice/rss$ index.php?action=noticesearchrss [L,QSA]
 
 RewriteRule ^notice/new$ index.php?action=newnotice [L,QSA]
 RewriteRule ^notice/(\d+)$ index.php?action=shownotice&notice=$1 [L,QSA]
