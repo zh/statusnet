@@ -94,13 +94,14 @@ class StreamAction extends Action {
 						   _t(' in reply to...'));
 			common_text(')');
 		}
-		common_element('a', 
-					   array('href' => common_local_url('newnotice',
-                                                        array('replyto' => $profile->nickname)),
-							 'onclick' => 'doreply("'.$profile->nickname.'"); return false',
-                             'title' => _t('reply'),
-							 'class' => 'replybutton'),
-					   _t('↺'));
+		common_element_start('a', 
+							 array('href' => common_local_url('newnotice',
+															  array('replyto' => $profile->nickname)),
+								   'onclick' => 'doreply("'.$profile->nickname.'"); return false',
+								   'title' => _t('reply'),
+								   'class' => 'replybutton'));
+		common_raw('&rarr;');
+		common_element_end('a');
 		common_element_end('p');
 		common_element_end('li');
 	}
