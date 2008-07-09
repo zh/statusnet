@@ -82,7 +82,7 @@ class StreamAction extends Action {
 		common_element_end('p');
 		$noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
 		common_element_start('p', 'time');
-		common_element('a', array('class' => 'notice',
+		common_element('a', array('class' => 'permalink',
 								  'href' => $noticeurl,
 								  'title' => common_exact_date($notice->created)),
 					   common_date_string($notice->created));
