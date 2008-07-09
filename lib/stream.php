@@ -101,7 +101,7 @@ class StreamAction extends Action {
 						   _t(' in reply to...'));
 			common_text(')');
 		}
-		common_element_start('a', 
+		common_element_start('a',
 							 array('href' => common_local_url('newnotice',
 															  array('replyto' => $profile->nickname)),
 								   'onclick' => 'doreply("'.$profile->nickname.'"); return false',

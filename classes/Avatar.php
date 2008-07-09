@@ -4,18 +4,18 @@
  */
 require_once 'DB/DataObject.php';
 
-class Avatar extends DB_DataObject 
+class Avatar extends DB_DataObject
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'avatar';                          // table name
     public $profile_id;                      // int(4)  primary_key not_null
-    public $original;                        // tinyint(1)  
+    public $original;                        // tinyint(1)
     public $width;                           // int(4)  primary_key not_null
     public $height;                          // int(4)  primary_key not_null
     public $mediatype;                       // varchar(32)   not_null
-    public $filename;                        // varchar(255)  
+    public $filename;                        // varchar(255)
     public $url;                             // varchar(255)  unique_key
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
@@ -27,7 +27,7 @@ class Avatar extends DB_DataObject
     ###END_AUTOCODE
 
 	# We clean up the file, too
-	
+
 	function delete() {
 		$filename = $this->filename;
 		if (parent::delete()) {
@@ -36,8 +36,8 @@ class Avatar extends DB_DataObject
 	}
 
 	# Create and save scaled version of this avatar
-	# XXX: maybe break into different methods 
-	
+	# XXX: maybe break into different methods
+
 	function scale($size) {
 
 		$image_s = imagecreatetruecolor($size, $size);

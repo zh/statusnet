@@ -20,8 +20,8 @@
 
 # Abort if called from a web server
 if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
-	print "This script must be run from the command line\n";
-	exit();
+    print "This script must be run from the command line\n";
+    exit();
 }
 
 define('INSTALLDIR', dirname(__FILE__));
@@ -35,6 +35,6 @@ $notice = new Notice();
 $cnt = $notice->find();
 
 while ($notice->fetch()) {
-	common_log(LOG_INFO, 'Getting replies for notice #' . $notice->id);
-	common_save_replies($notice);
+    common_log(LOG_INFO, 'Getting replies for notice #' . $notice->id);
+    common_save_replies($notice);
 }

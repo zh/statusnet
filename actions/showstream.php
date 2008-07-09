@@ -375,14 +375,6 @@ class ShowstreamAction extends StreamAction {
 								  'href' => $noticeurl,
 								  'title' => common_exact_date($notice->created)),
 					   common_date_string($notice->created));
-		if ($notice->reply_to) {
-			$replyurl = common_local_url('shownotice', array('notice' => $notice->reply_to));
-			common_text(' (');
-			common_element('a', array('class' => 'inreplyto',
-									  'href' => $replyurl),
-						   _t('in reply to...'));
-			common_text(')');
-		}
 		common_element_start('a', 
 							 array('href' => common_local_url('newnotice',
 															  array('replyto' => $profile->nickname)),

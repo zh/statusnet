@@ -64,7 +64,7 @@ class RemotesubscribeAction extends Action {
 		$profile = $this->trimmed('profile_url');
 		common_show_header(_('Remote subscribe'), NULL, $err,
 						   array($this, 'show_top'));
-		# id = remotesubscribe conflicts with the 
+		# id = remotesubscribe conflicts with the
 		# button on profile page
 		common_element_start('form', array('id' => 'remsub', 'method' => 'post',
 										   'action' => common_local_url('remotesubscribe')));

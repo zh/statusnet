@@ -25,7 +25,7 @@ class FinishimmediateAction extends Action {
 
 	function handle($args) {
 		parent::handle($args);
-		
+
 		$consumer = oid_consumer();
 
 		$response = $consumer->complete(common_local_url('finishimmediate'));
@@ -36,7 +36,7 @@ class FinishimmediateAction extends Action {
 			  $response->endpoint->canonicalID : $response->getDisplayIdentifier();
 
 			$user = oid_get_user($canonical);
-			
+
 			if ($user) {
 				oid_update_user($user, $sreg);
 				oid_set_last($display); # refresh for another year
@@ -47,12 +47,12 @@ class FinishimmediateAction extends Action {
 		}
 
 		# Failure! Clear openid so we don't try it again
-		
+
 		oid_clear_last();
 		$this->go_backto();
 		return;
 	}
-	
+
 	function go_backto() {
 		common_ensure_session();
 		$backto = $_SESSION['openid_immediate_backto'];

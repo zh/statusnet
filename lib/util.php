@@ -95,7 +95,7 @@ function common_element_start($tag, $attrs=NULL) {
 function common_element_end($tag) {
 	static $empty_tag = array('base', 'meta', 'link', 'hr',
 							  'br', 'param', 'img', 'area',
-							  'input', 'col'); 
+							  'input', 'col');
 	global $xw;
 	# XXX: check namespace
 	if (in_array($tag, $empty_tag)) {
@@ -460,7 +460,7 @@ function common_set_user($user) {
 	} else if (!($user instanceof User)) {
 		return false;
 	}
-	
+
 	if ($user) {
 		common_ensure_session();
 		$_SESSION['userid'] = $user->id;

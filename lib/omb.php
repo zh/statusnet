@@ -152,7 +152,7 @@ function omb_post_notice($notice, $remote_profile, $subscription) {
 														   array('notice' =>
 																 $notice->id)));
 	$req->set_parameter('omb_notice_license', $config['license']['url']);
-	
+
 	$req->sign_request(omb_hmac_sha1(), $con, $token);
 
 	# We re-use this tool's fetcher, since it's pretty good
@@ -163,13 +163,13 @@ function omb_post_notice($notice, $remote_profile, $subscription) {
 							 $req->to_postdata());
 
 	common_debug('Got HTTP result "'.print_r($result,TRUE).'"', __FILE__);
-	
+
 	if ($result->status == 403) { # not authorized, don't send again
 		common_debug('403 result, deleting subscription', __FILE__);
 		$subscription->delete();
 		return false;
 	} else if ($result->status != 200) {
-		common_debug('Error status '.$result->status, __FILE__);		
+		common_debug('Error status '.$result->status, __FILE__);
 		return false;
 	} else { # success!
 		parse_str($result->body, $return);
@@ -216,22 +216,22 @@ function omb_update_profile($profile, $remote_profile, $subscription) {
 	$req->set_parameter('omb_listenee', $user->uri);
 	$req->set_parameter('omb_listenee_profile', common_profile_url($profile->nickname));
 	$req->set_parameter('omb_listenee_nickname', $profile->nickname);
-	
+
 	# We use blanks to force emptying any existing values in these optional fields
-	
+
 	$req->set_parameter('omb_listenee_fullname',
 						($profile->fullname) ? $profile->fullname : '');
-	$req->set_parameter('omb_listenee_homepage', 
+	$req->set_parameter('omb_listenee_homepage',
 						($profile->homepage) ? $profile->homepage : '');
-	$req->set_parameter('omb_listenee_bio', 
+	$req->set_parameter('omb_listenee_bio',
 						($profile->bio) ? $profile->bio : '');
 	$req->set_parameter('omb_listenee_location',
 						($profile->location) ? $profile->location : '');
-	
+
 	$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
-	$req->set_parameter('omb_listenee_avatar', 
+	$req->set_parameter('omb_listenee_avatar',
 						($avatar) ? $avatar->url : '');
-	
+
 	$req->sign_request(omb_hmac_sha1(), $con, $token);
 
 	# We re-use this tool's fetcher, since it's pretty good
@@ -244,13 +244,13 @@ function omb_update_profile($profile, $remote_profile, $subscription) {
 							 $req->to_postdata());
 
 	common_debug('Got HTTP result "'.print_r($result,TRUE).'"', __FILE__);
-	
+
 	if ($result->status == 403) { # not authorized, don't send again
 		common_debug('403 result, deleting subscription', __FILE__);
 		$subscription->delete();
 		return false;
 	} else if ($result->status != 200) {
-		common_debug('Error status '.$result->status, __FILE__);		
+		common_debug('Error status '.$result->status, __FILE__);
 		return false;
 	} else { # success!
 		parse_str($result->body, $return);

@@ -4,7 +4,7 @@
  */
 require_once 'DB/DataObject.php';
 
-class Reply extends DB_DataObject 
+class Reply extends DB_DataObject
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -12,6 +12,7 @@ class Reply extends DB_DataObject
     public $__table = 'reply';                           // table name
     public $notice_id;                       // int(4)  primary_key not_null
     public $profile_id;                      // int(4)  primary_key not_null
+    public $replied_id;                      // int(4)  
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
     public $replied_id;                      // int(4)  
 

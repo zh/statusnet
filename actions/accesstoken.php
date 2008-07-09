@@ -27,12 +27,12 @@ class AccesstokenAction extends Action {
 		try {
 			common_debug('getting request from env variables', __FILE__);
 			$req = OAuthRequest::from_request();
-			common_debug('getting a server', __FILE__);			
+			common_debug('getting a server', __FILE__);
 			$server = omb_oauth_server();
-			common_debug('fetching the access token', __FILE__);						
+			common_debug('fetching the access token', __FILE__);
 			$token = $server->fetch_access_token($req);
 			common_debug('got this token: "'.print_r($token,TRUE).'"', __FILE__);
-			common_debug('printing the access token', __FILE__);						
+			common_debug('printing the access token', __FILE__);
 			print $token;
 		} catch (OAuthException $e) {
 			common_server_error($e->getMessage());

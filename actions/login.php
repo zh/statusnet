@@ -31,7 +31,7 @@ class LoginAction extends Action {
 			$this->show_form();
 		}
 	}
-	
+
 	function check_login() {
 		# XXX: form token in $_SESSION to prevent XSS
 		# XXX: login throttle
@@ -40,7 +40,7 @@ class LoginAction extends Action {
 		if (common_check_user($nickname, $password)) {
 			# success!
 			if (!common_set_user($nickname)) {
-				common_server_error(_t('Error setting user.'));
+				common_server_error(_('Error setting user.'));
 				return;
 			}
 			common_real_login(true);
@@ -60,11 +60,18 @@ class LoginAction extends Action {
 			}
 			common_redirect($url);
 		} else {
-			$this->show_form(_t('Incorrect username or password.'));
+			$this->show_form(_('Incorrect username or password.'));
+			return;
 		}
-		
+
+		# success!
+		if (!common_set_user($user)) {
+			common_server_error(_t('Error setting user.'));
+			return;
+		}
+
 		common_real_login(true);
-		
+
 		if ($this->boolean('rememberme')) {
 			common_debug('Adding rememberme cookie for ' . $nickname);
 			common_rememberme($user);
@@ -102,7 +109,7 @@ class LoginAction extends Action {
 	}
 
 	function get_instructions() {
-		return _t('Login with your username and password. ' .
+		return _('Login with your username and password. ' .
 				  'Don\'t have a username yet? ' .
 				  '[Register](%%action.register%%) a new account, or ' .
 				  'try [OpenID](%%action.openidlogin%%). ');

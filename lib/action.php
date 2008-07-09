@@ -38,14 +38,14 @@ class Action { // lawsuit
 		$arg = $this->arg($key, $def);
 		return (is_string($arg)) ? trim($arg) : $arg;
 	}
-	
+
 	function handle($argarray) {
 		$this->args =& common_copy_args($argarray);
 	}
-	
+
 	function boolean($key, $def=false) {
 		$arg = strtolower($this->trimmed($key));
-		
+
 		if (is_null($arg)) {
 			return $def;
 		} else if (in_array($arg, array('true', 'yes', '1'))) {
@@ -56,19 +56,19 @@ class Action { // lawsuit
 			return $def;
 		}
 	}
-	
+
 	function server_error($msg, $code=500) {
 		$action = $this->trimmed('action');
 		common_debug("Server error '$code' on '$action': $msg", __FILE__);
 		common_server_error($msg, $code);
 	}
-	
+
 	function client_error($msg, $code=400) {
 		$action = $this->trimmed('action');
 		common_debug("User error '$code' on '$action': $msg", __FILE__);
 		common_user_error($msg, $code);
 	}
-	
+
 	function self_url() {
 		$action = $this->trimmed('action');
 		$args = $this->args;

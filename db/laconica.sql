@@ -201,6 +201,6 @@ create table queue_item (
     claimed datetime comment 'date this item was claimed',
 
     index queue_item_created_idx (created)
-    
+
 ) ENGINE=MyISAM;
 

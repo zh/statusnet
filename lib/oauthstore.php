@@ -24,7 +24,7 @@ require_once(INSTALLDIR.'/lib/omb.php');
 class LaconicaOAuthDataStore extends OAuthDataStore {
 
 	# We keep a record of who's contacted us
-	
+
 	function lookup_consumer($consumer_key) {
 		$con = Consumer::staticGet('consumer_key', $consumer_key);
 		if (!$con) {
@@ -38,7 +38,7 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
 		}
 		return new OAuthConsumer($con->consumer_key, '');
 	}
-	
+
 	function lookup_token($consumer, $token_type, $token_key) {
 		$t = new Token();
 		$t->consumer_key = $consumer->key;
@@ -50,7 +50,7 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
 			return NULL;
 		}
 	}
-	
+
 	function lookup_nonce($consumer, $token, $nonce, $timestamp) {
 		$n = new Nonce();
 		$n->consumer_key = $consumer->key;
@@ -65,7 +65,7 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
 			return FALSE;
 		}
 	}
-	
+
 	function new_request_token($consumer) {
 		$t = new Token();
 		$t->consumer_key = $consumer->key;
@@ -82,11 +82,11 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
 	}
 
 	# defined in OAuthDataStore, but not implemented anywhere
-	
+
 	function fetch_request_token($consumer) {
 		return $this->new_request_token($consumer);
 	}
-	
+
 	function new_access_token($token, $consumer) {
 		common_debug('new_access_token("'.$token->key.'","'.$consumer->key.'")', __FILE__);
 		$rt = new Token();
@@ -112,7 +112,7 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
 				$rt->state = 2; # used
 				if (!$rt->update($orig_rt)) {
 					return NULL;
-				} 
+				}
 				common_debug('request token "'.$rt->tok.'" updated', __FILE__);
 				# Update subscription
 				# XXX: mixing levels here
@@ -129,15 +129,15 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
 				} else {
 					common_debug('subscription updated to use access token', __FILE__);
 					return new OAuthToken($at->tok, $at->secret);
-				}					
+				}
 			}
 		} else {
 			return NULL;
 		}
 	}
-	
+
 	# defined in OAuthDataStore, but not implemented anywhere
-	
+
 	function fetch_access_token($consumer) {
 		return $this->new_access_token($consumer);
 	}

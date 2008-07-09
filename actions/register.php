@@ -68,7 +68,7 @@ class RegisterAction extends Action {
 			if (!$user) {
 				$this->show_form(_t('Invalid username or password.'));
 				return;
-			}				
+			}
 			# success!
 			if (!common_set_user($user)) {
 				common_server_error(_('Error setting user.'));
@@ -82,7 +82,7 @@ class RegisterAction extends Action {
 			}
 			common_redirect(common_local_url('profilesettings'));
 		} else {
-			$this->show_form(_t('Invalid username or password.'));
+			$this->show_form(_('Invalid username or password.'));
 		}
 	}
 

@@ -4,7 +4,7 @@
  */
 require_once 'DB/DataObject.php';
 
-class User_openid extends DB_DataObject 
+class User_openid extends DB_DataObject
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
