@@ -98,7 +98,7 @@ class NewnoticeAction extends Action {
 			$replyto = $this->trimmed('replyto');
 			$profile = Profile::staticGet('nickname', $replyto);
 			if ($profile) {
-				$content = "@$profile ";
+				$content = '@' . $profile->nickname . ' ';
 			}
 		}
 		common_show_header(_t('New notice'), NULL, $content,
