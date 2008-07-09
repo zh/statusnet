@@ -78,6 +78,7 @@ class PostnoticeAction extends Action {
 			$notice->profile_id = $remote_profile->id;
 			$notice->uri = $notice_uri;
 			$notice->content = $content;
+			$notice->rendered = common_render_content($notice->content, $notice);
 			if ($notice_url) {
 				$notice->url = $notice_url;
 			}
@@ -87,6 +88,7 @@ class PostnoticeAction extends Action {
 				common_server_error(_t('Error inserting notice'), 500);
 				return false;
 			}
+			common_save_replies($notice);	
 			common_broadcast_notice($notice, true);
 		}
 		return true;

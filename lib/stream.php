@@ -78,7 +78,14 @@ class StreamAction extends Action {
 					   $profile->nickname);
 		# FIXME: URL, image, video, audio
 		common_element_start('p', array('class' => 'content'));
-		common_raw(common_render_content($notice->content, $notice));
+		if ($notice->rendered) {
+			common_raw($notice->rendered);
+		} else {
+			# XXX: may be some uncooked notices in the DB,
+			# we cook them right now. This can probably disappear in future
+			# versions (>> 0.4.x)
+			common_raw(common_render_content($notice->content, $notice));
+		}
 		common_element_end('p');
 		$noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
 		common_element_start('p', 'time');

@@ -192,6 +192,7 @@ class XMPPDaemon {
 		$notice = new Notice();
 		$notice->profile_id = $user->id;
 		$notice->content = trim(substr($pl['body'], 0, 140));
+		$notice->rendered = common_render_content($notice->content, $notice);
 		$notice->created = DB_DataObject_Cast::dateTime();
 		$notice->query('BEGIN');
 		$id = $notice->insert();
