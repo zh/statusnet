@@ -90,6 +90,8 @@ class PeoplesearchAction extends Action {
 				}
 			}
 			common_element_end('ul');
+		} else {
+			common_element('p', 'error', _t('No results'));
 		}
 		
 		common_pagination($page > 1, $cnt > PROFILES_PER_PAGE,
