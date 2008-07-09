@@ -115,7 +115,7 @@ class LoginAction extends Action {
 			$output = common_markup_to_html($instr);
 			common_element_start('div', 'instructions');
 			common_raw($output);
-			common_element_end('p');
+			common_element_end('div');
 		}
 	}
 }
