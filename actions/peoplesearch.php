@@ -132,7 +132,7 @@ class PeoplesearchAction extends Action {
 	}
 
 	function highlight($text, $terms) {
-		$pattern = '/('.implode('|',array_map('htmlspecialchars', $terms)).')/';
+		$pattern = '/('.implode('|',array_map('htmlspecialchars', $terms)).')/i';
 		$result = preg_replace($pattern, '<strong>\\1</strong>', $text);
 		return $result;
 	}
