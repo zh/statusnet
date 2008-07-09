@@ -364,7 +364,6 @@ class ShowstreamAction extends StreamAction {
 								  'href' => $noticeurl,
 								  'title' => common_exact_date($notice->created)),
 					   common_date_string($notice->created));
-		common_element_end('p');
 		common_element_start('a', 
 							 array('href' => common_local_url('newnotice',
 															  array('replyto' => $profile->nickname)),
@@ -372,6 +371,8 @@ class ShowstreamAction extends StreamAction {
 								   'title' => _t('reply'),
 								   'class' => 'replybutton'));
 		common_raw('&rarr;');
+		common_element_end('a');
+		common_element_end('p');
 		common_element_end('li');
 	}
 }
