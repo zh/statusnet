@@ -95,7 +95,7 @@ class RepliesAction extends StreamAction {
 					if (!$result) {
 						continue;
 					}
-					$this->show_notice($notice, $reply->replied_id);
+					$this->show_notice($notice);
 				} else {
 					// shouldn't happen!
 					break;

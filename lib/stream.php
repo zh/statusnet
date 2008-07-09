@@ -57,7 +57,7 @@ class StreamAction extends Action {
 		common_element_end('ul');
 	}
 
-	function show_notice($notice, $replied_id=NULL) {
+	function show_notice($notice) {
 		global $config;
 		$profile = $notice->getProfile();
 		# XXX: RDFa
@@ -93,12 +93,12 @@ class StreamAction extends Action {
 								  'href' => $noticeurl,
 								  'title' => common_exact_date($notice->created)),
 					   common_date_string($notice->created));
-		if ($replied_id) {
-			$replyurl = common_local_url('shownotice', array('notice' => $replied_id));
-			common_text('(');
+		if ($notice->reply_to) {
+			$replyurl = common_local_url('shownotice', array('notice' => $notice->reply_to));
+			common_text(' (');
 			common_element('a', array('class' => 'inreplyto',
 									  'href' => $replyurl),
-						   _t(' in reply to...'));
+						   _t('in reply to...'));
 			common_text(')');
 		}
 		common_element_start('a', 
