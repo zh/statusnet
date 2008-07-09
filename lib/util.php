@@ -480,6 +480,7 @@ define('REMEMBERME_EXPIRY', 30 * 24 * 60 * 60);
 function common_rememberme() {
 	$user = common_current_user();
 	if (!$user) {
+		common_debug('No current user to remember', __FILE__);
 		return false;
 	}
 	$rm = new Remember_me();
@@ -488,6 +489,7 @@ function common_rememberme() {
 	$result = $rm->insert();
 	if (!$result) {
 		common_log_db_error($rm, 'INSERT', __FILE__);
+		common_debug('Error adding rememberme record for ' . $user->nickname, __FILE__);
 		return false;
 	}
 	common_log(LOG_INFO, 'adding rememberme cookie for ' . $user->nickname);
