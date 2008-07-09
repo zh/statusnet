@@ -278,6 +278,7 @@ function common_nav_menu() {
 						 _t('Home'));
 	}
 	common_menu_item(common_local_url('public'), _t('Public'));
+	common_menu_item(common_local_url('peoplesearch'), _t('Search'));
 	common_menu_item(common_local_url('doc', array('title' => 'help')),
 					 _t('Help'));
 	if ($user) {
@@ -773,6 +774,10 @@ function common_fancy_url($action, $args=NULL) {
 	    return common_path($path);
 	 case 'imsettings':
 	 	return common_path('settings/im');
+	 case 'peoplesearch':
+		return common_path('search/people' . (($args) ? '?' . implode('&', $args)) : '');
+	 case 'noticesearch':
+		return common_path('search/notice' . (($args) ? '?' . implode('&', $args)) : '');
 	 default:
 		return common_simple_url($action, $args);
 	}

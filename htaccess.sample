@@ -33,6 +33,9 @@ RewriteRule ^settings/profile$ index.php?action=profilesettings [L,QSA]
 RewriteRule ^settings/openid$ index.php?action=openidsettings [L,QSA]
 RewriteRule ^settings/im$ index.php?action=imsettings [L,QSA]
 
+RewriteRule ^search/people$ index.php?action=peoplesearch [L,QSA]
+RewriteRule ^search/notice$ index.php?action=noticesearch [L,QSA]
+
 RewriteRule ^notice/new$ index.php?action=newnotice [L,QSA]
 RewriteRule ^notice/(\d+)$ index.php?action=shownotice&notice=$1 [L,QSA]
 

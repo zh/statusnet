@@ -90,7 +90,8 @@ class User extends DB_DataObject
 	function allowed_nickname($nickname) {
 		# XXX: should already be validated for size, content, etc.
 		static $blacklist = array('rss', 'xrds', 'doc', 'main',
-								  'settings', 'notice', 'user');
+								  'settings', 'notice', 'user',
+								  'search');
 		$merged = array_merge($blacklist, common_config('nickname', 'blacklist'));
 		return !in_array($nickname, $merged);
 	}
