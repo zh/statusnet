@@ -451,7 +451,7 @@ function common_ensure_session() {
 # 3) NULL to clear
 
 function common_set_user($user) {
-	if (is_null($nickname) && common_have_session()) {
+	if (is_null($user) && common_have_session()) {
 		unset($_SESSION['userid']);
 		return true;
 	} else if (is_string($user)) {
