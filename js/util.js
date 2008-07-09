@@ -26,7 +26,7 @@ function doreply(nick) {
      if (nick.match(rgx_username)) {
           replyto = "@" + nick + " ";
           if ($("#status_textarea")) {
-               $("#status_textarea").value=replyto;
+               $("#status_textarea").val(replyto);
                $("#status_textarea").focus();
           }
      }
