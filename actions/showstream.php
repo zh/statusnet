@@ -336,12 +336,9 @@ class ShowstreamAction extends StreamAction {
 
 		common_element('h2', NULL, _t('Currently'));
 
-		$notice = DB_DataObject::factory('notice');
-		$notice->profile_id = $profile->id;
-		$notice->orderBy('created DESC');
-		$notice->limit(0, 1);
-
-		if ($notice->find(true)) {
+		$notice = $profile->getCurrentNotice();
+		
+		if ($notice) {
 			# FIXME: URL, image, video, audio
 			common_element_start('p', array('class' => 'notice_current'));
 			if ($notice->rendered) {
