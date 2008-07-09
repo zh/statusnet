@@ -80,30 +80,21 @@ class SettingsAction extends Action {
     function settings_menu() {
         # action => array('prompt', 'title')
         static $menu =
-        array('profilesettings' =>
-              array('Profile',
-              		'Change your profile settings'),
-            'avatar' =>
-            array('Avatar',
-                  'Upload a new profile image'),
-            'password' =>
-            array('Password',
-                  'Change your password'),
-            'openidsettings' =>
-            array('OpenID',
-                  'Add or remove OpenIDs'),
-            'imsettings' =>
-            array('IM',
-                  'Updates by instant messenger (IM)'));
-
-        $action = $this->trimmed('action');
-        common_element_start('ul', array('id' => 'nav_views'));
-        foreach ($menu as $menuaction => $menudesc) {
-            common_menu_item(common_local_url($menuaction),
-                    _t($menudesc[0]),
-                    _t($menudesc[1]),
-                    $action == $menuaction);
-        }
-        common_element_end('ul');
+		  array('profilesettings' =>
+				array('Profile',
+					  'Change your profile settings'),
+				'avatar' =>
+				array('Avatar',
+					  'Upload a new profile image'),
+				'password' =>
+				array('Password',
+					  'Change your password'),
+				'openidsettings' =>
+				array('OpenID',
+					  'Add or remove OpenIDs'),
+				'imsettings' =>
+				array('IM',
+					  'Updates by instant messenger (IM)'));
+		$this->nav_menu($menu);
     }
 }

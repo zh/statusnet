@@ -21,59 +21,15 @@ if (!defined('LACONICA')) { exit(1); }
 
 define(PROFILES_PER_PAGE, 10);
 
-# XXX common parent for people and content search?
-
-class PeoplesearchAction extends Action {
+class PeoplesearchAction extends SearchAction {
 	
-	function handle($args) {
-		parent::handle($args);
-		$this->show_form();
-	}
-
 	function get_instructions() {
 		return _t('Search for people on %%site.name%% by their name, location, or interests. ' . 
 				  'Separate the terms by spaces; they must be 3 characters or more.');
 	}
-	
-	function show_top($error=NULL) {
-		if ($error) {
-			common_element('p', 'error', $error);
-		} else {
-			$instr = $this->get_instructions();
-			$output = common_markup_to_html($instr);
-			common_element_start('div', 'instructions');
-			common_raw($output);
-			common_element_end('div');
-		}
-	}
-	
-	function show_form($error=NULL) {
-		$q = $this->trimmed('q');
-		$page = $this->trimmed('page', 1);
-		
-		common_show_header(_t('Find people'), NULL, $error, array($this, 'show_top'));
-		common_element_start('form', array('method' => 'post',
-										   'id' => 'login',
-										   'action' => common_local_url('peoplesearch')));
-		common_element_start('p');
-		common_element('input', array('name' => 'q',
-									  'id' => 'q',
-									  'type' => 'text',
-									  'class' => 'input_text',
-									  'value' => ($q) ? $q : ''));
-		common_text(' ');
-		common_element('input', array('type' => 'submit',
-									  'id' => 'search',
-									  'name' => 'search',
-									  'class' => 'submit',
-									  'value' => _t('Search')));
-					   
-		common_element_end('p');
-		common_element_end('form');
-		if ($q) {
-			$this->show_results($q, $page);
-		}
-		common_show_footer();
+
+	function get_title() {
+		return _t('People search');
 	}
 	
 	function show_results($q, $page) {
