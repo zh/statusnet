@@ -92,7 +92,7 @@ class NoticesearchAction extends SearchAction {
 		# FIXME: URL, image, video, audio
 		common_element_start('p', array('class' => 'content'));
 		if ($notice->rendered) {
-			common_raw($this->highlight($notice->rendered), $terms);
+			common_raw($this->highlight($notice->rendered, $terms));
 		} else {
 			# XXX: may be some uncooked notices in the DB,
 			# we cook them right now. This should probably disappear in future
