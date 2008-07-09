@@ -30,7 +30,20 @@ class PeoplesearchAction extends Action {
 		$this->show_form();
 	}
 
+	function get_instructions() {
+		return _t('Search for people on %%site.name%% by their name, location, or interests.');
+	}
+	
 	function show_top($error=NULL) {
+		if ($error) {
+			common_element('p', 'error', $error);
+		} else {
+			$instr = $this->get_instructions();
+			$output = common_markup_to_html($instr);
+			common_element_start('div', 'instructions');
+			common_raw($output);
+			common_element_end('div');
+		}
 	}
 	
 	function show_form($error=NULL) {
