@@ -11,8 +11,9 @@ create table profile (
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified',
 
-    index profile_nickname_idx (nickname)
-) ENGINE=InnoDB;
+    index profile_nickname_idx (nickname),
+    FULLTEXT(nickname, fullname, location, bio, homepage)
+) ENGINE=MyISAM;
 
 create table avatar (
     profile_id integer not null comment 'foreign key to profile table' references profile (id),
@@ -27,7 +28,7 @@ create table avatar (
 
     constraint primary key (profile_id, width, height),
     index avatar_profile_id_idx (profile_id)
-) ENGINE=InnoDB;
+) ENGINE=MyISAM;
 
 create table sms_carrier (
     id integer auto_increment primary key comment 'primary key for SMS carrier',
@@ -35,7 +36,7 @@ create table sms_carrier (
     email_pattern varchar(255) not null comment 'sprintf pattern for making an email address from a phone number',
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified'
-) ENGINE=InnoDB;
+) ENGINE=MyISAM;
 
 /* local users */
 
@@ -53,7 +54,7 @@ create table user (
     uri varchar(255) unique key comment 'universally unique identifier, usually a tag URI',
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified'
-) ENGINE=InnoDB;
+) ENGINE=MyISAM;
 
 /* remote people */
 
@@ -64,7 +65,7 @@ create table remote_profile (
     updateprofileurl varchar(255) comment 'URL we use for updates to this profile',
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified'
-) ENGINE=InnoDB;
+) ENGINE=MyISAM;
 
 create table subscription (
     subscriber integer not null comment 'profile listening',
@@ -77,34 +78,37 @@ create table subscription (
     constraint primary key (subscriber, subscribed),
     index subscription_subscriber_idx (subscriber),
     index subscription_subscribed_idx (subscribed)
-) ENGINE=InnoDB;
+) ENGINE=MyISAM;
 
 create table notice (
+
     id integer auto_increment primary key comment 'unique identifier',
     profile_id integer not null comment 'who made the update' references profile (id),
     uri varchar(255) unique key comment 'universally unique identifier, usually a tag URI',
     content varchar(140) comment 'update content',
-    /* XXX: cache rendered content. */
+    rendered text comment 'HTML version of the content',
     url varchar(255) comment 'URL of any attachment (image, video, bookmark, whatever)',
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified',
+    reply_to integer comment 'notice replied to (usually a guess)' references notice (id),
 
-    index notice_profile_id_idx (profile_id)
-) ENGINE=InnoDB;
+    index notice_profile_id_idx (profile_id),
+    FULLTEXT(content)
+) ENGINE=MyISAM;
 
 create table reply (
 
     notice_id integer not null comment 'notice that is the reply' references notice (id),
     profile_id integer not null comment 'profile replied to' references profile (id),
-    replied_id integer comment 'notice replied to (a guess)' references notice (id),
     modified timestamp not null comment 'date this record was modified',
-
+    replied_id integer comment 'notice replied to (not used, see notice.reply_to)',
+    
     constraint primary key (notice_id, profile_id),
     index reply_notice_id_idx (notice_id),
     index reply_profile_id_idx (profile_id),
     index reply_replied_id_idx (replied_id)
 
-) ENGINE=InnoDB;
+) ENGINE=MyISAM;
 
 /* tables for OAuth */
 
@@ -114,7 +118,7 @@ create table consumer (
 
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified'
-) ENGINE=InnoDB;
+) ENGINE=MyISAM;
 
 create table token (
     consumer_key varchar(255) not null comment 'unique identifier, root URL' references consumer (consumer_key),
@@ -127,7 +131,7 @@ create table token (
     modified timestamp comment 'date this record was modified',
 
     constraint primary key (consumer_key, tok)
-) ENGINE=InnoDB;
+) ENGINE=MyISAM;
 
 create table nonce (
     consumer_key varchar(255) not null comment 'unique identifier, root URL',
@@ -140,7 +144,7 @@ create table nonce (
 
     constraint primary key (consumer_key, tok, nonce),
     constraint foreign key (consumer_key, tok) references token (consumer_key, tok)
-) ENGINE=InnoDB;
+) ENGINE=MyISAM;
 
 /* One-to-many relationship of user to openid_url */
 
@@ -152,7 +156,7 @@ create table user_openid (
     modified timestamp comment 'date this record was modified',
 
     index user_openid_user_id_idx (user_id)
-) ENGINE=InnoDB;
+) ENGINE=MyISAM;
 
 /* These are used by JanRain OpenID library */
 
@@ -164,14 +168,14 @@ create table oid_associations (
     lifetime INTEGER,
     assoc_type VARCHAR(64),
     PRIMARY KEY (server_url(255), handle)
-) ENGINE=InnoDB;
+) ENGINE=MyISAM;
 
 create table oid_nonces (
     server_url VARCHAR(2047),
     timestamp INTEGER,
     salt CHAR(40),
     UNIQUE (server_url(255), timestamp, salt)
-) ENGINE=InnoDB;
+) ENGINE=MyISAM;
 
 create table confirm_address (
     code varchar(32) not null primary key comment 'good random code',
@@ -182,13 +186,13 @@ create table confirm_address (
     claimed datetime comment 'date this was claimed for queueing',
     sent datetime comment 'date this was sent for queueing',
     modified timestamp comment 'date this record was modified'
-) ENGINE=InnoDB;
+) ENGINE=MyISAM;
 
 create table remember_me (
     code varchar(32) not null primary key comment 'good random code',
     user_id integer not null comment 'user who is logged in' references user (id),
     modified timestamp comment 'date this record was modified'
-) ENGINE=InnoDB;
+) ENGINE=MyISAM;
 
 create table queue_item (
 
@@ -198,5 +202,5 @@ create table queue_item (
 
     index queue_item_created_idx (created)
     
-) ENGINE=InnoDB;
+) ENGINE=MyISAM;
 
