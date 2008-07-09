@@ -596,6 +596,19 @@ input#openid_url {
 
 /* People lists (search results, maybe subscribers) */
 
+#profiles {
+	clear: both;
+	margin: 0 auto;
+	padding: 0;
+	list-style-type: none;
+	width: 540px;
+	border-top: 1px solid #D8E2D7;
+	/*border: 1px solid #F00;*/
+	}
+#profiles a:hover {
+	text-decoration: underline;
+	}
+	
 .profile_single {
 	clear: both;
 	display: block;
