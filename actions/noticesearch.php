@@ -19,6 +19,7 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
+require_once(INSTALLDIR.'/lib/searchaction.php');
 define(NOTICES_PER_PAGE, 20);
 
 # XXX common parent for people and content search?
