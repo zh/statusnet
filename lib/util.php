@@ -870,7 +870,7 @@ function common_save_replies($notice) {
 		if (!$recipient) {
 			continue;
 		}
-		if ($i == 0 && ($recipient->id == $sender->id)) { # Don't save reply to self
+		if ($i == 0 && ($recipient->id != $sender->id)) { # Don't save reply to self
 			$reply_for = $recipient;
 			$recipient_notice = $reply_for->getCurrentNotice();
 			$orig = clone($notice);
