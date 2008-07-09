@@ -63,20 +63,24 @@ class RegisterAction extends Action {
 			$this->show_form(_t('Email address already exists.'));
 		} else if ($password != $confirm) {
 			$this->show_form(_t('Passwords don\'t match.'));
-		} else if ($this->register_user($nickname, $password, $email)) {
+		} else {
+			$user = $this->register_user($nickname, $password, $email);
+			if (!$user) {
+				$this->show_form(_t('Invalid username or password.'));
+				return;
+			}				
 			# success!
-			if (!common_set_user($nickname)) {
+			if (!common_set_user($user)) {
 				common_server_error(_t('Error setting user.'));
 				return;
 			}
+			# this is a real login
 			common_real_login(true);
 			if ($this->boolean('rememberme')) {
 				common_debug('Adding rememberme cookie for ' . $nickname);
-				common_rememberme();
+				common_rememberme($user);
 			}
 			common_redirect(common_local_url('profilesettings'));
-		} else {
-			$this->show_form(_t('Invalid username or password.'));
 		}
 	}
 
@@ -148,7 +152,7 @@ class RegisterAction extends Action {
 								 $email);
 		}
 
-		return $result;
+		return $user;
 	}
 
 	function show_top($error=NULL) {

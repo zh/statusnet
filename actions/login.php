@@ -31,37 +31,42 @@ class LoginAction extends Action {
 			$this->show_form();
 		}
 	}
-
+	
 	function check_login() {
 		# XXX: form token in $_SESSION to prevent XSS
 		# XXX: login throttle
 		$nickname = $this->arg('nickname');
 		$password = $this->arg('password');
-		if (common_check_user($nickname, $password)) {
-			# success!
-			if (!common_set_user($nickname)) {
-				common_server_error(_t('Error setting user.'));
-				return;
-			}
-			common_real_login(true);
-			if ($this->boolean('rememberme')) {
-				common_debug('Adding rememberme cookie for ' . $nickname);
-				common_rememberme();
-			}
-			# success!
-			$url = common_get_returnto();
-			if ($url) {
-				# We don't have to return to it again
-				common_set_returnto(NULL);
-			} else {
-				$url = common_local_url('all',
-										array('nickname' =>
-											  $nickname));
-			}
-			common_redirect($url);
-		} else {
+		$user = common_check_user($nickname, $password);
+
+		if (!$user) {
 			$this->show_form(_t('Incorrect username or password.'));
+			return;
 		}
+		
+		# success!
+		if (!common_set_user($user)) {
+			common_server_error(_t('Error setting user.'));
+			return;
+		}
+		
+		common_real_login(true);
+		
+		if ($this->boolean('rememberme')) {
+			common_debug('Adding rememberme cookie for ' . $nickname);
+			common_rememberme($user);
+		}
+		# success!
+		$url = common_get_returnto();
+		if ($url) {
+			# We don't have to return to it again
+			common_set_returnto(NULL);
+		} else {
+			$url = common_local_url('all',
+									array('nickname' =>
+										  $nickname));
+		}
+		common_redirect($url);
 	}
 
 	function show_form($error=NULL) {
@@ -113,3 +118,4 @@ class LoginAction extends Action {
 		}
 	}
 }
+#

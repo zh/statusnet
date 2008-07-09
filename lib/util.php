@@ -421,8 +421,12 @@ function common_check_user($nickname, $password) {
 	if (is_null($user)) {
 		return false;
 	} else {
-		return (0 == strcmp(common_munge_password($password, $user->id),
-							$user->password));
+		if (0 == strcmp(common_munge_password($password, $user->id),
+						$user->password)) {
+			return $user;
+		} else {
+			return false;
+		}
 	}
 }
 
@@ -441,19 +445,26 @@ function common_ensure_session() {
 	}
 }
 
-function common_set_user($nickname) {
+# Three kinds of arguments:
+# 1) a user object
+# 2) a nickname
+# 3) NULL to clear
+
+function common_set_user($user) {
 	if (is_null($nickname) && common_have_session()) {
 		unset($_SESSION['userid']);
 		return true;
-	} else {
+	} else if (is_string($user)) {
+		$nickname = $user;
 		$user = User::staticGet('nickname', $nickname);
-		if ($user) {
-			common_ensure_session();
-			$_SESSION['userid'] = $user->id;
-			return true;
-		} else {
-			return false;
-		}
+	} else if (!($user instanceof User)) {
+		return false;
+	}
+	
+	if ($user) {
+		common_ensure_session();
+		$_SESSION['userid'] = $user->id;
+		return $user;
 	}
 	return false;
 }
@@ -477,11 +488,13 @@ function common_set_cookie($key, $value, $expiration=0) {
 define('REMEMBERME', 'rememberme');
 define('REMEMBERME_EXPIRY', 30 * 24 * 60 * 60);
 
-function common_rememberme() {
-	$user = common_current_user();
+function common_rememberme($user=NULL) {
 	if (!$user) {
-		common_debug('No current user to remember', __FILE__);
-		return false;
+		$user = common_current_user();
+		if (!$user) {
+			common_debug('No current user to remember', __FILE__);
+			return false;
+		}
 	}
 	$rm = new Remember_me();
 	$rm->code = common_good_rand(16);
@@ -521,7 +534,7 @@ function common_remembered_user() {
 						common_real_login(false);
 						# We issue a new cookie, so they can log in
 						# automatically again after this session
-						common_rememberme();
+						common_rememberme($user);
 					}
 				}
 			}
