@@ -101,8 +101,8 @@ class StreamAction extends Action {
 								   'title' => _t('reply'),
 								   'class' => 'replybutton'));
 		common_raw('&rarr;');
-		common_element_end('a');
 		common_element_end('p');
+		common_element_end('a');
 		common_element_end('li');
 	}
 }

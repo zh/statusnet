@@ -360,10 +360,18 @@ class ShowstreamAction extends StreamAction {
 		common_raw(common_render_content($notice->content, $notice));
 		common_element_end('p');
 		common_element_start('p', array('class' => 'time'));
-		common_element('a', array('class' => 'notice',
-								  'href' => $noticeurl),
+		common_element('a', array('class' => 'permalink',
+								  'href' => $noticeurl,
+								  'title' => common_exact_date($notice->created)),
 					   common_date_string($notice->created));
 		common_element_end('p');
+		common_element_start('a', 
+							 array('href' => common_local_url('newnotice',
+															  array('replyto' => $profile->nickname)),
+								   'onclick' => 'doreply("'.$profile->nickname.'"); return false',
+								   'title' => _t('reply'),
+								   'class' => 'replybutton'));
+		common_raw('&rarr;');
 		common_element_end('li');
 	}
 }
