@@ -862,6 +862,7 @@ function common_redirect($url, $code=307) {
 					 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd');
 	common_element('a', array('href' => $url), $url);
 	common_end_xml();
+    exit;
 }
 
 function common_save_replies($notice) {
