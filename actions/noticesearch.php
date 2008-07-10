@@ -25,18 +25,18 @@ define(NOTICES_PER_PAGE, 20);
 # XXX common parent for people and content search?
 
 class NoticesearchAction extends SearchAction {
-	
+
 	function get_instructions() {
 		return _('Search for notices on %%site.name%% by their contents. ' .
 				  'Separate search terms by spaces; they must be 3 characters or more.');
 	}
-	
+
 	function get_title() {
 		return _('Text search');
 	}
-	
+
 	function show_results($q, $page) {
-		
+
 		$notice = new Notice();
 
 		# lcase it for comparison
@@ -44,7 +44,7 @@ class NoticesearchAction extends SearchAction {
 		$notice->whereAdd('MATCH(content) against (\''.addslashes($q).'\')');
 
 		# Ask for an extra to see if there's more.
-		
+
 		$notice->limit((($page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE + 1);
 
 		$cnt = $notice->find();
@@ -64,7 +64,7 @@ class NoticesearchAction extends SearchAction {
 		} else {
 			common_element('p', 'error', _('No results'));
 		}
-		
+
 		common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
 						  $page, 'noticesearch', array('q' => $q));
 	}
@@ -81,9 +81,9 @@ class NoticesearchAction extends SearchAction {
 										 'title' => _('Search Stream Feed')));
 		}
 	}
-	
+
 	# XXX: refactor and combine with StreamAction::show_notice()
-	
+
 	function show_notice($notice, $terms) {
 		$profile = $notice->getProfile();
 		# XXX: RDFa
@@ -127,7 +127,7 @@ class NoticesearchAction extends SearchAction {
 						   _('in reply to...'));
 			common_text(')');
 		}
-		common_element_start('a', 
+		common_element_start('a',
 							 array('href' => common_local_url('newnotice',
 															  array('replyto' => $profile->nickname)),
 								   'onclick' => 'doreply("'.$profile->nickname.'"); return false',

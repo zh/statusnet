@@ -75,7 +75,7 @@ class Action { // lawsuit
 		unset($args['action']);
 		return common_local_url($action, $args);
 	}
-	
+
 	function nav_menu($menu) {
         $action = $this->trimmed('action');
         common_element_start('ul', array('id' => 'nav_views'));

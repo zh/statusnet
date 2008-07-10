@@ -23,7 +23,7 @@ require_once(INSTALLDIR.'/lib/searchaction.php');
 define(PROFILES_PER_PAGE, 10);
 
 class PeoplesearchAction extends SearchAction {
-	
+
 	function get_instructions() {
 		return _('Search for people on %%site.name%% by their name, location, or interests. ' .
 				  'Separate the terms by spaces; they must be 3 characters or more.');
@@ -32,18 +32,18 @@ class PeoplesearchAction extends SearchAction {
 	function get_title() {
 		return _('People search');
 	}
-	
+
 	function show_results($q, $page) {
-		
+
 		$profile = new Profile();
 
 		# lcase it for comparison
 		$q = strtolower($q);
-		$profile->whereAdd('MATCH(nickname, fullname, location, bio, homepage) ' . 
+		$profile->whereAdd('MATCH(nickname, fullname, location, bio, homepage) ' .
 						   'against (\''.addslashes($q).'\')');
 
 		# Ask for an extra to see if there's more.
-		
+
 		$profile->limit((($page-1)*PROFILES_PER_PAGE), PROFILES_PER_PAGE + 1);
 
 		$cnt = $profile->find();
@@ -63,11 +63,11 @@ class PeoplesearchAction extends SearchAction {
 		} else {
 			common_element('p', 'error', _('No results'));
 		}
-		
+
 		common_pagination($page > 1, $cnt > PROFILES_PER_PAGE,
 						  $page, 'peoplesearch', array('q' => $q));
 	}
-	
+
 	function show_profile($profile, $terms) {
 		common_element_start('li', array('class' => 'profile_single',
 										 'id' => 'profile-' . $profile->id));

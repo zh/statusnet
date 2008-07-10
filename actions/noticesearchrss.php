@@ -28,35 +28,35 @@ class NoticesearchrssAction extends Rss10Action {
 	function init() {
 		return true;
 	}
-	
+
 	function get_notices($limit=0) {
 
 		$q = $this->trimmed('q');
 		$notices = array();
-		
+
 		$notice = new Notice();
 
 		# lcase it for comparison
 		$q = strtolower($q);
-		
+
 		$notice->whereAdd('MATCH(content) against (\''.addslashes($q).'\')');
 		$notice->orderBy('created DESC');
-		
+
 		# Ask for an extra to see if there's more.
-		
+
 		if ($limit != 0) {
 			$notice->limit(0, $limit);
 		}
 
 		$notice->find();
-		
+
 		while ($notice->fetch()) {
 			$notices[] = clone($notice);
 		}
-		
+
 		return $notices;
 	}
-	
+
 	function get_channel() {
 		global $config;
 		$q = $this->trimmed('q');
@@ -66,7 +66,7 @@ class NoticesearchrssAction extends Rss10Action {
 				   'description' => sprintf(_('All updates matching search term "%s"'), $q));
 		return $c;
 	}
-	
+
 	function get_image() {
 		return NULL;
 	}
