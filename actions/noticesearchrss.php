@@ -40,7 +40,8 @@ class NoticesearchrssAction extends Rss10Action {
 		$q = strtolower($q);
 		
 		$notice->whereAdd('MATCH(content) against (\''.addslashes($q).'\')');
-
+		$notice->orderBy('created DESC');
+		
 		# Ask for an extra to see if there's more.
 		
 		if ($limit != 0) {
