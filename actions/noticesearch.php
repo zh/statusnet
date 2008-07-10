@@ -27,12 +27,12 @@ define(NOTICES_PER_PAGE, 20);
 class NoticesearchAction extends SearchAction {
 	
 	function get_instructions() {
-		return _t('Search for notices on %%site.name%% by their contents. ' . 
+		return _('Search for notices on %%site.name%% by their contents. ' .
 				  'Separate search terms by spaces; they must be 3 characters or more.');
 	}
 	
 	function get_title() {
-		return _t('Text search');
+		return _('Text search');
 	}
 	
 	function show_results($q, $page) {
@@ -62,7 +62,7 @@ class NoticesearchAction extends SearchAction {
 			}
 			common_element_end('ul');
 		} else {
-			common_element('p', 'error', _t('No results'));
+			common_element('p', 'error', _('No results'));
 		}
 		
 		common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
@@ -78,7 +78,7 @@ class NoticesearchAction extends SearchAction {
 										 'href' => common_local_url('noticesearchrss',
 																	array('q' => $q)),
 										 'type' => 'application/rss+xml',
-										 'title' => _t('Search Stream Feed')));
+										 'title' => _('Search Stream Feed')));
 		}
 	}
 	
@@ -124,14 +124,14 @@ class NoticesearchAction extends SearchAction {
 			common_text(' (');
 			common_element('a', array('class' => 'inreplyto',
 									  'href' => $replyurl),
-						   _t('in reply to...'));
+						   _('in reply to...'));
 			common_text(')');
 		}
 		common_element_start('a', 
 							 array('href' => common_local_url('newnotice',
 															  array('replyto' => $profile->nickname)),
 								   'onclick' => 'doreply("'.$profile->nickname.'"); return false',
-								   'title' => _t('reply'),
+								   'title' => _('reply'),
 								   'class' => 'replybutton'));
 		common_raw('&rarr;');
 		common_element_end('a');

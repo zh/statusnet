@@ -25,12 +25,12 @@ define(PROFILES_PER_PAGE, 10);
 class PeoplesearchAction extends SearchAction {
 	
 	function get_instructions() {
-		return _t('Search for people on %%site.name%% by their name, location, or interests. ' . 
+		return _('Search for people on %%site.name%% by their name, location, or interests. ' .
 				  'Separate the terms by spaces; they must be 3 characters or more.');
 	}
 
 	function get_title() {
-		return _t('People search');
+		return _('People search');
 	}
 	
 	function show_results($q, $page) {
@@ -61,7 +61,7 @@ class PeoplesearchAction extends SearchAction {
 			}
 			common_element_end('ul');
 		} else {
-			common_element('p', 'error', _t('No results'));
+			common_element('p', 'error', _('No results'));
 		}
 		
 		common_pagination($page > 1, $cnt > PROFILES_PER_PAGE,
