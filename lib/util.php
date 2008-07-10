@@ -893,7 +893,7 @@ function common_save_replies($notice) {
 		if (!$id) {
 			$last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
 			common_log(LOG_ERROR, 'DB error inserting reply: ' . $last_error->message);
-			common_server_error(_('DB error inserting reply: %s'), $last_error->message);
+			common_server_error(sprintf(_('DB error inserting reply: %s'), $last_error->message));
 			return;
 		}
 	}
