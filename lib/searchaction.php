@@ -49,11 +49,11 @@ class SearchAction extends Action {
 	function show_header($arr) {
 		return;
 	}
-	
+
 	function show_form($error=NULL) {
 		$q = $this->trimmed('q');
 		$page = $this->trimmed('page', 1);
-		
+
 		common_show_header($this->get_title(), array($this, 'show_header'), array($q, $error),
 						   array($this, 'show_top'));
 		common_element_start('form', array('method' => 'post',
@@ -70,8 +70,8 @@ class SearchAction extends Action {
 									  'id' => 'search',
 									  'name' => 'search',
 									  'class' => 'submit',
-									  'value' => _t('Search')));
-					   
+									  'value' => _('Search')));
+
 		common_element_end('p');
 		common_element_end('form');
 		if ($q) {
@@ -79,7 +79,7 @@ class SearchAction extends Action {
 		}
 		common_show_footer();
 	}
-	
+
 	function search_menu() {
         # action => array('prompt', 'title')
         static $menu =
