@@ -128,7 +128,9 @@ class FinishopenidloginAction extends Action {
 
 			if ($user) {
 				oid_set_last($display);
-				oid_update_user($user, $sreg);
+				# XXX: commented out at @edd's request until better
+				# control over how data flows from OpenID provider.
+				# oid_update_user($user, $sreg);
 				common_set_user($user->nickname);
 				common_real_login(true);
 				$this->go_home($user->nickname);
