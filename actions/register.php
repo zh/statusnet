@@ -66,7 +66,7 @@ class RegisterAction extends Action {
 		} else {
 			$user = $this->register_user($nickname, $password, $email);
 			if (!$user) {
-				$this->show_form(_t('Invalid username or password.'));
+				$this->show_form(_('Invalid username or password.'));
 				return;
 			}
 			# success!

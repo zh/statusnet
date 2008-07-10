@@ -277,7 +277,8 @@ function common_nav_menu() {
 		common_menu_item(common_local_url('all', array('nickname' => $user->nickname)),
 						 _('Home'));
 	}
-	common_menu_item(common_local_url('public'), _t('Public'));
+	common_menu_item(common_local_url('public'), _('Public'));
+	common_menu_item(common_local_url('peoplesearch'), _('Search'));
 	common_menu_item(common_local_url('doc', array('title' => 'help')),
 					 _('Help'));
 	if ($user) {

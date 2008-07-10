@@ -66,7 +66,7 @@ class LoginAction extends Action {
 
 		# success!
 		if (!common_set_user($user)) {
-			common_server_error(_t('Error setting user.'));
+			common_server_error(_('Error setting user.'));
 			return;
 		}
 

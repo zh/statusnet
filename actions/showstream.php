@@ -337,7 +337,7 @@ class ShowstreamAction extends StreamAction {
 		common_element('h2', NULL, _('Currently'));
 
 		$notice = $profile->getCurrentNotice();
-		
+
 		if ($notice) {
 			# FIXME: URL, image, video, audio
 			common_element_start('p', array('class' => 'notice_current'));
@@ -375,11 +375,19 @@ class ShowstreamAction extends StreamAction {
 								  'href' => $noticeurl,
 								  'title' => common_exact_date($notice->created)),
 					   common_date_string($notice->created));
-		common_element_start('a', 
+		if ($notice->reply_to) {
+			$replyurl = common_local_url('shownotice', array('notice' => $notice->reply_to));
+			common_text(' (');
+			common_element('a', array('class' => 'inreplyto',
+									  'href' => $replyurl),
+						   _('in reply to...'));
+			common_text(')');
+		}
+		common_element_start('a',
 							 array('href' => common_local_url('newnotice',
 															  array('replyto' => $profile->nickname)),
 								   'onclick' => 'doreply("'.$profile->nickname.'"); return false',
-								   'title' => _t('reply'),
+								   'title' => _('reply'),
 								   'class' => 'replybutton'));
 		common_raw('&rarr;');
 		common_element_end('a');
