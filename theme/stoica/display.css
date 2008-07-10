@@ -2,8 +2,7 @@
 /* Design & CSS by Marie-Claude Doyon http://www.marieclaudedoyon.com */
 
 html {
-	background-color: #d8e2d7;
-
+	background: url(bg-body.gif) repeat-y top center #d8e2d7;
 	}
 body {
 	position: absolute;
@@ -14,9 +13,8 @@ body {
 	font-size: 10px;
 	line-height: 12px;
 	min-height: 100%;
-	height: 98%;
+	height: 100%;
 	color: #193441;
-	background: url(bg-body.gif) repeat-y top center;
 	}
 a {
 	color: #C15D42;
@@ -44,8 +42,6 @@ h1 {
 	margin: 0 auto;
 	width: 540px;
 	height: 216px;
-	/*border: 1px solid #FF0;*/
-	/*background-color: #193441;*/
 	}
 #logo {
 	margin-top: 9px;
@@ -67,7 +63,6 @@ p#branding a {
 	padding: 0;
 	font-size: 15px;
 	line-height: 24px;
-	color: #FCFFF5;
 	color: #d8e2d7;
 }
 
@@ -183,7 +178,7 @@ p#branding a {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	}
-.instructions, .success, .error {
+.instructions p, .success, .error {
 	font-weight: normal;
 	margin: 36px 0 0 0;
 	padding: 10px;
@@ -208,7 +203,52 @@ p#branding a {
 	}
 
 
+/* ----- Stream -----*/
 
+#notices {
+	clear: both;
+	margin: 0 auto;
+	padding: 0;
+	list-style-type: none;
+	width: 540px;
+	border-top: 1px solid #D8E2D7;
+	}
+#notices a:hover {
+	text-decoration: underline;
+	}
+.notice_single {
+	clear: both;
+	display: block;
+	margin: 0;
+	padding: 5px 5px 5px 0;
+	min-height: 48px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 13px;
+	line-height: 16px;
+	border-bottom: 1px solid #D8E2D7;
+	}
+.notice_single:hover {
+	background-color: #F3F8EA;
+	}
+.notice_single p {
+	display: inline;
+	margin: 0;
+	padding: 0;
+	}
+.avatar.stream {
+	float: left;
+	margin: 0 10px 0 0;
+	}
+p.time {
+	display: block;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	line-height: 15px;
+	}
+p.time a {
+	color: #91AA9D;
+	}
+	
 /* ----- Profile -----*/
 #profile {
 	clear: left;
@@ -253,11 +293,11 @@ p#branding a {
 	margin-bottom: 5px;
 	}
 .avatar.profile {
-	float: none;
 	clear: left;
 	margin: 0 10px 5px 0;
 	}
 .avatar.original {
+	float: left;
 	margin: 0 10px 18px 0;
 	}
 a.nickname {
@@ -283,17 +323,13 @@ dl.statistics {
 	font-size: 12px;
 	line-height: 14px;
 	}
-.statistics dt, .statistics dd {
-	float: left;
-	margin: 0;
-	}
 .statistics dt {
-	clear: left;
+	float: left;
 	width: 96px;
-	}
+}	
 .statistics dd {
-	clear: right;
-	}
+	margin-left: 100px;
+}
 .statistics dt:after {
 	content: ":";
 	}
@@ -302,7 +338,7 @@ dl.statistics {
 	margin: 18px 0 30px 0;
 	}
 #subscriptions_avatars {
-	/*float: left;*/
+	float: left;
 	margin: 6px 0 0 0;
 	padding: 0;
 	list-style-type: none;
@@ -336,54 +372,7 @@ ul.subscriptions li, ul.subscribers li {
 	}
 /* ----- End Subscriptions & Subscribers -----*/
 
-#notices {
-	clear: both;
-	margin: 0 auto;
-	padding: 0;
-	list-style-type: none;
-	width: 540px;
-	border-top: 1px solid #D8E2D7;
-	/*border: 1px solid #F00;*/
-	}
-#notices a:hover {
-	text-decoration: underline;
-	}
-.notice_single {
-	clear: both;
-	display: block;
-	margin: 0;
-	padding: 5px 5px 5px 0;
-	min-height: 48px;
-	font-family: Georgia, "Times New Roman", Times, serif;
-	font-size: 13px;
-	line-height: 16px;
-	border-bottom: 1px solid #D8E2D7;
-	}
-.notice_single:hover {
-	background-color: #F3F8EA;
-	}
-.notice_single p {
-	display: inline;
-	margin: 0;
-	padding: 0;
-	}
-.avatar {
-	float: left;
-	margin: 5px 5px 0 0;
-	}
-.avatar.stream {
-	/*margin: 0 10px 10px 0;*/
-	}	
 
-p.time {
-	display: block;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 10px;
-	line-height: 15px;
-	}
-p.time a {
-	color: #91AA9D;
-	}
 
 #pagination {
 	margin: 18px auto;
@@ -426,6 +415,7 @@ p.time a {
 	}
 #footer p {
 	margin-top: 9px;
+	line-height: 12px;
 	}
 #cc {
 	float: left;
@@ -468,7 +458,9 @@ input#submit:hover, input.submit:hover {
 	background-color: #904632;
 	}
 input.checkbox {
-	width: 14px;
+	/*width: 14px;
+	height: 14px;*/
+	width: auto;
 	border: 0;
 	}	
 textarea, input {
@@ -485,9 +477,10 @@ textarea {
 	border: 1px solid #D8E2D7;
 	}
 .input_instructions {
+	margin-top: 3px;
 	display: block;
 	font-size: 11px;
-	line-height: 21px;
+	line-height: 15px;
 	color: #91aa9d;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	}
@@ -549,6 +542,7 @@ textarea {
 }
 /* ----- Subscribe Form ----- */
 #subscribe .submit, #unsubscribe .submit, #remotesubscribe .button, #remotesubscribe {
+	clear: left;
 	margin: 0;
 	width: 96px;
 	height: 27px;
@@ -565,7 +559,7 @@ textarea {
 	height: 22px;
 	padding: 5px 0 0 0;
 	text-align: center;
-	}	
+	}
 #subscribe .button:hover, #unsubscribe .button:hover {
 	background-color: #904632;
 	cursor: pointer;
@@ -578,6 +572,7 @@ a#remotesubscribe {
 /* ----- Login Form -----*/
 input#license {
 	width: auto;
+	border: 0;
 	}
 /* ----- Avatar Form -----*/
 form {
@@ -593,35 +588,5 @@ input#openid_url {
    color: #000;
    padding-left: 24px;
 }
-
-/* People lists (search results, maybe subscribers) */
-
-#profiles {
-	clear: both;
-	margin: 0 auto;
-	padding: 0;
-	list-style-type: none;
-	width: 540px;
-	border-top: 1px solid #D8E2D7;
-	/*border: 1px solid #F00;*/
-	}
-#profiles a:hover {
-	text-decoration: underline;
-	}
-	
-.profile_single {
-	clear: both;
-	display: block;
-	margin: 0;
-	padding: 5px 5px 5px 0;
-	min-height: 48px;
-	font-family: Georgia, "Times New Roman", Times, serif;
-	font-size: 13px;
-	line-height: 16px;
-	border-bottom: 1px solid #D8E2D7;
-	}
-.profile_single:hover {
-	background-color: #F3F8EA;
-	}
 
 /* ===== End Forms Styling ===== */

@@ -3,6 +3,9 @@
 body {
 	text-align: center;
 }
+input {
+	height: 24px;
+}
 #wrap {
 	margin: 0 auto;
 	padding: 0 20px;
@@ -20,9 +23,10 @@ body {
 #nav_views li {
 	line-height: 19px;
 	}
-#statistics dd {
+.statistics dd {
+	margin-top: -15px;
 	clear: both;
-	}
+	}	
 #notices {
 	margin: 0;
 	}			
@@ -34,8 +38,14 @@ body {
 	}	
 	
 #subscriptions_avatars li {
-	margin: 0 3px 0 0;
+	float: left;
+	margin: 0;
+	padding: 0;
 	}
+img.avatar.original, img.avatar.profile {
+	clear: none;
+	float: left;
+}		
 #status_textarea {
 	height: 46px;
 	}
@@ -49,6 +59,5 @@ body {
 	margin-left: 108px;
 	}	
 #footer {
-/*	position: relative; */
 	margin-left: 108px;
-}	
+}
