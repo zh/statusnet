@@ -51,5 +51,6 @@ RewriteRule ^(\w+)/all/rss$ index.php?action=allrss&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/foaf$ index.php?action=foaf&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/replies$ index.php?action=replies&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/replies/rss$ index.php?action=repliesrss&nickname=$1 [L,QSA]
+RewriteRule ^(\w+)/avatar/(original|96|48|24)$ index.php?action=avatarbynickname&nickname=$1&size=$2 [L,QSA]
 
 RewriteRule ^(\w+)$ index.php?action=showstream&nickname=$1 [L,QSA]
