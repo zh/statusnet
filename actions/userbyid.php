@@ -27,7 +27,7 @@ class UserbyidAction extends Action {
         	$this->client_error(_t('No id.'));
 		}
 		$user =& User::staticGet($id);
-		if (!$id) {
+		if (!$user) {
 			$this->client_error(_t('No such user.'));
 		}
 		$url=common_local_url('showstream',
