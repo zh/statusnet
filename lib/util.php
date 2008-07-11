@@ -1065,6 +1065,14 @@ function common_ensure_syslog() {
 function common_log($priority, $msg, $filename=NULL) {
 	common_ensure_syslog();
 	syslog($priority, $msg);
+	global $config;
+	$log = fopen($config['site']['logfile'], "a");
+	if ($log) {
+		$syslog_priorities = array('LOG_EMERG', 'LOG_ALERT', 'LOG_CRIT', 'LOG_ERR', 'LOG_WARNING', 'LOG_NOTICE', 'LOG_INFO', 'LOG_DEBUG');
+		$output = date('Y-m-d H:i:s') . ' ' . $syslog_priorities[$priority] . ': ' . $msg . "\n";
+    	fwrite($log, $output);
+		fclose($log);
+	}
 }
 
 function common_debug($msg, $filename=NULL) {
