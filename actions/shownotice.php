@@ -29,13 +29,15 @@ class ShownoticeAction extends StreamAction {
 		$notice = Notice::staticGet($id);
 
 		if (!$notice) {
-			$this->no_such_notice();
+			$this->client_error(_t('No such notice.'), 404);
+			return;
 		}
 
 		$profile = $notice->getProfile();
 
 		if (!$profile) {
-			$this->no_such_notice();
+			$this->server_error(_t('Notice has no profile'), 500);
+			return;
 		}
 
 		# Looks like we're good; show the header
@@ -57,9 +59,5 @@ class ShownoticeAction extends StreamAction {
 		if ($cur && $cur->id == $user->id) {
 			common_notice_form();
 		}
-	}
-
-	function no_such_notice() {
-		common_user_error('No such notice.');
 	}
 }
