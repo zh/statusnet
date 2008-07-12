@@ -74,7 +74,6 @@ class SubscribeAction extends Action {
 
 	function notify_email($listenee, $listener) {
 		if ($listenee->email) {
-			global $config;
 			$profile = $listenee->getProfile();
 			$other = $listener->getProfile();
 			$name = $profile->getBestName();
@@ -82,9 +81,9 @@ class SubscribeAction extends Action {
 			$recipients = $listenee->email;
 			$headers['From'] = mail_notify_from();
 			$headers['To'] = $name . ' <' . $listenee->email . '>';
-			$headers['Subject'] = sprintf(_('%1$s is now listening to your notices on %2$s.'), $name, $config['site']['name']);
-
-			$body  = sprintf(_('%1$s is now listening to your notices on %2$s.'), $long_name, $config['site']['name']);
+			$headers['Subject'] = sprintf(_('%1$s is now listening to your notices on %2$s.'), $other->getBestName(),
+										  common_config('site', 'name'));
+			$body  = sprintf(_('%1$s is now listening to your notices on %2$s.'), $long_name, common_config('site', 'name'));
 			$body .= "\n\n";
 			$body .= "\t".$other->profileurl;
 			$body .= "\n\n";
