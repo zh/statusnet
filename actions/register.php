@@ -63,7 +63,7 @@ class RegisterAction extends Action {
 			$this->show_form(_('Email address already exists.'));
 		} else if ($password != $confirm) {
 			$this->show_form(_('Passwords don\'t match.'));
-		} else {
+		} else if ($this->register_user($nickname, $password, $email)) {
 			$user = $this->register_user($nickname, $password, $email);
 			if (!$user) {
 				$this->show_form(_('Invalid username or password.'));
