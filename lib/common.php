@@ -40,6 +40,7 @@ $config =
 			  'server' => 'localhost',
 			  'theme' => 'default',
 			  'path' => '/',
+			  'logfile' => NULL,
 			  'fancy' => false,
 			  'email' => $_SERVER['SERVER_ADMIN'],
 			  'broughtby' => NULL,
