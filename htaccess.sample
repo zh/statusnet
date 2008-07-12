@@ -55,3 +55,6 @@ RewriteRule ^(\w+)/replies/rss$ index.php?action=repliesrss&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/avatar/(original|96|48|24)$ index.php?action=avatarbynickname&nickname=$1&size=$2 [L,QSA]
 
 RewriteRule ^(\w+)$ index.php?action=showstream&nickname=$1 [L,QSA]
+
+RewriteRule ^api/(\w+.\w+)$ index.php?action=api&command=$1 [L,QSA]
+

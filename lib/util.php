@@ -223,6 +223,14 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 	common_element_start('div', array('id' => 'content'));
 }
 
+# XXX: Refactor w/common_user_error() ?
+function common_show_basic_auth_error() {
+  	header('HTTP/1.1 401 Unauthorized');
+	header('Content-type: text/plain');
+   	print("Could not authenticate you.\n"); # exactly what Twitter says
+	exit();
+}
+
 function common_show_footer() {
 	global $xw, $config;
 	common_element_end('div'); # content div
