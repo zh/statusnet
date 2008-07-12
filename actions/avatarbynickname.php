@@ -39,7 +39,7 @@ class AvatarbynicknameAction extends Action {
 		}
 			
 		$user = User::staticGet('nickname', $nickname);
-		if ($user) {
+		if (!$user) {
         	$this->client_error(_t('No such user.'));
 			return;
 		}
