@@ -56,7 +56,7 @@ class SearchAction extends Action {
 
 		common_show_header($this->get_title(), array($this, 'show_header'), array($q, $error),
 						   array($this, 'show_top'));
-		common_element_start('form', array('method' => 'post',
+		common_element_start('form', array('method' => 'get',
 										   'id' => 'login',
 										   'action' => common_local_url($this->trimmed('action'))));
 		common_element_start('p');
