@@ -24,28 +24,28 @@ class AvatarbynicknameAction extends Action {
         parent::handle($args);
         $nickname = $this->trimmed('nickname');
         if (!$nickname) {
-        	$this->client_error(_t('No nickname.'));
+        	$this->client_error(_('No nickname.'));
 			return;
 		}
 		$size = $this->trimmed('size');
         if (!$size) {
-        	$this->client_error(_t('No size.'));
+        	$this->client_error(_('No size.'));
 			return;
 		}
 		$size = strtolower($size);
 		if (!in_array($size, array('original', '96', '48', '24'))) {
-        	$this->client_error(_t('Invalid size.'));
+        	$this->client_error(_('Invalid size.'));
 			return;
 		}
 			
 		$user = User::staticGet('nickname', $nickname);
 		if (!$user) {
-        	$this->client_error(_t('No such user.'));
+        	$this->client_error(_('No such user.'));
 			return;
 		}
 		$profile = $user->getProfile();
 		if (!$profile) {
-        	$this->client_error(_t('No such profile.'));
+        	$this->client_error(_('No such profile.'));
 			return;
 		}
 		if ($size == 'original') {
