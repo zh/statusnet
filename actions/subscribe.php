@@ -84,9 +84,12 @@ class SubscribeAction extends Action {
 			$headers['Subject'] = sprintf(_('%1$s is now listening to your notices on %2$s.'), $other->getBestName(),
 										  common_config('site', 'name'));
 			$body  = sprintf(_("%1$s is now listening to your notices on %2$s.\n\n".
-							   "\t3$s\n\n".
-							   "Faithfully yours,\n%2$s\n"), $long_name, common_config('site', 'name'), $other->profileurl);
-
+							   "\t%3$s\n\n".
+							   "Faithfully yours,\n%4$s\n"), 
+							 $long_name,
+							 common_config('site', 'name'), 
+							 $other->profileurl,
+							 common_config('site', 'name'));
 			mail_send($recipients, $headers, $body);
 		}
 	}
