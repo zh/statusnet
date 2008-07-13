@@ -49,7 +49,7 @@ class AllrssAction extends Rss10Action {
 		$notice->whereAdd('EXISTS (SELECT subscribed from subscription where subscriber = '.$user->id.' and subscribed = notice.profile_id)', 'OR');
 		$notice->whereAdd('profile_id = ' . $user->id, 'OR');
 
-		$notice->orderBy('created DESC');
+		$notice->orderBy('created DESC, notice.id DESC');
 		if ($limit != 0) {
 			$notice->limit(0, $limit);
 		}

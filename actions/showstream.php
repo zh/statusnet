@@ -306,7 +306,7 @@ class ShowstreamAction extends StreamAction {
 		$notice = DB_DataObject::factory('notice');
 		$notice->profile_id = $profile->id;
 
-		$notice->orderBy('created DESC');
+		$notice->orderBy('created DESC, notice.id DESC');
 
 		$page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 

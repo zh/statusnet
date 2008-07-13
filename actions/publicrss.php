@@ -40,7 +40,7 @@ class PublicrssAction extends Rss10Action {
 
 		$notice->whereAdd('EXISTS (SELECT user.id from user where user.id = notice.profile_id)');
 
-		$notice->orderBy('created DESC');
+		$notice->orderBy('created DESC, notice.id DESC');
 
 		if ($limit != 0) {
 			$notice->limit(0, $limit);

@@ -80,7 +80,7 @@ class AllAction extends StreamAction {
 		$notice->whereAdd('EXISTS (SELECT subscribed from subscription where subscriber = '.$profile->id.' and subscribed = notice.profile_id)', 'OR');
 		$notice->whereAdd('profile_id = ' . $profile->id, 'OR');
 
-		$notice->orderBy('created DESC');
+		$notice->orderBy('created DESC, notice.id DESC');
 
 		$page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 

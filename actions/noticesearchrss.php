@@ -40,7 +40,7 @@ class NoticesearchrssAction extends Rss10Action {
 		$q = strtolower($q);
 
 		$notice->whereAdd('MATCH(content) against (\''.addslashes($q).'\')');
-		$notice->orderBy('created DESC');
+		$notice->orderBy('created DESC, notice.id DESC');
 
 		# Ask for an extra to see if there's more.
 

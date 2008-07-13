@@ -145,7 +145,7 @@ class Profile extends DB_DataObject
 		if ($dt) {
 			$notice->whereAdd('created < "' . $dt . '"');
 		}
-		$notice->orderBy('created DESC');
+		$notice->orderBy('created DESC, notice.id DESC');
 		$notice->limit(1);
 		if ($notice->find(true)) {
 			return $notice;

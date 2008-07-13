@@ -46,7 +46,7 @@ class UserrssAction extends Rss10Action {
 
 		$notice = DB_DataObject::factory('notice');
 		$notice->profile_id = $user->id; # user id === profile id
-		$notice->orderBy('created DESC');
+		$notice->orderBy('created DESC, notice.id DESC');
 		if ($limit != 0) {
 			$notice->limit(0, $limit);
 		}
