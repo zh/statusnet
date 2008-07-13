@@ -109,10 +109,21 @@ class LoginAction extends Action {
 	}
 
 	function get_instructions() {
-		return _('Login with your username and password. ' .
-				  'Don\'t have a username yet? ' .
-				  '[Register](%%action.register%%) a new account, or ' .
-				  'try [OpenID](%%action.openidlogin%%). ');
+		if (common_logged_in() &&
+			!common_is_real_login() &&
+			common_get_returnto())
+		{
+			# rememberme logins have to reauthenticate before
+			# changing any profile settings (cookie-stealing protection)
+			return _('For security reasons, please re-enter your ' .
+					 'user name and password ' .
+					 'before changing your settings.');
+		} else {
+			return _('Login with your username and password. ' .
+					 'Don\'t have a username yet? ' .
+					 '[Register](%%action.register%%) a new account, or ' .
+					 'try [OpenID](%%action.openidlogin%%). ');
+		}
 	}
 
 	function show_top($error=NULL) {
