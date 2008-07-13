@@ -138,4 +138,3 @@ class LoginAction extends Action {
 		}
 	}
 }
-#
