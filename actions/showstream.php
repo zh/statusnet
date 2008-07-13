@@ -287,15 +287,15 @@ class ShowstreamAction extends StreamAction {
 															 array('nickname' => $profile->nickname))),
 					   _('Subscriptions'));
 		common_element_end('dt');
-		common_element('dd', 'subscriptions', ($subs_count) ? $subs_count : '0');
+		common_element('dd', 'subscriptions', (is_int($subs_count)) ? $subs_count : '0');
 		common_element_start('dt', 'subscribers');
 		common_element('a', array('href' => common_local_url('subscribers',
 															 array('nickname' => $profile->nickname))),
 					   _('Subscribers'));
 		common_element_end('dt');
-		common_element('dd', 'subscribers', ($subbed_count) ? $subbed_count : '0');
+		common_element('dd', 'subscribers', (is_int($subbed_count)) ? $subbed_count : '0');
 		common_element('dt', 'notices', _('Notices'));
-		common_element('dd', 'notices', ($notice_count) ? $notice_count : '0');
+		common_element('dd', 'notices', (is_int($notice_count)) ? $notice_count : '0');
 		common_element_end('dl');
 
 		common_element_end('div');
