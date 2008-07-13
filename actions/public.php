@@ -65,7 +65,7 @@ class PublicAction extends StreamAction {
 
 		$notice->whereAdd('EXISTS (SELECT user.id from user where user.id = notice.profile_id)');
 
-		$notice->orderBy('created DESC');
+		$notice->orderBy('created DESC, notice.id DESC');
 
 		# We fetch one extra, to see if we need an "older" link
 
