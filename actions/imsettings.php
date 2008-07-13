@@ -128,7 +128,7 @@ class ImsettingsAction extends SettingsAction {
 
 		if ($result === FALSE) {
 			common_log_db_error($user, 'UPDATE', __FILE__);
-			common_server_error(_('Couldnt update user.'));
+			common_server_error(_('Couldn\'t update user.'));
 			return;
 		}
 
@@ -177,7 +177,7 @@ class ImsettingsAction extends SettingsAction {
 
 		if ($result === FALSE) {
 			common_log_db_error($confirm, 'INSERT', __FILE__);
-			common_server_error(_('Couldnt insert confirmation code.'));
+			common_server_error(_('Couldn\'t insert confirmation code.'));
 			return;
 		}
 
@@ -233,7 +233,7 @@ class ImsettingsAction extends SettingsAction {
 		$result = $user->updateKeys($original);
 		if (!$result) {
 			common_log_db_error($user, 'UPDATE', __FILE__);
-			common_server_error(_('Couldnt update user.'));
+			common_server_error(_('Couldn\'t update user.'));
 			return;
 		}
 		$user->query('COMMIT');

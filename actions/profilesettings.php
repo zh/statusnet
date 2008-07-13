@@ -77,7 +77,7 @@ class ProfilesettingsAction extends SettingsAction {
 		} else if (!Validate::string($nickname, array('min_length' => 1,
 													  'max_length' => 64,
 													  'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
-			$this->show_form(_('Nickname must have only letters and numbers and no spaces.'));
+			$this->show_form(_('Nickname must have only lowercase letters and numbers and no spaces.'));
 			return;
 		} else if (!User::allowed_nickname($nickname)) {
 			$this->show_form(_('Not a valid nickname.'));
@@ -87,7 +87,7 @@ class ProfilesettingsAction extends SettingsAction {
 			$this->show_form(_('Homepage is not a valid URL.'));
 			return;
 		} else if (!is_null($fullname) && strlen($fullname) > 255) {
-			$this->show_form(_('Fullname is too long (max 255 chars).'));
+			$this->show_form(_('Full name is too long (max 255 chars).'));
 			return;
 		} else if (!is_null($bio) && strlen($bio) > 140) {
 			$this->show_form(_('Bio is too long (max 140 chars).'));
@@ -96,7 +96,7 @@ class ProfilesettingsAction extends SettingsAction {
 			$this->show_form(_('Location is too long (max 255 chars).'));
 			return;
 		} else if ($this->nickname_exists($nickname)) {
-			$this->show_form(_('Nickname already exists.'));
+			$this->show_form(_('Nickname already in use. Try another one.'));
 			return;
 		} else if ($this->email_exists($email)) {
 			$this->show_form(_('Email address already exists.'));
@@ -120,7 +120,7 @@ class ProfilesettingsAction extends SettingsAction {
 
 			if ($result === FALSE) {
 				common_log_db_error($user, 'UPDATE', __FILE__);
-				common_server_error(_('Couldnt update user.'));
+				common_server_error(_('Couldn\'t update user.'));
 				return;
 			}
 		}
@@ -143,7 +143,7 @@ class ProfilesettingsAction extends SettingsAction {
 
 			if (!$result) {
 				common_log_db_error($confirm, 'INSERT', __FILE__);
-				common_server_error(_('Couldnt confirm email.'));
+				common_server_error(_('Couldn\'t confirm email.'));
 				return FALSE;
 			}
 
@@ -172,7 +172,7 @@ class ProfilesettingsAction extends SettingsAction {
 
 		if (!$result) {
 			common_log_db_error($profile, 'UPDATE', __FILE__);
-			common_server_error(_('Couldnt save profile.'));
+			common_server_error(_('Couldn\'t save profile.'));
 			return;
 		}
 

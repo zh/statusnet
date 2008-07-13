@@ -37,7 +37,7 @@ class AvatarbynicknameAction extends Action {
         	$this->client_error(_('Invalid size.'));
 			return;
 		}
-			
+
 		$user = User::staticGet('nickname', $nickname);
 		if (!$user) {
         	$this->client_error(_('No such user.'));
@@ -45,7 +45,7 @@ class AvatarbynicknameAction extends Action {
 		}
 		$profile = $user->getProfile();
 		if (!$profile) {
-        	$this->client_error(_('No such profile.'));
+        	$this->client_error(_('User has no profile.'));
 			return;
 		}
 		if ($size == 'original') {
@@ -53,7 +53,7 @@ class AvatarbynicknameAction extends Action {
 		} else {
 			$avatar = $profile->getAvatar($size+0);
 		}
-		
+
 		if ($avatar) {
 			$url = $avatar->url;
 		} else {

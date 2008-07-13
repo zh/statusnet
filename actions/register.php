@@ -56,7 +56,7 @@ class RegisterAction extends Action {
 													  'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
 			$this->show_form(_('Nickname must have only lowercase letters and numbers and no spaces.'));
 		} else if ($this->nickname_exists($nickname)) {
-			$this->show_form(_('Nickname already exists.'));
+			$this->show_form(_('Nickname already in use. Try another one.'));
 		} else if (!User::allowed_nickname($nickname)) {
 			$this->show_form(_('Not a valid nickname.'));
 		} else if ($this->email_exists($email)) {

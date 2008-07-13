@@ -58,7 +58,7 @@ class PasswordAction extends SettingsAction {
 		$confirm = $this->arg('confirm');
 
 		if (0 != strcmp($newpassword, $confirm)) {
-			$this->show_form(_('Passwords don\'t match'));
+			$this->show_form(_('Passwords don\'t match.'));
 			return;
 		}
 
@@ -86,6 +86,6 @@ class PasswordAction extends SettingsAction {
 			return;
 		}
 
-		$this->show_form(_('Password saved'), true);
+		$this->show_form(_('Password saved.'), true);
 	}
 }

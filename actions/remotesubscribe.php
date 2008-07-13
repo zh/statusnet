@@ -81,14 +81,14 @@ class RemotesubscribeAction extends Action {
 		$user = $this->get_user();
 
 		if (!$user) {
-			$this->show_form(_('No such user!'));
+			$this->show_form(_('No such user.'));
 			return;
 		}
 
 		$profile = $this->trimmed('profile_url');
 
 		if (!$profile) {
-			$this->show_form(_('No such user!'));
+			$this->show_form(_('No such user.'));
 			return;
 		}
 

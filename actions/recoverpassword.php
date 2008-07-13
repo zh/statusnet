@@ -36,7 +36,7 @@ class RecoverpasswordAction extends Action {
             } else if ($this->arg('reset')) {
             	$this->reset_password();
 			} else {
-				$this->client_error(_('Unexpected form.'));
+				$this->client_error(_('Unexpected form submission.'));
 			}
 		} else {
 			if ($this->trimmed('code')) {

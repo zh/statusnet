@@ -31,14 +31,14 @@ class AllAction extends StreamAction {
 		$user = User::staticGet('nickname', $nickname);
 
 		if (!$user) {
-			$this->client_error(sprintf(_('No such user: %s'), $nickname));
+			$this->client_error(_('No such user.'));
 			return;
 		}
 
 		$profile = $user->getProfile();
 
 		if (!$profile) {
-			common_server_error(_('User record exists without profile.'));
+			common_server_error(_('User has no profile.'));
 			return;
 		}
 

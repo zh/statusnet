@@ -73,7 +73,7 @@ class UpdateprofileAction extends Action {
 		if ($nickname && !Validate::string($nickname, array('min_length' => 1,
 															'max_length' => 64,
 															'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
-			$this->client_error(_('Nickname must have only letters and numbers and no spaces.'));
+			$this->client_error(_('Nickname must have only lowercase letters and numbers and no spaces.'));
 			return false;
 		}
 		$license = $req->get_parameter('omb_listenee_license');
@@ -89,7 +89,7 @@ class UpdateprofileAction extends Action {
 		# optional stuff
 		$fullname = $req->get_parameter('omb_listenee_fullname');
 		if ($fullname && strlen($fullname) > 255) {
-			$this->client_error(sprintf(_("Full name '%s' too long."), $fullname));
+			$this->client_error(_("Full name is too long (max 255 chars)."));
 			return false;
 		}
 		$homepage = $req->get_parameter('omb_listenee_homepage');
@@ -99,12 +99,12 @@ class UpdateprofileAction extends Action {
 		}
 		$bio = $req->get_parameter('omb_listenee_bio');
 		if ($bio && strlen($bio) > 140) {
-			$this->client_error(sprintf(_("Bio too long '%s'"), $bio));
+			$this->client_error(_("Bio is too long (max 140 chars)."));
 			return false;
 		}
 		$location = $req->get_parameter('omb_listenee_location');
 		if ($location && strlen($location) > 255) {
-			$this->client_error(sprintf(_("Location too long '%s'"), $location));
+			$this->client_error(_("Location is too long (max 255 chars)."));
 			return false;
 		}
 		$avatar = $req->get_parameter('omb_listenee_avatar');

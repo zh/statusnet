@@ -41,7 +41,7 @@ class ShowstreamAction extends StreamAction {
 		$profile = $user->getProfile();
 
 		if (!$profile) {
-			common_server_error(_('User record exists without profile.'));
+			common_server_error(_('User has no profile.'));
 			return;
 		}
 

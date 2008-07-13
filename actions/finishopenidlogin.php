@@ -162,7 +162,7 @@ class FinishopenidloginAction extends Action {
 		if (!Validate::string($nickname, array('min_length' => 1,
 											   'max_length' => 64,
 											   'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
-			$this->show_form(_('Nickname must have only letters and numbers and no spaces.'));
+			$this->show_form(_('Nickname must have only lowercase letters and numbers and no spaces.'));
 			return;
 		}
 
