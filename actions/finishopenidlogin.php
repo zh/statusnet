@@ -53,11 +53,7 @@ class FinishopenidloginAction extends Action {
 		} else {
 			global $config;
 			common_element('div', 'instructions',
-						   sprintf(_('This is the first time you\'ve logged into %s' .
-                                    ' so we must connect your OpenID to a local account. ' .
-                                    ' You can either create a new account, or connect with ' .
-                                    ' your existing account, if you have one.'
-                                    ), $config['site']['name']));
+						   sprintf(_('This is the first time you\'ve logged into %s so we must connect your OpenID to a local account. You can either create a new account, or connect with your existing account, if you have one.'), $config['site']['name']));
 		}
 	}
 
@@ -89,8 +85,7 @@ class FinishopenidloginAction extends Action {
 		common_element('h2', NULL,
 					   _('Connect existing account'));
 		common_element('p', NULL,
-					   _('If you already have an account, login with your username and password '.
-						  'to connect it to your OpenID.'));
+					   _('If you already have an account, login with your username and password to connect it to your OpenID.'));
 		common_input('nickname', _('Existing nickname'));
 		common_password('password', _('Password'));
 		common_submit('connect', _('Connect'));

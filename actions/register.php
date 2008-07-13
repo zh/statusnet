@@ -181,8 +181,7 @@ class RegisterAction extends Action {
 		common_input('email', _('Email'), NULL,
 					 _('Used only for updates, announcements, and password recovery'));
 		common_checkbox('rememberme', _('Remember me'), false,
-		                _('Automatically login in the future; ' .
-		                   'not for shared computers!'));
+		                _('Automatically login in the future; not for shared computers!'));
 		common_element_start('p');
 		common_element('input', array('type' => 'checkbox',
 									  'id' => 'license',

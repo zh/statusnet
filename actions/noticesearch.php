@@ -27,8 +27,7 @@ define(NOTICES_PER_PAGE, 20);
 class NoticesearchAction extends SearchAction {
 
 	function get_instructions() {
-		return _('Search for notices on %%site.name%% by their contents. ' .
-				  'Separate search terms by spaces; they must be 3 characters or more.');
+		return _('Search for notices on %%site.name%% by their contents. Separate search terms by spaces; they must be 3 characters or more.');
 	}
 
 	function get_title() {

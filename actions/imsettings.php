@@ -25,9 +25,7 @@ require_once(INSTALLDIR.'/lib/jabber.php');
 class ImsettingsAction extends SettingsAction {
 
 	function get_instructions() {
-		return _('You can send and receive notices through '.
-		   		'Jabber/GTalk [instant messages](%%doc.im%%). Configure '.
-		   		'your address and settings below.');
+		return _('You can send and receive notices through Jabber/GTalk [instant messages](%%doc.im%%). Configure your address and settings below.');
 	}
 
 	function show_form($msg=NULL, $success=false) {
@@ -56,17 +54,15 @@ class ImsettingsAction extends SettingsAction {
 				common_element('span', 'input_instructions',
 			  	              sprintf(_('Awaiting confirmation on this address. Check your ' .
 			  	                'Jabber/GTalk account for a message with further ' .
-			  	                'instructions. (Did you add %s to your buddy list?)'),
-                                 jabber_daemon_address()));
+			  	                'instructions. (Did you add %s to your buddy list?)',
+                                 jabber_daemon_address())));
 				common_hidden('jabber', $confirm->address);
 				common_element_end('p');
 				common_submit('cancel', _('Cancel'));
 			} else {
 				common_input('jabber', _('IM Address'),
 						 	($this->arg('jabber')) ? $this->arg('jabber') : NULL,
-						 sprintf(_('Jabber or GTalk address, like "UserName@example.org". ' .
-						    'First, make sure to add %s' .
-                              ' to your buddy list in your IM client or on GTalk.'), jabber_daemon_address()));
+						 sprintf(_('Jabber or GTalk address, like "UserName@example.org". First, make sure to add %s to your buddy list in your IM client or on GTalk.'), jabber_daemon_address()));
 				common_submit('add', _('Add'));
 			}
 		}
@@ -191,8 +187,7 @@ class ImsettingsAction extends SettingsAction {
 								   $jabber);
 		}
 
-		$msg = sprintf(_('A confirmation code was sent to the IM address you added. ' .
-			'You must approve %s for sending messages to you.'), jabber_daemon_address());
+		$msg = sprintf(_('A confirmation code was sent to the IM address you added. You must approve %s for sending messages to you.'), jabber_daemon_address());
 
 		$this->show_form($msg, TRUE);
 	}

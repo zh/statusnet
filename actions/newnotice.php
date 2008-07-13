@@ -54,7 +54,7 @@ class NewnoticeAction extends Action {
 		}
 
 		$notice->rendered = common_render_content($notice->content, $notice);
-		
+
 		$id = $notice->insert();
 
 		if (!$id) {

@@ -234,11 +234,7 @@ function common_show_footer() {
 	} else {
 		$instr = _('**%%site.name%%** is a microblogging service. ');
 	}
-	$instr .= sprintf(_('It runs the [Laconica](http://laconi.ca/) ' .
-		         'microblogging software, version %s, ' .
-		         'available under the ' .
-		         '[GNU Affero General Public License]' .
-		         '(http://www.fsf.org/licensing/licenses/agpl-3.0.html).'), LACONICA_VERSION);
+	$instr .= sprintf(_('It runs the [Laconica](http://laconi.ca/) microblogging software, version %s, available under the [GNU Affero General Public License] (http://www.fsf.org/licensing/licenses/agpl-3.0.html).'), LACONICA_VERSION);
     $output = common_markup_to_html($instr);
     common_raw($output);
 	common_element_end('div');
@@ -1062,7 +1058,7 @@ function common_log($priority, $msg, $filename=NULL) {
 	if ($logfile) {
 		$log = fopen($logfile, "a");
 		if ($log) {
-			static $syslog_priorities = array('LOG_EMERG', 'LOG_ALERT', 'LOG_CRIT', 'LOG_ERR', 
+			static $syslog_priorities = array('LOG_EMERG', 'LOG_ALERT', 'LOG_CRIT', 'LOG_ERR',
 											  'LOG_WARNING', 'LOG_NOTICE', 'LOG_INFO', 'LOG_DEBUG');
 			$output = date('Y-m-d H:i:s') . ' ' . $syslog_priorities[$priority] . ': ' . $msg . "\n";
 			fwrite($log, $output);
