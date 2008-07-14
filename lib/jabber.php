@@ -81,7 +81,7 @@ function jabber_send_notice($to, $notice) {
 	}
 	$msg = jabber_format_notice($profile, $notice);
 	$entry = jabber_format_entry($profile, $notice);
-	$conn->message($to, $msg, 'chat', $entry);
+	$conn->message($to, $msg, 'chat', NULL, $entry);
 	return true;
 }
 
