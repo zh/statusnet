@@ -32,15 +32,13 @@ function index_map() {
 		$index_urls .= url(
 						   array(
 								 'url' => $output_url . $file_name,
-								 'changefreq' => 'hourly',
+								 'changefreq' => 'daily',
 								 'priority' => '1',
 								 )
 						   );
 	}
 
-	$index_path = $output_dir . $output_paths['index_file'];
-
-	write_file($index_path, urlset($index_urls));
+	write_file($output_paths['index_file'], urlset($index_urls));
 
 }
 
@@ -51,7 +49,7 @@ function standard_map() {
 	$standard_map_urls .= url(
 							  array(
 									'url' => common_local_url('public'),
-									'changefreq' => 'hourly',
+									'changefreq' => 'daily',
 									'priority' => '1',
 									)
 							  );
@@ -59,7 +57,7 @@ function standard_map() {
 	$standard_map_urls .= url(
 							  array(
 									'url' => common_local_url('publicrss'),
-									'changefreq' => 'hourly',
+									'changefreq' => 'daily',
 									'priority' => '0.3',
 									)
 							  );
@@ -102,8 +100,8 @@ function notices_map() {
 
 		$notice = array(
 						'url'        => $notices->uri,
-						'lastmod'    => preg_replace('/ /', 'T', $notices->modified), # W3C DTF requires "T" separator
-						'changefreq' => 'hourly',
+						'lastmod'    => w3cdate($notices->modified),
+						'changefreq' => 'daily',
 						'priority'   => '1',
 						);
 
@@ -140,37 +138,37 @@ function user_map() {
 		# Define parameters for generating <url></url> elements.
 		$user = array(
 					  'url'        => common_local_url('showstream', $user_args),
-					  'changefreq' => 'hourly',
+					  'changefreq' => 'daily',
 					  'priority'   => '1',
 					  );
 
 		$user_rss = array(
 						  'url'        => common_local_url('userrss', $user_args),
-						  'changefreq' => 'hourly',
+						  'changefreq' => 'daily',
 						  'priority'   => '0.3',
 						  );
 
 		$all = array(
 					 'url'        => common_local_url('all', $user_args),
-					 'changefreq' => 'hourly',
+					 'changefreq' => 'daily',
 					 'priority'   => '1',
 					 );
 
 		$all_rss = array(
 						 'url'        => common_local_url('allrss', $user_args),
-						 'changefreq' => 'hourly',
+						 'changefreq' => 'daily',
 						 'priority'   => '0.3',
 						 );
 
 		$replies = array(
 						 'url'        => common_local_url('replies', $user_args),
-						 'changefreq' => 'hourly',
+						 'changefreq' => 'daily',
 						 'priority'   => '1',
 						 );
 
 		$replies_rss = array(
 							 'url'        => common_local_url('repliesrss', $user_args),
-							 'changefreq' => 'hourly',
+							 'changefreq' => 'daily',
 							 'priority'   => '0.3',
 							 );
 
@@ -228,10 +226,10 @@ function avatar_map() {
 			$avatar_count = 0;
 			$map_count++;
 		}
-
+w3cdate($avatars->modified);
 		$image = array(
 					   'url'        => $avatars->url,
-					   'lastmod'    => preg_replace('/ /', 'T', $avatars->modified), # W3C DTF requires "T" separator
+					   'lastmod'    => w3cdate($avatars->modified),
 					   'changefreq' => 'monthly',
 					   'priority'   => '0.2',
 					   );
@@ -281,9 +279,9 @@ function url($url_args) {
 
 # Generate a <urlset></urlset> element.
 function urlset($urlset_text) {
-	$urlset = '<?xml version="1.0" encoding="UTF-8"?>'.
-	  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'.
-	  $urlset_text.
+	$urlset = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" .
+	  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n" .
+	  $urlset_text .
 	  '</urlset>';
 
 	return $urlset;
@@ -310,7 +308,7 @@ function parse_args() {
 	$args = getopt('f:d:u:');
 
 	if (is_null($args[f]) && is_null($args[d]) && is_null($args[u])) {
-		error('Mandatory arguments: -f <index file name> -d <output directory> -u <URL of sitemaps directory>');
+		error('Mandatory arguments: -f <index file path> -d <output directory path> -u <URL of sitemaps directory>');
 	}
 
 	if (is_null($args[f])) {
@@ -344,6 +342,13 @@ function parse_args() {
 				   );
 
 	return $paths;
+}
+
+# Format database timestamps as W3C DTF.
+function w3cdate ($timestamp) {
+	preg_match('/(\d{4})-(\d\d)-(\d\d) (\d\d):(\d\d):(\d\d)/', $timestamp, $date);
+	
+	return date(DATE_W3C, mktime($date[4], $date[5], $date[6], $date[2], $date[3], $date[1]));
 }
 
 # Ensure paths end with a "/".
