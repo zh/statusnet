@@ -21,6 +21,9 @@ if (!defined('LACONICA')) { exit(1); }
 
 define('DEFAULT_RSS_LIMIT', 48);
 
+# This will contain the details of each feed item's author and be used to generate SIOC data.
+$creators = array();
+
 class Rss10Action extends Action {
 
 	function handle($args) {
@@ -67,6 +70,7 @@ class Rss10Action extends Action {
 			$this->show_item($n);
 		}
 
+		$this->show_creators();
 		$this->end_rss();
 	}
 
@@ -90,7 +94,7 @@ class Rss10Action extends Action {
 		common_element_start('rdf:Seq');
 
 		foreach ($notices as $notice) {
-			common_element('rdf:li', array('rdf:resource' => $notice->uri));
+			common_element('sioct:MicroblogPost', array('rdf:resource' => $notice->uri));
 		}
 
 		common_element_end('rdf:Seq');
@@ -112,7 +116,7 @@ class Rss10Action extends Action {
 	}
 
 	function show_item($notice) {
-		global $config;
+		global $config, $creators;
 		$profile = Profile::staticGet($notice->profile_id);
 		$nurl = common_local_url('shownotice', array('notice' => $notice->id));
 		common_element_start('item', array('rdf:about' => $notice->uri));
@@ -122,11 +126,43 @@ class Rss10Action extends Action {
 		common_element('description', NULL, $profile->nickname."'s status on ".common_exact_date($notice->created));
 		common_element('dc:date', NULL, common_date_w3dtf($notice->created));
 		common_element('dc:creator', NULL, ($profile->fullname) ? $profile->fullname : $profile->nickname);
+		common_element('sioc:has_creator', array('rdf:resource' =>
+		                                         common_local_url('userbyid', array('id' => $profile->id))
+					                       ));
 		common_element('cc:licence', array('rdf:resource' => $config['license']['url']));
 		common_element_end('item');
+		$creators[$nurl] = $profile;
 	}
 
+	function show_creators() {
+		global $creators;
+		
+		foreach ($creators as $nurl => $profile) {
+			$id = $profile->id;
+			$nickname = $profile->nickname;
+			
+			common_element_start('sioc:User', array('rdf:about' =>
+			                                        common_local_url('userbyid', array('id' => $id))
+                                              ));
+			common_element('foaf:nick', NULL, $nickname);                                                
+			if ($profile->fullname) {
+				common_element('foaf:name', NULL, $profile->fullname);
+			}
+			common_element('sioc:id', NULL, $id);
+			common_element('sioc:avatar', array('rdf:resource' =>
+			                                    common_local_url('avatarbynickname', 
+			                                                     array('nickname' => $nickname,
+																	   'size' => 48
+															     ))
+										  ));
+			common_element_end('sioc:User');
+		}
+	}
+	
 	function init_rss() {
+		global $config;
+		$channel = $this->get_channel();
+		
 		header('Content-Type: application/rdf+xml');
 
 		common_start_xml();
@@ -136,7 +172,22 @@ class Rss10Action extends Action {
 											  'http://purl.org/dc/elements/1.1/',
 											  'xmlns:cc' =>
 											  'http://web.resource.org/cc/',
+											  'xmlns:foaf' =>
+											  'http://xmlns.com/foaf/0.1/',
+											  'xmlns:sioc' =>
+											  'http://rdfs.org/sioc/ns#',
+		                                      'xmlns:sioct' =>
+		                                      'http://rdfs.org/sioc/types#',
 											  'xmlns' => 'http://purl.org/rss/1.0/'));
+		
+		common_element_start('sioc:Site', array('rdf:about' =>
+		                                        'http://identi.ca/'));
+		common_element('sioc:name', NULL, $config['site']['name']);
+		common_element_start('sioc:container_of');
+		common_element('sioc:Container', array('rdf:about' =>
+		                                       $channel['url']));
+		common_element_end('sioc:container_of');
+		common_element_end('sioc:Site');
 	}
 
 	function end_rss() {
