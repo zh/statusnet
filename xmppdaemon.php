@@ -98,7 +98,12 @@ class XMPPDaemon {
 			$this->confirmation_queue();
 		}
 	}
-
+	
+	function handle_session($pl) {
+		# XXX what to do here?
+		return true;
+	}
+	
 	function get_user($from) {
 		$user = User::staticGet('jabber', jabber_normalize_jid($from));
 		return $user;
