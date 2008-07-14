@@ -1269,3 +1269,13 @@ function common_markup_to_html($c) {
 	$c = preg_replace('/%%(\w+).(\w+)%%/e', 'common_config(\'\\1\', \'\\2\')', $c);
 	return Markdown($c);
 }
+
+function common_profile_avatar_url($profile, $size=AVATAR_PROFILE_SIZE) {
+	$avatar = $profile->getAvatar($size);
+	if ($avatar) {
+		return common_avatar_display_url($avatar);
+	} else {
+		return common_default_avatar($size);
+	}
+}
+	
