@@ -234,7 +234,7 @@ function common_show_footer() {
 	} else {
 		$instr = _('**%%site.name%%** is a microblogging service. ');
 	}
-	$instr .= sprintf(_('It runs the [Laconica](http://laconi.ca/) microblogging software, version %s, available under the [GNU Affero General Public License] (http://www.fsf.org/licensing/licenses/agpl-3.0.html).'), LACONICA_VERSION);
+	$instr .= sprintf(_('It runs the [Laconica](http://laconi.ca/) microblogging software, version %s, available under the [GNU Affero General Public License](http://www.fsf.org/licensing/licenses/agpl-3.0.html).'), LACONICA_VERSION);
     $output = common_markup_to_html($instr);
     common_raw($output);
 	common_element_end('div');
