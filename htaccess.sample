@@ -56,5 +56,26 @@ RewriteRule ^(\w+)/avatar/(original|96|48|24)$ index.php?action=avatarbynickname
 
 RewriteRule ^(\w+)$ index.php?action=showstream&nickname=$1 [L,QSA]
 
-RewriteRule ^api/(\w+.\w+)$ index.php?action=api&command=$1 [L,QSA]
+# Twitter-compatible API rewrites
+RewriteRule ^api/statuses/public_timeline(.*)$ index.php?action=api&apiaction=statuses&method=public_timeline$1 [L,QSA]
+RewriteRule ^api/statuses/show/(.*)$ index.php?action=api&apiaction=statuses&method=show&argument=$1 [L,QSA]
+RewriteRule ^api/statuses/direct_messages/sent(.*)$ index.php?action=api&apiaction=direct_messages&method=send$1 [L,QSA]
+RewriteRule ^api/statuses/direct_messages(.*)$ index.php?action=api&apiaction=direct_messages&method=index$1 [L,QSA]
+RewriteRule ^api/direct_messages/(.*)$ index.php?action=api&apiaction=direct_messages&method=$1 [L,QSA]
+RewriteRule ^api/friendships/create/(.*)$ index.php?action=api&apiaction=friendships&method=create&argument=$1 [L,QSA]
+RewriteRule ^api/friendships/destroy/(.*)$ index.php?action=api&apiaction=friendships&method=destroy&argument=$1 [L,QSA]
+RewriteRule ^api/friendships/exists(.*)$ index.php?action=api&apiaction=friendships&method=exists$1 [L,QSA]
+RewriteRule ^api/account/verify_credentials(.*)$ index.php?action=api&apiaction=account&method=verify_credentials$1 [L,QSA]
+RewriteRule ^api/account/end_session$ index.php?action=api&apiaction=account&method=end_session$1 [L,QSA]
+RewriteRule ^api/account/update_location(.*)$ index.php?action=api&apiaction=account&method=update_location$1 [L,QSA]
+RewriteRule ^api/account/update_delivery_device(.*)$ index.php?action=api&apiaction=account&method=update_delivery_device$1 [L,QSA]
+RewriteRule ^api/account/rate_limit_status(.*)$ index.php?action=api&apiaction=account&method=rate_limit_status$1 [L,QSA]
+RewriteRule ^api/favorites(.*)$ index.php?action=api&apiaction=favorites&method=index$1 [L,QSA]
+RewriteRule ^api/favorites/create/(.*)$ index.php?action=api&apiaction=favorites&method=create&argument=$1 [L,QSA]
+RewriteRule ^api/favorites/destroy/(.*)$ index.php?action=api&apiaction=favorites&method=destroy&argument=$1 [L,QSA]
+RewriteRule ^api/notifications/follow/(.*)$ index.php?action=api&apiaction=notifications&method=follow&argument=$1 [L,QSA]
+RewriteRule ^api/notifications/leave/(.*)$ index.php?action=api&apiaction=notifications&method=leave&argument=$1 [L,QSA]
+RewriteRule ^api/blocks/create/(.*)$ index.php?action=api&apiaction=blocks&method=create&argument=$1 [L,QSA]
+RewriteRule ^api/blocks/destroy/(.*)$ index.php?action=api&apiaction=blocks&method=destroy&argument=$1 [L,QSA]
+RewriteRule ^api/help/(.*)$ index.php?action=api&apiaction=help&method=$1 [L,QSA]
 
