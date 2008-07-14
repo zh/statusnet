@@ -105,8 +105,8 @@ function jabber_format_entry($profile, $notice) {
 	$entry .= "<author><name>" . $profile->nickname . "</name></author>\n";
 	$entry .= "<icon>" . common_profile_avatar_url($profile, AVATAR_PROFILE_SIZE) . "</icon>\n";
 	$entry .= "</source>\n";
-	$entry .= "<title>" . $msg . "</title>\n";
-	$entry .= "<summary>" . $msg . "</summary>\n";
+	$entry .= "<title>" . htmlspecialchars($msg) . "</title>\n";
+	$entry .= "<summary>" . htmlspecialchars($msg) . "</summary>\n";
 	$entry .= "<link rel='alternate' href='" . $noticeurl . "' />\n";
 	$entry .= "<id>". $notice->uri . "</id>\n";
 	$entry .= "<published>".common_date_w3dtf($notice->created)."</published>\n";
