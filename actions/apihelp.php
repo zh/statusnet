@@ -22,8 +22,23 @@ if (!defined('LACONICA')) { exit(1); }
 # This naming convention looks real sick
 class ApihelpAction extends Action {
 
+	/* Returns the string "ok" in the requested format with a 200 OK HTTP status code.
+	 * URL:http://identi.ca/api/help/test.format
+	 * Formats: xml, json
+	 */
 	function test($args, $apidata) {
-		print "gargargar";
+ 		global $xw;
+		if ($apidata['content-type'] == 'xml') {
+			header('Content-Type: application/xml; charset=utf-8');		
+			common_start_xml();
+			common_element('ok', NULL, 'true');
+			common_end_xml();
+		} elseif ($apidata['content-type'] == 'json') {
+			header('Content-Type: application/json; charset=utf-8');		
+			print '"ok"';
+		} else {
+			common_user_error("API method not found!", $code=404);
+		}
 		exit();
 	}
 
