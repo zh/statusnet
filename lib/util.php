@@ -548,7 +548,7 @@ function common_forgetme() {
 
 # who is the current user?
 function common_current_user() {
-	if ($_REQUEST[session_name()]) {
+	if ($_REQUEST[session_name()] || $_SESSION && $_SESSION['userid']) {
 		common_ensure_session();
 		$id = $_SESSION['userid'];
 		if ($id) {
@@ -559,6 +559,11 @@ function common_current_user() {
 	}
 	# that didn't work; try to remember
 	$user = common_remembered_user();
+	common_debug("Got User " . $user->nickname);
+	if ($user) {
+	    common_debug("Faking session on remembered user");
+	    $_SESSION['userid'] = $user->id;
+	}
 	return $user;
 }
 
