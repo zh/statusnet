@@ -67,6 +67,53 @@ function jabber_connect($resource=NULL) {
 	return $conn;
 }
 
+function jabber_send_notice($to, $notice) {
+	$conn = jabber_connect();
+	if (!$conn) {
+		return false;
+	}
+	$profile = Profile::staticGet($notice->profile_id);
+	if (!$profile) {
+		common_log(LOG_WARNING, 'Refusing to send notice with ' .
+		           'unknown profile ' . common_log_objstring($notice),
+		           __FILE__);
+		return false;
+	}
+	$msg = jabber_format_notice($profile, $notice);
+	$entry = jabber_format_entry($profile, $notice);
+	$conn->message($to, $msg, 'chat', $entry);
+	return true;
+}
+
+# Extra stuff defined by Twitter, needed by twitter clients
+
+function jabber_format_entry($profile, $notice) {
+	$noticeurl = common_local_url('shownotice',
+								  array('notice' => $notice->id));
+	$entry = "<entry xmlns=\'http://www.w3.org/2005/Atom\'>\n";
+	$entry .= "<source>\n";
+	$entry .= "<title>" . $profile->nickname . " - " . common_config('site', 'name') . "</title>\n";
+	$entry .= "<link href='" . $profile->profileurl . "'/>\n";
+	$entry .= "<link rel='self' type='application/rss+xml' href='" . common_local_url('userrss', array('nickname' => $profile->nickname)) . "'/>\n";
+	$entry .= "<author><name>" . $profile->nickname . "</name></author>\n";
+	$entry .= "<icon>" . common_profile_avatar_url($profile, AVATAR_STREAM_SIZE) . "</icon>\n";
+	$entry .= "</source>\n";
+	$entry .= "<title>" . $msg . "</title>\n";
+	$entry .= "<summary>" . $msg . "</summary>\n";
+	$entry .= "<link rel='alternate' href='" . $noticeurl . "' />\n";
+	$entry .= "<id>". $notice->uri . "</id>\n";
+	$entry .= "<published>".common_date_w3dtf($notice->created)."</published>\n";
+	$entry .= "<updated>".common_date_w3dtf($notice->modified)."</updated>\n";
+	$entry .= "</entry>\n";
+	$entry .= "<event xmlns='http://jabber.org/protocol/pubsub#event'>\n";
+    $entry .= "<items xmlns='http://jabber.org/protocol/pubsub' ";
+	$entry .= "node='" . common_local_url('public') . "'>\n";
+	$entry .= "<item id='" . $notice->uri ."' />\n";
+	$entry .= "</items>\n";
+	$entry .= "</event>\n";
+	return $entry;
+}
+
 function jabber_send_message($to, $body, $type='chat', $subject=NULL) {
 	$conn = jabber_connect();
 	if (!$conn) {
