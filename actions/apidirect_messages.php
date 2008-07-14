@@ -19,11 +19,9 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-# This naming convention looks real sick
 class Apidirect_messagesAction extends Action {
 
-
-	function index($args, $apidata) {
+	function direct_messages($args, $apidata) {
 		parent::handle($args);
 		common_server_error("API method under construction.", $code=501);
 		exit();
@@ -35,17 +33,17 @@ class Apidirect_messagesAction extends Action {
 		exit();
 	}
 	
-	function new($args, $apidata) {
+	# had to change this from "new" to "create" to avoid PHP reserved word  
+	function create($args, $apidata) {
 		parent::handle($args);
 		common_server_error("API method under construction.", $code=501);
 		exit();
 	}
-	
+		
 	function destroy($args, $apidata) {
 		parent::handle($args);
 		common_server_error("API method under construction.", $code=501);
 		exit();
 	}
-	
 	
 }
