@@ -45,14 +45,19 @@ function jabber_connect($resource=NULL) {
 	static $conn = NULL;
 	if (!$conn) {
 		$conn = new XMPPHP_XMPP(common_config('xmpp', 'host') ?
-				         common_config('xmpp', 'host') :
-				         common_config('xmpp', 'server'),
-				         common_config('xmpp', 'port'),
-					     common_config('xmpp', 'user'),
-					     common_config('xmpp', 'password'),
-				    	 ($resource) ? $resource :
-				        	common_config('xmpp', 'resource'),
-				         common_config('xmpp', 'server'));
+								common_config('xmpp', 'host') :
+								common_config('xmpp', 'server'),
+								common_config('xmpp', 'port'),
+								common_config('xmpp', 'user'),
+								common_config('xmpp', 'password'),
+								($resource) ? $resource :
+								common_config('xmpp', 'resource'),
+								common_config('xmpp', 'server'),
+								common_config('xmpp', 'debug') ?
+								true : false,
+								common_config('xmpp', 'debug') ?
+								XMPPHP_Log::LEVEL_VERBOSE :  NULL
+								);
 		$conn->autoSubscribe();
 
 		if (!$conn) {
@@ -81,6 +86,7 @@ function jabber_send_notice($to, $notice) {
 	}
 	$msg = jabber_format_notice($profile, $notice);
 	$entry = jabber_format_entry($profile, $notice);
+	common_log(LOG_DEBUG, 'special entry = ' . $entry, __FILE__);
 	$conn->message($to, $msg, 'chat', NULL, $entry);
 	return true;
 }
@@ -91,13 +97,13 @@ function jabber_format_entry($profile, $notice) {
 	$noticeurl = common_local_url('shownotice',
 								  array('notice' => $notice->id));
 	$msg = jabber_format_notice($profile, $notice);
-	$entry = "<entry xmlns=\'http://www.w3.org/2005/Atom\'>\n";
+	$entry = "\n<entry xmlns='http://www.w3.org/2005/Atom'>\n";
 	$entry .= "<source>\n";
 	$entry .= "<title>" . $profile->nickname . " - " . common_config('site', 'name') . "</title>\n";
 	$entry .= "<link href='" . $profile->profileurl . "'/>\n";
 	$entry .= "<link rel='self' type='application/rss+xml' href='" . common_local_url('userrss', array('nickname' => $profile->nickname)) . "'/>\n";
 	$entry .= "<author><name>" . $profile->nickname . "</name></author>\n";
-	$entry .= "<icon>" . common_profile_avatar_url($profile, AVATAR_STREAM_SIZE) . "</icon>\n";
+	$entry .= "<icon>" . common_profile_avatar_url($profile, AVATAR_PROFILE_SIZE) . "</icon>\n";
 	$entry .= "</source>\n";
 	$entry .= "<title>" . $msg . "</title>\n";
 	$entry .= "<summary>" . $msg . "</summary>\n";
@@ -106,13 +112,16 @@ function jabber_format_entry($profile, $notice) {
 	$entry .= "<published>".common_date_w3dtf($notice->created)."</published>\n";
 	$entry .= "<updated>".common_date_w3dtf($notice->modified)."</updated>\n";
 	$entry .= "</entry>\n";
-	$entry .= "<event xmlns='http://jabber.org/protocol/pubsub#event'>\n";
-    $entry .= "<items xmlns='http://jabber.org/protocol/pubsub' ";
-	$entry .= "node='" . common_local_url('public') . "'>\n";
-	$entry .= "<item id='" . $notice->uri ."' />\n";
-	$entry .= "</items>\n";
-	$entry .= "</event>\n";
+	
+	$event = "<event xmlns='http://jabber.org/protocol/pubsub#event'>\n";
+    $event .= "<items xmlns='http://jabber.org/protocol/pubsub' ";
+	$event .= "node='" . common_local_url('public') . "'>\n";
+	$event .= "<item id='" . $notice->uri ."' />\n";
+	$event .= "</items>\n";
+	$event .= "</event>\n";
+	# FIXME: include the pubsub event, too.
 	return $entry;
+#	return $entry . "\n" . $event;
 }
 
 function jabber_send_message($to, $body, $type='chat', $subject=NULL) {

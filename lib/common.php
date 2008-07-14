@@ -70,7 +70,8 @@ $config =
 			  'user' => 'update',
 			  'resource' => 'uniquename',
 			  'password' => 'blahblahblah',
-			  'host' => NULL), # only set if != server
+			  'host' => NULL, # only set if != server
+			  'debug' => false), # print extra debug info
 		);
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
