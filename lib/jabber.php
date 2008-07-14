@@ -90,6 +90,7 @@ function jabber_send_notice($to, $notice) {
 function jabber_format_entry($profile, $notice) {
 	$noticeurl = common_local_url('shownotice',
 								  array('notice' => $notice->id));
+	$msg = jabber_format_notice($profile, $notice);
 	$entry = "<entry xmlns=\'http://www.w3.org/2005/Atom\'>\n";
 	$entry .= "<source>\n";
 	$entry .= "<title>" . $profile->nickname . " - " . common_config('site', 'name') . "</title>\n";
