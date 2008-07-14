@@ -176,14 +176,13 @@ function jabber_broadcast_notice($notice) {
 	$sub = new Subscription();
 	$sub->subscribed = $notice->profile_id;
 	if ($sub->find()) {
-		$msg = jabber_format_notice($profile, $notice);
 		while ($sub->fetch()) {
 			$user = User::staticGet($sub->subscriber);
 			if ($user && $user->jabber && $user->jabbernotify) {
 				common_log(LOG_INFO,
 						   'Sending notice ' . $notice->id . ' to ' . $user->jabber,
 						   __FILE__);
-				$success = jabber_send_message($user->jabber, $msg);
+				$success = jabber_send_notice($user->jabber, $notice);
 				if (!$success) {
 					# XXX: Not sure, but I think that's the right thing to do
 					return false;
