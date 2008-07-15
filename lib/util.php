@@ -593,7 +593,7 @@ define('URL_REGEX', '^|[ \t\r\n])((ftp|http|https|gopher|mailto|news|nntp|telnet
 function common_render_content($text, $notice) {
 	$r = htmlspecialchars($text);
 	$id = $notice->profile_id;
-	$r = preg_replace('@https?://\S+@', '<a href="\0" class="extlink">\0</a>', $r);
+	$r = preg_replace('@https?://[^)\]>\s]+@', '<a href="\0" class="extlink">\0</a>', $r);
 	$r = preg_replace('/(^|\s+)@([a-z0-9]{1,64})/e', "'\\1@'.common_at_link($id, '\\2')", $r);
 	# XXX: # tags
 	# XXX: machine tags
