@@ -19,8 +19,9 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-# This naming convention looks real sick
-class ApihelpAction extends Action {
+require_once(INSTALLDIR.'/lib/twitterapi.php');
+
+class ApihelpAction extends TwitterapiAction {
 
 	/* Returns the string "ok" in the requested format with a 200 OK HTTP status code.
 	 * URL:http://identi.ca/api/help/test.format

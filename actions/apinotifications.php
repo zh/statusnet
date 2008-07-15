@@ -19,8 +19,10 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
+require_once(INSTALLDIR.'/lib/twitterapi.php');
+
 # This naming convention looks real sick
-class ApinotificationsAction extends Action {
+class ApinotificationsAction extends TwitterapiAction {
 
 
 	function follow($args, $apidata) {

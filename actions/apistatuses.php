@@ -19,28 +19,66 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
+require_once(INSTALLDIR.'/lib/twitterapi.php');
+
 /* XXX: Please don't freak out about all the ugly comments in this file.
- * They are mostly in here for reference while I develop the
+ * They are mostly in here for reference while I work on the
  * API. I'll fix things up to make them look better later. -- Zach 
  */
-class ApistatusesAction extends Action {
+class ApistatusesAction extends TwitterapiAction {
 	
 	/*
-		Returns the 20 most recent statuses from non-protected users who have set a custom user icon. 
-		Does not require authentication.
-		
-		URL: http://identi.ca/api/statuses/public_timeline.format
-
-		Formats: xml, json, rss, atom
-	*/
+	 *  Returns the 20 most recent statuses from non-protected users who have set a custom
+	 *  user icon. Does not require authentication.
+	 *	
+	 *	URL: http://identi.ca/api/statuses/public_timeline.format
+     *
+	 *	Formats: xml, json, rss, atom
+	 */
 	function public_timeline($args, $apidata) {
 		parent::handle($args);
 
-		print "Public Timeline! requested content-type: " . $apidata['content-type'] . "\n";
+		if ($apidata['content-type'] == 'xml') {
+			header('Content-Type: application/xml; charset=utf-8');		
+			$notice = DB_DataObject::factory('notice');
+
+			# FIXME: bad performance
+			$notice->whereAdd('EXISTS (SELECT user.id from user where user.id = notice.profile_id)');
+			$notice->orderBy('created DESC, notice.id DESC');
+			$notice->limit(20);
+			$cnt = $notice->find();
+
+			common_start_xml();
+
+			// XXX: To really live up to the spec we need to build a list
+			// of notices by users who have custom avatars
+			if ($cnt > 0) {
+				common_element_start('statuses', array('type' => 'array'));
+				for ($i = 0; $i < 20; $i++) {
+					if ($notice->fetch()) {
+						$this->show_xml_status($notice);
+					} else {
+						// shouldn't happen!
+						break;
+					}
+				}
+				common_element_end('statuses');
+			}
 		
+			common_end_xml();
+		} elseif ($apidata['content-type'] == 'rss') {
+			common_server_error("API method under construction.", $code=501);
+		} elseif ($apidata['content-type'] == 'atom') {
+			common_server_error("API method under construction.", $code=501);	
+		} elseif ($apidata['content-type'] == 'json') {
+			common_server_error("API method under construction.", $code=501);
+		}
+
 		exit();
-	}
+	}	
 	
+
+		
 	/*
 	Returns the 20 most recent statuses posted by the authenticating user and that user's friends. 
 	This is the equivalent of /home on the Web. 

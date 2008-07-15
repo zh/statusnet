@@ -19,8 +19,9 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-# This naming convention looks real sick
-class ApiblocksAction extends Action {
+require_once(INSTALLDIR.'/lib/twitterapi.php');
+
+class ApiblocksAction extends TwitterapiAction {
 
 	function create($args, $apidata) {
 		parent::handle($args);
