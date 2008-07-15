@@ -225,10 +225,14 @@ class RegisterAction extends Action {
 						$this->boolean('rememberme'),
 		                _('Automatically login in the future; not for shared computers!'));
 		common_element_start('p');
-		common_element('input', array('type' => 'checkbox',
-									  'id' => 'license',
-									  'name' => 'license',
-									  'value' => ($this->boolean('license')) ? 'true' : 'false'));
+		$attrs = array('type' => 'checkbox',
+					   'id' => 'license',
+					   'name' => 'license',
+					   'value' => 'true');
+		if ($this->boolean('license')) {
+			$attrs['checked'] = 'checked';
+		}
+		common_element('input', $attrs);
 	    common_text(_('My text and files are available under '));
 		common_element('a', array(href => $config['license']['url']),
 					   $config['license']['title']);
