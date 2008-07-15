@@ -252,7 +252,7 @@ class RegisterAction extends Action {
 						   '* Add a [Jabber/GTalk address](%%%%action.imsettings%%%%) so you can send notices through instant messages.' . "\n" .
 						   '* [Search for people](%%%%action.peoplesearch%%%%) that you may know or that share your interests. ' . "\n" .
 						   '* Update your [profile settings](%%%%action.profilesettings%%%%) to tell others more about you. ' . "\n" .
-						   '* Read over the [online docs](%%%%doc.help%%%%) for features you may have missed. ' . "\n" .
+						   '* Read over the [online docs](%%%%doc.help%%%%) for features you may have missed. ' . "\n\n" .
 						   'Thanks for signing up and we hope you enjoy using this service.'),
 						 $nickname, common_local_url('showstream', array('nickname' => $nickname)));
 		common_raw(common_markup_to_html($instr));
