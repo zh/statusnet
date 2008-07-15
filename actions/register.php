@@ -247,7 +247,7 @@ class RegisterAction extends Action {
 		$nickname = $this->arg('nickname');
 		common_show_header(_('Registration successful'));
 		common_element_start('div', 'success');
-		$instr = sprintf(_('Congratulations, %s! And welcome to %%%%site.name%%%%. From here, you may want to...'. "\n" .
+		$instr = sprintf(_('Congratulations, %s! And welcome to %%%%site.name%%%%. From here, you may want to...'. "\n\n" .
 						   '* Go to [your profile](%s) and post your first message.' .  "\n" .
 						   '* Add a [Jabber/GTalk address](%%%%action.imsettings%%%%) so you can send notices through instant messages.' . "\n" .
 						   '* [Search for people](%%%%action.peoplesearch%%%%) that you may know or that share your interests. ' . "\n" .
