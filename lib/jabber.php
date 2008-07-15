@@ -194,8 +194,6 @@ function jabber_special_presence($type, $to=NULL, $show=NULL, $status=NULL) {
 }
 
 function jabber_broadcast_notice($notice) {
-	# First, get users subscribed to this profile
-	# XXX: use a join here rather than looping through results
 	$profile = Profile::staticGet($notice->profile_id);
 	if (!$profile) {
 		common_log(LOG_WARNING, 'Refusing to broadcast notice with ' .
@@ -203,23 +201,50 @@ function jabber_broadcast_notice($notice) {
 		           __FILE__);
 		return false;
 	}
-	$sub = new Subscription();
-	$sub->subscribed = $notice->profile_id;
-	if ($sub->find()) {
-		while ($sub->fetch()) {
-			$user = User::staticGet($sub->subscriber);
-			if ($user && $user->jabber && $user->jabbernotify) {
+	$sent_to = array();
+	# First, get users who this is a direct reply to
+	$reply = new Reply();
+	$reply->notice_id = $notice->id;
+	if ($reply->find()) {
+		while ($reply->fetch()) {
+			$user = User::staticGet($reply->profile_id);
+			if ($user && $user->jabber && $user->jabbernotify && $user->jabberreplies) {
 				common_log(LOG_INFO,
-						   'Sending notice ' . $notice->id . ' to ' . $user->jabber,
+						   'Sending reply notice ' . $notice->id . ' to ' . $user->jabber,
 						   __FILE__);
 				$success = jabber_send_notice($user->jabber, $notice);
-				if (!$success) {
+				if ($success) {
+					# Remember so we don't send twice
+					$sent_to[$user->id] = true;
+				} else {
 					# XXX: Not sure, but I think that's the right thing to do
 					return false;
 				}
 			}
 		}
 	}
+    # Now, get users subscribed to this profile
+	# XXX: use a join here rather than looping through results
+	$sub = new Subscription();
+	$sub->subscribed = $notice->profile_id;
+        
+	if ($sub->find()) {
+		while ($sub->fetch()) {
+			$user = User::staticGet($sub->subscriber);
+			if ($user && $user->jabber && $user->jabbernotify && !$sent_to[$user->id]) {
+				common_log(LOG_INFO,
+						   'Sending notice ' . $notice->id . ' to ' . $user->jabber,
+						   __FILE__);
+				$success = jabber_send_notice($user->jabber, $notice);
+				if ($success) {
+					$sent_to[$user->id] = true;
+					# XXX: Not sure, but I think that's the right thing to do
+					return false;
+				}
+			}
+		}
+	}
+
 	return true;
 }
 

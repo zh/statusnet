@@ -73,6 +73,9 @@ class ImsettingsAction extends SettingsAction {
 		common_checkbox('updatefrompresence',
 		                _('Post a notice when my Jabber/GTalk status changes.'),
 		                $user->updatefrompresence);
+		common_checkbox('jabberreplies',
+		                _('Send me replies through Jabber/GTalk from people I\'m not subscribed to.'),
+		                $user->jabberreplies);
 		common_submit('save', _('Save'));
 
 		common_element_end('form');
@@ -110,6 +113,7 @@ class ImsettingsAction extends SettingsAction {
 
 		$jabbernotify = $this->boolean('jabbernotify');
 		$updatefrompresence = $this->boolean('updatefrompresence');
+		$jabberreplies = $this->boolean('jabberreplies');
 
 		$user = common_current_user();
 
@@ -121,6 +125,7 @@ class ImsettingsAction extends SettingsAction {
 
 		$user->jabbernotify = $jabbernotify;
 		$user->updatefrompresence = $updatefrompresence;
+		$user->jabberreplies = $jabberreplies;
 
 		$result = $user->update($original);
 

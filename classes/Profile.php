@@ -24,7 +24,7 @@ if (!defined('LACONICA')) { exit(1); }
  */
 require_once 'DB/DataObject.php';
 
-class Profile extends DB_DataObject
+class Profile extends DB_DataObject 
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -33,7 +33,7 @@ class Profile extends DB_DataObject
     public $id;                              // int(4)  primary_key not_null
     public $nickname;                        // varchar(64)  multiple_key not_null
     public $fullname;                        // varchar(255)  multiple_key
-    public $profileurl;                      // varchar(255)
+    public $profileurl;                      // varchar(255)  
     public $homepage;                        // varchar(255)  multiple_key
     public $bio;                             // varchar(140)  multiple_key
     public $location;                        // varchar(255)  multiple_key

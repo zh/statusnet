@@ -24,7 +24,7 @@ if (!defined('LACONICA')) { exit(1); }
  */
 require_once 'DB/DataObject.php';
 
-class Subscription extends DB_DataObject
+class Subscription extends DB_DataObject 
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -32,8 +32,8 @@ class Subscription extends DB_DataObject
     public $__table = 'subscription';                    // table name
     public $subscriber;                      // int(4)  primary_key not_null
     public $subscribed;                      // int(4)  primary_key not_null
-    public $token;                           // varchar(255)
-    public $secret;                          // varchar(255)
+    public $token;                           // varchar(255)  
+    public $secret;                          // varchar(255)  
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
