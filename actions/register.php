@@ -250,7 +250,7 @@ class RegisterAction extends Action {
 		$instr = sprintf(_('Congratulations, %s! And welcome to %%%%site.name%%%%. From here, you may want to...'. "\n" .
 						   '* Go to [your profile](%s) and post your first message.' .  "\n" .
 						   '* Add a [Jabber/GTalk address](%%%%action.imsettings%%%%) so you can send notices through instant messages.' . "\n" .
-						   '* (Search for people)[%%%%action.peoplesearch%%%%] that you may know or that share your interests. ' . "\n" .
+						   '* [Search for people](%%%%action.peoplesearch%%%%) that you may know or that share your interests. ' . "\n" .
 						   '* Update your [profile settings](%%%%action.profilesettings%%%%) to tell others more about you. ' . "\n" .
 						   '* Read over the [online docs](%%%%doc.help%%%%) for features you may have missed. ' . "\n" .
 						   'Thanks for signing up and we hope you enjoy using this service.'),
@@ -262,6 +262,8 @@ class RegisterAction extends Action {
 							'instructions on how to confirm your email address.)');
 			common_raw(common_markup_to_html($emailinstr));
 		}
+		common_element_end('div');
+		common_show_footer();
 	}
 						
 }
