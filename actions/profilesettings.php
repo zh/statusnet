@@ -43,9 +43,6 @@ class ProfilesettingsAction extends SettingsAction {
 					 _('1-64 lowercase letters or numbers, no punctuation or spaces'));
 		common_input('fullname', _('Full name'),
 					 ($this->arg('fullname')) ? $this->arg('fullname') : $profile->fullname);
-		common_input('email', _('Email address'),
-					 ($this->arg('email')) ? $this->arg('email') : $user->email,
-					 _('Used only for updates, announcements, and password recovery'));
 		common_input('homepage', _('Homepage'),
 					 ($this->arg('homepage')) ? $this->arg('homepage') : $profile->homepage,
 					 _('URL of your homepage, blog, or profile on another site'));
@@ -64,19 +61,15 @@ class ProfilesettingsAction extends SettingsAction {
 
 		$nickname = $this->trimmed('nickname');
 		$fullname = $this->trimmed('fullname');
-		$email = $this->trimmed('email');
 		$homepage = $this->trimmed('homepage');
 		$bio = $this->trimmed('bio');
 		$location = $this->trimmed('location');
 
 		# Some validation
 
-		if ($email && !Validate::email($email, true)) {
-			$this->show_form(_('Not a valid email address.'));
-			return;
-		} else if (!Validate::string($nickname, array('min_length' => 1,
-													  'max_length' => 64,
-													  'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
+		if (!Validate::string($nickname, array('min_length' => 1,
+											   'max_length' => 64,
+											   'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
 			$this->show_form(_('Nickname must have only lowercase letters and numbers and no spaces.'));
 			return;
 		} else if (!User::allowed_nickname($nickname)) {
@@ -97,9 +90,6 @@ class ProfilesettingsAction extends SettingsAction {
 			return;
 		} else if ($this->nickname_exists($nickname)) {
 			$this->show_form(_('Nickname already in use. Try another one.'));
-			return;
-		} else if ($this->email_exists($email)) {
-			$this->show_form(_('Email address already exists.'));
 			return;
 		}
 
@@ -123,35 +113,6 @@ class ProfilesettingsAction extends SettingsAction {
 				common_server_error(_('Couldn\'t update user.'));
 				return;
 			}
-		}
-
-		if ($user->email != $email) {
-
-			common_debug('Updating user email from ' . $user->email . ' to ' . $email,
-						 __FILE__);
-
-			# We don't update email directly; it gets done by confirmemail
-
-			$confirm = new Confirm_address();
-
-			$confirm->code = common_confirmation_code(128);
-			$confirm->user_id = $user->id;
-			$confirm->address = $email;
-			$confirm->address_type = 'email';
-
-			$result = $confirm->insert();
-
-			if (!$result) {
-				common_log_db_error($confirm, 'INSERT', __FILE__);
-				common_server_error(_('Couldn\'t confirm email.'));
-				return FALSE;
-			}
-
-			# XXX: try not to do this in the middle of a transaction
-
-			mail_confirm_address($confirm->code,
-								 $profile->nickname,
-								 $email);
 		}
 
 		$profile = $user->getProfile();
@@ -186,16 +147,6 @@ class ProfilesettingsAction extends SettingsAction {
 	function nickname_exists($nickname) {
 		$user = common_current_user();
 		$other = User::staticGet('nickname', $nickname);
-		if (!$other) {
-			return false;
-		} else {
-			return $other->id != $user->id;
-		}
-	}
-
-	function email_exists($email) {
-		$user = common_current_user();
-		$other = User::staticGet('email', $email);
 		if (!$other) {
 			return false;
 		} else {
