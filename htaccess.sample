@@ -32,6 +32,7 @@ RewriteRule ^settings/password$ index.php?action=password [L,QSA]
 RewriteRule ^settings/profile$ index.php?action=profilesettings [L,QSA]
 RewriteRule ^settings/openid$ index.php?action=openidsettings [L,QSA]
 RewriteRule ^settings/im$ index.php?action=imsettings [L,QSA]
+RewriteRule ^settings/email$ index.php?action=emailsettings [L,QSA]
 
 RewriteRule ^search/people$ index.php?action=peoplesearch [L,QSA]
 RewriteRule ^search/notice$ index.php?action=noticesearch [L,QSA]

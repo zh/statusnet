@@ -724,6 +724,8 @@ function common_fancy_url($action, $args=NULL) {
 		return common_path('settings/'.$action);
 	 case 'profilesettings':
 		return common_path('settings/profile');
+	 case 'emailsettings':
+		return common_path('settings/email');
 	 case 'openidsettings':
 		return common_path('settings/openid');
 	 case 'newnotice':

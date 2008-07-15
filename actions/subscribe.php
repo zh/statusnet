@@ -73,7 +73,7 @@ class SubscribeAction extends Action {
 	}
 
 	function notify_email($listenee, $listener) {
-		if ($listenee->email) {
+		if ($listenee->email && $listenee->emailnotifysub) {
 			$profile = $listenee->getProfile();
 			$other = $listener->getProfile();
 			$name = $profile->getBestName();

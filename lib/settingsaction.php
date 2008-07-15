@@ -83,6 +83,9 @@ class SettingsAction extends Action {
         array('profilesettings' =>
               array('Profile',
               		'Change your profile settings'),
+            'emailsettings' =>
+            array('Email',
+                  'Change email handling'),
             'avatar' =>
             array('Avatar',
                   'Upload a new profile image'),
