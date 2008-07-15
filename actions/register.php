@@ -36,6 +36,10 @@ class RegisterAction extends Action {
 	function try_register() {
 		$nickname = $this->trimmed('nickname');
 		$email = $this->trimmed('email');
+		$fullname = $this->trimmed('fullname');
+		$homepage = $this->trimmed('homepage');
+		$bio = $this->trimmed('bio');
+		$location = $this->trimmed('location');
 
 		# We don't trim these... whitespace is OK in a password!
 
@@ -61,9 +65,22 @@ class RegisterAction extends Action {
 			$this->show_form(_('Not a valid nickname.'));
 		} else if ($this->email_exists($email)) {
 			$this->show_form(_('Email address already exists.'));
+		} else if (!is_null($homepage) && (strlen($homepage) > 0) &&
+				   !Validate::uri($homepage, array('allowed_schemes' => array('http', 'https')))) {
+			$this->show_form(_('Homepage is not a valid URL.'));
+			return;
+		} else if (!is_null($fullname) && strlen($fullname) > 255) {
+			$this->show_form(_('Full name is too long (max 255 chars).'));
+			return;
+		} else if (!is_null($bio) && strlen($bio) > 140) {
+			$this->show_form(_('Bio is too long (max 140 chars).'));
+			return;
+		} else if (!is_null($location) && strlen($location) > 255) {
+			$this->show_form(_('Location is too long (max 255 chars).'));
+			return;
 		} else if ($password != $confirm) {
 			$this->show_form(_('Passwords don\'t match.'));
-		} else if ($user = $this->register_user($nickname, $password, $email)) {
+		} else if ($user = $this->register_user($nickname, $password, $email, $fullname, $homepage, $bio, $location)) {
 			if (!$user) {
 				$this->show_form(_('Invalid username or password.'));
 				return;
@@ -79,7 +96,7 @@ class RegisterAction extends Action {
 				common_debug('Adding rememberme cookie for ' . $nickname);
 				common_rememberme($user);
 			}
-			common_redirect(common_local_url('profilesettings'));
+			$this->show_success();
 		} else {
 			$this->show_form(_('Invalid username or password.'));
 		}
@@ -100,7 +117,7 @@ class RegisterAction extends Action {
 		return ($user !== false);
 	}
 
-	function register_user($nickname, $password, $email) {
+	function register_user($nickname, $password, $email, $fullname, $homepage, $bio, $location) {
 
 		$profile = new Profile();
 
@@ -108,8 +125,20 @@ class RegisterAction extends Action {
 
 		$profile->nickname = $nickname;
 		$profile->profileurl = common_profile_url($nickname);
+		if ($fullname) {
+			$profile->fullname = $fullname;
+		}
+		if ($homepage) {
+			$profile->homepage = $homepage;
+		}
+		if ($bio) {
+			$profile->bio = $bio;
+		}
+		if ($location) {
+			$profile->location = $location;
+		}
 		$profile->created = DB_DataObject_Cast::dateTime(); # current time
-
+		
 		$id = $profile->insert();
 
 		if (!$id) {
@@ -172,22 +201,35 @@ class RegisterAction extends Action {
 		common_element_start('form', array('method' => 'post',
 										   'id' => 'login',
 										   'action' => common_local_url('register')));
-		common_input('nickname', _('Nickname'), NULL,
-					 _('1-64 lowercase letters or numbers, no punctuation or spaces'));
+		common_input('nickname', _('Nickname'), $this->trimmed('nickname'),
+					 _('1-64 lowercase letters or numbers, no punctuation or spaces. Required.'));
 		common_password('password', _('Password'),
-						_('6 or more characters'));
+						_('6 or more characters. Required.'));
 		common_password('confirm', _('Confirm'),
-						_('Same as password above'));
-		common_input('email', _('Email'), NULL,
+						_('Same as password above. Required.'));
+		common_input('email', _('Email'), $this->trimmed('email'),
 					 _('Used only for updates, announcements, and password recovery'));
-		common_checkbox('rememberme', _('Remember me'), false,
+		common_input('fullname', _('Full name'),
+					 $this->trimmed('fullname'),
+					  _('Longer name, preferably your "real" name'));
+		common_input('homepage', _('Homepage'),
+					 $this->trimmed('homepage'),
+					 _('URL of your homepage, blog, or profile on another site'));
+		common_textarea('bio', _('Bio'),
+						$this->trimmed('bio'),
+						 _('Describe yourself and your interests in 140 chars'));
+		common_input('location', _('Location'),
+					 $this->trimmed('location'),
+					 _('Where you are, like "City, State (or Region), Country"'));
+		common_checkbox('rememberme', _('Remember me'), 
+						$this->boolean('rememberme'),
 		                _('Automatically login in the future; not for shared computers!'));
 		common_element_start('p');
 		common_element('input', array('type' => 'checkbox',
 									  'id' => 'license',
 									  'name' => 'license',
-									  'value' => 'true'));
-		common_text(_('My text and files are available under '));
+									  'value' => ($this->boolean('license')) ? 'true' : 'false'));
+	    common_text(_('My text and files are available under '));
 		common_element('a', array(href => $config['license']['url']),
 					   $config['license']['title']);
 		common_text(_(' except this private data: password, email address, IM address, phone number.'));
@@ -196,4 +238,26 @@ class RegisterAction extends Action {
 		common_element_end('form');
 		common_show_footer();
 	}
+						
+	function show_success() {
+		$nickname = $this->arg('nickname');
+		common_show_header(_('Registration successful'));
+		common_element_start('div', 'success');
+		$instr = sprintf(_('Congratulations, %s! And welcome to %%site.name%%. From here, you may want to...' .
+						   '* Go to [your profile](%s) and post your first message.' .
+						   '* Add a [Jabber/GTalk address](%%action.imsettings%%) so you can send notices through instant messages.' .
+						   '* (Search for people)[%%action.peoplesearch%%] that you may know or that share your interests. ' .
+						   '* Update your [profile settings](%%action.profilesettings%%) to tell others more about you. ' .
+						   '* Read over the [online docs](%%doc.help%%) for features you may have missed. ' .
+						   'Thanks for signing up and we hope you enjoy using this service.'),
+						 $nickname, common_local_url('showstream', array('nickname' => $nickname)));
+		common_raw(common_markup_to_html($instr));
+		$have_email = $this->trimmed('email');
+		if ($have_email) {
+			$emailinstr = _t('(You should receive a message by email momentarily, with ' .
+							 'instructions on how to confirm your email address.)');
+			common_raw(common_markup_to_html($emailinstr));
+		}
+	}
+						
 }
