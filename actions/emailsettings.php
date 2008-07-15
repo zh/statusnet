@@ -173,6 +173,10 @@ class EmailsettingsAction extends SettingsAction {
 			return;
 		}
 
+		mail_confirm_address($confirm->code,
+							 $user->nickname,
+							 $email);
+
 		$msg = _('A confirmation code was sent to the email address you added. Check your inbox (and spam box!) for the code and instructions on how to use it.');
 
 		$this->show_form($msg, TRUE);
