@@ -76,7 +76,7 @@ class ApiAction extends Action {
 	}
 	
 	function process_command() {		
-		$action = "api$this->api_action";
+		$action = "twitapi$this->api_action";
 		$actionfile = INSTALLDIR."/actions/$action.php";		
 		if (file_exists($actionfile)) {
 			require_once($actionfile);

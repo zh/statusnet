@@ -21,20 +21,24 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/twitterapi.php');
 
-# This naming convention looks real sick
-class ApinotificationsAction extends TwitterapiAction {
+class TwitapifavoritesAction extends TwitterapiAction {
 
+	function favorites($args, $apidata) {
+		parent::handle($args);
+		common_server_error("API method under construction.", $code=501);
+		exit();
+	}
 
-	function follow($args, $apidata) {
+	function create($args, $apidata) {
 		parent::handle($args);
 		common_server_error("API method under construction.", $code=501);
 		exit();
 	}
 	
-	function leave($args, $apidata) {
+	function destroy($args, $apidata) {
 		parent::handle($args);
 		common_server_error("API method under construction.", $code=501);
 		exit();
-	}
-	
+	}	
+
 }

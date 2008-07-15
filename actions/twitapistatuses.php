@@ -25,7 +25,7 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
  * They are mostly in here for reference while I work on the
  * API. I'll fix things up to make them look better later. -- Zach 
  */
-class ApistatusesAction extends TwitterapiAction {
+class TwitapistatusesAction extends TwitterapiAction {
 	
 	/*
 	 *  Returns the 20 most recent statuses from non-protected users who have set a custom

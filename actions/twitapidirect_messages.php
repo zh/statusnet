@@ -21,24 +21,31 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/twitterapi.php');
 
-class ApifavoritesAction extends TwitterapiAction {
+class Twitapidirect_messagesAction extends TwitterapiAction {
 
-	function favorites($args, $apidata) {
-		parent::handle($args);
-		common_server_error("API method under construction.", $code=501);
-		exit();
-	}
-
-	function create($args, $apidata) {
+	function direct_messages($args, $apidata) {
 		parent::handle($args);
 		common_server_error("API method under construction.", $code=501);
 		exit();
 	}
 	
+	function sent($args, $apidata) {
+		parent::handle($args);
+		common_server_error("API method under construction.", $code=501);
+		exit();
+	}
+	
+	# had to change this from "new" to "create" to avoid PHP reserved word  
+	function create($args, $apidata) {
+		parent::handle($args);
+		common_server_error("API method under construction.", $code=501);
+		exit();
+	}
+		
 	function destroy($args, $apidata) {
 		parent::handle($args);
 		common_server_error("API method under construction.", $code=501);
 		exit();
-	}	
-
+	}
+	
 }

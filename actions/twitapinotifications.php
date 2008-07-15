@@ -21,35 +21,20 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/twitterapi.php');
 
-class ApiaccountAction extends TwitterapiAction {
+# This naming convention looks real sick
+class TwitapinotificationsAction extends TwitterapiAction {
 
-	function verify_credentials($args, $apidata) {
+
+	function follow($args, $apidata) {
 		parent::handle($args);
 		common_server_error("API method under construction.", $code=501);
 		exit();
 	}
 	
-	function end_session($args, $apidata) {
+	function leave($args, $apidata) {
 		parent::handle($args);
 		common_server_error("API method under construction.", $code=501);
 		exit();
 	}
 	
-	function update_location($args, $apidata) {
-		parent::handle($args);
-		common_server_error("API method under construction.", $code=501);
-		exit();
-	}
-	
-	function update_delivery_device($args, $apidata) {
-		parent::handle($args);
-		common_server_error("API method under construction.", $code=501);
-		exit();
-	}
-	
-	function rate_limit_status($args, $apidata) {
-		parent::handle($args);
-		common_server_error("API method under construction.", $code=501);
-		exit();
-	}
 }

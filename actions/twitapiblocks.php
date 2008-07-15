@@ -21,29 +21,15 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/twitterapi.php');
 
-class ApihelpAction extends TwitterapiAction {
+class TwitapiblocksAction extends TwitterapiAction {
 
-	/* Returns the string "ok" in the requested format with a 200 OK HTTP status code.
-	 * URL:http://identi.ca/api/help/test.format
-	 * Formats: xml, json
-	 */
-	function test($args, $apidata) {
- 		global $xw;
-		if ($apidata['content-type'] == 'xml') {
-			header('Content-Type: application/xml; charset=utf-8');		
-			common_start_xml();
-			common_element('ok', NULL, 'true');
-			common_end_xml();
-		} elseif ($apidata['content-type'] == 'json') {
-			header('Content-Type: application/json; charset=utf-8');		
-			print '"ok"';
-		} else {
-			common_user_error("API method not found!", $code=404);
-		}
+	function create($args, $apidata) {
+		parent::handle($args);
+		common_server_error("API method under construction.", $code=501);
 		exit();
 	}
-
-	function downtime_schedule($args, $apidata) {
+	
+	function destroy($args, $apidata) {
 		parent::handle($args);
 		common_server_error("API method under construction.", $code=501);
 		exit();

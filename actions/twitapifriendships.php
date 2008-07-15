@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/twitterapi.php');
 
-class ApiblocksAction extends TwitterapiAction {
+class TwitapifriendshipsAction extends TwitterapiAction {
+
 
 	function create($args, $apidata) {
 		parent::handle($args);
@@ -30,6 +31,12 @@ class ApiblocksAction extends TwitterapiAction {
 	}
 	
 	function destroy($args, $apidata) {
+		parent::handle($args);
+		common_server_error("API method under construction.", $code=501);
+		exit();
+	}
+	
+	function exists($args, $apidata) {
 		parent::handle($args);
 		common_server_error("API method under construction.", $code=501);
 		exit();
