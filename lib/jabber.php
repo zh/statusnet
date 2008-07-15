@@ -21,6 +21,27 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once('XMPPHP/XMPP.php');
 
+# XXX: something of a hack to work around problems with the XMPPHP lib
+
+class Laconica_XMPP extends XMPPHP_XMPP {
+    
+    function messageplus($to, $body, $type = 'chat', $subject = null, $payload = null) {
+	$to	  = htmlspecialchars($to);
+	$body	= htmlspecialchars($body);
+	$subject = htmlspecialchars($subject);
+
+	$jid = jabber_daemon_address();
+	
+	$out = "<message from='$jid' to='$to' type='$type'>";
+	if($subject) $out .= "<subject>$subject</subject>";
+	$out .= "<body>$body</body>";
+	if($payload) $out .= $payload;
+	$out .= "</message>";
+	
+	$this->send($out);
+    }
+}
+
 function jabber_valid_base_jid($jid) {
 	# Cheap but effective
 	return Validate::email($jid);
@@ -44,7 +65,7 @@ function jabber_daemon_address() {
 function jabber_connect($resource=NULL) {
 	static $conn = NULL;
 	if (!$conn) {
-		$conn = new XMPPHP_XMPP(common_config('xmpp', 'host') ?
+		$conn = new Laconica_XMPP(common_config('xmpp', 'host') ?
 								common_config('xmpp', 'host') :
 								common_config('xmpp', 'server'),
 								common_config('xmpp', 'port'),
@@ -86,26 +107,8 @@ function jabber_send_notice($to, $notice) {
 	}
 	$msg = jabber_format_notice($profile, $notice);
 	$entry = jabber_format_entry($profile, $notice);
-	$stanza = jabber_make_stanza($to, $msg, 'chat', NULL, $entry);
-	common_log(LOG_DEBUG, 'full stanza = ' . $stanza, __FILE__);
-	$conn->send($stanza);
+	$conn->messageplus($to, $msg, 'chat', NULL, $entry);
 	return true;
-}
-
-function jabber_make_stanza($to, $body, $type = 'chat', $subject = null, $payload = null) {
-	$to	  = htmlspecialchars($to);
-	$body	= htmlspecialchars($body);
-	$subject = htmlspecialchars($subject);
-
-	$jid = jabber_daemon_address();
-	
-	$out = "<message from='$jid' to='$to' type='$type'>";
-	if($subject) $out .= "<subject>$subject</subject>";
-	$out .= "<body>$body</body>";
-	if($payload) $out .= $payload;
-	$out .= "</message>";
-	
-	return $out;
 }
 
 # Extra stuff defined by Twitter, needed by twitter clients
