@@ -45,7 +45,7 @@ create table user (
     nickname varchar(64) unique key comment 'nickname or username, duped in profile',
     password varchar(255) comment 'salted password, can be null for OpenID users',
     email varchar(255) unique key comment 'email address for password recovery etc.',
-    emailnotifysub tinyint default 1 unique key comment 'Notify by email of subscriptions',
+    emailnotifysub tinyint default 1 comment 'Notify by email of subscriptions',
     jabber varchar(255) unique key comment 'jabber ID for notices',
     jabbernotify tinyint default 0 comment 'whether to send notices to jabber',
     jabberreplies tinyint default 0 comment 'whether to send notices to jabber on replies',
