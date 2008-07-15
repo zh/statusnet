@@ -26,24 +26,33 @@ class TwitterapiAction extends Action {
 	}
 	
 	/*
-	 * Spits out a Laconica notice as a Twitter-compatible "status"
+	 * Spits out a Laconica Notice as a Twitter-XML "status" 
 	 */
-	function show_xml_status($notice) {
+	function render_xml_status($notice) {
 		global $config;
-		$profile = $notice->getProfile();
-		
+	
 		common_element_start('status');
-		// XXX: twitter created_at date looks like this: Mon Jul 14 23:52:38 +0000 2008
-		common_element('created_at', NULL, common_exact_date($notice->created));
-		common_element('text', NULL, $notice->content);
-		common_element('source', NULL, 'Web');  # twitterific, twitterfox, etc.
-		common_element('truncated', NULL, 'false'); # how do we tell in Laconica?
-		common_element('in_reply_to_status_id', NULL, $notice->reply_to);
-		common_element('in_reply_to_user_id', NULL,'');
-		common_element('favorited', Null, '');  # feature for some day
-		
-		common_element_start('user');
+		common_element('created_at', NULL, $this->date_twitter($notice->created));
 		common_element('id', NULL, $notice->id);
+		common_element('text', NULL, $notice->content);
+		common_element('source', NULL, '');  # XXX: twitterific, twitterfox, etc. Not supported yet.
+		common_element('truncated', NULL, 'false'); # Not possible on Laconica
+		common_element('in_reply_to_status_id', NULL, $notice->reply_to);
+		common_element('in_reply_to_user_id', NULL, ($notice->reply_to) ? $this->replier_by_reply($notice->reply_to) : '');
+		common_element('favorited', Null, '');  # XXX: Not implemented on Laconica yet.
+
+		$profile = $notice->getProfile();		
+		$this->render_xml_user($profile);
+		
+		common_element_end('status');
+	}	
+	
+	/*
+	 * Spits out a Laconica Profile as a Twitter-XML "user"
+	 */
+	function render_xml_user($profile) {
+		common_element_start('user');
+		common_element('id', NULL, $profile->id);
 		common_element('name', NULL, $profile->getBestName());
 		common_element('screen_name', NULL, $profile->nickname);
 		common_element('location', NULL, $profile->location);
@@ -53,12 +62,35 @@ class TwitterapiAction extends Action {
 		
 		common_element('profile_image_url', NULL, ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE));
 		common_element('url', NULL, $profile->homepage);
-		common_element('protected', NULL, 'false'); # not supported yet
-		common_element('followers_count', NULL, $this->count_subscriptions($profile)); # where do I get this?
+		common_element('protected', NULL, 'false'); # not supported by Laconica yet
+		common_element('followers_count', NULL, $this->count_subscriptions($profile));
 		common_element_end('user');
+	}
+	
+	// Anyone know what date format this is?  It's not RFC 2822 
+	// Twitter's dates look like this: "Mon Jul 14 23:52:38 +0000 2008" -- Zach 
+	function date_twitter($dt) {
+		$t = strtotime($dt);
+		return date("D M d G:i:s O Y", $t);
+	}
+
+	function replier_by_reply($reply_id) {	
+
+		$notice = Notice::staticGet($reply_id);
+	
+		if (!$notice) {
+			common_debug("Got a bad notice_id: $reply_id");
+		}
+
+		$profile = $notice->getProfile();
 		
-		common_element_end('status');
-	}	
+		if (!$profile) {
+			common_debug("Got a bad profile_id: $profile_id");
+			return false;
+		}
+		
+		return $profile->id;		
+	}
 
 	// XXX: Candidate for a general utility method somewhere?	
 	function count_subscriptions($profile) {

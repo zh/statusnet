@@ -56,7 +56,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 				common_element_start('statuses', array('type' => 'array'));
 				for ($i = 0; $i < 20; $i++) {
 					if ($notice->fetch()) {
-						$this->show_xml_status($notice);
+						$this->render_xml_status($notice);
 					} else {
 						// shouldn't happen!
 						break;
