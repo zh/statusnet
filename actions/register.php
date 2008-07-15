@@ -247,19 +247,19 @@ class RegisterAction extends Action {
 		$nickname = $this->arg('nickname');
 		common_show_header(_('Registration successful'));
 		common_element_start('div', 'success');
-		$instr = sprintf(_('Congratulations, %s! And welcome to %%site.name%%. From here, you may want to...' .
-						   '* Go to [your profile](%s) and post your first message.' .
-						   '* Add a [Jabber/GTalk address](%%action.imsettings%%) so you can send notices through instant messages.' .
-						   '* (Search for people)[%%action.peoplesearch%%] that you may know or that share your interests. ' .
-						   '* Update your [profile settings](%%action.profilesettings%%) to tell others more about you. ' .
-						   '* Read over the [online docs](%%doc.help%%) for features you may have missed. ' .
+		$instr = sprintf(_('Congratulations, %s! And welcome to %%%%site.name%%%%. From here, you may want to...'. "\n" .
+						   '* Go to [your profile](%s) and post your first message.' .  "\n" .
+						   '* Add a [Jabber/GTalk address](%%%%action.imsettings%%%%) so you can send notices through instant messages.' . "\n" .
+						   '* (Search for people)[%%%%action.peoplesearch%%%%] that you may know or that share your interests. ' . "\n" .
+						   '* Update your [profile settings](%%%%action.profilesettings%%%%) to tell others more about you. ' . "\n" .
+						   '* Read over the [online docs](%%%%doc.help%%%%) for features you may have missed. ' . "\n" .
 						   'Thanks for signing up and we hope you enjoy using this service.'),
 						 $nickname, common_local_url('showstream', array('nickname' => $nickname)));
 		common_raw(common_markup_to_html($instr));
 		$have_email = $this->trimmed('email');
 		if ($have_email) {
-			$emailinstr = _t('(You should receive a message by email momentarily, with ' .
-							 'instructions on how to confirm your email address.)');
+			$emailinstr = _('(You should receive a message by email momentarily, with ' .
+							'instructions on how to confirm your email address.)');
 			common_raw(common_markup_to_html($emailinstr));
 		}
 	}
