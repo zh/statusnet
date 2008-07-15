@@ -142,7 +142,7 @@ class EmailsettingsAction extends SettingsAction {
 			return;
 		}
 
-		$email = common_normalize_email($email);
+		$email = common_canonical_email($email);
 
 		if (!$email) {
 		    $this->show_form(_('Cannot normalize that email address'));
