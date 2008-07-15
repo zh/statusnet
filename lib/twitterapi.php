@@ -25,45 +25,73 @@ class TwitterapiAction extends Action {
 		parent::handle($args);
 	}
 	
-	/*
-	 * Spits out a Laconica Notice as a Twitter-XML "status" 
-	 */
-	function render_xml_status($notice) {
-		global $config;
-	
-		common_element_start('status');
-		common_element('created_at', NULL, $this->date_twitter($notice->created));
-		common_element('id', NULL, $notice->id);
-		common_element('text', NULL, $notice->content);
-		common_element('source', NULL, '');  # XXX: twitterific, twitterfox, etc. Not supported yet.
-		common_element('truncated', NULL, 'false'); # Not possible on Laconica
-		common_element('in_reply_to_status_id', NULL, $notice->reply_to);
-		common_element('in_reply_to_user_id', NULL, ($notice->reply_to) ? $this->replier_by_reply($notice->reply_to) : '');
-		common_element('favorited', Null, '');  # XXX: Not implemented on Laconica yet.
+	function twitter_user_array($profile) {
+		
+		$twitter_user = array();
+		
+		$twitter_user['id'] = $profile->id;
+		$twitter_user['name'] = $profile->getBestName();
+		$twitter_user['screen_name'] = $profile->nickname;
+		$twitter_user['location'] = $profile->location;
+		$twitter_user['description'] = $profile->bio;
+		
+		$avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
+		
+		$twitter_user['profile_image_url'] = ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE);
+		$twitter_user['url'] = $profile->homepage;
+		$twitter_user['protected'] = 'false'; # not supported by Laconica yet
+		$twitter_user['followers_count'] = $this->count_subscriptions($profile);
+		
+		return $twitter_user;		
+	}
 
-		$profile = $notice->getProfile();		
-		$this->render_xml_user($profile);
+	function twitter_status_array($notice) {
+		
+		$twitter_status = array();
+		
+		$twitter_status['created_at'] = $this->date_twitter($notice->created);
+		$twitter_status['id'] = $notice->id;
+		$twitter_status['text'] = $notice->content; 
+		$twitter_status['source'] = ''; # XXX: twitterific, twitterfox, etc. Not supported yet.
+		$twitter_status['truncated'] = 'false'; # Not possible on Laconica
+		$twitter_status['in_reply_to_status_id'] = $notice->reply_to;
+		$twitter_status['in_reply_to_user_id'] = ($notice->reply_to) ? $this->replier_by_reply($notice->reply_to) : '';
+		$twitter_status['favorited'] = ''; # XXX: Not implemented on Laconica yet.
+		
+		$profile = $notice->getProfile();
+		$twitter_user = $this->twitter_user_array($profile);
+		$twitter_status['user'] = $twitter_user;
+				
+		return $twitter_status;
+	}
+	
+	function render_twitter_xml_status($twitter_status) {	
+		common_element_start('status');
+		common_element('created_at', NULL, $twitter_status['created_at']);
+		common_element('id', NULL, $twitter_status['id']);
+		common_element('text', NULL, $twitter_status['text']);
+		common_element('source', NULL, $twitter_status['source']);  
+		common_element('truncated', NULL, $twitter_status['truncated']); 
+		common_element('in_reply_to_status_id', NULL, $twitter_status['in_reply_to_status_id']);
+		common_element('in_reply_to_user_id', NULL, $twitter_status['in_reply_to_user_id']);
+		common_element('favorited', Null, $twitter_status['favorited']);  
+
+		$this->render_twitter_xml_user($twitter_status['user']);
 		
 		common_element_end('status');
 	}	
 	
-	/*
-	 * Spits out a Laconica Profile as a Twitter-XML "user"
-	 */
-	function render_xml_user($profile) {
+	function render_twitter_xml_user($twitter_user) {
 		common_element_start('user');
-		common_element('id', NULL, $profile->id);
-		common_element('name', NULL, $profile->getBestName());
-		common_element('screen_name', NULL, $profile->nickname);
-		common_element('location', NULL, $profile->location);
-		common_element('description', NULL, $profile->bio);
-		
-		$avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
-		
-		common_element('profile_image_url', NULL, ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE));
-		common_element('url', NULL, $profile->homepage);
-		common_element('protected', NULL, 'false'); # not supported by Laconica yet
-		common_element('followers_count', NULL, $this->count_subscriptions($profile));
+		common_element('id', NULL, $twitter_user['id']);
+		common_element('name', NULL, $twitter_user['name']);
+		common_element('screen_name', NULL, $twitter_user['screen_name']);
+		common_element('location', NULL, $twitter_user['location']);
+		common_element('description', NULL, $twitter_user['description']);		
+		common_element('profile_image_url', NULL, $twitter_user['profile_image_url']);
+		common_element('url', NULL, $twitter_user['url']);
+		common_element('protected', NULL, $twitter_user['protected']);
+		common_element('followers_count', NULL, $twitter_user['followers_count']);
 		common_element_end('user');
 	}
 	
@@ -79,13 +107,13 @@ class TwitterapiAction extends Action {
 		$notice = Notice::staticGet($reply_id);
 	
 		if (!$notice) {
-			common_debug("Got a bad notice_id: $reply_id");
+			common_debug("TwitterapiAction::replier_by_reply: Got a bad notice_id: $reply_id");
 		}
 
 		$profile = $notice->getProfile();
 		
 		if (!$profile) {
-			common_debug("Got a bad profile_id: $profile_id");
+			common_debug("TwitterapiAction::replier_by_reply: Got a bad profile_id: $profile_id");
 			return false;
 		}
 		
