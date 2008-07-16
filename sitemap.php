@@ -291,11 +291,13 @@ function urlset($urlset_text) {
 function array_to_map($url_list, $filename_prefix) {
 	global $output_paths;
 
-	# $map_urls is a long string containing concatenated <url></url> elements.
-	while (list($map_idx, $map_urls) = each($url_list)) {
-		$urlset_path = $output_paths['output_dir'] . "$filename_prefix-$map_idx.xml";
-
-		write_file($urlset_path, urlset($map_urls));
+	if ($url_list) {
+		# $map_urls is a long string containing concatenated <url></url> elements.
+		while (list($map_idx, $map_urls) = each($url_list)) {
+			$urlset_path = $output_paths['output_dir'] . "$filename_prefix-$map_idx.xml";
+			
+			write_file($urlset_path, urlset($map_urls));
+		}
 	}
 }
 
