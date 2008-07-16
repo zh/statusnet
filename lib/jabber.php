@@ -37,8 +37,11 @@ class Laconica_XMPP extends XMPPHP_XMPP {
 	$out .= "<body>$body</body>";
 	if($payload) $out .= $payload;
 	$out .= "</message>";
-	
+
+		$cnt = strlen($out);
+		common_log(LOG_DEBUG, 'Sending $cnt chars to $to');
 	$this->send($out);
+		common_log(LOG_DEBUG, 'Done.');
     }
 }
 
@@ -218,6 +221,9 @@ function jabber_broadcast_notice($notice) {
 					$sent_to[$user->id] = true;
 				} else {
 					# XXX: Not sure, but I think that's the right thing to do
+					common_log(LOG_WARNING,
+							   'Sending reply notice ' . $notice->id . ' to ' . $user->jabber . ' FAILED, cancelling.',
+							   __FILE__);
 					return false;
 				}
 			}
@@ -240,6 +246,9 @@ function jabber_broadcast_notice($notice) {
 					$sent_to[$user->id] = true;
 				} else {
 					# XXX: Not sure, but I think that's the right thing to do
+					common_log(LOG_WARNING,
+							   'Sending notice ' . $notice->id . ' to ' . $user->jabber . ' FAILED, cancelling.',
+							   __FILE__);
 					return false;
 				}
 			}
