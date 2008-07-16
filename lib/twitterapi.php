@@ -28,19 +28,19 @@ class TwitterapiAction extends Action {
 	function twitter_user_array($profile) {
 		
 		$twitter_user = array();
-		
-		$twitter_user['id'] = $profile->id;
-		$twitter_user['name'] = $profile->getBestName();
+
+		$twitter_user['name'] = $profile->getBestName();		
+		$twitter_user['followers_count'] = $this->count_subscriptions($profile);
 		$twitter_user['screen_name'] = $profile->nickname;
-		$twitter_user['location'] = $profile->location;
-		$twitter_user['description'] = $profile->bio;
+		$twitter_user['description'] = ($profile->bio) ? $profile->bio : NULL;
+		$twitter_user['location'] = ($profile->location) ? $profile->location : NULL;
+		$twitter_user['id'] = intval($profile->id);
 		
 		$avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
 		
 		$twitter_user['profile_image_url'] = ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE);
-		$twitter_user['url'] = $profile->homepage;
-		$twitter_user['protected'] = 'false'; # not supported by Laconica yet
-		$twitter_user['followers_count'] = $this->count_subscriptions($profile);
+		$twitter_user['protected'] = false; # not supported by Laconica yet
+		$twitter_user['url'] = ($profile->homepage) ? $profile->homepage : NULL;
 		
 		return $twitter_user;		
 	}
@@ -48,15 +48,15 @@ class TwitterapiAction extends Action {
 	function twitter_status_array($notice) {
 		
 		$twitter_status = array();
-		
+
+		$twitter_status['text'] = $notice->content; 		
+		$twitter_status['truncated'] = false; # Not possible on Laconica
 		$twitter_status['created_at'] = $this->date_twitter($notice->created);
-		$twitter_status['id'] = $notice->id;
-		$twitter_status['text'] = $notice->content; 
-		$twitter_status['source'] = ''; # XXX: twitterific, twitterfox, etc. Not supported yet.
-		$twitter_status['truncated'] = 'false'; # Not possible on Laconica
-		$twitter_status['in_reply_to_status_id'] = $notice->reply_to;
-		$twitter_status['in_reply_to_user_id'] = ($notice->reply_to) ? $this->replier_by_reply($notice->reply_to) : '';
-		$twitter_status['favorited'] = ''; # XXX: Not implemented on Laconica yet.
+		$twitter_status['in_reply_to_status_id'] = ($notice->reply_to) ? intval($notice->reply_to) : NULL;
+		$twitter_status['source'] = NULL; # XXX: twitterific, twitterfox, etc. Not supported yet.
+		$twitter_status['id'] = intval($notice->id);
+		$twitter_status['in_reply_to_user_id'] = ($notice->reply_to) ? $this->replier_by_reply($notice->reply_to) : NULL;
+		$twitter_status['favorited'] = NULL; # XXX: Not implemented on Laconica yet.
 		
 		$profile = $notice->getProfile();
 		$twitter_user = $this->twitter_user_array($profile);
@@ -95,6 +95,11 @@ class TwitterapiAction extends Action {
 		common_element_end('user');
 	}
 	
+	
+	function render_twitter_json_statuses($twitter_statuses) {
+		print(json_encode($twitter_statuses));
+	}
+		
 	// Anyone know what date format this is?  It's not RFC 2822 
 	// Twitter's dates look like this: "Mon Jul 14 23:52:38 +0000 2008" -- Zach 
 	function date_twitter($dt) {
@@ -117,7 +122,7 @@ class TwitterapiAction extends Action {
 			return false;
 		}
 		
-		return $profile->id;		
+		return intval($profile->id);		
 	}
 
 	// XXX: Candidate for a general utility method somewhere?	
@@ -141,7 +146,12 @@ class TwitterapiAction extends Action {
 				$count++;
 			}
 		}
-		return $count;
+		
+		if ($count > 0) {
+			return $count;
+		}
+		
+		return NULL;
 	}
 	
 }

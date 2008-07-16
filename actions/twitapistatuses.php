@@ -38,16 +38,17 @@ class TwitapistatusesAction extends TwitterapiAction {
 	function public_timeline($args, $apidata) {
 		parent::handle($args);
 
+		$notice = DB_DataObject::factory('notice');
+
+		# FIXME: bad performance
+		$notice->whereAdd('EXISTS (SELECT user.id from user where user.id = notice.profile_id)');
+		$notice->orderBy('created DESC, notice.id DESC');
+		$notice->limit(20);
+		$cnt = $notice->find();
+
 		if ($apidata['content-type'] == 'xml') {
 			header('Content-Type: application/xml; charset=utf-8');		
-			$notice = DB_DataObject::factory('notice');
-
-			# FIXME: bad performance
-			$notice->whereAdd('EXISTS (SELECT user.id from user where user.id = notice.profile_id)');
-			$notice->orderBy('created DESC, notice.id DESC');
-			$notice->limit(20);
-			$cnt = $notice->find();
-
+			
 			common_start_xml();
 
 			// XXX: To really live up to the spec we need to build a list
@@ -72,7 +73,23 @@ class TwitapistatusesAction extends TwitterapiAction {
 		} elseif ($apidata['content-type'] == 'atom') {
 			common_server_error("API method under construction.", $code=501);	
 		} elseif ($apidata['content-type'] == 'json') {
-			common_server_error("API method under construction.", $code=501);
+
+			header('Content-Type: application/json; charset=utf-8');
+
+			$statuses = array();
+			
+			if ($cnt > 0) {
+				for ($i = 0; $i < 20; $i++) {
+					if ($notice->fetch()) {
+						$twitter_status = $this->twitter_status_array($notice);
+						array_push($statuses, $twitter_status);						
+					} else {
+						// shouldn't happen!
+						break;
+					}
+				}				
+			}
+			$this->render_twitter_json_statuses($statuses);			
 		}
 
 		exit();
