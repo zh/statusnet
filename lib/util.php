@@ -998,13 +998,6 @@ function common_notice_form($action=NULL, $content=NULL) {
 	common_element_end('form');
 }
 
-function common_mint_tag($extra) {
-	global $config;
-	return
-	  'tag:'.$config['tag']['authority'].','.
-	  $config['tag']['date'].':'.$config['tag']['prefix'].$extra;
-}
-
 # Should make up a reasonable root URL
 
 function common_root_url() {
