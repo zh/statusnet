@@ -154,4 +154,44 @@ class TwitterapiAction extends Action {
 		return NULL;
 	}
 	
+	function init_twitter_rss() {
+		
+		common_start_xml();
+		common_element_start('rss', array('version' => '2.0'));
+	}
+	
+	function end_twitter_rss() {
+		
+		common_element_end('rss');
+		common_end_xml();
+
+	}
+
+	function get_twitter_channel() {
+		
+	}
+
+/*
+
+  <item>
+    <title>CapitalD: @baxterd Have you read The Conquest of Cool? It looks interesting to me...</title>
+    <description>CapitalD: @baxterd Have you read The Conquest of Cool? It looks interesting to me...</description>
+    <pubDate>Mon, 14 Jul 2008 23:54:13 +0000</pubDate>
+    <guid>http://twitter.com/CapitalD/statuses/858499551</guid>
+    <link>http://twitter.com/CapitalD/statuses/858499551</link>
+  </item>
+
+*/
+
+	function show_twitter_rss_item($twitter_status) {
+		common_element_start('item');
+		common_element('title', NULL, "{$twitter_status[user][screen_name]}: $twitter_status[text]");
+		common_element('description', NULL, "{$twitter_status[user][screen_name]}: $twitter_status[text]");
+		common_element('pubDate', NULL, "$twitter_status[created_at]");
+		common_element('guid', NULL, "$twitter_status[id]");
+		common_element('link', NULL, "$twitter_status[id]");
+		common_element_end('item');
+	}
+
+	
 }

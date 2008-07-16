@@ -47,12 +47,13 @@ class TwitapistatusesAction extends TwitterapiAction {
 		$cnt = $notice->find();
 
 		if ($apidata['content-type'] == 'xml') {
+			
 			header('Content-Type: application/xml; charset=utf-8');		
 			
 			common_start_xml();
 
 			// XXX: To really live up to the spec we need to build a list
-			// of notices by users who have custom avatars
+			// of notices by users who have custom avatars -- Zach
 			if ($cnt > 0) {
 				common_element_start('statuses', array('type' => 'array'));
 				for ($i = 0; $i < 20; $i++) {
@@ -69,7 +70,35 @@ class TwitapistatusesAction extends TwitterapiAction {
 		
 			common_end_xml();
 		} elseif ($apidata['content-type'] == 'rss') {
-			common_server_error("API method under construction.", $code=501);
+
+			//header('Content-Type: application/xml; charset=utf-8');		
+			
+			header("Content-Type: application/rss+xml; charset=utf-8");
+
+			$this->init_twitter_rss();
+			
+			common_element_start('channel');
+			common_element('title', NULL, 'Identi.ca public timeline');
+			common_element('link', NULL, 'http://www.identi.ca');
+			common_element('description', NULL, 'Identi.ca updates from everyone!');
+			common_element('language', NULL, 'en-us');
+			common_element('ttl', NULL, '40'); // 40 what?
+			
+			if ($cnt > 0) {
+				for ($i = 0; $i < 20; $i++) {
+					if ($notice->fetch()) {
+						$twitter_status = $this->twitter_status_array($notice);						
+						$this->show_twitter_rss_item($twitter_status);
+					} else {
+						// shouldn't happen!
+						break;
+					}
+				}
+			}
+			common_element_end('channel');
+						
+			$this->end_twitter_rss();
+
 		} elseif ($apidata['content-type'] == 'atom') {
 			common_server_error("API method under construction.", $code=501);	
 		} elseif ($apidata['content-type'] == 'json') {
