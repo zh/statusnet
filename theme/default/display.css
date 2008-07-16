@@ -348,6 +348,24 @@ dl.statistics {
 	margin: 0;
 	padding: 0;
 	}	
+#notice_delete_form #confirmation_text {
+        display: block;
+	font-size: 14px;
+	font-weight: bold;
+	}
+input#submit_yes, input#submit_no {
+	margin: 18px 0;
+	padding: 8px;
+	font-weight: bold;
+	color: #fff6d5;
+	background-color: #F60;
+	cursor: pointer;
+	border: 0;
+	width: auto;
+	}
+input#submit_yes:hover, input#submit_no:hover {
+	background-color: #701238;
+	}
 .avatar {
 	float: left;
 	margin: 0 10px 0 0;

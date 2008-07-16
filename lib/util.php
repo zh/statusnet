@@ -751,6 +751,12 @@ function common_fancy_url($action, $args=NULL) {
 		}
 	 case 'shownotice':
 		return common_path('notice/'.$args['notice']);
+	 case 'deletenotice':
+                if ($args && $args['notice']) {
+                        return common_path('deletenotice/'.$args['notice']);
+                } else {
+                        return common_path('deletenotice/');
+                }
 	 case 'xrds':
 	 case 'foaf':
 		return common_path($args['nickname'].'/'.$action);
@@ -963,6 +969,22 @@ function common_enqueue_notice($notice) {
 	}
 	common_log(LOG_DEBUG, 'complete queueing notice ID = ' . $notice->id);
 	return $result;
+}
+
+function common_dequeue_notice($notice) {
+        $qi = Queue_Item::staticGet($notice->id);
+        if ($qi) {
+                $result = $qi->delete();
+	        if (!$result) {
+	            $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
+                    common_log(LOG_ERROR, 'DB error deleting queue item: ' . $last_error->message);
+                    return false;
+                }
+                common_log(LOG_DEBUG, 'complete dequeueing notice ID = ' . $notice->id);
+                return $result;
+        } else {
+            return false;
+        }
 }
 
 function common_real_broadcast($notice, $remote=false) {
