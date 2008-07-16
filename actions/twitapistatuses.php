@@ -227,27 +227,45 @@ class TwitapistatusesAction extends TwitterapiAction {
 	}
 	
 	/*
-		Returns a single status, specified by the id parameter below. The status's author will be returned inline.
-		
-		 URL: http://server/api/statuses/show/id.format
-		
-		 Formats: xml, json
-		
-		 Parameters:
-		
-		 * id. Required. The numerical ID of the status you're trying to retrieve. 
-		 Ex: http://server/api/statuses/show/123.xml
-	*/
+	 * Returns a single notice, specified by the id parameter below. 
+	 * The status's author will be returned inline.
+	 *	
+	 * URL: http://server/api/statuses/show/id.format
+	 *	
+	 * Formats: xml, json
+	 *	
+     * Parameters:
+     *		
+     * id. Required. The numerical ID of the status you're trying to retrieve. 
+	 * Ex: http://server/api/statuses/show/123.xml
+	 *
+	 */	
 	function show($args, $apidata) {
 		parent::handle($args);
 
-		$id = $this->arg('id');
-		
-		print "show requested content-type: " . $apidata['content-type'] . "\n";
-		print "id: $id\n";
+		$id = $apidata['api_arg'];
+		$notice = Notice::staticGet($id);
+
+		if ($notice) {
+
+			if ($apidata['content-type'] == 'xml') { 
+				header('Content-Type: application/xml; charset=utf-8');		
+			
+				common_start_xml();
+				$twitter_status = $this->twitter_status_array($notice);						
+				$this->show_twitter_xml_status($twitter_status);
+				common_end_xml();
+			
+			} elseif ($apidata['content-type'] == 'json') {
+				header('Content-Type: application/json; charset=utf-8');
+				$status = $this->twitter_status_array($notice);
+				$this->show_twitter_json_statuses($status);
+			}
+		} else {
+			header('HTTP/1.1 404 Not Found');
+		}
 		
 		exit();
-		
 	}
 	
 	/*
