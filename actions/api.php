@@ -38,12 +38,12 @@ class ApiAction extends Action {
 			$cmdext = explode('.', $argument);
 			$this->api_arg =  $cmdext[0];
 			$this->api_method = $method;
-			$this->content_type = $cmdext[1];
+			$this->content_type = strtolower($cmdext[1]);
 		} else {
 			#content type will be an extension on the method
 			$cmdext = explode('.', $method);
 			$this->api_method = $cmdext[0];
-			$this->content_type = $cmdext[1];
+			$this->content_type = strtolower($cmdext[1]);
 		}
 		
 		# common_debug("apiaction = $this->api_action, method = $this->api_method, argument = $this->api_arg, ctype = $this->content_type");

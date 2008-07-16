@@ -861,6 +861,16 @@ function common_date_w3dtf($dt) {
 	return date(DATE_W3C, $t);
 }
 
+function common_date_rfc2822($dt) {
+	$t = strtotime($dt);
+	return date("r", $t);	
+}
+
+function common_date_iso8601($dt) {
+	$t = strtotime($dt);
+	return date("c", $t);	
+}
+
 function common_redirect($url, $code=307) {
 	static $status = array(301 => "Moved Permanently",
 						   302 => "Found",

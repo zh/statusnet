@@ -68,27 +68,26 @@ class TwitterapiAction extends Action {
 	function twitter_rss_entry_array($notice) {
 		
 		$profile = $notice->getProfile();
-		
-		$server = common_config('site', 'server');
-		
+
+		$server = common_config('site', 'server');		
 		$entry = array();
 	
 		$entry['content'] = $profile->nickname . ': ' . $notice->content; 
 		$entry['title'] = $entry['content'];
 		$entry['link'] = common_local_url('shownotice', array('notice' => $notice->id));;
-		$entry['published'] = $this->date_iso8601($notice->created);
+		$entry['published'] = common_date_iso8601($notice->created);
 		$entry['id'] = "tag:$server,$entry[published]:$entry[link]";
 		$entry['updated'] = $entry['published'];
 
 		# RSS Item specific
 		$entry['description'] = $entry['content'];
-		$entry['pubDate'] = $this->date_rfc2822($notice->created);
+		$entry['pubDate'] = common_date_rfc2822($notice->created);
 		$entry['guid'] = $entry['link'];
 
 		return $entry;
 	}
 	
-	function render_twitter_xml_status($twitter_status) {	
+	function show_twitter_xml_status($twitter_status) {	
 		common_element_start('status');
 		common_element('created_at', NULL, $twitter_status['created_at']);
 		common_element('id', NULL, $twitter_status['id']);
@@ -99,12 +98,12 @@ class TwitterapiAction extends Action {
 		common_element('in_reply_to_user_id', NULL, $twitter_status['in_reply_to_user_id']);
 		common_element('favorited', Null, $twitter_status['favorited']);  
 
-		$this->render_twitter_xml_user($twitter_status['user']);
+		$this->show_twitter_xml_user($twitter_status['user']);
 		
 		common_element_end('status');
 	}	
 	
-	function render_twitter_xml_user($twitter_user) {
+	function show_twitter_xml_user($twitter_user) {
 		common_element_start('user');
 		common_element('id', NULL, $twitter_user['id']);
 		common_element('name', NULL, $twitter_user['name']);
@@ -139,7 +138,7 @@ class TwitterapiAction extends Action {
 		common_element_end('entry');
 	}
 	
-	function render_twitter_json_statuses($twitter_statuses) {
+	function show_twitter_json_statuses($twitter_statuses) {
 		print(json_encode($twitter_statuses));
 	}
 		
@@ -150,16 +149,6 @@ class TwitterapiAction extends Action {
 		return date("D M d G:i:s O Y", $t);
 	}
 	
-	function date_rfc2822($dt) {
-		$t = strtotime($dt);
-		return date("r", $t);	
-	}
-	
-	function date_iso8601($dt) {
-		$t = strtotime($dt);
-		return date("c", $t);	
-	}
-
 	function replier_by_reply($reply_id) {	
 
 		$notice = Notice::staticGet($reply_id);
@@ -216,11 +205,7 @@ class TwitterapiAction extends Action {
 		common_element_end('rss');
 		common_end_xml();
 	}
-
-	function get_twitter_channel() {
-		
-	}
-		
+	
 	function init_twitter_atom() {
 		common_start_xml();
 		common_element_start('feed', array('xmlns' => 'http://www.w3.org/2005/Atom', 'xml:lang' => 'en-US'));
