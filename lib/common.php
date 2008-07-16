@@ -45,6 +45,7 @@ $config =
 		      'email' => 
 		      array_key_exists('SERVER_ADMIN', $_SERVER) ? $_SERVER['SERVER_ADMIN'] : NULL,
 			  'broughtby' => NULL,
+			  'timezone' => 'UTC',
 			  'broughtbyurl' => NULL),
 		'syslog' =>
 		array('appname' => 'laconica', # for syslog
@@ -87,6 +88,11 @@ $config['db'] =
 		'quote_identifiers' => false);
 
 require_once(INSTALLDIR.'/config.php');
+
+if (function_exists('date_default_timezone_set') && $config['site']['timezone']) {
+	date_default_timezone_set($config['site']['timezone']);
+}
+
 require_once(INSTALLDIR.'/lib/util.php');
 require_once(INSTALLDIR.'/lib/action.php');
 require_once(INSTALLDIR.'/lib/theme.php');
