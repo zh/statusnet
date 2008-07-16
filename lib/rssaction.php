@@ -168,8 +168,7 @@ class Rss10Action extends Action {
 		                                      'http://rdfs.org/sioc/types#',
 											  'xmlns' => 'http://purl.org/rss/1.0/'));
 		
-		common_element_start('sioc:Site', array('rdf:about' =>
-		                                        'http://identi.ca/'));
+		common_element_start('sioc:Site', array('rdf:about' => common_root_url()));
 		common_element('sioc:name', NULL, common_config('site', 'name'));
 		common_element_start('sioc:container_of');
 		common_element('sioc:Container', array('rdf:about' =>
