@@ -877,7 +877,7 @@ function common_save_replies($notice) {
 	# XXX: is there another way to make an array copy?
 	$names = array_merge($match[1], array());
 	if ($tname) {
-		array_unshift($tname, $names);
+		array_unshift($names, $tname);
 	}
 	$sender = Profile::staticGet($notice->profile_id);
 	# store replied only for first @ (what user/notice what the reply directed,
