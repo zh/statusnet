@@ -21,11 +21,11 @@ if (!defined('LACONICA')) { exit(1); }
 
 define('DEFAULT_RSS_LIMIT', 48);
 
-# This will contain the details of each feed item's author and be used to generate SIOC data.
-$creators = array();
-
 class Rss10Action extends Action {
 
+	# This will contain the details of each feed item's author and be used to generate SIOC data.
+	var $creators = array();
+	
 	function handle($args) {
 		parent::handle($args);
 		$limit = (int) $this->trimmed('limit');
@@ -75,7 +75,6 @@ class Rss10Action extends Action {
 	}
 
 	function show_channel($notices) {
-		global $config;
 
 		$channel = $this->get_channel();
 		$image = $this->get_image();
@@ -84,7 +83,7 @@ class Rss10Action extends Action {
 		common_element('title', NULL, $channel['title']);
 		common_element('link', NULL, $channel['link']);
 		common_element('description', NULL, $channel['description']);
-		common_element('cc:licence', array('rdf:resource' => $config['license']['url']));
+		common_element('cc:licence', array('rdf:resource' => common_config('license','url')));
 
 		if ($image) {
 			common_element('image', array('rdf:resource' => $image));
@@ -116,9 +115,14 @@ class Rss10Action extends Action {
 	}
 
 	function show_item($notice) {
-		global $config, $creators;
 		$profile = Profile::staticGet($notice->profile_id);
 		$nurl = common_local_url('shownotice', array('notice' => $notice->id));
+		$user = User::staticGet($profile->id);
+		if ($user) {
+			$creator_url = $user->uri;
+		} else {
+			$creator_url = $profile->profile_url;
+		}
 		common_element_start('item', array('rdf:about' => $notice->uri));
 		$title = $profile->nickname . ': ' . $notice->content;
 		common_element('title', NULL, $title);
@@ -126,41 +130,30 @@ class Rss10Action extends Action {
 		common_element('description', NULL, $profile->nickname."'s status on ".common_exact_date($notice->created));
 		common_element('dc:date', NULL, common_date_w3dtf($notice->created));
 		common_element('dc:creator', NULL, ($profile->fullname) ? $profile->fullname : $profile->nickname);
-		common_element('sioc:has_creator', array('rdf:resource' =>
-		                                         common_local_url('userbyid', array('id' => $profile->id))
-					                       ));
-		common_element('cc:licence', array('rdf:resource' => $config['license']['url']));
+		common_element('sioc:has_creator', array('rdf:resource' => $creator_url));
+		common_element('cc:licence', array('rdf:resource' => common_config('license', 'url')));
 		common_element_end('item');
-		$creators[$nurl] = $profile;
+		$this->creators[$creator_url] = $profile;
 	}
 
 	function show_creators() {
-		global $creators;
-		
-		foreach ($creators as $nurl => $profile) {
+		foreach ($this->creators as $uri => $profile) {
 			$id = $profile->id;
 			$nickname = $profile->nickname;
 			
-			common_element_start('sioc:User', array('rdf:about' =>
-			                                        common_local_url('userbyid', array('id' => $id))
-                                              ));
+			common_element_start('sioc:User', array('rdf:about' => $uri));
 			common_element('foaf:nick', NULL, $nickname);                                                
 			if ($profile->fullname) {
 				common_element('foaf:name', NULL, $profile->fullname);
 			}
 			common_element('sioc:id', NULL, $id);
-			common_element('sioc:avatar', array('rdf:resource' =>
-			                                    common_local_url('avatarbynickname', 
-			                                                     array('nickname' => $nickname,
-																	   'size' => 48
-															     ))
-										  ));
+			$avatar = common_profile_avatar_url($profile);
+			common_element('sioc:avatar', array('rdf:resource' => $avatar));
 			common_element_end('sioc:User');
 		}
 	}
 	
 	function init_rss() {
-		global $config;
 		$channel = $this->get_channel();
 		
 		header('Content-Type: application/rdf+xml');
@@ -182,7 +175,7 @@ class Rss10Action extends Action {
 		
 		common_element_start('sioc:Site', array('rdf:about' =>
 		                                        'http://identi.ca/'));
-		common_element('sioc:name', NULL, $config['site']['name']);
+		common_element('sioc:name', NULL, common_config('site', 'name'));
 		common_element_start('sioc:container_of');
 		common_element('sioc:Container', array('rdf:about' =>
 		                                       $channel['url']));
