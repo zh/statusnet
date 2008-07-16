@@ -39,7 +39,7 @@ class Laconica_XMPP extends XMPPHP_XMPP {
 	$out .= "</message>";
 
 		$cnt = strlen($out);
-		common_log(LOG_DEBUG, 'Sending $cnt chars to $to');
+		common_log(LOG_DEBUG, "Sending $cnt chars to $to");
 	$this->send($out);
 		common_log(LOG_DEBUG, 'Done.');
     }

@@ -19,8 +19,30 @@
  */
 
 function xmppdaemon_error_handler($errno, $errstr, $errfile, $errline, $errcontext) {
-	print "Error $errno in $errfile[$errline]: $errstr\n";
-	die();
+    switch ($errno) {
+     case E_USER_ERROR:
+	echo "<b>My ERROR</b> [$errno] $errstr<br />\n";
+	echo "  Fatal error on line $errline in file $errfile";
+	echo ", PHP " . PHP_VERSION . " (" . PHP_OS . ")<br />\n";
+	echo "Aborting...<br />\n";
+	exit(1);
+	break;
+	
+     case E_USER_WARNING:
+	echo "<b>My WARNING</b> [$errno] $errstr<br />\n";
+	break;
+	
+     case E_USER_NOTICE:
+	echo "<b>My NOTICE</b> [$errno] $errstr<br />\n";
+	break;
+	
+     default:
+	echo "Unknown error type: [$errno] $errstr<br />\n";
+	break;
+    }
+    
+    /* Don't execute PHP internal error handler */
+    return true;
 }
 
 set_error_handler('xmppdaemon_error_handler');
