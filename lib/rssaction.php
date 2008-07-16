@@ -126,6 +126,7 @@ class Rss10Action extends Action {
 		common_element('dc:date', NULL, common_date_w3dtf($notice->created));
 		common_element('dc:creator', NULL, ($profile->fullname) ? $profile->fullname : $profile->nickname);
 		common_element('sioc:has_creator', array('rdf:resource' => $creator_uri));
+		common_element('laconica:postIcon', array('rdf:resource' => common_profile_avatar_url($profile)));
 		common_element('cc:licence', array('rdf:resource' => common_config('license', 'url')));
 		common_element_end('item');
 		$this->creators[$creator_uri] = $profile;
@@ -166,6 +167,8 @@ class Rss10Action extends Action {
 											  'http://rdfs.org/sioc/ns#',
 		                                      'xmlns:sioct' =>
 		                                      'http://rdfs.org/sioc/types#',
+		                                      'xmlns:laconica' =>
+		                                      'http://laconi.ca/ont/',
 											  'xmlns' => 'http://purl.org/rss/1.0/'));
 		
 		common_element_start('sioc:Site', array('rdf:about' => common_root_url()));
