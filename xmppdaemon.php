@@ -18,6 +18,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+function xmppdaemon_error_handler($errno, $errstr, $errfile, $errline, $errcontext) {
+	print "Error $errno in $errfile[$errline]: $errstr\n";
+	die();
+}
+
+set_error_handler('xmppdaemon_error_handler');
+
 # Abort if called from a web server
 if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
 	print "This script must be run from the command line\n";
