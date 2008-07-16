@@ -238,6 +238,7 @@ function jabber_broadcast_notice($notice) {
 				$success = jabber_send_notice($user->jabber, $notice);
 				if ($success) {
 					$sent_to[$user->id] = true;
+				} else {
 					# XXX: Not sure, but I think that's the right thing to do
 					return false;
 				}
