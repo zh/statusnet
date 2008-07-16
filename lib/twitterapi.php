@@ -64,6 +64,29 @@ class TwitterapiAction extends Action {
 				
 		return $twitter_status;
 	}
+		
+	function twitter_rss_entry_array($notice) {
+		
+		$profile = $notice->getProfile();
+		
+		$server = common_config('site', 'server');
+		
+		$entry = array();
+	
+		$entry['content'] = $profile->nickname . ': ' . $notice->content; 
+		$entry['title'] = $entry['content'];
+		$entry['link'] = common_local_url('shownotice', array('notice' => $notice->id));;
+		$entry['published'] = $this->date_iso8601($notice->created);
+		$entry['id'] = "tag:http://$server,$entry[published]:$entry[link]";
+		$entry['updated'] = $entry['published'];
+
+		# RSS Item specific
+		$entry['description'] = $entry['content'];
+		$entry['pubDate'] = $this->date_rfc2822($notice->created);
+		$entry['guid'] = $entry['link'];
+
+		return $entry;
+	}
 	
 	function render_twitter_xml_status($twitter_status) {	
 		common_element_start('status');
@@ -94,17 +117,36 @@ class TwitterapiAction extends Action {
 		common_element('followers_count', NULL, $twitter_user['followers_count']);
 		common_element_end('user');
 	}
-	
+
+	function show_twitter_rss_item($entry) {
+		common_element_start('item');
+		common_element('title', NULL, $entry['title']);
+		common_element('description', NULL, $entry['description']);
+		common_element('pubDate', NULL, $entry['pubDate']);
+		common_element('guid', NULL, $entry['guid']);
+		common_element('link', NULL, $entry['link']);
+		common_element_end('item');
+	}
 	
 	function render_twitter_json_statuses($twitter_statuses) {
 		print(json_encode($twitter_statuses));
 	}
 		
-	// Anyone know what date format this is?  It's not RFC 2822 
+	// Anyone know what date format this is? 
 	// Twitter's dates look like this: "Mon Jul 14 23:52:38 +0000 2008" -- Zach 
 	function date_twitter($dt) {
 		$t = strtotime($dt);
 		return date("D M d G:i:s O Y", $t);
+	}
+	
+	function date_rfc2822($dt) {
+		$t = strtotime($dt);
+		return date("r", $t);	
+	}
+	
+	function date_iso8601($dt) {
+		$t = strtotime($dt);
+		return date("c", $t);	
 	}
 
 	function replier_by_reply($reply_id) {	
@@ -171,27 +213,4 @@ class TwitterapiAction extends Action {
 		
 	}
 
-/*
-
-  <item>
-    <title>CapitalD: @baxterd Have you read The Conquest of Cool? It looks interesting to me...</title>
-    <description>CapitalD: @baxterd Have you read The Conquest of Cool? It looks interesting to me...</description>
-    <pubDate>Mon, 14 Jul 2008 23:54:13 +0000</pubDate>
-    <guid>http://twitter.com/CapitalD/statuses/858499551</guid>
-    <link>http://twitter.com/CapitalD/statuses/858499551</link>
-  </item>
-
-*/
-
-	function show_twitter_rss_item($twitter_status) {
-		common_element_start('item');
-		common_element('title', NULL, "{$twitter_status[user][screen_name]}: $twitter_status[text]");
-		common_element('description', NULL, "{$twitter_status[user][screen_name]}: $twitter_status[text]");
-		common_element('pubDate', NULL, "$twitter_status[created_at]");
-		common_element('guid', NULL, "$twitter_status[id]");
-		common_element('link', NULL, "$twitter_status[id]");
-		common_element_end('item');
-	}
-
-	
 }

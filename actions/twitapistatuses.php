@@ -70,25 +70,26 @@ class TwitapistatusesAction extends TwitterapiAction {
 		
 			common_end_xml();
 		} elseif ($apidata['content-type'] == 'rss') {
-
-			//header('Content-Type: application/xml; charset=utf-8');		
 			
 			header("Content-Type: application/rss+xml; charset=utf-8");
 
 			$this->init_twitter_rss();
 			
+			$sitename = common_config('site', 'name');
+			$siteserver = common_config('site', 'server'); 
+			
 			common_element_start('channel');
-			common_element('title', NULL, 'Identi.ca public timeline');
-			common_element('link', NULL, 'http://www.identi.ca');
-			common_element('description', NULL, 'Identi.ca updates from everyone!');
+			common_element('title', NULL, "$sitename public timeline");
+			common_element('link', NULL, "http://$siteserver");
+			common_element('description', NULL, "$sitename updates from everyone!");
 			common_element('language', NULL, 'en-us');
-			common_element('ttl', NULL, '40'); // 40 what?
+			common_element('ttl', NULL, '40');
 			
 			if ($cnt > 0) {
 				for ($i = 0; $i < 20; $i++) {
 					if ($notice->fetch()) {
-						$twitter_status = $this->twitter_status_array($notice);						
-						$this->show_twitter_rss_item($twitter_status);
+						$entry = $this->twitter_rss_entry_array($notice);						
+						$this->show_twitter_rss_item($entry);
 					} else {
 						// shouldn't happen!
 						break;
