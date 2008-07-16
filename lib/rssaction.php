@@ -117,12 +117,7 @@ class Rss10Action extends Action {
 	function show_item($notice) {
 		$profile = Profile::staticGet($notice->profile_id);
 		$nurl = common_local_url('shownotice', array('notice' => $notice->id));
-		$user = User::staticGet($profile->id);
-		if ($user) {
-			$creator_url = $user->uri;
-		} else {
-			$creator_url = $profile->profile_url;
-		}
+		$creator_uri = common_profile_uri($profile);
 		common_element_start('item', array('rdf:about' => $notice->uri));
 		$title = $profile->nickname . ': ' . $notice->content;
 		common_element('title', NULL, $title);
@@ -133,7 +128,7 @@ class Rss10Action extends Action {
 		common_element('sioc:has_creator', array('rdf:resource' => $creator_url));
 		common_element('cc:licence', array('rdf:resource' => common_config('license', 'url')));
 		common_element_end('item');
-		$this->creators[$creator_url] = $profile;
+		$this->creators[$creator_uri] = $profile;
 	}
 
 	function show_creators() {

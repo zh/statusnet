@@ -1292,4 +1292,20 @@ function common_profile_avatar_url($profile, $size=AVATAR_PROFILE_SIZE) {
 		return common_default_avatar($size);
 	}
 }
+
+function common_profile_uri($profile) {
+	if (!$profile) {
+		return NULL;
+	}
+	$user = User::staticGet($profile->id);
+	if ($user) {
+		return $user->uri;
+	}
 	
+	$remote = Remote_profile::staticGet($profile->id);
+	if ($remote) {
+		return $remote->uri;
+	}
+	# XXX: this is a very bad profile!
+	return NULL;
+}
