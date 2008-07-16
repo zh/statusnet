@@ -77,7 +77,7 @@ class TwitterapiAction extends Action {
 		$entry['title'] = $entry['content'];
 		$entry['link'] = common_local_url('shownotice', array('notice' => $notice->id));;
 		$entry['published'] = $this->date_iso8601($notice->created);
-		$entry['id'] = "tag:http://$server,$entry[published]:$entry[link]";
+		$entry['id'] = "tag:$server,$entry[published]:$entry[link]";
 		$entry['updated'] = $entry['published'];
 
 		# RSS Item specific
@@ -126,6 +126,17 @@ class TwitterapiAction extends Action {
 		common_element('guid', NULL, $entry['guid']);
 		common_element('link', NULL, $entry['link']);
 		common_element_end('item');
+	}
+		
+	function show_twitter_atom_entry($entry) {
+	    common_element_start('entry');
+		common_element('title', NULL, $entry['title']);
+		common_element('content', array('type' => 'html'), $entry['title']);
+		common_element('id', NULL, $entry['id']);
+		common_element('published', NULL, $entry['published']);
+		common_element('updated', NULL, $entry['updated']);
+		common_element('link', array('href' => $entry['link'], 'rel' => 'alternate', 'type' => 'text/html'), NULL);
+		common_element_end('entry');
 	}
 	
 	function render_twitter_json_statuses($twitter_statuses) {
@@ -197,20 +208,27 @@ class TwitterapiAction extends Action {
 	}
 	
 	function init_twitter_rss() {
-		
 		common_start_xml();
 		common_element_start('rss', array('version' => '2.0'));
 	}
 	
 	function end_twitter_rss() {
-		
 		common_element_end('rss');
 		common_end_xml();
-
 	}
 
 	function get_twitter_channel() {
 		
+	}
+		
+	function init_twitter_atom() {
+		common_start_xml();
+		common_element_start('feed', array('xmlns' => 'http://www.w3.org/2005/Atom', 'xml:lang' => 'en-US'));
+	}
+	
+	function end_twitter_atom() {
+		common_end_xml();
+		common_element_end('feed');
 	}
 
 }

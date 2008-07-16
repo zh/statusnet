@@ -101,7 +101,33 @@ class TwitapistatusesAction extends TwitterapiAction {
 			$this->end_twitter_rss();
 
 		} elseif ($apidata['content-type'] == 'atom') {
-			common_server_error("API method under construction.", $code=501);	
+
+			header('Content-Type: application/atom+xml; charset=utf-8');
+
+			$this->init_twitter_atom();
+			
+			$sitename = common_config('site', 'name');
+			$siteserver = common_config('site', 'server');
+
+			common_element('title', NULL, "$sitename public timeline");
+			common_element('id', NULL, "tag:$siteserver:Statuses");
+			common_element('link', array('href' => "http://$siteserver", 'rel' => 'alternate', 'type' => 'text/html'), NULL);
+			common_element('subtitle', NULL, "$sitename updates from everyone!");
+			
+			if ($cnt > 0) {
+				for ($i = 0; $i < 20; $i++) {
+					if ($notice->fetch()) {
+						$entry = $this->twitter_rss_entry_array($notice);						
+						$this->show_twitter_atom_entry($entry);
+					} else {
+						// shouldn't happen!
+						break;
+					}
+				}
+			}
+
+			$this->end_twitter_atom();
+
 		} elseif ($apidata['content-type'] == 'json') {
 
 			header('Content-Type: application/json; charset=utf-8');
