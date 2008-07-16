@@ -42,7 +42,8 @@ $config =
 			  'path' => '/',
 			  'logfile' => NULL,
 			  'fancy' => false,
-			  'email' => $_SERVER['SERVER_ADMIN'],
+		      'email' => 
+		      array_key_exists('SERVER_ADMIN', $_SERVER) ? $_SERVER['SERVER_ADMIN'] : NULL,
 			  'broughtby' => NULL,
 			  'broughtbyurl' => NULL),
 		'syslog' =>
