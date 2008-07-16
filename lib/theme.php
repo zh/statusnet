@@ -20,11 +20,16 @@
 if (!defined('LACONICA')) { exit(1); }
 
 function theme_file($relative) {
-	global $config;
-	return INSTALLDIR.'/theme/'.$config['site']['theme'].'/'.$relative;
+	$theme = common_config('site', 'theme');
+	return INSTALLDIR.'/theme/'.$theme.'/'.$relative;
 }
 
 function theme_path($relative) {
-	global $config;
-	return common_path('theme/'.$config['site']['theme'].'/'.$relative);
+	$theme = common_config('site', 'theme');
+	$server = common_config('theme', 'server');
+	if ($server) {
+		return 'http://'.$server.'/'.$theme.'/'.$relative;
+	} else {
+		return common_path('theme/'.$theme.'/'.$relative);
+	}
 }
