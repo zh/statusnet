@@ -595,7 +595,7 @@ function common_render_content($text, $notice) {
 	$id = $notice->profile_id;
 	$r = preg_replace('@https?://[^)\]>\s]+@', '<a href="\0" class="extlink">\0</a>', $r);
 	$r = preg_replace('/(^|\s+)@([a-z0-9]{1,64})/e', "'\\1@'.common_at_link($id, '\\2')", $r);
-	$r = preg_replace('/^T ([A-Z0-9]{1,64}) /e', "'T '.common_at_link($id, '\\1').' '", $r);
+	$r = preg_replace('/^T ([A-Z0-9]{1,64}) /e', "'T '.common_at_link($id, strtolower('\\1')).' '", $r);
 	# XXX: # tags
 	# XXX: machine tags
 	return $r;
@@ -865,16 +865,25 @@ function common_redirect($url, $code=307) {
 }
 
 function common_save_replies($notice) {
+	# Alternative reply format
+	if (preg_match('/^T ([A-Z0-9]{1,64}) /', $notice->content, $match)) {
+		$tname = $match[1];
+	}
 	# extract all @messages
 	$cnt = preg_match_all('/(?:^|\s)@([a-z0-9]{1,64})/', $notice->content, $match);
-	if (!$cnt) {
+	if (!$cnt && !$tname) {
 		return true;
+	}
+	# XXX: is there another way to make an array copy?
+	$names = array_merge($match[1], array());
+	if ($tname) {
+		array_unshift($tname, $names);
 	}
 	$sender = Profile::staticGet($notice->profile_id);
 	# store replied only for first @ (what user/notice what the reply directed,
 	# we assume first @ is it)
-	for ($i=0; $i<count($match[1]); $i++) {
-		$nickname = $match[1][$i];
+	for ($i=0; $i<count($names); $i++) {
+		$nickname = $names[$i];
 		$recipient = common_relative_profile($sender, $nickname, $notice->created);
 		if (!$recipient) {
 			continue;
