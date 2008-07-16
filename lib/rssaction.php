@@ -125,7 +125,7 @@ class Rss10Action extends Action {
 		common_element('description', NULL, $profile->nickname."'s status on ".common_exact_date($notice->created));
 		common_element('dc:date', NULL, common_date_w3dtf($notice->created));
 		common_element('dc:creator', NULL, ($profile->fullname) ? $profile->fullname : $profile->nickname);
-		common_element('sioc:has_creator', array('rdf:resource' => $creator_url));
+		common_element('sioc:has_creator', array('rdf:resource' => $creator_uri));
 		common_element('cc:licence', array('rdf:resource' => common_config('license', 'url')));
 		common_element_end('item');
 		$this->creators[$creator_uri] = $profile;
