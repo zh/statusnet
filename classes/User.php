@@ -34,6 +34,7 @@ class User extends DB_DataObject
     public $nickname;                        // varchar(64)  unique_key
     public $password;                        // varchar(255)  
     public $email;                           // varchar(255)  unique_key
+    public $incomingemail;                   // varchar(255)  unique_key
     public $emailnotifysub;                  // tinyint(1)   default_1
     public $jabber;                          // varchar(255)  unique_key
     public $jabbernotify;                    // tinyint(1)  
