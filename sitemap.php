@@ -225,7 +225,6 @@ function avatar_map() {
 			$avatar_count = 0;
 			$map_count++;
 		}
-w3cdate($avatars->modified);
 		$image = array(
 					   'url'        => common_avatar_display_url($avatars),
 					   'lastmod'    => common_date_w3dtf($avatars->modified),
