@@ -79,19 +79,26 @@ class TwitapistatusesAction extends TwitterapiAction {
 	}	
 	
 	function show_xml_timeline($notice) {
-		
+
 		header('Content-Type: application/xml; charset=utf-8');		
 		common_start_xml();
 		common_element_start('statuses', array('type' => 'array'));
-		
-		while ($notice->fetch()) {
-			$twitter_status = $this->twitter_status_array($notice);						
-			$this->show_twitter_xml_status($twitter_status);
+
+		if (is_array($notice)) {
+			foreach ($notice as $n) {
+				$twitter_status = $this->twitter_status_array($n);						
+				$this->show_twitter_xml_status($twitter_status);	
+			}
+		} else {
+			while ($notice->fetch()) {
+				$twitter_status = $this->twitter_status_array($notice);						
+				$this->show_twitter_xml_status($twitter_status);
+			}
 		}
 		
 		common_element_end('statuses');
 		common_end_xml();
-	}
+	}	
 	
 	function show_rss_timeline($notice, $title, $id, $link, $subtitle) {
 		
@@ -106,11 +113,19 @@ class TwitapistatusesAction extends TwitterapiAction {
 		common_element('language', NULL, 'en-us');
 		common_element('ttl', NULL, '40');
 	
-		while ($notice->fetch()) {
-			$entry = $this->twitter_rss_entry_array($notice);						
-			$this->show_twitter_rss_item($entry);
+	
+		if (is_array($notice)) {
+			foreach ($notice as $n) {
+				$entry = $this->twitter_rss_entry_array($n);						
+				$this->show_twitter_rss_item($entry);
+			} 
+		} else {
+			while ($notice->fetch()) {
+				$entry = $this->twitter_rss_entry_array($notice);						
+				$this->show_twitter_rss_item($entry);
+			}
 		}
-		
+
 		common_element_end('channel');			
 		$this->end_twitter_rss();
 	}
@@ -126,9 +141,16 @@ class TwitapistatusesAction extends TwitterapiAction {
 		common_element('link', array('href' => $link, 'rel' => 'alternate', 'type' => 'text/html'), NULL);
 		common_element('subtitle', NULL, $subtitle);
 
-		while ($notice->fetch()) {
-			$entry = $this->twitter_rss_entry_array($notice);						
-			$this->show_twitter_atom_entry($entry);
+		if (is_array($notice)) {
+			foreach ($notice as $n) {
+				$entry = $this->twitter_rss_entry_array($n);						
+				$this->show_twitter_atom_entry($entry);
+			} 
+		} else {
+			while ($notice->fetch()) {
+				$entry = $this->twitter_rss_entry_array($notice);						
+				$this->show_twitter_atom_entry($entry);
+			}
 		}
 		
 		$this->end_twitter_atom();
@@ -140,10 +162,17 @@ class TwitapistatusesAction extends TwitterapiAction {
 		
 		$statuses = array();
 		
-		while ($notice->fetch()) {	
-			$twitter_status = $this->twitter_status_array($notice);
-			array_push($statuses, $twitter_status);						
-		}				
+		if (is_array($notice)) {
+			foreach ($notice as $n) {
+				$twitter_status = $this->twitter_status_array($n);
+				array_push($statuses, $twitter_status);
+			} 
+		} else {
+			while ($notice->fetch()) {
+				$twitter_status = $this->twitter_status_array($notice);
+				array_push($statuses, $twitter_status);
+			}
+		}			
 		
 		$this->show_twitter_json_statuses($statuses);			
 	}
@@ -437,8 +466,81 @@ class TwitapistatusesAction extends TwitterapiAction {
 	*/
 	function replies($args, $apidata) {
 		parent::handle($args);
-		common_server_error("API method under construction.", $code=501);
+
+		$since = $this->arg('since');
+
+		$count = $this->arg('count');
+		$page = $this->arg('page');
+
+		$user = $apidata['user'];
+		$profile = $user->getProfile();
+
+		$sitename = common_config('site', 'name');
+		$siteserver = common_config('site', 'server'); 
+
+		$title = sprintf(_("%s / Updates replying to %s"), $sitename, $user->nickname);
+		$id = "tag:$siteserver:replies:".$user->id;
+		$link = common_local_url('replies', array('nickname' => $user->nickname));
+		$subtitle = "gar";
+		$subtitle = sprintf(_("%s updates that reply to updates from %s / %."), $sitename, $user->nickname, $user->nickname);
+
+		if (!$page) {
+			$page = 1;
+		}
+
+		if (!$count) {
+			$count = 20;
+		}
+
+		$reply = new Reply();
+
+		$reply->profile_id = $user->id;
+
+		$reply->orderBy('modified DESC');
+
+		$page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
+
+		$reply->limit((($page-1)*20), $count);
+
+		$cnt = $reply->find();
+
+		$notices = array();
+	
+		if ($cnt) {
+			while ($reply->fetch()) {
+				$notice = new Notice();
+				$notice->id = $reply->notice_id;
+				$result = $notice->find(true);
+				if (!$result) {
+					continue;
+				}
+				$notices[] = clone($notice);
+			}
+		}
+
+		switch($apidata['content-type']) {
+		 case 'xml': 
+			$this->show_xml_timeline($notices);
+			break;
+		 case 'rss':
+			$this->show_rss_timeline($notices, $title, $id, $link, $subtitle);
+			break;
+		 case 'atom': 
+			$this->show_atom_timeline($notices, $title, $id, $link, $subtitle);
+			break;
+		 case 'json':
+			$this->show_json_timeline($notices);
+			break;
+		 default:
+			common_user_error("API method not found!", $code = 404);
+		}
+
+
+		exit();
+
+
 	}
+
 	
 	
 	/*
