@@ -73,7 +73,8 @@ $config =
 			  'resource' => 'uniquename',
 			  'password' => 'blahblahblah',
 			  'host' => NULL, # only set if != server
-			  'debug' => false), # print extra debug info
+			  'debug' => false, # print extra debug info
+			  'public' => array()), # JIDs of users who want to receive the public stream
 		);
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');

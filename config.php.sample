@@ -48,8 +48,9 @@ $config['db']['database'] = 'mysql://laconica:microblog@localhost/laconica';
 #$config['xmpp']['user'] = 'update';
 #$config['xmpp']['resource'] = 'uniquename';
 #$config['xmpp']['password'] = 'blahblahblah';
+#$config['xmpp']['public'][] = 'someindexer@example.net';
 
 #Do notice broadcasts offline
-#If you set this, you must run the queuehandler.php
+#If you set this, you must run the xmppdaemon.php
 #as a daemon (with, say, start-stop-daemon)
 #$config['queue']['enabled'] = true;

@@ -255,6 +255,21 @@ function jabber_broadcast_notice($notice) {
 		}
 	}
 
+	# Now, users who want everything
+	
+	$public = common_config('xmpp', 'public');
+	
+	# FIXME PRIV don't send out private messages here
+	
+	if ($public) {
+		foreach ($public as $address) {
+				common_log(LOG_INFO,
+						   'Sending notice ' . $notice->id . ' to public listener ' . $address,
+						   __FILE__);
+				jabber_send_notice($address, $notice);
+		}
+	}
+	
 	return true;
 }
 
