@@ -99,7 +99,7 @@ function notices_map() {
 
 		$notice = array(
 						'url'        => $notices->uri,
-						'lastmod'    => w3cdate($notices->modified),
+						'lastmod'    => common_date_w3dtf($notices->modified),
 						'changefreq' => 'daily',
 						'priority'   => '1',
 						);
@@ -227,8 +227,8 @@ function avatar_map() {
 		}
 w3cdate($avatars->modified);
 		$image = array(
-					   'url'        => $avatars->url,
-					   'lastmod'    => w3cdate($avatars->modified),
+					   'url'        => common_avatar_display_url($avatars),
+					   'lastmod'    => common_date_w3dtf($avatars->modified),
 					   'changefreq' => 'monthly',
 					   'priority'   => '0.2',
 					   );
@@ -343,13 +343,6 @@ function parse_args() {
 				   );
 
 	return $paths;
-}
-
-# Format database timestamps as W3C DTF.
-function w3cdate ($timestamp) {
-	preg_match('/(\d{4})-(\d\d)-(\d\d) (\d\d):(\d\d):(\d\d)/', $timestamp, $date);
-	
-	return date(DATE_W3C, mktime($date[4], $date[5], $date[6], $date[2], $date[3], $date[1]));
 }
 
 # Ensure paths end with a "/".
