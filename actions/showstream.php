@@ -89,6 +89,11 @@ class ShowstreamAction extends StreamAction {
 		common_element('meta', array('http-equiv' => 'X-XRDS-Location',
 									 'content' => common_local_url('xrds', array('nickname' =>
 																			   $user->nickname))));
+		$profile = $user->getProfile();
+		if ($profile->bio) {
+			common_element('meta', array('name' => 'description',
+										 'content' => $profile->bio));
+		}
 	}
 
 	function no_such_user() {
