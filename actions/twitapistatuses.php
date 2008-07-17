@@ -23,18 +23,10 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
 
 /* XXX: Please don't freak out about all the ugly comments in this file.
  * They are mostly in here for reference while I work on the
- * API. I'll fix things up to make them look better later. -- Zach 
+ * API. I'll fix things up later to make them look better later. -- Zach 
  */
 class TwitapistatusesAction extends TwitterapiAction {
 	
-	/*
-	 *  Returns the MAX_PUBSTATUSES most recent statuses from non-protected users who 
-	 *  have set a custom avatar. Does not require authentication.
-	 *	
-	 *	URL: http://server/api/statuses/public_timeline.format
-     *
-	 *	Formats: xml, json, rss, atom
-	 */
 	function public_timeline($args, $apidata) {
 		parent::handle($args);
 
@@ -225,41 +217,19 @@ class TwitapistatusesAction extends TwitterapiAction {
 		
 		exit();	
 	}
-	
-	/*
-	 * Returns a single notice, specified by the id parameter below. 
-	 * The status's author will be returned inline.
-	 *	
-	 * URL: http://server/api/statuses/show/id.format
-	 *	
-	 * Formats: xml, json
-	 *	
-     * Parameters:
-     *		
-     * id. Required. The numerical ID of the status you're trying to retrieve. 
-	 * Ex: http://server/api/statuses/show/123.xml
-	 *
-	 */	
+
 	function show($args, $apidata) {
 		parent::handle($args);
-
-		$id = $apidata['api_arg'];
+		
+		$id = $apidata['api_arg'];		
 		$notice = Notice::staticGet($id);
 
 		if ($notice) {
 
 			if ($apidata['content-type'] == 'xml') { 
-				header('Content-Type: application/xml; charset=utf-8');		
-			
-				common_start_xml();
-				$twitter_status = $this->twitter_status_array($notice);						
-				$this->show_twitter_xml_status($twitter_status);
-				common_end_xml();
-			
+				$this->show_single_xml_status($notice);
 			} elseif ($apidata['content-type'] == 'json') {
-				header('Content-Type: application/json; charset=utf-8');
-				$status = $this->twitter_status_array($notice);
-				$this->show_twitter_json_statuses($status);
+				$this->show_single_json_status($notice);
 			}
 		} else {
 			header('HTTP/1.1 404 Not Found');
@@ -267,23 +237,83 @@ class TwitapistatusesAction extends TwitterapiAction {
 		
 		exit();
 	}
+		
+	function show_single_xml_status($notice) {
+		header('Content-Type: application/xml; charset=utf-8');		
+		common_start_xml();
+		$twitter_status = $this->twitter_status_array($notice);						
+		$this->show_twitter_xml_status($twitter_status);
+		common_end_xml();
+		exit();
+	}
 	
-	/*
-		Updates the authenticating user's status.  Requires the status parameter specified below.  Request must be a POST.
-
-		URL: http://server/api/statuses/update.format
-
-		Formats: xml, json.  Returns the posted status in requested format when successful.
-
-		Parameters:
-
-		    * status. Required. The text of your status update. Be sure to URL encode as necessary. Must not be more than 160
-            characters and should not be more than 140 characters to ensure optimal display.
-
-	*/
+	function show_single_json_status($notice) {
+		header('Content-Type: application/json; charset=utf-8');
+		$status = $this->twitter_status_array($notice);
+		$this->show_twitter_json_statuses($status);
+		exit();
+	}
+		
 	function update($args, $apidata) {
 		parent::handle($args);
-		common_server_error("API method under construction.", $code=501);
+		
+		$user = $apidata['user'];
+				
+		$notice = DB_DataObject::factory('notice');		
+		
+		$notice->profile_id = $user->id; # user id *is* profile id
+		$notice->created = DB_DataObject_Cast::dateTime();	
+		$notice->content = $this->trimmed('status');
+
+		if (!$notice->content) {
+			
+			// XXX: Note: In this case, Twitter simply returns '200 OK'
+			// No error is given, but the status is not posted to the 
+			// user's timeline.  Seems bad.  Shouldn't we throw an 
+			// errror? -- Zach
+			exit();
+			
+		} else if (strlen($notice->content) > 140) {
+
+			// XXX: Twitter truncates anything over 140, flags the status 
+		    // as "truncated."  Sending this error may screw up some clients
+		    // that assume Twitter will truncate for them.  Should we just
+		    // truncate too? -- Zach
+			header('HTTP/1.1 406 Not Acceptable');			
+			print "That's too long. Max notice size is 140 chars.\n";
+			exit();
+		}
+
+		$notice->rendered = common_render_content($notice->content, $notice);
+
+		$id = $notice->insert();
+
+		if (!$id) {
+			common_server_error('Could not update status!', 500);
+			exit();
+		}
+
+		$orig = clone($notice);
+		$notice->uri = common_notice_uri($notice);
+
+		if (!$notice->update($orig)) {
+			common_server_error('Could not save status!', 500);
+			exit();
+		}
+
+        common_save_replies($notice);
+		common_broadcast_notice($notice);
+
+		// FIXME: Bad Hack 
+		// I should be able to just sent this notice off for display,
+		// but $notice->created does not contain a string at this
+		// point and I don't know how to convert it to one here. So
+		// I'm forced to have DBObject pull the notice back out of the
+		// DB before printing. --Zach
+		$apidata['api_arg'] = $id;
+		$this->show($args, $apidata);
+
+		exit();
 	}
 	
 	/*

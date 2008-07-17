@@ -21,7 +21,7 @@ if (!defined('LACONICA')) { exit(1); }
 
 class ApiAction extends Action {
 
-	var $nickname;
+	var $user;
 	var $content_type;
 	var $api_arg;
 	var $api_method;
@@ -63,7 +63,7 @@ class ApiAction extends Action {
 				$user = common_check_user($nickname, $password);
 				
 				if ($user) {
-					$this->nickname = $nickname;
+					$this->user = $user;
 					$this->process_command();
 				} else {
 					# basic authentication failed
@@ -88,7 +88,7 @@ class ApiAction extends Action {
 				$apidata = array(	'content-type' => $this->content_type,
 									'api_method' => $this->api_method,
 									'api_arg' => $this->api_arg,
-									'nickanme' => $htis->nickanme);
+									'user' => $this->user);
 				
 				call_user_func(array($action_obj, $this->api_method), $_REQUEST, $apidata);
 				# all API methods should exit()

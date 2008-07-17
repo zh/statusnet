@@ -62,7 +62,7 @@ RewriteRule ^api/statuses/public_timeline(.*)$ index.php?action=api&apiaction=st
 RewriteRule ^api/statuses/friends_timeline(.*)$ index.php?action=api&apiaction=statuses&method=friends_timeline$1 [L,QSA]
 RewriteRule ^api/statuses/user_timeline(.*)$ index.php?action=api&apiaction=statuses&method=user_timeline$1 [L,QSA]
 RewriteRule ^api/statuses/show/(.*)$ index.php?action=api&apiaction=statuses&method=show&argument=$1 [L,QSA]
-RewriteRule ^api/statuses/update/(.*)$ index.php?action=api&apiaction=statuses&method=update&argument=$1 [L,QSA]
+RewriteRule ^api/statuses/update(.*)$ index.php?action=api&apiaction=statuses&method=update$1 [L,QSA]
 RewriteRule ^api/statuses/replies/(.*)$ index.php?action=api&apiaction=statuses&method=replies&argument=$1 [L,QSA]
 RewriteRule ^api/statuses/destroy/(.*)$ index.php?action=api&apiaction=statuses&method=destroy&argument=$1 [L,QSA]
 RewriteRule ^api/statuses/friends(.*)$ index.php?action=api&apiaction=statuses&method=friends$1 [L,QSA]
