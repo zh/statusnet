@@ -155,7 +155,8 @@ class ShowstreamAction extends StreamAction {
 		}
 		if ($profile->homepage) {
 			common_element_start('p', 'website');
-			common_element('a', array('href' => $profile->homepage),
+			common_element('a', array('href' => $profile->homepage,
+									  'rel' => 'me'),
 						   $profile->homepage);
 			common_element_end('p');
 		}
