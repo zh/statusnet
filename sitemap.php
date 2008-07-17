@@ -227,7 +227,7 @@ function avatar_map() {
 		$image = array(
 					   'url'        => common_avatar_display_url($avatars),
 					   'lastmod'    => common_date_w3dtf($avatars->modified),
-					   'changefreq' => 'monthly',
+					   'changefreq' => 'never',
 					   'priority'   => '0.2',
 					   );
 
