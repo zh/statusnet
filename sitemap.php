@@ -206,19 +206,18 @@ function user_map() {
 function avatar_map() {
 	global $output_paths;
 
-	$avatars = DB_DataObject::factory('avatar');
+	$avatars = new Avatar();
+	$avatars->whereAdd('original = 1', "OR");
+	$avatars->whereAdd('width = ' . AVATAR_MINI_SIZE, 'OR');
 
-	$avatars->query('SELECT url, modified FROM avatar');
-
+	if (!$avatars->find()) {
+		return 0;
+	}
+	
 	$avatar_count = 0;
 	$map_count = 1;
 
 	while ($avatars->fetch()) {
-
-		# We only want the original size and 24px thumbnail version - skip 96px.
-		if (preg_match('/-96-/', $avatars->url)) {
-			continue;
-		}
 
 		# Maximum 50,000 URLs per sitemap file.
 		if ($avatar_count == 50000) {
