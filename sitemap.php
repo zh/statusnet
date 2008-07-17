@@ -32,8 +32,7 @@ function index_map() {
 		$index_urls .= url(
 						   array(
 								 'url' => $output_url . $file_name,
-								 'changefreq' => 'daily',
-								 'priority' => '1',
+								 'changefreq' => 'daily'
 								 )
 						   );
 	}
