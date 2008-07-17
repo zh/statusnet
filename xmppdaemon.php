@@ -275,7 +275,7 @@ class XMPPDaemon {
 			if (!$pl['type']) {
 				$user = User::staticGet('jabber', $from);
 				if (!$user) {
-					$this->log(LOG_WARNING, 'Message from unknown user ' . $from);
+					$this->log(LOG_WARNING, 'Presence from unknown user ' . $from);
 					return;
 				}
 				if ($user->updatefrompresence) {
