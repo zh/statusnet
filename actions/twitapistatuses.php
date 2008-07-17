@@ -482,7 +482,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 		$id = "tag:$siteserver:replies:".$user->id;
 		$link = common_local_url('replies', array('nickname' => $user->nickname));
 		$subtitle = "gar";
-		$subtitle = sprintf(_("%s updates that reply to updates from %s / %."), $sitename, $user->nickname, $user->nickname);
+		$subtitle = sprintf(_("%s updates that reply to updates from %s / %s."), $sitename, $user->nickname, $profile->getBestName());
 
 		if (!$page) {
 			$page = 1;
