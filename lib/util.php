@@ -1054,7 +1054,6 @@ function common_ensure_syslog() {
 	static $initialized = false;
 	if (!$initialized) {
 		global $config;
-		define_syslog_variables();
 		openlog($config['syslog']['appname'], 0, LOG_USER);
 		$initialized = true;
 	}

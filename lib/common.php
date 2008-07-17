@@ -26,6 +26,8 @@ define('AVATAR_STREAM_SIZE', 48);
 define('AVATAR_MINI_SIZE', 24);
 define('MAX_AVATAR_SIZE', 256 * 1024);
 
+define_syslog_variables();
+
 # global configuration object
 
 require_once('PEAR.php');
