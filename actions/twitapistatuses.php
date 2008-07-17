@@ -184,7 +184,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 			$count = 20;
 		}
 
-		$user = $apidata['user'];
+		$user = $this->get_user($id, $apidata);
 		$profile = $user->getProfile();
 		
 		$sitename = common_config('site', 'name');
@@ -264,10 +264,62 @@ class TwitapistatusesAction extends TwitterapiAction {
 		$since = $this->arg('since');
 		$since_id = $this->arg('since_id');
 		
-		print "User Timeline! requested content-type: " . $apidata['content-type'] . "\n";
-		print "id: $id since: $since, since_id: $since_id, count: $count\n";
+		if (!$page) {
+			$page = 1;
+		}
+
+		if (!$count) {
+			$count = 20;
+		}
+
+		$user = $this->get_user($id, $apidata['user']);
 		
-		exit();	
+		if (!$user) {
+			$this->client_error(_('No such user'), 404);
+			return;
+		}
+		
+		$profile = $user->getProfile();
+		
+		$sitename = common_config('site', 'name');
+		$siteserver = common_config('site', 'server'); 
+		
+		$title = sprintf(_("%s timeline"), $user->nickname);
+		$id = "tag:$siteserver:user:".$user->id;
+		$link = common_local_url('showstream', array('nickname' => $user->nickname));
+		$subtitle = sprintf(_("Updates from %s on %s!"), $user->nickname, $sitename);
+
+		$notice = new Notice();
+
+		$notice->profile_id = $user->id;
+		
+		# XXX: since
+		# XXX: since_id
+		
+		$notice->orderBy('created DESC, notice.id DESC');
+
+		$notice->limit((($page-1)*20), $count);
+
+		$cnt = $notice->find();
+		
+		switch($apidata['content-type']) {
+		 case 'xml': 
+			$this->show_xml_timeline($notice);
+			break;
+		 case 'rss':
+			$this->show_rss_timeline($notice, $title, $id, $link, $subtitle);
+			break;
+		 case 'atom': 
+			$this->show_atom_timeline($notice, $title, $id, $link, $subtitle);
+			break;
+		 case 'json':
+			$this->show_json_timeline($notice);
+			break;
+		 default:
+			common_user_error("API method not found!", $code = 404);
+		}
+		
+		exit();
 	}
 
 	function show($args, $apidata) {
@@ -469,7 +521,16 @@ class TwitapistatusesAction extends TwitterapiAction {
 		parent::handle($args);
 		common_server_error("API method under construction.", $code=501);
 	}
-	
+
+	function get_user($id, $apidata) {
+		if (!$id) {
+			return $apidata['user'];
+		} else if (is_numeric($id)) {
+			return User::staticGet($id);
+		} else {
+			return User::staticGet('nickname', $id);
+		}
+	}
 }
 
 
