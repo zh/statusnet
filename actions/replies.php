@@ -53,6 +53,10 @@ class RepliesAction extends StreamAction {
 		common_show_footer();
 	}
 
+	function no_such_user() {
+		common_user_error(_('No such user.'));
+	}
+
 	function show_header($user) {
 		common_element('link', array('rel' => 'alternate',
 									 'href' => common_local_url('repliesrss', array('nickname' =>
