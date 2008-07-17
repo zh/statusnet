@@ -30,6 +30,13 @@ class TwitapistatusesAction extends TwitterapiAction {
 	function public_timeline($args, $apidata) {
 		parent::handle($args);
 
+		$sitename = common_config('site', 'name');
+		$siteserver = common_config('site', 'server'); 
+		$title = sprintf(_("%s public timeline"), $sitename);
+		$id = "tag:$siteserver:Statuses";
+		$link = common_root_url();
+		$subtitle = sprintf(_("%s updates from everyone!"));
+
 		// Number of public statuses to return by default -- Twitter sends 20
 		$MAX_PUBSTATUSES = 20;
 
@@ -48,16 +55,16 @@ class TwitapistatusesAction extends TwitterapiAction {
 			
 			switch($apidata['content-type']) {
 				case 'xml': 
-					$this->show_xml_public_timeline($notice);
+					$this->show_xml_timeline($notice);
 					break;
 				case 'rss':
-					$this->show_rss_public_timeline($notice);
+					$this->show_rss_timeline($notice, $title, $id, $link, $subtitle);
 					break;
 				case 'atom': 
-					$this->show_atom_public_timeline($notice);
+					$this->show_atom_timeline($notice, $title, $id, $link, $subtitle);
 					break;
 				case 'json':
-					$this->show_json_public_timeline($notice);
+					$this->show_json_timeline($notice);
 					break;
 				default:
 					common_user_error("API method not found!", $code = 404);
@@ -71,7 +78,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 		exit();
 	}	
 	
-	function show_xml_public_timeline($notice) {
+	function show_xml_timeline($notice) {
 		
 		header('Content-Type: application/xml; charset=utf-8');		
 		common_start_xml();
@@ -86,17 +93,16 @@ class TwitapistatusesAction extends TwitterapiAction {
 		common_end_xml();
 	}
 	
-	function show_rss_public_timeline($notice) {
+	function show_rss_timeline($notice, $title, $id, $link, $subtitle) {
 		
 		header("Content-Type: application/rss+xml; charset=utf-8");
+		
 		$this->init_twitter_rss();
-		$sitename = common_config('site', 'name');
-		$siteserver = common_config('site', 'server'); 
 		
 		common_element_start('channel');
-		common_element('title', NULL, "$sitename public timeline");
-		common_element('link', NULL, "http://$siteserver");
-		common_element('description', NULL, "$sitename updates from everyone!");
+		common_element('title', NULL, $title);
+		common_element('link', NULL, $link);
+		common_element('description', NULL, $subtitle);
 		common_element('language', NULL, 'en-us');
 		common_element('ttl', NULL, '40');
 	
@@ -109,18 +115,16 @@ class TwitapistatusesAction extends TwitterapiAction {
 		$this->end_twitter_rss();
 	}
 
-	function show_atom_public_timeline($notice) {
+	function show_atom_timeline($notice, $title, $id, $link, $subtitle=NULL) {
 		
 		header('Content-Type: application/atom+xml; charset=utf-8');
 
 		$this->init_twitter_atom();
-		$sitename = common_config('site', 'name');
-		$siteserver = common_config('site', 'server');
 
-		common_element('title', NULL, "$sitename public timeline");
-		common_element('id', NULL, "tag:$siteserver:Statuses");
-		common_element('link', array('href' => "http://$siteserver", 'rel' => 'alternate', 'type' => 'text/html'), NULL);
-		common_element('subtitle', NULL, "$sitename updates from everyone!");
+		common_element('title', NULL, $title);
+		common_element('id', NULL, $id);
+		common_element('link', array('href' => $link, 'rel' => 'alternate', 'type' => 'text/html'), NULL);
+		common_element('subtitle', NULL, $subtitle);
 
 		while ($notice->fetch()) {
 			$entry = $this->twitter_rss_entry_array($notice);						
@@ -130,7 +134,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 		$this->end_twitter_atom();
 	}
 
-	function show_json_public_timeline($notice) {
+	function show_json_timeline($notice) {
 		
 		header('Content-Type: application/json; charset=utf-8');
 		
@@ -171,14 +175,62 @@ class TwitapistatusesAction extends TwitterapiAction {
 		$since_id = $this->arg('since_id');
 		$count = $this->arg('count');
 		$page = $this->arg('page');
+		
+		if (!$page) {
+			$page = 1;
+		}
 
-		print "Friends Timeline! requested content-type: " . $apidata['content-type'] . "\n";
-		print "since: $since, since_id: $since_id, count: $count, page: $page\n";
+		if (!$count) {
+			$count = 20;
+		}
+
+		$user = $apidata['user'];
+		$profile = $user->getProfile();
+		
+		$sitename = common_config('site', 'name');
+		$siteserver = common_config('site', 'server'); 
+		
+		$title = sprintf(_("%s and friends"), $user->nickname);
+		$id = "tag:$siteserver:friends:".$user->id;
+		$link = common_local_url('all', array('nickname' => $user->nickname));
+		$subtitle = sprintf(_("Updates from %s and friends on %s!"), $user->nickname, $sitename);
+
+		$notice = new Notice();
+
+		# XXX: chokety and bad
+
+		$notice->whereAdd('EXISTS (SELECT subscribed from subscription where subscriber = '.$profile->id.' and subscribed = notice.profile_id)', 'OR');
+		$notice->whereAdd('profile_id = ' . $profile->id, 'OR');
+
+		# XXX: since
+		# XXX: since_id
+		
+		$notice->orderBy('created DESC, notice.id DESC');
+
+		$notice->limit((($page-1)*20), $count);
+
+		$cnt = $notice->find();
+		
+		switch($apidata['content-type']) {
+		 case 'xml': 
+			$this->show_xml_timeline($notice);
+			break;
+		 case 'rss':
+			$this->show_rss_timeline($notice, $title, $id, $link, $subtitle);
+			break;
+		 case 'atom': 
+			$this->show_atom_timeline($notice, $title, $id, $link, $subtitle);
+			break;
+		 case 'json':
+			$this->show_json_timeline($notice);
+			break;
+		 default:
+			common_user_error("API method not found!", $code = 404);
+		}
 		
 		exit();
-		
 	}
-	
+
 	/*
 		Returns the 20 most recent statuses posted from the authenticating user. It's also possible to
         request another user's timeline via the id parameter below. This is the equivalent of the Web
