@@ -41,6 +41,7 @@ class MailerDaemon {
 		if (!$from || !$to || !$msg) {
 			$this->error(NULL, _t('Could not parse message.'));
 		}
+		common_log(LOG_INFO, "Mail from $from to $to: " .substr($msg, 0, 20));
 		$user = User::staticGet('email', common_canonical_email($from));
 		if (!$user) {
 			$this->error($from, _('Not a registered user.'));
