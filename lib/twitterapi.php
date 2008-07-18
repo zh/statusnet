@@ -25,7 +25,7 @@ class TwitterapiAction extends Action {
 		parent::handle($args);
 	}
 	
-	function twitter_user_array($profile) {
+	function twitter_user_array($profile, $get_notice=false) {
 		
 		$twitter_user = array();
 
@@ -41,11 +41,19 @@ class TwitterapiAction extends Action {
 		$twitter_user['profile_image_url'] = ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE);
 		$twitter_user['protected'] = false; # not supported by Laconica yet
 		$twitter_user['url'] = ($profile->homepage) ? $profile->homepage : NULL;
+
+		if ($get_notice) {
+			$notice = $profile->getCurrentNotice();
+			if ($notice) {
+				# don't get user!
+				$twitter_user['status'] = $this->twitter_status_array($notice, false);
+			} 
+		}
 		
 		return $twitter_user;		
 	}
 
-	function twitter_status_array($notice) {
+	function twitter_status_array($notice, $get_user=true) {
 		
 		$twitter_status = array();
 
@@ -57,10 +65,13 @@ class TwitterapiAction extends Action {
 		$twitter_status['id'] = intval($notice->id);
 		$twitter_status['in_reply_to_user_id'] = ($notice->reply_to) ? $this->replier_by_reply($notice->reply_to) : NULL;
 		$twitter_status['favorited'] = NULL; # XXX: Not implemented on Laconica yet.
-		
-		$profile = $notice->getProfile();
-		$twitter_user = $this->twitter_user_array($profile);
-		$twitter_status['user'] = $twitter_user;
+
+		if ($get_user) {
+			$profile = $notice->getProfile();
+			# Don't get notice (recursive!)
+			$twitter_user = $this->twitter_user_array($profile, false);
+			$twitter_status['user'] = $twitter_user;
+		}
 				
 		return $twitter_status;
 	}
@@ -98,7 +109,9 @@ class TwitterapiAction extends Action {
 		common_element('in_reply_to_user_id', NULL, $twitter_status['in_reply_to_user_id']);
 		common_element('favorited', Null, $twitter_status['favorited']);  
 
-		$this->show_twitter_xml_user($twitter_status['user']);
+		if ($twitter_status['user']) {
+			$this->show_twitter_xml_user($twitter_status['user']);
+		}
 		
 		common_element_end('status');
 	}	
@@ -114,6 +127,9 @@ class TwitterapiAction extends Action {
 		common_element('url', NULL, $twitter_user['url']);
 		common_element('protected', NULL, $twitter_user['protected']);
 		common_element('followers_count', NULL, $twitter_user['followers_count']);
+		if ($twitter_user['status']) {
+			$this->show_twitter_xml_status($twitter_user['status']);
+		}
 		common_element_end('user');
 	}
 
@@ -141,9 +157,11 @@ class TwitterapiAction extends Action {
 	function show_twitter_json_statuses($twitter_statuses) {
 		print(json_encode($twitter_statuses));
 	}
+
+	function show_twitter_json_users($twitter_users) {
+		print(json_encode($twitter_users));
+	}
 	
-	
-		
 	// Anyone know what date format this is? 
 	// Twitter's dates look like this: "Mon Jul 14 23:52:38 +0000 2008" -- Zach 
 	function date_twitter($dt) {
@@ -176,20 +194,7 @@ class TwitterapiAction extends Action {
 		$sub = new Subscription();
 		$sub->subscribed = $profile->id;
 
-		if ($sub->find()) {
-			while ($sub->fetch()) {
-				if ($sub->token) {
-					$other = Remote_profile::staticGet('id', $sub->subscriber);
-				} else {
-					$other = User::staticGet('id', $sub->subscriber);
-				}
-				if (!$other) {
-					common_debug('Got a bad subscription: '.print_r($sub,TRUE));
-					continue;
-				}		
-				$count++;
-			}
-		}
+		$count = $sub->find();
 		
 		if ($count > 0) {
 			return $count;
@@ -218,4 +223,18 @@ class TwitterapiAction extends Action {
 		common_element_end('feed');
 	}
 
+	function show_profile($profile, $content_type='xml', $notice=NULL) {
+		$profile_array = $this->twitter_user_array($profile, true);
+		switch ($content_type) {
+		 case 'xml':
+			$this->show_twitter_xml_user($profile_array);
+			break;
+		 case 'json':
+			$this->show_twitter_json_users($profile_array);
+			break;
+		 default:
+			$this->client_error(_('not a supported data format'));
+			return;
+		}
+	}
 }
