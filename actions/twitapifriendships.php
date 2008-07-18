@@ -50,7 +50,8 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 		
 		$sub->subscriber = $user->id;
 		$sub->subscribed = $other->id;
-
+		$sub->created = DB_DataObject_Cast::dateTime(); # current time
+		  
 		$result = $sub->insert();
 
 		if (!$result) {
