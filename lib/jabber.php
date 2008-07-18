@@ -117,6 +117,7 @@ function jabber_send_notice($to, $notice) {
 # Extra stuff defined by Twitter, needed by twitter clients
 
 function jabber_format_entry($profile, $notice) {
+	
 	$noticeurl = common_local_url('shownotice',
 								  array('notice' => $notice->id));
 	$msg = jabber_format_notice($profile, $notice);
@@ -135,6 +136,12 @@ function jabber_format_entry($profile, $notice) {
 	$entry .= "<published>".common_date_w3dtf($notice->created)."</published>\n";
 	$entry .= "<updated>".common_date_w3dtf($notice->modified)."</updated>\n";
 	$entry .= "</entry>\n";
+
+	$html = "\n<html xmlns='http://jabber.org/protocol/xhtml-im'>\n";
+	$html .= "<body xmlns='http://www.w3.org/1999/xhtml'>\n";
+	$html .= ($notice->rendered) ? $notice->rendered : common_render_content($notice->content, $notice);
+	$html .= "\n</body>\n";
+	$html .= "\n</html>\n";
 	
 	$event = "<event xmlns='http://jabber.org/protocol/pubsub#event'>\n";
     $event .= "<items xmlns='http://jabber.org/protocol/pubsub' ";
@@ -143,7 +150,7 @@ function jabber_format_entry($profile, $notice) {
 	$event .= "</items>\n";
 	$event .= "</event>\n";
 	# FIXME: include the pubsub event, too.
-	return $entry;
+	return $html . $entry;
 #	return $entry . "\n" . $event;
 }
 
