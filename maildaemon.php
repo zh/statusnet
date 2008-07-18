@@ -123,10 +123,10 @@ class MailerDaemon {
 		}
 		$from = $parsed->headers['from'];
 		$to = $parsed->headers['to'];
+
+		$type = $parsed->ctype_primary . '/' . $parsed->ctype_secondary;
 		
-		switch ($parsed->ctype_primary) {
-		 case 'multitype':
-			# try and find a text/plain in the mix
+		if ($parsed->ctype_primary == 'multitype') {
 			foreach ($parsed->parts as $part) {
 				if ($part->ctype_primary == 'text' &&
 					$part->ctype_secondary == 'plain') {
@@ -134,16 +134,9 @@ class MailerDaemon {
 					break;
 				}
 			}
-			break;
-		 case 'text':
-			switch ($parsed->ctype_secondary) {
-			 case 'plain':
-				$msg = $parsed->body;
-				break;
-			 default:
-				$this->unsupported_type($parsed);
-			}
-		 default:
+		} else if ($type == 'text/plain') {
+			$msg = $parsed->body;
+		} else {
 			$this->unsupported_type($parsed);
 		}
 		
