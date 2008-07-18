@@ -26,7 +26,7 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 	function create($args, $apidata) {
 		parent::handle($args);
 
-		$id = $this->trimmed('id');
+		$id = $apidata['api_arg'];
 
 		$other = $this->get_user($id);
 
@@ -73,7 +73,7 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 	
 	function destroy($args, $apidata) {
 		parent::handle($args);
-		$id = $this->trimmed('id');
+		$id = $apidata['api_arg'];
 
 		# We can't subscribe to a remote person, but we can unsub
 		
