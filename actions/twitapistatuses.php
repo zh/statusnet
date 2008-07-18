@@ -608,7 +608,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 	*/
 	function friends($args, $apidata) {
 		parent::handle($args);
-		return $this->subscriptions('subscribed', 'subscriber');
+		return $this->subscriptions($apidata, 'subscribed', 'subscriber');
 	}
 	
 	/*
@@ -631,33 +631,17 @@ class TwitapistatusesAction extends TwitterapiAction {
 	function followers($args, $apidata) {
 		parent::handle($args);
 
-		return $this->subscriptions('subscriber', 'subscribed');
+		return $this->subscriptions($apidata, 'subscriber', 'subscribed');
 	}
-	
-	function subscriptions($other_attr, $user_attr) {
-		$user = null;
-		
-		// function was called with an argument /statuses/user_timeline/api_arg.format
-		if (isset($apidata['api_arg'])) {
-		
-			if (is_numeric($apidata['api_arg'])) {
-				$user = User::staticGet($apidata['api_arg']);
-			} else {
-				$nickname = common_canonical_nickname($apidata['api_arg']);
-				$user = User::staticGet('nickname', $nickname);
-			} 
-		} else {
-			
-			// if no user was specified, then we'll use the authenticated user
-			$user = $apidata['user'];
-		}
 
-		if (!$user) {
-			// Set the user to be the auth user if asked-for can't be found
-			// honestly! This is what Twitter does, I swear --Zach
-			$user = $apidata['user'];
-		}
-
+	function subscriptions($apidata, $other_attr, $user_attr) {
+		
+		$user = $this->get_subs_user($apidata);
+		
+		# XXX: id
+		# XXX: page
+		# XXX: lite
+		
 		$profile = $user->getProfile();
 		
 		if (!$profile) {
@@ -691,6 +675,32 @@ class TwitapistatusesAction extends TwitterapiAction {
 		exit();
 	}
 
+	function get_subs_user($apidata) {
+		
+		// function was called with an argument /statuses/user_timeline/api_arg.format
+		if (isset($apidata['api_arg'])) {
+		
+			if (is_numeric($apidata['api_arg'])) {
+				$user = User::staticGet($apidata['api_arg']);
+			} else {
+				$nickname = common_canonical_nickname($apidata['api_arg']);
+				$user = User::staticGet('nickname', $nickname);
+			} 
+		} else {
+			
+			// if no user was specified, then we'll use the authenticated user
+			$user = $apidata['user'];
+		}
+
+		if (!$user) {
+			// Set the user to be the auth user if asked-for can't be found
+			// honestly! This is what Twitter does, I swear --Zach
+			$user = $apidata['user'];
+		}
+		
+		return $user;
+	}
+	
 	function show_profiles($profiles, $type) {
 		switch ($type) {
 		 case 'xml':
