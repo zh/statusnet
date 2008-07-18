@@ -639,8 +639,13 @@ class TwitapistatusesAction extends TwitterapiAction {
 		$user = $this->get_subs_user($apidata);
 		
 		# XXX: id
-		# XXX: page
 		# XXX: lite
+		
+		$page = $this->trimmed('page');
+		
+		if (!$page || !is_numeric($page)) {
+			$page = 1;
+		}
 		
 		$profile = $user->getProfile();
 		
@@ -648,15 +653,12 @@ class TwitapistatusesAction extends TwitterapiAction {
 			common_server_error(_('User has no profile.'));
 			return;
 		}
-								
-		if (!$page) {
-			$page = 1;
-		}
 				
 		$sub = new Subscription();
 		$sub->$user_attr = $profile->id;
 		$sub->orderBy('created DESC');
-
+		$sub->limit(($page-1)*100, 100);
+		
 		$others = array();
 
 		if ($sub->find()) {
