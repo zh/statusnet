@@ -202,6 +202,48 @@ class TwitterapiAction extends Action {
 		
 		return NULL;
 	}
+
+	function init_document($type='xml') {
+		switch ($type) {
+		 case 'xml':
+			header('Content-Type: application/xml; charset=utf-8');		
+			common_start_xml();
+			break;
+		 case 'json':
+			header('Content-Type: application/json; charset=utf-8');
+			break;
+		 case 'rss':
+			header("Content-Type: application/rss+xml; charset=utf-8");
+			$this->init_twitter_rss();
+			break;
+		 case 'atom':
+			header('Content-Type: application/atom+xml; charset=utf-8');
+			$this->init_twitter_atom();
+			break;
+		 default:
+			$this->client_error(_('Unsupported type'));
+			break;
+		}
+	}
+	
+	function end_document($type='xml') {
+		switch ($type) {
+		 case 'xml':
+			common_end_xml();
+			break;
+		 case 'json':
+			break;
+		 case 'rss':
+			$this->end_twitter_rss();
+			break;
+		 case 'atom':
+			$this->end_twitter_rss();
+			break;
+		 default:
+			$this->client_error(_('Unsupported type'));
+			break;
+		}
+	}
 	
 	function init_twitter_rss() {
 		common_start_xml();

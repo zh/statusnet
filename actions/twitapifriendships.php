@@ -32,6 +32,7 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 
 		if (!$other) {
 			$this->client_error(_('No such user'));
+			exit();
 			return;
 		}
 		
@@ -39,6 +40,7 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 		
 		if ($user->isSubscribed($other)) {
 			$this->client_error(_('Already subscribed.'));
+			exit();
 			return;
 		}
 		
@@ -50,14 +52,16 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 
 		if (!$result) {
 			$this->server_error(_('Could not subscribe'));
+			exit();
 			return;
 		}
 		
 		mail_subscribe_notify($other, $user);
 
-		common_start_xml();
+		$type = $apidata['content-type'];
+		$this->init_document($type);
 		$this->show_profile($other);
-		common_end_xml();
+		$this->end_document($type);
 		exit();
 	}
 	
@@ -90,9 +94,10 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 			$sub->delete();
 		}
 
-		common_start_xml();
+		$type = $apidata['content-type'];
+		$this->init_document($type);
 		$this->show_profile($other);
-		common_end_xml();
+		$this->end_document($type);
 		exit();
 	}
 
