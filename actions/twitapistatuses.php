@@ -608,7 +608,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 	*/
 	function friends($args, $apidata) {
 		parent::handle($args);
-		common_server_error("API method under construction.", $code=501);
+		return $this->subscriptions('subscribed', 'subscriber');
 	}
 	
 	/*
@@ -630,7 +630,11 @@ class TwitapistatusesAction extends TwitterapiAction {
 	*/
 	function followers($args, $apidata) {
 		parent::handle($args);
+
+		return $this->subscriptions('subscriber', 'subscribed');
+	}
 	
+	function subscriptions($other_attr, $user_attr) {
 		$user = null;
 		
 		// function was called with an argument /statuses/user_timeline/api_arg.format
@@ -666,56 +670,48 @@ class TwitapistatusesAction extends TwitterapiAction {
 		}
 				
 		$sub = new Subscription();
-		$sub->subscribed = $profile->id;
+		$sub->$user_attr = $profile->id;
 		$sub->orderBy('created DESC');
 
-		$followers = array();
+		$others = array();
 
 		if ($sub->find()) {
 			while ($sub->fetch()) {
-				
-				$other = null;
-				
-				if ($sub->token) {
-					$other = Remote_profile::staticGet('id', $sub->subscriber);
-				} else {
-					$other = User::staticGet('id', $sub->subscriber);
-				}
-				if (!$other) {
-					common_debug('Got a bad subscription: '.print_r($sub,TRUE));
-					continue;
-				}	
-								
-				$notice = DB_DataObject::factory('notice');
-				$notice->whereAdd('profile_id = ' . $other->id);
-				$notice->orderBy('created DESC, notice.id DESC');
-				$notice->limit(1);
-				$notice->find();
-				
-				if ($notice->fetch()) {				
-					$follower = array($other, $notice);
-					
-				} else {
-					$follower = array($other, "");
-				}
-
-				array_push($followers, $follower);
-				
+				$others[] = Profile::staticGet($sub->$other_attr);
 			}
 		} else {
 			// user has no followers
 		}
 		
-		foreach ($followers as $follower) {
-			//
-		}	
-	
+		$type = $apidata['content-type'];
+		
+		$this->init_document($type);
+		$this->show_profiles($others, $type);
+		$this->end_document($type);
 		exit();
-	
 	}
-	
 
-	
+	function show_profiles($profiles, $type) {
+		switch ($type) {
+		 case 'xml':
+			common_element_start('users', array('type' => 'array'));
+			foreach ($profiles as $profile) {
+				$this->show_profile($profile);
+			}
+			common_element_end();
+			break;
+		 case 'json':
+			$arrays = array();
+			foreach ($profiles as $profile) {
+				$arrays[] = $this->twitter_user_array($profile, true);
+			}
+			print json_encode($arrays);
+			break;
+		 default:
+			$this->client_error(_('unsupported file type'));
+			exit();
+		}
+	}
 	
 	/*
 	Returns a list of the users currently featured on the site with their current statuses inline. 
