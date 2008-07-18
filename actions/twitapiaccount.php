@@ -24,8 +24,17 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
 class TwitapiaccountAction extends TwitterapiAction {
 
 	function verify_credentials($args, $apidata) {
-		parent::handle($args);
-		common_server_error("API method under construction.", $code=501);
+
+		if ($apidata['content-type'] == 'xml') {
+			header('Content-Type: application/xml; charset=utf-8');		
+			print '<authorized>true</authorized>';
+		} elseif ($apidata['content-type'] == 'json') {
+			header('Content-Type: application/json; charset=utf-8');		
+			print '{"authorized":true}';
+		} else {
+			common_user_error("API method not found!", $code=404);
+		}
+			
 		exit();
 	}
 	

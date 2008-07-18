@@ -227,7 +227,7 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 function common_show_basic_auth_error() {
   	header('HTTP/1.1 401 Unauthorized');
 	header('Content-type: text/plain');
-   	print("Could not authenticate you.\n"); # exactly what Twitter says
+   	print("Could not authenticate you."); # exactly what Twitter says - no \n
 	exit();
 }
 
