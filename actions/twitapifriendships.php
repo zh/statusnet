@@ -55,7 +55,9 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 		
 		mail_subscribe_notify($other, $user);
 
+		common_start_xml();
 		$this->show_profile($other);
+		common_end_xml();
 		exit();
 	}
 	
@@ -88,7 +90,9 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 			$sub->delete();
 		}
 
+		common_start_xml();
 		$this->show_profile($other);
+		common_end_xml();
 		exit();
 	}
 
