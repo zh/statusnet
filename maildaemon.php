@@ -141,17 +141,17 @@ class MailerDaemon {
 				$msg = $parsed->body;
 				break;
 			 default:
-				$this->unsupported_type();
+				$this->unsupported_type($parsed);
 			}
 		 default:
-			$this->unsupported_type();
+			$this->unsupported_type($parsed);
 		}
 		
 		return array($from, $to, $msg);
 	}
 	
-	function unsupported_type() {
-		$this->error(NULL, "Unsupported message type");
+	function unsupported_type($parsed) {
+		$this->error(NULL, "Unsupported message type: " . $parsed->ctype_primary . "/" . $parsed->ctype_secondary ."\n");
 	}
 }
 
