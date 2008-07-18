@@ -921,7 +921,7 @@ function common_save_replies($notice) {
 		$id = $reply->insert();
 		if (!$id) {
 			$last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-			common_log(LOG_ERROR, 'DB error inserting reply: ' . $last_error->message);
+			common_log(LOG_ERR, 'DB error inserting reply: ' . $last_error->message);
 			common_server_error(sprintf(_('DB error inserting reply: %s'), $last_error->message));
 			return;
 		}
@@ -946,7 +946,7 @@ function common_enqueue_notice($notice) {
         $result = $qi->insert();
 	if (!$result) {
 	    $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-	    common_log(LOG_ERROR, 'DB error inserting queue item: ' . $last_error->message);
+	    common_log(LOG_ERR, 'DB error inserting queue item: ' . $last_error->message);
 	    return false;
 	}
 	common_log(LOG_DEBUG, 'complete queueing notice ID = ' . $notice->id);
@@ -960,14 +960,14 @@ function common_real_broadcast($notice, $remote=false) {
 		require_once(INSTALLDIR.'/lib/omb.php');
 		$success = omb_broadcast_remote_subscribers($notice);
 		if (!$success) {
-			common_log(LOG_ERROR, 'Error in OMB broadcast for notice ' . $notice->id);
+			common_log(LOG_ERR, 'Error in OMB broadcast for notice ' . $notice->id);
 		}
 	}
 	if ($success) {
 		require_once(INSTALLDIR.'/lib/jabber.php');
 		$success = jabber_broadcast_notice($notice);
 		if (!$success) {
-			common_log(LOG_ERROR, 'Error in jabber broadcast for notice ' . $notice->id);
+			common_log(LOG_ERR, 'Error in jabber broadcast for notice ' . $notice->id);
 		}
 	}
 	// XXX: broadcast notices to SMS

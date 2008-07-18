@@ -212,7 +212,7 @@ class XMPPDaemon {
 		$result = $user->update($orig);
 		if (!$id) {
 			$last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-			$this->log(LOG_ERROR,
+			$this->log(LOG_ERR,
 					   'Could not set notify flag to ' . $notify .
 					   ' for user ' . common_log_objstring($user) .
 					   ': ' . $last_error->message);
@@ -232,7 +232,7 @@ class XMPPDaemon {
 		$id = $notice->insert();
 		if (!$id) {
 			$last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-			$this->log(LOG_ERROR,
+			$this->log(LOG_ERR,
 					   'Could not insert ' . common_log_objstring($notice) .
 					   ' for user ' . common_log_objstring($user) .
 					   ': ' . $last_error->message);
@@ -243,7 +243,7 @@ class XMPPDaemon {
 		$result = $notice->update($orig);
 		if (!$result) {
 			$last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-			$this->log(LOG_ERROR,
+			$this->log(LOG_ERR,
 					   'Could not add URI to ' . common_log_objstring($notice) .
 					   ' for user ' . common_log_objstring($user) .
 					   ': ' . $last_error->message);
@@ -388,7 +388,7 @@ class XMPPDaemon {
 								  $user->nickname,
 								  $confirm->address);
 				if (!$success) {
-					$this->log(LOG_ERROR, 'Confirmation failed for ' . $confirm->address);
+					$this->log(LOG_ERR, 'Confirmation failed for ' . $confirm->address);
 					# Just let the claim age out; hopefully things work then
 					continue;
 				} else {
@@ -398,7 +398,7 @@ class XMPPDaemon {
 					$confirm->sent = $confirm->claimed;
 					$result = $confirm->update($original);
 					if (!$result) {
-						$this->log(LOG_ERROR, 'Cannot mark sent for ' . $confirm->address);
+						$this->log(LOG_ERR, 'Cannot mark sent for ' . $confirm->address);
 						# Just let the claim age out; hopefully things work then
 						continue;
 					}

@@ -42,7 +42,7 @@ function mail_send($recipients, $headers, $body) {
 	assert($backend); # throws an error if it's bad
 	$sent = $backend->send($recipients, $headers, $body);
 	if (PEAR::isError($sent)) {
-		common_log(LOG_ERROR, 'Email error: ' . $sent->getMessage());
+		common_log(LOG_ERR, 'Email error: ' . $sent->getMessage());
 		return false;
 	}
 	return true;
