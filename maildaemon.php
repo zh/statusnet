@@ -36,7 +36,7 @@ class MailerDaemon {
 	function __construct() {
 	}
 	
-	function save_message($fname='php://stdin') {
+	function handle_message($fname='php://stdin') {
 		list($from, $to, $msg) = $this->parse_message($fname);
 		if (!$from || !$to || !$msg) {
 			$this->error(NULL, _t('Could not parse message.'));
@@ -61,6 +61,10 @@ class MailerDaemon {
 		exit(1);
 	}
 
+	function handle_command($user, $msg) {
+		return false;
+	}
+	
 	function respond($from, $to, $response) {
 
 		$headers['From'] = $to;
