@@ -157,12 +157,4 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 			return $user->getProfile();
 		}
 	}
-	
-	function show_profile($profile) {
-		$profile_array = $this->user_array($profile);
-		$notice = $profile->getCurrentStatus();
-		if ($notice) {
-			$status_array = $this->status_array($notice):
-		}
-	}
 }
