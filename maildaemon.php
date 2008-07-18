@@ -151,7 +151,7 @@ class MailerDaemon {
 	}
 	
 	function unsupported_type() {
-		$this->error("Unsupported message type");
+		$this->error(NULL, "Unsupported message type");
 	}
 }
 
