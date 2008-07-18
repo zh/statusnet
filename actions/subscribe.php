@@ -69,28 +69,11 @@ class SubscribeAction extends Action {
 	function notify($listenee, $listener) {
 		# XXX: add other notifications (Jabber, SMS) here
 		# XXX: queue this and handle it offline
+		# XXX: Whatever happens, do it in Twitter-like API, too
 		$this->notify_email($listenee, $listener);
 	}
 
 	function notify_email($listenee, $listener) {
-		if ($listenee->email && $listenee->emailnotifysub) {
-			$profile = $listenee->getProfile();
-			$other = $listener->getProfile();
-			$name = $profile->getBestName();
-			$long_name = ($other->fullname) ? ($other->fullname . ' (' . $other->nickname . ')') : $other->nickname;
-			$recipients = $listenee->email;
-			$headers['From'] = mail_notify_from();
-			$headers['To'] = $name . ' <' . $listenee->email . '>';
-			$headers['Subject'] = sprintf(_('%1$s is now listening to your notices on %2$s.'), $other->getBestName(),
-										  common_config('site', 'name'));
-			$body  = sprintf(_('%1$s is now listening to your notices on %2$s.'."\n\n".
-							   "\t".'%3$s'."\n\n".
-							   'Faithfully yours,'."\n".'%4$s.'."\n"),
-							 $long_name,
-							 common_config('site', 'name'), 
-							 $other->profileurl,
-							 common_config('site', 'name'));
-			mail_send($recipients, $headers, $body);
-		}
+		mail_subscribe_notify($listenee, $listener);
 	}
 }
