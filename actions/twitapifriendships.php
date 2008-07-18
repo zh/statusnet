@@ -99,6 +99,9 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 			$sub->query('BEGIN');
 			$sub->delete();
 			$sub->query('COMMIT');
+		} else {
+			$this->client_error(_('Not subscribed'));
+			exit();
 		}
 
 		$type = $apidata['content-type'];
