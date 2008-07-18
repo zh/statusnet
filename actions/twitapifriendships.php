@@ -45,6 +45,9 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 		}
 		
 		$sub = new Subscription();
+		
+		$sub->query('BEGIN');
+		
 		$sub->subscriber = $user->id;
 		$sub->subscribed = $other->id;
 
@@ -55,6 +58,8 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 			exit();
 			return;
 		}
+		
+		$sub->query('COMMIT');
 		
 		mail_subscribe_notify($other, $user);
 
@@ -91,7 +96,9 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 		$sub->subscribed = $other->id;
 		
 		if ($sub->fetch(TRUE)) {
+			$sub->query('BEGIN');
 			$sub->delete();
+			$sub->query('COMMIT');
 		}
 
 		$type = $apidata['content-type'];
