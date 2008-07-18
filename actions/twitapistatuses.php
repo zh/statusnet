@@ -708,7 +708,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 			foreach ($profiles as $profile) {
 				$this->show_profile($profile);
 			}
-			common_element_end();
+			common_element_end('users');
 			break;
 		 case 'json':
 			$arrays = array();
