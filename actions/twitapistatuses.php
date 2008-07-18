@@ -288,11 +288,40 @@ class TwitapistatusesAction extends TwitterapiAction {
 	function user_timeline($args, $apidata) {
 		parent::handle($args);
 		
-		$id = $this->arg('id');
+		$user = null;
+		
+		// function was called with an argument /statuses/user_timeline/api_arg.format
+		if (isset($apidata['api_arg'])) {
+		
+			if (is_numeric($apidata['api_arg'])) {
+				$user = User::staticGet($apidata['api_arg']);
+			} else {
+				$nickname = common_canonical_nickname($apidata['api_arg']);
+				$user = User::staticGet('nickname', $nickname);
+			} 
+		} else {
+			
+			// if no user was specified, then we'll use the authenticated user
+			$user = $apidata['user'];
+		}
+
+		if (!$user) {
+			// Set the user to be the auth user if asked-for can't be found
+			// honestly! This is what Twitter does, I swear --Zach
+			$user = $apidata['user'];
+		}
+
+		$profile = $user->getProfile();
+
+		if (!$profile) {
+			common_server_error(_('User has no profile.'));
+			return;
+		}
+				
 		$count = $this->arg('count');
 		$since = $this->arg('since');
 		$since_id = $this->arg('since_id');
-		
+				
 		if (!$page) {
 			$page = 1;
 		}
@@ -300,16 +329,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 		if (!$count) {
 			$count = 20;
 		}
-
-		$user = $this->get_user($id, $apidata['user']);
-		
-		if (!$user) {
-			$this->client_error(_('No such user'), 404);
-			return;
-		}
-		
-		$profile = $user->getProfile();
-		
+				
 		$sitename = common_config('site', 'name');
 		$siteserver = common_config('site', 'server'); 
 		
