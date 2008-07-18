@@ -137,14 +137,14 @@ class MailerDaemon {
 		} else if ($type == 'text/plain') {
 			$msg = $parsed->body;
 		} else {
-			$this->unsupported_type($parsed);
+			$this->unsupported_type($type);
 		}
 		
 		return array($from, $to, $msg);
 	}
 	
-	function unsupported_type($parsed) {
-		$this->error(NULL, "Unsupported message type: " . $parsed->ctype_primary . "/" . $parsed->ctype_secondary ."\n");
+	function unsupported_type($type) {
+		$this->error(NULL, "Unsupported message type: " . $type);
 	}
 }
 
