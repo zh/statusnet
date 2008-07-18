@@ -60,6 +60,7 @@ RewriteRule ^(\w+)$ index.php?action=showstream&nickname=$1 [L,QSA]
 # XXX: Surely these can be refactored a little -- Zach
 RewriteRule ^api/statuses/public_timeline(.*)$ index.php?action=api&apiaction=statuses&method=public_timeline$1 [L,QSA]
 RewriteRule ^api/statuses/friends_timeline(.*)$ index.php?action=api&apiaction=statuses&method=friends_timeline$1 [L,QSA]
+RewriteRule ^api/statuses/user_timeline/(.*)$ index.php?action=api&apiaction=statuses&method=user_timeline&argument=$1 [L,QSA]
 RewriteRule ^api/statuses/user_timeline(.*)$ index.php?action=api&apiaction=statuses&method=user_timeline$1 [L,QSA]
 RewriteRule ^api/statuses/show/(.*)$ index.php?action=api&apiaction=statuses&method=show&argument=$1 [L,QSA]
 RewriteRule ^api/statuses/update(.*)$ index.php?action=api&apiaction=statuses&method=update$1 [L,QSA]
