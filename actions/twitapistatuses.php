@@ -630,8 +630,92 @@ class TwitapistatusesAction extends TwitterapiAction {
 	*/
 	function followers($args, $apidata) {
 		parent::handle($args);
-		common_server_error("API method under construction.", $code=501);
+	
+		$user = null;
+		
+		// function was called with an argument /statuses/user_timeline/api_arg.format
+		if (isset($apidata['api_arg'])) {
+		
+			if (is_numeric($apidata['api_arg'])) {
+				$user = User::staticGet($apidata['api_arg']);
+			} else {
+				$nickname = common_canonical_nickname($apidata['api_arg']);
+				$user = User::staticGet('nickname', $nickname);
+			} 
+		} else {
+			
+			// if no user was specified, then we'll use the authenticated user
+			$user = $apidata['user'];
+		}
+
+		if (!$user) {
+			// Set the user to be the auth user if asked-for can't be found
+			// honestly! This is what Twitter does, I swear --Zach
+			$user = $apidata['user'];
+		}
+
+		$profile = $user->getProfile();
+		
+		if (!$profile) {
+			common_server_error(_('User has no profile.'));
+			return;
+		}
+								
+		if (!$page) {
+			$page = 1;
+		}
+				
+		$sub = new Subscription();
+		$sub->subscribed = $profile->id;
+		$sub->orderBy('created DESC');
+
+		$followers = array();
+
+		if ($sub->find()) {
+			while ($sub->fetch()) {
+				
+				$other = null;
+				
+				if ($sub->token) {
+					$other = Remote_profile::staticGet('id', $sub->subscriber);
+				} else {
+					$other = User::staticGet('id', $sub->subscriber);
+				}
+				if (!$other) {
+					common_debug('Got a bad subscription: '.print_r($sub,TRUE));
+					continue;
+				}	
+								
+				$notice = DB_DataObject::factory('notice');
+				$notice->whereAdd('profile_id = ' . $other->id);
+				$notice->orderBy('created DESC, notice.id DESC');
+				$notice->limit(1);
+				$notice->find();
+				
+				if ($notice->fetch()) {				
+					$follower = array($other, $notice);
+					
+				} else {
+					$follower = array($other, "");
+				}
+
+				array_push($followers, $follower);
+				
+			}
+		} else {
+			// user has no followers
+		}
+		
+		foreach ($followers as $follower) {
+			//
+		}	
+	
+		exit();
+	
 	}
+	
+
+	
 	
 	/*
 	Returns a list of the users currently featured on the site with their current statuses inline. 
