@@ -96,7 +96,7 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 		$sub->subscriber = $user->id;
 		$sub->subscribed = $other->id;
 		
-		if ($sub->fetch(TRUE)) {
+		if ($sub->find(TRUE)) {
 			$sub->query('BEGIN');
 			$sub->delete();
 			$sub->query('COMMIT');
