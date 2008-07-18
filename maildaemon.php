@@ -88,7 +88,7 @@ class MailerDaemon {
 		$id = $notice->insert();
 		if (!$id) {
 			$last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-			$this->log(LOG_ERROR,
+			$this->log(LOG_ERR,
 					   'Could not insert ' . common_log_objstring($notice) .
 					   ' for user ' . common_log_objstring($user) .
 					   ': ' . $last_error->message);
@@ -99,7 +99,7 @@ class MailerDaemon {
 		$result = $notice->update($orig);
 		if (!$result) {
 			$last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-			$this->log(LOG_ERROR,
+			$this->log(LOG_ERR,
 					   'Could not add URI to ' . common_log_objstring($notice) .
 					   ' for user ' . common_log_objstring($user) .
 					   ': ' . $last_error->message);
