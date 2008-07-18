@@ -53,7 +53,7 @@ class ApiAction extends Action {
 			if (!isset($_SERVER['PHP_AUTH_USER'])) {
 				
 				# This header makes basic auth go
-				header('WWW-Authenticate: Basic realm="Laconica API');
+				header('WWW-Authenticate: Basic realm="Laconica API"');
 				
 				# if the user hits cancel -- bam!
 				common_show_basic_auth_error();		
