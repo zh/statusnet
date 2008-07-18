@@ -145,7 +145,11 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 			return Profile::staticGet($id);
 		} else {
 			$user = User::staticGet('nickname', $id);
-			return $user->getProfile();
+			if ($user) {
+				return $user->getProfile();
+			} else {
+				return NULL;
+			}
 		}
 	}
 	
@@ -153,8 +157,7 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 		if (is_numeric($id)) {
 			return User::staticGet($id);
 		} else {
-			$user = User::staticGet('nickname', $id);
-			return $user->getProfile();
+			return User::staticGet('nickname', $id);
 		}
 	}
 }
