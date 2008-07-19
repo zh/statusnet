@@ -101,23 +101,27 @@ class ApiAction extends Action {
 	# Whitelist of API methods that don't need authentication
 	function requires_auth() {
 		static $noauth = array(	'statuses/public_timeline',
-		 						'statuses/user_timeline',
 								'statuses/show',
 								'help/test', 
 								'help/downtime_schedule');
 		static $bareauth = array('statuses/user_timeline', 'statuses/friends');
 
-		# noauth: never needs auth
-		# bareauth: only needs auth if without an argument
-		
 		$fullname = "$this->api_action/$this->api_method";
 		
-		if (in_array($fullname, $bareauth) && !$this->api_arg) {
-			return true;
-		} if (in_array($fullname, $noauth)) {
+		if (in_array($fullname, $bareauth)) {
+			# bareauth: only needs auth if without an argument
+			if ($this->api_arg) {
+				return false;
+			} else {
+				return true;
+			}
+		} else if (in_array($fullname, $noauth)) {
+			# noauth: never needs auth
 			return false;
+		} else {
+			# everybody else needs auth
+			return true;
 		}
-		return true;
 	}
 		
 }
