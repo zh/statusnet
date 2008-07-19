@@ -309,6 +309,14 @@ class TwitapistatusesAction extends TwitterapiAction {
 			// Set the user to be the auth user if asked-for can't be found
 			// honestly! This is what Twitter does, I swear --Zach
 			$user = $apidata['user'];
+			
+			if (!$user) {
+				# This header makes basic auth go
+				header('WWW-Authenticate: Basic realm="Laconica API"');
+				# if the user hits cancel -- bam!
+				common_show_basic_auth_error();
+				exit();
+			}
 		}
 
 		$profile = $user->getProfile();
