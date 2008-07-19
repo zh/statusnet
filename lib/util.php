@@ -137,6 +137,10 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 	global $config, $xw;
 
 	$httpaccept = isset($_SERVER['HTTP_ACCEPT']) ? $_SERVER['HTTP_ACCEPT'] : NULL;
+        $language = common_language();
+        setlocale(LC_ALL, $language);
+        bindtextdomain("laconica", $config['site']['locale_path']);
+        textdomain("laconica");
 
 	# XXX: allow content negotiation for RDF, RSS, or XRDS
 
@@ -157,8 +161,8 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 	# FIXME: correct language for interface
 
 	common_element_start('html', array('xmlns' => 'http://www.w3.org/1999/xhtml',
-									   'xml:lang' => 'en',
-									   'lang' => 'en'));
+									   'xml:lang' => $language,
+									   'lang' => $language));
 
 	common_element_start('head');
 	common_element('title', NULL,
@@ -363,6 +367,26 @@ function common_checkbox($id, $label, $checked=false, $instructions=NULL, $value
 	common_element_end('p');
 }
 
+function common_dropdown($id, $label, $content, $instructions=NULL, $blank_select=FALSE, $selected=NULL) {
+        common_element_start('p');
+        common_element('label', array('for' => $id), $label);
+        common_element_start('select', array('id' => $id, 'name' => $id));
+        if ($blank_select) {
+                        common_element('option', array('value' => $value));
+        }
+        foreach ($content as $value => $option) {
+                if ($value == $selected) {
+                        common_element('option', array('value' => $value, 'selected' => $value), $option);
+                } else {
+                        common_element('option', array('value' => $value), $option);
+                }
+        }
+        common_element_end('select');
+	if ($instructions) {
+		common_element('span', 'input_instructions', $instructions);
+	}
+	common_element_end('p');
+}
 function common_hidden($id, $value) {
 	common_element('input', array('name' => $id,
 								  'type' => 'hidden',
@@ -409,6 +433,27 @@ function common_textarea($id, $label, $content=NULL, $instructions=NULL) {
 	common_element_end('p');
 }
 
+function common_language() {
+	$httplang = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : NULL;
+        $language = array();
+        $user_language = FALSE;
+
+        if (common_logged_in()) {
+                $user = common_current_user();
+                $user_language = $user->language;
+        }
+
+        if ($user_language) {
+                return $user_language;
+        } else if (!empty($httplang)) {
+                $language = client_prefered_language($httplang);
+                if ($language) {
+                    return $language;
+                }
+        } else {
+                return $config['site']['language'];
+        }
+}
 # salted, hashed passwords are stored in the DB
 
 function common_munge_password($password, $id) {

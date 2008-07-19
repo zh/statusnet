@@ -47,7 +47,6 @@ create table user (
     email varchar(255) unique key comment 'email address for password recovery etc.',
     incomingemail varchar(255) unique key comment 'email address for post-by-email',
     emailnotifysub tinyint default 1 comment 'Notify by email of subscriptions',
-    emailpost tinyint default 1 comment 'Post by email',
     jabber varchar(255) unique key comment 'jabber ID for notices',
     jabbernotify tinyint default 0 comment 'whether to send notices to jabber',
     jabberreplies tinyint default 0 comment 'whether to send notices to jabber on replies',

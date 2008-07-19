@@ -36,6 +36,8 @@ require_once('PEAR.php');
 require_once('DB/DataObject.php');
 require_once('DB/DataObject/Cast.php'); # for dates
 
+require_once(INSTALLDIR.'/lib/language.php');
+
 // default configuration, overwritten in config.php
 
 $config =
@@ -46,6 +48,9 @@ $config =
 			  'path' => '/',
 			  'logfile' => NULL,
 			  'fancy' => false,
+                          'locale_path' => './locale',
+                          'language' => 'en_US',
+                          'languages' => get_all_languages(),
 		      'email' => 
 		      array_key_exists('SERVER_ADMIN', $_SERVER) ? $_SERVER['SERVER_ADMIN'] : NULL,
 			  'broughtby' => NULL,
