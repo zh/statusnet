@@ -42,26 +42,47 @@ class MailerDaemon {
 			$this->error(NULL, _t('Could not parse message.'));
 		}
 		common_log(LOG_INFO, "Mail from $from to $to: " .substr($msg, 0, 20));
-		$user = User::staticGet('email', common_canonical_email($from));
+		$user = $this->user_from($from);
 		if (!$user) {
 			$this->error($from, _('Not a registered user.'));
 			return false;
 		}
-		if ($user->incomingemail != common_canonical_email($to)) {
+		if (!$this->user_match_to($user, $to)) {
 			$this->error($from, _('Sorry, that is not your incoming email address.'));
 		}
 		$response = $this->handle_command($user, $msg);
 		if ($response) {
 			$this->respond($from, $to, $response);
 		}
+		$msg = $this->cleanup_msg($msg);
 		$this->add_notice($user, $msg);
 	}
 
 	function error($from, $msg) {
-		file_put_contents("php://stderr", $msg);
+		file_put_contents("php://stderr", $msg . "\n");
 		exit(1);
 	}
 
+	function user_from($from_hdr) {
+		$froms = mailparse_rfc822_parse_addresses($from_hdr);
+		if (!$froms) {
+			return NULL;
+		}
+		$from = $froms[0];
+		return User::staticGet('email', common_canonical_email($from['address']));
+	}
+
+	function user_match_to($user, $to_hdr) {
+		$incoming = $user->incomingemail;
+		$tos = mailparse_rfc822_parse_addresses($to_hdr);
+		foreach ($tos as $to) {
+			if (strcasecmp($incoming, $to['address']) == 0) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	function handle_command($user, $msg) {
 		return false;
 	}
@@ -122,7 +143,9 @@ class MailerDaemon {
 		if (!$parsed) {
 			return NULL;
 		}
+		
 		$from = $parsed->headers['from'];
+		
 		$to = $parsed->headers['to'];
 
 		$type = $parsed->ctype_primary . '/' . $parsed->ctype_secondary;
@@ -146,6 +169,13 @@ class MailerDaemon {
 	
 	function unsupported_type($type) {
 		$this->error(NULL, "Unsupported message type: " . $type);
+	}
+	
+	function cleanup_msg($msg) {
+		# XXX: signatures
+		# XXX: quoting 
+		preg_replace('/\s+/', ' ', $msg);
+		return $msg;
 	}
 }
 
