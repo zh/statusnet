@@ -200,6 +200,7 @@ create table remember_me (
 create table queue_item (
 
     notice_id integer not null primary key comment 'notice queued' references notice (id),
+    transport varchar(8) not null comment 'queue for what? "email", "jabber", "sms", "irc", ...',
     created datetime not null comment 'date this record was created',
     claimed datetime comment 'date this item was claimed',
 

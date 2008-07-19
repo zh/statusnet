@@ -11,6 +11,7 @@ class Queue_item extends DB_DataObject
 
     public $__table = 'queue_item';                      // table name
     public $notice_id;                       // int(4)  primary_key not_null
+    public $transport;                       // varchar(8)   not_null
     public $created;                         // datetime()   not_null
     public $claimed;                         // datetime()  
 
