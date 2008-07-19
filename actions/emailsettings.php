@@ -63,14 +63,36 @@ class EmailsettingsAction extends SettingsAction {
 			}
 		}
 
-		common_element('h2', NULL, _('Preferences'));
-
-		common_checkbox('emailnotifysub',
-		                _('Send me notices of new subscriptions through email.'),
-		                $user->emailnotifysub);
+		if ($user->email) {
+			common_element('h2', NULL, _('Incoming email'));
+			
+			if ($user->incomingemail) {
+				common_element_start('p');
+				common_element('span', 'address', $user->incomingemail);
+				common_element('span', 'input_instructions',
+							   _('Send email to this address to post new notices.'));
+				common_element_end('p');
+				common_submit('removeincoming', _('Remove'));
+			}
+			
+			common_element_start('p');
+			common_element('span', 'input_instructions',
+						   _('Make a new email address for posting to; cancels the old one.'));
+			common_element_end('p');
+			common_submit('newincoming', _('New'));
+		}
 		
+		common_element('h2', NULL, _('Preferences'));
+		
+		common_checkbox('emailnotifysub',
+						_('Send me notices of new subscriptions through email.'),
+						$user->emailnotifysub);
+		common_checkbox('emailpost',
+						_('I want to post notices by email.'),
+						$user->emailpost);
+			
 		common_submit('save', _('Save'));
-
+		
 		common_element_end('form');
 		common_show_footer();
 	}
@@ -97,6 +119,10 @@ class EmailsettingsAction extends SettingsAction {
 			$this->cancel_confirmation();
 		} else if ($this->arg('remove')) {
 			$this->remove_address();
+		} else if ($this->arg('removeincoming')) {
+			$this->remove_incoming();
+		} else if ($this->arg('newincoming')) {
+			$this->new_incoming();
 		} else {
 			$this->show_form(_('Unexpected form submission.'));
 		}
@@ -228,11 +254,42 @@ class EmailsettingsAction extends SettingsAction {
 		}
 		$user->query('COMMIT');
 
-		# XXX: unsubscribe to the old address
-
 		$this->show_form(_('The address was removed.'), TRUE);
 	}
 
+	function remove_incoming() {
+		$user = common_current_user();
+		
+		if (!$user->incomingemail) {
+			$this->show_form(_('No incoming email address.'));
+			return;
+		}
+		
+		$orig = clone($user);
+		$user->incomingemail = NULL;
+		
+		if (!$user->update($orig)) {
+			common_log_db_error($user, 'UPDATE', __FILE__);
+			$this->server_error(_("Couldn't update user record."));
+		}
+		
+		$this->show_form(_('Incoming email address removed.'), TRUE);
+	}
+
+	function new_incoming() {
+		$user = common_current_user();
+		
+		$orig = clone($user);
+		$user->incomingemail = mail_new_incoming_address();
+		
+		if (!$user->update($orig)) {
+			common_log_db_error($user, 'UPDATE', __FILE__);
+			$this->server_error(_("Couldn't update user record."));
+		}
+
+		$this->show_form(_('New incoming email address added.'), TRUE);
+	}
+	
 	function email_exists($email) {
 		$user = common_current_user();
 		$other = User::staticGet('email', $email);

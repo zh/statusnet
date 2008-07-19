@@ -50,6 +50,8 @@ class MailerDaemon {
 		if (!$this->user_match_to($user, $to)) {
 			$this->error($from, _('Sorry, that is not your incoming email address.'));
 		}
+		if (!$user->emailpost) {
+		}
 		$response = $this->handle_command($user, $msg);
 		if ($response) {
 			$this->respond($from, $to, $response);

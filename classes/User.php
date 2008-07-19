@@ -36,6 +36,7 @@ class User extends DB_DataObject
     public $email;                           // varchar(255)  unique_key
     public $incomingemail;                   // varchar(255)  unique_key
     public $emailnotifysub;                  // tinyint(1)   default_1
+    public $emailpost;                       // tinyint(1)   default_1
     public $jabber;                          // varchar(255)  unique_key
     public $jabbernotify;                    // tinyint(1)  
     public $jabberreplies;                   // tinyint(1)  

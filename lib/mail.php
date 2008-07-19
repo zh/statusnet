@@ -48,13 +48,21 @@ function mail_send($recipients, $headers, $body) {
 	return true;
 }
 
-function mail_notify_from() {
-	global $config;
-	if ($config['mail']['notifyfrom']) {
-		return $config['mail']['notifyfrom'];
-	} else {
-		return $config['site']['name'] . ' <noreply@'.$config['site']['server'].'>';
+function mail_domain() {
+	$maildomain = common_config('mail', 'domain');
+	if (!$maildomain) {
+		$maildomain = common_config('site', 'server');
 	}
+	return $maildomain;
+}
+
+function mail_notify_from() {
+	$notifyfrom = common_config('mail', 'notifyfrom');
+	if (!$notifyfrom) {
+		$domain = mail_domain();
+		$notifyfrom = common_config('site', 'name') .' <noreply@'.$domain.'>';
+	}
+	return $notifyfrom;
 }
 
 function mail_to_user(&$user, $subject, $body, $address=NULL) {
@@ -120,4 +128,32 @@ function mail_subscribe_notify($listenee, $listener) {
 						 common_config('site', 'name'));
 		mail_send($recipients, $headers, $body);
 	}
+}
+
+function mail_new_incoming_notify($user) {
+
+	$profile = $user->getProfile();
+	$name = $profile->getBestName();
+	
+	$headers['From'] = $user->incomingemail;
+	$headers['To'] = $name . ' <' . $user->email . '>';
+	$headers['Subject'] = sprintf(_('New email address for posting to %s'),
+								  common_config('site', 'name'));
+	
+	$body  = sprintf(_("You have a new posting address on %1\$s.\n\n".
+					   "Send email to %2\$s to post new messages.\n\n".
+					   "More email instructions at %3\$s.\n\n".
+					   "Faithfully yours,\n%4\$s"),
+					 common_config('site', 'name'),
+					 $user->incomingemail,
+					 common_local_url('doc', array('title' => 'email')),
+					 common_config('site', 'name'));
+	
+	mail_send($user->email, $headers, $body);
+}
+
+function mail_new_incoming_address() {
+	$prefix = common_good_rand(8);
+	$suffix = mail_domain();
+	return $prefix . '@' . $suffix;
 }
