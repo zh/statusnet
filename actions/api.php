@@ -105,9 +105,18 @@ class ApiAction extends Action {
 								'statuses/show',
 								'help/test', 
 								'help/downtime_schedule');
-		if (in_array("$this->api_action/$this->api_method", $noauth)) {
+		static $bareauth = array('statuses/user_timeline');
+
+		# noauth: never needs auth
+		# bareauth: only needs auth if without an argument
+		
+		$fullname = "$this->api_action/$this->api_method";
+		
+		if (in_array($fullname, $bareauth) && !$this->api_arg) {
+			return true;
+		} if (in_array($fullname, $noauth)) {
 			return false;
-		}		
+		}
 		return true;
 	}
 		
