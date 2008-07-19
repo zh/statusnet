@@ -105,7 +105,7 @@ class ApiAction extends Action {
 								'statuses/show',
 								'help/test', 
 								'help/downtime_schedule');
-		static $bareauth = array('statuses/user_timeline');
+		static $bareauth = array('statuses/user_timeline', 'statuses/friends');
 
 		# noauth: never needs auth
 		# bareauth: only needs auth if without an argument
