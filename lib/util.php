@@ -514,7 +514,7 @@ function common_rememberme($user=NULL) {
 function common_remembered_user() {
 	$user = NULL;
 	# Try to remember
-	$packed = $_COOKIE[REMEMBERME];
+	$packed = isset($_COOKIE[REMEMBERME]) ? $_COOKIE[REMEMBERME] : '';
 	if ($packed) {
 		list($id, $code) = explode(':', $packed);
 		if ($id && $code) {
@@ -550,7 +550,7 @@ function common_forgetme() {
 
 # who is the current user?
 function common_current_user() {
-	if ($_REQUEST[session_name()] || $_SESSION && $_SESSION['userid']) {
+	if (isset($_REQUEST[session_name()]) || (isset($_SESSION['userid']) && $_SESSION['userid'])) {
 		common_ensure_session();
 		$id = $_SESSION['userid'];
 		if ($id) {
@@ -561,8 +561,8 @@ function common_current_user() {
 	}
 	# that didn't work; try to remember
 	$user = common_remembered_user();
-	common_debug("Got User " . $user->nickname);
 	if ($user) {
+		common_debug("Got User " . $user->nickname);
 	    common_debug("Faking session on remembered user");
 	    $_SESSION['userid'] = $user->id;
 	}
@@ -622,7 +622,7 @@ function common_relative_profile($sender, $nickname, $dt=NULL) {
 	# Try to find profiles this profile is subscribed to that have this nickname
 	$recipient = new Profile();
 	# XXX: use a join instead of a subquery
-	$recipient->whereAdd('EXISTS (SELECT subscribed from subscription where subscriber = '.$sender_id.' and subscribed = id)', 'AND');
+	$recipient->whereAdd('EXISTS (SELECT subscribed from subscription where subscriber = '.$sender->id.' and subscribed = id)', 'AND');
 	$recipient->whereAdd('nickname = "' . trim($nickname) . '"', 'AND');
 	if ($recipient->find(TRUE)) {
 		# XXX: should probably differentiate between profiles with
@@ -632,7 +632,7 @@ function common_relative_profile($sender, $nickname, $dt=NULL) {
 	# Try to find profiles that listen to this profile and that have this nickname
 	$recipient = new Profile();
 	# XXX: use a join instead of a subquery
-	$recipient->whereAdd('EXISTS (SELECT subscriber from subscription where subscribed = '.$sender_id.' and subscriber = id)', 'AND');
+	$recipient->whereAdd('EXISTS (SELECT subscriber from subscription where subscribed = '.$sender->id.' and subscriber = id)', 'AND');
 	$recipient->whereAdd('nickname = "' . trim($nickname) . '"', 'AND');
 	if ($recipient->find(TRUE)) {
 		# XXX: should probably differentiate between profiles with
