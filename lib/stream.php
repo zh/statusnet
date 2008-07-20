@@ -38,6 +38,9 @@ class StreamAction extends Action {
 
 		if ($nickname) {
 			$user = User::staticGet('nickname', $nickname);
+			$user_profile = $user->getProfile();
+		} else {
+			$user_profile = false;
 		}
 
 		common_element_start('ul', array('id' => 'nav_views'));
@@ -45,17 +48,17 @@ class StreamAction extends Action {
 		common_menu_item(common_local_url('all', array('nickname' =>
 													   $nickname)),
 						 _('Personal'),
-						 sprintf(_('%s and friends'), (($user && $user->fullname) ? $user->fullname : $nickname)),
+						 sprintf(_('%s and friends'), (($user_profile && $user_profile->fullname) ? $user_profile->fullname : $nickname)),
 						 $action == 'all');
 		common_menu_item(common_local_url('replies', array('nickname' =>
 															  $nickname)),
 						 _('Replies'),
-						 sprintf(_('Replies to %s'), (($user && $user->fullname) ? $user->fullname : $nickname)),
+						 sprintf(_('Replies to %s'), (($user_profile && $user_profile->fullname) ? $user_profile->fullname : $nickname)),
 						 $action == 'replies');
 		common_menu_item(common_local_url('showstream', array('nickname' =>
 															  $nickname)),
 						 _('Profile'),
-						 ($user && $user->fullname) ? $user->fullname : $nickname,
+						 ($user_profile && $user_profile->fullname) ? $user_profile->fullname : $nickname,
 						 $action == 'showstream');
 		common_element_end('ul');
 	}
