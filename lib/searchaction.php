@@ -51,6 +51,8 @@ class SearchAction extends Action {
 	}
 
 	function show_form($error=NULL) {
+		global $config;
+
 		$q = $this->trimmed('q');
 		$page = $this->trimmed('page', 1);
 
@@ -60,6 +62,11 @@ class SearchAction extends Action {
 										   'id' => 'login',
 										   'action' => common_local_url($this->trimmed('action'))));
 		common_element_start('p');
+		if (!isset($config['site']['fancy']) || !$config['site']['fancy']) {
+			common_element('input', array('name' => 'action',
+										  'type' => 'hidden',
+										  'value' => $this->trimmed('action')));
+		}
 		common_element('input', array('name' => 'q',
 									  'id' => 'q',
 									  'type' => 'text',
