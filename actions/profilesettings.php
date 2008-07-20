@@ -52,6 +52,8 @@ class ProfilesettingsAction extends SettingsAction {
 		common_input('location', _('Location'),
 					 ($this->arg('location')) ? $this->arg('location') : $profile->location,
 					 _('Where you are, like "City, State (or Region), Country"'));
+		common_checkbox('autosubscribe', _('Automatically subscribe to whoever subscribes to me (best for non-humans)'),
+						($this->arg('autosubscribe') : $this->boolean('autosubscribe') : $user->autosubscribe);
 		common_submit('submit', _('Save'));
 		common_element_end('form');
 		common_show_footer();
@@ -64,7 +66,8 @@ class ProfilesettingsAction extends SettingsAction {
 		$homepage = $this->trimmed('homepage');
 		$bio = $this->trimmed('bio');
 		$location = $this->trimmed('location');
-
+		$autosubscribe = $this->boolean('autosubscribe');
+		
 		# Some validation
 
 		if (!Validate::string($nickname, array('min_length' => 1,
@@ -115,6 +118,22 @@ class ProfilesettingsAction extends SettingsAction {
 			}
 		}
 
+		# XOR
+		
+		if ($user->autosubscribe ^ $autosubscribe) {
+			$original = clone($user);
+
+			$user->nickname = $nickname;
+
+			$result = $user->update($original);
+
+			if ($result === FALSE) {
+				common_log_db_error($user, 'UPDATE', __FILE__);
+				common_server_error(_('Couldn\'t update user.'));
+				return;
+			}
+		}
+		
 		$profile = $user->getProfile();
 
 		$orig_profile = clone($profile);
