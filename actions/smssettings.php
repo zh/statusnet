@@ -90,7 +90,7 @@ class SmssettingsAction extends EmailsettingsAction {
 		common_element('h2', NULL, _('Preferences'));
 		
 		common_checkbox('smsnotify',
-						_('Send me notices through SMS; I understand I may incur charges from my carrier.'),
+						_('Send me notices through SMS; I understand I may incur exorbitant charges from my carrier.'),
 						$user->smsnotify);
 			
 		common_submit('save', _('Save'));
