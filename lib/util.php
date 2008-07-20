@@ -370,20 +370,20 @@ function common_checkbox($id, $label, $checked=false, $instructions=NULL, $value
 }
 
 function common_dropdown($id, $label, $content, $instructions=NULL, $blank_select=FALSE, $selected=NULL) {
-        common_element_start('p');
-        common_element('label', array('for' => $id), $label);
-        common_element_start('select', array('id' => $id, 'name' => $id));
-        if ($blank_select) {
-                        common_element('option', array('value' => $value));
-        }
-        foreach ($content as $value => $option) {
-                if ($value == $selected) {
-                        common_element('option', array('value' => $value, 'selected' => $value), $option);
-                } else {
-                        common_element('option', array('value' => $value), $option);
-                }
-        }
-        common_element_end('select');
+	common_element_start('p');
+	common_element('label', array('for' => $id), $label);
+	common_element_start('select', array('id' => $id, 'name' => $id));
+	if ($blank_select) {
+		common_element('option', array('value' => ''));
+	}
+	foreach ($content as $value => $option) {
+		if ($value == $selected) {
+			common_element('option', array('value' => $value, 'selected' => $value), $option);
+		} else {
+			common_element('option', array('value' => $value), $option);
+		}
+	}
+	common_element_end('select');
 	if ($instructions) {
 		common_element('span', 'input_instructions', $instructions);
 	}
