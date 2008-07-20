@@ -161,6 +161,42 @@ class TwitterapiAction extends Action {
 	function show_twitter_json_users($twitter_users) {
 		print(json_encode($twitter_users));
 	}
+
+	function show($args, $apidata) {
+		parent::handle($args);
+		
+		$id = $apidata['api_arg'];		
+		$notice = Notice::staticGet($id);
+
+		if ($notice) {
+
+			if ($apidata['content-type'] == 'xml') { 
+				$this->show_single_xml_status($notice);
+			} elseif ($apidata['content-type'] == 'json') {
+				$this->show_single_json_status($notice);
+			}
+		} else {
+			header('HTTP/1.1 404 Not Found');
+		}
+		
+		exit();
+	}
+		
+	function show_single_xml_status($notice) {
+		header('Content-Type: application/xml; charset=utf-8');		
+		common_start_xml();
+		$twitter_status = $this->twitter_status_array($notice);						
+		$this->show_twitter_xml_status($twitter_status);
+		common_end_xml();
+		exit();
+	}
+	
+	function show_single_json_status($notice) {
+		header('Content-Type: application/json; charset=utf-8');
+		$status = $this->twitter_status_array($notice);
+		$this->show_twitter_json_statuses($status);
+		exit();
+	}
 	
 	// Anyone know what date format this is? 
 	// Twitter's dates look like this: "Mon Jul 14 23:52:38 +0000 2008" -- Zach 

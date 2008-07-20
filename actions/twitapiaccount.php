@@ -46,10 +46,48 @@ class TwitapiaccountAction extends TwitterapiAction {
 	
 	function update_location($args, $apidata) {
 		parent::handle($args);
-		common_server_error("API method under construction.", $code=501);
+
+		$location = trim($this->arg('location'));
+
+		if (!is_null($location) && strlen($location) > 255) {
+			
+			// XXX: Twitter just truncates and runs with it.
+			header('HTTP/1.1 406 Not Acceptable');			
+			print "That's too long. Max notice size is 255 chars.\n";
+			exit();
+		}
+		
+		$user = $apidata['user'];
+		$profile = $user->getProfile();
+		
+		if (!$profile) {
+			common_server_error(_('User has no profile.'));
+			exit();
+		}
+		
+		$orig_profile = clone($profile);
+		$profile->location = $location;
+		
+		common_debug('Old profile: ' . common_log_objstring($orig_profile), __FILE__);
+		common_debug('New profile: ' . common_log_objstring($profile), __FILE__);
+
+		$result = $profile->update($orig_profile);
+
+		if (!$result) {
+			common_log_db_error($profile, 'UPDATE', __FILE__);
+			common_server_error(_('Couldn\'t save profile.'));
+			exit();
+		}
+
+		common_broadcast_profile($profile);
+		
+		$apidata['api_arg'] = $user->id;
+		$this->show($args, $apidata);
+		
 		exit();
 	}
-	
+
+
 	function update_delivery_device($args, $apidata) {
 		parent::handle($args);
 		common_server_error("API method under construction.", $code=501);
