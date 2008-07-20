@@ -45,6 +45,7 @@ class User extends DB_DataObject
     public $carrier;                         // int(4)  
     public $smsnotify;                       // tinyint(1)  
     public $uri;                             // varchar(255)  unique_key
+    public $autosubscribe;                   // tinyint(1)  
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
