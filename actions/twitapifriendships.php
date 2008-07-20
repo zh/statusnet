@@ -31,7 +31,7 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 		$other = $this->get_user($id);
 
 		if (!$other) {
-			$this->client_error(_('No such user'));
+			$this->client_error(_('Could not follow user: User not found.'), 403, $apidata['content-type']);
 			exit();
 			return;
 		}
@@ -39,7 +39,7 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 		$user = $apidata['user'];
 		
 		if ($user->isSubscribed($other)) {
-			$this->client_error(_('Already subscribed.'));
+			$this->client_error("Could not follow user: $other->nickname is already on your list.", 403, $apidata['content-type']);
 			exit();
 			return;
 		}
@@ -55,7 +55,7 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 		$result = $sub->insert();
 
 		if (!$result) {
-			$this->server_error(_('Could not subscribe'));
+			$this->client_error("Could not follow user: $other->nickname.", 400, $apidata['content-type']);			
 			exit();
 			return;
 		}
@@ -101,7 +101,7 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 			$sub->delete();
 			$sub->query('COMMIT');
 		} else {
-			$this->client_error(_('Not subscribed'));
+			$this->client_error(_('You are not friends with the specified user.'), 403, $apidata['content-type']);			
 			exit();
 		}
 
@@ -127,14 +127,21 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 	
 	function exists($args, $apidata) {
 		parent::handle($args);
+		
+		
 		$user_a_id = $this->trimmed('user_a');
 		$user_b_id = $this->trimmed('user_b');
+		
 		$user_a = $this->get_profile($user_a_id);
 		$user_b = $this->get_profile($user_b_id);
 		
+		if($user_a) { print "got user a profile";}
+		if($user_b) { print "got user b profile";}
+		
+		
 		if (!$user_a || !$user_b) {
-			$this->client_error(_('No such user'));
-			return;
+			$this->client_error(_('Two user ids or screen_names must be supplied.'), 400, $apidata['content-type']);
+			exit();
 		}
 		
 		if ($user_a->isSubscribed($user_b)) {
@@ -151,20 +158,20 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 			break;
 		 case 'json':
 			print json_encode($result);
-			print "\n";
 			break;
 		 default:
 			print $result;
 			break;
 		}
 		
+		exit();
 	}
 
 	function get_profile($id) {
 		if (is_numeric($id)) {
 			return Profile::staticGet($id);
 		} else {
-			$user = User::staticGet('nickname', $id);
+			$user = User::staticGet('nickname', $id);			
 			if ($user) {
 				return $user->getProfile();
 			} else {

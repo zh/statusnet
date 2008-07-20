@@ -45,9 +45,7 @@ class ApiAction extends Action {
 			$this->api_method = $cmdext[0];
 			$this->content_type = strtolower($cmdext[1]);
 		}
-		
-		# common_debug("apiaction = $this->api_action, method = $this->api_method, argument = $this->api_arg, ctype = $this->content_type");
-						
+								
 		# XXX Maybe check to see if the command actually exists first?
 		if($this->requires_auth()) {
 			if (!isset($_SERVER['PHP_AUTH_USER'])) {
@@ -56,7 +54,7 @@ class ApiAction extends Action {
 				header('WWW-Authenticate: Basic realm="Laconica API"');
 				
 				# if the user hits cancel -- bam!
-				common_show_basic_auth_error();		
+				$this->show_basic_auth_error();		
 			} else {
 				$nickname = $_SERVER['PHP_AUTH_USER'];
 				$password = $_SERVER['PHP_AUTH_PW'];
@@ -67,7 +65,7 @@ class ApiAction extends Action {
 					$this->process_command();
 				} else {
 					# basic authentication failed
-					common_show_basic_auth_error();		
+					$this->show_basic_auth_error();		
 				}			
 			}
 		} else {
@@ -122,6 +120,13 @@ class ApiAction extends Action {
 			# everybody else needs auth
 			return true;
 		}
+	}
+	
+	function show_basic_auth_error() {
+	  	header('HTTP/1.1 401 Unauthorized');
+		header('Content-type: text/plain');
+	   	print("Could not authenticate you."); # exactly what Twitter says - no \n
+		exit();
 	}
 		
 }

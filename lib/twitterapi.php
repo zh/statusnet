@@ -280,7 +280,54 @@ class TwitterapiAction extends Action {
 			break;
 		}
 	}
-	
+		
+	function client_error($msg, $code = 400, $content_type = 'json') {
+		
+		static $status = array(400 => 'Bad Request',
+							   401 => 'Unauthorized',
+							   402 => 'Payment Required',
+							   403 => 'Forbidden',
+							   404 => 'Not Found',
+							   405 => 'Method Not Allowed',
+							   406 => 'Not Acceptable',
+							   407 => 'Proxy Authentication Required',
+							   408 => 'Request Timeout',
+							   409 => 'Conflict',
+							   410 => 'Gone',
+							   411 => 'Length Required',
+							   412 => 'Precondition Failed',
+							   413 => 'Request Entity Too Large',
+							   414 => 'Request-URI Too Long',
+							   415 => 'Unsupported Media Type',
+							   416 => 'Requested Range Not Satisfiable',
+							   417 => 'Expectation Failed');
+		
+		$action = $this->trimmed('action');
+		
+		common_debug("User error '$code' on '$action': $msg", __FILE__);
+		
+		if (!array_key_exists($code, $status)) {
+			$code = 400;
+		}
+
+		$status_string = $status[$code];
+		header('HTTP/1.1 '.$code.' '.$status_string);
+						
+		if ($content_type == 'xml') {
+			common_start_xml();
+			common_element_start('hash');
+			common_element('error', NULL, $msg);
+			common_element('request', NULL, $_SERVER['REQUEST_URI']);
+			common_element_end('hash');
+			common_end_xml();
+		} else {
+			$error_array = array('error' => $msg, 'request' => $_SERVER['REQUEST_URI']);
+			print(json_encode($error_array));			
+		}
+		
+		exit();
+	}
+
 	function init_twitter_rss() {
 		common_start_xml();
 		common_element_start('rss', array('version' => '2.0'));
