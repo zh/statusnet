@@ -237,6 +237,7 @@ class ShowstreamAction extends StreamAction {
 												$other->fullname :
 												$other->nickname,
 												'href' => $other->profileurl,
+												'rel' => 'contact',
 												'class' => 'subscription'));
 				$avatar = $other->getAvatar(AVATAR_MINI_SIZE);
 				common_element('img', array('src' => (($avatar) ? common_avatar_display_url($avatar) :  common_default_avatar(AVATAR_MINI_SIZE)),
