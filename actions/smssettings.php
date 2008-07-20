@@ -103,7 +103,7 @@ class SmssettingsAction extends EmailsettingsAction {
 		$user = common_current_user();
 		$confirm = new Confirm_address();
 		$confirm->user_id = $user->id;
-		$confirm->address_type = 'email';
+		$confirm->address_type = 'sms';
 		if ($confirm->find(TRUE)) {
 			return $confirm;
 		} else {
