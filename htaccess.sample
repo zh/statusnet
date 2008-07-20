@@ -3,6 +3,8 @@ RewriteEngine On
 RewriteRule ^$ index.php?action=public [L,QSA]
 RewriteRule ^rss$ index.php?action=publicrss [L,QSA]
 RewriteRule ^xrds$ index.php?action=publicxrds [L,QSA]
+RewriteRule ^opensearch/people$ index.php?action=opensearch&type=people [L,QSA]
+RewriteRule ^opensearch/notice$ index.php?action=opensearch&type=notice [L,QSA]
 
 RewriteRule ^doc/about$ index.php?action=doc&title=about [L,QSA]
 RewriteRule ^doc/contact$ index.php?action=doc&title=contact [L,QSA]

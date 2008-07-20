@@ -186,7 +186,12 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 								   'src' => common_path('js/util.js')),
 				   ' ');
 	common_element('link', array('rel' => 'search', 'type' => 'application/opensearchdescription+xml',
-                                        'href' =>  common_local_url('opensearch'), 'title' => common_config('site', 'name').' Search'));
+                                        'href' =>  common_local_url('opensearch', array('type' => 'people')),
+                                        'title' => common_config('site', 'name').' People Search'));
+
+	common_element('link', array('rel' => 'search', 'type' => 'application/opensearchdescription+xml',
+                                        'href' =>  common_local_url('opensearch', array('type' => 'notice')),
+                                        'title' => common_config('site', 'name').' Notice Search'));
 
 	if ($callable) {
 		if ($data) {
@@ -778,7 +783,11 @@ function common_fancy_url($action, $args=NULL) {
 	 case 'publicxrds':
 		return common_path('xrds');
 	 case 'opensearch':
-		return common_path('opensearch');
+                if ($args && $args['type']) {
+                        return common_path('opensearch/'.$args['type']);
+                } else {
+                        return common_path('opensearch/people');
+                }
 	 case 'doc':
 		return common_path('doc/'.$args['title']);
 	 case 'login':
