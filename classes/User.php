@@ -107,4 +107,8 @@ class User extends DB_DataObject
 		}
 		return $profile->getCurrentNotice($dt);
 	}
+	
+	function getCarrier() {
+		return Sms_carrier::staticGet($this->carrier);
+	}
 }

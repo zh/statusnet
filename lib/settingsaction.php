@@ -95,6 +95,9 @@ class SettingsAction extends Action {
             'openidsettings' =>
             array('OpenID',
                   'Add or remove OpenIDs'),
+            'smssettings' =>
+            array('SMS',
+                  'Updates by SMS'),
             'imsettings' =>
             array('IM',
                   'Updates by instant messenger (IM)'));

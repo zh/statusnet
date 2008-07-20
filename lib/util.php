@@ -1320,3 +1320,9 @@ function common_profile_uri($profile) {
 	# XXX: this is a very bad profile!
 	return NULL;
 }
+
+function common_canonical_sms($sms) {
+	# strip non-digits
+	preg_replace('/\D/', '', $sms);
+	return $sms;
+}
