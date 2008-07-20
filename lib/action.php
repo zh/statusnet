@@ -84,9 +84,9 @@ class Action { // lawsuit
         $action = $this->trimmed('action');
         common_element_start('ul', array('id' => 'nav_views'));
         foreach ($menu as $menuaction => $menudesc) {
-            common_menu_item(common_local_url($menuaction),
-							 _($menudesc[0]),
-							 _($menudesc[1]),
+            common_menu_item(common_local_url($menuaction, isset($menudesc[2]) ? $menudesc[2] : NULL),
+							 $menudesc[0],
+							 $menudesc[1],
 							 $action == $menuaction);
         }
         common_element_end('ul');
