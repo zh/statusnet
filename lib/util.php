@@ -185,6 +185,8 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 	common_element('script', array('type' => 'text/javascript',
 								   'src' => common_path('js/util.js')),
 				   ' ');
+	common_element('link', array('rel' => 'search', 'type' => 'application/opensearchdescription+xml',
+                                        'href' =>  common_local_url('opensearch'), 'title' => common_config('site', 'name').' Search'));
 
 	if ($callable) {
 		if ($data) {
@@ -761,6 +763,8 @@ function common_fancy_url($action, $args=NULL) {
 		return common_path('rss');
 	 case 'publicxrds':
 		return common_path('xrds');
+	 case 'opensearch':
+		return common_path('opensearch');
 	 case 'doc':
 		return common_path('doc/'.$args['title']);
 	 case 'login':
