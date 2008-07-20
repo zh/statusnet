@@ -131,7 +131,8 @@ class EmailsettingsAction extends SettingsAction {
 	function save_preferences() {
 
 		$emailnotifysub = $this->boolean('emailnotifysub');
-
+		$emailpost = $this->boolean('emailpost');
+		
 		$user = common_current_user();
 
 		assert(!is_null($user)); # should already be checked
@@ -141,6 +142,7 @@ class EmailsettingsAction extends SettingsAction {
 		$original = clone($user);
 
 		$user->emailnotifysub = $emailnotifysub;
+		$user->emailpost = $emailpost;
 
 		$result = $user->update($original);
 
