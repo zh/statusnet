@@ -33,7 +33,6 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 		if (!$other) {
 			$this->client_error(_('Could not follow user: User not found.'), 403, $apidata['content-type']);
 			exit();
-			return;
 		}
 		
 		$user = $apidata['user'];
@@ -41,7 +40,6 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 		if ($user->isSubscribed($other)) {
 			$this->client_error("Could not follow user: $other->nickname is already on your list.", 403, $apidata['content-type']);
 			exit();
-			return;
 		}
 		
 		$sub = new Subscription();
@@ -57,7 +55,6 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 		if (!$result) {
 			$this->client_error("Could not follow user: $other->nickname.", 400, $apidata['content-type']);			
 			exit();
-			return;
 		}
 		
 		$sub->query('COMMIT');
@@ -66,7 +63,7 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 
 		$type = $apidata['content-type'];
 		$this->init_document($type);
-		$this->show_profile($other);
+		$this->show_profile($other, $type);
 		$this->end_document($type);
 		exit();
 	}
@@ -106,8 +103,8 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 		}
 
 		$type = $apidata['content-type'];
-		$this->init_document($type);
-		$this->show_profile($other);
+		$this->init_document($type);	
+		$this->show_profile($other, $type);
 		$this->end_document($type);
 		exit();
 	}
@@ -135,10 +132,6 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 		$user_a = $this->get_profile($user_a_id);
 		$user_b = $this->get_profile($user_b_id);
 		
-		if($user_a) { print "got user a profile";}
-		if($user_b) { print "got user b profile";}
-		
-		
 		if (!$user_a || !$user_b) {
 			$this->client_error(_('Two user ids or screen_names must be supplied.'), 400, $apidata['content-type']);
 			exit();
@@ -152,15 +145,17 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 		
 		switch ($apidata['content-type']) {
 		 case 'xml':
-			common_start_xml();
+			$this->init_document('xml');
 			common_element('friends', NULL, $result);
-			common_end_xml();
+			$this->end_document('xml');
 			break;
 		 case 'json':
+			$this->init_document('json');
 			print json_encode($result);
+			$this->end_document('json');
 			break;
 		 default:
-			print $result;
+			print $result;  // Really? --Zach
 			break;
 		}
 		

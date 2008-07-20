@@ -80,8 +80,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 	
 	function show_xml_timeline($notice) {
 
-		header('Content-Type: application/xml; charset=utf-8');		
-		common_start_xml();
+		$this->init_document('xml');
 		common_element_start('statuses', array('type' => 'array'));
 
 		if (is_array($notice)) {
@@ -97,14 +96,12 @@ class TwitapistatusesAction extends TwitterapiAction {
 		}
 		
 		common_element_end('statuses');
-		common_end_xml();
+		$this->end_document('xml');
 	}	
 	
 	function show_rss_timeline($notice, $title, $id, $link, $subtitle) {
 		
-		header("Content-Type: application/rss+xml; charset=utf-8");
-		
-		$this->init_twitter_rss();
+		$this->init_document('rss');
 		
 		common_element_start('channel');
 		common_element('title', NULL, $title);
@@ -127,14 +124,12 @@ class TwitapistatusesAction extends TwitterapiAction {
 		}
 
 		common_element_end('channel');			
-		$this->end_twitter_rss();
+		$this->end_twitter_rss();		
 	}
 
 	function show_atom_timeline($notice, $title, $id, $link, $subtitle=NULL) {
 		
-		header('Content-Type: application/atom+xml; charset=utf-8');
-
-		$this->init_twitter_atom();
+		$this->init_document('atom');
 
 		common_element('title', NULL, $title);
 		common_element('id', NULL, $id);
@@ -153,12 +148,13 @@ class TwitapistatusesAction extends TwitterapiAction {
 			}
 		}
 		
-		$this->end_twitter_atom();
+		$this->end_document('atom');
+		
 	}
 
 	function show_json_timeline($notice) {
 		
-		header('Content-Type: application/json; charset=utf-8');
+		$this->init_document('json');
 		
 		$statuses = array();
 		
@@ -175,6 +171,8 @@ class TwitapistatusesAction extends TwitterapiAction {
 		}			
 		
 		$this->show_twitter_json_statuses($statuses);			
+		
+		$this->end_document('json');
 	}
 		
 	/*
@@ -449,6 +447,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 		ID. Ex: http://server/api/statuses/replies.xml?since_id=12345
 	*/
 	function replies($args, $apidata) {
+
 		parent::handle($args);
 
 		$since = $this->arg('since');

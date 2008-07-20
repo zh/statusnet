@@ -51,7 +51,7 @@ class TwitapiaccountAction extends TwitterapiAction {
 
 		if (!is_null($location) && strlen($location) > 255) {
 			
-			// XXX: Twitter just truncates and runs with it.
+			// XXX: But Twitter just truncates and runs with it. -- Zach
 			header('HTTP/1.1 406 Not Acceptable');			
 			print "That's too long. Max notice size is 255 chars.\n";
 			exit();

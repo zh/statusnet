@@ -98,7 +98,7 @@ class TwitterapiAction extends Action {
 		return $entry;
 	}
 	
-	function show_twitter_xml_status($twitter_status) {	
+	function show_twitter_xml_status($twitter_status) {			
 		common_element_start('status');
 		common_element('created_at', NULL, $twitter_status['created_at']);
 		common_element('id', NULL, $twitter_status['id']);
@@ -183,18 +183,18 @@ class TwitterapiAction extends Action {
 	}
 		
 	function show_single_xml_status($notice) {
-		header('Content-Type: application/xml; charset=utf-8');		
-		common_start_xml();
+		$this->init_document('xml');
 		$twitter_status = $this->twitter_status_array($notice);						
 		$this->show_twitter_xml_status($twitter_status);
-		common_end_xml();
+		$this->end_document('xml');
 		exit();
 	}
 	
 	function show_single_json_status($notice) {
-		header('Content-Type: application/json; charset=utf-8');
+		$this->init_document('json');
 		$status = $this->twitter_status_array($notice);
 		$this->show_twitter_json_statuses($status);
+		$this->end_document('json');
 		exit();
 	}
 	
@@ -260,6 +260,8 @@ class TwitterapiAction extends Action {
 			$this->client_error(_('Unsupported type'));
 			break;
 		}
+		
+		return;
 	}
 	
 	function end_document($type='xml') {
@@ -279,6 +281,7 @@ class TwitterapiAction extends Action {
 			$this->client_error(_('Unsupported type'));
 			break;
 		}
+		return;
 	}
 		
 	function client_error($msg, $code = 400, $content_type = 'json') {
@@ -314,15 +317,17 @@ class TwitterapiAction extends Action {
 		header('HTTP/1.1 '.$code.' '.$status_string);
 						
 		if ($content_type == 'xml') {
-			common_start_xml();
+			$this->init_document('xml');
 			common_element_start('hash');
 			common_element('error', NULL, $msg);
 			common_element('request', NULL, $_SERVER['REQUEST_URI']);
 			common_element_end('hash');
-			common_end_xml();
+			$this->end_document('xml');
 		} else {
+			$this->init_document('json');
 			$error_array = array('error' => $msg, 'request' => $_SERVER['REQUEST_URI']);
-			print(json_encode($error_array));			
+			print(json_encode($error_array));
+			$this->end_document('json');
 		}
 		
 		exit();
@@ -348,7 +353,7 @@ class TwitterapiAction extends Action {
 		common_element_end('feed');
 	}
 
-	function show_profile($profile, $content_type='xml', $notice=NULL) {
+	function show_profile($profile, $content_type='xml', $notice=NULL) {				
 		$profile_array = $this->twitter_user_array($profile, true);
 		switch ($content_type) {
 		 case 'xml':
@@ -361,5 +366,6 @@ class TwitterapiAction extends Action {
 			$this->client_error(_('not a supported data format'));
 			return;
 		}
+		return;
 	}
 }
