@@ -124,6 +124,6 @@ class User extends DB_DataObject
 			return false;
 		}
 		
-		return $true;
+		return true;
 	}
 }
