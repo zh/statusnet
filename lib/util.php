@@ -194,11 +194,11 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 	common_element_start('div', array('id' => 'wrap'));
 	common_element_start('div', array('id' => 'header'));
 	common_nav_menu();
-	if ((is_string($config['site']['logo']) && (strlen($config['site']['logo']) > 0))
+	if ((isset($config['site']['logo']) && is_string($config['site']['logo']) && (strlen($config['site']['logo']) > 0))
 		|| file_exists(theme_file('logo.png')))
 	{
 		common_element_start('a', array('href' => common_local_url('public')));
-		common_element('img', array('src' => ($config['site']['logo']) ?
+		common_element('img', array('src' => isset($config['site']['logo']) ?
 									($config['site']['logo']) : theme_path('logo.png'),
 									'alt' => $config['site']['name'],
 									'id' => 'logo'));
@@ -757,7 +757,7 @@ function common_fancy_url($action, $args=NULL) {
 	 case 'subscribers':
 	 case 'all':
 	 case 'replies':
-		if ($args && $args['page']) {
+		if ($args && isset($args['page'])) {
 			return common_path($args['nickname'].'/'.$action.'?page=' . $args['page']);
 		} else {
 			return common_path($args['nickname'].'/'.$action);
