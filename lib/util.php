@@ -971,7 +971,13 @@ function common_real_broadcast($notice, $remote=false) {
 			common_log(LOG_ERR, 'Error in jabber broadcast for notice ' . $notice->id);
 		}
 	}
-	// XXX: broadcast notices to SMS
+	if ($success) {
+		require_once(INSTALLDIR.'/lib/mail.php');
+		$success = mail_broadcast_notice_sms($notice);
+		if (!$success) {
+			common_log(LOG_ERR, 'Error in sms broadcast for notice ' . $notice->id);
+		}
+	}
 	// XXX: broadcast notices to other IM
 	return $success;
 }

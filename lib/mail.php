@@ -157,3 +157,35 @@ function mail_new_incoming_address() {
 	$suffix = mail_domain();
 	return $prefix . '@' . $suffix;
 }
+
+function mail_broadcast_notice_sms($notice) {
+	$user = new User();
+	$user->smsnotify = 1;
+	$user->whereAdd('EXISTS (select subscriber from subscriptions where '
+					' subscriber = user.id and subscribed = ' . $notice->profile_id);
+	$user->whereAdd('sms is not null');
+	
+	$cnt = $user->find();
+	
+	while ($user->fetch()) {
+		mail_send_sms_notice($notice, $user);
+	}
+}
+
+function mail_send_notice($notice, $user) {
+	$profile = $user->getProfile();
+	$name = $profile->getBestName();
+	$carrier = Sms_carrier::staticGet($user->carrier);
+	$sms_email = $carrier->toEmailAddress($user->sms);
+	$to = $name . ' <' . $sms_email . '>';
+	$other = $notice->getProfile();
+
+	$headers = array();
+	$headers['From'] = $user->incomingemail;
+	$headers['To'] = $name . ' <' . $sms_email . '>';
+	$headers['Subject'] = sprintf(_('%s status on %s'), 
+								  $other->getBestName(),
+								  common_exact_date($notice->created));
+	$body = $notice->content;
+	mail_send($sms_email, $headers, $body);
+}
