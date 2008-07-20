@@ -111,5 +111,6 @@ require_once(INSTALLDIR.'/classes/Confirm_address.php');
 require_once(INSTALLDIR.'/classes/Remember_me.php');
 require_once(INSTALLDIR.'/classes/Queue_item.php');
 require_once(INSTALLDIR.'/classes/Reply.php');
+require_once(INSTALLDIR.'/classes/Sms_carrier.php');
 
 require_once('markdown.php');
