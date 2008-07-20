@@ -96,3 +96,7 @@ RewriteRule ^api/blocks/create/(.*)$ index.php?action=api&apiaction=blocks&metho
 RewriteRule ^api/blocks/destroy/(.*)$ index.php?action=api&apiaction=blocks&method=destroy&argument=$1 [L,QSA]
 RewriteRule ^api/help/(.*)$ index.php?action=api&apiaction=help&method=$1 [L,QSA]
 
+<FilesMatch "\.(ini)">
+  Order allow,deny
+</FilesMatch>
+
