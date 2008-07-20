@@ -708,7 +708,7 @@ function common_local_url($action, $args=NULL) {
 function common_fancy_url($action, $args=NULL) {
 	switch (strtolower($action)) {
 	 case 'public':
-		if ($args && $args['page']) {
+		if ($args && isset($args['page'])) {
 			return common_path('?page=' . $args['page']);
 		} else {
 			return common_path('');
@@ -889,6 +889,7 @@ function common_redirect($url, $code=307) {
 
 function common_save_replies($notice) {
 	# Alternative reply format
+	$tname = false;
 	if (preg_match('/^T ([A-Z0-9]{1,64}) /', $notice->content, $match)) {
 		$tname = $match[1];
 	}
