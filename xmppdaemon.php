@@ -27,20 +27,20 @@ function xmppdaemon_error_handler($errno, $errstr, $errfile, $errline, $errconte
 	echo "Aborting...\n";
 	exit(1);
 	break;
-	
+
      case E_USER_WARNING:
 	echo "WARNING [$errno] $errstr\n";
 	break;
-	
+
      case E_USER_NOTICE:
 	echo "My NOTICE [$errno] $errstr\n";
 	break;
-	
+
      default:
 	echo "Unknown error type: [$errno] $errstr\n";
 	break;
     }
-    
+
     /* Don't execute PHP internal error handler */
     return true;
 }
@@ -93,7 +93,7 @@ class XMPPDaemon {
 		if (!$this->conn) {
 			return false;
 		}
-	    
+
 		return !$this->conn->isDisconnected();
 	}
 
@@ -127,12 +127,12 @@ class XMPPDaemon {
 			$this->confirmation_queue();
 		}
 	}
-	
+
 	function handle_session($pl) {
 		# XXX what to do here?
 		return true;
 	}
-	
+
 	function get_user($from) {
 		$user = User::staticGet('jabber', jabber_normalize_jid($from));
 		return $user;
@@ -184,7 +184,7 @@ class XMPPDaemon {
 			return false;
 		}
 	}
-	
+
 	function from_site($address, $msg) {
 		$text = '['.common_config('site', 'name') . '] ' . $msg;
 		jabber_send_message($address, $text);
@@ -251,7 +251,8 @@ class XMPPDaemon {
 			return;
 		}
 		$notice->query('COMMIT');
-        common_save_replies($notice);	
+		common_save_replies($notice);
+		$notice->saveTags();
 		common_real_broadcast($notice);
 		$this->log(LOG_INFO,
 				   'Added notice ' . $notice->id . ' from user ' . $user->nickname);
@@ -372,7 +373,7 @@ class XMPPDaemon {
 		$user = User::staticGet($notice->profile_id);
 		return !$user;
 	}
-	
+
 	function confirmation_queue() {
 	    # $this->clear_old_confirm_claims();
 		$this->log(LOG_INFO, 'checking for queued confirmations');
@@ -407,7 +408,7 @@ class XMPPDaemon {
 			}
 		} while ($confirm);
 	}
-	
+
 	function next_confirm() {
 		$confirm = new Confirm_address();
 		$confirm->whereAdd('claimed IS NULL');
@@ -433,14 +434,14 @@ class XMPPDaemon {
 		}
 		return NULL;
 	}
-	
+
 	function clear_old_confirm_claims() {
 		$confirm = new Confirm();
 	        $confirm->claimed = NULL;
 		$confirm->whereAdd('now() - claimed > '.CLAIM_TIMEOUT);
 		$confirm->update(DB_DATAOBJECT_WHEREADD_ONLY);
 	}
-	
+
 }
 
 $resource = ($argc > 1) ? $argv[1] : NULL;

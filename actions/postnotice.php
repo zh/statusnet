@@ -89,7 +89,8 @@ class PostnoticeAction extends Action {
 				common_server_error(_('Error inserting notice'), 500);
 				return false;
 			}
-			common_save_replies($notice);	
+			common_save_replies($notice);
+			$notice->saveTags();
 			common_broadcast_notice($notice, true);
 		}
 		return true;

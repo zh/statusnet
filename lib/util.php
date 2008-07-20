@@ -275,6 +275,7 @@ function common_nav_menu() {
 	}
 	common_menu_item(common_local_url('public'), _('Public'));
 	common_menu_item(common_local_url('peoplesearch'), _('Search'));
+	common_menu_item(common_local_url('tags'), _('Tags'));
 	common_menu_item(common_local_url('doc', array('title' => 'help')),
 					 _('Help'));
 	if ($user) {
@@ -603,9 +604,13 @@ function common_render_content($text, $notice) {
 	$r = preg_replace('@https?://[^)\]>\s]+@', '<a href="\0" class="extlink">\0</a>', $r);
 	$r = preg_replace('/(^|\s+)@([a-z0-9]{1,64})/e', "'\\1@'.common_at_link($id, '\\2')", $r);
 	$r = preg_replace('/^T ([A-Z0-9]{1,64}) /e', "'T '.common_at_link($id, '\\1').' '", $r);
-	# XXX: # tags
+	$r = preg_replace('/(^|\s+)#([a-z0-9]{1,64})/e', "'\\1#'.common_tag_link('\\2')", $r);
 	# XXX: machine tags
 	return $r;
+}
+
+function common_tag_link($tag) {
+	return '<a href="' . htmlspecialchars(common_path('tag/' . $tag)) . '" class="hashlink">' . $tag . '</a>';
 }
 
 function common_at_link($sender_id, $nickname) {
@@ -790,6 +795,16 @@ function common_fancy_url($action, $args=NULL) {
 		return common_path('search/notice/rss' . (($args) ? ('?' . http_build_query($args)) : ''));
 	 case 'avatarbynickname':
 		return common_path($args['nickname'].'/avatar/'.$args['size']);
+	 case 'tag':
+	    if (isset($args['tag']) && $args['tag']) {
+	    		$path = 'tag/' . $args['tag'];
+			unset($args['tag']);
+		} else {
+			$path = 'tags';
+		}
+		return common_path($path . (($args) ? ('?' . http_build_query($args)) : ''));
+	 case 'tags':
+		return common_path('tags' . (($args) ? ('?' . http_build_query($args)) : ''));
 	 default:
 		return common_simple_url($action, $args);
 	}
@@ -859,12 +874,12 @@ function common_date_w3dtf($dt) {
 
 function common_date_rfc2822($dt) {
 	$t = strtotime($dt);
-	return date("r", $t);	
+	return date("r", $t);
 }
 
 function common_date_iso8601($dt) {
 	$t = strtotime($dt);
-	return date("c", $t);	
+	return date("c", $t);
 }
 
 function common_redirect($url, $code=307) {
@@ -1314,7 +1329,7 @@ function common_profile_uri($profile) {
 	if ($user) {
 		return $user->uri;
 	}
-	
+
 	$remote = Remote_profile::staticGet($profile->id);
 	if ($remote) {
 		return $remote->uri;

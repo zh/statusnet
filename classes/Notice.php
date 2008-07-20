@@ -51,4 +51,28 @@ class Notice extends DB_DataObject
 	function getProfile() {
 		return Profile::staticGet($this->profile_id);
 	}
+
+	function saveTags() {
+		/* extract all #hastags */
+		$count = preg_match_all('/(?:^|\s)#([a-z0-9]{1,64})/', strtolower($this->content), $match);
+		if (!$count) {
+			return true;
+		}
+
+		/* Add them to the database */
+		foreach(array_unique($match[1]) as $hashtag) {
+			$tag = DB_DataObject::factory('Notice_tag');
+			$tag->notice_id = $this->id;
+			$tag->tag = $hashtag;
+			$tag->created = $this->created;
+			$id = $tag->insert();
+			if (!$id) {
+				$last_error = PEAR::getStaticProperty('DB_DataObject','lastError');
+				common_log(LOG_ERROR, 'DB error inserting hashtag: ' . $last_error->message);
+				common_server_error(sprintf(_('DB error inserting hashtag: %s'), $last_error->message));
+				return;
+			}
+		}
+		return true;
+	}
 }

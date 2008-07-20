@@ -123,7 +123,7 @@ create table reply (
     profile_id integer not null comment 'profile replied to' references profile (id),
     modified timestamp not null comment 'date this record was modified',
     replied_id integer comment 'notice replied to (not used, see notice.reply_to)',
-    
+
     constraint primary key (notice_id, profile_id),
     index reply_notice_id_idx (notice_id),
     index reply_profile_id_idx (profile_id),
@@ -226,3 +226,12 @@ create table queue_item (
 
 ) ENGINE=MyISAM;
 
+/* Hash tags */
+create table notice_tag (
+    tag varchar( 64 ) not null comment 'hash tag associated with this notice',
+    notice_id integer not null comment 'notice tagged' references notice (id),
+    created datetime not null comment 'date this record was created',
+
+    constraint primary key (tag, notice_id),
+    index notice_tag_created_idx (created)
+) ENGINE=MyISAM;
