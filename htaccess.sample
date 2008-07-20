@@ -44,6 +44,9 @@ RewriteRule ^notice/(\d+)$ index.php?action=shownotice&notice=$1 [L,QSA]
 
 RewriteRule ^user/(\d+)$ index.php?action=userbyid&id=$1 [L,QSA]
 
+RewriteRule ^tags/?$ index.php?action=tag [L,QSA]
+RewriteRule ^tag(/(.*))?$ index.php?action=tag&tag=$2 [L,QSA]
+
 RewriteRule ^(\w+)/subscriptions$ index.php?action=subscriptions&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/subscribers$ index.php?action=subscribers&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/xrds$ index.php?action=xrds&nickname=$1 [L,QSA]
@@ -57,7 +60,7 @@ RewriteRule ^(\w+)/avatar/(original|96|48|24)$ index.php?action=avatarbynickname
 
 RewriteRule ^(\w+)$ index.php?action=showstream&nickname=$1 [L,QSA]
 
-# Twitter-compatible API rewrites 
+# Twitter-compatible API rewrites
 # XXX: Surely these can be refactored a little -- Zach
 RewriteRule ^api/statuses/public_timeline(.*)$ index.php?action=api&apiaction=statuses&method=public_timeline$1 [L,QSA]
 RewriteRule ^api/statuses/friends_timeline(.*)$ index.php?action=api&apiaction=statuses&method=friends_timeline$1 [L,QSA]
