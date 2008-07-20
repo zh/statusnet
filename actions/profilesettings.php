@@ -118,18 +118,19 @@ class ProfilesettingsAction extends SettingsAction {
 			}
 		}
 
-		# XOR
+		# XXX: XOR
 		
 		if ($user->autosubscribe ^ $autosubscribe) {
+			
 			$original = clone($user);
 
-			$user->nickname = $nickname;
+			$user->autosubscribe = $autosubscribe;
 
 			$result = $user->update($original);
 
 			if ($result === FALSE) {
 				common_log_db_error($user, 'UPDATE', __FILE__);
-				common_server_error(_('Couldn\'t update user.'));
+				common_server_error(_('Couldn\'t update user for autosubscribe.'));
 				return;
 			}
 		}
