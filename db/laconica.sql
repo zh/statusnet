@@ -182,7 +182,7 @@ create table user_openid (
 
 create table oid_associations (
     server_url BLOB,
-    handle VARCHAR(255),
+    handle VARCHAR(255) character set latin1,
     secret BLOB,
     issued INTEGER,
     lifetime INTEGER,
