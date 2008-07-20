@@ -364,10 +364,12 @@ class ShowstreamAction extends StreamAction {
 
 	function show_notice($notice) {
 		$profile = $notice->getProfile();
-                if (common_logged_in()) {
-                    $user = common_current_user();
-                    $user_profile = $user->getProfile();
-                }
+		if (common_logged_in()) {
+			$user = common_current_user();
+			$user_profile = $user->getProfile();
+		} else {
+			$user_profile = false;
+		}
 		# XXX: RDFa
 		common_element_start('li', array('class' => 'notice_single',
 										 'id' => 'notice-' . $notice->id));
@@ -405,12 +407,12 @@ class ShowstreamAction extends StreamAction {
 		common_raw('&rarr;');
 		common_element_end('a');
 		common_element_end('p');
-                if ($notice->profile_id == $user_profile->id) {
-                        $deleteurl = common_local_url('deletenotice', array('notice' => $notice->id));
-                        common_element('a', array('class' => 'deletenotice',
-                                                                            'href' => $deleteurl),
-                                                    _('delete'));
-                }
+		if ($user_profile && $notice->profile_id == $user_profile->id) {
+			$deleteurl = common_local_url('deletenotice', array('notice' => $notice->id));
+			common_element('a', array('class' => 'deletenotice',
+									 'href' => $deleteurl),
+									  _('delete'));
+		}
 		common_element_end('li');
 	}
 }
