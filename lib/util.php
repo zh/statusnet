@@ -435,6 +435,18 @@ function common_textarea($id, $label, $content=NULL, $instructions=NULL) {
 	common_element_end('p');
 }
 
+function common_timezone() {
+	if (common_logged_in()) {
+		$user = common_current_user();
+		if ($user->timezone) {
+			return $user->timezone;
+		}
+	}
+
+	global $config;
+	return $config['site']['timezone'];
+}
+
 function common_language() {
 	$httplang = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : NULL;
         $language = array();
@@ -920,23 +932,31 @@ function common_date_string($dt) {
 }
 
 function common_exact_date($dt) {
-	$t = strtotime($dt);
-	return date(DATE_RFC850, $t);
+	$dateStr = date('d F Y H:i:s', strtotime($dt));
+	$d = new DateTime($dateStr, new DateTimeZone('UTC'));
+	$d->setTimezone(new DateTimeZone(common_timezone()));
+	return $d->format(DATE_RFC850);
 }
 
 function common_date_w3dtf($dt) {
-	$t = strtotime($dt);
-	return date(DATE_W3C, $t);
+	$dateStr = date('d F Y H:i:s', strtotime($dt));
+	$d = new DateTime($dateStr, new DateTimeZone('UTC'));
+	$d->setTimezone(new DateTimeZone(common_timezone()));
+	return $d->format(DATE_W3C);
 }
 
 function common_date_rfc2822($dt) {
-	$t = strtotime($dt);
-	return date("r", $t);
+	$dateStr = date('d F Y H:i:s', strtotime($dt));
+	$d = new DateTime($dateStr, new DateTimeZone('UTC'));
+	$d->setTimezone(new DateTimeZone(common_timezone()));
+	return $d->format('r');
 }
 
 function common_date_iso8601($dt) {
-	$t = strtotime($dt);
-	return date("c", $t);
+	$dateStr = date('d F Y H:i:s', strtotime($dt));
+	$d = new DateTime($dateStr, new DateTimeZone('UTC'));
+	$d->setTimezone(new DateTimeZone(common_timezone()));
+	return $d->format('c');
 }
 
 function common_redirect($url, $code=307) {

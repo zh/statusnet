@@ -88,6 +88,9 @@ class ProfilesettingsAction extends SettingsAction {
 		} else if (!is_null($location) && strlen($location) > 255) {
 			$this->show_form(_('Location is too long (max 255 chars).'));
 			return;
+		}  else if (is_null($timezone) || !in_array($timezone, DateTimeZone::listIdentifiers())) {
+			$this->show_form(_('Timezone not selected.'));
+			return;
 		} else if ($this->nickname_exists($nickname)) {
 			$this->show_form(_('Nickname already in use. Try another one.'));
 			return;
@@ -99,31 +102,22 @@ class ProfilesettingsAction extends SettingsAction {
 
 		$user->query('BEGIN');
 
-		if ($user->nickname != $nickname) {
+		if ($user->nickname != $nickname ||
+			$user->language != $language ||
+			$user->timezone != $timezone) {
 
 			common_debug('Updating user nickname from ' . $user->nickname . ' to ' . $nickname,
+						 __FILE__);
+			common_debug('Updating user language from ' . $user->language . ' to ' . $language,
+						 __FILE__);
+			common_debug('Updating user timezone from ' . $user->timezone . ' to ' . $timezone,
 						 __FILE__);
 
 			$original = clone($user);
 
 			$user->nickname = $nickname;
-
-			$result = $user->updateKeys($original);
-
-			if ($result === FALSE) {
-				common_log_db_error($user, 'UPDATE', __FILE__);
-				common_server_error(_('Couldn\'t update user.'));
-				return;
-			}
-		}
-		if ($user->language != $language) {
-
-			common_debug('Updating user language from ' . $user->language . ' to ' . $language,
-						 __FILE__);
-
-			$original = clone($user);
-
 			$user->language = $language;
+			$user->timezone = $timezone;
 
 			$result = $user->updateKeys($original);
 

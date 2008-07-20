@@ -51,7 +51,7 @@ $config =
                           'locale_path' => './locale',
                           'language' => 'en_US',
                           'languages' => get_all_languages(),
-		      'email' => 
+		      'email' =>
 		      array_key_exists('SERVER_ADMIN', $_SERVER) ? $_SERVER['SERVER_ADMIN'] : NULL,
 			  'broughtby' => NULL,
 			  'timezone' => 'UTC',
@@ -101,8 +101,9 @@ $config['db'] =
 
 require_once(INSTALLDIR.'/config.php');
 
-if (function_exists('date_default_timezone_set') && $config['site']['timezone']) {
-	date_default_timezone_set($config['site']['timezone']);
+if (function_exists('date_default_timezone_set')) {
+	/* Work internally in UTC */
+	date_default_timezone_set('UTC');
 }
 
 require_once(INSTALLDIR.'/lib/util.php');
