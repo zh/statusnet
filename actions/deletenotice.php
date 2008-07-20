@@ -28,65 +28,64 @@ class DeletenoticeAction extends DeleteAction {
 
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$this->delete_notice();
-                } else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-                        $this->show_form();
+		} else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+			$this->show_form();
 		}
 	}
 
-        function get_instructions() {
-                return _('You are about to permanently delete a notice.  Once this is done, it cannot be undone.');
-        }
+	function get_instructions() {
+		return _('You are about to permanently delete a notice.  Once this is done, it cannot be undone.');
+	}
 
 	function get_title() {
 		return _('Delete notice');
 	}
 
 	function show_form($error=NULL) {
-                $user = common_current_user();
+		$user = common_current_user();
 
-		common_show_header($this->get_title(), array($this, 'show_header'), array($q, $error),
+		common_show_header($this->get_title(), array($this, 'show_header'), NULL,
 						   array($this, 'show_top'));
-                common_element_start('form', array('id' => 'notice_delete_form',
-									   'method' => 'post',
-									   'action' => common_local_url('deletenotice')));
-                common_hidden('notice', $this->trimmed(notice));
-                common_element_start('p');
-                common_element('span', array('id' => 'confirmation_text'),_('Are you sure you want to delete this notice?'));
+		common_element_start('form', array('id' => 'notice_delete_form',
+								   'method' => 'post',
+								   'action' => common_local_url('deletenotice')));
+		common_hidden('notice', $this->trimmed('notice'));
+		common_element_start('p');
+		common_element('span', array('id' => 'confirmation_text'), _('Are you sure you want to delete this notice?'));
 
-                common_element('input', array('id' => 'submit_no',
-								  'name' => 'submit',
-								  'type' => 'submit',
-								  'value' => _('No')));
-                common_element('input', array('id' => 'submit_yes',
-								  'name' => 'submit',
-								  'type' => 'submit',
-								  'value' => _('Yes')));
-                common_element_end('p');
-                common_element_end('form');
+		common_element('input', array('id' => 'submit_no',
+						  'name' => 'submit',
+						  'type' => 'submit',
+						  'value' => _('No')));
+		common_element('input', array('id' => 'submit_yes',
+						  'name' => 'submit',
+						  'type' => 'submit',
+						  'value' => _('Yes')));
+		common_element_end('p');
+		common_element_end('form');
 		common_show_footer();
 	}
 
-        function delete_notice() {
-                $url = common_get_returnto();
-                $confirmed = $this->trimmed('submit');
-                if ($confirmed == 'Yes') {
-                        $user = common_current_user();
-                        $notice_id = $this->trimmed('notice');
-                        $notice = Notice::staticGet($notice_id);
-                        $replies = new Reply;
-                        $replies->get('notice_id', $notice_id);
-                        
-                        common_dequeue_notice($notice);
-                        $replies->delete();
-                        $notice->delete(); 
-                }
-                else {
-                    if ($url) {
-                            common_set_returnto(NULL);
-                    } else {
-                            $url = common_local_url('public');
-                    }
-                }
-                common_redirect($url);
-        }
+	function delete_notice() {
+		$url = common_get_returnto();
+		$confirmed = $this->trimmed('submit');
+		if ($confirmed == _('Yes')) {
+			$user = common_current_user();
+			$notice_id = $this->trimmed('notice');
+			$notice = Notice::staticGet($notice_id);
+			$replies = new Reply;
+			$replies->get('notice_id', $notice_id);
+
+			common_dequeue_notice($notice);
+			$replies->delete();
+			$notice->delete();
+		} else {
+			if ($url) {
+				common_set_returnto(NULL);
+			} else {
+				$url = common_local_url('public');
+			}
+		}
+		common_redirect($url);
+	}
 }

@@ -23,39 +23,39 @@ class DeleteAction extends Action {
 
 	function handle($args) {
 		parent::handle($args);
-                $user = common_current_user();
-                $notice_id = $this->trimmed('notice');
-                $notice = Notice::staticGet($notice_id);
-                $profile = $notice->getProfile();
-                $user_profile = $user->getProfile();
+		$user = common_current_user();
+		$notice_id = $this->trimmed('notice');
+		$notice = Notice::staticGet($notice_id);
+		if (!$notice) {
+			common_user_error(_('No such notice.'));
+			exit;
+		}
 
-                if (!common_logged_in()) {
-                    common_user_error(_('Not logged in.'));
-                } else if ($notice->profile_id != $user_profile->id) {
-                    common_user_error(_('Can\'t delete this notice.'));
-                }
+		$profile = $notice->getProfile();
+		$user_profile = $user->getProfile();
+
+		if (!common_logged_in()) {
+			common_user_error(_('Not logged in.'));
+			exit;
+		} else if ($notice->profile_id != $user_profile->id) {
+			common_user_error(_('Can\'t delete this notice.'));
+			exit;
+		}
 	}
 
 	function show_top($arr=NULL) {
-		if ($arr) {
-			$error = $arr[1];
-		}
-		if ($error) {
-			common_element('p', 'error', $error);
-		} else {
-			$instr = $this->get_instructions();
-			$output = common_markup_to_html($instr);
-			common_element_start('div', 'instructions');
-			common_raw($output);
-			common_element_end('div');
-		}
+		$instr = $this->get_instructions();
+		$output = common_markup_to_html($instr);
+		common_element_start('div', 'instructions');
+		common_raw($output);
+		common_element_end('div');
 	}
 
 	function get_title() {
 		return NULL;
 	}
 
-	function show_header($arr) {
+	function show_header() {
 		return;
 	}
 }
