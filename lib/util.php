@@ -769,7 +769,7 @@ function common_fancy_url($action, $args=NULL) {
 	 case 'userrss':
 		return common_path($args['nickname'].'/rss');
 	 case 'showstream':
-		if ($args && $args['page']) {
+		if ($args && isset($args['page'])) {
 			return common_path($args['nickname'].'?page=' . $args['page']);
 		} else {
 			return common_path($args['nickname']);

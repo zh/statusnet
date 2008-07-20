@@ -20,7 +20,7 @@
 if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/searchaction.php');
-define(PROFILES_PER_PAGE, 10);
+define('PROFILES_PER_PAGE', 10);
 
 class PeoplesearchAction extends SearchAction {
 
