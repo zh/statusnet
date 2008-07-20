@@ -161,7 +161,7 @@ function mail_new_incoming_address() {
 function mail_broadcast_notice_sms($notice) {
 	$user = new User();
 	$user->smsnotify = 1;
-	$user->whereAdd('EXISTS (select subscriber from subscriptions where '
+	$user->whereAdd('EXISTS (select subscriber from subscriptions where ' .
 					' subscriber = user.id and subscribed = ' . $notice->profile_id);
 	$user->whereAdd('sms is not null');
 	
