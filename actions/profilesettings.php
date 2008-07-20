@@ -53,7 +53,7 @@ class ProfilesettingsAction extends SettingsAction {
 					 ($this->arg('location')) ? $this->arg('location') : $profile->location,
 					 _('Where you are, like "City, State (or Region), Country"'));
 		common_checkbox('autosubscribe', _('Automatically subscribe to whoever subscribes to me (best for non-humans)'),
-						($this->arg('autosubscribe') : $this->boolean('autosubscribe') : $user->autosubscribe);
+						($this->arg('autosubscribe')) ? $this->boolean('autosubscribe') : $user->autosubscribe);
 		common_submit('submit', _('Save'));
 		common_element_end('form');
 		common_show_footer();
