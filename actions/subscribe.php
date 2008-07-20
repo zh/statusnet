@@ -49,19 +49,21 @@ class SubscribeAction extends Action {
 			return;
 		}
 
-		$sub = new Subscription();
-		$sub->subscriber = $user->id;
-		$sub->subscribed = $other->id;
-
-		$sub->created = DB_DataObject_Cast::dateTime(); # current time
-
-		if (!$sub->insert()) {
-			common_server_error(_('Couldn\'t create subscription.'));
+		if (!$user->subscribeTo($other)) {
+			$this->server_error(_('Could not subscribe.'));
 			return;
 		}
 
 		$this->notify($other, $user);
 
+		if ($other->autosubscribe && !$other->isSubscribed($user)) {
+			if (!$other->subscribeTo($user)) {
+				$this->server_error(_('Could not subscribe other to you.'));
+				return;
+			}
+			$this->notify($user, $other);
+		}
+		
 		common_redirect(common_local_url('subscriptions', array('nickname' =>
 																$user->nickname)));
 	}

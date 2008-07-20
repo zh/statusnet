@@ -112,4 +112,18 @@ class User extends DB_DataObject
 	function getCarrier() {
 		return Sms_carrier::staticGet($this->carrier);
 	}
+	
+	function subscribeTo($other) {
+		$sub = new Subscription();
+		$sub->subscriber = $this->id;
+		$sub->subscribed = $other->id;
+
+		$sub->created = DB_DataObject_Cast::dateTime(); # current time
+
+		if (!$sub->insert()) {
+			return false;
+		}
+		
+		return $true;
+	}
 }
