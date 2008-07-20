@@ -253,7 +253,7 @@ function common_show_footer() {
 	common_text(_('Unless otherwise specified, contents of this site are copyright by the contributors and available under the '));
 	common_element('a', array('class' => 'license',
 							  'rel' => 'license',
-							  href => $config['license']['url']),
+							  'href' => $config['license']['url']),
 				   $config['license']['title']);
 	common_text(_('. Contributors should be attributed by full name or nickname.'));
 	common_element_end('p');
