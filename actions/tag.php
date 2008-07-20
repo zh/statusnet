@@ -90,7 +90,7 @@ class TagAction extends StreamAction {
 		$tags->selectAdd('count(1) as num');
 		$tags->selectAdd('max(notice_id) as last_notice_id');
 		$tags->groupBy('tag');
-		$tags->orderBy('num DESC');
+		$tags->orderBy('num DESC, last_notice_id DESC');
 		$tags->whereAdd('created > "' . strftime('%Y-%m-%d %H:%M:%S', strtotime('-1 WEEK')) . '"');
 
 		$page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
