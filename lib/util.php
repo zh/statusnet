@@ -600,7 +600,7 @@ function common_forgetme() {
 function common_current_user() {
 	if (isset($_REQUEST[session_name()]) || (isset($_SESSION['userid']) && $_SESSION['userid'])) {
 		common_ensure_session();
-		$id = $_SESSION['userid'];
+		$id = isset($_SESSION['userid']) ? $_SESSION['userid'] : false;
 		if ($id) {
 			# note: this should cache
 			$user = User::staticGet($id);
