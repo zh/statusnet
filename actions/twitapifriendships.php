@@ -129,8 +129,8 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 		$user_a_id = $this->trimmed('user_a');
 		$user_b_id = $this->trimmed('user_b');
 		
-		$user_a = $this->get_profile($user_a_id);
-		$user_b = $this->get_profile($user_b_id);
+		$user_a = $this->get_user($user_a_id);
+		$user_b = $this->get_user($user_b_id);
 		
 		if (!$user_a || !$user_b) {
 			$this->client_error(_('Two user ids or screen_names must be supplied.'), 400, $apidata['content-type']);
