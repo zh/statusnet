@@ -80,9 +80,11 @@ class TwitapiaccountAction extends TwitterapiAction {
 		}
 
 		common_broadcast_profile($profile);
+		$type = $apidata['content-type'];
 		
-		$apidata['api_arg'] = $user->id;
-		$this->show($args, $apidata);
+		$this->init_document($type);
+		$this->show_profile($profile, $type);
+		$this->end_document($type);
 		
 		exit();
 	}
