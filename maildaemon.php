@@ -186,10 +186,30 @@ class MailerDaemon {
 	}
 
 	function cleanup_msg($msg) {
-		# XXX: signatures
-		# XXX: quoting
-		preg_replace('/\s+/', ' ', $msg);
-		return $msg;
+		$lines = explode("\n");
+
+		$output = '';
+
+		foreach ($lines as $line) {
+			// skip quotes
+			if (preg_match('/^\s*>.*$/', $line)) {
+				continue;
+			}
+			// skip start of quote
+			if (preg_match('/^\s*On.*wrote:\s*$/', $line)) {
+				continue;
+			}
+			// skip everything after a sig
+			if (preg_match('/^\s*--+\s*$/', $line) ||
+				preg_match('/^\s*__+\s*$/', $line))
+			{
+				break;
+			}
+			$output .= $line;
+		}
+
+		preg_replace('/\s+/', ' ', $output);
+		return $output;
 	}
 }
 
