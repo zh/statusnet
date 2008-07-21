@@ -31,9 +31,7 @@ class TwitapihelpAction extends TwitterapiAction {
  		global $xw;
 		if ($apidata['content-type'] == 'xml') {
 			$this->init_document('xml');
-			common_start_xml();
 			common_element('ok', NULL, 'true');
-			common_end_xml();
 			$this->end_document('xml');
 		} elseif ($apidata['content-type'] == 'json') {
 			$this->init_document('json');
