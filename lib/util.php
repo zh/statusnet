@@ -742,6 +742,8 @@ function common_fancy_url($action, $args=NULL) {
 		return common_path('settings/email');
 	 case 'openidsettings':
 		return common_path('settings/openid');
+	 case 'smssettings':
+		return common_path('settings/sms');
 	 case 'newnotice':
 		if ($args && $args['replyto']) {
 			return common_path('notice/new?replyto='.$args['replyto']);
