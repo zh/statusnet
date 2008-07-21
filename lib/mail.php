@@ -170,11 +170,17 @@ function mail_broadcast_notice_sms($notice) {
 	$cnt = $user->find();
 
 	while ($user->fetch()) {
-		mail_send_sms_notice($notice, $user);
+		$success = mail_send_sms_notice($notice, $user);
+		if (!$success) {
+			common_log(LOG_ERR, 'Could not send SMS message to user', __FILE__);
+			return false;
+		}
 	}
+	
+	return true;
 }
 
-function mail_send_notice($notice, $user) {
+function mail_send_sms_notice($notice, $user) {
 	$profile = $user->getProfile();
 	$name = $profile->getBestName();
 	$to = $name . ' <' . $user->smsemail . '>';
@@ -182,11 +188,12 @@ function mail_send_notice($notice, $user) {
 
 	$headers = array();
 	$headers['From'] = $user->incomingemail;
-	$headers['To'] = $name . ' <' . $user->smsemail . '>';
+	$headers['To'] = $to;
 	$headers['Subject'] = sprintf(_('%s status'),
 								  $other->getBestName());
 	$body = $notice->content;
-	mail_send($user->smsemail, $headers, $body);
+	
+	return mail_send($user->smsemail, $headers, $body);
 }
 
 function mail_confirm_sms($code, $nickname, $address) {
