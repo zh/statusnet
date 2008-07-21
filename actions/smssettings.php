@@ -229,8 +229,8 @@ class SmssettingsAction extends EmailsettingsAction {
 			$this->show_form(_('No pending confirmation to cancel.'));
 			return;
 		}
-		if ($confirm->address != $sms || $confirm->address_extra != $carrier) {
-			$this->show_form(_('That is the wrong IM address.'));
+		if ($confirm->address != $sms) {
+			$this->show_form(_('That is the wrong confirmation number.'));
 			return;
 		}
 
