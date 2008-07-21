@@ -186,7 +186,7 @@ class MailerDaemon {
 	}
 
 	function cleanup_msg($msg) {
-		$lines = explode("\n");
+		$lines = explode("\n", $msg);
 
 		$output = '';
 
