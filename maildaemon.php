@@ -164,7 +164,7 @@ class MailerDaemon {
 
 		$type = $parsed->ctype_primary . '/' . $parsed->ctype_secondary;
 
-		if ($parsed->ctype_primary == 'multitype') {
+		if ($parsed->ctype_primary == 'multipart') {
 			foreach ($parsed->parts as $part) {
 				if ($part->ctype_primary == 'text' &&
 					$part->ctype_secondary == 'plain') {
