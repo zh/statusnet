@@ -56,8 +56,8 @@ class SmssettingsAction extends EmailsettingsAction {
 				common_element('span', 'address unconfirmed', $confirm->address . ' (' . $carrier->name . ')');
 				common_element('span', 'input_instructions',
 							   _('Awaiting confirmation on this phone number.'));
-				common_hidden('sms', $user->sms);
-				common_hidden('carrier', $user->carrier);
+				common_hidden('sms', $confirm->address);
+				common_hidden('carrier', $confirm->address_extra);
 				common_element_end('p');
 				common_submit('cancel', _('Cancel'));
 				common_input('code', _('Confirmation code'), NULL,
