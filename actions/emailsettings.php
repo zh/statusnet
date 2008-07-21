@@ -87,7 +87,13 @@ class EmailsettingsAction extends SettingsAction {
 		common_checkbox('emailnotifysub',
 		                _('Send me notices of new subscriptions through email.'),
 		                $user->emailnotifysub);
-		
+		common_checkbox('emailpost',
+						_('I want to post notices by email.'),
+						$user->emailpost);
+		common_checkbox('emailmicroid',
+		                _('Publish a MicroID for my email address.'),
+		                $user->emailmicroid);
+
 		common_submit('save', _('Save'));
 		
 		common_element_end('form');
@@ -128,6 +134,8 @@ class EmailsettingsAction extends SettingsAction {
 	function save_preferences() {
 
 		$emailnotifysub = $this->boolean('emailnotifysub');
+		$emailmicroid = $this->boolean('emailmicroid');
+		$emailpost = $this->boolean('emailpost');
 
 		$user = common_current_user();
 
@@ -138,6 +146,8 @@ class EmailsettingsAction extends SettingsAction {
 		$original = clone($user);
 
 		$user->emailnotifysub = $emailnotifysub;
+		$user->emailmicroid = $emailmicroid;
+		$user->emailpost = $emailpost;
 
 		$result = $user->update($original);
 

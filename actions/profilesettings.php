@@ -52,6 +52,18 @@ class ProfilesettingsAction extends SettingsAction {
 		common_input('location', _('Location'),
 					 ($this->arg('location')) ? $this->arg('location') : $profile->location,
 					 _('Where you are, like "City, State (or Region), Country"'));
+
+		$language = common_language();
+		common_dropdown('language', _('Language'), get_nice_language_list(), _('Preferred language'), TRUE, $language);
+		$timezone = common_timezone();
+		$timezones = array();
+		foreach(DateTimeZone::listIdentifiers() as $k => $v) {
+			$timezones[$v] = $v;
+		}
+		common_dropdown('timezone', _('Timezone'), $timezones, _('What timezone are you normally in?'), TRUE, $timezone);
+
+		common_checkbox('autosubscribe', _('Automatically subscribe to whoever subscribes to me (best for non-humans)'),
+						($this->arg('autosubscribe')) ? $this->boolean('autosubscribe') : $user->autosubscribe);
 		common_submit('submit', _('Save'));
 		common_element_end('form');
 		common_show_footer();
@@ -64,6 +76,9 @@ class ProfilesettingsAction extends SettingsAction {
 		$homepage = $this->trimmed('homepage');
 		$bio = $this->trimmed('bio');
 		$location = $this->trimmed('location');
+		$autosubscribe = $this->boolean('autosubscribe');
+		$language = $this->trimmed('language');
+		$timezone = $this->trimmed('timezone');
 
 		# Some validation
 
