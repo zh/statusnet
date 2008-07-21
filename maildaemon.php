@@ -199,12 +199,25 @@ class MailerDaemon {
 			if (preg_match('/^\s*On.*wrote:\s*$/', $line)) {
 				continue;
 			}
+			// probably interesting to someone, not us
+			if (preg_match('/^\s*Sent via/', $line)) {
+				continue;
+			}
 			// skip everything after a sig
 			if (preg_match('/^\s*--+\s*$/', $line) ||
 				preg_match('/^\s*__+\s*$/', $line))
 			{
 				break;
 			}
+			// skip everything after Outlook quote
+			if (preg_match('/^\s*-+\s*Original Message\s*-+\s*$/', $line)) {
+				break;
+			}
+			// skip everything after weird forward
+			if (preg_match('/^\s*Begin\s+forward/', $line)) {
+				break;
+			}
+
 			$output .= ' ' . $line;
 		}
 
