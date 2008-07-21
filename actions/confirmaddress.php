@@ -61,6 +61,8 @@ class ConfirmaddressAction extends Action {
 
 		if ($type == 'sms') {
 			$cur->carrier = ($confirm->address_extra)+0;
+			$carrier = Sms_carrier::staticGet($cur->carrier);
+			$cur->smsemail = $carrier->toEmailAddress($cur->sms);
 		}
 
 		$result = $cur->updateKeys($orig_user);

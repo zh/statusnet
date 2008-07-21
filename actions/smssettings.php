@@ -262,6 +262,7 @@ class SmssettingsAction extends EmailsettingsAction {
 		$original = clone($user);
 		$user->sms = NULL;
 		$user->carrier = NULL;		
+		$user->smsemail = NULL;		
 		$result = $user->updateKeys($original);
 		if (!$result) {
 			common_log_db_error($user, 'UPDATE', __FILE__);
