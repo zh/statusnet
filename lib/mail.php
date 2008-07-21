@@ -175,19 +175,16 @@ function mail_broadcast_notice_sms($notice) {
 function mail_send_notice($notice, $user) {
 	$profile = $user->getProfile();
 	$name = $profile->getBestName();
-	$carrier = Sms_carrier::staticGet($user->carrier);
-	$sms_email = $carrier->toEmailAddress($user->sms);
 	$to = $name . ' <' . $sms_email . '>';
 	$other = $notice->getProfile();
 
 	$headers = array();
 	$headers['From'] = $user->incomingemail;
-	$headers['To'] = $name . ' <' . $sms_email . '>';
-	$headers['Subject'] = sprintf(_('%s status on %s'), 
-								  $other->getBestName(),
-								  common_exact_date($notice->created));
+	$headers['To'] = $name . ' <' . $user->smsemail . '>';
+	$headers['Subject'] = sprintf(_('%s status'),
+								  $other->getBestName());
 	$body = $notice->content;
-	mail_send($sms_email, $headers, $body);
+	mail_send($user->smsemail, $headers, $body);
 }
 
 function mail_confirm_sms($code, $nickname, $address) {
@@ -198,7 +195,7 @@ function mail_confirm_sms($code, $nickname, $address) {
 	$headers['To'] = $nickname . ' <' . $address . '>';
 	$headers['Subject'] = _('SMS confirmation');
 
-	$body = "$nickname: confirm you own this number with this code:";
+	$body = "$nickname: confirm you own this phone number with this code:";
 	$body .= "\n\n";
 	$body .= $code;
 	$body .= "\n\n";
