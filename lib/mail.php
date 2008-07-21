@@ -184,6 +184,8 @@ function mail_broadcast_notice_sms($notice) {
 			}
 		}
 	}
+	
+	return true;
 }
 
 function mail_send_sms_notice($notice, $user) {
