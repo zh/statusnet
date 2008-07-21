@@ -169,11 +169,15 @@ function mail_broadcast_notice_sms($notice) {
 
 	$cnt = $user->find();
 
-	while ($user->fetch()) {
-		$success = mail_send_sms_notice($notice, $user);
-		if (!$success) {
-			common_log(LOG_ERR, 'Could not send SMS message to user', __FILE__);
-			return false;
+	common_log(LOG_INFO, "Sending notice " . $notice->id . " to $cnt subscribers", __FILE__);
+	
+	if ($cnt) {
+		while ($user->fetch()) {
+			$success = mail_send_sms_notice($notice, $user);
+			if (!$success) {
+				common_log(LOG_ERR, 'Could not send SMS message to user', __FILE__);
+				return false;
+			}
 		}
 	}
 	
@@ -186,6 +190,8 @@ function mail_send_sms_notice($notice, $user) {
 	$to = $name . ' <' . $user->smsemail . '>';
 	$other = $notice->getProfile();
 
+	common_log(LOG_INFO, "Sending notice " . $notice->id . " to " . $user->smsemail, __FILE__);
+	
 	$headers = array();
 	$headers['From'] = $user->incomingemail;
 	$headers['To'] = $to;
