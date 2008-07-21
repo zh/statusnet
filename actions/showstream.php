@@ -94,6 +94,16 @@ class ShowstreamAction extends StreamAction {
 			common_element('meta', array('name' => 'description',
 										 'content' => $profile->bio));
 		}
+
+		if ($user->emailmicroid && $user->email && $profile->profileurl) {
+			common_element('meta', array('name' => 'microid',
+										 'content' => "mailto+http:sha1:" . sha1(sha1('mailto:' . $user->email) . sha1($profile->profileurl))));
+		}
+		if ($user->jabbermicroid && $user->jabber && $profile->profileurl) {
+			common_element('meta', array('name' => 'microid',
+										 'content' => "xmpp+http:sha1:" . sha1(sha1('xmpp:' . $user->jabber) . sha1($profile->profileurl))));
+		}
+
 	}
 
 	function no_such_user() {

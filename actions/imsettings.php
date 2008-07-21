@@ -75,6 +75,9 @@ class ImsettingsAction extends SettingsAction {
 		common_checkbox('jabberreplies',
 		                _('Send me replies through Jabber/GTalk from people I\'m not subscribed to.'),
 		                $user->jabberreplies);
+		common_checkbox('jabbermicroid',
+		                _('Publish a MicroID for my Jabber/GTalk address.'),
+		                $user->jabbermicroid);
 		common_submit('save', _('Save'));
 
 		common_element_end('form');
@@ -113,6 +116,7 @@ class ImsettingsAction extends SettingsAction {
 		$jabbernotify = $this->boolean('jabbernotify');
 		$updatefrompresence = $this->boolean('updatefrompresence');
 		$jabberreplies = $this->boolean('jabberreplies');
+		$jabbermicroid = $this->boolean('jabbermicroid');
 
 		$user = common_current_user();
 
@@ -125,6 +129,7 @@ class ImsettingsAction extends SettingsAction {
 		$user->jabbernotify = $jabbernotify;
 		$user->updatefrompresence = $updatefrompresence;
 		$user->jabberreplies = $jabberreplies;
+		$user->jabbermicroid = $jabbermicroid;
 
 		$result = $user->update($original);
 

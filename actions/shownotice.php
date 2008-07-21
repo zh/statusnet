@@ -43,7 +43,7 @@ class ShownoticeAction extends StreamAction {
 		# Looks like we're good; show the header
 
 		common_show_header(sprintf(_('%1$s\'s status on %2$s'), $profile->nickname, common_exact_date($notice->created)),
-						   NULL, $profile,
+						   array($this, 'show_header'), $notice,
 						   array($this, 'show_top'));
 
 		common_element_start('ul', array('id' => 'notices'));
@@ -53,7 +53,25 @@ class ShownoticeAction extends StreamAction {
 		common_show_footer();
 	}
 
-	function show_top($user) {
+	function show_header($notice)
+	{
+		$profile = $notice->getProfile();
+		$user = User::staticGet($profile->id);
+		if (!$user) {
+			return;
+		}
+		if ($user->emailmicroid && $user->email && $notice->uri) {
+			common_element('meta', array('name' => 'microid',
+										 'content' => "mailto+http:sha1:" . sha1(sha1('mailto:' . $user->email) . sha1($notice->uri))));
+		}
+		if ($user->jabbermicroid && $user->jabber && $notice->uri) {
+			common_element('meta', array('name' => 'microid',
+										 'content' => "xmpp+http:sha1:" . sha1(sha1('xmpp:' . $user->jabber) . sha1($notice->uri))));
+		}
+	}
+
+	function show_top($notice) {
+		$user = $notice->getProfile();
 		$cur = common_current_user();
 
 		if ($cur && $cur->id == $user->id) {

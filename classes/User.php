@@ -39,6 +39,7 @@ class User extends DB_DataObject
     public $jabber;                          // varchar(255)  unique_key
     public $jabbernotify;                    // tinyint(1)  
     public $jabberreplies;                   // tinyint(1)  
+    public $jabbermicroid;                   // tinyint(1)   default_1
     public $updatefrompresence;              // tinyint(1)  
     public $sms;                             // varchar(64)  unique_key
     public $carrier;                         // int(4)  

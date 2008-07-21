@@ -50,6 +50,7 @@ create table user (
     jabber varchar(255) unique key comment 'jabber ID for notices',
     jabbernotify tinyint default 0 comment 'whether to send notices to jabber',
     jabberreplies tinyint default 0 comment 'whether to send notices to jabber on replies',
+    jabbermicroid tinyint default 1 comment 'whether to publish xmpp microid',
     updatefrompresence tinyint default 0 comment 'whether to record updates from Jabber presence notices',
     sms varchar(64) unique key comment 'sms phone number',
     carrier integer comment 'foreign key to sms_carrier' references sms_carrier (id),
