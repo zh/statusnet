@@ -52,6 +52,7 @@ class SmssettingsAction extends EmailsettingsAction {
 			$confirm = $this->get_confirmation();
 			if ($confirm) {
 				$carrier = Sms_carrier::staticGet($confirm->address_extra);
+				common_element_start('p');
 				common_element('span', 'address unconfirmed', $confirm->address . ' (' . $carrier->name . ')');
 				common_element('span', 'input_instructions',
 							   _('Awaiting confirmation on this phone number.'));
