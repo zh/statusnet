@@ -269,8 +269,8 @@ class EmailsettingsAction extends SettingsAction {
 		
 		$orig = clone($user);
 		$user->incomingemail = NULL;
-		
-		if (!$user->update($orig)) {
+
+		if (!$user->updateKeys($orig)) {
 			common_log_db_error($user, 'UPDATE', __FILE__);
 			$this->server_error(_("Couldn't update user record."));
 		}
@@ -284,7 +284,7 @@ class EmailsettingsAction extends SettingsAction {
 		$orig = clone($user);
 		$user->incomingemail = mail_new_incoming_address();
 		
-		if (!$user->update($orig)) {
+		if (!$user->updateKeys($orig)) {
 			common_log_db_error($user, 'UPDATE', __FILE__);
 			$this->server_error(_("Couldn't update user record."));
 		}
