@@ -317,6 +317,6 @@ class SmssettingsAction extends EmailsettingsAction {
 		}
 		
 		common_redirect(common_local_url('confirmaddress', 
-										 array('code' => $this->code)));
+										 array('code' => $code)));
 	}
 }
