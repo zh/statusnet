@@ -205,11 +205,11 @@ class MailerDaemon {
 			{
 				break;
 			}
-			$output .= $line;
+			$output .= ' ' . $line;
 		}
 
 		preg_replace('/\s+/', ' ', $output);
-		return $output;
+		return trim($output);
 	}
 }
 
