@@ -55,6 +55,7 @@ create table user (
     sms varchar(64) unique key comment 'sms phone number',
     carrier integer comment 'foreign key to sms_carrier' references sms_carrier (id),
     smsnotify tinyint default 0 comment 'whether to send notices to SMS',
+    smsemail varchar(255) comment 'built from sms and carrier',
     uri varchar(255) unique key comment 'universally unique identifier, usually a tag URI',
     autosubscribe tinyint default 0 comment 'automatically subscribe to users who subscribe to us',
     created datetime not null comment 'date this record was created',
