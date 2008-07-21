@@ -31,6 +31,9 @@ require_once(INSTALLDIR . '/lib/common.php');
 require_once(INSTALLDIR . '/lib/mail.php');
 require_once('Mail/mimeDecode.php');
 
+# FIXME: we use both Mail_mimeDecode and mailparse
+# Need to move everything to mailparse
+
 class MailerDaemon {
 	
 	function __construct() {
@@ -49,12 +52,16 @@ class MailerDaemon {
 		}
 		if (!$this->user_match_to($user, $to)) {
 			$this->error($from, _('Sorry, that is not your incoming email address.'));
+			return false;
 		}
 		if (!$user->emailpost) {
+			$this->error($from, _('Sorry, no incoming email allowed.'));
+			return false;
 		}
 		$response = $this->handle_command($user, $msg);
 		if ($response) {
 			$this->respond($from, $to, $response);
+			return true;
 		}
 		$msg = $this->cleanup_msg($msg);
 		$this->add_notice($user, $msg);
@@ -71,7 +78,12 @@ class MailerDaemon {
 			return NULL;
 		}
 		$from = $froms[0];
-		return User::staticGet('email', common_canonical_email($from['address']));
+		$addr = common_canonical_email($from['address']);
+		$user = User::staticGet('email', $addr);
+		if (!$user) {
+			$user = User::staticGet('smsemail', $addr);
+		}
+		return $user;
 	}
 
 	function user_match_to($user, $to_hdr) {

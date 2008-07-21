@@ -159,7 +159,9 @@ function mail_new_incoming_address() {
 }
 
 function mail_broadcast_notice_sms($notice) {
+	
 	$user = new User();
+	
 	$user->smsnotify = 1;
 	$user->whereAdd('EXISTS (select subscriber from subscriptions where ' .
 					' subscriber = user.id and subscribed = ' . $notice->profile_id);
@@ -175,7 +177,7 @@ function mail_broadcast_notice_sms($notice) {
 function mail_send_notice($notice, $user) {
 	$profile = $user->getProfile();
 	$name = $profile->getBestName();
-	$to = $name . ' <' . $sms_email . '>';
+	$to = $name . ' <' . $user->smsemail . '>';
 	$other = $notice->getProfile();
 
 	$headers = array();
