@@ -59,6 +59,9 @@ class SmssettingsAction extends EmailsettingsAction {
 				common_hidden('carrier', $user->carrier);
 				common_element_end('p');
 				common_submit('cancel', _('Cancel'));
+				common_input('code', _('Confirmation code'), NULL,
+							 _('Enter the code you received on your phone.'));
+				common_submit('confirm', _('Confirm'));
 			} else {
 				common_input('sms', _('SMS Phone number'),
 							 ($this->arg('sms')) ? $this->arg('sms') : NULL,
@@ -125,6 +128,8 @@ class SmssettingsAction extends EmailsettingsAction {
 			$this->remove_incoming();
 		} else if ($this->arg('newincoming')) {
 			$this->new_incoming();
+		} else if ($this->arg('confirm')) {
+			$this->confirm_code();
 		} else {
 			$this->show_form(_('Unexpected form submission.'));
 		}
@@ -191,7 +196,7 @@ class SmssettingsAction extends EmailsettingsAction {
    		$confirm->address_extra = $carrier_id;
    		$confirm->address_type = 'sms';
    		$confirm->user_id = $user->id;
-   		$confirm->code = common_confirmation_code(64);
+   		$confirm->code = common_confirmation_code(40);
 
 		$result = $confirm->insert();
 
@@ -203,9 +208,9 @@ class SmssettingsAction extends EmailsettingsAction {
 
 		$carrier = Sms_carrier::staticGet($carrier_id);
 		
-		mail_confirm_address($confirm->code,
-							 $user->nickname,
-							 $carrier->toEmailAddress($sms));
+		mail_confirm_sms($confirm->code,
+						 $user->nickname,
+						 $carrier->toEmailAddress($sms));
 
 		$msg = _('A confirmation code was sent to the phone number you added. Check your inbox (and spam box!) for the code and instructions on how to use it.');
 
@@ -299,5 +304,18 @@ class SmssettingsAction extends EmailsettingsAction {
 								 'SMS over email but isn\'t listed here, ' .
 								 'send email to let us know at %s.'),
 							   common_config('site', 'email')));
+	}
+
+	function confirm_code() {
+		
+		$code = $this->trimmed('code');
+		
+		if (!$code) {
+			$this->show_form(_('No code entered'));
+			return;
+		}
+		
+		common_redirect(common_local_url('confirmaddress', 
+										 array('code' => $this->code)));
 	}
 }

@@ -189,3 +189,19 @@ function mail_send_notice($notice, $user) {
 	$body = $notice->content;
 	mail_send($sms_email, $headers, $body);
 }
+
+function mail_confirm_sms($code, $nickname, $address) {
+
+	$recipients = $address;
+	
+	$headers['From'] = mail_notify_from();
+	$headers['To'] = $nickname . ' <' . $address . '>';
+	$headers['Subject'] = _('SMS confirmation');
+
+	$body = "$nickname: confirm you own this number with this code:";
+	$body .= "\n\n";
+	$body .= $code;
+	$body .= "\n\n";
+
+	mail_send($recipients, $headers, $body);
+}
