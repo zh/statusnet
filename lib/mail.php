@@ -164,7 +164,7 @@ function mail_broadcast_notice_sms($notice) {
 
 	$user->smsnotify = 1;
 	$user->whereAdd('EXISTS (select subscriber from subscriptions where ' .
-					' subscriber = user.id and subscribed = ' . $notice->profile_id);
+					' subscriber = user.id and subscribed = ' . $notice->profile_id . ')');
 	$user->whereAdd('sms is not null');
 
 	$cnt = $user->find();
