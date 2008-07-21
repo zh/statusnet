@@ -35,10 +35,10 @@ require_once('Mail/mimeDecode.php');
 # Need to move everything to mailparse
 
 class MailerDaemon {
-	
+
 	function __construct() {
 	}
-	
+
 	function handle_message($fname='php://stdin') {
 		list($from, $to, $msg) = $this->parse_message($fname);
 		if (!$from || !$to || !$msg) {
@@ -96,11 +96,11 @@ class MailerDaemon {
 		}
 		return false;
 	}
-	
+
 	function handle_command($user, $msg) {
 		return false;
 	}
-	
+
 	function respond($from, $to, $response) {
 
 		$headers['From'] = $to;
@@ -109,11 +109,11 @@ class MailerDaemon {
 
 		return mail_send(array($from), $headers, $response);
 	}
-	
+
 	function log($level, $msg) {
 		common_log($level, 'MailDaemon: '.$msg);
 	}
-	
+
 	function add_notice($user, $msg) {
 		$notice = new Notice();
 		$notice->profile_id = $user->id;
@@ -142,12 +142,12 @@ class MailerDaemon {
 			return;
 		}
 		$notice->query('COMMIT');
-        common_save_replies($notice);	
+        common_save_replies($notice);
 		common_real_broadcast($notice);
 		$this->log(LOG_INFO,
 				   'Added notice ' . $notice->id . ' from user ' . $user->nickname);
 	}
-	
+
 	function parse_message($fname) {
 		$contents = file_get_contents($fname);
 		$parsed = Mail_mimeDecode::decode(array('input' => $contents,
@@ -157,13 +157,13 @@ class MailerDaemon {
 		if (!$parsed) {
 			return NULL;
 		}
-		
+
 		$from = $parsed->headers['from'];
-		
+
 		$to = $parsed->headers['to'];
 
 		$type = $parsed->ctype_primary . '/' . $parsed->ctype_secondary;
-		
+
 		if ($parsed->ctype_primary == 'multitype') {
 			foreach ($parsed->parts as $part) {
 				if ($part->ctype_primary == 'text' &&
@@ -177,17 +177,17 @@ class MailerDaemon {
 		} else {
 			$this->unsupported_type($type);
 		}
-		
+
 		return array($from, $to, $msg);
 	}
-	
+
 	function unsupported_type($type) {
 		$this->error(NULL, "Unsupported message type: " . $type);
 	}
-	
+
 	function cleanup_msg($msg) {
 		# XXX: signatures
-		# XXX: quoting 
+		# XXX: quoting
 		preg_replace('/\s+/', ' ', $msg);
 		return $msg;
 	}

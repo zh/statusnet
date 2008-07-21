@@ -123,7 +123,7 @@ function mail_subscribe_notify($listenee, $listener) {
 						   "\t".'%3$s'."\n\n".
 						   'Faithfully yours,'."\n".'%4$s.'."\n"),
 						 $long_name,
-						 common_config('site', 'name'), 
+						 common_config('site', 'name'),
 						 $other->profileurl,
 						 common_config('site', 'name'));
 		mail_send($recipients, $headers, $body);
@@ -134,12 +134,12 @@ function mail_new_incoming_notify($user) {
 
 	$profile = $user->getProfile();
 	$name = $profile->getBestName();
-	
+
 	$headers['From'] = $user->incomingemail;
 	$headers['To'] = $name . ' <' . $user->email . '>';
 	$headers['Subject'] = sprintf(_('New email address for posting to %s'),
 								  common_config('site', 'name'));
-	
+
 	$body  = sprintf(_("You have a new posting address on %1\$s.\n\n".
 					   "Send email to %2\$s to post new messages.\n\n".
 					   "More email instructions at %3\$s.\n\n".
@@ -148,7 +148,7 @@ function mail_new_incoming_notify($user) {
 					 $user->incomingemail,
 					 common_local_url('doc', array('title' => 'email')),
 					 common_config('site', 'name'));
-	
+
 	mail_send($user->email, $headers, $body);
 }
 
@@ -159,16 +159,16 @@ function mail_new_incoming_address() {
 }
 
 function mail_broadcast_notice_sms($notice) {
-	
+
 	$user = new User();
-	
+
 	$user->smsnotify = 1;
 	$user->whereAdd('EXISTS (select subscriber from subscriptions where ' .
 					' subscriber = user.id and subscribed = ' . $notice->profile_id);
 	$user->whereAdd('sms is not null');
-	
+
 	$cnt = $user->find();
-	
+
 	while ($user->fetch()) {
 		mail_send_sms_notice($notice, $user);
 	}
@@ -192,7 +192,7 @@ function mail_send_notice($notice, $user) {
 function mail_confirm_sms($code, $nickname, $address) {
 
 	$recipients = $address;
-	
+
 	$headers['From'] = mail_notify_from();
 	$headers['To'] = $nickname . ' <' . $address . '>';
 	$headers['Subject'] = _('SMS confirmation');
