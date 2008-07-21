@@ -143,7 +143,7 @@ class MailerDaemon {
 		}
 		$notice->query('COMMIT');
         common_save_replies($notice);
-		common_real_broadcast($notice);
+		common_broadcast_notice($notice);
 		$this->log(LOG_INFO,
 				   'Added notice ' . $notice->id . ' from user ' . $user->nickname);
 	}
