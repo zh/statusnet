@@ -138,7 +138,7 @@ class SmssettingsAction extends EmailsettingsAction {
 
 	function save_preferences() {
 
-		$smsnotify = $this->boolean('emailpost');
+		$smsnotify = $this->boolean('smsnotify');
 		
 		$user = common_current_user();
 
