@@ -25,33 +25,33 @@ class OpensearchAction extends Action {
 
 		parent::handle($args);
 
-                $type = $this->trimmed('type');
-                
-                $short_name = '';
-                if ($type == 'people') {
-                    $type = 'peoplesearch';
-                    $short_name = 'People Search';
-                } else {
-                    $short_name = 'Notice Search';
-                    $type = 'noticesearch';
-                }
+		$type = $this->trimmed('type');
+
+		$short_name = '';
+		if ($type == 'people') {
+			$type = 'peoplesearch';
+			$short_name = _('People Search');
+		} else {
+			$short_name = _('Notice Search');
+			$type = 'noticesearch';
+		}
 
 		header('Content-Type: text/html');
 
 		common_start_xml();
 		common_element_start('OpenSearchDescription', array('xmlns' => 'http://a9.com/-/spec/opensearch/1.1/'));
-                
-                $short_name =  common_config('site', 'name').' '.$short_name;
+
+		$short_name =  common_config('site', 'name').' '.$short_name;
 		common_element('ShortName', NULL, $short_name);
 		common_element('Contact', NULL, common_config('site', 'email'));
-                common_element('Url', array('type' => 'text/html', 'method' => 'get', 
-                               'template' => common_path('index.php?action='.$type.'&q={searchTerms}'))); 
-                common_element('Image', array('height' => 16, 'width' => 16, 'type' => 'image/vnd.microsoft.icon'), common_path('favicon.ico')); 
-                common_element('Image', array('height' => 50, 'width' => 50, 'type' => 'image/png'), theme_path('logo.png')); 
-                common_element('AdultContent', NULL, 'false');
-                common_element('Language', NULL, common_language());
-                common_element('OutputEncoding', NULL, 'UTF-8');
-                common_element('InputEncoding', NULL, 'UTF-8');
+		common_element('Url', array('type' => 'text/html', 'method' => 'get',
+					   'template' => str_replace('---', '{searchTerms}', common_local_url($type, array('q' => '---')))));
+		common_element('Image', array('height' => 16, 'width' => 16, 'type' => 'image/vnd.microsoft.icon'), common_path('favicon.ico'));
+		common_element('Image', array('height' => 50, 'width' => 50, 'type' => 'image/png'), theme_path('logo.png'));
+		common_element('AdultContent', NULL, 'false');
+		common_element('Language', NULL, common_language());
+		common_element('OutputEncoding', NULL, 'UTF-8');
+		common_element('InputEncoding', NULL, 'UTF-8');
 
 		common_element_end('OpenSearchDescription');
 		common_end_xml();
