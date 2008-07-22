@@ -43,12 +43,8 @@ class AllrssAction extends Rss10Action {
 
 		$user = $this->user;
 		
-		$notice = $user->noticesWithFriends(0, $limit);
+		list($cnt, $notice) = $user->noticesWithFriends(0, $limit);
 											
-		# XXX: revisit constant scope
-		
-		$cnt = $notice->find();
-
 		while ($notice->fetch()) {
 			$notices[] = clone($notice);
 		}
