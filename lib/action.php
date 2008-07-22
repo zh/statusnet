@@ -27,7 +27,7 @@ class Action { // lawsuit
 	}
 
 	function is_readonly() {
-		return true;
+		return false;
 	}
 
 	function arg($key, $def=NULL) {

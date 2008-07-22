@@ -23,10 +23,6 @@ require_once(INSTALLDIR.'/lib/settingsaction.php');
 
 class AvatarAction extends SettingsAction {
 
-	function is_readonly() {
-		return false;
-	}
-
     function get_instructions() {
 		return _('Upload a new "avatar" (user image) here. You can\'t edit the picture after you upload it, so make sure it\'s more or less square. It must be under the site license, also. Use a picture that belongs to you and that you want to share.');
 	}

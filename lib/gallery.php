@@ -25,6 +25,10 @@ define('AVATARS_PER_PAGE', 80);
 
 class GalleryAction extends Action {
 
+	function is_readonly() {
+		return true;
+	}
+
 	function handle($args) {
 		parent::handle($args);
 		$nickname = $this->arg('nickname');

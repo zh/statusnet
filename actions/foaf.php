@@ -25,6 +25,10 @@ define('BOTH', 0);
 
 class FoafAction extends Action {
 
+	function is_readonly() {
+		return true;
+	}
+
 	function handle($args) {
 		parent::handle($args);
 

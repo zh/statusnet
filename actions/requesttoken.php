@@ -22,6 +22,11 @@ if (!defined('LACONICA')) { exit(1); }
 require_once(INSTALLDIR.'/lib/omb.php');
 
 class RequesttokenAction extends Action {
+	
+	function is_readonly() {
+		return true;
+	}
+	
 	function handle($args) {
 		parent::handle($args);
 		try {

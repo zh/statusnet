@@ -21,10 +21,6 @@ if (!defined('LACONICA')) { exit(1); }
 
 class RegisterAction extends Action {
 
-	function is_readonly() {
-		return false;
-	}
-
 	function handle($args) {
 		parent::handle($args);
 

@@ -23,6 +23,10 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
 
 class TwitapihelpAction extends TwitterapiAction {
 
+	function is_readonly() {		
+		return true;
+	}
+
 	/* Returns the string "ok" in the requested format with a 200 OK HTTP status code.
 	 * URL:http://identi.ca/api/help/test.format
 	 * Formats: xml, json

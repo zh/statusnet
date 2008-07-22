@@ -31,10 +31,6 @@ class FinishaddopenidAction extends Action {
 			$this->try_login();
 		}
 	}
-
-	function is_readonly() {
-		return false;
-	}
 	
 	function try_login() {
 

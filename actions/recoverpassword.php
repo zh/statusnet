@@ -25,10 +25,6 @@ define(MAX_RECOVERY_TIME, 24 * 60 * 60);
 
 class RecoverpasswordAction extends Action {
 
-	function is_readonly() {
-		return false;
-	}
-
     function handle($args) {
         parent::handle($args);
         if (common_logged_in()) {

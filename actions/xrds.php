@@ -23,6 +23,10 @@ require_once(INSTALLDIR.'/lib/omb.php');
 
 class XrdsAction extends Action {
 
+	function is_readonly() {				
+		return true;
+	}
+
 	function handle($args) {
 		parent::handle($args);
 		$nickname = $this->trimmed('nickname');

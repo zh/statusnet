@@ -24,7 +24,6 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
 # This naming convention looks real sick
 class TwitapinotificationsAction extends TwitterapiAction {
 
-
 	function follow($args, $apidata) {
 		parent::handle($args);
 		common_server_error("API method under construction.", $code=501);

@@ -22,10 +22,6 @@ if (!defined('LACONICA')) { exit(1); }
 require_once(INSTALLDIR.'/lib/omb.php');
 
 class UpdateprofileAction extends Action {
-
-	function is_readonly() {
-		return false;
-	}
 	
 	function handle($args) {
 		parent::handle($args);
