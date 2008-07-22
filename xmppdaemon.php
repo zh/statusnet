@@ -224,6 +224,7 @@ class XMPPDaemon {
 
 	function add_notice(&$user, &$pl) {
 		$notice = new Notice();
+		$notice->is_local = 1;
 		$notice->profile_id = $user->id;
 		$notice->content = trim(substr($pl['body'], 0, 140));
 		$notice->rendered = common_render_content($notice->content, $notice);

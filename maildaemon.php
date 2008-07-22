@@ -116,6 +116,7 @@ class MailerDaemon {
 
 	function add_notice($user, $msg) {
 		$notice = new Notice();
+		$notice->is_local = 1;
 		$notice->profile_id = $user->id;
 		$notice->content = trim(substr($msg, 0, 140));
 		$notice->rendered = common_render_content($notice->content, $notice);

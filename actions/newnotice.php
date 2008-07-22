@@ -38,9 +38,10 @@ class NewnoticeAction extends Action {
 
 		$user = common_current_user();
 		assert($user); # XXX: maybe an error instead...
-		$notice = DB_DataObject::factory('notice');
+		$notice = new Notice();
 		assert($notice);
 		$notice->profile_id = $user->id; # user id *is* profile id
+		$notice->is_local = 1;
 		$notice->created = DB_DataObject_Cast::dateTime();
 		# Default theme uses 'content' for something else
 		$notice->content = $this->trimmed('status_textarea');

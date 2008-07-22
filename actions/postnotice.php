@@ -75,6 +75,7 @@ class PostnoticeAction extends Action {
 		$notice = Notice::staticGet('uri', $notice_uri);
 		if (!$notice) {
 			$notice = new Notice();
+			$notice->is_local = 0;
 			$notice->profile_id = $remote_profile->id;
 			$notice->uri = $notice_uri;
 			$notice->content = $content;
