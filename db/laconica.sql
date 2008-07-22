@@ -108,8 +108,7 @@ create table notice (
     source varchar(8) comment 'source of comment, like "web", "im", or "clientname"',
     
     index notice_profile_id_idx (profile_id),
-    index notice_created_idx (profile_id),
-    
+    index notice_created_idx (created),
     FULLTEXT(content)
 ) ENGINE=MyISAM;
 
