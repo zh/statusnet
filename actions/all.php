@@ -48,7 +48,7 @@ class AllAction extends StreamAction {
 						   array($this, 'show_header'), $user,
 						   array($this, 'show_top'));
 
-		$this->show_notices($profile);
+		$this->show_notices($user);
 
 		common_show_footer();
 	}
@@ -71,23 +71,19 @@ class AllAction extends StreamAction {
 		$this->views_menu();
 	}
 
-	function show_notices($profile) {
+	function show_notices($user) {
 
-		$notice = DB_DataObject::factory('notice');
-
-		# XXX: chokety and bad
-
-		$notice->whereAdd('EXISTS (SELECT subscribed from subscription where subscriber = '.$profile->id.' and subscribed = notice.profile_id)', 'OR');
-		$notice->whereAdd('profile_id = ' . $profile->id, 'OR');
-
-		$notice->orderBy('created DESC, notice.id DESC');
-
-		$page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
-
+		$page = $this->trimmed('page');
+		if (!$page) {
+			$page = 1;
+		}
+		
+		$notice = $user->noticesWithFriends($page);
+		# XXX: revisit constant scope
+		
 		$notice->limit((($page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE + 1);
-
-		$cnt = $notice->find();
-
+		
+		
 		if ($cnt > 0) {
 			common_element_start('ul', array('id' => 'notices'));
 			for ($i = 0; $i < min($cnt, NOTICES_PER_PAGE); $i++) {

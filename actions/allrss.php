@@ -42,17 +42,13 @@ class AllrssAction extends Rss10Action {
 	function get_notices($limit=0) {
 
 		$user = $this->user;
-		$notices = array();
-
-		$notice = DB_DataObject::factory('notice');
-
-		$notice->whereAdd('EXISTS (SELECT subscribed from subscription where subscriber = '.$user->id.' and subscribed = notice.profile_id)', 'OR');
-		$notice->whereAdd('profile_id = ' . $user->id, 'OR');
-
-		$notice->orderBy('created DESC, notice.id DESC');
+		
+		$notice = $user->noticesWithFriends();
+		
 		if ($limit != 0) {
 			$notice->limit(0, $limit);
 		}
+		
 		$notice->find();
 
 		while ($notice->fetch()) {

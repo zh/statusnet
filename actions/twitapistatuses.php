@@ -223,18 +223,8 @@ class TwitapistatusesAction extends TwitterapiAction {
 		$link = common_local_url('all', array('nickname' => $user->nickname));
 		$subtitle = sprintf(_("Updates from %s and friends on %s!"), $user->nickname, $sitename);
 
-		$notice = new Notice();
-
-		# XXX: chokety and bad
-
-		$notice->whereAdd('EXISTS (SELECT subscribed from subscription where subscriber = '.$profile->id.' and subscribed = notice.profile_id)', 'OR');
-		$notice->whereAdd('profile_id = ' . $profile->id, 'OR');
-
-		# XXX: since
-		# XXX: since_id
+		$notice->$user->noticesWithFriends();
 		
-		$notice->orderBy('created DESC, notice.id DESC');
-
 		$notice->limit((($page-1)*20), $count);
 
 		$cnt = $notice->find();

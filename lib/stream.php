@@ -19,8 +19,6 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-define('NOTICES_PER_PAGE', 20);
-
 class StreamAction extends Action {
 
 	function handle($args) {

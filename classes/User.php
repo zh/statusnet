@@ -128,4 +128,23 @@ class User extends DB_DataObject
 		
 		return true;
 	}
+	
+	function noticesWithFriends() {
+		
+		$notice = new Notice();
+		
+		$notice->selectAs();
+		
+		$subscription = new Subscription();
+		
+		$subscription->subscriber = $this->id;
+		
+		$notice->joinAdd($subscription);
+		$notice->whereAdd('notice.profile_id = subscription.subscribed');
+		$notice->selectAs($subscription, 'sub_%');
+		
+		$notice->orderBy('created DESC, notice.id DESC');
+
+		return $notice;
+	}
 }
