@@ -59,11 +59,11 @@ class PublicAction extends StreamAction {
 
 	function show_notices($page) {
 
-		$notice = DB_DataObject::factory('notice');
+		$notice = new Notice();
 
-		# FIXME: bad performance
+		# XXX: sub-optimal
 
-		$notice->whereAdd('EXISTS (SELECT user.id from user where user.id = notice.profile_id)');
+		$notice->is_local = 1;
 
 		$notice->orderBy('created DESC, notice.id DESC');
 

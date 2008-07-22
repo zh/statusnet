@@ -40,13 +40,14 @@ class TwitapistatusesAction extends TwitterapiAction {
 		// Number of public statuses to return by default -- Twitter sends 20
 		$MAX_PUBSTATUSES = 20;
 
-		$notice = DB_DataObject::factory('notice');
+		$notice = new Notice();
 
 		// FIXME: To really live up to the spec we need to build a list
 		// of notices by users who have custom avatars, so fix this SQL -- Zach
 
-		# FIXME: bad performance
-		$notice->whereAdd('EXISTS (SELECT user.id from user where user.id = notice.profile_id)');
+		# XXX: sub-optimal performance
+		
+		$notice->is_local = 1;
 		$notice->orderBy('created DESC, notice.id DESC');
 		$notice->limit($MAX_PUBSTATUSES);
 		$cnt = $notice->find();
