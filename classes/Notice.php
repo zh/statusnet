@@ -39,6 +39,7 @@ class Notice extends DB_DataObject
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
     public $reply_to;                        // int(4)  
+    public $is_local;                        // tinyint(1)  
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('Notice',$k,$v); }
