@@ -57,6 +57,17 @@ $config['db']['database'] = 'mysql://laconica:microblog@localhost/laconica';
 #$config['site']['timezone'] = 'Pacific/Auckland';
 #$config['site']['language'] = 'en_NZ';
 
+#Email info, used for SMS send
+#$config['mail']['notifyfrom'] = 'microblog@example.net';
+#$config['mail']['domain'] = 'microblog.example.net';
+# See http://pear.php.net/manual/en/package.mail.mail.factory.php for options
+#$config['mail']['backend'] = 'smtp';
+#$config['mail']['params'] = array(
+#							'host' => 'localhost',
+#							'port' => 25,
+#							);
+
+
 #Do notice broadcasts offline
 #If you set this, you must run the xmppdaemon.php
 #as a daemon (with, say, start-stop-daemon)
