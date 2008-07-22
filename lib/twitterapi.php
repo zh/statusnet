@@ -233,10 +233,10 @@ class TwitterapiAction extends Action {
 		$count = $sub->find();
 		
 		if ($count > 0) {
-			return $count;
+			return $count - 1;
+		} else {
+			return 0;
 		}
-		
-		return NULL;
 	}
 
 	function init_document($type='xml') {
