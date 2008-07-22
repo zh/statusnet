@@ -134,7 +134,7 @@ class User extends DB_DataObject
 		$notice = new Notice();
 		
 		$notice->query('SELECT notice.* ' .
-					   'FROM notice JOIN subscription on notice.profile_id = subscription.subscribed' .
+					   'FROM notice JOIN subscription on notice.profile_id = subscription.subscribed ' .
 					   'WHERE subscription.subscriber = ' . $this->id . ' ' .
 					   'ORDER BY created DESC, notice.id DESC ' .
 					   'LIMIT ' . $offset . ', ' . $limit);
