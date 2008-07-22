@@ -205,6 +205,9 @@ function jabber_special_presence($type, $to=NULL, $show=NULL, $status=NULL) {
 }
 
 function jabber_broadcast_notice($notice) {
+	if (!common_config('xmpp', 'enabled')) {
+		return true;
+	}
 	$profile = Profile::staticGet($notice->profile_id);
 	if (!$profile) {
 		common_log(LOG_WARNING, 'Refusing to broadcast notice with ' .
