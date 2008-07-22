@@ -1009,9 +1009,11 @@ function common_save_replies($notice) {
 		if ($i == 0 && ($recipient->id != $sender->id)) { # Don't save reply to self
 			$reply_for = $recipient;
 			$recipient_notice = $reply_for->getCurrentNotice();
-			$orig = clone($notice);
-			$notice->reply_to = $recipient_notice->id;
-			$notice->update($orig);
+			if ($recipient_notice) {
+				$orig = clone($notice);
+				$notice->reply_to = $recipient_notice->id;
+				$notice->update($orig);
+			}
 		}
 		$reply = new Reply();
 		$reply->notice_id = $notice->id;
