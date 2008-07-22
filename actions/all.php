@@ -96,6 +96,6 @@ class AllAction extends StreamAction {
 		common_element_end('ul');
 
 		common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
-						  $page, 'all', array('nickname' => $profile->nickname));
+						  $page, 'all', array('nickname' => $user->nickname));
 	}
 }
