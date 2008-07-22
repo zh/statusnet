@@ -159,6 +159,20 @@ class RegisterAction extends Action {
 			return FALSE;
 		}
 
+		# Everyone is subscribed to themself
+
+		$subscription = new Subscription();
+		$subscription->subscriber = $user->id;
+		$subscription->subscribed = $user->id;
+		$subscription->created = $user->created;
+		
+		$result = $subscription->insert();
+		
+		if (!$result) {
+			common_log_db_error($subscription, 'INSERT', __FILE__);
+			return FALSE;
+		}
+		
 		if ($email) {
 
 			$confirm = new Confirm_address();
