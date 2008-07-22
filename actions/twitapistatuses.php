@@ -28,12 +28,22 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
 class TwitapistatusesAction extends TwitterapiAction {
 	
 	function is_readonly() {
-		return false;
+		
+		static $write_methods = array(	'update',
+										'destroy');
+		
+		$cmdtext = explode('.', $this->arg('method'));		
+		
+		if (in_array($cmdtext[0], $write_methods)) {			
+			return false;
+		}
+				
+		return true;
 	}
 	
 	function public_timeline($args, $apidata) {
 		parent::handle($args);
-
+		
 		$sitename = common_config('site', 'name');
 		$siteserver = common_config('site', 'server'); 
 		$title = sprintf(_("%s public timeline"), $sitename);
@@ -364,6 +374,9 @@ class TwitapistatusesAction extends TwitterapiAction {
 		parent::handle($args);
 		
 		$user = $apidata['user'];
+				
+		$this->is_readonly();
+		
 				
 		$notice = DB_DataObject::factory('notice');		
 		
