@@ -108,7 +108,7 @@ function common_element_end($tag) {
 function common_element($tag, $attrs=NULL, $content=NULL) {
 	common_element_start($tag, $attrs);
 	global $xw;
-	if ($content) {
+	if (!is_null($content)) {
 		$xw->text($content);
 	}
 	common_element_end($tag);
