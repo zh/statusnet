@@ -128,23 +128,17 @@ class User extends DB_DataObject
 		
 		return true;
 	}
-	
-	function noticesWithFriends() {
+
+	function noticesWithFriends($offset=0, $limit=20) {
 		
 		$notice = new Notice();
 		
-		$notice->selectAs();
+		$notice->query('SELECT notice.* ' .
+					   'FROM notice JOIN subscription on notice.profile_id = subscription.subscribed' .
+					   'WHERE subscription.subscriber = ' . $this->id .
+					   'ORDER BY created DESC, notice.id DESC ' .
+					   'LIMIT ' . $offset . ', ' . $limit);
 		
-		$subscription = new Subscription();
-		
-		$subscription->subscriber = $this->id;
-		
-		$notice->joinAdd($subscription);
-		$notice->whereAdd('notice.profile_id = subscription.subscribed');
-		$notice->selectAs($subscription, 'sub_%');
-		
-		$notice->orderBy('created DESC, notice.id DESC');
-
 		return $notice;
 	}
 }

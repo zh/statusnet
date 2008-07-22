@@ -223,9 +223,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 		$link = common_local_url('all', array('nickname' => $user->nickname));
 		$subtitle = sprintf(_("Updates from %s and friends on %s!"), $user->nickname, $sitename);
 
-		$notice->$user->noticesWithFriends();
-		
-		$notice->limit((($page-1)*20), $count);
+		$notice->$user->noticesWithFriends(($page-1)*20, $count);
 
 		$cnt = $notice->find();
 		

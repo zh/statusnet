@@ -78,11 +78,11 @@ class AllAction extends StreamAction {
 			$page = 1;
 		}
 		
-		$notice = $user->noticesWithFriends($page);
+		$notice = $user->noticesWithFriends(($page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
+											
 		# XXX: revisit constant scope
 		
-		$notice->limit((($page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE + 1);
-		
+		$cnt = $notice->find();
 		
 		if ($cnt > 0) {
 			common_element_start('ul', array('id' => 'notices'));
