@@ -23,6 +23,10 @@ require_once(INSTALLDIR.'/lib/omb.php');
 
 class FinishremotesubscribeAction extends Action {
 
+	function is_readonly() {
+		return false;
+	}
+
 	function handle($args) {
 
 		parent::handle($args);

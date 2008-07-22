@@ -32,6 +32,10 @@ class FinishaddopenidAction extends Action {
 		}
 	}
 
+	function is_readonly() {
+		return false;
+	}
+	
 	function try_login() {
 
 		$consumer =& oid_consumer();

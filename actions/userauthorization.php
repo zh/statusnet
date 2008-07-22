@@ -23,6 +23,11 @@ require_once(INSTALLDIR.'/lib/omb.php');
 define('TIMESTAMP_THRESHOLD', 300);
 
 class UserauthorizationAction extends Action {
+
+	function is_readonly() {
+		return false;
+	}
+	
 	function handle($args) {
 		parent::handle($args);
 

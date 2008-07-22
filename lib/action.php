@@ -26,6 +26,10 @@ class Action { // lawsuit
 	function Action() {
 	}
 
+	function is_readonly() {
+		return true;
+	}
+
 	function arg($key, $def=NULL) {
 		if (array_key_exists($key, $this->args)) {
 			return $this->args[$key];
@@ -55,7 +59,7 @@ class Action { // lawsuit
 		} else {
 			return $def;
 		}
-	}
+	}	
 
 	function server_error($msg, $code=500) {
 		$action = $this->trimmed('action');

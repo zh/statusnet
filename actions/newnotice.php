@@ -21,6 +21,10 @@ if (!defined('LACONICA')) { exit(1); }
 
 class NewnoticeAction extends Action {
 
+	function is_readonly() {
+		return false;
+	}
+
 	function handle($args) {
 		parent::handle($args);
 		# XXX: Ajax!

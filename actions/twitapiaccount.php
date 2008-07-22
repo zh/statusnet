@@ -23,6 +23,10 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
 
 class TwitapiaccountAction extends TwitterapiAction {
 
+	function is_readonly() {
+		return false;
+	}
+
 	function verify_credentials($args, $apidata) {
 
 		if ($apidata['content-type'] == 'xml') {
