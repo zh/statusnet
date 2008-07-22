@@ -55,4 +55,5 @@ values
     ('Verizon', '%s@vtext.com', now()),
     ('Virgin Mobile (Canada)', '%s@vmobile.ca', now()),
     ('Virgin Mobile (USA)', '%s@vmobl.com', now()),
+    ('Vodafone NZ (txt ''R'' to 901 to enable first)', '%s@sms.vodafone.net.nz', now()),
     ('YCC', '%s@sms.ycc.ru', now());
