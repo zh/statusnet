@@ -89,6 +89,7 @@ $config['db'] =
 		'class_location' => INSTALLDIR . '/classes',
 		'require_prefix' => 'classes/',
 		'class_prefix' => '',
+		'mirror' => NULL,
         'db_driver' => 'DB', # XXX: JanRain libs only work with DB
 		'quote_identifiers' => false);
 
