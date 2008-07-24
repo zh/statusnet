@@ -284,7 +284,9 @@ function common_nav_menu() {
 						 _('Logout'));
 	} else {
 		common_menu_item(common_local_url('login'), _('Login'));
-		common_menu_item(common_local_url('register'), _('Register'));
+		if (!common_config('site', 'closed')) {
+			common_menu_item(common_local_url('register'), _('Register'));
+		}
 		common_menu_item(common_local_url('openidlogin'), _('OpenID'));
 	}
 	common_element_end('ul');
