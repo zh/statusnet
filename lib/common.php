@@ -111,17 +111,10 @@ require_once(INSTALLDIR.'/lib/action.php');
 require_once(INSTALLDIR.'/lib/theme.php');
 require_once(INSTALLDIR.'/lib/mail.php');
 
-require_once(INSTALLDIR.'/classes/Avatar.php');
-require_once(INSTALLDIR.'/classes/Notice.php');
-require_once(INSTALLDIR.'/classes/Profile.php');
-require_once(INSTALLDIR.'/classes/Remote_profile.php');
-require_once(INSTALLDIR.'/classes/Subscription.php');
-require_once(INSTALLDIR.'/classes/User.php');
-require_once(INSTALLDIR.'/classes/Confirm_address.php');
-require_once(INSTALLDIR.'/classes/Remember_me.php');
-require_once(INSTALLDIR.'/classes/Queue_item.php');
-require_once(INSTALLDIR.'/classes/Reply.php');
-require_once(INSTALLDIR.'/classes/Notice_tag.php');
-require_once(INSTALLDIR.'/classes/Sms_carrier.php');
+function __autoload($class) {
+    if (file_exists(INSTALLDIR.'/classes/' . $class . '.php')) {
+        require_once(INSTALLDIR.'/classes/' . $class . '.php');
+    }
+}
 
 require_once('markdown.php');
