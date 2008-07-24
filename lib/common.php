@@ -50,7 +50,8 @@ $config =
 		      array_key_exists('SERVER_ADMIN', $_SERVER) ? $_SERVER['SERVER_ADMIN'] : NULL,
 			  'broughtby' => NULL,
 			  'timezone' => 'UTC',
-			  'broughtbyurl' => NULL),
+			  'broughtbyurl' => NULL,
+			  'closed' => false),
 		'syslog' =>
 		array('appname' => 'laconica', # for syslog
 			  'priority' => 'debug'), # XXX: currently ignored

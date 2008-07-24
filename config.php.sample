@@ -23,6 +23,9 @@ $config['site']['path'] = 'laconica';
 #Brought by...
 #$config['site']['broughtby'] = 'Individual or Company';
 #$config['site']['broughtbyurl'] = 'http://example.net/';
+#If you don't want to let users register (say, for a one-person install)
+#Crude but effective -- register everybody, then lock down
+#$config['site']['closed'] = true;
 
 # If you want logging sent to a file instead of syslog
 #$config['site']['logfile'] = '/tmp/laconica.log';

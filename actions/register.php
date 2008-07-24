@@ -24,7 +24,9 @@ class RegisterAction extends Action {
 	function handle($args) {
 		parent::handle($args);
 
-		if (common_logged_in()) {
+		if (common_config('site', 'closed')) {
+			common_user_error(_('Registration not allowed.'));
+		} else if (common_logged_in()) {
 			common_user_error(_('Already logged in.'));
 		} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$this->try_register();
