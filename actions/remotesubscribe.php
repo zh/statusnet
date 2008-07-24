@@ -339,6 +339,8 @@ class RemotesubscribeAction extends Action {
 		$omb['post_notice_url'] = omb_service_uri($omb[OMB_ENDPOINT_POSTNOTICE]);
 		$omb['update_profile_url'] = omb_service_uri($omb[OMB_ENDPOINT_UPDATEPROFILE]);
 
+		common_ensure_session();
+		
 		$_SESSION['oauth_authorization_request'] = $omb;
 
 		# Redirect to authorization service
