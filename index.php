@@ -34,6 +34,16 @@ if (file_exists($actionfile)) {
     require_once($actionfile);
     $action_class = ucfirst($action)."Action";
     $action_obj = new $action_class();
+	if ($config['db']['mirror'] && $action_obj->is_readonly()) {
+		if (is_array($config['db']['mirror'])) {
+			# "load balancing", ha ha
+			$k = array_rand($config['db']['mirror']);
+			$mirror = $config['db']['mirror'][$k];
+		} else {
+			$mirror = $config['db']['mirror'];
+		}
+		$config['db']['database'] = $mirror;
+	}
     call_user_func(array($action_obj, 'handle'), $_REQUEST);
 } else {
     common_user_error(_('Unknown action'));
