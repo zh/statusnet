@@ -941,9 +941,17 @@ function common_date_string($dt) {
 }
 
 function common_exact_date($dt) {
+    static $_utc;
+    static $_siteTz;
+
+    if (!$_utc) {
+        $_utc = new DateTimeZone('UTC');
+        $_siteTz = new DateTimeZone(common_timezone());
+    }
+
 	$dateStr = date('d F Y H:i:s', strtotime($dt));
-	$d = new DateTime($dateStr, new DateTimeZone('UTC'));
-	$d->setTimezone(new DateTimeZone(common_timezone()));
+	$d = new DateTime($dateStr, $_utc);
+	$d->setTimezone($_siteTz);
 	return $d->format(DATE_RFC850);
 }
 
