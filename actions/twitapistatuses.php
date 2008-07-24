@@ -49,7 +49,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 		$title = sprintf(_("%s public timeline"), $sitename);
 		$id = "tag:$siteserver:Statuses";
 		$link = common_root_url();
-		$subtitle = sprintf(_("%s updates from everyone!"), $sitemap);
+		$subtitle = sprintf(_("%s updates from everyone!"), $sitename);
 
 		// Number of public statuses to return by default -- Twitter sends 20
 		$MAX_PUBSTATUSES = 20;
