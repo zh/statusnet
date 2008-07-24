@@ -75,7 +75,8 @@ class PublicAction extends StreamAction {
 
 		if ($cnt > 0) {
 			common_element_start('ul', array('id' => 'notices'));
-			for ($i = 0; $i < min($cnt, NOTICES_PER_PAGE); $i++) {
+            $iMax = min($cnt, NOTICES_PER_PAGE);
+			for ($i = 0; $i < $iMax; $i++) {
 				if ($notice->fetch()) {
 					$this->show_notice($notice);
 				} else {
