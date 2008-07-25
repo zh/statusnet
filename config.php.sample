@@ -1,0 +1,56 @@
+<?php
+/* -*- mode: php -*- */
+
+if (!defined('LACONICA')) { exit(1); }
+
+#If you have downloaded libraries in random little places, you
+#can add the paths here
+
+#$extra_path = array("/opt/php-openid-2.0.1", "/usr/local/share/php");
+#set_include_path(implode(PATH_SEPARATOR, $extra_path) . PATH_SEPARATOR . get_include_path());
+
+# We get called by common.php, $config is a tree with lots of config
+# options
+# These are for configuring your URLs
+
+$config['site']['name'] = 'Just another Laconica microblog';
+$config['site']['server'] = 'localhost';
+$config['site']['path'] = 'laconica';
+#$config['site']['fancy'] = false;
+#$config['site']['theme'] = 'default';
+#For contact email, defaults to $_SERVER["SERVER_ADMIN"]
+#$config['site']['email'] = 'admin@example.net';
+#Brought by...
+#$config['site']['broughtby'] = 'Individual or Company';
+#$config['site']['broughtbyurl'] = 'http://example.net/';
+
+# If you want logging sent to a file instead of syslog
+#$config['site']['logfile'] = '/tmp/laconica.log';
+
+# This is a PEAR DB DSN, see http://pear.php.net/manual/en/package.database.db.intro-dsn.php
+# Set it to match your actual database
+
+$config['db']['database'] = 'mysql://laconica:microblog@localhost/laconica';
+#$config['db']['ini_your_db_name'] = $config['db']['schema_location'].'/stoica.ini';
+#$config['db']['debug'] = 0;
+#$config['db']['db_driver'] = 'MDB2';
+
+#session_set_cookie_params(0, '/'. $config['site']['path'] .'/');
+
+#Standard fancy-url clashes prevented by not allowing nicknames on a blacklist
+#Add your own here. Note: empty array by default
+#$config['nickname']['blacklist'][] = 'scobleizer';
+
+# xmpp
+#$config['xmpp']['enabled'] = false;
+#$config['xmpp']['server'] = 'server.example.net';
+#$config['xmpp']['port'] = 5222;
+#$config['xmpp']['user'] = 'update';
+#$config['xmpp']['resource'] = 'uniquename';
+#$config['xmpp']['password'] = 'blahblahblah';
+#$config['xmpp']['public'][] = 'someindexer@example.net';
+
+#Do notice broadcasts offline
+#If you set this, you must run the xmppdaemon.php
+#as a daemon (with, say, start-stop-daemon)
+#$config['queue']['enabled'] = true;

@@ -1,0 +1,601 @@
+/* CSS Document */
+/* Design & CSS by Marie-Claude Doyon */
+
+html {
+	background-color: #f6e5b0;
+
+	}
+body {
+	position: absolute;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	line-height: 12px;
+	min-height: 100%;
+	color: #701238;
+	/*background: url(bg-body.gif) repeat-y top center;*/
+	}
+a {
+	color: #d1451a;
+	text-decoration: none;
+	}
+a:hover {
+	text-decoration: underline;
+	}		
+img, img a {
+	border: 0;
+	}
+h1 {
+	font-size: 14px;
+	}
+
+
+#wrap {
+	margin: 0 auto;
+	padding: 0 20px;
+	width: 760px;
+	background: url(bg-header.gif) repeat-x #fbf2d7;
+	
+	}			
+#header {
+	position: relative;
+	margin: 0 auto;
+	width: 540px;
+	height: 216px;
+	/*border: 1px solid #FF0;*/
+	/*background-color: #701238;*/
+	}
+#logo {
+	margin-top: 9px;
+	}		
+p#branding {
+	margin: 0;
+	padding: 6px 0 3px 0;
+	color: #fbf2d7;
+	font-size: 21px;
+	font-weight: bold;
+	line-height: 27px;
+	}
+p#branding a {
+	color: #dab134;
+	}	
+#header h1.pagetitle {
+	/*display: none;*/
+	margin: 0;
+	padding: 0;
+	/*font-family: Georgia, "Times New Roman", Times, serif;*/
+	font-size: 15px;
+/*	font-weight: normal;
+	font-style: italic;*/
+	line-height: 24px;
+	color: #fff6d5;
+	}
+
+#header h2.sitename {
+	display: none;
+	margin: 0;
+	padding: 0;
+	color: #fff6d5;
+	}
+	
+/* ===== Begin Navigation Styling ===== */
+	
+/* ----- Navigation ------ */	
+#nav {
+	float: right;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	font-size: 12px;
+	}
+#nav li {
+	display: block;
+	float: left;
+	}
+#nav li a {
+	display: block;
+	padding: 9px 9px 12px 9px;
+	color: #F60;
+	}
+#nav li a:hover {
+	text-decoration: underline;
+	}
+
+/* ----- Tabs ----- */
+#nav_views {
+	margin: 0 auto;
+	padding: 0;
+	position: absolute;
+	bottom: 0;
+	list-style-type: none;
+	font-size: 14px;
+	font-weight: bold;
+	width: 540px;
+	/*height: 30px;*/
+	}
+#nav_views li {
+	display: block;
+	float: left;
+	line-height: 21px;
+	}
+#nav_views li a {
+	display: block;
+	margin: 0;
+	padding: 4px 12px 3px 12px;
+	color: #fff6d5;
+	background-color: #d1451a;
+	border-right: 1px solid #dcaa3f;
+	}
+#nav_views li a:hover {
+	text-decoration: none;
+	}	
+#nav_views li.current a, #nav_views li.current a:hover {
+	color: #701238;
+	background-color: #fff6d5;
+	border-right: 1px solid #dcaa3f;
+	}
+#nav_views li.current a:hover {
+	color: #d1451a;
+	}		
+#nav_views li a:hover {
+	color: #fff6d5;
+	background-color: #701238;
+	border-right: 1px solid #dcaa3f;
+	}
+	
+/* ----- Nav Footer ----- */	
+#nav_sub {
+	clear: both;
+	margin: 18px auto 0 auto;
+	padding: 0;
+	list-style-type: none;
+	font-size: 11px;
+	font-weight: bold;
+	line-height: 21px;
+	border-top: 1px solid #dec5b5;
+	width: 540px;
+	}
+#nav_sub li {
+	display: block;
+	float: left;
+	}
+#nav_sub li a {
+	padding: 6px 24px 6px 0;
+	}	
+#nav_sub li a:hover {
+	text-decoration: underline;
+	}
+/* ===== End Navigation Styling ===== */
+
+#content {
+	clear: left;
+	margin: 40px 0 45px 0;
+	padding: 0 110px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 14px;
+	line-height: 18px;
+	/*border: 1px solid #F00;*/
+	}
+#content h2 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	}
+#content label {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	}	
+.instructions, .success, .error {
+	font-weight: normal;
+	margin: 36px 0 0 0;
+	padding: 10px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 13px;
+	line-height: 15px;
+	border: 1px solid #dec5b5;
+	color: #fff6d5;
+	}		
+.success {
+	background-color: #48705b;
+	}	
+.error {
+	background-color: #ce3728;
+	}
+			
+
+	
+/* ----- Profile -----*/
+#profile {
+	clear: left;
+	margin: 0 -110px;
+	padding: 10px 0 0 0;
+	min-height: 170px;
+	border-top: 1px solid #dec5b5;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	}
+#profile h1 {
+	margin: 0;
+	padding: 0;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	}
+#profile h2 {
+	margin: 0;
+	padding: 0;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	text-transform: uppercase;
+	color: #dab134;
+	}	
+#profile p {
+	margin: 0 10px 0 0;
+	font-size: 12px;
+	line-height: 14px;
+	}
+#profile p.location {
+	margin: 0 10px 12px 0;
+	font-style: italic;	
+	}		
+#profile p.notice_current {
+	font-size: 18px;
+	line-height: 21px;
+	/*min-height: 96px;*/
+	}		
+	
+#profile_avatar {
+	float: left;
+	margin-right: 4px;
+	}
+#profile_avatar img {
+	margin-bottom: 5px;
+	}
+.avatar.profile {
+	float: none;
+	clear: left;
+	margin: 0 10px 5px 0;
+	}
+.avatar.original {
+	margin: 0 10px 18px 0;
+	}			
+a.nickname {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 12px;
+	padding-right: 3px;
+	}	
+#profile_information {
+	float: left;
+	position: relative;
+	width: 270px;
+	height: 200px;
+	}
+	
+.statistics {
+	margin-top: 18px;
+	}
+.statistics h2 {
+	margin: 12px 0 3px 0;
+	}		
+dl.statistics {
+	margin: 0;
+	font-size: 12px;
+	line-height: 14px;
+	}
+.statistics dt, .statistics dd {
+	float: left;
+	margin: 0;
+	}
+.statistics dt {
+	clear: left;
+	width: 96px;
+	}
+.statistics dd {
+	clear: right;
+	}	
+.statistics dt:after {
+	content: ":";
+	}
+#subscriptions {
+	float: left;
+	margin: 18px 0 30px 0;
+	}		
+#subscriptions_avatars {
+	/*float: left;*/
+	margin: 6px 0 0 0;
+	padding: 0;
+	list-style-type: none;
+	width: 270px;
+	}	
+#subscriptions_avatars li .avatar.mini {
+	float: left;
+	margin: 0 3px 3px 0;
+	padding: 0;
+	line-height: 0;
+	}
+#subscriptions_viewall {
+	clear: left;
+	}
+
+#notices {
+	clear: both;
+	margin: 0 auto;
+	padding: 0;
+	list-style-type: none;
+	width: 540px;
+	border-top: 1px solid #dec5b5;
+	/*border: 1px solid #F00;*/
+	}
+#notices a:hover {
+	text-decoration: underline;
+	}	
+.notice_single {
+	clear: both;
+	display: block;
+	margin: 0;
+	padding: 5px 5px 5px 0;
+	min-height: 48px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 13px;
+	line-height: 16px;
+	border-bottom: 1px solid #dec5b5;
+	}
+.notice_single:hover {
+	background-color: #f7ebcc;
+	}	
+.notice_single p {
+	display: inline;
+	margin: 0;
+	padding: 0;
+	}	
+.avatar {
+	float: left;
+	margin: 0 10px 0 0;
+	}
+
+p.time {
+	display: block;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	line-height: 15px;
+	}
+p.time a {
+	color: #dab134;
+	}	
+
+#pagination {
+	margin: 18px auto;
+	width: 540px;
+	}
+#nav_pagination {
+	margin: 0 0 36px 0;
+	padding: 0;
+	float: right;
+	list-style-type: none;
+	font-size: 12px;
+	font-weight: bold;
+	}
+#nav_pagination li {
+	display: block;
+	float: left;
+	background-color: #701238;
+	}
+#nav_pagination li.before {
+	margin-right: 1px;
+	}	
+#nav_pagination li a {
+	padding: 6px 15px;
+	line-height: 21px;
+	background-color: #701238;
+	color: #fff6d5;
+	}
+#nav_pagination li a:hover {
+	background-color: #3F606F;
+	color: #fff6d5;
+	text-decoration: none;
+	}
+			
+#footer {
+	clear: both;
+	margin: 0 auto;
+	padding: 0 0 36px 0;
+	width: 540px;
+	border-top: 1px solid #dec5b5;
+	}
+#footer p {
+	margin-top: 9px;
+	}	
+#cc {
+	float: left;
+	margin: 3px 10px 0 0;
+	}
+
+/* ===== Begin Forms Styling ===== */
+
+/* ----- Forms General Style ----- */
+form {
+	margin: 0 auto;
+	padding: 0;
+	}
+form {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	}	
+form label {
+	display: block;
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 18px;
+	}
+form input {
+	border: 1px solid #dec5b5;
+	width: 264px;
+	}
+input#submit  {
+	display: block;
+	margin: 18px 0;
+	padding: 4px;
+	font-weight: bold;
+	color: #fff6d5;
+	background-color: #F60;
+	cursor: pointer;
+	border: 0;
+	width: auto;
+	}
+input#submit:hover {
+	background-color: #701238;
+	}
+textarea, input {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #701238;
+	padding: 3px;
+	}
+textarea:focus, input:focus {
+	background-color: #f8ebc0;
+	}		
+textarea {
+	width: 270px;
+	border: 1px solid #D8E2D7;
+	}
+.input_instructions {
+	display: block;
+	font-size: 11px;
+	line-height: 21px;
+	color: #924959;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	}	
+	
+/* ----- Status Form ----- */
+#status_form {
+	height: 96px;
+	/*background-color: #F00;*/
+	}
+#status_form p {
+	margin: 36px 0 0 0;
+	padding: 0;
+	}	
+#status_label {
+	display: inline;
+	clear: both;
+	margin: 0;
+	padding: 0 0 3px 0;
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 24px;
+	/*color: #701238;*/
+	color: #dab134;
+	}
+#status_textarea {
+	display: block;
+	float: left;
+	width: 463px;
+	height: 35px;
+	padding: 5px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #701238;
+	border: 0;
+	}
+#status_submit {
+	display: block;
+	float: left;
+	margin: 1px 0 0 4px;
+	width: 63px;
+	height: 45px;
+	background-color: #F60;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 14px;
+	color: #fff6d5;
+	cursor: pointer;
+	border: 0;
+	} 
+#status_submit:hover {
+	background-color: #d1451a;
+	}
+#counter {
+    position: relative;
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+    left: 255px;
+}
+
+#counter.toomuch {
+    color: red;
+}
+	
+/* ----- Subscribe Form ----- */
+#subscribe .button, #unsubscribe .button, #remotesubscribe .button {
+	margin: 0;
+	width: 96px;
+	height: 27px;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 10px;
+	text-transform: uppercase;
+	background-color: #F60;
+	color: #fff6d5;
+	border: 0;
+	}	
+#subscribe .button:hover, #unsubscribe .button:hover {
+	background-color: #904632;
+	cursor: pointer;
+	}
+input#profile_url {
+	width: 88px;
+	padding: 3px;
+	margin: 0 0 10px 0;
+	}
+/* ----- Login Form -----*/	
+input#license {
+	width: auto;
+	}
+/* ----- Avatar Form -----*/
+form {
+	clear: left;
+}
+
+/* ----- OpenID Form -----*/
+
+input#openid_url {
+   background: url(login-bg.gif) no-repeat;
+   background-color: #fff;
+   background-position: 0 50%;
+   color: #000;
+   padding-left: 18px;
+}
+
+/* for people lists */
+
+#profiles {
+	clear: both;
+	margin: 0 auto;
+	padding: 0;
+	list-style-type: none;
+	width: 540px;
+	border-top: 1px solid #dec5b5;
+	/*border: 1px solid #F00;*/
+	}
+#profiles a:hover {
+	text-decoration: underline;
+	}	
+
+.profile_single {
+	clear: both;
+	display: block;
+	margin: 0;
+	padding: 5px 5px 5px 0;
+	min-height: 48px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 13px;
+	line-height: 16px;
+	border-bottom: 1px solid #dec5b5;
+	}
+.profile_single:hover {
+	background-color: #f7ebcc;
+	}	
+
+/* ===== End Forms Styling ===== */
+

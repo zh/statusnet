@@ -1,0 +1,325 @@
+===============================
+OpenMicroBlogging specification
+===============================
+
+:Author: Evan Prodromou (Control Yourself, Inc.)
+:Contact: evan@controlezvous.ca
+:Revision: 0.1.1
+:Date: 2008-07-07
+:Copyright: To the extent possible under law, Control Yourself, Inc 
+	    has waived all copyright, moral rights, database rights,
+	    and any other rights that might be asserted over
+	    The OpenMicroBlogging specification.
+
+Purpose
+=======
+
+To allow users of one microblogging service to publish notices to
+users of another service, given the other users' permission.
+
+Enabling technologies
+=====================
+
+Depends on OAuth 1.0, OAuth Discovery 1.0, YADIS 1.0.
+
+We piggy-back additional information onto these protocols to pass
+microblogging information back and forth.
+
+Terminology
+===========
+
+microblogging service
+    undefined.
+user
+    undefined.
+listen
+    to allow a remote service to send notices to the user's local
+    service on a remote user's behalf.
+listener
+    the person listening.
+listenee
+    the user sending notices.
+remote service
+    the listenee's microblogging service.
+local service
+    the listener's microblogging service.
+profile URL
+    "home" URL for the listener, typically their profile page on a
+    microblogging site.
+nickname
+    An alphanumeric short name for a person, 1-64 characters.
+identifier URI
+    A globally unique and unchanging identifying URI for a user.
+    Need not be an URL. [*]_
+notice URI
+    A unique and unchanging identifier for a notice. Need not be an
+    URL. [*]_
+    
+.. [*] May be the profile URL, if it's defined not to change or be
+   re-used. The profile URL of some services includes the nickname,
+   and some let the user change his/her nickname. This user's profile
+   URL may change from 'http://example.net/~john' to 
+   'http://example.net/~johnsmith' A tag URI, like 
+   'tag:example.net,2008:user:1' may be more appropriate here.
+.. [*] IWBNI the notice URI is used everywhere the notice is
+   published; for example, in any RSS feeds.
+
+Initiation
+==========
+
+The user submits their profile URL [*]_ to the remote service somehow --
+for example, with an HTML form on the remote service's Web site. 
+
+.. [*] For OAuth Discovery, this is the "protected resource". It may
+   be more correct that the protected resource is the postNotice URL
+   (see below), but the listener will be more familiar with their own
+   profile URL. So there will have to be discovery of the postNotice
+   URL anyways, and it might as well all be done in one step.
+   
+Discovery
+=========
+
+The remote service recovers a YADIS document from the profile URL, as
+described in OAuth Discovery.
+
+The request token service must have a LocalID associated with it,
+containing the identifier URI for the listener.
+
+The following two extra services must be included in the YADIS
+document, with accompanying URIs.
+
+http://openmicroblogging.org/protocol/0.1/postNotice
+    Post Notice URL, as defined below.
+
+http://openmicroblogging.org/protocol/0.1/updateProfile
+    Update Profile URL, as defined below.
+
+If any of the URIs is unavailable, the remote service MUST stop
+processing.
+
+Authorization
+=============
+
+The remote service must go through the OAuth 1.0 dance to get
+authorization to post notices and update profiles.
+
+In all OAuth, the consumer key should be the root URL for the
+microblogging service, if available. The secret should be the blank
+string (''), unless the remote server and local service have negotiated
+another key. Such negotiation is out-of-scope for this document, and we
+assume an "open" network of microblogging services. But if you want to
+have that kind of network, do it with this key.
+
+The remote service MUST do OAuth for every new listener, regardless of
+whether they've already received authorization for posting to the
+given postNotice URL. See `Posting a Notice`_ below.
+
+Request token
+-------------
+
+The remote service uses the defined requestToken URL to get a request
+token.
+
+In the request token HTTP request, the remote service MUST send the
+following additional parameter(s):
+
+omb_version
+    'http://openmicroblogging.org/protocol/0.1'
+omb_listener
+    The identifier URI for the listener.
+
+In the results for the request token request, the local service MUST
+send the following additional parameters:
+
+omb_version
+    'http://openmicroblogging.org/protocol/0.1'
+ 
+User authorization
+------------------
+
+In requesting user authorization, the remote service must send the
+following parameters:
+
+omb_version
+    'http://openmicroblogging.org/protocol/0.1'.
+omb_listener
+    The identifier URI for the listener.
+omb_listenee
+    The identifier URI for the listenee.
+omb_listenee_profile
+    The profile URL of the listenee.
+omb_listenee_nickname
+    The nickname of the listenee.
+omb_listenee_license
+    The default license URL for the listenee's stream. Typically the
+    URL of a Creative Commons license, with the Attribution license
+    being heavily encouraged. CC0 quitclaim also pretty good. The
+    local service MAY reject listenees if their licenses are
+    incompatible with the service.
+    
+The remote service should send as many of the following parameters as
+possible. This will help the user decide if they really want to allow
+the listening to happen, and allow the local service to store a copy
+of the listenee's profile.
+
+omb_listenee_fullname
+    The full name of the listenee. Up to 255 chars.
+omb_listenee_homepage
+    The home page of the listenee (may be distinct from the profile
+    URL).
+omb_listenee_bio
+    A brief biography of the listenee; less than 140 chars.
+omb_listenee_location
+    Physical location of the listenee; less that 255 chars. No fixed
+    structure, but "Locality, Region, Country" or "Locality, Country"
+    or "Locality, Region" recommended.
+omb_listenee_avatar
+    URL of a 96px by 96px image in PNG, GIF or JPEG format representing
+    the listenee.
+
+The local service, in a successful response, must return the
+following additional parameters:
+
+omb_version
+    'http://openmicroblogging.org/protocol/0.1'.
+omb_listener_nickname
+    A nickname for the listener.
+omb_listener_profile
+    The profile URL for the listener, possibly cleaned up or
+    canonicalized.
+    
+It should return as many of the following as possible:
+
+omb_listener_fullname
+    The full name of the listener. Up to 255 chars.
+omb_listener_homepage
+    The home page of the listener (may be distinct from the profile
+    URL).
+omb_listener_bio
+    A brief biography of the listener; less than 140 chars.
+omb_listener_location
+    Physical location of the listener; less that 255 chars. No fixed
+    structure, but "Locality, Region, Country" or "Locality, Country"
+    or "Locality, Region" recommended.
+omb_listener_avatar
+    URL of a 96px by 96px image in PNG, GIF or JPEG format representing
+    the listener.
+
+This will allow the remote service to display information about the
+listener in the listenee's "listeners" or "subscribers" list.
+
+Access token
+------------
+
+The access token step of the OAuth protocol requires no additional
+parameters.
+
+Posting a Notice
+================
+
+To post a notice to the local service, the remote service sends an HTTP
+POST message to the postNotice URL discovered above. The message must
+use OAuth authorization. The message must also include the following
+parameters:
+
+omb_version
+    'http://openmicroblogging.org/protocol/0.1'.
+omb_listenee
+    The identifier URI for the listenee.
+omb_notice
+    The notice URI.
+omb_notice_content
+    The content of the notice. No maximum, but 140 chars is recommended.
+    
+The message may include the following parameters:
+
+omb_notice_url
+    The URL of the notice, if the notice is retrievable.
+omb_notice_license
+    The URL of the license for the notice, if different from the
+    listenee's default license.
+omb_seealso
+    URL of additional content for the notice; for example, an image,
+    video, or audio file.
+omb_seealso_disposition
+    One of 'link' or 'inline', to recommend how the extra data should
+    be shown. Default 'link'.
+omb_seealso_mediatype
+    Internet Media Type of the see-also data. Advisory, probably
+    shouldn't be trusted.
+omb_seealso_license
+    License for the attached data. May be distinct from the notice's
+    license (if they're passing along someone else's content).
+    
+The local service should include the following parameters in its
+response:
+
+omb_version
+    'http://openmicroblogging.org/protocol/0.1'.
+
+The local service makes no guarantees about the delivery of the notice
+to anyone.
+
+The remote service SHOULD NOT send a message with the same notice URL
+to the same postNotice URL more than once. [*]_ If the request returns
+a 403 Unauthorized message, the remote service SHOULD NOT post
+messages to the same URL again with the same listenee, until another
+listener has gone through the OAuth dance. [*]_
+
+.. [*] A half-assed optimization. A local service may have a lot of
+   listeners listening to the same listenee. It would be pointless to
+   have the remote service post the same notice 100 times to the same
+   service. However, if the local service wants fine-grained control,
+   it can have a different postNotice URL for each listener.
+.. [*] If there's one postNotice URL per listener, the 403 message
+   means the listener has told the local service not to allow posting
+   any more ("unsubscribed"). If there's one postNotice URL per local
+   service, it means that the count of listeners has dropped to 0.
+
+Updating a profile
+==================
+
+If the listenee's profile information changes, the remote service MAY
+send an HTTP POST message to to the updateProfile URL to tell the
+local service about the change.
+
+The message must use OAuth authorization. The message must also
+include the following parameters:
+
+omb_version
+    'http://openmicroblogging.org/protocol/0.1'.
+omb_listenee
+    The identifier URI for the listenee.
+    
+The message may include any of the following parameters:
+
+omb_listenee_profile
+    The profile URL of the listenee.
+omb_listenee_nickname
+    The nickname of the listenee.
+omb_listenee_license
+    The default license URL for the listenee's stream. A change in the
+    default license only applies to future notices; notices previous
+    to the update SHOULD be treated as under the old license.
+omb_listenee_fullname
+    The full name of the listenee. Up to 255 chars.
+omb_listenee_homepage
+    The home page of the listenee.
+omb_listenee_bio
+    A brief biography of the listenee; less than 140 chars.
+omb_listenee_location
+    Physical location of the listenee; less that 255 chars.
+omb_listenee_avatar
+    URL of a 96px by 96px image in PNG, GIF or JPEG format representing
+    the listenee.
+
+Missing parameters should not be construed to mean that the profile
+field has been blanked. The remote service MUST set the parameter to
+an empty string to show that the field is blank.
+
+References
+==========
+
+* OAuth: http://oauth.net/
+* OAuth Discovery: http://oauth.net/discovery/1.0
+* XRDS Simple: http://xrds-simple.net/core/1.0/

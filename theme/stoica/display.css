@@ -1,0 +1,630 @@
+/* CSS Document */
+/* Design & CSS by Marie-Claude Doyon http://www.marieclaudedoyon.com */
+
+html {
+	background: url(bg-body.gif) repeat-y top center #d8e2d7;
+	}
+body {
+	position: absolute;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	line-height: 12px;
+	min-height: 100%;
+	height: 100%;
+	color: #193441;
+	}
+a {
+	color: #C15D42;
+	text-decoration: none;
+	}
+a:hover {
+	text-decoration: underline;
+	}
+img, img a {
+	border: 0;
+	}
+h1 {
+	font-size: 14px;
+	}
+
+
+#wrap {
+	margin: 0 auto;
+	padding: 0 20px;
+	width: 760px;
+	background: url(bg-header.gif) repeat-x #FCFFF5;
+	}
+#header {
+	position: relative;
+	margin: 0 auto;
+	width: 540px;
+	height: 216px;
+	}
+#logo {
+	margin-top: 9px;
+	}
+p#branding {
+	margin: 0;
+	padding: 6px 0 3px 0;
+	color: #fbf2d7;
+	font-size: 21px;
+	font-weight: bold;
+	line-height: 27px;
+	}
+p#branding a {
+	color: #dab134;
+	}
+
+#header h1.pagetitle {
+	margin: 0;
+	padding: 0;
+	font-size: 15px;
+	line-height: 24px;
+	color: #d8e2d7;
+}
+
+#header h2.sitename {
+	display: none;
+	margin: 0;
+	padding: 0;
+	color: #FCFFF5;
+}
+
+/* ===== Begin Navigation Styling ===== */
+
+/* ----- Navigation ------ */
+#nav {
+	float: right;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	font-size: 12px;
+	}
+#nav li {
+	display: block;
+	float: left;
+	}
+#nav li a {
+	display: block;
+	padding: 9px 9px 12px 9px;
+	color: #91AA9D;
+	}
+#nav li a:hover {
+	text-decoration: underline;
+	}
+
+/* ----- Tabs ----- */
+#nav_views {
+	margin: 0 auto;
+	padding: 0;
+	position: absolute;
+	bottom: 0;
+	list-style-type: none;
+	font-size: 14px;
+	font-weight: bold;
+	width: 540px;
+	/*height: 30px;*/
+	}
+#nav_views li {
+	display: block;
+	float: left;
+	line-height: 21px;
+	}
+#nav_views li a {
+	display: block;
+	margin: 0;
+	padding: 4px 12px 3px 12px;
+	color: #FCFFF5;
+	background-color: #91AA9D;
+	border-right: 1px solid #6A8787;
+	}
+#nav_views li a:hover {
+	text-decoration: none;
+	}
+#nav_views li.current a, #nav_views li.current a:hover {
+	color: #3F606F;
+	background-color: #FCFFF5;
+	border-right: 1px solid #6A8787;
+	}
+#nav_views li.current a:hover {
+	color: #193441;
+	}
+#nav_views li a:hover {
+	color: #FCFFF5;
+	background-color: #3F606F;
+	border-right: 1px solid #6A8787;
+	}
+
+/* ----- Nav Footer ----- */
+#nav_sub {
+	clear: both;
+	margin: 18px auto 0 auto;
+	padding: 0;
+	list-style-type: none;
+	font-size: 11px;
+	font-weight: bold;
+	line-height: 21px;
+	border-top: 1px solid #D8E2D7;
+	width: 540px;
+	}
+#nav_sub li {
+	display: block;
+	float: left;
+	}
+#nav_sub li a {
+	padding: 6px 24px 6px 0;
+	}
+#nav_sub li a:hover {
+	text-decoration: underline;
+	}
+/* ===== End Navigation Styling ===== */
+
+#content {
+	clear: left;
+	margin: 40px 0 45px 0;
+	padding: 0 110px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 14px;
+	line-height: 18px;
+	}
+#content h2 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	}
+#content label {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	}
+.instructions p, .success, .error {
+	font-weight: normal;
+	margin: 36px 0 0 0;
+	padding: 10px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 13px;
+	line-height: 15px;
+	border: 1px solid #91AA9D;
+	color: #FCFFF5;
+	}
+.instructions a, .success a, .error a {
+	color: #d8e2d7;
+	text-decoration: underline;
+	}
+.instructions a:hover, .success a:hover, .error a:hover {
+	color: #FCFFF5;
+	}		
+.success {
+	background-color: #48705b;
+	}
+.error {
+	background-color: #ce3728;
+	}
+
+
+/* ----- Stream -----*/
+
+#notices {
+	clear: both;
+	margin: 0 auto;
+	padding: 0;
+	list-style-type: none;
+	width: 540px;
+	border-top: 1px solid #D8E2D7;
+	}
+#notices a:hover {
+	text-decoration: underline;
+	}
+.notice_single {
+	clear: both;
+	display: block;
+	margin: 0;
+	padding: 5px 5px 5px 0;
+	min-height: 48px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 13px;
+	line-height: 16px;
+	border-bottom: 1px solid #D8E2D7;
+	}
+.notice_single:hover {
+	background-color: #F3F8EA;
+	}
+.notice_single p {
+	display: inline;
+	margin: 0;
+	padding: 0;
+	}
+.avatar.stream {
+	float: left;
+	margin: 0 10px 0 0;
+	}
+p.time {
+	display: block;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	line-height: 15px;
+	}
+p.time a {
+	color: #91AA9D;
+	}
+	
+/* ----- Profile -----*/
+#profile {
+	clear: left;
+	margin: 0 -110px;
+	padding: 10px 0 0 0;
+	min-height: 170px;
+	border-top: 1px solid #D8E2D7;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	}
+#profile h1 {
+	margin: 0;
+	padding: 0;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	}
+#profile h2 {
+	margin: 0;
+	padding: 0;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	text-transform: uppercase;
+	color: #91AA9D;
+	}
+#profile p {
+	margin: 0 10px 0 0;
+	font-size: 12px;
+	line-height: 14px;
+	}
+#profile p.location {
+	margin: 0 10px 12px 0;
+	font-style: italic;
+	}
+#profile p.notice_current {
+	font-size: 18px;
+	line-height: 21px;
+	}
+#profile_avatar {
+	float: left;
+	margin-right: 4px;
+	}
+#profile_avatar img {
+	margin-bottom: 5px;
+	}
+.avatar.profile {
+	clear: left;
+	margin: 0 10px 5px 0;
+	}
+.avatar.original {
+	float: left;
+	margin: 0 10px 18px 0;
+	}
+a.nickname {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 12px;
+	padding-right: 3px;
+	}
+#profile_information {
+	float: left;
+	position: relative;
+	width: 270px;
+	height: 200px;
+	}
+.statistics {
+	margin-top: 18px;
+	}
+.statistics h2 {
+	margin: 12px 0 3px 0;
+	}
+dl.statistics {
+	margin: 0;
+	font-size: 12px;
+	line-height: 14px;
+	}
+.statistics dt {
+	float: left;
+	width: 96px;
+}	
+.statistics dd {
+	margin-left: 100px;
+}
+.statistics dt:after {
+	content: ":";
+	}
+#subscriptions {
+	float: left;
+	margin: 18px 0 30px 0;
+	}
+#subscriptions_avatars {
+	float: left;
+	margin: 6px 0 0 0;
+	padding: 0;
+	list-style-type: none;
+	width: 270px;
+	}
+#subscriptions_avatars li .avatar.mini {
+	float: left;
+	margin: 0 3px 3px 0;
+	padding: 0;
+	line-height: 0;
+	/* border: 1px solid #f00; */
+	}
+#subscriptions_viewall {
+	clear: left;
+	}
+/* ----- End Profile -----*/
+
+/* ----- Begin Subscriptions & Subscribers -----*/
+
+ul.subscriptions, ul.subscribers {
+	float: none;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	overflow: auto;
+	}
+ul.subscriptions li, ul.subscribers li {
+	display: block;
+	float: left;
+	padding: 0;
+	}
+/* ----- End Subscriptions & Subscribers -----*/
+
+
+
+#pagination {
+	margin: 18px auto;
+	width: 540px;
+	}
+#nav_pagination {
+	margin: 0 0 36px 0;
+	padding: 0;
+	float: right;
+	list-style-type: none;
+	font-size: 12px;
+	font-weight: bold;
+	}
+#nav_pagination li {
+	display: block;
+	float: left;
+	background-color: #91AA9D;
+	}
+#nav_pagination li.before {
+	margin-right: 1px;
+	}
+#nav_pagination li a {
+	padding: 6px 15px;
+	line-height: 21px;
+	background-color: #91AA9D;
+	color: #FCFFF5;
+	}
+#nav_pagination li a:hover {
+	background-color: #3F606F;
+	color: #FCFFF5;
+	text-decoration: none;
+	}
+
+#footer {
+	clear: both;
+	margin: 0 auto;
+	padding: 0 0 36px 0;
+	width: 540px;
+	border-top: 1px solid #D8E2D7;
+	}
+#footer p {
+	margin-top: 9px;
+	line-height: 12px;
+	}
+#cc {
+	float: left;
+	margin: 3px 10px 0 0;
+	}
+
+/* ===== Begin Forms Styling ===== */
+
+/* ----- Forms General Style ----- */
+form {
+	margin: 0 auto;
+	padding: 0;
+	}
+form {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	}
+form label {
+	display: block;
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 18px;
+	}
+form input {
+	border: 1px solid #D8E2D7;
+	width: 264px;
+	}
+input#submit, input.submit  {
+	display: block;
+	margin: 18px 0;
+	padding: 4px;
+	font-weight: bold;
+	color: #FCFFF5;
+	background-color: #C15D42;
+	cursor: pointer;
+	border: 0;
+	width: auto;
+	}
+input#submit:hover, input.submit:hover {
+	background-color: #904632;
+	}
+input.checkbox {
+	/*width: 14px;
+	height: 14px;*/
+	width: auto;
+	border: 0;
+	}	
+textarea, input {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #193441;
+	padding: 3px;
+	}
+textarea:focus, input:focus {
+	background-color: #f0f6eb;
+	}
+textarea {
+	width: 270px;
+	border: 1px solid #D8E2D7;
+	}
+.input_instructions {
+	margin-top: 3px;
+	display: block;
+	font-size: 11px;
+	line-height: 15px;
+	color: #91aa9d;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	}
+
+/* ----- Status Form ----- */
+#status_form {
+	height: 96px;
+	/*background-color: #F00;*/
+	}
+#status_form p {
+	margin: 36px 0 0 0;
+	padding: 0;
+	}
+#status_label {
+	display: block;
+	clear: both;
+	margin: 0;
+	padding: 0 0 3px 0;
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 24px;
+	color: #91AA9D;
+	}
+#status_textarea {
+	display: block;
+	float: left;
+	width: 463px;
+	height: 35px;
+	padding: 5px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #193441;
+	border: 0;
+	}
+#status_submit {
+	display: block;
+	float: left;
+	margin: 1px 0 0 4px;
+	width: 63px;
+	height: 45px;
+	background-color: #C15D42;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 14px;
+	color: #FCFFF5;
+	cursor: pointer;
+	border: 0;
+	}
+#status_submit:hover {
+	background-color: #904632;
+	}
+#counter {
+	position: absolute;
+	top: 140px;
+	left: -64px;
+	width: 50px;
+	font-weight: bold;
+	text-align: right;
+}
+/* ----- Subscribe Form ----- */
+#subscribe .submit, #unsubscribe .submit, #remotesubscribe .button, #remotesubscribe {
+	clear: left;
+	margin: 0;
+	width: 96px;
+	height: 27px;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 10px;
+	text-transform: uppercase;
+	background-color: #c15d42;
+	color: #fcfff5;
+	border: 0;
+	}
+#remotesubscribe {
+	width: 96px;
+	height: 22px;
+	padding: 5px 0 0 0;
+	text-align: center;
+	}
+#subscribe .button:hover, #unsubscribe .button:hover {
+	background-color: #904632;
+	cursor: pointer;
+	}
+
+a#remotesubscribe {
+	display: block;
+}
+
+/* ----- Login Form -----*/
+input#license {
+	width: auto;
+	border: 0;
+	}
+/* ----- Avatar Form -----*/
+form {
+	clear: left;
+}
+
+/* ----- OpenID Form -----*/
+
+input#openid_url {
+   background: url(login-bg.gif) no-repeat;
+   background-color: #fff;
+   background-position: 4px 50%;
+   color: #000;
+   padding-left: 24px;
+}
+
+/* People lists (search results, maybe subscribers) */
+
+#profiles {
+	clear: both;
+	margin: 0 auto;
+	padding: 0;
+	list-style-type: none;
+	width: 540px;
+	border-top: 1px solid #D8E2D7;
+	/*border: 1px solid #F00;*/
+	}
+#profiles a:hover {
+	text-decoration: underline;
+	}
+	
+.profile_single {
+	clear: both;
+	display: block;
+	margin: 0;
+	padding: 5px 5px 5px 0;
+	min-height: 48px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 13px;
+	line-height: 16px;
+	border-bottom: 1px solid #D8E2D7;
+	}
+.profile_single:hover {
+	background-color: #F3F8EA;
+	}
+
+/* ----- IM Settings Form -----*/
+
+#imsettings p {
+	margin: 0;
+	padding: 0;
+	line-height: 15px;
+}
+
+/* ===== End Forms Styling ===== */
