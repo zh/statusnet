@@ -1062,7 +1062,7 @@ function common_enqueue_notice($notice) {
 }
 
 function common_dequeue_notice($notice) {
-        $qi = Queue_Item::staticGet($notice->id);
+        $qi = Queue_item::staticGet($notice->id);
         if ($qi) {
                 $result = $qi->delete();
 	        if (!$result) {
