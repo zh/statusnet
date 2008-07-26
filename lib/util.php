@@ -825,9 +825,9 @@ function common_fancy_url($action, $args=NULL) {
 		return common_path('notice/'.$args['notice']);
 	 case 'deletenotice':
                 if ($args && $args['notice']) {
-                        return common_path('deletenotice/'.$args['notice']);
+                        return common_path('notice/delete/'.$args['notice']);
                 } else {
-                        return common_path('deletenotice/');
+                        return common_path('notice/delete');
                 }
 	 case 'xrds':
 	 case 'foaf':

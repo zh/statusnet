@@ -43,7 +43,8 @@ RewriteRule ^search/notice/rss$ index.php?action=noticesearchrss [L,QSA]
 
 RewriteRule ^notice/new$ index.php?action=newnotice [L,QSA]
 RewriteRule ^notice/(\d+)$ index.php?action=shownotice&notice=$1 [L,QSA]
-RewriteRule ^deletenotice/((\d+))?$ index.php?action=deletenotice&notice=$2 [L,QSA]
+RewriteRule ^notice/delete/((\d+))?$ index.php?action=deletenotice&notice=$2 [L,QSA]
+RewriteRule ^notice/delete$ index.php?action=deletenotice [L,QSA]
 
 RewriteRule ^user/(\d+)$ index.php?action=userbyid&id=$1 [L,QSA]
 
