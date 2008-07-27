@@ -404,7 +404,8 @@ class TwitapistatusesAction extends TwitterapiAction {
 		}
 
 		$notice->rendered = common_render_content($notice->content, $notice);
-
+		$notice->is_local = 1;
+		
 		$id = $notice->insert();
 
 		if (!$id) {
