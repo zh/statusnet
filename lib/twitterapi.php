@@ -63,7 +63,7 @@ class TwitterapiAction extends Action {
 		$twitter_status['in_reply_to_status_id'] = ($notice->reply_to) ? intval($notice->reply_to) : NULL;
 		$twitter_status['source'] = NULL; # XXX: twitterific, twitterfox, etc. Not supported yet.
 		$twitter_status['id'] = intval($notice->id);
-		$twitter_status['in_reply_to_user_id'] = ($notice->reply_to) ? $this->replier_by_reply($notice->reply_to) : NULL;
+		$twitter_status['in_reply_to_user_id'] = ($notice->reply_to) ? $this->replier_by_reply(intval($notice->reply_to)) : NULL;
 		$twitter_status['favorited'] = NULL; # XXX: Not implemented on Laconica yet.
 
 		if ($get_user) {
@@ -206,21 +206,18 @@ class TwitterapiAction extends Action {
 	}
 	
 	function replier_by_reply($reply_id) {	
-
 		$notice = Notice::staticGet($reply_id);
-	
-		if (!$notice) {
-			common_debug("TwitterapiAction::replier_by_reply: Got a bad notice_id: $reply_id");
+		if ($notice) {
+			$profile = $notice->getProfile();
+			if ($profile) {
+				return intval($profile->id);
+			} else {
+				common_debug('Can\'t find a profile for notice: ' . $notice->id, __FILE__);
+			}
+		} else {
+			common_debug("Can't get notice: $reply_id", __FILE__);
 		}
-
-		$profile = $notice->getProfile();
-		
-		if (!$profile) {
-			common_debug("TwitterapiAction::replier_by_reply: Got a bad profile_id: $profile_id");
-			return false;
-		}
-		
-		return intval($profile->id);		
+		return NULL;
 	}
 
 	// XXX: Candidate for a general utility method somewhere?	
