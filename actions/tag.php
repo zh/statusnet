@@ -20,7 +20,8 @@
 if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/actions/showstream.php');
-define('TAGS_PER_PAGE', 20);
+define('TAGS_PER_PAGE', 100);
+define('AGE_FACTOR', 864000.0);
 
 class TagAction extends StreamAction {
 
@@ -86,66 +87,54 @@ class TagAction extends StreamAction {
 
 	function show_tags()
 	{
+		# This should probably be cached rather than recalculated
 		$tags = DB_DataObject::factory('Notice_tag');
-		$tags->selectAdd('count(1) as num');
 		$tags->selectAdd('max(notice_id) as last_notice_id');
+		$tags->selectAdd(sprintf('sum(exp(-(now() - created)/%f)) as weight', AGE_FACTOR));
 		$tags->groupBy('tag');
-		$tags->orderBy('num DESC, last_notice_id DESC');
-		$tags->whereAdd('created > "' . strftime('%Y-%m-%d %H:%M:%S', strtotime('-1 WEEK')) . '"');
+		$tags->orderBy('weight DESC');
 
-		$page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
+		# $tags->whereAdd('created > "' . strftime('%Y-%m-%d %H:%M:%S', strtotime('-1 MONTH')) . '"');
 
-		$tags->limit((($page-1)*TAGS_PER_PAGE), TAGS_PER_PAGE + 1);
+		$tags->limit(TAGS_PER_PAGE);
 
 		$cnt = $tags->find();
 
 		if ($cnt > 0) {
-			common_element_start('ul', array('id' => 'notices'));
-			for ($i = 0; $i < min($cnt, TAGS_PER_PAGE); $i++) {
-				if ($tags->fetch()) {
-					TagAction::show_tag($tags);
-				} else {
-					// shouldn't happen!
-					break;
-				}
+			common_element_start('p', 'tagcloud');
+			
+			$tw = array();
+			$sum = 0;
+			while ($tags->fetch()) {
+				$tw[$tags->tag] = $tags->weight;
+				$sum += $tags->weight;
 			}
-			common_element_end('ul');
-		}
-
-		common_pagination($page > 1, $cnt > TAGS_PER_PAGE,
-						  $page, 'tags');
-	}
-
-	private static function show_tag($tag) {
-		common_element_start('li', array('class' => 'notice_single'));
-		common_element_start('a', array(
-							'class' => 'nickname',
-							'href' => common_local_url('tag', array('tag' => $tag->tag)),
-							'title' => sprintf(_("Notices tagged with %s"), $tag->tag)));
-		common_text('#' . $tag->tag);
-		common_element_end('a');
-		common_text(sprintf(_('%s Notices recently tagged with %s'), $tag->num, $tag->tag));
-
-		$notice = Notice::staticGet($tag->last_notice_id);
-		if ($notice) {
-			$noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
-			common_element_start('p', 'time');
-			common_text(_('Last message posted: '));
-			common_element('a', array('class' => 'permalink',
-									  'href' => $noticeurl,
-									  'title' => common_exact_date($notice->created)),
-						   	common_date_string($notice->created));
-
-			common_text(_(' by '));
-			$profile = $notice->getProfile();
-			common_element('a', array('href' => $profile->profileurl),
-						   $profile->nickname);
+			
+			foreach ($tw as $tag => $weight) {
+				$this->show_tag($tag, $weight/$sum);
+			}
+			
 			common_element_end('p');
 		}
-		common_element_end('li');
 	}
 
-
+	function show_tag($tag, $relative) {
+		
+		# XXX: these should probably tune to the size of the site
+		$cls = ($relative > 0.1) ? 'largest' :
+		($relative > 0.05) ? 'verylarge' :
+		($relative > 0.02) ? 'large' :
+		($relative > 0.01) ? 'medium' :
+		($relative > 0.005) ? 'small' :
+		($relative > 0.002) ? 'verysmall' :
+		'smallest';
+		
+		common_element('a', array('class' => $cls,
+								  'href' => common_local_url('tag', array('tag' => $tag))),
+					   $tag);
+		common_text(' ');
+	}
+	
 	function show_notices($tag) {
 
 		$tags = DB_DataObject::factory('Notice_tag');
