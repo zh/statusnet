@@ -121,13 +121,21 @@ class TagAction extends StreamAction {
 	function show_tag($tag, $weight, $relative) {
 		
 		# XXX: these should probably tune to the size of the site
-		$cls = ($relative > 0.1) ? 'largest' :
-		($relative > 0.05) ? 'verylarge' :
-		($relative > 0.02) ? 'large' :
-		($relative > 0.01) ? 'medium' :
-		($relative > 0.005) ? 'small' :
-		($relative > 0.002) ? 'verysmall' :
-		'smallest';
+		if ($relative > 0.1) {
+			$cls =  'largest';
+		} else if ($relative > 0.05) {
+			$cls = 'verylarge';
+		} else if ($relative > 0.02) {
+			$cls = 'large';
+		} else if ($relative > 0.01) {
+			$cls = 'medium';
+		} else if ($relative > 0.005) {
+			$cls = 'small';
+		} else if ($relative > 0.002) {
+			$cls = 'verysmall';
+		} else {
+			$cls = 'smallest';
+		}
 		
 		common_element('a', array('class' => "$cls weight-$weight relative-$relative",
 								  'href' => common_local_url('tag', array('tag' => $tag))),
