@@ -101,6 +101,8 @@ $config['db'] =
 
 require_once(INSTALLDIR.'/config.php');
 
+require_once('Validate.php');
+
 if (function_exists('date_default_timezone_set')) {
 	/* Work internally in UTC */
 	date_default_timezone_set('UTC');
