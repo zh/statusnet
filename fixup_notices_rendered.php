@@ -35,13 +35,11 @@ $notice = new Notice();
 $cnt = $notice->find();
 
 while ($notice->fetch()) {
-	if (!$notice->rendered) {
-		common_log(LOG_INFO, 'Pre-rendering notice #' . $notice->id);
-		$original = clone($notice);
-		$notice->rendered = common_render_content($notice->content, $notice);
-		$result = $notice->update($original);
-		if (!$result) {
-			common_log_db_error($notice, 'UPDATE', __FILE__);
-		}
+	common_log(LOG_INFO, 'Pre-rendering notice #' . $notice->id);
+	$original = clone($notice);
+	$notice->rendered = common_render_content($notice->content, $notice);
+	$result = $notice->update($original);
+	if (!$result) {
+		common_log_db_error($notice, 'UPDATE', __FILE__);
 	}
 }
