@@ -129,7 +129,7 @@ class TagAction extends StreamAction {
 		($relative > 0.002) ? 'verysmall' :
 		'smallest';
 		
-		common_element('a', array('class' => "$cls weight-$weight",
+		common_element('a', array('class' => "$cls weight-$weight relative-$relative",
 								  'href' => common_local_url('tag', array('tag' => $tag))),
 					   $tag);
 		common_text(' ');
