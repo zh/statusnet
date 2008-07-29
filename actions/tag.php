@@ -111,14 +111,14 @@ class TagAction extends StreamAction {
 			}
 			
 			foreach ($tw as $tag => $weight) {
-				$this->show_tag($tag, $weight/$sum);
+				$this->show_tag($tag, $weight, $weight/$sum);
 			}
 			
 			common_element_end('p');
 		}
 	}
 
-	function show_tag($tag, $relative) {
+	function show_tag($tag, $weight, $relative) {
 		
 		# XXX: these should probably tune to the size of the site
 		$cls = ($relative > 0.1) ? 'largest' :
@@ -129,7 +129,7 @@ class TagAction extends StreamAction {
 		($relative > 0.002) ? 'verysmall' :
 		'smallest';
 		
-		common_element('a', array('class' => $cls,
+		common_element('a', array('class' => "$cls weight-$weight",
 								  'href' => common_local_url('tag', array('tag' => $tag))),
 					   $tag);
 		common_text(' ');
