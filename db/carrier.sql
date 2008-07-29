@@ -34,6 +34,7 @@ values
     ('MTS (Canada)', '%s@text.mtsmobility.com', now()),
     ('Nextel (Argentina)', '%s@nextel.net.ar', now()),
     ('Orange (Poland)', '%s@orange.pl', now()),
+    ('Orange (UK)', '%s@orange.net', now()),
     ('Personal (Argentina)', '%s@personal-net.com.ar', now()),
     ('Plus GSM (Poland)', '%s@text.plusgsm.pl', now()),
     ('President''s Choice (Canada)', '%s@txt.bell.ca', now()),
