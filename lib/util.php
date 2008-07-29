@@ -676,7 +676,7 @@ function common_render_content($text, $notice) {
 }
 
 function common_tag_link($tag) {
-	return '<a href="' . htmlspecialchars(common_path('tag/' . $tag)) . '" class="hashlink">' . $tag . '</a>';
+	return '<a href="' . htmlspecialchars(common_path('tag/' . $tag)) . '" rel="tag" class="hashlink">' . htmlspecialchars($tag) . '</a>';
 }
 
 function common_at_link($sender_id, $nickname) {
