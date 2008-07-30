@@ -48,9 +48,9 @@ $config =
 			  'path' => '/',
 			  'logfile' => NULL,
 			  'fancy' => false,
-                          'locale_path' => './locale',
-                          'language' => 'en_US',
-                          'languages' => get_all_languages(),
+			  'locale_path' => INSTALLDIR.'/locale',
+			  'language' => 'en_US',
+			  'languages' => get_all_languages(),
 		      'email' =>
 		      array_key_exists('SERVER_ADMIN', $_SERVER) ? $_SERVER['SERVER_ADMIN'] : NULL,
 			  'broughtby' => NULL,

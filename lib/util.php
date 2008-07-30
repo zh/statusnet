@@ -136,11 +136,12 @@ define('PAGE_TYPE_PREFS', 'text/html,application/xhtml+xml,application/xml;q=0.3
 function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=NULL) {
 	global $config, $xw;
 
+	$language = common_language();
+	setlocale(LC_ALL, $language);
+	bindtextdomain("laconica", $config['site']['locale_path']);
+	textdomain("laconica");
+	
 	$httpaccept = isset($_SERVER['HTTP_ACCEPT']) ? $_SERVER['HTTP_ACCEPT'] : NULL;
-        $language = common_language();
-        setlocale(LC_ALL, $language);
-        bindtextdomain("laconica", $config['site']['locale_path']);
-        textdomain("laconica");
 
 	# XXX: allow content negotiation for RDF, RSS, or XRDS
 
