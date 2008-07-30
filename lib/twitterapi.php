@@ -39,7 +39,7 @@ class TwitterapiAction extends Action {
 		$avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
 		
 		$twitter_user['profile_image_url'] = ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE);
-		$twitter_user['protected'] = false; # not supported by Laconica yet
+		$twitter_user['protected'] = 'false'; # not supported by Laconica yet
 		$twitter_user['url'] = ($profile->homepage) ? $profile->homepage : NULL;
 
 		if ($get_notice) {
@@ -58,7 +58,7 @@ class TwitterapiAction extends Action {
 		$twitter_status = array();
 
 		$twitter_status['text'] = $notice->content; 		
-		$twitter_status['truncated'] = false; # Not possible on Laconica
+		$twitter_status['truncated'] = 'false'; # Not possible on Laconica
 		$twitter_status['created_at'] = $this->date_twitter($notice->created);
 		$twitter_status['in_reply_to_status_id'] = ($notice->reply_to) ? intval($notice->reply_to) : NULL;
 		$twitter_status['source'] = NULL; # XXX: twitterific, twitterfox, etc. Not supported yet.
@@ -100,35 +100,24 @@ class TwitterapiAction extends Action {
 	
 	function show_twitter_xml_status($twitter_status) {			
 		common_element_start('status');
-		common_element('created_at', NULL, $twitter_status['created_at']);
-		common_element('id', NULL, $twitter_status['id']);
-		common_element('text', NULL, $twitter_status['text']);
-		common_element('source', NULL, $twitter_status['source']);  
-		common_element('truncated', NULL, $twitter_status['truncated']); 
-		common_element('in_reply_to_status_id', NULL, $twitter_status['in_reply_to_status_id']);
-		common_element('in_reply_to_user_id', NULL, $twitter_status['in_reply_to_user_id']);
-		common_element('favorited', Null, $twitter_status['favorited']);  
-
-		if ($twitter_status['user']) {
-			$this->show_twitter_xml_user($twitter_status['user']);
+		foreach($twitter_status as $element => $value) {
+			if ($element == 'user') {
+				$this->show_twitter_xml_user($twitter_status['user']);
+			} else {
+				common_element($element, NULL, $value);
+			}
 		}
-		
 		common_element_end('status');
 	}	
 	
 	function show_twitter_xml_user($twitter_user) {
 		common_element_start('user');
-		common_element('id', NULL, $twitter_user['id']);
-		common_element('name', NULL, $twitter_user['name']);
-		common_element('screen_name', NULL, $twitter_user['screen_name']);
-		common_element('location', NULL, $twitter_user['location']);
-		common_element('description', NULL, $twitter_user['description']);		
-		common_element('profile_image_url', NULL, $twitter_user['profile_image_url']);
-		common_element('url', NULL, $twitter_user['url']);
-		common_element('protected', NULL, $twitter_user['protected']);
-		common_element('followers_count', NULL, $twitter_user['followers_count']);
-		if ($twitter_user['status']) {
-			$this->show_twitter_xml_status($twitter_user['status']);
+		foreach($twitter_user as $element => $value) {
+			if ($element == 'status') {
+				$this->show_twitter_xml_status($twitter_user['status']);
+			} else {
+				common_element($element, NULL, $value);
+			}
 		}
 		common_element_end('user');
 	}

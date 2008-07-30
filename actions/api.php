@@ -100,6 +100,7 @@ class ApiAction extends Action {
 	function requires_auth() {
 		static $noauth = array(	'statuses/public_timeline',
 								'statuses/show',
+								'users/show',
 								'help/test', 
 								'help/downtime_schedule');
 		static $bareauth = array('statuses/user_timeline', 'statuses/friends');
