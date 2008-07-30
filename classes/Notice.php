@@ -82,11 +82,12 @@ class Notice extends DB_DataObject
 		$notice->profile_id = $profile_id;
 		$notice->is_local = $is_local;
 		$notice->created = DB_DataObject_Cast::dateTime();
-		# Default theme uses 'content' for something else
 		$notice->content = $content;
-
 		$notice->rendered = common_render_content($notice->content, $notice);
-
+		if ($source) {
+			$notice->source = $source;
+		}
+		
 		$id = $notice->insert();
 
 		if (!$id) {
