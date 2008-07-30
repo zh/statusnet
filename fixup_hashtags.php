@@ -35,7 +35,7 @@ $notice = new Notice();
 $cnt = $notice->find();
 
 while ($notice->fetch()) {
-    common_log(LOG_INFO, 'Getting replies for notice #' . $notice->id);
+    common_log(LOG_INFO, 'Getting tags for notice #' . $notice->id);
     $notice->saveTags();
 	$original = clone($notice);
 	$notice->rendered = common_render_content($notice->content, $notice);
