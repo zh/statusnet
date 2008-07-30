@@ -151,7 +151,10 @@ class StreamAction extends Action {
 			if ($ns) {
 				common_element('a', array('href' => $ns->url),
 							   $ns->name);
+			} else {
+				common_element('span', 'noticesource', $source_name);
 			}
+			break;
 		}
 		return;
 	}
