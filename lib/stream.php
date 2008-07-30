@@ -106,6 +106,10 @@ class StreamAction extends Action {
 								  'href' => $noticeurl,
 								  'title' => common_exact_date($notice->created)),
 					   common_date_string($notice->created));
+		if ($notice->source) {
+			common_text(_(' from '));
+			$this->source_link($notice->source);
+		}
 		if ($notice->reply_to) {
 			$replyurl = common_local_url('shownotice', array('notice' => $notice->reply_to));
 			common_text(' (');
@@ -130,5 +134,25 @@ class StreamAction extends Action {
 						   _('delete'));
 		}
 		common_element_end('li');
+	}
+	
+	function source_link($source) {
+		$source_name = _($source);
+		switch ($source) {
+		 case 'web':
+		 case 'xmpp':
+		 case 'mail':
+		 case 'omb':
+		 case 'api':
+			common_element('span', 'noticesource', $source_name);
+			break;
+		 default:
+			$ns = new Notice_source($source);
+			if ($ns) {
+				common_element('a', array('href' => $ns->url),
+							   $ns->name);
+			}
+		}
+		return;
 	}
 }

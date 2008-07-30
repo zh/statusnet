@@ -400,6 +400,10 @@ class ShowstreamAction extends StreamAction {
 								  'href' => $noticeurl,
 								  'title' => common_exact_date($notice->created)),
 					   common_date_string($notice->created));
+		if ($notice->source) {
+			common_text(_(' from '));
+			$this->source_link($notice->source);
+		}
 		if ($notice->reply_to) {
 			$replyurl = common_local_url('shownotice', array('notice' => $notice->reply_to));
 			common_text(' (');
