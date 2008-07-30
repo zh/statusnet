@@ -147,7 +147,7 @@ class StreamAction extends Action {
 			common_element('span', 'noticesource', $source_name);
 			break;
 		 default:
-			$ns = new Notice_source($source);
+			$ns = Notice_source::staticGet($source);
 			if ($ns) {
 				common_element('a', array('href' => $ns->url),
 							   $ns->name);
