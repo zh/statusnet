@@ -66,12 +66,7 @@ class StreamAction extends Action {
 	function show_notice($notice) {
 		global $config;
 		$profile = $notice->getProfile();
-		if (common_logged_in()) {
-			$user = common_current_user();
-			$user_profile = $user->getProfile();
-		} else {
-			$user_profile = false;
-		}
+		$user = common_current_user();
 
 		# XXX: RDFa
 		common_element_start('li', array('class' => 'notice_single',
@@ -126,13 +121,15 @@ class StreamAction extends Action {
 								   'class' => 'replybutton'));
 		common_raw('&rarr;');
 		common_element_end('a');
-		common_element_end('p');
-		if ($user_profile && $notice->profile_id == $user_profile->id) {
+		if ($user && $notice->profile_id == $user->id) {
 			$deleteurl = common_local_url('deletenotice', array('notice' => $notice->id));
-			common_element('a', array('class' => 'deletenotice',
-									 'href' => $deleteurl),
-						   _('delete'));
+			common_element_start('a', array('class' => 'deletenotice',
+											'href' => $deleteurl,
+											'title' => _('delete')));
+			common_raw('&times;');
+			common_element_end('a');
 		}
+		common_element_end('p');
 		common_element_end('li');
 	}
 	
