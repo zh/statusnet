@@ -371,20 +371,19 @@ class TwitapistatusesAction extends TwitterapiAction {
 	}
 		
 	function update($args, $apidata) {
+		
 		parent::handle($args);
 		
 		$user = $apidata['user'];
-				
-		$this->is_readonly();
 		
-				
-		$notice = DB_DataObject::factory('notice');		
+		$status = $this->trimmed('status');
+		$source = $this->trimmed('source');
 		
-		$notice->profile_id = $user->id; # user id *is* profile id
-		$notice->created = DB_DataObject_Cast::dateTime();	
-		$notice->content = $this->trimmed('status');
-
-		if (!$notice->content) {
+		if (!$source) {
+			$source = 'api';
+		}
+		
+		if (!$status) {
 			
 			// XXX: Note: In this case, Twitter simply returns '200 OK'
 			// No error is given, but the status is not posted to the 
@@ -392,7 +391,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 			// errror? -- Zach
 			exit();
 			
-		} else if (strlen($notice->content) > 140) {
+		} else if (strlen($status) > 140) {
 
 			// XXX: Twitter truncates anything over 140, flags the status 
 		    // as "truncated."  Sending this error may screw up some clients
@@ -402,28 +401,14 @@ class TwitapistatusesAction extends TwitterapiAction {
 			print "That's too long. Max notice size is 140 chars.\n";
 			exit();
 		}
-
-		$notice->rendered = common_render_content($notice->content, $notice);
-		$notice->is_local = 1;
 		
-		$id = $notice->insert();
+		$notice = Notice::saveNew($user->id, $status, $source);
 
-		if (!$id) {
-			common_server_error('Could not update status!', 500);
-			exit();
+		if (is_string($notice)) {
+			$this->server_error($notice);
+			return;
 		}
-
-		$orig = clone($notice);
-		$notice->uri = common_notice_uri($notice);
-
-		if (!$notice->update($orig)) {
-			common_server_error('Could not save status!', 500);
-			exit();
-		}
-
-        common_save_replies($notice);
-		common_broadcast_notice($notice);
-
+		
 		// FIXME: Bad Hack 
 		// I should be able to just sent this notice off for display,
 		// but $notice->created does not contain a string at this

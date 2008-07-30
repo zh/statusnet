@@ -74,24 +74,11 @@ class PostnoticeAction extends Action {
 		}
 		$notice = Notice::staticGet('uri', $notice_uri);
 		if (!$notice) {
-			$notice = new Notice();
-			$notice->is_local = 0;
-			$notice->profile_id = $remote_profile->id;
-			$notice->uri = $notice_uri;
-			$notice->content = $content;
-			$notice->rendered = common_render_content($notice->content, $notice);
-			if ($notice_url) {
-				$notice->url = $notice_url;
-			}
-			$notice->created = DB_DataObject_Cast::dateTime(); # current time
-			$id = $notice->insert();
-			if (!$id) {
-				common_server_error(_('Error inserting notice'), 500);
+			$notice = Notice::saveNew($remote_profile->id, $content, 'omb', 0);
+			if (is_string($notice)) {
+				common_server_serror($notice, 500);
 				return false;
 			}
-			common_save_replies($notice);
-			$notice->saveTags();
-			common_broadcast_notice($notice, true);
 		}
 		return true;
 	}

@@ -38,44 +38,27 @@ class NewnoticeAction extends Action {
 
 		$user = common_current_user();
 		assert($user); # XXX: maybe an error instead...
-		$notice = new Notice();
-		assert($notice);
-		$notice->profile_id = $user->id; # user id *is* profile id
-		$notice->is_local = 1;
-		$notice->created = DB_DataObject_Cast::dateTime();
-		# Default theme uses 'content' for something else
-		$notice->content = $this->trimmed('status_textarea');
-
-		if (!$notice->content) {
+		$content = $this->trimmed('status_textarea');
+		
+		if (!$content) {
 			$this->show_form(_('No content!'));
 			return;
-		} else if (strlen($notice->content) > 140) {
+		} else if (strlen($content) > 140) {
 			$this->show_form(_('That\'s too long. Max notice size is 140 chars.'));
 			return;
 		}
 
-		$notice->rendered = common_render_content($notice->content, $notice);
-
-		$id = $notice->insert();
-
-		if (!$id) {
-			common_server_error(_('Problem saving notice.'));
+		$notice = Notice::saveNew($user->id, $content, 'web');
+		
+		if (is_string($notice)) {
+			$this->show_form($notice);
 			return;
 		}
-
-		$orig = clone($notice);
-		$notice->uri = common_notice_uri($notice);
-
-		if (!$notice->update($orig)) {
-			common_server_error(_('Problem saving notice.'));
-			return;
-		}
-
-		common_save_replies($notice);
-		$notice->saveTags();
+		
 		common_broadcast_notice($notice);
-
+		
 		$returnto = $this->trimmed('returnto');
+		
 		if ($returnto) {
 			$url = common_local_url($returnto,
 									array('nickname' => $user->nickname));

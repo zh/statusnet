@@ -115,35 +115,11 @@ class MailerDaemon {
 	}
 
 	function add_notice($user, $msg) {
-		$notice = new Notice();
-		$notice->is_local = 1;
-		$notice->profile_id = $user->id;
-		$notice->content = trim(substr($msg, 0, 140));
-		$notice->rendered = common_render_content($notice->content, $notice);
-		$notice->created = DB_DataObject_Cast::dateTime();
-		$notice->query('BEGIN');
-		$id = $notice->insert();
-		if (!$id) {
-			$last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-			$this->log(LOG_ERR,
-					   'Could not insert ' . common_log_objstring($notice) .
-					   ' for user ' . common_log_objstring($user) .
-					   ': ' . $last_error->message);
+		$notice = Notice::saveNew($user->id, $msg, 'mail');
+		if (is_string($notice)) {
+			$this->log(LOG_ERR, $notice);
 			return;
 		}
-		$orig = clone($notice);
-		$notice->uri = common_notice_uri($notice);
-		$result = $notice->update($orig);
-		if (!$result) {
-			$last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-			$this->log(LOG_ERR,
-					   'Could not add URI to ' . common_log_objstring($notice) .
-					   ' for user ' . common_log_objstring($user) .
-					   ': ' . $last_error->message);
-			return;
-		}
-		$notice->query('COMMIT');
-        common_save_replies($notice);
 		common_broadcast_notice($notice);
 		$this->log(LOG_INFO,
 				   'Added notice ' . $notice->id . ' from user ' . $user->nickname);

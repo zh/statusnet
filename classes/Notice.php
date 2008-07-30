@@ -75,4 +75,34 @@ class Notice extends DB_DataObject
 		}
 		return true;
 	}
+	
+	static function saveNew($profile_id, $content, $source=NULL, $is_local=1) {
+		
+		$notice = new Notice();
+		$notice->profile_id = $profile_id;
+		$notice->is_local = $is_local;
+		$notice->created = DB_DataObject_Cast::dateTime();
+		# Default theme uses 'content' for something else
+		$notice->content = $content;
+
+		$notice->rendered = common_render_content($notice->content, $notice);
+
+		$id = $notice->insert();
+
+		if (!$id) {
+			return _('Problem saving notice.');
+		}
+
+		$orig = clone($notice);
+		$notice->uri = common_notice_uri($notice);
+
+		if (!$notice->update($orig)) {
+			return _('Problem saving notice.');
+		}
+
+		common_save_replies($notice);
+		$notice->saveTags();
+		
+		return $notice;
+	}
 }
