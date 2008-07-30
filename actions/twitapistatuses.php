@@ -408,6 +408,8 @@ class TwitapistatusesAction extends TwitterapiAction {
 			$this->server_error($notice);
 			return;
 		}
+
+		common_broadcast_notice($notice);
 		
 		// FIXME: Bad Hack 
 		// I should be able to just sent this notice off for display,
@@ -415,7 +417,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 		// point and I don't know how to convert it to one here. So
 		// I'm forced to have DBObject pull the notice back out of the
 		// DB before printing. --Zach
-		$apidata['api_arg'] = $id;
+		$apidata['api_arg'] = $notice->id;
 		$this->show($args, $apidata);
 
 		exit();
