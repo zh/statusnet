@@ -109,43 +109,17 @@ class TagAction extends StreamAction {
 				$tw[$tags->tag] = $tags->weight;
 				$sum += $tags->weight;
 			}
-			common_element_end('ul');
-		}
 
-		common_pagination($page > 1, $cnt > TAGS_PER_PAGE,
-						  $page, 'tags');
-	}
+			foreach ($tw as $tag => $weight) {
+				$this->show_tag($tag, $weight, $weight/$sum);
+			}
 
-	private static function show_tag($tag) {
-		common_element_start('li', array('class' => 'notice_single'));
-		common_element_start('a', array(
-							'class' => 'nickname',
-							'href' => common_local_url('tag', array('tag' => $tag->tag)),
-							'title' => sprintf(_("Notices tagged with %s"), $tag->tag)));
-		common_text('#' . $tag->tag);
-		common_element_end('a');
-		common_text(sprintf(_('%s Notices recently tagged with %s'), $tag->num, $tag->tag));
-
-		$notice = Notice::staticGet($tag->last_notice_id);
-		if ($notice) {
-			$noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
-			common_element_start('p', 'time');
-			common_text(_('Last message posted: '));
-			common_element('a', array('class' => 'permalink',
-									  'href' => $noticeurl,
-									  'title' => common_exact_date($notice->created)),
-						   	common_date_string($notice->created));
-
-			common_text(_(' by '));
-			$profile = $notice->getProfile();
-			common_element('a', array('href' => $profile->profileurl),
-						   $profile->nickname);
 			common_element_end('p');
 		}
 	}
 
 	function show_tag($tag, $weight, $relative) {
-		
+
 		# XXX: these should probably tune to the size of the site
 		if ($relative > 0.1) {
 			$cls =  'largest';
@@ -162,13 +136,13 @@ class TagAction extends StreamAction {
 		} else {
 			$cls = 'smallest';
 		}
-		
+
 		common_element('a', array('class' => "$cls weight-$weight relative-$relative",
 								  'href' => common_local_url('tag', array('tag' => $tag))),
 					   $tag);
 		common_text(' ');
 	}
-	
+
 	function show_notices($tag) {
 
 		$tags = DB_DataObject::factory('Notice_tag');

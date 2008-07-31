@@ -371,21 +371,19 @@ class TwitapistatusesAction extends TwitterapiAction {
 	}
 
 	function update($args, $apidata) {
-		
+
 		parent::handle($args);
 
 		$user = $apidata['user'];
-				
-		$this->is_readonly();
-		
-				
-		$notice = DB_DataObject::factory('notice');		
-		
-		$notice->profile_id = $user->id; # user id *is* profile id
-		$notice->created = DB_DataObject_Cast::dateTime();	
-		$notice->content = $this->trimmed('status');
 
-		if (!$notice->content) {
+		$status = $this->trimmed('status');
+		$source = $this->trimmed('source');
+
+		if (!$source) {
+			$source = 'api';
+		}
+
+		if (!$status) {
 
 			// XXX: Note: In this case, Twitter simply returns '200 OK'
 			// No error is given, but the status is not posted to the
@@ -404,9 +402,6 @@ class TwitapistatusesAction extends TwitterapiAction {
 			exit();
 		}
 
-		$notice->rendered = common_render_content($notice->content, $notice);
-		$notice->is_local = 1;
-		
 		$notice = Notice::saveNew($user->id, $status, $source);
 
 		if (is_string($notice)) {
@@ -415,7 +410,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 		}
 
 		common_broadcast_notice($notice);
-		
+
 		// FIXME: Bad Hack
 		// I should be able to just sent this notice off for display,
 		// but $notice->created does not contain a string at this
