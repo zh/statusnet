@@ -137,8 +137,16 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 	global $config, $xw;
 
 	$language = common_language();
-	setlocale(LC_ALL, $language);
+	# So we don't have to make people install the gettext locales
+	putenv('LANGUAGE='.$language);
+	putenv('LANG='.$language);	
+	$locale_set = setlocale(LC_ALL, $language . ".utf8",
+							$language . ".UTF8",
+							$language . ".utf-8",
+							$language . ".UTF-8",
+							$language);
 	bindtextdomain("laconica", $config['site']['locale_path']);
+	bind_textdomain_codeset("laconica", "UTF-8");
 	textdomain("laconica");
 	
 	$httpaccept = isset($_SERVER['HTTP_ACCEPT']) ? $_SERVER['HTTP_ACCEPT'] : NULL;
