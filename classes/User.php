@@ -32,26 +32,26 @@ class User extends DB_DataObject
     public $__table = 'user';                            // table name
     public $id;                              // int(4)  primary_key not_null
     public $nickname;                        // varchar(64)  unique_key
-    public $password;                        // varchar(255)
+    public $password;                        // varchar(255)  
     public $email;                           // varchar(255)  unique_key
     public $incomingemail;                   // varchar(255)  unique_key
     public $emailnotifysub;                  // tinyint(1)   default_1
     public $emailmicroid;                    // tinyint(1)   default_1
-    public $language;                        // varchar(50)
-    public $timezone;                        // varchar(50)
+    public $language;                        // varchar(50)  
+    public $timezone;                        // varchar(50)  
     public $emailpost;                       // tinyint(1)   default_1
     public $jabber;                          // varchar(255)  unique_key
-    public $jabbernotify;                    // tinyint(1)
-    public $jabberreplies;                   // tinyint(1)
+    public $jabbernotify;                    // tinyint(1)  
+    public $jabberreplies;                   // tinyint(1)  
     public $jabbermicroid;                   // tinyint(1)   default_1
-    public $updatefrompresence;              // tinyint(1)
+    public $updatefrompresence;              // tinyint(1)  
     public $sms;                             // varchar(64)  unique_key
-    public $carrier;                         // int(4)
-    public $smsnotify;                       // tinyint(1)
-    public $smsreplies;                      // tinyint(1)
-    public $smsemail;                        // varchar(255)
+    public $carrier;                         // int(4)  
+    public $smsnotify;                       // tinyint(1)  
+    public $smsreplies;                      // tinyint(1)  
+    public $smsemail;                        // varchar(255)  
     public $uri;                             // varchar(255)  unique_key
-    public $autosubscribe;                   // tinyint(1)
+    public $autosubscribe;                   // tinyint(1)  
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
