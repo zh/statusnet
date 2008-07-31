@@ -293,11 +293,8 @@ function common_nav_menu() {
 		common_menu_item(common_local_url('all', array('nickname' => $user->nickname)),
 						 _('Home'));
 	}
-	common_menu_item(common_local_url('public'), _('Public'));
 	common_menu_item(common_local_url('peoplesearch'), _('Search'));
 	common_menu_item(common_local_url('tags'), _('Tags'));
-	common_menu_item(common_local_url('doc', array('title' => 'help')),
-					 _('Help'));
 	if ($user) {
 		common_menu_item(common_local_url('profilesettings'),
 						 _('Settings'));
@@ -315,6 +312,8 @@ function common_nav_menu() {
 
 function common_foot_menu() {
 	common_element_start('ul', array('id' => 'nav_sub'));
+	common_menu_item(common_local_url('doc', array('title' => 'help')),
+					 _('Help'));
 	common_menu_item(common_local_url('doc', array('title' => 'about')),
 					 _('About'));
 	common_menu_item(common_local_url('doc', array('title' => 'faq')),
