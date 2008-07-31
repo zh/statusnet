@@ -110,6 +110,8 @@ class TagAction extends StreamAction {
 				$sum += $tags->weight;
 			}
 
+			ksort($tw);
+			
 			foreach ($tw as $tag => $weight) {
 				$this->show_tag($tag, $weight, $weight/$sum);
 			}
