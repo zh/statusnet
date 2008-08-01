@@ -34,9 +34,16 @@ class UserbyidAction extends Action {
 		$user =& User::staticGet($id);
 		if (!$user) {
 			$this->client_error(_('No such user.'));
-		}
-		$url=common_local_url('showstream',
-				array('nickname' => $user->nickname));
+        }
+
+        // support redirecting to FOAF rdf/xml if the agent prefers it
+        $page_prefs = 'application/rdf+xml,text/html,application/xhtml+xml,application/xml;q=0.3,text/xml;q=0.2';
+        $httpaccept = isset($_SERVER['HTTP_ACCEPT']) ? $_SERVER['HTTP_ACCEPT'] : NULL;
+    	$type = common_negotiate_type(common_accept_to_prefs($httpaccept),
+                                      common_accept_to_prefs($page_prefs));
+		$page = $type == 'application/rdf+xml' ? 'foaf' : 'showstream';
+
+		$url = common_local_url($page, array('nickname' => $user->nickname));
 		common_redirect($url, 303);
 	}
 }
