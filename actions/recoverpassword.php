@@ -69,6 +69,7 @@ class RecoverpasswordAction extends Action {
 		}
 
 		$touched = strtotime($confirm->modified);
+		$email = $confirm->address;
 
 		# Burn this code
 
@@ -87,6 +88,20 @@ class RecoverpasswordAction extends Action {
 			$this->client_error(_('This confirmation code is too old. ' .
 			                       'Please start again.'));
 			return;
+		}
+
+		# If we used an outstanding confirmation to send the email,
+		# it's been confirmed at this point.
+
+		if (!$user->email) {
+			$orig = clone($user);
+			$user->email = $email;
+			$result = $user->updateKeys($orig);
+			if (!$result) {
+				common_log_db_error($user, 'UPDATE', __FILE__);
+				$this->server_error(_('Could not update user with confirmed email address.'));
+				return;
+			}
 		}
 
 		# Success!
@@ -176,16 +191,26 @@ class RecoverpasswordAction extends Action {
 			$this->show_form(_('Enter a nickname or email address.'));
 			return;
 		}
+
 		$user = User::staticGet('email', common_canonical_email($nore));
+
 		if (!$user) {
 			$user = User::staticGet('nickname', common_canonical_nickname($nore));
 		}
 
 		if (!$user) {
-			$this->show_form(_('No such user.'));
+			$confirm_email = Confirm_address::staticGet('address', common_canonical_email($nore));
+			if ($confirm_email && $confirm_email->address_type == 'email') {
+				$user = User::staticGet($confirm_email->user_id);
+			}
+		}
+
+		if (!$user) {
+			$this->show_form(_('No user with that email address or username.'));
 			return;
 		}
-		if (!$user->email) {
+
+		if (!$user->email && !$confirm_email) {
 			$this->client_error(_('No registered email address for that user.'));
 			return;
 		}
@@ -194,7 +219,7 @@ class RecoverpasswordAction extends Action {
 		$confirm->code = common_confirmation_code(128);
 		$confirm->address_type = 'recover';
 		$confirm->user_id = $user->id;
-		$confirm->address = $user->email;
+		$confirm->address = ($user->email) ? $user->email : $confirm_email->address;
 
 		if (!$confirm->insert()) {
 			common_log_db_error($confirm, 'INSERT', __FILE__);
