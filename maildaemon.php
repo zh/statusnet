@@ -98,9 +98,30 @@ class MailerDaemon {
 	}
 
 	function handle_command($user, $msg) {
-		return false;
+		$cmd = trim(strtolower($msg));
+		switch ($cmd) {
+		 case 'off':
+			$this->set_notify($user, false);
+			return true;
+		 case 'on':
+			$this->set_notify($user, true);
+			return true;
+		 default:
+			return false;
+		}
 	}
 
+	function set_notify($user, $value) {
+		$orig = clone($user);
+		$user->smsnotify = $value;
+		$result = $user->update($orig);
+		if (!$result) {
+			common_log_db_error($user, 'UPDATE', __FILE__);
+			return false;
+		}
+		return true;
+	}
+	
 	function respond($from, $to, $response) {
 
 		$headers['From'] = $to;
