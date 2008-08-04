@@ -197,7 +197,7 @@ function mail_send_sms_notice($notice, $user) {
 	common_log(LOG_INFO, "Sending notice " . $notice->id . " to " . $user->smsemail, __FILE__);
 	
 	$headers = array();
-	$headers['From'] = $user->incomingemail;
+	$headers['From'] = (isset($user->incomingemail)) ? $user->incomingemail : mail_notify_from();
 	$headers['To'] = $to;
 	$headers['Subject'] = sprintf(_('%s status'),
 								  $other->getBestName());
