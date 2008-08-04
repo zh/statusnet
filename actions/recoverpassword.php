@@ -198,6 +198,8 @@ class RecoverpasswordAction extends Action {
 			$user = User::staticGet('nickname', common_canonical_nickname($nore));
 		}
 
+		# See if it's an unconfirmed email address
+
 		if (!$user) {
 			$confirm_email = Confirm_address::staticGet('address', common_canonical_email($nore));
 			if ($confirm_email && $confirm_email->address_type == 'email') {
@@ -210,16 +212,28 @@ class RecoverpasswordAction extends Action {
 			return;
 		}
 
+		# Try to get an unconfirmed email address if they used a user name
+
+		if (!$user->email && !$confirm_email) {
+			$confirm_email = Confirm_address::staticGet('user_id', $user->id);
+			if ($confirm_email && $confirm_email->address_type != 'email') {
+				# Skip non-email confirmations
+				$confirm_email = NULL;
+			}
+		}
+
 		if (!$user->email && !$confirm_email) {
 			$this->client_error(_('No registered email address for that user.'));
 			return;
 		}
 
+		# Success! We have a valid user and a confirmed or unconfirmed email address
+
 		$confirm = new Confirm_address();
 		$confirm->code = common_confirmation_code(128);
 		$confirm->address_type = 'recover';
 		$confirm->user_id = $user->id;
-		$confirm->address = ($user->email) ? $user->email : $confirm_email->address;
+		$confirm->address = (isset($user->email)) ? $user->email : $confirm_email->address;
 
 		if (!$confirm->insert()) {
 			common_log_db_error($confirm, 'INSERT', __FILE__);
@@ -244,7 +258,7 @@ class RecoverpasswordAction extends Action {
 		$body .= common_config('site', 'name');
 		$body .= "\n";
 
-		mail_to_user($user, _('Password recovery requested'), $body);
+		mail_to_user($user, _('Password recovery requested'), $body, $confirm->address);
 
 		common_show_header(_('Password recovery requested'));
 		common_element('p', NULL,
