@@ -144,13 +144,7 @@ function common_init_language() {
 	bindtextdomain("laconica", $config['site']['locale_path']);
 	bind_textdomain_codeset("laconica", "UTF-8");
 	textdomain("laconica");
-}
-
-define('PAGE_TYPE_PREFS', 'text/html,application/xhtml+xml,application/xml;q=0.3,text/xml;q=0.2');
-
-function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=NULL) {
-	global $config, $xw;
-
+	
 	$httpaccept = isset($_SERVER['HTTP_ACCEPT']) ? $_SERVER['HTTP_ACCEPT'] : NULL;
 
 	# XXX: allow content negotiation for RDF, RSS, or XRDS
