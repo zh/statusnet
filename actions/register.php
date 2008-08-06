@@ -98,6 +98,8 @@ class RegisterAction extends Action {
 				common_debug('Adding rememberme cookie for ' . $nickname);
 				common_rememberme($user);
 			}
+			# Re-init language env in case it changed (not yet, but soon)
+			common_init_language();
 			$this->show_success();
 		} else {
 			$this->show_form(_('Invalid username or password.'));

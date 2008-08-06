@@ -140,6 +140,9 @@ class ProfilesettingsAction extends SettingsAction {
 				common_log_db_error($user, 'UPDATE', __FILE__);
 				common_server_error(_('Couldn\'t update user.'));
 				return;
+			} else {
+				# Re-initialize language environment if it changed
+				common_init_language();
 			}
 		}
 

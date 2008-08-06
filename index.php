@@ -22,6 +22,14 @@ define('LACONICA', true);
 
 require_once(INSTALLDIR . "/lib/common.php");
 
+# get and cache current user
+
+$user = common_current_user();
+
+# initialize language env
+
+common_init_language();
+
 $action = $_REQUEST['action'];
 
 if (!$action || !preg_match('/^[a-zA-Z0-9_-]*$/', $action)) {
