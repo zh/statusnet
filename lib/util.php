@@ -141,7 +141,7 @@ function common_init_language() {
 							$language . ".utf-8",
 							$language . ".UTF-8",
 							$language);
-	bindtextdomain("laconica", $config['site']['locale_path']);
+	bindtextdomain("laconica", common_config('site','locale_path'));
 	bind_textdomain_codeset("laconica", "UTF-8");
 	textdomain("laconica");
 	setlocale(LC_CTYPE, 'C');
