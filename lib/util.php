@@ -1078,7 +1078,7 @@ function common_dequeue_notice($notice) {
                 $result = $qi->delete();
 	        if (!$result) {
 	            $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-                    common_log(LOG_ERROR, 'DB error deleting queue item: ' . $last_error->message);
+                    common_log(LOG_ERR, 'DB error deleting queue item: ' . $last_error->message);
                     return false;
                 }
                 common_log(LOG_DEBUG, 'complete dequeueing notice ID = ' . $notice->id);

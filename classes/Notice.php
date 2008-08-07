@@ -68,7 +68,7 @@ class Notice extends DB_DataObject
 			$id = $tag->insert();
 			if (!$id) {
 				$last_error = PEAR::getStaticProperty('DB_DataObject','lastError');
-				common_log(LOG_ERROR, 'DB error inserting hashtag: ' . $last_error->message);
+				common_log(LOG_ERR, 'DB error inserting hashtag: ' . $last_error->message);
 				common_server_error(sprintf(_('DB error inserting hashtag: %s'), $last_error->message));
 				return;
 			}
