@@ -61,7 +61,7 @@ class TwitterapiAction extends Action {
 		$twitter_status['truncated'] = 'false'; # Not possible on Laconica
 		$twitter_status['created_at'] = $this->date_twitter($notice->created);
 		$twitter_status['in_reply_to_status_id'] = ($notice->reply_to) ? intval($notice->reply_to) : NULL;
-		$twitter_status['source'] = NULL; # XXX: twitterific, twitterfox, etc. Not supported yet.
+		$twitter_status['source'] = $notice->source;
 		$twitter_status['id'] = intval($notice->id);
 		$twitter_status['in_reply_to_user_id'] = ($notice->reply_to) ? $this->replier_by_reply(intval($notice->reply_to)) : NULL;
 		$twitter_status['favorited'] = NULL; # XXX: Not implemented on Laconica yet.
