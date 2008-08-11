@@ -21,7 +21,6 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/actions/showstream.php');
 define('TAGS_PER_PAGE', 100);
-define('AGE_FACTOR', 864000.0);
 
 class TagAction extends StreamAction {
 
@@ -90,7 +89,7 @@ class TagAction extends StreamAction {
 		# This should probably be cached rather than recalculated
 		$tags = DB_DataObject::factory('Notice_tag');
 		$tags->selectAdd('max(notice_id) as last_notice_id');
-		$tags->selectAdd(sprintf('sum(exp(-(now() - created)/%f)) as weight', AGE_FACTOR));
+		$tags->selectAdd(sprintf('sum(exp(-(now() - created)/%f)) as weight', common_config('tag', 'dropoff')));
 		$tags->groupBy('tag');
 		$tags->orderBy('weight DESC');
 

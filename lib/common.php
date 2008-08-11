@@ -85,6 +85,8 @@ $config =
 			  'host' => NULL, # only set if != server
 			  'debug' => false, # print extra debug info
 			  'public' => array()), # JIDs of users who want to receive the public stream
+		'tag' =>
+		array('dropoff' => 864000.0),
 		);
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
