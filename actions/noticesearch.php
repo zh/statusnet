@@ -85,6 +85,10 @@ class NoticesearchAction extends SearchAction {
 
 	function show_notice($notice, $terms) {
 		$profile = $notice->getProfile();
+		if (!$profile) {
+			common_log_db_error($notice, 'SELECT', __FILE__);
+			return;
+		}
 		# XXX: RDFa
 		common_element_start('li', array('class' => 'notice_single',
 										  'id' => 'notice-' . $notice->id));
