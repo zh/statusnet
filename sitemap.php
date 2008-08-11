@@ -29,7 +29,7 @@ function index_map() {
 		# Just the file name please.
 		$file_name = preg_replace("|$output_dir|", '', $file_name);
 
-		$index_urls .= url(
+		$index_urls .= sitemap(
 						   array(
 								 'url' => $output_url . $file_name,
 								 'changefreq' => 'daily'
@@ -37,8 +37,7 @@ function index_map() {
 						   );
 	}
 
-	write_file($output_paths['index_file'], urlset($index_urls));
-
+	write_file($output_paths['index_file'], sitemapindex($index_urls));
 }
 
 # Generate sitemap of standard site elements.
@@ -274,6 +273,26 @@ function url($url_args) {
 	return $url_out;
 }
 
+function sitemap($sitemap_args) {
+	$url        = preg_replace('/&/', '&amp;', $sitemap_args['url']); # escape ampersands for XML
+	$lastmod    = $sitemap_args['lastmod'];
+
+	if (is_null($url)) {
+		error("url() arguments require 'url' value.");
+	}
+
+	$sitemap_out = "\t<sitemap>\n";
+	$sitemap_out .= "\t\t<loc>$url</loc>\n";
+
+	if ($lastmod) {
+		$sitemap_out .= "\t\t<lastmod>$lastmod</lastmod>\n";
+	}
+
+	$sitemap_out .= "\t</sitemap>\n";
+
+	return $sitemap_out;
+}
+
 # Generate a <urlset></urlset> element.
 function urlset($urlset_text) {
 	$urlset = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" .
@@ -282,6 +301,16 @@ function urlset($urlset_text) {
 	  '</urlset>';
 
 	return $urlset;
+}
+
+# Generate a <urlset></urlset> element.
+function sitemapindex($sitemapindex_text) {
+	$sitemapindex = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" .
+	  '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n" .
+	  $sitemapindex_text .
+	  '</sitemapindex>';
+
+	return $sitemapindex;
 }
 
 # Generate a sitemap from an array containing <url></url> elements and write it to a file.
