@@ -64,7 +64,7 @@ class NewnoticeAction extends Action {
 									array('nickname' => $user->nickname));
 		} else {
 			$url = common_local_url('shownotice',
-									array('notice' => $id));
+									array('notice' => $notice->id));
 		}
 		common_redirect($url, 303);
 	}
