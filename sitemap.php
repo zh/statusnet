@@ -82,7 +82,7 @@ function notices_map() {
 
 	$notices = DB_DataObject::factory('notice');
 
-	$notices->query('SELECT uri, url, modified FROM notice');
+	$notices->query('SELECT id, uri, url, modified FROM notice');
 
 	$notice_count = 0;
 	$map_count = 1;
@@ -97,11 +97,11 @@ function notices_map() {
 
 		# remote notices have an URL
 		
-		if (!$notices->url) {
+		if (!$notices->url && $notices->uri) {
 			$notice = array(
-						'url'        => $notices->uri,
+						'url'        => ($notices->uri) ? $notices->uri : common_local_url('shownotice', array('notice' => $notices->id)),
 						'lastmod'    => common_date_w3dtf($notices->modified),
-						'changefreq' => 'daily',
+						'changefreq' => 'never',
 						'priority'   => '1',
 						);
 
