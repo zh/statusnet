@@ -11,7 +11,6 @@ $output_paths = parse_args();
 standard_map();
 notices_map();
 user_map();
-avatar_map();
 index_map();
 
 # ------------------------------------------------------------------------------
@@ -83,7 +82,7 @@ function notices_map() {
 
 	$notices = DB_DataObject::factory('notice');
 
-	$notices->query('SELECT uri, modified FROM notice');
+	$notices->query('SELECT uri, url, modified FROM notice');
 
 	$notice_count = 0;
 	$map_count = 1;
@@ -96,16 +95,19 @@ function notices_map() {
 			$map_count++;
 		}
 
-		$notice = array(
+		# remote notices have an URL
+		
+		if (!$notices->url) {
+			$notice = array(
 						'url'        => $notices->uri,
 						'lastmod'    => common_date_w3dtf($notices->modified),
 						'changefreq' => 'daily',
 						'priority'   => '1',
 						);
 
-		$notice_list[$map_count] .= url($notice);
-
-		$notice_count++;
+			$notice_list[$map_count] .= url($notice);
+			$notice_count++;
+		}
 	}
 
 	# Make full sitemaps from the lists and save them.
@@ -199,43 +201,6 @@ function user_map() {
 	array_to_map($replies_list, 'replies');
 	array_to_map($replies_rss_list, 'replies_rss');
 	array_to_map($foaf_list, 'foaf');
-}
-
-# Generate sitemaps of all avatars.
-function avatar_map() {
-	global $output_paths;
-
-	$avatars = new Avatar();
-	$avatars->whereAdd('original = 1', "OR");
-	$avatars->whereAdd('width = ' . AVATAR_MINI_SIZE, 'OR');
-
-	if (!$avatars->find()) {
-		return 0;
-	}
-	
-	$avatar_count = 0;
-	$map_count = 1;
-
-	while ($avatars->fetch()) {
-
-		# Maximum 50,000 URLs per sitemap file.
-		if ($avatar_count == 50000) {
-			$avatar_count = 0;
-			$map_count++;
-		}
-		$image = array(
-					   'url'        => common_avatar_display_url($avatars),
-					   'lastmod'    => common_date_w3dtf($avatars->modified),
-					   'changefreq' => 'never',
-					   'priority'   => '0.2',
-					   );
-
-		# Construct a <url></url> element for each avatar and add it
-		# to our existing list of those.
-		$avatar_list[$map_count] .= url($image);
-	}
-
-	array_to_map($avatar_list, 'avatars');
 }
 
 # ------------------------------------------------------------------------------
