@@ -24,7 +24,7 @@ if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
     exit();
 }
 
-define('INSTALLDIR', dirname(__FILE__));
+define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 define('LACONICA', true);
 
 require_once(INSTALLDIR . '/lib/common.php');
@@ -35,12 +35,6 @@ $notice = new Notice();
 $cnt = $notice->find();
 
 while ($notice->fetch()) {
-    common_log(LOG_INFO, 'Getting tags for notice #' . $notice->id);
-    $notice->saveTags();
-	$original = clone($notice);
-	$notice->rendered = common_render_content($notice->content, $notice);
-	$result = $notice->update($original);
-	if (!$result) {
-		common_log_db_error($notice, 'UPDATE', __FILE__);
-	}
+    common_log(LOG_INFO, 'Getting replies for notice #' . $notice->id);
+    common_save_replies($notice);
 }

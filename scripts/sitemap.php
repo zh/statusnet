@@ -1,6 +1,6 @@
 <?php
 
-define('INSTALLDIR', dirname(__FILE__));
+define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 define('LACONICA', true);
 
 require_once(INSTALLDIR . '/lib/common.php');

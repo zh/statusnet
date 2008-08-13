@@ -20,21 +20,26 @@
 
 # Abort if called from a web server
 if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
-    print "This script must be run from the command line\n";
-    exit();
+	print "This script must be run from the command line\n";
+	exit();
 }
 
-define('INSTALLDIR', dirname(__FILE__));
+define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 define('LACONICA', true);
 
 require_once(INSTALLDIR . '/lib/common.php');
 
-common_log(LOG_INFO, 'Starting to do old notices.');
+common_log(LOG_INFO, 'Starting to render old notices.');
 
 $notice = new Notice();
 $cnt = $notice->find();
 
 while ($notice->fetch()) {
-    common_log(LOG_INFO, 'Getting replies for notice #' . $notice->id);
-    common_save_replies($notice);
+	common_log(LOG_INFO, 'Pre-rendering notice #' . $notice->id);
+	$original = clone($notice);
+	$notice->rendered = common_render_content($notice->content, $notice);
+	$result = $notice->update($original);
+	if (!$result) {
+		common_log_db_error($notice, 'UPDATE', __FILE__);
+	}
 }
