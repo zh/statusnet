@@ -116,7 +116,9 @@ require_once(INSTALLDIR.'/lib/theme.php');
 require_once(INSTALLDIR.'/lib/mail.php');
 
 function __autoload($class) {
-    if (file_exists(INSTALLDIR.'/classes/' . $class . '.php')) {
+	if ($class == 'OAuthRequest') {
+		require_once('OAuth.php');
+	} else if (file_exists(INSTALLDIR.'/classes/' . $class . '.php')) {
         require_once(INSTALLDIR.'/classes/' . $class . '.php');
     }
 }
