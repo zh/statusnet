@@ -376,7 +376,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 
 		$user = $apidata['user'];
 
-		$status = htmlspecialchars_decode($this->trimmed('status'));
+		$status = $this->trimmed('status');
 		$source = $this->trimmed('source');
 
 		if (!$source) {
