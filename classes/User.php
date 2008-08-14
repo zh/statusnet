@@ -145,4 +145,91 @@ class User extends DB_DataObject
 		
 		return $notice;
 	}
+	
+	static function register($fields) {
+
+		extract($fields);
+		
+		$profile = new Profile();
+
+		$profile->query('BEGIN');
+
+		$profile->nickname = $nickname;
+		$profile->profileurl = common_profile_url($nickname);
+		
+		if ($fullname) {
+			$profile->fullname = $fullname;
+		}
+		if ($homepage) {
+			$profile->homepage = $homepage;
+		}
+		if ($bio) {
+			$profile->bio = $bio;
+		}
+		if ($location) {
+			$profile->location = $location;
+		}
+		$profile->created = DB_DataObject_Cast::dateTime(); # current time
+		
+		$id = $profile->insert();
+
+		if (!$id) {
+			common_log_db_error($profile, 'INSERT', __FILE__);
+		    return FALSE;
+		}
+		
+		$user = new User();
+		
+		$user->id = $id;
+		$user->nickname = $nickname;
+		$user->password = common_munge_password($password, $id);
+		$user->created =  DB_DataObject_Cast::dateTime(); # current time
+		$user->uri = common_user_uri($user);
+
+		$result = $user->insert();
+
+		if (!$result) {
+			common_log_db_error($user, 'INSERT', __FILE__);
+			return FALSE;
+		}
+
+		# Everyone is subscribed to themself
+
+		$subscription = new Subscription();
+		$subscription->subscriber = $user->id;
+		$subscription->subscribed = $user->id;
+		$subscription->created = $user->created;
+		
+		$result = $subscription->insert();
+		
+		if (!$result) {
+			common_log_db_error($subscription, 'INSERT', __FILE__);
+			return FALSE;
+		}
+		
+		if ($email) {
+
+			$confirm = new Confirm_address();
+			$confirm->code = common_confirmation_code(128);
+			$confirm->user_id = $user->id;
+			$confirm->address = $email;
+			$confirm->address_type = 'email';
+
+			$result = $confirm->insert();
+			if (!$result) {
+				common_log_db_error($confirm, 'INSERT', __FILE__);
+				return FALSE;
+			}
+		}
+
+		$profile->query('COMMIT');
+
+		if ($email) {
+			mail_confirm_address($confirm->code,
+								 $profile->nickname,
+								 $email);
+		}
+
+		return $user;
+	}
 }
