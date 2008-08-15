@@ -76,11 +76,12 @@ class Notice extends DB_DataObject
 		return true;
 	}
 	
-	static function saveNew($profile_id, $content, $source=NULL, $is_local=1) {
+	static function saveNew($profile_id, $content, $source=NULL, $is_local=1, $reply_to=NULL) {
 		
 		$notice = new Notice();
 		$notice->profile_id = $profile_id;
 		$notice->is_local = $is_local;
+		$notice->reply_to = $reply_to;
 		$notice->created = DB_DataObject_Cast::dateTime();
 		$notice->content = $content;
 		$notice->rendered = common_render_content($notice->content, $notice);

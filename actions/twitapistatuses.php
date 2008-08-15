@@ -375,9 +375,9 @@ class TwitapistatusesAction extends TwitterapiAction {
 		parent::handle($args);
 
 		$user = $apidata['user'];
-
 		$status = $this->trimmed('status');
 		$source = $this->trimmed('source');
+		$in_reply_to_status_id = intval($this->trimmed('in_reply_to_status_id'));
 
 		if (!$source) {
 			$source = 'api';
@@ -397,16 +397,30 @@ class TwitapistatusesAction extends TwitterapiAction {
 		    // as "truncated."  Sending this error may screw up some clients
 		    // that assume Twitter will truncate for them.  Should we just
 		    // truncate too? -- Zach
-			header('HTTP/1.1 406 Not Acceptable');
-			print "That's too long. Max notice size is 140 chars.\n";
+			$this->client_error('That\'s too long. Max notice size is 140 chars.', $code = 406, $apidata['content-type']);
 			exit();
 		}
 
-		$notice = Notice::saveNew($user->id, $status, $source);
+		$reply_to = NULL;
+
+		if ($in_reply_to_status_id) {
+						
+			// check whether notice actually exists
+			$reply = Notice::staticGet($in_reply_to_status_id);
+			
+			if ($reply) {
+				$reply_to = $in_reply_to_status_id;
+			} else {
+				$this->client_error('Not found', $code = 404, $apidata['content-type']);
+				exit();
+			}
+		}
+			
+		$notice = Notice::saveNew($user->id, $status, $source, 1, $reply_to);
 
 		if (is_string($notice)) {
 			$this->server_error($notice);
-			return;
+			exit();
 		}
 
 		common_broadcast_notice($notice);
