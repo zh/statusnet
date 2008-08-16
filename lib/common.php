@@ -130,7 +130,6 @@ require_once(INSTALLDIR.'/lib/util.php');
 require_once(INSTALLDIR.'/lib/action.php');
 require_once(INSTALLDIR.'/lib/theme.php');
 require_once(INSTALLDIR.'/lib/mail.php');
-require_once(INSTALLDIR.'/lib/subs.php');
 
 function __autoload($class) {
 	if ($class == 'OAuthRequest') {

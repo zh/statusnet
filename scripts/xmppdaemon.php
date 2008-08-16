@@ -18,6 +18,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+function xmppdaemon_error_handler($errno, $errstr, $errfile, $errline, $errcontext) {
+    switch ($errno) {
+     case E_USER_ERROR:
+		echo "ERROR: [$errno] $errstr ($errfile:$errline)\n";
+		echo "  Fatal error on line $errline in file $errfile";
+		echo ", PHP " . PHP_VERSION . " (" . PHP_OS . ")\n";
+		echo "Aborting...\n";
+		exit(1);
+		break;
+
+	 case E_USER_WARNING:
+		echo "WARNING [$errno] $errstr ($errfile:$errline)\n";
+		break;
+
+     case E_USER_NOTICE:
+		echo "NOTICE [$errno] $errstr ($errfile:$errline)\n";
+		break;
+
+     default:
+		echo "Unknown error type: [$errno] $errstr ($errfile:$errline)\n";
+		break;
+    }
+
+    /* Don't execute PHP internal error handler */
+    return true;
+}
+
+set_error_handler('xmppdaemon_error_handler');
+
 # Abort if called from a web server
 if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
 	print "This script must be run from the command line\n";
@@ -206,49 +235,15 @@ class XMPPDaemon extends Daemon {
 
 	function handle_command($user, $body) {
 		# XXX: localise
-		$p=explode(' ',$body);
-		if(count($p)>2)
-			return false;
-		switch($p[0]) {
-		 case 'help':
-		 	if(count($p)!=1)
-		 		return false;
-		 	$this->from_site($user->jabber, "Commands:\n on     - turn on notifications\n off    - turn off notifications\n help   - show this help \n sub - subscribe to user\n unsub - unsubscribe from user");
-		 	return true;
+		switch(trim($body)) {
 		 case 'on':
-		 	if(count($p)!=1)
-		 		return false;
 			$this->set_notify($user, true);
 			$this->from_site($user->jabber, 'notifications on');
 			return true;
 		 case 'off':
-		 	if(count($p)!=1)
-		 		return false;
 			$this->set_notify($user, false);
 			$this->from_site($user->jabber, 'notifications off');
 			return true;
-		 case 'sub':
-		 	if(count($p)==1) {
-		 		$this->from_site($user->jabber, 'Specify the name of the user to subscribe to');
-		 		return true;
-		 	}
-		 	$result=subs_subscribe_user($user, $p[1]);
-		 	if($result=='true')
-		 		$this->from_site($user->jabber, 'Subscribed to ' . $p[1]);
-		 	else
-		 		$this->from_site($user->jabber, $result);
-		 	return true;
-		 case 'unsub':
-		 	if(count($p)==1) {
-		 		$this->from_site($user->jabber, 'Specify the name of the user to unsubscribe from');
-		 		return true;
-		 	}
-		 	$result=subs_unsubscribe_user($user, $p[1]);
-		 	if($result=='true')
-		 		$this->from_site($user->jabber, 'Unsubscribed from ' . $p[1]);
-		 	else
-		 		$this->from_site($user->jabber, $result);
-		 	return true;
 		 default:
 			return false;
 		}
@@ -258,7 +253,7 @@ class XMPPDaemon extends Daemon {
 		$orig = clone($user);
 		$user->jabbernotify = $notify;
 		$result = $user->update($orig);
-		if (!$result) {
+		if (!$id) {
 			$last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
 			$this->log(LOG_ERR,
 					   'Could not set notify flag to ' . $notify .

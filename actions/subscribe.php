@@ -47,14 +47,45 @@ class SubscribeAction extends Action {
 
 		$other_nickname = $this->arg('subscribeto');
 
-		$result=subs_subscribe_user($user, $other_nickname);
-		if($result != true) {
-			common_user_error($result);
+		$other = User::staticGet('nickname', $other_nickname);
+
+		if (!$other) {
+			common_user_error(_('No such user.'));
 			return;
+		}
+
+		if ($user->isSubscribed($other)) {
+			common_user_error(_('Already subscribed!.'));
+			return;
+		}
+
+		if (!$user->subscribeTo($other)) {
+			$this->server_error(_('Could not subscribe.'));
+			return;
+		}
+
+		$this->notify($other, $user);
+
+		if ($other->autosubscribe && !$other->isSubscribed($user)) {
+			if (!$other->subscribeTo($user)) {
+				$this->server_error(_('Could not subscribe other to you.'));
+				return;
+			}
+			$this->notify($user, $other);
 		}
 		
 		common_redirect(common_local_url('subscriptions', array('nickname' =>
 																$user->nickname)));
 	}
 
+	function notify($listenee, $listener) {
+		# XXX: add other notifications (Jabber, SMS) here
+		# XXX: queue this and handle it offline
+		# XXX: Whatever happens, do it in Twitter-like API, too
+		$this->notify_email($listenee, $listener);
+	}
+
+	function notify_email($listenee, $listener) {
+		mail_subscribe_notify($listenee, $listener);
+	}
 }
