@@ -385,7 +385,8 @@ class UserauthorizationAction extends Action {
 		if ($version != OMB_VERSION_01) {
 			throw new OAuthException("OpenMicroBlogging version '$version' not supported");
 		}
-		$user = User::staticGet('uri', $req->get_parameter('omb_listener'));
+		$listener =	$req->get_parameter('omb_listener');
+		$user = User::staticGet('uri', $listener);
 		if (!$user) {
 			throw new OAuthException("Listener URI '$listener' not found here");
 		}
