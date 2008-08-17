@@ -135,7 +135,7 @@ class RecoverpasswordAction extends Action {
 		} else {
 			common_element('div', 'instructions',
 						   _('If you\'ve forgotten or lost your' .
-						      ' password, you can get a new one sent ' .
+						      ' password, you can get a new one sent to' .
 						      ' the email address you have stored ' .
 						      ' in your account.'));
 		}
