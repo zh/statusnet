@@ -43,7 +43,7 @@ class NewnoticeAction extends Action {
 		if (!$content) {
 			$this->show_form(_('No content!'));
 			return;
-		} else if (strlen($content) > 140) {
+		} else if (mb_strlen($content) > 140) {
 			$this->show_form(_('That\'s too long. Max notice size is 140 chars.'));
 			return;
 		}
