@@ -132,6 +132,7 @@ function common_end_xml() {
 }
 
 function common_init_language() {
+	mb_internal_encoding('UTF-8');
 	$language = common_language();
 	# So we don't have to make people install the gettext locales
 	putenv('LANGUAGE='.$language);
