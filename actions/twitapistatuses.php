@@ -391,7 +391,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 			// errror? -- Zach
 			exit();
 
-		} else if (strlen($status) > 140) {
+		} else if (mb_strlen($status) > 140) {
 
 			// XXX: Twitter truncates anything over 140, flags the status
 		    // as "truncated."  Sending this error may screw up some clients
