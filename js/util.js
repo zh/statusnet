@@ -2,11 +2,7 @@ $(document).ready(function(){
         // count character on keyup
         function counter(){
             var maxLength     = 140;
-            var currentLength = $("#status_textarea").val()
-                                                     .replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, "drry")
-                                                     .replace(/[\u0800-\uFFFF]/g, "drr")
-                                                     .replace(/[\u0080-\u07FF]/g, "dr")
-                                                     .length;
+            var currentLength = $("#status_textarea").val().length;
             var remaining = maxLength - currentLength;
             var counter   = $("#counter");
             counter.text(remaining);
