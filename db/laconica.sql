@@ -134,6 +134,19 @@ create table reply (
 
 ) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
 
+create table fave (
+
+    notice_id integer not null comment 'notice that is the favorite' references notice (id),
+    user_id integer not null comment 'user who likes this notice' references user (id),
+    modified timestamp not null comment 'date this record was modified',
+	    
+    constraint primary key (notice_id, user_id),
+    index fave_notice_id_idx (notice_id),
+    index fave_user_id_idx (user_id),
+    index fave_modified_idx (modified)
+			        
+) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+				
 /* tables for OAuth */
 
 create table consumer (
