@@ -94,17 +94,17 @@ class SearchAction extends Action {
 	function search_menu() {
 		# action => array('prompt', 'title', $args)
 		$action = $this->trimmed('action');
-        	$menu =
-			array('peoplesearch' =>
-				  array(
-					  	_('People'),
-						_('Find people on this site'),
-						($action != 'peoplesearch' && $this->trimmed('q')) ? array('q' => $this->trimmed('q')) : NULL),
-				  'noticesearch' =>
-				  array( _('Text'),
-					    _('Find content of notices'),
-						($action != 'noticesearch' && $this->trimmed('q')) ? array('q' => $this->trimmed('q')) : NULL)
-			  );
+		$menu =
+		  array('peoplesearch' =>
+				array(
+					  _('People'),
+					  _('Find people on this site'),
+					  ($action != 'peoplesearch' && $this->trimmed('q')) ? array('q' => $this->trimmed('q')) : NULL),
+				'noticesearch' =>
+				array( _('Text'),
+					   _('Find content of notices'),
+					   ($action != 'noticesearch' && $this->trimmed('q')) ? array('q' => $this->trimmed('q')) : NULL)
+				);
 		$this->nav_menu($menu);
 	}
 }
