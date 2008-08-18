@@ -176,6 +176,10 @@ class XMPPDaemon {
 			$this->log(LOG_INFO, 'Ignoring OTR from ' . $from);
 			return;
 		} else {
+			if(strlen($pl['body'])>140) {
+				$this->from_site($from, 'Message too long - maximum is 140 characters, you sent ' . strlen($pl['body']));
+				return;
+			}
 			$this->add_notice($user, $pl);
 		}
 	}
