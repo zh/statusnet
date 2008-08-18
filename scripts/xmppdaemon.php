@@ -430,6 +430,8 @@ class XMPPDaemon {
 
 }
 
+mb_internal_encoding('UTF-8');
+
 $resource = ($argc > 1) ? $argv[1] : NULL;
 
 $daemon = new XMPPDaemon($resource);
