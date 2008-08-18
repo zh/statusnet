@@ -234,7 +234,7 @@ class XMPPDaemon {
 	}
 
 	function add_notice(&$user, &$pl) {
-		$notice = Notice::saveNew($user->id, trim(substr($pl['body'], 0, 140)), 'xmpp');
+		$notice = Notice::saveNew($user->id, trim(mb_substr($pl['body'], 0, 140)), 'xmpp');
 		if (is_string($notice)) {
 			$this->log(LOG_ERR, $notice);
 			return;
