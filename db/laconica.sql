@@ -251,3 +251,38 @@ create table notice_tag (
     constraint primary key (tag, notice_id),
     index notice_tag_created_idx (created)
 ) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+
+/* Synching with foreign services */
+
+create table foreign_service (
+     id int not null primary key comment 'numeric key for service',
+     name varchar(32) not null unique key comment 'name of the service',
+     description varchar(255) comment 'description',
+     created datetime not null comment 'date this record was created',
+     modified timestamp comment 'date this record was modified'
+) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table foreign_user (
+     id int not null comment 'unique numeric key on foreign service',
+     service int not null comment 'foreign key to service' references foreign_service(id),
+     uri varchar(255) not null unique key comment 'identifying URI',
+     nickname varchar(255) comment 'nickname on foreign service',
+     user_id int comment 'link to user on this system, if exists' references user (id), 
+     credentials varchar(255) comment 'authc credentials, typically a password',
+     created datetime not null comment 'date this record was created',
+     modified timestamp comment 'date this record was modified',
+     
+     constraint primary key (id, service),
+     index foreign_user_user_id_idx (user_id)
+) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table foreign_subscription (
+     service int not null comment 'service where relationship happens' references foreign_service(id),
+     subscriber int not null comment 'subscriber on foreign service' references foreign_user (id),
+     subscribed int not null comment 'subscribed user' references foreign_user (id),
+     created datetime not null comment 'date this record was created',
+     
+     constraint primary key (service, subscriber, subscribed),
+     index foreign_subscription_subscriber_idx (subscriber),
+     index foreign_subscription_subscribed_idx (subscribed)
+) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
