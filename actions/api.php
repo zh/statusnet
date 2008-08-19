@@ -103,7 +103,10 @@ class ApiAction extends Action {
 								'users/show',
 								'help/test', 
 								'help/downtime_schedule');
-		static $bareauth = array('statuses/user_timeline', 'statuses/friends');
+		
+		static $bareauth = array('statuses/user_timeline',
+								 'statuses/friends', 
+								 'statuses/followers');
 
 		$fullname = "$this->api_action/$this->api_method";
 		
