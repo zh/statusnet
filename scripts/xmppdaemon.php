@@ -225,7 +225,7 @@ class XMPPDaemon {
 		$orig = clone($user);
 		$user->jabbernotify = $notify;
 		$result = $user->update($orig);
-		if (!$id) {
+		if (!$result) {
 			$last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
 			$this->log(LOG_ERR,
 					   'Could not set notify flag to ' . $notify .
