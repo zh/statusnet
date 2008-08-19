@@ -150,28 +150,6 @@ class TwitterapiAction extends Action {
 	function show_twitter_json_users($twitter_users) {
 		print(json_encode($twitter_users));
 	}
-
-	function show($args, $apidata) {
-		parent::handle($args);
-		
-		$id = $apidata['api_arg'];		
-		$notice = Notice::staticGet($id);
-
-		if ($notice) {
-			if ($apidata['content-type'] == 'xml') { 
-				$this->show_single_xml_status($notice);
-			} elseif ($apidata['content-type'] == 'json') {
-				$this->show_single_json_status($notice);
-			}
-		} else {
-			
-			// XXX: This is all that Twitter does.  It doesn't show an XML or JSON error msg.
-			// Should we call client_error() to be more consistent?
-			header('HTTP/1.1 404 Not Found');
-		}
-		
-		exit();
-	}
 		
 	function show_single_xml_status($notice) {
 		$this->init_document('xml');
