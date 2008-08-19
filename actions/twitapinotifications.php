@@ -26,13 +26,13 @@ class TwitapinotificationsAction extends TwitterapiAction {
 
 	function follow($args, $apidata) {
 		parent::handle($args);
-		common_server_error("API method under construction.", $code=501);
+		common_server_error(_('API method under construction.'), $code=501);
 		exit();
 	}
 	
 	function leave($args, $apidata) {
 		parent::handle($args);
-		common_server_error("API method under construction.", $code=501);
+		common_server_error(_('API method under construction.'), $code=501);
 		exit();
 	}
 	

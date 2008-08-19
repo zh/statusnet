@@ -52,7 +52,8 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 		$user = $apidata['user'];
 		
 		if ($user->isSubscribed($other)) {
-			$this->client_error("Could not follow user: $other->nickname is already on your list.", 403, $apidata['content-type']);
+			$errmsg = sprintf(_('Could not follow user: %s is already on your list.'), $other->nickname);
+			$this->client_error($errmsg, 403, $apidata['content-type']);
 			exit();
 		}
 		
@@ -67,7 +68,8 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 		$result = $sub->insert();
 
 		if (!$result) {
-			$this->client_error("Could not follow user: $other->nickname.", 400, $apidata['content-type']);			
+			$errmsg = sprintf(_('Could not follow user: %s is already on your list.'), $other->nickname);
+			$this->client_error($errmsg, 400, $apidata['content-type']);			
 			exit();
 		}
 		

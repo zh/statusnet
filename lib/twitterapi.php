@@ -245,7 +245,7 @@ class TwitterapiAction extends Action {
 			$this->init_twitter_atom();
 			break;
 		 default:
-			$this->client_error(_('Unsupported type'));
+			$this->client_error(_('Not a supported data format.'));
 			break;
 		}
 		
@@ -266,7 +266,7 @@ class TwitterapiAction extends Action {
 			$this->end_twitter_rss();
 			break;
 		 default:
-			$this->client_error(_('Unsupported type'));
+			$this->client_error(_('Not a supported data format.'));
 			break;
 		}
 		return;
@@ -351,7 +351,7 @@ class TwitterapiAction extends Action {
 			$this->show_twitter_json_users($profile_array);
 			break;
 		 default:
-			$this->client_error(_('not a supported data format'));
+			$this->client_error(_('Not a supported data format.'));
 			return;
 		}
 		return;

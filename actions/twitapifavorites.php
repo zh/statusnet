@@ -38,19 +38,19 @@ class TwitapifavoritesAction extends TwitterapiAction {
 
 	function favorites($args, $apidata) {
 		parent::handle($args);
-		common_server_error("API method under construction.", $code=501);
+		common_server_error(_('API method under construction.'), $code=501);
 		exit();
 	}
 
 	function create($args, $apidata) {
 		parent::handle($args);
-		common_server_error("API method under construction.", $code=501);
+		common_server_error(_('API method under construction.'), $code=501);
 		exit();
 	}
 	
 	function destroy($args, $apidata) {
 		parent::handle($args);
-		common_server_error("API method under construction.", $code=501);
+		common_server_error(_('API method under construction.'), $code=501);
 		exit();
 	}	
 

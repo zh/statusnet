@@ -46,7 +46,7 @@ class TwitapiaccountAction extends TwitterapiAction {
 			header('Content-Type: application/json; charset=utf-8');		
 			print '{"authorized":true}';
 		} else {
-			common_user_error("API method not found!", $code=404);
+			common_user_error(_('API method not found!'), $code=404);
 		}
 			
 		exit();
@@ -54,7 +54,7 @@ class TwitapiaccountAction extends TwitterapiAction {
 	
 	function end_session($args, $apidata) {
 		parent::handle($args);
-		common_server_error("API method under construction.", $code=501);
+		common_server_error(_('API method under construction.'), $code=501);
 		exit();
 	}
 	
@@ -65,9 +65,8 @@ class TwitapiaccountAction extends TwitterapiAction {
 
 		if (!is_null($location) && strlen($location) > 255) {
 			
-			// XXX: But Twitter just truncates and runs with it. -- Zach
-			header('HTTP/1.1 406 Not Acceptable');			
-			print "That's too long. Max notice size is 255 chars.\n";
+			// XXX: But Twitter just truncates and runs with it. -- Zach			
+			$this->client_error(_('That\'s too long. Max notice size is 255 chars.'), 406, $apidate['content-type']);
 			exit();
 		}
 		
@@ -106,13 +105,13 @@ class TwitapiaccountAction extends TwitterapiAction {
 
 	function update_delivery_device($args, $apidata) {
 		parent::handle($args);
-		common_server_error("API method under construction.", $code=501);
+		common_server_error(_('API method under construction.'), $code=501);
 		exit();
 	}
 	
 	function rate_limit_status($args, $apidata) {
 		parent::handle($args);
-		common_server_error("API method under construction.", $code=501);
+		common_server_error(_('API method under construction.'), $code=501);
 		exit();
 	}
 }

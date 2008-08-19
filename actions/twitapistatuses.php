@@ -82,12 +82,12 @@ class TwitapistatusesAction extends TwitterapiAction {
 					$this->show_json_timeline($notice);
 					break;
 				default:
-					common_user_error("API method not found!", $code = 404);
+					common_user_error(_('API method not found!'), $code = 404);
 					break;
 			}
 
 		} else {
-			common_server_error('Couldn\'t find any statuses.', $code = 503);
+			common_server_error(_('Couldn\'t find any statuses.'), $code = 503);
 		}
 
 		exit();
@@ -253,7 +253,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 			$this->show_json_timeline($notice);
 			break;
 		 default:
-			common_user_error("API method not found!", $code = 404);
+			common_user_error(_('API method not found!'), $code = 404);
 		}
 
 		exit();
@@ -364,7 +364,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 			$this->show_json_timeline($notice);
 			break;
 		 default:
-			common_user_error("API method not found!", $code = 404);
+			common_user_error(_('API method not found!'), $code = 404);
 		}
 
 		exit();
@@ -397,7 +397,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 		    // as "truncated."  Sending this error may screw up some clients
 		    // that assume Twitter will truncate for them.  Should we just
 		    // truncate too? -- Zach
-			$this->client_error('That\'s too long. Max notice size is 140 chars.', $code = 406, $apidata['content-type']);
+			$this->client_error(_('That\'s too long. Max notice size is 140 chars.'), $code = 406, $apidata['content-type']);
 			exit();
 		}
 
@@ -411,7 +411,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 			if ($reply) {
 				$reply_to = $in_reply_to_status_id;
 			} else {
-				$this->client_error('Not found', $code = 404, $apidata['content-type']);
+				$this->client_error(_('Not found'), $code = 404, $apidata['content-type']);
 				exit();
 			}
 		}
@@ -521,7 +521,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 			$this->show_json_timeline($notices);
 			break;
 		 default:
-			common_user_error("API method not found!", $code = 404);
+			common_user_error(_('API method not found!'), $code = 404);
 		}
 
 
@@ -548,6 +548,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 
 	*/
 	function destroy($args, $apidata) {
+	
 		parent::handle($args);
 		common_server_error("API method under construction.", $code=501);
 	}
@@ -702,7 +703,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 	*/
 	function featured($args, $apidata) {
 		parent::handle($args);
-		common_server_error("API method under construction.", $code=501);
+		common_server_error(_('API method under construction.'), $code=501);
 	}
 
 	function get_user($id, $apidata) {
@@ -715,5 +716,4 @@ class TwitapistatusesAction extends TwitterapiAction {
 		}
 	}
 }
-
 

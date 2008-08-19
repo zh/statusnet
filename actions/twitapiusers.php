@@ -72,7 +72,7 @@ class TwitapiusersAction extends TwitterapiAction {
 
 		if (!$user) {
 			// XXX: Twitter returns a random(?) user instead of throwing and err! -- Zach
-			$this->client_error("User not found.", 404, $apidata['content-type']);
+			$this->client_error(_('User not found.'), 404, $apidata['content-type']);
 			exit();
 		}
 		
@@ -119,7 +119,7 @@ class TwitapiusersAction extends TwitterapiAction {
 			$this->show_twitter_json_users($twitter_user);
 			$this->end_document('json');
 		} else {
-			common_user_error("API method not found!", $code = 404);
+			common_user_error(_('API method not found!'), $code = 404);
 		}
 			
 		exit();
