@@ -80,6 +80,7 @@ class PostnoticeAction extends Action {
 				return false;
 			}
 		}
+		common_broadcast_notice($notice);
 		return true;
 	}
 }
