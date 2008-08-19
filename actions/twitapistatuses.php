@@ -543,10 +543,8 @@ class TwitapistatusesAction extends TwitterapiAction {
 				$this->show_single_json_status($notice);
 			}
 		} else {
-			
-			// XXX: This is all that Twitter does.  It doesn't show an XML or JSON error msg.
-			// Should we call client_error() to be more consistent?
-			header('HTTP/1.1 404 Not Found');
+			// XXX: Twitter just sets a 404 header and doens't bother to return an err msg
+			$this->client_error(_('No status with that ID found.'), 404, $apidata['content-type']);
 		}
 		
 		exit();
