@@ -374,6 +374,11 @@ class TwitapistatusesAction extends TwitterapiAction {
 
 		parent::handle($args);
 
+		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+			$this->client_error(_('This method requires a POST.'), 400, $apidata['content-type']);
+			exit();
+		}
+
 		$user = $apidata['user'];
 		$status = $this->trimmed('status');
 		$source = $this->trimmed('source');

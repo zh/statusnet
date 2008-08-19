@@ -40,6 +40,11 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 	function create($args, $apidata) {
 		parent::handle($args);
 
+		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+			$this->client_error(_('This method requires a POST.'), 400, $apidata['content-type']);
+			exit();
+		}
+
 		$id = $apidata['api_arg'];
 
 		$other = $this->get_user($id);
@@ -98,6 +103,12 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 	
 	function destroy($args, $apidata) {
 		parent::handle($args);
+		
+		if (!in_array($_SERVER['REQUEST_METHOD'], array('POST', 'DELETE'))) {
+			$this->client_error(_('This method requires a POST or DELETE.'), 400, $apidata['content-type']);
+			exit();
+		}
+		
 		$id = $apidata['api_arg'];
 
 		# We can't subscribe to a remote person, but we can unsub

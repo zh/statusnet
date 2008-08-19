@@ -61,6 +61,11 @@ class TwitapiaccountAction extends TwitterapiAction {
 	function update_location($args, $apidata) {
 		parent::handle($args);
 
+		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+			$this->client_error(_('This method requires a POST.'), 400, $apidata['content-type']);
+			exit();
+		}
+
 		$location = trim($this->arg('location'));
 
 		if (!is_null($location) && strlen($location) > 255) {
