@@ -571,7 +571,42 @@ class TwitapistatusesAction extends TwitterapiAction {
 	function destroy($args, $apidata) {
 	
 		parent::handle($args);
-		common_server_error("API method under construction.", $code=501);
+
+		common_debug($_SERVER['REQUEST_METHOD']);
+		
+		// Check for RESTfulness  
+		if (!in_array($_SERVER['REQUEST_METHOD'], array('POST', 'DELETE'))) {
+			// XXX: Twitter just prints the err msg, no XML / JSON.
+			$this->client_error(_('This method requires a POST or DELETE.'), 400, $apidata['content-type']);
+			exit();
+		} 
+		
+		$user = $apidata['user'];				
+		$notice_id = $apidata['api_arg'];		
+		$notice = Notice::staticGet($notice_id);
+		
+		if (!$notice) {
+			$this->client_error(_('No status found with that ID.'), 404, $apidata['content-type']);
+			exit();
+		}
+				
+		if ($user->id == $notice->profile_id) {
+			$replies = new Reply;
+			$replies->get('notice_id', $notice_id);
+			common_dequeue_notice($notice);
+			$replies->delete();
+			$notice->delete();
+			
+			if ($apidata['content-type'] == 'xml') { 
+				$this->show_single_xml_status($notice);
+			} elseif ($apidata['content-type'] == 'json') {
+				$this->show_single_json_status($notice);
+			}	
+		} else {
+			$this->client_error(_('You may not delete another user\'s status.'), 403, $apidata['content-type']);
+		}
+		
+		exit();
 	}
 
 	# User Methods
