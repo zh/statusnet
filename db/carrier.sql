@@ -10,6 +10,7 @@ values
     ('Bell Mobility (Canada)', '%s@txt.bell.ca', now()),
     ('Boost Mobile', '%s@myboostmobile.com', now()),
     ('Cellular One (Dobson)', '%s@mobile.celloneusa.com', now()),
+    ('Cincinnati Bell Wireless', '%s@gocbw.com', now()),
     ('Cingular (Postpaid)', '%s@cingularme.com', now()),
     ('Centennial Wireless', '%s@cwemail.com', now()),
     ('Cingular (GoPhone prepaid)', '%s@cingularme.com', now()),
