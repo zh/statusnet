@@ -100,7 +100,10 @@ class SettingsAction extends Action {
 					  _('Updates by SMS')),
 				'imsettings' =>
 				array(_('IM'),
-					  _('Updates by instant messenger (IM)')));
+					  _('Updates by instant messenger (IM)')),
+				'twittersettings' =>
+				array(_('Twitter'),
+					  _('Twitter integration options')));
 		
         $action = $this->trimmed('action');
         common_element_start('ul', array('id' => 'nav_views'));
