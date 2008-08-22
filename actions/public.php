@@ -63,7 +63,9 @@ class PublicAction extends StreamAction {
 
 		# XXX: sub-optimal
 
-		$notice->is_local = 1;
+		if (common_config('public', 'localonly')) {
+			$notice->is_local = 1;
+		}
 
 		$notice->orderBy('created DESC, notice.id DESC');
 

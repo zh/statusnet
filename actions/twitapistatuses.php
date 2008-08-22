@@ -61,7 +61,10 @@ class TwitapistatusesAction extends TwitterapiAction {
 
 		# XXX: sub-optimal performance
 
-		$notice->is_local = 1;
+		if (common_config('public', 'localonly')) {
+			$notice->is_local = 1;
+		}
+
 		$notice->orderBy('created DESC, notice.id DESC');
 		$notice->limit($MAX_PUBSTATUSES);
 		$cnt = $notice->find();
