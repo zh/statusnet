@@ -208,15 +208,49 @@ class XMPPDaemon {
 
 	function handle_command($user, $body) {
 		# XXX: localise
-		switch(trim($body)) {
+		$p=explode(' ',$body);
+		if(count($p)>2)
+			return false;
+		switch($p[0]) {
+		 case 'help':
+		 	if(count($p)!=1)
+		 		return false;
+		 	$this->from_site($user->jabber, "Commands:\n on     - turn on notifications\n off    - turn off notifications\n help   - show this help \n sub - subscribe to user\n unsub - unsubscribe from user");
+		 	return true;
 		 case 'on':
+		 	if(count($p)!=1)
+		 		return false;
 			$this->set_notify($user, true);
 			$this->from_site($user->jabber, 'notifications on');
 			return true;
 		 case 'off':
+		 	if(count($p)!=1)
+		 		return false;
 			$this->set_notify($user, false);
 			$this->from_site($user->jabber, 'notifications off');
 			return true;
+		 case 'sub':
+		 	if(count($p)==1) {
+		 		$this->from_site($user->jabber, 'Specify the name of the user to subscribe to');
+		 		return true;
+		 	}
+		 	$result=subs_subscribe_user($user, $p[1]);
+		 	if($result=='true')
+		 		$this->from_site($user->jabber, 'Subscribed to ' . $p[1]);
+		 	else
+		 		$this->from_site($user->jabber, $result);
+		 	return true;
+		 case 'unsub':
+		 	if(count($p)==1) {
+		 		$this->from_site($user->jabber, 'Specify the name of the user to unsubscribe from');
+		 		return true;
+		 	}
+		 	$result=subs_unsubscribe_user($user, $p[1]);
+		 	if($result=='true')
+		 		$this->from_site($user->jabber, 'Unsubscribed from ' . $p[1]);
+		 	else
+		 		$this->from_site($user->jabber, $result);
+		 	return true;
 		 default:
 			return false;
 		}
