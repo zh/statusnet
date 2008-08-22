@@ -32,7 +32,7 @@ define_syslog_variables();
 
 # append our extlib dir as the last-resort place to find libs
 
-set_include_path(array_merge(get_include_path(), array(INSTALLDIR . '/extlib/')));
+set_include_path(get_include_path() . PATH_SEPARATOR . INSTALLDIR . '/extlib/');
 				 
 # global configuration object
 
