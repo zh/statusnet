@@ -33,30 +33,30 @@ class UserauthorizationAction extends Action {
 		} else {
 			if (!common_logged_in()) {
 				# Go log in, and then come back
-				common_debug('userauthorization.php - saving URL for returnto');
+				common_debug('saving URL for returnto', __FILE__);
 				$argsclone = $_GET;
 				unset($argsclone['action']);
 				common_set_returnto(common_local_url('userauthorization', $argsclone));
-				common_debug('userauthorization.php - redirecting to login');
+				common_debug('redirecting to login', __FILE__);
 				common_redirect(common_local_url('login'));
 				return;
 			}
 			try {
 				# this must be a new request
-				common_debug('userauthorization.php - getting new request');
+				common_debug('getting new request', __FILE__);
 				$req = $this->get_new_request();
 				if (!$req) {
-					common_server_error(_('No request found!'));
+					$this->client_error(_('No request found!'));
 				}
-				common_debug('userauthorization.php - validating request');
+				common_debug('validating request', __FILE__);
 				# XXX: only validate new requests, since nonce is one-time use
 				$this->validate_request($req);
-				common_debug('userauthorization.php - showing form');
+				common_debug('showing form', __FILE__);
 				$this->store_request($req);
 				$this->show_form($req);
 			} catch (OAuthException $e) {
 				$this->clear_request();
-				common_server_error($e->getMessage());
+				$this->client_error($e->getMessage());
 				return;
 			}
 
@@ -134,10 +134,10 @@ class UserauthorizationAction extends Action {
 
 		if ($this->arg('accept')) {
 			if (!$this->authorize_token($req)) {
-				common_server_error(_('Error authorizing token'));
+				$this->client_error(_('Error authorizing token'));
 			}
 			if (!$this->save_remote_profile($req)) {
-				common_server_error(_('Error saving remote profile'));
+				$this->client_error(_('Error saving remote profile'));
 			}
 			if (!$callback) {
 				$this->show_accept_message($req->get_parameter('oauth_token'));
