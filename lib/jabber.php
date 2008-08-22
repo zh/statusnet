@@ -54,7 +54,6 @@ function jabber_normalize_jid($jid) {
 	if (preg_match("/(?:([^\@]+)\@)?([^\/]+)(?:\/(.*))?$/", $jid, $matches)) {
 		$node = $matches[1];
 		$server = $matches[2];
-		$resource = $matches[3];
 		return strtolower($node.'@'.$server);
 	} else {
 		return NULL;
