@@ -30,6 +30,10 @@ define('NOTICES_PER_PAGE', 20);
 
 define_syslog_variables();
 
+# append our extlib dir as the last-resort place to find libs
+
+set_include_path(array_merge(get_include_path(), array(INSTALLDIR . '/extlib/')));
+				 
 # global configuration object
 
 require_once('PEAR.php');
@@ -101,14 +105,15 @@ $config['db'] =
         'db_driver' => 'DB', # XXX: JanRain libs only work with DB
 		'quote_identifiers' => false);
 
-require_once(INSTALLDIR.'/config.php');
-
-require_once('Validate.php');
-
 if (function_exists('date_default_timezone_set')) {
 	/* Work internally in UTC */
 	date_default_timezone_set('UTC');
 }
+
+require_once(INSTALLDIR.'/config.php');
+
+require_once('Validate.php');
+require_once('markdown.php');
 
 require_once(INSTALLDIR.'/lib/util.php');
 require_once(INSTALLDIR.'/lib/action.php');
@@ -122,5 +127,3 @@ function __autoload($class) {
         require_once(INSTALLDIR.'/classes/' . $class . '.php');
     }
 }
-
-require_once('markdown.php');
