@@ -76,3 +76,6 @@ $config['db']['database'] = 'mysql://laconica:microblog@localhost/laconica';
 #exponential decay factor for tags, default 10 days
 #raise this if traffic is slow, lower it if it's fast
 #$config['tag']['dropoff'] = 86400.0 * 10;
+
+#optionally show non-local messages in public timeline
+#$config['public']['localonly'] = false;
