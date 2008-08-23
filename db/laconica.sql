@@ -287,3 +287,15 @@ create table foreign_subscription (
      index foreign_subscription_subscriber_idx (subscriber),
      index foreign_subscription_subscribed_idx (subscribed)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table invitation (
+     code varchar(32) not null primary key comment 'random code for an invitation',
+     user_id int not null comment 'who sent the invitation' references user (id),
+     address varchar(255) not null comment 'invitation sent to',
+     address_type varchar(8) not null comment 'address type ("email", "jabber", "sms")',
+     
+     index invitation_address_idx (address, address_type),
+     index invitation_user_id_idx (user_id)
+) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+
+     
