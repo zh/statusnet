@@ -247,7 +247,7 @@ function jabber_broadcast_notice($notice) {
 	if ($sub->find()) {
 		while ($sub->fetch()) {
 			$user = User::staticGet($sub->subscriber);
-			if ($user && $user->jabber && $user->jabbernotify && !$sent_to[$user->id]) {
+			if ($user && $user->jabber && $user->jabbernotify && !array_key_exists($user->id,$sent_to)) {
 				common_log(LOG_INFO,
 						   'Sending notice ' . $notice->id . ' to ' . $user->jabber,
 						   __FILE__);
