@@ -123,7 +123,7 @@ function jabber_format_entry($profile, $notice) {
 	$entry = "\n<entry xmlns='http://www.w3.org/2005/Atom'>\n";
 	$entry .= "<source>\n";
 	$entry .= "<title>" . $profile->nickname . " - " . common_config('site', 'name') . "</title>\n";
-	$entry .= "<link href='" . $profile->profileurl . "'/>\n";
+	$entry .= "<link href='" . htmlspecialchars($profile->profileurl) . "'/>\n";
 	$entry .= "<link rel='self' type='application/rss+xml' href='" . common_local_url('userrss', array('nickname' => $profile->nickname)) . "'/>\n";
 	$entry .= "<author><name>" . $profile->nickname . "</name></author>\n";
 	$entry .= "<icon>" . common_profile_avatar_url($profile, AVATAR_PROFILE_SIZE) . "</icon>\n";
