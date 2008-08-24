@@ -181,6 +181,10 @@ class FinishremotesubscribeAction extends Action {
 			return;
 		}
 
+		# Notify user, if necessary
+		
+		mail_subscribe_notify_profile($user, $profile);
+		
 		# Clear the data
 		unset($_SESSION['oauth_authorization_request']);
 

@@ -109,9 +109,13 @@ function mail_confirm_address($code, $nickname, $address) {
 }
 
 function mail_subscribe_notify($listenee, $listener) {
+	$other = $listener->getProfile();
+	mail_subscribe_notify_profile($listenee, $other);
+}
+
+function mail_subscribe_notify_profile($listenee, $other) {
 	if ($listenee->email && $listenee->emailnotifysub) {
 		$profile = $listenee->getProfile();
-		$other = $listener->getProfile();
 		$name = $profile->getBestName();
 		$long_name = ($other->fullname) ? ($other->fullname . ' (' . $other->nickname . ')') : $other->nickname;
 		$recipients = $listenee->email;
