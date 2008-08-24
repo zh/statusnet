@@ -35,6 +35,11 @@ $config['site']['path'] = 'laconica';
 
 $config['db']['database'] = 'mysql://laconica:microblog@localhost/laconica';
 #$config['db']['ini_your_db_name'] = $config['db']['schema_location'].'/stoica.ini';
+# *** WARNING *** WARNING *** WARNING *** WARNING ***
+# Setting debug to a non-zero value will expose your DATABASE PASSWORD to Web users.
+# !!!!!! DO NOT SET THIS ON PRODUCTION SERVERS !!!!!! DB_DataObject's bug, btw, not
+# ours.
+# *** WARNING *** WARNING *** WARNING *** WARNING ***
 #$config['db']['debug'] = 0;
 #$config['db']['db_driver'] = 'MDB2';
 
