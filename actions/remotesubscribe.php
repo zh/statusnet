@@ -105,7 +105,9 @@ class RemotesubscribeAction extends Action {
 			return;
 		}
 
-        $xrds =& Auth_Yadis_XRDS::parseXRDS($yadis->response_text);
+		# XXX: a little liberal for sites that accidentally put whitespace before the xml declaration
+		
+        $xrds =& Auth_Yadis_XRDS::parseXRDS(trim($yadis->response_text));
 
 		if (!$xrds) {
 			$this->show_form(_('Not a valid profile URL (no XRDS defined).'));
