@@ -24,7 +24,7 @@ require_once(INSTALLDIR.'/lib/omb.php');
 class RequesttokenAction extends Action {
 	
 	function is_readonly() {
-		return true;
+		return false;
 	}
 	
 	function handle($args) {
