@@ -148,6 +148,8 @@ class User extends DB_DataObject
 	
 	static function register($fields) {
 
+		# MAGICALLY put fields into current scope
+		
 		extract($fields);
 		
 		$profile = new Profile();
@@ -169,7 +171,8 @@ class User extends DB_DataObject
 		if ($location) {
 			$profile->location = $location;
 		}
-		$profile->created = DB_DataObject_Cast::dateTime(); # current time
+		
+		$profile->created = common_sql_now();
 		
 		$id = $profile->insert();
 
@@ -182,8 +185,12 @@ class User extends DB_DataObject
 		
 		$user->id = $id;
 		$user->nickname = $nickname;
-		$user->password = common_munge_password($password, $id);
-		$user->created =  DB_DataObject_Cast::dateTime(); # current time
+
+		if ($password) { # may not have a password for OpenID users
+			$user->password = common_munge_password($password, $id);
+		}
+		
+		$user->created = common_sql_now();
 		$user->uri = common_user_uri($user);
 
 		$result = $user->insert();
