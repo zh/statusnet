@@ -907,6 +907,8 @@ function common_fancy_url($action, $args=NULL) {
 		return common_path($path . (($args) ? ('?' . http_build_query($args)) : ''));
 	 case 'tags':
 		return common_path('tags' . (($args) ? ('?' . http_build_query($args)) : ''));
+	 case 'invite':
+		return common_path('invite');
 	 default:
 		return common_simple_url($action, $args);
 	}
