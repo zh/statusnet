@@ -52,8 +52,10 @@ class InviteAction extends Action {
 		if ($error) {
 			common_element('p', 'error', $error);
 		} else {
-			common_element('div', 'instructions',
+			common_element_start('div', 'instructions');
+			common_element('p', NULL,
 						   _('Use this form to invite your friends and colleagues to use this service.'));
+			common_element_end('div');
 		}
 	}
 
@@ -76,6 +78,8 @@ class InviteAction extends Action {
 						_('Optionally add a personal message to the invitation.'));
 		
 		common_submit('preview', _('Preview'));
+
+		common_element_end('form');
 		
 		common_show_footer();
 	}
