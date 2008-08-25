@@ -154,7 +154,7 @@ class XMPPDaemon {
 		if ($pl['type'] != 'chat') {
 			return;
 		}
-		if (strlen($pl['body']) == 0) {
+		if (mb_strlen($pl['body']) == 0) {
 			return;
 		}
 
@@ -177,8 +177,9 @@ class XMPPDaemon {
 			$this->log(LOG_INFO, 'Ignoring OTR from ' . $from);
 			return;
 		} else {
-			if(strlen($pl['body'])>140) {
-				$this->from_site($from, 'Message too long - maximum is 140 characters, you sent ' . strlen($pl['body']));
+			$len = mb_strlen($pl['body']);
+			if($len > 140) {
+				$this->from_site($from, 'Message too long - maximum is 140 characters, you sent ' . $len);
 				return;
 			}
 			$this->add_notice($user, $pl);
