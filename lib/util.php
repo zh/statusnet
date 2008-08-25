@@ -988,6 +988,10 @@ function common_date_iso8601($dt) {
 	return $d->format('c');
 }
 
+function common_sql_now() {
+	return strftime('%Y-%m-%d %H:%M:%S', time());
+}
+
 function common_redirect($url, $code=307) {
 	static $status = array(301 => "Moved Permanently",
 						   302 => "Found",

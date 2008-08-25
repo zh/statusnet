@@ -345,7 +345,7 @@ class XMPPDaemon {
 			# (or old)?
 			$this->log(LOG_INFO, 'claiming queue item = ' . $qi->notice_id);
 			$orig = clone($qi);
-			$qi->claimed = DB_DataObject_Cast::dateTime();
+			$qi->claimed = common_sql_now();
 			$result = $qi->update($orig);
 			if ($result) {
 				$this->log(LOG_INFO, 'claim succeeded.');
@@ -448,7 +448,7 @@ class XMPPDaemon {
 		        # working around some weird DB_DataObject behaviour
 			$confirm->whereAdd(''); # clears where stuff
 		        $original = clone($confirm);
-			$confirm->claimed = DB_DataObject_Cast::dateTime();
+			$confirm->claimed = common_sql_now();
 			$result = $confirm->update($original);
 			if ($result) {
 				$this->log(LOG_INFO, 'Succeeded in claim! '. $result);
