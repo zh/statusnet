@@ -304,6 +304,8 @@ function common_nav_menu() {
 	if ($user) {
 		common_menu_item(common_local_url('profilesettings'),
 						 _('Settings'));
+		common_menu_item(common_local_url('invite'),
+						 _('Invite'));
 		common_menu_item(common_local_url('logout'),
 						 _('Logout'));
 	} else {
