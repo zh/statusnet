@@ -819,6 +819,7 @@ function common_fancy_url($action, $args=NULL) {
 	 case 'register':
 	 case 'subscribe':
 	 case 'unsubscribe':
+	 case 'invite':
 		return common_path('main/'.$action);
 	 case 'remotesubscribe':
 		if ($args && $args['nickname']) {
@@ -907,8 +908,6 @@ function common_fancy_url($action, $args=NULL) {
 		return common_path($path . (($args) ? ('?' . http_build_query($args)) : ''));
 	 case 'tags':
 		return common_path('tags' . (($args) ? ('?' . http_build_query($args)) : ''));
-	 case 'invite':
-		return common_path('invite');
 	 default:
 		return common_simple_url($action, $args);
 	}
