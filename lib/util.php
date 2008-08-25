@@ -493,6 +493,10 @@ function common_munge_password($password, $id) {
 
 # check if a username exists and has matching password
 function common_check_user($nickname, $password) {
+	# NEVER allow blank passwords, even if they match the DB
+	if (mb_strlen($password) == 0) {
+		return false;
+	}
 	$user = User::staticGet('nickname', $nickname);
 	if (is_null($user)) {
 		return false;
