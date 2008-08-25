@@ -82,7 +82,7 @@ class Notice extends DB_DataObject
 		$notice->profile_id = $profile_id;
 		$notice->is_local = $is_local;
 		$notice->reply_to = $reply_to;
-		$notice->created = DB_DataObject_Cast::dateTime();
+		$notice->created = common_sql_now();
 		$notice->content = $content;
 		$notice->rendered = common_render_content($notice->content, $notice);
 		if ($source) {
