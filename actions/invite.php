@@ -32,20 +32,68 @@ class InviteAction extends Action {
 										common_config('site', 'name')));
 			return;
 		} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-			if ($this->trimmed('preview')) {
-				$this->show_preview();
-			} else if ($this->trimmed('send')) {
-				$this->send_invitation();
-			}
+			$this->send_invitation();
 		} else {
 			$this->show_form();
 		}
 	}
 	
-	function show_preview() {
-	}
-	
 	function send_invitation() {
+		
+		$user = common_current_user();
+		$profile = $user->getProfile();
+		
+		$bestname = $profile->getBestName();
+		$sitename = common_config('site', 'name');
+		$personal = $this->trimmed('personal');
+
+		$addresses = explode("\n", $this->trimmed('addresses'));
+		
+		foreach ($addresses as $email) {
+			
+			$email = trim($email);
+			
+			if (!Validate::email($email, true)) {
+				$this->show_form(sprintf(_('Invalid email address: %s'), $email));
+				return;
+			}
+		}
+		
+		foreach ($addresses as $email) {
+			
+			$email = trim($email);
+			
+			$recipients = array($email);
+			
+			$headers['From'] = mail_notify_from();
+			$headers['To'] = $email;
+			$headers['Subject'] = sprintf(_('%1s has invited you to join them on %2s'), $bestname, $sitename);
+
+			$body = sprintf(_("%1s has invited you to join them on %2s (%3s).\n\n".
+							  "%4s is a micro-blogging service that lets you keep up-to-date with people you know and people who interest you.\n\n".
+							  "You can also share news about yourself, your thoughts, or your life online with people who know about you.\n\n".
+							  "%5s said:\n\n%6s\n\n".
+							  "You can see %7s's profile page on %8s here:\n\n".
+							  "%9s\n\n".
+							  "If you'd like to try the service, click on the link below to accept the invitation.\n\n".
+							  "%10s\n\n".
+							  "If not, you can ignore this message. Thanks for your patience and your time.\n\n".
+							  "Sincerely, %11s\n"),
+							$bestname, $sitename, common_root_url(),
+							$sitename,
+							$bestname, $personal,
+							$bestname, $sitename,
+							common_local_url('showstream', array('nickname' => $user->nickname)),
+							common_local_url('register', array('code' => $invite->code)),
+							$sitename);
+			
+			mail_send($recipients, $headers, $body);
+		}
+		
+
+		common_show_header(_('Invitation(s) sent'));
+		common_element('p', NULL, _('Invitation(s) sent. You will be notified when your invitees accept the invitation and register on the site. Thanks for growing the community!'));
+		common_show_footer();
 	}
 	
 	function show_top($error=NULL) {
