@@ -82,7 +82,8 @@ function jabber_connect($resource=NULL) {
 								XMPPHP_Log::LEVEL_VERBOSE :  NULL
 								);
 		$conn->autoSubscribe();
-
+		$conn->useEncryption(common_config('xmpp', 'encryption'));
+		
 		if (!$conn) {
 			return false;
 		}

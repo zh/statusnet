@@ -86,6 +86,7 @@ $config =
 			  'server' => 'INVALID SERVER',
 			  'port' => 5222,
 			  'user' => 'update',
+			  'encryption' => true,
 			  'resource' => 'uniquename',
 			  'password' => 'blahblahblah',
 			  'host' => NULL, # only set if != server
