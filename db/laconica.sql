@@ -293,6 +293,7 @@ create table invitation (
      user_id int not null comment 'who sent the invitation' references user (id),
      address varchar(255) not null comment 'invitation sent to',
      address_type varchar(8) not null comment 'address type ("email", "jabber", "sms")',
+     created datetime not null comment 'date this record was created',
      
      index invitation_address_idx (address, address_type),
      index invitation_user_id_idx (user_id)
