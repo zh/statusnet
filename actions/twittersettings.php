@@ -67,17 +67,59 @@ class TwittersettingsAction extends SettingsAction {
 			return;
 		}
 		
+		// Verify this is a real Twitter user.
 		if (!$this->verify_credentials($twitter_username, $twitter_password)) {
 			$this->show_form(_('Could not verify your Twitter credentials!'));
 			return;
 		}
 		
-
-		$user = common_current_user();
-
-		$this->show_form(_('Twitter settings saved.'), true);
+		// Now that we have a valid Twitter user, we have to make another api call to 
+		// find its Twitter ID.
+		$twitter_id = $this->get_twitter_id($twitter_username);
 		
+		if (!$twitter_id) {
+			$this->show_form(sprintf(_('Unable to retrieve account information for "%s" from Twitter.'), $twitter_username));
+			return;
+		}
+			
+		$user = common_current_user();
+				
+		$fuser = Foreign_user::save(
+				array(
+					'id' => $twitter_id,
+					'service' => '0', // Twitter
+					'uri' => "http://www.twitter.com/$twitter_username",
+					'nickname' => $twitter_username, 
+					'user_id' => $user->id,
+					'credentials' => $twitter_password
+				));
+		
+		if (!$fuser) {
+			$this->show_form(_('Unable to save your Twitter credentials!'));
+		}
+		
+		$this->show_form(_('Twitter settings saved.'), true);
+	}
 
+	function get_twitter_id($twitter_username) {
+		
+		$uri = "http://twitter.com/users/show/$twitter_username.json";
+		
+		common_debug("uri; $uri");
+			
+		$data = $this->get_twitter_data($uri);
+		
+		if (!$data) {
+			return NULL;
+		}
+		
+		$user = json_decode($data);
+
+		if (!$user) {
+			return NULL;
+		}
+		
+		return $user->id;
 	}
 
 	function verify_credentials($user, $password) {
@@ -103,7 +145,7 @@ class TwittersettingsAction extends SettingsAction {
 	}
 	
 	// PHP's cURL the best thing to use here? -- Zach
-	function get_twitter_data($uri, $user, $password) {
+	function get_twitter_data($uri, $user=NULL, $password=NULL) {
 		$options = array(
 				CURLOPT_USERPWD => "$user:$password",
 				CURLOPT_RETURNTRANSFER	=> true,

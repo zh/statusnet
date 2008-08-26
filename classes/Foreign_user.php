@@ -22,4 +22,29 @@ class Foreign_user extends DB_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+	
+	static function save($fields) {
+		
+		extract($fields);
+				
+		$fuser = new Foreign_user();
+		
+		$fuser->id = $id;
+		$fuser->service = $service;
+		$fuser->uri = $uri;
+		$fuser->nickname = $nickname;		
+		$fuser->user_id = $user_id;
+		$fuser->credentials = $credentials;
+		$fuser->created = common_sql_now();
+		
+		$result = $fuser->insert();
+
+		if (!$result) {
+			common_log_db_error($fuser, 'INSERT', __FILE__);
+			return FALSE;
+		}
+
+		return $fuser;
+	}
+	
 }
