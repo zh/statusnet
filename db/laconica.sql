@@ -268,11 +268,11 @@ create table foreign_user (
      service int not null comment 'foreign key to service' references foreign_service(id),
      uri varchar(255) not null unique key comment 'identifying URI',
      nickname varchar(255) comment 'nickname on foreign service',
-     user_id int comment 'link to user on this system, if exists' references user (id), 
+     user_id int comment 'link to user on this system, if exists' references user (id),
      credentials varchar(255) comment 'authc credentials, typically a password',
      created datetime not null comment 'date this record was created',
      modified timestamp comment 'date this record was modified',
-     
+
      constraint primary key (id, service),
      index foreign_user_user_id_idx (user_id)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
@@ -282,7 +282,7 @@ create table foreign_subscription (
      subscriber int not null comment 'subscriber on foreign service' references foreign_user (id),
      subscribed int not null comment 'subscribed user' references foreign_user (id),
      created datetime not null comment 'date this record was created',
-     
+
      constraint primary key (service, subscriber, subscribed),
      index foreign_subscription_subscriber_idx (subscriber),
      index foreign_subscription_subscribed_idx (subscribed)
@@ -294,9 +294,7 @@ create table invitation (
      address varchar(255) not null comment 'invitation sent to',
      address_type varchar(8) not null comment 'address type ("email", "jabber", "sms")',
      created datetime not null comment 'date this record was created',
-     
+
      index invitation_address_idx (address, address_type),
      index invitation_user_id_idx (user_id)
 ) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
-
-     
