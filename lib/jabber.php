@@ -271,8 +271,9 @@ function jabber_broadcast_notice($notice) {
 	$public = common_config('xmpp', 'public');
 	
 	# FIXME PRIV don't send out private messages here
+	# XXX: should we send out non-local messages if public,localonly = false? I think not
 	
-	if ($public) {
+	if ($public && $notice->is_local) {
 		foreach ($public as $address) {
 				common_log(LOG_INFO,
 						   'Sending notice ' . $notice->id . ' to public listener ' . $address,
