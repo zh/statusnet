@@ -75,8 +75,8 @@ class Notice extends DB_DataObject
 		}
 		return true;
 	}
-	
-	static function saveNew($profile_id, $content, $source=NULL, $is_local=1, $reply_to=NULL) {
+
+	static function saveNew($profile_id, $content, $source=NULL, $is_local=1, $reply_to=NULL, $uri=NULL) {
 		
 		$notice = new Notice();
 		$notice->profile_id = $profile_id;
@@ -96,12 +96,18 @@ class Notice extends DB_DataObject
 		}
 
 		$orig = clone($notice);
-		$notice->uri = common_notice_uri($notice);
+		if ($uri) {
+			$notice->uri = $uri;
+		} else {
+			$notice->uri = common_notice_uri($notice);
+		}
 
 		if (!$notice->update($orig)) {
 			return _('Problem saving notice.');
 		}
 
+		# XXX: do we need to change this for remote users?
+		
 		common_save_replies($notice);
 		$notice->saveTags();
 		

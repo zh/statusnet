@@ -96,8 +96,8 @@ class StreamAction extends Action {
 		}
 		common_element_end('p');
 		$noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
-		# XXX: we need to figure this out better
-		if ($notice->uri != $noticeurl && preg_match('/^http/', $notice->uri)) {
+		# XXX: we need to figure this out better. Is this right?
+		if (strcmp($notice->uri, $noticeurl) != 0 && preg_match('/^http/', $notice->uri)) {
 			$noticeurl = $notice->uri;
 		}
 		common_element_start('p', 'time');
