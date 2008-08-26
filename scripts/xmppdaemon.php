@@ -96,39 +96,16 @@ class XMPPDaemon {
 
 	function handle() {
 
-		static $parts = array('message', 'presence',
-							  'end_stream', 'session_start');
-
+		$this->conn->addEventHandler('message','handle_message',$this);
+		$this->conn->addEventHandler('presence','handle_presence',$this);
 		while(!$this->conn->isDisconnected()) {
 
-			$payloads = $this->conn->processUntil($parts, 10);
-
-			if ($payloads) {
-				foreach($payloads as $event) {
-					$pl = $event[1];
-					switch($event[0]) {
-					 case 'message':
-						$this->handle_message($pl);
-						break;
-					 case 'presence':
-						$this->handle_presence($pl);
-						break;
-					 case 'session_start':
-						$this->handle_session($pl);
-						break;
-					}
-				}
-			}
-
+			$this->conn->processTime(10);
 			$this->broadcast_queue();
 			$this->confirmation_queue();
 		}
 	}
 
-	function handle_session($pl) {
-		# XXX what to do here?
-		return true;
-	}
 
 	function get_user($from) {
 		$user = User::staticGet('jabber', jabber_normalize_jid($from));

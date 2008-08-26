@@ -242,7 +242,7 @@ class XMPPHP_XMLStream {
 	 * @param string  $obj
 	 */
 	public function addEventHandler($name, $pointer, $obj) {
-		$this->eventhandlers[] = array($name, $pointer, $obj);
+		$this->eventhanders[] = array($name, $pointer, $obj);
 	}
 
 	/**
@@ -521,6 +521,7 @@ class XMPPHP_XMLStream {
 				if($handler[2] === null) {
 					$handler[2] = $this;
 				}
+				$this->log->log("Calling {$handler[1]}", XMPPHP_Log::LEVEL_DEBUG);
 				$handler[2]->$handler[1]($payload);
 			}
 		}
