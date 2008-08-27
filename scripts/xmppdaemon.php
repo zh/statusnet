@@ -53,6 +53,9 @@ define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 define('LACONICA', true);
 define('CLAIM_TIMEOUT', 100000);
 
+define('MAX_BROADCAST_COUNT', 20);
+define('MAX_CONFIRM_COUNT', 20);
+
 require_once(INSTALLDIR . '/lib/common.php');
 require_once(INSTALLDIR . '/lib/jabber.php');
 
@@ -101,7 +104,7 @@ class XMPPDaemon {
 		$this->conn->addEventHandler('session_start', 'handle_session_start', $this);
 		
 		while(!$this->conn->isDisconnected()) {
-			$this->conn->processTime(10);
+			$this->conn->processTime(5);
 			$this->broadcast_queue();
 			$this->confirmation_queue();
 		}
@@ -339,6 +342,7 @@ class XMPPDaemon {
 	function broadcast_queue() {
 		$this->clear_old_claims();
 		$this->log(LOG_INFO, 'checking for queued notices');
+		$cnt = 0;
 		do {
 			$qi = $this->top_queue_item();
 			if ($qi) {
@@ -362,8 +366,9 @@ class XMPPDaemon {
 					$this->log(LOG_WARNING, 'queue item for notice that does not exist');
 				}
 				$qi->delete();
+				$cnt++;
 			}
-		} while ($qi);
+		} while ($qi && $cnt < MAX_BROADCAST_COUNT);
 	}
 
 	function clear_old_claims() {
@@ -381,6 +386,7 @@ class XMPPDaemon {
 	function confirmation_queue() {
 	    # $this->clear_old_confirm_claims();
 		$this->log(LOG_INFO, 'checking for queued confirmations');
+		$cnt = 0;
 		do {
 			$confirm = $this->next_confirm();
 			if ($confirm) {
@@ -409,8 +415,9 @@ class XMPPDaemon {
 						continue;
 					}
 				}
+				$cnt++;
 			}
-		} while ($confirm);
+		} while ($confirm && $cnt < MAX_CONFIRM_COUNT);
 	}
 
 	function next_confirm() {
