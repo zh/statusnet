@@ -120,7 +120,7 @@ class StreamAction extends Action {
 		common_element_start('a',
 							 array('href' => common_local_url('newnotice',
 															  array('replyto' => $profile->nickname)),
-								   'onclick' => 'doreply("'.$profile->nickname.'"); return false',
+								   'onclick' => 'return doreply("'.$profile->nickname.'");',
 								   'title' => _('reply'),
 								   'class' => 'replybutton'));
 		common_raw('&rarr;');

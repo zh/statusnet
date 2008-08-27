@@ -46,8 +46,9 @@ function doreply(nick) {
           if ($("#status_textarea")) {
                $("#status_textarea").val(replyto);
                $("#status_textarea").focus();
-          }
+			   return false;
+		  }
      }
-     return false;
+     return true;
 }
 
