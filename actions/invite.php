@@ -97,7 +97,7 @@ class InviteAction extends Action {
 			common_element('p', NULL, _('Invitation(s) sent to the following people:'));
 			common_element_start('ul');
 			foreach ($sent as $other) {
-				common_element('li', NULL, $sent);
+				common_element('li', NULL, $other);
 			}
 			common_element_end('ul');
 			common_element('p', NULL, _('You will be notified when your invitees accept the invitation and register on the site. Thanks for growing the community!'));
