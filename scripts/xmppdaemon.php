@@ -71,15 +71,10 @@ class XMPPDaemon {
 	}
 
 	function handle() {
-
 		$this->conn->addEventHandler('message', 'handle_message', $this);
 		$this->conn->addEventHandler('presence', 'handle_presence', $this);
 		
-		while(!$this->conn->isDisconnected()) {
-			$this->conn->processTime(5);
-			$this->broadcast_queue();
-			$this->confirmation_queue();
-		}
+		$this->conn->process();
 	}
 
 	function get_user($from) {
