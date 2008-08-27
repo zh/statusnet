@@ -55,6 +55,10 @@ class RegisterAction extends Action {
 		$password = $this->arg('password');
 		$confirm = $this->arg('confirm');
 
+		# invitation code, if any
+
+		$code = $this->trimmed('code');
+
 		# Input scrubbing
 
 		$nickname = common_canonical_nickname($nickname);
@@ -93,8 +97,8 @@ class RegisterAction extends Action {
 		} else if ($password != $confirm) {
 			$this->show_form(_('Passwords don\'t match.'));
 		} else if ($user = User::register(array('nickname' => $nickname, 'password' => $password, 'email' => $email,
-												'fullname' => $fullname, 'homepage' => $homepage, 'bio' => $bio, 
-												'location' => $location))) {
+												'fullname' => $fullname, 'homepage' => $homepage, 'bio' => $bio,
+												'location' => $location, 'code' => $code))) {
 			if (!$user) {
 				$this->show_form(_('Invalid username or password.'));
 				return;
@@ -149,15 +153,19 @@ class RegisterAction extends Action {
 		common_element_start('form', array('method' => 'post',
 										   'id' => 'login',
 										   'action' => common_local_url('register')));
-		common_hidden('token', common_session_token());
 		common_input('nickname', _('Nickname'), $this->trimmed('nickname'),
 					 _('1-64 lowercase letters or numbers, no punctuation or spaces. Required.'));
 		common_password('password', _('Password'),
 						_('6 or more characters. Required.'));
 		common_password('confirm', _('Confirm'),
 						_('Same as password above. Required.'));
-		common_input('email', _('Email'), $this->trimmed('email'),
+		if ($invite && $invite->address_type == 'email') {
+			common_input('email', _('Email'), $invite->address,
 					 _('Used only for updates, announcements, and password recovery'));
+		} else {
+			common_input('email', _('Email'), $this->trimmed('email'),
+						 _('Used only for updates, announcements, and password recovery'));
+		}
 		common_input('fullname', _('Full name'),
 					 $this->trimmed('fullname'),
 					  _('Longer name, preferably your "real" name'));
@@ -170,7 +178,7 @@ class RegisterAction extends Action {
 		common_input('location', _('Location'),
 					 $this->trimmed('location'),
 					 _('Where you are, like "City, State (or Region), Country"'));
-		common_checkbox('rememberme', _('Remember me'), 
+		common_checkbox('rememberme', _('Remember me'),
 						$this->boolean('rememberme'),
 		                _('Automatically login in the future; not for shared computers!'));
 		common_element_start('p');
@@ -191,7 +199,7 @@ class RegisterAction extends Action {
 		common_element_end('form');
 		common_show_footer();
 	}
-						
+
 	function show_success() {
 		$nickname = $this->arg('nickname');
 		common_show_header(_('Registration successful'));
@@ -214,5 +222,5 @@ class RegisterAction extends Action {
 		common_element_end('div');
 		common_show_footer();
 	}
-						
+
 }

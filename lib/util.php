@@ -136,7 +136,7 @@ function common_init_language() {
 	$language = common_language();
 	# So we don't have to make people install the gettext locales
 	putenv('LANGUAGE='.$language);
-	putenv('LANG='.$language);	
+	putenv('LANG='.$language);
 	$locale_set = setlocale(LC_ALL, $language . ".utf8",
 							$language . ".UTF8",
 							$language . ".utf-8",
@@ -816,11 +816,16 @@ function common_fancy_url($action, $args=NULL) {
 		return common_path('doc/'.$args['title']);
 	 case 'login':
 	 case 'logout':
-	 case 'register':
 	 case 'subscribe':
 	 case 'unsubscribe':
 	 case 'invite':
 		return common_path('main/'.$action);
+	 case 'register':
+		if ($args && $args['code']) {
+			return common_path('main/register/'.$args['code']);
+		} else {
+			return common_path('main/register');
+		}
 	 case 'remotesubscribe':
 		if ($args && $args['nickname']) {
 			return common_path('main/remote?nickname=' . $args['nickname']);

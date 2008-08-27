@@ -22,6 +22,7 @@ RewriteRule ^doc/source$ index.php?action=doc&title=source [L,QSA]
 
 RewriteRule ^main/login$ index.php?action=login [L,QSA]
 RewriteRule ^main/logout$ index.php?action=logout [L,QSA]
+RewriteRule ^main/register/(.*)$ index.php?action=register&code=$1 [L,QSA]
 RewriteRule ^main/register$ index.php?action=register [L,QSA]
 RewriteRule ^main/openid$ index.php?action=openidlogin [L,QSA]
 RewriteRule ^main/remote$ index.php?action=remotesubscribe [L,QSA]

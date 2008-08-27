@@ -121,94 +121,51 @@ class User extends DB_DataObject
 		}
 		return $profile->getCurrentNotice($dt);
 	}
-	
+
 	function getCarrier() {
 		return Sms_carrier::staticGet($this->carrier);
 	}
-	
+
 	function subscribeTo($other) {
 		$sub = new Subscription();
 		$sub->subscriber = $this->id;
 		$sub->subscribed = $other->id;
 
-		$sub->created = DB_DataObject_Cast::dateTime(); # current time
+		$sub->created = common_sql_now(); # current time
 
 		if (!$sub->insert()) {
 			return false;
 		}
-		
+
 		return true;
 	}
 
 	function noticesWithFriends($offset=0, $limit=20) {
-
-		# We clearly need a more elegant way to make this work.
-		
-		if (common_config('memcached', 'enabled')) {
-			if ($offset + $limit <= WITHFRIENDS_CACHE_WINDOW) {
-				$cached = $this->noticesWithFriendsWindow();
-				$wrapper = new NoticeWrapper(array_slice($cached, $offset, $limit));
-				return $wrapper;
-			} 
-		}
 		
 		$notice = new Notice();
-		
+
 		$notice->query('SELECT notice.* ' .
 					   'FROM notice JOIN subscription on notice.profile_id = subscription.subscribed ' .
 					   'WHERE subscription.subscriber = ' . $this->id . ' ' .
 					   'ORDER BY created DESC, notice.id DESC ' .
 					   'LIMIT ' . $offset . ', ' . $limit);
-		
+
 		return $notice;
-	}
-	
-	function noticesWithFriendsWindow() {
-		
-		$cache = new Memcache();
-		$res = $cache->connect(common_config('memcached', 'server'), common_config('memcached', 'port'));
-		
-		if (!$res) {
-			return NULL;
-		}
-		
-		$notices = $cache->get(common_cache_key('user:notices_with_friends:' . $this->id));
-
-		if ($notices) {
-			return $notices;
-		}
-		
-		$notice = new Notice();
-		
-		$notice->query('SELECT notice.* ' .
-					   'FROM notice JOIN subscription on notice.profile_id = subscription.subscribed ' .
-					   'WHERE subscription.subscriber = ' . $this->id . ' ' .
-					   'ORDER BY created DESC, notice.id DESC ' .
-					   'LIMIT 0, ' . WITHFRIENDS_CACHE_WINDOW);
-		
-		$notices = array();
-		
-		while ($notice->fetch()) {
-			$notices[] = clone($notice);
-		}
-
-		$cache->set(common_cache_key('user:notices_with_friends:' . $this->id), $notices);
-		return $notices;
 	}
 	
 	static function register($fields) {
 
 		# MAGICALLY put fields into current scope
-		
+
 		extract($fields);
-		
+
 		$profile = new Profile();
 
 		$profile->query('BEGIN');
 
 		$profile->nickname = $nickname;
 		$profile->profileurl = common_profile_url($nickname);
-		
+
 		if ($fullname) {
 			$profile->fullname = $fullname;
 		}
@@ -221,25 +178,34 @@ class User extends DB_DataObject
 		if ($location) {
 			$profile->location = $location;
 		}
-		
+
 		$profile->created = common_sql_now();
-		
+
 		$id = $profile->insert();
 
 		if (!$id) {
 			common_log_db_error($profile, 'INSERT', __FILE__);
 		    return FALSE;
 		}
-		
+
 		$user = new User();
-		
+
 		$user->id = $id;
 		$user->nickname = $nickname;
 
 		if ($password) { # may not have a password for OpenID users
 			$user->password = common_munge_password($password, $id);
 		}
-		
+
+		# Users who respond to invite email have proven their ownership of that address
+
+		if ($code) {
+			$invite = Invite::staticGet($code);
+			if ($invite && $invite->address && $invite->address_type == 'email') {
+				$user->email = $invite->address;
+			}
+		}
+
 		$user->created = common_sql_now();
 		$user->uri = common_user_uri($user);
 
@@ -256,15 +222,15 @@ class User extends DB_DataObject
 		$subscription->subscriber = $user->id;
 		$subscription->subscribed = $user->id;
 		$subscription->created = $user->created;
-		
+
 		$result = $subscription->insert();
-		
+
 		if (!$result) {
 			common_log_db_error($subscription, 'INSERT', __FILE__);
 			return FALSE;
 		}
-		
-		if ($email) {
+
+		if ($email && !$code) {
 
 			$confirm = new Confirm_address();
 			$confirm->code = common_confirmation_code(128);
@@ -279,14 +245,34 @@ class User extends DB_DataObject
 			}
 		}
 
+		if ($code && $user->email) {
+			$user->emailChanged();
+		}
+
 		$profile->query('COMMIT');
 
-		if ($email) {
+		if ($email && !$code) {
 			mail_confirm_address($confirm->code,
 								 $profile->nickname,
 								 $email);
 		}
 
 		return $user;
+	}
+
+	# Things we do when the email changes
+
+	function emailChanged() {
+
+		$invites = new Invitation();
+		$invites->address = $user->email;
+		$invites->address_type = 'email';
+
+		if ($invites->find()) {
+			while ($invites->fetch()) {
+				$other = User::staticGet($invites->user_id);
+				subs_subscribe_to($other, $this);
+			}
+		}
 	}
 }
