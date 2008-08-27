@@ -143,12 +143,11 @@ class InviteAction extends Action {
 
 	function send_invitation($email, $user) {
 
-		$email = trim($email);
-
 		$invite = new Invitation();
 
 		$invite->address = $email;
-		$invite->type = 'email';
+		$invite->address_type = 'email';
+		$invite->code = common_confirmation_code(128);
 		$invite->user_id = $user->id;
 		$invite->created = common_sql_now();
 
@@ -163,23 +162,20 @@ class InviteAction extends Action {
 		$headers['To'] = $email;
 		$headers['Subject'] = sprintf(_('%1s has invited you to join them on %2s'), $bestname, $sitename);
 
-		$body = sprintf(_("%1s has invited you to join them on %2s (%3s).\n\n".
-						  "%4s is a micro-blogging service that lets you keep up-to-date with people you know and people who interest you.\n\n".
+		$body = sprintf(_("%1$s has invited you to join them on %2$s (%3$s).\n\n".
+						  "%2$s is a micro-blogging service that lets you keep up-to-date with people you know and people who interest you.\n\n".
 						  "You can also share news about yourself, your thoughts, or your life online with people who know about you.\n\n".
-						  "%5s said:\n\n%6s\n\n".
-						  "You can see %7s's profile page on %8s here:\n\n".
-						  "%9s\n\n".
+						  "%1$s said:\n\n%4$s\n\n".
+						  "You can see %1$s's profile page on %2$s here:\n\n".
+						  "%5$s\n\n".
 						  "If you'd like to try the service, click on the link below to accept the invitation.\n\n".
-						  "%10s\n\n".
+						  "%6$s\n\n".
 						  "If not, you can ignore this message. Thanks for your patience and your time.\n\n".
-						  "Sincerely, %11s\n"),
+						  "Sincerely, %2$s\n"),
 						$bestname, $sitename, common_root_url(),
-						$sitename,
-						$bestname, $personal,
-						$bestname, $sitename,
+						$personal,
 						common_local_url('showstream', array('nickname' => $user->nickname)),
-						common_local_url('register', array('code' => $invite->code)),
-						$sitename);
+						common_local_url('register', array('code' => $invite->code)));
 
 		mail_send($recipients, $headers, $body);
 	}
