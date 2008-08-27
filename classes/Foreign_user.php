@@ -14,8 +14,6 @@ class Foreign_user extends DB_DataObject
     public $service;                         // int(4)  primary_key not_null
     public $uri;                             // varchar(255)  unique_key not_null
     public $nickname;                        // varchar(255)  
-    public $user_id;                         // int(4)  
-    public $credentials;                     // varchar(255)  
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 

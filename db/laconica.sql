@@ -268,12 +268,24 @@ create table foreign_user (
      service int not null comment 'foreign key to service' references foreign_service(id),
      uri varchar(255) not null unique key comment 'identifying URI',
      nickname varchar(255) comment 'nickname on foreign service',
-     user_id int comment 'link to user on this system, if exists' references user (id),
-     credentials varchar(255) comment 'authc credentials, typically a password',
      created datetime not null comment 'date this record was created',
      modified timestamp comment 'date this record was modified',
 
-     constraint primary key (id, service),
+     constraint primary key (id, service)
+) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table foreign_link (
+     user_id int comment 'link to user on this system, if exists' references user (id),
+     foreign_id int comment 'link ' references foreign_user(id),
+     service int not null comment 'foreign key to service' references foreign_service(id),
+     credentials varchar(255) comment 'authc credentials, typically a password',
+     noticesync tinyint not null default 1 comment 'notice synchronization, bit 1 = sync outgoing, bit 2 = sync incoming',
+     friendsync tinyint not null default 2 comment 'friend synchronization, bit 1 = sync outgoing, bit 2 = sync incoming',
+     profilesync tinyint not null default 1 comment 'profile synchronization, bit 1 = sync outgoing, bit 2 = sync incoming',     
+     created datetime not null comment 'date this record was created',
+     modified timestamp comment 'date this record was modified',
+     
+     constraint primary key (user_id, foreign_id, service),
      index foreign_user_user_id_idx (user_id)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
