@@ -164,7 +164,7 @@ class InviteAction extends Action {
 
 		$body = sprintf(_("%1$s has invited you to join them on %2$s (%3$s).\n\n".
 						  "%2$s is a micro-blogging service that lets you keep up-to-date with people you know and people who interest you.\n\n".
-						  "You can also share news about yourself, your thoughts, or your life online with people who know about you. "
+						  "You can also share news about yourself, your thoughts, or your life online with people who know about you. ".
 						  "It's also great for meeting new people who share your interests.\n\n".
 						  "%1$s said:\n\n%4$s\n\n".
 						  "You can see %1$s's profile page on %2$s here:\n\n".
