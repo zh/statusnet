@@ -23,6 +23,22 @@ class Foreign_user extends DB_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 	
+	function getForeignUser($user_id, $service) {
+		
+		$fuser = DB_DataObject::factory('foreign_user');
+		$fuser->whereAdd("service = $service");
+		$fuser->whereAdd("user_id = $user_id");
+		$fuser->limit(1);
+		
+		if ($fuser->find()) {
+			$fuser->fetch();
+			return $fuser;
+		}
+		
+		return NULL;		
+	}
+	
+	
 	static function save($fields) {
 		
 		extract($fields);
