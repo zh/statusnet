@@ -72,7 +72,7 @@ class InviteAction extends Action {
 				}
 			} else {
 				$sent[] = $email;
-				$this->send_invitation($email, $user);
+				$this->send_invitation($email, $user, $personal);
 			}
 		}
 
@@ -141,7 +141,7 @@ class InviteAction extends Action {
 		common_show_footer();
 	}
 
-	function send_invitation($email, $user) {
+	function send_invitation($email, $user, $personal) {
 
 		$invite = new Invitation();
 
