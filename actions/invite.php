@@ -134,7 +134,7 @@ class InviteAction extends Action {
 						$this->trimmed('personal'),
 						_('Optionally add a personal message to the invitation.'));
 
-		common_submit('preview', _('Preview'));
+		common_submit('send', _('Send'));
 
 		common_element_end('form');
 
