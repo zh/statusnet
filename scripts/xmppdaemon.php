@@ -35,10 +35,6 @@ function xmppdaemon_error_handler($errno, $errstr, $errfile, $errline, $errconte
      case E_USER_NOTICE:
 		echo "NOTICE [$errno] $errstr ($errfile:$errline)\n";
 		break;
-
-     default:
-		echo "Unknown error type: [$errno] $errstr ($errfile:$errline)\n";
-		break;
     }
 
     /* Don't execute PHP internal error handler */
