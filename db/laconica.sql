@@ -233,11 +233,12 @@ create table remember_me (
 
 create table queue_item (
 
-    notice_id integer not null primary key comment 'notice queued' references notice (id),
+    notice_id integer not null comment 'notice queued' references notice (id),
     transport varchar(8) not null comment 'queue for what? "email", "jabber", "sms", "irc", ...',
     created datetime not null comment 'date this record was created',
     claimed datetime comment 'date this item was claimed',
 
+    constraint primary key (notice_id, transport),
     index queue_item_created_idx (created)
 
 ) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
