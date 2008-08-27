@@ -24,6 +24,7 @@ require_once('XMPPHP/XMPP.php');
 /* Subscribe $user to nickname $other_nickname
   Returns true or an error message.
 */
+
 function subs_subscribe_user($user,$other_nickname) {
 
 	$other = User::staticGet('nickname', $other_nickname);
@@ -31,6 +32,11 @@ function subs_subscribe_user($user,$other_nickname) {
 	if (!$other) {
 		return _('No such user.');
 	}
+
+	return subs_subscribe_to($user, $other);
+}
+
+function subs_subscribe_to($user, $other) {
 
 	if ($user->isSubscribed($other)) {
 		return _('Already subscribed!.');
@@ -78,15 +84,21 @@ function subs_notify_email($listenee, $listener) {
 	mail_subscribe_notify($listenee, $listener);
 }
 
-
 /* Unsubscribe $user from nickname $other_nickname
   Returns true or an error message.
 */
 function subs_unsubscribe_user($user, $other_nickname) {
 
 	$other = User::staticGet('nickname', $other_nickname);
-	if (!$other)
+
+	if (!$other) {
 		return _('No such user.');
+	}
+
+	return subs_unsubscribe_to($user, $other);
+}
+
+function subs_unsubscribe_to($user, $other) {
 
 	if (!$user->isSubscribed($other))
 		return _('Not subscribed!.');
@@ -111,6 +123,5 @@ function subs_unsubscribe_user($user, $other_nickname) {
 	}
 	
 	return true;
-
 }
 
