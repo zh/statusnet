@@ -1075,8 +1075,8 @@ function common_enqueue_notice($notice) {
 		$qi->notice_id = $notice->id;
 		$qi->transport = $transport;
 		$qi->created = $notice->created;
-		if (!$result) {
         $result = $qi->insert();
+		if (!$result) {
 			$last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
 			common_log(LOG_ERR, 'DB error inserting queue item: ' . $last_error->message);
 			return false;
