@@ -29,8 +29,9 @@ class TwittersettingsAction extends SettingsAction {
 	}
 
 	function show_form($msg=NULL, $success=false) {
-		$user = common_current_user();
-		$profile = $user->getProfile();
+		
+		$user = common_current_user();		
+		$fuser = Foreign_user::staticGet('user_id', $user->id);
 		
 		$this->form_header(_('Twitter settings'), $msg, $success);
 
@@ -38,24 +39,100 @@ class TwittersettingsAction extends SettingsAction {
 										   'id' => 'twittersettings',
 										   'action' =>
 										   common_local_url('twittersettings')));
+
+		if ($fuser) {
+
+			common_element_start('p');
+			
+			common_element('span', 'Twitter User', "http://www.twitter.com/$fuser->nickname");
+			common_element('span', 'input_instructions',
+			               _('Current verified Twitter User'));
+			common_hidden('fuser_id', $fuser->id);
+			
+			common_element_end('p');
+			common_submit('remove', _('Remove'));
+			
+		} else {
+
+			common_input('twitter_username', _('Twitter Username'),
+						 ($this->arg('twitter_username')) ? $this->arg('twitter_username') : $profile->nickname,
+						 _('No spaces, please.')); // hey, it's what Twitter says
+
+			common_password('twitter_password', _('Twitter Password'));		
+			
+			common_submit('add', _('Add'));
+				
+		}
 	
-		common_input('twitter_username', _('Twitter Username'),
-					 ($this->arg('twitter_username')) ? $this->arg('twitter_username') : $profile->nickname,
-					 _('No spaces, please.')); // hey, it's what Twitter says
-					
-		common_password('twitter_password', _('Twitter Password'));			
-	
-		// these checkboxes don't do anything yet
+		common_element('h2', NULL, _('Preferences'));
 		
+		// these checkboxes don't do anything yet
+
 		common_checkbox('repost', _('Automatically send my notices to Twitter.'), true);
 		common_checkbox('subscribe_friends', _('Subscribe to my Twitter friends here.'), true);
-		
-		common_submit('submit', _('Save'));
+
+		common_submit('save', _('Save'));
+
+
 		common_element_end('form');
 		common_show_footer();
 	}
 
 	function handle_post() {
+		
+		if ($this->arg('save')) {
+			$this->save_preferences();
+		} else if ($this->arg('add')) {
+			$this->add_twitter_user();
+		} else if ($this->arg('remove')) {
+			$this->remove_twitter_user();
+		} else {
+			$this->show_form(_('Unexpected form submission.'));
+		}
+	}
+	
+	
+	function remove_twitter_user() {
+		
+		$user = common_current_user();
+		$fuser = Foreign_user::staticGet('user_id', $user->id);
+	
+		$fuser_id = $this->arg('fuser_id');
+
+		# Maybe an old tab open...?
+
+		if ($fuser->id != $fuser_id) {
+		    $this->show_form(_('That is not your Twitter account.'));
+		    return;
+		}
+
+		$result = $fuser->delete();
+		
+		if (!$result) {
+			common_log_db_error($user, 'UPDATE', __FILE__);
+			common_server_error(_('Couldn\'t remove Twitter user.'));
+			return;
+		}
+
+		$this->show_form(_('Twitter account removed.'), TRUE);
+	}
+
+	
+	function save_preferences() {
+
+		$user = common_current_user();		
+		$fuser = Foreign_user::staticGet('user_id', $user->id);
+		
+		$this->show_form(_('Save doesn\'t do anything yet.'));
+		
+		return;
+	}
+	
+	function add_twitter_user() {
+
+		$user = common_current_user();		
+		$fuser = Foreign_user::staticGet('user_id', $user->id);
+
 
 		$twitter_username = $this->trimmed('twitter_username');
 		$twitter_password = $this->trimmed('twitter_password');
@@ -103,10 +180,7 @@ class TwittersettingsAction extends SettingsAction {
 
 	function get_twitter_id($twitter_username) {
 		
-		$uri = "http://twitter.com/users/show/$twitter_username.json";
-		
-		common_debug("uri; $uri");
-			
+		$uri = "http://twitter.com/users/show/$twitter_username.json";			
 		$data = $this->get_twitter_data($uri);
 		
 		if (!$data) {
