@@ -167,17 +167,17 @@ class InviteAction extends Action {
 		$headers['To'] = $email;
 		$headers['Subject'] = sprintf(_('%1$s has invited you to join them on %2$s'), $bestname, $sitename);
 
-		$body = sprintf(_("%1$s has invited you to join them on %2$s (%3$s).\n\n".
-						  "%2$s is a micro-blogging service that lets you keep up-to-date with people you know and people who interest you.\n\n".
+		$body = sprintf(_("%1\$s has invited you to join them on %2\$s (%3\$s).\n\n".
+						  "%2\$s is a micro-blogging service that lets you keep up-to-date with people you know and people who interest you.\n\n".
 						  "You can also share news about yourself, your thoughts, or your life online with people who know about you. ".
 						  "It's also great for meeting new people who share your interests.\n\n".
-						  "%1$s said:\n\n%4$s\n\n".
-						  "You can see %1$s's profile page on %2$s here:\n\n".
-						  "%5$s\n\n".
+						  "%1\$s said:\n\n%4\$s\n\n".
+						  "You can see %1\$s's profile page on %2\$s here:\n\n".
+						  "%5\$s\n\n".
 						  "If you'd like to try the service, click on the link below to accept the invitation.\n\n".
-						  "%6$s\n\n".
+						  "%6\$s\n\n".
 						  "If not, you can ignore this message. Thanks for your patience and your time.\n\n".
-						  "Sincerely, %2$s\n"),
+						  "Sincerely, %2\$s\n"),
 						$bestname,
 						$sitename,
 						common_root_url(),
