@@ -96,17 +96,22 @@ class XMPPDaemon {
 
 	function handle() {
 
-		$this->conn->addEventHandler('message','handle_message',$this);
-		$this->conn->addEventHandler('presence','handle_presence',$this);
+		$this->conn->addEventHandler('message', 'handle_message', $this);
+		$this->conn->addEventHandler('presence', 'handle_presence', $this);
+		$this->conn->addEventHandler('session_start', 'handle_session_start', $this);
+		
 		while(!$this->conn->isDisconnected()) {
-
 			$this->conn->processTime(10);
 			$this->broadcast_queue();
 			$this->confirmation_queue();
 		}
 	}
 
-
+	function handle_session_start(&$pl) {
+		$this->conn->getRoster();
+		$this->set_status("Send me a message to post a notice");
+	}
+	
 	function get_user($from) {
 		$user = User::staticGet('jabber', jabber_normalize_jid($from));
 		return $user;
