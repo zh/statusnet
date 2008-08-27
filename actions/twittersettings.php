@@ -32,7 +32,7 @@ class TwittersettingsAction extends SettingsAction {
 		
 		$user = common_current_user();
 		$profile = $user->getProfile();
-		$fuser = Foreign_user::getForeignUser($user->id, 0);
+		$fuser = Foreign_user::getForeignUser($user->id, 1);
 		
 		$this->form_header(_('Twitter settings'), $msg, $success);
 
@@ -45,7 +45,7 @@ class TwittersettingsAction extends SettingsAction {
 
 			common_element_start('p');
 			
-			common_element('span', 'Twitter User', "http://www.twitter.com/$fuser->nickname");
+			common_element('span', 'Twitter User', $fuser->uri);
 			common_element('span', 'input_instructions',
 			               _('Current verified Twitter User'));
 			common_hidden('fuser_id', $fuser->id);
@@ -94,7 +94,7 @@ class TwittersettingsAction extends SettingsAction {
 	function add_twitter_acct() {
 
 		$user = common_current_user();		
-		$fuser = Foreign_user::getForeignUser($user->id, 0);
+		$fuser = Foreign_user::getForeignUser($user->id, 1);
 
 
 		$twitter_username = $this->trimmed('twitter_username');
@@ -127,7 +127,7 @@ class TwittersettingsAction extends SettingsAction {
 		$fuser = Foreign_user::save(
 				array(
 					'id' => $twitter_id,
-					'service' => '0', // Twitter
+					'service' => '1', // 1 == Twitter
 					'uri' => "http://www.twitter.com/$twitter_username",
 					'nickname' => $twitter_username, 
 					'user_id' => $user->id,
@@ -144,7 +144,7 @@ class TwittersettingsAction extends SettingsAction {
 	function remove_twitter_acct() {
 		
 		$user = common_current_user();
-		$fuser = Foreign_user::getForeignUser($user->id, 0);
+		$fuser = Foreign_user::getForeignUser($user->id, 1);
 	
 		$fuser_id = $this->arg('fuser_id');
 
@@ -169,7 +169,7 @@ class TwittersettingsAction extends SettingsAction {
 	function save_preferences() {
 
 		$user = common_current_user();		
-		$fuser = Foreign_user::getForeignUser($user->id, 0);
+		$fuser = Foreign_user::getForeignUser($user->id, 1);
 		
 		$this->show_form(_('Save doesn\'t do anything yet.'));
 		

@@ -1,5 +1,5 @@
 insert into foreign_service
-    (name, description, created)
+    (id, name, description, created)
 values
-    ('Twitter', 'Twitter Micro-blogging service', now());
+    ('1','Twitter', 'Twitter Micro-blogging service', now());
 
