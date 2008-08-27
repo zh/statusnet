@@ -18,31 +18,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function xmppdaemon_error_handler($errno, $errstr, $errfile, $errline, $errcontext) {
-    switch ($errno) {
-     case E_USER_ERROR:
-		echo "ERROR: [$errno] $errstr ($errfile:$errline)\n";
-		echo "  Fatal error on line $errline in file $errfile";
-		echo ", PHP " . PHP_VERSION . " (" . PHP_OS . ")\n";
-		echo "Aborting...\n";
-		exit(1);
-		break;
-
-	 case E_USER_WARNING:
-		echo "WARNING [$errno] $errstr ($errfile:$errline)\n";
-		break;
-
-     case E_USER_NOTICE:
-		echo "NOTICE [$errno] $errstr ($errfile:$errline)\n";
-		break;
-    }
-
-    /* Don't execute PHP internal error handler */
-    return true;
-}
-
-set_error_handler('xmppdaemon_error_handler');
-
 # Abort if called from a web server
 if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
 	print "This script must be run from the command line\n";
@@ -51,13 +26,11 @@ if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 define('LACONICA', true);
-define('CLAIM_TIMEOUT', 100000);
-
-define('MAX_BROADCAST_COUNT', 20);
-define('MAX_CONFIRM_COUNT', 20);
 
 require_once(INSTALLDIR . '/lib/common.php');
 require_once(INSTALLDIR . '/lib/jabber.php');
+
+set_error_handler('common_error_handler');
 
 # This is kind of clunky; we create a class to call the global functions
 # in jabber.php, which create a new XMPP class. A more elegant (?) solution
@@ -88,7 +61,7 @@ class XMPPDaemon {
 
 		$this->log(LOG_INFO, "Connecting to $connect_to on port $this->port");
 
-		$this->conn = jabber_connect($this->resource);
+		$this->conn = jabber_connect($this->resource, "Send me a message to post a notice", 100);
 
 		if (!$this->conn) {
 			return false;
@@ -101,7 +74,6 @@ class XMPPDaemon {
 
 		$this->conn->addEventHandler('message', 'handle_message', $this);
 		$this->conn->addEventHandler('presence', 'handle_presence', $this);
-		$this->conn->addEventHandler('session_start', 'handle_session_start', $this);
 		
 		while(!$this->conn->isDisconnected()) {
 			$this->conn->processTime(5);
@@ -110,25 +82,9 @@ class XMPPDaemon {
 		}
 	}
 
-	function handle_session_start(&$pl) {
-		$this->conn->getRoster();
-		$this->set_status("Send me a message to post a notice");
-	}
-	
 	function get_user($from) {
 		$user = User::staticGet('jabber', jabber_normalize_jid($from));
 		return $user;
-	}
-
-	function get_confirmation($from) {
-		$confirm = new Confirm_address();
-		$confirm->address = $from;
-		$confirm->address_type = 'jabber';
-		if ($confirm->find(TRUE)) {
-			return $confirm;
-		} else {
-			return NULL;
-		}
 	}
 
 	function handle_message(&$pl) {
@@ -260,7 +216,7 @@ class XMPPDaemon {
 			$this->log(LOG_ERR, $notice);
 			return;
 		}
-		common_real_broadcast($notice);
+		common_broadcast_notice($notice);
 		$this->log(LOG_INFO,
 				   'Added notice ' . $notice->id . ' from user ' . $user->nickname);
 	}
@@ -304,155 +260,6 @@ class XMPPDaemon {
 	function subscribed($to) {
 		jabber_special_presence('subscribed', $to);
 	}
-
-	function set_status($status) {
-		$this->log(LOG_INFO, 'Setting status to "' . $status . '"');
-		jabber_send_presence($status);
-	}
-
-	function top_queue_item() {
-
-		$qi = new Queue_item();
-		$qi->orderBy('created');
-		$qi->whereAdd('claimed is NULL');
-
-		$qi->limit(1);
-
-		$cnt = $qi->find(TRUE);
-
-		if ($cnt) {
-			# XXX: potential race condition
-			# can we force it to only update if claimed is still NULL
-			# (or old)?
-			$this->log(LOG_INFO, 'claiming queue item = ' . $qi->notice_id);
-			$orig = clone($qi);
-			$qi->claimed = common_sql_now();
-			$result = $qi->update($orig);
-			if ($result) {
-				$this->log(LOG_INFO, 'claim succeeded.');
-				return $qi;
-			} else {
-				$this->log(LOG_INFO, 'claim failed.');
-			}
-		}
-		$qi = NULL;
-		return NULL;
-	}
-
-	function broadcast_queue() {
-		$this->clear_old_claims();
-		$this->log(LOG_INFO, 'checking for queued notices');
-		$cnt = 0;
-		do {
-			$qi = $this->top_queue_item();
-			if ($qi) {
-				$this->log(LOG_INFO, 'Got item enqueued '.common_exact_date($qi->created));
-				$notice = Notice::staticGet($qi->notice_id);
-				if ($notice) {
-					$this->log(LOG_INFO, 'broadcasting notice ID = ' . $notice->id);
-					# XXX: what to do if broadcast fails?
-					$result = common_real_broadcast($notice, $this->is_remote($notice));
-					if (!$result) {
-						$this->log(LOG_WARNING, 'Failed broadcast for notice ID = ' . $notice->id);
-						$orig = $qi;
-						$qi->claimed = NULL;
-						$qi->update($orig);
-						$this->log(LOG_WARNING, 'Abandoned claim for notice ID = ' . $notice->id);
-						continue;
-					}
-					$this->log(LOG_INFO, 'finished broadcasting notice ID = ' . $notice->id);
-					$notice = NULL;
-				} else {
-					$this->log(LOG_WARNING, 'queue item for notice that does not exist');
-				}
-				$qi->delete();
-				$cnt++;
-			}
-		} while ($qi && $cnt < MAX_BROADCAST_COUNT);
-	}
-
-	function clear_old_claims() {
-		$qi = new Queue_item();
-	        $qi->claimed = NULL;
-		$qi->whereAdd('now() - claimed > '.CLAIM_TIMEOUT);
-		$qi->update(DB_DATAOBJECT_WHEREADD_ONLY);
-	}
-
-	function is_remote($notice) {
-		$user = User::staticGet($notice->profile_id);
-		return !$user;
-	}
-
-	function confirmation_queue() {
-	    # $this->clear_old_confirm_claims();
-		$this->log(LOG_INFO, 'checking for queued confirmations');
-		$cnt = 0;
-		do {
-			$confirm = $this->next_confirm();
-			if ($confirm) {
-				$this->log(LOG_INFO, 'Sending confirmation for ' . $confirm->address);
-				$user = User::staticGet($confirm->user_id);
-				if (!$user) {
-					$this->log(LOG_WARNING, 'Confirmation for unknown user ' . $confirm->user_id);
-					continue;
-				}
-				$success = jabber_confirm_address($confirm->code,
-								  $user->nickname,
-								  $confirm->address);
-				if (!$success) {
-					$this->log(LOG_ERR, 'Confirmation failed for ' . $confirm->address);
-					# Just let the claim age out; hopefully things work then
-					continue;
-				} else {
-					$this->log(LOG_INFO, 'Confirmation sent for ' . $confirm->address);
-					# Mark confirmation sent
-					$original = clone($confirm);
-					$confirm->sent = $confirm->claimed;
-					$result = $confirm->update($original);
-					if (!$result) {
-						$this->log(LOG_ERR, 'Cannot mark sent for ' . $confirm->address);
-						# Just let the claim age out; hopefully things work then
-						continue;
-					}
-				}
-				$cnt++;
-			}
-		} while ($confirm && $cnt < MAX_CONFIRM_COUNT);
-	}
-
-	function next_confirm() {
-		$confirm = new Confirm_address();
-		$confirm->whereAdd('claimed IS NULL');
-		$confirm->whereAdd('sent IS NULL');
-		# XXX: eventually we could do other confirmations in the queue, too
-		$confirm->address_type = 'jabber';
-		$confirm->orderBy('modified DESC');
-		$confirm->limit(1);
-		if ($confirm->find(TRUE)) {
-			$this->log(LOG_INFO, 'Claiming confirmation for ' . $confirm->address);
-		        # working around some weird DB_DataObject behaviour
-			$confirm->whereAdd(''); # clears where stuff
-		        $original = clone($confirm);
-			$confirm->claimed = common_sql_now();
-			$result = $confirm->update($original);
-			if ($result) {
-				$this->log(LOG_INFO, 'Succeeded in claim! '. $result);
-				return $confirm;
-			} else {
-				$this->log(LOG_INFO, 'Failed in claim!');
-				return false;
-			}
-		}
-		return NULL;
-	}
-
-	function clear_old_confirm_claims() {
-		$confirm = new Confirm();
-	        $confirm->claimed = NULL;
-		$confirm->whereAdd('now() - claimed > '.CLAIM_TIMEOUT);
-		$confirm->update(DB_DATAOBJECT_WHEREADD_ONLY);
-	}
-
 }
 
 mb_internal_encoding('UTF-8');
@@ -462,7 +269,6 @@ $resource = ($argc > 1) ? $argv[1] : NULL;
 $daemon = new XMPPDaemon($resource);
 
 if ($daemon->connect()) {
-	$daemon->set_status("Send me a message to post a notice");
 	$daemon->handle();
 }
 

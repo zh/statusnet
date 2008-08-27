@@ -22,4 +22,34 @@ class Queue_item extends DB_DataObject
     ###END_AUTOCODE
 
     function sequenceKey() { return array(false, false); }
+	
+	static function top($transport) {
+
+		$qi = new Queue_item();
+		$qi->transport = $transport;
+		$qi->orderBy('created');
+		$qi->whereAdd('claimed is NULL');
+
+		$qi->limit(1);
+
+		$cnt = $qi->find(TRUE);
+
+		if ($cnt) {
+			# XXX: potential race condition
+			# can we force it to only update if claimed is still NULL
+			# (or old)?
+			$this->log(LOG_INFO, 'claiming queue item = ' . $qi->notice_id);
+			$orig = clone($qi);
+			$qi->claimed = common_sql_now();
+			$result = $qi->update($orig);
+			if ($result) {
+				$this->log(LOG_INFO, 'claim succeeded.');
+				return $qi;
+			} else {
+				$this->log(LOG_INFO, 'claim failed.');
+			}
+		}
+		$qi = NULL;
+		return NULL;
+	}
 }

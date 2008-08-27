@@ -1070,17 +1070,20 @@ function common_broadcast_notice($notice, $remote=false) {
 # Stick the notice on the queue
 
 function common_enqueue_notice($notice) {
-	$qi = new Queue_item();
-	$qi->notice_id = $notice->id;
-	$qi->created = $notice->created;
+	foreach (array('jabber', 'oms', 'sms') as $transport) {
+		$qi = new Queue_item();
+		$qi->notice_id = $notice->id;
+		$qi->transport = $transport;
+		$qi->created = $notice->created;
+		if (!$result) {
         $result = $qi->insert();
-	if (!$result) {
-	    $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-	    common_log(LOG_ERR, 'DB error inserting queue item: ' . $last_error->message);
-	    return false;
+			$last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
+			common_log(LOG_ERR, 'DB error inserting queue item: ' . $last_error->message);
+			return false;
+		}
+		common_log(LOG_DEBUG, 'complete queueing notice ID = ' . $notice->id . ' for ' . $transport);
+		return $result;
 	}
-	common_log(LOG_DEBUG, 'complete queueing notice ID = ' . $notice->id);
-	return $result;
 }
 
 function common_dequeue_notice($notice) {
@@ -1476,12 +1479,4 @@ function common_canonical_sms($sms) {
 	# strip non-digits
 	preg_replace('/\D/', '', $sms);
 	return $sms;
-}
-
-function common_session_token() {
-	common_ensure_session();
-	if (!array_key_exists('token', $_SESSION)) {
-		$_SESSION['token'] = common_good_rand(64);
-	}
-	return $_SESSION['token'];
 }

@@ -26,23 +26,45 @@ require_once('XMPPHP/XMPP.php');
 class Laconica_XMPP extends XMPPHP_XMPP {
     
     function messageplus($to, $body, $type = 'chat', $subject = null, $payload = null) {
-	$to	  = htmlspecialchars($to);
-	$body	= htmlspecialchars($body);
-	$subject = htmlspecialchars($subject);
-
-	$jid = jabber_daemon_address();
-	
-	$out = "<message from='$jid' to='$to' type='$type'>";
-	if($subject) $out .= "<subject>$subject</subject>";
-	$out .= "<body>$body</body>";
-	if($payload) $out .= $payload;
-	$out .= "</message>";
-
+		$to	  = htmlspecialchars($to);
+		$body	= htmlspecialchars($body);
+		$subject = htmlspecialchars($subject);
+		
+		$jid = jabber_daemon_address();
+		
+		$out = "<message from='$jid' to='$to' type='$type'>";
+		if($subject) $out .= "<subject>$subject</subject>";
+		$out .= "<body>$body</body>";
+		if($payload) $out .= $payload;
+		$out .= "</message>";
+		
 		$cnt = strlen($out);
 		common_log(LOG_DEBUG, "Sending $cnt chars to $to");
-	$this->send($out);
+		$this->send($out);
 		common_log(LOG_DEBUG, 'Done.');
     }
+	
+	public function presence($status = null, $show = 'available', $to = null, $type='available', $priority=NULL) {
+		if($type == 'available') $type = '';
+		$to	 = htmlspecialchars($to);
+		$status = htmlspecialchars($status);
+		if($show == 'unavailable') $type = 'unavailable';
+		
+		$out = "<presence";
+		if($to) $out .= " to='$to'";
+		if($type) $out .= " type='$type'";
+		if($show == 'available' and !$status and is_null($priority)) {
+			$out .= "/>";
+		} else {
+			$out .= ">";
+			if($show != 'available') $out .= "<show>$show</show>";
+			if($status) $out .= "<status>$status</status>";
+			if(!is_null($priority)) $out .= "<priority>$priority</priority>";
+			$out .= "</presence>";
+		}
+		
+		$this->send($out);
+	}
 }
 
 function jabber_valid_base_jid($jid) {
@@ -64,7 +86,7 @@ function jabber_daemon_address() {
 	return common_config('xmpp', 'user') . '@' . common_config('xmpp', 'server');
 }
 
-function jabber_connect($resource=NULL) {
+function jabber_connect($resource=NULL, $status=NULL, $priority=NULL) {
 	static $conn = NULL;
 	if (!$conn) {
 		$conn = new Laconica_XMPP(common_config('xmpp', 'host') ?
@@ -92,6 +114,8 @@ function jabber_connect($resource=NULL) {
 			return false;
 		}
     	$conn->processUntil('session_start');
+		$conn->getRoster();
+		$conn->presence($presence, $priority);
 	}
 	return $conn;
 }
