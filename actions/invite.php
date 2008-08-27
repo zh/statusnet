@@ -143,6 +143,11 @@ class InviteAction extends Action {
 
 	function send_invitation($email, $user, $personal) {
 
+		$profile = $user->getProfile();
+		$bestname = $profile->getBestName();
+
+		$sitename = common_config('site', 'name');
+
 		$invite = new Invitation();
 
 		$invite->address = $email;
