@@ -200,8 +200,8 @@ class User extends DB_DataObject
 		# Users who respond to invite email have proven their ownership of that address
 
 		if ($code) {
-			$invite = Invite::staticGet($code);
-			if ($invite && $invite->address && $invite->address_type == 'email') {
+			$invite = Invitation::staticGet($code);
+			if ($invite && $invite->address && $invite->address_type == 'email' && $invite->address == $email) {
 				$user->email = $invite->address;
 			}
 		}
@@ -230,7 +230,7 @@ class User extends DB_DataObject
 			return FALSE;
 		}
 
-		if ($email && !$code) {
+		if ($email && !$user->email) {
 
 			$confirm = new Confirm_address();
 			$confirm->code = common_confirmation_code(128);
@@ -251,7 +251,7 @@ class User extends DB_DataObject
 
 		$profile->query('COMMIT');
 
-		if ($email && !$code) {
+		if ($email && !$user->email) {
 			mail_confirm_address($confirm->code,
 								 $profile->nickname,
 								 $email);
