@@ -21,24 +21,24 @@
 function xmppdaemon_error_handler($errno, $errstr, $errfile, $errline, $errcontext) {
     switch ($errno) {
      case E_USER_ERROR:
-	echo "ERROR: [$errno] $errstr ($errfile:$errline)\n";
-	echo "  Fatal error on line $errline in file $errfile";
-	echo ", PHP " . PHP_VERSION . " (" . PHP_OS . ")\n";
-	echo "Aborting...\n";
-	exit(1);
-	break;
+		echo "ERROR: [$errno] $errstr ($errfile:$errline)\n";
+		echo "  Fatal error on line $errline in file $errfile";
+		echo ", PHP " . PHP_VERSION . " (" . PHP_OS . ")\n";
+		echo "Aborting...\n";
+		exit(1);
+		break;
 
-    case E_USER_WARNING:
-	echo "WARNING [$errno] $errstr ($errfile:$errline)\n";
-	break;
+	 case E_USER_WARNING:
+		echo "WARNING [$errno] $errstr ($errfile:$errline)\n";
+		break;
 
      case E_USER_NOTICE:
-	echo "My NOTICE [$errno] $errstr ($errfile:$errline)\n";
-	break;
+		echo "NOTICE [$errno] $errstr ($errfile:$errline)\n";
+		break;
 
      default:
-	echo "Unknown error type: [$errno] $errstr ($errfile:$errline)\n";
-	break;
+		echo "Unknown error type: [$errno] $errstr ($errfile:$errline)\n";
+		break;
     }
 
     /* Don't execute PHP internal error handler */
@@ -201,7 +201,7 @@ class XMPPDaemon {
 			return false;
 		}
 	}
-	
+
 	function from_site($address, $msg) {
 		$text = '['.common_config('site', 'name') . '] ' . $msg;
 		jabber_send_message($address, $text);
