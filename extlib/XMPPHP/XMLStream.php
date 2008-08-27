@@ -242,7 +242,7 @@ class XMPPHP_XMLStream {
 	 * @param string  $obj
 	 */
 	public function addEventHandler($name, $pointer, $obj) {
-		$this->eventhanders[] = array($name, $pointer, $obj);
+		$this->eventhandlers[] = array($name, $pointer, $obj);
 	}
 
 	/**
