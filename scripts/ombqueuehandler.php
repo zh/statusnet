@@ -44,8 +44,11 @@ class OmbQueueHandler extends QueueHandler {
 	}
 
 	function handle_notice($notice) {
-		if (!$this->is_remote($notice)) {
-			omb_broadcast_remote_subscribers($notice);
+		if ($this->is_remote($notice)) {
+			# It's fine, we're done with it.
+			return true;
+		} else {
+			return omb_broadcast_remote_subscribers($notice);
 		}
 	}
 	

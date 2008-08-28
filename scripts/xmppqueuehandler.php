@@ -46,7 +46,7 @@ class XmppQueueHandler extends QueueHandler {
 	}
 
 	function handle_notice($notice) {
-		jabber_broadcast_notice($notice);
+		return jabber_broadcast_notice($notice);
 	}
 	
 	function finish() {
