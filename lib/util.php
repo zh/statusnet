@@ -173,6 +173,8 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 
 	# FIXME: correct language for interface
 
+	$language = common_language();
+	
 	common_element_start('html', array('xmlns' => 'http://www.w3.org/1999/xhtml',
 									   'xml:lang' => $language,
 									   'lang' => $language));
