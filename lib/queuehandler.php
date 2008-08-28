@@ -56,7 +56,6 @@ class QueueHandler {
 	}
 	
 	function handle_queue() {
-		$this->clear_old_claims();
 		$this->log(LOG_INFO, 'checking for queued notices');
 		$cnt = 0;
 		$transport = $this->transport();
