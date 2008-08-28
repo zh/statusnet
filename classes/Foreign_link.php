@@ -25,4 +25,22 @@ class Foreign_link extends DB_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+
+	// XXX:  This only returns a 1->1 single obj mapping.  Change?  Or make
+	// a getForeignUsers() that returns more than one? --Zach
+	static function getForeignLink($user_id, $service) {
+		
+		$flink = new Foreign_link();
+		$flink->whereAdd("service = $service");
+		$flink->whereAdd("user_id = $user_id");
+		$flink->limit(1);
+
+		if ($flink->find()) {
+			$flink->fetch();
+			return $flink;
+		}
+
+		return NULL;		
+	}
+	
 }

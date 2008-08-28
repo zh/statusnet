@@ -23,11 +23,12 @@ class Foreign_user extends DB_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 	
-	function getForeignUser($user_id, $service) {
-		
-		$fuser = DB_DataObject::factory('foreign_user');
+	// XXX:  This only returns a 1->1 single obj mapping.  Change?  Or make
+	// a getForeignUsers() that returns more than one? --Zach
+	static function getForeignUser($id, $service) {		
+		$fuser = new Foreign_user();
 		$fuser->whereAdd("service = $service");
-		$fuser->whereAdd("user_id = $user_id");
+		$fuser->whereAdd("id = $id");
 		$fuser->limit(1);
 		
 		if ($fuser->find()) {
@@ -36,31 +37,6 @@ class Foreign_user extends DB_DataObject
 		}
 		
 		return NULL;		
-	}
-	
-	
-	static function save($fields) {
-		
-		extract($fields);
-				
-		$fuser = new Foreign_user();
-		
-		$fuser->id = $id;
-		$fuser->service = $service;
-		$fuser->uri = $uri;
-		$fuser->nickname = $nickname;		
-		$fuser->user_id = $user_id;
-		$fuser->credentials = $credentials;
-		$fuser->created = common_sql_now();
-		
-		$result = $fuser->insert();
-
-		if (!$result) {
-			common_log_db_error($fuser, 'INSERT', __FILE__);
-			return FALSE;
-		}
-
-		return $fuser;
 	}
 	
 }
