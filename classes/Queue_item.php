@@ -38,15 +38,15 @@ class Queue_item extends DB_DataObject
 			# XXX: potential race condition
 			# can we force it to only update if claimed is still NULL
 			# (or old)?
-			$this->log(LOG_INFO, 'claiming queue item = ' . $qi->notice_id);
+			common_log(LOG_INFO, 'claiming queue item = ' . $qi->notice_id);
 			$orig = clone($qi);
 			$qi->claimed = common_sql_now();
 			$result = $qi->update($orig);
 			if ($result) {
-				$this->log(LOG_INFO, 'claim succeeded.');
+				common_log(LOG_INFO, 'claim succeeded.');
 				return $qi;
 			} else {
-				$this->log(LOG_INFO, 'claim failed.');
+				common_log(LOG_INFO, 'claim failed.');
 			}
 		}
 		$qi = NULL;
