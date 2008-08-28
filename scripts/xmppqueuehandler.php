@@ -42,6 +42,7 @@ class XmppQueueHandler {
 	function start() {
 		# Low priority; we don't want to receive messages
 		$this->conn = jabber_connect($this->resource, NULL, -100);
+		return !is_null($this->conn);
 	}
 
 	function handle_notice($notice) {

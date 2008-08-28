@@ -40,6 +40,7 @@ class OmbQueueHandler {
 	}
 	
 	function start() {
+		return true;
 	}
 
 	function handle_notice($notice) {

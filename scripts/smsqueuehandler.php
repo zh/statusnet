@@ -38,8 +38,9 @@ class SmsQueueHandler {
 	function transport() {
 		return 'omb';
 	}
-	
+
 	function start() {
+		return true;
 	}
 
 	function handle_notice($notice) {
