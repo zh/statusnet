@@ -115,7 +115,7 @@ function jabber_connect($resource=NULL, $status=NULL, $priority=NULL) {
 		}
     	$conn->processUntil('session_start');
 		$conn->getRoster();
-		$conn->presence($presence, $priority);
+		$conn->presence($presence, 'available', NULL, 'available', $priority);
 	}
 	return $conn;
 }
