@@ -44,7 +44,7 @@ class SmsQueueHandler extends QueueHandler {
 	}
 
 	function handle_notice($notice) {
-		mail_broadcast_notice_sms($notice);
+		return mail_broadcast_notice_sms($notice);
 	}
 	
 	function finish() {
