@@ -1082,8 +1082,8 @@ function common_enqueue_notice($notice) {
 			return false;
 		}
 		common_log(LOG_DEBUG, 'complete queueing notice ID = ' . $notice->id . ' for ' . $transport);
-		return $result;
 	}
+	return $result;
 }
 
 function common_dequeue_notice($notice) {
