@@ -1070,7 +1070,7 @@ function common_broadcast_notice($notice, $remote=false) {
 # Stick the notice on the queue
 
 function common_enqueue_notice($notice) {
-	foreach (array('jabber', 'oms', 'sms') as $transport) {
+	foreach (array('jabber', 'omb', 'sms') as $transport) {
 		$qi = new Queue_item();
 		$qi->notice_id = $notice->id;
 		$qi->transport = $transport;
