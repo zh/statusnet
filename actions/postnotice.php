@@ -79,8 +79,8 @@ class PostnoticeAction extends Action {
 				common_server_serror($notice, 500);
 				return false;
 			}
+			common_broadcast_notice($notice, true);
 		}
-		common_broadcast_notice($notice, true);
 		return true;
 	}
 }
