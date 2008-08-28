@@ -33,7 +33,7 @@ require_once(INSTALLDIR . '/lib/queuehandler.php');
 
 set_error_handler('common_error_handler');
 
-class OmbQueueHandler {
+class OmbQueueHandler extends QueueHandler {
 	
 	function transport() {
 		return 'omb';
