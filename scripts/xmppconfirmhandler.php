@@ -37,14 +37,20 @@ define('CLAIM_TIMEOUT', 1200);
 
 class XmppConfirmHandler {
 
-	var $_id = 'generic';
+	var $_id = 'confirm';
 	
 	function XmppConfirmHandler($id=NULL) {
 		if ($id) {
 			$this->_id = $id;
 		}
 	}
-		  
+
+	function start() {
+		# Low priority; we don't want to receive messages
+		$this->conn = jabber_connect($this->_id, NULL, -1);
+		return !is_null($this->conn);
+	}
+	
 	function handle_queue() {
 		$this->log(LOG_INFO, 'checking for queued confirmations');
 		$cnt = 0;
@@ -124,7 +130,7 @@ class XmppConfirmHandler {
 
 mb_internal_encoding('UTF-8');
 
-$resource = ($argc > 1) ? $argv[1] : NULL;
+$resource = ($argc > 1) ? $argv[1] : (common_config('xmpp', 'resource').'-confirm');
 
 $handler = new XmppConfirmHandler($resource);
 
