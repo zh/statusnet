@@ -123,6 +123,7 @@ class UserauthorizationAction extends Action {
 										   'id' => 'userauthorization',
 										   'name' => 'userauthorization',
 										   'action' => common_local_url('userauthorization')));
+		common_hidden('token', common_session_token());
 		common_submit('accept', _('Accept'));
 		common_submit('reject', _('Reject'));
 		common_element_end('form');
