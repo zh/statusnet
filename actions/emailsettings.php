@@ -34,6 +34,7 @@ class EmailsettingsAction extends SettingsAction {
 										   'id' => 'emailsettings',
 										   'action' =>
 										   common_local_url('emailsettings')));
+		common_hidden('token', common_session_token());
 
 		common_element('h2', NULL, _('Address'));
 
@@ -113,6 +114,13 @@ class EmailsettingsAction extends SettingsAction {
 	}
 
 	function handle_post() {
+
+		# CSRF protection
+		$token = $this->trimmed('token');
+		if (!$token || $token != common_session_token()) {
+			$this->show_form(_('There was a problem with your session token. Try again, please.'));
+			return;
+		}
 
 		if ($this->arg('save')) {
 			$this->save_preferences();
