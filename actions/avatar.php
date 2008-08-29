@@ -58,6 +58,7 @@ class AvatarAction extends SettingsAction {
 										   'id' => 'avatar',
 										   'action' =>
 										   common_local_url('avatar')));
+		common_hidden('token', common_session_token());
 		common_element('input', array('name' => 'MAX_FILE_SIZE',
 									  'type' => 'hidden',
 									  'id' => 'MAX_FILE_SIZE',
@@ -71,6 +72,14 @@ class AvatarAction extends SettingsAction {
 	}
 
 	function handle_post() {
+
+		# CSRF protection
+
+		$token = $this->trimmed('token');
+		if (!$token || $token != common_session_token()) {
+			$this->show_form(_('There was a problem with your session token. Try again, please.'));
+			return;
+		}
 
 		switch ($_FILES['avatarfile']['error']) {
 		 case UPLOAD_ERR_OK: # success, jump out
