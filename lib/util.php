@@ -1477,3 +1477,11 @@ function common_canonical_sms($sms) {
 	preg_replace('/\D/', '', $sms);
 	return $sms;
 }
+
+function common_session_token() {
+	common_ensure_session();
+	if (!array_key_exists('token', $_SESSION)) {
+		$_SESSION['token'] = common_random_bytes(64);
+	}
+	return $_SESSION['token'];
+}
