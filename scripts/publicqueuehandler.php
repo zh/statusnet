@@ -33,10 +33,10 @@ require_once(INSTALLDIR . '/lib/queuehandler.php');
 
 set_error_handler('common_error_handler');
 
-class XmppQueueHandler extends QueueHandler {
+class PublicQueueHandler extends QueueHandler {
 	
 	function transport() {
-		return 'jabber';
+		return 'public';
 	}
 	
 	function start() {
@@ -46,7 +46,7 @@ class XmppQueueHandler extends QueueHandler {
 	}
 
 	function handle_notice($notice) {
-		return jabber_broadcast_notice($notice);
+		return jabber_public_notice($notice);
 	}
 	
 	function finish() {
@@ -55,7 +55,7 @@ class XmppQueueHandler extends QueueHandler {
 
 mb_internal_encoding('UTF-8');
 
-$resource = ($argc > 1) ? $argv[1] : (common_config('xmpp','resource') . '-queuehandler');
+$resource = ($argc > 1) ? $argv[1] : (common_config('xmpp','resource') . '-public');
 
 $handler = new XmppQueueHandler($resource);
 

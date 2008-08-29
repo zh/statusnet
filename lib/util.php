@@ -1070,7 +1070,7 @@ function common_broadcast_notice($notice, $remote=false) {
 # Stick the notice on the queue
 
 function common_enqueue_notice($notice) {
-	foreach (array('jabber', 'omb', 'sms') as $transport) {
+	foreach (array('jabber', 'omb', 'sms', 'public') as $transport) {
 		$qi = new Queue_item();
 		$qi->notice_id = $notice->id;
 		$qi->transport = $transport;
@@ -1124,6 +1124,12 @@ function common_real_broadcast($notice, $remote=false) {
 		$success = mail_broadcast_notice_sms($notice);
 		if (!$success) {
 			common_log(LOG_ERR, 'Error in sms broadcast for notice ' . $notice->id);
+		}
+	}
+	if ($success) {
+		$success = jabber_public_notice($notice);
+		if (!$success) {
+			common_log(LOG_ERR, 'Error in public broadcast for notice ' . $notice->id);
 		}
 	}
 	// XXX: broadcast notices to other IM

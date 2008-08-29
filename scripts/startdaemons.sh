@@ -22,6 +22,7 @@ export INSTALLDIR=$1
 
 /sbin/start-stop-daemon -S --exec $INSTALLDIR/scripts/xmppdaemon.php -b -m --pidfile=/var/run/xmppdaemon.pid
 /sbin/start-stop-daemon -S --exec $INSTALLDIR/scripts/xmppqueuehandler.php -b -m --pidfile=/var/run/xmppqueuehandler.pid
+/sbin/start-stop-daemon -S --exec $INSTALLDIR/scripts/publicqueuehandler.php -b -m --pidfile=/var/run/publicqueuehandler.pid
 /sbin/start-stop-daemon -S --exec $INSTALLDIR/scripts/xmppconfirmhandler.php -b -m --pidfile=/var/run/xmppconfirmhandler.pid
 /sbin/start-stop-daemon -S --exec $INSTALLDIR/scripts/smsqueuehandler.php -b -m --pidfile=/var/run/smsqueuehandler.pid
 /sbin/start-stop-daemon -S --exec $INSTALLDIR/scripts/ombqueuehandler.php -b -m --pidfile=/var/run/ombqueuehandler.pid

@@ -259,7 +259,7 @@ class XMPPDaemon {
 
 mb_internal_encoding('UTF-8');
 
-$resource = ($argc > 1) ? $argv[1] : NULL;
+$resource = ($argc > 1) ? $argv[1] : (common_config('xmpp','resource') . '-listen');
 
 $daemon = new XMPPDaemon($resource);
 

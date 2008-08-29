@@ -22,6 +22,7 @@ export INSTALLDIR=$1
 
 /sbin/start-stop-daemon -K -m --pidfile=/var/run/xmppdaemon.pid
 /sbin/start-stop-daemon -K -m --pidfile=/var/run/xmppqueuehandler.pid
+/sbin/start-stop-daemon -K -m --pidfile=/var/run/publicqueuehandler.pid
 /sbin/start-stop-daemon -K -m --pidfile=/var/run/xmppconfirmhandler.pid
 /sbin/start-stop-daemon -K -m --pidfile=/var/run/smsqueuehandler.pid
 /sbin/start-stop-daemon -K -m --pidfile=/var/run/ombqueuehandler.pid

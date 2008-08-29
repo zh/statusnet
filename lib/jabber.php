@@ -24,32 +24,32 @@ require_once('XMPPHP/XMPP.php');
 # XXX: something of a hack to work around problems with the XMPPHP lib
 
 class Laconica_XMPP extends XMPPHP_XMPP {
-    
+
     function messageplus($to, $body, $type = 'chat', $subject = null, $payload = null) {
 		$to	  = htmlspecialchars($to);
 		$body	= htmlspecialchars($body);
 		$subject = htmlspecialchars($subject);
-		
+
 		$jid = jabber_daemon_address();
-		
+
 		$out = "<message from='$jid' to='$to' type='$type'>";
 		if($subject) $out .= "<subject>$subject</subject>";
 		$out .= "<body>$body</body>";
 		if($payload) $out .= $payload;
 		$out .= "</message>";
-		
+
 		$cnt = strlen($out);
 		common_log(LOG_DEBUG, "Sending $cnt chars to $to");
 		$this->send($out);
 		common_log(LOG_DEBUG, 'Done.');
     }
-	
+
 	public function presence($status = null, $show = 'available', $to = null, $type='available', $priority=NULL) {
 		if($type == 'available') $type = '';
 		$to	 = htmlspecialchars($to);
 		$status = htmlspecialchars($status);
 		if($show == 'unavailable') $type = 'unavailable';
-		
+
 		$out = "<presence";
 		if($to) $out .= " to='$to'";
 		if($type) $out .= " type='$type'";
@@ -62,7 +62,7 @@ class Laconica_XMPP extends XMPPHP_XMPP {
 			if(!is_null($priority)) $out .= "<priority>$priority</priority>";
 			$out .= "</presence>";
 		}
-		
+
 		$this->send($out);
 	}
 }
@@ -105,7 +105,7 @@ function jabber_connect($resource=NULL, $status=NULL, $priority=NULL) {
 								);
 		$conn->autoSubscribe();
 		$conn->useEncryption(common_config('xmpp', 'encryption'));
-		
+
 		if (!$conn) {
 			return false;
 		}
@@ -141,7 +141,7 @@ function jabber_send_notice($to, $notice) {
 # Extra stuff defined by Twitter, needed by twitter clients
 
 function jabber_format_entry($profile, $notice) {
-	
+
 	$noticeurl = common_local_url('shownotice',
 								  array('notice' => $notice->id));
 	$msg = jabber_format_notice($profile, $notice);
@@ -167,7 +167,7 @@ function jabber_format_entry($profile, $notice) {
 	$html .= ($notice->rendered) ? $notice->rendered : common_render_content($notice->content, $notice);
 	$html .= "\n</body>\n";
 	$html .= "\n</html>\n";
-	
+
 	$event = "<event xmlns='http://jabber.org/protocol/pubsub#event'>\n";
     $event .= "<items xmlns='http://jabber.org/protocol/pubsub' ";
 	$event .= "node='" . common_local_url('public') . "'>\n";
@@ -229,6 +229,7 @@ function jabber_special_presence($type, $to=NULL, $show=NULL, $status=NULL) {
 }
 
 function jabber_broadcast_notice($notice) {
+
 	if (!common_config('xmpp', 'enabled')) {
 		return true;
 	}
@@ -268,7 +269,7 @@ function jabber_broadcast_notice($notice) {
 	# XXX: use a join here rather than looping through results
 	$sub = new Subscription();
 	$sub->subscribed = $notice->profile_id;
-        
+
 	if ($sub->find()) {
 		while ($sub->fetch()) {
 			$user = User::staticGet($sub->subscriber);
@@ -289,14 +290,20 @@ function jabber_broadcast_notice($notice) {
 			}
 		}
 	}
+	
+	return true;
+}
+
+function jabber_public_notice($notice) {
 
 	# Now, users who want everything
-	
+
 	$public = common_config('xmpp', 'public');
-	
+
 	# FIXME PRIV don't send out private messages here
-	# XXX: should we send out non-local messages if public,localonly = false? I think not
-	
+	# XXX: should we send out non-local messages if public,localonly
+	# = false? I think not
+
 	if ($public && $notice->is_local) {
 		foreach ($public as $address) {
 				common_log(LOG_INFO,
@@ -305,7 +312,7 @@ function jabber_broadcast_notice($notice) {
 				jabber_send_notice($address, $notice);
 		}
 	}
-	
+
 	return true;
 }
 
