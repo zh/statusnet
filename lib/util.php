@@ -1480,3 +1480,34 @@ function common_canonical_sms($sms) {
 	preg_replace('/\D/', '', $sms);
 	return $sms;
 }
+
+function common_error_handler($errno, $errstr, $errfile, $errline, $errcontext) {
+    switch ($errno) {
+     case E_USER_ERROR:
+		echo "ERROR: [$errno] $errstr ($errfile:$errline)\n";
+		echo "  Fatal error on line $errline in file $errfile";
+		echo ", PHP " . PHP_VERSION . " (" . PHP_OS . ")\n";
+		echo "Aborting...\n";
+		exit(1);
+		break;
+
+	 case E_USER_WARNING:
+		echo "WARNING [$errno] $errstr ($errfile:$errline)\n";
+		break;
+
+     case E_USER_NOTICE:
+		echo "NOTICE [$errno] $errstr ($errfile:$errline)\n";
+		break;
+    }
+
+    /* Don't execute PHP internal error handler */
+    return true;
+}
+
+function common_session_token() {
+	common_ensure_session();
+	if (!array_key_exists('token', $_SESSION)) {
+		$_SESSION['token'] = common_good_rand(64);
+	}
+	return $_SESSION['token'];
+}
