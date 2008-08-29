@@ -57,7 +57,7 @@ mb_internal_encoding('UTF-8');
 
 $resource = ($argc > 1) ? $argv[1] : (common_config('xmpp','resource') . '-public');
 
-$handler = new XmppQueueHandler($resource);
+$handler = new PublicQueueHandler($resource);
 
 if ($handler->start()) {
 	$handler->handle_queue();
