@@ -62,6 +62,7 @@ class PasswordAction extends SettingsAction {
 		
 		if (!$token || $token != common_session_token()) {
 			$this->show_form(_('There was a problem with your session token. Try again, please.'));
+			return;
 		} else if (0 != strcmp($newpassword, $confirm)) {
 			$this->show_form(_('Passwords don\'t match.'));
 			return;
