@@ -36,6 +36,13 @@ class RegisterAction extends Action {
 	}
 
 	function try_register() {
+		
+		$token = $this->trimmed('token');
+		if (!$token || $token != common_session_token()) {
+			$this->show_form(_('There was a problem with your session token. Try again, please.'));
+			return;
+		}
+
 		$nickname = $this->trimmed('nickname');
 		$email = $this->trimmed('email');
 		$fullname = $this->trimmed('fullname');
@@ -139,6 +146,7 @@ class RegisterAction extends Action {
 		common_element_start('form', array('method' => 'post',
 										   'id' => 'login',
 										   'action' => common_local_url('register')));
+		common_hidden('token', common_session_token());
 		common_input('nickname', _('Nickname'), $this->trimmed('nickname'),
 					 _('1-64 lowercase letters or numbers, no punctuation or spaces. Required.'));
 		common_password('password', _('Password'),
