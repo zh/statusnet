@@ -28,6 +28,11 @@ class FinishopenidloginAction extends Action {
 		if (common_logged_in()) {
 			common_user_error(_('Already logged in.'));
 		} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			$token = $this->trimmed('token');
+			if (!$token || $token != common_session_token()) {
+				$this->show_form(_('There was a problem with your session token. Try again, please.'));
+				return;
+			}
 			if ($this->arg('create')) {
 				if (!$this->boolean('license')) {
 					$this->show_form(_('You can\'t register if you don\'t agree to the license.'),
@@ -64,6 +69,7 @@ class FinishopenidloginAction extends Action {
 		common_element_start('form', array('method' => 'post',
 										   'id' => 'account_connect',
 										   'action' => common_local_url('finishopenidlogin')));
+		common_hidden('token', common_session_token());
 		common_element('h2', NULL,
 					   _('Create new account'));
 		common_element('p', NULL,
