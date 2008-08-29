@@ -23,11 +23,18 @@ require_once(INSTALLDIR.'/lib/omb.php');
 define('TIMESTAMP_THRESHOLD', 300);
 
 class UserauthorizationAction extends Action {
-	
+
 	function handle($args) {
 		parent::handle($args);
 
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			# CSRF protection
+			$token = $this->trimmed('token');
+			if (!$token || $token != common_session_token()) {
+				$req = $this->get_stored_request();
+				$this->show_form(_('There was a problem with your session token. Try again, please.'), $req);
+				return;
+			}
 			# We've shown the form, now post user's choice
 			$this->send_authorization();
 		} else {
