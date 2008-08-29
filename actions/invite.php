@@ -40,6 +40,13 @@ class InviteAction extends Action {
 
 	function send_invitations() {
 
+		# CSRF protection
+		$token = $this->trimmed('token');
+		if (!$token || $token != common_session_token()) {
+			$this->show_form(_('There was a problem with your session token. Try again, please.'));
+			return;
+		}
+
 		$user = common_current_user();
 		$profile = $user->getProfile();
 
@@ -125,6 +132,7 @@ class InviteAction extends Action {
 		common_element_start('form', array('method' => 'post',
 										   'id' => 'invite',
 										   'action' => common_local_url('invite')));
+		common_hidden('token', common_session_token());
 
 		common_textarea('addresses', _('Email addresses'),
 						$this->trimmed('addresses'),
