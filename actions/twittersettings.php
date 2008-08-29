@@ -43,6 +43,7 @@ class TwittersettingsAction extends SettingsAction {
 										   'id' => 'twittersettings',
 										   'action' =>
 										   common_local_url('twittersettings')));
+		common_hidden('token', common_session_token());
 
 		if ($fuser) {
 			common_element_start('p');
@@ -83,6 +84,14 @@ class TwittersettingsAction extends SettingsAction {
 	}
 
 	function handle_post() {
+		
+		# CSRF protection
+		$token = $this->trimmed('token');
+		if (!$token || $token != common_session_token()) {
+			$this->show_form(_('There was a problem with your session token. Try again, please.'));
+			return;
+		}
+		
 		if ($this->arg('save')) {
 			$this->save_preferences();
 		} else if ($this->arg('add')) {
