@@ -44,7 +44,7 @@ class DeletenoticeAction extends DeleteAction {
 	function show_form($error=NULL) {
 		$user = common_current_user();
 
-		common_show_header($this->get_title(), array($this, 'show_header'), NULL,
+		common_show_header($this->get_title(), array($this, 'show_header'), $error,
 						   array($this, 'show_top'));
 		common_element_start('form', array('id' => 'notice_delete_form',
 								   'method' => 'post',
