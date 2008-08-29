@@ -39,7 +39,7 @@ class LoginAction extends Action {
 	function check_login() {
 		# XXX: form token in $_SESSION to prevent XSS
 		# XXX: login throttle
-		$nickname = $this->arg('nickname');
+		$nickname = common_canonical_nickname($this->trimmed('nickname'));
 		$password = $this->arg('password');
 		if (common_check_user($nickname, $password)) {
 			# success!
