@@ -286,7 +286,6 @@ function jabber_public_notice($notice) {
 		$msg = jabber_format_notice($profile, $notice);
 		$entry = jabber_format_entry($profile, $notice);
 
-		$sent_to = array();
 		$conn = jabber_connect();
 
 		foreach ($public as $address) {
