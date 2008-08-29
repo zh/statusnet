@@ -49,6 +49,7 @@ class DeletenoticeAction extends DeleteAction {
 		common_element_start('form', array('id' => 'notice_delete_form',
 								   'method' => 'post',
 								   'action' => common_local_url('deletenotice')));
+		common_hidden('token', common_session_token());
 		common_hidden('notice', $this->trimmed('notice'));
 		common_element_start('p');
 		common_element('span', array('id' => 'confirmation_text'), _('Are you sure you want to delete this notice?'));
@@ -67,6 +68,12 @@ class DeletenoticeAction extends DeleteAction {
 	}
 
 	function delete_notice() {
+		# CSRF protection
+		$token = $this->trimmed('token');
+		if (!$token || $token != common_session_token()) {
+			$this->show_form(_('There was a problem with your session token. Try again, please.'));
+			return;
+		}
 		$url = common_get_returnto();
 		$confirmed = $this->trimmed('submit');
 		if ($confirmed == _('Yes')) {
