@@ -266,5 +266,3 @@ $daemon = new XMPPDaemon($resource);
 if ($daemon->connect()) {
 	$daemon->handle();
 }
-
-?>
