@@ -35,7 +35,7 @@ class SmssettingsAction extends EmailsettingsAction {
 										   'id' => 'smssettings',
 										   'action' =>
 										   common_local_url('smssettings')));
-
+		common_hidden('token', common_session_token());
 		common_element('h2', NULL, _('Address'));
 
 		if ($user->sms) {
@@ -116,6 +116,14 @@ class SmssettingsAction extends EmailsettingsAction {
 	}
 
 	function handle_post() {
+
+		# CSRF protection
+
+		$token = $this->trimmed('token');
+		if (!$token || $token != common_session_token()) {
+			$this->show_form(_('There was a problem with your session token. Try again, please.'));
+			return;
+		}
 
 		if ($this->arg('save')) {
 			$this->save_preferences();
