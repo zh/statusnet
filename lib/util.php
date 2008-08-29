@@ -1481,7 +1481,7 @@ function common_canonical_sms($sms) {
 function common_session_token() {
 	common_ensure_session();
 	if (!array_key_exists('token', $_SESSION)) {
-		$_SESSION['token'] = common_random_bytes(64);
+		$_SESSION['token'] = common_good_rand(64);
 	}
 	return $_SESSION['token'];
 }
