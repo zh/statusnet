@@ -57,7 +57,6 @@ class QueueHandler {
 	
 	function handle_queue() {
 		$this->log(LOG_INFO, 'checking for queued notices');
-		$cnt = 0;
 		$transport = $this->transport();
 		do {
 			$qi = Queue_item::top($transport);
@@ -82,14 +81,23 @@ class QueueHandler {
 					$this->log(LOG_WARNING, 'queue item for notice that does not exist');
 				}
 				$qi->delete();
-				$cnt++;
+				$this->idle();
 			} else {
 				$this->clear_old_claims();
-				sleep(10);
+				$start = microtime();
+				$this->idle();
+				$used = microtime() - $start;
+				if ($used < 5000000) {
+					usleep(5000000 - $used);
+				}
 			}	
 		} while (true);
 	}
 
+	function idle() {
+		return true;
+	}
+	
 	function clear_old_claims() {
 		$qi = new Queue_item();
 		$qi->transport = $this->transport();

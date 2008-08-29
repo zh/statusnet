@@ -34,6 +34,8 @@ require_once(INSTALLDIR . '/lib/queuehandler.php');
 set_error_handler('common_error_handler');
 
 class XmppQueueHandler extends QueueHandler {
+
+	var $conn = NULL;
 	
 	function transport() {
 		return 'jabber';
@@ -42,14 +44,23 @@ class XmppQueueHandler extends QueueHandler {
 	function start() {
 		# Low priority; we don't want to receive messages
 		$this->conn = jabber_connect($this->_id, NULL, -1);
+		$this->conn->addEventHandler('message', 'forward_message', $this);
 		return !is_null($this->conn);
 	}
 
 	function handle_notice($notice) {
 		return jabber_broadcast_notice($notice);
 	}
+
+	function idle() {
+		# Process the queue for a second
+		$this->conn->processTime(1);
+	}
 	
 	function finish() {
+	}
+	
+	function forward_message(&$pl) {
 	}
 }
 
