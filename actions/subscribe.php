@@ -36,6 +36,15 @@ class SubscribeAction extends Action {
 			return;
 		}
 
+		# CSRF protection
+
+		$token = $this->trimmed('token');
+		
+		if (!$token || $token != common_session_token()) {
+			common_redirect(common_local_url('subscriptions', array('nickname' => $user->nickname)));
+			return;
+		}
+
 		$other_nickname = $this->arg('subscribeto');
 
 		$result=subs_subscribe_user($user, $other_nickname);

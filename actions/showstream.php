@@ -179,6 +179,7 @@ class ShowstreamAction extends StreamAction {
 	function show_subscribe_form($profile) {
 		common_element_start('form', array('id' => 'subscribe', 'method' => 'post',
 										   'action' => common_local_url('subscribe')));
+		common_hidden('token', common_session_token());
 		common_element('input', array('id' => 'subscribeto',
 									  'name' => 'subscribeto',
 									  'type' => 'hidden',
@@ -200,6 +201,7 @@ class ShowstreamAction extends StreamAction {
 	function show_unsubscribe_form($profile) {
 		common_element_start('form', array('id' => 'unsubscribe', 'method' => 'post',
 										   'action' => common_local_url('unsubscribe')));
+		common_hidden('token', common_session_token());
 		common_element('input', array('id' => 'unsubscribeto',
 									  'name' => 'unsubscribeto',
 									  'type' => 'hidden',

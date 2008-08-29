@@ -33,6 +33,15 @@ class UnsubscribeAction extends Action {
 			return;
 		}
 
+		# CSRF protection
+
+		$token = $this->trimmed('token');
+		
+		if (!$token || $token != common_session_token()) {
+			common_redirect(common_local_url('subscriptions', array('nickname' => $user->nickname)));
+			return;
+		}
+
 		$other_nickname = $this->arg('unsubscribeto');
 		$result=subs_unsubscribe_user($user,$other_nickname);
 		if($result!=true) {
