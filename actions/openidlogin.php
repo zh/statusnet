@@ -28,6 +28,13 @@ class OpenidloginAction extends Action {
 		if (common_logged_in()) {
 			common_user_error(_('Already logged in.'));
 		} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			# CSRF protection
+			$token = $this->trimmed('token');
+			if (!$token || $token != common_session_token()) {
+				$this->show_form(_('There was a problem with your session token. Try again, please.'));
+				return;
+			}
+
 			$openid_url = $this->trimmed('openid_url');
 			$result = oid_authenticate($openid_url,
 									   'finishopenidlogin');
@@ -62,6 +69,7 @@ class OpenidloginAction extends Action {
 		common_element_start('form', array('method' => 'post',
 										   'id' => 'openidlogin',
 										   'action' => $formaction));
+		common_hidden('token', common_session_token());
 		common_input('openid_url', _('OpenID URL'),
 					 $openid_url,
 					 _('Your OpenID URL'));
