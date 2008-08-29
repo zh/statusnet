@@ -37,6 +37,7 @@ class ProfilesettingsAction extends SettingsAction {
 										   'id' => 'profilesettings',
 										   'action' =>
 										   common_local_url('profilesettings')));
+		common_hidden('token', common_session_token());
 		# too much common patterns here... abstractable?
 		common_input('nickname', _('Nickname'),
 					 ($this->arg('nickname')) ? $this->arg('nickname') : $profile->nickname,
@@ -79,6 +80,14 @@ class ProfilesettingsAction extends SettingsAction {
 		$autosubscribe = $this->boolean('autosubscribe');
 		$language = $this->trimmed('language');
 		$timezone = $this->trimmed('timezone');
+
+		# CSRF protection
+
+		$token = $this->trimmed('token');
+		if (!$token || $token != common_session_token()) {
+			$this->show_form(_('There was a problem with your session token. Try again, please.'));
+			return;
+		}
 
 		# Some validation
 
@@ -147,9 +156,9 @@ class ProfilesettingsAction extends SettingsAction {
 		}
 
 		# XXX: XOR
-		
+
 		if ($user->autosubscribe ^ $autosubscribe) {
-			
+
 			$original = clone($user);
 
 			$user->autosubscribe = $autosubscribe;
@@ -162,7 +171,7 @@ class ProfilesettingsAction extends SettingsAction {
 				return;
 			}
 		}
-		
+
 		$profile = $user->getProfile();
 
 		$orig_profile = clone($profile);
