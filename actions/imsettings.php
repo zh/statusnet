@@ -35,6 +35,7 @@ class ImsettingsAction extends SettingsAction {
 										   'id' => 'imsettings',
 										   'action' =>
 										   common_local_url('imsettings')));
+		common_hidden('token', common_session_token());
 
 		common_element('h2', NULL, _('Address'));
 
@@ -97,6 +98,13 @@ class ImsettingsAction extends SettingsAction {
 	}
 
 	function handle_post() {
+
+		# CSRF protection
+		$token = $this->trimmed('token');
+		if (!$token || $token != common_session_token()) {
+			$this->show_form(_('There was a problem with your session token. Try again, please.'));
+			return;
+		}
 
 		if ($this->arg('save')) {
 			$this->save_preferences();
