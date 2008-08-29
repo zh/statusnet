@@ -176,6 +176,7 @@ class RecoverpasswordAction extends Action {
 		common_element_start('form', array('method' => 'post',
 										   'id' => 'recoverpassword',
 										   'action' => common_local_url('recoverpassword')));
+		common_hidden('token', common_session_token());
 		common_password('newpassword', _('New password'),
 						_('6 or more characters, and don\'t forget it!'));
 		common_password('confirm', _('Confirm'),
@@ -269,6 +270,13 @@ class RecoverpasswordAction extends Action {
 	}
 
 	function reset_password() {
+
+		# CSRF protection
+		$token = $this->trimmed('token');
+		if (!$token || $token != common_session_token()) {
+			$this->show_form(_('There was a problem with your session token. Try again, please.'));
+			return;
+		}
 
 		$user = $this->get_temp_user();
 
