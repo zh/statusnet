@@ -33,6 +33,14 @@ class RemotesubscribeAction extends Action {
 		}
 
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			
+			# CSRF protection
+			$token = $this->trimmed('token');
+			if (!$token || $token != common_session_token()) {
+				$this->show_form(_('There was a problem with your session token. Try again, please.'));
+				return;
+			}
+			
 			$this->remote_subscription();
 		} else {
 			$this->show_form();
@@ -68,6 +76,7 @@ class RemotesubscribeAction extends Action {
 		# button on profile page
 		common_element_start('form', array('id' => 'remsub', 'method' => 'post',
 										   'action' => common_local_url('remotesubscribe')));
+		common_hidden('token', common_session_token());
 		common_input('nickname', _('User nickname'), $nickname,
 					 _('Nickname of the user you want to follow'));
 		common_input('profile_url', _('Profile URL'), $profile,
