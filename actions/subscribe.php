@@ -41,7 +41,7 @@ class SubscribeAction extends Action {
 		$token = $this->trimmed('token');
 		
 		if (!$token || $token != common_session_token()) {
-			common_redirect(common_local_url('subscriptions', array('nickname' => $user->nickname)));
+			$this->client_error(_('There was a problem with your session token. Try again, please.'));
 			return;
 		}
 
