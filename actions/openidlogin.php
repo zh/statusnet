@@ -28,14 +28,15 @@ class OpenidloginAction extends Action {
 		if (common_logged_in()) {
 			common_user_error(_('Already logged in.'));
 		} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			$openid_url = $this->trimmed('openid_url');
+
 			# CSRF protection
 			$token = $this->trimmed('token');
 			if (!$token || $token != common_session_token()) {
-				$this->show_form(_('There was a problem with your session token. Try again, please.'));
+				$this->show_form(_('There was a problem with your session token. Try again, please.'), $openid_url);
 				return;
 			}
 
-			$openid_url = $this->trimmed('openid_url');
 			$result = oid_authenticate($openid_url,
 									   'finishopenidlogin');
 			if (is_string($result)) { # error message
