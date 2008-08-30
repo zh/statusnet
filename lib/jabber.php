@@ -222,6 +222,7 @@ function jabber_broadcast_notice($notice) {
 				   'Sending reply notice ' . $notice->id . ' to ' . $user->jabber,
 				   __FILE__);
 		$conn->message($user->jabber, $msg, 'chat', NULL, $entry);
+		$sent_to[$user->id] = 1;
 	}
 
     # Now, get users subscribed to this profile
