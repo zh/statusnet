@@ -95,7 +95,7 @@ class XMPPDaemon {
 		# Forwarded from another daemon (probably a broadcaster) for
 		# us to handle
 
-		if (preg_match('/^'.jabber_daemon_address().'/', $from)) {
+		if (preg_match('/^'.strtolower(jabber_daemon_address()).'/', strtolower($from))) {
 			$from = $this->get_ofrom($pl);
 			if (is_null($from)) {
 				return;

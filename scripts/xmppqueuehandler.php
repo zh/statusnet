@@ -61,6 +61,9 @@ class XmppQueueHandler extends QueueHandler {
 	}
 
 	function forward_message(&$pl) {
+		if ($pl['type'] != 'chat') {
+			return;
+		}
 		$listener = $this->listener();
 		$this->log(LOG_INFO, 'Forwarding message from ' . $pl['from'] . ' to ' . $listener);
 		$this->conn->message($this->listener(), $pl['body'], 'chat', NULL, $this->ofrom($pl['from']));
