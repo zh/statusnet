@@ -136,7 +136,7 @@ class XMPPDaemon {
 			$this->log(LOG_WARNING, 'Forwarded message without addresses');
 			return NULL;
 		}
-		$address = $xml->sub('address');
+		$address = $addresses->sub('address');
 		if (!$address) {
 			$this->log(LOG_WARNING, 'Forwarded message without address');
 			return NULL;
