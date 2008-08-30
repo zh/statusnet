@@ -18,35 +18,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function xmppdaemon_error_handler($errno, $errstr, $errfile, $errline, $errcontext) {
-    switch ($errno) {
-     case E_USER_ERROR:
-		echo "ERROR: [$errno] $errstr ($errfile:$errline)\n";
-		echo "  Fatal error on line $errline in file $errfile";
-		echo ", PHP " . PHP_VERSION . " (" . PHP_OS . ")\n";
-		echo "Aborting...\n";
-		exit(1);
-		break;
-
-	 case E_USER_WARNING:
-		echo "WARNING [$errno] $errstr ($errfile:$errline)\n";
-		break;
-
-     case E_USER_NOTICE:
-		echo "NOTICE [$errno] $errstr ($errfile:$errline)\n";
-		break;
-
-     default:
-		echo "Unknown error type: [$errno] $errstr ($errfile:$errline)\n";
-		break;
-    }
-
-    /* Don't execute PHP internal error handler */
-    return true;
-}
-
-set_error_handler('xmppdaemon_error_handler');
-
 # Abort if called from a web server
 if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
 	print "This script must be run from the command line\n";
