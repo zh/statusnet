@@ -53,7 +53,6 @@ class XmppConfirmHandler {
 	
 	function handle_queue() {
 		$this->log(LOG_INFO, 'checking for queued confirmations');
-		$cnt = 0;
 		do {
 			$confirm = $this->next_confirm();
 			if ($confirm) {
@@ -82,9 +81,8 @@ class XmppConfirmHandler {
 						continue;
 					}
 				}
-				$cnt++;
 			} else {
-				$this->clear_old_confirm_claims();
+#				$this->clear_old_confirm_claims();
 				sleep(10);
 			}
 		} while (true);
@@ -102,7 +100,7 @@ class XmppConfirmHandler {
 			$this->log(LOG_INFO, 'Claiming confirmation for ' . $confirm->address);
 		        # working around some weird DB_DataObject behaviour
 			$confirm->whereAdd(''); # clears where stuff
-		        $original = clone($confirm);
+			$original = clone($confirm);
 			$confirm->claimed = common_sql_now();
 			$result = $confirm->update($original);
 			if ($result) {
@@ -118,7 +116,7 @@ class XmppConfirmHandler {
 
 	function clear_old_confirm_claims() {
 		$confirm = new Confirm();
-	        $confirm->claimed = NULL;
+		$confirm->claimed = NULL;
 		$confirm->whereAdd('now() - claimed > '.CLAIM_TIMEOUT);
 		$confirm->update(DB_DATAOBJECT_WHEREADD_ONLY);
 	}
