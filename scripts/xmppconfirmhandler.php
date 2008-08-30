@@ -48,6 +48,7 @@ class XmppConfirmHandler {
 	function start() {
 		# Low priority; we don't want to receive messages
 		$this->conn = jabber_connect($this->_id, NULL, -1);
+		$this->conn->addEventHandler('message', 'forward_message', $this);
 		return !is_null($this->conn);
 	}
 	
@@ -81,8 +82,15 @@ class XmppConfirmHandler {
 						continue;
 					}
 				}
+				$this->idle();
 			} else {
 #				$this->clear_old_confirm_claims();
+				$start = microtime();
+				$this->idle();
+				$used = microtime() - $start;
+				if ($used < 10000000) {
+					usleep(10000000 - $used);
+				}
 				sleep(10);
 			}
 		} while (true);
@@ -123,6 +131,47 @@ class XmppConfirmHandler {
 	
 	function log($level, $msg) {
 		common_log($level, 'XmppConfirmHandler ('. $this->_id .'): '.$msg);
+	}
+	
+	function idle() {
+	    $this->log(LOG_DEBUG, 'Checking the incoming message queue.');
+		# Process the queue for a second
+		if ($this->conn->readyToProcess()) {
+			$this->log(LOG_DEBUG, 'Something in the incoming message queue; processing it.');
+			$this->conn->processTime(1);
+			$this->log(LOG_DEBUG, 'Done processing incoming message queue.');
+		} else {
+			$this->log(LOG_DEBUG, 'Nothing in the incoming message queue; skipping it.');
+		}
+	}
+
+	function forward_message(&$pl) {
+		if ($pl['type'] != 'chat') {
+		    $this->log(LOG_DEBUG, 'Ignoring message of type ' . $pl['type'] . ' from ' . $pl['from']);
+			return;
+		}
+		$listener = $this->listener();
+		if (strtolower($listener) == strtolower($pl['from'])) {
+			$this->log(LOG_WARNING, 'Ignoring loop message.');
+			return;
+		}
+		$this->log(LOG_INFO, 'Forwarding message from ' . $pl['from'] . ' to ' . $listener);
+		$this->conn->message($this->listener(), $pl['body'], 'chat', NULL, $this->ofrom($pl['from']));
+	}
+
+	function ofrom($from) {
+		$address = "<addresses xmlns='http://jabber.org/protocol/address'>\n";
+		$address .= "<address type='ofrom' jid='$from' />\n";
+		$address .= "</addresses>\n";
+		return $address;
+	}
+
+	function listener() {
+		if (common_config('xmpp', 'listener')) {
+			return common_config('xmpp', 'listener');
+		} else {
+			return jabber_daemon_address() . '/' . common_config('xmpp','resource') . '-listener';
+		}
 	}
 }
 
