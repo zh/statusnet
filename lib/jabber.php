@@ -283,6 +283,15 @@ function jabber_public_notice($notice) {
 	# = false? I think not
 
 	if ($public && $notice->is_local) {
+		$profile = Profile::staticGet($notice->profile_id);
+
+		if (!$profile) {
+			common_log(LOG_WARNING, 'Refusing to broadcast notice with ' .
+					   'unknown profile ' . common_log_objstring($notice),
+					   __FILE__);
+			return false;
+		}
+
 		$msg = jabber_format_notice($profile, $notice);
 		$entry = jabber_format_entry($profile, $notice);
 
