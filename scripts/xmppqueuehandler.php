@@ -53,9 +53,15 @@ class XmppQueueHandler extends QueueHandler {
 	}
 
 	function idle() {
-	        $this->log(LOG_DEBUG, 'Processing the incoming message queue.');
+	    $this->log(LOG_DEBUG, 'Checking the incoming message queue.');
 		# Process the queue for a second
-		$this->conn->processTime(1);
+		if ($this->conn->readyToProcess()) {
+			$this->log(LOG_DEBUG, 'Something in the incoming message queue; processing it.');
+			$this->conn->processTime(1);
+			$this->log(LOG_DEBUG, 'Done processing incoming message queue.');
+		} else {
+			$this->log(LOG_DEBUG, 'Nothing in the incoming message queue; skipping it.');
+		}
 	}
 
 	function finish() {

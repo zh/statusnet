@@ -616,4 +616,12 @@ class XMPPHP_XMLStream {
 		xml_set_element_handler($this->parser, 'startXML', 'endXML');
 		xml_set_character_data_handler($this->parser, 'charXML');
 	}
+
+	public function readyToProcess() {
+		$read = array($this->socket);
+		$write = null;
+		$except = null;
+		$updated = @stream_select($read, $write, $except, 0);
+		return $updated !== false;
+	}
 }
