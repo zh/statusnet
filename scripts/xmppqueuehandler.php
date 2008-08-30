@@ -36,11 +36,11 @@ set_error_handler('common_error_handler');
 class XmppQueueHandler extends QueueHandler {
 
 	var $conn = NULL;
-	
+
 	function transport() {
 		return 'jabber';
 	}
-	
+
 	function start() {
 		# Low priority; we don't want to receive messages
 		$this->conn = jabber_connect($this->_id, NULL, -1);
@@ -56,11 +56,29 @@ class XmppQueueHandler extends QueueHandler {
 		# Process the queue for a second
 		$this->conn->processTime(1);
 	}
-	
+
 	function finish() {
 	}
-	
+
 	function forward_message(&$pl) {
+		$listener = $this->listener();
+		$this->log(LOG_INFO, 'Forwarding message from ' . $pl['from'] . ' to ' . $listener);
+		$this->conn->message($this->listener(), $pl['body'], 'chat', NULL, $this->ofrom($pl['from']));
+	}
+
+	function ofrom($from) {
+		$address = "<addresses xmlns='http://jabber.org/protocol/address'>\n";
+		$address .= "<address type='ofrom' jid='$from' />\n";
+		$address .= "</addresses>\n";
+		return $address;
+	}
+
+	function listener() {
+		if (common_config('xmpp', 'listener')) {
+			return common_config('xmpp', 'listener');
+		} else {
+			return jabber_daemon_address() . '/' . common_config('xmpp','resource') . '-listener';
+		}
 	}
 }
 

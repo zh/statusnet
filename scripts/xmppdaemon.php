@@ -73,7 +73,7 @@ class XMPPDaemon {
 	function handle() {
 		$this->conn->addEventHandler('message', 'handle_message', $this);
 		$this->conn->addEventHandler('presence', 'handle_presence', $this);
-		
+
 		$this->conn->process();
 	}
 
@@ -91,6 +91,17 @@ class XMPPDaemon {
 		}
 
 		$from = jabber_normalize_jid($pl['from']);
+
+		# Forwarded from another daemon (probably a broadcaster) for
+		# us to handle
+
+		if (preg_match('/^'.jabber_daemon_address().'/', $from)) {
+			$from = $this->get_ofrom($pl);
+			if (is_null($from)) {
+				return;
+			}
+		}
+
 		$user = $this->get_user($from);
 
 		if (!$user) {
@@ -116,6 +127,26 @@ class XMPPDaemon {
 			}
 			$this->add_notice($user, $pl);
 		}
+	}
+
+	function get_ofrom($pl) {
+		$xml = $pl['raw'];
+		$addresses = $xml->sub('adddresses');
+		if (!$addresses) {
+			$this->log(LOG_WARNING, 'Forwarded message without addresses');
+			return NULL;
+		}
+		$address = $xml->sub('address');
+		if (!$address) {
+			$this->log(LOG_WARNING, 'Forwarded message without address');
+			return NULL;
+		}
+		$type = $address->attr('type');
+		if ($type != 'ofrom') {
+			$this->log(LOG_WARNING, 'Type of forwarded message is not ofrom');
+			return NULL;
+		}
+		return $address->attr('jid');
 	}
 
 	function is_autoreply($txt) {
