@@ -87,6 +87,9 @@ class RegisterAction extends Action {
 		} else if (!is_null($location) && strlen($location) > 255) {
 			$this->show_form(_('Location is too long (max 255 chars).'));
 			return;
+		} else if (strlen($password) < 6) {
+			$this->show_form(_('Password must be 6 or more characters.'));
+			return;
 		} else if ($password != $confirm) {
 			$this->show_form(_('Passwords don\'t match.'));
 		} else if ($user = User::register(array('nickname' => $nickname, 'password' => $password, 'email' => $email,
