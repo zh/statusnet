@@ -138,6 +138,7 @@ class XMPPDaemon {
 		}
 		$this->log(LOG_DEBUG, "Got addresses XML: " . $addresses->toString());
 		$address = $addresses->sub('address');
+		$this->log(LOG_DEBUG, "Fetched address.");
 		if (!$address) {
 			$this->log(LOG_WARNING, 'Forwarded message without address');
 			return NULL;
