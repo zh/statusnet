@@ -87,8 +87,8 @@ class QueueHandler {
 				$start = microtime();
 				$this->idle();
 				$used = microtime() - $start;
-				if ($used < 3000000) {
-					usleep(3000000 - $used);
+				if ($used < 1000000) {
+					usleep(1000000 - $used);
 				}
 			}	
 		} while (true);

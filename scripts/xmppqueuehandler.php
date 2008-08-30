@@ -53,6 +53,7 @@ class XmppQueueHandler extends QueueHandler {
 	}
 
 	function idle() {
+	        $this->log(LOG_DEBUG, 'Processing the incoming message queue.');
 		# Process the queue for a second
 		$this->conn->processTime(1);
 	}
@@ -62,6 +63,7 @@ class XmppQueueHandler extends QueueHandler {
 
 	function forward_message(&$pl) {
 		if ($pl['type'] != 'chat') {
+		    $this->log(LOG_DEBUG, 'Ignoring message of type ' . $pl['type'] . ' from ' . $pl['from']);
 			return;
 		}
 		$listener = $this->listener();
