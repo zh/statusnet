@@ -21,33 +21,6 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once('XMPPHP/XMPP.php');
 
-# XXX: something of a hack to work around problems with the XMPPHP lib
-
-class Laconica_XMPP extends XMPPHP_XMPP {
-
-	public function presence($status = null, $show = 'available', $to = null, $type='available', $priority=NULL) {
-		if($type == 'available') $type = '';
-		$to	 = htmlspecialchars($to);
-		$status = htmlspecialchars($status);
-		if($show == 'unavailable') $type = 'unavailable';
-
-		$out = "<presence";
-		if($to) $out .= " to='$to'";
-		if($type) $out .= " type='$type'";
-		if($show == 'available' and !$status and is_null($priority)) {
-			$out .= "/>";
-		} else {
-			$out .= ">";
-			if($show != 'available') $out .= "<show>$show</show>";
-			if($status) $out .= "<status>$status</status>";
-			if(!is_null($priority)) $out .= "<priority>$priority</priority>";
-			$out .= "</presence>";
-		}
-
-		$this->send($out);
-	}
-}
-
 function jabber_valid_base_jid($jid) {
 	# Cheap but effective
 	return Validate::email($jid);
@@ -70,7 +43,7 @@ function jabber_daemon_address() {
 function jabber_connect($resource=NULL, $status=NULL, $priority=NULL) {
 	static $conn = NULL;
 	if (!$conn) {
-		$conn = new Laconica_XMPP(common_config('xmpp', 'host') ?
+		$conn = new XMPPHP_XMPP(common_config('xmpp', 'host') ?
 								common_config('xmpp', 'host') :
 								common_config('xmpp', 'server'),
 								common_config('xmpp', 'port'),
@@ -95,8 +68,8 @@ function jabber_connect($resource=NULL, $status=NULL, $priority=NULL) {
 			return false;
 		}
     	$conn->processUntil('session_start');
-		$conn->getRoster();
-		$conn->presence($presence, 'available', NULL, 'available', $priority);
+#		$conn->getRoster();
+		$conn->presence($presence, 'available', NULL, 'available');
 	}
 	return $conn;
 }
