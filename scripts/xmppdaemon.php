@@ -136,25 +136,30 @@ class XMPPDaemon {
 			$this->log(LOG_WARNING, 'Forwarded message without addresses');
 			return NULL;
 		}
-		$this->log(LOG_DEBUG, "Got addresses XML: " . $addresses->toString());
 		$address = $addresses->sub('address');
-		$this->log(LOG_DEBUG, "Fetched address.");
 		if (!$address) {
 			$this->log(LOG_WARNING, 'Forwarded message without address');
 			return NULL;
 		}
-		$type = $address->attr('type');
+		if (!array_key_exists('type', $address->attrs)) {
+			$this->log(LOG_WARNING, 'No type for forwarded message');
+			return NULL;
+		}
+		$type = $address->attrs['type'];
 		if ($type != 'ofrom') {
 			$this->log(LOG_WARNING, 'Type of forwarded message is not ofrom');
 			return NULL;
 		}
-		$jid = $address->attr('jid');
+		if (!array_key_exists('jid', $address->attrs)) {
+			$this->log(LOG_WARNING, 'No jid for forwarded message');
+			return NULL;
+		}
+		$jid = $address->attrs['jid'];
 		if (!$jid) {
 			$this->log(LOG_WARNING, 'Could not get jid from address');
 			return NULL;
 		}
 		$this->log(LOG_DEBUG, 'Got message forwarded from jid ' . $jid);
-		
 		return $jid;
 	}
 
