@@ -146,7 +146,14 @@ class XMPPDaemon {
 			$this->log(LOG_WARNING, 'Type of forwarded message is not ofrom');
 			return NULL;
 		}
-		return $address->attr('jid');
+		$jid = $address->attr('jid');
+		if (!$jid) {
+			$this->log(LOG_WARNING, 'Could not get jid from address');
+			return NULL;
+		}
+		$this->log(LOG_DEBUG, 'Got message forwarded from jid ' . $jid);
+		
+		return $jid;
 	}
 
 	function is_autoreply($txt) {
