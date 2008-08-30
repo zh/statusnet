@@ -45,7 +45,7 @@ class OmbQueueHandler extends QueueHandler {
 
 	function handle_notice($notice) {
 		if ($this->is_remote($notice)) {
-			# It's fine, we're done with it.
+			$this->log(LOG_DEBUG, 'Ignoring remote notice ' . $notice->id);
 			return true;
 		} else {
 			return omb_broadcast_remote_subscribers($notice);
@@ -57,7 +57,7 @@ class OmbQueueHandler extends QueueHandler {
 
 	function is_remote($notice) {
 		$user = User::staticGet($notice->profile_id);
-		return !$user;
+		return is_null($user);
 	}
 }
 
