@@ -36,7 +36,7 @@ class RegisterAction extends Action {
 	}
 
 	function try_register() {
-		
+
 		$token = $this->trimmed('token');
 		if (!$token || $token != common_session_token()) {
 			$this->show_form(_('There was a problem with your session token. Try again, please.'));
@@ -153,6 +153,15 @@ class RegisterAction extends Action {
 		common_element_start('form', array('method' => 'post',
 										   'id' => 'login',
 										   'action' => common_local_url('register')));
+
+		common_hidden('token', common_session_token());
+
+		if ($this->trimmed('code')) {
+			$code = ($this->trimmed('code'));
+			$invite = Invitation::staticGet($code);
+			common_hidden('code', $code);
+		}
+
 		common_input('nickname', _('Nickname'), $this->trimmed('nickname'),
 					 _('1-64 lowercase letters or numbers, no punctuation or spaces. Required.'));
 		common_password('password', _('Password'),
