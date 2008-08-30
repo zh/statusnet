@@ -619,9 +619,9 @@ class XMPPHP_XMLStream {
 
 	public function readyToProcess() {
 		$read = array($this->socket);
-		$write = null;
-		$except = null;
+		$write = array();
+		$except = array();
 		$updated = @stream_select($read, $write, $except, 0);
-		return $updated !== false;
+		return (($updated !== false) && ($updated > 0));
 	}
 }
