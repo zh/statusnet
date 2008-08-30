@@ -67,6 +67,10 @@ class XmppQueueHandler extends QueueHandler {
 			return;
 		}
 		$listener = $this->listener();
+		if (strtolower($listener) == strtolower($pl['from'])) {
+			$this->log(LOG_WARNING, 'Ignoring loop message.');
+			return;
+		}
 		$this->log(LOG_INFO, 'Forwarding message from ' . $pl['from'] . ' to ' . $listener);
 		$this->conn->message($this->listener(), $pl['body'], 'chat', NULL, $this->ofrom($pl['from']));
 	}
