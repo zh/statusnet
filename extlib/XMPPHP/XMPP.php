@@ -198,6 +198,7 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 		}
 		$payload['from'] = $xml->attrs['from'];
 		$payload['body'] = $xml->sub('body')->data;
+		$payload['raw'] = $xml;
 		$this->log->log("Message: {$xml->sub('body')->data}", XMPPHP_Log::LEVEL_DEBUG);
 		$this->event('message', $payload);
 	}
@@ -212,6 +213,7 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 		$payload['show'] = (isset($xml->sub('show')->data)) ? $xml->sub('show')->data : $payload['type'];
 		$payload['from'] = $xml->attrs['from'];
 		$payload['status'] = (isset($xml->sub('status')->data)) ? $xml->sub('status')->data : '';
+		$payload['raw'] = $xml;		
 		$this->log->log("Presence: {$payload['from']} [{$payload['show']}] {$payload['status']}",  XMPPHP_Log::LEVEL_DEBUG);
 		if(array_key_exists('type', $xml->attrs) and $xml->attrs['type'] == 'subscribe') {
 			if($this->auto_subscribe) $this->send("<presence type='subscribed' to='{$xml->attrs['from']}' from='{$this->fulljid}' /><presence type='subscribe' to='{$xml->attrs['from']}' from='{$this->fulljid}' />");
