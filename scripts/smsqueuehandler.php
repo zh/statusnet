@@ -28,7 +28,7 @@ define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 define('LACONICA', true);
 
 require_once(INSTALLDIR . '/lib/common.php');
-require_once(INSTALLDIR . '/lib/omb.php');
+require_once(INSTALLDIR . '/lib/mail.php');
 require_once(INSTALLDIR . '/lib/queuehandler.php');
 
 set_error_handler('common_error_handler');
