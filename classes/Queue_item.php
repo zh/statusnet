@@ -38,7 +38,7 @@ class Queue_item extends DB_DataObject
 			# XXX: potential race condition
 			# can we force it to only update if claimed is still NULL
 			# (or old)?
-			common_log(LOG_INFO, 'claiming queue item = ' . $qi->notice_id);
+			common_log(LOG_INFO, 'claiming queue item = ' . $qi->notice_id . ' for transport ' . $transport);
 			$orig = clone($qi);
 			$qi->claimed = common_sql_now();
 			$result = $qi->update($orig);
