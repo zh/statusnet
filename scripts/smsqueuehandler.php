@@ -36,7 +36,7 @@ set_error_handler('common_error_handler');
 class SmsQueueHandler extends QueueHandler {
 	
 	function transport() {
-		return 'omb';
+		return 'sms';
 	}
 
 	function start() {
