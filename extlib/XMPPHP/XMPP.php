@@ -164,7 +164,7 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 	 * @param string $show
 	 * @param string $to
 	 */
-	public function presence($status = null, $show = 'available', $to = null, $type='available') {
+	public function presence($status = null, $show = 'available', $to = null, $type='available', $priority=NULL) {
 		if($type == 'available') $type = '';
 		$to	 = htmlspecialchars($to);
 		$status = htmlspecialchars($status);
@@ -173,12 +173,13 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 		$out = "<presence";
 		if($to) $out .= " to='$to'";
 		if($type) $out .= " type='$type'";
-		if($show == 'available' and !$status) {
+		if($show == 'available' and !$status and is_null($priority)) {
 			$out .= "/>";
 		} else {
 			$out .= ">";
 			if($show != 'available') $out .= "<show>$show</show>";
 			if($status) $out .= "<status>$status</status>";
+			if(!is_null($priority)) $out .= "<priority>$priority</priority>";
 			$out .= "</presence>";
 		}
 		
