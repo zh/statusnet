@@ -95,9 +95,9 @@ class XMPPDaemon {
 		# Forwarded from another daemon (probably a broadcaster) for
 		# us to handle
 
-		if (preg_match('/^'.strtolower(jabber_daemon_address()).'/', strtolower($from))) {
+		if ($this->is_self($from)) {
 			$from = $this->get_ofrom($pl);
-			if (is_null($from)) {
+			if (is_null($from) || $this->is_self($from)) {
 				return;
 			}
 		}
@@ -129,6 +129,10 @@ class XMPPDaemon {
 		}
 	}
 
+	function is_self($from) {
+		return preg_match('/^'.strtolower(jabber_daemon_address()).'/', strtolower($from));
+	}
+	
 	function get_ofrom($pl) {
 		$xml = $pl['raw'];
 		$addresses = $xml->sub('addresses');
