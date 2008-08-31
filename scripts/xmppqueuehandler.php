@@ -56,16 +56,9 @@ class XmppQueueHandler extends QueueHandler {
 		return jabber_broadcast_notice($notice);
 	}
 
-	function idle() {
-	    $this->log(LOG_DEBUG, 'Checking the incoming message queue.');
+	function idle($timeout=0) {
 		# Process the queue for a second
-		if ($this->conn->readyToProcess()) {
-			$this->log(LOG_DEBUG, 'Something in the incoming message queue; processing it.');
-			$this->conn->processTime(1);
-			$this->log(LOG_DEBUG, 'Done processing incoming message queue.');
-		} else {
-			$this->log(LOG_DEBUG, 'Nothing in the incoming message queue; skipping it.');
-		}
+		$this->conn->processTime($timeout);
 	}
 
 	function finish() {

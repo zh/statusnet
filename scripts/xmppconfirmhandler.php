@@ -86,16 +86,10 @@ class XmppConfirmHandler {
 						continue;
 					}
 				}
-				$this->idle();
+				$this->idle(0);
 			} else {
 #				$this->clear_old_confirm_claims();
-				$start = microtime();
-				$this->idle();
-				$used = microtime() - $start;
-				if ($used < 10000000) {
-					usleep(10000000 - $used);
-				}
-				sleep(10);
+				$this->idle(10);
 			}
 		} while (true);
 	}
@@ -137,16 +131,8 @@ class XmppConfirmHandler {
 		common_log($level, 'XmppConfirmHandler ('. $this->_id .'): '.$msg);
 	}
 	
-	function idle() {
-	    $this->log(LOG_DEBUG, 'Checking the incoming message queue.');
-		# Process the queue for a second
-		if ($this->conn->readyToProcess()) {
-			$this->log(LOG_DEBUG, 'Something in the incoming message queue; processing it.');
-			$this->conn->processTime(1);
-			$this->log(LOG_DEBUG, 'Done processing incoming message queue.');
-		} else {
-			$this->log(LOG_DEBUG, 'Nothing in the incoming message queue; skipping it.');
-		}
+	function idle($timeout=0) {
+		$this->conn->processTime($timeout);
 	}
 
 	function forward_message(&$pl) {

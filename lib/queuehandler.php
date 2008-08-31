@@ -81,21 +81,18 @@ class QueueHandler {
 					$this->log(LOG_WARNING, 'queue item for notice that does not exist');
 				}
 				$qi->delete();
-				$this->idle();
+				$this->idle(0);
 			} else {
 				$this->clear_old_claims();
-				$start = microtime();
-				$this->idle();
-				$used = microtime() - $start;
-				if ($used < 1000000) {
-					usleep(1000000 - $used);
-				}
+				$this->idle(5);
 			}	
 		} while (true);
 	}
 
-	function idle() {
-		return true;
+	function idle($timeout=0) {
+		if ($timeout>0) {
+			sleep($timeout);
+		}
 	}
 	
 	function clear_old_claims() {
