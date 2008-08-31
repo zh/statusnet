@@ -135,7 +135,8 @@ function jabber_format_entry($profile, $notice) {
 	$event .= "</items>\n";
 	$event .= "</event>\n";
 	# FIXME: include the pubsub event, too.
-	return $html . $entry . $address;
+#	return $html . $entry . $address;
+	return $entry . $address;
 #	return $entry . "\n" . $event;
 }
 
