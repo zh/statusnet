@@ -52,7 +52,7 @@ class XMPPDaemon {
 			$this->resource = common_config('xmpp', 'resource') . 'daemon';
 		}
 
-		$this->log(LOG_INFO, "{$this->user}@{$this->server}/{$this->resource}");
+		$this->log(LOG_INFO, "INITIALIZE XMPPDaemon {$this->user}@{$this->server}/{$this->resource}");
 	}
 
 	function connect() {

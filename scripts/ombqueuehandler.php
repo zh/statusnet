@@ -40,6 +40,7 @@ class OmbQueueHandler extends QueueHandler {
 	}
 	
 	function start() {
+		$this->log(LOG_INFO, "INITIALIZE");
 		return true;
 	}
 
