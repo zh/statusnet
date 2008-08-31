@@ -335,7 +335,7 @@ class XMPPHP_XMLStream {
 				$secs = 0;
 				$usecs = 0;
 			} else {
-				$secs = $remaining / 1000000;
+				$secs = floor($remaining / 1000000);
 				$usecs = $remaining % 1000000;
 			}
 			$this->log->log("stream_select(read, write, except, $secs, $usecs)",  XMPPHP_Log::LEVEL_VERBOSE);
