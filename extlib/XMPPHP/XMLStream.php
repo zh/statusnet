@@ -319,6 +319,8 @@ class XMPPHP_XMLStream {
 	
 	private function __process($maximum=0) {
 		
+		$this->log->log("__process($maximum)",  XMPPHP_Log::LEVEL_VERBOSE);
+		
 		$remaining = $maximum;
 		
 		do {
@@ -336,20 +338,34 @@ class XMPPHP_XMLStream {
 				$secs = $remaining / 1000000;
 				$usecs = $remaining % 1000000;
 			}
+			$this->log->log("stream_select(read, write, except, $secs, $usecs)",  XMPPHP_Log::LEVEL_VERBOSE);
 			$updated = @stream_select($read, $write, $except, $secs, $usecs);
-			if ($updated > 0) {
+			if ($updated === false) {
+				$this->log->log("Error on stream_select()",  XMPPHP_Log::LEVEL_VERBOSE);				
+				if ($this->reconnect) {
+					$this->doReconnect();
+				} else {
+					$this->log->log("Giving up",  XMPPHP_Log::LEVEL_VERBOSE);									
+					fclose($this->socket);
+					return false;
+				}
+			} else if ($updated > 0) {
 				# XXX: Is this big enough?
+				$this->log->log("Reading from socket",  XMPPHP_Log::LEVEL_VERBOSE);													
 				$buff = @fread($this->socket, 4096);
 				if(!$buff) { 
 					if($this->reconnect) {
 						$this->doReconnect();
 					} else {
+						$this->log->log("Error on fread(), reconnect",  XMPPHP_Log::LEVEL_VERBOSE);													
 						fclose($this->socket);
 						return false;
 					}
 				}
 				$this->log->log("RECV: $buff",  XMPPHP_Log::LEVEL_VERBOSE);
 				xml_parse($this->parser, $buff, false);
+			} else {
+				# $updated == 0 means no changes during timeout.
 			}
 			$remaining -= (microtime() - $starttime);
 		} while (is_null($maximum) || $remaining > 0);
