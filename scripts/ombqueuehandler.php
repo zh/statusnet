@@ -62,6 +62,9 @@ class OmbQueueHandler extends QueueHandler {
 	}
 }
 
+ini_set("max_execution_time", "0");
+ini_set("max_input_time", "0");
+set_time_limit(0);
 mb_internal_encoding('UTF-8');
 
 $id = ($argc > 1) ? $argv[1] : NULL;
