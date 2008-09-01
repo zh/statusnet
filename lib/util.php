@@ -688,16 +688,16 @@ function common_render_content($text, $notice) {
 	$r = preg_replace('@https?://[^)\]>\s]+@', '<a href="\0" class="extlink">\0</a>', $r);
 	$r = preg_replace('/(^|\s+)@([a-z0-9]{1,64})/e', "'\\1@'.common_at_link($id, '\\2')", $r);
 	$r = preg_replace('/^T ([A-Z0-9]{1,64}) /e', "'T '.common_at_link($id, '\\1').' '", $r);
-	$r = preg_replace('/(^|\s+)#([a-z0-9]{1,64})/e', "'\\1#'.common_tag_link('\\2')", $r);
+	$r = preg_replace('/(^|\s+)#([A-Za-z0-9]{1,64})/e', "'\\1#'.common_tag_link('\\2')", $r);
 	# XXX: machine tags
 	return $r;
 }
 
 function common_tag_link($tag) {
 	if(common_config('site', 'fancy')) {
-		return '<a href="' . htmlspecialchars(common_path('tag/' . $tag)) . '" rel="tag" class="hashlink">' . htmlspecialchars($tag) . '</a>';
+		return '<a href="' . htmlspecialchars(common_path('tag/' . strtolower($tag))) . '" rel="tag" class="hashlink">' . htmlspecialchars($tag) . '</a>';
 	} else {
-		return '<a href="' . htmlspecialchars(common_path('index.php?action=tag&tag=' . $tag)) . '" rel="tag" class="hashlink">' . htmlspecialchars($tag) . '</a>';
+		return '<a href="' . htmlspecialchars(common_path('index.php?action=tag&tag=' . strtolower($tag))) . '" rel="tag" class="hashlink">' . htmlspecialchars($tag) . '</a>';
 	}
 }
 

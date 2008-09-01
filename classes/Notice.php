@@ -54,7 +54,7 @@ class Notice extends DB_DataObject
 
 	function saveTags() {
 		/* extract all #hastags */
-		$count = preg_match_all('/(?:^|\s)#([a-z0-9]{1,64})/', strtolower($this->content), $match);
+		$count = preg_match_all('/(?:^|\s)#([A-Za-z0-9]{1,64})/', strtolower($this->content), $match);
 		if (!$count) {
 			return true;
 		}
