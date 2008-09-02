@@ -66,7 +66,9 @@ class XMPPDaemon {
 		if (!$this->conn) {
 			return false;
 		}
-
+		
+		$this->conn->reconnectTimeout(600);
+		
 		jabber_send_presence("Send me a message to post a notice", 'available',
 							 NULL, 'available', 100);
 		return !$this->conn->isDisconnected();

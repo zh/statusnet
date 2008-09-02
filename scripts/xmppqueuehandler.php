@@ -46,6 +46,7 @@ class XmppQueueHandler extends QueueHandler {
 		# Low priority; we don't want to receive messages
 		$this->conn = jabber_connect($this->_id);
 		if ($this->conn) {
+			$this->conn->reconnectTimeout(600);
 			$this->conn->addEventHandler('message', 'forward_message', $this);
 			$this->conn->addEventHandler('reconnect', 'handle_reconnect', $this);
 			jabber_send_presence("Send me a message to post an notice", 'available', NULL, 'available', -1);

@@ -153,6 +153,10 @@ class XMPPHP_XMLStream {
 	 * @var boolean
 	 */
 	protected $use_ssl = false;
+	/**
+	 * @var integer
+	 */
+	protected $reconnect = 30;
 
 	/**
 	 * Constructor
@@ -274,6 +278,8 @@ class XMPPHP_XMLStream {
 			if(!$this->socket) {
 				$this->log->log("Could not connect.",  XMPPHP_Log::LEVEL_ERROR);
 				$this->disconnected = true;
+				# Take it easy for a few seconds
+				sleep(min($timeout, 5));
 			}
 		} while (!$this->socket && (time() - $starttime) < $timeout);
 		
@@ -290,13 +296,17 @@ class XMPPHP_XMLStream {
 	 */
 	public function doReconnect() {
 		if(!$this->is_server) {
-			$this->log->log("Reconnecting...",  XMPPHP_Log::LEVEL_WARNING);
-			$this->connect(30, false, false);
+			$this->log->log("Reconnecting ($this->reconnect)...",  XMPPHP_Log::LEVEL_WARNING);
+			$this->connect($this->reconnect, false, false);
 			$this->reset();
 			$this->event('reconnect');
 		}
 	}
 
+	public function reconnectTimeout($timeout) {
+		$this->reconnect = $timeout;
+	}
+	
 	/**
 	 * Disconnect from XMPP Host
 	 */
