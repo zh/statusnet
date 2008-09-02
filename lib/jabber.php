@@ -131,16 +131,9 @@ function jabber_format_entry($profile, $notice) {
 	$address .= "<address type='replyto' jid='" . jabber_daemon_address() . "' />\n";
 	$address .= "</addresses>\n";
 
-	$event = "<event xmlns='http://jabber.org/protocol/pubsub#event'>\n";
-    $event .= "<items xmlns='http://jabber.org/protocol/pubsub' ";
-	$event .= "node='" . common_local_url('public') . "'>\n";
-	$event .= "<item id='" . $notice->uri ."' />\n";
-	$event .= "</items>\n";
-	$event .= "</event>\n";
-	# FIXME: include the pubsub event, too.
-#	return $html . $entry . $address;
-	return $entry . $address;
-#	return $entry . "\n" . $event;
+	# FIXME: include a pubsub event, too.
+
+	return $html . $entry . $address;
 }
 
 function jabber_send_message($to, $body, $type='chat', $subject=NULL) {
