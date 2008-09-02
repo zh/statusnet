@@ -144,6 +144,12 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 	 * @param string $subject
 	 */
 	public function message($to, $body, $type = 'chat', $subject = null, $payload = null) {
+
+		if(is_null($type))
+		{
+			$type = 'chat';
+		}
+		
 		$to	  = htmlspecialchars($to);
 		$body	= htmlspecialchars($body);
 		$subject = htmlspecialchars($subject);
@@ -154,7 +160,7 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 		if($payload) $out .= $payload;
 		$out .= "</message>";
 		
-		$this->send($out);
+		return $this->send($out);
 	}
 
 	/**
@@ -183,7 +189,7 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 			$out .= "</presence>";
 		}
 		
-		$this->send($out);
+		return $this->send($out);
 	}
 
 	/**
