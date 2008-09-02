@@ -156,7 +156,7 @@ class XMPPHP_XMLStream {
 	/**
 	 * @var integer
 	 */
-	protected $reconnect = 30;
+	protected $reconnectTimeout = 30;
 
 	/**
 	 * Constructor
@@ -296,14 +296,14 @@ class XMPPHP_XMLStream {
 	 */
 	public function doReconnect() {
 		if(!$this->is_server) {
-			$this->log->log("Reconnecting ($this->reconnect)...",  XMPPHP_Log::LEVEL_WARNING);
-			$this->connect($this->reconnect, false, false);
+			$this->log->log("Reconnecting ($this->reconnectTimeout)...",  XMPPHP_Log::LEVEL_WARNING);
+			$this->connect($this->reconnectTimeout, false, false);
 			$this->reset();
 			$this->event('reconnect');
 		}
 	}
 
-	public function reconnectTimeout($timeout) {
+	public function setReconnectTimeout($timeout) {
 		$this->reconnect = $timeout;
 	}
 	
