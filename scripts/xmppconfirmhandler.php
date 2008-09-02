@@ -48,8 +48,11 @@ class XmppConfirmHandler {
 	function start() {
 		# Low priority; we don't want to receive messages
 		$this->log(LOG_INFO, "INITIALIZE");
-		$this->conn = jabber_connect($this->_id, NULL, -1);
-		$this->conn->addEventHandler('message', 'forward_message', $this);
+		$this->conn = jabber_connect($this->_id);
+		if ($this->conn) {
+			$this->conn->addEventHandler('message', 'forward_message', $this);
+			jabber_send_presence("Send me a message to post an notice", 'dnd', NULL, 'available', -1);
+		}
 		return !is_null($this->conn);
 	}
 	

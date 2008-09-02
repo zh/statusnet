@@ -40,7 +40,7 @@ function jabber_daemon_address() {
 	return common_config('xmpp', 'user') . '@' . common_config('xmpp', 'server');
 }
 
-function jabber_connect($resource=NULL, $status=NULL, $priority=NULL) {
+function jabber_connect($resource=NULL) {
 	static $conn = NULL;
 	if (!$conn) {
 		$conn = new XMPPHP_XMPP(common_config('xmpp', 'host') ?
@@ -68,8 +68,6 @@ function jabber_connect($resource=NULL, $status=NULL, $priority=NULL) {
 			return false;
 		}
     	$conn->processUntil('session_start');
-#		$conn->getRoster();
-		$conn->presence($presence, 'available', NULL, 'available', $priority);
 	}
 	return $conn;
 }
@@ -149,12 +147,14 @@ function jabber_send_message($to, $body, $type='chat', $subject=NULL) {
 	return true;
 }
 
-function jabber_send_presence($status, $show='available', $to=Null) {
+function jabber_send_presence($status, $show='available', $to=NULL,
+							  $type = 'available', $priority=NULL)
+{
 	$conn = jabber_connect();
 	if (!$conn) {
 		return false;
 	}
-	$conn->presence($status, $show, $to);
+	$conn->presence($status, $show, $to, $type, $priority);
 	return true;
 }
 

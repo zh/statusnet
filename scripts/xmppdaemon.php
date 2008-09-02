@@ -61,12 +61,14 @@ class XMPPDaemon {
 
 		$this->log(LOG_INFO, "Connecting to $connect_to on port $this->port");
 
-		$this->conn = jabber_connect($this->resource, "Send me a message to post a notice", 100);
+		$this->conn = jabber_connect($this->resource);
 
 		if (!$this->conn) {
 			return false;
 		}
 
+		jabber_send_presence("Send me a message to post a notice", 'available',
+							 NULL, 'available', 100);
 		return !$this->conn->isDisconnected();
 	}
 
