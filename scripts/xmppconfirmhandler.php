@@ -51,7 +51,7 @@ class XmppConfirmHandler {
 		$this->conn = jabber_connect($this->_id);
 		if ($this->conn) {
 			$this->conn->addEventHandler('message', 'forward_message', $this);
-			jabber_send_presence("Send me a message to post an notice", 'dnd', NULL, 'available', -1);
+			jabber_send_presence("Send me a message to post an notice", 'available', NULL, 'available', -1);
 		}
 		return !is_null($this->conn);
 	}
