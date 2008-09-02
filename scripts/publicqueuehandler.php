@@ -42,12 +42,14 @@ class PublicQueueHandler extends QueueHandler {
 	function start() {
 		$this->log(LOG_INFO, "INITIALIZE");
 		# Low priority; we don't want to receive messages
-		$this->conn = jabber_connect($this->_id);
-		if ($this->conn) {
-			$this->conn->addEventHandler('message', 'forward_message', $this);
-			jabber_send_presence("Send me a message to post an notice", 'available', NULL, 'available', -1);
-		}
+		$this->conn = jabber_connect($this->_id, NULL, -1);
+		$this->conn->addEventHandler('message', 'forward_message', $this);
 		return !is_null($this->conn);
+	}
+
+	function handle_reconnect(&$pl) {
+		$this->conn->processUntil('session_start');
+		$this->conn->presence(NULL, 'available', NULL, 'available', -1);
 	}
 
 	function handle_notice($notice) {
