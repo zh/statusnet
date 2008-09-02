@@ -304,7 +304,7 @@ class XMPPHP_XMLStream {
 	}
 
 	public function setReconnectTimeout($timeout) {
-		$this->reconnect = $timeout;
+		$this->reconnectTimeout = $timeout;
 	}
 	
 	/**
