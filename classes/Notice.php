@@ -88,9 +88,8 @@ class Notice extends DB_DataObject
 		$notice->created = common_sql_now();
 		$notice->content = $content;
 		$notice->rendered = common_render_content($notice->content, $notice);
-		if ($source) {
-			$notice->source = $source;
-		}
+		$notice->source = $source;
+		$notice->uri = $uri;
 		
 		$id = $notice->insert();
 
@@ -98,15 +97,14 @@ class Notice extends DB_DataObject
 			return _('Problem saving notice.');
 		}
 
-		$orig = clone($notice);
-		if ($uri) {
-			$notice->uri = $uri;
-		} else {
+		# Update the URI after the notice is in the database
+		if (!$uri) {
+			$orig = clone($notice);
 			$notice->uri = common_notice_uri($notice);
-		}
 
-		if (!$notice->update($orig)) {
-			return _('Problem saving notice.');
+			if (!$notice->update($orig)) {
+				return _('Problem saving notice.');
+			}
 		}
 
 		# XXX: do we need to change this for remote users?
