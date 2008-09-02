@@ -57,16 +57,21 @@ function jabber_connect($resource=NULL) {
 								common_config('xmpp', 'debug') ?
 								XMPPHP_Log::LEVEL_VERBOSE :  NULL
 								);
-		$conn->autoSubscribe();
-		$conn->useEncryption(common_config('xmpp', 'encryption'));
 
 		if (!$conn) {
 			return false;
 		}
-		$conn->connect(true); # true = persistent connection
-		if ($conn->isDisconnected()) {
+
+		$conn->autoSubscribe();
+		$conn->useEncryption(common_config('xmpp', 'encryption'));
+
+		try {
+			$conn->connect(true); # true = persistent connection
+		} catch (XMPPHP_Exception $e) {
+			common_log(LOG_ERROR, $e->getMessage());
 			return false;
 		}
+
     	$conn->processUntil('session_start');
 	}
 	return $conn;
