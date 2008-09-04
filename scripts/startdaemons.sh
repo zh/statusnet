@@ -22,7 +22,7 @@
 
 export INSTALLDIR=$1
 
-for f in xmppdaemon.php xmppqueuehandler.php publicqueuehandler.php \
+for f in xmppdaemon.php jabberqueuehandler.php publicqueuehandler.php \
          xmppconfirmhandler.php smsqueuehandler.php ombqueuehandler.php; do
 
          echo -n "Starting $f...";
