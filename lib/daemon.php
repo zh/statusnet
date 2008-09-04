@@ -80,7 +80,7 @@ class Daemon {
 		if (!$name) {
 			return NULL;
 		}
-		return $piddir . '/' . $name;
+		return $piddir . '/' . $name . '.pid';
 	}
 
 	function changeUser() {
