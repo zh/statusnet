@@ -686,7 +686,7 @@ function common_render_content($text, $notice) {
 	$r = preg_replace('/[\x{0}-\x{8}\x{b}-\x{c}\x{e}-\x{19}]/', '', $r);
 	$id = $notice->profile_id;
 	$r = preg_replace('@https?://[^)\]>\s]+@', '<a href="\0" class="extlink">\0</a>', $r);
-	$r = preg_replace('/(^|\s+)@([a-z0-9]{1,64})/e', "'\\1@'.common_at_link($id, '\\2')", $r);
+	$r = preg_replace('/(^|\s+)@([A-Za-z0-9]{1,64})/e', "'\\1@'.common_at_link($id, '\\2')", $r);
 	$r = preg_replace('/^T ([A-Z0-9]{1,64}) /e', "'T '.common_at_link($id, '\\1').' '", $r);
 	$r = preg_replace('/(^|\s+)#([A-Za-z0-9_\-\.]{1,64})/e', "'\\1#'.common_tag_link('\\2')", $r);
 	# XXX: machine tags
@@ -703,7 +703,7 @@ function common_tag_link($tag) {
 
 function common_at_link($sender_id, $nickname) {
 	$sender = Profile::staticGet($sender_id);
-	$recipient = common_relative_profile($sender, $nickname);
+	$recipient = common_relative_profile($sender, common_canonical_nickname($nickname));
 	if ($recipient) {
 		return '<a href="'.htmlspecialchars($recipient->profileurl).'" class="atlink">'.$nickname.'</a>';
 	} else {
