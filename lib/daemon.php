@@ -63,7 +63,7 @@ class Daemon {
 			return false;
 		}
 		
-		file_put_contents($pidfilename, posix_getpid());
+		file_put_contents($pidfilename, posix_getpid() . "\n");
 	}
 
 	function clearPidFile() {
