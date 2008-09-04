@@ -221,6 +221,7 @@ function jabber_broadcast_notice($notice) {
 				   'Sending reply notice ' . $notice->id . ' to ' . $user->jabber,
 				   __FILE__);
 		$conn->message($user->jabber, $msg, 'chat', NULL, $entry);
+		$conn->processTime(0);
 		$sent_to[$user->id] = 1;
 	}
 
@@ -239,6 +240,8 @@ function jabber_broadcast_notice($notice) {
 					   'Sending notice ' . $notice->id . ' to ' . $user->jabber,
 					   __FILE__);
 			$conn->message($user->jabber, $msg, 'chat', NULL, $entry);
+			# To keep the incoming queue from filling up, we service it after each send.
+			$conn->processTime(0);
 		}
 	}
 
@@ -275,6 +278,7 @@ function jabber_public_notice($notice) {
 					   'Sending notice ' . $notice->id . ' to public listener ' . $address,
 					   __FILE__);
 			$conn->message($address, $msg, 'chat', NULL, $entry);
+			$conn->processTime(0);
 		}
 	}
 
