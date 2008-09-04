@@ -85,16 +85,28 @@ class Daemon {
 
 	function changeUser() {
 
-		if (common_config('daemon', 'user')) {
-			$user_info = posix_getpwnam(common_config('daemon', 'user'));
-			common_log(LOG_INFO, "Setting user to " . common_config('daemon', 'user'));
-			posix_setuid($user_info['uid']);
-		}
+		$username = common_config('daemon', 'user');
 		
-		if (common_config('daemon', 'group')) {
-			$group_info = posix_getgrnam(common_config('daemon', 'group'));
-			common_log(LOG_INFO, "Setting group to " . common_config('daemon', 'group'));
-			posix_setgid($group_info['gid']);
+		if ($username) {
+			$user_info = posix_getpwnam($username);
+			if (!$user_info) {
+				common_log(LOG_WARNING, 'Ignoring unknown user for daemon: ' . $username);
+			} else {
+				common_log(LOG_INFO, "Setting user to " . $username);
+				posix_setuid($user_info['uid']);
+			}
+		}
+
+		$groupname = common_config('daemon', 'group');
+		
+		if ($groupname) {
+			$group_info = posix_getgrnam($groupname);
+			if (!$group_info) {
+				common_log(LOG_WARNING, 'Ignoring unknown group for daemon: ' . $groupname);
+			} else {
+				common_log(LOG_INFO, "Setting group to " . $groupname);
+				posix_setgid($group_info['gid']);
+			}
 		}
 	}
 	
