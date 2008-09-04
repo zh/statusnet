@@ -29,6 +29,7 @@ define('LACONICA', true);
 
 require_once(INSTALLDIR . '/lib/common.php');
 require_once(INSTALLDIR . '/lib/jabber.php');
+require_once(INSTALLDIR . '/lib/daemon.php');
 
 set_error_handler('common_error_handler');
 
@@ -36,7 +37,7 @@ set_error_handler('common_error_handler');
 # in jabber.php, which create a new XMPP class. A more elegant (?) solution
 # might be to use make this a subclass of XMPP.
 
-class XMPPDaemon {
+class XMPPDaemon extends Daemon {
 
 	function XMPPDaemon($resource=NULL) {
 		static $attrs = array('server', 'port', 'user', 'password', 'host');
@@ -74,12 +75,19 @@ class XMPPDaemon {
 		return !$this->conn->isDisconnected();
 	}
 
-	function handle() {
-		$this->conn->addEventHandler('message', 'handle_message', $this);
-		$this->conn->addEventHandler('presence', 'handle_presence', $this);
-		$this->conn->addEventHandler('reconnect', 'handle_reconnect', $this);
-
-		$this->conn->process();
+	function name() {
+		return strtolower('xmppdaemon.'.$this->resource);
+	}
+	
+	function run() {
+		if ($this->connect()) {
+			
+			$this->conn->addEventHandler('message', 'handle_message', $this);
+			$this->conn->addEventHandler('presence', 'handle_presence', $this);
+			$this->conn->addEventHandler('reconnect', 'handle_reconnect', $this);
+			
+			$this->conn->process();
+		}
 	}
 
 	function handle_reconnect(&$pl) {
@@ -325,6 +333,4 @@ $resource = ($argc > 1) ? $argv[1] : (common_config('xmpp','resource') . '-liste
 
 $daemon = new XMPPDaemon($resource);
 
-if ($daemon->connect()) {
-	$daemon->handle();
-}
+$daemon->runOnce();

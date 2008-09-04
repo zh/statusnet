@@ -110,8 +110,4 @@ $resource = ($argc > 1) ? $argv[1] : (common_config('xmpp','resource') . '-queue
 
 $handler = new XmppQueueHandler($resource);
 
-if ($handler->start()) {
-	$handler->handle_queue();
-}
-
-$handler->finish();
+$handler->runOnce();

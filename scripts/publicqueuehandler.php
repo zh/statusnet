@@ -105,8 +105,4 @@ $resource = ($argc > 1) ? $argv[1] : (common_config('xmpp','resource') . '-publi
 
 $handler = new PublicQueueHandler($resource);
 
-if ($handler->start()) {
-	$handler->handle_queue();
-}
-
-$handler->finish();
+$handler->runOnce();

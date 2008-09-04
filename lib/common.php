@@ -94,6 +94,10 @@ $config =
 			  'public' => array()), # JIDs of users who want to receive the public stream
 		'tag' =>
 		array('dropoff' => 864000.0),
+		'daemon' =>
+		array('piddir' => '/var/run',
+			  'user' => false,
+			  'group' => false)
 		);
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');

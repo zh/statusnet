@@ -19,7 +19,11 @@
 
 define('CLAIM_TIMEOUT', 1200);
 
-class QueueHandler {
+if (!defined('LACONICA')) { exit(1); }
+
+require_once(INSTALLDIR.'/lib/daemon.php');
+
+class QueueHandler extends Daemon {
 
 	var $_id = 'generic';
 
@@ -31,6 +35,10 @@ class QueueHandler {
 	
 	function class_name() {
 		return ucfirst($this->transport()) . 'Handler';
+	}
+
+	function name() {
+		return strtolower($this->class_name().'.'.$this->get_id());
 	}
 	
 	function get_id() {
@@ -55,7 +63,10 @@ class QueueHandler {
 		return true;
 	}
 	
-	function handle_queue() {
+	function run() {
+		if (!$this->start()) {
+			return false;
+		}
 		$this->log(LOG_INFO, 'checking for queued notices');
 		$transport = $this->transport();
 		do {
@@ -87,6 +98,10 @@ class QueueHandler {
 				$this->idle(5);
 			}	
 		} while (true);
+		if (!$this->finish()) {
+			return false;
+		}
+		return true;
 	}
 
 	function idle($timeout=0) {

@@ -63,7 +63,10 @@ class XmppConfirmHandler {
 		$this->conn->presence(NULL, 'available', NULL, 'available', -1);
 	}
 	
-	function handle_queue() {
+	function run() {
+		if (!$this->start()) {
+			return false;
+		}
 		$this->log(LOG_INFO, 'checking for queued confirmations');
 		do {
 			$confirm = $this->next_confirm();
@@ -99,6 +102,10 @@ class XmppConfirmHandler {
 				$this->idle(10);
 			}
 		} while (true);
+		if (!$this->finish()) {
+			return false;
+		}
+		return true;
 	}
 
 	function next_confirm() {
@@ -181,8 +188,5 @@ $resource = ($argc > 1) ? $argv[1] : (common_config('xmpp', 'resource').'-confir
 
 $handler = new XmppConfirmHandler($resource);
 
-if ($handler->start()) {
-	$handler->handle_queue();
-}
+$handler->runOnce();
 
-$handler->finish();

@@ -71,8 +71,4 @@ $id = ($argc > 1) ? $argv[1] : NULL;
 
 $handler = new OmbQueueHandler($id);
 
-if ($handler->start()) {
-	$handler->handle_queue();
-}
-
-$handler->finish();
+$handler->runOnce();
