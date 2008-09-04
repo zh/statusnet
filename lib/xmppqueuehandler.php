@@ -1,4 +1,3 @@
-#!/usr/bin/env php
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
@@ -18,59 +17,47 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-# Abort if called from a web server
-if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
-	print "This script must be run from the command line\n";
-	exit();
-}
+if (!defined('LACONICA')) { exit(1); }
 
-define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
-define('LACONICA', true);
+require_once(INSTALLDIR.'/lib/queuehandler.php');
 
-require_once(INSTALLDIR . '/lib/common.php');
-require_once(INSTALLDIR . '/lib/jabber.php');
-require_once(INSTALLDIR . '/lib/queuehandler.php');
-
-set_error_handler('common_error_handler');
+/**
+ * Common superclass for all XMPP-using queue handlers. They all need to 
+ * service their message queues on idle, and forward any incoming messages
+ * to the XMPP listener connection. So, we abstract out common code to a
+ * superclass.
+ */
 
 class XmppQueueHandler extends QueueHandler {
-
-	var $conn = NULL;
-
-	function transport() {
-		return 'jabber';
-	}
-
+	
 	function start() {
-		$this->log(LOG_INFO, "INITIALIZE");
 		# Low priority; we don't want to receive messages
+		$this->log(LOG_INFO, "INITIALIZE");
 		$this->conn = jabber_connect($this->_id);
 		if ($this->conn) {
-			$this->conn->setReconnectTimeout(600);
 			$this->conn->addEventHandler('message', 'forward_message', $this);
 			$this->conn->addEventHandler('reconnect', 'handle_reconnect', $this);
+			$this->conn->setReconnectTimeout(600);
 			jabber_send_presence("Send me a message to post a notice", 'available', NULL, 'available', -1);
 		}
 		return !is_null($this->conn);
 	}
-
+	
 	function handle_reconnect(&$pl) {
 		$this->conn->processUntil('session_start');
 		$this->conn->presence(NULL, 'available', NULL, 'available', -1);
 	}
-	
-	function handle_notice($notice) {
-		return jabber_broadcast_notice($notice);
-	}
 
 	function idle($timeout=0) {
-		# Process the queue for a second
-		$this->conn->processTime($timeout);
+		# Process the queue for as long as needed
+		try {
+			$this->conn->processTime($timeout);
+		} catch (XMPPHP_Exception $e) {
+			$this->log(LOG_ERROR, "Got an XMPPHP_Exception: " . $e->getMessage());
+			exit(1);
+		}
 	}
-
-	function finish() {
-	}
-
+	
 	function forward_message(&$pl) {
 		if ($pl['type'] != 'chat') {
 		    $this->log(LOG_DEBUG, 'Ignoring message of type ' . $pl['type'] . ' from ' . $pl['from']);
@@ -100,14 +87,3 @@ class XmppQueueHandler extends QueueHandler {
 		}
 	}
 }
-
-ini_set("max_execution_time", "0");
-ini_set("max_input_time", "0");
-set_time_limit(0);
-mb_internal_encoding('UTF-8');
-
-$resource = ($argc > 1) ? $argv[1] : (common_config('xmpp','resource') . '-queuehandler');
-
-$handler = new XmppQueueHandler($resource);
-
-$handler->runOnce();

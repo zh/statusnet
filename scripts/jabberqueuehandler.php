@@ -29,19 +29,21 @@ define('LACONICA', true);
 
 require_once(INSTALLDIR . '/lib/common.php');
 require_once(INSTALLDIR . '/lib/jabber.php');
-require_once(INSTALLDIR . '/lib/xmppqueuehandler.php');
+require_once(INSTALLDIR . '/lib/queuehandler.php');
 
 set_error_handler('common_error_handler');
 
-class PublicQueueHandler extends XmppQueueHandler {
-	
+class JabberQueueHandler extends XmppQueueHandler {
+
+	var $conn = NULL;
+
 	function transport() {
-		return 'public';
+		return 'jabber';
 	}
-	
+
 	function handle_notice($notice) {
 		try {
-			return jabber_public_notice($notice);
+			return jabber_broadcast_notice($notice);
 		} catch (XMPPHP_Exception $e) {
 			$this->log(LOG_ERROR, "Got an XMPPHP_Exception: " . $e->getMessage());
 			exit(1);
@@ -54,8 +56,8 @@ ini_set("max_input_time", "0");
 set_time_limit(0);
 mb_internal_encoding('UTF-8');
 
-$resource = ($argc > 1) ? $argv[1] : (common_config('xmpp','resource') . '-public');
+$resource = ($argc > 1) ? $argv[1] : (common_config('xmpp','resource') . '-queuehandler');
 
-$handler = new PublicQueueHandler($resource);
+$handler = new JabberQueueHandler($resource);
 
 $handler->runOnce();
