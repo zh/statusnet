@@ -26,6 +26,7 @@ class UpdateprofileAction extends Action {
 	function handle($args) {
 		parent::handle($args);
 		try {
+			common_remove_magic_from_request();
 			$req = OAuthRequest::from_request();
 			# Note: server-to-server function!
 			$server = omb_oauth_server();

@@ -1424,6 +1424,15 @@ function common_copy_args($from) {
 	return $to;
 }
 
+// Neutralise the evil effects of magic_quotes_gpc in the current request.
+// This is used before handing a request off to OAuthRequest::from_request.
+function common_remove_magic_from_request() {
+	if(get_magic_quotes_gpc()) {
+		$_POST=array_map('stripslashes',$_POST);
+		$_GET=array_map('stripslashes',$_GET);
+	}
+}
+
 function common_user_uri(&$user) {
 	return common_local_url('userbyid', array('id' => $user->id));
 }

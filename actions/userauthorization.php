@@ -350,6 +350,7 @@ class UserauthorizationAction extends Action {
 	}
 
 	function get_new_request() {
+		common_remove_magic_from_request();
 		$req = OAuthRequest::from_request();
 		return $req;
 	}

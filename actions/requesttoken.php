@@ -30,6 +30,7 @@ class RequesttokenAction extends Action {
 	function handle($args) {
 		parent::handle($args);
 		try {
+			common_remove_magic_from_request();
 			$req = OAuthRequest::from_request();
 			$server = omb_oauth_server();
 			$token = $server->fetch_request_token($req);
