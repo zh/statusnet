@@ -24,7 +24,8 @@ export INSTALLDIR=$1
 
 for f in xmppdaemon.php xmppqueuehandler.php publicqueuehandler.php \
          xmppconfirmhandler.php smsqueuehandler.php ombqueuehandler.php; do
-	 
-	 php $INSTALLDIR/scripts/$f;
 
+         echo -n "Starting $f...";
+	 php $INSTALLDIR/scripts/$f;
+	 echo "DONE."
 done
