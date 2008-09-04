@@ -29,7 +29,7 @@ define('LACONICA', true);
 
 require_once(INSTALLDIR . '/lib/common.php');
 require_once(INSTALLDIR . '/lib/jabber.php');
-require_once(INSTALLDIR . '/lib/queuehandler.php');
+require_once(INSTALLDIR . '/lib/xmppqueuehandler.php');
 
 set_error_handler('common_error_handler');
 
