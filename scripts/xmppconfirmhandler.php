@@ -53,7 +53,7 @@ class XmppConfirmHandler {
 			$this->conn->addEventHandler('message', 'forward_message', $this);
 			$this->conn->addEventHandler('reconnect', 'handle_reconnect', $this);
 			$this->conn->setReconnectTimeout(600);
-			jabber_send_presence("Send me a message to post an notice", 'available', NULL, 'available', -1);
+			jabber_send_presence("Send me a message to post a notice", 'available', NULL, 'available', -1);
 		}
 		return !is_null($this->conn);
 	}
