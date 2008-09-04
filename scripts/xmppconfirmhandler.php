@@ -71,7 +71,7 @@ class XmppConfirmHandler extends XmppQueueHandler {
 					$confirm->sent = $confirm->claimed;
 					$result = $confirm->update($original);
 					if (!$result) {
-						$this->log(LOG_ERR, 'Cannot mark sent for ' . $confirm->address);
+						common_log_db_error($confirm, 'UPDATE', __FILE__);
 						# Just let the claim age out; hopefully things work then
 						continue;
 					}
