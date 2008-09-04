@@ -35,16 +35,10 @@ set_error_handler('common_error_handler');
 
 define('CLAIM_TIMEOUT', 1200);
 
-class XmppConfirmHandler {
+class XmppConfirmHandler extends QueueHandler {
 
 	var $_id = 'confirm';
 	
-	function XmppConfirmHandler($id=NULL) {
-		if ($id) {
-			$this->_id = $id;
-		}
-	}
-
 	function start() {
 		# Low priority; we don't want to receive messages
 		$this->log(LOG_INFO, "INITIALIZE");
@@ -139,10 +133,6 @@ class XmppConfirmHandler {
 		$confirm->claimed = NULL;
 		$confirm->whereAdd('now() - claimed > '.CLAIM_TIMEOUT);
 		$confirm->update(DB_DATAOBJECT_WHEREADD_ONLY);
-	}
-	
-	function log($level, $msg) {
-		common_log($level, 'XmppConfirmHandler ('. $this->_id .'): '.$msg);
 	}
 	
 	function idle($timeout=0) {
