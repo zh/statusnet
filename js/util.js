@@ -35,7 +35,11 @@ $(document).ready(function(){
         function submitonreturn(event) {
              if (event.keyCode == 13) {
                   $("#status_form").submit();
+                  event.preventDefault();
+                  event.stopPropagation();
+                  return false;
              }
+             return true;
         }
      
         if ($("#status_textarea").length) {
