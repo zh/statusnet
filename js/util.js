@@ -58,7 +58,7 @@ function doreply(nick) {
      rgx_username = /^[0-9a-zA-Z\-_.]*$/;
      if (nick.match(rgx_username)) {
           replyto = "@" + nick + " ";
-          if ($("#status_textarea")) {
+          if ($("#status_textarea").length) {
                $("#status_textarea").val(replyto);
                $("#status_textarea").focus();
 			   return false;
