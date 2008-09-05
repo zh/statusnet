@@ -165,49 +165,52 @@ function mail_new_incoming_address() {
 function mail_broadcast_notice_sms($notice) {
 
     # Now, get users subscribed to this profile
-	# XXX: use a join here rather than looping through results
-	
-	$sub = new Subscription();
-	$sub->subscribed = $notice->profile_id;
-        
-	if ($sub->find()) {
-		while ($sub->fetch()) {
-			$user = User::staticGet($sub->subscriber);
-			if ($user && $user->smsemail && $user->smsnotify) {
-				common_log(LOG_INFO,
-						   'Sending notice ' . $notice->id . ' to ' . $user->smsemail,
-						   __FILE__);
-				$success = mail_send_sms_notice($notice, $user);
-				if (!$success) {
-					# XXX: Not sure, but I think that's the right thing to do
-					common_log(LOG_WARNING,
-							   'Sending notice ' . $notice->id . ' to ' . $user->smsemail . ' FAILED, cancelling.',
-							   __FILE__);
-					return false;
-				}
-			}
+
+	$user = new User();
+
+	$user->query('SELECT nickname, smsemail, incomingemail ' .
+				 'FROM user JOIN subscription ' .
+				 'ON user.id = subscription.subscriber ' .
+				 'WHERE subscription.subscribed = ' . $notice->profile_id . ' ' .
+				 'AND user.smsemail IS NOT NULL ' .
+				 'AND user.smsnotify = 1');
+
+	while ($user->fetch()) {
+		common_log(LOG_INFO,
+				   'Sending notice ' . $notice->id . ' to ' . $user->smsemail,
+				   __FILE__);
+		$success = mail_send_sms_notice_address($notice, $user->smsemail, $user->incomingemail);
+		if (!$success) {
+			# XXX: Not sure, but I think that's the right thing to do
+			common_log(LOG_WARNING,
+					   'Sending notice ' . $notice->id . ' to ' . $user->smsemail . ' FAILED, cancelling.',
+					   __FILE__);
+			return false;
 		}
 	}
-	
+
 	return true;
 }
 
 function mail_send_sms_notice($notice, $user) {
-	$profile = $user->getProfile();
-	$name = $profile->getBestName();
-	$to = $name . ' <' . $user->smsemail . '>';
+	return mail_send_sms_notice_address($notice, $user->smsemail, $user->incomingemail);
+}
+
+function mail_send_sms_notice_address($notice, $smsemail, $incomingemail) {
+
+	$to = $nickname . ' <' . $smsemail . '>';
 	$other = $notice->getProfile();
 
-	common_log(LOG_INFO, "Sending notice " . $notice->id . " to " . $user->smsemail, __FILE__);
-	
+	common_log(LOG_INFO, "Sending notice " . $notice->id . " to " . $smsemail, __FILE__);
+
 	$headers = array();
-	$headers['From'] = (isset($user->incomingemail)) ? $user->incomingemail : mail_notify_from();
+	$headers['From'] = (isset($incomingemail)) ? $incomingemail : mail_notify_from();
 	$headers['To'] = $to;
 	$headers['Subject'] = sprintf(_('%s status'),
 								  $other->getBestName());
 	$body = $notice->content;
-	
-	return mail_send($user->smsemail, $headers, $body);
+
+	return mail_send($smsemail, $headers, $body);
 }
 
 function mail_confirm_sms($code, $nickname, $address) {
