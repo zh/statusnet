@@ -113,32 +113,39 @@ function omb_local_id($service) {
 }
 
 function omb_broadcast_remote_subscribers($notice) {
+
 	# First, get remote users subscribed to this profile
-	# XXX: use a join here rather than looping through results
-	$sub = new Subscription();
-	$sub->subscribed = $notice->profile_id;
-	if ($sub->find()) {
-		$posted = array();
-		while ($sub->fetch()) {
-			$rp = Remote_profile::staticGet('id', $sub->subscriber);
-			if ($rp) {
-				if (!$posted[$rp->postnoticeurl]) {
-					if (omb_post_notice($notice, $rp, $sub)) {
-						$posted[$rp->postnoticeurl] = TRUE;
-					}
-				}
+	$rp = new Remote_profile();
+
+	$rp->query('SELECT postnoticeurl, token, secret ' .
+			   'FROM subscription JOIN remote_profile ' .
+			   'ON subscription.subscriber = remote_profile.id ' .
+			   'WHERE subscription.subscribed = ' . $notice->profile_id . ' ');
+
+	$posted = array();
+
+	while ($rp->fetch()) {
+		if (!$posted[$rp->postnoticeurl]) {
+			if (omb_post_notice_keys($notice, $rp->postnoticeurl, $rp->token, $rp->secret)) {
+				$posted[$rp->postnoticeurl] = TRUE;
 			}
 		}
 	}
+
 	return true;
 }
 
 function omb_post_notice($notice, $remote_profile, $subscription) {
-	global $config; # for license URL
+	return omb_post_notice_keys($notice, $remote_profile->postnoticeurl, $subscription->token, $subscription->secret);
+}
+
+function omb_post_notice_keys($notice, $postnoticeurl, $tk, $secret) {
+
 	$user = User::staticGet('id', $notice->profile_id);
+
 	$con = omb_oauth_consumer();
-	$token = new OAuthToken($subscription->token, $subscription->secret);
-	$url = $remote_profile->postnoticeurl;
+	$token = new OAuthToken($tk, $secret);
+	$url = $postnoticeurl;
 	$parsed = parse_url($url);
 	$params = array();
 	parse_str($parsed['query'], $params);
@@ -151,7 +158,7 @@ function omb_post_notice($notice, $remote_profile, $subscription) {
 	$req->set_parameter('omb_notice_url', common_local_url('shownotice',
 														   array('notice' =>
 																 $notice->id)));
-	$req->set_parameter('omb_notice_license', $config['license']['url']);
+	$req->set_parameter('omb_notice_license', common_config('license', 'url'));
 
 	$req->sign_request(omb_hmac_sha1(), $con, $token);
 
@@ -166,7 +173,8 @@ function omb_post_notice($notice, $remote_profile, $subscription) {
 
 	if ($result->status == 403) { # not authorized, don't send again
 		common_debug('403 result, deleting subscription', __FILE__);
-		$subscription->delete();
+		# FIXME: figure out how to delete this
+		# $subscription->delete();
 		return false;
 	} else if ($result->status != 200) {
 		common_debug('Error status '.$result->status, __FILE__);
