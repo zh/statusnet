@@ -33,11 +33,54 @@ class ProfilesettingsAction extends SettingsAction {
 		$profile = $user->getProfile();
 		$this->form_header(_('Profile settings'), $msg, $success);
 
-		common_element_start('form', array('method' => 'post',
+		common_element('h2', NULL, _('Avatar'));
+
+		$original = $profile->getOriginalAvatar();
+
+		if ($original) {
+			common_element('img', array('src' => $original->url,
+										'class' => 'avatar original',
+										'width' => $original->width,
+										'height' => $original->height,
+										'alt' => $user->nickname));
+		}
+
+		$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
+
+		if ($avatar) {
+			common_element('img', array('src' => $avatar->url,
+										'class' => 'avatar profile',
+										'width' => AVATAR_PROFILE_SIZE,
+										'height' => AVATAR_PROFILE_SIZE,
+										'alt' => $user->nickname));
+		}
+
+		common_element_start('form', array('enctype' => 'multipart/form-data',
+										   'method' => 'POST',
 										   'id' => 'profilesettings',
 										   'action' =>
 										   common_local_url('profilesettings')));
 		common_hidden('token', common_session_token());
+
+		common_element('input', array('name' => 'MAX_FILE_SIZE',
+									  'type' => 'hidden',
+									  'id' => 'MAX_FILE_SIZE',
+									  'value' => MAX_AVATAR_SIZE));
+		common_element('input', array('name' => 'avatarfile',
+									  'type' => 'file',
+									  'id' => 'avatarfile'));
+		common_submit('upload', _('Upload'));
+		common_element_end('form');
+
+		common_element_start('form', array('method' => 'POST',
+										   'id' => 'profilesettings',
+										   'action' =>
+										   common_local_url('profilesettings')));
+		common_hidden('token', common_session_token());
+
+		common_element('h2', NULL, _('Profile Settings'));
+
+
 		# too much common patterns here... abstractable?
 		common_input('nickname', _('Nickname'),
 					 ($this->arg('nickname')) ? $this->arg('nickname') : $profile->nickname,
@@ -65,21 +108,14 @@ class ProfilesettingsAction extends SettingsAction {
 
 		common_checkbox('autosubscribe', _('Automatically subscribe to whoever subscribes to me (best for non-humans)'),
 						($this->arg('autosubscribe')) ? $this->boolean('autosubscribe') : $user->autosubscribe);
-		common_submit('submit', _('Save'));
+
+		common_submit('save', _('Save'));
+
 		common_element_end('form');
 		common_show_footer();
 	}
 
 	function handle_post() {
-
-		$nickname = $this->trimmed('nickname');
-		$fullname = $this->trimmed('fullname');
-		$homepage = $this->trimmed('homepage');
-		$bio = $this->trimmed('bio');
-		$location = $this->trimmed('location');
-		$autosubscribe = $this->boolean('autosubscribe');
-		$language = $this->trimmed('language');
-		$timezone = $this->trimmed('timezone');
 
 		# CSRF protection
 
@@ -88,6 +124,23 @@ class ProfilesettingsAction extends SettingsAction {
 			$this->show_form(_('There was a problem with your session token. Try again, please.'));
 			return;
 		}
+
+		if ($this->arg('save')) {
+			$this->save_profile();
+		} else if ($this->arg('upload')) {
+			$this->upload_avatar();
+		}
+	}
+
+	function save_profile() {
+		$nickname = $this->trimmed('nickname');
+		$fullname = $this->trimmed('fullname');
+		$homepage = $this->trimmed('homepage');
+		$bio = $this->trimmed('bio');
+		$location = $this->trimmed('location');
+		$autosubscribe = $this->boolean('autosubscribe');
+		$language = $this->trimmed('language');
+		$timezone = $this->trimmed('timezone');
 
 		# Some validation
 
@@ -199,6 +252,54 @@ class ProfilesettingsAction extends SettingsAction {
 		common_broadcast_profile($profile);
 
 		$this->show_form(_('Settings saved.'), TRUE);
+	}
+
+
+	function upload_avatar() {
+		switch ($_FILES['avatarfile']['error']) {
+		 case UPLOAD_ERR_OK: # success, jump out
+			break;
+		 case UPLOAD_ERR_INI_SIZE:
+		 case UPLOAD_ERR_FORM_SIZE:
+			$this->show_form(_('That file is too big.'));
+			return;
+		 case UPLOAD_ERR_PARTIAL:
+			@unlink($_FILES['avatarfile']['tmp_name']);
+			$this->show_form(_('Partial upload.'));
+			return;
+		 default:
+			$this->show_form(_('System error uploading file.'));
+			return;
+		}
+
+		$info = @getimagesize($_FILES['avatarfile']['tmp_name']);
+
+		if (!$info) {
+			@unlink($_FILES['avatarfile']['tmp_name']);
+			$this->show_form(_('Not an image or corrupt file.'));
+			return;
+		}
+
+		switch ($info[2]) {
+		 case IMAGETYPE_GIF:
+		 case IMAGETYPE_JPEG:
+		 case IMAGETYPE_PNG:
+			break;
+		 default:
+			$this->show_form(_('Unsupported image file format.'));
+			return;
+		}
+
+		$user = common_current_user();
+		$profile = $user->getProfile();
+
+		if ($profile->setOriginal($_FILES['avatarfile']['tmp_name'])) {
+			$this->show_form(_('Avatar updated.'), true);
+		} else {
+			$this->show_form(_('Failed updating avatar.'));
+		}
+
+		@unlink($_FILES['avatarfile']['tmp_name']);
 	}
 
 	function nickname_exists($nickname) {

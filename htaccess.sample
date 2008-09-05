@@ -35,9 +35,6 @@ RewriteRule ^main/recoverpassword$ index.php?action=recoverpassword [L,QSA]
 RewriteRule ^main/recoverpassword/(.*)$ index.php?action=recoverpassword&code=$1 [L,QSA]
 RewriteRule ^main/invite$ index.php?action=invite [L,QSA]
 
-RewriteRule ^main/favor$ index.php?action=favor [L,QSA]
-RewriteRule ^main/disfavor$ index.php?action=disfavor [L,QSA]
-
 RewriteRule ^settings/avatar$ index.php?action=avatar [L,QSA]
 RewriteRule ^settings/password$ index.php?action=password [L,QSA]
 RewriteRule ^settings/profile$ index.php?action=profilesettings [L,QSA]
