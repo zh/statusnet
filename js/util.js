@@ -19,10 +19,6 @@
 $(document).ready(function(){
         // count character on keyup
         function counter(event){
-             if (event.keyCode == 13) {
-                  $("#status_form").submit();
-             }
-             
             var maxLength     = 140;
             var currentLength = $("#status_textarea").val().length;
             var remaining = maxLength - currentLength;
@@ -36,9 +32,16 @@ $(document).ready(function(){
             }
         }
      
-        $("#status_textarea").bind("keyup", counter);
+        function submitonreturn(event) {
+             if (event.keyCode == 13) {
+                  $("#status_form").submit();
+             }
+        }
      
         if ($("#status_textarea").length) {
+             $("#status_textarea").bind("keyup", counter);
+             $("#status_textarea").bind("keydown", submitonreturn);
+     
             // run once in case there's something in there
             counter();
         }
