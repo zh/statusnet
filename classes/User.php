@@ -102,7 +102,7 @@ class User extends DB_DataObject
 		# XXX: should already be validated for size, content, etc.
 		static $blacklist = array('rss', 'xrds', 'doc', 'main',
 								  'settings', 'notice', 'user',
-								  'search', 'avatar');
+								  'search', 'avatar', 'tag', 'tags');
 		$merged = array_merge($blacklist, common_config('nickname', 'blacklist'));
 		return !in_array($nickname, $merged);
 	}
