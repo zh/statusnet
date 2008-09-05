@@ -48,6 +48,9 @@ $(document).ready(function(){
      
             // run once in case there's something in there
             counter();
+             
+             // set the focus
+             $("#status_textarea").focus();
         }
 });
 
