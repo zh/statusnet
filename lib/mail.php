@@ -189,6 +189,9 @@ function mail_broadcast_notice_sms($notice) {
 		}
 	}
 
+	$user->free();
+	unset($user);
+	
 	return true;
 }
 
