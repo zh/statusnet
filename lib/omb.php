@@ -132,6 +132,9 @@ function omb_broadcast_remote_subscribers($notice) {
 		}
 	}
 
+	$rp->free();
+	unset($rp);
+	
 	return true;
 }
 
@@ -160,6 +163,9 @@ function omb_post_notice_keys($notice, $postnoticeurl, $tk, $secret) {
 																 $notice->id)));
 	$req->set_parameter('omb_notice_license', common_config('license', 'url'));
 
+	$user->free();
+	unset($user);
+	
 	$req->sign_request(omb_hmac_sha1(), $con, $token);
 
 	# We re-use this tool's fetcher, since it's pretty good

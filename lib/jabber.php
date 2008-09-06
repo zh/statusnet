@@ -92,6 +92,7 @@ function jabber_send_notice($to, $notice) {
 	$msg = jabber_format_notice($profile, $notice);
 	$entry = jabber_format_entry($profile, $notice);
 	$conn->message($to, $msg, 'chat', NULL, $entry);
+	$profile->free();
 	return true;
 }
 
@@ -204,6 +205,9 @@ function jabber_broadcast_notice($notice) {
 	$msg = jabber_format_notice($profile, $notice);
 	$entry = jabber_format_entry($profile, $notice);
 
+	$profile->free();
+	unset($profile);
+	
 	$sent_to = array();
 	$conn = jabber_connect();
 
@@ -225,6 +229,8 @@ function jabber_broadcast_notice($notice) {
 		$sent_to[$user->id] = 1;
 	}
 
+	$user->free();
+	
     # Now, get users subscribed to this profile
 
 	$user = new User();
@@ -245,6 +251,8 @@ function jabber_broadcast_notice($notice) {
 		}
 	}
 
+	$user->free();
+	
 	return true;
 }
 
@@ -280,6 +288,7 @@ function jabber_public_notice($notice) {
 			$conn->message($address, $msg, 'chat', NULL, $entry);
 			$conn->processTime(0);
 		}
+		$profile->free();
 	}
 
 	return true;

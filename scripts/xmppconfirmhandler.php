@@ -76,6 +76,10 @@ class XmppConfirmHandler extends XmppQueueHandler {
 						continue;
 					}
 				}
+				$user->free();
+				unset($user);
+				$confirm->free();
+				unset($confirm);
 				$this->idle(0);
 			} else {
 #				$this->clear_old_confirm_claims();
@@ -119,6 +123,8 @@ class XmppConfirmHandler extends XmppQueueHandler {
 		$confirm->claimed = NULL;
 		$confirm->whereAdd('now() - claimed > '.CLAIM_TIMEOUT);
 		$confirm->update(DB_DATAOBJECT_WHEREADD_ONLY);
+		$confirm->free();
+		unset($confirm);
 	}
 }
 

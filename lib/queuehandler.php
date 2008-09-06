@@ -87,11 +87,15 @@ class QueueHandler extends Daemon {
 						continue;
 					}
 					$this->log(LOG_INFO, 'finished broadcasting notice ID = ' . $notice->id);
+					$notice->free();
+					unset($notice);
 					$notice = NULL;
 				} else {
 					$this->log(LOG_WARNING, 'queue item for notice that does not exist');
 				}
 				$qi->delete();
+				$qi->free();
+				unset($qi);
 				$this->idle(0);
 			} else {
 				$this->clear_old_claims();
@@ -115,6 +119,8 @@ class QueueHandler extends Daemon {
 		$qi->transport = $this->transport();
 		$qi->whereAdd('now() - claimed > '.CLAIM_TIMEOUT);
 		$qi->update(DB_DATAOBJECT_WHEREADD_ONLY);
+		$qi->free();
+		unset($qi);
 	}
 	
 	function log($level, $msg) {

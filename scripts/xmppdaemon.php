@@ -145,6 +145,9 @@ class XMPPDaemon extends Daemon {
 			}
 			$this->add_notice($user, $pl);
 		}
+		
+		$user->free();
+		unset($user);
 	}
 
 	function is_self($from) {
@@ -281,6 +284,8 @@ class XMPPDaemon extends Daemon {
 		common_broadcast_notice($notice);
 		$this->log(LOG_INFO,
 				   'Added notice ' . $notice->id . ' from user ' . $user->nickname);
+		$notice->free();
+		unset($notice);
 	}
 
 	function handle_presence(&$pl) {
@@ -310,6 +315,8 @@ class XMPPDaemon extends Daemon {
 							   ' status from presence.');
 					$this->add_notice($user, $pl);
 				}
+				$user->free();
+				unset($user);
 			}
 			break;
 		}
