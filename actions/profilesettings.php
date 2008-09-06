@@ -29,48 +29,33 @@ class ProfilesettingsAction extends SettingsAction {
 	}
 
 	function show_form($msg=NULL, $success=false) {
+		$this->form_header(_('Profile settings'), $msg, $success);
+		$this->show_settings_form();
+		$this->show_avatar_form();
+		common_show_footer();
+	}
+
+	function handle_post() {
+
+		# CSRF protection
+
+		$token = $this->trimmed('token');
+		if (!$token || $token != common_session_token()) {
+			$this->show_form(_('There was a problem with your session token. Try again, please.'));
+			return;
+		}
+
+		if ($this->arg('save')) {
+			$this->save_profile();
+		} else if ($this->arg('upload')) {
+			$this->upload_avatar();
+		}
+	}
+
+	function show_settings_form() {
+
 		$user = common_current_user();
 		$profile = $user->getProfile();
-		$this->form_header(_('Profile settings'), $msg, $success);
-
-		common_element('h2', NULL, _('Avatar'));
-
-		$original = $profile->getOriginalAvatar();
-
-		if ($original) {
-			common_element('img', array('src' => $original->url,
-										'class' => 'avatar original',
-										'width' => $original->width,
-										'height' => $original->height,
-										'alt' => $user->nickname));
-		}
-
-		$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
-
-		if ($avatar) {
-			common_element('img', array('src' => $avatar->url,
-										'class' => 'avatar profile',
-										'width' => AVATAR_PROFILE_SIZE,
-										'height' => AVATAR_PROFILE_SIZE,
-										'alt' => $user->nickname));
-		}
-
-		common_element_start('form', array('enctype' => 'multipart/form-data',
-										   'method' => 'POST',
-										   'id' => 'profilesettings',
-										   'action' =>
-										   common_local_url('profilesettings')));
-		common_hidden('token', common_session_token());
-
-		common_element('input', array('name' => 'MAX_FILE_SIZE',
-									  'type' => 'hidden',
-									  'id' => 'MAX_FILE_SIZE',
-									  'value' => MAX_AVATAR_SIZE));
-		common_element('input', array('name' => 'avatarfile',
-									  'type' => 'file',
-									  'id' => 'avatarfile'));
-		common_submit('upload', _('Upload'));
-		common_element_end('form');
 
 		common_element_start('form', array('method' => 'POST',
 										   'id' => 'profilesettings',
@@ -78,7 +63,6 @@ class ProfilesettingsAction extends SettingsAction {
 										   common_local_url('profilesettings')));
 		common_hidden('token', common_session_token());
 
-		common_element('h2', NULL, _('Profile Settings'));
 
 
 		# too much common patterns here... abstractable?
@@ -112,24 +96,58 @@ class ProfilesettingsAction extends SettingsAction {
 		common_submit('save', _('Save'));
 
 		common_element_end('form');
-		common_show_footer();
+
+
 	}
 
-	function handle_post() {
+	function show_avatar_form() {
 
-		# CSRF protection
+		$user = common_current_user();
+		$profile = $user->getProfile();
 
-		$token = $this->trimmed('token');
-		if (!$token || $token != common_session_token()) {
-			$this->show_form(_('There was a problem with your session token. Try again, please.'));
-			return;
+		$original = $profile->getOriginalAvatar();
+
+
+		common_element_start('form', array('enctype' => 'multipart/form-data',
+										   'method' => 'POST',
+										   'id' => 'profilesettings',
+										   'action' =>
+										   common_local_url('profilesettings')));
+		common_hidden('token', common_session_token());
+
+		common_element_start('p');
+		common_element('label', array('for' => 'avatar'), 'Avatar');
+
+		if ($original) {
+			common_element('img', array('src' => $original->url,
+										'class' => 'avatar original',
+										'width' => $original->width,
+										'height' => $original->height,
+										'alt' => $user->nickname));
 		}
 
-		if ($this->arg('save')) {
-			$this->save_profile();
-		} else if ($this->arg('upload')) {
-			$this->upload_avatar();
+		$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
+
+		if ($avatar) {
+			common_element('img', array('src' => $avatar->url,
+										'class' => 'avatar profile',
+										'width' => AVATAR_PROFILE_SIZE,
+										'height' => AVATAR_PROFILE_SIZE,
+										'alt' => $user->nickname));
 		}
+
+		common_element_end('p');
+
+		common_element('input', array('name' => 'MAX_FILE_SIZE',
+									  'type' => 'hidden',
+									  'id' => 'MAX_FILE_SIZE',
+									  'value' => MAX_AVATAR_SIZE));
+		common_element('input', array('name' => 'avatarfile',
+									  'type' => 'file',
+									  'id' => 'avatarfile'));
+		common_submit('upload', _('Upload'));
+		common_element_end('form');
+
 	}
 
 	function save_profile() {
