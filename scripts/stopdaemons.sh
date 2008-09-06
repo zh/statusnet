@@ -17,15 +17,26 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# This program tries to start the daemons for Laconica.
-# Note that the 'maildaemon' needs to run as a mail filter.
+# This program tries to stop the daemons for Laconica that were
+# previously started by startdaemons.sh
 
-DIR=`dirname $0`
+DIR=`php getpiddir.php`
 
-for f in xmppdaemon.php jabberqueuehandler.php publicqueuehandler.php \
-         xmppconfirmhandler.php smsqueuehandler.php ombqueuehandler.php; do
+for f in jabberhandler ombhandler publichandler smshandler \
+	 xmppconfirmhandler xmppdaemon; do
 
-         echo -n "Starting $f...";
-	 php $DIR/$f
-	 echo "DONE."
+	FILES="$DIR/$f.*.pid"
+	for ff in "$FILES" ; do
+
+	 	echo -n "Stopping $f..."
+	 	PID=`cat $ff`
+		kill -3 $PID
+		if kill -9 $PID ; then
+			echo "DONE."
+		else
+			echo "FAILED."
+		fi
+		rm -f $ff
+	done
 done
+
