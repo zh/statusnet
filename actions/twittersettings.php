@@ -53,7 +53,7 @@ class TwittersettingsAction extends SettingsAction {
 			common_element('span', 'twitter_user', $fuser->nickname);
 			common_element('a', array('href' => $fuser->uri),  $fuser->uri);
 			common_element('span', 'input_instructions',
-			               _('Current verified Twitter User'));
+			               _('Current verified Twitter account.'));
 			common_hidden('flink_user_id', $flink->user_id);
 			common_element_end('p');
 			common_submit('remove', _('Remove'));
