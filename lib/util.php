@@ -837,8 +837,6 @@ function common_fancy_url($action, $args=NULL) {
 		}
 	 case 'openidlogin':
 		return common_path('main/openid');
-	 case 'password':
-		return common_path('settings/'.$action);
 	 case 'profilesettings':
 		return common_path('settings/profile');
 	 case 'emailsettings':

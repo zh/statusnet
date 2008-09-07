@@ -86,9 +86,6 @@ class SettingsAction extends Action {
 				'emailsettings' =>
 				array(_('Email'),
 					  _('Change email handling')),
-				'password' =>
-				array(_('Password'),
-					  _('Change your password')),
 				'openidsettings' =>
 				array(_('OpenID'),
 					  _('Add or remove OpenIDs')),
