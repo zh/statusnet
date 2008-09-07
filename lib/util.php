@@ -1104,6 +1104,7 @@ function common_broadcast_notice($notice, $remote=false) {
 }
 
 function common_twitter_broadcast($notice, $flink) {	
+	global $config;
 	$success = true;
 	$fuser = $flink->getForeignUser();
 	$twitter_user = $fuser->nickname;
@@ -1116,13 +1117,13 @@ function common_twitter_broadcast($notice, $flink) {
 		CURLOPT_POST			=> true,
 		CURLOPT_POSTFIELDS		=> array(
 									'status'	=> $statustxt,
-									'source'	=> 'Laconica'
+									'source'	=> $config['integration']['source']
 									),
 		CURLOPT_RETURNTRANSFER	=> true,
 		CURLOPT_FAILONERROR		=> true,
 		CURLOPT_HEADER			=> false,
 		CURLOPT_FOLLOWLOCATION	=> true,
-		// CURLOPT_USERAGENT		=> "identi.ca",
+		CURLOPT_USERAGENT		=> "Laconica",
 		CURLOPT_CONNECTTIMEOUT	=> 120,  // XXX: Scary!!!! How long should this be?
 		CURLOPT_TIMEOUT			=> 120
 	);

@@ -86,3 +86,6 @@ $config['db']['database'] = 'mysql://laconica:microblog@localhost/laconica';
 
 #optionally show non-local messages in public timeline
 #$config['public']['localonly'] = false;
+
+#Twitter integration source attribute. Note: default is Laconica
+#$config['integration']['source'] = 'Laconica';

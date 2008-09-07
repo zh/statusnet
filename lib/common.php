@@ -97,11 +97,7 @@ $config =
 		'daemon' =>
 		array('piddir' => '/var/run',
 			  'user' => false,
-			  'group' => false),
-		'memcached' => 
-		array('enabled' => false,
-			  'server' => 'localhost',
-			  'port' => 11211)
+			  'group' => false)
 		);
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
