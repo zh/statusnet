@@ -126,8 +126,12 @@ function omb_broadcast_remote_subscribers($notice) {
 
 	while ($rp->fetch()) {
 		if (!$posted[$rp->postnoticeurl]) {
+			common_log(LOG_DEBUG, 'Posting to ' . $rp->postnoticeurl);
 			if (omb_post_notice_keys($notice, $rp->postnoticeurl, $rp->token, $rp->secret)) {
+				common_log(LOG_DEBUG, 'Finished to ' . $rp->postnoticeurl);				
 				$posted[$rp->postnoticeurl] = TRUE;
+			} else {
+				common_log(LOG_DEBUG, 'Failed posting to ' . $rp->postnoticeurl);
 			}
 		}
 	}
