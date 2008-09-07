@@ -148,33 +148,82 @@ function omb_post_notice($notice, $remote_profile, $subscription) {
 
 function omb_post_notice_keys($notice, $postnoticeurl, $tk, $secret) {
 
+	common_debug('Posting notice ' . $notice->id . ' to ' . $postnoticeurl, __FILE__);
+	
 	$user = User::staticGet('id', $notice->profile_id);
 
+	if (!$user) {
+		common_debug('Failed to get user for notice ' . $notice->id . ', profile = ' . $notice->profile_id, __FILE__);
+		return false;
+	}
+
+	common_debug('Creating oauth consumer', __FILE__);
+	
 	$con = omb_oauth_consumer();
+
+	common_debug('Creating oauth token', __FILE__);
+	
 	$token = new OAuthToken($tk, $secret);
+	
+	common_debug('Parsing URL', __FILE__);
+	
 	$url = $postnoticeurl;
 	$parsed = parse_url($url);
 	$params = array();
 	parse_str($parsed['query'], $params);
+	
+	common_debug('Creating request', __FILE__);
+	
 	$req = OAuthRequest::from_consumer_and_token($con, $token,
-												 "POST", $url, $params);
+												 'POST', $url, $params);
+	
+	common_debug('Setting version parameter', __FILE__);
+	
 	$req->set_parameter('omb_version', OMB_VERSION_01);
+	
+	common_debug('Setting listenee parameter', __FILE__);
+	
 	$req->set_parameter('omb_listenee', $user->uri);
+	
+	common_debug('Setting notice parameter', __FILE__);
+	
 	$req->set_parameter('omb_notice', $notice->uri);
+	
+	common_debug('Setting notice content parameter', __FILE__);
+	
 	$req->set_parameter('omb_notice_content', $notice->content);
+	
+	common_debug('Setting notice url parameter', __FILE__);
+	
 	$req->set_parameter('omb_notice_url', common_local_url('shownotice',
 														   array('notice' =>
 																 $notice->id)));
+	
+	common_debug('Setting notice license parameter', __FILE__);
+	
 	$req->set_parameter('omb_notice_license', common_config('license', 'url'));
 
+	common_debug('Freeing the user', __FILE__);
+	
 	$user->free();
 	unset($user);
+	
+	common_debug('Signing the request', __FILE__);
 	
 	$req->sign_request(omb_hmac_sha1(), $con, $token);
 
 	# We re-use this tool's fetcher, since it's pretty good
 
+	common_debug('Initializing Yadis fetcher.', __FILE__);
+	
 	$fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
+
+	if (!$fetcher) {
+		common_log(LOG_WARNING, 'Failed to initialize Yadis fetcher.', __FILE__);
+		return false;
+	}
+	
+	common_debug('Doing the fetch.', __FILE__);
 
 	$result = $fetcher->post($req->get_normalized_http_url(),
 							 $req->to_postdata());
