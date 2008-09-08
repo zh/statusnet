@@ -76,6 +76,13 @@ class StreamAction extends Action {
 		# XXX: RDFa
 		common_element_start('li', array('class' => 'notice_single',
 										  'id' => 'notice-' . $notice->id));
+		if ($user) {
+			if ($user->hasFave($notice)) {
+				common_disfavor_form($notice);
+			} else {
+				common_favor_form($notice);
+			}
+		}
 		$avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
 		common_element_start('a', array('href' => $profile->profileurl));
 		common_element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE),
@@ -137,13 +144,6 @@ class StreamAction extends Action {
 											'title' => _('delete')));
 			common_raw('&times;');
 			common_element_end('a');
-		}
-		if ($user) {
-			if ($user->hasFave($notice)) {
-				common_disfavor_form($notice);
-			} else {
-				common_favor_form($notice);
-			}
 		}
 		common_element_end('p');
 		common_element_end('li');
