@@ -1554,7 +1554,11 @@ function common_disfavor_form($notice) {
 									   'action' => common_local_url('disfavor')));
 	common_hidden('token', common_session_token());
 	common_hidden('notice', $notice->id);
-	common_submit('disfavor-submit-' . $notice->id, '♥', 'disfavor');
+	common_element('input', array('type' => 'submit',
+								  'id' => 'disfavor-submit-' . $notice->id,
+								  'name' => 'disfavor-submit-' . $notice->id,
+								  'class' => 'disfavor',
+								  'value' => '♥'));
 	common_element_end('form');
 }
 
@@ -1565,7 +1569,11 @@ function common_favor_form($notice) {
 									   'action' => common_local_url('favor')));
 	common_hidden('token', common_session_token());
 	common_hidden('notice', $notice->id);
-	common_submit('favor-submit-' . $notice->id, '♡', 'favor');
+	common_element('input', array('type' => 'submit',
+								  'id' => 'favor-submit-' . $notice->id,
+								  'name' => 'favor-submit-' . $notice->id,
+								  'class' => 'favor',
+								  'value' => '♡'));
 	common_element_end('form');
 }
 
