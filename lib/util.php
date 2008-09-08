@@ -198,6 +198,9 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 								   'src' => common_path('js/jquery.min.js')),
 				   ' ');
 	common_element('script', array('type' => 'text/javascript',
+								   'src' => common_path('js/jquery.form.js')),
+				   ' ');
+	common_element('script', array('type' => 'text/javascript',
 								   'src' => common_path('js/util.js')),
 				   ' ');
 	common_element('link', array('rel' => 'search', 'type' => 'application/opensearchdescription+xml',

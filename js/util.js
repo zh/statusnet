@@ -52,6 +52,14 @@ $(document).ready(function(){
              // set the focus
              $("#status_textarea").focus();
         }
+     
+     var options = {dataType: 'xml',
+               success: function(xml) {
+                    // replace the form with what's returned
+               };
+          
+     $("form.favor").ajaxForm(options);
+     $("form.disfavor").ajaxForm(options);          
 });
 
 function doreply(nick) {
