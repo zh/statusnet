@@ -19,8 +19,6 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-require_once($INSTALLDIR.'/lib/mail.php');
-
 class DisfavorAction extends Action {
 
 	function handle($args) {

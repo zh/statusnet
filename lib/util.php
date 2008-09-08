@@ -1560,7 +1560,7 @@ function common_disfavor_form($notice) {
 function common_favor_form($notice) {
 	common_element_start('form', array('id' => 'favor-' . $notice->id,
 									   'method' => 'post',
-									   'action' => common_local_url('disfavor')));
+									   'action' => common_local_url('favor')));
 	common_hidden('token', common_session_token());
 	common_hidden('notice', $notice->id);
 	common_submit('favor-submit-' . $notice->id, '♡');

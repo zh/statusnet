@@ -19,7 +19,7 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-require_once($INSTALLDIR.'/lib/mail.php');
+require_once(INSTALLDIR.'/lib/mail.php');
 
 class FavorAction extends Action {
 
