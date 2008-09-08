@@ -431,13 +431,13 @@ function common_password($id, $label, $instructions=NULL) {
 	common_element_end('p');
 }
 
-function common_submit($id, $label) {
+function common_submit($id, $label, $cls='submit') {
 	global $xw;
 	common_element_start('p');
 	common_element('input', array('type' => 'submit',
 								  'id' => $id,
 								  'name' => $id,
-								  'class' => 'submit',
+								  'class' => $cls,
 								  'value' => $label));
 	common_element_end('p');
 }
@@ -1553,7 +1553,7 @@ function common_disfavor_form($notice) {
 									   'action' => common_local_url('disfavor')));
 	common_hidden('token', common_session_token());
 	common_hidden('notice', $notice->id);
-	common_submit('disfavor-submit-' . $notice->id, '♥');
+	common_submit('disfavor-submit-' . $notice->id, '♥', 'disfavor');
 	common_element_end('form');
 }
 
@@ -1563,7 +1563,7 @@ function common_favor_form($notice) {
 									   'action' => common_local_url('favor')));
 	common_hidden('token', common_session_token());
 	common_hidden('notice', $notice->id);
-	common_submit('favor-submit-' . $notice->id, '♡');
+	common_submit('favor-submit-' . $notice->id, '♡', 'favor');
 	common_element_end('form');
 }
 
