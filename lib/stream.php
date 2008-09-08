@@ -60,6 +60,11 @@ class StreamAction extends Action {
 						 _('Profile'),
 						 ($user_profile && $user_profile->fullname) ? $user_profile->fullname : $nickname,
 						 $action == 'showstream');
+		common_menu_item(common_local_url('showfavorites', array('nickname' =>
+															  $nickname)),
+						 _('Favorites'),
+						 sprintf(_('%s\'s favorite notices'), ($user_profile) ? $user_profile->getBestName() : _('User')),
+						 $action == 'showfavorites');
 		common_element_end('ul');
 	}
 
@@ -133,10 +138,17 @@ class StreamAction extends Action {
 			common_raw('&times;');
 			common_element_end('a');
 		}
+		if ($user) {
+			if ($user->hasFave($notice)) {
+				common_disfavor_form($notice);
+			} else {
+				common_favor_form($notice);
+			}
+		}
 		common_element_end('p');
 		common_element_end('li');
 	}
-	
+
 	function source_link($source) {
 		$source_name = _($source);
 		switch ($source) {

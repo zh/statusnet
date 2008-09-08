@@ -47,6 +47,7 @@ create table user (
     email varchar(255) unique key comment 'email address for password recovery etc.',
     incomingemail varchar(255) unique key comment 'email address for post-by-email',
     emailnotifysub tinyint default 1 comment 'Notify by email of subscriptions',
+    emailnotifyfav tinyint default 1 comment 'Notify by email of favorites',
     emailmicroid tinyint default 1 comment 'whether to publish email microid',
     language varchar(50) comment 'preferred language',
     timezone varchar(50) comment 'timezone',
@@ -281,10 +282,10 @@ create table foreign_link (
      credentials varchar(255) comment 'authc credentials, typically a password',
      noticesync tinyint not null default 1 comment 'notice synchronization, bit 1 = sync outgoing, bit 2 = sync incoming',
      friendsync tinyint not null default 2 comment 'friend synchronization, bit 1 = sync outgoing, bit 2 = sync incoming',
-     profilesync tinyint not null default 1 comment 'profile synchronization, bit 1 = sync outgoing, bit 2 = sync incoming',     
+     profilesync tinyint not null default 1 comment 'profile synchronization, bit 1 = sync outgoing, bit 2 = sync incoming',
      created datetime not null comment 'date this record was created',
      modified timestamp comment 'date this record was modified',
-     
+
      constraint primary key (user_id, foreign_id, service),
      index foreign_user_user_id_idx (user_id)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;

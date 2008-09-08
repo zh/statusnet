@@ -174,7 +174,7 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 	# FIXME: correct language for interface
 
 	$language = common_language();
-	
+
 	common_element_start('html', array('xmlns' => 'http://www.w3.org/1999/xhtml',
 									   'xml:lang' => $language,
 									   'lang' => $language));
@@ -913,6 +913,16 @@ function common_fancy_url($action, $args=NULL) {
 		return common_path($path . (($args) ? ('?' . http_build_query($args)) : ''));
 	 case 'tags':
 		return common_path('tags' . (($args) ? ('?' . http_build_query($args)) : ''));
+	 case 'favor':
+		return common_path('main/favor');
+	 case 'disfavor':
+		return common_path('main/disfavor');
+	 case 'showfavorites':
+		if ($args && isset($args['page'])) {
+			return common_path($args['nickname'].'/favorites?page=' . $args['page']);
+		} else {
+			return common_path($args['nickname'].'/favorites');
+		}
 	 default:
 		return common_simple_url($action, $args);
 	}
@@ -1535,6 +1545,30 @@ function common_session_token() {
 		$_SESSION['token'] = common_good_rand(64);
 	}
 	return $_SESSION['token'];
+}
+
+function common_disfavor_form($notice) {
+	common_element_start('form', array('id' => 'disfavor-' . $notice->id,
+									   'method' => 'post',
+									   'action' => common_local_url('disfavor')));
+	common_hidden('token', common_session_token());
+	common_hidden('notice', $notice->id);
+	common_element('input', array('type' => 'button',
+								  'class' => 'disfavor'),
+				   '♥');
+	common_element_end('form');
+}
+
+function common_favor_form($notice) {
+	common_element_start('form', array('id' => 'favor-' . $notice->id,
+									   'method' => 'post',
+									   'action' => common_local_url('disfavor')));
+	common_hidden('token', common_session_token());
+	common_hidden('notice', $notice->id);
+	common_element('input', array('type' => 'button',
+								  'class' => 'disfavor'),
+				   '♡');
+	common_element_end('form');
 }
 
 function common_cache_key($extra) {

@@ -43,6 +43,7 @@ class User extends DB_DataObject
     public $email;                           // varchar(255)  unique_key
     public $incomingemail;                   // varchar(255)  unique_key
     public $emailnotifysub;                  // tinyint(1)   default_1
+    public $emailnotifyfav;                  // tinyint(1)   default_1
     public $emailmicroid;                    // tinyint(1)   default_1
     public $language;                        // varchar(50)  
     public $timezone;                        // varchar(50)  
@@ -274,5 +275,19 @@ class User extends DB_DataObject
 				subs_subscribe_to($other, $this);
 			}
 		}
+	}
+
+	function hasFave($notice) {
+		$fave = new Fave();
+		$fave->user_id = $this->id;
+		$fave->notice_id = $notice->id;
+		if ($fave->find()) {
+			$result = true;
+		} else {
+			$result = false;
+		}
+		$fave->free();
+		unset($fave);
+		return $result;
 	}
 }

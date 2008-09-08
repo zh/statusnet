@@ -19,4 +19,15 @@ class Fave extends DB_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+
+	static function addNew($user, $notice) {
+		$fave = new Fave();
+		$fave->user_id = $user->id;
+		$fave->notice_id = $notice->id;
+		if (!$fave->insert()) {
+			common_log_db_error($fave, 'INSERT', __FILE__);
+			return false;
+		}
+		return $fave;
+	}
 }
