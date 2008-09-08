@@ -1550,6 +1550,7 @@ function common_session_token() {
 function common_disfavor_form($notice) {
 	common_element_start('form', array('id' => 'disfavor-' . $notice->id,
 									   'method' => 'post',
+									   'class' => 'disfavor',
 									   'action' => common_local_url('disfavor')));
 	common_hidden('token', common_session_token());
 	common_hidden('notice', $notice->id);
@@ -1560,6 +1561,7 @@ function common_disfavor_form($notice) {
 function common_favor_form($notice) {
 	common_element_start('form', array('id' => 'favor-' . $notice->id,
 									   'method' => 'post',
+									   'class' => 'favor',
 									   'action' => common_local_url('favor')));
 	common_hidden('token', common_session_token());
 	common_hidden('notice', $notice->id);

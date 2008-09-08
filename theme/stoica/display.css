@@ -647,6 +647,10 @@ input#openid_url {
 
 /* ----- favor/disfavor -----*/
 
+form#disfavor, form.disfavor  {
+	display: inline;
+}
+
 input#disfavor, input.disfavor  {
 	display: inline;
 	color: #C15D42;
@@ -655,7 +659,11 @@ input#disfavor, input.disfavor  {
 	border: 0;
 	width: auto;
 	}
-	
+
+form#favor, form.favor  {
+	display: inline;
+}
+
 input#favor, input.favor  {
 	display: inline;
 	color: #C15D42;
