@@ -92,8 +92,14 @@ class GalleryAction extends Action {
 				break;
 			}
 
-			$other = Profile::staticGet($this->get_other($subs));
+			$other_id = $this->get_other($subs);
+			$other = Profile::staticGet($other_id);
 
+			if (!$other) {
+				common_log(LOG_WARNING, 'No matching profile for ' . $other_id);
+				continue;
+			}
+			
 			common_element_start('li');
 
 			common_element_start('a', array('title' => ($other->fullname) ?
