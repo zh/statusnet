@@ -33,7 +33,7 @@ class DisfavorAction extends Action {
 		$user = common_current_user();
 
 		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-			common_redirect(common_local_url('favorites', array('nickname' => $user->nickname)));
+			common_redirect(common_local_url('showfavorites', array('nickname' => $user->nickname)));
 			return;
 		}
 
@@ -66,7 +66,7 @@ class DisfavorAction extends Action {
 
 		# XXX: ajax response
 
-		common_redirect(common_local_url('favorites',
+		common_redirect(common_local_url('showfavorites',
 										 array('nickname' => $user->nickname)));
 	}
 }
