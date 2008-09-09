@@ -145,13 +145,13 @@ class User extends DB_DataObject
 	function noticesWithFriends($offset=0, $limit=20) {
 		
 		$notice = new Notice();
-
+		
 		$notice->query('SELECT notice.* ' .
 					   'FROM notice JOIN subscription on notice.profile_id = subscription.subscribed ' .
 					   'WHERE subscription.subscriber = ' . $this->id . ' ' .
 					   'ORDER BY created DESC, notice.id DESC ' .
 					   'LIMIT ' . $offset . ', ' . $limit);
-
+		
 		return $notice;
 	}
 

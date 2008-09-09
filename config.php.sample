@@ -43,6 +43,11 @@ $config['db']['database'] = 'mysql://laconica:microblog@localhost/laconica';
 #$config['db']['debug'] = 0;
 #$config['db']['db_driver'] = 'MDB2';
 
+#Database type. For mysql, these defaults are fine. For postgresql, set
+#'quote_identifiers' to true and 'type' to 'pgsql':
+#$config['db']['quote_identifiers'] = false;
+#$config['db']['type'] = 'mysql';
+
 #session_set_cookie_params(0, '/'. $config['site']['path'] .'/');
 
 #Standard fancy-url clashes prevented by not allowing nicknames on a blacklist
