@@ -126,7 +126,7 @@ create table reply (
 
     notice_id integer not null /* comment 'notice that is the reply' */ references notice (id) ,
     profile_id integer not null /* comment 'profile replied to' */ references profile (id) ,
-    modified timestamp not null /* comment 'date this record was modified' */,
+    modified timestamp not null default 'now' /* comment 'date this record was modified' */,
     replied_id integer /* comment 'notice replied to (not used, see notice.reply_to)' */,
 
     primary key (notice_id, profile_id)
