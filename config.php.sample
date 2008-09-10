@@ -72,7 +72,8 @@ $config['db']['database'] = 'mysql://laconica:microblog@localhost/laconica';
 #							'host' => 'localhost',
 #							'port' => 25,
 #							);
-
+#For incoming email, if enabled. Defaults to site server name.
+#$config['mail']['domain'] = 'incoming.example.net';
 
 #Do notice broadcasts offline
 #If you set this, you must run the xmppdaemon.php
