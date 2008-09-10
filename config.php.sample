@@ -76,8 +76,8 @@ $config['db']['database'] = 'mysql://laconica:microblog@localhost/laconica';
 #$config['mail']['domain'] = 'incoming.example.net';
 
 #Do notice broadcasts offline
-#If you set this, you must run the xmppdaemon.php
-#as a daemon (with, say, start-stop-daemon)
+#If you use this, you must run the six offline daemons in the
+#background. See the README for details.
 #$config['queue']['enabled'] = true;
 
 #exponential decay factor for tags, default 10 days
