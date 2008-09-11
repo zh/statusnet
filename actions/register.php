@@ -200,7 +200,7 @@ class RegisterAction extends Action {
 		}
 		common_element('input', $attrs);
 	    common_text(_('My text and files are available under '));
-		common_element('a', array(href => $config['license']['url']),
+		common_element('a', array('href' => $config['license']['url']),
 					   $config['license']['title']);
 		common_text(_(' except this private data: password, email address, IM address, phone number.'));
 		common_element_end('p');
