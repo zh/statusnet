@@ -88,8 +88,21 @@ class TagAction extends StreamAction {
 	{
 		# This should probably be cached rather than recalculated
 		$tags = DB_DataObject::factory('Notice_tag');
+
+		#Need to clear the selection and then only re-add the field
+		#we are grouping by, otherwise it's not a valid 'group by'
+		#even though MySQL seems to let it slide...
+		$tags->selectAdd();
+		$tags->selectAdd('tag');
+
+		#Add the aggregated columns...
 		$tags->selectAdd('max(notice_id) as last_notice_id');
-		$tags->selectAdd(sprintf('sum(exp(-(now() - created)/%f)) as weight', common_config('tag', 'dropoff')));
+		if(common_config('db','type')=='pgsql') {
+			$calc='sum(exp(-extract(epoch from (now()-created))/%f)) as weight';
+		} else {
+			$calc='sum(exp(-(now() - created)/%f)) as weight';
+		}
+		$tags->selectAdd(sprintf($calc, common_config('tag', 'dropoff')));
 		$tags->groupBy('tag');
 		$tags->orderBy('weight DESC');
 
