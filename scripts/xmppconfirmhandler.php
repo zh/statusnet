@@ -66,15 +66,22 @@ class XmppConfirmHandler extends XmppQueueHandler {
 					continue;
 				} else {
 					$this->log(LOG_INFO, 'Confirmation sent for ' . $confirm->address);
-					# Mark confirmation sent
-					$original = clone($confirm);
-					$confirm->sent = $confirm->claimed;
-					$result = $confirm->update($original);
+					# Mark confirmation sent; need a dupe so we don't have the WHERE clause
+					$dupe = Confirm_address::staticGet('code', $confirm->code);
+					if (!$dupe) {
+						common_log(LOG_WARNING, 'Could not refetch confirm', __FILE__);
+						continue;
+					}
+					$orig = clone($dupe);
+					$dupe->sent = $dupe->claimed;
+					$result = $dupe->update($orig);
 					if (!$result) {
-						common_log_db_error($confirm, 'UPDATE', __FILE__);
+						common_log_db_error($dupe, 'UPDATE', __FILE__);
 						# Just let the claim age out; hopefully things work then
 						continue;
 					}
+					$dupe->free();
+					unset($dupe);
 				}
 				$user->free();
 				unset($user);
