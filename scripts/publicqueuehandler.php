@@ -43,8 +43,8 @@ class PublicQueueHandler extends XmppQueueHandler {
 		try {
 			return jabber_public_notice($notice);
 		} catch (XMPPHP_Exception $e) {
-			$this->log(LOG_ERROR, "Got an XMPPHP_Exception: " . $e->getMessage());
-			exit(1);
+			$this->log(LOG_ERR, "Got an XMPPHP_Exception: " . $e->getMessage());
+			die($e->getMessage());
 		}
 	}
 }
