@@ -39,8 +39,13 @@ class PeoplesearchAction extends SearchAction {
 
 		# lcase it for comparison
 		$q = strtolower($q);
-		$profile->whereAdd('MATCH(nickname, fullname, location, bio, homepage) ' .
+
+		if(common_config('db','type')=='mysql') {
+			$profile->whereAdd('MATCH(nickname, fullname, location, bio, homepage) ' .
 						   'against (\''.addslashes($q).'\')');
+		} else {
+			$profile->whereAdd('textsearch @@ plainto_tsquery(\''.addslashes($q).'\')');
+		}
 
 		# Ask for an extra to see if there's more.
 

@@ -9,13 +9,11 @@ create table profile (
     bio varchar(140) /* comment 'descriptive biography' */,
     location varchar(255) /* comment 'physical location' */,
     created timestamp not null /* comment 'date this record was created' */,
-    modified timestamp /* comment 'date this record was modified' */
+    modified timestamp /* comment 'date this record was modified' */,
 
-/*    FULLTEXT(nickname, fullname, location, bio, homepage) */
+    textsearch tsvector
 );
 create index profile_nickname_idx on profile using btree(nickname);
-
-
 
 create table avatar (
     profile_id integer not null /* comment 'foreign key to profile table' */ references profile (id) ,
@@ -289,3 +287,11 @@ create table foreign_subscription (
 );
 create index foreign_subscription_subscriber_idx on foreign_subscription using btree(subscriber);
 create index foreign_subscription_subscribed_idx on foreign_subscription using btree(subscribed);
+
+/* Textsearch stuff */
+
+create index textsearch_idx on profile using gist(textsearch);
+create index noticecontent_idx on notice using gist(to_tsvector('english',content));
+create trigger textsearchupdate before insert or update on profile for each row
+execute procedure tsvector_update_trigger(textsearch, 'pg_catalog.english', nickname, fullname, location, bio, homepage);
+
