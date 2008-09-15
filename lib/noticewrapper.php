@@ -44,7 +44,7 @@ class NoticeWrapper {
 		static $fields = array('id', 'profile_id', 'uri', 'content', 'rendered',
 							   'url', 'created', 'modified', 'reply_to', 'is_local', 'source');
 		$this->i++;
-		if ($this->i >= array_count($notices)) {
+		if ($this->i >= count($notices)) {
 			return false;
 		} else {
 			$n = $notices[$this->i];
