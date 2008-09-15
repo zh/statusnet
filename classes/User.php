@@ -29,7 +29,7 @@ define('WITHFRIENDS_CACHE_WINDOW', 61);
  */
 require_once 'DB/DataObject.php';
 require_once 'Validate.php';
-require_once($INSTALLDIR.'/lib/noticewrapper.php');
+require_once(INSTALLDIR.'/lib/noticewrapper.php');
 
 class User extends DB_DataObject 
 {
