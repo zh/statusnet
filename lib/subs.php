@@ -43,15 +43,28 @@ function subs_subscribe_user($user,$other_nickname) {
 
 	subs_notify($other, $user);
 
+	if (common_config('memcached', 'enabled')) {
+		$cache = new Memcache();
+		if ($cache->connect(common_config('memcached', 'server'), common_config('memcached', 'port'))) {
+			$cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
+		}
+	}
+	
 	if ($other->autosubscribe && !$other->isSubscribed($user)) {
 		if (!$other->subscribeTo($user)) {
 			return _('Could not subscribe other to you.');
 		}
+		if (common_config('memcached', 'enabled')) {
+			$cache = new Memcache();
+			if ($cache->connect(common_config('memcached', 'server'), common_config('memcached', 'port'))) {
+				$cache->delete(common_cache_key('user:notices_with_friends:' . $other->id));
+			}
+		}
+		
 		subs_notify($user, $other);
 	}
 
 	return true;
-
 }
 
 function subs_notify($listenee, $listener) {
@@ -90,6 +103,13 @@ function subs_unsubscribe_user($user, $other_nickname) {
 	if (!$sub->delete())
 		return _('Couldn\'t delete subscription.');
 
+	if (common_config('memcached', 'enabled')) {
+		$cache = new Memcache();
+		if ($cache->connect(common_config('memcached', 'server'), common_config('memcached', 'port'))) {
+			$cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
+		}
+	}
+	
 	return true;
 
 }
