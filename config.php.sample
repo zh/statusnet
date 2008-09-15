@@ -57,12 +57,14 @@ $config['db']['database'] = 'mysql://laconica:microblog@localhost/laconica';
 # xmpp
 #$config['xmpp']['enabled'] = false;
 #$config['xmpp']['server'] = 'server.example.net';
+#$config['xmpp']['host'] = NULL;	# Only set if different from server
 #$config['xmpp']['port'] = 5222;
 #$config['xmpp']['user'] = 'update';
 #$config['xmpp']['encryption'] = false;
 #$config['xmpp']['resource'] = 'uniquename';
 #$config['xmpp']['password'] = 'blahblahblah';
 #$config['xmpp']['public'][] = 'someindexer@example.net';
+#$config['xmpp']['debug'] = false;
 
 #Default locale info
 #$config['site']['timezone'] = 'Pacific/Auckland';
@@ -80,10 +82,6 @@ $config['db']['database'] = 'mysql://laconica:microblog@localhost/laconica';
 #For incoming email, if enabled. Defaults to site server name.
 #$config['mail']['domain'] = 'incoming.example.net';
 
-#Do notice broadcasts offline
-#If you use this, you must run the six offline daemons in the
-#background. See the README for details.
-#$config['queue']['enabled'] = true;
 
 #exponential decay factor for tags, default 10 days
 #raise this if traffic is slow, lower it if it's fast
@@ -91,6 +89,3 @@ $config['db']['database'] = 'mysql://laconica:microblog@localhost/laconica';
 
 #optionally show non-local messages in public timeline
 #$config['public']['localonly'] = false;
-
-#Twitter integration source attribute. Note: default is Laconica
-#$config['integration']['source'] = 'Laconica';
