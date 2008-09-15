@@ -73,7 +73,7 @@ class RepliesrssAction extends Rss10Action {
 		$c = array('url' => common_local_url('repliesrss',
 											 array('nickname' =>
 												   $user->nickname)),
-				   'title' => sprintf(_("Replies to %s"), $profile->nickname),
+				   'title' => sprintf(_("Replies to %s"), $user->nickname),
 				   'link' => common_local_url('replies',
 											  array('nickname' =>
 													$user->nickname)),
