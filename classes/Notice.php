@@ -121,7 +121,7 @@ class Notice extends DB_DataObject
 				$user = new User();
 		
 				$user->query('SELECT id ' .
-							 'FROM user JOIN subscription ON user.id = subscription.subscriber' .
+							 'FROM user JOIN subscription ON user.id = subscription.subscriber ' .
 							 'WHERE subscription.subscribed = ' . $notice->profile_id);
 
 				while ($user->fetch()) {
