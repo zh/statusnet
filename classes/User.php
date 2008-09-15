@@ -101,7 +101,12 @@ class User extends DB_DataObject
 			return true;
 		}
 		$toupdate = implode(', ', $parts);
-		$qry = 'UPDATE ' . $this->tableName() . ' SET ' . $toupdate .
+
+		$table = $this->tableName();
+		if(common_config('db','quote_identifiers')) {
+			$table = '"' . $table . '"';
+		}
+		$qry = 'UPDATE ' . $table . ' SET ' . $toupdate .
 		  ' WHERE id = ' . $this->id;
 		return $this->query($qry);
 	}
