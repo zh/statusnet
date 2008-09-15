@@ -28,7 +28,7 @@ create table avatar (
 
     constraint primary key (profile_id, width, height),
     index avatar_profile_id_idx (profile_id)
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table sms_carrier (
     id integer auto_increment primary key comment 'primary key for SMS carrier',
@@ -36,7 +36,7 @@ create table sms_carrier (
     email_pattern varchar(255) not null comment 'sprintf pattern for making an email address from a phone number',
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified'
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 /* local users */
 
@@ -67,7 +67,7 @@ create table user (
     modified timestamp comment 'date this record was modified',
 
     index user_smsemail_idx (smsemail)
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 /* remote people */
 
@@ -78,7 +78,7 @@ create table remote_profile (
     updateprofileurl varchar(255) comment 'URL we use for updates to this profile',
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified'
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table subscription (
     subscriber integer not null comment 'profile listening',
@@ -91,7 +91,7 @@ create table subscription (
     constraint primary key (subscriber, subscribed),
     index subscription_subscriber_idx (subscriber),
     index subscription_subscribed_idx (subscribed)
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table notice (
 
@@ -118,7 +118,7 @@ create table notice_source (
      url varchar(255) not null comment 'url to link to',
      created datetime not null comment 'date this record was created',
      modified timestamp comment 'date this record was modified'
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table reply (
 
@@ -132,7 +132,7 @@ create table reply (
     index reply_profile_id_idx (profile_id),
     index reply_replied_id_idx (replied_id)
 
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table fave (
 
@@ -145,7 +145,7 @@ create table fave (
     index fave_user_id_idx (user_id),
     index fave_modified_idx (modified)
 
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 /* tables for OAuth */
 
@@ -155,7 +155,7 @@ create table consumer (
 
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified'
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table token (
     consumer_key varchar(255) not null comment 'unique identifier, root URL' references consumer (consumer_key),
@@ -168,7 +168,7 @@ create table token (
     modified timestamp comment 'date this record was modified',
 
     constraint primary key (consumer_key, tok)
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table nonce (
     consumer_key varchar(255) not null comment 'unique identifier, root URL',
@@ -181,7 +181,7 @@ create table nonce (
 
     constraint primary key (consumer_key, tok, nonce),
     constraint foreign key (consumer_key, tok) references token (consumer_key, tok)
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 /* One-to-many relationship of user to openid_url */
 
@@ -193,7 +193,7 @@ create table user_openid (
     modified timestamp comment 'date this record was modified',
 
     index user_openid_user_id_idx (user_id)
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 /* These are used by JanRain OpenID library */
 
@@ -205,14 +205,14 @@ create table oid_associations (
     lifetime INTEGER,
     assoc_type VARCHAR(64),
     PRIMARY KEY (server_url(255), handle)
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table oid_nonces (
     server_url VARCHAR(2047),
     timestamp INTEGER,
     salt CHAR(40),
     UNIQUE (server_url(255), timestamp, salt)
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table confirm_address (
     code varchar(32) not null primary key comment 'good random code',
@@ -223,13 +223,13 @@ create table confirm_address (
     claimed datetime comment 'date this was claimed for queueing',
     sent datetime comment 'date this was sent for queueing',
     modified timestamp comment 'date this record was modified'
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table remember_me (
     code varchar(32) not null primary key comment 'good random code',
     user_id integer not null comment 'user who is logged in' references user (id),
     modified timestamp comment 'date this record was modified'
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table queue_item (
 
@@ -241,7 +241,7 @@ create table queue_item (
     constraint primary key (notice_id, transport),
     index queue_item_created_idx (created)
 
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 /* Hash tags */
 create table notice_tag (
@@ -251,7 +251,7 @@ create table notice_tag (
 
     constraint primary key (tag, notice_id),
     index notice_tag_created_idx (created)
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 /* Synching with foreign services */
 
@@ -261,7 +261,7 @@ create table foreign_service (
      description varchar(255) comment 'description',
      created datetime not null comment 'date this record was created',
      modified timestamp comment 'date this record was modified'
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table foreign_user (
      id int not null comment 'unique numeric key on foreign service',
@@ -275,7 +275,7 @@ create table foreign_user (
      
      constraint primary key (id, service),
      index foreign_user_user_id_idx (user_id)
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table foreign_subscription (
      service int not null comment 'service where relationship happens' references foreign_service(id),
@@ -286,4 +286,4 @@ create table foreign_subscription (
      constraint primary key (service, subscriber, subscribed),
      index foreign_subscription_subscriber_idx (subscriber),
      index foreign_subscription_subscribed_idx (subscribed)
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
