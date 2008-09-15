@@ -18,11 +18,18 @@
  */
 
 if (!defined('LACONICA')) { exit(1); }
+
+/* We keep the first three 20-notice pages, plus one for pagination check,
+ * in the memcached cache. */
+
+define('WITHFRIENDS_CACHE_WINDOW', 61);
+
 /**
  * Table Definition for user
  */
 require_once 'DB/DataObject.php';
 require_once 'Validate.php';
+require_once($INSTALLDIR.'/lib/noticewrapper.php');
 
 class User extends DB_DataObject 
 {
@@ -134,6 +141,19 @@ class User extends DB_DataObject
 	}
 
 	function noticesWithFriends($offset=0, $limit=20) {
+
+		# We clearly need a more elegant way to make this work.
+		
+		if (common_config('memcached', 'enabled')) {
+			if ($offset + $limit < WITHFRIENDS_CACHE_WINDOW) {
+				$cached = $this->noticesWithFriendsCachedWindow();
+				if (!$cached) {
+					$cached = $this->noticesWithFriendsWindow();
+				}
+				$wrapper = new NoticeWrapper(array_slice($cached, $offset, $limit));
+				return $wrapper;
+			} 
+		}
 		
 		$notice = new Notice();
 		
@@ -144,6 +164,43 @@ class User extends DB_DataObject
 					   'LIMIT ' . $offset . ', ' . $limit);
 		
 		return $notice;
+	}
+	
+	function noticesWithFriendsCachedWindow() {
+		$cache = new Memcache();
+		$res = $cache->connect(common_config('memcached', 'server'), common_config('memcached', 'port'));
+		if (!$res) {
+			return NULL;
+		}
+		$notices = $cache->get(common_cache_key('user:notices_with_friends:' . $this->id));
+		return $notices;
+	}
+
+	function noticesWithFriendsWindow() {
+		
+		$cache = new Memcache();
+		$res = $cache->connect(common_config('memcached', 'server'), common_config('memcached', 'port'));
+		
+		if (!$res) {
+			return NULL;
+		}
+		
+		$notice = new Notice();
+		
+		$notice->query('SELECT notice.* ' .
+					   'FROM notice JOIN subscription on notice.profile_id = subscription.subscribed ' .
+					   'WHERE subscription.subscriber = ' . $this->id . ' ' .
+					   'ORDER BY created DESC, notice.id DESC ' .
+					   'LIMIT 0, ' . WITHFRIENDS_CACHE_WINDOW);
+		
+		$notices = array();
+		
+		while ($notice->fetch()) {
+			$notices[] = clone($notice);
+		}
+
+		$cache->set(common_cache_key('user:notices_with_friends:' . $this->id), $notices);
+		return $notices;
 	}
 	
 	static function register($fields) {

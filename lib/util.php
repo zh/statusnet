@@ -1528,3 +1528,13 @@ function common_session_token() {
 	}
 	return $_SESSION['token'];
 }
+
+function common_cache_key($extra) {
+	return 'laconica:' . common_keyize(common_config('site', 'name')) . ':' . $extra;
+}
+
+function common_keyize($str) {
+	$str = strtolower($str);
+	$str = preg_replace('/\s/', '_', $str);
+	return $str;
+}

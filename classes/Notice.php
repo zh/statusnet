@@ -111,6 +111,27 @@ class Notice extends DB_DataObject
 		
 		common_save_replies($notice);
 		$notice->saveTags();
+
+		# Clear the cache for subscribed users, so they'll update at next request
+		# XXX: someone clever could prepend instead of clearing the cache
+		
+		if (common_config('memcached', 'enabled')) {
+			$cache = new Memcache();
+			if ($cache->connect(common_config('memcached', 'server'), common_config('memcached', 'port'))) {
+				$user = new User();
+		
+				$user->query('SELECT id ' .
+							 'FROM user JOIN subscription ON user.id = subscription.subscriber' .
+							 'WHERE subscription.subscribed = ' . $notice->profile_id);
+
+				while ($user->fetch()) {
+					$cache->delete(common_cache_key('user:notices_with_friends:' . $this->id));
+				}
+				
+				$user->free();
+				unset($user);
+			}
+		}
 		
 		return $notice;
 	}
