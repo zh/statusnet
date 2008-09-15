@@ -146,10 +146,7 @@ class User extends DB_DataObject
 		
 		if (common_config('memcached', 'enabled')) {
 			if ($offset + $limit < WITHFRIENDS_CACHE_WINDOW) {
-				$cached = $this->noticesWithFriendsCachedWindow();
-				if (!$cached) {
-					$cached = $this->noticesWithFriendsWindow();
-				}
+				$cached = $this->noticesWithFriendsWindow();
 				$wrapper = new NoticeWrapper(array_slice($cached, $offset, $limit));
 				return $wrapper;
 			} 
@@ -166,16 +163,6 @@ class User extends DB_DataObject
 		return $notice;
 	}
 	
-	function noticesWithFriendsCachedWindow() {
-		$cache = new Memcache();
-		$res = $cache->connect(common_config('memcached', 'server'), common_config('memcached', 'port'));
-		if (!$res) {
-			return NULL;
-		}
-		$notices = $cache->get(common_cache_key('user:notices_with_friends:' . $this->id));
-		return $notices;
-	}
-
 	function noticesWithFriendsWindow() {
 		
 		$cache = new Memcache();
@@ -183,6 +170,12 @@ class User extends DB_DataObject
 		
 		if (!$res) {
 			return NULL;
+		}
+		
+		$notices = $cache->get(common_cache_key('user:notices_with_friends:' . $this->id));
+
+		if ($notices) {
+			return $notices;
 		}
 		
 		$notice = new Notice();
