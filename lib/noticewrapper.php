@@ -47,7 +47,7 @@ class NoticeWrapper {
 		if ($this->i >= count($notices)) {
 			return false;
 		} else {
-			$n = $notices[$this->i];
+			$n = $this->notices[$this->i];
 			foreach ($fields as $f) {
 				$this->$f = $n->$f;
 			}
