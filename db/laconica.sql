@@ -311,3 +311,21 @@ create table invitation (
      index invitation_address_idx (address, address_type),
      index invitation_user_id_idx (user_id)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table message (
+
+    id integer auto_increment primary key comment 'unique identifier',
+    uri varchar(255) unique key comment 'universally unique identifier',
+    from_profile integer not null comment 'who the message is from' references profile (id),
+    to_profile integer not null comment 'who the message is to' references profile (id),
+    content varchar(140) comment 'message content',
+    rendered text comment 'HTML version of the content',
+    url varchar(255) comment 'URL of any attachment (image, video, bookmark, whatever)',
+    created datetime not null comment 'date this record was created',
+    modified timestamp comment 'date this record was modified',
+    source varchar(32) comment 'source of comment, like "web", "im", or "clientname"',
+    
+    index message_from_idx (from_profile),
+    index message_to_idx (to_profile),
+    index message_created_idx (created)
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
