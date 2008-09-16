@@ -153,6 +153,52 @@ class User extends DB_DataObject
 
 		return $notice;
 	}
+
+	function favoriteNotices($offset=0, $limit=20) {
+
+		$notice = new Notice();
+
+		$notice->query('SELECT notice.* ' .
+					   'FROM notice JOIN fave on notice.id = fave.notice_id ' .
+					   'WHERE fave.user_id = ' . $this->id . ' ' .
+					   'ORDER BY notice.created DESC, notice.id DESC ' .
+					   'LIMIT ' . $offset . ', ' . $limit);
+
+		return $notice;
+	}
+
+	function noticesWithFriendsWindow() {
+		
+		$cache = new Memcache();
+		$res = $cache->connect(common_config('memcached', 'server'), common_config('memcached', 'port'));
+		
+		if (!$res) {
+			return NULL;
+		}
+		
+		$notices = $cache->get(common_cache_key('user:notices_with_friends:' . $this->id));
+
+		if ($notices) {
+			return $notices;
+		}
+		
+		$notice = new Notice();
+		
+		$notice->query('SELECT notice.* ' .
+					   'FROM notice JOIN subscription on notice.profile_id = subscription.subscribed ' .
+					   'WHERE subscription.subscriber = ' . $this->id . ' ' .
+					   'ORDER BY created DESC, notice.id DESC ' .
+					   'LIMIT 0, ' . WITHFRIENDS_CACHE_WINDOW);
+		
+		$notices = array();
+		
+		while ($notice->fetch()) {
+			$notices[] = clone($notice);
+		}
+
+		$cache->set(common_cache_key('user:notices_with_friends:' . $this->id), $notices);
+		return $notices;
+	}
 	
 	static function register($fields) {
 
