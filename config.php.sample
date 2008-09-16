@@ -89,3 +89,23 @@ $config['db']['database'] = 'mysql://laconica:microblog@localhost/laconica';
 
 #optionally show non-local messages in public timeline
 #$config['public']['localonly'] = false;
+
+#Do notice broadcasts offline
+#If you use this, you must run the six offline daemons in the
+#background. See the README for details.
+#$config['queue']['enabled'] = true;
+
+#The following customise the behaviour of the various daemons:
+#$config['daemon']['piddir'] = '/var/run';
+#$config['daemon']['user'] = false;
+#$config['daemon']['group'] = false;
+
+#For installations with high traffic, laconica can use MemCached to cache
+#frequently requested information. Only enable the following if you have
+#MemCached up and running:
+#$config['memcached']['enabled'] = false;
+#$config['memcached']['server'] = 'localhost';
+#$config['memcached']['port'] = 11211;
+
+#Twitter integration source attribute. Note: default is Laconica
+#$config['integration']['source'] = 'Laconica';
