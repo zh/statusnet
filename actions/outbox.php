@@ -29,6 +29,7 @@ class OutboxAction extends MailboxAction {
 		} else {
 			$title = sprintf(_("Outbox for %s"), $user->nickname);
 		}
+		return $title;
 	}
 	
 	function get_messages($user, $page) {
