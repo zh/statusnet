@@ -273,7 +273,7 @@ create table foreign_user (
      modified timestamp comment 'date this record was modified',
 
      constraint primary key (id, service)
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table foreign_link (
      user_id int comment 'link to user on this system, if exists' references user (id),
@@ -310,4 +310,4 @@ create table invitation (
 
      index invitation_address_idx (address, address_type),
      index invitation_user_id_idx (user_id)
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
