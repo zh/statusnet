@@ -97,7 +97,13 @@ $config =
 		'daemon' =>
 		array('piddir' => '/var/run',
 			  'user' => false,
-			  'group' => false)
+			  'group' => false),
+		'integration' =>
+		array('source' => 'Laconica'), # source attribute for Twitter
+		'memcached' => 
+		array('enabled' => false,
+			  'server' => 'localhost',
+			  'port' => 11211)
 		);
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');

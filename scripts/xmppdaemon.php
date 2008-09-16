@@ -301,7 +301,4 @@ $resource = ($argc > 1) ? $argv[1] : (common_config('xmpp','resource') . '-liste
 
 $daemon = new XMPPDaemon($resource);
 
-if ($daemon->connect()) {
-	$daemon->set_status("Send me a message to post a notice");
-	$daemon->handle();
-}
+$daemon->runOnce();
