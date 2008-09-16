@@ -26,4 +26,12 @@ class Message extends DB_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+	
+	function getFrom() {
+		return Profile::staticGet('id', $this->from_profile);
+	}
+	
+	function getTo() {
+		return Profile::staticGet('id', $this->to_profile);
+	}
 }
