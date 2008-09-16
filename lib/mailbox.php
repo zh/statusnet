@@ -63,11 +63,26 @@ class MailboxAction extends PersonalAction {
 	function get_title($user, $page) {
 		return '';
 	}
+
+	function get_instructions() {
+		return '';
+	}
+
+	function show_top() {
+		
+		$inst = $this->get_instructions();
+		$output = common_markup_to_html($inst);
+		common_element_start('div', 'instructions');
+		common_raw($output);
+		common_element_end('div');
+		
+		$this->views_menu();
+	}
 	
 	function show_page($user, $page) {
 
-		common_show_header($this->get_title(),
-						   NULL, $user,
+		common_show_header($this->get_title($user, $page),
+						   NULL, NULL,
 						   array($this, 'show_top'));
 		
 		$this->show_box($user, $page);
