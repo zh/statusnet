@@ -47,4 +47,8 @@ class InboxAction extends MailboxAction {
 	function get_message_profile($message) {
 		return $message->getFrom();
 	}
+	
+	function get_instructions() {
+		return _('This is your inbox, which lists your incoming private messages.');
+	}
 }

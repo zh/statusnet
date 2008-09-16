@@ -47,4 +47,9 @@ class OutboxAction extends MailboxAction {
 	function get_message_profile($message) {
 		return $message->getTo();
 	}
+	
+	function get_instructions() {
+		return _('This is your outbox, which lists private messages you have sent.');
+	}
+	
 }
