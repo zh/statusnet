@@ -935,7 +935,7 @@ function common_fancy_url($action, $args=NULL) {
 			return common_path($args['nickname'].'/favorites');
 		}
 	 case 'showmessage':
-		return common_path('message/' . $args['id']);
+		return common_path('message/' . $args['message']);
 	 case 'newmessage':
 		return common_path('message/new' . (($args) ? ('?' . http_build_query($args)) : ''));
 	 default:
