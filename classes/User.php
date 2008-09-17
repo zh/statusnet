@@ -44,6 +44,7 @@ class User extends DB_DataObject
     public $incomingemail;                   // varchar(255)  unique_key
     public $emailnotifysub;                  // tinyint(1)   default_1
     public $emailnotifyfav;                  // tinyint(1)   default_1
+    public $emailnotifymsg;                  // tinyint(1)   default_1
     public $emailmicroid;                    // tinyint(1)   default_1
     public $language;                        // varchar(50)  
     public $timezone;                        // varchar(50)  
@@ -346,5 +347,26 @@ class User extends DB_DataObject
 		$fave->free();
 		unset($fave);
 		return $result;
+	}
+	
+	function mutuallySubscribed($other) {
+		return $this->isSubscribed($other) &&
+		  $other->isSubscribed($this);
+	}
+	
+	function mutuallySubscribedUsers() {
+
+		# 3-way join; probably should get cached
+		
+		$qry = 'SELECT user.* ' .
+		  'FROM subscription sub1 JOIN user ON sub1.subscribed = user.id ' .
+		  'JOIN subscription sub2 ON user.id = sub2.subscriber ' .
+		  'WHERE sub1.subscriber = %d and sub2.subscribed = %d ' .
+		  'ORDER BY user.nickname';
+		
+		$user = new User();
+		$user->query(sprintf($qry, $this->id, $this->id));
+
+		return $user;
 	}
 }

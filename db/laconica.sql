@@ -48,6 +48,7 @@ create table user (
     incomingemail varchar(255) unique key comment 'email address for post-by-email',
     emailnotifysub tinyint default 1 comment 'Notify by email of subscriptions',
     emailnotifyfav tinyint default 1 comment 'Notify by email of favorites',
+    emailnotifymsg tinyint default 1 comment 'Notify by email of direct messages',
     emailmicroid tinyint default 1 comment 'whether to publish email microid',
     language varchar(50) comment 'preferred language',
     timezone varchar(50) comment 'timezone',

@@ -34,4 +34,34 @@ class Message extends DB_DataObject
 	function getTo() {
 		return Profile::staticGet('id', $this->to_profile);
 	}
+	
+	static function saveNew($from, $to, $content, $source) {
+		
+		$msg = new Message();
+		
+		$msg->from_profile = $from;
+		$msg->to_profile = $to;
+		$msg->content = $content;
+		$msg->rendered = common_render_text($content);
+		$msg->source = $source;
+		
+		$result = $msg->insert();
+		
+		if (!$result) {
+			common_log_db_error($msg, 'INSERT', __FILE__);
+			return _('Could not insert message.');
+		}
+		
+		$orig = clone($msg);
+		$msg->uri = common_local_url('showmessage', array('message' => $message->id));
+		
+		$result = $msg->update($orig);
+		
+		if (!$result) {
+			common_log_db_error($msg, 'UPDATE', __FILE__);
+			return _('Could not update message with new URI.');
+		}
+		
+		return $msg;
+	}
 }
