@@ -123,7 +123,7 @@ class NewmessageAction extends Action {
 		$content = $this->trimmed('content');
 		$user = common_current_user();
 
-		$to = common_canonical_nickname($this->trimmed('to'));
+		$to = $this->trimmed('to');
 		
 		$other = User::staticGet('id', $to);
 
