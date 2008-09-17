@@ -149,7 +149,7 @@ class ShowstreamAction extends StreamAction {
 		
 		$user = User::staticGet('id', $profile->id);
 		
-		if ($cur->mutuallySubscribed($user)) {
+		if ($cur->id != $user->id && $cur->mutuallySubscribed($user)) {
 			common_element('a', array('href' => common_local_url('newmessage', array('nickname' => $user->nickname))),
 						   _('Send a message'));
 		}
