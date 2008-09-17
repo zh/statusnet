@@ -53,7 +53,7 @@ class Message extends DB_DataObject
 		}
 		
 		$orig = clone($msg);
-		$msg->uri = common_local_url('showmessage', array('message' => $message->id));
+		$msg->uri = common_local_url('showmessage', array('message' => $msg->id));
 		
 		$result = $msg->update($orig);
 		
