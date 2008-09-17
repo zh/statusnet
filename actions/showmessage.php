@@ -25,7 +25,7 @@ class ShowmessageAction extends MailboxAction {
 
 	function handle($args) {
 
-		parent::handle($args);
+		Action::handle($args);
 
 		$id = $this->trimmed('id');
 
