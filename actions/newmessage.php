@@ -59,6 +59,9 @@ class NewmessageAction extends Action {
 		} else if (!$user->mutuallySubscribed($other)) {
 			$this->client_error(_('You can\'t send a message to this user.'), 404);
 			return;
+		} else if ($user->id == $other->id) {
+			$this->client_error(_('Don\'t send a message to yourself; just say it to yourself quietly instead.'), 403);
+			return;
 		}
 		
 		$message = Message::saveNew($user->id, $other->id, $content, 'web');
@@ -93,7 +96,9 @@ class NewmessageAction extends Action {
 		$mutual = array();
 		
 		while ($mutual_users->fetch()) {
-			$mutual[$mutual_users->id] = $mutual_users->nickname;
+			if ($mutual_users->id != $user->id) {
+				$mutual[$mutual_users->id] = $mutual_users->nickname;
+			}
 		}
 
 		$mutual_users->free();
@@ -138,7 +143,7 @@ class NewmessageAction extends Action {
 		}
 		
 		common_show_header(_('New message'), NULL,
-						   array($content, $user, $to),
+						   array($content, $user, $other),
 		                   array($this, 'show_top'));
 		
 		if ($msg) {
