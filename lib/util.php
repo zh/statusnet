@@ -699,11 +699,13 @@ function common_render_content($text, $notice) {
 }
 
 function common_tag_link($tag) {
-	if(common_config('site', 'fancy')) {
-		return '<a href="' . htmlspecialchars(common_path('tag/' . strtolower(str_replace(array('-', '_', '.'), '', $tag)))) . '" rel="tag" class="hashlink">' . htmlspecialchars($tag) . '</a>';
-	} else {
-		return '<a href="' . htmlspecialchars(common_path('index.php?action=tag&tag=' . strtolower(str_replace(array('-', '_', '.'), '', $tag)))) . '" rel="tag" class="hashlink">' . htmlspecialchars($tag) . '</a>';
-	}
+	$canonical = common_canonical_tag($tag);
+	$url = common_local_url('tag', array('tag' => $canonical));
+	return '<a href="' . htmlspecialchars($url) . '" rel="tag" class="hashlink">' . htmlspecialchars($tag) . '</a>';
+}
+
+function common_canonical_tag($tag) {  
+	return strtolower(str_replace(array('-', '_', '.'), '', $tag));
 }
 
 function common_at_link($sender_id, $nickname) {
