@@ -686,13 +686,18 @@ function common_canonical_email($email) {
 define('URL_REGEX', '^|[ \t\r\n])((ftp|http|https|gopher|mailto|news|nntp|telnet|wais|file|prospero|aim|webcal):(([A-Za-z0-9$_.+!*(),;/?:@&~=-])|%[A-Fa-f0-9]{2}){2,}(#([a-zA-Z0-9][a-zA-Z0-9$_.+!*(),;/?:@&~=%-]*))?([A-Za-z0-9$_+!*();/?:~-]))');
 
 function common_render_content($text, $notice) {
+	$r = common_render_text($text);
+	$id = $notice->profile_id;
+	$r = preg_replace('/(^|\s+)@([A-Za-z0-9]{1,64})/e', "'\\1@'.common_at_link($id, '\\2')", $r);
+	$r = preg_replace('/^T ([A-Z0-9]{1,64}) /e', "'T '.common_at_link($id, '\\1').' '", $r);
+	return $r;
+}
+
+function common_render_text($text) {
 	$r = htmlspecialchars($text);
 
 	$r = preg_replace('/[\x{0}-\x{8}\x{b}-\x{c}\x{e}-\x{19}]/', '', $r);
-	$id = $notice->profile_id;
 	$r = preg_replace('@https?://[^)\]>\s]+@', '<a href="\0" class="extlink">\0</a>', $r);
-	$r = preg_replace('/(^|\s+)@([A-Za-z0-9]{1,64})/e', "'\\1@'.common_at_link($id, '\\2')", $r);
-	$r = preg_replace('/^T ([A-Z0-9]{1,64}) /e', "'T '.common_at_link($id, '\\1').' '", $r);
 	$r = preg_replace('/(^|\s+)#([A-Za-z0-9_\-\.]{1,64})/e', "'\\1#'.common_tag_link('\\2')", $r);
 	# XXX: machine tags
 	return $r;
