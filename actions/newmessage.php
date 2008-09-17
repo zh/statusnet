@@ -37,6 +37,7 @@ class NewmessageAction extends Action {
 
 		$user = common_current_user();
 		assert($user); # XXX: maybe an error instead...
+		
 		$content = $this->trimmed('content');
 		$to = $this->trimmed('to');
 		
@@ -124,7 +125,7 @@ class NewmessageAction extends Action {
 
 		$to = common_canonical_nickname($this->trimmed('to'));
 		
-		$other = User::staticGet('nickname', $to);
+		$other = User::staticGet('id', $to);
 
 		if (!$other) {
 			$this->client_error(_('No such user'), 404);
