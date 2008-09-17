@@ -43,6 +43,7 @@ class Message extends DB_DataObject
 		$msg->to_profile = $to;
 		$msg->content = $content;
 		$msg->rendered = common_render_text($content);
+		$msg->created = common_sql_now();
 		$msg->source = $source;
 		
 		$result = $msg->insert();
