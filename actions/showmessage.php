@@ -63,12 +63,12 @@ class ShowmessageAction extends MailboxAction {
 		
 		if ($user->id == $message->from_profile) {
 			$to = $message->getTo();
-			$title = sprintf(_('Message to %1\$s on %2\$s'),
+			$title = sprintf(_("Message to %1\$s on %2\$s"),
 							 $to->nickname,
 							 common_exact_date($message->created));
 		} else if ($user->id == $message->to_profile) {
 			$from = $message->getFrom();
-			$title = sprintf(_('Message from %1\$s on %2\$s'),
+			$title = sprintf(_("Message from %1\$s on %2\$s"),
 							 $from->nickname,
 							 common_exact_date($message->created));
 		}
