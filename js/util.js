@@ -59,14 +59,14 @@ $(document).ready(function(){
                success: function(xml) {
                     var new_form = $('form.disfavor', xml).get(0);
                     var id = new_form.id.replace('disfavor', 'favor');
-                    $('form#'+id).replace(new_form);
+                    $('form#'+id).replaceWith(new_form);
                }};
      
      var disoptions = {dataType: 'xml',
                success: function(xml) {
                     var new_form = $('form.favor', xml).get(0);
                     var id = new_form.id.replace('favor', 'disfavor');
-                    $('form#'+id).replace(new_form);
+                    $('form#'+id).replaceWith(new_form);
                }};
 
      function addAjaxHidden() {
