@@ -68,7 +68,7 @@ $(document).ready(function(){
                success: function(xml) {
                     var new_form = $('form.favor', xml).get(0);
                     var fav = new_form.id;
-                    var dis = dis.replace('favor', 'disfavor');
+                    var dis = fav.replace('favor', 'disfavor');
                     $('form#'+dis).replaceWith(new_form);
                     $('form#'+fav).ajaxForm(favoptions).each(addAjaxHidden);                    ;
                }};
