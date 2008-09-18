@@ -674,6 +674,48 @@ input#favor, input.favor  {
 	border: 0;
 	width: auto;
 	}
+/* ----- direct message ----- */
+
+#message_form {
+	height: 96px;
+	/*background-color: #F00;*/
+	}
+#message_form p {
+	margin: 36px 0 0 0;
+	padding: 0;
+	}
+	
+#message_form textarea.content {
+	display: block;
+	float: left;
+	width: 463px;
+	height: 35px;
+	padding: 5px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #193441;
+	border: 0;
+	}
+	
+#message_send {
+	display: block;
+	float: left;
+	margin: 1px 0 0 4px;
+	width: 63px;
+	height: 45px;
+	background-color: #C15D42;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 14px;
+	color: #FCFFF5;
+	cursor: pointer;
+	border: 0;
+	}
+	
+#message_send:hover {
+	background-color: #904632;
+	}
+
 
 /* ===== End Forms Styling ===== */
 
