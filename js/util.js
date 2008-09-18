@@ -70,10 +70,10 @@ $(document).ready(function(){
                }};
 
      function addAjaxHidden(form) {
-          ajax = document.newElement('input');
-          ajax.addAttribute('type', 'hidden');
-          ajax.addAttribute('name', 'ajax');
-          ajax.addAttribute('value', 1);
+          ajax = document.createElement('input');
+          ajax.setAttribute('type', 'hidden');
+          ajax.setAttribute('name', 'ajax');
+          ajax.setAttribute('value', 1);
           form.appendChild(ajax);
      }
      
