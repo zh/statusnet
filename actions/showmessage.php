@@ -97,5 +97,9 @@ class ShowmessageAction extends MailboxAction {
 	function get_instructions() {
 		return '';
 	}
+	
+	function views_menu() {
+		return;
+	}
 }
 	
