@@ -102,9 +102,7 @@ class NewmessageAction extends Action {
 		$mutual_users->free();
 		unset($mutual_users);
 
-		common_dropdown('to', _('To'), $mutual,
-						_('User you want to send a message to'), FALSE,
-						$to->id);
+		common_dropdown('to', _('To'), $mutual, NULL, FALSE, $to->id);
 		
 		common_element_start('p');
 		
