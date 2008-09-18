@@ -64,9 +64,18 @@ class DisfavorAction extends Action {
 			return;
 		}
 
-		# XXX: ajax response
-
-		common_redirect(common_local_url('showfavorites',
-										 array('nickname' => $user->nickname)));
+		if ($this->boolean('ajax')) {
+			common_start_html('text/xml');
+			common_element_start('head');
+			common_element('title', _('Favor'));
+			common_element_end('head');
+			common_element_start('body');
+			common_favor_form($notice);
+			common_element_end('body');
+			common_element_end('html');
+		} else {
+			common_redirect(common_local_url('showfavorites',
+											 array('nickname' => $user->nickname)));
+		}
 	}
 }

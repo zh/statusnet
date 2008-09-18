@@ -151,34 +151,11 @@ function common_init_language() {
 define('PAGE_TYPE_PREFS', 'text/html,application/xhtml+xml,application/xml;q=0.3,text/xml;q=0.2');
 
 function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=NULL) {
+	
 	global $config, $xw;
 
-	$httpaccept = isset($_SERVER['HTTP_ACCEPT']) ? $_SERVER['HTTP_ACCEPT'] : NULL;
-
-	# XXX: allow content negotiation for RDF, RSS, or XRDS
-
-	$type = common_negotiate_type(common_accept_to_prefs($httpaccept),
-								  common_accept_to_prefs(PAGE_TYPE_PREFS));
-
-	if (!$type) {
-		common_user_error(_('This page is not available in a media type you accept'), 406);
-		exit(0);
-	}
-
-	header('Content-Type: '.$type);
-
-	common_start_xml('html',
-					 '-//W3C//DTD XHTML 1.0 Strict//EN',
-					 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd');
-
-	# FIXME: correct language for interface
-
-	$language = common_language();
-
-	common_element_start('html', array('xmlns' => 'http://www.w3.org/1999/xhtml',
-									   'xml:lang' => $language,
-									   'lang' => $language));
-
+	common_start_html();
+	
 	common_element_start('head');
 	common_element('title', NULL,
 				   $pagetitle . " - " . $config['site']['name']);
@@ -250,6 +227,37 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 	}
 	common_element_end('div');
 	common_element_start('div', array('id' => 'content'));
+}
+
+function common_start_html($type=NULL) {
+	
+	if (!$type) {
+		$httpaccept = isset($_SERVER['HTTP_ACCEPT']) ? $_SERVER['HTTP_ACCEPT'] : NULL;
+		
+		# XXX: allow content negotiation for RDF, RSS, or XRDS
+		
+		$type = common_negotiate_type(common_accept_to_prefs($httpaccept),
+									  common_accept_to_prefs(PAGE_TYPE_PREFS));
+		
+		if (!$type) {
+			common_user_error(_('This page is not available in a media type you accept'), 406);
+			exit(0);
+		}
+	}
+	
+	header('Content-Type: '.$type);
+
+	common_start_xml('html',
+					 '-//W3C//DTD XHTML 1.0 Strict//EN',
+					 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd');
+
+	# FIXME: correct language for interface
+
+	$language = common_language();
+
+	common_element_start('html', array('xmlns' => 'http://www.w3.org/1999/xhtml',
+									   'xml:lang' => $language,
+									   'lang' => $language));
 }
 
 function common_show_footer() {

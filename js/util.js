@@ -68,9 +68,20 @@ $(document).ready(function(){
                     var id = new_form.id.replace('favor', 'disfavor');
                     $('form#'+id).replace(new_form);
                }};
-          
+
+     function addAjaxHidden(form) {
+          ajax = document.newElement('input');
+          ajax.addAttribute('type', 'hidden');
+          ajax.addAttribute('name', 'ajax');
+          ajax.addAttribute('value', 1);
+          form.appendChild(ajax);
+     }
+     
      $("form.favor").ajaxForm(favoptions);
-     $("form.disfavor").ajaxForm(disoptions);          
+     $("form.disfavor").ajaxForm(disoptions);
+     
+     $("form.favor").each(addAjaxHidden);
+     $("form.disfavor").each(addAjaxHidden);          
 });
 
 function doreply(nick) {
