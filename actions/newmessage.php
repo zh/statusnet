@@ -108,7 +108,7 @@ class NewmessageAction extends Action {
 		
 		common_element_start('p');
 		
-		common_element('textarea', array('id' => 'content',
+		common_element('textarea', array('id' => 'message_content',
 										 'cols' => 60,
 										 'rows' => 3,
 										 'name' => 'content'),
