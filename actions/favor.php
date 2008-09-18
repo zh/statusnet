@@ -80,7 +80,7 @@ class FavorAction extends Action {
 
 	function notify($fave, $notice, $user) {
 	    $other = User::staticGet('id', $notice->profile_id);
-		if ($other) {
+		if ($other && $other->id != $user->id) {
 			if ($other->email && $other->emailnotifyfav) {
 				$this->notify_mail($other, $user, $notice);
 			}
