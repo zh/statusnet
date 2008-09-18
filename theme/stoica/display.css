@@ -666,14 +666,6 @@ form#favor, form.favor  {
 	float: right;
 }
 
-form.favor:hover  {
-	background-color: #F3F8EA;
-}
-
-form.disfavor:hover  {
-	background-color: #F3F8EA;
-}
-
 input#favor, input.favor  {
 	display: inline;
 	color: #C15D42;
@@ -682,6 +674,15 @@ input#favor, input.favor  {
 	border: 0;
 	width: auto;
 	}
+	
+input.favor:hover  {
+	background-color: #F3F8EA;
+}
+
+input.disfavor:hover  {
+	background-color: #F3F8EA;
+}
+	
 /* ----- direct message ----- */
 
 #message_form {
