@@ -89,8 +89,6 @@ class NewmessageAction extends Action {
 										   'method' => 'post',
 										   'action' => $this->self_url()));
 		
-		common_element_start('p');
-		
 		$mutual_users = $user->mutuallySubscribedUsers();
 		
 		$mutual = array();
@@ -107,6 +105,8 @@ class NewmessageAction extends Action {
 		common_dropdown('to', _('To'), $mutual,
 						_('User you want to send a message to'), FALSE,
 						$to->id);
+		
+		common_element_start('p');
 		
 		common_element('textarea', array('id' => 'content',
 										 'cols' => 60,
