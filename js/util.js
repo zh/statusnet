@@ -31,7 +31,7 @@ $(document).ready(function(){
                 counter.attr("class", "");
             }
         }
-     
+
         function submitonreturn(event) {
              if (event.keyCode == 13) {
                   $("#status_form").submit();
@@ -41,14 +41,14 @@ $(document).ready(function(){
              }
              return true;
         }
-     
+
         if ($("#status_textarea").length) {
              $("#status_textarea").bind("keyup", counter);
              $("#status_textarea").bind("keydown", submitonreturn);
-     
+
             // run once in case there's something in there
             counter();
-             
+
              // set the focus
              $("#status_textarea").focus();
         }
@@ -58,15 +58,19 @@ $(document).ready(function(){
      var favoptions = {dataType: 'xml',
                success: function(xml) {
                     var new_form = $('form.disfavor', xml).get(0);
-                    var id = new_form.id.replace('disfavor', 'favor');
-                    $('form#'+id).replaceWith(new_form);
+                    var dis = new_form.id;
+                    var fav = dis.replace('disfavor', 'favor');
+                    $('form#'+fav).replaceWith(new_form);
+                    $('form#'+dis).ajaxForm(disoptions);
                }};
-     
+
      var disoptions = {dataType: 'xml',
                success: function(xml) {
                     var new_form = $('form.favor', xml).get(0);
-                    var id = new_form.id.replace('favor', 'disfavor');
-                    $('form#'+id).replaceWith(new_form);
+                    var fav = new_form.id;
+                    var dis = dis.replace('favor', 'disfavor');
+                    $('form#'+dis).replaceWith(new_form);
+                    $('form#'+fav).ajaxForm(favoptions);
                }};
 
      function addAjaxHidden() {
@@ -76,12 +80,12 @@ $(document).ready(function(){
           ajax.setAttribute('value', 1);
           this.appendChild(ajax);
      }
-     
+
      $("form.favor").ajaxForm(favoptions);
      $("form.disfavor").ajaxForm(disoptions);
-     
+
      $("form.favor").each(addAjaxHidden);
-     $("form.disfavor").each(addAjaxHidden);          
+     $("form.disfavor").each(addAjaxHidden);
 });
 
 function doreply(nick) {
