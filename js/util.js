@@ -52,14 +52,25 @@ $(document).ready(function(){
              // set the focus
              $("#status_textarea").focus();
         }
-     
-     var options = {dataType: 'xml',
+
+     // XXX: refactor this code
+
+     var favoptions = {dataType: 'xml',
                success: function(xml) {
-                    // replace the form with what's returned
+                    var new_form = $('form.disfavor', xml);
+                    var id = new_form.id.replace('disfavor', 'favor');
+                    $('form#'+id).replace(new_form);
+               }};
+     
+     var disoptions = {dataType: 'xml',
+               success: function(xml) {
+                    var new_form = $('form.favor', xml);
+                    var id = new_form.id.replace('favor', 'disfavor');
+                    $('form#'+id).replace(new_form);
                }};
           
-     $("form.favor").ajaxForm(options);
-     $("form.disfavor").ajaxForm(options);          
+     $("form.favor").ajaxForm(favoptions);
+     $("form.disfavor").ajaxForm(disoptions);          
 });
 
 function doreply(nick) {
