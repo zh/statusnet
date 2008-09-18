@@ -1,21 +1,646 @@
-This package requires PHP 5.x and the following PHP Pear libraries:
+------
+README
+------
+
+Laconica 0.6.0
+12 September 2008
+
+This is the README file for Laconica, the Open Source microblogging
+platform. It includes installation instructions, descriptions of
+options you can set, warnings, tips, and general info for
+administrators. Information on using Laconica can be found in the
+"doc" subdirectory or in the "help" section on-line.
+
+About
+=====
+
+Laconica (pronounced "luh-KAWN-ih-kuh") is a Free and Open Source
+microblogging platform. It helps people in a community, company or
+group to exchange short (140 character) messages over the Web. Users
+can choose which people to "follow" and receive only their friends' or
+colleagues' status messages. It provides a similar service to sites
+like Twitter, Jaiku, Pownce and Plurk.
+
+With a little work, status messages can be sent to mobile phones,
+instant messenger programs (GTalk/Jabber), and specially-designed
+desktop clients that support the Twitter API.
+
+Laconica supports an open standard called OpenMicroBlogging
+(http://openmicroblogging.org/) that lets users on different Web sites
+or in different companies subscribe to each others' notices. It
+enables a distributed social network spread all across the Web.
+
+Laconica was originally developed for the Open Software Service,
+Identi.ca (http://identi.ca/). It is shared with you in hope that you
+too make an Open Software Service available to your users. To learn
+more, please see the Open Software Service Definition 1.0:
+
+      http://www.openknowledge.org/ossd
+
+License
+=======
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public
+License along with this program, in the file "COPYING".  If not, see
+<http://www.gnu.org/licenses/>.
+
+    IMPORTANT NOTE: The GNU Affero General Public License (AGPL) has
+    *different requirements* from the "regular" GPL. In particular, if
+    you make modifications to the Laconica source code on your server,
+    you *MUST MAKE AVAILABLE* the modified version of the source code
+    to your users under the same license. This is a legal requirement
+    of using the software, and if you do not wish to share your
+    modifications, *YOU MAY NOT INSTALL LACONICA*.
+
+Prerequisites
+=============
+
+The following software packages are *required* for this software to
+run correctly.
+
+- PHP 5.2.x. It may be possible to run this software on earlier
+  versions of PHP, but many of the functions used are only available
+  in PHP 5.2 or above.
+- MySQL 5.x. The Laconica database is stored, by default, in a MySQL
+  server. It has been primarily tested on 5.x servers, although it may
+  be possible to install on earlier (or later!) versions. The server
+  *must* support the MyISAM storage engine -- the default for most
+  MySQL servers -- *and* the InnoDB storage engine.
+- A Web server. Preferably, you should have Apache 2.2.x with the
+  mod_rewrite extension installed and enabled. 
+
+Your PHP installation must include the following PHP extensions:
+
+- Curl. This is for fetching files by HTTP.
+- XMLWriter. This is for formatting XML and HTML output.
+- MySQL. For accessing the database.
+
+For some functionality, you will also need the following extensions:
+
+- Memcache. A client for the memcached server, which caches database
+  information in volatile memory. This is important for adequate
+  performance on high-traffic sites. You will also need a memcached
+  server to store the data in.
+- Mailparse. Efficient parsing of email requires this extension.
+  Submission by email or SMS-over-email uses this extension.
+  
+You will almost definitely get 2-3 times better performance from your
+site if you install a PHP bytecode cache/accelerator. Some well-known
+examples are: eaccelerator, Turck mmcache, xcache, apc. Zend Optimizer
+is a proprietary accelerator installed on some hosting sites.
+
+External libraries
+------------------
+
+A number of external PHP libraries are used to provide basic
+functionality and optional functionality for your system. For your
+convenience, they are available in the "extlib" directory of this
+package, and you do not have to download and install them. However,
+you may want to keep them up-to-date with the latest upstream version,
+and the URLs are listed here for your convenience.
 
 - DB_DataObject http://pear.php.net/package/DB_DataObject
 - Validate http://pear.php.net/package/Validate
-- XMLWriter (built-in)
-- Auth_Yadis from OpenIDEnabled (not the PEAR version!). I decided
+- OpenID from OpenIDEnabled (not the PEAR version!). We decided
   to use the openidenabled.com version since it's more widely
-  implemented, seems to be better supported, and it may make sense to
-  use the openidenabled.com libraries for OpenID auth sometime in the
-  future. Note that this is no longer distributed separately; it's only
-  in the openidenabled.com OpenID PHP tarball.
+  implemented, and seems to be better supported.
   http://openidenabled.com/php-openid/
+- PEAR DB. Although this is an older data access system (new
+  packages should probably use PHP DBO), the OpenID libraries
+  depend on PEAR DB so we use it here, too. DB_DataObject can
+  also use PEAR MDB2, which may give you better performance
+  but won't work with OpenID.
+  http://pear.php.net/package/DB
 - OAuth.php from http://oauth.googlecode.com/svn/code/php/
 - markdown.php from http://michelf.com/projects/php-markdown/ 
 - PEAR Mail, for sending out mail notifications
   http://pear.php.net/package/Mail
 - PEAR Net_SMTP, if you use the SMTP factory for notifications
   http://pear.php.net/package/Net_SMTP
-- xmpphp, the follow-up to Class.Jabber.php. Probably the best XMPP
-  library available for PHP. http://xmpphp.googlecode.com/
+- XMPPHP, the follow-up to Class.Jabber.php. Probably the best XMPP
+  library available for PHP. http://xmpphp.googlecode.com/. Note that
+  as of this writing the version of this library that is available in
+  the extlib directory is *significantly different* from the upstream
+  version (patches have been submitted). Upgrading to the upstream
+  version may render your Laconica site unable to send or receive XMPP
+  messages.
 
+A design goal of Laconica is that the basic Web functionality should
+work on even the most restrictive commercial hosting services.
+However, additional functionality, such as receiving messages by
+Jabber/GTalk, require that you be able to run long-running processes
+on your account. In addition, posting by email or from SMS require
+that you be able to install a mail filter in your mail server.
+
+Installation
+============
+
+Installing the basic Laconica Web component is relatively easy,
+especially if you've previously installed PHP/MySQL packages.
+
+1. Unpack the tarball you downloaded on your Web server. Usually a
+   command like this will work:
+   
+   	   tar zxf laconica-0.6.0.tar.gz
+   
+   ...which will make a laconica-0.6.0 subdirectory in your current
+   directory. (If you don't have shell access on your Web server, you
+   may have to unpack the tarball on your local computer and FTP the
+   files to the server.)
+   
+2. Move the tarball to a directory of your choosing in your Web root
+   directory. Usually something like this will work:
+   
+   	   mv laconica-0.6.0 /var/www/mublog
+   
+   This will make your Laconica instance available in the mublog path of
+   your server, like "http://example.net/mublog". "microblog" or
+   "laconica" might also be good path names. If you know how to
+   configure virtual hosts on your web server, you can try setting up
+   "http://micro.example.net/" or the like.
+   
+3. You should also take this moment to make your avatar subdirectory
+   writeable by the Web server. An insecure way to do this is:
+   
+   	  chmod a+w /var/www/mublog/avatar
+   
+   On some systems, this will probably work:
+   
+      	   chgrp www-data /var/www/mublog/avatar
+	   chmod g+w /var/www/mublog/avatar
+
+   If your Web server runs as another user besides "www-data", try
+   that user's default group instead. As a last resort, you can create
+   a new group like "avatar" and add the Web server's user to the group.
+
+4. Create a database to hold your microblog data. Something like this
+   should work:
+   
+   	  mysqladmin -u "username" --password="password" create laconica
+   
+   Note that Laconica must have its own database; you can't share the
+   database with another program. You can name it whatever you want,
+   though.
+   
+   (If you don't have shell access to your server, you may need to use
+   a tool like PHPAdmin to create a database. Check your hosting
+   service's documentation for how to create a new MySQL database.)
+
+5. Run the laconica.sql SQL script in the db subdirectory to create
+   the database tables in the database. A typical system would work
+   like this:
+
+   	  mysql -u "username" --password="password" laconica < /var/www/mublog/db/laconica.sql
+
+   You may want to test by logging into the database and checking that
+   the tables were created. Here's an example:
+   
+          SHOW TABLES;
+	  
+6. Create a new database account that Laconica will use to access the
+   database. If you have shell access, this will probably work from the
+   MySQL shell:
+   
+          GRANT SELECT,INSERT,DELETE,UPDATE on laconica.*
+	  TO 'lacuser'@'localhost'
+	  IDENTIFIED BY 'lacpassword';
+	  
+   You should change 'lacuser' and 'lacpassword' to your preferred new
+   username and password. You may want to test logging in as this new
+   user and testing that you can SELECT from some of the tables in the
+   DB (use SHOW TABLES to see which ones are there).
+   
+7. Copy the config.php.sample in the Laconica directory to config.php.
+
+8. Edit config.php to set the basic configuration for your system.
+   (See descriptions below for basic config options.) Note that there
+   are lots of options and if you try to do them all at once, you will
+   have a hard time making sure what's working and what's not. So,
+   stick with the basics at first.
+
+9. At this point, you should be able to navigate in a browser to your
+   microblog's main directory and see the "Public Timeline", which
+   will be empty. If not, magic has happened! You can now register a
+   new user, post some notices, edit your profile, etc. However, you
+   may want to wait to do that stuff if you think you can set up
+   "fancy URLs" (see below), since some URLs are stored in the database. 
+   
+Fancy URLs
+----------
+
+By default, Laconica will have big long sloppy URLs that are hard for
+people to remember or use. For example, a user's home profile might be
+found at:
+
+    http://example.org/mublog/index.php?action=showstream&nickname=fred
+
+It's possible to configure the software so it looks like this instead:
+
+    http://example.org/mublog/fred
+
+These "fancy URLs" are more readable and memorable for users. To use
+fancy URLs, you must either have Apache 2.2.x with .htaccess enabled
+and mod_redirect enabled, -OR- know how to configure "url redirection"
+in your server.
+
+1. Copy the htaccess.sample file to .htaccess in your Laconica
+   directory. Note: if you have control of your server's httpd.conf or
+   similar configuration files, it can greatly improve performance to
+   import the .htaccess file into your conf file instead. If you're
+   not sure how to do it, you may save yourself a lot of headache by
+   just leaving the .htaccess file.
+   
+2. Change the "RewriteBase" in the new .htaccess file to be the URL path
+   to your Laconica installation on your server. Typically this will
+   be the path to your Laconica directory relative to your Web root.
+
+3. Add or uncomment or change a line in your config.php file so it says:
+
+       $config['site']['fancy'] = true;
+       
+You should now be able to navigate to a "fancy" URL on your server,
+like:
+
+     http://example.net/mublog/main/register
+
+If you changed your HTTP server configuration, you may need to restart
+the server first.
+
+If you have problems with the .htaccess file on versions of Apache
+earlier than 2.2.x, try changing the regular expressions in the
+htaccess.sample file that use "\w" to just use ".".
+
+SMS
+---
+
+Laconica supports a cheap-and-dirty system for sending update messages
+to mobile phones and for receiving updates from the mobile. Instead of
+sending through the SMS network itself, which is costly and requires
+buy-in from the wireless carriers, it simply piggybacks on the email
+gateways that many carriers provide to their customers. So, SMS
+configuration is essentially email configuration.
+
+Each user sends to a made-up email address, which they keep a secret.
+Incoming email that is "From" the user's SMS email address, and "To"
+the users' secret email address on the site's domain, will be
+converted to a message and stored in the DB.
+
+For this to work, there *must* be a domain or sub-domain for which all
+(or most) incoming email can pass through the incoming mail filter.
+
+1. Run the SQL script carrier.sql in your Laconica database. This will
+   usually work:
+
+   	   mysql -u "lacuser" --password="lacpassword" laconica < db/carrier.sql
+
+   This will populate your database with a list of wireless carriers
+   that support email SMS gateways.
+
+2. Make sure the maildaemon.php file is executable:
+
+   	chmod +x scripts/maildaemon.php   	
+   
+   Note that "daemon" is kind of a misnomer here; the script is more
+   of a filter than a daemon.
+   
+2. Edit /etc/aliases on your mail server and add the following line:
+
+      *: /path/to/laconica/scripts/maildaemon.php
+
+3. Run whatever code you need to to update your aliases database. For
+   many mail servers (Postfix, Exim, Sendmail), this should work:
+   
+      newaliases
+      
+   You may need to restart your mail server for the new database to
+   take effect.
+
+4. Set the following in your config.php file:
+
+   $config['mail']['domain'] = 'yourdomain.example.net';
+   
+At this point, post-by-email and post-by-SMS-gateway should work. Note
+that if your mail server is on a different computer from your email
+server, you'll need to have a full installation of Laconica, a working
+config.php, and access to the Laconica database from the mail server.
+
+XMPP
+----
+
+XMPP (eXtended Message and Presence Protocol, http://xmpp.org/) is the
+instant-messenger protocol that drives Jabber and GTalk IM. You can
+distribute messages via XMPP using the system below; however, you
+need to run the XMPP incoming daemon to allow incoming messages as
+well.
+
+1. You may want to strongly consider setting up your own XMPP server.
+   Ejabberd, OpenFire, and JabberD are all Open Source servers.
+   Jabber, Inc. provides a high-performance commercial server.
+   
+2. You must register a Jabber ID (JID) with your new server. It helps
+   to choose a name like "update@example.com" or "notice" or something
+   similar.  Alternately, your "update JID" can be registered on a
+   publicly-available XMPP service, like jabber.org or GTalk.
+   
+   Laconica will not register the JID with your chosen XMPP server;
+   you need to do this manually, with an XMPP client like Gajim,
+   Telepathy, or Pidgin.im.
+   
+3. Configure your site's XMPP variables, as described below in the
+   configuration section.
+   
+On a default installation, your site can broadcast messages using
+XMPP. Users won't be able to post messages using XMPP unless you've
+got the XMPP daemon running.  See 'Queues and daemons' below for how
+to set that up. Also, once you have a sizable number of users, sending
+a lot of SMS, OMB, and XMPP messages whenever someone posts a message
+can really slow down your site; it may cause posting to timeout.
+
+Public feed
+-----------
+
+You can send *all* messages from your microblogging site to a
+third-party service using XMPP. This can be useful for providing
+search, indexing, bridging, or other cool services.
+
+To configure a downstream site to receive your public stream, add
+their "JID" (Jabber ID) to your config.php as follows:
+
+      $config['xmpp']['public'][] = 'downstream@example.net';
+      
+(Don't miss those square brackets at the end.) Note that your XMPP
+broadcasting must be configured as mentioned above. Although you can
+send out messages at "Web time", high-volume sites should strongly
+consider setting up queues and daemons.
+
+Queues and daemons
+------------------
+
+Some activities that Laconica needs to do, like broadcast OMB, SMS,
+and XMPP messages, can be 'queued' and done by off-line bots instead.
+For this to work, you must be able to run long-running offline
+processes, either on your main Web server or on another server you
+control. (Your other server will still need all the above
+prerequisites, with the exception of Apache.) Installing on a separate
+server is probably a good idea for high-volume sites.
+
+1. You'll need the "CLI" (command-line interface) version of PHP
+   installed on whatever server you use.
+
+2. If you're using a separate server for queues, install Laconica
+   somewhere on the server. You don't need to worry about the
+   .htaccess file, but make sure that your config.php file is close
+   to, or identical to, your Web server's version.
+
+3. In your config.php files (both the Web server and the queues
+   server!), set the following variable:
+
+   $config['queue']['enabled'] = true;
+   
+4. On the queues server, run the command scripts/startdaemons.sh. It
+   needs as a parameter the install path; if you run it from the
+   Laconica dir, "." should suffice.
+   
+This will run six (for now) queue handlers:
+
+* xmppdaemon.php - listens for new XMPP messages from users and stores
+  them as notices in the database.
+* jabberqueuehandler.php - sends queued notices in the database to
+  registered users who should receive them.
+* publicqueuehandler.php - sends queued notices in the database to
+  public feed listeners.
+* ombqueuehandler.php - sends queued notices to OpenMicroBlogging
+  recipients on foreign servers.
+* smsqueuehandler.php - sends queued notices to SMS-over-email addresses
+  of registered users.
+* xmppconfirmhandler.php - sends confirmation messages to registered
+  users.
+
+Note that these queue daemons are pretty raw, and need your care. In
+particular, they leak memory, and you may want to restart them on a
+regular (daily or so) basis with a cron job. Also, if they lose
+the connection to the XMPP server for too long, they'll simply die. It
+may be a good idea to use a daemon-monitoring service, like 'monit',
+to check their status and keep them running.
+
+All the daemons write their process IDs (pids) to /var/run/ by
+default. This can be useful for starting, stopping, and monitoring the
+daemons.
+
+Sitemaps
+--------
+
+Sitemap files (http://sitemaps.org/) are a very nice way of telling
+search engines and other interested bots what's available on your site
+and what's changed recently. You can generate sitemap files for your
+Laconica instance.
+
+1. Choose your sitemap URL layout. Laconica creates a number of
+   sitemap XML files for different parts of your site. You may want to
+   put these in a sub-directory of your Laconica directory to avoid
+   clutter. The sitemap index file tells the search engines and other
+   bots where to find all the sitemap files; it *must* be in the main
+   installation directory or higher. Both types of file must be
+   available through HTTP.
+   
+2. To generate your sitemaps, run the following command on your server:
+
+   php scripts/sitemap.php -f index-file-path -d sitemap-directory -u URL-prefix-for-sitemaps
+
+   Here, index-file-path is the full path to the sitemap index file,
+   like './sitemapindex.xml'. sitemap-directory is the directory where
+   you want the sitemaps stored, like './sitemaps/' (make sure the dir
+   exists). URL-prefix-for-sitemaps is the full URL for the sitemap dir,
+   typically something like 'http://example.net/mublog/sitemaps/'.
+   
+You can use several methods for submitting your sitemap index to
+search engines to get your site indexed. One is to add a line like the
+following to your robots.txt file:
+
+   Sitemap: /mublog/sitemapindex.xml
+
+This is a good idea for letting *all* Web spiders know about your
+sitemap. You can also submit sitemap files to major search engines
+using their respective "Webmaster centres"; see sitemaps.org for links
+to these resources.
+
+Themes
+------
+
+Translation
+-----------
+
+Upgrading
+=========
+
+Configuration options
+=====================
+
+The sole configuration file for Laconica (excepting configurations for
+dependency software) is config.php in your Laconica directory. If you
+edit any other file in the directory, like lib/common.php (where most
+of the defaults are defined), you will lose your configuration options
+in any upgrade, and you will wish that you had been more careful.
+
+Almost all configuration options are made through a two-dimensional
+associative array, cleverly named $config. A typical configuration
+line will be:
+
+     $config['section']['option'] = value;
+
+For brevity, the following documentation describes each section and
+option.
+
+site
+----
+
+This section is a catch-all for site-wide variables.
+
+name: the name of your site, like 'YourCompany Microblog'.
+server: the server part of your site's URLs, like 'example.net'.
+path: The path part of your site's URLs, like 'mublog' or '/'
+      (installed in root).
+fancy: whether or not your site uses fancy URLs (see Fancy URLs
+       section above). Default is false.
+logfile: full path to a file for Laconica to save logging 
+	 information to. You may want to use this if you don't have
+	 access to syslog.
+locale_path: full path to the directory for locale data. Unless you
+	     store all your locale data in one place, you probably
+	     don't need to use this.
+language: default language for your site. Defaults to US English.
+languages: A list of languages supported on your site. Typically you'd
+	   only change this if you wanted to disable support for one
+	   or another language:
+	   "unset($config['site']['languages']['de'])" will disable
+	   support for German.
+theme: Theme for your site (see Theme section). Two themes are
+       provided by default: 'default' and 'stoica' (the one used by
+       Identi.ca). It's appreciated if you don't use the 'stoica' theme
+       except as the basis for your own.
+email: contact email address for your site. By default, it's extracted
+       from your Web server environment; you may want to customize it.
+broughtbyurl: name of an organization or individual who provides the
+	   service. Each page will include a link to this name in the
+	   footer. A good way to link to the blog, forum, wiki,
+	   corporate portal, or whoever is making the service available.
+broughtby: text used for the "brought by" link.
+timezone: default timezone for message display. Users can set their
+	  own time zone. Defaults to 'UTC', which is a pretty good default.
+closed: If set to 'true', will disallow registration on your site.
+	This is a cheap way to restrict accounts to only one
+	individual or group; just register the accounts you want on
+	the service, *then* set this variable to 'true'.
+
+syslog
+------
+
+By default, Laconica sites log error messages to the syslog facility.
+(You can override this using the 'logfile' parameter described above).
+
+appname: The name that Laconica uses to log messages. By default it's
+	 "laconica", but if you have more than one installation on the
+	 server, you may want to change the name for each instance so
+	 you can track log messages more easily.
+
+queue
+-----
+
+You can configure the software to queue time-consuming tasks, like
+sending out SMS email or XMPP messages, for off-line processing. See
+'Queues and daemons' above for how to set this up.
+
+enabled: Whether to 
+
+		'queue' =>
+		array('enabled' => false),
+		'license' =>
+		array('url' => 'http://creativecommons.org/licenses/by/3.0/',
+			  'title' => 'Creative Commons Attribution 3.0',
+			  'image' => 'http://i.creativecommons.org/l/by/3.0/88x31.png'),
+		'mail' =>
+		array('backend' => 'mail',
+			  'params' => NULL),
+		'nickname' =>
+		array('blacklist' => array()),
+		'avatar' =>
+		array('server' => NULL),
+		'public' =>
+		array('localonly' => true),
+		'theme' =>
+		array('server' => NULL),
+		'xmpp' =>
+		array('enabled' => false,
+			  'server' => 'INVALID SERVER',
+			  'port' => 5222,
+			  'user' => 'update',
+			  'encryption' => true,
+			  'resource' => 'uniquename',
+			  'password' => 'blahblahblah',
+			  'host' => NULL, # only set if != server
+			  'debug' => false, # print extra debug info
+			  'public' => array()), # JIDs of users who want to receive the public stream
+		'tag' =>
+		array('dropoff' => 864000.0),
+		'daemon' =>
+		array('piddir' => '/var/run',
+			  'user' => false,
+			  'group' => false)
+		);
+Web
+---
+
+Mail
+----
+
+SMS
+---
+
+XMPP
+----
+
+Troubleshooting
+===============
+
+The primary output for 
+
+Myths
+=====
+
+These are some myths you may see on the Web about Laconica.
+Documentation from the core team about Laconica has been pretty
+sparse, so some backtracking and guesswork resulted in some incorrect
+assumptions.
+
+- "Set $config['db']['debug'] = 5 to debug the database." This is an
+  extremely bad idea. It's a tool built into DB_DataObject that will
+  emit oodles of print lines directly to the browser of your users.
+  Among these lines will be your database username and password. Do
+  not enable this option on a production Web site for any reason.
+  
+- "Edit dataobject.ini with the following settings..." dataobject.ini
+  is a development file for the DB_DataObject framework and is not
+  used by the running software. It was removed from the Laconica
+  distribution because its presence was confusing. Do not bother
+  configuring dataobject.ini, and do not put your database username
+  and password into the file on a production Web server; unscrupulous
+  persons may try to read it to get your passwords.
+
+Further information and Feedback
+================================
+
+There are several ways to get more information and 
+
+
+Credits
+=======
