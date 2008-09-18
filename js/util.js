@@ -69,12 +69,12 @@ $(document).ready(function(){
                     $('form#'+id).replace(new_form);
                }};
 
-     function addAjaxHidden(form) {
-          ajax = document.createElement('input');
+     function addAjaxHidden() {
+          var ajax = document.createElement('input');
           ajax.setAttribute('type', 'hidden');
           ajax.setAttribute('name', 'ajax');
           ajax.setAttribute('value', 1);
-          form.appendChild(ajax);
+          this.appendChild(ajax);
      }
      
      $("form.favor").ajaxForm(favoptions);
