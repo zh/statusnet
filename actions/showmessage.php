@@ -78,7 +78,7 @@ class ShowmessageAction extends MailboxAction {
 	function get_messages($user, $page) {
 		$message = new Message();
 		$message->id = $this->trimmed('message');
-		$message->fetch();
+		$message->find();
 		return $message;
 	}
 	
