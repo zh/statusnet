@@ -389,6 +389,13 @@ class ShowstreamAction extends StreamAction {
 		# XXX: RDFa
 		common_element_start('li', array('class' => 'notice_single',
 										 'id' => 'notice-' . $notice->id));
+		if ($user) {
+			if ($user->hasFave($notice)) {
+				common_disfavor_form($notice);
+			} else {
+				common_favor_form($notice);
+			}
+		}
 		$noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
 		# FIXME: URL, image, video, audio
 		common_element_start('p');
