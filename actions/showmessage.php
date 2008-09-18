@@ -27,9 +27,9 @@ class ShowmessageAction extends MailboxAction {
 
 		Action::handle($args);
 
-		$id = $this->trimmed('id');
+		$id = $this->trimmed('message');
 
-		$message = Message::staticGet('id', $id);
+		$message = Message::staticGet('message', $id);
 
 		if (!$message) {
 			$this->client_error(_('No such message.'), 404);
@@ -50,8 +50,8 @@ class ShowmessageAction extends MailboxAction {
 	}
 	
 	function get_message() {
-		$id = $this->trimmed('id');
-		$message = Message::staticGet('id', $id);
+		$id = $this->trimmed('message');
+		$message = Message::staticGet('message', $id);
 		return $message;
 	}
 	
@@ -74,7 +74,7 @@ class ShowmessageAction extends MailboxAction {
 		}
 		return $title;
 	}
-	
+
 	function get_messages($user, $page) {
 		$message = new Message();
 		$message->id = $this->trimmed('message');
