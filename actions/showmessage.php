@@ -76,7 +76,10 @@ class ShowmessageAction extends MailboxAction {
 	}
 	
 	function get_messages($user, $page) {
-		return $this->get_message();
+		$message = new Message();
+		$message->id = $this->trimmed('message');
+		$message->fetch();
+		return $message;
 	}
 	
 	function get_message_profile($message) {
