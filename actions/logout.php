@@ -22,6 +22,11 @@ if (!defined('LACONICA')) { exit(1); }
 require_once(INSTALLDIR.'/lib/openid.php');
 
 class LogoutAction extends Action {
+	
+	function is_readonly() {
+		return true;
+	}
+	
 	function handle($args) {
 		parent::handle($args);
 		if (!common_logged_in()) {

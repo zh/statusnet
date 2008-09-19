@@ -23,39 +23,47 @@ require_once(INSTALLDIR.'/lib/omb.php');
 define('TIMESTAMP_THRESHOLD', 300);
 
 class UserauthorizationAction extends Action {
+
 	function handle($args) {
 		parent::handle($args);
 
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			# CSRF protection
+			$token = $this->trimmed('token');
+			if (!$token || $token != common_session_token()) {
+				$req = $this->get_stored_request();
+				$this->show_form(_('There was a problem with your session token. Try again, please.'), $req);
+				return;
+			}
 			# We've shown the form, now post user's choice
 			$this->send_authorization();
 		} else {
 			if (!common_logged_in()) {
 				# Go log in, and then come back
-				common_debug('userauthorization.php - saving URL for returnto');
+				common_debug('saving URL for returnto', __FILE__);
 				$argsclone = $_GET;
 				unset($argsclone['action']);
 				common_set_returnto(common_local_url('userauthorization', $argsclone));
-				common_debug('userauthorization.php - redirecting to login');
+				common_debug('redirecting to login', __FILE__);
 				common_redirect(common_local_url('login'));
 				return;
 			}
 			try {
 				# this must be a new request
-				common_debug('userauthorization.php - getting new request');
+				common_debug('getting new request', __FILE__);
 				$req = $this->get_new_request();
 				if (!$req) {
-					common_server_error(_('No request found!'));
+					$this->client_error(_('No request found!'));
 				}
-				common_debug('userauthorization.php - validating request');
+				common_debug('validating request', __FILE__);
 				# XXX: only validate new requests, since nonce is one-time use
 				$this->validate_request($req);
-				common_debug('userauthorization.php - showing form');
+				common_debug('showing form', __FILE__);
 				$this->store_request($req);
 				$this->show_form($req);
 			} catch (OAuthException $e) {
 				$this->clear_request();
-				common_server_error($e->getMessage());
+				$this->client_error($e->getMessage());
 				return;
 			}
 
@@ -115,6 +123,7 @@ class UserauthorizationAction extends Action {
 										   'id' => 'userauthorization',
 										   'name' => 'userauthorization',
 										   'action' => common_local_url('userauthorization')));
+		common_hidden('token', common_session_token());
 		common_submit('accept', _('Accept'));
 		common_submit('reject', _('Reject'));
 		common_element_end('form');
@@ -133,10 +142,10 @@ class UserauthorizationAction extends Action {
 
 		if ($this->arg('accept')) {
 			if (!$this->authorize_token($req)) {
-				common_server_error(_('Error authorizing token'));
+				$this->client_error(_('Error authorizing token'));
 			}
 			if (!$this->save_remote_profile($req)) {
-				common_server_error(_('Error saving remote profile'));
+				$this->client_error(_('Error saving remote profile'));
 			}
 			if (!$callback) {
 				$this->show_accept_message($req->get_parameter('oauth_token'));
@@ -341,6 +350,7 @@ class UserauthorizationAction extends Action {
 	}
 
 	function get_new_request() {
+		common_remove_magic_from_request();
 		$req = OAuthRequest::from_request();
 		return $req;
 	}
@@ -384,7 +394,8 @@ class UserauthorizationAction extends Action {
 		if ($version != OMB_VERSION_01) {
 			throw new OAuthException("OpenMicroBlogging version '$version' not supported");
 		}
-		$user = User::staticGet('uri', $req->get_parameter('omb_listener'));
+		$listener =	$req->get_parameter('omb_listener');
+		$user = User::staticGet('uri', $listener);
 		if (!$user) {
 			throw new OAuthException("Listener URI '$listener' not found here");
 		}

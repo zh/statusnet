@@ -59,11 +59,13 @@ class PublicAction extends StreamAction {
 
 	function show_notices($page) {
 
-		$notice = DB_DataObject::factory('notice');
+		$notice = new Notice();
 
-		# FIXME: bad performance
+		# XXX: sub-optimal
 
-		$notice->whereAdd('EXISTS (SELECT user.id from user where user.id = notice.profile_id)');
+		if (common_config('public', 'localonly')) {
+			$notice->is_local = 1;
+		}
 
 		$notice->orderBy('created DESC, notice.id DESC');
 
@@ -75,7 +77,8 @@ class PublicAction extends StreamAction {
 
 		if ($cnt > 0) {
 			common_element_start('ul', array('id' => 'notices'));
-			for ($i = 0; $i < min($cnt, NOTICES_PER_PAGE); $i++) {
+            $iMax = min($cnt, NOTICES_PER_PAGE);
+			for ($i = 0; $i < $iMax; $i++) {
 				if ($notice->fetch()) {
 					$this->show_notice($notice);
 				} else {

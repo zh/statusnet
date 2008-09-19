@@ -30,10 +30,12 @@ class PasswordAction extends SettingsAction {
 	function show_form($msg=NULL, $success=false) {
 		$user = common_current_user();
 		$this->form_header(_('Change password'), $msg, $success);
+		$token = common_session_token();
 		common_element_start('form', array('method' => 'post',
 										   'id' => 'password',
 										   'action' =>
 										   common_local_url('password')));
+		common_hidden('token', $token);
 		# Users who logged in with OpenID won't have a pwd
 		if ($user->password) {
 			common_password('oldpassword', _('Old password'));
@@ -56,8 +58,12 @@ class PasswordAction extends SettingsAction {
 
 		$newpassword = $this->arg('newpassword');
 		$confirm = $this->arg('confirm');
-
-		if (0 != strcmp($newpassword, $confirm)) {
+		$token = $this->arg('token');
+		
+		if (!$token || $token != common_session_token()) {
+			$this->show_form(_('There was a problem with your session token. Try again, please.'));
+			return;
+		} else if (0 != strcmp($newpassword, $confirm)) {
 			$this->show_form(_('Passwords don\'t match.'));
 			return;
 		}

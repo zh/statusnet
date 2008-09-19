@@ -26,6 +26,7 @@ class AccesstokenAction extends Action {
 		parent::handle($args);
 		try {
 			common_debug('getting request from env variables', __FILE__);
+			common_remove_magic_from_request();
 			$req = OAuthRequest::from_request();
 			common_debug('getting a server', __FILE__);
 			$server = omb_oauth_server();

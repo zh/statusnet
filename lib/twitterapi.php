@@ -39,7 +39,7 @@ class TwitterapiAction extends Action {
 		$avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
 		
 		$twitter_user['profile_image_url'] = ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE);
-		$twitter_user['protected'] = false; # not supported by Laconica yet
+		$twitter_user['protected'] = 'false'; # not supported by Laconica yet
 		$twitter_user['url'] = ($profile->homepage) ? $profile->homepage : NULL;
 
 		if ($get_notice) {
@@ -58,12 +58,12 @@ class TwitterapiAction extends Action {
 		$twitter_status = array();
 
 		$twitter_status['text'] = $notice->content; 		
-		$twitter_status['truncated'] = false; # Not possible on Laconica
+		$twitter_status['truncated'] = 'false'; # Not possible on Laconica
 		$twitter_status['created_at'] = $this->date_twitter($notice->created);
 		$twitter_status['in_reply_to_status_id'] = ($notice->reply_to) ? intval($notice->reply_to) : NULL;
-		$twitter_status['source'] = NULL; # XXX: twitterific, twitterfox, etc. Not supported yet.
+		$twitter_status['source'] = $notice->source;
 		$twitter_status['id'] = intval($notice->id);
-		$twitter_status['in_reply_to_user_id'] = ($notice->reply_to) ? $this->replier_by_reply($notice->reply_to) : NULL;
+		$twitter_status['in_reply_to_user_id'] = ($notice->reply_to) ? $this->replier_by_reply(intval($notice->reply_to)) : NULL;
 		$twitter_status['favorited'] = NULL; # XXX: Not implemented on Laconica yet.
 
 		if ($get_user) {
@@ -98,37 +98,26 @@ class TwitterapiAction extends Action {
 		return $entry;
 	}
 	
-	function show_twitter_xml_status($twitter_status) {	
+	function show_twitter_xml_status($twitter_status) {			
 		common_element_start('status');
-		common_element('created_at', NULL, $twitter_status['created_at']);
-		common_element('id', NULL, $twitter_status['id']);
-		common_element('text', NULL, $twitter_status['text']);
-		common_element('source', NULL, $twitter_status['source']);  
-		common_element('truncated', NULL, $twitter_status['truncated']); 
-		common_element('in_reply_to_status_id', NULL, $twitter_status['in_reply_to_status_id']);
-		common_element('in_reply_to_user_id', NULL, $twitter_status['in_reply_to_user_id']);
-		common_element('favorited', Null, $twitter_status['favorited']);  
-
-		if ($twitter_status['user']) {
-			$this->show_twitter_xml_user($twitter_status['user']);
+		foreach($twitter_status as $element => $value) {
+			if ($element == 'user') {
+				$this->show_twitter_xml_user($twitter_status['user']);
+			} else {
+				common_element($element, NULL, $value);
+			}
 		}
-		
 		common_element_end('status');
 	}	
 	
 	function show_twitter_xml_user($twitter_user) {
 		common_element_start('user');
-		common_element('id', NULL, $twitter_user['id']);
-		common_element('name', NULL, $twitter_user['name']);
-		common_element('screen_name', NULL, $twitter_user['screen_name']);
-		common_element('location', NULL, $twitter_user['location']);
-		common_element('description', NULL, $twitter_user['description']);		
-		common_element('profile_image_url', NULL, $twitter_user['profile_image_url']);
-		common_element('url', NULL, $twitter_user['url']);
-		common_element('protected', NULL, $twitter_user['protected']);
-		common_element('followers_count', NULL, $twitter_user['followers_count']);
-		if ($twitter_user['status']) {
-			$this->show_twitter_xml_status($twitter_user['status']);
+		foreach($twitter_user as $element => $value) {
+			if ($element == 'status') {
+				$this->show_twitter_xml_status($twitter_user['status']);
+			} else {
+				common_element($element, NULL, $value);
+			}
 		}
 		common_element_end('user');
 	}
@@ -161,6 +150,22 @@ class TwitterapiAction extends Action {
 	function show_twitter_json_users($twitter_users) {
 		print(json_encode($twitter_users));
 	}
+		
+	function show_single_xml_status($notice) {
+		$this->init_document('xml');
+		$twitter_status = $this->twitter_status_array($notice);						
+		$this->show_twitter_xml_status($twitter_status);
+		$this->end_document('xml');
+		exit();
+	}
+	
+	function show_single_json_status($notice) {
+		$this->init_document('json');
+		$status = $this->twitter_status_array($notice);
+		$this->show_twitter_json_statuses($status);
+		$this->end_document('json');
+		exit();
+	}
 	
 	// Anyone know what date format this is? 
 	// Twitter's dates look like this: "Mon Jul 14 23:52:38 +0000 2008" -- Zach 
@@ -170,21 +175,18 @@ class TwitterapiAction extends Action {
 	}
 	
 	function replier_by_reply($reply_id) {	
-
 		$notice = Notice::staticGet($reply_id);
-	
-		if (!$notice) {
-			common_debug("TwitterapiAction::replier_by_reply: Got a bad notice_id: $reply_id");
+		if ($notice) {
+			$profile = $notice->getProfile();
+			if ($profile) {
+				return intval($profile->id);
+			} else {
+				common_debug('Can\'t find a profile for notice: ' . $notice->id, __FILE__);
+			}
+		} else {
+			common_debug("Can't get notice: $reply_id", __FILE__);
 		}
-
-		$profile = $notice->getProfile();
-		
-		if (!$profile) {
-			common_debug("TwitterapiAction::replier_by_reply: Got a bad profile_id: $profile_id");
-			return false;
-		}
-		
-		return intval($profile->id);		
+		return NULL;
 	}
 
 	// XXX: Candidate for a general utility method somewhere?	
@@ -197,10 +199,10 @@ class TwitterapiAction extends Action {
 		$count = $sub->find();
 		
 		if ($count > 0) {
-			return $count;
+			return $count - 1;
+		} else {
+			return 0;
 		}
-		
-		return NULL;
 	}
 
 	function init_document($type='xml') {
@@ -221,9 +223,11 @@ class TwitterapiAction extends Action {
 			$this->init_twitter_atom();
 			break;
 		 default:
-			$this->client_error(_('Unsupported type'));
+			$this->client_error(_('Not a supported data format.'));
 			break;
 		}
+		
+		return;
 	}
 	
 	function end_document($type='xml') {
@@ -240,11 +244,61 @@ class TwitterapiAction extends Action {
 			$this->end_twitter_rss();
 			break;
 		 default:
-			$this->client_error(_('Unsupported type'));
+			$this->client_error(_('Not a supported data format.'));
 			break;
 		}
+		return;
 	}
-	
+		
+	function client_error($msg, $code = 400, $content_type = 'json') {
+		
+		static $status = array(400 => 'Bad Request',
+							   401 => 'Unauthorized',
+							   402 => 'Payment Required',
+							   403 => 'Forbidden',
+							   404 => 'Not Found',
+							   405 => 'Method Not Allowed',
+							   406 => 'Not Acceptable',
+							   407 => 'Proxy Authentication Required',
+							   408 => 'Request Timeout',
+							   409 => 'Conflict',
+							   410 => 'Gone',
+							   411 => 'Length Required',
+							   412 => 'Precondition Failed',
+							   413 => 'Request Entity Too Large',
+							   414 => 'Request-URI Too Long',
+							   415 => 'Unsupported Media Type',
+							   416 => 'Requested Range Not Satisfiable',
+							   417 => 'Expectation Failed');
+		
+		$action = $this->trimmed('action');
+		
+		common_debug("User error '$code' on '$action': $msg", __FILE__);
+		
+		if (!array_key_exists($code, $status)) {
+			$code = 400;
+		}
+
+		$status_string = $status[$code];
+		header('HTTP/1.1 '.$code.' '.$status_string);
+						
+		if ($content_type == 'xml') {
+			$this->init_document('xml');
+			common_element_start('hash');
+			common_element('error', NULL, $msg);
+			common_element('request', NULL, $_SERVER['REQUEST_URI']);
+			common_element_end('hash');
+			$this->end_document('xml');
+		} else {
+			$this->init_document('json');
+			$error_array = array('error' => $msg, 'request' => $_SERVER['REQUEST_URI']);
+			print(json_encode($error_array));
+			$this->end_document('json');
+		}
+		
+		exit();
+	}
+
 	function init_twitter_rss() {
 		common_start_xml();
 		common_element_start('rss', array('version' => '2.0'));
@@ -265,7 +319,7 @@ class TwitterapiAction extends Action {
 		common_element_end('feed');
 	}
 
-	function show_profile($profile, $content_type='xml', $notice=NULL) {
+	function show_profile($profile, $content_type='xml', $notice=NULL) {				
 		$profile_array = $this->twitter_user_array($profile, true);
 		switch ($content_type) {
 		 case 'xml':
@@ -275,8 +329,9 @@ class TwitterapiAction extends Action {
 			$this->show_twitter_json_users($profile_array);
 			break;
 		 default:
-			$this->client_error(_('not a supported data format'));
+			$this->client_error(_('Not a supported data format.'));
 			return;
 		}
+		return;
 	}
 }

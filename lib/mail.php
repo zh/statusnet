@@ -42,19 +42,27 @@ function mail_send($recipients, $headers, $body) {
 	assert($backend); # throws an error if it's bad
 	$sent = $backend->send($recipients, $headers, $body);
 	if (PEAR::isError($sent)) {
-		common_log(LOG_ERROR, 'Email error: ' . $sent->getMessage());
+		common_log(LOG_ERR, 'Email error: ' . $sent->getMessage());
 		return false;
 	}
 	return true;
 }
 
-function mail_notify_from() {
-	global $config;
-	if ($config['mail']['notifyfrom']) {
-		return $config['mail']['notifyfrom'];
-	} else {
-		return $config['site']['name'] . ' <noreply@'.$config['site']['server'].'>';
+function mail_domain() {
+	$maildomain = common_config('mail', 'domain');
+	if (!$maildomain) {
+		$maildomain = common_config('site', 'server');
 	}
+	return $maildomain;
+}
+
+function mail_notify_from() {
+	$notifyfrom = common_config('mail', 'notifyfrom');
+	if (!$notifyfrom) {
+		$domain = mail_domain();
+		$notifyfrom = common_config('site', 'name') .' <noreply@'.$domain.'>';
+	}
+	return $notifyfrom;
 }
 
 function mail_to_user(&$user, $subject, $body, $address=NULL) {
@@ -101,9 +109,13 @@ function mail_confirm_address($code, $nickname, $address) {
 }
 
 function mail_subscribe_notify($listenee, $listener) {
+	$other = $listener->getProfile();
+	mail_subscribe_notify_profile($listenee, $other);
+}
+
+function mail_subscribe_notify_profile($listenee, $other) {
 	if ($listenee->email && $listenee->emailnotifysub) {
 		$profile = $listenee->getProfile();
-		$other = $listener->getProfile();
 		$name = $profile->getBestName();
 		$long_name = ($other->fullname) ? ($other->fullname . ' (' . $other->nickname . ')') : $other->nickname;
 		$recipients = $listenee->email;
@@ -115,9 +127,107 @@ function mail_subscribe_notify($listenee, $listener) {
 						   "\t".'%3$s'."\n\n".
 						   'Faithfully yours,'."\n".'%4$s.'."\n"),
 						 $long_name,
-						 common_config('site', 'name'), 
+						 common_config('site', 'name'),
 						 $other->profileurl,
 						 common_config('site', 'name'));
 		mail_send($recipients, $headers, $body);
 	}
+}
+
+function mail_new_incoming_notify($user) {
+
+	$profile = $user->getProfile();
+	$name = $profile->getBestName();
+
+	$headers['From'] = $user->incomingemail;
+	$headers['To'] = $name . ' <' . $user->email . '>';
+	$headers['Subject'] = sprintf(_('New email address for posting to %s'),
+								  common_config('site', 'name'));
+
+	$body  = sprintf(_("You have a new posting address on %1\$s.\n\n".
+					   "Send email to %2\$s to post new messages.\n\n".
+					   "More email instructions at %3\$s.\n\n".
+					   "Faithfully yours,\n%4\$s"),
+					 common_config('site', 'name'),
+					 $user->incomingemail,
+					 common_local_url('doc', array('title' => 'email')),
+					 common_config('site', 'name'));
+
+	mail_send($user->email, $headers, $body);
+}
+
+function mail_new_incoming_address() {
+	$prefix = common_good_rand(8);
+	$suffix = mail_domain();
+	return $prefix . '@' . $suffix;
+}
+
+function mail_broadcast_notice_sms($notice) {
+
+    # Now, get users subscribed to this profile
+
+	$user = new User();
+
+	$user->query('SELECT nickname, smsemail, incomingemail ' .
+				 'FROM user JOIN subscription ' .
+				 'ON user.id = subscription.subscriber ' .
+				 'WHERE subscription.subscribed = ' . $notice->profile_id . ' ' .
+				 'AND user.smsemail IS NOT NULL ' .
+				 'AND user.smsnotify = 1');
+
+	while ($user->fetch()) {
+		common_log(LOG_INFO,
+				   'Sending notice ' . $notice->id . ' to ' . $user->smsemail,
+				   __FILE__);
+		$success = mail_send_sms_notice_address($notice, $user->smsemail, $user->incomingemail);
+		if (!$success) {
+			# XXX: Not sure, but I think that's the right thing to do
+			common_log(LOG_WARNING,
+					   'Sending notice ' . $notice->id . ' to ' . $user->smsemail . ' FAILED, cancelling.',
+					   __FILE__);
+			return false;
+		}
+	}
+
+	$user->free();
+	unset($user);
+	
+	return true;
+}
+
+function mail_send_sms_notice($notice, $user) {
+	return mail_send_sms_notice_address($notice, $user->smsemail, $user->incomingemail);
+}
+
+function mail_send_sms_notice_address($notice, $smsemail, $incomingemail) {
+
+	$to = $nickname . ' <' . $smsemail . '>';
+	$other = $notice->getProfile();
+
+	common_log(LOG_INFO, "Sending notice " . $notice->id . " to " . $smsemail, __FILE__);
+
+	$headers = array();
+	$headers['From'] = (isset($incomingemail)) ? $incomingemail : mail_notify_from();
+	$headers['To'] = $to;
+	$headers['Subject'] = sprintf(_('%s status'),
+								  $other->getBestName());
+	$body = $notice->content;
+
+	return mail_send($smsemail, $headers, $body);
+}
+
+function mail_confirm_sms($code, $nickname, $address) {
+
+	$recipients = $address;
+
+	$headers['From'] = mail_notify_from();
+	$headers['To'] = $nickname . ' <' . $address . '>';
+	$headers['Subject'] = _('SMS confirmation');
+
+	$body = "$nickname: confirm you own this phone number with this code:";
+	$body .= "\n\n";
+	$body .= $code;
+	$body .= "\n\n";
+
+	mail_send($recipients, $headers, $body);
 }

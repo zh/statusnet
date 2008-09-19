@@ -18,6 +18,7 @@
  */
 
 class UnsubscribeAction extends Action {
+	
 	function handle($args) {
 		parent::handle($args);
 		if (!common_logged_in()) {
@@ -32,28 +33,19 @@ class UnsubscribeAction extends Action {
 			return;
 		}
 
-		$other_nickname = $this->arg('unsubscribeto');
-		$other = User::staticGet('nickname', $other_nickname);
-		if (!$other) {
-			common_user_error(_('No such user.'));
+		# CSRF protection
+
+		$token = $this->trimmed('token');
+		
+		if (!$token || $token != common_session_token()) {
+			$this->client_error(_('There was a problem with your session token. Try again, please.'));
 			return;
 		}
 
-		if (!$user->isSubscribed($other)) {
-			common_server_error(_('Not subscribed!.'));
-		}
-
-		$sub = DB_DataObject::factory('subscription');
-
-		$sub->subscriber = $user->id;
-		$sub->subscribed = $other->id;
-
-		$sub->find(true);
-
-		// note we checked for existence above
-
-		if (!$sub->delete()) {
-			common_server_error(_('Couldn\'t delete subscription.'));
+		$other_nickname = $this->arg('unsubscribeto');
+		$result=subs_unsubscribe_user($user,$other_nickname);
+		if($result!=true) {
+			common_user_error($result);
 			return;
 		}
 

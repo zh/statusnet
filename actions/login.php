@@ -21,6 +21,10 @@ if (!defined('LACONICA')) { exit(1); }
 
 class LoginAction extends Action {
 
+	function is_readonly() {
+		return true;
+	}
+
 	function handle($args) {
 		parent::handle($args);
 		if (common_is_real_login()) {
@@ -35,7 +39,7 @@ class LoginAction extends Action {
 	function check_login() {
 		# XXX: form token in $_SESSION to prevent XSS
 		# XXX: login throttle
-		$nickname = $this->arg('nickname');
+		$nickname = common_canonical_nickname($this->trimmed('nickname'));
 		$password = $this->arg('password');
 		if (common_check_user($nickname, $password)) {
 			# success!

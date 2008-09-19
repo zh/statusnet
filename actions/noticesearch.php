@@ -20,7 +20,7 @@
 if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/searchaction.php');
-define(NOTICES_PER_PAGE, 20);
+define('NOTICES_PER_PAGE', 20);
 
 # XXX common parent for people and content search?
 
@@ -85,6 +85,10 @@ class NoticesearchAction extends SearchAction {
 
 	function show_notice($notice, $terms) {
 		$profile = $notice->getProfile();
+		if (!$profile) {
+			common_log_db_error($notice, 'SELECT', __FILE__);
+			return;
+		}
 		# XXX: RDFa
 		common_element_start('li', array('class' => 'notice_single',
 										  'id' => 'notice-' . $notice->id));
@@ -139,8 +143,15 @@ class NoticesearchAction extends SearchAction {
 	}
 
 	function highlight($text, $terms) {
+		/* Highligh serach terms */
 		$pattern = '/('.implode('|',array_map('htmlspecialchars', $terms)).')/i';
 		$result = preg_replace($pattern, '<strong>\\1</strong>', $text);
+
+		/* Remove highlighting from inside links, loop incase multiple highlights in links */
+		$pattern = '/(href="[^"]*)<strong>('.implode('|',array_map('htmlspecialchars', $terms)).')<\/strong>([^"]*")/iU';
+		do {
+			$result = preg_replace($pattern, '\\1\\2\\3', $result, -1, $count);
+		} while ($count);
 		return $result;
 	}
 }

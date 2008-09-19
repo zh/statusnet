@@ -23,21 +23,34 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
 
 class TwitapifavoritesAction extends TwitterapiAction {
 
+	function is_readonly() {
+		
+		static $write_methods = array('favorites');
+		
+		$cmdtext = explode('.', $this->arg('method'));		
+		
+		if (in_array($cmdtext[0], $write_methods)) {			
+			return false;
+		}
+				
+		return true;
+	}
+
 	function favorites($args, $apidata) {
 		parent::handle($args);
-		common_server_error("API method under construction.", $code=501);
+		common_server_error(_('API method under construction.'), $code=501);
 		exit();
 	}
 
 	function create($args, $apidata) {
 		parent::handle($args);
-		common_server_error("API method under construction.", $code=501);
+		common_server_error(_('API method under construction.'), $code=501);
 		exit();
 	}
 	
 	function destroy($args, $apidata) {
 		parent::handle($args);
-		common_server_error("API method under construction.", $code=501);
+		common_server_error(_('API method under construction.'), $code=501);
 		exit();
 	}	
 

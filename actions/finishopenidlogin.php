@@ -28,6 +28,11 @@ class FinishopenidloginAction extends Action {
 		if (common_logged_in()) {
 			common_user_error(_('Already logged in.'));
 		} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			$token = $this->trimmed('token');
+			if (!$token || $token != common_session_token()) {
+				$this->show_form(_('There was a problem with your session token. Try again, please.'));
+				return;
+			}
 			if ($this->arg('create')) {
 				if (!$this->boolean('license')) {
 					$this->show_form(_('You can\'t register if you don\'t agree to the license.'),
@@ -64,6 +69,7 @@ class FinishopenidloginAction extends Action {
 		common_element_start('form', array('method' => 'post',
 										   'id' => 'account_connect',
 										   'action' => common_local_url('finishopenidlogin')));
+		common_hidden('token', common_session_token());
 		common_element('h2', NULL,
 					   _('Create new account'));
 		common_element('p', NULL,
@@ -192,64 +198,35 @@ class FinishopenidloginAction extends Action {
 			return;
 		}
 
-		$profile = new Profile();
-
-		$profile->nickname = $nickname;
-
-		if ($sreg['fullname'] && strlen($sreg['fullname']) <= 255) {
-			$profile->fullname = $sreg['fullname'];
-		}
-
 		if ($sreg['country']) {
 			if ($sreg['postcode']) {
 				# XXX: use postcode to get city and region
 				# XXX: also, store postcode somewhere -- it's valuable!
-				$profile->location = $sreg['postcode'] . ', ' . $sreg['country'];
+				$location = $sreg['postcode'] . ', ' . $sreg['country'];
 			} else {
-				$profile->location = $sreg['country'];
+				$location = $sreg['country'];
 			}
 		}
-
-		# XXX save language if it's passed
-		# XXX save timezone if it's passed
-
-		$profile->profileurl = common_profile_url($nickname);
-
-		$profile->created = DB_DataObject_Cast::dateTime(); # current time
-
-		$id = $profile->insert();
-		if (!$id) {
-			common_server_error(_('Error saving the profile.'));
-			return;
+		
+		if ($sreg['fullname'] && strlen($sreg['fullname']) <= 255) {
+			$fullname = $sreg['fullname'];
 		}
-
-		$user = new User();
-		$user->id = $id;
-		$user->nickname = $nickname;
-		$user->uri = common_user_uri($user);
-
+		
 		if ($sreg['email'] && Validate::email($sreg['email'], true)) {
-			$user->email = $sreg['email'];
+			$email = $sreg['email'];
 		}
 
-		$user->created = DB_DataObject_Cast::dateTime(); # current time
-
-		$result = $user->insert();
-
-		if (!$result) {
-			# Try to clean up...
-			$profile->delete();
-		}
+		# XXX: add language
+		# XXX: add timezone
+		
+		$user = User::register(array('nickname' => $nickname, 
+									 'email' => $email,
+									 'fullname' => $fullname, 
+									 'location' => $location));
 
 		$result = oid_link_user($user->id, $canonical, $display);
-
-		if (!$result) {
-			# Try to clean up...
-			$user->delete();
-			$profile->delete();
-		}
-
-		oid_set_last($display);
+		
+		oid_set_last($display);							   
 		common_set_user($user->nickname);
 		common_real_login(true);
 		common_redirect(common_local_url('showstream', array('nickname' => $user->nickname)));

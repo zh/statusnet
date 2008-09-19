@@ -19,12 +19,15 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-define('NOTICES_PER_PAGE', 20);
-
 class StreamAction extends Action {
+
+	function is_readonly() {
+		return true;
+	}
 
 	function handle($args) {
 		parent::handle($args);
+                common_set_returnto($this->self_url());
 	}
 
 	function views_menu() {
@@ -35,6 +38,9 @@ class StreamAction extends Action {
 
 		if ($nickname) {
 			$user = User::staticGet('nickname', $nickname);
+			$user_profile = $user->getProfile();
+		} else {
+			$user_profile = false;
 		}
 
 		common_element_start('ul', array('id' => 'nav_views'));
@@ -42,17 +48,17 @@ class StreamAction extends Action {
 		common_menu_item(common_local_url('all', array('nickname' =>
 													   $nickname)),
 						 _('Personal'),
-						 sprintf(_('%s and friends'), (($user && $user->fullname) ? $user->fullname : $nickname)),
+						 sprintf(_('%s and friends'), (($user_profile && $user_profile->fullname) ? $user_profile->fullname : $nickname)),
 						 $action == 'all');
 		common_menu_item(common_local_url('replies', array('nickname' =>
 															  $nickname)),
 						 _('Replies'),
-						 sprintf(_('Replies to %s'), (($user && $user->fullname) ? $user->fullname : $nickname)),
+						 sprintf(_('Replies to %s'), (($user_profile && $user_profile->fullname) ? $user_profile->fullname : $nickname)),
 						 $action == 'replies');
 		common_menu_item(common_local_url('showstream', array('nickname' =>
 															  $nickname)),
 						 _('Profile'),
-						 ($user && $user->fullname) ? $user->fullname : $nickname,
+						 ($user_profile && $user_profile->fullname) ? $user_profile->fullname : $nickname,
 						 $action == 'showstream');
 		common_element_end('ul');
 	}
@@ -60,6 +66,8 @@ class StreamAction extends Action {
 	function show_notice($notice) {
 		global $config;
 		$profile = $notice->getProfile();
+		$user = common_current_user();
+
 		# XXX: RDFa
 		common_element_start('li', array('class' => 'notice_single',
 										  'id' => 'notice-' . $notice->id));
@@ -88,11 +96,19 @@ class StreamAction extends Action {
 		}
 		common_element_end('p');
 		$noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
+		# XXX: we need to figure this out better. Is this right?
+		if (strcmp($notice->uri, $noticeurl) != 0 && preg_match('/^http/', $notice->uri)) {
+			$noticeurl = $notice->uri;
+		}
 		common_element_start('p', 'time');
 		common_element('a', array('class' => 'permalink',
 								  'href' => $noticeurl,
 								  'title' => common_exact_date($notice->created)),
 					   common_date_string($notice->created));
+		if ($notice->source) {
+			common_text(_(' from '));
+			$this->source_link($notice->source);
+		}
 		if ($notice->reply_to) {
 			$replyurl = common_local_url('shownotice', array('notice' => $notice->reply_to));
 			common_text(' (');
@@ -104,12 +120,43 @@ class StreamAction extends Action {
 		common_element_start('a',
 							 array('href' => common_local_url('newnotice',
 															  array('replyto' => $profile->nickname)),
-								   'onclick' => 'doreply("'.$profile->nickname.'"); return false',
+								   'onclick' => 'return doreply("'.$profile->nickname.'");',
 								   'title' => _('reply'),
 								   'class' => 'replybutton'));
 		common_raw('&rarr;');
 		common_element_end('a');
+		if ($user && $notice->profile_id == $user->id) {
+			$deleteurl = common_local_url('deletenotice', array('notice' => $notice->id));
+			common_element_start('a', array('class' => 'deletenotice',
+											'href' => $deleteurl,
+											'title' => _('delete')));
+			common_raw('&times;');
+			common_element_end('a');
+		}
 		common_element_end('p');
 		common_element_end('li');
+	}
+	
+	function source_link($source) {
+		$source_name = _($source);
+		switch ($source) {
+		 case 'web':
+		 case 'xmpp':
+		 case 'mail':
+		 case 'omb':
+		 case 'api':
+			common_element('span', 'noticesource', $source_name);
+			break;
+		 default:
+			$ns = Notice_source::staticGet($source);
+			if ($ns) {
+				common_element('a', array('href' => $ns->url),
+							   $ns->name);
+			} else {
+				common_element('span', 'noticesource', $source_name);
+			}
+			break;
+		}
+		return;
 	}
 }

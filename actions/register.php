@@ -24,7 +24,9 @@ class RegisterAction extends Action {
 	function handle($args) {
 		parent::handle($args);
 
-		if (common_logged_in()) {
+		if (common_config('site', 'closed')) {
+			common_user_error(_('Registration not allowed.'));
+		} else if (common_logged_in()) {
 			common_user_error(_('Already logged in.'));
 		} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$this->try_register();
@@ -34,6 +36,13 @@ class RegisterAction extends Action {
 	}
 
 	function try_register() {
+		
+		$token = $this->trimmed('token');
+		if (!$token || $token != common_session_token()) {
+			$this->show_form(_('There was a problem with your session token. Try again, please.'));
+			return;
+		}
+
 		$nickname = $this->trimmed('nickname');
 		$email = $this->trimmed('email');
 		$fullname = $this->trimmed('fullname');
@@ -78,9 +87,14 @@ class RegisterAction extends Action {
 		} else if (!is_null($location) && strlen($location) > 255) {
 			$this->show_form(_('Location is too long (max 255 chars).'));
 			return;
+		} else if (strlen($password) < 6) {
+			$this->show_form(_('Password must be 6 or more characters.'));
+			return;
 		} else if ($password != $confirm) {
 			$this->show_form(_('Passwords don\'t match.'));
-		} else if ($user = $this->register_user($nickname, $password, $email, $fullname, $homepage, $bio, $location)) {
+		} else if ($user = User::register(array('nickname' => $nickname, 'password' => $password, 'email' => $email,
+												'fullname' => $fullname, 'homepage' => $homepage, 'bio' => $bio, 
+												'location' => $location))) {
 			if (!$user) {
 				$this->show_form(_('Invalid username or password.'));
 				return;
@@ -96,6 +110,8 @@ class RegisterAction extends Action {
 				common_debug('Adding rememberme cookie for ' . $nickname);
 				common_rememberme($user);
 			}
+			# Re-init language env in case it changed (not yet, but soon)
+			common_init_language();
 			$this->show_success();
 		} else {
 			$this->show_form(_('Invalid username or password.'));
@@ -117,74 +133,6 @@ class RegisterAction extends Action {
 		return ($user !== false);
 	}
 
-	function register_user($nickname, $password, $email, $fullname, $homepage, $bio, $location) {
-
-		$profile = new Profile();
-
-		$profile->query('BEGIN');
-
-		$profile->nickname = $nickname;
-		$profile->profileurl = common_profile_url($nickname);
-		if ($fullname) {
-			$profile->fullname = $fullname;
-		}
-		if ($homepage) {
-			$profile->homepage = $homepage;
-		}
-		if ($bio) {
-			$profile->bio = $bio;
-		}
-		if ($location) {
-			$profile->location = $location;
-		}
-		$profile->created = DB_DataObject_Cast::dateTime(); # current time
-		
-		$id = $profile->insert();
-
-		if (!$id) {
-			common_log_db_error($profile, 'INSERT', __FILE__);
-		    return FALSE;
-		}
-		$user = new User();
-		$user->id = $id;
-		$user->nickname = $nickname;
-		$user->password = common_munge_password($password, $id);
-		$user->created =  DB_DataObject_Cast::dateTime(); # current time
-		$user->uri = common_user_uri($user);
-
-		$result = $user->insert();
-
-		if (!$result) {
-			common_log_db_error($user, 'INSERT', __FILE__);
-			return FALSE;
-		}
-
-		if ($email) {
-
-			$confirm = new Confirm_address();
-			$confirm->code = common_confirmation_code(128);
-			$confirm->user_id = $user->id;
-			$confirm->address = $email;
-			$confirm->address_type = 'email';
-
-			$result = $confirm->insert();
-			if (!$result) {
-				common_log_db_error($confirm, 'INSERT', __FILE__);
-				return FALSE;
-			}
-		}
-
-		$profile->query('COMMIT');
-
-		if ($email) {
-			mail_confirm_address($confirm->code,
-								 $profile->nickname,
-								 $email);
-		}
-
-		return $user;
-	}
-
 	function show_top($error=NULL) {
 		if ($error) {
 			common_element('p', 'error', $error);
@@ -201,6 +149,7 @@ class RegisterAction extends Action {
 		common_element_start('form', array('method' => 'post',
 										   'id' => 'login',
 										   'action' => common_local_url('register')));
+		common_hidden('token', common_session_token());
 		common_input('nickname', _('Nickname'), $this->trimmed('nickname'),
 					 _('1-64 lowercase letters or numbers, no punctuation or spaces. Required.'));
 		common_password('password', _('Password'),

@@ -41,6 +41,8 @@ class FinishremotesubscribeAction extends Action {
 
 		common_debug('stored request: '.print_r($omb,true), __FILE__);
 
+
+		common_remove_magic_from_request();
 		$req = OAuthRequest::from_request();
 
 		$token = $req->get_parameter('oauth_token');
@@ -181,6 +183,10 @@ class FinishremotesubscribeAction extends Action {
 			return;
 		}
 
+		# Notify user, if necessary
+		
+		mail_subscribe_notify_profile($user, $profile);
+		
 		# Clear the data
 		unset($_SESSION['oauth_authorization_request']);
 

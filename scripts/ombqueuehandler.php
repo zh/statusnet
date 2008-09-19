@@ -24,24 +24,51 @@ if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
 	exit();
 }
 
-define('INSTALLDIR', dirname(__FILE__));
+define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 define('LACONICA', true);
 
 require_once(INSTALLDIR . '/lib/common.php');
+require_once(INSTALLDIR . '/lib/omb.php');
+require_once(INSTALLDIR . '/lib/queuehandler.php');
 
-common_log(LOG_INFO, 'Starting to render old notices.');
+set_error_handler('common_error_handler');
 
-$notice = new Notice();
-$cnt = $notice->find();
+class OmbQueueHandler extends QueueHandler {
+	
+	function transport() {
+		return 'omb';
+	}
+	
+	function start() {
+		$this->log(LOG_INFO, "INITIALIZE");
+		return true;
+	}
 
-while ($notice->fetch()) {
-	if (!$notice->rendered) {
-		common_log(LOG_INFO, 'Pre-rendering notice #' . $notice->id);
-		$original = clone($notice);
-		$notice->rendered = common_render_content($notice->content, $notice);
-		$result = $notice->update($original);
-		if (!$result) {
-			common_log_db_error($notice, 'UPDATE', __FILE__);
+	function handle_notice($notice) {
+		if ($this->is_remote($notice)) {
+			$this->log(LOG_DEBUG, 'Ignoring remote notice ' . $notice->id);
+			return true;
+		} else {
+			return omb_broadcast_remote_subscribers($notice);
 		}
 	}
+	
+	function finish() {
+	}
+
+	function is_remote($notice) {
+		$user = User::staticGet($notice->profile_id);
+		return is_null($user);
+	}
 }
+
+ini_set("max_execution_time", "0");
+ini_set("max_input_time", "0");
+set_time_limit(0);
+mb_internal_encoding('UTF-8');
+
+$id = ($argc > 1) ? $argv[1] : NULL;
+
+$handler = new OmbQueueHandler($id);
+
+$handler->runOnce();

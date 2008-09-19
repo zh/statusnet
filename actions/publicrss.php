@@ -34,11 +34,13 @@ class PublicrssAction extends Rss10Action {
 		$user = $this->user;
 		$notices = array();
 
-		$notice = DB_DataObject::factory('notice');
+		$notice = new Notice();
 
-		# FIXME: bad performance
+		# XXX: bad performance
 
-		$notice->whereAdd('EXISTS (SELECT user.id from user where user.id = notice.profile_id)');
+		if (common_config('public', 'localonly')) {
+			$notice->is_local = 1;
+		}
 
 		$notice->orderBy('created DESC, notice.id DESC');
 

@@ -20,7 +20,7 @@
 if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/searchaction.php');
-define(PROFILES_PER_PAGE, 10);
+define('PROFILES_PER_PAGE', 10);
 
 class PeoplesearchAction extends SearchAction {
 
@@ -115,7 +115,8 @@ class PeoplesearchAction extends SearchAction {
 	}
 
 	function highlight($text, $terms) {
-		$pattern = '/('.implode('|',array_map('htmlspecialchars', $terms)).')/i';
+		$terms = array_map('preg_quote', array_map('htmlspecialchars', $terms));
+		$pattern = '/('.implode('|',$terms).')/i';
 		$result = preg_replace($pattern, '<strong>\\1</strong>', htmlspecialchars($text));
 		return $result;
 	}

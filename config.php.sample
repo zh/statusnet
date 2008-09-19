@@ -23,6 +23,9 @@ $config['site']['path'] = 'laconica';
 #Brought by...
 #$config['site']['broughtby'] = 'Individual or Company';
 #$config['site']['broughtbyurl'] = 'http://example.net/';
+#If you don't want to let users register (say, for a one-person install)
+#Crude but effective -- register everybody, then lock down
+#$config['site']['closed'] = true;
 
 # If you want logging sent to a file instead of syslog
 #$config['site']['logfile'] = '/tmp/laconica.log';
@@ -32,6 +35,11 @@ $config['site']['path'] = 'laconica';
 
 $config['db']['database'] = 'mysql://laconica:microblog@localhost/laconica';
 #$config['db']['ini_your_db_name'] = $config['db']['schema_location'].'/stoica.ini';
+# *** WARNING *** WARNING *** WARNING *** WARNING ***
+# Setting debug to a non-zero value will expose your DATABASE PASSWORD to Web users.
+# !!!!!! DO NOT SET THIS ON PRODUCTION SERVERS !!!!!! DB_DataObject's bug, btw, not
+# ours.
+# *** WARNING *** WARNING *** WARNING *** WARNING ***
 #$config['db']['debug'] = 0;
 #$config['db']['db_driver'] = 'MDB2';
 
@@ -46,11 +54,35 @@ $config['db']['database'] = 'mysql://laconica:microblog@localhost/laconica';
 #$config['xmpp']['server'] = 'server.example.net';
 #$config['xmpp']['port'] = 5222;
 #$config['xmpp']['user'] = 'update';
+#$config['xmpp']['encryption'] = false;
 #$config['xmpp']['resource'] = 'uniquename';
 #$config['xmpp']['password'] = 'blahblahblah';
 #$config['xmpp']['public'][] = 'someindexer@example.net';
 
+#Default locale info
+#$config['site']['timezone'] = 'Pacific/Auckland';
+#$config['site']['language'] = 'en_NZ';
+
+#Email info, used for all outbound email
+#$config['mail']['notifyfrom'] = 'microblog@example.net';
+#$config['mail']['domain'] = 'microblog.example.net';
+# See http://pear.php.net/manual/en/package.mail.mail.factory.php for options
+#$config['mail']['backend'] = 'smtp';
+#$config['mail']['params'] = array(
+#							'host' => 'localhost',
+#							'port' => 25,
+#							);
+#For incoming email, if enabled. Defaults to site server name.
+#$config['mail']['domain'] = 'incoming.example.net';
+
 #Do notice broadcasts offline
-#If you set this, you must run the xmppdaemon.php
-#as a daemon (with, say, start-stop-daemon)
+#If you use this, you must run the six offline daemons in the
+#background. See the README for details.
 #$config['queue']['enabled'] = true;
+
+#exponential decay factor for tags, default 10 days
+#raise this if traffic is slow, lower it if it's fast
+#$config['tag']['dropoff'] = 86400.0 * 10;
+
+#optionally show non-local messages in public timeline
+#$config['public']['localonly'] = false;

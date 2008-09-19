@@ -20,6 +20,7 @@
 if (!defined('LACONICA')) { exit(1); }
 
 class SubscribeAction extends Action {
+	
 	function handle($args) {
 		parent::handle($args);
 
@@ -35,45 +36,25 @@ class SubscribeAction extends Action {
 			return;
 		}
 
+		# CSRF protection
+
+		$token = $this->trimmed('token');
+		
+		if (!$token || $token != common_session_token()) {
+			$this->client_error(_('There was a problem with your session token. Try again, please.'));
+			return;
+		}
+
 		$other_nickname = $this->arg('subscribeto');
 
-		$other = User::staticGet('nickname', $other_nickname);
-
-		if (!$other) {
-			common_user_error(_('No such user.'));
+		$result=subs_subscribe_user($user, $other_nickname);
+		if($result != true) {
+			common_user_error($result);
 			return;
 		}
-
-		if ($user->isSubscribed($other)) {
-			common_user_error(_('Already subscribed!.'));
-			return;
-		}
-
-		$sub = new Subscription();
-		$sub->subscriber = $user->id;
-		$sub->subscribed = $other->id;
-
-		$sub->created = DB_DataObject_Cast::dateTime(); # current time
-
-		if (!$sub->insert()) {
-			common_server_error(_('Couldn\'t create subscription.'));
-			return;
-		}
-
-		$this->notify($other, $user);
-
+		
 		common_redirect(common_local_url('subscriptions', array('nickname' =>
 																$user->nickname)));
 	}
 
-	function notify($listenee, $listener) {
-		# XXX: add other notifications (Jabber, SMS) here
-		# XXX: queue this and handle it offline
-		# XXX: Whatever happens, do it in Twitter-like API, too
-		$this->notify_email($listenee, $listener);
-	}
-
-	function notify_email($listenee, $listener) {
-		mail_subscribe_notify($listenee, $listener);
-	}
 }

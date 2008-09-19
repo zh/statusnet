@@ -20,21 +20,44 @@
 
 # Abort if called from a web server
 if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
-    print "This script must be run from the command line\n";
-    exit();
+	print "This script must be run from the command line\n";
+	exit();
 }
 
-define('INSTALLDIR', dirname(__FILE__));
+define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 define('LACONICA', true);
 
 require_once(INSTALLDIR . '/lib/common.php');
+require_once(INSTALLDIR . '/lib/jabber.php');
+require_once(INSTALLDIR . '/lib/xmppqueuehandler.php');
 
-common_log(LOG_INFO, 'Starting to do old notices.');
+set_error_handler('common_error_handler');
 
-$notice = new Notice();
-$cnt = $notice->find();
+class JabberQueueHandler extends XmppQueueHandler {
 
-while ($notice->fetch()) {
-    common_log(LOG_INFO, 'Getting replies for notice #' . $notice->id);
-    common_save_replies($notice);
+	var $conn = NULL;
+
+	function transport() {
+		return 'jabber';
+	}
+
+	function handle_notice($notice) {
+		try {
+			return jabber_broadcast_notice($notice);
+		} catch (XMPPHP_Exception $e) {
+			$this->log(LOG_ERR, "Got an XMPPHP_Exception: " . $e->getMessage());
+			exit(1);
+		}
+	}
 }
+
+ini_set("max_execution_time", "0");
+ini_set("max_input_time", "0");
+set_time_limit(0);
+mb_internal_encoding('UTF-8');
+
+$resource = ($argc > 1) ? $argv[1] : (common_config('xmpp','resource') . '-queuehandler');
+
+$handler = new JabberQueueHandler($resource);
+
+$handler->runOnce();

@@ -25,6 +25,7 @@ class PostnoticeAction extends Action {
 	function handle($args) {
 		parent::handle($args);
 		try {
+			common_remove_magic_from_request();
 			$req = OAuthRequest::from_request();
 			# Note: server-to-server function!
 			$server = omb_oauth_server();
@@ -74,21 +75,11 @@ class PostnoticeAction extends Action {
 		}
 		$notice = Notice::staticGet('uri', $notice_uri);
 		if (!$notice) {
-			$notice = new Notice();
-			$notice->profile_id = $remote_profile->id;
-			$notice->uri = $notice_uri;
-			$notice->content = $content;
-			$notice->rendered = common_render_content($notice->content, $notice);
-			if ($notice_url) {
-				$notice->url = $notice_url;
-			}
-			$notice->created = DB_DataObject_Cast::dateTime(); # current time
-			$id = $notice->insert();
-			if (!$id) {
-				common_server_error(_('Error inserting notice'), 500);
+			$notice = Notice::saveNew($remote_profile->id, $content, 'omb', false, 0, $notice_uri);
+			if (is_string($notice)) {
+				common_server_serror($notice, 500);
 				return false;
 			}
-			common_save_replies($notice);	
 			common_broadcast_notice($notice, true);
 		}
 		return true;

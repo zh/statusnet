@@ -34,6 +34,7 @@ class EmailsettingsAction extends SettingsAction {
 										   'id' => 'emailsettings',
 										   'action' =>
 										   common_local_url('emailsettings')));
+		common_hidden('token', common_session_token());
 
 		common_element('h2', NULL, _('Address'));
 
@@ -63,14 +64,39 @@ class EmailsettingsAction extends SettingsAction {
 			}
 		}
 
+		if ($user->email) {
+			common_element('h2', NULL, _('Incoming email'));
+			
+			if ($user->incomingemail) {
+				common_element_start('p');
+				common_element('span', 'address', $user->incomingemail);
+				common_element('span', 'input_instructions',
+							   _('Send email to this address to post new notices.'));
+				common_element_end('p');
+				common_submit('removeincoming', _('Remove'));
+			}
+			
+			common_element_start('p');
+			common_element('span', 'input_instructions',
+						   _('Make a new email address for posting to; cancels the old one.'));
+			common_element_end('p');
+			common_submit('newincoming', _('New'));
+		}
+		
 		common_element('h2', NULL, _('Preferences'));
 
 		common_checkbox('emailnotifysub',
 		                _('Send me notices of new subscriptions through email.'),
 		                $user->emailnotifysub);
-		
-		common_submit('save', _('Save'));
+		common_checkbox('emailpost',
+						_('I want to post notices by email.'),
+						$user->emailpost);
+		common_checkbox('emailmicroid',
+		                _('Publish a MicroID for my email address.'),
+		                $user->emailmicroid);
 
+		common_submit('save', _('Save'));
+		
 		common_element_end('form');
 		common_show_footer();
 	}
@@ -89,6 +115,13 @@ class EmailsettingsAction extends SettingsAction {
 
 	function handle_post() {
 
+		# CSRF protection
+		$token = $this->trimmed('token');
+		if (!$token || $token != common_session_token()) {
+			$this->show_form(_('There was a problem with your session token. Try again, please.'));
+			return;
+		}
+
 		if ($this->arg('save')) {
 			$this->save_preferences();
 		} else if ($this->arg('add')) {
@@ -97,6 +130,10 @@ class EmailsettingsAction extends SettingsAction {
 			$this->cancel_confirmation();
 		} else if ($this->arg('remove')) {
 			$this->remove_address();
+		} else if ($this->arg('removeincoming')) {
+			$this->remove_incoming();
+		} else if ($this->arg('newincoming')) {
+			$this->new_incoming();
 		} else {
 			$this->show_form(_('Unexpected form submission.'));
 		}
@@ -105,6 +142,8 @@ class EmailsettingsAction extends SettingsAction {
 	function save_preferences() {
 
 		$emailnotifysub = $this->boolean('emailnotifysub');
+		$emailmicroid = $this->boolean('emailmicroid');
+		$emailpost = $this->boolean('emailpost');
 
 		$user = common_current_user();
 
@@ -115,6 +154,8 @@ class EmailsettingsAction extends SettingsAction {
 		$original = clone($user);
 
 		$user->emailnotifysub = $emailnotifysub;
+		$user->emailmicroid = $emailmicroid;
+		$user->emailpost = $emailpost;
 
 		$result = $user->update($original);
 
@@ -228,11 +269,42 @@ class EmailsettingsAction extends SettingsAction {
 		}
 		$user->query('COMMIT');
 
-		# XXX: unsubscribe to the old address
-
 		$this->show_form(_('The address was removed.'), TRUE);
 	}
 
+	function remove_incoming() {
+		$user = common_current_user();
+		
+		if (!$user->incomingemail) {
+			$this->show_form(_('No incoming email address.'));
+			return;
+		}
+		
+		$orig = clone($user);
+		$user->incomingemail = NULL;
+
+		if (!$user->updateKeys($orig)) {
+			common_log_db_error($user, 'UPDATE', __FILE__);
+			$this->server_error(_("Couldn't update user record."));
+		}
+		
+		$this->show_form(_('Incoming email address removed.'), TRUE);
+	}
+
+	function new_incoming() {
+		$user = common_current_user();
+		
+		$orig = clone($user);
+		$user->incomingemail = mail_new_incoming_address();
+		
+		if (!$user->updateKeys($orig)) {
+			common_log_db_error($user, 'UPDATE', __FILE__);
+			$this->server_error(_("Couldn't update user record."));
+		}
+
+		$this->show_form(_('New incoming email address added.'), TRUE);
+	}
+	
 	function email_exists($email) {
 		$user = common_current_user();
 		$other = User::staticGet('email', $email);

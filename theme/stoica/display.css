@@ -235,6 +235,24 @@ p#branding a {
 	margin: 0;
 	padding: 0;
 	}
+#notice_delete_form #confirmation_text {
+        display: block;
+	font-size: 14px;
+	font-weight: bold;
+	}
+input#submit_yes, input#submit_no {
+	margin: 18px 10px 0px 0px;
+	padding: 4px;
+	font-weight: bold;
+	color: #FCFFF5;
+	background-color: #C15D42;
+	cursor: pointer;
+	border: 0;
+	width: 40px;
+	}
+input#submit_yes:hover, input#submit_no:hover {
+	background-color: #904632;
+	}
 .avatar.stream {
 	float: left;
 	margin: 0 10px 0 0;
@@ -628,3 +646,41 @@ input#openid_url {
 }
 
 /* ===== End Forms Styling ===== */
+
+/* ===== Tag Cloud Styling ===== */
+
+p.tagcloud {
+text-align: center;
+}
+
+p.tagcloud a {
+line-height:100%;
+vertical-align:middle;
+}
+
+p.tagcloud a.largest {
+font-size: 400%;
+}
+p.tagcloud a.verylarge {
+font-size: 300%;
+}
+
+p.tagcloud a.large {
+font-size: 200%;
+}
+
+p.tagcloud a.medium {
+font-size: 150%;
+}
+
+p.tagcloud a.small {
+font-size: 100%;
+}
+
+p.tagcloud a.verysmall {
+font-size: 80%;
+}
+
+p.tagcloud a.smallest {
+font-size: 60%;
+}

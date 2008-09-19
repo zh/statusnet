@@ -108,7 +108,7 @@ function common_element_end($tag) {
 function common_element($tag, $attrs=NULL, $content=NULL) {
 	common_element_start($tag, $attrs);
 	global $xw;
-	if ($content) {
+	if (!is_null($content)) {
 		$xw->text($content);
 	}
 	common_element_end($tag);
@@ -129,6 +129,23 @@ function common_end_xml() {
 	global $xw;
 	$xw->endDocument();
 	$xw->flush();
+}
+
+function common_init_language() {
+	mb_internal_encoding('UTF-8');
+	$language = common_language();
+	# So we don't have to make people install the gettext locales
+	putenv('LANGUAGE='.$language);
+	putenv('LANG='.$language);	
+	$locale_set = setlocale(LC_ALL, $language . ".utf8",
+							$language . ".UTF8",
+							$language . ".utf-8",
+							$language . ".UTF-8",
+							$language);
+	bindtextdomain("laconica", common_config('site','locale_path'));
+	bind_textdomain_codeset("laconica", "UTF-8");
+	textdomain("laconica");
+	setlocale(LC_CTYPE, 'C');
 }
 
 define('PAGE_TYPE_PREFS', 'text/html,application/xhtml+xml,application/xml;q=0.3,text/xml;q=0.2');
@@ -156,9 +173,11 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 
 	# FIXME: correct language for interface
 
+	$language = common_language();
+	
 	common_element_start('html', array('xmlns' => 'http://www.w3.org/1999/xhtml',
-									   'xml:lang' => 'en',
-									   'lang' => 'en'));
+									   'xml:lang' => $language,
+									   'lang' => $language));
 
 	common_element_start('head');
 	common_element('title', NULL,
@@ -181,6 +200,13 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 	common_element('script', array('type' => 'text/javascript',
 								   'src' => common_path('js/util.js')),
 				   ' ');
+	common_element('link', array('rel' => 'search', 'type' => 'application/opensearchdescription+xml',
+                                        'href' =>  common_local_url('opensearch', array('type' => 'people')),
+                                        'title' => common_config('site', 'name').' People Search'));
+
+	common_element('link', array('rel' => 'search', 'type' => 'application/opensearchdescription+xml',
+                                        'href' =>  common_local_url('opensearch', array('type' => 'notice')),
+                                        'title' => common_config('site', 'name').' Notice Search'));
 
 	if ($callable) {
 		if ($data) {
@@ -194,11 +220,11 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 	common_element_start('div', array('id' => 'wrap'));
 	common_element_start('div', array('id' => 'header'));
 	common_nav_menu();
-	if ((is_string($config['site']['logo']) && (strlen($config['site']['logo']) > 0))
+	if ((isset($config['site']['logo']) && is_string($config['site']['logo']) && (strlen($config['site']['logo']) > 0))
 		|| file_exists(theme_file('logo.png')))
 	{
 		common_element_start('a', array('href' => common_local_url('public')));
-		common_element('img', array('src' => ($config['site']['logo']) ?
+		common_element('img', array('src' => isset($config['site']['logo']) ?
 									($config['site']['logo']) : theme_path('logo.png'),
 									'alt' => $config['site']['name'],
 									'id' => 'logo'));
@@ -223,14 +249,6 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 	common_element_start('div', array('id' => 'content'));
 }
 
-# XXX: Refactor w/common_user_error() ?
-function common_show_basic_auth_error() {
-  	header('HTTP/1.1 401 Unauthorized');
-	header('Content-type: text/plain');
-   	print("Could not authenticate you."); # exactly what Twitter says - no \n
-	exit();
-}
-
 function common_show_footer() {
 	global $xw, $config;
 	common_element_end('div'); # content div
@@ -253,7 +271,7 @@ function common_show_footer() {
 	common_text(_('Unless otherwise specified, contents of this site are copyright by the contributors and available under the '));
 	common_element('a', array('class' => 'license',
 							  'rel' => 'license',
-							  href => $config['license']['url']),
+							  'href' => $config['license']['url']),
 				   $config['license']['title']);
 	common_text(_('. Contributors should be attributed by full name or nickname.'));
 	common_element_end('p');
@@ -281,10 +299,8 @@ function common_nav_menu() {
 		common_menu_item(common_local_url('all', array('nickname' => $user->nickname)),
 						 _('Home'));
 	}
-	common_menu_item(common_local_url('public'), _('Public'));
 	common_menu_item(common_local_url('peoplesearch'), _('Search'));
-	common_menu_item(common_local_url('doc', array('title' => 'help')),
-					 _('Help'));
+	common_menu_item(common_local_url('tags'), _('Tags'));
 	if ($user) {
 		common_menu_item(common_local_url('profilesettings'),
 						 _('Settings'));
@@ -292,7 +308,9 @@ function common_nav_menu() {
 						 _('Logout'));
 	} else {
 		common_menu_item(common_local_url('login'), _('Login'));
-		common_menu_item(common_local_url('register'), _('Register'));
+		if (!common_config('site', 'closed')) {
+			common_menu_item(common_local_url('register'), _('Register'));
+		}
 		common_menu_item(common_local_url('openidlogin'), _('OpenID'));
 	}
 	common_element_end('ul');
@@ -300,6 +318,8 @@ function common_nav_menu() {
 
 function common_foot_menu() {
 	common_element_start('ul', array('id' => 'nav_sub'));
+	common_menu_item(common_local_url('doc', array('title' => 'help')),
+					 _('Help'));
 	common_menu_item(common_local_url('doc', array('title' => 'about')),
 					 _('About'));
 	common_menu_item(common_local_url('doc', array('title' => 'faq')),
@@ -368,6 +388,26 @@ function common_checkbox($id, $label, $checked=false, $instructions=NULL, $value
 	common_element_end('p');
 }
 
+function common_dropdown($id, $label, $content, $instructions=NULL, $blank_select=FALSE, $selected=NULL) {
+	common_element_start('p');
+	common_element('label', array('for' => $id), $label);
+	common_element_start('select', array('id' => $id, 'name' => $id));
+	if ($blank_select) {
+		common_element('option', array('value' => ''));
+	}
+	foreach ($content as $value => $option) {
+		if ($value == $selected) {
+			common_element('option', array('value' => $value, 'selected' => $value), $option);
+		} else {
+			common_element('option', array('value' => $value), $option);
+		}
+	}
+	common_element_end('select');
+	if ($instructions) {
+		common_element('span', 'input_instructions', $instructions);
+	}
+	common_element_end('p');
+}
 function common_hidden($id, $value) {
 	common_element('input', array('name' => $id,
 								  'type' => 'hidden',
@@ -414,6 +454,39 @@ function common_textarea($id, $label, $content=NULL, $instructions=NULL) {
 	common_element_end('p');
 }
 
+function common_timezone() {
+	if (common_logged_in()) {
+		$user = common_current_user();
+		if ($user->timezone) {
+			return $user->timezone;
+		}
+	}
+
+	global $config;
+	return $config['site']['timezone'];
+}
+
+function common_language() {
+	$httplang = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : NULL;
+        $language = array();
+        $user_language = FALSE;
+
+        if (common_logged_in()) {
+                $user = common_current_user();
+                $user_language = $user->language;
+        }
+
+        if ($user_language) {
+                return $user_language;
+        } else if (!empty($httplang)) {
+                $language = client_prefered_language($httplang);
+                if ($language) {
+                    return $language;
+                }
+        } else {
+                return $config['site']['language'];
+        }
+}
 # salted, hashed passwords are stored in the DB
 
 function common_munge_password($password, $id) {
@@ -422,6 +495,10 @@ function common_munge_password($password, $id) {
 
 # check if a username exists and has matching password
 function common_check_user($nickname, $password) {
+	# NEVER allow blank passwords, even if they match the DB
+	if (mb_strlen($password) == 0) {
+		return false;
+	}
 	$user = User::staticGet('nickname', $nickname);
 	if (is_null($user)) {
 		return false;
@@ -520,7 +597,7 @@ function common_rememberme($user=NULL) {
 function common_remembered_user() {
 	$user = NULL;
 	# Try to remember
-	$packed = $_COOKIE[REMEMBERME];
+	$packed = isset($_COOKIE[REMEMBERME]) ? $_COOKIE[REMEMBERME] : '';
 	if ($packed) {
 		list($id, $code) = explode(':', $packed);
 		if ($id && $code) {
@@ -556,9 +633,9 @@ function common_forgetme() {
 
 # who is the current user?
 function common_current_user() {
-	if ($_REQUEST[session_name()] || $_SESSION && $_SESSION['userid']) {
+	if (isset($_REQUEST[session_name()]) || (isset($_SESSION['userid']) && $_SESSION['userid'])) {
 		common_ensure_session();
-		$id = $_SESSION['userid'];
+		$id = isset($_SESSION['userid']) ? $_SESSION['userid'] : false;
 		if ($id) {
 			# note: this should cache
 			$user = User::staticGet($id);
@@ -567,8 +644,8 @@ function common_current_user() {
 	}
 	# that didn't work; try to remember
 	$user = common_remembered_user();
-	common_debug("Got User " . $user->nickname);
 	if ($user) {
+		common_debug("Got User " . $user->nickname);
 	    common_debug("Faking session on remembered user");
 	    $_SESSION['userid'] = $user->id;
 	}
@@ -605,18 +682,28 @@ define('URL_REGEX', '^|[ \t\r\n])((ftp|http|https|gopher|mailto|news|nntp|telnet
 
 function common_render_content($text, $notice) {
 	$r = htmlspecialchars($text);
+
+	$r = preg_replace('/[\x{0}-\x{8}\x{b}-\x{c}\x{e}-\x{19}]/', '', $r);
 	$id = $notice->profile_id;
 	$r = preg_replace('@https?://[^)\]>\s]+@', '<a href="\0" class="extlink">\0</a>', $r);
-	$r = preg_replace('/(^|\s+)@([a-z0-9]{1,64})/e', "'\\1@'.common_at_link($id, '\\2')", $r);
+	$r = preg_replace('/(^|\s+)@([A-Za-z0-9]{1,64})/e', "'\\1@'.common_at_link($id, '\\2')", $r);
 	$r = preg_replace('/^T ([A-Z0-9]{1,64}) /e', "'T '.common_at_link($id, '\\1').' '", $r);
-	# XXX: # tags
+	$r = preg_replace('/(^|\s+)#([A-Za-z0-9_\-\.]{1,64})/e', "'\\1#'.common_tag_link('\\2')", $r);
 	# XXX: machine tags
 	return $r;
 }
 
+function common_tag_link($tag) {
+	if(common_config('site', 'fancy')) {
+		return '<a href="' . htmlspecialchars(common_path('tag/' . strtolower(str_replace(array('-', '_', '.'), '', $tag)))) . '" rel="tag" class="hashlink">' . htmlspecialchars($tag) . '</a>';
+	} else {
+		return '<a href="' . htmlspecialchars(common_path('index.php?action=tag&tag=' . strtolower(str_replace(array('-', '_', '.'), '', $tag)))) . '" rel="tag" class="hashlink">' . htmlspecialchars($tag) . '</a>';
+	}
+}
+
 function common_at_link($sender_id, $nickname) {
 	$sender = Profile::staticGet($sender_id);
-	$recipient = common_relative_profile($sender, $nickname);
+	$recipient = common_relative_profile($sender, common_canonical_nickname($nickname));
 	if ($recipient) {
 		return '<a href="'.htmlspecialchars($recipient->profileurl).'" class="atlink">'.$nickname.'</a>';
 	} else {
@@ -628,7 +715,7 @@ function common_relative_profile($sender, $nickname, $dt=NULL) {
 	# Try to find profiles this profile is subscribed to that have this nickname
 	$recipient = new Profile();
 	# XXX: use a join instead of a subquery
-	$recipient->whereAdd('EXISTS (SELECT subscribed from subscription where subscriber = '.$sender_id.' and subscribed = id)', 'AND');
+	$recipient->whereAdd('EXISTS (SELECT subscribed from subscription where subscriber = '.$sender->id.' and subscribed = id)', 'AND');
 	$recipient->whereAdd('nickname = "' . trim($nickname) . '"', 'AND');
 	if ($recipient->find(TRUE)) {
 		# XXX: should probably differentiate between profiles with
@@ -638,7 +725,7 @@ function common_relative_profile($sender, $nickname, $dt=NULL) {
 	# Try to find profiles that listen to this profile and that have this nickname
 	$recipient = new Profile();
 	# XXX: use a join instead of a subquery
-	$recipient->whereAdd('EXISTS (SELECT subscriber from subscription where subscribed = '.$sender_id.' and subscriber = id)', 'AND');
+	$recipient->whereAdd('EXISTS (SELECT subscriber from subscription where subscribed = '.$sender->id.' and subscriber = id)', 'AND');
 	$recipient->whereAdd('nickname = "' . trim($nickname) . '"', 'AND');
 	if ($recipient->find(TRUE)) {
 		# XXX: should probably differentiate between profiles with
@@ -708,7 +795,7 @@ function common_local_url($action, $args=NULL) {
 function common_fancy_url($action, $args=NULL) {
 	switch (strtolower($action)) {
 	 case 'public':
-		if ($args && $args['page']) {
+		if ($args && isset($args['page'])) {
 			return common_path('?page=' . $args['page']);
 		} else {
 			return common_path('');
@@ -717,6 +804,12 @@ function common_fancy_url($action, $args=NULL) {
 		return common_path('rss');
 	 case 'publicxrds':
 		return common_path('xrds');
+	 case 'opensearch':
+                if ($args && $args['type']) {
+                        return common_path('opensearch/'.$args['type']);
+                } else {
+                        return common_path('opensearch/people');
+                }
 	 case 'doc':
 		return common_path('doc/'.$args['title']);
 	 case 'login':
@@ -742,6 +835,8 @@ function common_fancy_url($action, $args=NULL) {
 		return common_path('settings/email');
 	 case 'openidsettings':
 		return common_path('settings/openid');
+	 case 'smssettings':
+		return common_path('settings/sms');
 	 case 'newnotice':
 		if ($args && $args['replyto']) {
 			return common_path('notice/new?replyto='.$args['replyto']);
@@ -750,6 +845,12 @@ function common_fancy_url($action, $args=NULL) {
 		}
 	 case 'shownotice':
 		return common_path('notice/'.$args['notice']);
+	 case 'deletenotice':
+                if ($args && $args['notice']) {
+                        return common_path('notice/delete/'.$args['notice']);
+                } else {
+                        return common_path('notice/delete');
+                }
 	 case 'xrds':
 	 case 'foaf':
 		return common_path($args['nickname'].'/'.$action);
@@ -757,7 +858,7 @@ function common_fancy_url($action, $args=NULL) {
 	 case 'subscribers':
 	 case 'all':
 	 case 'replies':
-		if ($args && $args['page']) {
+		if ($args && isset($args['page'])) {
 			return common_path($args['nickname'].'/'.$action.'?page=' . $args['page']);
 		} else {
 			return common_path($args['nickname'].'/'.$action);
@@ -769,7 +870,7 @@ function common_fancy_url($action, $args=NULL) {
 	 case 'userrss':
 		return common_path($args['nickname'].'/rss');
 	 case 'showstream':
-		if ($args && $args['page']) {
+		if ($args && isset($args['page'])) {
 			return common_path($args['nickname'].'?page=' . $args['page']);
 		} else {
 			return common_path($args['nickname']);
@@ -794,6 +895,16 @@ function common_fancy_url($action, $args=NULL) {
 		return common_path('search/notice/rss' . (($args) ? ('?' . http_build_query($args)) : ''));
 	 case 'avatarbynickname':
 		return common_path($args['nickname'].'/avatar/'.$args['size']);
+	 case 'tag':
+	    if (isset($args['tag']) && $args['tag']) {
+	    		$path = 'tag/' . $args['tag'];
+			unset($args['tag']);
+		} else {
+			$path = 'tags';
+		}
+		return common_path($path . (($args) ? ('?' . http_build_query($args)) : ''));
+	 case 'tags':
+		return common_path('tags' . (($args) ? ('?' . http_build_query($args)) : ''));
 	 default:
 		return common_simple_url($action, $args);
 	}
@@ -852,23 +963,43 @@ function common_date_string($dt) {
 }
 
 function common_exact_date($dt) {
-	$t = strtotime($dt);
-	return date(DATE_RFC850, $t);
+    static $_utc;
+    static $_siteTz;
+
+    if (!$_utc) {
+        $_utc = new DateTimeZone('UTC');
+        $_siteTz = new DateTimeZone(common_timezone());
+    }
+
+	$dateStr = date('d F Y H:i:s', strtotime($dt));
+	$d = new DateTime($dateStr, $_utc);
+	$d->setTimezone($_siteTz);
+	return $d->format(DATE_RFC850);
 }
 
 function common_date_w3dtf($dt) {
-	$t = strtotime($dt);
-	return date(DATE_W3C, $t);
+	$dateStr = date('d F Y H:i:s', strtotime($dt));
+	$d = new DateTime($dateStr, new DateTimeZone('UTC'));
+	$d->setTimezone(new DateTimeZone(common_timezone()));
+	return $d->format(DATE_W3C);
 }
 
 function common_date_rfc2822($dt) {
-	$t = strtotime($dt);
-	return date("r", $t);	
+	$dateStr = date('d F Y H:i:s', strtotime($dt));
+	$d = new DateTime($dateStr, new DateTimeZone('UTC'));
+	$d->setTimezone(new DateTimeZone(common_timezone()));
+	return $d->format('r');
 }
 
 function common_date_iso8601($dt) {
-	$t = strtotime($dt);
-	return date("c", $t);	
+	$dateStr = date('d F Y H:i:s', strtotime($dt));
+	$d = new DateTime($dateStr, new DateTimeZone('UTC'));
+	$d->setTimezone(new DateTimeZone(common_timezone()));
+	return $d->format('c');
+}
+
+function common_sql_now() {
+	return strftime('%Y-%m-%d %H:%M:%S', time());
 }
 
 function common_redirect($url, $code=307) {
@@ -889,6 +1020,7 @@ function common_redirect($url, $code=307) {
 
 function common_save_replies($notice) {
 	# Alternative reply format
+	$tname = false;
 	if (preg_match('/^T ([A-Z0-9]{1,64}) /', $notice->content, $match)) {
 		$tname = $match[1];
 	}
@@ -911,9 +1043,11 @@ function common_save_replies($notice) {
 		if ($i == 0 && ($recipient->id != $sender->id)) { # Don't save reply to self
 			$reply_for = $recipient;
 			$recipient_notice = $reply_for->getCurrentNotice();
-			$orig = clone($notice);
-			$notice->reply_to = $recipient_notice->id;
-			$notice->update($orig);
+			if ($recipient_notice) {
+				$orig = clone($notice);
+				$notice->reply_to = $recipient_notice->id;
+				$notice->update($orig);
+			}
 		}
 		$reply = new Reply();
 		$reply->notice_id = $notice->id;
@@ -921,7 +1055,7 @@ function common_save_replies($notice) {
 		$id = $reply->insert();
 		if (!$id) {
 			$last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-			common_log(LOG_ERROR, 'DB error inserting reply: ' . $last_error->message);
+			common_log(LOG_ERR, 'DB error inserting reply: ' . $last_error->message);
 			common_server_error(sprintf(_('DB error inserting reply: %s'), $last_error->message));
 			return;
 		}
@@ -940,17 +1074,36 @@ function common_broadcast_notice($notice, $remote=false) {
 # Stick the notice on the queue
 
 function common_enqueue_notice($notice) {
-	$qi = new Queue_item();
-	$qi->notice_id = $notice->id;
-	$qi->created = $notice->created;
+	foreach (array('jabber', 'omb', 'sms', 'public') as $transport) {
+		$qi = new Queue_item();
+		$qi->notice_id = $notice->id;
+		$qi->transport = $transport;
+		$qi->created = $notice->created;
         $result = $qi->insert();
-	if (!$result) {
-	    $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-	    common_log(LOG_ERROR, 'DB error inserting queue item: ' . $last_error->message);
-	    return false;
+		if (!$result) {
+			$last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
+			common_log(LOG_ERR, 'DB error inserting queue item: ' . $last_error->message);
+			return false;
+		}
+		common_log(LOG_DEBUG, 'complete queueing notice ID = ' . $notice->id . ' for ' . $transport);
 	}
-	common_log(LOG_DEBUG, 'complete queueing notice ID = ' . $notice->id);
 	return $result;
+}
+
+function common_dequeue_notice($notice) {
+        $qi = Queue_item::staticGet($notice->id);
+        if ($qi) {
+                $result = $qi->delete();
+	        if (!$result) {
+	            $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
+                    common_log(LOG_ERR, 'DB error deleting queue item: ' . $last_error->message);
+                    return false;
+                }
+                common_log(LOG_DEBUG, 'complete dequeueing notice ID = ' . $notice->id);
+                return $result;
+        } else {
+            return false;
+        }
 }
 
 function common_real_broadcast($notice, $remote=false) {
@@ -960,17 +1113,29 @@ function common_real_broadcast($notice, $remote=false) {
 		require_once(INSTALLDIR.'/lib/omb.php');
 		$success = omb_broadcast_remote_subscribers($notice);
 		if (!$success) {
-			common_log(LOG_ERROR, 'Error in OMB broadcast for notice ' . $notice->id);
+			common_log(LOG_ERR, 'Error in OMB broadcast for notice ' . $notice->id);
 		}
 	}
 	if ($success) {
 		require_once(INSTALLDIR.'/lib/jabber.php');
 		$success = jabber_broadcast_notice($notice);
 		if (!$success) {
-			common_log(LOG_ERROR, 'Error in jabber broadcast for notice ' . $notice->id);
+			common_log(LOG_ERR, 'Error in jabber broadcast for notice ' . $notice->id);
 		}
 	}
-	// XXX: broadcast notices to SMS
+	if ($success) {
+		require_once(INSTALLDIR.'/lib/mail.php');
+		$success = mail_broadcast_notice_sms($notice);
+		if (!$success) {
+			common_log(LOG_ERR, 'Error in sms broadcast for notice ' . $notice->id);
+		}
+	}
+	if ($success) {
+		$success = jabber_public_notice($notice);
+		if (!$success) {
+			common_log(LOG_ERR, 'Error in public broadcast for notice ' . $notice->id);
+		}
+	}
 	// XXX: broadcast notices to other IM
 	return $success;
 }
@@ -1247,7 +1412,7 @@ function common_negotiate_type($cprefs, $sprefs) {
 
 function common_config($main, $sub) {
 	global $config;
-	return $config[$main][$sub];
+	return isset($config[$main][$sub]) ? $config[$main][$sub] : false;
 }
 
 function common_copy_args($from) {
@@ -1257,6 +1422,15 @@ function common_copy_args($from) {
 		$to[$k] = ($strip) ? stripslashes($v) : $v;
 	}
 	return $to;
+}
+
+// Neutralise the evil effects of magic_quotes_gpc in the current request.
+// This is used before handing a request off to OAuthRequest::from_request.
+function common_remove_magic_from_request() {
+	if(get_magic_quotes_gpc()) {
+		$_POST=array_map('stripslashes',$_POST);
+		$_GET=array_map('stripslashes',$_GET);
+	}
 }
 
 function common_user_uri(&$user) {
@@ -1311,11 +1485,56 @@ function common_profile_uri($profile) {
 	if ($user) {
 		return $user->uri;
 	}
-	
+
 	$remote = Remote_profile::staticGet($profile->id);
 	if ($remote) {
 		return $remote->uri;
 	}
 	# XXX: this is a very bad profile!
 	return NULL;
+}
+
+function common_canonical_sms($sms) {
+	# strip non-digits
+	preg_replace('/\D/', '', $sms);
+	return $sms;
+}
+
+function common_error_handler($errno, $errstr, $errfile, $errline, $errcontext) {
+    switch ($errno) {
+     case E_USER_ERROR:
+		common_log(LOG_ERR, "[$errno] $errstr ($errfile:$errline)");
+		exit(1);
+		break;
+
+	 case E_USER_WARNING:
+		common_log(LOG_WARNING, "[$errno] $errstr ($errfile:$errline)");
+		break;
+
+     case E_USER_NOTICE:
+		common_log(LOG_NOTICE, "[$errno] $errstr ($errfile:$errline)");
+		break;
+    }
+
+	# FIXME: show error page if we're on the Web
+    /* Don't execute PHP internal error handler */
+    return true;
+}
+
+function common_session_token() {
+	common_ensure_session();
+	if (!array_key_exists('token', $_SESSION)) {
+		$_SESSION['token'] = common_good_rand(64);
+	}
+	return $_SESSION['token'];
+}
+
+function common_cache_key($extra) {
+	return 'laconica:' . common_keyize(common_config('site', 'name')) . ':' . $extra;
+}
+
+function common_keyize($str) {
+	$str = strtolower($str);
+	$str = preg_replace('/\s/', '_', $str);
+	return $str;
 }

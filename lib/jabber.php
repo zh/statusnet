@@ -21,30 +21,6 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once('XMPPHP/XMPP.php');
 
-# XXX: something of a hack to work around problems with the XMPPHP lib
-
-class Laconica_XMPP extends XMPPHP_XMPP {
-    
-    function messageplus($to, $body, $type = 'chat', $subject = null, $payload = null) {
-	$to	  = htmlspecialchars($to);
-	$body	= htmlspecialchars($body);
-	$subject = htmlspecialchars($subject);
-
-	$jid = jabber_daemon_address();
-	
-	$out = "<message from='$jid' to='$to' type='$type'>";
-	if($subject) $out .= "<subject>$subject</subject>";
-	$out .= "<body>$body</body>";
-	if($payload) $out .= $payload;
-	$out .= "</message>";
-
-		$cnt = strlen($out);
-		common_log(LOG_DEBUG, "Sending $cnt chars to $to");
-	$this->send($out);
-		common_log(LOG_DEBUG, 'Done.');
-    }
-}
-
 function jabber_valid_base_jid($jid) {
 	# Cheap but effective
 	return Validate::email($jid);
@@ -54,7 +30,6 @@ function jabber_normalize_jid($jid) {
 	if (preg_match("/(?:([^\@]+)\@)?([^\/]+)(?:\/(.*))?$/", $jid, $matches)) {
 		$node = $matches[1];
 		$server = $matches[2];
-		$resource = $matches[3];
 		return strtolower($node.'@'.$server);
 	} else {
 		return NULL;
@@ -68,7 +43,7 @@ function jabber_daemon_address() {
 function jabber_connect($resource=NULL) {
 	static $conn = NULL;
 	if (!$conn) {
-		$conn = new Laconica_XMPP(common_config('xmpp', 'host') ?
+		$conn = new XMPPHP_XMPP(common_config('xmpp', 'host') ?
 								common_config('xmpp', 'host') :
 								common_config('xmpp', 'server'),
 								common_config('xmpp', 'port'),
@@ -82,15 +57,21 @@ function jabber_connect($resource=NULL) {
 								common_config('xmpp', 'debug') ?
 								XMPPHP_Log::LEVEL_VERBOSE :  NULL
 								);
-		$conn->autoSubscribe();
 
 		if (!$conn) {
 			return false;
 		}
-		$conn->connect(true); # true = persistent connection
-		if ($conn->isDisconnected()) {
+
+		$conn->autoSubscribe();
+		$conn->useEncryption(common_config('xmpp', 'encryption'));
+
+		try {
+			$conn->connect(true); # true = persistent connection
+		} catch (XMPPHP_Exception $e) {
+			common_log(LOG_ERROR, $e->getMessage());
 			return false;
 		}
+
     	$conn->processUntil('session_start');
 	}
 	return $conn;
@@ -110,21 +91,24 @@ function jabber_send_notice($to, $notice) {
 	}
 	$msg = jabber_format_notice($profile, $notice);
 	$entry = jabber_format_entry($profile, $notice);
-	$conn->messageplus($to, $msg, 'chat', NULL, $entry);
+	$conn->message($to, $msg, 'chat', NULL, $entry);
+	$profile->free();
 	return true;
 }
 
 # Extra stuff defined by Twitter, needed by twitter clients
 
 function jabber_format_entry($profile, $notice) {
-	
+
+	# FIXME: notice url might be remote
+
 	$noticeurl = common_local_url('shownotice',
 								  array('notice' => $notice->id));
 	$msg = jabber_format_notice($profile, $notice);
 	$entry = "\n<entry xmlns='http://www.w3.org/2005/Atom'>\n";
 	$entry .= "<source>\n";
 	$entry .= "<title>" . $profile->nickname . " - " . common_config('site', 'name') . "</title>\n";
-	$entry .= "<link href='" . $profile->profileurl . "'/>\n";
+	$entry .= "<link href='" . htmlspecialchars($profile->profileurl) . "'/>\n";
 	$entry .= "<link rel='self' type='application/rss+xml' href='" . common_local_url('userrss', array('nickname' => $profile->nickname)) . "'/>\n";
 	$entry .= "<author><name>" . $profile->nickname . "</name></author>\n";
 	$entry .= "<icon>" . common_profile_avatar_url($profile, AVATAR_PROFILE_SIZE) . "</icon>\n";
@@ -143,16 +127,14 @@ function jabber_format_entry($profile, $notice) {
 	$html .= ($notice->rendered) ? $notice->rendered : common_render_content($notice->content, $notice);
 	$html .= "\n</body>\n";
 	$html .= "\n</html>\n";
-	
-	$event = "<event xmlns='http://jabber.org/protocol/pubsub#event'>\n";
-    $event .= "<items xmlns='http://jabber.org/protocol/pubsub' ";
-	$event .= "node='" . common_local_url('public') . "'>\n";
-	$event .= "<item id='" . $notice->uri ."' />\n";
-	$event .= "</items>\n";
-	$event .= "</event>\n";
-	# FIXME: include the pubsub event, too.
-	return $html . $entry;
-#	return $entry . "\n" . $event;
+
+	$address = "<addresses xmlns='http://jabber.org/protocol/address'>\n";
+	$address .= "<address type='replyto' jid='" . jabber_daemon_address() . "' />\n";
+	$address .= "</addresses>\n";
+
+	# FIXME: include a pubsub event, too.
+
+	return $html . $entry . $address;
 }
 
 function jabber_send_message($to, $body, $type='chat', $subject=NULL) {
@@ -164,12 +146,14 @@ function jabber_send_message($to, $body, $type='chat', $subject=NULL) {
 	return true;
 }
 
-function jabber_send_presence($status, $show='available', $to=Null) {
+function jabber_send_presence($status, $show='available', $to=NULL,
+							  $type = 'available', $priority=NULL)
+{
 	$conn = jabber_connect();
 	if (!$conn) {
 		return false;
 	}
-	$conn->presence($status, $show, $to);
+	$conn->presence($status, $show, $to, $type, $priority);
 	return true;
 }
 
@@ -205,79 +189,108 @@ function jabber_special_presence($type, $to=NULL, $show=NULL, $status=NULL) {
 }
 
 function jabber_broadcast_notice($notice) {
+
+	if (!common_config('xmpp', 'enabled')) {
+		return true;
+	}
 	$profile = Profile::staticGet($notice->profile_id);
+
 	if (!$profile) {
 		common_log(LOG_WARNING, 'Refusing to broadcast notice with ' .
 		           'unknown profile ' . common_log_objstring($notice),
 		           __FILE__);
 		return false;
 	}
+
+	$msg = jabber_format_notice($profile, $notice);
+	$entry = jabber_format_entry($profile, $notice);
+
+	$profile->free();
+	unset($profile);
+	
 	$sent_to = array();
-	# First, get users who this is a direct reply to
-	$reply = new Reply();
-	$reply->notice_id = $notice->id;
-	if ($reply->find()) {
-		while ($reply->fetch()) {
-			$user = User::staticGet($reply->profile_id);
-			if ($user && $user->jabber && $user->jabbernotify && $user->jabberreplies) {
-				common_log(LOG_INFO,
-						   'Sending reply notice ' . $notice->id . ' to ' . $user->jabber,
-						   __FILE__);
-				$success = jabber_send_notice($user->jabber, $notice);
-				if ($success) {
-					# Remember so we don't send twice
-					$sent_to[$user->id] = true;
-				} else {
-					# XXX: Not sure, but I think that's the right thing to do
-					common_log(LOG_WARNING,
-							   'Sending reply notice ' . $notice->id . ' to ' . $user->jabber . ' FAILED, cancelling.',
-							   __FILE__);
-					return false;
-				}
-			}
-		}
+	$conn = jabber_connect();
+
+	# First, get users to whom this is a direct reply
+	$user = new User();
+	$user->query('SELECT user.id, user.jabber ' .
+				 'FROM user JOIN reply ON user.id = reply.profile_id ' .
+				 'WHERE reply.notice_id = ' . $notice->id . ' ' .
+				 'AND user.jabber is not null ' .
+				 'AND user.jabbernotify = 1 ' .
+				 'AND user.jabberreplies = 1 ');
+
+	while ($user->fetch()) {
+		common_log(LOG_INFO,
+				   'Sending reply notice ' . $notice->id . ' to ' . $user->jabber,
+				   __FILE__);
+		$conn->message($user->jabber, $msg, 'chat', NULL, $entry);
+		$conn->processTime(0);
+		$sent_to[$user->id] = 1;
 	}
+
+	$user->free();
+	
     # Now, get users subscribed to this profile
-	# XXX: use a join here rather than looping through results
-	$sub = new Subscription();
-	$sub->subscribed = $notice->profile_id;
-        
-	if ($sub->find()) {
-		while ($sub->fetch()) {
-			$user = User::staticGet($sub->subscriber);
-			if ($user && $user->jabber && $user->jabbernotify && !$sent_to[$user->id]) {
-				common_log(LOG_INFO,
-						   'Sending notice ' . $notice->id . ' to ' . $user->jabber,
-						   __FILE__);
-				$success = jabber_send_notice($user->jabber, $notice);
-				if ($success) {
-					$sent_to[$user->id] = true;
-				} else {
-					# XXX: Not sure, but I think that's the right thing to do
-					common_log(LOG_WARNING,
-							   'Sending notice ' . $notice->id . ' to ' . $user->jabber . ' FAILED, cancelling.',
-							   __FILE__);
-					return false;
-				}
-			}
+
+	$user = new User();
+	$user->query('SELECT user.id, user.jabber ' .
+				 'FROM user JOIN subscription ON user.id = subscription.subscriber ' .
+				 'WHERE subscription.subscribed = ' . $notice->profile_id . ' ' .
+				 'AND user.jabber is not null ' .
+				 'AND user.jabbernotify = 1 ');
+
+	while ($user->fetch()) {
+		if (!array_key_exists($user->id, $sent_to)) {
+			common_log(LOG_INFO,
+					   'Sending notice ' . $notice->id . ' to ' . $user->jabber,
+					   __FILE__);
+			$conn->message($user->jabber, $msg, 'chat', NULL, $entry);
+			# To keep the incoming queue from filling up, we service it after each send.
+			$conn->processTime(0);
 		}
 	}
 
+	$user->free();
+	
+	return true;
+}
+
+function jabber_public_notice($notice) {
+
 	# Now, users who want everything
-	
+
 	$public = common_config('xmpp', 'public');
-	
+
 	# FIXME PRIV don't send out private messages here
-	
-	if ($public) {
-		foreach ($public as $address) {
-				common_log(LOG_INFO,
-						   'Sending notice ' . $notice->id . ' to public listener ' . $address,
-						   __FILE__);
-				jabber_send_notice($address, $notice);
+	# XXX: should we send out non-local messages if public,localonly
+	# = false? I think not
+
+	if ($public && $notice->is_local) {
+		$profile = Profile::staticGet($notice->profile_id);
+
+		if (!$profile) {
+			common_log(LOG_WARNING, 'Refusing to broadcast notice with ' .
+					   'unknown profile ' . common_log_objstring($notice),
+					   __FILE__);
+			return false;
 		}
+
+		$msg = jabber_format_notice($profile, $notice);
+		$entry = jabber_format_entry($profile, $notice);
+
+		$conn = jabber_connect();
+
+		foreach ($public as $address) {
+			common_log(LOG_INFO,
+					   'Sending notice ' . $notice->id . ' to public listener ' . $address,
+					   __FILE__);
+			$conn->message($address, $msg, 'chat', NULL, $entry);
+			$conn->processTime(0);
+		}
+		$profile->free();
 	}
-	
+
 	return true;
 }
 

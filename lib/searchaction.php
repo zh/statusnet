@@ -21,6 +21,10 @@ if (!defined('LACONICA')) { exit(1); }
 
 class SearchAction extends Action {
 
+	function is_readonly() {
+		return true;
+	}
+
 	function handle($args) {
 		parent::handle($args);
 		$this->show_form();
@@ -51,6 +55,8 @@ class SearchAction extends Action {
 	}
 
 	function show_form($error=NULL) {
+		global $config;
+
 		$q = $this->trimmed('q');
 		$page = $this->trimmed('page', 1);
 
@@ -60,6 +66,11 @@ class SearchAction extends Action {
 										   'id' => 'login',
 										   'action' => common_local_url($this->trimmed('action'))));
 		common_element_start('p');
+		if (!isset($config['site']['fancy']) || !$config['site']['fancy']) {
+			common_element('input', array('name' => 'action',
+										  'type' => 'hidden',
+										  'value' => $this->trimmed('action')));
+		}
 		common_element('input', array('name' => 'q',
 									  'id' => 'q',
 									  'type' => 'text',
@@ -81,14 +92,19 @@ class SearchAction extends Action {
 	}
 
 	function search_menu() {
-        # action => array('prompt', 'title')
-        static $menu =
-        array('peoplesearch' =>
-              array('People',
-              		'Find people on this site'),
-			  'noticesearch' =>
-			  array('Text',
-					'Find content of notices'));
+		# action => array('prompt', 'title', $args)
+		$action = $this->trimmed('action');
+		$menu =
+		  array('peoplesearch' =>
+				array(
+					  _('People'),
+					  _('Find people on this site'),
+					  ($action != 'peoplesearch' && $this->trimmed('q')) ? array('q' => $this->trimmed('q')) : NULL),
+				'noticesearch' =>
+				array( _('Text'),
+					   _('Find content of notices'),
+					   ($action != 'noticesearch' && $this->trimmed('q')) ? array('q' => $this->trimmed('q')) : NULL)
+				);
 		$this->nav_menu($menu);
 	}
 }

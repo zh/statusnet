@@ -1,8 +1,14 @@
 RewriteEngine On
 
+# NOTE: change this to your actual Laconica path; may be "/".
+
+RewriteBase /mublog/
+
 RewriteRule ^$ index.php?action=public [L,QSA]
 RewriteRule ^rss$ index.php?action=publicrss [L,QSA]
 RewriteRule ^xrds$ index.php?action=publicxrds [L,QSA]
+RewriteRule ^opensearch/people$ index.php?action=opensearch&type=people [L,QSA]
+RewriteRule ^opensearch/notice$ index.php?action=opensearch&type=notice [L,QSA]
 
 RewriteRule ^doc/about$ index.php?action=doc&title=about [L,QSA]
 RewriteRule ^doc/contact$ index.php?action=doc&title=contact [L,QSA]
@@ -33,6 +39,7 @@ RewriteRule ^settings/profile$ index.php?action=profilesettings [L,QSA]
 RewriteRule ^settings/openid$ index.php?action=openidsettings [L,QSA]
 RewriteRule ^settings/im$ index.php?action=imsettings [L,QSA]
 RewriteRule ^settings/email$ index.php?action=emailsettings [L,QSA]
+RewriteRule ^settings/sms$ index.php?action=smssettings [L,QSA]
 
 RewriteRule ^search/people$ index.php?action=peoplesearch [L,QSA]
 RewriteRule ^search/notice$ index.php?action=noticesearch [L,QSA]
@@ -40,8 +47,13 @@ RewriteRule ^search/notice/rss$ index.php?action=noticesearchrss [L,QSA]
 
 RewriteRule ^notice/new$ index.php?action=newnotice [L,QSA]
 RewriteRule ^notice/(\d+)$ index.php?action=shownotice&notice=$1 [L,QSA]
+RewriteRule ^notice/delete/((\d+))?$ index.php?action=deletenotice&notice=$2 [L,QSA]
+RewriteRule ^notice/delete$ index.php?action=deletenotice [L,QSA]
 
 RewriteRule ^user/(\d+)$ index.php?action=userbyid&id=$1 [L,QSA]
+
+RewriteRule ^tags/?$ index.php?action=tag [L,QSA]
+RewriteRule ^tag(/(.*))?$ index.php?action=tag&tag=$2 [L,QSA]
 
 RewriteRule ^(\w+)/subscriptions$ index.php?action=subscriptions&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/subscribers$ index.php?action=subscribers&nickname=$1 [L,QSA]
@@ -56,7 +68,7 @@ RewriteRule ^(\w+)/avatar/(original|96|48|24)$ index.php?action=avatarbynickname
 
 RewriteRule ^(\w+)$ index.php?action=showstream&nickname=$1 [L,QSA]
 
-# Twitter-compatible API rewrites 
+# Twitter-compatible API rewrites
 # XXX: Surely these can be refactored a little -- Zach
 RewriteRule ^api/statuses/public_timeline(.*)$ index.php?action=api&apiaction=statuses&method=public_timeline$1 [L,QSA]
 RewriteRule ^api/statuses/friends_timeline(.*)$ index.php?action=api&apiaction=statuses&method=friends_timeline$1 [L,QSA]
@@ -71,6 +83,8 @@ RewriteRule ^api/statuses/friends(.*)$ index.php?action=api&apiaction=statuses&m
 RewriteRule ^api/statuses/followers/(.*)$ index.php?action=api&apiaction=statuses&method=followers&argument=$1 [L,QSA]
 RewriteRule ^api/statuses/followers(.*)$ index.php?action=api&apiaction=statuses&method=followers$1 [L,QSA]
 RewriteRule ^api/statuses/featured(.*)$ index.php?action=api&apiaction=statuses&method=featured$1 [L,QSA]
+RewriteRule ^api/users/show/(.*)$ index.php?action=api&apiaction=users&method=show&argument=$1 [L,QSA]
+RewriteRule ^api/users/show(.*)$ index.php?action=api&apiaction=users&method=show$1 [L,QSA]
 RewriteRule ^api/direct_messages/sent(.*)$ index.php?action=api&apiaction=direct_messages&method=sent$1 [L,QSA]
 RewriteRule ^api/direct_messages/destroy/(.*)$ index.php?action=api&apiaction=direct_messages&method=destroy&argument=$1 [L,QSA]
 RewriteRule ^api/direct_messages/new(.*)$ index.php?action=api&apiaction=direct_messages&method=create$1 [L,QSA]
@@ -91,4 +105,8 @@ RewriteRule ^api/notifications/leave/(.*)$ index.php?action=api&apiaction=notifi
 RewriteRule ^api/blocks/create/(.*)$ index.php?action=api&apiaction=blocks&method=create&argument=$1 [L,QSA]
 RewriteRule ^api/blocks/destroy/(.*)$ index.php?action=api&apiaction=blocks&method=destroy&argument=$1 [L,QSA]
 RewriteRule ^api/help/(.*)$ index.php?action=api&apiaction=help&method=$1 [L,QSA]
+
+<FilesMatch "\.(ini)">
+  Order allow,deny
+</FilesMatch>
 

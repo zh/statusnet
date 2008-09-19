@@ -35,6 +35,7 @@ class ImsettingsAction extends SettingsAction {
 										   'id' => 'imsettings',
 										   'action' =>
 										   common_local_url('imsettings')));
+		common_hidden('token', common_session_token());
 
 		common_element('h2', NULL, _('Address'));
 
@@ -52,8 +53,7 @@ class ImsettingsAction extends SettingsAction {
 				common_element_start('p');
 				common_element('span', 'address unconfirmed', $confirm->address);
 				common_element('span', 'input_instructions',
-							   sprintf(_('Awaiting confirmation on this address. Check your Jabber/GTalk account for a message with further instructions. (Did you add %s to your buddy list?)'),
-                                 jabber_daemon_address()));
+			  	              sprintf(_('Awaiting confirmation on this address. Check your Jabber/GTalk account for a message with further instructions. (Did you add %s to your buddy list?)'), jabber_daemon_address()));
 				common_hidden('jabber', $confirm->address);
 				common_element_end('p');
 				common_submit('cancel', _('Cancel'));
@@ -76,6 +76,9 @@ class ImsettingsAction extends SettingsAction {
 		common_checkbox('jabberreplies',
 		                _('Send me replies through Jabber/GTalk from people I\'m not subscribed to.'),
 		                $user->jabberreplies);
+		common_checkbox('jabbermicroid',
+		                _('Publish a MicroID for my Jabber/GTalk address.'),
+		                $user->jabbermicroid);
 		common_submit('save', _('Save'));
 
 		common_element_end('form');
@@ -96,6 +99,13 @@ class ImsettingsAction extends SettingsAction {
 
 	function handle_post() {
 
+		# CSRF protection
+		$token = $this->trimmed('token');
+		if (!$token || $token != common_session_token()) {
+			$this->show_form(_('There was a problem with your session token. Try again, please.'));
+			return;
+		}
+
 		if ($this->arg('save')) {
 			$this->save_preferences();
 		} else if ($this->arg('add')) {
@@ -114,6 +124,7 @@ class ImsettingsAction extends SettingsAction {
 		$jabbernotify = $this->boolean('jabbernotify');
 		$updatefrompresence = $this->boolean('updatefrompresence');
 		$jabberreplies = $this->boolean('jabberreplies');
+		$jabbermicroid = $this->boolean('jabbermicroid');
 
 		$user = common_current_user();
 
@@ -126,6 +137,7 @@ class ImsettingsAction extends SettingsAction {
 		$user->jabbernotify = $jabbernotify;
 		$user->updatefrompresence = $updatefrompresence;
 		$user->jabberreplies = $jabberreplies;
+		$user->jabbermicroid = $jabbermicroid;
 
 		$result = $user->update($original);
 

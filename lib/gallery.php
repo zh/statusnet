@@ -25,19 +25,28 @@ define('AVATARS_PER_PAGE', 80);
 
 class GalleryAction extends Action {
 
+	function is_readonly() {
+		return true;
+	}
+
 	function handle($args) {
 		parent::handle($args);
-		$nickname = $this->arg('nickname');
-		$profile = Profile::staticGet('nickname', $nickname);
-		if (!$profile) {
-			$this->no_such_user();
-			return;
-		}
-		$user = User::staticGet($profile->id);
+		$nickname = common_canonical_nickname($this->arg('nickname'));
+
+		$user = User::staticGet('nickname', $nickname);
+
 		if (!$user) {
 			$this->no_such_user();
 			return;
 		}
+
+		$profile = $user->getProfile();
+
+		if (!$profile) {
+			$this->server_error(_('User without matching profile in system.'));
+			return;
+		}
+
 		$page = $this->arg('page');
 		if (!$page) {
 			$page = 1;
@@ -88,7 +97,13 @@ class GalleryAction extends Action {
 				break;
 			}
 
-			$other = Profile::staticGet($this->get_other($subs));
+			$other_id = $this->get_other($subs);
+			$other = Profile::staticGet($other_id);
+
+			if (!$other) {
+				common_log(LOG_WARNING, 'No matching profile for ' . $other_id);
+				continue;
+			}
 
 			common_element_start('li');
 

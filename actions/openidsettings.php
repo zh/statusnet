@@ -40,6 +40,7 @@ class OpenidsettingsAction extends SettingsAction {
 										   'id' => 'openidadd',
 										   'action' =>
 										   common_local_url('openidsettings')));
+		common_hidden('token', common_session_token());
 		common_element('h2', NULL, _('Add OpenID'));
 		common_element('p', NULL,
 					   _('If you want to add an OpenID to your account, ' .
@@ -93,6 +94,7 @@ class OpenidsettingsAction extends SettingsAction {
 													   'action' =>
 													   common_local_url('openidsettings')));
 					common_element_start('p');
+					common_hidden('token', common_session_token());
 					common_element('a', array('href' => $oid->canonical),
 								   $oid->display);
 					common_element('input', array('type' => 'hidden',
@@ -115,6 +117,13 @@ class OpenidsettingsAction extends SettingsAction {
 	}
 
 	function handle_post() {
+		# CSRF protection
+		$token = $this->trimmed('token');
+		if (!$token || $token != common_session_token()) {
+			$this->show_form(_('There was a problem with your session token. Try again, please.'));
+			return;
+		}
+
 		if ($this->arg('add')) {
 			$result = oid_authenticate($this->trimmed('openid_url'), 'finishaddopenid');
 			if (is_string($result)) { # error message

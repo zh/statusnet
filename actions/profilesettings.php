@@ -37,6 +37,7 @@ class ProfilesettingsAction extends SettingsAction {
 										   'id' => 'profilesettings',
 										   'action' =>
 										   common_local_url('profilesettings')));
+		common_hidden('token', common_session_token());
 		# too much common patterns here... abstractable?
 		common_input('nickname', _('Nickname'),
 					 ($this->arg('nickname')) ? $this->arg('nickname') : $profile->nickname,
@@ -52,6 +53,18 @@ class ProfilesettingsAction extends SettingsAction {
 		common_input('location', _('Location'),
 					 ($this->arg('location')) ? $this->arg('location') : $profile->location,
 					 _('Where you are, like "City, State (or Region), Country"'));
+
+		$language = common_language();
+		common_dropdown('language', _('Language'), get_nice_language_list(), _('Preferred language'), TRUE, $language);
+		$timezone = common_timezone();
+		$timezones = array();
+		foreach(DateTimeZone::listIdentifiers() as $k => $v) {
+			$timezones[$v] = $v;
+		}
+		common_dropdown('timezone', _('Timezone'), $timezones, _('What timezone are you normally in?'), TRUE, $timezone);
+
+		common_checkbox('autosubscribe', _('Automatically subscribe to whoever subscribes to me (best for non-humans)'),
+						($this->arg('autosubscribe')) ? $this->boolean('autosubscribe') : $user->autosubscribe);
 		common_submit('submit', _('Save'));
 		common_element_end('form');
 		common_show_footer();
@@ -64,6 +77,17 @@ class ProfilesettingsAction extends SettingsAction {
 		$homepage = $this->trimmed('homepage');
 		$bio = $this->trimmed('bio');
 		$location = $this->trimmed('location');
+		$autosubscribe = $this->boolean('autosubscribe');
+		$language = $this->trimmed('language');
+		$timezone = $this->trimmed('timezone');
+
+		# CSRF protection
+
+		$token = $this->trimmed('token');
+		if (!$token || $token != common_session_token()) {
+			$this->show_form(_('There was a problem with your session token. Try again, please.'));
+			return;
+		}
 
 		# Some validation
 
@@ -88,29 +112,62 @@ class ProfilesettingsAction extends SettingsAction {
 		} else if (!is_null($location) && strlen($location) > 255) {
 			$this->show_form(_('Location is too long (max 255 chars).'));
 			return;
+		}  else if (is_null($timezone) || !in_array($timezone, DateTimeZone::listIdentifiers())) {
+			$this->show_form(_('Timezone not selected.'));
+			return;
 		} else if ($this->nickname_exists($nickname)) {
 			$this->show_form(_('Nickname already in use. Try another one.'));
 			return;
+                } else if (!is_null($language) && strlen($language) > 50) {
+                        $this->show_form(_('Language is too long (max 50 chars).'));
 		}
 
 		$user = common_current_user();
 
 		$user->query('BEGIN');
 
-		if ($user->nickname != $nickname) {
+		if ($user->nickname != $nickname ||
+			$user->language != $language ||
+			$user->timezone != $timezone) {
 
 			common_debug('Updating user nickname from ' . $user->nickname . ' to ' . $nickname,
+						 __FILE__);
+			common_debug('Updating user language from ' . $user->language . ' to ' . $language,
+						 __FILE__);
+			common_debug('Updating user timezone from ' . $user->timezone . ' to ' . $timezone,
 						 __FILE__);
 
 			$original = clone($user);
 
 			$user->nickname = $nickname;
+			$user->language = $language;
+			$user->timezone = $timezone;
 
 			$result = $user->updateKeys($original);
 
 			if ($result === FALSE) {
 				common_log_db_error($user, 'UPDATE', __FILE__);
 				common_server_error(_('Couldn\'t update user.'));
+				return;
+			} else {
+				# Re-initialize language environment if it changed
+				common_init_language();
+			}
+		}
+
+		# XXX: XOR
+
+		if ($user->autosubscribe ^ $autosubscribe) {
+
+			$original = clone($user);
+
+			$user->autosubscribe = $autosubscribe;
+
+			$result = $user->update($original);
+
+			if ($result === FALSE) {
+				common_log_db_error($user, 'UPDATE', __FILE__);
+				common_server_error(_('Couldn\'t update user for autosubscribe.'));
 				return;
 			}
 		}

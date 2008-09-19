@@ -19,20 +19,28 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-define('LACONICA_VERSION', '0.4.4');
+define('LACONICA_VERSION', '0.5.0');
 
 define('AVATAR_PROFILE_SIZE', 96);
 define('AVATAR_STREAM_SIZE', 48);
 define('AVATAR_MINI_SIZE', 24);
 define('MAX_AVATAR_SIZE', 256 * 1024);
 
+define('NOTICES_PER_PAGE', 20);
+
 define_syslog_variables();
 
+# append our extlib dir as the last-resort place to find libs
+
+set_include_path(get_include_path() . PATH_SEPARATOR . INSTALLDIR . '/extlib/');
+				 
 # global configuration object
 
 require_once('PEAR.php');
 require_once('DB/DataObject.php');
 require_once('DB/DataObject/Cast.php'); # for dates
+
+require_once(INSTALLDIR.'/lib/language.php');
 
 // default configuration, overwritten in config.php
 
@@ -44,11 +52,15 @@ $config =
 			  'path' => '/',
 			  'logfile' => NULL,
 			  'fancy' => false,
-		      'email' => 
+			  'locale_path' => INSTALLDIR.'/locale',
+			  'language' => 'en_US',
+			  'languages' => get_all_languages(),
+		      'email' =>
 		      array_key_exists('SERVER_ADMIN', $_SERVER) ? $_SERVER['SERVER_ADMIN'] : NULL,
 			  'broughtby' => NULL,
 			  'timezone' => 'UTC',
-			  'broughtbyurl' => NULL),
+			  'broughtbyurl' => NULL,
+			  'closed' => false),
 		'syslog' =>
 		array('appname' => 'laconica', # for syslog
 			  'priority' => 'debug'), # XXX: currently ignored
@@ -65,6 +77,8 @@ $config =
 		array('blacklist' => array()),
 		'avatar' =>
 		array('server' => NULL),
+		'public' =>
+		array('localonly' => true),
 		'theme' =>
 		array('server' => NULL),
 		'xmpp' =>
@@ -72,11 +86,22 @@ $config =
 			  'server' => 'INVALID SERVER',
 			  'port' => 5222,
 			  'user' => 'update',
+			  'encryption' => true,
 			  'resource' => 'uniquename',
 			  'password' => 'blahblahblah',
 			  'host' => NULL, # only set if != server
 			  'debug' => false, # print extra debug info
 			  'public' => array()), # JIDs of users who want to receive the public stream
+		'tag' =>
+		array('dropoff' => 864000.0),
+		'daemon' =>
+		array('piddir' => '/var/run',
+			  'user' => false,
+			  'group' => false),
+		'memcached' => 
+		array('enabled' => false,
+			  'server' => 'localhost',
+			  'port' => 11211)
 		);
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
@@ -87,29 +112,30 @@ $config['db'] =
 		'class_location' => INSTALLDIR . '/classes',
 		'require_prefix' => 'classes/',
 		'class_prefix' => '',
+		'mirror' => NULL,
         'db_driver' => 'DB', # XXX: JanRain libs only work with DB
 		'quote_identifiers' => false);
 
+if (function_exists('date_default_timezone_set')) {
+	/* Work internally in UTC */
+	date_default_timezone_set('UTC');
+}
+
 require_once(INSTALLDIR.'/config.php');
 
-if (function_exists('date_default_timezone_set') && $config['site']['timezone']) {
-	date_default_timezone_set($config['site']['timezone']);
-}
+require_once('Validate.php');
+require_once('markdown.php');
 
 require_once(INSTALLDIR.'/lib/util.php');
 require_once(INSTALLDIR.'/lib/action.php');
 require_once(INSTALLDIR.'/lib/theme.php');
 require_once(INSTALLDIR.'/lib/mail.php');
+require_once(INSTALLDIR.'/lib/subs.php');
 
-require_once(INSTALLDIR.'/classes/Avatar.php');
-require_once(INSTALLDIR.'/classes/Notice.php');
-require_once(INSTALLDIR.'/classes/Profile.php');
-require_once(INSTALLDIR.'/classes/Remote_profile.php');
-require_once(INSTALLDIR.'/classes/Subscription.php');
-require_once(INSTALLDIR.'/classes/User.php');
-require_once(INSTALLDIR.'/classes/Confirm_address.php');
-require_once(INSTALLDIR.'/classes/Remember_me.php');
-require_once(INSTALLDIR.'/classes/Queue_item.php');
-require_once(INSTALLDIR.'/classes/Reply.php');
-
-require_once('markdown.php');
+function __autoload($class) {
+	if ($class == 'OAuthRequest') {
+		require_once('OAuth.php');
+	} else if (file_exists(INSTALLDIR.'/classes/' . $class . '.php')) {
+        require_once(INSTALLDIR.'/classes/' . $class . '.php');
+    }
+}

@@ -25,6 +25,10 @@ require_once(INSTALLDIR.'/lib/openid.php');
 
 class PublicxrdsAction extends Action {
 
+	function is_readonly() {
+		return true;
+	}
+
 	function handle($args) {
 
 		parent::handle($args);

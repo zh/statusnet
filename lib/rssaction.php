@@ -25,6 +25,10 @@ class Rss10Action extends Action {
 
 	# This will contain the details of each feed item's author and be used to generate SIOC data.
 	var $creators = array();
+
+	function is_readonly() {
+		return true;
+	}
 	
 	function handle($args) {
 		parent::handle($args);

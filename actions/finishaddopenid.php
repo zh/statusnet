@@ -31,7 +31,7 @@ class FinishaddopenidAction extends Action {
 			$this->try_login();
 		}
 	}
-
+	
 	function try_login() {
 
 		$consumer =& oid_consumer();

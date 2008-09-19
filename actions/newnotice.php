@@ -20,7 +20,7 @@
 if (!defined('LACONICA')) { exit(1); }
 
 class NewnoticeAction extends Action {
-
+	
 	function handle($args) {
 		parent::handle($args);
 		# XXX: Ajax!
@@ -38,48 +38,35 @@ class NewnoticeAction extends Action {
 
 		$user = common_current_user();
 		assert($user); # XXX: maybe an error instead...
-		$notice = DB_DataObject::factory('notice');
-		assert($notice);
-		$notice->profile_id = $user->id; # user id *is* profile id
-		$notice->created = DB_DataObject_Cast::dateTime();
-		# Default theme uses 'content' for something else
-		$notice->content = $this->trimmed('status_textarea');
-
-		if (!$notice->content) {
+		$content = $this->trimmed('status_textarea');
+		
+		if (!$content) {
 			$this->show_form(_('No content!'));
 			return;
-		} else if (strlen($notice->content) > 140) {
+		} else if (mb_strlen($content) > 140) {
+			common_debug("Content = '$content'", __FILE__);
+			common_debug("mb_strlen(\$content) = " . mb_strlen($content), __FILE__);
 			$this->show_form(_('That\'s too long. Max notice size is 140 chars.'));
 			return;
 		}
 
-		$notice->rendered = common_render_content($notice->content, $notice);
-
-		$id = $notice->insert();
-
-		if (!$id) {
-			common_server_error(_('Problem saving notice.'));
+		$notice = Notice::saveNew($user->id, $content, 'web');
+		
+		if (is_string($notice)) {
+			$this->show_form($notice);
 			return;
 		}
-
-		$orig = clone($notice);
-		$notice->uri = common_notice_uri($notice);
-
-		if (!$notice->update($orig)) {
-			common_server_error(_('Problem saving notice.'));
-			return;
-		}
-
-        common_save_replies($notice);
+		
 		common_broadcast_notice($notice);
-
+		
 		$returnto = $this->trimmed('returnto');
+		
 		if ($returnto) {
 			$url = common_local_url($returnto,
 									array('nickname' => $user->nickname));
 		} else {
 			$url = common_local_url('shownotice',
-									array('notice' => $id));
+									array('notice' => $notice->id));
 		}
 		common_redirect($url, 303);
 	}

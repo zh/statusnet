@@ -23,25 +23,43 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
 
 class TwitapifriendshipsAction extends TwitterapiAction {
 
+	function is_readonly() {
+		
+		static $write_methods = array(	'create',
+										'destroy');
+		
+		$cmdtext = explode('.', $this->arg('method'));		
+		
+		if (in_array($cmdtext[0], $write_methods)) {			
+			return false;
+		}
+				
+		return true;
+	}
+
 	function create($args, $apidata) {
 		parent::handle($args);
+
+		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+			$this->client_error(_('This method requires a POST.'), 400, $apidata['content-type']);
+			exit();
+		}
 
 		$id = $apidata['api_arg'];
 
 		$other = $this->get_user($id);
 
 		if (!$other) {
-			$this->client_error(_('No such user'));
+			$this->client_error(_('Could not follow user: User not found.'), 403, $apidata['content-type']);
 			exit();
-			return;
 		}
 		
 		$user = $apidata['user'];
 		
 		if ($user->isSubscribed($other)) {
-			$this->client_error(_('Already subscribed.'));
+			$errmsg = sprintf(_('Could not follow user: %s is already on your list.'), $other->nickname);
+			$this->client_error($errmsg, 403, $apidata['content-type']);
 			exit();
-			return;
 		}
 		
 		$sub = new Subscription();
@@ -55,9 +73,9 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 		$result = $sub->insert();
 
 		if (!$result) {
-			$this->server_error(_('Could not subscribe'));
+			$errmsg = sprintf(_('Could not follow user: %s is already on your list.'), $other->nickname);
+			$this->client_error($errmsg, 400, $apidata['content-type']);			
 			exit();
-			return;
 		}
 		
 		$sub->query('COMMIT');
@@ -66,7 +84,7 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 
 		$type = $apidata['content-type'];
 		$this->init_document($type);
-		$this->show_profile($other);
+		$this->show_profile($other, $type);
 		$this->end_document($type);
 		exit();
 	}
@@ -85,6 +103,12 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 	
 	function destroy($args, $apidata) {
 		parent::handle($args);
+		
+		if (!in_array($_SERVER['REQUEST_METHOD'], array('POST', 'DELETE'))) {
+			$this->client_error(_('This method requires a POST or DELETE.'), 400, $apidata['content-type']);
+			exit();
+		}
+		
 		$id = $apidata['api_arg'];
 
 		# We can't subscribe to a remote person, but we can unsub
@@ -101,13 +125,13 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 			$sub->delete();
 			$sub->query('COMMIT');
 		} else {
-			$this->client_error(_('Not subscribed'));
+			$this->client_error(_('You are not friends with the specified user.'), 403, $apidata['content-type']);			
 			exit();
 		}
 
 		$type = $apidata['content-type'];
-		$this->init_document($type);
-		$this->show_profile($other);
+		$this->init_document($type);	
+		$this->show_profile($other, $type);
 		$this->end_document($type);
 		exit();
 	}
@@ -127,14 +151,17 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 	
 	function exists($args, $apidata) {
 		parent::handle($args);
+		
+		
 		$user_a_id = $this->trimmed('user_a');
 		$user_b_id = $this->trimmed('user_b');
-		$user_a = $this->get_profile($user_a_id);
-		$user_b = $this->get_profile($user_b_id);
+		
+		$user_a = $this->get_user($user_a_id);
+		$user_b = $this->get_user($user_b_id);
 		
 		if (!$user_a || !$user_b) {
-			$this->client_error(_('No such user'));
-			return;
+			$this->client_error(_('Two user ids or screen_names must be supplied.'), 400, $apidata['content-type']);
+			exit();
 		}
 		
 		if ($user_a->isSubscribed($user_b)) {
@@ -145,26 +172,28 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 		
 		switch ($apidata['content-type']) {
 		 case 'xml':
-			common_start_xml();
+			$this->init_document('xml');
 			common_element('friends', NULL, $result);
-			common_end_xml();
+			$this->end_document('xml');
 			break;
 		 case 'json':
+			$this->init_document('json');
 			print json_encode($result);
-			print "\n";
+			$this->end_document('json');
 			break;
 		 default:
-			print $result;
+			print $result;  // Really? --Zach
 			break;
 		}
 		
+		exit();
 	}
 
 	function get_profile($id) {
 		if (is_numeric($id)) {
 			return Profile::staticGet($id);
 		} else {
-			$user = User::staticGet('nickname', $id);
+			$user = User::staticGet('nickname', $id);			
 			if ($user) {
 				return $user->getProfile();
 			} else {

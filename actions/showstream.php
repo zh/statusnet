@@ -94,10 +94,20 @@ class ShowstreamAction extends StreamAction {
 			common_element('meta', array('name' => 'description',
 										 'content' => $profile->bio));
 		}
+
+		if ($user->emailmicroid && $user->email && $profile->profileurl) {
+			common_element('meta', array('name' => 'microid',
+										 'content' => "mailto+http:sha1:" . sha1(sha1('mailto:' . $user->email) . sha1($profile->profileurl))));
+		}
+		if ($user->jabbermicroid && $user->jabber && $profile->profileurl) {
+			common_element('meta', array('name' => 'microid',
+										 'content' => "xmpp+http:sha1:" . sha1(sha1('xmpp:' . $user->jabber) . sha1($profile->profileurl))));
+		}
+
 	}
 
 	function no_such_user() {
-		common_user_error(_('No such user.'));
+		$this->client_error(_('No such user.'), 404);
 	}
 
 	function show_profile($profile) {
@@ -169,6 +179,7 @@ class ShowstreamAction extends StreamAction {
 	function show_subscribe_form($profile) {
 		common_element_start('form', array('id' => 'subscribe', 'method' => 'post',
 										   'action' => common_local_url('subscribe')));
+		common_hidden('token', common_session_token());
 		common_element('input', array('id' => 'subscribeto',
 									  'name' => 'subscribeto',
 									  'type' => 'hidden',
@@ -190,6 +201,7 @@ class ShowstreamAction extends StreamAction {
 	function show_unsubscribe_form($profile) {
 		common_element_start('form', array('id' => 'unsubscribe', 'method' => 'post',
 										   'action' => common_local_url('unsubscribe')));
+		common_hidden('token', common_session_token());
 		common_element('input', array('id' => 'unsubscribeto',
 									  'name' => 'unsubscribeto',
 									  'type' => 'hidden',
@@ -205,6 +217,8 @@ class ShowstreamAction extends StreamAction {
 
 		$subs = DB_DataObject::factory('subscription');
 		$subs->subscriber = $profile->id;
+		$subs->whereAdd('subscribed != ' . $profile->id);
+		
 		$subs->orderBy('created DESC');
 
 		# We ask for an extra one to know if we need to do another page
@@ -235,6 +249,7 @@ class ShowstreamAction extends StreamAction {
 												$other->fullname :
 												$other->nickname,
 												'href' => $other->profileurl,
+												'rel' => 'contact',
 												'class' => 'subscription'));
 				$avatar = $other->getAvatar(AVATAR_MINI_SIZE);
 				common_element('img', array('src' => (($avatar) ? common_avatar_display_url($avatar) :  common_default_avatar(AVATAR_MINI_SIZE)),
@@ -269,11 +284,11 @@ class ShowstreamAction extends StreamAction {
 		// XXX: WORM cache this
 		$subs = DB_DataObject::factory('subscription');
 		$subs->subscriber = $profile->id;
-		$subs_count = (int) $subs->count();
+		$subs_count = (int) $subs->count() - 1;
 
 		$subbed = DB_DataObject::factory('subscription');
 		$subbed->subscribed = $profile->id;
-		$subbed_count = (int) $subbed->count();
+		$subbed_count = (int) $subbed->count() - 1;
 
 		$notices = DB_DataObject::factory('notice');
 		$notices->profile_id = $profile->id;
@@ -361,6 +376,8 @@ class ShowstreamAction extends StreamAction {
 
 	function show_notice($notice) {
 		$profile = $notice->getProfile();
+		$user = common_current_user();
+
 		# XXX: RDFa
 		common_element_start('li', array('class' => 'notice_single',
 										 'id' => 'notice-' . $notice->id));
@@ -381,6 +398,10 @@ class ShowstreamAction extends StreamAction {
 								  'href' => $noticeurl,
 								  'title' => common_exact_date($notice->created)),
 					   common_date_string($notice->created));
+		if ($notice->source) {
+			common_text(_(' from '));
+			$this->source_link($notice->source);
+		}
 		if ($notice->reply_to) {
 			$replyurl = common_local_url('shownotice', array('notice' => $notice->reply_to));
 			common_text(' (');
@@ -397,6 +418,14 @@ class ShowstreamAction extends StreamAction {
 								   'class' => 'replybutton'));
 		common_raw('&rarr;');
 		common_element_end('a');
+		if ($user && $notice->profile_id == $user->id) {
+			$deleteurl = common_local_url('deletenotice', array('notice' => $notice->id));
+			common_element_start('a', array('class' => 'deletenotice',
+											'href' => $deleteurl,
+											'title' => _('delete')));
+			common_raw('&times;');
+			common_element_end('a');
+		}
 		common_element_end('p');
 		common_element_end('li');
 	}

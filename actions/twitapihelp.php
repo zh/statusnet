@@ -23,6 +23,10 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
 
 class TwitapihelpAction extends TwitterapiAction {
 
+	function is_readonly() {		
+		return true;
+	}
+
 	/* Returns the string "ok" in the requested format with a 200 OK HTTP status code.
 	 * URL:http://identi.ca/api/help/test.format
 	 * Formats: xml, json
@@ -30,22 +34,22 @@ class TwitapihelpAction extends TwitterapiAction {
 	function test($args, $apidata) {
  		global $xw;
 		if ($apidata['content-type'] == 'xml') {
-			header('Content-Type: application/xml; charset=utf-8');		
-			common_start_xml();
+			$this->init_document('xml');
 			common_element('ok', NULL, 'true');
-			common_end_xml();
+			$this->end_document('xml');
 		} elseif ($apidata['content-type'] == 'json') {
-			header('Content-Type: application/json; charset=utf-8');		
+			$this->init_document('json');
 			print '"ok"';
+			$this->end_document('json');
 		} else {
-			common_user_error("API method not found!", $code=404);
+			common_user_error(_('API method not found!'), $code=404);
 		}
 		exit();
 	}
 
 	function downtime_schedule($args, $apidata) {
 		parent::handle($args);
-		common_server_error("API method under construction.", $code=501);
+		common_server_error(_('API method under construction.'), $code=501);
 		exit();
 	}
 	

@@ -22,6 +22,14 @@ define('LACONICA', true);
 
 require_once(INSTALLDIR . "/lib/common.php");
 
+# get and cache current user
+
+$user = common_current_user();
+
+# initialize language env
+
+common_init_language();
+
 $action = $_REQUEST['action'];
 
 if (!$action || !preg_match('/^[a-zA-Z0-9_-]*$/', $action)) {
@@ -34,6 +42,16 @@ if (file_exists($actionfile)) {
     require_once($actionfile);
     $action_class = ucfirst($action)."Action";
     $action_obj = new $action_class();
+	if ($config['db']['mirror'] && $action_obj->is_readonly()) {
+		if (is_array($config['db']['mirror'])) {
+			# "load balancing", ha ha
+			$k = array_rand($config['db']['mirror']);
+			$mirror = $config['db']['mirror'][$k];
+		} else {
+			$mirror = $config['db']['mirror'];
+		}
+		$config['db']['database'] = $mirror;
+	}
     call_user_func(array($action_obj, 'handle'), $_REQUEST);
 } else {
     common_user_error(_('Unknown action'));

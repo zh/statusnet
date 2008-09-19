@@ -1,6 +1,6 @@
 <?php
 
-define('INSTALLDIR', dirname(__FILE__));
+define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 define('LACONICA', true);
 
 require_once(INSTALLDIR . '/lib/common.php');
@@ -11,7 +11,6 @@ $output_paths = parse_args();
 standard_map();
 notices_map();
 user_map();
-avatar_map();
 index_map();
 
 # ------------------------------------------------------------------------------
@@ -29,7 +28,7 @@ function index_map() {
 		# Just the file name please.
 		$file_name = preg_replace("|$output_dir|", '', $file_name);
 
-		$index_urls .= url(
+		$index_urls .= sitemap(
 						   array(
 								 'url' => $output_url . $file_name,
 								 'changefreq' => 'daily'
@@ -37,8 +36,7 @@ function index_map() {
 						   );
 	}
 
-	write_file($output_paths['index_file'], urlset($index_urls));
-
+	write_file($output_paths['index_file'], sitemapindex($index_urls));
 }
 
 # Generate sitemap of standard site elements.
@@ -84,7 +82,7 @@ function notices_map() {
 
 	$notices = DB_DataObject::factory('notice');
 
-	$notices->query('SELECT uri, modified FROM notice');
+	$notices->query('SELECT id, uri, url, modified FROM notice');
 
 	$notice_count = 0;
 	$map_count = 1;
@@ -97,16 +95,19 @@ function notices_map() {
 			$map_count++;
 		}
 
-		$notice = array(
-						'url'        => $notices->uri,
+		# remote notices have an URL
+		
+		if (!$notices->url && $notices->uri) {
+			$notice = array(
+						'url'        => ($notices->uri) ? $notices->uri : common_local_url('shownotice', array('notice' => $notices->id)),
 						'lastmod'    => common_date_w3dtf($notices->modified),
-						'changefreq' => 'daily',
+						'changefreq' => 'never',
 						'priority'   => '1',
 						);
 
-		$notice_list[$map_count] .= url($notice);
-
-		$notice_count++;
+			$notice_list[$map_count] .= url($notice);
+			$notice_count++;
+		}
 	}
 
 	# Make full sitemaps from the lists and save them.
@@ -202,43 +203,6 @@ function user_map() {
 	array_to_map($foaf_list, 'foaf');
 }
 
-# Generate sitemaps of all avatars.
-function avatar_map() {
-	global $output_paths;
-
-	$avatars = new Avatar();
-	$avatars->whereAdd('original = 1', "OR");
-	$avatars->whereAdd('width = ' . AVATAR_MINI_SIZE, 'OR');
-
-	if (!$avatars->find()) {
-		return 0;
-	}
-	
-	$avatar_count = 0;
-	$map_count = 1;
-
-	while ($avatars->fetch()) {
-
-		# Maximum 50,000 URLs per sitemap file.
-		if ($avatar_count == 50000) {
-			$avatar_count = 0;
-			$map_count++;
-		}
-		$image = array(
-					   'url'        => common_avatar_display_url($avatars),
-					   'lastmod'    => common_date_w3dtf($avatars->modified),
-					   'changefreq' => 'never',
-					   'priority'   => '0.2',
-					   );
-
-		# Construct a <url></url> element for each avatar and add it
-		# to our existing list of those.
-		$avatar_list[$map_count] .= url($image);
-	}
-
-	array_to_map($avatar_list, 'avatars');
-}
-
 # ------------------------------------------------------------------------------
 # XML generation functions
 # ------------------------------------------------------------------------------
@@ -274,6 +238,26 @@ function url($url_args) {
 	return $url_out;
 }
 
+function sitemap($sitemap_args) {
+	$url        = preg_replace('/&/', '&amp;', $sitemap_args['url']); # escape ampersands for XML
+	$lastmod    = $sitemap_args['lastmod'];
+
+	if (is_null($url)) {
+		error("url() arguments require 'url' value.");
+	}
+
+	$sitemap_out = "\t<sitemap>\n";
+	$sitemap_out .= "\t\t<loc>$url</loc>\n";
+
+	if ($lastmod) {
+		$sitemap_out .= "\t\t<lastmod>$lastmod</lastmod>\n";
+	}
+
+	$sitemap_out .= "\t</sitemap>\n";
+
+	return $sitemap_out;
+}
+
 # Generate a <urlset></urlset> element.
 function urlset($urlset_text) {
 	$urlset = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" .
@@ -282,6 +266,16 @@ function urlset($urlset_text) {
 	  '</urlset>';
 
 	return $urlset;
+}
+
+# Generate a <urlset></urlset> element.
+function sitemapindex($sitemapindex_text) {
+	$sitemapindex = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" .
+	  '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n" .
+	  $sitemapindex_text .
+	  '</sitemapindex>';
+
+	return $sitemapindex;
 }
 
 # Generate a sitemap from an array containing <url></url> elements and write it to a file.

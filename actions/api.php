@@ -45,18 +45,16 @@ class ApiAction extends Action {
 			$this->api_method = $cmdext[0];
 			$this->content_type = strtolower($cmdext[1]);
 		}
-		
-		# common_debug("apiaction = $this->api_action, method = $this->api_method, argument = $this->api_arg, ctype = $this->content_type");
-						
+								
 		# XXX Maybe check to see if the command actually exists first?
 		if($this->requires_auth()) {
 			if (!isset($_SERVER['PHP_AUTH_USER'])) {
 				
 				# This header makes basic auth go
-				header('WWW-Authenticate: Basic realm="Laconica API');
+				header('WWW-Authenticate: Basic realm="Laconica API"');
 				
 				# if the user hits cancel -- bam!
-				common_show_basic_auth_error();		
+				$this->show_basic_auth_error();		
 			} else {
 				$nickname = $_SERVER['PHP_AUTH_USER'];
 				$password = $_SERVER['PHP_AUTH_PW'];
@@ -67,7 +65,7 @@ class ApiAction extends Action {
 					$this->process_command();
 				} else {
 					# basic authentication failed
-					common_show_basic_auth_error();		
+					$this->show_basic_auth_error();		
 				}			
 			}
 		} else {
@@ -101,14 +99,38 @@ class ApiAction extends Action {
 	# Whitelist of API methods that don't need authentication
 	function requires_auth() {
 		static $noauth = array(	'statuses/public_timeline',
-		 						'statuses/user_timeline',
 								'statuses/show',
+								'users/show',
 								'help/test', 
 								'help/downtime_schedule');
-		if (in_array("$this->api_action/$this->api_method", $noauth)) {
+		
+		static $bareauth = array('statuses/user_timeline',
+								 'statuses/friends', 
+								 'statuses/followers');
+
+		$fullname = "$this->api_action/$this->api_method";
+		
+		if (in_array($fullname, $bareauth)) {
+			# bareauth: only needs auth if without an argument
+			if ($this->api_arg) {
+				return false;
+			} else {
+				return true;
+			}
+		} else if (in_array($fullname, $noauth)) {
+			# noauth: never needs auth
 			return false;
-		}		
-		return true;
+		} else {
+			# everybody else needs auth
+			return true;
+		}
+	}
+	
+	function show_basic_auth_error() {
+	  	header('HTTP/1.1 401 Unauthorized');
+		header('Content-type: text/plain');
+	   	print("Could not authenticate you."); # exactly what Twitter says - no \n
+		exit();
 	}
 		
 }
