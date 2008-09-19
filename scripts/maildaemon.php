@@ -30,6 +30,7 @@ define('LACONICA', true);
 require_once(INSTALLDIR . '/lib/common.php');
 require_once(INSTALLDIR . '/lib/mail.php');
 require_once('Mail/mimeDecode.php');
+require_once('Mail/RFC822.php');
 
 # FIXME: we use both Mail_mimeDecode and mailparse
 # Need to move everything to mailparse
@@ -73,12 +74,13 @@ class MailerDaemon {
 	}
 
 	function user_from($from_hdr) {
-		$froms = mailparse_rfc822_parse_addresses($from_hdr);
+		$froms = Mail_RFC822::parseAddressList($from_hdr);
 		if (!$froms) {
+		if (PEAR::isError($froms)) {
 			return NULL;
 		}
 		$from = $froms[0];
-		$addr = common_canonical_email($from['address']);
+		$addr = common_canonical_email($from->mailbox . '@' . $from->host);
 		$user = User::staticGet('email', $addr);
 		if (!$user) {
 			$user = User::staticGet('smsemail', $addr);
@@ -88,9 +90,9 @@ class MailerDaemon {
 
 	function user_match_to($user, $to_hdr) {
 		$incoming = $user->incomingemail;
-		$tos = mailparse_rfc822_parse_addresses($to_hdr);
+		$tos = Mail_RFC822::parseAddressList($to_hdr);
 		foreach ($tos as $to) {
-			if (strcasecmp($incoming, $to['address']) == 0) {
+			if (strcasecmp($incoming, $to->mailbox . '@' . $to->host) == 0) {
 				return true;
 			}
 		}
