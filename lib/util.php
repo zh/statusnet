@@ -484,7 +484,7 @@ function common_language() {
                     return $language;
                 }
         } else {
-                return $config['site']['language'];
+                return common_config('site', 'language');
         }
 }
 # salted, hashed passwords are stored in the DB
