@@ -3,7 +3,7 @@ README
 ------
 
 Laconica 0.6.0
-12 September 2008
+22 September 2008
 
 This is the README file for Laconica, the Open Source microblogging
 platform. It includes installation instructions, descriptions of
@@ -62,6 +62,25 @@ License along with this program, in the file "COPYING".  If not, see
     of using the software, and if you do not wish to share your
     modifications, *YOU MAY NOT INSTALL LACONICA*.
 
+Additional library software has been made available in the 'extlib'
+directory. All of it is Free Software and can be distributed under
+liberal terms, but those terms may differ in detail from the AGPL's
+particulars. See each package's license file in the extlib directory
+for additional terms.
+
+New this version
+================
+
+New features in version 0.6.0 include:
+
+* Invitations by email.
+* Users can mark messages as "favorites" (only Web, not API).
+* A bridge to push messages on the Laconica instance to an account on
+  Twitter.
+* Direct private messages between users on a server (only Web, not API
+  or IM or SMS).
+* Restructured off-line daemons.
+
 Prerequisites
 =============
 
@@ -84,6 +103,7 @@ Your PHP installation must include the following PHP extensions:
 - Curl. This is for fetching files by HTTP.
 - XMLWriter. This is for formatting XML and HTML output.
 - MySQL. For accessing the database.
+- GD. For scaling down avatar images.
 
 For some functionality, you will also need the following extensions:
 
@@ -477,11 +497,95 @@ to these resources.
 Themes
 ------
 
+There are two themes shipped with this version of Laconica: "stoica",
+which is what the Identi.ca site uses, and "default", which is a good
+basis for other sites.
+
+As of right now, your ability to change the theme is site-wide; users
+can't choose their own theme. Additionally, the only thing you can
+change in the theme is CSS stylesheets and some image files; you can't
+change the HTML output, like adding or removing menu items.
+
+You can choose a theme using the $config['site']['theme'] element in
+the config.php file. See below for details.
+
+You can add your own theme by making a sub-directory of the 'theme'
+subdirectory with the name of your theme. Each theme can have the
+following files:
+
+display.css: a CSS2 file for "default" styling for all browsers.
+ie6.css: a CSS2 file for override styling for fixing up Internet
+	 Explorer 6.
+ie7.css: a CSS2 file for override styling for fixing up Internet
+	 Explorer 7.
+logo.png: a logo image for the site.
+default-avatar-profile.png: a 96x96 pixel image to use as the avatar for
+			    users who don't upload their own.
+default-avatar-stream.png: Ditto, but 48x48. For streams of notices.
+default-avatar-mini.png: Ditto ditto, but 24x24. For subscriptions
+			 listing on profile pages.
+
+You may want to start by copying the files from the default theme to
+your own directory.
+
 Translation
 -----------
 
+Translations in Laconica use the gettext system (http://www.gnu.org/software/gettext/).
+Theoretically, you can add your own sub-directory to the locale/
+subdirectory to add a new language to your system. You'll need to
+compile the ".po" files into ".mo" files, however.
+
 Upgrading
 =========
+
+If you've been using Laconica 0.5 or lower, or if you've been tracking
+the "darcs" version of the software, you will probably want to upgrade
+and keep your existing data. There is no automated upgrade procedure
+in Laconica 0.6. Try these step-by-step instructions; read to the end
+first before trying them.
+
+0. Download Laconica and set up all the prerequisites as if you were
+   doing a new install.
+1. Make backups of both your database and your Web directory. UNDER NO
+   CIRCUMSTANCES should you try to do an upgrade without a known-good
+   backup. You have been warned.
+2. Shut down Web access to your site, either by turning off your Web
+   server or by redirecting all pages to a "sorry, under maintenance"
+   page.
+3. Shut down XMPP access to your site, typically by shutting down the
+   xmppdaemon.php process and all other daemons that you're running.
+   If you've got "monit" or "cron" automatically restarting your
+   daemons, make sure to turn that off, too.
+4. Shut down SMS and email access to your site. The easy way to do
+   this is to comment out the line piping incoming email to your
+   maildaemon.php file, and running something like "newaliases".
+5. Once all writing processes to your site are turned off, make a
+   final backup of the Web directory and database.
+6. Move your Laconica directory to a backup spot, like "mublog.bak".
+7. Unpack your Laconica 0.6 tarball and move it to "mublog" or
+   wherever your code used to be.
+8. Copy the config.php file and avatar directory from your old
+   directory to your new directory.
+9. Copy htaccess.sample to .htaccess in the new directory. Change the
+   RewriteBase to use the correct path.
+10. Rebuild the database. Go to your Laconica directory and run the
+   rebuilddb.sh script like this:
+   
+   ./scripts/rebuilddb.sh rootuser rootpassword database db/laconica.sql
+   
+   Here, rootuser and rootpassword are the username and password for a
+   user who can drop and create databases as well as tables; typically
+   that's _not_ the user Laconica runs as.
+11. Use mysql client to log into your database and make sure that the
+    notice, user, profile, subscription etc. tables are non-empty.
+12. Turn back on the Web server, and check that things still work.
+13. Turn back on XMPP bots and email maildaemon. Note that the XMPP
+    bots have changed since version 0.5; see above for details.
+
+If you're upgrading from very old versions, you may want to look at
+the fixup_* scripts in the scripts directories. These will store some
+precooked data in the DB.
 
 Configuration options
 =====================
@@ -560,59 +664,139 @@ You can configure the software to queue time-consuming tasks, like
 sending out SMS email or XMPP messages, for off-line processing. See
 'Queues and daemons' above for how to set this up.
 
-enabled: Whether to 
+enabled: Whether to uses queues. Defaults to false.
 
-		'queue' =>
-		array('enabled' => false),
-		'license' =>
-		array('url' => 'http://creativecommons.org/licenses/by/3.0/',
-			  'title' => 'Creative Commons Attribution 3.0',
-			  'image' => 'http://i.creativecommons.org/l/by/3.0/88x31.png'),
-		'mail' =>
-		array('backend' => 'mail',
-			  'params' => NULL),
-		'nickname' =>
-		array('blacklist' => array()),
-		'avatar' =>
-		array('server' => NULL),
-		'public' =>
-		array('localonly' => true),
-		'theme' =>
-		array('server' => NULL),
-		'xmpp' =>
-		array('enabled' => false,
-			  'server' => 'INVALID SERVER',
-			  'port' => 5222,
-			  'user' => 'update',
-			  'encryption' => true,
-			  'resource' => 'uniquename',
-			  'password' => 'blahblahblah',
-			  'host' => NULL, # only set if != server
-			  'debug' => false, # print extra debug info
-			  'public' => array()), # JIDs of users who want to receive the public stream
-		'tag' =>
-		array('dropoff' => 864000.0),
-		'daemon' =>
-		array('piddir' => '/var/run',
-			  'user' => false,
-			  'group' => false)
-		);
-Web
----
+license
+-------
 
-Mail
+The default license to use for your users notices. The default is the
+Creative Commons Attribution 3.0 license, which is probably the right
+choice for any public site. Note that some other servers will not
+accept notices if you apply a stricter license than this.
+
+url: URL of the license, used for links.
+title: Title for the license, like 'Creative Commons Attribution 3.0'.
+image: A button shown on each page for the license.
+
+mail
 ----
 
-SMS
+This is for configuring out-going email. We use PEAR's Mail module,
+see: http://pear.php.net/manual/en/package.mail.mail.factory.php
+
+backend: the backend to use for mail, one of 'mail', 'sendmail', and
+	 'smtp'. Defaults to PEAR's default, 'mail'.
+params: if the mail backend requires any parameters, you can provide
+	them in an associative array.
+			  
+nickname
+--------
+
+This is for configuring nicknames in the service.
+
+blacklist: an array of strings for usernames that may not be
+	   registered. A default array exists for strings that are
+	   used by Laconica (e.g. 'doc', 'main', 'avatar', 'theme')
+	   but you may want to add others if you have other software
+	   installed in a subdirectory of Laconica or if you just
+	   don't want certain words used as usernames.
+
+avatar
+------
+
+For configuring avatar access.
+
+server: If set, defines another server where avatars are stored in the
+	root directory. Note that the 'avatar' subdir still has to be
+	writeable. You'd typically use this to split HTTP requests on
+	the client to speed up page loading, either with another
+	virtual server or with an NFS or SAMBA share. Clients
+	typically only make 2 connections to a single server at a
+	time (http://ur1.ca/6ih), so this can parallelize the job.
+	Defaults to null.
+
+public
+------
+
+For configuring the public stream.
+
+localonly: If set to true, only messages posted by users of this
+	   service (rather than other services, filtered through OMB)
+	   are shown in the public stream. Default true.
+
+theme
+-----
+
+server: Like avatars, you can speed up page loading by pointing the
+	theme file lookup to another server (virtual or real). The
+	theme server's root path should map to the Laconica "theme"
+	subdirectory. Defaults to NULL.
+
+xmpp
+----
+
+For configuring the XMPP sub-system.
+
+enabled: Whether to accept and send messages by XMPP. Default false.
+server: server part of XMPP ID for update user.
+port: connection port for clients. Default 5222, which you probably
+      shouldn't need to change.
+user: username for the client connection. Users will receive messages
+      from 'user'@'server'.
+resource: a unique identifier for the connection to the server. This
+	  is actually used as a prefix for each XMPP component in the system.
+password: password for the user account.
+host: some XMPP domains are served by machines with a different
+      hostname. (For example, @gmail.com GTalk users connect to
+      talk.google.com). Set this to the correct hostname if that's the
+      case with your server.
+encryption: Whether to encrypt the connection between Laconica and the
+	    XMPP server. Defaults to true, but you can get
+	    considerably better performance turning it off if you're
+	    connecting to a server on the same machine or on a
+	    protected network.
+debug: if turned on, this will make the XMPP library blurt out all of
+       the incoming and outgoing messages as XML stanzas. Use as a
+       last resort, and never turn it on if you don't have queues
+       enabled, since it will spit out sensitive data to the browser.
+public: an array of JIDs to send _all_ notices to. This is useful for
+	participating in third-party search and archiving services.
+
+tag
 ---
 
-XMPP
-----
+Miscellaneous tagging stuff.
+
+dropoff: Decay factor for tag listing, in seconds.
+	 Defaults to exponential decay over ten days; you can twiddle
+	 with it to try and get better results for your site.
+	 
+daemon
+------
+
+For daemon processes.
+
+piddir: directory that daemon processes should write their PID file
+	(process ID) to. Defaults to /var/run/, which is where this
+	stuff should usually go on Unix-ish systems.
+user: If set, the daemons will try to change their effective user ID
+      to this user before running. Probably a good idea, especially if
+      you start the daemons as root. Note: user name, like 'daemon',
+      not 1001.
+group: If set, the daemons will try to change their effective group ID
+       to this named group. Again, a name, not a numerical ID.
 
 Troubleshooting
 ===============
 
-The primary output for 
+The primary output for Laconica is syslog, unless you configured a
+separate logfile. This is probably the first place to look if you're
+getting weird behaviour from Laconica.
+
+If you're tracking the unstable version of Laconica in the darcs
+repository (see below), and you get a compilation error ("unexpected
+T_STRING") in the browser, check to see that you don't have any
+conflicts in your code.
 
 Myths
 =====
@@ -636,11 +820,60 @@ assumptions.
   and password into the file on a production Web server; unscrupulous
   persons may try to read it to get your passwords.
 
-Further information and Feedback
-================================
+Unstable version
+================
 
-There are several ways to get more information and 
+If you're adventurous or impatient, you may want to install the
+development version of Laconica. To get it, use the darcs version
+control tool (http://darcs.net/) like so:
 
+	darcs get http://laconi.ca/darcs/ mublog
+	
+To keep it up-to-date, use 'darcs pull'. Watch for conflicts!	
+
+Further information
+===================
+
+There are several ways to get more information about Laconica.
+
+* There is a mailing list for Laconica developers and admins at
+  http://mail.laconi.ca/mailman/listinfo/laconica-dev
+* The #laconica IRC channel on freenode.net (http://www.freenode.net/).
+* The Laconica wiki, http://laconi.ca/trac/
+
+Feedback
+========
+
+* Microblogging messages to http://identi.ca/evan are very welcome.
+* Laconica's Trac server has a bug tracker for any defects you may find,
+  or ideas for making things better. http://laconi.ca/trac/
+* e-mail to evan@identi.ca will usually be read and responded to very
+  quickly, unless the question is really hard.
 
 Credits
 =======
+
+The following is an incomplete list of developers who've worked on
+Laconi.ca. Apologies for any oversight; please let evan@identi.ca know
+if anyone's been overlooked in error.
+
+* Evan Prodromou, founder and lead developer, Control Yourself, Inc.
+* Zach Copley, Control Yourself, Inc.
+* Earle Martin, Control Yourself, Inc.
+* Marie-Claude Doyon, designer, Control Yourself, Inc.
+* Ciaran Gultnieks
+* Michael Landers
+* Ori Avtalion
+* Garret Buell
+* Mike Cochrane
+* Matthew Gregg
+* Florian Biree
+* Erik Stambaugh
+* 'drry'
+* Gina Haeussge
+* Ken Sheppardson (Trac server, man-about-town)
+* Tiago 'gouki' Faria (entrans)
+
+Thanks also to the thousands of people who have tried out Identi.ca,
+installed Laconi.ca, told their friends, and built the Open
+Microblogging network to what it is today.
