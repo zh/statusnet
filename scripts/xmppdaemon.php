@@ -138,6 +138,11 @@ class XMPPDaemon extends Daemon {
 			$this->log(LOG_INFO, 'Ignoring OTR from ' . $from);
 			return;
 		} else {
+			$len = mb_strlen($pl['body']);
+			if($len > 140) {
+				$this->from_site($from, 'Message too long - maximum is 140 characters, you sent ' . $len);
+				return;
+			}
 			$this->add_notice($user, $pl);
 		}
 		
@@ -206,15 +211,49 @@ class XMPPDaemon extends Daemon {
 
 	function handle_command($user, $body) {
 		# XXX: localise
-		switch(trim($body)) {
+		$p=explode(' ',$body);
+		if(count($p)>2)
+			return false;
+		switch($p[0]) {
+		 case 'help':
+		 	if(count($p)!=1)
+		 		return false;
+		 	$this->from_site($user->jabber, "Commands:\n on     - turn on notifications\n off    - turn off notifications\n help   - show this help \n sub - subscribe to user\n unsubscribe - unsub from user");
+		 	return true;
 		 case 'on':
+		 	if(count($p)!=1)
+		 		return false;
 			$this->set_notify($user, true);
 			$this->from_site($user->jabber, 'notifications on');
 			return true;
 		 case 'off':
+		 	if(count($p)!=1)
+		 		return false;
 			$this->set_notify($user, false);
 			$this->from_site($user->jabber, 'notifications off');
 			return true;
+		 case 'sub':
+		 	if(count($p)==1) {
+		 		$this->from_site($user->jabber, 'Specify the name of the user to subscribe to');
+		 		return true;
+		 	}
+		 	$result=subs_subscribe_user($user, $p[1]);
+		 	if($result=='true')
+		 		$this->from_site($user->jabber, 'Subscribed to ' . $p[1]);
+		 	else
+		 		$this->from_site($user->jabber, $result);
+		 	return true;
+		 case 'unsub':
+		 	if(count($p)==1) {
+		 		$this->from_site($user->jabber, 'Specify the name of the user to unsubscribe from');
+		 		return true;
+		 	}
+		 	$result=subs_unsubscribe_user($user, $p[1]);
+		 	if($result=='true')
+		 		$this->from_site($user->jabber, 'Unsubscribed from ' . $p[1]);
+		 	else
+		 		$this->from_site($user->jabber, $result);
+		 	return true;
 		 default:
 			return false;
 		}
@@ -224,7 +263,7 @@ class XMPPDaemon extends Daemon {
 		$orig = clone($user);
 		$user->jabbernotify = $notify;
 		$result = $user->update($orig);
-		if (!$id) {
+		if (!$result) {
 			$last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
 			$this->log(LOG_ERR,
 					   'Could not set notify flag to ' . $notify .
