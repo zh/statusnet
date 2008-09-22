@@ -149,6 +149,16 @@ class User extends DB_DataObject
 	}
 
 	function noticesWithFriends($offset=0, $limit=20) {
+
+		# We clearly need a more elegant way to make this work.
+		
+		if (common_config('memcached', 'enabled')) {
+			if ($offset + $limit <= WITHFRIENDS_CACHE_WINDOW) {
+				$cached = $this->noticesWithFriendsWindow();
+				$wrapper = new NoticeWrapper(array_slice($cached, $offset, $limit));
+				return $wrapper;
+			} 
+		}
 		
 		$notice = new Notice();
 	
