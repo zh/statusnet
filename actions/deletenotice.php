@@ -84,6 +84,9 @@ class DeletenoticeAction extends DeleteAction {
 			$replies->get('notice_id', $notice_id);
 
 			common_dequeue_notice($notice);
+			if (common_config('memcached', 'enabled')) {
+				$notice->blowSubsCache();
+			}
 			$replies->delete();
 			$notice->delete();
 		} else {

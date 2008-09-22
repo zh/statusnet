@@ -116,23 +116,27 @@ class Notice extends DB_DataObject
 		# XXX: someone clever could prepend instead of clearing the cache
 		
 		if (common_config('memcached', 'enabled')) {
-			$cache = new Memcache();
-			if ($cache->connect(common_config('memcached', 'server'), common_config('memcached', 'port'))) {
-				$user = new User();
-		
-				$user->query('SELECT id ' .
-							 'FROM user JOIN subscription ON user.id = subscription.subscriber ' .
-							 'WHERE subscription.subscribed = ' . $notice->profile_id);
-
-				while ($user->fetch()) {
-					$cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
-				}
-				
-				$user->free();
-				unset($user);
-			}
+			$notice->blowSubsCache();
 		}
 		
 		return $notice;
+	}
+	
+	function blowSubsCache() {
+		$cache = new Memcache();
+		if ($cache->connect(common_config('memcached', 'server'), common_config('memcached', 'port'))) {
+			$user = new User();
+			
+			$user->query('SELECT id ' .
+						 'FROM user JOIN subscription ON user.id = subscription.subscriber ' .
+						 'WHERE subscription.subscribed = ' . $this->profile_id);
+			
+			while ($user->fetch()) {
+				$cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
+			}
+			
+			$user->free();
+			unset($user);
+		}
 	}
 }
