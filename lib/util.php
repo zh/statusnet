@@ -161,13 +161,13 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 				   $pagetitle . " - " . $config['site']['name']);
 	common_element('link', array('rel' => 'stylesheet',
 								 'type' => 'text/css',
-								 'href' => theme_path('display.css'),
+								 'href' => theme_path('display.css') . '?' . LACONICA_VERSION,
 								 'media' => 'screen, projection, tv'));
 	foreach (array(6,7) as $ver) {
 		if (file_exists(theme_file('ie'.$ver.'.css'))) {
 			# Yes, IE people should be put in jail.
 			$xw->writeComment('[if lte IE '.$ver.']><link rel="stylesheet" type="text/css" '.
-							  'href="'.theme_path('ie'.$ver.'.css').'" /><![endif]');
+							  'href="'.theme_path('ie'.$ver.'.css').'?'.LACONICA_VERSION.'" /><![endif]');
 		}
 	}
 
