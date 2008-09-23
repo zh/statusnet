@@ -79,7 +79,7 @@ class NewmessageAction extends Action {
 			return;
 		}
 
-		$this->notify($user, $to, $message);
+		$this->notify($user, $other, $message);
 
 		$url = common_local_url('showmessage',
 								array('message' => $message->id));
