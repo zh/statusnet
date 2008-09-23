@@ -288,6 +288,35 @@ create table foreign_subscription (
 create index foreign_subscription_subscriber_idx on foreign_subscription using btree(subscriber);
 create index foreign_subscription_subscribed_idx on foreign_subscription using btree(subscribed);
 
+create table invitation (
+     code varchar(32) not null primary key /* comment 'random code for an invitation' */,
+     user_id int not null /* comment 'who sent the invitation' */ references user (id),
+     address varchar(255) not null /* comment 'invitation sent to' */,
+     address_type varchar(8) not null /* comment 'address type ("email", "jabber", "sms") '*/,
+     created timestamp not null /* comment 'date this record was created' */
+
+);
+create index invitation_address_idx on invitation using btree(address,address_type);
+create index invitation_user_id_idx on invitation using btree(user_id);
+
+create table message (
+
+    id serial primary key /* comment 'unique identifier' */,
+    uri varchar(255) unique key /* comment 'universally unique identifier' */,
+    from_profile integer not null /* comment 'who the message is from' */ references profile (id),
+    to_profile integer not null /* comment 'who the message is to' */ references profile (id),
+    content varchar(140) /* comment 'message content' */,
+    rendered text /* comment 'HTML version of the content' */,
+    url varchar(255) /* comment 'URL of any attachment (image, video, bookmark, whatever)' */,
+    created timestamp not null /* comment 'date this record was created' */,
+    modified timestamp /* comment 'date this record was modified' */,
+    source varchar(32) /* comment 'source of comment, like "web", "im", or "clientname"' */
+    
+);
+create index message_from_idx on message using btree(from_profile);
+create index message_to_idx on message using btree(to_profile);
+create index message_created_idx on message using btree(created);
+
 /* Textsearch stuff */
 
 create index textsearch_idx on profile using gist(textsearch);
