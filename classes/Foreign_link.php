@@ -30,12 +30,11 @@ class Foreign_link extends DB_DataObject
 	// a getForeignUsers() that returns more than one? --Zach
 	static function getForeignLink($user_id, $service) {
 		$flink = new Foreign_link();
-		$flink->whereAdd("service = $service");
-		$flink->whereAdd("user_id = $user_id");
+		$flink->service = $service;
+		$flink->user_id = $user_id;
 		$flink->limit(1);
 
-		if ($flink->find()) {
-			$flink->fetch();
+		if ($flink->find(TRUE)) {
 			return $flink;
 		}
 
@@ -43,14 +42,16 @@ class Foreign_link extends DB_DataObject
 	}
 	
 	// Convenience method
-	function getForeignUser() {		
+	function getForeignUser() {
+		
 		$fuser = new Foreign_user();
-		$fuser->whereAdd('service = ' . $this->service);
-		$fuser->whereAdd('id = ' . $this->foreign_id);
+		
+		$fuser->service = $this->service;
+		$fuser->id = $this->foreign_id;
+		
 		$fuser->limit(1);
 		
-		if ($fuser->find()) {
-			$fuser->fetch();
+		if ($fuser->find(TRUE)) {
 			return $fuser;
 		}
 		

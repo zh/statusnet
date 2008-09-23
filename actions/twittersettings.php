@@ -35,7 +35,7 @@ class TwittersettingsAction extends SettingsAction {
 		$flink = Foreign_link::getForeignLink($user->id, 1); // 1 == Twitter
 
 		if ($flink) {
-			$fuser = Foreign_user::staticGet('user_id', $flink->user_id);
+			$fuser = Foreign_user::getForeignUser($flink->foreign_id, 1);
 		}
 
 		$this->form_header(_('Twitter settings'), $msg, $success);
@@ -54,7 +54,7 @@ class TwittersettingsAction extends SettingsAction {
 			common_element('a', array('href' => $fuser->uri),  $fuser->uri);
 			common_element('span', 'input_instructions',
 			               _('Current verified Twitter account.'));
-			common_hidden('flink_user_id', $flink->user_id);
+			common_hidden('flink_foreign_id', $flink->foreign_id);
 			common_element_end('p');
 			common_submit('remove', _('Remove'));
 		} else {
@@ -175,14 +175,14 @@ class TwittersettingsAction extends SettingsAction {
 		// For now we assume one Twitter acct per Laconica acct
 		$flink = Foreign_link::getForeignLink($user->id, 1);
 		$fuser = Foreign_user::getForeignUser($flink->foreign_id, 1);
-		$flink_user_id = $this->arg('flink_user_id');
+		$flink_foreign_id = $this->arg('flink_foreign_id');
 
 		if (!$flink) {
 			common_debug("couldn't get flink");
 		}
 
 		# Maybe an old tab open...?
-		if ($flink->user_id != $flink_user_id) {
+		if ($flink->foreign_id != $flink_foreign_id) {
 			common_debug("flink user_id = " . $flink->user_id);
 		    $this->show_form(_('That is not your Twitter account.'));
 		    return;
@@ -191,7 +191,7 @@ class TwittersettingsAction extends SettingsAction {
 		$result = $fuser->delete();
 
 		if (!$result) {
-			common_log_db_error($flink, 'DELETE', __FILE__);
+			common_log_db_error($fuser, 'DELETE', __FILE__);
 			$this->show_form(_('Couldn\'t remove Twitter user.'));
 			return;
 		}
