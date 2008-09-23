@@ -235,14 +235,14 @@ function mail_confirm_sms($code, $nickname, $address) {
 function mail_notify_message($message, $from=NULL, $to=NULL) {
 
 	if (is_null($from)) {
-		$from = User::staticGet($message->from_profile);
+		$from = User::staticGet('id', $message->from_profile);
 	}
 	
 	if (is_null($to)) {
-		$to = User::staticGet($message->to_profile);
+		$to = User::staticGet('id', $message->to_profile);
 	}
 
-	if (!$to->email || !$to->emailnotifymsg) {
+	if (is_null($to->email) || !$to->emailnotifymsg) {
 		return true;
 	}
 	
