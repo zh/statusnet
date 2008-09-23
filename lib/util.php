@@ -377,7 +377,7 @@ function common_input($id, $label, $value=NULL,$instructions=NULL) {
 	common_element_end('p');
 }
 
-function common_checkbox($id, $label, $checked=false, $instructions=NULL, $value='true')
+function common_checkbox($id, $label, $checked=false, $instructions=NULL, $value='true', $disabled=false)
 {
 	common_element_start('p');
 	$attrs = array('name' => $id,
@@ -389,6 +389,9 @@ function common_checkbox($id, $label, $checked=false, $instructions=NULL, $value
 	}
 	if ($checked) {
 		$attrs['checked'] = 'checked';
+	}
+	if ($disabled) {
+		$attrs['disabled'] = 'true';
 	}
 	common_element('input', $attrs);
 	# XXX: use a <label>
