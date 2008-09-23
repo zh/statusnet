@@ -38,15 +38,12 @@ class ShowmessageAction extends MailboxAction {
 		
 		$cur = common_current_user();
 		
-		if (!$cur ||
-			$cur->id != $message->from_profile &&
-			$cur->id != $message->to_profile) 
-		{
+		if ($cur && ($cur->id == $message->from_profile || $cur->id == $message->to_profile)) {
+			$this->show_page($cur, 1);
+		} else {
 			$this->client_error(_('Only the sender and recipient may read this message.'), 403);
 			return;
 		}
-			
-		$this->show_page($cur, 1);
 	}
 	
 	function get_message() {
