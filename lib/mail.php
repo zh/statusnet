@@ -257,7 +257,7 @@ function mail_notify_message($message, $from=NULL, $to=NULL) {
 					  "You can reply to their message here:\n\n".
 					  "%4\$s\n\n".
 					  "Don't reply to this email; it won't get to them.\n\n".
-					  "With kind regards,\n",
+					  "With kind regards,\n".
 					  "%5\$s\n"),
 					$from_profile->getBestName(),
 					$from->nickname,
