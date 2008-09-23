@@ -1111,7 +1111,7 @@ function common_broadcast_notice($notice, $remote=false) {
 	// Check to see if notice should go to Twitter
 	$flink = Foreign_link::getForeignLink($notice->profile_id, 1); // 1 == Twitter
 	
-	if ($flink) {
+	if ($flink->noticesync == 1) {
 		if (!common_twitter_broadcast($notice, $flink)) {
 			common_debug('Unable to send notice: ' . $notice->id . ' to Twitter.', __FILE__);
 		}
