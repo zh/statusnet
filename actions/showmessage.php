@@ -51,7 +51,7 @@ class ShowmessageAction extends MailboxAction {
 	
 	function get_message() {
 		$id = $this->trimmed('message');
-		$message = Message::staticGet('message', $id);
+		$message = Message::staticGet('id', $id);
 		return $message;
 	}
 	
