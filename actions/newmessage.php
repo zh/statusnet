@@ -37,6 +37,14 @@ class NewmessageAction extends Action {
 
 		$user = common_current_user();
 		assert($user); # XXX: maybe an error instead...
+
+		# CSRF protection
+		
+		$token = $this->trimmed('token');
+		if (!$token || $token != common_session_token()) {
+			$this->show_form(_('There was a problem with your session token. Try again, please.'));
+			return;
+		}
 		
 		$content = $this->trimmed('content');
 		$to = $this->trimmed('to');
@@ -116,6 +124,8 @@ class NewmessageAction extends Action {
 									  'name' => 'message_send',
 									  'type' => 'submit',
 									  'value' => _('Send')));
+		
+		common_hidden('token', common_session_token());
 		
 		common_element_end('p');
 		common_element_end('form');
