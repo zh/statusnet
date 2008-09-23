@@ -126,7 +126,7 @@ class TwittersettingsAction extends SettingsAction {
 
 		// Now that we have a valid Twitter user, we have to make another api call to
 		// find its Twitter ID.  Dumb, but true.
-		$twitter_id = $this->get_twitter_id($twitter_username);
+		$twitter_id = $this->get_twitter_id($twitter_username, $twitter_password);
 
 		if (!$twitter_id) {
 			$this->show_form(sprintf(_('Unable to retrieve account information for "%s" from Twitter.'), $twitter_username));
@@ -235,9 +235,9 @@ class TwittersettingsAction extends SettingsAction {
 		return;
 	}
 
-	function get_twitter_id($twitter_username) {
-		$uri = "http://twitter.com/users/show/$twitter_username.json";
-		$data = $this->get_twitter_data($uri);
+	function get_twitter_id($user, $password) {
+		$uri = "http://twitter.com/users/show/$user.json";
+		$data = $this->get_twitter_data($uri, $user, $password);
 
 		if (!$data) {
 			return NULL;
