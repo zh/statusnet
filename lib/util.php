@@ -1129,7 +1129,9 @@ function common_twitter_broadcast($notice, $flink) {
 	$twitter_user = $fuser->nickname;
 	$twitter_password = $flink->credentials;
 	$uri = 'http://www.twitter.com/statuses/update.json';
-	$statustxt = $notice->content;
+	
+	// XXX: Hack to get around PHP cURL's use of @ being a a meta character
+	$statustxt = preg_replace('/^@/', ' @', $notice->content);
 	
 	$options = array(
 		CURLOPT_USERPWD 		=> "$twitter_user:$twitter_password",
