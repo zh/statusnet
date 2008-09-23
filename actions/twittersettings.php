@@ -112,9 +112,9 @@ class TwittersettingsAction extends SettingsAction {
 		$friendsync = $this->boolean('friendsync');
 
 		if (!Validate::string($twitter_username, array('min_length' => 1,
-													   'max_length' => 64,
-													   'format' => VALIDATE_NUM . VALIDATE_ALPHA . '_'))) {
-			$this->show_form(_('Username must have only numbers, upper- and lowercase letters, and underscore (_).'));
+											   'max_length' => 64,
+											   'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
+			$this->show_form(_('Username must have only lowercase letters and numbers and no spaces.'));
 			return;
 		}
 
