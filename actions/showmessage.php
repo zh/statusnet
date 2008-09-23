@@ -42,7 +42,7 @@ class ShowmessageAction extends MailboxAction {
 			$cur->id != $message->from_profile &&
 			$cur->id != $message->to_profile) 
 		{
-			$this->client_error(_('Only the sender and recipient may read this message.'), 404);
+			$this->client_error(_('Only the sender and recipient may read this message.'), 403);
 			return;
 		}
 			
