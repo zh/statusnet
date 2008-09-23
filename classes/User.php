@@ -334,7 +334,7 @@ class User extends DB_DataObject
 	function emailChanged() {
 
 		$invites = new Invitation();
-		$invites->address = $user->email;
+		$invites->address = $this->email;
 		$invites->address_type = 'email';
 
 		if ($invites->find()) {
