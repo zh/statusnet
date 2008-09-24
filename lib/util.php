@@ -1112,9 +1112,10 @@ function common_broadcast_notice($notice, $remote=false) {
 	$flink = Foreign_link::getForeignLink($notice->profile_id, 1); // 1 == Twitter
 	if ($flink->noticesync & FOREIGN_NOTICE_SEND) {
 		
-		// If it's not a reply, or if the user WANTS to send replies...
+		// If it's not a Twitter-style reply, or if the user WANTS to send replies...
 		
-		if (!$notice->reply_to || ($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY)) {
+		if (!preg_match('/^@[a-zA-Z0-9_]{1,15}\b/', $notice->content) ||
+			($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY)) {
 			
 			$result = common_twitter_broadcast($notice, $flink);
 
