@@ -73,7 +73,7 @@ class TwittersettingsAction extends SettingsAction {
 						($flink) ? ($flink->noticesync & FOREIGN_NOTICE_SEND) : true);
 
 		common_checkbox('replysync', _('Send local "@" replies to Twitter.'),
-						($flink) ? ($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) : false);
+						($flink) ? ($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) : true);
 
 		common_checkbox('friendsync', _('Subscribe to my Twitter friends here.'),
 						($flink) ? ($flink->friendsync & FOREIGN_FRIEND_RECV) : false,
