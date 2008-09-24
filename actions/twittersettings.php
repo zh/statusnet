@@ -169,6 +169,8 @@ class TwittersettingsAction extends SettingsAction {
 			} else {
 				$flink->noticesync = 1;
 			}
+		} else {
+			$flink->noticesync = 0;
 		}
 
 		$flink->friendsync = ($friendsync) ? 2 : 0;
@@ -242,6 +244,8 @@ class TwittersettingsAction extends SettingsAction {
 			} else {
 				$flink->noticesync = 1;
 			}
+		} else {
+			$flink->noticesync = 0;
 		}
 
 		$flink->friendsync = ($friendsync) ? 2 : 0;
