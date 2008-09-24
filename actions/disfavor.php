@@ -19,9 +19,10 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class SubscribeAction extends Action {
-	
+class DisfavorAction extends Action {
+
 	function handle($args) {
+
 		parent::handle($args);
 
 		if (!common_logged_in()) {
@@ -32,29 +33,49 @@ class SubscribeAction extends Action {
 		$user = common_current_user();
 
 		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-			common_redirect(common_local_url('subscriptions', array('nickname' => $user->nickname)));
+			common_redirect(common_local_url('showfavorites', array('nickname' => $user->nickname)));
 			return;
 		}
 
-		# CSRF protection
-
 		$token = $this->trimmed('token');
-		
+
 		if (!$token || $token != common_session_token()) {
 			$this->client_error(_('There was a problem with your session token. Try again, please.'));
 			return;
 		}
 
-		$other_nickname = $this->arg('subscribeto');
+		$id = $this->trimmed('notice');
 
-		$result=subs_subscribe_user($user, $other_nickname);
-		
-		if($result != true) {
-			common_user_error($result);
+		$notice = Notice::staticGet($id);
+
+		$fave = new Fave();
+		$fave->user_id = $this->id;
+		$fave->notice_id = $notice->id;
+		if (!$fave->find(true)) {
+			$this->client_error(_('This notice is not a favorite!'));
 			return;
 		}
-		
-		common_redirect(common_local_url('subscriptions', array('nickname' =>
-																$user->nickname)));
+
+		$result = $fave->delete();
+
+		if (!$result) {
+			common_log_db_error($fave, 'DELETE', __FILE__);
+			$this->server_error(_('Could not delete favorite.'));
+			return;
+		}
+
+		if ($this->boolean('ajax')) {
+			common_start_html('text/xml');
+			common_element_start('head');
+			common_element('title', _('Favor'));
+			common_element_end('head');
+			common_element_start('body');
+			common_favor_form($notice);
+			common_element_end('body');
+			common_element_end('html');
+		} else {
+			common_redirect(common_local_url('showfavorites',
+											 array('nickname' => $user->nickname)));
+		}
 	}
 }

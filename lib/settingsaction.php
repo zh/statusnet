@@ -86,12 +86,6 @@ class SettingsAction extends Action {
 				'emailsettings' =>
 				array(_('Email'),
 					  _('Change email handling')),
-				'avatar' =>
-				array(_('Avatar'),
-					  _('Upload a new profile image')),
-				'password' =>
-				array(_('Password'),
-					  _('Change your password')),
 				'openidsettings' =>
 				array(_('OpenID'),
 					  _('Add or remove OpenIDs')),
@@ -100,11 +94,18 @@ class SettingsAction extends Action {
 					  _('Updates by SMS')),
 				'imsettings' =>
 				array(_('IM'),
-					  _('Updates by instant messenger (IM)')));
+					  _('Updates by instant messenger (IM)')),
+				'twittersettings' =>
+				array(_('Twitter'),
+					  _('Twitter integration options')));
 		
         $action = $this->trimmed('action');
         common_element_start('ul', array('id' => 'nav_views'));
         foreach ($menu as $menuaction => $menudesc) {
+			if ($menuaction == 'imsettings' &&
+				!common_config('xmpp', 'enabled')) {
+				continue;
+			}
             common_menu_item(common_local_url($menuaction),
                     $menudesc[0],
                     $menudesc[1],

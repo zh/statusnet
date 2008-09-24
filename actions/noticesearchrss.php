@@ -39,7 +39,11 @@ class NoticesearchrssAction extends Rss10Action {
 		# lcase it for comparison
 		$q = strtolower($q);
 
-		$notice->whereAdd('MATCH(content) against (\''.addslashes($q).'\')');
+		if(common_config('db','type')=='mysql') {
+			$notice->whereAdd('MATCH(content) against (\''.addslashes($q).'\')');
+		} else {
+			$notice->whereAdd('to_tsvector(\'english\',content) @@ plainto_tsquery(\''.addslashes($q).'\')');
+		}
 		$notice->orderBy('created DESC, notice.id DESC');
 
 		# Ask for an extra to see if there's more.

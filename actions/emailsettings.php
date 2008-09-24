@@ -88,6 +88,12 @@ class EmailsettingsAction extends SettingsAction {
 		common_checkbox('emailnotifysub',
 		                _('Send me notices of new subscriptions through email.'),
 		                $user->emailnotifysub);
+		common_checkbox('emailnotifyfav',
+		                _('Send me email when someone adds my notice as a favorite.'),
+		                $user->emailnotifyfav);
+		common_checkbox('emailnotifymsg',
+		                _('Send me email when someone sends me a private message.'),
+		                $user->emailnotifymsg);
 		common_checkbox('emailpost',
 						_('I want to post notices by email.'),
 						$user->emailpost);
@@ -142,6 +148,8 @@ class EmailsettingsAction extends SettingsAction {
 	function save_preferences() {
 
 		$emailnotifysub = $this->boolean('emailnotifysub');
+		$emailnotifyfav = $this->boolean('emailnotifyfav');
+		$emailnotifymsg = $this->boolean('emailnotifymsg');
 		$emailmicroid = $this->boolean('emailmicroid');
 		$emailpost = $this->boolean('emailpost');
 
@@ -154,6 +162,8 @@ class EmailsettingsAction extends SettingsAction {
 		$original = clone($user);
 
 		$user->emailnotifysub = $emailnotifysub;
+		$user->emailnotifyfav = $emailnotifyfav;
+		$user->emailnotifymsg = $emailnotifymsg;
 		$user->emailmicroid = $emailmicroid;
 		$user->emailpost = $emailpost;
 

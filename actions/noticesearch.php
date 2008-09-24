@@ -40,7 +40,12 @@ class NoticesearchAction extends SearchAction {
 
 		# lcase it for comparison
 		$q = strtolower($q);
-		$notice->whereAdd('MATCH(content) against (\''.addslashes($q).'\')');
+
+		if(common_config('db','type')=='mysql') {
+			$notice->whereAdd('MATCH(content) against (\''.addslashes($q).'\')');
+		} else {
+			$notice->whereAdd('to_tsvector(\'english\', content) @@ plainto_tsquery(\''.addslashes($q).'\')');
+		}
 
 		# Ask for an extra to see if there's more.
 

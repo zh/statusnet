@@ -73,6 +73,10 @@ class ConfirmaddressAction extends Action {
             return;
         }
 
+		if ($type == 'email') {
+		    $cur->emailChanged();
+		}
+
         $result = $confirm->delete();
 
         if (!$result) {

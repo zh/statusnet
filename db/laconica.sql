@@ -47,6 +47,8 @@ create table user (
     email varchar(255) unique key comment 'email address for password recovery etc.',
     incomingemail varchar(255) unique key comment 'email address for post-by-email',
     emailnotifysub tinyint default 1 comment 'Notify by email of subscriptions',
+    emailnotifyfav tinyint default 1 comment 'Notify by email of favorites',
+    emailnotifymsg tinyint default 1 comment 'Notify by email of direct messages',
     emailmicroid tinyint default 1 comment 'whether to publish email microid',
     language varchar(50) comment 'preferred language',
     timezone varchar(50) comment 'timezone',
@@ -268,12 +270,24 @@ create table foreign_user (
      service int not null comment 'foreign key to service' references foreign_service(id),
      uri varchar(255) not null unique key comment 'identifying URI',
      nickname varchar(255) comment 'nickname on foreign service',
-     user_id int comment 'link to user on this system, if exists' references user (id), 
-     credentials varchar(255) comment 'authc credentials, typically a password',
      created datetime not null comment 'date this record was created',
      modified timestamp comment 'date this record was modified',
-     
-     constraint primary key (id, service),
+
+     constraint primary key (id, service)
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table foreign_link (
+     user_id int comment 'link to user on this system, if exists' references user (id),
+     foreign_id int comment 'link ' references foreign_user(id),
+     service int not null comment 'foreign key to service' references foreign_service(id),
+     credentials varchar(255) comment 'authc credentials, typically a password',
+     noticesync tinyint not null default 1 comment 'notice synchronization, bit 1 = sync outgoing, bit 2 = sync incoming',
+     friendsync tinyint not null default 2 comment 'friend synchronization, bit 1 = sync outgoing, bit 2 = sync incoming',
+     profilesync tinyint not null default 1 comment 'profile synchronization, bit 1 = sync outgoing, bit 2 = sync incoming',
+     created datetime not null comment 'date this record was created',
+     modified timestamp comment 'date this record was modified',
+
+     constraint primary key (user_id, foreign_id, service),
      index foreign_user_user_id_idx (user_id)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
@@ -282,8 +296,37 @@ create table foreign_subscription (
      subscriber int not null comment 'subscriber on foreign service' references foreign_user (id),
      subscribed int not null comment 'subscribed user' references foreign_user (id),
      created datetime not null comment 'date this record was created',
-     
+
      constraint primary key (service, subscriber, subscribed),
      index foreign_subscription_subscriber_idx (subscriber),
      index foreign_subscription_subscribed_idx (subscribed)
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table invitation (
+     code varchar(32) not null primary key comment 'random code for an invitation',
+     user_id int not null comment 'who sent the invitation' references user (id),
+     address varchar(255) not null comment 'invitation sent to',
+     address_type varchar(8) not null comment 'address type ("email", "jabber", "sms")',
+     created datetime not null comment 'date this record was created',
+
+     index invitation_address_idx (address, address_type),
+     index invitation_user_id_idx (user_id)
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table message (
+
+    id integer auto_increment primary key comment 'unique identifier',
+    uri varchar(255) unique key comment 'universally unique identifier',
+    from_profile integer not null comment 'who the message is from' references profile (id),
+    to_profile integer not null comment 'who the message is to' references profile (id),
+    content varchar(140) comment 'message content',
+    rendered text comment 'HTML version of the content',
+    url varchar(255) comment 'URL of any attachment (image, video, bookmark, whatever)',
+    created datetime not null comment 'date this record was created',
+    modified timestamp comment 'date this record was modified',
+    source varchar(32) comment 'source of comment, like "web", "im", or "clientname"',
+    
+    index message_from_idx (from_profile),
+    index message_to_idx (to_profile),
+    index message_created_idx (created)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;

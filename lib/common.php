@@ -19,7 +19,7 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-define('LACONICA_VERSION', '0.5.0');
+define('LACONICA_VERSION', '0.6.0');
 
 define('AVATAR_PROFILE_SIZE', 96);
 define('AVATAR_STREAM_SIZE', 48);
@@ -98,6 +98,8 @@ $config =
 		array('piddir' => '/var/run',
 			  'user' => false,
 			  'group' => false),
+		'integration' =>
+		array('source' => 'Laconica'), # source attribute for Twitter
 		'memcached' => 
 		array('enabled' => false,
 			  'server' => 'localhost',
@@ -114,7 +116,8 @@ $config['db'] =
 		'class_prefix' => '',
 		'mirror' => NULL,
         'db_driver' => 'DB', # XXX: JanRain libs only work with DB
-		'quote_identifiers' => false);
+		'quote_identifiers' => false,
+		'type' => 'mysql' );
 
 if (function_exists('date_default_timezone_set')) {
 	/* Work internally in UTC */

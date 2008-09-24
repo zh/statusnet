@@ -208,11 +208,17 @@ class TwitterapiAction extends Action {
 	function init_document($type='xml') {
 		switch ($type) {
 		 case 'xml':
-			header('Content-Type: application/xml; charset=utf-8');		
+			header('Content-Type: application/xml; charset=utf-8');
 			common_start_xml();
 			break;
 		 case 'json':
 			header('Content-Type: application/json; charset=utf-8');
+
+			// Check for JSON-P callback
+			$callback = $this->arg('callback');
+			if ($callback) {
+				print $callback . '(';
+			}
 			break;
 		 case 'rss':
 			header("Content-Type: application/rss+xml; charset=utf-8");
@@ -226,16 +232,22 @@ class TwitterapiAction extends Action {
 			$this->client_error(_('Not a supported data format.'));
 			break;
 		}
-		
+
 		return;
 	}
-	
+
 	function end_document($type='xml') {
 		switch ($type) {
 		 case 'xml':
 			common_end_xml();
 			break;
 		 case 'json':
+
+			// Check for JSON-P callback
+			$callback = $this->arg('callback');
+			if ($callback) {
+				print ')';
+			}
 			break;
 		 case 'rss':
 			$this->end_twitter_rss();

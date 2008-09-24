@@ -43,6 +43,8 @@ class User extends DB_DataObject
     public $email;                           // varchar(255)  unique_key
     public $incomingemail;                   // varchar(255)  unique_key
     public $emailnotifysub;                  // tinyint(1)   default_1
+    public $emailnotifyfav;                  // tinyint(1)   default_1
+    public $emailnotifymsg;                  // tinyint(1)   default_1
     public $emailmicroid;                    // tinyint(1)   default_1
     public $language;                        // varchar(50)  
     public $timezone;                        // varchar(50)  
@@ -100,7 +102,12 @@ class User extends DB_DataObject
 			return true;
 		}
 		$toupdate = implode(', ', $parts);
-		$qry = 'UPDATE ' . $this->tableName() . ' SET ' . $toupdate .
+
+		$table = $this->tableName();
+		if(common_config('db','quote_identifiers')) {
+			$table = '"' . $table . '"';
+		}
+		$qry = 'UPDATE ' . $table . ' SET ' . $toupdate .
 		  ' WHERE id = ' . $this->id;
 		return $this->query($qry);
 	}
@@ -109,7 +116,8 @@ class User extends DB_DataObject
 		# XXX: should already be validated for size, content, etc.
 		static $blacklist = array('rss', 'xrds', 'doc', 'main',
 								  'settings', 'notice', 'user',
-								  'search', 'avatar', 'tag', 'tags');
+								  'search', 'avatar', 'tag', 'tags',
+								  'api', 'message');
 		$merged = array_merge($blacklist, common_config('nickname', 'blacklist'));
 		return !in_array($nickname, $merged);
 	}
@@ -121,22 +129,22 @@ class User extends DB_DataObject
 		}
 		return $profile->getCurrentNotice($dt);
 	}
-	
+
 	function getCarrier() {
 		return Sms_carrier::staticGet($this->carrier);
 	}
-	
+
 	function subscribeTo($other) {
 		$sub = new Subscription();
 		$sub->subscriber = $this->id;
 		$sub->subscribed = $other->id;
 
-		$sub->created = DB_DataObject_Cast::dateTime(); # current time
+		$sub->created = common_sql_now(); # current time
 
 		if (!$sub->insert()) {
 			return false;
 		}
-		
+
 		return true;
 	}
 
@@ -153,16 +161,34 @@ class User extends DB_DataObject
 		}
 		
 		$notice = new Notice();
-		
-		$notice->query('SELECT notice.* ' .
-					   'FROM notice JOIN subscription on notice.profile_id = subscription.subscribed ' .
-					   'WHERE subscription.subscriber = ' . $this->id . ' ' .
-					   'ORDER BY created DESC, notice.id DESC ' .
-					   'LIMIT ' . $offset . ', ' . $limit);
-		
+	
+		$query='SELECT notice.* ' .
+			'FROM notice JOIN subscription on notice.profile_id = subscription.subscribed ' .
+			'WHERE subscription.subscriber = ' . $this->id . ' ' .
+			'ORDER BY created DESC, notice.id DESC ';
+		if(common_config('db','type')=='pgsql') {
+			$query=$query . 'LIMIT ' . $limit . ' OFFSET ' . $offset;
+		} else {
+			$query=$query . 'LIMIT ' . $offset . ', ' . $limit;
+		}
+		$notice->query($query);
+
 		return $notice;
 	}
-	
+
+	function favoriteNotices($offset=0, $limit=20) {
+
+		$notice = new Notice();
+
+		$notice->query('SELECT notice.* ' .
+					   'FROM notice JOIN fave on notice.id = fave.notice_id ' .
+					   'WHERE fave.user_id = ' . $this->id . ' ' .
+					   'ORDER BY notice.created DESC, notice.id DESC ' .
+					   'LIMIT ' . $offset . ', ' . $limit);
+
+		return $notice;
+	}
+
 	function noticesWithFriendsWindow() {
 		
 		$cache = new Memcache();
@@ -199,16 +225,16 @@ class User extends DB_DataObject
 	static function register($fields) {
 
 		# MAGICALLY put fields into current scope
-		
+
 		extract($fields);
-		
+
 		$profile = new Profile();
 
 		$profile->query('BEGIN');
 
 		$profile->nickname = $nickname;
 		$profile->profileurl = common_profile_url($nickname);
-		
+
 		if ($fullname) {
 			$profile->fullname = $fullname;
 		}
@@ -221,25 +247,34 @@ class User extends DB_DataObject
 		if ($location) {
 			$profile->location = $location;
 		}
-		
+
 		$profile->created = common_sql_now();
-		
+
 		$id = $profile->insert();
 
 		if (!$id) {
 			common_log_db_error($profile, 'INSERT', __FILE__);
 		    return FALSE;
 		}
-		
+
 		$user = new User();
-		
+
 		$user->id = $id;
 		$user->nickname = $nickname;
 
 		if ($password) { # may not have a password for OpenID users
 			$user->password = common_munge_password($password, $id);
 		}
-		
+
+		# Users who respond to invite email have proven their ownership of that address
+
+		if ($code) {
+			$invite = Invitation::staticGet($code);
+			if ($invite && $invite->address && $invite->address_type == 'email' && $invite->address == $email) {
+				$user->email = $invite->address;
+			}
+		}
+
 		$user->created = common_sql_now();
 		$user->uri = common_user_uri($user);
 
@@ -256,15 +291,15 @@ class User extends DB_DataObject
 		$subscription->subscriber = $user->id;
 		$subscription->subscribed = $user->id;
 		$subscription->created = $user->created;
-		
+
 		$result = $subscription->insert();
-		
+
 		if (!$result) {
 			common_log_db_error($subscription, 'INSERT', __FILE__);
 			return FALSE;
 		}
-		
-		if ($email) {
+
+		if ($email && !$user->email) {
 
 			$confirm = new Confirm_address();
 			$confirm->code = common_confirmation_code(128);
@@ -279,13 +314,68 @@ class User extends DB_DataObject
 			}
 		}
 
+		if ($code && $user->email) {
+			$user->emailChanged();
+		}
+
 		$profile->query('COMMIT');
 
-		if ($email) {
+		if ($email && !$user->email) {
 			mail_confirm_address($confirm->code,
 								 $profile->nickname,
 								 $email);
 		}
+
+		return $user;
+	}
+
+	# Things we do when the email changes
+
+	function emailChanged() {
+
+		$invites = new Invitation();
+		$invites->address = $this->email;
+		$invites->address_type = 'email';
+
+		if ($invites->find()) {
+			while ($invites->fetch()) {
+				$other = User::staticGet($invites->user_id);
+				subs_subscribe_to($other, $this);
+			}
+		}
+	}
+
+	function hasFave($notice) {
+		$fave = new Fave();
+		$fave->user_id = $this->id;
+		$fave->notice_id = $notice->id;
+		if ($fave->find()) {
+			$result = true;
+		} else {
+			$result = false;
+		}
+		$fave->free();
+		unset($fave);
+		return $result;
+	}
+	
+	function mutuallySubscribed($other) {
+		return $this->isSubscribed($other) &&
+		  $other->isSubscribed($this);
+	}
+	
+	function mutuallySubscribedUsers() {
+
+		# 3-way join; probably should get cached
+		
+		$qry = 'SELECT user.* ' .
+		  'FROM subscription sub1 JOIN user ON sub1.subscribed = user.id ' .
+		  'JOIN subscription sub2 ON user.id = sub2.subscriber ' .
+		  'WHERE sub1.subscriber = %d and sub2.subscribed = %d ' .
+		  'ORDER BY user.nickname';
+		
+		$user = new User();
+		$user->query(sprintf($qry, $this->id, $this->id));
 
 		return $user;
 	}

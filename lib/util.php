@@ -136,7 +136,7 @@ function common_init_language() {
 	$language = common_language();
 	# So we don't have to make people install the gettext locales
 	putenv('LANGUAGE='.$language);
-	putenv('LANG='.$language);	
+	putenv('LANG='.$language);
 	$locale_set = setlocale(LC_ALL, $language . ".utf8",
 							$language . ".UTF8",
 							$language . ".utf-8",
@@ -151,51 +151,31 @@ function common_init_language() {
 define('PAGE_TYPE_PREFS', 'text/html,application/xhtml+xml,application/xml;q=0.3,text/xml;q=0.2');
 
 function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=NULL) {
+	
 	global $config, $xw;
 
-	$httpaccept = isset($_SERVER['HTTP_ACCEPT']) ? $_SERVER['HTTP_ACCEPT'] : NULL;
-
-	# XXX: allow content negotiation for RDF, RSS, or XRDS
-
-	$type = common_negotiate_type(common_accept_to_prefs($httpaccept),
-								  common_accept_to_prefs(PAGE_TYPE_PREFS));
-
-	if (!$type) {
-		common_user_error(_('This page is not available in a media type you accept'), 406);
-		exit(0);
-	}
-
-	header('Content-Type: '.$type);
-
-	common_start_xml('html',
-					 '-//W3C//DTD XHTML 1.0 Strict//EN',
-					 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd');
-
-	# FIXME: correct language for interface
-
-	$language = common_language();
+	common_start_html();
 	
-	common_element_start('html', array('xmlns' => 'http://www.w3.org/1999/xhtml',
-									   'xml:lang' => $language,
-									   'lang' => $language));
-
 	common_element_start('head');
 	common_element('title', NULL,
 				   $pagetitle . " - " . $config['site']['name']);
 	common_element('link', array('rel' => 'stylesheet',
 								 'type' => 'text/css',
-								 'href' => theme_path('display.css'),
+								 'href' => theme_path('display.css') . '?version=' . LACONICA_VERSION,
 								 'media' => 'screen, projection, tv'));
 	foreach (array(6,7) as $ver) {
 		if (file_exists(theme_file('ie'.$ver.'.css'))) {
 			# Yes, IE people should be put in jail.
 			$xw->writeComment('[if lte IE '.$ver.']><link rel="stylesheet" type="text/css" '.
-							  'href="'.theme_path('ie'.$ver.'.css').'" /><![endif]');
+							  'href="'.theme_path('ie'.$ver.'.css').'?version='.LACONICA_VERSION.'" /><![endif]');
 		}
 	}
 
 	common_element('script', array('type' => 'text/javascript',
 								   'src' => common_path('js/jquery.min.js')),
+				   ' ');
+	common_element('script', array('type' => 'text/javascript',
+								   'src' => common_path('js/jquery.form.js')),
 				   ' ');
 	common_element('script', array('type' => 'text/javascript',
 								   'src' => common_path('js/util.js')),
@@ -247,6 +227,37 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 	}
 	common_element_end('div');
 	common_element_start('div', array('id' => 'content'));
+}
+
+function common_start_html($type=NULL) {
+	
+	if (!$type) {
+		$httpaccept = isset($_SERVER['HTTP_ACCEPT']) ? $_SERVER['HTTP_ACCEPT'] : NULL;
+		
+		# XXX: allow content negotiation for RDF, RSS, or XRDS
+		
+		$type = common_negotiate_type(common_accept_to_prefs($httpaccept),
+									  common_accept_to_prefs(PAGE_TYPE_PREFS));
+		
+		if (!$type) {
+			common_user_error(_('This page is not available in a media type you accept'), 406);
+			exit(0);
+		}
+	}
+	
+	header('Content-Type: '.$type);
+
+	common_start_xml('html',
+					 '-//W3C//DTD XHTML 1.0 Strict//EN',
+					 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd');
+
+	# FIXME: correct language for interface
+
+	$language = common_language();
+
+	common_element_start('html', array('xmlns' => 'http://www.w3.org/1999/xhtml',
+									   'xml:lang' => $language,
+									   'lang' => $language));
 }
 
 function common_show_footer() {
@@ -304,6 +315,8 @@ function common_nav_menu() {
 	if ($user) {
 		common_menu_item(common_local_url('profilesettings'),
 						 _('Settings'));
+		common_menu_item(common_local_url('invite'),
+						 _('Invite'));
 		common_menu_item(common_local_url('logout'),
 						 _('Logout'));
 	} else {
@@ -429,13 +442,13 @@ function common_password($id, $label, $instructions=NULL) {
 	common_element_end('p');
 }
 
-function common_submit($id, $label) {
+function common_submit($id, $label, $cls='submit') {
 	global $xw;
 	common_element_start('p');
 	common_element('input', array('type' => 'submit',
 								  'id' => $id,
 								  'name' => $id,
-								  'class' => 'submit',
+								  'class' => $cls,
 								  'value' => $label));
 	common_element_end('p');
 }
@@ -484,7 +497,7 @@ function common_language() {
                     return $language;
                 }
         } else {
-                return $config['site']['language'];
+                return common_config('site', 'language');
         }
 }
 # salted, hashed passwords are stored in the DB
@@ -681,24 +694,31 @@ function common_canonical_email($email) {
 define('URL_REGEX', '^|[ \t\r\n])((ftp|http|https|gopher|mailto|news|nntp|telnet|wais|file|prospero|aim|webcal):(([A-Za-z0-9$_.+!*(),;/?:@&~=-])|%[A-Fa-f0-9]{2}){2,}(#([a-zA-Z0-9][a-zA-Z0-9$_.+!*(),;/?:@&~=%-]*))?([A-Za-z0-9$_+!*();/?:~-]))');
 
 function common_render_content($text, $notice) {
+	$r = common_render_text($text);
+	$id = $notice->profile_id;
+	$r = preg_replace('/(^|\s+)@([A-Za-z0-9]{1,64})/e', "'\\1@'.common_at_link($id, '\\2')", $r);
+	$r = preg_replace('/^T ([A-Z0-9]{1,64}) /e', "'T '.common_at_link($id, '\\1').' '", $r);
+	return $r;
+}
+
+function common_render_text($text) {
 	$r = htmlspecialchars($text);
 
 	$r = preg_replace('/[\x{0}-\x{8}\x{b}-\x{c}\x{e}-\x{19}]/', '', $r);
-	$id = $notice->profile_id;
 	$r = preg_replace('@https?://[^)\]>\s]+@', '<a href="\0" class="extlink">\0</a>', $r);
-	$r = preg_replace('/(^|\s+)@([A-Za-z0-9]{1,64})/e', "'\\1@'.common_at_link($id, '\\2')", $r);
-	$r = preg_replace('/^T ([A-Z0-9]{1,64}) /e', "'T '.common_at_link($id, '\\1').' '", $r);
 	$r = preg_replace('/(^|\s+)#([A-Za-z0-9_\-\.]{1,64})/e', "'\\1#'.common_tag_link('\\2')", $r);
 	# XXX: machine tags
 	return $r;
 }
 
 function common_tag_link($tag) {
-	if(common_config('site', 'fancy')) {
-		return '<a href="' . htmlspecialchars(common_path('tag/' . strtolower(str_replace(array('-', '_', '.'), '', $tag)))) . '" rel="tag" class="hashlink">' . htmlspecialchars($tag) . '</a>';
-	} else {
-		return '<a href="' . htmlspecialchars(common_path('index.php?action=tag&tag=' . strtolower(str_replace(array('-', '_', '.'), '', $tag)))) . '" rel="tag" class="hashlink">' . htmlspecialchars($tag) . '</a>';
-	}
+	$canonical = common_canonical_tag($tag);
+	$url = common_local_url('tag', array('tag' => $canonical));
+	return '<a href="' . htmlspecialchars($url) . '" rel="tag" class="hashlink">' . htmlspecialchars($tag) . '</a>';
+}
+
+function common_canonical_tag($tag) {  
+	return strtolower(str_replace(array('-', '_', '.'), '', $tag));
 }
 
 function common_at_link($sender_id, $nickname) {
@@ -814,10 +834,16 @@ function common_fancy_url($action, $args=NULL) {
 		return common_path('doc/'.$args['title']);
 	 case 'login':
 	 case 'logout':
-	 case 'register':
 	 case 'subscribe':
 	 case 'unsubscribe':
+	 case 'invite':
 		return common_path('main/'.$action);
+	 case 'register':
+		if ($args && $args['code']) {
+			return common_path('main/register/'.$args['code']);
+		} else {
+			return common_path('main/register');
+		}
 	 case 'remotesubscribe':
 		if ($args && $args['nickname']) {
 			return common_path('main/remote?nickname=' . $args['nickname']);
@@ -826,9 +852,6 @@ function common_fancy_url($action, $args=NULL) {
 		}
 	 case 'openidlogin':
 		return common_path('main/openid');
-	 case 'avatar':
-	 case 'password':
-		return common_path('settings/'.$action);
 	 case 'profilesettings':
 		return common_path('settings/profile');
 	 case 'emailsettings':
@@ -837,6 +860,8 @@ function common_fancy_url($action, $args=NULL) {
 		return common_path('settings/openid');
 	 case 'smssettings':
 		return common_path('settings/sms');
+	 case 'twittersettings':
+		return common_path('settings/twitter');
 	 case 'newnotice':
 		if ($args && $args['replyto']) {
 			return common_path('notice/new?replyto='.$args['replyto']);
@@ -858,6 +883,8 @@ function common_fancy_url($action, $args=NULL) {
 	 case 'subscribers':
 	 case 'all':
 	 case 'replies':
+	 case 'inbox':
+	 case 'outbox':
 		if ($args && isset($args['page'])) {
 			return common_path($args['nickname'].'/'.$action.'?page=' . $args['page']);
 		} else {
@@ -905,6 +932,20 @@ function common_fancy_url($action, $args=NULL) {
 		return common_path($path . (($args) ? ('?' . http_build_query($args)) : ''));
 	 case 'tags':
 		return common_path('tags' . (($args) ? ('?' . http_build_query($args)) : ''));
+	 case 'favor':
+		return common_path('main/favor');
+	 case 'disfavor':
+		return common_path('main/disfavor');
+	 case 'showfavorites':
+		if ($args && isset($args['page'])) {
+			return common_path($args['nickname'].'/favorites?page=' . $args['page']);
+		} else {
+			return common_path($args['nickname'].'/favorites');
+		}
+	 case 'showmessage':
+		return common_path('message/' . $args['message']);
+	 case 'newmessage':
+		return common_path('message/new' . (($args) ? ('?' . http_build_query($args)) : ''));
 	 default:
 		return common_simple_url($action, $args);
 	}
@@ -1063,12 +1104,80 @@ function common_save_replies($notice) {
 }
 
 function common_broadcast_notice($notice, $remote=false) {
+	
+	// Check to see if notice should go to Twitter
+	$flink = Foreign_link::getForeignLink($notice->profile_id, 1); // 1 == Twitter
+	
+	if ($flink) {
+		if (!common_twitter_broadcast($notice, $flink)) {
+			common_debug('Unable to send notice: ' . $notice->id . ' to Twitter.', __FILE__);
+		}
+	}
+	
 	if (common_config('queue', 'enabled')) {
 		# Do it later!
 		return common_enqueue_notice($notice);
 	} else {
 		return common_real_broadcast($notice, $remote);
 	}
+}
+
+function common_twitter_broadcast($notice, $flink) {	
+	global $config;
+	$success = true;
+	$fuser = $flink->getForeignUser();
+	$twitter_user = $fuser->nickname;
+	$twitter_password = $flink->credentials;
+	$uri = 'http://www.twitter.com/statuses/update.json';
+	
+	// XXX: Hack to get around PHP cURL's use of @ being a a meta character
+	$statustxt = preg_replace('/^@/', ' @', $notice->content);
+	
+	$options = array(
+		CURLOPT_USERPWD 		=> "$twitter_user:$twitter_password",
+		CURLOPT_POST			=> true,
+		CURLOPT_POSTFIELDS		=> array(
+									'status'	=> $statustxt,
+									'source'	=> $config['integration']['source']
+									),
+		CURLOPT_RETURNTRANSFER	=> true,
+		CURLOPT_FAILONERROR		=> true,
+		CURLOPT_HEADER			=> false,
+		CURLOPT_FOLLOWLOCATION	=> true,
+		CURLOPT_USERAGENT		=> "Laconica",
+		CURLOPT_CONNECTTIMEOUT	=> 120,  // XXX: Scary!!!! How long should this be?
+		CURLOPT_TIMEOUT			=> 120
+	);
+	
+	$ch = curl_init($uri);
+    curl_setopt_array($ch, $options);
+    $data = curl_exec($ch);
+    $errmsg = curl_error($ch);
+
+	if ($errmsg) {
+		common_debug("cURL error: $errmsg - trying to send notice for $twitter_user.", 
+			__FILE__);
+		$success = false;
+	}
+
+	curl_close($ch);
+	
+	if (!$data) {
+		common_debug("No data returned by Twitter's API trying to send update for $twitter_user",
+			__FILE__);
+		$success = false;
+	}
+
+	// Twitter should return a status	
+	$status = json_decode($data);
+
+	if (!$status->id) {
+		common_debug("Unexpected data returned by Twitter API trying to send update for $twitter_user",
+			__FILE__);
+		$success = false;
+	}
+	
+	return $status;
 }
 
 # Stick the notice on the queue
@@ -1527,6 +1636,36 @@ function common_session_token() {
 		$_SESSION['token'] = common_good_rand(64);
 	}
 	return $_SESSION['token'];
+}
+
+function common_disfavor_form($notice) {
+	common_element_start('form', array('id' => 'disfavor-' . $notice->id,
+									   'method' => 'post',
+									   'class' => 'disfavor',
+									   'action' => common_local_url('disfavor')));
+	common_hidden('token', common_session_token());
+	common_hidden('notice', $notice->id);
+	common_element('input', array('type' => 'submit',
+								  'id' => 'disfavor-submit-' . $notice->id,
+								  'name' => 'disfavor-submit-' . $notice->id,
+								  'class' => 'disfavor',
+								  'value' => '♥'));
+	common_element_end('form');
+}
+
+function common_favor_form($notice) {
+	common_element_start('form', array('id' => 'favor-' . $notice->id,
+									   'method' => 'post',
+									   'class' => 'favor',
+									   'action' => common_local_url('favor')));
+	common_hidden('token', common_session_token());
+	common_hidden('notice', $notice->id);
+	common_element('input', array('type' => 'submit',
+								  'id' => 'favor-submit-' . $notice->id,
+								  'name' => 'favor-submit-' . $notice->id,
+								  'class' => 'favor',
+								  'value' => '♡'));
+	common_element_end('form');
 }
 
 function common_cache_key($extra) {

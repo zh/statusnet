@@ -146,6 +146,14 @@ class ShowstreamAction extends StreamAction {
 		} else {
 			$this->show_remote_subscribe_link($profile);
 		}
+		
+		$user = User::staticGet('id', $profile->id);
+		
+		if ($cur && $cur->id != $user->id && $cur->mutuallySubscribed($user)) {
+			common_element('a', array('href' => common_local_url('newmessage', array('to' => $user->id))),
+						   _('Send a message'));
+		}
+		
 		common_element_end('div');
 
 		common_element_start('div', array('id' => 'profile_information'));
@@ -381,6 +389,13 @@ class ShowstreamAction extends StreamAction {
 		# XXX: RDFa
 		common_element_start('li', array('class' => 'notice_single',
 										 'id' => 'notice-' . $notice->id));
+		if ($user) {
+			if ($user->hasFave($notice)) {
+				common_disfavor_form($notice);
+			} else {
+				common_favor_form($notice);
+			}
+		}
 		$noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
 		# FIXME: URL, image, video, audio
 		common_element_start('p');

@@ -29,15 +29,47 @@ class ProfilesettingsAction extends SettingsAction {
 	}
 
 	function show_form($msg=NULL, $success=false) {
+		$this->form_header(_('Profile settings'), $msg, $success);
+		$this->show_settings_form();
+		common_element('h2', NULL, _('Avatar'));
+		$this->show_avatar_form();
+		common_element('h2', NULL, _('Change password'));
+		$this->show_password_form();
+		common_show_footer();
+	}
+
+	function handle_post() {
+
+		# CSRF protection
+
+		$token = $this->trimmed('token');
+		if (!$token || $token != common_session_token()) {
+			$this->show_form(_('There was a problem with your session token. Try again, please.'));
+			return;
+		}
+
+		if ($this->arg('save')) {
+			$this->save_profile();
+		} else if ($this->arg('upload')) {
+			$this->upload_avatar();
+		} else if ($this->arg('changepass')) {
+			$this->change_password();
+		}
+	}
+
+	function show_settings_form() {
+
 		$user = common_current_user();
 		$profile = $user->getProfile();
-		$this->form_header(_('Profile settings'), $msg, $success);
 
-		common_element_start('form', array('method' => 'post',
+		common_element_start('form', array('method' => 'POST',
 										   'id' => 'profilesettings',
 										   'action' =>
 										   common_local_url('profilesettings')));
 		common_hidden('token', common_session_token());
+
+
+
 		# too much common patterns here... abstractable?
 		common_input('nickname', _('Nickname'),
 					 ($this->arg('nickname')) ? $this->arg('nickname') : $profile->nickname,
@@ -65,13 +97,89 @@ class ProfilesettingsAction extends SettingsAction {
 
 		common_checkbox('autosubscribe', _('Automatically subscribe to whoever subscribes to me (best for non-humans)'),
 						($this->arg('autosubscribe')) ? $this->boolean('autosubscribe') : $user->autosubscribe);
-		common_submit('submit', _('Save'));
+
+		common_submit('save', _('Save'));
+
 		common_element_end('form');
-		common_show_footer();
+
+
 	}
 
-	function handle_post() {
+	function show_avatar_form() {
 
+		$user = common_current_user();
+		$profile = $user->getProfile();
+
+		$original = $profile->getOriginalAvatar();
+
+
+		common_element_start('form', array('enctype' => 'multipart/form-data',
+										   'method' => 'POST',
+										   'id' => 'avatar',
+										   'action' =>
+										   common_local_url('profilesettings')));
+		common_hidden('token', common_session_token());
+
+		if ($original) {
+			common_element('img', array('src' => $original->url,
+										'class' => 'avatar original',
+										'width' => $original->width,
+										'height' => $original->height,
+										'alt' => $user->nickname));
+		}
+
+		$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
+
+		if ($avatar) {
+			common_element('img', array('src' => $avatar->url,
+										'class' => 'avatar profile',
+										'width' => AVATAR_PROFILE_SIZE,
+										'height' => AVATAR_PROFILE_SIZE,
+										'alt' => $user->nickname));
+		}
+
+
+		common_element('input', array('name' => 'MAX_FILE_SIZE',
+									  'type' => 'hidden',
+									  'id' => 'MAX_FILE_SIZE',
+									  'value' => MAX_AVATAR_SIZE));
+
+		common_element_start('p');
+
+
+		common_element('input', array('name' => 'avatarfile',
+									  'type' => 'file',
+									  'id' => 'avatarfile'));
+		common_element_end('p');
+
+		common_submit('upload', _('Upload'));
+		common_element_end('form');
+
+	}
+
+	function show_password_form() {
+
+		$user = common_current_user();
+		common_element_start('form', array('method' => 'POST',
+										   'id' => 'password',
+										   'action' =>
+										   common_local_url('profilesettings')));
+
+		common_hidden('token', common_session_token());
+
+		# Users who logged in with OpenID won't have a pwd
+		if ($user->password) {
+			common_password('oldpassword', _('Old password'));
+		}
+		common_password('newpassword', _('New password'),
+						_('6 or more characters'));
+		common_password('confirm', _('Confirm'),
+						_('same as password above'));
+		common_submit('changepass', _('Change'));
+		common_element_end('form');
+	}
+
+	function save_profile() {
 		$nickname = $this->trimmed('nickname');
 		$fullname = $this->trimmed('fullname');
 		$homepage = $this->trimmed('homepage');
@@ -80,14 +188,6 @@ class ProfilesettingsAction extends SettingsAction {
 		$autosubscribe = $this->boolean('autosubscribe');
 		$language = $this->trimmed('language');
 		$timezone = $this->trimmed('timezone');
-
-		# CSRF protection
-
-		$token = $this->trimmed('token');
-		if (!$token || $token != common_session_token()) {
-			$this->show_form(_('There was a problem with your session token. Try again, please.'));
-			return;
-		}
 
 		# Some validation
 
@@ -201,6 +301,54 @@ class ProfilesettingsAction extends SettingsAction {
 		$this->show_form(_('Settings saved.'), TRUE);
 	}
 
+
+	function upload_avatar() {
+		switch ($_FILES['avatarfile']['error']) {
+		 case UPLOAD_ERR_OK: # success, jump out
+			break;
+		 case UPLOAD_ERR_INI_SIZE:
+		 case UPLOAD_ERR_FORM_SIZE:
+			$this->show_form(_('That file is too big.'));
+			return;
+		 case UPLOAD_ERR_PARTIAL:
+			@unlink($_FILES['avatarfile']['tmp_name']);
+			$this->show_form(_('Partial upload.'));
+			return;
+		 default:
+			$this->show_form(_('System error uploading file.'));
+			return;
+		}
+
+		$info = @getimagesize($_FILES['avatarfile']['tmp_name']);
+
+		if (!$info) {
+			@unlink($_FILES['avatarfile']['tmp_name']);
+			$this->show_form(_('Not an image or corrupt file.'));
+			return;
+		}
+
+		switch ($info[2]) {
+		 case IMAGETYPE_GIF:
+		 case IMAGETYPE_JPEG:
+		 case IMAGETYPE_PNG:
+			break;
+		 default:
+			$this->show_form(_('Unsupported image file format.'));
+			return;
+		}
+
+		$user = common_current_user();
+		$profile = $user->getProfile();
+
+		if ($profile->setOriginal($_FILES['avatarfile']['tmp_name'])) {
+			$this->show_form(_('Avatar updated.'), true);
+		} else {
+			$this->show_form(_('Failed updating avatar.'));
+		}
+
+		@unlink($_FILES['avatarfile']['tmp_name']);
+	}
+
 	function nickname_exists($nickname) {
 		$user = common_current_user();
 		$other = User::staticGet('nickname', $nickname);
@@ -210,4 +358,48 @@ class ProfilesettingsAction extends SettingsAction {
 			return $other->id != $user->id;
 		}
 	}
+
+	function change_password() {
+
+		$user = common_current_user();
+		assert(!is_null($user)); # should already be checked
+
+		# FIXME: scrub input
+
+		$newpassword = $this->arg('newpassword');
+		$confirm = $this->arg('confirm');
+		$token = $this->arg('token');
+
+		if (0 != strcmp($newpassword, $confirm)) {
+			$this->show_form(_('Passwords don\'t match.'));
+			return;
+		}
+
+		if ($user->password) {
+			$oldpassword = $this->arg('oldpassword');
+
+			if (!common_check_user($user->nickname, $oldpassword)) {
+				$this->show_form(_('Incorrect old password'));
+				return;
+			}
+		}
+
+		$original = clone($user);
+
+		$user->password = common_munge_password($newpassword, $user->id);
+
+		$val = $user->validate();
+		if ($val !== TRUE) {
+			$this->show_form(_('Error saving user; invalid.'));
+			return;
+		}
+
+		if (!$user->update($original)) {
+			common_server_error(_('Can\'t save new password.'));
+			return;
+		}
+
+		$this->show_form(_('Password saved.'), true);
+	}
+
 }

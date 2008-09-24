@@ -615,5 +615,58 @@ input#openid_url {
 	background-color: #f7ebcc;
 	}	
 
+/* ----- favor/disfavor -----*/
+
+input#disfavor, input.disfavor  {
+	display: inline;
+	color: #C15D42;
+	background-color: white;
+	cursor: pointer;
+	border: 0;
+	width: auto;
+	}
+	
+input#favor, input.favor  {
+	display: inline;
+	color: #C15D42;
+	background-color: white;
+	cursor: pointer;
+	border: 0;
+	width: auto;
+	}
+
 /* ===== End Forms Styling ===== */
 
+/* ----- messages ----- */
+
+#messages {
+	clear: both;
+	margin: 0 auto;
+	padding: 0;
+	list-style-type: none;
+	width: 540px;
+	border-top: 1px solid #dec5b5;
+	/*border: 1px solid #F00;*/
+	}
+#messages a:hover {
+	text-decoration: underline;
+	}	
+.message_single {
+	clear: both;
+	display: block;
+	margin: 0;
+	padding: 5px 5px 5px 0;
+	min-height: 48px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 13px;
+	line-height: 16px;
+	border-bottom: 1px solid #dec5b5;
+	}
+.message_single:hover {
+	background-color: #f7ebcc;
+	}	
+.message_single p {
+	display: inline;
+	margin: 0;
+	padding: 0;
+	}	

@@ -645,6 +645,91 @@ input#openid_url {
 	line-height: 15px;
 }
 
+/* ----- favor/disfavor -----*/
+
+form#disfavor, form.disfavor  {
+	display: inline;
+	float: right;
+}
+
+input#disfavor, input.disfavor  {
+	display: inline;
+	color: #C15D42;
+	background-color: white;
+	cursor: pointer;
+	border: 0;
+	width: auto;
+	}
+
+form#favor, form.favor  {
+	display: inline;
+	float: right;
+}
+
+input#favor, input.favor  {
+	display: inline;
+	color: #C15D42;
+	background-color: white;
+	cursor: pointer;
+	border: 0;
+	width: auto;
+	}
+	
+input.favor:hover  {
+	background-color: #F3F8EA;
+}
+
+input.disfavor:hover  {
+	background-color: #F3F8EA;
+}
+	
+/* ----- direct message ----- */
+
+#message_form {
+	height: 96px;
+	/*background-color: #F00;*/
+	}
+	
+#message_form p {
+	margin: 21px 0 0 0;
+	padding: 0;
+	}
+#message_form label {
+	display: inline;
+	}
+	
+#message_content {
+	display: block;
+	float: left;
+	width: 463px;
+	height: 35px;
+	padding: 5px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #193441;
+	border: 0;
+	}
+	
+#message_send {
+	display: block;
+	float: left;
+	margin: 1px 0 0 4px;
+	width: 63px;
+	height: 45px;
+	background-color: #C15D42;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 14px;
+	color: #FCFFF5;
+	cursor: pointer;
+	border: 0;
+	}
+	
+#message_send:hover {
+	background-color: #904632;
+	}
+
+
 /* ===== End Forms Styling ===== */
 
 /* ===== Tag Cloud Styling ===== */
@@ -684,3 +769,38 @@ font-size: 80%;
 p.tagcloud a.smallest {
 font-size: 60%;
 }
+
+/* ----- Mailbox ----- */
+
+#messages {
+	clear: both;
+	margin: 0 auto;
+	padding: 0;
+	list-style-type: none;
+	width: 540px;
+	border-top: 1px solid #D8E2D7;
+	}
+
+#messages a:hover {
+        text-decoration: underline;
+	}
+
+.message_single {
+	clear: both;
+	display: block;
+	margin: 0;
+	padding: 5px 5px 5px 0;
+	min-height: 48px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 13px;
+	line-height: 16px;
+	border-bottom: 1px solid #D8E2D7;
+	}
+.message_single:hover {
+	background-color: #F3F8EA;
+	}
+.message_single p {
+	display: inline;
+	margin: 0;
+	padding: 0;
+	}

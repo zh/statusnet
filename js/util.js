@@ -31,7 +31,7 @@ $(document).ready(function(){
                 counter.attr("class", "");
             }
         }
-     
+
         function submitonreturn(event) {
              if (event.keyCode == 13) {
                   $("#status_form").submit();
@@ -41,17 +41,51 @@ $(document).ready(function(){
              }
              return true;
         }
-     
+
         if ($("#status_textarea").length) {
              $("#status_textarea").bind("keyup", counter);
              $("#status_textarea").bind("keydown", submitonreturn);
-     
+
             // run once in case there's something in there
             counter();
-             
+
              // set the focus
              $("#status_textarea").focus();
         }
+
+     // XXX: refactor this code
+
+     var favoptions = {dataType: 'xml',
+               success: function(xml) {
+                    var new_form = $('form.disfavor', xml).get(0);
+                    var dis = new_form.id;
+                    var fav = dis.replace('disfavor', 'favor');
+                    $('form#'+fav).replaceWith(new_form);
+                    $('form#'+dis).ajaxForm(disoptions).each(addAjaxHidden);
+               }};
+
+     var disoptions = {dataType: 'xml',
+               success: function(xml) {
+                    var new_form = $('form.favor', xml).get(0);
+                    var fav = new_form.id;
+                    var dis = fav.replace('favor', 'disfavor');
+                    $('form#'+dis).replaceWith(new_form);
+                    $('form#'+fav).ajaxForm(favoptions).each(addAjaxHidden);                    ;
+               }};
+
+     function addAjaxHidden() {
+          var ajax = document.createElement('input');
+          ajax.setAttribute('type', 'hidden');
+          ajax.setAttribute('name', 'ajax');
+          ajax.setAttribute('value', 1);
+          this.appendChild(ajax);
+     }
+
+     $("form.favor").ajaxForm(favoptions);
+     $("form.disfavor").ajaxForm(disoptions);
+
+     $("form.favor").each(addAjaxHidden);
+     $("form.disfavor").each(addAjaxHidden);
 });
 
 function doreply(nick) {

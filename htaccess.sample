@@ -22,6 +22,7 @@ RewriteRule ^doc/source$ index.php?action=doc&title=source [L,QSA]
 
 RewriteRule ^main/login$ index.php?action=login [L,QSA]
 RewriteRule ^main/logout$ index.php?action=logout [L,QSA]
+RewriteRule ^main/register/(.*)$ index.php?action=register&code=$1 [L,QSA]
 RewriteRule ^main/register$ index.php?action=register [L,QSA]
 RewriteRule ^main/openid$ index.php?action=openidlogin [L,QSA]
 RewriteRule ^main/remote$ index.php?action=remotesubscribe [L,QSA]
@@ -32,14 +33,17 @@ RewriteRule ^main/confirmaddress$ index.php?action=confirmaddress [L,QSA]
 RewriteRule ^main/confirmaddress/(.*)$ index.php?action=confirmaddress&code=$1 [L,QSA]
 RewriteRule ^main/recoverpassword$ index.php?action=recoverpassword [L,QSA]
 RewriteRule ^main/recoverpassword/(.*)$ index.php?action=recoverpassword&code=$1 [L,QSA]
+RewriteRule ^main/invite$ index.php?action=invite [L,QSA]
 
-RewriteRule ^settings/avatar$ index.php?action=avatar [L,QSA]
-RewriteRule ^settings/password$ index.php?action=password [L,QSA]
+RewriteRule ^main/favor$ index.php?action=favor [L,QSA]
+RewriteRule ^main/disfavor$ index.php?action=disfavor [L,QSA]
+
 RewriteRule ^settings/profile$ index.php?action=profilesettings [L,QSA]
 RewriteRule ^settings/openid$ index.php?action=openidsettings [L,QSA]
 RewriteRule ^settings/im$ index.php?action=imsettings [L,QSA]
 RewriteRule ^settings/email$ index.php?action=emailsettings [L,QSA]
 RewriteRule ^settings/sms$ index.php?action=smssettings [L,QSA]
+RewriteRule ^settings/twitter$ index.php?action=twittersettings [L,QSA]
 
 RewriteRule ^search/people$ index.php?action=peoplesearch [L,QSA]
 RewriteRule ^search/notice$ index.php?action=noticesearch [L,QSA]
@@ -49,6 +53,9 @@ RewriteRule ^notice/new$ index.php?action=newnotice [L,QSA]
 RewriteRule ^notice/(\d+)$ index.php?action=shownotice&notice=$1 [L,QSA]
 RewriteRule ^notice/delete/((\d+))?$ index.php?action=deletenotice&notice=$2 [L,QSA]
 RewriteRule ^notice/delete$ index.php?action=deletenotice [L,QSA]
+
+RewriteRule ^message/new$ index.php?action=newmessage [L,QSA]
+RewriteRule ^message/(\d+)$ index.php?action=showmessage&message=$1 [L,QSA]
 
 RewriteRule ^user/(\d+)$ index.php?action=userbyid&id=$1 [L,QSA]
 
@@ -65,6 +72,9 @@ RewriteRule ^(\w+)/foaf$ index.php?action=foaf&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/replies$ index.php?action=replies&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/replies/rss$ index.php?action=repliesrss&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/avatar/(original|96|48|24)$ index.php?action=avatarbynickname&nickname=$1&size=$2 [L,QSA]
+RewriteRule ^(\w+)/favorites$ index.php?action=showfavorites&nickname=$1 [L,QSA]
+RewriteRule ^(\w+)/inbox$ index.php?action=inbox&nickname=$1 [L,QSA]
+RewriteRule ^(\w+)/outbox$ index.php?action=outbox&nickname=$1 [L,QSA]
 
 RewriteRule ^(\w+)$ index.php?action=showstream&nickname=$1 [L,QSA]
 

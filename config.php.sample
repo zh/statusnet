@@ -43,6 +43,11 @@ $config['db']['database'] = 'mysql://laconica:microblog@localhost/laconica';
 #$config['db']['debug'] = 0;
 #$config['db']['db_driver'] = 'MDB2';
 
+#Database type. For mysql, these defaults are fine. For postgresql, set
+#'quote_identifiers' to true and 'type' to 'pgsql':
+#$config['db']['quote_identifiers'] = false;
+#$config['db']['type'] = 'mysql';
+
 #session_set_cookie_params(0, '/'. $config['site']['path'] .'/');
 
 #Standard fancy-url clashes prevented by not allowing nicknames on a blacklist
@@ -52,12 +57,14 @@ $config['db']['database'] = 'mysql://laconica:microblog@localhost/laconica';
 # xmpp
 #$config['xmpp']['enabled'] = false;
 #$config['xmpp']['server'] = 'server.example.net';
+#$config['xmpp']['host'] = NULL;	# Only set if different from server
 #$config['xmpp']['port'] = 5222;
 #$config['xmpp']['user'] = 'update';
 #$config['xmpp']['encryption'] = false;
 #$config['xmpp']['resource'] = 'uniquename';
 #$config['xmpp']['password'] = 'blahblahblah';
 #$config['xmpp']['public'][] = 'someindexer@example.net';
+#$config['xmpp']['debug'] = false;
 
 #Default locale info
 #$config['site']['timezone'] = 'Pacific/Auckland';
@@ -75,10 +82,6 @@ $config['db']['database'] = 'mysql://laconica:microblog@localhost/laconica';
 #For incoming email, if enabled. Defaults to site server name.
 #$config['mail']['domain'] = 'incoming.example.net';
 
-#Do notice broadcasts offline
-#If you use this, you must run the six offline daemons in the
-#background. See the README for details.
-#$config['queue']['enabled'] = true;
 
 #exponential decay factor for tags, default 10 days
 #raise this if traffic is slow, lower it if it's fast
@@ -86,3 +89,23 @@ $config['db']['database'] = 'mysql://laconica:microblog@localhost/laconica';
 
 #optionally show non-local messages in public timeline
 #$config['public']['localonly'] = false;
+
+#Do notice broadcasts offline
+#If you use this, you must run the six offline daemons in the
+#background. See the README for details.
+#$config['queue']['enabled'] = true;
+
+#The following customise the behaviour of the various daemons:
+#$config['daemon']['piddir'] = '/var/run';
+#$config['daemon']['user'] = false;
+#$config['daemon']['group'] = false;
+
+#For installations with high traffic, laconica can use MemCached to cache
+#frequently requested information. Only enable the following if you have
+#MemCached up and running:
+#$config['memcached']['enabled'] = false;
+#$config['memcached']['server'] = 'localhost';
+#$config['memcached']['port'] = 11211;
+
+#Twitter integration source attribute. Note: default is Laconica
+#$config['integration']['source'] = 'Laconica';

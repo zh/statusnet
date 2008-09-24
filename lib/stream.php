@@ -19,49 +19,9 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class StreamAction extends Action {
+require_once(INSTALLDIR.'/lib/personal.php');
 
-	function is_readonly() {
-		return true;
-	}
-
-	function handle($args) {
-		parent::handle($args);
-                common_set_returnto($this->self_url());
-	}
-
-	function views_menu() {
-
-		$user = NULL;
-		$action = $this->trimmed('action');
-		$nickname = $this->trimmed('nickname');
-
-		if ($nickname) {
-			$user = User::staticGet('nickname', $nickname);
-			$user_profile = $user->getProfile();
-		} else {
-			$user_profile = false;
-		}
-
-		common_element_start('ul', array('id' => 'nav_views'));
-
-		common_menu_item(common_local_url('all', array('nickname' =>
-													   $nickname)),
-						 _('Personal'),
-						 sprintf(_('%s and friends'), (($user_profile && $user_profile->fullname) ? $user_profile->fullname : $nickname)),
-						 $action == 'all');
-		common_menu_item(common_local_url('replies', array('nickname' =>
-															  $nickname)),
-						 _('Replies'),
-						 sprintf(_('Replies to %s'), (($user_profile && $user_profile->fullname) ? $user_profile->fullname : $nickname)),
-						 $action == 'replies');
-		common_menu_item(common_local_url('showstream', array('nickname' =>
-															  $nickname)),
-						 _('Profile'),
-						 ($user_profile && $user_profile->fullname) ? $user_profile->fullname : $nickname,
-						 $action == 'showstream');
-		common_element_end('ul');
-	}
+class StreamAction extends PersonalAction {
 
 	function show_notice($notice) {
 		global $config;
@@ -71,6 +31,13 @@ class StreamAction extends Action {
 		# XXX: RDFa
 		common_element_start('li', array('class' => 'notice_single',
 										  'id' => 'notice-' . $notice->id));
+		if ($user) {
+			if ($user->hasFave($notice)) {
+				common_disfavor_form($notice);
+			} else {
+				common_favor_form($notice);
+			}
+		}
 		$avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
 		common_element_start('a', array('href' => $profile->profileurl));
 		common_element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE),
@@ -135,28 +102,5 @@ class StreamAction extends Action {
 		}
 		common_element_end('p');
 		common_element_end('li');
-	}
-	
-	function source_link($source) {
-		$source_name = _($source);
-		switch ($source) {
-		 case 'web':
-		 case 'xmpp':
-		 case 'mail':
-		 case 'omb':
-		 case 'api':
-			common_element('span', 'noticesource', $source_name);
-			break;
-		 default:
-			$ns = Notice_source::staticGet($source);
-			if ($ns) {
-				common_element('a', array('href' => $ns->url),
-							   $ns->name);
-			} else {
-				common_element('span', 'noticesource', $source_name);
-			}
-			break;
-		}
-		return;
 	}
 }
