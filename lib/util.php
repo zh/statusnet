@@ -1693,7 +1693,7 @@ function common_message_form($content, $user, $to) {
 	
 	common_element_start('form', array('id' => 'message_form',
 									   'method' => 'post',
-									   'action' => $this->self_url()));
+									   'action' => common_local_url('newmessage')));
 	
 	$mutual_users = $user->mutuallySubscribedUsers();
 	
