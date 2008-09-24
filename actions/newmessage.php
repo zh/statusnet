@@ -92,43 +92,8 @@ class NewmessageAction extends Action {
 		list($content, $user, $to) = $params;
 		
 		assert(!is_null($user));
-		
-		common_element_start('form', array('id' => 'message_form',
-										   'method' => 'post',
-										   'action' => $this->self_url()));
-		
-		$mutual_users = $user->mutuallySubscribedUsers();
-		
-		$mutual = array();
-		
-		while ($mutual_users->fetch()) {
-			if ($mutual_users->id != $user->id) {
-				$mutual[$mutual_users->id] = $mutual_users->nickname;
-			}
-		}
 
-		$mutual_users->free();
-		unset($mutual_users);
-
-		common_dropdown('to', _('To'), $mutual, NULL, FALSE, $to->id);
-		
-		common_element_start('p');
-		
-		common_element('textarea', array('id' => 'message_content',
-										 'cols' => 60,
-										 'rows' => 3,
-										 'name' => 'content'),
-					   ($content) ? $content : '');
-						
-		common_element('input', array('id' => 'message_send',
-									  'name' => 'message_send',
-									  'type' => 'submit',
-									  'value' => _('Send')));
-		
-		common_hidden('token', common_session_token());
-		
-		common_element_end('p');
-		common_element_end('form');
+		common_message_form($content, $user, $to);
 	}
 
 	function show_form($msg=NULL) {
