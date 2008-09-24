@@ -238,6 +238,10 @@ class TwittersettingsAction extends SettingsAction {
 			return;
 		}
 
+		$flink->query('BEGIN');
+
+		$original = clone($flink);
+
 		if ($noticesync) {
 			if ($replysync) {
 				$flink->noticesync = 3;
@@ -250,13 +254,16 @@ class TwittersettingsAction extends SettingsAction {
 
 		$flink->friendsync = ($friendsync) ? 2 : 0;
 		// $flink->profilesync = 0; // XXX: leave as default?
-		$result = $flink->update();
 
-		if (!$result) {
+		$result = $flink->update($original);
+
+		if ($result === FALSE) {
 			common_log_db_error($flink, 'UPDATE', __FILE__);
 			$this->show_form(_('Couldn\'t save Twitter preferences.'));
 			return;
 		}
+
+		$flink->query('COMMIT');
 
 		$this->show_form(_('Twitter preferences saved.'));
 
