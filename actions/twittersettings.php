@@ -69,21 +69,19 @@ class TwittersettingsAction extends SettingsAction {
 
 		common_element('h2', NULL, _('Preferences'));
 
+		common_checkbox('noticesync', _('Automatically send my notices to Twitter.'),
+						($flink) ? ($flink->noticesync & FOREIGN_NOTICE_SEND) : true);
+
+		common_checkbox('replysync', _('Send local "@" replies to Twitter.'),
+						($flink) ? ($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) : false);
+
+		common_checkbox('friendsync', _('Subscribe to my Twitter friends here.'),
+						($flink) ? ($flink->friendsync & FOREIGN_FRIEND_RECV) : false,
+						NULL, 'true', true);
+
 		if ($flink) {
-			common_checkbox('noticesync', _('Automatically send my notices to Twitter.'),
-				($flink->noticesync > 0) ? true : false);
-
-			common_checkbox('replysync', _('Don\'t send local "@" replies to Twitter.'),
-				($flink->noticesync == 3) ? true : false, NULL, 'true');
-
-			common_checkbox('friendsync', _('Subscribe to my Twitter friends here.'),
-				($flink->friendsync) ? true : false, NULL, 'true', true);
-
 			common_submit('save', _('Save'));
 		} else {
-			common_checkbox('noticesync', _('Automatically send my notices to Twitter.'), true);
-			common_checkbox('replysync', _('Don\'t send local "@" replies to Twitter.'), false, NULL, 'true');
-			common_checkbox('friendsync', _('Subscribe to my Twitter friends here.'), false, NULL, 'true', true);
 			common_submit('add', _('Add'));
 		}
 
@@ -163,18 +161,8 @@ class TwittersettingsAction extends SettingsAction {
 		$flink->credentials = $twitter_password;
 		$flink->created = common_sql_now();
 
-		if ($noticesync) {
-			if ($replysync) {
-				$flink->noticesync = 3;
-			} else {
-				$flink->noticesync = 1;
-			}
-		} else {
-			$flink->noticesync = 0;
-		}
-
-		$flink->friendsync = ($friendsync) ? 2 : 0;
-		$flink->profilesync = 0; // XXX: leave as default?
+		$this->set_flags($flink, $noticesync, $replysync, $friendsync);
+		
 		$flink_id = $flink->insert();
 
 		if (!$flink_id) {
@@ -241,19 +229,8 @@ class TwittersettingsAction extends SettingsAction {
 		$flink->query('BEGIN');
 
 		$original = clone($flink);
-
-		if ($noticesync) {
-			if ($replysync) {
-				$flink->noticesync = 3;
-			} else {
-				$flink->noticesync = 1;
-			}
-		} else {
-			$flink->noticesync = 0;
-		}
-
-		$flink->friendsync = ($friendsync) ? 2 : 0;
-		// $flink->profilesync = 0; // XXX: leave as default?
+		
+		$this->set_flags($flink, $noticesync, $replysync, $friendsync);
 
 		$result = $flink->update($original);
 
@@ -335,4 +312,25 @@ class TwittersettingsAction extends SettingsAction {
 		return $data;
 	}
 
+	function set_flags(&$flink, $noticesync, $replysync, $friendsync) {
+		if ($noticesync) {
+			$flink->noticesync |= FOREIGN_NOTICE_SEND;
+		} else {
+			$flink->noticesync &= ~FOREIGN_NOTICE_SEND;
+		}
+		
+		if ($replysync) {
+			$flink->noticesync |= FOREIGN_NOTICE_SEND_REPLY;
+		} else {
+			$flink->noticesync &= ~FOREIGN_NOTICE_SEND_REPLY;
+		}
+
+		if ($friendsync) {
+			$flink->friendsync |= FOREIGN_FRIEND_RECV;
+		} else {
+			$flink->friendsync &= ~FOREIGN_FRIEND_RECV;
+		}
+		
+		$flink->profilesync = 0; // XXX: leave as default?
+	}
 }
