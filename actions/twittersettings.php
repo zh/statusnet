@@ -71,13 +71,19 @@ class TwittersettingsAction extends SettingsAction {
 
 		if ($flink) {
 			common_checkbox('noticesync', _('Automatically send my notices to Twitter.'),
-				($flink->noticesync) ? true : false);
+				($flink->noticesync > 0) ? true : false);
+
+			common_checkbox('replysync', _('Don\'t send local "@" replies to Twitter.'),
+				($flink->noticesync == 3) ? true : false, NULL, 'true');
+
 			common_checkbox('friendsync', _('Subscribe to my Twitter friends here.'),
-				($flink->friendsync) ? true : false);
+				($flink->friendsync) ? true : false, NULL, 'true', true);
+
 			common_submit('save', _('Save'));
 		} else {
 			common_checkbox('noticesync', _('Automatically send my notices to Twitter.'), true);
-			common_checkbox('friendsync', _('Subscribe to my Twitter friends here.'), true);
+			common_checkbox('replysync', _('Don\'t send local "@" replies to Twitter.'), false, NULL, 'true');
+			common_checkbox('friendsync', _('Subscribe to my Twitter friends here.'), false, NULL, 'true', true);
 			common_submit('add', _('Add'));
 		}
 
@@ -109,12 +115,13 @@ class TwittersettingsAction extends SettingsAction {
 		$twitter_username = $this->trimmed('twitter_username');
 		$twitter_password = $this->trimmed('twitter_password');
 		$noticesync = $this->boolean('noticesync');
+		$replysync = $this->boolean('replysync');
 		$friendsync = $this->boolean('friendsync');
 
 		if (!Validate::string($twitter_username, array('min_length' => 1,
 													   'max_length' => 15,
 													   'format' => VALIDATE_NUM . VALIDATE_ALPHA . '_'))) {
-			$this->show_form(_('Username must have only numbers, upper- and lowercase letters, and underscore (_).'));
+			$this->show_form(_('Username must have only numbers, upper- and lowercase letters, and underscore (_). 15 chars max.'));
 			return;
 		}
 
@@ -155,7 +162,15 @@ class TwittersettingsAction extends SettingsAction {
 		$flink->service = 1; // Twitter
 		$flink->credentials = $twitter_password;
 		$flink->created = common_sql_now();
-		$flink->noticesync = ($noticesync) ? 1 : 0;
+
+		if ($noticesync) {
+			if ($replysync) {
+				$flink->noticesync = 3;
+			} else {
+				$flink->noticesync = 1;
+			}
+		}
+
 		$flink->friendsync = ($friendsync) ? 2 : 0;
 		$flink->profilesync = 0; // XXX: leave as default?
 		$flink_id = $flink->insert();
@@ -210,6 +225,8 @@ class TwittersettingsAction extends SettingsAction {
 	function save_preferences() {
 		$noticesync = $this->boolean('noticesync');
 		$friendsync = $this->boolean('friendsync');
+		$replysync = $this->boolean('replysync');
+
 		$user = common_current_user();
 		$flink = Foreign_link::getForeignLink($user->id, 1);
 
@@ -219,7 +236,14 @@ class TwittersettingsAction extends SettingsAction {
 			return;
 		}
 
-		$flink->noticesync = ($noticesync) ? 1 : 0;
+		if ($noticesync) {
+			if ($replysync) {
+				$flink->noticesync = 3;
+			} else {
+				$flink->noticesync = 1;
+			}
+		}
+
 		$flink->friendsync = ($friendsync) ? 2 : 0;
 		// $flink->profilesync = 0; // XXX: leave as default?
 		$result = $flink->update();
