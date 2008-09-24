@@ -81,7 +81,7 @@ class NewmessageAction extends Action {
 
 		$this->notify($user, $other, $message);
 
-		$url = common_local_url('outbox');
+		$url = common_local_url('outbox', array('nickname' => $user->nickname));
 
 		common_redirect($url, 303);
 	}
