@@ -290,7 +290,7 @@ create index foreign_subscription_subscribed_idx on foreign_subscription using b
 
 create table invitation (
      code varchar(32) not null primary key /* comment 'random code for an invitation' */,
-     user_id int not null /* comment 'who sent the invitation' */ references user (id),
+     user_id int not null /* comment 'who sent the invitation' */ references "user" (id),
      address varchar(255) not null /* comment 'invitation sent to' */,
      address_type varchar(8) not null /* comment 'address type ("email", "jabber", "sms") '*/,
      created timestamp not null /* comment 'date this record was created' */
@@ -302,7 +302,7 @@ create index invitation_user_id_idx on invitation using btree(user_id);
 create table message (
 
     id serial primary key /* comment 'unique identifier' */,
-    uri varchar(255) unique key /* comment 'universally unique identifier' */,
+    uri varchar(255) unique /* comment 'universally unique identifier' */,
     from_profile integer not null /* comment 'who the message is from' */ references profile (id),
     to_profile integer not null /* comment 'who the message is to' */ references profile (id),
     content varchar(140) /* comment 'message content' */,
