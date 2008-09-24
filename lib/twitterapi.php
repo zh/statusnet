@@ -24,20 +24,20 @@ class TwitterapiAction extends Action {
 	function handle($args) {
 		parent::handle($args);
 	}
-	
+
 	function twitter_user_array($profile, $get_notice=false) {
-		
+
 		$twitter_user = array();
 
-		$twitter_user['name'] = $profile->getBestName();		
+		$twitter_user['name'] = $profile->getBestName();
 		$twitter_user['followers_count'] = $this->count_subscriptions($profile);
 		$twitter_user['screen_name'] = $profile->nickname;
 		$twitter_user['description'] = ($profile->bio) ? $profile->bio : NULL;
 		$twitter_user['location'] = ($profile->location) ? $profile->location : NULL;
 		$twitter_user['id'] = intval($profile->id);
-		
+
 		$avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
-		
+
 		$twitter_user['profile_image_url'] = ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE);
 		$twitter_user['protected'] = 'false'; # not supported by Laconica yet
 		$twitter_user['url'] = ($profile->homepage) ? $profile->homepage : NULL;
@@ -47,17 +47,17 @@ class TwitterapiAction extends Action {
 			if ($notice) {
 				# don't get user!
 				$twitter_user['status'] = $this->twitter_status_array($notice, false);
-			} 
+			}
 		}
-		
-		return $twitter_user;		
+
+		return $twitter_user;
 	}
 
 	function twitter_status_array($notice, $get_user=true) {
-		
+
 		$twitter_status = array();
 
-		$twitter_status['text'] = $notice->content; 		
+		$twitter_status['text'] = $notice->content;
 		$twitter_status['truncated'] = 'false'; # Not possible on Laconica
 		$twitter_status['created_at'] = $this->date_twitter($notice->created);
 		$twitter_status['in_reply_to_status_id'] = ($notice->reply_to) ? intval($notice->reply_to) : NULL;
@@ -72,18 +72,18 @@ class TwitterapiAction extends Action {
 			$twitter_user = $this->twitter_user_array($profile, false);
 			$twitter_status['user'] = $twitter_user;
 		}
-				
+
 		return $twitter_status;
 	}
-		
+
 	function twitter_rss_entry_array($notice) {
-		
+
 		$profile = $notice->getProfile();
 
-		$server = common_config('site', 'server');		
+		$server = common_config('site', 'server');
 		$entry = array();
-	
-		$entry['content'] = $profile->nickname . ': ' . $notice->content; 
+
+		$entry['content'] = $profile->nickname . ': ' . $notice->content;
 		$entry['title'] = $entry['content'];
 		$entry['link'] = common_local_url('shownotice', array('notice' => $notice->id));;
 		$entry['published'] = common_date_iso8601($notice->created);
@@ -97,8 +97,28 @@ class TwitterapiAction extends Action {
 
 		return $entry;
 	}
-	
-	function show_twitter_xml_status($twitter_status) {			
+
+	function twitter_dm_array($message) {
+
+		$twitter_dm = array();
+
+		$from_profile = $message->getFrom();
+		$to_profile = $message->getTo();
+
+		$twitter_dm['id'] = $message->id;
+		$twitter_dm['sender_id'] = $message->from_profile;
+		$twitter_dm['text'] = $message->content;
+		$twitter_dm['recipient_id'] = $message->to_profile;
+		$twitter_dm['created_at'] = $this->date_twitter($message->created);
+		$twitter_dm['sender_screen_name'] = $from_profile->nickname;
+		$twitter_dm['recipient_screen_name'] = $to_profile->nickname;
+		$twitter_dm['sender'] = $this->twitter_user_array($from_profile, false);
+		$twitter_dm['recipient'] = $this->twitter_user_array($to_profile, false);
+
+		return $twitter_dm;
+	}
+
+	function show_twitter_xml_status($twitter_status) {
 		common_element_start('status');
 		foreach($twitter_status as $element => $value) {
 			if ($element == 'user') {
@@ -108,10 +128,10 @@ class TwitterapiAction extends Action {
 			}
 		}
 		common_element_end('status');
-	}	
-	
-	function show_twitter_xml_user($twitter_user) {
-		common_element_start('user');
+	}
+
+	function show_twitter_xml_user($twitter_user, $role='user') {
+		common_element_start($role);
 		foreach($twitter_user as $element => $value) {
 			if ($element == 'status') {
 				$this->show_twitter_xml_status($twitter_user['status']);
@@ -119,7 +139,7 @@ class TwitterapiAction extends Action {
 				common_element($element, NULL, $value);
 			}
 		}
-		common_element_end('user');
+		common_element_end($role);
 	}
 
 	function show_twitter_rss_item($entry) {
@@ -131,7 +151,7 @@ class TwitterapiAction extends Action {
 		common_element('link', NULL, $entry['link']);
 		common_element_end('item');
 	}
-		
+
 	function show_twitter_atom_entry($entry) {
 	    common_element_start('entry');
 		common_element('title', NULL, $entry['title']);
@@ -142,7 +162,7 @@ class TwitterapiAction extends Action {
 		common_element('link', array('href' => $entry['link'], 'rel' => 'alternate', 'type' => 'text/html'), NULL);
 		common_element_end('entry');
 	}
-	
+
 	function show_twitter_json_statuses($twitter_statuses) {
 		print(json_encode($twitter_statuses));
 	}
@@ -150,15 +170,19 @@ class TwitterapiAction extends Action {
 	function show_twitter_json_users($twitter_users) {
 		print(json_encode($twitter_users));
 	}
-		
+
+	function show_twitter_json_dmsgs($twitter_dms) {
+		print(json_encode($twitter_dms));
+	}
+
 	function show_single_xml_status($notice) {
 		$this->init_document('xml');
-		$twitter_status = $this->twitter_status_array($notice);						
+		$twitter_status = $this->twitter_status_array($notice);
 		$this->show_twitter_xml_status($twitter_status);
 		$this->end_document('xml');
 		exit();
 	}
-	
+
 	function show_single_json_status($notice) {
 		$this->init_document('json');
 		$status = $this->twitter_status_array($notice);
@@ -166,15 +190,27 @@ class TwitterapiAction extends Action {
 		$this->end_document('json');
 		exit();
 	}
-	
-	// Anyone know what date format this is? 
-	// Twitter's dates look like this: "Mon Jul 14 23:52:38 +0000 2008" -- Zach 
+
+	function show_twitter_xml_dm($twitter_dm) {
+		common_element_start('direct_message');
+		foreach($twitter_dm as $element => $value) {
+			if ($element == 'sender' || $element == 'recipient') {
+				$this->show_twitter_xml_user($value, $element);
+			} else {
+				common_element($element, NULL, $value);
+			}
+		}
+		common_element_end('direct_message');
+	}
+
+	// Anyone know what date format this is?
+	// Twitter's dates look like this: "Mon Jul 14 23:52:38 +0000 2008" -- Zach
 	function date_twitter($dt) {
 		$t = strtotime($dt);
 		return date("D M d G:i:s O Y", $t);
 	}
-	
-	function replier_by_reply($reply_id) {	
+
+	function replier_by_reply($reply_id) {
 		$notice = Notice::staticGet($reply_id);
 		if ($notice) {
 			$profile = $notice->getProfile();
@@ -189,15 +225,15 @@ class TwitterapiAction extends Action {
 		return NULL;
 	}
 
-	// XXX: Candidate for a general utility method somewhere?	
+	// XXX: Candidate for a general utility method somewhere?
 	function count_subscriptions($profile) {
-		
+
 		$count = 0;
 		$sub = new Subscription();
 		$sub->subscribed = $profile->id;
 
 		$count = $sub->find();
-		
+
 		if ($count > 0) {
 			return $count - 1;
 		} else {
@@ -214,7 +250,7 @@ class TwitterapiAction extends Action {
 		 case 'json':
 			header('Content-Type: application/json; charset=utf-8');
 
-			// Check for JSON-P callback
+			// Check for JSONP callback
 			$callback = $this->arg('callback');
 			if ($callback) {
 				print $callback . '(';
@@ -243,7 +279,7 @@ class TwitterapiAction extends Action {
 			break;
 		 case 'json':
 
-			// Check for JSON-P callback
+			// Check for JSONP callback
 			$callback = $this->arg('callback');
 			if ($callback) {
 				print ')';
@@ -261,9 +297,9 @@ class TwitterapiAction extends Action {
 		}
 		return;
 	}
-		
+
 	function client_error($msg, $code = 400, $content_type = 'json') {
-		
+
 		static $status = array(400 => 'Bad Request',
 							   401 => 'Unauthorized',
 							   402 => 'Payment Required',
@@ -282,18 +318,18 @@ class TwitterapiAction extends Action {
 							   415 => 'Unsupported Media Type',
 							   416 => 'Requested Range Not Satisfiable',
 							   417 => 'Expectation Failed');
-		
+
 		$action = $this->trimmed('action');
-		
+
 		common_debug("User error '$code' on '$action': $msg", __FILE__);
-		
+
 		if (!array_key_exists($code, $status)) {
 			$code = 400;
 		}
 
 		$status_string = $status[$code];
 		header('HTTP/1.1 '.$code.' '.$status_string);
-						
+
 		if ($content_type == 'xml') {
 			$this->init_document('xml');
 			common_element_start('hash');
@@ -307,7 +343,7 @@ class TwitterapiAction extends Action {
 			print(json_encode($error_array));
 			$this->end_document('json');
 		}
-		
+
 		exit();
 	}
 
@@ -315,23 +351,23 @@ class TwitterapiAction extends Action {
 		common_start_xml();
 		common_element_start('rss', array('version' => '2.0'));
 	}
-	
+
 	function end_twitter_rss() {
 		common_element_end('rss');
 		common_end_xml();
 	}
-	
+
 	function init_twitter_atom() {
 		common_start_xml();
 		common_element_start('feed', array('xmlns' => 'http://www.w3.org/2005/Atom', 'xml:lang' => 'en-US'));
 	}
-	
+
 	function end_twitter_atom() {
 		common_end_xml();
 		common_element_end('feed');
 	}
 
-	function show_profile($profile, $content_type='xml', $notice=NULL) {				
+	function show_profile($profile, $content_type='xml', $notice=NULL) {
 		$profile_array = $this->twitter_user_array($profile, true);
 		switch ($content_type) {
 		 case 'xml':
