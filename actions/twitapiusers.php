@@ -89,7 +89,7 @@ class TwitapiusersAction extends TwitterapiAction {
 		$twitter_user['created_at'] = $this->date_twitter($profile->created);
 
 		$subbed = DB_DataObject::factory('subscription');
-		$subbed->subscribed = $profile->id;
+		$subbed->subscriber = $profile->id;
 		$subbed_count = (int) $subbed->count() - 1;
 
 		$notices = DB_DataObject::factory('notice');

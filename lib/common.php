@@ -28,6 +28,13 @@ define('MAX_AVATAR_SIZE', 256 * 1024);
 
 define('NOTICES_PER_PAGE', 20);
 
+define('FOREIGN_NOTICE_SEND', 1);
+define('FOREIGN_NOTICE_RECV', 2);
+define('FOREIGN_NOTICE_SEND_REPLY', 4);
+
+define('FOREIGN_FRIEND_SEND', 1);
+define('FOREIGN_FRIEND_RECV', 2);
+
 define_syslog_variables();
 
 # append our extlib dir as the last-resort place to find libs

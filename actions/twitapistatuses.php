@@ -323,6 +323,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 		$count = $this->arg('count');
 		$since = $this->arg('since');
 		$since_id = $this->arg('since_id');
+		$page = $this->arg('page');
 
 		if (!$page) {
 			$page = 1;

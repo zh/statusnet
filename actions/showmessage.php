@@ -27,9 +27,7 @@ class ShowmessageAction extends MailboxAction {
 
 		Action::handle($args);
 
-		$id = $this->trimmed('message');
-
-		$message = Message::staticGet('message', $id);
+		$message = $this->get_message();
 
 		if (!$message) {
 			$this->client_error(_('No such message.'), 404);

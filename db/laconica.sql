@@ -281,7 +281,7 @@ create table foreign_link (
      foreign_id int comment 'link ' references foreign_user(id),
      service int not null comment 'foreign key to service' references foreign_service(id),
      credentials varchar(255) comment 'authc credentials, typically a password',
-     noticesync tinyint not null default 1 comment 'notice synchronization, bit 1 = sync outgoing, bit 2 = sync incoming',
+     noticesync tinyint not null default 1 comment 'notice synchronization, bit 1 = sync outgoing, bit 2 = sync incoming, bit 3 = filter local replies',
      friendsync tinyint not null default 2 comment 'friend synchronization, bit 1 = sync outgoing, bit 2 = sync incoming',
      profilesync tinyint not null default 1 comment 'profile synchronization, bit 1 = sync outgoing, bit 2 = sync incoming',
      created datetime not null comment 'date this record was created',

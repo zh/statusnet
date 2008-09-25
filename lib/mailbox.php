@@ -69,12 +69,10 @@ class MailboxAction extends PersonalAction {
 	}
 
 	function show_top() {
+
+		$cur = common_current_user();
 		
-		$inst = $this->get_instructions();
-		$output = common_markup_to_html($inst);
-		common_element_start('div', 'instructions');
-		common_raw($output);
-		common_element_end('div');
+		common_message_form(NULL, $cur, NULL);
 		
 		$this->views_menu();
 	}

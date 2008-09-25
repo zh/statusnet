@@ -69,15 +69,19 @@ class TwittersettingsAction extends SettingsAction {
 
 		common_element('h2', NULL, _('Preferences'));
 
+		common_checkbox('noticesync', _('Automatically send my notices to Twitter.'),
+						($flink) ? ($flink->noticesync & FOREIGN_NOTICE_SEND) : true);
+
+		common_checkbox('replysync', _('Send local "@" replies to Twitter.'),
+						($flink) ? ($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) : true);
+
+		common_checkbox('friendsync', _('Subscribe to my Twitter friends here.'),
+						($flink) ? ($flink->friendsync & FOREIGN_FRIEND_RECV) : false,
+						NULL, 'true', true);
+
 		if ($flink) {
-			common_checkbox('noticesync', _('Automatically send my notices to Twitter.'),
-				($flink->noticesync) ? true : false);
-			common_checkbox('friendsync', _('Subscribe to my Twitter friends here.'),
-				($flink->friendsync) ? true : false);
 			common_submit('save', _('Save'));
 		} else {
-			common_checkbox('noticesync', _('Automatically send my notices to Twitter.'), true);
-			common_checkbox('friendsync', _('Subscribe to my Twitter friends here.'), true);
 			common_submit('add', _('Add'));
 		}
 
@@ -109,12 +113,13 @@ class TwittersettingsAction extends SettingsAction {
 		$twitter_username = $this->trimmed('twitter_username');
 		$twitter_password = $this->trimmed('twitter_password');
 		$noticesync = $this->boolean('noticesync');
+		$replysync = $this->boolean('replysync');
 		$friendsync = $this->boolean('friendsync');
 
 		if (!Validate::string($twitter_username, array('min_length' => 1,
 													   'max_length' => 15,
 													   'format' => VALIDATE_NUM . VALIDATE_ALPHA . '_'))) {
-			$this->show_form(_('Username must have only numbers, upper- and lowercase letters, and underscore (_).'));
+			$this->show_form(_('Username must have only numbers, upper- and lowercase letters, and underscore (_). 15 chars max.'));
 			return;
 		}
 
@@ -155,9 +160,9 @@ class TwittersettingsAction extends SettingsAction {
 		$flink->service = 1; // Twitter
 		$flink->credentials = $twitter_password;
 		$flink->created = common_sql_now();
-		$flink->noticesync = ($noticesync) ? 1 : 0;
-		$flink->friendsync = ($friendsync) ? 2 : 0;
-		$flink->profilesync = 0; // XXX: leave as default?
+
+		$this->set_flags($flink, $noticesync, $replysync, $friendsync);
+		
 		$flink_id = $flink->insert();
 
 		if (!$flink_id) {
@@ -210,6 +215,8 @@ class TwittersettingsAction extends SettingsAction {
 	function save_preferences() {
 		$noticesync = $this->boolean('noticesync');
 		$friendsync = $this->boolean('friendsync');
+		$replysync = $this->boolean('replysync');
+
 		$user = common_current_user();
 		$flink = Foreign_link::getForeignLink($user->id, 1);
 
@@ -219,16 +226,21 @@ class TwittersettingsAction extends SettingsAction {
 			return;
 		}
 
-		$flink->noticesync = ($noticesync) ? 1 : 0;
-		$flink->friendsync = ($friendsync) ? 2 : 0;
-		// $flink->profilesync = 0; // XXX: leave as default?
-		$result = $flink->update();
+		$flink->query('BEGIN');
 
-		if (!$result) {
+		$original = clone($flink);
+		
+		$this->set_flags($flink, $noticesync, $replysync, $friendsync);
+
+		$result = $flink->update($original);
+
+		if ($result === FALSE) {
 			common_log_db_error($flink, 'UPDATE', __FILE__);
 			$this->show_form(_('Couldn\'t save Twitter preferences.'));
 			return;
 		}
+
+		$flink->query('COMMIT');
 
 		$this->show_form(_('Twitter preferences saved.'));
 
@@ -300,4 +312,25 @@ class TwittersettingsAction extends SettingsAction {
 		return $data;
 	}
 
+	function set_flags(&$flink, $noticesync, $replysync, $friendsync) {
+		if ($noticesync) {
+			$flink->noticesync |= FOREIGN_NOTICE_SEND;
+		} else {
+			$flink->noticesync &= ~FOREIGN_NOTICE_SEND;
+		}
+		
+		if ($replysync) {
+			$flink->noticesync |= FOREIGN_NOTICE_SEND_REPLY;
+		} else {
+			$flink->noticesync &= ~FOREIGN_NOTICE_SEND_REPLY;
+		}
+
+		if ($friendsync) {
+			$flink->friendsync |= FOREIGN_FRIEND_RECV;
+		} else {
+			$flink->friendsync &= ~FOREIGN_FRIEND_RECV;
+		}
+		
+		$flink->profilesync = 0; // XXX: leave as default?
+	}
 }
