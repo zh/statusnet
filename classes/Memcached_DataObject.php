@@ -23,8 +23,8 @@ require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
 class Memcached_DataObject extends DB_DataObject 
 {
-    static function &staticGet($cls, $k, $v=NULL) {
-		$i = $this->getcached($cls, $k, $v);
+    function &staticGet($cls, $k, $v=NULL) {
+		$i = Memcached_DataObject::getcached($cls, $k, $v);
 		if (!is_null($i)) {
 			return $i;
 		} else {
