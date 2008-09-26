@@ -26,8 +26,11 @@ class Memcached_DataObject extends DB_DataObject
     function &staticGet($cls, $k, $v=NULL) {
 		if (is_null($v)) {
 			$v = $k;
-			$keys = $cls->keys();
+			# XXX: HACK!
+			$i = new $cls;
+			$keys = $i->keys();
 			$k = $keys[0];
+			unset($i);
 		}
 		$i = Memcached_DataObject::getcached($cls, $k, $v);
 		if (!is_null($i)) {
