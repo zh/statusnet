@@ -73,9 +73,15 @@ class Memcached_DataObject extends DB_DataObject
 			return NULL;
 		} else {
 			$cache = new Memcache();
-			$res = $cache->connect(common_config('memcached', 'server'), 
-								   common_config('memcached', 'port'));
-			return ($res) ? $cache : NULL;
+			$servers = common_config('memcached', 'server');
+			if (is_array($servers)) {
+				foreach($servers as $server) {
+					$cache->addServer($server);
+				}
+			} else {
+					$cache->addServer($servers);
+			}
+			return $cache;
 		}
 	}
 	
