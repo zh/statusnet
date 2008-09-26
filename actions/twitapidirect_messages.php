@@ -63,18 +63,24 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
 
 		$message->find();
 
+		$title = 'Direct messages to ' . $user->nickname;
+		$subtitle = 'All the direct messages sent to ' . $user->nickname;
+
+		$server = common_root_url();
+		$link = $server . $user->nickname . '/inbox';
+
 		switch($apidata['content-type']) {
 		 case 'xml':
-			$this->show_xml_direct_messages($message);
+			$this->show_xml_dmsgs($message);
 			break;
 		 case 'rss':
-			//$this->show_rss_timeline($notice, $title, $id, $link, $subtitle);
+			$this->show_rss_dmsgs($message, $title, $link, $subtitle);
 			break;
 		 case 'atom':
-			//$this->show_atom_timeline($notice, $title, $id, $link, $subtitle);
+			$this->show_atom_dmsgs($message, $title, $link, $subtitle);
 			break;
 		 case 'json':
-			$this->show_json_direct_messages($message);
+			$this->show_json_dmsgs($message);
 			break;
 		 default:
 			common_user_error(_('API method not found!'), $code = 404);
@@ -102,7 +108,7 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
 		exit();
 	}
 
-	function show_xml_direct_messages($message) {
+	function show_xml_dmsgs($message) {
 
 		$this->init_document('xml');
 		common_element_start('direct-messages', array('type' => 'array'));
@@ -123,7 +129,7 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
 		$this->end_document('xml');
 	}
 
-	function show_json_direct_messages($message) {
+	function show_json_dmsgs($message) {
 
 		$this->init_document('json');
 
@@ -146,6 +152,59 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
 		$this->end_document('json');
 	}
 
+	function show_rss_dmsgs($message, $title, $link, $subtitle) {
 
+		$this->init_document('rss');
+
+		common_element_start('channel');
+		common_element('title', NULL, $title);
+
+		common_element('link', NULL, $link);
+		common_element('description', NULL, $subtitle);
+		common_element('language', NULL, 'en-us');
+		common_element('ttl', NULL, '40');
+
+		if (is_array($message)) {
+			foreach ($message as $m) {
+				$entry = $this->twitter_rss_dmsg_array($m);
+				$this->show_twitter_rss_item($entry);
+			}
+		} else {
+			while ($message->fetch()) {
+				$entry = $this->twitter_rss_dmsg_array($message);
+				$this->show_twitter_rss_item($entry);
+			}
+		}
+
+		common_element_end('channel');
+		$this->end_twitter_rss();
+	}
+
+	function show_atom_dmsgs($message, $title, $link, $subtitle) {
+
+		$this->init_document('atom');
+
+		common_element('title', NULL, $title);
+		$siteserver = common_config('site', 'server');
+		common_element('id', NULL, "tag:$siteserver,2008:DirectMessage");
+		common_element('link', array('href' => $link, 'rel' => 'alternate', 'type' => 'text/html'), NULL);
+		common_element('updated', NULL, common_date_iso8601(strftime('%c')));
+		common_element('subtitle', NULL, $subtitle);
+
+		if (is_array($message)) {
+			foreach ($message as $m) {
+				$entry = $this->twitter_rss_dmsg_array($m);
+				$this->show_twitter_atom_entry($entry);
+			}
+		} else {
+			while ($message->fetch()) {
+				$entry = $this->twitter_rss_dmsg_array($message);
+				$this->show_twitter_atom_entry($entry);
+			}
+		}
+
+		$this->end_document('atom');
+
+	}
 
 }

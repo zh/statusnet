@@ -85,9 +85,9 @@ class TwitterapiAction extends Action {
 
 		$entry['content'] = $profile->nickname . ': ' . $notice->content;
 		$entry['title'] = $entry['content'];
-		$entry['link'] = common_local_url('shownotice', array('notice' => $notice->id));;
+		$entry['link'] = common_local_url('shownotice', array('notice' => $notice->id));
 		$entry['published'] = common_date_iso8601($notice->created);
-		$entry['id'] = "tag:$server,$entry[published]:$entry[link]";
+		$entry['id'] = "tag:$server,2008:$entry[link]";
 		$entry['updated'] = $entry['published'];
 
 		# RSS Item specific
@@ -97,6 +97,29 @@ class TwitterapiAction extends Action {
 
 		return $entry;
 	}
+
+	function twitter_rss_dmsg_array($message) {
+
+		$server = common_config('site', 'server');
+		$entry = array();
+
+		$entry['title'] = sprintf('Message from %s to %s',
+			$message->getFrom()->nickname, $message->getTo()->nickname);
+
+		$entry['content'] = $message->content;
+		$entry['link'] = $message->uri;
+		$entry['published'] = common_date_iso8601($message->created);
+		$entry['id'] = "tag:$server,2008:$entry[link]";
+		$entry['updated'] = $entry['published'];
+
+		# RSS Item specific
+		$entry['description'] = $message->content;
+		$entry['pubDate'] = common_date_rfc2822($message->created);
+		$entry['guid'] = $entry['link'];
+
+		return $entry;
+	}
+
 
 	function twitter_dm_array($message) {
 

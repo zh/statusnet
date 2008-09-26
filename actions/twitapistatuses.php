@@ -66,7 +66,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 					$this->show_xml_timeline($notice);
 					break;
 				case 'rss':
-					$this->show_rss_timeline($notice, $title, $id, $link, $subtitle);
+					$this->show_rss_timeline($notice, $title, $link, $subtitle);
 					break;
 				case 'atom':
 					$this->show_atom_timeline($notice, $title, $id, $link, $subtitle);
@@ -107,7 +107,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 		$this->end_document('xml');
 	}
 
-	function show_rss_timeline($notice, $title, $id, $link, $subtitle) {
+	function show_rss_timeline($notice, $title, $link, $subtitle) {
 
 		$this->init_document('rss');
 
@@ -395,10 +395,10 @@ class TwitapistatusesAction extends TwitterapiAction {
 		$reply_to = NULL;
 
 		if ($in_reply_to_status_id) {
-						
+
 			// check whether notice actually exists
 			$reply = Notice::staticGet($in_reply_to_status_id);
-			
+
 			if ($reply) {
 				$reply_to = $in_reply_to_status_id;
 			} else {
@@ -406,7 +406,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 				exit();
 			}
 		}
-			
+
 		$notice = Notice::saveNew($user->id, $status, $source, 1, $reply_to);
 
 		if (is_string($notice)) {
@@ -504,12 +504,12 @@ class TwitapistatusesAction extends TwitterapiAction {
 
 	function show($args, $apidata) {
 		parent::handle($args);
-		
-		$notice_id = $apidata['api_arg'];		
+
+		$notice_id = $apidata['api_arg'];
 		$notice = Notice::staticGet($notice_id);
 
 		if ($notice) {
-			if ($apidata['content-type'] == 'xml') { 
+			if ($apidata['content-type'] == 'xml') {
 				$this->show_single_xml_status($notice);
 			} elseif ($apidata['content-type'] == 'json') {
 				$this->show_single_json_status($notice);
@@ -518,7 +518,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 			// XXX: Twitter just sets a 404 header and doens't bother to return an err msg
 			$this->client_error(_('No status with that ID found.'), 404, $apidata['content-type']);
 		}
-		
+
 		exit();
 	}
 
@@ -539,43 +539,43 @@ class TwitapistatusesAction extends TwitterapiAction {
 
 	*/
 	function destroy($args, $apidata) {
-	
+
 		parent::handle($args);
 
 		common_debug($_SERVER['REQUEST_METHOD']);
-		
-		// Check for RESTfulness  
+
+		// Check for RESTfulness
 		if (!in_array($_SERVER['REQUEST_METHOD'], array('POST', 'DELETE'))) {
 			// XXX: Twitter just prints the err msg, no XML / JSON.
 			$this->client_error(_('This method requires a POST or DELETE.'), 400, $apidata['content-type']);
 			exit();
-		} 
-		
-		$user = $apidata['user'];				
-		$notice_id = $apidata['api_arg'];		
+		}
+
+		$user = $apidata['user'];
+		$notice_id = $apidata['api_arg'];
 		$notice = Notice::staticGet($notice_id);
-		
+
 		if (!$notice) {
 			$this->client_error(_('No status found with that ID.'), 404, $apidata['content-type']);
 			exit();
 		}
-				
+
 		if ($user->id == $notice->profile_id) {
 			$replies = new Reply;
 			$replies->get('notice_id', $notice_id);
 			common_dequeue_notice($notice);
 			$replies->delete();
 			$notice->delete();
-			
-			if ($apidata['content-type'] == 'xml') { 
+
+			if ($apidata['content-type'] == 'xml') {
 				$this->show_single_xml_status($notice);
 			} elseif ($apidata['content-type'] == 'json') {
 				$this->show_single_json_status($notice);
-			}	
+			}
 		} else {
 			$this->client_error(_('You may not delete another user\'s status.'), 403, $apidata['content-type']);
 		}
-		
+
 		exit();
 	}
 
