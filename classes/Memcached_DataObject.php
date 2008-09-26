@@ -28,7 +28,7 @@ class Memcached_DataObject extends DB_DataObject
 		if (!is_null($i)) {
 			return $i;
 		} else {
-			$i = parent::staticGet($k, $v);
+			$i = DB_DataObject::staticGet($cls, $k, $v);
 			if (!is_null($i)) {
 				$i->encache();
 			}
