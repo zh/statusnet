@@ -252,6 +252,11 @@ class ShowstreamAction extends StreamAction {
 
 				$other = Profile::staticGet($subs->subscribed);
 
+				if (!$other) {
+					common_log_db_error($subs, 'SELECT', __FILE__);
+					continue;
+				}
+				
 				common_element_start('li');
 				common_element_start('a', array('title' => ($other->fullname) ?
 												$other->fullname :

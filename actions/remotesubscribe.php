@@ -313,7 +313,14 @@ class RemotesubscribeAction extends Action {
 		$req->set_parameter('omb_listenee_profile', common_profile_url($user->nickname));
 		$req->set_parameter('omb_listenee_nickname', $user->nickname);
 		$req->set_parameter('omb_listenee_license', $config['license']['url']);
+
 		$profile = $user->getProfile();
+		if (!$profile) {
+			common_log_db_error($user, 'SELECT', __FILE__);
+			$this->server_error(_('User without matching profile'));
+			return;
+		}
+		
 		if ($profile->fullname) {
 			$req->set_parameter('omb_listenee_fullname', $profile->fullname);
 		}

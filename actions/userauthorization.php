@@ -154,6 +154,11 @@ class UserauthorizationAction extends Action {
 				$params['omb_version'] = OMB_VERSION_01;
 				$user = User::staticGet('uri', $req->get_parameter('omb_listener'));
 				$profile = $user->getProfile();
+				if (!$profile) {
+					common_log_db_error($user, 'SELECT', __FILE__);
+					$this->server_error(_('User without matching profile'));
+					return;
+				}
 				$params['omb_listener_nickname'] = $user->nickname;
 				$params['omb_listener_profile'] = common_local_url('showstream',
 																   array('nickname' => $user->nickname));

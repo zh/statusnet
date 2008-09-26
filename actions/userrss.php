@@ -74,6 +74,11 @@ class UserrssAction extends Rss10Action {
 	function get_image() {
 		$user = $this->user;
 		$profile = $user->getProfile();
+		if (!$profile) {
+			common_log_db_error($user, 'SELECT', __FILE__);
+			$this->server_error(_('User without matching profile'));
+			return NULL;
+		}
 		$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
 		return ($avatar) ? $avatar->url : NULL;
 	}

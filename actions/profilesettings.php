@@ -110,6 +110,12 @@ class ProfilesettingsAction extends SettingsAction {
 		$user = common_current_user();
 		$profile = $user->getProfile();
 
+		if (!$profile) {
+			common_log_db_error($user, 'SELECT', __FILE__);
+			$this->server_error(_('User without matching profile'));
+			return;
+		}
+		
 		$original = $profile->getOriginalAvatar();
 
 

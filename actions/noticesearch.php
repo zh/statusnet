@@ -92,6 +92,7 @@ class NoticesearchAction extends SearchAction {
 		$profile = $notice->getProfile();
 		if (!$profile) {
 			common_log_db_error($notice, 'SELECT', __FILE__);
+			$this->server_error(_('Notice without matching profile'));
 			return;
 		}
 		# XXX: RDFa
