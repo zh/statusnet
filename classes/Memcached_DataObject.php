@@ -69,20 +69,7 @@ class Memcached_DataObject extends DB_DataObject
 	}
 	
 	static function memcache() {
-		if (!common_config('memcached', 'enabled')) {
-			return NULL;
-		} else {
-			$cache = new Memcache();
-			$servers = common_config('memcached', 'server');
-			if (is_array($servers)) {
-				foreach($servers as $server) {
-					$cache->addServer($server);
-				}
-			} else {
-					$cache->addServer($servers);
-			}
-			return $cache;
-		}
+		return common_memcache();
 	}
 	
 	static function cacheKey($cls, $k, $v) {

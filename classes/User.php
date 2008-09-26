@@ -196,10 +196,9 @@ class User extends Memcached_DataObject
 
 	function noticesWithFriendsWindow() {
 		
-		$cache = new Memcache();
-		$res = $cache->connect(common_config('memcached', 'server'), common_config('memcached', 'port'));
+		$cache = common_memcache();
 		
-		if (!$res) {
+		if (!$cache) {
 			return NULL;
 		}
 		

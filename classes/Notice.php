@@ -125,8 +125,8 @@ class Notice extends Memcached_DataObject
 	}
 	
 	function blowSubsCache() {
-		$cache = new Memcache();
-		if ($cache->connect(common_config('memcached', 'server'), common_config('memcached', 'port'))) {
+		$cache = common_memcache();
+		if ($cache) {
 			$user = new User();
 			
 			$user->query('SELECT id ' .
