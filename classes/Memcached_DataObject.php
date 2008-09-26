@@ -24,6 +24,11 @@ require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 class Memcached_DataObject extends DB_DataObject 
 {
     function &staticGet($cls, $k, $v=NULL) {
+		if (is_null($v)) {
+			$v = $k;
+			$keys = $cls->keys();
+			$k = $keys[0];
+		}
 		$i = Memcached_DataObject::getcached($cls, $k, $v);
 		if (!is_null($i)) {
 			return $i;
