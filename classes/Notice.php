@@ -94,6 +94,7 @@ class Notice extends Memcached_DataObject
 		$id = $notice->insert();
 
 		if (!$id) {
+			common_log_db_error($notice, 'INSERT', __FILE__);
 			return _('Problem saving notice.');
 		}
 
