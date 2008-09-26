@@ -2,7 +2,7 @@
 /**
  * Table Definition for foreign_link
  */
-require_once 'classes/Memcached_DataObject.php';
+require_once INSTALLDIR.'classes/Memcached_DataObject.php';
 
 class Foreign_link extends Memcached_DataObject 
 {

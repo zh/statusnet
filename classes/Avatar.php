@@ -2,7 +2,7 @@
 /**
  * Table Definition for avatar
  */
-require_once 'classes/Memcached_DataObject.php';
+require_once INSTALLDIR.'classes/Memcached_DataObject.php';
 
 class Avatar extends Memcached_DataObject 
 {

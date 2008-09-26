@@ -2,7 +2,7 @@
 /**
  * Table Definition for sms_carrier
  */
-require_once 'classes/Memcached_DataObject.php';
+require_once INSTALLDIR.'classes/Memcached_DataObject.php';
 
 class Sms_carrier extends Memcached_DataObject 
 {

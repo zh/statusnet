@@ -27,7 +27,7 @@ define('WITHFRIENDS_CACHE_WINDOW', 61);
 /**
  * Table Definition for user
  */
-require_once 'classes/Memcached_DataObject.php';
+require_once INSTALLDIR.'classes/Memcached_DataObject.php';
 require_once 'Validate.php';
 require_once(INSTALLDIR.'/lib/noticewrapper.php');
 

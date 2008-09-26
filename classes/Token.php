@@ -2,7 +2,7 @@
 /**
  * Table Definition for token
  */
-require_once 'classes/Memcached_DataObject.php';
+require_once INSTALLDIR.'classes/Memcached_DataObject.php';
 
 class Token extends Memcached_DataObject 
 {

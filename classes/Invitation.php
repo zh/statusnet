@@ -2,7 +2,7 @@
 /**
  * Table Definition for invitation
  */
-require_once 'classes/Memcached_DataObject.php';
+require_once INSTALLDIR.'classes/Memcached_DataObject.php';
 
 class Invitation extends Memcached_DataObject 
 {

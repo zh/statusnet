@@ -22,7 +22,7 @@ if (!defined('LACONICA')) { exit(1); }
 /**
  * Table Definition for remote_profile
  */
-require_once 'classes/Memcached_DataObject.php';
+require_once INSTALLDIR.'classes/Memcached_DataObject.php';
 
 class Remote_profile extends Memcached_DataObject 
 {

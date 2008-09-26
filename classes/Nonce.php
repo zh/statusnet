@@ -2,7 +2,7 @@
 /**
  * Table Definition for nonce
  */
-require_once 'classes/Memcached_DataObject.php';
+require_once INSTALLDIR.'classes/Memcached_DataObject.php';
 
 class Nonce extends Memcached_DataObject 
 {

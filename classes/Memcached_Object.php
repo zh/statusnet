@@ -19,7 +19,7 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-require_once 'classes/Memcached_DataObject.php';
+require_once INSTALLDIR.'classes/Memcached_DataObject.php';
 
 class Memcached_DataObject extends DB_DataObject 
 {

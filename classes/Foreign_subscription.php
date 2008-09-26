@@ -2,7 +2,7 @@
 /**
  * Table Definition for foreign_subscription
  */
-require_once 'classes/Memcached_DataObject.php';
+require_once INSTALLDIR.'classes/Memcached_DataObject.php';
 
 class Foreign_subscription extends Memcached_DataObject 
 {

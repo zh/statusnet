@@ -2,7 +2,7 @@
 /**
  * Table Definition for user_openid
  */
-require_once 'classes/Memcached_DataObject.php';
+require_once INSTALLDIR.'classes/Memcached_DataObject.php';
 
 class User_openid extends Memcached_DataObject 
 {
