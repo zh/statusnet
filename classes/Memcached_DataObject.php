@@ -33,7 +33,7 @@ class Memcached_DataObject extends DB_DataObject
 			unset($i);
 		}
 		$i = Memcached_DataObject::getcached($cls, $k, $v);
-		if (!is_null($i)) {
+		if ($i) {
 			return $i;
 		} else {
 			$i = DB_DataObject::staticGet($cls, $k, $v);
