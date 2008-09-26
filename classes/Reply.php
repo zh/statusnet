@@ -2,9 +2,9 @@
 /**
  * Table Definition for reply
  */
-require_once 'DB/DataObject.php';
+require_once 'classes/Memcached_DataObject.php';
 
-class Reply extends DB_DataObject 
+class Reply extends Memcached_DataObject 
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -16,7 +16,7 @@ class Reply extends DB_DataObject
     public $replied_id;                      // int(4)  
 
     /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('Reply',$k,$v); }
+    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Reply',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE

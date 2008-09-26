@@ -27,11 +27,11 @@ define('WITHFRIENDS_CACHE_WINDOW', 61);
 /**
  * Table Definition for user
  */
-require_once 'DB/DataObject.php';
+require_once 'classes/Memcached_DataObject.php';
 require_once 'Validate.php';
 require_once(INSTALLDIR.'/lib/noticewrapper.php');
 
-class User extends DB_DataObject 
+class User extends Memcached_DataObject 
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -65,7 +65,7 @@ class User extends DB_DataObject
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('User',$k,$v); }
+    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('User',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
@@ -109,7 +109,12 @@ class User extends DB_DataObject
 		}
 		$qry = 'UPDATE ' . $table . ' SET ' . $toupdate .
 		  ' WHERE id = ' . $this->id;
-		return $this->query($qry);
+		$orig->decache();
+		$result = $this->query($qry);
+		if ($result) {
+			$this->encache();
+		}
+		return $result;
 	}
 
 	function allowed_nickname($nickname) {

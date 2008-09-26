@@ -2,9 +2,9 @@
 /**
  * Table Definition for confirm_address
  */
-require_once 'DB/DataObject.php';
+require_once 'classes/Memcached_DataObject.php';
 
-class Confirm_address extends DB_DataObject 
+class Confirm_address extends Memcached_DataObject 
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -20,7 +20,7 @@ class Confirm_address extends DB_DataObject
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('Confirm_address',$k,$v); }
+    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Confirm_address',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
