@@ -2,7 +2,7 @@
 /**
  * Table Definition for confirm_address
  */
-require_once INSTALLDIR.'classes/Memcached_DataObject.php';
+require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
 class Confirm_address extends Memcached_DataObject 
 {

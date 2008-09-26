@@ -2,7 +2,7 @@
 /**
  * Table Definition for reply
  */
-require_once INSTALLDIR.'classes/Memcached_DataObject.php';
+require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
 class Reply extends Memcached_DataObject 
 {

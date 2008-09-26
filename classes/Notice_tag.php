@@ -2,7 +2,7 @@
 /**
  * Table Definition for notice_tag
  */
-require_once INSTALLDIR.'classes/Memcached_DataObject.php';
+require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
 class Notice_tag extends Memcached_DataObject 
 {

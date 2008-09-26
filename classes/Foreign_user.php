@@ -2,7 +2,7 @@
 /**
  * Table Definition for foreign_user
  */
-require_once INSTALLDIR.'classes/Memcached_DataObject.php';
+require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
 class Foreign_user extends Memcached_DataObject 
 {

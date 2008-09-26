@@ -2,7 +2,7 @@
 /**
  * Table Definition for remember_me
  */
-require_once INSTALLDIR.'classes/Memcached_DataObject.php';
+require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
 class Remember_me extends Memcached_DataObject 
 {

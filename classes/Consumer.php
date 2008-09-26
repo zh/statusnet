@@ -2,7 +2,7 @@
 /**
  * Table Definition for consumer
  */
-require_once INSTALLDIR.'classes/Memcached_DataObject.php';
+require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
 class Consumer extends Memcached_DataObject 
 {

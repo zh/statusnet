@@ -2,7 +2,7 @@
 /**
  * Table Definition for foreign_service
  */
-require_once INSTALLDIR.'classes/Memcached_DataObject.php';
+require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
 class Foreign_service extends Memcached_DataObject 
 {

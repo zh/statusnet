@@ -2,7 +2,7 @@
 /**
  * Table Definition for message
  */
-require_once INSTALLDIR.'classes/Memcached_DataObject.php';
+require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
 class Message extends Memcached_DataObject 
 {

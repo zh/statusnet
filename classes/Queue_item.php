@@ -2,7 +2,7 @@
 /**
  * Table Definition for queue_item
  */
-require_once INSTALLDIR.'classes/Memcached_DataObject.php';
+require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
 class Queue_item extends Memcached_DataObject 
 {

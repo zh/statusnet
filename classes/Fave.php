@@ -2,7 +2,7 @@
 /**
  * Table Definition for fave
  */
-require_once INSTALLDIR.'classes/Memcached_DataObject.php';
+require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
 class Fave extends Memcached_DataObject 
 {

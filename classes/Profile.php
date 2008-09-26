@@ -22,7 +22,7 @@ if (!defined('LACONICA')) { exit(1); }
 /**
  * Table Definition for profile
  */
-require_once INSTALLDIR.'classes/Memcached_DataObject.php';
+require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
 class Profile extends Memcached_DataObject 
 {
