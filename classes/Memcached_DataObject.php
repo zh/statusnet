@@ -71,9 +71,7 @@ class Memcached_DataObject extends DB_DataObject
 	}
 	
 	static function cacheKey($cls, $k, $v) {
-		return common_cache_key(strtolower($cls) . ':' .
-								$k . ':' .
-								$v);
+		return common_cache_key(strtolower($cls).':'.$k.':'.$v);
 	}
 	
 	static function getcached($cls, $k, $v) {
@@ -100,7 +98,8 @@ class Memcached_DataObject extends DB_DataObject
 			return false;
 		} else {
 			$primary = array();
-			$types = ksort($this->keyTypes());
+			$types = $this->keyTypes();
+			ksort($types);
 			foreach ($types as $key => $type) {
 				if ($type == 'K') {
 					$primary[] = $key;
@@ -124,20 +123,19 @@ class Memcached_DataObject extends DB_DataObject
 			return false;
 		} else {
 			$primary = array();
-			$types = ksort($this->keyTypes());
+			$types = $this->keyTypes();
+			ksort($types);
 			foreach ($types as $key => $type) {
 				if ($type == 'K') {
 					$primary[] = $this->$key;
 				} else {
-					$c->delete($this->cacheKey($this->tableName(), $key, $this->$key),
-							   $this);
+					$c->delete($this->cacheKey($this->tableName(), $key, $this->$key));
 				}
 			}
 			# XXX: figure out what to do with compound pkeys
 			if (count($primary) == 1) {
 				$key = $primary[0];
-				$c->delete($this->cacheKey($this->tableName(), $key, $this->$key),
-						   $this);
+				$c->delete($this->cacheKey($this->tableName(), $key, $this->$key));
 			}
 		}
 	}
