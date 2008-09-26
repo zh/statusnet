@@ -112,8 +112,11 @@ class Memcached_DataObject extends DB_DataObject
 				if ($type == 'K') {
 					$primary[] = $key;
 				} else {
-					$c->set($this->cacheKey($this->tableName(), $key, $this->$key),
-							$this);
+					$v = $this->$key;
+					if (!is_null($v)) {
+						$c->set($this->cacheKey($this->tableName(), $key, $v),
+								$this);
+					}
 				}
 			}
 			# XXX: figure out what to do with compound pkeys
