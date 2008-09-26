@@ -60,6 +60,7 @@ class Memcached_DataObject extends DB_DataObject
 		if ($result) {
 			$this->encache();
 		}
+		return $result;
 	}
 	
 	function delete() {
