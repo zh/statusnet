@@ -104,6 +104,7 @@ class Notice extends Memcached_DataObject
 			$notice->uri = common_notice_uri($notice);
 
 			if (!$notice->update($orig)) {
+				common_log_db_error($notice, 'UPDATE', __FILE__);
 				return _('Problem saving notice.');
 			}
 		}
