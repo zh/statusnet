@@ -20,7 +20,8 @@
 # This program tries to stop the daemons for Laconica that were
 # previously started by startdaemons.sh
 
-DIR=`php getpiddir.php`
+SDIR=`dirname $0`
+DIR=`php $SDIR/getpiddir.php`
 
 for f in jabberhandler ombhandler publichandler smshandler \
 	 xmppconfirmhandler xmppdaemon; do
