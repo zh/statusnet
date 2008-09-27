@@ -53,7 +53,7 @@ class Memcached_DataObject extends DB_DataObject
 	}
 	
 	function update($orig=NULL) {
-		if (!is_null($orig)) {
+		if (is_object($orig) && $orig instanceof Memcached_DataObject) {
 			$orig->decache(); # might be different keys
 		}
 		$result = parent::update($orig);
