@@ -945,6 +945,8 @@ function common_fancy_url($action, $args=NULL) {
 		} else {
 			return common_path($args['nickname'].'/favorites');
 		}
+	 case 'favoritesrss':
+		return common_path($args['nickname'].'/favorites/rss');
 	 case 'showmessage':
 		return common_path('message/' . $args['message']);
 	 case 'newmessage':
