@@ -58,7 +58,7 @@ class ShowstreamAction extends StreamAction {
 
 		$this->show_profile($profile);
 
-		$this->show_notices($profile);
+		$this->show_notices($user);
 
 		common_show_footer();
 	}
@@ -335,7 +335,7 @@ class ShowstreamAction extends StreamAction {
 		common_element_end('div');
 	}
 
-	function show_notices($profile) {
+	function show_notices($user) {
 
 		$page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 
@@ -359,7 +359,7 @@ class ShowstreamAction extends StreamAction {
 		}
 		
 		common_pagination($page>1, $cnt>NOTICES_PER_PAGE, $page,
-						  'showstream', array('nickname' => $profile->nickname));
+						  'showstream', array('nickname' => $user->nickname));
 	}
 
 	function show_last_notice($profile) {
