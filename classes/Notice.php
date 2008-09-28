@@ -240,17 +240,23 @@ class Notice extends Memcached_DataObject
 		# If outside our cache window, just go to the DB
 		
 		if ($offset + $limit > NOTICE_CACHE_WINDOW) {
+			common_debug('request is too deep, just getting from DB');
 			return Notice::getStreamDirect($qry, $offset, $limit);
 		}
 
+		common_debug('CONNECTING TO CACHE');		
 		# Get the cache; if we can't, just go to the DB
 		
 		$cache = common_memcache();
+
 		
 		if (!$cache) {
+			common_debug('Failed connecting to cache; just going to db');					
 			return Notice::getStreamDirect($qry, $offset, $limit);
 		}
 
+		common_debug('getting from cache');
+		
 		# Get the notices out of the cache
 		
 		$notices = $cache->get(common_cache_key($cachekey));
@@ -258,13 +264,18 @@ class Notice extends Memcached_DataObject
 		# On a cache hit, return a DB-object-like wrapper
 		
 		if ($notices) {
+			common_debug('Cache hit!');
+			common_debug('Got this many notices: ' . count($notices));
 			$wrapper = new NoticeWrapper(array_slice($notices, $offset, $limit));
 			return $wrapper;
 		}
 
+		common_debug('Getting full window from DB.');
 		# Otherwise, get the full cache window out of the DB
 
 		$notice = Notice::getStreamDirect($qry, 0, NOTICE_CACHE_WINDOW);
+		
+		common_debug('Got notice: ' . print_r($notice, TRUE));
 		
 		# If there are no hits, just return the value
 		
@@ -272,21 +283,31 @@ class Notice extends Memcached_DataObject
 			return $notice;
 		}
 
+		common_debug('Copying notices to an array');
+		
 		# Pack results into an array
 		
 		$notices = array();
 
 		while ($notice->fetch()) {
+			common_debug('Got notice: ' . print_r($notice, TRUE));
 			$notices[] = clone($notice);
 		}
 
+		common_debug('Array size is: '  . count($notices));
+		
 		# Store the array in the cache for next time
 		
-		$cache->set(common_cache_key($cachekey), $notices);
+		$result = $cache->set(common_cache_key($cachekey), $notices);
+
+		common_debug('memcached result is ' . $result);
 
 		# return a wrapper of the array for use now
 		
 		$wrapper = new NoticeWrapper(array_slice($notices, $offset, $limit));
+		
+		common_debug('Got wrapper: ' . print_r($wrapper, TRUE));
+		
 		return $wrapper;
 	}
 	
