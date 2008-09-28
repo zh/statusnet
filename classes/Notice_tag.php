@@ -45,4 +45,11 @@ class Notice_tag extends Memcached_DataObject
 								 'notice_tag:notice_stream:' . $tag,
 								 $offset, $limit);
 	}
+	
+	function blowCache() {
+		$cache = common_memcache();
+		if ($cache) {
+			$cache->delete(common_cache_key('notice_tag:notice_stream:' . $this->tag));
+		}
+	}
 }

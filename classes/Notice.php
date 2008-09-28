@@ -140,6 +140,22 @@ class Notice extends Memcached_DataObject
 		$this->blowNoticeCache();
 		$this->blowRepliesCache();
 		$this->blowPublicCache();
+		$this->blowTagCache();
+	}
+
+	function blowTagCache() {
+		$cache = common_memcache();
+		if ($cache) {
+			$tag = new Notice_tag();
+			$tag->notice_id = $this->id;
+			if ($tag->find()) {
+				while ($tag->fetch()) {
+					$tag->blowCache();
+				}
+			}
+			$tag->free();
+			unset($tag);
+		}
 	}
 	
 	function blowSubsCache() {
