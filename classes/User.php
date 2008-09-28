@@ -24,7 +24,6 @@ if (!defined('LACONICA')) { exit(1); }
  */
 require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 require_once 'Validate.php';
-require_once(INSTALLDIR.'/lib/noticewrapper.php');
 
 class User extends Memcached_DataObject 
 {
