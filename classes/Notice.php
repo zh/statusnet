@@ -220,12 +220,12 @@ class Notice extends Memcached_DataObject
 
 	static function getStreamDirect($qry, $offset, $limit) {
 		
-		$qry .= 'ORDER BY notice.created DESC, notice.id DESC ';
+		$qry .= ' ORDER BY notice.created DESC, notice.id DESC ';
 		
 		if(common_config('db','type')=='pgsql') {
-			$qry .= 'LIMIT ' . $limit . ' OFFSET ' . $offset;
+			$qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
 		} else {
-			$qry .= 'LIMIT ' . $offset . ', ' . $limit;
+			$qry .= ' LIMIT ' . $offset . ', ' . $limit;
 		}
 
 		$notice = new Notice();

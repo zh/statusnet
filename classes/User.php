@@ -344,7 +344,7 @@ class User extends Memcached_DataObject
 		$qry =
 		  'SELECT notice.* ' .
 		  'FROM notice JOIN fave ON notice.id = fave.notice_id ' .
-		  'WHERE fave.profile_id = %d ';
+		  'WHERE fave.user_id = %d ';
 		
 		return Notice::getStream(sprintf($qry, $this->id),
 								 'user:faves:'.$this->id,
@@ -355,7 +355,7 @@ class User extends Memcached_DataObject
 		$qry =
 		  'SELECT notice.* ' .
 		  'FROM notice JOIN subscription ON notice.profile_id = subscription.subscribed ' .
-		  'WHERE subscription.subscriber = %d';
+		  'WHERE subscription.subscriber = %d ';
 		
 		return Notice::getStream(sprintf($qry, $this->id),
 								 'user:notices_with_friends:' . $this->id,
