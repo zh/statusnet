@@ -35,7 +35,7 @@ class Notice_tag extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 	
-	static function noticeStream($tag, $offset=0, $limit=20) {
+	static function getStream($tag, $offset=0, $limit=20) {
 		$qry = 
 		  'SELECT notice.* ' .
 		  'FROM notice JOIN notice_tag ON notice.id = notice_tag.notice_id ' .
