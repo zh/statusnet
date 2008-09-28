@@ -387,6 +387,11 @@ to set that up. Also, once you have a sizable number of users, sending
 a lot of SMS, OMB, and XMPP messages whenever someone posts a message
 can really slow down your site; it may cause posting to timeout.
 
+NOTE: stream_select(), a crucial function for network programming, is
+broken on PHP 5.2.x less than 5.2.6 on amd64-based servers. We don't
+work around this bug in Laconica; current recommendation is to move
+off of amd64 to another server.
+
 Public feed
 -----------
 
