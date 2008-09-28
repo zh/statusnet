@@ -159,7 +159,7 @@ class TagAction extends StreamAction {
 
 	function show_notices($tag) {
 
-		$notices = Notice_tag::getStream((($page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE + 1);
+		$notices = Notice_tag::getStream($tag, (($page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE + 1);
 		
 		if ($cnt > 0) {
 			common_element_start('ul', array('id' => 'notices'));
