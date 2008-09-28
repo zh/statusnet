@@ -290,7 +290,7 @@ class Notice extends Memcached_DataObject
 		return $wrapper;
 	}
 	
-	function publicStream($page) {
+	function publicStream($offset=0, $limit=20) {
 		
 		$qry = 'SELECT * FROM notice ';
 
@@ -300,7 +300,7 @@ class Notice extends Memcached_DataObject
 
 		return Notice::getStream($qry,
 								 'public',
-								 ($page-1)*NOTICES_PER_PAGE,
-								 NOTICES_PER_PAGE + 1);
+								 $offset, $limit);
+);
 	}
 }

@@ -60,7 +60,8 @@ class PublicAction extends StreamAction {
 	function show_notices($page) {
 
 		$cnt = 0;
-		$notice = Notice::publicStream($page);
+		$notice = Notice::publicStream(($page-1)*NOTICES_PER_PAGE,
+									   NOTICES_PER_PAGE + 1);
 		
 		if ($notice) {
 			common_element_start('ul', array('id' => 'notices'));
