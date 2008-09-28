@@ -264,7 +264,7 @@ class Notice extends Memcached_DataObject
 		# On a cache hit, return a DB-object-like wrapper
 		
 		if ($notices) {
-			common_debug('Cache hit!');
+			common_debug('Notices hit: ' . print_r($notices, TRUE));
 			common_debug('Got this many notices: ' . count($notices));
 			$wrapper = new NoticeWrapper(array_slice($notices, $offset, $limit));
 			return $wrapper;
