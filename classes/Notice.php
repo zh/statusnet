@@ -301,6 +301,5 @@ class Notice extends Memcached_DataObject
 		return Notice::getStream($qry,
 								 'public',
 								 $offset, $limit);
-);
 	}
 }
