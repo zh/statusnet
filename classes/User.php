@@ -19,11 +19,6 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-/* We keep the first three 20-notice pages, plus one for pagination check,
- * in the memcached cache. */
-
-define('WITHFRIENDS_CACHE_WINDOW', 61);
-
 /**
  * Table Definition for user
  */
@@ -153,60 +148,8 @@ class User extends Memcached_DataObject
 		return true;
 	}
 
-	function noticesWithFriends($offset=0, $limit=20) {
-
-		# We clearly need a more elegant way to make this work.
-		
-		if (common_config('memcached', 'enabled')) {
-			if ($offset + $limit <= WITHFRIENDS_CACHE_WINDOW) {
-				$cached = $this->noticesWithFriendsWindow();
-				$wrapper = new NoticeWrapper(array_slice($cached, $offset, $limit));
-				return $wrapper;
-			} 
-		}
-		
-		$notice = new Notice();
-	
-		$query='SELECT notice.* ' .
-			'FROM notice JOIN subscription on notice.profile_id = subscription.subscribed ' .
-			'WHERE subscription.subscriber = ' . $this->id . ' ' .
-			'ORDER BY created DESC, notice.id DESC ';
-		if(common_config('db','type')=='pgsql') {
-			$query=$query . 'LIMIT ' . $limit . ' OFFSET ' . $offset;
-		} else {
-			$query=$query . 'LIMIT ' . $offset . ', ' . $limit;
-		}
-		$notice->query($query);
-
-		return $notice;
-	}
-
-	function favoriteNotices($offset=0, $limit=20) {
-
-		$notice = new Notice();
-
-		$notice->query('SELECT notice.* ' .
-					   'FROM notice JOIN fave on notice.id = fave.notice_id ' .
-					   'WHERE fave.user_id = ' . $this->id . ' ' .
-					   'ORDER BY notice.created DESC, notice.id DESC ' .
-					   'LIMIT ' . $offset . ', ' . $limit);
-
-		return $notice;
-	}
-
 	function noticesWithFriendsWindow() {
 		
-		$cache = common_memcache();
-		
-		if (!$cache) {
-			return NULL;
-		}
-		
-		$notices = $cache->get(common_cache_key('user:notices_with_friends:' . $this->id));
-
-		if ($notices) {
-			return $notices;
-		}
 		
 		$notice = new Notice();
 		
@@ -216,14 +159,6 @@ class User extends Memcached_DataObject
 					   'ORDER BY created DESC, notice.id DESC ' .
 					   'LIMIT 0, ' . WITHFRIENDS_CACHE_WINDOW);
 		
-		$notices = array();
-		
-		while ($notice->fetch()) {
-			$notices[] = clone($notice);
-		}
-
-		$cache->set(common_cache_key('user:notices_with_friends:' . $this->id), $notices);
-		return $notices;
 	}
 	
 	static function register($fields) {
@@ -382,5 +317,56 @@ class User extends Memcached_DataObject
 		$user->query(sprintf($qry, $this->id, $this->id));
 
 		return $user;
+	}
+
+	function getReplies($offset=0, $limit=NOTICES_PER_PAGE) {
+		$qry =
+		  'SELECT notice.* ' .
+		  'FROM notice JOIN reply ON notice.id = reply.notice_id ' .
+		  'WHERE reply.profile_id = %d ';
+		
+		return Notice::getStream(sprintf($qry, $this->id),
+								 'user:replies:'.$this->id,
+								 $offset, $limit);
+	}
+	
+	function getNotices($offset=0, $limit=NOTICES_PER_PAGE) {
+		$qry =
+		  'SELECT * ' .
+		  'FROM notice ' .
+		  'WHERE profile_id = %d ';
+		
+		return Notice::getStream(sprintf($qry, $this->id),
+								 'user:notices:'.$this->id,
+								 $offset, $limit);
+	}
+	
+	function favoriteNotices($offset=0, $limit=NOTICES_PER_PAGE) {
+		$qry =
+		  'SELECT notice.* ' .
+		  'FROM notice JOIN fave ON notice.id = fave.notice_id ' .
+		  'WHERE fave.profile_id = %d ';
+		
+		return Notice::getStream(sprintf($qry, $this->id),
+								 'user:faves:'.$this->id,
+								 $offset, $limit);
+	}
+	
+	function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE) {
+		$qry =
+		  'SELECT notice.* ' .
+		  'FROM notice JOIN subscription ON notice.profile_id = subscription.subscribed ' .
+		  'WHERE subscription.subscriber = %d';
+		
+		return Notice::getStream(sprintf($qry, $this->id),
+								 'user:notices_with_friends:' . $this->id,
+								 $offset, $limit);
+	}
+	
+	function blowFavesCache() {
+		$cache = common_memcache();
+		if ($cache) {
+			$cache->delete(common_cache_key('user:faves:'.$this->id));
+		}
 	}
 }

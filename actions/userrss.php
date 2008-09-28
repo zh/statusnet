@@ -42,14 +42,13 @@ class UserrssAction extends Rss10Action {
 	function get_notices($limit=0) {
 
 		$user = $this->user;
-		$notices = array();
-
-		$notice = DB_DataObject::factory('notice');
-		$notice->profile_id = $user->id; # user id === profile id
-		$notice->orderBy('created DESC, notice.id DESC');
-		if ($limit != 0) {
-			$notice->limit(0, $limit);
+		
+		if (is_null($user)) {
+			return NULL;
 		}
+		
+		$notice = $user->getNotices(0, ($limit == 0) ? NOTICES_PER_PAGE : $limit);
+		
 		$notice->find();
 
 		while ($notice->fetch()) {

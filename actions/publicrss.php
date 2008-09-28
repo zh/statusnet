@@ -30,29 +30,15 @@ class PublicrssAction extends Rss10Action {
 	}
 
 	function get_notices($limit=0) {
-
-		$user = $this->user;
+		
 		$notices = array();
-
-		$notice = new Notice();
-
-		# XXX: bad performance
-
-		if (common_config('public', 'localonly')) {
-			$notice->is_local = 1;
-		}
-
-		$notice->orderBy('created DESC, notice.id DESC');
-
-		if ($limit != 0) {
-			$notice->limit(0, $limit);
-		}
-		$notice->find();
-
+		
+		$notice = Notice::publicStream(0, ($limit == 0) ? 48 : $limit);
+		
 		while ($notice->fetch()) {
 			$notices[] = clone($notice);
 		}
-
+		
 		return $notices;
 	}
 

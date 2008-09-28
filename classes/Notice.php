@@ -24,6 +24,11 @@ if (!defined('LACONICA')) { exit(1); }
  */
 require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
+/* We keep the first three 20-notice pages, plus one for pagination check,
+ * in the memcached cache. */
+
+define('NOTICE_CACHE_WINDOW', 61);
+
 class Notice extends Memcached_DataObject 
 {
     ###START_AUTOCODE
@@ -52,6 +57,12 @@ class Notice extends Memcached_DataObject
 		return Profile::staticGet($this->profile_id);
 	}
 
+	function delete() {
+		$this->blowCaches();
+		$this->blowFavesCache();
+		parent::delete();
+	}
+	
 	function saveTags() {
 		/* extract all #hastags */
 		$count = preg_match_all('/(?:^|\s)#([A-Za-z0-9_\-\.]{1,64})/', strtolower($this->content), $match);
@@ -118,10 +129,17 @@ class Notice extends Memcached_DataObject
 		# XXX: someone clever could prepend instead of clearing the cache
 		
 		if (common_config('memcached', 'enabled')) {
-			$notice->blowSubsCache();
+			$notice->blowCaches();
 		}
 		
 		return $notice;
+	}
+
+	function blowCaches() {
+		$this->blowSubsCache();
+		$this->blowNoticeCache();
+		$this->blowRepliesCache();
+		$this->blowPublicCache();
 	}
 	
 	function blowSubsCache() {
@@ -140,5 +158,149 @@ class Notice extends Memcached_DataObject
 			$user->free();
 			unset($user);
 		}
+	}
+
+	function blowNoticeCache() {
+		if ($this->is_local) {
+			$cache = common_memcache();
+			if ($cache) {
+				$cache->delete(common_cache_key('user:notices:'.$this->profile_id));
+			}
+		}
+	}
+
+	function blowRepliesCache() {
+		$cache = common_memcache();
+		if ($cache) {
+			$reply = new Reply();
+			$reply->notice_id = $this->id;
+			if ($reply->find()) {
+				while ($reply->fetch()) {
+					$cache->delete(common_cache_key('user:replies:'.$reply->profile_id));
+				}
+			}
+			$reply->free();
+			unset($reply);
+		}
+	}
+
+	function blowPublicCache() {
+		if ($this->is_local) {
+			$cache = common_memcache();
+			if ($cache) {
+				$cache->delete(common_cache_key('public'));
+			}
+		}
+	}
+
+	function blowFavesCache() {
+		$cache = common_memcache();
+		if ($cache) {
+			$fave = new Fave();
+			$fave->notice_id = $this->id;
+			if ($fave->find()) {
+				while ($fave->fetch()) {
+					$cache->delete(common_cache_key('user:faves:'.$fave->user_id));
+				}
+			}
+			$fave->free();
+			unset($fave);
+		}
+	}
+	
+	static function getStream($qry, $cachekey, $offset=0, $limit=20) {
+		
+		if (common_config('memcached', 'enabled')) {
+			return Notice::getCachedStream($qry, $cachekey, $offset, $limit);
+		} else {
+			return Notice::getStreamDirect($qry, $offset, $limit);
+		}
+	
+	}
+
+	static function getStreamDirect($qry, $offset, $limit) {
+		
+		$qry .= 'ORDER BY notice.created DESC, notice.id DESC ';
+		
+		if(common_config('db','type')=='pgsql') {
+			$qry .= 'LIMIT ' . $limit . ' OFFSET ' . $offset;
+		} else {
+			$qry .= 'LIMIT ' . $offset . ', ' . $limit;
+		}
+
+		$notice = new Notice();
+
+		$notice->query($qry);
+		
+		return $notice;
+	}
+	
+	static function getCachedStream($qry, $cachekey, $offset, $limit) {
+
+		# If outside our cache window, just go to the DB
+		
+		if ($offset + $limit > NOTICE_CACHE_WINDOW) {
+			return Notice::getStreamDirect($qry, $offset, $limit);
+		}
+
+		# Get the cache; if we can't, just go to the DB
+		
+		$cache = common_memcache();
+		
+		if (!$cache) {
+			return Notice::getStreamDirect($qry, $offset, $limit);
+		}
+
+		# Get the notices out of the cache
+		
+		$notices = $cache->get(common_cache_key($cachekey));
+		
+		# On a cache hit, return a DB-object-like wrapper
+		
+		if ($notices) {
+			$wrapper = new NoticeWrapper(array_slice($notices, $offset, $limit));
+			return $wrapper;
+		}
+
+		# Otherwise, get the full cache window out of the DB
+
+		$notice = Notice::getStreamDirect($qry, 0, NOTICE_CACHE_WINDOW);
+		
+		# If there are no hits, just return the value
+		
+		if (!$notice) {
+			return $notice;
+		}
+
+		# Pack results into an array
+		
+		$notices = array();
+
+		while ($notice->fetch()) {
+			$notices[] = clone($notice);
+		}
+
+		# Store the array in the cache for next time
+		
+		$cache->set(common_cache_key($cachekey), $notices);
+
+		# return a wrapper of the array for use now
+		
+		$wrapper = new NoticeWrapper(array_slice($notices, $offset, $limit));
+		return $wrapper;
+	}
+	
+	function publicStream($page) {
+		
+		$qry = 'SELECT * FROM notice ';
+
+		if (common_config('public', 'localonly')) {
+			$qry .= ' WHERE is_local = 1 ';
+		}
+
+		return Notice::getStream($qry,
+								 'public',
+								 ($page-1)*NOTICES_PER_PAGE,
+								 NOTICES_PER_PAGE + 1);
 	}
 }

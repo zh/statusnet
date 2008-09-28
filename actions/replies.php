@@ -48,7 +48,7 @@ class RepliesAction extends StreamAction {
 						   array($this, 'show_header'), $user,
 						   array($this, 'show_top'));
 
-		$this->show_replies($profile);
+		$this->show_replies($user);
 
 		common_show_footer();
 	}
@@ -75,35 +75,22 @@ class RepliesAction extends StreamAction {
 		$this->views_menu();
 	}
 
-	function show_replies($profile) {
-
-		$reply = new Reply();
-
-		$reply->profile_id = $profile->id;
-
-		$reply->orderBy('modified DESC');
+	function show_replies($user) {
 
 		$page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 
-		$reply->limit((($page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE + 1);
-
-		$cnt = $reply->find();
-
-		if ($cnt > 0) {
+		$notice = $user->getReplies(($page-1) * NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
+		
+		$cnt = 0;
+		
+		if ($notice) {
 			common_element_start('ul', array('id' => 'notices'));
-			for ($i = 0; $i < min($cnt, NOTICES_PER_PAGE); $i++) {
-				if ($reply->fetch()) {
-					$notice = new Notice();
-					$notice->id = $reply->notice_id;
-					$result = $notice->find(true);
-					if (!$result) {
-						continue;
-					}
-					$this->show_notice($notice);
-				} else {
-					// shouldn't happen!
+			while ($notice->fetch()) {
+				$cnt++;
+				if ($cnt > NOTICES_PER_PAGE) {
 					break;
 				}
+				$this->show_notice($notice);
 			}
 			common_element_end('ul');
 		}

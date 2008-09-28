@@ -63,6 +63,8 @@ class DisfavorAction extends Action {
 			$this->server_error(_('Could not delete favorite.'));
 			return;
 		}
+		
+		$user->blowFavesCache();
 
 		if ($this->boolean('ajax')) {
 			common_start_html('text/xml');

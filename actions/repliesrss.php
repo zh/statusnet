@@ -42,27 +42,13 @@ class RepliesrssAction extends Rss10Action {
 	function get_notices($limit=0) {
 
 		$user = $this->user;
+
+		$notice = $user->getReplies(0, ($limit == 0) ? 48 : $limit);
+
 		$notices = array();
-
-		$reply = new Reply();
-		$reply->profile_id = $user->id;
-		$reply->orderBy('modified DESC');
-		if ($limit) {
-			$reply->limit(0, $limit);
-		}
-
-		$cnt = $reply->find();
-
-		if ($cnt) {
-			while ($reply->fetch()) {
-				$notice = new Notice();
-				$notice->id = $reply->notice_id;
-				$result = $notice->find(true);
-				if (!$result) {
-					continue;
-				}
-				$notices[] = clone($notice);
-			}
+		
+		while ($notice->fetch()) {
+			$notices[] = clone($notice);
 		}
 
 		return $notices;

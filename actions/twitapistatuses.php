@@ -54,22 +54,12 @@ class TwitapistatusesAction extends TwitterapiAction {
 		// Number of public statuses to return by default -- Twitter sends 20
 		$MAX_PUBSTATUSES = 20;
 
-		$notice = new Notice();
-
 		// FIXME: To really live up to the spec we need to build a list
 		// of notices by users who have custom avatars, so fix this SQL -- Zach
 
-		# XXX: sub-optimal performance
-
-		if (common_config('public', 'localonly')) {
-			$notice->is_local = 1;
-		}
-
-		$notice->orderBy('created DESC, notice.id DESC');
-		$notice->limit($MAX_PUBSTATUSES);
-		$cnt = $notice->find();
-
-		if ($cnt > 0) {
+		$notice = Notice::publicStream(0, $MAX_PUBSTATUSES);
+		
+		if ($notice) {
 
 			switch($apidata['content-type']) {
 				case 'xml':
@@ -341,18 +331,10 @@ class TwitapistatusesAction extends TwitterapiAction {
 		$link = common_local_url('showstream', array('nickname' => $user->nickname));
 		$subtitle = sprintf(_('Updates from %1$s on %2$s!'), $user->nickname, $sitename);
 
-		$notice = new Notice();
-
-		$notice->profile_id = $user->id;
-
 		# XXX: since
 		# XXX: since_id
 
-		$notice->orderBy('created DESC, notice.id DESC');
-
-		$notice->limit((($page-1)*20), $count);
-
-		$cnt = $notice->find();
+		$notice = $user->getNotices((($page-1)*20), $count);
 
 		switch($apidata['content-type']) {
 		 case 'xml':
@@ -490,30 +472,11 @@ class TwitapistatusesAction extends TwitterapiAction {
 			$count = 20;
 		}
 
-		$reply = new Reply();
-
-		$reply->profile_id = $user->id;
-
-		$reply->orderBy('modified DESC');
-
-		$page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
-
-		$reply->limit((($page-1)*20), $count);
-
-		$cnt = $reply->find();
-
+		$notice = $user->getReplies((($page-1)*20), $count);
 		$notices = array();
 
-		if ($cnt) {
-			while ($reply->fetch()) {
-				$notice = new Notice();
-				$notice->id = $reply->notice_id;
-				$result = $notice->find(true);
-				if (!$result) {
-					continue;
-				}
-				$notices[] = clone($notice);
-			}
+		while ($notice->fetch()) {
+			$notices[] = clone($notice);
 		}
 
 		switch($apidata['content-type']) {

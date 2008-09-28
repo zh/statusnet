@@ -59,32 +59,17 @@ class PublicAction extends StreamAction {
 
 	function show_notices($page) {
 
-		$notice = new Notice();
-
-		# XXX: sub-optimal
-
-		if (common_config('public', 'localonly')) {
-			$notice->is_local = 1;
-		}
-
-		$notice->orderBy('created DESC, notice.id DESC');
-
-		# We fetch one extra, to see if we need an "older" link
-
-		$notice->limit((($page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE + 1);
-
-		$cnt = $notice->find();
-
-		if ($cnt > 0) {
+		$cnt = 0;
+		$notice = Notice::publicStream($page);
+		
+		if ($notice) {
 			common_element_start('ul', array('id' => 'notices'));
-            $iMax = min($cnt, NOTICES_PER_PAGE);
-			for ($i = 0; $i < $iMax; $i++) {
-				if ($notice->fetch()) {
-					$this->show_notice($notice);
-				} else {
-					// shouldn't happen!
+			while ($notice->fetch()) {
+				$cnt++;
+				if ($cnt > NOTICES_PER_PAGE) {
 					break;
 				}
+				$this->show_notice($notice);
 			}
 			common_element_end('ul');
 		}
@@ -93,4 +78,3 @@ class PublicAction extends StreamAction {
 						  $page, 'public');
 	}
 }
-
