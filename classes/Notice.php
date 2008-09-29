@@ -150,7 +150,7 @@ class Notice extends Memcached_DataObject
 			$tag->notice_id = $this->id;
 			if ($tag->find()) {
 				while ($tag->fetch()) {
-					$tag->blowCache();
+					$cache->delete(common_cache_key('notice_tag:notice_stream:' . $tag->tag));
 				}
 			}
 			$tag->free();
