@@ -58,7 +58,7 @@ class ShowstreamAction extends StreamAction {
 
 		$this->show_profile($profile);
 
-		$this->show_notices($profile);
+		$this->show_notices($user);
 
 		common_show_footer();
 	}
@@ -252,6 +252,11 @@ class ShowstreamAction extends StreamAction {
 
 				$other = Profile::staticGet($subs->subscribed);
 
+				if (!$other) {
+					common_log_db_error($subs, 'SELECT', __FILE__);
+					continue;
+				}
+				
 				common_element_start('li');
 				common_element_start('a', array('title' => ($other->fullname) ?
 												$other->fullname :
@@ -330,35 +335,31 @@ class ShowstreamAction extends StreamAction {
 		common_element_end('div');
 	}
 
-	function show_notices($profile) {
-
-		$notice = DB_DataObject::factory('notice');
-		$notice->profile_id = $profile->id;
-
-		$notice->orderBy('created DESC, notice.id DESC');
+	function show_notices($user) {
 
 		$page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 
-		$notice->limit((($page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE + 1);
+		$notice = $user->getNotices(($page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
+		
+		$cnt = 0;
 
-		$cnt = $notice->find();
-
-		if ($cnt > 0) {
+		if ($notice) {
+		
 			common_element_start('ul', array('id' => 'notices'));
-
-			for ($i = 0; $i < min($cnt, NOTICES_PER_PAGE); $i++) {
-				if ($notice->fetch()) {
-					$this->show_notice($notice);
-				} else {
-					// shouldn't happen!
+			
+			while ($notice->fetch()) {
+				$cnt++;
+				if ($cnt > NOTICES_PER_PAGE) {
 					break;
 				}
+				$this->show_notice($notice);
 			}
 
 			common_element_end('ul');
 		}
+		
 		common_pagination($page>1, $cnt>NOTICES_PER_PAGE, $page,
-						  'showstream', array('nickname' => $profile->nickname));
+						  'showstream', array('nickname' => $user->nickname));
 	}
 
 	function show_last_notice($profile) {

@@ -23,31 +23,45 @@ require_once(INSTALLDIR.'/lib/rssaction.php');
 
 // Formatting of RSS handled by Rss10Action
 
-class PublicrssAction extends Rss10Action {
+class FavoritesrssAction extends Rss10Action {
 
+	var $user = NULL;
+	
 	function init() {
-		return true;
+		$nickname = $this->trimmed('nickname');
+		$this->user = User::staticGet('nickname', $nickname);
+
+		if (!$this->user) {
+			common_user_error(_('No such user.'));
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	function get_notices($limit=0) {
 		
-		$notices = array();
+		$user = $this->user;
 		
-		$notice = Notice::publicStream(0, ($limit == 0) ? 48 : $limit);
-		
+		$notice = $user->favoriteNotices(0, $limit);
+											
 		while ($notice->fetch()) {
 			$notices[] = clone($notice);
 		}
-		
+
 		return $notices;
 	}
 
 	function get_channel() {
-		global $config;
-		$c = array('url' => common_local_url('publicrss'),
-				   'title' => sprintf(_('%s Public Stream'), $config['site']['name']),
-				   'link' => common_local_url('public'),
-				   'description' => sprintf(_('All updates for %s'), $config['site']['name']));
+		$user = $this->user;
+		$c = array('url' => common_local_url('favoritesrss',
+											 array('nickname' =>
+												   $user->nickname)),
+				   'title' => sprintf(_("%s favorite notices"), $user->nickname),
+				   'link' => common_local_url('showfavorites',
+											 array('nickname' =>
+												   $user->nickname)),
+				   'description' => sprintf(_('Feed of favorite notices of %s'), $user->nickname));
 		return $c;
 	}
 

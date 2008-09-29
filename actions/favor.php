@@ -62,7 +62,8 @@ class FavorAction extends Action {
 		}
 
 		$this->notify($fave, $notice, $user);
-
+		$user->blowFavesCache();
+		
 		if ($this->boolean('ajax')) {
 			common_start_html('text/xml');
 			common_element_start('head');

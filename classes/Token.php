@@ -2,9 +2,9 @@
 /**
  * Table Definition for token
  */
-require_once 'DB/DataObject.php';
+require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
-class Token extends DB_DataObject 
+class Token extends Memcached_DataObject 
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -19,7 +19,7 @@ class Token extends DB_DataObject
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('Token',$k,$v); }
+    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Token',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE

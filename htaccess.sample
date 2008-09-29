@@ -73,6 +73,7 @@ RewriteRule ^(\w+)/replies$ index.php?action=replies&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/replies/rss$ index.php?action=repliesrss&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/avatar/(original|96|48|24)$ index.php?action=avatarbynickname&nickname=$1&size=$2 [L,QSA]
 RewriteRule ^(\w+)/favorites$ index.php?action=showfavorites&nickname=$1 [L,QSA]
+RewriteRule ^(\w+)/favorites/rss$ index.php?action=favoritesrss&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/inbox$ index.php?action=inbox&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/outbox$ index.php?action=outbox&nickname=$1 [L,QSA]
 

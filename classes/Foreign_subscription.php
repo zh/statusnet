@@ -2,9 +2,9 @@
 /**
  * Table Definition for foreign_subscription
  */
-require_once 'DB/DataObject.php';
+require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
-class Foreign_subscription extends DB_DataObject 
+class Foreign_subscription extends Memcached_DataObject 
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -16,7 +16,7 @@ class Foreign_subscription extends DB_DataObject
     public $created;                         // datetime()   not_null
 
     /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('Foreign_subscription',$k,$v); }
+    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Foreign_subscription',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE

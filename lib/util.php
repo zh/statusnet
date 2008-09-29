@@ -945,6 +945,8 @@ function common_fancy_url($action, $args=NULL) {
 		} else {
 			return common_path($args['nickname'].'/favorites');
 		}
+	 case 'favoritesrss':
+		return common_path($args['nickname'].'/favorites/rss');
 	 case 'showmessage':
 		return common_path('message/' . $args['message']);
 	 case 'newmessage':
@@ -1727,4 +1729,24 @@ function common_message_form($content, $user, $to) {
 	
 	common_element_end('p');
 	common_element_end('form');
+}
+
+function common_memcache() {
+	static $cache = NULL;
+	if (!common_config('memcached', 'enabled')) {
+		return NULL;
+	} else {
+		if (!$cache) {
+			$cache = new Memcache();
+			$servers = common_config('memcached', 'server');
+			if (is_array($servers)) {
+				foreach($servers as $server) {
+					$cache->addServer($server);
+				}
+			} else {
+				$cache->addServer($servers);
+			}
+		}
+		return $cache;
+	}
 }

@@ -2,9 +2,9 @@
 /**
  * Table Definition for foreign_service
  */
-require_once 'DB/DataObject.php';
+require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
-class Foreign_service extends DB_DataObject 
+class Foreign_service extends Memcached_DataObject 
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -17,7 +17,7 @@ class Foreign_service extends DB_DataObject
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('Foreign_service',$k,$v); }
+    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Foreign_service',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE

@@ -42,16 +42,13 @@ class UserrssAction extends Rss10Action {
 	function get_notices($limit=0) {
 
 		$user = $this->user;
-		$notices = array();
-
-		$notice = DB_DataObject::factory('notice');
-		$notice->profile_id = $user->id; # user id === profile id
-		$notice->orderBy('created DESC, notice.id DESC');
-		if ($limit != 0) {
-			$notice->limit(0, $limit);
+		
+		if (is_null($user)) {
+			return NULL;
 		}
-		$notice->find();
-
+		
+		$notice = $user->getNotices(0, ($limit == 0) ? NOTICES_PER_PAGE : $limit);
+		
 		while ($notice->fetch()) {
 			$notices[] = clone($notice);
 		}
@@ -74,6 +71,11 @@ class UserrssAction extends Rss10Action {
 	function get_image() {
 		$user = $this->user;
 		$profile = $user->getProfile();
+		if (!$profile) {
+			common_log_db_error($user, 'SELECT', __FILE__);
+			$this->server_error(_('User without matching profile'));
+			return NULL;
+		}
 		$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
 		return ($avatar) ? $avatar->url : NULL;
 	}

@@ -159,33 +159,17 @@ class TagAction extends StreamAction {
 
 	function show_notices($tag) {
 
-		$tags = DB_DataObject::factory('Notice_tag');
+		$cnt = 0;
+		$notice = Notice_tag::getStream($tag, (($page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE + 1);
 
-		$tags->tag = $tag;
-
-		$tags->orderBy('created DESC');
-
-		$page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
-
-		$tags->limit((($page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE + 1);
-
-		$cnt = $tags->find();
-
-		if ($cnt > 0) {
+		if ($notice) {
 			common_element_start('ul', array('id' => 'notices'));
-			for ($i = 0; $i < min($cnt, NOTICES_PER_PAGE); $i++) {
-				if ($tags->fetch()) {
-					$notice = new Notice();
-					$notice->id = $tags->notice_id;
-					$result = $notice->find(true);
-					if (!$result) {
-						continue;
-					}
-					$this->show_notice($notice);
-				} else {
-					// shouldn't happen!
+			while ($notice->fetch()) {
+				$cnt++;
+				if ($cnt > NOTICES_PER_PAGE) {
 					break;
 				}
+				$this->show_notice($notice);
 			}
 			common_element_end('ul');
 		}
