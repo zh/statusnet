@@ -160,6 +160,9 @@ class TagAction extends StreamAction {
 	function show_notices($tag) {
 
 		$cnt = 0;
+		
+		$page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
+
 		$notice = Notice_tag::getStream($tag, (($page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE + 1);
 
 		if ($notice) {
