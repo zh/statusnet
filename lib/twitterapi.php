@@ -121,7 +121,7 @@ class TwitterapiAction extends Action {
 	}
 
 
-	function twitter_dm_array($message) {
+	function twitter_dmsg_array($message) {
 
 		$twitter_dm = array();
 
@@ -214,7 +214,21 @@ class TwitterapiAction extends Action {
 		exit();
 	}
 
-	function show_twitter_xml_dm($twitter_dm) {
+	function show_single_xml_dmsg($message) {
+		$this->init_document('xml');
+		$dmsg = $this->twitter_dmsg_array($message);
+		$this->show_twitter_xml_dmsg($dmsg);
+		$this->end_document('xml');
+	}
+
+	function show_single_json_dmsg($message) {
+		$this->init_document('json');
+		$dmsg = $this->twitter_dmsg_array($message);
+		$this->show_twitter_json_dm($dmsg);
+		$this->end_document('json');
+	}
+
+	function show_twitter_xml_dmsg($twitter_dm) {
 		common_element_start('direct_message');
 		foreach($twitter_dm as $element => $value) {
 			if ($element == 'sender' || $element == 'recipient') {
@@ -405,4 +419,26 @@ class TwitterapiAction extends Action {
 		}
 		return;
 	}
+
+	function get_user($id) {
+		if (is_numeric($id)) {
+			return User::staticGet($id);
+		} else {
+			return User::staticGet('nickname', $id);
+		}
+	}
+
+	function get_profile($id) {
+		if (is_numeric($id)) {
+			return Profile::staticGet($id);
+		} else {
+			$user = User::staticGet('nickname', $id);
+			if ($user) {
+				return $user->getProfile();
+			} else {
+				return NULL;
+			}
+		}
+	}
+
 }

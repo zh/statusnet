@@ -23,7 +23,6 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
 
 class Twitapidirect_messagesAction extends TwitterapiAction {
 
-
 	function is_readonly() {
 
 		static $write_methods = array(	'direct_messages',
@@ -40,6 +39,15 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
 
 	function direct_messages($args, $apidata) {
 		parent::handle($args);
+		return $this->show_messages($args, $apidata, 'received');
+	}
+
+	function sent($args, $apidata) {
+		parent::handle($args);
+		return $this->show_messages($args, $apidata, 'sent');
+	}
+
+	function show_messages($args, $apidata, $type) {
 
 		$user = $apidata['user'];
 
@@ -57,17 +65,27 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
 		}
 
 		$message = new Message();
-		$message->to_profile = $user->id;
+
+		$title = null;
+		$subtitle = null;
+		$link = null;
+		$server = common_root_url();
+
+		if ($type == 'received') {
+			$message->to_profile = $user->id;
+			$title = sprintf(_("Direct messages to %s"), $user->nickname);
+			$subtitle = sprintf(_("All the direct messages sent to %s"), $user->nickname);
+			$link = $server . $user->nickname . '/inbox';
+		} else {
+			$message->from_profile = $user->id;
+			$title = _('Direct Messages You\'ve Sent');
+			$subtitle = sprintf(_("All the direct messages sent from %s"), $user->nickname);
+			$link = $server . $user->nickname . '/outbox';
+		}
+
 		$message->orderBy('created DESC, id DESC');
 		$message->limit((($page-1)*20), $count);
-
 		$message->find();
-
-		$title = 'Direct messages to ' . $user->nickname;
-		$subtitle = 'All the direct messages sent to ' . $user->nickname;
-
-		$server = common_root_url();
-		$link = $server . $user->nickname . '/inbox';
 
 		switch($apidata['content-type']) {
 		 case 'xml':
@@ -89,16 +107,65 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
 		exit();
 	}
 
-	function sent($args, $apidata) {
-		parent::handle($args);
-		common_server_error(_('API method under construction.'), $code=501);
-		exit();
-	}
-
-	# had to change this from "new" to "create" to avoid PHP reserved word
+	// had to change this from "new" to "create" to avoid PHP reserved word
 	function create($args, $apidata) {
 		parent::handle($args);
-		common_server_error(_('API method under construction.'), $code=501);
+
+		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+			$this->client_error(_('This method requires a POST.'), 400, $apidata['content-type']);
+			exit();
+		}
+
+		$user = $apidata['user'];
+		$source = $this->trimmed('source');  // Not supported by Twitter.
+
+		if (!$source) {
+			$source = 'api';
+		}
+
+		$content = $this->trimmed('text');
+
+		if (!$content) {
+			$this->client_error(_('No message text!'), $code = 406, $apidata['content-type']);
+		} else if (mb_strlen($status) > 140) {
+			$this->client_error(_('That\'s too long. Max message size is 140 chars.'),
+				$code = 406, $apidata['content-type']);
+			exit();
+		}
+
+		common_debug($this->trimmed('user'));
+
+		$other = $this->get_user($this->trimmed('user'));
+
+		if (!$other) {
+			$this->client_error(_('Recipient user not found.'), $code = 403, $apidata['content-type']);
+			exit();
+		} else if (!$user->mutuallySubscribed($other)) {
+			$this->client_error(_('Can\'t send direct messages to users who aren\'t your friend.'),
+				$code = 403, $apidata['content-type']);
+			exit();
+		} else if ($user->id == $other->id) {
+			// Sending msgs to yourself is allowed by Twitter
+			$this->client_error(_('Don\'t send a message to yourself; just say it to yourself quietly instead.'),
+				$code = 403, $apidata['content-type']);
+			exit();
+		}
+
+		$message = Message::saveNew($user->id, $other->id, $content, $source);
+
+		if (is_string($message)) {
+			$this->server_error($message);
+			exit();
+		}
+
+		$this->notify($user, $other, $message);
+
+		if ($apidata['content-type'] == 'xml') {
+			$this->show_single_xml_dmsg($message);
+		} elseif ($apidata['content-type'] == 'json') {
+			$this->show_single_json_dmsg($message);
+		}
+
 		exit();
 	}
 
@@ -115,18 +182,19 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
 
 		if (is_array($messages)) {
 			foreach ($message as $m) {
-				$twitter_dm = $this->twitter_dm_array($m);
-				$this->show_twitter_xml_dm($twitter_dm);
+				$twitter_dm = $this->twitter_dmsg_array($m);
+				$this->show_twitter_xml_dmsg($twitter_dm);
 			}
 		} else {
 			while ($message->fetch()) {
-				$twitter_dm = $this->twitter_dm_array($message);
-				$this->show_twitter_xml_dm($twitter_dm);
+				$twitter_dm = $this->twitter_dmsg_array($message);
+				$this->show_twitter_xml_dmsg($twitter_dm);
 			}
 		}
 
 		common_element_end('direct-messages');
 		$this->end_document('xml');
+
 	}
 
 	function show_json_dmsgs($message) {
@@ -137,19 +205,19 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
 
 		if (is_array($message)) {
 			foreach ($message as $m) {
-				$twitter_dm = $this->twitter_dm_array($m);
+				$twitter_dm = $this->twitter_dmsg_array($m);
 				array_push($dmsgs, $twitter_dm);
 			}
 		} else {
 			while ($message->fetch()) {
-				$twitter_dm = $this->twitter_dm_array($message);
+				$twitter_dm = $this->twitter_dmsg_array($message);
 				array_push($dmsgs, $twitter_dm);
 			}
 		}
 
 		$this->show_twitter_json_dmsgs($dmsgs);
-
 		$this->end_document('json');
+
 	}
 
 	function show_rss_dmsgs($message, $title, $link, $subtitle) {
@@ -178,6 +246,7 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
 
 		common_element_end('channel');
 		$this->end_twitter_rss();
+
 	}
 
 	function show_atom_dmsgs($message, $title, $link, $subtitle) {
@@ -204,7 +273,12 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
 		}
 
 		$this->end_document('atom');
+	}
 
+	// swiped from MessageAction. Should it be place in util.php?
+	function notify($from, $to, $message) {
+		mail_notify_message($message, $from, $to);
+		# XXX: Jabber, SMS notifications... probably queued
 	}
 
 }

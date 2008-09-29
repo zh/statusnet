@@ -24,16 +24,16 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
 class TwitapifriendshipsAction extends TwitterapiAction {
 
 	function is_readonly() {
-		
+
 		static $write_methods = array(	'create',
 										'destroy');
-		
-		$cmdtext = explode('.', $this->arg('method'));		
-		
-		if (in_array($cmdtext[0], $write_methods)) {			
+
+		$cmdtext = explode('.', $this->arg('method'));
+
+		if (in_array($cmdtext[0], $write_methods)) {
 			return false;
 		}
-				
+
 		return true;
 	}
 
@@ -53,33 +53,33 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 			$this->client_error(_('Could not follow user: User not found.'), 403, $apidata['content-type']);
 			exit();
 		}
-		
+
 		$user = $apidata['user'];
-		
+
 		if ($user->isSubscribed($other)) {
 			$errmsg = sprintf(_('Could not follow user: %s is already on your list.'), $other->nickname);
 			$this->client_error($errmsg, 403, $apidata['content-type']);
 			exit();
 		}
-		
+
 		$sub = new Subscription();
-		
+
 		$sub->query('BEGIN');
-		
+
 		$sub->subscriber = $user->id;
 		$sub->subscribed = $other->id;
 		$sub->created = DB_DataObject_Cast::dateTime(); # current time
-		  
+
 		$result = $sub->insert();
 
 		if (!$result) {
 			$errmsg = sprintf(_('Could not follow user: %s is already on your list.'), $other->nickname);
-			$this->client_error($errmsg, 400, $apidata['content-type']);			
+			$this->client_error($errmsg, 400, $apidata['content-type']);
 			exit();
 		}
-		
+
 		$sub->query('COMMIT');
-		
+
 		mail_subscribe_notify($other, $user);
 
 		$type = $apidata['content-type'];
@@ -88,10 +88,10 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 		$this->end_document($type);
 		exit();
 	}
-	
+
 	//destroy
 	//
-	//Discontinues friendship with the user specified in the ID parameter as the authenticating user.  Returns the un-friended user in the requested format when successful.  Returns a string describing the failure condition when unsuccessful. 
+	//Discontinues friendship with the user specified in the ID parameter as the authenticating user.  Returns the un-friended user in the requested format when successful.  Returns a string describing the failure condition when unsuccessful.
 	//
 	//URL: http://twitter.com/friendships/destroy/id.format
 	//
@@ -100,76 +100,75 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 	//Parameters:
 	//
 	//* id.  Required.  The ID or screen name of the user with whom to discontinue friendship.  Ex: http://twitter.com/friendships/destroy/12345.json or http://twitter.com/friendships/destroy/bob.xml
-	
+
 	function destroy($args, $apidata) {
 		parent::handle($args);
-		
+
 		if (!in_array($_SERVER['REQUEST_METHOD'], array('POST', 'DELETE'))) {
 			$this->client_error(_('This method requires a POST or DELETE.'), 400, $apidata['content-type']);
 			exit();
 		}
-		
+
 		$id = $apidata['api_arg'];
 
 		# We can't subscribe to a remote person, but we can unsub
-		
+
 		$other = $this->get_profile($id);
 		$user = $apidata['user'];
-		
+
 		$sub = new Subscription();
 		$sub->subscriber = $user->id;
 		$sub->subscribed = $other->id;
-		
+
 		if ($sub->find(TRUE)) {
 			$sub->query('BEGIN');
 			$sub->delete();
 			$sub->query('COMMIT');
 		} else {
-			$this->client_error(_('You are not friends with the specified user.'), 403, $apidata['content-type']);			
+			$this->client_error(_('You are not friends with the specified user.'), 403, $apidata['content-type']);
 			exit();
 		}
 
 		$type = $apidata['content-type'];
-		$this->init_document($type);	
+		$this->init_document($type);
 		$this->show_profile($other, $type);
 		$this->end_document($type);
 		exit();
 	}
 
 	//	Tests if a friendship exists between two users.
-	//	  
-	//	  
+	//
+	//
 	//	  URL: http://twitter.com/friendships/exists.format
-	//	
+	//
 	//	Formats: xml, json, none
-	//	  
+	//
 	//	  Parameters:
-	//	
+	//
 	//	    * user_a.  Required.  The ID or screen_name of the first user to test friendship for.
 	//	      * user_b.  Required.  The ID or screen_name of the second user to test friendship for.
 	//	  * Ex: http://twitter.com/friendships/exists.xml?user_a=alice&user_b=bob
-	
+
 	function exists($args, $apidata) {
 		parent::handle($args);
-		
-		
+
 		$user_a_id = $this->trimmed('user_a');
 		$user_b_id = $this->trimmed('user_b');
-		
+
 		$user_a = $this->get_user($user_a_id);
 		$user_b = $this->get_user($user_b_id);
-		
+
 		if (!$user_a || !$user_b) {
 			$this->client_error(_('Two user ids or screen_names must be supplied.'), 400, $apidata['content-type']);
 			exit();
 		}
-		
+
 		if ($user_a->isSubscribed($user_b)) {
 			$result = 'true';
 		} else {
 			$result = 'false';
 		}
-		
+
 		switch ($apidata['content-type']) {
 		 case 'xml':
 			$this->init_document('xml');
@@ -185,28 +184,8 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 			print $result;  // Really? --Zach
 			break;
 		}
-		
+
 		exit();
 	}
 
-	function get_profile($id) {
-		if (is_numeric($id)) {
-			return Profile::staticGet($id);
-		} else {
-			$user = User::staticGet('nickname', $id);			
-			if ($user) {
-				return $user->getProfile();
-			} else {
-				return NULL;
-			}
-		}
-	}
-	
-	function get_user($id) {
-		if (is_numeric($id)) {
-			return User::staticGet($id);
-		} else {
-			return User::staticGet('nickname', $id);
-		}
-	}
 }
