@@ -218,7 +218,7 @@ create table confirm_address (
     code varchar(32) not null primary key /* comment 'good random code' */,
     user_id integer not null /* comment 'user who requested confirmation' */ references "user" (id),
     address varchar(255) not null /* comment 'address (email, Jabber, SMS, etc.)' */,
-    address_extra varchar(255) not null /* comment 'carrier ID, for SMS' */,
+    address_extra varchar(255) not null default '' /* comment 'carrier ID, for SMS' */,
     address_type varchar(8) not null /* comment 'address type ("email", "jabber", "sms")' */,
     claimed timestamp /* comment 'date this was claimed for queueing' */,
     sent timestamp /* comment 'date this was sent for queueing' */,
