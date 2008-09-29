@@ -75,7 +75,6 @@ class MailerDaemon {
 
 	function user_from($from_hdr) {
 		$froms = Mail_RFC822::parseAddressList($from_hdr);
-		if (!$froms) {
 		if (PEAR::isError($froms)) {
 			return NULL;
 		}
