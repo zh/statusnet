@@ -110,6 +110,7 @@ RewriteRule ^api/account/update_delivery_device(.*)$ index.php?action=api&apiact
 RewriteRule ^api/account/rate_limit_status(.*)$ index.php?action=api&apiaction=account&method=rate_limit_status$1 [L,QSA]
 RewriteRule ^api/favorites/create/(.*)$ index.php?action=api&apiaction=favorites&method=create&argument=$1 [L,QSA]
 RewriteRule ^api/favorites/destroy/(.*)$ index.php?action=api&apiaction=favorites&method=destroy&argument=$1 [L,QSA]
+RewriteRule ^api/favorites/(.*)$ index.php?action=api&apiaction=favorites&method=favorites&argument=$1 [L,QSA]
 RewriteRule ^api/favorites(.*)$ index.php?action=api&apiaction=favorites&method=favorites$1 [L,QSA]
 RewriteRule ^api/notifications/follow/(.*)$ index.php?action=api&apiaction=notifications&method=follow&argument=$1 [L,QSA]
 RewriteRule ^api/notifications/leave/(.*)$ index.php?action=api&apiaction=notifications&method=leave&argument=$1 [L,QSA]

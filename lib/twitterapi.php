@@ -120,7 +120,6 @@ class TwitterapiAction extends Action {
 		return $entry;
 	}
 
-
 	function twitter_dmsg_array($message) {
 
 		$twitter_dm = array();
@@ -238,6 +237,103 @@ class TwitterapiAction extends Action {
 			}
 		}
 		common_element_end('direct_message');
+	}
+
+	function show_xml_timeline($notice) {
+
+		$this->init_document('xml');
+		common_element_start('statuses', array('type' => 'array'));
+
+		if (is_array($notice)) {
+			foreach ($notice as $n) {
+				$twitter_status = $this->twitter_status_array($n);
+				$this->show_twitter_xml_status($twitter_status);
+			}
+		} else {
+			while ($notice->fetch()) {
+				$twitter_status = $this->twitter_status_array($notice);
+				$this->show_twitter_xml_status($twitter_status);
+			}
+		}
+
+		common_element_end('statuses');
+		$this->end_document('xml');
+	}
+
+	function show_rss_timeline($notice, $title, $link, $subtitle) {
+
+		$this->init_document('rss');
+
+		common_element_start('channel');
+		common_element('title', NULL, $title);
+		common_element('link', NULL, $link);
+		common_element('description', NULL, $subtitle);
+		common_element('language', NULL, 'en-us');
+		common_element('ttl', NULL, '40');
+
+
+		if (is_array($notice)) {
+			foreach ($notice as $n) {
+				$entry = $this->twitter_rss_entry_array($n);
+				$this->show_twitter_rss_item($entry);
+			}
+		} else {
+			while ($notice->fetch()) {
+				$entry = $this->twitter_rss_entry_array($notice);
+				$this->show_twitter_rss_item($entry);
+			}
+		}
+
+		common_element_end('channel');
+		$this->end_twitter_rss();
+	}
+
+	function show_atom_timeline($notice, $title, $id, $link, $subtitle=NULL) {
+
+		$this->init_document('atom');
+
+		common_element('title', NULL, $title);
+		common_element('id', NULL, $id);
+		common_element('link', array('href' => $link, 'rel' => 'alternate', 'type' => 'text/html'), NULL);
+		common_element('subtitle', NULL, $subtitle);
+
+		if (is_array($notice)) {
+			foreach ($notice as $n) {
+				$entry = $this->twitter_rss_entry_array($n);
+				$this->show_twitter_atom_entry($entry);
+			}
+		} else {
+			while ($notice->fetch()) {
+				$entry = $this->twitter_rss_entry_array($notice);
+				$this->show_twitter_atom_entry($entry);
+			}
+		}
+
+		$this->end_document('atom');
+
+	}
+
+	function show_json_timeline($notice) {
+
+		$this->init_document('json');
+
+		$statuses = array();
+
+		if (is_array($notice)) {
+			foreach ($notice as $n) {
+				$twitter_status = $this->twitter_status_array($n);
+				array_push($statuses, $twitter_status);
+			}
+		} else {
+			while ($notice->fetch()) {
+				$twitter_status = $this->twitter_status_array($notice);
+				array_push($statuses, $twitter_status);
+			}
+		}
+
+		$this->show_twitter_json_statuses($statuses);
+
+		$this->end_document('json');
 	}
 
 	// Anyone know what date format this is?

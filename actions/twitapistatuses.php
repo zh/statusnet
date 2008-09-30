@@ -58,7 +58,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 		// of notices by users who have custom avatars, so fix this SQL -- Zach
 
 		$notice = Notice::publicStream(0, $MAX_PUBSTATUSES);
-		
+
 		if ($notice) {
 
 			switch($apidata['content-type']) {
@@ -84,103 +84,6 @@ class TwitapistatusesAction extends TwitterapiAction {
 		}
 
 		exit();
-	}
-
-	function show_xml_timeline($notice) {
-
-		$this->init_document('xml');
-		common_element_start('statuses', array('type' => 'array'));
-
-		if (is_array($notice)) {
-			foreach ($notice as $n) {
-				$twitter_status = $this->twitter_status_array($n);
-				$this->show_twitter_xml_status($twitter_status);
-			}
-		} else {
-			while ($notice->fetch()) {
-				$twitter_status = $this->twitter_status_array($notice);
-				$this->show_twitter_xml_status($twitter_status);
-			}
-		}
-
-		common_element_end('statuses');
-		$this->end_document('xml');
-	}
-
-	function show_rss_timeline($notice, $title, $link, $subtitle) {
-
-		$this->init_document('rss');
-
-		common_element_start('channel');
-		common_element('title', NULL, $title);
-		common_element('link', NULL, $link);
-		common_element('description', NULL, $subtitle);
-		common_element('language', NULL, 'en-us');
-		common_element('ttl', NULL, '40');
-
-
-		if (is_array($notice)) {
-			foreach ($notice as $n) {
-				$entry = $this->twitter_rss_entry_array($n);
-				$this->show_twitter_rss_item($entry);
-			}
-		} else {
-			while ($notice->fetch()) {
-				$entry = $this->twitter_rss_entry_array($notice);
-				$this->show_twitter_rss_item($entry);
-			}
-		}
-
-		common_element_end('channel');
-		$this->end_twitter_rss();
-	}
-
-	function show_atom_timeline($notice, $title, $id, $link, $subtitle=NULL) {
-
-		$this->init_document('atom');
-
-		common_element('title', NULL, $title);
-		common_element('id', NULL, $id);
-		common_element('link', array('href' => $link, 'rel' => 'alternate', 'type' => 'text/html'), NULL);
-		common_element('subtitle', NULL, $subtitle);
-
-		if (is_array($notice)) {
-			foreach ($notice as $n) {
-				$entry = $this->twitter_rss_entry_array($n);
-				$this->show_twitter_atom_entry($entry);
-			}
-		} else {
-			while ($notice->fetch()) {
-				$entry = $this->twitter_rss_entry_array($notice);
-				$this->show_twitter_atom_entry($entry);
-			}
-		}
-
-		$this->end_document('atom');
-
-	}
-
-	function show_json_timeline($notice) {
-
-		$this->init_document('json');
-
-		$statuses = array();
-
-		if (is_array($notice)) {
-			foreach ($notice as $n) {
-				$twitter_status = $this->twitter_status_array($n);
-				array_push($statuses, $twitter_status);
-			}
-		} else {
-			while ($notice->fetch()) {
-				$twitter_status = $this->twitter_status_array($notice);
-				array_push($statuses, $twitter_status);
-			}
-		}
-
-		$this->show_twitter_json_statuses($statuses);
-
-		$this->end_document('json');
 	}
 
 	/*
@@ -461,7 +364,6 @@ class TwitapistatusesAction extends TwitterapiAction {
 		$title = sprintf(_('%1$s / Updates replying to %2$s'), $sitename, $user->nickname);
 		$id = "tag:$siteserver:replies:".$user->id;
 		$link = common_local_url('replies', array('nickname' => $user->nickname));
-		$subtitle = "gar";
 		$subtitle = sprintf(_('%1$s updates that reply to updates from %2$s / %3$s.'), $sitename, $user->nickname, $profile->getBestName());
 
 		if (!$page) {
@@ -496,10 +398,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 			common_user_error(_('API method not found!'), $code = 404);
 		}
 
-
 		exit();
-
-
 	}
 
 	function show($args, $apidata) {
@@ -541,8 +440,6 @@ class TwitapistatusesAction extends TwitterapiAction {
 	function destroy($args, $apidata) {
 
 		parent::handle($args);
-
-		common_debug($_SERVER['REQUEST_METHOD']);
 
 		// Check for RESTfulness
 		if (!in_array($_SERVER['REQUEST_METHOD'], array('POST', 'DELETE'))) {
