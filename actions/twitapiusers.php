@@ -116,7 +116,7 @@ class TwitapiusersAction extends TwitterapiAction {
 			$this->end_document('xml');
 		} elseif ($apidata['content-type'] == 'json') {
 			$this->init_document('json');
-			$this->show_twitter_json_users($twitter_user);
+			$this->show_json_objects($twitter_user);
 			$this->end_document('json');
 		} else {
 			common_user_error(_('API method not found!'), $code = 404);

@@ -185,16 +185,8 @@ class TwitterapiAction extends Action {
 		common_element_end('entry');
 	}
 
-	function show_twitter_json_statuses($twitter_statuses) {
-		print(json_encode($twitter_statuses));
-	}
-
-	function show_twitter_json_users($twitter_users) {
-		print(json_encode($twitter_users));
-	}
-
-	function show_twitter_json_dmsgs($twitter_dms) {
-		print(json_encode($twitter_dms));
+	function show_json_objects($objects) {
+		print(json_encode($objects));
 	}
 
 	function show_single_xml_status($notice) {
@@ -208,7 +200,7 @@ class TwitterapiAction extends Action {
 	function show_single_json_status($notice) {
 		$this->init_document('json');
 		$status = $this->twitter_status_array($notice);
-		$this->show_twitter_json_statuses($status);
+		$this->show_json_objects($status);
 		$this->end_document('json');
 		exit();
 	}
@@ -331,7 +323,7 @@ class TwitterapiAction extends Action {
 			}
 		}
 
-		$this->show_twitter_json_statuses($statuses);
+		$this->show_json_objects($statuses);
 
 		$this->end_document('json');
 	}
@@ -507,7 +499,7 @@ class TwitterapiAction extends Action {
 			$this->show_twitter_xml_user($profile_array);
 			break;
 		 case 'json':
-			$this->show_twitter_json_users($profile_array);
+			$this->show_json_objects($profile_array);
 			break;
 		 default:
 			$this->client_error(_('Not a supported data format.'));

@@ -215,7 +215,7 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
 			}
 		}
 
-		$this->show_twitter_json_dmsgs($dmsgs);
+		$this->show_json_objects($dmsgs);
 		$this->end_document('json');
 
 	}
