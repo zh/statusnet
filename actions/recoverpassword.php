@@ -50,7 +50,7 @@ class RecoverpasswordAction extends Action {
 	function check_code() {
 
 		$code = $this->trimmed('code');
-		$confirm = Confirm_address::staticGet($code);
+		$confirm = Confirm_address::staticGet('code', $code);
 
 		if (!$confirm) {
 			$this->client_error(_('No such recovery code.'));
