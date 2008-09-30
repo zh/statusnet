@@ -42,7 +42,7 @@ class Notice_tag extends Memcached_DataObject
 		  'WHERE notice_tag.tag = "%s" ';
 
 		return Notice::getStream(sprintf($qry, $tag),
-								 'notice_tag:notice_stream:' . $tag,
+								 'notice_tag:notice_stream:' . common_keyize($tag),
 								 $offset, $limit);
 	}
 	

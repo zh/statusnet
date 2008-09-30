@@ -51,7 +51,9 @@ class XmppQueueHandler extends QueueHandler {
 	function idle($timeout=0) {
 		# Process the queue for as long as needed
 		try {
-			$this->conn->processTime($timeout);
+			if ($this->conn) {
+				$this->conn->processTime($timeout);
+			}
 		} catch (XMPPHP_Exception $e) {
 			$this->log(LOG_ERR, "Got an XMPPHP_Exception: " . $e->getMessage());
 			die($e->getMessage());
