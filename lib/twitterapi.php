@@ -61,7 +61,7 @@ class TwitterapiAction extends Action {
 		$twitter_status['truncated'] = 'false'; # Not possible on Laconica
 		$twitter_status['created_at'] = $this->date_twitter($notice->created);
 		$twitter_status['in_reply_to_status_id'] = ($notice->reply_to) ? intval($notice->reply_to) : NULL;
-		$twitter_status['source'] = $notice->source;
+		$twitter_status['source'] = $this->source_link($notice->source);
 		$twitter_status['id'] = intval($notice->id);
 		$twitter_status['in_reply_to_user_id'] = ($notice->reply_to) ? $this->replier_by_reply(intval($notice->reply_to)) : NULL;
 		$twitter_status['favorited'] = NULL; # XXX: Not implemented on Laconica yet.
@@ -439,6 +439,25 @@ class TwitterapiAction extends Action {
 				return NULL;
 			}
 		}
+	}
+
+	function source_link($source) {
+		$source_name = _($source);
+		switch ($source) {
+		 case 'web':
+		 case 'xmpp':
+		 case 'mail':
+		 case 'omb':
+		 case 'api':
+			break;
+		 default:
+			$ns = Notice_source::staticGet($source);
+			if ($ns) {
+				$source_name = '<a href="' . $ns->url . '">' . $ns->name . '</a>';
+			}
+			break;
+		}
+		return $source_name;
 	}
 
 }
