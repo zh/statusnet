@@ -123,7 +123,7 @@ function jabber_format_entry($profile, $notice) {
 
 	$html = "\n<html xmlns='http://jabber.org/protocol/xhtml-im'>\n";
 	$html .= "<body xmlns='http://www.w3.org/1999/xhtml'>\n";
-	$html .= "<a href='".common_profile_url($profile->nickname)."'>".$profile->nickname."</a>: ";
+	$html .= "<a href='".htmlspecialchars($profile->profileurl)."'>".$profile->nickname."</a>: ";
 	$html .= ($notice->rendered) ? $notice->rendered : common_render_content($notice->content, $notice);
 	$html .= "\n</body>\n";
 	$html .= "\n</html>\n";
