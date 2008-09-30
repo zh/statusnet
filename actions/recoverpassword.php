@@ -85,6 +85,9 @@ class RecoverpasswordAction extends Action {
 		# Note: it's still deleted; let's avoid a second attempt!
 
 		if ((time() - $touched) > MAX_RECOVERY_TIME) {
+			common_log(LOG_WARNING, 
+					   'Attempted redemption on recovery code ' .
+					   'that is ' . $touched . ' seconds old. ');
 			$this->client_error(_('This confirmation code is too old. ' .
 			                       'Please start again.'));
 			return;
