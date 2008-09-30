@@ -46,9 +46,6 @@ class Memcached_DataObject extends DB_DataObject
 	
 	function insert() {
 		$result = parent::insert();
-		if ($result) {
-			$this->encache();
-		}
 		return $result;
 	}
 	
