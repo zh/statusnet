@@ -42,7 +42,7 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 
 		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 			$this->client_error(_('This method requires a POST.'), 400, $apidata['content-type']);
-			exit();
+			return;
 		}
 
 		$id = $apidata['api_arg'];
@@ -51,7 +51,7 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 
 		if (!$other) {
 			$this->client_error(_('Could not follow user: User not found.'), 403, $apidata['content-type']);
-			exit();
+			return;
 		}
 
 		$user = $apidata['user'];
@@ -59,7 +59,7 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 		if ($user->isSubscribed($other)) {
 			$errmsg = sprintf(_('Could not follow user: %s is already on your list.'), $other->nickname);
 			$this->client_error($errmsg, 403, $apidata['content-type']);
-			exit();
+			return;
 		}
 
 		$sub = new Subscription();
@@ -75,7 +75,7 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 		if (!$result) {
 			$errmsg = sprintf(_('Could not follow user: %s is already on your list.'), $other->nickname);
 			$this->client_error($errmsg, 400, $apidata['content-type']);
-			exit();
+			return;
 		}
 
 		$sub->query('COMMIT');
@@ -86,7 +86,7 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 		$this->init_document($type);
 		$this->show_profile($other, $type);
 		$this->end_document($type);
-		exit();
+
 	}
 
 	//destroy
@@ -106,7 +106,7 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 
 		if (!in_array($_SERVER['REQUEST_METHOD'], array('POST', 'DELETE'))) {
 			$this->client_error(_('This method requires a POST or DELETE.'), 400, $apidata['content-type']);
-			exit();
+			return;
 		}
 
 		$id = $apidata['api_arg'];
@@ -126,14 +126,14 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 			$sub->query('COMMIT');
 		} else {
 			$this->client_error(_('You are not friends with the specified user.'), 403, $apidata['content-type']);
-			exit();
+			return;
 		}
 
 		$type = $apidata['content-type'];
 		$this->init_document($type);
 		$this->show_profile($other, $type);
 		$this->end_document($type);
-		exit();
+
 	}
 
 	//	Tests if a friendship exists between two users.
@@ -154,7 +154,7 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 
 		if (!in_array($apidata['content-type'], array('xml', 'json'))) {
 			common_user_error(_('API method not found!'), $code = 404);
-			exit;
+			return;
 		}
 
 		$user_a_id = $this->trimmed('user_a');
@@ -165,7 +165,7 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 
 		if (!$user_a || !$user_b) {
 			$this->client_error(_('Two user ids or screen_names must be supplied.'), 400, $apidata['content-type']);
-			exit();
+			return;
 		}
 
 		if ($user_a->isSubscribed($user_b)) {
@@ -189,7 +189,6 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 			break;
 		}
 
-		exit();
 	}
 
 }

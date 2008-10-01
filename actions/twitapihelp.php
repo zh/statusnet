@@ -45,13 +45,12 @@ class TwitapihelpAction extends TwitterapiAction {
 		} else {
 			common_user_error(_('API method not found!'), $code=404);
 		}
-		exit();
+
 	}
 
 	function downtime_schedule($args, $apidata) {
 		parent::handle($args);
 		common_server_error(_('API method under construction.'), $code=501);
-		exit();
 	}
 
 }

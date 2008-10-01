@@ -98,7 +98,6 @@ class TwitapistatusesAction extends TwitterapiAction {
 			common_server_error(_('Couldn\'t find any statuses.'), $code = 503);
 		}
 
-		exit();
 	}
 
 	/*
@@ -177,7 +176,6 @@ class TwitapistatusesAction extends TwitterapiAction {
 			common_user_error(_('API method not found!'), $code = 404);
 		}
 
-		exit();
 	}
 
 	/*
@@ -235,7 +233,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 
 		if (!$profile) {
 			common_server_error(_('User has no profile.'));
-			exit();
+			return;
 		}
 
 		$count = $this->arg('count');
@@ -290,7 +288,6 @@ class TwitapistatusesAction extends TwitterapiAction {
 			common_user_error(_('API method not found!'), $code = 404);
 		}
 
-		exit();
 	}
 
 	function update($args, $apidata) {
@@ -299,12 +296,12 @@ class TwitapistatusesAction extends TwitterapiAction {
 
 		if (!in_array($apidata['content-type'], array('xml', 'json'))) {
 			common_user_error(_('API method not found!'), $code = 404);
-			exit;
+			return;
 		}
 
 		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 			$this->client_error(_('This method requires a POST.'), 400, $apidata['content-type']);
-			exit();
+			return;
 		}
 
 		$user = $apidata['user'];
@@ -322,7 +319,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 			// No error is given, but the status is not posted to the
 			// user's timeline.  Seems bad.  Shouldn't we throw an
 			// errror? -- Zach
-			exit();
+			return;
 
 		} else if (mb_strlen($status) > 140) {
 
@@ -331,7 +328,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 		    // that assume Twitter will truncate for them.  Should we just
 		    // truncate too? -- Zach
 			$this->client_error(_('That\'s too long. Max notice size is 140 chars.'), $code = 406, $apidata['content-type']);
-			exit();
+			return;
 		}
 
 		$reply_to = NULL;
@@ -345,7 +342,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 				$reply_to = $in_reply_to_status_id;
 			} else {
 				$this->client_error(_('Not found'), $code = 404, $apidata['content-type']);
-				exit();
+				return;
 			}
 		}
 
@@ -353,7 +350,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 
 		if (is_string($notice)) {
 			$this->server_error($notice);
-			exit();
+			return;
 		}
 
 		common_broadcast_notice($notice);
@@ -367,7 +364,6 @@ class TwitapistatusesAction extends TwitterapiAction {
 		$apidata['api_arg'] = $notice->id;
 		$this->show($args, $apidata);
 
-		exit();
 	}
 
 	/*
@@ -447,7 +443,6 @@ class TwitapistatusesAction extends TwitterapiAction {
 			common_user_error(_('API method not found!'), $code = 404);
 		}
 
-		exit();
 	}
 
 	function show($args, $apidata) {
@@ -455,7 +450,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 
 		if (!in_array($apidata['content-type'], array('xml', 'json'))) {
 			common_user_error(_('API method not found!'), $code = 404);
-			exit;
+			return;
 		}
 
 		$notice_id = $apidata['api_arg'];
@@ -472,7 +467,6 @@ class TwitapistatusesAction extends TwitterapiAction {
 			$this->client_error(_('No status with that ID found.'), 404, $apidata['content-type']);
 		}
 
-		exit();
 	}
 
 
@@ -497,14 +491,14 @@ class TwitapistatusesAction extends TwitterapiAction {
 
 		if (!in_array($apidata['content-type'], array('xml', 'json'))) {
 			common_user_error(_('API method not found!'), $code = 404);
-			exit;
+			return;
 		}
 
 		// Check for RESTfulness
 		if (!in_array($_SERVER['REQUEST_METHOD'], array('POST', 'DELETE'))) {
 			// XXX: Twitter just prints the err msg, no XML / JSON.
 			$this->client_error(_('This method requires a POST or DELETE.'), 400, $apidata['content-type']);
-			exit();
+			return;
 		}
 
 		$user = $apidata['user'];
@@ -513,7 +507,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 
 		if (!$notice) {
 			$this->client_error(_('No status found with that ID.'), 404, $apidata['content-type']);
-			exit();
+			return;
 		}
 
 		if ($user->id == $notice->profile_id) {
@@ -532,7 +526,6 @@ class TwitapistatusesAction extends TwitterapiAction {
 			$this->client_error(_('You may not delete another user\'s status.'), 403, $apidata['content-type']);
 		}
 
-		exit();
 	}
 
 	# User Methods
@@ -626,7 +619,6 @@ class TwitapistatusesAction extends TwitterapiAction {
 		$this->init_document($type);
 		$this->show_profiles($others, $type);
 		$this->end_document($type);
-		exit();
 	}
 
 	function get_subs_user($apidata) {
@@ -673,7 +665,6 @@ class TwitapistatusesAction extends TwitterapiAction {
 			break;
 		 default:
 			$this->client_error(_('unsupported file type'));
-			exit();
 		}
 	}
 

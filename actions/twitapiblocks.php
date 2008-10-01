@@ -26,13 +26,11 @@ class TwitapiblocksAction extends TwitterapiAction {
 	function create($args, $apidata) {
 		parent::handle($args);
 		common_server_error(_('API method under construction.'), $code=501);
-		exit();
 	}
-	
+
 	function destroy($args, $apidata) {
 		parent::handle($args);
 		common_server_error(_('API method under construction.'), $code=501);
-		exit();
 	}
-	
+
 }

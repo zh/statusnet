@@ -66,7 +66,7 @@ class TwitapifavoritesAction extends TwitterapiAction {
 
 		if (!$profile) {
 			common_server_error(_('User has no profile.'));
-			exit();
+			return;
 		}
 
 		$page = $this->arg('page');
@@ -83,7 +83,7 @@ class TwitapifavoritesAction extends TwitterapiAction {
 
 		if (!$notice) {
 			common_server_error(_('Could not retrieve favorite notices.'));
-			exit();
+			return;
 		}
 
 		$sitename = common_config('site', 'name');
@@ -111,7 +111,6 @@ class TwitapifavoritesAction extends TwitterapiAction {
 			common_user_error(_('API method not found!'), $code = 404);
 		}
 
-		exit();
 	}
 
 	function create($args, $apidata) {
@@ -119,14 +118,14 @@ class TwitapifavoritesAction extends TwitterapiAction {
 
 		if (!in_array($apidata['content-type'], array('xml', 'json'))) {
 			common_user_error(_('API method not found!'), $code = 404);
-			exit;
+			return;
 		}
 
 		// Check for RESTfulness
 		if (!in_array($_SERVER['REQUEST_METHOD'], array('POST', 'DELETE'))) {
 			// XXX: Twitter just prints the err msg, no XML / JSON.
 			$this->client_error(_('This method requires a POST or DELETE.'), 400, $apidata['content-type']);
-			exit();
+			return;
 		}
 
 		$user = $apidata['user'];
@@ -135,13 +134,13 @@ class TwitapifavoritesAction extends TwitterapiAction {
 
 		if (!$notice) {
 			$this->client_error(_('No status found with that ID.'), 404, $apidata['content-type']);
-			exit();
+			return;
 		}
 
 		// XXX: Twitter lets you fave things repeatedly via api.
 		if ($user->hasFave($notice)) {
 			$this->client_error(_('This notice is already a favorite!'), 403, $apidata['content-type']);
-			exit();
+			return;
 		}
 
 		common_debug("notice: " . $apidata['api_arg']);
@@ -150,7 +149,7 @@ class TwitapifavoritesAction extends TwitterapiAction {
 
 		if (!$fave) {
 			common_server_error(_('Could not create favorite.'));
-			exit();
+			return;
 		}
 
 		$this->notify($fave, $notice, $user);
@@ -162,13 +161,11 @@ class TwitapifavoritesAction extends TwitterapiAction {
 			$this->show_single_json_status($notice);
 		}
 
-		exit();
 	}
 
 	function destroy($args, $apidata) {
 		parent::handle($args);
 		common_server_error(_('API method under construction.'), $code=501);
-		exit();
 	}
 
 	// XXX: these two funcs swiped from faves.  Maybe put in util.php, or some common base class?

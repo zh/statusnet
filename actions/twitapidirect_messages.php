@@ -104,7 +104,6 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
 			common_user_error(_('API method not found!'), $code = 404);
 		}
 
-		exit();
 	}
 
 	// had to change this from "new" to "create" to avoid PHP reserved word
@@ -113,7 +112,7 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
 
 		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 			$this->client_error(_('This method requires a POST.'), 400, $apidata['content-type']);
-			exit();
+			return;
 		}
 
 		$user = $apidata['user'];
@@ -130,30 +129,30 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
 		} else if (mb_strlen($status) > 140) {
 			$this->client_error(_('That\'s too long. Max message size is 140 chars.'),
 				$code = 406, $apidata['content-type']);
-			exit();
+			return;
 		}
 
 		$other = $this->get_user($this->trimmed('user'));
 
 		if (!$other) {
 			$this->client_error(_('Recipient user not found.'), $code = 403, $apidata['content-type']);
-			exit();
+			return;
 		} else if (!$user->mutuallySubscribed($other)) {
 			$this->client_error(_('Can\'t send direct messages to users who aren\'t your friend.'),
 				$code = 403, $apidata['content-type']);
-			exit();
+			return;
 		} else if ($user->id == $other->id) {
 			// Sending msgs to yourself is allowed by Twitter
 			$this->client_error(_('Don\'t send a message to yourself; just say it to yourself quietly instead.'),
 				$code = 403, $apidata['content-type']);
-			exit();
+			return;
 		}
 
 		$message = Message::saveNew($user->id, $other->id, $content, $source);
 
 		if (is_string($message)) {
 			$this->server_error($message);
-			exit();
+			return;
 		}
 
 		$this->notify($user, $other, $message);
@@ -164,13 +163,11 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
 			$this->show_single_json_dmsg($message);
 		}
 
-		exit();
 	}
 
 	function destroy($args, $apidata) {
 		parent::handle($args);
 		common_server_error(_('API method under construction.'), $code=501);
-		exit();
 	}
 
 	function show_xml_dmsgs($message) {

@@ -194,7 +194,6 @@ class TwitterapiAction extends Action {
 		$twitter_status = $this->twitter_status_array($notice);
 		$this->show_twitter_xml_status($twitter_status);
 		$this->end_document('xml');
-		exit();
 	}
 
 	function show_single_json_status($notice) {
@@ -202,7 +201,6 @@ class TwitterapiAction extends Action {
 		$status = $this->twitter_status_array($notice);
 		$this->show_json_objects($status);
 		$this->end_document('json');
-		exit();
 	}
 
 	function show_single_xml_dmsg($message) {
@@ -469,7 +467,6 @@ class TwitterapiAction extends Action {
 			$this->end_document('json');
 		}
 
-		exit();
 	}
 
 	function init_twitter_rss() {
