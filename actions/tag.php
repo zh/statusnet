@@ -98,9 +98,9 @@ class TagAction extends StreamAction {
 		#Add the aggregated columns...
 		$tags->selectAdd('max(notice_id) as last_notice_id');
 		if(common_config('db','type')=='pgsql') {
-			$calc='sum(exp(-extract(epoch from (now()-created))/%f)) as weight';
+			$calc='sum(exp(-extract(epoch from (now()-created))/%s)) as weight';
 		} else {
-			$calc='sum(exp(-(now() - created)/%f)) as weight';
+			$calc='sum(exp(-(now() - created)/%s)) as weight';
 		}
 		$tags->selectAdd(sprintf($calc, common_config('tag', 'dropoff')));
 		$tags->groupBy('tag');

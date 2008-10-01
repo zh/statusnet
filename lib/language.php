@@ -76,6 +76,8 @@ function get_all_languages() {
                             'es'    => array('q' => 1, 'lang' => 'es',    'name' => 'Spanish', 'direction' => 'ltr'),
                             'tr'    => array('q' => 1, 'lang' => 'tr_TR', 'name' => 'Turkish', 'direction' => 'ltr'),
                             'uk'    => array('q' => 1, 'lang' => 'uk_UA', 'name' => 'Ukrainian', 'direction' => 'ltr'),
+			    'lt'    => array('q' => 1, 'lang' => 'lt_LT', 'name' => 'Lithuanian', 'direction' => 'ltr'),
+			    'sv'    => array('q' => 1, 'lang' => 'sv_SE', 'name' => 'Swedish', 'direction' => 'ltr'),
                         );
         return $all_languages;
 }

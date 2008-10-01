@@ -218,7 +218,7 @@ class XMPPDaemon extends Daemon {
 		 case 'help':
 		 	if(count($p)!=1)
 		 		return false;
-		 	$this->from_site($user->jabber, "Commands:\n on     - turn on notifications\n off    - turn off notifications\n help   - show this help \n sub - subscribe to user\n unsubscribe - unsub from user");
+		 	$this->from_site($user->jabber, "Commands:\n on     - turn on notifications\n off    - turn off notifications\n help   - show this help \n sub - subscribe to user\n unsub - unsubscribe from user");
 		 	return true;
 		 case 'on':
 		 	if(count($p)!=1)
