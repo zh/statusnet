@@ -308,12 +308,38 @@ class Notice extends Memcached_DataObject
 		return $wrapper;
 	}
 	
-	function publicStream($offset=0, $limit=20) {
+	function publicStream($offset=0, $limit=20, $since_id=0, $before_id=0) {
 		
+		$needAnd = FALSE;
+      	$needWhere = TRUE;
+
 		$qry = 'SELECT * FROM notice ';
 
 		if (common_config('public', 'localonly')) {
 			$qry .= ' WHERE is_local = 1 ';
+			$needWhere = FALSE;
+			$needAnd = TRUE;
+		}
+
+   		// NOTE: since_id and before_id are extensions to Twitter API
+        if ($since_id > 0) {
+            if ($needWhere)
+                $qry .= ' WHERE ';
+            if ($needAnd)
+				$qry .= ' AND ';
+            $qry .= ' notice.id > ' . $since_id . ' ';
+			$needAnd = FALSE;
+			$needWhere = FALSE;
+        }
+
+		if ($before_id > 0) {
+            if ($needWhere)
+                $qry .= ' WHERE ';
+			if ($needAnd)
+				$qry .= ' AND ';
+			$qry .= ' notice.id < ' . $before_id . ' ';
+			$needAnd = FALSE;
+			$needWhere = FALSE;
 		}
 
 		return Notice::getStream($qry,

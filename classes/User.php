@@ -141,6 +141,19 @@ class User extends Memcached_DataObject
 		return true;
 	}
 
+	function noticesWithFriendsWindow() {
+		
+		
+		$notice = new Notice();
+		
+		$notice->query('SELECT notice.* ' .
+					   'FROM notice JOIN subscription on notice.profile_id = subscription.subscribed ' .
+					   'WHERE subscription.subscriber = ' . $this->id . ' ' .
+					   'ORDER BY created DESC, notice.id DESC ' .
+					   'LIMIT 0, ' . WITHFRIENDS_CACHE_WINDOW);
+		
+	}
+	
 	static function register($fields) {
 
 		# MAGICALLY put fields into current scope
@@ -291,23 +304,45 @@ class User extends Memcached_DataObject
 		return $user;
 	}
 
-	function getReplies($offset=0, $limit=NOTICES_PER_PAGE) {
+	function getReplies($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0) {
 		$qry =
 		  'SELECT notice.* ' .
 		  'FROM notice JOIN reply ON notice.id = reply.notice_id ' .
 		  'WHERE reply.profile_id = %d ';
 		
+        if ($since_id > 0) {
+            $qry .= ' AND notice.id > ' . $since_id . ' ';
+			$needAnd = FALSE;
+        }
+
+        // NOTE: before_id is an extension to Twitter API
+        if ($before_id > 0) {
+            $qry .= ' AND notice.id < ' . $before_id . ' ';
+			$needAnd = FALSE;
+        }
+
 		return Notice::getStream(sprintf($qry, $this->id),
 								 'user:replies:'.$this->id,
 								 $offset, $limit);
 	}
 	
-	function getNotices($offset=0, $limit=NOTICES_PER_PAGE) {
+	function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0) {
 		$qry =
 		  'SELECT * ' .
 		  'FROM notice ' .
 		  'WHERE profile_id = %d ';
 		
+        if ($since_id > 0) {
+            $qry .= ' AND notice.id > ' . $since_id . ' ';
+			$needAnd = FALSE;
+        }
+
+        // NOTE: before_id is an extension to Twitter API
+        if ($before_id > 0) {
+            $qry .= ' AND notice.id < ' . $before_id . ' ';
+			$needAnd = FALSE;
+        }
+
 		return Notice::getStream(sprintf($qry, $this->id),
 								 'user:notices:'.$this->id,
 								 $offset, $limit);
@@ -324,12 +359,23 @@ class User extends Memcached_DataObject
 								 $offset, $limit);
 	}
 	
-	function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE) {
+	function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0) {
 		$qry =
 		  'SELECT notice.* ' .
 		  'FROM notice JOIN subscription ON notice.profile_id = subscription.subscribed ' .
 		  'WHERE subscription.subscriber = %d ';
-		
+
+        if ($since_id > 0) {
+            $qry .= ' AND notice.id > ' . $since_id . ' ';
+			$needAnd = FALSE;
+        }
+
+        // NOTE: before_id is an extension to Twitter API
+        if ($before_id > 0) {
+            $qry .= ' AND notice.id < ' . $before_id . ' ';
+			$needAnd = FALSE;
+        }
+
 		return Notice::getStream(sprintf($qry, $this->id),
 								 'user:notices_with_friends:' . $this->id,
 								 $offset, $limit);
