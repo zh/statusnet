@@ -23,7 +23,7 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
 
 class TwitapihelpAction extends TwitterapiAction {
 
-	function is_readonly() {		
+	function is_readonly() {
 		return true;
 	}
 
@@ -32,7 +32,8 @@ class TwitapihelpAction extends TwitterapiAction {
 	 * Formats: xml, json
 	 */
 	function test($args, $apidata) {
- 		global $xw;
+		parent::handle($args);
+
 		if ($apidata['content-type'] == 'xml') {
 			$this->init_document('xml');
 			common_element('ok', NULL, 'true');
@@ -52,5 +53,5 @@ class TwitapihelpAction extends TwitterapiAction {
 		common_server_error(_('API method under construction.'), $code=501);
 		exit();
 	}
-	
+
 }

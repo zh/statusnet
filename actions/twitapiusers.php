@@ -51,6 +51,11 @@ class TwitapiusersAction extends TwitterapiAction {
 	function show($args, $apidata) {
 		parent::handle($args);
 		
+		if (!in_array($apidata['content-type'], array('xml', 'json'))) {
+			common_user_error(_('API method not found!'), $code = 404);
+			exit;
+		}
+		
 		$user = null;
 		$email = $this->arg('email');
 		
@@ -118,9 +123,7 @@ class TwitapiusersAction extends TwitterapiAction {
 			$this->init_document('json');
 			$this->show_json_objects($twitter_user);
 			$this->end_document('json');
-		} else {
-			common_user_error(_('API method not found!'), $code = 404);
-		}
+		} 
 			
 		exit();
 	}

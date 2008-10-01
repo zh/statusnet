@@ -152,6 +152,11 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 	function exists($args, $apidata) {
 		parent::handle($args);
 
+		if (!in_array($apidata['content-type'], array('xml', 'json'))) {
+			common_user_error(_('API method not found!'), $code = 404);
+			exit;
+		}
+
 		$user_a_id = $this->trimmed('user_a');
 		$user_b_id = $this->trimmed('user_b');
 
@@ -181,7 +186,6 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 			$this->end_document('json');
 			break;
 		 default:
-			print $result;  // Really? --Zach
 			break;
 		}
 

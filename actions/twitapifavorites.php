@@ -117,6 +117,11 @@ class TwitapifavoritesAction extends TwitterapiAction {
 	function create($args, $apidata) {
 		parent::handle($args);
 
+		if (!in_array($apidata['content-type'], array('xml', 'json'))) {
+			common_user_error(_('API method not found!'), $code = 404);
+			exit;
+		}
+
 		// Check for RESTfulness
 		if (!in_array($_SERVER['REQUEST_METHOD'], array('POST', 'DELETE'))) {
 			// XXX: Twitter just prints the err msg, no XML / JSON.

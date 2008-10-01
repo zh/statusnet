@@ -297,6 +297,11 @@ class TwitapistatusesAction extends TwitterapiAction {
 
 		parent::handle($args);
 
+		if (!in_array($apidata['content-type'], array('xml', 'json'))) {
+			common_user_error(_('API method not found!'), $code = 404);
+			exit;
+		}
+
 		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 			$this->client_error(_('This method requires a POST.'), 400, $apidata['content-type']);
 			exit();
@@ -448,6 +453,11 @@ class TwitapistatusesAction extends TwitterapiAction {
 	function show($args, $apidata) {
 		parent::handle($args);
 
+		if (!in_array($apidata['content-type'], array('xml', 'json'))) {
+			common_user_error(_('API method not found!'), $code = 404);
+			exit;
+		}
+
 		$notice_id = $apidata['api_arg'];
 		$notice = Notice::staticGet($notice_id);
 
@@ -484,6 +494,11 @@ class TwitapistatusesAction extends TwitterapiAction {
 	function destroy($args, $apidata) {
 
 		parent::handle($args);
+
+		if (!in_array($apidata['content-type'], array('xml', 'json'))) {
+			common_user_error(_('API method not found!'), $code = 404);
+			exit;
+		}
 
 		// Check for RESTfulness
 		if (!in_array($_SERVER['REQUEST_METHOD'], array('POST', 'DELETE'))) {

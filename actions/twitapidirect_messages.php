@@ -133,8 +133,6 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
 			exit();
 		}
 
-		common_debug($this->trimmed('user'));
-
 		$other = $this->get_user($this->trimmed('user'));
 
 		if (!$other) {
