@@ -65,21 +65,15 @@ class User extends Memcached_DataObject
     ###END_AUTOCODE
 
 	function getProfile() {
-		$profile = DB_DataObject::factory('profile');
-		$profile->id = $this->id;
-		if ($profile->find()) {
-			$profile->fetch();
-			return $profile;
-		}
-		return NULL;
+		return Profile::staticGet('id', $this->id);
 	}
 
 	function isSubscribed($other) {
 		assert(!is_null($other));
-		$sub = DB_DataObject::factory('subscription');
-		$sub->subscriber = $this->id;
-		$sub->subscribed = $other->id;
-		return $sub->find();
+		# XXX: cache results of this query
+		$sub = Subscription::pkeyGet(array('subscriber' => $this->id,
+										   'subscribed' => $other->id));
+		return (is_null($sub)) ? false : true;
 	}
 
 	# 'update' won't write key columns, so we have to do it ourselves.
@@ -130,7 +124,7 @@ class User extends Memcached_DataObject
 	}
 
 	function getCarrier() {
-		return Sms_carrier::staticGet($this->carrier);
+		return Sms_carrier::staticGet('id', $this->carrier);
 	}
 
 	function subscribeTo($other) {
@@ -271,10 +265,9 @@ class User extends Memcached_DataObject
 	}
 
 	function hasFave($notice) {
-		$fave = new Fave();
-		$fave->user_id = $this->id;
-		$fave->notice_id = $notice->id;
-		if ($fave->find()) {
+		$fave = Fave::pkeyGet(array('user_id' => $this->id,
+									'notice_id' => $notice->id));
+		if (!is_null($fave)) {
 			$result = true;
 		} else {
 			$result = false;

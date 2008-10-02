@@ -30,4 +30,8 @@ class Fave extends Memcached_DataObject
 		}
 		return $fave;
 	}
+	
+	function &pkeyGet($kv) {
+		return Memcached_DataObject('Fave', $kv);
+	}
 }
