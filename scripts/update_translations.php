@@ -21,6 +21,12 @@ $languages = array(
 	'tr_TR' => 'http://laconi.ca/translate/download.php?file_id=37',
 	'uk_UA' => 'http://laconi.ca/translate/download.php?file_id=44',
 	'he_IL' => 'http://laconi.ca/translate/download.php?file_id=71',
+	'mk_MK' => 'http://laconi.ca/translate/download.php?file_id=67',
+	'ja_JP' => 'http://laconi.ca/translate/download.php?file_id=43',
+	'cs_CZ' => 'http://laconi.ca/translate/download.php?file_id=63',
+	'ca_ES' => 'http://laconi.ca/translate/download.php?file_id=49',
+	'pl_PL' => 'http://laconi.ca/translate/download.php?file_id=51',
+	'sv_SE' => 'http://laconi.ca/translate/download.php?file_id=55'
 );
 
 /* Update the languages */

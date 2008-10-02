@@ -146,6 +146,7 @@ function common_init_language() {
 	bind_textdomain_codeset("laconica", "UTF-8");
 	textdomain("laconica");
 	setlocale(LC_CTYPE, 'C');
+	common_log(LOG_INFO,'Language requested:'.$language.' Locale set:'.$locale_set,__FILE__);
 }
 
 define('PAGE_TYPE_PREFS', 'text/html,application/xhtml+xml,application/xml;q=0.3,text/xml;q=0.2');
@@ -483,25 +484,27 @@ function common_timezone() {
 }
 
 function common_language() {
-	$httplang = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : NULL;
-        $language = array();
-        $user_language = FALSE;
 
+	// If there is a user logged in and they've set a language preference
+	// then return that one...
         if (common_logged_in()) {
                 $user = common_current_user();
                 $user_language = $user->language;
+		if ($user_language)
+			return $user_language;
         }
 
-        if ($user_language) {
-                return $user_language;
-        } else if (!empty($httplang)) {
-                $language = client_prefered_language($httplang);
-                if ($language) {
-                    return $language;
-                }
-        } else {
-                return common_config('site', 'language');
-        }
+	// Otherwise, find the best match for the languages requested by the
+	// user's browser...
+	$httplang = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : NULL;
+	if (!empty($httplang)) {
+		$language = client_prefered_language($httplang);
+		if ($language)
+			return $language;
+	}
+
+	// Finally, if none of the above worked, use the site's default...
+	return common_config('site', 'language');
 }
 # salted, hashed passwords are stored in the DB
 
