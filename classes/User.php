@@ -147,19 +147,6 @@ class User extends Memcached_DataObject
 		return true;
 	}
 
-	function noticesWithFriendsWindow() {
-		
-		
-		$notice = new Notice();
-		
-		$notice->query('SELECT notice.* ' .
-					   'FROM notice JOIN subscription on notice.profile_id = subscription.subscribed ' .
-					   'WHERE subscription.subscriber = ' . $this->id . ' ' .
-					   'ORDER BY created DESC, notice.id DESC ' .
-					   'LIMIT 0, ' . WITHFRIENDS_CACHE_WINDOW);
-		
-	}
-	
 	static function register($fields) {
 
 		# MAGICALLY put fields into current scope
