@@ -267,14 +267,7 @@ class User extends Memcached_DataObject
 	function hasFave($notice) {
 		$fave = Fave::pkeyGet(array('user_id' => $this->id,
 									'notice_id' => $notice->id));
-		if (!is_null($fave)) {
-			$result = true;
-		} else {
-			$result = false;
-		}
-		$fave->free();
-		unset($fave);
-		return $result;
+		return ((is_null($fave)) ? false : true);
 	}
 	
 	function mutuallySubscribed($other) {
