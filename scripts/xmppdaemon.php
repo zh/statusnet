@@ -137,6 +137,12 @@ class XMPPDaemon extends Daemon {
 		} else if ($this->is_otr($pl['body'])) {
 			$this->log(LOG_INFO, 'Ignoring OTR from ' . $from);
 			return;
+		} else if ($this->is_direct($pl['body'])) {
+			preg_match_all('/d[\ ]*([a-z0-9]{1,64})/', $pl['body'], $to);
+			
+			$to = preg_replace('/^d([\ ])*/', '', $to[0][0]);
+			$body = preg_replace('/d[\ ]*('. $to .')[\ ]*/', '', $pl['body']);
+			$this->add_direct($user, $body, $to, $from);
 		} else {
 			$len = mb_strlen($pl['body']);
 			if($len > 140) {
@@ -203,6 +209,14 @@ class XMPPDaemon extends Daemon {
 			return false;
 		}
 	}
+	
+	function is_direct($txt) {
+		if (strtolower(substr($txt, 0, 2))=='d ') {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	function from_site($address, $msg) {
 		$text = '['.common_config('site', 'name') . '] ' . $msg;
@@ -218,7 +232,7 @@ class XMPPDaemon extends Daemon {
 		 case 'help':
 		 	if(count($p)!=1)
 		 		return false;
-		 	$this->from_site($user->jabber, "Commands:\n on     - turn on notifications\n off    - turn off notifications\n help   - show this help \n sub - subscribe to user\n unsub - unsubscribe from user");
+		 	$this->from_site($user->jabber, "Commands:\n on     - turn on notifications\n off    - turn off notifications\n help   - show this help \n sub - subscribe to user\n unsub - unsubscribe from user\n d - direct message to user\n");
 		 	return true;
 		 case 'on':
 		 	if(count($p)!=1)
@@ -254,6 +268,14 @@ class XMPPDaemon extends Daemon {
 		 	else
 		 		$this->from_site($user->jabber, $result);
 		 	return true;
+		 case 'last':
+		 	if(count($p)==1) {
+				# I think this might be AWFUL english
+		 		$this->from_site($user->jabber, 'Specify the name of the user to get the last notice of');
+		 		return true;
+		 	}
+		 	$this->get_last($user, $p[1], $user->jabber);
+		 	return true;
 		 default:
 			return false;
 		}
@@ -286,6 +308,55 @@ class XMPPDaemon extends Daemon {
 				   'Added notice ' . $notice->id . ' from user ' . $user->nickname);
 		$notice->free();
 		unset($notice);
+	}
+	
+	function get_last(&$user, $target_nickname, $from) {
+		$target = User::staticGet('nickname', $target_nickname);
+		if (!$target) {
+			$this->from_site($from,_('No such user.'));
+			return;
+		}
+		
+		$notice = $target->getCurrentNotice();
+		if (!$notice) {
+			$this->from_site($from, "User has no last notice");
+			return;
+		}
+		
+		$notice_content = $notice->content;
+		$this->from_site($from, $target_nickname . ": " . $notice_content);
+		
+		
+		
+	}
+	
+
+	function add_direct(&$user, $body, $to, $from) {
+	
+		$other = User::staticGet('nickname', $to);
+		
+		$this->log(LOG_INFO, 'Direct message to' . $to);
+		$len = mb_strlen($body);
+		if ($len == 0) {
+			$this->from_site($from, _('No content!'));
+			return;
+		} else if ($len > 140) {
+			$this->from_site($from, 'Message too long - maximum is 140 characters, you sent ' . $len);
+			return;
+		} else if (!$other) {
+			$this->from_site($from,_('No such user.'));
+			return;
+		} else if (!$user->mutuallySubscribed($other)) {
+			$this->from_site($from, _('You can\'t send a message to this user.'));
+			return;
+		} else if ($user->id == $other->id) {
+			$this->from_site($from, _('Don\'t send a message to yourself; just say it to yourself quietly instead.'));
+			return;
+		}
+		$this->from_site($from, "Direct message to " . $to . " sent");
+		$message = Message::saveNew($user->id, $other->id, $body, 'xmpp');
+
+		# XXX : Need to notify the other person	
 	}
 
 	function handle_presence(&$pl) {
