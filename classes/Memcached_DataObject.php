@@ -43,7 +43,25 @@ class Memcached_DataObject extends DB_DataObject
 			return $i;
 		}
 	}
-	
+
+	function &pkeyGet($cls, $kv) {
+		$i = Memcached_DataObject::multicache($cls, $kv);
+		if ($i) {
+			return $i;
+		} else {
+			$i = new $cls();
+			foreach ($kv as $k => $v) {
+				$i->$k = $v;
+			}
+			if ($i->find(true)) {
+				$i->encache();
+				return $i;
+			} else {
+				return NULL;
+			}
+		}
+	}
+
 	function insert() {
 		$result = parent::insert();
 		return $result;
@@ -96,26 +114,22 @@ class Memcached_DataObject extends DB_DataObject
 		if (!$c) {
 			return false;
 		} else {
-			$primary = array();
+			$pkey = array();
+			$pval = array();			
 			$types = $this->keyTypes();
 			ksort($types);
 			foreach ($types as $key => $type) {
 				if ($type == 'K') {
-					$primary[] = $key;
+					$pkey[] = $key;
+					$pval[] = $this->$key;
 				} else {
-					$v = $this->$key;
-					if (!is_null($v)) {
-						$c->set($this->cacheKey($this->tableName(), $key, $v),
-								$this);
-					}
+					$c->set($this->cacheKey($this->tableName(), $key, $this->$key), $this);
 				}
 			}
-			# XXX: figure out what to do with compound pkeys
-			if (count($primary) == 1) {
-				$key = $primary[0];
-				$c->set($this->cacheKey($this->tableName(), $key, $this->$key),
-						$this);
-			}
+			# XXX: should work for both compound and scalar pkeys
+			$pvals = implode(',', $pval);
+			$pkeys = implode(',', $pkey);
+			$c->set($this->cacheKey($this->tableName(), $pkeys, $pvals), $this);
 		}
 	}
 	
@@ -124,21 +138,35 @@ class Memcached_DataObject extends DB_DataObject
 		if (!$c) {
 			return false;
 		} else {
-			$primary = array();
+			$pkey = array();
+			$pval = array();			
 			$types = $this->keyTypes();
 			ksort($types);
 			foreach ($types as $key => $type) {
 				if ($type == 'K') {
-					$primary[] = $this->$key;
+					$pkey[] = $key;
+					$pval[] = $this->$key;
 				} else {
 					$c->delete($this->cacheKey($this->tableName(), $key, $this->$key));
 				}
 			}
-			# XXX: figure out what to do with compound pkeys
-			if (count($primary) == 1) {
-				$key = $primary[0];
-				$c->delete($this->cacheKey($this->tableName(), $key, $this->$key));
-			}
+			# should work for both compound and scalar pkeys
+			# XXX: comma works for now but may not be safe separator for future keys
+			$pvals = implode(',', $pval);
+			$pkeys = implode(',', $pkey);
+			$c->delete($this->cacheKey($this->tableName(), $pkeys, $pvals));
+		}
+	}
+
+	function multicache($cls, $kv) {
+		ksort($kv);
+		$c = Memcached_DataObject::memcache();
+		if (!$c) {
+			return false;
+		} else {
+			$pkeys = implode(',', array_keys($kv));
+			$pvals = implode(',', array_values($kv));
+			return $c->get(Memcached_DataObject::cacheKey($cls, $pkeys, $pvals));
 		}
 	}
 }

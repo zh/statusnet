@@ -47,19 +47,12 @@ class Profile extends Memcached_DataObject
     ###END_AUTOCODE
 
 	function getAvatar($width, $height=NULL) {
-		$avatar = DB_DataObject::factory('avatar');
-		$avatar->profile_id = $this->id;
-		$avatar->width = $width;
 		if (is_null($height)) {
-			$avatar->height = $width;
-		} else {
-			$avatar->height = $height;
+			$height = $width;
 		}
-		if ($avatar->find(true)) {
-			return $avatar;
-		} else {
-			return NULL;
-		}
+		return Avatar::pkeyGet(array('profile_id' => $this->id,
+									 'width' => $width,
+									 'height' => $height));
 	}
 
 	function getOriginalAvatar() {

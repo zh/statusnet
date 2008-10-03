@@ -42,4 +42,8 @@ class Subscription extends Memcached_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+	
+	function &pkeyGet($kv) {
+		return Memcached_DataObject::pkeyGet('Subscription', $kv);
+	}
 }
