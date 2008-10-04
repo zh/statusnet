@@ -190,19 +190,19 @@ class MessageCommand extends Command {
 			$channel->error($this->user, _('No content!'));
 			return;
 		} else if ($len > 140) {
-			$channel->error($this->user,sprintf(_('Message too long - maximum is 140 characters, you sent %d'), $len));
+			$channel->error($this->user, sprintf(_('Message too long - maximum is 140 characters, you sent %d'), $len));
 			return;
 		} else if (!$other) {
 			$channel->error($this->user, _('No such user.'));
 			return;
-		} else if (!$user->mutuallySubscribed($other)) {
+		} else if (!$this->user->mutuallySubscribed($other)) {
 			$channel->error($this->user, _('You can\'t send a message to this user.'));
 			return;
-		} else if ($user->id == $other->id) {
+		} else if ($this->user->id == $other->id) {
 			$channel->error($this->user, _('Don\'t send a message to yourself; just say it to yourself quietly instead.'));
 			return;
 		}
-		$message = Message::saveNew($user->id, $other->id, $body, 'xmpp');
+		$message = Message::saveNew($this->user->id, $other->id, $body, 'xmpp');
 		if ($message) {
 			$channel->output($this->user, sprintf(_('Direct message to %s sent'), $this->other));
 		} else {
@@ -254,7 +254,7 @@ class SubCommand extends Command {
 			return;
 		}
 		
-		$result = subs_subscribe_user($user, $this->other);
+		$result = subs_subscribe_user($this->user, $this->other);
 		
 		if ($result == 'true') {
 			$channel->output($this->user, sprintf(_('Subscribed to %s'), $this->other));
@@ -279,7 +279,7 @@ class UnsubCommand extends Command {
 			return;
 		}
 		
-		$result=subs_unsubscribe_user($user, $this->other);
+		$result=subs_unsubscribe_user($this->user, $this->other);
 		
 		if ($result) {
 			$channel->output($this->user, sprintf(_('Unsubscribed from %s'), $this->other));
