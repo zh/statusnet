@@ -228,8 +228,10 @@ class GetCommand extends Command {
 	}
 	
 	function execute($channel) {
-		$target = 
-		  common_relative_profile($this->user, common_canonical_nickname($this->other));
+		$target_nickname = common_canonical_nickname($this->other);
+		
+		$target =
+		  common_relative_profile($this->user, $target_nickname);
 
 		if (!$target) {
 			$channel->error($this->user, _('No such user.'));
@@ -241,6 +243,7 @@ class GetCommand extends Command {
 			return;
 		}
 		$notice_content = $notice->content;
+		
 		$channel->output($this->user, $target_nickname . ": " . $notice_content);
 	}
 }
