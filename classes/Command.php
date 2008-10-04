@@ -133,7 +133,14 @@ class FavCommand extends Command {
 			return;
 		}
 
-		mail_notify_fave($recipient, $this->user, $notice);
+	    $other = User::staticGet('id', $recipient->id);
+		
+		if ($other && $other->id != $user->id) {
+			if ($other->email && $other->emailnotifyfav) {
+				mail_notify_fave($other, $this->user, $notice);
+			}
+		}
+		
 		$this->user->blowFavesCache();
 		
 		$channel->output($this->user, _('Notice marked as fave.'));
