@@ -299,7 +299,11 @@ class OffCommand extends Command {
 		if ($other) {
 			$channel->error($this->user, _("Command not yet implemented."));
 		} else {
-			$channel->off($this->user);
+			if ($channel->off($this->user)) {
+				$channel->output(_('Notification off.'));
+			} else {
+				$channel->error(_('Can\'t turn off notification.'));
+			}
 		}
 	}
 }
@@ -315,7 +319,11 @@ class OnCommand extends Command {
 		if ($other) {
 			$channel->error($this->user, _("Command not yet implemented."));
 		} else {
-			$channel->on($this->user);
+			if ($channel->on($this->user)) {
+				$channel->output(_('Notification on.'));
+			} else {
+				$channel->error(_('Can\'t turn on notification.'));
+			}
 		}
 	}
 }

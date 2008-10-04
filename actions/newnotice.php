@@ -50,6 +50,15 @@ class NewnoticeAction extends Action {
 			return;
 		}
 
+		$inter = new CommandInterpreter();
+		
+		$cmd = $inter->handle_command($user, $text);
+		
+		if ($cmd) {
+			$cmd->execute(new WebChannel());
+			return;
+		}
+		
 		$notice = Notice::saveNew($user->id, $content, 'web');
 		
 		if (is_string($notice)) {

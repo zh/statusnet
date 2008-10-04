@@ -224,76 +224,14 @@ class XMPPDaemon extends Daemon {
 	}
 
 	function handle_command($user, $body) {
-		# XXX: localise
-		$p=explode(' ',$body);
-		if(count($p)>2)
-			return false;
-		switch($p[0]) {
-		 case 'help':
-		 	if(count($p)!=1)
-		 		return false;
-		 	$this->from_site($user->jabber, "Commands:\n on     - turn on notifications\n off    - turn off notifications\n help   - show this help \n sub - subscribe to user\n unsub - unsubscribe from user\n d - direct message to user\n");
-		 	return true;
-		 case 'on':
-		 	if(count($p)!=1)
-		 		return false;
-			$this->set_notify($user, true);
-			$this->from_site($user->jabber, 'notifications on');
+		$inter = new CommandInterpreter();
+		$cmd = $inter->handle_command($user, $body);
+		if ($cmd) {
+			$chan = new XMPPChannel($this->conn);
+			$cmd->execute($chan);
 			return true;
-		 case 'off':
-		 	if(count($p)!=1)
-		 		return false;
-			$this->set_notify($user, false);
-			$this->from_site($user->jabber, 'notifications off');
-			return true;
-		 case 'sub':
-		 	if(count($p)==1) {
-		 		$this->from_site($user->jabber, 'Specify the name of the user to subscribe to');
-		 		return true;
-		 	}
-		 	$result=subs_subscribe_user($user, $p[1]);
-		 	if($result=='true')
-		 		$this->from_site($user->jabber, 'Subscribed to ' . $p[1]);
-		 	else
-		 		$this->from_site($user->jabber, $result);
-		 	return true;
-		 case 'unsub':
-		 	if(count($p)==1) {
-		 		$this->from_site($user->jabber, 'Specify the name of the user to unsubscribe from');
-		 		return true;
-		 	}
-		 	$result=subs_unsubscribe_user($user, $p[1]);
-		 	if($result=='true')
-		 		$this->from_site($user->jabber, 'Unsubscribed from ' . $p[1]);
-		 	else
-		 		$this->from_site($user->jabber, $result);
-		 	return true;
-		 case 'last':
-		 	if(count($p)==1) {
-				# I think this might be AWFUL english
-		 		$this->from_site($user->jabber, 'Specify the name of the user to get the last notice of');
-		 		return true;
-		 	}
-		 	$this->get_last($user, $p[1], $user->jabber);
-		 	return true;
-		 default:
-			return false;
-		}
-	}
-
-	function set_notify(&$user, $notify) {
-		$orig = clone($user);
-		$user->jabbernotify = $notify;
-		$result = $user->update($orig);
-		if (!$result) {
-			$last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-			$this->log(LOG_ERR,
-					   'Could not set notify flag to ' . $notify .
-					   ' for user ' . common_log_objstring($user) .
-					   ': ' . $last_error->message);
 		} else {
-			$this->log(LOG_INFO,
-					   'User ' . $user->nickname . ' set notify flag to ' . $notify);
+			return false;
 		}
 	}
 
@@ -310,55 +248,6 @@ class XMPPDaemon extends Daemon {
 		unset($notice);
 	}
 	
-	function get_last(&$user, $target_nickname, $from) {
-		$target = User::staticGet('nickname', $target_nickname);
-		if (!$target) {
-			$this->from_site($from,_('No such user.'));
-			return;
-		}
-		
-		$notice = $target->getCurrentNotice();
-		if (!$notice) {
-			$this->from_site($from, "User has no last notice");
-			return;
-		}
-		
-		$notice_content = $notice->content;
-		$this->from_site($from, $target_nickname . ": " . $notice_content);
-		
-		
-		
-	}
-	
-
-	function add_direct(&$user, $body, $to, $from) {
-	
-		$other = User::staticGet('nickname', $to);
-		
-		$this->log(LOG_INFO, 'Direct message to' . $to);
-		$len = mb_strlen($body);
-		if ($len == 0) {
-			$this->from_site($from, _('No content!'));
-			return;
-		} else if ($len > 140) {
-			$this->from_site($from, 'Message too long - maximum is 140 characters, you sent ' . $len);
-			return;
-		} else if (!$other) {
-			$this->from_site($from,_('No such user.'));
-			return;
-		} else if (!$user->mutuallySubscribed($other)) {
-			$this->from_site($from, _('You can\'t send a message to this user.'));
-			return;
-		} else if ($user->id == $other->id) {
-			$this->from_site($from, _('Don\'t send a message to yourself; just say it to yourself quietly instead.'));
-			return;
-		}
-		$this->from_site($from, "Direct message to " . $to . " sent");
-		$message = Message::saveNew($user->id, $other->id, $body, 'xmpp');
-
-		# XXX : Need to notify the other person	
-	}
-
 	function handle_presence(&$pl) {
 		$from = jabber_normalize_jid($pl['from']);
 		switch ($pl['type']) {
