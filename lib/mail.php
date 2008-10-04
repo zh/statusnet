@@ -191,7 +191,7 @@ function mail_broadcast_notice_sms($notice) {
 
 	$user->free();
 	unset($user);
-	
+
 	return true;
 }
 
@@ -237,7 +237,7 @@ function mail_notify_message($message, $from=NULL, $to=NULL) {
 	if (is_null($from)) {
 		$from = User::staticGet('id', $message->from_profile);
 	}
-	
+
 	if (is_null($to)) {
 		$to = User::staticGet('id', $message->to_profile);
 	}
@@ -245,11 +245,11 @@ function mail_notify_message($message, $from=NULL, $to=NULL) {
 	if (is_null($to->email) || !$to->emailnotifymsg) {
 		return true;
 	}
-	
+
 	$subject = sprintf(_('New private message from %s'), $from->nickname);
 
 	$from_profile = $from->getProfile();
-	
+
 	$body = sprintf(_("%1\$s (%2\$s) sent you a private message:\n\n".
 					  "------------------------------------------------------\n".
 					  "%3\$s\n".
@@ -264,11 +264,12 @@ function mail_notify_message($message, $from=NULL, $to=NULL) {
 					$message->content,
 					common_local_url('newmessage', array('to' => $from->id)),
 					common_config('site', 'name'));
-	
+
 	return mail_to_user($to, $subject, $body);
 }
 
 function mail_notify_fave($other, $user, $notice) {
+
 	$profile = $user->getProfile();
 	$bestname = $profile->getBestName();
 	$subject = sprintf(_('%s added your notice as a favorite'), $bestname);
@@ -284,7 +285,6 @@ function mail_notify_fave($other, $user, $notice) {
 					common_local_url('shownotice', array('notice' => $notice->id)),
 					common_local_url('showfavorites', array('nickname' => $user->nickname)),
 					common_config('site', 'name'));
-	
+
 	mail_to_user($other, $subject, $body);
 }
-  
