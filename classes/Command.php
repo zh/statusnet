@@ -180,7 +180,7 @@ class MessageCommand extends Command {
 	function __construct($user, $other, $text) {
 		parent::__construct($user);
 		$this->other = $other;
-		$this->text = $other;		
+		$this->text = $text;
 	}
 	
 	function execute($channel) {
