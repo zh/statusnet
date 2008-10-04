@@ -202,7 +202,7 @@ class MessageCommand extends Command {
 			$channel->error($this->user, _('Don\'t send a message to yourself; just say it to yourself quietly instead.'));
 			return;
 		}
-		$message = Message::saveNew($this->user->id, $other->id, $body, 'xmpp');
+		$message = Message::saveNew($this->user->id, $other->id, $this->text, $channel->source());
 		if ($message) {
 			$channel->output($this->user, sprintf(_('Direct message to %s sent'), $this->other));
 		} else {

@@ -36,11 +36,19 @@ class Channel {
 	function error($user, $text) {
 		return false;
 	}
+	
+	function source() {
+		return NULL;
+	}
 }
 
 class XMPPChannel extends Channel {
 
 	var $conn = NULL;
+	
+	function source() {
+		return 'xmpp';
+	}
 	
 	function __construct($conn) {
 		$this->conn = $conn;
@@ -85,6 +93,10 @@ class XMPPChannel extends Channel {
 
 class WebChannel extends Channel {
 
+	function source() {
+		return 'web';
+	}
+	
 	function on($user) {
 		return false;
 	}
@@ -110,6 +122,10 @@ class WebChannel extends Channel {
 class MailChannel extends Channel {
 
 	var $addr = NULL;
+
+	function source() {
+		return 'mail';
+	}
 	
 	function __construct($addr=NULL) {
 		$this->addr = $addr;
