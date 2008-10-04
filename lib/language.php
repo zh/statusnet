@@ -75,7 +75,7 @@ function get_all_languages() {
 		'ko'    => array('q' => 0.1, 'lang' => 'ko',    'name' => 'Korean', 'direction' => 'ltr'),
 		'nb'    => array('q' => 1, 'lang' => 'nb_NO', 'name' => 'Norwegian (bokmal)', 'direction' => 'ltr'),
 		'pt'    => array('q' => 0.2, 'lang' => 'pt',    'name' => 'Portuguese', 'direction' => 'ltr'),
-		'pt-br' => array('q' => 0.1, 'lang' => 'pt_BR', 'name' => 'Portuguese Brazil', 'direction' => 'ltr'),
+		'pt-br' => array('q' => 1, 'lang' => 'pt_BR', 'name' => 'Portuguese Brazil', 'direction' => 'ltr'),
 #		'ru'    => array('q' => 0.1, 'lang' => 'ru_RU', 'name' => 'Russian', 'direction' => 'ltr'),
 		'es'    => array('q' => 1, 'lang' => 'es',    'name' => 'Spanish', 'direction' => 'ltr'),
 		'tr'    => array('q' => 1, 'lang' => 'tr_TR', 'name' => 'Turkish', 'direction' => 'ltr'),
