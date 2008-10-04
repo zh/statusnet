@@ -136,7 +136,7 @@ class FaveCommand extends Command {
 		mail_notify_fave($recipient, $this->user, $notice);
 		$this->user->blowFavesCache();
 		
-		$channel->output($this->user, _('Message marked as fave.'));
+		$channel->output($this->user, _('Notice marked as fave.'));
 	}
 }
 
