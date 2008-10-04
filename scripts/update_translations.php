@@ -15,7 +15,7 @@ $languages = array(
 	'ko'    => 'http://laconi.ca/translate/download.php?file_id=33',
 	'no_NB' => 'http://laconi.ca/translate/download.php?file_id=31',
 	'pt'    => 'http://laconi.ca/translate/download.php?file_id=8',
-	'pt_BR' => 'http://laconi.ca/translate/download.php?file_id=11',
+	'pt_BR' => 'http://laconi.ca/translate/download.php?file_id=72',
 	'ru_RU' => 'http://laconi.ca/translate/download.php?file_id=26',
 	'es'    => 'http://laconi.ca/translate/download.php?file_id=9',
 	'tr_TR' => 'http://laconi.ca/translate/download.php?file_id=37',
