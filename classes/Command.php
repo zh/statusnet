@@ -102,7 +102,7 @@ class StatsCommand extends Command {
 	}
 }
 
-class FaveCommand extends Command {
+class FavCommand extends Command {
 	
 	var $other = NULL;
 	
