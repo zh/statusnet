@@ -115,7 +115,7 @@ class WebChannel extends Channel {
 	}
 	
 	function error($user, $text) {
-		common_client_error($text);
+		common_user_error($text);
 	}
 }
 
