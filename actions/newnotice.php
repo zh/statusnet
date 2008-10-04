@@ -52,7 +52,7 @@ class NewnoticeAction extends Action {
 
 		$inter = new CommandInterpreter();
 		
-		$cmd = $inter->handle_command($user, $text);
+		$cmd = $inter->handle_command($user, $content);
 		
 		if ($cmd) {
 			$cmd->execute(new WebChannel());
