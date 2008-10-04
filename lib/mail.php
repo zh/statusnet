@@ -267,3 +267,24 @@ function mail_notify_message($message, $from=NULL, $to=NULL) {
 	
 	return mail_to_user($to, $subject, $body);
 }
+
+function mail_notify_fave($other, $user, $notice) {
+	$profile = $user->getProfile();
+	$bestname = $profile->getBestName();
+	$subject = sprintf(_('%s added your notice as a favorite'), $bestname);
+	$body = sprintf(_("%1\$s just added your notice from %2\$s as one of their favorites.\n\n" .
+					  "In case you forgot, you can see the text of your notice here:\n\n" .
+					  "%3\$s\n\n" .
+					  "You can see the list of %1\$s's favorites here:\n\n" .
+					  "%4\$s\n\n" .
+					  "Faithfully yours,\n" .
+					  "%5\$s\n"),
+					$bestname,
+					common_exact_date($notice->created),
+					common_local_url('shownotice', array('notice' => $notice->id)),
+					common_local_url('showfavorites', array('nickname' => $user->nickname)),
+					common_config('site', 'name'));
+	
+	mail_to_user($other, $subject, $body);
+}
+  
