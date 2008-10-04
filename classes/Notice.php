@@ -54,7 +54,7 @@ class Notice extends Memcached_DataObject
     ###END_AUTOCODE
 
 	function getProfile() {
-		return Profile::staticGet($this->profile_id);
+		return Profile::staticGet('id', $this->profile_id);
 	}
 
 	function delete() {
