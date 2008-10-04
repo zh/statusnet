@@ -136,11 +136,13 @@ class RecoverpasswordAction extends Action {
 		if ($msg) {
             common_element('div', 'error', $msg);
 		} else {
-			common_element('div', 'instructions',
+			common_element_start('div', 'instructions');
+			common_element('p', NULL, 
 						   _('If you\'ve forgotten or lost your' .
 						      ' password, you can get a new one sent to' .
 						      ' the email address you have stored ' .
 						      ' in your account.'));
+			common_element_end('div');
 		}
 	}
 
