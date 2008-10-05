@@ -143,9 +143,8 @@ class User extends Memcached_DataObject
 
 	function noticesWithFriendsWindow() {
 		
-		
 		$notice = new Notice();
-		
+
 		$notice->query('SELECT notice.* ' .
 					   'FROM notice JOIN subscription on notice.profile_id = subscription.subscribed ' .
 					   'WHERE subscription.subscriber = ' . $this->id . ' ' .
