@@ -28,6 +28,7 @@ class Daemon {
 	function background() {
 		$pid = pcntl_fork();
 		if ($pid < 0) { # error
+			common_log(LOG_ERR, "Could not fork.");
 			return false;
 		} else if ($pid > 0) { # parent
 			common_log(LOG_INFO, "Successfully forked.");
@@ -63,12 +64,15 @@ class Daemon {
 			return false;
 		}
 		
-		file_put_contents($pidfilename, posix_getpid() . "\n");
+	    return file_put_contents($pidfilename, posix_getpid() . "\n");
 	}
 
 	function clearPidFile() {
 		$pidfilename = $this->pidFilename();
-		unlink($pidfilename);
+	        if (!$pidfilename) {
+		    return false;
+		}
+	        return unlink($pidfilename);
 	}
 	
 	function pidFilename() {
