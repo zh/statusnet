@@ -331,39 +331,50 @@ class TwitapistatusesAction extends TwitterapiAction {
 			return;
 		}
 
-		$reply_to = NULL;
+		// Check for commands
+		$inter = new CommandInterpreter();
+		$cmd = $inter->handle_command($user, $status);
 
-		if ($in_reply_to_status_id) {
+		if ($cmd) {
 
-			// check whether notice actually exists
-			$reply = Notice::staticGet($in_reply_to_status_id);
+			if ($this->supported($cmd)) {
+				$cmd->execute(new Channel());
+			}
 
-			if ($reply) {
-				$reply_to = $in_reply_to_status_id;
-			} else {
-				$this->client_error(_('Not found'), $code = 404, $apidata['content-type']);
+			// cmd not supported?  Twitter just returns your latest status.
+			// And, it returns your last status whether the cmd was successful
+			// or not!
+			$n = $user->getCurrentNotice();
+			$apidata['api_arg'] = $n->id;
+		} else {
+
+			$reply_to = NULL;
+
+			if ($in_reply_to_status_id) {
+
+				// check whether notice actually exists
+				$reply = Notice::staticGet($in_reply_to_status_id);
+
+				if ($reply) {
+					$reply_to = $in_reply_to_status_id;
+				} else {
+					$this->client_error(_('Not found'), $code = 404, $apidata['content-type']);
+					return;
+				}
+			}
+
+			$notice = Notice::saveNew($user->id, $status, $source, 1, $reply_to);
+
+			if (is_string($notice)) {
+				$this->server_error($notice);
 				return;
 			}
+
+			common_broadcast_notice($notice);
+			$apidata['api_arg'] = $notice->id;
 		}
 
-		$notice = Notice::saveNew($user->id, $status, $source, 1, $reply_to);
-
-		if (is_string($notice)) {
-			$this->server_error($notice);
-			return;
-		}
-
-		common_broadcast_notice($notice);
-
-		// FIXME: Bad Hack
-		// I should be able to just sent this notice off for display,
-		// but $notice->created does not contain a string at this
-		// point and I don't know how to convert it to one here. So
-		// I'm forced to have DBObject pull the notice back out of the
-		// DB before printing. --Zach
-		$apidata['api_arg'] = $notice->id;
 		$this->show($args, $apidata);
-
 	}
 
 	/*
@@ -688,5 +699,17 @@ class TwitapistatusesAction extends TwitterapiAction {
 			return User::staticGet('nickname', $id);
 		}
 	}
+
+	function supported($cmd) {
+
+		$cmdlist = array('MessageCommand', 'SubCommand', 'UnsubCommand', 'FavCommand');
+
+		if (in_array(get_class($cmd), $cmdlist)) {
+			return true;
+		}
+
+		return false;
+	}
+
 }
 
