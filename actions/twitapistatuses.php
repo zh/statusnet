@@ -702,7 +702,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 
 	function supported($cmd) {
 
-		$cmdlist = array('MessageCommand', 'SubCommand', 'UnsubCommand', 'FavCommand');
+		$cmdlist = array('MessageCommand', 'SubCommand', 'UnsubCommand', 'FavCommand', 'OnCommand', 'OffCommand');
 
 		if (in_array(get_class($cmd), $cmdlist)) {
 			return true;
