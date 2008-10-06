@@ -82,7 +82,7 @@ function notices_map() {
 
 	$notices = DB_DataObject::factory('notice');
 
-	$notices->query('SELECT id, uri, url, modified FROM notice');
+	$notices->query('SELECT id, uri, url, modified FROM notice where is_local = 1');
 
 	$notice_count = 0;
 	$map_count = 1;
