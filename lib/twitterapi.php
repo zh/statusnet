@@ -213,7 +213,7 @@ class TwitterapiAction extends Action {
 	function show_single_json_dmsg($message) {
 		$this->init_document('json');
 		$dmsg = $this->twitter_dmsg_array($message);
-		$this->show_twitter_json_dm($dmsg);
+		$this->show_json_objects($dmsg);
 		$this->end_document('json');
 	}
 
