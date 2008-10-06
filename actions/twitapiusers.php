@@ -23,11 +23,11 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
 
 class TwitapiusersAction extends TwitterapiAction {
 
-	function is_readonly() {			
+	function is_readonly() {
 		return true;
 	}
 
-/*	
+/*
 	Returns extended information of a given user, specified by ID or
 	screen name as per the required id parameter below.	 This information
 	includes design settings, so third party developers can theme their
@@ -47,40 +47,45 @@ class TwitapiusersAction extends TwitterapiAction {
 	* email. Optional.	The email address of a user.  Ex:
 	http://twitter.com/users/show.xml?email=test@example.com
 
-*/	
+*/
 	function show($args, $apidata) {
 		parent::handle($args);
-		
+
+		if (!in_array($apidata['content-type'], array('xml', 'json'))) {
+			common_user_error(_('API method not found!'), $code = 404);
+			return;
+		}
+
 		$user = null;
 		$email = $this->arg('email');
-		
+
 		if (isset($apidata['api_arg'])) {
 			if (is_numeric($apidata['api_arg'])) {
 				// by user id
-				$user = User::staticGet($apidata['api_arg']);			
+				$user = User::staticGet($apidata['api_arg']);
 			} else {
 				// by nickname
 				$nickname = common_canonical_nickname($apidata['api_arg']);
 				$user = User::staticGet('nickname', $nickname);
-			} 
+			}
 		} elseif ($email) {
 			// or, find user by email address
 			// XXX: The Twitter API spec say an id is *required*, but you can actually
 			// pull up a user with just an email address. -- Zach
-			$user = User::staticGet('email', $email);			
-		} 
+			$user = User::staticGet('email', $email);
+		}
 
 		if (!$user) {
 			// XXX: Twitter returns a random(?) user instead of throwing and err! -- Zach
 			$this->client_error(_('User not found.'), 404, $apidata['content-type']);
-			exit();
+			return;
 		}
-		
+
 		$profile = $user->getProfile();
 
 		if (!$profile) {
 			common_server_error(_('User has no profile.'));
-			exit();
+			return;
 		}
 
 		$twitter_user = $this->twitter_user_array($profile, true);
@@ -110,18 +115,15 @@ class TwitapiusersAction extends TwitterapiAction {
 		$twitter_user['following'] = '';
 		$twitter_user['notifications'] = '';
 
-		if ($apidata['content-type'] == 'xml') { 
+		if ($apidata['content-type'] == 'xml') {
 			$this->init_document('xml');
 			$this->show_twitter_xml_user($twitter_user);
 			$this->end_document('xml');
 		} elseif ($apidata['content-type'] == 'json') {
 			$this->init_document('json');
-			$this->show_twitter_json_users($twitter_user);
+			$this->show_json_objects($twitter_user);
 			$this->end_document('json');
-		} else {
-			common_user_error(_('API method not found!'), $code = 404);
 		}
-			
-		exit();
+
 	}
 }

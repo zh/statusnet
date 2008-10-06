@@ -137,6 +137,12 @@ class XMPPDaemon extends Daemon {
 		} else if ($this->is_otr($pl['body'])) {
 			$this->log(LOG_INFO, 'Ignoring OTR from ' . $from);
 			return;
+		} else if ($this->is_direct($pl['body'])) {
+			preg_match_all('/d[\ ]*([a-z0-9]{1,64})/', $pl['body'], $to);
+			
+			$to = preg_replace('/^d([\ ])*/', '', $to[0][0]);
+			$body = preg_replace('/d[\ ]*('. $to .')[\ ]*/', '', $pl['body']);
+			$this->add_direct($user, $body, $to, $from);
 		} else {
 			$len = mb_strlen($pl['body']);
 			if($len > 140) {
@@ -203,6 +209,14 @@ class XMPPDaemon extends Daemon {
 			return false;
 		}
 	}
+	
+	function is_direct($txt) {
+		if (strtolower(substr($txt, 0, 2))=='d ') {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	function from_site($address, $msg) {
 		$text = '['.common_config('site', 'name') . '] ' . $msg;
@@ -210,68 +224,14 @@ class XMPPDaemon extends Daemon {
 	}
 
 	function handle_command($user, $body) {
-		# XXX: localise
-		$p=explode(' ',$body);
-		if(count($p)>2)
-			return false;
-		switch($p[0]) {
-		 case 'help':
-		 	if(count($p)!=1)
-		 		return false;
-		 	$this->from_site($user->jabber, "Commands:\n on     - turn on notifications\n off    - turn off notifications\n help   - show this help \n sub - subscribe to user\n unsub - unsubscribe from user");
-		 	return true;
-		 case 'on':
-		 	if(count($p)!=1)
-		 		return false;
-			$this->set_notify($user, true);
-			$this->from_site($user->jabber, 'notifications on');
+		$inter = new CommandInterpreter();
+		$cmd = $inter->handle_command($user, $body);
+		if ($cmd) {
+			$chan = new XMPPChannel($this->conn);
+			$cmd->execute($chan);
 			return true;
-		 case 'off':
-		 	if(count($p)!=1)
-		 		return false;
-			$this->set_notify($user, false);
-			$this->from_site($user->jabber, 'notifications off');
-			return true;
-		 case 'sub':
-		 	if(count($p)==1) {
-		 		$this->from_site($user->jabber, 'Specify the name of the user to subscribe to');
-		 		return true;
-		 	}
-		 	$result=subs_subscribe_user($user, $p[1]);
-		 	if($result=='true')
-		 		$this->from_site($user->jabber, 'Subscribed to ' . $p[1]);
-		 	else
-		 		$this->from_site($user->jabber, $result);
-		 	return true;
-		 case 'unsub':
-		 	if(count($p)==1) {
-		 		$this->from_site($user->jabber, 'Specify the name of the user to unsubscribe from');
-		 		return true;
-		 	}
-		 	$result=subs_unsubscribe_user($user, $p[1]);
-		 	if($result=='true')
-		 		$this->from_site($user->jabber, 'Unsubscribed from ' . $p[1]);
-		 	else
-		 		$this->from_site($user->jabber, $result);
-		 	return true;
-		 default:
-			return false;
-		}
-	}
-
-	function set_notify(&$user, $notify) {
-		$orig = clone($user);
-		$user->jabbernotify = $notify;
-		$result = $user->update($orig);
-		if (!$result) {
-			$last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-			$this->log(LOG_ERR,
-					   'Could not set notify flag to ' . $notify .
-					   ' for user ' . common_log_objstring($user) .
-					   ': ' . $last_error->message);
 		} else {
-			$this->log(LOG_INFO,
-					   'User ' . $user->nickname . ' set notify flag to ' . $notify);
+			return false;
 		}
 	}
 
@@ -287,7 +247,7 @@ class XMPPDaemon extends Daemon {
 		$notice->free();
 		unset($notice);
 	}
-
+	
 	function handle_presence(&$pl) {
 		$from = jabber_normalize_jid($pl['from']);
 		switch ($pl['type']) {

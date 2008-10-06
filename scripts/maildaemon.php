@@ -59,9 +59,8 @@ class MailerDaemon {
 			$this->error($from, _('Sorry, no incoming email allowed.'));
 			return false;
 		}
-		$response = $this->handle_command($user, $msg);
+		$response = $this->handle_command($user, $from, $msg);
 		if ($response) {
-			$this->respond($from, $to, $response);
 			return true;
 		}
 		$msg = $this->cleanup_msg($msg);
@@ -98,31 +97,16 @@ class MailerDaemon {
 		return false;
 	}
 
-	function handle_command($user, $msg) {
-		$cmd = trim(strtolower($msg));
-		switch ($cmd) {
-		 case 'off':
-			$this->set_notify($user, false);
+	function handle_command($user, $from, $msg) {
+		$inter = new CommandInterpreter();
+		$cmd = $inter->handle_command($user, $msg);
+		if ($cmd) {
+			$cmd->execute(new MailChannel($from));
 			return true;
-		 case 'on':
-			$this->set_notify($user, true);
-			return true;
-		 default:
-			return false;
 		}
+		return false;
 	}
 
-	function set_notify($user, $value) {
-		$orig = clone($user);
-		$user->smsnotify = $value;
-		$result = $user->update($orig);
-		if (!$result) {
-			common_log_db_error($user, 'UPDATE', __FILE__);
-			return false;
-		}
-		return true;
-	}
-	
 	function respond($from, $to, $response) {
 
 		$headers['From'] = $to;

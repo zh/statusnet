@@ -23,7 +23,7 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
 
 class TwitapihelpAction extends TwitterapiAction {
 
-	function is_readonly() {		
+	function is_readonly() {
 		return true;
 	}
 
@@ -32,7 +32,8 @@ class TwitapihelpAction extends TwitterapiAction {
 	 * Formats: xml, json
 	 */
 	function test($args, $apidata) {
- 		global $xw;
+		parent::handle($args);
+
 		if ($apidata['content-type'] == 'xml') {
 			$this->init_document('xml');
 			common_element('ok', NULL, 'true');
@@ -44,13 +45,12 @@ class TwitapihelpAction extends TwitterapiAction {
 		} else {
 			common_user_error(_('API method not found!'), $code=404);
 		}
-		exit();
+
 	}
 
 	function downtime_schedule($args, $apidata) {
 		parent::handle($args);
 		common_server_error(_('API method under construction.'), $code=501);
-		exit();
 	}
-	
+
 }

@@ -24,68 +24,66 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
 class TwitapiaccountAction extends TwitterapiAction {
 
 	function is_readonly() {
-		
+
 		static $write_methods = array(	'update_location',
 										'update_delivery_device');
-		
-		$cmdtext = explode('.', $this->arg('method'));		
-		
-		if (in_array($cmdtext[0], $write_methods)) {			
+
+		$cmdtext = explode('.', $this->arg('method'));
+
+		if (in_array($cmdtext[0], $write_methods)) {
 			return false;
 		}
-				
+
 		return true;
 	}
 
 	function verify_credentials($args, $apidata) {
 
 		if ($apidata['content-type'] == 'xml') {
-			header('Content-Type: application/xml; charset=utf-8');		
+			header('Content-Type: application/xml; charset=utf-8');
 			print '<authorized>true</authorized>';
 		} elseif ($apidata['content-type'] == 'json') {
-			header('Content-Type: application/json; charset=utf-8');		
+			header('Content-Type: application/json; charset=utf-8');
 			print '{"authorized":true}';
 		} else {
 			common_user_error(_('API method not found!'), $code=404);
 		}
-			
-		exit();
+
 	}
-	
+
 	function end_session($args, $apidata) {
 		parent::handle($args);
 		common_server_error(_('API method under construction.'), $code=501);
-		exit();
 	}
-	
+
 	function update_location($args, $apidata) {
 		parent::handle($args);
 
 		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 			$this->client_error(_('This method requires a POST.'), 400, $apidata['content-type']);
-			exit();
+			return;
 		}
 
 		$location = trim($this->arg('location'));
 
 		if (!is_null($location) && strlen($location) > 255) {
-			
-			// XXX: But Twitter just truncates and runs with it. -- Zach			
+
+			// XXX: But Twitter just truncates and runs with it. -- Zach
 			$this->client_error(_('That\'s too long. Max notice size is 255 chars.'), 406, $apidate['content-type']);
-			exit();
+			return;
 		}
-		
+
 		$user = $apidata['user'];
 		$profile = $user->getProfile();
-		
+
 		if (!$profile) {
 			common_server_error(_('User has no profile.'));
-			exit();
+			return;
 		}
-		
+
 		$orig_profile = clone($profile);
 		$profile->location = $location;
-		
+
 		common_debug('Old profile: ' . common_log_objstring($orig_profile), __FILE__);
 		common_debug('New profile: ' . common_log_objstring($profile), __FILE__);
 
@@ -94,29 +92,25 @@ class TwitapiaccountAction extends TwitterapiAction {
 		if (!$result) {
 			common_log_db_error($profile, 'UPDATE', __FILE__);
 			common_server_error(_('Couldn\'t save profile.'));
-			exit();
+			return;
 		}
 
 		common_broadcast_profile($profile);
 		$type = $apidata['content-type'];
-		
+
 		$this->init_document($type);
 		$this->show_profile($profile, $type);
 		$this->end_document($type);
-		
-		exit();
 	}
 
 
 	function update_delivery_device($args, $apidata) {
 		parent::handle($args);
 		common_server_error(_('API method under construction.'), $code=501);
-		exit();
 	}
-	
+
 	function rate_limit_status($args, $apidata) {
 		parent::handle($args);
 		common_server_error(_('API method under construction.'), $code=501);
-		exit();
 	}
 }

@@ -2,8 +2,8 @@
 README
 ------
 
-Laconica 0.6.0
-22 September 2008
+Laconica 0.6.1
+6 October 2008
 
 This is the README file for Laconica, the Open Source microblogging
 platform. It includes installation instructions, descriptions of
@@ -71,15 +71,28 @@ for additional terms.
 New this version
 ================
 
-New features in version 0.6.0 include:
+This is a minor feature improvement version from version 0.6.0
+(release 22 Sep 2008). Notable features of version 0.6.1 include:
 
-* Invitations by email.
-* Users can mark messages as "favorites" (only Web, not API).
-* A bridge to push messages on the Laconica instance to an account on
-  Twitter.
-* Direct private messages between users on a server (only Web, not API
-  or IM or SMS).
-* Restructured off-line daemons.
+- Direct messages (DMs) and Favorites (faves) are now available
+  through the Twitter-like API.
+- All of the Twitter commands (see http://ur1.ca/7ru) are available
+  through SMS, IM, Web and API, although some are not functional (for
+  features Laconica does not yet support)
+- 20 additional languages supported at various levels (some pretty
+  basic).
+- Significant additional caching using memcached for most database
+  queries. Using memcached can significantly speed up a Laconica
+  instance with this version.
+- All required external libraries are now available in extlib/ 
+  subdirectory.
+- Many bug fixes.
+- Continued but poorly-documented experimental support for Postgresql.
+
+NOTE: the database definition file, stoica.ini, has been renamed to
+laconica.ini (since this is the recommended database name). If you
+have a line in your config.php pointing to the old name, you'll need
+to update it.
 
 Prerequisites
 =============
@@ -247,7 +260,8 @@ especially if you've previously installed PHP/MySQL packages.
    (See descriptions below for basic config options.) Note that there
    are lots of options and if you try to do them all at once, you will
    have a hard time making sure what's working and what's not. So,
-   stick with the basics at first.
+   stick with the basics at first. In particular, customizing the
+   'site' and 'db' settings will almost definitely be needed.
 
 9. At this point, you should be able to navigate in a browser to your
    microblog's main directory and see the "Public Timeline", which
@@ -432,6 +446,11 @@ server is probably a good idea for high-volume sites.
    server!), set the following variable:
 
    $config['queue']['enabled'] = true;
+
+   You may also want to look at the 'daemon' section of this file for
+   more daemon options. Note that if you set the 'user' and/or 'group'
+   options, you'll need to create that user and/or group by hand.
+   They're not created automatically.
    
 4. On the queues server, run the command scripts/startdaemons.sh. It
    needs as a parameter the install path; if you run it from the
@@ -542,14 +561,27 @@ Theoretically, you can add your own sub-directory to the locale/
 subdirectory to add a new language to your system. You'll need to
 compile the ".po" files into ".mo" files, however.
 
+Contributions of translation information to Laconica are very easy:
+you can use the Web interface at http://laconi.ca/entrans/ to add one
+or a few or lots of new translations -- or even new languages. You can
+also download more up-to-date .po files there, if you so desire.
+
+Backups
+-------
+
+There is no builtin system for doing backups in Laconica. You can make
+backups of a working Laconica system by backing up the database and
+the Web directory. To backup the database use mysqldump (http://ur1.ca/7xo)
+and to backup the Web directory, try tar.
+
 Upgrading
 =========
 
-If you've been using Laconica 0.5 or lower, or if you've been tracking
-the "darcs" version of the software, you will probably want to upgrade
-and keep your existing data. There is no automated upgrade procedure
-in Laconica 0.6. Try these step-by-step instructions; read to the end
-first before trying them.
+If you've been using Laconica 0.6, 0.5 or lower, or if you've been
+tracking the "darcs" version of the software, you will probably want
+to upgrade and keep your existing data. There is no automated upgrade
+procedure in Laconica 0.6.1. Try these step-by-step instructions; read
+to the end first before trying them.
 
 0. Download Laconica and set up all the prerequisites as if you were
    doing a new install.
@@ -592,6 +624,11 @@ first before trying them.
 If you're upgrading from very old versions, you may want to look at
 the fixup_* scripts in the scripts directories. These will store some
 precooked data in the DB.
+
+NOTE: the database definition file, stoica.ini, has been renamed to
+laconica.ini (since this is the recommended database name). If you
+have a line in your config.php pointing to the old name, you'll need
+to update it.
 
 Configuration options
 =====================
@@ -651,6 +688,41 @@ closed: If set to 'true', will disallow registration on your site.
 	This is a cheap way to restrict accounts to only one
 	individual or group; just register the accounts you want on
 	the service, *then* set this variable to 'true'.
+
+db
+--
+
+This section is a reference to the configuration options for
+DB_DataObject (see http://ur1.ca/7xp). The ones that you may want to
+set are listed below for clarity.
+
+database: a DSN (Data Source Name) for your Laconica database. This is
+	  in the format 'protocol://username:password@hostname/databasename',
+	  where 'protocol' is 'mysql' (or possibly 'postgresql', if you
+	  really know what you're doing), 'username' is the username,
+	  'password' is the password, and etc.
+ini_yourdbname: if your database is not named 'laconica', you'll need
+		to set this to point to the location of the
+		laconica.ini file. Note that the real name of your database
+		should go in there, not literally 'yourdbname'.
+db_driver: You can try changing this to 'MDB2' to use the other driver
+	   type for DB_DataObject, but note that it breaks the OpenID
+	   libraries, which only support PEAR::DB.
+debug: On a database error, you may get a message saying to set this
+       value to 5 to see debug messages in the browser. This breaks
+       just about all pages, and will also expose the username and
+       password 
+quote_identifiers: Set this to true if you're using postgresql.
+type: either 'mysql' or 'postgresql' (used for some bits of
+      database-type-specific SQL in the code). Defaults to mysql.
+mirror: you can set this to an array of DSNs, like the above
+	'database' value. If it's set, certain read-only actions will
+	use a random value out of this array for the database, rather
+	than the one in 'database' (actually, 'database' is overwritten).
+	You can offload a busy DB server by setting up MySQL replication
+	and adding the slaves to this array. Note that if you want some
+	requests to go to the 'database' (master) server, you'll need
+	to include it in this array, too.
 
 syslog
 ------
@@ -791,6 +863,27 @@ user: If set, the daemons will try to change their effective user ID
       not 1001.
 group: If set, the daemons will try to change their effective group ID
        to this named group. Again, a name, not a numerical ID.
+
+memcached
+---------
+
+You can get a significant boost in performance by caching some
+database data in memcached (http://www.danga.com/memcached/).
+
+enabled: Set to true to enable. Default false.
+server: a string with the hostname of the memcached server. Can also
+	be an array of hostnames, if you've got more than one server.
+
+integration
+-----------
+
+A catch-all for integration with other systems.
+
+source: The name to use for the source of posts to Twitter. Defaults
+	to 'laconica', but if you request your own source name from
+	Twitter (http://twitter.com/help/request_source), you can use
+	that here instead. Status updates on Twitter will then have
+	links to your site.
 
 Troubleshooting
 ===============

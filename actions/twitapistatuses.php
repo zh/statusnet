@@ -57,8 +57,23 @@ class TwitapistatusesAction extends TwitterapiAction {
 		// FIXME: To really live up to the spec we need to build a list
 		// of notices by users who have custom avatars, so fix this SQL -- Zach
 
-		$notice = Notice::publicStream(0, $MAX_PUBSTATUSES);
-		
+    	$page = $this->arg('page');
+    	$since_id = $this->arg('since_id');
+    	$before_id = $this->arg('before_id');
+
+		// NOTE: page, since_id, and before_id are extensions to Twitter API -- TB
+        if (!$page) {
+            $page = 1;
+        }
+        if (!$since_id) {
+            $since_id = 0;
+        }
+        if (!$before_id) {
+            $before_id = 0;
+        }
+
+		$notice = Notice::publicStream((($page-1)*$MAX_PUBSTATUSES), $MAX_PUBSTATUSES, $since_id, $before_id);
+
 		if ($notice) {
 
 			switch($apidata['content-type']) {
@@ -66,7 +81,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 					$this->show_xml_timeline($notice);
 					break;
 				case 'rss':
-					$this->show_rss_timeline($notice, $title, $id, $link, $subtitle);
+					$this->show_rss_timeline($notice, $title, $link, $subtitle);
 					break;
 				case 'atom':
 					$this->show_atom_timeline($notice, $title, $id, $link, $subtitle);
@@ -83,104 +98,6 @@ class TwitapistatusesAction extends TwitterapiAction {
 			common_server_error(_('Couldn\'t find any statuses.'), $code = 503);
 		}
 
-		exit();
-	}
-
-	function show_xml_timeline($notice) {
-
-		$this->init_document('xml');
-		common_element_start('statuses', array('type' => 'array'));
-
-		if (is_array($notice)) {
-			foreach ($notice as $n) {
-				$twitter_status = $this->twitter_status_array($n);
-				$this->show_twitter_xml_status($twitter_status);
-			}
-		} else {
-			while ($notice->fetch()) {
-				$twitter_status = $this->twitter_status_array($notice);
-				$this->show_twitter_xml_status($twitter_status);
-			}
-		}
-
-		common_element_end('statuses');
-		$this->end_document('xml');
-	}
-
-	function show_rss_timeline($notice, $title, $id, $link, $subtitle) {
-
-		$this->init_document('rss');
-
-		common_element_start('channel');
-		common_element('title', NULL, $title);
-		common_element('link', NULL, $link);
-		common_element('description', NULL, $subtitle);
-		common_element('language', NULL, 'en-us');
-		common_element('ttl', NULL, '40');
-
-
-		if (is_array($notice)) {
-			foreach ($notice as $n) {
-				$entry = $this->twitter_rss_entry_array($n);
-				$this->show_twitter_rss_item($entry);
-			}
-		} else {
-			while ($notice->fetch()) {
-				$entry = $this->twitter_rss_entry_array($notice);
-				$this->show_twitter_rss_item($entry);
-			}
-		}
-
-		common_element_end('channel');
-		$this->end_twitter_rss();
-	}
-
-	function show_atom_timeline($notice, $title, $id, $link, $subtitle=NULL) {
-
-		$this->init_document('atom');
-
-		common_element('title', NULL, $title);
-		common_element('id', NULL, $id);
-		common_element('link', array('href' => $link, 'rel' => 'alternate', 'type' => 'text/html'), NULL);
-		common_element('subtitle', NULL, $subtitle);
-
-		if (is_array($notice)) {
-			foreach ($notice as $n) {
-				$entry = $this->twitter_rss_entry_array($n);
-				$this->show_twitter_atom_entry($entry);
-			}
-		} else {
-			while ($notice->fetch()) {
-				$entry = $this->twitter_rss_entry_array($notice);
-				$this->show_twitter_atom_entry($entry);
-			}
-		}
-
-		$this->end_document('atom');
-
-	}
-
-	function show_json_timeline($notice) {
-
-		$this->init_document('json');
-
-		$statuses = array();
-
-		if (is_array($notice)) {
-			foreach ($notice as $n) {
-				$twitter_status = $this->twitter_status_array($n);
-				array_push($statuses, $twitter_status);
-			}
-		} else {
-			while ($notice->fetch()) {
-				$twitter_status = $this->twitter_status_array($notice);
-				array_push($statuses, $twitter_status);
-			}
-		}
-
-		$this->show_twitter_json_statuses($statuses);
-
-		$this->end_document('json');
 	}
 
 	/*
@@ -209,15 +126,25 @@ class TwitapistatusesAction extends TwitterapiAction {
 		$since = $this->arg('since');
 		$since_id = $this->arg('since_id');
 		$count = $this->arg('count');
-		$page = $this->arg('page');
+    	$page = $this->arg('page');
+    	$before_id = $this->arg('before_id');
 
-		if (!$page) {
-			$page = 1;
-		}
+        if (!$page) {
+            $page = 1;
+        }
 
 		if (!$count) {
 			$count = 20;
 		}
+
+        if (!$since_id) {
+            $since_id = 0;
+        }
+
+		// NOTE: before_id is an extensions to Twitter API -- TB
+        if (!$before_id) {
+            $before_id = 0;
+        }
 
 		$user = $this->get_user($id, $apidata);
 		$profile = $user->getProfile();
@@ -230,7 +157,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 		$link = common_local_url('all', array('nickname' => $user->nickname));
 		$subtitle = sprintf(_('Updates from %1$s and friends on %2$s!'), $user->nickname, $sitename);
 
-		$notice = $user->noticesWithFriends(($page-1)*20, $count);
+		$notice = $user->noticesWithFriends(($page-1)*20, $count, $since_id, $before_id);
 
 		switch($apidata['content-type']) {
 		 case 'xml':
@@ -249,7 +176,6 @@ class TwitapistatusesAction extends TwitterapiAction {
 			common_user_error(_('API method not found!'), $code = 404);
 		}
 
-		exit();
 	}
 
 	/*
@@ -307,13 +233,14 @@ class TwitapistatusesAction extends TwitterapiAction {
 
 		if (!$profile) {
 			common_server_error(_('User has no profile.'));
-			exit();
+			return;
 		}
 
 		$count = $this->arg('count');
 		$since = $this->arg('since');
-		$since_id = $this->arg('since_id');
+    	$since_id = $this->arg('since_id');
 		$page = $this->arg('page');
+    	$before_id = $this->arg('before_id');
 
 		if (!$page) {
 			$page = 1;
@@ -322,6 +249,15 @@ class TwitapistatusesAction extends TwitterapiAction {
 		if (!$count) {
 			$count = 20;
 		}
+
+        if (!$since_id) {
+            $since_id = 0;
+        }
+
+		// NOTE: before_id is an extensions to Twitter API -- TB
+        if (!$before_id) {
+            $before_id = 0;
+        }
 
 		$sitename = common_config('site', 'name');
 		$siteserver = common_config('site', 'server');
@@ -332,9 +268,8 @@ class TwitapistatusesAction extends TwitterapiAction {
 		$subtitle = sprintf(_('Updates from %1$s on %2$s!'), $user->nickname, $sitename);
 
 		# XXX: since
-		# XXX: since_id
 
-		$notice = $user->getNotices((($page-1)*20), $count);
+		$notice = $user->getNotices((($page-1)*20), $count, $since_id, $before_id);
 
 		switch($apidata['content-type']) {
 		 case 'xml':
@@ -353,16 +288,20 @@ class TwitapistatusesAction extends TwitterapiAction {
 			common_user_error(_('API method not found!'), $code = 404);
 		}
 
-		exit();
 	}
 
 	function update($args, $apidata) {
 
 		parent::handle($args);
 
+		if (!in_array($apidata['content-type'], array('xml', 'json'))) {
+			common_user_error(_('API method not found!'), $code = 404);
+			return;
+		}
+
 		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 			$this->client_error(_('This method requires a POST.'), 400, $apidata['content-type']);
-			exit();
+			return;
 		}
 
 		$user = $apidata['user'];
@@ -380,7 +319,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 			// No error is given, but the status is not posted to the
 			// user's timeline.  Seems bad.  Shouldn't we throw an
 			// errror? -- Zach
-			exit();
+			return;
 
 		} else if (mb_strlen($status) > 140) {
 
@@ -389,43 +328,53 @@ class TwitapistatusesAction extends TwitterapiAction {
 		    // that assume Twitter will truncate for them.  Should we just
 		    // truncate too? -- Zach
 			$this->client_error(_('That\'s too long. Max notice size is 140 chars.'), $code = 406, $apidata['content-type']);
-			exit();
+			return;
 		}
 
-		$reply_to = NULL;
+		// Check for commands
+		$inter = new CommandInterpreter();
+		$cmd = $inter->handle_command($user, $status);
 
-		if ($in_reply_to_status_id) {
-						
-			// check whether notice actually exists
-			$reply = Notice::staticGet($in_reply_to_status_id);
-			
-			if ($reply) {
-				$reply_to = $in_reply_to_status_id;
-			} else {
-				$this->client_error(_('Not found'), $code = 404, $apidata['content-type']);
-				exit();
+		if ($cmd) {
+
+			if ($this->supported($cmd)) {
+				$cmd->execute(new Channel());
 			}
+
+			// cmd not supported?  Twitter just returns your latest status.
+			// And, it returns your last status whether the cmd was successful
+			// or not!
+			$n = $user->getCurrentNotice();
+			$apidata['api_arg'] = $n->id;
+		} else {
+
+			$reply_to = NULL;
+
+			if ($in_reply_to_status_id) {
+
+				// check whether notice actually exists
+				$reply = Notice::staticGet($in_reply_to_status_id);
+
+				if ($reply) {
+					$reply_to = $in_reply_to_status_id;
+				} else {
+					$this->client_error(_('Not found'), $code = 404, $apidata['content-type']);
+					return;
+				}
+			}
+
+			$notice = Notice::saveNew($user->id, $status, $source, 1, $reply_to);
+
+			if (is_string($notice)) {
+				$this->server_error($notice);
+				return;
+			}
+
+			common_broadcast_notice($notice);
+			$apidata['api_arg'] = $notice->id;
 		}
-			
-		$notice = Notice::saveNew($user->id, $status, $source, 1, $reply_to);
 
-		if (is_string($notice)) {
-			$this->server_error($notice);
-			exit();
-		}
-
-		common_broadcast_notice($notice);
-
-		// FIXME: Bad Hack
-		// I should be able to just sent this notice off for display,
-		// but $notice->created does not contain a string at this
-		// point and I don't know how to convert it to one here. So
-		// I'm forced to have DBObject pull the notice back out of the
-		// DB before printing. --Zach
-		$apidata['api_arg'] = $notice->id;
 		$this->show($args, $apidata);
-
-		exit();
 	}
 
 	/*
@@ -451,6 +400,8 @@ class TwitapistatusesAction extends TwitterapiAction {
 
 		$count = $this->arg('count');
 		$page = $this->arg('page');
+    	$since_id = $this->arg('since_id');
+    	$before_id = $this->arg('before_id');
 
 		$user = $apidata['user'];
 		$profile = $user->getProfile();
@@ -461,7 +412,6 @@ class TwitapistatusesAction extends TwitterapiAction {
 		$title = sprintf(_('%1$s / Updates replying to %2$s'), $sitename, $user->nickname);
 		$id = "tag:$siteserver:replies:".$user->id;
 		$link = common_local_url('replies', array('nickname' => $user->nickname));
-		$subtitle = "gar";
 		$subtitle = sprintf(_('%1$s updates that reply to updates from %2$s / %3$s.'), $sitename, $user->nickname, $profile->getBestName());
 
 		if (!$page) {
@@ -472,7 +422,15 @@ class TwitapistatusesAction extends TwitterapiAction {
 			$count = 20;
 		}
 
-		$notice = $user->getReplies((($page-1)*20), $count);
+        if (!$since_id) {
+            $since_id = 0;
+        }
+
+		// NOTE: before_id is an extensions to Twitter API -- TB
+        if (!$before_id) {
+            $before_id = 0;
+        }
+		$notice = $user->getReplies((($page-1)*20), $count, $since_id, $before_id);
 		$notices = array();
 
 		while ($notice->fetch()) {
@@ -496,20 +454,21 @@ class TwitapistatusesAction extends TwitterapiAction {
 			common_user_error(_('API method not found!'), $code = 404);
 		}
 
-
-		exit();
-
-
 	}
 
 	function show($args, $apidata) {
 		parent::handle($args);
-		
-		$notice_id = $apidata['api_arg'];		
+
+		if (!in_array($apidata['content-type'], array('xml', 'json'))) {
+			common_user_error(_('API method not found!'), $code = 404);
+			return;
+		}
+
+		$notice_id = $apidata['api_arg'];
 		$notice = Notice::staticGet($notice_id);
 
 		if ($notice) {
-			if ($apidata['content-type'] == 'xml') { 
+			if ($apidata['content-type'] == 'xml') {
 				$this->show_single_xml_status($notice);
 			} elseif ($apidata['content-type'] == 'json') {
 				$this->show_single_json_status($notice);
@@ -518,8 +477,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 			// XXX: Twitter just sets a 404 header and doens't bother to return an err msg
 			$this->client_error(_('No status with that ID found.'), 404, $apidata['content-type']);
 		}
-		
-		exit();
+
 	}
 
 
@@ -539,44 +497,46 @@ class TwitapistatusesAction extends TwitterapiAction {
 
 	*/
 	function destroy($args, $apidata) {
-	
+
 		parent::handle($args);
 
-		common_debug($_SERVER['REQUEST_METHOD']);
-		
-		// Check for RESTfulness  
+		if (!in_array($apidata['content-type'], array('xml', 'json'))) {
+			common_user_error(_('API method not found!'), $code = 404);
+			return;
+		}
+
+		// Check for RESTfulness
 		if (!in_array($_SERVER['REQUEST_METHOD'], array('POST', 'DELETE'))) {
 			// XXX: Twitter just prints the err msg, no XML / JSON.
 			$this->client_error(_('This method requires a POST or DELETE.'), 400, $apidata['content-type']);
-			exit();
-		} 
-		
-		$user = $apidata['user'];				
-		$notice_id = $apidata['api_arg'];		
+			return;
+		}
+
+		$user = $apidata['user'];
+		$notice_id = $apidata['api_arg'];
 		$notice = Notice::staticGet($notice_id);
-		
+
 		if (!$notice) {
 			$this->client_error(_('No status found with that ID.'), 404, $apidata['content-type']);
-			exit();
+			return;
 		}
-				
+
 		if ($user->id == $notice->profile_id) {
 			$replies = new Reply;
 			$replies->get('notice_id', $notice_id);
 			common_dequeue_notice($notice);
 			$replies->delete();
 			$notice->delete();
-			
-			if ($apidata['content-type'] == 'xml') { 
+
+			if ($apidata['content-type'] == 'xml') {
 				$this->show_single_xml_status($notice);
 			} elseif ($apidata['content-type'] == 'json') {
 				$this->show_single_json_status($notice);
-			}	
+			}
 		} else {
 			$this->client_error(_('You may not delete another user\'s status.'), 403, $apidata['content-type']);
 		}
-		
-		exit();
+
 	}
 
 	# User Methods
@@ -670,7 +630,6 @@ class TwitapistatusesAction extends TwitterapiAction {
 		$this->init_document($type);
 		$this->show_profiles($others, $type);
 		$this->end_document($type);
-		exit();
 	}
 
 	function get_subs_user($apidata) {
@@ -717,7 +676,6 @@ class TwitapistatusesAction extends TwitterapiAction {
 			break;
 		 default:
 			$this->client_error(_('unsupported file type'));
-			exit();
 		}
 	}
 
@@ -741,5 +699,17 @@ class TwitapistatusesAction extends TwitterapiAction {
 			return User::staticGet('nickname', $id);
 		}
 	}
+
+	function supported($cmd) {
+
+		$cmdlist = array('MessageCommand', 'SubCommand', 'UnsubCommand', 'FavCommand', 'OnCommand', 'OffCommand');
+
+		if (in_array(get_class($cmd), $cmdlist)) {
+			return true;
+		}
+
+		return false;
+	}
+
 }
 
