@@ -86,6 +86,7 @@ class XMPPChannel extends Channel {
 		} else {
 			common_log(LOG_INFO,
 					   'User ' . $user->nickname . ' set notify flag to ' . $notify);
+			return true;
 		}
 	}
 }
