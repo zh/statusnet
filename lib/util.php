@@ -146,7 +146,9 @@ function common_init_language() {
 	bind_textdomain_codeset("laconica", "UTF-8");
 	textdomain("laconica");
 	setlocale(LC_CTYPE, 'C');
-	common_log(LOG_INFO,'Language requested:'.$language.' Locale set:'.$locale_set,__FILE__);
+	if(!$local_set) {
+		common_log(LOG_INFO,'Language requested:'.$language.' - locale could not be set:',__FILE__);
+	}
 }
 
 define('PAGE_TYPE_PREFS', 'text/html,application/xhtml+xml,application/xml;q=0.3,text/xml;q=0.2');
