@@ -1120,7 +1120,7 @@ function common_broadcast_notice($notice, $remote=false) {
 		// If it's not a Twitter-style reply, or if the user WANTS to send replies...
 
 		if (!preg_match('/^@[a-zA-Z0-9_]{1,15}\b/', $notice->content) ||
-			(($flink->noticesync & FOREIGN_NOTICE_SEND) == FOREIGN_NOTICE_SEND)) {
+			(($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) == FOREIGN_NOTICE_SEND_REPLY)) {
 
 			$result = common_twitter_broadcast($notice, $flink);
 
