@@ -146,7 +146,7 @@ function common_init_language() {
 	bind_textdomain_codeset("laconica", "UTF-8");
 	textdomain("laconica");
 	setlocale(LC_CTYPE, 'C');
-	if(!$local_set) {
+	if(!$locale_set) {
 		common_log(LOG_INFO,'Language requested:'.$language.' - locale could not be set:',__FILE__);
 	}
 }
