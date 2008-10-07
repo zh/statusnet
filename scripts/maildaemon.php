@@ -42,7 +42,7 @@ class MailerDaemon {
 	function handle_message($fname='php://stdin') {
 		list($from, $to, $msg) = $this->parse_message($fname);
 		if (!$from || !$to || !$msg) {
-			$this->error(NULL, _t('Could not parse message.'));
+			$this->error(NULL, _('Could not parse message.'));
 		}
 		common_log(LOG_INFO, "Mail from $from to $to: " .substr($msg, 0, 20));
 		$user = $this->user_from($from);
