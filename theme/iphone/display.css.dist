@@ -40,7 +40,7 @@ h1 {
 #header {
 	position: relative;
 	margin: 0 auto;
-	width: 600px;
+	width: 540px;
 	height: 216px;
 	}
 #logo {
@@ -105,7 +105,7 @@ p#branding a {
 	list-style-type: none;
 	font-size: 14px;
 	font-weight: bold;
-	width: 600px;
+	width: 540px;
 	/*height: 30px;*/
 	}
 #nav_views li {
@@ -148,7 +148,7 @@ p#branding a {
 	font-weight: bold;
 	line-height: 21px;
 	border-top: 1px solid #D8E2D7;
-	width: 600px;
+	width: 540px;
 	}
 #nav_sub li {
 	display: block;
@@ -165,7 +165,7 @@ p#branding a {
 #content {
 	clear: left;
 	margin: 40px 0 45px 0;
-	padding: 0 80px;
+	padding: 0 110px;
 	font-family: Georgia, "Times New Roman", Times, serif;
 	font-size: 14px;
 	line-height: 18px;
@@ -210,7 +210,7 @@ p#branding a {
 	margin: 0 auto;
 	padding: 0;
 	list-style-type: none;
-	width: 600px;
+	width: 540px;
 	border-top: 1px solid #D8E2D7;
 	}
 #notices a:hover {
@@ -270,7 +270,7 @@ p.time a {
 /* ----- Profile -----*/
 #profile {
 	clear: left;
-	margin: 0 -80px;
+	margin: 0 -110px;
 	padding: 10px 0 0 0;
 	min-height: 170px;
 	border-top: 1px solid #D8E2D7;
@@ -394,7 +394,7 @@ ul.subscriptions li, ul.subscribers li {
 
 #pagination {
 	margin: 18px auto;
-	width: 600px;
+	width: 540px;
 	}
 #nav_pagination {
 	margin: 0 0 36px 0;
@@ -428,7 +428,7 @@ ul.subscriptions li, ul.subscribers li {
 	clear: both;
 	margin: 0 auto;
 	padding: 0 0 36px 0;
-	width: 600px;
+	width: 540px;
 	border-top: 1px solid #D8E2D7;
 	}
 #footer p {
@@ -614,7 +614,7 @@ input#openid_url {
 	margin: 0 auto;
 	padding: 0;
 	list-style-type: none;
-	width: 600px;
+	width: 540px;
 	border-top: 1px solid #D8E2D7;
 	/*border: 1px solid #F00;*/
 	}
@@ -644,91 +644,6 @@ input#openid_url {
 	padding: 0;
 	line-height: 15px;
 }
-
-/* ----- favor/disfavor -----*/
-
-form#disfavor, form.disfavor  {
-	display: inline;
-	float: right;
-}
-
-input#disfavor, input.disfavor  {
-	display: inline;
-	color: #C15D42;
-	background-color: white;
-	cursor: pointer;
-	border: 0;
-	width: auto;
-	}
-
-form#favor, form.favor  {
-	display: inline;
-	float: right;
-}
-
-input#favor, input.favor  {
-	display: inline;
-	color: #C15D42;
-	background-color: white;
-	cursor: pointer;
-	border: 0;
-	width: auto;
-	}
-	
-input.favor:hover  {
-	background-color: #F3F8EA;
-}
-
-input.disfavor:hover  {
-	background-color: #F3F8EA;
-}
-	
-/* ----- direct message ----- */
-
-#message_form {
-	height: 96px;
-	/*background-color: #F00;*/
-	}
-	
-#message_form p {
-	margin: 21px 0 0 0;
-	padding: 0;
-	}
-#message_form label {
-	display: inline;
-	}
-	
-#message_content {
-	display: block;
-	float: left;
-	width: 463px;
-	height: 35px;
-	padding: 5px;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 12px;
-	color: #193441;
-	border: 0;
-	}
-	
-#message_send {
-	display: block;
-	float: left;
-	margin: 1px 0 0 4px;
-	width: 63px;
-	height: 45px;
-	background-color: #C15D42;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-weight: bold;
-	font-size: 14px;
-	color: #FCFFF5;
-	cursor: pointer;
-	border: 0;
-	}
-	
-#message_send:hover {
-	background-color: #904632;
-	}
-
 
 /* ===== End Forms Styling ===== */
 
@@ -769,38 +684,3 @@ font-size: 80%;
 p.tagcloud a.smallest {
 font-size: 60%;
 }
-
-/* ----- Mailbox ----- */
-
-#messages {
-	clear: both;
-	margin: 0 auto;
-	padding: 0;
-	list-style-type: none;
-	width: 600px;
-	border-top: 1px solid #D8E2D7;
-	}
-
-#messages a:hover {
-        text-decoration: underline;
-	}
-
-.message_single {
-	clear: both;
-	display: block;
-	margin: 0;
-	padding: 5px 5px 5px 0;
-	min-height: 48px;
-	font-family: Georgia, "Times New Roman", Times, serif;
-	font-size: 13px;
-	line-height: 16px;
-	border-bottom: 1px solid #D8E2D7;
-	}
-.message_single:hover {
-	background-color: #F3F8EA;
-	}
-.message_single p {
-	display: inline;
-	margin: 0;
-	padding: 0;
-	}

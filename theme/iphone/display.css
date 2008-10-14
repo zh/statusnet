@@ -1,0 +1,700 @@
+/* CSS Document */
+/* Design & CSS by Marie-Claude Doyon http://www.marieclaudedoyon.com */
+/* Simplified for mobile by Ken Sheppardson http://identi.ca/kshep    */
+
+html {}
+body {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 24px;
+  min-height: 100%;
+  height: 100%;
+  color: #193441;
+}
+
+a {
+  color: #C15D42;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+img, img a {
+  border: 0;
+}
+h1 {
+  font-size: 1.2em;
+}
+
+
+#wrap {
+  margin: 0;
+}
+
+#header {
+  width: 100%;
+  float: left;
+  background-color: #193441;
+  margin: 0 0 20px 0;
+  padding: 0;
+}
+#logo {
+  float: left;
+  margin: 10px 0px 0px 10px;
+}
+p#branding {
+  margin: 0;
+  padding: 6px 0 3px 0;
+  color: #fbf2d7;
+  font-size: 2em;
+  font-weight: bold;
+  line-height: 2.5em;
+}
+p#branding a {
+  color: #dab134;
+}
+
+#header h1.pagetitle {
+  display: none;
+  margin: 0;
+  padding: 0;
+  font-size: 1.2em;
+  line-height: 2em;
+  color: #d8e2d7;
+}
+
+#header h2.sitename {
+  display: none;
+  margin: 0;
+  padding: 0;
+  color: #FCFFF5;
+}
+
+/* ===== Begin Navigation Styling ===== */
+
+/* ----- Navigation ------ */
+#nav {
+  float: right;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  font-size: 1.2em;
+}
+#nav li {
+  display: block;
+  float: left;
+}
+#nav li a {
+  display: block;
+  padding: 9px 15px 12px 0px;
+  color: #91AA9D;
+}
+#nav li a:hover {
+  text-decoration: underline;
+}
+
+/* ----- Tabs ----- */
+#nav_views {
+  clear: both;
+  float: left;
+  margin: 10px 0px 0px 5px;
+  padding: 0;
+  bottom: 0;
+  list-style-type: none;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+#nav_views li {
+  display: block;
+  float: left;
+  line-height: 1.3em;
+}
+#nav_views li a {
+  display: block;
+  margin: 0;
+  padding: 4px 12px 3px 12px;
+  color: #FCFFF5;
+  background-color: #91AA9D;
+  border-right: 1px solid #6A8787;
+}
+#nav_views li a:hover {
+  text-decoration: none;
+}
+#nav_views li.current a, #nav_views li.current a:hover {
+  color: #3F606F;
+  background-color: #FCFFF5;
+  border-right: 1px solid #6A8787;
+}
+#nav_views li.current a:hover {
+  color: #193441;
+}
+#nav_views li a:hover {
+  color: #FCFFF5;
+  background-color: #3F606F;
+  border-right: 1px solid #6A8787;
+}
+
+/* ----- Nav Footer ----- */
+#nav_sub {
+  clear: both;
+  margin: 18px 10px 0 10px;
+  padding: 0;
+  list-style-type: none;
+  font-size: 1.1em;
+  font-weight: bold;
+  line-height: 2em;
+  border-top: 1px solid #D8E2D7;
+}
+#nav_sub li {
+  display: block;
+  float: left;
+}
+#nav_sub li a {
+  padding: 6px 24px 6px 0;
+}
+#nav_sub li a:hover {
+  text-decoration: underline;
+}
+/* ===== End Navigation Styling ===== */
+
+#content {
+  clear: left;
+  margin: 10px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 1em;
+  line-height: 1.1em;
+}
+#content h2 {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 1.1em;
+}
+#content label {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 1.1em;
+}
+
+.instructions {
+  clear: both;
+  float: left;
+  margin: 5px 5px 10px 5px;
+}
+.instructions p, .success, .error {
+  font-weight: normal;
+  margin: 0;
+  padding: 10px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 1.1em;
+  line-height: 1.2em;
+  border: 1px solid #91AA9D;
+  color: #FCFFF5;
+}
+.instructions a, .success a, .error a {
+  color: #d8e2d7;
+  text-decoration: underline;
+}
+.instructions a:hover, .success a:hover, .error a:hover {
+  color: #FCFFF5;
+}    
+.success {
+  clear: both;
+  float: left;
+  margin: 5px 5px 10px 5px;
+  background-color: #48705b;
+}
+.error {
+  clear: both;
+  float: left;
+  margin: 5px 5px 10px 5px;
+  background-color: #ce3728;
+}
+
+
+/* ----- Stream -----*/
+
+#notices {
+  clear: both;
+  margin: 0 auto;
+  padding: 0;
+  list-style-type: none;
+  border-top: 1px solid #D8E2D7;
+}
+#notices a:hover {
+  text-decoration: underline;
+}
+.notice_single {
+  clear: both;
+  display: block;
+  margin: 0;
+  padding: 5px 5px 5px 0;
+  min-height: 48px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 1em;
+  line-height: 1.4em;
+  border-bottom: 1px solid #D8E2D7;
+}
+.notice_single:hover {
+  background-color: #F3F8EA;
+}
+.notice_single p {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+#notice_delete_form #confirmation_text {
+  display: block;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+input#submit_yes, input#submit_no {
+  margin: 18px 10px 0px 0px;
+  padding: 4px;
+  font-weight: bold;
+  color: #FCFFF5;
+  background-color: #C15D42;
+  cursor: pointer;
+  border: 0;
+  width: 40px;
+}
+input#submit_yes:hover, input#submit_no:hover {
+  background-color: #904632;
+}
+.avatar.stream {
+  float: left;
+  margin: 0 10px 0 0;
+}
+p.time {
+  display: block;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 0.9em;
+  line-height: 2em;
+}
+p.time a {
+  color: #91AA9D;
+}
+  
+/* ----- Profile -----*/
+#profile {
+  clear: both;
+  float: left;
+  padding: 10px 0 0 0;
+  border-top: 1px solid #D8E2D7;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+#profile h1 {
+  clear: both;
+  float: left;
+  margin: 0;
+  padding: 0;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 1.2em;
+}
+#profile h2 {
+  clear: both;
+  float: left;
+  margin: 0;
+  padding: 1em 0 0.2em 0;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 1.1em;
+  text-transform: uppercase;
+  color: #91AA9D;
+}
+#profile p {
+  clear: both;
+  float: left;
+  margin: 0 10px 0 0;
+  font-size: 1em;
+  line-height: 1.4em;
+}
+#profile p.location {
+  margin: 0 10px 12px 0;
+  font-style: italic;
+}
+#profile p.notice_current {
+  font-size: 1.2em;
+  line-height: 1.3em;
+}
+#profile_avatar {
+  float: left;
+  margin-right: 4px;
+}
+#profile_avatar img {
+  margin-bottom: 5px;
+}
+.avatar.profile {
+  clear: left;
+  margin: 0 10px 5px 0;
+}
+.avatar.original {
+  float: left;
+  margin: 0 10px 18px 0;
+}
+a.nickname {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 1.1em;
+  padding-right: 3px;
+}
+#profile_information {
+  float: left;
+}
+
+.statistics {
+  clear: both;
+  float: left;
+}
+.statistics h2 {
+  clear: both;
+  float: left;
+  margin: 12px 0 3px 0;
+}
+dl.statistics {
+  margin: 0;
+}
+.statistics dt {
+  clear: left;
+  float: left;
+  width: 200px;
+}  
+.statistics dd {
+  float: left;
+}
+.statistics dt:after {
+  content: ":";
+}
+#subscriptions {
+  clear: both;
+  float: left;
+  margin: 18px 0 30px 0;
+}
+#subscriptions_avatars {
+  clear: both;
+  float: left;
+  margin: 6px 0 0 0;
+  padding: 0;
+  list-style-type: none;
+}
+#subscriptions_avatars li .avatar.mini {
+  float: left;
+  margin: 0 3px 3px 0;
+  padding: 0;
+  line-height: 0;
+}
+#subscriptions_viewall {
+  clear: left;
+}
+/* ----- End Profile -----*/
+
+/* ----- Begin Subscriptions & Subscribers -----*/
+
+ul.subscriptions, ul.subscribers {
+  float: none;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  overflow: auto;
+}
+ul.subscriptions li, ul.subscribers li {
+  display: block;
+  float: left;
+  padding: 0;
+}
+/* ----- End Subscriptions & Subscribers -----*/
+
+
+
+#pagination {
+  margin: 18px auto;
+}
+#nav_pagination {
+  margin: 0 0 36px 0;
+  padding: 0;
+  float: right;
+  list-style-type: none;
+  font-size: 12px;
+  font-weight: bold;
+}
+#nav_pagination li {
+  display: block;
+  float: left;
+  background-color: #91AA9D;
+}
+#nav_pagination li.before {
+  margin-right: 1px;
+}
+#nav_pagination li a {
+  padding: 6px 15px;
+  line-height: 2em;
+  background-color: #91AA9D;
+  color: #FCFFF5;
+}
+#nav_pagination li a:hover {
+  background-color: #3F606F;
+  color: #FCFFF5;
+  text-decoration: none;
+}
+
+#footer {
+  clear: both;
+  margin: 10px;
+  border-top: 1px solid #D8E2D7;
+}
+#footer p {
+  font-size: 0.8em;
+  margin-top: 1em;
+  line-height: 1.2em;
+}
+#cc {
+  float: left;
+  margin: 3px 10px 0 0;
+}
+
+/* ===== Begin Forms Styling ===== */
+
+/* ----- Forms General Style ----- */
+form {
+  margin: 0 auto;
+  padding: 0;
+}
+form {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 1em;
+}
+form label {
+  display: block;
+  font-size: 1em;
+  font-weight: bold;
+  line-height: 1.5em;
+}
+form input {
+  border: 1px solid #D8E2D7;
+  width: 264px;
+}
+input#submit, input.submit  {
+  display: block;
+  margin: 18px 0;
+  padding: 4px;
+  font-weight: bold;
+  color: #FCFFF5;
+  background-color: #C15D42;
+  cursor: pointer;
+  border: 0;
+  width: auto;
+}
+input#submit:hover, input.submit:hover {
+  background-color: #904632;
+}
+input.checkbox {
+  width: auto;
+  border: 0;
+}  
+textarea, input {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 1em;
+  color: #193441;
+  padding: 3px;
+}
+textarea:focus, input:focus {
+  background-color: #f0f6eb;
+}
+textarea {
+  width: 270px;
+  border: 1px solid #D8E2D7;
+}
+.input_instructions {
+  margin-top: 3px;
+  display: block;
+  font-size: 1em;
+  line-height: 1.2em;
+  color: #91aa9d;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+/* ----- Status Form ----- */
+#status_form {
+  width: 100%;
+  margin: 0px 0px 10px 5px;
+}
+#status_form p {
+  margin: 0;
+  padding: 0;
+}
+#status_label {
+  display: none;
+  clear: both;
+  margin: 0;
+  padding: 0 0 3px 0;
+  font-size: 1.5em;
+  font-weight: bold;
+  line-height: 2em;
+  color: #91AA9D;
+}
+#status_textarea {
+  display: block;
+  float: left;
+  width: 70%;
+  height: 3em;
+  margin: 0 0 10px 0;
+  padding: 0;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 1.1em;
+  color: #193441;
+  border: 0;
+}
+#status_submit {
+  display: block;
+  float: left;
+  margin: 0 0 0 4px;
+  padding: 1em 10px 1em 10px;
+  line-height: 1em;
+  width: 10%;
+  background-color: #C15D42;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 1em;
+  color: #FCFFF5;
+  cursor: pointer;
+  border: 0;
+}
+#status_submit:hover {
+  background-color: #904632;
+}
+#counter {
+  padding: 1em .5em 1em 5px;
+  color: #fff;
+  clear: both;
+  float: left;
+  font-weight: bold;
+  text-align: right;
+}
+/* ----- Subscribe Form ----- */
+#subscribe .submit, #unsubscribe .submit, #remotesubscribe .button, #remotesubscribe {
+  clear: left;
+  margin: 0;
+  width: 96px;
+  height: 27px;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 12px;
+  text-transform: uppercase;
+  background-color: #c15d42;
+  color: #fcfff5;
+  border: 0;
+}
+#remotesubscribe {
+  width: 96px;
+  height: 22px;
+  padding: 5px 0 0 0;
+  text-align: center;
+}
+#subscribe .button:hover, #unsubscribe .button:hover {
+  background-color: #904632;
+  cursor: pointer;
+}
+
+a#remotesubscribe {
+  display: block;
+}
+
+/* ----- Login Form -----*/
+input#license {
+  width: auto;
+  border: 0;
+}
+/* ----- Avatar Form -----*/
+form {
+  clear: left;
+}
+
+/* ----- OpenID Form -----*/
+
+input#openid_url {
+  background: url(login-bg.gif) no-repeat;
+  background-color: #fff;
+  background-position: 4px 50%;
+  color: #000;
+  padding-left: 24px;
+}
+
+/* People lists (search results, maybe subscribers) */
+
+#profiles {
+  clear: both;
+  margin: 0 auto;
+  padding: 0;
+  list-style-type: none;
+  border-top: 1px solid #D8E2D7;
+}
+#profiles a:hover {
+  text-decoration: underline;
+}
+  
+.profile_single {
+  clear: both;
+  display: block;
+  margin: 0;
+  padding: 5px 5px 5px 0;
+  min-height: 48px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 1.2em;
+  line-height: 1.4em;
+  border-bottom: 1px solid #D8E2D7;
+}
+.profile_single:hover {
+  background-color: #F3F8EA;
+}
+
+/* ----- IM Settings Form -----*/
+
+#imsettings p {
+  margin: 0;
+  padding: 0;
+  line-height: 1.3em;
+}
+
+/* ===== End Forms Styling ===== */
+
+/* ===== Tag Cloud Styling ===== */
+
+p.tagcloud {
+text-align: center;
+}
+
+p.tagcloud a {
+line-height:1em;
+vertical-align:middle;
+}
+
+p.tagcloud a.largest {
+font-size: 4em;
+}
+p.tagcloud a.verylarge {
+font-size: 3em;
+}
+
+p.tagcloud a.large {
+font-size: 2em;
+}
+
+p.tagcloud a.medium {
+font-size: 1.5em;
+}
+
+p.tagcloud a.small {
+font-size: 1em;
+}
+
+p.tagcloud a.verysmall {
+font-size: 80%;
+}
+
+p.tagcloud a.smallest {
+font-size: 60%;
+}
+
+a.replybutton {
+  border: 1px solid #D8E2D7;
+  padding: 0px 10px 0px 10px;
+  line-height: 0.8em;
+}
