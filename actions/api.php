@@ -105,7 +105,8 @@ class ApiAction extends Action {
 
 		static $bareauth = array('statuses/user_timeline',
 								 'statuses/friends',
-								 'statuses/followers');
+								 'statuses/followers',
+								 'favorites/favorites');
 
 		$fullname = "$this->api_action/$this->api_method";
 
