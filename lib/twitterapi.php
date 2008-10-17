@@ -21,6 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 class TwitterapiAction extends Action {
 
+	var $auth_user;
+
 	function handle($args) {
 		parent::handle($args);
 	}
@@ -53,10 +55,11 @@ class TwitterapiAction extends Action {
 		return $twitter_user;
 	}
 
-	function twitter_status_array($notice, $get_user=true) {
+	function twitter_status_array($notice, $include_user=true) {
+
+		$profile = $notice->getProfile();
 
 		$twitter_status = array();
-
 		$twitter_status['text'] = $notice->content;
 		$twitter_status['truncated'] = 'false'; # Not possible on Laconica
 		$twitter_status['created_at'] = $this->date_twitter($notice->created);
@@ -64,12 +67,18 @@ class TwitterapiAction extends Action {
 		$twitter_status['source'] = $this->source_link($notice->source);
 		$twitter_status['id'] = intval($notice->id);
 		$twitter_status['in_reply_to_user_id'] = ($notice->reply_to) ? $this->replier_by_reply(intval($notice->reply_to)) : NULL;
-		$twitter_status['favorited'] = NULL; # XXX: Not implemented on Laconica yet.
+		
+		if (isset($this->auth_user)) {
+			common_debug("auth user set: " . $this->auth_user->nickname);
+			$twitter_status['favorited'] = ($this->auth_user->hasFave($notice)) ? 'true' : 'false';
+		} else {
+			common_debug("no auth user set");
+			$twitter_status['favorited'] = 'false';
+		}
 
-		if ($get_user) {
-			$profile = $notice->getProfile();
+		if ($include_user) {
 			# Don't get notice (recursive!)
-			$twitter_user = $this->twitter_user_array($profile, false);
+			$twitter_user = $this->twitter_user_array($profile, false, $user);
 			$twitter_status['user'] = $twitter_user;
 		}
 
@@ -364,7 +373,7 @@ class TwitterapiAction extends Action {
 		}
 	}
 
-	function init_document($type='xml') {
+	function init_document($type='xml') {	
 		switch ($type) {
 		 case 'xml':
 			header('Content-Type: application/xml; charset=utf-8');
@@ -505,11 +514,14 @@ class TwitterapiAction extends Action {
 		return;
 	}
 
-	function get_user($id) {
-		if (is_numeric($id)) {
+	function get_user($id, $apidata=NULL) {
+		if (!$id) {
+			return $apidata['user'];
+		} else if (is_numeric($id)) {
 			return User::staticGet($id);
 		} else {
-			return User::staticGet('nickname', $id);
+			$nickname = common_canonical_nickname($id);
+			return User::staticGet('nickname', $nickname);
 		}
 	}
 

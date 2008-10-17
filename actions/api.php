@@ -40,20 +40,20 @@ class ApiAction extends Action {
 			$this->api_method = $method;
 			$this->content_type = strtolower($cmdext[1]);
 		} else {
-			#content type will be an extension on the method
+			
+			# Requested format / content-type will be an extension on the method
 			$cmdext = explode('.', $method);
 			$this->api_method = $cmdext[0];
 			$this->content_type = strtolower($cmdext[1]);
 		}
 
-		# XXX Maybe check to see if the command actually exists first?
 		if($this->requires_auth()) {
 			if (!isset($_SERVER['PHP_AUTH_USER'])) {
 
 				# This header makes basic auth go
 				header('WWW-Authenticate: Basic realm="Laconica API"');
 
-				# if the user hits cancel -- bam!
+				# If the user hits cancel -- bam!
 				$this->show_basic_auth_error();
 			} else {
 				$nickname = $_SERVER['PHP_AUTH_USER'];
@@ -69,6 +69,16 @@ class ApiAction extends Action {
 				}
 			}
 		} else {
+
+			# Caller might give us a username even if not required
+			if (isset($_SERVER['PHP_AUTH_USER'])) {
+				$user = User::staticGet('nickname', $_SERVER['PHP_AUTH_USER']);	
+				if ($user) {
+					$this->user = $user;
+				}
+				# Twitter doesn't throw an error if the user isn't found
+			}
+			
 			$this->process_command();
 		}
 	}
@@ -76,19 +86,21 @@ class ApiAction extends Action {
 	function process_command() {
 		$action = "twitapi$this->api_action";
 		$actionfile = INSTALLDIR."/actions/$action.php";
+
 		if (file_exists($actionfile)) {
 			require_once($actionfile);
 			$action_class = ucfirst($action)."Action";
 			$action_obj = new $action_class();
 
 			if (method_exists($action_obj, $this->api_method)) {
-
 				$apidata = array(	'content-type' => $this->content_type,
 									'api_method' => $this->api_method,
 									'api_arg' => $this->api_arg,
 									'user' => $this->user);
 
 				call_user_func(array($action_obj, $this->api_method), $_REQUEST, $apidata);
+			} else {
+				common_user_error("API method not found!", $code=404);
 			}
 		} else {
 			common_user_error("API method not found!", $code=404);
@@ -126,10 +138,26 @@ class ApiAction extends Action {
 		}
 	}
 
-	function show_basic_auth_error() {
+	function show_basic_auth_error() {	
 	  	header('HTTP/1.1 401 Unauthorized');
-		header('Content-type: text/plain');
-	   	print("Could not authenticate you."); # exactly what Twitter says - no \n
+	   	$msg = 'Could not authenticate you.';
+	
+		if ($this->content_type == 'xml') {
+			header('Content-Type: application/xml; charset=utf-8');
+			common_start_xml();
+			common_element_start('hash');
+			common_element('error', NULL, $msg);
+			common_element('request', NULL, $_SERVER['REQUEST_URI']);
+			common_element_end('hash');
+			common_end_xml();
+		} else if ($this->content_type == 'json')  {
+			header('Content-Type: application/json; charset=utf-8');			
+			$error_array = array('error' => $msg, 'request' => $_SERVER['REQUEST_URI']);
+			print(json_encode($error_array));
+		} else {
+			header('Content-type: text/plain');
+			print "$msg\n";
+		}
 	}
 
 }

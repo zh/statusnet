@@ -21,10 +21,6 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/twitterapi.php');
 
-/* XXX: Please don't freak out about all the ugly comments in this file.
- * They are mostly in here for reference while I work on the
- * API. I'll fix things up later to make them look better later. -- Zach
- */
 class TwitapistatusesAction extends TwitterapiAction {
 
 	function is_readonly() {
@@ -100,26 +96,6 @@ class TwitapistatusesAction extends TwitterapiAction {
 
 	}
 
-	/*
-	Returns the 20 most recent statuses posted by the authenticating user and that user's friends.
-	This is the equivalent of /home on the Web.
-
-	URL: http://server/api/statuses/friends_timeline.format
-
-	Parameters:
-
-	    * since.  Optional.  Narrows the returned results to just those statuses created after the specified
-			HTTP-formatted date.  The same behavior is available by setting an If-Modified-Since header in
-			your HTTP request.
-			Ex: http://server/api/statuses/friends_timeline.rss?since=Tue%2C+27+Mar+2007+22%3A55%3A48+GMT
-	    * since_id.  Optional.  Returns only statuses with an ID greater than (that is, more recent than)
-			the specified ID.  Ex: http://server/api/statuses/friends_timeline.xml?since_id=12345
-	    * count.  Optional.  Specifies the number of statuses to retrieve. May not be greater than 200.
-	  		Ex: http://server/api/statuses/friends_timeline.xml?count=5
-	    * page. Optional. Ex: http://server/api/statuses/friends_timeline.rss?page=3
-
-	Formats: xml, json, rss, atom
-	*/
 	function friends_timeline($args, $apidata) {
 		parent::handle($args);
 
@@ -141,19 +117,21 @@ class TwitapistatusesAction extends TwitterapiAction {
             $since_id = 0;
         }
 
-		// NOTE: before_id is an extensions to Twitter API -- TB
+		// NOTE: before_id is an extension to Twitter API -- TB
         if (!$before_id) {
             $before_id = 0;
         }
 
 		$user = $this->get_user($id, $apidata);
+		$this->auth_user = $user;
+
 		$profile = $user->getProfile();
 
 		$sitename = common_config('site', 'name');
 		$siteserver = common_config('site', 'server');
 
 		$title = sprintf(_("%s and friends"), $user->nickname);
-		$id = "tag:$siteserver:friends:".$user->id;
+		$id = "tag:$siteserver:friends:" . $user->id;
 		$link = common_local_url('all', array('nickname' => $user->nickname));
 		$subtitle = sprintf(_('Updates from %1$s and friends on %2$s!'), $user->nickname, $sitename);
 
@@ -178,55 +156,15 @@ class TwitapistatusesAction extends TwitterapiAction {
 
 	}
 
-	/*
-		Returns the 20 most recent statuses posted from the authenticating user. It's also possible to
-        request another user's timeline via the id parameter below. This is the equivalent of the Web
-        /archive page for your own user, or the profile page for a third party.
-
-		URL: http://server/api/statuses/user_timeline.format
-
-		Formats: xml, json, rss, atom
-
-		Parameters:
-
-		    * id. Optional. Specifies the ID or screen name of the user for whom to return the
-            friends_timeline. Ex: http://server/api/statuses/user_timeline/12345.xml or
-            http://server/api/statuses/user_timeline/bob.json.
-			* count. Optional. Specifies the number of
-            statuses to retrieve. May not be greater than 200. Ex:
-            http://server/api/statuses/user_timeline.xml?count=5
-			* since. Optional. Narrows the returned
-            results to just those statuses created after the specified HTTP-formatted date. The same
-            behavior is available by setting an If-Modified-Since header in your HTTP request. Ex:
-            http://server/api/statuses/user_timeline.rss?since=Tue%2C+27+Mar+2007+22%3A55%3A48+GMT
-			* since_id. Optional. Returns only statuses with an ID greater than (that is, more recent than)
-            the specified ID. Ex: http://server/api/statuses/user_timeline.xml?since_id=12345 * page.
-            Optional. Ex: http://server/api/statuses/friends_timeline.rss?page=3
-	*/
 	function user_timeline($args, $apidata) {
 		parent::handle($args);
 
-		$user = null;
-
-		// function was called with an argument /statuses/user_timeline/api_arg.format
-		if (isset($apidata['api_arg'])) {
-
-			if (is_numeric($apidata['api_arg'])) {
-				$user = User::staticGet($apidata['api_arg']);
-			} else {
-				$nickname = common_canonical_nickname($apidata['api_arg']);
-				$user = User::staticGet('nickname', $nickname);
-			}
-		} else {
-
-			// if no user was specified, then we'll use the authenticated user
-			$user = $apidata['user'];
-		}
+		$this->auth_user = $apidata['user'];
+		$user = $this->get_user($apidata['api_arg'], $apidata);
 
 		if (!$user) {
-			// Set the user to be the auth user if asked-for can't be found
-			// honestly! This is what Twitter does, I swear --Zach
-			$user = $apidata['user'];
+			$this->client_error('Not Found', 404, $apidata['content-type']);
+			return;
 		}
 
 		$profile = $user->getProfile();
@@ -304,7 +242,8 @@ class TwitapistatusesAction extends TwitterapiAction {
 			return;
 		}
 
-		$user = $apidata['user'];
+		$this->auth_user = $apidata['user'];
+		$user = $this->auth_user;
 		$status = $this->trimmed('status');
 		$source = $this->trimmed('source');
 		$in_reply_to_status_id = intval($this->trimmed('in_reply_to_status_id'));
@@ -377,33 +316,18 @@ class TwitapistatusesAction extends TwitterapiAction {
 		$this->show($args, $apidata);
 	}
 
-	/*
-		Returns the 20 most recent @replies (status updates prefixed with @username) for the authenticating user.
-		URL: http://server/api/statuses/replies.format
-
-		Formats: xml, json, rss, atom
-
- 		Parameters:
-
- 		* page. Optional. Retrieves the 20 next most recent replies. Ex: http://server/api/statuses/replies.xml?page=3
-		* since. Optional. Narrows the returned results to just those replies created after the specified HTTP-formatted date. The
-        same behavior is available by setting an If-Modified-Since header in your HTTP request. Ex:
-        http://server/api/statuses/replies.xml?since=Tue%2C+27+Mar+2007+22%3A55%3A48+GMT
-		* since_id. Optional. Returns only statuses with an ID greater than (that is, more recent than) the specified
-		ID. Ex: http://server/api/statuses/replies.xml?since_id=12345
-	*/
 	function replies($args, $apidata) {
 
 		parent::handle($args);
 
 		$since = $this->arg('since');
-
 		$count = $this->arg('count');
 		$page = $this->arg('page');
     	$since_id = $this->arg('since_id');
     	$before_id = $this->arg('before_id');
 
-		$user = $apidata['user'];
+		$this->auth_user = $apidata['user'];
+		$user = $this->auth_user;
 		$profile = $user->getProfile();
 
 		$sitename = common_config('site', 'name');
@@ -426,7 +350,7 @@ class TwitapistatusesAction extends TwitterapiAction {
             $since_id = 0;
         }
 
-		// NOTE: before_id is an extensions to Twitter API -- TB
+		// NOTE: before_id is an extension to Twitter API -- TB
         if (!$before_id) {
             $before_id = 0;
         }
@@ -464,6 +388,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 			return;
 		}
 
+		$this->auth_user = $apidata['user'];
 		$notice_id = $apidata['api_arg'];
 		$notice = Notice::staticGet($notice_id);
 
@@ -480,22 +405,6 @@ class TwitapistatusesAction extends TwitterapiAction {
 
 	}
 
-
-	/*
-		Destroys the status specified by the required ID parameter. The authenticating user must be
-        the author of the specified status.
-
-		 URL: http://server/api/statuses/destroy/id.format
-
-		 Formats: xml, json
-
-		 Parameters:
-
-		 * id. Required. The ID of the status to destroy. Ex:
-        	http://server/api/statuses/destroy/12345.json or
-        	http://server/api/statuses/destroy/23456.xml
-
-	*/
 	function destroy($args, $apidata) {
 
 		parent::handle($args);
@@ -512,7 +421,8 @@ class TwitapistatusesAction extends TwitterapiAction {
 			return;
 		}
 
-		$user = $apidata['user'];
+		$this->auth_user = $apidata['user'];
+		$user = $this->auth_user;
 		$notice_id = $apidata['api_arg'];
 		$notice = Notice::staticGet($notice_id);
 
@@ -539,51 +449,11 @@ class TwitapistatusesAction extends TwitterapiAction {
 
 	}
 
-	# User Methods
-
-	/*
-		Returns up to 100 of the authenticating user's friends who have most recently updated, each with current status inline.
-        It's also possible to request another user's recent friends list via the id parameter below.
-
-		 URL: http://server/api/statuses/friends.format
-
-		 Formats: xml, json
-
-		 Parameters:
-
-		 * id. Optional. The ID or screen name of the user for whom to request a list of friends. Ex:
-        	http://server/api/statuses/friends/12345.json
-			or
-			http://server/api/statuses/friends/bob.xml
-		 * page. Optional. Retrieves the next 100 friends. Ex: http://server/api/statuses/friends.xml?page=2
-		 * lite. Optional. Prevents the inline inclusion of current status. Must be set to a value of true. Ex:
-        	http://server/api/statuses/friends.xml?lite=true
-		 * since. Optional. Narrows the returned results to just those friendships created after the specified
-  			HTTP-formatted date. The same behavior is available by setting an If-Modified-Since header in your HTTP
-  			request. Ex: http://server/api/statuses/friends.xml?since=Tue%2C+27+Mar+2007+22%3A55%3A48+GMT
-	*/
 	function friends($args, $apidata) {
 		parent::handle($args);
 		return $this->subscriptions($apidata, 'subscribed', 'subscriber');
 	}
 
-	/*
-		Returns the authenticating user's followers, each with current status inline. They are ordered by the
-		order in which they joined Twitter (this is going to be changed).
-
-		URL: http://server/api/statuses/followers.format
-		Formats: xml, json
-
-		Parameters:
-
-		    * id. Optional. The ID or screen name of the user for whom to request a list of followers. Ex:
-            	http://server/api/statuses/followers/12345.json
-				or
-				http://server/api/statuses/followers/bob.xml
-		    * page. Optional. Retrieves the next 100 followers. Ex: http://server/api/statuses/followers.xml?page=2
-		    * lite. Optional. Prevents the inline inclusion of current status. Must be set to a value of true.
-		 		Ex: http://server/api/statuses/followers.xml?lite=true
-	*/
 	function followers($args, $apidata) {
 		parent::handle($args);
 
@@ -592,10 +462,15 @@ class TwitapistatusesAction extends TwitterapiAction {
 
 	function subscriptions($apidata, $other_attr, $user_attr) {
 
-		$user = $this->get_subs_user($apidata);
-
-		# XXX: id
 		# XXX: lite
+
+		$this->auth_user = $apidate['user'];
+		$user = $this->get_user($apidata['api_arg'], $apidata);
+
+		if (!$user) {
+			$this->client_error('Not Found', 404, $apidata['content-type']);
+			return;
+		}
 
 		$page = $this->trimmed('page');
 
@@ -632,32 +507,6 @@ class TwitapistatusesAction extends TwitterapiAction {
 		$this->end_document($type);
 	}
 
-	function get_subs_user($apidata) {
-
-		// function was called with an argument /statuses/user_timeline/api_arg.format
-		if (isset($apidata['api_arg'])) {
-
-			if (is_numeric($apidata['api_arg'])) {
-				$user = User::staticGet($apidata['api_arg']);
-			} else {
-				$nickname = common_canonical_nickname($apidata['api_arg']);
-				$user = User::staticGet('nickname', $nickname);
-			}
-		} else {
-
-			// if no user was specified, then we'll use the authenticated user
-			$user = $apidata['user'];
-		}
-
-		if (!$user) {
-			// Set the user to be the auth user if asked-for can't be found
-			// honestly! This is what Twitter does, I swear --Zach
-			$user = $apidata['user'];
-		}
-
-		return $user;
-	}
-
 	function show_profiles($profiles, $type) {
 		switch ($type) {
 		 case 'xml':
@@ -679,25 +528,9 @@ class TwitapistatusesAction extends TwitterapiAction {
 		}
 	}
 
-	/*
-	Returns a list of the users currently featured on the site with their current statuses inline.
-	URL: http://server/api/statuses/featured.format
-
-	Formats: xml, json
-	*/
 	function featured($args, $apidata) {
 		parent::handle($args);
 		common_server_error(_('API method under construction.'), $code=501);
-	}
-
-	function get_user($id, $apidata) {
-		if (!$id) {
-			return $apidata['user'];
-		} else if (is_numeric($id)) {
-			return User::staticGet($id);
-		} else {
-			return User::staticGet('nickname', $id);
-		}
 	}
 
 	function supported($cmd) {
@@ -712,4 +545,3 @@ class TwitapistatusesAction extends TwitterapiAction {
 	}
 
 }
-

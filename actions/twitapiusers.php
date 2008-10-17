@@ -27,27 +27,6 @@ class TwitapiusersAction extends TwitterapiAction {
 		return true;
 	}
 
-/*
-	Returns extended information of a given user, specified by ID or
-	screen name as per the required id parameter below.	 This information
-	includes design settings, so third party developers can theme their
-	widgets according to a given user's preferences. You must be properly
-	authenticated to request the page of a protected user.
-
-	URL: http://twitter.com/users/show/id.format
-
-	Formats: xml, json
-
-	Parameters:
-
-	* id.  Required.  The ID or screen name of a user.
-	Ex: http://twitter.com/users/show/12345.json or
-	http://twitter.com/users/show/bob.xml
-
-	* email. Optional.	The email address of a user.  Ex:
-	http://twitter.com/users/show.xml?email=test@example.com
-
-*/
 	function show($args, $apidata) {
 		parent::handle($args);
 
@@ -56,28 +35,19 @@ class TwitapiusersAction extends TwitterapiAction {
 			return;
 		}
 
+		$this->auth_user = $apidata['user'];
 		$user = null;
 		$email = $this->arg('email');
 
-		if (isset($apidata['api_arg'])) {
-			if (is_numeric($apidata['api_arg'])) {
-				// by user id
-				$user = User::staticGet($apidata['api_arg']);
-			} else {
-				// by nickname
-				$nickname = common_canonical_nickname($apidata['api_arg']);
-				$user = User::staticGet('nickname', $nickname);
-			}
-		} elseif ($email) {
-			// or, find user by email address
-			// XXX: The Twitter API spec say an id is *required*, but you can actually
-			// pull up a user with just an email address. -- Zach
+		if ($email) {
 			$user = User::staticGet('email', $email);
+		} elseif (isset($apidata['api_arg'])) {
+			$user = $this->get_user($apidata['api_arg']);
 		}
 
 		if (!$user) {
 			// XXX: Twitter returns a random(?) user instead of throwing and err! -- Zach
-			$this->client_error(_('User not found.'), 404, $apidata['content-type']);
+			$this->client_error(_('Not found.'), 404, $apidata['content-type']);
 			return;
 		}
 
@@ -109,11 +79,34 @@ class TwitapiusersAction extends TwitterapiAction {
 		$twitter_user['profile_text_color'] = '';
 		$twitter_user['profile_link_color'] = '';
 		$twitter_user['profile_sidebar_fill_color'] = '';
-		$twitter_user['favourites_count'] = 0;
-		$twitter_user['utc_offset'] = '';
-		$twitter_user['time_zone'] = '';
-		$twitter_user['following'] = '';
-		$twitter_user['notifications'] = '';
+
+		$faves = DB_DataObject::factory('fave');
+		$faves->user_id = $user->id;
+		$faves_count = (int) $faves->count();
+		$twitter_user['favourites_count'] = $faves_count;
+
+		$timezone = 'UTC';
+
+		if ($user->timezone) {
+			$timezone = $user->timezone;
+		}
+
+		$t = new DateTime;
+		$t->setTimezone(new DateTimeZone($timezone));
+		$twitter_user['utc_offset'] = $t->format('Z');
+		$twitter_user['time_zone'] = $timezone;
+
+		if (isset($this->auth_user)) {
+
+			if ($this->auth_user->isSubscribed($profile)) {
+				$twitter_user['following'] = 'true';
+			} else {
+				$twitter_user['following'] = 'false';
+			}
+
+			// Not implemented yet
+			$twitter_user['notifications'] = 'false';
+		}
 
 		if ($apidata['content-type'] == 'xml') {
 			$this->init_document('xml');

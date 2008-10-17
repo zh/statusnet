@@ -39,27 +39,12 @@ class TwitapifavoritesAction extends TwitterapiAction {
 	function favorites($args, $apidata) {
 		parent::handle($args);
 
-		$user = null;
-
-		// function was called with an argument /favorites/api_arg.format
-		if (isset($apidata['api_arg'])) {
-
-			if (is_numeric($apidata['api_arg'])) {
-				$user = User::staticGet($apidata['api_arg']);
-			} else {
-				$nickname = common_canonical_nickname($apidata['api_arg']);
-				$user = User::staticGet('nickname', $nickname);
-			}
-		} else {
-
-			// if no user was specified, then we'll use the authenticated user
-			$user = $apidata['user'];
-		}
+		$this->auth_user = $apidata['user'];
+		$user = $this->get_user($apidata['api_arg'], $apidata);
 
 		if (!$user) {
-			// Set the user to be the auth user if asked-for can't be found
-			// honestly! This is what Twitter does, I swear --Zach
-			$user = $apidata['user'];
+			$this->client_error('Not Found', 404, $apidata['content-type']);
+			return;
 		}
 
 		$profile = $user->getProfile();
@@ -116,11 +101,6 @@ class TwitapifavoritesAction extends TwitterapiAction {
 	function create($args, $apidata) {
 		parent::handle($args);
 
-		if (!in_array($apidata['content-type'], array('xml', 'json'))) {
-			common_user_error(_('API method not found!'), $code = 404);
-			return;
-		}
-
 		// Check for RESTfulness
 		if (!in_array($_SERVER['REQUEST_METHOD'], array('POST', 'DELETE'))) {
 			// XXX: Twitter just prints the err msg, no XML / JSON.
@@ -128,7 +108,13 @@ class TwitapifavoritesAction extends TwitterapiAction {
 			return;
 		}
 
-		$user = $apidata['user'];
+		if (!in_array($apidata['content-type'], array('xml', 'json'))) {
+			common_user_error(_('API method not found!'), $code = 404);
+			return;
+		}
+
+		$this->auth_user = $apidata['user'];
+		$user = $this->auth_user;
 		$notice_id = $apidata['api_arg'];
 		$notice = Notice::staticGet($notice_id);
 

@@ -89,18 +89,6 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 
 	}
 
-	//destroy
-	//
-	//Discontinues friendship with the user specified in the ID parameter as the authenticating user.  Returns the un-friended user in the requested format when successful.  Returns a string describing the failure condition when unsuccessful.
-	//
-	//URL: http://twitter.com/friendships/destroy/id.format
-	//
-	//Formats: xml, json
-	//
-	//Parameters:
-	//
-	//* id.  Required.  The ID or screen name of the user with whom to discontinue friendship.  Ex: http://twitter.com/friendships/destroy/12345.json or http://twitter.com/friendships/destroy/bob.xml
-
 	function destroy($args, $apidata) {
 		parent::handle($args);
 
@@ -135,19 +123,6 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 		$this->end_document($type);
 
 	}
-
-	//	Tests if a friendship exists between two users.
-	//
-	//
-	//	  URL: http://twitter.com/friendships/exists.format
-	//
-	//	Formats: xml, json, none
-	//
-	//	  Parameters:
-	//
-	//	    * user_a.  Required.  The ID or screen_name of the first user to test friendship for.
-	//	      * user_b.  Required.  The ID or screen_name of the second user to test friendship for.
-	//	  * Ex: http://twitter.com/friendships/exists.xml?user_a=alice&user_b=bob
 
 	function exists($args, $apidata) {
 		parent::handle($args);
