@@ -63,7 +63,7 @@ class NewnoticeAction extends Action {
 
 		common_debug("Replyto = $replyto\n");
 		
-		$notice = Notice::saveNew($user->id, $content, 'web', $replyto);
+		$notice = Notice::saveNew($user->id, $content, 'web', 1, $replyto);
 		
 		if (is_string($notice)) {
 			$this->show_form($notice);
