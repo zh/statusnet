@@ -179,7 +179,7 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 								   'src' => common_path('js/jquery.form.js')),
 				   ' ');
 	common_element('script', array('type' => 'text/javascript',
-								   'src' => common_path('js/util.js')),
+								   'src' => common_path('js/util.js?version='.LACONICA_VERSION)),
 				   ' ');
 	common_element('link', array('rel' => 'search', 'type' => 'application/opensearchdescription+xml',
                                         'href' =>  common_local_url('opensearch', array('type' => 'people')),
