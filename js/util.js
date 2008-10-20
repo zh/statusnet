@@ -94,11 +94,11 @@ function doreply(nick,id) {
           replyto = "@" + nick + " ";
           if ($("#status_textarea").length) {
                $("#status_textarea").val(replyto);
+               $("form#status_form input#inreplyto").val(id);
                $("#status_textarea").focus();
 			   return false;
 		  }
      }
-     $("form#status_form input#inreplyto").value = id;
      return true;
 }
 
