@@ -97,10 +97,8 @@ function doreply(nick,id) {
                $("#status_textarea").focus();
 			   return false;
 		  }
-          if (id) {
-               $("#inreplyto").val(id);
-          }
      }
+     $("form#status_form input#inreplyto").val(id);
      return true;
 }
 
