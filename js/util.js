@@ -98,7 +98,7 @@ function doreply(nick,id) {
 			   return false;
 		  }
      }
-     $("form#status_form input#inreplyto").val(id);
+     $("form#status_form input#inreplyto").value = id;
      return true;
 }
 
