@@ -88,7 +88,7 @@ $(document).ready(function(){
      $("form.disfavor").each(addAjaxHidden);
 });
 
-function doreply(nick) {
+function doreply(nick,id) {
      rgx_username = /^[0-9a-zA-Z\-_.]*$/;
      if (nick.match(rgx_username)) {
           replyto = "@" + nick + " ";
@@ -97,6 +97,9 @@ function doreply(nick) {
                $("#status_textarea").focus();
 			   return false;
 		  }
+          if (id) {
+               $("#inreplyto").val(id);
+          }
      }
      return true;
 }

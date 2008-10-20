@@ -87,7 +87,7 @@ class StreamAction extends PersonalAction {
 		common_element_start('a',
 							 array('href' => common_local_url('newnotice',
 															  array('replyto' => $profile->nickname)),
-								   'onclick' => 'return doreply("'.$profile->nickname.'");',
+								   'onclick' => 'return doreply("'.$profile->nickname.'", '.$notice->id.');',
 								   'title' => _('reply'),
 								   'class' => 'replybutton'));
 		common_raw('&rarr;');

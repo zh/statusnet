@@ -1298,6 +1298,8 @@ function common_notice_form($action=NULL, $content=NULL) {
 	if ($action) {
 		common_hidden('returnto', $action);
 	}
+	# set by JavaScript
+	common_hidden('inreplyto', 'false');
 	common_element('input', array('id' => 'status_submit',
 								  'name' => 'status_submit',
 								  'type' => 'submit',

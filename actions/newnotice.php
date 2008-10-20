@@ -58,8 +58,10 @@ class NewnoticeAction extends Action {
 			$cmd->execute(new WebChannel());
 			return;
 		}
+
+		$replyto = $this->trimmed('inreplyto');
 		
-		$notice = Notice::saveNew($user->id, $content, 'web');
+		$notice = Notice::saveNew($user->id, $content, 'web', $replyto);
 		
 		if (is_string($notice)) {
 			$this->show_form($notice);
