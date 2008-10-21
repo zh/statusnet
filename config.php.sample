@@ -26,6 +26,8 @@ $config['site']['path'] = 'laconica';
 #If you don't want to let users register (say, for a one-person install)
 #Crude but effective -- register everybody, then lock down
 #$config['site']['closed'] = true;
+#Only allow registration for people invited by another user
+#$config['site']['inviteonly'] = true;
 
 # If you want logging sent to a file instead of syslog
 #$config['site']['logfile'] = '/tmp/laconica.log';

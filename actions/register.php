@@ -59,6 +59,15 @@ class RegisterAction extends Action {
 
 		$code = $this->trimmed('code');
 
+		if ($code) {
+			$invite = Invitation::staticGet($code);
+		}
+		
+		if (common_config('site', 'inviteonly') && !($code && $invite)) {
+			$this->client_error(_('Sorry, site is invite-only'));
+			return;
+		}
+		
 		# Input scrubbing
 
 		$nickname = common_canonical_nickname($nickname);
@@ -149,6 +158,17 @@ class RegisterAction extends Action {
 	function show_form($error=NULL) {
 		global $config;
 
+		$code = $this->trimmed('code');
+
+		if ($code) {
+			$invite = Invitation::staticGet($code);
+		}
+		
+		if (common_config('site', 'inviteonly') && !($code && $invite)) {
+			$this->client_error(_('Sorry, site is invite-only'));
+			return;
+		}
+		
 		common_show_header(_('Register'), NULL, $error, array($this, 'show_top'));
 		common_element_start('form', array('method' => 'post',
 										   'id' => 'login',
@@ -156,9 +176,7 @@ class RegisterAction extends Action {
 
 		common_hidden('token', common_session_token());
 
-		if ($this->trimmed('code')) {
-			$code = ($this->trimmed('code'));
-			$invite = Invitation::staticGet($code);
+		if ($code) {
 			common_hidden('code', $code);
 		}
 
