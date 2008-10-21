@@ -64,7 +64,7 @@ class RegisterAction extends Action {
 		}
 		
 		if (common_config('site', 'inviteonly') && !($code && $invite)) {
-			$this->client_error(_('Sorry, site is invite-only'));
+			$this->client_error(_('Sorry, only invited people can register.'));
 			return;
 		}
 		
@@ -165,7 +165,7 @@ class RegisterAction extends Action {
 		}
 		
 		if (common_config('site', 'inviteonly') && !($code && $invite)) {
-			$this->client_error(_('Sorry, site is invite-only'));
+			$this->client_error(_('Sorry, only invited people can register.'));
 			return;
 		}
 		
