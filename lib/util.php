@@ -179,7 +179,7 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 								   'src' => common_path('js/jquery.form.js')),
 				   ' ');
 	common_element('script', array('type' => 'text/javascript',
-								   'src' => common_path('js/util.js')),
+								   'src' => common_path('js/util.js?version='.LACONICA_VERSION)),
 				   ' ');
 	common_element('link', array('rel' => 'search', 'type' => 'application/opensearchdescription+xml',
                                         'href' =>  common_local_url('opensearch', array('type' => 'people')),
@@ -1089,7 +1089,7 @@ function common_save_replies($notice) {
 		if (!$recipient) {
 			continue;
 		}
-		if ($i == 0 && ($recipient->id != $sender->id)) { # Don't save reply to self
+		if ($i == 0 && ($recipient->id != $sender->id) && !$notice->reply_to) { # Don't save reply to self
 			$reply_for = $recipient;
 			$recipient_notice = $reply_for->getCurrentNotice();
 			if ($recipient_notice) {
@@ -1298,6 +1298,8 @@ function common_notice_form($action=NULL, $content=NULL) {
 	if ($action) {
 		common_hidden('returnto', $action);
 	}
+	# set by JavaScript
+	common_hidden('inreplyto', 'false');
 	common_element('input', array('id' => 'status_submit',
 								  'name' => 'status_submit',
 								  'type' => 'submit',
