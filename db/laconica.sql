@@ -92,7 +92,8 @@ create table subscription (
 
     constraint primary key (subscriber, subscribed),
     index subscription_subscriber_idx (subscriber),
-    index subscription_subscribed_idx (subscribed)
+    index subscription_subscribed_idx (subscribed),
+    index subscription_token_idx (token)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table notice (
