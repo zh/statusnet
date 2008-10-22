@@ -1,9 +1,8 @@
 /* CSS Document */
-/* Design & CSS by Marie-Claude Doyon */
+/* Design & CSS by Marie-Claude Doyon http://www.marieclaudedoyon.com */
 
 html {
 	background-color: #f6e5b0;
-
 	}
 body {
 	position: absolute;
@@ -14,8 +13,8 @@ body {
 	font-size: 10px;
 	line-height: 12px;
 	min-height: 100%;
-	color: #701238;
-	/*background: url(bg-body.gif) repeat-y top center;*/
+	height: 100%;
+    color: #701238;
 	}
 a {
 	color: #d1451a;
@@ -23,7 +22,7 @@ a {
 	}
 a:hover {
 	text-decoration: underline;
-	}		
+	}
 img, img a {
 	border: 0;
 	}
@@ -37,19 +36,16 @@ h1 {
 	padding: 0 20px;
 	width: 760px;
 	background: url(bg-header.gif) repeat-x #fbf2d7;
-	
-	}			
+	}
 #header {
 	position: relative;
 	margin: 0 auto;
 	width: 600px;
 	height: 216px;
-	/*border: 1px solid #FF0;*/
-	/*background-color: #701238;*/
 	}
 #logo {
 	margin-top: 9px;
-	}		
+	}
 p#branding {
 	margin: 0;
 	padding: 6px 0 3px 0;
@@ -60,29 +56,26 @@ p#branding {
 	}
 p#branding a {
 	color: #dab134;
-	}	
+	}
+
 #header h1.pagetitle {
-	/*display: none;*/
 	margin: 0;
 	padding: 0;
-	/*font-family: Georgia, "Times New Roman", Times, serif;*/
 	font-size: 15px;
-/*	font-weight: normal;
-	font-style: italic;*/
 	line-height: 24px;
 	color: #fff6d5;
-	}
+}
 
 #header h2.sitename {
 	display: none;
 	margin: 0;
 	padding: 0;
 	color: #fff6d5;
-	}
-	
+}
+
 /* ===== Begin Navigation Styling ===== */
-	
-/* ----- Navigation ------ */	
+
+/* ----- Navigation ------ */
 #nav {
 	float: right;
 	margin: 0;
@@ -130,7 +123,7 @@ p#branding a {
 	}
 #nav_views li a:hover {
 	text-decoration: none;
-	}	
+	}
 #nav_views li.current a, #nav_views li.current a:hover {
 	color: #701238;
 	background-color: #fff6d5;
@@ -138,14 +131,14 @@ p#branding a {
 	}
 #nav_views li.current a:hover {
 	color: #d1451a;
-	}		
+	}
 #nav_views li a:hover {
 	color: #fff6d5;
 	background-color: #701238;
 	border-right: 1px solid #dcaa3f;
 	}
-	
-/* ----- Nav Footer ----- */	
+
+/* ----- Nav Footer ----- */
 #nav_sub {
 	clear: both;
 	margin: 18px auto 0 auto;
@@ -163,7 +156,7 @@ p#branding a {
 	}
 #nav_sub li a {
 	padding: 6px 24px 6px 0;
-	}	
+	}
 #nav_sub li a:hover {
 	text-decoration: underline;
 	}
@@ -176,7 +169,6 @@ p#branding a {
 	font-family: Georgia, "Times New Roman", Times, serif;
 	font-size: 14px;
 	line-height: 18px;
-	/*border: 1px solid #F00;*/
 	}
 #content h2 {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -185,8 +177,8 @@ p#branding a {
 #content label {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 12px;
-	}	
-.instructions, .success, .error {
+	}
+.instructions p, .success, .error {
 	font-weight: normal;
 	margin: 36px 0 0 0;
 	padding: 10px;
@@ -195,15 +187,85 @@ p#branding a {
 	line-height: 15px;
 	border: 1px solid #dec5b5;
 	color: #fff6d5;
+	}
+.instructions a, .success a, .error a {
+	color: #d8e2d7;
+	text-decoration: underline;
+	}
+.instructions a:hover, .success a:hover, .error a:hover {
+	color: #fff6d5;
 	}		
 .success {
 	background-color: #48705b;
-	}	
+	}
 .error {
 	background-color: #ce3728;
 	}
-			
 
+
+/* ----- Stream -----*/
+
+#notices {
+	clear: both;
+	margin: 0 auto;
+	padding: 0;
+	list-style-type: none;
+	width: 600px;
+	border-top: 1px solid #dec5b5;
+	}
+#notices a:hover {
+	text-decoration: underline;
+	}
+.notice_single {
+	clear: both;
+	display: block;
+	margin: 0;
+	padding: 5px 5px 5px 0;
+	min-height: 48px;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 13px;
+	line-height: 16px;
+	border-bottom: 1px solid #dec5b5;
+	}
+.notice_single:hover {
+	background-color: #f7ebcc;
+	}
+.notice_single p {
+	display: inline;
+	margin: 0;
+	padding: 0;
+	}
+#notice_delete_form #confirmation_text {
+        display: block;
+	font-size: 14px;
+	font-weight: bold;
+	}
+input#submit_yes, input#submit_no {
+	margin: 18px 10px 0px 0px;
+	padding: 4px;
+	font-weight: bold;
+	color: #fff6d5;
+	background-color: #F60;
+	cursor: pointer;
+	border: 0;
+	width: 40px;
+	}
+input#submit_yes:hover, input#submit_no:hover {
+	background-color: #701238;
+	}
+.avatar.stream {
+	float: left;
+	margin: 0 10px 0 0;
+	}
+p.time {
+	display: block;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	line-height: 15px;
+	}
+p.time a {
+	color: #dab134;
+	}
 	
 /* ----- Profile -----*/
 #profile {
@@ -227,7 +289,7 @@ p#branding a {
 	font-size: 11px;
 	text-transform: uppercase;
 	color: #dab134;
-	}	
+	}
 #profile p {
 	margin: 0 10px 0 0;
 	font-size: 12px;
@@ -235,14 +297,12 @@ p#branding a {
 	}
 #profile p.location {
 	margin: 0 10px 12px 0;
-	font-style: italic;	
-	}		
+	font-style: italic;
+	}
 #profile p.notice_current {
 	font-size: 18px;
 	line-height: 21px;
-	/*min-height: 96px;*/
-	}		
-	
+	}
 #profile_avatar {
 	float: left;
 	margin-right: 4px;
@@ -251,135 +311,86 @@ p#branding a {
 	margin-bottom: 5px;
 	}
 .avatar.profile {
-	float: none;
 	clear: left;
 	margin: 0 10px 5px 0;
 	}
 .avatar.original {
+	float: left;
 	margin: 0 10px 18px 0;
-	}			
+	}
 a.nickname {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-weight: bold;
 	font-size: 12px;
 	padding-right: 3px;
-	}	
+	}
 #profile_information {
 	float: left;
 	position: relative;
 	width: 270px;
 	height: 200px;
 	}
-	
 .statistics {
 	margin-top: 18px;
 	}
 .statistics h2 {
 	margin: 12px 0 3px 0;
-	}		
+	}
 dl.statistics {
 	margin: 0;
 	font-size: 12px;
 	line-height: 14px;
 	}
-.statistics dt, .statistics dd {
-	float: left;
-	margin: 0;
-	}
 .statistics dt {
-	clear: left;
+	float: left;
 	width: 96px;
-	}
+}	
 .statistics dd {
-	clear: right;
-	}	
+	margin-left: 100px;
+}
 .statistics dt:after {
 	content: ":";
 	}
 #subscriptions {
 	float: left;
 	margin: 18px 0 30px 0;
-	}		
+	}
 #subscriptions_avatars {
-	/*float: left;*/
+	float: left;
 	margin: 6px 0 0 0;
 	padding: 0;
 	list-style-type: none;
 	width: 270px;
-	}	
+	}
 #subscriptions_avatars li .avatar.mini {
 	float: left;
 	margin: 0 3px 3px 0;
 	padding: 0;
 	line-height: 0;
+	/* border: 1px solid #f00; */
 	}
 #subscriptions_viewall {
 	clear: left;
 	}
+/* ----- End Profile -----*/
 
-#notices {
-	clear: both;
-	margin: 0 auto;
+/* ----- Begin Subscriptions & Subscribers -----*/
+
+ul.subscriptions, ul.subscribers {
+	float: none;
+	margin: 0;
 	padding: 0;
 	list-style-type: none;
-	width: 600px;
-	border-top: 1px solid #dec5b5;
-	/*border: 1px solid #F00;*/
+	overflow: auto;
 	}
-#notices a:hover {
-	text-decoration: underline;
-	}	
-.notice_single {
-	clear: both;
+ul.subscriptions li, ul.subscribers li {
 	display: block;
-	margin: 0;
-	padding: 5px 5px 5px 0;
-	min-height: 48px;
-	font-family: Georgia, "Times New Roman", Times, serif;
-	font-size: 13px;
-	line-height: 16px;
-	border-bottom: 1px solid #dec5b5;
-	}
-.notice_single:hover {
-	background-color: #f7ebcc;
-	}	
-.notice_single p {
-	display: inline;
-	margin: 0;
-	padding: 0;
-	}	
-#notice_delete_form #confirmation_text {
-        display: block;
-	font-size: 14px;
-	font-weight: bold;
-	}
-input#submit_yes, input#submit_no {
-	margin: 18px 0;
-	padding: 8px;
-	font-weight: bold;
-	color: #fff6d5;
-	background-color: #F60;
-	cursor: pointer;
-	border: 0;
-	width: auto;
-	}
-input#submit_yes:hover, input#submit_no:hover {
-	background-color: #701238;
-	}
-.avatar {
 	float: left;
-	margin: 0 10px 0 0;
+	padding: 0;
 	}
+/* ----- End Subscriptions & Subscribers -----*/
 
-p.time {
-	display: block;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 10px;
-	line-height: 15px;
-	}
-p.time a {
-	color: #dab134;
-	}	
+
 
 #pagination {
 	margin: 18px auto;
@@ -400,7 +411,7 @@ p.time a {
 	}
 #nav_pagination li.before {
 	margin-right: 1px;
-	}	
+	}
 #nav_pagination li a {
 	padding: 6px 15px;
 	line-height: 21px;
@@ -412,7 +423,7 @@ p.time a {
 	color: #fff6d5;
 	text-decoration: none;
 	}
-			
+
 #footer {
 	clear: both;
 	margin: 0 auto;
@@ -422,7 +433,8 @@ p.time a {
 	}
 #footer p {
 	margin-top: 9px;
-	}	
+	line-height: 12px;
+	}
 #cc {
 	float: left;
 	margin: 3px 10px 0 0;
@@ -438,7 +450,7 @@ form {
 form {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 12px;
-	}	
+	}
 form label {
 	display: block;
 	font-size: 12px;
@@ -449,7 +461,7 @@ form input {
 	border: 1px solid #dec5b5;
 	width: 264px;
 	}
-input#submit  {
+input#submit, input.submit  {
 	display: block;
 	margin: 18px 0;
 	padding: 4px;
@@ -460,9 +472,15 @@ input#submit  {
 	border: 0;
 	width: auto;
 	}
-input#submit:hover {
+input#submit:hover, input.submit:hover {
 	background-color: #701238;
 	}
+input.checkbox {
+	/*width: 14px;
+	height: 14px;*/
+	width: auto;
+	border: 0;
+	}	
 textarea, input {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 12px;
@@ -471,19 +489,20 @@ textarea, input {
 	}
 textarea:focus, input:focus {
 	background-color: #f8ebc0;
-	}		
+	}
 textarea {
 	width: 270px;
 	border: 1px solid #D8E2D7;
 	}
 .input_instructions {
+	margin-top: 3px;
 	display: block;
 	font-size: 11px;
-	line-height: 21px;
+	line-height: 15px;
 	color: #924959;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
-	}	
-	
+	}
+
 /* ----- Status Form ----- */
 #status_form {
 	height: 96px;
@@ -492,16 +511,15 @@ textarea {
 #status_form p {
 	margin: 36px 0 0 0;
 	padding: 0;
-	}	
+	}
 #status_label {
-	display: inline;
+	display: block;
 	clear: both;
 	margin: 0;
 	padding: 0 0 3px 0;
 	font-size: 18px;
 	font-weight: bold;
 	line-height: 24px;
-	/*color: #701238;*/
 	color: #dab134;
 	}
 #status_textarea {
@@ -528,24 +546,21 @@ textarea {
 	color: #fff6d5;
 	cursor: pointer;
 	border: 0;
-	} 
+	}
 #status_submit:hover {
 	background-color: #d1451a;
 	}
 #counter {
-    position: relative;
-    color: black;
-    font-weight: bold;
-    font-size: 18px;
-    left: 255px;
+	position: absolute;
+	top: 140px;
+	left: -64px;
+	width: 50px;
+	font-weight: bold;
+	text-align: right;
 }
-
-#counter.toomuch {
-    color: red;
-}
-	
 /* ----- Subscribe Form ----- */
-#subscribe .button, #unsubscribe .button, #remotesubscribe .button {
+#subscribe .submit, #unsubscribe .submit, #remotesubscribe .button, #remotesubscribe {
+	clear: left;
 	margin: 0;
 	width: 96px;
 	height: 27px;
@@ -556,19 +571,26 @@ textarea {
 	background-color: #F60;
 	color: #fff6d5;
 	border: 0;
-	}	
+	}
+#remotesubscribe {
+	width: 96px;
+	height: 22px;
+	padding: 5px 0 0 0;
+	text-align: center;
+	}
 #subscribe .button:hover, #unsubscribe .button:hover {
 	background-color: #904632;
 	cursor: pointer;
 	}
-input#profile_url {
-	width: 88px;
-	padding: 3px;
-	margin: 0 0 10px 0;
-	}
-/* ----- Login Form -----*/	
+
+a#remotesubscribe {
+	display: block;
+}
+
+/* ----- Login Form -----*/
 input#license {
 	width: auto;
+	border: 0;
 	}
 /* ----- Avatar Form -----*/
 form {
@@ -580,12 +602,12 @@ form {
 input#openid_url {
    background: url(login-bg.gif) no-repeat;
    background-color: #fff;
-   background-position: 0 50%;
+   background-position: 4px 50%;
    color: #000;
-   padding-left: 18px;
+   padding-left: 24px;
 }
 
-/* for people lists */
+/* People lists (search results, maybe subscribers) */
 
 #profiles {
 	clear: both;
@@ -598,8 +620,8 @@ input#openid_url {
 	}
 #profiles a:hover {
 	text-decoration: underline;
-	}	
-
+	}
+	
 .profile_single {
 	clear: both;
 	display: block;
@@ -613,31 +635,142 @@ input#openid_url {
 	}
 .profile_single:hover {
 	background-color: #f7ebcc;
-	}	
+	}
+
+/* ----- IM Settings Form -----*/
+
+#imsettings p {
+	margin: 0;
+	padding: 0;
+	line-height: 15px;
+}
 
 /* ----- favor/disfavor -----*/
+
+form#disfavor, form.disfavor  {
+	display: inline;
+	float: right;
+}
 
 input#disfavor, input.disfavor  {
 	display: inline;
 	color: #C15D42;
-	background-color: white;
+	background-color: #FBF2D7;
+	cursor: pointer;
+	border: 0;
+	width: auto;
+	}
+
+form#favor, form.favor  {
+	display: inline;
+	float: right;
+}
+
+input#favor, input.favor  {
+	display: inline;
+	color: #C15D42;
+	background-color: #FBF2D7;
 	cursor: pointer;
 	border: 0;
 	width: auto;
 	}
 	
-input#favor, input.favor  {
+input.favor:hover  {
+	background-color: #f7ebcc;
+}
+
+input.disfavor:hover  {
+	background-color: #f7ebcc;
+}
+	
+/* ----- direct message ----- */
+
+#message_form {
+	height: 96px;
+	/*background-color: #F00;*/
+	}
+	
+#message_form p {
+	margin: 21px 0 0 0;
+	padding: 0;
+	}
+#message_form label {
 	display: inline;
-	color: #C15D42;
-	background-color: white;
+	}
+	
+#message_content {
+	display: block;
+	float: left;
+	width: 463px;
+	height: 35px;
+	padding: 5px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #193441;
+	border: 0;
+	}
+	
+#message_send {
+	display: block;
+	float: left;
+	margin: 1px 0 0 4px;
+	width: 63px;
+	height: 45px;
+	background-color: #C15D42;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 14px;
+	color: #FCFFF5;
 	cursor: pointer;
 	border: 0;
-	width: auto;
 	}
+	
+#message_send:hover {
+	background-color: #904632;
+	}
+
 
 /* ===== End Forms Styling ===== */
 
-/* ----- messages ----- */
+/* ===== Tag Cloud Styling ===== */
+
+p.tagcloud {
+text-align: center;
+}
+
+p.tagcloud a {
+line-height:100%;
+vertical-align:middle;
+}
+
+p.tagcloud a.largest {
+font-size: 400%;
+}
+p.tagcloud a.verylarge {
+font-size: 300%;
+}
+
+p.tagcloud a.large {
+font-size: 200%;
+}
+
+p.tagcloud a.medium {
+font-size: 150%;
+}
+
+p.tagcloud a.small {
+font-size: 100%;
+}
+
+p.tagcloud a.verysmall {
+font-size: 80%;
+}
+
+p.tagcloud a.smallest {
+font-size: 60%;
+}
+
+/* ----- Mailbox ----- */
 
 #messages {
 	clear: both;
@@ -646,11 +779,12 @@ input#favor, input.favor  {
 	list-style-type: none;
 	width: 600px;
 	border-top: 1px solid #dec5b5;
-	/*border: 1px solid #F00;*/
 	}
+
 #messages a:hover {
-	text-decoration: underline;
-	}	
+        text-decoration: underline;
+	}
+
 .message_single {
 	clear: both;
 	display: block;
@@ -664,9 +798,9 @@ input#favor, input.favor  {
 	}
 .message_single:hover {
 	background-color: #f7ebcc;
-	}	
+	}
 .message_single p {
 	display: inline;
 	margin: 0;
 	padding: 0;
-	}	
+	}
