@@ -331,3 +331,13 @@ create table message (
     index message_to_idx (to_profile),
     index message_created_idx (created)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table notice_inbox (
+
+    user_id integer not null comment 'user receiving the message' references user (id),
+    notice_id integer not null comment 'notice received' references notice (id),
+    source tinyint default 1 comment 'reason it is in the inbox; 1=subscription',
+    
+    constraint primary key (user_id, notice_id),
+    index notice_inbox_notice_id_idx (notice_id)
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
