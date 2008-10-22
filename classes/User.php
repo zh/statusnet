@@ -349,8 +349,8 @@ class User extends Memcached_DataObject
 	function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0) {
 		$qry =
 		  'SELECT notice.* ' .
-		  'FROM notice JOIN subscription ON notice.profile_id = subscription.subscribed ' .
-		  'WHERE subscription.subscriber = %d ';
+		  'FROM notice JOIN notice_inbox ON notice.id = notice_inbox.notice_id ' .
+		  'WHERE notice_inbox.user_id = %d ';
 
         if ($since_id > 0) {
             $qry .= ' AND notice.id > ' . $since_id . ' ';
