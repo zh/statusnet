@@ -60,6 +60,7 @@ class Notice extends Memcached_DataObject
 	function delete() {
 		$this->blowCaches();
 		$this->blowFavesCache();
+		$this->blowInboxes();
 		parent::delete();
 	}
 	
@@ -359,5 +360,17 @@ class Notice extends Memcached_DataObject
 		
 		return;
 	}
+
+	# Delete from inboxes if we're deleted.
+	
+	function blowInboxes() {
+
+		$inbox = new Notice_inbox();
+		$inbox->notice_id = $this->id;
+		$inbox->delete();
+		
+		return;
+	}
+	
 }
 
