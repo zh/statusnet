@@ -954,6 +954,23 @@ function common_fancy_url($action, $args=NULL) {
 		return common_path('message/' . $args['message']);
 	 case 'newmessage':
 		return common_path('message/new' . (($args) ? ('?' . http_build_query($args)) : ''));
+	 case 'api':
+		# XXX: do fancy URLs for all the API methods
+		switch (strtolower($args['apiaction'])) {
+		 case 'statuses':
+			switch (strtolower($args['method'])) {
+			 case 'user_timeline.rss':
+				return common_path('api/statuses/user_timeline/'.$args['argument'].'.rss');
+			 case 'user_timeline.atom':				
+				return common_path('api/statuses/user_timeline/'.$args['argument'].'.rss');
+			 case 'user_timeline.rss':
+				return common_path('api/statuses/user_timeline/'.$args['argument'].'.rss');
+			 case 'user_timeline.atom':				
+				return common_path('api/statuses/user_timeline/'.$args['argument'].'.rss');
+			 default: return common_simple_url($action, $args);
+			}
+		 default: return common_simple_url($action, $args);
+		}
 	 default:
 		return common_simple_url($action, $args);
 	}
