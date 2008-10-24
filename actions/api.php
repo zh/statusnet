@@ -179,7 +179,6 @@ class ApiAction extends Action {
 		);
 
 		if (array_key_exists($apiaction, $write_methods)) {
-			common_debug("checking method");
 			if (!in_array($cmdtext, $write_methods[$apiaction])) {
 				return true;
 			}
