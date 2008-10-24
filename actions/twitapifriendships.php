@@ -23,20 +23,6 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
 
 class TwitapifriendshipsAction extends TwitterapiAction {
 
-	function is_readonly() {
-
-		static $write_methods = array(	'create',
-										'destroy');
-
-		$cmdtext = explode('.', $this->arg('method'));
-
-		if (in_array($cmdtext[0], $write_methods)) {
-			return false;
-		}
-
-		return true;
-	}
-
 	function create($args, $apidata) {
 		parent::handle($args);
 
