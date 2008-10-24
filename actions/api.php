@@ -160,4 +160,25 @@ class ApiAction extends Action {
 		}
 	}
 
+	function is_readonly() {
+		# NOTE: before handle(), can't use $this->arg
+		$apiaction = $_REQUEST['apiaction'];
+		$method = $_REQUEST['method'];
+		list($cmdtext, $fmt) = explode('.', $method);
+		
+		# FIXME: probably need a table here, instead of this switch
+		
+		switch ($apiaction) {
+		 case 'statuses':
+			switch ($cmdtext) {
+			 case 'update':
+			 case 'destroy':
+				return false;
+			 default:
+				return true;
+			}
+		 default: 
+			return false;
+		}
+	}
 }
