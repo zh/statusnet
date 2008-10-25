@@ -809,13 +809,17 @@ function common_default_avatar($size) {
 	return theme_path('default-avatar-'.$sizenames[$size].'.png');
 }
 
-function common_local_url($action, $args=NULL) {
-	global $config;
-	if ($config['site']['fancy']) {
-		return common_fancy_url($action, $args);
+function common_local_url($action, $args=NULL, $fragment=NULL) {
+	$url = NULL;
+	if (common_config('site','fancy')) {
+		$url = common_fancy_url($action, $args);
 	} else {
-		return common_simple_url($action, $args);
+		$url = common_simple_url($action, $args);
 	}
+	if (!is_null($fragment)) {
+		$url .= '#'.$fragment;
+	}
+	return $url;
 }
 
 function common_fancy_url($action, $args=NULL) {
@@ -971,6 +975,8 @@ function common_fancy_url($action, $args=NULL) {
 			}
 		 default: return common_simple_url($action, $args);
 		}
+	 case 'sup':
+		return common_path('main/sup');
 	 default:
 		return common_simple_url($action, $args);
 	}
