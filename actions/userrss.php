@@ -84,7 +84,7 @@ class UserrssAction extends Rss10Action {
 	
 	function init_rss($limit=0) {
 		$url = common_local_url('sup', NULL, $this->user->id);
-		header('X-SUP-ID', $url);
+		header('X-SUP-ID: '.$url);
 		parent::init_rss($limit);
 	}
 }
