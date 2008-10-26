@@ -128,7 +128,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 			$this->show_xml_timeline($notice);
 			break;
 		 case 'rss':
-			$this->show_rss_timeline($notice, $title, $id, $link, $subtitle);
+			$this->show_rss_timeline($notice, $title, $link, $subtitle);
 			break;
 		 case 'atom':
 			$this->show_atom_timeline($notice, $title, $id, $link, $subtitle);
@@ -206,7 +206,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 			$this->show_xml_timeline($notice);
 			break;
 		 case 'rss':
-			$this->show_rss_timeline($notice, $title, $id, $link, $subtitle, $suplink);
+			$this->show_rss_timeline($notice, $title, $link, $subtitle, $suplink);
 			break;
 		 case 'atom':
 			$this->show_atom_timeline($notice, $title, $id, $link, $subtitle, $suplink);
@@ -362,7 +362,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 			$this->show_xml_timeline($notices);
 			break;
 		 case 'rss':
-			$this->show_rss_timeline($notices, $title, $id, $link, $subtitle);
+			$this->show_rss_timeline($notices, $title, $link, $subtitle);
 			break;
 		 case 'atom':
 			$this->show_atom_timeline($notices, $title, $id, $link, $subtitle);

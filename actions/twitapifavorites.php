@@ -71,7 +71,7 @@ class TwitapifavoritesAction extends TwitterapiAction {
 			$this->show_xml_timeline($notice);
 			break;
 		 case 'rss':
-			$this->show_rss_timeline($notice, $title, $id, $link, $subtitle);
+			$this->show_rss_timeline($notice, $title, $link, $subtitle);
 			break;
 		 case 'atom':
 			$this->show_atom_timeline($notice, $title, $id, $link, $subtitle);
