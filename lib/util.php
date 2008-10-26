@@ -976,7 +976,11 @@ function common_fancy_url($action, $args=NULL) {
 		 default: return common_simple_url($action, $args);
 		}
 	 case 'sup':
-		return common_path('main/sup');
+		if ($args && isset($args['seconds'])) {
+			return common_path('main/sup?seconds='.$args['seconds']);			
+		} else {
+			return common_path('main/sup');
+		}
 	 default:
 		return common_simple_url($action, $args);
 	}
