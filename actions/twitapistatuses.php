@@ -191,6 +191,12 @@ class TwitapistatusesAction extends TwitterapiAction {
 		$link = common_local_url('showstream', array('nickname' => $user->nickname));
 		$subtitle = sprintf(_('Updates from %1$s on %2$s!'), $user->nickname, $sitename);
 
+		# FriendFeed's SUP protocol
+		# Also added RSS and Atom feeds
+		
+		$suplink = common_local_url('sup', NULL, $user->id);
+		header('X-SUP-ID: '.$suplink);
+		
 		# XXX: since
 
 		$notice = $user->getNotices((($page-1)*20), $count, $since_id, $before_id);
@@ -200,10 +206,10 @@ class TwitapistatusesAction extends TwitterapiAction {
 			$this->show_xml_timeline($notice);
 			break;
 		 case 'rss':
-			$this->show_rss_timeline($notice, $title, $id, $link, $subtitle);
+			$this->show_rss_timeline($notice, $title, $id, $link, $subtitle, $suplink);
 			break;
 		 case 'atom':
-			$this->show_atom_timeline($notice, $title, $id, $link, $subtitle);
+			$this->show_atom_timeline($notice, $title, $id, $link, $subtitle, $suplink);
 			break;
 		 case 'json':
 			$this->show_json_timeline($notice);

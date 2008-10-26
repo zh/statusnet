@@ -259,13 +259,20 @@ class TwitterapiAction extends Action {
 		$this->end_document('xml');
 	}
 
-	function show_rss_timeline($notice, $title, $link, $subtitle) {
+	function show_rss_timeline($notice, $title, $link, $subtitle, $suplink=NULL) {
 
 		$this->init_document('rss');
 
 		common_element_start('channel');
 		common_element('title', NULL, $title);
 		common_element('link', NULL, $link);
+		if (!is_null($suplink)) {
+			# For FriendFeed's SUP protocol
+			common_element('link', array('xmlns' => 'http://www.w3.org/2005/Atom',
+										 'rel' => 'http://api.friendfeed.com/2008/03#sup',
+										 'href' => $suplink,
+										 'type' => 'application/json'));
+		}
 		common_element('description', NULL, $subtitle);
 		common_element('language', NULL, 'en-us');
 		common_element('ttl', NULL, '40');
@@ -287,13 +294,19 @@ class TwitterapiAction extends Action {
 		$this->end_twitter_rss();
 	}
 
-	function show_atom_timeline($notice, $title, $id, $link, $subtitle=NULL) {
+	function show_atom_timeline($notice, $title, $id, $link, $subtitle=NULL, $suplink=NULL) {
 
 		$this->init_document('atom');
 
 		common_element('title', NULL, $title);
 		common_element('id', NULL, $id);
 		common_element('link', array('href' => $link, 'rel' => 'alternate', 'type' => 'text/html'), NULL);
+		if (!is_null($suplink)) {
+			# For FriendFeed's SUP protocol
+			common_element('link', array('rel' => 'http://api.friendfeed.com/2008/03#sup',
+										 'href' => $suplink,
+										 'type' => 'application/json'));
+		}
 		common_element('subtitle', NULL, $subtitle);
 
 		if (is_array($notice)) {
