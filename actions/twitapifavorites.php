@@ -23,19 +23,6 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
 
 class TwitapifavoritesAction extends TwitterapiAction {
 
-	function is_readonly() {
-
-		static $write_methods = array('favorites');
-
-		$cmdtext = explode('.', $this->arg('method'));
-
-		if (in_array($cmdtext[0], $write_methods)) {
-			return false;
-		}
-
-		return true;
-	}
-
 	function favorites($args, $apidata) {
 		parent::handle($args);
 
@@ -84,7 +71,7 @@ class TwitapifavoritesAction extends TwitterapiAction {
 			$this->show_xml_timeline($notice);
 			break;
 		 case 'rss':
-			$this->show_rss_timeline($notice, $title, $id, $link, $subtitle);
+			$this->show_rss_timeline($notice, $title, $link, $subtitle);
 			break;
 		 case 'atom':
 			$this->show_atom_timeline($notice, $title, $id, $link, $subtitle);

@@ -23,10 +23,6 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
 
 class TwitapiusersAction extends TwitterapiAction {
 
-	function is_readonly() {
-		return true;
-	}
-
 	function show($args, $apidata) {
 		parent::handle($args);
 

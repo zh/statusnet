@@ -10,11 +10,11 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.	 If not, see <http://www.gnu.org/licenses/>.
  */
 
 if (!defined('LACONICA')) { exit(1); }
@@ -40,7 +40,7 @@ class ApiAction extends Action {
 			$this->api_method = $method;
 			$this->content_type = strtolower($cmdext[1]);
 		} else {
-			
+
 			# Requested format / content-type will be an extension on the method
 			$cmdext = explode('.', $method);
 			$this->api_method = $cmdext[0];
@@ -72,13 +72,13 @@ class ApiAction extends Action {
 
 			# Caller might give us a username even if not required
 			if (isset($_SERVER['PHP_AUTH_USER'])) {
-				$user = User::staticGet('nickname', $_SERVER['PHP_AUTH_USER']);	
+				$user = User::staticGet('nickname', $_SERVER['PHP_AUTH_USER']);
 				if ($user) {
 					$this->user = $user;
 				}
 				# Twitter doesn't throw an error if the user isn't found
 			}
-			
+
 			$this->process_command();
 		}
 	}
@@ -109,7 +109,7 @@ class ApiAction extends Action {
 
 	# Whitelist of API methods that don't need authentication
 	function requires_auth() {
-		static $noauth = array(	'statuses/public_timeline',
+		static $noauth = array( 'statuses/public_timeline',
 								'statuses/show',
 								'users/show',
 								'help/test',
@@ -138,10 +138,10 @@ class ApiAction extends Action {
 		}
 	}
 
-	function show_basic_auth_error() {	
-	  	header('HTTP/1.1 401 Unauthorized');
-	   	$msg = 'Could not authenticate you.';
-	
+	function show_basic_auth_error() {
+		header('HTTP/1.1 401 Unauthorized');
+		$msg = 'Could not authenticate you.';
+
 		if ($this->content_type == 'xml') {
 			header('Content-Type: application/xml; charset=utf-8');
 			common_start_xml();
@@ -151,13 +151,40 @@ class ApiAction extends Action {
 			common_element_end('hash');
 			common_end_xml();
 		} else if ($this->content_type == 'json')  {
-			header('Content-Type: application/json; charset=utf-8');			
+			header('Content-Type: application/json; charset=utf-8');
 			$error_array = array('error' => $msg, 'request' => $_SERVER['REQUEST_URI']);
 			print(json_encode($error_array));
 		} else {
 			header('Content-type: text/plain');
 			print "$msg\n";
 		}
+	}
+
+	function is_readonly() {
+		# NOTE: before handle(), can't use $this->arg
+		$apiaction = $_REQUEST['apiaction'];
+		$method = $_REQUEST['method'];
+		list($cmdtext, $fmt) = explode('.', $method);
+
+		static $write_methods = array(
+			'account' => array('update_location', 'update_delivery_device', 'end_session'),
+			'blocks' => array('create', 'destroy'),
+			'direct_messages' => array('create', 'destroy'),
+			'favorites' => array('create', 'destroy'),
+			'friendships' => array('create', 'destroy'),
+			'help' => array(),
+			'notifications' => array('follow', 'leave'),
+			'statuses' => array('update', 'destroy'),
+			'users' => array()
+		);
+
+		if (array_key_exists($apiaction, $write_methods)) {
+			if (!in_array($cmdtext, $write_methods[$apiaction])) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 }

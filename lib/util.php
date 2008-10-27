@@ -809,13 +809,17 @@ function common_default_avatar($size) {
 	return theme_path('default-avatar-'.$sizenames[$size].'.png');
 }
 
-function common_local_url($action, $args=NULL) {
-	global $config;
-	if ($config['site']['fancy']) {
-		return common_fancy_url($action, $args);
+function common_local_url($action, $args=NULL, $fragment=NULL) {
+	$url = NULL;
+	if (common_config('site','fancy')) {
+		$url = common_fancy_url($action, $args);
 	} else {
-		return common_simple_url($action, $args);
+		$url = common_simple_url($action, $args);
 	}
+	if (!is_null($fragment)) {
+		$url .= '#'.$fragment;
+	}
+	return $url;
 }
 
 function common_fancy_url($action, $args=NULL) {
@@ -954,6 +958,29 @@ function common_fancy_url($action, $args=NULL) {
 		return common_path('message/' . $args['message']);
 	 case 'newmessage':
 		return common_path('message/new' . (($args) ? ('?' . http_build_query($args)) : ''));
+	 case 'api':
+		# XXX: do fancy URLs for all the API methods
+		switch (strtolower($args['apiaction'])) {
+		 case 'statuses':
+			switch (strtolower($args['method'])) {
+			 case 'user_timeline.rss':
+				return common_path('api/statuses/user_timeline/'.$args['argument'].'.rss');
+			 case 'user_timeline.atom':				
+				return common_path('api/statuses/user_timeline/'.$args['argument'].'.rss');
+			 case 'user_timeline.rss':
+				return common_path('api/statuses/user_timeline/'.$args['argument'].'.rss');
+			 case 'user_timeline.atom':				
+				return common_path('api/statuses/user_timeline/'.$args['argument'].'.rss');
+			 default: return common_simple_url($action, $args);
+			}
+		 default: return common_simple_url($action, $args);
+		}
+	 case 'sup':
+		if ($args && isset($args['seconds'])) {
+			return common_path('main/sup?seconds='.$args['seconds']);			
+		} else {
+			return common_path('main/sup');
+		}
 	 default:
 		return common_simple_url($action, $args);
 	}

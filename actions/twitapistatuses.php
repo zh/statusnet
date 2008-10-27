@@ -23,20 +23,6 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
 
 class TwitapistatusesAction extends TwitterapiAction {
 
-	function is_readonly() {
-
-		static $write_methods = array(	'update',
-										'destroy');
-
-		$cmdtext = explode('.', $this->arg('method'));
-
-		if (in_array($cmdtext[0], $write_methods)) {
-			return false;
-		}
-
-		return true;
-	}
-
 	function public_timeline($args, $apidata) {
 		parent::handle($args);
 
@@ -142,7 +128,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 			$this->show_xml_timeline($notice);
 			break;
 		 case 'rss':
-			$this->show_rss_timeline($notice, $title, $id, $link, $subtitle);
+			$this->show_rss_timeline($notice, $title, $link, $subtitle);
 			break;
 		 case 'atom':
 			$this->show_atom_timeline($notice, $title, $id, $link, $subtitle);
@@ -205,6 +191,12 @@ class TwitapistatusesAction extends TwitterapiAction {
 		$link = common_local_url('showstream', array('nickname' => $user->nickname));
 		$subtitle = sprintf(_('Updates from %1$s on %2$s!'), $user->nickname, $sitename);
 
+		# FriendFeed's SUP protocol
+		# Also added RSS and Atom feeds
+		
+		$suplink = common_local_url('sup', NULL, $user->id);
+		header('X-SUP-ID: '.$suplink);
+		
 		# XXX: since
 
 		$notice = $user->getNotices((($page-1)*20), $count, $since_id, $before_id);
@@ -214,10 +206,10 @@ class TwitapistatusesAction extends TwitterapiAction {
 			$this->show_xml_timeline($notice);
 			break;
 		 case 'rss':
-			$this->show_rss_timeline($notice, $title, $id, $link, $subtitle);
+			$this->show_rss_timeline($notice, $title, $link, $subtitle, $suplink);
 			break;
 		 case 'atom':
-			$this->show_atom_timeline($notice, $title, $id, $link, $subtitle);
+			$this->show_atom_timeline($notice, $title, $id, $link, $subtitle, $suplink);
 			break;
 		 case 'json':
 			$this->show_json_timeline($notice);
@@ -240,6 +232,10 @@ class TwitapistatusesAction extends TwitterapiAction {
 		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 			$this->client_error(_('This method requires a POST.'), 400, $apidata['content-type']);
 			return;
+		}
+
+		foreach ($_POST as $p => $v) {
+			common_debug("_POST: $p = $v");
 		}
 
 		$this->auth_user = $apidata['user'];
@@ -366,7 +362,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 			$this->show_xml_timeline($notices);
 			break;
 		 case 'rss':
-			$this->show_rss_timeline($notices, $title, $id, $link, $subtitle);
+			$this->show_rss_timeline($notices, $title, $link, $subtitle);
 			break;
 		 case 'atom':
 			$this->show_atom_timeline($notices, $title, $id, $link, $subtitle);

@@ -23,20 +23,6 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
 
 class TwitapiaccountAction extends TwitterapiAction {
 
-	function is_readonly() {
-
-		static $write_methods = array(	'update_location',
-										'update_delivery_device');
-
-		$cmdtext = explode('.', $this->arg('method'));
-
-		if (in_array($cmdtext[0], $write_methods)) {
-			return false;
-		}
-
-		return true;
-	}
-
 	function verify_credentials($args, $apidata) {
 
 		if ($apidata['content-type'] == 'xml') {

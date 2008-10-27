@@ -79,4 +79,12 @@ class UserrssAction extends Rss10Action {
 		$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
 		return ($avatar) ? $avatar->url : NULL;
 	}
+
+	# override parent to add X-SUP-ID URL
+	
+	function init_rss($limit=0) {
+		$url = common_local_url('sup', NULL, $this->user->id);
+		header('X-SUP-ID: '.$url);
+		parent::init_rss($limit);
+	}
 }

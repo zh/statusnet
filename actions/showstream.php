@@ -75,11 +75,27 @@ class ShowstreamAction extends StreamAction {
 	}
 
 	function show_header($user) {
+		# Feeds
+		common_element('link', array('rel' => 'alternate',
+									 'href' => common_local_url('api', 
+																array('apiaction' => 'statuses',
+																	  'method' => 'user_timeline.rss',
+																	  'argument' => $user->nickname)),
+									 'type' => 'application/rss+xml',
+									 'title' => sprintf(_('Notice feed for %s'), $user->nickname)));
+		common_element('link', array('rel' => 'alternate feed',
+									 'href' => common_local_url('api', 
+																array('apiaction' => 'statuses',
+																	  'method' => 'user_timeline.atom',
+																	  'argument' => $user->nickname)),
+									 'type' => 'application/atom+xml',
+									 'title' => sprintf(_('Notice feed for %s'), $user->nickname)));
 		common_element('link', array('rel' => 'alternate',
 									 'href' => common_local_url('userrss', array('nickname' =>
 																			   $user->nickname)),
-									 'type' => 'application/rss+xml',
+									 'type' => 'application/rdf+xml',
 									 'title' => sprintf(_('Notice feed for %s'), $user->nickname)));
+		# FOAF
 		common_element('link', array('rel' => 'meta',
 									 'href' => common_local_url('foaf', array('nickname' =>
 																			  $user->nickname)),
