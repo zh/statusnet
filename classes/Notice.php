@@ -60,6 +60,7 @@ class Notice extends Memcached_DataObject
 	function delete() {
 		$this->blowCaches();
 		$this->blowFavesCache();
+		$this->blowInboxes();
 		parent::delete();
 	}
 	
@@ -131,7 +132,8 @@ class Notice extends Memcached_DataObject
 		if (common_config('memcached', 'enabled')) {
 			$notice->blowCaches();
 		}
-		
+
+		$notice->addToInboxes();
 		return $notice;
 	}
 
@@ -307,7 +309,7 @@ class Notice extends Memcached_DataObject
 		
 		return $wrapper;
 	}
-	
+
 	function publicStream($offset=0, $limit=20, $since_id=0, $before_id=0) {
 		
 		$needAnd = FALSE;
@@ -346,4 +348,29 @@ class Notice extends Memcached_DataObject
 								 'public',
 								 $offset, $limit);
 	}
+	
+	function addToInboxes() {
+
+		$inbox = new Notice_inbox();
+		
+		$inbox->query('INSERT INTO notice_inbox (user_id, notice_id) ' .
+					  'SELECT user.id, ' . $this->id . ' ' .
+					  'FROM user JOIN subscription ON user.id = subscription.subscriber ' .
+					  'WHERE subscription.subscribed = ' . $this->profile_id);
+		
+		return;
+	}
+
+	# Delete from inboxes if we're deleted.
+	
+	function blowInboxes() {
+
+		$inbox = new Notice_inbox();
+		$inbox->notice_id = $this->id;
+		$inbox->delete();
+		
+		return;
+	}
+	
 }
+
