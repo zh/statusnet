@@ -711,10 +711,38 @@ function common_render_text($text) {
 	$r = htmlspecialchars($text);
 
 	$r = preg_replace('/[\x{0}-\x{8}\x{b}-\x{c}\x{e}-\x{19}]/', '', $r);
-	$r = preg_replace('@https?://[^)\]>\s]+@', '<a href="\0" class="extlink">\0</a>', $r);
+	$r = preg_replace_callback('@https?://[^\]>\s]+@', 'common_render_uri_thingy', $r);
 	$r = preg_replace('/(^|\s+)#([A-Za-z0-9_\-\.]{1,64})/e', "'\\1#'.common_tag_link('\\2')", $r);
 	# XXX: machine tags
 	return $r;
+}
+
+function common_render_uri_thingy($matches) {
+	$uri = $matches[0];
+	$trailer = '';
+
+	# Some heuristics for extracting URIs from surrounding punctuation
+	# Strip from trailing text...
+	if (preg_match('/^(.*)([,.:"\']+)$/', $uri, $matches)) {
+		$uri = $matches[1];
+		$trailer = $matches[2];
+	}
+
+	$pairs = array(
+		']' => '[', # technically disallowed in URIs, but used in Java docs
+		')' => '(', # far too frequent in Wikipedia and MSDN
+	);
+	$final = substr($uri, -1, 1);
+	if (isset($pairs[$final])) {
+		$openers = substr_count($uri, $pairs[$final]);
+		$closers = substr_count($uri, $final);
+		if ($closers > $openers) {
+			// Assume the paren was opened outside the URI
+			$uri = substr($uri, 0, -1);
+			$trailer = $final . $trailer;
+		}
+	}
+	return '<a href="' . $uri . '" class="extlink">' . $uri . '</a>' . $trailer;
 }
 
 function common_tag_link($tag) {
