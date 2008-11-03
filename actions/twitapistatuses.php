@@ -193,10 +193,10 @@ class TwitapistatusesAction extends TwitterapiAction {
 
 		# FriendFeed's SUP protocol
 		# Also added RSS and Atom feeds
-		
+
 		$suplink = common_local_url('sup', NULL, $user->id);
 		header('X-SUP-ID: '.$suplink);
-		
+
 		# XXX: since
 
 		$notice = $user->getNotices((($page-1)*20), $count, $since_id, $before_id);
@@ -232,10 +232,6 @@ class TwitapistatusesAction extends TwitterapiAction {
 		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 			$this->client_error(_('This method requires a POST.'), 400, $apidata['content-type']);
 			return;
-		}
-
-		foreach ($_POST as $p => $v) {
-			common_debug("_POST: $p = $v");
 		}
 
 		$this->auth_user = $apidata['user'];
@@ -298,7 +294,8 @@ class TwitapistatusesAction extends TwitterapiAction {
 				}
 			}
 
-			$notice = Notice::saveNew($user->id, $status, $source, 1, $reply_to);
+			$notice = Notice::saveNew($user->id, html_entity_decode($status, ENT_NOQUOTES, 'UTF-8'),
+				$source, 1, $reply_to);
 
 			if (is_string($notice)) {
 				$this->server_error($notice);

@@ -708,7 +708,7 @@ function common_render_content($text, $notice) {
 }
 
 function common_render_text($text) {
-	$r = htmlspecialchars($text);
+	$r = htmlentities($text, ENT_NOQUOTES, 'UTF-8');
 
 	$r = preg_replace('/[\x{0}-\x{8}\x{b}-\x{c}\x{e}-\x{19}]/', '', $r);
 	$r = preg_replace_callback('@https?://[^\]>\s]+@', 'common_render_uri_thingy', $r);
