@@ -133,8 +133,9 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
 				$code = 403, $apidata['content-type']);
 			return;
 		}
-
-		$message = Message::saveNew($user->id, $other->id, $content, $source);
+		
+		$message = Message::saveNew($user->id, $other->id, 
+			html_entity_decode($content, ENT_NOQUOTES, 'UTF-8'), $source);
 
 		if (is_string($message)) {
 			$this->server_error($message);

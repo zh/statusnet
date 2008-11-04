@@ -708,7 +708,7 @@ function common_render_content($text, $notice) {
 }
 
 function common_render_text($text) {
-	$r = htmlentities($text, ENT_NOQUOTES, 'UTF-8');
+	$r = htmlspecialchars($text);
 
 	$r = preg_replace('/[\x{0}-\x{8}\x{b}-\x{c}\x{e}-\x{19}]/', '', $r);
 	$r = preg_replace_callback('@https?://[^\]>\s]+@', 'common_render_uri_thingy', $r);
@@ -743,6 +743,13 @@ function common_render_uri_thingy($matches) {
 		}
 	}
 	return '<a href="' . $uri . '" class="extlink">' . $uri . '</a>' . $trailer;
+}
+
+function common_xml_safe_str($str) {
+	$xmlStr = htmlentities(iconv('UTF-8', 'UTF-8//IGNORE', $str), ENT_NOQUOTES, 'UTF-8');
+	
+	// Replace control, formatting, and surrogate characters with '*', ala Twitter
+	return preg_replace('/[\p{Cc}\p{Cf}\p{Cs}]/u', '*', $str);
 }
 
 function common_tag_link($tag) {
