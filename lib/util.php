@@ -745,6 +745,13 @@ function common_render_uri_thingy($matches) {
 	return '<a href="' . $uri . '" class="extlink">' . $uri . '</a>' . $trailer;
 }
 
+function common_xml_safe_str($str) {
+	$xmlStr = htmlentities(iconv('UTF-8', 'UTF-8//IGNORE', $str), ENT_NOQUOTES, 'UTF-8');
+	
+	// Replace control, formatting, and surrogate characters with '*', ala Twitter
+	return preg_replace('/[\p{Cc}\p{Cf}\p{Cs}]/u', '*', $str);
+}
+
 function common_tag_link($tag) {
 	$canonical = common_canonical_tag($tag);
 	$url = common_local_url('tag', array('tag' => $canonical));

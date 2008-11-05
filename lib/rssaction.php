@@ -123,7 +123,7 @@ class Rss10Action extends Action {
 		$nurl = common_local_url('shownotice', array('notice' => $notice->id));
 		$creator_uri = common_profile_uri($profile);
 		common_element_start('item', array('rdf:about' => $notice->uri));
-		$title = $profile->nickname . ': ' . $notice->content;
+		$title = $profile->nickname . ': ' . common_xml_safe_str($notice->content);
 		common_element('title', NULL, $title);
 		common_element('link', NULL, $nurl);
 		common_element('description', NULL, $profile->nickname."'s status on ".common_exact_date($notice->created));

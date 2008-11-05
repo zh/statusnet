@@ -60,7 +60,7 @@ class TwitterapiAction extends Action {
 		$profile = $notice->getProfile();
 
 		$twitter_status = array();
-		$twitter_status['text'] = $notice->content;
+		$twitter_status['text'] = common_xml_safe_str($notice->content);
 		$twitter_status['truncated'] = 'false'; # Not possible on Laconica
 		$twitter_status['created_at'] = $this->date_twitter($notice->created);
 		$twitter_status['in_reply_to_status_id'] = ($notice->reply_to) ? intval($notice->reply_to) : NULL;
@@ -91,8 +91,8 @@ class TwitterapiAction extends Action {
 
 		$server = common_config('site', 'server');
 		$entry = array();
-
-		$entry['content'] = $profile->nickname . ': ' . $notice->content;
+		 
+		$entry['content'] = $profile->nickname . ': ' . common_xml_safe_str($notice->content);
 		$entry['title'] = $entry['content'];
 		$entry['link'] = common_local_url('shownotice', array('notice' => $notice->id));
 		$entry['published'] = common_date_iso8601($notice->created);
@@ -115,14 +115,14 @@ class TwitterapiAction extends Action {
 		$entry['title'] = sprintf('Message from %s to %s',
 			$message->getFrom()->nickname, $message->getTo()->nickname);
 
-		$entry['content'] = $message->content;
+		$entry['content'] = common_xml_safe_str($message->content);
 		$entry['link'] = $message->uri;
 		$entry['published'] = common_date_iso8601($message->created);
 		$entry['id'] = "tag:$server,2008:$entry[link]";
 		$entry['updated'] = $entry['published'];
 
 		# RSS Item specific
-		$entry['description'] = $message->content;
+		$entry['description'] = $entry['content'];
 		$entry['pubDate'] = common_date_rfc2822($message->created);
 		$entry['guid'] = $entry['link'];
 
@@ -137,8 +137,8 @@ class TwitterapiAction extends Action {
 		$to_profile = $message->getTo();
 
 		$twitter_dm['id'] = $message->id;
-		$twitter_dm['sender_id'] = $message->from_profile;
-		$twitter_dm['text'] = $message->content;
+		$twitter_dm['sender_id'] = $message->from_profile;		
+		$twitter_dm['text'] = common_xml_safe_str($message->content);
 		$twitter_dm['recipient_id'] = $message->to_profile;
 		$twitter_dm['created_at'] = $this->date_twitter($message->created);
 		$twitter_dm['sender_screen_name'] = $from_profile->nickname;
@@ -569,5 +569,5 @@ class TwitterapiAction extends Action {
 		}
 		return $source_name;
 	}
-
+	
 }
