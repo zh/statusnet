@@ -59,8 +59,11 @@ class PostnoticeAction extends Action {
 		}
 		$content = $req->get_parameter('omb_notice_content');
 		if (!$content || strlen($content) > 140) {
-			common_user_error(_('Invalid notice content'), 400);
-			return false;
+			$content = common_shorten_links($content);
+			if (mb_strlen($content) > 140) {
+				common_user_error(_('Invalid notice content'), 400);
+				return false;
+			}
 		}
 		$notice_uri = $req->get_parameter('omb_notice');
 		if (!Validate::uri($notice_uri) &&

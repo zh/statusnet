@@ -747,6 +747,50 @@ function common_render_uri_thingy($matches) {
 	return '<a href="' . $uri . '" class="extlink">' . $uri . '</a>' . $trailer;
 }
 
+function common_shorten_links($text) {
+	$r = htmlspecialchars($text);
+	$r = preg_replace('@https?://[^)\]>\s]+@e', "common_shorten_link('\\0')", $r);
+	return $r;
+}
+
+function common_shorten_link($long_url) {
+	
+	$user = common_current_user();
+	
+	$curlh = curl_init();
+	curl_setopt($curlh, CURLOPT_CONNECTTIMEOUT, 20); // # seconds to wait
+	curl_setopt($curlh, CURLOPT_USERAGENT, 'Laconica');
+	curl_setopt($curlh, CURLOPT_RETURNTRANSFER, true);
+	
+	switch($user->urlshorteningservice) {
+		case 'is.gd':
+			curl_setopt($curlh, CURLOPT_URL, 'http://is.gd/api.php?longurl='.urlencode($long_url));
+			$short_url = curl_exec($curlh);
+			break;
+		case 'snipr.com':
+			curl_setopt($curlh, CURLOPT_URL, 'http://snipr.com/site/snip?r=simple&link='.urlencode($long_url));
+			$short_url = curl_exec($curlh);
+			break;
+		case 'metamark.net':
+			curl_setopt($curlh, CURLOPT_URL, 'http://metamark.net/api/rest/simple?long_url='.urlencode($long_url));
+			$short_url = curl_exec($curlh);
+			break;
+		case 'tinyurl.com':
+			curl_setopt($curlh, CURLOPT_URL, 'http://tinyurl.com/api-create.php?url='.urlencode($long_url));
+			$short_url = curl_exec($curlh);
+			break;
+		default:
+			$short_url = false;
+	}
+	
+	curl_close($curlh);
+	
+	if ($short_url) {
+		return $short_url;
+	}
+	return $long_url;
+}
+
 function common_xml_safe_str($str) {
 	$xmlStr = htmlentities(iconv('UTF-8', 'UTF-8//IGNORE', $str), ENT_NOQUOTES, 'UTF-8');
 	

@@ -224,8 +224,8 @@ class ProfilesettingsAction extends SettingsAction {
 		} else if ($this->nickname_exists($nickname)) {
 			$this->show_form(_('Nickname already in use. Try another one.'));
 			return;
-                } else if (!is_null($language) && strlen($language) > 50) {
-                        $this->show_form(_('Language is too long (max 50 chars).'));
+        } else if (!is_null($language) && strlen($language) > 50) {
+        	$this->show_form(_('Language is too long (max 50 chars).'));
 		}
 
 		$user = common_current_user();

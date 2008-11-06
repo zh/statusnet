@@ -97,7 +97,10 @@ class SettingsAction extends Action {
 					  _('Updates by instant messenger (IM)')),
 				'twittersettings' =>
 				array(_('Twitter'),
-					  _('Twitter integration options')));
+					  _('Twitter integration options')),
+				'othersettings' =>
+				array(_('Other'),
+					  _('Other options')));
 		
         $action = $this->trimmed('action');
         common_element_start('ul', array('id' => 'nav_views'));

@@ -55,6 +55,7 @@ class User extends Memcached_DataObject
     public $smsemail;                        // varchar(255)  
     public $uri;                             // varchar(255)  unique_key
     public $autosubscribe;                   // tinyint(1)  
+	public $urlshorteningservice;			 // varchar(50)
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 

@@ -65,6 +65,7 @@ create table user (
     smsemail varchar(255) comment 'built from sms and carrier',
     uri varchar(255) unique key comment 'universally unique identifier, usually a tag URI',
     autosubscribe tinyint default 0 comment 'automatically subscribe to users who subscribe to us',
+	urlshorteningservice varchar(50) default 'metamark.net' comment 'service to use for auto-shortening URLs',
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified',
 
