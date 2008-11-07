@@ -763,6 +763,21 @@ function common_shorten_link($long_url) {
 	curl_setopt($curlh, CURLOPT_RETURNTRANSFER, true);
 	
 	switch($user->urlshorteningservice) {
+        case 'ur1.ca':
+            $short_url_service = new LilUrl;
+            $short_url = $short_url_service->shorten($long_url);
+            break;
+            
+        case '2tu.ru':
+            $short_url_service = new TightUrl;
+            $short_url = $short_url_service->shorten($long_url);
+            break;
+            
+        case 'ptiturl.com':
+            $short_url_service = new PtitUrl;
+            $short_url = $short_url_service->shorten($long_url);
+            break;
+            
 		case 'is.gd':
 			curl_setopt($curlh, CURLOPT_URL, 'http://is.gd/api.php?longurl='.urlencode($long_url));
 			$short_url = curl_exec($curlh);
