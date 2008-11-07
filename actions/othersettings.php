@@ -45,6 +45,7 @@ class OthersettingsAction extends SettingsAction {
             'ur1.ca' => 'ur1.ca (free)',
             '2tu.ru' => '2tu.ru (free)',
             'ptiturl.com' => 'ptiturl.com',
+            'bit.ly' => 'bit.ly',
 			'tinyurl.com' => 'tinyurl.com',
 			'is.gd' => 'is.gd',
 			'snipr.com' => 'snipr.com',

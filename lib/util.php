@@ -777,7 +777,12 @@ function common_shorten_link($long_url) {
             $short_url_service = new PtitUrl;
             $short_url = $short_url_service->shorten($long_url);
             break;
-            
+
+        case 'bit.ly':
+			curl_setopt($curlh, CURLOPT_URL, 'http://bit.ly/api?method=shorten&long_url='.urlencode($long_url));
+			$short_url = current(json_decode(curl_exec($curlh))->results)->hashUrl;
+            break;
+
 		case 'is.gd':
 			curl_setopt($curlh, CURLOPT_URL, 'http://is.gd/api.php?longurl='.urlencode($long_url));
 			$short_url = curl_exec($curlh);
