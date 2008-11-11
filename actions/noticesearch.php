@@ -142,6 +142,8 @@ class NoticesearchAction extends SearchAction {
 								   'onclick' => 'doreply("'.$profile->nickname.'"); return false',
 								   'title' => _('reply'),
 								   'class' => 'replybutton'));
+		common_hidden('posttoken', common_session_token());
+		
 		common_raw('&rarr;');
 		common_element_end('a');
 		common_element_end('p');

@@ -1353,12 +1353,13 @@ function common_notice_form($action=NULL, $content=NULL) {
 	common_element('label', array('for' => 'status_textarea',
 								  'id' => 'status_label'),
 				   sprintf(_('What\'s up, %s?'), $user->nickname));
-        common_element('span', array('id' => 'counter', 'class' => 'counter'), '140');
+    common_element('span', array('id' => 'counter', 'class' => 'counter'), '140');
 	common_element('textarea', array('id' => 'status_textarea',
 									 'cols' => 60,
 									 'rows' => 3,
 									 'name' => 'status_textarea'),
 				   ($content) ? $content : '');
+	common_hidden('token', common_session_token());
 	if ($action) {
 		common_hidden('returnto', $action);
 	}

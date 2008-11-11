@@ -37,8 +37,15 @@ class LoginAction extends Action {
 	}
 
 	function check_login() {
-		# XXX: form token in $_SESSION to prevent XSS
 		# XXX: login throttle
+
+		# CSRF protection - token set in common_notice_form()
+		$token = $this->trimmed('token');
+		if (!$token || $token != common_session_token()) {
+			$this->client_error(_('There was a problem with your session token. Try again, please.'));
+			return;
+		}
+
 		$nickname = common_canonical_nickname($this->trimmed('nickname'));
 		$password = $this->arg('password');
 		if (common_check_user($nickname, $password)) {
@@ -104,6 +111,7 @@ class LoginAction extends Action {
 		                _('Automatically login in the future; ' .
 		                   'not for shared computers!'));
 		common_submit('submit', _('Login'));
+		common_hidden('token', common_session_token());
 		common_element_end('form');
 		common_element_start('p');
 		common_element('a', array('href' => common_local_url('recoverpassword')),
