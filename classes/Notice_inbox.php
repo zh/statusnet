@@ -29,6 +29,7 @@ class Notice_inbox extends Memcached_DataObject
     public $__table = 'notice_inbox';                    // table name
     public $user_id;                         // int(4)  primary_key not_null
     public $notice_id;                       // int(4)  primary_key not_null
+    public $created;                         // datetime()   not_null
     public $source;                          // tinyint(1)   default_1
 
     /* Static get */

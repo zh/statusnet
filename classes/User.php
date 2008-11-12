@@ -330,9 +330,12 @@ class User extends Memcached_DataObject
 		  'FROM notice JOIN notice_inbox ON notice.id = notice_inbox.notice_id ' .
 		  'WHERE notice_inbox.user_id = %d ';
 
+		# NOTE: we override ORDER
+		
 		return Notice::getStream(sprintf($qry, $this->id),
 								 'user:notices_with_friends:' . $this->id,
-								 $offset, $limit, $since_id, $before_id);
+								 $offset, $limit, $since_id, $before_id,
+								 'ORDER BY notice_inbox.created DESC, notice_inbox.id DESC ');
 	}
 	
 	function blowFavesCache() {

@@ -336,6 +336,7 @@ create table notice_inbox (
 
     user_id integer not null comment 'user receiving the message' references user (id),
     notice_id integer not null comment 'notice received' references notice (id),
+    created datetime not null comment 'date the notice was created',
     source tinyint default 1 comment 'reason it is in the inbox; 1=subscription',
     
     constraint primary key (user_id, notice_id),

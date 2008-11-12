@@ -38,14 +38,14 @@ class Notice extends Memcached_DataObject
     public $id;                              // int(4)  primary_key not_null
     public $profile_id;                      // int(4)   not_null
     public $uri;                             // varchar(255)  unique_key
-    public $content;                         // varchar(140)
-    public $rendered;                        // text()
-    public $url;                             // varchar(255)
+    public $content;                         // varchar(140)  
+    public $rendered;                        // text()  
+    public $url;                             // varchar(255)  
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
-    public $reply_to;                        // int(4)
-    public $is_local;                        // tinyint(1)
-    public $source;                          // varchar(32)
+    public $reply_to;                        // int(4)  
+    public $is_local;                        // tinyint(1)  
+    public $source;                          // varchar(32)  
 
     /* Static get */
     function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Notice',$k,$v); }
@@ -226,22 +226,25 @@ class Notice extends Memcached_DataObject
 		}
 	}
 
-	static function getStream($qry, $cachekey, $offset=0, $limit=20, $since_id=0, $before_id=0) {
+	# XXX: too many args; we need to move to named params or even a separate
+	# class for notice streams
+	
+	static function getStream($qry, $cachekey, $offset=0, $limit=20, $since_id=0, $before_id=0, $order=NULL) {
 
 		if (common_config('memcached', 'enabled')) {
 
 			# Skip the cache if this is a since_id or before_id qry
 			if ($since_id > 0 || $before_id > 0) {
-				return Notice::getStreamDirect($qry, $offset, $limit, $since_id, $before_id);
+				return Notice::getStreamDirect($qry, $offset, $limit, $since_id, $before_id, $order);
 			} else {
-				return Notice::getCachedStream($qry, $cachekey, $offset, $limit);
+				return Notice::getCachedStream($qry, $cachekey, $offset, $limit, $order);
 			}
 		}
 
-		return Notice::getStreamDirect($qry, $offset, $limit, $since_id, $before_id);
+		return Notice::getStreamDirect($qry, $offset, $limit, $since_id, $before_id, $order);
 	}
 
-	static function getStreamDirect($qry, $offset, $limit, $since_id, $before_id) {
+	static function getStreamDirect($qry, $offset, $limit, $since_id, $before_id, $order) {
 
 		$needAnd = FALSE;
 	  	$needWhere = TRUE;
@@ -275,7 +278,13 @@ class Notice extends Memcached_DataObject
 			$qry .= ' notice.id < ' . $before_id;
 		}
 
-		$qry .= ' ORDER BY notice.created DESC, notice.id DESC ';
+		# Allow ORDER override
+		
+		if ($order) {
+			$qry .= $order;
+		} else {
+			$qry .= ' ORDER BY notice.created DESC, notice.id DESC ';
+		}
 
 		if (common_config('db','type') == 'pgsql') {
 			$qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
@@ -290,21 +299,20 @@ class Notice extends Memcached_DataObject
 		return $notice;
 	}
 
-	static function getCachedStream($qry, $cachekey, $offset, $limit) {
+	static function getCachedStream($qry, $cachekey, $offset, $limit, $order) {
 
 		# If outside our cache window, just go to the DB
 
 		if ($offset + $limit > NOTICE_CACHE_WINDOW) {
-			return Notice::getStreamDirect($qry, $offset, $limit);
+			return Notice::getStreamDirect($qry, $offset, $limit, NULL, NULL, $order);
 		}
 
 		# Get the cache; if we can't, just go to the DB
 
 		$cache = common_memcache();
 
-
 		if (!$cache) {
-			return Notice::getStreamDirect($qry, $offset, $limit);
+			return Notice::getStreamDirect($qry, $offset, $limit, NULL, NULL, $order);
 		}
 
 		# Get the notices out of the cache
@@ -320,7 +328,7 @@ class Notice extends Memcached_DataObject
 
 		# Otherwise, get the full cache window out of the DB
 
-		$notice = Notice::getStreamDirect($qry, 0, NOTICE_CACHE_WINDOW);
+		$notice = Notice::getStreamDirect($qry, 0, NOTICE_CACHE_WINDOW, NULL, NULL, $order);
 
 		# If there are no hits, just return the value
 
