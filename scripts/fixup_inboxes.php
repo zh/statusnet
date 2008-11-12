@@ -24,6 +24,11 @@ if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
     exit();
 }
 
+ini_set("max_execution_time", "0");
+ini_set("max_input_time", "0");
+set_time_limit(0);
+mb_internal_encoding('UTF-8');
+
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 define('LACONICA', true);
 
@@ -42,4 +47,6 @@ while ($user->fetch()) {
 				  'FROM subscription JOIN notice ON subscription.subscribed = notice.profile_id ' .
 				  'WHERE subscription.subscriber = ' . $user->id . ' ' .
 				  'AND notice.created >= subscription.created');
+	$inbox->free();
+	unset($inbox);
 }
