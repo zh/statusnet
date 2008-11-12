@@ -42,11 +42,14 @@ $cnt = $user->find();
 while ($user->fetch()) {
     common_log(LOG_INFO, 'Updating inbox for user ' . $user->id);
 	$inbox = new Notice_inbox();
-	$inbox->query('INSERT INTO notice_inbox (user_id, notice_id, created) ' .
-				  'SELECT ' . $user->id . ', notice.id, notice.created ' .
-				  'FROM subscription JOIN notice ON subscription.subscribed = notice.profile_id ' .
-				  'WHERE subscription.subscriber = ' . $user->id . ' ' .
-				  'AND notice.created >= subscription.created');
+	$result = $inbox->query('INSERT INTO notice_inbox (user_id, notice_id, created) ' .
+							'SELECT ' . $user->id . ', notice.id, notice.created ' .
+							'FROM subscription JOIN notice ON subscription.subscribed = notice.profile_id ' .
+							'WHERE subscription.subscriber = ' . $user->id . ' ' .
+							'AND notice.created >= subscription.created');
+	if (!$result) {
+		common_log_db_error($inbox, 'INSERT', __FILE__);
+	}
 	$inbox->free();
 	unset($inbox);
 }
