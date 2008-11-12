@@ -335,7 +335,7 @@ class User extends Memcached_DataObject
 		return Notice::getStream(sprintf($qry, $this->id),
 								 'user:notices_with_friends:' . $this->id,
 								 $offset, $limit, $since_id, $before_id,
-								 'ORDER BY notice_inbox.created DESC, notice_inbox.id DESC ');
+								 'ORDER BY notice_inbox.created DESC, notice_inbox.notice_id DESC ');
 	}
 	
 	function blowFavesCache() {
