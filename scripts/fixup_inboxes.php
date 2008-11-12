@@ -42,7 +42,7 @@ $cnt = $user->find();
 while ($user->fetch()) {
     common_log(LOG_INFO, 'Updating inbox for user ' . $user->id);
 	$inbox = new Notice_inbox();
-	$result = $inbox->query('INSERT INTO notice_inbox (user_id, notice_id, created) ' .
+	$result = $inbox->query('INSERT LOW_PRIORITY IGNORE INTO notice_inbox (user_id, notice_id, created) ' .
 							'SELECT ' . $user->id . ', notice.id, notice.created ' .
 							'FROM subscription JOIN notice ON subscription.subscribed = notice.profile_id ' .
 							'WHERE subscription.subscriber = ' . $user->id . ' ' .
