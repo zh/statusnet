@@ -377,8 +377,8 @@ class Notice extends Memcached_DataObject
 
 		$inbox = new Notice_inbox();
 
-		$inbox->query('INSERT INTO notice_inbox (user_id, notice_id) ' .
-					  'SELECT user.id, ' . $this->id . ' ' .
+		$inbox->query('INSERT INTO notice_inbox (user_id, notice_id, created) ' .
+					  'SELECT user.id, ' . $this->id . ', "' . $this->created . '" ' .
 					  'FROM user JOIN subscription ON user.id = subscription.subscriber ' .
 					  'WHERE subscription.subscribed = ' . $this->profile_id);
 
