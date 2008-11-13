@@ -36,13 +36,6 @@ class NewnoticeAction extends Action {
 
 	function save_new_notice() {
 
-		# CSRF protection - token set in common_notice_form()
-		$token = $this->trimmed('token');
-		if (!$token || $token != common_session_token()) {
-			$this->client_error(_('There was a problem with your session token. Try again, please.'));
-			return;
-		}
-
 		$user = common_current_user();
 		assert($user); # XXX: maybe an error instead...
 		$content = $this->trimmed('status_textarea');
@@ -50,8 +43,8 @@ class NewnoticeAction extends Action {
 		if (!$content) {
 			$this->show_form(_('No content!'));
 			return;
-		} else if (mb_strlen($content) > 140) {
-			
+//		} else if (mb_strlen($content) > 140) {
+		} else {
 			$content = common_shorten_links($content);
 			
 			if (mb_strlen($content) > 140) {
