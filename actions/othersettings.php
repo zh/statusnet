@@ -42,8 +42,8 @@ class OthersettingsAction extends SettingsAction {
 		
 		$services = array(
 			'' => 'None',
-            'ur1.ca' => 'ur1.ca (free)',
-            '2tu.ru' => '2tu.ru (free)',
+            'ur1.ca' => 'ur1.ca (free service)',
+            '2tu.us' => '2tu.us (free service)',
             'ptiturl.com' => 'ptiturl.com',
             'bit.ly' => 'bit.ly',
 			'tinyurl.com' => 'tinyurl.com',

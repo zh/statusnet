@@ -770,7 +770,7 @@ function common_shorten_link($long_url) {
             $short_url = $short_url_service->shorten($long_url);
             break;
             
-        case '2tu.ru':
+        case '2tu.us':
             $short_url_service = new TightUrl;
             $short_url = $short_url_service->shorten($long_url);
             break;
