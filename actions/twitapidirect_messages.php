@@ -112,7 +112,8 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
 
 		if (!$content) {
 			$this->client_error(_('No message text!'), $code = 406, $apidata['content-type']);
-		} else if (mb_strlen($status) > 140) {
+//		} else if (mb_strlen($status) > 140) {
+		} else {
 			$status = common_shorten_links($status);
 			if (mb_strlen($status) > 140) {
 				$this->client_error(_('That\'s too long. Max message size is 140 chars.'),

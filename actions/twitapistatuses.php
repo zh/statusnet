@@ -252,7 +252,8 @@ class TwitapistatusesAction extends TwitterapiAction {
 			// errror? -- Zach
 			return;
 
-		} else if (mb_strlen($status) > 140) {
+//		} else if (mb_strlen($status) > 140) {
+		} else {
 			
 			$status = common_shorten_links($status);
 
