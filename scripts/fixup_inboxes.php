@@ -38,6 +38,7 @@ common_log(LOG_INFO, 'Updating user inboxes.');
 
 $user = new User();
 $cnt = $user->find();
+$cache = common_memcache();
 
 while ($user->fetch()) {
     common_log(LOG_INFO, 'Updating inbox for user ' . $user->id);
@@ -62,4 +63,7 @@ while ($user->fetch()) {
 	$user->query('COMMIT');
 	$inbox->free();
 	unset($inbox);
+	if ($cache) {
+		$cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
+	}
 }
