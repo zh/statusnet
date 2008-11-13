@@ -36,6 +36,13 @@ class NewnoticeAction extends Action {
 
 	function save_new_notice() {
 
+		# CSRF protection - token set in common_notice_form()
+		$token = $this->trimmed('token');
+		if (!$token || $token != common_session_token()) {
+			$this->client_error(_('There was a problem with your session token. Try again, please.'));
+			return;
+		}
+
 		$user = common_current_user();
 		assert($user); # XXX: maybe an error instead...
 		$content = $this->trimmed('status_textarea');
