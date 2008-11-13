@@ -39,7 +39,6 @@ class OthersettingsAction extends SettingsAction {
 		common_hidden('token', common_session_token());
 
 		common_element('h2', NULL, _('URL Auto-shortening'));
-		
 		$services = array(
 			'' => 'None',
             'ur1.ca' => 'ur1.ca (free service)',
@@ -52,7 +51,7 @@ class OthersettingsAction extends SettingsAction {
 			'metamark.net' => 'metamark.net'
 		);
 		
-		common_dropdown('urlshorteningservice', _('Service'), $services, _('Shortening service to use when notices exceed the 140 character limit.'), FALSE, $user->urlshorteningservice);
+		common_dropdown('urlshorteningservice', _('Service'), $services, _('Shortening service to use when notices exceed the 140 character limit. Precede a URL with a * to prevent shortening of that URL.'), FALSE, $user->urlshorteningservice);
 		
 		common_submit('save', _('Save'));
 		

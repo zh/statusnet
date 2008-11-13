@@ -750,8 +750,8 @@ function common_render_uri_thingy($matches) {
 function common_shorten_links($text) {
 	$r = htmlspecialchars($text);
     // \s = not a horizontal whitespace character (since PHP 5.2.4)
-//	$r = preg_replace('@[^*]https?://[^)\]>\s]+@e', "common_shorten_link('\\0')", $r);
-	$r = preg_replace('@https?://[^)\]>\s]+@e', "common_shorten_link('\\0')", $r);
+	$r = preg_replace('@[^*]https?://[^)\]>\s]+@e', "common_shorten_link('\\0')", $r);
+//	$r = preg_replace('@https?://[^)\]>\s]+@e', "common_shorten_link('\\0')", $r);
 	return $r;
 }
 
