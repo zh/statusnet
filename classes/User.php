@@ -327,17 +327,32 @@ class User extends Memcached_DataObject
 	}
 	
 	function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0) {
-		$qry =
-		  'SELECT notice.* ' .
-		  'FROM notice JOIN notice_inbox ON notice.id = notice_inbox.notice_id ' .
-		  'WHERE notice_inbox.user_id = %d ';
+		$enabled = common_config('inboxes', 'enabled');
 
-		# NOTE: we override ORDER
+		# Complicated code, depending on whether we support inboxes yet
+		# XXX: make this go away when inboxes become mandatory
+		
+		if ($enabled === false || 
+			($enabled == 'transitional' && $this->inboxed == 0)) {
+			$qry =
+			  'SELECT notice.* ' .
+			  'FROM notice JOIN subscription ON notice.profile_id = subscription.subscribed ' .
+			  'WHERE subscription.subscriber = %d ';
+			$order = NULL;
+		} else if ($enabled === true ||
+				   ($enabled == 'transitional' && $this->inboxed == 1)) {				   
+			$qry =
+			  'SELECT notice.* ' .
+			  'FROM notice JOIN notice_inbox ON notice.id = notice_inbox.notice_id ' .
+			  'WHERE notice_inbox.user_id = %d ';
+			# NOTE: we override ORDER
+			$order = 'ORDER BY notice_inbox.created DESC, notice_inbox.notice_id DESC ';
+		}
 		
 		return Notice::getStream(sprintf($qry, $this->id),
 								 'user:notices_with_friends:' . $this->id,
 								 $offset, $limit, $since_id, $before_id,
-								 'ORDER BY notice_inbox.created DESC, notice_inbox.notice_id DESC ');
+								 $order);
 	}
 	
 	function blowFavesCache() {
