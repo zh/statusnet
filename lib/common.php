@@ -111,7 +111,9 @@ $config =
 		'memcached' => 
 		array('enabled' => false,
 			  'server' => 'localhost',
-			  'port' => 11211)
+			  'port' => 11211),
+		'inboxes' =>
+		array('enabled' => true), # on by default for new sites
 		);
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');

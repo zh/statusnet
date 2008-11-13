@@ -623,12 +623,45 @@ to the end first before trying them.
 
 If you're upgrading from very old versions, you may want to look at
 the fixup_* scripts in the scripts directories. These will store some
-precooked data in the DB.
+precooked data in the DB. All upgraders should check out the inboxes
+options below.
 
 NOTE: the database definition file, stoica.ini, has been renamed to
 laconica.ini (since this is the recommended database name). If you
 have a line in your config.php pointing to the old name, you'll need
 to update it.
+
+Notice inboxes
+--------------
+
+Before version 0.6.2, the page showing all notices from people the
+user is subscribed to ("so-and-so with friends") was calculated at run
+time. Starting with 0.6.2, we have a new data structure for holding a
+user's "notice inbox". (Note: distinct from the "message inbox", which
+is the "inbox" tab in the UI. The notice inbox appears under the
+"Personal" tab.)
+
+Notices are added to the inbox when they're created. This speeds up
+the query considerably, and also allows us the opportunity, in the
+future, to add different kind of notices to an inbox -- like @-replies
+or subscriptions to search terms or hashtags.
+
+Notice inboxes are enabled by default for new installations. If you
+are upgrading an existing site, this means that your users will see
+empty "Personal" pages. The following steps will help you fix the
+problem.
+
+0. $config['inboxes']['enabled'] can be set to one of three values. If
+   you set it to 'false', the site will work as before. Support for this
+   will probably be dropped in future versions.
+1. Setting the flag to 'transitional' means that you're in transition.
+   In this mode, the code will run the "new query" or the "old query"
+   based on whether the user's inbox has been updated.
+2. After setting the flag to "transitional", you can run the
+   fixup_inboxes.php script to create the inboxes. You may want to set
+   the memory limit high. You can re-run it without ill effect.
+3. When fixup_inboxes is finished, you can set the enabled flag to
+   'true'.
 
 Configuration options
 =====================
@@ -886,6 +919,15 @@ source: The name to use for the source of posts to Twitter. Defaults
 	Twitter (http://twitter.com/help/request_source), you can use
 	that here instead. Status updates on Twitter will then have
 	links to your site.
+
+inboxes
+-------
+
+For notice inboxes.
+
+enabled: A three-valued flag for whether to use notice inboxes (see
+	 upgrading info above for notes about this change). Can be
+	 'false', 'true', or '"transitional"'.
 
 Troubleshooting
 ===============
