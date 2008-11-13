@@ -66,6 +66,7 @@ create table user (
     uri varchar(255) unique key comment 'universally unique identifier, usually a tag URI',
     autosubscribe tinyint default 0 comment 'automatically subscribe to users who subscribe to us',
     urlshorteningservice varchar(50) default 'ur1.ca' comment 'service to use for auto-shortening URLs',
+    inboxed tinyint default 0 comment 'has an inbox been created for this user?',
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified',
 
