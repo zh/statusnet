@@ -63,7 +63,7 @@ RewriteRule ^message/(\d+)$ index.php?action=showmessage&message=$1 [L,QSA]
 RewriteRule ^user/(\d+)$ index.php?action=userbyid&id=$1 [L,QSA]
 
 RewriteRule ^tags/?$ index.php?action=tag [L,QSA]
-RewriteRule ^tag(/(.*))?/rss$ index.php?action=tagrss&tag=$2 [L,QSA]
+RewriteRule ^tag(/(.*))+/rss$ index.php?action=tagrss&tag=$2 [L,QSA]
 RewriteRule ^tag(/(.*))?$ index.php?action=tag&tag=$2 [L,QSA]
 
 RewriteRule ^(\w+)/subscriptions$ index.php?action=subscriptions&nickname=$1 [L,QSA]
