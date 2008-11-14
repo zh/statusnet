@@ -374,14 +374,19 @@ class Notice extends Memcached_DataObject
 	}
 
 	function addToInboxes() {
+		$enabled = common_config('inboxes', 'enabled');
 
-		$inbox = new Notice_inbox();
-
-		$inbox->query('INSERT INTO notice_inbox (user_id, notice_id, created) ' .
-					  'SELECT user.id, ' . $this->id . ', "' . $this->created . '" ' .
-					  'FROM user JOIN subscription ON user.id = subscription.subscriber ' .
-					  'WHERE subscription.subscribed = ' . $this->profile_id);
-
+		if ($enabled === true || $enabled === 'transitional') {
+			$inbox = new Notice_inbox();
+			$qry = 'INSERT INTO notice_inbox (user_id, notice_id, created) ' .
+			  'SELECT user.id, ' . $this->id . ', "' . $this->created . '" ' .
+			  'FROM user JOIN subscription ON user.id = subscription.subscriber ' .
+			  'WHERE subscription.subscribed = ' . $this->profile_id;
+			if ($enabled === 'transitional') {
+				$qry .= ' AND user.inboxed = 1';
+			}
+			$inbox->query($qry);
+		}
 		return;
 	}
 
@@ -389,9 +394,13 @@ class Notice extends Memcached_DataObject
 
 	function blowInboxes() {
 
-		$inbox = new Notice_inbox();
-		$inbox->notice_id = $this->id;
-		$inbox->delete();
+		$enabled = common_config('inboxes', 'enabled');
+
+		if ($enabled === true || $enabled === 'transitional') {
+			$inbox = new Notice_inbox();
+			$inbox->notice_id = $this->id;
+			$inbox->delete();
+		}
 
 		return;
 	}
