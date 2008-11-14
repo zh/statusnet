@@ -61,7 +61,7 @@ $(document).ready(function(){
                     var dis = new_form.id;
                     var fav = dis.replace('disfavor', 'favor');
                     if (document.importNode) {
-                         new_form = document.importNode(new_form);
+                         new_form = document.importNode(new_form, true);
                     }
                     $('form#'+fav).replaceWith(new_form);
                     $('form#'+dis).ajaxForm(disoptions).each(addAjaxHidden);
@@ -73,7 +73,7 @@ $(document).ready(function(){
                     var fav = new_form.id;
                     var dis = fav.replace('favor', 'disfavor');
                     if (document.importNode) {
-                         new_form = document.importNode(new_form);
+                         new_form = document.importNode(new_form, true);
                     }
                     $('form#'+dis).replaceWith(new_form);
                     $('form#'+fav).ajaxForm(favoptions).each(addAjaxHidden);                    ;
