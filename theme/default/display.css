@@ -167,7 +167,17 @@ list-style-type:none;
 display:inline;
 margin-left:0.5em;
 }
-
+.feeds li a.rss,
+.feeds li a.atom {
+background:url(icon_rss.png) no-repeat;
+padding-top:2px;
+padding-left:20px;
+}
+.feeds li a.foaf {
+background:url(icon_foaf.gif) no-repeat;
+padding-top:2px;
+padding-left:30px;
+}
 
 /* ----- Nav Footer ----- */
 #nav_sub {
