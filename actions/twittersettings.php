@@ -138,16 +138,45 @@ class TwittersettingsAction extends SettingsAction {
 			return;
 		}
 
-		$fuser = DB_DataObject::factory('foreign_user');
-		$fuser->id = $twitter_id;
-		$fuser->service = 1; // Twitter
-		$fuser->uri = "http://www.twitter.com/$twitter_username";
-		$fuser->nickname = $twitter_username;
-		$fuser->created = common_sql_now();
-		$result = $fuser->insert();
+		$fuser = null;
+		$result = null;
+
+		// Check to see whether the Twitter user is already in the system,
+		// and update its username and uri if so.
+		$fuser = Foreign_User::getForeignUser($twitter_id, 1);
+
+		if ($fuser) {
+
+			$original = clone($fuser);
+
+			$fuser->nickname = $twitter_username;
+			$fuser->uri = "http://www.twitter.com/$twitter_username";
+
+			$result = $fuser->updateKeys($original);
+
+			if (!$result) {
+				common_log_db_error($fuser, 'UPDATE', __FILE__);
+			}
+
+		} else {
+
+			// Otherwise, add the Twitter user
+			$fuser = DB_DataObject::factory('foreign_user');
+
+			$fuser->nickname = $twitter_username;
+			$fuser->uri = "http://www.twitter.com/$twitter_username";
+			$fuser->id = $twitter_id;
+			$fuser->service = 1; // Twitter
+			$fuser->created = common_sql_now();
+			$result = $fuser->insert();
+
+			if (!$result) {
+				common_log_db_error($fuser, 'INSERT', __FILE__);
+			}
+
+		}
 
 		if (!$result) {
-			common_log_db_error($fuser, 'INSERT', __FILE__);
 			$this->show_form(_('Unable to save your Twitter settings!'));
 			return;
 		}
@@ -162,7 +191,7 @@ class TwittersettingsAction extends SettingsAction {
 		$flink->created = common_sql_now();
 
 		$this->set_flags($flink, $noticesync, $replysync, $friendsync);
-		
+
 		$flink_id = $flink->insert();
 
 		if (!$flink_id) {
@@ -179,7 +208,6 @@ class TwittersettingsAction extends SettingsAction {
 
 		// For now we assume one Twitter acct per Laconica acct
 		$flink = Foreign_link::getForeignLink($user->id, 1);
-		$fuser = Foreign_user::getForeignUser($flink->foreign_id, 1);
 		$flink_foreign_id = $this->arg('flink_foreign_id');
 
 		if (!$flink) {
@@ -191,14 +219,6 @@ class TwittersettingsAction extends SettingsAction {
 			common_debug("flink user_id = " . $flink->user_id);
 		    $this->show_form(_('That is not your Twitter account.'));
 		    return;
-		}
-
-		$result = $fuser->delete();
-
-		if (!$result) {
-			common_log_db_error($fuser, 'DELETE', __FILE__);
-			$this->show_form(_('Couldn\'t remove Twitter user.'));
-			return;
 		}
 
 		$result = $flink->delete();
@@ -229,7 +249,7 @@ class TwittersettingsAction extends SettingsAction {
 		$flink->query('BEGIN');
 
 		$original = clone($flink);
-		
+
 		$this->set_flags($flink, $noticesync, $replysync, $friendsync);
 
 		$result = $flink->update($original);
@@ -318,7 +338,7 @@ class TwittersettingsAction extends SettingsAction {
 		} else {
 			$flink->noticesync &= ~FOREIGN_NOTICE_SEND;
 		}
-		
+
 		if ($replysync) {
 			$flink->noticesync |= FOREIGN_NOTICE_SEND_REPLY;
 		} else {
@@ -330,7 +350,7 @@ class TwittersettingsAction extends SettingsAction {
 		} else {
 			$flink->friendsync &= ~FOREIGN_FRIEND_RECV;
 		}
-		
+
 		$flink->profilesync = 0; // XXX: leave as default?
 	}
 }
