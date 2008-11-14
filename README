@@ -2,8 +2,8 @@
 README
 ------
 
-Laconica 0.6.1
-6 October 2008
+Laconica 0.6.2
+13 November 2008
 
 This is the README file for Laconica, the Open Source microblogging
 platform. It includes installation instructions, descriptions of
@@ -71,28 +71,44 @@ for additional terms.
 New this version
 ================
 
-This is a minor feature improvement version from version 0.6.0
-(release 22 Sep 2008). Notable features of version 0.6.1 include:
+This is a minor feature and security improvement version from version
+0.6.1 (release 6 Oct 2008). Notable features of version 0.6.2 include:
 
-- Direct messages (DMs) and Favorites (faves) are now available
-  through the Twitter-like API.
-- All of the Twitter commands (see http://ur1.ca/7ru) are available
-  through SMS, IM, Web and API, although some are not functional (for
-  features Laconica does not yet support)
-- 20 additional languages supported at various levels (some pretty
-  basic).
-- Significant additional caching using memcached for most database
-  queries. Using memcached can significantly speed up a Laconica
-  instance with this version.
-- All required external libraries are now available in extlib/ 
-  subdirectory.
-- Many bug fixes.
-- Continued but poorly-documented experimental support for Postgresql.
+- Notice inboxes have been added. This is a big database change
+  that will allow a more robust messaging model in the future; for
+  now, it is an optimization that speeds up some queries.
+- Posted URLs are automatically shortened; users can choose their
+  preferred url shortening service.
+- Users can 'nudge' each other, in case they want to say 'hi' without
+  saying anything.
+- Support SUP protocol
+  (http://code.google.com/p/simpleupdateprotocol/) for quicker updates
+  to FriendFeed (http://friendfeed.com/).
+- Tag streams now have an RSS feed.
+- CSRF protection for posting notices and logging in. This closes
+  the "Version 0 API" used initially for identi.ca and supported
+  until September 30, 2008.
+- Slightly broadened the layout of default and Identi.ca themes to
+  accommodate more verbose (non-English!) languages' interfaces.
+- Replies made through the Web site will refer to the clicked-on
+  message.
+- enjit queue handler.
+- Experimental theme for iphone use.
+- Various internationalization scripts and updates.
+- Better UTF-8 escaped entity handling in API.
+- Better handling of since_id and before_id parameters in API.
+- Better heuristics for when to include a closing parenthesis in a link.
+- Handle multi-byte-encoded @-replies from XMPP through Twitter bridge.
+- Better handling of read-only requests in API, to allow using
+  replicated mirror servers.
+- A lot of common code factored out of default and identi.ca themes;
+  default theme now much more functional.
+- 'Invite-only' mode for closed sites.
+- Some undocumented features in Twitter API user/show.
+- Favorites flag in API for statuses.
 
-NOTE: the database definition file, stoica.ini, has been renamed to
-laconica.ini (since this is the recommended database name). If you
-have a line in your config.php pointing to the old name, you'll need
-to update it.
+Because of the CSRF fixes in particular, this upgrade is recommended
+for all Laconica sites.
 
 Prerequisites
 =============
@@ -161,6 +177,8 @@ and the URLs are listed here for your convenience.
   http://pear.php.net/package/Mail
 - PEAR Net_SMTP, if you use the SMTP factory for notifications
   http://pear.php.net/package/Net_SMTP
+- PEAR Net_Socket, if you use the SMTP factory for notifications
+  http://pear.php.net/package/Net_Socket
 - XMPPHP, the follow-up to Class.Jabber.php. Probably the best XMPP
   library available for PHP. http://xmpphp.googlecode.com/. Note that
   as of this writing the version of this library that is available in
@@ -185,9 +203,9 @@ especially if you've previously installed PHP/MySQL packages.
 1. Unpack the tarball you downloaded on your Web server. Usually a
    command like this will work:
    
-   	   tar zxf laconica-0.6.0.tar.gz
+   	   tar zxf laconica-0.6.2.tar.gz
    
-   ...which will make a laconica-0.6.0 subdirectory in your current
+   ...which will make a laconica-0.6.2 subdirectory in your current
    directory. (If you don't have shell access on your Web server, you
    may have to unpack the tarball on your local computer and FTP the
    files to the server.)
@@ -195,7 +213,7 @@ especially if you've previously installed PHP/MySQL packages.
 2. Move the tarball to a directory of your choosing in your Web root
    directory. Usually something like this will work:
    
-   	   mv laconica-0.6.0 /var/www/mublog
+   	   mv laconica-0.6.2 /var/www/mublog
    
    This will make your Laconica instance available in the mublog path of
    your server, like "http://example.net/mublog". "microblog" or
@@ -580,7 +598,7 @@ Upgrading
 If you've been using Laconica 0.6, 0.5 or lower, or if you've been
 tracking the "darcs" version of the software, you will probably want
 to upgrade and keep your existing data. There is no automated upgrade
-procedure in Laconica 0.6.1. Try these step-by-step instructions; read
+procedure in Laconica 0.6.2. Try these step-by-step instructions; read
 to the end first before trying them.
 
 0. Download Laconica and set up all the prerequisites as if you were
@@ -941,6 +959,10 @@ repository (see below), and you get a compilation error ("unexpected
 T_STRING") in the browser, check to see that you don't have any
 conflicts in your code.
 
+If you upgraded to Laconica 0.6.2 without reading the "Notice inboxes"
+section above, and all your users' 'Personal' tabs are empty, read the
+"Notice inboxes" section above.
+
 Myths
 =====
 
@@ -1004,6 +1026,8 @@ if anyone's been overlooked in error.
 * Zach Copley, Control Yourself, Inc.
 * Earle Martin, Control Yourself, Inc.
 * Marie-Claude Doyon, designer, Control Yourself, Inc.
+* Sarven Capadisli, Control Yourself, Inc.
+* Robin Millette, Control Yourself, Inc.
 * Ciaran Gultnieks
 * Michael Landers
 * Ori Avtalion
@@ -1016,7 +1040,9 @@ if anyone's been overlooked in error.
 * Gina Haeussge
 * Ken Sheppardson (Trac server, man-about-town)
 * Tiago 'gouki' Faria (entrans)
+* Tryggvi Björgvinsson
 
-Thanks also to the thousands of people who have tried out Identi.ca,
-installed Laconi.ca, told their friends, and built the Open
-Microblogging network to what it is today.
+Thanks also to the developers of our upstream library code and to the
+thousands of people who have tried out Identi.ca, installed Laconi.ca,
+told their friends, and built the Open Microblogging network to what
+it is today.
