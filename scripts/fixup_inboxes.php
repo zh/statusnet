@@ -50,6 +50,7 @@ $cache = common_memcache();
 while ($user->fetch()) {
     common_log(LOG_INFO, 'Updating inbox for user ' . $user->id);
 	$user->query('BEGIN');
+	$inbox = new Notice_inbox();
 	$result = $inbox->query('INSERT LOW_PRIORITY INTO notice_inbox (user_id, notice_id, created) ' .
 							'SELECT ' . $user->id . ', notice.id, notice.created ' .
 							'FROM subscription JOIN notice ON subscription.subscribed = notice.profile_id ' .
