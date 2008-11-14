@@ -48,7 +48,7 @@ class TagAction extends StreamAction {
 	}
 
 	function show_header($tag = false) {
-		if (false && $tag) {
+		if ($tag) {
 			common_element('link', array('rel' => 'alternate',
 										 'href' => common_local_url('tagrss', array('tag' => $tag)),
 										 'type' => 'application/rss+xml',
