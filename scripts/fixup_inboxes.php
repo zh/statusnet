@@ -34,9 +34,16 @@ define('LACONICA', true);
 
 require_once(INSTALLDIR . '/lib/common.php');
 
+$start_at = ($argc > 1) ? $argv[1] : NULL;
+
 common_log(LOG_INFO, 'Updating user inboxes.');
 
 $user = new User();
+
+if ($start_at) {
+	$user->whereAdd('id >= ' . $start_at);
+}
+
 $cnt = $user->find();
 $cache = common_memcache();
 
