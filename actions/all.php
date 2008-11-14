@@ -69,6 +69,11 @@ class AllAction extends StreamAction {
 		}
 
 		$this->views_menu();
+
+		$this->show_feeds_list(array(0=>array('href'=>common_local_url('allrss', array('nickname' => $user->nickname)),
+											  'type' => 'rss',
+											  'version' => 'RSS 1.0',
+											  'item' => 'allrss')));
 	}
 
 	function show_notices($user) {

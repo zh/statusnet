@@ -72,7 +72,24 @@ class ShowstreamAction extends StreamAction {
 		}
 
 		$this->views_menu();
+
+		$this->show_feeds_list(array(0=>array('href'=>common_local_url('userrss', array('nickname' => $user->nickname)), 
+											  'type' => 'rss',
+											  'version' => 'RSS 1.0',
+											  'item' => 'notices'),
+									 1=>array('href'=>common_local_url('usertimeline', array('nickname' => $user->nickname)), 
+											  'type' => 'atom',
+											  'version' => 'Atom 1.0',
+											  'item' => 'usertimeline'),
+
+									 2=>array('href'=>common_local_url('foaf',array('nickname' => $user->nickname)),
+											  'type' => 'rdf',
+											  'version' => 'FOAF',
+											  'item' => 'foaf')));
 	}
+
+
+
 
 	function show_header($user) {
 		# Feeds

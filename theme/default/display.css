@@ -138,6 +138,37 @@ p#branding a {
 	border-right: 1px solid #dcaa3f;
 	}
 
+
+.feeds {
+clear:both;
+float:right;
+margin-top:1.25em;
+position:absolute;
+right:0;
+bottom:-30px;
+}
+.feeds * {
+line-height:1.4;
+padding:0;
+margin:0;
+font-size:12px;
+}
+
+.feeds p {
+font-weight:bold;
+display:inline;
+display:none;
+}
+.feeds ul {
+display:inline;
+}
+.feeds li {
+list-style-type:none;
+display:inline;
+margin-left:0.5em;
+}
+
+
 /* ----- Nav Footer ----- */
 #nav_sub {
 	clear: both;

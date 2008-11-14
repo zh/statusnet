@@ -68,6 +68,10 @@ class ShowfavoritesAction extends StreamAction {
 			common_notice_form('all');
 		}
 
+		$this->show_feeds_list(array(0=>array('href'=>common_local_url('favoritesrss', array('nickname' => $user->nickname)),
+											  'type' => 'rss',
+											  'version' => 'RSS 1.0',
+											  'item' => 'Favorites')));
 		$this->views_menu();
 	}
 

@@ -1029,6 +1029,9 @@ function common_fancy_url($action, $args=NULL) {
 		} else {
 			return common_path($args['nickname']);
 		}
+
+	 case 'usertimeline':
+		return common_path("api/statuses/user_timeline/".$args['nickname']."atom");
 	 case 'confirmaddress':
 		return common_path('main/confirmaddress/'.$args['code']);
 	 case 'userbyid':
