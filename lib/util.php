@@ -757,7 +757,7 @@ function common_longurl($uri)  {
 	$uri_e = urlencode($uri);
 	$longurl = unserialize(file_get_contents("http://api.longurl.org/v1/expand?format=php&url=$uri_e"));
 	if (empty($longurl['long_url']) || $uri === $longurl['long_url']) return false;
-	return $longurl['long_url'];
+	return stripslashes($longurl['long_url']);
 }
 
 function common_shorten_links($text) {
