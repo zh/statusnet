@@ -51,7 +51,13 @@ while ($user->fetch()) {
     common_log(LOG_INFO, 'Updating inbox for user ' . $user->id);
 	$user->query('BEGIN');
 	$inbox = new Notice_inbox();
-	$result = $inbox->query('INSERT LOW_PRIORITY IGNORE INTO notice_inbox (user_id, notice_id, created) ' .
+	$inbox->user_id = $user->id;
+	$result = $inbox->delete();
+	if (is_null($result) || $result === false) {
+		common_log_db_error($inbox, 'DELETE', __FILE__);
+		continue;
+	}
+	$result = $inbox->query('INSERT LOW_PRIORITY INTO notice_inbox (user_id, notice_id, created) ' .
 							'SELECT ' . $user->id . ', notice.id, notice.created ' .
 							'FROM subscription JOIN notice ON subscription.subscribed = notice.profile_id ' .
 							'WHERE subscription.subscriber = ' . $user->id . ' ' .
