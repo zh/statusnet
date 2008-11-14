@@ -746,7 +746,7 @@ function common_render_uri_thingy($matches) {
 	}
 	if ($longurl = common_longurl($uri)) {
 		$longurl = htmlentities($longurl, ENT_QUOTES, 'UTF-8');
-		$title = " title=$longurl";
+		$title = " title='$longurl'";
 	}
 	else $title = '';
 	
