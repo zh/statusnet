@@ -181,6 +181,9 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 								   'src' => common_path('js/jquery.form.js')),
 				   ' ');
 	common_element('script', array('type' => 'text/javascript',
+								   'src' => common_path('js/xbImportNode.js')),
+				   ' ');
+	common_element('script', array('type' => 'text/javascript',
 								   'src' => common_path('js/util.js?version='.LACONICA_VERSION)),
 				   ' ');
 	common_element('link', array('rel' => 'search', 'type' => 'application/opensearchdescription+xml',
@@ -1809,13 +1812,25 @@ function common_disfavor_form($notice) {
 									   'method' => 'post',
 									   'class' => 'disfavor',
 									   'action' => common_local_url('disfavor')));
-	common_hidden('token', common_session_token());
-	common_hidden('notice', $notice->id);
+
+	common_element('input', array('type' => 'hidden',
+								  'name' => 'token-'. $notice->id,
+								  'id' => 'token-'. $notice->id,
+								  'class' => 'token',
+								  'value' => common_session_token()));
+
+	common_element('input', array('type' => 'hidden',
+								  'name' => 'notice',
+								  'id' => 'notice-n'. $notice->id,
+								  'class' => 'notice',
+								  'value' => $notice->id));
+
 	common_element('input', array('type' => 'submit',
 								  'id' => 'disfavor-submit-' . $notice->id,
 								  'name' => 'disfavor-submit-' . $notice->id,
 								  'class' => 'disfavor',
-								  'value' => '♥'));
+								  'value' => 'Disfavor favorite',
+								  'title' => 'Remove this message from favorites'));
 	common_element_end('form');
 }
 
@@ -1824,13 +1839,25 @@ function common_favor_form($notice) {
 									   'method' => 'post',
 									   'class' => 'favor',
 									   'action' => common_local_url('favor')));
-	common_hidden('token', common_session_token());
-	common_hidden('notice', $notice->id);
+
+	common_element('input', array('type' => 'hidden',
+								  'name' => 'token-'. $notice->id,
+								  'id' => 'token-'. $notice->id,
+								  'class' => 'token',
+								  'value' => common_session_token()));
+
+	common_element('input', array('type' => 'hidden',
+								  'name' => 'notice',
+								  'id' => 'notice-n'. $notice->id,
+								  'class' => 'notice',
+								  'value' => $notice->id));
+	
 	common_element('input', array('type' => 'submit',
 								  'id' => 'favor-submit-' . $notice->id,
 								  'name' => 'favor-submit-' . $notice->id,
 								  'class' => 'favor',
-								  'value' => '♡'));
+								  'value' => 'Add to favorites',
+								  'title' => 'Add this message to favorites'));
 	common_element_end('form');
 }
 

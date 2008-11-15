@@ -38,16 +38,17 @@ class FavorAction extends Action {
 			return;
 		}
 
-		# CSRF protection
-
-		$token = $this->trimmed('token');
-		if (!$token || $token != common_session_token()) {
-			$this->client_error(_('There was a problem with your session token. Try again, please.'));
-			return;
-		}
 		$id = $this->trimmed('notice');
 
 		$notice = Notice::staticGet($id);
+
+		# CSRF protection
+
+		$token = $this->trimmed('token-'.$notice->id);
+		if (!$token || $token != common_session_token()) {
+			$this->client_error(_("There was a problem with your session token. Try again, please."));
+			return;
+		}
 
 		if ($user->hasFave($notice)) {
 			$this->client_error(_('This notice is already a favorite!'));
@@ -67,7 +68,7 @@ class FavorAction extends Action {
 		if ($this->boolean('ajax')) {
 			common_start_html('text/xml');
 			common_element_start('head');
-			common_element('title', _('Disfavor'));
+			common_element('title', null, _('Disfavor favorite'));
 			common_element_end('head');
 			common_element_start('body');
 			common_disfavor_form($notice);

@@ -17,94 +17,86 @@
  */
 
 $(document).ready(function(){
-        // count character on keyup
-        function counter(event){
-            var maxLength     = 140;
-            var currentLength = $("#status_textarea").val().length;
-            var remaining = maxLength - currentLength;
-            var counter   = $("#counter");
-            counter.text(remaining);
+	// count character on keyup
+	function counter(event){
+		var maxLength = 140;
+		var currentLength = $("#status_textarea").val().length;
+		var remaining = maxLength - currentLength;
+		var counter = $("#counter");
+		counter.text(remaining);
+		
+		if (remaining <= 0) {
+			counter.addClass("toomuch");
+		} else {
+			counter.removeClass("toomuch");
+		}
+	}
 
-            if (remaining <= 0) {
-                counter.attr("class", "toomuch");
-            } else {
-                counter.attr("class", "");
-            }
-        }
+	function submitonreturn(event) {
+		if (event.keyCode == 13) {
+			$("#status_form").submit();
+			event.preventDefault();
+			event.stopPropagation();
+			return false;
+		}
+		return true;
+	}
 
-        function submitonreturn(event) {
-             if (event.keyCode == 13) {
-                  $("#status_form").submit();
-                  event.preventDefault();
-                  event.stopPropagation();
-                  return false;
-             }
-             return true;
-        }
+	if ($("#status_textarea").length) {
+		$("#status_textarea").bind("keyup", counter);
+		$("#status_textarea").bind("keydown", submitonreturn);
+		
+		// run once in case there's something in there
+		counter();
+		
+		// set the focus
+		$("#status_textarea").focus();
+	}
 
-        if ($("#status_textarea").length) {
-             $("#status_textarea").bind("keyup", counter);
-             $("#status_textarea").bind("keydown", submitonreturn);
+	// XXX: refactor this code
 
-            // run once in case there's something in there
-            counter();
+	var favoptions = { dataType: 'xml',
+					   success: function(xml) { var new_form = document._importNode($('form', xml).get(0), true);
+												var dis = new_form.id;
+												var fav = dis.replace('disfavor', 'favor');
+												$('form#'+fav).replaceWith(new_form);
+												$('form#'+dis).ajaxForm(disoptions).each(addAjaxHidden);
+											  }
+					 };
 
-             // set the focus
-             $("#status_textarea").focus();
-        }
+	var disoptions = { dataType: 'xml',
+					   success: function(xml) { var new_form = document._importNode($('form', xml).get(0), true);
+												var fav = new_form.id;
+												var dis = fav.replace('favor', 'disfavor');
+												$('form#'+dis).replaceWith(new_form);
+												$('form#'+fav).ajaxForm(favoptions).each(addAjaxHidden);
+											  }
+					 };
 
-     // XXX: refactor this code
+	function addAjaxHidden() {
+		var ajax = document.createElement('input');
+		ajax.setAttribute('type', 'hidden');
+		ajax.setAttribute('name', 'ajax');
+		ajax.setAttribute('value', 1);
+		this.appendChild(ajax);
+	}
 
-     var favoptions = {dataType: 'xml',
-               success: function(xml) {
-                    var new_form = $('form.disfavor', xml).get(0);
-                    var dis = new_form.id;
-                    var fav = dis.replace('disfavor', 'favor');
-                    if (document.importNode) {
-                         new_form = document.importNode(new_form, true);
-                    }
-                    $('form#'+fav).replaceWith(new_form);
-                    $('form#'+dis).ajaxForm(disoptions).each(addAjaxHidden);
-               }};
-
-     var disoptions = {dataType: 'xml',
-               success: function(xml) {
-                    var new_form = $('form.favor', xml).get(0);
-                    var fav = new_form.id;
-                    var dis = fav.replace('favor', 'disfavor');
-                    if (document.importNode) {
-                         new_form = document.importNode(new_form, true);
-                    }
-                    $('form#'+dis).replaceWith(new_form);
-                    $('form#'+fav).ajaxForm(favoptions).each(addAjaxHidden);                    ;
-               }};
-
-     function addAjaxHidden() {
-          var ajax = document.createElement('input');
-          ajax.setAttribute('type', 'hidden');
-          ajax.setAttribute('name', 'ajax');
-          ajax.setAttribute('value', 1);
-          this.appendChild(ajax);
-     }
-
-     $("form.favor").ajaxForm(favoptions);
-     $("form.disfavor").ajaxForm(disoptions);
-
-     $("form.favor").each(addAjaxHidden);
-     $("form.disfavor").each(addAjaxHidden);
+	$("form.favor").ajaxForm(favoptions);
+	$("form.disfavor").ajaxForm(disoptions);
+	$("form.favor").each(addAjaxHidden);
+	$("form.disfavor").each(addAjaxHidden);
 });
 
 function doreply(nick,id) {
-     rgx_username = /^[0-9a-zA-Z\-_.]*$/;
-     if (nick.match(rgx_username)) {
-          replyto = "@" + nick + " ";
-          if ($("#status_textarea").length) {
-               $("#status_textarea").val(replyto);
-               $("form#status_form input#inreplyto").val(id);
-               $("#status_textarea").focus();
-			   return false;
-		  }
-     }
-     return true;
+	rgx_username = /^[0-9a-zA-Z\-_.]*$/;
+	if (nick.match(rgx_username)) {
+		replyto = "@" + nick + " ";
+		if ($("#status_textarea").length) {
+			$("#status_textarea").val(replyto);
+			$("form#status_form input#inreplyto").val(id);
+			$("#status_textarea").focus();
+			return false;
+		}
+	}
+	return true;
 }
-

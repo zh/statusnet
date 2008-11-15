@@ -179,6 +179,36 @@ padding-top:2px;
 padding-left:30px;
 }
 
+
+form#disfavor, form.disfavor,
+form#favor, form.favor  {
+	float: right;
+}
+
+/*favorites*/
+input#favor, input.favor,
+input#disfavor, input.disfavor  {
+	background-color:#fcfff5;
+	background-image:url(icon_heart-01.png);
+	background-repeat:no-repeat;
+	cursor: pointer;
+	border: 0;
+	width: 16px;
+	height:16px;
+	text-indent:-9999px;
+}
+
+input#disfavor, input.disfavor {
+	background-image:url(icon_heart-02.png);
+}
+
+.notice_single:hover input.favor,
+.notice_single:hover input.disfavor {
+	background-color:#f3f8ea;
+}
+
+
+
 /* ----- Nav Footer ----- */
 #nav_sub {
 	clear: both;
@@ -686,44 +716,9 @@ input#openid_url {
 	line-height: 15px;
 }
 
-/* ----- favor/disfavor -----*/
 
-form#disfavor, form.disfavor  {
-	display: inline;
-	float: right;
-}
 
-input#disfavor, input.disfavor  {
-	display: inline;
-	color: #C15D42;
-	background-color: #FBF2D7;
-	cursor: pointer;
-	border: 0;
-	width: auto;
-	}
 
-form#favor, form.favor  {
-	display: inline;
-	float: right;
-}
-
-input#favor, input.favor  {
-	display: inline;
-	color: #C15D42;
-	background-color: #FBF2D7;
-	cursor: pointer;
-	border: 0;
-	width: auto;
-	}
-	
-input.favor:hover  {
-	background-color: #f7ebcc;
-}
-
-input.disfavor:hover  {
-	background-color: #f7ebcc;
-}
-	
 /* ----- direct message ----- */
 
 #message_form {
@@ -811,8 +806,8 @@ p.tagcloud a.smallest {
 font-size: 60%;
 }
 
-/* ----- Mailbox ----- */
 
+/* ----- Mailbox ----- */
 #messages {
 	clear: both;
 	margin: 0 auto;
