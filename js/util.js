@@ -85,6 +85,11 @@ $(document).ready(function(){
 	$("form.disfavor").ajaxForm(disoptions);
 	$("form.favor").each(addAjaxHidden);
 	$("form.disfavor").each(addAjaxHidden);
+
+	$("#nudge").ajaxForm ({ dataType: 'xml',
+							success: function(xml) { $("#nudge").replaceWith(document._importNode($("#nudge_response", xml).get(0),true)); }
+						 });
+	$("#nudge .submit").bind('click', function(e) {	$(this).addClass("processing"); }); 
 });
 
 function doreply(nick,id) {

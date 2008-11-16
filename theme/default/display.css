@@ -208,6 +208,48 @@ input#disfavor, input.disfavor {
 }
 
 
+/*profile_actions*/
+#profile_actions {
+padding-left:0;
+list-style-type:none;
+margin:0;
+}
+#profile_actions li {
+margin-bottom:0.5em;
+clear:both;
+}
+
+#profile_actions #profile_nudge input.submit {
+margin:0;
+padding:0;
+padding-left:17px;
+background:transparent url(icon_emote-wink.png) 0 1px no-repeat;
+color:#C15D42;
+font-family:Georgia,"Times New Roman",Times,serif;
+font-weight:normal;
+font-size:14px;
+text-align:left;
+float:left;
+line-height:18px;
+}
+#profile_actions #profile_nudge input.submit:hover {
+background-color:transparent;
+color:#C15D42;
+}
+
+#wrap #content input.processing {
+padding-left:17px;
+background:transparent url(icon_process-working.gif) 0 1px no-repeat;
+line-height:18px;
+}
+
+#wrap p#nudge_response {
+padding-left:20px;
+background:transparent url(icon_checkmark.png) 0 1px no-repeat;
+line-height:18px;
+font-size:14px;
+}
+
 
 /* ----- Nav Footer ----- */
 #nav_sub {

@@ -232,6 +232,29 @@ function mail_confirm_sms($code, $nickname, $address) {
 	mail_send($recipients, $headers, $body);
 }
 
+
+function mail_notify_nudge($from, $to) {
+
+	$subject = sprintf(_('You\'ve been nudged by %s'), $from->nickname);
+
+	$from_profile = $from->getProfile();
+
+	$body = sprintf(_("%1\$s (%2\$s) is wondering what you are up to these days and is inviting you to post some news.\n\n".
+					  "You can reply to their message here:\n\n".
+					  "%3\$s\n\n".
+					  "Don't reply to this email; it won't get to them.\n\n".
+					  "With kind regards,\n".
+					  "%4\$s\n"),
+					$from_profile->getBestName(),
+					$from->nickname,
+					common_local_url('newmessage', array('to' => $from->id)),
+					common_config('site', 'name'));
+
+	return mail_to_user($to, $subject, $body);
+}
+
+
+
 function mail_notify_message($message, $from=NULL, $to=NULL) {
 
 	if (is_null($from)) {

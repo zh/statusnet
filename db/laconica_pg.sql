@@ -47,6 +47,8 @@ create table "user" (
     email varchar(255) unique /* comment 'email address for password recovery etc.' */,
     incomingemail varchar(255) unique /* comment 'email address for post-by-email' */,
     emailnotifysub integer default 1 /* comment 'Notify by email of subscriptions' */,
+    emailnotifyfav integer default 1 /* comment 'Notify by email of favorites' */,
+    emailnotifynudge integer default 1 /* comment 'Notify by email of nudges' */,
     emailmicroid integer default 1 /* comment 'whether to publish email microid' */,
     language varchar(50) /* comment 'preferred language' */,
     timezone varchar(50) /* comment 'timezone' */,

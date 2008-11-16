@@ -64,7 +64,6 @@ class ShowstreamAction extends StreamAction {
 	}
 
 	function show_top($user) {
-
 		$cur = common_current_user();
 
 		if ($cur && $cur->id == $user->id) {
@@ -167,6 +166,10 @@ class ShowstreamAction extends StreamAction {
 									'width' => AVATAR_PROFILE_SIZE,
 									'height' => AVATAR_PROFILE_SIZE,
 									'alt' => $profile->nickname));
+
+        common_element_start('ul', array('id' => 'profile_actions'));
+
+        common_element_start('li', array('id' => 'profile_subscribe'));
 		$cur = common_current_user();
 		if ($cur) {
 			if ($cur->id != $profile->id) {
@@ -179,13 +182,20 @@ class ShowstreamAction extends StreamAction {
 		} else {
 			$this->show_remote_subscribe_link($profile);
 		}
+        common_element_end('li');
 		
 		$user = User::staticGet('id', $profile->id);
 		
 		if ($cur && $cur->id != $user->id && $cur->mutuallySubscribed($user)) {
+            common_element_start('li', array('id' => 'profile_send_a_new_message'));
 			common_element('a', array('href' => common_local_url('newmessage', array('to' => $user->id))),
 						   _('Send a message'));
+            common_element_end('li');
+            common_element_start('li', array('id' => 'profile_nudge'));
+            common_nudge_form($user);
+            common_element_end('li');
 		}
+        common_element_end('ul');
 		
 		common_element_end('div');
 
@@ -475,6 +485,7 @@ class ShowstreamAction extends StreamAction {
 			common_raw('&times;');
 			common_element_end('a');
 		}
+		
 		common_element_end('p');
 		common_element_end('li');
 	}

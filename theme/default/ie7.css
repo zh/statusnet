@@ -1,7 +1,5 @@
 @charset "UTF-8";
 /* CSS Document */
-
-
 input.disfavor,
 input.favor {
 	text-indent:0;
@@ -9,10 +7,18 @@ input.favor {
 	padding-left:25px;
 }
 
+#profile_actions li {
+float:left;
+clear:both;
+}
+#profile_actions #profile_nudge input.submit {
+margin-left:0;
+width:100px;
+}
+
 #statistics dd {
 	clear: both;
 	}		
-	
 	
 #subscriptions_avatars li {
 	float: left;
