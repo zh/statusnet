@@ -196,6 +196,12 @@ class User extends Memcached_DataObject
 			}
 		}
 
+		$inboxes = common_config('inboxes', 'enabled');
+		
+		if ($inboxes === true || $inboxes == 'transitional') {
+			$user->inboxed = 1;
+		}
+		
 		$user->created = common_sql_now();
 		$user->uri = common_user_uri($user);
 

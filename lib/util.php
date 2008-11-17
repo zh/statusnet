@@ -746,7 +746,7 @@ function common_render_uri_thingy($matches) {
 	}
 	if ($longurl = common_longurl($uri)) {
 		$longurl = htmlentities($longurl, ENT_QUOTES, 'UTF-8');
-		$title = " title=$longurl";
+		$title = " title='$longurl'";
 	}
 	else $title = '';
 	
@@ -757,16 +757,14 @@ function common_longurl($uri)  {
 	$uri_e = urlencode($uri);
 	$longurl = unserialize(file_get_contents("http://api.longurl.org/v1/expand?format=php&url=$uri_e"));
 	if (empty($longurl['long_url']) || $uri === $longurl['long_url']) return false;
-	return $longurl['long_url'];
+	return stripslashes($longurl['long_url']);
 }
 
 function common_shorten_links($text) {
-	$r = htmlspecialchars($text);
     // \s = not a horizontal whitespace character (since PHP 5.2.4)
 	// RYM this should prevent * preceded URLs from being processed but it its a char
 //	$r = preg_replace('@[^*](https?://[^)\]>\s]+)@e', "common_shorten_link('\\1')", $r);
-	$r = preg_replace('@https?://[^)\]>\s]+@e', "common_shorten_link('\\0')", $r);
-	return $r;
+	return preg_replace('@https?://[^)\]>\s]+@e', "common_shorten_link('\\0')", $text);
 }
 
 function common_shorten_link($long_url) {
