@@ -38,6 +38,7 @@ class User extends Memcached_DataObject
     public $incomingemail;                   // varchar(255)  unique_key
     public $emailnotifysub;                  // tinyint(1)   default_1
     public $emailnotifyfav;                  // tinyint(1)   default_1
+    public $emailnotifynudge;                  // tinyint(1)   default_1
     public $emailnotifymsg;                  // tinyint(1)   default_1
     public $emailmicroid;                    // tinyint(1)   default_1
     public $language;                        // varchar(50)  
