@@ -240,14 +240,14 @@ function mail_notify_nudge($from, $to) {
 	$from_profile = $from->getProfile();
 
 	$body = sprintf(_("%1\$s (%2\$s) is wondering what you are up to these days and is inviting you to post some news.\n\n".
-					  "You can reply to their message here:\n\n".
+					  "So let's hear from you :)\n\n".
 					  "%3\$s\n\n".
 					  "Don't reply to this email; it won't get to them.\n\n".
 					  "With kind regards,\n".
 					  "%4\$s\n"),
 					$from_profile->getBestName(),
 					$from->nickname,
-					common_local_url('newmessage', array('to' => $from->id)),
+					common_local_url('all', array('nickname' => $to->nickname)),
 					common_config('site', 'name'));
 
 	return mail_to_user($to, $subject, $body);

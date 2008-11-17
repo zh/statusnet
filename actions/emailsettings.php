@@ -95,7 +95,7 @@ class EmailsettingsAction extends SettingsAction {
 		                _('Send me email when someone sends me a private message.'),
 		                $user->emailnotifymsg);
 		common_checkbox('emailnotifynudge',
-		                _('Send me an email when someone nudges me.'),
+		                _('Allow friends to nudge me and send me an email.'),
 		                $user->emailnotifynudge);
 		common_checkbox('emailpost',
 						_('I want to post notices by email.'),
