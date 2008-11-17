@@ -29,7 +29,7 @@ require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
 define('NOTICE_CACHE_WINDOW', 61);
 
-class Notice extends Memcached_DataObject 
+class Notice extends Memcached_DataObject
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -63,14 +63,14 @@ class Notice extends Memcached_DataObject
 		$this->blowInboxes();
 		parent::delete();
 	}
-	
+
 	function saveTags() {
 		/* extract all #hastags */
 		$count = preg_match_all('/(?:^|\s)#([A-Za-z0-9_\-\.]{1,64})/', strtolower($this->content), $match);
 		if (!$count) {
 			return true;
 		}
-		
+
 		/* elide characters we don't want in the tag */
 		$match[1] = str_replace(array('-', '_', '.'), '', $match[1]);
 
@@ -92,7 +92,7 @@ class Notice extends Memcached_DataObject
 	}
 
 	static function saveNew($profile_id, $content, $source=NULL, $is_local=1, $reply_to=NULL, $uri=NULL) {
-		
+
 		$notice = new Notice();
 		$notice->profile_id = $profile_id;
 		$notice->is_local = $is_local;
@@ -102,7 +102,7 @@ class Notice extends Memcached_DataObject
 		$notice->rendered = common_render_content($notice->content, $notice);
 		$notice->source = $source;
 		$notice->uri = $uri;
-		
+
 		$id = $notice->insert();
 
 		if (!$id) {
@@ -122,13 +122,13 @@ class Notice extends Memcached_DataObject
 		}
 
 		# XXX: do we need to change this for remote users?
-		
+
 		common_save_replies($notice);
 		$notice->saveTags();
 
 		# Clear the cache for subscribed users, so they'll update at next request
 		# XXX: someone clever could prepend instead of clearing the cache
-		
+
 		if (common_config('memcached', 'enabled')) {
 			$notice->blowCaches();
 		}
@@ -159,20 +159,20 @@ class Notice extends Memcached_DataObject
 			unset($tag);
 		}
 	}
-	
+
 	function blowSubsCache() {
 		$cache = common_memcache();
 		if ($cache) {
 			$user = new User();
-			
+
 			$user->query('SELECT id ' .
 						 'FROM user JOIN subscription ON user.id = subscription.subscriber ' .
 						 'WHERE subscription.subscribed = ' . $this->profile_id);
-			
+
 			while ($user->fetch()) {
 				$cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
 			}
-			
+
 			$user->free();
 			unset($user);
 		}
@@ -225,22 +225,68 @@ class Notice extends Memcached_DataObject
 			unset($fave);
 		}
 	}
+
+	# XXX: too many args; we need to move to named params or even a separate
+	# class for notice streams
 	
-	static function getStream($qry, $cachekey, $offset=0, $limit=20) {
-		
+	static function getStream($qry, $cachekey, $offset=0, $limit=20, $since_id=0, $before_id=0, $order=NULL) {
+
 		if (common_config('memcached', 'enabled')) {
-			return Notice::getCachedStream($qry, $cachekey, $offset, $limit);
-		} else {
-			return Notice::getStreamDirect($qry, $offset, $limit);
+
+			# Skip the cache if this is a since_id or before_id qry
+			if ($since_id > 0 || $before_id > 0) {
+				return Notice::getStreamDirect($qry, $offset, $limit, $since_id, $before_id, $order);
+			} else {
+				return Notice::getCachedStream($qry, $cachekey, $offset, $limit, $order);
+			}
 		}
-	
+
+		return Notice::getStreamDirect($qry, $offset, $limit, $since_id, $before_id, $order);
 	}
 
-	static function getStreamDirect($qry, $offset, $limit) {
+	static function getStreamDirect($qry, $offset, $limit, $since_id, $before_id, $order) {
+
+		$needAnd = FALSE;
+	  	$needWhere = TRUE;
+
+		if (preg_match('/\bWHERE\b/i', $qry)) {
+			$needWhere = FALSE;
+			$needAnd = TRUE;
+		}
+
+		if ($since_id > 0) {
+
+			if ($needWhere) {
+		    	$qry .= ' WHERE ';
+				$needWhere = FALSE;
+			} else {
+				$qry .= ' AND ';
+			}
+
+		    $qry .= ' notice.id > ' . $since_id;
+		}
+
+		if ($before_id > 0) {
+
+			if ($needWhere) {
+		    	$qry .= ' WHERE ';
+				$needWhere = FALSE;
+			} else {
+				$qry .= ' AND ';
+			}
+
+			$qry .= ' notice.id < ' . $before_id;
+		}
+
+		# Allow ORDER override
 		
-		$qry .= ' ORDER BY notice.created DESC, notice.id DESC ';
-		
-		if(common_config('db','type')=='pgsql') {
+		if ($order) {
+			$qry .= $order;
+		} else {
+			$qry .= ' ORDER BY notice.created DESC, notice.id DESC ';
+		}
+
+		if (common_config('db','type') == 'pgsql') {
 			$qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
 		} else {
 			$qry .= ' LIMIT ' . $offset . ', ' . $limit;
@@ -249,33 +295,32 @@ class Notice extends Memcached_DataObject
 		$notice = new Notice();
 
 		$notice->query($qry);
-		
+
 		return $notice;
 	}
-	
-	static function getCachedStream($qry, $cachekey, $offset, $limit) {
+
+	static function getCachedStream($qry, $cachekey, $offset, $limit, $order) {
 
 		# If outside our cache window, just go to the DB
-		
+
 		if ($offset + $limit > NOTICE_CACHE_WINDOW) {
-			return Notice::getStreamDirect($qry, $offset, $limit);
+			return Notice::getStreamDirect($qry, $offset, $limit, NULL, NULL, $order);
 		}
 
 		# Get the cache; if we can't, just go to the DB
-		
+
 		$cache = common_memcache();
 
-		
 		if (!$cache) {
-			return Notice::getStreamDirect($qry, $offset, $limit);
+			return Notice::getStreamDirect($qry, $offset, $limit, NULL, NULL, $order);
 		}
 
 		# Get the notices out of the cache
-		
+
 		$notices = $cache->get(common_cache_key($cachekey));
-		
+
 		# On a cache hit, return a DB-object-like wrapper
-		
+
 		if ($notices !== FALSE) {
 			$wrapper = new NoticeWrapper(array_slice($notices, $offset, $limit));
 			return $wrapper;
@@ -283,16 +328,16 @@ class Notice extends Memcached_DataObject
 
 		# Otherwise, get the full cache window out of the DB
 
-		$notice = Notice::getStreamDirect($qry, 0, NOTICE_CACHE_WINDOW);
-		
+		$notice = Notice::getStreamDirect($qry, 0, NOTICE_CACHE_WINDOW, NULL, NULL, $order);
+
 		# If there are no hits, just return the value
-		
+
 		if (!$notice) {
 			return $notice;
 		}
 
 		# Pack results into an array
-		
+
 		$notices = array();
 
 		while ($notice->fetch()) {
@@ -300,18 +345,18 @@ class Notice extends Memcached_DataObject
 		}
 
 		# Store the array in the cache for next time
-		
+
 		$result = $cache->set(common_cache_key($cachekey), $notices);
 
 		# return a wrapper of the array for use now
-		
+
 		$wrapper = new NoticeWrapper(array_slice($notices, $offset, $limit));
-		
+
 		return $wrapper;
 	}
 
 	function publicStream($offset=0, $limit=20, $since_id=0, $before_id=0) {
-		
+
 		$needAnd = FALSE;
       	$needWhere = TRUE;
 
@@ -323,54 +368,33 @@ class Notice extends Memcached_DataObject
 			$needAnd = TRUE;
 		}
 
-   		// NOTE: since_id and before_id are extensions to Twitter API
-        if ($since_id > 0) {
-            if ($needWhere)
-                $qry .= ' WHERE ';
-            if ($needAnd)
-				$qry .= ' AND ';
-            $qry .= ' notice.id > ' . $since_id . ' ';
-			$needAnd = FALSE;
-			$needWhere = FALSE;
-        }
-
-		if ($before_id > 0) {
-            if ($needWhere)
-                $qry .= ' WHERE ';
-			if ($needAnd)
-				$qry .= ' AND ';
-			$qry .= ' notice.id < ' . $before_id . ' ';
-			$needAnd = FALSE;
-			$needWhere = FALSE;
-		}
-
 		return Notice::getStream($qry,
 								 'public',
-								 $offset, $limit);
+								 $offset, $limit, $since_id, $before_id);
 	}
-	
+
 	function addToInboxes() {
 
 		$inbox = new Notice_inbox();
-		
-		$inbox->query('INSERT INTO notice_inbox (user_id, notice_id) ' .
-					  'SELECT user.id, ' . $this->id . ' ' .
+
+		$inbox->query('INSERT INTO notice_inbox (user_id, notice_id, created) ' .
+					  'SELECT user.id, ' . $this->id . ', "' . $this->created . '" ' .
 					  'FROM user JOIN subscription ON user.id = subscription.subscriber ' .
 					  'WHERE subscription.subscribed = ' . $this->profile_id);
-		
+
 		return;
 	}
 
 	# Delete from inboxes if we're deleted.
-	
+
 	function blowInboxes() {
 
 		$inbox = new Notice_inbox();
 		$inbox->notice_id = $this->id;
 		$inbox->delete();
-		
+
 		return;
 	}
-	
+
 }
 

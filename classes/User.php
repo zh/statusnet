@@ -57,6 +57,8 @@ class User extends Memcached_DataObject
     public $autosubscribe;                   // tinyint(1)  
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
+    public $inboxed;                         // tinyint(1)  
+    public $urlshorteningservice;            // varchar(50)   default_ur1.ca
 
     /* Static get */
     function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('User',$k,$v); }
@@ -297,20 +299,9 @@ class User extends Memcached_DataObject
 		  'FROM notice JOIN reply ON notice.id = reply.notice_id ' .
 		  'WHERE reply.profile_id = %d ';
 		
-        if ($since_id > 0) {
-            $qry .= ' AND notice.id > ' . $since_id . ' ';
-			$needAnd = FALSE;
-        }
-
-        // NOTE: before_id is an extension to Twitter API
-        if ($before_id > 0) {
-            $qry .= ' AND notice.id < ' . $before_id . ' ';
-			$needAnd = FALSE;
-        }
-
 		return Notice::getStream(sprintf($qry, $this->id),
 								 'user:replies:'.$this->id,
-								 $offset, $limit);
+								 $offset, $limit, $since_id, $before_id);
 	}
 	
 	function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0) {
@@ -319,20 +310,9 @@ class User extends Memcached_DataObject
 		  'FROM notice ' .
 		  'WHERE profile_id = %d ';
 		
-        if ($since_id > 0) {
-            $qry .= ' AND notice.id > ' . $since_id . ' ';
-			$needAnd = FALSE;
-        }
-
-        // NOTE: before_id is an extension to Twitter API
-        if ($before_id > 0) {
-            $qry .= ' AND notice.id < ' . $before_id . ' ';
-			$needAnd = FALSE;
-        }
-
 		return Notice::getStream(sprintf($qry, $this->id),
 								 'user:notices:'.$this->id,
-								 $offset, $limit);
+								 $offset, $limit, $since_id, $before_id);
 	}
 	
 	function favoriteNotices($offset=0, $limit=NOTICES_PER_PAGE) {
@@ -347,25 +327,32 @@ class User extends Memcached_DataObject
 	}
 	
 	function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0) {
-		$qry =
-		  'SELECT notice.* ' .
-		  'FROM notice JOIN notice_inbox ON notice.id = notice_inbox.notice_id ' .
-		  'WHERE notice_inbox.user_id = %d ';
+		$enabled = common_config('inboxes', 'enabled');
 
-        if ($since_id > 0) {
-            $qry .= ' AND notice.id > ' . $since_id . ' ';
-			$needAnd = FALSE;
-        }
-
-        // NOTE: before_id is an extension to Twitter API
-        if ($before_id > 0) {
-            $qry .= ' AND notice.id < ' . $before_id . ' ';
-			$needAnd = FALSE;
-        }
-
+		# Complicated code, depending on whether we support inboxes yet
+		# XXX: make this go away when inboxes become mandatory
+		
+		if ($enabled === false || 
+			($enabled == 'transitional' && $this->inboxed == 0)) {
+			$qry =
+			  'SELECT notice.* ' .
+			  'FROM notice JOIN subscription ON notice.profile_id = subscription.subscribed ' .
+			  'WHERE subscription.subscriber = %d ';
+			$order = NULL;
+		} else if ($enabled === true ||
+				   ($enabled == 'transitional' && $this->inboxed == 1)) {				   
+			$qry =
+			  'SELECT notice.* ' .
+			  'FROM notice JOIN notice_inbox ON notice.id = notice_inbox.notice_id ' .
+			  'WHERE notice_inbox.user_id = %d ';
+			# NOTE: we override ORDER
+			$order = 'ORDER BY notice_inbox.created DESC, notice_inbox.notice_id DESC ';
+		}
+		
 		return Notice::getStream(sprintf($qry, $this->id),
 								 'user:notices_with_friends:' . $this->id,
-								 $offset, $limit);
+								 $offset, $limit, $since_id, $before_id,
+								 $order);
 	}
 	
 	function blowFavesCache() {

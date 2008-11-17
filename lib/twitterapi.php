@@ -60,14 +60,14 @@ class TwitterapiAction extends Action {
 		$profile = $notice->getProfile();
 
 		$twitter_status = array();
-		$twitter_status['text'] = common_xml_safe_str($notice->content);
+		$twitter_status['text'] = $notice->content;
 		$twitter_status['truncated'] = 'false'; # Not possible on Laconica
 		$twitter_status['created_at'] = $this->date_twitter($notice->created);
 		$twitter_status['in_reply_to_status_id'] = ($notice->reply_to) ? intval($notice->reply_to) : NULL;
 		$twitter_status['source'] = $this->source_link($notice->source);
 		$twitter_status['id'] = intval($notice->id);
 		$twitter_status['in_reply_to_user_id'] = ($notice->reply_to) ? $this->replier_by_reply(intval($notice->reply_to)) : NULL;
-		
+
 		if (isset($this->auth_user)) {
 			common_debug("auth user set: " . $this->auth_user->nickname);
 			$twitter_status['favorited'] = ($this->auth_user->hasFave($notice)) ? 'true' : 'false';
@@ -91,7 +91,7 @@ class TwitterapiAction extends Action {
 
 		$server = common_config('site', 'server');
 		$entry = array();
-		 
+
 		$entry['content'] = $profile->nickname . ': ' . common_xml_safe_str($notice->content);
 		$entry['title'] = $entry['content'];
 		$entry['link'] = common_local_url('shownotice', array('notice' => $notice->id));
@@ -137,8 +137,8 @@ class TwitterapiAction extends Action {
 		$to_profile = $message->getTo();
 
 		$twitter_dm['id'] = $message->id;
-		$twitter_dm['sender_id'] = $message->from_profile;		
-		$twitter_dm['text'] = common_xml_safe_str($message->content);
+		$twitter_dm['sender_id'] = $message->from_profile;
+		$twitter_dm['text'] = $message->content;
 		$twitter_dm['recipient_id'] = $message->to_profile;
 		$twitter_dm['created_at'] = $this->date_twitter($message->created);
 		$twitter_dm['sender_screen_name'] = $from_profile->nickname;
@@ -152,9 +152,14 @@ class TwitterapiAction extends Action {
 	function show_twitter_xml_status($twitter_status) {
 		common_element_start('status');
 		foreach($twitter_status as $element => $value) {
-			if ($element == 'user') {
+			switch ($element) {
+			case 'user':
 				$this->show_twitter_xml_user($twitter_status['user']);
-			} else {
+				break;
+			case 'text':
+				common_element($element, NULL, common_xml_safe_str($value));
+				break;
+			default:
 				common_element($element, NULL, $value);
 			}
 		}
@@ -229,9 +234,15 @@ class TwitterapiAction extends Action {
 	function show_twitter_xml_dmsg($twitter_dm) {
 		common_element_start('direct_message');
 		foreach($twitter_dm as $element => $value) {
-			if ($element == 'sender' || $element == 'recipient') {
+			switch ($element) {
+			case 'sender':
+			case 'recipient':
 				$this->show_twitter_xml_user($value, $element);
-			} else {
+				break;
+			case 'text':
+				common_element($element, NULL, common_xml_safe_str($value));
+				break;
+			default:
 				common_element($element, NULL, $value);
 			}
 		}
@@ -386,7 +397,7 @@ class TwitterapiAction extends Action {
 		}
 	}
 
-	function init_document($type='xml') {	
+	function init_document($type='xml') {
 		switch ($type) {
 		 case 'xml':
 			header('Content-Type: application/xml; charset=utf-8');
@@ -569,5 +580,5 @@ class TwitterapiAction extends Action {
 		}
 		return $source_name;
 	}
-	
+
 }

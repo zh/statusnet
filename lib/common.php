@@ -111,7 +111,9 @@ $config =
 		'memcached' => 
 		array('enabled' => false,
 			  'server' => 'localhost',
-			  'port' => 11211)
+			  'port' => 11211),
+		'inboxes' =>
+		array('enabled' => true), # on by default for new sites
 		);
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
@@ -142,6 +144,7 @@ require_once(INSTALLDIR.'/lib/action.php');
 require_once(INSTALLDIR.'/lib/theme.php');
 require_once(INSTALLDIR.'/lib/mail.php');
 require_once(INSTALLDIR.'/lib/subs.php');
+require_once(INSTALLDIR.'/lib/Shorturl_api.php');
 
 function __autoload($class) {
 	if ($class == 'OAuthRequest') {

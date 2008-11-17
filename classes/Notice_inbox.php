@@ -30,6 +30,7 @@ class Notice_inbox extends Memcached_DataObject
     public $user_id;                         // int(4)  primary_key not_null
     public $notice_id;                       // int(4)  primary_key not_null
     public $source;                          // tinyint(1)   default_1
+    public $created;                         // datetime()   not_null
 
     /* Static get */
     function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Notice_inbox',$k,$v); }

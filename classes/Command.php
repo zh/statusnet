@@ -197,9 +197,14 @@ class MessageCommand extends Command {
 			$channel->error($this->user, _('No content!'));
 			return;
 		} else if ($len > 140) {
-			$channel->error($this->user, sprintf(_('Message too long - maximum is 140 characters, you sent %d'), $len));
-			return;
-		} else if (!$other) {
+			$content = common_shorten_links($content);
+			if (mb_strlen($content) > 140) {
+				$channel->error($this->user, sprintf(_('Message too long - maximum is 140 characters, you sent %d'), $len));
+				return;
+			}
+		}
+		
+		if (!$other) {
 			$channel->error($this->user, _('No such user.'));
 			return;
 		} else if (!$this->user->mutuallySubscribed($other)) {

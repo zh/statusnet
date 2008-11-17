@@ -252,14 +252,21 @@ class TwitapistatusesAction extends TwitterapiAction {
 			// errror? -- Zach
 			return;
 
-		} else if (mb_strlen($status) > 140) {
+//		} else if (mb_strlen($status) > 140) {
+		} else {
+			
+			$status = common_shorten_links($status);
 
-			// XXX: Twitter truncates anything over 140, flags the status
-		    // as "truncated."  Sending this error may screw up some clients
-		    // that assume Twitter will truncate for them.  Should we just
-		    // truncate too? -- Zach
-			$this->client_error(_('That\'s too long. Max notice size is 140 chars.'), $code = 406, $apidata['content-type']);
-			return;
+			if (mb_strlen($status) > 140) {
+
+				// XXX: Twitter truncates anything over 140, flags the status
+			    // as "truncated."  Sending this error may screw up some clients
+			    // that assume Twitter will truncate for them.  Should we just
+			    // truncate too? -- Zach
+				$this->client_error(_('That\'s too long. Max notice size is 140 chars.'), $code = 406, $apidata['content-type']);
+				return;
+				
+			}
 		}
 
 		// Check for commands

@@ -65,6 +65,8 @@ create table user (
     smsemail varchar(255) comment 'built from sms and carrier',
     uri varchar(255) unique key comment 'universally unique identifier, usually a tag URI',
     autosubscribe tinyint default 0 comment 'automatically subscribe to users who subscribe to us',
+    urlshorteningservice varchar(50) default 'ur1.ca' comment 'service to use for auto-shortening URLs',
+    inboxed tinyint default 0 comment 'has an inbox been created for this user?',
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified',
 
@@ -336,6 +338,7 @@ create table notice_inbox (
 
     user_id integer not null comment 'user receiving the message' references user (id),
     notice_id integer not null comment 'notice received' references notice (id),
+    created datetime not null comment 'date the notice was created',
     source tinyint default 1 comment 'reason it is in the inbox; 1=subscription',
     
     constraint primary key (user_id, notice_id),

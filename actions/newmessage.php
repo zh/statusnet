@@ -34,7 +34,6 @@ class NewmessageAction extends Action {
 	}
 
 	function save_new_message() {
-
 		$user = common_current_user();
 		assert($user); # XXX: maybe an error instead...
 
@@ -52,11 +51,16 @@ class NewmessageAction extends Action {
 		if (!$content) {
 			$this->show_form(_('No content!'));
 			return;
-		} else if (mb_strlen($content) > 140) {
-			common_debug("Content = '$content'", __FILE__);
-			common_debug("mb_strlen(\$content) = " . mb_strlen($content), __FILE__);
-			$this->show_form(_('That\'s too long. Max message size is 140 chars.'));
-			return;
+//		} else if (mb_strlen($content) > 140) {
+		} else {
+			$content = common_shorten_links($content);
+
+			if (mb_strlen($content) > 140) {
+				common_debug("Content = '$content'", __FILE__);
+				common_debug("mb_strlen(\$content) = " . mb_strlen($content), __FILE__);
+				$this->show_form(_('That\'s too long. Max message size is 140 chars.'));
+				return;
+			}
 		}
 
 		$other = User::staticGet('id', $to);

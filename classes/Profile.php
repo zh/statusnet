@@ -118,7 +118,7 @@ class Profile extends Memcached_DataObject
 	}
 
 	function delete_avatars() {
-		$avatar = DB_DataObject::factory('avatar');
+		$avatar = new Avatar();
 		$avatar->profile_id = $this->id;
 		$avatar->find();
 		while ($avatar->fetch()) {

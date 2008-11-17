@@ -146,7 +146,9 @@ function common_init_language() {
 	bind_textdomain_codeset("laconica", "UTF-8");
 	textdomain("laconica");
 	setlocale(LC_CTYPE, 'C');
-	common_log(LOG_INFO,'Language requested:'.$language.' Locale set:'.$locale_set,__FILE__);
+	if(!$locale_set) {
+		common_log(LOG_INFO,'Language requested:'.$language.' - locale could not be set:',__FILE__);
+	}
 }
 
 define('PAGE_TYPE_PREFS', 'text/html,application/xhtml+xml,application/xml;q=0.3,text/xml;q=0.2');
@@ -742,7 +744,87 @@ function common_render_uri_thingy($matches) {
 			$trailer = $final . $trailer;
 		}
 	}
-	return '<a href="' . $uri . '" class="extlink">' . $uri . '</a>' . $trailer;
+	if ($longurl = common_longurl($uri)) {
+		$longurl = htmlentities($longurl, ENT_QUOTES, 'UTF-8');
+		$title = " title=$longurl";
+	}
+	else $title = '';
+	
+	return '<a href="' . $uri . '"' . $title . ' class="extlink">' . $uri . '</a>' . $trailer;
+}
+
+function common_longurl($uri)  {
+	$uri_e = urlencode($uri);
+	$longurl = unserialize(file_get_contents("http://api.longurl.org/v1/expand?format=php&url=$uri_e"));
+	if (empty($longurl['long_url']) || $uri === $longurl['long_url']) return false;
+	return $longurl['long_url'];
+}
+
+function common_shorten_links($text) {
+	$r = htmlspecialchars($text);
+    // \s = not a horizontal whitespace character (since PHP 5.2.4)
+	// RYM this should prevent * preceded URLs from being processed but it its a char
+//	$r = preg_replace('@[^*](https?://[^)\]>\s]+)@e', "common_shorten_link('\\1')", $r);
+	$r = preg_replace('@https?://[^)\]>\s]+@e', "common_shorten_link('\\0')", $r);
+	return $r;
+}
+
+function common_shorten_link($long_url) {
+	
+	$user = common_current_user();
+	
+	$curlh = curl_init();
+	curl_setopt($curlh, CURLOPT_CONNECTTIMEOUT, 20); // # seconds to wait
+	curl_setopt($curlh, CURLOPT_USERAGENT, 'Laconica');
+	curl_setopt($curlh, CURLOPT_RETURNTRANSFER, true);
+	
+	switch($user->urlshorteningservice) {
+        case 'ur1.ca':
+            $short_url_service = new LilUrl;
+            $short_url = $short_url_service->shorten($long_url);
+            break;
+            
+        case '2tu.us':
+            $short_url_service = new TightUrl;
+            $short_url = $short_url_service->shorten($long_url);
+            break;
+            
+        case 'ptiturl.com':
+            $short_url_service = new PtitUrl;
+            $short_url = $short_url_service->shorten($long_url);
+            break;
+
+        case 'bit.ly':
+			curl_setopt($curlh, CURLOPT_URL, 'http://bit.ly/api?method=shorten&long_url='.urlencode($long_url));
+			$short_url = current(json_decode(curl_exec($curlh))->results)->hashUrl;
+            break;
+
+		case 'is.gd':
+			curl_setopt($curlh, CURLOPT_URL, 'http://is.gd/api.php?longurl='.urlencode($long_url));
+			$short_url = curl_exec($curlh);
+			break;
+		case 'snipr.com':
+			curl_setopt($curlh, CURLOPT_URL, 'http://snipr.com/site/snip?r=simple&link='.urlencode($long_url));
+			$short_url = curl_exec($curlh);
+			break;
+		case 'metamark.net':
+			curl_setopt($curlh, CURLOPT_URL, 'http://metamark.net/api/rest/simple?long_url='.urlencode($long_url));
+			$short_url = curl_exec($curlh);
+			break;
+		case 'tinyurl.com':
+			curl_setopt($curlh, CURLOPT_URL, 'http://tinyurl.com/api-create.php?url='.urlencode($long_url));
+			$short_url = curl_exec($curlh);
+			break;
+		default:
+			$short_url = false;
+	}
+	
+	curl_close($curlh);
+	
+	if ($short_url) {
+		return $short_url;
+	}
+	return $long_url;
 }
 
 function common_xml_safe_str($str) {
@@ -907,6 +989,8 @@ function common_fancy_url($action, $args=NULL) {
 		return common_path('settings/sms');
 	 case 'twittersettings':
 		return common_path('settings/twitter');
+ 	 case 'othersettings':
+		return common_path('settings/other');
 	 case 'newnotice':
 		if ($args && $args['replyto']) {
 			return common_path('notice/new?replyto='.$args['replyto']);
@@ -1351,12 +1435,13 @@ function common_notice_form($action=NULL, $content=NULL) {
 	common_element('label', array('for' => 'status_textarea',
 								  'id' => 'status_label'),
 				   sprintf(_('What\'s up, %s?'), $user->nickname));
-        common_element('span', array('id' => 'counter', 'class' => 'counter'), '140');
+    common_element('span', array('id' => 'counter', 'class' => 'counter'), '140');
 	common_element('textarea', array('id' => 'status_textarea',
 									 'cols' => 60,
 									 'rows' => 3,
 									 'name' => 'status_textarea'),
 				   ($content) ? $content : '');
+	common_hidden('token', common_session_token());
 	if ($action) {
 		common_hidden('returnto', $action);
 	}
