@@ -1266,7 +1266,7 @@ function common_save_replies($notice) {
 function common_broadcast_notice($notice, $remote=false) {
 
 	// Check to see if notice should go to Twitter
-	$flink = Foreign_link::getForeignLink($notice->profile_id, 1); // 1 == Twitter
+	$flink = Foreign_link::getByUserID($notice->profile_id, 1); // 1 == Twitter
 	if (($flink->noticesync & FOREIGN_NOTICE_SEND) == FOREIGN_NOTICE_SEND) {
 
 		// If it's not a Twitter-style reply, or if the user WANTS to send replies...
