@@ -191,9 +191,11 @@ class ShowstreamAction extends StreamAction {
 			common_element('a', array('href' => common_local_url('newmessage', array('to' => $user->id))),
 						   _('Send a message'));
             common_element_end('li');
-            common_element_start('li', array('id' => 'profile_nudge'));
-            common_nudge_form($user);
-            common_element_end('li');
+            if ($user->email && $user->emailnotifynudge) {
+                common_element_start('li', array('id' => 'profile_nudge'));
+                common_nudge_form($user);
+                common_element_end('li');
+            }
 		}
         common_element_end('ul');
 		

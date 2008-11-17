@@ -36,7 +36,7 @@ class NudgeAction extends Action {
 		$other = User::staticGet('nickname', $other_nickname);
 		$this->notify($user, $other);
 
-		if (true || $this->boolean('ajax')) {
+		if ($this->boolean('ajax')) {
 			common_start_html('text/xml');
 			common_element_start('head');
 			common_element('title', null, _('Nudge sent'));
@@ -46,8 +46,9 @@ class NudgeAction extends Action {
 			common_element_end('body');
 			common_element_end('html');
 		} else {
-			common_redirect(common_local_url('nudge',
-											 array('nickname' => $user->nickname)));
+            // display a confirmation to the user
+			common_redirect(common_local_url('showstream',
+											 array('nickname' => $other->nickname)));
 		}
 	}
 
