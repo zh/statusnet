@@ -53,7 +53,7 @@ class NudgeAction extends Action {
 	}
 
 	function notify($user, $other) {
-		if ($other && $other->id != $user->id) {
+		if ($other->id != $user->id) {
 			if ($other->email && $other->emailnotifynudge) {
 				mail_notify_nudge($user, $other);
 			}
@@ -61,5 +61,5 @@ class NudgeAction extends Action {
 			# XXX: notify by SMS
 		}
 	}
-
 }
+

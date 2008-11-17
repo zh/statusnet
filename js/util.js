@@ -89,6 +89,7 @@ $(document).ready(function(){
 	$("#nudge").ajaxForm ({ dataType: 'xml',
 							success: function(xml) { $("#nudge").replaceWith(document._importNode($("#nudge_response", xml).get(0),true)); }
 						 });
+	$("#nudge").each(addAjaxHidden);
 	$("#nudge .submit").bind('click', function(e) {	$(this).addClass("processing"); }); 
 });
 
