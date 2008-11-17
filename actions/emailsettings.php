@@ -96,7 +96,7 @@ class EmailsettingsAction extends SettingsAction {
 		                $user->emailnotifymsg);
 		common_checkbox('emailnotifynudge',
 		                _('Send me an email when someone nudges me.'),
-		                $user->emailnotifnudge);
+		                $user->emailnotifynudge);
 		common_checkbox('emailpost',
 						_('I want to post notices by email.'),
 						$user->emailpost);
