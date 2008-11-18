@@ -27,13 +27,35 @@ class NudgeAction extends Action {
 		parent::handle($args);
 
 		if (!common_logged_in()) {
-			common_user_error(_('Not logged in.'));
+			$this->client_error(_('Not logged in.'));
 			return;
 		}
 
 		$user = common_current_user();
-		$other_nickname = common_canonical_nickname($args['nickname']);
-		$other = User::staticGet('nickname', $other_nickname);
+//		$other_nickname = common_canonical_nickname($args['nickname']);
+//		$other_nickname = $this->arg('nickname');
+//		$other = User::staticGet('nickname', $other_nickname);
+		$other = User::staticGet('nickname', $this->arg('nickname'));
+
+		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+			common_redirect(common_local_url('showstream', array('nickname' => $other->nickname)));
+			return;
+		}
+
+		# CSRF protection
+
+		$token = $this->trimmed('token');
+		
+		if (!$token || $token != common_session_token()) {
+			$this->client_error(_('There was a problem with your session token. Try again, please.'));
+			return;
+		}
+
+        if (!$other->email || !$other->emailnotifynudge) {
+            $this->client_error(_('This user doesn\'t allow nudges or hasn\'t confirmed or set his email yet.'));
+            return;
+        }
+
 		$this->notify($user, $other);
 
 		if ($this->boolean('ajax')) {

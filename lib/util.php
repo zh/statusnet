@@ -1866,11 +1866,7 @@ function common_favor_form($notice) {
 function common_nudge_form($profile) {
 	common_element_start('form', array('id' => 'nudge', 'method' => 'post',
 									   'action' => common_local_url('nudge', array('nickname' => $profile->nickname))));
-	common_hidden('token', common_session_token()); //Is this necessary?
-//	common_element('input', array('id' => 'nudge_nickname',
-//								  'name' => 'nudge_nickname',
-//								  'type' => 'hidden',
-//								  'value' => $profile->nickname));
+	common_hidden('token', common_session_token());
 	common_element('input', array('type' => 'submit',
 								  'class' => 'submit',
 								  'value' => _('Send a nudge')));
@@ -1880,7 +1876,6 @@ function common_nudge_form($profile) {
 function common_nudge_response() {
 	common_element('p', array('id' => 'nudge_response'), _('Nudge sent!'));
 }
-
 
 function common_cache_key($extra) {
 	return 'laconica:' . common_keyize(common_config('site', 'name')) . ':' . $extra;
