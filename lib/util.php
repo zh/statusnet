@@ -1896,6 +1896,14 @@ function common_nudge_form($profile) {
 	common_element_end('form');
 }
 
+function common_subscribe_response() {
+	common_element('p', array('id' => 'subscribe_response'), _('Subscribed'));
+}
+
+function common_unsubscribe_response() {
+	common_element('p', array('id' => 'unsubscribe_response'), _('Unsubscribed'));
+}
+
 function common_nudge_response() {
 	common_element('p', array('id' => 'nudge_response'), _('Nudge sent!'));
 }

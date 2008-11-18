@@ -32,9 +32,6 @@ class NudgeAction extends Action {
 		}
 
 		$user = common_current_user();
-//		$other_nickname = common_canonical_nickname($args['nickname']);
-//		$other_nickname = $this->arg('nickname');
-//		$other = User::staticGet('nickname', $other_nickname);
 		$other = User::staticGet('nickname', $this->arg('nickname'));
 
 		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
