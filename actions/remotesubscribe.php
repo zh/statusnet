@@ -130,6 +130,13 @@ class RemotesubscribeAction extends Action {
 			return;
 		}
 
+		if (omb_service_uri($omb[OAUTH_ENDPOINT_REQUEST]) ==
+			common_local_url('requesttoken'))
+		{
+			$this->show_form(_('That\'s a local profile! Login to subscribe.'));
+			return;
+		}
+		
 		list($token, $secret) = $this->request_token($omb);
 
 		if (!$token || !$secret) {

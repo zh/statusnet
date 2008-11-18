@@ -80,6 +80,11 @@ class FinishremotesubscribeAction extends Action {
 			return;
 		}
 
+		if ($profile_url == common_local_url('showstream', array('nickname' => $nickname))) {
+			common_user_error(_('You can use the local subscription!'));
+		    return;
+		}
+			
 		common_debug('listenee: "'.$omb['listenee'].'"', __FILE__);
 
 		$user = User::staticGet('nickname', $omb['listenee']);
@@ -89,6 +94,13 @@ class FinishremotesubscribeAction extends Action {
 			return;
 		}
 
+		$other = User::staticGet('uri', $omb['listener']);
+		
+		if ($other) {
+			common_user_error(_('You can use the local subscription!'));
+			return;
+		}
+			
 		$fullname = $req->get_parameter('omb_listener_fullname');
 		$homepage = $req->get_parameter('omb_listener_homepage');
 		$bio = $req->get_parameter('omb_listener_bio');
