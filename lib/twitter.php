@@ -109,7 +109,7 @@ function save_twitter_user($twitter_id, $screen_name) {
 
 	// Check to see whether the Twitter user is already in the system,
 	// and update its screen name and uri if so.
-	$fuser = Foreign_User::getForeignUser($twitter_id, 1);
+	$fuser = Foreign_user::getForeignUser($twitter_id, 1);
 
 	if ($fuser) {
 
