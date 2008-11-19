@@ -53,15 +53,10 @@ class Foreign_link extends Memcached_DataObject
 
 		return NULL;		
 	}
-	
-	
-	// Convenience method
-	function getForeignUser() {
 		
+	// Convenience method
+	function getForeignUser() {		
 		$fuser = new Foreign_user();
-
-		common_debug("service = " . $this->service);
-		common_debug("foreign_id = " . $this->foreign_id);
 		$fuser->service = $this->service;
 		$fuser->id = $this->foreign_id;
 		
