@@ -75,7 +75,8 @@ class PeopleSearchResults extends ProfileList {
 	
 	function __construct($profile, $terms) {
 		parent::__construct($profile);
-		$this->terms = array_map('preg_quote', array_map('htmlspecialchars', $this->terms));
+		$this->terms = array_map('preg_quote', 
+								 array_map('htmlspecialchars', $terms));
 		$this->pattern = '/('.implode('|',$terms).')/i';
 	}
 	
