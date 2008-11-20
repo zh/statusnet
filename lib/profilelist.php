@@ -55,6 +55,18 @@ class ProfileList {
 		
 		common_element_start('li', array('class' => 'profile_single',
 										 'id' => 'profile-' . $this->profile->id));
+		
+		$user = common_current_user();
+		if ($user) {
+			# XXX: special-case for user looking at own
+			# subscriptions page
+			if ($user->isSubscribed($this->profile)) {
+				common_unsubscribe_form($profile);
+			} else {
+				common_subscribe_form($profile);
+			}
+		}
+		
 		$avatar = $this->profile->getAvatar(AVATAR_STREAM_SIZE);
 		common_element_start('a', array('href' => $this->profile->profileurl));
 		common_element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE),
@@ -94,15 +106,6 @@ class ProfileList {
 			common_element_start('p', 'bio');
 			common_raw($this->highlight($this->profile->bio));
 			common_element_end('p');
-		}
-		
-		$user = common_current_user();
-		if ($user) {
-			if ($user->isSubscribed($this->profile)) {
-				common_unsubscribe_form($profile);
-			} else {
-				common_subscribe_form($profile);
-			}
 		}
 		
 		common_element_end('li');
