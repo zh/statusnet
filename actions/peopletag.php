@@ -45,12 +45,12 @@ class PeopletagAction extends Action {
 		common_show_header(sprintf(_('Users self-tagged with %s - page %d'), $tag, $page),
 						   NULL, $tag, array($this, 'show_top'));
 
-		$this->show_people($tag);
+		$this->show_people($tag, $page);
 
 		common_show_footer();
 	}
 
-	function show_people($tag) {
+	function show_people($tag, $page) {
 		
 		$profile = new Profile();
 
