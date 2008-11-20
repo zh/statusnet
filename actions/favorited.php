@@ -38,20 +38,23 @@ class FavoritedAction extends StreamAction {
 	}
 
 	function show_top() {
-		if (common_logged_in()) {
-			common_notice_form('public');
-		}
-
+		$instr = $this->get_instructions();
+		$output = common_markup_to_html($instr);
+		common_element_start('div', 'instructions');
+		common_raw($output);
+		common_element_end('div');
 		$this->public_views_menu();
 	}
-
-	// XXX Need to make RSS stream
 
 	function show_header() {
 		common_element('link', array('rel' => 'alternate',
 									 'href' => common_local_url('favoritedrss'),
 									 'type' => 'application/rss+xml',
 									 'title' => _('Favorited Stream Feed')));
+	}
+
+	function get_instructions() {
+		return _('Showing most favorited notices from the last week');
 	}
 
 	function show_notices($page) {
