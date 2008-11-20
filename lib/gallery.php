@@ -101,7 +101,7 @@ class GalleryAction extends Action {
 							 'FROM profile JOIN subscription ' .
 							 'ON profile.id = subscription.' . $lst . ' ' .
 							 'WHERE ' . $usr . ' = ' . $profile->id . ' ' .
-							 'AND ' . $lst . ' != ' . $usr . ' ' .
+							 'AND subscriber != subscribed ' .
 							 'ORDER BY subscription.created DESC ' . 
 							 $lim);
 		
