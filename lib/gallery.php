@@ -65,6 +65,9 @@ class GalleryAction extends Action {
 		common_show_header($profile->nickname . ": " . $this->gallery_type(),
 						   NULL, $profile,
 						   array($this, 'show_top'));
+
+		$this->display_links($page, $display);
+		
 		$this->show_gallery($profile, $page, $display);
 		common_show_footer();
 	}
@@ -185,5 +188,30 @@ class GalleryAction extends Action {
 
 	function div_class() {
 		return '';
+	}
+	
+	function display_links($page, $display) {
+		
+		common_element_start('p');
+		
+		switch ($display) {
+		 case 'list':
+			common_element('span', NULL, _('List'));
+			common_text(' | ');
+			common_element('a', array('href' => common_local_url($this->trimmed('action'),
+																 array('display' => 'icons',
+																	   'page' => floor(($page * AVATARS_PER_PAGE) / PROFILES_PER_PAGE)))),
+						   _('Icons'));
+			break;
+		 default:
+			common_element('a', array('href' => common_local_url($this->trimmed('action'),
+																 array('page' => floor(($page * PROFILES_PER_PAGE) / AVATARS_PER_PAGE)))),
+						   _('List'));
+			common_text(' | ');
+			common_element('span', NULL, _('Icons'));
+			break;
+		}
+		
+		common_element_end('p');
 	}
 }
