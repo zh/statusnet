@@ -63,7 +63,6 @@ class SubscribeAction extends Action {
 			common_element_end('head');
 			common_element_start('body');
 			common_unsubscribe_form($profile);
-			common_profile_new_message_nudge($cur, $profile);
 			common_element_end('body');
 			common_element_end('html');
 		} else {
