@@ -315,7 +315,7 @@ class ProfilesettingsAction extends SettingsAction {
 
 		# Set the user tags
 		
-		$result = $user->setTags($tags);
+		$result = $user->setSelfTags($tags);
 
 		if (!$result) {
 			common_server_error(_('Couldn\'t save tags.'));
