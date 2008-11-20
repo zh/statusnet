@@ -829,6 +829,9 @@ blacklist: an array of strings for usernames that may not be
 	   but you may want to add others if you have other software
 	   installed in a subdirectory of Laconica or if you just
 	   don't want certain words used as usernames.
+featured: an array of nicknames of 'featured' users of the site.
+	  Can be useful to draw attention to well-known users, or
+	  interesting people, or whatever.
 
 avatar
 ------
@@ -852,6 +855,9 @@ For configuring the public stream.
 localonly: If set to true, only messages posted by users of this
 	   service (rather than other services, filtered through OMB)
 	   are shown in the public stream. Default true.
+blacklist: An array of IDs of users to hide from the public stream.
+	   Useful if you have someone making excessive Twitterfeed posts
+	   to the site, other kinds of automated posts, testing bots, etc.
 
 theme
 -----
