@@ -33,14 +33,15 @@ class ProfileList {
 	function show_list() {
 		
 		common_element_start('ul', array('id' => 'profiles'));
+
+		$cnt = 0;
 		
-		for ($i = 0; $i < min($cnt, PROFILES_PER_PAGE); $i++) {
-			if ($this->profile->fetch()) {
-				$this->show();
-			} else {
-				// shouldn't happen!
+		while ($this->profile->fetch()) {
+			$cnt++;
+			if($cnt > PROFILES_PER_PAGE) {
 				break;
 			}
+			$this->show();
 		}
 		
 		common_element_end('ul');
