@@ -105,7 +105,7 @@ class GalleryAction extends Action {
 					  'ON profile.id = subscription.' . $lst . ' ' .
 					  'WHERE ' . $usr . ' = ' . $profile->id . ' ' .
 					  'AND subscriber != subscribed ' .
-					  'ORDER BY subscription.created DESC ' . 
+					  'ORDER BY subscription.created DESC, profile.id DESC ' .
 					  $lim);
 		
 		if ($display == 'list') {
