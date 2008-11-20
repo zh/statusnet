@@ -1092,6 +1092,10 @@ function common_fancy_url($action, $args=NULL) {
 			$path = 'tags';
 		}
 		return common_path($path . (($args) ? ('?' . http_build_query($args)) : ''));
+	 case 'peopletag':
+		$path = 'peopletag/' . $args['tag'];
+		unset($args['tag']);
+		return common_path($path . (($args) ? ('?' . http_build_query($args)) : ''));
 	 case 'tags':
 		return common_path('tags' . (($args) ? ('?' . http_build_query($args)) : ''));
 	 case 'favor':

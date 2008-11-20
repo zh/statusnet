@@ -68,6 +68,8 @@ RewriteRule ^tags/?$ index.php?action=tag [L,QSA]
 RewriteRule ^tag/([a-zA-Z0-9]+)/rss$ index.php?action=tagrss&tag=$1 [L,QSA]
 RewriteRule ^tag(/(.*))?$ index.php?action=tag&tag=$2 [L,QSA]
 
+RewriteRule ^peopletag/([a-zA-Z0-9]+)$ index.php?action=peopletag&tag=$1 [L,QSA]
+
 RewriteRule ^featured/?$ index.php?action=featured [L,QSA]
 RewriteRule ^favorited/?$ index.php?action=favorited [L,QSA]
 
