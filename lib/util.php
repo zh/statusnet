@@ -1896,12 +1896,32 @@ function common_nudge_form($profile) {
 	common_element_end('form');
 }
 
-function common_subscribe_response() {
-	common_element('p', array('id' => 'subscribe_response'), _('Subscribed'));
+function common_subscribe_form() {
+	common_element_start('form', array('id' => 'subscribe', 'method' => 'post', 'class' => 'subscribe',
+									   'action' => common_local_url('subscribe')));
+	common_hidden('token', common_session_token());
+	common_element('input', array('id' => 'subscribeto',
+								  'name' => 'subscribeto',
+								  'type' => 'hidden',
+								  'value' => $profile->nickname));
+	common_element('input', array('type' => 'submit',
+								  'class' => 'submit',
+								  'value' => _('Subscribe')));
+	common_element_end('form');
 }
 
-function common_unsubscribe_response() {
-	common_element('p', array('id' => 'unsubscribe_response'), _('Unsubscribed'));
+function common_unsubscribe_form() {
+	common_element_start('form', array('id' => 'unsubscribe', 'method' => 'post', 'class' => 'unsubscribe',
+									   'action' => common_local_url('unsubscribe')));
+	common_hidden('token', common_session_token());
+	common_element('input', array('id' => 'unsubscribeto',
+								  'name' => 'unsubscribeto',
+								  'type' => 'hidden',
+								  'value' => $profile->nickname));
+	common_element('input', array('type' => 'submit',
+								  'class' => 'submit',
+								  'value' => _('Unsubscribe')));
+	common_element_end('form');
 }
 
 function common_nudge_response() {
