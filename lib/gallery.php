@@ -20,6 +20,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
+require_once(INSTALLDIR.'/lib/profilelist.php');
+
 # 10x8
 
 define('AVATARS_PER_PAGE', 80);
@@ -81,9 +83,11 @@ class GalleryAction extends Action {
 		$other = new Profile();
 		
 		list($lst, $usr) = $this->fields();
-		
-		$offset = ($page-1)*AVATARS_PER_PAGE;
-		$limit = AVATARS_PER_PAGE + 1;
+
+		$per_page = ($display == 'list') ? PROFILES_PER_PAGE : AVATARS_PER_PAGE;
+
+		$offset = ($page-1)*$per_page;
+		$limit = $per_page + 1;
 		
 		if (common_config('db','type') == 'pgsql') {
 			$lim = ' LIMIT ' . $limit . ' OFFSET ' . $offset;
