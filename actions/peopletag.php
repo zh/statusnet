@@ -87,7 +87,9 @@ class PeopletagAction extends Action {
 		$instr = sprintf(_('These are users who have tagged themselves "%s" ' .
 						   'to show a common interest, characteristic, hobby or job.'), $tag);
 		common_element_start('div', 'instructions');
+		common_element_start('p');
 		common_text($instr);
+		common_element_end('p');
 		common_element_end('div');
 	}
 
