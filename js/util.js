@@ -99,8 +99,14 @@ $(document).ready(function(){
 											   var form_subscribe_id = form_unsubscribe_id.replace('unsubscribe', 'subscribe');
 											   $("form#"+form_subscribe_id).replaceWith(form_unsubscribe);
 											   $("form#"+form_unsubscribe_id).ajaxForm(UnSubscribe).each(addAjaxHidden);
-											   $("#profile_actions").append(document._importNode($('#profile_send_a_new_message', xml).get(0), true));
-											   $("#profile_actions").append(document._importNode($('#profile_nudge', xml).get(0), true));
+											   var p_sanm = $('#profile_send_a_new_message', xml).get(0);
+											   if (p_sanm) {
+											   	$("#profile_actions").append(document._importNode(p_sanm, true));
+											   }
+											   var p_n = $('#profile_nudge', xml).get(0);
+											   if (p_n) {
+												   $("#profile_actions").append(document._importNode(p_n, true));
+											   }
 										     }
 					};
 
