@@ -201,13 +201,13 @@ class GalleryAction extends Action {
 			common_element('a', array('href' => common_local_url($this->trimmed('action'),
 																 array('display' => 'icons',
 																	   'nickname' => $profile->nickname,
-																	   'page' => 1 + floor((($page - 1) * AVATARS_PER_PAGE) / PROFILES_PER_PAGE)))),
+																	   'page' => 1 + floor((($page - 1) * PROFILES_PER_PAGE) / AVATARS_PER_PAGE)))),
 						   _('Icons'));
 			break;
 		 default:
 			common_element('a', array('href' => common_local_url($this->trimmed('action'),
 																 array('nickname' => $profile->nickname,
-																	   'page' => 1 + floor((($page - 1) * PROFILES_PER_PAGE) / AVATARS_PER_PAGE)))),
+																	   'page' => 1 + floor((($page - 1) * AVATARS_PER_PAGE) / PROFILES_PER_PAGE)))),
 						   _('List'));
 			common_text(' | ');
 			common_element('span', NULL, _('Icons'));
