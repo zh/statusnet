@@ -108,6 +108,19 @@ class ProfileList {
 			common_element_end('p');
 		}
 		
+		$tags = Profile_tag::getTags($this->profile->id, $this->profile->id);
+		
+		if ($tags) {
+			common_element_start('p', 'tags');
+			foreach ($tags as $tag) {
+				common_element('a', array('rel' => 'tag',
+										  'href' => common_local_url('peopletag',
+																	 array('tag' => $tag))),
+							   $tag);
+			}
+			common_element_end('p');
+		}
+		
 		common_element_end('li');
 	}
 
