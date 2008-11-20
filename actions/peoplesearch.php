@@ -20,7 +20,7 @@
 if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/searchaction.php');
-define('PROFILES_PER_PAGE', 10);
+require_once(INSTALLDIR.'/lib/profilelist.php');
 
 class PeoplesearchAction extends SearchAction {
 
@@ -55,74 +55,31 @@ class PeoplesearchAction extends SearchAction {
 
 		if ($cnt > 0) {
 			$terms = preg_split('/[\s,]+/', $q);
-			common_element_start('ul', array('id' => 'profiles'));
-			for ($i = 0; $i < min($cnt, PROFILES_PER_PAGE); $i++) {
-				if ($profile->fetch()) {
-					$this->show_profile($profile, $terms);
-				} else {
-					// shouldn't happen!
-					break;
-				}
-			}
-			common_element_end('ul');
+			$results = new PeopleSearchResults($profile, $terms);
+			$results->show_list();
 		} else {
 			common_element('p', 'error', _('No results'));
 		}
 
+		$profile->free();
+		
 		common_pagination($page > 1, $cnt > PROFILES_PER_PAGE,
 						  $page, 'peoplesearch', array('q' => $q));
 	}
+}
 
-	function show_profile($profile, $terms) {
-		common_element_start('li', array('class' => 'profile_single',
-										 'id' => 'profile-' . $profile->id));
-		$avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
-		common_element_start('a', array('href' => $profile->profileurl));
-		common_element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE),
-									'class' => 'avatar stream',
-									'width' => AVATAR_STREAM_SIZE,
-									'height' => AVATAR_STREAM_SIZE,
-									'alt' =>
-									($profile->fullname) ? $profile->fullname :
-									$profile->nickname));
-		common_element_end('a');
-		common_element_start('p');
-		common_element_start('a', array('href' => $profile->profileurl,
-										'class' => 'nickname'));
-		common_raw($this->highlight($profile->nickname, $terms));
-		common_element_end('a');
-		if ($profile->fullname) {
-			common_text(' | ');
-			common_element_start('span', 'fullname');
-			common_raw($this->highlight($profile->fullname, $terms));
-			common_element_end('span');
-		}
-		if ($profile->location) {
-			common_text(' | ');
-			common_element_start('span', 'location');
-			common_raw($this->highlight($profile->location, $terms));
-			common_element_end('span');
-		}
-		common_element_end('p');
-		if ($profile->homepage) {
-			common_element_start('p', 'website');
-			common_element_start('a', array('href' => $profile->homepage));
-			common_raw($this->highlight($profile->homepage, $terms));
-			common_element_end('a');
-			common_element_end('p');
-		}
-		if ($profile->bio) {
-			common_element_start('p', 'bio');
-			common_raw($this->highlight($profile->bio, $terms));
-			common_element_end('p');
-		}
-		common_element_end('li');
+class PeopleSearchResults extends ProfileList {
+
+	var $terms = NULL;
+	var $pattern = NULL;
+	
+	function __construct($profile, $terms) {
+		parent::__construct($profile);
+		$this->terms = array_map('preg_quote', array_map('htmlspecialchars', $this->terms));
+		$this->pattern = '/('.implode('|',$terms).')/i';
 	}
-
-	function highlight($text, $terms) {
-		$terms = array_map('preg_quote', array_map('htmlspecialchars', $terms));
-		$pattern = '/('.implode('|',$terms).')/i';
-		$result = preg_replace($pattern, '<strong>\\1</strong>', htmlspecialchars($text));
-		return $result;
+	
+	function highlight($text) {
+		return preg_replace($this->pattern, '<strong>\\1</strong>', htmlspecialchars($text));
 	}
 }
