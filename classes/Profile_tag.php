@@ -42,7 +42,7 @@ class Profile_tag extends Memcached_DataObject
 		return $tags;
 	}
 	
-	static function setTags($tagger, $tagged, $tags) {
+	static function setTags($tagger, $tagged, $newtags) {
 		
 		$oldtags = Profile_tag::getTags($tagger, $tagged);
 		
