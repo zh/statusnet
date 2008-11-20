@@ -38,7 +38,7 @@ class User extends Memcached_DataObject
     public $incomingemail;                   // varchar(255)  unique_key
     public $emailnotifysub;                  // tinyint(1)   default_1
     public $emailnotifyfav;                  // tinyint(1)   default_1
-    public $emailnotifynudge;                  // tinyint(1)   default_1
+    public $emailnotifynudge;                // tinyint(1)   default_1
     public $emailnotifymsg;                  // tinyint(1)   default_1
     public $emailmicroid;                    // tinyint(1)   default_1
     public $language;                        // varchar(50)  
@@ -56,10 +56,10 @@ class User extends Memcached_DataObject
     public $smsemail;                        // varchar(255)  
     public $uri;                             // varchar(255)  unique_key
     public $autosubscribe;                   // tinyint(1)  
+    public $urlshorteningservice;            // varchar(50)   default_ur1.ca
+    public $inboxed;                         // tinyint(1)  
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
-    public $inboxed;                         // tinyint(1)  
-    public $urlshorteningservice;            // varchar(50)   default_ur1.ca
 
     /* Static get */
     function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('User',$k,$v); }
