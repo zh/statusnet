@@ -377,7 +377,16 @@ class ShowstreamAction extends StreamAction {
 		common_element('dd', 'notices', (is_int($notice_count)) ? $notice_count : '0');
 		# XXX: link these to something
 		common_element('dt', 'tags', _('Tags'));
-		common_element('dd', 'tags', implode(' ', Profile_tag::getTags($profile->id, $profile->id)));
+		common_element_start('dd', 'tags');
+		$tags = Profile_tag::getTags($profile->id, $profile->id);
+		foreach ($tags as $tag) {
+			common_element('a', array('rel' => 'tag',
+									  'href' => common_local_url('peopletag',
+																 array('tag' => $tag))),
+						   $tag);
+		}
+	    common_element_end('dd');
+	
 		common_element_end('dl');
 
 		common_element_end('div');
