@@ -70,7 +70,7 @@ class PeopletagAction extends Action {
 								'ON profile.id = profile_tag.tagger ' .
 								'WHERE profile_tag.tagger = profile_tag.tagged ' .
 								'AND tag = "%s" ' .
-								'ORDER BY profile_tag.created DESC ' . 
+								'ORDER BY profile_tag.modified DESC ' . 
 								$lim, $tag));
 
 		$pl = new ProfileList($profile);
