@@ -40,16 +40,12 @@ class PeoplesearchAction extends SearchAction {
 		# lcase it for comparison
 		$q = strtolower($q);
 
-		if(common_config('db','type')=='mysql') {
-			$profile->whereAdd('MATCH(nickname, fullname, location, bio, homepage) ' .
-						   'against (\''.addslashes($q).'\')');
-		} else {
-			$profile->whereAdd('textsearch @@ plainto_tsquery(\''.addslashes($q).'\')');
-		}
+        $search_engine = $profile->getSearchEngine();
+
+        $search_engine->query($q);
 
 		# Ask for an extra to see if there's more.
-
-		$profile->limit((($page-1)*PROFILES_PER_PAGE), PROFILES_PER_PAGE + 1);
+        $search_engine->limit((($page-1)*PROFILES_PER_PAGE), PROFILES_PER_PAGE + 1);
 
 		$cnt = $profile->find();
 

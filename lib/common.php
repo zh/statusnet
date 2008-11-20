@@ -102,6 +102,10 @@ $config =
 			  'host' => NULL, # only set if != server
 			  'debug' => false, # print extra debug info
 			  'public' => array()), # JIDs of users who want to receive the public stream
+        'sphinx' =>
+        array('enabled' => false,
+              'server' => 'localhost',
+              'port' => 3312),
 		'tag' =>
 		array('dropoff' => 864000.0),
 		'daemon' =>

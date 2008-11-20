@@ -46,6 +46,21 @@ class Profile extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
+    function getSearchEngine() {
+        require_once INSTALLDIR.'/classes/SearchEngines.php';
+        static $search_engine;
+        if (!isset($search_engine)) {
+                if (common_config('sphinx', 'enabled')) {
+                    $search_engine = new SphinxSearch($this);
+                } elseif ('mysql' === common_config('db', 'type')) {
+                    $search_engine = new MySQLSearch($this);
+                } else {
+                    $search_engine = new PGSearch($this);
+                }
+        }
+        return $search_engine;
+    }
+
 	function getAvatar($width, $height=NULL) {
 		if (is_null($height)) {
 			$height = $width;
