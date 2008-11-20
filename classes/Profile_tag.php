@@ -20,4 +20,67 @@ class Profile_tag extends Memcached_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+
+	static function getTags($tagger, $tagged) {
+		
+		$tags = array();
+
+		# XXX: store this in memcached
+		
+		$profile_tag = new Profile_tag();
+		$profile_tag->tagger = $tagger;
+		$profile_tag->tagged = $tagged;
+		
+		$profile_tag->find();
+		
+		while ($profile_tag->fetch()) {
+			$tags[] = $profile_tag->tag;
+		}
+		
+		$profile_tag->free();
+		
+		return $tags;
+	}
+	
+	static function setTags($tagger, $tagged, $tags) {
+		
+		$oldtags = Profile_tag::getTags($tagger, $tagged);
+		
+		# Delete stuff that's old that not in new
+		
+		$to_delete = array_diff($oldtags, $newtags);
+		
+		# Insert stuff that's in new and not in old
+		
+		$to_insert = array_diff($newtags, $oldtags);
+		
+		$profile_tag = new Profile_tag();
+		
+		$profile_tag->tagger = $tagger;
+		$profile_tag->tagged = $tagged;
+		
+		$profile_tag->query('BEGIN');
+		
+		foreach ($to_delete as $deltag) {
+			$profile_tag->tag = $deltag;
+			$result = $profile_tag->delete();
+			if (!$result) {
+				common_log_db_error($profile_tag, 'DELETE', __FILE__);
+				return false;
+			}
+		}
+		
+		foreach ($to_insert as $instag) {
+			$profile_tag->tag = $instag;
+			$result = $profile_tag->insert();
+			if (!$result) {
+				common_log_db_error($profile_tag, 'INSERT', __FILE__);
+				return false;
+			}
+		}
+		
+		$profile_tag->query('COMMIT');
+		
+		return true;
+	}
 }

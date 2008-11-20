@@ -844,6 +844,10 @@ function common_canonical_tag($tag) {
 	return strtolower(str_replace(array('-', '_', '.'), '', $tag));
 }
 
+function common_valid_profile_tag($str) {
+	return preg_match('/^[A-Za-z0-9_\-\.]{1,64}$/', $str);
+}
+
 function common_at_link($sender_id, $nickname) {
 	$sender = Profile::staticGet($sender_id);
 	$recipient = common_relative_profile($sender, common_canonical_nickname($nickname));

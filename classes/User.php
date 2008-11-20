@@ -401,4 +401,12 @@ class User extends Memcached_DataObject
 			$cache->delete(common_cache_key('user:faves:'.$this->id).';last');
 		}
 	}
+	
+	function getSelfTags() {
+		return Profile_tag::getTags($this->id, $this->id);
+	}
+	
+	function setSelfTags($newtags) {
+		return Profile_tag::setTags($this->id, $this->id, $newtags);
+	}
 }
