@@ -66,7 +66,7 @@ class GalleryAction extends Action {
 						   NULL, $profile,
 						   array($this, 'show_top'));
 
-		$this->display_links(profile, $page, $display);
+		$this->display_links($profile, $page, $display);
 		
 		$this->show_gallery($profile, $page, $display);
 		common_show_footer();
