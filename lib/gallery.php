@@ -118,7 +118,7 @@ class GalleryAction extends Action {
 		}
 		
 		common_pagination($page > 1,
-						  $subs_count > AVATARS_PER_PAGE,
+						  $cnt > $per_page,
 						  $page,
 						  $this->trimmed('action'),
 						  array('nickname' => $profile->nickname));
