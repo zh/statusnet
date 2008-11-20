@@ -67,9 +67,8 @@ class TagAction extends StreamAction {
 			common_element_start('div', 'instructions');
 			common_raw($output);
 			common_element_end('div');
+			$this->public_views_menu();
 		}
-
-		$this->public_views_menu();
 	}
 
 	function show_tags()
