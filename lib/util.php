@@ -1011,8 +1011,6 @@ function common_fancy_url($action, $args=NULL) {
 	 case 'xrds':
 	 case 'foaf':
 		return common_path($args['nickname'].'/'.$action);
-	 case 'subscriptions':
-	 case 'subscribers':
 	 case 'all':
 	 case 'replies':
 	 case 'inbox':
@@ -1021,6 +1019,16 @@ function common_fancy_url($action, $args=NULL) {
 			return common_path($args['nickname'].'/'.$action.'?page=' . $args['page']);
 		} else {
 			return common_path($args['nickname'].'/'.$action);
+		}
+	 case 'subscriptions':
+	 case 'subscribers':
+		$nickname = $args['nickname'];
+		unset($args['nickname']);
+		$params = http_build_query($args);
+		if ($params) {
+			return common_path($nickname.'/'.$action . '?' . $params);
+		} else {
+			return common_path($nickname.'/'.$action);
 		}
 	 case 'allrss':
 		return common_path($args['nickname'].'/all/rss');
