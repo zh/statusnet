@@ -106,7 +106,7 @@ class GalleryAction extends Action {
 							 $lim);
 		
 		if ($cnt == 0) {
-			common_element('p', _('Nobody to show!'));
+			common_element('p', NULL, _('Nobody to show!'));
 			return;
 		}
 
