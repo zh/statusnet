@@ -375,6 +375,9 @@ class ShowstreamAction extends StreamAction {
 		common_element('dd', 'subscribers', (is_int($subbed_count)) ? $subbed_count : '0');
 		common_element('dt', 'notices', _('Notices'));
 		common_element('dd', 'notices', (is_int($notice_count)) ? $notice_count : '0');
+		# XXX: link these to something
+		common_element('dt', 'tags', _('Tags'));
+		common_element('dd', 'tags', implode(' ', Profile_tag::getTags($profile->id, $profile->id)));
 		common_element_end('dl');
 
 		common_element_end('div');
