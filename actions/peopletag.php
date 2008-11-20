@@ -84,18 +84,13 @@ class PeopletagAction extends Action {
 	}
 	
 	function show_top($tag) {
-		$instr = $this->get_instructions();
-		$output = common_markup_to_html($instr);
+		$instr = sprintf(_('These are users who have tagged themselves "%s" ' .
+						   'to show a common interest, characteristic, hobby or job.'), $tag);
 		common_element_start('div', 'instructions');
-		common_raw($output);
+		common_text($instr);
 		common_element_end('div');
 	}
 
-	function get_instructions($tag) {
-		return sprintf(_('These are %%site.name%% users who have tagged themselves "%s" ' .
-						 'to show a common interest, characteristic, hobby or job.'), $tag);
-	}
-	
 	function get_title() {
 		return NULL;
 	}
