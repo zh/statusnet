@@ -45,6 +45,8 @@ class ProfileList {
 		}
 		
 		common_element_end('ul');
+		
+		return $cnt;
 	}
 	
 	function show() {

@@ -97,41 +97,50 @@ class GalleryAction extends Action {
 
 		# XXX: memcached results
 		
-		$cnt = $other->query('SELECT profile.* ' .
-							 'FROM profile JOIN subscription ' .
-							 'ON profile.id = subscription.' . $lst . ' ' .
-							 'WHERE ' . $usr . ' = ' . $profile->id . ' ' .
-							 'AND subscriber != subscribed ' .
-							 'ORDER BY subscription.created DESC ' . 
-							 $lim);
+		$other->query('SELECT profile.* ' .
+					  'FROM profile JOIN subscription ' .
+					  'ON profile.id = subscription.' . $lst . ' ' .
+					  'WHERE ' . $usr . ' = ' . $profile->id . ' ' .
+					  'AND subscriber != subscribed ' .
+					  'ORDER BY subscription.created DESC ' . 
+					  $lim);
 		
-		if ($cnt == 0) {
-			common_element('p', 'error', _('Nobody to show!'));
-			return;
-		}
-
 		if ($display == 'list') {
 			$profile_list = new ProfileList($other);
-			$profile_list->show_list();
+			$cnt = $profile_list->show_list();
 		} else {
-			$this->icon_list($profile, $cnt);
+			$cnt = $this->icon_list($other);
+		}
+
+		# For building the pagination URLs
+		
+		$args = array('nickname' => $profile->nickname);
+		
+		if ($display != 'list') {
+			$args['display'] = $display;
 		}
 		
 		common_pagination($page > 1,
 						  $cnt > $per_page,
 						  $page,
 						  $this->trimmed('action'),
-						  array('nickname' => $profile->nickname));
+						  $args);
 	}
 
-	function icon_list($other, $subs_count) {
+	function icon_list($other) {
 		
 		common_element_start('ul', $this->div_class());
+
+		$cnt = 0;
 		
-		for ($idx = 0; $idx < min($subs_count, AVATARS_PER_PAGE); $idx++) {
+		while ($other->fetch()) {
 
-			$other->fetch();
-
+			$cnt++;
+			
+			if ($cnt > AVATARS_PER_PAGE) {
+				break;
+			}
+			
 			common_element_start('li');
 
 			common_element_start('a', array('title' => ($other->fullname) ?
@@ -158,6 +167,8 @@ class GalleryAction extends Action {
 		}
 			
 		common_element_end('ul');
+		
+		return $cnt;
 	}
 	
 	function gallery_type() {
