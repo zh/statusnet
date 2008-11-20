@@ -95,6 +95,16 @@ class ProfileList {
 			common_raw($this->highlight($this->profile->bio));
 			common_element_end('p');
 		}
+		
+		$user = common_current_user();
+		if ($user) {
+			if ($user->isSubscribed($this->profile)) {
+				common_unsubscribe_form($profile);
+			} else {
+				common_subscribe_form($profile);
+			}
+		}
+		
 		common_element_end('li');
 	}
 
