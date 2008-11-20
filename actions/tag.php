@@ -69,19 +69,7 @@ class TagAction extends StreamAction {
 			common_element_end('div');
 		}
 
-		common_element_start('ul', array('id' => 'nav_views'));
-
-		common_menu_item(common_local_url('tags'),
-						 _('Recent Tags'),
-						 _('Recent Tags'),
-						 !$tag);
-		if ($tag) {
-			common_menu_item(common_local_url('tag', array('tag' => $tag)),
-							 '#' . $tag,
-							 sprintf(_("Notices tagged with %s"), $tag),
-							 true);
-		}
-		common_element_end('ul');
+		$this->public_views_menu();
 	}
 
 	function show_tags()

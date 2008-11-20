@@ -10,31 +10,27 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.	 If not, see <http://www.gnu.org/licenses/>.
  */
 
 if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/stream.php');
 
-class PublicAction extends StreamAction {
+class FavoritedAction extends StreamAction {
 
 	function handle($args) {
 		parent::handle($args);
 
 		$page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 
-		header('X-XRDS-Location: '. common_local_url('publicxrds'));
-
-		common_show_header(_('Public timeline'),
+		common_show_header(_('Favorited timeline'),
 						   array($this, 'show_header'), NULL,
 						   array($this, 'show_top'));
-
-		# XXX: Public sidebar here?
 
 		$this->show_notices($page);
 
@@ -45,26 +41,55 @@ class PublicAction extends StreamAction {
 		if (common_logged_in()) {
 			common_notice_form('public');
 		}
-		
+
 		$this->public_views_menu();
 	}
 
+	// XXX Need to make RSS stream
+
 	function show_header() {
 		common_element('link', array('rel' => 'alternate',
-									 'href' => common_local_url('publicrss'),
+									 'href' => common_local_url('favoritedrss'),
 									 'type' => 'application/rss+xml',
-									 'title' => _('Public Stream Feed')));
-		# for client side of OpenID authentication
-		common_element('meta', array('http-equiv' => 'X-XRDS-Location',
-									 'content' => common_local_url('publicxrds')));
+									 'title' => _('Favorited Stream Feed')));
 	}
 
 	function show_notices($page) {
 
+		// XXX: Make dropoff configurable like tags?
+
+		$qry =
+			'SELECT notice_id, sum(exp(-(now() - modified)/864000)) as weight ' .
+			'FROM fave GROUP BY notice_id ' .
+			'ORDER BY weight DESC';
+
+		$offset = ($page - 1) * NOTICES_PER_PAGE;
+		$limit = NOTICES_PER_PAGE + 1;
+
+		if (common_config('db','type') == 'pgsql') {
+			$qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+		} else {
+			$qry .= ' LIMIT ' . $offset . ', ' . $limit;
+		}
+
+		// XXX: Figure out how to cache these queries.
+
+		$fave = new Fave;
+		$fave->query($qry);
+
+		$notice_list = array();
+
+		while ($fave->fetch()) {
+		  array_push($notice_list, $fave->notice_id);
+		}
+
+		$notice = new Notice();
+
+		$notice->query(sprintf('SELECT * FROM notice WHERE id in (%s)',
+			implode($notice_list, ',')));
+
 		$cnt = 0;
-		$notice = Notice::publicStream(($page-1)*NOTICES_PER_PAGE,
-									   NOTICES_PER_PAGE + 1);
-		
+
 		if ($notice) {
 			common_element_start('ul', array('id' => 'notices'));
 			while ($notice->fetch()) {
@@ -78,6 +103,6 @@ class PublicAction extends StreamAction {
 		}
 
 		common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
-						  $page, 'public');
+						  $page, 'favorited');
 	}
 }

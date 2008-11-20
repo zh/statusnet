@@ -10,11 +10,11 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.	 If not, see <http://www.gnu.org/licenses/>.
  */
 
 if (!defined('LACONICA')) { exit(1); }
@@ -22,6 +22,31 @@ if (!defined('LACONICA')) { exit(1); }
 require_once(INSTALLDIR.'/lib/personal.php');
 
 class StreamAction extends PersonalAction {
+
+
+	function public_views_menu() {
+
+		$action = $this->trimmed('action');
+
+		common_debug("action = $action");
+
+		common_element_start('ul', array('id' => 'nav_views'));
+
+		common_menu_item(common_local_url('public'), _('Public'),
+			_('Public timeline'), $action == 'public');
+
+		common_menu_item(common_local_url('tag'), _('Recent tags'),
+			_('Recent tags'), $action == 'tag');
+
+		common_menu_item(common_local_url('featured'), _('Featured'),
+			_('Notices from featured Users'), $action == 'featured');
+
+		common_menu_item(common_local_url('favorited'), _('Favorited'),
+			_("Most favorited notices"), $action == 'favorited');
+
+		common_element_end('ul');
+
+	}
 
 	function show_notice($notice) {
 		global $config;

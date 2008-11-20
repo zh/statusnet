@@ -317,7 +317,6 @@ function common_nav_menu() {
 						 _('Home'));
 	}
 	common_menu_item(common_local_url('peoplesearch'), _('Search'));
-	common_menu_item(common_local_url('tags'), _('Tags'));
 	if ($user) {
 		common_menu_item(common_local_url('profilesettings'),
 						 _('Settings'));
@@ -948,10 +947,26 @@ function common_fancy_url($action, $args=NULL) {
 		} else {
 			return common_path('');
 		}
+	 case 'featured':
+		if ($args && isset($args['page'])) {
+			return common_path('featured?page=' . $args['page']);
+		} else {
+			return common_path('featured');
+		}
+	 case 'favorited':
+		if ($args && isset($args['page'])) {
+			return common_path('favorited?page=' . $args['page']);
+		} else {
+			return common_path('favorited');
+		}
 	 case 'publicrss':
 		return common_path('rss');
 	 case 'publicxrds':
 		return common_path('xrds');
+	 case 'featuredrss':
+		return common_path('featuredrss');
+	 case 'favoritedrss':
+		return common_path('favoritedrss');
 	 case 'opensearch':
                 if ($args && $args['type']) {
                         return common_path('opensearch/'.$args['type']);
@@ -1098,11 +1113,11 @@ function common_fancy_url($action, $args=NULL) {
 			switch (strtolower($args['method'])) {
 			 case 'user_timeline.rss':
 				return common_path('api/statuses/user_timeline/'.$args['argument'].'.rss');
-			 case 'user_timeline.atom':				
+			 case 'user_timeline.atom':
 				return common_path('api/statuses/user_timeline/'.$args['argument'].'.rss');
 			 case 'user_timeline.rss':
 				return common_path('api/statuses/user_timeline/'.$args['argument'].'.rss');
-			 case 'user_timeline.atom':				
+			 case 'user_timeline.atom':
 				return common_path('api/statuses/user_timeline/'.$args['argument'].'.rss');
 			 default: return common_simple_url($action, $args);
 			}
@@ -1110,7 +1125,7 @@ function common_fancy_url($action, $args=NULL) {
 		}
 	 case 'sup':
 		if ($args && isset($args['seconds'])) {
-			return common_path('main/sup?seconds='.$args['seconds']);			
+			return common_path('main/sup?seconds='.$args['seconds']);
 		} else {
 			return common_path('main/sup');
 		}

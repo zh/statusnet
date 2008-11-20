@@ -21,20 +21,16 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/stream.php');
 
-class PublicAction extends StreamAction {
+class FeaturedAction extends StreamAction {
 
 	function handle($args) {
 		parent::handle($args);
 
 		$page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 
-		header('X-XRDS-Location: '. common_local_url('publicxrds'));
-
-		common_show_header(_('Public timeline'),
+		common_show_header(_('Featured timeline'),
 						   array($this, 'show_header'), NULL,
 						   array($this, 'show_top'));
-
-		# XXX: Public sidebar here?
 
 		$this->show_notices($page);
 
@@ -45,39 +41,62 @@ class PublicAction extends StreamAction {
 		if (common_logged_in()) {
 			common_notice_form('public');
 		}
-		
+
 		$this->public_views_menu();
 	}
 
 	function show_header() {
-		common_element('link', array('rel' => 'alternate',
-									 'href' => common_local_url('publicrss'),
-									 'type' => 'application/rss+xml',
-									 'title' => _('Public Stream Feed')));
-		# for client side of OpenID authentication
-		common_element('meta', array('http-equiv' => 'X-XRDS-Location',
-									 'content' => common_local_url('publicxrds')));
+
+		// XXX need to make the RSS feed for this
+
+		//common_element('link', array('rel' => 'alternate',
+		//							 'href' => common_local_url('featuredrss'),
+		//							 'type' => 'application/rss+xml',
+		//							 'title' => _('Featured Stream Feed')));
+
 	}
 
 	function show_notices($page) {
 
-		$cnt = 0;
-		$notice = Notice::publicStream(($page-1)*NOTICES_PER_PAGE,
-									   NOTICES_PER_PAGE + 1);
-		
-		if ($notice) {
-			common_element_start('ul', array('id' => 'notices'));
-			while ($notice->fetch()) {
-				$cnt++;
-				if ($cnt > NOTICES_PER_PAGE) {
-					break;
-				}
-				$this->show_notice($notice);
-			}
-			common_element_end('ul');
-		}
+		$featured = common_config('nickname', 'featured');
 
-		common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
-						  $page, 'public');
+		if (count($featured) > 0) {
+
+			$id_list = array();
+
+			foreach($featured as $featuree) {
+				$profile = Profile::staticGet('nickname', trim($featuree));
+				array_push($id_list, $profile->id);
+			}
+
+			// XXX: Show a list of users (people list) instead of shit crap
+
+			$qry =
+				'SELECT * ' .
+				'FROM notice ' .
+				'WHERE profile_id IN (%s) ';
+
+			$cnt = 0;
+
+			$notice = Notice::getStream(sprintf($qry, implode($id_list, ',')),
+				'featured_stream', ($page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
+
+			if ($notice) {
+				common_element_start('ul', array('id' => 'notices'));
+				while ($notice->fetch()) {
+					$cnt++;
+					if ($cnt > NOTICES_PER_PAGE) {
+						break;
+					}
+					$this->show_notice($notice);
+				}
+				common_element_end('ul');
+			}
+
+			common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
+							  $page, 'featured');
+
+		}
 	}
+
 }
