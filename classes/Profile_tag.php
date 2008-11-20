@@ -2,7 +2,7 @@
 /**
  * Table Definition for profile_tag
  */
-require_once 'classes/Memcached_DataObject';
+require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
 class Profile_tag extends Memcached_DataObject 
 {
