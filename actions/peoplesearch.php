@@ -40,7 +40,7 @@ class PeoplesearchAction extends SearchAction {
 		# lcase it for comparison
 		$q = strtolower($q);
 
-        $search_engine = $profile->getSearchEngine();
+        $search_engine = $profile->getSearchEngine('identica_people');
 
         $search_engine->query($q);
 

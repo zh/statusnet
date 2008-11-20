@@ -21,9 +21,11 @@ if (!defined('LACONICA')) { exit(1); }
 
 class SearchEngine {
     protected $profile;
+    protected $table;
 
-    function __construct($profile) {
+    function __construct($profile, $table) {
         $this->profile = $profile;
+        $this->table = $table;
     }
 
     function query($q) {
@@ -37,8 +39,8 @@ class SearchEngine {
 class SphinxSearch extends SearchEngine {
     private $sphinx;
 
-    function __construct($profile) {
-        parent::__construct($profile);
+    function __construct($profile, $table) {
+        parent::__construct($profile, $table);
         $this->sphinx = new SphinxClient;
         $this->sphinx->setServer(common_config('sphinx', 'server'), common_config('sphinx', 'port'));
     }
@@ -49,7 +51,7 @@ class SphinxSearch extends SearchEngine {
     }
 
     function query($q) {
-        $result = $this->sphinx->query($q);
+        $result = $this->sphinx->query($q, $this->table);
         if (!isset($result['matches'])) return false;
         $id_set = join(', ', array_keys($result['matches']));
         return $this->profile->whereAdd("id in ($id_set)");

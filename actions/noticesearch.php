@@ -41,15 +41,11 @@ class NoticesearchAction extends SearchAction {
 		# lcase it for comparison
 		$q = strtolower($q);
 
-		if(common_config('db','type')=='mysql') {
-			$notice->whereAdd('MATCH(content) against (\''.addslashes($q).'\')');
-		} else {
-			$notice->whereAdd('to_tsvector(\'english\', content) @@ plainto_tsquery(\''.addslashes($q).'\')');
-		}
+        $search_engine = $notice->getSearchEngine('identica_notices');
+        $search_engine->query($q);
 
 		# Ask for an extra to see if there's more.
-
-		$notice->limit((($page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE + 1);
+		$search_engine->limit((($page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE + 1);
 
 		$cnt = $notice->find();
 

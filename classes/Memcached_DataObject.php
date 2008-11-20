@@ -169,4 +169,19 @@ class Memcached_DataObject extends DB_DataObject
 			return $c->get(Memcached_DataObject::cacheKey($cls, $pkeys, $pvals));
 		}
 	}
+
+    function getSearchEngine($table) {
+        require_once INSTALLDIR.'/classes/SearchEngines.php';
+        static $search_engine;
+        if (!isset($search_engine)) {
+                if (common_config('sphinx', 'enabled')) {
+                    $search_engine = new SphinxSearch($this, $table);
+                } elseif ('mysql' === common_config('db', 'type')) {
+                    $search_engine = new MySQLSearch($this, $table);
+                } else {
+                    $search_engine = new PGSearch($this, $table);
+                }
+        }
+        return $search_engine;
+    }
 }
