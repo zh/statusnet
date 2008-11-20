@@ -57,7 +57,7 @@ class ProfileList {
 										 'id' => 'profile-' . $this->profile->id));
 		
 		$user = common_current_user();
-		if ($user) {
+		if ($user && $user->id != $this->profile->id) {
 			# XXX: special-case for user looking at own
 			# subscriptions page
 			if ($user->isSubscribed($this->profile)) {
