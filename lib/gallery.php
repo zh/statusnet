@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Laconica - a distributed open-source microblogging tool
  * Copyright (C) 2008, Controlez-Vous, Inc.
@@ -31,8 +32,8 @@ class GalleryAction extends Action {
 
 	function handle($args) {
 		parent::handle($args);
+		
 		$nickname = common_canonical_nickname($this->arg('nickname'));
-
 		$user = User::staticGet('nickname', $nickname);
 
 		if (!$user) {
@@ -48,13 +49,21 @@ class GalleryAction extends Action {
 		}
 
 		$page = $this->arg('page');
+		
 		if (!$page) {
 			$page = 1;
 		}
+
+		$display = $this->arg('display');
+		
+		if (!$display) {
+			$display = 'list';
+		}
+		
 		common_show_header($profile->nickname . ": " . $this->gallery_type(),
 						   NULL, $profile,
 						   array($this, 'show_top'));
-		$this->show_gallery($profile, $page);
+		$this->show_gallery($profile, $page, $display);
 		common_show_footer();
 	}
 
@@ -67,43 +76,57 @@ class GalleryAction extends Action {
 					   $this->get_instructions($profile));
 	}
 
-	function show_gallery($profile, $page) {
+	function show_gallery($profile, $page, $display='list') {
 
-		$subs = new Subscription();
+		$other = new Profile();
+		
+		list($lst, $usr) = $this->fields();
+		
+		$offset = ($page-1)*AVATARS_PER_PAGE;
+		$limit = AVATARS_PER_PAGE + 1;
+		
+		if (common_config('db','type') == 'pgsql') {
+			$lim = ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+		} else {
+			$lim = ' LIMIT ' . $offset . ', ' . $limit;
+		}
 
-		$this->define_subs($subs, $profile);
-
-		$subs->orderBy('created DESC');
-
-		# We ask for an extra one to know if we need to do another page
-
-		$subs->limit((($page-1)*AVATARS_PER_PAGE), AVATARS_PER_PAGE + 1);
-
-		$subs_count = $subs->find();
-
-		if ($subs_count == 0) {
+		# XXX: memcached results
+		
+		$cnt = $other->query('SELECT profile.* ' .
+							 'FROM profile JOIN subscription ' .
+							 'ON profile.id = subscription.' . $lst . ' ' .
+							 'WHERE ' . $usr . ' = ' . $profile->id . ' ' .
+							 'AND ' . $lst . ' != ' . $usr . ' ' .
+							 'ORDER BY subscription.created DESC ' . 
+							 $lim);
+		
+		if ($cnt == 0) {
 			common_element('p', _('Nobody to show!'));
 			return;
 		}
 
-		common_element_start('ul', $this->div_class());
+		if ($display == 'list') {
+			$profile_list = new ProfileList($other);
+			$profile_list->show_list();
+		} else {
+			$this->icon_list($profile, $cnt);
+		}
+		
+		common_pagination($page > 1,
+						  $subs_count > AVATARS_PER_PAGE,
+						  $page,
+						  $this->trimmed('action'),
+						  array('nickname' => $profile->nickname));
+	}
 
+	function icon_list($other, $subs_count) {
+		
+		common_element_start('ul', $this->div_class());
+		
 		for ($idx = 0; $idx < min($subs_count, AVATARS_PER_PAGE); $idx++) {
 
-			$result = $subs->fetch();
-
-			if (!$result) {
-				common_debug('Ran out of subscribers too early.', __FILE__);
-				break;
-			}
-
-			$other_id = $this->get_other($subs);
-			$other = Profile::staticGet($other_id);
-
-			if (!$other) {
-				common_log(LOG_WARNING, 'No matching profile for ' . $other_id);
-				continue;
-			}
+			$other->fetch();
 
 			common_element_start('li');
 
@@ -129,16 +152,10 @@ class GalleryAction extends Action {
 
 			common_element_end('li');
 		}
-
+			
 		common_element_end('ul');
-
-		common_pagination($page > 1,
-						  $subs_count > AVATARS_PER_PAGE,
-						  $page,
-						  $this->trimmed('action'),
-						  array('nickname' => $profile->nickname));
 	}
-
+	
 	function gallery_type() {
 		return NULL;
 	}
@@ -147,11 +164,7 @@ class GalleryAction extends Action {
 		return NULL;
 	}
 
-	function define_subs(&$subs, &$profile) {
-		return;
-	}
-
-	function get_other(&$subs) {
+	function fields() {
 		return NULL;
 	}
 

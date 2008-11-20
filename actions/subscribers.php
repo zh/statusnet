@@ -36,9 +36,8 @@ class SubscribersAction extends GalleryAction {
 		}
 	}
 
-	function define_subs(&$subs, &$profile) {
-		$subs->subscribed = $profile->id;
-		$subs->whereAdd('subscriber != ' . $profile->id);
+	function fields() {
+		return array('subscriber', 'subscribed');
 	}
 
 	function div_class() {
