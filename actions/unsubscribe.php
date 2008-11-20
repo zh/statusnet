@@ -49,13 +49,15 @@ class UnsubscribeAction extends Action {
 			return;
 		}
 
+		$profile = Profile::staticGet('nickname', $other_nickname);
+		
 		if ($this->boolean('ajax')) {
 			common_start_html('text/xml');
 			common_element_start('head');
 			common_element('title', null, _('Unsubscribed'));
 			common_element_end('head');
 			common_element_start('body');
-			common_unsubscribe_response();
+			common_subscribe_form($profile);
 			common_element_end('body');
 			common_element_end('html');
 		} else {

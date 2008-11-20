@@ -1903,6 +1903,9 @@ function common_nudge_form($profile) {
 								  'value' => _('Send a nudge')));
 	common_element_end('form');
 }
+function common_nudge_response() {
+	common_element('p', array('id' => 'nudge_response'), _('Nudge sent!'));
+}
 
 function common_subscribe_form($profile) {
 	common_element_start('form', array('id' => 'subscribe-' . $profile->nickname,
@@ -1936,8 +1939,22 @@ function common_unsubscribe_form($profile) {
 	common_element_end('form');
 }
 
-function common_nudge_response() {
-	common_element('p', array('id' => 'nudge_response'), _('Nudge sent!'));
+// XXX: Refactor this code
+function common_profile_new_message_nudge ($cur, $profile) {
+	$user = User::staticGet('id', $profile->id);
+
+	if ($cur && $cur->id != $user->id && $cur->mutuallySubscribed($user)) {
+        common_element_start('li', array('id' => 'profile_send_a_new_message'));
+		common_element('a', array('href' => common_local_url('newmessage', array('to' => $user->id))),
+					   _('Send a message'));
+        common_element_end('li');
+     
+	    if ($user->email && $user->emailnotifynudge) {
+            common_element_start('li', array('id' => 'profile_nudge'));
+            common_nudge_form($user);
+            common_element_end('li');
+        }
+	}
 }
 
 function common_cache_key($extra) {

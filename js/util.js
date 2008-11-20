@@ -90,7 +90,35 @@ $(document).ready(function(){
 							success: function(xml) { $("#nudge").replaceWith(document._importNode($("#nudge_response", xml).get(0),true)); }
 						 });
 	$("#nudge").each(addAjaxHidden);
-	$("#nudge .submit").bind('click', function(e) {	$(this).addClass("processing"); }); 
+	$("#nudge .submit").bind('click', function(e) {	$(this).addClass("processing"); });
+
+
+	var Subscribe = { dataType: 'xml',
+					  success: function(xml) { var form_unsubscribe = document._importNode($('form', xml).get(0), true);
+										  	   var form_unsubscribe_id = form_unsubscribe.id;
+											   var form_subscribe_id = form_unsubscribe_id.replace('unsubscribe', 'subscribe');
+											   $("form#"+form_subscribe_id).replaceWith(form_unsubscribe);
+											   $("form#"+form_unsubscribe_id).ajaxForm(UnSubscribe).each(addAjaxHidden);
+											   $("#profile_actions").append(document._importNode($('#profile_send_a_new_message', xml).get(0), true));
+											   $("#profile_actions").append(document._importNode($('#profile_nudge', xml).get(0), true));
+										     }
+					};
+
+	var UnSubscribe = { dataType: 'xml',
+					    success: function(xml) { var form_subscribe = document._importNode($('form', xml).get(0), true);
+										  		 var form_subscribe_id = form_subscribe.id;
+												 var form_unsubscribe_id = form_subscribe_id.replace('subscribe', 'unsubscribe');
+												 $("form#"+form_unsubscribe_id).replaceWith(form_subscribe);
+												 $("form#"+form_subscribe_id).ajaxForm(Subscribe).each(addAjaxHidden);
+												 $("#profile_send_a_new_message").remove();
+												 $("#profile_nudge").remove();
+											   }
+					  };
+
+	$("form.subscribe").ajaxForm(Subscribe);
+	$("form.unsubscribe").ajaxForm(UnSubscribe);
+	$("form.subscribe").each(addAjaxHidden);
+	$("form.unsubscribe").each(addAjaxHidden);
 });
 
 function doreply(nick,id) {

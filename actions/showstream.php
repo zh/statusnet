@@ -174,9 +174,9 @@ class ShowstreamAction extends StreamAction {
 		if ($cur) {
 			if ($cur->id != $profile->id) {
 				if ($cur->isSubscribed($profile)) {
-					$this->show_unsubscribe_form($profile);
+					common_unsubscribe_form($profile);
 				} else {
-					$this->show_subscribe_form($profile);
+					common_subscribe_form($profile);
 				}
 			}
 		} else {
@@ -185,19 +185,9 @@ class ShowstreamAction extends StreamAction {
         common_element_end('li');
 		
 		$user = User::staticGet('id', $profile->id);
-		
-		if ($cur && $cur->id != $user->id && $cur->mutuallySubscribed($user)) {
-            common_element_start('li', array('id' => 'profile_send_a_new_message'));
-			common_element('a', array('href' => common_local_url('newmessage', array('to' => $user->id))),
-						   _('Send a message'));
-            common_element_end('li');
-            if ($user->email && $user->emailnotifynudge) {
-                common_element_start('li', array('id' => 'profile_nudge'));
-                common_nudge_form($user);
-                common_element_end('li');
-            }
-		}
-        common_element_end('ul');
+		common_profile_new_message_nudge($cur, $user, $profile);
+        
+		common_element_end('ul');
 		
 		common_element_end('div');
 
@@ -227,20 +217,6 @@ class ShowstreamAction extends StreamAction {
 		$this->show_statistics($profile);
 
 		common_element_end('div');
-	}
-
-	function show_subscribe_form($profile) {
-		common_element_start('form', array('id' => 'subscribe', 'method' => 'post',
-										   'action' => common_local_url('subscribe')));
-		common_hidden('token', common_session_token());
-		common_element('input', array('id' => 'subscribeto',
-									  'name' => 'subscribeto',
-									  'type' => 'hidden',
-									  'value' => $profile->nickname));
-		common_element('input', array('type' => 'submit',
-									  'class' => 'submit',
-									  'value' => _('Subscribe')));
-		common_element_end('form');
 	}
 
 	function show_remote_subscribe_link($profile) {
