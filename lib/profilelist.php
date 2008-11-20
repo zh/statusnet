@@ -61,9 +61,9 @@ class ProfileList {
 			# XXX: special-case for user looking at own
 			# subscriptions page
 			if ($user->isSubscribed($this->profile)) {
-				common_unsubscribe_form($profile);
+				common_unsubscribe_form($this->profile);
 			} else {
-				common_subscribe_form($profile);
+				common_subscribe_form($this->profile);
 			}
 		}
 		
