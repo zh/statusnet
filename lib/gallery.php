@@ -66,7 +66,7 @@ class GalleryAction extends Action {
 						   NULL, $profile,
 						   array($this, 'show_top'));
 
-		$this->display_links($page, $display);
+		$this->display_links(profile, $page, $display);
 		
 		$this->show_gallery($profile, $page, $display);
 		common_show_footer();
@@ -190,7 +190,7 @@ class GalleryAction extends Action {
 		return '';
 	}
 	
-	function display_links($page, $display) {
+	function display_links($profile, $page, $display) {
 		
 		common_element_start('p');
 		
@@ -200,12 +200,14 @@ class GalleryAction extends Action {
 			common_text(' | ');
 			common_element('a', array('href' => common_local_url($this->trimmed('action'),
 																 array('display' => 'icons',
+																	   'nickname' => $profile->nickname,
 																	   'page' => floor(($page * AVATARS_PER_PAGE) / PROFILES_PER_PAGE)))),
 						   _('Icons'));
 			break;
 		 default:
 			common_element('a', array('href' => common_local_url($this->trimmed('action'),
-																 array('page' => floor(($page * PROFILES_PER_PAGE) / AVATARS_PER_PAGE)))),
+																 array('nickname' => $profile->nickname,
+																	   'page' => floor(($page * PROFILES_PER_PAGE) / AVATARS_PER_PAGE)))),
 						   _('List'));
 			common_text(' | ');
 			common_element('span', NULL, _('Icons'));
