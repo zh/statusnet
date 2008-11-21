@@ -26,8 +26,9 @@ class ProfileList {
 
 	var $profile = NULL;
 	
-	function __construct($profile) {
+	function __construct($profile, $owner=NULL) {
 		$this->profile = $profile;
+		$this->owner = $owner;
 	}
 	
 	function show_list() {
@@ -57,6 +58,7 @@ class ProfileList {
 										 'id' => 'profile-' . $this->profile->id));
 		
 		$user = common_current_user();
+		
 		if ($user && $user->id != $this->profile->id) {
 			# XXX: special-case for user looking at own
 			# subscriptions page
@@ -121,37 +123,39 @@ class ProfileList {
 			common_element_end('p');
 		}
 
-		if ($user) {
+		if ($this->owner) {
 			$action = NULL;
 			
-			if ($user->isSubscribed($this->profile)) {
+			if ($this->owner->isSubscribed($this->profile)) {
 				$action = 'subscriptions';
 			} else if (Subscription::pkeyGet(array('subscriber' => $this->profile->id,
-												   'subscribed' => $user->id))) {
+												   'subscribed' => $this->owner->id))) {
 				$action = 'subscribers';
 			}
 			
 			
 			if ($action) {
-				$tags = Profile_tag::getTags($user->id, $this->profile->id);
+				$tags = Profile_tag::getTags($this->owner->id, $this->profile->id);
 				
 				if ($tags) {
 					common_element_start('p', 'subtags');
 					
 					foreach ($tags as $tag) {
 						common_element('a', array('href' => common_local_url($action,
-																			 array('nickname' => $user->nickname,
+																			 array('nickname' => $this->owner->nickname,
 																				   'tag' => $tag))),
 									   $tag);
 					}
 					
 					common_element_end('p');
 				}
-				
-				common_element('a', array('href' => common_local_url('tagother',
-																	 array('id' => $this->profile->id)),
-										  'class' => 'tagother'),
-							   _('Tag'));
+
+				if ($this->owner->id == $user->id) {
+					common_element('a', array('href' => common_local_url('tagother',
+																		 array('id' => $this->profile->id)),
+											  'class' => 'tagother'),
+								   _('Tag'));
+				}
 			}
 		}
 		
