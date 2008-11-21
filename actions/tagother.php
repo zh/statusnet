@@ -37,12 +37,12 @@ class TagotherAction extends Action {
 		} else {
 			$id = $this->trimmed('id');
 			if (!$id) {
-				$this->client_error(_('No profile to tag.'));
+				$this->client_error(_('No id argument.'));
 				return;
 			}
 			$profile = Profile::staticGet('id', $id);
-			if ($profile) {
-				$this->client_error(_('No profile to tag.'));
+			if (!$profile) {
+				$this->client_error(_('No profile with that ID.'));
 				return;
 			}
 			$this->show_form($profile);
