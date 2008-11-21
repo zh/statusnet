@@ -368,7 +368,7 @@ input#submit_yes:hover, input#submit_no:hover {
 	}
 .avatar.stream {
 	float: left;
-	margin: 0 10px 0 0;
+	margin: 0 10px 0.5em 0;
 	}
 p.time {
 	display: block;
@@ -855,6 +855,77 @@ font-size: 80%;
 p.tagcloud a.smallest {
 font-size: 60%;
 }
+
+
+.tags_self,
+.tags_user {
+margin-left:4.5em;
+}
+.tags_self,
+.tags_user {
+/*float:right;*/
+}
+.tags_self dl,
+.tags_user dl {
+margin-left:0;
+}
+
+.tags_self dt,
+.tags_user dt {
+/*display:none;*/
+display:inline;
+}
+
+.tags_self dd,
+.tags_user dd {
+margin-left:0;
+display:inline;
+}
+
+
+ul.tags {
+padding-left:0;
+margin-left:0;
+list-style-type:none;
+display:inline;
+}
+ul.tags li {
+display:inline;
+margin-right:0.75em;
+}
+ul.tags li a {
+padding-left:17px;
+background:url(icon_tag-01.gif) no-repeat;
+line-height:1.5;
+}
+
+.tag_user {
+
+text-align:right;
+margin-top:0;
+margin-bottom:0;
+}
+
+form#tag_user {
+margin-left:8.75em;
+clear:both;
+}
+form#tag_user p {
+margin:0;
+}
+
+form#tag_user label {
+display:inline;
+margin-right:1em;
+}
+form#tag_user .submit {
+margin-left:4em;
+}
+
+form#tag_user .input_instructions {
+margin-left:4.5em;
+}
+
 
 
 /* ----- Mailbox ----- */

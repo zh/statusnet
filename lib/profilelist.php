@@ -26,9 +26,8 @@ class ProfileList {
 
 	var $profile = NULL;
 	
-	function __construct($profile, $owner=NULL) {
+	function __construct($profile) {
 		$this->profile = $profile;
-		$this->owner = $owner;
 	}
 	
 	function show_list() {
@@ -58,7 +57,6 @@ class ProfileList {
 										 'id' => 'profile-' . $this->profile->id));
 		
 		$user = common_current_user();
-		
 		if ($user && $user->id != $this->profile->id) {
 			# XXX: special-case for user looking at own
 			# subscriptions page
@@ -111,51 +109,68 @@ class ProfileList {
 		}
 		
 		$tags = Profile_tag::getTags($this->profile->id, $this->profile->id);
-		
+
+
 		if ($tags) {
-			common_element_start('p', 'tags');
+			common_element_start('div', 'tags_self');
+			common_element_start('dl');
+			common_element('dt', null, _("User's tags:"));
+			common_element_start('dd');
+			common_element_start('ul', 'tags xoxo');
 			foreach ($tags as $tag) {
-				common_element('a', array('rel' => 'tag',
+				common_element_start('li');
+				common_element('a', array('rel' => 'bookmark tag',
 										  'href' => common_local_url('peopletag',
 																	 array('tag' => $tag))),
 							   $tag);
+				common_element_end('li');
 			}
-			common_element_end('p');
+			common_element_end('ul');
+			common_element_end('dd');
+			common_element_end('dl');
+			common_element_end('div');
 		}
 
-		if ($this->owner) {
+		if ($user) {
 			$action = NULL;
 			
-			if ($this->owner->isSubscribed($this->profile)) {
+			if ($user->isSubscribed($this->profile)) {
 				$action = 'subscriptions';
 			} else if (Subscription::pkeyGet(array('subscriber' => $this->profile->id,
-												   'subscribed' => $this->owner->id))) {
+												   'subscribed' => $user->id))) {
 				$action = 'subscribers';
 			}
 			
 			
 			if ($action) {
-				$tags = Profile_tag::getTags($this->owner->id, $this->profile->id);
+				$tags = Profile_tag::getTags($user->id, $this->profile->id);
 				
 				if ($tags) {
-					common_element_start('p', 'subtags');
-					
+					common_element_start('div', 'tags_user');
+					common_element_start('dl');
+					common_element('dt', null, _("Your tags:"));
+					common_element_start('dd');
+					common_element_start('ul', 'tags xoxo');
 					foreach ($tags as $tag) {
-						common_element('a', array('href' => common_local_url($action,
-																			 array('nickname' => $this->owner->nickname,
+						common_element_start('li');
+						common_element('a', array('rel' => "bookmark tag",
+												  'href' => common_local_url($action,
+																			 array('nickname' => $user->nickname,
 																				   'tag' => $tag))),
 									   $tag);
-					}
-					
-					common_element_end('p');
+						common_element_end('li');
+					}					
+					common_element_end('ul');
+					common_element_end('dd');
+					common_element_end('dl');
+					common_element_end('div');
 				}
 
-				if ($this->owner->id == $user->id) {
-					common_element('a', array('href' => common_local_url('tagother',
-																		 array('id' => $this->profile->id)),
-											  'class' => 'tagother'),
-								   _('Tag'));
-				}
+				common_element_start('p', 'tag_user');				
+				common_element('a', array('href' => common_local_url('tagother',
+																	 array('id' => $this->profile->id))),
+							   _('Tag user'));
+				common_element_end('p');
 			}
 		}
 		

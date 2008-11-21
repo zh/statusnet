@@ -88,7 +88,7 @@ class TagotherAction extends Action {
 		}
 		
 		common_element_start('form', array('method' => 'post',
-										   'id' => 'tagother',
+										   'id' => 'tag_user',
 										   'name' => 'tagother',
 										   'action' => $this->self_url()));
 		common_hidden('token', common_session_token());

@@ -355,12 +355,17 @@ class ShowstreamAction extends StreamAction {
 		common_element('dt', 'tags', _('Tags'));
 		common_element_start('dd', 'tags');
 		$tags = Profile_tag::getTags($profile->id, $profile->id);
+
+		common_element_start('ul', 'tags xoxo');
 		foreach ($tags as $tag) {
-			common_element('a', array('rel' => 'tag',
+			common_element_start('li');
+			common_element('a', array('rel' => 'bookmark tag',
 									  'href' => common_local_url('peopletag',
 																 array('tag' => $tag))),
 						   $tag);
+			common_element_end('li');
 		}
+		common_element_end('ul');
 	    common_element_end('dd');
 	
 		common_element_end('dl');
