@@ -170,10 +170,6 @@ class ProfileList {
 					common_element_end('dl');
 					common_element_end('div');
 				}
-
-				common_element_start('p', 'tag_user');				
-				
-				common_element_end('p');
 			}
 		}
 		
