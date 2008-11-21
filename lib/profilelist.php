@@ -125,16 +125,16 @@ class ProfileList {
 
 		$action = NULL;
 		
-		if ($user->isSubscribed($profile)) {
+		if ($user->isSubscribed($this->profile)) {
 			$action = 'subscriptions';
-		} else if (Subscription::pkeyGet(array('subscriber' => $profile->id,
+		} else if (Subscription::pkeyGet(array('subscriber' => $this->profile->id,
 											   'subscribed' => $user->id))) {
 			$action = 'subscribers';
 		}
 
 
 		if ($action) {
-			$tags = Profile_tag::getTags($user->id, $profile->id);
+			$tags = Profile_tag::getTags($user->id, $this->profile->id);
 
 			if ($tags) {
 				common_element_start('p', 'subtags');
@@ -150,7 +150,7 @@ class ProfileList {
 			}
 			
 			common_element('a', array('href' => 'tagother',
-									  'id' => $profile->id,
+									  'id' => $this->profile->id,
 									  'class' => 'tagother'),
 						   _('Tag'));
 		}
