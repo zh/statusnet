@@ -149,9 +149,9 @@ class ProfileList {
 				common_element_end('p');
 			}
 			
-			common_element('a', array('href' => 'tagother',
-									  'id' => $this->profile->id,
-									  'class' => 'tagother'),
+			common_element('a', array('href' => common_local_url('tagother',
+																 array('id' => $this->profile->id,
+																	   'class' => 'tagother'))),
 						   _('Tag'));
 		}
 		
