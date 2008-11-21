@@ -1045,11 +1045,15 @@ function common_fancy_url($action, $args=NULL) {
 	 case 'subscribers':
 		$nickname = $args['nickname'];
 		unset($args['nickname']);
+		if (isset($args['tag'])) {
+			$tag = $args['tag'];
+			unset($args['tag']);
+		}
 		$params = http_build_query($args);
 		if ($params) {
-			return common_path($nickname.'/'.$action . '?' . $params);
+			return common_path($nickname.'/'.$action . (($tag) ? '/' . tag : '') . '?' . $params);
 		} else {
-			return common_path($nickname.'/'.$action);
+			return common_path($nickname.'/'.$action . (($tag) ? '/' . tag : ''));
 		}
 	 case 'allrss':
 		return common_path($args['nickname'].'/all/rss');
