@@ -386,7 +386,11 @@ class Notice extends Memcached_DataObject
 			$qry = 'INSERT INTO notice_inbox (user_id, notice_id, created) ' .
 			  'SELECT user.id, ' . $this->id . ', "' . $this->created . '" ' .
 			  'FROM user JOIN subscription ON user.id = subscription.subscriber ' .
-			  'WHERE subscription.subscribed = ' . $this->profile_id;
+			  'WHERE subscription.subscribed = ' . $this->profile_id . ' ' .
+			  'AND NOT EXISTS (SELECT user_id, notice_id ' .
+			  'FROM notice_inbox ' .
+			  'WHERE user_id = user.id ' . 
+			  'AND notice_id = ' . $this->id . ' )';
 			if ($enabled === 'transitional') {
 				$qry .= ' AND user.inboxed = 1';
 			}
