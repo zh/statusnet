@@ -58,17 +58,17 @@ class TagotherAction extends Action {
 
 		$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
 		
-		if ($avatar) {
-			common_element('img', array('src' => $avatar->url,
-										'class' => 'avatar profile',
-										'width' => AVATAR_PROFILE_SIZE,
-										'height' => AVATAR_PROFILE_SIZE,
-										'alt' => $profile->nickname));
-		}
+		common_element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_PROFILE_SIZE),
+									'class' => 'avatar stream',
+									'width' => AVATAR_PROFILE_SIZE,
+									'height' => AVATAR_PROFILE_SIZE,
+									'alt' =>
+									($profile->fullname) ? $profile->fullname :
+									$profile->nickname));
 		
 		common_element('a', array('href' => $profile->profileurl,
 								  'class' => 'external profile nickname'),
-					   $nickname);
+					   $profile->nickname);
 		
 		if ($profile->fullname) {
 			common_element_start('div', 'fullname');
