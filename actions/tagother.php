@@ -141,7 +141,7 @@ class TagotherAction extends Action {
 			return;
 		}
 		
-		$result = Profile_tag::setTags($user->id, $profile->id);
+		$result = Profile_tag::setTags($user->id, $profile->id, $tags);
 		
 		if (!$result) {
 			$this->client_error(_('Could not save tags.'));
