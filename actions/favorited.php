@@ -89,7 +89,7 @@ class FavoritedAction extends StreamAction {
 		$notice = new Notice();
 
 		$notice->query(sprintf('SELECT * FROM notice WHERE id in (%s)',
-			implode($notice_list, ',')));
+			implode(',', $notice_list)));
 
 		$cnt = 0;
 

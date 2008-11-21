@@ -20,6 +20,7 @@
 if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/stream.php');
+require_once(INSTALLDIR.'/lib/profilelist.php');
 
 class FeaturedAction extends StreamAction {
 
@@ -46,61 +47,58 @@ class FeaturedAction extends StreamAction {
 		$this->public_views_menu();
 	}
 
+	function show_header() {
+	}
+
 	function get_instructions() {
 		return _('Featured users');
 	}
 
-	function show_header() {
-
-		// XXX need to make the RSS feed for this
-
-		//common_element('link', array('rel' => 'alternate',
-		//							 'href' => common_local_url('featuredrss'),
-		//							 'type' => 'application/rss+xml',
-		//							 'title' => _('Featured Stream Feed')));
-
-	}
-
 	function show_notices($page) {
 
-		$featured = common_config('nickname', 'featured');
+		// XXX: Note I'm doing it this two-stage way because a raw query
+		// with a JOIN was *not* working. --Zach
 
-		if (count($featured) > 0) {
+		$featured_nicks = common_config('nickname', 'featured');
 
-			$id_list = array();
+		if (count($featured_nicks) > 0) {
 
-			foreach($featured as $featuree) {
-				$profile = Profile::staticGet('nickname', trim($featuree));
-				array_push($id_list, $profile->id);
+			$quoted = array();
+
+			foreach ($featured_nicks as $nick) {
+				$quoted[] = "'$nick'";
 			}
 
-			// XXX: Show a list of users (people list) instead of shit crap
+			$user = new User;
+			$user->whereAdd(sprintf('nickname IN (%s)', implode(',', $quoted)));
+			$user->limit(($page - 1) * PROFILES_PER_PAGE, PROFILES_PER_PAGE + 1);
+			$user->orderBy('user.nickname ASC');
 
-			$qry =
-				'SELECT * ' .
-				'FROM notice ' .
-				'WHERE profile_id IN (%s) ';
+			$user->find();
 
-			$cnt = 0;
+			$profile_ids = array();
 
-			$notice = Notice::getStream(sprintf($qry, implode($id_list, ',')),
-				'featured_stream', ($page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
-
-			if ($notice) {
-				common_element_start('ul', array('id' => 'notices'));
-				while ($notice->fetch()) {
-					$cnt++;
-					if ($cnt > NOTICES_PER_PAGE) {
-						break;
-					}
-					$this->show_notice($notice);
-				}
-				common_element_end('ul');
+			while ($user->fetch()) {
+				$profile_ids[] = $user->id;
+				common_debug("id = $user->id");
 			}
 
-			common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
-							  $page, 'featured');
+			$profile = new Profile;
+			$profile->whereAdd(sprintf('profile.id IN (%s)', implode(',', $profile_ids)));
+			$profile->orderBy('nickname ASC');
 
+			$cnt = $profile->find();
+
+			common_debug("count = $cnt");
+
+			if ($cnt > 0) {
+				$featured = new ProfileList($profile);
+				$featured->show_list();
+			}
+
+			$profile->free();
+
+			common_pagination($page > 1, $cnt > PROFILES_PER_PAGE, $page, 'featured');
 		}
 	}
 
