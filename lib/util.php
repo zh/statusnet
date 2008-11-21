@@ -1051,9 +1051,9 @@ function common_fancy_url($action, $args=NULL) {
 		}
 		$params = http_build_query($args);
 		if ($params) {
-			return common_path($nickname.'/'.$action . (($tag) ? '/' . tag : '') . '?' . $params);
+			return common_path($nickname.'/'.$action . (($tag) ? '/' . $tag : '') . '?' . $params);
 		} else {
-			return common_path($nickname.'/'.$action . (($tag) ? '/' . tag : ''));
+			return common_path($nickname.'/'.$action . (($tag) ? '/' . $tag : ''));
 		}
 	 case 'allrss':
 		return common_path($args['nickname'].'/all/rss');
