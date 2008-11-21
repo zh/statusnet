@@ -62,7 +62,7 @@ foreach ($ids as $id) {
 	$old_inbox = new Notice_inbox();
 	$old_inbox->user_id = $user->id;
 	
-	$result = $inbox->delete();
+	$result = $old_inbox->delete();
 	
 	if (is_null($result) || $result === false) {
 		common_log_db_error($old_inbox, 'DELETE', __FILE__);
