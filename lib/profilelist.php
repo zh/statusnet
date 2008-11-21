@@ -32,7 +32,7 @@ class ProfileList {
 	
 	function show_list() {
 		
-		common_element_start('ul', array('id' => 'profiles'));
+		common_element_start('ul', array('id' => 'profiles', 'class' => 'profile_list'));
 
 		$cnt = 0;
 		
