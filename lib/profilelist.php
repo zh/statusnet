@@ -119,7 +119,7 @@ class ProfileList {
 			common_element_start('ul', 'tags xoxo');
 			foreach ($tags as $tag) {
 				common_element_start('li');
-				common_element('a', array('rel' => 'bookmark tag',
+				common_element('a', array('rel' => 'tag',
 										  'href' => common_local_url('peopletag',
 																	 array('tag' => $tag))),
 							   $tag);
@@ -158,7 +158,7 @@ class ProfileList {
 					common_element_start('ul', 'tags xoxo');
 					foreach ($tags as $tag) {
 						common_element_start('li');
-						common_element('a', array('rel' => "bookmark tag",
+						common_element('a', array('rel' => "tag",
 												  'href' => common_local_url($action,
 																			 array('nickname' => $user->nickname,
 																				   'tag' => $tag))),
