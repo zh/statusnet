@@ -357,17 +357,22 @@ class Notice extends Memcached_DataObject
 
 	function publicStream($offset=0, $limit=20, $since_id=0, $before_id=0) {
 
-		$needAnd = FALSE;
-      	$needWhere = TRUE;
-
+		$parts = array();
+		
 		$qry = 'SELECT * FROM notice ';
 
 		if (common_config('public', 'localonly')) {
-			$qry .= ' WHERE is_local = 1 ';
-			$needWhere = FALSE;
-			$needAnd = TRUE;
+			$parts[] = 'is_local = 1';
 		}
 
+		if (common_config('public', 'blacklist')) {
+			$parts[] = 'profile_id not in (' . implode(',', common_config('public', 'blacklist')) . ')';
+		}
+
+		if ($parts) {
+			$qry .= ' WHERE ' . implode(' AND ', $parts);
+		}
+			  
 		return Notice::getStream($qry,
 								 'public',
 								 $offset, $limit, $since_id, $before_id);

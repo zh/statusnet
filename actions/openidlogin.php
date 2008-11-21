@@ -37,9 +37,17 @@ class OpenidloginAction extends Action {
 				return;
 			}
 
+			$rememberme = $this->boolean('rememberme');
+			
+			common_ensure_session();
+			
+			$_SESSION['openid_rememberme'] = $rememberme;
+			
 			$result = oid_authenticate($openid_url,
 									   'finishopenidlogin');
+			
 			if (is_string($result)) { # error message
+				unset($_SESSION['openid_rememberme']);
 				$this->show_form($result, $openid_url);
 			}
 		} else {
@@ -74,6 +82,9 @@ class OpenidloginAction extends Action {
 		common_input('openid_url', _('OpenID URL'),
 					 $openid_url,
 					 _('Your OpenID URL'));
+		common_checkbox('rememberme', _('Remember me'), false,
+		                _('Automatically login in the future; ' .
+		                   'not for shared computers!'));
 		common_submit('submit', _('Login'));
 		common_element_end('form');
 		common_show_footer();
