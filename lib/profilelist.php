@@ -120,6 +120,40 @@ class ProfileList {
 			}
 			common_element_end('p');
 		}
+
+		$user = common_current_user();
+
+		$action = NULL;
+		
+		if ($user->isSubscribed($profile)) {
+			$action = 'subscriptions';
+		} else if (Subscription::pkeyGet(array('subscriber' => $profile->id,
+											   'subscribed' => $user->id))) {
+			$action = 'subscribers';
+		}
+
+
+		if ($action) {
+			$tags = Profile_tag::getTags($user->id, $profile->id);
+
+			if ($tags) {
+				common_element_start('p', 'subtags');
+			
+				foreach ($tags as $tag) {
+					common_element('a', array('href' => common_local_url($action,
+																		 array('nickname' => $user->nickname,
+																			   'tag' => $tag))),
+								   $tag);
+				}
+			
+				common_element_end('p');
+			}
+			
+			common_element('a', array('href' => 'tagother',
+									  'id' => $profile->id,
+									  'class' => 'tagother'),
+						   _('Tag'));
+		}
 		
 		common_element_end('li');
 	}
