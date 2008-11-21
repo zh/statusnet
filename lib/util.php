@@ -985,6 +985,8 @@ function common_fancy_url($action, $args=NULL) {
 	 case 'unsubscribe':
 	 case 'invite':
 		return common_path('main/'.$action);
+	 case 'tagother':
+		return common_path('main/tagother?id='.$args['id']);
 	 case 'register':
 		if ($args && $args['code']) {
 			return common_path('main/register/'.$args['code']);
