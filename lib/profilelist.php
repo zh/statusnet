@@ -148,7 +148,12 @@ class ProfileList {
 				if ($tags) {
 					common_element_start('div', 'tags_user');
 					common_element_start('dl');
-					common_element('dt', null, _("Your tags:"));
+					common_element_start('dt');
+					common_element('a', array('href' => common_local_url('tagother',
+																	 array('id' => $this->profile->id))),
+							   _('Your tags'));
+					common_text(":");
+					common_element_end('dt');
 					common_element_start('dd');
 					common_element_start('ul', 'tags xoxo');
 					foreach ($tags as $tag) {
@@ -167,9 +172,7 @@ class ProfileList {
 				}
 
 				common_element_start('p', 'tag_user');				
-				common_element('a', array('href' => common_local_url('tagother',
-																	 array('id' => $this->profile->id))),
-							   _('Tag user'));
+				
 				common_element_end('p');
 			}
 		}

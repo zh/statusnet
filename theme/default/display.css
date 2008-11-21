@@ -861,10 +861,6 @@ font-size: 60%;
 .tags_user {
 margin-left:4.5em;
 }
-.tags_self,
-.tags_user {
-/*float:right;*/
-}
 .tags_self dl,
 .tags_user dl {
 margin-left:0;
@@ -872,8 +868,8 @@ margin-left:0;
 
 .tags_self dt,
 .tags_user dt {
-/*display:none;*/
 display:inline;
+margin-right:0.5em;
 }
 
 .tags_self dd,
@@ -900,7 +896,6 @@ line-height:1.5;
 }
 
 .tag_user {
-
 text-align:right;
 margin-top:0;
 margin-bottom:0;
