@@ -299,6 +299,9 @@ class Notice extends Memcached_DataObject
 		return $notice;
 	}
 
+	# XXX: this is pretty long and should probably be broken up into
+	# some helper functions
+	
 	static function getCachedStream($qry, $cachekey, $offset, $limit, $order) {
 
 		# If outside our cache window, just go to the DB
@@ -326,6 +329,46 @@ class Notice extends Memcached_DataObject
 			return $wrapper;
 		}
 
+		# If the cache was invalidated because of new data being
+		# added, we can try and just get the new stuff. We keep an additional
+		# copy of the data at the key + ';last'
+		
+		# No cache hit. Try to get the *last* cached version
+
+		$last_notices = $cache->get(common_cache_key($cachekey) . ';last');
+		
+		if ($last_notices) {
+			
+			# Reverse-chron order, so last ID is last.
+			
+			$last_id = $last_notices[0]->id;
+			
+			# XXX: this assumes monotonically increasing IDs; a fair
+			# bet with our DB.
+			
+			$new_notice = Notice::getStreamDirect($qry, 0, NOTICE_CACHE_WINDOW,
+												  $last_id, NULL, $order);
+			
+			if ($new_notice) {
+				$new_notices = array();
+				while ($new_notice->fetch()) {
+					$new_notices[] = clone($new_notice);
+				}
+				$new_notice->free();
+				$notices = array_slice(array_merge($new_notices, $last_notices),
+									   0, NOTICE_CACHE_WINDOW);
+		
+				# Store the array in the cache for next time
+
+				$result = $cache->set(common_cache_key($cachekey), $notices);
+				$result = $cache->set(common_cache_key($cachekey) . ';last', $notices);
+
+				# return a wrapper of the array for use now
+
+				return new NoticeWrapper(array_slice($notices, $offset, $limit));
+			}
+		}
+		
 		# Otherwise, get the full cache window out of the DB
 
 		$notice = Notice::getStreamDirect($qry, 0, NOTICE_CACHE_WINDOW, NULL, NULL, $order);
@@ -344,9 +387,12 @@ class Notice extends Memcached_DataObject
 			$notices[] = clone($notice);
 		}
 
+		$notice->free();
+		
 		# Store the array in the cache for next time
 
 		$result = $cache->set(common_cache_key($cachekey), $notices);
+		$result = $cache->set(common_cache_key($cachekey) . ';last', $notices);
 
 		# return a wrapper of the array for use now
 
