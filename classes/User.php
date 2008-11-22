@@ -281,6 +281,7 @@ class User extends Memcached_DataObject
 			# This is the stream of favorite notices, in rev chron
 			# order. This forces it into cache.
 			$faves = $this->favoriteNotices(0, NOTICE_CACHE_WINDOW);
+			$cnt = 0;
 			
 			while ($faves->fetch()) {
 				if ($faves->id < $notice->id) {
@@ -290,8 +291,15 @@ class User extends Memcached_DataObject
 					# If it matches a cached notice, then it's a fave
 					return true;
 				}
+				$cnt++;
 			}
-			# If it's past the end of the cache window,
+			# If we're not past the end of the cache window,
+			# then the cache has all available faves, so this one
+			# is not a fave.
+			if ($cnt < NOTICE_CACHE_WINDOW) {
+				return false;
+			}
+			# Otherwise, cache doesn't have all faves;
 			# fall through to the default
 		}
 		
