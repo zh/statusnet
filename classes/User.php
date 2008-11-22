@@ -386,7 +386,10 @@ class User extends Memcached_DataObject
 	function blowFavesCache() {
 		$cache = common_memcache();
 		if ($cache) {
+			# Faves don't happen chronologically, so we need to blow
+			# ;last cache, too
 			$cache->delete(common_cache_key('user:faves:'.$this->id));
+			$cache->delete(common_cache_key('user:faves:'.$this->id).';last');
 		}
 	}
 }
