@@ -283,7 +283,7 @@ class User extends Memcached_DataObject
 			$faves = $this->favoriteNotices(0, NOTICE_CACHE_WINDOW);
 			
 			while ($faves->fetch()) {
-				if ($faves->id > $notice->id) {
+				if ($faves->id < $notice->id) {
 					# If we passed it, it's not a fave
 					return false;
 				} else if ($faves->id == $notice->id) {
