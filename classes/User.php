@@ -273,6 +273,28 @@ class User extends Memcached_DataObject
 	}
 
 	function hasFave($notice) {
+		$cache = common_memcache();
+
+		# XXX: Kind of a hack.
+		
+		if ($cache) {
+			# This is the stream of favorite notices, in rev chron
+			# order. This forces it into cache.
+			$faves = $this->favoriteNotices(0, NOTICE_CACHE_WINDOW);
+			
+			while ($faves->fetch()) {
+				if ($faves->id > $notice->id) {
+					# If we passed it, it's not a fave
+					return false;
+				} else if ($faves->id == $notice->id) {
+					# If it matches a cached notice, then it's a fave
+					return true;
+				}
+			}
+			# If it's past the end of the cache window,
+			# fall through to the default
+		}
+		
 		$fave = Fave::pkeyGet(array('user_id' => $this->id,
 									'notice_id' => $notice->id));
 		return ((is_null($fave)) ? false : true);
