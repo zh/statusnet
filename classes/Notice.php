@@ -228,7 +228,7 @@ class Notice extends Memcached_DataObject
 
 	# XXX: too many args; we need to move to named params or even a separate
 	# class for notice streams
-	
+
 	static function getStream($qry, $cachekey, $offset=0, $limit=20, $since_id=0, $before_id=0, $order=NULL) {
 
 		if (common_config('memcached', 'enabled')) {
@@ -279,7 +279,7 @@ class Notice extends Memcached_DataObject
 		}
 
 		# Allow ORDER override
-		
+
 		if ($order) {
 			$qry .= $order;
 		} else {
@@ -301,7 +301,7 @@ class Notice extends Memcached_DataObject
 
 	# XXX: this is pretty long and should probably be broken up into
 	# some helper functions
-	
+
 	static function getCachedStream($qry, $cachekey, $offset, $limit, $order) {
 
 		# If outside our cache window, just go to the DB
@@ -332,23 +332,23 @@ class Notice extends Memcached_DataObject
 		# If the cache was invalidated because of new data being
 		# added, we can try and just get the new stuff. We keep an additional
 		# copy of the data at the key + ';last'
-		
+
 		# No cache hit. Try to get the *last* cached version
 
 		$last_notices = $cache->get(common_cache_key($cachekey) . ';last');
-		
+
 		if ($last_notices) {
-			
+
 			# Reverse-chron order, so last ID is last.
-			
+
 			$last_id = $last_notices[0]->id;
-			
+
 			# XXX: this assumes monotonically increasing IDs; a fair
 			# bet with our DB.
-			
+
 			$new_notice = Notice::getStreamDirect($qry, 0, NOTICE_CACHE_WINDOW,
 												  $last_id, NULL, $order);
-			
+
 			if ($new_notice) {
 				$new_notices = array();
 				while ($new_notice->fetch()) {
@@ -357,7 +357,7 @@ class Notice extends Memcached_DataObject
 				$new_notice->free();
 				$notices = array_slice(array_merge($new_notices, $last_notices),
 									   0, NOTICE_CACHE_WINDOW);
-		
+
 				# Store the array in the cache for next time
 
 				$result = $cache->set(common_cache_key($cachekey), $notices);
@@ -368,7 +368,7 @@ class Notice extends Memcached_DataObject
 				return new NoticeWrapper(array_slice($notices, $offset, $limit));
 			}
 		}
-		
+
 		# Otherwise, get the full cache window out of the DB
 
 		$notice = Notice::getStreamDirect($qry, 0, NOTICE_CACHE_WINDOW, NULL, NULL, $order);
@@ -388,7 +388,7 @@ class Notice extends Memcached_DataObject
 		}
 
 		$notice->free();
-		
+
 		# Store the array in the cache for next time
 
 		$result = $cache->set(common_cache_key($cachekey), $notices);
@@ -404,7 +404,7 @@ class Notice extends Memcached_DataObject
 	function publicStream($offset=0, $limit=20, $since_id=0, $before_id=0) {
 
 		$parts = array();
-		
+
 		$qry = 'SELECT * FROM notice ';
 
 		if (common_config('public', 'localonly')) {
@@ -418,7 +418,7 @@ class Notice extends Memcached_DataObject
 		if ($parts) {
 			$qry .= ' WHERE ' . implode(' AND ', $parts);
 		}
-			  
+
 		return Notice::getStream($qry,
 								 'public',
 								 $offset, $limit, $since_id, $before_id);
@@ -435,7 +435,7 @@ class Notice extends Memcached_DataObject
 			  'WHERE subscription.subscribed = ' . $this->profile_id . ' ' .
 			  'AND NOT EXISTS (SELECT user_id, notice_id ' .
 			  'FROM notice_inbox ' .
-			  'WHERE user_id = user.id ' . 
+			  'WHERE user_id = user.id ' .
 			  'AND notice_id = ' . $this->id . ' )';
 			if ($enabled === 'transitional') {
 				$qry .= ' AND user.inboxed = 1';
