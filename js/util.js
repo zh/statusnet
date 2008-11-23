@@ -26,9 +26,9 @@ $(document).ready(function(){
 		counter.text(remaining);
 		
 		if (remaining <= 0) {
-			counter.addClass("toomuch");
+			$("#status_form").addClass("response_error");
 		} else {
-			counter.removeClass("toomuch");
+			$("#status_form").removeClass("response_error");
 		}
 	}
 
@@ -56,7 +56,7 @@ $(document).ready(function(){
 	// XXX: refactor this code
 
 	var favoptions = { dataType: 'xml',
-					   success: function(xml) { var new_form = document._importNode($('form', xml).get(0), true);
+					   success: function(xml) { alert("success");var new_form = document._importNode($('form', xml).get(0), true);
 												var dis = new_form.id;
 												var fav = dis.replace('disfavor', 'favor');
 												$('form#'+fav).replaceWith(new_form);
@@ -117,6 +117,32 @@ $(document).ready(function(){
 	$("form.unsubscribe").ajaxForm(UnSubscribe);
 	$("form.subscribe").each(addAjaxHidden);
 	$("form.unsubscribe").each(addAjaxHidden);
+
+
+	var PostNotice = { dataType: 'xml',
+					   beforeSubmit: function(formData, jqForm, options) { if ($("#status_textarea").get(0).value.length == 0) {
+																				$("#status_form").addClass("response_error");
+																				return false;
+																		   }
+																		   return true;
+												 						 },
+					   success: function(xml) { 
+												if ($(".error", xml).length > 0) {
+													var response_error = document._importNode($(".error", xml).get(0), true);
+													response_error = response_error.textContent || response_error.innerHTML;
+													alert(response_error);
+												}
+												else {
+													$("#notices").prepend(document._importNode($("li", xml).get(0), true));
+													$("#status_textarea").val("");
+													counter();
+													$(".notice_single:first").css({display:"none"});
+													$(".notice_single:first").fadeIn(2500);
+												}
+											 }
+					   }
+	$("#status_form").ajaxForm(PostNotice);
+	$("#status_form").each(addAjaxHidden);
 });
 
 function doreply(nick,id) {

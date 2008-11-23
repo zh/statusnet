@@ -50,7 +50,6 @@ class NewnoticeAction extends Action {
 		if (!$content) {
 			$this->show_form(_('No content!'));
 			return;
-//		} else if (mb_strlen($content) > 140) {
 		} else {
 			$content = common_shorten_links($content);
 

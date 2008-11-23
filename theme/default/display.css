@@ -189,6 +189,7 @@ form#favor, form.favor  {
 input#favor, input.favor,
 input#disfavor, input.disfavor  {
 	background-color:#fcfff5;
+	background-color:transparent;
 	background-image:url(icon_heart-02.gif);
 	background-repeat:no-repeat;
 	cursor: pointer;
@@ -339,6 +340,8 @@ font-size:14px;
 	font-size: 13px;
 	line-height: 16px;
 	border-bottom: 1px solid #dec5b5;
+	background-color:#FCFFF5;
+	opacity:1;
 	}
 .notice_single:hover {
 	background-color: #f7ebcc;
@@ -349,10 +352,11 @@ font-size:14px;
 	padding: 0;
 	}
 #notice_delete_form #confirmation_text {
-        display: block;
+    display: block;
 	font-size: 14px;
 	font-weight: bold;
 	}
+
 input#submit_yes, input#submit_no {
 	margin: 18px 10px 0px 0px;
 	padding: 4px;
@@ -673,6 +677,13 @@ textarea {
 	font-weight: bold;
 	text-align: right;
 }
+.response_error textarea,
+.response_error .on_max {
+background-color:#fee;
+}
+
+
+
 /* ----- Subscribe Form ----- */
 #content .subscribe .submit, #content .unsubscribe .submit, #remotesubscribe .button, #remotesubscribe {
 	clear: left;
