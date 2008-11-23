@@ -331,6 +331,8 @@ function common_nav_menu() {
 		}
 		common_menu_item(common_local_url('openidlogin'), _('OpenID'));
 	}
+	common_menu_item(common_local_url('doc', array('title' => 'help')),
+					 _('Help'));
 	common_element_end('ul');
 }
 
