@@ -84,7 +84,7 @@ class NewnoticeAction extends Action {
 		common_broadcast_notice($notice);
 
 		if ($this->boolean('ajax')) {
-			common_start_html('text/xml');
+			common_start_html('text/xml;charset=utf-8');
 			common_element_start('head');
 			common_element('title', null, _('Notice posted'));
 			common_element_end('head');
@@ -107,7 +107,7 @@ class NewnoticeAction extends Action {
 	}
 
 	function ajax_error_msg($msg) {
-		common_start_html('text/xml');
+		common_start_html('text/xml;charset=utf-8');
 		common_element_start('head');
 		common_element('title', null, _('Ajax Error'));
 		common_element_end('head');
