@@ -220,14 +220,15 @@ class NewnoticeAction extends Action {
 								   'onclick' => 'return doreply("'.$profile->nickname.'", '.$notice->id.');',
 								   'title' => _('reply'),
 								   'class' => 'replybutton'));
-		common_raw('&rarr;');
+		common_raw(html_entity_decode('&rarr;', ENT_NOQUOTES, 'utf-8'));
+		
 		common_element_end('a');
 		if ($user && $notice->profile_id == $user->id) {
 			$deleteurl = common_local_url('deletenotice', array('notice' => $notice->id));
 			common_element_start('a', array('class' => 'deletenotice',
 											'href' => $deleteurl,
 											'title' => _('delete')));
-			common_raw('&times;');
+			common_raw(html_entity_decode('&times;', ENT_NOQUOTES, 'utf-8'));
 			common_element_end('a');
 		}
 		common_element_end('p');
