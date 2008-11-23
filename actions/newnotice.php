@@ -94,7 +94,7 @@ class NewnoticeAction extends Action {
 			common_element_end('html');
 		} else {
 			$returnto = $this->trimmed('returnto');
-			
+
 			if ($returnto) {
 				$url = common_local_url($returnto,
 										array('nickname' => $user->nickname));
@@ -157,21 +157,30 @@ class NewnoticeAction extends Action {
 				common_favor_form($notice);
 			}
 		}
-		$avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
-		common_element_start('a', array('href' => $profile->profileurl));
-		common_element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE),
-									'class' => 'avatar stream',
-									'width' => AVATAR_STREAM_SIZE,
-									'height' => AVATAR_STREAM_SIZE,
-									'alt' =>
-									($profile->fullname) ? $profile->fullname :
-									$profile->nickname));
-		common_element_end('a');
-		common_element('a', array('href' => $profile->profileurl,
-								  'class' => 'nickname'),
-					   $profile->nickname);
+
+		$returnto = $this->trimmed('returnto');
+
+		# If this is the personal stream, we don't want avatars
+		if ($returnto != 'showstream') {
+
+			$avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
+			common_element_start('a', array('href' => $profile->profileurl));
+			common_element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE),
+										'class' => 'avatar stream',
+										'width' => AVATAR_STREAM_SIZE,
+										'height' => AVATAR_STREAM_SIZE,
+										'alt' =>
+										($profile->fullname) ? $profile->fullname :
+										$profile->nickname));
+			common_element_end('a');
+			common_element('a', array('href' => $profile->profileurl,
+									  'class' => 'nickname'),
+						   $profile->nickname);
+		}
+
 		# FIXME: URL, image, video, audio
 		common_element_start('p', array('class' => 'content'));
+
 		if ($notice->rendered) {
 			common_raw($notice->rendered);
 		} else {
@@ -181,6 +190,8 @@ class NewnoticeAction extends Action {
 			common_raw(common_render_content($notice->content, $notice));
 		}
 		common_element_end('p');
+
+
 		$noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
 		# XXX: we need to figure this out better. Is this right?
 		if (strcmp($notice->uri, $noticeurl) != 0 && preg_match('/^http/', $notice->uri)) {
