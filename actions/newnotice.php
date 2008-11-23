@@ -35,11 +35,7 @@ class NewnoticeAction extends Action {
 				return;
 			}
 
-			if ($this->boolean('ajax')) {
-				$this->ajax_save_new_notice();
-			} else {
-				$this->save_new_notice();
-			}
+			$this->save_new_notice();
 		} else {
 			$this->show_form();
 		}
@@ -88,67 +84,27 @@ class NewnoticeAction extends Action {
 
 		common_broadcast_notice($notice);
 
-		$returnto = $this->trimmed('returnto');
-
-		if ($returnto) {
-			$url = common_local_url($returnto,
-									array('nickname' => $user->nickname));
+		if ($this->boolean('ajax')) {
+			common_start_html('text/xml');
+			common_element_start('head');
+			common_element('title', null, _('Notice posted'));
+			common_element_end('head');
+			common_element_start('body');
+			$this->show_notice($notice);
+			common_element_end('body');
+			common_element_end('html');
 		} else {
-			$url = common_local_url('shownotice',
-									array('notice' => $notice->id));
-		}
-		common_redirect($url, 303);
-	}
-
-	function ajax_save_new_notice() {
-
-		$user = common_current_user();
-		assert($user); # XXX: maybe an error instead...
-		$content = $this->trimmed('status_textarea');
-
-		if (!$content) {
-			$this->ajax_error_msg(_('No content!'));
-			return;
-		} else {
-			$content = common_shorten_links($content);
-
-			if (mb_strlen($content) > 140) {
-				common_debug("Content = '$content'", __FILE__);
-				common_debug("mb_strlen(\$content) = " . mb_strlen($content), __FILE__);
-				$this->ajax_error_msg(_('That\'s too long. Max notice size is 140 chars.'));
-				return;
+			$returnto = $this->trimmed('returnto');
+			
+			if ($returnto) {
+				$url = common_local_url($returnto,
+										array('nickname' => $user->nickname));
+			} else {
+				$url = common_local_url('shownotice',
+										array('notice' => $notice->id));
 			}
+			common_redirect($url, 303);
 		}
-
-		$inter = new CommandInterpreter();
-
-		$cmd = $inter->handle_command($user, $content);
-
-		if ($cmd) {
-			$cmd->execute(new WebChannel());
-			return;
-		}
-
-		$replyto = $this->trimmed('inreplyto');
-
-		$notice = Notice::saveNew($user->id, $content, 'web', 1, ($replyto == 'false') ? NULL : $replyto);
-
-		if (is_string($notice)) {
-			$this->ajax_error_msg($notice);
-			return;
-		}
-
-		common_broadcast_notice($notice);
-
-		common_start_html('text/xml');
-		common_element_start('head');
-		common_element('title', null, _('Notice posted'));
-		common_element_end('head');
-		common_element_start('body');
-		$this->show_notice($notice);
-		common_element_end('body');
-		common_element_end('html');
-
 	}
 
 	function ajax_error_msg($msg) {
@@ -167,6 +123,10 @@ class NewnoticeAction extends Action {
 	}
 
 	function show_form($msg=NULL) {
+		if ($msg && $this->boolean('ajax')) {
+			$this->ajax_error_msg($msg);
+			return;
+		}
 		$content = $this->trimmed('status_textarea');
 		if (!$content) {
 			$replyto = $this->trimmed('replyto');
