@@ -39,19 +39,12 @@ class NoticesearchrssAction extends Rss10Action {
 		# lcase it for comparison
 		$q = strtolower($q);
 
-		if(common_config('db','type')=='mysql') {
-			$notice->whereAdd('MATCH(content) against (\''.addslashes($q).'\')');
-		} else {
-			$notice->whereAdd('to_tsvector(\'english\',content) @@ plainto_tsquery(\''.addslashes($q).'\')');
-		}
-		$notice->orderBy('created DESC, notice.id DESC');
+        $search_engine = $notice->getSearchEngine('identica_notices');
+        $search_engine->set_sort_mode('chron');
 
-		# Ask for an extra to see if there's more.
-
-		if ($limit != 0) {
-			$notice->limit(0, $limit);
-		}
-
+		if (!$limit) $limit = 20;
+        $search_engine->limit(0, $limit, true);
+        $search_engine->query($q);
 		$notice->find();
 
 		while ($notice->fetch()) {

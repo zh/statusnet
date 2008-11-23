@@ -20,7 +20,6 @@
 if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/searchaction.php');
-define('NOTICES_PER_PAGE', 20);
 
 # XXX common parent for people and content search?
 
@@ -42,13 +41,17 @@ class NoticesearchAction extends SearchAction {
 		$q = strtolower($q);
 
         $search_engine = $notice->getSearchEngine('identica_notices');
-        $search_engine->query($q);
 
+        $search_engine->set_sort_mode('chron');
 		# Ask for an extra to see if there's more.
 		$search_engine->limit((($page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE + 1);
 
-		$cnt = $notice->find();
-
+        if (false === $search_engine->query($q)) {
+            $cnt = 0;
+        }
+        else {
+	    	$cnt = $notice->find();
+        }
 		if ($cnt > 0) {
 			$terms = preg_split('/[\s,]+/', $q);
 			common_element_start('ul', array('id' => 'notices'));

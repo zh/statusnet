@@ -20,54 +20,85 @@
 if (!defined('LACONICA')) { exit(1); }
 
 class SearchEngine {
-    protected $profile;
+    protected $target;
     protected $table;
 
-    function __construct($profile, $table) {
-        $this->profile = $profile;
+    function __construct($target, $table) {
+        $this->target = $target;
         $this->table = $table;
     }
 
     function query($q) {
     }
 
-    function limit($offset, $count) {
-        return $this->profile->limit($offset, $count);
+    function limit($offset, $count, $rss = false) {
+        return $this->target->limit($offset, $count);
+    }
+
+    function set_sort_mode($mode) {
+        if ('chron' === $mode)
+            return $this->target->orderBy('created desc');
     }
 }
 
 class SphinxSearch extends SearchEngine {
     private $sphinx;
 
-    function __construct($profile, $table) {
-        parent::__construct($profile, $table);
+    function __construct($target, $table) {
+        parent::__construct($target, $table);
         $this->sphinx = new SphinxClient;
         $this->sphinx->setServer(common_config('sphinx', 'server'), common_config('sphinx', 'port'));
     }
 
-    function limit($offset, $count) {
-        $this->sphinx->setLimits($offset, $count);
-        $this->profile->limit($offset, $count);
+    function limit($offset, $count, $rss = false) {
+        //FIXME without LARGEST_POSSIBLE, the most recent results aren't returned
+        //      this probably has a large impact on performance
+        $LARGEST_POSSIBLE = 1e6; 
+
+        if ($rss) {
+            $this->sphinx->setLimits($offset, $count, $count, $LARGEST_POSSIBLE);
+        }
+        else {
+            // return at most 50 pages of results
+            $this->sphinx->setLimits($offset, $count, 50 * ($count - 1), $LARGEST_POSSIBLE);
+        }
+
+        return $this->target->limit(0, $count);
     }
 
     function query($q) {
         $result = $this->sphinx->query($q, $this->table);
         if (!isset($result['matches'])) return false;
         $id_set = join(', ', array_keys($result['matches']));
-        return $this->profile->whereAdd("id in ($id_set)");
+        $this->target->whereAdd("id in ($id_set)");
+        return true;
      }
+
+    function set_sort_mode($mode) {
+        if ('chron' === $mode) {
+            $this->sphinx->SetSortMode(SPH_SORT_ATTR_DESC, 'created_ts');
+            return $this->target->orderBy('created desc');
+        }
+    }
 }
 
 class MySQLSearch extends SearchEngine {
     function query($q) {
-        return $this->profile->whereAdd('MATCH(nickname, fullname, location, bio, homepage) ' .
+        if ('identica_people' === $this->table)
+            return $this->target->whereAdd('MATCH(nickname, fullname, location, bio, homepage) ' .
+						   'against (\''.addslashes($q).'\')');
+        if ('identica_notices' === $this->table)
+            return $this->target->whereAdd('MATCH(content) ' .
 						   'against (\''.addslashes($q).'\')');
     }
 }
 
 class PGSearch extends SearchEngine {
     function query($q) {
-        $this->profile->whereAdd('textsearch @@ plainto_tsquery(\''.addslashes($q).'\')');
+        if ('identica_people' === $this->table)
+            return $this->target->whereAdd('textsearch @@ plainto_tsquery(\''.addslashes($q).'\')');
+        if ('identica_notices' === $this->table)
+            return $this->target->whereAdd('to_tsvector(\'english\', content) @@ plainto_tsquery(\''.addslashes($q).'\')');
     }
 }
 

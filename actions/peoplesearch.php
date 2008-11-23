@@ -20,7 +20,7 @@
 if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/searchaction.php');
-require_once(INSTALLDIR.'/lib/profilelist.php');
+define('PROFILES_PER_PAGE', 10);
 
 class PeoplesearchAction extends SearchAction {
 
@@ -42,13 +42,15 @@ class PeoplesearchAction extends SearchAction {
 
         $search_engine = $profile->getSearchEngine('identica_people');
 
-        $search_engine->query($q);
-
+        $search_engine->set_sort_mode('chron');
 		# Ask for an extra to see if there's more.
         $search_engine->limit((($page-1)*PROFILES_PER_PAGE), PROFILES_PER_PAGE + 1);
-
-		$cnt = $profile->find();
-
+        if (false === $search_engine->query($q)) {
+            $cnt = 0;
+        }
+        else {
+		    $cnt = $profile->find();
+        }
 		if ($cnt > 0) {
 			$terms = preg_split('/[\s,]+/', $q);
 			$results = new PeopleSearchResults($profile, $terms);
