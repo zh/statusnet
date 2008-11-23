@@ -114,11 +114,11 @@ function common_element($tag, $attrs=NULL, $content=NULL) {
 	common_element_end($tag);
 }
 
-function common_start_xml($doc=NULL, $public=NULL, $system=NULL) {
+function common_start_xml($doc=NULL, $public=NULL, $system=NULL, $indent=true) {
 	global $xw;
 	$xw = new XMLWriter();
 	$xw->openURI('php://output');
-	$xw->setIndent(true);
+	$xw->setIndent($indent);
 	$xw->startDocument('1.0', 'UTF-8');
 	if ($doc) {
 		$xw->writeDTD($doc, $public, $system);
@@ -235,7 +235,7 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 	common_element_start('div', array('id' => 'content'));
 }
 
-function common_start_html($type=NULL) {
+function common_start_html($type=NULL, $indent=true) {
 	
 	if (!$type) {
 		$httpaccept = isset($_SERVER['HTTP_ACCEPT']) ? $_SERVER['HTTP_ACCEPT'] : NULL;
@@ -255,7 +255,7 @@ function common_start_html($type=NULL) {
 
 	common_start_xml('html',
 					 '-//W3C//DTD XHTML 1.0 Strict//EN',
-					 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd');
+					 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd', $indent);
 
 	# FIXME: correct language for interface
 
