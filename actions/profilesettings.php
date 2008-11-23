@@ -35,6 +35,8 @@ class ProfilesettingsAction extends SettingsAction {
 		$this->show_avatar_form();
 		common_element('h2', NULL, _('Change password'));
 		$this->show_password_form();
+		common_element('h2', NULL, _('Delete my account'));
+		$this->show_delete_form();
 		common_show_footer();
 	}
 
@@ -54,7 +56,10 @@ class ProfilesettingsAction extends SettingsAction {
 			$this->upload_avatar();
 		} else if ($this->arg('changepass')) {
 			$this->change_password();
+		} else if ($this->arg('deleteaccount')) {
+			$this->delete_account();
 		}
+
 	}
 
 	function show_settings_form() {
@@ -184,6 +189,20 @@ class ProfilesettingsAction extends SettingsAction {
 		common_password('confirm', _('Confirm'),
 						_('same as password above'));
 		common_submit('changepass', _('Change'));
+		common_element_end('form');
+	}
+
+	function show_delete_form() {
+
+		$user = common_current_user();
+		common_element_start('form', array('method' => 'POST',
+										   'id' => 'password',
+										   'action' =>
+										   common_local_url('profilesettings')));
+
+		common_hidden('token', common_session_token());
+
+		common_submit('deleteaccount', _('Delete my account'));
 		common_element_end('form');
 	}
 
@@ -434,4 +453,11 @@ class ProfilesettingsAction extends SettingsAction {
 		$this->show_form(_('Password saved.'), true);
 	}
 
+	function delete_account() {
+
+		$user = common_current_user();
+		assert(!is_null($user)); # should already be checked
+
+		$this->show_form(_('You will be asked to confirmed, nothing was deleted.'), true);
+    }
 }
