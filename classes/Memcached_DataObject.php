@@ -171,15 +171,22 @@ class Memcached_DataObject extends DB_DataObject
 	}
 
     function getSearchEngine($table) {
-        require_once INSTALLDIR.'/classes/SearchEngines.php';
+        require_once INSTALLDIR.'/lib/search_engines.php';
         static $search_engine;
         if (!isset($search_engine)) {
+                $connected = false;
                 if (common_config('sphinx', 'enabled')) {
                     $search_engine = new SphinxSearch($this, $table);
-                } elseif ('mysql' === common_config('db', 'type')) {
-                    $search_engine = new MySQLSearch($this, $table);
-                } else {
-                    $search_engine = new PGSearch($this, $table);
+                    $connected = $search_engine->is_connected();
+                }
+
+                // unable to connect to sphinx' search daemon
+                if (!$connected) {
+                    if ('mysql' === common_config('db', 'type')) {
+                        $search_engine = new MySQLSearch($this, $table);
+                    } else {
+                        $search_engine = new PGSearch($this, $table);
+                    }
                 }
         }
         return $search_engine;

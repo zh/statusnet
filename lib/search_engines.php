@@ -43,11 +43,23 @@ class SearchEngine {
 
 class SphinxSearch extends SearchEngine {
     private $sphinx;
+    private $connected;
 
     function __construct($target, $table) {
+        $fp = @fsockopen(common_config('sphinx', 'server'), common_config('sphinx', 'port'));
+        if (!$fp) {
+            $this->connected = false;
+            return;
+        }
+        fclose($fp);
         parent::__construct($target, $table);
         $this->sphinx = new SphinxClient;
         $this->sphinx->setServer(common_config('sphinx', 'server'), common_config('sphinx', 'port'));
+        $this->connected = true;
+    }
+
+    function is_connected() {
+        return $this->connected;
     }
 
     function limit($offset, $count, $rss = false) {
