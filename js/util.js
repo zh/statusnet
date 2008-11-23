@@ -56,7 +56,7 @@ $(document).ready(function(){
 	// XXX: refactor this code
 
 	var favoptions = { dataType: 'xml',
-					   success: function(xml) { alert("success");var new_form = document._importNode($('form', xml).get(0), true);
+					   success: function(xml) { var new_form = document._importNode($('form', xml).get(0), true);
 												var dis = new_form.id;
 												var fav = dis.replace('disfavor', 'favor');
 												$('form#'+fav).replaceWith(new_form);
@@ -126,8 +126,7 @@ $(document).ready(function(){
 																		   }
 																		   return true;
 												 						 },
-					   success: function(xml) { 
-												if ($(".error", xml).length > 0) {
+					   success: function(xml) {	if ($(".error", xml).length > 0) {
 													var response_error = document._importNode($(".error", xml).get(0), true);
 													response_error = response_error.textContent || response_error.innerHTML;
 													alert(response_error);
