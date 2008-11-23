@@ -27,7 +27,7 @@ define('AVATAR_MINI_SIZE', 24);
 define('MAX_AVATAR_SIZE', 256 * 1024);
 
 define('NOTICES_PER_PAGE', 20);
-define('PROFILES_PER_PAGE', 10);
+define('PROFILES_PER_PAGE', 20);
 
 define('FOREIGN_NOTICE_SEND', 1);
 define('FOREIGN_NOTICE_RECV', 2);
