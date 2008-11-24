@@ -192,15 +192,70 @@ class ProfilesettingsAction extends SettingsAction {
 		common_element_end('form');
 	}
 
-	function show_delete_form() {
 
+	function show_feeds_list($feeds) {
+		common_element_start('div', array('class' => 'feedsdel'));
+		common_element('p', null, 'Feeds:');
+		common_element_start('ul', array('class' => 'xoxo'));
+
+		foreach ($feeds as $key => $value) {
+			$this->common_feed_item($feeds[$key]);
+		}
+		common_element_end('ul');
+		common_element_end('div');
+	}
+
+	function common_feed_item($feed) {
+        $user = common_current_user();
+		$nickname = $user->nickname;
+
+		switch($feed['item']) {
+			case 'notices': default:
+				$feed_classname = $feed['type'];
+				$feed_mimetype = "application/".$feed['type']."+xml";
+				$feed_title = "$nickname's ".$feed['version']." notice feed";
+				$feed['textContent'] = "RSS";
+				break;
+
+			case 'foaf':
+				$feed_classname = "foaf";
+				$feed_mimetype = "application/".$feed['type']."+xml";
+				$feed_title = "$nickname's FOAF file";
+				$feed['textContent'] = "FOAF";
+				break;
+		}
+		common_element_start('li');
+		common_element('a', array('href' => $feed['href'],
+								  'class' => $feed_classname,
+								  'type' => $feed_mimetype,
+								  'title' => $feed_title),
+							$feed['textContent']);
+		common_element_end('li');
+	}
+
+	function show_delete_form() {
 		$user = common_current_user();
+        $notices = DB_DataObject::factory('notice');
+        $notices->profile_id = $user->id;
+        $notice_count = (int) $notices->count();
+
 		common_element_start('form', array('method' => 'POST',
-										   'id' => 'password',
+										   'id' => 'delete',
 										   'action' =>
 										   common_local_url('profilesettings')));
 
 		common_hidden('token', common_session_token());
+        common_element('p', null, "You can copy your notices and contacts by saving the two links belowxbefore deleting your account. Be careful, this operation cannot be undone.");
+
+
+		$this->show_feeds_list(array(0=>array('href'=>common_local_url('userrss', array('limit' => $notice_count, 'nickname' => $user->nickname)), 
+											  'type' => 'rss',
+											  'version' => 'RSS 1.0',
+											  'item' => 'notices'),
+									 1=>array('href'=>common_local_url('foaf',array('nickname' => $user->nickname)),
+											  'type' => 'rdf',
+											  'version' => 'FOAF',
+											  'item' => 'foaf')));
 
 		common_submit('deleteaccount', _('Delete my account'));
 		common_element_end('form');
@@ -458,6 +513,18 @@ class ProfilesettingsAction extends SettingsAction {
 		$user = common_current_user();
 		assert(!is_null($user)); # should already be checked
 
-		$this->show_form(_('You will be asked to confirmed, nothing was deleted.'), true);
+        // delete avatar (profile_id and filename)
+        // delete fave (user_id)
+        // delete message (from_profile, to_profile)
+        // delete notice (profile_id) (also delete from notice_source and notice_tag)
+        // delete notice_inbox (user_id)
+        // delete subscription (subscriber, subscribed)
+        // delete user (id)
+        // delete user_openid (user_id)
+        // delete profile (id)
+        // 
+        // delete all the users notices
+
+		$this->show_form(_('Your account has been deleted.'), true);
     }
 }

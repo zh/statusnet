@@ -1144,6 +1144,8 @@ function common_fancy_url($action, $args=NULL) {
 	 case 'repliesrss':
 		return common_path($args['nickname'].'/replies/rss');
 	 case 'userrss':
+        if (isset($args['limit']))
+		    return common_path($args['nickname'].'/rss?limit=' . $args['limit']);
 		return common_path($args['nickname'].'/rss');
 	 case 'showstream':
 		if ($args && isset($args['page'])) {
