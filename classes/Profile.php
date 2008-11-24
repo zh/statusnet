@@ -150,7 +150,10 @@ class Profile extends Memcached_DataObject
 	
 	function getAllTags() {
 		$profile_tag = new Notice_tag();
-		$profile_tag->query('SELECT DISTINCT(tag) FROM profile_tag WHERE tagger = ' . $this->id);
+		$profile_tag->query('SELECT DISTINCT(tag) ' .
+							'FROM profile_tag ' .
+							'WHERE tagger = ' . $this->id . ' ' .
+							'AND tagger != tagged');
 		$tags = array();
 		while ($profile_tag->fetch()) {
 			$tags[] = $profile_tag->tag;
