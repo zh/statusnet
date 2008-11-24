@@ -20,5 +20,5 @@
 # This program tries to start the daemons for Laconica.
 # Note that the 'maildaemon' needs to run as a mail filter.
 
-/usr/local/bin/indexer --config ../sphinx.conf --all
+/usr/local/bin/indexer --config /usr/local/etc/sphinx.conf --all
 
