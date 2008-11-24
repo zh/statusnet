@@ -19,7 +19,7 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class MicrosummaryAction extends StreamAction {
+class MicrosummaryAction extends Action {
 
 	function handle($args) {
 
