@@ -41,6 +41,6 @@ class MicrosummaryAction extends Action {
 		
 		header('Content-Type: text/plain');
 		
-		print $notice->content;
+		print $user->nickname . ': ' . $notice->content;
 	}
 }
