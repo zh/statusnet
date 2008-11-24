@@ -58,8 +58,8 @@ class Notice extends Memcached_DataObject
 	}
 
 	function delete() {
-		$this->blowCaches();
-		$this->blowFavesCache();
+		$this->blowCaches(true);
+		$this->blowFavesCache(true);
 		$this->blowInboxes();
 		parent::delete();
 	}
@@ -137,15 +137,15 @@ class Notice extends Memcached_DataObject
 		return $notice;
 	}
 
-	function blowCaches() {
-		$this->blowSubsCache();
-		$this->blowNoticeCache();
-		$this->blowRepliesCache();
-		$this->blowPublicCache();
-		$this->blowTagCache();
+	function blowCaches($blowLast=false) {
+		$this->blowSubsCache($blowLast);
+		$this->blowNoticeCache($blowLast);
+		$this->blowRepliesCache($blowLast);
+		$this->blowPublicCache($blowLast);
+		$this->blowTagCache($blowLast);
 	}
 
-	function blowTagCache() {
+	function blowTagCache($blowLast=false) {
 		$cache = common_memcache();
 		if ($cache) {
 			$tag = new Notice_tag();
@@ -153,6 +153,9 @@ class Notice extends Memcached_DataObject
 			if ($tag->find()) {
 				while ($tag->fetch()) {
 					$cache->delete(common_cache_key('notice_tag:notice_stream:' . $tag->tag));
+					if ($blowLast) {
+						$cache->delete(common_cache_key('notice_tag:notice_stream:' . $tag->tag . ';last'));
+					}
 				}
 			}
 			$tag->free();
@@ -160,7 +163,7 @@ class Notice extends Memcached_DataObject
 		}
 	}
 
-	function blowSubsCache() {
+	function blowSubsCache($blowLast=false) {
 		$cache = common_memcache();
 		if ($cache) {
 			$user = new User();
@@ -171,23 +174,28 @@ class Notice extends Memcached_DataObject
 
 			while ($user->fetch()) {
 				$cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
+				if ($blowLast) {
+					$cache->delete(common_cache_key('user:notices_with_friends:' . $user->id . ';last'));
+				}
 			}
-
 			$user->free();
 			unset($user);
 		}
 	}
 
-	function blowNoticeCache() {
+	function blowNoticeCache($blowLast=false) {
 		if ($this->is_local) {
 			$cache = common_memcache();
 			if ($cache) {
 				$cache->delete(common_cache_key('user:notices:'.$this->profile_id));
+				if ($blowLast) {
+					$cache->delete(common_cache_key('user:notices:'.$this->profile_id.';last'));
+				}
 			}
 		}
 	}
 
-	function blowRepliesCache() {
+	function blowRepliesCache($blowLast=false) {
 		$cache = common_memcache();
 		if ($cache) {
 			$reply = new Reply();
@@ -195,6 +203,9 @@ class Notice extends Memcached_DataObject
 			if ($reply->find()) {
 				while ($reply->fetch()) {
 					$cache->delete(common_cache_key('user:replies:'.$reply->profile_id));
+					if ($blowLast) {
+						$cache->delete(common_cache_key('user:replies:'.$reply->profile_id.';last'));
+					}
 				}
 			}
 			$reply->free();
@@ -202,16 +213,19 @@ class Notice extends Memcached_DataObject
 		}
 	}
 
-	function blowPublicCache() {
+	function blowPublicCache($blowLast=false) {
 		if ($this->is_local) {
 			$cache = common_memcache();
 			if ($cache) {
 				$cache->delete(common_cache_key('public'));
+				if ($blowLast) {
+					$cache->delete(common_cache_key('public').';last');
+				}
 			}
 		}
 	}
 
-	function blowFavesCache() {
+	function blowFavesCache($blowLast=false) {
 		$cache = common_memcache();
 		if ($cache) {
 			$fave = new Fave();
@@ -219,6 +233,9 @@ class Notice extends Memcached_DataObject
 			if ($fave->find()) {
 				while ($fave->fetch()) {
 					$cache->delete(common_cache_key('user:faves:'.$fave->user_id));
+					if ($blowLast) {
+						$cache->delete(common_cache_key('user:faves:'.$fave->user_id.';last'));
+					}
 				}
 			}
 			$fave->free();
