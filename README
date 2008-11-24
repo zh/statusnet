@@ -141,7 +141,11 @@ For some functionality, you will also need the following extensions:
   server to store the data in.
 - Mailparse. Efficient parsing of email requires this extension.
   Submission by email or SMS-over-email uses this extension.
-  
+- Sphinx Search. A client for the sphinx server, an alternative
+  to MySQL or Postgresql fulltext search. You will also need a
+  Sphinx server to serve the search queries.
+
+
 You will almost definitely get 2-3 times better performance from your
 site if you install a PHP bytecode cache/accelerator. Some well-known
 examples are: eaccelerator, Turck mmcache, xcache, apc. Zend Optimizer
@@ -590,6 +594,22 @@ backups of a working Laconica system by backing up the database and
 the Web directory. To backup the database use mysqldump (http://ur1.ca/7xo)
 and to backup the Web directory, try tar.
 
+Sphinx
+------
+
+To use a Sphinx server to search users and notices, you also need
+to install, compile and enable the sphinx pecl extension for php on the
+client side, which itself depends on the sphinx development files.
+"pecl install sphinx" should take care of that. Add "extension=sphinx.so"
+to your php.ini and reload apache to enable it.
+
+You can update your MySQL or Postgresql databases to drop their fulltext
+search indexes, since they're now provided by sphinx.
+
+On the sphinx server side, a script reads the main database and build
+the keyword index. A cron job reads the database and keeps the sphinx
+indexes up to date.
+
 Upgrading
 =========
 
@@ -930,6 +950,17 @@ database data in memcached (http://www.danga.com/memcached/).
 enabled: Set to true to enable. Default false.
 server: a string with the hostname of the memcached server. Can also
 	be an array of hostnames, if you've got more than one server.
+
+sphinx
+------
+
+You can get a significant boost in performance using Sphinx Search
+instead of your database server to search for users and notices.
+(http://sphinxsearch.com/).
+
+enabled: Set to true to enable. Default false.
+server: a string with the hostname of the sphinx server.
+port: an integer with the port number of the sphinx server.
 
 integration
 -----------
