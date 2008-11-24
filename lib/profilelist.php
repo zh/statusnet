@@ -25,9 +25,11 @@ define('PROFILES_PER_PAGE', 20);
 class ProfileList {
 
 	var $profile = NULL;
+	var $owner = NULL;
 	
-	function __construct($profile) {
+	function __construct($profile, $owner=NULL) {
 		$this->profile = $profile;
+		$this->owner = $owner;
 	}
 	
 	function show_list() {
@@ -107,25 +109,41 @@ class ProfileList {
 			common_raw($this->highlight($this->profile->bio));
 			common_element_end('p');
 		}
+
+		# If we're on a list with an owner (subscriptions or subscribers)...
 		
-		$tags = Profile_tag::getTags($this->profile->id, $this->profile->id);
-
-
-		if ($tags) {
-			common_element_start('div', 'tags_self');
+		if ($this->owner) {
+			# Get tags
+			$tags = Profile_tag::getTags($this->owner->id, $this->profile->id);
+			
+			common_element_start('div', 'tags_user');
 			common_element_start('dl');
-			common_element('dt', null, _("User's tags:"));
-			common_element_start('dd');
-			common_element_start('ul', 'tags xoxo');
-			foreach ($tags as $tag) {
-				common_element_start('li');
-				common_element('a', array('rel' => 'tag',
-										  'href' => common_local_url('peopletag',
-																	 array('tag' => $tag))),
-							   $tag);
-				common_element_end('li');
+			common_element_start('dt');
+			if ($user->id == $this->owner->id) {
+				common_element('a', array('href' => common_local_url('tagother',
+																	 array('id' => $this->profile->id))),
+							   _('Tags'));
+			} else {
+				common_element(_('Tags'));
 			}
-			common_element_end('ul');
+			common_text(":");
+			common_element_end('dt');
+			common_element_start('dd');
+			if ($tags) {
+				common_element_start('ul', 'tags xoxo');
+				foreach ($tags as $tag) {
+					common_element_start('li');
+					common_element('a', array('rel' => "tag",
+											  'href' => common_local_url($action,
+																		 array('nickname' => $user->nickname,
+																			   'tag' => $tag))),
+								   $tag);
+					common_element_end('li');
+				}
+				common_element_end('ul');
+			} else {
+				common_text(_('(none)'));
+			}
 			common_element_end('dd');
 			common_element_end('dl');
 			common_element_end('div');
@@ -142,35 +160,6 @@ class ProfileList {
 			}
 			
 			
-			if ($action) {
-				$tags = Profile_tag::getTags($user->id, $this->profile->id);
-				
-				if ($tags) {
-					common_element_start('div', 'tags_user');
-					common_element_start('dl');
-					common_element_start('dt');
-					common_element('a', array('href' => common_local_url('tagother',
-																	 array('id' => $this->profile->id))),
-							   _('Your tags'));
-					common_text(":");
-					common_element_end('dt');
-					common_element_start('dd');
-					common_element_start('ul', 'tags xoxo');
-					foreach ($tags as $tag) {
-						common_element_start('li');
-						common_element('a', array('rel' => "tag",
-												  'href' => common_local_url($action,
-																			 array('nickname' => $user->nickname,
-																				   'tag' => $tag))),
-									   $tag);
-						common_element_end('li');
-					}					
-					common_element_end('ul');
-					common_element_end('dd');
-					common_element_end('dl');
-					common_element_end('div');
-				}
-			}
 		}
 		
 		common_element_end('li');
