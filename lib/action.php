@@ -77,6 +77,9 @@ class Action { // lawsuit
 		$action = $this->trimmed('action');
 		$args = $this->args;
 		unset($args['action']);
+		foreach (array_keys($_COOKIE) as $cookie) {
+			unset($args[$cookie]);
+		}
 		return common_local_url($action, $args);
 	}
 
