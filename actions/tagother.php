@@ -22,16 +22,16 @@ if (!defined('LACONICA')) { exit(1); }
 require_once(INSTALLDIR.'/lib/settingsaction.php');
 
 class TagotherAction extends Action {
-	
+
 	function handle($args) {
-		
+
 		parent::handle($args);
 
 		if (!common_logged_in()) {
 			$this->client_error(_('Not logged in'), 403);
 			return;
 		}
-		
+
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$this->save_tags();
 		} else {
@@ -48,16 +48,16 @@ class TagotherAction extends Action {
 			$this->show_form($profile);
 		}
 	}
-	
+
 	function show_form($profile, $error=NULL) {
-		
+
 		$user = common_current_user();
-		
+
 		common_show_header(_('Tag a person'),
 						   NULL, array($profile, $error), array($this, 'show_top'));
 
 		$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
-		
+
 		common_element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_PROFILE_SIZE),
 									'class' => 'avatar stream',
 									'width' => AVATAR_PROFILE_SIZE,
@@ -65,11 +65,11 @@ class TagotherAction extends Action {
 									'alt' =>
 									($profile->fullname) ? $profile->fullname :
 									$profile->nickname));
-		
+
 		common_element('a', array('href' => $profile->profileurl,
 								  'class' => 'external profile nickname'),
 					   $profile->nickname);
-		
+
 		if ($profile->fullname) {
 			common_element_start('div', 'fullname');
 			if ($profile->homepage) {
@@ -86,7 +86,7 @@ class TagotherAction extends Action {
 		if ($profile->bio) {
 			common_element('div', 'bio', $profile->bio);
 		}
-		
+
 		common_element_start('form', array('method' => 'post',
 										   'id' => 'tag_user',
 										   'name' => 'tagother',
@@ -100,38 +100,44 @@ class TagotherAction extends Action {
 		common_submit('save', _('Save'));
 		common_element_end('form');
 		common_show_footer();
-		
+
 	}
 
 	function save_tags() {
-		
+
 		$id = $this->trimmed('id');
 		$tagstring = $this->trimmed('tags');
 		$token = $this->trimmed('token');
-		
+
 		if (!$token || $token != common_session_token()) {
 			$this->show_form(_('There was a problem with your session token. Try again, please.'));
 			return;
 		}
-		
+
 		$profile = Profile::staticGet('id', $id);
-		
+
 		if (!$profile) {
 			$this->client_error(_('No such profile.'));
 			return;
 		}
 
-		$tags = array_map('common_canonical_tag', preg_split('/[\s,]+/', $tagstring));
+		if (is_string($tagstring) && strlen($tagstring) > 0) {
 
-		foreach ($tags as $tag) {
-			if (!common_valid_profile_tag($tag)) {
-				$this->show_form($profile, sprintf(_('Invalid tag: "%s"'), $tag));
-				return;
+			$tags = array_map('common_canonical_tag',
+							  preg_split('/[\s,]+/', $tagstring));
+
+			foreach ($tags as $tag) {
+				if (!common_valid_profile_tag($tag)) {
+					$this->show_form($profile, sprintf(_('Invalid tag: "%s"'), $tag));
+					return;
+				}
 			}
+		} else {
+			$tags = array();
 		}
-		
+
 		$user = common_current_user();
-		
+
 		if (!Subscription::pkeyGet(array('subscriber' => $user->id,
 										 'subscribed' => $profile->id)) &&
 			!Subscription::pkeyGet(array('subscriber' => $profile->id,
@@ -140,16 +146,16 @@ class TagotherAction extends Action {
 			$this->client_error(_('You can only tag people you are subscribed to or who are subscribed to you.'));
 			return;
 		}
-		
+
 		$result = Profile_tag::setTags($user->id, $profile->id, $tags);
-		
+
 		if (!$result) {
 			$this->client_error(_('Could not save tags.'));
 			return;
 		}
 
 		$action = $user->isSubscribed($profile) ? 'subscriptions' : 'subscribers';
-		
+
 		if ($this->boolean('ajax')) {
 			common_start_html('text/xml');
 			common_element_start('head');
@@ -171,7 +177,7 @@ class TagotherAction extends Action {
 															$user->nickname)));
         }
 	}
-	
+
 	function show_top($arr = NULL) {
 		list($profile, $error) = $arr;
 		if ($error) {
