@@ -1148,11 +1148,11 @@ function common_fancy_url($action, $args=NULL) {
 			 case 'user_timeline.rss':
 				return common_path('api/statuses/user_timeline/'.$args['argument'].'.rss');
 			 case 'user_timeline.atom':
-				return common_path('api/statuses/user_timeline/'.$args['argument'].'.rss');
-			 case 'user_timeline.rss':
-				return common_path('api/statuses/user_timeline/'.$args['argument'].'.rss');
-			 case 'user_timeline.atom':
-				return common_path('api/statuses/user_timeline/'.$args['argument'].'.rss');
+				return common_path('api/statuses/user_timeline/'.$args['argument'].'.atom');
+			 case 'user_timeline.json':
+				return common_path('api/statuses/user_timeline/'.$args['argument'].'.json');
+			 case 'user_timeline.xml':
+				return common_path('api/statuses/user_timeline/'.$args['argument'].'.xml');
 			 default: return common_simple_url($action, $args);
 			}
 		 default: return common_simple_url($action, $args);
