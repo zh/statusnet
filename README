@@ -502,6 +502,26 @@ All the daemons write their process IDs (pids) to /var/run/ by
 default. This can be useful for starting, stopping, and monitoring the
 daemons.
 
+Twitter Friends Syncing
+-----------------------
+
+As of Laconica 0.6.3, users may set a flag in their settings ("Subscribe
+to my Twitter friends here" under the Twitter tab) to have Laconica
+attempt to locate and subscribe to "friends" (people they "follow") on
+Twitter who also have accounts on your Laconica system, and who have
+previously set up a link for automatically posting notices to Twitter.
+
+Optionally, there is a script (./scripts/synctwitterfriends.php), meant
+to be run periodically from a job scheduler (e.g.: cron under Unix), to
+look for new additions to users' friends lists. Note that the friends
+syncing only subscribes users to each other, it does not unsubscribe
+users when they stop following each other on Twitter.
+
+Sample cron job:
+
+# Update Twitter friends subscriptions every half hour
+0,30 * * * * /path/to/php /path/to/laconica/scripts/synctwitterfriends.php>&/dev/null
+
 Sitemaps
 --------
 
@@ -589,7 +609,7 @@ also download more up-to-date .po files there, if you so desire.
 Backups
 -------
 
-There is no builtin system for doing backups in Laconica. You can make
+There is no built-in system for doing backups in Laconica. You can make
 backups of a working Laconica system by backing up the database and
 the Web directory. To backup the database use mysqldump (http://ur1.ca/7xo)
 and to backup the Web directory, try tar.
