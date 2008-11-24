@@ -2,8 +2,8 @@
 README
 ------
 
-Laconica 0.6.2
-13 November 2008
+Laconica 0.6.3
+23 November 2008
 
 This is the README file for Laconica, the Open Source microblogging
 platform. It includes installation instructions, descriptions of
@@ -72,38 +72,33 @@ New this version
 ================
 
 This is a minor feature and security improvement version from version
-0.6.1 (release 6 Oct 2008). Notable features of version 0.6.2 include:
+0.6.2 (release 13 Nov 2008). Notable features of version 0.6.3 include:
 
-- Notice inboxes have been added. This is a big database change
-  that will allow a more robust messaging model in the future; for
-  now, it is an optimization that speeds up some queries.
-- Posted URLs are automatically shortened; users can choose their
-  preferred url shortening service.
-- Support SUP protocol
-  (http://code.google.com/p/simpleupdateprotocol/) for quicker updates
-  to FriendFeed (http://friendfeed.com/).
-- Tag streams now have an RSS feed.
-- CSRF protection for posting notices and logging in. This closes
-  the "Version 0 API" used initially for identi.ca and supported
-  until September 30, 2008.
-- Slightly broadened the layout of default and Identi.ca themes to
-  accommodate more verbose (non-English!) languages' interfaces.
-- Replies made through the Web site will refer to the clicked-on
-  message.
-- enjit queue handler.
-- Experimental theme for iphone use.
-- Various internationalization scripts and updates.
-- Better UTF-8 escaped entity handling in API.
-- Better handling of since_id and before_id parameters in API.
-- Better heuristics for when to include a closing parenthesis in a link.
-- Handle multi-byte-encoded @-replies from XMPP through Twitter bridge.
-- Better handling of read-only requests in API, to allow using
-  replicated mirror servers.
-- A lot of common code factored out of default and identi.ca themes;
-  default theme now much more functional.
-- 'Invite-only' mode for closed sites.
-- Some undocumented features in Twitter API user/show.
-- Favorites flag in API for statuses.
+- 'nudge' functionality to tell a user that they're missed.
+- Links to related RSS/Atom feeds on all pages.
+- Favor/disfavor icons changed to images.
+- Better checks to prevent remote subscribing to a local user, causing
+  "ghost profiles" (dupes in people search or subscriptions lists).
+- Twitter friend sync. Users who set up their Twitter accounts will
+  be automatically connected to other local users who have Twitter
+  accounts and who they're subscribed to on Twitter.
+- List view of subscriptions/subscribers.
+- Subscribe/unsubscribe button on subscriptions/subscribers list.
+- Optionally hide certain users from the public stream.
+- Give public area a few more tabs.
+- Add Featured users tab to public area.
+- Add Most favorited notices tab to public area.
+- Users can give themselves tags.
+- Users can tag their subscribers or subscriptions.
+- Users can send @-replies to tagged subsets of their contact list
+  using @#tag.
+- Subscribe/unsubscribe with Ajax form.
+- Post notice with Ajax form.
+- Script to optionally add notice inboxes for only some users.
+- Incremental caching of notice streams using memcached.
+- Use cached favorites info to avoid excess DB hits for faves.
+- Optionally use Sphinx Search for notice search.
+- Optionally use Sphinx Search for people search.
 
 Because of the CSRF fixes in particular, this upgrade is recommended
 for all Laconica sites.
@@ -144,7 +139,6 @@ For some functionality, you will also need the following extensions:
 - Sphinx Search. A client for the sphinx server, an alternative
   to MySQL or Postgresql fulltext search. You will also need a
   Sphinx server to serve the search queries.
-
 
 You will almost definitely get 2-3 times better performance from your
 site if you install a PHP bytecode cache/accelerator. Some well-known
