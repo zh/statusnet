@@ -2,8 +2,8 @@
 README
 ------
 
-Laconica 0.6.3
-23 November 2008
+Laconica 0.6.2
+13 November 2008
 
 This is the README file for Laconica, the Open Source microblogging
 platform. It includes installation instructions, descriptions of
@@ -72,7 +72,7 @@ New this version
 ================
 
 This is a minor feature and security improvement version from version
-0.6.2 (release 13 Nov 2008). Notable features of version 0.6.3 include:
+0.6.1 (release 6 Oct 2008). Notable features of version 0.6.2 include:
 
 - 'nudge' functionality to tell a user that they're missed.
 - Links to related RSS/Atom feeds on all pages.
@@ -328,6 +328,24 @@ the server first.
 If you have problems with the .htaccess file on versions of Apache
 earlier than 2.2.x, try changing the regular expressions in the
 htaccess.sample file that use "\w" to just use ".".
+
+Sphinx
+------
+
+To use a Sphinx server to search users and notices, you also need
+to install, compile and enable the sphinx pecl extension for php on the
+client side, which itself depends on the sphinx development files.
+"pecl install sphinx" should take care of that. Add "extension=sphinx.so"
+to your php.ini and reload apache to enable it.
+
+You can update your MySQL or Postgresql databases to drop their fulltext
+search indexes, since they're now provided by sphinx.
+
+On the sphinx server side, a script reads the main database and build
+the keyword index. A cron job reads the database and keeps the sphinx
+indexes up to date. scripts/sphinx-cron.sh should be called by cron
+every 5 minutes, for example. scripts/sphinx.sh is an init.d script
+to start and stop the sphinx search daemon.
 
 SMS
 ---
@@ -607,22 +625,6 @@ There is no built-in system for doing backups in Laconica. You can make
 backups of a working Laconica system by backing up the database and
 the Web directory. To backup the database use mysqldump (http://ur1.ca/7xo)
 and to backup the Web directory, try tar.
-
-Sphinx
-------
-
-To use a Sphinx server to search users and notices, you also need
-to install, compile and enable the sphinx pecl extension for php on the
-client side, which itself depends on the sphinx development files.
-"pecl install sphinx" should take care of that. Add "extension=sphinx.so"
-to your php.ini and reload apache to enable it.
-
-You can update your MySQL or Postgresql databases to drop their fulltext
-search indexes, since they're now provided by sphinx.
-
-On the sphinx server side, a script reads the main database and build
-the keyword index. A cron job reads the database and keeps the sphinx
-indexes up to date.
 
 Upgrading
 =========
