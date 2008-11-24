@@ -136,6 +136,11 @@ class ShowstreamAction extends StreamAction {
 										 'content' => "xmpp+http:sha1:" . sha1(sha1('xmpp:' . $user->jabber) . sha1($profile->profileurl))));
 		}
 
+		# See https://wiki.mozilla.org/Microsummaries
+		
+		common_element('link', array('rel' => 'microsummary',
+									 'href' => common_local_url('microsummary',
+																array('nickname' => $profile->nickname))));
 	}
 
 	function no_such_user() {

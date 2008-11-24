@@ -1048,6 +1048,7 @@ function common_fancy_url($action, $args=NULL) {
                 } else {
                         return common_path('notice/delete');
                 }
+	 case 'microsummary':
 	 case 'xrds':
 	 case 'foaf':
 		return common_path($args['nickname'].'/'.$action);

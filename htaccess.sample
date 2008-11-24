@@ -92,6 +92,7 @@ RewriteRule ^(\w+)/favorites$ index.php?action=showfavorites&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/favorites/rss$ index.php?action=favoritesrss&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/inbox$ index.php?action=inbox&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/outbox$ index.php?action=outbox&nickname=$1 [L,QSA]
+RewriteRule ^(\w+)/microsummary$ index.php?action=microsummary&nickname=$1 [L,QSA]
 
 RewriteRule ^(\w+)$ index.php?action=showstream&nickname=$1 [L,QSA]
 
