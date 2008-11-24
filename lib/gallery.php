@@ -228,6 +228,8 @@ class GalleryAction extends Action {
 	}
 	
 	function display_links($profile, $page, $display) {
+		$tag = $this->trimmed('tag');
+		
 		common_element_start('dl', array('id'=>'subscriptions_nav'));
 		common_element('dt', null, _('Subscriptions navigation'));
 		common_element_start('dd');
@@ -237,18 +239,26 @@ class GalleryAction extends Action {
 		 case 'list':
 			common_element('li', array('class'=>'child_1'), _('List'));
 			common_element_start('li');
-      common_element('a', array('href' => common_local_url($this->trimmed('action'),
-																 array('display' => 'icons',
-																	   'nickname' => $profile->nickname,
-																	   'page' => 1 + floor((($page - 1) * PROFILES_PER_PAGE) / AVATARS_PER_PAGE)))),
+			$url_args = array('display' => 'icons',
+							  'nickname' => $profile->nickname,
+							  'page' => 1 + floor((($page - 1) * PROFILES_PER_PAGE) / AVATARS_PER_PAGE));
+			if ($tag) {
+				$url_args['tag'] = $tag;
+			}
+			$url = common_local_url($this->trimmed('action'), $url_args);
+			common_element('a', array('href' => $url),
 						   _('Icons'));
 			common_element_end('li');
       break;
 		 default:
-      common_element_start('li', array('class'=>'child_1'));
-			common_element('a', array('href' => common_local_url($this->trimmed('action'),
-																 array('nickname' => $profile->nickname,
-																	   'page' => 1 + floor((($page - 1) * AVATARS_PER_PAGE) / PROFILES_PER_PAGE)))),
+			common_element_start('li', array('class'=>'child_1'));
+			$url_args = array('nickname' => $profile->nickname,
+							  'page' => 1 + floor((($page - 1) * AVATARS_PER_PAGE) / PROFILES_PER_PAGE));
+			if ($tag) {
+				$url_args['tag'] = $tag;
+			}
+			common_local_url($this->trimmed('action'), $url_args);
+			common_element('a', array('href' => $url),
 						   _('List'));
 			common_element_end('li');
 			common_element('li', NULL, _('Icons'));
