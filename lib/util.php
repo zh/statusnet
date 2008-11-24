@@ -710,6 +710,7 @@ function common_render_content($text, $notice) {
 	$id = $notice->profile_id;
 	$r = preg_replace('/(^|\s+)@([A-Za-z0-9]{1,64})/e', "'\\1@'.common_at_link($id, '\\2')", $r);
 	$r = preg_replace('/^T ([A-Z0-9]{1,64}) /e', "'T '.common_at_link($id, '\\1').' '", $r);
+	$r = preg_replace('/(^|\s+)@#([A-Za-z0-9]{1,64})/e', "'\\1@'.common_at_hash_link($id, '\\2')", $r);
 	return $r;
 }
 
@@ -857,6 +858,22 @@ function common_at_link($sender_id, $nickname) {
 		return '<a href="'.htmlspecialchars($recipient->profileurl).'" class="atlink">'.$nickname.'</a>';
 	} else {
 		return $nickname;
+	}
+}
+
+function common_at_hash_link($sender_id, $tag) {
+	$user = User::staticGet($sender_id);
+	if (!$user) {
+		return $tag;
+	}
+	$tagged = Profile_tag::getTagged($user->id, common_canonical_tag($tag));
+	if ($tagged) {
+		$url = common_local_url('subscriptions',
+								array('nickname' => $user->nickname,
+									  'tag' => $tag));
+		return '<a href="'.htmlspecialchars($url).'" class="atlink">'.$tag.'</a>';
+	} else {
+		return $tag;
 	}
 }
 
@@ -1274,6 +1291,8 @@ function common_save_replies($notice) {
 	$sender = Profile::staticGet($notice->profile_id);
 	# store replied only for first @ (what user/notice what the reply directed,
 	# we assume first @ is it)
+	$replied = array();
+	
 	for ($i=0; $i<count($names); $i++) {
 		$nickname = $names[$i];
 		$recipient = common_relative_profile($sender, $nickname, $notice->created);
@@ -1298,6 +1317,25 @@ function common_save_replies($notice) {
 			common_log(LOG_ERR, 'DB error inserting reply: ' . $last_error->message);
 			common_server_error(sprintf(_('DB error inserting reply: %s'), $last_error->message));
 			return;
+		} else {
+			$replied[$recipient->id] = 1;
+		}
+	}
+	# Hash format replies, too
+	$cnt = preg_match_all('/(?:^|\s)@#([a-z0-9]{1,64})/', $notice->content, $match);
+	foreach ($match as $tag) {
+		$tagged = Profile_tag::getTagged($sender->id, $tag);
+		foreach ($tagged as $t) {
+			if (!$replied[$t->id]) {
+				$reply = new Reply();
+				$reply->notice_id = $notice->id;
+				$reply->profile_id = $t->id;
+				$id = $reply->insert();
+				if (!$id) {
+					common_log_db_error($reply, 'INSERT', __FILE__);
+					return;
+				}
+			}
 		}
 	}
 }
