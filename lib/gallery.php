@@ -81,7 +81,8 @@ class GalleryAction extends Action {
 
 	function show_tags_dropdown($profile) {
 		$tag = $this->trimmed('tag');
-		$tags = $profile->getAllTags();
+		list($lst, $usr) = $this->fields();
+		$tags = $this->get_all_tags($profile, $lst, $usr);
 		$content = array();
 		foreach ($tags as $t) {
 			$content[$t] = $t;
@@ -240,5 +241,23 @@ class GalleryAction extends Action {
 		}
 		
 		common_element_end('p');
+	}
+	
+	# Get list of tags we tagged other users with
+
+	function get_all_tags($profile, $lst, $usr) {
+		$profile_tag = new Notice_tag();
+		$profile_tag->query('SELECT DISTINCT(tag) ' .
+							'FROM profile_tag, subscription ' .
+							'WHERE tagger = ' . $profile->id . ' ' .
+							'AND ' . $usr . ' = ' . $profile->id . ' ' .
+							'AND ' . $lst . ' = tagged ' .
+							'AND tagger != tagged');
+		$tags = array();
+		while ($profile_tag->fetch()) {
+			$tags[] = $profile_tag->tag;
+		}
+		$profile_tag->free();
+		return $tags;
 	}
 }
