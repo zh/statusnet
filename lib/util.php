@@ -710,7 +710,7 @@ function common_render_content($text, $notice) {
 	$id = $notice->profile_id;
 	$r = preg_replace('/(^|\s+)@([A-Za-z0-9]{1,64})/e', "'\\1@'.common_at_link($id, '\\2')", $r);
 	$r = preg_replace('/^T ([A-Z0-9]{1,64}) /e', "'T '.common_at_link($id, '\\1').' '", $r);
-	$r = preg_replace('/(^|\s+)@#([A-Za-z0-9]{1,64})/e', "'\\1@'.common_at_hash_link($id, '\\2')", $r);
+	$r = preg_replace('/(^|\s+)@#([A-Za-z0-9]{1,64})/e', "'\\1@#'.common_at_hash_link($id, '\\2')", $r);
 	return $r;
 }
 
@@ -1283,15 +1283,20 @@ function common_save_replies($notice) {
 	}
 	# extract all @messages
 	$cnt = preg_match_all('/(?:^|\s)@([a-z0-9]{1,64})/', $notice->content, $match);
-	if (!$cnt && !$tname) {
-		return true;
+
+	$names = array();
+	
+	if ($cnt || $tname) {
+		# XXX: is there another way to make an array copy?
+		$names = ($tname) ? array_unique(array_merge(array(strtolower($tname)), $match[1])) : array_unique($match[1]);
 	}
-	# XXX: is there another way to make an array copy?
-	$names = ($tname) ? array_unique(array_merge(array(strtolower($tname)), $match[1])) : array_unique($match[1]);
+	
 	$sender = Profile::staticGet($notice->profile_id);
+	
+	$replied = array();
+	
 	# store replied only for first @ (what user/notice what the reply directed,
 	# we assume first @ is it)
-	$replied = array();
 	
 	for ($i=0; $i<count($names); $i++) {
 		$nickname = $names[$i];
@@ -1338,6 +1343,7 @@ function common_save_replies($notice) {
 			}
 		}
 	}
+	
 }
 
 function common_broadcast_notice($notice, $remote=false) {
