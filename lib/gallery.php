@@ -86,14 +86,16 @@ class GalleryAction extends Action {
 		foreach ($tags as $t) {
 			$content[common_local_url($this->trimmed('action'), array('tag' => $t))] = $t;
 		}
-		common_element('a', array('href' => common_local_url($this->trimmed('action'),
-															 array('nickname' => $profile->nickname))),
-					   _('All'));
-		common_element_start('form', array('name' => 'bytag', 'id' => 'bytag'));
-		common_dropdown('tag', _('Tag'), $content,
-						_('Choose a tag to narrow list'), FALSE, $tag);
-		common_submit('go', _('Go'));
-		common_element_end('form');
+		if ($tags) {
+			common_element('a', array('href' => common_local_url($this->trimmed('action'),
+																 array('nickname' => $profile->nickname))),
+						   _('All'));
+			common_element_start('form', array('name' => 'bytag', 'id' => 'bytag'));
+			common_dropdown('tag', _('Tag'), $content,
+							_('Choose a tag to narrow list'), FALSE, $tag);
+			common_submit('go', _('Go'));
+			common_element_end('form');
+		}
 	}
 	
 	function show_top($profile) {
@@ -119,7 +121,7 @@ class GalleryAction extends Action {
 		}
 
 		# XXX: memcached results
-		# XXX: SQL injection on $tag
+		# FIXME: SQL injection on $tag
 		
 		$other->query('SELECT profile.* ' .
 					  'FROM profile JOIN subscription ' .
