@@ -62,13 +62,16 @@ class GalleryAction extends Action {
 			$display = 'list';
 		}
 		
+		$tag = $this->arg('tag');
+		
 		common_show_header($profile->nickname . ": " . $this->gallery_type(),
 						   NULL, $profile,
 						   array($this, 'show_top'));
 
 		$this->display_links($profile, $page, $display);
+		$this->show_tags_dropdown($profile);
 		
-		$this->show_gallery($profile, $page, $display);
+		$this->show_gallery($profile, $page, $display, $tag);
 		common_show_footer();
 	}
 
@@ -76,12 +79,29 @@ class GalleryAction extends Action {
 		$this->client_error(_('No such user.'));
 	}
 
+	function show_tags_dropdown($profile) {
+		$tag = $this->trimmed('tag');
+		$tags = $profile->getAllTags();
+		$content = array();
+		foreach ($tags as $t) {
+			$content[common_local_url($this->trimmed('action'), array('tag' => $t))] = $t;
+		}
+		common_element('a', array('href' => common_local_url($this->trimmed('action'),
+															 array('nickname' => $profile->nickname))),
+					   _('All'));
+		common_element_start('form', array('name' => 'bytag', 'id' => 'bytag'));
+		common_dropdown('tag', _('Tag'), $content,
+						_('Choose a tag to narrow list'), FALSE, $tag);
+		common_submit('go', _('Go'));
+		common_element_end('form');
+	}
+	
 	function show_top($profile) {
 		common_element('div', 'instructions',
 					   $this->get_instructions($profile));
 	}
 
-	function show_gallery($profile, $page, $display='list') {
+	function show_gallery($profile, $page, $display='list', $tag=NULL) {
 
 		$other = new Profile();
 		
@@ -99,12 +119,15 @@ class GalleryAction extends Action {
 		}
 
 		# XXX: memcached results
+		# XXX: SQL injection on $tag
 		
 		$other->query('SELECT profile.* ' .
 					  'FROM profile JOIN subscription ' .
 					  'ON profile.id = subscription.' . $lst . ' ' .
+					  (($tag) ? 'JOIN profile_tag ON (profile.id = profile_tag.tagged AND subscription.'.$usr.'= profile_tag.tagger) ' : '') .
 					  'WHERE ' . $usr . ' = ' . $profile->id . ' ' .
 					  'AND subscriber != subscribed ' .
+					  (($tag) ? 'AND profile_tag.tag= "' . $tag . '" ': '') .
 					  'ORDER BY subscription.created DESC, profile.id DESC ' .
 					  $lim);
 		
