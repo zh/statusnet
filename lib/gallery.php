@@ -84,7 +84,7 @@ class GalleryAction extends Action {
 		$tags = $profile->getAllTags();
 		$content = array();
 		foreach ($tags as $t) {
-			$content[common_local_url($this->trimmed('action'), array('tag' => $t))] = $t;
+			$content[$t] = $t;
 		}
 		if ($tags) {
 			common_element('a', array('href' => common_local_url($this->trimmed('action'),
