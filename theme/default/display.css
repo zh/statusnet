@@ -501,6 +501,7 @@ ul.subscriptions, ul.subscribers {
 	padding: 0;
 	list-style-type: none;
 	overflow: auto;
+	clear:both;
 	}
 ul.subscriptions li, ul.subscribers li {
 	display: block;
@@ -868,6 +869,95 @@ font-size: 80%;
 p.tagcloud a.smallest {
 font-size: 60%;
 }
+
+
+#subscriptions_nav,
+#filter_tags {
+margin:0 0 2em 0;
+}
+
+#subscriptions_nav {
+padding-bottom:0.5em;
+/*border-bottom:1px solid #D8E2D7;*/
+float:right;
+}
+#filter_tags {
+float:left;
+}
+
+#subscriptions_nav dt,
+#filter_tags dt {
+display:none;
+}
+#subscriptions_nav dd,
+#filter_tags dd {
+margin-left:0;
+}
+#subscriptions_nav ul,
+#filter_tags ul {
+padding-left:0;
+list-style-type:none;
+}
+#subscriptions_nav ul li {
+display:inline;
+padding-left:0.5em;
+margin-left:0.5em;
+border-left:1px solid #D8E2D7;;
+}
+#subscriptions_nav ul li.child_1 {
+border-left:0;
+padding-left:0;
+margin-left:0;
+}
+
+
+#filter_tags ul li {
+float:left;
+margin-left:0.5em;
+padding-left:0.5em;
+border-left:1px solid #D8E2D7;;
+}
+#filter_tags ul li.child_1 {
+margin-left:0;
+border-left:0;
+padding-left:0;
+}
+#filter_tags ul li li {
+margin-left:0;
+}
+#filter_tags ul li#filter_tags_item {
+width:30em;
+}
+#filter_tags ul li#filter_tags_item form {
+clear:none;
+}
+#filter_tags ul li#filter_tags_item label {
+margin-right:0.5em;
+font-size:14px;
+font-weight:normal;
+font-family:Georgia,"Times New Roman",Times,serif;
+}
+#filter_tags ul li#filter_tags_item label,
+#filter_tags ul li#filter_tags_item select {
+margin-top:-1px;
+margin-bottom:0.5em;
+display:inline;
+}
+#filter_tags ul li#filter_tags_item p {
+margin:0 1em 0 0;
+padding:0;
+float:left;
+}
+#filter_tags ul li .input_instructions {
+display:inline;
+display:block;
+margin:0;
+}
+#filter_tags ul li#filter_tags_item .submit {
+margin:0;
+}
+
+
 
 
 .tags_self,

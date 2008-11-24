@@ -88,14 +88,25 @@ class GalleryAction extends Action {
 			$content[$t] = $t;
 		}
 		if ($tags) {
+		  common_element_start('dl', array('id'=>'filter_tags'));
+      common_element('dt', null, _('Filter tags'));
+		  common_element_start('dd');
+		  common_element_start('ul');
+		  common_element_start('li', array('id'=>'filter_tags_all', 'class'=>'child_1'));
 			common_element('a', array('href' => common_local_url($this->trimmed('action'),
 																 array('nickname' => $profile->nickname))),
 						   _('All'));
+			common_element_end('li');
+		  common_element_start('li', array('id'=>'filter_tags_item'));
 			common_element_start('form', array('name' => 'bytag', 'id' => 'bytag'));
 			common_dropdown('tag', _('Tag'), $content,
 							_('Choose a tag to narrow list'), FALSE, $tag);
 			common_submit('go', _('Go'));
 			common_element_end('form');
+			common_element_end('li');
+			common_element_end('ul');
+			common_element_end('dd');
+			common_element_end('dl');
 		}
 	}
 	
@@ -217,30 +228,36 @@ class GalleryAction extends Action {
 	}
 	
 	function display_links($profile, $page, $display) {
-		
-		common_element_start('p');
+		common_element_start('dl', array('id'=>'subscriptions_nav'));
+		common_element('dt', null, _('Subscriptions navigation'));
+		common_element_start('dd');
+		common_element_start('ul', array('class'=>'nav'));
 		
 		switch ($display) {
 		 case 'list':
-			common_element('span', NULL, _('List'));
-			common_text(' | ');
-			common_element('a', array('href' => common_local_url($this->trimmed('action'),
+			common_element('li', array('class'=>'child_1'), _('List'));
+			common_element_start('li');
+      common_element('a', array('href' => common_local_url($this->trimmed('action'),
 																 array('display' => 'icons',
 																	   'nickname' => $profile->nickname,
 																	   'page' => 1 + floor((($page - 1) * PROFILES_PER_PAGE) / AVATARS_PER_PAGE)))),
 						   _('Icons'));
-			break;
+			common_element_end('li');
+      break;
 		 default:
+      common_element_start('li', array('class'=>'child_1'));
 			common_element('a', array('href' => common_local_url($this->trimmed('action'),
 																 array('nickname' => $profile->nickname,
 																	   'page' => 1 + floor((($page - 1) * AVATARS_PER_PAGE) / PROFILES_PER_PAGE)))),
 						   _('List'));
-			common_text(' | ');
-			common_element('span', NULL, _('Icons'));
+			common_element_end('li');
+			common_element('li', NULL, _('Icons'));
 			break;
 		}
 		
-		common_element_end('p');
+		common_element_end('ul');
+		common_element_end('dd');
+		common_element_end('dl');
 	}
 	
 	# Get list of tags we tagged other users with
