@@ -1326,24 +1326,26 @@ function common_save_replies($notice) {
 			$replied[$recipient->id] = 1;
 		}
 	}
+	
 	# Hash format replies, too
 	$cnt = preg_match_all('/(?:^|\s)@#([a-z0-9]{1,64})/', $notice->content, $match);
-	foreach ($match as $tag) {
-		$tagged = Profile_tag::getTagged($sender->id, $tag);
-		foreach ($tagged as $t) {
-			if (!$replied[$t->id]) {
-				$reply = new Reply();
-				$reply->notice_id = $notice->id;
-				$reply->profile_id = $t->id;
-				$id = $reply->insert();
-				if (!$id) {
-					common_log_db_error($reply, 'INSERT', __FILE__);
-					return;
+	if ($cnt) {
+		foreach ($match[1] as $tag) {
+			$tagged = Profile_tag::getTagged($sender->id, $tag);
+			foreach ($tagged as $t) {
+				if (!$replied[$t->id]) {
+					$reply = new Reply();
+					$reply->notice_id = $notice->id;
+					$reply->profile_id = $t->id;
+					$id = $reply->insert();
+					if (!$id) {
+						common_log_db_error($reply, 'INSERT', __FILE__);
+						return;
+					}
 				}
 			}
 		}
 	}
-	
 }
 
 function common_broadcast_notice($notice, $remote=false) {
