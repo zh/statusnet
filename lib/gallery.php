@@ -34,7 +34,13 @@ class GalleryAction extends Action {
 
 	function handle($args) {
 		parent::handle($args);
+
+		# Post from the tag dropdown; redirect to a GET
 		
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+		    common_redirect($this->self_url(), 307);
+		}
+
 		$nickname = common_canonical_nickname($this->arg('nickname'));
 		$user = User::staticGet('nickname', $nickname);
 
@@ -63,7 +69,7 @@ class GalleryAction extends Action {
 		}
 		
 		$tag = $this->arg('tag');
-		
+
 		common_show_header($profile->nickname . ": " . $this->gallery_type(),
 						   NULL, $profile,
 						   array($this, 'show_top'));
@@ -88,17 +94,17 @@ class GalleryAction extends Action {
 			$content[$t] = $t;
 		}
 		if ($tags) {
-		  common_element_start('dl', array('id'=>'filter_tags'));
-      common_element('dt', null, _('Filter tags'));
-		  common_element_start('dd');
-		  common_element_start('ul');
-		  common_element_start('li', array('id'=>'filter_tags_all', 'class'=>'child_1'));
+			common_element_start('dl', array('id'=>'filter_tags'));
+			common_element('dt', null, _('Filter tags'));
+			common_element_start('dd');
+			common_element_start('ul');
+			common_element_start('li', array('id'=>'filter_tags_all', 'class'=>'child_1'));
 			common_element('a', array('href' => common_local_url($this->trimmed('action'),
 																 array('nickname' => $profile->nickname))),
 						   _('All'));
 			common_element_end('li');
-		  common_element_start('li', array('id'=>'filter_tags_item'));
-			common_element_start('form', array('name' => 'bytag', 'id' => 'bytag'));
+			common_element_start('li', array('id'=>'filter_tags_item'));
+			common_element_start('form', array('name' => 'bytag', 'id' => 'bytag', 'method' => 'post'));
 			common_dropdown('tag', _('Tag'), $content,
 							_('Choose a tag to narrow list'), FALSE, $tag);
 			common_submit('go', _('Go'));
