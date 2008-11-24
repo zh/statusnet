@@ -26,10 +26,12 @@ class ProfileList {
 
 	var $profile = NULL;
 	var $owner = NULL;
+	var $action = NULL;
 	
-	function __construct($profile, $owner=NULL) {
+	function __construct($profile, $owner=NULL, $action=NULL) {
 		$this->profile = $profile;
 		$this->owner = $owner;
+		$this->action = $action;
 	}
 	
 	function show_list() {
@@ -124,7 +126,7 @@ class ProfileList {
 																	 array('id' => $this->profile->id))),
 							   _('Tags'));
 			} else {
-				common_element(_('Tags'));
+				common_text(_('Tags'));
 			}
 			common_text(":");
 			common_element_end('dt');
@@ -133,9 +135,9 @@ class ProfileList {
 				common_element_start('ul', 'tags xoxo');
 				foreach ($tags as $tag) {
 					common_element_start('li');
-					common_element('a', array('rel' => "tag",
-											  'href' => common_local_url($action,
-																		 array('nickname' => $user->nickname,
+					common_element('a', array('rel' => 'tag',
+											  'href' => common_local_url($this->action,
+																		 array('nickname' => $this->owner->nickname,
 																			   'tag' => $tag))),
 								   $tag);
 					common_element_end('li');
@@ -150,16 +152,13 @@ class ProfileList {
 		}
 
 		if ($user) {
-			$action = NULL;
-			
+			$action = NULL;			
 			if ($user->isSubscribed($this->profile)) {
 				$action = 'subscriptions';
 			} else if (Subscription::pkeyGet(array('subscriber' => $this->profile->id,
 												   'subscribed' => $user->id))) {
 				$action = 'subscribers';
 			}
-			
-			
 		}
 		
 		common_element_end('li');

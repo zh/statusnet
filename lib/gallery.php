@@ -134,7 +134,7 @@ class GalleryAction extends Action {
 					  $lim);
 		
 		if ($display == 'list') {
-			$profile_list = new ProfileList($other, $profile);
+			$profile_list = new ProfileList($other, $profile, $this->trimmed('action'));
 			$cnt = $profile_list->show_list();
 		} else {
 			$cnt = $this->icon_list($other);
