@@ -51,7 +51,7 @@ class OthersettingsAction extends SettingsAction {
 			'metamark.net' => 'metamark.net'
 		);
 		
-		common_dropdown('urlshorteningservice', _('Service'), $services, _('Shortening service to use when notices exceed the 140 character limit.'), FALSE, $user->urlshorteningservice);
+		common_dropdown('urlshorteningservice', _('Service'), $services, _('Automatic shortening service to use.'), FALSE, $user->urlshorteningservice);
 		
 		common_submit('save', _('Save'));
 		
