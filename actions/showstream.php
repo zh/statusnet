@@ -64,7 +64,6 @@ class ShowstreamAction extends StreamAction {
 	}
 
 	function show_top($user) {
-
 		$cur = common_current_user();
 
 		if ($cur && $cur->id == $user->id) {
@@ -72,7 +71,24 @@ class ShowstreamAction extends StreamAction {
 		}
 
 		$this->views_menu();
+
+		$this->show_feeds_list(array(0=>array('href'=>common_local_url('userrss', array('nickname' => $user->nickname)), 
+											  'type' => 'rss',
+											  'version' => 'RSS 1.0',
+											  'item' => 'notices'),
+									 1=>array('href'=>common_local_url('usertimeline', array('nickname' => $user->nickname)), 
+											  'type' => 'atom',
+											  'version' => 'Atom 1.0',
+											  'item' => 'usertimeline'),
+
+									 2=>array('href'=>common_local_url('foaf',array('nickname' => $user->nickname)),
+											  'type' => 'rdf',
+											  'version' => 'FOAF',
+											  'item' => 'foaf')));
 	}
+
+
+
 
 	function show_header($user) {
 		# Feeds
@@ -120,6 +136,11 @@ class ShowstreamAction extends StreamAction {
 										 'content' => "xmpp+http:sha1:" . sha1(sha1('xmpp:' . $user->jabber) . sha1($profile->profileurl))));
 		}
 
+		# See https://wiki.mozilla.org/Microsummaries
+		
+		common_element('link', array('rel' => 'microsummary',
+									 'href' => common_local_url('microsummary',
+																array('nickname' => $profile->nickname))));
 	}
 
 	function no_such_user() {
@@ -150,25 +171,28 @@ class ShowstreamAction extends StreamAction {
 									'width' => AVATAR_PROFILE_SIZE,
 									'height' => AVATAR_PROFILE_SIZE,
 									'alt' => $profile->nickname));
+
+        common_element_start('ul', array('id' => 'profile_actions'));
+
+        common_element_start('li', array('id' => 'profile_subscribe'));
 		$cur = common_current_user();
 		if ($cur) {
 			if ($cur->id != $profile->id) {
 				if ($cur->isSubscribed($profile)) {
-					$this->show_unsubscribe_form($profile);
+					common_unsubscribe_form($profile);
 				} else {
-					$this->show_subscribe_form($profile);
+					common_subscribe_form($profile);
 				}
 			}
 		} else {
 			$this->show_remote_subscribe_link($profile);
 		}
+        common_element_end('li');
 		
 		$user = User::staticGet('id', $profile->id);
-		
-		if ($cur && $cur->id != $user->id && $cur->mutuallySubscribed($user)) {
-			common_element('a', array('href' => common_local_url('newmessage', array('to' => $user->id))),
-						   _('Send a message'));
-		}
+		common_profile_new_message_nudge($cur, $user, $profile);
+        
+		common_element_end('ul');
 		
 		common_element_end('div');
 
@@ -198,20 +222,6 @@ class ShowstreamAction extends StreamAction {
 		$this->show_statistics($profile);
 
 		common_element_end('div');
-	}
-
-	function show_subscribe_form($profile) {
-		common_element_start('form', array('id' => 'subscribe', 'method' => 'post',
-										   'action' => common_local_url('subscribe')));
-		common_hidden('token', common_session_token());
-		common_element('input', array('id' => 'subscribeto',
-									  'name' => 'subscribeto',
-									  'type' => 'hidden',
-									  'value' => $profile->nickname));
-		common_element('input', array('type' => 'submit',
-									  'class' => 'submit',
-									  'value' => _('Subscribe')));
-		common_element_end('form');
 	}
 
 	function show_remote_subscribe_link($profile) {
@@ -346,6 +356,23 @@ class ShowstreamAction extends StreamAction {
 		common_element('dd', 'subscribers', (is_int($subbed_count)) ? $subbed_count : '0');
 		common_element('dt', 'notices', _('Notices'));
 		common_element('dd', 'notices', (is_int($notice_count)) ? $notice_count : '0');
+		# XXX: link these to something
+		common_element('dt', 'tags', _('Tags'));
+		common_element_start('dd', 'tags');
+		$tags = Profile_tag::getTags($profile->id, $profile->id);
+
+		common_element_start('ul', 'tags xoxo');
+		foreach ($tags as $tag) {
+			common_element_start('li');
+			common_element('a', array('rel' => 'bookmark tag',
+									  'href' => common_local_url('peopletag',
+																 array('tag' => $tag))),
+						   $tag);
+			common_element_end('li');
+		}
+		common_element_end('ul');
+	    common_element_end('dd');
+	
 		common_element_end('dl');
 
 		common_element_end('div');
@@ -458,6 +485,7 @@ class ShowstreamAction extends StreamAction {
 			common_raw('&times;');
 			common_element_end('a');
 		}
+		
 		common_element_end('p');
 		common_element_end('li');
 	}

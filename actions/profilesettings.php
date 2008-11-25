@@ -67,10 +67,9 @@ class ProfilesettingsAction extends SettingsAction {
 										   'action' =>
 										   common_local_url('profilesettings')));
 		common_hidden('token', common_session_token());
-
-
-
+		
 		# too much common patterns here... abstractable?
+		
 		common_input('nickname', _('Nickname'),
 					 ($this->arg('nickname')) ? $this->arg('nickname') : $profile->nickname,
 					 _('1-64 lowercase letters or numbers, no punctuation or spaces'));
@@ -85,6 +84,9 @@ class ProfilesettingsAction extends SettingsAction {
 		common_input('location', _('Location'),
 					 ($this->arg('location')) ? $this->arg('location') : $profile->location,
 					 _('Where you are, like "City, State (or Region), Country"'));
+		common_input('tags', _('Tags'),
+					 ($this->arg('tags')) ? $this->arg('tags') : implode(' ', $user->getSelfTags()),
+					 _('Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated'));
 
 		$language = common_language();
 		common_dropdown('language', _('Language'), get_nice_language_list(), _('Preferred language'), TRUE, $language);
@@ -194,7 +196,8 @@ class ProfilesettingsAction extends SettingsAction {
 		$autosubscribe = $this->boolean('autosubscribe');
 		$language = $this->trimmed('language');
 		$timezone = $this->trimmed('timezone');
-
+		$tagstring = $this->trimmed('tags');
+		
 		# Some validation
 
 		if (!Validate::string($nickname, array('min_length' => 1,
@@ -226,8 +229,22 @@ class ProfilesettingsAction extends SettingsAction {
 			return;
         } else if (!is_null($language) && strlen($language) > 50) {
         	$this->show_form(_('Language is too long (max 50 chars).'));
+			return;
 		}
 
+		if ($tagstring) {
+			$tags = array_map('common_canonical_tag', preg_split('/[\s,]+/', $tagstring));
+		} else {
+			$tags = array();
+		}
+			
+		foreach ($tags as $tag) {
+			if (!common_valid_profile_tag($tag)) {
+				$this->show_form(sprintf(_('Invalid tag: "%s"'), $tag));
+				return;
+			}
+		}
+		
 		$user = common_current_user();
 
 		$user->query('BEGIN');
@@ -300,6 +317,15 @@ class ProfilesettingsAction extends SettingsAction {
 			return;
 		}
 
+		# Set the user tags
+		
+		$result = $user->setSelfTags($tags);
+
+		if (!$result) {
+			common_server_error(_('Couldn\'t save tags.'));
+			return;
+		}
+		
 		$user->query('COMMIT');
 
 		common_broadcast_profile($profile);

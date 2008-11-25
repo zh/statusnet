@@ -2,8 +2,8 @@
 README
 ------
 
-Laconica 0.6.2
-13 November 2008
+Laconica 0.6.3 ("Gardening at Night")
+24 November 2008
 
 This is the README file for Laconica, the Open Source microblogging
 platform. It includes installation instructions, descriptions of
@@ -72,41 +72,35 @@ New this version
 ================
 
 This is a minor feature and security improvement version from version
-0.6.1 (release 6 Oct 2008). Notable features of version 0.6.2 include:
+0.6.2 (release 13 Nov 2008). Notable features of version 0.6.3 include:
 
-- Notice inboxes have been added. This is a big database change
-  that will allow a more robust messaging model in the future; for
-  now, it is an optimization that speeds up some queries.
-- Posted URLs are automatically shortened; users can choose their
-  preferred url shortening service.
-- Support SUP protocol
-  (http://code.google.com/p/simpleupdateprotocol/) for quicker updates
-  to FriendFeed (http://friendfeed.com/).
-- Tag streams now have an RSS feed.
-- CSRF protection for posting notices and logging in. This closes
-  the "Version 0 API" used initially for identi.ca and supported
-  until September 30, 2008.
-- Slightly broadened the layout of default and Identi.ca themes to
-  accommodate more verbose (non-English!) languages' interfaces.
-- Replies made through the Web site will refer to the clicked-on
-  message.
-- enjit queue handler.
-- Experimental theme for iphone use.
-- Various internationalization scripts and updates.
-- Better UTF-8 escaped entity handling in API.
-- Better handling of since_id and before_id parameters in API.
-- Better heuristics for when to include a closing parenthesis in a link.
-- Handle multi-byte-encoded @-replies from XMPP through Twitter bridge.
-- Better handling of read-only requests in API, to allow using
-  replicated mirror servers.
-- A lot of common code factored out of default and identi.ca themes;
-  default theme now much more functional.
-- 'Invite-only' mode for closed sites.
-- Some undocumented features in Twitter API user/show.
-- Favorites flag in API for statuses.
-
-Because of the CSRF fixes in particular, this upgrade is recommended
-for all Laconica sites.
+- 'nudge' functionality to tell a user that they're missed.
+- Links to related RSS/Atom feeds on all pages.
+- Favor/disfavor icons changed to images.
+- Better checks to prevent remote subscribing to a local user, causing
+  "ghost profiles" (dupes in people search or subscriptions lists).
+- Twitter friend sync. Users who set up their Twitter accounts will
+  be automatically connected to other local users who have Twitter
+  accounts and who they're subscribed to on Twitter.
+- List view of subscriptions/subscribers.
+- Subscribe/unsubscribe button on subscriptions/subscribers list.
+- Optionally hide certain users from the public stream.
+- Give public area a few more tabs.
+- Add Featured users tab to public area.
+- Add Most favorited notices tab to public area.
+- Users can give themselves tags.
+- Users can tag their subscribers or subscriptions.
+- Users can send @-replies to tagged subsets of their contact list
+  using @#tag.
+- Subscribe/unsubscribe with Ajax form.
+- Post notice with Ajax form.
+- Script to optionally add notice inboxes for only some users.
+- Incremental caching of notice streams using memcached.
+- Use cached favorites info to avoid excess DB hits for faves.
+- Optionally use Sphinx Search for notice search.
+- Optionally use Sphinx Search for people search.
+- FOAF URL link on profile page.
+- HTML correction for repeated @id attributes in favorites forms.
 
 Prerequisites
 =============
@@ -132,6 +126,7 @@ Your PHP installation must include the following PHP extensions:
 - MySQL. For accessing the database.
 - GD. For scaling down avatar images.
 - mbstring. For handling Unicode (UTF-8) encoded strings.
+- gettext. For multiple languages. Default on many PHP installs.
 
 For some functionality, you will also need the following extensions:
 
@@ -141,7 +136,10 @@ For some functionality, you will also need the following extensions:
   server to store the data in.
 - Mailparse. Efficient parsing of email requires this extension.
   Submission by email or SMS-over-email uses this extension.
-  
+- Sphinx Search. A client for the sphinx server, an alternative
+  to MySQL or Postgresql fulltext search. You will also need a
+  Sphinx server to serve the search queries.
+
 You will almost definitely get 2-3 times better performance from your
 site if you install a PHP bytecode cache/accelerator. Some well-known
 examples are: eaccelerator, Turck mmcache, xcache, apc. Zend Optimizer
@@ -331,6 +329,24 @@ If you have problems with the .htaccess file on versions of Apache
 earlier than 2.2.x, try changing the regular expressions in the
 htaccess.sample file that use "\w" to just use ".".
 
+Sphinx
+------
+
+To use a Sphinx server to search users and notices, you also need
+to install, compile and enable the sphinx pecl extension for php on the
+client side, which itself depends on the sphinx development files.
+"pecl install sphinx" should take care of that. Add "extension=sphinx.so"
+to your php.ini and reload apache to enable it.
+
+You can update your MySQL or Postgresql databases to drop their fulltext
+search indexes, since they're now provided by sphinx.
+
+On the sphinx server side, a script reads the main database and build
+the keyword index. A cron job reads the database and keeps the sphinx
+indexes up to date. scripts/sphinx-cron.sh should be called by cron
+every 5 minutes, for example. scripts/sphinx.sh is an init.d script
+to start and stop the sphinx search daemon.
+
 SMS
 ---
 
@@ -498,6 +514,26 @@ All the daemons write their process IDs (pids) to /var/run/ by
 default. This can be useful for starting, stopping, and monitoring the
 daemons.
 
+Twitter Friends Syncing
+-----------------------
+
+As of Laconica 0.6.3, users may set a flag in their settings ("Subscribe
+to my Twitter friends here" under the Twitter tab) to have Laconica
+attempt to locate and subscribe to "friends" (people they "follow") on
+Twitter who also have accounts on your Laconica system, and who have
+previously set up a link for automatically posting notices to Twitter.
+
+Optionally, there is a script (./scripts/synctwitterfriends.php), meant
+to be run periodically from a job scheduler (e.g.: cron under Unix), to
+look for new additions to users' friends lists. Note that the friends
+syncing only subscribes users to each other, it does not unsubscribe
+users when they stop following each other on Twitter.
+
+Sample cron job:
+
+# Update Twitter friends subscriptions every half hour
+0,30 * * * * /path/to/php /path/to/laconica/scripts/synctwitterfriends.php>&/dev/null
+
 Sitemaps
 --------
 
@@ -585,7 +621,7 @@ also download more up-to-date .po files there, if you so desire.
 Backups
 -------
 
-There is no builtin system for doing backups in Laconica. You can make
+There is no built-in system for doing backups in Laconica. You can make
 backups of a working Laconica system by backing up the database and
 the Web directory. To backup the database use mysqldump (http://ur1.ca/7xo)
 and to backup the Web directory, try tar.
@@ -829,6 +865,9 @@ blacklist: an array of strings for usernames that may not be
 	   but you may want to add others if you have other software
 	   installed in a subdirectory of Laconica or if you just
 	   don't want certain words used as usernames.
+featured: an array of nicknames of 'featured' users of the site.
+	  Can be useful to draw attention to well-known users, or
+	  interesting people, or whatever.
 
 avatar
 ------
@@ -852,6 +891,9 @@ For configuring the public stream.
 localonly: If set to true, only messages posted by users of this
 	   service (rather than other services, filtered through OMB)
 	   are shown in the public stream. Default true.
+blacklist: An array of IDs of users to hide from the public stream.
+	   Useful if you have someone making excessive Twitterfeed posts
+	   to the site, other kinds of automated posts, testing bots, etc.
 
 theme
 -----
@@ -924,6 +966,17 @@ database data in memcached (http://www.danga.com/memcached/).
 enabled: Set to true to enable. Default false.
 server: a string with the hostname of the memcached server. Can also
 	be an array of hostnames, if you've got more than one server.
+
+sphinx
+------
+
+You can get a significant boost in performance using Sphinx Search
+instead of your database server to search for users and notices.
+(http://sphinxsearch.com/).
+
+enabled: Set to true to enable. Default false.
+server: a string with the hostname of the sphinx server.
+port: an integer with the port number of the sphinx server.
 
 integration
 -----------

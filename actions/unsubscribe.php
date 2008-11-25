@@ -49,7 +49,20 @@ class UnsubscribeAction extends Action {
 			return;
 		}
 
-		common_redirect(common_local_url('subscriptions', array('nickname' =>
-																$user->nickname)));
+		$profile = Profile::staticGet('nickname', $other_nickname);
+		
+		if ($this->boolean('ajax')) {
+			common_start_html('text/xml');
+			common_element_start('head');
+			common_element('title', null, _('Unsubscribed'));
+			common_element_end('head');
+			common_element_start('body');
+			common_subscribe_form($profile);
+			common_element_end('body');
+			common_element_end('html');
+		} else {
+    		common_redirect(common_local_url('subscriptions', array('nickname' =>
+	    															$user->nickname)));
+        }
 	}
 }

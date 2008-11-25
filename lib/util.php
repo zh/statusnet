@@ -114,11 +114,11 @@ function common_element($tag, $attrs=NULL, $content=NULL) {
 	common_element_end($tag);
 }
 
-function common_start_xml($doc=NULL, $public=NULL, $system=NULL) {
+function common_start_xml($doc=NULL, $public=NULL, $system=NULL, $indent=true) {
 	global $xw;
 	$xw = new XMLWriter();
 	$xw->openURI('php://output');
-	$xw->setIndent(true);
+	$xw->setIndent($indent);
 	$xw->startDocument('1.0', 'UTF-8');
 	if ($doc) {
 		$xw->writeDTD($doc, $public, $system);
@@ -181,6 +181,9 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 								   'src' => common_path('js/jquery.form.js')),
 				   ' ');
 	common_element('script', array('type' => 'text/javascript',
+								   'src' => common_path('js/xbImportNode.js')),
+				   ' ');
+	common_element('script', array('type' => 'text/javascript',
 								   'src' => common_path('js/util.js?version='.LACONICA_VERSION)),
 				   ' ');
 	common_element('link', array('rel' => 'search', 'type' => 'application/opensearchdescription+xml',
@@ -232,7 +235,7 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 	common_element_start('div', array('id' => 'content'));
 }
 
-function common_start_html($type=NULL) {
+function common_start_html($type=NULL, $indent=true) {
 	
 	if (!$type) {
 		$httpaccept = isset($_SERVER['HTTP_ACCEPT']) ? $_SERVER['HTTP_ACCEPT'] : NULL;
@@ -252,7 +255,7 @@ function common_start_html($type=NULL) {
 
 	common_start_xml('html',
 					 '-//W3C//DTD XHTML 1.0 Strict//EN',
-					 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd');
+					 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd', $indent);
 
 	# FIXME: correct language for interface
 
@@ -314,7 +317,6 @@ function common_nav_menu() {
 						 _('Home'));
 	}
 	common_menu_item(common_local_url('peoplesearch'), _('Search'));
-	common_menu_item(common_local_url('tags'), _('Tags'));
 	if ($user) {
 		common_menu_item(common_local_url('profilesettings'),
 						 _('Settings'));
@@ -329,6 +331,8 @@ function common_nav_menu() {
 		}
 		common_menu_item(common_local_url('openidlogin'), _('OpenID'));
 	}
+	common_menu_item(common_local_url('doc', array('title' => 'help')),
+					 _('Help'));
 	common_element_end('ul');
 }
 
@@ -706,6 +710,7 @@ function common_render_content($text, $notice) {
 	$id = $notice->profile_id;
 	$r = preg_replace('/(^|\s+)@([A-Za-z0-9]{1,64})/e', "'\\1@'.common_at_link($id, '\\2')", $r);
 	$r = preg_replace('/^T ([A-Z0-9]{1,64}) /e', "'T '.common_at_link($id, '\\1').' '", $r);
+	$r = preg_replace('/(^|\s+)@#([A-Za-z0-9]{1,64})/e', "'\\1@#'.common_at_hash_link($id, '\\2')", $r);
 	return $r;
 }
 
@@ -842,6 +847,10 @@ function common_canonical_tag($tag) {
 	return strtolower(str_replace(array('-', '_', '.'), '', $tag));
 }
 
+function common_valid_profile_tag($str) {
+	return preg_match('/^[A-Za-z0-9_\-\.]{1,64}$/', $str);
+}
+
 function common_at_link($sender_id, $nickname) {
 	$sender = Profile::staticGet($sender_id);
 	$recipient = common_relative_profile($sender, common_canonical_nickname($nickname));
@@ -849,6 +858,22 @@ function common_at_link($sender_id, $nickname) {
 		return '<a href="'.htmlspecialchars($recipient->profileurl).'" class="atlink">'.$nickname.'</a>';
 	} else {
 		return $nickname;
+	}
+}
+
+function common_at_hash_link($sender_id, $tag) {
+	$user = User::staticGet($sender_id);
+	if (!$user) {
+		return $tag;
+	}
+	$tagged = Profile_tag::getTagged($user->id, common_canonical_tag($tag));
+	if ($tagged) {
+		$url = common_local_url('subscriptions',
+								array('nickname' => $user->nickname,
+									  'tag' => $tag));
+		return '<a href="'.htmlspecialchars($url).'" class="atlink">'.$tag.'</a>';
+	} else {
+		return $tag;
 	}
 }
 
@@ -945,10 +970,26 @@ function common_fancy_url($action, $args=NULL) {
 		} else {
 			return common_path('');
 		}
+	 case 'featured':
+		if ($args && isset($args['page'])) {
+			return common_path('featured?page=' . $args['page']);
+		} else {
+			return common_path('featured');
+		}
+	 case 'favorited':
+		if ($args && isset($args['page'])) {
+			return common_path('favorited?page=' . $args['page']);
+		} else {
+			return common_path('favorited');
+		}
 	 case 'publicrss':
 		return common_path('rss');
 	 case 'publicxrds':
 		return common_path('xrds');
+	 case 'featuredrss':
+		return common_path('featuredrss');
+	 case 'favoritedrss':
+		return common_path('favoritedrss');
 	 case 'opensearch':
                 if ($args && $args['type']) {
                         return common_path('opensearch/'.$args['type']);
@@ -963,6 +1004,8 @@ function common_fancy_url($action, $args=NULL) {
 	 case 'unsubscribe':
 	 case 'invite':
 		return common_path('main/'.$action);
+	 case 'tagother':
+		return common_path('main/tagother?id='.$args['id']);
 	 case 'register':
 		if ($args && $args['code']) {
 			return common_path('main/register/'.$args['code']);
@@ -975,6 +1018,8 @@ function common_fancy_url($action, $args=NULL) {
 		} else {
 			return common_path('main/remote');
 		}
+	 case 'nudge':
+	 	return common_path($args['nickname'].'/nudge');
 	 case 'openidlogin':
 		return common_path('main/openid');
 	 case 'profilesettings':
@@ -1003,11 +1048,10 @@ function common_fancy_url($action, $args=NULL) {
                 } else {
                         return common_path('notice/delete');
                 }
+	 case 'microsummary':
 	 case 'xrds':
 	 case 'foaf':
 		return common_path($args['nickname'].'/'.$action);
-	 case 'subscriptions':
-	 case 'subscribers':
 	 case 'all':
 	 case 'replies':
 	 case 'inbox':
@@ -1016,6 +1060,20 @@ function common_fancy_url($action, $args=NULL) {
 			return common_path($args['nickname'].'/'.$action.'?page=' . $args['page']);
 		} else {
 			return common_path($args['nickname'].'/'.$action);
+		}
+	 case 'subscriptions':
+	 case 'subscribers':
+		$nickname = $args['nickname'];
+		unset($args['nickname']);
+		if (isset($args['tag'])) {
+			$tag = $args['tag'];
+			unset($args['tag']);
+		}
+		$params = http_build_query($args);
+		if ($params) {
+			return common_path($nickname.'/'.$action . (($tag) ? '/' . $tag : '') . '?' . $params);
+		} else {
+			return common_path($nickname.'/'.$action . (($tag) ? '/' . $tag : ''));
 		}
 	 case 'allrss':
 		return common_path($args['nickname'].'/all/rss');
@@ -1029,6 +1087,9 @@ function common_fancy_url($action, $args=NULL) {
 		} else {
 			return common_path($args['nickname']);
 		}
+
+	 case 'usertimeline':
+		return common_path("api/statuses/user_timeline/".$args['nickname'].".atom");
 	 case 'confirmaddress':
 		return common_path('main/confirmaddress/'.$args['code']);
 	 case 'userbyid':
@@ -1057,6 +1118,10 @@ function common_fancy_url($action, $args=NULL) {
 			$path = 'tags';
 		}
 		return common_path($path . (($args) ? ('?' . http_build_query($args)) : ''));
+	 case 'peopletag':
+		$path = 'peopletag/' . $args['tag'];
+		unset($args['tag']);
+		return common_path($path . (($args) ? ('?' . http_build_query($args)) : ''));
 	 case 'tags':
 		return common_path('tags' . (($args) ? ('?' . http_build_query($args)) : ''));
 	 case 'favor':
@@ -1082,19 +1147,19 @@ function common_fancy_url($action, $args=NULL) {
 			switch (strtolower($args['method'])) {
 			 case 'user_timeline.rss':
 				return common_path('api/statuses/user_timeline/'.$args['argument'].'.rss');
-			 case 'user_timeline.atom':				
-				return common_path('api/statuses/user_timeline/'.$args['argument'].'.rss');
-			 case 'user_timeline.rss':
-				return common_path('api/statuses/user_timeline/'.$args['argument'].'.rss');
-			 case 'user_timeline.atom':				
-				return common_path('api/statuses/user_timeline/'.$args['argument'].'.rss');
+			 case 'user_timeline.atom':
+				return common_path('api/statuses/user_timeline/'.$args['argument'].'.atom');
+			 case 'user_timeline.json':
+				return common_path('api/statuses/user_timeline/'.$args['argument'].'.json');
+			 case 'user_timeline.xml':
+				return common_path('api/statuses/user_timeline/'.$args['argument'].'.xml');
 			 default: return common_simple_url($action, $args);
 			}
 		 default: return common_simple_url($action, $args);
 		}
 	 case 'sup':
 		if ($args && isset($args['seconds'])) {
-			return common_path('main/sup?seconds='.$args['seconds']);			
+			return common_path('main/sup?seconds='.$args['seconds']);
 		} else {
 			return common_path('main/sup');
 		}
@@ -1219,14 +1284,21 @@ function common_save_replies($notice) {
 	}
 	# extract all @messages
 	$cnt = preg_match_all('/(?:^|\s)@([a-z0-9]{1,64})/', $notice->content, $match);
-	if (!$cnt && !$tname) {
-		return true;
+
+	$names = array();
+	
+	if ($cnt || $tname) {
+		# XXX: is there another way to make an array copy?
+		$names = ($tname) ? array_unique(array_merge(array(strtolower($tname)), $match[1])) : array_unique($match[1]);
 	}
-	# XXX: is there another way to make an array copy?
-	$names = ($tname) ? array_unique(array_merge(array(strtolower($tname)), $match[1])) : array_unique($match[1]);
+	
 	$sender = Profile::staticGet($notice->profile_id);
+	
+	$replied = array();
+	
 	# store replied only for first @ (what user/notice what the reply directed,
 	# we assume first @ is it)
+	
 	for ($i=0; $i<count($names); $i++) {
 		$nickname = $names[$i];
 		$recipient = common_relative_profile($sender, $nickname, $notice->created);
@@ -1251,6 +1323,28 @@ function common_save_replies($notice) {
 			common_log(LOG_ERR, 'DB error inserting reply: ' . $last_error->message);
 			common_server_error(sprintf(_('DB error inserting reply: %s'), $last_error->message));
 			return;
+		} else {
+			$replied[$recipient->id] = 1;
+		}
+	}
+	
+	# Hash format replies, too
+	$cnt = preg_match_all('/(?:^|\s)@#([a-z0-9]{1,64})/', $notice->content, $match);
+	if ($cnt) {
+		foreach ($match[1] as $tag) {
+			$tagged = Profile_tag::getTagged($sender->id, $tag);
+			foreach ($tagged as $t) {
+				if (!$replied[$t->id]) {
+					$reply = new Reply();
+					$reply->notice_id = $notice->id;
+					$reply->profile_id = $t->id;
+					$id = $reply->insert();
+					if (!$id) {
+						common_log_db_error($reply, 'INSERT', __FILE__);
+						return;
+					}
+				}
+			}
 		}
 	}
 }
@@ -1258,7 +1352,7 @@ function common_save_replies($notice) {
 function common_broadcast_notice($notice, $remote=false) {
 
 	// Check to see if notice should go to Twitter
-	$flink = Foreign_link::getForeignLink($notice->profile_id, 1); // 1 == Twitter
+	$flink = Foreign_link::getByUserID($notice->profile_id, 1); // 1 == Twitter
 	if (($flink->noticesync & FOREIGN_NOTICE_SEND) == FOREIGN_NOTICE_SEND) {
 
 		// If it's not a Twitter-style reply, or if the user WANTS to send replies...
@@ -1806,13 +1900,25 @@ function common_disfavor_form($notice) {
 									   'method' => 'post',
 									   'class' => 'disfavor',
 									   'action' => common_local_url('disfavor')));
-	common_hidden('token', common_session_token());
-	common_hidden('notice', $notice->id);
+
+	common_element('input', array('type' => 'hidden',
+								  'name' => 'token-'. $notice->id,
+								  'id' => 'token-'. $notice->id,
+								  'class' => 'token',
+								  'value' => common_session_token()));
+
+	common_element('input', array('type' => 'hidden',
+								  'name' => 'notice',
+								  'id' => 'notice-n'. $notice->id,
+								  'class' => 'notice',
+								  'value' => $notice->id));
+
 	common_element('input', array('type' => 'submit',
 								  'id' => 'disfavor-submit-' . $notice->id,
 								  'name' => 'disfavor-submit-' . $notice->id,
 								  'class' => 'disfavor',
-								  'value' => '♥'));
+								  'value' => 'Disfavor favorite',
+								  'title' => 'Remove this message from favorites'));
 	common_element_end('form');
 }
 
@@ -1821,14 +1927,89 @@ function common_favor_form($notice) {
 									   'method' => 'post',
 									   'class' => 'favor',
 									   'action' => common_local_url('favor')));
-	common_hidden('token', common_session_token());
-	common_hidden('notice', $notice->id);
+
+	common_element('input', array('type' => 'hidden',
+								  'name' => 'token-'. $notice->id,
+								  'id' => 'token-'. $notice->id,
+								  'class' => 'token',
+								  'value' => common_session_token()));
+
+	common_element('input', array('type' => 'hidden',
+								  'name' => 'notice',
+								  'id' => 'notice-n'. $notice->id,
+								  'class' => 'notice',
+								  'value' => $notice->id));
+	
 	common_element('input', array('type' => 'submit',
 								  'id' => 'favor-submit-' . $notice->id,
 								  'name' => 'favor-submit-' . $notice->id,
 								  'class' => 'favor',
-								  'value' => '♡'));
+								  'value' => 'Add to favorites',
+								  'title' => 'Add this message to favorites'));
 	common_element_end('form');
+}
+
+function common_nudge_form($profile) {
+	common_element_start('form', array('id' => 'nudge', 'method' => 'post',
+									   'action' => common_local_url('nudge', array('nickname' => $profile->nickname))));
+	common_hidden('token', common_session_token());
+	common_element('input', array('type' => 'submit',
+								  'class' => 'submit',
+								  'value' => _('Send a nudge')));
+	common_element_end('form');
+}
+function common_nudge_response() {
+	common_element('p', array('id' => 'nudge_response'), _('Nudge sent!'));
+}
+
+function common_subscribe_form($profile) {
+	common_element_start('form', array('id' => 'subscribe-' . $profile->nickname,
+									   'method' => 'post',
+									   'class' => 'subscribe',
+									   'action' => common_local_url('subscribe')));
+	common_hidden('token', common_session_token());
+	common_element('input', array('id' => 'subscribeto-' . $profile->nickname,
+								  'name' => 'subscribeto',
+								  'type' => 'hidden',
+								  'value' => $profile->nickname));
+	common_element('input', array('type' => 'submit',
+								  'class' => 'submit',
+								  'value' => _('Subscribe')));
+	common_element_end('form');
+}
+
+function common_unsubscribe_form($profile) {
+	common_element_start('form', array('id' => 'unsubscribe-' . $profile->nickname,
+									   'method' => 'post',
+									   'class' => 'unsubscribe',
+									   'action' => common_local_url('unsubscribe')));
+	common_hidden('token', common_session_token());
+	common_element('input', array('id' => 'unsubscribeto-' . $profile->nickname,
+								  'name' => 'unsubscribeto',
+								  'type' => 'hidden',
+								  'value' => $profile->nickname));
+	common_element('input', array('type' => 'submit',
+								  'class' => 'submit',
+								  'value' => _('Unsubscribe')));
+	common_element_end('form');
+}
+
+// XXX: Refactor this code
+function common_profile_new_message_nudge ($cur, $profile) {
+	$user = User::staticGet('id', $profile->id);
+
+	if ($cur && $cur->id != $user->id && $cur->mutuallySubscribed($user)) {
+        common_element_start('li', array('id' => 'profile_send_a_new_message'));
+		common_element('a', array('href' => common_local_url('newmessage', array('to' => $user->id))),
+					   _('Send a message'));
+        common_element_end('li');
+     
+	    if ($user->email && $user->emailnotifynudge) {
+            common_element_start('li', array('id' => 'profile_nudge'));
+            common_nudge_form($user);
+            common_element_end('li');
+        }
+	}
 }
 
 function common_cache_key($extra) {

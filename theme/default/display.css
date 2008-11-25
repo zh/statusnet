@@ -138,6 +138,120 @@ p#branding a {
 	border-right: 1px solid #dcaa3f;
 	}
 
+
+.feeds {
+clear:both;
+float:right;
+margin-top:1.25em;
+position:absolute;
+right:0;
+bottom:-30px;
+}
+.feeds * {
+line-height:1.4;
+padding:0;
+margin:0;
+font-size:12px;
+}
+
+.feeds p {
+font-weight:bold;
+display:inline;
+display:none;
+}
+.feeds ul {
+display:inline;
+}
+.feeds li {
+list-style-type:none;
+display:inline;
+margin-left:0.5em;
+}
+.feeds li a.rss,
+.feeds li a.atom {
+background:url(icon_feed.jpg) no-repeat;
+padding-top:2px;
+padding-left:20px;
+}
+.feeds li a.foaf {
+background:url(icon_foaf.gif) no-repeat;
+padding-top:2px;
+padding-left:30px;
+}
+
+
+form#disfavor, form.disfavor,
+form#favor, form.favor  {
+	float: right;
+}
+
+/*favorites*/
+input#favor, input.favor,
+input#disfavor, input.disfavor  {
+	background-color:#fcfff5;
+	background-color:transparent;
+	background-image:url(icon_heart-02.gif);
+	background-repeat:no-repeat;
+	cursor: pointer;
+	border: 0;
+	width: 16px;
+	height:16px;
+	text-indent:-9999px;
+}
+
+input#disfavor, input.disfavor {
+	background-image:url(icon_heart-01.gif);
+}
+
+.notice_single:hover input.favor,
+.notice_single:hover input.disfavor {
+	background-color:#f3f8ea;
+}
+
+
+/*profile_actions*/
+#profile_actions {
+padding-left:0;
+list-style-type:none;
+margin:0;
+}
+#profile_actions li {
+margin-bottom:0.5em;
+clear:both;
+}
+
+#profile_actions #profile_nudge input.submit {
+margin:0;
+padding:0;
+padding-left:17px;
+background:transparent url(icon_emote-wink.png) 0 1px no-repeat;
+color:#C15D42;
+font-family:Georgia,"Times New Roman",Times,serif;
+font-weight:normal;
+font-size:14px;
+text-align:left;
+float:left;
+line-height:18px;
+}
+#profile_actions #profile_nudge input.submit:hover {
+background-color:transparent;
+color:#C15D42;
+}
+
+#wrap #content input.processing {
+padding-left:17px;
+background:transparent url(icon_process-working.gif) 0 1px no-repeat;
+line-height:18px;
+}
+
+#wrap p#nudge_response {
+padding-left:20px;
+background:transparent url(icon_checkmark.gif) 0 1px no-repeat;
+line-height:18px;
+font-size:14px;
+}
+
+
 /* ----- Nav Footer ----- */
 #nav_sub {
 	clear: both;
@@ -226,6 +340,8 @@ p#branding a {
 	font-size: 13px;
 	line-height: 16px;
 	border-bottom: 1px solid #dec5b5;
+	background-color:#FCFFF5;
+	opacity:1;
 	}
 .notice_single:hover {
 	background-color: #f7ebcc;
@@ -236,10 +352,11 @@ p#branding a {
 	padding: 0;
 	}
 #notice_delete_form #confirmation_text {
-        display: block;
+    display: block;
 	font-size: 14px;
 	font-weight: bold;
 	}
+
 input#submit_yes, input#submit_no {
 	margin: 18px 10px 0px 0px;
 	padding: 4px;
@@ -255,7 +372,7 @@ input#submit_yes:hover, input#submit_no:hover {
 	}
 .avatar.stream {
 	float: left;
-	margin: 0 10px 0 0;
+	margin: 0 10px 0.5em 0;
 	}
 p.time {
 	display: block;
@@ -275,6 +392,9 @@ p.time a {
 	min-height: 170px;
 	border-top: 1px solid #dec5b5;
 	font-family: Georgia, "Times New Roman", Times, serif;
+	margin-bottom:1em;
+	float:left;
+	width:750px;
 	}
 #profile h1 {
 	margin: 0;
@@ -328,7 +448,6 @@ a.nickname {
 	float: left;
 	position: relative;
 	width: 270px;
-	height: 200px;
 	}
 .statistics {
 	margin-top: 18px;
@@ -382,6 +501,7 @@ ul.subscriptions, ul.subscribers {
 	padding: 0;
 	list-style-type: none;
 	overflow: auto;
+	clear:both;
 	}
 ul.subscriptions li, ul.subscribers li {
 	display: block;
@@ -558,8 +678,15 @@ textarea {
 	font-weight: bold;
 	text-align: right;
 }
+.response_error textarea,
+.response_error .on_max {
+background-color:#fee;
+}
+
+
+
 /* ----- Subscribe Form ----- */
-#subscribe .submit, #unsubscribe .submit, #remotesubscribe .button, #remotesubscribe {
+#content .subscribe .submit, #content .unsubscribe .submit, #remotesubscribe .button, #remotesubscribe {
 	clear: left;
 	margin: 0;
 	width: 96px;
@@ -578,7 +705,7 @@ textarea {
 	padding: 5px 0 0 0;
 	text-align: center;
 	}
-#subscribe .button:hover, #unsubscribe .button:hover {
+#content .subscribe .button:hover, #content .unsubscribe .button:hover {
 	background-color: #904632;
 	cursor: pointer;
 	}
@@ -637,6 +764,14 @@ input#openid_url {
 	background-color: #f7ebcc;
 	}
 
+.profile_single form.subscribe {
+        float: right;
+}
+
+.profile_single form.unsubscribe {
+        float: right;
+}
+	
 /* ----- IM Settings Form -----*/
 
 #imsettings p {
@@ -645,44 +780,9 @@ input#openid_url {
 	line-height: 15px;
 }
 
-/* ----- favor/disfavor -----*/
 
-form#disfavor, form.disfavor  {
-	display: inline;
-	float: right;
-}
 
-input#disfavor, input.disfavor  {
-	display: inline;
-	color: #C15D42;
-	background-color: #FBF2D7;
-	cursor: pointer;
-	border: 0;
-	width: auto;
-	}
 
-form#favor, form.favor  {
-	display: inline;
-	float: right;
-}
-
-input#favor, input.favor  {
-	display: inline;
-	color: #C15D42;
-	background-color: #FBF2D7;
-	cursor: pointer;
-	border: 0;
-	width: auto;
-	}
-	
-input.favor:hover  {
-	background-color: #f7ebcc;
-}
-
-input.disfavor:hover  {
-	background-color: #f7ebcc;
-}
-	
 /* ----- direct message ----- */
 
 #message_form {
@@ -770,8 +870,171 @@ p.tagcloud a.smallest {
 font-size: 60%;
 }
 
-/* ----- Mailbox ----- */
 
+#subscriptions_nav,
+#filter_tags {
+margin:0 0 2em 0;
+}
+
+#subscriptions_nav {
+padding-bottom:0.5em;
+/*border-bottom:1px solid #D8E2D7;*/
+float:right;
+}
+#filter_tags {
+float:left;
+}
+
+#subscriptions_nav dt,
+#filter_tags dt {
+display:none;
+}
+#subscriptions_nav dd,
+#filter_tags dd {
+margin-left:0;
+}
+#subscriptions_nav ul,
+#filter_tags ul {
+padding-left:0;
+list-style-type:none;
+margin-left:0;
+}
+#subscriptions_nav ul li {
+display:inline;
+padding-left:0.5em;
+margin-left:0.5em;
+border-left:1px solid #D8E2D7;;
+}
+#subscriptions_nav ul li.child_1 {
+border-left:0;
+padding-left:0;
+margin-left:0;
+}
+
+
+#filter_tags ul li {
+float:left;
+margin-left:0.5em;
+padding-left:0.5em;
+border-left:1px solid #D8E2D7;;
+}
+#filter_tags ul li.child_1 {
+margin-left:0;
+border-left:0;
+padding-left:0;
+}
+#filter_tags ul li li {
+margin-left:0;
+}
+#filter_tags ul li#filter_tags_item {
+width:30em;
+}
+#filter_tags ul li#filter_tags_item form {
+clear:none;
+}
+#filter_tags ul li#filter_tags_item label {
+margin-right:0.5em;
+font-size:14px;
+font-weight:normal;
+font-family:Georgia,"Times New Roman",Times,serif;
+}
+#filter_tags ul li#filter_tags_item label,
+#filter_tags ul li#filter_tags_item select {
+margin-top:-1px;
+margin-bottom:0.5em;
+display:inline;
+}
+#filter_tags ul li#filter_tags_item p {
+margin:0 1em 0 0;
+padding:0;
+float:left;
+}
+#filter_tags ul li .input_instructions {
+display:inline;
+display:block;
+margin:0;
+}
+#filter_tags ul li#filter_tags_item .submit {
+margin:0;
+}
+
+
+
+
+.tags_self,
+.tags_user {
+margin-left:4.5em;
+}
+.tags_self dl,
+.tags_user dl {
+margin-left:0;
+}
+
+.tags_self dt,
+.tags_user dt {
+display:inline;
+margin-right:0.5em;
+}
+
+.tags_self dd,
+.tags_user dd {
+margin-left:0;
+display:inline;
+}
+
+
+ul.tags {
+padding-left:0;
+margin-left:0;
+list-style-type:none;
+display:inline;
+}
+ul.tags li {
+display:inline;
+margin-right:0.75em;
+}
+ul.tags li a {
+padding-left:17px;
+background:url(icon_tag-01.gif) no-repeat;
+line-height:1.5;
+}
+
+.tag_user {
+text-align:right;
+margin-top:0;
+margin-bottom:0;
+}
+
+form#tag_user {
+margin-left:8.75em;
+clear:both;
+}
+form#tag_user p {
+margin:0;
+}
+
+form#tag_user label {
+display:inline;
+margin-right:1em;
+}
+form#tag_user .submit {
+margin-left:4em;
+}
+
+form#tag_user .input_instructions {
+margin-left:4.5em;
+}
+
+.profile_list p {
+margin:0 0 0.5em 0;
+}
+
+.profile_list .bio {
+margin-left:4.5em;
+}
+
+
+/* ----- Mailbox ----- */
 #messages {
 	clear: both;
 	margin: 0 auto;

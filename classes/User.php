@@ -38,6 +38,7 @@ class User extends Memcached_DataObject
     public $incomingemail;                   // varchar(255)  unique_key
     public $emailnotifysub;                  // tinyint(1)   default_1
     public $emailnotifyfav;                  // tinyint(1)   default_1
+    public $emailnotifynudge;                // tinyint(1)   default_1
     public $emailnotifymsg;                  // tinyint(1)   default_1
     public $emailmicroid;                    // tinyint(1)   default_1
     public $language;                        // varchar(50)  
@@ -55,10 +56,10 @@ class User extends Memcached_DataObject
     public $smsemail;                        // varchar(255)  
     public $uri;                             // varchar(255)  unique_key
     public $autosubscribe;                   // tinyint(1)  
+    public $urlshorteningservice;            // varchar(50)   default_ur1.ca
+    public $inboxed;                         // tinyint(1)  
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
-    public $inboxed;                         // tinyint(1)  
-    public $urlshorteningservice;            // varchar(50)   default_ur1.ca
 
     /* Static get */
     function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('User',$k,$v); }
@@ -273,6 +274,36 @@ class User extends Memcached_DataObject
 	}
 
 	function hasFave($notice) {
+		$cache = common_memcache();
+
+		# XXX: Kind of a hack.
+		
+		if ($cache) {
+			# This is the stream of favorite notices, in rev chron
+			# order. This forces it into cache.
+			$faves = $this->favoriteNotices(0, NOTICE_CACHE_WINDOW);
+			$cnt = 0;
+			
+			while ($faves->fetch()) {
+				if ($faves->id < $notice->id) {
+					# If we passed it, it's not a fave
+					return false;
+				} else if ($faves->id == $notice->id) {
+					# If it matches a cached notice, then it's a fave
+					return true;
+				}
+				$cnt++;
+			}
+			# If we're not past the end of the cache window,
+			# then the cache has all available faves, so this one
+			# is not a fave.
+			if ($cnt < NOTICE_CACHE_WINDOW) {
+				return false;
+			}
+			# Otherwise, cache doesn't have all faves;
+			# fall through to the default
+		}
+		
 		$fave = Fave::pkeyGet(array('user_id' => $this->id,
 									'notice_id' => $notice->id));
 		return ((is_null($fave)) ? false : true);
@@ -364,7 +395,18 @@ class User extends Memcached_DataObject
 	function blowFavesCache() {
 		$cache = common_memcache();
 		if ($cache) {
+			# Faves don't happen chronologically, so we need to blow
+			# ;last cache, too
 			$cache->delete(common_cache_key('user:faves:'.$this->id));
+			$cache->delete(common_cache_key('user:faves:'.$this->id).';last');
 		}
+	}
+	
+	function getSelfTags() {
+		return Profile_tag::getTags($this->id, $this->id);
+	}
+	
+	function setSelfTags($newtags) {
+		return Profile_tag::setTags($this->id, $this->id, $newtags);
 	}
 }

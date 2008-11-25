@@ -17,94 +17,143 @@
  */
 
 $(document).ready(function(){
-        // count character on keyup
-        function counter(event){
-            var maxLength     = 140;
-            var currentLength = $("#status_textarea").val().length;
-            var remaining = maxLength - currentLength;
-            var counter   = $("#counter");
-            counter.text(remaining);
+	// count character on keyup
+	function counter(event){
+		var maxLength = 140;
+		var currentLength = $("#status_textarea").val().length;
+		var remaining = maxLength - currentLength;
+		var counter = $("#counter");
+		counter.text(remaining);
+		
+		if (remaining <= 0) {
+			$("#status_form").addClass("response_error");
+		} else {
+			$("#status_form").removeClass("response_error");
+		}
+	}
 
-            if (remaining <= 0) {
-                counter.attr("class", "toomuch");
-            } else {
-                counter.attr("class", "");
-            }
-        }
+	function submitonreturn(event) {
+		if (event.keyCode == 13) {
+			$("#status_form").submit();
+			event.preventDefault();
+			event.stopPropagation();
+			return false;
+		}
+		return true;
+	}
 
-        function submitonreturn(event) {
-             if (event.keyCode == 13) {
-                  $("#status_form").submit();
-                  event.preventDefault();
-                  event.stopPropagation();
-                  return false;
-             }
-             return true;
-        }
+	if ($("#status_textarea").length) {
+		$("#status_textarea").bind("keyup", counter);
+		$("#status_textarea").bind("keydown", submitonreturn);
+		
+		// run once in case there's something in there
+		counter();
+		
+		// set the focus
+		$("#status_textarea").focus();
+	}
 
-        if ($("#status_textarea").length) {
-             $("#status_textarea").bind("keyup", counter);
-             $("#status_textarea").bind("keydown", submitonreturn);
+	// XXX: refactor this code
 
-            // run once in case there's something in there
-            counter();
+	var favoptions = { dataType: 'xml',
+					   success: function(xml) { var new_form = document._importNode($('form', xml).get(0), true);
+												var dis = new_form.id;
+												var fav = dis.replace('disfavor', 'favor');
+												$('form#'+fav).replaceWith(new_form);
+												$('form#'+dis).ajaxForm(disoptions).each(addAjaxHidden);
+											  }
+					 };
 
-             // set the focus
-             $("#status_textarea").focus();
-        }
+	var disoptions = { dataType: 'xml',
+					   success: function(xml) { var new_form = document._importNode($('form', xml).get(0), true);
+												var fav = new_form.id;
+												var dis = fav.replace('favor', 'disfavor');
+												$('form#'+dis).replaceWith(new_form);
+												$('form#'+fav).ajaxForm(favoptions).each(addAjaxHidden);
+											  }
+					 };
 
-     // XXX: refactor this code
+	function addAjaxHidden() {
+		var ajax = document.createElement('input');
+		ajax.setAttribute('type', 'hidden');
+		ajax.setAttribute('name', 'ajax');
+		ajax.setAttribute('value', 1);
+		this.appendChild(ajax);
+	}
 
-     var favoptions = {dataType: 'xml',
-               success: function(xml) {
-                    var new_form = $('form.disfavor', xml).get(0);
-                    var dis = new_form.id;
-                    var fav = dis.replace('disfavor', 'favor');
-                    if (document.importNode) {
-                         new_form = document.importNode(new_form, true);
-                    }
-                    $('form#'+fav).replaceWith(new_form);
-                    $('form#'+dis).ajaxForm(disoptions).each(addAjaxHidden);
-               }};
+	$("form.favor").ajaxForm(favoptions);
+	$("form.disfavor").ajaxForm(disoptions);
+	$("form.favor").each(addAjaxHidden);
+	$("form.disfavor").each(addAjaxHidden);
 
-     var disoptions = {dataType: 'xml',
-               success: function(xml) {
-                    var new_form = $('form.favor', xml).get(0);
-                    var fav = new_form.id;
-                    var dis = fav.replace('favor', 'disfavor');
-                    if (document.importNode) {
-                         new_form = document.importNode(new_form, true);
-                    }
-                    $('form#'+dis).replaceWith(new_form);
-                    $('form#'+fav).ajaxForm(favoptions).each(addAjaxHidden);                    ;
-               }};
+	$("#nudge").ajaxForm ({ dataType: 'xml',
+							success: function(xml) { $("#nudge").replaceWith(document._importNode($("#nudge_response", xml).get(0),true)); }
+						 });
+	$("#nudge").each(addAjaxHidden);
+	$("#nudge .submit").bind('click', function(e) {	$(this).addClass("processing"); });
 
-     function addAjaxHidden() {
-          var ajax = document.createElement('input');
-          ajax.setAttribute('type', 'hidden');
-          ajax.setAttribute('name', 'ajax');
-          ajax.setAttribute('value', 1);
-          this.appendChild(ajax);
-     }
 
-     $("form.favor").ajaxForm(favoptions);
-     $("form.disfavor").ajaxForm(disoptions);
+	var Subscribe = { dataType: 'xml',
+					  success: function(xml) { var form_unsubscribe = document._importNode($('form', xml).get(0), true);
+										  	   var form_unsubscribe_id = form_unsubscribe.id;
+											   var form_subscribe_id = form_unsubscribe_id.replace('unsubscribe', 'subscribe');
+											   $("form#"+form_subscribe_id).replaceWith(form_unsubscribe);
+											   $("form#"+form_unsubscribe_id).ajaxForm(UnSubscribe).each(addAjaxHidden);
+										     }
+					};
 
-     $("form.favor").each(addAjaxHidden);
-     $("form.disfavor").each(addAjaxHidden);
+	var UnSubscribe = { dataType: 'xml',
+					    success: function(xml) { var form_subscribe = document._importNode($('form', xml).get(0), true);
+										  		 var form_subscribe_id = form_subscribe.id;
+												 var form_unsubscribe_id = form_subscribe_id.replace('subscribe', 'unsubscribe');
+												 $("form#"+form_unsubscribe_id).replaceWith(form_subscribe);
+												 $("form#"+form_subscribe_id).ajaxForm(Subscribe).each(addAjaxHidden);
+												 $("#profile_send_a_new_message").remove();
+												 $("#profile_nudge").remove();
+											   }
+					  };
+
+	$("form.subscribe").ajaxForm(Subscribe);
+	$("form.unsubscribe").ajaxForm(UnSubscribe);
+	$("form.subscribe").each(addAjaxHidden);
+	$("form.unsubscribe").each(addAjaxHidden);
+
+
+	var PostNotice = { dataType: 'xml',
+					   beforeSubmit: function(formData, jqForm, options) { if ($("#status_textarea").get(0).value.length == 0) {
+																				$("#status_form").addClass("response_error");
+																				return false;
+																		   }
+																		   return true;
+												 						 },
+					   success: function(xml) {	if ($(".error", xml).length > 0) {
+													var response_error = document._importNode($(".error", xml).get(0), true);
+													response_error = response_error.textContent || response_error.innerHTML;
+													alert(response_error);
+												}
+												else {
+													$("#notices").prepend(document._importNode($("li", xml).get(0), true));
+													$("#status_textarea").val("");
+													counter();
+													$(".notice_single:first").css({display:"none"});
+													$(".notice_single:first").fadeIn(2500);
+												}
+											 }
+					   }
+	$("#status_form").ajaxForm(PostNotice);
+	$("#status_form").each(addAjaxHidden);
 });
 
 function doreply(nick,id) {
-     rgx_username = /^[0-9a-zA-Z\-_.]*$/;
-     if (nick.match(rgx_username)) {
-          replyto = "@" + nick + " ";
-          if ($("#status_textarea").length) {
-               $("#status_textarea").val(replyto);
-               $("form#status_form input#inreplyto").val(id);
-               $("#status_textarea").focus();
-			   return false;
-		  }
-     }
-     return true;
+	rgx_username = /^[0-9a-zA-Z\-_.]*$/;
+	if (nick.match(rgx_username)) {
+		replyto = "@" + nick + " ";
+		if ($("#status_textarea").length) {
+			$("#status_textarea").val(replyto);
+			$("form#status_form input#inreplyto").val(id);
+			$("#status_textarea").focus();
+			return false;
+		}
+	}
+	return true;
 }
-

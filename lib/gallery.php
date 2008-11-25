@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Laconica - a distributed open-source microblogging tool
  * Copyright (C) 2008, Controlez-Vous, Inc.
@@ -19,6 +20,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
+require_once(INSTALLDIR.'/lib/profilelist.php');
+
 # 10x8
 
 define('AVATARS_PER_PAGE', 80);
@@ -31,8 +34,14 @@ class GalleryAction extends Action {
 
 	function handle($args) {
 		parent::handle($args);
-		$nickname = common_canonical_nickname($this->arg('nickname'));
 
+		# Post from the tag dropdown; redirect to a GET
+		
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+		    common_redirect($this->self_url(), 307);
+		}
+
+		$nickname = common_canonical_nickname($this->arg('nickname'));
 		$user = User::staticGet('nickname', $nickname);
 
 		if (!$user) {
@@ -48,13 +57,27 @@ class GalleryAction extends Action {
 		}
 
 		$page = $this->arg('page');
+		
 		if (!$page) {
 			$page = 1;
 		}
+
+		$display = $this->arg('display');
+		
+		if (!$display) {
+			$display = 'list';
+		}
+		
+		$tag = $this->arg('tag');
+
 		common_show_header($profile->nickname . ": " . $this->gallery_type(),
 						   NULL, $profile,
 						   array($this, 'show_top'));
-		$this->show_gallery($profile, $page);
+
+		$this->display_links($profile, $page, $display);
+		$this->show_tags_dropdown($profile);
+		
+		$this->show_gallery($profile, $page, $display, $tag);
 		common_show_footer();
 	}
 
@@ -62,49 +85,108 @@ class GalleryAction extends Action {
 		$this->client_error(_('No such user.'));
 	}
 
+	function show_tags_dropdown($profile) {
+		$tag = $this->trimmed('tag');
+		list($lst, $usr) = $this->fields();
+		$tags = $this->get_all_tags($profile, $lst, $usr);
+		$content = array();
+		foreach ($tags as $t) {
+			$content[$t] = $t;
+		}
+		if ($tags) {
+			common_element_start('dl', array('id'=>'filter_tags'));
+			common_element('dt', null, _('Filter tags'));
+			common_element_start('dd');
+			common_element_start('ul');
+			common_element_start('li', array('id'=>'filter_tags_all', 'class'=>'child_1'));
+			common_element('a', array('href' => common_local_url($this->trimmed('action'),
+																 array('nickname' => $profile->nickname))),
+						   _('All'));
+			common_element_end('li');
+			common_element_start('li', array('id'=>'filter_tags_item'));
+			common_element_start('form', array('name' => 'bytag', 'id' => 'bytag', 'method' => 'post'));
+			common_dropdown('tag', _('Tag'), $content,
+							_('Choose a tag to narrow list'), FALSE, $tag);
+			common_submit('go', _('Go'));
+			common_element_end('form');
+			common_element_end('li');
+			common_element_end('ul');
+			common_element_end('dd');
+			common_element_end('dl');
+		}
+	}
+	
 	function show_top($profile) {
 		common_element('div', 'instructions',
 					   $this->get_instructions($profile));
 	}
 
-	function show_gallery($profile, $page) {
+	function show_gallery($profile, $page, $display='list', $tag=NULL) {
 
-		$subs = new Subscription();
+		$other = new Profile();
+		
+		list($lst, $usr) = $this->fields();
 
-		$this->define_subs($subs, $profile);
+		$per_page = ($display == 'list') ? PROFILES_PER_PAGE : AVATARS_PER_PAGE;
 
-		$subs->orderBy('created DESC');
-
-		# We ask for an extra one to know if we need to do another page
-
-		$subs->limit((($page-1)*AVATARS_PER_PAGE), AVATARS_PER_PAGE + 1);
-
-		$subs_count = $subs->find();
-
-		if ($subs_count == 0) {
-			common_element('p', _('Nobody to show!'));
-			return;
+		$offset = ($page-1)*$per_page;
+		$limit = $per_page + 1;
+		
+		if (common_config('db','type') == 'pgsql') {
+			$lim = ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+		} else {
+			$lim = ' LIMIT ' . $offset . ', ' . $limit;
 		}
 
+		# XXX: memcached results
+		# FIXME: SQL injection on $tag
+		
+		$other->query('SELECT profile.* ' .
+					  'FROM profile JOIN subscription ' .
+					  'ON profile.id = subscription.' . $lst . ' ' .
+					  (($tag) ? 'JOIN profile_tag ON (profile.id = profile_tag.tagged AND subscription.'.$usr.'= profile_tag.tagger) ' : '') .
+					  'WHERE ' . $usr . ' = ' . $profile->id . ' ' .
+					  'AND subscriber != subscribed ' .
+					  (($tag) ? 'AND profile_tag.tag= "' . $tag . '" ': '') .
+					  'ORDER BY subscription.created DESC, profile.id DESC ' .
+					  $lim);
+		
+		if ($display == 'list') {
+			$profile_list = new ProfileList($other, $profile, $this->trimmed('action'));
+			$cnt = $profile_list->show_list();
+		} else {
+			$cnt = $this->icon_list($other);
+		}
+
+		# For building the pagination URLs
+		
+		$args = array('nickname' => $profile->nickname);
+		
+		if ($display != 'list') {
+			$args['display'] = $display;
+		}
+		
+		common_pagination($page > 1,
+						  $cnt > $per_page,
+						  $page,
+						  $this->trimmed('action'),
+						  $args);
+	}
+
+	function icon_list($other) {
+		
 		common_element_start('ul', $this->div_class());
 
-		for ($idx = 0; $idx < min($subs_count, AVATARS_PER_PAGE); $idx++) {
+		$cnt = 0;
+		
+		while ($other->fetch()) {
 
-			$result = $subs->fetch();
-
-			if (!$result) {
-				common_debug('Ran out of subscribers too early.', __FILE__);
+			$cnt++;
+			
+			if ($cnt > AVATARS_PER_PAGE) {
 				break;
 			}
-
-			$other_id = $this->get_other($subs);
-			$other = Profile::staticGet($other_id);
-
-			if (!$other) {
-				common_log(LOG_WARNING, 'No matching profile for ' . $other_id);
-				continue;
-			}
-
+			
 			common_element_start('li');
 
 			common_element_start('a', array('title' => ($other->fullname) ?
@@ -129,16 +211,12 @@ class GalleryAction extends Action {
 
 			common_element_end('li');
 		}
-
+			
 		common_element_end('ul');
-
-		common_pagination($page > 1,
-						  $subs_count > AVATARS_PER_PAGE,
-						  $page,
-						  $this->trimmed('action'),
-						  array('nickname' => $profile->nickname));
+		
+		return $cnt;
 	}
-
+	
 	function gallery_type() {
 		return NULL;
 	}
@@ -147,15 +225,72 @@ class GalleryAction extends Action {
 		return NULL;
 	}
 
-	function define_subs(&$subs, &$profile) {
-		return;
-	}
-
-	function get_other(&$subs) {
+	function fields() {
 		return NULL;
 	}
 
 	function div_class() {
 		return '';
+	}
+	
+	function display_links($profile, $page, $display) {
+		$tag = $this->trimmed('tag');
+		
+		common_element_start('dl', array('id'=>'subscriptions_nav'));
+		common_element('dt', null, _('Subscriptions navigation'));
+		common_element_start('dd');
+		common_element_start('ul', array('class'=>'nav'));
+		
+		switch ($display) {
+		 case 'list':
+			common_element('li', array('class'=>'child_1'), _('List'));
+			common_element_start('li');
+			$url_args = array('display' => 'icons',
+							  'nickname' => $profile->nickname,
+							  'page' => 1 + floor((($page - 1) * PROFILES_PER_PAGE) / AVATARS_PER_PAGE));
+			if ($tag) {
+				$url_args['tag'] = $tag;
+			}
+			$url = common_local_url($this->trimmed('action'), $url_args);
+			common_element('a', array('href' => $url),
+						   _('Icons'));
+			common_element_end('li');
+      break;
+		 default:
+			common_element_start('li', array('class'=>'child_1'));
+			$url_args = array('nickname' => $profile->nickname,
+							  'page' => 1 + floor((($page - 1) * AVATARS_PER_PAGE) / PROFILES_PER_PAGE));
+			if ($tag) {
+				$url_args['tag'] = $tag;
+			}
+			common_local_url($this->trimmed('action'), $url_args);
+			common_element('a', array('href' => $url),
+						   _('List'));
+			common_element_end('li');
+			common_element('li', NULL, _('Icons'));
+			break;
+		}
+		
+		common_element_end('ul');
+		common_element_end('dd');
+		common_element_end('dl');
+	}
+	
+	# Get list of tags we tagged other users with
+
+	function get_all_tags($profile, $lst, $usr) {
+		$profile_tag = new Notice_tag();
+		$profile_tag->query('SELECT DISTINCT(tag) ' .
+							'FROM profile_tag, subscription ' .
+							'WHERE tagger = ' . $profile->id . ' ' .
+							'AND ' . $usr . ' = ' . $profile->id . ' ' .
+							'AND ' . $lst . ' = tagged ' .
+							'AND tagger != tagged');
+		$tags = array();
+		while ($profile_tag->fetch()) {
+			$tags[] = $profile_tag->tag;
+		}
+		$profile_tag->free();
+		return $tags;
 	}
 }

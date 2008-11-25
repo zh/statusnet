@@ -94,6 +94,9 @@ class EmailsettingsAction extends SettingsAction {
 		common_checkbox('emailnotifymsg',
 		                _('Send me email when someone sends me a private message.'),
 		                $user->emailnotifymsg);
+		common_checkbox('emailnotifynudge',
+		                _('Allow friends to nudge me and send me an email.'),
+		                $user->emailnotifynudge);
 		common_checkbox('emailpost',
 						_('I want to post notices by email.'),
 						$user->emailpost);
@@ -150,6 +153,7 @@ class EmailsettingsAction extends SettingsAction {
 		$emailnotifysub = $this->boolean('emailnotifysub');
 		$emailnotifyfav = $this->boolean('emailnotifyfav');
 		$emailnotifymsg = $this->boolean('emailnotifymsg');
+		$emailnotifynudge = $this->boolean('emailnotifynudge');
 		$emailmicroid = $this->boolean('emailmicroid');
 		$emailpost = $this->boolean('emailpost');
 
@@ -164,6 +168,7 @@ class EmailsettingsAction extends SettingsAction {
 		$user->emailnotifysub = $emailnotifysub;
 		$user->emailnotifyfav = $emailnotifyfav;
 		$user->emailnotifymsg = $emailnotifymsg;
+		$user->emailnotifynudge = $emailnotifynudge;
 		$user->emailmicroid = $emailmicroid;
 		$user->emailpost = $emailpost;
 

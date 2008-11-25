@@ -84,6 +84,74 @@ class PersonalAction extends Action {
 		
 		common_element_end('ul');
 	}
+
+	function show_feeds_list($feeds) {
+		common_element_start('div', array('class' => 'feeds'));
+		common_element('p', null, 'Feeds:');
+		common_element_start('ul', array('class' => 'xoxo'));
+
+		foreach ($feeds as $key => $value) {
+			$this->common_feed_item($feeds[$key]);
+		}
+		common_element_end('ul');
+		common_element_end('div');
+	}
+
+	function common_feed_item($feed) {
+		$nickname = $this->trimmed('nickname');
+
+		switch($feed['item']) {
+			case 'notices': default:
+				$feed_classname = $feed['type'];
+				$feed_mimetype = "application/".$feed['type']."+xml";
+				$feed_title = "$nickname's ".$feed['version']." notice feed";
+				$feed['textContent'] = "RSS";
+				break;
+
+			case 'allrss':
+				$feed_classname = $feed['type'];
+				$feed_mimetype = "application/".$feed['type']."+xml";
+				$feed_title = $feed['version']." feed for $nickname and friends";
+				$feed['textContent'] = "RSS";
+				break;
+
+			case 'repliesrss':
+				$feed_classname = $feed['type'];
+				$feed_mimetype = "application/".$feed['type']."+xml";
+				$feed_title = $feed['version']." feed for replies to $nickname";
+				$feed['textContent'] = "RSS";
+				break;
+
+			case 'foaf':
+				$feed_classname = "foaf";
+				$feed_mimetype = "application/".$feed['type']."+xml";
+				$feed_title = "$nickname's FOAF file";
+				$feed['textContent'] = "FOAF";
+				break;
+
+			case 'favoritesrss':
+				$feed_classname = "favorites";
+				$feed_mimetype = "application/".$feed['type']."+xml";
+				$feed_title = "Feed for favorites of $nickname";
+				$feed['textContent'] = "RSS";
+				break;
+
+			case 'usertimeline':
+				$feed_classname = "atom";
+				$feed_mimetype = "application/".$feed['type']."+xml";
+				$feed_title = "$nickname's ".$feed['version']." notice feed";
+				$feed['textContent'] = "Atom";
+				break;
+		}
+		common_element_start('li');
+		common_element('a', array('href' => $feed['href'],
+								  'class' => $feed_classname,
+								  'type' => $feed_mimetype,
+								  'title' => $feed_title),
+							$feed['textContent']);
+		common_element_end('li');
+	}
+
 	
 	function source_link($source) {
 		$source_name = _($source);
@@ -107,4 +175,4 @@ class PersonalAction extends Action {
 		}
 		return;
 	}
-}	
+}

@@ -28,7 +28,7 @@ class Foreign_link extends Memcached_DataObject
 
 	// XXX:  This only returns a 1->1 single obj mapping.  Change?  Or make
 	// a getForeignUsers() that returns more than one? --Zach
-	static function getForeignLink($user_id, $service) {
+	static function getByUserID($user_id, $service) {
 		$flink = new Foreign_link();
 		$flink->service = $service;
 		$flink->user_id = $user_id;
@@ -41,11 +41,22 @@ class Foreign_link extends Memcached_DataObject
 		return NULL;		
 	}
 	
+	static function getByForeignID($foreign_id, $service) {
+		$flink = new Foreign_link();
+		$flink->service = $service;
+		$flink->foreign_id = $foreign_id;
+		$flink->limit(1);
+
+		if ($flink->find(TRUE)) {
+			return $flink;
+		}
+
+		return NULL;		
+	}
+		
 	// Convenience method
-	function getForeignUser() {
-		
+	function getForeignUser() {		
 		$fuser = new Foreign_user();
-		
 		$fuser->service = $this->service;
 		$fuser->id = $this->foreign_id;
 		

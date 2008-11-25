@@ -48,6 +48,7 @@ create table user (
     incomingemail varchar(255) unique key comment 'email address for post-by-email',
     emailnotifysub tinyint default 1 comment 'Notify by email of subscriptions',
     emailnotifyfav tinyint default 1 comment 'Notify by email of favorites',
+    emailnotifynudge tinyint default 1 comment 'Notify by email of nudges',
     emailnotifymsg tinyint default 1 comment 'Notify by email of direct messages',
     emailmicroid tinyint default 1 comment 'whether to publish email microid',
     language varchar(50) comment 'preferred language',
@@ -344,3 +345,15 @@ create table notice_inbox (
     constraint primary key (user_id, notice_id),
     index notice_inbox_notice_id_idx (notice_id)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table profile_tag (
+   tagger integer not null comment 'user making the tag' references user (id),
+   tagged integer not null comment 'profile tagged' references profile (id),
+   tag varchar(64) not null comment 'hash tag associated with this notice',
+   modified timestamp comment 'date the tag was added',
+   
+   constraint primary key (tagger, tagged, tag),
+   index profile_tag_modified_idx (modified),
+   index profile_tag_tagger_tag_idx (tagger, tag)
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+

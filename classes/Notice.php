@@ -58,8 +58,8 @@ class Notice extends Memcached_DataObject
 	}
 
 	function delete() {
-		$this->blowCaches();
-		$this->blowFavesCache();
+		$this->blowCaches(true);
+		$this->blowFavesCache(true);
 		$this->blowInboxes();
 		parent::delete();
 	}
@@ -137,15 +137,15 @@ class Notice extends Memcached_DataObject
 		return $notice;
 	}
 
-	function blowCaches() {
-		$this->blowSubsCache();
-		$this->blowNoticeCache();
-		$this->blowRepliesCache();
-		$this->blowPublicCache();
-		$this->blowTagCache();
+	function blowCaches($blowLast=false) {
+		$this->blowSubsCache($blowLast);
+		$this->blowNoticeCache($blowLast);
+		$this->blowRepliesCache($blowLast);
+		$this->blowPublicCache($blowLast);
+		$this->blowTagCache($blowLast);
 	}
 
-	function blowTagCache() {
+	function blowTagCache($blowLast=false) {
 		$cache = common_memcache();
 		if ($cache) {
 			$tag = new Notice_tag();
@@ -153,6 +153,9 @@ class Notice extends Memcached_DataObject
 			if ($tag->find()) {
 				while ($tag->fetch()) {
 					$cache->delete(common_cache_key('notice_tag:notice_stream:' . $tag->tag));
+					if ($blowLast) {
+						$cache->delete(common_cache_key('notice_tag:notice_stream:' . $tag->tag . ';last'));
+					}
 				}
 			}
 			$tag->free();
@@ -160,7 +163,7 @@ class Notice extends Memcached_DataObject
 		}
 	}
 
-	function blowSubsCache() {
+	function blowSubsCache($blowLast=false) {
 		$cache = common_memcache();
 		if ($cache) {
 			$user = new User();
@@ -171,23 +174,28 @@ class Notice extends Memcached_DataObject
 
 			while ($user->fetch()) {
 				$cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
+				if ($blowLast) {
+					$cache->delete(common_cache_key('user:notices_with_friends:' . $user->id . ';last'));
+				}
 			}
-
 			$user->free();
 			unset($user);
 		}
 	}
 
-	function blowNoticeCache() {
+	function blowNoticeCache($blowLast=false) {
 		if ($this->is_local) {
 			$cache = common_memcache();
 			if ($cache) {
 				$cache->delete(common_cache_key('user:notices:'.$this->profile_id));
+				if ($blowLast) {
+					$cache->delete(common_cache_key('user:notices:'.$this->profile_id.';last'));
+				}
 			}
 		}
 	}
 
-	function blowRepliesCache() {
+	function blowRepliesCache($blowLast=false) {
 		$cache = common_memcache();
 		if ($cache) {
 			$reply = new Reply();
@@ -195,6 +203,9 @@ class Notice extends Memcached_DataObject
 			if ($reply->find()) {
 				while ($reply->fetch()) {
 					$cache->delete(common_cache_key('user:replies:'.$reply->profile_id));
+					if ($blowLast) {
+						$cache->delete(common_cache_key('user:replies:'.$reply->profile_id.';last'));
+					}
 				}
 			}
 			$reply->free();
@@ -202,16 +213,19 @@ class Notice extends Memcached_DataObject
 		}
 	}
 
-	function blowPublicCache() {
+	function blowPublicCache($blowLast=false) {
 		if ($this->is_local) {
 			$cache = common_memcache();
 			if ($cache) {
 				$cache->delete(common_cache_key('public'));
+				if ($blowLast) {
+					$cache->delete(common_cache_key('public').';last');
+				}
 			}
 		}
 	}
 
-	function blowFavesCache() {
+	function blowFavesCache($blowLast=false) {
 		$cache = common_memcache();
 		if ($cache) {
 			$fave = new Fave();
@@ -219,6 +233,9 @@ class Notice extends Memcached_DataObject
 			if ($fave->find()) {
 				while ($fave->fetch()) {
 					$cache->delete(common_cache_key('user:faves:'.$fave->user_id));
+					if ($blowLast) {
+						$cache->delete(common_cache_key('user:faves:'.$fave->user_id.';last'));
+					}
 				}
 			}
 			$fave->free();
@@ -228,7 +245,7 @@ class Notice extends Memcached_DataObject
 
 	# XXX: too many args; we need to move to named params or even a separate
 	# class for notice streams
-	
+
 	static function getStream($qry, $cachekey, $offset=0, $limit=20, $since_id=0, $before_id=0, $order=NULL) {
 
 		if (common_config('memcached', 'enabled')) {
@@ -279,7 +296,7 @@ class Notice extends Memcached_DataObject
 		}
 
 		# Allow ORDER override
-		
+
 		if ($order) {
 			$qry .= $order;
 		} else {
@@ -298,6 +315,9 @@ class Notice extends Memcached_DataObject
 
 		return $notice;
 	}
+
+	# XXX: this is pretty long and should probably be broken up into
+	# some helper functions
 
 	static function getCachedStream($qry, $cachekey, $offset, $limit, $order) {
 
@@ -326,6 +346,46 @@ class Notice extends Memcached_DataObject
 			return $wrapper;
 		}
 
+		# If the cache was invalidated because of new data being
+		# added, we can try and just get the new stuff. We keep an additional
+		# copy of the data at the key + ';last'
+
+		# No cache hit. Try to get the *last* cached version
+
+		$last_notices = $cache->get(common_cache_key($cachekey) . ';last');
+
+		if ($last_notices) {
+
+			# Reverse-chron order, so last ID is last.
+
+			$last_id = $last_notices[0]->id;
+
+			# XXX: this assumes monotonically increasing IDs; a fair
+			# bet with our DB.
+
+			$new_notice = Notice::getStreamDirect($qry, 0, NOTICE_CACHE_WINDOW,
+												  $last_id, NULL, $order);
+
+			if ($new_notice) {
+				$new_notices = array();
+				while ($new_notice->fetch()) {
+					$new_notices[] = clone($new_notice);
+				}
+				$new_notice->free();
+				$notices = array_slice(array_merge($new_notices, $last_notices),
+									   0, NOTICE_CACHE_WINDOW);
+
+				# Store the array in the cache for next time
+
+				$result = $cache->set(common_cache_key($cachekey), $notices);
+				$result = $cache->set(common_cache_key($cachekey) . ';last', $notices);
+
+				# return a wrapper of the array for use now
+
+				return new NoticeWrapper(array_slice($notices, $offset, $limit));
+			}
+		}
+
 		# Otherwise, get the full cache window out of the DB
 
 		$notice = Notice::getStreamDirect($qry, 0, NOTICE_CACHE_WINDOW, NULL, NULL, $order);
@@ -344,9 +404,12 @@ class Notice extends Memcached_DataObject
 			$notices[] = clone($notice);
 		}
 
+		$notice->free();
+
 		# Store the array in the cache for next time
 
 		$result = $cache->set(common_cache_key($cachekey), $notices);
+		$result = $cache->set(common_cache_key($cachekey) . ';last', $notices);
 
 		# return a wrapper of the array for use now
 
@@ -358,7 +421,7 @@ class Notice extends Memcached_DataObject
 	function publicStream($offset=0, $limit=20, $since_id=0, $before_id=0) {
 
 		$parts = array();
-		
+
 		$qry = 'SELECT * FROM notice ';
 
 		if (common_config('public', 'localonly')) {
@@ -372,7 +435,7 @@ class Notice extends Memcached_DataObject
 		if ($parts) {
 			$qry .= ' WHERE ' . implode(' AND ', $parts);
 		}
-			  
+
 		return Notice::getStream($qry,
 								 'public',
 								 $offset, $limit, $since_id, $before_id);
@@ -386,7 +449,11 @@ class Notice extends Memcached_DataObject
 			$qry = 'INSERT INTO notice_inbox (user_id, notice_id, created) ' .
 			  'SELECT user.id, ' . $this->id . ', "' . $this->created . '" ' .
 			  'FROM user JOIN subscription ON user.id = subscription.subscriber ' .
-			  'WHERE subscription.subscribed = ' . $this->profile_id;
+			  'WHERE subscription.subscribed = ' . $this->profile_id . ' ' .
+			  'AND NOT EXISTS (SELECT user_id, notice_id ' .
+			  'FROM notice_inbox ' .
+			  'WHERE user_id = user.id ' .
+			  'AND notice_id = ' . $this->id . ' )';
 			if ($enabled === 'transitional') {
 				$qry .= ' AND user.inboxed = 1';
 			}

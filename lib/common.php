@@ -19,7 +19,7 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-define('LACONICA_VERSION', '0.6.2');
+define('LACONICA_VERSION', '0.6.3');
 
 define('AVATAR_PROFILE_SIZE', 96);
 define('AVATAR_STREAM_SIZE', 48);
@@ -27,6 +27,7 @@ define('AVATAR_MINI_SIZE', 24);
 define('MAX_AVATAR_SIZE', 256 * 1024);
 
 define('NOTICES_PER_PAGE', 20);
+define('PROFILES_PER_PAGE', 20);
 
 define('FOREIGN_NOTICE_SEND', 1);
 define('FOREIGN_NOTICE_RECV', 2);
@@ -82,7 +83,8 @@ $config =
 		array('backend' => 'mail',
 			  'params' => NULL),
 		'nickname' =>
-		array('blacklist' => array()),
+		array('blacklist' => array(),
+			  'featured' => array()),
 		'avatar' =>
 		array('server' => NULL),
 		'public' =>
@@ -101,6 +103,10 @@ $config =
 			  'host' => NULL, # only set if != server
 			  'debug' => false, # print extra debug info
 			  'public' => array()), # JIDs of users who want to receive the public stream
+        'sphinx' =>
+        array('enabled' => false,
+              'server' => 'localhost',
+              'port' => 3312),
 		'tag' =>
 		array('dropoff' => 864000.0),
 		'daemon' =>
@@ -146,6 +152,7 @@ require_once(INSTALLDIR.'/lib/theme.php');
 require_once(INSTALLDIR.'/lib/mail.php');
 require_once(INSTALLDIR.'/lib/subs.php');
 require_once(INSTALLDIR.'/lib/Shorturl_api.php');
+require_once(INSTALLDIR.'/lib/twitter.php');
 
 function __autoload($class) {
 	if ($class == 'OAuthRequest') {

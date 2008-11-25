@@ -73,6 +73,11 @@ class RepliesAction extends StreamAction {
 		}
 
 		$this->views_menu();
+
+		$this->show_feeds_list(array(0=>array('href'=>common_local_url('repliesrss', array('nickname' => $user->nickname)),
+											  'type' => 'rss',
+											  'version' => 'RSS 1.0',
+											  'item' => 'repliesrss')));
 	}
 
 	function show_replies($user) {

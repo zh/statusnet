@@ -37,16 +37,16 @@ class DisfavorAction extends Action {
 			return;
 		}
 
-		$token = $this->trimmed('token');
-
-		if (!$token || $token != common_session_token()) {
-			$this->client_error(_('There was a problem with your session token. Try again, please.'));
-			return;
-		}
-
 		$id = $this->trimmed('notice');
 
 		$notice = Notice::staticGet($id);
+
+		$token = $this->trimmed('token-'.$notice->id);
+
+		if (!$token || $token != common_session_token()) {
+			$this->client_error(_("There was a problem with your session token. Try again, please."));
+			return;
+		}
 
 		$fave = new Fave();
 		$fave->user_id = $this->id;
@@ -69,7 +69,7 @@ class DisfavorAction extends Action {
 		if ($this->boolean('ajax')) {
 			common_start_html('text/xml');
 			common_element_start('head');
-			common_element('title', _('Favor'));
+			common_element('title', null, _('Add to favorites'));
 			common_element_end('head');
 			common_element_start('body');
 			common_favor_form($notice);

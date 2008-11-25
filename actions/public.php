@@ -45,6 +45,8 @@ class PublicAction extends StreamAction {
 		if (common_logged_in()) {
 			common_notice_form('public');
 		}
+		
+		$this->public_views_menu();
 	}
 
 	function show_header() {

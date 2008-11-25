@@ -7,6 +7,8 @@ RewriteBase /mublog/
 RewriteRule ^$ index.php?action=public [L,QSA]
 RewriteRule ^rss$ index.php?action=publicrss [L,QSA]
 RewriteRule ^xrds$ index.php?action=publicxrds [L,QSA]
+RewriteRule ^featuredrss$ index.php?action=featuredrss [L,QSA]
+RewriteRule ^favoritedrss$ index.php?action=favoritedrss [L,QSA]
 RewriteRule ^opensearch/people$ index.php?action=opensearch&type=people [L,QSA]
 RewriteRule ^opensearch/notice$ index.php?action=opensearch&type=notice [L,QSA]
 
@@ -40,6 +42,8 @@ RewriteRule ^main/disfavor$ index.php?action=disfavor [L,QSA]
 
 RewriteRule ^main/sup$ index.php?action=sup [L,QSA]
 
+RewriteRule ^main/tagother$ index.php?action=tagother [L,QSA]
+
 RewriteRule ^settings/profile$ index.php?action=profilesettings [L,QSA]
 RewriteRule ^settings/openid$ index.php?action=openidsettings [L,QSA]
 RewriteRule ^settings/im$ index.php?action=imsettings [L,QSA]
@@ -66,8 +70,16 @@ RewriteRule ^tags/?$ index.php?action=tag [L,QSA]
 RewriteRule ^tag/([a-zA-Z0-9]+)/rss$ index.php?action=tagrss&tag=$1 [L,QSA]
 RewriteRule ^tag(/(.*))?$ index.php?action=tag&tag=$2 [L,QSA]
 
+RewriteRule ^peopletag/([a-zA-Z0-9]+)$ index.php?action=peopletag&tag=$1 [L,QSA]
+
+RewriteRule ^featured/?$ index.php?action=featured [L,QSA]
+RewriteRule ^favorited/?$ index.php?action=favorited [L,QSA]
+
 RewriteRule ^(\w+)/subscriptions$ index.php?action=subscriptions&nickname=$1 [L,QSA]
+RewriteRule ^(\w+)/subscriptions/([a-zA-Z0-9]+)$ index.php?action=subscriptions&nickname=$1&tag=$2 [L,QSA]
+RewriteRule ^(\w+)/subscribers/([a-zA-Z0-9]+)$ index.php?action=subscribers&nickname=$1&tag=$2 [L,QSA]
 RewriteRule ^(\w+)/subscribers$ index.php?action=subscribers&nickname=$1 [L,QSA]
+RewriteRule ^(\w+)/nudge$ index.php?action=nudge&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/xrds$ index.php?action=xrds&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/rss$ index.php?action=userrss&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/all$ index.php?action=all&nickname=$1 [L,QSA]
@@ -80,6 +92,7 @@ RewriteRule ^(\w+)/favorites$ index.php?action=showfavorites&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/favorites/rss$ index.php?action=favoritesrss&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/inbox$ index.php?action=inbox&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/outbox$ index.php?action=outbox&nickname=$1 [L,QSA]
+RewriteRule ^(\w+)/microsummary$ index.php?action=microsummary&nickname=$1 [L,QSA]
 
 RewriteRule ^(\w+)$ index.php?action=showstream&nickname=$1 [L,QSA]
 
