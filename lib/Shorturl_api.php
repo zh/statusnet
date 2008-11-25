@@ -36,7 +36,7 @@ class ShortUrlApi {
     }
 
     private function is_long($url) {
-        return strlen($url) > 20;
+        return strlen($url) >= 30;
     }
 
     protected function http_post($data) {
