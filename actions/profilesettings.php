@@ -232,8 +232,12 @@ class ProfilesettingsAction extends SettingsAction {
 			return;
 		}
 
-		$tags = array_map('common_canonical_tag', preg_split('/[\s,]+/', $tagstring));
-
+		if ($tagstring) {
+			$tags = array_map('common_canonical_tag', preg_split('/[\s,]+/', $tagstring));
+		} else {
+			$tags = array();
+		}
+			
 		foreach ($tags as $tag) {
 			if (!common_valid_profile_tag($tag)) {
 				$this->show_form(sprintf(_('Invalid tag: "%s"'), $tag));
