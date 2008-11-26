@@ -99,6 +99,7 @@ $(document).ready(function(){
 											   var form_subscribe_id = form_unsubscribe_id.replace('unsubscribe', 'subscribe');
 											   $("form#"+form_subscribe_id).replaceWith(form_unsubscribe);
 											   $("form#"+form_unsubscribe_id).ajaxForm(UnSubscribe).each(addAjaxHidden);
+											   $("dd.subscribers").text(parseInt($("dd.subscribers").text())+1);
 										     }
 					};
 
@@ -110,6 +111,7 @@ $(document).ready(function(){
 												 $("form#"+form_subscribe_id).ajaxForm(Subscribe).each(addAjaxHidden);
 												 $("#profile_send_a_new_message").remove();
 												 $("#profile_nudge").remove();
+											     $("dd.subscribers").text(parseInt($("dd.subscribers").text())-1);
 											   }
 					  };
 
