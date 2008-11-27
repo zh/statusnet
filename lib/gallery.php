@@ -264,7 +264,7 @@ class GalleryAction extends Action {
 			if ($tag) {
 				$url_args['tag'] = $tag;
 			}
-			common_local_url($this->trimmed('action'), $url_args);
+			$url = common_local_url($this->trimmed('action'), $url_args);
 			common_element('a', array('href' => $url),
 						   _('List'));
 			common_element_end('li');
