@@ -255,10 +255,11 @@ class GalleryAction extends Action {
 			common_element('a', array('href' => $url),
 						   _('Icons'));
 			common_element_end('li');
-      break;
+			break;
 		 default:
 			common_element_start('li', array('class'=>'child_1'));
 			$url_args = array('nickname' => $profile->nickname,
+							  'display' => 'list',
 							  'page' => 1 + floor((($page - 1) * AVATARS_PER_PAGE) / PROFILES_PER_PAGE));
 			if ($tag) {
 				$url_args['tag'] = $tag;
