@@ -236,7 +236,15 @@ class XMPPDaemon extends Daemon {
 	}
 
 	function add_notice(&$user, &$pl) {
-		$notice = Notice::saveNew($user->id, trim(mb_substr($pl['body'], 0, 140)), 'xmpp');
+        $content_shortened = common_shorten_link($pl['body']);
+        if (mb_strlen($content_shortened) > 140) {
+            $content = trim(mb_substr($pl['body'], 0, 140));
+            $content_shortened = common_shorten_link($content);
+        }
+        else {
+            $content = $pl['body'];
+        }
+		$notice = Notice::saveNew($user->id, $content, 'xmpp');
 		if (is_string($notice)) {
 			$this->log(LOG_ERR, $notice);
 			return;

@@ -120,6 +120,9 @@ class MailerDaemon {
 	}
 
 	function add_notice($user, $msg) {
+        // should test
+        // $msg_shortened = common_shorten_links($msg);
+        // if (mb_strlen($msg_shortened) > 140) ERROR and STOP
 		$notice = Notice::saveNew($user->id, $msg, 'mail');
 		if (is_string($notice)) {
 			$this->log(LOG_ERR, $notice);

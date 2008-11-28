@@ -51,11 +51,11 @@ class NewnoticeAction extends Action {
 			$this->show_form(_('No content!'));
 			return;
 		} else {
-			$content = common_shorten_links($content);
+			$content_shortened = common_shorten_links($content);
 
-			if (mb_strlen($content) > 140) {
-				common_debug("Content = '$content'", __FILE__);
-				common_debug("mb_strlen(\$content) = " . mb_strlen($content), __FILE__);
+			if (mb_strlen($content_shortened) > 140) {
+				common_debug("Content = '$content_shortened'", __FILE__);
+				common_debug("mb_strlen(\$content) = " . mb_strlen($content_shortened), __FILE__);
 				$this->show_form(_('That\'s too long. Max notice size is 140 chars.'));
 				return;
 			}
@@ -63,7 +63,7 @@ class NewnoticeAction extends Action {
 
 		$inter = new CommandInterpreter();
 
-		$cmd = $inter->handle_command($user, $content);
+		$cmd = $inter->handle_command($user, $content_shortened);
 
 		if ($cmd) {
 			$cmd->execute(new WebChannel());

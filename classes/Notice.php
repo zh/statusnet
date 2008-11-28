@@ -127,7 +127,7 @@ class Notice extends Memcached_DataObject
 
 		$notice->reply_to = $reply_to;
 		$notice->created = common_sql_now();
-		$notice->content = $content;
+		$notice->content = common_shorten_links($content);
 		$notice->rendered = common_render_content($notice->content, $notice);
 		$notice->source = $source;
 		$notice->uri = $uri;

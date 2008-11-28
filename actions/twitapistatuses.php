@@ -255,9 +255,9 @@ class TwitapistatusesAction extends TwitterapiAction {
 //		} else if (mb_strlen($status) > 140) {
 		} else {
 			
-			$status = common_shorten_links($status);
+			$status_shortened = common_shorten_links($status);
 
-			if (mb_strlen($status) > 140) {
+			if (mb_strlen($status_shortened) > 140) {
 
 				// XXX: Twitter truncates anything over 140, flags the status
 			    // as "truncated."  Sending this error may screw up some clients
@@ -271,7 +271,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 
 		// Check for commands
 		$inter = new CommandInterpreter();
-		$cmd = $inter->handle_command($user, $status);
+		$cmd = $inter->handle_command($user, $status_shortened);
 
 		if ($cmd) {
 

@@ -837,10 +837,10 @@ function common_longurl2($uri)  {
 
 function common_shorten_links($text) {
     if (mb_strlen($text) <= 140) return $text;
+    static $cache = array();
+    if (isset($cache[$text])) return $cache[$text];
     // \s = not a horizontal whitespace character (since PHP 5.2.4)
-	// RYM this should prevent * preceded URLs from being processed but it its a char
-//	$r = preg_replace('@[^*](https?://[^)\]>\s]+)@e', "common_shorten_link('\\1')", $r);
-	return preg_replace('@https?://[^)\]>\s]+@e', "common_shorten_link('\\0')", $text);
+	return $cache[$text] = preg_replace('@https?://[^)\]>\s]+@e', "common_shorten_link('\\0')", $text);
 }
 
 function common_shorten_link($long_url) {
