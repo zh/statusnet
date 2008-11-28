@@ -522,7 +522,7 @@ class ProfilesettingsAction extends SettingsAction {
         // delete user (id)
         // delete user_openid (user_id)
         // delete profile (id)
-        // 
+        // delete tags tables (to verify)
         // delete all the users notices
 
 		$this->show_form(_('Your account has been deleted.'), true);

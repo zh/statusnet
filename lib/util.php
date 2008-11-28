@@ -822,7 +822,13 @@ function common_render_uri_thingy($matches) {
 	return '<a href="' . $uri . '"' . $title . ' class="extlink">' . $uri . '</a>' . $trailer;
 }
 
-function common_longurl($uri)  {
+function common_longurl($short_url)  {
+    $long_url = common_shorten_link($short_url, true);
+    if ($long_url === $short_url) return false;
+    return $long_url;
+}
+
+function common_longurl2($uri)  {
 	$uri_e = urlencode($uri);
 	$longurl = unserialize(file_get_contents("http://api.longurl.org/v1/expand?format=php&url=$uri_e"));
 	if (empty($longurl['long_url']) || $uri === $longurl['long_url']) return false;
@@ -830,6 +836,7 @@ function common_longurl($uri)  {
 }
 
 function common_shorten_links($text) {
+    if (mb_strlen($text) <= 140) return $text;
     // \s = not a horizontal whitespace character (since PHP 5.2.4)
 	// RYM this should prevent * preceded URLs from being processed but it its a char
 //	$r = preg_replace('@[^*](https?://[^)\]>\s]+)@e', "common_shorten_link('\\1')", $r);
@@ -837,7 +844,7 @@ function common_shorten_links($text) {
 }
 
 function common_shorten_link($long_url) {
-
+	
 	$user = common_current_user();
 
 	$curlh = curl_init();
@@ -848,38 +855,38 @@ function common_shorten_link($long_url) {
 	switch($user->urlshorteningservice) {
         case 'ur1.ca':
             $short_url_service = new LilUrl;
-            $short_url = $short_url_service->shorten($long_url);
+            $short_url = $short_url_service->shorten($url);
             break;
 
         case '2tu.us':
             $short_url_service = new TightUrl;
-            $short_url = $short_url_service->shorten($long_url);
+            $short_url = $short_url_service->shorten($url);
             break;
 
         case 'ptiturl.com':
             $short_url_service = new PtitUrl;
-            $short_url = $short_url_service->shorten($long_url);
+            $short_url = $short_url_service->shorten($url);
             break;
 
         case 'bit.ly':
-			curl_setopt($curlh, CURLOPT_URL, 'http://bit.ly/api?method=shorten&long_url='.urlencode($long_url));
+			curl_setopt($curlh, CURLOPT_URL, 'http://bit.ly/api?method=shorten&long_url='.urlencode($url));
 			$short_url = current(json_decode(curl_exec($curlh))->results)->hashUrl;
             break;
 
 		case 'is.gd':
-			curl_setopt($curlh, CURLOPT_URL, 'http://is.gd/api.php?longurl='.urlencode($long_url));
+			curl_setopt($curlh, CURLOPT_URL, 'http://is.gd/api.php?longurl='.urlencode($url));
 			$short_url = curl_exec($curlh);
 			break;
 		case 'snipr.com':
-			curl_setopt($curlh, CURLOPT_URL, 'http://snipr.com/site/snip?r=simple&link='.urlencode($long_url));
+			curl_setopt($curlh, CURLOPT_URL, 'http://snipr.com/site/snip?r=simple&link='.urlencode($url));
 			$short_url = curl_exec($curlh);
 			break;
 		case 'metamark.net':
-			curl_setopt($curlh, CURLOPT_URL, 'http://metamark.net/api/rest/simple?long_url='.urlencode($long_url));
+			curl_setopt($curlh, CURLOPT_URL, 'http://metamark.net/api/rest/simple?long_url='.urlencode($url));
 			$short_url = curl_exec($curlh);
 			break;
 		case 'tinyurl.com':
-			curl_setopt($curlh, CURLOPT_URL, 'http://tinyurl.com/api-create.php?url='.urlencode($long_url));
+			curl_setopt($curlh, CURLOPT_URL, 'http://tinyurl.com/api-create.php?url='.urlencode($url));
 			$short_url = curl_exec($curlh);
 			break;
 		default:
@@ -889,9 +896,10 @@ function common_shorten_link($long_url) {
 	curl_close($curlh);
 
 	if ($short_url) {
-		return $short_url;
+        $url_cache[(string)$short_url] = $url;
+		return (string)$short_url;
 	}
-	return $long_url;
+	return $url;
 }
 
 function common_xml_safe_str($str) {
