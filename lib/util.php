@@ -401,9 +401,8 @@ function common_checkbox($id, $label, $checked=false, $instructions=NULL, $value
 		$attrs['disabled'] = 'true';
 	}
 	common_element('input', $attrs);
-	# XXX: use a <label>
 	common_text(' ');
-	common_element('span', 'checkbox_label', $label);
+	common_element('label', array('class' => 'checkbox_label', 'for' => $id), $label);
 	common_text(' ');
 	if ($instructions) {
 		common_element('span', 'input_instructions', $instructions);
