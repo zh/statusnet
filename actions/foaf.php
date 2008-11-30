@@ -110,7 +110,8 @@ class FoafAction extends Action {
 
 		$sub = new Subscription();
 		$sub->subscriber = $profile->id;
-
+		$sub->whereAdd('subscriber != subscribed');
+		
 		if ($sub->find()) {
 			while ($sub->fetch()) {
 				if ($sub->token) {
@@ -131,6 +132,7 @@ class FoafAction extends Action {
 
 		$sub = new Subscription();
 		$sub->subscribed = $profile->id;
+		$sub->whereAdd('subscriber != subscribed');
 
 		if ($sub->find()) {
 			while ($sub->fetch()) {
