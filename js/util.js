@@ -126,6 +126,8 @@ $(document).ready(function(){
 																				$("#status_form").addClass("response_error");
 																				return false;
 																		   }
+																		   $("#status_form input[type=submit]").attr("disabled", "disabled");
+																		   $("#status_form input[type=submit]").addClass("disabled");
 																		   return true;
 												 						 },
 					   success: function(xml) {	if ($(".error", xml).length > 0) {
@@ -140,6 +142,8 @@ $(document).ready(function(){
 													$(".notice_single:first").css({display:"none"});
 													$(".notice_single:first").fadeIn(2500);
 												}
+												$("#status_form input[type=submit]").removeAttr("disabled");
+												$("#status_form input[type=submit]").removeClass("disabled");
 											 }
 					   }
 	$("#status_form").ajaxForm(PostNotice);
