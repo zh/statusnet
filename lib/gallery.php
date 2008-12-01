@@ -255,7 +255,7 @@ class GalleryAction extends Action {
 			common_element('a', array('href' => $url),
 						   _('Icons'));
 			common_element_end('li');
-      break;
+			break;
 		 default:
 			common_element_start('li', array('class'=>'child_1'));
 			$url_args = array('nickname' => $profile->nickname,
@@ -263,7 +263,7 @@ class GalleryAction extends Action {
 			if ($tag) {
 				$url_args['tag'] = $tag;
 			}
-			common_local_url($this->trimmed('action'), $url_args);
+			$url = common_local_url($this->trimmed('action'), $url_args);
 			common_element('a', array('href' => $url),
 						   _('List'));
 			common_element_end('li');

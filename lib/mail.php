@@ -157,7 +157,7 @@ function mail_new_incoming_notify($user) {
 }
 
 function mail_new_incoming_address() {
-	$prefix = common_good_rand(8);
+	$prefix = common_confirmation_code(64);
 	$suffix = mail_domain();
 	return $prefix . '@' . $suffix;
 }
