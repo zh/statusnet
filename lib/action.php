@@ -30,6 +30,7 @@ class Action { // lawsuit
 	
 	function init($argarray) {
 		$this->args =& common_copy_args($argarray);
+		return true;
 	}
 
 	# For comparison with If-Last-Modified
