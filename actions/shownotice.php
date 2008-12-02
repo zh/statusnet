@@ -23,6 +23,10 @@ require_once(INSTALLDIR.'/lib/stream.php');
 
 class ShownoticeAction extends StreamAction {
 
+	var $notice = NULL;
+	var $profile = NULL;
+	var $avatar = NULL;
+
 	function init($args) {
 
 		parent::init($args);
