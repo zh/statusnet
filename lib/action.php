@@ -64,7 +64,7 @@ class Action { // lawsuit
 		$lm = $this->last_modified();
 		
 		if ($lm) {
-			header('Last-Modified: ' . date(DATE_RFC822, $dt));
+			header('Last-Modified: ' . date(DATE_RFC822, $lm));
 			$if_modified_since = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
 			if ($if_modified_since) {
 				$ims = strtotime($if_modified_since);
