@@ -27,7 +27,7 @@ class Action { // lawsuit
 	}
 
 	# For initializing members of the class
-	
+
 	function init($argarray) {
 		$this->args =& common_copy_args($argarray);
 		return true;
@@ -35,11 +35,11 @@ class Action { // lawsuit
 
 	# For comparison with If-Last-Modified
 	# If not applicable, return NULL
-	
+
 	function last_modified() {
 		return NULL;
 	}
-	
+
 	function is_readonly() {
 		return false;
 	}
@@ -58,11 +58,11 @@ class Action { // lawsuit
 	}
 
 	# Note: argarray ignored, since it's now passed in in init()
-	
+
 	function handle($argarray=NULL) {
-		
+
 		$lm = $this->last_modified();
-		
+
 		if ($lm) {
 			header('Last-Modified: ' . date(DATE_RFC822, $lm));
 			$if_modified_since = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
@@ -92,7 +92,7 @@ class Action { // lawsuit
 		} else {
 			return $def;
 		}
-	}	
+	}
 
 	function server_error($msg, $code=500) {
 		$action = $this->trimmed('action');
