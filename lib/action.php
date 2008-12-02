@@ -69,7 +69,7 @@ class Action { // lawsuit
 			if ($if_modified_since) {
 				$ims = strtotime($if_modified_since);
 				if ($lm <= $ims) {
-					header('304 Not Modified');
+					header('HTTP/1.1 304 Not Modified');
 					# Better way to do this?
 					exit(0);
 				}
