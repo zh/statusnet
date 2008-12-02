@@ -42,14 +42,24 @@ class ShownoticeAction extends StreamAction {
 			return false;
 		}
 
+		$this->avatar = $this->profile->getAvatar(AVATAR_STREAM_SIZE);
+
 		return true;
 	}
 
 	function last_modified() {
-		$avatar = $this->profile->getAvatar(AVATAR_STREAM_SIZE);
 		return max(strtotime($this->notice->modified),
 				   strtotime($this->profile->modified),
-				   ($avatar) ? strtotime($this->avatar->modified) : 0);
+				   ($this->avatar) ? strtotime($this->avatar->modified) : 0);
+	}
+
+	function etag() {
+		return 'W/"' . implode(':', array($this->arg('action'),
+										  common_language(),
+										  $this->notice->id,
+										  strtotime($this->notice->modified),
+										  strtotime($this->profile->modified),
+										  ($this->avatar) ? strtotime($this->avatar->modified) : 0));
 	}
 
 	function handle($args) {
