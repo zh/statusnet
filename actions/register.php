@@ -62,12 +62,12 @@ class RegisterAction extends Action {
 		if ($code) {
 			$invite = Invitation::staticGet($code);
 		}
-		
+
 		if (common_config('site', 'inviteonly') && !($code && $invite)) {
 			$this->client_error(_('Sorry, only invited people can register.'));
 			return;
 		}
-		
+
 		# Input scrubbing
 
 		$nickname = common_canonical_nickname($nickname);
@@ -166,12 +166,12 @@ class RegisterAction extends Action {
 		if ($code) {
 			$invite = Invitation::staticGet($code);
 		}
-		
+
 		if (common_config('site', 'inviteonly') && !($code && $invite)) {
 			$this->client_error(_('Sorry, only invited people can register.'));
 			return;
 		}
-		
+
 		common_show_header(_('Register'), NULL, $error, array($this, 'show_top'));
 		common_element_start('form', array('method' => 'post',
 										   'id' => 'login',
