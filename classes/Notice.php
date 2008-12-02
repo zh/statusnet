@@ -95,7 +95,17 @@ class Notice extends Memcached_DataObject
 
 		$notice = new Notice();
 		$notice->profile_id = $profile_id;
-		$notice->is_local = $is_local;
+
+		$blacklist = common_config('public', 'blacklist');
+
+		# Blacklisted are non-false, but not 1, either
+
+		if ($blacklist && in_array($profile_id, $blacklist)) {
+			$notice->is_local = -1;
+		} else {
+			$notice->is_local = $is_local;
+		}
+
 		$notice->reply_to = $reply_to;
 		$notice->created = common_sql_now();
 		$notice->content = $content;
@@ -214,7 +224,7 @@ class Notice extends Memcached_DataObject
 	}
 
 	function blowPublicCache($blowLast=false) {
-		if ($this->is_local) {
+		if ($this->is_local == 1) {
 			$cache = common_memcache();
 			if ($cache) {
 				$cache->delete(common_cache_key('public'));
@@ -426,10 +436,9 @@ class Notice extends Memcached_DataObject
 
 		if (common_config('public', 'localonly')) {
 			$parts[] = 'is_local = 1';
-		}
-
-		if (common_config('public', 'blacklist')) {
-			$parts[] = 'profile_id not in (' . implode(',', common_config('public', 'blacklist')) . ')';
+		} else {
+			# -1 == blacklisted
+			$parts[] = 'is_local != -1';
 		}
 
 		if ($parts) {
