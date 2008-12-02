@@ -44,9 +44,21 @@ class PublicAction extends StreamAction {
 	function show_top() {
 		if (common_logged_in()) {
 			common_notice_form('public');
+		} else {
+			$instr = $this->get_instructions();
+			$output = common_markup_to_html($instr);
+			common_element_start('div', 'instructions');
+			common_raw($output);
+			common_element_end('div');
 		}
 		
 		$this->public_views_menu();
+	}
+
+	function get_instructions() {
+		return _('This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
+				 'based on the Free Software [Laconica](http://laconi.ca/) tool. [Read more](%%doc.about%%)' .
+				 '[Join now](%%action.register%%) to share notices about yourself with friends, family, and colleagues!');
 	}
 
 	function show_header() {
