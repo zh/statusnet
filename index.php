@@ -52,6 +52,7 @@ if (file_exists($actionfile)) {
 		}
 		$config['db']['database'] = $mirror;
 	}
+    call_user_func(array($action_obj, 'init'), $_REQUEST);
     call_user_func(array($action_obj, 'handle'), $_REQUEST);
 } else {
     common_user_error(_('Unknown action'));

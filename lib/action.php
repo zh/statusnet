@@ -26,6 +26,19 @@ class Action { // lawsuit
 	function Action() {
 	}
 
+	# For initializing members of the class
+	
+	function init($argarray) {
+		$this->args =& common_copy_args($argarray);
+	}
+
+	# For comparison with If-Last-Modified
+	# If not applicable, return NULL
+	
+	function last_modified() {
+		return NULL;
+	}
+	
 	function is_readonly() {
 		return false;
 	}
@@ -43,8 +56,27 @@ class Action { // lawsuit
 		return (is_string($arg)) ? trim($arg) : $arg;
 	}
 
-	function handle($argarray) {
-		$this->args =& common_copy_args($argarray);
+	# Note: argarray ignored, since it's now passed in in init()
+	
+	function handle($argarray=NULL) {
+		
+		$lm = $this->last_modified();
+		
+		if ($lm) {
+			header('Last-Modified: ' . date(DATE_RFC822, $dt));
+			$if_modified_since = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
+			if ($if_modified_since) {
+				$ims = strtotime($if_modified_since);
+				if ($lm <= $ims) {
+					$if_none_match = $_SERVER['HTTP_IF_NONE_MATCH'];
+					if ($if_none_match) {
+						header('304 Not Modified');
+						# Better way to do this?
+						exit(0);
+					}
+				}
+			}
+		}
 	}
 
 	function boolean($key, $def=false) {
