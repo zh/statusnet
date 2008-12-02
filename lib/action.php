@@ -69,12 +69,9 @@ class Action { // lawsuit
 			if ($if_modified_since) {
 				$ims = strtotime($if_modified_since);
 				if ($lm <= $ims) {
-					$if_none_match = $_SERVER['HTTP_IF_NONE_MATCH'];
-					if ($if_none_match) {
-						header('304 Not Modified');
-						# Better way to do this?
-						exit(0);
-					}
+					header('304 Not Modified');
+					# Better way to do this?
+					exit(0);
 				}
 			}
 		}
