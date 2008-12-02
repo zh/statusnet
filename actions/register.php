@@ -153,8 +153,11 @@ class RegisterAction extends Action {
 		if ($error) {
 			common_element('p', 'error', $error);
 		} else {
-			common_element('div', 'instructions',
-						   _('You can create a new account to start posting notices.'));
+			common_element_start('div', 'instructions');
+			common_element('p', NULL,
+						   _('With this form you can create a new account. You can then post notices and link up to friends and colleagues. '.
+							 '(Have an [OpenID](http://openid.net/)? Try our [OpenID registration](%%action.openidlogin%%)!)'));
+			common_element_end('div');
 		}
 	}
 
