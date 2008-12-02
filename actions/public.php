@@ -51,7 +51,7 @@ class PublicAction extends StreamAction {
 			common_raw($output);
 			common_element_end('div');
 		}
-		
+
 		$this->public_views_menu();
 	}
 
@@ -76,7 +76,7 @@ class PublicAction extends StreamAction {
 		$cnt = 0;
 		$notice = Notice::publicStream(($page-1)*NOTICES_PER_PAGE,
 									   NOTICES_PER_PAGE + 1);
-		
+
 		if ($notice) {
 			common_element_start('ul', array('id' => 'notices'));
 			while ($notice->fetch()) {
