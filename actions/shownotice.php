@@ -23,58 +23,74 @@ require_once(INSTALLDIR.'/lib/stream.php');
 
 class ShownoticeAction extends StreamAction {
 
-	function handle($args) {
-		parent::handle($args);
+	function init($args) {
+
+		parent::init($args);
+
 		$id = $this->arg('notice');
-		$notice = Notice::staticGet($id);
+		$this->notice = Notice::staticGet($id);
 
-		if (!$notice) {
+		if (!$this->notice) {
 			$this->client_error(_('No such notice.'), 404);
-			return;
+			return false;
 		}
 
-		$profile = $notice->getProfile();
+		$this->profile = $this->notice->getProfile();
 
-		if (!$profile) {
+		if (!$this->profile) {
 			$this->server_error(_('Notice has no profile'), 500);
-			return;
+			return false;
 		}
 
-		# Looks like we're good; show the header
+		return true;
+	}
 
-		common_show_header(sprintf(_('%1$s\'s status on %2$s'), $profile->nickname, common_exact_date($notice->created)),
-						   array($this, 'show_header'), $notice,
+	function last_modified() {
+		$avatar = $this->profile->getAvatar(AVATAR_STREAM_SIZE);
+		return max(strtotime($this->notice->modified),
+				   strtotime($this->profile->modified),
+				   ($avatar) ? strtotime($this->avatar->modified) : 0);
+	}
+
+	function handle($args) {
+
+		parent::handle($args);
+
+		common_show_header(sprintf(_('%1$s\'s status on %2$s'),
+								   $this->profile->nickname,
+								   common_exact_date($this->notice->created)),
+						   array($this, 'show_header'), NULL,
 						   array($this, 'show_top'));
 
 		common_element_start('ul', array('id' => 'notices'));
-		$this->show_notice($notice);
+		$this->show_notice($this->notice);
 		common_element_end('ul');
 
 		common_show_footer();
 	}
 
-	function show_header($notice)
-	{
-		$profile = $notice->getProfile();
-		$user = User::staticGet($profile->id);
+	function show_header() {
+
+		$user = User::staticGet($this->profile->id);
+
 		if (!$user) {
 			return;
 		}
-		if ($user->emailmicroid && $user->email && $notice->uri) {
+
+		if ($user->emailmicroid && $user->email && $this->notice->uri) {
 			common_element('meta', array('name' => 'microid',
-										 'content' => "mailto+http:sha1:" . sha1(sha1('mailto:' . $user->email) . sha1($notice->uri))));
+										 'content' => "mailto+http:sha1:" . sha1(sha1('mailto:' . $user->email) . sha1($this->notice->uri))));
 		}
-		if ($user->jabbermicroid && $user->jabber && $notice->uri) {
+
+		if ($user->jabbermicroid && $user->jabber && $this->notice->uri) {
 			common_element('meta', array('name' => 'microid',
-										 'content' => "xmpp+http:sha1:" . sha1(sha1('xmpp:' . $user->jabber) . sha1($notice->uri))));
+										 'content' => "xmpp+http:sha1:" . sha1(sha1('xmpp:' . $user->jabber) . sha1($this->notice->uri))));
 		}
 	}
 
-	function show_top($notice) {
-		$user = $notice->getProfile();
+	function show_top() {
 		$cur = common_current_user();
-
-		if ($cur && $cur->id == $user->id) {
+		if ($cur && $cur->id == $this->profile->id) {
 			common_notice_form();
 		}
 	}
