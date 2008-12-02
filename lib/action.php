@@ -40,6 +40,10 @@ class Action { // lawsuit
 		return NULL;
 	}
 
+	function etag() {
+		return NULL;
+	}
+
 	function is_readonly() {
 		return false;
 	}
@@ -62,6 +66,11 @@ class Action { // lawsuit
 	function handle($argarray=NULL) {
 
 		$lm = $this->last_modified();
+		$etag = $this->etag();
+
+		if ($etag) {
+			header('ETag: ' . $etag);
+		}
 
 		if ($lm) {
 			header('Last-Modified: ' . date(DATE_RFC822, $lm));
@@ -69,12 +78,18 @@ class Action { // lawsuit
 			if ($if_modified_since) {
 				$ims = strtotime($if_modified_since);
 				if ($lm <= $ims) {
-					header('HTTP/1.1 304 Not Modified');
-					# Better way to do this?
-					exit(0);
+					if (!$etag || $this->_has_etag($etag, $_SERVER['HTTP_IF_NONE_MATCH'])) {
+						header('HTTP/1.1 304 Not Modified');
+						# Better way to do this?
+						exit(0);
+					}
 				}
 			}
 		}
+	}
+
+	function _has_etag($etag, $if_none_match) {
+		return ($if_none_match) && in_array($etag, explode(',', $if_none_match));
 	}
 
 	function boolean($key, $def=false) {
