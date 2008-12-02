@@ -48,7 +48,7 @@ class ShownoticeAction extends StreamAction {
 	}
 
 	function last_modified() {
-		return max(strtotime($this->notice->modified),
+		return max(strtotime($this->notice->created),
 				   strtotime($this->profile->modified),
 				   ($this->avatar) ? strtotime($this->avatar->modified) : 0);
 	}
@@ -57,7 +57,7 @@ class ShownoticeAction extends StreamAction {
 		return 'W/"' . implode(':', array($this->arg('action'),
 										  common_language(),
 										  $this->notice->id,
-										  strtotime($this->notice->modified),
+										  strtotime($this->notice->created),
 										  strtotime($this->profile->modified),
 										  ($this->avatar) ? strtotime($this->avatar->modified) : 0));
 	}
