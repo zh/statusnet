@@ -142,6 +142,9 @@ class RegisterAction extends Action {
 
 	function email_exists($email) {
 		$email = common_canonical_email($email);
+		if (!$email || strlen($email) == 0) {
+			return false;
+		}
 		$user = User::staticGet('email', $email);
 		return ($user !== false);
 	}
