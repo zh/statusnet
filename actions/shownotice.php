@@ -59,7 +59,7 @@ class ShownoticeAction extends StreamAction {
 										  $this->notice->id,
 										  strtotime($this->notice->created),
 										  strtotime($this->profile->modified),
-										  ($this->avatar) ? strtotime($this->avatar->modified) : 0));
+										  ($this->avatar) ? strtotime($this->avatar->modified) : 0)) . '"';
 	}
 
 	function handle($args) {
