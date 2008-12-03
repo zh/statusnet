@@ -62,12 +62,12 @@ class RegisterAction extends Action {
 		if ($code) {
 			$invite = Invitation::staticGet($code);
 		}
-		
+
 		if (common_config('site', 'inviteonly') && !($code && $invite)) {
 			$this->client_error(_('Sorry, only invited people can register.'));
 			return;
 		}
-		
+
 		# Input scrubbing
 
 		$nickname = common_canonical_nickname($nickname);
@@ -142,6 +142,9 @@ class RegisterAction extends Action {
 
 	function email_exists($email) {
 		$email = common_canonical_email($email);
+		if (!$email || strlen($email) == 0) {
+			return false;
+		}
 		$user = User::staticGet('email', $email);
 		return ($user !== false);
 	}
@@ -150,8 +153,14 @@ class RegisterAction extends Action {
 		if ($error) {
 			common_element('p', 'error', $error);
 		} else {
-			common_element('div', 'instructions',
-						   _('You can create a new account to start posting notices.'));
+			$instr = common_markup_to_html(_('With this form you can create a new account. ' .
+											 'You can then post notices and link up to friends and colleagues. '.
+											 '(Have an [OpenID](http://openid.net/)? ' .
+											 'Try our [OpenID registration](%%action.openidlogin%%)!)'));
+
+			common_element_start('div', 'instructions');
+			common_raw($instr);
+			common_element_end('div');
 		}
 	}
 
@@ -163,12 +172,12 @@ class RegisterAction extends Action {
 		if ($code) {
 			$invite = Invitation::staticGet($code);
 		}
-		
+
 		if (common_config('site', 'inviteonly') && !($code && $invite)) {
 			$this->client_error(_('Sorry, only invited people can register.'));
 			return;
 		}
-		
+
 		common_show_header(_('Register'), NULL, $error, array($this, 'show_top'));
 		common_element_start('form', array('method' => 'post',
 										   'id' => 'login',
