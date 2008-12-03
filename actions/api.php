@@ -92,6 +92,10 @@ class ApiAction extends Action {
 			$action_class = ucfirst($action)."Action";
 			$action_obj = new $action_class();
 
+            if (!$action_obj->prepare($this->args)) {
+                return;
+            }
+
 			if (method_exists($action_obj, $this->api_method)) {
 				$apidata = array(	'content-type' => $this->content_type,
 									'api_method' => $this->api_method,
