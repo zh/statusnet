@@ -29,7 +29,7 @@ class ShownoticeAction extends StreamAction {
 
 	function prepare($args) {
 
-		parent::init($args);
+		parent::prepare($args);
 
 		$id = $this->arg('notice');
 		$this->notice = Notice::staticGet($id);
