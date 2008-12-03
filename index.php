@@ -40,7 +40,8 @@ if (!$action || !preg_match('/^[a-zA-Z0-9_-]*$/', $action)) {
 // parts of the site, redirect to login
 
 if (!$user && common_config('site', 'private') &&
-    !in_array($action, array('login', 'openidlogin', 'finishopenidlogin', 'api', 'doc', 'register')))
+    !in_array($action, array('login', 'openidlogin', 'finishopenidlogin',
+                             'recoverpassword', 'api', 'doc', 'register')))
 {
     common_redirect(common_local_url('login'));
 }
