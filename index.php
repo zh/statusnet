@@ -36,6 +36,10 @@ if (!$action || !preg_match('/^[a-zA-Z0-9_-]*$/', $action)) {
     common_redirect(common_local_url('public'));
 }
 
+if (!$user && common_config('site', 'private') && $action != 'login') {
+    common_redirect(common_local_url('login'));
+}
+
 $actionfile = INSTALLDIR."/actions/$action.php";
 
 if (file_exists($actionfile)) {
