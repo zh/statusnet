@@ -27,7 +27,7 @@ class ShownoticeAction extends StreamAction {
 	var $profile = NULL;
 	var $avatar = NULL;
 
-	function init($args) {
+	function prepare($args) {
 
 		parent::init($args);
 

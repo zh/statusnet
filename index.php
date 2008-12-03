@@ -52,7 +52,7 @@ if (file_exists($actionfile)) {
 		}
 		$config['db']['database'] = $mirror;
 	}
-    if (call_user_func(array($action_obj, 'init'), $_REQUEST)) {
+    if (call_user_func(array($action_obj, 'prepare'), $_REQUEST)) {
 		call_user_func(array($action_obj, 'handle'), $_REQUEST);
 	}
 } else {

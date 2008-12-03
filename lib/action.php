@@ -28,7 +28,7 @@ class Action { // lawsuit
 
 	# For initializing members of the class
 
-	function init($argarray) {
+	function prepare($argarray) {
 		$this->args =& common_copy_args($argarray);
 		return true;
 	}
@@ -61,7 +61,7 @@ class Action { // lawsuit
 		return (is_string($arg)) ? trim($arg) : $arg;
 	}
 
-	# Note: argarray ignored, since it's now passed in in init()
+	# Note: argarray ignored, since it's now passed in in prepare()
 
 	function handle($argarray=NULL) {
 
