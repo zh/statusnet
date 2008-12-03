@@ -329,7 +329,7 @@ create table message (
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified',
     source varchar(32) comment 'source of comment, like "web", "im", or "clientname"',
-    
+
     index message_from_idx (from_profile),
     index message_to_idx (to_profile),
     index message_created_idx (created)
@@ -341,7 +341,7 @@ create table notice_inbox (
     notice_id integer not null comment 'notice received' references notice (id),
     created datetime not null comment 'date the notice was created',
     source tinyint default 1 comment 'reason it is in the inbox; 1=subscription',
-    
+
     constraint primary key (user_id, notice_id),
     index notice_inbox_notice_id_idx (notice_id)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
@@ -351,7 +351,7 @@ create table profile_tag (
    tagged integer not null comment 'profile tagged' references profile (id),
    tag varchar(64) not null comment 'hash tag associated with this notice',
    modified timestamp comment 'date the tag was added',
-   
+
    constraint primary key (tagger, tagged, tag),
    index profile_tag_modified_idx (modified),
    index profile_tag_tagger_tag_idx (tagger, tag)
