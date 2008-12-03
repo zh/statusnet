@@ -2081,3 +2081,8 @@ function common_memcache() {
 		return $cache;
 	}
 }
+
+function common_compatible_license($from, $to) {
+	# XXX: better compatibility check needed here!
+	return ($from == $to);
+}
