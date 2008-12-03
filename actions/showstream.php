@@ -30,7 +30,20 @@ class ShowstreamAction extends StreamAction {
 
 		parent::handle($args);
 
-		$nickname = common_canonical_nickname($this->arg('nickname'));
+        $nickname_arg = $this->arg('nickname');
+		$nickname = common_canonical_nickname($nickname_arg);
+
+        # Permanent redirect on non-canonical nickname
+
+        if ($nickname_arg != $nickname) {
+            $args = array('nickname' => $nickname);
+            if ($this->arg('page') && $this->arg('page') != 1) {
+                $args['page'] = $this->arg['page'];
+            }
+            common_redirect(common_local_url('showstream', $args), 301);
+            return;
+        }
+
 		$user = User::staticGet('nickname', $nickname);
 
 		if (!$user) {
