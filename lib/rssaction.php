@@ -60,6 +60,10 @@ class Rss10Action extends Action {
 
 	function show_rss($limit=0) {
 
+		if (!$this->init()) {
+			return;
+		}
+
 		$notices = $this->get_notices($limit);
 
 		$this->init_rss();
