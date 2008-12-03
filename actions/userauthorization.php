@@ -449,6 +449,10 @@ class UserauthorizationAction extends Action {
 		if (!common_valid_http_url($license)) {
 			throw new OAuthException("Invalid license URL '$license'.");
 		}
+		$site_license = common_config('license', 'url');
+		if (!common_compatible_license($license, $site_license)) {
+			throw new OAuthException("Listenee stream license '$license' not compatible with site license '$site_license'.");
+		}
 		# optional stuff
 		$fullname = $req->get_parameter('omb_listenee_fullname');
 		if ($fullname && strlen($fullname) > 255) {
