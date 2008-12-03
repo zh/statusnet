@@ -154,11 +154,11 @@ function common_init_language() {
 define('PAGE_TYPE_PREFS', 'text/html,application/xhtml+xml,application/xml;q=0.3,text/xml;q=0.2');
 
 function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=NULL) {
-	
+
 	global $config, $xw;
 
 	common_start_html();
-	
+
 	common_element_start('head');
 	common_element('title', NULL,
 				   $pagetitle . " - " . $config['site']['name']);
@@ -236,21 +236,21 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 }
 
 function common_start_html($type=NULL, $indent=true) {
-	
+
 	if (!$type) {
 		$httpaccept = isset($_SERVER['HTTP_ACCEPT']) ? $_SERVER['HTTP_ACCEPT'] : NULL;
-		
+
 		# XXX: allow content negotiation for RDF, RSS, or XRDS
-		
+
 		$type = common_negotiate_type(common_accept_to_prefs($httpaccept),
 									  common_accept_to_prefs(PAGE_TYPE_PREFS));
-		
+
 		if (!$type) {
 			common_user_error(_('This page is not available in a media type you accept'), 406);
 			exit(0);
 		}
 	}
-	
+
 	header('Content-Type: '.$type);
 
 	common_start_xml('html',
@@ -754,7 +754,7 @@ function common_render_uri_thingy($matches) {
 		$title = " title='$longurl'";
 	}
 	else $title = '';
-	
+
 	return '<a href="' . $uri . '"' . $title . ' class="extlink">' . $uri . '</a>' . $trailer;
 }
 
@@ -773,25 +773,25 @@ function common_shorten_links($text) {
 }
 
 function common_shorten_link($long_url) {
-	
+
 	$user = common_current_user();
-	
+
 	$curlh = curl_init();
 	curl_setopt($curlh, CURLOPT_CONNECTTIMEOUT, 20); // # seconds to wait
 	curl_setopt($curlh, CURLOPT_USERAGENT, 'Laconica');
 	curl_setopt($curlh, CURLOPT_RETURNTRANSFER, true);
-	
+
 	switch($user->urlshorteningservice) {
         case 'ur1.ca':
             $short_url_service = new LilUrl;
             $short_url = $short_url_service->shorten($long_url);
             break;
-            
+
         case '2tu.us':
             $short_url_service = new TightUrl;
             $short_url = $short_url_service->shorten($long_url);
             break;
-            
+
         case 'ptiturl.com':
             $short_url_service = new PtitUrl;
             $short_url = $short_url_service->shorten($long_url);
@@ -821,9 +821,9 @@ function common_shorten_link($long_url) {
 		default:
 			$short_url = false;
 	}
-	
+
 	curl_close($curlh);
-	
+
 	if ($short_url) {
 		return $short_url;
 	}
@@ -832,7 +832,7 @@ function common_shorten_link($long_url) {
 
 function common_xml_safe_str($str) {
 	$xmlStr = htmlentities(iconv('UTF-8', 'UTF-8//IGNORE', $str), ENT_NOQUOTES, 'UTF-8');
-	
+
 	// Replace control, formatting, and surrogate characters with '*', ala Twitter
 	return preg_replace('/[\p{Cc}\p{Cf}\p{Cs}]/u', '*', $str);
 }
@@ -843,7 +843,7 @@ function common_tag_link($tag) {
 	return '<a href="' . htmlspecialchars($url) . '" rel="tag" class="hashlink">' . htmlspecialchars($tag) . '</a>';
 }
 
-function common_canonical_tag($tag) {  
+function common_canonical_tag($tag) {
 	return strtolower(str_replace(array('-', '_', '.'), '', $tag));
 }
 
@@ -1286,19 +1286,19 @@ function common_save_replies($notice) {
 	$cnt = preg_match_all('/(?:^|\s)@([a-z0-9]{1,64})/', $notice->content, $match);
 
 	$names = array();
-	
+
 	if ($cnt || $tname) {
 		# XXX: is there another way to make an array copy?
 		$names = ($tname) ? array_unique(array_merge(array(strtolower($tname)), $match[1])) : array_unique($match[1]);
 	}
-	
+
 	$sender = Profile::staticGet($notice->profile_id);
-	
+
 	$replied = array();
-	
+
 	# store replied only for first @ (what user/notice what the reply directed,
 	# we assume first @ is it)
-	
+
 	for ($i=0; $i<count($names); $i++) {
 		$nickname = $names[$i];
 		$recipient = common_relative_profile($sender, $nickname, $notice->created);
@@ -1327,7 +1327,7 @@ function common_save_replies($notice) {
 			$replied[$recipient->id] = 1;
 		}
 	}
-	
+
 	# Hash format replies, too
 	$cnt = preg_match_all('/(?:^|\s)@#([a-z0-9]{1,64})/', $notice->content, $match);
 	if ($cnt) {
@@ -1939,7 +1939,7 @@ function common_favor_form($notice) {
 								  'id' => 'notice-n'. $notice->id,
 								  'class' => 'notice',
 								  'value' => $notice->id));
-	
+
 	common_element('input', array('type' => 'submit',
 								  'id' => 'favor-submit-' . $notice->id,
 								  'name' => 'favor-submit-' . $notice->id,
@@ -2003,7 +2003,7 @@ function common_profile_new_message_nudge ($cur, $profile) {
 		common_element('a', array('href' => common_local_url('newmessage', array('to' => $user->id))),
 					   _('Send a message'));
         common_element_end('li');
-     
+
 	    if ($user->email && $user->emailnotifynudge) {
             common_element_start('li', array('id' => 'profile_nudge'));
             common_nudge_form($user);
@@ -2023,41 +2023,41 @@ function common_keyize($str) {
 }
 
 function common_message_form($content, $user, $to) {
-	
+
 	common_element_start('form', array('id' => 'message_form',
 									   'method' => 'post',
 									   'action' => common_local_url('newmessage')));
-	
+
 	$mutual_users = $user->mutuallySubscribedUsers();
-	
+
 	$mutual = array();
-	
+
 	while ($mutual_users->fetch()) {
 		if ($mutual_users->id != $user->id) {
 			$mutual[$mutual_users->id] = $mutual_users->nickname;
 		}
 	}
-	
+
 	$mutual_users->free();
 	unset($mutual_users);
-	
+
 	common_dropdown('to', _('To'), $mutual, NULL, FALSE, $to->id);
-	
+
 	common_element_start('p');
-	
+
 	common_element('textarea', array('id' => 'message_content',
 									 'cols' => 60,
 									 'rows' => 3,
 									 'name' => 'content'),
 				   ($content) ? $content : '');
-	
+
 	common_element('input', array('id' => 'message_send',
 								  'name' => 'message_send',
 								  'type' => 'submit',
 								  'value' => _('Send')));
-	
+
 	common_hidden('token', common_session_token());
-	
+
 	common_element_end('p');
 	common_element_end('form');
 }
@@ -2080,4 +2080,9 @@ function common_memcache() {
 		}
 		return $cache;
 	}
+}
+
+function common_compatible_license($from, $to) {
+	# XXX: better compatibility check needed here!
+	return ($from == $to);
 }

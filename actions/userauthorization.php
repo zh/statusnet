@@ -415,12 +415,12 @@ class UserauthorizationAction extends Action {
 		if (strlen($listenee) > 255) {
 			throw new OAuthException("Listenee URI '$listenee' too long");
 		}
-		
+
 		$other = User::staticGet('uri', $listenee);
 		if ($other) {
 			throw new OAuthException("Listenee URI '$listenee' is local user");
 		}
-		
+
 		$remote = Remote_profile::staticGet('uri', $listenee);
 		if ($remote) {
 			$sub = new Subscription();
@@ -440,14 +440,18 @@ class UserauthorizationAction extends Action {
 		if (!common_valid_http_url($profile)) {
 			throw new OAuthException("Invalid profile URL '$profile'.");
 		}
-		
+
 		if ($profile == common_local_url('showstream', array('nickname' => $nickname))) {
 			throw new OAuthException("Profile URL '$profile' is for a local user.");
 		}
-		
+
 		$license = $req->get_parameter('omb_listenee_license');
 		if (!common_valid_http_url($license)) {
 			throw new OAuthException("Invalid license URL '$license'.");
+		}
+		$site_license = common_config('license', 'url');
+		if (!common_compatible_license($license, $site_license)) {
+			throw new OAuthException("Listenee stream license '$license' not compatible with site license '$site_license'.");
 		}
 		# optional stuff
 		$fullname = $req->get_parameter('omb_listenee_fullname');
