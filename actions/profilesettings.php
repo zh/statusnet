@@ -509,22 +509,95 @@ class ProfilesettingsAction extends SettingsAction {
 	}
 
 	function delete_account() {
-
 		$user = common_current_user();
 		assert(!is_null($user)); # should already be checked
 
-        // delete avatar (profile_id and filename)
-        // delete fave (user_id)
-        // delete message (from_profile, to_profile)
-        // delete notice (profile_id) (also delete from notice_source and notice_tag)
-        // delete notice_inbox (user_id)
-        // delete subscription (subscriber, subscribed)
-        // delete user (id)
-        // delete user_openid (user_id)
-        // delete profile (id)
-        // delete tags tables (to verify)
-        // delete all the users notices
+        // deleted later through the profile
+        /*
+        $avatar = new Avatar;
+        $avatar->profile_id = $user->id;
+        $n_avatars_deleted = $avatar->delete();
+        */
 
-		$this->show_form(_('Your account has been deleted.'), true);
+        $fave = new Fave;
+        $fave->user_id = $user->id;
+        $n_faves_deleted = $fave->delete(); 
+
+        $confirmation = new Confirm_address;
+        $confirmation->user_id = $user->id;
+        $n_confirmations_deleted = $confirmation->delete();
+
+        // TODO foreign stuff...
+
+        $invitation = new Invitation;
+        $invitation->user_id = $user->id;
+        $n_invitations_deleted = $invitation->delete();
+
+        $message_from = new Message;
+        $message_from->from_profile = $user->id;
+        $n_messages_from_deleted = $message_from->delete();
+
+        $message_to = new Message;
+        $message_to->to_profile = $user->id;
+        $n_messages_to_deleted = $message_to->delete();
+
+        $notice = new Notice;
+        $notice->profile_id = $user->id;
+        $n_notices_deleted = $notice->delete();
+
+        $notice_inbox = new Notice_inbox;
+        $notice_inbox->user_id = $user->id;
+        $n_notices_inbox_deleted = $notice_inbox->delete();
+
+        $profile_tagger = new Profile_tag;
+        $profile_tagger->tagger = $user->id;
+        $n_profiles_tagger_deleted = $profile_tagger->delete();
+
+        $profile_tagged = new Profile_tag;
+        $profile_tagged->tagged = $user->id;
+        $n_profiles_tagged_deleted = $profile_tagged->delete();
+               
+        $remember_me = new Remember_me;
+        $remember_me->user_id = $user->id;
+        $n_remember_mes_deleted = $remember_me->delete();
+
+        $reply_from = new Reply;
+        $reply_from->profile_id = $user->id;
+        $n_replies_from_deleted = $reply_from->delete();
+
+        // not sure if this should be deleted...
+        //TODO: test
+        if (1) {
+            $reply_to = new Reply;
+            $reply_to->replied_id = $user->id;
+            $reply_to->find();
+            while ($reply_to->fetch()) {
+                $str = print_r($reply_to, true);
+            }
+//            $n_replies_to_deleted = $reply_to->delete();
+        }
+
+        $subscriber = new Subscription;
+        $subscriber->subscriber = $user->id;
+        $n_subscribers_deleted = $subscriber->delete();
+
+        $subscribed = new Subscription;
+        $subscribed->subscribed = $user->id;
+        $n_subscribeds_deleted = $subscribed->delete();
+
+        $user_openid = new User_openid;
+        $user_openid->user_id = $user->id;
+        $n_user_openids_deleted = $user_openid->delete();
+
+        // last steps
+        if (0) {
+            $profile = new Profile;
+            $profile->id = $user->id;
+            $profile->delete_avatars();
+            $n_profiles_deleted = $profile->delete();
+            $n_users_deleted = $user->delete();
+        }
+
+		$this->show_form(_("Your account has been deleted. ($str)"), true);
     }
 }

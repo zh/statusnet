@@ -61,7 +61,7 @@ class Notice extends Memcached_DataObject
 		$this->blowCaches(true);
 		$this->blowFavesCache(true);
 		$this->blowInboxes();
-		parent::delete();
+		return parent::delete();
 	}
 
 	function saveTags() {
