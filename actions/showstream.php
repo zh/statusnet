@@ -72,11 +72,11 @@ class ShowstreamAction extends StreamAction {
 
 		$this->views_menu();
 
-		$this->show_feeds_list(array(0=>array('href'=>common_local_url('userrss', array('nickname' => $user->nickname)), 
+		$this->show_feeds_list(array(0=>array('href'=>common_local_url('userrss', array('nickname' => $user->nickname)),
 											  'type' => 'rss',
 											  'version' => 'RSS 1.0',
 											  'item' => 'notices'),
-									 1=>array('href'=>common_local_url('usertimeline', array('nickname' => $user->nickname)), 
+									 1=>array('href'=>common_local_url('usertimeline', array('nickname' => $user->nickname)),
 											  'type' => 'atom',
 											  'version' => 'Atom 1.0',
 											  'item' => 'usertimeline'),
@@ -87,20 +87,17 @@ class ShowstreamAction extends StreamAction {
 											  'item' => 'foaf')));
 	}
 
-
-
-
 	function show_header($user) {
 		# Feeds
 		common_element('link', array('rel' => 'alternate',
-									 'href' => common_local_url('api', 
+									 'href' => common_local_url('api',
 																array('apiaction' => 'statuses',
 																	  'method' => 'user_timeline.rss',
 																	  'argument' => $user->nickname)),
 									 'type' => 'application/rss+xml',
 									 'title' => sprintf(_('Notice feed for %s'), $user->nickname)));
 		common_element('link', array('rel' => 'alternate feed',
-									 'href' => common_local_url('api', 
+									 'href' => common_local_url('api',
 																array('apiaction' => 'statuses',
 																	  'method' => 'user_timeline.atom',
 																	  'argument' => $user->nickname)),
@@ -137,7 +134,7 @@ class ShowstreamAction extends StreamAction {
 		}
 
 		# See https://wiki.mozilla.org/Microsummaries
-		
+
 		common_element('link', array('rel' => 'microsummary',
 									 'href' => common_local_url('microsummary',
 																array('nickname' => $profile->nickname))));
@@ -149,7 +146,7 @@ class ShowstreamAction extends StreamAction {
 
 	function show_profile($profile) {
 
-		common_element_start('div', array('id' => 'profile'));
+		common_element_start('div', array('id' => 'profile', 'class' => 'vcard'));
 
 		$this->show_personal($profile);
 
@@ -167,7 +164,7 @@ class ShowstreamAction extends StreamAction {
 		$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
 		common_element_start('div', array('id' => 'profile_avatar'));
 		common_element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_PROFILE_SIZE),
-									'class' => 'avatar profile',
+									'class' => 'avatar profile photo',
 									'width' => AVATAR_PROFILE_SIZE,
 									'height' => AVATAR_PROFILE_SIZE,
 									'alt' => $profile->nickname));
@@ -188,33 +185,32 @@ class ShowstreamAction extends StreamAction {
 			$this->show_remote_subscribe_link($profile);
 		}
         common_element_end('li');
-		
+
 		$user = User::staticGet('id', $profile->id);
 		common_profile_new_message_nudge($cur, $user, $profile);
-        
+
 		common_element_end('ul');
-		
+
 		common_element_end('div');
 
 		common_element_start('div', array('id' => 'profile_information'));
 
 		if ($profile->fullname) {
-			common_element('h1', NULL, $profile->fullname . ' (' . $profile->nickname . ')');
+			common_element('h1', array('class' => 'fn'), $profile->fullname . ' (' . $profile->nickname . ')');
 		} else {
-			common_element('h1', NULL, $profile->nickname);
+			common_element('h1', array('class' => 'fn nickname'), $profile->nickname);
 		}
-
 
 		if ($profile->location) {
 			common_element('p', 'location', $profile->location);
 		}
 		if ($profile->bio) {
-			common_element('p', 'description', $profile->bio);
+			common_element('p', 'description note', $profile->bio);
 		}
 		if ($profile->homepage) {
 			common_element_start('p', 'website');
 			common_element('a', array('href' => $profile->homepage,
-									  'rel' => 'me'),
+									  'rel' => 'me', 'class' => 'url'),
 						   $profile->homepage);
 			common_element_end('p');
 		}
@@ -252,7 +248,7 @@ class ShowstreamAction extends StreamAction {
 		$subs = DB_DataObject::factory('subscription');
 		$subs->subscriber = $profile->id;
 		$subs->whereAdd('subscribed != ' . $profile->id);
-		
+
 		$subs->orderBy('created DESC');
 
 		# We ask for an extra one to know if we need to do another page
@@ -282,19 +278,19 @@ class ShowstreamAction extends StreamAction {
 					common_log_db_error($subs, 'SELECT', __FILE__);
 					continue;
 				}
-				
-				common_element_start('li');
+
+				common_element_start('li', 'vcard');
 				common_element_start('a', array('title' => ($other->fullname) ?
 												$other->fullname :
 												$other->nickname,
 												'href' => $other->profileurl,
 												'rel' => 'contact',
-												'class' => 'subscription'));
+ 												'class' => 'subscription fn url'));
 				$avatar = $other->getAvatar(AVATAR_MINI_SIZE);
 				common_element('img', array('src' => (($avatar) ? common_avatar_display_url($avatar) :  common_default_avatar(AVATAR_MINI_SIZE)),
 											'width' => AVATAR_MINI_SIZE,
 											'height' => AVATAR_MINI_SIZE,
-											'class' => 'avatar mini',
+											'class' => 'avatar mini photo',
 											'alt' =>  ($other->fullname) ?
 											$other->fullname :
 											$other->nickname));
@@ -372,7 +368,7 @@ class ShowstreamAction extends StreamAction {
 		}
 		common_element_end('ul');
 	    common_element_end('dd');
-	
+
 		common_element_end('dl');
 
 		common_element_end('div');
@@ -383,13 +379,13 @@ class ShowstreamAction extends StreamAction {
 		$page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 
 		$notice = $user->getNotices(($page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
-		
+
 		$cnt = 0;
 
 		if ($notice) {
-		
+
 			common_element_start('ul', array('id' => 'notices'));
-			
+
 			while ($notice->fetch()) {
 				$cnt++;
 				if ($cnt > NOTICES_PER_PAGE) {
@@ -400,7 +396,7 @@ class ShowstreamAction extends StreamAction {
 
 			common_element_end('ul');
 		}
-		
+
 		common_pagination($page>1, $cnt>NOTICES_PER_PAGE, $page,
 						  'showstream', array('nickname' => $user->nickname));
 	}
@@ -431,7 +427,7 @@ class ShowstreamAction extends StreamAction {
 		$user = common_current_user();
 
 		# XXX: RDFa
-		common_element_start('li', array('class' => 'notice_single',
+		common_element_start('li', array('class' => 'notice_single hentry',
 										 'id' => 'notice-' . $notice->id));
 		if ($user) {
 			if ($user->hasFave($notice)) {
@@ -442,7 +438,7 @@ class ShowstreamAction extends StreamAction {
 		}
 		$noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
 		# FIXME: URL, image, video, audio
-		common_element_start('p');
+		common_element_start('p', 'entry-title entry-content');
 		if ($notice->rendered) {
 			common_raw($notice->rendered);
 		} else {
@@ -453,7 +449,8 @@ class ShowstreamAction extends StreamAction {
 		}
 		common_element_end('p');
 		common_element_start('p', array('class' => 'time'));
-		common_element('a', array('class' => 'permalink',
+		common_element('a', array('class' => 'permalink published',
+								  'rel' => 'bookmark',
 								  'href' => $noticeurl,
 								  'title' => common_exact_date($notice->created)),
 					   common_date_string($notice->created));
@@ -485,7 +482,7 @@ class ShowstreamAction extends StreamAction {
 			common_raw('&times;');
 			common_element_end('a');
 		}
-		
+
 		common_element_end('p');
 		common_element_end('li');
 	}

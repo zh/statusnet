@@ -926,9 +926,9 @@ function common_at_link($sender_id, $nickname) {
 	$sender = Profile::staticGet($sender_id);
 	$recipient = common_relative_profile($sender, common_canonical_nickname($nickname));
 	if ($recipient) {
-		return '<a href="'.htmlspecialchars($recipient->profileurl).'" class="atlink">'.$nickname.'</a>';
+		return '<span class="vcard"><a class="fn nickname url" rel="reply" href="'.htmlspecialchars($recipient->profileurl).'" class="atlink">'.$nickname.'</a></span>';
 	} else {
-		return $nickname;
+		return '<span class="vcard"> <span class="fn nickname">'.$nickname.'</span> </span>';
 	}
 }
 
@@ -1751,7 +1751,7 @@ function common_pagination($have_before, $have_after, $page, $action, $args=NULL
 		$newargs = ($args) ? array_merge($args,$pargs) : $pargs;
 
 		common_element_start('li', 'before');
-		common_element('a', array('href' => common_local_url($action, $newargs)),
+		common_element('a', array('href' => common_local_url($action, $newargs), 'rel' => 'prev'),
 					   _('« After'));
 		common_element_end('li');
 	}
@@ -1760,7 +1760,7 @@ function common_pagination($have_before, $have_after, $page, $action, $args=NULL
 		$pargs = array('page' => $page+1);
 		$newargs = ($args) ? array_merge($args,$pargs) : $pargs;
 		common_element_start('li', 'after');
-		common_element('a', array('href' => common_local_url($action, $newargs)),
+		common_element('a', array('href' => common_local_url($action, $newargs), 'rel' => 'next'),
 						   _('Before »'));
 		common_element_end('li');
 	}

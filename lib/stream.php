@@ -23,7 +23,6 @@ require_once(INSTALLDIR.'/lib/personal.php');
 
 class StreamAction extends PersonalAction {
 
-
 	function public_views_menu() {
 
 		$action = $this->trimmed('action');
@@ -54,7 +53,7 @@ class StreamAction extends PersonalAction {
 		$user = common_current_user();
 
 		# XXX: RDFa
-		common_element_start('li', array('class' => 'notice_single',
+		common_element_start('li', array('class' => 'notice_single hentry',
 										  'id' => 'notice-' . $notice->id));
 		if ($user) {
 			if ($user->hasFave($notice)) {
@@ -63,10 +62,11 @@ class StreamAction extends PersonalAction {
 				common_favor_form($notice);
 			}
 		}
+ 		common_element_start('span', 'vcard author');
 		$avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
 		common_element_start('a', array('href' => $profile->profileurl));
 		common_element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE),
-									'class' => 'avatar stream',
+									'class' => 'avatar stream photo',
 									'width' => AVATAR_STREAM_SIZE,
 									'height' => AVATAR_STREAM_SIZE,
 									'alt' =>
@@ -74,10 +74,11 @@ class StreamAction extends PersonalAction {
 									$profile->nickname));
 		common_element_end('a');
 		common_element('a', array('href' => $profile->profileurl,
-								  'class' => 'nickname'),
+								  'class' => 'nickname fn url'),
 					   $profile->nickname);
+		common_element_end('span');
 		# FIXME: URL, image, video, audio
-		common_element_start('p', array('class' => 'content'));
+		common_element_start('p', array('class' => 'content entry-title entry-content'));
 		if ($notice->rendered) {
 			common_raw($notice->rendered);
 		} else {
@@ -93,7 +94,8 @@ class StreamAction extends PersonalAction {
 			$noticeurl = $notice->uri;
 		}
 		common_element_start('p', 'time');
-		common_element('a', array('class' => 'permalink',
+		common_element('a', array('class' => 'permalink published',
+								  'rel' => 'bookmark',
 								  'href' => $noticeurl,
 								  'title' => common_exact_date($notice->created)),
 					   common_date_string($notice->created));
