@@ -357,3 +357,12 @@ create table profile_tag (
    index profile_tag_tagger_tag_idx (tagger, tag)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
+create table profile_block (
+
+   blocker integer not null comment 'user making the block' references user (id),
+   blocked integer not null comment 'profile that is blocked' references profile (id),
+   modified timestamp comment 'date of blocking',
+
+   constraint primary key (blocker, blocked)
+
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
