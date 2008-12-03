@@ -842,8 +842,10 @@ function common_shorten_links($text) {
 	return $cache[$text] = preg_replace('@https?://[^)\]>\s]+@e', "common_shorten_link('\\0')", $text);
 }
 
-function common_shorten_link($long_url) {
-	
+function common_shorten_link($url, $reverse = false) {
+	static $url_cache = array();
+    if ($reverse) return isset($url_cache[$url]) ? $url_cache[$url] : $url;
+
 	$user = common_current_user();
 
 	$curlh = curl_init();
