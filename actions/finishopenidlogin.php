@@ -167,6 +167,13 @@ class FinishopenidloginAction extends Action {
 
 	function create_new_user() {
 
+        # FIXME: save invite code before redirect, and check here
+
+		if (common_config('site', 'closed') || common_config('site', 'inviteonly')) {
+			common_user_error(_('Registration not allowed.'));
+            return;
+        }
+
 		$nickname = $this->trimmed('newname');
 
 		if (!Validate::string($nickname, array('min_length' => 1,
@@ -211,27 +218,27 @@ class FinishopenidloginAction extends Action {
 				$location = $sreg['country'];
 			}
 		}
-
+		
 		if ($sreg['fullname'] && strlen($sreg['fullname']) <= 255) {
 			$fullname = $sreg['fullname'];
 		}
-
+		
 		if ($sreg['email'] && Validate::email($sreg['email'], true)) {
 			$email = $sreg['email'];
 		}
 
 		# XXX: add language
 		# XXX: add timezone
-
-		$user = User::register(array('nickname' => $nickname,
+		
+		$user = User::register(array('nickname' => $nickname, 
 									 'email' => $email,
-									 'fullname' => $fullname,
+									 'fullname' => $fullname, 
 									 'location' => $location));
 
 		$result = oid_link_user($user->id, $canonical, $display);
-
-		oid_set_last($display);
-		common_set_user($user);
+		
+		oid_set_last($display);							   
+		common_set_user($user->nickname);
 		common_real_login(true);
         if (isset($_SESSION['openid_rememberme']) && $_SESSION['openid_rememberme']) {
 			common_rememberme($user);
@@ -295,6 +302,7 @@ class FinishopenidloginAction extends Action {
 	function best_new_nickname($display, $sreg) {
 
 		# Try the passed-in nickname
+
 
 		if ($sreg['nickname']) {
 			$nickname = $this->nicknamize($sreg['nickname']);
