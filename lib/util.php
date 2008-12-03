@@ -2059,10 +2059,10 @@ function common_unsubscribe_form($profile) {
 									   'class' => 'unsubscribe',
 									   'action' => common_local_url('unsubscribe')));
 	common_hidden('token', common_session_token());
-	common_element('input', array('id' => 'unsubscribeto-' . $profile->nickname,
+	common_element('input', array('id' => 'unsubscribeto-' . $profile->id,
 								  'name' => 'unsubscribeto',
 								  'type' => 'hidden',
-								  'value' => $profile->nickname));
+								  'value' => $profile->id));
 	common_element('input', array('type' => 'submit',
 								  'class' => 'submit',
 								  'value' => _('Unsubscribe')));

@@ -18,7 +18,7 @@
  */
 
 class UnsubscribeAction extends Action {
-	
+
 	function handle($args) {
 		parent::handle($args);
 		if (!common_logged_in()) {
@@ -36,28 +36,40 @@ class UnsubscribeAction extends Action {
 		# CSRF protection
 
 		$token = $this->trimmed('token');
-		
+
 		if (!$token || $token != common_session_token()) {
 			$this->client_error(_('There was a problem with your session token. Try again, please.'));
 			return;
 		}
 
-		$other_nickname = $this->arg('unsubscribeto');
-		$result=subs_unsubscribe_user($user,$other_nickname);
-		if($result!=true) {
+		$other_id = $this->arg('unsubscribeto');
+
+        if (!$other_id) {
+            $this->client_error(_('No profile id in request.'));
+            return;
+        }
+
+        $other = Profile::staticGet('id', $other_id);
+
+        if (!$other_id) {
+            $this->client_error(_('No profile with that id.'));
+            return;
+        }
+
+		$result = subs_unsubscribe_to($user, $other);
+
+		if ($result != true) {
 			common_user_error($result);
 			return;
 		}
 
-		$profile = Profile::staticGet('nickname', $other_nickname);
-		
 		if ($this->boolean('ajax')) {
 			common_start_html('text/xml');
 			common_element_start('head');
 			common_element('title', null, _('Unsubscribed'));
 			common_element_end('head');
 			common_element_start('body');
-			common_subscribe_form($profile);
+			common_subscribe_form($other);
 			common_element_end('body');
 			common_element_end('html');
 		} else {
