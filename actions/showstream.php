@@ -451,7 +451,7 @@ class ShowstreamAction extends StreamAction {
 		}
 		$noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
 		# FIXME: URL, image, video, audio
-		common_element_start('p', 'entry-title entry-content');
+		common_element_start('p', 'entry-title');
 		if ($notice->rendered) {
 			common_raw($notice->rendered);
 		} else {
@@ -462,11 +462,14 @@ class ShowstreamAction extends StreamAction {
 		}
 		common_element_end('p');
 		common_element_start('p', array('class' => 'time'));
-		common_element('a', array('class' => 'permalink published',
+		common_element_start('a', array('class' => 'permalink',
 								  'rel' => 'bookmark',
-								  'href' => $noticeurl,
-								  'title' => common_exact_date($notice->created)),
-					   common_date_string($notice->created));
+								  'href' => $noticeurl));
+		common_element('abbr', array('class' => 'published',
+									 'title' => common_date_iso8601($notice->created)),
+						common_date_string($notice->created));
+		common_element_end('a');
+
 		if ($notice->source) {
 			common_text(_(' from '));
 			$this->source_link($notice->source);
