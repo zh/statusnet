@@ -36,7 +36,7 @@ if (!$action || !preg_match('/^[a-zA-Z0-9_-]*$/', $action)) {
     common_redirect(common_local_url('public'));
 }
 
-if (!$user && common_config('site', 'private') && $action != 'login') {
+if (!$user && common_config('site', 'private') && !in_array($action, array('login', 'api', 'doc')) {
     common_redirect(common_local_url('login'));
 }
 
