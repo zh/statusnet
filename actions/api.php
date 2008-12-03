@@ -120,6 +120,12 @@ class ApiAction extends Action {
 								 'statuses/followers',
 								 'favorites/favorites');
 
+        # If the site is "private", all API methods need authentication
+
+        if (common_config('site', 'private')) {
+            return true;
+        }
+
 		$fullname = "$this->api_action/$this->api_method";
 
 		if (in_array($fullname, $bareauth)) {
