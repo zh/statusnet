@@ -67,9 +67,9 @@ class XMPPDaemon extends Daemon {
 		if (!$this->conn) {
 			return false;
 		}
-		
+
 		$this->conn->setReconnectTimeout(600);
-		
+
 		jabber_send_presence("Send me a message to post a notice", 'available',
 							 NULL, 'available', 100);
 		return !$this->conn->isDisconnected();
@@ -78,14 +78,14 @@ class XMPPDaemon extends Daemon {
 	function name() {
 		return strtolower('xmppdaemon.'.$this->resource);
 	}
-	
+
 	function run() {
 		if ($this->connect()) {
-			
+
 			$this->conn->addEventHandler('message', 'handle_message', $this);
 			$this->conn->addEventHandler('presence', 'handle_presence', $this);
 			$this->conn->addEventHandler('reconnect', 'handle_reconnect', $this);
-			
+
 			$this->conn->process();
 		}
 	}
@@ -94,7 +94,7 @@ class XMPPDaemon extends Daemon {
 		$this->conn->processUntil('session_start');
 		$this->conn->presence('Send me a message to post a notice', 'available', NULL, 'available', 100);
 	}
-	
+
 	function get_user($from) {
 		$user = User::staticGet('jabber', jabber_normalize_jid($from));
 		return $user;
@@ -139,7 +139,7 @@ class XMPPDaemon extends Daemon {
 			return;
 		} else if ($this->is_direct($pl['body'])) {
 			preg_match_all('/d[\ ]*([a-z0-9]{1,64})/', $pl['body'], $to);
-			
+
 			$to = preg_replace('/^d([\ ])*/', '', $to[0][0]);
 			$body = preg_replace('/d[\ ]*('. $to .')[\ ]*/', '', $pl['body']);
 			$this->add_direct($user, $body, $to, $from);
@@ -151,7 +151,7 @@ class XMPPDaemon extends Daemon {
 			}
 			$this->add_notice($user, $pl);
 		}
-		
+
 		$user->free();
 		unset($user);
 	}
@@ -159,7 +159,7 @@ class XMPPDaemon extends Daemon {
 	function is_self($from) {
 		return preg_match('/^'.strtolower(jabber_daemon_address()).'/', strtolower($from));
 	}
-	
+
 	function get_ofrom($pl) {
 		$xml = $pl['raw'];
 		$addresses = $xml->sub('addresses');
@@ -195,7 +195,7 @@ class XMPPDaemon extends Daemon {
 	}
 
 	function is_autoreply($txt) {
-		if (preg_match('/[\[\(]?[Aa]uto-?[Rr]eply[\]\)]/', $txt)) {
+		if (preg_match('/[\[\(]?[Aa]uto[-\s]?[Rr]e(ply|sponse)[\]\)]/', $txt)) {
 			return true;
 		} else {
 			return false;
@@ -209,7 +209,7 @@ class XMPPDaemon extends Daemon {
 			return false;
 		}
 	}
-	
+
 	function is_direct($txt) {
 		if (strtolower(substr($txt, 0, 2))=='d ') {
 			return true;
@@ -247,7 +247,7 @@ class XMPPDaemon extends Daemon {
 		$notice->free();
 		unset($notice);
 	}
-	
+
 	function handle_presence(&$pl) {
 		$from = jabber_normalize_jid($pl['from']);
 		switch ($pl['type']) {
