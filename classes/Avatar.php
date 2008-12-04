@@ -42,9 +42,10 @@ class Avatar extends Memcached_DataObject
 
 		$image_s = imagecreatetruecolor($size, $size);
 		$image_a = $this->to_image();
-
 		$square = min($this->width, $this->height);
-
+        imagecolortransparent($image_s, imagecolorallocate($image_s, 0, 0, 0));
+        imagealphablending($image_s, false);
+        imagesavealpha($image_s, true);
 		imagecopyresampled($image_s, $image_a, 0, 0, 0, 0,
 						   $size, $size, $square, $square);
 
