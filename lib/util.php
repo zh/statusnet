@@ -1107,6 +1107,8 @@ function common_fancy_url($action, $args=NULL) {
 		return common_path('settings/twitter');
  	 case 'othersettings':
 		return common_path('settings/other');
+     case 'deleteprofile':
+        return common_path('settings/delete');
 	 case 'newnotice':
 		if ($args && $args['replyto']) {
 			return common_path('notice/new?replyto='.$args['replyto']);
