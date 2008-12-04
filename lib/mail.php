@@ -115,6 +115,8 @@ function mail_subscribe_notify($listenee, $listener) {
 
 function mail_subscribe_notify_profile($listenee, $other) {
 	if ($listenee->email && $listenee->emailnotifysub) {
+        // use the recipients localization
+        common_init_locale($listenee->language);
 		$profile = $listenee->getProfile();
 		$name = $profile->getBestName();
 		$long_name = ($other->fullname) ? ($other->fullname . ' (' . $other->nickname . ')') : $other->nickname;
@@ -130,6 +132,9 @@ function mail_subscribe_notify_profile($listenee, $other) {
 						 common_config('site', 'name'),
 						 $other->profileurl,
 						 common_config('site', 'name'));
+
+        // reset localization
+        common_init_locale();
 		mail_send($recipients, $headers, $body);
 	}
 }

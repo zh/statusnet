@@ -131,17 +131,24 @@ function common_end_xml() {
 	$xw->flush();
 }
 
+function common_init_locale($language=null) {
+    if(!$language) {
+        $language = common_language();
+    }
+    putenv('LANGUAGE='.$language);
+    putenv('LANG='.$language);
+    return setlocale(LC_ALL, $language . ".utf8",
+            $language . ".UTF8",
+            $language . ".utf-8",
+            $language . ".UTF-8",
+            $language);
+}
+
 function common_init_language() {
 	mb_internal_encoding('UTF-8');
 	$language = common_language();
 	# So we don't have to make people install the gettext locales
-	putenv('LANGUAGE='.$language);
-	putenv('LANG='.$language);
-	$locale_set = setlocale(LC_ALL, $language . ".utf8",
-							$language . ".UTF8",
-							$language . ".utf-8",
-							$language . ".UTF-8",
-							$language);
+ 	$locale_set = common_init_locale($language);
 	bindtextdomain("laconica", common_config('site','locale_path'));
 	bind_textdomain_codeset("laconica", "UTF-8");
 	textdomain("laconica");
