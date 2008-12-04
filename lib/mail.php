@@ -39,6 +39,9 @@ function mail_backend() {
 
 function mail_send($recipients, $headers, $body) {
 	$backend = mail_backend();
+    if (!isset($headers['Content-Type'])) {
+        $headers['Content-Type'] = 'text/plain; charset=UTF-8';
+    }
 	assert($backend); # throws an error if it's bad
 	$sent = $backend->send($recipients, $headers, $body);
 	if (PEAR::isError($sent)) {
