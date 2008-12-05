@@ -53,6 +53,16 @@ class PublicAction extends StreamAction {
 		}
 
 		$this->public_views_menu();
+
+
+		$this->show_feeds_list(array(0=>array('href'=>common_local_url('publicrss'),
+											  'type' => 'rss',
+											  'version' => 'RSS 1.0',
+											  'item' => 'publicrss'),
+									 1=>array('href'=>common_local_url('publicatom'),
+											  'type' => 'atom',
+											  'version' => 'Atom 1.0',
+											  'item' => 'publicatom')));
 	}
 
 	function get_instructions() {

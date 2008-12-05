@@ -44,6 +44,11 @@ class FavoritedAction extends StreamAction {
 		common_raw($output);
 		common_element_end('div');
 		$this->public_views_menu();
+
+		$this->show_feeds_list(array(0=>array('href'=>common_local_url('favoritedrss'),
+											  'type' => 'rss',
+											  'version' => 'RSS 1.0',
+											  'item' => 'favoritedrss')));
 	}
 
 	function show_header() {

@@ -35,7 +35,6 @@ class TagAction extends StreamAction {
 			common_show_header(sprintf(_("Notices tagged with %s"), $tag),
 							   array($this, 'show_header'), $tag,
 							   array($this, 'show_top'));
-
 			$this->show_notices($tag);
 		} else {
 			common_show_header(_("Tags"),
@@ -68,6 +67,12 @@ class TagAction extends StreamAction {
 			common_raw($output);
 			common_element_end('div');
 			$this->public_views_menu();
+		}
+		else {
+			$this->show_feeds_list(array(0=>array('href'=>common_local_url('tagrss'),
+												  'type' => 'rss',
+												  'version' => 'RSS 1.0',
+												  'item' => 'tagrss')));
 		}
 	}
 
