@@ -92,8 +92,8 @@ class TwitterapiAction extends Action {
 		$server = common_config('site', 'server');
 		$entry = array();
 
-		$entry['content'] = $profile->nickname . ': ' . common_xml_safe_str($notice->content);
-		$entry['title'] = $entry['content'];
+		$entry['content'] = common_xml_safe_str($notice->rendered);
+		$entry['title'] = $profile->nickname . ': ' . common_xml_safe_str($notice->content);
 		$entry['link'] = common_local_url('shownotice', array('notice' => $notice->id));
 		$entry['published'] = common_date_iso8601($notice->created);
 		$entry['id'] = "tag:$server,2008:$entry[link]";
@@ -116,7 +116,7 @@ class TwitterapiAction extends Action {
 			$message->getFrom()->nickname, $message->getTo()->nickname);
 
 		$entry['content'] = common_xml_safe_str($message->content);
-		$entry['link'] = $message->uri;
+		$entry['link'] = common_local_url('showmessage', array('message' => $message->id));
 		$entry['published'] = common_date_iso8601($message->created);
 		$entry['id'] = "tag:$server,2008:$entry[link]";
 		$entry['updated'] = $entry['published'];
@@ -191,7 +191,7 @@ class TwitterapiAction extends Action {
 	function show_twitter_atom_entry($entry) {
 	    common_element_start('entry');
 		common_element('title', NULL, $entry['title']);
-		common_element('content', array('type' => 'html'), $entry['title']);
+		common_element('content', array('type' => 'html'), $entry['content']);
 		common_element('id', NULL, $entry['id']);
 		common_element('published', NULL, $entry['published']);
 		common_element('updated', NULL, $entry['updated']);
@@ -287,7 +287,6 @@ class TwitterapiAction extends Action {
 		common_element('description', NULL, $subtitle);
 		common_element('language', NULL, 'en-us');
 		common_element('ttl', NULL, '40');
-
 
 		if (is_array($notice)) {
 			foreach ($notice as $n) {
