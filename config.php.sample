@@ -122,15 +122,3 @@ $config['sphinx']['port'] = 3312;
 
 #Twitter integration source attribute. Note: default is Laconica
 #$config['integration']['source'] = 'Laconica';
-
-# Edit throttling. Off by default. If turned on, you can only post 20 notices
-# every 10 minutes. Admins may want to play with the settings to minimize inconvenience for
-# real users without getting uncontrollable floods from spammers or runaway bots.
-
-#$config['throttle']['enabled'] = true;
-#$config['throttle']['count'] = 100;
-#$config['throttle']['timespan'] = 3600;
-
-# List of users banned from posting (nicknames and/or IDs)
-#$config['profile']['banned'][] = 'hacker';
-#$config['profile']['banned'][] = 12345;
