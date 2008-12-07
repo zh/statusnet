@@ -35,9 +35,15 @@ class FacebooksettingsAction extends FacebookAction {
 
 		$fbuid = $facebook->require_login();
 
+		$fbml = '<fb:if-section-not-added section="profile">'
+			.'<h2>Add an Identi.ca box to your profile!</h2>'
+			.'<fb:add-section-button section="profile"/>'
+			.'</fb:if-section-not-added>';
+
+
 		$this->show_header('Settings');
 
-		echo '<h2>Coming soon...</h2>';
+		echo $fbml;
 
 		$this->show_footer();
 

@@ -1,0 +1,161 @@
+
+/* XXX: Most of this just copied out of display.css -- need to factor out what we really neeed -- Zach */
+
+body {
+    color: #193441;
+}
+
+a {
+color: #d1451a;
+text-decoration: none;
+}
+a:hover {
+text-decoration: underline;
+}
+img, img a {
+border: 0;
+}
+h1 {
+font-size: 14px;
+}
+
+#wrap {
+margin: 0 auto;
+padding: 0 20px;
+width: 760px;
+background: url(bg-header.gif) repeat-x #fbf2d7;
+}
+
+
+#notices {
+clear: both;
+margin: 0 auto;
+padding: 0;
+list-style-type: none;
+width: 600px;
+border-top: 1px solid #dec5b5;
+}
+#notices a:hover {
+text-decoration: underline;
+}
+.notice_single {
+clear: both;
+display: block;
+margin: 0;
+padding: 5px 5px 5px 0;
+min-height: 48px;
+font-family: Georgia, "Times New Roman", Times, serif;
+font-size: 13px;
+line-height: 16px;
+border-bottom: 1px solid #dec5b5;
+background-color:#FCFFF5;
+opacity:1;
+}
+.notice_single:hover {
+background-color: #f7ebcc;
+}
+.notice_single p {
+display: inline;
+margin: 0;
+padding: 0;
+}
+#notice_delete_form #confirmation_text {
+   display: block;
+font-size: 14px;
+font-weight: bold;
+}
+
+input#submit_yes, input#submit_no {
+margin: 18px 10px 0px 0px;
+padding: 4px;
+font-weight: bold;
+color: #fff6d5;
+background-color: #F60;
+cursor: pointer;
+border: 0;
+width: 40px;
+}
+input#submit_yes:hover, input#submit_no:hover {
+background-color: #701238;
+}
+.avatar.stream {
+float: left;
+margin: 0 10px 0.5em 0;
+}
+p.time {
+display: block;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 10px;
+line-height: 15px;
+}
+p.time a {
+color: #dab134;
+}
+
+
+/* ----- Forms General Style ----- */
+form {
+	margin: 0 auto;
+	padding: 0;
+	}
+form {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	}
+form label {
+	display: block;
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 18px;
+	}
+form input {
+	border: 1px solid #dec5b5;
+	width: 264px;
+	}
+input#submit, input.submit  {
+	display: block;
+	margin: 18px 0;
+	padding: 4px;
+	font-weight: bold;
+	color: #fff6d5;
+	background-color: #F60;
+	cursor: pointer;
+	border: 0;
+	width: auto;
+	}
+input#submit:hover, input.submit:hover {
+	background-color: #701238;
+	}
+input.checkbox {
+	/*width: 14px;
+	height: 14px;*/
+	width: auto;
+	border: 0;
+	}
+
+label.checkbox_label {
+    display: inline;
+    font-weight: normal;
+}
+
+textarea, input {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #701238;
+	padding: 3px;
+	}
+textarea:focus, input:focus {
+	background-color: #f8ebc0;
+	}
+textarea {
+	width: 270px;
+	border: 1px solid #D8E2D7;
+	}
+.input_instructions {
+	margin-top: 3px;
+	display: block;
+	font-size: 11px;
+	line-height: 15px;
+	color: #924959;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	}

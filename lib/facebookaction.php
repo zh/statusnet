@@ -38,7 +38,7 @@ class FacebookAction extends Action {
 
 	function show_header($selected ='Home') {
 
-	 # $header = '<link rel="stylesheet" type="text/css" href="" />';
+	 $header = '<link rel="stylesheet" type="text/css" href="'. theme_path('facebookapp.css') . '" />';
 	 # $header .='<script src="" ></script>';
 	  $header .= '<fb:dashboard/>';
 
@@ -180,6 +180,50 @@ class FacebookAction extends Action {
 
 		return $html;
 	}
+	
+	function pagination($have_before, $have_after, $page, $fbaction, $args=NULL) {
 
+		$html = '';
 
+		if ($have_before || $have_after) {
+			$html = '<div id="pagination">';
+			$html .'<ul id="nav_pagination">'; 			
+		}
+
+		if ($have_before) {
+			$pargs = array('page' => $page-1);
+			$newargs = ($args) ? array_merge($args,$pargs) : $pargs;
+			$html .= '<li class="before">';
+			$html .'<a href="' . $this->pagination_url($fbaction, $newargs) . '">' . _('« After') . '</a>';
+			$html .'</li>';
+		}
+
+		if ($have_after) {
+			$pargs = array('page' => $page+1);
+			$newargs = ($args) ? array_merge($args,$pargs) : $pargs;
+			$html .= '<li class="after">';
+			$html .'<a href="' . $this->pagination_url($fbaction, $newargs) . '">' . _('Before »') . '</a>';
+			$html .'</li>';
+		}
+
+		if ($have_before || $have_after) {
+			$html .= '<ul>';
+			$html .'<div>';
+		}
+	}
+
+	function pagination_url($fbaction, $args=NULL) {
+		global $config;
+
+		$extra = '';
+
+		if ($args) {
+			foreach ($args as $key => $value) {
+				$extra .= "&${key}=${value}";
+			}
+		}
+
+		return "$fbaction?${extra}";
+	}
+	
 }
