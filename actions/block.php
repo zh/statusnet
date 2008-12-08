@@ -54,7 +54,8 @@ class BlockAction extends Action {
         }
     }
 
-    function handle($args=NULL) {
+    function handle($args) {
+        parent::handle($args);
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->arg('block')) {
                 $this->are_you_sure_form();
