@@ -87,7 +87,13 @@ $(document).ready(function(){
 	$("form.disfavor").each(addAjaxHidden);
 
 	$("#nudge").ajaxForm ({ dataType: 'xml',
-							success: function(xml) { $("#nudge").replaceWith(document._importNode($("#nudge_response", xml).get(0),true)); }
+							beforeSubmit: function(xml) { $("form#nudge input[type=submit]").attr("disabled", "disabled");
+														  $("form#nudge input[type=submit]").addClass("disabled");
+														},
+							success: function(xml) { $("#nudge").replaceWith(document._importNode($("#nudge_response", xml).get(0),true)); 
+												     $("#nudge input[type=submit]").removeAttr("disabled");
+												     $("#nudge input[type=submit]").removeClass("disabled");
+												   }
 						 });
 	$("#nudge").each(addAjaxHidden);
 	$("#nudge .submit").bind('click', function(e) {	$(this).addClass("processing"); });
