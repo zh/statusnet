@@ -34,7 +34,6 @@ class FacebookhomeAction extends FacebookAction {
 		$user = null;
 
 		$facebook = $this->get_facebook();
-
 		$fbuid = $facebook->require_login();
 
 		# check to see whether there's already a Facebook link for this user
@@ -42,21 +41,12 @@ class FacebookhomeAction extends FacebookAction {
 
 		if ($flink) {
 
-			$this->display($facebook, $fbuid);
-
 			$user = $flink->getUser();
-
-
-			$notice = $user->getCurrentNotice();
-
-			echo $this->show_notices($user);
-
-
-			$this->update_profile_box($facebook, $fbuid, $user);
-
+			$this->show_home($facebook, $fbuid, $user);
 
 		} else {
 
+			# Make the user put in her Laconica creds
 			$nickname = common_canonical_nickname($this->trimmed('nickname'));
 			$password = $this->arg('password');
 
@@ -64,12 +54,11 @@ class FacebookhomeAction extends FacebookAction {
 
 				if (common_check_user($nickname, $password)) {
 
-					echo '<h2>Successful authentication!</h2>';
 
 					$user = User::staticGet('nickname', $nickname);
 
 					if (!$user) {
-						echo '<h2>Couldn\'t get user!</h2>';
+						echo '<fb:error message="Coudln\'t get user!" />';
 						$this->show_login_form();
 					}
 
@@ -84,16 +73,15 @@ class FacebookhomeAction extends FacebookAction {
 					$flink_id = $flink->insert();
 
 					if ($flink_id) {
-						echo '<h2>Successfully made Identi.ca -> Facebook link</h2>';
+						echo '<fb:success message="You can now use the Identi.ca from Facebook!" />';
 					}
 
-					$this->display($facebook, $fbuid);
+					$this->show_home($facebook, $fbuid, $user);
 
 					return;
 				} else {
-					echo '<h2>Fail!</h2>';
+					echo '<fb:error message="Incorrect username or password." />';
 				}
-
 			}
 
 			$this->show_login_form();
@@ -101,16 +89,15 @@ class FacebookhomeAction extends FacebookAction {
 
 	}
 
-	function display($facebook, $fbuid) {
+	function show_home($facebook, $fbuid, $user) {
 
 		$this->show_header('Home');
 
-		// Greet the currently logged-in user!
-		echo "<p>Hello, <fb:name uid=\"$fbuid\" useyou=\"false\" />!</p>";
+		echo $this->show_notices($user);
+		$this->update_profile_box($facebook, $fbuid, $user);
 
 		$this->show_footer();
 	}
-
 
 	function show_notices($user) {
 
@@ -139,60 +126,6 @@ class FacebookhomeAction extends FacebookAction {
 
 		$this->pagination($page > 1, $cnt > NOTICES_PER_PAGE,
 						  $page, 'index.php', array('nickname' => $user->nickname));
-
-	}
-
-
-
-	function update_profile_box($facebook, $fbuid, $user) {
-
-		$notice = $user->getCurrentNotice();
-
-		# Need to include CSS for styling the Profile box
-
-		$style = '<style>
-		#notices {
-		clear: both;
-		margin: 0 auto;
-		padding: 0;
-		list-style-type: none;
-		width: 600px;
-		border-top: 1px solid #dec5b5;
-		}
-		#notices a:hover {
-		text-decoration: underline;
-		}
-		.notice_single {
-		clear: both;
-		display: block;
-		margin: 0;
-		padding: 5px 5px 5px 0;
-		min-height: 48px;
-		font-family: Georgia, "Times New Roman", Times, serif;
-		font-size: 13px;
-		line-height: 16px;
-		border-bottom: 1px solid #dec5b5;
-		background-color:#FCFFF5;
-		opacity:1;
-		}
-		.notice_single:hover {
-		background-color: #f7ebcc;
-		}
-		.notice_single p {
-		display: inline;
-		margin: 0;
-		padding: 0;
-		}
-		</style>';
-
-		$html = $this->render_notice($notice);
-
-		$fbml = "<fb:wide>$content $html</fb:wide>";
-		$fbml .= "<fb:narrow>$content $html</fb:narrow>";
-
-		$fbml_main = "<fb:narrow>$content $html</fb:narrow>";
-
-		$facebook->api_client->profile_setFBML(NULL, $fbuid, $fbml, NULL, NULL, $fbml_main);
 
 	}
 
