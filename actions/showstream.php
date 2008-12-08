@@ -203,8 +203,15 @@ class ShowstreamAction extends StreamAction {
 		common_profile_new_message_nudge($cur, $user, $profile);
 
         if ($cur) {
-            common_element_start('li', array('id' => 'profile_block'));
-            common_block_form($profile);
+            $blocked = $cur->hasBlocked($profile);
+            common_element_start('li', array('id' => ($blocked) ? 'profile_unblock' : 'profile_block'));
+            if ($blocked) {
+#                common_unblock_form($profile, array('action' => 'showstream',
+#                                                    'nickname' => $profile->nickname));
+            } else {
+                common_block_form($profile, array('action' => 'showstream',
+                                                  'nickname' => $profile->nickname));
+            }
             common_element_end('li');
         }
 

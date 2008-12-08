@@ -2185,7 +2185,7 @@ function common_compatible_license($from, $to) {
 	return ($from == $to);
 }
 
-function common_block_form($profile) {
+function common_block_form($profile, $args=NULL) {
     common_element_start('form', array('id' => 'block-' . $profile->id,
                                        'method' => 'post',
                                        'class' => 'block',
@@ -2199,6 +2199,11 @@ function common_block_form($profile) {
                                   'class' => 'submit',
                                   'name' => 'block',
                                   'value' => _('Block')));
+    if ($args) {
+        foreach ($args as $k => $v) {
+            common_hidden('returnto-' . $k, $v);
+        }
+    }
     common_element_end('form');
     return;
 }

@@ -95,6 +95,12 @@ class BlockAction extends Action {
                                       'type' => 'hidden',
                                       'value' => $id));
 
+        foreach ($this->args as $k => $v) {
+            if (substr($k, 0, 9) == 'returnto-') {
+                common_hidden($k, $v);
+            }
+        }
+
         common_submit('no', _('No'));
         common_submit('yes', _('Yes'));
 
@@ -147,7 +153,21 @@ class BlockAction extends Action {
 
         $block->query('COMMIT');
 
-        common_redirect(common_local_url('subscribers',
-                                         array('nickname' => $cur->nickname)));
+        # Now, gotta figure where we go back to
+
+        foreach ($this->args as $k => $v) {
+            if ($k == 'returnto-action') {
+                $action = $v;
+            } else if (substr($k, 0, 9) == 'returnto-') {
+                $args[$k] = substr($k, 9);
+            }
+        }
+
+        if ($action) {
+            common_redirect(common_local_url($action, $args));
+        } else {
+            common_redirect(common_local_url('subscriptions',
+                                             array('nickname' => $cur->nickname)));
+        }
     }
 }
