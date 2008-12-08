@@ -40,8 +40,8 @@ class StreamAction extends PersonalAction {
 				_('Notices from featured Users'), $action == 'featured');
 		}
 
-		common_menu_item(common_local_url('favorited'), _('Favorited'),
-			_("Most favorited notices"), $action == 'favorited');
+		common_menu_item(common_local_url('favorited'), _('Popular'),
+			_("Latest popular notices"), $action == 'favorited');
 
 		common_element_end('ul');
 
