@@ -55,6 +55,7 @@ class SubscribersAction extends GalleryAction {
 
 class SubscribersList extends ProfileList {
     function show_owner_controls($profile) {
-        common_block_form($profile);
+        common_block_form($profile, array('action' => 'subscribers',
+                                          'nickname' => $this->owner->nickname));
     }
 }
