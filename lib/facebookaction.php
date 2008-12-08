@@ -88,17 +88,21 @@ class FacebookAction extends Action {
 
 	function show_header($selected ='Home') {
 
-	 $header = '<link rel="stylesheet" type="text/css" href="'. theme_path('facebookapp.css') . '" />';
-	 # $header .='<script src="" ></script>';
-	  $header .= '<fb:dashboard/>';
+		# Add a timestamp to the CSS file so Facebook cache wont ignore our changes
+		$ts = filemtime(theme_file('facebookapp.css'));
+		$cssurl = theme_path('facebookapp.css') . "?ts=$ts";
 
-	  $header .=
-		'<fb:tabs>'
-		.'<fb:tab-item title="Home" href="index.php" selected="' . ($selected == 'Home') .'" />'
-		.'<fb:tab-item title="Invite Friends"  href="invite.php" selected="' . ($selected == 'Invite') . '" />'
-		.'<fb:tab-item title="Settings"	 href="settings.php" selected="' . ($selected == 'Settings') . '" />'
-		.'</fb:tabs>';
-	  $header .= '<div id="main_body">';
+	 	$header = '<link rel="stylesheet" type="text/css" href="'. $cssurl . '" />';
+	 	# $header .='<script src="" ></script>';
+	  	$header .= '<fb:dashboard/>';
+
+	  	$header .=
+			'<fb:tabs>'
+			.'<fb:tab-item title="Home" href="index.php" selected="' . ($selected == 'Home') .'" />'
+			.'<fb:tab-item title="Invite Friends"  href="invite.php" selected="' . ($selected == 'Invite') . '" />'
+			.'<fb:tab-item title="Settings"	 href="settings.php" selected="' . ($selected == 'Settings') . '" />'
+			.'</fb:tabs>';
+	  	$header .= '<div id="main_body">';
 
 	  echo $header;
 
