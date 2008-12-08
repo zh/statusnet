@@ -29,7 +29,7 @@ class Rss10Action extends Action {
 	function is_readonly() {
 		return true;
 	}
-	
+
 	function handle($args) {
 		parent::handle($args);
 		$limit = (int) $this->trimmed('limit');
@@ -132,6 +132,24 @@ class Rss10Action extends Action {
 		common_element('sioc:has_creator', array('rdf:resource' => $creator_uri));
 		common_element('laconica:postIcon', array('rdf:resource' => common_profile_avatar_url($profile)));
 		common_element('cc:licence', array('rdf:resource' => common_config('license', 'url')));
+        common_element_start('content:items');
+        common_element_start('rdf:Bag');
+        common_element_start('rdf:li');
+        common_element_start('content:item');
+        common_element('content:format', array('rdf:resource' =>
+                                               'http://www.w3.org/1999/xhtml'));
+        common_text($notice->rendered);
+        common_element_end('content:item');
+        common_element_end('rdf:li');
+        common_element_start('rdf:li');
+        common_element_start('content:item');
+        common_element('content:format', array('rdf:resource' =>
+                                               'http://www.isi.edu/in-notes/iana/assignments/media-types/text/plain'));
+        common_text(common_xml_safe_str($notice->content));
+        common_element_end('content:item');
+        common_element_end('rdf:li');
+        common_element_end('rdf:Bag');
+        common_element_end('content:items');
 		common_element_end('item');
 		$this->creators[$creator_uri] = $profile;
 	}
@@ -140,9 +158,9 @@ class Rss10Action extends Action {
 		foreach ($this->creators as $uri => $profile) {
 			$id = $profile->id;
 			$nickname = $profile->nickname;
-			
+
 			common_element_start('sioc:User', array('rdf:about' => $uri));
-			common_element('foaf:nick', NULL, $nickname);                                                
+			common_element('foaf:nick', NULL, $nickname);
 			if ($profile->fullname) {
 				common_element('foaf:name', NULL, $profile->fullname);
 			}
@@ -152,10 +170,10 @@ class Rss10Action extends Action {
 			common_element_end('sioc:User');
 		}
 	}
-	
+
 	function init_rss() {
 		$channel = $this->get_channel();
-		
+
 		header('Content-Type: application/rdf+xml');
 
 		common_start_xml();
@@ -165,6 +183,8 @@ class Rss10Action extends Action {
 											  'http://purl.org/dc/elements/1.1/',
 											  'xmlns:cc' =>
 											  'http://web.resource.org/cc/',
+                                              'xmlns:content' =>
+                                              'http://purl.org/rss/1.0/modules/content/',
 											  'xmlns:foaf' =>
 											  'http://xmlns.com/foaf/0.1/',
 											  'xmlns:sioc' =>
@@ -174,7 +194,7 @@ class Rss10Action extends Action {
 		                                      'xmlns:laconica' =>
 		                                      'http://laconi.ca/ont/',
 											  'xmlns' => 'http://purl.org/rss/1.0/'));
-		
+
 		common_element_start('sioc:Site', array('rdf:about' => common_root_url()));
 		common_element('sioc:name', NULL, common_config('site', 'name'));
 		common_element_start('sioc:container_of');
