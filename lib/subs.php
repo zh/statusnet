@@ -25,7 +25,7 @@ require_once('XMPPHP/XMPP.php');
   Returns true or an error message.
 */
 
-function subs_subscribe_user($user,$other_nickname) {
+function subs_subscribe_user($user, $other_nickname) {
 
 	$other = User::staticGet('nickname', $other_nickname);
 
@@ -36,18 +36,27 @@ function subs_subscribe_user($user,$other_nickname) {
 	return subs_subscribe_to($user, $other);
 }
 
+/* Subscribe user $user to other user $other.
+ * Note: $other must be a local user, not a remote profile.
+ * Because the other way is quite a bit more complicated.
+ */
+
 function subs_subscribe_to($user, $other) {
 
 	if ($user->isSubscribed($other)) {
 		return _('Already subscribed!.');
 	}
 
+    if ($other->hasBlocked($user)) {
+		return _('User has blocked you.');
+    }
+
 	if (!$user->subscribeTo($other)) {
 		return _('Could not subscribe.');
 		return;
 	}
 
-	subs_notify($other, $user);
+    subs_notify($other, $user);
 
 	if (common_config('memcached', 'enabled')) {
 		$cache = new Memcache();
@@ -55,8 +64,8 @@ function subs_subscribe_to($user, $other) {
 			$cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
 		}
 	}
-	
-	if ($other->autosubscribe && !$other->isSubscribed($user)) {
+
+	if ($other->autosubscribe && !$other->isSubscribed($user) && !$user->hasBlocked($other)) {
 		if (!$other->subscribeTo($user)) {
 			return _('Could not subscribe other to you.');
 		}
@@ -66,7 +75,7 @@ function subs_subscribe_to($user, $other) {
 				$cache->delete(common_cache_key('user:notices_with_friends:' . $other->id));
 			}
 		}
-		
+
 		subs_notify($user, $other);
 	}
 
@@ -87,6 +96,7 @@ function subs_notify_email($listenee, $listener) {
 /* Unsubscribe $user from nickname $other_nickname
   Returns true or an error message.
 */
+
 function subs_unsubscribe_user($user, $other_nickname) {
 
 	$other = User::staticGet('nickname', $other_nickname);
@@ -95,8 +105,11 @@ function subs_unsubscribe_user($user, $other_nickname) {
 		return _('No such user.');
 	}
 
-	return subs_unsubscribe_to($user, $other);
+	return subs_unsubscribe_to($user, $other->getProfile());
 }
+
+/* Unsubscribe user $user from profile $other
+ * NB: other can be a remote user. */
 
 function subs_unsubscribe_to($user, $other) {
 
@@ -121,7 +134,7 @@ function subs_unsubscribe_to($user, $other) {
 			$cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
 		}
 	}
-	
+
 	return true;
 }
 
