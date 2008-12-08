@@ -26,6 +26,7 @@ RewriteRule ^facebook/$ index.php?action=facebookhome [L,QSA]
 RewriteRule ^facebook/index.php$ index.php?action=facebookhome [L,QSA]
 RewriteRule ^facebook/settings.php$ index.php?action=facebooksettings [L,QSA]
 RewriteRule ^facebook/invite.php$ index.php?action=facebookinvite [L,QSA]
+RewriteRule ^facebook/remove$ index.php?action=facebookremove [L,QSA]
 
 RewriteRule ^main/login$ index.php?action=login [L,QSA]
 RewriteRule ^main/logout$ index.php?action=logout [L,QSA]
