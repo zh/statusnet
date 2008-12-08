@@ -936,7 +936,7 @@ function common_at_link($sender_id, $nickname) {
 	$sender = Profile::staticGet($sender_id);
 	$recipient = common_relative_profile($sender, common_canonical_nickname($nickname));
 	if ($recipient) {
-		return '<span class="vcard"><a class="fn nickname url" rel="reply" href="'.htmlspecialchars($recipient->profileurl).'" class="atlink">'.$nickname.'</a></span>';
+		return '<span class="vcard"><a class="fn nickname url atlink" rel="reply" href="'.htmlspecialchars($recipient->profileurl).'">'.$nickname.'</a></span>';
 	} else {
 		return '<span class="vcard"> <span class="fn nickname">'.$nickname.'</span> </span>';
 	}
