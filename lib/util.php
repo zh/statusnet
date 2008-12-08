@@ -163,6 +163,7 @@ define('PAGE_TYPE_PREFS', 'text/html,application/xhtml+xml,application/xml;q=0.3
 function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=NULL) {
 
 	global $config, $xw;
+    global $action; /* XXX: kind of cheating here. */
 
 	common_start_html();
 
@@ -209,7 +210,7 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 		}
 	}
 	common_element_end('head');
-	common_element_start('body');
+	common_element_start('body', $action);
 	common_element_start('div', array('id' => 'wrap'));
 	common_element_start('div', array('id' => 'header'));
 	common_nav_menu();
