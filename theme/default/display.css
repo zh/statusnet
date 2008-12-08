@@ -219,10 +219,9 @@ clear:both;
 }
 
 #profile_actions #profile_nudge input.submit {
-margin:0;
+margin:0 0 0 -3px;
 padding:0;
-padding-left:17px;
-background:transparent url(icon_emote-wink.png) 0 1px no-repeat;
+background-color:transparent;
 color:#C15D42;
 font-family:Georgia,"Times New Roman",Times,serif;
 font-weight:normal;
@@ -237,14 +236,12 @@ color:#C15D42;
 }
 
 #wrap #content input.processing {
-padding-left:17px;
-background:transparent url(icon_process-working.gif) 0 1px no-repeat;
+background-color:transparent;
 line-height:18px;
 }
 
 #wrap p#nudge_response {
-padding-left:20px;
-background:transparent url(icon_checkmark.gif) 0 1px no-repeat;
+background-color:transparent;
 line-height:18px;
 font-size:14px;
 }
