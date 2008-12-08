@@ -52,6 +52,8 @@ class BlockAction extends Action {
             $this->client_error(_('No profile with that ID.'));
             return false;
         }
+
+        return true;
     }
 
     function handle($args) {
