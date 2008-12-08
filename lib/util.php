@@ -2050,15 +2050,15 @@ function common_nudge_response() {
 }
 
 function common_subscribe_form($profile) {
-	common_element_start('form', array('id' => 'subscribe-' . $profile->nickname,
+	common_element_start('form', array('id' => 'subscribe-' . $profile->id,
 									   'method' => 'post',
 									   'class' => 'subscribe',
 									   'action' => common_local_url('subscribe')));
 	common_hidden('token', common_session_token());
-	common_element('input', array('id' => 'subscribeto-' . $profile->nickname,
+	common_element('input', array('id' => 'subscribeto-' . $profile->id,
 								  'name' => 'subscribeto',
 								  'type' => 'hidden',
-								  'value' => $profile->nickname));
+								  'value' => $profile->id));
 	common_element('input', array('type' => 'submit',
 								  'class' => 'submit',
 								  'value' => _('Subscribe')));
