@@ -2197,6 +2197,7 @@ function common_block_form($profile) {
                                   'value' => $profile->id));
     common_element('input', array('type' => 'submit',
                                   'class' => 'submit',
+                                  'name' => 'block',
                                   'value' => _('Block')));
     common_element_end('form');
     return;
