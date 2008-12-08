@@ -159,7 +159,7 @@ class BlockAction extends Action {
             if ($k == 'returnto-action') {
                 $action = $v;
             } else if (substr($k, 0, 9) == 'returnto-') {
-                $args[$k] = substr($k, 9);
+                $args[substr($k, 9)] = $v;
             }
         }
 
