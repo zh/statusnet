@@ -73,6 +73,8 @@ class BlockAction extends Action {
 
         $id = $this->profile->id;
 
+		common_show_header(_('Block user'));
+
         common_element_start('p', NULL,
                              _('Are you sure you want to block this user? '.
                                'Afterwards, they will be unsubscribed from you, '.
@@ -95,6 +97,8 @@ class BlockAction extends Action {
         common_submit('yes', _('Yes'));
 
         common_element_end('form');
+
+        common_show_footer();
     }
 
     function block_profile() {
