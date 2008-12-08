@@ -67,20 +67,10 @@ class UnblockAction extends Action {
 
         $cur = common_current_user();
 
-        # Get the block record
-
-        $block = Profile_block::get($cur->id, $this->profile->id);
-
-        if (!$block) {
-            $this->client_error(_('That user is not blocked!'));
-            return;
-        }
-
-        $result = $block->delete();
+        $result = $cur->unblock($this->profile);
 
         if (!$result) {
-            common_log_db_error($block, 'DELETE', __FILE__);
-            $this->server_error(_('Could not delete block record.'));
+            $this->server_error(_('Error removing the block.'));
             return;
         }
 

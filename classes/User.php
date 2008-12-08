@@ -422,4 +422,63 @@ class User extends Memcached_DataObject
 	function setSelfTags($newtags) {
 		return Profile_tag::setTags($this->id, $this->id, $newtags);
 	}
+
+    function block($other) {
+
+        # Add a new block record
+
+        $block = new Profile_block();
+
+        # Begin a transaction
+
+        $block->query('BEGIN');
+
+        $block->blocker = $this->id;
+        $block->blocked = $other->id;
+
+        $result = $block->insert();
+
+        if (!$result) {
+            common_log_db_error($block, 'INSERT', __FILE__);
+            return false;
+        }
+
+        # Cancel their subscription, if it exists
+
+		$sub = Subscription::pkeyGet(array('subscriber' => $other->id,
+										   'subscribed' => $this->id));
+
+        if ($sub) {
+            $result = $sub->delete();
+            if (!$result) {
+                common_log_db_error($sub, 'DELETE', __FILE__);
+                return false;
+            }
+        }
+
+        $block->query('COMMIT');
+
+        return true;
+    }
+
+    function unblock($other) {
+
+        # Get the block record
+
+        $block = Profile_block::get($this->id, $other->id);
+
+        if (!$block) {
+            return false;
+        }
+
+        $result = $block->delete();
+
+        if (!$result) {
+            common_log_db_error($block, 'DELETE', __FILE__);
+            return false;
+        }
+
+        return true;
+    }
+
 }

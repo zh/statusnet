@@ -118,40 +118,12 @@ class BlockAction extends Action {
             return;
         }
 
-        # Add a new block record
-
-        $block = new Profile_block();
-
-        # Begin a transaction
-
-        $block->query('BEGIN');
-
-        $block->blocker = $cur->id;
-        $block->blocked = $this->profile->id;
-
-        $result = $block->insert();
+        $result = $cur->block($this->profile);
 
         if (!$result) {
-            common_log_db_error($block, 'INSERT', __FILE__);
-            $this->server_error(_('Could not save new block record.'));
+            $this->server_error(_('Failed to save block information.'));
             return;
         }
-
-        # Cancel their subscription, if it exists
-
-		$sub = Subscription::pkeyGet(array('subscriber' => $this->profile->id,
-										   'subscribed' => $cur->id));
-
-        if ($sub) {
-            $result = $sub->delete();
-            if (!$result) {
-                common_log_db_error($sub, 'DELETE', __FILE__);
-                $this->server_error(_('Could not delete subscription.'));
-                return;
-            }
-        }
-
-        $block->query('COMMIT');
 
         # Now, gotta figure where we go back to
 
