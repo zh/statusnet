@@ -37,7 +37,10 @@ class TwitapiblocksAction extends TwitterapiAction {
         $user = $apidata['user'];
 
         if ($user->hasBlocked($blockee) || $user->block($blockee)) {
-            $this->show_profile($blockee, $apidata['content-type']);
+            $type = $apidata['content-type'];
+            $this->init_document($type);
+            $this->show_profile($blockee, $type);
+            $this->end_document($type);
         } else {
 			common_server_error(_('Block user failed.'));
         }
@@ -55,7 +58,10 @@ class TwitapiblocksAction extends TwitterapiAction {
         $user = $apidata['user'];
 
         if (!$user->hasBlocked($blockee) || $user->unblock($blockee)) {
-            $this->show_profile($blockee, $apidata['content-type']);
+            $type = $apidata['content-type'];
+            $this->init_document($type);
+            $this->show_profile($blockee, $type);
+            $this->end_document($type);
         } else {
 			common_server_error(_('Unblock user failed.'));
         }
