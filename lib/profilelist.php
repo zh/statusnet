@@ -151,7 +151,7 @@ class ProfileList {
 		}
 
         if ($user && $user->id == $this->owner->id) {
-            $this->show_owner_controls($profile);
+            $this->show_owner_controls($this->profile);
         }
 
 		common_element_end('li');
