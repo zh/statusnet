@@ -2183,3 +2183,20 @@ function common_compatible_license($from, $to) {
 	# XXX: better compatibility check needed here!
 	return ($from == $to);
 }
+
+function common_block_form($profile) {
+    common_element_start('form', array('id' => 'block-' . $profile->id,
+                                       'method' => 'post',
+                                       'class' => 'block',
+                                       'action' => common_local_url('block')));
+    common_hidden('token', common_session_token());
+    common_element('input', array('id' => 'blockto-' . $profile->id,
+                                  'name' => 'blockto',
+                                  'type' => 'hidden',
+                                  'value' => $profile->id));
+    common_element('input', array('type' => 'submit',
+                                  'class' => 'submit',
+                                  'value' => _('Block')));
+    common_element_end('form');
+    return;
+}

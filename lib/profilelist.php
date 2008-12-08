@@ -55,12 +55,11 @@ class ProfileList {
 
 	function show() {
 
-		$this->profile = $this->profile;
-
 		common_element_start('li', array('class' => 'profile_single',
 										 'id' => 'profile-' . $this->profile->id));
 
 		$user = common_current_user();
+
 		if ($user && $user->id != $this->profile->id) {
 			# XXX: special-case for user looking at own
 			# subscriptions page
@@ -151,8 +150,18 @@ class ProfileList {
 			common_element_end('div');
 		}
 
+        if ($user && $user->id == $this->owner->id) {
+            $this->show_owner_controls($profile);
+        }
+
 		common_element_end('li');
 	}
+
+    /* Override this in subclasses. */
+
+    function show_owner_controls($profile) {
+        return;
+    }
 
 	function highlight($text) {
 		return htmlspecialchars($text);

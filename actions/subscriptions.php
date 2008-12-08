@@ -47,4 +47,15 @@ class SubscriptionsAction extends GalleryAction {
 	function get_other(&$subs) {
 		return $subs->subscribed;
 	}
+
+    function profile_list_class() {
+        return 'SubscriptionsList';
+    }
+}
+
+class SubscriptionsList extends ProfileList {
+
+    function show_owner_controls() {
+        return;
+    }
 }

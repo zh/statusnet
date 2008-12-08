@@ -202,6 +202,12 @@ class ShowstreamAction extends StreamAction {
 		$user = User::staticGet('id', $profile->id);
 		common_profile_new_message_nudge($cur, $user, $profile);
 
+        if ($cur) {
+            common_element_start('li', array('id' => 'profile_block'));
+            common_block_form($profile);
+            common_element_end('li');
+        }
+
 		common_element_end('ul');
 
 		common_element_end('div');
