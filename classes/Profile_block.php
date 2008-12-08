@@ -20,7 +20,7 @@ class Profile_block extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    static function get($blocker, $blocked) {
+    function get($blocker, $blocked) {
 		return Profile_block::pkeyGet(array('blocker' => $blocker,
                                             'blocked' => $blocked));
     }
