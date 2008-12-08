@@ -27,19 +27,19 @@ class ProfileList {
 	var $profile = NULL;
 	var $owner = NULL;
 	var $action = NULL;
-	
+
 	function __construct($profile, $owner=NULL, $action=NULL) {
 		$this->profile = $profile;
 		$this->owner = $owner;
 		$this->action = $action;
 	}
-	
+
 	function show_list() {
-		
+
 		common_element_start('ul', array('id' => 'profiles', 'class' => 'profile_list'));
 
 		$cnt = 0;
-		
+
 		while ($this->profile->fetch()) {
 			$cnt++;
 			if($cnt > PROFILES_PER_PAGE) {
@@ -47,19 +47,19 @@ class ProfileList {
 			}
 			$this->show();
 		}
-		
+
 		common_element_end('ul');
-		
+
 		return $cnt;
 	}
-	
+
 	function show() {
 
 		$this->profile = $this->profile;
-		
+
 		common_element_start('li', array('class' => 'profile_single',
 										 'id' => 'profile-' . $this->profile->id));
-		
+
 		$user = common_current_user();
 		if ($user && $user->id != $this->profile->id) {
 			# XXX: special-case for user looking at own
@@ -70,7 +70,7 @@ class ProfileList {
 				common_subscribe_form($this->profile);
 			}
 		}
-		
+
 		$avatar = $this->profile->getAvatar(AVATAR_STREAM_SIZE);
 		common_element_start('a', array('href' => $this->profile->profileurl));
 		common_element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE),
@@ -113,11 +113,11 @@ class ProfileList {
 		}
 
 		# If we're on a list with an owner (subscriptions or subscribers)...
-		
+
 		if ($this->owner) {
 			# Get tags
 			$tags = Profile_tag::getTags($this->owner->id, $this->profile->id);
-			
+
 			common_element_start('div', 'tags_user');
 			common_element_start('dl');
 			common_element_start('dt');
@@ -151,16 +151,6 @@ class ProfileList {
 			common_element_end('div');
 		}
 
-		if ($user) {
-			$action = NULL;			
-			if ($user->isSubscribed($this->profile)) {
-				$action = 'subscriptions';
-			} else if (Subscription::pkeyGet(array('subscriber' => $this->profile->id,
-												   'subscribed' => $user->id))) {
-				$action = 'subscribers';
-			}
-		}
-		
 		common_element_end('li');
 	}
 
