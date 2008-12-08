@@ -2185,20 +2185,30 @@ function common_compatible_license($from, $to) {
 	return ($from == $to);
 }
 
+/* These are almost identical, so we use a helper function */
+
 function common_block_form($profile, $args=NULL) {
-    common_element_start('form', array('id' => 'block-' . $profile->id,
+    common_blocking_form('block', _('Block'), $profile, $args);
+}
+
+function common_unblock_form($profile, $args=NULL) {
+    common_blocking_form('unblock', _('Unblock'), $profile, $args);
+}
+
+function common_blocking_form($type, $label, $profile, $args=NULL) {
+    common_element_start('form', array('id' => $type . '-' . $profile->id,
                                        'method' => 'post',
-                                       'class' => 'block',
-                                       'action' => common_local_url('block')));
+                                       'class' => $type,
+                                       'action' => common_local_url($type)));
     common_hidden('token', common_session_token());
-    common_element('input', array('id' => 'blockto-' . $profile->id,
-                                  'name' => 'blockto',
+    common_element('input', array('id' => $type . 'to-' . $profile->id,
+                                  'name' => $type . 'to',
                                   'type' => 'hidden',
                                   'value' => $profile->id));
     common_element('input', array('type' => 'submit',
                                   'class' => 'submit',
-                                  'name' => 'block',
-                                  'value' => _('Block')));
+                                  'name' => $type,
+                                  'value' => $label));
     if ($args) {
         foreach ($args as $k => $v) {
             common_hidden('returnto-' . $k, $v);
@@ -2207,3 +2217,4 @@ function common_block_form($profile, $args=NULL) {
     common_element_end('form');
     return;
 }
+
