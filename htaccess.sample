@@ -44,6 +44,8 @@ RewriteRule ^main/sup$ index.php?action=sup [L,QSA]
 
 RewriteRule ^main/tagother$ index.php?action=tagother [L,QSA]
 
+RewriteRule ^main/block$ index.php?action=block [L,QSA]
+
 RewriteRule ^settings/delete$ index.php?action=deleteprofile [L,QSA]
 RewriteRule ^settings/profile$ index.php?action=profilesettings [L,QSA]
 RewriteRule ^settings/openid$ index.php?action=openidsettings [L,QSA]

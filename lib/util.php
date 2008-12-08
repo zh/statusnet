@@ -1081,6 +1081,7 @@ function common_fancy_url($action, $args=NULL) {
                 }
 	 case 'doc':
 		return common_path('doc/'.$args['title']);
+     case 'block':
 	 case 'login':
 	 case 'logout':
 	 case 'subscribe':
