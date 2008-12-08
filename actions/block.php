@@ -77,11 +77,11 @@ class BlockAction extends Action {
 
 		common_show_header(_('Block user'));
 
-        common_element_start('p', NULL,
-                             _('Are you sure you want to block this user? '.
-                               'Afterwards, they will be unsubscribed from you, '.
-                               'unable to subscribe to you in the future, and '.
-                               'you will not be notified of any @-replies from them.'));
+        common_element('p', NULL,
+                       _('Are you sure you want to block this user? '.
+                         'Afterwards, they will be unsubscribed from you, '.
+                         'unable to subscribe to you in the future, and '.
+                         'you will not be notified of any @-replies from them.'));
 
         common_element_start('form', array('id' => 'block-' . $id,
                                            'method' => 'post',
