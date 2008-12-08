@@ -94,16 +94,24 @@ $(document).ready(function(){
 
 
 	var Subscribe = { dataType: 'xml',
+					  beforeSubmit: function(formData, jqForm, options) { $("form.subscribe input[type=submit]").attr("disabled", "disabled");
+																	      $("form.subscribe input[type=submit]").addClass("disabled");
+																	    },
 					  success: function(xml) { var form_unsubscribe = document._importNode($('form', xml).get(0), true);
 										  	   var form_unsubscribe_id = form_unsubscribe.id;
 											   var form_subscribe_id = form_unsubscribe_id.replace('unsubscribe', 'subscribe');
 											   $("form#"+form_subscribe_id).replaceWith(form_unsubscribe);
 											   $("form#"+form_unsubscribe_id).ajaxForm(UnSubscribe).each(addAjaxHidden);
 											   $("dd.subscribers").text(parseInt($("dd.subscribers").text())+1);
+											   $("form.subscribe input[type=submit]").removeAttr("disabled");
+											   $("form.subscribe input[type=submit]").removeClass("disabled");
 										     }
 					};
 
 	var UnSubscribe = { dataType: 'xml',
+						beforeSubmit: function(formData, jqForm, options) { $("form.unsubscribe input[type=submit]").attr("disabled", "disabled");
+																		    $("form.unsubscribe input[type=submit]").addClass("disabled");
+																		  },
 					    success: function(xml) { var form_subscribe = document._importNode($('form', xml).get(0), true);
 										  		 var form_subscribe_id = form_subscribe.id;
 												 var form_unsubscribe_id = form_subscribe_id.replace('subscribe', 'unsubscribe');
@@ -112,6 +120,8 @@ $(document).ready(function(){
 												 $("#profile_send_a_new_message").remove();
 												 $("#profile_nudge").remove();
 											     $("dd.subscribers").text(parseInt($("dd.subscribers").text())-1);
+												 $("form.unsubscribe input[type=submit]").removeAttr("disabled");
+												 $("form.unsubscribe input[type=submit]").removeClass("disabled");
 											   }
 					  };
 
