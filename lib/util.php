@@ -1401,6 +1401,11 @@ function common_save_replies($notice) {
 				$notice->update($orig);
 			}
 		}
+        # Don't save replies from blocked profile to local user
+        $recipient_user = User::staticGet('id', $recipient->id);
+        if ($recipient_user && $recipient_user->hasBlocked($sender)) {
+            continue;
+        }
 		$reply = new Reply();
 		$reply->notice_id = $notice->id;
 		$reply->profile_id = $recipient->id;
@@ -1422,6 +1427,11 @@ function common_save_replies($notice) {
 			$tagged = Profile_tag::getTagged($sender->id, $tag);
 			foreach ($tagged as $t) {
 				if (!$replied[$t->id]) {
+                    # Don't save replies from blocked profile to local user
+                    $t_user = User::staticGet('id', $t->id);
+                    if ($t_user && $t_user->hasBlocked($sender)) {
+                        continue;
+                    }
 					$reply = new Reply();
 					$reply->notice_id = $notice->id;
 					$reply->profile_id = $t->id;
