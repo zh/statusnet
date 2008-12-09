@@ -641,7 +641,7 @@ function common_remembered_user() {
     list($id, $code) = explode(':', $packed);
 
     if (!$id || !$code) {
-        common_warning('Malformed rememberme cookie: ' . $packed);
+        common_log(LOG_WARNING, 'Malformed rememberme cookie: ' . $packed);
         common_forgetme();
         return NULL;
     }
@@ -649,13 +649,13 @@ function common_remembered_user() {
     $rm = Remember_me::staticGet($code);
 
     if (!$rm) {
-        common_warning('No such remember code: ' . $code);
+        common_log(LOG_WARNING, 'No such remember code: ' . $code);
         common_forgetme();
         return NULL;
     }
 
     if ($rm->user_id != $id) {
-        common_warning('Rememberme code for wrong user: ' . $rm->user_id . ' != ' . $id);
+        common_log(LOG_WARNING, 'Rememberme code for wrong user: ' . $rm->user_id . ' != ' . $id);
         common_forgetme();
         return NULL;
     }
@@ -663,7 +663,7 @@ function common_remembered_user() {
     $user = User::staticGet($rm->user_id);
 
     if (!$user) {
-        common_warning('No such user for rememberme: ' . $rm->user_id);
+        common_log(LOG_WARNING, 'No such user for rememberme: ' . $rm->user_id);
         common_forgetme();
         return NULL;
     }
@@ -673,7 +673,7 @@ function common_remembered_user() {
 
     if (!$result) {
         common_log_db_error($rm, 'DELETE', __FILE__);
-        common_warning('Could not delete rememberme: ' . $code);
+        common_log(LOG_WARNING, 'Could not delete rememberme: ' . $code);
         common_forgetme();
         return NULL;
     }
