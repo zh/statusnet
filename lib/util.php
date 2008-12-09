@@ -602,7 +602,7 @@ function common_set_cookie($key, $value, $expiration=0) {
 }
 
 define('REMEMBERME', 'rememberme');
-define('REMEMBERME_EXPIRY', 30 * 24 * 60 * 60);
+define('REMEMBERME_EXPIRY', 30 * 24 * 60 * 60); # 30 days
 
 function common_rememberme($user=NULL) {
 	if (!$user) {
@@ -612,19 +612,26 @@ function common_rememberme($user=NULL) {
 			return false;
 		}
 	}
+
 	$rm = new Remember_me();
 	$rm->code = common_good_rand(16);
 	$rm->user_id = $user->id;
 	$result = $rm->insert();
+
 	if (!$result) {
 		common_log_db_error($rm, 'INSERT', __FILE__);
 		common_debug('Error adding rememberme record for ' . $user->nickname, __FILE__);
 		return false;
-	}
-	common_log(LOG_INFO, 'adding rememberme cookie for ' . $user->nickname);
-	common_set_cookie(REMEMBERME,
-					  implode(':', array($rm->user_id, $rm->code)),
-					  time() + REMEMBERME_EXPIRY);
+    }
+
+	common_debug('Inserted rememberme record (' . $rm->code . ', ' . $rm->user_id . '); result = ' . $result . '.', __FILE__);
+
+    $cookieval = $rm->user_id . ':' . $rm->code;
+
+	common_log(LOG_INFO, 'adding rememberme cookie "' . $cookieval . '" for ' . $user->nickname);
+
+	common_set_cookie(REMEMBERME, $cookieval, time() + REMEMBERME_EXPIRY);
+
 	return true;
 }
 
