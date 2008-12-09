@@ -146,8 +146,7 @@ class User extends Memcached_DataObject
 
     function hasBlocked($other) {
 
-        $block = Profile_block::pkeyGet(array('blocker' => $this->id,
-                                              'blocked' => $other->id));
+        $block = Profile_block::get($this->id, $other->id);
 
         if (is_null($block)) {
             $result = false;
@@ -467,8 +466,7 @@ class User extends Memcached_DataObject
 
         # Get the block record
 
-        $block = Profile_block::pkeyGet(array('blocker' => $this->id,
-                                              'blocked' => $other->id));
+        $block = Profile_block::get($this->id, $other->id);
 
         if (!$block) {
             return false;

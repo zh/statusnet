@@ -40,4 +40,10 @@ class Profile_block extends Memcached_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+
+    function get($blocker, $blocked) {
+        return Memcached_DataObject::pkeyGet('Profile_block',
+                                             array('blocker' => $blocker,
+                                                   'blocked' => $blocked));
+     }
 }
