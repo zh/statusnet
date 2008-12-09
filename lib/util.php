@@ -620,33 +620,65 @@ function common_rememberme($user=NULL) {
 }
 
 function common_remembered_user() {
+
 	$user = NULL;
-	# Try to remember
-	$packed = isset($_COOKIE[REMEMBERME]) ? $_COOKIE[REMEMBERME] : '';
-	if ($packed) {
-		list($id, $code) = explode(':', $packed);
-		if ($id && $code) {
-			$rm = Remember_me::staticGet($code);
-			if ($rm && ($rm->user_id == $id)) {
-				$user = User::staticGet($rm->user_id);
-				if ($user) {
-					# successful!
-					$result = $rm->delete();
-					if (!$result) {
-						common_log_db_error($rm, 'DELETE', __FILE__);
-						$user = NULL;
-					} else {
-						common_log(LOG_INFO, 'logging in ' . $user->nickname . ' using rememberme code ' . $rm->code);
-						common_set_user($user->nickname);
-						common_real_login(false);
-						# We issue a new cookie, so they can log in
-						# automatically again after this session
-						common_rememberme($user);
-					}
-				}
-			}
-		}
-	}
+
+	$packed = isset($_COOKIE[REMEMBERME]) ? $_COOKIE[REMEMBERME] : NULL;
+
+	if (!$packed) {
+        return NULL;
+    }
+
+    list($id, $code) = explode(':', $packed);
+
+    if (!$id || !$code) {
+        common_warning('Malformed rememberme cookie: ' . $packed);
+        common_forgetme();
+        return NULL;
+    }
+
+    $rm = Remember_me::staticGet($code);
+
+    if (!$rm) {
+        common_warning('No such remember code: ' . $code);
+        common_forgetme();
+        return NULL;
+    }
+
+    if ($rm->user_id != $id) {
+        common_warning('Rememberme code for wrong user: ' . $rm->user_id . ' != ' . $id);
+        common_forgetme();
+        return NULL;
+    }
+
+    $user = User::staticGet($rm->user_id);
+
+    if (!$user) {
+        common_warning('No such user for rememberme: ' . $rm->user_id);
+        common_forgetme();
+        return NULL;
+    }
+
+	# successful!
+    $result = $rm->delete();
+
+    if (!$result) {
+        common_log_db_error($rm, 'DELETE', __FILE__);
+        common_warning('Could not delete rememberme: ' . $code);
+        common_forgetme();
+        return NULL;
+    }
+
+    common_log(LOG_INFO, 'logging in ' . $user->nickname . ' using rememberme code ' . $rm->code);
+
+    common_set_user($user->nickname);
+    common_real_login(false);
+
+    # We issue a new cookie, so they can log in
+    # automatically again after this session
+
+    common_rememberme($user);
+
 	return $user;
 }
 
