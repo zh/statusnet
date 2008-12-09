@@ -557,8 +557,16 @@ function common_ensure_session() {
 # 2) a nickname
 # 3) NULL to clear
 
+# Initialize to false; set to NULL if none found
+
+$_cur = false;
+
 function common_set_user($user) {
+
+    global $_cur;
+
 	if (is_null($user) && common_have_session()) {
+        $_cur = NULL;
 		unset($_SESSION['userid']);
 		return true;
 	} else if (is_string($user)) {
@@ -571,7 +579,8 @@ function common_set_user($user) {
 	if ($user) {
 		common_ensure_session();
 		$_SESSION['userid'] = $user->id;
-		return $user;
+        $_cur = $user;
+		return $_cur;
 	}
 	return false;
 }
@@ -671,7 +680,7 @@ function common_remembered_user() {
 
     common_log(LOG_INFO, 'logging in ' . $user->nickname . ' using rememberme code ' . $rm->code);
 
-    common_set_user($user->nickname);
+    common_set_user($user);
     common_real_login(false);
 
     # We issue a new cookie, so they can log in
@@ -690,23 +699,31 @@ function common_forgetme() {
 
 # who is the current user?
 function common_current_user() {
-	if (isset($_REQUEST[session_name()]) || (isset($_SESSION['userid']) && $_SESSION['userid'])) {
-		common_ensure_session();
-		$id = isset($_SESSION['userid']) ? $_SESSION['userid'] : false;
-		if ($id) {
-			# note: this should cache
-			$user = User::staticGet($id);
-			return $user;
-		}
-	}
-	# that didn't work; try to remember
-	$user = common_remembered_user();
-	if ($user) {
-		common_debug("Got User " . $user->nickname);
-	    common_debug("Faking session on remembered user");
-	    $_SESSION['userid'] = $user->id;
-	}
-	return $user;
+    global $_cur;
+
+    if ($_cur === false) {
+
+        if (isset($_REQUEST[session_name()]) || (isset($_SESSION['userid']) && $_SESSION['userid'])) {
+            common_ensure_session();
+            $id = isset($_SESSION['userid']) ? $_SESSION['userid'] : false;
+            if ($id) {
+                $_cur = User::staticGet($id);
+                return $_cur;
+            }
+        }
+
+        # that didn't work; try to remember; will init $_cur to NULL on failure
+        $_cur = common_remembered_user();
+
+        if ($_cur) {
+            common_debug("Got User " . $_cur->nickname);
+            common_debug("Faking session on remembered user");
+            # XXX: Is this necessary?
+            $_SESSION['userid'] = $_cur->id;
+        }
+    }
+
+	return $_cur;
 }
 
 # Logins that are 'remembered' aren't 'real' -- they're subject to
