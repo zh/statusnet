@@ -88,6 +88,8 @@ create table remote_profile (
 create table subscription (
     subscriber integer not null comment 'profile listening',
     subscribed integer not null comment 'profile being listened to',
+    jabber tinyint default 1 comment 'deliver jabber messages',
+    sms tinyint default 1 comment 'deliver sms messages',
     token varchar(255) comment 'authorization token',
     secret varchar(255) comment 'token secret',
     created datetime not null comment 'date this record was created',
