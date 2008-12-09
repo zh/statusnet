@@ -344,7 +344,7 @@ class User extends Memcached_DataObject
 		return $user;
 	}
 
-	function getReplies($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0) {
+	function getReplies($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=NULL) {
 		$qry =
 		  'SELECT notice.* ' .
 		  'FROM notice JOIN reply ON notice.id = reply.notice_id ' .
@@ -352,10 +352,10 @@ class User extends Memcached_DataObject
 		
 		return Notice::getStream(sprintf($qry, $this->id),
 								 'user:replies:'.$this->id,
-								 $offset, $limit, $since_id, $before_id);
+								 $offset, $limit, $since_id, $before_id, NULL, $since);
 	}
 	
-	function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0) {
+	function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=NULL) {
 		$qry =
 		  'SELECT * ' .
 		  'FROM notice ' .
@@ -377,7 +377,7 @@ class User extends Memcached_DataObject
 								 $offset, $limit);
 	}
 	
-	function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0) {
+	function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=NULL) {
 		$enabled = common_config('inboxes', 'enabled');
 
 		# Complicated code, depending on whether we support inboxes yet
@@ -403,7 +403,7 @@ class User extends Memcached_DataObject
 		return Notice::getStream(sprintf($qry, $this->id),
 								 'user:notices_with_friends:' . $this->id,
 								 $offset, $limit, $since_id, $before_id,
-								 $order);
+								 $order, $since);
 	}
 	
 	function blowFavesCache() {

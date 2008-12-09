@@ -40,6 +40,8 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
 		$count = $this->arg('count');
 		$since = $this->arg('since');
 		$since_id = $this->arg('since_id');
+		$before_id = $this->arg('before_id');
+
 		$page = $this->arg('page');
 
 		if (!$page) {
@@ -67,6 +69,21 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
 			$title = _('Direct Messages You\'ve Sent');
 			$subtitle = sprintf(_("All the direct messages sent from %s"), $user->nickname);
 			$link = $server . $user->nickname . '/outbox';
+		}
+
+		if ($before_id) {
+			$message->whereAdd("id < $before_id");
+		}
+
+		if ($since_id) {
+			$message->whereAdd("id > $since_id");
+		}
+
+		$since = strtotime($this->arg('since'));
+
+		if ($since) {
+			$d = date('Y-m-d H:i:s', $since);
+			$message->whereAdd("created > '$d'");
 		}
 
 		$message->orderBy('created DESC, id DESC');
@@ -102,7 +119,7 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
 		}
 
 		$user = $apidata['user'];
-		$source = $this->trimmed('source');  // Not supported by Twitter.
+		$source = $this->trimmed('source');	 // Not supported by Twitter.
 
         $reserved_sources = array('web', 'omb', 'mail', 'xmpp', 'api');
 		if (!$source || in_array($source, $reserved_sources)) {
@@ -113,7 +130,6 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
 
 		if (!$content) {
 			$this->client_error(_('No message text!'), $code = 406, $apidata['content-type']);
-//		} else if (mb_strlen($status) > 140) {
 		} else {
 			$content_shortened = common_shorten_links($content);
 			if (mb_strlen($content_shortened) > 140) {

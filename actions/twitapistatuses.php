@@ -39,22 +39,24 @@ class TwitapistatusesAction extends TwitterapiAction {
 		// FIXME: To really live up to the spec we need to build a list
 		// of notices by users who have custom avatars, so fix this SQL -- Zach
 
-    	$page = $this->arg('page');
-    	$since_id = $this->arg('since_id');
-    	$before_id = $this->arg('before_id');
+		$page = $this->arg('page');
+		$since_id = $this->arg('since_id');
+		$before_id = $this->arg('before_id');
 
 		// NOTE: page, since_id, and before_id are extensions to Twitter API -- TB
-        if (!$page) {
-            $page = 1;
-        }
-        if (!$since_id) {
-            $since_id = 0;
-        }
-        if (!$before_id) {
-            $before_id = 0;
-        }
+		if (!$page) {
+			$page = 1;
+		}
+		if (!$since_id) {
+			$since_id = 0;
+		}
+		if (!$before_id) {
+			$before_id = 0;
+		}
 
-		$notice = Notice::publicStream((($page-1)*$MAX_PUBSTATUSES), $MAX_PUBSTATUSES, $since_id, $before_id);
+		$since = strtotime($this->arg('since'));
+
+		$notice = Notice::publicStream((($page-1)*$MAX_PUBSTATUSES), $MAX_PUBSTATUSES, $since_id, $before_id, $since);
 
 		if ($notice) {
 
@@ -88,25 +90,27 @@ class TwitapistatusesAction extends TwitterapiAction {
 		$since = $this->arg('since');
 		$since_id = $this->arg('since_id');
 		$count = $this->arg('count');
-    	$page = $this->arg('page');
-    	$before_id = $this->arg('before_id');
+		$page = $this->arg('page');
+		$before_id = $this->arg('before_id');
 
-        if (!$page) {
-            $page = 1;
-        }
+		if (!$page) {
+			$page = 1;
+		}
 
 		if (!$count) {
 			$count = 20;
 		}
 
-        if (!$since_id) {
-            $since_id = 0;
-        }
+		if (!$since_id) {
+			$since_id = 0;
+		}
 
 		// NOTE: before_id is an extension to Twitter API -- TB
-        if (!$before_id) {
-            $before_id = 0;
-        }
+		if (!$before_id) {
+			$before_id = 0;
+		}
+
+		$since = strtotime($this->arg('since'));
 
 		$user = $this->get_user($id, $apidata);
 		$this->auth_user = $user;
@@ -121,7 +125,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 		$link = common_local_url('all', array('nickname' => $user->nickname));
 		$subtitle = sprintf(_('Updates from %1$s and friends on %2$s!'), $user->nickname, $sitename);
 
-		$notice = $user->noticesWithFriends(($page-1)*20, $count, $since_id, $before_id);
+		$notice = $user->noticesWithFriends(($page-1)*20, $count, $since_id, $before_id, $since);
 
 		switch($apidata['content-type']) {
 		 case 'xml':
@@ -162,9 +166,9 @@ class TwitapistatusesAction extends TwitterapiAction {
 
 		$count = $this->arg('count');
 		$since = $this->arg('since');
-    	$since_id = $this->arg('since_id');
+		$since_id = $this->arg('since_id');
 		$page = $this->arg('page');
-    	$before_id = $this->arg('before_id');
+		$before_id = $this->arg('before_id');
 
 		if (!$page) {
 			$page = 1;
@@ -174,14 +178,16 @@ class TwitapistatusesAction extends TwitterapiAction {
 			$count = 20;
 		}
 
-        if (!$since_id) {
-            $since_id = 0;
-        }
+		if (!$since_id) {
+			$since_id = 0;
+		}
 
 		// NOTE: before_id is an extensions to Twitter API -- TB
-        if (!$before_id) {
-            $before_id = 0;
-        }
+		if (!$before_id) {
+			$before_id = 0;
+		}
+
+		$since = strtotime($this->arg('since'));
 
 		$sitename = common_config('site', 'name');
 		$siteserver = common_config('site', 'server');
@@ -199,7 +205,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 
 		# XXX: since
 
-		$notice = $user->getNotices((($page-1)*20), $count, $since_id, $before_id);
+		$notice = $user->getNotices((($page-1)*20), $count, $since_id, $before_id, $since);
 
 		switch($apidata['content-type']) {
 		 case 'xml':
@@ -248,24 +254,23 @@ class TwitapistatusesAction extends TwitterapiAction {
 
 			// XXX: Note: In this case, Twitter simply returns '200 OK'
 			// No error is given, but the status is not posted to the
-			// user's timeline.  Seems bad.  Shouldn't we throw an
+			// user's timeline.	 Seems bad.	 Shouldn't we throw an
 			// errror? -- Zach
 			return;
 
-//		} else if (mb_strlen($status) > 140) {
 		} else {
-			
+
 			$status_shortened = common_shorten_links($status);
 
 			if (mb_strlen($status_shortened) > 140) {
 
 				// XXX: Twitter truncates anything over 140, flags the status
-			    // as "truncated."  Sending this error may screw up some clients
-			    // that assume Twitter will truncate for them.  Should we just
-			    // truncate too? -- Zach
+				// as "truncated." Sending this error may screw up some clients
+				// that assume Twitter will truncate for them.	Should we just
+				// truncate too? -- Zach
 				$this->client_error(_('That\'s too long. Max notice size is 140 chars.'), $code = 406, $apidata['content-type']);
 				return;
-				
+
 			}
 		}
 
@@ -323,8 +328,8 @@ class TwitapistatusesAction extends TwitterapiAction {
 		$since = $this->arg('since');
 		$count = $this->arg('count');
 		$page = $this->arg('page');
-    	$since_id = $this->arg('since_id');
-    	$before_id = $this->arg('before_id');
+		$since_id = $this->arg('since_id');
+		$before_id = $this->arg('before_id');
 
 		$this->auth_user = $apidata['user'];
 		$user = $this->auth_user;
@@ -346,15 +351,18 @@ class TwitapistatusesAction extends TwitterapiAction {
 			$count = 20;
 		}
 
-        if (!$since_id) {
-            $since_id = 0;
-        }
+		if (!$since_id) {
+			$since_id = 0;
+		}
 
 		// NOTE: before_id is an extension to Twitter API -- TB
-        if (!$before_id) {
-            $before_id = 0;
-        }
-		$notice = $user->getReplies((($page-1)*20), $count, $since_id, $before_id);
+		if (!$before_id) {
+			$before_id = 0;
+		}
+
+		$since = strtotime($this->arg('since'));
+
+		$notice = $user->getReplies((($page-1)*20), $count, $since_id, $before_id, $since);
 		$notices = array();
 
 		while ($notice->fetch()) {
@@ -487,6 +495,14 @@ class TwitapistatusesAction extends TwitterapiAction {
 
 		$sub = new Subscription();
 		$sub->$user_attr = $profile->id;
+
+		$since = strtotime($this->trimmed('since'));
+
+		if ($since) {
+			$d = date('Y-m-d H:i:s', $since);
+			$sub->whereAdd("created > '$d'");
+		}
+
 		$sub->orderBy('created DESC');
 		$sub->limit(($page-1)*100, 100);
 
