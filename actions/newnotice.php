@@ -66,7 +66,11 @@ class NewnoticeAction extends Action {
 		$cmd = $inter->handle_command($user, $content_shortened);
 
 		if ($cmd) {
-			$cmd->execute(new WebChannel());
+			if ($this->boolean('ajax')) {
+				$cmd->execute(new AjaxWebChannel());
+			} else {
+				$cmd->execute(new WebChannel());
+			}
 			return;
 		}
 

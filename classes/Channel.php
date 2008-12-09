@@ -120,6 +120,33 @@ class WebChannel extends Channel {
 	}
 }
 
+
+class AjaxWebChannel extends WebChannel {
+
+	function output($user, $text) {
+		common_start_html('text/xml;charset=utf-8', false);
+		common_element_start('head');
+		common_element('title', null, _('Command results'));
+		common_element_end('head');
+		common_element_start('body');
+		common_element('p', array('class' => 'command_results'), $text);
+		common_element_end('body');
+		common_element_end('html');
+	}
+
+	function error($user, $text) {
+		common_start_html('text/xml;charset=utf-8', false);
+		common_element_start('head');
+		common_element('title', null, _('Ajax Error'));
+		common_element_end('head');
+		common_element_start('body');
+		common_element('p', array('class' => 'error'), $text);
+		common_element_end('body');
+		common_element_end('html');
+	}
+}
+
+
 class MailChannel extends Channel {
 
 	var $addr = NULL;
