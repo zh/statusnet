@@ -85,8 +85,8 @@ function mail_to_user(&$user, $subject, $body, $address=NULL) {
 
 # For confirming a Jabber address
 
-function mail_confirm_address($code, $nickname, $address) {
-    $user = common_current_user();
+function mail_confirm_address($user, $code, $nickname, $address) {
+
 	$subject = _('Email address confirmation');
 
     $body = sprintf(_("Hey, %s.\n\nSomeone just entered this email address on %s.\n\n" .

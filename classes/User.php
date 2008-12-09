@@ -263,9 +263,7 @@ class User extends Memcached_DataObject
 		$profile->query('COMMIT');
 
 		if ($email && !$user->email) {
-			mail_confirm_address($confirm->code,
-								 $profile->nickname,
-								 $email);
+			mail_confirm_address($user, $confirm->code, $profile->nickname, $email);
 		}
 
 		return $user;
