@@ -614,8 +614,14 @@ function common_rememberme($user=NULL) {
 	}
 
 	$rm = new Remember_me();
+
 	$rm->code = common_good_rand(16);
 	$rm->user_id = $user->id;
+
+    # Wrap the insert in some good ol' fashioned transaction code
+
+    $rm->query('BEGIN');
+
 	$result = $rm->insert();
 
 	if (!$result) {
@@ -623,6 +629,8 @@ function common_rememberme($user=NULL) {
 		common_debug('Error adding rememberme record for ' . $user->nickname, __FILE__);
 		return false;
     }
+
+    $rm->query('COMMIT');
 
 	common_debug('Inserted rememberme record (' . $rm->code . ', ' . $rm->user_id . '); result = ' . $result . '.', __FILE__);
 
