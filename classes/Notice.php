@@ -92,7 +92,10 @@ class Notice extends Memcached_DataObject
 	}
 
 	static function saveNew($profile_id, $content, $source=NULL, $is_local=1, $reply_to=NULL, $uri=NULL) {
-        if (!Profile::staticGet($profile_id)) {
+
+		$profile = Profile::staticGet($profile_id);
+
+        if (!$profile) {
             common_log(LOG_ERR, 'Problem saving notice. Unknown user.');
             return _('Problem saving notice. Unknown user.');
         }
@@ -101,6 +104,13 @@ class Notice extends Memcached_DataObject
             common_log(LOG_WARNING, 'Excessive posting by profile #' . $profile_id . '; throttled.');
 			return _('Too many notices too fast; take a breather and post again in a few minutes.');
         }
+
+		$banned = common_config('profile', 'banned');
+
+		if ( in_array($profile_id, $banned) || in_array($profile->nickname, $banned)) {
+			common_log(LOG_WARNING, "Attempted post from banned user: $profile->nickname (user id = $profile_id).");
+            return _('You are banned from posting notices on this site.');
+		}
 
 		$notice = new Notice();
 		$notice->profile_id = $profile_id;
