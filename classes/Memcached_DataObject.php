@@ -55,10 +55,10 @@ class Memcached_DataObject extends DB_DataObject
 			}
 			if ($i->find(true)) {
 				$i->encache();
-				return $i;
 			} else {
-				return NULL;
+				$i = NULL;
 			}
+            return $i;
 		}
 	}
 
