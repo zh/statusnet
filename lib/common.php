@@ -41,7 +41,7 @@ define_syslog_variables();
 # append our extlib dir as the last-resort place to find libs
 
 set_include_path(get_include_path() . PATH_SEPARATOR . INSTALLDIR . '/extlib/');
-				 
+
 # global configuration object
 
 require_once('PEAR.php');
@@ -92,6 +92,10 @@ $config =
 			  'blacklist' => array()),
 		'theme' =>
 		array('server' => NULL),
+		'throttle' =>
+        array('enabled' => false, // whether to throttle edits; false by default
+              'count' => 20, // number of allowed messages in timespan
+              'timespan' => 600), // timespan for throttling
 		'xmpp' =>
 		array('enabled' => false,
 			  'server' => 'INVALID SERVER',
@@ -115,7 +119,7 @@ $config =
 			  'group' => false),
 		'integration' =>
 		array('source' => 'Laconica'), # source attribute for Twitter
-		'memcached' => 
+		'memcached' =>
 		array('enabled' => false,
 			  'server' => 'localhost',
 			  'port' => 11211),

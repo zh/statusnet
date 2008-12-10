@@ -38,14 +38,14 @@ class Notice extends Memcached_DataObject
     public $id;                              // int(4)  primary_key not_null
     public $profile_id;                      // int(4)   not_null
     public $uri;                             // varchar(255)  unique_key
-    public $content;                         // varchar(140)  
-    public $rendered;                        // text()  
-    public $url;                             // varchar(255)  
+    public $content;                         // varchar(140)
+    public $rendered;                        // text()
+    public $url;                             // varchar(255)
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
-    public $reply_to;                        // int(4)  
-    public $is_local;                        // tinyint(1)  
-    public $source;                          // varchar(32)  
+    public $reply_to;                        // int(4)
+    public $is_local;                        // tinyint(1)
+    public $source;                          // varchar(32)
 
     /* Static get */
     function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Notice',$k,$v); }
@@ -92,6 +92,11 @@ class Notice extends Memcached_DataObject
 	}
 
 	static function saveNew($profile_id, $content, $source=NULL, $is_local=1, $reply_to=NULL, $uri=NULL) {
+
+        if (!Notice::checkEditThrottle($profile_id)) {
+            common_log(LOG_WARNING, 'Excessive posting by profile #' . $profile_id . '; throttled.');
+			return _('Too many notices too fast; take a breather and post again in a few minutes.');
+        }
 
 		$notice = new Notice();
 		$notice->profile_id = $profile_id;
@@ -147,6 +152,24 @@ class Notice extends Memcached_DataObject
 		return $notice;
 	}
 
+    static function checkEditThrottle($profile_id) {
+        $profile = Profile::staticGet($profile_id);
+        if (!$profile) {
+            return false;
+        }
+        # Get the Nth notice
+        $notice = $profile->getNotices(common_config('throttle', 'count') - 1, 1);
+        if ($notice && $notice->fetch()) {
+            # If the Nth notice was posted less than timespan seconds ago
+            if (time() - strtotime($notice->created) <= common_config('throttle', 'timespan')) {
+                # Then we throttle
+                return false;
+            }
+        }
+        # Either not N notices in the stream, OR the Nth was not posted within timespan seconds
+        return true;
+    }
+
 	function blowCaches($blowLast=false) {
 		$this->blowSubsCache($blowLast);
 		$this->blowNoticeCache($blowLast);
@@ -197,9 +220,9 @@ class Notice extends Memcached_DataObject
 		if ($this->is_local) {
 			$cache = common_memcache();
 			if ($cache) {
-				$cache->delete(common_cache_key('user:notices:'.$this->profile_id));
+				$cache->delete(common_cache_key('profile:notices:'.$this->profile_id));
 				if ($blowLast) {
-					$cache->delete(common_cache_key('user:notices:'.$this->profile_id.';last'));
+					$cache->delete(common_cache_key('profile:notices:'.$this->profile_id.';last'));
 				}
 			}
 		}

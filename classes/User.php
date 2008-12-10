@@ -25,7 +25,7 @@ if (!defined('LACONICA')) { exit(1); }
 require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 require_once 'Validate.php';
 
-class User extends Memcached_DataObject 
+class User extends Memcached_DataObject
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -33,7 +33,7 @@ class User extends Memcached_DataObject
     public $__table = 'user';                            // table name
     public $id;                              // int(4)  primary_key not_null
     public $nickname;                        // varchar(64)  unique_key
-    public $password;                        // varchar(255)  
+    public $password;                        // varchar(255)
     public $email;                           // varchar(255)  unique_key
     public $incomingemail;                   // varchar(255)  unique_key
     public $emailnotifysub;                  // tinyint(1)   default_1
@@ -41,23 +41,23 @@ class User extends Memcached_DataObject
     public $emailnotifynudge;                // tinyint(1)   default_1
     public $emailnotifymsg;                  // tinyint(1)   default_1
     public $emailmicroid;                    // tinyint(1)   default_1
-    public $language;                        // varchar(50)  
-    public $timezone;                        // varchar(50)  
+    public $language;                        // varchar(50)
+    public $timezone;                        // varchar(50)
     public $emailpost;                       // tinyint(1)   default_1
     public $jabber;                          // varchar(255)  unique_key
-    public $jabbernotify;                    // tinyint(1)  
-    public $jabberreplies;                   // tinyint(1)  
+    public $jabbernotify;                    // tinyint(1)
+    public $jabberreplies;                   // tinyint(1)
     public $jabbermicroid;                   // tinyint(1)   default_1
-    public $updatefrompresence;              // tinyint(1)  
+    public $updatefrompresence;              // tinyint(1)
     public $sms;                             // varchar(64)  unique_key
-    public $carrier;                         // int(4)  
-    public $smsnotify;                       // tinyint(1)  
-    public $smsreplies;                      // tinyint(1)  
-    public $smsemail;                        // varchar(255)  
+    public $carrier;                         // int(4)
+    public $smsnotify;                       // tinyint(1)
+    public $smsreplies;                      // tinyint(1)
+    public $smsemail;                        // varchar(255)
     public $uri;                             // varchar(255)  unique_key
-    public $autosubscribe;                   // tinyint(1)  
+    public $autosubscribe;                   // tinyint(1)
     public $urlshorteningservice;            // varchar(50)   default_ur1.ca
-    public $inboxed;                         // tinyint(1)  
+    public $inboxed;                         // tinyint(1)
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
@@ -198,11 +198,11 @@ class User extends Memcached_DataObject
 		}
 
 		$inboxes = common_config('inboxes', 'enabled');
-		
+
 		if ($inboxes === true || $inboxes == 'transitional') {
 			$user->inboxed = 1;
 		}
-		
+
 		$user->created = common_sql_now();
 		$user->uri = common_user_uri($user);
 
@@ -277,13 +277,13 @@ class User extends Memcached_DataObject
 		$cache = common_memcache();
 
 		# XXX: Kind of a hack.
-		
+
 		if ($cache) {
 			# This is the stream of favorite notices, in rev chron
 			# order. This forces it into cache.
 			$faves = $this->favoriteNotices(0, NOTICE_CACHE_WINDOW);
 			$cnt = 0;
-			
+
 			while ($faves->fetch()) {
 				if ($faves->id < $notice->id) {
 					# If we passed it, it's not a fave
@@ -303,27 +303,27 @@ class User extends Memcached_DataObject
 			# Otherwise, cache doesn't have all faves;
 			# fall through to the default
 		}
-		
+
 		$fave = Fave::pkeyGet(array('user_id' => $this->id,
 									'notice_id' => $notice->id));
 		return ((is_null($fave)) ? false : true);
 	}
-	
+
 	function mutuallySubscribed($other) {
 		return $this->isSubscribed($other) &&
 		  $other->isSubscribed($this);
 	}
-	
+
 	function mutuallySubscribedUsers() {
 
 		# 3-way join; probably should get cached
-		
+
 		$qry = 'SELECT user.* ' .
 		  'FROM subscription sub1 JOIN user ON sub1.subscribed = user.id ' .
 		  'JOIN subscription sub2 ON user.id = sub2.subscriber ' .
 		  'WHERE sub1.subscriber = %d and sub2.subscribed = %d ' .
 		  'ORDER BY user.nickname';
-		
+
 		$user = new User();
 		$user->query(sprintf($qry, $this->id, $this->id));
 
@@ -335,41 +335,39 @@ class User extends Memcached_DataObject
 		  'SELECT notice.* ' .
 		  'FROM notice JOIN reply ON notice.id = reply.notice_id ' .
 		  'WHERE reply.profile_id = %d ';
-		
+
 		return Notice::getStream(sprintf($qry, $this->id),
 								 'user:replies:'.$this->id,
 								 $offset, $limit, $since_id, $before_id);
 	}
-	
+
 	function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0) {
-		$qry =
-		  'SELECT * ' .
-		  'FROM notice ' .
-		  'WHERE profile_id = %d ';
-		
-		return Notice::getStream(sprintf($qry, $this->id),
-								 'user:notices:'.$this->id,
-								 $offset, $limit, $since_id, $before_id);
+        $profile = $this->getProfile();
+        if (!$profile) {
+            return NULL;
+        } else {
+            return $profile->getNotices($offset, $limit, $since_id, $before_id);
+        }
 	}
-	
+
 	function favoriteNotices($offset=0, $limit=NOTICES_PER_PAGE) {
 		$qry =
 		  'SELECT notice.* ' .
 		  'FROM notice JOIN fave ON notice.id = fave.notice_id ' .
 		  'WHERE fave.user_id = %d ';
-		
+
 		return Notice::getStream(sprintf($qry, $this->id),
 								 'user:faves:'.$this->id,
 								 $offset, $limit);
 	}
-	
+
 	function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0) {
 		$enabled = common_config('inboxes', 'enabled');
 
 		# Complicated code, depending on whether we support inboxes yet
 		# XXX: make this go away when inboxes become mandatory
-		
-		if ($enabled === false || 
+
+		if ($enabled === false ||
 			($enabled == 'transitional' && $this->inboxed == 0)) {
 			$qry =
 			  'SELECT notice.* ' .
@@ -377,7 +375,7 @@ class User extends Memcached_DataObject
 			  'WHERE subscription.subscriber = %d ';
 			$order = NULL;
 		} else if ($enabled === true ||
-				   ($enabled == 'transitional' && $this->inboxed == 1)) {				   
+				   ($enabled == 'transitional' && $this->inboxed == 1)) {
 			$qry =
 			  'SELECT notice.* ' .
 			  'FROM notice JOIN notice_inbox ON notice.id = notice_inbox.notice_id ' .
@@ -385,13 +383,13 @@ class User extends Memcached_DataObject
 			# NOTE: we override ORDER
 			$order = 'ORDER BY notice_inbox.created DESC, notice_inbox.notice_id DESC ';
 		}
-		
+
 		return Notice::getStream(sprintf($qry, $this->id),
 								 'user:notices_with_friends:' . $this->id,
 								 $offset, $limit, $since_id, $before_id,
 								 $order);
 	}
-	
+
 	function blowFavesCache() {
 		$cache = common_memcache();
 		if ($cache) {
@@ -401,11 +399,11 @@ class User extends Memcached_DataObject
 			$cache->delete(common_cache_key('user:faves:'.$this->id).';last');
 		}
 	}
-	
+
 	function getSelfTags() {
 		return Profile_tag::getTags($this->id, $this->id);
 	}
-	
+
 	function setSelfTags($newtags) {
 		return Profile_tag::setTags($this->id, $this->id, $newtags);
 	}
