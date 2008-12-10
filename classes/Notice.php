@@ -100,7 +100,7 @@ class Notice extends Memcached_DataObject
             return _('Problem saving notice. Unknown user.');
         }
 
-        if (!Notice::checkEditThrottle($profile_id)) {
+        if (common_config('throttle', 'enabled') && !Notice::checkEditThrottle($profile_id)) {
             common_log(LOG_WARNING, 'Excessive posting by profile #' . $profile_id . '; throttled.');
 			return _('Too many notices too fast; take a breather and post again in a few minutes.');
         }
