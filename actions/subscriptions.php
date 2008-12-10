@@ -55,7 +55,19 @@ class SubscriptionsAction extends GalleryAction {
 
 class SubscriptionsList extends ProfileList {
 
-    function show_owner_controls() {
+    function show_owner_controls($profile) {
+		$sub = Subscription::pkeyGet(array('subscriber' => $this->owner->id,
+										   'subscribed' => $profile->id));
+        common_element_start('form', array('id' => 'subedit-' . $profile->id,
+                                           'method' => 'post',
+                                           'class' => 'subedit',
+                                           'action' => common_local_url('subedit')));
+        common_hidden('token', common_session_token());
+        common_hidden('profile', $profile->id);
+        common_checkbox('jabber', _('Jabber'), $sub->jabber);
+        common_checkbox('sms', _('SMS'), $sub->sms);
+        common_submit('save', _('Save'));
+        common_element_end('form');
         return;
     }
 }
