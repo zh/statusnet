@@ -167,7 +167,8 @@ function mail_broadcast_notice_sms($notice) {
 				 'ON user.id = subscription.subscriber ' .
 				 'WHERE subscription.subscribed = ' . $notice->profile_id . ' ' .
 				 'AND user.smsemail IS NOT NULL ' .
-				 'AND user.smsnotify = 1');
+				 'AND user.smsnotify = 1 ' .
+                 'AND subscription.sms = 1 ');
 
 	while ($user->fetch()) {
 		common_log(LOG_INFO,
@@ -226,7 +227,6 @@ function mail_confirm_sms($code, $nickname, $address) {
 	mail_send($recipients, $headers, $body);
 }
 
-
 function mail_notify_nudge($from, $to) {
     common_init_locale($to->language);
 	$subject = sprintf(_('You\'ve been nudged by %s'), $from->nickname);
@@ -246,8 +246,6 @@ function mail_notify_nudge($from, $to) {
     common_init_locale();
 	return mail_to_user($to, $subject, $body);
 }
-
-
 
 function mail_notify_message($message, $from=NULL, $to=NULL) {
 
