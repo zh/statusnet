@@ -440,16 +440,31 @@ p.time a {
 	float: left;
 	margin: 0 10px 18px 0;
 	}
-#avatar_original {
-	margin-bottom:1em;
+
+#profilesettings {
+	margin-bottom:2em;
 }
 
-#avatar_preview {
+
+.avatar_view {
+	float:left;
+	margin-bottom:1em;
+	margin-right:1em;
+}
+
+#avatar_preview_view {
 	overflow:hidden;
 	width:96px;
 	height:96px;
 }
+#avatar_crop {
+	margin-bottom:2em;
+}
 
+#avatar_crop,
+#avatarfile {
+	clear:both;
+}
 
 a.nickname {
 	font-family: Verdana, Arial, Helvetica, sans-serif;

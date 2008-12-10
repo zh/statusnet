@@ -3,8 +3,8 @@
 													      setSelect: [ 0, 0, $("#avatar_original img.avatar").attr("width"), $("#avatar_original img.avatar").attr("height") ],
 														  onSelect: updateCoords,
 													      aspectRatio: 1,
-														  boxWidth: 640,
-														  boxHeight: 640,
+														  boxWidth: 480,
+														  boxHeight: 480,
 														  bgColor: '#000',
 														  bgOpacity: .4
 												});

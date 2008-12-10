@@ -2,108 +2,27 @@
 New patches:
 
 [unrevert
-anonymous**20090106212611] {
-hunk ./actions/profilesettings.php 57
-             return;
-         }
- 
-+v v v v v v v
- 		if ($this->arg('save')) {
- 			$this->save_profile();
- 		} else if ($this->arg('upload')) {
-hunk ./actions/profilesettings.php 62
- 			$this->upload_avatar();
-+		} else if ($this->arg('crop')) {
-+			$this->crop_avatar();
- 		} else if ($this->arg('changepass')) {
- 			$this->change_password();
- 		}
-hunk ./actions/profilesettings.php 67
-+*************
-+        if ($this->arg('save')) {
-+            $this->save_profile();
-+        } else if ($this->arg('upload')) {
-+            $this->upload_avatar();
-+        } else if ($this->arg('changepass')) {
-+            $this->change_password();
-+        }
-+^ ^ ^ ^ ^ ^ ^
- 
-     }
- 
-hunk ./actions/profilesettings.php 85
-         $user = common_current_user();
-         $profile = $user->getProfile();
- 
-+v v v v v v v
- 		common_element_start('form', array('method' => 'POST',
- 										   'id' => 'profilesettings',
-hunk ./actions/profilesettings.php 88
--										   'action' =>
--										   common_local_url('profilesettings')));
-+										   'action' => common_local_url('profilesettings')));
- 		common_hidden('token', common_session_token());
- 		
- 		# too much common patterns here... abstractable?
-hunk ./actions/profilesettings.php 110
- 		common_input('tags', _('Tags'),
- 					 ($this->arg('tags')) ? $this->arg('tags') : implode(' ', $user->getSelfTags()),
- 					 _('Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated'));
-+*************
-+        common_element_start('form', array('method' => 'POST',
-+                                           'id' => 'profilesettings',
-+                                           'action' =>
-+                                           common_local_url('profilesettings')));
-+        common_hidden('token', common_session_token());
-+        
-+        # too much common patterns here... abstractable?
-+        
-+        common_input('nickname', _('Nickname'),
-+                     ($this->arg('nickname')) ? $this->arg('nickname') : $profile->nickname,
-+                     _('1-64 lowercase letters or numbers, no punctuation or spaces'));
-+        common_input('fullname', _('Full name'),
-+                     ($this->arg('fullname')) ? $this->arg('fullname') : $profile->fullname);
-+        common_input('homepage', _('Homepage'),
-+                     ($this->arg('homepage')) ? $this->arg('homepage') : $profile->homepage,
-+                     _('URL of your homepage, blog, or profile on another site'));
-+        common_textarea('bio', _('Bio'),
-+                        ($this->arg('bio')) ? $this->arg('bio') : $profile->bio,
-+                        _('Describe yourself and your interests in 140 chars'));
-+        common_input('location', _('Location'),
-+                     ($this->arg('location')) ? $this->arg('location') : $profile->location,
-+                     _('Where you are, like "City, State (or Region), Country"'));
-+        common_input('tags', _('Tags'),
-+                     ($this->arg('tags')) ? $this->arg('tags') : implode(' ', $user->getSelfTags()),
-+                     _('Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated'));
-+^ ^ ^ ^ ^ ^ ^
- 
-         $language = common_language();
-         common_dropdown('language', _('Language'), get_nice_language_list(), _('Preferred language'), true, $language);
-hunk ./actions/profilesettings.php 179
+anonymous**20090106212612] {
+hunk ./actions/profilesettings.php 140
                                             common_local_url('profilesettings')));
          common_hidden('token', common_session_token());
  
 +v v v v v v v
  		if ($original) {
-hunk ./actions/profilesettings.php 181
+hunk ./actions/profilesettings.php 142
++			common_element_start('div', array('id'=>'avatar_original', 'class'=>'avatar_view'));
 +			common_element('h3', null, _("Original:"));
-+			common_element_start('div', array('id'=>'avatar_original'));
++			common_element_start('div', array('id'=>'avatar_original_view'));
  			common_element('img', array('src' => $original->url,
  										'class' => 'avatar original',
  										'width' => $original->width,
-hunk ./actions/profilesettings.php 188
+hunk ./actions/profilesettings.php 150
  										'height' => $original->height,
  										'alt' => $user->nickname));
 +			common_element_end('div');
-+
-+			foreach(array('avatar_crop_x', 'avatar_crop_y', 'avatar_crop_w', 'avatar_crop_h') as $crop_info) {
-+				common_element('input', array('name' => $crop_info,
-+											  'type' => 'hidden',
-+											  'id' => $crop_info));
-+			}
-+			common_submit('avatar_crop', _('Crop'));
++			common_element_end('div');
  		}
-hunk ./actions/profilesettings.php 197
+hunk ./actions/profilesettings.php 153
 +*************
 +        if ($original) {
 +            common_element('img', array('src' => $original->url,
@@ -116,22 +35,31 @@ hunk ./actions/profilesettings.php 197
  
          $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
  
-hunk ./actions/profilesettings.php 209
+hunk ./actions/profilesettings.php 165
 +v v v v v v v
  		if ($avatar) {
-hunk ./actions/profilesettings.php 211
+hunk ./actions/profilesettings.php 167
 -			common_element('img', array('src' => $avatar->url,
++			common_element_start('div', array('id'=>'avatar_preview', 'class'=>'avatar_view'));
 +			common_element('h3', null, _("Preview:"));
-+			common_element_start('div', array('id'=>'avatar_preview'));
++			common_element_start('div', array('id'=>'avatar_preview_view'));
 +			common_element('img', array('src' => $original->url,//$avatar->url,
  										'class' => 'avatar profile',
  										'width' => AVATAR_PROFILE_SIZE,
  										'height' => AVATAR_PROFILE_SIZE,
-hunk ./actions/profilesettings.php 218
+hunk ./actions/profilesettings.php 175
  										'alt' => $user->nickname));
 +			common_element_end('div');
++			common_element_end('div');
++
++			foreach(array('avatar_crop_x', 'avatar_crop_y', 'avatar_crop_w', 'avatar_crop_h') as $crop_info) {
++				common_element('input', array('name' => $crop_info,
++											  'type' => 'hidden',
++											  'id' => $crop_info));
++			}
++			common_submit('avatar_crop', _('Crop'));
  		}
-hunk ./actions/profilesettings.php 220
+hunk ./actions/profilesettings.php 185
 +*************
 +        if ($avatar) {
 +            common_element('img', array('src' => $avatar->url,
@@ -144,69 +72,12 @@ hunk ./actions/profilesettings.php 220
  
  
          common_element('input', array('name' => 'MAX_FILE_SIZE',
-hunk ./actions/profilesettings.php 465
-             $this->show_form(_('Failed updating avatar.'));
-         }
- 
-+v v v v v v v
- 		@unlink($_FILES['avatarfile']['tmp_name']);
- 	}
- 
-hunk ./actions/profilesettings.php 469
-+	function crop_avatar() {
-+//		http://deepliquid.com/content/Jcrop_Implementation_Theory.html
-+//		Grab POSTs x, y, w, h and crop out a rectangle topleft: (x,y), bottomright: (x+w, x+h) using the original image.
-+	}
-+*************
-+        @unlink($_FILES['avatarfile']['tmp_name']);
-+    }
-+^ ^ ^ ^ ^ ^ ^
-+
-     function nickname_exists($nickname)
-     {
-         $user = common_current_user();
-hunk ./lib/settingsaction.php 63
-         }
-     }
- 
-+v v v v v v v
- 	function form_header($title, $msg=NULL, $success=false) {
- 		common_show_header($title,
-hunk ./lib/settingsaction.php 66
--		                   NULL,
-+		                   array($this, 'show_header'),
- 		                   array($msg, $success),
- 						   array($this, 'show_top'));
- 	}
-hunk ./lib/settingsaction.php 71
- 
-+	function show_header() {
-+		common_element('link', array('rel' => 'stylesheet',
-+									 'type' => 'text/css',
-+									 'href' => common_path('js/jcrop/jquery.Jcrop.css?version='.LACONICA_VERSION),
-+									 'media' => 'screen, projection, tv'));
-+		common_element('script', array('type' => 'text/javascript',
-+								       'src' => common_path('js/jcrop/jquery.Jcrop.pack.js')));
-+		common_element('script', array('type' => 'text/javascript',
-+								       'src' => common_path('js/jcrop/jquery.Jcrop.go.js')));
-+	}
-+*************
-+    function form_header($title, $msg=null, $success=false)
-+    {
-+        common_show_header($title,
-+                           null,
-+                           array($msg, $success),
-+                           array($this, 'show_top'));
-+    }
-+^ ^ ^ ^ ^ ^ ^
-+
-     function show_top($arr)
-     {
-         $msg = $arr[0];
 }
 
 Context:
 
+[Jcrop CSS updates to original/preview views
+csarven@controlyourself.ca**20081210025922] 
 [Jcrop v2 (POST cropping to be completed)
 csarven@controlyourself.ca**20081210021607] 
 [trac750 added some output to the facebook_update.php script
@@ -330,4 +201,4 @@ Sarven Capadisli <csarven@controlyourself.ca>**20081218003302
 [TAG 0.6.4.1
 Evan Prodromou <evan@controlezvous.ca>**20081220204906] 
 Patch bundle hash:
-afe7b4b695e91033a56499c2eee94a02fa1f0105
+b75aa06ac49c2ff8a9fa803da998c6ea5f5c1d17
