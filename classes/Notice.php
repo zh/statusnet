@@ -92,6 +92,10 @@ class Notice extends Memcached_DataObject
 	}
 
 	static function saveNew($profile_id, $content, $source=NULL, $is_local=1, $reply_to=NULL, $uri=NULL) {
+        if (!Profile::staticGet($profile_id)) {
+            common_log(LOG_ERR, 'Problem saving notice. Unknown user.');
+            return _('Problem saving notice. Unknown user.');
+        }
 
         if (!Notice::checkEditThrottle($profile_id)) {
             common_log(LOG_WARNING, 'Excessive posting by profile #' . $profile_id . '; throttled.');
