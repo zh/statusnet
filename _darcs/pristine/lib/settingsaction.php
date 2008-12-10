@@ -60,13 +60,12 @@ class SettingsAction extends Action
         }
     }
 
-    function form_header($title, $msg=null, $success=false)
-    {
-        common_show_header($title,
-                           null,
-                           array($msg, $success),
-                           array($this, 'show_top'));
-    }
+	function form_header($title, $msg=NULL, $success=false) {
+		common_show_header($title,
+		                   NULL,
+		                   array($msg, $success),
+						   array($this, 'show_top'));
+	}
 
     function show_top($arr)
     {

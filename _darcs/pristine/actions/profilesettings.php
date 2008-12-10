@@ -54,13 +54,13 @@ class ProfilesettingsAction extends SettingsAction
             return;
         }
 
-        if ($this->arg('save')) {
-            $this->save_profile();
-        } else if ($this->arg('upload')) {
-            $this->upload_avatar();
-        } else if ($this->arg('changepass')) {
-            $this->change_password();
-        }
+		if ($this->arg('save')) {
+			$this->save_profile();
+		} else if ($this->arg('upload')) {
+			$this->upload_avatar();
+		} else if ($this->arg('changepass')) {
+			$this->change_password();
+		}
 
     }
 
@@ -70,31 +70,31 @@ class ProfilesettingsAction extends SettingsAction
         $user = common_current_user();
         $profile = $user->getProfile();
 
-        common_element_start('form', array('method' => 'POST',
-                                           'id' => 'profilesettings',
-                                           'action' =>
-                                           common_local_url('profilesettings')));
-        common_hidden('token', common_session_token());
-        
-        # too much common patterns here... abstractable?
-        
-        common_input('nickname', _('Nickname'),
-                     ($this->arg('nickname')) ? $this->arg('nickname') : $profile->nickname,
-                     _('1-64 lowercase letters or numbers, no punctuation or spaces'));
-        common_input('fullname', _('Full name'),
-                     ($this->arg('fullname')) ? $this->arg('fullname') : $profile->fullname);
-        common_input('homepage', _('Homepage'),
-                     ($this->arg('homepage')) ? $this->arg('homepage') : $profile->homepage,
-                     _('URL of your homepage, blog, or profile on another site'));
-        common_textarea('bio', _('Bio'),
-                        ($this->arg('bio')) ? $this->arg('bio') : $profile->bio,
-                        _('Describe yourself and your interests in 140 chars'));
-        common_input('location', _('Location'),
-                     ($this->arg('location')) ? $this->arg('location') : $profile->location,
-                     _('Where you are, like "City, State (or Region), Country"'));
-        common_input('tags', _('Tags'),
-                     ($this->arg('tags')) ? $this->arg('tags') : implode(' ', $user->getSelfTags()),
-                     _('Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated'));
+		common_element_start('form', array('method' => 'POST',
+										   'id' => 'profilesettings',
+										   'action' =>
+										   common_local_url('profilesettings')));
+		common_hidden('token', common_session_token());
+		
+		# too much common patterns here... abstractable?
+		
+		common_input('nickname', _('Nickname'),
+					 ($this->arg('nickname')) ? $this->arg('nickname') : $profile->nickname,
+					 _('1-64 lowercase letters or numbers, no punctuation or spaces'));
+		common_input('fullname', _('Full name'),
+					 ($this->arg('fullname')) ? $this->arg('fullname') : $profile->fullname);
+		common_input('homepage', _('Homepage'),
+					 ($this->arg('homepage')) ? $this->arg('homepage') : $profile->homepage,
+					 _('URL of your homepage, blog, or profile on another site'));
+		common_textarea('bio', _('Bio'),
+						($this->arg('bio')) ? $this->arg('bio') : $profile->bio,
+						_('Describe yourself and your interests in 140 chars'));
+		common_input('location', _('Location'),
+					 ($this->arg('location')) ? $this->arg('location') : $profile->location,
+					 _('Where you are, like "City, State (or Region), Country"'));
+		common_input('tags', _('Tags'),
+					 ($this->arg('tags')) ? $this->arg('tags') : implode(' ', $user->getSelfTags()),
+					 _('Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated'));
 
         $language = common_language();
         common_dropdown('language', _('Language'), get_nice_language_list(), _('Preferred language'), true, $language);
@@ -137,23 +137,23 @@ class ProfilesettingsAction extends SettingsAction
                                            common_local_url('profilesettings')));
         common_hidden('token', common_session_token());
 
-        if ($original) {
-            common_element('img', array('src' => $original->url,
-                                        'class' => 'avatar original',
-                                        'width' => $original->width,
-                                        'height' => $original->height,
-                                        'alt' => $user->nickname));
-        }
+		if ($original) {
+			common_element('img', array('src' => $original->url,
+										'class' => 'avatar original',
+										'width' => $original->width,
+										'height' => $original->height,
+										'alt' => $user->nickname));
+		}
 
         $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
 
-        if ($avatar) {
-            common_element('img', array('src' => $avatar->url,
-                                        'class' => 'avatar profile',
-                                        'width' => AVATAR_PROFILE_SIZE,
-                                        'height' => AVATAR_PROFILE_SIZE,
-                                        'alt' => $user->nickname));
-        }
+		if ($avatar) {
+			common_element('img', array('src' => $avatar->url,
+										'class' => 'avatar profile',
+										'width' => AVATAR_PROFILE_SIZE,
+										'height' => AVATAR_PROFILE_SIZE,
+										'alt' => $user->nickname));
+		}
 
 
         common_element('input', array('name' => 'MAX_FILE_SIZE',
@@ -390,8 +390,8 @@ class ProfilesettingsAction extends SettingsAction
             $this->show_form(_('Failed updating avatar.'));
         }
 
-        @unlink($_FILES['avatarfile']['tmp_name']);
-    }
+		@unlink($_FILES['avatarfile']['tmp_name']);
+	}
 
     function nickname_exists($nickname)
     {

@@ -1,0 +1,333 @@
+
+New patches:
+
+[unrevert
+anonymous**20090106212611] {
+hunk ./actions/profilesettings.php 57
+             return;
+         }
+ 
++v v v v v v v
+ 		if ($this->arg('save')) {
+ 			$this->save_profile();
+ 		} else if ($this->arg('upload')) {
+hunk ./actions/profilesettings.php 62
+ 			$this->upload_avatar();
++		} else if ($this->arg('crop')) {
++			$this->crop_avatar();
+ 		} else if ($this->arg('changepass')) {
+ 			$this->change_password();
+ 		}
+hunk ./actions/profilesettings.php 67
++*************
++        if ($this->arg('save')) {
++            $this->save_profile();
++        } else if ($this->arg('upload')) {
++            $this->upload_avatar();
++        } else if ($this->arg('changepass')) {
++            $this->change_password();
++        }
++^ ^ ^ ^ ^ ^ ^
+ 
+     }
+ 
+hunk ./actions/profilesettings.php 85
+         $user = common_current_user();
+         $profile = $user->getProfile();
+ 
++v v v v v v v
+ 		common_element_start('form', array('method' => 'POST',
+ 										   'id' => 'profilesettings',
+hunk ./actions/profilesettings.php 88
+-										   'action' =>
+-										   common_local_url('profilesettings')));
++										   'action' => common_local_url('profilesettings')));
+ 		common_hidden('token', common_session_token());
+ 		
+ 		# too much common patterns here... abstractable?
+hunk ./actions/profilesettings.php 110
+ 		common_input('tags', _('Tags'),
+ 					 ($this->arg('tags')) ? $this->arg('tags') : implode(' ', $user->getSelfTags()),
+ 					 _('Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated'));
++*************
++        common_element_start('form', array('method' => 'POST',
++                                           'id' => 'profilesettings',
++                                           'action' =>
++                                           common_local_url('profilesettings')));
++        common_hidden('token', common_session_token());
++        
++        # too much common patterns here... abstractable?
++        
++        common_input('nickname', _('Nickname'),
++                     ($this->arg('nickname')) ? $this->arg('nickname') : $profile->nickname,
++                     _('1-64 lowercase letters or numbers, no punctuation or spaces'));
++        common_input('fullname', _('Full name'),
++                     ($this->arg('fullname')) ? $this->arg('fullname') : $profile->fullname);
++        common_input('homepage', _('Homepage'),
++                     ($this->arg('homepage')) ? $this->arg('homepage') : $profile->homepage,
++                     _('URL of your homepage, blog, or profile on another site'));
++        common_textarea('bio', _('Bio'),
++                        ($this->arg('bio')) ? $this->arg('bio') : $profile->bio,
++                        _('Describe yourself and your interests in 140 chars'));
++        common_input('location', _('Location'),
++                     ($this->arg('location')) ? $this->arg('location') : $profile->location,
++                     _('Where you are, like "City, State (or Region), Country"'));
++        common_input('tags', _('Tags'),
++                     ($this->arg('tags')) ? $this->arg('tags') : implode(' ', $user->getSelfTags()),
++                     _('Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated'));
++^ ^ ^ ^ ^ ^ ^
+ 
+         $language = common_language();
+         common_dropdown('language', _('Language'), get_nice_language_list(), _('Preferred language'), true, $language);
+hunk ./actions/profilesettings.php 179
+                                            common_local_url('profilesettings')));
+         common_hidden('token', common_session_token());
+ 
++v v v v v v v
+ 		if ($original) {
+hunk ./actions/profilesettings.php 181
++			common_element('h3', null, _("Original:"));
++			common_element_start('div', array('id'=>'avatar_original'));
+ 			common_element('img', array('src' => $original->url,
+ 										'class' => 'avatar original',
+ 										'width' => $original->width,
+hunk ./actions/profilesettings.php 188
+ 										'height' => $original->height,
+ 										'alt' => $user->nickname));
++			common_element_end('div');
++
++			foreach(array('avatar_crop_x', 'avatar_crop_y', 'avatar_crop_w', 'avatar_crop_h') as $crop_info) {
++				common_element('input', array('name' => $crop_info,
++											  'type' => 'hidden',
++											  'id' => $crop_info));
++			}
++			common_submit('avatar_crop', _('Crop'));
+ 		}
+hunk ./actions/profilesettings.php 197
++*************
++        if ($original) {
++            common_element('img', array('src' => $original->url,
++                                        'class' => 'avatar original',
++                                        'width' => $original->width,
++                                        'height' => $original->height,
++                                        'alt' => $user->nickname));
++        }
++^ ^ ^ ^ ^ ^ ^
+ 
+         $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
+ 
+hunk ./actions/profilesettings.php 209
++v v v v v v v
+ 		if ($avatar) {
+hunk ./actions/profilesettings.php 211
+-			common_element('img', array('src' => $avatar->url,
++			common_element('h3', null, _("Preview:"));
++			common_element_start('div', array('id'=>'avatar_preview'));
++			common_element('img', array('src' => $original->url,//$avatar->url,
+ 										'class' => 'avatar profile',
+ 										'width' => AVATAR_PROFILE_SIZE,
+ 										'height' => AVATAR_PROFILE_SIZE,
+hunk ./actions/profilesettings.php 218
+ 										'alt' => $user->nickname));
++			common_element_end('div');
+ 		}
+hunk ./actions/profilesettings.php 220
++*************
++        if ($avatar) {
++            common_element('img', array('src' => $avatar->url,
++                                        'class' => 'avatar profile',
++                                        'width' => AVATAR_PROFILE_SIZE,
++                                        'height' => AVATAR_PROFILE_SIZE,
++                                        'alt' => $user->nickname));
++        }
++^ ^ ^ ^ ^ ^ ^
+ 
+ 
+         common_element('input', array('name' => 'MAX_FILE_SIZE',
+hunk ./actions/profilesettings.php 465
+             $this->show_form(_('Failed updating avatar.'));
+         }
+ 
++v v v v v v v
+ 		@unlink($_FILES['avatarfile']['tmp_name']);
+ 	}
+ 
+hunk ./actions/profilesettings.php 469
++	function crop_avatar() {
++//		http://deepliquid.com/content/Jcrop_Implementation_Theory.html
++//		Grab POSTs x, y, w, h and crop out a rectangle topleft: (x,y), bottomright: (x+w, x+h) using the original image.
++	}
++*************
++        @unlink($_FILES['avatarfile']['tmp_name']);
++    }
++^ ^ ^ ^ ^ ^ ^
++
+     function nickname_exists($nickname)
+     {
+         $user = common_current_user();
+hunk ./lib/settingsaction.php 63
+         }
+     }
+ 
++v v v v v v v
+ 	function form_header($title, $msg=NULL, $success=false) {
+ 		common_show_header($title,
+hunk ./lib/settingsaction.php 66
+-		                   NULL,
++		                   array($this, 'show_header'),
+ 		                   array($msg, $success),
+ 						   array($this, 'show_top'));
+ 	}
+hunk ./lib/settingsaction.php 71
+ 
++	function show_header() {
++		common_element('link', array('rel' => 'stylesheet',
++									 'type' => 'text/css',
++									 'href' => common_path('js/jcrop/jquery.Jcrop.css?version='.LACONICA_VERSION),
++									 'media' => 'screen, projection, tv'));
++		common_element('script', array('type' => 'text/javascript',
++								       'src' => common_path('js/jcrop/jquery.Jcrop.pack.js')));
++		common_element('script', array('type' => 'text/javascript',
++								       'src' => common_path('js/jcrop/jquery.Jcrop.go.js')));
++	}
++*************
++    function form_header($title, $msg=null, $success=false)
++    {
++        common_show_header($title,
++                           null,
++                           array($msg, $success),
++                           array($this, 'show_top'));
++    }
++^ ^ ^ ^ ^ ^ ^
++
+     function show_top($arr)
+     {
+         $msg = $arr[0];
+}
+
+Context:
+
+[Jcrop v2 (POST cropping to be completed)
+csarven@controlyourself.ca**20081210021607] 
+[trac750 added some output to the facebook_update.php script
+Zach Copley <zach@controlyourself.ca>**20090105045603] 
+[trac750 configurable sync flags for Facebook app (noticesync, replysync)
+Zach Copley <zach@controlyourself.ca>**20090105040212] 
+[trac750 Automatically update linked Facebook users' statuses
+Zach Copley <zach@controlyourself.ca>**20090105010407] 
+[wrapper element for config.xml
+Evan Prodromou <evan@prodromou.name>**20081230212202] 
+[better serialization of arrays and booleans in config output
+Evan Prodromou <evan@prodromou.name>**20081230211957] 
+[implement the api/laconica/config method
+Evan Prodromou <evan@prodromou.name>**20081230211444] 
+[add some breaks so that switch statement works
+Evan Prodromou <evan@prodromou.name>**20081230210114] 
+[implement api/laconica/version method
+Evan Prodromou <evan@prodromou.name>**20081230205939] 
+[add laconica methods to unauthed ones
+Evan Prodromou <evan@prodromou.name>**20081230203747] 
+[add laconica-specific methods to htaccess.sample
+Evan Prodromou <evan@prodromou.name>**20081230202513] 
+[Laconica-specific extensions for Twitter API
+Evan Prodromou <evan@prodromou.name>**20081230202019] 
+[whitespace changes in actions/register.php after global search-and-replace
+Evan Prodromou <evan@prodromou.name>**20081223195722] 
+[Twitter-bridge: fix for Twitter's new strict policy of rejecting HTTP POSTs with invalid "expect" headers
+Zach Copley <zach@controlyourself.ca>**20081225152207] 
+[move opening brace of class declaration to next line
+Evan Prodromou <evan@prodromou.name>**20081223194923
+ 
+ Another gigantor PEAR coding standards patch. Here, I've moved the
+ opening curly bracket on a class statement to the following line.
+ 
+] 
+[TRUE => true, FALSE => false
+Evan Prodromou <evan@prodromou.name>**20081223194428
+ 
+ More PEAR coding standards global changes. Here, I've changed all
+ instances of TRUE to true and FALSE to false.
+ 
+] 
+[change function headers to K&R style
+Evan Prodromou <evan@prodromou.name>**20081223193323
+ 
+ Another huge change, for PEAR code standards compliance. Function
+ headers have to be in K&R style (opening brace on its own line),
+ instead of having the opening brace on the same line as the function
+ and parameters. So, a little perl magic found all the function
+ definitions and move the opening brace to the next line (properly
+ indented... usually).
+ 
+] 
+[replace NULL with null
+Evan Prodromou <evan@prodromou.name>**20081223192129
+ 
+ Another global search-and-replace update. Here, I've replaced the PHP
+ keyword 'NULL' with its lowercase version. This is another PEAR code
+ standards change.
+ 
+] 
+[replace all tabs with four spaces
+Evan Prodromou <evan@prodromou.name>**20081223191907
+ 
+ The PEAR coding standards decree: no tabs, but indent by four spaces.
+ I've done a global search-and-replace on all tabs, replacing them by
+ four spaces. This is a huge change, but it will go a long way to
+ getting us towards phpcs-compliance. And that means better code
+ readability, and that means more participation.
+ 
+] 
+[incorrect label on notice list file comment
+Evan Prodromou <evan@prodromou.name>**20081223191430] 
+[bring lib/noticelist.php into line with PEAR code standards
+Evan Prodromou <evan@prodromou.name>**20081223190851] 
+[reformat and document lib/mail.php for phpcs conformance
+Evan Prodromou <evan@prodromou.name>**20081223173330] 
+[bring messaging section (inbox, outbox, mailbox) into PEAR Code Standards compliance
+Evan Prodromou <evan@prodromou.name>**20081222201304
+ 
+ Actually refactored the method names on these classes to come into
+ complete compliance with the code standards. Untested; maybe there are
+ some bad method names now.
+ 
+] 
+[bring mailbox.php into line with PEAR Coding Standards (mostly)
+Evan Prodromou <evan@prodromou.name>**20081222195041] 
+[reformat lib/language.php for PEAR Coding Standards
+Evan Prodromou <evan@prodromou.name>**20081222193029] 
+[reformat lib/jabber.php for phpcs, including doc comments
+Evan Prodromou <evan@prodromou.name>**20081222173249] 
+[reformat for phpcs
+Evan Prodromou <evan@prodromou.name>**20081221005837] 
+[reformat lib/daemon.php for phpcs
+Evan Prodromou <evan@prodromou.name>**20081221004607] 
+[some modifications to assuage phpcs
+Evan Prodromou <evan@prodromou.name>**20081221003955] 
+[reformatting for phpcs in lib/util.php
+Evan Prodromou <evan@prodromou.name>**20081221003016] 
+[first step of phpcs-cleanup of index.php
+Evan Prodromou <evan@prodromou.name>**20081221002332] 
+[more information in subscription notices
+Evan Prodromou <evan@prodromou.name>**20081212171135] 
+[identica badge by Kent Brewster. For more information see:
+Sarven Capadisli <csarven@controlyourself.ca>**20081218003302
+ http://kentbrewster.com/identica-badge/
+ 
+ Copy and paste the following wherever you want the badge to show up:
+ 
+ <script type="text/javascript" src="http://identi.ca/js/identica-badge.js">
+ {
+    "user":"kentbrew",
+    "server":"identi.ca",
+    "headerText":" and friends"
+ }
+ </script>
+ 	 
+ Substitute your own ID in the user parameter.
+ 
+] 
+[TAG 0.6.4.1
+Evan Prodromou <evan@controlezvous.ca>**20081220204906] 
+Patch bundle hash:
+afe7b4b695e91033a56499c2eee94a02fa1f0105
