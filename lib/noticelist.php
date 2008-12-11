@@ -64,7 +64,7 @@ class NoticeListItem {
 		$this->profile = $notice->getProfile();
     }
 
-	function show($notice) {
+	function show() {
         $this->show_start();
         $this->show_fave_form();
         $this->show_author();
