@@ -128,13 +128,13 @@ class GalleryAction extends Action {
 		$nickname = $this->trimmed('nickname');
 		$menu =
 		  array('subscriptions' =>
+				array( _('Subscriptions'),
+					   _('Subscriptions'),
+                      array('nickname' => $nickname)),
+				'subscribers' =>
 				array(
 					  _('Subscribers'),
 					  _('Subscribers'),
-                      array('nickname' => $nickname)),
-				'subscribers' =>
-				array( _('Subscriptions'),
-					   _('Subscriptions'),
                       array('nickname' => $nickname)),
 				);
 		$this->nav_menu($menu);
