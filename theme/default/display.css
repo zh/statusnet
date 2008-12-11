@@ -218,7 +218,8 @@ margin-bottom:0.5em;
 clear:both;
 }
 
-#profile_actions #profile_nudge input.submit {
+#profile_actions #profile_nudge input.submit,
+#profile_actions #profile_block input.submit {
 margin:0 0 0 -3px;
 padding:0;
 background-color:transparent;
@@ -230,7 +231,8 @@ text-align:left;
 float:left;
 line-height:18px;
 }
-#profile_actions #profile_nudge input.submit:hover {
+#profile_actions #profile_nudge input.submit:hover,
+#profile_actions #profile_block input.submit:hover {
 background-color:transparent;
 color:#C15D42;
 }
