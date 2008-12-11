@@ -161,7 +161,7 @@ class XMPPDaemon extends Daemon {
 	}
 
 	function get_ofrom($pl) {
-		$xml = $pl['raw'];
+		$xml = $pl['xml'];
 		$addresses = $xml->sub('addresses');
 		if (!$addresses) {
 			$this->log(LOG_WARNING, 'Forwarded message without addresses');
