@@ -254,7 +254,8 @@ class FinishremotesubscribeAction extends Action {
 
 		$fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
 		$result = $fetcher->post($req->get_normalized_http_url(),
-								 $req->to_postdata());
+								 $req->to_postdata(),
+                                 array('User-Agent' => 'Laconica/' . LACONICA_VERSION));
 
 		common_debug('got result: "'.print_r($result,TRUE).'"', __FILE__);
 

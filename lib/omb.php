@@ -128,7 +128,7 @@ function omb_broadcast_remote_subscribers($notice) {
 		if (!$posted[$rp->postnoticeurl]) {
 			common_log(LOG_DEBUG, 'Posting to ' . $rp->postnoticeurl);
 			if (omb_post_notice_keys($notice, $rp->postnoticeurl, $rp->token, $rp->secret)) {
-				common_log(LOG_DEBUG, 'Finished to ' . $rp->postnoticeurl);				
+				common_log(LOG_DEBUG, 'Finished to ' . $rp->postnoticeurl);
 				$posted[$rp->postnoticeurl] = TRUE;
 			} else {
 				common_log(LOG_DEBUG, 'Failed posting to ' . $rp->postnoticeurl);
@@ -138,7 +138,7 @@ function omb_broadcast_remote_subscribers($notice) {
 
 	$rp->free();
 	unset($rp);
-	
+
 	return true;
 }
 
@@ -149,7 +149,7 @@ function omb_post_notice($notice, $remote_profile, $subscription) {
 function omb_post_notice_keys($notice, $postnoticeurl, $tk, $secret) {
 
 	common_debug('Posting notice ' . $notice->id . ' to ' . $postnoticeurl, __FILE__);
-	
+
 	$user = User::staticGet('id', $notice->profile_id);
 
 	if (!$user) {
@@ -158,17 +158,17 @@ function omb_post_notice_keys($notice, $postnoticeurl, $tk, $secret) {
 	}
 
 	$con = omb_oauth_consumer();
-	
+
 	$token = new OAuthToken($tk, $secret);
-	
+
 	$url = $postnoticeurl;
 	$parsed = parse_url($url);
 	$params = array();
 	parse_str($parsed['query'], $params);
-	
+
 	$req = OAuthRequest::from_consumer_and_token($con, $token,
 												 'POST', $url, $params);
-	
+
 	$req->set_parameter('omb_version', OMB_VERSION_01);
 	$req->set_parameter('omb_listenee', $user->uri);
 	$req->set_parameter('omb_notice', $notice->uri);
@@ -177,23 +177,24 @@ function omb_post_notice_keys($notice, $postnoticeurl, $tk, $secret) {
 														   array('notice' =>
 																 $notice->id)));
 	$req->set_parameter('omb_notice_license', common_config('license', 'url'));
-	
+
 	$user->free();
 	unset($user);
-	
+
 	$req->sign_request(omb_hmac_sha1(), $con, $token);
 
 	# We re-use this tool's fetcher, since it's pretty good
-	
+
 	$fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
 
 	if (!$fetcher) {
 		common_log(LOG_WARNING, 'Failed to initialize Yadis fetcher.', __FILE__);
 		return false;
 	}
-	
+
 	$result = $fetcher->post($req->get_normalized_http_url(),
-							 $req->to_postdata());
+							 $req->to_postdata(),
+                             array('User-Agent' => 'Laconica/' . LACONICA_VERSION));
 
 	common_debug('Got HTTP result "'.print_r($result,TRUE).'"', __FILE__);
 
@@ -275,7 +276,8 @@ function omb_update_profile($profile, $remote_profile, $subscription) {
 	common_debug('request URL = '.$req->get_normalized_http_url(), __FILE__);
 	common_debug('postdata = '.$req->to_postdata(), __FILE__);
 	$result = $fetcher->post($req->get_normalized_http_url(),
-							 $req->to_postdata());
+							 $req->to_postdata(),
+                             array('User-Agent' => 'Laconica/' . LACONICA_VERSION));
 
 	common_debug('Got HTTP result "'.print_r($result,TRUE).'"', __FILE__);
 
