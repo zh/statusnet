@@ -383,7 +383,7 @@ class Notice extends Memcached_DataObject
 		# If outside our cache window, just go to the DB
 
 		if ($offset + $limit > NOTICE_CACHE_WINDOW) {
-			return Notice::getStreamDirect($qry, $offset, $limit, NULL, NULL, $order);
+			return Notice::getStreamDirect($qry, $offset, $limit, NULL, NULL, $order, NULL);
 		}
 
 		# Get the cache; if we can't, just go to the DB
@@ -391,7 +391,7 @@ class Notice extends Memcached_DataObject
 		$cache = common_memcache();
 
 		if (!$cache) {
-			return Notice::getStreamDirect($qry, $offset, $limit, NULL, NULL, $order);
+			return Notice::getStreamDirect($qry, $offset, $limit, NULL, NULL, $order, NULL);
 		}
 
 		# Get the notices out of the cache
@@ -423,7 +423,7 @@ class Notice extends Memcached_DataObject
 			# bet with our DB.
 
 			$new_notice = Notice::getStreamDirect($qry, 0, NOTICE_CACHE_WINDOW,
-												  $last_id, NULL, $order);
+												  $last_id, NULL, $order, NULL);
 
 			if ($new_notice) {
 				$new_notices = array();
