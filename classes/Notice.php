@@ -447,7 +447,7 @@ class Notice extends Memcached_DataObject
 
 		# Otherwise, get the full cache window out of the DB
 
-		$notice = Notice::getStreamDirect($qry, 0, NOTICE_CACHE_WINDOW, NULL, NULL, $order);
+		$notice = Notice::getStreamDirect($qry, 0, NOTICE_CACHE_WINDOW, NULL, NULL, $order, NULL);
 
 		# If there are no hits, just return the value
 
