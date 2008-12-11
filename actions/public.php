@@ -54,7 +54,6 @@ class PublicAction extends StreamAction {
 
 		$this->public_views_menu();
 
-
 		$this->show_feeds_list(array(0=>array('href'=>common_local_url('publicrss'),
 											  'type' => 'rss',
 											  'version' => 'RSS 1.0',
@@ -87,17 +86,12 @@ class PublicAction extends StreamAction {
 		$notice = Notice::publicStream(($page-1)*NOTICES_PER_PAGE,
 									   NOTICES_PER_PAGE + 1);
 
-		if ($notice) {
-			common_element_start('ul', array('id' => 'notices'));
-			while ($notice->fetch()) {
-				$cnt++;
-				if ($cnt > NOTICES_PER_PAGE) {
-					break;
-				}
-				$this->show_notice($notice);
-			}
-			common_element_end('ul');
+		if (!$notice) {
+            $this->server_error(_('Could not retrieve public stream.'));
+            return;
 		}
+
+        $cnt = $this->show_notice_list($notice);
 
 		common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
 						  $page, 'public');

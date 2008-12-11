@@ -106,7 +106,7 @@ class TagAction extends StreamAction {
 
 		if ($cnt > 0) {
 			common_element_start('p', 'tagcloud');
-			
+
 			$tw = array();
 			$sum = 0;
 			while ($tags->fetch()) {
@@ -115,7 +115,7 @@ class TagAction extends StreamAction {
 			}
 
 			ksort($tw);
-			
+
 			foreach ($tw as $tag => $weight) {
 				$this->show_tag($tag, $weight, $weight/$sum);
 			}
@@ -152,22 +152,12 @@ class TagAction extends StreamAction {
 	function show_notices($tag) {
 
 		$cnt = 0;
-		
+
 		$page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 
 		$notice = Notice_tag::getStream($tag, (($page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE + 1);
 
-		if ($notice) {
-			common_element_start('ul', array('id' => 'notices'));
-			while ($notice->fetch()) {
-				$cnt++;
-				if ($cnt > NOTICES_PER_PAGE) {
-					break;
-				}
-				$this->show_notice($notice);
-			}
-			common_element_end('ul');
-		}
+        $cnt = $this->show_notice_list($notice);
 
 		common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
 						  $page, 'tag', array('tag' => $tag));

@@ -103,8 +103,7 @@ class DeleteprofileAction extends Action {
 		common_hidden('token', common_session_token());
         common_element('p', null, "Last chance to copy your notices and contacts by saving the two links below before deleting your account. Be careful, this operation cannot be undone.");
 
-
-		$this->show_feeds_list(array(0=>array('href'=>common_local_url('userrss', array('limit' => $notice_count, 'nickname' => $user->nickname)), 
+		$this->show_feeds_list(array(0=>array('href'=>common_local_url('userrss', array('limit' => $notice_count, 'nickname' => $user->nickname)),
 											  'type' => 'rss',
 											  'version' => 'RSS 1.0',
 											  'item' => 'notices'),
@@ -146,7 +145,7 @@ class DeleteprofileAction extends Action {
 
         $fave = new Fave;
         $fave->user_id = $user->id;
-        $n_faves_deleted = $fave->delete(); 
+        $n_faves_deleted = $fave->delete();
 
         $confirmation = new Confirm_address;
         $confirmation->user_id = $user->id;
@@ -177,7 +176,7 @@ class DeleteprofileAction extends Action {
         $profile_tagged = new Profile_tag;
         $profile_tagged->tagged = $user->id;
         $n_profiles_tagged_deleted = $profile_tagged->delete();
-               
+
         $remember_me = new Remember_me;
         $remember_me->user_id = $user->id;
         $n_remember_mes_deleted = $remember_me->delete();
@@ -257,7 +256,7 @@ class DeleteprofileAction extends Action {
 				'othersettings' =>
 				array(_('Other'),
 					  _('Other options')));
-		
+
         $action = $this->trimmed('action');
         common_element_start('ul', array('id' => 'nav_views'));
         foreach ($menu as $menuaction => $menudesc) {

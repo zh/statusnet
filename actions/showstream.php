@@ -406,22 +406,8 @@ class ShowstreamAction extends StreamAction {
 
 		$notice = $user->getNotices(($page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
 
-		$cnt = 0;
-
-		if ($notice) {
-
-			common_element_start('ul', array('id' => 'notices'));
-
-			while ($notice->fetch()) {
-				$cnt++;
-				if ($cnt > NOTICES_PER_PAGE) {
-					break;
-				}
-				$this->show_notice($notice);
-			}
-
-			common_element_end('ul');
-		}
+        $pnl = new ProfileNoticeList($notice);
+        $cnt = $pnl->show();
 
 		common_pagination($page>1, $cnt>NOTICES_PER_PAGE, $page,
 						  'showstream', array('nickname' => $user->nickname));
@@ -447,72 +433,18 @@ class ShowstreamAction extends StreamAction {
 			common_element_end('p');
 		}
 	}
+}
 
-	function show_notice($notice) {
-		$profile = $notice->getProfile();
-		$user = common_current_user();
+# We don't show the author for a profile, since we already know who it is!
 
-		# XXX: RDFa
-		common_element_start('li', array('class' => 'notice_single hentry',
-										 'id' => 'notice-' . $notice->id));
-		if ($user) {
-			if ($user->hasFave($notice)) {
-				common_disfavor_form($notice);
-			} else {
-				common_favor_form($notice);
-			}
-		}
-		$noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
-		# FIXME: URL, image, video, audio
-		common_element_start('p', 'entry-title');
-		if ($notice->rendered) {
-			common_raw($notice->rendered);
-		} else {
-			# XXX: may be some uncooked notices in the DB,
-			# we cook them right now. This can probably disappear in future
-			# versions (>> 0.4.x)
-			common_raw(common_render_content($notice->content, $notice));
-		}
-		common_element_end('p');
-		common_element_start('p', array('class' => 'time'));
-		common_element_start('a', array('class' => 'permalink',
-								  'rel' => 'bookmark',
-								  'href' => $noticeurl));
-		common_element('abbr', array('class' => 'published',
-									 'title' => common_date_iso8601($notice->created)),
-						common_date_string($notice->created));
-		common_element_end('a');
+class ProfileNoticeList extends NoticeList {
+    function new_list_item($notice) {
+        return new ProfileNoticeListItem($notice);
+    }
+}
 
-		if ($notice->source) {
-			common_text(_(' from '));
-			$this->source_link($notice->source);
-		}
-		if ($notice->reply_to) {
-			$replyurl = common_local_url('shownotice', array('notice' => $notice->reply_to));
-			common_text(' (');
-			common_element('a', array('class' => 'inreplyto',
-									  'href' => $replyurl),
-						   _('in reply to...'));
-			common_text(')');
-		}
-		common_element_start('a',
-							 array('href' => common_local_url('newnotice',
-															  array('replyto' => $profile->nickname)),
-								   'onclick' => 'doreply("'.$profile->nickname.'"); return false',
-								   'title' => _('reply'),
-								   'class' => 'replybutton'));
-		common_raw('&rarr;');
-		common_element_end('a');
-		if ($user && $notice->profile_id == $user->id) {
-			$deleteurl = common_local_url('deletenotice', array('notice' => $notice->id));
-			common_element_start('a', array('class' => 'deletenotice',
-											'href' => $deleteurl,
-											'title' => _('delete')));
-			common_raw('&times;');
-			common_element_end('a');
-		}
-
-		common_element_end('p');
-		common_element_end('li');
-	}
+class ProfileNoticeListItem extends NoticeListItem {
+    function show_author() {
+        return;
+    }
 }

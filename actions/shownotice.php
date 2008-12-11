@@ -77,7 +77,8 @@ class ShownoticeAction extends StreamAction {
 						   array($this, 'show_top'));
 
 		common_element_start('ul', array('id' => 'notices'));
-		$this->show_notice($this->notice);
+        $nli = new NoticeListItem($this->notice);
+        $nli->show();
 		common_element_end('ul');
 
 		common_show_footer();

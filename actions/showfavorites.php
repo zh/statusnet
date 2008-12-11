@@ -89,20 +89,7 @@ class ShowfavoritesAction extends StreamAction {
 			return;
 		}
 
-		common_element_start('ul', array('id' => 'notices'));
-
-		$cnt = 0;
-
-		while ($notice->fetch() && $cnt <= NOTICES_PER_PAGE) {
-			$cnt++;
-
-			if ($cnt > NOTICES_PER_PAGE) {
-				break;
-			}
-
-			$this->show_notice($notice);
-		}
-		common_element_end('ul');
+        $cnt = $this->show_notice_list($notice);
 
 		common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
 						  $page, 'showfavorites', array('nickname' => $user->nickname));

@@ -20,6 +20,7 @@
 if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/personal.php');
+require_once(INSTALLDIR.'/lib/noticelist.php');
 
 class StreamAction extends PersonalAction {
 
@@ -47,90 +48,8 @@ class StreamAction extends PersonalAction {
 
 	}
 
-	function show_notice($notice) {
-		global $config;
-		$profile = $notice->getProfile();
-		$user = common_current_user();
-
-		# XXX: RDFa
-		common_element_start('li', array('class' => 'notice_single hentry',
-										  'id' => 'notice-' . $notice->id));
-		if ($user) {
-			if ($user->hasFave($notice)) {
-				common_disfavor_form($notice);
-			} else {
-				common_favor_form($notice);
-			}
-		}
- 		common_element_start('span', 'vcard author');
-		$avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
-		common_element_start('a', array('href' => $profile->profileurl));
-		common_element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE),
-									'class' => 'avatar stream photo',
-									'width' => AVATAR_STREAM_SIZE,
-									'height' => AVATAR_STREAM_SIZE,
-									'alt' =>
-									($profile->fullname) ? $profile->fullname :
-									$profile->nickname));
-		common_element_end('a');
-		common_element('a', array('href' => $profile->profileurl,
-								  'class' => 'nickname fn url'),
-					   $profile->nickname);
-		common_element_end('span');
-		# FIXME: URL, image, video, audio
-		common_element_start('p', array('class' => 'content entry-title'));
-		if ($notice->rendered) {
-			common_raw($notice->rendered);
-		} else {
-			# XXX: may be some uncooked notices in the DB,
-			# we cook them right now. This should probably disappear in future
-			# versions (>> 0.4.x)
-			common_raw(common_render_content($notice->content, $notice));
-		}
-		common_element_end('p');
-		$noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
-		# XXX: we need to figure this out better. Is this right?
-		if (strcmp($notice->uri, $noticeurl) != 0 && preg_match('/^http/', $notice->uri)) {
-			$noticeurl = $notice->uri;
-		}
-		common_element_start('p', 'time');
-		common_element_start('a', array('class' => 'permalink',
-								  'rel' => 'bookmark',
-								  'href' => $noticeurl));
-		common_element('abbr', array('class' => 'published',
-									 'title' => common_date_iso8601($notice->created)),
-						common_date_string($notice->created));
-		common_element_end('a');
-
-		if ($notice->source) {
-			common_text(_(' from '));
-			$this->source_link($notice->source);
-		}
-		if ($notice->reply_to) {
-			$replyurl = common_local_url('shownotice', array('notice' => $notice->reply_to));
-			common_text(' (');
-			common_element('a', array('class' => 'inreplyto',
-									  'href' => $replyurl),
-						   _('in reply to...'));
-			common_text(')');
-		}
-		common_element_start('a',
-							 array('href' => common_local_url('newnotice',
-															  array('replyto' => $profile->nickname)),
-								   'onclick' => 'return doreply("'.$profile->nickname.'", '.$notice->id.');',
-								   'title' => _('reply'),
-								   'class' => 'replybutton'));
-		common_raw('&rarr;');
-		common_element_end('a');
-		if ($user && $notice->profile_id == $user->id) {
-			$deleteurl = common_local_url('deletenotice', array('notice' => $notice->id));
-			common_element_start('a', array('class' => 'deletenotice',
-											'href' => $deleteurl,
-											'title' => _('delete')));
-			common_raw('&times;');
-			common_element_end('a');
-		}
-		common_element_end('p');
-		common_element_end('li');
-	}
+    function show_notice_list($notice) {
+        $nl = new NoticeList($notice);
+        return $nl->show();
+    }
 }

@@ -88,19 +88,7 @@ class FavoritedAction extends StreamAction {
 		$notice->query(sprintf('SELECT * FROM notice WHERE id in (%s)',
 			implode(',', $notice_list)));
 
-		$cnt = 0;
-
-		if ($notice) {
-			common_element_start('ul', array('id' => 'notices'));
-			while ($notice->fetch()) {
-				$cnt++;
-				if ($cnt > NOTICES_PER_PAGE) {
-					break;
-				}
-				$this->show_notice($notice);
-			}
-			common_element_end('ul');
-		}
+        $cnt = $this->show_notice_list($notice);
 
 		common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
 						  $page, 'favorited');

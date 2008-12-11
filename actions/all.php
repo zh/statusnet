@@ -82,23 +82,10 @@ class AllAction extends StreamAction {
 		if (!$page) {
 			$page = 1;
 		}
-		
+
 		$notice = $user->noticesWithFriends(($page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
-											
-		common_element_start('ul', array('id' => 'notices'));
-		
-		$cnt = 0;
-		
-		while ($notice->fetch() && $cnt <= NOTICES_PER_PAGE) {
-			$cnt++;
-			
-			if ($cnt > NOTICES_PER_PAGE) {
-				break;
-			}
-			
-			$this->show_notice($notice);
-		}
-		common_element_end('ul');
+
+        $cnt = $this->show_notice_list($notice);
 
 		common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
 						  $page, 'all', array('nickname' => $user->nickname));
