@@ -104,22 +104,22 @@ class NoticeListItem {
     }
 
     function show_avatar() {
-		$avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
-		common_element_start('a', array('href' => $profile->profileurl));
+		$avatar = $this->profile->getAvatar(AVATAR_STREAM_SIZE);
+		common_element_start('a', array('href' => $this->profile->profileurl));
 		common_element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE),
 									'class' => 'avatar stream photo',
 									'width' => AVATAR_STREAM_SIZE,
 									'height' => AVATAR_STREAM_SIZE,
 									'alt' =>
-									($profile->fullname) ? $profile->fullname :
-									$profile->nickname));
+									($this->profile->fullname) ? $this->profile->fullname :
+									$this->profile->nickname));
 		common_element_end('a');
     }
 
     function show_nickname() {
-		common_element('a', array('href' => $profile->profileurl,
+		common_element('a', array('href' => $this->profile->profileurl,
 								  'class' => 'nickname fn url'),
-					   $profile->nickname);
+					   $this->profile->nickname);
     }
 
     function show_content() {
@@ -194,8 +194,8 @@ class NoticeListItem {
     function show_reply_link() {
 		common_element_start('a',
 							 array('href' => common_local_url('newnotice',
-															  array('replyto' => $profile->nickname)),
-								   'onclick' => 'return doreply("'.$profile->nickname.'", '.$this->notice->id.');',
+															  array('replyto' => $this->profile->nickname)),
+								   'onclick' => 'return doreply("'.$this->profile->nickname.'", '.$this->notice->id.');',
 								   'title' => _('reply'),
 								   'class' => 'replybutton'));
 		common_raw('&rarr;');
