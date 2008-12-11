@@ -96,8 +96,6 @@ $(document).ready(function(){
 												   }
 						 });
 	$("#nudge").each(addAjaxHidden);
-	$("#nudge .submit").bind('click', function(e) {	$(this).addClass("processing"); });
-
 
 	var Subscribe = { dataType: 'xml',
 					  beforeSubmit: function(formData, jqForm, options) { $("form.subscribe input[type=submit]").attr("disabled", "disabled");
