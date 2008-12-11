@@ -158,7 +158,25 @@ class NoticeListItem {
     function show_notice_source() {
 		if ($this->notice->source) {
 			common_text(_(' from '));
-			$this->source_link($this->notice->source);
+            $source_name = _($source);
+            switch ($source) {
+             case 'web':
+             case 'xmpp':
+             case 'mail':
+             case 'omb':
+             case 'api':
+                common_element('span', 'noticesource', $source_name);
+                break;
+             default:
+                $ns = Notice_source::staticGet($source);
+                if ($ns) {
+                    common_element('a', array('href' => $ns->url),
+                                   $ns->name);
+                } else {
+                    common_element('span', 'noticesource', $source_name);
+                }
+                break;
+            }
 		}
     }
 
