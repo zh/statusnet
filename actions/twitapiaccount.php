@@ -70,9 +70,6 @@ class TwitapiaccountAction extends TwitterapiAction {
 		$orig_profile = clone($profile);
 		$profile->location = $location;
 
-		common_debug('Old profile: ' . common_log_objstring($orig_profile), __FILE__);
-		common_debug('New profile: ' . common_log_objstring($profile), __FILE__);
-
 		$result = $profile->update($orig_profile);
 
 		if (!$result) {

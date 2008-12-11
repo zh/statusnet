@@ -80,7 +80,6 @@ class FeaturedAction extends StreamAction {
 
 			while ($user->fetch()) {
 				$profile_ids[] = $user->id;
-				common_debug("id = $user->id");
 			}
 
 			$profile = new Profile;
@@ -88,8 +87,6 @@ class FeaturedAction extends StreamAction {
 			$profile->orderBy('nickname ASC');
 
 			$cnt = $profile->find();
-
-			common_debug("count = $cnt");
 
 			if ($cnt > 0) {
 				$featured = new ProfileList($profile);

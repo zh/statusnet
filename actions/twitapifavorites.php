@@ -116,8 +116,6 @@ class TwitapifavoritesAction extends TwitterapiAction {
 			return;
 		}
 
-		common_debug("notice: " . $apidata['api_arg']);
-
 		$fave = Fave::addNew($user, $notice);
 
 		if (!$fave) {
