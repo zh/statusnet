@@ -61,15 +61,13 @@ class SubscribeAction extends Action {
 			return;
 		}
 
-		$cur = common_current_user();
-		$profile = Profile::staticGet('nickname', $other_nickname);
 		if ($this->boolean('ajax')) {
 			common_start_html('text/xml');
 			common_element_start('head');
 			common_element('title', null, _('Subscribed'));
 			common_element_end('head');
 			common_element_start('body');
-			common_unsubscribe_form($profile);
+			common_unsubscribe_form($other->getProfile());
 			common_element_end('body');
 			common_element_end('html');
 		} else {
