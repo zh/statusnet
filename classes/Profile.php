@@ -24,7 +24,7 @@ if (!defined('LACONICA')) { exit(1); }
  */
 require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
-class Profile extends Memcached_DataObject 
+class Profile extends Memcached_DataObject
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -33,7 +33,7 @@ class Profile extends Memcached_DataObject
     public $id;                              // int(4)  primary_key not_null
     public $nickname;                        // varchar(64)  multiple_key not_null
     public $fullname;                        // varchar(255)  multiple_key
-    public $profileurl;                      // varchar(255)  
+    public $profileurl;                      // varchar(255)
     public $homepage;                        // varchar(255)  multiple_key
     public $bio;                             // varchar(140)  multiple_key
     public $location;                        // varchar(255)  multiple_key
@@ -144,5 +144,16 @@ class Profile extends Memcached_DataObject
 			return $notice;
 		}
 		return NULL;
+	}
+
+	function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0) {
+		$qry =
+		  'SELECT * ' .
+		  'FROM notice ' .
+		  'WHERE profile_id = %d ';
+
+		return Notice::getStream(sprintf($qry, $this->id),
+								 'profile:notices:'.$this->id,
+								 $offset, $limit, $since_id, $before_id);
 	}
 }

@@ -61,7 +61,6 @@ $config['sphinx']['enabled'] = false;
 $config['sphinx']['server'] = 'localhost';
 $config['sphinx']['port'] = 3312;
 
-
 # Users to populate the 'Featured' tab
 #$config['nickname']['featured'][] = 'scobleizer';
 
@@ -93,7 +92,6 @@ $config['sphinx']['port'] = 3312;
 #For incoming email, if enabled. Defaults to site server name.
 #$config['mail']['domain'] = 'incoming.example.net';
 
-
 #exponential decay factor for tags, default 10 days
 #raise this if traffic is slow, lower it if it's fast
 #$config['tag']['dropoff'] = 86400.0 * 10;
@@ -124,3 +122,15 @@ $config['sphinx']['port'] = 3312;
 
 #Twitter integration source attribute. Note: default is Laconica
 #$config['integration']['source'] = 'Laconica';
+
+# Edit throttling. Off by default. If turned on, you can only post 20 notices
+# every 10 minutes. Admins may want to play with the settings to minimize inconvenience for
+# real users without getting uncontrollable floods from spammers or runaway bots.
+
+#$config['throttle']['enabled'] = true;
+#$config['throttle']['count'] = 100;
+#$config['throttle']['timespan'] = 3600;
+
+# List of users banned from posting (nicknames and/or IDs)
+#$config['profile']['banned'][] = 'hacker';
+#$config['profile']['banned'][] = 12345;

@@ -104,7 +104,8 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
 		$user = $apidata['user'];
 		$source = $this->trimmed('source');  // Not supported by Twitter.
 
-		if (!$source) {
+        $reserved_sources = array('web', 'omb', 'mail', 'xmpp', 'api');
+		if (!$source || in_array($source, $reserved_sources)) {
 			$source = 'api';
 		}
 

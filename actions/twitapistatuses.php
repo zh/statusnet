@@ -239,8 +239,8 @@ class TwitapistatusesAction extends TwitterapiAction {
 		$status = $this->trimmed('status');
 		$source = $this->trimmed('source');
 		$in_reply_to_status_id = intval($this->trimmed('in_reply_to_status_id'));
-
-		if (!$source) {
+        $reserved_sources = array('web', 'omb', 'mail', 'xmpp', 'api');
+		if (!$source || in_array($source, $reserved_sources)) {
 			$source = 'api';
 		}
 
