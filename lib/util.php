@@ -2077,7 +2077,7 @@ function common_subscribe_form($profile) {
 }
 
 function common_unsubscribe_form($profile) {
-	common_element_start('form', array('id' => 'unsubscribe-' . $profile->nickname,
+	common_element_start('form', array('id' => 'unsubscribe-' . $profile->id,
 									   'method' => 'post',
 									   'class' => 'unsubscribe',
 									   'action' => common_local_url('unsubscribe')));
