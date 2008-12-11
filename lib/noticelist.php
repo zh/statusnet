@@ -98,8 +98,8 @@ class NoticeListItem {
 
     function show_author() {
  		common_element_start('span', 'vcard author');
-        $this->avatar();
-        $this->nickname();
+        $this->show_avatar();
+        $this->show_nickname();
 		common_element_end('span');
     }
 
