@@ -112,7 +112,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 
 		$since = strtotime($this->arg('since'));
 
-		$user = $this->get_user($id, $apidata);
+		$user = $this->get_user(NULL, $apidata);
 		$this->auth_user = $user;
 
 		$profile = $user->getProfile();
