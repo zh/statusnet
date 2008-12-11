@@ -119,6 +119,25 @@ class GalleryAction extends Action {
 	function show_top($profile) {
 		common_element('div', 'instructions',
 					   $this->get_instructions($profile));
+        $this->show_menu();
+	}
+
+    function show_menu() {
+		# action => array('prompt', 'title', $args)
+		$action = $this->trimmed('action');
+		$nickname = $this->trimmed('nickname');
+		$menu =
+		  array('subscriptions' =>
+				array(
+					  _('Subscribers'),
+					  _('Subscribers'),
+                      array('nickname' => $nickname)),
+				'subscribers' =>
+				array( _('Subscriptions'),
+					   _('Subscriptions'),
+                      array('nickname' => $nickname)),
+				);
+		$this->nav_menu($menu);
 	}
 
 	function show_gallery($profile, $page, $display='list', $tag=NULL) {
