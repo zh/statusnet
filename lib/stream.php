@@ -38,11 +38,11 @@ class StreamAction extends PersonalAction {
 
 		if (count(common_config('nickname', 'featured')) > 0) {
 			common_menu_item(common_local_url('featured'), _('Featured'),
-				_('Notices from featured Users'), $action == 'featured');
+				_('Featured users'), $action == 'featured');
 		}
 
 		common_menu_item(common_local_url('favorited'), _('Popular'),
-			_("Latest popular notices"), $action == 'favorited');
+			_("Popular notices"), $action == 'favorited');
 
 		common_element_end('ul');
 

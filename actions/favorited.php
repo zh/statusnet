@@ -28,7 +28,7 @@ class FavoritedAction extends StreamAction {
 
 		$page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 
-		common_show_header(_('Favorited timeline'),
+		common_show_header(_('Popular notices'),
 						   array($this, 'show_header'), NULL,
 						   array($this, 'show_top'));
 
@@ -51,7 +51,7 @@ class FavoritedAction extends StreamAction {
 	}
 
 	function get_instructions() {
-		return _('Showing most favorited notices from the last week');
+		return _('Showing recently popular notices');
 	}
 
 	function show_notices($page) {
