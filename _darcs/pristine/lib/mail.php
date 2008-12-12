@@ -112,16 +112,25 @@ function mail_subscribe_notify_profile($listenee, $other) {
 		$recipients = $listenee->email;
 		$headers['From'] = mail_notify_from();
 		$headers['To'] = $name . ' <' . $listenee->email . '>';
-		$headers['Subject'] = sprintf(_('%1$s is now listening to your notices on %2$s.'), $other->getBestName(),
+		$headers['Subject'] = sprintf(_('%1$s is now listening to your notices on %2$s.'),
+                                      $other->getBestName(),
 									  common_config('site', 'name'));
 		$body  = sprintf(_('%1$s is now listening to your notices on %2$s.'."\n\n".
 						   "\t".'%3$s'."\n\n".
-						   'Faithfully yours,'."\n".'%4$s.'."\n"),
-						 $long_name,
-						 common_config('site', 'name'),
-						 $other->profileurl,
-						 common_config('site', 'name'));
-
+						   '%4$s'.
+                           '%5$s'.
+                           '%6$s'.
+						   "\n".'Faithfully yours,'."\n".'%7$s.'."\n\n".
+                           "----\n".
+                           "Change your email address or notification options at %8$s"),
+                         $long_name,
+                         common_config('site', 'name'),
+                         $other->profileurl,
+                         ($other->location) ? sprintf(_("Location: %s\n"), $other->location) : '',
+                         ($other->homepage) ? sprintf(_("Homepage: %s\n"), $other->homepage) : '',
+                         ($other->bio) ? sprintf(_("Bio: %s\n\n"), $other->bio) : '',
+                         common_config('site', 'name'),
+                         common_local_url('emailsettings'));
         // reset localization
         common_init_locale();
 		mail_send($recipients, $headers, $body);
