@@ -202,7 +202,7 @@ class ShowstreamAction extends StreamAction {
 		$user = User::staticGet('id', $profile->id);
 		common_profile_new_message_nudge($cur, $user, $profile);
 
-        if ($cur) {
+        if ($cur && $cur->id != $profile->id) {
             $blocked = $cur->hasBlocked($profile);
             common_element_start('li', array('id' => 'profile_block'));
             if ($blocked) {
