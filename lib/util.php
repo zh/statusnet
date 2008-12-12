@@ -938,7 +938,7 @@ function common_at_link($sender_id, $nickname) {
 	if ($recipient) {
 		return '<span class="vcard"><a class="fn nickname url atlink" rel="reply" href="'.htmlspecialchars($recipient->profileurl).'">'.$nickname.'</a></span>';
 	} else {
-		return '<span class="vcard"> <span class="fn nickname">'.$nickname.'</span> </span>';
+		return '<span class="vcard"><span class="fn nickname">'.$nickname.'</span></span>';
 	}
 }
 
