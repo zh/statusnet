@@ -168,7 +168,7 @@ class NoticeListItem {
                 common_element('span', 'noticesource', $source_name);
                 break;
              default:
-                $ns = Notice_source::staticGet($source);
+                $ns = Notice_source::staticGet($this->notice->source);
                 if ($ns) {
                     common_element('a', array('href' => $ns->url),
                                    $ns->name);
