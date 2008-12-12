@@ -2,43 +2,45 @@
 New patches:
 
 [unrevert
-anonymous**20090106212612] {
-hunk ./actions/profilesettings.php 140
-                                            common_local_url('profilesettings')));
-         common_hidden('token', common_session_token());
+anonymous**20090106212613] {
+hunk ./actions/profilesettings.php 57
+             return;
+         }
  
 +v v v v v v v
- 		if ($original) {
-hunk ./actions/profilesettings.php 142
-+			common_element_start('div', array('id'=>'avatar_original', 'class'=>'avatar_view'));
-+			common_element('h3', null, _("Original:"));
-+			common_element_start('div', array('id'=>'avatar_original_view'));
- 			common_element('img', array('src' => $original->url,
- 										'class' => 'avatar original',
- 										'width' => $original->width,
-hunk ./actions/profilesettings.php 150
- 										'height' => $original->height,
- 										'alt' => $user->nickname));
-+			common_element_end('div');
-+			common_element_end('div');
+ 		if ($this->arg('save')) {
+ 			$this->save_profile();
+ 		} else if ($this->arg('upload')) {
+hunk ./actions/profilesettings.php 62
+ 			$this->upload_avatar();
++		} else if ($this->arg('crop')) {
++			$this->crop_avatar();
+ 		} else if ($this->arg('changepass')) {
+ 			$this->change_password();
+hunk ./actions/profilesettings.php 66
++		} else {
++			$this->show_form(_('Unexpected form submission.'));
  		}
-hunk ./actions/profilesettings.php 153
+hunk ./actions/profilesettings.php 69
 +*************
-+        if ($original) {
-+            common_element('img', array('src' => $original->url,
-+                                        'class' => 'avatar original',
-+                                        'width' => $original->width,
-+                                        'height' => $original->height,
-+                                        'alt' => $user->nickname));
++        if ($this->arg('save')) {
++            $this->save_profile();
++        } else if ($this->arg('upload')) {
++            $this->upload_avatar();
++        } else if ($this->arg('changepass')) {
++            $this->change_password();
 +        }
 +^ ^ ^ ^ ^ ^ ^
  
+     }
+ 
+hunk ./actions/profilesettings.php 164
+ 
          $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
  
-hunk ./actions/profilesettings.php 165
 +v v v v v v v
  		if ($avatar) {
-hunk ./actions/profilesettings.php 167
+hunk ./actions/profilesettings.php 166
 -			common_element('img', array('src' => $avatar->url,
 +			common_element_start('div', array('id'=>'avatar_preview', 'class'=>'avatar_view'));
 +			common_element('h3', null, _("Preview:"));
@@ -47,7 +49,7 @@ hunk ./actions/profilesettings.php 167
  										'class' => 'avatar profile',
  										'width' => AVATAR_PROFILE_SIZE,
  										'height' => AVATAR_PROFILE_SIZE,
-hunk ./actions/profilesettings.php 175
+hunk ./actions/profilesettings.php 174
  										'alt' => $user->nickname));
 +			common_element_end('div');
 +			common_element_end('div');
@@ -57,9 +59,9 @@ hunk ./actions/profilesettings.php 175
 +											  'type' => 'hidden',
 +											  'id' => $crop_info));
 +			}
-+			common_submit('avatar_crop', _('Crop'));
++			common_submit('crop', _('Crop'));
  		}
-hunk ./actions/profilesettings.php 185
+hunk ./actions/profilesettings.php 184
 +*************
 +        if ($avatar) {
 +            common_element('img', array('src' => $avatar->url,
@@ -72,10 +74,171 @@ hunk ./actions/profilesettings.php 185
  
  
          common_element('input', array('name' => 'MAX_FILE_SIZE',
+hunk ./actions/profilesettings.php 429
+             $this->show_form(_('Failed updating avatar.'));
+         }
+ 
++v v v v v v v
+ 		@unlink($_FILES['avatarfile']['tmp_name']);
+ 	}
+ 
+hunk ./actions/profilesettings.php 433
++	function crop_avatar() {
++
++		$user = common_current_user();
++		$profile = $user->getProfile();
++
++		$x = $this->arg('avatar_crop_x');
++		$y = $this->arg('avatar_crop_y');
++		$w = $this->arg('avatar_crop_w');
++		$h = $this->arg('avatar_crop_h');
++
++		if ($profile->crop_avatars($x, $y, $w, $h)) {
++			$this->show_form(_('Avatar updated.'), true);
++		} else {
++			$this->show_form(_('Failed updating avatar.'));
++		}
++	}
++*************
++        @unlink($_FILES['avatarfile']['tmp_name']);
++    }
++^ ^ ^ ^ ^ ^ ^
++
+     function nickname_exists($nickname)
+     {
+         $user = common_current_user();
+hunk ./classes/Avatar.php 82
+         }
+     }
+ 
++v v v v v v v
++	function scale_and_crop($size, $x, $y, $w, $h) {
++
++		$image_s = imagecreatetruecolor($size, $size);
++		$image_a = $this->to_image();
++
++		# Retain alpha channel info if possible for .pngs
++		$background = imagecolorallocate($image_s, 0, 0, 0);
++		ImageColorTransparent($image_s, $background);
++		imagealphablending($image_s, false);
++
++		imagecopyresized($image_s, $image_a, 0, 0, $x, $y, $size, $size, $w, $h);
++
++		$ext = ($this->mediattype == 'image/jpeg') ? ".jpeg" : ".png";
++
++		$filename = common_avatar_filename($this->profile_id, $ext, $size, common_timestamp());
++
++		if ($this->mediatype == 'image/jpeg') {
++			imagejpeg($image_s, common_avatar_path($filename));
++		} else {
++			imagepng($image_s, common_avatar_path($filename));
++		}
++
++		$cropped = DB_DataObject::factory('avatar');
++		$cropped->profile_id = $this->profile_id;
++		$cropped->width = $size;
++		$cropped->height = $size;
++		$cropped->original = false;
++		$cropped->mediatype = ($this->mediattype == 'image/jpeg') ? 'image/jpeg' : 'image/png';
++		$cropped->filename = $filename;
++		$cropped->url = common_avatar_url($filename);
++		$cropped->created = DB_DataObject_Cast::dateTime(); # current time
++
++		if ($cropped->insert()) {
++			return $cropped;
++		} else {
++			return NULL;
++		}
++	}
++
+ 	function to_image() {
+ 		$filepath = common_avatar_path($this->filename);
+ 		if ($this->mediatype == 'image/gif') {
+hunk ./classes/Avatar.php 138
+ 	function &pkeyGet($kv) {
+ 		return Memcached_DataObject::pkeyGet('Avatar', $kv);
+ 	}
++*************
++    function to_image()
++    {
++        $filepath = common_avatar_path($this->filename);
++        if ($this->mediatype == 'image/gif') {
++            return imagecreatefromgif($filepath);
++        } else if ($this->mediatype == 'image/jpeg') {
++            return imagecreatefromjpeg($filepath);
++        } else if ($this->mediatype == 'image/png') {
++            return imagecreatefrompng($filepath);
++        } else {
++            return null;
++        }
++    }
++    
++    function &pkeyGet($kv)
++    {
++        return Memcached_DataObject::pkeyGet('Avatar', $kv);
++    }
++^ ^ ^ ^ ^ ^ ^
+ }
+hunk ./classes/Profile.php 124
+         return $avatar;
+     }
+ 
+-	function delete_avatars() {
++v v v v v v v
++	function crop_avatars($x, $y, $w, $h) {
++
++		$avatar = $this->getOriginalAvatar();
++		$this->delete_avatars(false); # don't delete original
++
++		foreach (array(AVATAR_PROFILE_SIZE, AVATAR_STREAM_SIZE, AVATAR_MINI_SIZE) as $size) {
++			# We don't do a scaled one if original is our scaled size
++			if (!($avatar->width == $size && $avatar->height == $size)) {
++				$s = $avatar->scale_and_crop($size, $x, $y, $w, $h);
++				if (!$s) {
++					return NULL;
++				}
++			}
++		}
++		return true;
++	}
++
++	function delete_avatars($original=true) {
+ 		$avatar = new Avatar();
+ 		$avatar->profile_id = $this->id;
+ 		$avatar->find();
+hunk ./classes/Profile.php 147
+ 		while ($avatar->fetch()) {
++			if ($avatar->original) {
++				if ($original == false) {
++					continue;
++				}
++			}
+ 			$avatar->delete();
+ 		}
+ 		return true;
+hunk ./classes/Profile.php 156
+ 	}
++*************
++    function delete_avatars()
++    {
++        $avatar = new Avatar();
++        $avatar->profile_id = $this->id;
++        $avatar->find();
++        while ($avatar->fetch()) {
++            $avatar->delete();
++        }
++        return true;
++    }
++^ ^ ^ ^ ^ ^ ^
+ 
+     function getBestName()
+     {
 }
 
 Context:
 
+[Actually crop your avatar when hitting 'crop' button on profile
+Zach Copley <zach@controlyourself.ca>**20081212043018] 
 [Jcrop CSS updates to original/preview views
 csarven@controlyourself.ca**20081210025922] 
 [Jcrop v2 (POST cropping to be completed)
@@ -201,4 +364,4 @@ Sarven Capadisli <csarven@controlyourself.ca>**20081218003302
 [TAG 0.6.4.1
 Evan Prodromou <evan@controlezvous.ca>**20081220204906] 
 Patch bundle hash:
-b75aa06ac49c2ff8a9fa803da998c6ea5f5c1d17
+316173068f974bea2f9537d45d347f45c12050bc

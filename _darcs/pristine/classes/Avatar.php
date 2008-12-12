@@ -79,22 +79,20 @@ class Avatar extends Memcached_DataObject
         }
     }
 
-    function to_image()
-    {
-        $filepath = common_avatar_path($this->filename);
-        if ($this->mediatype == 'image/gif') {
-            return imagecreatefromgif($filepath);
-        } else if ($this->mediatype == 'image/jpeg') {
-            return imagecreatefromjpeg($filepath);
-        } else if ($this->mediatype == 'image/png') {
-            return imagecreatefrompng($filepath);
-        } else {
-            return null;
-        }
-    }
-    
-    function &pkeyGet($kv)
-    {
-        return Memcached_DataObject::pkeyGet('Avatar', $kv);
-    }
+	function to_image() {
+		$filepath = common_avatar_path($this->filename);
+		if ($this->mediatype == 'image/gif') {
+			return imagecreatefromgif($filepath);
+		} else if ($this->mediatype == 'image/jpeg') {
+			return imagecreatefromjpeg($filepath);
+		} else if ($this->mediatype == 'image/png') {
+			return imagecreatefrompng($filepath);
+		} else {
+			return NULL;
+		}
+	}
+	
+	function &pkeyGet($kv) {
+		return Memcached_DataObject::pkeyGet('Avatar', $kv);
+	}
 }

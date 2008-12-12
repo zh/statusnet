@@ -121,16 +121,15 @@ class Profile extends Memcached_DataObject
         return $avatar;
     }
 
-    function delete_avatars()
-    {
-        $avatar = new Avatar();
-        $avatar->profile_id = $this->id;
-        $avatar->find();
-        while ($avatar->fetch()) {
-            $avatar->delete();
-        }
-        return true;
-    }
+	function delete_avatars() {
+		$avatar = new Avatar();
+		$avatar->profile_id = $this->id;
+		$avatar->find();
+		while ($avatar->fetch()) {
+			$avatar->delete();
+		}
+		return true;
+	}
 
     function getBestName()
     {
