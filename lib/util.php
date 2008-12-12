@@ -131,17 +131,24 @@ function common_end_xml() {
 	$xw->flush();
 }
 
+function common_init_locale($language=null) {
+    if(!$language) {
+        $language = common_language();
+    }
+    putenv('LANGUAGE='.$language);
+    putenv('LANG='.$language);
+    return setlocale(LC_ALL, $language . ".utf8",
+            $language . ".UTF8",
+            $language . ".utf-8",
+            $language . ".UTF-8",
+            $language);
+}
+
 function common_init_language() {
 	mb_internal_encoding('UTF-8');
 	$language = common_language();
 	# So we don't have to make people install the gettext locales
-	putenv('LANGUAGE='.$language);
-	putenv('LANG='.$language);
-	$locale_set = setlocale(LC_ALL, $language . ".utf8",
-							$language . ".UTF8",
-							$language . ".utf-8",
-							$language . ".UTF-8",
-							$language);
+ 	$locale_set = common_init_locale($language);
 	bindtextdomain("laconica", common_config('site','locale_path'));
 	bind_textdomain_codeset("laconica", "UTF-8");
 	textdomain("laconica");
@@ -156,6 +163,7 @@ define('PAGE_TYPE_PREFS', 'text/html,application/xhtml+xml,application/xml;q=0.3
 function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=NULL) {
 
 	global $config, $xw;
+    global $action; /* XXX: kind of cheating here. */
 
 	common_start_html();
 
@@ -202,7 +210,7 @@ function common_show_header($pagetitle, $callable=NULL, $data=NULL, $headercall=
 		}
 	}
 	common_element_end('head');
-	common_element_start('body');
+	common_element_start('body', $action);
 	common_element_start('div', array('id' => 'wrap'));
 	common_element_start('div', array('id' => 'header'));
 	common_nav_menu();
@@ -401,9 +409,8 @@ function common_checkbox($id, $label, $checked=false, $instructions=NULL, $value
 		$attrs['disabled'] = 'true';
 	}
 	common_element('input', $attrs);
-	# XXX: use a <label>
 	common_text(' ');
-	common_element('span', 'checkbox_label', $label);
+	common_element('label', array('class' => 'checkbox_label', 'for' => $id), $label);
 	common_text(' ');
 	if ($instructions) {
 		common_element('span', 'input_instructions', $instructions);
@@ -822,7 +829,13 @@ function common_render_uri_thingy($matches) {
 	return '<a href="' . $uri . '"' . $title . ' class="extlink">' . $uri . '</a>' . $trailer;
 }
 
-function common_longurl($uri)  {
+function common_longurl($short_url)  {
+    $long_url = common_shorten_link($short_url, true);
+    if ($long_url === $short_url) return false;
+    return $long_url;
+}
+
+function common_longurl2($uri)  {
 	$uri_e = urlencode($uri);
 	$longurl = unserialize(file_get_contents("http://api.longurl.org/v1/expand?format=php&url=$uri_e"));
 	if (empty($longurl['long_url']) || $uri === $longurl['long_url']) return false;
@@ -830,13 +843,16 @@ function common_longurl($uri)  {
 }
 
 function common_shorten_links($text) {
+    if (mb_strlen($text) <= 140) return $text;
+    static $cache = array();
+    if (isset($cache[$text])) return $cache[$text];
     // \s = not a horizontal whitespace character (since PHP 5.2.4)
-	// RYM this should prevent * preceded URLs from being processed but it its a char
-//	$r = preg_replace('@[^*](https?://[^)\]>\s]+)@e', "common_shorten_link('\\1')", $r);
-	return preg_replace('@https?://[^)\]>\s]+@e', "common_shorten_link('\\0')", $text);
+	return $cache[$text] = preg_replace('@https?://[^)\]>\s]+@e', "common_shorten_link('\\0')", $text);
 }
 
-function common_shorten_link($long_url) {
+function common_shorten_link($url, $reverse = false) {
+	static $url_cache = array();
+    if ($reverse) return isset($url_cache[$url]) ? $url_cache[$url] : $url;
 
 	$user = common_current_user();
 
@@ -848,38 +864,38 @@ function common_shorten_link($long_url) {
 	switch($user->urlshorteningservice) {
         case 'ur1.ca':
             $short_url_service = new LilUrl;
-            $short_url = $short_url_service->shorten($long_url);
+            $short_url = $short_url_service->shorten($url);
             break;
 
         case '2tu.us':
             $short_url_service = new TightUrl;
-            $short_url = $short_url_service->shorten($long_url);
+            $short_url = $short_url_service->shorten($url);
             break;
 
         case 'ptiturl.com':
             $short_url_service = new PtitUrl;
-            $short_url = $short_url_service->shorten($long_url);
+            $short_url = $short_url_service->shorten($url);
             break;
 
         case 'bit.ly':
-			curl_setopt($curlh, CURLOPT_URL, 'http://bit.ly/api?method=shorten&long_url='.urlencode($long_url));
+			curl_setopt($curlh, CURLOPT_URL, 'http://bit.ly/api?method=shorten&long_url='.urlencode($url));
 			$short_url = current(json_decode(curl_exec($curlh))->results)->hashUrl;
             break;
 
 		case 'is.gd':
-			curl_setopt($curlh, CURLOPT_URL, 'http://is.gd/api.php?longurl='.urlencode($long_url));
+			curl_setopt($curlh, CURLOPT_URL, 'http://is.gd/api.php?longurl='.urlencode($url));
 			$short_url = curl_exec($curlh);
 			break;
 		case 'snipr.com':
-			curl_setopt($curlh, CURLOPT_URL, 'http://snipr.com/site/snip?r=simple&link='.urlencode($long_url));
+			curl_setopt($curlh, CURLOPT_URL, 'http://snipr.com/site/snip?r=simple&link='.urlencode($url));
 			$short_url = curl_exec($curlh);
 			break;
 		case 'metamark.net':
-			curl_setopt($curlh, CURLOPT_URL, 'http://metamark.net/api/rest/simple?long_url='.urlencode($long_url));
+			curl_setopt($curlh, CURLOPT_URL, 'http://metamark.net/api/rest/simple?long_url='.urlencode($url));
 			$short_url = curl_exec($curlh);
 			break;
 		case 'tinyurl.com':
-			curl_setopt($curlh, CURLOPT_URL, 'http://tinyurl.com/api-create.php?url='.urlencode($long_url));
+			curl_setopt($curlh, CURLOPT_URL, 'http://tinyurl.com/api-create.php?url='.urlencode($url));
 			$short_url = curl_exec($curlh);
 			break;
 		default:
@@ -889,9 +905,10 @@ function common_shorten_link($long_url) {
 	curl_close($curlh);
 
 	if ($short_url) {
-		return $short_url;
+        $url_cache[(string)$short_url] = $url;
+		return (string)$short_url;
 	}
-	return $long_url;
+	return $url;
 }
 
 function common_xml_safe_str($str) {
@@ -919,9 +936,9 @@ function common_at_link($sender_id, $nickname) {
 	$sender = Profile::staticGet($sender_id);
 	$recipient = common_relative_profile($sender, common_canonical_nickname($nickname));
 	if ($recipient) {
-		return '<a href="'.htmlspecialchars($recipient->profileurl).'" class="atlink">'.$nickname.'</a>';
+		return '<span class="vcard"><a class="fn nickname url atlink" rel="reply" href="'.htmlspecialchars($recipient->profileurl).'">'.$nickname.'</a></span>';
 	} else {
-		return $nickname;
+		return '<span class="vcard"> <span class="fn nickname">'.$nickname.'</span> </span>';
 	}
 }
 
@@ -1048,6 +1065,8 @@ function common_fancy_url($action, $args=NULL) {
 		}
 	 case 'publicrss':
 		return common_path('rss');
+	 case 'publicatom':
+		return common_path("api/statuses/public_timeline.atom");
 	 case 'publicxrds':
 		return common_path('xrds');
 	 case 'featuredrss':
@@ -1062,6 +1081,7 @@ function common_fancy_url($action, $args=NULL) {
                 }
 	 case 'doc':
 		return common_path('doc/'.$args['title']);
+     case 'block':
 	 case 'login':
 	 case 'logout':
 	 case 'subscribe':
@@ -1098,6 +1118,8 @@ function common_fancy_url($action, $args=NULL) {
 		return common_path('settings/twitter');
  	 case 'othersettings':
 		return common_path('settings/other');
+     case 'deleteprofile':
+        return common_path('settings/delete');
 	 case 'newnotice':
 		if ($args && $args['replyto']) {
 			return common_path('notice/new?replyto='.$args['replyto']);
@@ -1144,6 +1166,8 @@ function common_fancy_url($action, $args=NULL) {
 	 case 'repliesrss':
 		return common_path($args['nickname'].'/replies/rss');
 	 case 'userrss':
+        if (isset($args['limit']))
+		    return common_path($args['nickname'].'/rss?limit=' . $args['limit']);
 		return common_path($args['nickname'].'/rss');
 	 case 'showstream':
 		if ($args && isset($args['page'])) {
@@ -1378,6 +1402,11 @@ function common_save_replies($notice) {
 				$notice->update($orig);
 			}
 		}
+        # Don't save replies from blocked profile to local user
+        $recipient_user = User::staticGet('id', $recipient->id);
+        if ($recipient_user && $recipient_user->hasBlocked($sender)) {
+            continue;
+        }
 		$reply = new Reply();
 		$reply->notice_id = $notice->id;
 		$reply->profile_id = $recipient->id;
@@ -1399,6 +1428,11 @@ function common_save_replies($notice) {
 			$tagged = Profile_tag::getTagged($sender->id, $tag);
 			foreach ($tagged as $t) {
 				if (!$replied[$t->id]) {
+                    # Don't save replies from blocked profile to local user
+                    $t_user = User::staticGet('id', $t->id);
+                    if ($t_user && $t_user->hasBlocked($sender)) {
+                        continue;
+                    }
 					$reply = new Reply();
 					$reply->notice_id = $notice->id;
 					$reply->profile_id = $t->id;
@@ -1742,7 +1776,7 @@ function common_pagination($have_before, $have_after, $page, $action, $args=NULL
 		$newargs = ($args) ? array_merge($args,$pargs) : $pargs;
 
 		common_element_start('li', 'before');
-		common_element('a', array('href' => common_local_url($action, $newargs)),
+		common_element('a', array('href' => common_local_url($action, $newargs), 'rel' => 'prev'),
 					   _('« After'));
 		common_element_end('li');
 	}
@@ -1751,7 +1785,7 @@ function common_pagination($have_before, $have_after, $page, $action, $args=NULL
 		$pargs = array('page' => $page+1);
 		$newargs = ($args) ? array_merge($args,$pargs) : $pargs;
 		common_element_start('li', 'after');
-		common_element('a', array('href' => common_local_url($action, $newargs)),
+		common_element('a', array('href' => common_local_url($action, $newargs), 'rel' => 'next'),
 						   _('Before »'));
 		common_element_end('li');
 	}
@@ -2027,15 +2061,15 @@ function common_nudge_response() {
 }
 
 function common_subscribe_form($profile) {
-	common_element_start('form', array('id' => 'subscribe-' . $profile->nickname,
+	common_element_start('form', array('id' => 'subscribe-' . $profile->id,
 									   'method' => 'post',
 									   'class' => 'subscribe',
 									   'action' => common_local_url('subscribe')));
 	common_hidden('token', common_session_token());
-	common_element('input', array('id' => 'subscribeto-' . $profile->nickname,
+	common_element('input', array('id' => 'subscribeto-' . $profile->id,
 								  'name' => 'subscribeto',
 								  'type' => 'hidden',
-								  'value' => $profile->nickname));
+								  'value' => $profile->id));
 	common_element('input', array('type' => 'submit',
 								  'class' => 'submit',
 								  'value' => _('Subscribe')));
@@ -2043,15 +2077,15 @@ function common_subscribe_form($profile) {
 }
 
 function common_unsubscribe_form($profile) {
-	common_element_start('form', array('id' => 'unsubscribe-' . $profile->nickname,
+	common_element_start('form', array('id' => 'unsubscribe-' . $profile->id,
 									   'method' => 'post',
 									   'class' => 'unsubscribe',
 									   'action' => common_local_url('unsubscribe')));
 	common_hidden('token', common_session_token());
-	common_element('input', array('id' => 'unsubscribeto-' . $profile->nickname,
+	common_element('input', array('id' => 'unsubscribeto-' . $profile->id,
 								  'name' => 'unsubscribeto',
 								  'type' => 'hidden',
-								  'value' => $profile->nickname));
+								  'value' => $profile->id));
 	common_element('input', array('type' => 'submit',
 								  'class' => 'submit',
 								  'value' => _('Unsubscribe')));
@@ -2150,3 +2184,37 @@ function common_compatible_license($from, $to) {
 	# XXX: better compatibility check needed here!
 	return ($from == $to);
 }
+
+/* These are almost identical, so we use a helper function */
+
+function common_block_form($profile, $args=NULL) {
+    common_blocking_form('block', _('Block'), $profile, $args);
+}
+
+function common_unblock_form($profile, $args=NULL) {
+    common_blocking_form('unblock', _('Unblock'), $profile, $args);
+}
+
+function common_blocking_form($type, $label, $profile, $args=NULL) {
+    common_element_start('form', array('id' => $type . '-' . $profile->id,
+                                       'method' => 'post',
+                                       'class' => $type,
+                                       'action' => common_local_url($type)));
+    common_hidden('token', common_session_token());
+    common_element('input', array('id' => $type . 'to-' . $profile->id,
+                                  'name' => $type . 'to',
+                                  'type' => 'hidden',
+                                  'value' => $profile->id));
+    common_element('input', array('type' => 'submit',
+                                  'class' => 'submit',
+                                  'name' => $type,
+                                  'value' => $label));
+    if ($args) {
+        foreach ($args as $k => $v) {
+            common_hidden('returnto-' . $k, $v);
+        }
+    }
+    common_element_end('form');
+    return;
+}
+

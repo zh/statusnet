@@ -41,7 +41,6 @@ class FinishremotesubscribeAction extends Action {
 
 		common_debug('stored request: '.print_r($omb,true), __FILE__);
 
-
 		common_remove_magic_from_request();
 		$req = OAuthRequest::from_request();
 
@@ -84,7 +83,7 @@ class FinishremotesubscribeAction extends Action {
 			common_user_error(_('You can use the local subscription!'));
 		    return;
 		}
-			
+
 		common_debug('listenee: "'.$omb['listenee'].'"', __FILE__);
 
 		$user = User::staticGet('nickname', $omb['listenee']);
@@ -95,12 +94,12 @@ class FinishremotesubscribeAction extends Action {
 		}
 
 		$other = User::staticGet('uri', $omb['listener']);
-		
+
 		if ($other) {
 			common_user_error(_('You can use the local subscription!'));
 			return;
 		}
-			
+
 		$fullname = $req->get_parameter('omb_listener_fullname');
 		$homepage = $req->get_parameter('omb_listener_homepage');
 		$bio = $req->get_parameter('omb_listener_bio');
@@ -183,6 +182,11 @@ class FinishremotesubscribeAction extends Action {
 			}
 		}
 
+        if ($user->hasBlocked($remote->id)) {
+            $this->client_error(_('That user has blocked you from subscribing.'));
+            return;
+        }
+
 		$sub = new Subscription();
 		$sub->subscriber = $remote->id;
 		$sub->subscribed = $user->id;
@@ -196,9 +200,9 @@ class FinishremotesubscribeAction extends Action {
 		}
 
 		# Notify user, if necessary
-		
+
 		mail_subscribe_notify_profile($user, $profile);
-		
+
 		# Clear the data
 		unset($_SESSION['oauth_authorization_request']);
 
@@ -250,7 +254,8 @@ class FinishremotesubscribeAction extends Action {
 
 		$fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
 		$result = $fetcher->post($req->get_normalized_http_url(),
-								 $req->to_postdata());
+								 $req->to_postdata(),
+                                 array('User-Agent' => 'Laconica/' . LACONICA_VERSION));
 
 		common_debug('got result: "'.print_r($result,TRUE).'"', __FILE__);
 

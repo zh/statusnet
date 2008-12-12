@@ -30,7 +30,6 @@ h1 {
 	font-size: 14px;
 	}
 
-
 #wrap {
 	margin: 0 auto;
 	padding: 0 20px;
@@ -72,6 +71,8 @@ p#branding a {
 	padding: 0;
 	color: #fff6d5;
 }
+
+abbr.published { border-bottom:0; }
 
 /* ===== Begin Navigation Styling ===== */
 
@@ -138,7 +139,6 @@ p#branding a {
 	border-right: 1px solid #dcaa3f;
 	}
 
-
 .feeds {
 clear:both;
 float:right;
@@ -179,7 +179,6 @@ padding-top:2px;
 padding-left:30px;
 }
 
-
 form#disfavor, form.disfavor,
 form#favor, form.favor  {
 	float: right;
@@ -208,7 +207,6 @@ input#disfavor, input.disfavor {
 	background-color:#f3f8ea;
 }
 
-
 /*profile_actions*/
 #profile_actions {
 padding-left:0;
@@ -220,11 +218,12 @@ margin-bottom:0.5em;
 clear:both;
 }
 
-#profile_actions #profile_nudge input.submit {
-margin:0;
+#profile_actions #profile_nudge input.submit,
+#profile_actions #profile_block input.submit,
+.profile_single form.block input.submit {
+margin:0 0 0 -3px;
 padding:0;
-padding-left:17px;
-background:transparent url(icon_emote-wink.png) 0 1px no-repeat;
+background-color:transparent;
 color:#C15D42;
 font-family:Georgia,"Times New Roman",Times,serif;
 font-weight:normal;
@@ -233,24 +232,28 @@ text-align:left;
 float:left;
 line-height:18px;
 }
-#profile_actions #profile_nudge input.submit:hover {
+#profile_actions #profile_nudge input.submit:hover,
+#profile_actions #profile_block input.submit:hover {
 background-color:transparent;
 color:#C15D42;
 }
 
-#wrap #content input.processing {
-padding-left:17px;
-background:transparent url(icon_process-working.gif) 0 1px no-repeat;
-line-height:18px;
-}
-
 #wrap p#nudge_response {
-padding-left:20px;
-background:transparent url(icon_checkmark.gif) 0 1px no-repeat;
+background-color:transparent;
 line-height:18px;
 font-size:14px;
 }
+#wrap #profile_nudge input.disabled {
+color:#999;
+cursor:default;
+}
 
+
+#wrap form input.disabled,
+#wrap form input.disabled:hover {
+background-color:#999;
+cursor:default;
+}
 
 /* ----- Nav Footer ----- */
 #nav_sub {
@@ -308,14 +311,13 @@ font-size:14px;
 	}
 .instructions a:hover, .success a:hover, .error a:hover {
 	color: #fff6d5;
-	}		
+	}
 .success {
 	background-color: #48705b;
 	}
 .error {
 	background-color: #ce3728;
 	}
-
 
 /* ----- Stream -----*/
 
@@ -383,7 +385,7 @@ p.time {
 p.time a {
 	color: #dab134;
 	}
-	
+
 /* ----- Profile -----*/
 #profile {
 	clear: left;
@@ -463,7 +465,7 @@ dl.statistics {
 .statistics dt {
 	float: left;
 	width: 96px;
-}	
+}
 .statistics dd {
 	margin-left: 100px;
 }
@@ -509,8 +511,6 @@ ul.subscriptions li, ul.subscribers li {
 	padding: 0;
 	}
 /* ----- End Subscriptions & Subscribers -----*/
-
-
 
 #pagination {
 	margin: 18px auto;
@@ -600,7 +600,13 @@ input.checkbox {
 	height: 14px;*/
 	width: auto;
 	border: 0;
-	}	
+	}
+
+label.checkbox_label {
+    display: inline;
+    font-weight: normal;
+}
+
 textarea, input {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 12px;
@@ -683,8 +689,6 @@ textarea {
 background-color:#fee;
 }
 
-
-
 /* ----- Subscribe Form ----- */
 #content .subscribe .submit, #content .unsubscribe .submit, #remotesubscribe .button, #remotesubscribe {
 	clear: left;
@@ -748,7 +752,7 @@ input#openid_url {
 #profiles a:hover {
 	text-decoration: underline;
 	}
-	
+
 .profile_single {
 	clear: both;
 	display: block;
@@ -759,19 +763,37 @@ input#openid_url {
 	font-size: 13px;
 	line-height: 16px;
 	border-bottom: 1px solid #dec5b5;
+	width:100%;
+	float:left;
 	}
 .profile_single:hover {
 	background-color: #f7ebcc;
 	}
 
-.profile_single form.subscribe {
-        float: right;
+.profile_single form.block,
+.profile_single form.subscribe,
+.profile_single form.unsubscribe {
+	float: right;
 }
 
-.profile_single form.unsubscribe {
-        float: right;
+form.subedit {
+	margin-left:4.5em;
 }
-	
+form.subedit p {
+	display:inline;
+
+}
+form.subedit input.submit {
+	margin:0 0 0 0.5em;
+	display:inline;
+	background-color:transparent;
+	padding:0;
+	color:#C15D42;
+	border:1px solid #C15D42;
+}
+
+
+
 /* ----- IM Settings Form -----*/
 
 #imsettings p {
@@ -780,16 +802,13 @@ input#openid_url {
 	line-height: 15px;
 }
 
-
-
-
 /* ----- direct message ----- */
 
 #message_form {
 	height: 96px;
 	/*background-color: #F00;*/
 	}
-	
+
 #message_form p {
 	margin: 21px 0 0 0;
 	padding: 0;
@@ -797,7 +816,7 @@ input#openid_url {
 #message_form label {
 	display: inline;
 	}
-	
+
 #message_content {
 	display: block;
 	float: left;
@@ -809,7 +828,7 @@ input#openid_url {
 	color: #193441;
 	border: 0;
 	}
-	
+
 #message_send {
 	display: block;
 	float: left;
@@ -824,11 +843,10 @@ input#openid_url {
 	cursor: pointer;
 	border: 0;
 	}
-	
+
 #message_send:hover {
 	background-color: #904632;
 	}
-
 
 /* ===== End Forms Styling ===== */
 
@@ -870,7 +888,6 @@ p.tagcloud a.smallest {
 font-size: 60%;
 }
 
-
 #subscriptions_nav,
 #filter_tags {
 margin:0 0 2em 0;
@@ -910,7 +927,6 @@ border-left:0;
 padding-left:0;
 margin-left:0;
 }
-
 
 #filter_tags ul li {
 float:left;
@@ -958,9 +974,6 @@ margin:0;
 margin:0;
 }
 
-
-
-
 .tags_self,
 .tags_user {
 margin-left:4.5em;
@@ -982,7 +995,6 @@ margin-left:0;
 display:inline;
 }
 
-
 ul.tags {
 padding-left:0;
 margin-left:0;
@@ -999,10 +1011,8 @@ background:url(icon_tag-01.gif) no-repeat;
 line-height:1.5;
 }
 
-.tag_user {
-text-align:right;
-margin-top:0;
-margin-bottom:0;
+.tags_user {
+margin-bottom:0.5em;
 }
 
 form#tag_user {
@@ -1032,7 +1042,6 @@ margin:0 0 0.5em 0;
 .profile_list .bio {
 margin-left:4.5em;
 }
-
 
 /* ----- Mailbox ----- */
 #messages {

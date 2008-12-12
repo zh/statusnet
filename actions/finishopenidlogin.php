@@ -167,6 +167,13 @@ class FinishopenidloginAction extends Action {
 
 	function create_new_user() {
 
+        # FIXME: save invite code before redirect, and check here
+
+		if (common_config('site', 'closed') || common_config('site', 'inviteonly')) {
+			common_user_error(_('Registration not allowed.'));
+            return;
+        }
+
 		$nickname = $this->trimmed('newname');
 
 		if (!Validate::string($nickname, array('min_length' => 1,

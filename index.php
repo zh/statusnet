@@ -36,6 +36,16 @@ if (!$action || !preg_match('/^[a-zA-Z0-9_-]*$/', $action)) {
     common_redirect(common_local_url('public'));
 }
 
+// If the site is private, and they're not on one of the "public"
+// parts of the site, redirect to login
+
+if (!$user && common_config('site', 'private') &&
+    !in_array($action, array('login', 'openidlogin', 'finishopenidlogin',
+                             'recoverpassword', 'api', 'doc', 'register')))
+{
+    common_redirect(common_local_url('login'));
+}
+
 $actionfile = INSTALLDIR."/actions/$action.php";
 
 if (file_exists($actionfile)) {
@@ -52,7 +62,9 @@ if (file_exists($actionfile)) {
 		}
 		$config['db']['database'] = $mirror;
 	}
-    call_user_func(array($action_obj, 'handle'), $_REQUEST);
+    if (call_user_func(array($action_obj, 'prepare'), $_REQUEST)) {
+		call_user_func(array($action_obj, 'handle'), $_REQUEST);
+	}
 } else {
     common_user_error(_('Unknown action'));
 }

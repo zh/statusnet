@@ -158,7 +158,6 @@ class Rss10Action extends Action {
 		foreach ($this->creators as $uri => $profile) {
 			$id = $profile->id;
 			$nickname = $profile->nickname;
-
 			common_element_start('sioc:User', array('rdf:about' => $uri));
 			common_element('foaf:nick', NULL, $nickname);
 			if ($profile->fullname) {
@@ -173,7 +172,6 @@ class Rss10Action extends Action {
 
 	function init_rss() {
 		$channel = $this->get_channel();
-
 		header('Content-Type: application/rdf+xml');
 
 		common_start_xml();
@@ -194,7 +192,6 @@ class Rss10Action extends Action {
 		                                      'xmlns:laconica' =>
 		                                      'http://laconi.ca/ont/',
 											  'xmlns' => 'http://purl.org/rss/1.0/'));
-
 		common_element_start('sioc:Site', array('rdf:about' => common_root_url()));
 		common_element('sioc:name', NULL, common_config('site', 'name'));
 		common_element_start('sioc:container_of');

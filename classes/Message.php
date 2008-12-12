@@ -41,7 +41,7 @@ class Message extends Memcached_DataObject
 		
 		$msg->from_profile = $from;
 		$msg->to_profile = $to;
-		$msg->content = $content;
+		$msg->content = common_shorten_links($content);
 		$msg->rendered = common_render_text($content);
 		$msg->created = common_sql_now();
 		$msg->source = $source;

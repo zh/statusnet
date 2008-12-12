@@ -66,7 +66,7 @@ class FavorAction extends Action {
 		$user->blowFavesCache();
 		
 		if ($this->boolean('ajax')) {
-			common_start_html('text/xml');
+			common_start_html('text/xml;charset=utf-8', true);
 			common_element_start('head');
 			common_element('title', null, _('Disfavor favorite'));
 			common_element_end('head');

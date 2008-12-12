@@ -10,11 +10,11 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.	 If not, see <http://www.gnu.org/licenses/>.
  */
 
 if (!defined('LACONICA')) { exit(1); }
@@ -31,27 +31,27 @@ define('NOTICE_CACHE_WINDOW', 61);
 
 class Notice extends Memcached_DataObject
 {
-    ###START_AUTOCODE
-    /* the code below is auto generated do not remove the above tag */
+	###START_AUTOCODE
+	/* the code below is auto generated do not remove the above tag */
 
-    public $__table = 'notice';                          // table name
-    public $id;                              // int(4)  primary_key not_null
-    public $profile_id;                      // int(4)   not_null
-    public $uri;                             // varchar(255)  unique_key
-    public $content;                         // varchar(140)
-    public $rendered;                        // text()
-    public $url;                             // varchar(255)
-    public $created;                         // datetime()   not_null
-    public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
-    public $reply_to;                        // int(4)
-    public $is_local;                        // tinyint(1)
-    public $source;                          // varchar(32)
+	public $__table = 'notice';							 // table name
+	public $id;								 // int(4)	primary_key not_null
+	public $profile_id;						 // int(4)	 not_null
+	public $uri;							 // varchar(255)  unique_key
+	public $content;						 // varchar(140)
+	public $rendered;						 // text()
+	public $url;							 // varchar(255)
+	public $created;						 // datetime()	 not_null
+	public $modified;						 // timestamp()	  not_null default_CURRENT_TIMESTAMP
+	public $reply_to;						 // int(4)
+	public $is_local;						 // tinyint(1)
+	public $source;							 // varchar(32)
 
-    /* Static get */
-    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Notice',$k,$v); }
+	/* Static get */
+	function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Notice',$k,$v); }
 
-    /* the code above is auto generated do not remove the tag below */
-    ###END_AUTOCODE
+	/* the code above is auto generated do not remove the tag below */
+	###END_AUTOCODE
 
 	function getProfile() {
 		return Profile::staticGet('id', $this->profile_id);
@@ -61,7 +61,7 @@ class Notice extends Memcached_DataObject
 		$this->blowCaches(true);
 		$this->blowFavesCache(true);
 		$this->blowInboxes();
-		parent::delete();
+		return parent::delete();
 	}
 
 	function saveTags() {
@@ -127,7 +127,7 @@ class Notice extends Memcached_DataObject
 
 		$notice->reply_to = $reply_to;
 		$notice->created = common_sql_now();
-		$notice->content = $content;
+		$notice->content = common_shorten_links($content);
 		$notice->rendered = common_render_content($notice->content, $notice);
 		$notice->source = $source;
 		$notice->uri = $uri;
@@ -293,25 +293,25 @@ class Notice extends Memcached_DataObject
 	# XXX: too many args; we need to move to named params or even a separate
 	# class for notice streams
 
-	static function getStream($qry, $cachekey, $offset=0, $limit=20, $since_id=0, $before_id=0, $order=NULL) {
+	static function getStream($qry, $cachekey, $offset=0, $limit=20, $since_id=0, $before_id=0, $order=NULL, $since=NULL) {
 
 		if (common_config('memcached', 'enabled')) {
 
-			# Skip the cache if this is a since_id or before_id qry
-			if ($since_id > 0 || $before_id > 0) {
-				return Notice::getStreamDirect($qry, $offset, $limit, $since_id, $before_id, $order);
+			# Skip the cache if this is a since, since_id or before_id qry
+			if ($since_id > 0 || $before_id > 0 || $since) {
+				return Notice::getStreamDirect($qry, $offset, $limit, $since_id, $before_id, $order, $since);
 			} else {
 				return Notice::getCachedStream($qry, $cachekey, $offset, $limit, $order);
 			}
 		}
 
-		return Notice::getStreamDirect($qry, $offset, $limit, $since_id, $before_id, $order);
+		return Notice::getStreamDirect($qry, $offset, $limit, $since_id, $before_id, $order, $since);
 	}
 
-	static function getStreamDirect($qry, $offset, $limit, $since_id, $before_id, $order) {
+	static function getStreamDirect($qry, $offset, $limit, $since_id, $before_id, $order, $since) {
 
 		$needAnd = FALSE;
-	  	$needWhere = TRUE;
+		$needWhere = TRUE;
 
 		if (preg_match('/\bWHERE\b/i', $qry)) {
 			$needWhere = FALSE;
@@ -321,25 +321,37 @@ class Notice extends Memcached_DataObject
 		if ($since_id > 0) {
 
 			if ($needWhere) {
-		    	$qry .= ' WHERE ';
+				$qry .= ' WHERE ';
 				$needWhere = FALSE;
 			} else {
 				$qry .= ' AND ';
 			}
 
-		    $qry .= ' notice.id > ' . $since_id;
+			$qry .= ' notice.id > ' . $since_id;
 		}
 
 		if ($before_id > 0) {
 
 			if ($needWhere) {
-		    	$qry .= ' WHERE ';
+				$qry .= ' WHERE ';
 				$needWhere = FALSE;
 			} else {
 				$qry .= ' AND ';
 			}
 
 			$qry .= ' notice.id < ' . $before_id;
+		}
+
+		if ($since) {
+
+			if ($needWhere) {
+				$qry .= ' WHERE ';
+				$needWhere = FALSE;
+			} else {
+				$qry .= ' AND ';
+			}
+
+			$qry .= ' notice.created > \'' . date('Y-m-d H:i:s', $since) . '\'';
 		}
 
 		# Allow ORDER override
@@ -371,7 +383,7 @@ class Notice extends Memcached_DataObject
 		# If outside our cache window, just go to the DB
 
 		if ($offset + $limit > NOTICE_CACHE_WINDOW) {
-			return Notice::getStreamDirect($qry, $offset, $limit, NULL, NULL, $order);
+			return Notice::getStreamDirect($qry, $offset, $limit, NULL, NULL, $order, NULL);
 		}
 
 		# Get the cache; if we can't, just go to the DB
@@ -379,7 +391,7 @@ class Notice extends Memcached_DataObject
 		$cache = common_memcache();
 
 		if (!$cache) {
-			return Notice::getStreamDirect($qry, $offset, $limit, NULL, NULL, $order);
+			return Notice::getStreamDirect($qry, $offset, $limit, NULL, NULL, $order, NULL);
 		}
 
 		# Get the notices out of the cache
@@ -411,7 +423,7 @@ class Notice extends Memcached_DataObject
 			# bet with our DB.
 
 			$new_notice = Notice::getStreamDirect($qry, 0, NOTICE_CACHE_WINDOW,
-												  $last_id, NULL, $order);
+												  $last_id, NULL, $order, NULL);
 
 			if ($new_notice) {
 				$new_notices = array();
@@ -435,7 +447,7 @@ class Notice extends Memcached_DataObject
 
 		# Otherwise, get the full cache window out of the DB
 
-		$notice = Notice::getStreamDirect($qry, 0, NOTICE_CACHE_WINDOW, NULL, NULL, $order);
+		$notice = Notice::getStreamDirect($qry, 0, NOTICE_CACHE_WINDOW, NULL, NULL, $order, NULL);
 
 		# If there are no hits, just return the value
 
@@ -465,7 +477,7 @@ class Notice extends Memcached_DataObject
 		return $wrapper;
 	}
 
-	function publicStream($offset=0, $limit=20, $since_id=0, $before_id=0) {
+	function publicStream($offset=0, $limit=20, $since_id=0, $before_id=0, $since=NULL) {
 
 		$parts = array();
 
@@ -484,7 +496,7 @@ class Notice extends Memcached_DataObject
 
 		return Notice::getStream($qry,
 								 'public',
-								 $offset, $limit, $since_id, $before_id);
+								 $offset, $limit, $since_id, $before_id, NULL, $since);
 	}
 
 	function addToInboxes() {

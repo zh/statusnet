@@ -35,6 +35,8 @@ class ProfilesettingsAction extends SettingsAction {
 		$this->show_avatar_form();
 		common_element('h2', NULL, _('Change password'));
 		$this->show_password_form();
+//		common_element('h2', NULL, _('Delete my account'));
+//		$this->show_delete_form();
 		common_show_footer();
 	}
 
@@ -55,6 +57,7 @@ class ProfilesettingsAction extends SettingsAction {
 		} else if ($this->arg('changepass')) {
 			$this->change_password();
 		}
+
 	}
 
 	function show_settings_form() {
@@ -433,5 +436,4 @@ class ProfilesettingsAction extends SettingsAction {
 
 		$this->show_form(_('Password saved.'), true);
 	}
-
 }

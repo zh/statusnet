@@ -20,7 +20,7 @@
 if (!defined('LACONICA')) { exit(1); }
 
 class SubscribeAction extends Action {
-	
+
 	function handle($args) {
 		parent::handle($args);
 
@@ -39,30 +39,35 @@ class SubscribeAction extends Action {
 		# CSRF protection
 
 		$token = $this->trimmed('token');
-		
+
 		if (!$token || $token != common_session_token()) {
 			$this->client_error(_('There was a problem with your session token. Try again, please.'));
 			return;
 		}
 
-		$other_nickname = $this->arg('subscribeto');
+		$other_id = $this->arg('subscribeto');
 
-		$result=subs_subscribe_user($user, $other_nickname);
-		
+        $other = User::staticGet('id', $other_id);
+
+        if (!$other) {
+			$this->client_error(_('Not a local user.'));
+			return;
+        }
+
+		$result = subs_subscribe_to($user, $other);
+
 		if($result != true) {
 			common_user_error($result);
 			return;
 		}
 
-		$cur = common_current_user();
-		$profile = Profile::staticGet('nickname', $other_nickname);
 		if ($this->boolean('ajax')) {
-			common_start_html('text/xml');
+			common_start_html('text/xml;charset=utf-8', true);
 			common_element_start('head');
 			common_element('title', null, _('Subscribed'));
 			common_element_end('head');
 			common_element_start('body');
-			common_unsubscribe_form($profile);
+			common_unsubscribe_form($other->getProfile());
 			common_element_end('body');
 			common_element_end('html');
 		} else {

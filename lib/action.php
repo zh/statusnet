@@ -26,6 +26,24 @@ class Action { // lawsuit
 	function Action() {
 	}
 
+	# For initializing members of the class
+
+	function prepare($argarray) {
+		$this->args =& common_copy_args($argarray);
+		return true;
+	}
+
+	# For comparison with If-Last-Modified
+	# If not applicable, return NULL
+
+	function last_modified() {
+		return NULL;
+	}
+
+	function etag() {
+		return NULL;
+	}
+
 	function is_readonly() {
 		return false;
 	}
@@ -43,8 +61,35 @@ class Action { // lawsuit
 		return (is_string($arg)) ? trim($arg) : $arg;
 	}
 
-	function handle($argarray) {
-		$this->args =& common_copy_args($argarray);
+	# Note: argarray ignored, since it's now passed in in prepare()
+
+	function handle($argarray=NULL) {
+
+		$lm = $this->last_modified();
+		$etag = $this->etag();
+
+		if ($etag) {
+			header('ETag: ' . $etag);
+		}
+
+		if ($lm) {
+			header('Last-Modified: ' . date(DATE_RFC1123, $lm));
+			$if_modified_since = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
+			if ($if_modified_since) {
+				$ims = strtotime($if_modified_since);
+				if ($lm <= $ims) {
+					if (!$etag || $this->_has_etag($etag, $_SERVER['HTTP_IF_NONE_MATCH'])) {
+						header('HTTP/1.1 304 Not Modified');
+						# Better way to do this?
+						exit(0);
+					}
+				}
+			}
+		}
+	}
+
+	function _has_etag($etag, $if_none_match) {
+		return ($if_none_match) && in_array($etag, explode(',', $if_none_match));
 	}
 
 	function boolean($key, $def=false) {
@@ -59,7 +104,7 @@ class Action { // lawsuit
 		} else {
 			return $def;
 		}
-	}	
+	}
 
 	function server_error($msg, $code=500) {
 		$action = $this->trimmed('action');

@@ -36,7 +36,7 @@ class ShortUrlApi {
     }
 
     private function is_long($url) {
-        return strlen($url) > 20;
+        return strlen($url) >= 30;
     }
 
     protected function http_post($data) {
@@ -76,7 +76,9 @@ class LilUrl extends ShortUrlApi {
         $data['longurl'] = $url;
         $response = $this->http_post($data);
         if (!$response) return $url;
-        $x = simplexml_load_string($response)->body->p[0]->a->attributes();
+        $y = @simplexml_load_string($response);
+        if (!isset($y->body)) return $url;
+        $x = $y->body->p[0]->a->attributes();
         if (isset($x['href'])) return $x['href'];
         return $url;
     }
@@ -92,7 +94,9 @@ class PtitUrl extends ShortUrlApi {
         $response = $this->http_get($url);
         if (!$response) return $url;
         $response = $this->tidy($response);
-        $xml = simplexml_load_string($response)->body->center->table->tr->td->pre->a->attributes();
+        $y = @simplexml_load_string($response);
+        if (!isset($y->body)) return $url;
+        $xml = $y->body->center->table->tr->td->pre->a->attributes();
         if (isset($xml['href'])) return $xml['href'];
         return $url;
     }
@@ -107,10 +111,11 @@ class TightUrl extends ShortUrlApi {
         $response = $this->http_get($url);
         if (!$response) return $url;
         $response = $this->tidy($response);
-        $xml = simplexml_load_string($response)->body->p[0]->code[0]->a->attributes();
+        $y = @simplexml_load_string($response);
+        if (!isset($y->body)) return $url;
+        $xml = $y->body->p[0]->code[0]->a->attributes();
         if (isset($xml['href'])) return $xml['href'];
         return $url;
     }
 }
-
 

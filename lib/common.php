@@ -19,7 +19,7 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-define('LACONICA_VERSION', '0.6.3');
+define('LACONICA_VERSION', '0.6.4');
 
 define('AVATAR_PROFILE_SIZE', 96);
 define('AVATAR_STREAM_SIZE', 48);
@@ -69,7 +69,8 @@ $config =
 			  'timezone' => 'UTC',
 			  'broughtbyurl' => NULL,
 			  'closed' => false,
-			  'inviteonly' => false),
+			  'inviteonly' => false,
+              'private' => false),
 		'syslog' =>
 		array('appname' => 'laconica', # for syslog
 			  'priority' => 'debug'), # XXX: currently ignored

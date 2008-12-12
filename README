@@ -2,8 +2,8 @@
 README
 ------
 
-Laconica 0.6.3 ("Gardening at Night")
-24 November 2008
+Laconica 0.6.4 ("Catapult")
+11 December 2008
 
 This is the README file for Laconica, the Open Source microblogging
 platform. It includes installation instructions, descriptions of
@@ -72,35 +72,55 @@ New this version
 ================
 
 This is a minor feature and security improvement version from version
-0.6.2 (release 13 Nov 2008). Notable features of version 0.6.3 include:
+0.6.3 (release 24 Nov 2008). Notable features of version 0.6.4 include:
 
-- 'nudge' functionality to tell a user that they're missed.
-- Links to related RSS/Atom feeds on all pages.
-- Favor/disfavor icons changed to images.
-- Better checks to prevent remote subscribing to a local user, causing
-  "ghost profiles" (dupes in people search or subscriptions lists).
-- Twitter friend sync. Users who set up their Twitter accounts will
-  be automatically connected to other local users who have Twitter
-  accounts and who they're subscribed to on Twitter.
-- List view of subscriptions/subscribers.
-- Subscribe/unsubscribe button on subscriptions/subscribers list.
-- Optionally hide certain users from the public stream.
-- Give public area a few more tabs.
-- Add Featured users tab to public area.
-- Add Most favorited notices tab to public area.
-- Users can give themselves tags.
-- Users can tag their subscribers or subscriptions.
-- Users can send @-replies to tagged subsets of their contact list
-  using @#tag.
-- Subscribe/unsubscribe with Ajax form.
-- Post notice with Ajax form.
-- Script to optionally add notice inboxes for only some users.
-- Incremental caching of notice streams using memcached.
-- Use cached favorites info to avoid excess DB hits for faves.
-- Optionally use Sphinx Search for notice search.
-- Optionally use Sphinx Search for people search.
-- FOAF URL link on profile page.
-- HTML correction for repeated @id attributes in favorites forms.
+- "private" installs won't show any data to the outside world; redirect
+  non-logged-in users to login. (See "Private" below)
+- Ability to "block" a subscriber, which forces them to unsubscribe,
+  doesn't allow them to subscribe again, and doesn't allow them to send
+  @-replies
+- Fine-grained control of subscriptions; users can choose not to receive
+  notices from other users over SMS, or IM, or both
+- support for Mozilla microsummaries
+  (https://wiki.mozilla.org/Microsummaries)
+- more efficient support for blacklisting users from the public page
+- instructions on the public page for people who aren't logged in
+- better registration instructions
+- a check for license compatibility in receiving OMB notices
+- HTML output in RSS 1.0, 2.0, and Atom feeds
+- tuned and more reliable 'rememberme' cookies for username/password
+  and OpenID logins
+- a utility for setting user passwords
+- a "ban" configuration variable to ban certain users from posting
+  notices
+- an configurable posting throttle to keep any one user from flooding
+  the site with messages.
+- fine-tuned url-shortening: only shorten if it's needed, only expand
+  certain URLs, and handle failure of URL-shortening services reliably
+- disable Ajax input for notices, subscribe, nudge, while the
+  request is processing
+- early implementation of support for Last-Modified and ETag-based
+  caching
+- initial microformats support
+- redirect on bad nicknames in URLs
+- correctly send emails in recipient's, not sender's, language
+- correct email content type
+- Change "Most Favorited" page to "Popular"
+- properly support the "since" parameter in API calls
+- Fix for changes in validate_credentials API call for the Twitter
+  bridge
+- Fix for fatal error when sending email confirmation on registration
+- Better replies for commands sent through the Ajax channel
+- Add a User-Agent string for OMB requests
+- Upgrade upstream library XMPPHP
+- Upgrade upstream library JQuery Forms
+- Code cleanup: checkboxes have proper <label> elements
+- Code cleanup: consolidated various notice-listing code in one place
+- Better support for unsubscribing from a remote user
+- Stump of experimental Facebook application (not ready for use! code
+  review only!)
+- Stump of experimental user account deletion (not ready for use! code
+  review only!)
 
 Prerequisites
 =============
@@ -117,7 +137,7 @@ run correctly.
   *must* support the MyISAM storage engine -- the default for most
   MySQL servers -- *and* the InnoDB storage engine.
 - A Web server. Preferably, you should have Apache 2.2.x with the
-  mod_rewrite extension installed and enabled. 
+  mod_rewrite extension installed and enabled.
 
 Your PHP installation must include the following PHP extensions:
 
@@ -168,7 +188,7 @@ and the URLs are listed here for your convenience.
   but won't work with OpenID.
   http://pear.php.net/package/DB
 - OAuth.php from http://oauth.googlecode.com/svn/code/php/
-- markdown.php from http://michelf.com/projects/php-markdown/ 
+- markdown.php from http://michelf.com/projects/php-markdown/
 - PEAR Mail, for sending out mail notifications
   http://pear.php.net/package/Mail
 - PEAR Net_SMTP, if you use the SMTP factory for notifications
@@ -198,32 +218,32 @@ especially if you've previously installed PHP/MySQL packages.
 
 1. Unpack the tarball you downloaded on your Web server. Usually a
    command like this will work:
-   
-   	   tar zxf laconica-0.6.2.tar.gz
-   
-   ...which will make a laconica-0.6.2 subdirectory in your current
+
+   	   tar zxf laconica-0.6.4.tar.gz
+
+   ...which will make a laconica-0.6.4 subdirectory in your current
    directory. (If you don't have shell access on your Web server, you
    may have to unpack the tarball on your local computer and FTP the
    files to the server.)
-   
+
 2. Move the tarball to a directory of your choosing in your Web root
    directory. Usually something like this will work:
-   
-   	   mv laconica-0.6.2 /var/www/mublog
-   
+
+   	   mv laconica-0.6.4 /var/www/mublog
+
    This will make your Laconica instance available in the mublog path of
    your server, like "http://example.net/mublog". "microblog" or
    "laconica" might also be good path names. If you know how to
    configure virtual hosts on your web server, you can try setting up
    "http://micro.example.net/" or the like.
-   
+
 3. You should also take this moment to make your avatar subdirectory
    writeable by the Web server. An insecure way to do this is:
-   
+
    	  chmod a+w /var/www/mublog/avatar
-   
+
    On some systems, this will probably work:
-   
+
       	   chgrp www-data /var/www/mublog/avatar
 	   chmod g+w /var/www/mublog/avatar
 
@@ -233,13 +253,13 @@ especially if you've previously installed PHP/MySQL packages.
 
 4. Create a database to hold your microblog data. Something like this
    should work:
-   
+
    	  mysqladmin -u "username" --password="password" create laconica
-   
+
    Note that Laconica must have its own database; you can't share the
    database with another program. You can name it whatever you want,
    though.
-   
+
    (If you don't have shell access to your server, you may need to use
    a tool like PHPAdmin to create a database. Check your hosting
    service's documentation for how to create a new MySQL database.)
@@ -252,22 +272,22 @@ especially if you've previously installed PHP/MySQL packages.
 
    You may want to test by logging into the database and checking that
    the tables were created. Here's an example:
-   
+
           SHOW TABLES;
-	  
+
 6. Create a new database account that Laconica will use to access the
    database. If you have shell access, this will probably work from the
    MySQL shell:
-   
+
           GRANT SELECT,INSERT,DELETE,UPDATE on laconica.*
 	  TO 'lacuser'@'localhost'
 	  IDENTIFIED BY 'lacpassword';
-	  
+
    You should change 'lacuser' and 'lacpassword' to your preferred new
    username and password. You may want to test logging in as this new
    user and testing that you can SELECT from some of the tables in the
    DB (use SHOW TABLES to see which ones are there).
-   
+
 7. Copy the config.php.sample in the Laconica directory to config.php.
 
 8. Edit config.php to set the basic configuration for your system.
@@ -282,8 +302,8 @@ especially if you've previously installed PHP/MySQL packages.
    will be empty. If not, magic has happened! You can now register a
    new user, post some notices, edit your profile, etc. However, you
    may want to wait to do that stuff if you think you can set up
-   "fancy URLs" (see below), since some URLs are stored in the database. 
-   
+   "fancy URLs" (see below), since some URLs are stored in the database.
+
 Fancy URLs
 ----------
 
@@ -308,7 +328,7 @@ in your server.
    import the .htaccess file into your conf file instead. If you're
    not sure how to do it, you may save yourself a lot of headache by
    just leaving the .htaccess file.
-   
+
 2. Change the "RewriteBase" in the new .htaccess file to be the URL path
    to your Laconica installation on your server. Typically this will
    be the path to your Laconica directory relative to your Web root.
@@ -316,7 +336,7 @@ in your server.
 3. Add or uncomment or change a line in your config.php file so it says:
 
        $config['site']['fancy'] = true;
-       
+
 You should now be able to navigate to a "fancy" URL on your server,
 like:
 
@@ -375,27 +395,27 @@ For this to work, there *must* be a domain or sub-domain for which all
 
 2. Make sure the maildaemon.php file is executable:
 
-   	chmod +x scripts/maildaemon.php   	
-   
+   	chmod +x scripts/maildaemon.php
+
    Note that "daemon" is kind of a misnomer here; the script is more
    of a filter than a daemon.
-   
+
 2. Edit /etc/aliases on your mail server and add the following line:
 
       *: /path/to/laconica/scripts/maildaemon.php
 
 3. Run whatever code you need to to update your aliases database. For
    many mail servers (Postfix, Exim, Sendmail), this should work:
-   
+
       newaliases
-      
+
    You may need to restart your mail server for the new database to
    take effect.
 
 4. Set the following in your config.php file:
 
    $config['mail']['domain'] = 'yourdomain.example.net';
-   
+
 At this point, post-by-email and post-by-SMS-gateway should work. Note
 that if your mail server is on a different computer from your email
 server, you'll need to have a full installation of Laconica, a working
@@ -413,19 +433,19 @@ well.
 1. You may want to strongly consider setting up your own XMPP server.
    Ejabberd, OpenFire, and JabberD are all Open Source servers.
    Jabber, Inc. provides a high-performance commercial server.
-   
+
 2. You must register a Jabber ID (JID) with your new server. It helps
    to choose a name like "update@example.com" or "notice" or something
    similar.  Alternately, your "update JID" can be registered on a
    publicly-available XMPP service, like jabber.org or GTalk.
-   
+
    Laconica will not register the JID with your chosen XMPP server;
    you need to do this manually, with an XMPP client like Gajim,
    Telepathy, or Pidgin.im.
-   
+
 3. Configure your site's XMPP variables, as described below in the
    configuration section.
-   
+
 On a default installation, your site can broadcast messages using
 XMPP. Users won't be able to post messages using XMPP unless you've
 got the XMPP daemon running.  See 'Queues and daemons' below for how
@@ -449,7 +469,7 @@ To configure a downstream site to receive your public stream, add
 their "JID" (Jabber ID) to your config.php as follows:
 
       $config['xmpp']['public'][] = 'downstream@example.net';
-      
+
 (Don't miss those square brackets at the end.) Note that your XMPP
 broadcasting must be configured as mentioned above. Although you can
 send out messages at "Web time", high-volume sites should strongly
@@ -483,11 +503,11 @@ server is probably a good idea for high-volume sites.
    more daemon options. Note that if you set the 'user' and/or 'group'
    options, you'll need to create that user and/or group by hand.
    They're not created automatically.
-   
+
 4. On the queues server, run the command scripts/startdaemons.sh. It
    needs as a parameter the install path; if you run it from the
    Laconica dir, "." should suffice.
-   
+
 This will run six (for now) queue handlers:
 
 * xmppdaemon.php - listens for new XMPP messages from users and stores
@@ -549,7 +569,7 @@ Laconica instance.
    bots where to find all the sitemap files; it *must* be in the main
    installation directory or higher. Both types of file must be
    available through HTTP.
-   
+
 2. To generate your sitemaps, run the following command on your server:
 
    php scripts/sitemap.php -f index-file-path -d sitemap-directory -u URL-prefix-for-sitemaps
@@ -559,7 +579,7 @@ Laconica instance.
    you want the sitemaps stored, like './sitemaps/' (make sure the dir
    exists). URL-prefix-for-sitemaps is the full URL for the sitemap dir,
    typically something like 'http://example.net/mublog/sitemaps/'.
-   
+
 You can use several methods for submitting your sitemap index to
 search engines to get your site indexed. One is to add a line like the
 following to your robots.txt file:
@@ -626,13 +646,30 @@ backups of a working Laconica system by backing up the database and
 the Web directory. To backup the database use mysqldump (http://ur1.ca/7xo)
 and to backup the Web directory, try tar.
 
+Private
+-------
+
+The administrator can set the "private" flag for a site so that it's
+not visible to non-logged-in users. This might be useful for
+workgroups who want to share a microblogging site for project
+management, but host it on a public server.
+
+Note that this is an experimental feature; total privacy is not
+guaranteed or ensured. Also, privacy is all-or-nothing for a site; you
+can't have some accounts or notices private, and others public.
+Finally, the interaction of private sites with OpenMicroBlogging is
+undefined. Remote users won't be able to subscribe to users on a
+private site, but users of the private site may be able to subscribe
+to users on a remote site. (Or not... it's not well tested.) The
+"proper behaviour" hasn't been defined here, so handle with care.
+
 Upgrading
 =========
 
 If you've been using Laconica 0.6, 0.5 or lower, or if you've been
 tracking the "darcs" version of the software, you will probably want
 to upgrade and keep your existing data. There is no automated upgrade
-procedure in Laconica 0.6.2. Try these step-by-step instructions; read
+procedure in Laconica 0.6.4. Try these step-by-step instructions; read
 to the end first before trying them.
 
 0. Download Laconica and set up all the prerequisites as if you were
@@ -661,9 +698,9 @@ to the end first before trying them.
    RewriteBase to use the correct path.
 10. Rebuild the database. Go to your Laconica directory and run the
    rebuilddb.sh script like this:
-   
+
    ./scripts/rebuilddb.sh rootuser rootpassword database db/laconica.sql
-   
+
    Here, rootuser and rootpassword are the username and password for a
    user who can drop and create databases as well as tables; typically
    that's _not_ the user Laconica runs as.
@@ -744,7 +781,7 @@ path: The path part of your site's URLs, like 'mublog' or '/'
       (installed in root).
 fancy: whether or not your site uses fancy URLs (see Fancy URLs
        section above). Default is false.
-logfile: full path to a file for Laconica to save logging 
+logfile: full path to a file for Laconica to save logging
 	 information to. You may want to use this if you don't have
 	 access to syslog.
 locale_path: full path to the directory for locale data. Unless you
@@ -775,6 +812,11 @@ closed: If set to 'true', will disallow registration on your site.
 	the service, *then* set this variable to 'true'.
 inviteonly: If set to 'true', will only allow registration if the user
 	    was invited by an existing user.
+private: If set to 'true', anonymous users will be redirected to the
+         'login' page. Also, API methods that normally require no
+         authentication will require it. Note that this does not turn
+         off registration; use 'closed' or 'inviteonly' for the
+         behaviour you want.
 
 db
 --
@@ -785,7 +827,7 @@ set are listed below for clarity.
 
 database: a DSN (Data Source Name) for your Laconica database. This is
 	  in the format 'protocol://username:password@hostname/databasename',
-	  where 'protocol' is 'mysql' (or possibly 'postgresql', if you
+	  where 'protocol' is 'mysql' or 'mysqli' (or possibly 'postgresql', if you
 	  really know what you're doing), 'username' is the username,
 	  'password' is the password, and etc.
 ini_yourdbname: if your database is not named 'laconica', you'll need
@@ -798,7 +840,7 @@ db_driver: You can try changing this to 'MDB2' to use the other driver
 debug: On a database error, you may get a message saying to set this
        value to 5 to see debug messages in the browser. This breaks
        just about all pages, and will also expose the username and
-       password 
+       password
 quote_identifiers: Set this to true if you're using postgresql.
 type: either 'mysql' or 'postgresql' (used for some bits of
       database-type-specific SQL in the code). Defaults to mysql.
@@ -853,7 +895,7 @@ backend: the backend to use for mail, one of 'mail', 'sendmail', and
 	 'smtp'. Defaults to PEAR's default, 'mail'.
 params: if the mail backend requires any parameters, you can provide
 	them in an associative array.
-			  
+
 nickname
 --------
 
@@ -941,7 +983,7 @@ Miscellaneous tagging stuff.
 dropoff: Decay factor for tag listing, in seconds.
 	 Defaults to exponential decay over ten days; you can twiddle
 	 with it to try and get better results for your site.
-	 
+
 daemon
 ------
 
@@ -998,6 +1040,27 @@ enabled: A three-valued flag for whether to use notice inboxes (see
 	 upgrading info above for notes about this change). Can be
 	 'false', 'true', or '"transitional"'.
 
+throttle
+--------
+
+For notice-posting throttles.
+
+enabled: Whether to throttle posting. Defaults to false.
+count: Each user can make this many posts in 'timespan' seconds. So, if count
+       is 100 and timespan is 3600, then there can be only 100 posts
+       from a user every hour.
+timespan: see 'count'.
+
+profile
+-------
+
+Profile management.
+
+banned: an array of usernames and/or profile IDs of 'banned' profiles.
+        The site will reject any notices by these users -- they will
+        not be accepted at all. (Compare with blacklisted users above,
+        whose posts just won't show up in the public stream.)
+
 Troubleshooting
 ===============
 
@@ -1010,7 +1073,7 @@ repository (see below), and you get a compilation error ("unexpected
 T_STRING") in the browser, check to see that you don't have any
 conflicts in your code.
 
-If you upgraded to Laconica 0.6.2 without reading the "Notice inboxes"
+If you upgraded to Laconica 0.6.4 without reading the "Notice inboxes"
 section above, and all your users' 'Personal' tabs are empty, read the
 "Notice inboxes" section above.
 
@@ -1027,7 +1090,7 @@ assumptions.
   emit oodles of print lines directly to the browser of your users.
   Among these lines will be your database username and password. Do
   not enable this option on a production Web site for any reason.
-  
+
 - "Edit dataobject.ini with the following settings..." dataobject.ini
   is a development file for the DB_DataObject framework and is not
   used by the running software. It was removed from the Laconica
@@ -1044,8 +1107,8 @@ development version of Laconica. To get it, use the darcs version
 control tool (http://darcs.net/) like so:
 
 	darcs get http://laconi.ca/darcs/ mublog
-	
-To keep it up-to-date, use 'darcs pull'. Watch for conflicts!	
+
+To keep it up-to-date, use 'darcs pull'. Watch for conflicts!
 
 Further information
 ===================

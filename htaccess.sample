@@ -22,6 +22,12 @@ RewriteRule ^doc/openmublog$ index.php?action=doc&title=openmublog [L,QSA]
 RewriteRule ^doc/privacy$ index.php?action=doc&title=privacy [L,QSA]
 RewriteRule ^doc/source$ index.php?action=doc&title=source [L,QSA]
 
+RewriteRule ^facebook/$ index.php?action=facebookhome [L,QSA]
+RewriteRule ^facebook/index.php$ index.php?action=facebookhome [L,QSA]
+RewriteRule ^facebook/settings.php$ index.php?action=facebooksettings [L,QSA]
+RewriteRule ^facebook/invite.php$ index.php?action=facebookinvite [L,QSA]
+RewriteRule ^facebook/remove$ index.php?action=facebookremove [L,QSA]
+
 RewriteRule ^main/login$ index.php?action=login [L,QSA]
 RewriteRule ^main/logout$ index.php?action=logout [L,QSA]
 RewriteRule ^main/register/(.*)$ index.php?action=register&code=$1 [L,QSA]
@@ -44,6 +50,9 @@ RewriteRule ^main/sup$ index.php?action=sup [L,QSA]
 
 RewriteRule ^main/tagother$ index.php?action=tagother [L,QSA]
 
+RewriteRule ^main/block$ index.php?action=block [L,QSA]
+
+RewriteRule ^settings/delete$ index.php?action=deleteprofile [L,QSA]
 RewriteRule ^settings/profile$ index.php?action=profilesettings [L,QSA]
 RewriteRule ^settings/openid$ index.php?action=openidsettings [L,QSA]
 RewriteRule ^settings/im$ index.php?action=imsettings [L,QSA]

@@ -28,7 +28,7 @@ class FavoritedAction extends StreamAction {
 
 		$page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 
-		common_show_header(_('Favorited timeline'),
+		common_show_header(_('Popular notices'),
 						   array($this, 'show_header'), NULL,
 						   array($this, 'show_top'));
 
@@ -47,14 +47,11 @@ class FavoritedAction extends StreamAction {
 	}
 
 	function show_header() {
-		common_element('link', array('rel' => 'alternate',
-									 'href' => common_local_url('favoritedrss'),
-									 'type' => 'application/rss+xml',
-									 'title' => _('Favorited Stream Feed')));
+        return;
 	}
 
 	function get_instructions() {
-		return _('Showing most favorited notices from the last week');
+		return _('Showing recently popular notices');
 	}
 
 	function show_notices($page) {
@@ -91,19 +88,7 @@ class FavoritedAction extends StreamAction {
 		$notice->query(sprintf('SELECT * FROM notice WHERE id in (%s)',
 			implode(',', $notice_list)));
 
-		$cnt = 0;
-
-		if ($notice) {
-			common_element_start('ul', array('id' => 'notices'));
-			while ($notice->fetch()) {
-				$cnt++;
-				if ($cnt > NOTICES_PER_PAGE) {
-					break;
-				}
-				$this->show_notice($notice);
-			}
-			common_element_end('ul');
-		}
+        $cnt = $this->show_notice_list($notice);
 
 		common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
 						  $page, 'favorited');

@@ -207,7 +207,7 @@ function jabber_broadcast_notice($notice) {
 
 	$profile->free();
 	unset($profile);
-	
+
 	$sent_to = array();
 	$conn = jabber_connect();
 
@@ -230,7 +230,7 @@ function jabber_broadcast_notice($notice) {
 	}
 
 	$user->free();
-	
+
     # Now, get users subscribed to this profile
 
 	$user = new User();
@@ -238,7 +238,8 @@ function jabber_broadcast_notice($notice) {
 				 'FROM user JOIN subscription ON user.id = subscription.subscriber ' .
 				 'WHERE subscription.subscribed = ' . $notice->profile_id . ' ' .
 				 'AND user.jabber is not null ' .
-				 'AND user.jabbernotify = 1 ');
+				 'AND user.jabbernotify = 1 ' .
+                 'AND subscription.jabber = 1 ');
 
 	while ($user->fetch()) {
 		if (!array_key_exists($user->id, $sent_to)) {
@@ -252,7 +253,7 @@ function jabber_broadcast_notice($notice) {
 	}
 
 	$user->free();
-	
+
 	return true;
 }
 

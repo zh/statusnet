@@ -144,6 +144,20 @@ class User extends Memcached_DataObject
 		return true;
 	}
 
+    function hasBlocked($other) {
+
+        $block = Profile_block::get($this->id, $other->id);
+
+        if (is_null($block)) {
+            $result = false;
+        } else {
+            $result = true;
+            $block->free();
+        }
+
+        return $result;
+    }
+
 	static function register($fields) {
 
 		# MAGICALLY put fields into current scope
@@ -249,9 +263,7 @@ class User extends Memcached_DataObject
 		$profile->query('COMMIT');
 
 		if ($email && !$user->email) {
-			mail_confirm_address($confirm->code,
-								 $profile->nickname,
-								 $email);
+			mail_confirm_address($user, $confirm->code, $profile->nickname, $email);
 		}
 
 		return $user;
@@ -277,13 +289,11 @@ class User extends Memcached_DataObject
 		$cache = common_memcache();
 
 		# XXX: Kind of a hack.
-
 		if ($cache) {
 			# This is the stream of favorite notices, in rev chron
 			# order. This forces it into cache.
 			$faves = $this->favoriteNotices(0, NOTICE_CACHE_WINDOW);
 			$cnt = 0;
-
 			while ($faves->fetch()) {
 				if ($faves->id < $notice->id) {
 					# If we passed it, it's not a fave
@@ -303,45 +313,40 @@ class User extends Memcached_DataObject
 			# Otherwise, cache doesn't have all faves;
 			# fall through to the default
 		}
-
 		$fave = Fave::pkeyGet(array('user_id' => $this->id,
 									'notice_id' => $notice->id));
 		return ((is_null($fave)) ? false : true);
 	}
-
 	function mutuallySubscribed($other) {
 		return $this->isSubscribed($other) &&
 		  $other->isSubscribed($this);
 	}
 
-	function mutuallySubscribedUsers() {
+        function mutuallySubscribedUsers() {
 
 		# 3-way join; probably should get cached
-
 		$qry = 'SELECT user.* ' .
 		  'FROM subscription sub1 JOIN user ON sub1.subscribed = user.id ' .
 		  'JOIN subscription sub2 ON user.id = sub2.subscriber ' .
 		  'WHERE sub1.subscriber = %d and sub2.subscribed = %d ' .
 		  'ORDER BY user.nickname';
-
 		$user = new User();
 		$user->query(sprintf($qry, $this->id, $this->id));
 
 		return $user;
 	}
 
-	function getReplies($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0) {
+	function getReplies($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=NULL) {
 		$qry =
 		  'SELECT notice.* ' .
 		  'FROM notice JOIN reply ON notice.id = reply.notice_id ' .
 		  'WHERE reply.profile_id = %d ';
-
 		return Notice::getStream(sprintf($qry, $this->id),
 								 'user:replies:'.$this->id,
-								 $offset, $limit, $since_id, $before_id);
+								 $offset, $limit, $since_id, $before_id, NULL, $since);
 	}
 
-	function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0) {
+        function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=NULL) {
         $profile = $this->getProfile();
         if (!$profile) {
             return NULL;
@@ -350,18 +355,17 @@ class User extends Memcached_DataObject
         }
 	}
 
-	function favoriteNotices($offset=0, $limit=NOTICES_PER_PAGE) {
+      function favoriteNotices($offset=0, $limit=NOTICES_PER_PAGE) {
 		$qry =
 		  'SELECT notice.* ' .
 		  'FROM notice JOIN fave ON notice.id = fave.notice_id ' .
 		  'WHERE fave.user_id = %d ';
-
 		return Notice::getStream(sprintf($qry, $this->id),
 								 'user:faves:'.$this->id,
 								 $offset, $limit);
 	}
 
-	function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0) {
+        function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=NULL) {
 		$enabled = common_config('inboxes', 'enabled');
 
 		# Complicated code, depending on whether we support inboxes yet
@@ -375,7 +379,8 @@ class User extends Memcached_DataObject
 			  'WHERE subscription.subscriber = %d ';
 			$order = NULL;
 		} else if ($enabled === true ||
-				   ($enabled == 'transitional' && $this->inboxed == 1)) {
+			   ($enabled == 'transitional' && $this->inboxed == 1)) {
+
 			$qry =
 			  'SELECT notice.* ' .
 			  'FROM notice JOIN notice_inbox ON notice.id = notice_inbox.notice_id ' .
@@ -383,14 +388,13 @@ class User extends Memcached_DataObject
 			# NOTE: we override ORDER
 			$order = 'ORDER BY notice_inbox.created DESC, notice_inbox.notice_id DESC ';
 		}
-
 		return Notice::getStream(sprintf($qry, $this->id),
 								 'user:notices_with_friends:' . $this->id,
 								 $offset, $limit, $since_id, $before_id,
-								 $order);
+								 $order, $since);
 	}
 
-	function blowFavesCache() {
+        function blowFavesCache() {
 		$cache = common_memcache();
 		if ($cache) {
 			# Faves don't happen chronologically, so we need to blow
@@ -400,11 +404,70 @@ class User extends Memcached_DataObject
 		}
 	}
 
-	function getSelfTags() {
+        function getSelfTags() {
 		return Profile_tag::getTags($this->id, $this->id);
 	}
 
-	function setSelfTags($newtags) {
+        function setSelfTags($newtags) {
 		return Profile_tag::setTags($this->id, $this->id, $newtags);
 	}
+
+    function block($other) {
+
+        # Add a new block record
+
+        $block = new Profile_block();
+
+        # Begin a transaction
+
+        $block->query('BEGIN');
+
+        $block->blocker = $this->id;
+        $block->blocked = $other->id;
+
+        $result = $block->insert();
+
+        if (!$result) {
+            common_log_db_error($block, 'INSERT', __FILE__);
+            return false;
+        }
+
+        # Cancel their subscription, if it exists
+
+		$sub = Subscription::pkeyGet(array('subscriber' => $other->id,
+										   'subscribed' => $this->id));
+
+        if ($sub) {
+            $result = $sub->delete();
+            if (!$result) {
+                common_log_db_error($sub, 'DELETE', __FILE__);
+                return false;
+            }
+        }
+
+        $block->query('COMMIT');
+
+        return true;
+    }
+
+    function unblock($other) {
+
+        # Get the block record
+
+        $block = Profile_block::get($this->id, $other->id);
+
+        if (!$block) {
+            return false;
+        }
+
+        $result = $block->delete();
+
+        if (!$result) {
+            common_log_db_error($block, 'DELETE', __FILE__);
+            return false;
+        }
+
+        return true;
+    }
+
 }

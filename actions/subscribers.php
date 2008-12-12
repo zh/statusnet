@@ -47,4 +47,15 @@ class SubscribersAction extends GalleryAction {
 	function get_other(&$subs) {
 		return $subs->subscriber;
 	}
+
+    function profile_list_class() {
+        return 'SubscribersList';
+    }
+}
+
+class SubscribersList extends ProfileList {
+    function show_owner_controls($profile) {
+        common_block_form($profile, array('action' => 'subscribers',
+                                          'nickname' => $this->owner->nickname));
+    }
 }

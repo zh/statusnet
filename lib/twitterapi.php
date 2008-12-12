@@ -76,7 +76,7 @@ class TwitterapiAction extends Action {
 
 		if ($include_user) {
 			# Don't get notice (recursive!)
-			$twitter_user = $this->twitter_user_array($profile, false, $user);
+			$twitter_user = $this->twitter_user_array($profile, false);
 			$twitter_status['user'] = $twitter_user;
 		}
 

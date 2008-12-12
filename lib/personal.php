@@ -122,6 +122,34 @@ class PersonalAction extends Action {
 				$feed['textContent'] = "RSS";
 				break;
 
+			case 'publicrss':
+				$feed_classname = $feed['type'];
+				$feed_mimetype = "application/".$feed['type']."+xml";
+				$feed_title = "Public timeline ".$feed['version']." feed";
+				$feed['textContent'] = "RSS";
+				break;
+
+			case 'publicatom':
+				$feed_classname = "atom";
+				$feed_mimetype = "application/".$feed['type']."+xml";
+				$feed_title = "Public timeline ".$feed['version']." feed";
+				$feed['textContent'] = "Atom";
+				break;
+
+			case 'tagrss':
+				$feed_classname = $feed['type'];
+				$feed_mimetype = "application/".$feed['type']."+xml";
+				$feed_title = $feed['version']." feed for this tag";
+				$feed['textContent'] = "RSS";
+				break;
+
+			case 'favoritedrss':
+				$feed_classname = $feed['type'];
+				$feed_mimetype = "application/".$feed['type']."+xml";
+				$feed_title = "Favorited ".$feed['version']." feed";
+				$feed['textContent'] = "RSS";
+				break;
+
 			case 'foaf':
 				$feed_classname = "foaf";
 				$feed_mimetype = "application/".$feed['type']."+xml";

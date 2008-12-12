@@ -39,6 +39,9 @@ function mail_backend() {
 
 function mail_send($recipients, $headers, $body) {
 	$backend = mail_backend();
+    if (!isset($headers['Content-Type'])) {
+        $headers['Content-Type'] = 'text/plain; charset=UTF-8';
+    }
 	assert($backend); # throws an error if it's bad
 	$sent = $backend->send($recipients, $headers, $body);
 	if (PEAR::isError($sent)) {
@@ -81,31 +84,17 @@ function mail_to_user(&$user, $subject, $body, $address=NULL) {
 }
 
 # For confirming a Jabber address
-# XXX: change to use mail_to_user() above
 
-function mail_confirm_address($code, $nickname, $address) {
-	$recipients = $address;
-	$headers['From'] = mail_notify_from();
-	$headers['To'] = $nickname . ' <' . $address . '>';
-	$headers['Subject'] = _('Email address confirmation');
+function mail_confirm_address($user, $code, $nickname, $address) {
 
-	$body = "Hey, $nickname.";
-	$body .= "\n\n";
-	$body .= 'Someone just entered this email address on ' . common_config('site', 'name') . '.';
-	$body .= "\n\n";
-	$body .= 'If it was you, and you want to confirm your entry, use the URL below:';
-	$body .= "\n\n";
-	$body .= "\t".common_local_url('confirmaddress',
-								   array('code' => $code));
-	$body .= "\n\n";
-	$body .= 'If not, just ignore this message.';
-	$body .= "\n\n";
-	$body .= 'Thanks for your time, ';
-	$body .= "\n";
-	$body .= common_config('site', 'name');
-	$body .= "\n";
+	$subject = _('Email address confirmation');
 
-	mail_send($recipients, $headers, $body);
+    $body = sprintf(_("Hey, %s.\n\nSomeone just entered this email address on %s.\n\n" .
+        "If it was you, and you want to confirm your entry, use the URL below:\n\n\t%s\n\n" .
+        "If not, just ignore this message.\n\nThanks for your time, \n%s\n")
+        , $nickname, common_config('site', 'name')
+        , common_local_url('confirmaddress', array('code' => $code)), common_config('site', 'name'));
+     return mail_to_user($user, $subject, $body, $address);
 }
 
 function mail_subscribe_notify($listenee, $listener) {
@@ -115,6 +104,8 @@ function mail_subscribe_notify($listenee, $listener) {
 
 function mail_subscribe_notify_profile($listenee, $other) {
 	if ($listenee->email && $listenee->emailnotifysub) {
+        // use the recipients localization
+        common_init_locale($listenee->language);
 		$profile = $listenee->getProfile();
 		$name = $profile->getBestName();
 		$long_name = ($other->fullname) ? ($other->fullname . ' (' . $other->nickname . ')') : $other->nickname;
@@ -130,6 +121,9 @@ function mail_subscribe_notify_profile($listenee, $other) {
 						 common_config('site', 'name'),
 						 $other->profileurl,
 						 common_config('site', 'name'));
+
+        // reset localization
+        common_init_locale();
 		mail_send($recipients, $headers, $body);
 	}
 }
@@ -173,7 +167,8 @@ function mail_broadcast_notice_sms($notice) {
 				 'ON user.id = subscription.subscriber ' .
 				 'WHERE subscription.subscribed = ' . $notice->profile_id . ' ' .
 				 'AND user.smsemail IS NOT NULL ' .
-				 'AND user.smsnotify = 1');
+				 'AND user.smsnotify = 1 ' .
+                 'AND subscription.sms = 1 ');
 
 	while ($user->fetch()) {
 		common_log(LOG_INFO,
@@ -232,9 +227,8 @@ function mail_confirm_sms($code, $nickname, $address) {
 	mail_send($recipients, $headers, $body);
 }
 
-
 function mail_notify_nudge($from, $to) {
-
+    common_init_locale($to->language);
 	$subject = sprintf(_('You\'ve been nudged by %s'), $from->nickname);
 
 	$from_profile = $from->getProfile();
@@ -249,11 +243,9 @@ function mail_notify_nudge($from, $to) {
 					$from->nickname,
 					common_local_url('all', array('nickname' => $to->nickname)),
 					common_config('site', 'name'));
-
+    common_init_locale();
 	return mail_to_user($to, $subject, $body);
 }
-
-
 
 function mail_notify_message($message, $from=NULL, $to=NULL) {
 
@@ -269,6 +261,7 @@ function mail_notify_message($message, $from=NULL, $to=NULL) {
 		return true;
 	}
 
+    common_init_locale($to->language);
 	$subject = sprintf(_('New private message from %s'), $from->nickname);
 
 	$from_profile = $from->getProfile();
@@ -288,6 +281,7 @@ function mail_notify_message($message, $from=NULL, $to=NULL) {
 					common_local_url('newmessage', array('to' => $from->id)),
 					common_config('site', 'name'));
 
+    common_init_locale();
 	return mail_to_user($to, $subject, $body);
 }
 
@@ -295,6 +289,7 @@ function mail_notify_fave($other, $user, $notice) {
 
 	$profile = $user->getProfile();
 	$bestname = $profile->getBestName();
+    common_init_locale($other->language);
 	$subject = sprintf(_('%s added your notice as a favorite'), $bestname);
 	$body = sprintf(_("%1\$s just added your notice from %2\$s as one of their favorites.\n\n" .
 					  "In case you forgot, you can see the text of your notice here:\n\n" .
@@ -309,5 +304,6 @@ function mail_notify_fave($other, $user, $notice) {
 					common_local_url('showfavorites', array('nickname' => $user->nickname)),
 					common_config('site', 'name'));
 
+    common_init_locale();
 	mail_to_user($other, $subject, $body);
 }

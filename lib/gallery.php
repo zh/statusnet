@@ -36,7 +36,7 @@ class GalleryAction extends Action {
 		parent::handle($args);
 
 		# Post from the tag dropdown; redirect to a GET
-		
+
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		    common_redirect($this->self_url(), 307);
 		}
@@ -57,17 +57,17 @@ class GalleryAction extends Action {
 		}
 
 		$page = $this->arg('page');
-		
+
 		if (!$page) {
 			$page = 1;
 		}
 
 		$display = $this->arg('display');
-		
+
 		if (!$display) {
 			$display = 'list';
 		}
-		
+
 		$tag = $this->arg('tag');
 
 		common_show_header($profile->nickname . ": " . $this->gallery_type(),
@@ -76,7 +76,7 @@ class GalleryAction extends Action {
 
 		$this->display_links($profile, $page, $display);
 		$this->show_tags_dropdown($profile);
-		
+
 		$this->show_gallery($profile, $page, $display, $tag);
 		common_show_footer();
 	}
@@ -115,23 +115,42 @@ class GalleryAction extends Action {
 			common_element_end('dl');
 		}
 	}
-	
+
 	function show_top($profile) {
 		common_element('div', 'instructions',
 					   $this->get_instructions($profile));
+        $this->show_menu();
+	}
+
+    function show_menu() {
+		# action => array('prompt', 'title', $args)
+		$action = $this->trimmed('action');
+		$nickname = $this->trimmed('nickname');
+		$menu =
+		  array('subscriptions' =>
+				array( _('Subscriptions'),
+					   _('Subscriptions'),
+                      array('nickname' => $nickname)),
+				'subscribers' =>
+				array(
+					  _('Subscribers'),
+					  _('Subscribers'),
+                      array('nickname' => $nickname)),
+				);
+		$this->nav_menu($menu);
 	}
 
 	function show_gallery($profile, $page, $display='list', $tag=NULL) {
 
 		$other = new Profile();
-		
+
 		list($lst, $usr) = $this->fields();
 
 		$per_page = ($display == 'list') ? PROFILES_PER_PAGE : AVATARS_PER_PAGE;
 
 		$offset = ($page-1)*$per_page;
 		$limit = $per_page + 1;
-		
+
 		if (common_config('db','type') == 'pgsql') {
 			$lim = ' LIMIT ' . $limit . ' OFFSET ' . $offset;
 		} else {
@@ -140,7 +159,7 @@ class GalleryAction extends Action {
 
 		# XXX: memcached results
 		# FIXME: SQL injection on $tag
-		
+
 		$other->query('SELECT profile.* ' .
 					  'FROM profile JOIN subscription ' .
 					  'ON profile.id = subscription.' . $lst . ' ' .
@@ -150,22 +169,23 @@ class GalleryAction extends Action {
 					  (($tag) ? 'AND profile_tag.tag= "' . $tag . '" ': '') .
 					  'ORDER BY subscription.created DESC, profile.id DESC ' .
 					  $lim);
-		
+
 		if ($display == 'list') {
-			$profile_list = new ProfileList($other, $profile, $this->trimmed('action'));
+            $cls = $this->profile_list_class();
+			$profile_list = new $cls($other, $profile, $this->trimmed('action'));
 			$cnt = $profile_list->show_list();
 		} else {
 			$cnt = $this->icon_list($other);
 		}
 
 		# For building the pagination URLs
-		
+
 		$args = array('nickname' => $profile->nickname);
-		
+
 		if ($display != 'list') {
 			$args['display'] = $display;
 		}
-		
+
 		common_pagination($page > 1,
 						  $cnt > $per_page,
 						  $page,
@@ -173,20 +193,24 @@ class GalleryAction extends Action {
 						  $args);
 	}
 
+    function profile_list_class() {
+        return 'ProfileList';
+    }
+
 	function icon_list($other) {
-		
+
 		common_element_start('ul', $this->div_class());
 
 		$cnt = 0;
-		
+
 		while ($other->fetch()) {
 
 			$cnt++;
-			
+
 			if ($cnt > AVATARS_PER_PAGE) {
 				break;
 			}
-			
+
 			common_element_start('li');
 
 			common_element_start('a', array('title' => ($other->fullname) ?
@@ -211,12 +235,12 @@ class GalleryAction extends Action {
 
 			common_element_end('li');
 		}
-			
+
 		common_element_end('ul');
-		
+
 		return $cnt;
 	}
-	
+
 	function gallery_type() {
 		return NULL;
 	}
@@ -232,15 +256,15 @@ class GalleryAction extends Action {
 	function div_class() {
 		return '';
 	}
-	
+
 	function display_links($profile, $page, $display) {
 		$tag = $this->trimmed('tag');
-		
+
 		common_element_start('dl', array('id'=>'subscriptions_nav'));
 		common_element('dt', null, _('Subscriptions navigation'));
 		common_element_start('dd');
 		common_element_start('ul', array('class'=>'nav'));
-		
+
 		switch ($display) {
 		 case 'list':
 			common_element('li', array('class'=>'child_1'), _('List'));
@@ -270,12 +294,12 @@ class GalleryAction extends Action {
 			common_element('li', NULL, _('Icons'));
 			break;
 		}
-		
+
 		common_element_end('ul');
 		common_element_end('dd');
 		common_element_end('dl');
 	}
-	
+
 	# Get list of tags we tagged other users with
 
 	function get_all_tags($profile, $lst, $usr) {

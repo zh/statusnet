@@ -24,13 +24,46 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
 class TwitapiblocksAction extends TwitterapiAction {
 
 	function create($args, $apidata) {
+
 		parent::handle($args);
-		common_server_error(_('API method under construction.'), $code=501);
+
+		$blockee = $this->get_user($apidata['api_arg'], $apidata);
+
+        if (!$blockee) {
+			$this->client_error('Not Found', 404, $apidata['content-type']);
+			return;
+        }
+
+        $user = $apidata['user'];
+
+        if ($user->hasBlocked($blockee) || $user->block($blockee)) {
+            $type = $apidata['content-type'];
+            $this->init_document($type);
+            $this->show_profile($blockee, $type);
+            $this->end_document($type);
+        } else {
+			common_server_error(_('Block user failed.'));
+        }
 	}
 
 	function destroy($args, $apidata) {
 		parent::handle($args);
-		common_server_error(_('API method under construction.'), $code=501);
-	}
+		$blockee = $this->get_user($apidata['api_arg'], $apidata);
 
+        if (!$blockee) {
+			$this->client_error('Not Found', 404, $apidata['content-type']);
+			return;
+        }
+
+        $user = $apidata['user'];
+
+        if (!$user->hasBlocked($blockee) || $user->unblock($blockee)) {
+            $type = $apidata['content-type'];
+            $this->init_document($type);
+            $this->show_profile($blockee, $type);
+            $this->end_document($type);
+        } else {
+			common_server_error(_('Unblock user failed.'));
+        }
+	}
 }

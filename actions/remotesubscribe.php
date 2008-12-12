@@ -33,14 +33,14 @@ class RemotesubscribeAction extends Action {
 		}
 
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-			
+
 			# CSRF protection
 			$token = $this->trimmed('token');
 			if (!$token || $token != common_session_token()) {
 				$this->show_form(_('There was a problem with your session token. Try again, please.'));
 				return;
 			}
-			
+
 			$this->remote_subscription();
 		} else {
 			$this->show_form();
@@ -115,7 +115,7 @@ class RemotesubscribeAction extends Action {
 		}
 
 		# XXX: a little liberal for sites that accidentally put whitespace before the xml declaration
-		
+
         $xrds =& Auth_Yadis_XRDS::parseXRDS(trim($yadis->response_text));
 
 		if (!$xrds) {
@@ -141,7 +141,7 @@ class RemotesubscribeAction extends Action {
 			$this->show_form(_('That\'s a local profile! Login to subscribe.'));
 			return;
 		}
-		
+
 		list($token, $secret) = $this->request_token($omb);
 
 		if (!$token || !$secret) {
@@ -287,7 +287,8 @@ class RemotesubscribeAction extends Action {
 		$fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
 
 		$result = $fetcher->post($req->get_normalized_http_url(),
-								 $req->to_postdata());
+								 $req->to_postdata(),
+                                 array('User-Agent' => 'Laconica/' . LACONICA_VERSION));
 
 		if ($result->status != 200) {
 			return NULL;
@@ -332,7 +333,7 @@ class RemotesubscribeAction extends Action {
 			$this->server_error(_('User without matching profile'));
 			return;
 		}
-		
+
 		if ($profile->fullname) {
 			$req->set_parameter('omb_listenee_fullname', $profile->fullname);
 		}
@@ -370,7 +371,7 @@ class RemotesubscribeAction extends Action {
 		$omb['update_profile_url'] = omb_service_uri($omb[OMB_ENDPOINT_UPDATEPROFILE]);
 
 		common_ensure_session();
-		
+
 		$_SESSION['oauth_authorization_request'] = $omb;
 
 		# Redirect to authorization service
