@@ -158,7 +158,7 @@ class NoticeListItem {
     function show_notice_source() {
 		if ($this->notice->source) {
 			common_text(_(' from '));
-            $source_name = _($source);
+            $source_name = _($this->notice->source);
             switch ($source) {
              case 'web':
              case 'xmpp':
