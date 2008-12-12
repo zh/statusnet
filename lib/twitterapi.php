@@ -69,10 +69,8 @@ class TwitterapiAction extends Action {
 		$twitter_status['in_reply_to_user_id'] = ($notice->reply_to) ? $this->replier_by_reply(intval($notice->reply_to)) : NULL;
 
 		if (isset($this->auth_user)) {
-			common_debug("auth user set: " . $this->auth_user->nickname);
 			$twitter_status['favorited'] = ($this->auth_user->hasFave($notice)) ? 'true' : 'false';
 		} else {
-			common_debug("no auth user set");
 			$twitter_status['favorited'] = 'false';
 		}
 

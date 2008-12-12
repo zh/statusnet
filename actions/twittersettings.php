@@ -338,14 +338,16 @@ class TwittersettingsAction extends SettingsAction {
 			return false;
 		}
 
-		$creds = json_decode($data);
+		$user = json_decode($data);
 
-		if (!$creds) {
+		if (!$user) {
 			return false;
 		}
 
-		if ($creds->authorized == 1) {
-			return true;
+	 	$twitter_id = $user->status->id;
+
+		if ($twitter_id) {
+			return $twitter_id;
 		}
 
 		return false;

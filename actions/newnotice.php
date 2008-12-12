@@ -72,8 +72,6 @@ class NewnoticeAction extends Action {
 
 		$replyto = $this->trimmed('inreplyto');
 
-		common_debug("Replyto = $replyto\n");
-
 		$notice = Notice::saveNew($user->id, $content, 'web', 1, ($replyto == 'false') ? NULL : $replyto);
 
 		if (is_string($notice)) {

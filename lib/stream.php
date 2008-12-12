@@ -28,8 +28,6 @@ class StreamAction extends PersonalAction {
 
 		$action = $this->trimmed('action');
 
-		common_debug("action = $action");
-
 		common_element_start('ul', array('id' => 'nav_views'));
 
 		common_menu_item(common_local_url('public'), _('Public'),
