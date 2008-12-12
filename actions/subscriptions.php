@@ -56,8 +56,13 @@ class SubscriptionsAction extends GalleryAction {
 class SubscriptionsList extends ProfileList {
 
     function show_owner_controls($profile) {
+
 		$sub = Subscription::pkeyGet(array('subscriber' => $this->owner->id,
 										   'subscribed' => $profile->id));
+        if (!$sub) {
+            return;
+        }
+
         common_element_start('form', array('id' => 'subedit-' . $profile->id,
                                            'method' => 'post',
                                            'class' => 'subedit',
