@@ -96,6 +96,10 @@ $config['sphinx']['port'] = 3312;
 #raise this if traffic is slow, lower it if it's fast
 #$config['tag']['dropoff'] = 86400.0 * 10;
 
+#exponential decay factor for popular (most favorited notices)
+#default 10 days -- similar to tag dropoff
+#$config['popular']['dropoff'] = 86400.0 * 10;
+
 #optionally show non-local messages in public timeline
 #$config['public']['localonly'] = false;
 
