@@ -2,8 +2,8 @@
 README
 ------
 
-Laconica 0.6.3 ("Gardening at Night")
-24 November 2008
+Laconica 0.6.4 ("Catapult")
+11 December 2008
 
 This is the README file for Laconica, the Open Source microblogging
 platform. It includes installation instructions, descriptions of
@@ -72,35 +72,51 @@ New this version
 ================
 
 This is a minor feature and security improvement version from version
-0.6.2 (release 13 Nov 2008). Notable features of version 0.6.3 include:
+0.6.3 (release 24 Nov 2008). Notable features of version 0.6.4 include:
 
-- 'nudge' functionality to tell a user that they're missed.
-- Links to related RSS/Atom feeds on all pages.
-- Favor/disfavor icons changed to images.
-- Better checks to prevent remote subscribing to a local user, causing
-  "ghost profiles" (dupes in people search or subscriptions lists).
-- Twitter friend sync. Users who set up their Twitter accounts will
-  be automatically connected to other local users who have Twitter
-  accounts and who they're subscribed to on Twitter.
-- List view of subscriptions/subscribers.
-- Subscribe/unsubscribe button on subscriptions/subscribers list.
-- Optionally hide certain users from the public stream.
-- Give public area a few more tabs.
-- Add Featured users tab to public area.
-- Add Most favorited notices tab to public area.
-- Users can give themselves tags.
-- Users can tag their subscribers or subscriptions.
-- Users can send @-replies to tagged subsets of their contact list
-  using @#tag.
-- Subscribe/unsubscribe with Ajax form.
-- Post notice with Ajax form.
-- Script to optionally add notice inboxes for only some users.
-- Incremental caching of notice streams using memcached.
-- Use cached favorites info to avoid excess DB hits for faves.
-- Optionally use Sphinx Search for notice search.
-- Optionally use Sphinx Search for people search.
-- FOAF URL link on profile page.
-- HTML correction for repeated @id attributes in favorites forms.
+- "private" installs won't show any data to the outside world; redirect
+  non-logged-in users to login. (See "Private" below)
+- Ability to "block" a subscriber, which forces them to unsubscribe,
+  doesn't allow them to subscribe again, and doesn't allow them to send
+  @-replies
+- Fine-grained control of subscriptions; users can choose not to receive
+  notices from other users over SMS, or IM, or both
+- support for Mozilla microsummaries
+  (https://wiki.mozilla.org/Microsummaries)
+- more efficient support for blacklisting users from the public page
+- instructions on the public page for people who aren't logged in
+- better registration instructions
+- a check for license compatibility in receiving OMB notices
+- HTML output in RSS 1.0, 2.0, and Atom feeds
+- tuned and more reliable 'rememberme' cookies for username/password
+  and OpenID logins
+- a utility for setting user passwords
+- a "ban" configuration variable to ban certain users from posting
+  notices
+- an configurable posting throttle to keep any one user from flooding
+  the site with messages.
+- fine-tuned url-shortening: only shorten if it's needed, only expand
+  certain URLs, and handle failure of URL-shortening services reliably
+- disable Ajax input for notices, subscribe, nudge, while the
+  request is processing
+- early implementation of support for Last-Modified and ETag-based
+  caching
+- initial microformats support
+- redirect on bad nicknames in URLs
+- correctly send emails in recipient's, not sender's, language
+- correct email content type
+- Change "Most Favorited" page to "Popular"
+- properly support the "since" parameter in API calls
+- Fix for changes in validate_credentials API call for the Twitter
+  bridge
+- Fix for fatal error when sending email confirmation on registration
+- Better replies for commands sent through the Ajax channel
+- Add a User-Agent string for OMB requests
+- Upgrade upstream library XMPPHP
+- Upgrade upstream library JQuery Forms
+- Code cleanup: checkboxes have proper <label> elements
+- Code cleanup: consolidated various notice-listing code in one place
+- Better support for unsubscribing from a remote user
 
 Prerequisites
 =============
@@ -199,9 +215,9 @@ especially if you've previously installed PHP/MySQL packages.
 1. Unpack the tarball you downloaded on your Web server. Usually a
    command like this will work:
 
-   	   tar zxf laconica-0.6.2.tar.gz
+   	   tar zxf laconica-0.6.4.tar.gz
 
-   ...which will make a laconica-0.6.2 subdirectory in your current
+   ...which will make a laconica-0.6.4 subdirectory in your current
    directory. (If you don't have shell access on your Web server, you
    may have to unpack the tarball on your local computer and FTP the
    files to the server.)
@@ -209,7 +225,7 @@ especially if you've previously installed PHP/MySQL packages.
 2. Move the tarball to a directory of your choosing in your Web root
    directory. Usually something like this will work:
 
-   	   mv laconica-0.6.2 /var/www/mublog
+   	   mv laconica-0.6.4 /var/www/mublog
 
    This will make your Laconica instance available in the mublog path of
    your server, like "http://example.net/mublog". "microblog" or
@@ -626,13 +642,30 @@ backups of a working Laconica system by backing up the database and
 the Web directory. To backup the database use mysqldump (http://ur1.ca/7xo)
 and to backup the Web directory, try tar.
 
+Private
+-------
+
+The administrator can set the "private" flag for a site so that it's
+not visible to non-logged-in users. This might be useful for
+workgroups who want to share a microblogging site for project
+management, but host it on a public server.
+
+Note that this is an experimental feature; total privacy is not
+guaranteed or ensured. Also, privacy is all-or-nothing for a site; you
+can't have some accounts or notices private, and others public.
+Finally, the interaction of private sites with OpenMicroBlogging is
+undefined. Remote users won't be able to subscribe to users on a
+private site, but users of the private site may be able to subscribe
+to users on a remote site. (Or not... it's not well tested.) The
+"proper behaviour" hasn't been defined here, so handle with care.
+
 Upgrading
 =========
 
 If you've been using Laconica 0.6, 0.5 or lower, or if you've been
 tracking the "darcs" version of the software, you will probably want
 to upgrade and keep your existing data. There is no automated upgrade
-procedure in Laconica 0.6.2. Try these step-by-step instructions; read
+procedure in Laconica 0.6.4. Try these step-by-step instructions; read
 to the end first before trying them.
 
 0. Download Laconica and set up all the prerequisites as if you were
@@ -777,7 +810,9 @@ inviteonly: If set to 'true', will only allow registration if the user
 	    was invited by an existing user.
 private: If set to 'true', anonymous users will be redirected to the
          'login' page. Also, API methods that normally require no
-         authentication will require it.
+         authentication will require it. Note that this does not turn
+         off registration; use 'closed' or 'inviteonly' for the
+         behaviour you want.
 
 db
 --
@@ -788,7 +823,7 @@ set are listed below for clarity.
 
 database: a DSN (Data Source Name) for your Laconica database. This is
 	  in the format 'protocol://username:password@hostname/databasename',
-	  where 'protocol' is 'mysql' (or possibly 'postgresql', if you
+	  where 'protocol' is 'mysql' or 'mysqli' (or possibly 'postgresql', if you
 	  really know what you're doing), 'username' is the username,
 	  'password' is the password, and etc.
 ini_yourdbname: if your database is not named 'laconica', you'll need
@@ -1001,6 +1036,27 @@ enabled: A three-valued flag for whether to use notice inboxes (see
 	 upgrading info above for notes about this change). Can be
 	 'false', 'true', or '"transitional"'.
 
+throttle
+--------
+
+For notice-posting throttles.
+
+enabled: Whether to throttle posting. Defaults to false.
+count: Each user can make this many posts in 'timespan' seconds. So, if count
+       is 100 and timespan is 3600, then there can be only 100 posts
+       from a user every hour.
+timespan: see 'count'.
+
+profile
+-------
+
+Profile management.
+
+banned: an array of usernames and/or profile IDs of 'banned' profiles.
+        The site will reject any notices by these users -- they will
+        not be accepted at all. (Compare with blacklisted users above,
+        whose posts just won't show up in the public stream.)
+
 Troubleshooting
 ===============
 
@@ -1013,7 +1069,7 @@ repository (see below), and you get a compilation error ("unexpected
 T_STRING") in the browser, check to see that you don't have any
 conflicts in your code.
 
-If you upgraded to Laconica 0.6.2 without reading the "Notice inboxes"
+If you upgraded to Laconica 0.6.4 without reading the "Notice inboxes"
 section above, and all your users' 'Personal' tabs are empty, read the
 "Notice inboxes" section above.
 
