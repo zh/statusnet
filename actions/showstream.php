@@ -204,7 +204,7 @@ class ShowstreamAction extends StreamAction {
 
         if ($cur) {
             $blocked = $cur->hasBlocked($profile);
-            common_element_start('li', array('id' => ($blocked) ? 'profile_unblock' : 'profile_block'));
+            common_element_start('li', array('id' => 'profile_block'));
             if ($blocked) {
                 common_unblock_form($profile, array('action' => 'showstream',
                                                     'nickname' => $profile->nickname));
