@@ -219,7 +219,8 @@ clear:both;
 }
 
 #profile_actions #profile_nudge input.submit,
-#profile_actions #profile_block input.submit {
+#profile_actions #profile_block input.submit,
+.profile_single form.block input.submit {
 margin:0 0 0 -3px;
 padding:0;
 background-color:transparent;
@@ -762,13 +763,17 @@ input#openid_url {
 	font-size: 13px;
 	line-height: 16px;
 	border-bottom: 1px solid #dec5b5;
+	width:100%;
+	float:left;
 	}
 .profile_single:hover {
 	background-color: #f7ebcc;
 	}
 
-.profile_single form.subscribe {
-        float: right;
+.profile_single form.block,
+.profile_single form.subscribe,
+.profile_single form.unsubscribe {
+	float: right;
 }
 
 .profile_single form.unsubscribe {
@@ -992,10 +997,8 @@ background:url(icon_tag-01.gif) no-repeat;
 line-height:1.5;
 }
 
-.tag_user {
-text-align:right;
-margin-top:0;
-margin-bottom:0;
+.tags_user {
+margin-bottom:0.5em;
 }
 
 form#tag_user {
