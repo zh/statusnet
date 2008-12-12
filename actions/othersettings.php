@@ -29,9 +29,9 @@ class OthersettingsAction extends SettingsAction {
 
 	function show_form($msg=NULL, $success=false) {
 		$user = common_current_user();
-		
+
 		$this->form_header(_('Other Settings'), $msg, $success);
-		
+
 		common_element('h2', NULL, _('URL Auto-shortening'));
 		common_element_start('form', array('method' => 'post',
 										   'id' => 'othersettings',
@@ -50,15 +50,15 @@ class OthersettingsAction extends SettingsAction {
 			'snipr.com' => 'snipr.com',
 			'metamark.net' => 'metamark.net'
 		);
-		
+
 		common_dropdown('urlshorteningservice', _('Service'), $services, _('Automatic shortening service to use.'), FALSE, $user->urlshorteningservice);
-		
+
 		common_submit('save', _('Save'));
-		
+
 		common_element_end('form');
 
-		common_element('h2', NULL, _('Delete my account'));
-		$this->show_delete_form();
+//		common_element('h2', NULL, _('Delete my account'));
+//		$this->show_delete_form();
 
 		common_show_footer();
 	}
@@ -104,34 +104,32 @@ class OthersettingsAction extends SettingsAction {
 		common_element_end('li');
 	}
 
-	function show_delete_form() {
-		$user = common_current_user();
-        $notices = DB_DataObject::factory('notice');
-        $notices->profile_id = $user->id;
-        $notice_count = (int) $notices->count();
-
-		common_element_start('form', array('method' => 'POST',
-										   'id' => 'delete',
-										   'action' =>
-										   common_local_url('deleteprofile')));
-
-		common_hidden('token', common_session_token());
-        common_element('p', null, "You can copy your notices and contacts by saving the two links below before deleting your account. Be careful, this operation cannot be undone.");
-
-
-		$this->show_feeds_list(array(0=>array('href'=>common_local_url('userrss', array('limit' => $notice_count, 'nickname' => $user->nickname)), 
-											  'type' => 'rss',
-											  'version' => 'RSS 1.0',
-											  'item' => 'notices'),
-									 1=>array('href'=>common_local_url('foaf',array('nickname' => $user->nickname)),
-											  'type' => 'rdf',
-											  'version' => 'FOAF',
-											  'item' => 'foaf')));
-
-		common_submit('deleteaccount', _('Delete my account'));
-		common_element_end('form');
-	}
-
+//	function show_delete_form() {
+//		$user = common_current_user();
+//      $notices = DB_DataObject::factory('notice');
+//      $notices->profile_id = $user->id;
+//      $notice_count = (int) $notices->count();
+//
+//		common_element_start('form', array('method' => 'POST',
+//										   'id' => 'delete',
+//										   'action' =>
+//										   common_local_url('deleteprofile')));
+//
+//		common_hidden('token', common_session_token());
+//      common_element('p', null, "You can copy your notices and contacts by saving the two links below before deleting your account. Be careful, this operation cannot be undone.");
+//
+//		$this->show_feeds_list(array(0=>array('href'=>common_local_url('userrss', array('limit' => $notice_count, 'nickname' => $user->nickname)),
+//											  'type' => 'rss',
+//											  'version' => 'RSS 1.0',
+//											  'item' => 'notices'),
+//									 1=>array('href'=>common_local_url('foaf',array('nickname' => $user->nickname)),
+//											  'type' => 'rdf',
+//											  'version' => 'FOAF',
+//											  'item' => 'foaf')));
+//
+//		common_submit('deleteaccount', _('Delete my account'));
+//		common_element_end('form');
+//	}
 
 	function handle_post() {
 
@@ -152,12 +150,12 @@ class OthersettingsAction extends SettingsAction {
 	function save_preferences() {
 
 		$urlshorteningservice = $this->trimmed('urlshorteningservice');
-		
+
 		if (!is_null($urlshorteningservice) && strlen($urlshorteningservice) > 50) {
 			$this->show_form(_('URL shortening service is too long (max 50 chars).'));
 			return;
 		}
-		
+
 		$user = common_current_user();
 
 		assert(!is_null($user)); # should already be checked
