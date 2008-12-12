@@ -111,7 +111,7 @@ class NewnoticeAction extends Action {
 	}
 
 	function ajax_error_msg($msg) {
-		common_start_html('text/xml;charset=utf-8', false);
+		common_start_html('text/xml;charset=utf-8', true);
 		common_element_start('head');
 		common_element('title', null, _('Ajax Error'));
 		common_element_end('head');
