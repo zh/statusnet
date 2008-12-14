@@ -90,8 +90,10 @@ class TwitterapiAction extends Action {
 		$server = common_config('site', 'server');
 		$entry = array();
 
-		$entry['content'] = common_xml_safe_str($notice->rendered);
-		$entry['title'] = $profile->nickname . ': ' . common_xml_safe_str($notice->content);
+        # We trim() to avoid extraneous whitespace in the output
+
+		$entry['content'] = common_xml_safe_str(trim($notice->rendered));
+		$entry['title'] = $profile->nickname . ': ' . common_xml_safe_str(trim($notice->content));
 		$entry['link'] = common_local_url('shownotice', array('notice' => $notice->id));
 		$entry['published'] = common_date_iso8601($notice->created);
 		$entry['id'] = "tag:$server,2008:$entry[link]";
@@ -113,7 +115,7 @@ class TwitterapiAction extends Action {
 		$entry['title'] = sprintf('Message from %s to %s',
 			$message->getFrom()->nickname, $message->getTo()->nickname);
 
-		$entry['content'] = common_xml_safe_str($message->content);
+		$entry['content'] = common_xml_safe_str(trim($message->content));
 		$entry['link'] = common_local_url('showmessage', array('message' => $message->id));
 		$entry['published'] = common_date_iso8601($message->created);
 		$entry['id'] = "tag:$server,2008:$entry[link]";
@@ -136,7 +138,7 @@ class TwitterapiAction extends Action {
 
 		$twitter_dm['id'] = $message->id;
 		$twitter_dm['sender_id'] = $message->from_profile;
-		$twitter_dm['text'] = $message->content;
+		$twitter_dm['text'] = trim($message->content);
 		$twitter_dm['recipient_id'] = $message->to_profile;
 		$twitter_dm['created_at'] = $this->date_twitter($message->created);
 		$twitter_dm['sender_screen_name'] = $from_profile->nickname;
