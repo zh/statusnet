@@ -56,12 +56,10 @@ class FavoritedAction extends StreamAction {
 
 	function show_notices($page) {
 
-		// XXX: Make dropoff configurable like tags?
-
-		$qry =
-			'SELECT notice_id, sum(exp(-(now() - modified)/864000)) as weight ' .
-			'FROM fave GROUP BY notice_id ' .
-			'ORDER BY weight DESC';
+		$qry = 'SELECT notice.*, sum(exp(-(now() - fave.modified) / %s)) as weight ' .
+				'FROM notice JOIN fave ON notice.id = fave.notice_id ' .
+				'GROUP BY fave.notice_id ' .
+				'ORDER BY weight DESC';
 
 		$offset = ($page - 1) * NOTICES_PER_PAGE;
 		$limit = NOTICES_PER_PAGE + 1;
@@ -72,25 +70,30 @@ class FavoritedAction extends StreamAction {
 			$qry .= ' LIMIT ' . $offset . ', ' . $limit;
 		}
 
-		// XXX: Figure out how to cache these queries.
+		# Figure out how to cache this query
 
-		$fave = new Fave;
-		$fave->query($qry);
+		$notice = new Notice;
+		$notice->query(sprintf($qry, common_config('popular', 'dropoff')));
 
-		$notice_list = array();
+		common_element_start('ul', array('id' => 'notices'));
 
-		while ($fave->fetch()) {
-		  array_push($notice_list, $fave->notice_id);
+		$cnt = 0;
+
+		while ($notice->fetch() && $cnt <= NOTICES_PER_PAGE) {
+			$cnt++;
+
+			if ($cnt > NOTICES_PER_PAGE) {
+				break;
+			}
+
+            $item = new NoticeListItem($notice);
+            $item->show();
 		}
 
-		$notice = new Notice();
-
-		$notice->query(sprintf('SELECT * FROM notice WHERE id in (%s)',
-			implode(',', $notice_list)));
-
-        $cnt = $this->show_notice_list($notice);
+		common_element_end('ul');
 
 		common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
 						  $page, 'favorited');
 	}
+
 }

@@ -123,7 +123,7 @@ class Rss10Action extends Action {
 		$nurl = common_local_url('shownotice', array('notice' => $notice->id));
 		$creator_uri = common_profile_uri($profile);
 		common_element_start('item', array('rdf:about' => $notice->uri));
-		$title = $profile->nickname . ': ' . common_xml_safe_str($notice->content);
+		$title = $profile->nickname . ': ' . common_xml_safe_str(trim($notice->content));
 		common_element('title', NULL, $title);
 		common_element('link', NULL, $nurl);
 		common_element('description', NULL, $profile->nickname."'s status on ".common_exact_date($notice->created));
@@ -132,24 +132,6 @@ class Rss10Action extends Action {
 		common_element('sioc:has_creator', array('rdf:resource' => $creator_uri));
 		common_element('laconica:postIcon', array('rdf:resource' => common_profile_avatar_url($profile)));
 		common_element('cc:licence', array('rdf:resource' => common_config('license', 'url')));
-        common_element_start('content:items');
-        common_element_start('rdf:Bag');
-        common_element_start('rdf:li');
-        common_element_start('content:item');
-        common_element('content:format', array('rdf:resource' =>
-                                               'http://www.w3.org/1999/xhtml'));
-        common_text($notice->rendered);
-        common_element_end('content:item');
-        common_element_end('rdf:li');
-        common_element_start('rdf:li');
-        common_element_start('content:item');
-        common_element('content:format', array('rdf:resource' =>
-                                               'http://www.isi.edu/in-notes/iana/assignments/media-types/text/plain'));
-        common_text(common_xml_safe_str($notice->content));
-        common_element_end('content:item');
-        common_element_end('rdf:li');
-        common_element_end('rdf:Bag');
-        common_element_end('content:items');
 		common_element_end('item');
 		$this->creators[$creator_uri] = $profile;
 	}
