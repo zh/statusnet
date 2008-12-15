@@ -182,7 +182,7 @@ class FinishremotesubscribeAction extends Action {
 			}
 		}
 
-        if ($user->hasBlocked($remote->id)) {
+        if ($user->hasBlocked($profile)) {
             $this->client_error(_('That user has blocked you from subscribing.'));
             return;
         }
