@@ -122,7 +122,7 @@ class NewmessageAction extends Action {
 		                   array($this, 'show_top'));
 		
 		if ($msg) {
-			common_element('p', 'error', $msg);
+			common_element('p', array('id'=>'error'), $msg);
 		}
 		
 		common_show_footer();

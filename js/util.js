@@ -144,15 +144,10 @@ $(document).ready(function(){
 																		   $("#status_form input[type=submit]").addClass("disabled");
 																		   return true;
 												 						 },
-					   success: function(xml) {	if ($(".error", xml).length > 0) {
-													var response_error = document._importNode($(".error", xml).get(0), true);
-													response_error = response_error.textContent || response_error.innerHTML;
-													alert(response_error);
-												}
-												else if ($(".command_results", xml).length > 0) {
-													var command_results = document._importNode($(".command_results", xml).get(0), true);
-													command_results = command_results.textContent || command_results.innerHTML;
-													alert(command_results);
+					   success: function(xml) {	if ($("#error", xml).length > 0 || $("#command_result", xml).length > 0) {
+													var result = document._importNode($("p", xml).get(0), true);
+													result = result.textContent || result.innerHTML;
+													alert(result);
 												}
 												else {
 													$("#notices").prepend(document._importNode($("li", xml).get(0), true));
@@ -160,13 +155,11 @@ $(document).ready(function(){
 													counter();
 													$(".notice_single:first").css({display:"none"});
 													$(".notice_single:first").fadeIn(2500);
-
 												}
-
 												$("#status_form input[type=submit]").removeAttr("disabled");
 												$("#status_form input[type=submit]").removeClass("disabled");
 											 }
-					   }
+					   };
 	$("#status_form").ajaxForm(PostNotice);
 	$("#status_form").each(addAjaxHidden);
 });
