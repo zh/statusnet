@@ -182,19 +182,37 @@ class FinishremotesubscribeAction extends Action {
 			}
 		}
 
-        if ($user->hasBlocked($remote->id)) {
+        if ($user->hasBlocked($profile)) {
             $this->client_error(_('That user has blocked you from subscribing.'));
             return;
         }
 
 		$sub = new Subscription();
+
 		$sub->subscriber = $remote->id;
 		$sub->subscribed = $user->id;
+
+        $sub_exists = false;
+
+        if ($sub->find(true)) {
+            $sub_exists = true;
+            $orig_sub = clone($sub);
+        } else {
+            $sub_exists = false;
+            $sub->created = DB_DataObject_Cast::dateTime(); # current time
+        }
+
 		$sub->token = $newtok;
 		$sub->secret = $newsecret;
-		$sub->created = DB_DataObject_Cast::dateTime(); # current time
 
-		if (!$sub->insert()) {
+        if ($sub_exists) {
+            $result = $sub->update($orig_sub);
+        } else {
+            $result = $sub->insert();
+        }
+
+		if (!$result) {
+            common_log_db_error($sub, ($sub_exists) ? 'UPDATE' : 'INSERT', __FILE__);
 			common_user_error(_('Couldn\'t insert new subscription.'));
 			return;
 		}
