@@ -157,7 +157,7 @@ class NoticeListItem {
 
     function show_notice_source() {
 		if ($this->notice->source) {
-			common_text(_(' from '));
+			common_element('span', null, _(' from '));
             $source_name = _($this->notice->source);
             switch ($source) {
              case 'web':
@@ -198,7 +198,7 @@ class NoticeListItem {
 								   'onclick' => 'return doreply("'.$this->profile->nickname.'", '.$this->notice->id.');',
 								   'title' => _('reply'),
 								   'class' => 'replybutton'));
-		common_raw('&rarr;');
+		common_raw(' &#8594;');
 		common_element_end('a');
     }
 
@@ -209,7 +209,7 @@ class NoticeListItem {
 			common_element_start('a', array('class' => 'deletenotice',
 											'href' => $deleteurl,
 											'title' => _('delete')));
-			common_raw('&times;');
+			common_raw(' &#215;');
 			common_element_end('a');
 		}
     }
