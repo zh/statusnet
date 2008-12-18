@@ -116,7 +116,7 @@ class NewnoticeAction extends Action {
 		common_element('title', null, _('Ajax Error'));
 		common_element_end('head');
 		common_element_start('body');
-		common_element('p', array('class' => 'error'), $msg);
+		common_element('p', array('id' => 'error'), $msg);
 		common_element_end('body');
 		common_element_end('html');
 	}
@@ -141,7 +141,7 @@ class NewnoticeAction extends Action {
 		common_show_header(_('New notice'), NULL, $content,
 						   array($this, 'show_top'));
 		if ($msg) {
-			common_element('p', 'error', $msg);
+			common_element('p', array('id' => 'error'), $msg);
 		}
 		common_show_footer();
 	}

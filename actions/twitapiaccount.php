@@ -24,17 +24,14 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
 class TwitapiaccountAction extends TwitterapiAction {
 
 	function verify_credentials($args, $apidata) {
+		parent::handle($args);
 
-		if ($apidata['content-type'] == 'xml') {
-			header('Content-Type: application/xml; charset=utf-8');
-			print '<authorized>true</authorized>';
-		} elseif ($apidata['content-type'] == 'json') {
-			header('Content-Type: application/json; charset=utf-8');
-			print '{"authorized":true}';
-		} else {
-			common_user_error(_('API method not found!'), $code=404);
+		if (!in_array($apidata['content-type'], array('xml', 'json'))) {
+			common_user_error(_('API method not found!'), $code = 404);
+			return;
 		}
 
+		$this->show_extended_profile($apidata['user'], $apidata);
 	}
 
 	function end_session($args, $apidata) {
