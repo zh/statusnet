@@ -1,25 +1,52 @@
-hunk ./lib/mail.php 115
--		$headers['Subject'] = sprintf(_('%1$s is now listening to your notices on %2$s.'), $other->getBestName(),
-+		$headers['Subject'] = sprintf(_('%1$s is now listening to your notices on %2$s.'),
-+                                      $other->getBestName(),
-hunk ./lib/mail.php 120
--						   'Faithfully yours,'."\n".'%4$s.'."\n"),
--						 $long_name,
--						 common_config('site', 'name'),
--						 $other->profileurl,
--						 common_config('site', 'name'));
--
-+						   '%4$s'.
-+                           '%5$s'.
-+                           '%6$s'.
-+						   "\n".'Faithfully yours,'."\n".'%7$s.'."\n\n".
-+                           "----\n".
-+                           "Change your email address or notification options at %8$s"),
-+                         $long_name,
-+                         common_config('site', 'name'),
-+                         $other->profileurl,
-+                         ($other->location) ? sprintf(_("Location: %s\n"), $other->location) : '',
-+                         ($other->homepage) ? sprintf(_("Homepage: %s\n"), $other->homepage) : '',
-+                         ($other->bio) ? sprintf(_("Bio: %s\n\n"), $other->bio) : '',
-+                         common_config('site', 'name'),
-+                         common_local_url('emailsettings'));
+hunk ./index.php 2
+-/*
++/**
+hunk ./index.php 23
+-require_once(INSTALLDIR . "/lib/common.php");
++require_once INSTALLDIR . '/lib/common.php';
+hunk ./index.php 25
+-# get and cache current user
++// get and cache current user
+hunk ./index.php 29
+-# initialize language env
++// initialize language env
+hunk ./index.php 44
+-                             'recoverpassword', 'api', 'doc', 'register')))
+-{
++                             'recoverpassword', 'api', 'doc', 'register'))) {
+hunk ./index.php 51
+-    require_once($actionfile);
+-    $action_class = ucfirst($action)."Action";
++
++    include_once $actionfile;
++
++    $action_class = ucfirst($action).'Action';
++
+hunk ./index.php 57
+-	if ($config['db']['mirror'] && $action_obj->is_readonly()) {
+-		if (is_array($config['db']['mirror'])) {
+-			# "load balancing", ha ha
+-			$k = array_rand($config['db']['mirror']);
+-			$mirror = $config['db']['mirror'][$k];
+-		} else {
+-			$mirror = $config['db']['mirror'];
+-		}
+-		$config['db']['database'] = $mirror;
+-	}
++
++    if ($config['db']['mirror'] && $action_obj->is_readonly()) {
++        if (is_array($config['db']['mirror'])) {
++            // "load balancing", ha ha
++            $k = array_rand($config['db']['mirror']);
++
++            $mirror = $config['db']['mirror'][$k];
++        } else {
++            $mirror = $config['db']['mirror'];
++        }
++        $config['db']['database'] = $mirror;
++    }
+hunk ./index.php 70
+-		call_user_func(array($action_obj, 'handle'), $_REQUEST);
+-	}
++        call_user_func(array($action_obj, 'handle'), $_REQUEST);
++    }
