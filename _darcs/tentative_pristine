@@ -1,236 +1,232 @@
-hunk ./lib/action.php 2
+hunk ./lib/daemon.php 2
 -/*
 +/**
-hunk ./lib/action.php 20
+hunk ./lib/daemon.php 20
 -if (!defined('LACONICA')) { exit(1); }
 +if (!defined('LACONICA')) {
 +    exit(1);
 +}
-hunk ./lib/action.php 24
--class Action { // lawsuit
-+class Action // lawsuit
+hunk ./lib/daemon.php 24
+-class Daemon {
++class Daemon
 +{
-hunk ./lib/action.php 27
--	var $args;
-+    var $args;
-hunk ./lib/action.php 29
--	function Action() {
--	}
-+    function Action()
-+    {
-+    }
-hunk ./lib/action.php 33
--	# For initializing members of the class
-+    // For initializing members of the class
-hunk ./lib/action.php 35
--	function prepare($argarray) {
--		$this->args =& common_copy_args($argarray);
--		return true;
--	}
-+    function prepare($argarray)
-+    {
-+        $this->args =& common_copy_args($argarray);
-+        return true;
-+    }
-hunk ./lib/action.php 41
--	# For comparison with If-Last-Modified
--	# If not applicable, return NULL
-+    // For comparison with If-Last-Modified
-+    // If not applicable, return null
-hunk ./lib/action.php 44
--	function last_modified() {
--		return NULL;
--	}
-+    function last_modified()
++    function name()
 +    {
 +        return null;
 +    }
-hunk ./lib/action.php 49
--	function etag() {
+hunk ./lib/daemon.php 31
+-	function name() {
 -		return NULL;
 -	}
-+    function etag()
-+    {
-+        return null;
-+    }
-hunk ./lib/action.php 54
--	function is_readonly() {
--		return false;
+-	
+-	function background() {
+-		$pid = pcntl_fork();
+-		if ($pid < 0) { # error
+-			common_log(LOG_ERR, "Could not fork.");
+-			return false;
+-		} else if ($pid > 0) { # parent
+-			common_log(LOG_INFO, "Successfully forked.");
+-			exit(0);
+-		} else { # child
+-			return true;
+-		}
 -	}
-+    function is_readonly()
++    function background()
 +    {
-+        return false;
++        $pid = pcntl_fork();
++        if ($pid < 0) { // error
++            common_log(LOG_ERR, "Could not fork.");
++            return false;
++        } else if ($pid > 0) { // parent
++            common_log(LOG_INFO, "Successfully forked.");
++            exit(0);
++        } else { // child
++            return true;
++        }
 +    }
-hunk ./lib/action.php 59
--	function arg($key, $def=NULL) {
--		if (array_key_exists($key, $this->args)) {
--			return $this->args[$key];
+hunk ./lib/daemon.php 45
+-	function alreadyRunning() {
++    function alreadyRunning()
++    {
++        $pidfilename = $this->pidFilename();
+hunk ./lib/daemon.php 49
+-		$pidfilename = $this->pidFilename();
++        if (!$pidfilename) {
++            return false;
++        }
+hunk ./lib/daemon.php 53
+-		if (!$pidfilename) {
+-			return false;
+-		}
+-		
+-		if (!file_exists($pidfilename)) {
+-			return false;
+-		}
+-		$contents = file_get_contents($pidfilename);
+-		if (posix_kill(trim($contents),0)) {
+-			return true;
 -		} else {
--			return $def;
+-			return false;
 -		}
 -	}
-+    function arg($key, $def=null)
-+    {
-+        if (array_key_exists($key, $this->args)) {
-+            return $this->args[$key];
+-	
+-	function writePidFile() {
+-		$pidfilename = $this->pidFilename();
+-		
+-		if (!$pidfilename) {
+-			return false;
+-		}
+-		
+-	    return file_put_contents($pidfilename, posix_getpid() . "\n");
+-	}
++        if (!file_exists($pidfilename)) {
++            return false;
++        }
++        $contents = file_get_contents($pidfilename);
++        if (posix_kill(trim($contents), 0)) {
++            return true;
 +        } else {
-+            return $def;
++            return false;
 +        }
 +    }
-hunk ./lib/action.php 68
--	function trimmed($key, $def=NULL) {
--		$arg = $this->arg($key, $def);
--		return (is_string($arg)) ? trim($arg) : $arg;
--	}
-+    function trimmed($key, $def=null)
-+    {
-+        $arg = $this->arg($key, $def);
-+        return (is_string($arg)) ? trim($arg) : $arg;
-+    }
-hunk ./lib/action.php 74
--	# Note: argarray ignored, since it's now passed in in prepare()
-+    // Note: argarray ignored, since it's now passed in in prepare()
-hunk ./lib/action.php 76
--	function handle($argarray=NULL) {
-+    function handle($argarray=null)
-+    {
-hunk ./lib/action.php 79
--		$lm = $this->last_modified();
--		$etag = $this->etag();
-+        $lm = $this->last_modified();
-+        $etag = $this->etag();
-hunk ./lib/action.php 82
--		if ($etag) {
--			header('ETag: ' . $etag);
+hunk ./lib/daemon.php 64
+-	function clearPidFile() {
+-		$pidfilename = $this->pidFilename();
+-	        if (!$pidfilename) {
+-		    return false;
 -		}
-+        if ($etag) {
-+            header('ETag: ' . $etag);
+-	        return unlink($pidfilename);
+-	}
+-	
+-	function pidFilename() {
+-		$piddir = common_config('daemon', 'piddir');
+-		if (!$piddir) {
+-			return NULL;
+-		}
+-		$name = $this->name();
+-		if (!$name) {
+-			return NULL;
+-		}
+-		return $piddir . '/' . $name . '.pid';
+-	}
++    function writePidFile()
++    {
++        $pidfilename = $this->pidFilename();
+hunk ./lib/daemon.php 68
+-	function changeUser() {
++        if (!$pidfilename) {
++            return false;
 +        }
-hunk ./lib/action.php 86
--		if ($lm) {
--			header('Last-Modified: ' . date(DATE_RFC1123, $lm));
--			$if_modified_since = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
--			if ($if_modified_since) {
--				$ims = strtotime($if_modified_since);
--				if ($lm <= $ims) {
--					if (!$etag || $this->_has_etag($etag, $_SERVER['HTTP_IF_NONE_MATCH'])) {
--						header('HTTP/1.1 304 Not Modified');
--						# Better way to do this?
--						exit(0);
--					}
--				}
+hunk ./lib/daemon.php 72
+-		$username = common_config('daemon', 'user');
+-		
+-		if ($username) {
+-			$user_info = posix_getpwnam($username);
+-			if (!$user_info) {
+-				common_log(LOG_WARNING, 'Ignoring unknown user for daemon: ' . $username);
+-			} else {
+-				common_log(LOG_INFO, "Setting user to " . $username);
+-				posix_setuid($user_info['uid']);
+-			}
+-		}
++        return file_put_contents($pidfilename, posix_getpid() . "\n");
++    }
+hunk ./lib/daemon.php 75
+-		$groupname = common_config('daemon', 'group');
+-		
+-		if ($groupname) {
+-			$group_info = posix_getgrnam($groupname);
+-			if (!$group_info) {
+-				common_log(LOG_WARNING, 'Ignoring unknown group for daemon: ' . $groupname);
+-			} else {
+-				common_log(LOG_INFO, "Setting group to " . $groupname);
+-				posix_setgid($group_info['gid']);
 -			}
 -		}
 -	}
-+        if ($lm) {
-+            header('Last-Modified: ' . date(DATE_RFC1123, $lm));
-+            $if_modified_since = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
-+            if ($if_modified_since) {
-+                $ims = strtotime($if_modified_since);
-+                if ($lm <= $ims) {
-+                    if (!$etag ||
-+                        $this->_has_etag($etag, $_SERVER['HTTP_IF_NONE_MATCH'])) {
-+                        header('HTTP/1.1 304 Not Modified');
-+                        // Better way to do this?
-+                        exit(0);
-+                    }
-+                }
+-	
+-	function runOnce() {
+-		if ($this->alreadyRunning()) {
+-			common_log(LOG_INFO, $this->name() . ' already running. Exiting.');
+-			exit(0);
+-		}
+-		if ($this->background()) {
+-			$this->writePidFile();
+-			$this->changeUser();
+-			$this->run();
+-			$this->clearPidFile();
+-		}
+-	}
+-	
+-	function run() {
+-		return true;
+-	}
++    function clearPidFile()
++    {
++        $pidfilename = $this->pidFilename();
++        if (!$pidfilename) {
++            return false;
++        }
++        return unlink($pidfilename);
++    }
++
++    function pidFilename()
++    {
++        $piddir = common_config('daemon', 'piddir');
++        if (!$piddir) {
++            return null;
++        }
++        $name = $this->name();
++        if (!$name) {
++            return null;
++        }
++        return $piddir . '/' . $name . '.pid';
++    }
++
++    function changeUser()
++    {
++        $username = common_config('daemon', 'user');
++
++        if ($username) {
++            $user_info = posix_getpwnam($username);
++            if (!$user_info) {
++                common_log(LOG_WARNING,
++                           'Ignoring unknown user for daemon: ' . $username);
++            } else {
++                common_log(LOG_INFO, "Setting user to " . $username);
++                posix_setuid($user_info['uid']);
++            }
++        }
++
++        $groupname = common_config('daemon', 'group');
++
++        if ($groupname) {
++            $group_info = posix_getgrnam($groupname);
++            if (!$group_info) {
++                common_log(LOG_WARNING,
++                           'Ignoring unknown group for daemon: ' . $groupname);
++            } else {
++                common_log(LOG_INFO, "Setting group to " . $groupname);
++                posix_setgid($group_info['gid']);
 +            }
 +        }
 +    }
-hunk ./lib/action.php 103
--	function _has_etag($etag, $if_none_match) {
--		return ($if_none_match) && in_array($etag, explode(',', $if_none_match));
--	}
-+    function _has_etag($etag, $if_none_match)
++
++    function runOnce()
 +    {
-+        return ($if_none_match) && in_array($etag, explode(',', $if_none_match));
-+    }
-hunk ./lib/action.php 108
--	function boolean($key, $def=false) {
--		$arg = strtolower($this->trimmed($key));
-+    function boolean($key, $def=false)
-+    {
-+        $arg = strtolower($this->trimmed($key));
-hunk ./lib/action.php 112
--		if (is_null($arg)) {
--			return $def;
--		} else if (in_array($arg, array('true', 'yes', '1'))) {
--			return true;
--		} else if (in_array($arg, array('false', 'no', '0'))) {
--			return false;
--		} else {
--			return $def;
--		}
--	}
-+        if (is_null($arg)) {
-+            return $def;
-+        } else if (in_array($arg, array('true', 'yes', '1'))) {
-+            return true;
-+        } else if (in_array($arg, array('false', 'no', '0'))) {
-+            return false;
-+        } else {
-+            return $def;
++        if ($this->alreadyRunning()) {
++            common_log(LOG_INFO, $this->name() . ' already running. Exiting.');
++            exit(0);
++        }
++        if ($this->background()) {
++            $this->writePidFile();
++            $this->changeUser();
++            $this->run();
++            $this->clearPidFile();
 +        }
 +    }
-hunk ./lib/action.php 123
--	function server_error($msg, $code=500) {
--		$action = $this->trimmed('action');
--		common_debug("Server error '$code' on '$action': $msg", __FILE__);
--		common_server_error($msg, $code);
--	}
-+    function server_error($msg, $code=500)
++
++    function run()
 +    {
-+        $action = $this->trimmed('action');
-+        common_debug("Server error '$code' on '$action': $msg", __FILE__);
-+        common_server_error($msg, $code);
-+    }
-hunk ./lib/action.php 130
--	function client_error($msg, $code=400) {
--		$action = $this->trimmed('action');
--		common_debug("User error '$code' on '$action': $msg", __FILE__);
--		common_user_error($msg, $code);
--	}
-+    function client_error($msg, $code=400)
-+    {
-+        $action = $this->trimmed('action');
-+        common_debug("User error '$code' on '$action': $msg", __FILE__);
-+        common_user_error($msg, $code);
-+    }
-hunk ./lib/action.php 137
--	function self_url() {
--		$action = $this->trimmed('action');
--		$args = $this->args;
--		unset($args['action']);
--		foreach (array_keys($_COOKIE) as $cookie) {
--			unset($args[$cookie]);
--		}
--		return common_local_url($action, $args);
--	}
-+    function self_url()
-+    {
-+        $action = $this->trimmed('action');
-+        $args = $this->args;
-+        unset($args['action']);
-+        foreach (array_keys($_COOKIE) as $cookie) {
-+            unset($args[$cookie]);
-+        }
-+        return common_local_url($action, $args);
-+    }
-hunk ./lib/action.php 148
--	function nav_menu($menu) {
-+    function nav_menu($menu)
-+    {
-hunk ./lib/action.php 153
--            common_menu_item(common_local_url($menuaction, isset($menudesc[2]) ? $menudesc[2] : NULL),
--							 $menudesc[0],
--							 $menudesc[1],
--							 $action == $menuaction);
-+            common_menu_item(common_local_url($menuaction,
-+                                              isset($menudesc[2]) ? $menudesc[2] : null),
-+                             $menudesc[0],
-+                             $menudesc[1],
-+                             $action == $menuaction);
-hunk ./lib/action.php 160
--	}
++        return true;
 +    }
