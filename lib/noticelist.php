@@ -143,7 +143,7 @@ class NoticeListItem {
     function show_notice_link() {
 		$noticeurl = common_local_url('shownotice', array('notice' => $this->notice->id));
 		# XXX: we need to figure this out better. Is this right?
-		if (strcmp($this->notice->uri, $this->noticeurl) != 0 && preg_match('/^http/', $this->notice->uri)) {
+		if (strcmp($this->notice->uri, $noticeurl) != 0 && preg_match('/^http/', $this->notice->uri)) {
 			$noticeurl = $this->notice->uri;
 		}
 		common_element_start('a', array('class' => 'permalink',
@@ -159,7 +159,7 @@ class NoticeListItem {
 		if ($this->notice->source) {
 			common_element('span', null, _(' from '));
             $source_name = _($this->notice->source);
-            switch ($source) {
+            switch ($this->notice->source) {
              case 'web':
              case 'xmpp':
              case 'mail':
