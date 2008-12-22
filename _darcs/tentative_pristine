@@ -1,562 +1,661 @@
-hunk ./lib/gallery.php 2
--
+hunk ./lib/jabber.php 2
 -/*
+- * Laconica - a distributed open-source microblogging tool
+- * Copyright (C) 2008, Controlez-Vous, Inc.
 +/**
-hunk ./lib/gallery.php 20
++ * Laconica, the distributed open-source microblogging tool
+hunk ./lib/jabber.php 5
+- * This program is free software: you can redistribute it and/or modify
++ * utility functions for Jabber/GTalk/XMPP messages
++ *
++ * PHP version 5
++ *
++ * LICENCE: This program is free software: you can redistribute it and/or modify
+hunk ./lib/jabber.php 21
++ *
++ * @category  Network
++ * @package   Laconica
++ * @author    Evan Prodromou <evan@controlyourself.ca>
++ * @copyright 2008 Control Yourself, Inc.
++ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
++ * @link      http://laconi.ca/
+hunk ./lib/jabber.php 30
 -if (!defined('LACONICA')) { exit(1); }
 +if (!defined('LACONICA')) {
 +    exit(1);
 +}
-hunk ./lib/gallery.php 24
--require_once(INSTALLDIR.'/lib/profilelist.php');
-+require_once INSTALLDIR.'/lib/profilelist.php';
-hunk ./lib/gallery.php 26
--# 10x8
-+// 10x8
-hunk ./lib/gallery.php 30
--class GalleryAction extends Action {
-+class GalleryAction extends Action
+hunk ./lib/jabber.php 34
+-require_once('XMPPHP/XMPP.php');
++require_once 'XMPPHP/XMPP.php';
+hunk ./lib/jabber.php 36
+-function jabber_valid_base_jid($jid) {
+-	# Cheap but effective
+-	return Validate::email($jid);
++/**
++ * checks whether a string is a syntactically valid Jabber ID (JID)
++ *
++ * @param string $jid string to check
++ *
++ * @return     boolean whether the string is a valid JID
++ */
++
++function jabber_valid_base_jid($jid)
 +{
-+    function is_readonly()
-+    {
-+        return true;
++    // Cheap but effective
++    return Validate::email($jid);
+hunk ./lib/jabber.php 50
+-function jabber_normalize_jid($jid) {
+-	if (preg_match("/(?:([^\@]+)\@)?([^\/]+)(?:\/(.*))?$/", $jid, $matches)) {
+-		$node = $matches[1];
+-		$server = $matches[2];
+-		return strtolower($node.'@'.$server);
+-	} else {
+-		return NULL;
+-	}
++/**
++ * normalizes a Jabber ID for comparison
++ *
++ * @param string $jid JID to check
++ *
++ * @return string an equivalent JID in normalized (lowercase) form
++ */
++
++function jabber_normalize_jid($jid)
++{
++    if (preg_match("/(?:([^\@]+)\@)?([^\/]+)(?:\/(.*))?$/", $jid, $matches)) {
++        $node   = $matches[1];
++        $server = $matches[2];
++        return strtolower($node.'@'.$server);
++    } else {
++        return null;
 +    }
+hunk ./lib/jabber.php 69
+-function jabber_daemon_address() {
+-	return common_config('xmpp', 'user') . '@' . common_config('xmpp', 'server');
++/**
++ * the JID of the Jabber daemon for this Laconica instance
++ *
++ * @return string JID of the Jabber daemon
++ */
 +
-+    function handle($args)
-+    {
-+        parent::handle($args);
++function jabber_daemon_address()
++{
++    return common_config('xmpp', 'user') . '@' . common_config('xmpp', 'server');
+hunk ./lib/jabber.php 80
+-function jabber_connect($resource=NULL) {
+-	static $conn = NULL;
+-	if (!$conn) {
+-		$conn = new XMPPHP_XMPP(common_config('xmpp', 'host') ?
+-								common_config('xmpp', 'host') :
+-								common_config('xmpp', 'server'),
+-								common_config('xmpp', 'port'),
+-								common_config('xmpp', 'user'),
+-								common_config('xmpp', 'password'),
+-								($resource) ? $resource :
+-								common_config('xmpp', 'resource'),
+-								common_config('xmpp', 'server'),
+-								common_config('xmpp', 'debug') ?
+-								true : false,
+-								common_config('xmpp', 'debug') ?
+-								XMPPHP_Log::LEVEL_VERBOSE :  NULL
+-								);
++/**
++ * connect the configured Jabber account to the configured server
++ *
++ * @param string $resource Resource to connect (defaults to configured resource)
++ *
++ * @return XMPPHP connection to the configured server
++ */
 +
-+        // Post from the tag dropdown; redirect to a GET
-+
-+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-+            common_redirect($this->self_url(), 307);
++function jabber_connect($resource=null)
++{
++    static $conn = null;
++    if (!$conn) {
++        $conn = new XMPPHP_XMPP(common_config('xmpp', 'host') ?
++                                common_config('xmpp', 'host') :
++                                common_config('xmpp', 'server'),
++                                common_config('xmpp', 'port'),
++                                common_config('xmpp', 'user'),
++                                common_config('xmpp', 'password'),
++                                ($resource) ? $resource :
++                                common_config('xmpp', 'resource'),
++                                common_config('xmpp', 'server'),
++                                common_config('xmpp', 'debug') ?
++                                true : false,
++                                common_config('xmpp', 'debug') ?
++                                XMPPHP_Log::LEVEL_VERBOSE :  null
++                                );
+hunk ./lib/jabber.php 107
+-		if (!$conn) {
+-			return false;
+-		}
++        if (!$conn) {
++            return false;
 +        }
+hunk ./lib/jabber.php 111
+-		$conn->autoSubscribe();
+-		$conn->useEncryption(common_config('xmpp', 'encryption'));
++        $conn->autoSubscribe();
++        $conn->useEncryption(common_config('xmpp', 'encryption'));
+hunk ./lib/jabber.php 114
+-		try {
+-			$conn->connect(true); # true = persistent connection
+-		} catch (XMPPHP_Exception $e) {
+-			common_log(LOG_ERROR, $e->getMessage());
+-			return false;
+-		}
++        try {
++            $conn->connect(true); // true = persistent connection
++        } catch (XMPPHP_Exception $e) {
++            common_log(LOG_ERROR, $e->getMessage());
++            return false;
++        }
+hunk ./lib/jabber.php 121
+-    	$conn->processUntil('session_start');
+-	}
+-	return $conn;
++        $conn->processUntil('session_start');
++    }
++    return $conn;
+hunk ./lib/jabber.php 126
+-function jabber_send_notice($to, $notice) {
+-	$conn = jabber_connect();
+-	if (!$conn) {
+-		return false;
+-	}
+-	$profile = Profile::staticGet($notice->profile_id);
+-	if (!$profile) {
+-		common_log(LOG_WARNING, 'Refusing to send notice with ' .
+-		           'unknown profile ' . common_log_objstring($notice),
+-		           __FILE__);
+-		return false;
+-	}
+-	$msg = jabber_format_notice($profile, $notice);
+-	$entry = jabber_format_entry($profile, $notice);
+-	$conn->message($to, $msg, 'chat', NULL, $entry);
+-	$profile->free();
+-	return true;
++/**
++ * send a single notice to a given Jabber address
++ *
++ * @param string $to     JID to send the notice to
++ * @param Notice $notice notice to send
++ *
++ * @return boolean success value
++ */
 +
-+        $nickname = common_canonical_nickname($this->arg('nickname'));
-hunk ./lib/gallery.php 49
--	function is_readonly() {
++function jabber_send_notice($to, $notice)
++{
++    $conn = jabber_connect();
++    if (!$conn) {
++        return false;
++    }
++    $profile = Profile::staticGet($notice->profile_id);
++    if (!$profile) {
++        common_log(LOG_WARNING, 'Refusing to send notice with ' .
++                   'unknown profile ' . common_log_objstring($notice),
++                   __FILE__);
++        return false;
++    }
++    $msg   = jabber_format_notice($profile, $notice);
++    $entry = jabber_format_entry($profile, $notice);
++    $conn->message($to, $msg, 'chat', null, $entry);
++    $profile->free();
++    return true;
+hunk ./lib/jabber.php 155
+-# Extra stuff defined by Twitter, needed by twitter clients
++/**
++ * extra information for XMPP messages, as defined by Twitter
++ *
++ * @param Profile $profile Profile of the sending user
++ * @param Notice  $notice  Notice being sent
++ *
++ * @return string Extra information (Atom, HTML, addresses) in string format
++ */
+hunk ./lib/jabber.php 164
+-function jabber_format_entry($profile, $notice) {
++function jabber_format_entry($profile, $notice)
++{
++    // FIXME: notice url might be remote
+hunk ./lib/jabber.php 168
+-	# FIXME: notice url might be remote
++    $noticeurl = common_local_url('shownotice',
++                                  array('notice' => $notice->id));
+hunk ./lib/jabber.php 171
+-	$noticeurl = common_local_url('shownotice',
+-								  array('notice' => $notice->id));
+-	$msg = jabber_format_notice($profile, $notice);
+-	$entry = "\n<entry xmlns='http://www.w3.org/2005/Atom'>\n";
+-	$entry .= "<source>\n";
+-	$entry .= "<title>" . $profile->nickname . " - " . common_config('site', 'name') . "</title>\n";
+-	$entry .= "<link href='" . htmlspecialchars($profile->profileurl) . "'/>\n";
+-	$entry .= "<link rel='self' type='application/rss+xml' href='" . common_local_url('userrss', array('nickname' => $profile->nickname)) . "'/>\n";
+-	$entry .= "<author><name>" . $profile->nickname . "</name></author>\n";
+-	$entry .= "<icon>" . common_profile_avatar_url($profile, AVATAR_PROFILE_SIZE) . "</icon>\n";
+-	$entry .= "</source>\n";
+-	$entry .= "<title>" . htmlspecialchars($msg) . "</title>\n";
+-	$entry .= "<summary>" . htmlspecialchars($msg) . "</summary>\n";
+-	$entry .= "<link rel='alternate' href='" . $noticeurl . "' />\n";
+-	$entry .= "<id>". $notice->uri . "</id>\n";
+-	$entry .= "<published>".common_date_w3dtf($notice->created)."</published>\n";
+-	$entry .= "<updated>".common_date_w3dtf($notice->modified)."</updated>\n";
+-	$entry .= "</entry>\n";
++    $msg = jabber_format_notice($profile, $notice);
+hunk ./lib/jabber.php 173
+-	$html = "\n<html xmlns='http://jabber.org/protocol/xhtml-im'>\n";
+-	$html .= "<body xmlns='http://www.w3.org/1999/xhtml'>\n";
+-	$html .= "<a href='".htmlspecialchars($profile->profileurl)."'>".$profile->nickname."</a>: ";
+-	$html .= ($notice->rendered) ? $notice->rendered : common_render_content($notice->content, $notice);
+-	$html .= "\n</body>\n";
+-	$html .= "\n</html>\n";
++    $self_url = common_local_url('userrss', array('nickname' => $profile->nickname));
+hunk ./lib/jabber.php 175
+-	$address = "<addresses xmlns='http://jabber.org/protocol/address'>\n";
+-	$address .= "<address type='replyto' jid='" . jabber_daemon_address() . "' />\n";
+-	$address .= "</addresses>\n";
++    $entry  = "\n<entry xmlns='http://www.w3.org/2005/Atom'>\n";
++    $entry .= "<source>\n";
++    $entry .= "<title>" . $profile->nickname . " - " . common_config('site', 'name') . "</title>\n";
++    $entry .= "<link href='" . htmlspecialchars($profile->profileurl) . "'/>\n";
++    $entry .= "<link rel='self' type='application/rss+xml' href='" . $self_url . "'/>\n";
++    $entry .= "<author><name>" . $profile->nickname . "</name></author>\n";
++    $entry .= "<icon>" . common_profile_avatar_url($profile, AVATAR_PROFILE_SIZE) . "</icon>\n";
++    $entry .= "</source>\n";
++    $entry .= "<title>" . htmlspecialchars($msg) . "</title>\n";
++    $entry .= "<summary>" . htmlspecialchars($msg) . "</summary>\n";
++    $entry .= "<link rel='alternate' href='" . $noticeurl . "' />\n";
++    $entry .= "<id>". $notice->uri . "</id>\n";
++    $entry .= "<published>".common_date_w3dtf($notice->created)."</published>\n";
++    $entry .= "<updated>".common_date_w3dtf($notice->modified)."</updated>\n";
++    $entry .= "</entry>\n";
+hunk ./lib/jabber.php 191
+-	# FIXME: include a pubsub event, too.
++    $html  = "\n<html xmlns='http://jabber.org/protocol/xhtml-im'>\n";
++    $html .= "<body xmlns='http://www.w3.org/1999/xhtml'>\n";
++    $html .= "<a href='".htmlspecialchars($profile->profileurl)."'>".$profile->nickname."</a>: ";
++    $html .= ($notice->rendered) ? $notice->rendered : common_render_content($notice->content, $notice);
++    $html .= "\n</body>\n";
++    $html .= "\n</html>\n";
+hunk ./lib/jabber.php 198
+-	return $html . $entry . $address;
++    $address  = "<addresses xmlns='http://jabber.org/protocol/address'>\n";
++    $address .= "<address type='replyto' jid='" . jabber_daemon_address() . "' />\n";
++    $address .= "</addresses>\n";
++
++    // FIXME: include a pubsub event, too.
++
++    return $html . $entry . $address;
+hunk ./lib/jabber.php 207
+-function jabber_send_message($to, $body, $type='chat', $subject=NULL) {
+-	$conn = jabber_connect();
+-	if (!$conn) {
+-		return false;
+-	}
+-	$conn->message($to, $body, $type, $subject);
+-	return true;
++/**
++ * sends a single text message to a given JID
++ *
++ * @param string $to      JID to send the message to
++ * @param string $body    body of the message
++ * @param string $type    type of the message
++ * @param string $subject subject of the message
++ *
++ * @return boolean success flag
++ */
++
++function jabber_send_message($to, $body, $type='chat', $subject=null)
++{
++    $conn = jabber_connect();
++    if (!$conn) {
++        return false;
++    }
++    $conn->message($to, $body, $type, $subject);
++    return true;
+hunk ./lib/jabber.php 228
+-function jabber_send_presence($status, $show='available', $to=NULL,
+-							  $type = 'available', $priority=NULL)
++/**
++ * sends a presence stanza on the Jabber network
++ *
++ * @param string $status   current status, free-form string
++ * @param string $show     structured status value
++ * @param string $to       recipient of presence, null for general
++ * @param string $type     type of status message, related to $show
++ * @param int    $priority priority of the presence
++ *
++ * @return boolean success value
++ */
++
++function jabber_send_presence($status, $show='available', $to=null,
++                              $type = 'available', $priority=null)
+hunk ./lib/jabber.php 243
+-	$conn = jabber_connect();
+-	if (!$conn) {
+-		return false;
+-	}
+-	$conn->presence($status, $show, $to, $type, $priority);
+-	return true;
++    $conn = jabber_connect();
++    if (!$conn) {
++        return false;
++    }
++    $conn->presence($status, $show, $to, $type, $priority);
++    return true;
+hunk ./lib/jabber.php 251
+-function jabber_confirm_address($code, $nickname, $address) {
+-	$body = 'User "' . $nickname . '" on ' . common_config('site', 'name') . ' ' .
+-			'has said that your Jabber ID belongs to them. ' .
+-    	    'If that\'s true, you can confirm by clicking on this URL: ' .
+-        	common_local_url('confirmaddress', array('code' => $code)) .
+-        	' . (If you cannot click it, copy-and-paste it into the ' .
+-        	'address bar of your browser). If that user isn\'t you, ' .
+-        	'or if you didn\'t request this confirmation, just ignore this message.';
++/**
++ * sends a confirmation request to a JID
++ *
++ * @param string $code     confirmation code for confirmation URL
++ * @param string $nickname nickname of confirming user
++ * @param string $address  JID to send confirmation to
++ *
++ * @return boolean success flag
++ */
++
++function jabber_confirm_address($code, $nickname, $address)
++{
++    $body = 'User "' . $nickname . '" on ' . common_config('site', 'name') . ' ' .
++      'has said that your Jabber ID belongs to them. ' .
++      'If that\'s true, you can confirm by clicking on this URL: ' .
++      common_local_url('confirmaddress', array('code' => $code)) .
++      ' . (If you cannot click it, copy-and-paste it into the ' .
++      'address bar of your browser). If that user isn\'t you, ' .
++      'or if you didn\'t request this confirmation, just ignore this message.';
+hunk ./lib/jabber.php 271
+-	return jabber_send_message($address, $body);
++    return jabber_send_message($address, $body);
+hunk ./lib/jabber.php 274
+-function jabber_special_presence($type, $to=NULL, $show=NULL, $status=NULL) {
+-	$conn = jabber_connect();
++/**
++ * sends a "special" presence stanza on the Jabber network
++ *
++ * @param string $type   Type of presence
++ * @param string $to     JID to send presence to
++ * @param string $show   show value for presence
++ * @param string $status status value for presence
++ *
++ * @return boolean success flag
++ *
++ * @see jabber_send_presence()
++ */
++
++function jabber_special_presence($type, $to=null, $show=null, $status=null)
++{
++    // FIXME: why use this instead of jabber_send_presence()?
++    $conn = jabber_connect();
+hunk ./lib/jabber.php 292
+-	$to = htmlspecialchars($to);
+-	$status = htmlspecialchars($status);
+-	$out = "<presence";
+-	if($to) $out .= " to='$to'";
+-	if($type) $out .= " type='$type'";
+-	if($show == 'available' and !$status) {
+-		$out .= "/>";
+-	} else {
+-		$out .= ">";
+-		if($show && ($show != 'available')) $out .= "<show>$show</show>";
+-		if($status) $out .= "<status>$status</status>";
+-		$out .= "</presence>";
+-	}
+-	$conn->send($out);
++    $to     = htmlspecialchars($to);
++    $status = htmlspecialchars($status);
++
++    $out = "<presence";
++    if ($to) {
++        $out .= " to='$to'";
++    }
++    if ($type) {
++        $out .= " type='$type'";
++    }
++    if ($show == 'available' and !$status) {
++        $out .= "/>";
++    } else {
++        $out .= ">";
++        if ($show && ($show != 'available')) {
++            $out .= "<show>$show</show>";
++        }
++        if ($status) {
++            $out .= "<status>$status</status>";
++        }
++        $out .= "</presence>";
++    }
++    $conn->send($out);
+hunk ./lib/jabber.php 317
+-function jabber_broadcast_notice($notice) {
++/**
++ * broadcast a notice to all subscribers and reply recipients
++ *
++ * This function will send a notice to all subscribers on the local server
++ * who have Jabber addresses, and have Jabber notification enabled, and
++ * have this subscription enabled for Jabber. It also sends the notice to
++ * all recipients of @-replies who have Jabber addresses and Jabber notification
++ * enabled. This is really the heart of Jabber distribution in Laconica.
++ *
++ * @param Notice $notice The notice to broadcast
++ *
++ * @return boolean success flag
++ */
+hunk ./lib/jabber.php 331
+-	if (!common_config('xmpp', 'enabled')) {
 -		return true;
 -	}
-+        $user = User::staticGet('nickname', $nickname);
-hunk ./lib/gallery.php 51
--	function handle($args) {
--		parent::handle($args);
-+        if (!$user) {
-+            $this->no_such_user();
-+            return;
+-	$profile = Profile::staticGet($notice->profile_id);
++function jabber_broadcast_notice($notice)
++{
++    if (!common_config('xmpp', 'enabled')) {
++        return true;
++    }
++    $profile = Profile::staticGet($notice->profile_id);
++
++    if (!$profile) {
++        common_log(LOG_WARNING, 'Refusing to broadcast notice with ' .
++                   'unknown profile ' . common_log_objstring($notice),
++                   __FILE__);
++        return false;
++    }
+hunk ./lib/jabber.php 345
+-	if (!$profile) {
+-		common_log(LOG_WARNING, 'Refusing to broadcast notice with ' .
+-		           'unknown profile ' . common_log_objstring($notice),
+-		           __FILE__);
+-		return false;
+-	}
++    $msg   = jabber_format_notice($profile, $notice);
++    $entry = jabber_format_entry($profile, $notice);
+hunk ./lib/jabber.php 348
+-	$msg = jabber_format_notice($profile, $notice);
+-	$entry = jabber_format_entry($profile, $notice);
++    $profile->free();
++    unset($profile);
+hunk ./lib/jabber.php 351
+-	$profile->free();
+-	unset($profile);
++    $sent_to = array();
+hunk ./lib/jabber.php 353
+-	$sent_to = array();
+-	$conn = jabber_connect();
++    $conn = jabber_connect();
+hunk ./lib/jabber.php 355
+-	# First, get users to whom this is a direct reply
+-	$user = new User();
+-	$user->query('SELECT user.id, user.jabber ' .
+-				 'FROM user JOIN reply ON user.id = reply.profile_id ' .
+-				 'WHERE reply.notice_id = ' . $notice->id . ' ' .
+-				 'AND user.jabber is not null ' .
+-				 'AND user.jabbernotify = 1 ' .
+-				 'AND user.jabberreplies = 1 ');
++    // First, get users to whom this is a direct reply
++    $user = new User();
++    $user->query('SELECT user.id, user.jabber ' .
++                 'FROM user JOIN reply ON user.id = reply.profile_id ' .
++                 'WHERE reply.notice_id = ' . $notice->id . ' ' .
++                 'AND user.jabber is not null ' .
++                 'AND user.jabbernotify = 1 ' .
++                 'AND user.jabberreplies = 1 ');
+hunk ./lib/jabber.php 364
+-	while ($user->fetch()) {
+-		common_log(LOG_INFO,
+-				   'Sending reply notice ' . $notice->id . ' to ' . $user->jabber,
+-				   __FILE__);
+-		$conn->message($user->jabber, $msg, 'chat', NULL, $entry);
+-		$conn->processTime(0);
+-		$sent_to[$user->id] = 1;
+-	}
++    while ($user->fetch()) {
++        common_log(LOG_INFO,
++                   'Sending reply notice ' . $notice->id . ' to ' . $user->jabber,
++                   __FILE__);
++        $conn->message($user->jabber, $msg, 'chat', null, $entry);
++        $conn->processTime(0);
++        $sent_to[$user->id] = 1;
++    }
+hunk ./lib/jabber.php 373
+-	$user->free();
++    $user->free();
+hunk ./lib/jabber.php 375
+-    # Now, get users subscribed to this profile
++    // Now, get users subscribed to this profile
+hunk ./lib/jabber.php 377
+-	$user = new User();
+-	$user->query('SELECT user.id, user.jabber ' .
+-				 'FROM user JOIN subscription ON user.id = subscription.subscriber ' .
+-				 'WHERE subscription.subscribed = ' . $notice->profile_id . ' ' .
+-				 'AND user.jabber is not null ' .
+-				 'AND user.jabbernotify = 1 ' .
++    $user = new User();
++    $user->query('SELECT user.id, user.jabber ' .
++                 'FROM user JOIN subscription ' .
++                 'ON user.id = subscription.subscriber ' .
++                 'WHERE subscription.subscribed = ' . $notice->profile_id . ' ' .
++                 'AND user.jabber is not null ' .
++                 'AND user.jabbernotify = 1 ' .
+hunk ./lib/jabber.php 386
+-	while ($user->fetch()) {
+-		if (!array_key_exists($user->id, $sent_to)) {
+-			common_log(LOG_INFO,
+-					   'Sending notice ' . $notice->id . ' to ' . $user->jabber,
+-					   __FILE__);
+-			$conn->message($user->jabber, $msg, 'chat', NULL, $entry);
+-			# To keep the incoming queue from filling up, we service it after each send.
+-			$conn->processTime(0);
+-		}
+-	}
++    while ($user->fetch()) {
++        if (!array_key_exists($user->id, $sent_to)) {
++            common_log(LOG_INFO,
++                       'Sending notice ' . $notice->id . ' to ' . $user->jabber,
++                       __FILE__);
++            $conn->message($user->jabber, $msg, 'chat', null, $entry);
++            // To keep the incoming queue from filling up,
++            // we service it after each send.
++            $conn->processTime(0);
 +        }
-hunk ./lib/gallery.php 56
--		# Post from the tag dropdown; redirect to a GET
-+        $profile = $user->getProfile();
-hunk ./lib/gallery.php 58
--		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
--		    common_redirect($this->self_url(), 307);
++    }
+hunk ./lib/jabber.php 398
+-	$user->free();
++    $user->free();
+hunk ./lib/jabber.php 400
+-	return true;
++    return true;
+hunk ./lib/jabber.php 403
+-function jabber_public_notice($notice) {
++/**
++ * send a notice to all public listeners
++ *
++ * For notices that are generated on the local system (by users), we can optionally
++ * forward them to remote listeners by XMPP.
++ *
++ * @param Notice $notice notice to broadcast
++ *
++ * @return boolean success flag
++ */
+hunk ./lib/jabber.php 414
+-	# Now, users who want everything
++function jabber_public_notice($notice)
++{
++    // Now, users who want everything
+hunk ./lib/jabber.php 418
+-	$public = common_config('xmpp', 'public');
++    $public = common_config('xmpp', 'public');
+hunk ./lib/jabber.php 420
+-	# FIXME PRIV don't send out private messages here
+-	# XXX: should we send out non-local messages if public,localonly
+-	# = false? I think not
++    // FIXME PRIV don't send out private messages here
++    // XXX: should we send out non-local messages if public,localonly
++    // = false? I think not
+hunk ./lib/jabber.php 424
+-	if ($public && $notice->is_local) {
+-		$profile = Profile::staticGet($notice->profile_id);
++    if ($public && $notice->is_local) {
++        $profile = Profile::staticGet($notice->profile_id);
+hunk ./lib/jabber.php 427
+-		if (!$profile) {
+-			common_log(LOG_WARNING, 'Refusing to broadcast notice with ' .
+-					   'unknown profile ' . common_log_objstring($notice),
+-					   __FILE__);
+-			return false;
 -		}
 +        if (!$profile) {
-+            $this->server_error(_('User without matching profile in system.'));
-+            return;
++            common_log(LOG_WARNING, 'Refusing to broadcast notice with ' .
++                       'unknown profile ' . common_log_objstring($notice),
++                       __FILE__);
++            return false;
 +        }
-hunk ./lib/gallery.php 63
--		$nickname = common_canonical_nickname($this->arg('nickname'));
--		$user = User::staticGet('nickname', $nickname);
-+        $page = $this->arg('page');
-hunk ./lib/gallery.php 65
--		if (!$user) {
--			$this->no_such_user();
--			return;
+hunk ./lib/jabber.php 434
+-		$msg = jabber_format_notice($profile, $notice);
+-		$entry = jabber_format_entry($profile, $notice);
++        $msg   = jabber_format_notice($profile, $notice);
++        $entry = jabber_format_entry($profile, $notice);
+hunk ./lib/jabber.php 437
+-		$conn = jabber_connect();
++        $conn = jabber_connect();
+hunk ./lib/jabber.php 439
+-		foreach ($public as $address) {
+-			common_log(LOG_INFO,
+-					   'Sending notice ' . $notice->id . ' to public listener ' . $address,
+-					   __FILE__);
+-			$conn->message($address, $msg, 'chat', NULL, $entry);
+-			$conn->processTime(0);
 -		}
-+        if (!$page) {
-+            $page = 1;
+-		$profile->free();
+-	}
++        foreach ($public as $address) {
++            common_log(LOG_INFO,
++                       'Sending notice ' . $notice->id .
++                       ' to public listener ' . $address,
++                       __FILE__);
++            $conn->message($address, $msg, 'chat', null, $entry);
++            $conn->processTime(0);
 +        }
-hunk ./lib/gallery.php 69
--		$profile = $user->getProfile();
-+        $display = $this->arg('display');
-hunk ./lib/gallery.php 71
--		if (!$profile) {
--			$this->server_error(_('User without matching profile in system.'));
--			return;
--		}
-+        if (!$display) {
-+            $display = 'list';
-+        }
-hunk ./lib/gallery.php 75
--		$page = $this->arg('page');
-+        $tag = $this->arg('tag');
-hunk ./lib/gallery.php 77
--		if (!$page) {
--			$page = 1;
--		}
-+        common_show_header($profile->nickname . ": " . $this->gallery_type(),
-+                           null, $profile,
-+                           array($this, 'show_top'));
-hunk ./lib/gallery.php 81
--		$display = $this->arg('display');
-+        $this->display_links($profile, $page, $display);
-+        $this->show_tags_dropdown($profile);
-hunk ./lib/gallery.php 84
--		if (!$display) {
--			$display = 'list';
--		}
-+        $this->show_gallery($profile, $page, $display, $tag);
-+        common_show_footer();
++        $profile->free();
 +    }
-hunk ./lib/gallery.php 88
--		$tag = $this->arg('tag');
-+    function no_such_user()
-+    {
-+        $this->client_error(_('No such user.'));
-+    }
-hunk ./lib/gallery.php 93
--		common_show_header($profile->nickname . ": " . $this->gallery_type(),
--						   NULL, $profile,
--						   array($this, 'show_top'));
-+    function show_tags_dropdown($profile)
-+    {
-+        $tag = $this->trimmed('tag');
-hunk ./lib/gallery.php 97
--		$this->display_links($profile, $page, $display);
--		$this->show_tags_dropdown($profile);
-+        list($lst, $usr) = $this->fields();
-hunk ./lib/gallery.php 99
--		$this->show_gallery($profile, $page, $display, $tag);
--		common_show_footer();
--	}
-+        $tags = $this->get_all_tags($profile, $lst, $usr);
-hunk ./lib/gallery.php 101
--	function no_such_user() {
--		$this->client_error(_('No such user.'));
--	}
-+        $content = array();
-hunk ./lib/gallery.php 103
--	function show_tags_dropdown($profile) {
--		$tag = $this->trimmed('tag');
--		list($lst, $usr) = $this->fields();
--		$tags = $this->get_all_tags($profile, $lst, $usr);
--		$content = array();
--		foreach ($tags as $t) {
--			$content[$t] = $t;
--		}
--		if ($tags) {
--			common_element_start('dl', array('id'=>'filter_tags'));
--			common_element('dt', null, _('Filter tags'));
--			common_element_start('dd');
--			common_element_start('ul');
--			common_element_start('li', array('id'=>'filter_tags_all', 'class'=>'child_1'));
--			common_element('a', array('href' => common_local_url($this->trimmed('action'),
--																 array('nickname' => $profile->nickname))),
--						   _('All'));
--			common_element_end('li');
--			common_element_start('li', array('id'=>'filter_tags_item'));
--			common_element_start('form', array('name' => 'bytag', 'id' => 'bytag', 'method' => 'post'));
--			common_dropdown('tag', _('Tag'), $content,
--							_('Choose a tag to narrow list'), FALSE, $tag);
--			common_submit('go', _('Go'));
--			common_element_end('form');
--			common_element_end('li');
--			common_element_end('ul');
--			common_element_end('dd');
--			common_element_end('dl');
--		}
--	}
-+        foreach ($tags as $t) {
-+            $content[$t] = $t;
-+        }
-+        if ($tags) {
-+            common_element_start('dl', array('id'=>'filter_tags'));
-+            common_element('dt', null, _('Filter tags'));
-+            common_element_start('dd');
-+            common_element_start('ul');
-+            common_element_start('li', array('id' => 'filter_tags_all',
-+                                             'class' => 'child_1'));
-+            common_element('a',
-+                           array('href' =>
-+                                 common_local_url($this->trimmed('action'),
-+                                                  array('nickname' =>
-+                                                        $profile->nickname))),
-+                           _('All'));
-+            common_element_end('li');
-+            common_element_start('li', array('id'=>'filter_tags_item'));
-+            common_element_start('form', array('name' => 'bytag',
-+                                               'id' => 'bytag',
-+                                               'method' => 'post'));
-+            common_dropdown('tag', _('Tag'), $content,
-+                            _('Choose a tag to narrow list'), false, $tag);
-+            common_submit('go', _('Go'));
-+            common_element_end('form');
-+            common_element_end('li');
-+            common_element_end('ul');
-+            common_element_end('dd');
-+            common_element_end('dl');
-+        }
-+    }
-hunk ./lib/gallery.php 135
--	function show_top($profile) {
--		common_element('div', 'instructions',
--					   $this->get_instructions($profile));
-+    function show_top($profile)
-+    {
-+        common_element('div', 'instructions',
-+                       $this->get_instructions($profile));
-hunk ./lib/gallery.php 140
--	}
-+    }
-hunk ./lib/gallery.php 142
--    function show_menu() {
--		# action => array('prompt', 'title', $args)
--		$action = $this->trimmed('action');
--		$nickname = $this->trimmed('nickname');
--		$menu =
--		  array('subscriptions' =>
--				array( _('Subscriptions'),
--					   _('Subscriptions'),
--                      array('nickname' => $nickname)),
--				'subscribers' =>
--				array(
--					  _('Subscribers'),
--					  _('Subscribers'),
--                      array('nickname' => $nickname)),
--				);
--		$this->nav_menu($menu);
--	}
-+    function show_menu()
-+    {
-+        // action => array('prompt', 'title', $args)
-+        $action   = $this->trimmed('action');
-+        $nickname = $this->trimmed('nickname');
-hunk ./lib/gallery.php 148
--	function show_gallery($profile, $page, $display='list', $tag=NULL) {
-+        $menu =
-+          array('subscriptions' =>
-+                array( _('Subscriptions'),
-+                       _('Subscriptions'),
-+                       array('nickname' => $nickname)),
-+                'subscribers' =>
-+                array(
-+                      _('Subscribers'),
-+                      _('Subscribers'),
-+                      array('nickname' => $nickname)),
-+                );
-+        $this->nav_menu($menu);
-+    }
-hunk ./lib/gallery.php 162
--		$other = new Profile();
-+    function show_gallery($profile, $page, $display='list', $tag=null)
-+    {
-+        $other = new Profile();
-hunk ./lib/gallery.php 166
--		list($lst, $usr) = $this->fields();
-+        list($lst, $usr) = $this->fields();
-hunk ./lib/gallery.php 168
--		$per_page = ($display == 'list') ? PROFILES_PER_PAGE : AVATARS_PER_PAGE;
-+        $per_page = ($display == 'list') ? PROFILES_PER_PAGE : AVATARS_PER_PAGE;
-hunk ./lib/gallery.php 170
--		$offset = ($page-1)*$per_page;
--		$limit = $per_page + 1;
-+        $offset = ($page-1)*$per_page;
-+        $limit = $per_page + 1;
-hunk ./lib/gallery.php 173
--		if (common_config('db','type') == 'pgsql') {
--			$lim = ' LIMIT ' . $limit . ' OFFSET ' . $offset;
--		} else {
--			$lim = ' LIMIT ' . $offset . ', ' . $limit;
--		}
-+        if (common_config('db', 'type') == 'pgsql') {
-+            $lim = ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-+        } else {
-+            $lim = ' LIMIT ' . $offset . ', ' . $limit;
-+        }
-hunk ./lib/gallery.php 179
--		# XXX: memcached results
--		# FIXME: SQL injection on $tag
-+        // XXX: memcached results
-+        // FIXME: SQL injection on $tag
-hunk ./lib/gallery.php 182
--		$other->query('SELECT profile.* ' .
--					  'FROM profile JOIN subscription ' .
--					  'ON profile.id = subscription.' . $lst . ' ' .
--					  (($tag) ? 'JOIN profile_tag ON (profile.id = profile_tag.tagged AND subscription.'.$usr.'= profile_tag.tagger) ' : '') .
--					  'WHERE ' . $usr . ' = ' . $profile->id . ' ' .
--					  'AND subscriber != subscribed ' .
--					  (($tag) ? 'AND profile_tag.tag= "' . $tag . '" ': '') .
--					  'ORDER BY subscription.created DESC, profile.id DESC ' .
--					  $lim);
-+        $other->query('SELECT profile.* ' .
-+                      'FROM profile JOIN subscription ' .
-+                      'ON profile.id = subscription.' . $lst . ' ' .
-+                      (($tag) ? 'JOIN profile_tag ON (profile.id = profile_tag.tagged AND subscription.'.$usr.'= profile_tag.tagger) ' : '') .
-+                      'WHERE ' . $usr . ' = ' . $profile->id . ' ' .
-+                      'AND subscriber != subscribed ' .
-+                      (($tag) ? 'AND profile_tag.tag= "' . $tag . '" ': '') .
-+                      'ORDER BY subscription.created DESC, profile.id DESC ' .
-+                      $lim);
-hunk ./lib/gallery.php 192
--		if ($display == 'list') {
-+        if ($display == 'list') {
-hunk ./lib/gallery.php 194
--			$profile_list = new $cls($other, $profile, $this->trimmed('action'));
--			$cnt = $profile_list->show_list();
--		} else {
--			$cnt = $this->icon_list($other);
--		}
-+            $profile_list = new $cls($other, $profile, $this->trimmed('action'));
-+            $cnt = $profile_list->show_list();
-+        } else {
-+            $cnt = $this->icon_list($other);
-+        }
-hunk ./lib/gallery.php 200
--		# For building the pagination URLs
-+        // For building the pagination URLs
-hunk ./lib/gallery.php 202
--		$args = array('nickname' => $profile->nickname);
-+        $args = array('nickname' => $profile->nickname);
-hunk ./lib/gallery.php 204
--		if ($display != 'list') {
--			$args['display'] = $display;
--		}
-+        if ($display != 'list') {
-+            $args['display'] = $display;
-+        }
-hunk ./lib/gallery.php 208
--		common_pagination($page > 1,
--						  $cnt > $per_page,
--						  $page,
--						  $this->trimmed('action'),
--						  $args);
--	}
-+        common_pagination($page > 1,
-+                          $cnt > $per_page,
-+                          $page,
-+                          $this->trimmed('action'),
-+                          $args);
-+    }
-hunk ./lib/gallery.php 215
--    function profile_list_class() {
-+    function profile_list_class()
-+    {
-hunk ./lib/gallery.php 220
--	function icon_list($other) {
-+    function icon_list($other)
-+    {
-+        common_element_start('ul', $this->div_class());
-hunk ./lib/gallery.php 224
--		common_element_start('ul', $this->div_class());
-+        $cnt = 0;
-hunk ./lib/gallery.php 226
--		$cnt = 0;
-+        while ($other->fetch()) {
-hunk ./lib/gallery.php 228
--		while ($other->fetch()) {
-+            $cnt++;
-hunk ./lib/gallery.php 230
--			$cnt++;
-+            if ($cnt > AVATARS_PER_PAGE) {
-+                break;
-+            }
-hunk ./lib/gallery.php 234
--			if ($cnt > AVATARS_PER_PAGE) {
--				break;
--			}
-+            common_element_start('li');
-hunk ./lib/gallery.php 236
--			common_element_start('li');
-+            common_element_start('a', array('title' => ($other->fullname) ?
-+                                            $other->fullname :
-+                                            $other->nickname,
-+                                            'href' => $other->profileurl,
-+                                            'class' => 'subscription'));
-+            $avatar = $other->getAvatar(AVATAR_STREAM_SIZE);
-+            common_element('img',
-+                           array('src' =>
-+                                 (($avatar) ? common_avatar_display_url($avatar) :
-+                                  common_default_avatar(AVATAR_STREAM_SIZE)),
-+                                 'width' => AVATAR_STREAM_SIZE,
-+                                 'height' => AVATAR_STREAM_SIZE,
-+                                 'class' => 'avatar stream',
-+                                 'alt' => ($other->fullname) ?
-+                                 $other->fullname :
-+                                 $other->nickname));
-+            common_element_end('a');
-hunk ./lib/gallery.php 254
--			common_element_start('a', array('title' => ($other->fullname) ?
--											$other->fullname :
--											$other->nickname,
--											'href' => $other->profileurl,
--											'class' => 'subscription'));
--			$avatar = $other->getAvatar(AVATAR_STREAM_SIZE);
--			common_element('img',
--						   array('src' =>
--								 (($avatar) ? common_avatar_display_url($avatar) :
--								  common_default_avatar(AVATAR_STREAM_SIZE)),
--								 'width' => AVATAR_STREAM_SIZE,
--								 'height' => AVATAR_STREAM_SIZE,
--								 'class' => 'avatar stream',
--								 'alt' => ($other->fullname) ?
--								 $other->fullname :
--								 $other->nickname));
--			common_element_end('a');
-+            // XXX: subscribe form here
-hunk ./lib/gallery.php 256
--			# XXX: subscribe form here
-+            common_element_end('li');
-+        }
-hunk ./lib/gallery.php 259
--			common_element_end('li');
--		}
-+        common_element_end('ul');
-hunk ./lib/gallery.php 261
--		common_element_end('ul');
--
--		return $cnt;
--	}
-+        return $cnt;
-+    }
-hunk ./lib/gallery.php 264
--	function gallery_type() {
--		return NULL;
--	}
-+    function gallery_type()
-+    {
-+        return null;
-+    }
-hunk ./lib/gallery.php 269
--	function get_instructions(&$profile) {
--		return NULL;
--	}
-+    function get_instructions(&$profile)
-+    {
-+        return null;
-+    }
-hunk ./lib/gallery.php 274
--	function fields() {
--		return NULL;
--	}
-+    function fields()
-+    {
-+        return null;
-+    }
-hunk ./lib/gallery.php 279
--	function div_class() {
--		return '';
--	}
-+    function div_class()
-+    {
-+        return '';
-+    }
-hunk ./lib/gallery.php 284
--	function display_links($profile, $page, $display) {
--		$tag = $this->trimmed('tag');
-+    function display_links($profile, $page, $display)
-+    {
-+        $tag = $this->trimmed('tag');
-hunk ./lib/gallery.php 288
--		common_element_start('dl', array('id'=>'subscriptions_nav'));
--		common_element('dt', null, _('Subscriptions navigation'));
--		common_element_start('dd');
--		common_element_start('ul', array('class'=>'nav'));
-+        common_element_start('dl', array('id'=>'subscriptions_nav'));
-+        common_element('dt', null, _('Subscriptions navigation'));
-+        common_element_start('dd');
-+        common_element_start('ul', array('class'=>'nav'));
-hunk ./lib/gallery.php 293
--		switch ($display) {
--		 case 'list':
--			common_element('li', array('class'=>'child_1'), _('List'));
--			common_element_start('li');
--			$url_args = array('display' => 'icons',
--							  'nickname' => $profile->nickname,
--							  'page' => 1 + floor((($page - 1) * PROFILES_PER_PAGE) / AVATARS_PER_PAGE));
--			if ($tag) {
--				$url_args['tag'] = $tag;
--			}
--			$url = common_local_url($this->trimmed('action'), $url_args);
--			common_element('a', array('href' => $url),
--						   _('Icons'));
--			common_element_end('li');
--			break;
--		 default:
--			common_element_start('li', array('class'=>'child_1'));
--			$url_args = array('nickname' => $profile->nickname,
--							  'page' => 1 + floor((($page - 1) * AVATARS_PER_PAGE) / PROFILES_PER_PAGE));
--			if ($tag) {
--				$url_args['tag'] = $tag;
--			}
--			$url = common_local_url($this->trimmed('action'), $url_args);
--			common_element('a', array('href' => $url),
--						   _('List'));
--			common_element_end('li');
--			common_element('li', NULL, _('Icons'));
--			break;
--		}
-+        switch ($display) {
-+         case 'list':
-+            common_element('li', array('class'=>'child_1'), _('List'));
-+            common_element_start('li');
-+            $url_args = array('display' => 'icons',
-+                              'nickname' => $profile->nickname,
-+                              'page' => 1 + floor((($page - 1) * PROFILES_PER_PAGE) / AVATARS_PER_PAGE));
-+            if ($tag) {
-+                $url_args['tag'] = $tag;
-+            }
-+            $url = common_local_url($this->trimmed('action'), $url_args);
-+            common_element('a', array('href' => $url),
-+                           _('Icons'));
-+            common_element_end('li');
-+            break;
-+         default:
-+            common_element_start('li', array('class'=>'child_1'));
-+            $url_args = array('nickname' => $profile->nickname,
-+                              'page' => 1 + floor((($page - 1) * AVATARS_PER_PAGE) / PROFILES_PER_PAGE));
-+            if ($tag) {
-+                $url_args['tag'] = $tag;
-+            }
-+            $url = common_local_url($this->trimmed('action'), $url_args);
-+            common_element('a', array('href' => $url),
-+                           _('List'));
-+            common_element_end('li');
-+            common_element('li', null, _('Icons'));
-+            break;
-+        }
-hunk ./lib/gallery.php 323
--		common_element_end('ul');
--		common_element_end('dd');
--		common_element_end('dl');
--	}
-+        common_element_end('ul');
-+        common_element_end('dd');
-+        common_element_end('dl');
-+    }
-hunk ./lib/gallery.php 328
--	# Get list of tags we tagged other users with
-+    // Get list of tags we tagged other users with
-hunk ./lib/gallery.php 330
--	function get_all_tags($profile, $lst, $usr) {
--		$profile_tag = new Notice_tag();
--		$profile_tag->query('SELECT DISTINCT(tag) ' .
--							'FROM profile_tag, subscription ' .
--							'WHERE tagger = ' . $profile->id . ' ' .
--							'AND ' . $usr . ' = ' . $profile->id . ' ' .
--							'AND ' . $lst . ' = tagged ' .
--							'AND tagger != tagged');
--		$tags = array();
--		while ($profile_tag->fetch()) {
--			$tags[] = $profile_tag->tag;
--		}
--		$profile_tag->free();
--		return $tags;
--	}
-+    function get_all_tags($profile, $lst, $usr)
-+    {
-+        $profile_tag = new Notice_tag();
-+        $profile_tag->query('SELECT DISTINCT(tag) ' .
-+                            'FROM profile_tag, subscription ' .
-+                            'WHERE tagger = ' . $profile->id . ' ' .
-+                            'AND ' . $usr . ' = ' . $profile->id . ' ' .
-+                            'AND ' . $lst . ' = tagged ' .
-+                            'AND tagger != tagged');
-+        $tags = array();
-+        while ($profile_tag->fetch()) {
-+            $tags[] = $profile_tag->tag;
-+        }
-+        $profile_tag->free();
-+        return $tags;
-+    }
+hunk ./lib/jabber.php 450
+-	return true;
++    return true;
+hunk ./lib/jabber.php 453
+-function jabber_format_notice(&$profile, &$notice) {
+-	return $profile->nickname . ': ' . $notice->content;
++/**
++ * makes a plain-text formatted version of a notice, suitable for Jabber distribution
++ *
++ * @param Profile &$profile profile of the sending user
++ * @param Notice  &$notice  notice being sent
++ *
++ * @return string plain-text version of the notice, with user nickname prefixed
++ */
++
++function jabber_format_notice(&$profile, &$notice)
++{
++    return $profile->nickname . ': ' . $notice->content;
