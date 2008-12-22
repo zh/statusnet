@@ -1,205 +1,393 @@
-hunk ./lib/language.php 2
+hunk ./lib/mailbox.php 2
 -/*
 - * Laconica - a distributed open-source microblogging tool
 - * Copyright (C) 2008, Controlez-Vous, Inc.
 +/**
 + * Laconica, the distributed open-source microblogging tool
-hunk ./lib/language.php 5
+hunk ./lib/mailbox.php 5
 - * This program is free software: you can redistribute it and/or modify
-+ * utility functions for i18n
++ * common superclass for direct messages inbox and outbox
 + *
 + * PHP version 5
 + *
 + * LICENCE: This program is free software: you can redistribute it and/or modify
-hunk ./lib/language.php 21
+hunk ./lib/mailbox.php 21
 + *
-+ * @category I18n
-+ * @package  Laconica
-+ * @author   Matthew Gregg <matthew.gregg@gmail.com>
-+ * @author   Ciaran Gultnieks <ciaran@ciarang.com>
-+ * @author   Evan Prodromou <evan@controlyourself.ca>
-+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
-+ * @link     http://laconi.ca/
-hunk ./lib/language.php 31
++ * @category  Action
++ * @package   Laconica
++ * @author    Evan Prodromou <evan@controlyourself.ca>
++ * @copyright 2008 Control Yourself, Inc.
++ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
++ * @link      http://laconi.ca/
+hunk ./lib/mailbox.php 30
 -if (!defined('LACONICA')) { exit(1); }
 +if (!defined('LACONICA')) {
 +    exit(1);
 +}
-hunk ./lib/language.php 35
+hunk ./lib/mailbox.php 34
+-require_once(INSTALLDIR.'/lib/personal.php');
++require_once INSTALLDIR.'/lib/personal.php';
+hunk ./lib/mailbox.php 38
+-class MailboxAction extends PersonalAction {
+-	
+-	function handle($args) {
 +/**
-+ * Content negotiation for language codes
++ * common superclass for direct messages inbox and outbox
 + *
-+ * @param string $httplang HTTP Accept-Language header
-+ *
-+ * @return string language code for best language match
++ * @category Action
++ * @package  Laconica
++ * @author   Evan Prodromou <evan@controlyourself.ca>
++ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
++ * @link     http://laconi.ca/
++ * @see      InboxAction
++ * @see      OutboxAction
 + */
-hunk ./lib/language.php 43
-+function client_prefered_language($httplang)
++
++class MailboxAction extends PersonalAction
 +{
-+    $client_langs = array();
-hunk ./lib/language.php 47
--function client_prefered_language($httplang) {
--        $client_langs = array();
--        $all_languages = common_config('site','languages');
-+    $all_languages = common_config('site', 'languages');
-hunk ./lib/language.php 49
--        preg_match_all('"(((\S\S)-?(\S\S)?)(;q=([0-9.]+))?)\s*(,\s*|$)"',strtolower($httplang),$httplang);
--        for ($i = 0; $i < count($httplang); $i++) {
--             if(!empty($httplang[2][$i])) {
--                    #if no q default to 1.0
--                    $client_langs[$httplang[2][$i]] = ($httplang[6][$i]? (float) $httplang[6][$i] : 1.0);
--                }
--                if(!empty($httplang[3][$i]) && empty($client_langs[$httplang[3][$i]])) {
--                    #if a catchall default 0.01 lower
--                    $client_langs[$httplang[3][$i]] = ($httplang[6][$i]? (float) $httplang[6][$i]-0.01 : 0.99);
--                }
--            }
--            #sort in decending q
--            arsort($client_langs);
-+    preg_match_all('"(((\S\S)-?(\S\S)?)(;q=([0-9.]+))?)\s*(,\s*|$)"',
-+                   strtolower($httplang), $httplang);
-hunk ./lib/language.php 52
--            foreach ($client_langs as $lang => $q) {
--                if (isset($all_languages[$lang])) {
--                    return($all_languages[$lang]['lang']);
--                }
--            }
--            return FALSE;
--}
-+    for ($i = 0; $i < count($httplang); $i++) {
-+        if (!empty($httplang[2][$i])) {
-+            // if no q default to 1.0
-+            $client_langs[$httplang[2][$i]] =
-+              ($httplang[6][$i]? (float) $httplang[6][$i] : 1.0);
++    /**
++     * output page based on arguments
++     *
++     * @param array $args HTTP arguments (from $_REQUEST)
++     *
++     * @return void
++     */
++
++    function handle($args)
++    {
++        parent::handle($args);
++
++        $nickname = common_canonical_nickname($this->arg('nickname'));
++
++        $user = User::staticGet('nickname', $nickname);
++
++        if (!$user) {
++            $this->client_error(_('No such user.'), 404);
++            return;
 +        }
-+        if (!empty($httplang[3][$i]) && empty($client_langs[$httplang[3][$i]])) {
-+            // if a catchall default 0.01 lower
-+            $client_langs[$httplang[3][$i]] =
-+              ($httplang[6][$i]? (float) $httplang[6][$i]-0.01 : 0.99);
++
++        $cur = common_current_user();
++
++        if (!$cur || $cur->id != $user->id) {
++            $this->client_error(_('Only the user can read their own mailboxes.'),
++                                403);
++            return;
++        }
++
++        $profile = $user->getProfile();
++
++        if (!$profile) {
++            $this->server_error(_('User has no profile.'));
++            return;
++        }
++
++        $page = $this->trimmed('page');
++
++        if (!$page) {
++            $page = 1;
++        }
++
++        $this->show_page($user, $page);
++    }
++
++    /**
++     * returns the title of the page
++     *
++     * @param User $user current user
++     * @param int  $page current page
++     *
++     * @return string localised title of the page
++     */
++
++    function get_title($user, $page)
++    {
++        return '';
++    }
++
++    /**
++     * instructions for using this page
++     *
++     * @return string localised instructions for using the page
++     */
++
++    function get_instructions()
++    {
++        return '';
++    }
++
++    /**
++     * do structured output for the "instructions" are of the page
++     *
++     * @return void
++     */
++
++    function show_top()
++    {
++        $cur = common_current_user();
++
++        common_message_form(null, $cur, null);
++
++        $this->views_menu();
++    }
++
++    /**
++     * show a full page of output
++     *
++     * @param User $user The current user
++     * @param int  $page The page the user is on
++     *
++     * @return void
++     */
++
++    function show_page($user, $page)
++    {
++        common_show_header($this->get_title($user, $page),
++                           null, null,
++                           array($this, 'show_top'));
++
++        $this->show_box($user, $page);
++
++        common_show_footer();
++    }
++
++    /**
++     * show the messages for a mailbox in list format
++     *
++     * Includes the pagination links (before, after).
++     *
++     * @param User $user The current user
++     * @param int  $page The page the user is on
++     *
++     * @return void
++     */
++
++    function show_box($user, $page)
++    {
++        $message = $this->get_messages($user, $page);
++
++        if ($message) {
++
++            $cnt = 0;
++            common_element_start('ul', array('id' => 'messages'));
++
++            while ($message->fetch() && $cnt <= MESSAGES_PER_PAGE) {
++                $cnt++;
+hunk ./lib/mailbox.php 180
+-		parent::handle($args);
++                if ($cnt > MESSAGES_PER_PAGE) {
++                    break;
++                }
+hunk ./lib/mailbox.php 184
+-		$nickname = common_canonical_nickname($this->arg('nickname'));
+-		$user = User::staticGet('nickname', $nickname);
++                $this->show_message($message);
++            }
+hunk ./lib/mailbox.php 187
+-		if (!$user) {
+-			$this->client_error(_('No such user.'), 404);
+-			return;
+-		}
++            common_element_end('ul');
+hunk ./lib/mailbox.php 189
+-		$cur = common_current_user();
+-		
+-		if (!$cur || $cur->id != $user->id) {
+-			$this->client_error(_('Only the user can read their own mailboxes.'), 403);
+-			return;
+-		}
+-		
+-		$profile = $user->getProfile();
++            common_pagination($page > 1, $cnt > MESSAGES_PER_PAGE,
++                              $page, $this->trimmed('action'),
++                              array('nickname' => $user->nickname));
+hunk ./lib/mailbox.php 193
+-		if (!$profile) {
+-			$this->server_error(_('User has no profile.'));
+-			return;
+-		}
++            $message->free();
++            unset($message);
 +        }
 +    }
-+    // sort in decending q
-+    arsort($client_langs);
-hunk ./lib/language.php 67
--function get_nice_language_list() {
--        $nice_lang = array();
--        $all_languages = common_config('site','languages');
--        foreach ($all_languages as $lang) {
--                $nice_lang = $nice_lang + array($lang['lang'] => $lang['name']);
-+    foreach ($client_langs as $lang => $q) {
-+        if (isset($all_languages[$lang])) {
-+            return($all_languages[$lang]['lang']);
-hunk ./lib/language.php 71
--        return $nice_lang;
+hunk ./lib/mailbox.php 198
+-		$page = $this->trimmed('page');
+-		
+-		if (!$page) {
+-			$page = 1;
+-		}
+-		
+-		$this->show_page($user, $page);
+-	}
++    /**
++     * returns the profile we want to show with the message
++     *
++     * For inboxes, we show the sender; for outboxes, the recipient.
++     *
++     * @param Message $message The message to get the profile for
++     *
++     * @return Profile The profile that matches the message
++     */
+hunk ./lib/mailbox.php 208
+-	function get_title($user, $page) {
+-		return '';
+-	}
++    function get_message_profile($message)
++    {
++        return null;
 +    }
-+    return false;
-hunk ./lib/language.php 75
--// Get a list of all languages that are enabled in the default config. This
--// should ONLY be called when setting up the default config in common.php.
--// Any other attempt to get a list of lanugages should instead call
--// common_config('site','languages')
--function get_all_languages() {
--	return array(
--		'en-us' => array('q' => 1, 'lang' => 'en_US', 'name' => 'English (US)', 'direction' => 'ltr'),
--		'en-nz' => array('q' => 1, 'lang' => 'en_NZ', 'name' => 'English (NZ)', 'direction' => 'ltr'),
--		'en-gb' => array('q' => 1, 'lang' => 'en_GB', 'name' => 'English (British)', 'direction' => 'ltr'),
--		'en'    => array('q' => 1, 'lang' => 'en',    'name' => 'English', 'direction' => 'ltr'),
--		'da'    => array('q' => 0.1, 'lang' => 'da_DK', 'name' => 'Danish', 'direction' => 'ltr'),
--		'nl'    => array('q' => 1, 'lang' => 'nl_NL', 'name' => 'Dutch', 'direction' => 'ltr'),
--		'eo'    => array('q' => 0.1, 'lang' => 'eo',    'name' => 'Esperanto', 'direction' => 'ltr'),
--		'fr-fr' => array('q' => 0.9, 'lang' => 'fr_FR', 'name' => 'French', 'direction' => 'ltr'),
--		'de'    => array('q' => 1, 'lang' => 'de_DE', 'name' => 'German', 'direction' => 'ltr'),
--		'it'    => array('q' => 1, 'lang' => 'it_IT', 'name' => 'Italian', 'direction' => 'ltr'),
--		'ko'    => array('q' => 0.1, 'lang' => 'ko',    'name' => 'Korean', 'direction' => 'ltr'),
--		'nb'    => array('q' => 1, 'lang' => 'nb_NO', 'name' => 'Norwegian (bokmal)', 'direction' => 'ltr'),
--		'pt'    => array('q' => 0.2, 'lang' => 'pt',    'name' => 'Portuguese', 'direction' => 'ltr'),
--		'pt-br' => array('q' => 1, 'lang' => 'pt_BR', 'name' => 'Portuguese Brazil', 'direction' => 'ltr'),
--#		'ru'    => array('q' => 0.1, 'lang' => 'ru_RU', 'name' => 'Russian', 'direction' => 'ltr'),
--		'es'    => array('q' => 1, 'lang' => 'es',    'name' => 'Spanish', 'direction' => 'ltr'),
--		'tr'    => array('q' => 1, 'lang' => 'tr_TR', 'name' => 'Turkish', 'direction' => 'ltr'),
--		'uk'    => array('q' => 1, 'lang' => 'uk_UA', 'name' => 'Ukrainian', 'direction' => 'ltr'),
--#		'lt'    => array('q' => 0.1, 'lang' => 'lt_LT', 'name' => 'Lithuanian', 'direction' => 'ltr'),
--#		'sv'    => array('q' => 1, 'lang' => 'sv_SE', 'name' => 'Swedish', 'direction' => 'ltr'),
--		'pl'	=> array('q' => 1, 'lang' => 'pl_PL', 'name' => 'Polish', 'direction' => 'ltr'),
--		'mk'	=> array('q' => 1, 'lang' => 'mk_MK', 'name' => 'Macedonian', 'direction' => 'ltr'),
--		'jp'	=> array('q' => 0.1, 'lang' => 'ja_JP', 'name' => 'Japanese', 'direction' => 'ltr'),
--		'cs'	=> array('q' => 1, 'lang' => 'cs_CZ', 'name' => 'Czech', 'direction' => 'ltr'),
--		'ca'	=> array('q' => 1, 'lang' => 'ca_ES', 'name' => 'Catalan', 'direction' => 'ltr'),
--#		'hr'    => array('q' => 0.1, 'lang' => 'he_IL', 'name' => 'Hebrew', 'direction' => 'ltr')
--	);
-+/**
-+ * returns a simple code -> name mapping for languages
-+ *
-+ * @return array map of available languages by code to language name.
-+ */
-+
-+function get_nice_language_list()
-+{
-+    $nice_lang = array();
-+
-+    $all_languages = common_config('site', 'languages');
-+
-+    foreach ($all_languages as $lang) {
-+        $nice_lang = $nice_lang + array($lang['lang'] => $lang['name']);
+hunk ./lib/mailbox.php 213
+-	function get_instructions() {
+-		return '';
+-	}
++    /**
++     * show a single message in the list format
++     *
++     * @param Message $message the message to show
++     *
++     * @return void
++     */
+hunk ./lib/mailbox.php 221
+-	function show_top() {
++    function show_message($message)
++    {
++        common_element_start('li', array('class' => 'message_single',
++                                         'id' => 'message-' . $message->id));
+hunk ./lib/mailbox.php 226
+-		$cur = common_current_user();
+-		
+-		common_message_form(NULL, $cur, NULL);
+-		
+-		$this->views_menu();
+-	}
+-	
+-	function show_page($user, $page) {
++        $profile = $this->get_message_profile($message);
+hunk ./lib/mailbox.php 228
+-		common_show_header($this->get_title($user, $page),
+-						   NULL, NULL,
+-						   array($this, 'show_top'));
+-		
+-		$this->show_box($user, $page);
+-		
+-		common_show_footer();
+-	}
+-	
+-	function show_box($user, $page) {
+-		
+-		$message = $this->get_messages($user, $page);
+-		
+-		if ($message) {
+-			
+-			$cnt = 0;
+-			common_element_start('ul', array('id' => 'messages'));
+-		
+-			while ($message->fetch() && $cnt <= MESSAGES_PER_PAGE) {
+-				$cnt++;
+-				
+-				if ($cnt > MESSAGES_PER_PAGE) {
+-					break;
+-				}
+-				
+-				$this->show_message($message);
+-			}
++        $avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
++        common_element_start('a', array('href' => $profile->profileurl));
++        common_element('img', array('src' => ($avatar) ?
++                                    common_avatar_display_url($avatar) :
++                                    common_default_avatar(AVATAR_STREAM_SIZE),
++                                    'class' => 'avatar stream',
++                                    'width' => AVATAR_STREAM_SIZE,
++                                    'height' => AVATAR_STREAM_SIZE,
++                                    'alt' =>
++                                    ($profile->fullname) ? $profile->fullname :
++                                    $profile->nickname));
++        common_element_end('a');
++        common_element('a', array('href' => $profile->profileurl,
++                                  'class' => 'nickname'),
++                       $profile->nickname);
++        // FIXME: URL, image, video, audio
++        common_element_start('p', array('class' => 'content'));
++        common_raw($message->rendered);
++        common_element_end('p');
+hunk ./lib/mailbox.php 248
+-			common_element_end('ul');
+-			
+-			common_pagination($page > 1, $cnt > MESSAGES_PER_PAGE,
+-							  $page, $this->trimmed('action'),
+-							  array('nickname' => $user->nickname));
+-			
+-			$message->free();
+-			unset($message);
+-		}
+-	}
++        $messageurl = common_local_url('showmessage',
++                                       array('message' => $message->id));
+hunk ./lib/mailbox.php 251
+-	# returns the profile we want to show with the message
+-	
+-	function get_message_profile($message) {
+-		return NULL;
+-	}
+-	
+-	function show_message($message) {
++        // XXX: we need to figure this out better. Is this right?
++        if (strcmp($message->uri, $messageurl) != 0 &&
++            preg_match('/^http/', $message->uri)) {
++            $messageurl = $message->uri;
++        }
++        common_element_start('p', 'time');
++        common_element('a', array('class' => 'permalink',
++                                  'href' => $messageurl,
++                                  'title' => common_exact_date($message->created)),
++                       common_date_string($message->created));
++        if ($message->source) {
++            common_text(_(' from '));
++            $this->source_link($message->source);
++        }
+hunk ./lib/mailbox.php 266
+-		common_element_start('li', array('class' => 'message_single',
+-										  'id' => 'message-' . $message->id));
++        common_element_end('p');
+hunk ./lib/mailbox.php 268
+-		$profile = $this->get_message_profile($message);
+-		
+-		$avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
+-		common_element_start('a', array('href' => $profile->profileurl));
+-		common_element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE),
+-									'class' => 'avatar stream',
+-									'width' => AVATAR_STREAM_SIZE,
+-									'height' => AVATAR_STREAM_SIZE,
+-									'alt' =>
+-									($profile->fullname) ? $profile->fullname :
+-									$profile->nickname));
+-		common_element_end('a');
+-		common_element('a', array('href' => $profile->profileurl,
+-								  'class' => 'nickname'),
+-					   $profile->nickname);
+-		# FIXME: URL, image, video, audio
+-		common_element_start('p', array('class' => 'content'));
+-		common_raw($message->rendered);
+-		common_element_end('p');
+-		
+-		$messageurl = common_local_url('showmessage', array('message' => $message->id));
+-		
+-		# XXX: we need to figure this out better. Is this right?
+-		if (strcmp($message->uri, $messageurl) != 0 && preg_match('/^http/', $message->uri)) {
+-			$messageurl = $message->uri;
+-		}
+-		common_element_start('p', 'time');
+-		common_element('a', array('class' => 'permalink',
+-								  'href' => $messageurl,
+-								  'title' => common_exact_date($message->created)),
+-					   common_date_string($message->created));
+-		if ($message->source) {
+-			common_text(_(' from '));
+-			$this->source_link($message->source);
+-		}
+-		
+-		common_element_end('p');
+-		
+-		common_element_end('li');
+-	}
++        common_element_end('li');
 +    }
-+    return $nice_lang;
-+}
-+
-+/**
-+ * Get a list of all languages that are enabled in the default config
-+ *
-+ * This should ONLY be called when setting up the default config in common.php.
-+ * Any other attempt to get a list of lanugages should instead call
-+ * common_config('site','languages')
-+ *
-+ * @return array mapping of language codes to language info
-+ */
-+
-+function get_all_languages()
-+{
-+    return
-+      array('en-us' => array('q' => 1, 'lang' => 'en_US',
-+                             'name' => 'English (US)', 'direction' => 'ltr'),
-+            'en-nz' => array('q' => 1, 'lang' => 'en_NZ',
-+                             'name' => 'English (NZ)', 'direction' => 'ltr'),
-+            'en-gb' => array('q' => 1, 'lang' => 'en_GB',
-+                             'name' => 'English (British)', 'direction' => 'ltr'),
-+            'en' => array('q' => 1, 'lang' => 'en',
-+                          'name' => 'English', 'direction' => 'ltr'),
-+            'da' => array('q' => 0.1, 'lang' => 'da_DK',
-+                          'name' => 'Danish', 'direction' => 'ltr'),
-+            'nl' => array('q' => 1, 'lang' => 'nl_NL',
-+                          'name' => 'Dutch', 'direction' => 'ltr'),
-+            'eo' => array('q' => 0.1, 'lang' => 'eo',
-+                          'name' => 'Esperanto', 'direction' => 'ltr'),
-+            'fr-fr' => array('q' => 0.9, 'lang' => 'fr_FR',
-+                             'name' => 'French', 'direction' => 'ltr'),
-+            'de' => array('q' => 1, 'lang' => 'de_DE',
-+                          'name' => 'German', 'direction' => 'ltr'),
-+            'it' => array('q' => 1, 'lang' => 'it_IT',
-+                          'name' => 'Italian', 'direction' => 'ltr'),
-+            'ko' => array('q' => 0.1, 'lang' => 'ko',
-+                          'name' => 'Korean', 'direction' => 'ltr'),
-+            'nb' => array('q' => 1, 'lang' => 'nb_NO',
-+                          'name' => 'Norwegian (bokmal)', 'direction' => 'ltr'),
-+            'pt' => array('q' => 0.2, 'lang' => 'pt',
-+                          'name' => 'Portuguese', 'direction' => 'ltr'),
-+            'pt-br' => array('q' => 1, 'lang' => 'pt_BR',
-+                             'name' => 'Portuguese Brazil', 'direction' => 'ltr'),
-+            'es' => array('q' => 1, 'lang' => 'es',
-+                          'name' => 'Spanish', 'direction' => 'ltr'),
-+            'tr' => array('q' => 1, 'lang' => 'tr_TR',
-+                          'name' => 'Turkish', 'direction' => 'ltr'),
-+            'uk' => array('q' => 1, 'lang' => 'uk_UA',
-+                          'name' => 'Ukrainian', 'direction' => 'ltr'),
-+            'pl' => array('q' => 1, 'lang' => 'pl_PL',
-+                          'name' => 'Polish', 'direction' => 'ltr'),
-+            'mk' => array('q' => 1, 'lang' => 'mk_MK',
-+                          'name' => 'Macedonian', 'direction' => 'ltr'),
-+            'jp' => array('q' => 0.1, 'lang' => 'ja_JP',
-+                          'name' => 'Japanese', 'direction' => 'ltr'),
-+            'cs' => array('q' => 1, 'lang' => 'cs_CZ',
-+                          'name' => 'Czech', 'direction' => 'ltr'),
-+            'ca' => array('q' => 1, 'lang' => 'ca_ES',
-+                          'name' => 'Catalan', 'direction' => 'ltr'),
-+            );
