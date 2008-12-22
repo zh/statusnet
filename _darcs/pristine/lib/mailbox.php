@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  Action
+ * @category  Message
  * @package   Laconica
  * @author    Evan Prodromou <evan@controlyourself.ca>
  * @copyright 2008 Control Yourself, Inc.
@@ -38,7 +38,7 @@ define('MESSAGES_PER_PAGE', 20);
 /**
  * common superclass for direct messages inbox and outbox
  *
- * @category Action
+ * @category Message
  * @package  Laconica
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
@@ -91,7 +91,7 @@ class MailboxAction extends PersonalAction
             $page = 1;
         }
 
-        $this->show_page($user, $page);
+        $this->showPage($user, $page);
     }
 
     /**
@@ -103,7 +103,7 @@ class MailboxAction extends PersonalAction
      * @return string localised title of the page
      */
 
-    function get_title($user, $page)
+    function getTitle($user, $page)
     {
         return '';
     }
@@ -114,7 +114,7 @@ class MailboxAction extends PersonalAction
      * @return string localised instructions for using the page
      */
 
-    function get_instructions()
+    function getInstructions()
     {
         return '';
     }
@@ -125,7 +125,7 @@ class MailboxAction extends PersonalAction
      * @return void
      */
 
-    function show_top()
+    function showTop()
     {
         $cur = common_current_user();
 
@@ -143,15 +143,31 @@ class MailboxAction extends PersonalAction
      * @return void
      */
 
-    function show_page($user, $page)
+    function showPage($user, $page)
     {
-        common_show_header($this->get_title($user, $page),
+        common_show_header($this->getTitle($user, $page),
                            null, null,
-                           array($this, 'show_top'));
+                           array($this, 'showTop'));
 
-        $this->show_box($user, $page);
+        $this->showBox($user, $page);
 
         common_show_footer();
+    }
+
+    /**
+     * retrieve the messages appropriate for this mailbox
+     *
+     * Does a query for the right messages
+     *
+     * @param User $user The current user
+     * @param int  $page The page the user is on
+     *
+     * @return Message data object with stream for messages
+     */
+
+    function getMessages($user, $page)
+    {
+        return null;
     }
 
     /**
@@ -165,9 +181,9 @@ class MailboxAction extends PersonalAction
      * @return void
      */
 
-    function show_box($user, $page)
+    function showBox($user, $page)
     {
-        $message = $this->get_messages($user, $page);
+        $message = $this->getMessages($user, $page);
 
         if ($message) {
 
@@ -181,7 +197,7 @@ class MailboxAction extends PersonalAction
                     break;
                 }
 
-                $this->show_message($message);
+                $this->showMessage($message);
             }
 
             common_element_end('ul');
@@ -205,7 +221,7 @@ class MailboxAction extends PersonalAction
      * @return Profile The profile that matches the message
      */
 
-    function get_message_profile($message)
+    function getMessageProfile($message)
     {
         return null;
     }
@@ -218,12 +234,12 @@ class MailboxAction extends PersonalAction
      * @return void
      */
 
-    function show_message($message)
+    function showMessage($message)
     {
         common_element_start('li', array('class' => 'message_single',
                                          'id' => 'message-' . $message->id));
 
-        $profile = $this->get_message_profile($message);
+        $profile = $this->getMessageProfile($message);
 
         $avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
         common_element_start('a', array('href' => $profile->profileurl));

@@ -1,95 +1,45 @@
-hunk ./lib/mailbox.php 2
+hunk ./actions/inbox.php 2
 -/*
 - * Laconica - a distributed open-source microblogging tool
 - * Copyright (C) 2008, Controlez-Vous, Inc.
 +/**
 + * Laconica, the distributed open-source microblogging tool
-hunk ./lib/mailbox.php 5
+hunk ./actions/inbox.php 5
 - * This program is free software: you can redistribute it and/or modify
-+ * common superclass for direct messages inbox and outbox
++ * action handler for message inbox
 + *
 + * PHP version 5
 + *
 + * LICENCE: This program is free software: you can redistribute it and/or modify
-hunk ./lib/mailbox.php 21
+hunk ./actions/inbox.php 21
 + *
-+ * @category  Action
++ * @category  Message
 + * @package   Laconica
 + * @author    Evan Prodromou <evan@controlyourself.ca>
 + * @copyright 2008 Control Yourself, Inc.
 + * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
 + * @link      http://laconi.ca/
-hunk ./lib/mailbox.php 30
--if (!defined('LACONICA')) { exit(1); }
++ */
++
 +if (!defined('LACONICA')) {
 +    exit(1);
 +}
-hunk ./lib/mailbox.php 34
--require_once(INSTALLDIR.'/lib/personal.php');
-+require_once INSTALLDIR.'/lib/personal.php';
-hunk ./lib/mailbox.php 38
--class MailboxAction extends PersonalAction {
--	
--	function handle($args) {
++
++require_once INSTALLDIR.'/lib/mailbox.php';
++
 +/**
-+ * common superclass for direct messages inbox and outbox
++ * action handler for message inbox
 + *
-+ * @category Action
++ * @category Message
 + * @package  Laconica
 + * @author   Evan Prodromou <evan@controlyourself.ca>
 + * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
 + * @link     http://laconi.ca/
-+ * @see      InboxAction
-+ * @see      OutboxAction
-+ */
-+
-+class MailboxAction extends PersonalAction
++ * @see      MailboxAction
+hunk ./actions/inbox.php 47
+-if (!defined('LACONICA')) { exit(1); }
++class InboxAction extends MailboxAction
 +{
-+    /**
-+     * output page based on arguments
-+     *
-+     * @param array $args HTTP arguments (from $_REQUEST)
-+     *
-+     * @return void
-+     */
-+
-+    function handle($args)
-+    {
-+        parent::handle($args);
-+
-+        $nickname = common_canonical_nickname($this->arg('nickname'));
-+
-+        $user = User::staticGet('nickname', $nickname);
-+
-+        if (!$user) {
-+            $this->client_error(_('No such user.'), 404);
-+            return;
-+        }
-+
-+        $cur = common_current_user();
-+
-+        if (!$cur || $cur->id != $user->id) {
-+            $this->client_error(_('Only the user can read their own mailboxes.'),
-+                                403);
-+            return;
-+        }
-+
-+        $profile = $user->getProfile();
-+
-+        if (!$profile) {
-+            $this->server_error(_('User has no profile.'));
-+            return;
-+        }
-+
-+        $page = $this->trimmed('page');
-+
-+        if (!$page) {
-+            $page = 1;
-+        }
-+
-+        $this->show_page($user, $page);
-+    }
-+
 +    /**
 +     * returns the title of the page
 +     *
@@ -97,297 +47,319 @@ hunk ./lib/mailbox.php 38
 +     * @param int  $page current page
 +     *
 +     * @return string localised title of the page
++     *
++     * @see MailboxAction::getTitle()
 +     */
 +
-+    function get_title($user, $page)
++    function getTitle($user, $page)
 +    {
-+        return '';
++        if ($page > 1) {
++            $title = sprintf(_("Inbox for %s - page %d"), $user->nickname, $page);
++        } else {
++            $title = sprintf(_("Inbox for %s"), $user->nickname);
++        }
++        return $title;
 +    }
 +
++    /**
++     * retrieve the messages for this user and this page
++     *
++     * Does a query for the right messages
++     *
++     * @param User $user The current user
++     * @param int  $page The page the user is on
++     *
++     * @return Message data object with stream for messages
++     *
++     * @see MailboxAction::getMessages()
++     */
++
++    function getMessages($user, $page)
++    {
++        $message = new Message();
++
++        $message->to_profile = $user->id;
++
++        $message->orderBy('created DESC, id DESC');
++        $message->limit((($page-1)*MESSAGES_PER_PAGE), MESSAGES_PER_PAGE + 1);
++
++        if ($message->find()) {
++            return $message;
++        } else {
++            return null;
++        }
++    }
++
++    /**
++     * returns the profile we want to show with the message
++     *
++     * For inboxes, we show the sender.
++     *
++     * @param Message $message The message to get the profile for
++     *
++     * @return Profile The profile of the message sender
++     *
++     * @see MailboxAction::getMessageProfile()
++     */
+hunk ./actions/inbox.php 111
+-require_once(INSTALLDIR.'/lib/mailbox.php');
++    function getMessageProfile($message)
++    {
++        return $message->getFrom();
++    }
+hunk ./actions/inbox.php 116
+-class InboxAction extends MailboxAction {
+-	
+-	function get_title($user, $page) {
+-		if ($page > 1) {
+-			$title = sprintf(_("Inbox for %s - page %d"), $user->nickname, $page);
+-		} else {
+-			$title = sprintf(_("Inbox for %s"), $user->nickname);
+-		}
+-		return $title;
+-	}
+-	
+-	function get_messages($user, $page) {
+-		$message = new Message();
+-		$message->to_profile = $user->id;
+-		$message->orderBy('created DESC, id DESC');
+-		$message->limit((($page-1)*MESSAGES_PER_PAGE), MESSAGES_PER_PAGE + 1);
 +    /**
 +     * instructions for using this page
 +     *
 +     * @return string localised instructions for using the page
 +     */
-+
-+    function get_instructions()
+hunk ./actions/inbox.php 122
+-		if ($message->find()) {
+-			return $message;
+-		} else {
+-			return NULL;
+-		}
+-	}
+-	
+-	function get_message_profile($message) {
+-		return $message->getFrom();
+-	}
+-	
+-	function get_instructions() {
+-		return _('This is your inbox, which lists your incoming private messages.');
+-	}
++    function getInstructions()
 +    {
-+        return '';
++        return _('This is your inbox, which lists your incoming private messages.');
 +    }
+hunk ./actions/outbox.php 2
+-/*
+- * Laconica - a distributed open-source microblogging tool
+- * Copyright (C) 2008, Controlez-Vous, Inc.
++/**
++ * Laconica, the distributed open-source microblogging tool
+hunk ./actions/outbox.php 5
+- * This program is free software: you can redistribute it and/or modify
++ * action handler for message inbox
++ *
++ * PHP version 5
++ *
++ * LICENCE: This program is free software: you can redistribute it and/or modify
+hunk ./actions/outbox.php 21
++ *
++ * @category  Message
++ * @package   Laconica
++ * @author    Evan Prodromou <evan@controlyourself.ca>
++ * @copyright 2008 Control Yourself, Inc.
++ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
++ * @link      http://laconi.ca/
++ */
 +
++if (!defined('LACONICA')) {
++    exit(1);
++}
++
++require_once INSTALLDIR.'/lib/mailbox.php';
++
++/**
++ * action handler for message outbox
++ *
++ * @category Message
++ * @package  Laconica
++ * @author   Evan Prodromou <evan@controlyourself.ca>
++ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
++ * @link     http://laconi.ca/
++ * @see      MailboxAction
+hunk ./actions/outbox.php 47
+-if (!defined('LACONICA')) { exit(1); }
++class OutboxAction extends MailboxAction
++{
 +    /**
-+     * do structured output for the "instructions" are of the page
++     * returns the title of the page
 +     *
-+     * @return void
++     * @param User $user current user
++     * @param int  $page current page
++     *
++     * @return string localised title of the page
++     *
++     * @see MailboxAction::getTitle()
 +     */
 +
-+    function show_top()
++    function getTitle($user, $page)
 +    {
-+        $cur = common_current_user();
-+
-+        common_message_form(null, $cur, null);
-+
-+        $this->views_menu();
++        if ($page > 1) {
++            $title = sprintf(_("Outbox for %s - page %d"), $user->nickname, $page);
++        } else {
++            $title = sprintf(_("Outbox for %s"), $user->nickname);
++        }
++        return $title;
 +    }
 +
 +    /**
-+     * show a full page of output
++     * retrieve the messages for this user and this page
++     *
++     * Does a query for the right messages
 +     *
 +     * @param User $user The current user
 +     * @param int  $page The page the user is on
 +     *
-+     * @return void
++     * @return Message data object with stream for messages
++     *
++     * @see MailboxAction::getMessages()
 +     */
 +
-+    function show_page($user, $page)
++    function getMessages($user, $page)
 +    {
-+        common_show_header($this->get_title($user, $page),
-+                           null, null,
-+                           array($this, 'show_top'));
++        $message = new Message();
 +
-+        $this->show_box($user, $page);
++        $message->from_profile = $user->id;
++        $message->orderBy('created DESC, id DESC');
++        $message->limit((($page-1)*MESSAGES_PER_PAGE), MESSAGES_PER_PAGE + 1);
 +
-+        common_show_footer();
-+    }
-+
-+    /**
-+     * show the messages for a mailbox in list format
-+     *
-+     * Includes the pagination links (before, after).
-+     *
-+     * @param User $user The current user
-+     * @param int  $page The page the user is on
-+     *
-+     * @return void
-+     */
-+
-+    function show_box($user, $page)
-+    {
-+        $message = $this->get_messages($user, $page);
-+
-+        if ($message) {
-+
-+            $cnt = 0;
-+            common_element_start('ul', array('id' => 'messages'));
-+
-+            while ($message->fetch() && $cnt <= MESSAGES_PER_PAGE) {
-+                $cnt++;
-hunk ./lib/mailbox.php 180
--		parent::handle($args);
-+                if ($cnt > MESSAGES_PER_PAGE) {
-+                    break;
-+                }
-hunk ./lib/mailbox.php 184
--		$nickname = common_canonical_nickname($this->arg('nickname'));
--		$user = User::staticGet('nickname', $nickname);
-+                $this->show_message($message);
-+            }
-hunk ./lib/mailbox.php 187
--		if (!$user) {
--			$this->client_error(_('No such user.'), 404);
--			return;
--		}
-+            common_element_end('ul');
-hunk ./lib/mailbox.php 189
--		$cur = common_current_user();
--		
--		if (!$cur || $cur->id != $user->id) {
--			$this->client_error(_('Only the user can read their own mailboxes.'), 403);
--			return;
--		}
--		
--		$profile = $user->getProfile();
-+            common_pagination($page > 1, $cnt > MESSAGES_PER_PAGE,
-+                              $page, $this->trimmed('action'),
-+                              array('nickname' => $user->nickname));
-hunk ./lib/mailbox.php 193
--		if (!$profile) {
--			$this->server_error(_('User has no profile.'));
--			return;
--		}
-+            $message->free();
-+            unset($message);
++        if ($message->find()) {
++            return $message;
++        } else {
++            return null;
 +        }
 +    }
-hunk ./lib/mailbox.php 198
--		$page = $this->trimmed('page');
--		
--		if (!$page) {
--			$page = 1;
--		}
--		
--		$this->show_page($user, $page);
--	}
++
 +    /**
 +     * returns the profile we want to show with the message
 +     *
-+     * For inboxes, we show the sender; for outboxes, the recipient.
++     * For outboxes, we show the recipient.
 +     *
 +     * @param Message $message The message to get the profile for
 +     *
-+     * @return Profile The profile that matches the message
++     * @return Profile The profile of the message recipient
++     *
++     * @see MailboxAction::getMessageProfile()
 +     */
-hunk ./lib/mailbox.php 208
+hunk ./actions/outbox.php 110
+-require_once(INSTALLDIR.'/lib/mailbox.php');
++    function getMessageProfile($message)
++    {
++        return $message->getTo();
++    }
+hunk ./actions/outbox.php 115
+-class OutboxAction extends MailboxAction {
+-	
 -	function get_title($user, $page) {
--		return '';
+-		if ($page > 1) {
+-			$title = sprintf(_("Outbox for %s - page %d"), $user->nickname, $page);
+-		} else {
+-			$title = sprintf(_("Outbox for %s"), $user->nickname);
+-		}
+-		return $title;
 -	}
-+    function get_message_profile($message)
+-	
+-	function get_messages($user, $page) {
+-		$message = new Message();
+-		$message->from_profile = $user->id;
+-		$message->orderBy('created DESC, id DESC');
+-		$message->limit((($page-1)*MESSAGES_PER_PAGE), MESSAGES_PER_PAGE + 1);
++    /**
++     * instructions for using this page
++     *
++     * @return string localised instructions for using the page
++     */
+hunk ./actions/outbox.php 121
+-		if ($message->find()) {
+-			return $message;
+-		} else {
+-			return NULL;
+-		}
+-	}
+-	
+-	function get_message_profile($message) {
+-		return $message->getTo();
+-	}
+-	
+-	function get_instructions() {
+-		return _('This is your outbox, which lists private messages you have sent.');
+-	}
+-	
++    function getInstructions()
++    {
++        return _('This is your outbox, which lists private messages you have sent.');
++    }
+hunk ./lib/mailbox.php 22
+- * @category  Action
++ * @category  Message
+hunk ./lib/mailbox.php 41
+- * @category Action
++ * @category Message
+hunk ./lib/mailbox.php 94
+-        $this->show_page($user, $page);
++        $this->showPage($user, $page);
+hunk ./lib/mailbox.php 106
+-    function get_title($user, $page)
++    function getTitle($user, $page)
+hunk ./lib/mailbox.php 117
+-    function get_instructions()
++    function getInstructions()
+hunk ./lib/mailbox.php 128
+-    function show_top()
++    function showTop()
+hunk ./lib/mailbox.php 146
+-    function show_page($user, $page)
++    function showPage($user, $page)
+hunk ./lib/mailbox.php 148
+-        common_show_header($this->get_title($user, $page),
++        common_show_header($this->getTitle($user, $page),
+hunk ./lib/mailbox.php 150
+-                           array($this, 'show_top'));
++                           array($this, 'showTop'));
+hunk ./lib/mailbox.php 152
+-        $this->show_box($user, $page);
++        $this->showBox($user, $page);
+hunk ./lib/mailbox.php 157
++    /**
++     * retrieve the messages appropriate for this mailbox
++     *
++     * Does a query for the right messages
++     *
++     * @param User $user The current user
++     * @param int  $page The page the user is on
++     *
++     * @return Message data object with stream for messages
++     */
++
++    function getMessages($user, $page)
 +    {
 +        return null;
 +    }
-hunk ./lib/mailbox.php 213
--	function get_instructions() {
--		return '';
--	}
-+    /**
-+     * show a single message in the list format
-+     *
-+     * @param Message $message the message to show
-+     *
-+     * @return void
-+     */
-hunk ./lib/mailbox.php 221
--	function show_top() {
-+    function show_message($message)
-+    {
-+        common_element_start('li', array('class' => 'message_single',
-+                                         'id' => 'message-' . $message->id));
-hunk ./lib/mailbox.php 226
--		$cur = common_current_user();
--		
--		common_message_form(NULL, $cur, NULL);
--		
--		$this->views_menu();
--	}
--	
--	function show_page($user, $page) {
-+        $profile = $this->get_message_profile($message);
-hunk ./lib/mailbox.php 228
--		common_show_header($this->get_title($user, $page),
--						   NULL, NULL,
--						   array($this, 'show_top'));
--		
--		$this->show_box($user, $page);
--		
--		common_show_footer();
--	}
--	
--	function show_box($user, $page) {
--		
--		$message = $this->get_messages($user, $page);
--		
--		if ($message) {
--			
--			$cnt = 0;
--			common_element_start('ul', array('id' => 'messages'));
--		
--			while ($message->fetch() && $cnt <= MESSAGES_PER_PAGE) {
--				$cnt++;
--				
--				if ($cnt > MESSAGES_PER_PAGE) {
--					break;
--				}
--				
--				$this->show_message($message);
--			}
-+        $avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
-+        common_element_start('a', array('href' => $profile->profileurl));
-+        common_element('img', array('src' => ($avatar) ?
-+                                    common_avatar_display_url($avatar) :
-+                                    common_default_avatar(AVATAR_STREAM_SIZE),
-+                                    'class' => 'avatar stream',
-+                                    'width' => AVATAR_STREAM_SIZE,
-+                                    'height' => AVATAR_STREAM_SIZE,
-+                                    'alt' =>
-+                                    ($profile->fullname) ? $profile->fullname :
-+                                    $profile->nickname));
-+        common_element_end('a');
-+        common_element('a', array('href' => $profile->profileurl,
-+                                  'class' => 'nickname'),
-+                       $profile->nickname);
-+        // FIXME: URL, image, video, audio
-+        common_element_start('p', array('class' => 'content'));
-+        common_raw($message->rendered);
-+        common_element_end('p');
-hunk ./lib/mailbox.php 248
--			common_element_end('ul');
--			
--			common_pagination($page > 1, $cnt > MESSAGES_PER_PAGE,
--							  $page, $this->trimmed('action'),
--							  array('nickname' => $user->nickname));
--			
--			$message->free();
--			unset($message);
--		}
--	}
-+        $messageurl = common_local_url('showmessage',
-+                                       array('message' => $message->id));
-hunk ./lib/mailbox.php 251
--	# returns the profile we want to show with the message
--	
--	function get_message_profile($message) {
--		return NULL;
--	}
--	
--	function show_message($message) {
-+        // XXX: we need to figure this out better. Is this right?
-+        if (strcmp($message->uri, $messageurl) != 0 &&
-+            preg_match('/^http/', $message->uri)) {
-+            $messageurl = $message->uri;
-+        }
-+        common_element_start('p', 'time');
-+        common_element('a', array('class' => 'permalink',
-+                                  'href' => $messageurl,
-+                                  'title' => common_exact_date($message->created)),
-+                       common_date_string($message->created));
-+        if ($message->source) {
-+            common_text(_(' from '));
-+            $this->source_link($message->source);
-+        }
-hunk ./lib/mailbox.php 266
--		common_element_start('li', array('class' => 'message_single',
--										  'id' => 'message-' . $message->id));
-+        common_element_end('p');
-hunk ./lib/mailbox.php 268
--		$profile = $this->get_message_profile($message);
--		
--		$avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
--		common_element_start('a', array('href' => $profile->profileurl));
--		common_element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE),
--									'class' => 'avatar stream',
--									'width' => AVATAR_STREAM_SIZE,
--									'height' => AVATAR_STREAM_SIZE,
--									'alt' =>
--									($profile->fullname) ? $profile->fullname :
--									$profile->nickname));
--		common_element_end('a');
--		common_element('a', array('href' => $profile->profileurl,
--								  'class' => 'nickname'),
--					   $profile->nickname);
--		# FIXME: URL, image, video, audio
--		common_element_start('p', array('class' => 'content'));
--		common_raw($message->rendered);
--		common_element_end('p');
--		
--		$messageurl = common_local_url('showmessage', array('message' => $message->id));
--		
--		# XXX: we need to figure this out better. Is this right?
--		if (strcmp($message->uri, $messageurl) != 0 && preg_match('/^http/', $message->uri)) {
--			$messageurl = $message->uri;
--		}
--		common_element_start('p', 'time');
--		common_element('a', array('class' => 'permalink',
--								  'href' => $messageurl,
--								  'title' => common_exact_date($message->created)),
--					   common_date_string($message->created));
--		if ($message->source) {
--			common_text(_(' from '));
--			$this->source_link($message->source);
--		}
--		
--		common_element_end('p');
--		
--		common_element_end('li');
--	}
-+        common_element_end('li');
-+    }
++
+hunk ./lib/mailbox.php 184
+-    function show_box($user, $page)
++    function showBox($user, $page)
+hunk ./lib/mailbox.php 186
+-        $message = $this->get_messages($user, $page);
++        $message = $this->getMessages($user, $page);
+hunk ./lib/mailbox.php 200
+-                $this->show_message($message);
++                $this->showMessage($message);
+hunk ./lib/mailbox.php 224
+-    function get_message_profile($message)
++    function getMessageProfile($message)
+hunk ./lib/mailbox.php 237
+-    function show_message($message)
++    function showMessage($message)
+hunk ./lib/mailbox.php 242
+-        $profile = $this->get_message_profile($message);
++        $profile = $this->getMessageProfile($message);

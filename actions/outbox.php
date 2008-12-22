@@ -1,9 +1,12 @@
 <?php
-/*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+/**
+ * Laconica, the distributed open-source microblogging tool
  *
- * This program is free software: you can redistribute it and/or modify
+ * action handler for message inbox
+ *
+ * PHP version 5
+ *
+ * LICENCE: This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -15,42 +18,108 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Message
+ * @package   Laconica
+ * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @copyright 2008 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
-require_once(INSTALLDIR.'/lib/mailbox.php');
+require_once INSTALLDIR.'/lib/mailbox.php';
 
-class OutboxAction extends MailboxAction {
-	
-	function get_title($user, $page) {
-		if ($page > 1) {
-			$title = sprintf(_("Outbox for %s - page %d"), $user->nickname, $page);
-		} else {
-			$title = sprintf(_("Outbox for %s"), $user->nickname);
-		}
-		return $title;
-	}
-	
-	function get_messages($user, $page) {
-		$message = new Message();
-		$message->from_profile = $user->id;
-		$message->orderBy('created DESC, id DESC');
-		$message->limit((($page-1)*MESSAGES_PER_PAGE), MESSAGES_PER_PAGE + 1);
+/**
+ * action handler for message outbox
+ *
+ * @category Message
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://laconi.ca/
+ * @see      MailboxAction
+ */
 
-		if ($message->find()) {
-			return $message;
-		} else {
-			return NULL;
-		}
-	}
-	
-	function get_message_profile($message) {
-		return $message->getTo();
-	}
-	
-	function get_instructions() {
-		return _('This is your outbox, which lists private messages you have sent.');
-	}
-	
+class OutboxAction extends MailboxAction
+{
+    /**
+     * returns the title of the page
+     *
+     * @param User $user current user
+     * @param int  $page current page
+     *
+     * @return string localised title of the page
+     *
+     * @see MailboxAction::getTitle()
+     */
+
+    function getTitle($user, $page)
+    {
+        if ($page > 1) {
+            $title = sprintf(_("Outbox for %s - page %d"), $user->nickname, $page);
+        } else {
+            $title = sprintf(_("Outbox for %s"), $user->nickname);
+        }
+        return $title;
+    }
+
+    /**
+     * retrieve the messages for this user and this page
+     *
+     * Does a query for the right messages
+     *
+     * @param User $user The current user
+     * @param int  $page The page the user is on
+     *
+     * @return Message data object with stream for messages
+     *
+     * @see MailboxAction::getMessages()
+     */
+
+    function getMessages($user, $page)
+    {
+        $message = new Message();
+
+        $message->from_profile = $user->id;
+        $message->orderBy('created DESC, id DESC');
+        $message->limit((($page-1)*MESSAGES_PER_PAGE), MESSAGES_PER_PAGE + 1);
+
+        if ($message->find()) {
+            return $message;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * returns the profile we want to show with the message
+     *
+     * For outboxes, we show the recipient.
+     *
+     * @param Message $message The message to get the profile for
+     *
+     * @return Profile The profile of the message recipient
+     *
+     * @see MailboxAction::getMessageProfile()
+     */
+
+    function getMessageProfile($message)
+    {
+        return $message->getTo();
+    }
+
+    /**
+     * instructions for using this page
+     *
+     * @return string localised instructions for using the page
+     */
+
+    function getInstructions()
+    {
+        return _('This is your outbox, which lists private messages you have sent.');
+    }
 }
