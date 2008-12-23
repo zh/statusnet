@@ -1,365 +1,758 @@
-hunk ./actions/inbox.php 2
+hunk ./lib/mail.php 2
 -/*
 - * Laconica - a distributed open-source microblogging tool
 - * Copyright (C) 2008, Controlez-Vous, Inc.
 +/**
 + * Laconica, the distributed open-source microblogging tool
-hunk ./actions/inbox.php 5
+hunk ./lib/mail.php 5
 - * This program is free software: you can redistribute it and/or modify
-+ * action handler for message inbox
++ * utilities for sending email
 + *
 + * PHP version 5
 + *
 + * LICENCE: This program is free software: you can redistribute it and/or modify
-hunk ./actions/inbox.php 21
+hunk ./lib/mail.php 21
 + *
-+ * @category  Message
++ * @category  Mail
 + * @package   Laconica
 + * @author    Evan Prodromou <evan@controlyourself.ca>
++ * @author    Zach Copley <zach@controlyourself.ca>
++ * @author    Robin Millette <millette@controlyourself.ca>
++ * @author    Sarven Capadisli <csarven@controlyourself.ca>
 + * @copyright 2008 Control Yourself, Inc.
 + * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
 + * @link      http://laconi.ca/
-+ */
-+
+hunk ./lib/mail.php 33
+-if (!defined('LACONICA')) { exit(1); }
 +if (!defined('LACONICA')) {
 +    exit(1);
 +}
-+
-+require_once INSTALLDIR.'/lib/mailbox.php';
+hunk ./lib/mail.php 37
+-require_once('Mail.php');
++require_once 'Mail.php';
 +
 +/**
-+ * action handler for message inbox
++ * return the configured mail backend
 + *
-+ * @category Message
-+ * @package  Laconica
-+ * @author   Evan Prodromou <evan@controlyourself.ca>
-+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
-+ * @link     http://laconi.ca/
-+ * @see      MailboxAction
-hunk ./actions/inbox.php 47
--if (!defined('LACONICA')) { exit(1); }
-+class InboxAction extends MailboxAction
++ * Uses the $config array to make a mail backend. Cached so it is safe to call
++ * more than once.
++ *
++ * @return Mail backend
++ */
+hunk ./lib/mail.php 48
+-function mail_backend() {
+-	static $backend = NULL;
++function mail_backend()
 +{
-+    /**
-+     * returns the title of the page
-+     *
-+     * @param User $user current user
-+     * @param int  $page current page
-+     *
-+     * @return string localised title of the page
-+     *
-+     * @see MailboxAction::getTitle()
-+     */
-+
-+    function getTitle($user, $page)
-+    {
-+        if ($page > 1) {
-+            $title = sprintf(_("Inbox for %s - page %d"), $user->nickname, $page);
-+        } else {
-+            $title = sprintf(_("Inbox for %s"), $user->nickname);
-+        }
-+        return $title;
-+    }
-+
-+    /**
-+     * retrieve the messages for this user and this page
-+     *
-+     * Does a query for the right messages
-+     *
-+     * @param User $user The current user
-+     * @param int  $page The page the user is on
-+     *
-+     * @return Message data object with stream for messages
-+     *
-+     * @see MailboxAction::getMessages()
-+     */
-+
-+    function getMessages($user, $page)
-+    {
-+        $message = new Message();
-+
-+        $message->to_profile = $user->id;
-+
-+        $message->orderBy('created DESC, id DESC');
-+        $message->limit((($page-1)*MESSAGES_PER_PAGE), MESSAGES_PER_PAGE + 1);
-+
-+        if ($message->find()) {
-+            return $message;
-+        } else {
-+            return null;
-+        }
-+    }
-+
-+    /**
-+     * returns the profile we want to show with the message
-+     *
-+     * For inboxes, we show the sender.
-+     *
-+     * @param Message $message The message to get the profile for
-+     *
-+     * @return Profile The profile of the message sender
-+     *
-+     * @see MailboxAction::getMessageProfile()
-+     */
-hunk ./actions/inbox.php 111
--require_once(INSTALLDIR.'/lib/mailbox.php');
-+    function getMessageProfile($message)
-+    {
-+        return $message->getFrom();
-+    }
-hunk ./actions/inbox.php 116
--class InboxAction extends MailboxAction {
--	
--	function get_title($user, $page) {
--		if ($page > 1) {
--			$title = sprintf(_("Inbox for %s - page %d"), $user->nickname, $page);
--		} else {
--			$title = sprintf(_("Inbox for %s"), $user->nickname);
--		}
--		return $title;
--	}
--	
--	function get_messages($user, $page) {
--		$message = new Message();
--		$message->to_profile = $user->id;
--		$message->orderBy('created DESC, id DESC');
--		$message->limit((($page-1)*MESSAGES_PER_PAGE), MESSAGES_PER_PAGE + 1);
-+    /**
-+     * instructions for using this page
-+     *
-+     * @return string localised instructions for using the page
-+     */
-hunk ./actions/inbox.php 122
--		if ($message->find()) {
--			return $message;
--		} else {
--			return NULL;
++    static $backend = null;
+hunk ./lib/mail.php 52
+-	if (!$backend) {
+-		global $config;
+-		$backend = Mail::factory($config['mail']['backend'],
+-								 ($config['mail']['params']) ? $config['mail']['params'] : array());
+-		if (PEAR::isError($backend)) {
+-			common_server_error($backend->getMessage(), 500);
 -		}
 -	}
--	
--	function get_message_profile($message) {
--		return $message->getFrom();
--	}
--	
--	function get_instructions() {
--		return _('This is your inbox, which lists your incoming private messages.');
--	}
-+    function getInstructions()
-+    {
-+        return _('This is your inbox, which lists your incoming private messages.');
+-	return $backend;
++    if (!$backend) {
++        global $config;
++        $backend = Mail::factory($config['mail']['backend'],
++                                 ($config['mail']['params']) ?
++                                 $config['mail']['params'] :
++                                 array());
++        if (PEAR::isError($backend)) {
++            common_server_error($backend->getMessage(), 500);
++        }
 +    }
-hunk ./actions/outbox.php 2
--/*
-- * Laconica - a distributed open-source microblogging tool
-- * Copyright (C) 2008, Controlez-Vous, Inc.
++    return $backend;
+hunk ./lib/mail.php 65
+-# XXX: use Mail_Queue... maybe
 +/**
-+ * Laconica, the distributed open-source microblogging tool
-hunk ./actions/outbox.php 5
-- * This program is free software: you can redistribute it and/or modify
-+ * action handler for message inbox
++ * send an email to one or more recipients
 + *
-+ * PHP version 5
++ * @param array  $recipients array of strings with email addresses of recipients
++ * @param array  $headers    array mapping strings to strings for email headers
++ * @param string $body       body of the email
 + *
-+ * LICENCE: This program is free software: you can redistribute it and/or modify
-hunk ./actions/outbox.php 21
++ * @return boolean success flag
++ */
+hunk ./lib/mail.php 75
+-function mail_send($recipients, $headers, $body) {
+-	$backend = mail_backend();
++function mail_send($recipients, $headers, $body)
++{
++    // XXX: use Mail_Queue... maybe
++    $backend = mail_backend();
+hunk ./lib/mail.php 82
+-	assert($backend); # throws an error if it's bad
+-	$sent = $backend->send($recipients, $headers, $body);
+-	if (PEAR::isError($sent)) {
+-		common_log(LOG_ERR, 'Email error: ' . $sent->getMessage());
+-		return false;
+-	}
+-	return true;
++    assert($backend); // throws an error if it's bad
++    $sent = $backend->send($recipients, $headers, $body);
++    if (PEAR::isError($sent)) {
++        common_log(LOG_ERR, 'Email error: ' . $sent->getMessage());
++        return false;
++    }
++    return true;
+hunk ./lib/mail.php 91
+-function mail_domain() {
+-	$maildomain = common_config('mail', 'domain');
+-	if (!$maildomain) {
+-		$maildomain = common_config('site', 'server');
+-	}
+-	return $maildomain;
+-}
++/**
++ * returns the configured mail domain
 + *
-+ * @category  Message
-+ * @package   Laconica
-+ * @author    Evan Prodromou <evan@controlyourself.ca>
-+ * @copyright 2008 Control Yourself, Inc.
-+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
-+ * @link      http://laconi.ca/
++ * Defaults to the server name.
++ *
++ * @return string mail domain, suitable for making email addresses.
++ */
+hunk ./lib/mail.php 99
+-function mail_notify_from() {
+-	$notifyfrom = common_config('mail', 'notifyfrom');
+-	if (!$notifyfrom) {
+-		$domain = mail_domain();
+-		$notifyfrom = common_config('site', 'name') .' <noreply@'.$domain.'>';
+-	}
+-	return $notifyfrom;
++function mail_domain()
++{
++    $maildomain = common_config('mail', 'domain');
++    if (!$maildomain) {
++        $maildomain = common_config('site', 'server');
++    }
++    return $maildomain;
+hunk ./lib/mail.php 108
+-function mail_to_user(&$user, $subject, $body, $address=NULL) {
+-	if (!$address) {
+-		$address = $user->email;
+-	}
++/**
++ * returns a good address for sending email from this server
++ *
++ * Uses either the configured value or a faked-up value made
++ * from the mail domain.
++ *
++ * @return string notify from address
++ */
+hunk ./lib/mail.php 117
+-	$recipients = $address;
+-	$profile = $user->getProfile();
++function mail_notify_from()
++{
++    $notifyfrom = common_config('mail', 'notifyfrom');
+hunk ./lib/mail.php 121
+-	$headers['From'] = mail_notify_from();
+-	$headers['To'] = $profile->getBestName() . ' <' . $address . '>';
+-	$headers['Subject'] = $subject;
++    if (!$notifyfrom) {
+hunk ./lib/mail.php 123
+-	return mail_send($recipients, $headers, $body);
++        $domain = mail_domain();
++
++        $notifyfrom = common_config('site', 'name') .' <noreply@'.$domain.'>';
++    }
++
++    return $notifyfrom;
+hunk ./lib/mail.php 131
+-# For confirming a Jabber address
++/**
++ * sends email to a user
++ *
++ * @param User   &$user   user to send email to
++ * @param string $subject subject of the email
++ * @param string $body    body of the email
++ * @param string $address optional specification of email address
++ *
++ * @return boolean success flag
 + */
 +
-+if (!defined('LACONICA')) {
-+    exit(1);
++function mail_to_user(&$user, $subject, $body, $address=null)
++{
++    if (!$address) {
++        $address = $user->email;
++    }
+hunk ./lib/mail.php 148
+-function mail_confirm_address($user, $code, $nickname, $address) {
++    $recipients = $address;
++    $profile    = $user->getProfile();
+hunk ./lib/mail.php 151
+-	$subject = _('Email address confirmation');
++    $headers['From']    = mail_notify_from();
++    $headers['To']      = $profile->getBestName() . ' <' . $address . '>';
++    $headers['Subject'] = $subject;
+hunk ./lib/mail.php 155
+-    $body = sprintf(_("Hey, %s.\n\nSomeone just entered this email address on %s.\n\n" .
+-        "If it was you, and you want to confirm your entry, use the URL below:\n\n\t%s\n\n" .
+-        "If not, just ignore this message.\n\nThanks for your time, \n%s\n")
+-        , $nickname, common_config('site', 'name')
+-        , common_local_url('confirmaddress', array('code' => $code)), common_config('site', 'name'));
+-     return mail_to_user($user, $subject, $body, $address);
++    return mail_send($recipients, $headers, $body);
+hunk ./lib/mail.php 158
+-function mail_subscribe_notify($listenee, $listener) {
+-	$other = $listener->getProfile();
+-	mail_subscribe_notify_profile($listenee, $other);
++/**
++ * Send an email to confirm a user's control of an email address
++ *
++ * @param User   $user     User claiming the email address
++ * @param string $code     Confirmation code
++ * @param string $nickname Nickname of user
++ * @param string $address  email address to confirm
++ *
++ * @see common_confirmation_code()
++ *
++ * @return success flag
++ */
++
++function mail_confirm_address($user, $code, $nickname, $address)
++{
++    $subject = _('Email address confirmation');
++
++    $body = sprintf(_("Hey, %s.\n\n".
++                      "Someone just entered this email address on %s.\n\n" .
++                      "If it was you, and you want to confirm your entry, ".
++                      "use the URL below:\n\n\t%s\n\n" .
++                      "If not, just ignore this message.\n\n".
++                      "Thanks for your time, \n%s\n"),
++                    $nickname, common_config('site', 'name'),
++                    common_local_url('confirmaddress', array('code' => $code)),
++                    common_config('site', 'name'));
++    return mail_to_user($user, $subject, $body, $address);
+hunk ./lib/mail.php 187
+-function mail_subscribe_notify_profile($listenee, $other) {
+-	if ($listenee->email && $listenee->emailnotifysub) {
+-        // use the recipients localization
++/**
++ * notify a user of subscription by another user
++ *
++ * This is just a wrapper around the profile-based version.
++ *
++ * @param User $listenee user who is being subscribed to
++ * @param User $listener user who is subscribing
++ *
++ * @see mail_subscribe_notify_profile()
++ *
++ * @return void
++ */
++
++function mail_subscribe_notify($listenee, $listener)
++{
++    $other = $listener->getProfile();
++    mail_subscribe_notify_profile($listenee, $other);
 +}
 +
-+require_once INSTALLDIR.'/lib/mailbox.php';
-+
 +/**
-+ * action handler for message outbox
++ * notify a user of subscription by a profile (remote or local)
 + *
-+ * @category Message
-+ * @package  Laconica
-+ * @author   Evan Prodromou <evan@controlyourself.ca>
-+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
-+ * @link     http://laconi.ca/
-+ * @see      MailboxAction
-hunk ./actions/outbox.php 47
--if (!defined('LACONICA')) { exit(1); }
-+class OutboxAction extends MailboxAction
++ * This function checks to see if the listenee has an email
++ * address and wants subscription notices.
++ *
++ * @param User    $listenee user who's being subscribed to
++ * @param Profile $other    profile of person who's listening
++ *
++ * @return void
++ */
++
++function mail_subscribe_notify_profile($listenee, $other)
 +{
-+    /**
-+     * returns the title of the page
-+     *
-+     * @param User $user current user
-+     * @param int  $page current page
-+     *
-+     * @return string localised title of the page
-+     *
-+     * @see MailboxAction::getTitle()
-+     */
++    if ($listenee->email && $listenee->emailnotifysub) {
 +
-+    function getTitle($user, $page)
-+    {
-+        if ($page > 1) {
-+            $title = sprintf(_("Outbox for %s - page %d"), $user->nickname, $page);
-+        } else {
-+            $title = sprintf(_("Outbox for %s"), $user->nickname);
-+        }
-+        return $title;
++        // use the recipient's localization
+hunk ./lib/mail.php 224
+-		$profile = $listenee->getProfile();
+-		$name = $profile->getBestName();
+-		$long_name = ($other->fullname) ? ($other->fullname . ' (' . $other->nickname . ')') : $other->nickname;
+-		$recipients = $listenee->email;
+-		$headers['From'] = mail_notify_from();
+-		$headers['To'] = $name . ' <' . $listenee->email . '>';
+-		$headers['Subject'] = sprintf(_('%1$s is now listening to your notices on %2$s.'),
++
++        $profile = $listenee->getProfile();
++
++        $name = $profile->getBestName();
++
++        $long_name = ($other->fullname) ?
++          ($other->fullname . ' (' . $other->nickname . ')') : $other->nickname;
++
++        $recipients = $listenee->email;
++
++        $headers['From']    = mail_notify_from();
++        $headers['To']      = $name . ' <' . $listenee->email . '>';
++        $headers['Subject'] = sprintf(_('%1$s is now listening to '.
++                                        'your notices on %2$s.'),
+hunk ./lib/mail.php 239
+-									  common_config('site', 'name'));
+-		$body  = sprintf(_('%1$s is now listening to your notices on %2$s.'."\n\n".
+-						   "\t".'%3$s'."\n\n".
+-						   '%4$s'.
+-                           '%5$s'.
+-                           '%6$s'.
+-						   "\n".'Faithfully yours,'."\n".'%7$s.'."\n\n".
+-                           "----\n".
+-                           "Change your email address or notification options at %8$s"),
+-                         $long_name,
+-                         common_config('site', 'name'),
+-                         $other->profileurl,
+-                         ($other->location) ? sprintf(_("Location: %s\n"), $other->location) : '',
+-                         ($other->homepage) ? sprintf(_("Homepage: %s\n"), $other->homepage) : '',
+-                         ($other->bio) ? sprintf(_("Bio: %s\n\n"), $other->bio) : '',
+-                         common_config('site', 'name'),
+-                         common_local_url('emailsettings'));
++                                      common_config('site', 'name'));
++
++        $body = sprintf(_('%1$s is now listening to your notices on %2$s.'."\n\n".
++                          "\t".'%3$s'."\n\n".
++                          '%4$s'.
++                          '%5$s'.
++                          '%6$s'.
++                          "\n".'Faithfully yours,'."\n".'%7$s.'."\n\n".
++                          "----\n".
++                          "Change your email address or ".
++                          "notification options at %8$s\n"),
++                        $long_name,
++                        common_config('site', 'name'),
++                        $other->profileurl,
++                        ($other->location) ?
++                        sprintf(_("Location: %s\n"), $other->location) : '',
++                        ($other->homepage) ?
++                        sprintf(_("Homepage: %s\n"), $other->homepage) : '',
++                        ($other->bio) ?
++                        sprintf(_("Bio: %s\n\n"), $other->bio) : '',
++                        common_config('site', 'name'),
++                        common_local_url('emailsettings'));
++
+hunk ./lib/mail.php 264
+-		mail_send($recipients, $headers, $body);
+-	}
++        mail_send($recipients, $headers, $body);
 +    }
+hunk ./lib/mail.php 268
+-function mail_new_incoming_notify($user) {
++/**
++ * notify a user of their new incoming email address
++ *
++ * User's email and incoming fields should already be updated.
++ *
++ * @param User $user user with the new address
++ *
++ * @return void
++ */
 +
-+    /**
-+     * retrieve the messages for this user and this page
-+     *
-+     * Does a query for the right messages
-+     *
-+     * @param User $user The current user
-+     * @param int  $page The page the user is on
-+     *
-+     * @return Message data object with stream for messages
-+     *
-+     * @see MailboxAction::getMessages()
-+     */
++function mail_new_incoming_notify($user)
++{
++    $profile = $user->getProfile();
+hunk ./lib/mail.php 282
+-	$profile = $user->getProfile();
+-	$name = $profile->getBestName();
++    $name = $profile->getBestName();
+hunk ./lib/mail.php 284
+-	$headers['From'] = $user->incomingemail;
+-	$headers['To'] = $name . ' <' . $user->email . '>';
+-	$headers['Subject'] = sprintf(_('New email address for posting to %s'),
+-								  common_config('site', 'name'));
++    $headers['From']    = $user->incomingemail;
++    $headers['To']      = $name . ' <' . $user->email . '>';
++    $headers['Subject'] = sprintf(_('New email address for posting to %s'),
++                                  common_config('site', 'name'));
+hunk ./lib/mail.php 289
+-	$body  = sprintf(_("You have a new posting address on %1\$s.\n\n".
+-					   "Send email to %2\$s to post new messages.\n\n".
+-					   "More email instructions at %3\$s.\n\n".
+-					   "Faithfully yours,\n%4\$s"),
+-					 common_config('site', 'name'),
+-					 $user->incomingemail,
+-					 common_local_url('doc', array('title' => 'email')),
+-					 common_config('site', 'name'));
++    $body = sprintf(_("You have a new posting address on %1\$s.\n\n".
++                      "Send email to %2\$s to post new messages.\n\n".
++                      "More email instructions at %3\$s.\n\n".
++                      "Faithfully yours,\n%4\$s"),
++                    common_config('site', 'name'),
++                    $user->incomingemail,
++                    common_local_url('doc', array('title' => 'email')),
++                    common_config('site', 'name'));
+hunk ./lib/mail.php 298
+-	mail_send($user->email, $headers, $body);
++    mail_send($user->email, $headers, $body);
+hunk ./lib/mail.php 301
+-function mail_new_incoming_address() {
+-	$prefix = common_confirmation_code(64);
+-	$suffix = mail_domain();
+-	return $prefix . '@' . $suffix;
++/**
++ * generate a new address for incoming messages
++ *
++ * @todo check the database for uniqueness
++ *
++ * @return string new email address for incoming messages
++ */
 +
-+    function getMessages($user, $page)
-+    {
-+        $message = new Message();
-+
-+        $message->from_profile = $user->id;
-+        $message->orderBy('created DESC, id DESC');
-+        $message->limit((($page-1)*MESSAGES_PER_PAGE), MESSAGES_PER_PAGE + 1);
-+
-+        if ($message->find()) {
-+            return $message;
-+        } else {
-+            return null;
-+        }
-+    }
-+
-+    /**
-+     * returns the profile we want to show with the message
-+     *
-+     * For outboxes, we show the recipient.
-+     *
-+     * @param Message $message The message to get the profile for
-+     *
-+     * @return Profile The profile of the message recipient
-+     *
-+     * @see MailboxAction::getMessageProfile()
-+     */
-hunk ./actions/outbox.php 110
--require_once(INSTALLDIR.'/lib/mailbox.php');
-+    function getMessageProfile($message)
-+    {
-+        return $message->getTo();
-+    }
-hunk ./actions/outbox.php 115
--class OutboxAction extends MailboxAction {
--	
--	function get_title($user, $page) {
--		if ($page > 1) {
--			$title = sprintf(_("Outbox for %s - page %d"), $user->nickname, $page);
--		} else {
--			$title = sprintf(_("Outbox for %s"), $user->nickname);
++function mail_new_incoming_address()
++{
++    $prefix = common_confirmation_code(64);
++    $suffix = mail_domain();
++    return $prefix . '@' . $suffix;
+hunk ./lib/mail.php 316
+-function mail_broadcast_notice_sms($notice) {
++/**
++ * broadcast a notice to all subscribers with SMS notification on
++ *
++ * This function sends SMS messages to all users who have sms addresses;
++ * have sms notification on; and have sms enabled for this particular
++ * subscription.
++ *
++ * @param Notice $notice The notice to broadcast
++ *
++ * @return success flag
++ */
+hunk ./lib/mail.php 328
+-    # Now, get users subscribed to this profile
++function mail_broadcast_notice_sms($notice)
++{
++    // Now, get users subscribed to this profile
+hunk ./lib/mail.php 332
+-	$user = new User();
++    $user = new User();
+hunk ./lib/mail.php 334
+-	$user->query('SELECT nickname, smsemail, incomingemail ' .
+-				 'FROM user JOIN subscription ' .
+-				 'ON user.id = subscription.subscriber ' .
+-				 'WHERE subscription.subscribed = ' . $notice->profile_id . ' ' .
+-				 'AND user.smsemail IS NOT NULL ' .
+-				 'AND user.smsnotify = 1 ' .
++    $user->query('SELECT nickname, smsemail, incomingemail ' .
++                 'FROM user JOIN subscription ' .
++                 'ON user.id = subscription.subscriber ' .
++                 'WHERE subscription.subscribed = ' . $notice->profile_id . ' ' .
++                 'AND user.smsemail IS NOT null ' .
++                 'AND user.smsnotify = 1 ' .
+hunk ./lib/mail.php 342
+-	while ($user->fetch()) {
+-		common_log(LOG_INFO,
+-				   'Sending notice ' . $notice->id . ' to ' . $user->smsemail,
+-				   __FILE__);
+-		$success = mail_send_sms_notice_address($notice, $user->smsemail, $user->incomingemail);
+-		if (!$success) {
+-			# XXX: Not sure, but I think that's the right thing to do
+-			common_log(LOG_WARNING,
+-					   'Sending notice ' . $notice->id . ' to ' . $user->smsemail . ' FAILED, cancelling.',
+-					   __FILE__);
+-			return false;
 -		}
--		return $title;
 -	}
--	
--	function get_messages($user, $page) {
--		$message = new Message();
--		$message->from_profile = $user->id;
--		$message->orderBy('created DESC, id DESC');
--		$message->limit((($page-1)*MESSAGES_PER_PAGE), MESSAGES_PER_PAGE + 1);
-+    /**
-+     * instructions for using this page
-+     *
-+     * @return string localised instructions for using the page
-+     */
-hunk ./actions/outbox.php 121
--		if ($message->find()) {
--			return $message;
--		} else {
--			return NULL;
--		}
--	}
--	
--	function get_message_profile($message) {
--		return $message->getTo();
--	}
--	
--	function get_instructions() {
--		return _('This is your outbox, which lists private messages you have sent.');
--	}
--	
-+    function getInstructions()
-+    {
-+        return _('This is your outbox, which lists private messages you have sent.');
++    while ($user->fetch()) {
++        common_log(LOG_INFO,
++                   'Sending notice ' . $notice->id . ' to ' . $user->smsemail,
++                   __FILE__);
++        $success = mail_send_sms_notice_address($notice,
++                                                $user->smsemail,
++                                                $user->incomingemail);
++        if (!$success) {
++            // XXX: Not sure, but I think that's the right thing to do
++            common_log(LOG_WARNING,
++                       'Sending notice ' . $notice->id . ' to ' .
++                       $user->smsemail . ' FAILED, cancelling.',
++                       __FILE__);
++            return false;
++        }
 +    }
-hunk ./lib/mailbox.php 22
-- * @category  Action
-+ * @category  Message
-hunk ./lib/mailbox.php 41
-- * @category Action
-+ * @category Message
-hunk ./lib/mailbox.php 94
--        $this->show_page($user, $page);
-+        $this->showPage($user, $page);
-hunk ./lib/mailbox.php 106
--    function get_title($user, $page)
-+    function getTitle($user, $page)
-hunk ./lib/mailbox.php 117
--    function get_instructions()
-+    function getInstructions()
-hunk ./lib/mailbox.php 128
--    function show_top()
-+    function showTop()
-hunk ./lib/mailbox.php 146
--    function show_page($user, $page)
-+    function showPage($user, $page)
-hunk ./lib/mailbox.php 148
--        common_show_header($this->get_title($user, $page),
-+        common_show_header($this->getTitle($user, $page),
-hunk ./lib/mailbox.php 150
--                           array($this, 'show_top'));
-+                           array($this, 'showTop'));
-hunk ./lib/mailbox.php 152
--        $this->show_box($user, $page);
-+        $this->showBox($user, $page);
-hunk ./lib/mailbox.php 157
-+    /**
-+     * retrieve the messages appropriate for this mailbox
-+     *
-+     * Does a query for the right messages
-+     *
-+     * @param User $user The current user
-+     * @param int  $page The page the user is on
-+     *
-+     * @return Message data object with stream for messages
-+     */
+hunk ./lib/mail.php 359
+-	$user->free();
+-	unset($user);
++    $user->free();
++    unset($user);
+hunk ./lib/mail.php 362
+-	return true;
++    return true;
+hunk ./lib/mail.php 365
+-function mail_send_sms_notice($notice, $user) {
+-	return mail_send_sms_notice_address($notice, $user->smsemail, $user->incomingemail);
++/**
++ * send a notice to a user via SMS
++ *
++ * A convenience wrapper around mail_send_sms_notice_address()
++ *
++ * @param Notice $notice notice to send
++ * @param User   $user   user to receive notice
++ *
++ * @see mail_send_sms_notice_address()
++ *
++ * @return boolean success flag
++ */
 +
-+    function getMessages($user, $page)
-+    {
-+        return null;
++function mail_send_sms_notice($notice, $user)
++{
++    return mail_send_sms_notice_address($notice,
++                                        $user->smsemail,
++                                        $user->incomingemail);
+hunk ./lib/mail.php 385
+-function mail_send_sms_notice_address($notice, $smsemail, $incomingemail) {
++/**
++ * send a notice to an SMS email address from a given address
++ *
++ * We use the user's incoming email address as the "From" address to make
++ * replying to notices easier.
++ *
++ * @param Notice $notice        notice to send
++ * @param string $smsemail      email address to send to
++ * @param string $incomingemail email address to set as 'from'
++ *
++ * @return boolean success flag
++ */
++
++function mail_send_sms_notice_address($notice, $smsemail, $incomingemail)
++{
++    $to = $nickname . ' <' . $smsemail . '>';
++
++    $other = $notice->getProfile();
+hunk ./lib/mail.php 404
+-	$to = $nickname . ' <' . $smsemail . '>';
+-	$other = $notice->getProfile();
++    common_log(LOG_INFO, 'Sending notice ' . $notice->id .
++               ' to ' . $smsemail, __FILE__);
+hunk ./lib/mail.php 407
+-	common_log(LOG_INFO, "Sending notice " . $notice->id . " to " . $smsemail, __FILE__);
++    $headers = array();
+hunk ./lib/mail.php 409
+-	$headers = array();
+-	$headers['From'] = (isset($incomingemail)) ? $incomingemail : mail_notify_from();
+-	$headers['To'] = $to;
+-	$headers['Subject'] = sprintf(_('%s status'),
+-								  $other->getBestName());
+-	$body = $notice->content;
++    $headers['From']    = ($incomingemail) ? $incomingemail : mail_notify_from();
++    $headers['To']      = $to;
++    $headers['Subject'] = sprintf(_('%s status'),
++                                  $other->getBestName());
+hunk ./lib/mail.php 414
+-	return mail_send($smsemail, $headers, $body);
++    $body = $notice->content;
++
++    return mail_send($smsemail, $headers, $body);
+hunk ./lib/mail.php 419
+-function mail_confirm_sms($code, $nickname, $address) {
++/**
++ * send a message to confirm a claim for an SMS number
++ *
++ * @param string $code     confirmation code
++ * @param string $nickname nickname of user claiming number
++ * @param string $address  email address to send the confirmation to
++ *
++ * @see common_confirmation_code()
++ *
++ * @return void
++ */
++
++function mail_confirm_sms($code, $nickname, $address)
++{
++    $recipients = $address;
+hunk ./lib/mail.php 435
+-	$recipients = $address;
++    $headers['From']    = mail_notify_from();
++    $headers['To']      = $nickname . ' <' . $address . '>';
++    $headers['Subject'] = _('SMS confirmation');
+hunk ./lib/mail.php 439
+-	$headers['From'] = mail_notify_from();
+-	$headers['To'] = $nickname . ' <' . $address . '>';
+-	$headers['Subject'] = _('SMS confirmation');
++    // FIXME: I18N
+hunk ./lib/mail.php 441
+-	$body = "$nickname: confirm you own this phone number with this code:";
+-	$body .= "\n\n";
+-	$body .= $code;
+-	$body .= "\n\n";
++    $body  = "$nickname: confirm you own this phone number with this code:";
++    $body .= "\n\n";
++    $body .= $code;
++    $body .= "\n\n";
+hunk ./lib/mail.php 446
+-	mail_send($recipients, $headers, $body);
++    mail_send($recipients, $headers, $body);
+hunk ./lib/mail.php 449
+-function mail_notify_nudge($from, $to) {
++/**
++ * send a mail message to notify a user of a 'nudge'
++ *
++ * @param User $from user nudging
++ * @param User $to   user being nudged
++ *
++ * @return boolean success flag
++ */
++
++function mail_notify_nudge($from, $to)
++{
+hunk ./lib/mail.php 461
+-	$subject = sprintf(_('You\'ve been nudged by %s'), $from->nickname);
++    $subject = sprintf(_('You\'ve been nudged by %s'), $from->nickname);
+hunk ./lib/mail.php 463
+-	$from_profile = $from->getProfile();
++    $from_profile = $from->getProfile();
+hunk ./lib/mail.php 465
+-	$body = sprintf(_("%1\$s (%2\$s) is wondering what you are up to these days and is inviting you to post some news.\n\n".
+-					  "So let's hear from you :)\n\n".
+-					  "%3\$s\n\n".
+-					  "Don't reply to this email; it won't get to them.\n\n".
+-					  "With kind regards,\n".
+-					  "%4\$s\n"),
+-					$from_profile->getBestName(),
+-					$from->nickname,
+-					common_local_url('all', array('nickname' => $to->nickname)),
+-					common_config('site', 'name'));
++    $body = sprintf(_("%1\$s (%2\$s) is wondering what you are up to ".
++                      "these days and is inviting you to post some news.\n\n".
++                      "So let's hear from you :)\n\n".
++                      "%3\$s\n\n".
++                      "Don't reply to this email; it won't get to them.\n\n".
++                      "With kind regards,\n".
++                      "%4\$s\n"),
++                    $from_profile->getBestName(),
++                    $from->nickname,
++                    common_local_url('all', array('nickname' => $to->nickname)),
++                    common_config('site', 'name'));
+hunk ./lib/mail.php 477
+-	return mail_to_user($to, $subject, $body);
++    return mail_to_user($to, $subject, $body);
+hunk ./lib/mail.php 480
+-function mail_notify_message($message, $from=NULL, $to=NULL) {
++/**
++ * send a message to notify a user of a direct message (DM)
++ *
++ * This function checks to see if the recipient wants notification
++ * of DMs and has a configured email address.
++ *
++ * @param Message $message message to notify about
++ * @param User    $from    user sending message; default to sender
++ * @param User    $to      user receiving message; default to recipient
++ *
++ * @return boolean success code
++ */
+hunk ./lib/mail.php 493
+-	if (is_null($from)) {
+-		$from = User::staticGet('id', $message->from_profile);
+-	}
++function mail_notify_message($message, $from=null, $to=null)
++{
++    if (is_null($from)) {
++        $from = User::staticGet('id', $message->from_profile);
 +    }
+hunk ./lib/mail.php 499
+-	if (is_null($to)) {
+-		$to = User::staticGet('id', $message->to_profile);
+-	}
++    if (is_null($to)) {
++        $to = User::staticGet('id', $message->to_profile);
++    }
+hunk ./lib/mail.php 503
+-	if (is_null($to->email) || !$to->emailnotifymsg) {
+-		return true;
+-	}
++    if (is_null($to->email) || !$to->emailnotifymsg) {
++        return true;
++    }
+hunk ./lib/mail.php 508
+-	$subject = sprintf(_('New private message from %s'), $from->nickname);
++    $subject = sprintf(_('New private message from %s'), $from->nickname);
+hunk ./lib/mail.php 510
+-	$from_profile = $from->getProfile();
++    $from_profile = $from->getProfile();
+hunk ./lib/mail.php 512
+-	$body = sprintf(_("%1\$s (%2\$s) sent you a private message:\n\n".
+-					  "------------------------------------------------------\n".
+-					  "%3\$s\n".
+-					  "------------------------------------------------------\n\n".
+-					  "You can reply to their message here:\n\n".
+-					  "%4\$s\n\n".
+-					  "Don't reply to this email; it won't get to them.\n\n".
+-					  "With kind regards,\n".
+-					  "%5\$s\n"),
+-					$from_profile->getBestName(),
+-					$from->nickname,
+-					$message->content,
+-					common_local_url('newmessage', array('to' => $from->id)),
+-					common_config('site', 'name'));
++    $body = sprintf(_("%1\$s (%2\$s) sent you a private message:\n\n".
++                      "------------------------------------------------------\n".
++                      "%3\$s\n".
++                      "------------------------------------------------------\n\n".
++                      "You can reply to their message here:\n\n".
++                      "%4\$s\n\n".
++                      "Don't reply to this email; it won't get to them.\n\n".
++                      "With kind regards,\n".
++                      "%5\$s\n"),
++                    $from_profile->getBestName(),
++                    $from->nickname,
++                    $message->content,
++                    common_local_url('newmessage', array('to' => $from->id)),
++                    common_config('site', 'name'));
+hunk ./lib/mail.php 528
+-	return mail_to_user($to, $subject, $body);
++    return mail_to_user($to, $subject, $body);
+hunk ./lib/mail.php 531
+-function mail_notify_fave($other, $user, $notice) {
++/**
++ * notify a user that one of their notices has been chosen as a 'fave'
++ *
++ * Doesn't check that the user has an email address nor if they
++ * want to receive notification of faves. Maybe this happens higher
++ * up the stack...?
++ *
++ * @param User   $other  The user whose notice was faved
++ * @param User   $user   The user who faved the notice
++ * @param Notice $notice The notice that was faved
++ *
++ * @return void
++ */
 +
-hunk ./lib/mailbox.php 184
--    function show_box($user, $page)
-+    function showBox($user, $page)
-hunk ./lib/mailbox.php 186
--        $message = $this->get_messages($user, $page);
-+        $message = $this->getMessages($user, $page);
-hunk ./lib/mailbox.php 200
--                $this->show_message($message);
-+                $this->showMessage($message);
-hunk ./lib/mailbox.php 224
--    function get_message_profile($message)
-+    function getMessageProfile($message)
-hunk ./lib/mailbox.php 237
--    function show_message($message)
-+    function showMessage($message)
-hunk ./lib/mailbox.php 242
--        $profile = $this->get_message_profile($message);
-+        $profile = $this->getMessageProfile($message);
++function mail_notify_fave($other, $user, $notice)
++{
++    $profile = $user->getProfile();
++
++    $bestname = $profile->getBestName();
+hunk ./lib/mail.php 551
+-	$profile = $user->getProfile();
+-	$bestname = $profile->getBestName();
+hunk ./lib/mail.php 552
+-	$subject = sprintf(_('%s added your notice as a favorite'), $bestname);
+-	$body = sprintf(_("%1\$s just added your notice from %2\$s as one of their favorites.\n\n" .
+-					  "In case you forgot, you can see the text of your notice here:\n\n" .
+-					  "%3\$s\n\n" .
+-					  "You can see the list of %1\$s's favorites here:\n\n" .
+-					  "%4\$s\n\n" .
+-					  "Faithfully yours,\n" .
+-					  "%5\$s\n"),
+-					$bestname,
+-					common_exact_date($notice->created),
+-					common_local_url('shownotice', array('notice' => $notice->id)),
+-					common_local_url('showfavorites', array('nickname' => $user->nickname)),
+-					common_config('site', 'name'));
++
++    $subject = sprintf(_('%s added your notice as a favorite'), $bestname);
++
++    $body = sprintf(_("%1\$s just added your notice from %2\$s".
++                      " as one of their favorites.\n\n" .
++                      "In case you forgot, you can see the text".
++                      " of your notice here:\n\n" .
++                      "%3\$s\n\n" .
++                      "You can see the list of %1\$s's favorites here:\n\n" .
++                      "%4\$s\n\n" .
++                      "Faithfully yours,\n" .
++                      "%5\$s\n"),
++                    $bestname,
++                    common_exact_date($notice->created),
++                    common_local_url('shownotice',
++                                     array('notice' => $notice->id)),
++                    common_local_url('showfavorites',
++                                     array('nickname' => $user->nickname)),
++                    common_config('site', 'name'));
+hunk ./lib/mail.php 573
+-	mail_to_user($other, $subject, $body);
++    mail_to_user($other, $subject, $body);
