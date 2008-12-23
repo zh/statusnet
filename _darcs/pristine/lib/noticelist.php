@@ -2,7 +2,7 @@
 /**
  * Laconica, the distributed open-source microblogging tool
  *
- * utilities for sending email
+ * widget for displaying a list of notices
  *
  * PHP version 5
  *
