@@ -21,7 +21,6 @@ if (!defined('LACONICA')) { exit(1); }
 
 class RegisterAction extends Action
 {
-
     function handle($args)
     {
         parent::handle($args);
@@ -39,7 +38,6 @@ class RegisterAction extends Action
 
     function try_register()
     {
-
         $token = $this->trimmed('token');
         if (!$token || $token != common_session_token()) {
             $this->show_form(_('There was a problem with your session token. Try again, please.'));

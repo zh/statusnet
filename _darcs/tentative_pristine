@@ -1,14 +1,4 @@
-hunk ./lib/twitter.php 31
--            // CURLOPT_USERAGENT        => "identi.ca",
-+            # CURLOPT_USERAGENT        => "identi.ca",
-hunk ./lib/twitter.php 33
--            CURLOPT_TIMEOUT            => 120
-+            CURLOPT_TIMEOUT            => 120,
-+            # Twitter is strict about accepting invalid "Expect" headers
-+            CURLOPT_HTTPHEADER => array('Expect:')
-hunk ./lib/util.php 1574
--                     CURLOPT_TIMEOUT            => 120
-+                     CURLOPT_TIMEOUT            => 120,
-+
-+                     # Twitter is strict about accepting invalid "Expect" headers
-+                     CURLOPT_HTTPHEADER => array('Expect:')
+hunk ./actions/register.php 24
+-
+hunk ./actions/register.php 41
+-
