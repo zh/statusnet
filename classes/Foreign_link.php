@@ -35,7 +35,7 @@ class Foreign_link extends Memcached_DataObject
         $flink->user_id = $user_id;
         $flink->limit(1);
 
-        if ($flink->find(TRUE)) {
+        if ($flink->find(true)) {
             return $flink;
         }
 
@@ -48,7 +48,7 @@ class Foreign_link extends Memcached_DataObject
         $flink->foreign_id = $foreign_id;
         $flink->limit(1);
 
-        if ($flink->find(TRUE)) {
+        if ($flink->find(true)) {
             return $flink;
         }
 
@@ -64,7 +64,7 @@ class Foreign_link extends Memcached_DataObject
         
         $fuser->limit(1);
         
-        if ($fuser->find(TRUE)) {
+        if ($fuser->find(true)) {
             return $fuser;
         }
         

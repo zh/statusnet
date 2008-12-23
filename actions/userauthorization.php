@@ -211,7 +211,7 @@ class UserauthorizationAction extends Action {
         $rt->tok = $token_field;
         $rt->type = 0;
         $rt->state = 0;
-        common_debug('request token to look up: "'.print_r($rt,TRUE).'"');
+        common_debug('request token to look up: "'.print_r($rt,true).'"');
         if ($rt->find(true)) {
             common_debug('found request token to authorize', __FILE__);
             $orig_rt = clone($rt);
@@ -221,7 +221,7 @@ class UserauthorizationAction extends Action {
                 return true;
             }
         }
-        return FALSE;
+        return false;
     }
 
     # XXX: refactor with similar code in finishremotesubscribe.php
@@ -277,25 +277,25 @@ class UserauthorizationAction extends Action {
             $profile->created = DB_DataObject_Cast::dateTime(); # current time
             $id = $profile->insert();
             if (!$id) {
-                return FALSE;
+                return false;
             }
             $remote->id = $id;
         }
 
         if ($exists) {
             if (!$remote->update($orig_remote)) {
-                return FALSE;
+                return false;
             }
         } else {
             $remote->created = DB_DataObject_Cast::dateTime(); # current time
             if (!$remote->insert()) {
-                return FALSE;
+                return false;
             }
         }
 
         if ($avatar_url) {
             if (!$this->add_avatar($profile, $avatar_url)) {
-                return FALSE;
+                return false;
             }
         }
 
@@ -311,10 +311,10 @@ class UserauthorizationAction extends Action {
         $sub->created = DB_DataObject_Cast::dateTime(); # current time
 
         if (!$sub->insert()) {
-            return FALSE;
+            return false;
         }
 
-        return TRUE;
+        return true;
     }
 
     function add_avatar($profile, $url)
@@ -440,7 +440,7 @@ class UserauthorizationAction extends Action {
             $sub = new Subscription();
             $sub->subscriber = $user->id;
             $sub->subscribed = $remote->id;
-            if ($sub->find(TRUE)) {
+            if ($sub->find(true)) {
                 throw new OAuthException("Already subscribed to user!");
             }
         }

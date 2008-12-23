@@ -288,7 +288,7 @@ class TwittersettingsAction extends SettingsAction {
             return;
         }
 
-        $this->show_form(_('Twitter account removed.'), TRUE);
+        $this->show_form(_('Twitter account removed.'), true);
     }
 
     function save_preferences()
@@ -325,7 +325,7 @@ class TwittersettingsAction extends SettingsAction {
         $this->set_flags($flink, $noticesync, $replysync, $friendsync);
         $result = $flink->update($original);
 
-        if ($result === FALSE) {
+        if ($result === false) {
             common_log_db_error($flink, 'UPDATE', __FILE__);
             $this->show_form(_('Couldn\'t save Twitter preferences.'));
             return;

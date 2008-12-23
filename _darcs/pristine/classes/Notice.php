@@ -321,19 +321,19 @@ class Notice extends Memcached_DataObject
 
     static function getStreamDirect($qry, $offset, $limit, $since_id, $before_id, $order, $since) {
 
-        $needAnd = FALSE;
-        $needWhere = TRUE;
+        $needAnd = false;
+        $needWhere = true;
 
         if (preg_match('/\bWHERE\b/i', $qry)) {
-            $needWhere = FALSE;
-            $needAnd = TRUE;
+            $needWhere = false;
+            $needAnd = true;
         }
 
         if ($since_id > 0) {
 
             if ($needWhere) {
                 $qry .= ' WHERE ';
-                $needWhere = FALSE;
+                $needWhere = false;
             } else {
                 $qry .= ' AND ';
             }
@@ -345,7 +345,7 @@ class Notice extends Memcached_DataObject
 
             if ($needWhere) {
                 $qry .= ' WHERE ';
-                $needWhere = FALSE;
+                $needWhere = false;
             } else {
                 $qry .= ' AND ';
             }
@@ -357,7 +357,7 @@ class Notice extends Memcached_DataObject
 
             if ($needWhere) {
                 $qry .= ' WHERE ';
-                $needWhere = FALSE;
+                $needWhere = false;
             } else {
                 $qry .= ' AND ';
             }
@@ -411,7 +411,7 @@ class Notice extends Memcached_DataObject
 
         # On a cache hit, return a DB-object-like wrapper
 
-        if ($notices !== FALSE) {
+        if ($notices !== false) {
             $wrapper = new NoticeWrapper(array_slice($notices, $offset, $limit));
             return $wrapper;
         }

@@ -33,7 +33,7 @@ class AccesstokenAction extends Action {
             $server = omb_oauth_server();
             common_debug('fetching the access token', __FILE__);
             $token = $server->fetch_access_token($req);
-            common_debug('got this token: "'.print_r($token,TRUE).'"', __FILE__);
+            common_debug('got this token: "'.print_r($token,true).'"', __FILE__);
             common_debug('printing the access token', __FILE__);
             print $token;
         } catch (OAuthException $e) {

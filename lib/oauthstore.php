@@ -59,13 +59,13 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
         $n->consumer_key = $consumer->key;
         $n->tok = $token->key;
         $n->nonce = $nonce;
-        if ($n->find(TRUE)) {
-            return TRUE;
+        if ($n->find(true)) {
+            return true;
         } else {
             $n->timestamp = $timestamp;
             $n->created = DB_DataObject_Cast::dateTime();
             $n->insert();
-            return FALSE;
+            return false;
         }
     }
 
@@ -99,7 +99,7 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
         $rt->consumer_key = $consumer->key;
         $rt->tok = $token->key;
         $rt->type = 0; # request
-        if ($rt->find(TRUE) && $rt->state == 1) { # authorized
+        if ($rt->find(true) && $rt->state == 1) { # authorized
             common_debug('request token found.', __FILE__);
             $at = new Token();
             $at->consumer_key = $consumer->key;

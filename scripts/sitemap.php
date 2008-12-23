@@ -331,7 +331,7 @@ function parse_args()
     $output_url = $args[u];
 
     if (file_exists($output_dir)) {
-        if (is_writable($output_dir) === FALSE) {
+        if (is_writable($output_dir) === false) {
             error("$output_dir is not writable.");
         }
     }     else {
@@ -366,11 +366,11 @@ function write_file($path, $data)
         error('No data specified for writing.');
     }
 
-    if (($fh_out = fopen($path,'w')) === FALSE) {
+    if (($fh_out = fopen($path,'w')) === false) {
         error("couldn't open $path for writing.");
     }
 
-    if (fwrite($fh_out, $data) === FALSE) {
+    if (fwrite($fh_out, $data) === false) {
         error("couldn't write to $path.");
     }
 }

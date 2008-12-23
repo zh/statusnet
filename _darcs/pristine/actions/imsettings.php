@@ -93,7 +93,7 @@ class ImsettingsAction extends SettingsAction {
         $confirm = new Confirm_address();
         $confirm->user_id = $user->id;
         $confirm->address_type = 'jabber';
-        if ($confirm->find(TRUE)) {
+        if ($confirm->find(true)) {
             return $confirm;
         } else {
             return null;
@@ -146,7 +146,7 @@ class ImsettingsAction extends SettingsAction {
 
         $result = $user->update($original);
 
-        if ($result === FALSE) {
+        if ($result === false) {
             common_log_db_error($user, 'UPDATE', __FILE__);
             common_server_error(_('Couldn\'t update user.'));
             return;
@@ -196,7 +196,7 @@ class ImsettingsAction extends SettingsAction {
 
         $result = $confirm->insert();
 
-        if ($result === FALSE) {
+        if ($result === false) {
             common_log_db_error($confirm, 'INSERT', __FILE__);
             common_server_error(_('Couldn\'t insert confirmation code.'));
             return;
@@ -210,7 +210,7 @@ class ImsettingsAction extends SettingsAction {
 
         $msg = sprintf(_('A confirmation code was sent to the IM address you added. You must approve %s for sending messages to you.'), jabber_daemon_address());
 
-        $this->show_form($msg, TRUE);
+        $this->show_form($msg, true);
     }
 
     function cancel_confirmation()
@@ -234,7 +234,7 @@ class ImsettingsAction extends SettingsAction {
             return;
         }
 
-        $this->show_form(_('Confirmation cancelled.'), TRUE);
+        $this->show_form(_('Confirmation cancelled.'), true);
     }
 
     function remove_address()
@@ -263,7 +263,7 @@ class ImsettingsAction extends SettingsAction {
 
         # XXX: unsubscribe to the old address
 
-        $this->show_form(_('The address was removed.'), TRUE);
+        $this->show_form(_('The address was removed.'), true);
     }
 
     function jabber_exists($jabber)

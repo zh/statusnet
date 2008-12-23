@@ -118,7 +118,7 @@ class EmailsettingsAction extends SettingsAction {
         $confirm = new Confirm_address();
         $confirm->user_id = $user->id;
         $confirm->address_type = 'email';
-        if ($confirm->find(TRUE)) {
+        if ($confirm->find(true)) {
             return $confirm;
         } else {
             return null;
@@ -179,7 +179,7 @@ class EmailsettingsAction extends SettingsAction {
 
         $result = $user->update($original);
 
-        if ($result === FALSE) {
+        if ($result === false) {
             common_log_db_error($user, 'UPDATE', __FILE__);
             common_server_error(_('Couldn\'t update user.'));
             return;
@@ -229,7 +229,7 @@ class EmailsettingsAction extends SettingsAction {
 
         $result = $confirm->insert();
 
-        if ($result === FALSE) {
+        if ($result === false) {
             common_log_db_error($confirm, 'INSERT', __FILE__);
             common_server_error(_('Couldn\'t insert confirmation code.'));
             return;
@@ -239,7 +239,7 @@ class EmailsettingsAction extends SettingsAction {
 
         $msg = _('A confirmation code was sent to the email address you added. Check your inbox (and spam box!) for the code and instructions on how to use it.');
 
-        $this->show_form($msg, TRUE);
+        $this->show_form($msg, true);
     }
 
     function cancel_confirmation()
@@ -263,7 +263,7 @@ class EmailsettingsAction extends SettingsAction {
             return;
         }
 
-        $this->show_form(_('Confirmation cancelled.'), TRUE);
+        $this->show_form(_('Confirmation cancelled.'), true);
     }
 
     function remove_address()
@@ -290,7 +290,7 @@ class EmailsettingsAction extends SettingsAction {
         }
         $user->query('COMMIT');
 
-        $this->show_form(_('The address was removed.'), TRUE);
+        $this->show_form(_('The address was removed.'), true);
     }
 
     function remove_incoming()
@@ -310,7 +310,7 @@ class EmailsettingsAction extends SettingsAction {
             $this->server_error(_("Couldn't update user record."));
         }
         
-        $this->show_form(_('Incoming email address removed.'), TRUE);
+        $this->show_form(_('Incoming email address removed.'), true);
     }
 
     function new_incoming()
@@ -325,7 +325,7 @@ class EmailsettingsAction extends SettingsAction {
             $this->server_error(_("Couldn't update user record."));
         }
 
-        $this->show_form(_('New incoming email address added.'), TRUE);
+        $this->show_form(_('New incoming email address added.'), true);
     }
     
     function email_exists($email)

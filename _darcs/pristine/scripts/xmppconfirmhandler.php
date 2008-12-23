@@ -110,7 +110,7 @@ class XmppConfirmHandler extends XmppQueueHandler {
         $confirm->address_type = 'jabber';
         $confirm->orderBy('modified DESC');
         $confirm->limit(1);
-        if ($confirm->find(TRUE)) {
+        if ($confirm->find(true)) {
             $this->log(LOG_INFO, 'Claiming confirmation for ' . $confirm->address);
                 # working around some weird DB_DataObject behaviour
             $confirm->whereAdd(''); # clears where stuff

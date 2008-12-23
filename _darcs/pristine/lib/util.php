@@ -436,7 +436,7 @@ function common_checkbox($id, $label, $checked=false, $instructions=null, $value
     common_element_end('p');
 }
 
-function common_dropdown($id, $label, $content, $instructions=null, $blank_select=FALSE, $selected=null)
+function common_dropdown($id, $label, $content, $instructions=null, $blank_select=false, $selected=null)
 {
     common_element_start('p');
     common_element('label', array('for' => $id), $label);
@@ -1018,7 +1018,7 @@ function common_relative_profile($sender, $nickname, $dt=null)
     // XXX: use a join instead of a subquery
     $recipient->whereAdd('EXISTS (SELECT subscribed from subscription where subscriber = '.$sender->id.' and subscribed = id)', 'AND');
     $recipient->whereAdd('nickname = "' . trim($nickname) . '"', 'AND');
-    if ($recipient->find(TRUE)) {
+    if ($recipient->find(true)) {
         // XXX: should probably differentiate between profiles with
         // the same name by date of most recent update
         return $recipient;
@@ -1028,7 +1028,7 @@ function common_relative_profile($sender, $nickname, $dt=null)
     // XXX: use a join instead of a subquery
     $recipient->whereAdd('EXISTS (SELECT subscriber from subscription where subscribed = '.$sender->id.' and subscriber = id)', 'AND');
     $recipient->whereAdd('nickname = "' . trim($nickname) . '"', 'AND');
-    if ($recipient->find(TRUE)) {
+    if ($recipient->find(true)) {
         // XXX: should probably differentiate between profiles with
         // the same name by date of most recent update
         return $recipient;
@@ -2258,7 +2258,7 @@ function common_message_form($content, $user, $to)
     $mutual_users->free();
     unset($mutual_users);
 
-    common_dropdown('to', _('To'), $mutual, null, FALSE, $to->id);
+    common_dropdown('to', _('To'), $mutual, null, false, $to->id);
 
     common_element_start('p');
 

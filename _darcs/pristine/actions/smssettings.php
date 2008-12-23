@@ -111,7 +111,7 @@ class SmssettingsAction extends EmailsettingsAction {
         $confirm = new Confirm_address();
         $confirm->user_id = $user->id;
         $confirm->address_type = 'sms';
-        if ($confirm->find(TRUE)) {
+        if ($confirm->find(true)) {
             return $confirm;
         } else {
             return null;
@@ -165,7 +165,7 @@ class SmssettingsAction extends EmailsettingsAction {
 
         $result = $user->update($original);
 
-        if ($result === FALSE) {
+        if ($result === false) {
             common_log_db_error($user, 'UPDATE', __FILE__);
             common_server_error(_('Couldn\'t update user.'));
             return;
@@ -215,7 +215,7 @@ class SmssettingsAction extends EmailsettingsAction {
 
         $result = $confirm->insert();
 
-        if ($result === FALSE) {
+        if ($result === false) {
             common_log_db_error($confirm, 'INSERT', __FILE__);
             common_server_error(_('Couldn\'t insert confirmation code.'));
             return;
@@ -229,7 +229,7 @@ class SmssettingsAction extends EmailsettingsAction {
 
         $msg = _('A confirmation code was sent to the phone number you added. Check your inbox (and spam box!) for the code and instructions on how to use it.');
 
-        $this->show_form($msg, TRUE);
+        $this->show_form($msg, true);
     }
 
     function cancel_confirmation()
@@ -257,7 +257,7 @@ class SmssettingsAction extends EmailsettingsAction {
             return;
         }
 
-        $this->show_form(_('Confirmation cancelled.'), TRUE);
+        $this->show_form(_('Confirmation cancelled.'), true);
     }
 
     function remove_address()
@@ -287,7 +287,7 @@ class SmssettingsAction extends EmailsettingsAction {
         }
         $user->query('COMMIT');
 
-        $this->show_form(_('The address was removed.'), TRUE);
+        $this->show_form(_('The address was removed.'), true);
     }
     
     function sms_exists($sms)

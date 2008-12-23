@@ -96,13 +96,13 @@ class ProfilesettingsAction extends SettingsAction {
                      _('Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated'));
 
         $language = common_language();
-        common_dropdown('language', _('Language'), get_nice_language_list(), _('Preferred language'), TRUE, $language);
+        common_dropdown('language', _('Language'), get_nice_language_list(), _('Preferred language'), true, $language);
         $timezone = common_timezone();
         $timezones = array();
         foreach(DateTimeZone::listIdentifiers() as $k => $v) {
             $timezones[$v] = $v;
         }
-        common_dropdown('timezone', _('Timezone'), $timezones, _('What timezone are you normally in?'), TRUE, $timezone);
+        common_dropdown('timezone', _('Timezone'), $timezones, _('What timezone are you normally in?'), true, $timezone);
 
         common_checkbox('autosubscribe', _('Automatically subscribe to whoever subscribes to me (best for non-humans)'),
                         ($this->arg('autosubscribe')) ? $this->boolean('autosubscribe') : $user->autosubscribe);
@@ -278,7 +278,7 @@ class ProfilesettingsAction extends SettingsAction {
 
             $result = $user->updateKeys($original);
 
-            if ($result === FALSE) {
+            if ($result === false) {
                 common_log_db_error($user, 'UPDATE', __FILE__);
                 common_server_error(_('Couldn\'t update user.'));
                 return;
@@ -298,7 +298,7 @@ class ProfilesettingsAction extends SettingsAction {
 
             $result = $user->update($original);
 
-            if ($result === FALSE) {
+            if ($result === false) {
                 common_log_db_error($user, 'UPDATE', __FILE__);
                 common_server_error(_('Couldn\'t update user for autosubscribe.'));
                 return;
@@ -340,7 +340,7 @@ class ProfilesettingsAction extends SettingsAction {
 
         common_broadcast_profile($profile);
 
-        $this->show_form(_('Settings saved.'), TRUE);
+        $this->show_form(_('Settings saved.'), true);
     }
 
 
@@ -434,7 +434,7 @@ class ProfilesettingsAction extends SettingsAction {
         $user->password = common_munge_password($newpassword, $user->id);
 
         $val = $user->validate();
-        if ($val !== TRUE) {
+        if ($val !== true) {
             $this->show_form(_('Error saving user; invalid.'));
             return;
         }

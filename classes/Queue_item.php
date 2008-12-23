@@ -34,7 +34,7 @@ class Queue_item extends Memcached_DataObject
 
         $qi->limit(1);
 
-        $cnt = $qi->find(TRUE);
+        $cnt = $qi->find(true);
 
         if ($cnt) {
             # XXX: potential race condition

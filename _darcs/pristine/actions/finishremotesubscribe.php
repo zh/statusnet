@@ -278,7 +278,7 @@ class FinishremotesubscribeAction extends Action {
                                  $req->to_postdata(),
                                  array('User-Agent' => 'Laconica/' . LACONICA_VERSION));
 
-        common_debug('got result: "'.print_r($result,TRUE).'"', __FILE__);
+        common_debug('got result: "'.print_r($result,true).'"', __FILE__);
 
         if ($result->status != 200) {
             return null;

@@ -139,7 +139,7 @@ function omb_broadcast_remote_subscribers($notice)
             common_log(LOG_DEBUG, 'Posting to ' . $rp->postnoticeurl);
             if (omb_post_notice_keys($notice, $rp->postnoticeurl, $rp->token, $rp->secret)) {
                 common_log(LOG_DEBUG, 'Finished to ' . $rp->postnoticeurl);
-                $posted[$rp->postnoticeurl] = TRUE;
+                $posted[$rp->postnoticeurl] = true;
             } else {
                 common_log(LOG_DEBUG, 'Failed posting to ' . $rp->postnoticeurl);
             }
@@ -208,7 +208,7 @@ function omb_post_notice_keys($notice, $postnoticeurl, $tk, $secret)
                              $req->to_postdata(),
                              array('User-Agent' => 'Laconica/' . LACONICA_VERSION));
 
-    common_debug('Got HTTP result "'.print_r($result,TRUE).'"', __FILE__);
+    common_debug('Got HTTP result "'.print_r($result,true).'"', __FILE__);
 
     if ($result->status == 403) { # not authorized, don't send again
         common_debug('403 result, deleting subscription', __FILE__);
@@ -241,7 +241,7 @@ function omb_broadcast_profile($profile)
             if ($rp) {
                 if (!$updated[$rp->updateprofileurl]) {
                     if (omb_update_profile($profile, $rp, $sub)) {
-                        $updated[$rp->updateprofileurl] = TRUE;
+                        $updated[$rp->updateprofileurl] = true;
                     }
                 }
             }
@@ -293,7 +293,7 @@ function omb_update_profile($profile, $remote_profile, $subscription)
                              $req->to_postdata(),
                              array('User-Agent' => 'Laconica/' . LACONICA_VERSION));
 
-    common_debug('Got HTTP result "'.print_r($result,TRUE).'"', __FILE__);
+    common_debug('Got HTTP result "'.print_r($result,true).'"', __FILE__);
 
     if ($result->status == 403) { # not authorized, don't send again
         common_debug('403 result, deleting subscription', __FILE__);

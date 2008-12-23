@@ -199,7 +199,7 @@ class User extends Memcached_DataObject
 
         if (!$id) {
             common_log_db_error($profile, 'INSERT', __FILE__);
-            return FALSE;
+            return false;
         }
 
         $user = new User();
@@ -233,7 +233,7 @@ class User extends Memcached_DataObject
 
         if (!$result) {
             common_log_db_error($user, 'INSERT', __FILE__);
-            return FALSE;
+            return false;
         }
 
         # Everyone is subscribed to themself
@@ -247,7 +247,7 @@ class User extends Memcached_DataObject
 
         if (!$result) {
             common_log_db_error($subscription, 'INSERT', __FILE__);
-            return FALSE;
+            return false;
         }
 
         if ($email && !$user->email) {
@@ -261,7 +261,7 @@ class User extends Memcached_DataObject
             $result = $confirm->insert();
             if (!$result) {
                 common_log_db_error($confirm, 'INSERT', __FILE__);
-                return FALSE;
+                return false;
             }
         }
 

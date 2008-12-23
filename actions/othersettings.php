@@ -53,7 +53,7 @@ class OthersettingsAction extends SettingsAction {
             'metamark.net' => 'metamark.net'
         );
 
-        common_dropdown('urlshorteningservice', _('Service'), $services, _('Automatic shortening service to use.'), FALSE, $user->urlshorteningservice);
+        common_dropdown('urlshorteningservice', _('Service'), $services, _('Automatic shortening service to use.'), false, $user->urlshorteningservice);
 
         common_submit('save', _('Save'));
 
@@ -174,7 +174,7 @@ class OthersettingsAction extends SettingsAction {
 
         $result = $user->update($original);
 
-        if ($result === FALSE) {
+        if ($result === false) {
             common_log_db_error($user, 'UPDATE', __FILE__);
             common_server_error(_('Couldn\'t update user.'));
             return;

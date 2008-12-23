@@ -122,7 +122,7 @@ class FoafAction extends Action {
                     $other = User::staticGet('id', $sub->subscribed);
                 }
                 if (!$other) {
-                    common_debug('Got a bad subscription: '.print_r($sub,TRUE));
+                    common_debug('Got a bad subscription: '.print_r($sub,true));
                     continue;
                 }
                 common_element('knows', array('rdf:resource' => $other->uri));
@@ -144,7 +144,7 @@ class FoafAction extends Action {
                     $other = User::staticGet('id', $sub->subscriber);
                 }
                 if (!$other) {
-                    common_debug('Got a bad subscription: '.print_r($sub,TRUE));
+                    common_debug('Got a bad subscription: '.print_r($sub,true));
                     continue;
                 }
                 if (array_key_exists($other->uri, $person)) {
