@@ -438,13 +438,13 @@ class ShowstreamAction extends StreamAction {
 # We don't show the author for a profile, since we already know who it is!
 
 class ProfileNoticeList extends NoticeList {
-    function new_list_item($notice) {
+    function newListItem($notice) {
         return new ProfileNoticeListItem($notice);
     }
 }
 
 class ProfileNoticeListItem extends NoticeListItem {
-    function show_author() {
+    function showAuthor() {
         return;
     }
 }

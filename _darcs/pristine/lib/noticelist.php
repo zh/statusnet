@@ -1,173 +1,366 @@
 <?php
-/*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+/**
+ * Laconica, the distributed open-source microblogging tool
  *
- * This program is free software: you can redistribute it and/or modify
+ * utilities for sending email
+ *
+ * PHP version 5
+ *
+ * LICENCE: This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.	 If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  UI
+ * @package   Laconica
+ * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @copyright 2008 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
-class NoticeList {
+/**
+ * widget for displaying a list of notices
+ *
+ * There are a number of actions that display a list of notices, in
+ * reverse chronological order. This widget abstracts out most of the
+ * code for UI for notice lists. It's overridden to hide some
+ * data for e.g. the profile page.
+ *
+ * @category UI
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://laconi.ca/
+ * @see      Notice
+ * @see      StreamAction
+ * @see      NoticeListItem
+ * @see      ProfileNoticeList
+ */
 
-    var $notice = NULL;
+class NoticeList
+{
+    /** the current stream of notices being displayed. */
 
-    function __construct($notice) {
+    var $notice = null;
+
+    /**
+     * constructor
+     *
+     * @param Notice $notice stream of notices from DB_DataObject
+     */
+
+    function __construct($notice)
+    {
         $this->notice = $notice;
     }
 
-    function show() {
+    /**
+     * show the list of notices
+     *
+     * "Uses up" the stream by looping through it. So, probably can't
+     * be called twice on the same list.
+     *
+     * @return int count of notices listed.
+     */
 
-		common_element_start('ul', array('id' => 'notices'));
+    function show()
+    {
+        common_element_start('ul', array('id' => 'notices'));
 
-		$cnt = 0;
+        $cnt = 0;
 
-		while ($this->notice->fetch() && $cnt <= NOTICES_PER_PAGE) {
-			$cnt++;
+        while ($this->notice->fetch() && $cnt <= NOTICES_PER_PAGE) {
+            $cnt++;
 
-			if ($cnt > NOTICES_PER_PAGE) {
-				break;
-			}
+            if ($cnt > NOTICES_PER_PAGE) {
+                break;
+            }
 
-            $item = $this->new_list_item($this->notice);
+            $item = $this->newListItem($this->notice);
             $item->show();
-		}
+        }
 
-		common_element_end('ul');
+        common_element_end('ul');
 
         return $cnt;
-	}
+    }
 
-    function new_list_item($notice) {
+    /**
+     * returns a new list item for the current notice
+     *
+     * Recipe (factory?) method; overridden by sub-classes to give
+     * a different list item class.
+     *
+     * @param Notice $notice the current notice
+     *
+     * @return NoticeListItem a list item for displaying the notice
+     */
+
+    function newListItem($notice)
+    {
         return new NoticeListItem($notice);
     }
 }
 
-class NoticeListItem {
+/**
+ * widget for displaying a single notice
+ *
+ * This widget has the core smarts for showing a single notice: what to display,
+ * where, and under which circumstances. Its key method is show(); this is a recipe
+ * that calls all the other show*() methods to build up a single notice. The
+ * ProfileNoticeListItem subclass, for example, overrides showAuthor() to skip
+ * author info (since that's implicit by the data in the page).
+ *
+ * @category UI
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://laconi.ca/
+ * @see      NoticeList
+ * @see      ProfileNoticeListItem
+ */
 
-    var $notice = NULL;
-    var $profile = NULL;
+class NoticeListItem
+{
+    /** The notice this item will show. */
 
-    function __construct($notice) {
-        $this->notice = $notice;
-		$this->profile = $notice->getProfile();
+    var $notice = null;
+
+    /** The profile of the author of the notice, extracted once for convenience. */
+
+    var $profile = null;
+
+    /**
+     * constructor
+     *
+     * Also initializes the profile attribute.
+     *
+     * @param Notice $notice The notice we'll display
+     */
+
+    function __construct($notice)
+    {
+        $this->notice  = $notice;
+        $this->profile = $notice->getProfile();
     }
 
-	function show() {
-        $this->show_start();
-        $this->show_fave_form();
-        $this->show_author();
-        $this->show_content();
-        $this->show_start_time_section();
-        $this->show_notice_link();
-        $this->show_notice_source();
-        $this->show_reply_to();
-        $this->show_reply_link();
-        $this->show_delete_link();
-        $this->show_end_time_section();
-        $this->show_end();
-	}
+    /**
+     * recipe function for displaying a single notice.
+     *
+     * This uses all the other methods to correctly display a notice. Override
+     * it or one of the others to fine-tune the output.
+     *
+     * @return void
+     */
 
-    function show_start() {
-		# XXX: RDFa
-		common_element_start('li', array('class' => 'notice_single hentry',
-										  'id' => 'notice-' . $this->notice->id));
+    function show()
+    {
+        $this->showStart();
+        $this->showFaveForm();
+        $this->showAuthor();
+        $this->showContent();
+        $this->startTimeSection();
+        $this->showNoticeLink();
+        $this->showNoticeSource();
+        $this->showReplyTo();
+        $this->showReplyLink();
+        $this->showDeleteLink();
+        $this->endTimeSection();
+        $this->showEnd();
     }
 
-    function show_fave_form() {
+    /**
+     * start a single notice.
+     *
+     * @return void
+     */
+
+    function showStart()
+    {
+        // XXX: RDFa
+        common_element_start('li', array('class' => 'notice_single hentry',
+                                         'id' => 'notice-' . $this->notice->id));
+    }
+
+    /**
+     * show the "favorite" form
+     *
+     * @return void
+     */
+
+    function showFaveForm()
+    {
         $user = common_current_user();
-		if ($user) {
-			if ($user->hasFave($this->notice)) {
-				common_disfavor_form($this->notice);
-			} else {
-				common_favor_form($this->notice);
-			}
-		}
+        if ($user) {
+            if ($user->hasFave($this->notice)) {
+                common_disfavor_form($this->notice);
+            } else {
+                common_favor_form($this->notice);
+            }
+        }
     }
 
-    function show_author() {
- 		common_element_start('span', 'vcard author');
-        $this->show_avatar();
-        $this->show_nickname();
-		common_element_end('span');
+    /**
+     * show the author of a notice
+     *
+     * By default, this shows the avatar and (linked) nickname of the author.
+     *
+     * @return void
+     */
+
+    function showAuthor()
+    {
+        common_element_start('span', 'vcard author');
+        $this->showAvatar();
+        $this->showNickname();
+        common_element_end('span');
     }
 
-    function show_avatar() {
-		$avatar = $this->profile->getAvatar(AVATAR_STREAM_SIZE);
-		common_element_start('a', array('href' => $this->profile->profileurl));
-		common_element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE),
-									'class' => 'avatar stream photo',
-									'width' => AVATAR_STREAM_SIZE,
-									'height' => AVATAR_STREAM_SIZE,
-									'alt' =>
-									($this->profile->fullname) ? $this->profile->fullname :
-									$this->profile->nickname));
-		common_element_end('a');
+    /**
+     * show the avatar of the notice's author
+     *
+     * This will use the default avatar if no avatar is assigned for the author.
+     * It makes a link to the author's profile.
+     *
+     * @return void
+     */
+
+    function showAvatar()
+    {
+        $avatar = $this->profile->getAvatar(AVATAR_STREAM_SIZE);
+        common_element_start('a', array('href' => $this->profile->profileurl));
+        common_element('img', array('src' => ($avatar) ?
+                                    common_avatar_display_url($avatar) :
+                                    common_default_avatar(AVATAR_STREAM_SIZE),
+                                    'class' => 'avatar stream photo',
+                                    'width' => AVATAR_STREAM_SIZE,
+                                    'height' => AVATAR_STREAM_SIZE,
+                                    'alt' =>
+                                    ($this->profile->fullname) ?
+                                    $this->profile->fullname :
+                                    $this->profile->nickname));
+        common_element_end('a');
     }
 
-    function show_nickname() {
-		common_element('a', array('href' => $this->profile->profileurl,
-								  'class' => 'nickname fn url'),
-					   $this->profile->nickname);
+    /**
+     * show the nickname of the author
+     *
+     * Links to the author's profile page
+     *
+     * @return void
+     */
+
+    function showNickname()
+    {
+        common_element('a', array('href' => $this->profile->profileurl,
+                                  'class' => 'nickname fn url'),
+                       $this->profile->nickname);
     }
 
-    function show_content() {
-		# FIXME: URL, image, video, audio
-		common_element_start('p', array('class' => 'content entry-title'));
-		if ($this->notice->rendered) {
-			common_raw($this->notice->rendered);
-		} else {
-			# XXX: may be some uncooked notices in the DB,
-			# we cook them right now. This should probably disappear in future
-			# versions (>> 0.4.x)
-			common_raw(common_render_content($this->notice->content, $this->notice));
-		}
-		common_element_end('p');
+    /**
+     * show the content of the notice
+     *
+     * Shows the content of the notice. This is pre-rendered for efficiency
+     * at save time. Some very old notices might not be pre-rendered, so
+     * they're rendered on the spot.
+     *
+     * @return void
+     */
+
+    function showContent()
+    {
+        // FIXME: URL, image, video, audio
+        common_element_start('p', array('class' => 'content entry-title'));
+        if ($this->notice->rendered) {
+            common_raw($this->notice->rendered);
+        } else {
+            // XXX: may be some uncooked notices in the DB,
+            // we cook them right now. This should probably disappear in future
+            // versions (>> 0.4.x)
+            common_raw(common_render_content($this->notice->content, $this->notice));
+        }
+        common_element_end('p');
     }
 
-    function show_start_time_section() {
-		common_element_start('p', 'time');
+    /**
+     * show the "time" section of a notice
+     *
+     * This is the greyed-out section that appears beneath the content, including
+     * links to delete or reply to the notice. Probably should be called something
+     * else.
+     *
+     * @return void
+     */
+
+    function startTimeSection()
+    {
+        common_element_start('p', 'time');
     }
 
-    function show_notice_link() {
-		$noticeurl = common_local_url('shownotice', array('notice' => $this->notice->id));
-		# XXX: we need to figure this out better. Is this right?
-		if (strcmp($this->notice->uri, $noticeurl) != 0 && preg_match('/^http/', $this->notice->uri)) {
-			$noticeurl = $this->notice->uri;
-		}
-		common_element_start('a', array('class' => 'permalink',
-								  'rel' => 'bookmark',
-								  'href' => $noticeurl));
-		common_element('abbr', array('class' => 'published',
-									 'title' => common_date_iso8601($this->notice->created)),
-						common_date_string($this->notice->created));
-		common_element_end('a');
+    /**
+     * show the link to the main page for the notice
+     *
+     * Displays a link to the page for a notice, with "relative" time. Tries to
+     * get remote notice URLs correct, but doesn't always succeed.
+     *
+     * @return void
+     */
+
+    function showNoticeLink()
+    {
+        $noticeurl = common_local_url('shownotice',
+                                      array('notice' => $this->notice->id));
+        // XXX: we need to figure this out better. Is this right?
+        if (strcmp($this->notice->uri, $noticeurl) != 0 &&
+            preg_match('/^http/', $this->notice->uri)) {
+            $noticeurl = $this->notice->uri;
+        }
+        common_element_start('a', array('class' => 'permalink',
+                                        'rel' => 'bookmark',
+                                        'href' => $noticeurl));
+        $dt = common_date_iso8601($this->notice->created);
+        common_element('abbr', array('class' => 'published',
+                                     'title' => $dt),
+                       common_date_string($this->notice->created));
+        common_element_end('a');
     }
 
-    function show_notice_source() {
-		if ($this->notice->source) {
-			common_element('span', null, _(' from '));
+    /**
+     * Show the source of the notice
+     *
+     * Either the name (and link) of the API client that posted the notice,
+     * or one of other other channels.
+     *
+     * @return void
+     */
+
+    function showNoticeSource()
+    {
+        if ($this->notice->source) {
+            common_element('span', null, _(' from '));
             $source_name = _($this->notice->source);
             switch ($this->notice->source) {
-             case 'web':
-             case 'xmpp':
-             case 'mail':
-             case 'omb':
-             case 'api':
+            case 'web':
+            case 'xmpp':
+            case 'mail':
+            case 'omb':
+            case 'api':
                 common_element('span', 'noticesource', $source_name);
                 break;
-             default:
+            default:
                 $ns = Notice_source::staticGet($this->notice->source);
                 if ($ns) {
                     common_element('a', array('href' => $ns->url),
@@ -177,48 +370,98 @@ class NoticeListItem {
                 }
                 break;
             }
-		}
+        }
     }
 
-    function show_reply_to() {
-		if ($this->notice->reply_to) {
-			$replyurl = common_local_url('shownotice', array('notice' => $this->notice->reply_to));
-			common_text(' (');
-			common_element('a', array('class' => 'inreplyto',
-									  'href' => $replyurl),
-						   _('in reply to...'));
-			common_text(')');
-		}
+    /**
+     * show link to notice this notice is a reply to
+     *
+     * If this notice is a reply, show a link to the notice it is replying to. The
+     * heavy lifting for figuring out replies happens at save time.
+     *
+     * @return void
+     */
+
+    function showReplyTo()
+    {
+        if ($this->notice->reply_to) {
+            $replyurl = common_local_url('shownotice',
+                                         array('notice' => $this->notice->reply_to));
+            common_text(' (');
+            common_element('a', array('class' => 'inreplyto',
+                                      'href' => $replyurl),
+                           _('in reply to...'));
+            common_text(')');
+        }
     }
 
-    function show_reply_link() {
-		common_element_start('a',
-							 array('href' => common_local_url('newnotice',
-															  array('replyto' => $this->profile->nickname)),
-								   'onclick' => 'return doreply("'.$this->profile->nickname.'", '.$this->notice->id.');',
-								   'title' => _('reply'),
-								   'class' => 'replybutton'));
-		common_raw(' &#8594;');
-		common_element_end('a');
+    /**
+     * show a link to reply to the current notice
+     *
+     * Should either do the reply in the current notice form (if available), or
+     * link out to the notice-posting form. A little flakey, doesn't always work.
+     *
+     * @return void
+     */
+
+    function showReplyLink()
+    {
+        $reply_url = common_local_url('newnotice',
+                                      array('replyto' => $this->profile->nickname));
+
+        $reply_js =
+          'return doreply("'.$this->profile->nickname.'",'.$this->notice->id.');';
+
+        common_element_start('a',
+                             array('href' => $reply_url,
+                                   'onclick' => $reply_js,
+                                   'title' => _('reply'),
+                                   'class' => 'replybutton'));
+        common_raw(' &#8594;');
+        common_element_end('a');
     }
 
-    function show_delete_link() {
+    /**
+     * if the user is the author, let them delete the notice
+     *
+     * @return void
+     */
+
+    function showDeleteLink()
+    {
         $user = common_current_user();
-		if ($user && $this->notice->profile_id == $user->id) {
-			$deleteurl = common_local_url('deletenotice', array('notice' => $this->notice->id));
-			common_element_start('a', array('class' => 'deletenotice',
-											'href' => $deleteurl,
-											'title' => _('delete')));
-			common_raw(' &#215;');
-			common_element_end('a');
-		}
+        if ($user && $this->notice->profile_id == $user->id) {
+            $deleteurl = common_local_url('deletenotice',
+                                          array('notice' => $this->notice->id));
+            common_element_start('a', array('class' => 'deletenotice',
+                                            'href' => $deleteurl,
+                                            'title' => _('delete')));
+            common_raw(' &#215;');
+            common_element_end('a');
+        }
     }
 
-    function show_end_time_section() {
-		common_element_end('p');
+    /**
+     * end the time section
+     *
+     * @return void
+     */
+
+    function endTimeSection()
+    {
+        common_element_end('p');
     }
 
-    function show_end() {
-		common_element_end('li');
+    /**
+     * finish the notice
+     *
+     * Close the last elements in the notice list item
+     *
+     * @return void
+     */
+
+    function showEnd()
+    {
+        common_element_end('li');
     }
 }

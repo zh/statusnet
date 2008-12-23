@@ -1,758 +1,576 @@
-hunk ./lib/mail.php 2
+hunk ./actions/showstream.php 441
+-    function new_list_item($notice) {
++    function newListItem($notice) {
+hunk ./actions/showstream.php 447
+-    function show_author() {
++    function showAuthor() {
+hunk ./lib/noticelist.php 2
 -/*
 - * Laconica - a distributed open-source microblogging tool
 - * Copyright (C) 2008, Controlez-Vous, Inc.
 +/**
 + * Laconica, the distributed open-source microblogging tool
-hunk ./lib/mail.php 5
+hunk ./lib/noticelist.php 5
 - * This program is free software: you can redistribute it and/or modify
 + * utilities for sending email
 + *
 + * PHP version 5
 + *
 + * LICENCE: This program is free software: you can redistribute it and/or modify
-hunk ./lib/mail.php 21
+hunk ./lib/noticelist.php 16
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+hunk ./lib/noticelist.php 20
+- * along with this program.	 If not, see <http://www.gnu.org/licenses/>.
++ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 + *
-+ * @category  Mail
++ * @category  UI
 + * @package   Laconica
 + * @author    Evan Prodromou <evan@controlyourself.ca>
-+ * @author    Zach Copley <zach@controlyourself.ca>
-+ * @author    Robin Millette <millette@controlyourself.ca>
-+ * @author    Sarven Capadisli <csarven@controlyourself.ca>
 + * @copyright 2008 Control Yourself, Inc.
 + * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
 + * @link      http://laconi.ca/
-hunk ./lib/mail.php 33
--if (!defined('LACONICA')) { exit(1); }
++ */
++
 +if (!defined('LACONICA')) {
 +    exit(1);
 +}
-hunk ./lib/mail.php 37
--require_once('Mail.php');
-+require_once 'Mail.php';
 +
 +/**
-+ * return the configured mail backend
++ * widget for displaying a list of notices
 + *
-+ * Uses the $config array to make a mail backend. Cached so it is safe to call
-+ * more than once.
++ * There are a number of actions that display a list of notices, in
++ * reverse chronological order. This widget abstracts out most of the
++ * code for UI for notice lists. It's overridden to hide some
++ * data for e.g. the profile page.
 + *
-+ * @return Mail backend
-+ */
-hunk ./lib/mail.php 48
--function mail_backend() {
--	static $backend = NULL;
-+function mail_backend()
++ * @category UI
++ * @package  Laconica
++ * @author   Evan Prodromou <evan@controlyourself.ca>
++ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
++ * @link     http://laconi.ca/
++ * @see      Notice
++ * @see      StreamAction
++ * @see      NoticeListItem
++ * @see      ProfileNoticeList
+hunk ./lib/noticelist.php 53
+-if (!defined('LACONICA')) { exit(1); }
++class NoticeList
 +{
-+    static $backend = null;
-hunk ./lib/mail.php 52
--	if (!$backend) {
--		global $config;
--		$backend = Mail::factory($config['mail']['backend'],
--								 ($config['mail']['params']) ? $config['mail']['params'] : array());
--		if (PEAR::isError($backend)) {
--			common_server_error($backend->getMessage(), 500);
++    /** the current stream of notices being displayed. */
+hunk ./lib/noticelist.php 57
+-class NoticeList {
++    var $notice = null;
+hunk ./lib/noticelist.php 59
+-    var $notice = NULL;
++    /**
++     * constructor
++     *
++     * @param Notice $notice stream of notices from DB_DataObject
++     */
+hunk ./lib/noticelist.php 65
+-    function __construct($notice) {
++    function __construct($notice)
++    {
+hunk ./lib/noticelist.php 70
+-    function show() {
++    /**
++     * show the list of notices
++     *
++     * "Uses up" the stream by looping through it. So, probably can't
++     * be called twice on the same list.
++     *
++     * @return int count of notices listed.
++     */
+hunk ./lib/noticelist.php 79
+-		common_element_start('ul', array('id' => 'notices'));
++    function show()
++    {
++        common_element_start('ul', array('id' => 'notices'));
+hunk ./lib/noticelist.php 83
+-		$cnt = 0;
++        $cnt = 0;
+hunk ./lib/noticelist.php 85
+-		while ($this->notice->fetch() && $cnt <= NOTICES_PER_PAGE) {
+-			$cnt++;
++        while ($this->notice->fetch() && $cnt <= NOTICES_PER_PAGE) {
++            $cnt++;
+hunk ./lib/noticelist.php 88
+-			if ($cnt > NOTICES_PER_PAGE) {
+-				break;
+-			}
++            if ($cnt > NOTICES_PER_PAGE) {
++                break;
++            }
+hunk ./lib/noticelist.php 92
+-            $item = $this->new_list_item($this->notice);
++            $item = $this->newListItem($this->notice);
+hunk ./lib/noticelist.php 94
 -		}
--	}
--	return $backend;
-+    if (!$backend) {
-+        global $config;
-+        $backend = Mail::factory($config['mail']['backend'],
-+                                 ($config['mail']['params']) ?
-+                                 $config['mail']['params'] :
-+                                 array());
-+        if (PEAR::isError($backend)) {
-+            common_server_error($backend->getMessage(), 500);
 +        }
-+    }
-+    return $backend;
-hunk ./lib/mail.php 65
--# XXX: use Mail_Queue... maybe
-+/**
-+ * send an email to one or more recipients
-+ *
-+ * @param array  $recipients array of strings with email addresses of recipients
-+ * @param array  $headers    array mapping strings to strings for email headers
-+ * @param string $body       body of the email
-+ *
-+ * @return boolean success flag
-+ */
-hunk ./lib/mail.php 75
--function mail_send($recipients, $headers, $body) {
--	$backend = mail_backend();
-+function mail_send($recipients, $headers, $body)
-+{
-+    // XXX: use Mail_Queue... maybe
-+    $backend = mail_backend();
-hunk ./lib/mail.php 82
--	assert($backend); # throws an error if it's bad
--	$sent = $backend->send($recipients, $headers, $body);
--	if (PEAR::isError($sent)) {
--		common_log(LOG_ERR, 'Email error: ' . $sent->getMessage());
--		return false;
+hunk ./lib/noticelist.php 96
+-		common_element_end('ul');
++        common_element_end('ul');
+hunk ./lib/noticelist.php 99
 -	}
--	return true;
-+    assert($backend); // throws an error if it's bad
-+    $sent = $backend->send($recipients, $headers, $body);
-+    if (PEAR::isError($sent)) {
-+        common_log(LOG_ERR, 'Email error: ' . $sent->getMessage());
-+        return false;
 +    }
-+    return true;
-hunk ./lib/mail.php 91
--function mail_domain() {
--	$maildomain = common_config('mail', 'domain');
--	if (!$maildomain) {
--		$maildomain = common_config('site', 'server');
++
++    /**
++     * returns a new list item for the current notice
++     *
++     * Recipe (factory?) method; overridden by sub-classes to give
++     * a different list item class.
++     *
++     * @param Notice $notice the current notice
++     *
++     * @return NoticeListItem a list item for displaying the notice
++     */
+hunk ./lib/noticelist.php 112
+-    function new_list_item($notice) {
++    function newListItem($notice)
++    {
+hunk ./lib/noticelist.php 118
+-class NoticeListItem {
++/**
++ * widget for displaying a single notice
++ *
++ * This widget has the core smarts for showing a single notice: what to display,
++ * where, and under which circumstances. Its key method is show(); this is a recipe
++ * that calls all the other show*() methods to build up a single notice. The
++ * ProfileNoticeListItem subclass, for example, overrides showAuthor() to skip
++ * author info (since that's implicit by the data in the page).
++ *
++ * @category UI
++ * @package  Laconica
++ * @author   Evan Prodromou <evan@controlyourself.ca>
++ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
++ * @link     http://laconi.ca/
++ * @see      NoticeList
++ * @see      ProfileNoticeListItem
++ */
++
++class NoticeListItem
++{
++    /** The notice this item will show. */
+hunk ./lib/noticelist.php 140
+-    var $notice = NULL;
+-    var $profile = NULL;
++    var $notice = null;
+hunk ./lib/noticelist.php 142
+-    function __construct($notice) {
+-        $this->notice = $notice;
+-		$this->profile = $notice->getProfile();
++    /** The profile of the author of the notice, extracted once for convenience. */
++
++    var $profile = null;
++
++    /**
++     * constructor
++     *
++     * Also initializes the profile attribute.
++     *
++     * @param Notice $notice The notice we'll display
++     */
++
++    function __construct($notice)
++    {
++        $this->notice  = $notice;
++        $this->profile = $notice->getProfile();
+hunk ./lib/noticelist.php 160
+-	function show() {
+-        $this->show_start();
+-        $this->show_fave_form();
+-        $this->show_author();
+-        $this->show_content();
+-        $this->show_start_time_section();
+-        $this->show_notice_link();
+-        $this->show_notice_source();
+-        $this->show_reply_to();
+-        $this->show_reply_link();
+-        $this->show_delete_link();
+-        $this->show_end_time_section();
+-        $this->show_end();
 -	}
--	return $maildomain;
--}
-+/**
-+ * returns the configured mail domain
-+ *
-+ * Defaults to the server name.
-+ *
-+ * @return string mail domain, suitable for making email addresses.
-+ */
-hunk ./lib/mail.php 99
--function mail_notify_from() {
--	$notifyfrom = common_config('mail', 'notifyfrom');
--	if (!$notifyfrom) {
--		$domain = mail_domain();
--		$notifyfrom = common_config('site', 'name') .' <noreply@'.$domain.'>';
--	}
--	return $notifyfrom;
-+function mail_domain()
-+{
-+    $maildomain = common_config('mail', 'domain');
-+    if (!$maildomain) {
-+        $maildomain = common_config('site', 'server');
-+    }
-+    return $maildomain;
-hunk ./lib/mail.php 108
--function mail_to_user(&$user, $subject, $body, $address=NULL) {
--	if (!$address) {
--		$address = $user->email;
--	}
-+/**
-+ * returns a good address for sending email from this server
-+ *
-+ * Uses either the configured value or a faked-up value made
-+ * from the mail domain.
-+ *
-+ * @return string notify from address
-+ */
-hunk ./lib/mail.php 117
--	$recipients = $address;
--	$profile = $user->getProfile();
-+function mail_notify_from()
-+{
-+    $notifyfrom = common_config('mail', 'notifyfrom');
-hunk ./lib/mail.php 121
--	$headers['From'] = mail_notify_from();
--	$headers['To'] = $profile->getBestName() . ' <' . $address . '>';
--	$headers['Subject'] = $subject;
-+    if (!$notifyfrom) {
-hunk ./lib/mail.php 123
--	return mail_send($recipients, $headers, $body);
-+        $domain = mail_domain();
++    /**
++     * recipe function for displaying a single notice.
++     *
++     * This uses all the other methods to correctly display a notice. Override
++     * it or one of the others to fine-tune the output.
++     *
++     * @return void
++     */
+hunk ./lib/noticelist.php 169
+-    function show_start() {
+-		# XXX: RDFa
+-		common_element_start('li', array('class' => 'notice_single hentry',
+-										  'id' => 'notice-' . $this->notice->id));
++    function show()
++    {
++        $this->showStart();
++        $this->showFaveForm();
++        $this->showAuthor();
++        $this->showContent();
++        $this->startTimeSection();
++        $this->showNoticeLink();
++        $this->showNoticeSource();
++        $this->showReplyTo();
++        $this->showReplyLink();
++        $this->showDeleteLink();
++        $this->endTimeSection();
++        $this->showEnd();
+hunk ./lib/noticelist.php 185
+-    function show_fave_form() {
++    /**
++     * start a single notice.
++     *
++     * @return void
++     */
 +
-+        $notifyfrom = common_config('site', 'name') .' <noreply@'.$domain.'>';
++    function showStart()
++    {
++        // XXX: RDFa
++        common_element_start('li', array('class' => 'notice_single hentry',
++                                         'id' => 'notice-' . $this->notice->id));
 +    }
 +
-+    return $notifyfrom;
-hunk ./lib/mail.php 131
--# For confirming a Jabber address
-+/**
-+ * sends email to a user
-+ *
-+ * @param User   &$user   user to send email to
-+ * @param string $subject subject of the email
-+ * @param string $body    body of the email
-+ * @param string $address optional specification of email address
-+ *
-+ * @return boolean success flag
-+ */
++    /**
++     * show the "favorite" form
++     *
++     * @return void
++     */
 +
-+function mail_to_user(&$user, $subject, $body, $address=null)
-+{
-+    if (!$address) {
-+        $address = $user->email;
-+    }
-hunk ./lib/mail.php 148
--function mail_confirm_address($user, $code, $nickname, $address) {
-+    $recipients = $address;
-+    $profile    = $user->getProfile();
-hunk ./lib/mail.php 151
--	$subject = _('Email address confirmation');
-+    $headers['From']    = mail_notify_from();
-+    $headers['To']      = $profile->getBestName() . ' <' . $address . '>';
-+    $headers['Subject'] = $subject;
-hunk ./lib/mail.php 155
--    $body = sprintf(_("Hey, %s.\n\nSomeone just entered this email address on %s.\n\n" .
--        "If it was you, and you want to confirm your entry, use the URL below:\n\n\t%s\n\n" .
--        "If not, just ignore this message.\n\nThanks for your time, \n%s\n")
--        , $nickname, common_config('site', 'name')
--        , common_local_url('confirmaddress', array('code' => $code)), common_config('site', 'name'));
--     return mail_to_user($user, $subject, $body, $address);
-+    return mail_send($recipients, $headers, $body);
-hunk ./lib/mail.php 158
--function mail_subscribe_notify($listenee, $listener) {
--	$other = $listener->getProfile();
--	mail_subscribe_notify_profile($listenee, $other);
-+/**
-+ * Send an email to confirm a user's control of an email address
-+ *
-+ * @param User   $user     User claiming the email address
-+ * @param string $code     Confirmation code
-+ * @param string $nickname Nickname of user
-+ * @param string $address  email address to confirm
-+ *
-+ * @see common_confirmation_code()
-+ *
-+ * @return success flag
-+ */
-+
-+function mail_confirm_address($user, $code, $nickname, $address)
-+{
-+    $subject = _('Email address confirmation');
-+
-+    $body = sprintf(_("Hey, %s.\n\n".
-+                      "Someone just entered this email address on %s.\n\n" .
-+                      "If it was you, and you want to confirm your entry, ".
-+                      "use the URL below:\n\n\t%s\n\n" .
-+                      "If not, just ignore this message.\n\n".
-+                      "Thanks for your time, \n%s\n"),
-+                    $nickname, common_config('site', 'name'),
-+                    common_local_url('confirmaddress', array('code' => $code)),
-+                    common_config('site', 'name'));
-+    return mail_to_user($user, $subject, $body, $address);
-hunk ./lib/mail.php 187
--function mail_subscribe_notify_profile($listenee, $other) {
--	if ($listenee->email && $listenee->emailnotifysub) {
--        // use the recipients localization
-+/**
-+ * notify a user of subscription by another user
-+ *
-+ * This is just a wrapper around the profile-based version.
-+ *
-+ * @param User $listenee user who is being subscribed to
-+ * @param User $listener user who is subscribing
-+ *
-+ * @see mail_subscribe_notify_profile()
-+ *
-+ * @return void
-+ */
-+
-+function mail_subscribe_notify($listenee, $listener)
-+{
-+    $other = $listener->getProfile();
-+    mail_subscribe_notify_profile($listenee, $other);
-+}
-+
-+/**
-+ * notify a user of subscription by a profile (remote or local)
-+ *
-+ * This function checks to see if the listenee has an email
-+ * address and wants subscription notices.
-+ *
-+ * @param User    $listenee user who's being subscribed to
-+ * @param Profile $other    profile of person who's listening
-+ *
-+ * @return void
-+ */
-+
-+function mail_subscribe_notify_profile($listenee, $other)
-+{
-+    if ($listenee->email && $listenee->emailnotifysub) {
-+
-+        // use the recipient's localization
-hunk ./lib/mail.php 224
--		$profile = $listenee->getProfile();
--		$name = $profile->getBestName();
--		$long_name = ($other->fullname) ? ($other->fullname . ' (' . $other->nickname . ')') : $other->nickname;
--		$recipients = $listenee->email;
--		$headers['From'] = mail_notify_from();
--		$headers['To'] = $name . ' <' . $listenee->email . '>';
--		$headers['Subject'] = sprintf(_('%1$s is now listening to your notices on %2$s.'),
-+
-+        $profile = $listenee->getProfile();
-+
-+        $name = $profile->getBestName();
-+
-+        $long_name = ($other->fullname) ?
-+          ($other->fullname . ' (' . $other->nickname . ')') : $other->nickname;
-+
-+        $recipients = $listenee->email;
-+
-+        $headers['From']    = mail_notify_from();
-+        $headers['To']      = $name . ' <' . $listenee->email . '>';
-+        $headers['Subject'] = sprintf(_('%1$s is now listening to '.
-+                                        'your notices on %2$s.'),
-hunk ./lib/mail.php 239
--									  common_config('site', 'name'));
--		$body  = sprintf(_('%1$s is now listening to your notices on %2$s.'."\n\n".
--						   "\t".'%3$s'."\n\n".
--						   '%4$s'.
--                           '%5$s'.
--                           '%6$s'.
--						   "\n".'Faithfully yours,'."\n".'%7$s.'."\n\n".
--                           "----\n".
--                           "Change your email address or notification options at %8$s"),
--                         $long_name,
--                         common_config('site', 'name'),
--                         $other->profileurl,
--                         ($other->location) ? sprintf(_("Location: %s\n"), $other->location) : '',
--                         ($other->homepage) ? sprintf(_("Homepage: %s\n"), $other->homepage) : '',
--                         ($other->bio) ? sprintf(_("Bio: %s\n\n"), $other->bio) : '',
--                         common_config('site', 'name'),
--                         common_local_url('emailsettings'));
-+                                      common_config('site', 'name'));
-+
-+        $body = sprintf(_('%1$s is now listening to your notices on %2$s.'."\n\n".
-+                          "\t".'%3$s'."\n\n".
-+                          '%4$s'.
-+                          '%5$s'.
-+                          '%6$s'.
-+                          "\n".'Faithfully yours,'."\n".'%7$s.'."\n\n".
-+                          "----\n".
-+                          "Change your email address or ".
-+                          "notification options at %8$s\n"),
-+                        $long_name,
-+                        common_config('site', 'name'),
-+                        $other->profileurl,
-+                        ($other->location) ?
-+                        sprintf(_("Location: %s\n"), $other->location) : '',
-+                        ($other->homepage) ?
-+                        sprintf(_("Homepage: %s\n"), $other->homepage) : '',
-+                        ($other->bio) ?
-+                        sprintf(_("Bio: %s\n\n"), $other->bio) : '',
-+                        common_config('site', 'name'),
-+                        common_local_url('emailsettings'));
-+
-hunk ./lib/mail.php 264
--		mail_send($recipients, $headers, $body);
--	}
-+        mail_send($recipients, $headers, $body);
-+    }
-hunk ./lib/mail.php 268
--function mail_new_incoming_notify($user) {
-+/**
-+ * notify a user of their new incoming email address
-+ *
-+ * User's email and incoming fields should already be updated.
-+ *
-+ * @param User $user user with the new address
-+ *
-+ * @return void
-+ */
-+
-+function mail_new_incoming_notify($user)
-+{
-+    $profile = $user->getProfile();
-hunk ./lib/mail.php 282
--	$profile = $user->getProfile();
--	$name = $profile->getBestName();
-+    $name = $profile->getBestName();
-hunk ./lib/mail.php 284
--	$headers['From'] = $user->incomingemail;
--	$headers['To'] = $name . ' <' . $user->email . '>';
--	$headers['Subject'] = sprintf(_('New email address for posting to %s'),
--								  common_config('site', 'name'));
-+    $headers['From']    = $user->incomingemail;
-+    $headers['To']      = $name . ' <' . $user->email . '>';
-+    $headers['Subject'] = sprintf(_('New email address for posting to %s'),
-+                                  common_config('site', 'name'));
-hunk ./lib/mail.php 289
--	$body  = sprintf(_("You have a new posting address on %1\$s.\n\n".
--					   "Send email to %2\$s to post new messages.\n\n".
--					   "More email instructions at %3\$s.\n\n".
--					   "Faithfully yours,\n%4\$s"),
--					 common_config('site', 'name'),
--					 $user->incomingemail,
--					 common_local_url('doc', array('title' => 'email')),
--					 common_config('site', 'name'));
-+    $body = sprintf(_("You have a new posting address on %1\$s.\n\n".
-+                      "Send email to %2\$s to post new messages.\n\n".
-+                      "More email instructions at %3\$s.\n\n".
-+                      "Faithfully yours,\n%4\$s"),
-+                    common_config('site', 'name'),
-+                    $user->incomingemail,
-+                    common_local_url('doc', array('title' => 'email')),
-+                    common_config('site', 'name'));
-hunk ./lib/mail.php 298
--	mail_send($user->email, $headers, $body);
-+    mail_send($user->email, $headers, $body);
-hunk ./lib/mail.php 301
--function mail_new_incoming_address() {
--	$prefix = common_confirmation_code(64);
--	$suffix = mail_domain();
--	return $prefix . '@' . $suffix;
-+/**
-+ * generate a new address for incoming messages
-+ *
-+ * @todo check the database for uniqueness
-+ *
-+ * @return string new email address for incoming messages
-+ */
-+
-+function mail_new_incoming_address()
-+{
-+    $prefix = common_confirmation_code(64);
-+    $suffix = mail_domain();
-+    return $prefix . '@' . $suffix;
-hunk ./lib/mail.php 316
--function mail_broadcast_notice_sms($notice) {
-+/**
-+ * broadcast a notice to all subscribers with SMS notification on
-+ *
-+ * This function sends SMS messages to all users who have sms addresses;
-+ * have sms notification on; and have sms enabled for this particular
-+ * subscription.
-+ *
-+ * @param Notice $notice The notice to broadcast
-+ *
-+ * @return success flag
-+ */
-hunk ./lib/mail.php 328
--    # Now, get users subscribed to this profile
-+function mail_broadcast_notice_sms($notice)
-+{
-+    // Now, get users subscribed to this profile
-hunk ./lib/mail.php 332
--	$user = new User();
-+    $user = new User();
-hunk ./lib/mail.php 334
--	$user->query('SELECT nickname, smsemail, incomingemail ' .
--				 'FROM user JOIN subscription ' .
--				 'ON user.id = subscription.subscriber ' .
--				 'WHERE subscription.subscribed = ' . $notice->profile_id . ' ' .
--				 'AND user.smsemail IS NOT NULL ' .
--				 'AND user.smsnotify = 1 ' .
-+    $user->query('SELECT nickname, smsemail, incomingemail ' .
-+                 'FROM user JOIN subscription ' .
-+                 'ON user.id = subscription.subscriber ' .
-+                 'WHERE subscription.subscribed = ' . $notice->profile_id . ' ' .
-+                 'AND user.smsemail IS NOT null ' .
-+                 'AND user.smsnotify = 1 ' .
-hunk ./lib/mail.php 342
--	while ($user->fetch()) {
--		common_log(LOG_INFO,
--				   'Sending notice ' . $notice->id . ' to ' . $user->smsemail,
--				   __FILE__);
--		$success = mail_send_sms_notice_address($notice, $user->smsemail, $user->incomingemail);
--		if (!$success) {
--			# XXX: Not sure, but I think that's the right thing to do
--			common_log(LOG_WARNING,
--					   'Sending notice ' . $notice->id . ' to ' . $user->smsemail . ' FAILED, cancelling.',
--					   __FILE__);
--			return false;
++    function showFaveForm()
++    {
+hunk ./lib/noticelist.php 207
+-		if ($user) {
+-			if ($user->hasFave($this->notice)) {
+-				common_disfavor_form($this->notice);
+-			} else {
+-				common_favor_form($this->notice);
+-			}
 -		}
--	}
-+    while ($user->fetch()) {
-+        common_log(LOG_INFO,
-+                   'Sending notice ' . $notice->id . ' to ' . $user->smsemail,
-+                   __FILE__);
-+        $success = mail_send_sms_notice_address($notice,
-+                                                $user->smsemail,
-+                                                $user->incomingemail);
-+        if (!$success) {
-+            // XXX: Not sure, but I think that's the right thing to do
-+            common_log(LOG_WARNING,
-+                       'Sending notice ' . $notice->id . ' to ' .
-+                       $user->smsemail . ' FAILED, cancelling.',
-+                       __FILE__);
-+            return false;
++        if ($user) {
++            if ($user->hasFave($this->notice)) {
++                common_disfavor_form($this->notice);
++            } else {
++                common_favor_form($this->notice);
++            }
 +        }
-+    }
-hunk ./lib/mail.php 359
--	$user->free();
--	unset($user);
-+    $user->free();
-+    unset($user);
-hunk ./lib/mail.php 362
--	return true;
-+    return true;
-hunk ./lib/mail.php 365
--function mail_send_sms_notice($notice, $user) {
--	return mail_send_sms_notice_address($notice, $user->smsemail, $user->incomingemail);
-+/**
-+ * send a notice to a user via SMS
-+ *
-+ * A convenience wrapper around mail_send_sms_notice_address()
-+ *
-+ * @param Notice $notice notice to send
-+ * @param User   $user   user to receive notice
-+ *
-+ * @see mail_send_sms_notice_address()
-+ *
-+ * @return boolean success flag
-+ */
+hunk ./lib/noticelist.php 216
+-    function show_author() {
+- 		common_element_start('span', 'vcard author');
+-        $this->show_avatar();
+-        $this->show_nickname();
+-		common_element_end('span');
++    /**
++     * show the author of a notice
++     *
++     * By default, this shows the avatar and (linked) nickname of the author.
++     *
++     * @return void
++     */
 +
-+function mail_send_sms_notice($notice, $user)
-+{
-+    return mail_send_sms_notice_address($notice,
-+                                        $user->smsemail,
-+                                        $user->incomingemail);
-hunk ./lib/mail.php 385
--function mail_send_sms_notice_address($notice, $smsemail, $incomingemail) {
-+/**
-+ * send a notice to an SMS email address from a given address
-+ *
-+ * We use the user's incoming email address as the "From" address to make
-+ * replying to notices easier.
-+ *
-+ * @param Notice $notice        notice to send
-+ * @param string $smsemail      email address to send to
-+ * @param string $incomingemail email address to set as 'from'
-+ *
-+ * @return boolean success flag
-+ */
++    function showAuthor()
++    {
++        common_element_start('span', 'vcard author');
++        $this->showAvatar();
++        $this->showNickname();
++        common_element_end('span');
+hunk ./lib/noticelist.php 232
+-    function show_avatar() {
+-		$avatar = $this->profile->getAvatar(AVATAR_STREAM_SIZE);
+-		common_element_start('a', array('href' => $this->profile->profileurl));
+-		common_element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE),
+-									'class' => 'avatar stream photo',
+-									'width' => AVATAR_STREAM_SIZE,
+-									'height' => AVATAR_STREAM_SIZE,
+-									'alt' =>
+-									($this->profile->fullname) ? $this->profile->fullname :
+-									$this->profile->nickname));
+-		common_element_end('a');
++    /**
++     * show the avatar of the notice's author
++     *
++     * This will use the default avatar if no avatar is assigned for the author.
++     * It makes a link to the author's profile.
++     *
++     * @return void
++     */
 +
-+function mail_send_sms_notice_address($notice, $smsemail, $incomingemail)
-+{
-+    $to = $nickname . ' <' . $smsemail . '>';
++    function showAvatar()
++    {
++        $avatar = $this->profile->getAvatar(AVATAR_STREAM_SIZE);
++        common_element_start('a', array('href' => $this->profile->profileurl));
++        common_element('img', array('src' => ($avatar) ?
++                                    common_avatar_display_url($avatar) :
++                                    common_default_avatar(AVATAR_STREAM_SIZE),
++                                    'class' => 'avatar stream photo',
++                                    'width' => AVATAR_STREAM_SIZE,
++                                    'height' => AVATAR_STREAM_SIZE,
++                                    'alt' =>
++                                    ($this->profile->fullname) ?
++                                    $this->profile->fullname :
++                                    $this->profile->nickname));
++        common_element_end('a');
+hunk ./lib/noticelist.php 258
+-    function show_nickname() {
+-		common_element('a', array('href' => $this->profile->profileurl,
+-								  'class' => 'nickname fn url'),
+-					   $this->profile->nickname);
++    /**
++     * show the nickname of the author
++     *
++     * Links to the author's profile page
++     *
++     * @return void
++     */
 +
-+    $other = $notice->getProfile();
-hunk ./lib/mail.php 404
--	$to = $nickname . ' <' . $smsemail . '>';
--	$other = $notice->getProfile();
-+    common_log(LOG_INFO, 'Sending notice ' . $notice->id .
-+               ' to ' . $smsemail, __FILE__);
-hunk ./lib/mail.php 407
--	common_log(LOG_INFO, "Sending notice " . $notice->id . " to " . $smsemail, __FILE__);
-+    $headers = array();
-hunk ./lib/mail.php 409
--	$headers = array();
--	$headers['From'] = (isset($incomingemail)) ? $incomingemail : mail_notify_from();
--	$headers['To'] = $to;
--	$headers['Subject'] = sprintf(_('%s status'),
--								  $other->getBestName());
--	$body = $notice->content;
-+    $headers['From']    = ($incomingemail) ? $incomingemail : mail_notify_from();
-+    $headers['To']      = $to;
-+    $headers['Subject'] = sprintf(_('%s status'),
-+                                  $other->getBestName());
-hunk ./lib/mail.php 414
--	return mail_send($smsemail, $headers, $body);
-+    $body = $notice->content;
++    function showNickname()
++    {
++        common_element('a', array('href' => $this->profile->profileurl,
++                                  'class' => 'nickname fn url'),
++                       $this->profile->nickname);
+hunk ./lib/noticelist.php 273
+-    function show_content() {
+-		# FIXME: URL, image, video, audio
+-		common_element_start('p', array('class' => 'content entry-title'));
+-		if ($this->notice->rendered) {
+-			common_raw($this->notice->rendered);
+-		} else {
+-			# XXX: may be some uncooked notices in the DB,
+-			# we cook them right now. This should probably disappear in future
+-			# versions (>> 0.4.x)
+-			common_raw(common_render_content($this->notice->content, $this->notice));
+-		}
+-		common_element_end('p');
++    /**
++     * show the content of the notice
++     *
++     * Shows the content of the notice. This is pre-rendered for efficiency
++     * at save time. Some very old notices might not be pre-rendered, so
++     * they're rendered on the spot.
++     *
++     * @return void
++     */
 +
-+    return mail_send($smsemail, $headers, $body);
-hunk ./lib/mail.php 419
--function mail_confirm_sms($code, $nickname, $address) {
-+/**
-+ * send a message to confirm a claim for an SMS number
-+ *
-+ * @param string $code     confirmation code
-+ * @param string $nickname nickname of user claiming number
-+ * @param string $address  email address to send the confirmation to
-+ *
-+ * @see common_confirmation_code()
-+ *
-+ * @return void
-+ */
++    function showContent()
++    {
++        // FIXME: URL, image, video, audio
++        common_element_start('p', array('class' => 'content entry-title'));
++        if ($this->notice->rendered) {
++            common_raw($this->notice->rendered);
++        } else {
++            // XXX: may be some uncooked notices in the DB,
++            // we cook them right now. This should probably disappear in future
++            // versions (>> 0.4.x)
++            common_raw(common_render_content($this->notice->content, $this->notice));
++        }
++        common_element_end('p');
+hunk ./lib/noticelist.php 298
+-    function show_start_time_section() {
+-		common_element_start('p', 'time');
++    /**
++     * show the "time" section of a notice
++     *
++     * This is the greyed-out section that appears beneath the content, including
++     * links to delete or reply to the notice. Probably should be called something
++     * else.
++     *
++     * @return void
++     */
 +
-+function mail_confirm_sms($code, $nickname, $address)
-+{
-+    $recipients = $address;
-hunk ./lib/mail.php 435
--	$recipients = $address;
-+    $headers['From']    = mail_notify_from();
-+    $headers['To']      = $nickname . ' <' . $address . '>';
-+    $headers['Subject'] = _('SMS confirmation');
-hunk ./lib/mail.php 439
--	$headers['From'] = mail_notify_from();
--	$headers['To'] = $nickname . ' <' . $address . '>';
--	$headers['Subject'] = _('SMS confirmation');
-+    // FIXME: I18N
-hunk ./lib/mail.php 441
--	$body = "$nickname: confirm you own this phone number with this code:";
--	$body .= "\n\n";
--	$body .= $code;
--	$body .= "\n\n";
-+    $body  = "$nickname: confirm you own this phone number with this code:";
-+    $body .= "\n\n";
-+    $body .= $code;
-+    $body .= "\n\n";
-hunk ./lib/mail.php 446
--	mail_send($recipients, $headers, $body);
-+    mail_send($recipients, $headers, $body);
-hunk ./lib/mail.php 449
--function mail_notify_nudge($from, $to) {
-+/**
-+ * send a mail message to notify a user of a 'nudge'
-+ *
-+ * @param User $from user nudging
-+ * @param User $to   user being nudged
-+ *
-+ * @return boolean success flag
-+ */
++    function startTimeSection()
++    {
++        common_element_start('p', 'time');
+hunk ./lib/noticelist.php 313
+-    function show_notice_link() {
+-		$noticeurl = common_local_url('shownotice', array('notice' => $this->notice->id));
+-		# XXX: we need to figure this out better. Is this right?
+-		if (strcmp($this->notice->uri, $noticeurl) != 0 && preg_match('/^http/', $this->notice->uri)) {
+-			$noticeurl = $this->notice->uri;
+-		}
+-		common_element_start('a', array('class' => 'permalink',
+-								  'rel' => 'bookmark',
+-								  'href' => $noticeurl));
+-		common_element('abbr', array('class' => 'published',
+-									 'title' => common_date_iso8601($this->notice->created)),
+-						common_date_string($this->notice->created));
+-		common_element_end('a');
++    /**
++     * show the link to the main page for the notice
++     *
++     * Displays a link to the page for a notice, with "relative" time. Tries to
++     * get remote notice URLs correct, but doesn't always succeed.
++     *
++     * @return void
++     */
 +
-+function mail_notify_nudge($from, $to)
-+{
-hunk ./lib/mail.php 461
--	$subject = sprintf(_('You\'ve been nudged by %s'), $from->nickname);
-+    $subject = sprintf(_('You\'ve been nudged by %s'), $from->nickname);
-hunk ./lib/mail.php 463
--	$from_profile = $from->getProfile();
-+    $from_profile = $from->getProfile();
-hunk ./lib/mail.php 465
--	$body = sprintf(_("%1\$s (%2\$s) is wondering what you are up to these days and is inviting you to post some news.\n\n".
--					  "So let's hear from you :)\n\n".
--					  "%3\$s\n\n".
--					  "Don't reply to this email; it won't get to them.\n\n".
--					  "With kind regards,\n".
--					  "%4\$s\n"),
--					$from_profile->getBestName(),
--					$from->nickname,
--					common_local_url('all', array('nickname' => $to->nickname)),
--					common_config('site', 'name'));
-+    $body = sprintf(_("%1\$s (%2\$s) is wondering what you are up to ".
-+                      "these days and is inviting you to post some news.\n\n".
-+                      "So let's hear from you :)\n\n".
-+                      "%3\$s\n\n".
-+                      "Don't reply to this email; it won't get to them.\n\n".
-+                      "With kind regards,\n".
-+                      "%4\$s\n"),
-+                    $from_profile->getBestName(),
-+                    $from->nickname,
-+                    common_local_url('all', array('nickname' => $to->nickname)),
-+                    common_config('site', 'name'));
-hunk ./lib/mail.php 477
--	return mail_to_user($to, $subject, $body);
-+    return mail_to_user($to, $subject, $body);
-hunk ./lib/mail.php 480
--function mail_notify_message($message, $from=NULL, $to=NULL) {
-+/**
-+ * send a message to notify a user of a direct message (DM)
-+ *
-+ * This function checks to see if the recipient wants notification
-+ * of DMs and has a configured email address.
-+ *
-+ * @param Message $message message to notify about
-+ * @param User    $from    user sending message; default to sender
-+ * @param User    $to      user receiving message; default to recipient
-+ *
-+ * @return boolean success code
-+ */
-hunk ./lib/mail.php 493
--	if (is_null($from)) {
--		$from = User::staticGet('id', $message->from_profile);
--	}
-+function mail_notify_message($message, $from=null, $to=null)
-+{
-+    if (is_null($from)) {
-+        $from = User::staticGet('id', $message->from_profile);
-+    }
-hunk ./lib/mail.php 499
--	if (is_null($to)) {
--		$to = User::staticGet('id', $message->to_profile);
--	}
-+    if (is_null($to)) {
-+        $to = User::staticGet('id', $message->to_profile);
-+    }
-hunk ./lib/mail.php 503
--	if (is_null($to->email) || !$to->emailnotifymsg) {
--		return true;
--	}
-+    if (is_null($to->email) || !$to->emailnotifymsg) {
-+        return true;
-+    }
-hunk ./lib/mail.php 508
--	$subject = sprintf(_('New private message from %s'), $from->nickname);
-+    $subject = sprintf(_('New private message from %s'), $from->nickname);
-hunk ./lib/mail.php 510
--	$from_profile = $from->getProfile();
-+    $from_profile = $from->getProfile();
-hunk ./lib/mail.php 512
--	$body = sprintf(_("%1\$s (%2\$s) sent you a private message:\n\n".
--					  "------------------------------------------------------\n".
--					  "%3\$s\n".
--					  "------------------------------------------------------\n\n".
--					  "You can reply to their message here:\n\n".
--					  "%4\$s\n\n".
--					  "Don't reply to this email; it won't get to them.\n\n".
--					  "With kind regards,\n".
--					  "%5\$s\n"),
--					$from_profile->getBestName(),
--					$from->nickname,
--					$message->content,
--					common_local_url('newmessage', array('to' => $from->id)),
--					common_config('site', 'name'));
-+    $body = sprintf(_("%1\$s (%2\$s) sent you a private message:\n\n".
-+                      "------------------------------------------------------\n".
-+                      "%3\$s\n".
-+                      "------------------------------------------------------\n\n".
-+                      "You can reply to their message here:\n\n".
-+                      "%4\$s\n\n".
-+                      "Don't reply to this email; it won't get to them.\n\n".
-+                      "With kind regards,\n".
-+                      "%5\$s\n"),
-+                    $from_profile->getBestName(),
-+                    $from->nickname,
-+                    $message->content,
-+                    common_local_url('newmessage', array('to' => $from->id)),
-+                    common_config('site', 'name'));
-hunk ./lib/mail.php 528
--	return mail_to_user($to, $subject, $body);
-+    return mail_to_user($to, $subject, $body);
-hunk ./lib/mail.php 531
--function mail_notify_fave($other, $user, $notice) {
-+/**
-+ * notify a user that one of their notices has been chosen as a 'fave'
-+ *
-+ * Doesn't check that the user has an email address nor if they
-+ * want to receive notification of faves. Maybe this happens higher
-+ * up the stack...?
-+ *
-+ * @param User   $other  The user whose notice was faved
-+ * @param User   $user   The user who faved the notice
-+ * @param Notice $notice The notice that was faved
-+ *
-+ * @return void
-+ */
++    function showNoticeLink()
++    {
++        $noticeurl = common_local_url('shownotice',
++                                      array('notice' => $this->notice->id));
++        // XXX: we need to figure this out better. Is this right?
++        if (strcmp($this->notice->uri, $noticeurl) != 0 &&
++            preg_match('/^http/', $this->notice->uri)) {
++            $noticeurl = $this->notice->uri;
++        }
++        common_element_start('a', array('class' => 'permalink',
++                                        'rel' => 'bookmark',
++                                        'href' => $noticeurl));
++        $dt = common_date_iso8601($this->notice->created);
++        common_element('abbr', array('class' => 'published',
++                                     'title' => $dt),
++                       common_date_string($this->notice->created));
++        common_element_end('a');
+hunk ./lib/noticelist.php 341
+-    function show_notice_source() {
+-		if ($this->notice->source) {
+-			common_element('span', null, _(' from '));
++    /**
++     * Show the source of the notice
++     *
++     * Either the name (and link) of the API client that posted the notice,
++     * or one of other other channels.
++     *
++     * @return void
++     */
 +
-+function mail_notify_fave($other, $user, $notice)
-+{
-+    $profile = $user->getProfile();
++    function showNoticeSource()
++    {
++        if ($this->notice->source) {
++            common_element('span', null, _(' from '));
+hunk ./lib/noticelist.php 356
+-             case 'web':
+-             case 'xmpp':
+-             case 'mail':
+-             case 'omb':
+-             case 'api':
++            case 'web':
++            case 'xmpp':
++            case 'mail':
++            case 'omb':
++            case 'api':
+hunk ./lib/noticelist.php 363
+-             default:
++            default:
+hunk ./lib/noticelist.php 373
+-		}
++        }
+hunk ./lib/noticelist.php 376
+-    function show_reply_to() {
+-		if ($this->notice->reply_to) {
+-			$replyurl = common_local_url('shownotice', array('notice' => $this->notice->reply_to));
+-			common_text(' (');
+-			common_element('a', array('class' => 'inreplyto',
+-									  'href' => $replyurl),
+-						   _('in reply to...'));
+-			common_text(')');
+-		}
++    /**
++     * show link to notice this notice is a reply to
++     *
++     * If this notice is a reply, show a link to the notice it is replying to. The
++     * heavy lifting for figuring out replies happens at save time.
++     *
++     * @return void
++     */
 +
-+    $bestname = $profile->getBestName();
-hunk ./lib/mail.php 551
--	$profile = $user->getProfile();
--	$bestname = $profile->getBestName();
-hunk ./lib/mail.php 552
--	$subject = sprintf(_('%s added your notice as a favorite'), $bestname);
--	$body = sprintf(_("%1\$s just added your notice from %2\$s as one of their favorites.\n\n" .
--					  "In case you forgot, you can see the text of your notice here:\n\n" .
--					  "%3\$s\n\n" .
--					  "You can see the list of %1\$s's favorites here:\n\n" .
--					  "%4\$s\n\n" .
--					  "Faithfully yours,\n" .
--					  "%5\$s\n"),
--					$bestname,
--					common_exact_date($notice->created),
--					common_local_url('shownotice', array('notice' => $notice->id)),
--					common_local_url('showfavorites', array('nickname' => $user->nickname)),
--					common_config('site', 'name'));
++    function showReplyTo()
++    {
++        if ($this->notice->reply_to) {
++            $replyurl = common_local_url('shownotice',
++                                         array('notice' => $this->notice->reply_to));
++            common_text(' (');
++            common_element('a', array('class' => 'inreplyto',
++                                      'href' => $replyurl),
++                           _('in reply to...'));
++            common_text(')');
++        }
+hunk ./lib/noticelist.php 398
+-    function show_reply_link() {
+-		common_element_start('a',
+-							 array('href' => common_local_url('newnotice',
+-															  array('replyto' => $this->profile->nickname)),
+-								   'onclick' => 'return doreply("'.$this->profile->nickname.'", '.$this->notice->id.');',
+-								   'title' => _('reply'),
+-								   'class' => 'replybutton'));
+-		common_raw(' &#8594;');
+-		common_element_end('a');
++    /**
++     * show a link to reply to the current notice
++     *
++     * Should either do the reply in the current notice form (if available), or
++     * link out to the notice-posting form. A little flakey, doesn't always work.
++     *
++     * @return void
++     */
 +
-+    $subject = sprintf(_('%s added your notice as a favorite'), $bestname);
++    function showReplyLink()
++    {
++        $reply_url = common_local_url('newnotice',
++                                      array('replyto' => $this->profile->nickname));
 +
-+    $body = sprintf(_("%1\$s just added your notice from %2\$s".
-+                      " as one of their favorites.\n\n" .
-+                      "In case you forgot, you can see the text".
-+                      " of your notice here:\n\n" .
-+                      "%3\$s\n\n" .
-+                      "You can see the list of %1\$s's favorites here:\n\n" .
-+                      "%4\$s\n\n" .
-+                      "Faithfully yours,\n" .
-+                      "%5\$s\n"),
-+                    $bestname,
-+                    common_exact_date($notice->created),
-+                    common_local_url('shownotice',
-+                                     array('notice' => $notice->id)),
-+                    common_local_url('showfavorites',
-+                                     array('nickname' => $user->nickname)),
-+                    common_config('site', 'name'));
-hunk ./lib/mail.php 573
--	mail_to_user($other, $subject, $body);
-+    mail_to_user($other, $subject, $body);
++        $reply_js =
++          'return doreply("'.$this->profile->nickname.'",'.$this->notice->id.');';
++
++        common_element_start('a',
++                             array('href' => $reply_url,
++                                   'onclick' => $reply_js,
++                                   'title' => _('reply'),
++                                   'class' => 'replybutton'));
++        common_raw(' &#8594;');
++        common_element_end('a');
+hunk ./lib/noticelist.php 424
+-    function show_delete_link() {
++    /**
++     * if the user is the author, let them delete the notice
++     *
++     * @return void
++     */
++
++    function showDeleteLink()
++    {
+hunk ./lib/noticelist.php 433
+-		if ($user && $this->notice->profile_id == $user->id) {
+-			$deleteurl = common_local_url('deletenotice', array('notice' => $this->notice->id));
+-			common_element_start('a', array('class' => 'deletenotice',
+-											'href' => $deleteurl,
+-											'title' => _('delete')));
+-			common_raw(' &#215;');
+-			common_element_end('a');
+-		}
++        if ($user && $this->notice->profile_id == $user->id) {
++            $deleteurl = common_local_url('deletenotice',
++                                          array('notice' => $this->notice->id));
++            common_element_start('a', array('class' => 'deletenotice',
++                                            'href' => $deleteurl,
++                                            'title' => _('delete')));
++            common_raw(' &#215;');
++            common_element_end('a');
++        }
+hunk ./lib/noticelist.php 444
+-    function show_end_time_section() {
+-		common_element_end('p');
++    /**
++     * end the time section
++     *
++     * @return void
++     */
++
++    function endTimeSection()
++    {
++        common_element_end('p');
+hunk ./lib/noticelist.php 455
+-    function show_end() {
+-		common_element_end('li');
++    /**
++     * finish the notice
++     *
++     * Close the last elements in the notice list item
++     *
++     * @return void
++     */
++
++    function showEnd()
++    {
++        common_element_end('li');
