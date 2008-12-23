@@ -23,7 +23,8 @@ require_once(INSTALLDIR.'/lib/stream.php');
 
 class FavoritedAction extends StreamAction {
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
 
         $page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
@@ -37,7 +38,8 @@ class FavoritedAction extends StreamAction {
         common_show_footer();
     }
 
-    function show_top() {
+    function show_top()
+    {
         $instr = $this->get_instructions();
         $output = common_markup_to_html($instr);
         common_element_start('div', 'instructions');
@@ -46,15 +48,18 @@ class FavoritedAction extends StreamAction {
         $this->public_views_menu();
     }
 
-    function show_header() {
+    function show_header()
+    {
         return;
     }
 
-    function get_instructions() {
+    function get_instructions()
+    {
         return _('Showing recently popular notices');
     }
 
-    function show_notices($page) {
+    function show_notices($page)
+    {
 
         $qry = 'SELECT notice.*, sum(exp(-(now() - fave.modified) / %s)) as weight ' .
                 'FROM notice JOIN fave ON notice.id = fave.notice_id ' .

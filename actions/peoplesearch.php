@@ -24,16 +24,19 @@ require_once(INSTALLDIR.'/lib/profilelist.php');
 
 class PeoplesearchAction extends SearchAction {
 
-    function get_instructions() {
+    function get_instructions()
+    {
         return _('Search for people on %%site.name%% by their name, location, or interests. ' .
                   'Separate the terms by spaces; they must be 3 characters or more.');
     }
 
-    function get_title() {
+    function get_title()
+    {
         return _('People search');
     }
 
-    function show_results($q, $page) {
+    function show_results($q, $page)
+    {
 
         $profile = new Profile();
 
@@ -71,14 +74,16 @@ class PeopleSearchResults extends ProfileList {
     var $terms = null;
     var $pattern = null;
     
-    function __construct($profile, $terms) {
+    function __construct($profile, $terms)
+    {
         parent::__construct($profile);
         $this->terms = array_map('preg_quote', 
                                  array_map('htmlspecialchars', $terms));
         $this->pattern = '/('.implode('|',$terms).')/i';
     }
     
-    function highlight($text) {
+    function highlight($text)
+    {
         return preg_replace($this->pattern, '<strong>\\1</strong>', htmlspecialchars($text));
     }
 }

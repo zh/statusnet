@@ -25,15 +25,18 @@ require_once(INSTALLDIR.'/lib/searchaction.php');
 
 class NoticesearchAction extends SearchAction {
 
-    function get_instructions() {
+    function get_instructions()
+    {
         return _('Search for notices on %%site.name%% by their contents. Separate search terms by spaces; they must be 3 characters or more.');
     }
 
-    function get_title() {
+    function get_title()
+    {
         return _('Text search');
     }
 
-    function show_results($q, $page) {
+    function show_results($q, $page)
+    {
 
         $notice = new Notice();
 
@@ -72,7 +75,8 @@ class NoticesearchAction extends SearchAction {
                           $page, 'noticesearch', array('q' => $q));
     }
 
-    function show_header($arr) {
+    function show_header($arr)
+    {
         if ($arr) {
             $q = $arr[0];
         }
@@ -87,7 +91,8 @@ class NoticesearchAction extends SearchAction {
 
     # XXX: refactor and combine with StreamAction::show_notice()
 
-    function show_notice($notice, $terms) {
+    function show_notice($notice, $terms)
+    {
         $profile = $notice->getProfile();
         if (!$profile) {
             common_log_db_error($notice, 'SELECT', __FILE__);
@@ -149,7 +154,8 @@ class NoticesearchAction extends SearchAction {
         common_element_end('li');
     }
 
-    function highlight($text, $terms) {
+    function highlight($text, $terms)
+    {
         /* Highligh serach terms */
         $pattern = '/('.implode('|',array_map('htmlspecialchars', $terms)).')/i';
         $result = preg_replace($pattern, '<strong>\\1</strong>', $text);

@@ -29,43 +29,53 @@ class QueueHandler extends Daemon {
 
     var $_id = 'generic';
 
-    function QueueHandler($id=null) {
+    function QueueHandler($id=null)
+    {
         if ($id) {
             $this->set_id($id);
         }
     }
     
-    function class_name() {
+    function class_name()
+    {
         return ucfirst($this->transport()) . 'Handler';
     }
 
-    function name() {
+    function name()
+    {
         return strtolower($this->class_name().'.'.$this->get_id());
     }
     
-    function get_id() {
+    function get_id()
+    {
         return $this->_id;
     }
 
-    function set_id($id) {
+    function set_id($id)
+    {
         $this->_id = $id;
     }
     
-    function transport() {
+    function transport()
+    {
         return null;
     }
     
-    function start() {
+    function start()
+    {
     }
     
-    function finish() {
+    function finish()
+    {
     }
 
-    function handle_notice($notice) {
+    function handle_notice($notice)
+    {
         return true;
     }
     
-    function run() {
+    function run()
+    {
         if (!$this->start()) {
             return false;
         }
@@ -110,13 +120,15 @@ class QueueHandler extends Daemon {
         return true;
     }
 
-    function idle($timeout=0) {
+    function idle($timeout=0)
+    {
         if ($timeout>0) {
             sleep($timeout);
         }
     }
     
-    function clear_old_claims() {
+    function clear_old_claims()
+    {
         $qi = new Queue_item();
         $qi->transport = $this->transport();
         $qi->whereAdd('now() - claimed > '.CLAIM_TIMEOUT);
@@ -125,7 +137,8 @@ class QueueHandler extends Daemon {
         unset($qi);
     }
     
-    function log($level, $msg) {
+    function log($level, $msg)
+    {
         common_log($level, $this->class_name() . ' ('. $this->get_id() .'): '.$msg);
     }
 }

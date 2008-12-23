@@ -35,20 +35,24 @@ set_error_handler('common_error_handler');
 
 class SmsQueueHandler extends QueueHandler {
     
-    function transport() {
+    function transport()
+    {
         return 'sms';
     }
 
-    function start() {
+    function start()
+    {
         $this->log(LOG_INFO, "INITIALIZE");
         return true;
     }
 
-    function handle_notice($notice) {
+    function handle_notice($notice)
+    {
         return mail_broadcast_notice_sms($notice);
     }
     
-    function finish() {
+    function finish()
+    {
     }
 }
 

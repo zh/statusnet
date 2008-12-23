@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 class RegisterAction extends Action {
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
 
         if (common_config('site', 'closed')) {
@@ -35,7 +36,8 @@ class RegisterAction extends Action {
         }
     }
 
-    function try_register() {
+    function try_register()
+    {
 
         $token = $this->trimmed('token');
         if (!$token || $token != common_session_token()) {
@@ -133,14 +135,16 @@ class RegisterAction extends Action {
 
     # checks if *CANONICAL* nickname exists
 
-    function nickname_exists($nickname) {
+    function nickname_exists($nickname)
+    {
         $user = User::staticGet('nickname', $nickname);
         return ($user !== false);
     }
 
     # checks if *CANONICAL* email exists
 
-    function email_exists($email) {
+    function email_exists($email)
+    {
         $email = common_canonical_email($email);
         if (!$email || strlen($email) == 0) {
             return false;
@@ -149,7 +153,8 @@ class RegisterAction extends Action {
         return ($user !== false);
     }
 
-    function show_top($error=null) {
+    function show_top($error=null)
+    {
         if ($error) {
             common_element('p', 'error', $error);
         } else {
@@ -164,7 +169,8 @@ class RegisterAction extends Action {
         }
     }
 
-    function show_form($error=null) {
+    function show_form($error=null)
+    {
         global $config;
 
         $code = $this->trimmed('code');
@@ -236,7 +242,8 @@ class RegisterAction extends Action {
         common_show_footer();
     }
 
-    function show_success() {
+    function show_success()
+    {
         $nickname = $this->arg('nickname');
         common_show_header(_('Registration successful'));
         common_element_start('div', 'success');

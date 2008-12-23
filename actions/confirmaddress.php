@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 class ConfirmaddressAction extends Action {
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
         if (!common_logged_in()) {
             common_set_returnto($this->self_url());

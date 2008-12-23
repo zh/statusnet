@@ -23,7 +23,8 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
 
 class TwitapiaccountAction extends TwitterapiAction {
 
-    function verify_credentials($args, $apidata) {
+    function verify_credentials($args, $apidata)
+    {
         parent::handle($args);
 
         if (!in_array($apidata['content-type'], array('xml', 'json'))) {
@@ -34,12 +35,14 @@ class TwitapiaccountAction extends TwitterapiAction {
         $this->show_extended_profile($apidata['user'], $apidata);
     }
 
-    function end_session($args, $apidata) {
+    function end_session($args, $apidata)
+    {
         parent::handle($args);
         common_server_error(_('API method under construction.'), $code=501);
     }
 
-    function update_location($args, $apidata) {
+    function update_location($args, $apidata)
+    {
         parent::handle($args);
 
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
@@ -84,12 +87,14 @@ class TwitapiaccountAction extends TwitterapiAction {
     }
 
 
-    function update_delivery_device($args, $apidata) {
+    function update_delivery_device($args, $apidata)
+    {
         parent::handle($args);
         common_server_error(_('API method under construction.'), $code=501);
     }
 
-    function rate_limit_status($args, $apidata) {
+    function rate_limit_status($args, $apidata)
+    {
         parent::handle($args);
         common_server_error(_('API method under construction.'), $code=501);
     }

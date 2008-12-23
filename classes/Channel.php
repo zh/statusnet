@@ -21,23 +21,28 @@ if (!defined('LACONICA')) { exit(1); }
 
 class Channel {
     
-    function on($user) {
+    function on($user)
+    {
         return false;
     }
 
-    function off($user) {
+    function off($user)
+    {
         return false;
     }
 
-    function output($user, $text) {
+    function output($user, $text)
+    {
         return false;
     }
     
-    function error($user, $text) {
+    function error($user, $text)
+    {
         return false;
     }
     
-    function source() {
+    function source()
+    {
         return null;
     }
 }
@@ -46,33 +51,40 @@ class XMPPChannel extends Channel {
 
     var $conn = null;
     
-    function source() {
+    function source()
+    {
         return 'xmpp';
     }
     
-    function __construct($conn) {
+    function __construct($conn)
+    {
         $this->conn = $conn;
     }
     
-    function on($user) {
+    function on($user)
+    {
         return $this->set_notify($user, 1);
     }
     
-    function off($user) {
+    function off($user)
+    {
         return $this->set_notify($user, 0);
     }
 
-    function output($user, $text) {
+    function output($user, $text)
+    {
         $text = '['.common_config('site', 'name') . '] ' . $text;
         jabber_send_message($user->jabber, $text);
     }
     
-    function error($user, $text) {
+    function error($user, $text)
+    {
         $text = '['.common_config('site', 'name') . '] ' . $text;
         jabber_send_message($user->jabber, $text);
     }
     
-    function set_notify(&$user, $notify) {
+    function set_notify(&$user, $notify)
+    {
         $orig = clone($user);
         $user->jabbernotify = $notify;
         $result = $user->update($orig);
@@ -94,19 +106,23 @@ class XMPPChannel extends Channel {
 
 class WebChannel extends Channel {
 
-    function source() {
+    function source()
+    {
         return 'web';
     }
     
-    function on($user) {
+    function on($user)
+    {
         return false;
     }
     
-    function off($user) {
+    function off($user)
+    {
         return false;
     }
 
-    function output($user, $text) {
+    function output($user, $text)
+    {
         # XXX: buffer all output and send it at the end
         # XXX: even better, redirect to appropriate page
         #      depending on what command was run
@@ -115,7 +131,8 @@ class WebChannel extends Channel {
         common_show_footer();
     }
     
-    function error($user, $text) {
+    function error($user, $text)
+    {
         common_user_error($text);
     }
 }
@@ -123,7 +140,8 @@ class WebChannel extends Channel {
 
 class AjaxWebChannel extends WebChannel {
 
-    function output($user, $text) {
+    function output($user, $text)
+    {
         common_start_html('text/xml;charset=utf-8', true);
         common_element_start('head');
         common_element('title', null, _('Command results'));
@@ -134,7 +152,8 @@ class AjaxWebChannel extends WebChannel {
         common_element_end('html');
     }
 
-    function error($user, $text) {
+    function error($user, $text)
+    {
         common_start_html('text/xml;charset=utf-8', true);
         common_element_start('head');
         common_element('title', null, _('Ajax Error'));
@@ -151,23 +170,28 @@ class MailChannel extends Channel {
 
     var $addr = null;
 
-    function source() {
+    function source()
+    {
         return 'mail';
     }
     
-    function __construct($addr=null) {
+    function __construct($addr=null)
+    {
         $this->addr = $addr;
     }
     
-    function on($user) {
+    function on($user)
+    {
         return $this->set_notify($user, 1);
     }
     
-    function off($user) {
+    function off($user)
+    {
         return $this->set_notify($user, 0);
     }
 
-    function output($user, $text) {
+    function output($user, $text)
+    {
 
         $headers['From'] = $user->incomingemail;
         $headers['To'] = $this->addr;
@@ -177,7 +201,8 @@ class MailChannel extends Channel {
         return mail_send(array($this->addr), $headers, $text);
     }
     
-    function error($user, $text) {
+    function error($user, $text)
+    {
         
         $headers['From'] = $user->incomingemail;
         $headers['To'] = $this->addr;
@@ -187,7 +212,8 @@ class MailChannel extends Channel {
         return mail_send(array($this->addr), $headers, $text);
     }
     
-    function set_notify($user, $value) {
+    function set_notify($user, $value)
+    {
         $orig = clone($user);
         $user->smsnotify = $value;
         $result = $user->update($orig);

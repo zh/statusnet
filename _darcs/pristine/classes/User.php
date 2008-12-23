@@ -62,16 +62,19 @@ class User extends Memcached_DataObject
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('User',$k,$v); }
+    function staticGet($k,$v=null)
+    { return Memcached_DataObject::staticGet('User',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    function getProfile() {
+    function getProfile()
+    {
         return Profile::staticGet('id', $this->id);
     }
 
-    function isSubscribed($other) {
+    function isSubscribed($other)
+    {
         assert(!is_null($other));
         # XXX: cache results of this query
         $sub = Subscription::pkeyGet(array('subscriber' => $this->id,
@@ -81,7 +84,8 @@ class User extends Memcached_DataObject
 
     # 'update' won't write key columns, so we have to do it ourselves.
 
-    function updateKeys(&$orig) {
+    function updateKeys(&$orig)
+    {
         $parts = array();
         foreach (array('nickname', 'email', 'jabber', 'incomingemail', 'sms', 'carrier', 'smsemail', 'language', 'timezone') as $k) {
             if (strcmp($this->$k, $orig->$k) != 0) {
@@ -108,7 +112,8 @@ class User extends Memcached_DataObject
         return $result;
     }
 
-    function allowed_nickname($nickname) {
+    function allowed_nickname($nickname)
+    {
         # XXX: should already be validated for size, content, etc.
         static $blacklist = array('rss', 'xrds', 'doc', 'main',
                                   'settings', 'notice', 'user',
@@ -118,7 +123,8 @@ class User extends Memcached_DataObject
         return !in_array($nickname, $merged);
     }
 
-    function getCurrentNotice($dt=null) {
+    function getCurrentNotice($dt=null)
+    {
         $profile = $this->getProfile();
         if (!$profile) {
             return null;
@@ -126,11 +132,13 @@ class User extends Memcached_DataObject
         return $profile->getCurrentNotice($dt);
     }
 
-    function getCarrier() {
+    function getCarrier()
+    {
         return Sms_carrier::staticGet('id', $this->carrier);
     }
 
-    function subscribeTo($other) {
+    function subscribeTo($other)
+    {
         $sub = new Subscription();
         $sub->subscriber = $this->id;
         $sub->subscribed = $other->id;
@@ -144,7 +152,8 @@ class User extends Memcached_DataObject
         return true;
     }
 
-    function hasBlocked($other) {
+    function hasBlocked($other)
+    {
 
         $block = Profile_block::get($this->id, $other->id);
 
@@ -271,7 +280,8 @@ class User extends Memcached_DataObject
 
     # Things we do when the email changes
 
-    function emailChanged() {
+    function emailChanged()
+    {
 
         $invites = new Invitation();
         $invites->address = $this->email;
@@ -285,7 +295,8 @@ class User extends Memcached_DataObject
         }
     }
 
-    function hasFave($notice) {
+    function hasFave($notice)
+    {
         $cache = common_memcache();
 
         # XXX: Kind of a hack.
@@ -317,12 +328,14 @@ class User extends Memcached_DataObject
                                     'notice_id' => $notice->id));
         return ((is_null($fave)) ? false : true);
     }
-    function mutuallySubscribed($other) {
+    function mutuallySubscribed($other)
+    {
         return $this->isSubscribed($other) &&
           $other->isSubscribed($this);
     }
 
-        function mutuallySubscribedUsers() {
+        function mutuallySubscribedUsers()
+        {
 
         # 3-way join; probably should get cached
         $qry = 'SELECT user.* ' .
@@ -336,7 +349,8 @@ class User extends Memcached_DataObject
         return $user;
     }
 
-    function getReplies($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null) {
+    function getReplies($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
+    {
         $qry =
           'SELECT notice.* ' .
           'FROM notice JOIN reply ON notice.id = reply.notice_id ' .
@@ -346,7 +360,8 @@ class User extends Memcached_DataObject
                                  $offset, $limit, $since_id, $before_id, null, $since);
     }
 
-        function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null) {
+        function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
+        {
         $profile = $this->getProfile();
         if (!$profile) {
             return null;
@@ -355,7 +370,8 @@ class User extends Memcached_DataObject
         }
     }
 
-      function favoriteNotices($offset=0, $limit=NOTICES_PER_PAGE) {
+      function favoriteNotices($offset=0, $limit=NOTICES_PER_PAGE)
+      {
         $qry =
           'SELECT notice.* ' .
           'FROM notice JOIN fave ON notice.id = fave.notice_id ' .
@@ -365,7 +381,8 @@ class User extends Memcached_DataObject
                                  $offset, $limit);
     }
 
-        function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null) {
+        function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
+        {
         $enabled = common_config('inboxes', 'enabled');
 
         # Complicated code, depending on whether we support inboxes yet
@@ -394,7 +411,8 @@ class User extends Memcached_DataObject
                                  $order, $since);
     }
 
-        function blowFavesCache() {
+        function blowFavesCache()
+        {
         $cache = common_memcache();
         if ($cache) {
             # Faves don't happen chronologically, so we need to blow
@@ -404,15 +422,18 @@ class User extends Memcached_DataObject
         }
     }
 
-        function getSelfTags() {
+        function getSelfTags()
+        {
         return Profile_tag::getTags($this->id, $this->id);
     }
 
-        function setSelfTags($newtags) {
+        function setSelfTags($newtags)
+        {
         return Profile_tag::setTags($this->id, $this->id, $newtags);
     }
 
-    function block($other) {
+    function block($other)
+    {
 
         # Add a new block record
 
@@ -450,7 +471,8 @@ class User extends Memcached_DataObject
         return true;
     }
 
-    function unblock($other) {
+    function unblock($other)
+    {
 
         # Get the block record
 

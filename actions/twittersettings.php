@@ -25,12 +25,14 @@ define('SUBSCRIPTIONS', 80);
 
 class TwittersettingsAction extends SettingsAction {
 
-    function get_instructions() {
+    function get_instructions()
+    {
         return _('Add your Twitter account to automatically send your notices to Twitter, ' .
             'and subscribe to Twitter friends already here.');
     }
 
-    function show_form($msg=null, $success=false) {
+    function show_form($msg=null, $success=false)
+    {
         $user = common_current_user();
         $profile = $user->getProfile();
         $fuser = null;
@@ -91,7 +93,8 @@ class TwittersettingsAction extends SettingsAction {
         common_show_footer();
     }
 
-    function subscribed_twitter_users() {
+    function subscribed_twitter_users()
+    {
 
         $current_user = common_current_user();
 
@@ -119,7 +122,8 @@ class TwittersettingsAction extends SettingsAction {
         return $users;
     }
 
-    function show_twitter_subscriptions() {
+    function show_twitter_subscriptions()
+    {
 
         $friends = $this->subscribed_twitter_users();
         $friends_count = count($friends);
@@ -180,7 +184,8 @@ class TwittersettingsAction extends SettingsAction {
 
     }
 
-    function handle_post() {
+    function handle_post()
+    {
 
         # CSRF protection
         $token = $this->trimmed('token');
@@ -200,7 +205,8 @@ class TwittersettingsAction extends SettingsAction {
         }
     }
 
-    function add_twitter_acct() {
+    function add_twitter_acct()
+    {
 
         $screen_name = $this->trimmed('twitter_username');
         $password = $this->trimmed('twitter_password');
@@ -261,7 +267,8 @@ class TwittersettingsAction extends SettingsAction {
         $this->show_form(_('Twitter settings saved.'), true);
     }
 
-    function remove_twitter_acct() {
+    function remove_twitter_acct()
+    {
 
         $user = common_current_user();
         $flink = Foreign_link::getByUserID($user->id, 1);
@@ -284,7 +291,8 @@ class TwittersettingsAction extends SettingsAction {
         $this->show_form(_('Twitter account removed.'), TRUE);
     }
 
-    function save_preferences() {
+    function save_preferences()
+    {
 
         $noticesync = $this->boolean('noticesync');
         $friendsync = $this->boolean('friendsync');
@@ -330,7 +338,8 @@ class TwittersettingsAction extends SettingsAction {
         $this->show_form(_('Twitter preferences saved.'));
     }
 
-    function verify_credentials($screen_name, $password) {
+    function verify_credentials($screen_name, $password)
+    {
         $uri = 'http://twitter.com/account/verify_credentials.json';
         $data = get_twitter_data($uri, $screen_name, $password);
 
@@ -353,7 +362,8 @@ class TwittersettingsAction extends SettingsAction {
         return false;
     }
 
-    function set_flags(&$flink, $noticesync, $replysync, $friendsync) {
+    function set_flags(&$flink, $noticesync, $replysync, $friendsync)
+    {
         if ($noticesync) {
             $flink->noticesync |= FOREIGN_NOTICE_SEND;
         } else {

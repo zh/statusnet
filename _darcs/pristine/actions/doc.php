@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 class DocAction extends Action {
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
         $title = $this->trimmed('title');
         $filename = INSTALLDIR.'/doc/'.$title;

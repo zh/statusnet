@@ -27,7 +27,8 @@ class TwitapihelpAction extends TwitterapiAction {
      * URL:http://identi.ca/api/help/test.format
      * Formats: xml, json
      */
-    function test($args, $apidata) {
+    function test($args, $apidata)
+    {
         parent::handle($args);
 
         if ($apidata['content-type'] == 'xml') {
@@ -44,7 +45,8 @@ class TwitapihelpAction extends TwitterapiAction {
 
     }
 
-    function downtime_schedule($args, $apidata) {
+    function downtime_schedule($args, $apidata)
+    {
         parent::handle($args);
         common_server_error(_('API method under construction.'), $code=501);
     }

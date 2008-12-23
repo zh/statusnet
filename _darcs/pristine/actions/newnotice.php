@@ -23,7 +23,8 @@ require_once INSTALLDIR . '/lib/noticelist.php';
 
 class NewnoticeAction extends Action {
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
 
         if (!common_logged_in()) {
@@ -43,7 +44,8 @@ class NewnoticeAction extends Action {
         }
     }
 
-    function save_new_notice() {
+    function save_new_notice()
+    {
 
         $user = common_current_user();
         assert($user); # XXX: maybe an error instead...
@@ -110,7 +112,8 @@ class NewnoticeAction extends Action {
         }
     }
 
-    function ajax_error_msg($msg) {
+    function ajax_error_msg($msg)
+    {
         common_start_html('text/xml;charset=utf-8', true);
         common_element_start('head');
         common_element('title', null, _('Ajax Error'));
@@ -121,11 +124,13 @@ class NewnoticeAction extends Action {
         common_element_end('html');
     }
 
-    function show_top($content=null) {
+    function show_top($content=null)
+    {
         common_notice_form(null, $content);
     }
 
-    function show_form($msg=null) {
+    function show_form($msg=null)
+    {
         if ($msg && $this->boolean('ajax')) {
             $this->ajax_error_msg($msg);
             return;
@@ -146,7 +151,8 @@ class NewnoticeAction extends Action {
         common_show_footer();
     }
 
-    function show_notice($notice) {
+    function show_notice($notice)
+    {
         $nli = new NoticeListItem($notice);
         $nli->show();
     }

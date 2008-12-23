@@ -23,7 +23,8 @@ require_once(INSTALLDIR.'/actions/showstream.php');
 
 class ShowfavoritesAction extends StreamAction {
 
-    function handle($args) {
+    function handle($args)
+    {
 
         parent::handle($args);
 
@@ -53,7 +54,8 @@ class ShowfavoritesAction extends StreamAction {
         common_show_footer();
     }
 
-    function show_header($user) {
+    function show_header($user)
+    {
         common_element('link', array('rel' => 'alternate',
                                      'href' => common_local_url('favoritesrss', array('nickname' =>
                                                                                       $user->nickname)),
@@ -61,7 +63,8 @@ class ShowfavoritesAction extends StreamAction {
                                      'title' => sprintf(_('Feed for favorites of %s'), $user->nickname)));
     }
 
-    function show_top($user) {
+    function show_top($user)
+    {
         $cur = common_current_user();
 
         if ($cur && $cur->id == $user->id) {
@@ -75,7 +78,8 @@ class ShowfavoritesAction extends StreamAction {
         $this->views_menu();
     }
 
-    function show_notices($user) {
+    function show_notices($user)
+    {
 
         $page = $this->trimmed('page');
         if (!$page) {

@@ -48,23 +48,27 @@ class Notice extends Memcached_DataObject
     public $source;                             // varchar(32)
 
     /* Static get */
-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Notice',$k,$v); }
+    function staticGet($k,$v=null)
+    { return Memcached_DataObject::staticGet('Notice',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    function getProfile() {
+    function getProfile()
+    {
         return Profile::staticGet('id', $this->profile_id);
     }
 
-    function delete() {
+    function delete()
+    {
         $this->blowCaches(true);
         $this->blowFavesCache(true);
         $this->blowInboxes();
         return parent::delete();
     }
 
-    function saveTags() {
+    function saveTags()
+    {
         /* extract all #hastags */
         $count = preg_match_all('/(?:^|\s)#([A-Za-z0-9_\-\.]{1,64})/', strtolower($this->content), $match);
         if (!$count) {
@@ -184,7 +188,8 @@ class Notice extends Memcached_DataObject
         return true;
     }
 
-    function blowCaches($blowLast=false) {
+    function blowCaches($blowLast=false)
+    {
         $this->blowSubsCache($blowLast);
         $this->blowNoticeCache($blowLast);
         $this->blowRepliesCache($blowLast);
@@ -192,7 +197,8 @@ class Notice extends Memcached_DataObject
         $this->blowTagCache($blowLast);
     }
 
-    function blowTagCache($blowLast=false) {
+    function blowTagCache($blowLast=false)
+    {
         $cache = common_memcache();
         if ($cache) {
             $tag = new Notice_tag();
@@ -210,7 +216,8 @@ class Notice extends Memcached_DataObject
         }
     }
 
-    function blowSubsCache($blowLast=false) {
+    function blowSubsCache($blowLast=false)
+    {
         $cache = common_memcache();
         if ($cache) {
             $user = new User();
@@ -230,7 +237,8 @@ class Notice extends Memcached_DataObject
         }
     }
 
-    function blowNoticeCache($blowLast=false) {
+    function blowNoticeCache($blowLast=false)
+    {
         if ($this->is_local) {
             $cache = common_memcache();
             if ($cache) {
@@ -242,7 +250,8 @@ class Notice extends Memcached_DataObject
         }
     }
 
-    function blowRepliesCache($blowLast=false) {
+    function blowRepliesCache($blowLast=false)
+    {
         $cache = common_memcache();
         if ($cache) {
             $reply = new Reply();
@@ -260,7 +269,8 @@ class Notice extends Memcached_DataObject
         }
     }
 
-    function blowPublicCache($blowLast=false) {
+    function blowPublicCache($blowLast=false)
+    {
         if ($this->is_local == 1) {
             $cache = common_memcache();
             if ($cache) {
@@ -272,7 +282,8 @@ class Notice extends Memcached_DataObject
         }
     }
 
-    function blowFavesCache($blowLast=false) {
+    function blowFavesCache($blowLast=false)
+    {
         $cache = common_memcache();
         if ($cache) {
             $fave = new Fave();
@@ -477,7 +488,8 @@ class Notice extends Memcached_DataObject
         return $wrapper;
     }
 
-    function publicStream($offset=0, $limit=20, $since_id=0, $before_id=0, $since=null) {
+    function publicStream($offset=0, $limit=20, $since_id=0, $before_id=0, $since=null)
+    {
 
         $parts = array();
 
@@ -499,7 +511,8 @@ class Notice extends Memcached_DataObject
                                  $offset, $limit, $since_id, $before_id, null, $since);
     }
 
-    function addToInboxes() {
+    function addToInboxes()
+    {
         $enabled = common_config('inboxes', 'enabled');
 
         if ($enabled === true || $enabled === 'transitional') {
@@ -522,7 +535,8 @@ class Notice extends Memcached_DataObject
 
     # Delete from inboxes if we're deleted.
 
-    function blowInboxes() {
+    function blowInboxes()
+    {
 
         $enabled = common_config('inboxes', 'enabled');
 

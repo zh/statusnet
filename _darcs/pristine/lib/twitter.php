@@ -19,7 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-function get_twitter_data($uri, $screen_name, $password) {
+function get_twitter_data($uri, $screen_name, $password)
+{
 
     $options = array(
             CURLOPT_USERPWD => sprintf("%s:%s", $screen_name, $password),
@@ -48,7 +49,8 @@ function get_twitter_data($uri, $screen_name, $password) {
     return $data;
 }
 
-function twitter_user_info($screen_name, $password) {
+function twitter_user_info($screen_name, $password)
+{
 
     $uri = "http://twitter.com/users/show/$screen_name.json";
     $data = get_twitter_data($uri, $screen_name, $password);
@@ -66,7 +68,8 @@ function twitter_user_info($screen_name, $password) {
     return $twit_user;
 }
 
-function update_twitter_user($fuser, $twitter_id, $screen_name) {
+function update_twitter_user($fuser, $twitter_id, $screen_name)
+{
 
     $original = clone($fuser);
     $fuser->nickname = $screen_name;
@@ -81,7 +84,8 @@ function update_twitter_user($fuser, $twitter_id, $screen_name) {
     return true;
 }
 
-function add_twitter_user($twitter_id, $screen_name) {
+function add_twitter_user($twitter_id, $screen_name)
+{
 
     // Otherwise, create a new Twitter user
     $fuser = DB_DataObject::factory('foreign_user');
@@ -105,7 +109,8 @@ function add_twitter_user($twitter_id, $screen_name) {
 }
 
 // Creates or Updates a Twitter user
-function save_twitter_user($twitter_id, $screen_name) {
+function save_twitter_user($twitter_id, $screen_name)
+{
 
     // Check to see whether the Twitter user is already in the system,
     // and update its screen name and uri if so.
@@ -129,7 +134,8 @@ function save_twitter_user($twitter_id, $screen_name) {
     return true;
 }
 
-function retreive_twitter_friends($twitter_id, $screen_name, $password) {
+function retreive_twitter_friends($twitter_id, $screen_name, $password)
+{
 
     $uri = "http://twitter.com/statuses/friends/$twitter_id.json?page=";
     $twitter_user = twitter_user_info($screen_name, $password);
@@ -163,7 +169,8 @@ function retreive_twitter_friends($twitter_id, $screen_name, $password) {
     return $friends;
 }
 
-function save_twitter_friends($user, $twitter_id, $screen_name, $password) {
+function save_twitter_friends($user, $twitter_id, $screen_name, $password)
+{
 
     $friends = retreive_twitter_friends($twitter_id, $screen_name, $password);
 

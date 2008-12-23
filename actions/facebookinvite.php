@@ -23,13 +23,15 @@ require_once(INSTALLDIR.'/lib/facebookaction.php');
 
 class FacebookinviteAction extends FacebookAction {
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
 
         $this->display();
     }
 
-    function display() {
+    function display()
+    {
 
         $facebook = $this->get_facebook();
 

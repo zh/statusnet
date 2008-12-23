@@ -21,11 +21,13 @@ if (!defined('LACONICA')) { exit(1); }
 
 class InviteAction extends Action {
 
-    function is_readonly() {
+    function is_readonly()
+    {
         return false;
     }
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
         if (!common_logged_in()) {
             $this->client_error(sprintf(_('You must be logged in to invite other users to use %s'),
@@ -38,7 +40,8 @@ class InviteAction extends Action {
         }
     }
 
-    function send_invitations() {
+    function send_invitations()
+    {
 
         # CSRF protection
         $token = $this->trimmed('token');
@@ -112,7 +115,8 @@ class InviteAction extends Action {
         common_show_footer();
     }
 
-    function show_top($error=null) {
+    function show_top($error=null)
+    {
         if ($error) {
             common_element('p', 'error', $error);
         } else {
@@ -123,7 +127,8 @@ class InviteAction extends Action {
         }
     }
 
-    function show_form($error=null) {
+    function show_form($error=null)
+    {
 
         global $config;
 
@@ -149,7 +154,8 @@ class InviteAction extends Action {
         common_show_footer();
     }
 
-    function send_invitation($email, $user, $personal) {
+    function send_invitation($email, $user, $personal)
+    {
 
         $profile = $user->getProfile();
         $bestname = $profile->getBestName();

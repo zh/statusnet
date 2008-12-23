@@ -24,11 +24,13 @@ require_once(INSTALLDIR.'/actions/emailsettings.php');
 
 class SmssettingsAction extends EmailsettingsAction {
 
-    function get_instructions() {
+    function get_instructions()
+    {
         return _('You can receive SMS messages through email from %%site.name%%.');
     }
 
-    function show_form($msg=null, $success=false) {
+    function show_form($msg=null, $success=false)
+    {
         $user = common_current_user();
         $this->form_header(_('SMS Settings'), $msg, $success);
         common_element_start('form', array('method' => 'post',
@@ -103,7 +105,8 @@ class SmssettingsAction extends EmailsettingsAction {
         common_show_footer();
     }
 
-    function get_confirmation() {
+    function get_confirmation()
+    {
         $user = common_current_user();
         $confirm = new Confirm_address();
         $confirm->user_id = $user->id;
@@ -115,7 +118,8 @@ class SmssettingsAction extends EmailsettingsAction {
         }
     }
 
-    function handle_post() {
+    function handle_post()
+    {
 
         # CSRF protection
 
@@ -144,7 +148,8 @@ class SmssettingsAction extends EmailsettingsAction {
         }
     }
 
-    function save_preferences() {
+    function save_preferences()
+    {
 
         $smsnotify = $this->boolean('smsnotify');
         
@@ -171,7 +176,8 @@ class SmssettingsAction extends EmailsettingsAction {
         $this->show_form(_('Preferences saved.'), true);
     }
 
-    function add_address() {
+    function add_address()
+    {
 
         $user = common_current_user();
 
@@ -226,7 +232,8 @@ class SmssettingsAction extends EmailsettingsAction {
         $this->show_form($msg, TRUE);
     }
 
-    function cancel_confirmation() {
+    function cancel_confirmation()
+    {
         
         $sms = $this->trimmed('sms');
         $carrier = $this->trimmed('carrier');
@@ -253,7 +260,8 @@ class SmssettingsAction extends EmailsettingsAction {
         $this->show_form(_('Confirmation cancelled.'), TRUE);
     }
 
-    function remove_address() {
+    function remove_address()
+    {
 
         $user = common_current_user();
         $sms = $this->arg('sms');
@@ -282,7 +290,8 @@ class SmssettingsAction extends EmailsettingsAction {
         $this->show_form(_('The address was removed.'), TRUE);
     }
     
-    function sms_exists($sms) {
+    function sms_exists($sms)
+    {
         $user = common_current_user();
         $other = User::staticGet('sms', $sms);
         if (!$other) {
@@ -292,7 +301,8 @@ class SmssettingsAction extends EmailsettingsAction {
         }
     }
 
-    function carrier_select() {
+    function carrier_select()
+    {
         $carrier = new Sms_carrier();
         $cnt = $carrier->find();
 
@@ -316,7 +326,8 @@ class SmssettingsAction extends EmailsettingsAction {
                                common_config('site', 'email')));
     }
 
-    function confirm_code() {
+    function confirm_code()
+    {
         
         $code = $this->trimmed('code');
         

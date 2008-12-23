@@ -25,11 +25,13 @@ require_once(INSTALLDIR.'/lib/rssaction.php');
 
 class PublicrssAction extends Rss10Action {
 
-    function init() {
+    function init()
+    {
         return true;
     }
 
-    function get_notices($limit=0) {
+    function get_notices($limit=0)
+    {
         
         $notices = array();
         
@@ -42,7 +44,8 @@ class PublicrssAction extends Rss10Action {
         return $notices;
     }
 
-    function get_channel() {
+    function get_channel()
+    {
         global $config;
         $c = array('url' => common_local_url('publicrss'),
                    'title' => sprintf(_('%s Public Stream'), $config['site']['name']),
@@ -51,7 +54,8 @@ class PublicrssAction extends Rss10Action {
         return $c;
     }
 
-    function get_image() {
+    function get_image()
+    {
         return null;
     }
 }

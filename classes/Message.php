@@ -22,16 +22,19 @@ class Message extends Memcached_DataObject
     public $source;                          // varchar(32)  
 
     /* Static get */
-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Message',$k,$v); }
+    function staticGet($k,$v=null)
+    { return Memcached_DataObject::staticGet('Message',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
     
-    function getFrom() {
+    function getFrom()
+    {
         return Profile::staticGet('id', $this->from_profile);
     }
     
-    function getTo() {
+    function getTo()
+    {
         return Profile::staticGet('id', $this->to_profile);
     }
     

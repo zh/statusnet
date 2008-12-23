@@ -68,3 +68,14 @@ Evan Prodromou <evan@prodromou.name>**20081223192129
  standards change.
  
 ] 
+[change function headers to K&R style
+Evan Prodromou <evan@prodromou.name>**20081223193323
+ 
+ Another huge change, for PEAR code standards compliance. Function
+ headers have to be in K&R style (opening brace on its own line),
+ instead of having the opening brace on the same line as the function
+ and parameters. So, a little perl magic found all the function
+ definitions and move the opening brace to the next line (properly
+ indented... usually).
+ 
+] 

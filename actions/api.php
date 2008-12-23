@@ -27,7 +27,8 @@ class ApiAction extends Action {
     var $api_method;
     var $api_action;
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
 
         $this->api_action = $this->arg('apiaction');
@@ -79,7 +80,8 @@ class ApiAction extends Action {
         }
     }
 
-    function process_command() {
+    function process_command()
+    {
         $action = "twitapi$this->api_action";
         $actionfile = INSTALLDIR."/actions/$action.php";
 
@@ -108,7 +110,8 @@ class ApiAction extends Action {
     }
 
     # Whitelist of API methods that don't need authentication
-    function requires_auth() {
+    function requires_auth()
+    {
         static $noauth = array( 'statuses/public_timeline',
                                 'statuses/show',
                                 'users/show',
@@ -144,7 +147,8 @@ class ApiAction extends Action {
         }
     }
 
-    function show_basic_auth_error() {
+    function show_basic_auth_error()
+    {
         header('HTTP/1.1 401 Unauthorized');
         $msg = 'Could not authenticate you.';
 
@@ -166,7 +170,8 @@ class ApiAction extends Action {
         }
     }
 
-    function is_readonly() {
+    function is_readonly()
+    {
         # NOTE: before handle(), can't use $this->arg
         $apiaction = $_REQUEST['apiaction'];
         $method = $_REQUEST['method'];

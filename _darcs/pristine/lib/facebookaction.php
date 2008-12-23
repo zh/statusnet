@@ -23,17 +23,20 @@ require_once(INSTALLDIR.'/extlib/facebook/facebook.php');
 
 class FacebookAction extends Action {
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
     }
 
-    function get_facebook() {
+    function get_facebook()
+    {
         $apikey = common_config('facebook', 'apikey');
         $secret = common_config('facebook', 'secret');
         return new Facebook($apikey, $secret);
     }
 
-    function update_profile_box($facebook, $fbuid, $user) {
+    function update_profile_box($facebook, $fbuid, $user)
+    {
 
         $notice = $user->getCurrentNotice();
 
@@ -86,7 +89,8 @@ class FacebookAction extends Action {
 
     # Display methods
 
-    function show_header($selected ='Home') {
+    function show_header($selected ='Home')
+    {
 
         # Add a timestamp to the CSS file so Facebook cache wont ignore our changes
         $ts = filemtime(theme_file('facebookapp.css'));
@@ -108,12 +112,14 @@ class FacebookAction extends Action {
 
     }
 
-    function show_footer() {
+    function show_footer()
+    {
       $footer = '</div>';
       echo $footer;
     }
 
-    function show_login_form() {
+    function show_login_form()
+    {
 
         $loginform =
             ' <h2>To add the Identi.ca application, you need to log into your Identi.ca account.</h2>'
@@ -148,7 +154,8 @@ class FacebookAction extends Action {
             echo $loginform;
     }
 
-    function render_notice($notice) {
+    function render_notice($notice)
+    {
 
         global $config;
 
@@ -207,7 +214,8 @@ class FacebookAction extends Action {
         return $html;
     }
 
-    function source_link($source) {
+    function source_link($source)
+    {
         $source_name = _($source);
 
         $html = '<span class="noticesource">';
@@ -235,7 +243,8 @@ class FacebookAction extends Action {
         return $html;
     }
 
-    function pagination($have_before, $have_after, $page, $fbaction, $args=null) {
+    function pagination($have_before, $have_after, $page, $fbaction, $args=null)
+    {
 
         $html = '';
 
@@ -266,7 +275,8 @@ class FacebookAction extends Action {
         }
     }
 
-    function pagination_url($fbaction, $args=null) {
+    function pagination_url($fbaction, $args=null)
+    {
         global $config;
 
         $extra = '';

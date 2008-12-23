@@ -27,7 +27,8 @@ class RepliesrssAction extends Rss10Action {
 
     var $user = null;
 
-    function init() {
+    function init()
+    {
         $nickname = $this->trimmed('nickname');
         $this->user = User::staticGet('nickname', $nickname);
 
@@ -39,7 +40,8 @@ class RepliesrssAction extends Rss10Action {
         }
     }
 
-    function get_notices($limit=0) {
+    function get_notices($limit=0)
+    {
 
         $user = $this->user;
 
@@ -54,7 +56,8 @@ class RepliesrssAction extends Rss10Action {
         return $notices;
     }
 
-    function get_channel() {
+    function get_channel()
+    {
         $user = $this->user;
         $c = array('url' => common_local_url('repliesrss',
                                              array('nickname' =>
@@ -67,7 +70,8 @@ class RepliesrssAction extends Rss10Action {
         return $c;
     }
 
-    function get_image() {
+    function get_image()
+    {
         $user = $this->user;
         $profile = $user->getProfile();
         if (!$profile) {

@@ -23,7 +23,8 @@ require_once(INSTALLDIR.'/lib/openid.php');
 
 class FinishimmediateAction extends Action {
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
 
         $consumer = oid_consumer();
@@ -53,7 +54,8 @@ class FinishimmediateAction extends Action {
         return;
     }
 
-    function go_backto() {
+    function go_backto()
+    {
         common_ensure_session();
         $backto = $_SESSION['openid_immediate_backto'];
         if (!$backto) {

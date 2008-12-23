@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 class SupAction extends Action {
     
-    function handle($args) {
+    function handle($args)
+    {
         
         parent::handle($args);
         
@@ -42,7 +43,8 @@ class SupAction extends Action {
                                 'updates' => $updates));
     }
     
-    function available_periods() {
+    function available_periods()
+    {
         static $periods = array(86400, 43200, 21600, 7200,
                                 3600, 1800,    600, 300, 120,
                                 60, 30, 15); 
@@ -55,7 +57,8 @@ class SupAction extends Action {
         return $available;
     }
     
-    function get_updates($seconds) {
+    function get_updates($seconds)
+    {
         $notice = new Notice();
 
         # XXX: cache this. Depends on how big this protocol becomes;
@@ -75,7 +78,8 @@ class SupAction extends Action {
         return $updates;
     }
     
-    function is_readonly() {
+    function is_readonly()
+    {
         return true;
     }
 }

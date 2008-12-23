@@ -23,7 +23,8 @@ require_once(INSTALLDIR.'/lib/settingsaction.php');
 
 class TagotherAction extends Action {
 
-    function handle($args) {
+    function handle($args)
+    {
 
         parent::handle($args);
 
@@ -49,7 +50,8 @@ class TagotherAction extends Action {
         }
     }
 
-    function show_form($profile, $error=null) {
+    function show_form($profile, $error=null)
+    {
 
         $user = common_current_user();
 
@@ -103,7 +105,8 @@ class TagotherAction extends Action {
 
     }
 
-    function save_tags() {
+    function save_tags()
+    {
 
         $id = $this->trimmed('id');
         $tagstring = $this->trimmed('tags');
@@ -178,7 +181,8 @@ class TagotherAction extends Action {
         }
     }
 
-    function show_top($arr = null) {
+    function show_top($arr = null)
+    {
         list($profile, $error) = $arr;
         if ($error) {
             common_element('p', 'error', $error);

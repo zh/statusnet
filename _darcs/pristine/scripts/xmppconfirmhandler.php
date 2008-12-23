@@ -39,11 +39,13 @@ class XmppConfirmHandler extends XmppQueueHandler {
 
     var $_id = 'confirm';
     
-    function class_name() {
+    function class_name()
+    {
         return 'XmppConfirmHandler';
     }
     
-    function run() {
+    function run()
+    {
         if (!$this->start()) {
             return false;
         }
@@ -99,7 +101,8 @@ class XmppConfirmHandler extends XmppQueueHandler {
         return true;
     }
 
-    function next_confirm() {
+    function next_confirm()
+    {
         $confirm = new Confirm_address();
         $confirm->whereAdd('claimed IS null');
         $confirm->whereAdd('sent IS null');
@@ -125,7 +128,8 @@ class XmppConfirmHandler extends XmppQueueHandler {
         return null;
     }
 
-    function clear_old_confirm_claims() {
+    function clear_old_confirm_claims()
+    {
         $confirm = new Confirm();
         $confirm->claimed = null;
         $confirm->whereAdd('now() - claimed > '.CLAIM_TIMEOUT);

@@ -35,17 +35,20 @@ set_error_handler('common_error_handler');
 
 class EnjitQueueHandler extends QueueHandler {
     
-    function transport() {
+    function transport()
+    {
         return 'enjit';
     }
 
-    function start() {
+    function start()
+    {
                 $this->log(LOG_INFO, "Starting EnjitQueueHandler");
                 $this->log(LOG_INFO, "Broadcasting to ".common_config('enjit', 'apiurl'));
         return true;
     }
 
-    function handle_notice($notice) {
+    function handle_notice($notice)
+    {
 
         $profile = Profile::staticGet($notice->profile_id);
 

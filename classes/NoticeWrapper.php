@@ -38,11 +38,13 @@ class NoticeWrapper extends Notice {
     var $notices = null;
     var $i = -1;
     
-    function __construct($arr) {
+    function __construct($arr)
+    {
         $this->notices = $arr;
     }
     
-    function fetch() {
+    function fetch()
+    {
         static $fields = array('id', 'profile_id', 'uri', 'content', 'rendered',
                                'url', 'created', 'modified', 'reply_to', 'is_local', 'source');
         $this->i++;

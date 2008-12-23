@@ -26,7 +26,8 @@ define('SUBSCRIPTIONS', 80);
 
 class ShowstreamAction extends StreamAction {
 
-    function handle($args) {
+    function handle($args)
+    {
 
         parent::handle($args);
 
@@ -76,7 +77,8 @@ class ShowstreamAction extends StreamAction {
         common_show_footer();
     }
 
-    function show_top($user) {
+    function show_top($user)
+    {
         $cur = common_current_user();
 
         if ($cur && $cur->id == $user->id) {
@@ -100,7 +102,8 @@ class ShowstreamAction extends StreamAction {
                                               'item' => 'foaf')));
     }
 
-    function show_header($user) {
+    function show_header($user)
+    {
         # Feeds
         common_element('link', array('rel' => 'alternate',
                                      'href' => common_local_url('api',
@@ -153,11 +156,13 @@ class ShowstreamAction extends StreamAction {
                                                                 array('nickname' => $profile->nickname))));
     }
 
-    function no_such_user() {
+    function no_such_user()
+    {
         $this->client_error(_('No such user.'), 404);
     }
 
-    function show_profile($profile) {
+    function show_profile($profile)
+    {
 
         common_element_start('div', array('id' => 'profile', 'class' => 'vcard'));
 
@@ -172,7 +177,8 @@ class ShowstreamAction extends StreamAction {
         common_element_end('div');
     }
 
-    function show_personal($profile) {
+    function show_personal($profile)
+    {
 
         $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
         common_element_start('div', array('id' => 'profile_avatar'));
@@ -246,7 +252,8 @@ class ShowstreamAction extends StreamAction {
         common_element_end('div');
     }
 
-    function show_remote_subscribe_link($profile) {
+    function show_remote_subscribe_link($profile)
+    {
         $url = common_local_url('remotesubscribe',
                                 array('nickname' => $profile->nickname));
         common_element('a', array('href' => $url,
@@ -254,7 +261,8 @@ class ShowstreamAction extends StreamAction {
                        _('Subscribe'));
     }
 
-    function show_unsubscribe_form($profile) {
+    function show_unsubscribe_form($profile)
+    {
         common_element_start('form', array('id' => 'unsubscribe', 'method' => 'post',
                                            'action' => common_local_url('unsubscribe')));
         common_hidden('token', common_session_token());
@@ -268,7 +276,8 @@ class ShowstreamAction extends StreamAction {
         common_element_end('form');
     }
 
-    function show_subscriptions($profile) {
+    function show_subscriptions($profile)
+    {
         global $config;
 
         $subs = DB_DataObject::factory('subscription');
@@ -340,7 +349,8 @@ class ShowstreamAction extends StreamAction {
         common_element_end('div');
     }
 
-    function show_statistics($profile) {
+    function show_statistics($profile)
+    {
 
         // XXX: WORM cache this
         $subs = DB_DataObject::factory('subscription');
@@ -400,7 +410,8 @@ class ShowstreamAction extends StreamAction {
         common_element_end('div');
     }
 
-    function show_notices($user) {
+    function show_notices($user)
+    {
 
         $page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 
@@ -413,7 +424,8 @@ class ShowstreamAction extends StreamAction {
                           'showstream', array('nickname' => $user->nickname));
     }
 
-    function show_last_notice($profile) {
+    function show_last_notice($profile)
+    {
 
         common_element('h2', null, _('Currently'));
 
@@ -438,13 +450,15 @@ class ShowstreamAction extends StreamAction {
 # We don't show the author for a profile, since we already know who it is!
 
 class ProfileNoticeList extends NoticeList {
-    function newListItem($notice) {
+    function newListItem($notice)
+    {
         return new ProfileNoticeListItem($notice);
     }
 }
 
 class ProfileNoticeListItem extends NoticeListItem {
-    function showAuthor() {
+    function showAuthor()
+    {
         return;
     }
 }

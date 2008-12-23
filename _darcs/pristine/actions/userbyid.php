@@ -21,11 +21,13 @@ if (!defined('LACONICA')) { exit(1); }
 
 class UserbyidAction extends Action {
     
-    function is_readonly() {                
+    function is_readonly()
+    {                
         return true;
     }
     
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
         $id = $this->trimmed('id');
         if (!$id) {

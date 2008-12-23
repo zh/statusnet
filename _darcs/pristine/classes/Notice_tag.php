@@ -30,7 +30,8 @@ class Notice_tag extends Memcached_DataObject
     public $created;                         // datetime()   not_null
 
     /* Static get */
-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Notice_tag',$k,$v); }
+    function staticGet($k,$v=null)
+    { return Memcached_DataObject::staticGet('Notice_tag',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
@@ -46,7 +47,8 @@ class Notice_tag extends Memcached_DataObject
                                  $offset, $limit);
     }
     
-    function blowCache() {
+    function blowCache()
+    {
         $cache = common_memcache();
         if ($cache) {
             $cache->delete(common_cache_key('notice_tag:notice_stream:' . $this->tag));

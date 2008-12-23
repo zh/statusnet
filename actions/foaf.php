@@ -25,11 +25,13 @@ define('BOTH', 0);
 
 class FoafAction extends Action {
 
-    function is_readonly() {
+    function is_readonly()
+    {
         return true;
     }
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
 
         $nickname = $this->trimmed('nickname');
@@ -179,14 +181,16 @@ class FoafAction extends Action {
         common_element_end('rdf:RDF');
     }
 
-    function show_ppd($foaf_url, $person_uri) {
+    function show_ppd($foaf_url, $person_uri)
+    {
         common_element_start('PersonalProfileDocument', array('rdf:about' => $foaf_url));
         common_element('maker', array('rdf:resource' => $person_uri));
         common_element('primaryTopic', array('rdf:resource' => $person_uri));
         common_element_end('PersonalProfileDocument');
     }
 
-    function show_microblogging_account($profile, $service=null) {
+    function show_microblogging_account($profile, $service=null)
+    {
         # Their account
         common_element_start('holdsAccount');
         common_element_start('OnlineAccount');

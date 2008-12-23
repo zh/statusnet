@@ -25,7 +25,8 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
 
     # We keep a record of who's contacted us
 
-    function lookup_consumer($consumer_key) {
+    function lookup_consumer($consumer_key)
+    {
         $con = Consumer::staticGet('consumer_key', $consumer_key);
         if (!$con) {
             $con = new Consumer();
@@ -39,7 +40,8 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
         return new OAuthConsumer($con->consumer_key, '');
     }
 
-    function lookup_token($consumer, $token_type, $token_key) {
+    function lookup_token($consumer, $token_type, $token_key)
+    {
         $t = new Token();
         $t->consumer_key = $consumer->key;
         $t->tok = $token_key;
@@ -51,7 +53,8 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
         }
     }
 
-    function lookup_nonce($consumer, $token, $nonce, $timestamp) {
+    function lookup_nonce($consumer, $token, $nonce, $timestamp)
+    {
         $n = new Nonce();
         $n->consumer_key = $consumer->key;
         $n->tok = $token->key;
@@ -66,7 +69,8 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
         }
     }
 
-    function new_request_token($consumer) {
+    function new_request_token($consumer)
+    {
         $t = new Token();
         $t->consumer_key = $consumer->key;
         $t->tok = common_good_rand(16);
@@ -83,11 +87,13 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
 
     # defined in OAuthDataStore, but not implemented anywhere
 
-    function fetch_request_token($consumer) {
+    function fetch_request_token($consumer)
+    {
         return $this->new_request_token($consumer);
     }
 
-    function new_access_token($token, $consumer) {
+    function new_access_token($token, $consumer)
+    {
         common_debug('new_access_token("'.$token->key.'","'.$consumer->key.'")', __FILE__);
         $rt = new Token();
         $rt->consumer_key = $consumer->key;
@@ -138,7 +144,8 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
 
     # defined in OAuthDataStore, but not implemented anywhere
 
-    function fetch_access_token($consumer) {
+    function fetch_access_token($consumer)
+    {
         return $this->new_access_token($consumer);
     }
 }

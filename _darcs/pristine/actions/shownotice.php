@@ -27,7 +27,8 @@ class ShownoticeAction extends StreamAction {
     var $profile = null;
     var $avatar = null;
 
-    function prepare($args) {
+    function prepare($args)
+    {
 
         parent::prepare($args);
 
@@ -51,13 +52,15 @@ class ShownoticeAction extends StreamAction {
         return true;
     }
 
-    function last_modified() {
+    function last_modified()
+    {
         return max(strtotime($this->notice->created),
                    strtotime($this->profile->modified),
                    ($this->avatar) ? strtotime($this->avatar->modified) : 0);
     }
 
-    function etag() {
+    function etag()
+    {
         return 'W/"' . implode(':', array($this->arg('action'),
                                           common_language(),
                                           $this->notice->id,
@@ -66,7 +69,8 @@ class ShownoticeAction extends StreamAction {
                                           ($this->avatar) ? strtotime($this->avatar->modified) : 0)) . '"';
     }
 
-    function handle($args) {
+    function handle($args)
+    {
 
         parent::handle($args);
 
@@ -84,7 +88,8 @@ class ShownoticeAction extends StreamAction {
         common_show_footer();
     }
 
-    function show_header() {
+    function show_header()
+    {
 
         $user = User::staticGet($this->profile->id);
 
@@ -103,14 +108,16 @@ class ShownoticeAction extends StreamAction {
         }
     }
 
-    function show_top() {
+    function show_top()
+    {
         $cur = common_current_user();
         if ($cur && $cur->id == $this->profile->id) {
             common_notice_form();
         }
     }
 
-    function no_such_notice() {
+    function no_such_notice()
+    {
         common_user_error(_('No such notice.'));
     }
 }

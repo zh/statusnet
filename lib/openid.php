@@ -31,7 +31,8 @@ require_once('Auth/OpenID/MySQLStore.php');
 define('OPENID_COOKIE_EXPIRY', round(365.25 * 24 * 60 * 60));
 define('OPENID_COOKIE_KEY', 'lastusedopenid');
 
-function oid_store() {
+function oid_store()
+{
     static $store = null;
     if (!$store) {
         # Can't be called statically
@@ -42,23 +43,27 @@ function oid_store() {
     return $store;
 }
 
-function oid_consumer() {
+function oid_consumer()
+{
     $store = oid_store();
     $consumer = new Auth_OpenID_Consumer($store);
     return $consumer;
 }
 
-function oid_clear_last() {
+function oid_clear_last()
+{
     oid_set_last('');
 }
 
-function oid_set_last($openid_url) {
+function oid_set_last($openid_url)
+{
     common_set_cookie(OPENID_COOKIE_KEY,
                      $openid_url,
                      time() + OPENID_COOKIE_EXPIRY);
 }
 
-function oid_get_last() {
+function oid_get_last()
+{
     $openid_url = $_COOKIE[OPENID_COOKIE_KEY];
     if ($openid_url && strlen($openid_url) > 0) {
         return $openid_url;
@@ -67,7 +72,8 @@ function oid_get_last() {
     }
 }
 
-function oid_link_user($id, $canonical, $display) {
+function oid_link_user($id, $canonical, $display)
+{
 
     $oid = new User_openid();
     $oid->user_id = $id;
@@ -84,7 +90,8 @@ function oid_link_user($id, $canonical, $display) {
     return true;
 }
 
-function oid_get_user($openid_url) {
+function oid_get_user($openid_url)
+{
     $user = null;
     $oid = User_openid::staticGet('canonical', $openid_url);
     if ($oid) {
@@ -93,7 +100,8 @@ function oid_get_user($openid_url) {
     return $user;
 }
 
-function oid_check_immediate($openid_url, $backto=null) {
+function oid_check_immediate($openid_url, $backto=null)
+{
     if (!$backto) {
         $action = $_REQUEST['action'];
         $args = common_copy_args($_GET);
@@ -113,7 +121,8 @@ function oid_check_immediate($openid_url, $backto=null) {
                      true);
 }
 
-function oid_authenticate($openid_url, $returnto, $immediate=false) {
+function oid_authenticate($openid_url, $returnto, $immediate=false)
+{
 
     $consumer = oid_consumer();
 
@@ -190,7 +199,8 @@ function oid_authenticate($openid_url, $returnto, $immediate=false) {
 
 # Half-assed attempt at a module-private function
 
-function _oid_print_instructions() {
+function _oid_print_instructions()
+{
     common_element('div', 'instructions',
                    _('This form should automatically submit itself. '.
                       'If not, click the submit button to go to your '.
@@ -199,7 +209,8 @@ function _oid_print_instructions() {
 
 # update a user from sreg parameters
 
-function oid_update_user(&$user, &$sreg) {
+function oid_update_user(&$user, &$sreg)
+{
 
     $profile = $user->getProfile();
 

@@ -23,7 +23,8 @@ require_once(INSTALLDIR.'/classes/Command.php');
 
 class CommandInterpreter {
     
-    function handle_command($user, $text) {
+    function handle_command($user, $text)
+    {
         # XXX: localise
 
         $text = preg_replace('/\s+/', ' ', trim($text));

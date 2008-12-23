@@ -23,7 +23,8 @@ require_once(INSTALLDIR.'/lib/omb.php');
 
 class RemotesubscribeAction extends Action {
 
-    function handle($args) {
+    function handle($args)
+    {
 
         parent::handle($args);
 
@@ -47,7 +48,8 @@ class RemotesubscribeAction extends Action {
         }
     }
 
-    function get_instructions() {
+    function get_instructions()
+    {
         return _('To subscribe, you can [login](%%action.login%%),' .
                   ' or [register](%%action.register%%) a new ' .
                   ' account. If you already have an account ' .
@@ -55,7 +57,8 @@ class RemotesubscribeAction extends Action {
                   ' enter your profile URL below.');
     }
 
-    function show_top($err=null) {
+    function show_top($err=null)
+    {
         if ($err) {
             common_element('div', 'error', $err);
         } else {
@@ -67,7 +70,8 @@ class RemotesubscribeAction extends Action {
         }
     }
 
-    function show_form($err=null) {
+    function show_form($err=null)
+    {
         $nickname = $this->trimmed('nickname');
         $profile = $this->trimmed('profile_url');
         common_show_header(_('Remote subscribe'), null, $err,
@@ -86,7 +90,8 @@ class RemotesubscribeAction extends Action {
         common_show_footer();
     }
 
-    function remote_subscription() {
+    function remote_subscription()
+    {
         $user = $this->get_user();
 
         if (!$user) {
@@ -152,7 +157,8 @@ class RemotesubscribeAction extends Action {
         $this->request_authorization($user, $omb, $token, $secret);
     }
 
-    function get_user() {
+    function get_user()
+    {
         $user = null;
         $nickname = $this->trimmed('nickname');
         if ($nickname) {
@@ -161,7 +167,8 @@ class RemotesubscribeAction extends Action {
         return $user;
     }
 
-    function getOmb($xrds) {
+    function getOmb($xrds)
+    {
 
         static $omb_endpoints = array(OMB_ENDPOINT_UPDATEPROFILE, OMB_ENDPOINT_POSTNOTICE);
         static $oauth_endpoints = array(OAUTH_ENDPOINT_REQUEST, OAUTH_ENDPOINT_AUTHORIZE,
@@ -221,7 +228,8 @@ class RemotesubscribeAction extends Action {
         return $omb;
     }
 
-    function getXRD($main_service, $main_xrds) {
+    function getXRD($main_service, $main_xrds)
+    {
         $uri = omb_service_uri($main_service);
         if (strpos($uri, "#") !== 0) {
             # FIXME: more rigorous handling of external service definitions
@@ -242,7 +250,8 @@ class RemotesubscribeAction extends Action {
         return null;
     }
 
-    function addServices($xrd, $types, &$omb) {
+    function addServices($xrd, $types, &$omb)
+    {
         foreach ($types as $type) {
             $matches = omb_get_services($xrd, $type);
             if ($matches) {
@@ -255,7 +264,8 @@ class RemotesubscribeAction extends Action {
         return true;
     }
 
-    function request_token($omb) {
+    function request_token($omb)
+    {
         $con = omb_oauth_consumer();
 
         $url = omb_service_uri($omb[OAUTH_ENDPOINT_REQUEST]);
@@ -299,7 +309,8 @@ class RemotesubscribeAction extends Action {
         return array($return['oauth_token'], $return['oauth_token_secret']);
     }
 
-    function request_authorization($user, $omb, $token, $secret) {
+    function request_authorization($user, $omb, $token, $secret)
+    {
         global $config; # for license URL
 
         $con = omb_oauth_consumer();
@@ -380,7 +391,8 @@ class RemotesubscribeAction extends Action {
         return;
     }
 
-    function make_nonce() {
+    function make_nonce()
+    {
         return common_good_rand(16);
     }
 }

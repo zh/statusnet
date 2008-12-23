@@ -24,7 +24,8 @@ require_once(INSTALLDIR.'/lib/profilelist.php');
 
 class FeaturedAction extends StreamAction {
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
 
         $page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
@@ -38,7 +39,8 @@ class FeaturedAction extends StreamAction {
         common_show_footer();
     }
 
-    function show_top() {
+    function show_top()
+    {
         $instr = $this->get_instructions();
         $output = common_markup_to_html($instr);
         common_element_start('div', 'instructions');
@@ -47,14 +49,17 @@ class FeaturedAction extends StreamAction {
         $this->public_views_menu();
     }
 
-    function show_header() {
+    function show_header()
+    {
     }
 
-    function get_instructions() {
+    function get_instructions()
+    {
         return _('Featured users');
     }
 
-    function show_notices($page) {
+    function show_notices($page)
+    {
 
         // XXX: Note I'm doing it this two-stage way because a raw query
         // with a JOIN was *not* working. --Zach

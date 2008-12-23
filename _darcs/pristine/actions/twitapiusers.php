@@ -23,7 +23,8 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
 
 class TwitapiusersAction extends TwitterapiAction {
 
-    function show($args, $apidata) {
+    function show($args, $apidata)
+    {
         parent::handle($args);
 
         if (!in_array($apidata['content-type'], array('xml', 'json'))) {

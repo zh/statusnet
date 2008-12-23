@@ -23,7 +23,8 @@ class UnblockAction extends Action {
 
     var $profile = null;
 
-    function prepare($args) {
+    function prepare($args)
+    {
 
         parent::prepare($args);
 
@@ -56,14 +57,16 @@ class UnblockAction extends Action {
         return true;
     }
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->unblock_profile();
         }
     }
 
-    function unblock_profile() {
+    function unblock_profile()
+    {
 
         $cur = common_current_user();
 

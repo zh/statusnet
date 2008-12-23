@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 class MicrosummaryAction extends Action {
 
-    function handle($args) {
+    function handle($args)
+    {
 
         parent::handle($args);
 

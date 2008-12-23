@@ -23,11 +23,13 @@ require_once(INSTALLDIR.'/lib/openid.php');
 
 class LogoutAction extends Action {
     
-    function is_readonly() {
+    function is_readonly()
+    {
         return true;
     }
     
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
         if (!common_logged_in()) {
             common_user_error(_('Not logged in.'));

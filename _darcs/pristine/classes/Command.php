@@ -25,17 +25,20 @@ class Command {
     
     var $user = null;
     
-    function __construct($user=null) {
+    function __construct($user=null)
+    {
         $this->user = $user;
     }
     
-    function execute($channel) {
+    function execute($channel)
+    {
         return false;
     }
 }
 
 class UnimplementedCommand extends Command {
-    function execute($channel) {
+    function execute($channel)
+    {
         $channel->error($this->user, _("Sorry, this command is not yet implemented."));
     }
 }
@@ -48,7 +51,8 @@ class TrackOffCommand extends UnimplementedCommand {
 
 class TrackCommand extends UnimplementedCommand {
     var $word = null;
-    function __construct($user, $word) {
+    function __construct($user, $word)
+    {
         parent::__construct($user);
         $this->word = $word;
     }
@@ -56,7 +60,8 @@ class TrackCommand extends UnimplementedCommand {
 
 class UntrackCommand extends UnimplementedCommand {
     var $word = null;
-    function __construct($user, $word) {
+    function __construct($user, $word)
+    {
         parent::__construct($user);
         $this->word = $word;
     }
@@ -64,7 +69,8 @@ class UntrackCommand extends UnimplementedCommand {
 
 class NudgeCommand extends UnimplementedCommand {
     var $other = null;
-    function __construct($user, $other) {
+    function __construct($user, $other)
+    {
         parent::__construct($user);
         $this->other = $other;
     }
@@ -72,14 +78,16 @@ class NudgeCommand extends UnimplementedCommand {
 
 class InviteCommand extends UnimplementedCommand {
     var $other = null;
-    function __construct($user, $other) {
+    function __construct($user, $other)
+    {
         parent::__construct($user);
         $this->other = $other;
     }
 }
 
 class StatsCommand extends Command {
-    function execute($channel) {
+    function execute($channel)
+    {
 
         $subs = new Subscription();
         $subs->subscriber = $this->user->id;
@@ -106,12 +114,14 @@ class FavCommand extends Command {
     
     var $other = null;
     
-    function __construct($user, $other) {
+    function __construct($user, $other)
+    {
         parent::__construct($user);
         $this->other = $other;
     }
     
-    function execute($channel) {
+    function execute($channel)
+    {
         
         $recipient = 
           common_relative_profile($this->user, common_canonical_nickname($this->other));
@@ -149,12 +159,14 @@ class FavCommand extends Command {
 
 class WhoisCommand extends Command {
     var $other = null;
-    function __construct($user, $other) {
+    function __construct($user, $other)
+    {
         parent::__construct($user);
         $this->other = $other;
     }
     
-    function execute($channel) {
+    function execute($channel)
+    {
         $recipient = 
           common_relative_profile($this->user, common_canonical_nickname($this->other));
         
@@ -184,13 +196,15 @@ class WhoisCommand extends Command {
 class MessageCommand extends Command {
     var $other = null;
     var $text = null;
-    function __construct($user, $other, $text) {
+    function __construct($user, $other, $text)
+    {
         parent::__construct($user);
         $this->other = $other;
         $this->text = $text;
     }
     
-    function execute($channel) {
+    function execute($channel)
+    {
         $other = User::staticGet('nickname', common_canonical_nickname($this->other));
         $len = mb_strlen($this->text);
         if ($len == 0) {
@@ -227,12 +241,14 @@ class GetCommand extends Command {
     
     var $other = null;
     
-    function __construct($user, $other) {
+    function __construct($user, $other)
+    {
         parent::__construct($user);
         $this->other = $other;
     }
     
-    function execute($channel) {
+    function execute($channel)
+    {
         $target_nickname = common_canonical_nickname($this->other);
         
         $target =
@@ -257,12 +273,14 @@ class SubCommand extends Command {
     
     var $other = null;
     
-    function __construct($user, $other) {
+    function __construct($user, $other)
+    {
         parent::__construct($user);
         $this->other = $other;
     }
     
-    function execute($channel) {
+    function execute($channel)
+    {
         
         if (!$this->other) {
             $channel->error($this->user, _('Specify the name of the user to subscribe to'));
@@ -283,12 +301,14 @@ class UnsubCommand extends Command {
 
     var $other = null;
     
-    function __construct($user, $other) {
+    function __construct($user, $other)
+    {
         parent::__construct($user);
         $this->other = $other;
     }
 
-    function execute($channel) {
+    function execute($channel)
+    {
         if(!$this->other) {
             $channel->error($this->user, _('Specify the name of the user to unsubscribe from'));
             return;
@@ -306,11 +326,13 @@ class UnsubCommand extends Command {
 
 class OffCommand extends Command {
     var $other = null;
-    function __construct($user, $other=null) {
+    function __construct($user, $other=null)
+    {
         parent::__construct($user);
         $this->other = $other;
     }
-    function execute($channel) {
+    function execute($channel)
+    {
         if ($other) {
             $channel->error($this->user, _("Command not yet implemented."));
         } else {
@@ -325,12 +347,14 @@ class OffCommand extends Command {
 
 class OnCommand extends Command {
     var $other = null;
-    function __construct($user, $other=null) {
+    function __construct($user, $other=null)
+    {
         parent::__construct($user);
         $this->other = $other;
     }
     
-    function execute($channel) {
+    function execute($channel)
+    {
         if ($other) {
             $channel->error($this->user, _("Command not yet implemented."));
         } else {
@@ -344,7 +368,8 @@ class OnCommand extends Command {
 }
 
 class HelpCommand extends Command {
-    function execute($channel) {
+    function execute($channel)
+    {
         $channel->output($this->user,
                          _("Commands:\n".
                            "on - turn on notifications\n".

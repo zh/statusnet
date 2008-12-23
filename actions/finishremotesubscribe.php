@@ -23,7 +23,8 @@ require_once(INSTALLDIR.'/lib/omb.php');
 
 class FinishremotesubscribeAction extends Action {
 
-    function handle($args) {
+    function handle($args)
+    {
 
         parent::handle($args);
 
@@ -231,13 +232,15 @@ class FinishremotesubscribeAction extends Action {
                                                              $user->nickname)));
     }
 
-    function add_avatar($profile, $url) {
+    function add_avatar($profile, $url)
+    {
         $temp_filename = tempnam(sys_get_temp_dir(), 'listener_avatar');
         copy($url, $temp_filename);
         return $profile->setOriginal($temp_filename);
     }
 
-    function access_token($omb) {
+    function access_token($omb)
+    {
 
         common_debug('starting request for access token', __FILE__);
 

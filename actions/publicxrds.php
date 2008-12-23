@@ -25,11 +25,13 @@ require_once(INSTALLDIR.'/lib/openid.php');
 
 class PublicxrdsAction extends Action {
 
-    function is_readonly() {
+    function is_readonly()
+    {
         return true;
     }
 
-    function handle($args) {
+    function handle($args)
+    {
 
         parent::handle($args);
 
@@ -55,7 +57,8 @@ class PublicxrdsAction extends Action {
         common_end_xml();
     }
 
-    function show_service($type, $uri, $params=null, $sigs=null, $localId=null) {
+    function show_service($type, $uri, $params=null, $sigs=null, $localId=null)
+    {
         common_element_start('Service');
         if ($uri) {
             common_element('URI', null, $uri);

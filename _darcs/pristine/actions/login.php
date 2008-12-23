@@ -21,11 +21,13 @@ if (!defined('LACONICA')) { exit(1); }
 
 class LoginAction extends Action {
 
-    function is_readonly() {
+    function is_readonly()
+    {
         return true;
     }
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
         if (common_is_real_login()) {
             common_user_error(_('Already logged in.'));
@@ -36,7 +38,8 @@ class LoginAction extends Action {
         }
     }
 
-    function check_login() {
+    function check_login()
+    {
         # XXX: login throttle
 
         # CSRF protection - token set in common_notice_form()
@@ -100,7 +103,8 @@ class LoginAction extends Action {
         common_redirect($url);
     }
 
-    function show_form($error=null) {
+    function show_form($error=null)
+    {
         common_show_header(_('Login'), null, $error, array($this, 'show_top'));
         common_element_start('form', array('method' => 'post',
                                            'id' => 'login',
@@ -120,7 +124,8 @@ class LoginAction extends Action {
         common_show_footer();
     }
 
-    function get_instructions() {
+    function get_instructions()
+    {
         if (common_logged_in() &&
             !common_is_real_login() &&
             common_get_returnto())
@@ -138,7 +143,8 @@ class LoginAction extends Action {
         }
     }
 
-    function show_top($error=null) {
+    function show_top($error=null)
+    {
         if ($error) {
             common_element('p', 'error', $error);
         } else {

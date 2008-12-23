@@ -23,7 +23,8 @@ require_once(INSTALLDIR.'/lib/mail.php');
 
 class FavorAction extends Action {
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
 
         if (!common_logged_in()) {
@@ -80,7 +81,8 @@ class FavorAction extends Action {
         }
     }
 
-    function notify($fave, $notice, $user) {
+    function notify($fave, $notice, $user)
+    {
         $other = User::staticGet('id', $notice->profile_id);
         if ($other && $other->id != $user->id) {
             if ($other->email && $other->emailnotifyfav) {

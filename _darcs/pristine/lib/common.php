@@ -163,7 +163,8 @@ require_once(INSTALLDIR.'/lib/subs.php');
 require_once(INSTALLDIR.'/lib/Shorturl_api.php');
 require_once(INSTALLDIR.'/lib/twitter.php');
 
-function __autoload($class) {
+function __autoload($class)
+{
     if ($class == 'OAuthRequest') {
         require_once('OAuth.php');
     } else if (file_exists(INSTALLDIR.'/classes/' . $class . '.php')) {

@@ -21,14 +21,16 @@ class Avatar extends Memcached_DataObject
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Avatar',$k,$v); }
+    function staticGet($k,$v=null)
+    { return Memcached_DataObject::staticGet('Avatar',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
     # We clean up the file, too
 
-    function delete() {
+    function delete()
+    {
         $filename = $this->filename;
         if (parent::delete()) {
             @unlink(common_avatar_path($filename));
@@ -38,7 +40,8 @@ class Avatar extends Memcached_DataObject
     # Create and save scaled version of this avatar
     # XXX: maybe break into different methods
 
-    function scale($size) {
+    function scale($size)
+    {
 
         $image_s = imagecreatetruecolor($size, $size);
         $image_a = $this->to_image();
@@ -76,7 +79,8 @@ class Avatar extends Memcached_DataObject
         }
     }
 
-    function to_image() {
+    function to_image()
+    {
         $filepath = common_avatar_path($this->filename);
         if ($this->mediatype == 'image/gif') {
             return imagecreatefromgif($filepath);
@@ -89,7 +93,8 @@ class Avatar extends Memcached_DataObject
         }
     }
     
-    function &pkeyGet($kv) {
+    function &pkeyGet($kv)
+    {
         return Memcached_DataObject::pkeyGet('Avatar', $kv);
     }
 }

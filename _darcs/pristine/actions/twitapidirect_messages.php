@@ -23,17 +23,20 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
 
 class Twitapidirect_messagesAction extends TwitterapiAction {
 
-    function direct_messages($args, $apidata) {
+    function direct_messages($args, $apidata)
+    {
         parent::handle($args);
         return $this->show_messages($args, $apidata, 'received');
     }
 
-    function sent($args, $apidata) {
+    function sent($args, $apidata)
+    {
         parent::handle($args);
         return $this->show_messages($args, $apidata, 'sent');
     }
 
-    function show_messages($args, $apidata, $type) {
+    function show_messages($args, $apidata, $type)
+    {
 
         $user = $apidata['user'];
 
@@ -110,7 +113,8 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
     }
 
     // had to change this from "new" to "create" to avoid PHP reserved word
-    function create($args, $apidata) {
+    function create($args, $apidata)
+    {
         parent::handle($args);
 
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
@@ -173,12 +177,14 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
 
     }
 
-    function destroy($args, $apidata) {
+    function destroy($args, $apidata)
+    {
         parent::handle($args);
         common_server_error(_('API method under construction.'), $code=501);
     }
 
-    function show_xml_dmsgs($message) {
+    function show_xml_dmsgs($message)
+    {
 
         $this->init_document('xml');
         common_element_start('direct-messages', array('type' => 'array'));
@@ -200,7 +206,8 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
 
     }
 
-    function show_json_dmsgs($message) {
+    function show_json_dmsgs($message)
+    {
 
         $this->init_document('json');
 
@@ -223,7 +230,8 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
 
     }
 
-    function show_rss_dmsgs($message, $title, $link, $subtitle) {
+    function show_rss_dmsgs($message, $title, $link, $subtitle)
+    {
 
         $this->init_document('rss');
 
@@ -252,7 +260,8 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
 
     }
 
-    function show_atom_dmsgs($message, $title, $link, $subtitle) {
+    function show_atom_dmsgs($message, $title, $link, $subtitle)
+    {
 
         $this->init_document('atom');
 
@@ -279,7 +288,8 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
     }
 
     // swiped from MessageAction. Should it be place in util.php?
-    function notify($from, $to, $message) {
+    function notify($from, $to, $message)
+    {
         mail_notify_message($message, $from, $to);
         # XXX: Jabber, SMS notifications... probably queued
     }

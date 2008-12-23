@@ -23,7 +23,8 @@ class BlockAction extends Action {
 
     var $profile = null;
 
-    function prepare($args) {
+    function prepare($args)
+    {
 
         parent::prepare($args);
 
@@ -56,7 +57,8 @@ class BlockAction extends Action {
         return true;
     }
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->arg('block')) {
@@ -71,7 +73,8 @@ class BlockAction extends Action {
         }
     }
 
-    function are_you_sure_form() {
+    function are_you_sure_form()
+    {
 
         $id = $this->profile->id;
 
@@ -109,7 +112,8 @@ class BlockAction extends Action {
         common_show_footer();
     }
 
-    function block_profile() {
+    function block_profile()
+    {
 
         $cur = common_current_user();
 

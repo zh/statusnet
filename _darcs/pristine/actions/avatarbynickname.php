@@ -20,7 +20,8 @@
 if (!defined('LACONICA')) { exit(1); }
 
 class AvatarbynicknameAction extends Action {
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
         $nickname = $this->trimmed('nickname');
         if (!$nickname) {

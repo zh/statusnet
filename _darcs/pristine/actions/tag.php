@@ -24,7 +24,8 @@ define('TAGS_PER_PAGE', 100);
 
 class TagAction extends StreamAction {
 
-    function handle($args) {
+    function handle($args)
+    {
 
         parent::handle($args);
 
@@ -46,7 +47,8 @@ class TagAction extends StreamAction {
         common_show_footer();
     }
 
-    function show_header($tag = false) {
+    function show_header($tag = false)
+    {
         if ($tag) {
             common_element('link', array('rel' => 'alternate',
                                          'href' => common_local_url('tagrss', array('tag' => $tag)),
@@ -55,11 +57,13 @@ class TagAction extends StreamAction {
         }
     }
 
-    function get_instructions() {
+    function get_instructions()
+    {
         return _('Showing most popular tags from the last week');
     }
 
-    function show_top($tag = false) {
+    function show_top($tag = false)
+    {
         if (!$tag) {
             $instr = $this->get_instructions();
             $output = common_markup_to_html($instr);
@@ -124,7 +128,8 @@ class TagAction extends StreamAction {
         }
     }
 
-    function show_tag($tag, $weight, $relative) {
+    function show_tag($tag, $weight, $relative)
+    {
 
         # XXX: these should probably tune to the size of the site
         if ($relative > 0.1) {
@@ -149,7 +154,8 @@ class TagAction extends StreamAction {
         common_text(' ');
     }
 
-    function show_notices($tag) {
+    function show_notices($tag)
+    {
 
         $cnt = 0;
 

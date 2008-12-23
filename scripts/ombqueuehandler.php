@@ -35,16 +35,19 @@ set_error_handler('common_error_handler');
 
 class OmbQueueHandler extends QueueHandler {
     
-    function transport() {
+    function transport()
+    {
         return 'omb';
     }
     
-    function start() {
+    function start()
+    {
         $this->log(LOG_INFO, "INITIALIZE");
         return true;
     }
 
-    function handle_notice($notice) {
+    function handle_notice($notice)
+    {
         if ($this->is_remote($notice)) {
             $this->log(LOG_DEBUG, 'Ignoring remote notice ' . $notice->id);
             return true;
@@ -53,10 +56,12 @@ class OmbQueueHandler extends QueueHandler {
         }
     }
     
-    function finish() {
+    function finish()
+    {
     }
 
-    function is_remote($notice) {
+    function is_remote($notice)
+    {
         $user = User::staticGet($notice->profile_id);
         return is_null($user);
     }

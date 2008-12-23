@@ -23,7 +23,8 @@ class SubeditAction extends Action {
 
     var $profile = null;
 
-    function prepare($args) {
+    function prepare($args)
+    {
 
         parent::prepare($args);
 
@@ -56,7 +57,8 @@ class SubeditAction extends Action {
         return true;
     }
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $cur = common_current_user();

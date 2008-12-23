@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 class DeleteAction extends Action {
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
         $user = common_current_user();
         $notice_id = $this->trimmed('notice');
@@ -43,7 +44,8 @@ class DeleteAction extends Action {
         }
     }
 
-    function show_top($arr=null) {
+    function show_top($arr=null)
+    {
         $instr = $this->get_instructions();
         $output = common_markup_to_html($instr);
         common_element_start('div', 'instructions');
@@ -51,11 +53,13 @@ class DeleteAction extends Action {
         common_element_end('div');
     }
 
-    function get_title() {
+    function get_title()
+    {
         return null;
     }
 
-    function show_header() {
+    function show_header()
+    {
         return;
     }
 }

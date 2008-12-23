@@ -23,7 +23,8 @@ require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
 class Memcached_DataObject extends DB_DataObject 
 {
-    function &staticGet($cls, $k, $v=null) {
+    function &staticGet($cls, $k, $v=null)
+    {
         if (is_null($v)) {
             $v = $k;
             # XXX: HACK!
@@ -44,7 +45,8 @@ class Memcached_DataObject extends DB_DataObject
         }
     }
 
-    function &pkeyGet($cls, $kv) {
+    function &pkeyGet($cls, $kv)
+    {
         $i = Memcached_DataObject::multicache($cls, $kv);
         if ($i) {
             return $i;
@@ -62,12 +64,14 @@ class Memcached_DataObject extends DB_DataObject
         }
     }
 
-    function insert() {
+    function insert()
+    {
         $result = parent::insert();
         return $result;
     }
     
-    function update($orig=null) {
+    function update($orig=null)
+    {
         if (is_object($orig) && $orig instanceof Memcached_DataObject) {
             $orig->decache(); # might be different keys
         }
@@ -78,7 +82,8 @@ class Memcached_DataObject extends DB_DataObject
         return $result;
     }
     
-    function delete() {
+    function delete()
+    {
         $this->decache(); # while we still have the values!
         return parent::delete();
     }
@@ -100,7 +105,8 @@ class Memcached_DataObject extends DB_DataObject
         }
     }
 
-    function keyTypes() {
+    function keyTypes()
+    {
         global $_DB_DATAOBJECT;
         if (!isset($_DB_DATAOBJECT['INI'][$this->_database][$this->__table."__keys"])) {
             $this->databaseStructure();
@@ -109,7 +115,8 @@ class Memcached_DataObject extends DB_DataObject
         return $_DB_DATAOBJECT['INI'][$this->_database][$this->__table."__keys"];
     }
     
-    function encache() {
+    function encache()
+    {
         $c = $this->memcache();
         if (!$c) {
             return false;
@@ -133,7 +140,8 @@ class Memcached_DataObject extends DB_DataObject
         }
     }
     
-    function decache() {
+    function decache()
+    {
         $c = $this->memcache();
         if (!$c) {
             return false;
@@ -158,7 +166,8 @@ class Memcached_DataObject extends DB_DataObject
         }
     }
 
-    function multicache($cls, $kv) {
+    function multicache($cls, $kv)
+    {
         ksort($kv);
         $c = Memcached_DataObject::memcache();
         if (!$c) {
@@ -170,7 +179,8 @@ class Memcached_DataObject extends DB_DataObject
         }
     }
 
-    function getSearchEngine($table) {
+    function getSearchEngine($table)
+    {
         require_once INSTALLDIR.'/lib/search_engines.php';
         static $search_engine;
         if (!isset($search_engine)) {

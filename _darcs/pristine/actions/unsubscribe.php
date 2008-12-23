@@ -19,7 +19,8 @@
 
 class UnsubscribeAction extends Action {
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
         if (!common_logged_in()) {
             common_user_error(_('Not logged in.'));

@@ -21,7 +21,8 @@ class Foreign_link extends Memcached_DataObject
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Foreign_link',$k,$v); }
+    function staticGet($k,$v=null)
+    { return Memcached_DataObject::staticGet('Foreign_link',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
@@ -55,7 +56,8 @@ class Foreign_link extends Memcached_DataObject
     }
         
     # Convenience methods
-    function getForeignUser() {        
+    function getForeignUser()
+    {        
         $fuser = new Foreign_user();
         $fuser->service = $this->service;
         $fuser->id = $this->foreign_id;
@@ -69,7 +71,8 @@ class Foreign_link extends Memcached_DataObject
         return null;        
     }
     
-    function getUser() {
+    function getUser()
+    {
         return User::staticGet($this->user_id);
     }
         

@@ -1,1338 +1,3664 @@
-hunk ./actions/allrss.php 28
--    var $user = NULL;
-+    var $user = null;
-hunk ./actions/allrss.php 72
--            return NULL;
-+            return null;
-hunk ./actions/allrss.php 75
--        return ($avatar) ? $avatar->url : NULL;
-+        return ($avatar) ? $avatar->url : null;
-hunk ./actions/api.php 155
--            common_element('error', NULL, $msg);
--            common_element('request', NULL, $_SERVER['REQUEST_URI']);
-+            common_element('error', null, $msg);
-+            common_element('request', null, $_SERVER['REQUEST_URI']);
-hunk ./actions/block.php 24
--    var $profile = NULL;
-+    var $profile = null;
-hunk ./actions/block.php 80
--        common_element('p', NULL,
-+        common_element('p', null,
-hunk ./actions/confirmaddress.php 91
--        common_element('p', NULL,
-+        common_element('p', null,
-hunk ./actions/deletenotice.php 44
--    function show_form($error=NULL) {
-+    function show_form($error=null) {
-hunk ./actions/deletenotice.php 94
--                common_set_returnto(NULL);
-+                common_set_returnto(null);
-hunk ./actions/deleteprofile.php 39
--    function form_header($title, $msg=NULL, $success=false) {
-+    function form_header($title, $msg=null, $success=false) {
+hunk ./actions/accesstoken.php 25
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/all.php 26
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/all.php 57
+-    function show_header($user) {
++    function show_header($user)
++    {
+hunk ./actions/all.php 66
+-    function show_top($user) {
++    function show_top($user)
++    {
+hunk ./actions/all.php 82
+-    function show_notices($user) {
++    function show_notices($user)
++    {
+hunk ./actions/allrss.php 30
+-    function init() {
++    function init()
++    {
+hunk ./actions/allrss.php 43
+-    function get_notices($limit=0) {
++    function get_notices($limit=0)
++    {
+hunk ./actions/allrss.php 57
+-    function get_channel() {
++    function get_channel()
++    {
+hunk ./actions/allrss.php 71
+-    function get_image() {
++    function get_image()
++    {
+hunk ./actions/api.php 30
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/api.php 83
+-    function process_command() {
++    function process_command()
++    {
+hunk ./actions/api.php 113
+-    function requires_auth() {
++    function requires_auth()
++    {
+hunk ./actions/api.php 150
+-    function show_basic_auth_error() {
++    function show_basic_auth_error()
++    {
+hunk ./actions/api.php 173
+-    function is_readonly() {
++    function is_readonly()
++    {
+hunk ./actions/avatarbynickname.php 23
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/block.php 26
+-    function prepare($args) {
++    function prepare($args)
++    {
+hunk ./actions/block.php 60
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/block.php 76
+-    function are_you_sure_form() {
++    function are_you_sure_form()
++    {
+hunk ./actions/block.php 115
+-    function block_profile() {
++    function block_profile()
++    {
+hunk ./actions/confirmaddress.php 24
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/deletenotice.php 25
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/deletenotice.php 37
+-    function get_instructions() {
++    function get_instructions()
++    {
+hunk ./actions/deletenotice.php 42
+-    function get_title() {
++    function get_title()
++    {
+hunk ./actions/deletenotice.php 47
+-    function show_form($error=null) {
++    function show_form($error=null)
++    {
+hunk ./actions/deletenotice.php 74
+-    function delete_notice() {
++    function delete_notice()
++    {
+hunk ./actions/deleteprofile.php 23
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/deleteprofile.php 36
+-    function get_instructions() {
++    function get_instructions()
++    {
 hunk ./actions/deleteprofile.php 41
--                           NULL,
-+                           null,
-hunk ./actions/deleteprofile.php 87
--    function show_form($msg=NULL, $success=false) {
-+    function show_form($msg=null, $success=false) {
-hunk ./actions/deleteprofile.php 89
--        common_element('h2', NULL, _('Delete my account confirmation'));
-+        common_element('h2', null, _('Delete my account confirmation'));
-hunk ./actions/deleteprofile.php 216
--        common_set_user(NULL);
-+        common_set_user(null);
-hunk ./actions/emailsettings.php 30
--    function show_form($msg=NULL, $success=false) {
-+    function show_form($msg=null, $success=false) {
-hunk ./actions/emailsettings.php 39
--        common_element('h2', NULL, _('Address'));
-+        common_element('h2', null, _('Address'));
-hunk ./actions/emailsettings.php 61
--                             ($this->arg('email')) ? $this->arg('email') : NULL,
-+                             ($this->arg('email')) ? $this->arg('email') : null,
-hunk ./actions/emailsettings.php 68
--            common_element('h2', NULL, _('Incoming email'));
-+            common_element('h2', null, _('Incoming email'));
-hunk ./actions/emailsettings.php 86
--        common_element('h2', NULL, _('Preferences'));
-+        common_element('h2', null, _('Preferences'));
-hunk ./actions/emailsettings.php 121
--            return NULL;
-+            return null;
-hunk ./actions/emailsettings.php 276
--        $user->email = NULL;
-+        $user->email = null;
-hunk ./actions/emailsettings.php 297
--        $user->incomingemail = NULL;
-+        $user->incomingemail = null;
-hunk ./actions/favorited.php 32
--                           array($this, 'show_header'), NULL,
-+                           array($this, 'show_header'), null,
-hunk ./actions/favoritesrss.php 28
--    var $user = NULL;
-+    var $user = null;
-hunk ./actions/favoritesrss.php 71
--        return NULL;
-+        return null;
-hunk ./actions/featured.php 33
--                           array($this, 'show_header'), NULL,
-+                           array($this, 'show_header'), null,
+-    function form_header($title, $msg=null, $success=false) {
++    function form_header($title, $msg=null, $success=false)
++    {
+hunk ./actions/deleteprofile.php 49
+-    function show_feeds_list($feeds) {
++    function show_feeds_list($feeds)
++    {
+hunk ./actions/deleteprofile.php 63
+-    function common_feed_item($feed) {
++    function common_feed_item($feed)
++    {
+hunk ./actions/deleteprofile.php 92
+-    function show_form($msg=null, $success=false) {
++    function show_form($msg=null, $success=false)
++    {
+hunk ./actions/deleteprofile.php 100
+-    function show_confirm_delete_form() {
++    function show_confirm_delete_form()
++    {
+hunk ./actions/deleteprofile.php 130
+-    function handle_post() {
++    function handle_post()
++    {
+hunk ./actions/deleteprofile.php 145
+-    function delete_account() {
++    function delete_account()
++    {
+hunk ./actions/deleteprofile.php 231
+-    function show_top($arr) {
++    function show_top($arr)
++    {
+hunk ./actions/deleteprofile.php 247
+-    function settings_menu() {
++    function settings_menu()
++    {
+hunk ./actions/disfavor.php 24
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/doc.php 24
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/emailsettings.php 26
+-    function get_instructions() {
++    function get_instructions()
++    {
+hunk ./actions/emailsettings.php 31
+-    function show_form($msg=null, $success=false) {
++    function show_form($msg=null, $success=false)
++    {
+hunk ./actions/emailsettings.php 115
+-    function get_confirmation() {
++    function get_confirmation()
++    {
+hunk ./actions/emailsettings.php 128
+-    function handle_post() {
++    function handle_post()
++    {
+hunk ./actions/emailsettings.php 155
+-    function save_preferences() {
++    function save_preferences()
++    {
+hunk ./actions/emailsettings.php 193
+-    function add_address() {
++    function add_address()
++    {
+hunk ./actions/emailsettings.php 245
+-    function cancel_confirmation() {
++    function cancel_confirmation()
++    {
+hunk ./actions/emailsettings.php 269
+-    function remove_address() {
++    function remove_address()
++    {
+hunk ./actions/emailsettings.php 296
+-    function remove_incoming() {
++    function remove_incoming()
++    {
+hunk ./actions/emailsettings.php 316
+-    function new_incoming() {
++    function new_incoming()
++    {
+hunk ./actions/emailsettings.php 331
+-    function email_exists($email) {
++    function email_exists($email)
++    {
+hunk ./actions/facebookhome.php 26
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/facebookhome.php 33
+-    function login() {
++    function login()
++    {
+hunk ./actions/facebookhome.php 94
+-    function show_home($facebook, $fbuid, $user) {
++    function show_home($facebook, $fbuid, $user)
++    {
+hunk ./actions/facebookhome.php 105
+-    function show_notices($user) {
++    function show_notices($user)
++    {
+hunk ./actions/facebookinvite.php 26
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/facebookinvite.php 33
+-    function display() {
++    function display()
++    {
+hunk ./actions/facebookremove.php 26
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/facebooksettings.php 26
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/facebooksettings.php 33
+-    function display() {
++    function display()
++    {
+hunk ./actions/favor.php 26
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/favor.php 84
+-    function notify($fave, $notice, $user) {
++    function notify($fave, $notice, $user)
++    {
+hunk ./actions/favorited.php 26
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/favorited.php 41
+-    function show_top() {
++    function show_top()
++    {
+hunk ./actions/favorited.php 51
+-    function show_header() {
++    function show_header()
++    {
+hunk ./actions/favorited.php 56
+-    function get_instructions() {
++    function get_instructions()
++    {
+hunk ./actions/favorited.php 61
+-    function show_notices($page) {
++    function show_notices($page)
++    {
+hunk ./actions/favoritesrss.php 30
+-    function init() {
++    function init()
++    {
+hunk ./actions/favoritesrss.php 43
+-    function get_notices($limit=0) {
++    function get_notices($limit=0)
++    {
+hunk ./actions/favoritesrss.php 59
+-    function get_channel() {
++    function get_channel()
++    {
+hunk ./actions/favoritesrss.php 73
+-    function get_image() {
++    function get_image()
++    {
+hunk ./actions/featured.php 27
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/featured.php 42
+-    function show_top() {
++    function show_top()
++    {
+hunk ./actions/featured.php 52
+-    function show_header() {
++    function show_header()
++    {
+hunk ./actions/featured.php 56
+-    function get_instructions() {
++    function get_instructions()
++    {
+hunk ./actions/featured.php 61
+-    function show_notices($page) {
++    function show_notices($page)
++    {
+hunk ./actions/finishaddopenid.php 26
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/finishaddopenid.php 36
+-    function try_login() {
++    function try_login()
++    {
 hunk ./actions/finishaddopenid.php 100
--        common_element('p', NULL, $msg);
-+        common_element('p', null, $msg);
-hunk ./actions/finishopenidlogin.php 55
--    function show_top($error=NULL) {
-+    function show_top($error=null) {
-hunk ./actions/finishopenidlogin.php 65
--    function show_form($error=NULL, $username=NULL) {
--        common_show_header(_('OpenID Account Setup'), NULL, $error,
-+    function show_form($error=null, $username=null) {
-+        common_show_header(_('OpenID Account Setup'), null, $error,
-hunk ./actions/finishopenidlogin.php 73
--        common_element('h2', NULL,
-+        common_element('h2', null,
-hunk ./actions/finishopenidlogin.php 75
--        common_element('p', NULL,
-+        common_element('p', null,
-hunk ./actions/finishopenidlogin.php 91
--        common_element('h2', NULL,
-+        common_element('h2', null,
-hunk ./actions/finishopenidlogin.php 93
--        common_element('p', NULL,
-+        common_element('p', null,
-hunk ./actions/finishopenidlogin.php 144
--                $this->show_form(NULL, $this->best_new_nickname($display, $sreg));
-+                $this->show_form(null, $this->best_new_nickname($display, $sreg));
-hunk ./actions/finishopenidlogin.php 151
--        common_element('p', NULL, $msg);
-+        common_element('p', null, $msg);
-hunk ./actions/finishopenidlogin.php 293
--            common_set_returnto(NULL);
-+            common_set_returnto(null);
-hunk ./actions/finishopenidlogin.php 332
--        return NULL;
-+        return null;
-hunk ./actions/finishopenidlogin.php 372
--                return NULL;
-+                return null;
-hunk ./actions/finishopenidlogin.php 406
--        return NULL;
-+        return null;
-hunk ./actions/finishopenidlogin.php 413
--            return NULL;
-+            return null;
-hunk ./actions/finishremotesubscribe.php 281
--            return NULL;
-+            return null;
-hunk ./actions/foaf.php 69
--        common_element('mbox_sha1sum', NULL, sha1('mailto:' . $user->email));
-+        common_element('mbox_sha1sum', null, sha1('mailto:' . $user->email));
-hunk ./actions/foaf.php 71
--            common_element('name', NULL, $profile->fullname);
-+            common_element('name', null, $profile->fullname);
-hunk ./actions/foaf.php 77
--            common_element('rdfs:comment', NULL, $profile->bio);
-+            common_element('rdfs:comment', null, $profile->bio);
-hunk ./actions/foaf.php 83
--            common_element('name', NULL, $profile->location);
-+            common_element('name', null, $profile->location);
-hunk ./actions/foaf.php 159
--            $foaf_url = NULL;
-+            $foaf_url = null;
-hunk ./actions/foaf.php 169
--                                              common_root_url() : NULL);
-+                                              common_root_url() : null);
-hunk ./actions/foaf.php 189
--    function show_microblogging_account($profile, $service=NULL) {
-+    function show_microblogging_account($profile, $service=null) {
-hunk ./actions/foaf.php 197
--        common_element('accountName', NULL, $profile->nickname);
-+        common_element('accountName', null, $profile->nickname);
-hunk ./actions/imsettings.php 31
--    function show_form($msg=NULL, $success=false) {
-+    function show_form($msg=null, $success=false) {
-hunk ./actions/imsettings.php 40
--        common_element('h2', NULL, _('Address'));
-+        common_element('h2', null, _('Address'));
-hunk ./actions/imsettings.php 62
--                             ($this->arg('jabber')) ? $this->arg('jabber') : NULL,
-+                             ($this->arg('jabber')) ? $this->arg('jabber') : null,
-hunk ./actions/imsettings.php 68
--        common_element('h2', NULL, _('Preferences'));
-+        common_element('h2', null, _('Preferences'));
-hunk ./actions/imsettings.php 96
--            return NULL;
-+            return null;
-hunk ./actions/imsettings.php 247
--        $user->jabber = NULL;
-+        $user->jabber = null;
-hunk ./actions/invite.php 88
--            common_element('p', NULL, _('You are already subscribed to these users:'));
-+            common_element('p', null, _('You are already subscribed to these users:'));
-hunk ./actions/invite.php 91
--                common_element('li', NULL, sprintf(_('%s (%s)'), $other->nickname, $other->email));
-+                common_element('li', null, sprintf(_('%s (%s)'), $other->nickname, $other->email));
-hunk ./actions/invite.php 96
--            common_element('p', NULL, _('These people are already users and you were automatically subscribed to them:'));
-+            common_element('p', null, _('These people are already users and you were automatically subscribed to them:'));
-hunk ./actions/invite.php 99
--                common_element('li', NULL, sprintf(_('%s (%s)'), $other->nickname, $other->email));
-+                common_element('li', null, sprintf(_('%s (%s)'), $other->nickname, $other->email));
-hunk ./actions/invite.php 104
--            common_element('p', NULL, _('Invitation(s) sent to the following people:'));
-+            common_element('p', null, _('Invitation(s) sent to the following people:'));
-hunk ./actions/invite.php 107
--                common_element('li', NULL, $other);
-+                common_element('li', null, $other);
-hunk ./actions/invite.php 110
--            common_element('p', NULL, _('You will be notified when your invitees accept the invitation and register on the site. Thanks for growing the community!'));
-+            common_element('p', null, _('You will be notified when your invitees accept the invitation and register on the site. Thanks for growing the community!'));
-hunk ./actions/invite.php 115
--    function show_top($error=NULL) {
-+    function show_top($error=null) {
-hunk ./actions/invite.php 120
--            common_element('p', NULL,
-+            common_element('p', null,
-hunk ./actions/invite.php 126
--    function show_form($error=NULL) {
-+    function show_form($error=null) {
+-    function message($msg) {
++    function message($msg)
++    {
+hunk ./actions/finishimmediate.php 26
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/finishimmediate.php 57
+-    function go_backto() {
++    function go_backto()
++    {
+hunk ./actions/finishopenidlogin.php 26
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/finishopenidlogin.php 56
+-    function show_top($error=null) {
++    function show_top($error=null)
++    {
+hunk ./actions/finishopenidlogin.php 67
+-    function show_form($error=null, $username=null) {
++    function show_form($error=null, $username=null)
++    {
+hunk ./actions/finishopenidlogin.php 105
+-    function try_login() {
++    function try_login()
++    {
+hunk ./actions/finishopenidlogin.php 153
+-    function message($msg) {
++    function message($msg)
++    {
+hunk ./actions/finishopenidlogin.php 160
+-    function save_values($display, $canonical, $sreg) {
++    function save_values($display, $canonical, $sreg)
++    {
+hunk ./actions/finishopenidlogin.php 168
+-    function get_saved_values() {
++    function get_saved_values()
++    {
+hunk ./actions/finishopenidlogin.php 175
+-    function create_new_user() {
++    function create_new_user()
++    {
+hunk ./actions/finishopenidlogin.php 258
+-    function connect_user() {
++    function connect_user()
++    {
+hunk ./actions/finishopenidlogin.php 298
+-    function go_home($nickname) {
++    function go_home($nickname)
++    {
+hunk ./actions/finishopenidlogin.php 312
+-    function best_new_nickname($display, $sreg) {
++    function best_new_nickname($display, $sreg)
++    {
+hunk ./actions/finishopenidlogin.php 346
+-    function is_new_nickname($str) {
++    function is_new_nickname($str)
++    {
+hunk ./actions/finishopenidlogin.php 362
+-    function openid_to_nickname($openid) {
++    function openid_to_nickname($openid)
++    {
+hunk ./actions/finishopenidlogin.php 376
+-    function url_to_nickname($openid) {
++    function url_to_nickname($openid)
++    {
+hunk ./actions/finishopenidlogin.php 423
+-    function xri_to_nickname($xri) {
++    function xri_to_nickname($xri)
++    {
+hunk ./actions/finishopenidlogin.php 437
+-    function xri_base($xri) {
++    function xri_base($xri)
++    {
+hunk ./actions/finishopenidlogin.php 448
+-    function nicknamize($str) {
++    function nicknamize($str)
++    {
+hunk ./actions/finishremotesubscribe.php 26
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/finishremotesubscribe.php 235
+-    function add_avatar($profile, $url) {
++    function add_avatar($profile, $url)
++    {
+hunk ./actions/finishremotesubscribe.php 242
+-    function access_token($omb) {
++    function access_token($omb)
++    {
+hunk ./actions/foaf.php 28
+-    function is_readonly() {
++    function is_readonly()
++    {
+hunk ./actions/foaf.php 33
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/foaf.php 184
+-    function show_ppd($foaf_url, $person_uri) {
++    function show_ppd($foaf_url, $person_uri)
++    {
+hunk ./actions/foaf.php 192
+-    function show_microblogging_account($profile, $service=null) {
++    function show_microblogging_account($profile, $service=null)
++    {
+hunk ./actions/imsettings.php 27
+-    function get_instructions() {
++    function get_instructions()
++    {
+hunk ./actions/imsettings.php 32
+-    function show_form($msg=null, $success=false) {
++    function show_form($msg=null, $success=false)
++    {
+hunk ./actions/imsettings.php 90
+-    function get_confirmation() {
++    function get_confirmation()
++    {
+hunk ./actions/imsettings.php 103
+-    function handle_post() {
++    function handle_post()
++    {
+hunk ./actions/imsettings.php 126
+-    function save_preferences() {
++    function save_preferences()
++    {
+hunk ./actions/imsettings.php 160
+-    function add_address() {
++    function add_address()
++    {
+hunk ./actions/imsettings.php 216
+-    function cancel_confirmation() {
++    function cancel_confirmation()
++    {
+hunk ./actions/imsettings.php 240
+-    function remove_address() {
++    function remove_address()
++    {
+hunk ./actions/imsettings.php 269
+-    function jabber_exists($jabber) {
++    function jabber_exists($jabber)
++    {
+hunk ./actions/invite.php 24
+-    function is_readonly() {
++    function is_readonly()
++    {
+hunk ./actions/invite.php 29
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/invite.php 43
+-    function send_invitations() {
++    function send_invitations()
++    {
+hunk ./actions/invite.php 118
+-    function show_top($error=null) {
++    function show_top($error=null)
++    {
 hunk ./actions/invite.php 130
--        common_show_header(_('Invite new users'), NULL, $error, array($this, 'show_top'));
-+        common_show_header(_('Invite new users'), null, $error, array($this, 'show_top'));
-hunk ./actions/login.php 66
--                common_set_returnto(NULL);
-+                common_set_returnto(null);
-hunk ./actions/login.php 94
--            common_set_returnto(NULL);
-+            common_set_returnto(null);
-hunk ./actions/login.php 103
--    function show_form($error=NULL) {
--        common_show_header(_('Login'), NULL, $error, array($this, 'show_top'));
-+    function show_form($error=null) {
-+        common_show_header(_('Login'), null, $error, array($this, 'show_top'));
-hunk ./actions/login.php 141
--    function show_top($error=NULL) {
-+    function show_top($error=null) {
-hunk ./actions/logout.php 35
--            common_set_user(NULL);
-+            common_set_user(null);
-hunk ./actions/newmessage.php 101
--    function show_form($msg=NULL) {
-+    function show_form($msg=null) {
-hunk ./actions/newmessage.php 120
--        common_show_header(_('New message'), NULL,
-+        common_show_header(_('New message'), null,
-hunk ./actions/newnotice.php 81
--        $notice = Notice::saveNew($user->id, $content, 'web', 1, ($replyto == 'false') ? NULL : $replyto);
-+        $notice = Notice::saveNew($user->id, $content, 'web', 1, ($replyto == 'false') ? null : $replyto);
-hunk ./actions/newnotice.php 124
--    function show_top($content=NULL) {
--        common_notice_form(NULL, $content);
-+    function show_top($content=null) {
-+        common_notice_form(null, $content);
-hunk ./actions/newnotice.php 128
--    function show_form($msg=NULL) {
-+    function show_form($msg=null) {
-hunk ./actions/newnotice.php 141
--        common_show_header(_('New notice'), NULL, $content,
-+        common_show_header(_('New notice'), null, $content,
-hunk ./actions/noticesearchrss.php 68
--        return NULL;
-+        return null;
-hunk ./actions/openidlogin.php 55
--            $this->show_form(NULL, $openid_url);
-+            $this->show_form(null, $openid_url);
-hunk ./actions/openidlogin.php 63
--    function show_top($error=NULL) {
-+    function show_top($error=null) {
-hunk ./actions/openidlogin.php 75
--    function show_form($error=NULL, $openid_url) {
--        common_show_header(_('OpenID Login'), NULL, $error, array($this, 'show_top'));
-+    function show_form($error=null, $openid_url) {
-+        common_show_header(_('OpenID Login'), null, $error, array($this, 'show_top'));
-hunk ./actions/openidsettings.php 33
--    function show_form($msg=NULL, $success=false) {
-+    function show_form($msg=null, $success=false) {
-hunk ./actions/openidsettings.php 44
--        common_element('h2', NULL, _('Add OpenID'));
--        common_element('p', NULL,
-+        common_element('h2', null, _('Add OpenID'));
-+        common_element('p', null,
-hunk ./actions/openidsettings.php 69
--            common_element('h2', NULL, _('Remove OpenID'));
-+            common_element('h2', null, _('Remove OpenID'));
-hunk ./actions/openidsettings.php 73
--                common_element('p', NULL,
-+                common_element('p', null,
-hunk ./actions/openidsettings.php 86
--                common_element('p', NULL,
-+                common_element('p', null,
-hunk ./actions/opensearch.php 45
--        common_element('ShortName', NULL, $short_name);
--        common_element('Contact', NULL, common_config('site', 'email'));
-+        common_element('ShortName', null, $short_name);
-+        common_element('Contact', null, common_config('site', 'email'));
-hunk ./actions/opensearch.php 51
--        common_element('AdultContent', NULL, 'false');
--        common_element('Language', NULL, common_language());
--        common_element('OutputEncoding', NULL, 'UTF-8');
--        common_element('InputEncoding', NULL, 'UTF-8');
-+        common_element('AdultContent', null, 'false');
-+        common_element('Language', null, common_language());
-+        common_element('OutputEncoding', null, 'UTF-8');
-+        common_element('InputEncoding', null, 'UTF-8');
-hunk ./actions/othersettings.php 30
--    function show_form($msg=NULL, $success=false) {
-+    function show_form($msg=null, $success=false) {
-hunk ./actions/othersettings.php 35
--        common_element('h2', NULL, _('URL Auto-shortening'));
-+        common_element('h2', null, _('URL Auto-shortening'));
-hunk ./actions/othersettings.php 60
--//        common_element('h2', NULL, _('Delete my account'));
-+//        common_element('h2', null, _('Delete my account'));
-hunk ./actions/peoplesearch.php 71
--    var $terms = NULL;
--    var $pattern = NULL;
-+    var $terms = null;
-+    var $pattern = null;
-hunk ./actions/peopletag.php 46
--                           NULL, $tag, array($this, 'show_top'));
-+                           null, $tag, array($this, 'show_top'));
-hunk ./actions/peopletag.php 97
--        return NULL;
-+        return null;
-hunk ./actions/profilesettings.php 31
--    function show_form($msg=NULL, $success=false) {
-+    function show_form($msg=null, $success=false) {
-hunk ./actions/profilesettings.php 34
--        common_element('h2', NULL, _('Avatar'));
-+        common_element('h2', null, _('Avatar'));
-hunk ./actions/profilesettings.php 36
--        common_element('h2', NULL, _('Change password'));
-+        common_element('h2', null, _('Change password'));
-hunk ./actions/profilesettings.php 38
--//        common_element('h2', NULL, _('Delete my account'));
-+//        common_element('h2', null, _('Delete my account'));
-hunk ./actions/public.php 34
--                           array($this, 'show_header'), NULL,
-+                           array($this, 'show_header'), null,
-hunk ./actions/publicrss.php 55
--        return NULL;
-+        return null;
-hunk ./actions/publicxrds.php 45
--        common_element('Type', NULL, 'xri://$xrds*simple');
-+        common_element('Type', null, 'xri://$xrds*simple');
-hunk ./actions/publicxrds.php 58
--    function show_service($type, $uri, $params=NULL, $sigs=NULL, $localId=NULL) {
-+    function show_service($type, $uri, $params=null, $sigs=null, $localId=null) {
-hunk ./actions/publicxrds.php 61
--            common_element('URI', NULL, $uri);
-+            common_element('URI', null, $uri);
-hunk ./actions/publicxrds.php 63
--        common_element('Type', NULL, $type);
-+        common_element('Type', null, $type);
-hunk ./actions/publicxrds.php 66
--                common_element('Type', NULL, $param);
-+                common_element('Type', null, $param);
-hunk ./actions/publicxrds.php 71
--                common_element('Type', NULL, $sig);
-+                common_element('Type', null, $sig);
-hunk ./actions/publicxrds.php 75
--            common_element('LocalID', NULL, $localId);
-+            common_element('LocalID', null, $localId);
-hunk ./actions/recoverpassword.php 135
--    function show_top($msg=NULL) {
-+    function show_top($msg=null) {
+-    function show_form($error=null) {
++    function show_form($error=null)
++    {
+hunk ./actions/invite.php 157
+-    function send_invitation($email, $user, $personal) {
++    function send_invitation($email, $user, $personal)
++    {
+hunk ./actions/login.php 24
+-    function is_readonly() {
++    function is_readonly()
++    {
+hunk ./actions/login.php 29
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/login.php 41
+-    function check_login() {
++    function check_login()
++    {
+hunk ./actions/login.php 106
+-    function show_form($error=null) {
++    function show_form($error=null)
++    {
+hunk ./actions/login.php 127
+-    function get_instructions() {
++    function get_instructions()
++    {
+hunk ./actions/login.php 146
+-    function show_top($error=null) {
++    function show_top($error=null)
++    {
+hunk ./actions/logout.php 26
+-    function is_readonly() {
++    function is_readonly()
++    {
+hunk ./actions/logout.php 31
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/microsummary.php 24
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/newmessage.php 24
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/newmessage.php 37
+-    function save_new_message() {
++    function save_new_message()
++    {
+hunk ./actions/newmessage.php 94
+-    function show_top($params) {
++    function show_top($params)
++    {
+hunk ./actions/newmessage.php 104
+-    function show_form($msg=null) {
++    function show_form($msg=null)
++    {
+hunk ./actions/newmessage.php 135
+-    function notify($from, $to, $message) {
++    function notify($from, $to, $message)
++    {
+hunk ./actions/newnotice.php 26
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/newnotice.php 47
+-    function save_new_notice() {
++    function save_new_notice()
++    {
+hunk ./actions/newnotice.php 115
+-    function ajax_error_msg($msg) {
++    function ajax_error_msg($msg)
++    {
+hunk ./actions/newnotice.php 127
+-    function show_top($content=null) {
++    function show_top($content=null)
++    {
+hunk ./actions/newnotice.php 132
+-    function show_form($msg=null) {
++    function show_form($msg=null)
++    {
+hunk ./actions/newnotice.php 154
+-    function show_notice($notice) {
++    function show_notice($notice)
++    {
+hunk ./actions/noticesearch.php 28
+-    function get_instructions() {
++    function get_instructions()
++    {
+hunk ./actions/noticesearch.php 33
+-    function get_title() {
++    function get_title()
++    {
+hunk ./actions/noticesearch.php 38
+-    function show_results($q, $page) {
++    function show_results($q, $page)
++    {
+hunk ./actions/noticesearch.php 78
+-    function show_header($arr) {
++    function show_header($arr)
++    {
+hunk ./actions/noticesearch.php 94
+-    function show_notice($notice, $terms) {
++    function show_notice($notice, $terms)
++    {
+hunk ./actions/noticesearch.php 157
+-    function highlight($text, $terms) {
++    function highlight($text, $terms)
++    {
+hunk ./actions/noticesearchrss.php 28
+-    function init() {
++    function init()
++    {
+hunk ./actions/noticesearchrss.php 33
+-    function get_notices($limit=0) {
++    function get_notices($limit=0)
++    {
+hunk ./actions/noticesearchrss.php 59
+-    function get_channel() {
++    function get_channel()
++    {
+hunk ./actions/noticesearchrss.php 70
+-    function get_image() {
++    function get_image()
++    {
+hunk ./actions/nudge.php 26
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/nudge.php 75
+-    function notify($user, $other) {
++    function notify($user, $other)
++    {
+hunk ./actions/openidlogin.php 26
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/openidlogin.php 60
+-    function get_instructions() {
++    function get_instructions()
++    {
+hunk ./actions/openidlogin.php 65
+-    function show_top($error=null) {
++    function show_top($error=null)
++    {
+hunk ./actions/openidlogin.php 78
+-    function show_form($error=null, $openid_url) {
++    function show_form($error=null, $openid_url)
++    {
+hunk ./actions/openidsettings.php 27
+-    function get_instructions() {
++    function get_instructions()
++    {
+hunk ./actions/openidsettings.php 34
+-    function show_form($msg=null, $success=false) {
++    function show_form($msg=null, $success=false)
++    {
+hunk ./actions/openidsettings.php 121
+-    function handle_post() {
++    function handle_post()
++    {
+hunk ./actions/openidsettings.php 142
+-    function remove_openid() {
++    function remove_openid()
++    {
+hunk ./actions/opensearch.php 24
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/othersettings.php 26
+-    function get_instructions() {
++    function get_instructions()
++    {
+hunk ./actions/othersettings.php 31
+-    function show_form($msg=null, $success=false) {
++    function show_form($msg=null, $success=false)
++    {
+hunk ./actions/othersettings.php 68
+-    function show_feeds_list($feeds) {
++    function show_feeds_list($feeds)
++    {
+hunk ./actions/othersettings.php 82
+-    function common_feed_item($feed) {
++    function common_feed_item($feed)
++    {
+hunk ./actions/othersettings.php 138
+-    function handle_post() {
++    function handle_post()
++    {
+hunk ./actions/othersettings.php 155
+-    function save_preferences() {
++    function save_preferences()
++    {
+hunk ./actions/peoplesearch.php 27
+-    function get_instructions() {
++    function get_instructions()
++    {
+hunk ./actions/peoplesearch.php 33
+-    function get_title() {
++    function get_title()
++    {
+hunk ./actions/peoplesearch.php 38
+-    function show_results($q, $page) {
++    function show_results($q, $page)
++    {
+hunk ./actions/peoplesearch.php 77
+-    function __construct($profile, $terms) {
++    function __construct($profile, $terms)
++    {
+hunk ./actions/peoplesearch.php 85
+-    function highlight($text) {
++    function highlight($text)
++    {
+hunk ./actions/peopletag.php 26
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/peopletag.php 54
+-    function show_people($tag, $page) {
++    function show_people($tag, $page)
++    {
+hunk ./actions/peopletag.php 88
+-    function show_top($tag) {
++    function show_top($tag)
++    {
+hunk ./actions/peopletag.php 99
+-    function get_title() {
++    function get_title()
++    {
+hunk ./actions/peopletag.php 104
+-    function show_header($arr) {
++    function show_header($arr)
++    {
+hunk ./actions/postnotice.php 25
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/postnotice.php 43
+-    function save_notice(&$req, &$consumer, &$token) {
++    function save_notice(&$req, &$consumer, &$token)
++    {
+hunk ./actions/profilesettings.php 26
+-    function get_instructions() {
++    function get_instructions()
++    {
+hunk ./actions/profilesettings.php 32
+-    function show_form($msg=null, $success=false) {
++    function show_form($msg=null, $success=false)
++    {
+hunk ./actions/profilesettings.php 45
+-    function handle_post() {
++    function handle_post()
++    {
+hunk ./actions/profilesettings.php 66
+-    function show_settings_form() {
++    function show_settings_form()
++    {
+hunk ./actions/profilesettings.php 117
+-    function show_avatar_form() {
++    function show_avatar_form()
++    {
+hunk ./actions/profilesettings.php 176
+-    function show_password_form() {
++    function show_password_form()
++    {
+hunk ./actions/profilesettings.php 199
+-    function save_profile() {
++    function save_profile()
++    {
+hunk ./actions/profilesettings.php 347
+-    function upload_avatar() {
++    function upload_avatar()
++    {
+hunk ./actions/profilesettings.php 395
+-    function nickname_exists($nickname) {
++    function nickname_exists($nickname)
++    {
+hunk ./actions/profilesettings.php 406
+-    function change_password() {
++    function change_password()
++    {
+hunk ./actions/public.php 26
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/public.php 45
+-    function show_top() {
++    function show_top()
++    {
+hunk ./actions/public.php 69
+-    function get_instructions() {
++    function get_instructions()
++    {
+hunk ./actions/public.php 76
+-    function show_header() {
++    function show_header()
++    {
+hunk ./actions/public.php 87
+-    function show_notices($page) {
++    function show_notices($page)
++    {
+hunk ./actions/publicrss.php 28
+-    function init() {
++    function init()
++    {
+hunk ./actions/publicrss.php 33
+-    function get_notices($limit=0) {
++    function get_notices($limit=0)
++    {
+hunk ./actions/publicrss.php 47
+-    function get_channel() {
++    function get_channel()
++    {
+hunk ./actions/publicrss.php 57
+-    function get_image() {
++    function get_image()
++    {
+hunk ./actions/publicxrds.php 28
+-    function is_readonly() {
++    function is_readonly()
++    {
+hunk ./actions/publicxrds.php 33
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/publicxrds.php 60
+-    function show_service($type, $uri, $params=null, $sigs=null, $localId=null) {
++    function show_service($type, $uri, $params=null, $sigs=null, $localId=null)
++    {
+hunk ./actions/recoverpassword.php 28
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/recoverpassword.php 51
+-    function check_code() {
++    function check_code()
++    {
+hunk ./actions/recoverpassword.php 118
+-    function set_temp_user(&$user) {
++    function set_temp_user(&$user)
++    {
+hunk ./actions/recoverpassword.php 124
+-    function get_temp_user() {
++    function get_temp_user()
++    {
+hunk ./actions/recoverpassword.php 134
+-    function clear_temp_user() {
++    function clear_temp_user()
++    {
 hunk ./actions/recoverpassword.php 140
--            common_element('p', NULL, 
-+            common_element('p', null, 
-hunk ./actions/recoverpassword.php 149
--    function show_password_top($msg=NULL) {
-+    function show_password_top($msg=null) {
-hunk ./actions/recoverpassword.php 159
--    function show_form($msg=NULL) {
-+    function show_form($msg=null) {
-hunk ./actions/recoverpassword.php 161
--        common_show_header(_('Recover password'), NULL,
-+        common_show_header(_('Recover password'), null,
-hunk ./actions/recoverpassword.php 176
--    function show_password_form($msg=NULL) {
-+    function show_password_form($msg=null) {
-hunk ./actions/recoverpassword.php 178
--        common_show_header(_('Reset password'), NULL,
-+        common_show_header(_('Reset password'), null,
-hunk ./actions/recoverpassword.php 227
--                $confirm_email = NULL;
-+                $confirm_email = null;
-hunk ./actions/recoverpassword.php 270
--        common_element('p', NULL,
-+        common_element('p', null,
-hunk ./actions/recoverpassword.php 327
--        common_element('p', NULL, _('New password successfully saved. ' .
-+        common_element('p', null, _('New password successfully saved. ' .
-hunk ./actions/register.php 152
--    function show_top($error=NULL) {
-+    function show_top($error=null) {
-hunk ./actions/register.php 167
--    function show_form($error=NULL) {
-+    function show_form($error=null) {
-hunk ./actions/register.php 181
--        common_show_header(_('Register'), NULL, $error, array($this, 'show_top'));
-+        common_show_header(_('Register'), null, $error, array($this, 'show_top'));
-hunk ./actions/remotesubscribe.php 58
--    function show_top($err=NULL) {
-+    function show_top($err=null) {
-hunk ./actions/remotesubscribe.php 70
--    function show_form($err=NULL) {
-+    function show_form($err=null) {
+-    function show_top($msg=null) {
++    function show_top($msg=null)
++    {
+hunk ./actions/recoverpassword.php 155
+-    function show_password_top($msg=null) {
++    function show_password_top($msg=null)
++    {
+hunk ./actions/recoverpassword.php 166
+-    function show_form($msg=null) {
++    function show_form($msg=null)
++    {
+hunk ./actions/recoverpassword.php 184
+-    function show_password_form($msg=null) {
++    function show_password_form($msg=null)
++    {
+hunk ./actions/recoverpassword.php 203
+-    function recover_password() {
++    function recover_password()
++    {
+hunk ./actions/recoverpassword.php 287
+-    function reset_password() {
++    function reset_password()
++    {
+hunk ./actions/register.php 24
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/register.php 39
+-    function try_register() {
++    function try_register()
++    {
+hunk ./actions/register.php 138
+-    function nickname_exists($nickname) {
++    function nickname_exists($nickname)
++    {
+hunk ./actions/register.php 146
+-    function email_exists($email) {
++    function email_exists($email)
++    {
+hunk ./actions/register.php 156
+-    function show_top($error=null) {
++    function show_top($error=null)
++    {
+hunk ./actions/register.php 172
+-    function show_form($error=null) {
++    function show_form($error=null)
++    {
+hunk ./actions/register.php 245
+-    function show_success() {
++    function show_success()
++    {
+hunk ./actions/remotesubscribe.php 26
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/remotesubscribe.php 51
+-    function get_instructions() {
++    function get_instructions()
++    {
+hunk ./actions/remotesubscribe.php 60
+-    function show_top($err=null) {
++    function show_top($err=null)
++    {
 hunk ./actions/remotesubscribe.php 73
--        common_show_header(_('Remote subscribe'), NULL, $err,
-+        common_show_header(_('Remote subscribe'), null, $err,
-hunk ./actions/remotesubscribe.php 156
--        $user = NULL;
-+        $user = null;
-hunk ./actions/remotesubscribe.php 176
--            return NULL;
-+            return null;
-hunk ./actions/remotesubscribe.php 184
--            return NULL;
-+            return null;
-hunk ./actions/remotesubscribe.php 188
--            return NULL;
-+            return null;
-hunk ./actions/remotesubscribe.php 194
--            return NULL;
-+            return null;
-hunk ./actions/remotesubscribe.php 202
--            return NULL;
-+            return null;
-hunk ./actions/remotesubscribe.php 206
--            return NULL;
-+            return null;
-hunk ./actions/remotesubscribe.php 213
--                return NULL;
-+                return null;
-hunk ./actions/remotesubscribe.php 218
--            return NULL;
-+            return null;
-hunk ./actions/remotesubscribe.php 228
--            return NULL;
-+            return null;
-hunk ./actions/remotesubscribe.php 242
--        return NULL;
-+        return null;
-hunk ./actions/remotesubscribe.php 270
--        $req = OAuthRequest::from_consumer_and_token($con, NULL, "POST", $url, $params);
-+        $req = OAuthRequest::from_consumer_and_token($con, null, "POST", $url, $params);
-hunk ./actions/remotesubscribe.php 275
--            return NULL;
-+            return null;
-hunk ./actions/remotesubscribe.php 283
--        $req->sign_request(omb_hmac_sha1(), $con, NULL);
-+        $req->sign_request(omb_hmac_sha1(), $con, null);
-hunk ./actions/remotesubscribe.php 294
--            return NULL;
-+            return null;
-hunk ./actions/repliesrss.php 28
--    var $user = NULL;
-+    var $user = null;
-hunk ./actions/repliesrss.php 74
--            return NULL;
-+            return null;
-hunk ./actions/repliesrss.php 77
--        return ($avatar) ? $avatar->url : NULL;
-+        return ($avatar) ? $avatar->url : null;
-hunk ./actions/showmessage.php 56
--            return NULL;
-+            return null;
-hunk ./actions/showmessage.php 88
--            return NULL;
-+            return null;
-hunk ./actions/shownotice.php 26
--    var $notice = NULL;
--    var $profile = NULL;
--    var $avatar = NULL;
-+    var $notice = null;
-+    var $profile = null;
-+    var $avatar = null;
-hunk ./actions/shownotice.php 76
--                           array($this, 'show_header'), NULL,
-+                           array($this, 'show_header'), null,
-hunk ./actions/showstream.php 288
--        common_element('h2', NULL, _('Subscriptions'));
-+        common_element('h2', null, _('Subscriptions'));
-hunk ./actions/showstream.php 418
--        common_element('h2', NULL, _('Currently'));
-+        common_element('h2', null, _('Currently'));
-hunk ./actions/smssettings.php 31
--    function show_form($msg=NULL, $success=false) {
-+    function show_form($msg=null, $success=false) {
-hunk ./actions/smssettings.php 39
--        common_element('h2', NULL, _('Address'));
-+        common_element('h2', null, _('Address'));
-hunk ./actions/smssettings.php 63
--                common_input('code', _('Confirmation code'), NULL,
-+                common_input('code', _('Confirmation code'), null,
-hunk ./actions/smssettings.php 68
--                             ($this->arg('sms')) ? $this->arg('sms') : NULL,
-+                             ($this->arg('sms')) ? $this->arg('sms') : null,
-hunk ./actions/smssettings.php 76
--            common_element('h2', NULL, _('Incoming email'));
-+            common_element('h2', null, _('Incoming email'));
-hunk ./actions/smssettings.php 94
--        common_element('h2', NULL, _('Preferences'));
-+        common_element('h2', null, _('Preferences'));
-hunk ./actions/smssettings.php 114
--            return NULL;
-+            return null;
-hunk ./actions/smssettings.php 271
--        $user->sms = NULL;
--        $user->carrier = NULL;        
--        $user->smsemail = NULL;        
-+        $user->sms = null;
-+        $user->carrier = null;        
-+        $user->smsemail = null;        
-hunk ./actions/subedit.php 24
--    var $profile = NULL;
-+    var $profile = null;
-hunk ./actions/tagother.php 52
--    function show_form($profile, $error=NULL) {
-+    function show_form($profile, $error=null) {
-hunk ./actions/tagother.php 57
--                           NULL, array($profile, $error), array($this, 'show_top'));
-+                           null, array($profile, $error), array($this, 'show_top'));
-hunk ./actions/tagother.php 181
--    function show_top($arr = NULL) {
-+    function show_top($arr = null) {
-hunk ./actions/tagother.php 187
--            common_element('p', NULL,
-+            common_element('p', null,
-hunk ./actions/tagrss.php 44
--            return NULL;
-+            return null;
-hunk ./actions/twitapidirect_messages.php 231
--        common_element('title', NULL, $title);
-+        common_element('title', null, $title);
+-    function show_form($err=null) {
++    function show_form($err=null)
++    {
+hunk ./actions/remotesubscribe.php 93
+-    function remote_subscription() {
++    function remote_subscription()
++    {
+hunk ./actions/remotesubscribe.php 160
+-    function get_user() {
++    function get_user()
++    {
+hunk ./actions/remotesubscribe.php 170
+-    function getOmb($xrds) {
++    function getOmb($xrds)
++    {
+hunk ./actions/remotesubscribe.php 231
+-    function getXRD($main_service, $main_xrds) {
++    function getXRD($main_service, $main_xrds)
++    {
+hunk ./actions/remotesubscribe.php 253
+-    function addServices($xrd, $types, &$omb) {
++    function addServices($xrd, $types, &$omb)
++    {
+hunk ./actions/remotesubscribe.php 267
+-    function request_token($omb) {
++    function request_token($omb)
++    {
+hunk ./actions/remotesubscribe.php 312
+-    function request_authorization($user, $omb, $token, $secret) {
++    function request_authorization($user, $omb, $token, $secret)
++    {
+hunk ./actions/remotesubscribe.php 394
+-    function make_nonce() {
++    function make_nonce()
++    {
+hunk ./actions/replies.php 26
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/replies.php 57
+-    function no_such_user() {
++    function no_such_user()
++    {
+hunk ./actions/replies.php 62
+-    function show_header($user) {
++    function show_header($user)
++    {
+hunk ./actions/replies.php 71
+-    function show_top($user) {
++    function show_top($user)
++    {
+hunk ./actions/replies.php 87
+-    function show_replies($user) {
++    function show_replies($user)
++    {
+hunk ./actions/repliesrss.php 30
+-    function init() {
++    function init()
++    {
+hunk ./actions/repliesrss.php 43
+-    function get_notices($limit=0) {
++    function get_notices($limit=0)
++    {
+hunk ./actions/repliesrss.php 59
+-    function get_channel() {
++    function get_channel()
++    {
+hunk ./actions/repliesrss.php 73
+-    function get_image() {
++    function get_image()
++    {
+hunk ./actions/requesttoken.php 26
+-    function is_readonly() {
++    function is_readonly()
++    {
+hunk ./actions/requesttoken.php 31
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/showfavorites.php 26
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/showfavorites.php 57
+-    function show_header($user) {
++    function show_header($user)
++    {
+hunk ./actions/showfavorites.php 66
+-    function show_top($user) {
++    function show_top($user)
++    {
+hunk ./actions/showfavorites.php 81
+-    function show_notices($user) {
++    function show_notices($user)
++    {
+hunk ./actions/showmessage.php 26
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/showmessage.php 48
+-    function get_message() {
++    function get_message()
++    {
+hunk ./actions/showmessage.php 55
+-    function get_title($user, $page) {
++    function get_title($user, $page)
++    {
+hunk ./actions/showmessage.php 76
+-    function get_messages($user, $page) {
++    function get_messages($user, $page)
++    {
+hunk ./actions/showmessage.php 84
+-    function get_message_profile($message) {
++    function get_message_profile($message)
++    {
+hunk ./actions/showmessage.php 97
+-    function get_instructions() {
++    function get_instructions()
++    {
+hunk ./actions/showmessage.php 102
+-    function views_menu() {
++    function views_menu()
++    {
+hunk ./actions/shownotice.php 30
+-    function prepare($args) {
++    function prepare($args)
++    {
+hunk ./actions/shownotice.php 55
+-    function last_modified() {
++    function last_modified()
++    {
+hunk ./actions/shownotice.php 62
+-    function etag() {
++    function etag()
++    {
+hunk ./actions/shownotice.php 72
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/shownotice.php 91
+-    function show_header() {
++    function show_header()
++    {
+hunk ./actions/shownotice.php 111
+-    function show_top() {
++    function show_top()
++    {
+hunk ./actions/shownotice.php 119
+-    function no_such_notice() {
++    function no_such_notice()
++    {
+hunk ./actions/showstream.php 29
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/showstream.php 80
+-    function show_top($user) {
++    function show_top($user)
++    {
+hunk ./actions/showstream.php 105
+-    function show_header($user) {
++    function show_header($user)
++    {
+hunk ./actions/showstream.php 159
+-    function no_such_user() {
++    function no_such_user()
++    {
+hunk ./actions/showstream.php 164
+-    function show_profile($profile) {
++    function show_profile($profile)
++    {
+hunk ./actions/showstream.php 180
+-    function show_personal($profile) {
++    function show_personal($profile)
++    {
+hunk ./actions/showstream.php 255
+-    function show_remote_subscribe_link($profile) {
++    function show_remote_subscribe_link($profile)
++    {
+hunk ./actions/showstream.php 264
+-    function show_unsubscribe_form($profile) {
++    function show_unsubscribe_form($profile)
++    {
+hunk ./actions/showstream.php 279
+-    function show_subscriptions($profile) {
++    function show_subscriptions($profile)
++    {
+hunk ./actions/showstream.php 352
+-    function show_statistics($profile) {
++    function show_statistics($profile)
++    {
+hunk ./actions/showstream.php 413
+-    function show_notices($user) {
++    function show_notices($user)
++    {
+hunk ./actions/showstream.php 427
+-    function show_last_notice($profile) {
++    function show_last_notice($profile)
++    {
+hunk ./actions/showstream.php 453
+-    function newListItem($notice) {
++    function newListItem($notice)
++    {
+hunk ./actions/showstream.php 460
+-    function showAuthor() {
++    function showAuthor()
++    {
+hunk ./actions/smssettings.php 27
+-    function get_instructions() {
++    function get_instructions()
++    {
+hunk ./actions/smssettings.php 32
+-    function show_form($msg=null, $success=false) {
++    function show_form($msg=null, $success=false)
++    {
+hunk ./actions/smssettings.php 108
+-    function get_confirmation() {
++    function get_confirmation()
++    {
+hunk ./actions/smssettings.php 121
+-    function handle_post() {
++    function handle_post()
++    {
+hunk ./actions/smssettings.php 151
+-    function save_preferences() {
++    function save_preferences()
++    {
+hunk ./actions/smssettings.php 179
+-    function add_address() {
++    function add_address()
++    {
+hunk ./actions/smssettings.php 235
+-    function cancel_confirmation() {
++    function cancel_confirmation()
++    {
+hunk ./actions/smssettings.php 263
+-    function remove_address() {
++    function remove_address()
++    {
+hunk ./actions/smssettings.php 293
+-    function sms_exists($sms) {
++    function sms_exists($sms)
++    {
+hunk ./actions/smssettings.php 304
+-    function carrier_select() {
++    function carrier_select()
++    {
+hunk ./actions/smssettings.php 329
+-    function confirm_code() {
++    function confirm_code()
++    {
+hunk ./actions/subedit.php 26
+-    function prepare($args) {
++    function prepare($args)
++    {
+hunk ./actions/subedit.php 60
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/subscribe.php 24
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/subscribers.php 26
+-    function gallery_type() {
++    function gallery_type()
++    {
+hunk ./actions/subscribers.php 31
+-    function get_instructions(&$profile) {
++    function get_instructions(&$profile)
++    {
+hunk ./actions/subscribers.php 41
+-    function fields() {
++    function fields()
++    {
+hunk ./actions/subscribers.php 46
+-    function div_class() {
++    function div_class()
++    {
+hunk ./actions/subscribers.php 51
+-    function get_other(&$subs) {
++    function get_other(&$subs)
++    {
+hunk ./actions/subscribers.php 56
+-    function profile_list_class() {
++    function profile_list_class()
++    {
+hunk ./actions/subscribers.php 63
+-    function show_owner_controls($profile) {
++    function show_owner_controls($profile)
++    {
+hunk ./actions/subscriptions.php 26
+-    function gallery_type() {
++    function gallery_type()
++    {
+hunk ./actions/subscriptions.php 31
+-    function get_instructions(&$profile) {
++    function get_instructions(&$profile)
++    {
+hunk ./actions/subscriptions.php 41
+-    function fields() {
++    function fields()
++    {
+hunk ./actions/subscriptions.php 46
+-    function div_class() {
++    function div_class()
++    {
+hunk ./actions/subscriptions.php 51
+-    function get_other(&$subs) {
++    function get_other(&$subs)
++    {
+hunk ./actions/subscriptions.php 56
+-    function profile_list_class() {
++    function profile_list_class()
++    {
+hunk ./actions/subscriptions.php 64
+-    function show_owner_controls($profile) {
++    function show_owner_controls($profile)
++    {
+hunk ./actions/sup.php 24
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/sup.php 46
+-    function available_periods() {
++    function available_periods()
++    {
+hunk ./actions/sup.php 60
+-    function get_updates($seconds) {
++    function get_updates($seconds)
++    {
+hunk ./actions/sup.php 81
+-    function is_readonly() {
++    function is_readonly()
++    {
+hunk ./actions/tag.php 27
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/tag.php 50
+-    function show_header($tag = false) {
++    function show_header($tag = false)
++    {
+hunk ./actions/tag.php 60
+-    function get_instructions() {
++    function get_instructions()
++    {
+hunk ./actions/tag.php 65
+-    function show_top($tag = false) {
++    function show_top($tag = false)
++    {
+hunk ./actions/tag.php 131
+-    function show_tag($tag, $weight, $relative) {
++    function show_tag($tag, $weight, $relative)
++    {
+hunk ./actions/tag.php 157
+-    function show_notices($tag) {
++    function show_notices($tag)
++    {
+hunk ./actions/tagother.php 26
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/tagother.php 53
+-    function show_form($profile, $error=null) {
++    function show_form($profile, $error=null)
++    {
+hunk ./actions/tagother.php 108
+-    function save_tags() {
++    function save_tags()
++    {
+hunk ./actions/tagother.php 184
+-    function show_top($arr = null) {
++    function show_top($arr = null)
++    {
+hunk ./actions/tagrss.php 28
+-    function init() {
++    function init()
++    {
+hunk ./actions/tagrss.php 41
+-    function get_notices($limit=0) {
++    function get_notices($limit=0)
++    {
+hunk ./actions/tagrss.php 58
+-    function get_channel() {
++    function get_channel()
++    {
+hunk ./actions/twitapiaccount.php 26
+-    function verify_credentials($args, $apidata) {
++    function verify_credentials($args, $apidata)
++    {
+hunk ./actions/twitapiaccount.php 38
+-    function end_session($args, $apidata) {
++    function end_session($args, $apidata)
++    {
+hunk ./actions/twitapiaccount.php 44
+-    function update_location($args, $apidata) {
++    function update_location($args, $apidata)
++    {
+hunk ./actions/twitapiaccount.php 90
+-    function update_delivery_device($args, $apidata) {
++    function update_delivery_device($args, $apidata)
++    {
+hunk ./actions/twitapiaccount.php 96
+-    function rate_limit_status($args, $apidata) {
++    function rate_limit_status($args, $apidata)
++    {
+hunk ./actions/twitapiblocks.php 26
+-    function create($args, $apidata) {
++    function create($args, $apidata)
++    {
+hunk ./actions/twitapiblocks.php 50
+-    function destroy($args, $apidata) {
++    function destroy($args, $apidata)
++    {
+hunk ./actions/twitapidirect_messages.php 26
+-    function direct_messages($args, $apidata) {
++    function direct_messages($args, $apidata)
++    {
+hunk ./actions/twitapidirect_messages.php 32
+-    function sent($args, $apidata) {
++    function sent($args, $apidata)
++    {
+hunk ./actions/twitapidirect_messages.php 38
+-    function show_messages($args, $apidata, $type) {
++    function show_messages($args, $apidata, $type)
++    {
+hunk ./actions/twitapidirect_messages.php 116
+-    function create($args, $apidata) {
++    function create($args, $apidata)
++    {
+hunk ./actions/twitapidirect_messages.php 180
+-    function destroy($args, $apidata) {
++    function destroy($args, $apidata)
++    {
+hunk ./actions/twitapidirect_messages.php 186
+-    function show_xml_dmsgs($message) {
++    function show_xml_dmsgs($message)
++    {
+hunk ./actions/twitapidirect_messages.php 209
+-    function show_json_dmsgs($message) {
++    function show_json_dmsgs($message)
++    {
 hunk ./actions/twitapidirect_messages.php 233
--        common_element('link', NULL, $link);
--        common_element('description', NULL, $subtitle);
--        common_element('language', NULL, 'en-us');
--        common_element('ttl', NULL, '40');
-+        common_element('link', null, $link);
-+        common_element('description', null, $subtitle);
-+        common_element('language', null, 'en-us');
-+        common_element('ttl', null, '40');
-hunk ./actions/twitapidirect_messages.php 259
--        common_element('title', NULL, $title);
-+        common_element('title', null, $title);
-hunk ./actions/twitapidirect_messages.php 261
--        common_element('id', NULL, "tag:$siteserver,2008:DirectMessage");
--        common_element('link', array('href' => $link, 'rel' => 'alternate', 'type' => 'text/html'), NULL);
--        common_element('updated', NULL, common_date_iso8601(strftime('%c')));
--        common_element('subtitle', NULL, $subtitle);
-+        common_element('id', null, "tag:$siteserver,2008:DirectMessage");
-+        common_element('link', array('href' => $link, 'rel' => 'alternate', 'type' => 'text/html'), null);
-+        common_element('updated', null, common_date_iso8601(strftime('%c')));
-+        common_element('subtitle', null, $subtitle);
-hunk ./actions/twitapifriendships.php 141
--            common_element('friends', NULL, $result);
-+            common_element('friends', null, $result);
-hunk ./actions/twitapihelp.php 35
--            common_element('ok', NULL, 'true');
-+            common_element('ok', null, 'true');
-hunk ./actions/twitapistatuses.php 115
--        $user = $this->get_user(NULL, $apidata);
-+        $user = $this->get_user(null, $apidata);
-hunk ./actions/twitapistatuses.php 203
--        $suplink = common_local_url('sup', NULL, $user->id);
-+        $suplink = common_local_url('sup', null, $user->id);
-hunk ./actions/twitapistatuses.php 294
--            $reply_to = NULL;
-+            $reply_to = null;
-hunk ./actions/twittersettings.php 33
--    function show_form($msg=NULL, $success=false) {
-+    function show_form($msg=null, $success=false) {
-hunk ./actions/twittersettings.php 36
--        $fuser = NULL;
-+        $fuser = null;
-hunk ./actions/twittersettings.php 50
--        common_element('h2', NULL, _('Twitter Account'));
-+        common_element('h2', null, _('Twitter Account'));
-hunk ./actions/twittersettings.php 70
--        common_element('h2', NULL, _('Preferences'));
-+        common_element('h2', null, _('Preferences'));
-hunk ./actions/twittersettings.php 129
--            common_element('h3', NULL, _('Twitter Friends'));
-+            common_element('h3', null, _('Twitter Friends'));
-hunk ./actions/unblock.php 24
--    var $profile = NULL;
-+    var $profile = null;
-hunk ./actions/userauthorization.php 84
--        common_element('p', NULL, _('Please check these details to make sure '.
-+        common_element('p', null, _('Please check these details to make sure '.
-hunk ./actions/userauthorization.php 323
--        common_element('p', NULL,
-+        common_element('p', null,
-hunk ./actions/userauthorization.php 333
--        common_element('p', NULL,
-+        common_element('p', null,
-hunk ./actions/userbyid.php 41
--        $httpaccept = isset($_SERVER['HTTP_ACCEPT']) ? $_SERVER['HTTP_ACCEPT'] : NULL;
-+        $httpaccept = isset($_SERVER['HTTP_ACCEPT']) ? $_SERVER['HTTP_ACCEPT'] : null;
-hunk ./actions/userrss.php 28
--    var $user = NULL;
-+    var $user = null;
-hunk ./actions/userrss.php 47
--            return NULL;
-+            return null;
-hunk ./actions/userrss.php 77
--            return NULL;
-+            return null;
-hunk ./actions/userrss.php 80
--        return ($avatar) ? $avatar->url : NULL;
-+        return ($avatar) ? $avatar->url : null;
-hunk ./actions/userrss.php 86
--        $url = common_local_url('sup', NULL, $this->user->id);
-+        $url = common_local_url('sup', null, $this->user->id);
-hunk ./actions/xrds.php 53
--        common_element('Type', NULL, 'xri://$xrds*simple');
-+        common_element('Type', null, 'xri://$xrds*simple');
-hunk ./actions/xrds.php 72
--                            NULL,
-+                            null,
-hunk ./actions/xrds.php 85
--        common_element('Type', NULL, 'xri://$xrds*simple');
-+        common_element('Type', null, 'xri://$xrds*simple');
-hunk ./actions/xrds.php 98
--        common_element('Type', NULL, 'xri://$xrds*simple');
-+        common_element('Type', null, 'xri://$xrds*simple');
-hunk ./actions/xrds.php 111
--    function show_service($type, $uri, $params=NULL, $sigs=NULL, $localId=NULL) {
-+    function show_service($type, $uri, $params=null, $sigs=null, $localId=null) {
+-    function show_rss_dmsgs($message, $title, $link, $subtitle) {
++    function show_rss_dmsgs($message, $title, $link, $subtitle)
++    {
+hunk ./actions/twitapidirect_messages.php 263
+-    function show_atom_dmsgs($message, $title, $link, $subtitle) {
++    function show_atom_dmsgs($message, $title, $link, $subtitle)
++    {
+hunk ./actions/twitapidirect_messages.php 291
+-    function notify($from, $to, $message) {
++    function notify($from, $to, $message)
++    {
+hunk ./actions/twitapifavorites.php 26
+-    function favorites($args, $apidata) {
++    function favorites($args, $apidata)
++    {
+hunk ./actions/twitapifavorites.php 89
+-    function create($args, $apidata) {
++    function create($args, $apidata)
++    {
+hunk ./actions/twitapifavorites.php 139
+-    function destroy($args, $apidata) {
++    function destroy($args, $apidata)
++    {
+hunk ./actions/twitapifavorites.php 147
+-    function notify($fave, $notice, $user) {
++    function notify($fave, $notice, $user)
++    {
+hunk ./actions/twitapifavorites.php 159
+-    function notify_mail($other, $user, $notice) {
++    function notify_mail($other, $user, $notice)
++    {
+hunk ./actions/twitapifriendships.php 26
+-    function create($args, $apidata) {
++    function create($args, $apidata)
++    {
+hunk ./actions/twitapifriendships.php 79
+-    function destroy($args, $apidata) {
++    function destroy($args, $apidata)
++    {
+hunk ./actions/twitapifriendships.php 115
+-    function exists($args, $apidata) {
++    function exists($args, $apidata)
++    {
+hunk ./actions/twitapihelp.php 30
+-    function test($args, $apidata) {
++    function test($args, $apidata)
++    {
+hunk ./actions/twitapihelp.php 48
+-    function downtime_schedule($args, $apidata) {
++    function downtime_schedule($args, $apidata)
++    {
+hunk ./actions/twitapinotifications.php 27
+-    function follow($args, $apidata) {
++    function follow($args, $apidata)
++    {
+hunk ./actions/twitapinotifications.php 33
+-    function leave($args, $apidata) {
++    function leave($args, $apidata)
++    {
+hunk ./actions/twitapistatuses.php 26
+-    function public_timeline($args, $apidata) {
++    function public_timeline($args, $apidata)
++    {
+hunk ./actions/twitapistatuses.php 88
+-    function friends_timeline($args, $apidata) {
++    function friends_timeline($args, $apidata)
++    {
+hunk ./actions/twitapistatuses.php 151
+-    function user_timeline($args, $apidata) {
++    function user_timeline($args, $apidata)
++    {
+hunk ./actions/twitapistatuses.php 232
+-    function update($args, $apidata) {
++    function update($args, $apidata)
++    {
+hunk ./actions/twitapistatuses.php 328
+-    function replies($args, $apidata) {
++    function replies($args, $apidata)
++    {
+hunk ./actions/twitapistatuses.php 396
+-    function show($args, $apidata) {
++    function show($args, $apidata)
++    {
+hunk ./actions/twitapistatuses.php 422
+-    function destroy($args, $apidata) {
++    function destroy($args, $apidata)
++    {
+hunk ./actions/twitapistatuses.php 467
+-    function friends($args, $apidata) {
++    function friends($args, $apidata)
++    {
+hunk ./actions/twitapistatuses.php 473
+-    function followers($args, $apidata) {
++    function followers($args, $apidata)
++    {
+hunk ./actions/twitapistatuses.php 480
+-    function subscriptions($apidata, $other_attr, $user_attr) {
++    function subscriptions($apidata, $other_attr, $user_attr)
++    {
+hunk ./actions/twitapistatuses.php 536
+-    function show_profiles($profiles, $type) {
++    function show_profiles($profiles, $type)
++    {
+hunk ./actions/twitapistatuses.php 558
+-    function featured($args, $apidata) {
++    function featured($args, $apidata)
++    {
+hunk ./actions/twitapistatuses.php 564
+-    function supported($cmd) {
++    function supported($cmd)
++    {
+hunk ./actions/twitapiusers.php 26
+-    function show($args, $apidata) {
++    function show($args, $apidata)
++    {
+hunk ./actions/twittersettings.php 28
+-    function get_instructions() {
++    function get_instructions()
++    {
+hunk ./actions/twittersettings.php 34
+-    function show_form($msg=null, $success=false) {
++    function show_form($msg=null, $success=false)
++    {
+hunk ./actions/twittersettings.php 96
+-    function subscribed_twitter_users() {
++    function subscribed_twitter_users()
++    {
+hunk ./actions/twittersettings.php 125
+-    function show_twitter_subscriptions() {
++    function show_twitter_subscriptions()
++    {
+hunk ./actions/twittersettings.php 187
+-    function handle_post() {
++    function handle_post()
++    {
+hunk ./actions/twittersettings.php 208
+-    function add_twitter_acct() {
++    function add_twitter_acct()
++    {
+hunk ./actions/twittersettings.php 270
+-    function remove_twitter_acct() {
++    function remove_twitter_acct()
++    {
+hunk ./actions/twittersettings.php 294
+-    function save_preferences() {
++    function save_preferences()
++    {
+hunk ./actions/twittersettings.php 341
+-    function verify_credentials($screen_name, $password) {
++    function verify_credentials($screen_name, $password)
++    {
+hunk ./actions/twittersettings.php 365
+-    function set_flags(&$flink, $noticesync, $replysync, $friendsync) {
++    function set_flags(&$flink, $noticesync, $replysync, $friendsync)
++    {
+hunk ./actions/unblock.php 26
+-    function prepare($args) {
++    function prepare($args)
++    {
+hunk ./actions/unblock.php 60
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/unblock.php 68
+-    function unblock_profile() {
++    function unblock_profile()
++    {
+hunk ./actions/unsubscribe.php 22
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/updateprofile.php 26
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/updateprofile.php 44
+-    function update_profile($req, $consumer, $token) {
++    function update_profile($req, $consumer, $token)
++    {
+hunk ./actions/userauthorization.php 27
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/userauthorization.php 73
+-    function show_form($req) {
++    function show_form($req)
++    {
+hunk ./actions/userauthorization.php 134
+-    function send_authorization() {
++    function send_authorization()
++    {
+hunk ./actions/userauthorization.php 203
+-    function authorize_token(&$req) {
++    function authorize_token(&$req)
++    {
+hunk ./actions/userauthorization.php 229
+-    function save_remote_profile(&$req) {
++    function save_remote_profile(&$req)
++    {
+hunk ./actions/userauthorization.php 320
+-    function add_avatar($profile, $url) {
++    function add_avatar($profile, $url)
++    {
+hunk ./actions/userauthorization.php 327
+-    function show_accept_message($tok) {
++    function show_accept_message($tok)
++    {
+hunk ./actions/userauthorization.php 338
+-    function show_reject_message($tok) {
++    function show_reject_message($tok)
++    {
+hunk ./actions/userauthorization.php 348
+-    function store_request($req) {
++    function store_request($req)
++    {
+hunk ./actions/userauthorization.php 354
+-    function clear_request() {
++    function clear_request()
++    {
+hunk ./actions/userauthorization.php 360
+-    function get_stored_request() {
++    function get_stored_request()
++    {
+hunk ./actions/userauthorization.php 367
+-    function get_new_request() {
++    function get_new_request()
++    {
+hunk ./actions/userauthorization.php 376
+-    function validate_request(&$req) {
++    function validate_request(&$req)
++    {
+hunk ./actions/userauthorization.php 400
+-    function validate_omb(&$req) {
++    function validate_omb(&$req)
++    {
+hunk ./actions/userauthorization.php 515
+-    function check_version(&$req) {
++    function check_version(&$req)
++    {
+hunk ./actions/userauthorization.php 529
+-    function get_consumer($datastore, $req) {
++    function get_consumer($datastore, $req)
++    {
+hunk ./actions/userauthorization.php 545
+-    function get_token($datastore, &$req, $consumer) {/*{{{*/
++    function get_token($datastore, &$req, $consumer)
++    {/*{{{*/
+hunk ./actions/userauthorization.php 555
+-    function check_timestamp(&$req) {
++    function check_timestamp(&$req)
++    {
+hunk ./actions/userauthorization.php 565
+-    function check_nonce(&$datastore, &$req, $consumer, $token) {
++    function check_nonce(&$datastore, &$req, $consumer, $token)
++    {
+hunk ./actions/userauthorization.php 576
+-    function check_signature(&$req, $consumer, $token) {
++    function check_signature(&$req, $consumer, $token)
++    {
+hunk ./actions/userauthorization.php 589
+-    function get_signature_method(&$req) {
++    function get_signature_method(&$req)
++    {
+hunk ./actions/userbyid.php 24
+-    function is_readonly() {                
++    function is_readonly()
++    {                
+hunk ./actions/userbyid.php 29
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/userrss.php 30
+-    function init() {
++    function init()
++    {
+hunk ./actions/userrss.php 43
+-    function get_notices($limit=0) {
++    function get_notices($limit=0)
++    {
+hunk ./actions/userrss.php 61
+-    function get_channel() {
++    function get_channel()
++    {
+hunk ./actions/userrss.php 74
+-    function get_image() {
++    function get_image()
++    {
+hunk ./actions/userrss.php 89
+-    function init_rss($limit=0) {
++    function init_rss($limit=0)
++    {
+hunk ./actions/xrds.php 26
+-    function is_readonly() {                
++    function is_readonly()
++    {                
+hunk ./actions/xrds.php 31
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./actions/xrds.php 43
+-    function show_xrds($user) {
++    function show_xrds($user)
++    {
 hunk ./actions/xrds.php 114
--            common_element('URI', NULL, $uri);
-+            common_element('URI', null, $uri);
-hunk ./actions/xrds.php 116
--        common_element('Type', NULL, $type);
-+        common_element('Type', null, $type);
-hunk ./actions/xrds.php 119
--                common_element('Type', NULL, $param);
-+                common_element('Type', null, $param);
-hunk ./actions/xrds.php 124
--                common_element('Type', NULL, $sig);
-+                common_element('Type', null, $sig);
-hunk ./actions/xrds.php 128
--            common_element('LocalID', NULL, $localId);
-+            common_element('LocalID', null, $localId);
+-    function show_service($type, $uri, $params=null, $sigs=null, $localId=null) {
++    function show_service($type, $uri, $params=null, $sigs=null, $localId=null)
++    {
 hunk ./classes/Avatar.php 24
--    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Avatar',$k,$v); }
-+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Avatar',$k,$v); }
-hunk ./classes/Avatar.php 75
--            return NULL;
-+            return null;
-hunk ./classes/Avatar.php 88
--            return NULL;
-+            return null;
-hunk ./classes/Channel.php 41
--        return NULL;
-+        return null;
-hunk ./classes/Channel.php 47
--    var $conn = NULL;
-+    var $conn = null;
+-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Avatar',$k,$v); }
++    function staticGet($k,$v=null)
++    { return Memcached_DataObject::staticGet('Avatar',$k,$v); }
+hunk ./classes/Avatar.php 32
+-    function delete() {
++    function delete()
++    {
+hunk ./classes/Avatar.php 43
+-    function scale($size) {
++    function scale($size)
++    {
+hunk ./classes/Avatar.php 82
+-    function to_image() {
++    function to_image()
++    {
+hunk ./classes/Avatar.php 96
+-    function &pkeyGet($kv) {
++    function &pkeyGet($kv)
++    {
+hunk ./classes/Channel.php 24
+-    function on($user) {
++    function on($user)
++    {
+hunk ./classes/Channel.php 29
+-    function off($user) {
++    function off($user)
++    {
+hunk ./classes/Channel.php 34
+-    function output($user, $text) {
++    function output($user, $text)
++    {
+hunk ./classes/Channel.php 39
+-    function error($user, $text) {
++    function error($user, $text)
++    {
+hunk ./classes/Channel.php 44
+-    function source() {
++    function source()
++    {
+hunk ./classes/Channel.php 54
+-    function source() {
++    function source()
++    {
+hunk ./classes/Channel.php 59
+-    function __construct($conn) {
++    function __construct($conn)
++    {
+hunk ./classes/Channel.php 64
+-    function on($user) {
++    function on($user)
++    {
+hunk ./classes/Channel.php 69
+-    function off($user) {
++    function off($user)
++    {
+hunk ./classes/Channel.php 74
+-    function output($user, $text) {
++    function output($user, $text)
++    {
+hunk ./classes/Channel.php 80
+-    function error($user, $text) {
++    function error($user, $text)
++    {
+hunk ./classes/Channel.php 86
+-    function set_notify(&$user, $notify) {
++    function set_notify(&$user, $notify)
++    {
+hunk ./classes/Channel.php 109
+-    function source() {
++    function source()
++    {
 hunk ./classes/Channel.php 114
--        common_element('p', NULL, $text);
-+        common_element('p', null, $text);
-hunk ./classes/Channel.php 152
--    var $addr = NULL;
-+    var $addr = null;
-hunk ./classes/Channel.php 158
--    function __construct($addr=NULL) {
-+    function __construct($addr=null) {
-hunk ./classes/Command.php 26
--    var $user = NULL;
-+    var $user = null;
+-    function on($user) {
++    function on($user)
++    {
+hunk ./classes/Channel.php 119
+-    function off($user) {
++    function off($user)
++    {
+hunk ./classes/Channel.php 124
+-    function output($user, $text) {
++    function output($user, $text)
++    {
+hunk ./classes/Channel.php 134
+-    function error($user, $text) {
++    function error($user, $text)
++    {
+hunk ./classes/Channel.php 143
+-    function output($user, $text) {
++    function output($user, $text)
++    {
+hunk ./classes/Channel.php 155
+-    function error($user, $text) {
++    function error($user, $text)
++    {
+hunk ./classes/Channel.php 173
+-    function source() {
++    function source()
++    {
+hunk ./classes/Channel.php 178
+-    function __construct($addr=null) {
++    function __construct($addr=null)
++    {
+hunk ./classes/Channel.php 183
+-    function on($user) {
++    function on($user)
++    {
+hunk ./classes/Channel.php 188
+-    function off($user) {
++    function off($user)
++    {
+hunk ./classes/Channel.php 193
+-    function output($user, $text) {
++    function output($user, $text)
++    {
+hunk ./classes/Channel.php 204
+-    function error($user, $text) {
++    function error($user, $text)
++    {
+hunk ./classes/Channel.php 215
+-    function set_notify($user, $value) {
++    function set_notify($user, $value)
++    {
 hunk ./classes/Command.php 28
--    function __construct($user=NULL) {
-+    function __construct($user=null) {
-hunk ./classes/Command.php 50
--    var $word = NULL;
-+    var $word = null;
-hunk ./classes/Command.php 58
--    var $word = NULL;
-+    var $word = null;
-hunk ./classes/Command.php 66
--    var $other = NULL;
-+    var $other = null;
-hunk ./classes/Command.php 74
--    var $other = NULL;
-+    var $other = null;
-hunk ./classes/Command.php 107
--    var $other = NULL;
-+    var $other = null;
-hunk ./classes/Command.php 151
--    var $other = NULL;
-+    var $other = null;
-hunk ./classes/Command.php 185
--    var $other = NULL;
--    var $text = NULL;
-+    var $other = null;
-+    var $text = null;
-hunk ./classes/Command.php 228
--    var $other = NULL;
-+    var $other = null;
-hunk ./classes/Command.php 258
--    var $other = NULL;
-+    var $other = null;
-hunk ./classes/Command.php 284
--    var $other = NULL;
-+    var $other = null;
-hunk ./classes/Command.php 308
--    var $other = NULL;
--    function __construct($user, $other=NULL) {
-+    var $other = null;
-+    function __construct($user, $other=null) {
-hunk ./classes/Command.php 327
--    var $other = NULL;
--    function __construct($user, $other=NULL) {
-+    var $other = null;
-+    function __construct($user, $other=null) {
-hunk ./classes/CommandInterpreter.php 40
--                return NULL;
-+                return null;
-hunk ./classes/CommandInterpreter.php 47
--                    return NULL;
-+                    return null;
-hunk ./classes/CommandInterpreter.php 58
--                    return NULL;
-+                    return null;
-hunk ./classes/CommandInterpreter.php 68
--                return NULL;
-+                return null;
-hunk ./classes/CommandInterpreter.php 75
--                return NULL;
-+                return null;
-hunk ./classes/CommandInterpreter.php 79
--                return NULL;
-+                return null;
-hunk ./classes/CommandInterpreter.php 86
--                return NULL;
-+                return null;
-hunk ./classes/CommandInterpreter.php 90
--                return NULL;
-+                return null;
-hunk ./classes/CommandInterpreter.php 97
--                return NULL;
-+                return null;
-hunk ./classes/CommandInterpreter.php 101
--                return NULL;
-+                return null;
-hunk ./classes/CommandInterpreter.php 107
--                return NULL;
-+                return null;
-hunk ./classes/CommandInterpreter.php 111
--                return NULL;
-+                return null;
-hunk ./classes/CommandInterpreter.php 117
--                return NULL;
-+                return null;
-hunk ./classes/CommandInterpreter.php 121
--                return NULL;
-+                return null;
-hunk ./classes/CommandInterpreter.php 127
--                return NULL;
-+                return null;
-hunk ./classes/CommandInterpreter.php 131
--                return NULL;
-+                return null;
-hunk ./classes/CommandInterpreter.php 137
--                return NULL;
-+                return null;
-hunk ./classes/CommandInterpreter.php 141
--                return NULL;
-+                return null;
-hunk ./classes/CommandInterpreter.php 147
--                return NULL;
-+                return null;
-hunk ./classes/CommandInterpreter.php 152
--                return NULL;
-+                return null;
-hunk ./classes/CommandInterpreter.php 156
--                return NULL;
-+                return null;
-hunk ./classes/CommandInterpreter.php 162
--                return NULL;
-+                return null;
-hunk ./classes/CommandInterpreter.php 166
--                return NULL;
-+                return null;
-hunk ./classes/CommandInterpreter.php 174
--                return NULL;
-+                return null;
-hunk ./classes/CommandInterpreter.php 178
--                return NULL;
-+                return null;
-hunk ./classes/CommandInterpreter.php 187
--                return NULL;
-+                return null;
+-    function __construct($user=null) {
++    function __construct($user=null)
++    {
+hunk ./classes/Command.php 33
+-    function execute($channel) {
++    function execute($channel)
++    {
+hunk ./classes/Command.php 40
+-    function execute($channel) {
++    function execute($channel)
++    {
+hunk ./classes/Command.php 54
+-    function __construct($user, $word) {
++    function __construct($user, $word)
++    {
+hunk ./classes/Command.php 63
+-    function __construct($user, $word) {
++    function __construct($user, $word)
++    {
+hunk ./classes/Command.php 72
+-    function __construct($user, $other) {
++    function __construct($user, $other)
++    {
+hunk ./classes/Command.php 81
+-    function __construct($user, $other) {
++    function __construct($user, $other)
++    {
+hunk ./classes/Command.php 89
+-    function execute($channel) {
++    function execute($channel)
++    {
+hunk ./classes/Command.php 117
+-    function __construct($user, $other) {
++    function __construct($user, $other)
++    {
+hunk ./classes/Command.php 123
+-    function execute($channel) {
++    function execute($channel)
++    {
+hunk ./classes/Command.php 162
+-    function __construct($user, $other) {
++    function __construct($user, $other)
++    {
+hunk ./classes/Command.php 168
+-    function execute($channel) {
++    function execute($channel)
++    {
+hunk ./classes/Command.php 199
+-    function __construct($user, $other, $text) {
++    function __construct($user, $other, $text)
++    {
+hunk ./classes/Command.php 206
+-    function execute($channel) {
++    function execute($channel)
++    {
+hunk ./classes/Command.php 244
+-    function __construct($user, $other) {
++    function __construct($user, $other)
++    {
+hunk ./classes/Command.php 250
+-    function execute($channel) {
++    function execute($channel)
++    {
+hunk ./classes/Command.php 276
+-    function __construct($user, $other) {
++    function __construct($user, $other)
++    {
+hunk ./classes/Command.php 282
+-    function execute($channel) {
++    function execute($channel)
++    {
+hunk ./classes/Command.php 304
+-    function __construct($user, $other) {
++    function __construct($user, $other)
++    {
+hunk ./classes/Command.php 310
+-    function execute($channel) {
++    function execute($channel)
++    {
+hunk ./classes/Command.php 329
+-    function __construct($user, $other=null) {
++    function __construct($user, $other=null)
++    {
+hunk ./classes/Command.php 334
+-    function execute($channel) {
++    function execute($channel)
++    {
+hunk ./classes/Command.php 350
+-    function __construct($user, $other=null) {
++    function __construct($user, $other=null)
++    {
+hunk ./classes/Command.php 356
+-    function execute($channel) {
++    function execute($channel)
++    {
+hunk ./classes/Command.php 371
+-    function execute($channel) {
++    function execute($channel)
++    {
+hunk ./classes/CommandInterpreter.php 26
+-    function handle_command($user, $text) {
++    function handle_command($user, $text)
++    {
 hunk ./classes/Confirm_address.php 23
--    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Confirm_address',$k,$v); }
-+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Confirm_address',$k,$v); }
+-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Confirm_address',$k,$v); }
++    function staticGet($k,$v=null)
++    { return Memcached_DataObject::staticGet('Confirm_address',$k,$v); }
+hunk ./classes/Confirm_address.php 29
+-    function sequenceKey() { return array(false, false); }
++    function sequenceKey()
++    { return array(false, false); }
 hunk ./classes/Consumer.php 19
--    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Consumer',$k,$v); }
-+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Consumer',$k,$v); }
+-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Consumer',$k,$v); }
++    function staticGet($k,$v=null)
++    { return Memcached_DataObject::staticGet('Consumer',$k,$v); }
 hunk ./classes/Fave.php 18
--    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Fave',$k,$v); }
-+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Fave',$k,$v); }
+-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Fave',$k,$v); }
++    function staticGet($k,$v=null)
++    { return Memcached_DataObject::staticGet('Fave',$k,$v); }
+hunk ./classes/Fave.php 35
+-    function &pkeyGet($kv) {
++    function &pkeyGet($kv)
++    {
 hunk ./classes/Foreign_link.php 24
--    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Foreign_link',$k,$v); }
-+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Foreign_link',$k,$v); }
-hunk ./classes/Foreign_link.php 41
--        return NULL;        
-+        return null;        
-hunk ./classes/Foreign_link.php 54
--        return NULL;        
-+        return null;        
-hunk ./classes/Foreign_link.php 69
--        return NULL;        
-+        return null;        
+-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Foreign_link',$k,$v); }
++    function staticGet($k,$v=null)
++    { return Memcached_DataObject::staticGet('Foreign_link',$k,$v); }
+hunk ./classes/Foreign_link.php 59
+-    function getForeignUser() {        
++    function getForeignUser()
++    {        
+hunk ./classes/Foreign_link.php 74
+-    function getUser() {
++    function getUser()
++    {
 hunk ./classes/Foreign_service.php 20
--    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Foreign_service',$k,$v); }
-+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Foreign_service',$k,$v); }
+-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Foreign_service',$k,$v); }
++    function staticGet($k,$v=null)
++    { return Memcached_DataObject::staticGet('Foreign_service',$k,$v); }
 hunk ./classes/Foreign_subscription.php 19
--    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Foreign_subscription',$k,$v); }
-+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Foreign_subscription',$k,$v); }
+-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Foreign_subscription',$k,$v); }
++    function staticGet($k,$v=null)
++    { return Memcached_DataObject::staticGet('Foreign_subscription',$k,$v); }
 hunk ./classes/Foreign_user.php 21
--    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Foreign_user',$k,$v); }
-+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Foreign_user',$k,$v); }
-hunk ./classes/Foreign_user.php 39
--        return NULL;        
-+        return null;        
+-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Foreign_user',$k,$v); }
++    function staticGet($k,$v=null)
++    { return Memcached_DataObject::staticGet('Foreign_user',$k,$v); }
+hunk ./classes/Foreign_user.php 43
+-    function updateKeys(&$orig) {
++    function updateKeys(&$orig)
++    {
 hunk ./classes/Invitation.php 20
--    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Invitation',$k,$v); }
-+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Invitation',$k,$v); }
+-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Invitation',$k,$v); }
++    function staticGet($k,$v=null)
++    { return Memcached_DataObject::staticGet('Invitation',$k,$v); }
 hunk ./classes/Memcached_DataObject.php 26
--    function &staticGet($cls, $k, $v=NULL) {
-+    function &staticGet($cls, $k, $v=null) {
-hunk ./classes/Memcached_DataObject.php 59
--                $i = NULL;
-+                $i = null;
-hunk ./classes/Memcached_DataObject.php 70
--    function update($orig=NULL) {
-+    function update($orig=null) {
+-    function &staticGet($cls, $k, $v=null) {
++    function &staticGet($cls, $k, $v=null)
++    {
+hunk ./classes/Memcached_DataObject.php 48
+-    function &pkeyGet($cls, $kv) {
++    function &pkeyGet($cls, $kv)
++    {
+hunk ./classes/Memcached_DataObject.php 67
+-    function insert() {
++    function insert()
++    {
+hunk ./classes/Memcached_DataObject.php 73
+-    function update($orig=null) {
++    function update($orig=null)
++    {
+hunk ./classes/Memcached_DataObject.php 85
+-    function delete() {
++    function delete()
++    {
+hunk ./classes/Memcached_DataObject.php 108
+-    function keyTypes() {
++    function keyTypes()
++    {
+hunk ./classes/Memcached_DataObject.php 118
+-    function encache() {
++    function encache()
++    {
+hunk ./classes/Memcached_DataObject.php 143
+-    function decache() {
++    function decache()
++    {
+hunk ./classes/Memcached_DataObject.php 169
+-    function multicache($cls, $kv) {
++    function multicache($cls, $kv)
++    {
+hunk ./classes/Memcached_DataObject.php 182
+-    function getSearchEngine($table) {
++    function getSearchEngine($table)
++    {
 hunk ./classes/Message.php 25
--    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Message',$k,$v); }
-+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Message',$k,$v); }
+-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Message',$k,$v); }
++    function staticGet($k,$v=null)
++    { return Memcached_DataObject::staticGet('Message',$k,$v); }
+hunk ./classes/Message.php 31
+-    function getFrom() {
++    function getFrom()
++    {
+hunk ./classes/Message.php 36
+-    function getTo() {
++    function getTo()
++    {
 hunk ./classes/Nonce.php 21
--    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Nonce',$k,$v); }
-+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Nonce',$k,$v); }
+-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Nonce',$k,$v); }
++    function staticGet($k,$v=null)
++    { return Memcached_DataObject::staticGet('Nonce',$k,$v); }
 hunk ./classes/Notice.php 51
--    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Notice',$k,$v); }
-+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Notice',$k,$v); }
-hunk ./classes/Notice.php 94
--    static function saveNew($profile_id, $content, $source=NULL, $is_local=1, $reply_to=NULL, $uri=NULL) {
-+    static function saveNew($profile_id, $content, $source=null, $is_local=1, $reply_to=null, $uri=null) {
-hunk ./classes/Notice.php 296
--    static function getStream($qry, $cachekey, $offset=0, $limit=20, $since_id=0, $before_id=0, $order=NULL, $since=NULL) {
-+    static function getStream($qry, $cachekey, $offset=0, $limit=20, $since_id=0, $before_id=0, $order=null, $since=null) {
-hunk ./classes/Notice.php 386
--            return Notice::getStreamDirect($qry, $offset, $limit, NULL, NULL, $order, NULL);
-+            return Notice::getStreamDirect($qry, $offset, $limit, null, null, $order, null);
-hunk ./classes/Notice.php 394
--            return Notice::getStreamDirect($qry, $offset, $limit, NULL, NULL, $order, NULL);
-+            return Notice::getStreamDirect($qry, $offset, $limit, null, null, $order, null);
-hunk ./classes/Notice.php 426
--                                                  $last_id, NULL, $order, NULL);
-+                                                  $last_id, null, $order, null);
-hunk ./classes/Notice.php 450
--        $notice = Notice::getStreamDirect($qry, 0, NOTICE_CACHE_WINDOW, NULL, NULL, $order, NULL);
-+        $notice = Notice::getStreamDirect($qry, 0, NOTICE_CACHE_WINDOW, null, null, $order, null);
-hunk ./classes/Notice.php 480
--    function publicStream($offset=0, $limit=20, $since_id=0, $before_id=0, $since=NULL) {
-+    function publicStream($offset=0, $limit=20, $since_id=0, $before_id=0, $since=null) {
-hunk ./classes/Notice.php 499
--                                 $offset, $limit, $since_id, $before_id, NULL, $since);
-+                                 $offset, $limit, $since_id, $before_id, null, $since);
-hunk ./classes/NoticeWrapper.php 38
--    var $notices = NULL;
-+    var $notices = null;
+-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Notice',$k,$v); }
++    function staticGet($k,$v=null)
++    { return Memcached_DataObject::staticGet('Notice',$k,$v); }
+hunk ./classes/Notice.php 57
+-    function getProfile() {
++    function getProfile()
++    {
+hunk ./classes/Notice.php 62
+-    function delete() {
++    function delete()
++    {
+hunk ./classes/Notice.php 70
+-    function saveTags() {
++    function saveTags()
++    {
+hunk ./classes/Notice.php 191
+-    function blowCaches($blowLast=false) {
++    function blowCaches($blowLast=false)
++    {
+hunk ./classes/Notice.php 200
+-    function blowTagCache($blowLast=false) {
++    function blowTagCache($blowLast=false)
++    {
+hunk ./classes/Notice.php 219
+-    function blowSubsCache($blowLast=false) {
++    function blowSubsCache($blowLast=false)
++    {
+hunk ./classes/Notice.php 240
+-    function blowNoticeCache($blowLast=false) {
++    function blowNoticeCache($blowLast=false)
++    {
+hunk ./classes/Notice.php 253
+-    function blowRepliesCache($blowLast=false) {
++    function blowRepliesCache($blowLast=false)
++    {
+hunk ./classes/Notice.php 272
+-    function blowPublicCache($blowLast=false) {
++    function blowPublicCache($blowLast=false)
++    {
+hunk ./classes/Notice.php 285
+-    function blowFavesCache($blowLast=false) {
++    function blowFavesCache($blowLast=false)
++    {
+hunk ./classes/Notice.php 491
+-    function publicStream($offset=0, $limit=20, $since_id=0, $before_id=0, $since=null) {
++    function publicStream($offset=0, $limit=20, $since_id=0, $before_id=0, $since=null)
++    {
+hunk ./classes/Notice.php 514
+-    function addToInboxes() {
++    function addToInboxes()
++    {
+hunk ./classes/Notice.php 538
+-    function blowInboxes() {
++    function blowInboxes()
++    {
+hunk ./classes/NoticeWrapper.php 41
+-    function __construct($arr) {
++    function __construct($arr)
++    {
+hunk ./classes/NoticeWrapper.php 46
+-    function fetch() {
++    function fetch()
++    {
 hunk ./classes/Notice_inbox.php 36
--    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Notice_inbox',$k,$v); }
-+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Notice_inbox',$k,$v); }
+-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Notice_inbox',$k,$v); }
++    function staticGet($k,$v=null)
++    { return Memcached_DataObject::staticGet('Notice_inbox',$k,$v); }
 hunk ./classes/Notice_source.php 20
--    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Notice_source',$k,$v); }
-+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Notice_source',$k,$v); }
+-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Notice_source',$k,$v); }
++    function staticGet($k,$v=null)
++    { return Memcached_DataObject::staticGet('Notice_source',$k,$v); }
 hunk ./classes/Notice_tag.php 33
--    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Notice_tag',$k,$v); }
-+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Notice_tag',$k,$v); }
+-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Notice_tag',$k,$v); }
++    function staticGet($k,$v=null)
++    { return Memcached_DataObject::staticGet('Notice_tag',$k,$v); }
+hunk ./classes/Notice_tag.php 50
+-    function blowCache() {
++    function blowCache()
++    {
 hunk ./classes/Profile.php 44
--    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Profile',$k,$v); }
-+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Profile',$k,$v); }
-hunk ./classes/Profile.php 49
--    function getAvatar($width, $height=NULL) {
-+    function getAvatar($width, $height=null) {
-hunk ./classes/Profile.php 65
--            return NULL;
-+            return null;
-hunk ./classes/Profile.php 74
--            return NULL;
-+            return null;
-hunk ./classes/Profile.php 79
--                                           NULL, common_timestamp());
-+                                           null, common_timestamp());
-hunk ./classes/Profile.php 99
--            return NULL;
-+            return null;
-hunk ./classes/Profile.php 104
--            return NULL;
-+            return null;
-hunk ./classes/Profile.php 112
--                    return NULL;
-+                    return null;
+-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Profile',$k,$v); }
++    function staticGet($k,$v=null)
++    { return Memcached_DataObject::staticGet('Profile',$k,$v); }
+hunk ./classes/Profile.php 50
+-    function getAvatar($width, $height=null) {
++    function getAvatar($width, $height=null)
++    {
+hunk ./classes/Profile.php 60
+-    function getOriginalAvatar() {
++    function getOriginalAvatar()
++    {
+hunk ./classes/Profile.php 72
+-    function setOriginal($source) {
++    function setOriginal($source)
++    {
+hunk ./classes/Profile.php 124
+-    function delete_avatars() {
++    function delete_avatars()
++    {
 hunk ./classes/Profile.php 135
--    function getCurrentNotice($dt=NULL) {
-+    function getCurrentNotice($dt=null) {
-hunk ./classes/Profile.php 146
--        return NULL;
-+        return null;
+-    function getBestName() {
++    function getBestName()
++    {
+hunk ./classes/Profile.php 141
+-    function getCurrentNotice($dt=null) {
++    function getCurrentNotice($dt=null)
++    {
+hunk ./classes/Profile.php 156
+-    function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0) {
++    function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
++    {
 hunk ./classes/Profile_block.php 39
--    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Profile_block',$k,$v); }
-+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Profile_block',$k,$v); }
+-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Profile_block',$k,$v); }
++    function staticGet($k,$v=null)
++    { return Memcached_DataObject::staticGet('Profile_block',$k,$v); }
+hunk ./classes/Profile_block.php 45
+-    function get($blocker, $blocked) {
++    function get($blocker, $blocked)
++    {
 hunk ./classes/Profile_tag.php 19
--    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Profile_tag',$k,$v); }
-+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Profile_tag',$k,$v); }
+-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Profile_tag',$k,$v); }
++    function staticGet($k,$v=null)
++    { return Memcached_DataObject::staticGet('Profile_tag',$k,$v); }
 hunk ./classes/Queue_item.php 19
--    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Queue_item',$k,$v); }
-+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Queue_item',$k,$v); }
-hunk ./classes/Queue_item.php 31
--        $qi->whereAdd('claimed is NULL');
-+        $qi->whereAdd('claimed is null');
-hunk ./classes/Queue_item.php 39
--            # can we force it to only update if claimed is still NULL
-+            # can we force it to only update if claimed is still null
-hunk ./classes/Queue_item.php 52
--        $qi = NULL;
--        return NULL;
-+        $qi = null;
-+        return null;
+-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Queue_item',$k,$v); }
++    function staticGet($k,$v=null)
++    { return Memcached_DataObject::staticGet('Queue_item',$k,$v); }
+hunk ./classes/Queue_item.php 25
+-    function sequenceKey() { return array(false, false); }
++    function sequenceKey()
++    { return array(false, false); }
 hunk ./classes/Remember_me.php 18
--    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Remember_me',$k,$v); }
-+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Remember_me',$k,$v); }
+-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Remember_me',$k,$v); }
++    function staticGet($k,$v=null)
++    { return Memcached_DataObject::staticGet('Remember_me',$k,$v); }
+hunk ./classes/Remember_me.php 24
+-    function sequenceKey() { return array(false, false); }
++    function sequenceKey()
++    { return array(false, false); }
 hunk ./classes/Remote_profile.php 41
--    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Remote_profile',$k,$v); }
-+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Remote_profile',$k,$v); }
+-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Remote_profile',$k,$v); }
++    function staticGet($k,$v=null)
++    { return Memcached_DataObject::staticGet('Remote_profile',$k,$v); }
 hunk ./classes/Reply.php 19
--    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Reply',$k,$v); }
-+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Reply',$k,$v); }
+-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Reply',$k,$v); }
++    function staticGet($k,$v=null)
++    { return Memcached_DataObject::staticGet('Reply',$k,$v); }
 hunk ./classes/Sms_carrier.php 20
--    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Sms_carrier',$k,$v); }
-+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Sms_carrier',$k,$v); }
+-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Sms_carrier',$k,$v); }
++    function staticGet($k,$v=null)
++    { return Memcached_DataObject::staticGet('Sms_carrier',$k,$v); }
+hunk ./classes/Sms_carrier.php 26
+-    function toEmailAddress($sms) {
++    function toEmailAddress($sms)
++    {
 hunk ./classes/Subscription.php 43
--    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Subscription',$k,$v); }
-+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Subscription',$k,$v); }
+-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Subscription',$k,$v); }
++    function staticGet($k,$v=null)
++    { return Memcached_DataObject::staticGet('Subscription',$k,$v); }
+hunk ./classes/Subscription.php 49
+-    function &pkeyGet($kv) {
++    function &pkeyGet($kv)
++    {
 hunk ./classes/Token.php 22
--    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Token',$k,$v); }
-+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Token',$k,$v); }
+-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Token',$k,$v); }
++    function staticGet($k,$v=null)
++    { return Memcached_DataObject::staticGet('Token',$k,$v); }
 hunk ./classes/User.php 65
--    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('User',$k,$v); }
-+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('User',$k,$v); }
-hunk ./classes/User.php 121
--    function getCurrentNotice($dt=NULL) {
-+    function getCurrentNotice($dt=null) {
-hunk ./classes/User.php 124
--            return NULL;
-+            return null;
-hunk ./classes/User.php 339
--    function getReplies($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=NULL) {
-+    function getReplies($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null) {
-hunk ./classes/User.php 346
--                                 $offset, $limit, $since_id, $before_id, NULL, $since);
-+                                 $offset, $limit, $since_id, $before_id, null, $since);
-hunk ./classes/User.php 349
--        function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=NULL) {
-+        function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null) {
+-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('User',$k,$v); }
++    function staticGet($k,$v=null)
++    { return Memcached_DataObject::staticGet('User',$k,$v); }
+hunk ./classes/User.php 71
+-    function getProfile() {
++    function getProfile()
++    {
+hunk ./classes/User.php 76
+-    function isSubscribed($other) {
++    function isSubscribed($other)
++    {
+hunk ./classes/User.php 87
+-    function updateKeys(&$orig) {
++    function updateKeys(&$orig)
++    {
+hunk ./classes/User.php 115
+-    function allowed_nickname($nickname) {
++    function allowed_nickname($nickname)
++    {
+hunk ./classes/User.php 126
+-    function getCurrentNotice($dt=null) {
++    function getCurrentNotice($dt=null)
++    {
+hunk ./classes/User.php 135
+-    function getCarrier() {
++    function getCarrier()
++    {
+hunk ./classes/User.php 140
+-    function subscribeTo($other) {
++    function subscribeTo($other)
++    {
+hunk ./classes/User.php 155
+-    function hasBlocked($other) {
++    function hasBlocked($other)
++    {
+hunk ./classes/User.php 283
+-    function emailChanged() {
++    function emailChanged()
++    {
+hunk ./classes/User.php 298
+-    function hasFave($notice) {
++    function hasFave($notice)
++    {
+hunk ./classes/User.php 331
+-    function mutuallySubscribed($other) {
++    function mutuallySubscribed($other)
++    {
+hunk ./classes/User.php 337
+-        function mutuallySubscribedUsers() {
++        function mutuallySubscribedUsers()
++        {
 hunk ./classes/User.php 352
--            return NULL;
-+            return null;
-hunk ./classes/User.php 368
--        function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=NULL) {
-+        function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null) {
-hunk ./classes/User.php 380
--            $order = NULL;
-+            $order = null;
+-    function getReplies($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null) {
++    function getReplies($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
++    {
+hunk ./classes/User.php 363
+-        function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null) {
++        function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
++        {
+hunk ./classes/User.php 373
+-      function favoriteNotices($offset=0, $limit=NOTICES_PER_PAGE) {
++      function favoriteNotices($offset=0, $limit=NOTICES_PER_PAGE)
++      {
+hunk ./classes/User.php 384
+-        function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null) {
++        function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
++        {
+hunk ./classes/User.php 414
+-        function blowFavesCache() {
++        function blowFavesCache()
++        {
+hunk ./classes/User.php 425
+-        function getSelfTags() {
++        function getSelfTags()
++        {
+hunk ./classes/User.php 430
+-        function setSelfTags($newtags) {
++        function setSelfTags($newtags)
++        {
+hunk ./classes/User.php 435
+-    function block($other) {
++    function block($other)
++    {
+hunk ./classes/User.php 474
+-    function unblock($other) {
++    function unblock($other)
++    {
 hunk ./classes/User_openid.php 20
--    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('User_openid',$k,$v); }
-+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('User_openid',$k,$v); }
-hunk ./lib/common.php 61
--              'logfile' => NULL,
-+              'logfile' => null,
-hunk ./lib/common.php 67
--              array_key_exists('SERVER_ADMIN', $_SERVER) ? $_SERVER['SERVER_ADMIN'] : NULL,
--              'broughtby' => NULL,
-+              array_key_exists('SERVER_ADMIN', $_SERVER) ? $_SERVER['SERVER_ADMIN'] : null,
-+              'broughtby' => null,
-hunk ./lib/common.php 70
--              'broughtbyurl' => NULL,
-+              'broughtbyurl' => null,
-hunk ./lib/common.php 85
--              'params' => NULL),
-+              'params' => null),
-hunk ./lib/common.php 92
--        array('server' => NULL),
-+        array('server' => null),
-hunk ./lib/common.php 97
--        array('server' => NULL),
-+        array('server' => null),
-hunk ./lib/common.php 110
--              'host' => NULL, # only set if != server
-+              'host' => null, # only set if != server
-hunk ./lib/common.php 143
--        'mirror' => NULL,
-+        'mirror' => null,
-hunk ./lib/deleteaction.php 46
--    function show_top($arr=NULL) {
-+    function show_top($arr=null) {
-hunk ./lib/deleteaction.php 55
--        return NULL;
-+        return null;
-hunk ./lib/facebookaction.php 84
--        $facebook->api_client->profile_setFBML(NULL, $fbuid, $fbml, NULL, NULL, $fbml_main);
-+        $facebook->api_client->profile_setFBML(null, $fbuid, $fbml, null, null, $fbml_main);
-hunk ./lib/facebookaction.php 238
--    function pagination($have_before, $have_after, $page, $fbaction, $args=NULL) {
-+    function pagination($have_before, $have_after, $page, $fbaction, $args=null) {
-hunk ./lib/facebookaction.php 269
--    function pagination_url($fbaction, $args=NULL) {
-+    function pagination_url($fbaction, $args=null) {
-hunk ./lib/oauthstore.php 36
--                return NULL;
-+                return null;
-hunk ./lib/oauthstore.php 50
--            return NULL;
-+            return null;
-hunk ./lib/oauthstore.php 78
--            return NULL;
-+            return null;
-hunk ./lib/oauthstore.php 107
--                return NULL;
-+                return null;
-hunk ./lib/oauthstore.php 114
--                    return NULL;
-+                    return null;
-hunk ./lib/oauthstore.php 121
--                    return NULL;
-+                    return null;
-hunk ./lib/oauthstore.php 128
--                    return NULL;
-+                    return null;
-hunk ./lib/oauthstore.php 135
--            return NULL;
-+            return null;
-hunk ./lib/omb.php 47
--    static $con = NULL;
-+    static $con = null;
-hunk ./lib/omb.php 64
--    static $store = NULL;
-+    static $store = null;
-hunk ./lib/omb.php 72
--    static $hmac_method = NULL;
-+    static $hmac_method = null;
+-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('User_openid',$k,$v); }
++    function staticGet($k,$v=null)
++    { return Memcached_DataObject::staticGet('User_openid',$k,$v); }
+hunk ./lib/Shorturl_api.php 25
+-    function __construct($service_url) {
++    function __construct($service_url)
++    {
+hunk ./lib/Shorturl_api.php 30
+-    function shorten($url) {
++    function shorten($url)
++    {
+hunk ./lib/Shorturl_api.php 73
+-    function __construct() {
++    function __construct()
++    {
+hunk ./lib/Shorturl_api.php 92
+-    function __construct() {
++    function __construct()
++    {
+hunk ./lib/Shorturl_api.php 110
+-    function __construct() {
++    function __construct()
++    {
+hunk ./lib/common.php 166
+-function __autoload($class) {
++function __autoload($class)
++{
+hunk ./lib/deleteaction.php 24
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./lib/deleteaction.php 47
+-    function show_top($arr=null) {
++    function show_top($arr=null)
++    {
+hunk ./lib/deleteaction.php 56
+-    function get_title() {
++    function get_title()
++    {
+hunk ./lib/deleteaction.php 61
+-    function show_header() {
++    function show_header()
++    {
+hunk ./lib/facebookaction.php 26
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./lib/facebookaction.php 31
+-    function get_facebook() {
++    function get_facebook()
++    {
+hunk ./lib/facebookaction.php 38
+-    function update_profile_box($facebook, $fbuid, $user) {
++    function update_profile_box($facebook, $fbuid, $user)
++    {
+hunk ./lib/facebookaction.php 92
+-    function show_header($selected ='Home') {
++    function show_header($selected ='Home')
++    {
+hunk ./lib/facebookaction.php 115
+-    function show_footer() {
++    function show_footer()
++    {
+hunk ./lib/facebookaction.php 121
+-    function show_login_form() {
++    function show_login_form()
++    {
+hunk ./lib/facebookaction.php 157
+-    function render_notice($notice) {
++    function render_notice($notice)
++    {
+hunk ./lib/facebookaction.php 217
+-    function source_link($source) {
++    function source_link($source)
++    {
+hunk ./lib/facebookaction.php 246
+-    function pagination($have_before, $have_after, $page, $fbaction, $args=null) {
++    function pagination($have_before, $have_after, $page, $fbaction, $args=null)
++    {
+hunk ./lib/facebookaction.php 278
+-    function pagination_url($fbaction, $args=null) {
++    function pagination_url($fbaction, $args=null)
++    {
+hunk ./lib/oauthstore.php 28
+-    function lookup_consumer($consumer_key) {
++    function lookup_consumer($consumer_key)
++    {
+hunk ./lib/oauthstore.php 43
+-    function lookup_token($consumer, $token_type, $token_key) {
++    function lookup_token($consumer, $token_type, $token_key)
++    {
+hunk ./lib/oauthstore.php 56
+-    function lookup_nonce($consumer, $token, $nonce, $timestamp) {
++    function lookup_nonce($consumer, $token, $nonce, $timestamp)
++    {
+hunk ./lib/oauthstore.php 72
+-    function new_request_token($consumer) {
++    function new_request_token($consumer)
++    {
+hunk ./lib/oauthstore.php 90
+-    function fetch_request_token($consumer) {
++    function fetch_request_token($consumer)
++    {
+hunk ./lib/oauthstore.php 95
+-    function new_access_token($token, $consumer) {
++    function new_access_token($token, $consumer)
++    {
+hunk ./lib/oauthstore.php 147
+-    function fetch_access_token($consumer) {
++    function fetch_access_token($consumer)
++    {
+hunk ./lib/omb.php 46
+-function omb_oauth_consumer() {
++function omb_oauth_consumer()
++{
+hunk ./lib/omb.php 55
+-function omb_oauth_server() {
++function omb_oauth_server()
++{
+hunk ./lib/omb.php 65
+-function omb_oauth_datastore() {
++function omb_oauth_datastore()
++{
+hunk ./lib/omb.php 74
+-function omb_hmac_sha1() {
++function omb_hmac_sha1()
++{
+hunk ./lib/omb.php 83
+-function omb_get_services($xrd, $type) {
++function omb_get_services($xrd, $type)
++{
+hunk ./lib/omb.php 88
+-function omb_service_filter($type) {
++function omb_service_filter($type)
++{
 hunk ./lib/omb.php 94
--        return NULL;
-+        return null;
-hunk ./lib/omb.php 98
--        return NULL;
-+        return null;
-hunk ./lib/omb.php 105
--        return NULL;
-+        return null;
-hunk ./lib/omb.php 109
--        return NULL;
-+        return null;
-hunk ./lib/openid.php 35
--    static $store = NULL;
-+    static $store = null;
-hunk ./lib/openid.php 66
--        return NULL;
-+        return null;
-hunk ./lib/openid.php 88
--    $user = NULL;
-+    $user = null;
-hunk ./lib/openid.php 96
--function oid_check_immediate($openid_url, $backto=NULL) {
-+function oid_check_immediate($openid_url, $backto=null) {
-hunk ./lib/openid.php 180
--            common_show_header(_('OpenID Auto-Submit'), NULL, NULL, '_oid_print_instructions');
-+            common_show_header(_('OpenID Auto-Submit'), null, null, '_oid_print_instructions');
-hunk ./lib/openid.php 182
--            common_element('script', NULL,
-+            common_element('script', null,
+-function omb_match_service($service, $type) {
++function omb_match_service($service, $type)
++{
+hunk ./lib/omb.php 99
+-function omb_service_uri($service) {
++function omb_service_uri($service)
++{
+hunk ./lib/omb.php 111
+-function omb_local_id($service) {
++function omb_local_id($service)
++{
+hunk ./lib/omb.php 124
+-function omb_broadcast_remote_subscribers($notice) {
++function omb_broadcast_remote_subscribers($notice)
++{
+hunk ./lib/omb.php 155
+-function omb_post_notice($notice, $remote_profile, $subscription) {
++function omb_post_notice($notice, $remote_profile, $subscription)
++{
+hunk ./lib/omb.php 160
+-function omb_post_notice_keys($notice, $postnoticeurl, $tk, $secret) {
++function omb_post_notice_keys($notice, $postnoticeurl, $tk, $secret)
++{
+hunk ./lib/omb.php 231
+-function omb_broadcast_profile($profile) {
++function omb_broadcast_profile($profile)
++{
+hunk ./lib/omb.php 252
+-function omb_update_profile($profile, $remote_profile, $subscription) {
++function omb_update_profile($profile, $remote_profile, $subscription)
++{
+hunk ./lib/openid.php 34
+-function oid_store() {
++function oid_store()
++{
+hunk ./lib/openid.php 46
+-function oid_consumer() {
++function oid_consumer()
++{
+hunk ./lib/openid.php 53
+-function oid_clear_last() {
++function oid_clear_last()
++{
+hunk ./lib/openid.php 58
+-function oid_set_last($openid_url) {
++function oid_set_last($openid_url)
++{
+hunk ./lib/openid.php 65
+-function oid_get_last() {
++function oid_get_last()
++{
+hunk ./lib/openid.php 75
+-function oid_link_user($id, $canonical, $display) {
++function oid_link_user($id, $canonical, $display)
++{
+hunk ./lib/openid.php 93
+-function oid_get_user($openid_url) {
++function oid_get_user($openid_url)
++{
+hunk ./lib/openid.php 103
+-function oid_check_immediate($openid_url, $backto=null) {
++function oid_check_immediate($openid_url, $backto=null)
++{
+hunk ./lib/openid.php 124
+-function oid_authenticate($openid_url, $returnto, $immediate=false) {
++function oid_authenticate($openid_url, $returnto, $immediate=false)
++{
+hunk ./lib/openid.php 202
+-function _oid_print_instructions() {
++function _oid_print_instructions()
++{
+hunk ./lib/openid.php 212
+-function oid_update_user(&$user, &$sreg) {
++function oid_update_user(&$user, &$sreg)
++{
+hunk ./lib/personal.php 24
+-    function is_readonly() {
++    function is_readonly()
++    {
+hunk ./lib/personal.php 29
+-    function handle($args) {
++    function handle($args)
++    {
 hunk ./lib/personal.php 35
--        $user = NULL;
-+        $user = null;
-hunk ./lib/profilelist.php 27
--    var $profile = NULL;
--    var $owner = NULL;
--    var $action = NULL;
-+    var $profile = null;
-+    var $owner = null;
-+    var $action = null;
+-    function views_menu() {
++    function views_menu()
++    {
+hunk ./lib/personal.php 91
+-    function show_feeds_list($feeds) {
++    function show_feeds_list($feeds)
++    {
+hunk ./lib/personal.php 104
+-    function common_feed_item($feed) {
++    function common_feed_item($feed)
++    {
+hunk ./lib/personal.php 189
+-    function source_link($source) {
++    function source_link($source)
++    {
 hunk ./lib/profilelist.php 31
--    function __construct($profile, $owner=NULL, $action=NULL) {
-+    function __construct($profile, $owner=null, $action=null) {
+-    function __construct($profile, $owner=null, $action=null) {
++    function __construct($profile, $owner=null, $action=null)
++    {
+hunk ./lib/profilelist.php 38
+-    function show_list() {
++    function show_list()
++    {
+hunk ./lib/profilelist.php 58
+-    function show() {
++    function show()
++    {
+hunk ./lib/profilelist.php 165
+-    function show_owner_controls($profile) {
++    function show_owner_controls($profile)
++    {
+hunk ./lib/profilelist.php 170
+-    function highlight($text) {
++    function highlight($text)
++    {
 hunk ./lib/queuehandler.php 32
--    function QueueHandler($id=NULL) {
-+    function QueueHandler($id=null) {
-hunk ./lib/queuehandler.php 55
--        return NULL;
-+        return null;
-hunk ./lib/queuehandler.php 86
--                        $qi->claimed = NULL;
-+                        $qi->claimed = null;
-hunk ./lib/queuehandler.php 94
--                    $notice = NULL;
-+                    $notice = null;
-hunk ./lib/rssaction.php 58
--        return NULL;
-+        return null;
-hunk ./lib/rssaction.php 87
--        common_element('title', NULL, $channel['title']);
--        common_element('link', NULL, $channel['link']);
--        common_element('description', NULL, $channel['description']);
-+        common_element('title', null, $channel['title']);
-+        common_element('link', null, $channel['link']);
-+        common_element('description', null, $channel['description']);
-hunk ./lib/rssaction.php 114
--            common_element('title', NULL, $channel['title']);
--            common_element('link', NULL, $channel['link']);
--            common_element('url', NULL, $image);
-+            common_element('title', null, $channel['title']);
-+            common_element('link', null, $channel['link']);
-+            common_element('url', null, $image);
-hunk ./lib/rssaction.php 127
--        common_element('title', NULL, $title);
--        common_element('link', NULL, $nurl);
--        common_element('description', NULL, $profile->nickname."'s status on ".common_exact_date($notice->created));
--        common_element('dc:date', NULL, common_date_w3dtf($notice->created));
--        common_element('dc:creator', NULL, ($profile->fullname) ? $profile->fullname : $profile->nickname);
-+        common_element('title', null, $title);
-+        common_element('link', null, $nurl);
-+        common_element('description', null, $profile->nickname."'s status on ".common_exact_date($notice->created));
-+        common_element('dc:date', null, common_date_w3dtf($notice->created));
-+        common_element('dc:creator', null, ($profile->fullname) ? $profile->fullname : $profile->nickname);
-hunk ./lib/rssaction.php 144
--            common_element('foaf:nick', NULL, $nickname);
-+            common_element('foaf:nick', null, $nickname);
-hunk ./lib/rssaction.php 146
--                common_element('foaf:name', NULL, $profile->fullname);
-+                common_element('foaf:name', null, $profile->fullname);
-hunk ./lib/rssaction.php 148
--            common_element('sioc:id', NULL, $id);
-+            common_element('sioc:id', null, $id);
-hunk ./lib/rssaction.php 178
--        common_element('sioc:name', NULL, common_config('site', 'name'));
-+        common_element('sioc:name', null, common_config('site', 'name'));
-hunk ./lib/searchaction.php 33
--    function show_top($arr=NULL) {
-+    function show_top($arr=null) {
-hunk ./lib/searchaction.php 50
--        return NULL;
-+        return null;
+-    function QueueHandler($id=null) {
++    function QueueHandler($id=null)
++    {
+hunk ./lib/queuehandler.php 39
+-    function class_name() {
++    function class_name()
++    {
+hunk ./lib/queuehandler.php 44
+-    function name() {
++    function name()
++    {
+hunk ./lib/queuehandler.php 49
+-    function get_id() {
++    function get_id()
++    {
+hunk ./lib/queuehandler.php 54
+-    function set_id($id) {
++    function set_id($id)
++    {
+hunk ./lib/queuehandler.php 59
+-    function transport() {
++    function transport()
++    {
+hunk ./lib/queuehandler.php 64
+-    function start() {
++    function start()
++    {
+hunk ./lib/queuehandler.php 68
+-    function finish() {
++    function finish()
++    {
+hunk ./lib/queuehandler.php 72
+-    function handle_notice($notice) {
++    function handle_notice($notice)
++    {
+hunk ./lib/queuehandler.php 77
+-    function run() {
++    function run()
++    {
+hunk ./lib/queuehandler.php 123
+-    function idle($timeout=0) {
++    function idle($timeout=0)
++    {
+hunk ./lib/queuehandler.php 130
+-    function clear_old_claims() {
++    function clear_old_claims()
++    {
+hunk ./lib/queuehandler.php 140
+-    function log($level, $msg) {
++    function log($level, $msg)
++    {
+hunk ./lib/rssaction.php 29
+-    function is_readonly() {
++    function is_readonly()
++    {
+hunk ./lib/rssaction.php 34
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./lib/rssaction.php 44
+-    function init() {
++    function init()
++    {
+hunk ./lib/rssaction.php 49
+-    function get_notices() {
++    function get_notices()
++    {
+hunk ./lib/rssaction.php 54
+-    function get_channel() {
++    function get_channel()
++    {
+hunk ./lib/rssaction.php 62
+-    function get_image() {
++    function get_image()
++    {
+hunk ./lib/rssaction.php 67
+-    function show_rss($limit=0) {
++    function show_rss($limit=0)
++    {
+hunk ./lib/rssaction.php 88
+-    function show_channel($notices) {
++    function show_channel($notices)
++    {
+hunk ./lib/rssaction.php 117
+-    function show_image() {
++    function show_image()
++    {
+hunk ./lib/rssaction.php 130
+-    function show_item($notice) {
++    function show_item($notice)
++    {
+hunk ./lib/rssaction.php 149
+-    function show_creators() {
++    function show_creators()
++    {
+hunk ./lib/rssaction.php 166
+-    function init_rss() {
++    function init_rss()
++    {
+hunk ./lib/rssaction.php 198
+-    function end_rss() {
++    function end_rss()
++    {
+hunk ./lib/search_engines.php 26
+-    function __construct($target, $table) {
++    function __construct($target, $table)
++    {
+hunk ./lib/search_engines.php 32
+-    function query($q) {
++    function query($q)
++    {
+hunk ./lib/search_engines.php 36
+-    function limit($offset, $count, $rss = false) {
++    function limit($offset, $count, $rss = false)
++    {
+hunk ./lib/search_engines.php 41
+-    function set_sort_mode($mode) {
++    function set_sort_mode($mode)
++    {
+hunk ./lib/search_engines.php 52
+-    function __construct($target, $table) {
++    function __construct($target, $table)
++    {
+hunk ./lib/search_engines.php 66
+-    function is_connected() {
++    function is_connected()
++    {
+hunk ./lib/search_engines.php 71
+-    function limit($offset, $count, $rss = false) {
++    function limit($offset, $count, $rss = false)
++    {
+hunk ./lib/search_engines.php 88
+-    function query($q) {
++    function query($q)
++    {
+hunk ./lib/search_engines.php 97
+-    function set_sort_mode($mode) {
++    function set_sort_mode($mode)
++    {
+hunk ./lib/search_engines.php 107
+-    function query($q) {
++    function query($q)
++    {
+hunk ./lib/search_engines.php 119
+-    function query($q) {
++    function query($q)
++    {
+hunk ./lib/searchaction.php 24
+-    function is_readonly() {
++    function is_readonly()
++    {
+hunk ./lib/searchaction.php 29
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./lib/searchaction.php 35
+-    function show_top($arr=null) {
++    function show_top($arr=null)
++    {
+hunk ./lib/searchaction.php 52
+-    function get_title() {
++    function get_title()
++    {
 hunk ./lib/searchaction.php 57
--    function show_form($error=NULL) {
-+    function show_form($error=null) {
-hunk ./lib/searchaction.php 102
--                      ($action != 'peoplesearch' && $this->trimmed('q')) ? array('q' => $this->trimmed('q')) : NULL),
-+                      ($action != 'peoplesearch' && $this->trimmed('q')) ? array('q' => $this->trimmed('q')) : null),
-hunk ./lib/searchaction.php 106
--                       ($action != 'noticesearch' && $this->trimmed('q')) ? array('q' => $this->trimmed('q')) : NULL)
-+                       ($action != 'noticesearch' && $this->trimmed('q')) ? array('q' => $this->trimmed('q')) : null)
-hunk ./lib/settingsaction.php 47
--    function show_form($msg=NULL, $success=false) {
-+    function show_form($msg=null, $success=false) {
-hunk ./lib/settingsaction.php 58
--    function form_header($title, $msg=NULL, $success=false) {
-+    function form_header($title, $msg=null, $success=false) {
-hunk ./lib/settingsaction.php 60
--                           NULL,
-+                           null,
-hunk ./lib/twitter.php 151
--            return NULL;
-+            return null;
-hunk ./lib/twitter.php 157
--            return NULL;
-+            return null;
-hunk ./lib/twitterapi.php 37
--        $twitter_user['description'] = ($profile->bio) ? $profile->bio : NULL;
--        $twitter_user['location'] = ($profile->location) ? $profile->location : NULL;
-+        $twitter_user['description'] = ($profile->bio) ? $profile->bio : null;
-+        $twitter_user['location'] = ($profile->location) ? $profile->location : null;
-hunk ./lib/twitterapi.php 45
--        $twitter_user['url'] = ($profile->homepage) ? $profile->homepage : NULL;
-+        $twitter_user['url'] = ($profile->homepage) ? $profile->homepage : null;
-hunk ./lib/twitterapi.php 66
--        $twitter_status['in_reply_to_status_id'] = ($notice->reply_to) ? intval($notice->reply_to) : NULL;
-+        $twitter_status['in_reply_to_status_id'] = ($notice->reply_to) ? intval($notice->reply_to) : null;
-hunk ./lib/twitterapi.php 69
--        $twitter_status['in_reply_to_user_id'] = ($notice->reply_to) ? $this->replier_by_reply(intval($notice->reply_to)) : NULL;
-+        $twitter_status['in_reply_to_user_id'] = ($notice->reply_to) ? $this->replier_by_reply(intval($notice->reply_to)) : null;
-hunk ./lib/twitterapi.php 160
--                common_element($element, NULL, common_xml_safe_str($value));
-+                common_element($element, null, common_xml_safe_str($value));
-hunk ./lib/twitterapi.php 163
--                common_element($element, NULL, $value);
-+                common_element($element, null, $value);
-hunk ./lib/twitterapi.php 175
--                common_element($element, NULL, $value);
-+                common_element($element, null, $value);
-hunk ./lib/twitterapi.php 183
--        common_element('title', NULL, $entry['title']);
--        common_element('description', NULL, $entry['description']);
--        common_element('pubDate', NULL, $entry['pubDate']);
--        common_element('guid', NULL, $entry['guid']);
--        common_element('link', NULL, $entry['link']);
-+        common_element('title', null, $entry['title']);
-+        common_element('description', null, $entry['description']);
-+        common_element('pubDate', null, $entry['pubDate']);
-+        common_element('guid', null, $entry['guid']);
-+        common_element('link', null, $entry['link']);
-hunk ./lib/twitterapi.php 193
--        common_element('title', NULL, $entry['title']);
-+        common_element('title', null, $entry['title']);
-hunk ./lib/twitterapi.php 195
--        common_element('id', NULL, $entry['id']);
--        common_element('published', NULL, $entry['published']);
--        common_element('updated', NULL, $entry['updated']);
--        common_element('link', array('href' => $entry['link'], 'rel' => 'alternate', 'type' => 'text/html'), NULL);
-+        common_element('id', null, $entry['id']);
-+        common_element('published', null, $entry['published']);
-+        common_element('updated', null, $entry['updated']);
-+        common_element('link', array('href' => $entry['link'], 'rel' => 'alternate', 'type' => 'text/html'), null);
-hunk ./lib/twitterapi.php 243
--                common_element($element, NULL, common_xml_safe_str($value));
-+                common_element($element, null, common_xml_safe_str($value));
-hunk ./lib/twitterapi.php 246
--                common_element($element, NULL, $value);
-+                common_element($element, null, $value);
-hunk ./lib/twitterapi.php 273
--    function show_rss_timeline($notice, $title, $link, $subtitle, $suplink=NULL) {
-+    function show_rss_timeline($notice, $title, $link, $subtitle, $suplink=null) {
-hunk ./lib/twitterapi.php 278
--        common_element('title', NULL, $title);
--        common_element('link', NULL, $link);
-+        common_element('title', null, $title);
-+        common_element('link', null, $link);
-hunk ./lib/twitterapi.php 287
--        common_element('description', NULL, $subtitle);
--        common_element('language', NULL, 'en-us');
--        common_element('ttl', NULL, '40');
-+        common_element('description', null, $subtitle);
-+        common_element('language', null, 'en-us');
-+        common_element('ttl', null, '40');
-hunk ./lib/twitterapi.php 307
--    function show_atom_timeline($notice, $title, $id, $link, $subtitle=NULL, $suplink=NULL) {
-+    function show_atom_timeline($notice, $title, $id, $link, $subtitle=null, $suplink=null) {
-hunk ./lib/twitterapi.php 311
--        common_element('title', NULL, $title);
--        common_element('id', NULL, $id);
--        common_element('link', array('href' => $link, 'rel' => 'alternate', 'type' => 'text/html'), NULL);
-+        common_element('title', null, $title);
-+        common_element('id', null, $id);
-+        common_element('link', array('href' => $link, 'rel' => 'alternate', 'type' => 'text/html'), null);
-hunk ./lib/twitterapi.php 320
--        common_element('subtitle', NULL, $subtitle);
-+        common_element('subtitle', null, $subtitle);
-hunk ./lib/twitterapi.php 380
--        return NULL;
-+        return null;
-hunk ./lib/twitterapi.php 491
--            common_element('error', NULL, $msg);
--            common_element('request', NULL, $_SERVER['REQUEST_URI']);
-+            common_element('error', null, $msg);
-+            common_element('request', null, $_SERVER['REQUEST_URI']);
-hunk ./lib/twitterapi.php 524
--    function show_profile($profile, $content_type='xml', $notice=NULL) {
-+    function show_profile($profile, $content_type='xml', $notice=null) {
-hunk ./lib/twitterapi.php 540
--    function get_user($id, $apidata=NULL) {
-+    function get_user($id, $apidata=null) {
-hunk ./lib/twitterapi.php 559
--                return NULL;
-+                return null;
-hunk ./lib/xmppqueuehandler.php 41
--            jabber_send_presence("Send me a message to post a notice", 'available', NULL, 'available', -1);
-+            jabber_send_presence("Send me a message to post a notice", 'available', null, 'available', -1);
-hunk ./lib/xmppqueuehandler.php 48
--        $this->conn->presence(NULL, 'available', NULL, 'available', -1);
-+        $this->conn->presence(null, 'available', null, 'available', -1);
-hunk ./lib/xmppqueuehandler.php 74
--        $this->conn->message($this->listener(), $pl['body'], 'chat', NULL, $this->ofrom($pl['from']));
-+        $this->conn->message($this->listener(), $pl['body'], 'chat', null, $this->ofrom($pl['from']));
-hunk ./scripts/enjitqueuehandler.php 120
--$id = ($argc > 1) ? $argv[1] : NULL;
-+$id = ($argc > 1) ? $argv[1] : null;
-hunk ./scripts/fixup_inboxes.php 37
--$start_at = ($argc > 1) ? $argv[1] : NULL;
-+$start_at = ($argc > 1) ? $argv[1] : null;
-hunk ./scripts/fixup_notices_rendered.php 34
--$start_at = ($argc > 1) ? $argv[1] : NULL;
-+$start_at = ($argc > 1) ? $argv[1] : null;
-hunk ./scripts/jabberqueuehandler.php 38
--    var $conn = NULL;
-+    var $conn = null;
-hunk ./scripts/maildaemon.php 45
--            $this->error(NULL, _('Could not parse message.'));
-+            $this->error(null, _('Could not parse message.'));
+-    function show_header($arr) {
++    function show_header($arr)
++    {
+hunk ./lib/searchaction.php 62
+-    function show_form($error=null) {
++    function show_form($error=null)
++    {
+hunk ./lib/searchaction.php 100
+-    function search_menu() {
++    function search_menu()
++    {
+hunk ./lib/settingsaction.php 24
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./lib/settingsaction.php 44
+-    function handle_post() {
++    function handle_post()
++    {
+hunk ./lib/settingsaction.php 49
+-    function show_form($msg=null, $success=false) {
++    function show_form($msg=null, $success=false)
++    {
+hunk ./lib/settingsaction.php 54
+-    function message($msg, $success) {
++    function message($msg, $success)
++    {
+hunk ./lib/settingsaction.php 62
+-    function form_header($title, $msg=null, $success=false) {
++    function form_header($title, $msg=null, $success=false)
++    {
+hunk ./lib/settingsaction.php 70
+-    function show_top($arr) {
++    function show_top($arr)
++    {
+hunk ./lib/settingsaction.php 86
+-    function settings_menu() {
++    function settings_menu()
++    {
+hunk ./lib/stream.php 27
+-    function public_views_menu() {
++    function public_views_menu()
++    {
+hunk ./lib/stream.php 52
+-    function show_notice_list($notice) {
++    function show_notice_list($notice)
++    {
+hunk ./lib/subs.php 28
+-function subs_subscribe_user($user, $other_nickname) {
++function subs_subscribe_user($user, $other_nickname)
++{
+hunk ./lib/subs.php 45
+-function subs_subscribe_to($user, $other) {
++function subs_subscribe_to($user, $other)
++{
+hunk ./lib/subs.php 87
+-function subs_notify($listenee, $listener) {
++function subs_notify($listenee, $listener)
++{
+hunk ./lib/subs.php 95
+-function subs_notify_email($listenee, $listener) {
++function subs_notify_email($listenee, $listener)
++{
+hunk ./lib/subs.php 104
+-function subs_unsubscribe_user($user, $other_nickname) {
++function subs_unsubscribe_user($user, $other_nickname)
++{
+hunk ./lib/subs.php 119
+-function subs_unsubscribe_to($user, $other) {
++function subs_unsubscribe_to($user, $other)
++{
+hunk ./lib/theme.php 22
+-function theme_file($relative) {
++function theme_file($relative)
++{
+hunk ./lib/theme.php 28
+-function theme_path($relative) {
++function theme_path($relative)
++{
+hunk ./lib/twitter.php 22
+-function get_twitter_data($uri, $screen_name, $password) {
++function get_twitter_data($uri, $screen_name, $password)
++{
+hunk ./lib/twitter.php 52
+-function twitter_user_info($screen_name, $password) {
++function twitter_user_info($screen_name, $password)
++{
+hunk ./lib/twitter.php 71
+-function update_twitter_user($fuser, $twitter_id, $screen_name) {
++function update_twitter_user($fuser, $twitter_id, $screen_name)
++{
+hunk ./lib/twitter.php 87
+-function add_twitter_user($twitter_id, $screen_name) {
++function add_twitter_user($twitter_id, $screen_name)
++{
+hunk ./lib/twitter.php 112
+-function save_twitter_user($twitter_id, $screen_name) {
++function save_twitter_user($twitter_id, $screen_name)
++{
+hunk ./lib/twitter.php 137
+-function retreive_twitter_friends($twitter_id, $screen_name, $password) {
++function retreive_twitter_friends($twitter_id, $screen_name, $password)
++{
+hunk ./lib/twitter.php 172
+-function save_twitter_friends($user, $twitter_id, $screen_name, $password) {
++function save_twitter_friends($user, $twitter_id, $screen_name, $password)
++{
+hunk ./lib/twitterapi.php 26
+-    function handle($args) {
++    function handle($args)
++    {
+hunk ./lib/twitterapi.php 31
+-    function twitter_user_array($profile, $get_notice=false) {
++    function twitter_user_array($profile, $get_notice=false)
++    {
+hunk ./lib/twitterapi.php 60
+-    function twitter_status_array($notice, $include_user=true) {
++    function twitter_status_array($notice, $include_user=true)
++    {
+hunk ./lib/twitterapi.php 89
+-    function twitter_rss_entry_array($notice) {
++    function twitter_rss_entry_array($notice)
++    {
+hunk ./lib/twitterapi.php 114
+-    function twitter_rss_dmsg_array($message) {
++    function twitter_rss_dmsg_array($message)
++    {
+hunk ./lib/twitterapi.php 137
+-    function twitter_dmsg_array($message) {
++    function twitter_dmsg_array($message)
++    {
+hunk ./lib/twitterapi.php 158
+-    function show_twitter_xml_status($twitter_status) {
++    function show_twitter_xml_status($twitter_status)
++    {
+hunk ./lib/twitterapi.php 176
+-    function show_twitter_xml_user($twitter_user, $role='user') {
++    function show_twitter_xml_user($twitter_user, $role='user')
++    {
+hunk ./lib/twitterapi.php 189
+-    function show_twitter_rss_item($entry) {
++    function show_twitter_rss_item($entry)
++    {
+hunk ./lib/twitterapi.php 200
+-    function show_twitter_atom_entry($entry) {
++    function show_twitter_atom_entry($entry)
++    {
+hunk ./lib/twitterapi.php 212
+-    function show_json_objects($objects) {
++    function show_json_objects($objects)
++    {
+hunk ./lib/twitterapi.php 217
+-    function show_single_xml_status($notice) {
++    function show_single_xml_status($notice)
++    {
+hunk ./lib/twitterapi.php 225
+-    function show_single_json_status($notice) {
++    function show_single_json_status($notice)
++    {
+hunk ./lib/twitterapi.php 233
+-    function show_single_xml_dmsg($message) {
++    function show_single_xml_dmsg($message)
++    {
+hunk ./lib/twitterapi.php 241
+-    function show_single_json_dmsg($message) {
++    function show_single_json_dmsg($message)
++    {
+hunk ./lib/twitterapi.php 249
+-    function show_twitter_xml_dmsg($twitter_dm) {
++    function show_twitter_xml_dmsg($twitter_dm)
++    {
+hunk ./lib/twitterapi.php 268
+-    function show_xml_timeline($notice) {
++    function show_xml_timeline($notice)
++    {
+hunk ./lib/twitterapi.php 290
+-    function show_rss_timeline($notice, $title, $link, $subtitle, $suplink=null) {
++    function show_rss_timeline($notice, $title, $link, $subtitle, $suplink=null)
++    {
+hunk ./lib/twitterapi.php 325
+-    function show_atom_timeline($notice, $title, $id, $link, $subtitle=null, $suplink=null) {
++    function show_atom_timeline($notice, $title, $id, $link, $subtitle=null, $suplink=null)
++    {
+hunk ./lib/twitterapi.php 357
+-    function show_json_timeline($notice) {
++    function show_json_timeline($notice)
++    {
+hunk ./lib/twitterapi.php 383
+-    function date_twitter($dt) {
++    function date_twitter($dt)
++    {
+hunk ./lib/twitterapi.php 389
+-    function replier_by_reply($reply_id) {
++    function replier_by_reply($reply_id)
++    {
+hunk ./lib/twitterapi.php 406
+-    function count_subscriptions($profile) {
++    function count_subscriptions($profile)
++    {
+hunk ./lib/twitterapi.php 422
+-    function init_document($type='xml') {
++    function init_document($type='xml')
++    {
+hunk ./lib/twitterapi.php 454
+-    function end_document($type='xml') {
++    function end_document($type='xml')
++    {
+hunk ./lib/twitterapi.php 481
+-    function client_error($msg, $code = 400, $content_type = 'json') {
++    function client_error($msg, $code = 400, $content_type = 'json')
++    {
+hunk ./lib/twitterapi.php 530
+-    function init_twitter_rss() {
++    function init_twitter_rss()
++    {
+hunk ./lib/twitterapi.php 536
+-    function end_twitter_rss() {
++    function end_twitter_rss()
++    {
+hunk ./lib/twitterapi.php 542
+-    function init_twitter_atom() {
++    function init_twitter_atom()
++    {
+hunk ./lib/twitterapi.php 548
+-    function end_twitter_atom() {
++    function end_twitter_atom()
++    {
+hunk ./lib/twitterapi.php 554
+-    function show_profile($profile, $content_type='xml', $notice=null) {
++    function show_profile($profile, $content_type='xml', $notice=null)
++    {
+hunk ./lib/twitterapi.php 571
+-    function get_user($id, $apidata=null) {
++    function get_user($id, $apidata=null)
++    {
+hunk ./lib/twitterapi.php 583
+-    function get_profile($id) {
++    function get_profile($id)
++    {
+hunk ./lib/twitterapi.php 597
+-    function source_link($source) {
++    function source_link($source)
++    {
+hunk ./lib/twitterapi.php 617
+-    function show_extended_profile($user, $apidata) {
++    function show_extended_profile($user, $apidata)
++    {
+hunk ./lib/util.php 24
+-function common_server_error($msg, $code=500) {
++function common_server_error($msg, $code=500)
++{
+hunk ./lib/util.php 48
+-function common_user_error($msg, $code=400) {
++function common_user_error($msg, $code=400)
++{
+hunk ./lib/util.php 85
+-function common_element_start($tag, $attrs=null) {
++function common_element_start($tag, $attrs=null)
++{
+hunk ./lib/util.php 98
+-function common_element_end($tag) {
++function common_element_end($tag)
++{
+hunk ./lib/util.php 112
+-function common_element($tag, $attrs=null, $content=null) {
++function common_element($tag, $attrs=null, $content=null)
++{
+hunk ./lib/util.php 122
+-function common_start_xml($doc=null, $public=null, $system=null, $indent=true) {
++function common_start_xml($doc=null, $public=null, $system=null, $indent=true)
++{
+hunk ./lib/util.php 134
+-function common_end_xml() {
++function common_end_xml()
++{
+hunk ./lib/util.php 141
+-function common_init_locale($language=null) {
++function common_init_locale($language=null)
++{
+hunk ./lib/util.php 155
+-function common_init_language() {
++function common_init_language()
++{
+hunk ./lib/util.php 172
+-function common_show_header($pagetitle, $callable=null, $data=null, $headercall=null) {
++function common_show_header($pagetitle, $callable=null, $data=null, $headercall=null)
++{
+hunk ./lib/util.php 256
+-function common_start_html($type=null, $indent=true) {
++function common_start_html($type=null, $indent=true)
++{
+hunk ./lib/util.php 288
+-function common_show_footer() {
++function common_show_footer()
++{
+hunk ./lib/util.php 322
+-function common_text($txt) {
++function common_text($txt)
++{
+hunk ./lib/util.php 328
+-function common_raw($xml) {
++function common_raw($xml)
++{
+hunk ./lib/util.php 334
+-function common_nav_menu() {
++function common_nav_menu()
++{
+hunk ./lib/util.php 362
+-function common_foot_menu() {
++function common_foot_menu()
++{
+hunk ./lib/util.php 380
+-function common_menu_item($url, $text, $title=null, $is_selected=false) {
++function common_menu_item($url, $text, $title=null, $is_selected=false)
++{
+hunk ./lib/util.php 395
+-function common_input($id, $label, $value=null,$instructions=null) {
++function common_input($id, $label, $value=null,$instructions=null)
++{
+hunk ./lib/util.php 439
+-function common_dropdown($id, $label, $content, $instructions=null, $blank_select=FALSE, $selected=null) {
++function common_dropdown($id, $label, $content, $instructions=null, $blank_select=FALSE, $selected=null)
++{
+hunk ./lib/util.php 460
+-function common_hidden($id, $value) {
++function common_hidden($id, $value)
++{
+hunk ./lib/util.php 468
+-function common_password($id, $label, $instructions=null) {
++function common_password($id, $label, $instructions=null)
++{
+hunk ./lib/util.php 483
+-function common_submit($id, $label, $cls='submit') {
++function common_submit($id, $label, $cls='submit')
++{
+hunk ./lib/util.php 495
+-function common_textarea($id, $label, $content=null, $instructions=null) {
++function common_textarea($id, $label, $content=null, $instructions=null)
++{
+hunk ./lib/util.php 510
+-function common_timezone() {
++function common_timezone()
++{
+hunk ./lib/util.php 523
+-function common_language() {
++function common_language()
++{
+hunk ./lib/util.php 549
+-function common_munge_password($password, $id) {
++function common_munge_password($password, $id)
++{
+hunk ./lib/util.php 555
+-function common_check_user($nickname, $password) {
++function common_check_user($nickname, $password)
++{
+hunk ./lib/util.php 575
+-function common_logged_in() {
++function common_logged_in()
++{
+hunk ./lib/util.php 580
+-function common_have_session() {
++function common_have_session()
++{
+hunk ./lib/util.php 585
+-function common_ensure_session() {
++function common_ensure_session()
++{
+hunk ./lib/util.php 601
+-function common_set_user($user) {
++function common_set_user($user)
++{
+hunk ./lib/util.php 626
+-function common_set_cookie($key, $value, $expiration=0) {
++function common_set_cookie($key, $value, $expiration=0)
++{
+hunk ./lib/util.php 646
+-function common_rememberme($user=null) {
++function common_rememberme($user=null)
++{
+hunk ./lib/util.php 686
+-function common_remembered_user() {
++function common_remembered_user()
++{
+hunk ./lib/util.php 752
+-function common_forgetme() {
++function common_forgetme()
++{
+hunk ./lib/util.php 758
+-function common_current_user() {
++function common_current_user()
++{
+hunk ./lib/util.php 791
+-function common_real_login($real=true) {
++function common_real_login($real=true)
++{
+hunk ./lib/util.php 797
+-function common_is_real_login() {
++function common_is_real_login()
++{
+hunk ./lib/util.php 803
+-function common_canonical_nickname($nickname) {
++function common_canonical_nickname($nickname)
++{
+hunk ./lib/util.php 810
+-function common_canonical_email($email) {
++function common_canonical_email($email)
++{
+hunk ./lib/util.php 819
+-function common_render_content($text, $notice) {
++function common_render_content($text, $notice)
++{
+hunk ./lib/util.php 829
+-function common_render_text($text) {
++function common_render_text($text)
++{
+hunk ./lib/util.php 840
+-function common_render_uri_thingy($matches) {
++function common_render_uri_thingy($matches)
++{
+hunk ./lib/util.php 875
+-function common_longurl($short_url)  {
++function common_longurl($short_url)
++{
+hunk ./lib/util.php 882
+-function common_longurl2($uri)  {
++function common_longurl2($uri)
++{
+hunk ./lib/util.php 890
+-function common_shorten_links($text) {
++function common_shorten_links($text)
++{
+hunk ./lib/util.php 899
+-function common_shorten_link($url, $reverse = false) {
++function common_shorten_link($url, $reverse = false)
++{
+hunk ./lib/util.php 961
+-function common_xml_safe_str($str) {
++function common_xml_safe_str($str)
++{
+hunk ./lib/util.php 969
+-function common_tag_link($tag) {
++function common_tag_link($tag)
++{
+hunk ./lib/util.php 976
+-function common_canonical_tag($tag) {
++function common_canonical_tag($tag)
++{
+hunk ./lib/util.php 981
+-function common_valid_profile_tag($str) {
++function common_valid_profile_tag($str)
++{
+hunk ./lib/util.php 986
+-function common_at_link($sender_id, $nickname) {
++function common_at_link($sender_id, $nickname)
++{
+hunk ./lib/util.php 997
+-function common_at_hash_link($sender_id, $tag) {
++function common_at_hash_link($sender_id, $tag)
++{
+hunk ./lib/util.php 1014
+-function common_relative_profile($sender, $nickname, $dt=null) {
++function common_relative_profile($sender, $nickname, $dt=null)
++{
+hunk ./lib/util.php 1052
+-function common_avatar_filename($id, $extension, $size=null, $extra=null) {
++function common_avatar_filename($id, $extension, $size=null, $extra=null)
++{
+hunk ./lib/util.php 1063
+-function common_avatar_path($filename) {
++function common_avatar_path($filename)
++{
+hunk ./lib/util.php 1069
+-function common_avatar_url($filename) {
++function common_avatar_url($filename)
++{
+hunk ./lib/util.php 1074
+-function common_avatar_display_url($avatar) {
++function common_avatar_display_url($avatar)
++{
+hunk ./lib/util.php 1084
+-function common_default_avatar($size) {
++function common_default_avatar($size)
++{
+hunk ./lib/util.php 1092
+-function common_local_url($action, $args=null, $fragment=null) {
++function common_local_url($action, $args=null, $fragment=null)
++{
+hunk ./lib/util.php 1106
+-function common_fancy_url($action, $args=null) {
++function common_fancy_url($action, $args=null)
++{
+hunk ./lib/util.php 1320
+-function common_simple_url($action, $args=null) {
++function common_simple_url($action, $args=null)
++{
+hunk ./lib/util.php 1333
+-function common_path($relative) {
++function common_path($relative)
++{
+hunk ./lib/util.php 1340
+-function common_date_string($dt) {
++function common_date_string($dt)
++{
+hunk ./lib/util.php 1375
+-function common_exact_date($dt) {
++function common_exact_date($dt)
++{
+hunk ./lib/util.php 1391
+-function common_date_w3dtf($dt) {
++function common_date_w3dtf($dt)
++{
+hunk ./lib/util.php 1399
+-function common_date_rfc2822($dt) {
++function common_date_rfc2822($dt)
++{
+hunk ./lib/util.php 1407
+-function common_date_iso8601($dt) {
++function common_date_iso8601($dt)
++{
+hunk ./lib/util.php 1415
+-function common_sql_now() {
++function common_sql_now()
++{
+hunk ./lib/util.php 1420
+-function common_redirect($url, $code=307) {
++function common_redirect($url, $code=307)
++{
+hunk ./lib/util.php 1437
+-function common_save_replies($notice) {
++function common_save_replies($notice)
++{
+hunk ./lib/util.php 1521
+-function common_broadcast_notice($notice, $remote=false) {
++function common_broadcast_notice($notice, $remote=false)
++{
+hunk ./lib/util.php 1549
+-function common_twitter_broadcast($notice, $flink) {
++function common_twitter_broadcast($notice, $flink)
++{
+hunk ./lib/util.php 1610
+-function common_enqueue_notice($notice) {
++function common_enqueue_notice($notice)
++{
+hunk ./lib/util.php 1628
+-function common_dequeue_notice($notice) {
++function common_dequeue_notice($notice)
++{
+hunk ./lib/util.php 1645
+-function common_real_broadcast($notice, $remote=false) {
++function common_real_broadcast($notice, $remote=false)
++{
+hunk ./lib/util.php 1680
+-function common_broadcast_profile($profile) {
++function common_broadcast_profile($profile)
++{
+hunk ./lib/util.php 1689
+-function common_profile_url($nickname) {
++function common_profile_url($nickname)
++{
+hunk ./lib/util.php 1696
+-function common_notice_form($action=null, $content=null) {
++function common_notice_form($action=null, $content=null)
++{
+hunk ./lib/util.php 1729
+-function common_root_url() {
++function common_root_url()
++{
+hunk ./lib/util.php 1737
+-function common_good_rand($bytes) {
++function common_good_rand($bytes)
++{
+hunk ./lib/util.php 1747
+-function common_urandom($bytes) {
++function common_urandom($bytes)
++{
+hunk ./lib/util.php 1760
+-function common_mtrand($bytes) {
++function common_mtrand($bytes)
++{
+hunk ./lib/util.php 1769
+-function common_set_returnto($url) {
++function common_set_returnto($url)
++{
+hunk ./lib/util.php 1775
+-function common_get_returnto() {
++function common_get_returnto()
++{
+hunk ./lib/util.php 1781
+-function common_timestamp() {
++function common_timestamp()
++{
+hunk ./lib/util.php 1786
+-function common_ensure_syslog() {
++function common_ensure_syslog()
++{
+hunk ./lib/util.php 1796
+-function common_log($priority, $msg, $filename=null) {
++function common_log($priority, $msg, $filename=null)
++{
+hunk ./lib/util.php 1814
+-function common_debug($msg, $filename=null) {
++function common_debug($msg, $filename=null)
++{
+hunk ./lib/util.php 1823
+-function common_log_db_error(&$object, $verb, $filename=null) {
++function common_log_db_error(&$object, $verb, $filename=null)
++{
+hunk ./lib/util.php 1830
+-function common_log_objstring(&$object) {
++function common_log_objstring(&$object)
++{
+hunk ./lib/util.php 1844
+-function common_valid_http_url($url) {
++function common_valid_http_url($url)
++{
+hunk ./lib/util.php 1849
+-function common_valid_tag($tag) {
++function common_valid_tag($tag)
++{
+hunk ./lib/util.php 1860
+-function common_pagination($have_before, $have_after, $page, $action, $args=null) {
++function common_pagination($have_before, $have_after, $page, $action, $args=null)
++{
+hunk ./lib/util.php 1896
+-function common_accept_to_prefs($accept, $def = '*/*') {
++function common_accept_to_prefs($accept, $def = '*/*')
++{
+hunk ./lib/util.php 1921
+-function common_mime_type_match($type, $avail) {
++function common_mime_type_match($type, $avail)
++{
+hunk ./lib/util.php 1937
+-function common_negotiate_type($cprefs, $sprefs) {
++function common_negotiate_type($cprefs, $sprefs)
++{
+hunk ./lib/util.php 1974
+-function common_config($main, $sub) {
++function common_config($main, $sub)
++{
+hunk ./lib/util.php 1980
+-function common_copy_args($from) {
++function common_copy_args($from)
++{
+hunk ./lib/util.php 1992
+-function common_remove_magic_from_request() {
++function common_remove_magic_from_request()
++{
+hunk ./lib/util.php 2000
+-function common_user_uri(&$user) {
++function common_user_uri(&$user)
++{
+hunk ./lib/util.php 2005
+-function common_notice_uri(&$notice) {
++function common_notice_uri(&$notice)
++{
+hunk ./lib/util.php 2013
+-function common_confirmation_code($bits) {
++function common_confirmation_code($bits)
++{
+hunk ./lib/util.php 2031
+-function common_markup_to_html($c) {
++function common_markup_to_html($c)
++{
+hunk ./lib/util.php 2039
+-function common_profile_avatar_url($profile, $size=AVATAR_PROFILE_SIZE) {
++function common_profile_avatar_url($profile, $size=AVATAR_PROFILE_SIZE)
++{
+hunk ./lib/util.php 2049
+-function common_profile_uri($profile) {
++function common_profile_uri($profile)
++{
+hunk ./lib/util.php 2067
+-function common_canonical_sms($sms) {
++function common_canonical_sms($sms)
++{
+hunk ./lib/util.php 2074
+-function common_error_handler($errno, $errstr, $errfile, $errline, $errcontext) {
++function common_error_handler($errno, $errstr, $errfile, $errline, $errcontext)
++{
+hunk ./lib/util.php 2096
+-function common_session_token() {
++function common_session_token()
++{
+hunk ./lib/util.php 2105
+-function common_disfavor_form($notice) {
++function common_disfavor_form($notice)
++{
+hunk ./lib/util.php 2133
+-function common_favor_form($notice) {
++function common_favor_form($notice)
++{
+hunk ./lib/util.php 2161
+-function common_nudge_form($profile) {
++function common_nudge_form($profile)
++{
+hunk ./lib/util.php 2171
+-function common_nudge_response() {
++function common_nudge_response()
++{
+hunk ./lib/util.php 2176
+-function common_subscribe_form($profile) {
++function common_subscribe_form($profile)
++{
+hunk ./lib/util.php 2193
+-function common_unsubscribe_form($profile) {
++function common_unsubscribe_form($profile)
++{
+hunk ./lib/util.php 2211
+-function common_profile_new_message_nudge ($cur, $profile) {
++function common_profile_new_message_nudge ($cur, $profile)
++{
+hunk ./lib/util.php 2229
+-function common_cache_key($extra) {
++function common_cache_key($extra)
++{
+hunk ./lib/util.php 2234
+-function common_keyize($str) {
++function common_keyize($str)
++{
+hunk ./lib/util.php 2241
+-function common_message_form($content, $user, $to) {
++function common_message_form($content, $user, $to)
++{
+hunk ./lib/util.php 2282
+-function common_memcache() {
++function common_memcache()
++{
+hunk ./lib/util.php 2303
+-function common_compatible_license($from, $to) {
++function common_compatible_license($from, $to)
++{
+hunk ./lib/util.php 2311
+-function common_block_form($profile, $args=null) {
++function common_block_form($profile, $args=null)
++{
+hunk ./lib/util.php 2316
+-function common_unblock_form($profile, $args=null) {
++function common_unblock_form($profile, $args=null)
++{
+hunk ./lib/util.php 2321
+-function common_blocking_form($type, $label, $profile, $args=null) {
++function common_blocking_form($type, $label, $profile, $args=null)
++{
+hunk ./lib/xmppqueuehandler.php 33
+-    function start() {
++    function start()
++    {
+hunk ./lib/xmppqueuehandler.php 47
+-    function handle_reconnect(&$pl) {
++    function handle_reconnect(&$pl)
++    {
+hunk ./lib/xmppqueuehandler.php 53
+-    function idle($timeout=0) {
++    function idle($timeout=0)
++    {
+hunk ./lib/xmppqueuehandler.php 66
+-    function forward_message(&$pl) {
++    function forward_message(&$pl)
++    {
+hunk ./lib/xmppqueuehandler.php 81
+-    function ofrom($from) {
++    function ofrom($from)
++    {
+hunk ./lib/xmppqueuehandler.php 89
+-    function listener() {
++    function listener()
++    {
+hunk ./scripts/enjitqueuehandler.php 38
+-    function transport() {
++    function transport()
++    {
+hunk ./scripts/enjitqueuehandler.php 43
+-    function start() {
++    function start()
++    {
+hunk ./scripts/enjitqueuehandler.php 50
+-    function handle_notice($notice) {
++    function handle_notice($notice)
++    {
+hunk ./scripts/jabberqueuehandler.php 40
+-    function transport() {
++    function transport()
++    {
+hunk ./scripts/jabberqueuehandler.php 45
+-    function handle_notice($notice) {
++    function handle_notice($notice)
++    {
+hunk ./scripts/maildaemon.php 39
+-    function __construct() {
++    function __construct()
++    {
+hunk ./scripts/maildaemon.php 43
+-    function handle_message($fname='php://stdin') {
++    function handle_message($fname='php://stdin')
++    {
+hunk ./scripts/maildaemon.php 71
+-    function error($from, $msg) {
++    function error($from, $msg)
++    {
 hunk ./scripts/maildaemon.php 77
--            return NULL;
-+            return null;
-hunk ./scripts/maildaemon.php 143
--            return NULL;
-+            return null;
-hunk ./scripts/maildaemon.php 170
--        $this->error(NULL, "Unsupported message type: " . $type);
-+        $this->error(null, "Unsupported message type: " . $type);
-hunk ./scripts/ombqueuehandler.php 70
--$id = ($argc > 1) ? $argv[1] : NULL;
-+$id = ($argc > 1) ? $argv[1] : null;
-hunk ./scripts/smsqueuehandler.php 60
--$id = ($argc > 1) ? $argv[1] : NULL;
-+$id = ($argc > 1) ? $argv[1] : null;
+-    function user_from($from_hdr) {
++    function user_from($from_hdr)
++    {
+hunk ./scripts/maildaemon.php 92
+-    function user_match_to($user, $to_hdr) {
++    function user_match_to($user, $to_hdr)
++    {
+hunk ./scripts/maildaemon.php 104
+-    function handle_command($user, $from, $msg) {
++    function handle_command($user, $from, $msg)
++    {
+hunk ./scripts/maildaemon.php 115
+-    function respond($from, $to, $response) {
++    function respond($from, $to, $response)
++    {
+hunk ./scripts/maildaemon.php 125
+-    function log($level, $msg) {
++    function log($level, $msg)
++    {
+hunk ./scripts/maildaemon.php 130
+-    function add_notice($user, $msg) {
++    function add_notice($user, $msg)
++    {
+hunk ./scripts/maildaemon.php 145
+-    function parse_message($fname) {
++    function parse_message($fname)
++    {
+hunk ./scripts/maildaemon.php 179
+-    function unsupported_type($type) {
++    function unsupported_type($type)
++    {
+hunk ./scripts/maildaemon.php 184
+-    function cleanup_msg($msg) {
++    function cleanup_msg($msg)
++    {
+hunk ./scripts/ombqueuehandler.php 38
+-    function transport() {
++    function transport()
++    {
+hunk ./scripts/ombqueuehandler.php 43
+-    function start() {
++    function start()
++    {
+hunk ./scripts/ombqueuehandler.php 49
+-    function handle_notice($notice) {
++    function handle_notice($notice)
++    {
+hunk ./scripts/ombqueuehandler.php 59
+-    function finish() {
++    function finish()
++    {
+hunk ./scripts/ombqueuehandler.php 63
+-    function is_remote($notice) {
++    function is_remote($notice)
++    {
+hunk ./scripts/publicqueuehandler.php 38
+-    function transport() {
++    function transport()
++    {
+hunk ./scripts/publicqueuehandler.php 43
+-    function handle_notice($notice) {
++    function handle_notice($notice)
++    {
+hunk ./scripts/sitemap.php 21
+-function index_map() {
++function index_map()
++{
+hunk ./scripts/sitemap.php 44
+-function standard_map() {
++function standard_map()
++{
+hunk ./scripts/sitemap.php 82
+-function notices_map() {
++function notices_map()
++{
+hunk ./scripts/sitemap.php 121
+-function user_map() {
++function user_map()
++{
+hunk ./scripts/sitemap.php 215
+-function url($url_args) {
++function url($url_args)
++{
+hunk ./scripts/sitemap.php 246
+-function sitemap($sitemap_args) {
++function sitemap($sitemap_args)
++{
+hunk ./scripts/sitemap.php 268
+-function urlset($urlset_text) {
++function urlset($urlset_text)
++{
+hunk ./scripts/sitemap.php 279
+-function sitemapindex($sitemapindex_text) {
++function sitemapindex($sitemapindex_text)
++{
+hunk ./scripts/sitemap.php 290
+-function array_to_map($url_list, $filename_prefix) {
++function array_to_map($url_list, $filename_prefix)
++{
+hunk ./scripts/sitemap.php 309
+-function parse_args() {
++function parse_args()
++{
+hunk ./scripts/sitemap.php 351
+-function trailing_slash($path) {
++function trailing_slash($path)
++{
+hunk ./scripts/sitemap.php 361
+-function write_file($path, $data) {
++function write_file($path, $data)
++{
+hunk ./scripts/sitemap.php 379
+-function error ($error_msg) {
++function error ($error_msg)
++{
+hunk ./scripts/smsqueuehandler.php 38
+-    function transport() {
++    function transport()
++    {
+hunk ./scripts/smsqueuehandler.php 43
+-    function start() {
++    function start()
++    {
+hunk ./scripts/smsqueuehandler.php 49
+-    function handle_notice($notice) {
++    function handle_notice($notice)
++    {
+hunk ./scripts/smsqueuehandler.php 54
+-    function finish() {
++    function finish()
++    {
+hunk ./scripts/xmppconfirmhandler.php 42
+-    function class_name() {
++    function class_name()
++    {
+hunk ./scripts/xmppconfirmhandler.php 47
+-    function run() {
++    function run()
++    {
 hunk ./scripts/xmppconfirmhandler.php 104
--        $confirm->whereAdd('claimed IS NULL');
--        $confirm->whereAdd('sent IS NULL');
-+        $confirm->whereAdd('claimed IS null');
-+        $confirm->whereAdd('sent IS null');
-hunk ./scripts/xmppconfirmhandler.php 125
--        return NULL;
-+        return null;
-hunk ./scripts/xmppconfirmhandler.php 130
--        $confirm->claimed = NULL;
-+        $confirm->claimed = null;
+-    function next_confirm() {
++    function next_confirm()
++    {
+hunk ./scripts/xmppconfirmhandler.php 131
+-    function clear_old_confirm_claims() {
++    function clear_old_confirm_claims()
++    {
 hunk ./scripts/xmppdaemon.php 42
--    function XMPPDaemon($resource=NULL) {
-+    function XMPPDaemon($resource=null) {
-hunk ./scripts/xmppdaemon.php 74
--                             NULL, 'available', 100);
-+                             null, 'available', 100);
-hunk ./scripts/xmppdaemon.php 95
--        $this->conn->presence('Send me a message to post a notice', 'available', NULL, 'available', 100);
-+        $this->conn->presence('Send me a message to post a notice', 'available', null, 'available', 100);
-hunk ./scripts/xmppdaemon.php 168
--            return NULL;
-+            return null;
-hunk ./scripts/xmppdaemon.php 173
--            return NULL;
-+            return null;
-hunk ./scripts/xmppdaemon.php 177
--            return NULL;
-+            return null;
-hunk ./scripts/xmppdaemon.php 182
--            return NULL;
-+            return null;
-hunk ./scripts/xmppdaemon.php 186
--            return NULL;
-+            return null;
-hunk ./scripts/xmppdaemon.php 191
--            return NULL;
-+            return null;
+-    function XMPPDaemon($resource=null) {
++    function XMPPDaemon($resource=null)
++    {
+hunk ./scripts/xmppdaemon.php 60
+-    function connect() {
++    function connect()
++    {
+hunk ./scripts/xmppdaemon.php 80
+-    function name() {
++    function name()
++    {
+hunk ./scripts/xmppdaemon.php 85
+-    function run() {
++    function run()
++    {
+hunk ./scripts/xmppdaemon.php 97
+-    function handle_reconnect(&$pl) {
++    function handle_reconnect(&$pl)
++    {
+hunk ./scripts/xmppdaemon.php 103
+-    function get_user($from) {
++    function get_user($from)
++    {
+hunk ./scripts/xmppdaemon.php 109
+-    function handle_message(&$pl) {
++    function handle_message(&$pl)
++    {
+hunk ./scripts/xmppdaemon.php 166
+-    function is_self($from) {
++    function is_self($from)
++    {
+hunk ./scripts/xmppdaemon.php 171
+-    function get_ofrom($pl) {
++    function get_ofrom($pl)
++    {
+hunk ./scripts/xmppdaemon.php 206
+-    function is_autoreply($txt) {
++    function is_autoreply($txt)
++    {
+hunk ./scripts/xmppdaemon.php 215
+-    function is_otr($txt) {
++    function is_otr($txt)
++    {
+hunk ./scripts/xmppdaemon.php 224
+-    function is_direct($txt) {
++    function is_direct($txt)
++    {
+hunk ./scripts/xmppdaemon.php 233
+-    function from_site($address, $msg) {
++    function from_site($address, $msg)
++    {
+hunk ./scripts/xmppdaemon.php 239
+-    function handle_command($user, $body) {
++    function handle_command($user, $body)
++    {
+hunk ./scripts/xmppdaemon.php 252
+-    function add_notice(&$user, &$pl) {
++    function add_notice(&$user, &$pl)
++    {
+hunk ./scripts/xmppdaemon.php 275
+-    function handle_presence(&$pl) {
++    function handle_presence(&$pl)
++    {
+hunk ./scripts/xmppdaemon.php 310
+-    function log($level, $msg) {
++    function log($level, $msg)
++    {
+hunk ./scripts/xmppdaemon.php 315
+-    function subscribed($to) {
++    function subscribed($to)
++    {

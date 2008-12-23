@@ -36,10 +36,12 @@ require_once('Mail/mimeDecode.php');
 
 class MailerDaemon {
 
-    function __construct() {
+    function __construct()
+    {
     }
 
-    function handle_message($fname='php://stdin') {
+    function handle_message($fname='php://stdin')
+    {
         list($from, $to, $msg) = $this->parse_message($fname);
         if (!$from || !$to || !$msg) {
             $this->error(null, _('Could not parse message.'));
@@ -66,12 +68,14 @@ class MailerDaemon {
         $this->add_notice($user, $msg);
     }
 
-    function error($from, $msg) {
+    function error($from, $msg)
+    {
         file_put_contents("php://stderr", $msg . "\n");
         exit(1);
     }
 
-    function user_from($from_hdr) {
+    function user_from($from_hdr)
+    {
         $froms = mailparse_rfc822_parse_addresses($from_hdr);
         if (!$froms) {
             return null;
@@ -85,7 +89,8 @@ class MailerDaemon {
         return $user;
     }
 
-    function user_match_to($user, $to_hdr) {
+    function user_match_to($user, $to_hdr)
+    {
         $incoming = $user->incomingemail;
         $tos = mailparse_rfc822_parse_addresses($to_hdr);
         foreach ($tos as $to) {
@@ -96,7 +101,8 @@ class MailerDaemon {
         return false;
     }
 
-    function handle_command($user, $from, $msg) {
+    function handle_command($user, $from, $msg)
+    {
         $inter = new CommandInterpreter();
         $cmd = $inter->handle_command($user, $msg);
         if ($cmd) {
@@ -106,7 +112,8 @@ class MailerDaemon {
         return false;
     }
 
-    function respond($from, $to, $response) {
+    function respond($from, $to, $response)
+    {
 
         $headers['From'] = $to;
         $headers['To'] = $from;
@@ -115,11 +122,13 @@ class MailerDaemon {
         return mail_send(array($from), $headers, $response);
     }
 
-    function log($level, $msg) {
+    function log($level, $msg)
+    {
         common_log($level, 'MailDaemon: '.$msg);
     }
 
-    function add_notice($user, $msg) {
+    function add_notice($user, $msg)
+    {
         // should test
         // $msg_shortened = common_shorten_links($msg);
         // if (mb_strlen($msg_shortened) > 140) ERROR and STOP
@@ -133,7 +142,8 @@ class MailerDaemon {
                    'Added notice ' . $notice->id . ' from user ' . $user->nickname);
     }
 
-    function parse_message($fname) {
+    function parse_message($fname)
+    {
         $contents = file_get_contents($fname);
         $parsed = Mail_mimeDecode::decode(array('input' => $contents,
                                                 'include_bodies' => true,
@@ -166,11 +176,13 @@ class MailerDaemon {
         return array($from, $to, $msg);
     }
 
-    function unsupported_type($type) {
+    function unsupported_type($type)
+    {
         $this->error(null, "Unsupported message type: " . $type);
     }
 
-    function cleanup_msg($msg) {
+    function cleanup_msg($msg)
+    {
         $lines = explode("\n", $msg);
 
         $output = '';

@@ -20,7 +20,8 @@
 if (!defined('LACONICA')) { exit(1); }
 
 class DeleteprofileAction extends Action {
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
         $this->server_error(_('Code not yet ready.'));
         return;
@@ -32,18 +33,21 @@ class DeleteprofileAction extends Action {
         }
     }
 
-    function get_instructions() {
+    function get_instructions()
+    {
         return _('Export and delete your user information.');
     }
 
-    function form_header($title, $msg=null, $success=false) {
+    function form_header($title, $msg=null, $success=false)
+    {
         common_show_header($title,
                            null,
                            array($msg, $success),
                            array($this, 'show_top'));
     }
 
-    function show_feeds_list($feeds) {
+    function show_feeds_list($feeds)
+    {
         common_element_start('div', array('class' => 'feedsdel'));
         common_element('p', null, 'Feeds:');
         common_element_start('ul', array('class' => 'xoxo'));
@@ -56,7 +60,8 @@ class DeleteprofileAction extends Action {
     }
 
     //TODO move to common.php (and retrace its origin)
-    function common_feed_item($feed) {
+    function common_feed_item($feed)
+    {
         $user = common_current_user();
         $nickname = $user->nickname;
 
@@ -84,14 +89,16 @@ class DeleteprofileAction extends Action {
         common_element_end('li');
     }
 
-    function show_form($msg=null, $success=false) {
+    function show_form($msg=null, $success=false)
+    {
         $this->form_header(_('Delete my account'), $msg, $success);
         common_element('h2', null, _('Delete my account confirmation'));
         $this->show_confirm_delete_form();
         common_show_footer();
     }
 
-    function show_confirm_delete_form() {
+    function show_confirm_delete_form()
+    {
         $user = common_current_user();
         $notices = DB_DataObject::factory('notice');
         $notices->profile_id = $user->id;
@@ -120,7 +127,8 @@ class DeleteprofileAction extends Action {
         common_element_end('form');
     }
 
-    function handle_post() {
+    function handle_post()
+    {
         # CSRF protection
         $token = $this->trimmed('token');
         if (!$token || $token != common_session_token()) {
@@ -134,7 +142,8 @@ class DeleteprofileAction extends Action {
         $this->show_form();
     }
 
-    function delete_account() {
+    function delete_account()
+    {
         $user = common_current_user();
         assert(!is_null($user)); # should already be checked
 
@@ -219,7 +228,8 @@ class DeleteprofileAction extends Action {
         common_redirect(common_local_url('public'));
     }
 
-    function show_top($arr) {
+    function show_top($arr)
+    {
         $msg = $arr[0];
         $success = $arr[1];
         if ($msg) {
@@ -234,7 +244,8 @@ class DeleteprofileAction extends Action {
         $this->settings_menu();
     }
 
-    function settings_menu() {
+    function settings_menu()
+    {
         # action => array('prompt', 'title')
         $menu =
           array('profilesettings' =>

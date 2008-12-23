@@ -24,13 +24,15 @@ require_once(INSTALLDIR.'/lib/openid.php');
 
 class OpenidsettingsAction extends SettingsAction {
 
-    function get_instructions() {
+    function get_instructions()
+    {
         return _('[OpenID](%%doc.openid%%) lets you log into many sites ' .
                   ' with the same user account. '.
                   ' Manage your associated OpenIDs from here.');
     }
 
-    function show_form($msg=null, $success=false) {
+    function show_form($msg=null, $success=false)
+    {
 
         $user = common_current_user();
 
@@ -116,7 +118,8 @@ class OpenidsettingsAction extends SettingsAction {
         common_show_footer();
     }
 
-    function handle_post() {
+    function handle_post()
+    {
         # CSRF protection
         $token = $this->trimmed('token');
         if (!$token || $token != common_session_token()) {
@@ -136,7 +139,8 @@ class OpenidsettingsAction extends SettingsAction {
         }
     }
 
-    function remove_openid() {
+    function remove_openid()
+    {
 
         $openid_url = $this->trimmed('openid_url');
         $oid = User_openid::staticGet('canonical', $openid_url);

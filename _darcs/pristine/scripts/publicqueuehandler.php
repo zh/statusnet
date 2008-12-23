@@ -35,11 +35,13 @@ set_error_handler('common_error_handler');
 
 class PublicQueueHandler extends XmppQueueHandler {
     
-    function transport() {
+    function transport()
+    {
         return 'public';
     }
     
-    function handle_notice($notice) {
+    function handle_notice($notice)
+    {
         try {
             return jabber_public_notice($notice);
         } catch (XMPPHP_Exception $e) {

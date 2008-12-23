@@ -22,7 +22,8 @@ if (!defined('LACONICA')) { exit(1); }
 require_once(INSTALLDIR.'/lib/omb.php');
 
 class AccesstokenAction extends Action {
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
         try {
             common_debug('getting request from env variables', __FILE__);

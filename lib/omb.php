@@ -43,7 +43,8 @@ define('OAUTH_AUTH_HEADER', OAUTH_NAMESPACE.'parameters/auth-header');
 define('OAUTH_POST_BODY', OAUTH_NAMESPACE.'parameters/post-body');
 define('OAUTH_HMAC_SHA1', OAUTH_NAMESPACE.'signature/HMAC-SHA1');
 
-function omb_oauth_consumer() {
+function omb_oauth_consumer()
+{
     static $con = null;
     if (!$con) {
         $con = new OAuthConsumer(common_root_url(), '');
@@ -51,7 +52,8 @@ function omb_oauth_consumer() {
     return $con;
 }
 
-function omb_oauth_server() {
+function omb_oauth_server()
+{
     static $server = null;
     if (!$server) {
         $server = new OAuthServer(omb_oauth_datastore());
@@ -60,7 +62,8 @@ function omb_oauth_server() {
     return $server;
 }
 
-function omb_oauth_datastore() {
+function omb_oauth_datastore()
+{
     static $store = null;
     if (!$store) {
         $store = new LaconicaOAuthDataStore();
@@ -68,7 +71,8 @@ function omb_oauth_datastore() {
     return $store;
 }
 
-function omb_hmac_sha1() {
+function omb_hmac_sha1()
+{
     static $hmac_method = null;
     if (!$hmac_method) {
         $hmac_method = new OAuthSignatureMethod_HMAC_SHA1();
@@ -76,20 +80,24 @@ function omb_hmac_sha1() {
     return $hmac_method;
 }
 
-function omb_get_services($xrd, $type) {
+function omb_get_services($xrd, $type)
+{
     return $xrd->services(array(omb_service_filter($type)));
 }
 
-function omb_service_filter($type) {
+function omb_service_filter($type)
+{
     return create_function('$s',
                            'return omb_match_service($s, \''.$type.'\');');
 }
 
-function omb_match_service($service, $type) {
+function omb_match_service($service, $type)
+{
     return in_array($type, $service->getTypes());
 }
 
-function omb_service_uri($service) {
+function omb_service_uri($service)
+{
     if (!$service) {
         return null;
     }
@@ -100,7 +108,8 @@ function omb_service_uri($service) {
     return $uris[0];
 }
 
-function omb_local_id($service) {
+function omb_local_id($service)
+{
     if (!$service) {
         return null;
     }
@@ -112,7 +121,8 @@ function omb_local_id($service) {
     return $service->parser->content($el);
 }
 
-function omb_broadcast_remote_subscribers($notice) {
+function omb_broadcast_remote_subscribers($notice)
+{
 
     # First, get remote users subscribed to this profile
     $rp = new Remote_profile();
@@ -142,11 +152,13 @@ function omb_broadcast_remote_subscribers($notice) {
     return true;
 }
 
-function omb_post_notice($notice, $remote_profile, $subscription) {
+function omb_post_notice($notice, $remote_profile, $subscription)
+{
     return omb_post_notice_keys($notice, $remote_profile->postnoticeurl, $subscription->token, $subscription->secret);
 }
 
-function omb_post_notice_keys($notice, $postnoticeurl, $tk, $secret) {
+function omb_post_notice_keys($notice, $postnoticeurl, $tk, $secret)
+{
 
     common_debug('Posting notice ' . $notice->id . ' to ' . $postnoticeurl, __FILE__);
 
@@ -216,7 +228,8 @@ function omb_post_notice_keys($notice, $postnoticeurl, $tk, $secret) {
     }
 }
 
-function omb_broadcast_profile($profile) {
+function omb_broadcast_profile($profile)
+{
     # First, get remote users subscribed to this profile
     # XXX: use a join here rather than looping through results
     $sub = new Subscription();
@@ -236,7 +249,8 @@ function omb_broadcast_profile($profile) {
     }
 }
 
-function omb_update_profile($profile, $remote_profile, $subscription) {
+function omb_update_profile($profile, $remote_profile, $subscription)
+{
     global $config; # for license URL
     $user = User::staticGet($profile->id);
     $con = omb_oauth_consumer();

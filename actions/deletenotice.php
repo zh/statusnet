@@ -22,7 +22,8 @@ if (!defined('LACONICA')) { exit(1); }
 require_once(INSTALLDIR.'/lib/deleteaction.php');
 
 class DeletenoticeAction extends DeleteAction {
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
         # XXX: Ajax!
 
@@ -33,15 +34,18 @@ class DeletenoticeAction extends DeleteAction {
         }
     }
 
-    function get_instructions() {
+    function get_instructions()
+    {
         return _('You are about to permanently delete a notice.  Once this is done, it cannot be undone.');
     }
 
-    function get_title() {
+    function get_title()
+    {
         return _('Delete notice');
     }
 
-    function show_form($error=null) {
+    function show_form($error=null)
+    {
         $user = common_current_user();
 
         common_show_header($this->get_title(), array($this, 'show_header'), $error,
@@ -67,7 +71,8 @@ class DeletenoticeAction extends DeleteAction {
         common_show_footer();
     }
 
-    function delete_notice() {
+    function delete_notice()
+    {
         # CSRF protection
         $token = $this->trimmed('token');
         if (!$token || $token != common_session_token()) {

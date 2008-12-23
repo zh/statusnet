@@ -22,11 +22,13 @@ if (!defined('LACONICA')) { exit(1); }
 class ShortUrlApi {
     protected $service_url;
 
-    function __construct($service_url) {
+    function __construct($service_url)
+    {
         $this->service_url = $service_url;
     }
 
-    function shorten($url) {
+    function shorten($url)
+    {
         if ($this->is_long($url)) return $this->shorten_imp($url);
         return $url;
     }
@@ -68,7 +70,8 @@ class ShortUrlApi {
 }
 
 class LilUrl extends ShortUrlApi {
-    function __construct() {
+    function __construct()
+    {
         parent::__construct('http://ur1.ca/');
     }
 
@@ -86,7 +89,8 @@ class LilUrl extends ShortUrlApi {
 
 
 class PtitUrl extends ShortUrlApi {
-    function __construct() {
+    function __construct()
+    {
         parent::__construct('http://ptiturl.com/?creer=oui&action=Reduire&url=');
     }
 
@@ -103,7 +107,8 @@ class PtitUrl extends ShortUrlApi {
 }
 
 class TightUrl extends ShortUrlApi {
-    function __construct() {
+    function __construct()
+    {
         parent::__construct('http://2tu.us/?save=y&url=');
     }
 

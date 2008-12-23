@@ -27,7 +27,8 @@ class UserrssAction extends Rss10Action {
 
     var $user = null;
 
-    function init() {
+    function init()
+    {
         $nickname = $this->trimmed('nickname');
         $this->user = User::staticGet('nickname', $nickname);
 
@@ -39,7 +40,8 @@ class UserrssAction extends Rss10Action {
         }
     }
 
-    function get_notices($limit=0) {
+    function get_notices($limit=0)
+    {
 
         $user = $this->user;
         
@@ -56,7 +58,8 @@ class UserrssAction extends Rss10Action {
         return $notices;
     }
 
-    function get_channel() {
+    function get_channel()
+    {
         $user = $this->user;
         $profile = $user->getProfile();
         $c = array('url' => common_local_url('userrss',
@@ -68,7 +71,8 @@ class UserrssAction extends Rss10Action {
         return $c;
     }
 
-    function get_image() {
+    function get_image()
+    {
         $user = $this->user;
         $profile = $user->getProfile();
         if (!$profile) {
@@ -82,7 +86,8 @@ class UserrssAction extends Rss10Action {
 
     # override parent to add X-SUP-ID URL
     
-    function init_rss($limit=0) {
+    function init_rss($limit=0)
+    {
         $url = common_local_url('sup', null, $this->user->id);
         header('X-SUP-ID: '.$url);
         parent::init_rss($limit);

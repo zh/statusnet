@@ -25,11 +25,13 @@ require_once(INSTALLDIR.'/lib/rssaction.php');
 
 class NoticesearchrssAction extends Rss10Action {
 
-    function init() {
+    function init()
+    {
         return true;
     }
 
-    function get_notices($limit=0) {
+    function get_notices($limit=0)
+    {
 
         $q = $this->trimmed('q');
         $notices = array();
@@ -54,7 +56,8 @@ class NoticesearchrssAction extends Rss10Action {
         return $notices;
     }
 
-    function get_channel() {
+    function get_channel()
+    {
         global $config;
         $q = $this->trimmed('q');
         $c = array('url' => common_local_url('noticesearchrss', array('q' => $q)),
@@ -64,7 +67,8 @@ class NoticesearchrssAction extends Rss10Action {
         return $c;
     }
 
-    function get_image() {
+    function get_image()
+    {
         return null;
     }
 }

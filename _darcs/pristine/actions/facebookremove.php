@@ -23,7 +23,8 @@ require_once(INSTALLDIR.'/lib/facebookaction.php');
 
 class FacebookremoveAction extends FacebookAction {
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
 
         $secret = common_config('facebook', 'secret');

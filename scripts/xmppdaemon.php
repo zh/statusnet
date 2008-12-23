@@ -39,7 +39,8 @@ set_error_handler('common_error_handler');
 
 class XMPPDaemon extends Daemon {
 
-    function XMPPDaemon($resource=null) {
+    function XMPPDaemon($resource=null)
+    {
         static $attrs = array('server', 'port', 'user', 'password', 'host');
 
         foreach ($attrs as $attr)
@@ -56,7 +57,8 @@ class XMPPDaemon extends Daemon {
         $this->log(LOG_INFO, "INITIALIZE XMPPDaemon {$this->user}@{$this->server}/{$this->resource}");
     }
 
-    function connect() {
+    function connect()
+    {
 
         $connect_to = ($this->host) ? $this->host : $this->server;
 
@@ -75,11 +77,13 @@ class XMPPDaemon extends Daemon {
         return !$this->conn->isDisconnected();
     }
 
-    function name() {
+    function name()
+    {
         return strtolower('xmppdaemon.'.$this->resource);
     }
 
-    function run() {
+    function run()
+    {
         if ($this->connect()) {
 
             $this->conn->addEventHandler('message', 'handle_message', $this);
@@ -90,17 +94,20 @@ class XMPPDaemon extends Daemon {
         }
     }
 
-    function handle_reconnect(&$pl) {
+    function handle_reconnect(&$pl)
+    {
         $this->conn->processUntil('session_start');
         $this->conn->presence('Send me a message to post a notice', 'available', null, 'available', 100);
     }
 
-    function get_user($from) {
+    function get_user($from)
+    {
         $user = User::staticGet('jabber', jabber_normalize_jid($from));
         return $user;
     }
 
-    function handle_message(&$pl) {
+    function handle_message(&$pl)
+    {
         if ($pl['type'] != 'chat') {
             return;
         }
@@ -156,11 +163,13 @@ class XMPPDaemon extends Daemon {
         unset($user);
     }
 
-    function is_self($from) {
+    function is_self($from)
+    {
         return preg_match('/^'.strtolower(jabber_daemon_address()).'/', strtolower($from));
     }
 
-    function get_ofrom($pl) {
+    function get_ofrom($pl)
+    {
         $xml = $pl['xml'];
         $addresses = $xml->sub('addresses');
         if (!$addresses) {
@@ -194,7 +203,8 @@ class XMPPDaemon extends Daemon {
         return $jid;
     }
 
-    function is_autoreply($txt) {
+    function is_autoreply($txt)
+    {
         if (preg_match('/[\[\(]?[Aa]uto[-\s]?[Rr]e(ply|sponse)[\]\)]/', $txt)) {
             return true;
         } else {
@@ -202,7 +212,8 @@ class XMPPDaemon extends Daemon {
         }
     }
 
-    function is_otr($txt) {
+    function is_otr($txt)
+    {
         if (preg_match('/^\?OTR/', $txt)) {
             return true;
         } else {
@@ -210,7 +221,8 @@ class XMPPDaemon extends Daemon {
         }
     }
 
-    function is_direct($txt) {
+    function is_direct($txt)
+    {
         if (strtolower(substr($txt, 0, 2))=='d ') {
             return true;
         } else {
@@ -218,12 +230,14 @@ class XMPPDaemon extends Daemon {
         }
     }
 
-    function from_site($address, $msg) {
+    function from_site($address, $msg)
+    {
         $text = '['.common_config('site', 'name') . '] ' . $msg;
         jabber_send_message($address, $text);
     }
 
-    function handle_command($user, $body) {
+    function handle_command($user, $body)
+    {
         $inter = new CommandInterpreter();
         $cmd = $inter->handle_command($user, $body);
         if ($cmd) {
@@ -235,7 +249,8 @@ class XMPPDaemon extends Daemon {
         }
     }
 
-    function add_notice(&$user, &$pl) {
+    function add_notice(&$user, &$pl)
+    {
         $body = trim($pl['body']);
         $content_shortened = common_shorten_link($body);
         if (mb_strlen($content_shortened) > 140) {
@@ -257,7 +272,8 @@ class XMPPDaemon extends Daemon {
         unset($notice);
     }
 
-    function handle_presence(&$pl) {
+    function handle_presence(&$pl)
+    {
         $from = jabber_normalize_jid($pl['from']);
         switch ($pl['type']) {
          case 'subscribe':
@@ -291,11 +307,13 @@ class XMPPDaemon extends Daemon {
         }
     }
 
-    function log($level, $msg) {
+    function log($level, $msg)
+    {
         common_log($level, 'XMPPDaemon('.$this->resource.'): '.$msg);
     }
 
-    function subscribed($to) {
+    function subscribed($to)
+    {
         jabber_special_presence('subscribed', $to);
     }
 }

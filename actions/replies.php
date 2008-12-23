@@ -23,7 +23,8 @@ require_once(INSTALLDIR.'/actions/showstream.php');
 
 class RepliesAction extends StreamAction {
 
-    function handle($args) {
+    function handle($args)
+    {
 
         parent::handle($args);
 
@@ -53,11 +54,13 @@ class RepliesAction extends StreamAction {
         common_show_footer();
     }
 
-    function no_such_user() {
+    function no_such_user()
+    {
         common_user_error(_('No such user.'));
     }
 
-    function show_header($user) {
+    function show_header($user)
+    {
         common_element('link', array('rel' => 'alternate',
                                      'href' => common_local_url('repliesrss', array('nickname' =>
                                                                                     $user->nickname)),
@@ -65,7 +68,8 @@ class RepliesAction extends StreamAction {
                                      'title' => sprintf(_('Feed for replies to %s'), $user->nickname)));
     }
 
-    function show_top($user) {
+    function show_top($user)
+    {
         $cur = common_current_user();
 
         if ($cur && $cur->id == $user->id) {
@@ -80,7 +84,8 @@ class RepliesAction extends StreamAction {
                                               'item' => 'repliesrss')));
     }
 
-    function show_replies($user) {
+    function show_replies($user)
+    {
 
         $page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 

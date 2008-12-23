@@ -23,7 +23,8 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
 
 class TwitapiblocksAction extends TwitterapiAction {
 
-    function create($args, $apidata) {
+    function create($args, $apidata)
+    {
 
         parent::handle($args);
 
@@ -46,7 +47,8 @@ class TwitapiblocksAction extends TwitterapiAction {
         }
     }
 
-    function destroy($args, $apidata) {
+    function destroy($args, $apidata)
+    {
         parent::handle($args);
         $blockee = $this->get_user($apidata['api_arg'], $apidata);
 

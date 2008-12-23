@@ -23,7 +23,8 @@ require_once(INSTALLDIR.'/lib/mail.php');
 
 class NudgeAction extends Action {
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
 
         if (!common_logged_in()) {
@@ -71,7 +72,8 @@ class NudgeAction extends Action {
         }
     }
 
-    function notify($user, $other) {
+    function notify($user, $other)
+    {
         if ($other->id != $user->id) {
             if ($other->email && $other->emailnotifynudge) {
                 mail_notify_nudge($user, $other);

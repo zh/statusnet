@@ -21,7 +21,8 @@
 
 // Show a server error
 
-function common_server_error($msg, $code=500) {
+function common_server_error($msg, $code=500)
+{
     static $status = array(500 => 'Internal Server Error',
                            501 => 'Not Implemented',
                            502 => 'Bad Gateway',
@@ -44,7 +45,8 @@ function common_server_error($msg, $code=500) {
 }
 
 // Show a user error
-function common_user_error($msg, $code=400) {
+function common_user_error($msg, $code=400)
+{
     static $status = array(400 => 'Bad Request',
                            401 => 'Unauthorized',
                            402 => 'Payment Required',
@@ -80,7 +82,8 @@ function common_user_error($msg, $code=400) {
 $xw = null;
 
 // Start an HTML element
-function common_element_start($tag, $attrs=null) {
+function common_element_start($tag, $attrs=null)
+{
     global $xw;
     $xw->startElement($tag);
     if (is_array($attrs)) {
@@ -92,7 +95,8 @@ function common_element_start($tag, $attrs=null) {
     }
 }
 
-function common_element_end($tag) {
+function common_element_end($tag)
+{
     static $empty_tag = array('base', 'meta', 'link', 'hr',
                               'br', 'param', 'img', 'area',
                               'input', 'col');
@@ -105,7 +109,8 @@ function common_element_end($tag) {
     }
 }
 
-function common_element($tag, $attrs=null, $content=null) {
+function common_element($tag, $attrs=null, $content=null)
+{
     common_element_start($tag, $attrs);
     global $xw;
     if (!is_null($content)) {
@@ -114,7 +119,8 @@ function common_element($tag, $attrs=null, $content=null) {
     common_element_end($tag);
 }
 
-function common_start_xml($doc=null, $public=null, $system=null, $indent=true) {
+function common_start_xml($doc=null, $public=null, $system=null, $indent=true)
+{
     global $xw;
     $xw = new XMLWriter();
     $xw->openURI('php://output');
@@ -125,13 +131,15 @@ function common_start_xml($doc=null, $public=null, $system=null, $indent=true) {
     }
 }
 
-function common_end_xml() {
+function common_end_xml()
+{
     global $xw;
     $xw->endDocument();
     $xw->flush();
 }
 
-function common_init_locale($language=null) {
+function common_init_locale($language=null)
+{
     if(!$language) {
         $language = common_language();
     }
@@ -144,7 +152,8 @@ function common_init_locale($language=null) {
                      $language);
 }
 
-function common_init_language() {
+function common_init_language()
+{
     mb_internal_encoding('UTF-8');
     $language = common_language();
     // So we don't have to make people install the gettext locales
@@ -160,7 +169,8 @@ function common_init_language() {
 
 define('PAGE_TYPE_PREFS', 'text/html,application/xhtml+xml,application/xml;q=0.3,text/xml;q=0.2');
 
-function common_show_header($pagetitle, $callable=null, $data=null, $headercall=null) {
+function common_show_header($pagetitle, $callable=null, $data=null, $headercall=null)
+{
 
     global $config, $xw;
     global $action; /* XXX: kind of cheating here. */
@@ -243,7 +253,8 @@ function common_show_header($pagetitle, $callable=null, $data=null, $headercall=
     common_element_start('div', array('id' => 'content'));
 }
 
-function common_start_html($type=null, $indent=true) {
+function common_start_html($type=null, $indent=true)
+{
 
     if (!$type) {
         $httpaccept = isset($_SERVER['HTTP_ACCEPT']) ? $_SERVER['HTTP_ACCEPT'] : null;
@@ -274,7 +285,8 @@ function common_start_html($type=null, $indent=true) {
                                        'lang' => $language));
 }
 
-function common_show_footer() {
+function common_show_footer()
+{
     global $xw, $config;
     common_element_end('div'); // content div
     common_foot_menu();
@@ -307,17 +319,20 @@ function common_show_footer() {
     common_end_xml();
 }
 
-function common_text($txt) {
+function common_text($txt)
+{
     global $xw;
     $xw->text($txt);
 }
 
-function common_raw($xml) {
+function common_raw($xml)
+{
     global $xw;
     $xw->writeRaw($xml);
 }
 
-function common_nav_menu() {
+function common_nav_menu()
+{
     $user = common_current_user();
     common_element_start('ul', array('id' => 'nav'));
     if ($user) {
@@ -344,7 +359,8 @@ function common_nav_menu() {
     common_element_end('ul');
 }
 
-function common_foot_menu() {
+function common_foot_menu()
+{
     common_element_start('ul', array('id' => 'nav_sub'));
     common_menu_item(common_local_url('doc', array('title' => 'help')),
                      _('Help'));
@@ -361,7 +377,8 @@ function common_foot_menu() {
     common_element_end('ul');
 }
 
-function common_menu_item($url, $text, $title=null, $is_selected=false) {
+function common_menu_item($url, $text, $title=null, $is_selected=false)
+{
     $lattrs = array();
     if ($is_selected) {
         $lattrs['class'] = 'current';
@@ -375,7 +392,8 @@ function common_menu_item($url, $text, $title=null, $is_selected=false) {
     common_element_end('li');
 }
 
-function common_input($id, $label, $value=null,$instructions=null) {
+function common_input($id, $label, $value=null,$instructions=null)
+{
     common_element_start('p');
     common_element('label', array('for' => $id), $label);
     $attrs = array('name' => $id,
@@ -418,7 +436,8 @@ function common_checkbox($id, $label, $checked=false, $instructions=null, $value
     common_element_end('p');
 }
 
-function common_dropdown($id, $label, $content, $instructions=null, $blank_select=FALSE, $selected=null) {
+function common_dropdown($id, $label, $content, $instructions=null, $blank_select=FALSE, $selected=null)
+{
     common_element_start('p');
     common_element('label', array('for' => $id), $label);
     common_element_start('select', array('id' => $id, 'name' => $id));
@@ -438,14 +457,16 @@ function common_dropdown($id, $label, $content, $instructions=null, $blank_selec
     }
     common_element_end('p');
 }
-function common_hidden($id, $value) {
+function common_hidden($id, $value)
+{
     common_element('input', array('name' => $id,
                                   'type' => 'hidden',
                                   'id' => $id,
                                   'value' => $value));
 }
 
-function common_password($id, $label, $instructions=null) {
+function common_password($id, $label, $instructions=null)
+{
     common_element_start('p');
     common_element('label', array('for' => $id), $label);
     $attrs = array('name' => $id,
@@ -459,7 +480,8 @@ function common_password($id, $label, $instructions=null) {
     common_element_end('p');
 }
 
-function common_submit($id, $label, $cls='submit') {
+function common_submit($id, $label, $cls='submit')
+{
     global $xw;
     common_element_start('p');
     common_element('input', array('type' => 'submit',
@@ -470,7 +492,8 @@ function common_submit($id, $label, $cls='submit') {
     common_element_end('p');
 }
 
-function common_textarea($id, $label, $content=null, $instructions=null) {
+function common_textarea($id, $label, $content=null, $instructions=null)
+{
     common_element_start('p');
     common_element('label', array('for' => $id), $label);
     common_element('textarea', array('rows' => 3,
@@ -484,7 +507,8 @@ function common_textarea($id, $label, $content=null, $instructions=null) {
     common_element_end('p');
 }
 
-function common_timezone() {
+function common_timezone()
+{
     if (common_logged_in()) {
         $user = common_current_user();
         if ($user->timezone) {
@@ -496,7 +520,8 @@ function common_timezone() {
     return $config['site']['timezone'];
 }
 
-function common_language() {
+function common_language()
+{
 
     // If there is a user logged in and they've set a language preference
     // then return that one...
@@ -521,12 +546,14 @@ function common_language() {
 }
 // salted, hashed passwords are stored in the DB
 
-function common_munge_password($password, $id) {
+function common_munge_password($password, $id)
+{
     return md5($password . $id);
 }
 
 // check if a username exists and has matching password
-function common_check_user($nickname, $password) {
+function common_check_user($nickname, $password)
+{
     // NEVER allow blank passwords, even if they match the DB
     if (mb_strlen($password) == 0) {
         return false;
@@ -545,15 +572,18 @@ function common_check_user($nickname, $password) {
 }
 
 // is the current user logged in?
-function common_logged_in() {
+function common_logged_in()
+{
     return (!is_null(common_current_user()));
 }
 
-function common_have_session() {
+function common_have_session()
+{
     return (0 != strcmp(session_id(), ''));
 }
 
-function common_ensure_session() {
+function common_ensure_session()
+{
     if (!common_have_session()) {
         @session_start();
     }
@@ -568,7 +598,8 @@ function common_ensure_session() {
 
 $_cur = false;
 
-function common_set_user($user) {
+function common_set_user($user)
+{
 
     global $_cur;
 
@@ -592,7 +623,8 @@ function common_set_user($user) {
     return false;
 }
 
-function common_set_cookie($key, $value, $expiration=0) {
+function common_set_cookie($key, $value, $expiration=0)
+{
     $path = common_config('site', 'path');
     $server = common_config('site', 'server');
 
@@ -611,7 +643,8 @@ function common_set_cookie($key, $value, $expiration=0) {
 define('REMEMBERME', 'rememberme');
 define('REMEMBERME_EXPIRY', 30 * 24 * 60 * 60); // 30 days
 
-function common_rememberme($user=null) {
+function common_rememberme($user=null)
+{
     if (!$user) {
         $user = common_current_user();
         if (!$user) {
@@ -650,7 +683,8 @@ function common_rememberme($user=null) {
     return true;
 }
 
-function common_remembered_user() {
+function common_remembered_user()
+{
 
     $user = null;
 
@@ -715,12 +749,14 @@ function common_remembered_user() {
 
 // must be called with a valid user!
 
-function common_forgetme() {
+function common_forgetme()
+{
     common_set_cookie(REMEMBERME, '', 0);
 }
 
 // who is the current user?
-function common_current_user() {
+function common_current_user()
+{
     global $_cur;
 
     if ($_cur === false) {
@@ -752,23 +788,27 @@ function common_current_user() {
 // cookie-stealing. So, we don't let them do certain things. New reg,
 // OpenID, and password logins _are_ real.
 
-function common_real_login($real=true) {
+function common_real_login($real=true)
+{
     common_ensure_session();
     $_SESSION['real_login'] = $real;
 }
 
-function common_is_real_login() {
+function common_is_real_login()
+{
     return common_logged_in() && $_SESSION['real_login'];
 }
 
 // get canonical version of nickname for comparison
-function common_canonical_nickname($nickname) {
+function common_canonical_nickname($nickname)
+{
     // XXX: UTF-8 canonicalization (like combining chars)
     return strtolower($nickname);
 }
 
 // get canonical version of email for comparison
-function common_canonical_email($email) {
+function common_canonical_email($email)
+{
     // XXX: canonicalize UTF-8
     // XXX: lcase the domain part
     return $email;
@@ -776,7 +816,8 @@ function common_canonical_email($email) {
 
 define('URL_REGEX', '^|[ \t\r\n])((ftp|http|https|gopher|mailto|news|nntp|telnet|wais|file|prospero|aim|webcal):(([A-Za-z0-9$_.+!*(),;/?:@&~=-])|%[A-Fa-f0-9]{2}){2,}(#([a-zA-Z0-9][a-zA-Z0-9$_.+!*(),;/?:@&~=%-]*))?([A-Za-z0-9$_+!*();/?:~-]))');
 
-function common_render_content($text, $notice) {
+function common_render_content($text, $notice)
+{
     $r = common_render_text($text);
     $id = $notice->profile_id;
     $r = preg_replace('/(^|\s+)@([A-Za-z0-9]{1,64})/e', "'\\1@'.common_at_link($id, '\\2')", $r);
@@ -785,7 +826,8 @@ function common_render_content($text, $notice) {
     return $r;
 }
 
-function common_render_text($text) {
+function common_render_text($text)
+{
     $r = htmlspecialchars($text);
 
     $r = preg_replace('/[\x{0}-\x{8}\x{b}-\x{c}\x{e}-\x{19}]/', '', $r);
@@ -795,7 +837,8 @@ function common_render_text($text) {
     return $r;
 }
 
-function common_render_uri_thingy($matches) {
+function common_render_uri_thingy($matches)
+{
     $uri = $matches[0];
     $trailer = '';
 
@@ -829,20 +872,23 @@ function common_render_uri_thingy($matches) {
     return '<a href="' . $uri . '"' . $title . ' class="extlink">' . $uri . '</a>' . $trailer;
 }
 
-function common_longurl($short_url)  {
+function common_longurl($short_url)
+{
     $long_url = common_shorten_link($short_url, true);
     if ($long_url === $short_url) return false;
     return $long_url;
 }
 
-function common_longurl2($uri)  {
+function common_longurl2($uri)
+{
     $uri_e = urlencode($uri);
     $longurl = unserialize(file_get_contents("http://api.longurl.org/v1/expand?format=php&url=$uri_e"));
     if (empty($longurl['long_url']) || $uri === $longurl['long_url']) return false;
     return stripslashes($longurl['long_url']);
 }
 
-function common_shorten_links($text) {
+function common_shorten_links($text)
+{
     if (mb_strlen($text) <= 140) return $text;
     static $cache = array();
     if (isset($cache[$text])) return $cache[$text];
@@ -850,7 +896,8 @@ function common_shorten_links($text) {
     return $cache[$text] = preg_replace('@https?://[^)\]>\s]+@e', "common_shorten_link('\\0')", $text);
 }
 
-function common_shorten_link($url, $reverse = false) {
+function common_shorten_link($url, $reverse = false)
+{
     static $url_cache = array();
     if ($reverse) return isset($url_cache[$url]) ? $url_cache[$url] : $url;
 
@@ -911,28 +958,33 @@ function common_shorten_link($url, $reverse = false) {
     return $url;
 }
 
-function common_xml_safe_str($str) {
+function common_xml_safe_str($str)
+{
     $xmlStr = htmlentities(iconv('UTF-8', 'UTF-8//IGNORE', $str), ENT_NOQUOTES, 'UTF-8');
 
     // Replace control, formatting, and surrogate characters with '*', ala Twitter
     return preg_replace('/[\p{Cc}\p{Cf}\p{Cs}]/u', '*', $str);
 }
 
-function common_tag_link($tag) {
+function common_tag_link($tag)
+{
     $canonical = common_canonical_tag($tag);
     $url = common_local_url('tag', array('tag' => $canonical));
     return '<a href="' . htmlspecialchars($url) . '" rel="tag" class="hashlink">' . htmlspecialchars($tag) . '</a>';
 }
 
-function common_canonical_tag($tag) {
+function common_canonical_tag($tag)
+{
     return strtolower(str_replace(array('-', '_', '.'), '', $tag));
 }
 
-function common_valid_profile_tag($str) {
+function common_valid_profile_tag($str)
+{
     return preg_match('/^[A-Za-z0-9_\-\.]{1,64}$/', $str);
 }
 
-function common_at_link($sender_id, $nickname) {
+function common_at_link($sender_id, $nickname)
+{
     $sender = Profile::staticGet($sender_id);
     $recipient = common_relative_profile($sender, common_canonical_nickname($nickname));
     if ($recipient) {
@@ -942,7 +994,8 @@ function common_at_link($sender_id, $nickname) {
     }
 }
 
-function common_at_hash_link($sender_id, $tag) {
+function common_at_hash_link($sender_id, $tag)
+{
     $user = User::staticGet($sender_id);
     if (!$user) {
         return $tag;
@@ -958,7 +1011,8 @@ function common_at_hash_link($sender_id, $tag) {
     }
 }
 
-function common_relative_profile($sender, $nickname, $dt=null) {
+function common_relative_profile($sender, $nickname, $dt=null)
+{
     // Try to find profiles this profile is subscribed to that have this nickname
     $recipient = new Profile();
     // XXX: use a join instead of a subquery
@@ -995,7 +1049,8 @@ function common_relative_profile($sender, $nickname, $dt=null) {
 
 // where should the avatar go for this user?
 
-function common_avatar_filename($id, $extension, $size=null, $extra=null) {
+function common_avatar_filename($id, $extension, $size=null, $extra=null)
+{
     global $config;
 
     if ($size) {
@@ -1005,16 +1060,19 @@ function common_avatar_filename($id, $extension, $size=null, $extra=null) {
     }
 }
 
-function common_avatar_path($filename) {
+function common_avatar_path($filename)
+{
     global $config;
     return INSTALLDIR . '/avatar/' . $filename;
 }
 
-function common_avatar_url($filename) {
+function common_avatar_url($filename)
+{
     return common_path('avatar/'.$filename);
 }
 
-function common_avatar_display_url($avatar) {
+function common_avatar_display_url($avatar)
+{
     $server = common_config('avatar', 'server');
     if ($server) {
         return 'http://'.$server.'/'.$avatar->filename;
@@ -1023,14 +1081,16 @@ function common_avatar_display_url($avatar) {
     }
 }
 
-function common_default_avatar($size) {
+function common_default_avatar($size)
+{
     static $sizenames = array(AVATAR_PROFILE_SIZE => 'profile',
                               AVATAR_STREAM_SIZE => 'stream',
                               AVATAR_MINI_SIZE => 'mini');
     return theme_path('default-avatar-'.$sizenames[$size].'.png');
 }
 
-function common_local_url($action, $args=null, $fragment=null) {
+function common_local_url($action, $args=null, $fragment=null)
+{
     $url = null;
     if (common_config('site','fancy')) {
         $url = common_fancy_url($action, $args);
@@ -1043,7 +1103,8 @@ function common_local_url($action, $args=null, $fragment=null) {
     return $url;
 }
 
-function common_fancy_url($action, $args=null) {
+function common_fancy_url($action, $args=null)
+{
     switch (strtolower($action)) {
      case 'public':
         if ($args && isset($args['page'])) {
@@ -1256,7 +1317,8 @@ function common_fancy_url($action, $args=null) {
     }
 }
 
-function common_simple_url($action, $args=null) {
+function common_simple_url($action, $args=null)
+{
     global $config;
     /* XXX: pretty URLs */
     $extra = '';
@@ -1268,13 +1330,15 @@ function common_simple_url($action, $args=null) {
     return common_path("index.php?action=${action}${extra}");
 }
 
-function common_path($relative) {
+function common_path($relative)
+{
     global $config;
     $pathpart = ($config['site']['path']) ? $config['site']['path']."/" : '';
     return "http://".$config['site']['server'].'/'.$pathpart.$relative;
 }
 
-function common_date_string($dt) {
+function common_date_string($dt)
+{
     // XXX: do some sexy date formatting
     // return date(DATE_RFC822, $dt);
     $t = strtotime($dt);
@@ -1308,7 +1372,8 @@ function common_date_string($dt) {
     }
 }
 
-function common_exact_date($dt) {
+function common_exact_date($dt)
+{
     static $_utc;
     static $_siteTz;
 
@@ -1323,32 +1388,37 @@ function common_exact_date($dt) {
     return $d->format(DATE_RFC850);
 }
 
-function common_date_w3dtf($dt) {
+function common_date_w3dtf($dt)
+{
     $dateStr = date('d F Y H:i:s', strtotime($dt));
     $d = new DateTime($dateStr, new DateTimeZone('UTC'));
     $d->setTimezone(new DateTimeZone(common_timezone()));
     return $d->format(DATE_W3C);
 }
 
-function common_date_rfc2822($dt) {
+function common_date_rfc2822($dt)
+{
     $dateStr = date('d F Y H:i:s', strtotime($dt));
     $d = new DateTime($dateStr, new DateTimeZone('UTC'));
     $d->setTimezone(new DateTimeZone(common_timezone()));
     return $d->format('r');
 }
 
-function common_date_iso8601($dt) {
+function common_date_iso8601($dt)
+{
     $dateStr = date('d F Y H:i:s', strtotime($dt));
     $d = new DateTime($dateStr, new DateTimeZone('UTC'));
     $d->setTimezone(new DateTimeZone(common_timezone()));
     return $d->format('c');
 }
 
-function common_sql_now() {
+function common_sql_now()
+{
     return strftime('%Y-%m-%d %H:%M:%S', time());
 }
 
-function common_redirect($url, $code=307) {
+function common_redirect($url, $code=307)
+{
     static $status = array(301 => "Moved Permanently",
                            302 => "Found",
                            303 => "See Other",
@@ -1364,7 +1434,8 @@ function common_redirect($url, $code=307) {
     exit;
 }
 
-function common_save_replies($notice) {
+function common_save_replies($notice)
+{
     // Alternative reply format
     $tname = false;
     if (preg_match('/^T ([A-Z0-9]{1,64}) /', $notice->content, $match)) {
@@ -1447,7 +1518,8 @@ function common_save_replies($notice) {
     }
 }
 
-function common_broadcast_notice($notice, $remote=false) {
+function common_broadcast_notice($notice, $remote=false)
+{
 
     // Check to see if notice should go to Twitter
     $flink = Foreign_link::getByUserID($notice->profile_id, 1); // 1 == Twitter
@@ -1474,7 +1546,8 @@ function common_broadcast_notice($notice, $remote=false) {
     }
 }
 
-function common_twitter_broadcast($notice, $flink) {
+function common_twitter_broadcast($notice, $flink)
+{
     global $config;
     $success = true;
     $fuser = $flink->getForeignUser();
@@ -1534,7 +1607,8 @@ function common_twitter_broadcast($notice, $flink) {
 
 // Stick the notice on the queue
 
-function common_enqueue_notice($notice) {
+function common_enqueue_notice($notice)
+{
     foreach (array('jabber', 'omb', 'sms', 'public') as $transport) {
         $qi = new Queue_item();
         $qi->notice_id = $notice->id;
@@ -1551,7 +1625,8 @@ function common_enqueue_notice($notice) {
     return $result;
 }
 
-function common_dequeue_notice($notice) {
+function common_dequeue_notice($notice)
+{
     $qi = Queue_item::staticGet($notice->id);
     if ($qi) {
         $result = $qi->delete();
@@ -1567,7 +1642,8 @@ function common_dequeue_notice($notice) {
     }
 }
 
-function common_real_broadcast($notice, $remote=false) {
+function common_real_broadcast($notice, $remote=false)
+{
     $success = true;
     if (!$remote) {
         // Make sure we have the OMB stuff
@@ -1601,7 +1677,8 @@ function common_real_broadcast($notice, $remote=false) {
     return $success;
 }
 
-function common_broadcast_profile($profile) {
+function common_broadcast_profile($profile)
+{
     // XXX: optionally use a queue system like http://code.google.com/p/microapps/wiki/NQDQ
     require_once(INSTALLDIR.'/lib/omb.php');
     omb_broadcast_profile($profile);
@@ -1609,13 +1686,15 @@ function common_broadcast_profile($profile) {
     return true;
 }
 
-function common_profile_url($nickname) {
+function common_profile_url($nickname)
+{
     return common_local_url('showstream', array('nickname' => $nickname));
 }
 
 // Don't call if nobody's logged in
 
-function common_notice_form($action=null, $content=null) {
+function common_notice_form($action=null, $content=null)
+{
     $user = common_current_user();
     assert(!is_null($user));
     common_element_start('form', array('id' => 'status_form',
@@ -1647,14 +1726,16 @@ function common_notice_form($action=null, $content=null) {
 
 // Should make up a reasonable root URL
 
-function common_root_url() {
+function common_root_url()
+{
     return common_path('');
 }
 
 // returns $bytes bytes of random data as a hexadecimal string
 // "good" here is a goal and not a guarantee
 
-function common_good_rand($bytes) {
+function common_good_rand($bytes)
+{
     // XXX: use random.org...?
     if (file_exists('/dev/urandom')) {
         return common_urandom($bytes);
@@ -1663,7 +1744,8 @@ function common_good_rand($bytes) {
     }
 }
 
-function common_urandom($bytes) {
+function common_urandom($bytes)
+{
     $h = fopen('/dev/urandom', 'rb');
     // should not block
     $src = fread($h, $bytes);
@@ -1675,7 +1757,8 @@ function common_urandom($bytes) {
     return $enc;
 }
 
-function common_mtrand($bytes) {
+function common_mtrand($bytes)
+{
     $enc = '';
     for ($i = 0; $i < $bytes; $i++) {
         $enc .= sprintf("%02x", mt_rand(0, 255));
@@ -1683,21 +1766,25 @@ function common_mtrand($bytes) {
     return $enc;
 }
 
-function common_set_returnto($url) {
+function common_set_returnto($url)
+{
     common_ensure_session();
     $_SESSION['returnto'] = $url;
 }
 
-function common_get_returnto() {
+function common_get_returnto()
+{
     common_ensure_session();
     return $_SESSION['returnto'];
 }
 
-function common_timestamp() {
+function common_timestamp()
+{
     return date('YmdHis');
 }
 
-function common_ensure_syslog() {
+function common_ensure_syslog()
+{
     static $initialized = false;
     if (!$initialized) {
         global $config;
@@ -1706,7 +1793,8 @@ function common_ensure_syslog() {
     }
 }
 
-function common_log($priority, $msg, $filename=null) {
+function common_log($priority, $msg, $filename=null)
+{
     $logfile = common_config('site', 'logfile');
     if ($logfile) {
         $log = fopen($logfile, "a");
@@ -1723,7 +1811,8 @@ function common_log($priority, $msg, $filename=null) {
     }
 }
 
-function common_debug($msg, $filename=null) {
+function common_debug($msg, $filename=null)
+{
     if ($filename) {
         common_log(LOG_DEBUG, basename($filename).' - '.$msg);
     } else {
@@ -1731,13 +1820,15 @@ function common_debug($msg, $filename=null) {
     }
 }
 
-function common_log_db_error(&$object, $verb, $filename=null) {
+function common_log_db_error(&$object, $verb, $filename=null)
+{
     $objstr = common_log_objstring($object);
     $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
     common_log(LOG_ERR, $last_error->message . '(' . $verb . ' on ' . $objstr . ')', $filename);
 }
 
-function common_log_objstring(&$object) {
+function common_log_objstring(&$object)
+{
     if (is_null($object)) {
         return "null";
     }
@@ -1750,11 +1841,13 @@ function common_log_objstring(&$object) {
     return $objstring;
 }
 
-function common_valid_http_url($url) {
+function common_valid_http_url($url)
+{
     return Validate::uri($url, array('allowed_schemes' => array('http', 'https')));
 }
 
-function common_valid_tag($tag) {
+function common_valid_tag($tag)
+{
     if (preg_match('/^tag:(.*?),(\d{4}(-\d{2}(-\d{2})?)?):(.*)$/', $tag, $matches)) {
         return (Validate::email($matches[1]) ||
                 preg_match('/^([\w-\.]+)$/', $matches[1]));
@@ -1764,7 +1857,8 @@ function common_valid_tag($tag) {
 
 // Does a little before-after block for next/prev page
 
-function common_pagination($have_before, $have_after, $page, $action, $args=null) {
+function common_pagination($have_before, $have_after, $page, $action, $args=null)
+{
 
     if ($have_before || $have_after) {
         common_element_start('div', array('id' => 'pagination'));
@@ -1799,7 +1893,8 @@ function common_pagination($have_before, $have_after, $page, $action, $args=null
 /* Following functions are copied from MediaWiki GlobalFunctions.php
  * and written by Evan Prodromou. */
 
-function common_accept_to_prefs($accept, $def = '*/*') {
+function common_accept_to_prefs($accept, $def = '*/*')
+{
     // No arg means accept anything (per HTTP spec)
     if(!$accept) {
         return array($def => 1);
@@ -1823,7 +1918,8 @@ function common_accept_to_prefs($accept, $def = '*/*') {
     return $prefs;
 }
 
-function common_mime_type_match($type, $avail) {
+function common_mime_type_match($type, $avail)
+{
     if(array_key_exists($type, $avail)) {
         return $type;
     } else {
@@ -1838,7 +1934,8 @@ function common_mime_type_match($type, $avail) {
     }
 }
 
-function common_negotiate_type($cprefs, $sprefs) {
+function common_negotiate_type($cprefs, $sprefs)
+{
     $combine = array();
 
     foreach(array_keys($sprefs) as $type) {
@@ -1874,12 +1971,14 @@ function common_negotiate_type($cprefs, $sprefs) {
     return $besttype;
 }
 
-function common_config($main, $sub) {
+function common_config($main, $sub)
+{
     global $config;
     return isset($config[$main][$sub]) ? $config[$main][$sub] : false;
 }
 
-function common_copy_args($from) {
+function common_copy_args($from)
+{
     $to = array();
     $strip = get_magic_quotes_gpc();
     foreach ($from as $k => $v) {
@@ -1890,25 +1989,29 @@ function common_copy_args($from) {
 
 // Neutralise the evil effects of magic_quotes_gpc in the current request.
 // This is used before handing a request off to OAuthRequest::from_request.
-function common_remove_magic_from_request() {
+function common_remove_magic_from_request()
+{
     if(get_magic_quotes_gpc()) {
         $_POST=array_map('stripslashes',$_POST);
         $_GET=array_map('stripslashes',$_GET);
     }
 }
 
-function common_user_uri(&$user) {
+function common_user_uri(&$user)
+{
     return common_local_url('userbyid', array('id' => $user->id));
 }
 
-function common_notice_uri(&$notice) {
+function common_notice_uri(&$notice)
+{
     return common_local_url('shownotice',
                             array('notice' => $notice->id));
 }
 
 // 36 alphanums - lookalikes (0, O, 1, I) = 32 chars = 5 bits
 
-function common_confirmation_code($bits) {
+function common_confirmation_code($bits)
+{
     // 36 alphanums - lookalikes (0, O, 1, I) = 32 chars = 5 bits
     static $codechars = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
     $chars = ceil($bits/5);
@@ -1925,14 +2028,16 @@ function common_confirmation_code($bits) {
 
 // convert markup to HTML
 
-function common_markup_to_html($c) {
+function common_markup_to_html($c)
+{
     $c = preg_replace('/%%action.(\w+)%%/e', "common_local_url('\\1')", $c);
     $c = preg_replace('/%%doc.(\w+)%%/e', "common_local_url('doc', array('title'=>'\\1'))", $c);
     $c = preg_replace('/%%(\w+).(\w+)%%/e', 'common_config(\'\\1\', \'\\2\')', $c);
     return Markdown($c);
 }
 
-function common_profile_avatar_url($profile, $size=AVATAR_PROFILE_SIZE) {
+function common_profile_avatar_url($profile, $size=AVATAR_PROFILE_SIZE)
+{
     $avatar = $profile->getAvatar($size);
     if ($avatar) {
         return common_avatar_display_url($avatar);
@@ -1941,7 +2046,8 @@ function common_profile_avatar_url($profile, $size=AVATAR_PROFILE_SIZE) {
     }
 }
 
-function common_profile_uri($profile) {
+function common_profile_uri($profile)
+{
     if (!$profile) {
         return null;
     }
@@ -1958,13 +2064,15 @@ function common_profile_uri($profile) {
     return null;
 }
 
-function common_canonical_sms($sms) {
+function common_canonical_sms($sms)
+{
     // strip non-digits
     preg_replace('/\D/', '', $sms);
     return $sms;
 }
 
-function common_error_handler($errno, $errstr, $errfile, $errline, $errcontext) {
+function common_error_handler($errno, $errstr, $errfile, $errline, $errcontext)
+{
     switch ($errno) {
      case E_USER_ERROR:
         common_log(LOG_ERR, "[$errno] $errstr ($errfile:$errline)");
@@ -1985,7 +2093,8 @@ function common_error_handler($errno, $errstr, $errfile, $errline, $errcontext) 
     return true;
 }
 
-function common_session_token() {
+function common_session_token()
+{
     common_ensure_session();
     if (!array_key_exists('token', $_SESSION)) {
         $_SESSION['token'] = common_good_rand(64);
@@ -1993,7 +2102,8 @@ function common_session_token() {
     return $_SESSION['token'];
 }
 
-function common_disfavor_form($notice) {
+function common_disfavor_form($notice)
+{
     common_element_start('form', array('id' => 'disfavor-' . $notice->id,
                                        'method' => 'post',
                                        'class' => 'disfavor',
@@ -2020,7 +2130,8 @@ function common_disfavor_form($notice) {
     common_element_end('form');
 }
 
-function common_favor_form($notice) {
+function common_favor_form($notice)
+{
     common_element_start('form', array('id' => 'favor-' . $notice->id,
                                        'method' => 'post',
                                        'class' => 'favor',
@@ -2047,7 +2158,8 @@ function common_favor_form($notice) {
     common_element_end('form');
 }
 
-function common_nudge_form($profile) {
+function common_nudge_form($profile)
+{
     common_element_start('form', array('id' => 'nudge', 'method' => 'post',
                                        'action' => common_local_url('nudge', array('nickname' => $profile->nickname))));
     common_hidden('token', common_session_token());
@@ -2056,11 +2168,13 @@ function common_nudge_form($profile) {
                                   'value' => _('Send a nudge')));
     common_element_end('form');
 }
-function common_nudge_response() {
+function common_nudge_response()
+{
     common_element('p', array('id' => 'nudge_response'), _('Nudge sent!'));
 }
 
-function common_subscribe_form($profile) {
+function common_subscribe_form($profile)
+{
     common_element_start('form', array('id' => 'subscribe-' . $profile->id,
                                        'method' => 'post',
                                        'class' => 'subscribe',
@@ -2076,7 +2190,8 @@ function common_subscribe_form($profile) {
     common_element_end('form');
 }
 
-function common_unsubscribe_form($profile) {
+function common_unsubscribe_form($profile)
+{
     common_element_start('form', array('id' => 'unsubscribe-' . $profile->id,
                                        'method' => 'post',
                                        'class' => 'unsubscribe',
@@ -2093,7 +2208,8 @@ function common_unsubscribe_form($profile) {
 }
 
 // XXX: Refactor this code
-function common_profile_new_message_nudge ($cur, $profile) {
+function common_profile_new_message_nudge ($cur, $profile)
+{
     $user = User::staticGet('id', $profile->id);
 
     if ($cur && $cur->id != $user->id && $cur->mutuallySubscribed($user)) {
@@ -2110,17 +2226,20 @@ function common_profile_new_message_nudge ($cur, $profile) {
     }
 }
 
-function common_cache_key($extra) {
+function common_cache_key($extra)
+{
     return 'laconica:' . common_keyize(common_config('site', 'name')) . ':' . $extra;
 }
 
-function common_keyize($str) {
+function common_keyize($str)
+{
     $str = strtolower($str);
     $str = preg_replace('/\s/', '_', $str);
     return $str;
 }
 
-function common_message_form($content, $user, $to) {
+function common_message_form($content, $user, $to)
+{
 
     common_element_start('form', array('id' => 'message_form',
                                        'method' => 'post',
@@ -2160,7 +2279,8 @@ function common_message_form($content, $user, $to) {
     common_element_end('form');
 }
 
-function common_memcache() {
+function common_memcache()
+{
     static $cache = null;
     if (!common_config('memcached', 'enabled')) {
         return null;
@@ -2180,22 +2300,26 @@ function common_memcache() {
     }
 }
 
-function common_compatible_license($from, $to) {
+function common_compatible_license($from, $to)
+{
     // XXX: better compatibility check needed here!
     return ($from == $to);
 }
 
 /* These are almost identical, so we use a helper function */
 
-function common_block_form($profile, $args=null) {
+function common_block_form($profile, $args=null)
+{
     common_blocking_form('block', _('Block'), $profile, $args);
 }
 
-function common_unblock_form($profile, $args=null) {
+function common_unblock_form($profile, $args=null)
+{
     common_blocking_form('unblock', _('Unblock'), $profile, $args);
 }
 
-function common_blocking_form($type, $label, $profile, $args=null) {
+function common_blocking_form($type, $label, $profile, $args=null)
+{
     common_element_start('form', array('id' => $type . '-' . $profile->id,
                                        'method' => 'post',
                                        'class' => $type,

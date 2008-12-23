@@ -23,11 +23,13 @@ class TwitterapiAction extends Action {
 
     var $auth_user;
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
     }
 
-    function twitter_user_array($profile, $get_notice=false) {
+    function twitter_user_array($profile, $get_notice=false)
+    {
 
         $twitter_user = array();
 
@@ -55,7 +57,8 @@ class TwitterapiAction extends Action {
         return $twitter_user;
     }
 
-    function twitter_status_array($notice, $include_user=true) {
+    function twitter_status_array($notice, $include_user=true)
+    {
 
         $profile = $notice->getProfile();
 
@@ -83,7 +86,8 @@ class TwitterapiAction extends Action {
         return $twitter_status;
     }
 
-    function twitter_rss_entry_array($notice) {
+    function twitter_rss_entry_array($notice)
+    {
 
         $profile = $notice->getProfile();
 
@@ -107,7 +111,8 @@ class TwitterapiAction extends Action {
         return $entry;
     }
 
-    function twitter_rss_dmsg_array($message) {
+    function twitter_rss_dmsg_array($message)
+    {
 
         $server = common_config('site', 'server');
         $entry = array();
@@ -129,7 +134,8 @@ class TwitterapiAction extends Action {
         return $entry;
     }
 
-    function twitter_dmsg_array($message) {
+    function twitter_dmsg_array($message)
+    {
 
         $twitter_dm = array();
 
@@ -149,7 +155,8 @@ class TwitterapiAction extends Action {
         return $twitter_dm;
     }
 
-    function show_twitter_xml_status($twitter_status) {
+    function show_twitter_xml_status($twitter_status)
+    {
         common_element_start('status');
         foreach($twitter_status as $element => $value) {
             switch ($element) {
@@ -166,7 +173,8 @@ class TwitterapiAction extends Action {
         common_element_end('status');
     }
 
-    function show_twitter_xml_user($twitter_user, $role='user') {
+    function show_twitter_xml_user($twitter_user, $role='user')
+    {
         common_element_start($role);
         foreach($twitter_user as $element => $value) {
             if ($element == 'status') {
@@ -178,7 +186,8 @@ class TwitterapiAction extends Action {
         common_element_end($role);
     }
 
-    function show_twitter_rss_item($entry) {
+    function show_twitter_rss_item($entry)
+    {
         common_element_start('item');
         common_element('title', null, $entry['title']);
         common_element('description', null, $entry['description']);
@@ -188,7 +197,8 @@ class TwitterapiAction extends Action {
         common_element_end('item');
     }
 
-    function show_twitter_atom_entry($entry) {
+    function show_twitter_atom_entry($entry)
+    {
         common_element_start('entry');
         common_element('title', null, $entry['title']);
         common_element('content', array('type' => 'html'), $entry['content']);
@@ -199,39 +209,45 @@ class TwitterapiAction extends Action {
         common_element_end('entry');
     }
 
-    function show_json_objects($objects) {
+    function show_json_objects($objects)
+    {
         print(json_encode($objects));
     }
 
-    function show_single_xml_status($notice) {
+    function show_single_xml_status($notice)
+    {
         $this->init_document('xml');
         $twitter_status = $this->twitter_status_array($notice);
         $this->show_twitter_xml_status($twitter_status);
         $this->end_document('xml');
     }
 
-    function show_single_json_status($notice) {
+    function show_single_json_status($notice)
+    {
         $this->init_document('json');
         $status = $this->twitter_status_array($notice);
         $this->show_json_objects($status);
         $this->end_document('json');
     }
 
-    function show_single_xml_dmsg($message) {
+    function show_single_xml_dmsg($message)
+    {
         $this->init_document('xml');
         $dmsg = $this->twitter_dmsg_array($message);
         $this->show_twitter_xml_dmsg($dmsg);
         $this->end_document('xml');
     }
 
-    function show_single_json_dmsg($message) {
+    function show_single_json_dmsg($message)
+    {
         $this->init_document('json');
         $dmsg = $this->twitter_dmsg_array($message);
         $this->show_json_objects($dmsg);
         $this->end_document('json');
     }
 
-    function show_twitter_xml_dmsg($twitter_dm) {
+    function show_twitter_xml_dmsg($twitter_dm)
+    {
         common_element_start('direct_message');
         foreach($twitter_dm as $element => $value) {
             switch ($element) {
@@ -249,7 +265,8 @@ class TwitterapiAction extends Action {
         common_element_end('direct_message');
     }
 
-    function show_xml_timeline($notice) {
+    function show_xml_timeline($notice)
+    {
 
         $this->init_document('xml');
         common_element_start('statuses', array('type' => 'array'));
@@ -270,7 +287,8 @@ class TwitterapiAction extends Action {
         $this->end_document('xml');
     }
 
-    function show_rss_timeline($notice, $title, $link, $subtitle, $suplink=null) {
+    function show_rss_timeline($notice, $title, $link, $subtitle, $suplink=null)
+    {
 
         $this->init_document('rss');
 
@@ -304,7 +322,8 @@ class TwitterapiAction extends Action {
         $this->end_twitter_rss();
     }
 
-    function show_atom_timeline($notice, $title, $id, $link, $subtitle=null, $suplink=null) {
+    function show_atom_timeline($notice, $title, $id, $link, $subtitle=null, $suplink=null)
+    {
 
         $this->init_document('atom');
 
@@ -335,7 +354,8 @@ class TwitterapiAction extends Action {
 
     }
 
-    function show_json_timeline($notice) {
+    function show_json_timeline($notice)
+    {
 
         $this->init_document('json');
 
@@ -360,12 +380,14 @@ class TwitterapiAction extends Action {
 
     // Anyone know what date format this is?
     // Twitter's dates look like this: "Mon Jul 14 23:52:38 +0000 2008" -- Zach
-    function date_twitter($dt) {
+    function date_twitter($dt)
+    {
         $t = strtotime($dt);
         return date("D M d G:i:s O Y", $t);
     }
 
-    function replier_by_reply($reply_id) {
+    function replier_by_reply($reply_id)
+    {
         $notice = Notice::staticGet($reply_id);
         if ($notice) {
             $profile = $notice->getProfile();
@@ -381,7 +403,8 @@ class TwitterapiAction extends Action {
     }
 
     // XXX: Candidate for a general utility method somewhere?
-    function count_subscriptions($profile) {
+    function count_subscriptions($profile)
+    {
 
         $count = 0;
         $sub = new Subscription();
@@ -396,7 +419,8 @@ class TwitterapiAction extends Action {
         }
     }
 
-    function init_document($type='xml') {
+    function init_document($type='xml')
+    {
         switch ($type) {
          case 'xml':
             header('Content-Type: application/xml; charset=utf-8');
@@ -427,7 +451,8 @@ class TwitterapiAction extends Action {
         return;
     }
 
-    function end_document($type='xml') {
+    function end_document($type='xml')
+    {
         switch ($type) {
          case 'xml':
             common_end_xml();
@@ -453,7 +478,8 @@ class TwitterapiAction extends Action {
         return;
     }
 
-    function client_error($msg, $code = 400, $content_type = 'json') {
+    function client_error($msg, $code = 400, $content_type = 'json')
+    {
 
         static $status = array(400 => 'Bad Request',
                                401 => 'Unauthorized',
@@ -501,27 +527,32 @@ class TwitterapiAction extends Action {
 
     }
 
-    function init_twitter_rss() {
+    function init_twitter_rss()
+    {
         common_start_xml();
         common_element_start('rss', array('version' => '2.0'));
     }
 
-    function end_twitter_rss() {
+    function end_twitter_rss()
+    {
         common_element_end('rss');
         common_end_xml();
     }
 
-    function init_twitter_atom() {
+    function init_twitter_atom()
+    {
         common_start_xml();
         common_element_start('feed', array('xmlns' => 'http://www.w3.org/2005/Atom', 'xml:lang' => 'en-US'));
     }
 
-    function end_twitter_atom() {
+    function end_twitter_atom()
+    {
         common_end_xml();
         common_element_end('feed');
     }
 
-    function show_profile($profile, $content_type='xml', $notice=null) {
+    function show_profile($profile, $content_type='xml', $notice=null)
+    {
         $profile_array = $this->twitter_user_array($profile, true);
         switch ($content_type) {
          case 'xml':
@@ -537,7 +568,8 @@ class TwitterapiAction extends Action {
         return;
     }
 
-    function get_user($id, $apidata=null) {
+    function get_user($id, $apidata=null)
+    {
         if (!$id) {
             return $apidata['user'];
         } else if (is_numeric($id)) {
@@ -548,7 +580,8 @@ class TwitterapiAction extends Action {
         }
     }
 
-    function get_profile($id) {
+    function get_profile($id)
+    {
         if (is_numeric($id)) {
             return Profile::staticGet($id);
         } else {
@@ -561,7 +594,8 @@ class TwitterapiAction extends Action {
         }
     }
 
-    function source_link($source) {
+    function source_link($source)
+    {
         $source_name = _($source);
         switch ($source) {
          case 'web':
@@ -580,7 +614,8 @@ class TwitterapiAction extends Action {
         return $source_name;
     }
 
-    function show_extended_profile($user, $apidata) {
+    function show_extended_profile($user, $apidata)
+    {
 
         $this->auth_user = $apidata['user'];
 

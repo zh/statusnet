@@ -23,7 +23,8 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
 
 class TwitapistatusesAction extends TwitterapiAction {
 
-    function public_timeline($args, $apidata) {
+    function public_timeline($args, $apidata)
+    {
         parent::handle($args);
 
         $sitename = common_config('site', 'name');
@@ -84,7 +85,8 @@ class TwitapistatusesAction extends TwitterapiAction {
 
     }
 
-    function friends_timeline($args, $apidata) {
+    function friends_timeline($args, $apidata)
+    {
         parent::handle($args);
 
         $since = $this->arg('since');
@@ -146,7 +148,8 @@ class TwitapistatusesAction extends TwitterapiAction {
 
     }
 
-    function user_timeline($args, $apidata) {
+    function user_timeline($args, $apidata)
+    {
         parent::handle($args);
 
         $this->auth_user = $apidata['user'];
@@ -226,7 +229,8 @@ class TwitapistatusesAction extends TwitterapiAction {
 
     }
 
-    function update($args, $apidata) {
+    function update($args, $apidata)
+    {
 
         parent::handle($args);
 
@@ -321,7 +325,8 @@ class TwitapistatusesAction extends TwitterapiAction {
         $this->show($args, $apidata);
     }
 
-    function replies($args, $apidata) {
+    function replies($args, $apidata)
+    {
 
         parent::handle($args);
 
@@ -388,7 +393,8 @@ class TwitapistatusesAction extends TwitterapiAction {
 
     }
 
-    function show($args, $apidata) {
+    function show($args, $apidata)
+    {
         parent::handle($args);
 
         if (!in_array($apidata['content-type'], array('xml', 'json'))) {
@@ -413,7 +419,8 @@ class TwitapistatusesAction extends TwitterapiAction {
 
     }
 
-    function destroy($args, $apidata) {
+    function destroy($args, $apidata)
+    {
 
         parent::handle($args);
 
@@ -457,18 +464,21 @@ class TwitapistatusesAction extends TwitterapiAction {
 
     }
 
-    function friends($args, $apidata) {
+    function friends($args, $apidata)
+    {
         parent::handle($args);
         return $this->subscriptions($apidata, 'subscribed', 'subscriber');
     }
 
-    function followers($args, $apidata) {
+    function followers($args, $apidata)
+    {
         parent::handle($args);
 
         return $this->subscriptions($apidata, 'subscriber', 'subscribed');
     }
 
-    function subscriptions($apidata, $other_attr, $user_attr) {
+    function subscriptions($apidata, $other_attr, $user_attr)
+    {
 
         # XXX: lite
 
@@ -523,7 +533,8 @@ class TwitapistatusesAction extends TwitterapiAction {
         $this->end_document($type);
     }
 
-    function show_profiles($profiles, $type) {
+    function show_profiles($profiles, $type)
+    {
         switch ($type) {
          case 'xml':
             common_element_start('users', array('type' => 'array'));
@@ -544,12 +555,14 @@ class TwitapistatusesAction extends TwitterapiAction {
         }
     }
 
-    function featured($args, $apidata) {
+    function featured($args, $apidata)
+    {
         parent::handle($args);
         common_server_error(_('API method under construction.'), $code=501);
     }
 
-    function supported($cmd) {
+    function supported($cmd)
+    {
 
         $cmdlist = array('MessageCommand', 'SubCommand', 'UnsubCommand', 'FavCommand', 'OnCommand', 'OffCommand');
 

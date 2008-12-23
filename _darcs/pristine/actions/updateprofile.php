@@ -23,7 +23,8 @@ require_once(INSTALLDIR.'/lib/omb.php');
 
 class UpdateprofileAction extends Action {
     
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
         try {
             common_remove_magic_from_request();
@@ -40,7 +41,8 @@ class UpdateprofileAction extends Action {
         }
     }
 
-    function update_profile($req, $consumer, $token) {
+    function update_profile($req, $consumer, $token)
+    {
         $version = $req->get_parameter('omb_version');
         if ($version != OMB_VERSION_01) {
             $this->client_error(_('Unsupported OMB version'), 400);

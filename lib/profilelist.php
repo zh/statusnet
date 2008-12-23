@@ -28,13 +28,15 @@ class ProfileList {
     var $owner = null;
     var $action = null;
 
-    function __construct($profile, $owner=null, $action=null) {
+    function __construct($profile, $owner=null, $action=null)
+    {
         $this->profile = $profile;
         $this->owner = $owner;
         $this->action = $action;
     }
 
-    function show_list() {
+    function show_list()
+    {
 
         common_element_start('ul', array('id' => 'profiles', 'class' => 'profile_list'));
 
@@ -53,7 +55,8 @@ class ProfileList {
         return $cnt;
     }
 
-    function show() {
+    function show()
+    {
 
         common_element_start('li', array('class' => 'profile_single',
                                          'id' => 'profile-' . $this->profile->id));
@@ -159,11 +162,13 @@ class ProfileList {
 
     /* Override this in subclasses. */
 
-    function show_owner_controls($profile) {
+    function show_owner_controls($profile)
+    {
         return;
     }
 
-    function highlight($text) {
+    function highlight($text)
+    {
         return htmlspecialchars($text);
     }
 }

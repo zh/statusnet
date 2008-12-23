@@ -23,7 +23,8 @@ require_once(INSTALLDIR.'/lib/mailbox.php');
 
 class ShowmessageAction extends MailboxAction {
 
-    function handle($args) {
+    function handle($args)
+    {
 
         Action::handle($args);
 
@@ -44,13 +45,15 @@ class ShowmessageAction extends MailboxAction {
         }
     }
     
-    function get_message() {
+    function get_message()
+    {
         $id = $this->trimmed('message');
         $message = Message::staticGet('id', $id);
         return $message;
     }
     
-    function get_title($user, $page) {
+    function get_title($user, $page)
+    {
         $message = $this->get_message();
         if (!$message) {
             return null;
@@ -70,14 +73,16 @@ class ShowmessageAction extends MailboxAction {
         return $title;
     }
 
-    function get_messages($user, $page) {
+    function get_messages($user, $page)
+    {
         $message = new Message();
         $message->id = $this->trimmed('message');
         $message->find();
         return $message;
     }
     
-    function get_message_profile($message) {
+    function get_message_profile($message)
+    {
         $user = common_current_user();
         if ($user->id == $message->from_profile) {
             return $message->getTo();
@@ -89,11 +94,13 @@ class ShowmessageAction extends MailboxAction {
         }
     }
     
-    function get_instructions() {
+    function get_instructions()
+    {
         return '';
     }
     
-    function views_menu() {
+    function views_menu()
+    {
         return;
     }
 }

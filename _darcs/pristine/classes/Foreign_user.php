@@ -18,7 +18,8 @@ class Foreign_user extends Memcached_DataObject
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Foreign_user',$k,$v); }
+    function staticGet($k,$v=null)
+    { return Memcached_DataObject::staticGet('Foreign_user',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
@@ -39,7 +40,8 @@ class Foreign_user extends Memcached_DataObject
         return null;        
     }
     
-    function updateKeys(&$orig) {
+    function updateKeys(&$orig)
+    {
         $parts = array();
         foreach (array('id', 'service', 'uri', 'nickname') as $k) {
             if (strcmp($this->$k, $orig->$k) != 0) {

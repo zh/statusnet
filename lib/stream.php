@@ -24,7 +24,8 @@ require_once(INSTALLDIR.'/lib/noticelist.php');
 
 class StreamAction extends PersonalAction {
 
-    function public_views_menu() {
+    function public_views_menu()
+    {
 
         $action = $this->trimmed('action');
 
@@ -48,7 +49,8 @@ class StreamAction extends PersonalAction {
 
     }
 
-    function show_notice_list($notice) {
+    function show_notice_list($notice)
+    {
         $nl = new NoticeList($notice);
         return $nl->show();
     }

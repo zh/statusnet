@@ -23,7 +23,8 @@ require_once(INSTALLDIR.'/lib/openid.php');
 
 class FinishaddopenidAction extends Action {
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
         if (!common_logged_in()) {
             common_user_error(_('Not logged in.'));
@@ -32,7 +33,8 @@ class FinishaddopenidAction extends Action {
         }
     }
     
-    function try_login() {
+    function try_login()
+    {
 
         $consumer =& oid_consumer();
 
@@ -95,7 +97,8 @@ class FinishaddopenidAction extends Action {
         }
     }
 
-    function message($msg) {
+    function message($msg)
+    {
         common_show_header(_('OpenID Login'));
         common_element('p', null, $msg);
         common_show_footer();

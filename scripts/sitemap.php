@@ -18,7 +18,8 @@ index_map();
 # ------------------------------------------------------------------------------
 
 # Generate index sitemap of all other sitemaps.
-function index_map() {
+function index_map()
+{
     global $output_paths;
     $output_dir = $output_paths['output_dir'];
     $output_url = $output_paths['output_url'];
@@ -40,7 +41,8 @@ function index_map() {
 }
 
 # Generate sitemap of standard site elements.
-function standard_map() {
+function standard_map()
+{
     global $output_paths;
 
     $standard_map_urls .= url(
@@ -77,7 +79,8 @@ function standard_map() {
 }
 
 # Generate sitemaps of all notices.
-function notices_map() {
+function notices_map()
+{
     global $output_paths;
 
     $notices = DB_DataObject::factory('notice');
@@ -115,7 +118,8 @@ function notices_map() {
 }
 
 # Generate sitemaps of all users.
-function user_map() {
+function user_map()
+{
     global $output_paths;
 
     $users = DB_DataObject::factory('user');
@@ -208,7 +212,8 @@ function user_map() {
 # ------------------------------------------------------------------------------
 
 # Generate a <url></url> element.
-function url($url_args) {
+function url($url_args)
+{
     $url        = preg_replace('/&/', '&amp;', $url_args['url']); # escape ampersands for XML
     $lastmod    = $url_args['lastmod'];
     $changefreq = $url_args['changefreq'];
@@ -238,7 +243,8 @@ function url($url_args) {
     return $url_out;
 }
 
-function sitemap($sitemap_args) {
+function sitemap($sitemap_args)
+{
     $url        = preg_replace('/&/', '&amp;', $sitemap_args['url']); # escape ampersands for XML
     $lastmod    = $sitemap_args['lastmod'];
 
@@ -259,7 +265,8 @@ function sitemap($sitemap_args) {
 }
 
 # Generate a <urlset></urlset> element.
-function urlset($urlset_text) {
+function urlset($urlset_text)
+{
     $urlset = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" .
       '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n" .
       $urlset_text .
@@ -269,7 +276,8 @@ function urlset($urlset_text) {
 }
 
 # Generate a <urlset></urlset> element.
-function sitemapindex($sitemapindex_text) {
+function sitemapindex($sitemapindex_text)
+{
     $sitemapindex = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" .
       '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n" .
       $sitemapindex_text .
@@ -279,7 +287,8 @@ function sitemapindex($sitemapindex_text) {
 }
 
 # Generate a sitemap from an array containing <url></url> elements and write it to a file.
-function array_to_map($url_list, $filename_prefix) {
+function array_to_map($url_list, $filename_prefix)
+{
     global $output_paths;
 
     if ($url_list) {
@@ -297,7 +306,8 @@ function array_to_map($url_list, $filename_prefix) {
 # ------------------------------------------------------------------------------
 
 # Parse command line arguments.
-function parse_args() {
+function parse_args()
+{
     $args = getopt('f:d:u:');
 
     if (is_null($args[f]) && is_null($args[d]) && is_null($args[u])) {
@@ -338,7 +348,8 @@ function parse_args() {
 }
 
 # Ensure paths end with a "/".
-function trailing_slash($path) {
+function trailing_slash($path)
+{
     if (preg_match('/\/$/', $path) == 0) {
         $path .= '/';
     }
@@ -347,7 +358,8 @@ function trailing_slash($path) {
 }
 
 # Write data to disk.
-function write_file($path, $data) {
+function write_file($path, $data)
+{
     if (is_null($path)) {
         error('No path specified for writing to.');
     }     elseif (is_null($data)) {
@@ -364,7 +376,8 @@ function write_file($path, $data) {
 }
 
 # Display an error message and exit.
-function error ($error_msg) {
+function error ($error_msg)
+{
     if (is_null($error_msg)) {
         $error_msg = 'error() was called without any explanation!';
     }

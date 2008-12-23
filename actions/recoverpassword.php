@@ -25,7 +25,8 @@ define(MAX_RECOVERY_TIME, 24 * 60 * 60);
 
 class RecoverpasswordAction extends Action {
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
         if (common_logged_in()) {
             $this->client_error(_('You are already logged in!'));
@@ -47,7 +48,8 @@ class RecoverpasswordAction extends Action {
         }
     }
 
-    function check_code() {
+    function check_code()
+    {
 
         $code = $this->trimmed('code');
         $confirm = Confirm_address::staticGet('code', $code);
@@ -113,12 +115,14 @@ class RecoverpasswordAction extends Action {
         $this->show_password_form();
     }
 
-    function set_temp_user(&$user) {
+    function set_temp_user(&$user)
+    {
         common_ensure_session();
         $_SESSION['tempuser'] = $user->id;
     }
 
-    function get_temp_user() {
+    function get_temp_user()
+    {
         common_ensure_session();
         $user_id = $_SESSION['tempuser'];
         if ($user_id) {
@@ -127,12 +131,14 @@ class RecoverpasswordAction extends Action {
         return $user;
     }
 
-    function clear_temp_user() {
+    function clear_temp_user()
+    {
         common_ensure_session();
         unset($_SESSION['tempuser']);
     }
 
-    function show_top($msg=null) {
+    function show_top($msg=null)
+    {
         if ($msg) {
             common_element('div', 'error', $msg);
         } else {
@@ -146,7 +152,8 @@ class RecoverpasswordAction extends Action {
         }
     }
 
-    function show_password_top($msg=null) {
+    function show_password_top($msg=null)
+    {
         if ($msg) {
             common_element('div', 'error', $msg);
         } else {
@@ -156,7 +163,8 @@ class RecoverpasswordAction extends Action {
         }
     }
 
-    function show_form($msg=null) {
+    function show_form($msg=null)
+    {
 
         common_show_header(_('Recover password'), null,
         $msg, array($this, 'show_top'));
@@ -173,7 +181,8 @@ class RecoverpasswordAction extends Action {
         common_show_footer();
     }
 
-    function show_password_form($msg=null) {
+    function show_password_form($msg=null)
+    {
 
         common_show_header(_('Reset password'), null,
         $msg, array($this, 'show_password_top'));
@@ -191,7 +200,8 @@ class RecoverpasswordAction extends Action {
         common_show_footer();
     }
 
-    function recover_password() {
+    function recover_password()
+    {
         $nore = $this->trimmed('nicknameoremail');
         if (!$nore) {
             $this->show_form(_('Enter a nickname or email address.'));
@@ -274,7 +284,8 @@ class RecoverpasswordAction extends Action {
         common_show_footer();
     }
 
-    function reset_password() {
+    function reset_password()
+    {
 
         # CSRF protection
         $token = $this->trimmed('token');

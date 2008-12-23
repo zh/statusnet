@@ -23,13 +23,15 @@ require_once(INSTALLDIR.'/lib/facebookaction.php');
 
 class FacebookhomeAction extends FacebookAction {
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
 
         $this->login();
     }
 
-    function login() {
+    function login()
+    {
 
         $user = null;
 
@@ -89,7 +91,8 @@ class FacebookhomeAction extends FacebookAction {
 
     }
 
-    function show_home($facebook, $fbuid, $user) {
+    function show_home($facebook, $fbuid, $user)
+    {
 
         $this->show_header('Home');
 
@@ -99,7 +102,8 @@ class FacebookhomeAction extends FacebookAction {
         $this->show_footer();
     }
 
-    function show_notices($user) {
+    function show_notices($user)
+    {
 
         $page = $this->trimmed('page');
         if (!$page) {

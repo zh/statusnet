@@ -23,11 +23,13 @@ require_once(INSTALLDIR.'/lib/omb.php');
 
 class RequesttokenAction extends Action {
     
-    function is_readonly() {
+    function is_readonly()
+    {
         return false;
     }
     
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
         try {
             common_remove_magic_from_request();

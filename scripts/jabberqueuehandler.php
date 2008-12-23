@@ -37,11 +37,13 @@ class JabberQueueHandler extends XmppQueueHandler {
 
     var $conn = null;
 
-    function transport() {
+    function transport()
+    {
         return 'jabber';
     }
 
-    function handle_notice($notice) {
+    function handle_notice($notice)
+    {
         try {
             return jabber_broadcast_notice($notice);
         } catch (XMPPHP_Exception $e) {

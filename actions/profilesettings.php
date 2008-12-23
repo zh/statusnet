@@ -23,12 +23,14 @@ require_once(INSTALLDIR.'/lib/settingsaction.php');
 
 class ProfilesettingsAction extends SettingsAction {
 
-    function get_instructions() {
+    function get_instructions()
+    {
         return _('You can update your personal profile info here '.
                   'so people know more about you.');
     }
 
-    function show_form($msg=null, $success=false) {
+    function show_form($msg=null, $success=false)
+    {
         $this->form_header(_('Profile settings'), $msg, $success);
         $this->show_settings_form();
         common_element('h2', null, _('Avatar'));
@@ -40,7 +42,8 @@ class ProfilesettingsAction extends SettingsAction {
         common_show_footer();
     }
 
-    function handle_post() {
+    function handle_post()
+    {
 
         # CSRF protection
 
@@ -60,7 +63,8 @@ class ProfilesettingsAction extends SettingsAction {
 
     }
 
-    function show_settings_form() {
+    function show_settings_form()
+    {
 
         $user = common_current_user();
         $profile = $user->getProfile();
@@ -110,7 +114,8 @@ class ProfilesettingsAction extends SettingsAction {
 
     }
 
-    function show_avatar_form() {
+    function show_avatar_form()
+    {
 
         $user = common_current_user();
         $profile = $user->getProfile();
@@ -168,7 +173,8 @@ class ProfilesettingsAction extends SettingsAction {
 
     }
 
-    function show_password_form() {
+    function show_password_form()
+    {
 
         $user = common_current_user();
         common_element_start('form', array('method' => 'POST',
@@ -190,7 +196,8 @@ class ProfilesettingsAction extends SettingsAction {
         common_element_end('form');
     }
 
-    function save_profile() {
+    function save_profile()
+    {
         $nickname = $this->trimmed('nickname');
         $fullname = $this->trimmed('fullname');
         $homepage = $this->trimmed('homepage');
@@ -337,7 +344,8 @@ class ProfilesettingsAction extends SettingsAction {
     }
 
 
-    function upload_avatar() {
+    function upload_avatar()
+    {
         switch ($_FILES['avatarfile']['error']) {
          case UPLOAD_ERR_OK: # success, jump out
             break;
@@ -384,7 +392,8 @@ class ProfilesettingsAction extends SettingsAction {
         @unlink($_FILES['avatarfile']['tmp_name']);
     }
 
-    function nickname_exists($nickname) {
+    function nickname_exists($nickname)
+    {
         $user = common_current_user();
         $other = User::staticGet('nickname', $nickname);
         if (!$other) {
@@ -394,7 +403,8 @@ class ProfilesettingsAction extends SettingsAction {
         }
     }
 
-    function change_password() {
+    function change_password()
+    {
 
         $user = common_current_user();
         assert(!is_null($user)); # should already be checked

@@ -24,11 +24,13 @@ require_once(INSTALLDIR.'/lib/jabber.php');
 
 class ImsettingsAction extends SettingsAction {
 
-    function get_instructions() {
+    function get_instructions()
+    {
         return _('You can send and receive notices through Jabber/GTalk [instant messages](%%doc.im%%). Configure your address and settings below.');
     }
 
-    function show_form($msg=null, $success=false) {
+    function show_form($msg=null, $success=false)
+    {
         $user = common_current_user();
         $this->form_header(_('IM Settings'), $msg, $success);
         common_element_start('form', array('method' => 'post',
@@ -85,7 +87,8 @@ class ImsettingsAction extends SettingsAction {
         common_show_footer();
     }
 
-    function get_confirmation() {
+    function get_confirmation()
+    {
         $user = common_current_user();
         $confirm = new Confirm_address();
         $confirm->user_id = $user->id;
@@ -97,7 +100,8 @@ class ImsettingsAction extends SettingsAction {
         }
     }
 
-    function handle_post() {
+    function handle_post()
+    {
 
         # CSRF protection
         $token = $this->trimmed('token');
@@ -119,7 +123,8 @@ class ImsettingsAction extends SettingsAction {
         }
     }
 
-    function save_preferences() {
+    function save_preferences()
+    {
 
         $jabbernotify = $this->boolean('jabbernotify');
         $updatefrompresence = $this->boolean('updatefrompresence');
@@ -152,7 +157,8 @@ class ImsettingsAction extends SettingsAction {
         $this->show_form(_('Preferences saved.'), true);
     }
 
-    function add_address() {
+    function add_address()
+    {
 
         $user = common_current_user();
 
@@ -207,7 +213,8 @@ class ImsettingsAction extends SettingsAction {
         $this->show_form($msg, TRUE);
     }
 
-    function cancel_confirmation() {
+    function cancel_confirmation()
+    {
         $jabber = $this->arg('jabber');
         $confirm = $this->get_confirmation();
         if (!$confirm) {
@@ -230,7 +237,8 @@ class ImsettingsAction extends SettingsAction {
         $this->show_form(_('Confirmation cancelled.'), TRUE);
     }
 
-    function remove_address() {
+    function remove_address()
+    {
 
         $user = common_current_user();
         $jabber = $this->arg('jabber');
@@ -258,7 +266,8 @@ class ImsettingsAction extends SettingsAction {
         $this->show_form(_('The address was removed.'), TRUE);
     }
 
-    function jabber_exists($jabber) {
+    function jabber_exists($jabber)
+    {
         $user = common_current_user();
         $other = User::staticGet('jabber', $jabber);
         if (!$other) {

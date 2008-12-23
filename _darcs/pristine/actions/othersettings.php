@@ -23,11 +23,13 @@ require_once(INSTALLDIR.'/lib/settingsaction.php');
 
 class OthersettingsAction extends SettingsAction {
 
-    function get_instructions() {
+    function get_instructions()
+    {
         return _('Manage various other options.');
     }
 
-    function show_form($msg=null, $success=false) {
+    function show_form($msg=null, $success=false)
+    {
         $user = common_current_user();
 
         $this->form_header(_('Other Settings'), $msg, $success);
@@ -63,7 +65,8 @@ class OthersettingsAction extends SettingsAction {
         common_show_footer();
     }
 
-    function show_feeds_list($feeds) {
+    function show_feeds_list($feeds)
+    {
         common_element_start('div', array('class' => 'feedsdel'));
         common_element('p', null, 'Feeds:');
         common_element_start('ul', array('class' => 'xoxo'));
@@ -76,7 +79,8 @@ class OthersettingsAction extends SettingsAction {
     }
 
     //TODO move to common.php (and retrace its origin)
-    function common_feed_item($feed) {
+    function common_feed_item($feed)
+    {
         $user = common_current_user();
         $nickname = $user->nickname;
 
@@ -131,7 +135,8 @@ class OthersettingsAction extends SettingsAction {
 //        common_element_end('form');
 //    }
 
-    function handle_post() {
+    function handle_post()
+    {
 
         # CSRF protection
         $token = $this->trimmed('token');
@@ -147,7 +152,8 @@ class OthersettingsAction extends SettingsAction {
         }
     }
 
-    function save_preferences() {
+    function save_preferences()
+    {
 
         $urlshorteningservice = $this->trimmed('urlshorteningservice');
 

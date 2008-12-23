@@ -19,12 +19,14 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-function theme_file($relative) {
+function theme_file($relative)
+{
     $theme = common_config('site', 'theme');
     return INSTALLDIR.'/theme/'.$theme.'/'.$relative;
 }
 
-function theme_path($relative) {
+function theme_path($relative)
+{
     $theme = common_config('site', 'theme');
     $server = common_config('theme', 'server');
     if ($server) {

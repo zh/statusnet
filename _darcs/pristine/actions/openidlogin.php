@@ -23,7 +23,8 @@ require_once(INSTALLDIR.'/lib/openid.php');
 
 class OpenidloginAction extends Action {
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
         if (common_logged_in()) {
             common_user_error(_('Already logged in.'));
@@ -56,11 +57,13 @@ class OpenidloginAction extends Action {
         }
     }
 
-    function get_instructions() {
+    function get_instructions()
+    {
         return _('Login with an [OpenID](%%doc.openid%%) account.');
     }
 
-    function show_top($error=null) {
+    function show_top($error=null)
+    {
         if ($error) {
             common_element('div', array('class' => 'error'), $error);
         } else {
@@ -72,7 +75,8 @@ class OpenidloginAction extends Action {
         }
     }
 
-    function show_form($error=null, $openid_url) {
+    function show_form($error=null, $openid_url)
+    {
         common_show_header(_('OpenID Login'), null, $error, array($this, 'show_top'));
         $formaction = common_local_url('openidlogin');
         common_element_start('form', array('method' => 'post',

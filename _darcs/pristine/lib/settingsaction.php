@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 class SettingsAction extends Action {
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
         if (!common_logged_in()) {
             common_user_error(_('Not logged in.'));
@@ -40,29 +41,34 @@ class SettingsAction extends Action {
     }
 
     # override!
-    function handle_post() {
+    function handle_post()
+    {
         return false;
     }
 
-    function show_form($msg=null, $success=false) {
+    function show_form($msg=null, $success=false)
+    {
         return false;
     }
 
-    function message($msg, $success) {
+    function message($msg, $success)
+    {
         if ($msg) {
             common_element('div', ($success) ? 'success' : 'error',
                            $msg);
         }
     }
 
-    function form_header($title, $msg=null, $success=false) {
+    function form_header($title, $msg=null, $success=false)
+    {
         common_show_header($title,
                            null,
                            array($msg, $success),
                            array($this, 'show_top'));
     }
 
-    function show_top($arr) {
+    function show_top($arr)
+    {
         $msg = $arr[0];
         $success = $arr[1];
         if ($msg) {
@@ -77,7 +83,8 @@ class SettingsAction extends Action {
         $this->settings_menu();
     }
 
-    function settings_menu() {
+    function settings_menu()
+    {
         # action => array('prompt', 'title')
         $menu =
           array('profilesettings' =>

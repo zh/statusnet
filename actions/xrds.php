@@ -23,11 +23,13 @@ require_once(INSTALLDIR.'/lib/omb.php');
 
 class XrdsAction extends Action {
 
-    function is_readonly() {                
+    function is_readonly()
+    {                
         return true;
     }
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
         $nickname = $this->trimmed('nickname');
         $user = User::staticGet('nickname', $nickname);
@@ -38,7 +40,8 @@ class XrdsAction extends Action {
         $this->show_xrds($user);
     }
 
-    function show_xrds($user) {
+    function show_xrds($user)
+    {
 
         header('Content-Type: application/xrds+xml');
 
@@ -108,7 +111,8 @@ class XrdsAction extends Action {
         common_end_xml();
     }
 
-    function show_service($type, $uri, $params=null, $sigs=null, $localId=null) {
+    function show_service($type, $uri, $params=null, $sigs=null, $localId=null)
+    {
         common_element_start('Service');
         if ($uri) {
             common_element('URI', null, $uri);

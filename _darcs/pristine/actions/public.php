@@ -23,7 +23,8 @@ require_once(INSTALLDIR.'/lib/stream.php');
 
 class PublicAction extends StreamAction {
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
 
         $page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
@@ -41,7 +42,8 @@ class PublicAction extends StreamAction {
         common_show_footer();
     }
 
-    function show_top() {
+    function show_top()
+    {
         if (common_logged_in()) {
             common_notice_form('public');
         } else {
@@ -64,13 +66,15 @@ class PublicAction extends StreamAction {
                                               'item' => 'publicatom')));
     }
 
-    function get_instructions() {
+    function get_instructions()
+    {
         return _('This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
                  'based on the Free Software [Laconica](http://laconi.ca/) tool. ' .
                  '[Join now](%%action.register%%) to share notices about yourself with friends, family, and colleagues! ([Read more](%%doc.help%%))');
     }
 
-    function show_header() {
+    function show_header()
+    {
         common_element('link', array('rel' => 'alternate',
                                      'href' => common_local_url('publicrss'),
                                      'type' => 'application/rss+xml',
@@ -80,7 +84,8 @@ class PublicAction extends StreamAction {
                                      'content' => common_local_url('publicxrds')));
     }
 
-    function show_notices($page) {
+    function show_notices($page)
+    {
 
         $cnt = 0;
         $notice = Notice::publicStream(($page-1)*NOTICES_PER_PAGE,

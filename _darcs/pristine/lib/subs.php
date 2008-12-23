@@ -25,7 +25,8 @@ require_once('XMPPHP/XMPP.php');
   Returns true or an error message.
 */
 
-function subs_subscribe_user($user, $other_nickname) {
+function subs_subscribe_user($user, $other_nickname)
+{
 
     $other = User::staticGet('nickname', $other_nickname);
 
@@ -41,7 +42,8 @@ function subs_subscribe_user($user, $other_nickname) {
  * Because the other way is quite a bit more complicated.
  */
 
-function subs_subscribe_to($user, $other) {
+function subs_subscribe_to($user, $other)
+{
 
     if ($user->isSubscribed($other)) {
         return _('Already subscribed!.');
@@ -82,14 +84,16 @@ function subs_subscribe_to($user, $other) {
     return true;
 }
 
-function subs_notify($listenee, $listener) {
+function subs_notify($listenee, $listener)
+{
     # XXX: add other notifications (Jabber, SMS) here
     # XXX: queue this and handle it offline
     # XXX: Whatever happens, do it in Twitter-like API, too
     subs_notify_email($listenee, $listener);
 }
 
-function subs_notify_email($listenee, $listener) {
+function subs_notify_email($listenee, $listener)
+{
     mail_subscribe_notify($listenee, $listener);
 }
 
@@ -97,7 +101,8 @@ function subs_notify_email($listenee, $listener) {
   Returns true or an error message.
 */
 
-function subs_unsubscribe_user($user, $other_nickname) {
+function subs_unsubscribe_user($user, $other_nickname)
+{
 
     $other = User::staticGet('nickname', $other_nickname);
 
@@ -111,7 +116,8 @@ function subs_unsubscribe_user($user, $other_nickname) {
 /* Unsubscribe user $user from profile $other
  * NB: other can be a remote user. */
 
-function subs_unsubscribe_to($user, $other) {
+function subs_unsubscribe_to($user, $other)
+{
 
     if (!$user->isSubscribed($other))
         return _('Not subscribed!.');

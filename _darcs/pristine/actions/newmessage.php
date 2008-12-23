@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 class NewmessageAction extends Action {
     
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
 
         if (!common_logged_in()) {
@@ -33,7 +34,8 @@ class NewmessageAction extends Action {
         }
     }
 
-    function save_new_message() {
+    function save_new_message()
+    {
         $user = common_current_user();
         assert($user); # XXX: maybe an error instead...
 
@@ -89,7 +91,8 @@ class NewmessageAction extends Action {
         common_redirect($url, 303);
     }
 
-    function show_top($params) {
+    function show_top($params)
+    {
 
         list($content, $user, $to) = $params;
         
@@ -98,7 +101,8 @@ class NewmessageAction extends Action {
         common_message_form($content, $user, $to);
     }
 
-    function show_form($msg=null) {
+    function show_form($msg=null)
+    {
         
         $content = $this->trimmed('content');
         $user = common_current_user();
@@ -128,7 +132,8 @@ class NewmessageAction extends Action {
         common_show_footer();
     }
     
-    function notify($from, $to, $message) {
+    function notify($from, $to, $message)
+    {
         mail_notify_message($message, $from, $to);
         # XXX: Jabber, SMS notifications... probably queued
     }

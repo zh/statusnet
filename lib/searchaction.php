@@ -21,16 +21,19 @@ if (!defined('LACONICA')) { exit(1); }
 
 class SearchAction extends Action {
 
-    function is_readonly() {
+    function is_readonly()
+    {
         return true;
     }
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
         $this->show_form();
     }
 
-    function show_top($arr=null) {
+    function show_top($arr=null)
+    {
         if ($arr) {
             $error = $arr[1];
         }
@@ -46,15 +49,18 @@ class SearchAction extends Action {
         $this->search_menu();
     }
 
-    function get_title() {
+    function get_title()
+    {
         return null;
     }
 
-    function show_header($arr) {
+    function show_header($arr)
+    {
         return;
     }
 
-    function show_form($error=null) {
+    function show_form($error=null)
+    {
         global $config;
 
         $q = $this->trimmed('q');
@@ -91,7 +97,8 @@ class SearchAction extends Action {
         common_show_footer();
     }
 
-    function search_menu() {
+    function search_menu()
+    {
         # action => array('prompt', 'title', $args)
         $action = $this->trimmed('action');
         $menu =

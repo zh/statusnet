@@ -23,7 +23,8 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
 
 class TwitapifavoritesAction extends TwitterapiAction {
 
-    function favorites($args, $apidata) {
+    function favorites($args, $apidata)
+    {
         parent::handle($args);
 
         $this->auth_user = $apidata['user'];
@@ -85,7 +86,8 @@ class TwitapifavoritesAction extends TwitterapiAction {
 
     }
 
-    function create($args, $apidata) {
+    function create($args, $apidata)
+    {
         parent::handle($args);
 
         // Check for RESTfulness
@@ -134,14 +136,16 @@ class TwitapifavoritesAction extends TwitterapiAction {
 
     }
 
-    function destroy($args, $apidata) {
+    function destroy($args, $apidata)
+    {
         parent::handle($args);
         common_server_error(_('API method under construction.'), $code=501);
     }
 
     // XXX: these two funcs swiped from faves.  Maybe put in util.php, or some common base class?
 
-    function notify($fave, $notice, $user) {
+    function notify($fave, $notice, $user)
+    {
         $other = User::staticGet('id', $notice->profile_id);
         if ($other && $other->id != $user->id) {
             if ($other->email && $other->emailnotifyfav) {
@@ -152,7 +156,8 @@ class TwitapifavoritesAction extends TwitterapiAction {
         }
     }
 
-    function notify_mail($other, $user, $notice) {
+    function notify_mail($other, $user, $notice)
+    {
         $profile = $user->getProfile();
         $bestname = $profile->getBestName();
         $subject = sprintf(_('%s added your notice as a favorite'), $bestname);

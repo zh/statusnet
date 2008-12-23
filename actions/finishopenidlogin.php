@@ -23,7 +23,8 @@ require_once(INSTALLDIR.'/lib/openid.php');
 
 class FinishopenidloginAction extends Action {
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
         if (common_logged_in()) {
             common_user_error(_('Already logged in.'));
@@ -52,7 +53,8 @@ class FinishopenidloginAction extends Action {
         }
     }
 
-    function show_top($error=null) {
+    function show_top($error=null)
+    {
         if ($error) {
             common_element('div', array('class' => 'error'), $error);
         } else {
@@ -62,7 +64,8 @@ class FinishopenidloginAction extends Action {
         }
     }
 
-    function show_form($error=null, $username=null) {
+    function show_form($error=null, $username=null)
+    {
         common_show_header(_('OpenID Account Setup'), null, $error,
                            array($this, 'show_top'));
 
@@ -99,7 +102,8 @@ class FinishopenidloginAction extends Action {
         common_show_footer();
     }
 
-    function try_login() {
+    function try_login()
+    {
 
         $consumer = oid_consumer();
 
@@ -146,26 +150,30 @@ class FinishopenidloginAction extends Action {
         }
     }
 
-    function message($msg) {
+    function message($msg)
+    {
         common_show_header(_('OpenID Login'));
         common_element('p', null, $msg);
         common_show_footer();
     }
 
-    function save_values($display, $canonical, $sreg) {
+    function save_values($display, $canonical, $sreg)
+    {
         common_ensure_session();
         $_SESSION['openid_display'] = $display;
         $_SESSION['openid_canonical'] = $canonical;
         $_SESSION['openid_sreg'] = $sreg;
     }
 
-    function get_saved_values() {
+    function get_saved_values()
+    {
         return array($_SESSION['openid_display'],
                      $_SESSION['openid_canonical'],
                      $_SESSION['openid_sreg']);
     }
 
-    function create_new_user() {
+    function create_new_user()
+    {
 
         # FIXME: save invite code before redirect, and check here
 
@@ -247,7 +255,8 @@ class FinishopenidloginAction extends Action {
         common_redirect(common_local_url('showstream', array('nickname' => $user->nickname)));
     }
 
-    function connect_user() {
+    function connect_user()
+    {
 
         $nickname = $this->trimmed('nickname');
         $password = $this->trimmed('password');
@@ -286,7 +295,8 @@ class FinishopenidloginAction extends Action {
         $this->go_home($user->nickname);
     }
 
-    function go_home($nickname) {
+    function go_home($nickname)
+    {
         $url = common_get_returnto();
         if ($url) {
             # We don't have to return to it again
@@ -299,7 +309,8 @@ class FinishopenidloginAction extends Action {
         common_redirect($url);
     }
 
-    function best_new_nickname($display, $sreg) {
+    function best_new_nickname($display, $sreg)
+    {
 
         # Try the passed-in nickname
 
@@ -332,7 +343,8 @@ class FinishopenidloginAction extends Action {
         return null;
     }
 
-    function is_new_nickname($str) {
+    function is_new_nickname($str)
+    {
         if (!Validate::string($str, array('min_length' => 1,
                                           'max_length' => 64,
                                           'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
@@ -347,7 +359,8 @@ class FinishopenidloginAction extends Action {
         return true;
     }
 
-    function openid_to_nickname($openid) {
+    function openid_to_nickname($openid)
+    {
         if (Auth_Yadis_identifierScheme($openid) == 'XRI') {
             return $this->xri_to_nickname($openid);
         } else {
@@ -360,7 +373,8 @@ class FinishopenidloginAction extends Action {
     # 2. One element in path, like http://profile.typekey.com/EvanProdromou/
     #    or http://getopenid.com/evanprodromou
 
-    function url_to_nickname($openid) {
+    function url_to_nickname($openid)
+    {
         static $bad = array('query', 'user', 'password', 'port', 'fragment');
 
         $parts = parse_url($openid);
@@ -406,7 +420,8 @@ class FinishopenidloginAction extends Action {
         return null;
     }
 
-    function xri_to_nickname($xri) {
+    function xri_to_nickname($xri)
+    {
         $base = $this->xri_base($xri);
 
         if (!$base) {
@@ -419,7 +434,8 @@ class FinishopenidloginAction extends Action {
         }
     }
 
-    function xri_base($xri) {
+    function xri_base($xri)
+    {
         if (substr($xri, 0, 6) == 'xri://') {
             return substr($xri, 6);
         } else {
@@ -429,7 +445,8 @@ class FinishopenidloginAction extends Action {
 
     # Given a string, try to make it work as a nickname
 
-    function nicknamize($str) {
+    function nicknamize($str)
+    {
         $str = preg_replace('/\W/', '', $str);
         return strtolower($str);
     }

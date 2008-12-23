@@ -23,7 +23,8 @@ require_once(INSTALLDIR.'/lib/profilelist.php');
 
 class PeopletagAction extends Action {
     
-    function handle($args) {
+    function handle($args)
+    {
 
         parent::handle($args);
 
@@ -50,7 +51,8 @@ class PeopletagAction extends Action {
         common_show_footer();
     }
 
-    function show_people($tag, $page) {
+    function show_people($tag, $page)
+    {
         
         $profile = new Profile();
 
@@ -83,7 +85,8 @@ class PeopletagAction extends Action {
                           array('tag' => $tag));
     }
     
-    function show_top($tag) {
+    function show_top($tag)
+    {
         $instr = sprintf(_('These are users who have tagged themselves "%s" ' .
                            'to show a common interest, characteristic, hobby or job.'), $tag);
         common_element_start('div', 'instructions');
@@ -93,11 +96,13 @@ class PeopletagAction extends Action {
         common_element_end('div');
     }
 
-    function get_title() {
+    function get_title()
+    {
         return null;
     }
 
-    function show_header($arr) {
+    function show_header($arr)
+    {
         return;
     }
 }

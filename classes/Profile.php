@@ -41,12 +41,14 @@ class Profile extends Memcached_DataObject
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
-    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Profile',$k,$v); }
+    function staticGet($k,$v=null)
+    { return Memcached_DataObject::staticGet('Profile',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    function getAvatar($width, $height=null) {
+    function getAvatar($width, $height=null)
+    {
         if (is_null($height)) {
             $height = $width;
         }
@@ -55,7 +57,8 @@ class Profile extends Memcached_DataObject
                                      'height' => $height));
     }
 
-    function getOriginalAvatar() {
+    function getOriginalAvatar()
+    {
         $avatar = DB_DataObject::factory('avatar');
         $avatar->profile_id = $this->id;
         $avatar->original = true;
@@ -66,7 +69,8 @@ class Profile extends Memcached_DataObject
         }
     }
 
-    function setOriginal($source) {
+    function setOriginal($source)
+    {
 
         $info = @getimagesize($source);
 
@@ -117,7 +121,8 @@ class Profile extends Memcached_DataObject
         return $avatar;
     }
 
-    function delete_avatars() {
+    function delete_avatars()
+    {
         $avatar = new Avatar();
         $avatar->profile_id = $this->id;
         $avatar->find();
@@ -127,12 +132,14 @@ class Profile extends Memcached_DataObject
         return true;
     }
 
-    function getBestName() {
+    function getBestName()
+    {
         return ($this->fullname) ? $this->fullname : $this->nickname;
     }
 
     # Get latest notice on or before date; default now
-    function getCurrentNotice($dt=null) {
+    function getCurrentNotice($dt=null)
+    {
         $notice = new Notice();
         $notice->profile_id = $this->id;
         if ($dt) {
@@ -146,7 +153,8 @@ class Profile extends Memcached_DataObject
         return null;
     }
 
-    function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0) {
+    function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
+    {
         $qry =
           'SELECT * ' .
           'FROM notice ' .

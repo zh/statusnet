@@ -23,11 +23,13 @@ require_once(INSTALLDIR.'/lib/settingsaction.php');
 
 class EmailsettingsAction extends SettingsAction {
 
-    function get_instructions() {
+    function get_instructions()
+    {
         return _('Manage how you get email from %%site.name%%.');
     }
 
-    function show_form($msg=null, $success=false) {
+    function show_form($msg=null, $success=false)
+    {
         $user = common_current_user();
         $this->form_header(_('Email Settings'), $msg, $success);
         common_element_start('form', array('method' => 'post',
@@ -110,7 +112,8 @@ class EmailsettingsAction extends SettingsAction {
         common_show_footer();
     }
 
-    function get_confirmation() {
+    function get_confirmation()
+    {
         $user = common_current_user();
         $confirm = new Confirm_address();
         $confirm->user_id = $user->id;
@@ -122,7 +125,8 @@ class EmailsettingsAction extends SettingsAction {
         }
     }
 
-    function handle_post() {
+    function handle_post()
+    {
 
         # CSRF protection
         $token = $this->trimmed('token');
@@ -148,7 +152,8 @@ class EmailsettingsAction extends SettingsAction {
         }
     }
 
-    function save_preferences() {
+    function save_preferences()
+    {
 
         $emailnotifysub = $this->boolean('emailnotifysub');
         $emailnotifyfav = $this->boolean('emailnotifyfav');
@@ -185,7 +190,8 @@ class EmailsettingsAction extends SettingsAction {
         $this->show_form(_('Preferences saved.'), true);
     }
 
-    function add_address() {
+    function add_address()
+    {
 
         $user = common_current_user();
 
@@ -236,7 +242,8 @@ class EmailsettingsAction extends SettingsAction {
         $this->show_form($msg, TRUE);
     }
 
-    function cancel_confirmation() {
+    function cancel_confirmation()
+    {
         $email = $this->arg('email');
         $confirm = $this->get_confirmation();
         if (!$confirm) {
@@ -259,7 +266,8 @@ class EmailsettingsAction extends SettingsAction {
         $this->show_form(_('Confirmation cancelled.'), TRUE);
     }
 
-    function remove_address() {
+    function remove_address()
+    {
 
         $user = common_current_user();
         $email = $this->arg('email');
@@ -285,7 +293,8 @@ class EmailsettingsAction extends SettingsAction {
         $this->show_form(_('The address was removed.'), TRUE);
     }
 
-    function remove_incoming() {
+    function remove_incoming()
+    {
         $user = common_current_user();
         
         if (!$user->incomingemail) {
@@ -304,7 +313,8 @@ class EmailsettingsAction extends SettingsAction {
         $this->show_form(_('Incoming email address removed.'), TRUE);
     }
 
-    function new_incoming() {
+    function new_incoming()
+    {
         $user = common_current_user();
         
         $orig = clone($user);
@@ -318,7 +328,8 @@ class EmailsettingsAction extends SettingsAction {
         $this->show_form(_('New incoming email address added.'), TRUE);
     }
     
-    function email_exists($email) {
+    function email_exists($email)
+    {
         $user = common_current_user();
         $other = User::staticGet('email', $email);
         if (!$other) {

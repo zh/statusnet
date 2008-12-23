@@ -23,7 +23,8 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
 
 class TwitapifriendshipsAction extends TwitterapiAction {
 
-    function create($args, $apidata) {
+    function create($args, $apidata)
+    {
         parent::handle($args);
 
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
@@ -75,7 +76,8 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 
     }
 
-    function destroy($args, $apidata) {
+    function destroy($args, $apidata)
+    {
         parent::handle($args);
 
         if (!in_array($_SERVER['REQUEST_METHOD'], array('POST', 'DELETE'))) {
@@ -110,7 +112,8 @@ class TwitapifriendshipsAction extends TwitterapiAction {
 
     }
 
-    function exists($args, $apidata) {
+    function exists($args, $apidata)
+    {
         parent::handle($args);
 
         if (!in_array($apidata['content-type'], array('xml', 'json'))) {

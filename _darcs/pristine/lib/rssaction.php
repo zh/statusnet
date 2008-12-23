@@ -26,11 +26,13 @@ class Rss10Action extends Action {
     # This will contain the details of each feed item's author and be used to generate SIOC data.
     var $creators = array();
 
-    function is_readonly() {
+    function is_readonly()
+    {
         return true;
     }
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
         $limit = (int) $this->trimmed('limit');
         if ($limit == 0) {
@@ -39,26 +41,31 @@ class Rss10Action extends Action {
         $this->show_rss($limit);
     }
 
-    function init() {
+    function init()
+    {
         return true;
     }
 
-    function get_notices() {
+    function get_notices()
+    {
         return array();
     }
 
-    function get_channel() {
+    function get_channel()
+    {
         return array('url' => '',
                      'title' => '',
                      'link' => '',
                      'description' => '');
     }
 
-    function get_image() {
+    function get_image()
+    {
         return null;
     }
 
-    function show_rss($limit=0) {
+    function show_rss($limit=0)
+    {
 
         if (!$this->init()) {
             return;
@@ -78,7 +85,8 @@ class Rss10Action extends Action {
         $this->end_rss();
     }
 
-    function show_channel($notices) {
+    function show_channel($notices)
+    {
 
         $channel = $this->get_channel();
         $image = $this->get_image();
@@ -106,7 +114,8 @@ class Rss10Action extends Action {
         common_element_end('channel');
     }
 
-    function show_image() {
+    function show_image()
+    {
         $image = $this->get_image();
         if ($image) {
             $channel = $this->get_channel();
@@ -118,7 +127,8 @@ class Rss10Action extends Action {
         }
     }
 
-    function show_item($notice) {
+    function show_item($notice)
+    {
         $profile = Profile::staticGet($notice->profile_id);
         $nurl = common_local_url('shownotice', array('notice' => $notice->id));
         $creator_uri = common_profile_uri($profile);
@@ -136,7 +146,8 @@ class Rss10Action extends Action {
         $this->creators[$creator_uri] = $profile;
     }
 
-    function show_creators() {
+    function show_creators()
+    {
         foreach ($this->creators as $uri => $profile) {
             $id = $profile->id;
             $nickname = $profile->nickname;
@@ -152,7 +163,8 @@ class Rss10Action extends Action {
         }
     }
 
-    function init_rss() {
+    function init_rss()
+    {
         $channel = $this->get_channel();
         header('Content-Type: application/rdf+xml');
 
@@ -183,7 +195,8 @@ class Rss10Action extends Action {
         common_element_end('sioc:Site');
     }
 
-    function end_rss() {
+    function end_rss()
+    {
         common_element_end('rdf:RDF');
     }
 }

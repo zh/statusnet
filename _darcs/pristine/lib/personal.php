@@ -21,16 +21,19 @@ if (!defined('LACONICA')) { exit(1); }
 
 class PersonalAction extends Action {
     
-    function is_readonly() {
+    function is_readonly()
+    {
         return true;
     }
     
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
         common_set_returnto($this->self_url());
     }
 
-    function views_menu() {
+    function views_menu()
+    {
 
         $user = null;
         $action = $this->trimmed('action');
@@ -85,7 +88,8 @@ class PersonalAction extends Action {
         common_element_end('ul');
     }
 
-    function show_feeds_list($feeds) {
+    function show_feeds_list($feeds)
+    {
         common_element_start('div', array('class' => 'feeds'));
         common_element('p', null, 'Feeds:');
         common_element_start('ul', array('class' => 'xoxo'));
@@ -97,7 +101,8 @@ class PersonalAction extends Action {
         common_element_end('div');
     }
 
-    function common_feed_item($feed) {
+    function common_feed_item($feed)
+    {
         $nickname = $this->trimmed('nickname');
 
         switch($feed['item']) {
@@ -181,7 +186,8 @@ class PersonalAction extends Action {
     }
 
     
-    function source_link($source) {
+    function source_link($source)
+    {
         $source_name = _($source);
         switch ($source) {
          case 'web':

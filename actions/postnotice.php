@@ -22,7 +22,8 @@ if (!defined('LACONICA')) { exit(1); }
 require_once(INSTALLDIR.'/lib/omb.php');
 
 class PostnoticeAction extends Action {
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
         try {
             common_remove_magic_from_request();
@@ -39,7 +40,8 @@ class PostnoticeAction extends Action {
         }
     }
 
-    function save_notice(&$req, &$consumer, &$token) {
+    function save_notice(&$req, &$consumer, &$token)
+    {
         $version = $req->get_parameter('omb_version');
         if ($version != OMB_VERSION_01) {
             common_user_error(_('Unsupported OMB version'), 400);

@@ -30,7 +30,8 @@ require_once(INSTALLDIR.'/lib/queuehandler.php');
 
 class XmppQueueHandler extends QueueHandler {
     
-    function start() {
+    function start()
+    {
         # Low priority; we don't want to receive messages
         $this->log(LOG_INFO, "INITIALIZE");
         $this->conn = jabber_connect($this->_id);
@@ -43,12 +44,14 @@ class XmppQueueHandler extends QueueHandler {
         return !is_null($this->conn);
     }
     
-    function handle_reconnect(&$pl) {
+    function handle_reconnect(&$pl)
+    {
         $this->conn->processUntil('session_start');
         $this->conn->presence(null, 'available', null, 'available', -1);
     }
 
-    function idle($timeout=0) {
+    function idle($timeout=0)
+    {
         # Process the queue for as long as needed
         try {
             if ($this->conn) {
@@ -60,7 +63,8 @@ class XmppQueueHandler extends QueueHandler {
         }
     }
     
-    function forward_message(&$pl) {
+    function forward_message(&$pl)
+    {
         if ($pl['type'] != 'chat') {
             $this->log(LOG_DEBUG, 'Ignoring message of type ' . $pl['type'] . ' from ' . $pl['from']);
             return;
@@ -74,14 +78,16 @@ class XmppQueueHandler extends QueueHandler {
         $this->conn->message($this->listener(), $pl['body'], 'chat', null, $this->ofrom($pl['from']));
     }
 
-    function ofrom($from) {
+    function ofrom($from)
+    {
         $address = "<addresses xmlns='http://jabber.org/protocol/address'>\n";
         $address .= "<address type='ofrom' jid='$from' />\n";
         $address .= "</addresses>\n";
         return $address;
     }
 
-    function listener() {
+    function listener()
+    {
         if (common_config('xmpp', 'listener')) {
             return common_config('xmpp', 'listener');
         } else {
