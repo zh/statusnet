@@ -22,7 +22,8 @@ if (!defined('LACONICA')) { exit(1); }
 require_once(INSTALLDIR.'/actions/showstream.php');
 define('TAGS_PER_PAGE', 100);
 
-class TagAction extends StreamAction {
+class TagAction extends StreamAction
+{
 
     function handle($args)
     {

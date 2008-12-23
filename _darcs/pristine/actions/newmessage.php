@@ -19,7 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class NewmessageAction extends Action {
+class NewmessageAction extends Action
+{
     
     function handle($args)
     {

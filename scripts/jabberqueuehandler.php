@@ -33,7 +33,8 @@ require_once(INSTALLDIR . '/lib/xmppqueuehandler.php');
 
 set_error_handler('common_error_handler');
 
-class JabberQueueHandler extends XmppQueueHandler {
+class JabberQueueHandler extends XmppQueueHandler
+{
 
     var $conn = null;
 

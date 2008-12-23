@@ -19,7 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class Channel {
+class Channel
+{
     
     function on($user)
     {
@@ -47,7 +48,8 @@ class Channel {
     }
 }
 
-class XMPPChannel extends Channel {
+class XMPPChannel extends Channel
+{
 
     var $conn = null;
     
@@ -104,7 +106,8 @@ class XMPPChannel extends Channel {
 }
 
 
-class WebChannel extends Channel {
+class WebChannel extends Channel
+{
 
     function source()
     {
@@ -138,7 +141,8 @@ class WebChannel extends Channel {
 }
 
 
-class AjaxWebChannel extends WebChannel {
+class AjaxWebChannel extends WebChannel
+{
 
     function output($user, $text)
     {
@@ -166,7 +170,8 @@ class AjaxWebChannel extends WebChannel {
 }
 
 
-class MailChannel extends Channel {
+class MailChannel extends Channel
+{
 
     var $addr = null;
 

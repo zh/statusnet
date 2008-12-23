@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/classes/Command.php');
 
-class CommandInterpreter {
+class CommandInterpreter
+{
     
     function handle_command($user, $text)
     {

@@ -19,7 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class SubscribeAction extends Action {
+class SubscribeAction extends Action
+{
 
     function handle($args)
     {

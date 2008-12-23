@@ -21,9 +21,10 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/omb.php');
 
-class LaconicaOAuthDataStore extends OAuthDataStore {
+class LaconicaOAuthDataStore extends OAuthDataStore
+{
 
-    # We keep a record of who's contacted us
+    // We keep a record of who's contacted us
 
     function lookup_consumer($consumer_key)
     {
@@ -75,8 +76,8 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
         $t->consumer_key = $consumer->key;
         $t->tok = common_good_rand(16);
         $t->secret = common_good_rand(16);
-        $t->type = 0; # request
-        $t->state = 0; # unauthorized
+        $t->type = 0; // request
+        $t->state = 0; // unauthorized
         $t->created = DB_DataObject_Cast::dateTime();
         if (!$t->insert()) {
             return null;
@@ -85,7 +86,7 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
         }
     }
 
-    # defined in OAuthDataStore, but not implemented anywhere
+    // defined in OAuthDataStore, but not implemented anywhere
 
     function fetch_request_token($consumer)
     {
@@ -98,14 +99,14 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
         $rt = new Token();
         $rt->consumer_key = $consumer->key;
         $rt->tok = $token->key;
-        $rt->type = 0; # request
-        if ($rt->find(true) && $rt->state == 1) { # authorized
+        $rt->type = 0; // request
+        if ($rt->find(true) && $rt->state == 1) { // authorized
             common_debug('request token found.', __FILE__);
             $at = new Token();
             $at->consumer_key = $consumer->key;
             $at->tok = common_good_rand(16);
             $at->secret = common_good_rand(16);
-            $at->type = 1; # access
+            $at->type = 1; // access
             $at->created = DB_DataObject_Cast::dateTime();
             if (!$at->insert()) {
                 $e = $at->_lastError;
@@ -113,15 +114,15 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
                 return null;
             } else {
                 common_debug('access token "'.$at->tok.'" inserted', __FILE__);
-                # burn the old one
+                // burn the old one
                 $orig_rt = clone($rt);
-                $rt->state = 2; # used
+                $rt->state = 2; // used
                 if (!$rt->update($orig_rt)) {
                     return null;
                 }
                 common_debug('request token "'.$rt->tok.'" updated', __FILE__);
-                # Update subscription
-                # XXX: mixing levels here
+                // Update subscription
+                // XXX: mixing levels here
                 $sub = Subscription::staticGet('token', $rt->tok);
                 if (!$sub) {
                     return null;
@@ -142,7 +143,7 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
         }
     }
 
-    # defined in OAuthDataStore, but not implemented anywhere
+    // defined in OAuthDataStore, but not implemented anywhere
 
     function fetch_access_token($consumer)
     {

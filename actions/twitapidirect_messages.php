@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/twitterapi.php');
 
-class Twitapidirect_messagesAction extends TwitterapiAction {
+class Twitapidirect_messagesAction extends TwitterapiAction
+{
 
     function direct_messages($args, $apidata)
     {

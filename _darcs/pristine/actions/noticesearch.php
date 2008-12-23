@@ -23,7 +23,8 @@ require_once(INSTALLDIR.'/lib/searchaction.php');
 
 # XXX common parent for people and content search?
 
-class NoticesearchAction extends SearchAction {
+class NoticesearchAction extends SearchAction
+{
 
     function get_instructions()
     {

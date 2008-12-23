@@ -19,7 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class OpensearchAction extends Action {
+class OpensearchAction extends Action
+{
 
     function handle($args)
     {

@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/omb.php');
 
-class AccesstokenAction extends Action {
+class AccesstokenAction extends Action
+{
     function handle($args)
     {
         parent::handle($args);

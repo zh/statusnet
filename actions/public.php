@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/stream.php');
 
-class PublicAction extends StreamAction {
+class PublicAction extends StreamAction
+{
 
     function handle($args)
     {

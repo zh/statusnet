@@ -25,7 +25,8 @@ require_once(INSTALLDIR.'/lib/daemon.php');
 require_once(INSTALLDIR.'/classes/Queue_item.php');
 require_once(INSTALLDIR.'/classes/Notice.php');
 
-class QueueHandler extends Daemon {
+class QueueHandler extends Daemon
+{
 
     var $_id = 'generic';
 

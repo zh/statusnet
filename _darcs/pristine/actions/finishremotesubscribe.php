@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/omb.php');
 
-class FinishremotesubscribeAction extends Action {
+class FinishremotesubscribeAction extends Action
+{
 
     function handle($args)
     {

@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 define('DEFAULT_RSS_LIMIT', 48);
 
-class Rss10Action extends Action {
+class Rss10Action extends Action
+{
 
     # This will contain the details of each feed item's author and be used to generate SIOC data.
     var $creators = array();

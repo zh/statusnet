@@ -22,7 +22,8 @@ if (!defined('LACONICA')) { exit(1); }
 require_once(INSTALLDIR.'/lib/settingsaction.php');
 require_once(INSTALLDIR.'/lib/openid.php');
 
-class OpenidsettingsAction extends SettingsAction {
+class OpenidsettingsAction extends SettingsAction
+{
 
     function get_instructions()
     {

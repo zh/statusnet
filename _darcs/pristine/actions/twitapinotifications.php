@@ -22,7 +22,8 @@ if (!defined('LACONICA')) { exit(1); }
 require_once(INSTALLDIR.'/lib/twitterapi.php');
 
 # This naming convention looks real sick
-class TwitapinotificationsAction extends TwitterapiAction {
+class TwitapinotificationsAction extends TwitterapiAction
+{
 
     function follow($args, $apidata)
     {

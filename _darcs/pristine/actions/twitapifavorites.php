@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/twitterapi.php');
 
-class TwitapifavoritesAction extends TwitterapiAction {
+class TwitapifavoritesAction extends TwitterapiAction
+{
 
     function favorites($args, $apidata)
     {

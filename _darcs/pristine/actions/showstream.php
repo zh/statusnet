@@ -24,7 +24,8 @@ require_once(INSTALLDIR.'/lib/stream.php');
 define('SUBSCRIPTIONS_PER_ROW', 4);
 define('SUBSCRIPTIONS', 80);
 
-class ShowstreamAction extends StreamAction {
+class ShowstreamAction extends StreamAction
+{
 
     function handle($args)
     {
@@ -449,14 +450,16 @@ class ShowstreamAction extends StreamAction {
 
 # We don't show the author for a profile, since we already know who it is!
 
-class ProfileNoticeList extends NoticeList {
+class ProfileNoticeList extends NoticeList
+{
     function newListItem($notice)
     {
         return new ProfileNoticeListItem($notice);
     }
 }
 
-class ProfileNoticeListItem extends NoticeListItem {
+class ProfileNoticeListItem extends NoticeListItem
+{
     function showAuthor()
     {
         return;

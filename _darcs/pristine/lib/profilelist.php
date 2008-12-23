@@ -22,7 +22,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 define('PROFILES_PER_PAGE', 20);
 
-class ProfileList {
+class ProfileList
+{
 
     var $profile = null;
     var $owner = null;

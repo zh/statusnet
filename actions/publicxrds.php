@@ -23,7 +23,8 @@ require_once(INSTALLDIR.'/lib/openid.php');
 
 # XXX: factor out similarities with XrdsAction
 
-class PublicxrdsAction extends Action {
+class PublicxrdsAction extends Action
+{
 
     function is_readonly()
     {

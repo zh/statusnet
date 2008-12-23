@@ -37,7 +37,8 @@ set_error_handler('common_error_handler');
 # in jabber.php, which create a new XMPP class. A more elegant (?) solution
 # might be to use make this a subclass of XMPP.
 
-class XMPPDaemon extends Daemon {
+class XMPPDaemon extends Daemon
+{
 
     function XMPPDaemon($resource=null)
     {

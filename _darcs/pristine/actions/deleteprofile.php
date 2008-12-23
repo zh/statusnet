@@ -19,7 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class DeleteprofileAction extends Action {
+class DeleteprofileAction extends Action
+{
     function handle($args)
     {
         parent::handle($args);

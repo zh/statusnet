@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/classes/Channel.php');
 
-class Command {
+class Command
+{
     
     var $user = null;
     
@@ -36,20 +37,24 @@ class Command {
     }
 }
 
-class UnimplementedCommand extends Command {
+class UnimplementedCommand extends Command
+{
     function execute($channel)
     {
         $channel->error($this->user, _("Sorry, this command is not yet implemented."));
     }
 }
 
-class TrackingCommand extends UnimplementedCommand {
+class TrackingCommand extends UnimplementedCommand
+{
 }
 
-class TrackOffCommand extends UnimplementedCommand {
+class TrackOffCommand extends UnimplementedCommand
+{
 }
 
-class TrackCommand extends UnimplementedCommand {
+class TrackCommand extends UnimplementedCommand
+{
     var $word = null;
     function __construct($user, $word)
     {
@@ -58,7 +63,8 @@ class TrackCommand extends UnimplementedCommand {
     }
 }
 
-class UntrackCommand extends UnimplementedCommand {
+class UntrackCommand extends UnimplementedCommand
+{
     var $word = null;
     function __construct($user, $word)
     {
@@ -67,7 +73,8 @@ class UntrackCommand extends UnimplementedCommand {
     }
 }
 
-class NudgeCommand extends UnimplementedCommand {
+class NudgeCommand extends UnimplementedCommand
+{
     var $other = null;
     function __construct($user, $other)
     {
@@ -76,7 +83,8 @@ class NudgeCommand extends UnimplementedCommand {
     }
 }
 
-class InviteCommand extends UnimplementedCommand {
+class InviteCommand extends UnimplementedCommand
+{
     var $other = null;
     function __construct($user, $other)
     {
@@ -85,7 +93,8 @@ class InviteCommand extends UnimplementedCommand {
     }
 }
 
-class StatsCommand extends Command {
+class StatsCommand extends Command
+{
     function execute($channel)
     {
 
@@ -110,7 +119,8 @@ class StatsCommand extends Command {
     }
 }
 
-class FavCommand extends Command {
+class FavCommand extends Command
+{
     
     var $other = null;
     
@@ -157,7 +167,8 @@ class FavCommand extends Command {
     }
 }
 
-class WhoisCommand extends Command {
+class WhoisCommand extends Command
+{
     var $other = null;
     function __construct($user, $other)
     {
@@ -193,7 +204,8 @@ class WhoisCommand extends Command {
     }
 }
 
-class MessageCommand extends Command {
+class MessageCommand extends Command
+{
     var $other = null;
     var $text = null;
     function __construct($user, $other, $text)
@@ -237,7 +249,8 @@ class MessageCommand extends Command {
     }
 }
 
-class GetCommand extends Command {
+class GetCommand extends Command
+{
     
     var $other = null;
     
@@ -269,7 +282,8 @@ class GetCommand extends Command {
     }
 }
 
-class SubCommand extends Command {
+class SubCommand extends Command
+{
     
     var $other = null;
     
@@ -297,7 +311,8 @@ class SubCommand extends Command {
     }
 }
 
-class UnsubCommand extends Command {
+class UnsubCommand extends Command
+{
 
     var $other = null;
     
@@ -324,7 +339,8 @@ class UnsubCommand extends Command {
     }
 }
 
-class OffCommand extends Command {
+class OffCommand extends Command
+{
     var $other = null;
     function __construct($user, $other=null)
     {
@@ -345,7 +361,8 @@ class OffCommand extends Command {
     }
 }
 
-class OnCommand extends Command {
+class OnCommand extends Command
+{
     var $other = null;
     function __construct($user, $other=null)
     {
@@ -367,7 +384,8 @@ class OnCommand extends Command {
     }
 }
 
-class HelpCommand extends Command {
+class HelpCommand extends Command
+{
     function execute($channel)
     {
         $channel->output($this->user,

@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/gallery.php');
 
-class SubscriptionsAction extends GalleryAction {
+class SubscriptionsAction extends GalleryAction
+{
 
     function gallery_type()
     {
@@ -59,7 +60,8 @@ class SubscriptionsAction extends GalleryAction {
     }
 }
 
-class SubscriptionsList extends ProfileList {
+class SubscriptionsList extends ProfileList
+{
 
     function show_owner_controls($profile)
     {

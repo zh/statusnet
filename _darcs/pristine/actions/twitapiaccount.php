@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/twitterapi.php');
 
-class TwitapiaccountAction extends TwitterapiAction {
+class TwitapiaccountAction extends TwitterapiAction
+{
 
     function verify_credentials($args, $apidata)
     {

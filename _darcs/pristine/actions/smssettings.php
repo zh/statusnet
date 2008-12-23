@@ -22,7 +22,8 @@ if (!defined('LACONICA')) { exit(1); }
 require_once(INSTALLDIR.'/lib/settingsaction.php');
 require_once(INSTALLDIR.'/actions/emailsettings.php');
 
-class SmssettingsAction extends EmailsettingsAction {
+class SmssettingsAction extends EmailsettingsAction
+{
 
     function get_instructions()
     {

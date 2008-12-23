@@ -23,7 +23,8 @@ require_once(INSTALLDIR.'/lib/settingsaction.php');
 
 define('SUBSCRIPTIONS', 80);
 
-class TwittersettingsAction extends SettingsAction {
+class TwittersettingsAction extends SettingsAction
+{
 
     function get_instructions()
     {

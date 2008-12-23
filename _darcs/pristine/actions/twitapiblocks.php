@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/twitterapi.php');
 
-class TwitapiblocksAction extends TwitterapiAction {
+class TwitapiblocksAction extends TwitterapiAction
+{
 
     function create($args, $apidata)
     {

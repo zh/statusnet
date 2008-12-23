@@ -19,7 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class LoginAction extends Action {
+class LoginAction extends Action
+{
 
     function is_readonly()
     {

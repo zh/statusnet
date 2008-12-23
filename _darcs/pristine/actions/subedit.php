@@ -19,7 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class SubeditAction extends Action {
+class SubeditAction extends Action
+{
 
     var $profile = null;
 

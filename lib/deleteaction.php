@@ -19,7 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class DeleteAction extends Action {
+class DeleteAction extends Action
+{
 
     function handle($args)
     {

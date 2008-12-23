@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/twitterapi.php');
 
-class TwitapistatusesAction extends TwitterapiAction {
+class TwitapistatusesAction extends TwitterapiAction
+{
 
     function public_timeline($args, $apidata)
     {

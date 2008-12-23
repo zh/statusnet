@@ -19,7 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class DisfavorAction extends Action {
+class DisfavorAction extends Action
+{
 
     function handle($args)
     {

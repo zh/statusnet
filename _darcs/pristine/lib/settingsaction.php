@@ -19,7 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class SettingsAction extends Action {
+class SettingsAction extends Action
+{
 
     function handle($args)
     {

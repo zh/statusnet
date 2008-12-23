@@ -19,7 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class SearchEngine {
+class SearchEngine
+{
     protected $target;
     protected $table;
 
@@ -45,7 +46,8 @@ class SearchEngine {
     }
 }
 
-class SphinxSearch extends SearchEngine {
+class SphinxSearch extends SearchEngine
+{
     private $sphinx;
     private $connected;
 
@@ -103,7 +105,8 @@ class SphinxSearch extends SearchEngine {
     }
 }
 
-class MySQLSearch extends SearchEngine {
+class MySQLSearch extends SearchEngine
+{
     function query($q)
     {
         if ('identica_people' === $this->table)
@@ -115,7 +118,8 @@ class MySQLSearch extends SearchEngine {
     }
 }
 
-class PGSearch extends SearchEngine {
+class PGSearch extends SearchEngine
+{
     function query($q)
     {
         if ('identica_people' === $this->table)

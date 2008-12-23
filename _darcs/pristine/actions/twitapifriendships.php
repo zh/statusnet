@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/twitterapi.php');
 
-class TwitapifriendshipsAction extends TwitterapiAction {
+class TwitapifriendshipsAction extends TwitterapiAction
+{
 
     function create($args, $apidata)
     {

@@ -35,7 +35,8 @@ set_error_handler('common_error_handler');
 
 define('CLAIM_TIMEOUT', 1200);
 
-class XmppConfirmHandler extends XmppQueueHandler {
+class XmppConfirmHandler extends XmppQueueHandler
+{
 
     var $_id = 'confirm';
     

@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/stream.php');
 
-class FavoritedAction extends StreamAction {
+class FavoritedAction extends StreamAction
+{
 
     function handle($args)
     {

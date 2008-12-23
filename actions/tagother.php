@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/settingsaction.php');
 
-class TagotherAction extends Action {
+class TagotherAction extends Action
+{
 
     function handle($args)
     {

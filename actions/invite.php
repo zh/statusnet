@@ -19,7 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class InviteAction extends Action {
+class InviteAction extends Action
+{
 
     function is_readonly()
     {

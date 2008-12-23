@@ -19,7 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class AvatarbynicknameAction extends Action {
+class AvatarbynicknameAction extends Action
+{
     function handle($args)
     {
         parent::handle($args);

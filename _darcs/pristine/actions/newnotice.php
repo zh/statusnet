@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once INSTALLDIR . '/lib/noticelist.php';
 
-class NewnoticeAction extends Action {
+class NewnoticeAction extends Action
+{
 
     function handle($args)
     {

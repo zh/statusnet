@@ -28,7 +28,8 @@ require_once(INSTALLDIR.'/lib/queuehandler.php');
  * superclass.
  */
 
-class XmppQueueHandler extends QueueHandler {
+class XmppQueueHandler extends QueueHandler
+{
     
     function start()
     {

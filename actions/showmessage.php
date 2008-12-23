@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/mailbox.php');
 
-class ShowmessageAction extends MailboxAction {
+class ShowmessageAction extends MailboxAction
+{
 
     function handle($args)
     {

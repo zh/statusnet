@@ -19,7 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class UnblockAction extends Action {
+class UnblockAction extends Action
+{
 
     var $profile = null;
 

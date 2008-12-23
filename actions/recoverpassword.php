@@ -23,7 +23,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 define(MAX_RECOVERY_TIME, 24 * 60 * 60);
 
-class RecoverpasswordAction extends Action {
+class RecoverpasswordAction extends Action
+{
 
     function handle($args)
     {

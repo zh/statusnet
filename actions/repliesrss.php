@@ -23,7 +23,8 @@ require_once(INSTALLDIR.'/lib/rssaction.php');
 
 // Formatting of RSS handled by Rss10Action
 
-class RepliesrssAction extends Rss10Action {
+class RepliesrssAction extends Rss10Action
+{
 
     var $user = null;
 

@@ -22,7 +22,8 @@ if (!defined('LACONICA')) { exit(1); }
 require_once(INSTALLDIR.'/lib/stream.php');
 require_once(INSTALLDIR.'/lib/profilelist.php');
 
-class FeaturedAction extends StreamAction {
+class FeaturedAction extends StreamAction
+{
 
     function handle($args)
     {

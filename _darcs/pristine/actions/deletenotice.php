@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/deleteaction.php');
 
-class DeletenoticeAction extends DeleteAction {
+class DeletenoticeAction extends DeleteAction
+{
     function handle($args)
     {
         parent::handle($args);

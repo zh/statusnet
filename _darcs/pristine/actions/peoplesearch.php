@@ -22,7 +22,8 @@ if (!defined('LACONICA')) { exit(1); }
 require_once(INSTALLDIR.'/lib/searchaction.php');
 require_once(INSTALLDIR.'/lib/profilelist.php');
 
-class PeoplesearchAction extends SearchAction {
+class PeoplesearchAction extends SearchAction
+{
 
     function get_instructions()
     {
@@ -69,7 +70,8 @@ class PeoplesearchAction extends SearchAction {
     }
 }
 
-class PeopleSearchResults extends ProfileList {
+class PeopleSearchResults extends ProfileList
+{
 
     var $terms = null;
     var $pattern = null;

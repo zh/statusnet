@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/openid.php');
 
-class FinishaddopenidAction extends Action {
+class FinishaddopenidAction extends Action
+{
 
     function handle($args)
     {

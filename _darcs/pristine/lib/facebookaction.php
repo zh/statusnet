@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/extlib/facebook/facebook.php');
 
-class FacebookAction extends Action {
+class FacebookAction extends Action
+{
 
     function handle($args)
     {

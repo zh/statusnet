@@ -34,7 +34,8 @@ require_once('Mail/mimeDecode.php');
 # FIXME: we use both Mail_mimeDecode and mailparse
 # Need to move everything to mailparse
 
-class MailerDaemon {
+class MailerDaemon
+{
 
     function __construct()
     {

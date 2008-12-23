@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/omb.php');
 
-class XrdsAction extends Action {
+class XrdsAction extends Action
+{
 
     function is_readonly()
     {                

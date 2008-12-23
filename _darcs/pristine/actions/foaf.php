@@ -23,7 +23,8 @@ define('LISTENER', 1);
 define('LISTENEE', -1);
 define('BOTH', 0);
 
-class FoafAction extends Action {
+class FoafAction extends Action
+{
 
     function is_readonly()
     {

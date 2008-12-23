@@ -19,7 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class TwitterapiAction extends Action {
+class TwitterapiAction extends Action
+{
 
     var $auth_user;
 

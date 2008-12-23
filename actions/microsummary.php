@@ -19,7 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class MicrosummaryAction extends Action {
+class MicrosummaryAction extends Action
+{
 
     function handle($args)
     {

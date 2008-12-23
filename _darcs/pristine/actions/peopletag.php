@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/profilelist.php');
 
-class PeopletagAction extends Action {
+class PeopletagAction extends Action
+{
     
     function handle($args)
     {

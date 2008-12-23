@@ -22,7 +22,8 @@ if (!defined('LACONICA')) { exit(1); }
 require_once(INSTALLDIR.'/lib/omb.php');
 define('TIMESTAMP_THRESHOLD', 300);
 
-class UserauthorizationAction extends Action {
+class UserauthorizationAction extends Action
+{
 
     function handle($args)
     {

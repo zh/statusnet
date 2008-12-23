@@ -19,7 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class RegisterAction extends Action {
+class RegisterAction extends Action
+{
 
     function handle($args)
     {

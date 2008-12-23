@@ -19,7 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class ConfirmaddressAction extends Action {
+class ConfirmaddressAction extends Action
+{
 
     function handle($args)
     {

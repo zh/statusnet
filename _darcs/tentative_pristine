@@ -1,225 +1,593 @@
-hunk ./actions/accesstoken.php 36
--            common_debug('got this token: "'.print_r($token,TRUE).'"', __FILE__);
-+            common_debug('got this token: "'.print_r($token,true).'"', __FILE__);
-hunk ./actions/emailsettings.php 121
--        if ($confirm->find(TRUE)) {
-+        if ($confirm->find(true)) {
-hunk ./actions/emailsettings.php 182
--        if ($result === FALSE) {
-+        if ($result === false) {
-hunk ./actions/emailsettings.php 232
--        if ($result === FALSE) {
-+        if ($result === false) {
-hunk ./actions/emailsettings.php 242
--        $this->show_form($msg, TRUE);
-+        $this->show_form($msg, true);
-hunk ./actions/emailsettings.php 266
--        $this->show_form(_('Confirmation cancelled.'), TRUE);
-+        $this->show_form(_('Confirmation cancelled.'), true);
-hunk ./actions/emailsettings.php 293
--        $this->show_form(_('The address was removed.'), TRUE);
-+        $this->show_form(_('The address was removed.'), true);
-hunk ./actions/emailsettings.php 313
--        $this->show_form(_('Incoming email address removed.'), TRUE);
-+        $this->show_form(_('Incoming email address removed.'), true);
-hunk ./actions/emailsettings.php 328
--        $this->show_form(_('New incoming email address added.'), TRUE);
-+        $this->show_form(_('New incoming email address added.'), true);
-hunk ./actions/finishremotesubscribe.php 281
--        common_debug('got result: "'.print_r($result,TRUE).'"', __FILE__);
-+        common_debug('got result: "'.print_r($result,true).'"', __FILE__);
-hunk ./actions/foaf.php 125
--                    common_debug('Got a bad subscription: '.print_r($sub,TRUE));
-+                    common_debug('Got a bad subscription: '.print_r($sub,true));
-hunk ./actions/foaf.php 147
--                    common_debug('Got a bad subscription: '.print_r($sub,TRUE));
-+                    common_debug('Got a bad subscription: '.print_r($sub,true));
-hunk ./actions/imsettings.php 96
--        if ($confirm->find(TRUE)) {
-+        if ($confirm->find(true)) {
-hunk ./actions/imsettings.php 149
--        if ($result === FALSE) {
-+        if ($result === false) {
-hunk ./actions/imsettings.php 199
--        if ($result === FALSE) {
-+        if ($result === false) {
-hunk ./actions/imsettings.php 213
--        $this->show_form($msg, TRUE);
-+        $this->show_form($msg, true);
-hunk ./actions/imsettings.php 237
--        $this->show_form(_('Confirmation cancelled.'), TRUE);
-+        $this->show_form(_('Confirmation cancelled.'), true);
-hunk ./actions/imsettings.php 266
--        $this->show_form(_('The address was removed.'), TRUE);
-+        $this->show_form(_('The address was removed.'), true);
-hunk ./actions/othersettings.php 56
--        common_dropdown('urlshorteningservice', _('Service'), $services, _('Automatic shortening service to use.'), FALSE, $user->urlshorteningservice);
-+        common_dropdown('urlshorteningservice', _('Service'), $services, _('Automatic shortening service to use.'), false, $user->urlshorteningservice);
-hunk ./actions/othersettings.php 177
--        if ($result === FALSE) {
-+        if ($result === false) {
-hunk ./actions/profilesettings.php 99
--        common_dropdown('language', _('Language'), get_nice_language_list(), _('Preferred language'), TRUE, $language);
-+        common_dropdown('language', _('Language'), get_nice_language_list(), _('Preferred language'), true, $language);
-hunk ./actions/profilesettings.php 105
--        common_dropdown('timezone', _('Timezone'), $timezones, _('What timezone are you normally in?'), TRUE, $timezone);
-+        common_dropdown('timezone', _('Timezone'), $timezones, _('What timezone are you normally in?'), true, $timezone);
-hunk ./actions/profilesettings.php 281
--            if ($result === FALSE) {
-+            if ($result === false) {
-hunk ./actions/profilesettings.php 301
--            if ($result === FALSE) {
-+            if ($result === false) {
-hunk ./actions/profilesettings.php 343
--        $this->show_form(_('Settings saved.'), TRUE);
-+        $this->show_form(_('Settings saved.'), true);
-hunk ./actions/profilesettings.php 437
--        if ($val !== TRUE) {
-+        if ($val !== true) {
-hunk ./actions/smssettings.php 114
--        if ($confirm->find(TRUE)) {
-+        if ($confirm->find(true)) {
-hunk ./actions/smssettings.php 168
--        if ($result === FALSE) {
-+        if ($result === false) {
-hunk ./actions/smssettings.php 218
--        if ($result === FALSE) {
-+        if ($result === false) {
-hunk ./actions/smssettings.php 232
--        $this->show_form($msg, TRUE);
-+        $this->show_form($msg, true);
-hunk ./actions/smssettings.php 260
--        $this->show_form(_('Confirmation cancelled.'), TRUE);
-+        $this->show_form(_('Confirmation cancelled.'), true);
-hunk ./actions/smssettings.php 290
--        $this->show_form(_('The address was removed.'), TRUE);
-+        $this->show_form(_('The address was removed.'), true);
-hunk ./actions/twitapifriendships.php 99
--        if ($sub->find(TRUE)) {
-+        if ($sub->find(true)) {
-hunk ./actions/twittersettings.php 291
--        $this->show_form(_('Twitter account removed.'), TRUE);
-+        $this->show_form(_('Twitter account removed.'), true);
-hunk ./actions/twittersettings.php 328
--        if ($result === FALSE) {
-+        if ($result === false) {
-hunk ./actions/userauthorization.php 214
--        common_debug('request token to look up: "'.print_r($rt,TRUE).'"');
-+        common_debug('request token to look up: "'.print_r($rt,true).'"');
-hunk ./actions/userauthorization.php 224
--        return FALSE;
-+        return false;
-hunk ./actions/userauthorization.php 280
--                return FALSE;
-+                return false;
-hunk ./actions/userauthorization.php 287
--                return FALSE;
-+                return false;
-hunk ./actions/userauthorization.php 292
--                return FALSE;
-+                return false;
-hunk ./actions/userauthorization.php 298
--                return FALSE;
-+                return false;
-hunk ./actions/userauthorization.php 314
--            return FALSE;
-+            return false;
-hunk ./actions/userauthorization.php 317
--        return TRUE;
-+        return true;
-hunk ./actions/userauthorization.php 443
--            if ($sub->find(TRUE)) {
-+            if ($sub->find(true)) {
-hunk ./classes/Foreign_link.php 38
--        if ($flink->find(TRUE)) {
-+        if ($flink->find(true)) {
-hunk ./classes/Foreign_link.php 51
--        if ($flink->find(TRUE)) {
-+        if ($flink->find(true)) {
-hunk ./classes/Foreign_link.php 67
--        if ($fuser->find(TRUE)) {
-+        if ($fuser->find(true)) {
-hunk ./classes/Notice.php 324
--        $needAnd = FALSE;
--        $needWhere = TRUE;
-+        $needAnd = false;
-+        $needWhere = true;
-hunk ./classes/Notice.php 328
--            $needWhere = FALSE;
--            $needAnd = TRUE;
-+            $needWhere = false;
-+            $needAnd = true;
-hunk ./classes/Notice.php 336
--                $needWhere = FALSE;
-+                $needWhere = false;
-hunk ./classes/Notice.php 348
--                $needWhere = FALSE;
-+                $needWhere = false;
-hunk ./classes/Notice.php 360
--                $needWhere = FALSE;
-+                $needWhere = false;
-hunk ./classes/Notice.php 414
--        if ($notices !== FALSE) {
-+        if ($notices !== false) {
-hunk ./classes/Queue_item.php 37
--        $cnt = $qi->find(TRUE);
-+        $cnt = $qi->find(true);
-hunk ./classes/User.php 202
--            return FALSE;
-+            return false;
-hunk ./classes/User.php 236
--            return FALSE;
-+            return false;
-hunk ./classes/User.php 250
--            return FALSE;
-+            return false;
-hunk ./classes/User.php 264
--                return FALSE;
-+                return false;
-hunk ./lib/oauthstore.php 62
--        if ($n->find(TRUE)) {
--            return TRUE;
-+        if ($n->find(true)) {
-+            return true;
-hunk ./lib/oauthstore.php 68
--            return FALSE;
-+            return false;
+hunk ./actions/accesstoken.php 24
+-class AccesstokenAction extends Action {
++class AccesstokenAction extends Action
++{
+hunk ./actions/all.php 24
+-class AllAction extends StreamAction {
++class AllAction extends StreamAction
++{
+hunk ./actions/allrss.php 26
+-class AllrssAction extends Rss10Action {
++class AllrssAction extends Rss10Action
++{
+hunk ./actions/api.php 22
+-class ApiAction extends Action {
++class ApiAction extends Action
++{
+hunk ./actions/avatarbynickname.php 22
+-class AvatarbynicknameAction extends Action {
++class AvatarbynicknameAction extends Action
++{
+hunk ./actions/block.php 22
+-class BlockAction extends Action {
++class BlockAction extends Action
++{
+hunk ./actions/confirmaddress.php 22
+-class ConfirmaddressAction extends Action {
++class ConfirmaddressAction extends Action
++{
+hunk ./actions/deletenotice.php 24
+-class DeletenoticeAction extends DeleteAction {
++class DeletenoticeAction extends DeleteAction
++{
+hunk ./actions/deleteprofile.php 22
+-class DeleteprofileAction extends Action {
++class DeleteprofileAction extends Action
++{
+hunk ./actions/disfavor.php 22
+-class DisfavorAction extends Action {
++class DisfavorAction extends Action
++{
+hunk ./actions/doc.php 22
+-class DocAction extends Action {
++class DocAction extends Action
++{
+hunk ./actions/emailsettings.php 24
+-class EmailsettingsAction extends SettingsAction {
++class EmailsettingsAction extends SettingsAction
++{
+hunk ./actions/facebookhome.php 24
+-class FacebookhomeAction extends FacebookAction {
++class FacebookhomeAction extends FacebookAction
++{
+hunk ./actions/facebookinvite.php 24
+-class FacebookinviteAction extends FacebookAction {
++class FacebookinviteAction extends FacebookAction
++{
+hunk ./actions/facebookremove.php 24
+-class FacebookremoveAction extends FacebookAction {
++class FacebookremoveAction extends FacebookAction
++{
+hunk ./actions/facebooksettings.php 24
+-class FacebooksettingsAction extends FacebookAction {
++class FacebooksettingsAction extends FacebookAction
++{
+hunk ./actions/favor.php 24
+-class FavorAction extends Action {
++class FavorAction extends Action
++{
+hunk ./actions/favorited.php 24
+-class FavoritedAction extends StreamAction {
++class FavoritedAction extends StreamAction
++{
+hunk ./actions/favoritesrss.php 26
+-class FavoritesrssAction extends Rss10Action {
++class FavoritesrssAction extends Rss10Action
++{
+hunk ./actions/featured.php 25
+-class FeaturedAction extends StreamAction {
++class FeaturedAction extends StreamAction
++{
+hunk ./actions/finishaddopenid.php 24
+-class FinishaddopenidAction extends Action {
++class FinishaddopenidAction extends Action
++{
+hunk ./actions/finishimmediate.php 24
+-class FinishimmediateAction extends Action {
++class FinishimmediateAction extends Action
++{
+hunk ./actions/finishopenidlogin.php 24
+-class FinishopenidloginAction extends Action {
++class FinishopenidloginAction extends Action
++{
+hunk ./actions/finishremotesubscribe.php 24
+-class FinishremotesubscribeAction extends Action {
++class FinishremotesubscribeAction extends Action
++{
+hunk ./actions/foaf.php 26
+-class FoafAction extends Action {
++class FoafAction extends Action
++{
+hunk ./actions/imsettings.php 25
+-class ImsettingsAction extends SettingsAction {
++class ImsettingsAction extends SettingsAction
++{
+hunk ./actions/invite.php 22
+-class InviteAction extends Action {
++class InviteAction extends Action
++{
+hunk ./actions/login.php 22
+-class LoginAction extends Action {
++class LoginAction extends Action
++{
+hunk ./actions/logout.php 24
+-class LogoutAction extends Action {
++class LogoutAction extends Action
++{
+hunk ./actions/microsummary.php 22
+-class MicrosummaryAction extends Action {
++class MicrosummaryAction extends Action
++{
+hunk ./actions/newmessage.php 22
+-class NewmessageAction extends Action {
++class NewmessageAction extends Action
++{
+hunk ./actions/newnotice.php 24
+-class NewnoticeAction extends Action {
++class NewnoticeAction extends Action
++{
+hunk ./actions/noticesearch.php 26
+-class NoticesearchAction extends SearchAction {
++class NoticesearchAction extends SearchAction
++{
+hunk ./actions/noticesearchrss.php 26
+-class NoticesearchrssAction extends Rss10Action {
++class NoticesearchrssAction extends Rss10Action
++{
+hunk ./actions/nudge.php 24
+-class NudgeAction extends Action {
++class NudgeAction extends Action
++{
+hunk ./actions/openidlogin.php 24
+-class OpenidloginAction extends Action {
++class OpenidloginAction extends Action
++{
+hunk ./actions/openidsettings.php 25
+-class OpenidsettingsAction extends SettingsAction {
++class OpenidsettingsAction extends SettingsAction
++{
+hunk ./actions/opensearch.php 22
+-class OpensearchAction extends Action {
++class OpensearchAction extends Action
++{
+hunk ./actions/othersettings.php 24
+-class OthersettingsAction extends SettingsAction {
++class OthersettingsAction extends SettingsAction
++{
+hunk ./actions/peoplesearch.php 25
+-class PeoplesearchAction extends SearchAction {
++class PeoplesearchAction extends SearchAction
++{
+hunk ./actions/peoplesearch.php 73
+-class PeopleSearchResults extends ProfileList {
++class PeopleSearchResults extends ProfileList
++{
+hunk ./actions/peopletag.php 24
+-class PeopletagAction extends Action {
++class PeopletagAction extends Action
++{
+hunk ./actions/postnotice.php 24
+-class PostnoticeAction extends Action {
++class PostnoticeAction extends Action
++{
+hunk ./actions/profilesettings.php 24
+-class ProfilesettingsAction extends SettingsAction {
++class ProfilesettingsAction extends SettingsAction
++{
+hunk ./actions/public.php 24
+-class PublicAction extends StreamAction {
++class PublicAction extends StreamAction
++{
+hunk ./actions/publicrss.php 26
+-class PublicrssAction extends Rss10Action {
++class PublicrssAction extends Rss10Action
++{
+hunk ./actions/publicxrds.php 26
+-class PublicxrdsAction extends Action {
++class PublicxrdsAction extends Action
++{
+hunk ./actions/recoverpassword.php 26
+-class RecoverpasswordAction extends Action {
++class RecoverpasswordAction extends Action
++{
+hunk ./actions/register.php 22
+-class RegisterAction extends Action {
++class RegisterAction extends Action
++{
+hunk ./actions/remotesubscribe.php 24
+-class RemotesubscribeAction extends Action {
++class RemotesubscribeAction extends Action
++{
+hunk ./actions/replies.php 24
+-class RepliesAction extends StreamAction {
++class RepliesAction extends StreamAction
++{
+hunk ./actions/repliesrss.php 26
+-class RepliesrssAction extends Rss10Action {
++class RepliesrssAction extends Rss10Action
++{
+hunk ./actions/requesttoken.php 24
+-class RequesttokenAction extends Action {
++class RequesttokenAction extends Action
++{
+hunk ./actions/showfavorites.php 24
+-class ShowfavoritesAction extends StreamAction {
++class ShowfavoritesAction extends StreamAction
++{
+hunk ./actions/showmessage.php 24
+-class ShowmessageAction extends MailboxAction {
++class ShowmessageAction extends MailboxAction
++{
+hunk ./actions/shownotice.php 24
+-class ShownoticeAction extends StreamAction {
++class ShownoticeAction extends StreamAction
++{
+hunk ./actions/showstream.php 27
+-class ShowstreamAction extends StreamAction {
++class ShowstreamAction extends StreamAction
++{
+hunk ./actions/showstream.php 453
+-class ProfileNoticeList extends NoticeList {
++class ProfileNoticeList extends NoticeList
++{
+hunk ./actions/showstream.php 461
+-class ProfileNoticeListItem extends NoticeListItem {
++class ProfileNoticeListItem extends NoticeListItem
++{
+hunk ./actions/smssettings.php 25
+-class SmssettingsAction extends EmailsettingsAction {
++class SmssettingsAction extends EmailsettingsAction
++{
+hunk ./actions/subedit.php 22
+-class SubeditAction extends Action {
++class SubeditAction extends Action
++{
+hunk ./actions/subscribe.php 22
+-class SubscribeAction extends Action {
++class SubscribeAction extends Action
++{
+hunk ./actions/subscribers.php 24
+-class SubscribersAction extends GalleryAction {
++class SubscribersAction extends GalleryAction
++{
+hunk ./actions/subscribers.php 63
+-class SubscribersList extends ProfileList {
++class SubscribersList extends ProfileList
++{
+hunk ./actions/subscriptions.php 24
+-class SubscriptionsAction extends GalleryAction {
++class SubscriptionsAction extends GalleryAction
++{
+hunk ./actions/subscriptions.php 63
+-class SubscriptionsList extends ProfileList {
++class SubscriptionsList extends ProfileList
++{
+hunk ./actions/sup.php 22
+-class SupAction extends Action {
++class SupAction extends Action
++{
+hunk ./actions/tag.php 25
+-class TagAction extends StreamAction {
++class TagAction extends StreamAction
++{
+hunk ./actions/tagother.php 24
+-class TagotherAction extends Action {
++class TagotherAction extends Action
++{
+hunk ./actions/tagrss.php 26
+-class TagrssAction extends Rss10Action {
++class TagrssAction extends Rss10Action
++{
+hunk ./actions/twitapiaccount.php 24
+-class TwitapiaccountAction extends TwitterapiAction {
++class TwitapiaccountAction extends TwitterapiAction
++{
+hunk ./actions/twitapiblocks.php 24
+-class TwitapiblocksAction extends TwitterapiAction {
++class TwitapiblocksAction extends TwitterapiAction
++{
+hunk ./actions/twitapidirect_messages.php 24
+-class Twitapidirect_messagesAction extends TwitterapiAction {
++class Twitapidirect_messagesAction extends TwitterapiAction
++{
+hunk ./actions/twitapifavorites.php 24
+-class TwitapifavoritesAction extends TwitterapiAction {
++class TwitapifavoritesAction extends TwitterapiAction
++{
+hunk ./actions/twitapifriendships.php 24
+-class TwitapifriendshipsAction extends TwitterapiAction {
++class TwitapifriendshipsAction extends TwitterapiAction
++{
+hunk ./actions/twitapihelp.php 24
+-class TwitapihelpAction extends TwitterapiAction {
++class TwitapihelpAction extends TwitterapiAction
++{
+hunk ./actions/twitapinotifications.php 25
+-class TwitapinotificationsAction extends TwitterapiAction {
++class TwitapinotificationsAction extends TwitterapiAction
++{
+hunk ./actions/twitapistatuses.php 24
+-class TwitapistatusesAction extends TwitterapiAction {
++class TwitapistatusesAction extends TwitterapiAction
++{
+hunk ./actions/twitapiusers.php 24
+-class TwitapiusersAction extends TwitterapiAction {
++class TwitapiusersAction extends TwitterapiAction
++{
+hunk ./actions/twittersettings.php 26
+-class TwittersettingsAction extends SettingsAction {
++class TwittersettingsAction extends SettingsAction
++{
+hunk ./actions/unblock.php 22
+-class UnblockAction extends Action {
++class UnblockAction extends Action
++{
+hunk ./actions/unsubscribe.php 20
+-class UnsubscribeAction extends Action {
++class UnsubscribeAction extends Action
++{
+hunk ./actions/updateprofile.php 24
+-class UpdateprofileAction extends Action {
++class UpdateprofileAction extends Action
++{
+hunk ./actions/userauthorization.php 25
+-class UserauthorizationAction extends Action {
++class UserauthorizationAction extends Action
++{
+hunk ./actions/userbyid.php 22
+-class UserbyidAction extends Action {
++class UserbyidAction extends Action
++{
+hunk ./actions/userrss.php 26
+-class UserrssAction extends Rss10Action {
++class UserrssAction extends Rss10Action
++{
+hunk ./actions/xrds.php 24
+-class XrdsAction extends Action {
++class XrdsAction extends Action
++{
+hunk ./classes/Channel.php 22
+-class Channel {
++class Channel
++{
+hunk ./classes/Channel.php 51
+-class XMPPChannel extends Channel {
++class XMPPChannel extends Channel
++{
+hunk ./classes/Channel.php 109
+-class WebChannel extends Channel {
++class WebChannel extends Channel
++{
+hunk ./classes/Channel.php 144
+-class AjaxWebChannel extends WebChannel {
++class AjaxWebChannel extends WebChannel
++{
+hunk ./classes/Channel.php 173
+-class MailChannel extends Channel {
++class MailChannel extends Channel
++{
+hunk ./classes/Command.php 24
+-class Command {
++class Command
++{
+hunk ./classes/Command.php 40
+-class UnimplementedCommand extends Command {
++class UnimplementedCommand extends Command
++{
+hunk ./classes/Command.php 48
+-class TrackingCommand extends UnimplementedCommand {
++class TrackingCommand extends UnimplementedCommand
++{
+hunk ./classes/Command.php 52
+-class TrackOffCommand extends UnimplementedCommand {
++class TrackOffCommand extends UnimplementedCommand
++{
+hunk ./classes/Command.php 56
+-class TrackCommand extends UnimplementedCommand {
++class TrackCommand extends UnimplementedCommand
++{
+hunk ./classes/Command.php 66
+-class UntrackCommand extends UnimplementedCommand {
++class UntrackCommand extends UnimplementedCommand
++{
+hunk ./classes/Command.php 76
+-class NudgeCommand extends UnimplementedCommand {
++class NudgeCommand extends UnimplementedCommand
++{
+hunk ./classes/Command.php 86
+-class InviteCommand extends UnimplementedCommand {
++class InviteCommand extends UnimplementedCommand
++{
+hunk ./classes/Command.php 96
+-class StatsCommand extends Command {
++class StatsCommand extends Command
++{
+hunk ./classes/Command.php 122
+-class FavCommand extends Command {
++class FavCommand extends Command
++{
+hunk ./classes/Command.php 170
+-class WhoisCommand extends Command {
++class WhoisCommand extends Command
++{
+hunk ./classes/Command.php 207
+-class MessageCommand extends Command {
++class MessageCommand extends Command
++{
+hunk ./classes/Command.php 252
+-class GetCommand extends Command {
++class GetCommand extends Command
++{
+hunk ./classes/Command.php 285
+-class SubCommand extends Command {
++class SubCommand extends Command
++{
+hunk ./classes/Command.php 314
+-class UnsubCommand extends Command {
++class UnsubCommand extends Command
++{
+hunk ./classes/Command.php 342
+-class OffCommand extends Command {
++class OffCommand extends Command
++{
+hunk ./classes/Command.php 364
+-class OnCommand extends Command {
++class OnCommand extends Command
++{
+hunk ./classes/Command.php 387
+-class HelpCommand extends Command {
++class HelpCommand extends Command
++{
+hunk ./classes/CommandInterpreter.php 24
+-class CommandInterpreter {
++class CommandInterpreter
++{
+hunk ./classes/NoticeWrapper.php 24
+-class NoticeWrapper extends Notice {
++class NoticeWrapper extends Notice
++{
+hunk ./lib/Shorturl_api.php 22
+-class ShortUrlApi {
++class ShortUrlApi
++{
+hunk ./lib/Shorturl_api.php 73
+-class LilUrl extends ShortUrlApi {
++class LilUrl extends ShortUrlApi
++{
+hunk ./lib/Shorturl_api.php 93
+-class PtitUrl extends ShortUrlApi {
++class PtitUrl extends ShortUrlApi
++{
+hunk ./lib/Shorturl_api.php 112
+-class TightUrl extends ShortUrlApi {
++class TightUrl extends ShortUrlApi
++{
+hunk ./lib/deleteaction.php 22
+-class DeleteAction extends Action {
++class DeleteAction extends Action
++{
+hunk ./lib/facebookaction.php 24
+-class FacebookAction extends Action {
++class FacebookAction extends Action
++{
+hunk ./lib/oauthstore.php 24
+-class LaconicaOAuthDataStore extends OAuthDataStore {
++class LaconicaOAuthDataStore extends OAuthDataStore
++{
+hunk ./lib/oauthstore.php 27
+-    # We keep a record of who's contacted us
++    // We keep a record of who's contacted us
+hunk ./lib/oauthstore.php 79
+-        $t->type = 0; # request
+-        $t->state = 0; # unauthorized
++        $t->type = 0; // request
++        $t->state = 0; // unauthorized
+hunk ./lib/oauthstore.php 89
+-    # defined in OAuthDataStore, but not implemented anywhere
++    // defined in OAuthDataStore, but not implemented anywhere
 hunk ./lib/oauthstore.php 102
--        if ($rt->find(TRUE) && $rt->state == 1) { # authorized
-+        if ($rt->find(true) && $rt->state == 1) { # authorized
-hunk ./lib/omb.php 142
--                $posted[$rp->postnoticeurl] = TRUE;
-+                $posted[$rp->postnoticeurl] = true;
-hunk ./lib/omb.php 211
--    common_debug('Got HTTP result "'.print_r($result,TRUE).'"', __FILE__);
-+    common_debug('Got HTTP result "'.print_r($result,true).'"', __FILE__);
-hunk ./lib/omb.php 244
--                        $updated[$rp->updateprofileurl] = TRUE;
-+                        $updated[$rp->updateprofileurl] = true;
-hunk ./lib/omb.php 296
--    common_debug('Got HTTP result "'.print_r($result,TRUE).'"', __FILE__);
-+    common_debug('Got HTTP result "'.print_r($result,true).'"', __FILE__);
-hunk ./lib/util.php 439
--function common_dropdown($id, $label, $content, $instructions=null, $blank_select=FALSE, $selected=null)
-+function common_dropdown($id, $label, $content, $instructions=null, $blank_select=false, $selected=null)
-hunk ./lib/util.php 1021
--    if ($recipient->find(TRUE)) {
-+    if ($recipient->find(true)) {
-hunk ./lib/util.php 1031
--    if ($recipient->find(TRUE)) {
-+    if ($recipient->find(true)) {
-hunk ./lib/util.php 2261
--    common_dropdown('to', _('To'), $mutual, null, FALSE, $to->id);
-+    common_dropdown('to', _('To'), $mutual, null, false, $to->id);
-hunk ./scripts/sitemap.php 334
--        if (is_writable($output_dir) === FALSE) {
-+        if (is_writable($output_dir) === false) {
-hunk ./scripts/sitemap.php 369
--    if (($fh_out = fopen($path,'w')) === FALSE) {
-+    if (($fh_out = fopen($path,'w')) === false) {
-hunk ./scripts/sitemap.php 373
--    if (fwrite($fh_out, $data) === FALSE) {
-+    if (fwrite($fh_out, $data) === false) {
-hunk ./scripts/xmppconfirmhandler.php 113
--        if ($confirm->find(TRUE)) {
-+        if ($confirm->find(true)) {
+-        $rt->type = 0; # request
+-        if ($rt->find(true) && $rt->state == 1) { # authorized
++        $rt->type = 0; // request
++        if ($rt->find(true) && $rt->state == 1) { // authorized
+hunk ./lib/oauthstore.php 109
+-            $at->type = 1; # access
++            $at->type = 1; // access
+hunk ./lib/oauthstore.php 117
+-                # burn the old one
++                // burn the old one
+hunk ./lib/oauthstore.php 119
+-                $rt->state = 2; # used
++                $rt->state = 2; // used
+hunk ./lib/oauthstore.php 124
+-                # Update subscription
+-                # XXX: mixing levels here
++                // Update subscription
++                // XXX: mixing levels here
+hunk ./lib/oauthstore.php 146
+-    # defined in OAuthDataStore, but not implemented anywhere
++    // defined in OAuthDataStore, but not implemented anywhere
+hunk ./lib/personal.php 22
+-class PersonalAction extends Action {
++class PersonalAction extends Action
++{
+hunk ./lib/profilelist.php 25
+-class ProfileList {
++class ProfileList
++{
+hunk ./lib/queuehandler.php 28
+-class QueueHandler extends Daemon {
++class QueueHandler extends Daemon
++{
+hunk ./lib/rssaction.php 24
+-class Rss10Action extends Action {
++class Rss10Action extends Action
++{
+hunk ./lib/search_engines.php 22
+-class SearchEngine {
++class SearchEngine
++{
+hunk ./lib/search_engines.php 49
+-class SphinxSearch extends SearchEngine {
++class SphinxSearch extends SearchEngine
++{
+hunk ./lib/search_engines.php 108
+-class MySQLSearch extends SearchEngine {
++class MySQLSearch extends SearchEngine
++{
+hunk ./lib/search_engines.php 121
+-class PGSearch extends SearchEngine {
++class PGSearch extends SearchEngine
++{
+hunk ./lib/searchaction.php 22
+-class SearchAction extends Action {
++class SearchAction extends Action
++{
+hunk ./lib/settingsaction.php 22
+-class SettingsAction extends Action {
++class SettingsAction extends Action
++{
+hunk ./lib/stream.php 25
+-class StreamAction extends PersonalAction {
++class StreamAction extends PersonalAction
++{
+hunk ./lib/twitterapi.php 22
+-class TwitterapiAction extends Action {
++class TwitterapiAction extends Action
++{
+hunk ./lib/xmppqueuehandler.php 31
+-class XmppQueueHandler extends QueueHandler {
++class XmppQueueHandler extends QueueHandler
++{
+hunk ./scripts/enjitqueuehandler.php 36
+-class EnjitQueueHandler extends QueueHandler {
++class EnjitQueueHandler extends QueueHandler
++{
+hunk ./scripts/jabberqueuehandler.php 36
+-class JabberQueueHandler extends XmppQueueHandler {
++class JabberQueueHandler extends XmppQueueHandler
++{
+hunk ./scripts/maildaemon.php 37
+-class MailerDaemon {
++class MailerDaemon
++{
+hunk ./scripts/ombqueuehandler.php 36
+-class OmbQueueHandler extends QueueHandler {
++class OmbQueueHandler extends QueueHandler
++{
+hunk ./scripts/publicqueuehandler.php 36
+-class PublicQueueHandler extends XmppQueueHandler {
++class PublicQueueHandler extends XmppQueueHandler
++{
+hunk ./scripts/smsqueuehandler.php 36
+-class SmsQueueHandler extends QueueHandler {
++class SmsQueueHandler extends QueueHandler
++{
+hunk ./scripts/xmppconfirmhandler.php 38
+-class XmppConfirmHandler extends XmppQueueHandler {
++class XmppConfirmHandler extends XmppQueueHandler
++{
+hunk ./scripts/xmppdaemon.php 40
+-class XMPPDaemon extends Daemon {
++class XMPPDaemon extends Daemon
++{

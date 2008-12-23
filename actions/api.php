@@ -19,7 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class ApiAction extends Action {
+class ApiAction extends Action
+{
 
     var $user;
     var $content_type;

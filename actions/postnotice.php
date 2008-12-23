@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/omb.php');
 
-class PostnoticeAction extends Action {
+class PostnoticeAction extends Action
+{
     function handle($args)
     {
         parent::handle($args);

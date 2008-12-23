@@ -22,7 +22,8 @@ if (!defined('LACONICA')) { exit(1); }
 require_once(INSTALLDIR.'/lib/personal.php');
 require_once(INSTALLDIR.'/lib/noticelist.php');
 
-class StreamAction extends PersonalAction {
+class StreamAction extends PersonalAction
+{
 
     function public_views_menu()
     {

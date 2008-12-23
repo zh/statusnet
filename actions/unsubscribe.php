@@ -17,7 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class UnsubscribeAction extends Action {
+class UnsubscribeAction extends Action
+{
 
     function handle($args)
     {

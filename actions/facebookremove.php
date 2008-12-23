@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/facebookaction.php');
 
-class FacebookremoveAction extends FacebookAction {
+class FacebookremoveAction extends FacebookAction
+{
 
     function handle($args)
     {

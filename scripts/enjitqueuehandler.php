@@ -33,7 +33,8 @@ require_once(INSTALLDIR . '/lib/queuehandler.php');
 
 set_error_handler('common_error_handler');
 
-class EnjitQueueHandler extends QueueHandler {
+class EnjitQueueHandler extends QueueHandler
+{
     
     function transport()
     {

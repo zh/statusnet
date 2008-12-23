@@ -19,7 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class DocAction extends Action {
+class DocAction extends Action
+{
 
     function handle($args)
     {

@@ -33,7 +33,8 @@ require_once(INSTALLDIR . '/lib/xmppqueuehandler.php');
 
 set_error_handler('common_error_handler');
 
-class PublicQueueHandler extends XmppQueueHandler {
+class PublicQueueHandler extends XmppQueueHandler
+{
     
     function transport()
     {

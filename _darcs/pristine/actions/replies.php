@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/actions/showstream.php');
 
-class RepliesAction extends StreamAction {
+class RepliesAction extends StreamAction
+{
 
     function handle($args)
     {

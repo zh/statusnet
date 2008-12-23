@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/classes/Notice.php');
 
-class NoticeWrapper extends Notice {
+class NoticeWrapper extends Notice
+{
 
     public $id;                              // int(4)  primary_key not_null
     public $profile_id;                      // int(4)   not_null
