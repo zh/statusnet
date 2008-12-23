@@ -52,7 +52,7 @@ class OpenidloginAction extends Action {
             }
         } else {
             $openid_url = oid_get_last();
-            $this->show_form(NULL, $openid_url);
+            $this->show_form(null, $openid_url);
         }
     }
 
@@ -60,7 +60,7 @@ class OpenidloginAction extends Action {
         return _('Login with an [OpenID](%%doc.openid%%) account.');
     }
 
-    function show_top($error=NULL) {
+    function show_top($error=null) {
         if ($error) {
             common_element('div', array('class' => 'error'), $error);
         } else {
@@ -72,8 +72,8 @@ class OpenidloginAction extends Action {
         }
     }
 
-    function show_form($error=NULL, $openid_url) {
-        common_show_header(_('OpenID Login'), NULL, $error, array($this, 'show_top'));
+    function show_form($error=null, $openid_url) {
+        common_show_header(_('OpenID Login'), null, $error, array($this, 'show_top'));
         $formaction = common_local_url('openidlogin');
         common_element_start('form', array('method' => 'post',
                                            'id' => 'openidlogin',

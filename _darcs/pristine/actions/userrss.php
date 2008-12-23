@@ -25,7 +25,7 @@ require_once(INSTALLDIR.'/lib/rssaction.php');
 
 class UserrssAction extends Rss10Action {
 
-    var $user = NULL;
+    var $user = null;
 
     function init() {
         $nickname = $this->trimmed('nickname');
@@ -44,7 +44,7 @@ class UserrssAction extends Rss10Action {
         $user = $this->user;
         
         if (is_null($user)) {
-            return NULL;
+            return null;
         }
         
         $notice = $user->getNotices(0, ($limit == 0) ? NOTICES_PER_PAGE : $limit);
@@ -74,16 +74,16 @@ class UserrssAction extends Rss10Action {
         if (!$profile) {
             common_log_db_error($user, 'SELECT', __FILE__);
             $this->server_error(_('User without matching profile'));
-            return NULL;
+            return null;
         }
         $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
-        return ($avatar) ? $avatar->url : NULL;
+        return ($avatar) ? $avatar->url : null;
     }
 
     # override parent to add X-SUP-ID URL
     
     function init_rss($limit=0) {
-        $url = common_local_url('sup', NULL, $this->user->id);
+        $url = common_local_url('sup', null, $this->user->id);
         header('X-SUP-ID: '.$url);
         parent::init_rss($limit);
     }

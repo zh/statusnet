@@ -78,7 +78,7 @@ class NewnoticeAction extends Action {
 
         $replyto = $this->trimmed('inreplyto');
 
-        $notice = Notice::saveNew($user->id, $content, 'web', 1, ($replyto == 'false') ? NULL : $replyto);
+        $notice = Notice::saveNew($user->id, $content, 'web', 1, ($replyto == 'false') ? null : $replyto);
 
         if (is_string($notice)) {
             $this->show_form($notice);
@@ -121,11 +121,11 @@ class NewnoticeAction extends Action {
         common_element_end('html');
     }
 
-    function show_top($content=NULL) {
-        common_notice_form(NULL, $content);
+    function show_top($content=null) {
+        common_notice_form(null, $content);
     }
 
-    function show_form($msg=NULL) {
+    function show_form($msg=null) {
         if ($msg && $this->boolean('ajax')) {
             $this->ajax_error_msg($msg);
             return;
@@ -138,7 +138,7 @@ class NewnoticeAction extends Action {
                 $content = '@' . $profile->nickname . ' ';
             }
         }
-        common_show_header(_('New notice'), NULL, $content,
+        common_show_header(_('New notice'), null, $content,
                            array($this, 'show_top'));
         if ($msg) {
             common_element('p', array('id' => 'error'), $msg);

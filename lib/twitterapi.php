@@ -34,15 +34,15 @@ class TwitterapiAction extends Action {
         $twitter_user['name'] = $profile->getBestName();
         $twitter_user['followers_count'] = $this->count_subscriptions($profile);
         $twitter_user['screen_name'] = $profile->nickname;
-        $twitter_user['description'] = ($profile->bio) ? $profile->bio : NULL;
-        $twitter_user['location'] = ($profile->location) ? $profile->location : NULL;
+        $twitter_user['description'] = ($profile->bio) ? $profile->bio : null;
+        $twitter_user['location'] = ($profile->location) ? $profile->location : null;
         $twitter_user['id'] = intval($profile->id);
 
         $avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
 
         $twitter_user['profile_image_url'] = ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE);
         $twitter_user['protected'] = 'false'; # not supported by Laconica yet
-        $twitter_user['url'] = ($profile->homepage) ? $profile->homepage : NULL;
+        $twitter_user['url'] = ($profile->homepage) ? $profile->homepage : null;
 
         if ($get_notice) {
             $notice = $profile->getCurrentNotice();
@@ -63,10 +63,10 @@ class TwitterapiAction extends Action {
         $twitter_status['text'] = $notice->content;
         $twitter_status['truncated'] = 'false'; # Not possible on Laconica
         $twitter_status['created_at'] = $this->date_twitter($notice->created);
-        $twitter_status['in_reply_to_status_id'] = ($notice->reply_to) ? intval($notice->reply_to) : NULL;
+        $twitter_status['in_reply_to_status_id'] = ($notice->reply_to) ? intval($notice->reply_to) : null;
         $twitter_status['source'] = $this->source_link($notice->source);
         $twitter_status['id'] = intval($notice->id);
-        $twitter_status['in_reply_to_user_id'] = ($notice->reply_to) ? $this->replier_by_reply(intval($notice->reply_to)) : NULL;
+        $twitter_status['in_reply_to_user_id'] = ($notice->reply_to) ? $this->replier_by_reply(intval($notice->reply_to)) : null;
 
         if (isset($this->auth_user)) {
             $twitter_status['favorited'] = ($this->auth_user->hasFave($notice)) ? 'true' : 'false';
@@ -157,10 +157,10 @@ class TwitterapiAction extends Action {
                 $this->show_twitter_xml_user($twitter_status['user']);
                 break;
             case 'text':
-                common_element($element, NULL, common_xml_safe_str($value));
+                common_element($element, null, common_xml_safe_str($value));
                 break;
             default:
-                common_element($element, NULL, $value);
+                common_element($element, null, $value);
             }
         }
         common_element_end('status');
@@ -172,7 +172,7 @@ class TwitterapiAction extends Action {
             if ($element == 'status') {
                 $this->show_twitter_xml_status($twitter_user['status']);
             } else {
-                common_element($element, NULL, $value);
+                common_element($element, null, $value);
             }
         }
         common_element_end($role);
@@ -180,22 +180,22 @@ class TwitterapiAction extends Action {
 
     function show_twitter_rss_item($entry) {
         common_element_start('item');
-        common_element('title', NULL, $entry['title']);
-        common_element('description', NULL, $entry['description']);
-        common_element('pubDate', NULL, $entry['pubDate']);
-        common_element('guid', NULL, $entry['guid']);
-        common_element('link', NULL, $entry['link']);
+        common_element('title', null, $entry['title']);
+        common_element('description', null, $entry['description']);
+        common_element('pubDate', null, $entry['pubDate']);
+        common_element('guid', null, $entry['guid']);
+        common_element('link', null, $entry['link']);
         common_element_end('item');
     }
 
     function show_twitter_atom_entry($entry) {
         common_element_start('entry');
-        common_element('title', NULL, $entry['title']);
+        common_element('title', null, $entry['title']);
         common_element('content', array('type' => 'html'), $entry['content']);
-        common_element('id', NULL, $entry['id']);
-        common_element('published', NULL, $entry['published']);
-        common_element('updated', NULL, $entry['updated']);
-        common_element('link', array('href' => $entry['link'], 'rel' => 'alternate', 'type' => 'text/html'), NULL);
+        common_element('id', null, $entry['id']);
+        common_element('published', null, $entry['published']);
+        common_element('updated', null, $entry['updated']);
+        common_element('link', array('href' => $entry['link'], 'rel' => 'alternate', 'type' => 'text/html'), null);
         common_element_end('entry');
     }
 
@@ -240,10 +240,10 @@ class TwitterapiAction extends Action {
                 $this->show_twitter_xml_user($value, $element);
                 break;
             case 'text':
-                common_element($element, NULL, common_xml_safe_str($value));
+                common_element($element, null, common_xml_safe_str($value));
                 break;
             default:
-                common_element($element, NULL, $value);
+                common_element($element, null, $value);
             }
         }
         common_element_end('direct_message');
@@ -270,13 +270,13 @@ class TwitterapiAction extends Action {
         $this->end_document('xml');
     }
 
-    function show_rss_timeline($notice, $title, $link, $subtitle, $suplink=NULL) {
+    function show_rss_timeline($notice, $title, $link, $subtitle, $suplink=null) {
 
         $this->init_document('rss');
 
         common_element_start('channel');
-        common_element('title', NULL, $title);
-        common_element('link', NULL, $link);
+        common_element('title', null, $title);
+        common_element('link', null, $link);
         if (!is_null($suplink)) {
             # For FriendFeed's SUP protocol
             common_element('link', array('xmlns' => 'http://www.w3.org/2005/Atom',
@@ -284,9 +284,9 @@ class TwitterapiAction extends Action {
                                          'href' => $suplink,
                                          'type' => 'application/json'));
         }
-        common_element('description', NULL, $subtitle);
-        common_element('language', NULL, 'en-us');
-        common_element('ttl', NULL, '40');
+        common_element('description', null, $subtitle);
+        common_element('language', null, 'en-us');
+        common_element('ttl', null, '40');
 
         if (is_array($notice)) {
             foreach ($notice as $n) {
@@ -304,20 +304,20 @@ class TwitterapiAction extends Action {
         $this->end_twitter_rss();
     }
 
-    function show_atom_timeline($notice, $title, $id, $link, $subtitle=NULL, $suplink=NULL) {
+    function show_atom_timeline($notice, $title, $id, $link, $subtitle=null, $suplink=null) {
 
         $this->init_document('atom');
 
-        common_element('title', NULL, $title);
-        common_element('id', NULL, $id);
-        common_element('link', array('href' => $link, 'rel' => 'alternate', 'type' => 'text/html'), NULL);
+        common_element('title', null, $title);
+        common_element('id', null, $id);
+        common_element('link', array('href' => $link, 'rel' => 'alternate', 'type' => 'text/html'), null);
         if (!is_null($suplink)) {
             # For FriendFeed's SUP protocol
             common_element('link', array('rel' => 'http://api.friendfeed.com/2008/03#sup',
                                          'href' => $suplink,
                                          'type' => 'application/json'));
         }
-        common_element('subtitle', NULL, $subtitle);
+        common_element('subtitle', null, $subtitle);
 
         if (is_array($notice)) {
             foreach ($notice as $n) {
@@ -377,7 +377,7 @@ class TwitterapiAction extends Action {
         } else {
             common_debug("Can't get notice: $reply_id", __FILE__);
         }
-        return NULL;
+        return null;
     }
 
     // XXX: Candidate for a general utility method somewhere?
@@ -488,8 +488,8 @@ class TwitterapiAction extends Action {
         if ($content_type == 'xml') {
             $this->init_document('xml');
             common_element_start('hash');
-            common_element('error', NULL, $msg);
-            common_element('request', NULL, $_SERVER['REQUEST_URI']);
+            common_element('error', null, $msg);
+            common_element('request', null, $_SERVER['REQUEST_URI']);
             common_element_end('hash');
             $this->end_document('xml');
         } else {
@@ -521,7 +521,7 @@ class TwitterapiAction extends Action {
         common_element_end('feed');
     }
 
-    function show_profile($profile, $content_type='xml', $notice=NULL) {
+    function show_profile($profile, $content_type='xml', $notice=null) {
         $profile_array = $this->twitter_user_array($profile, true);
         switch ($content_type) {
          case 'xml':
@@ -537,7 +537,7 @@ class TwitterapiAction extends Action {
         return;
     }
 
-    function get_user($id, $apidata=NULL) {
+    function get_user($id, $apidata=null) {
         if (!$id) {
             return $apidata['user'];
         } else if (is_numeric($id)) {
@@ -556,7 +556,7 @@ class TwitterapiAction extends Action {
             if ($user) {
                 return $user->getProfile();
             } else {
-                return NULL;
+                return null;
             }
         }
     }

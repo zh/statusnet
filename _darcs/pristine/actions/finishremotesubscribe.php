@@ -278,7 +278,7 @@ class FinishremotesubscribeAction extends Action {
         common_debug('got result: "'.print_r($result,TRUE).'"', __FILE__);
 
         if ($result->status != 200) {
-            return NULL;
+            return null;
         }
 
         parse_str($result->body, $return);

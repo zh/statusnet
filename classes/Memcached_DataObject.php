@@ -23,7 +23,7 @@ require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
 class Memcached_DataObject extends DB_DataObject 
 {
-    function &staticGet($cls, $k, $v=NULL) {
+    function &staticGet($cls, $k, $v=null) {
         if (is_null($v)) {
             $v = $k;
             # XXX: HACK!
@@ -56,7 +56,7 @@ class Memcached_DataObject extends DB_DataObject
             if ($i->find(true)) {
                 $i->encache();
             } else {
-                $i = NULL;
+                $i = null;
             }
             return $i;
         }
@@ -67,7 +67,7 @@ class Memcached_DataObject extends DB_DataObject
         return $result;
     }
     
-    function update($orig=NULL) {
+    function update($orig=null) {
         if (is_object($orig) && $orig instanceof Memcached_DataObject) {
             $orig->decache(); # might be different keys
         }

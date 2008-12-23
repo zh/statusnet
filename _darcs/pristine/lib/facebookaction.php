@@ -81,7 +81,7 @@ class FacebookAction extends Action {
 
         $fbml_main = "<fb:narrow>$content $html</fb:narrow>";
 
-        $facebook->api_client->profile_setFBML(NULL, $fbuid, $fbml, NULL, NULL, $fbml_main);
+        $facebook->api_client->profile_setFBML(null, $fbuid, $fbml, null, null, $fbml_main);
     }
 
     # Display methods
@@ -235,7 +235,7 @@ class FacebookAction extends Action {
         return $html;
     }
 
-    function pagination($have_before, $have_after, $page, $fbaction, $args=NULL) {
+    function pagination($have_before, $have_after, $page, $fbaction, $args=null) {
 
         $html = '';
 
@@ -266,7 +266,7 @@ class FacebookAction extends Action {
         }
     }
 
-    function pagination_url($fbaction, $args=NULL) {
+    function pagination_url($fbaction, $args=null) {
         global $config;
 
         $extra = '';

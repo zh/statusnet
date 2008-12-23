@@ -21,7 +21,7 @@ class Avatar extends Memcached_DataObject
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
-    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Avatar',$k,$v); }
+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Avatar',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
@@ -72,7 +72,7 @@ class Avatar extends Memcached_DataObject
         if ($scaled->insert()) {
             return $scaled;
         } else {
-            return NULL;
+            return null;
         }
     }
 
@@ -85,7 +85,7 @@ class Avatar extends Memcached_DataObject
         } else if ($this->mediatype == 'image/png') {
             return imagecreatefrompng($filepath);
         } else {
-            return NULL;
+            return null;
         }
     }
     

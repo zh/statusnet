@@ -23,9 +23,9 @@ require_once(INSTALLDIR.'/lib/stream.php');
 
 class ShownoticeAction extends StreamAction {
 
-    var $notice = NULL;
-    var $profile = NULL;
-    var $avatar = NULL;
+    var $notice = null;
+    var $profile = null;
+    var $avatar = null;
 
     function prepare($args) {
 
@@ -73,7 +73,7 @@ class ShownoticeAction extends StreamAction {
         common_show_header(sprintf(_('%1$s\'s status on %2$s'),
                                    $this->profile->nickname,
                                    common_exact_date($this->notice->created)),
-                           array($this, 'show_header'), NULL,
+                           array($this, 'show_header'), null,
                            array($this, 'show_top'));
 
         common_element_start('ul', array('id' => 'notices'));

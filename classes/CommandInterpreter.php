@@ -37,14 +37,14 @@ class CommandInterpreter {
         switch(strtolower($cmd)) {
          case 'help':
             if ($arg) {
-                return NULL;
+                return null;
             }
             return new HelpCommand($user);
          case 'on':
             if ($arg) {
                 list($other, $extra) = explode(' ', $arg, 2);
                 if ($extra) {
-                    return NULL;
+                    return null;
                 } else {
                     return new OnCommand($user, $other);
                 }
@@ -55,7 +55,7 @@ class CommandInterpreter {
             if ($arg) {
                 list($other, $extra) = explode(' ', $arg, 2);
                 if ($extra) {
-                    return NULL;
+                    return null;
                 } else {
                     return new OffCommand($user, $other);
                 }
@@ -65,105 +65,105 @@ class CommandInterpreter {
          case 'stop':
          case 'quit':
             if ($arg) {
-                return NULL;
+                return null;
             } else {
                 return new OffCommand($user);
             }
          case 'follow':
          case 'sub':
             if (!$arg) {
-                return NULL;
+                return null;
             }
             list($other, $extra) = explode(' ', $arg, 2);
             if ($extra) {
-                return NULL;
+                return null;
             } else {
                 return new SubCommand($user, $other);
             }
          case 'leave':
          case 'unsub':
             if (!$arg) {
-                return NULL;
+                return null;
             }
             list($other, $extra) = explode(' ', $arg, 2);
             if ($extra) {
-                return NULL;
+                return null;
             } else {
                 return new UnsubCommand($user, $other);
             }
          case 'get':
          case 'last':
             if (!$arg) {
-                return NULL;
+                return null;
             }
             list($other, $extra) = explode(' ', $arg, 2);
             if ($extra) {
-                return NULL;
+                return null;
             } else {
                 return new GetCommand($user, $other);
             }
          case 'd':
             if (!$arg) {
-                return NULL;
+                return null;
             }
             list($other, $extra) = explode(' ', $arg, 2);
             if (!$extra) {
-                return NULL;
+                return null;
             } else {
                 return new MessageCommand($user, $other, $extra);
             }
          case 'whois':
             if (!$arg) {
-                return NULL;
+                return null;
             }
             list($other, $extra) = explode(' ', $arg, 2);
             if ($extra) {
-                return NULL;
+                return null;
             } else {
                 return new WhoisCommand($user, $other);
             }
          case 'fav':
             if (!$arg) {
-                return NULL;
+                return null;
             }
             list($other, $extra) = explode(' ', $arg, 2);
             if ($extra) {
-                return NULL;
+                return null;
             } else {
                 return new FavCommand($user, $other);
             }
          case 'nudge':
             if (!$arg) {
-                return NULL;
+                return null;
             }
             list($other, $extra) = explode(' ', $arg, 2);
             if ($extra) {
-                return NULL;
+                return null;
             } else {
                 return new NudgeCommand($user, $other);
             }
          case 'stats':
             if ($arg) {
-                return NULL;
+                return null;
             }
             return new StatsCommand($user);
          case 'invite':
             if (!$arg) {
-                return NULL;
+                return null;
             }
             list($other, $extra) = explode(' ', $arg, 2);
             if ($extra) {
-                return NULL;
+                return null;
             } else {
                 return new InviteCommand($user, $other);
             }
          case 'track':
             if (!$arg) {
-                return NULL;
+                return null;
             }
             list($word, $extra) = explode(' ', $arg, 2);
             if ($extra) {
-                return NULL;
+                return null;
             } else if ($word == 'off') {
                 return new TrackOffCommand($user);
             } else {
@@ -171,11 +171,11 @@ class CommandInterpreter {
             }
          case 'untrack':
             if (!$arg) {
-                return NULL;
+                return null;
             }
             list($word, $extra) = explode(' ', $arg, 2);
             if ($extra) {
-                return NULL;
+                return null;
             } else if ($word == 'all') {
                 return new TrackOffCommand($user);
             } else {
@@ -184,7 +184,7 @@ class CommandInterpreter {
          case 'tracks':
          case 'tracking':
             if ($arg) {
-                return NULL;
+                return null;
             }
             return new TrackingCommand($user);
          default:

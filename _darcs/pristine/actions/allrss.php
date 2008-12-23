@@ -25,7 +25,7 @@ require_once(INSTALLDIR.'/lib/rssaction.php');
 
 class AllrssAction extends Rss10Action {
 
-    var $user = NULL;
+    var $user = null;
 
     function init() {
         $nickname = $this->trimmed('nickname');
@@ -69,9 +69,9 @@ class AllrssAction extends Rss10Action {
         $user = $this->user;
         $profile = $user->getProfile();
         if (!$profile) {
-            return NULL;
+            return null;
         }
         $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
-        return ($avatar) ? $avatar->url : NULL;
+        return ($avatar) ? $avatar->url : null;
     }
 }

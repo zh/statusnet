@@ -55,7 +55,7 @@ class Rss10Action extends Action {
     }
 
     function get_image() {
-        return NULL;
+        return null;
     }
 
     function show_rss($limit=0) {
@@ -84,9 +84,9 @@ class Rss10Action extends Action {
         $image = $this->get_image();
 
         common_element_start('channel', array('rdf:about' => $channel['url']));
-        common_element('title', NULL, $channel['title']);
-        common_element('link', NULL, $channel['link']);
-        common_element('description', NULL, $channel['description']);
+        common_element('title', null, $channel['title']);
+        common_element('link', null, $channel['link']);
+        common_element('description', null, $channel['description']);
         common_element('cc:licence', array('rdf:resource' => common_config('license','url')));
 
         if ($image) {
@@ -111,9 +111,9 @@ class Rss10Action extends Action {
         if ($image) {
             $channel = $this->get_channel();
             common_element_start('image', array('rdf:about' => $image));
-            common_element('title', NULL, $channel['title']);
-            common_element('link', NULL, $channel['link']);
-            common_element('url', NULL, $image);
+            common_element('title', null, $channel['title']);
+            common_element('link', null, $channel['link']);
+            common_element('url', null, $image);
             common_element_end('image');
         }
     }
@@ -124,11 +124,11 @@ class Rss10Action extends Action {
         $creator_uri = common_profile_uri($profile);
         common_element_start('item', array('rdf:about' => $notice->uri));
         $title = $profile->nickname . ': ' . common_xml_safe_str(trim($notice->content));
-        common_element('title', NULL, $title);
-        common_element('link', NULL, $nurl);
-        common_element('description', NULL, $profile->nickname."'s status on ".common_exact_date($notice->created));
-        common_element('dc:date', NULL, common_date_w3dtf($notice->created));
-        common_element('dc:creator', NULL, ($profile->fullname) ? $profile->fullname : $profile->nickname);
+        common_element('title', null, $title);
+        common_element('link', null, $nurl);
+        common_element('description', null, $profile->nickname."'s status on ".common_exact_date($notice->created));
+        common_element('dc:date', null, common_date_w3dtf($notice->created));
+        common_element('dc:creator', null, ($profile->fullname) ? $profile->fullname : $profile->nickname);
         common_element('sioc:has_creator', array('rdf:resource' => $creator_uri));
         common_element('laconica:postIcon', array('rdf:resource' => common_profile_avatar_url($profile)));
         common_element('cc:licence', array('rdf:resource' => common_config('license', 'url')));
@@ -141,11 +141,11 @@ class Rss10Action extends Action {
             $id = $profile->id;
             $nickname = $profile->nickname;
             common_element_start('sioc:User', array('rdf:about' => $uri));
-            common_element('foaf:nick', NULL, $nickname);
+            common_element('foaf:nick', null, $nickname);
             if ($profile->fullname) {
-                common_element('foaf:name', NULL, $profile->fullname);
+                common_element('foaf:name', null, $profile->fullname);
             }
-            common_element('sioc:id', NULL, $id);
+            common_element('sioc:id', null, $id);
             $avatar = common_profile_avatar_url($profile);
             common_element('sioc:avatar', array('rdf:resource' => $avatar));
             common_element_end('sioc:User');
@@ -175,7 +175,7 @@ class Rss10Action extends Action {
                                               'http://laconi.ca/ont/',
                                               'xmlns' => 'http://purl.org/rss/1.0/'));
         common_element_start('sioc:Site', array('rdf:about' => common_root_url()));
-        common_element('sioc:name', NULL, common_config('site', 'name'));
+        common_element('sioc:name', null, common_config('site', 'name'));
         common_element_start('sioc:container_of');
         common_element('sioc:Container', array('rdf:about' =>
                                                $channel['url']));

@@ -52,7 +52,7 @@ class FinishopenidloginAction extends Action {
         }
     }
 
-    function show_top($error=NULL) {
+    function show_top($error=null) {
         if ($error) {
             common_element('div', array('class' => 'error'), $error);
         } else {
@@ -62,17 +62,17 @@ class FinishopenidloginAction extends Action {
         }
     }
 
-    function show_form($error=NULL, $username=NULL) {
-        common_show_header(_('OpenID Account Setup'), NULL, $error,
+    function show_form($error=null, $username=null) {
+        common_show_header(_('OpenID Account Setup'), null, $error,
                            array($this, 'show_top'));
 
         common_element_start('form', array('method' => 'post',
                                            'id' => 'account_connect',
                                            'action' => common_local_url('finishopenidlogin')));
         common_hidden('token', common_session_token());
-        common_element('h2', NULL,
+        common_element('h2', null,
                        _('Create new account'));
-        common_element('p', NULL,
+        common_element('p', null,
                        _('Create a new user with this nickname.'));
         common_input('newname', _('New nickname'),
                      ($username) ? $username : '',
@@ -88,9 +88,9 @@ class FinishopenidloginAction extends Action {
         common_text(_(' except this private data: password, email address, IM address, phone number.'));
         common_element_end('p');
         common_submit('create', _('Create'));
-        common_element('h2', NULL,
+        common_element('h2', null,
                        _('Connect existing account'));
-        common_element('p', NULL,
+        common_element('p', null,
                        _('If you already have an account, login with your username and password to connect it to your OpenID.'));
         common_input('nickname', _('Existing nickname'));
         common_password('password', _('Password'));
@@ -141,14 +141,14 @@ class FinishopenidloginAction extends Action {
                 $this->go_home($user->nickname);
             } else {
                 $this->save_values($display, $canonical, $sreg);
-                $this->show_form(NULL, $this->best_new_nickname($display, $sreg));
+                $this->show_form(null, $this->best_new_nickname($display, $sreg));
             }
         }
     }
 
     function message($msg) {
         common_show_header(_('OpenID Login'));
-        common_element('p', NULL, $msg);
+        common_element('p', null, $msg);
         common_show_footer();
     }
 
@@ -290,7 +290,7 @@ class FinishopenidloginAction extends Action {
         $url = common_get_returnto();
         if ($url) {
             # We don't have to return to it again
-            common_set_returnto(NULL);
+            common_set_returnto(null);
         } else {
             $url = common_local_url('all',
                                     array('nickname' =>
@@ -329,7 +329,7 @@ class FinishopenidloginAction extends Action {
 
         # XXX: others?
 
-        return NULL;
+        return null;
     }
 
     function is_new_nickname($str) {
@@ -369,7 +369,7 @@ class FinishopenidloginAction extends Action {
 
         foreach ($bad as $badpart) {
             if (array_key_exists($badpart, $parts)) {
-                return NULL;
+                return null;
             }
         }
 
@@ -403,14 +403,14 @@ class FinishopenidloginAction extends Action {
             }
         }
 
-        return NULL;
+        return null;
     }
 
     function xri_to_nickname($xri) {
         $base = $this->xri_base($xri);
 
         if (!$base) {
-            return NULL;
+            return null;
         } else {
             # =evan.prodromou
             # or @gratis*evan.prodromou

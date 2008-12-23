@@ -36,9 +36,9 @@ class DeleteprofileAction extends Action {
         return _('Export and delete your user information.');
     }
 
-    function form_header($title, $msg=NULL, $success=false) {
+    function form_header($title, $msg=null, $success=false) {
         common_show_header($title,
-                           NULL,
+                           null,
                            array($msg, $success),
                            array($this, 'show_top'));
     }
@@ -84,9 +84,9 @@ class DeleteprofileAction extends Action {
         common_element_end('li');
     }
 
-    function show_form($msg=NULL, $success=false) {
+    function show_form($msg=null, $success=false) {
         $this->form_header(_('Delete my account'), $msg, $success);
-        common_element('h2', NULL, _('Delete my account confirmation'));
+        common_element('h2', null, _('Delete my account confirmation'));
         $this->show_confirm_delete_form();
         common_show_footer();
     }
@@ -213,7 +213,7 @@ class DeleteprofileAction extends Action {
         $n_users_deleted = $user->delete();
 
         // logout and redirect to public
-        common_set_user(NULL);
+        common_set_user(null);
         common_real_login(false); # not logged in
         common_forgetme(); # don't log back in!
         common_redirect(common_local_url('public'));

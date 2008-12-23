@@ -41,12 +41,12 @@ class Profile extends Memcached_DataObject
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
-    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Profile',$k,$v); }
+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Profile',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    function getAvatar($width, $height=NULL) {
+    function getAvatar($width, $height=null) {
         if (is_null($height)) {
             $height = $width;
         }
@@ -62,7 +62,7 @@ class Profile extends Memcached_DataObject
         if ($avatar->find(true)) {
             return $avatar;
         } else {
-            return NULL;
+            return null;
         }
     }
 
@@ -71,12 +71,12 @@ class Profile extends Memcached_DataObject
         $info = @getimagesize($source);
 
         if (!$info) {
-            return NULL;
+            return null;
         }
 
         $filename = common_avatar_filename($this->id,
                                            image_type_to_extension($info[2]),
-                                           NULL, common_timestamp());
+                                           null, common_timestamp());
         $filepath = common_avatar_path($filename);
 
         copy($source, $filepath);
@@ -96,12 +96,12 @@ class Profile extends Memcached_DataObject
 
         if (!$this->delete_avatars()) {
             @unlink($filepath);
-            return NULL;
+            return null;
         }
 
         if (!$avatar->insert()) {
             @unlink($filepath);
-            return NULL;
+            return null;
         }
 
         foreach (array(AVATAR_PROFILE_SIZE, AVATAR_STREAM_SIZE, AVATAR_MINI_SIZE) as $size) {
@@ -109,7 +109,7 @@ class Profile extends Memcached_DataObject
             if (!($avatar->width == $size && $avatar->height == $size)) {
                 $s = $avatar->scale($size);
                 if (!$s) {
-                    return NULL;
+                    return null;
                 }
             }
         }
@@ -132,7 +132,7 @@ class Profile extends Memcached_DataObject
     }
 
     # Get latest notice on or before date; default now
-    function getCurrentNotice($dt=NULL) {
+    function getCurrentNotice($dt=null) {
         $notice = new Notice();
         $notice->profile_id = $this->id;
         if ($dt) {
@@ -143,7 +143,7 @@ class Profile extends Memcached_DataObject
         if ($notice->find(true)) {
             return $notice;
         }
-        return NULL;
+        return null;
     }
 
     function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0) {

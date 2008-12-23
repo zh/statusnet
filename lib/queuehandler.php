@@ -29,7 +29,7 @@ class QueueHandler extends Daemon {
 
     var $_id = 'generic';
 
-    function QueueHandler($id=NULL) {
+    function QueueHandler($id=null) {
         if ($id) {
             $this->set_id($id);
         }
@@ -52,7 +52,7 @@ class QueueHandler extends Daemon {
     }
     
     function transport() {
-        return NULL;
+        return null;
     }
     
     function start() {
@@ -83,7 +83,7 @@ class QueueHandler extends Daemon {
                     if (!$result) {
                         $this->log(LOG_WARNING, 'Failed broadcast for notice ID = ' . $notice->id);
                         $orig = $qi;
-                        $qi->claimed = NULL;
+                        $qi->claimed = null;
                         $qi->update($orig);
                         $this->log(LOG_WARNING, 'Abandoned claim for notice ID = ' . $notice->id);
                         continue;
@@ -91,7 +91,7 @@ class QueueHandler extends Daemon {
                     $this->log(LOG_INFO, 'finished broadcasting notice ID = ' . $notice->id);
                     $notice->free();
                     unset($notice);
-                    $notice = NULL;
+                    $notice = null;
                 } else {
                     $this->log(LOG_WARNING, 'queue item for notice that does not exist');
                 }

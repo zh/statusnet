@@ -49,12 +49,12 @@ class TagotherAction extends Action {
         }
     }
 
-    function show_form($profile, $error=NULL) {
+    function show_form($profile, $error=null) {
 
         $user = common_current_user();
 
         common_show_header(_('Tag a person'),
-                           NULL, array($profile, $error), array($this, 'show_top'));
+                           null, array($profile, $error), array($this, 'show_top'));
 
         $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
 
@@ -178,13 +178,13 @@ class TagotherAction extends Action {
         }
     }
 
-    function show_top($arr = NULL) {
+    function show_top($arr = null) {
         list($profile, $error) = $arr;
         if ($error) {
             common_element('p', 'error', $error);
         } else {
             common_element_start('div', 'instructions');
-            common_element('p', NULL,
+            common_element('p', null,
                            _('Use this form to add tags to your subscribers or subscriptions.'));
             common_element_end('div');
         }

@@ -31,7 +31,7 @@ require_once(INSTALLDIR . '/lib/common.php');
 
 common_log(LOG_INFO, 'Starting to render old notices.');
 
-$start_at = ($argc > 1) ? $argv[1] : NULL;
+$start_at = ($argc > 1) ? $argv[1] : null;
 
 $notice = new Notice();
 if ($start_at) {

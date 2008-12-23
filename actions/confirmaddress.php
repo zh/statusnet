@@ -88,7 +88,7 @@ class ConfirmaddressAction extends Action {
         $cur->query('COMMIT');
 
         common_show_header(_('Confirm Address'));
-        common_element('p', NULL,
+        common_element('p', null,
                        sprintf(_('The address "%s" has been confirmed for your account.'), $cur->$type));
         common_show_footer();
     }

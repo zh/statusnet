@@ -28,7 +28,7 @@ class ImsettingsAction extends SettingsAction {
         return _('You can send and receive notices through Jabber/GTalk [instant messages](%%doc.im%%). Configure your address and settings below.');
     }
 
-    function show_form($msg=NULL, $success=false) {
+    function show_form($msg=null, $success=false) {
         $user = common_current_user();
         $this->form_header(_('IM Settings'), $msg, $success);
         common_element_start('form', array('method' => 'post',
@@ -37,7 +37,7 @@ class ImsettingsAction extends SettingsAction {
                                            common_local_url('imsettings')));
         common_hidden('token', common_session_token());
 
-        common_element('h2', NULL, _('Address'));
+        common_element('h2', null, _('Address'));
 
         if ($user->jabber) {
             common_element_start('p');
@@ -59,13 +59,13 @@ class ImsettingsAction extends SettingsAction {
                 common_submit('cancel', _('Cancel'));
             } else {
                 common_input('jabber', _('IM Address'),
-                             ($this->arg('jabber')) ? $this->arg('jabber') : NULL,
+                             ($this->arg('jabber')) ? $this->arg('jabber') : null,
                          sprintf(_('Jabber or GTalk address, like "UserName@example.org". First, make sure to add %s to your buddy list in your IM client or on GTalk.'), jabber_daemon_address()));
                 common_submit('add', _('Add'));
             }
         }
 
-        common_element('h2', NULL, _('Preferences'));
+        common_element('h2', null, _('Preferences'));
 
         common_checkbox('jabbernotify',
                         _('Send me notices through Jabber/GTalk.'),
@@ -93,7 +93,7 @@ class ImsettingsAction extends SettingsAction {
         if ($confirm->find(TRUE)) {
             return $confirm;
         } else {
-            return NULL;
+            return null;
         }
     }
 
@@ -244,7 +244,7 @@ class ImsettingsAction extends SettingsAction {
 
         $user->query('BEGIN');
         $original = clone($user);
-        $user->jabber = NULL;
+        $user->jabber = null;
         $result = $user->updateKeys($original);
         if (!$result) {
             common_log_db_error($user, 'UPDATE', __FILE__);

@@ -285,7 +285,7 @@ class ShowstreamAction extends StreamAction {
 
         common_element_start('div', array('id' => 'subscriptions'));
 
-        common_element('h2', NULL, _('Subscriptions'));
+        common_element('h2', null, _('Subscriptions'));
 
         if ($subs_count > 0) {
 
@@ -415,7 +415,7 @@ class ShowstreamAction extends StreamAction {
 
     function show_last_notice($profile) {
 
-        common_element('h2', NULL, _('Currently'));
+        common_element('h2', null, _('Currently'));
 
         $notice = $profile->getCurrentNotice();
 

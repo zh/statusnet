@@ -43,7 +43,7 @@ class DeleteAction extends Action {
         }
     }
 
-    function show_top($arr=NULL) {
+    function show_top($arr=null) {
         $instr = $this->get_instructions();
         $output = common_markup_to_html($instr);
         common_element_start('div', 'instructions');
@@ -52,7 +52,7 @@ class DeleteAction extends Action {
     }
 
     function get_title() {
-        return NULL;
+        return null;
     }
 
     function show_header() {

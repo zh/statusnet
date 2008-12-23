@@ -16,7 +16,7 @@ class Profile_tag extends Memcached_DataObject
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
-    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Profile_tag',$k,$v); }
+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Profile_tag',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE

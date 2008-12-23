@@ -16,7 +16,7 @@ class Queue_item extends Memcached_DataObject
     public $claimed;                         // datetime()  
 
     /* Static get */
-    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Queue_item',$k,$v); }
+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Queue_item',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
@@ -28,7 +28,7 @@ class Queue_item extends Memcached_DataObject
         $qi = new Queue_item();
         $qi->transport = $transport;
         $qi->orderBy('created');
-        $qi->whereAdd('claimed is NULL');
+        $qi->whereAdd('claimed is null');
 
         $qi->limit(1);
 
@@ -36,7 +36,7 @@ class Queue_item extends Memcached_DataObject
 
         if ($cnt) {
             # XXX: potential race condition
-            # can we force it to only update if claimed is still NULL
+            # can we force it to only update if claimed is still null
             # (or old)?
             common_log(LOG_INFO, 'claiming queue item = ' . $qi->notice_id . ' for transport ' . $transport);
             $orig = clone($qi);
@@ -49,7 +49,7 @@ class Queue_item extends Memcached_DataObject
                 common_log(LOG_INFO, 'claim failed.');
             }
         }
-        $qi = NULL;
-        return NULL;
+        $qi = null;
+        return null;
     }
 }

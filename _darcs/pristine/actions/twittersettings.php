@@ -30,10 +30,10 @@ class TwittersettingsAction extends SettingsAction {
             'and subscribe to Twitter friends already here.');
     }
 
-    function show_form($msg=NULL, $success=false) {
+    function show_form($msg=null, $success=false) {
         $user = common_current_user();
         $profile = $user->getProfile();
-        $fuser = NULL;
+        $fuser = null;
         $flink = Foreign_link::getByUserID($user->id, 1); // 1 == Twitter
 
         if ($flink) {
@@ -47,7 +47,7 @@ class TwittersettingsAction extends SettingsAction {
                                            common_local_url('twittersettings')));
         common_hidden('token', common_session_token());
 
-        common_element('h2', NULL, _('Twitter Account'));
+        common_element('h2', null, _('Twitter Account'));
 
         if ($fuser) {
             common_element_start('p');
@@ -67,7 +67,7 @@ class TwittersettingsAction extends SettingsAction {
             common_password('twitter_password', _('Twitter password'));
         }
 
-        common_element('h2', NULL, _('Preferences'));
+        common_element('h2', null, _('Preferences'));
 
         common_checkbox('noticesync', _('Automatically send my notices to Twitter.'),
                         ($flink) ? ($flink->noticesync & FOREIGN_NOTICE_SEND) : true);
@@ -126,7 +126,7 @@ class TwittersettingsAction extends SettingsAction {
 
         if ($friends_count > 0) {
 
-            common_element('h3', NULL, _('Twitter Friends'));
+            common_element('h3', null, _('Twitter Friends'));
             common_element_start('div', array('id' => 'subscriptions'));
             common_element_start('ul', array('id' => 'subscriptions_avatars'));
 

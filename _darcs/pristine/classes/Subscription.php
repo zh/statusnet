@@ -40,7 +40,7 @@ class Subscription extends Memcached_DataObject
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
-    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Subscription',$k,$v); }
+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Subscription',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE

@@ -63,7 +63,7 @@ class LoginAction extends Action {
             $url = common_get_returnto();
             if ($url) {
                 # We don't have to return to it again
-                common_set_returnto(NULL);
+                common_set_returnto(null);
             } else {
                 $url = common_local_url('all',
                                         array('nickname' =>
@@ -91,7 +91,7 @@ class LoginAction extends Action {
         $url = common_get_returnto();
         if ($url) {
             # We don't have to return to it again
-            common_set_returnto(NULL);
+            common_set_returnto(null);
         } else {
             $url = common_local_url('all',
                                     array('nickname' =>
@@ -100,8 +100,8 @@ class LoginAction extends Action {
         common_redirect($url);
     }
 
-    function show_form($error=NULL) {
-        common_show_header(_('Login'), NULL, $error, array($this, 'show_top'));
+    function show_form($error=null) {
+        common_show_header(_('Login'), null, $error, array($this, 'show_top'));
         common_element_start('form', array('method' => 'post',
                                            'id' => 'login',
                                            'action' => common_local_url('login')));
@@ -138,7 +138,7 @@ class LoginAction extends Action {
         }
     }
 
-    function show_top($error=NULL) {
+    function show_top($error=null) {
         if ($error) {
             common_element('p', 'error', $error);
         } else {

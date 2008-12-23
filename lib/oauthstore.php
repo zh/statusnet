@@ -33,7 +33,7 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
             $con->seed = common_good_rand(16);
             $con->created = DB_DataObject_Cast::dateTime();
             if (!$con->insert()) {
-                return NULL;
+                return null;
             }
         }
         return new OAuthConsumer($con->consumer_key, '');
@@ -47,7 +47,7 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
         if ($t->find(true)) {
             return new OAuthToken($t->tok, $t->secret);
         } else {
-            return NULL;
+            return null;
         }
     }
 
@@ -75,7 +75,7 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
         $t->state = 0; # unauthorized
         $t->created = DB_DataObject_Cast::dateTime();
         if (!$t->insert()) {
-            return NULL;
+            return null;
         } else {
             return new OAuthToken($t->tok, $t->secret);
         }
@@ -104,35 +104,35 @@ class LaconicaOAuthDataStore extends OAuthDataStore {
             if (!$at->insert()) {
                 $e = $at->_lastError;
                 common_debug('access token "'.$at->tok.'" not inserted: "'.$e->message.'"', __FILE__);
-                return NULL;
+                return null;
             } else {
                 common_debug('access token "'.$at->tok.'" inserted', __FILE__);
                 # burn the old one
                 $orig_rt = clone($rt);
                 $rt->state = 2; # used
                 if (!$rt->update($orig_rt)) {
-                    return NULL;
+                    return null;
                 }
                 common_debug('request token "'.$rt->tok.'" updated', __FILE__);
                 # Update subscription
                 # XXX: mixing levels here
                 $sub = Subscription::staticGet('token', $rt->tok);
                 if (!$sub) {
-                    return NULL;
+                    return null;
                 }
                 common_debug('subscription for request token found', __FILE__);
                 $orig_sub = clone($sub);
                 $sub->token = $at->tok;
                 $sub->secret = $at->secret;
                 if (!$sub->update($orig_sub)) {
-                    return NULL;
+                    return null;
                 } else {
                     common_debug('subscription updated to use access token', __FILE__);
                     return new OAuthToken($at->tok, $at->secret);
                 }
             }
         } else {
-            return NULL;
+            return null;
         }
     }
 

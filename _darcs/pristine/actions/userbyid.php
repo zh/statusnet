@@ -38,7 +38,7 @@ class UserbyidAction extends Action {
 
         // support redirecting to FOAF rdf/xml if the agent prefers it
         $page_prefs = 'application/rdf+xml,text/html,application/xhtml+xml,application/xml;q=0.3,text/xml;q=0.2';
-        $httpaccept = isset($_SERVER['HTTP_ACCEPT']) ? $_SERVER['HTTP_ACCEPT'] : NULL;
+        $httpaccept = isset($_SERVER['HTTP_ACCEPT']) ? $_SERVER['HTTP_ACCEPT'] : null;
         $type = common_negotiate_type(common_accept_to_prefs($httpaccept),
                                       common_accept_to_prefs($page_prefs));
         $page = $type == 'application/rdf+xml' ? 'foaf' : 'showstream';

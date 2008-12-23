@@ -21,7 +21,7 @@ if (!defined('LACONICA')) { exit(1); }
 
 class BlockAction extends Action {
 
-    var $profile = NULL;
+    var $profile = null;
 
     function prepare($args) {
 
@@ -77,7 +77,7 @@ class BlockAction extends Action {
 
         common_show_header(_('Block user'));
 
-        common_element('p', NULL,
+        common_element('p', null,
                        _('Are you sure you want to block this user? '.
                          'Afterwards, they will be unsubscribed from you, '.
                          'unable to subscribe to you in the future, and '.

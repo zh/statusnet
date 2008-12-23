@@ -27,12 +27,12 @@ class OthersettingsAction extends SettingsAction {
         return _('Manage various other options.');
     }
 
-    function show_form($msg=NULL, $success=false) {
+    function show_form($msg=null, $success=false) {
         $user = common_current_user();
 
         $this->form_header(_('Other Settings'), $msg, $success);
 
-        common_element('h2', NULL, _('URL Auto-shortening'));
+        common_element('h2', null, _('URL Auto-shortening'));
         common_element_start('form', array('method' => 'post',
                                            'id' => 'othersettings',
                                            'action' =>
@@ -57,7 +57,7 @@ class OthersettingsAction extends SettingsAction {
 
         common_element_end('form');
 
-//        common_element('h2', NULL, _('Delete my account'));
+//        common_element('h2', null, _('Delete my account'));
 //        $this->show_delete_form();
 
         common_show_footer();

@@ -39,7 +39,7 @@ set_error_handler('common_error_handler');
 
 class XMPPDaemon extends Daemon {
 
-    function XMPPDaemon($resource=NULL) {
+    function XMPPDaemon($resource=null) {
         static $attrs = array('server', 'port', 'user', 'password', 'host');
 
         foreach ($attrs as $attr)
@@ -71,7 +71,7 @@ class XMPPDaemon extends Daemon {
         $this->conn->setReconnectTimeout(600);
 
         jabber_send_presence("Send me a message to post a notice", 'available',
-                             NULL, 'available', 100);
+                             null, 'available', 100);
         return !$this->conn->isDisconnected();
     }
 
@@ -92,7 +92,7 @@ class XMPPDaemon extends Daemon {
 
     function handle_reconnect(&$pl) {
         $this->conn->processUntil('session_start');
-        $this->conn->presence('Send me a message to post a notice', 'available', NULL, 'available', 100);
+        $this->conn->presence('Send me a message to post a notice', 'available', null, 'available', 100);
     }
 
     function get_user($from) {
@@ -165,30 +165,30 @@ class XMPPDaemon extends Daemon {
         $addresses = $xml->sub('addresses');
         if (!$addresses) {
             $this->log(LOG_WARNING, 'Forwarded message without addresses');
-            return NULL;
+            return null;
         }
         $address = $addresses->sub('address');
         if (!$address) {
             $this->log(LOG_WARNING, 'Forwarded message without address');
-            return NULL;
+            return null;
         }
         if (!array_key_exists('type', $address->attrs)) {
             $this->log(LOG_WARNING, 'No type for forwarded message');
-            return NULL;
+            return null;
         }
         $type = $address->attrs['type'];
         if ($type != 'ofrom') {
             $this->log(LOG_WARNING, 'Type of forwarded message is not ofrom');
-            return NULL;
+            return null;
         }
         if (!array_key_exists('jid', $address->attrs)) {
             $this->log(LOG_WARNING, 'No jid for forwarded message');
-            return NULL;
+            return null;
         }
         $jid = $address->attrs['jid'];
         if (!$jid) {
             $this->log(LOG_WARNING, 'Could not get jid from address');
-            return NULL;
+            return null;
         }
         $this->log(LOG_DEBUG, 'Got message forwarded from jid ' . $jid);
         return $jid;

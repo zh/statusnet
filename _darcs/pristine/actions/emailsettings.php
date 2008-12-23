@@ -27,7 +27,7 @@ class EmailsettingsAction extends SettingsAction {
         return _('Manage how you get email from %%site.name%%.');
     }
 
-    function show_form($msg=NULL, $success=false) {
+    function show_form($msg=null, $success=false) {
         $user = common_current_user();
         $this->form_header(_('Email Settings'), $msg, $success);
         common_element_start('form', array('method' => 'post',
@@ -36,7 +36,7 @@ class EmailsettingsAction extends SettingsAction {
                                            common_local_url('emailsettings')));
         common_hidden('token', common_session_token());
 
-        common_element('h2', NULL, _('Address'));
+        common_element('h2', null, _('Address'));
 
         if ($user->email) {
             common_element_start('p');
@@ -58,14 +58,14 @@ class EmailsettingsAction extends SettingsAction {
                 common_submit('cancel', _('Cancel'));
             } else {
                 common_input('email', _('Email Address'),
-                             ($this->arg('email')) ? $this->arg('email') : NULL,
+                             ($this->arg('email')) ? $this->arg('email') : null,
                              _('Email address, like "UserName@example.org"'));
                 common_submit('add', _('Add'));
             }
         }
 
         if ($user->email) {
-            common_element('h2', NULL, _('Incoming email'));
+            common_element('h2', null, _('Incoming email'));
             
             if ($user->incomingemail) {
                 common_element_start('p');
@@ -83,7 +83,7 @@ class EmailsettingsAction extends SettingsAction {
             common_submit('newincoming', _('New'));
         }
         
-        common_element('h2', NULL, _('Preferences'));
+        common_element('h2', null, _('Preferences'));
 
         common_checkbox('emailnotifysub',
                         _('Send me notices of new subscriptions through email.'),
@@ -118,7 +118,7 @@ class EmailsettingsAction extends SettingsAction {
         if ($confirm->find(TRUE)) {
             return $confirm;
         } else {
-            return NULL;
+            return null;
         }
     }
 
@@ -273,7 +273,7 @@ class EmailsettingsAction extends SettingsAction {
 
         $user->query('BEGIN');
         $original = clone($user);
-        $user->email = NULL;
+        $user->email = null;
         $result = $user->updateKeys($original);
         if (!$result) {
             common_log_db_error($user, 'UPDATE', __FILE__);
@@ -294,7 +294,7 @@ class EmailsettingsAction extends SettingsAction {
         }
         
         $orig = clone($user);
-        $user->incomingemail = NULL;
+        $user->incomingemail = null;
 
         if (!$user->updateKeys($orig)) {
             common_log_db_error($user, 'UPDATE', __FILE__);

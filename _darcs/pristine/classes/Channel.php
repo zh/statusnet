@@ -38,13 +38,13 @@ class Channel {
     }
     
     function source() {
-        return NULL;
+        return null;
     }
 }
 
 class XMPPChannel extends Channel {
 
-    var $conn = NULL;
+    var $conn = null;
     
     function source() {
         return 'xmpp';
@@ -111,7 +111,7 @@ class WebChannel extends Channel {
         # XXX: even better, redirect to appropriate page
         #      depending on what command was run
         common_show_header(_('Command results'));
-        common_element('p', NULL, $text);
+        common_element('p', null, $text);
         common_show_footer();
     }
     
@@ -149,13 +149,13 @@ class AjaxWebChannel extends WebChannel {
 
 class MailChannel extends Channel {
 
-    var $addr = NULL;
+    var $addr = null;
 
     function source() {
         return 'mail';
     }
     
-    function __construct($addr=NULL) {
+    function __construct($addr=null) {
         $this->addr = $addr;
     }
     

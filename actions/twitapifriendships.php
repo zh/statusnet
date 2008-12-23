@@ -138,7 +138,7 @@ class TwitapifriendshipsAction extends TwitterapiAction {
         switch ($apidata['content-type']) {
          case 'xml':
             $this->init_document('xml');
-            common_element('friends', NULL, $result);
+            common_element('friends', null, $result);
             $this->end_document('xml');
             break;
          case 'json':

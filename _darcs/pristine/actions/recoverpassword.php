@@ -132,12 +132,12 @@ class RecoverpasswordAction extends Action {
         unset($_SESSION['tempuser']);
     }
 
-    function show_top($msg=NULL) {
+    function show_top($msg=null) {
         if ($msg) {
             common_element('div', 'error', $msg);
         } else {
             common_element_start('div', 'instructions');
-            common_element('p', NULL, 
+            common_element('p', null, 
                            _('If you\'ve forgotten or lost your' .
                               ' password, you can get a new one sent to' .
                               ' the email address you have stored ' .
@@ -146,7 +146,7 @@ class RecoverpasswordAction extends Action {
         }
     }
 
-    function show_password_top($msg=NULL) {
+    function show_password_top($msg=null) {
         if ($msg) {
             common_element('div', 'error', $msg);
         } else {
@@ -156,9 +156,9 @@ class RecoverpasswordAction extends Action {
         }
     }
 
-    function show_form($msg=NULL) {
+    function show_form($msg=null) {
 
-        common_show_header(_('Recover password'), NULL,
+        common_show_header(_('Recover password'), null,
         $msg, array($this, 'show_top'));
 
         common_element_start('form', array('method' => 'post',
@@ -173,9 +173,9 @@ class RecoverpasswordAction extends Action {
         common_show_footer();
     }
 
-    function show_password_form($msg=NULL) {
+    function show_password_form($msg=null) {
 
-        common_show_header(_('Reset password'), NULL,
+        common_show_header(_('Reset password'), null,
         $msg, array($this, 'show_password_top'));
 
         common_element_start('form', array('method' => 'post',
@@ -224,7 +224,7 @@ class RecoverpasswordAction extends Action {
             $confirm_email = Confirm_address::staticGet('user_id', $user->id);
             if ($confirm_email && $confirm_email->address_type != 'email') {
                 # Skip non-email confirmations
-                $confirm_email = NULL;
+                $confirm_email = null;
             }
         }
 
@@ -267,7 +267,7 @@ class RecoverpasswordAction extends Action {
         mail_to_user($user, _('Password recovery requested'), $body, $confirm->address);
 
         common_show_header(_('Password recovery requested'));
-        common_element('p', NULL,
+        common_element('p', null,
                        _('Instructions for recovering your password ' .
                           'have been sent to the email address registered to your ' .
                           'account.'));
@@ -324,7 +324,7 @@ class RecoverpasswordAction extends Action {
         common_real_login(true);
 
         common_show_header(_('Password saved.'));
-        common_element('p', NULL, _('New password successfully saved. ' .
+        common_element('p', null, _('New password successfully saved. ' .
                                      'You are now logged in.'));
         common_show_footer();
     }

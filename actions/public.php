@@ -31,7 +31,7 @@ class PublicAction extends StreamAction {
         header('X-XRDS-Location: '. common_local_url('publicxrds'));
 
         common_show_header(_('Public timeline'),
-                           array($this, 'show_header'), NULL,
+                           array($this, 'show_header'), null,
                            array($this, 'show_top'));
 
         # XXX: Public sidebar here?

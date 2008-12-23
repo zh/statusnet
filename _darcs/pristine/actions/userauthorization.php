@@ -81,7 +81,7 @@ class UserauthorizationAction extends Action {
         $avatar = $req->get_parameter('omb_listenee_avatar');
 
         common_show_header(_('Authorize subscription'));
-        common_element('p', NULL, _('Please check these details to make sure '.
+        common_element('p', null, _('Please check these details to make sure '.
                                      'that you want to subscribe to this user\'s notices. '.
                                      'If you didn\'t just ask to subscribe to someone\'s notices, '.
                                      'click "Cancel".'));
@@ -320,7 +320,7 @@ class UserauthorizationAction extends Action {
 
     function show_accept_message($tok) {
         common_show_header(_('Subscription authorized'));
-        common_element('p', NULL,
+        common_element('p', null,
                        _('The subscription has been authorized, but no '.
                           'callback URL was passed. Check with the site\'s instructions for '.
                           'details on how to authorize the subscription. Your subscription token is:'));
@@ -330,7 +330,7 @@ class UserauthorizationAction extends Action {
 
     function show_reject_message($tok) {
         common_show_header(_('Subscription rejected'));
-        common_element('p', NULL,
+        common_element('p', null,
                        _('The subscription has been rejected, but no '.
                           'callback URL was passed. Check with the site\'s instructions for '.
                           'details on how to fully reject the subscription.'));

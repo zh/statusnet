@@ -24,11 +24,11 @@ define('PROFILES_PER_PAGE', 20);
 
 class ProfileList {
 
-    var $profile = NULL;
-    var $owner = NULL;
-    var $action = NULL;
+    var $profile = null;
+    var $owner = null;
+    var $action = null;
 
-    function __construct($profile, $owner=NULL, $action=NULL) {
+    function __construct($profile, $owner=null, $action=null) {
         $this->profile = $profile;
         $this->owner = $owner;
         $this->action = $action;

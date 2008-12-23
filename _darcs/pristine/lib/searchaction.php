@@ -30,7 +30,7 @@ class SearchAction extends Action {
         $this->show_form();
     }
 
-    function show_top($arr=NULL) {
+    function show_top($arr=null) {
         if ($arr) {
             $error = $arr[1];
         }
@@ -47,14 +47,14 @@ class SearchAction extends Action {
     }
 
     function get_title() {
-        return NULL;
+        return null;
     }
 
     function show_header($arr) {
         return;
     }
 
-    function show_form($error=NULL) {
+    function show_form($error=null) {
         global $config;
 
         $q = $this->trimmed('q');
@@ -99,11 +99,11 @@ class SearchAction extends Action {
                 array(
                       _('People'),
                       _('Find people on this site'),
-                      ($action != 'peoplesearch' && $this->trimmed('q')) ? array('q' => $this->trimmed('q')) : NULL),
+                      ($action != 'peoplesearch' && $this->trimmed('q')) ? array('q' => $this->trimmed('q')) : null),
                 'noticesearch' =>
                 array( _('Text'),
                        _('Find content of notices'),
-                       ($action != 'noticesearch' && $this->trimmed('q')) ? array('q' => $this->trimmed('q')) : NULL)
+                       ($action != 'noticesearch' && $this->trimmed('q')) ? array('q' => $this->trimmed('q')) : null)
                 );
         $this->nav_menu($menu);
     }

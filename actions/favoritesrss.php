@@ -25,7 +25,7 @@ require_once(INSTALLDIR.'/lib/rssaction.php');
 
 class FavoritesrssAction extends Rss10Action {
 
-    var $user = NULL;
+    var $user = null;
     
     function init() {
         $nickname = $this->trimmed('nickname');
@@ -68,6 +68,6 @@ class FavoritesrssAction extends Rss10Action {
     }
 
     function get_image() {
-        return NULL;
+        return null;
     }
 }

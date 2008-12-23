@@ -42,7 +42,7 @@ class MailerDaemon {
     function handle_message($fname='php://stdin') {
         list($from, $to, $msg) = $this->parse_message($fname);
         if (!$from || !$to || !$msg) {
-            $this->error(NULL, _('Could not parse message.'));
+            $this->error(null, _('Could not parse message.'));
         }
         common_log(LOG_INFO, "Mail from $from to $to: " .substr($msg, 0, 20));
         $user = $this->user_from($from);
@@ -74,7 +74,7 @@ class MailerDaemon {
     function user_from($from_hdr) {
         $froms = mailparse_rfc822_parse_addresses($from_hdr);
         if (!$froms) {
-            return NULL;
+            return null;
         }
         $from = $froms[0];
         $addr = common_canonical_email($from['address']);
@@ -140,7 +140,7 @@ class MailerDaemon {
                                                 'decode_headers' => true,
                                                 'decode_bodies' => true));
         if (!$parsed) {
-            return NULL;
+            return null;
         }
 
         $from = $parsed->headers['from'];
@@ -167,7 +167,7 @@ class MailerDaemon {
     }
 
     function unsupported_type($type) {
-        $this->error(NULL, "Unsupported message type: " . $type);
+        $this->error(null, "Unsupported message type: " . $type);
     }
 
     function cleanup_msg($msg) {

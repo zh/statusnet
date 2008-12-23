@@ -117,7 +117,7 @@ class EnjitQueueHandler extends QueueHandler {
 
 mb_internal_encoding('UTF-8');
 
-$id = ($argc > 1) ? $argv[1] : NULL;
+$id = ($argc > 1) ? $argv[1] : null;
 
 $handler = new EnjitQueueHandler($id);
 

@@ -28,14 +28,14 @@ class ProfilesettingsAction extends SettingsAction {
                   'so people know more about you.');
     }
 
-    function show_form($msg=NULL, $success=false) {
+    function show_form($msg=null, $success=false) {
         $this->form_header(_('Profile settings'), $msg, $success);
         $this->show_settings_form();
-        common_element('h2', NULL, _('Avatar'));
+        common_element('h2', null, _('Avatar'));
         $this->show_avatar_form();
-        common_element('h2', NULL, _('Change password'));
+        common_element('h2', null, _('Change password'));
         $this->show_password_form();
-//        common_element('h2', NULL, _('Delete my account'));
+//        common_element('h2', null, _('Delete my account'));
 //        $this->show_delete_form();
         common_show_footer();
     }

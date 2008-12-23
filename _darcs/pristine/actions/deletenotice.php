@@ -41,7 +41,7 @@ class DeletenoticeAction extends DeleteAction {
         return _('Delete notice');
     }
 
-    function show_form($error=NULL) {
+    function show_form($error=null) {
         $user = common_current_user();
 
         common_show_header($this->get_title(), array($this, 'show_header'), $error,
@@ -91,7 +91,7 @@ class DeletenoticeAction extends DeleteAction {
             $notice->delete();
         } else {
             if ($url) {
-                common_set_returnto(NULL);
+                common_set_returnto(null);
             } else {
                 $url = common_local_url('public');
             }

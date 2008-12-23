@@ -41,7 +41,7 @@ class TagrssAction extends Rss10Action {
         $tag = $this->tag;
 
         if (is_null($tag)) {
-            return NULL;
+            return null;
         }
 
         $notice = Notice_tag::getStream($tag->tag, 0, ($limit == 0) ? NOTICES_PER_PAGE : $limit);

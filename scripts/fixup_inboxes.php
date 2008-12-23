@@ -34,7 +34,7 @@ define('LACONICA', true);
 
 require_once(INSTALLDIR . '/lib/common.php');
 
-$start_at = ($argc > 1) ? $argv[1] : NULL;
+$start_at = ($argc > 1) ? $argv[1] : null;
 
 common_log(LOG_INFO, 'Updating user inboxes.');
 

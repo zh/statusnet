@@ -98,7 +98,7 @@ class NewmessageAction extends Action {
         common_message_form($content, $user, $to);
     }
 
-    function show_form($msg=NULL) {
+    function show_form($msg=null) {
         
         $content = $this->trimmed('content');
         $user = common_current_user();
@@ -117,7 +117,7 @@ class NewmessageAction extends Action {
             return;
         }
         
-        common_show_header(_('New message'), NULL,
+        common_show_header(_('New message'), null,
                            array($content, $user, $other),
                            array($this, 'show_top'));
         

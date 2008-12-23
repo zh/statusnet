@@ -53,7 +53,7 @@ class ShowmessageAction extends MailboxAction {
     function get_title($user, $page) {
         $message = $this->get_message();
         if (!$message) {
-            return NULL;
+            return null;
         }
         
         if ($user->id == $message->from_profile) {
@@ -85,7 +85,7 @@ class ShowmessageAction extends MailboxAction {
             return $message->getFrom();
         } else {
             # This shouldn't happen
-            return NULL;
+            return null;
         }
     }
     

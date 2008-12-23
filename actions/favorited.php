@@ -29,7 +29,7 @@ class FavoritedAction extends StreamAction {
         $page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 
         common_show_header(_('Popular notices'),
-                           array($this, 'show_header'), NULL,
+                           array($this, 'show_header'), null,
                            array($this, 'show_top'));
 
         $this->show_notices($page);

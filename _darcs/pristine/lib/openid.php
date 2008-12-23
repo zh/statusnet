@@ -32,7 +32,7 @@ define('OPENID_COOKIE_EXPIRY', round(365.25 * 24 * 60 * 60));
 define('OPENID_COOKIE_KEY', 'lastusedopenid');
 
 function oid_store() {
-    static $store = NULL;
+    static $store = null;
     if (!$store) {
         # Can't be called statically
         $user = new User();
@@ -63,7 +63,7 @@ function oid_get_last() {
     if ($openid_url && strlen($openid_url) > 0) {
         return $openid_url;
     } else {
-        return NULL;
+        return null;
     }
 }
 
@@ -85,7 +85,7 @@ function oid_link_user($id, $canonical, $display) {
 }
 
 function oid_get_user($openid_url) {
-    $user = NULL;
+    $user = null;
     $oid = User_openid::staticGet('canonical', $openid_url);
     if ($oid) {
         $user = User::staticGet('id', $oid->user_id);
@@ -93,7 +93,7 @@ function oid_get_user($openid_url) {
     return $user;
 }
 
-function oid_check_immediate($openid_url, $backto=NULL) {
+function oid_check_immediate($openid_url, $backto=null) {
     if (!$backto) {
         $action = $_REQUEST['action'];
         $args = common_copy_args($_GET);
@@ -177,9 +177,9 @@ function oid_authenticate($openid_url, $returnto, $immediate=false) {
         if (Auth_OpenID::isFailure($form_html)) {
             $this->show_form(sprintf(_('Could not create OpenID form: %s'), $form_html->message));
         } else {
-            common_show_header(_('OpenID Auto-Submit'), NULL, NULL, '_oid_print_instructions');
+            common_show_header(_('OpenID Auto-Submit'), null, null, '_oid_print_instructions');
             common_raw($form_html);
-            common_element('script', NULL,
+            common_element('script', null,
                            '$(document).ready(function() { ' .
                            '    $("#'. $form_id .'").submit(); '.
                            '});');

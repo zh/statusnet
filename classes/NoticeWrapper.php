@@ -35,7 +35,7 @@ class NoticeWrapper extends Notice {
     public $is_local;                        // tinyint(1)  
     public $source;                          // varchar(32)  
 
-    var $notices = NULL;
+    var $notices = null;
     var $i = -1;
     
     function __construct($arr) {

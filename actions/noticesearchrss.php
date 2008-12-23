@@ -65,6 +65,6 @@ class NoticesearchrssAction extends Rss10Action {
     }
 
     function get_image() {
-        return NULL;
+        return null;
     }
 }

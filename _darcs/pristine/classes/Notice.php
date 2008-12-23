@@ -48,7 +48,7 @@ class Notice extends Memcached_DataObject
     public $source;                             // varchar(32)
 
     /* Static get */
-    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Notice',$k,$v); }
+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('Notice',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
@@ -91,7 +91,7 @@ class Notice extends Memcached_DataObject
         return true;
     }
 
-    static function saveNew($profile_id, $content, $source=NULL, $is_local=1, $reply_to=NULL, $uri=NULL) {
+    static function saveNew($profile_id, $content, $source=null, $is_local=1, $reply_to=null, $uri=null) {
 
         $profile = Profile::staticGet($profile_id);
 
@@ -293,7 +293,7 @@ class Notice extends Memcached_DataObject
     # XXX: too many args; we need to move to named params or even a separate
     # class for notice streams
 
-    static function getStream($qry, $cachekey, $offset=0, $limit=20, $since_id=0, $before_id=0, $order=NULL, $since=NULL) {
+    static function getStream($qry, $cachekey, $offset=0, $limit=20, $since_id=0, $before_id=0, $order=null, $since=null) {
 
         if (common_config('memcached', 'enabled')) {
 
@@ -383,7 +383,7 @@ class Notice extends Memcached_DataObject
         # If outside our cache window, just go to the DB
 
         if ($offset + $limit > NOTICE_CACHE_WINDOW) {
-            return Notice::getStreamDirect($qry, $offset, $limit, NULL, NULL, $order, NULL);
+            return Notice::getStreamDirect($qry, $offset, $limit, null, null, $order, null);
         }
 
         # Get the cache; if we can't, just go to the DB
@@ -391,7 +391,7 @@ class Notice extends Memcached_DataObject
         $cache = common_memcache();
 
         if (!$cache) {
-            return Notice::getStreamDirect($qry, $offset, $limit, NULL, NULL, $order, NULL);
+            return Notice::getStreamDirect($qry, $offset, $limit, null, null, $order, null);
         }
 
         # Get the notices out of the cache
@@ -423,7 +423,7 @@ class Notice extends Memcached_DataObject
             # bet with our DB.
 
             $new_notice = Notice::getStreamDirect($qry, 0, NOTICE_CACHE_WINDOW,
-                                                  $last_id, NULL, $order, NULL);
+                                                  $last_id, null, $order, null);
 
             if ($new_notice) {
                 $new_notices = array();
@@ -447,7 +447,7 @@ class Notice extends Memcached_DataObject
 
         # Otherwise, get the full cache window out of the DB
 
-        $notice = Notice::getStreamDirect($qry, 0, NOTICE_CACHE_WINDOW, NULL, NULL, $order, NULL);
+        $notice = Notice::getStreamDirect($qry, 0, NOTICE_CACHE_WINDOW, null, null, $order, null);
 
         # If there are no hits, just return the value
 
@@ -477,7 +477,7 @@ class Notice extends Memcached_DataObject
         return $wrapper;
     }
 
-    function publicStream($offset=0, $limit=20, $since_id=0, $before_id=0, $since=NULL) {
+    function publicStream($offset=0, $limit=20, $since_id=0, $before_id=0, $since=null) {
 
         $parts = array();
 
@@ -496,7 +496,7 @@ class Notice extends Memcached_DataObject
 
         return Notice::getStream($qry,
                                  'public',
-                                 $offset, $limit, $since_id, $before_id, NULL, $since);
+                                 $offset, $limit, $since_id, $before_id, null, $since);
     }
 
     function addToInboxes() {

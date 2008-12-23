@@ -149,7 +149,7 @@ class RegisterAction extends Action {
         return ($user !== false);
     }
 
-    function show_top($error=NULL) {
+    function show_top($error=null) {
         if ($error) {
             common_element('p', 'error', $error);
         } else {
@@ -164,7 +164,7 @@ class RegisterAction extends Action {
         }
     }
 
-    function show_form($error=NULL) {
+    function show_form($error=null) {
         global $config;
 
         $code = $this->trimmed('code');
@@ -178,7 +178,7 @@ class RegisterAction extends Action {
             return;
         }
 
-        common_show_header(_('Register'), NULL, $error, array($this, 'show_top'));
+        common_show_header(_('Register'), null, $error, array($this, 'show_top'));
         common_element_start('form', array('method' => 'post',
                                            'id' => 'login',
                                            'action' => common_local_url('register')));

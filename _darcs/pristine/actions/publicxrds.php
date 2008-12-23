@@ -42,7 +42,7 @@ class PublicxrdsAction extends Action {
                                           'xmlns:simple' => 'http://xrds-simple.net/core/1.0',
                                           'version' => '2.0'));
 
-        common_element('Type', NULL, 'xri://$xrds*simple');
+        common_element('Type', null, 'xri://$xrds*simple');
 
         foreach (array('finishopenidlogin', 'finishaddopenid', 'finishimmediate') as $finish) {
             $this->show_service(Auth_OpenID_RP_RETURN_TO_URL_TYPE,
@@ -55,24 +55,24 @@ class PublicxrdsAction extends Action {
         common_end_xml();
     }
 
-    function show_service($type, $uri, $params=NULL, $sigs=NULL, $localId=NULL) {
+    function show_service($type, $uri, $params=null, $sigs=null, $localId=null) {
         common_element_start('Service');
         if ($uri) {
-            common_element('URI', NULL, $uri);
+            common_element('URI', null, $uri);
         }
-        common_element('Type', NULL, $type);
+        common_element('Type', null, $type);
         if ($params) {
             foreach ($params as $param) {
-                common_element('Type', NULL, $param);
+                common_element('Type', null, $param);
             }
         }
         if ($sigs) {
             foreach ($sigs as $sig) {
-                common_element('Type', NULL, $sig);
+                common_element('Type', null, $sig);
             }
         }
         if ($localId) {
-            common_element('LocalID', NULL, $localId);
+            common_element('LocalID', null, $localId);
         }
         common_element_end('Service');
     }

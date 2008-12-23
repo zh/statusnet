@@ -148,13 +148,13 @@ function retreive_twitter_friends($twitter_id, $screen_name, $password) {
         $data = get_twitter_data($uri . $i, $screen_name, $password);
 
         if (!$data) {
-            return NULL;
+            return null;
         }
 
         $more_friends = json_decode($data);
 
         if (!$more_friends) {
-            return NULL;
+            return null;
         }
 
          $friends = array_merge($friends, $more_friends);

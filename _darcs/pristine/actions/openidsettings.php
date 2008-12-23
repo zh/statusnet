@@ -30,7 +30,7 @@ class OpenidsettingsAction extends SettingsAction {
                   ' Manage your associated OpenIDs from here.');
     }
 
-    function show_form($msg=NULL, $success=false) {
+    function show_form($msg=null, $success=false) {
 
         $user = common_current_user();
 
@@ -41,8 +41,8 @@ class OpenidsettingsAction extends SettingsAction {
                                            'action' =>
                                            common_local_url('openidsettings')));
         common_hidden('token', common_session_token());
-        common_element('h2', NULL, _('Add OpenID'));
-        common_element('p', NULL,
+        common_element('h2', null, _('Add OpenID'));
+        common_element('p', null,
                        _('If you want to add an OpenID to your account, ' .
                           'enter it in the box below and click "Add".'));
         common_element_start('p');
@@ -66,11 +66,11 @@ class OpenidsettingsAction extends SettingsAction {
 
         if ($cnt > 0) {
 
-            common_element('h2', NULL, _('Remove OpenID'));
+            common_element('h2', null, _('Remove OpenID'));
 
             if ($cnt == 1 && !$user->password) {
 
-                common_element('p', NULL,
+                common_element('p', null,
                                _('Removing your only OpenID would make it impossible to log in! ' .
                                   'If you need to remove it, add another OpenID first.'));
 
@@ -83,7 +83,7 @@ class OpenidsettingsAction extends SettingsAction {
 
             } else {
 
-                common_element('p', NULL,
+                common_element('p', null,
                                _('You can remove an OpenID from your account '.
                                   'by clicking the button marked "Remove".'));
                 $idx = 0;

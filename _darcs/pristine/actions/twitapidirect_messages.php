@@ -228,12 +228,12 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
         $this->init_document('rss');
 
         common_element_start('channel');
-        common_element('title', NULL, $title);
+        common_element('title', null, $title);
 
-        common_element('link', NULL, $link);
-        common_element('description', NULL, $subtitle);
-        common_element('language', NULL, 'en-us');
-        common_element('ttl', NULL, '40');
+        common_element('link', null, $link);
+        common_element('description', null, $subtitle);
+        common_element('language', null, 'en-us');
+        common_element('ttl', null, '40');
 
         if (is_array($message)) {
             foreach ($message as $m) {
@@ -256,12 +256,12 @@ class Twitapidirect_messagesAction extends TwitterapiAction {
 
         $this->init_document('atom');
 
-        common_element('title', NULL, $title);
+        common_element('title', null, $title);
         $siteserver = common_config('site', 'server');
-        common_element('id', NULL, "tag:$siteserver,2008:DirectMessage");
-        common_element('link', array('href' => $link, 'rel' => 'alternate', 'type' => 'text/html'), NULL);
-        common_element('updated', NULL, common_date_iso8601(strftime('%c')));
-        common_element('subtitle', NULL, $subtitle);
+        common_element('id', null, "tag:$siteserver,2008:DirectMessage");
+        common_element('link', array('href' => $link, 'rel' => 'alternate', 'type' => 'text/html'), null);
+        common_element('updated', null, common_date_iso8601(strftime('%c')));
+        common_element('subtitle', null, $subtitle);
 
         if (is_array($message)) {
             foreach ($message as $m) {

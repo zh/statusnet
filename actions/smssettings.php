@@ -28,7 +28,7 @@ class SmssettingsAction extends EmailsettingsAction {
         return _('You can receive SMS messages through email from %%site.name%%.');
     }
 
-    function show_form($msg=NULL, $success=false) {
+    function show_form($msg=null, $success=false) {
         $user = common_current_user();
         $this->form_header(_('SMS Settings'), $msg, $success);
         common_element_start('form', array('method' => 'post',
@@ -36,7 +36,7 @@ class SmssettingsAction extends EmailsettingsAction {
                                            'action' =>
                                            common_local_url('smssettings')));
         common_hidden('token', common_session_token());
-        common_element('h2', NULL, _('Address'));
+        common_element('h2', null, _('Address'));
 
         if ($user->sms) {
             common_element_start('p');
@@ -60,12 +60,12 @@ class SmssettingsAction extends EmailsettingsAction {
                 common_hidden('carrier', $confirm->address_extra);
                 common_element_end('p');
                 common_submit('cancel', _('Cancel'));
-                common_input('code', _('Confirmation code'), NULL,
+                common_input('code', _('Confirmation code'), null,
                              _('Enter the code you received on your phone.'));
                 common_submit('confirm', _('Confirm'));
             } else {
                 common_input('sms', _('SMS Phone number'),
-                             ($this->arg('sms')) ? $this->arg('sms') : NULL,
+                             ($this->arg('sms')) ? $this->arg('sms') : null,
                              _('Phone number, no punctuation or spaces, with area code'));
                 $this->carrier_select();
                 common_submit('add', _('Add'));
@@ -73,7 +73,7 @@ class SmssettingsAction extends EmailsettingsAction {
         }
 
         if ($user->sms) {
-            common_element('h2', NULL, _('Incoming email'));
+            common_element('h2', null, _('Incoming email'));
             
             if ($user->incomingemail) {
                 common_element_start('p');
@@ -91,7 +91,7 @@ class SmssettingsAction extends EmailsettingsAction {
             common_submit('newincoming', _('New'));
         }
         
-        common_element('h2', NULL, _('Preferences'));
+        common_element('h2', null, _('Preferences'));
         
         common_checkbox('smsnotify',
                         _('Send me notices through SMS; I understand I may incur exorbitant charges from my carrier.'),
@@ -111,7 +111,7 @@ class SmssettingsAction extends EmailsettingsAction {
         if ($confirm->find(TRUE)) {
             return $confirm;
         } else {
-            return NULL;
+            return null;
         }
     }
 
@@ -268,9 +268,9 @@ class SmssettingsAction extends EmailsettingsAction {
 
         $user->query('BEGIN');
         $original = clone($user);
-        $user->sms = NULL;
-        $user->carrier = NULL;        
-        $user->smsemail = NULL;        
+        $user->sms = null;
+        $user->carrier = null;        
+        $user->smsemail = null;        
         $result = $user->updateKeys($original);
         if (!$result) {
             common_log_db_error($user, 'UPDATE', __FILE__);

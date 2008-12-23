@@ -44,7 +44,7 @@ class SettingsAction extends Action {
         return false;
     }
 
-    function show_form($msg=NULL, $success=false) {
+    function show_form($msg=null, $success=false) {
         return false;
     }
 
@@ -55,9 +55,9 @@ class SettingsAction extends Action {
         }
     }
 
-    function form_header($title, $msg=NULL, $success=false) {
+    function form_header($title, $msg=null, $success=false) {
         common_show_header($title,
-                           NULL,
+                           null,
                            array($msg, $success),
                            array($this, 'show_top'));
     }

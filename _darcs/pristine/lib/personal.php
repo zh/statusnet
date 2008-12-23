@@ -32,7 +32,7 @@ class PersonalAction extends Action {
 
     function views_menu() {
 
-        $user = NULL;
+        $user = null;
         $action = $this->trimmed('action');
         $nickname = $this->trimmed('nickname');
 

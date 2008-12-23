@@ -101,8 +101,8 @@ class XmppConfirmHandler extends XmppQueueHandler {
 
     function next_confirm() {
         $confirm = new Confirm_address();
-        $confirm->whereAdd('claimed IS NULL');
-        $confirm->whereAdd('sent IS NULL');
+        $confirm->whereAdd('claimed IS null');
+        $confirm->whereAdd('sent IS null');
         # XXX: eventually we could do other confirmations in the queue, too
         $confirm->address_type = 'jabber';
         $confirm->orderBy('modified DESC');
@@ -122,12 +122,12 @@ class XmppConfirmHandler extends XmppQueueHandler {
                 return false;
             }
         }
-        return NULL;
+        return null;
     }
 
     function clear_old_confirm_claims() {
         $confirm = new Confirm();
-        $confirm->claimed = NULL;
+        $confirm->claimed = null;
         $confirm->whereAdd('now() - claimed > '.CLAIM_TIMEOUT);
         $confirm->update(DB_DATAOBJECT_WHEREADD_ONLY);
         $confirm->free();

@@ -50,7 +50,7 @@ class XrdsAction extends Action {
                                           'xmlns:simple' => 'http://xrds-simple.net/core/1.0',
                                           'version' => '2.0'));
 
-        common_element('Type', NULL, 'xri://$xrds*simple');
+        common_element('Type', null, 'xri://$xrds*simple');
 
         $this->show_service(OAUTH_ENDPOINT_REQUEST,
                             common_local_url('requesttoken'),
@@ -69,7 +69,7 @@ class XrdsAction extends Action {
                             array(OAUTH_HMAC_SHA1));
 
         $this->show_service(OAUTH_ENDPOINT_RESOURCE,
-                            NULL,
+                            null,
                             array(OAUTH_AUTH_HEADER, OAUTH_POST_BODY),
                             array(OAUTH_HMAC_SHA1));
 
@@ -82,7 +82,7 @@ class XrdsAction extends Action {
                                           'xmlns:simple' => 'http://xrds-simple.net/core/1.0',
                                           'version' => '2.0'));
 
-        common_element('Type', NULL, 'xri://$xrds*simple');
+        common_element('Type', null, 'xri://$xrds*simple');
 
         $this->show_service(OMB_ENDPOINT_POSTNOTICE,
                             common_local_url('postnotice'));
@@ -95,7 +95,7 @@ class XrdsAction extends Action {
         common_element_start('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
                                           'version' => '2.0'));
 
-        common_element('Type', NULL, 'xri://$xrds*simple');
+        common_element('Type', null, 'xri://$xrds*simple');
 
         $this->show_service(OAUTH_DISCOVERY,
                             '#oauth');
@@ -108,24 +108,24 @@ class XrdsAction extends Action {
         common_end_xml();
     }
 
-    function show_service($type, $uri, $params=NULL, $sigs=NULL, $localId=NULL) {
+    function show_service($type, $uri, $params=null, $sigs=null, $localId=null) {
         common_element_start('Service');
         if ($uri) {
-            common_element('URI', NULL, $uri);
+            common_element('URI', null, $uri);
         }
-        common_element('Type', NULL, $type);
+        common_element('Type', null, $type);
         if ($params) {
             foreach ($params as $param) {
-                common_element('Type', NULL, $param);
+                common_element('Type', null, $param);
             }
         }
         if ($sigs) {
             foreach ($sigs as $sig) {
-                common_element('Type', NULL, $sig);
+                common_element('Type', null, $sig);
             }
         }
         if ($localId) {
-            common_element('LocalID', NULL, $localId);
+            common_element('LocalID', null, $localId);
         }
         common_element_end('Service');
     }

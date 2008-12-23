@@ -68,8 +68,8 @@ class PeoplesearchAction extends SearchAction {
 
 class PeopleSearchResults extends ProfileList {
 
-    var $terms = NULL;
-    var $pattern = NULL;
+    var $terms = null;
+    var $pattern = null;
     
     function __construct($profile, $terms) {
         parent::__construct($profile);

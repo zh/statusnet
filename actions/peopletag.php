@@ -43,7 +43,7 @@ class PeopletagAction extends Action {
         # Looks like we're good; show the header
 
         common_show_header(sprintf(_('Users self-tagged with %s - page %d'), $tag, $page),
-                           NULL, $tag, array($this, 'show_top'));
+                           null, $tag, array($this, 'show_top'));
 
         $this->show_people($tag, $page);
 
@@ -94,7 +94,7 @@ class PeopletagAction extends Action {
     }
 
     function get_title() {
-        return NULL;
+        return null;
     }
 
     function show_header($arr) {

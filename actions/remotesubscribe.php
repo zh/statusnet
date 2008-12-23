@@ -55,7 +55,7 @@ class RemotesubscribeAction extends Action {
                   ' enter your profile URL below.');
     }
 
-    function show_top($err=NULL) {
+    function show_top($err=null) {
         if ($err) {
             common_element('div', 'error', $err);
         } else {
@@ -67,10 +67,10 @@ class RemotesubscribeAction extends Action {
         }
     }
 
-    function show_form($err=NULL) {
+    function show_form($err=null) {
         $nickname = $this->trimmed('nickname');
         $profile = $this->trimmed('profile_url');
-        common_show_header(_('Remote subscribe'), NULL, $err,
+        common_show_header(_('Remote subscribe'), null, $err,
                            array($this, 'show_top'));
         # id = remotesubscribe conflicts with the
         # button on profile page
@@ -153,7 +153,7 @@ class RemotesubscribeAction extends Action {
     }
 
     function get_user() {
-        $user = NULL;
+        $user = null;
         $nickname = $this->trimmed('nickname');
         if ($nickname) {
             $user = User::staticGet('nickname', $nickname);
@@ -173,7 +173,7 @@ class RemotesubscribeAction extends Action {
         $oauth_services = omb_get_services($xrds, OAUTH_DISCOVERY);
 
         if (!$oauth_services) {
-            return NULL;
+            return null;
         }
 
         $oauth_service = $oauth_services[0];
@@ -181,17 +181,17 @@ class RemotesubscribeAction extends Action {
         $oauth_xrd = $this->getXRD($oauth_service, $xrds);
 
         if (!$oauth_xrd) {
-            return NULL;
+            return null;
         }
 
         if (!$this->addServices($oauth_xrd, $oauth_endpoints, $omb)) {
-            return NULL;
+            return null;
         }
 
         $omb_services = omb_get_services($xrds, OMB_NAMESPACE);
 
         if (!$omb_services) {
-            return NULL;
+            return null;
         }
 
         $omb_service = $omb_services[0];
@@ -199,23 +199,23 @@ class RemotesubscribeAction extends Action {
         $omb_xrd = $this->getXRD($omb_service, $xrds);
 
         if (!$omb_xrd) {
-            return NULL;
+            return null;
         }
 
         if (!$this->addServices($omb_xrd, $omb_endpoints, $omb)) {
-            return NULL;
+            return null;
         }
 
         # XXX: check that we got all the services we needed
 
         foreach (array_merge($omb_endpoints, $oauth_endpoints) as $type) {
             if (!array_key_exists($type, $omb) || !$omb[$type]) {
-                return NULL;
+                return null;
             }
         }
 
         if (!omb_local_id($omb[OAUTH_ENDPOINT_REQUEST])) {
-            return NULL;
+            return null;
         }
 
         return $omb;
@@ -225,7 +225,7 @@ class RemotesubscribeAction extends Action {
         $uri = omb_service_uri($main_service);
         if (strpos($uri, "#") !== 0) {
             # FIXME: more rigorous handling of external service definitions
-            return NULL;
+            return null;
         }
         $id = substr($uri, 1);
         $nodes = $main_xrds->allXrdNodes;
@@ -239,7 +239,7 @@ class RemotesubscribeAction extends Action {
                 return new Auth_Yadis_XRDS($parser, $bogus_nodes);
             }
         }
-        return NULL;
+        return null;
     }
 
     function addServices($xrd, $types, &$omb) {
@@ -267,12 +267,12 @@ class RemotesubscribeAction extends Action {
         $params = array();
         parse_str($parsed['query'], $params);
 
-        $req = OAuthRequest::from_consumer_and_token($con, NULL, "POST", $url, $params);
+        $req = OAuthRequest::from_consumer_and_token($con, null, "POST", $url, $params);
 
         $listener = omb_local_id($omb[OAUTH_ENDPOINT_REQUEST]);
 
         if (!$listener) {
-            return NULL;
+            return null;
         }
 
         $req->set_parameter('omb_listener', $listener);
@@ -280,7 +280,7 @@ class RemotesubscribeAction extends Action {
 
         # XXX: test to see if endpoint accepts this signature method
 
-        $req->sign_request(omb_hmac_sha1(), $con, NULL);
+        $req->sign_request(omb_hmac_sha1(), $con, null);
 
         # We re-use this tool's fetcher, since it's pretty good
 
@@ -291,7 +291,7 @@ class RemotesubscribeAction extends Action {
                                  array('User-Agent' => 'Laconica/' . LACONICA_VERSION));
 
         if ($result->status != 200) {
-            return NULL;
+            return null;
         }
 
         parse_str($result->body, $return);

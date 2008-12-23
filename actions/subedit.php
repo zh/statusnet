@@ -21,7 +21,7 @@ if (!defined('LACONICA')) { exit(1); }
 
 class SubeditAction extends Action {
 
-    var $profile = NULL;
+    var $profile = null;
 
     function prepare($args) {
 

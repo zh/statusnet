@@ -112,7 +112,7 @@ class TwitapistatusesAction extends TwitterapiAction {
 
         $since = strtotime($this->arg('since'));
 
-        $user = $this->get_user(NULL, $apidata);
+        $user = $this->get_user(null, $apidata);
         $this->auth_user = $user;
 
         $profile = $user->getProfile();
@@ -200,7 +200,7 @@ class TwitapistatusesAction extends TwitterapiAction {
         # FriendFeed's SUP protocol
         # Also added RSS and Atom feeds
 
-        $suplink = common_local_url('sup', NULL, $user->id);
+        $suplink = common_local_url('sup', null, $user->id);
         header('X-SUP-ID: '.$suplink);
 
         # XXX: since
@@ -291,7 +291,7 @@ class TwitapistatusesAction extends TwitterapiAction {
             $apidata['api_arg'] = $n->id;
         } else {
 
-            $reply_to = NULL;
+            $reply_to = null;
 
             if ($in_reply_to_status_id) {
 

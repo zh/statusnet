@@ -44,7 +44,7 @@ define('OAUTH_POST_BODY', OAUTH_NAMESPACE.'parameters/post-body');
 define('OAUTH_HMAC_SHA1', OAUTH_NAMESPACE.'signature/HMAC-SHA1');
 
 function omb_oauth_consumer() {
-    static $con = NULL;
+    static $con = null;
     if (!$con) {
         $con = new OAuthConsumer(common_root_url(), '');
     }
@@ -61,7 +61,7 @@ function omb_oauth_server() {
 }
 
 function omb_oauth_datastore() {
-    static $store = NULL;
+    static $store = null;
     if (!$store) {
         $store = new LaconicaOAuthDataStore();
     }
@@ -69,7 +69,7 @@ function omb_oauth_datastore() {
 }
 
 function omb_hmac_sha1() {
-    static $hmac_method = NULL;
+    static $hmac_method = null;
     if (!$hmac_method) {
         $hmac_method = new OAuthSignatureMethod_HMAC_SHA1();
     }
@@ -91,22 +91,22 @@ function omb_match_service($service, $type) {
 
 function omb_service_uri($service) {
     if (!$service) {
-        return NULL;
+        return null;
     }
     $uris = $service->getURIs();
     if (!$uris) {
-        return NULL;
+        return null;
     }
     return $uris[0];
 }
 
 function omb_local_id($service) {
     if (!$service) {
-        return NULL;
+        return null;
     }
     $els = $service->getElements('xrd:LocalID');
     if (!$els) {
-        return NULL;
+        return null;
     }
     $el = $els[0];
     return $service->parser->content($el);

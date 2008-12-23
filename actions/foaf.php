@@ -66,21 +66,21 @@ class FoafAction extends Action {
         # XXX: might not be a person
         common_element_start('Person', array('rdf:about' =>
                                              $user->uri));
-        common_element('mbox_sha1sum', NULL, sha1('mailto:' . $user->email));
+        common_element('mbox_sha1sum', null, sha1('mailto:' . $user->email));
         if ($profile->fullname) {
-            common_element('name', NULL, $profile->fullname);
+            common_element('name', null, $profile->fullname);
         }
         if ($profile->homepage) {
             common_element('homepage', array('rdf:resource' => $profile->homepage));
         }
         if ($profile->bio) {
-            common_element('rdfs:comment', NULL, $profile->bio);
+            common_element('rdfs:comment', null, $profile->bio);
         }
         # XXX: more structured location data
         if ($profile->location) {
             common_element_start('based_near');
             common_element_start('geo:SpatialThing');
-            common_element('name', NULL, $profile->location);
+            common_element('name', null, $profile->location);
             common_element_end('geo:SpatialThing');
             common_element_end('based_near');
         }
@@ -156,7 +156,7 @@ class FoafAction extends Action {
         common_element_end('Person');
 
         foreach ($person as $uri => $p) {
-            $foaf_url = NULL;
+            $foaf_url = null;
             if ($p[1] instanceof User) {
                 $foaf_url = common_local_url('foaf', array('nickname' => $p[1]->nickname));
             }
@@ -166,7 +166,7 @@ class FoafAction extends Action {
                 common_element('knows', array('rdf:resource' => $user->uri));
             }
             $this->show_microblogging_account($profile, ($p[1] instanceof User) ?
-                                              common_root_url() : NULL);
+                                              common_root_url() : null);
             if ($foaf_url) {
                 common_element('rdfs:seeAlso', array('rdf:resource' => $foaf_url));
             }
@@ -186,7 +186,7 @@ class FoafAction extends Action {
         common_element_end('PersonalProfileDocument');
     }
 
-    function show_microblogging_account($profile, $service=NULL) {
+    function show_microblogging_account($profile, $service=null) {
         # Their account
         common_element_start('holdsAccount');
         common_element_start('OnlineAccount');
@@ -194,7 +194,7 @@ class FoafAction extends Action {
             common_element('accountServiceHomepage', array('rdf:resource' =>
                                                            $service));
         }
-        common_element('accountName', NULL, $profile->nickname);
+        common_element('accountName', null, $profile->nickname);
         common_element('homepage', array('rdf:resource' => $profile->profileurl));
         common_element_end('OnlineAccount');
         common_element_end('holdsAccount');

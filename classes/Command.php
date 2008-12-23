@@ -23,9 +23,9 @@ require_once(INSTALLDIR.'/classes/Channel.php');
 
 class Command {
     
-    var $user = NULL;
+    var $user = null;
     
-    function __construct($user=NULL) {
+    function __construct($user=null) {
         $this->user = $user;
     }
     
@@ -47,7 +47,7 @@ class TrackOffCommand extends UnimplementedCommand {
 }
 
 class TrackCommand extends UnimplementedCommand {
-    var $word = NULL;
+    var $word = null;
     function __construct($user, $word) {
         parent::__construct($user);
         $this->word = $word;
@@ -55,7 +55,7 @@ class TrackCommand extends UnimplementedCommand {
 }
 
 class UntrackCommand extends UnimplementedCommand {
-    var $word = NULL;
+    var $word = null;
     function __construct($user, $word) {
         parent::__construct($user);
         $this->word = $word;
@@ -63,7 +63,7 @@ class UntrackCommand extends UnimplementedCommand {
 }
 
 class NudgeCommand extends UnimplementedCommand {
-    var $other = NULL;
+    var $other = null;
     function __construct($user, $other) {
         parent::__construct($user);
         $this->other = $other;
@@ -71,7 +71,7 @@ class NudgeCommand extends UnimplementedCommand {
 }
 
 class InviteCommand extends UnimplementedCommand {
-    var $other = NULL;
+    var $other = null;
     function __construct($user, $other) {
         parent::__construct($user);
         $this->other = $other;
@@ -104,7 +104,7 @@ class StatsCommand extends Command {
 
 class FavCommand extends Command {
     
-    var $other = NULL;
+    var $other = null;
     
     function __construct($user, $other) {
         parent::__construct($user);
@@ -148,7 +148,7 @@ class FavCommand extends Command {
 }
 
 class WhoisCommand extends Command {
-    var $other = NULL;
+    var $other = null;
     function __construct($user, $other) {
         parent::__construct($user);
         $this->other = $other;
@@ -182,8 +182,8 @@ class WhoisCommand extends Command {
 }
 
 class MessageCommand extends Command {
-    var $other = NULL;
-    var $text = NULL;
+    var $other = null;
+    var $text = null;
     function __construct($user, $other, $text) {
         parent::__construct($user);
         $this->other = $other;
@@ -225,7 +225,7 @@ class MessageCommand extends Command {
 
 class GetCommand extends Command {
     
-    var $other = NULL;
+    var $other = null;
     
     function __construct($user, $other) {
         parent::__construct($user);
@@ -255,7 +255,7 @@ class GetCommand extends Command {
 
 class SubCommand extends Command {
     
-    var $other = NULL;
+    var $other = null;
     
     function __construct($user, $other) {
         parent::__construct($user);
@@ -281,7 +281,7 @@ class SubCommand extends Command {
 
 class UnsubCommand extends Command {
 
-    var $other = NULL;
+    var $other = null;
     
     function __construct($user, $other) {
         parent::__construct($user);
@@ -305,8 +305,8 @@ class UnsubCommand extends Command {
 }
 
 class OffCommand extends Command {
-    var $other = NULL;
-    function __construct($user, $other=NULL) {
+    var $other = null;
+    function __construct($user, $other=null) {
         parent::__construct($user);
         $this->other = $other;
     }
@@ -324,8 +324,8 @@ class OffCommand extends Command {
 }
 
 class OnCommand extends Command {
-    var $other = NULL;
-    function __construct($user, $other=NULL) {
+    var $other = null;
+    function __construct($user, $other=null) {
         parent::__construct($user);
         $this->other = $other;
     }

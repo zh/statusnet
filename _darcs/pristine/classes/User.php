@@ -62,7 +62,7 @@ class User extends Memcached_DataObject
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
-    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('User',$k,$v); }
+    function staticGet($k,$v=null) { return Memcached_DataObject::staticGet('User',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
@@ -118,10 +118,10 @@ class User extends Memcached_DataObject
         return !in_array($nickname, $merged);
     }
 
-    function getCurrentNotice($dt=NULL) {
+    function getCurrentNotice($dt=null) {
         $profile = $this->getProfile();
         if (!$profile) {
-            return NULL;
+            return null;
         }
         return $profile->getCurrentNotice($dt);
     }
@@ -336,20 +336,20 @@ class User extends Memcached_DataObject
         return $user;
     }
 
-    function getReplies($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=NULL) {
+    function getReplies($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null) {
         $qry =
           'SELECT notice.* ' .
           'FROM notice JOIN reply ON notice.id = reply.notice_id ' .
           'WHERE reply.profile_id = %d ';
         return Notice::getStream(sprintf($qry, $this->id),
                                  'user:replies:'.$this->id,
-                                 $offset, $limit, $since_id, $before_id, NULL, $since);
+                                 $offset, $limit, $since_id, $before_id, null, $since);
     }
 
-        function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=NULL) {
+        function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null) {
         $profile = $this->getProfile();
         if (!$profile) {
-            return NULL;
+            return null;
         } else {
             return $profile->getNotices($offset, $limit, $since_id, $before_id);
         }
@@ -365,7 +365,7 @@ class User extends Memcached_DataObject
                                  $offset, $limit);
     }
 
-        function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=NULL) {
+        function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null) {
         $enabled = common_config('inboxes', 'enabled');
 
         # Complicated code, depending on whether we support inboxes yet
@@ -377,7 +377,7 @@ class User extends Memcached_DataObject
               'SELECT notice.* ' .
               'FROM notice JOIN subscription ON notice.profile_id = subscription.subscribed ' .
               'WHERE subscription.subscriber = %d ';
-            $order = NULL;
+            $order = null;
         } else if ($enabled === true ||
                ($enabled == 'transitional' && $this->inboxed == 1)) {
 
