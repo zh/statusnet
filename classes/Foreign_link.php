@@ -26,51 +26,51 @@ class Foreign_link extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-	// XXX:  This only returns a 1->1 single obj mapping.  Change?  Or make
-	// a getForeignUsers() that returns more than one? --Zach
-	static function getByUserID($user_id, $service) {
-		$flink = new Foreign_link();
-		$flink->service = $service;
-		$flink->user_id = $user_id;
-		$flink->limit(1);
+    // XXX:  This only returns a 1->1 single obj mapping.  Change?  Or make
+    // a getForeignUsers() that returns more than one? --Zach
+    static function getByUserID($user_id, $service) {
+        $flink = new Foreign_link();
+        $flink->service = $service;
+        $flink->user_id = $user_id;
+        $flink->limit(1);
 
-		if ($flink->find(TRUE)) {
-			return $flink;
-		}
+        if ($flink->find(TRUE)) {
+            return $flink;
+        }
 
-		return NULL;		
-	}
-	
-	static function getByForeignID($foreign_id, $service) {
-		$flink = new Foreign_link();
-		$flink->service = $service;
-		$flink->foreign_id = $foreign_id;
-		$flink->limit(1);
+        return NULL;        
+    }
+    
+    static function getByForeignID($foreign_id, $service) {
+        $flink = new Foreign_link();
+        $flink->service = $service;
+        $flink->foreign_id = $foreign_id;
+        $flink->limit(1);
 
-		if ($flink->find(TRUE)) {
-			return $flink;
-		}
+        if ($flink->find(TRUE)) {
+            return $flink;
+        }
 
-		return NULL;		
-	}
-		
-	# Convenience methods
-	function getForeignUser() {		
-		$fuser = new Foreign_user();
-		$fuser->service = $this->service;
-		$fuser->id = $this->foreign_id;
-		
-		$fuser->limit(1);
-		
-		if ($fuser->find(TRUE)) {
-			return $fuser;
-		}
-		
-		return NULL;		
-	}
-	
-	function getUser() {
-		return User::staticGet($this->user_id);
-	}
-		
+        return NULL;        
+    }
+        
+    # Convenience methods
+    function getForeignUser() {        
+        $fuser = new Foreign_user();
+        $fuser->service = $this->service;
+        $fuser->id = $this->foreign_id;
+        
+        $fuser->limit(1);
+        
+        if ($fuser->find(TRUE)) {
+            return $fuser;
+        }
+        
+        return NULL;        
+    }
+    
+    function getUser() {
+        return User::staticGet($this->user_id);
+    }
+        
 }

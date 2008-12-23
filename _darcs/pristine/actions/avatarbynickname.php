@@ -24,45 +24,45 @@ class AvatarbynicknameAction extends Action {
         parent::handle($args);
         $nickname = $this->trimmed('nickname');
         if (!$nickname) {
-        	$this->client_error(_('No nickname.'));
-			return;
-		}
-		$size = $this->trimmed('size');
+            $this->client_error(_('No nickname.'));
+            return;
+        }
+        $size = $this->trimmed('size');
         if (!$size) {
-        	$this->client_error(_('No size.'));
-			return;
-		}
-		$size = strtolower($size);
-		if (!in_array($size, array('original', '96', '48', '24'))) {
-        	$this->client_error(_('Invalid size.'));
-			return;
-		}
+            $this->client_error(_('No size.'));
+            return;
+        }
+        $size = strtolower($size);
+        if (!in_array($size, array('original', '96', '48', '24'))) {
+            $this->client_error(_('Invalid size.'));
+            return;
+        }
 
-		$user = User::staticGet('nickname', $nickname);
-		if (!$user) {
-        	$this->client_error(_('No such user.'));
-			return;
-		}
-		$profile = $user->getProfile();
-		if (!$profile) {
-        	$this->client_error(_('User has no profile.'));
-			return;
-		}
-		if ($size == 'original') {
-			$avatar = $profile->getOriginal();
-		} else {
-			$avatar = $profile->getAvatar($size+0);
-		}
+        $user = User::staticGet('nickname', $nickname);
+        if (!$user) {
+            $this->client_error(_('No such user.'));
+            return;
+        }
+        $profile = $user->getProfile();
+        if (!$profile) {
+            $this->client_error(_('User has no profile.'));
+            return;
+        }
+        if ($size == 'original') {
+            $avatar = $profile->getOriginal();
+        } else {
+            $avatar = $profile->getAvatar($size+0);
+        }
 
-		if ($avatar) {
-			$url = $avatar->url;
-		} else {
-			if ($size == 'original') {
-				$url = common_default_avatar(AVATAR_PROFILE_SIZE);
-			} else {
-				$url = common_default_avatar($size+0);
-			}
-		}
-		common_redirect($url, 302);
-	}
+        if ($avatar) {
+            $url = $avatar->url;
+        } else {
+            if ($size == 'original') {
+                $url = common_default_avatar(AVATAR_PROFILE_SIZE);
+            } else {
+                $url = common_default_avatar($size+0);
+            }
+        }
+        common_redirect($url, 302);
+    }
 }

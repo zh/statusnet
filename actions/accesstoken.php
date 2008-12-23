@@ -22,21 +22,21 @@ if (!defined('LACONICA')) { exit(1); }
 require_once(INSTALLDIR.'/lib/omb.php');
 
 class AccesstokenAction extends Action {
-	function handle($args) {
-		parent::handle($args);
-		try {
-			common_debug('getting request from env variables', __FILE__);
-			common_remove_magic_from_request();
-			$req = OAuthRequest::from_request();
-			common_debug('getting a server', __FILE__);
-			$server = omb_oauth_server();
-			common_debug('fetching the access token', __FILE__);
-			$token = $server->fetch_access_token($req);
-			common_debug('got this token: "'.print_r($token,TRUE).'"', __FILE__);
-			common_debug('printing the access token', __FILE__);
-			print $token;
-		} catch (OAuthException $e) {
-			common_server_error($e->getMessage());
-		}
-	}
+    function handle($args) {
+        parent::handle($args);
+        try {
+            common_debug('getting request from env variables', __FILE__);
+            common_remove_magic_from_request();
+            $req = OAuthRequest::from_request();
+            common_debug('getting a server', __FILE__);
+            $server = omb_oauth_server();
+            common_debug('fetching the access token', __FILE__);
+            $token = $server->fetch_access_token($req);
+            common_debug('got this token: "'.print_r($token,TRUE).'"', __FILE__);
+            common_debug('printing the access token', __FILE__);
+            print $token;
+        } catch (OAuthException $e) {
+            common_server_error($e->getMessage());
+        }
+    }
 }

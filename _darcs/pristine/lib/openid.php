@@ -33,210 +33,210 @@ define('OPENID_COOKIE_KEY', 'lastusedopenid');
 
 function oid_store() {
     static $store = NULL;
-	if (!$store) {
-		# Can't be called statically
-		$user = new User();
-		$conn = $user->getDatabaseConnection();
-		$store = new Auth_OpenID_MySQLStore($conn);
-	}
-	return $store;
+    if (!$store) {
+        # Can't be called statically
+        $user = new User();
+        $conn = $user->getDatabaseConnection();
+        $store = new Auth_OpenID_MySQLStore($conn);
+    }
+    return $store;
 }
 
 function oid_consumer() {
-	$store = oid_store();
-	$consumer = new Auth_OpenID_Consumer($store);
-	return $consumer;
+    $store = oid_store();
+    $consumer = new Auth_OpenID_Consumer($store);
+    return $consumer;
 }
 
 function oid_clear_last() {
-	oid_set_last('');
+    oid_set_last('');
 }
 
 function oid_set_last($openid_url) {
-	common_set_cookie(OPENID_COOKIE_KEY,
-			         $openid_url,
-			         time() + OPENID_COOKIE_EXPIRY);
+    common_set_cookie(OPENID_COOKIE_KEY,
+                     $openid_url,
+                     time() + OPENID_COOKIE_EXPIRY);
 }
 
 function oid_get_last() {
-	$openid_url = $_COOKIE[OPENID_COOKIE_KEY];
-	if ($openid_url && strlen($openid_url) > 0) {
-		return $openid_url;
-	} else {
-		return NULL;
-	}
+    $openid_url = $_COOKIE[OPENID_COOKIE_KEY];
+    if ($openid_url && strlen($openid_url) > 0) {
+        return $openid_url;
+    } else {
+        return NULL;
+    }
 }
 
 function oid_link_user($id, $canonical, $display) {
 
-	$oid = new User_openid();
-	$oid->user_id = $id;
-	$oid->canonical = $canonical;
-	$oid->display = $display;
-	$oid->created = DB_DataObject_Cast::dateTime();
+    $oid = new User_openid();
+    $oid->user_id = $id;
+    $oid->canonical = $canonical;
+    $oid->display = $display;
+    $oid->created = DB_DataObject_Cast::dateTime();
 
-	if (!$oid->insert()) {
-		$err = PEAR::getStaticProperty('DB_DataObject','lastError');
-		common_debug('DB error ' . $err->code . ': ' . $err->message, __FILE__);
-		return false;
-	}
+    if (!$oid->insert()) {
+        $err = PEAR::getStaticProperty('DB_DataObject','lastError');
+        common_debug('DB error ' . $err->code . ': ' . $err->message, __FILE__);
+        return false;
+    }
 
-	return true;
+    return true;
 }
 
 function oid_get_user($openid_url) {
-	$user = NULL;
-	$oid = User_openid::staticGet('canonical', $openid_url);
-	if ($oid) {
-		$user = User::staticGet('id', $oid->user_id);
-	}
-	return $user;
+    $user = NULL;
+    $oid = User_openid::staticGet('canonical', $openid_url);
+    if ($oid) {
+        $user = User::staticGet('id', $oid->user_id);
+    }
+    return $user;
 }
 
 function oid_check_immediate($openid_url, $backto=NULL) {
-	if (!$backto) {
-		$action = $_REQUEST['action'];
-		$args = common_copy_args($_GET);
-		unset($args['action']);
-		$backto = common_local_url($action, $args);
-	}
-	common_debug('going back to "' . $backto . '"', __FILE__);
+    if (!$backto) {
+        $action = $_REQUEST['action'];
+        $args = common_copy_args($_GET);
+        unset($args['action']);
+        $backto = common_local_url($action, $args);
+    }
+    common_debug('going back to "' . $backto . '"', __FILE__);
 
-	common_ensure_session();
+    common_ensure_session();
 
-	$_SESSION['openid_immediate_backto'] = $backto;
-	common_debug('passed-in variable is "' . $backto . '"', __FILE__);
-	common_debug('session variable is "' . $_SESSION['openid_immediate_backto'] . '"', __FILE__);
+    $_SESSION['openid_immediate_backto'] = $backto;
+    common_debug('passed-in variable is "' . $backto . '"', __FILE__);
+    common_debug('session variable is "' . $_SESSION['openid_immediate_backto'] . '"', __FILE__);
 
-	oid_authenticate($openid_url,
-					 'finishimmediate',
-					 true);
+    oid_authenticate($openid_url,
+                     'finishimmediate',
+                     true);
 }
 
 function oid_authenticate($openid_url, $returnto, $immediate=false) {
 
-	$consumer = oid_consumer();
+    $consumer = oid_consumer();
 
-	if (!$consumer) {
-		common_server_error(_('Cannot instantiate OpenID consumer object.'));
-		return false;
-	}
+    if (!$consumer) {
+        common_server_error(_('Cannot instantiate OpenID consumer object.'));
+        return false;
+    }
 
-	common_ensure_session();
+    common_ensure_session();
 
-	$auth_request = $consumer->begin($openid_url);
+    $auth_request = $consumer->begin($openid_url);
 
-	// Handle failure status return values.
-	if (!$auth_request) {
-		return _('Not a valid OpenID.');
-	} else if (Auth_OpenID::isFailure($auth_request)) {
-		return sprintf(_('OpenID failure: %s'), $auth_request->message);
-	}
+    // Handle failure status return values.
+    if (!$auth_request) {
+        return _('Not a valid OpenID.');
+    } else if (Auth_OpenID::isFailure($auth_request)) {
+        return sprintf(_('OpenID failure: %s'), $auth_request->message);
+    }
 
-	$sreg_request = Auth_OpenID_SRegRequest::build(// Required
-												   array(),
-												   // Optional
-												   array('nickname',
-														 'email',
-														 'fullname',
-														 'language',
-														 'timezone',
-														 'postcode',
-														 'country'));
+    $sreg_request = Auth_OpenID_SRegRequest::build(// Required
+                                                   array(),
+                                                   // Optional
+                                                   array('nickname',
+                                                         'email',
+                                                         'fullname',
+                                                         'language',
+                                                         'timezone',
+                                                         'postcode',
+                                                         'country'));
 
-	if ($sreg_request) {
-		$auth_request->addExtension($sreg_request);
-	}
+    if ($sreg_request) {
+        $auth_request->addExtension($sreg_request);
+    }
 
-	$trust_root = common_local_url('public');
-	$process_url = common_local_url($returnto);
+    $trust_root = common_local_url('public');
+    $process_url = common_local_url($returnto);
 
-	if ($auth_request->shouldSendRedirect()) {
-		$redirect_url = $auth_request->redirectURL($trust_root,
-												   $process_url,
-												   $immediate);
-		if (!$redirect_url) {
-		} else if (Auth_OpenID::isFailure($redirect_url)) {
-			return sprintf(_('Could not redirect to server: %s'), $redirect_url->message);
-		} else {
-			common_redirect($redirect_url);
-		}
-	} else {
-		// Generate form markup and render it.
-		$form_id = 'openid_message';
-		$form_html = $auth_request->formMarkup($trust_root, $process_url,
-											   $immediate, array('id' => $form_id));
+    if ($auth_request->shouldSendRedirect()) {
+        $redirect_url = $auth_request->redirectURL($trust_root,
+                                                   $process_url,
+                                                   $immediate);
+        if (!$redirect_url) {
+        } else if (Auth_OpenID::isFailure($redirect_url)) {
+            return sprintf(_('Could not redirect to server: %s'), $redirect_url->message);
+        } else {
+            common_redirect($redirect_url);
+        }
+    } else {
+        // Generate form markup and render it.
+        $form_id = 'openid_message';
+        $form_html = $auth_request->formMarkup($trust_root, $process_url,
+                                               $immediate, array('id' => $form_id));
 
-		# XXX: This is cheap, but things choke if we don't escape ampersands
-		# in the HTML attributes
+        # XXX: This is cheap, but things choke if we don't escape ampersands
+        # in the HTML attributes
 
-		$form_html = preg_replace('/&/', '&amp;', $form_html);
+        $form_html = preg_replace('/&/', '&amp;', $form_html);
 
-		// Display an error if the form markup couldn't be generated;
-		// otherwise, render the HTML.
-		if (Auth_OpenID::isFailure($form_html)) {
-			$this->show_form(sprintf(_('Could not create OpenID form: %s'), $form_html->message));
-		} else {
-			common_show_header(_('OpenID Auto-Submit'), NULL, NULL, '_oid_print_instructions');
-			common_raw($form_html);
-			common_element('script', NULL,
-						   '$(document).ready(function() { ' .
-						   '    $("#'. $form_id .'").submit(); '.
-						   '});');
-			common_show_footer();
-		}
-	}
+        // Display an error if the form markup couldn't be generated;
+        // otherwise, render the HTML.
+        if (Auth_OpenID::isFailure($form_html)) {
+            $this->show_form(sprintf(_('Could not create OpenID form: %s'), $form_html->message));
+        } else {
+            common_show_header(_('OpenID Auto-Submit'), NULL, NULL, '_oid_print_instructions');
+            common_raw($form_html);
+            common_element('script', NULL,
+                           '$(document).ready(function() { ' .
+                           '    $("#'. $form_id .'").submit(); '.
+                           '});');
+            common_show_footer();
+        }
+    }
 }
 
 # Half-assed attempt at a module-private function
 
 function _oid_print_instructions() {
-	common_element('div', 'instructions',
-				   _('This form should automatically submit itself. '.
-					  'If not, click the submit button to go to your '.
-					  'OpenID provider.'));
+    common_element('div', 'instructions',
+                   _('This form should automatically submit itself. '.
+                      'If not, click the submit button to go to your '.
+                      'OpenID provider.'));
 }
 
 # update a user from sreg parameters
 
 function oid_update_user(&$user, &$sreg) {
 
-	$profile = $user->getProfile();
+    $profile = $user->getProfile();
 
-	$orig_profile = clone($profile);
+    $orig_profile = clone($profile);
 
-	if ($sreg['fullname'] && strlen($sreg['fullname']) <= 255) {
-		$profile->fullname = $sreg['fullname'];
-	}
+    if ($sreg['fullname'] && strlen($sreg['fullname']) <= 255) {
+        $profile->fullname = $sreg['fullname'];
+    }
 
-	if ($sreg['country']) {
-		if ($sreg['postcode']) {
-			# XXX: use postcode to get city and region
-			# XXX: also, store postcode somewhere -- it's valuable!
-			$profile->location = $sreg['postcode'] . ', ' . $sreg['country'];
-		} else {
-			$profile->location = $sreg['country'];
-		}
-	}
+    if ($sreg['country']) {
+        if ($sreg['postcode']) {
+            # XXX: use postcode to get city and region
+            # XXX: also, store postcode somewhere -- it's valuable!
+            $profile->location = $sreg['postcode'] . ', ' . $sreg['country'];
+        } else {
+            $profile->location = $sreg['country'];
+        }
+    }
 
-	# XXX save language if it's passed
-	# XXX save timezone if it's passed
+    # XXX save language if it's passed
+    # XXX save timezone if it's passed
 
-	if (!$profile->update($orig_profile)) {
-		common_server_error(_('Error saving the profile.'));
-		return false;
-	}
+    if (!$profile->update($orig_profile)) {
+        common_server_error(_('Error saving the profile.'));
+        return false;
+    }
 
-	$orig_user = clone($user);
+    $orig_user = clone($user);
 
-	if ($sreg['email'] && Validate::email($sreg['email'], true)) {
-		$user->email = $sreg['email'];
-	}
+    if ($sreg['email'] && Validate::email($sreg['email'], true)) {
+        $user->email = $sreg['email'];
+    }
 
-	if (!$user->update($orig_user)) {
-		common_server_error(_('Error saving the user.'));
-		return false;
-	}
+    if (!$user->update($orig_user)) {
+        common_server_error(_('Error saving the user.'));
+        return false;
+    }
 
-	return true;
+    return true;
 }

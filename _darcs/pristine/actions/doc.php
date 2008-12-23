@@ -21,18 +21,18 @@ if (!defined('LACONICA')) { exit(1); }
 
 class DocAction extends Action {
 
-	function handle($args) {
-		parent::handle($args);
-		$title = $this->trimmed('title');
-		$filename = INSTALLDIR.'/doc/'.$title;
-		if (!file_exists($filename)) {
-			common_user_error(_('No such document.'));
-			return;
-		}
-		$c = file_get_contents($filename);
-		$output = common_markup_to_html($c);
-		common_show_header(_(ucfirst($title)));
-		common_raw($output);
-		common_show_footer();
-	}
+    function handle($args) {
+        parent::handle($args);
+        $title = $this->trimmed('title');
+        $filename = INSTALLDIR.'/doc/'.$title;
+        if (!file_exists($filename)) {
+            common_user_error(_('No such document.'));
+            return;
+        }
+        $c = file_get_contents($filename);
+        $output = common_markup_to_html($c);
+        common_show_header(_(ucfirst($title)));
+        common_raw($output);
+        common_show_footer();
+    }
 }

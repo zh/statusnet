@@ -27,9 +27,9 @@ class SettingsAction extends Action {
             common_user_error(_('Not logged in.'));
             return;
         } else if (!common_is_real_login()) {
-        	# Cookie theft means that automatic logins can't
-        	# change important settings or see private info, and
-        	# _all_ our settings are important
+            # Cookie theft means that automatic logins can't
+            # change important settings or see private info, and
+            # _all_ our settings are important
             common_set_returnto($this->self_url());
             common_redirect(common_local_url('login'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -55,60 +55,60 @@ class SettingsAction extends Action {
         }
     }
 
-	function form_header($title, $msg=NULL, $success=false) {
-		common_show_header($title,
-		                   NULL,
-		                   array($msg, $success),
-						   array($this, 'show_top'));
-	}
+    function form_header($title, $msg=NULL, $success=false) {
+        common_show_header($title,
+                           NULL,
+                           array($msg, $success),
+                           array($this, 'show_top'));
+    }
 
-	function show_top($arr) {
-		$msg = $arr[0];
-		$success = $arr[1];
-		if ($msg) {
-			$this->message($msg, $success);
-		} else {
-			$inst = $this->get_instructions();
-			$output = common_markup_to_html($inst);
-			common_element_start('div', 'instructions');
-			common_raw($output);
-			common_element_end('div');
-		}
-		$this->settings_menu();
-	}
+    function show_top($arr) {
+        $msg = $arr[0];
+        $success = $arr[1];
+        if ($msg) {
+            $this->message($msg, $success);
+        } else {
+            $inst = $this->get_instructions();
+            $output = common_markup_to_html($inst);
+            common_element_start('div', 'instructions');
+            common_raw($output);
+            common_element_end('div');
+        }
+        $this->settings_menu();
+    }
 
     function settings_menu() {
         # action => array('prompt', 'title')
-		$menu =
-		  array('profilesettings' =>
-				array(_('Profile'),
-					  _('Change your profile settings')),
-				'emailsettings' =>
-				array(_('Email'),
-					  _('Change email handling')),
-				'openidsettings' =>
-				array(_('OpenID'),
-					  _('Add or remove OpenIDs')),
-				'smssettings' =>
-				array(_('SMS'),
-					  _('Updates by SMS')),
-				'imsettings' =>
-				array(_('IM'),
-					  _('Updates by instant messenger (IM)')),
-				'twittersettings' =>
-				array(_('Twitter'),
-					  _('Twitter integration options')),
-				'othersettings' =>
-				array(_('Other'),
-					  _('Other options')));
-		
+        $menu =
+          array('profilesettings' =>
+                array(_('Profile'),
+                      _('Change your profile settings')),
+                'emailsettings' =>
+                array(_('Email'),
+                      _('Change email handling')),
+                'openidsettings' =>
+                array(_('OpenID'),
+                      _('Add or remove OpenIDs')),
+                'smssettings' =>
+                array(_('SMS'),
+                      _('Updates by SMS')),
+                'imsettings' =>
+                array(_('IM'),
+                      _('Updates by instant messenger (IM)')),
+                'twittersettings' =>
+                array(_('Twitter'),
+                      _('Twitter integration options')),
+                'othersettings' =>
+                array(_('Other'),
+                      _('Other options')));
+        
         $action = $this->trimmed('action');
         common_element_start('ul', array('id' => 'nav_views'));
         foreach ($menu as $menuaction => $menudesc) {
-			if ($menuaction == 'imsettings' &&
-				!common_config('xmpp', 'enabled')) {
-				continue;
-			}
+            if ($menuaction == 'imsettings' &&
+                !common_config('xmpp', 'enabled')) {
+                continue;
+            }
             common_menu_item(common_local_url($menuaction),
                     $menudesc[0],
                     $menudesc[1],

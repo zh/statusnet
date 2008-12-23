@@ -67,82 +67,82 @@ class User extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-	function getProfile() {
-		return Profile::staticGet('id', $this->id);
-	}
+    function getProfile() {
+        return Profile::staticGet('id', $this->id);
+    }
 
-	function isSubscribed($other) {
-		assert(!is_null($other));
-		# XXX: cache results of this query
-		$sub = Subscription::pkeyGet(array('subscriber' => $this->id,
-										   'subscribed' => $other->id));
-		return (is_null($sub)) ? false : true;
-	}
+    function isSubscribed($other) {
+        assert(!is_null($other));
+        # XXX: cache results of this query
+        $sub = Subscription::pkeyGet(array('subscriber' => $this->id,
+                                           'subscribed' => $other->id));
+        return (is_null($sub)) ? false : true;
+    }
 
-	# 'update' won't write key columns, so we have to do it ourselves.
+    # 'update' won't write key columns, so we have to do it ourselves.
 
-	function updateKeys(&$orig) {
-		$parts = array();
-		foreach (array('nickname', 'email', 'jabber', 'incomingemail', 'sms', 'carrier', 'smsemail', 'language', 'timezone') as $k) {
-			if (strcmp($this->$k, $orig->$k) != 0) {
-				$parts[] = $k . ' = ' . $this->_quote($this->$k);
-			}
-		}
-		if (count($parts) == 0) {
-			# No changes
-			return true;
-		}
-		$toupdate = implode(', ', $parts);
+    function updateKeys(&$orig) {
+        $parts = array();
+        foreach (array('nickname', 'email', 'jabber', 'incomingemail', 'sms', 'carrier', 'smsemail', 'language', 'timezone') as $k) {
+            if (strcmp($this->$k, $orig->$k) != 0) {
+                $parts[] = $k . ' = ' . $this->_quote($this->$k);
+            }
+        }
+        if (count($parts) == 0) {
+            # No changes
+            return true;
+        }
+        $toupdate = implode(', ', $parts);
 
-		$table = $this->tableName();
-		if(common_config('db','quote_identifiers')) {
-			$table = '"' . $table . '"';
-		}
-		$qry = 'UPDATE ' . $table . ' SET ' . $toupdate .
-		  ' WHERE id = ' . $this->id;
-		$orig->decache();
-		$result = $this->query($qry);
-		if ($result) {
-			$this->encache();
-		}
-		return $result;
-	}
+        $table = $this->tableName();
+        if(common_config('db','quote_identifiers')) {
+            $table = '"' . $table . '"';
+        }
+        $qry = 'UPDATE ' . $table . ' SET ' . $toupdate .
+          ' WHERE id = ' . $this->id;
+        $orig->decache();
+        $result = $this->query($qry);
+        if ($result) {
+            $this->encache();
+        }
+        return $result;
+    }
 
-	function allowed_nickname($nickname) {
-		# XXX: should already be validated for size, content, etc.
-		static $blacklist = array('rss', 'xrds', 'doc', 'main',
-								  'settings', 'notice', 'user',
-								  'search', 'avatar', 'tag', 'tags',
-								  'api', 'message');
-		$merged = array_merge($blacklist, common_config('nickname', 'blacklist'));
-		return !in_array($nickname, $merged);
-	}
+    function allowed_nickname($nickname) {
+        # XXX: should already be validated for size, content, etc.
+        static $blacklist = array('rss', 'xrds', 'doc', 'main',
+                                  'settings', 'notice', 'user',
+                                  'search', 'avatar', 'tag', 'tags',
+                                  'api', 'message');
+        $merged = array_merge($blacklist, common_config('nickname', 'blacklist'));
+        return !in_array($nickname, $merged);
+    }
 
-	function getCurrentNotice($dt=NULL) {
-		$profile = $this->getProfile();
-		if (!$profile) {
-			return NULL;
-		}
-		return $profile->getCurrentNotice($dt);
-	}
+    function getCurrentNotice($dt=NULL) {
+        $profile = $this->getProfile();
+        if (!$profile) {
+            return NULL;
+        }
+        return $profile->getCurrentNotice($dt);
+    }
 
-	function getCarrier() {
-		return Sms_carrier::staticGet('id', $this->carrier);
-	}
+    function getCarrier() {
+        return Sms_carrier::staticGet('id', $this->carrier);
+    }
 
-	function subscribeTo($other) {
-		$sub = new Subscription();
-		$sub->subscriber = $this->id;
-		$sub->subscribed = $other->id;
+    function subscribeTo($other) {
+        $sub = new Subscription();
+        $sub->subscriber = $this->id;
+        $sub->subscribed = $other->id;
 
-		$sub->created = common_sql_now(); # current time
+        $sub->created = common_sql_now(); # current time
 
-		if (!$sub->insert()) {
-			return false;
-		}
+        if (!$sub->insert()) {
+            return false;
+        }
 
-		return true;
-	}
+        return true;
+    }
 
     function hasBlocked($other) {
 
@@ -158,193 +158,193 @@ class User extends Memcached_DataObject
         return $result;
     }
 
-	static function register($fields) {
+    static function register($fields) {
 
-		# MAGICALLY put fields into current scope
+        # MAGICALLY put fields into current scope
 
-		extract($fields);
+        extract($fields);
 
-		$profile = new Profile();
+        $profile = new Profile();
 
-		$profile->query('BEGIN');
+        $profile->query('BEGIN');
 
-		$profile->nickname = $nickname;
-		$profile->profileurl = common_profile_url($nickname);
+        $profile->nickname = $nickname;
+        $profile->profileurl = common_profile_url($nickname);
 
-		if ($fullname) {
-			$profile->fullname = $fullname;
-		}
-		if ($homepage) {
-			$profile->homepage = $homepage;
-		}
-		if ($bio) {
-			$profile->bio = $bio;
-		}
-		if ($location) {
-			$profile->location = $location;
-		}
+        if ($fullname) {
+            $profile->fullname = $fullname;
+        }
+        if ($homepage) {
+            $profile->homepage = $homepage;
+        }
+        if ($bio) {
+            $profile->bio = $bio;
+        }
+        if ($location) {
+            $profile->location = $location;
+        }
 
-		$profile->created = common_sql_now();
+        $profile->created = common_sql_now();
 
-		$id = $profile->insert();
+        $id = $profile->insert();
 
-		if (!$id) {
-			common_log_db_error($profile, 'INSERT', __FILE__);
-		    return FALSE;
-		}
+        if (!$id) {
+            common_log_db_error($profile, 'INSERT', __FILE__);
+            return FALSE;
+        }
 
-		$user = new User();
+        $user = new User();
 
-		$user->id = $id;
-		$user->nickname = $nickname;
+        $user->id = $id;
+        $user->nickname = $nickname;
 
-		if ($password) { # may not have a password for OpenID users
-			$user->password = common_munge_password($password, $id);
-		}
+        if ($password) { # may not have a password for OpenID users
+            $user->password = common_munge_password($password, $id);
+        }
 
-		# Users who respond to invite email have proven their ownership of that address
+        # Users who respond to invite email have proven their ownership of that address
 
-		if ($code) {
-			$invite = Invitation::staticGet($code);
-			if ($invite && $invite->address && $invite->address_type == 'email' && $invite->address == $email) {
-				$user->email = $invite->address;
-			}
-		}
+        if ($code) {
+            $invite = Invitation::staticGet($code);
+            if ($invite && $invite->address && $invite->address_type == 'email' && $invite->address == $email) {
+                $user->email = $invite->address;
+            }
+        }
 
-		$inboxes = common_config('inboxes', 'enabled');
+        $inboxes = common_config('inboxes', 'enabled');
 
-		if ($inboxes === true || $inboxes == 'transitional') {
-			$user->inboxed = 1;
-		}
+        if ($inboxes === true || $inboxes == 'transitional') {
+            $user->inboxed = 1;
+        }
 
-		$user->created = common_sql_now();
-		$user->uri = common_user_uri($user);
+        $user->created = common_sql_now();
+        $user->uri = common_user_uri($user);
 
-		$result = $user->insert();
+        $result = $user->insert();
 
-		if (!$result) {
-			common_log_db_error($user, 'INSERT', __FILE__);
-			return FALSE;
-		}
+        if (!$result) {
+            common_log_db_error($user, 'INSERT', __FILE__);
+            return FALSE;
+        }
 
-		# Everyone is subscribed to themself
+        # Everyone is subscribed to themself
 
-		$subscription = new Subscription();
-		$subscription->subscriber = $user->id;
-		$subscription->subscribed = $user->id;
-		$subscription->created = $user->created;
+        $subscription = new Subscription();
+        $subscription->subscriber = $user->id;
+        $subscription->subscribed = $user->id;
+        $subscription->created = $user->created;
 
-		$result = $subscription->insert();
+        $result = $subscription->insert();
 
-		if (!$result) {
-			common_log_db_error($subscription, 'INSERT', __FILE__);
-			return FALSE;
-		}
+        if (!$result) {
+            common_log_db_error($subscription, 'INSERT', __FILE__);
+            return FALSE;
+        }
 
-		if ($email && !$user->email) {
+        if ($email && !$user->email) {
 
-			$confirm = new Confirm_address();
-			$confirm->code = common_confirmation_code(128);
-			$confirm->user_id = $user->id;
-			$confirm->address = $email;
-			$confirm->address_type = 'email';
+            $confirm = new Confirm_address();
+            $confirm->code = common_confirmation_code(128);
+            $confirm->user_id = $user->id;
+            $confirm->address = $email;
+            $confirm->address_type = 'email';
 
-			$result = $confirm->insert();
-			if (!$result) {
-				common_log_db_error($confirm, 'INSERT', __FILE__);
-				return FALSE;
-			}
-		}
+            $result = $confirm->insert();
+            if (!$result) {
+                common_log_db_error($confirm, 'INSERT', __FILE__);
+                return FALSE;
+            }
+        }
 
-		if ($code && $user->email) {
-			$user->emailChanged();
-		}
+        if ($code && $user->email) {
+            $user->emailChanged();
+        }
 
-		$profile->query('COMMIT');
+        $profile->query('COMMIT');
 
-		if ($email && !$user->email) {
-			mail_confirm_address($user, $confirm->code, $profile->nickname, $email);
-		}
+        if ($email && !$user->email) {
+            mail_confirm_address($user, $confirm->code, $profile->nickname, $email);
+        }
 
-		return $user;
-	}
+        return $user;
+    }
 
-	# Things we do when the email changes
+    # Things we do when the email changes
 
-	function emailChanged() {
+    function emailChanged() {
 
-		$invites = new Invitation();
-		$invites->address = $this->email;
-		$invites->address_type = 'email';
+        $invites = new Invitation();
+        $invites->address = $this->email;
+        $invites->address_type = 'email';
 
-		if ($invites->find()) {
-			while ($invites->fetch()) {
-				$other = User::staticGet($invites->user_id);
-				subs_subscribe_to($other, $this);
-			}
-		}
-	}
+        if ($invites->find()) {
+            while ($invites->fetch()) {
+                $other = User::staticGet($invites->user_id);
+                subs_subscribe_to($other, $this);
+            }
+        }
+    }
 
-	function hasFave($notice) {
-		$cache = common_memcache();
+    function hasFave($notice) {
+        $cache = common_memcache();
 
-		# XXX: Kind of a hack.
-		if ($cache) {
-			# This is the stream of favorite notices, in rev chron
-			# order. This forces it into cache.
-			$faves = $this->favoriteNotices(0, NOTICE_CACHE_WINDOW);
-			$cnt = 0;
-			while ($faves->fetch()) {
-				if ($faves->id < $notice->id) {
-					# If we passed it, it's not a fave
-					return false;
-				} else if ($faves->id == $notice->id) {
-					# If it matches a cached notice, then it's a fave
-					return true;
-				}
-				$cnt++;
-			}
-			# If we're not past the end of the cache window,
-			# then the cache has all available faves, so this one
-			# is not a fave.
-			if ($cnt < NOTICE_CACHE_WINDOW) {
-				return false;
-			}
-			# Otherwise, cache doesn't have all faves;
-			# fall through to the default
-		}
-		$fave = Fave::pkeyGet(array('user_id' => $this->id,
-									'notice_id' => $notice->id));
-		return ((is_null($fave)) ? false : true);
-	}
-	function mutuallySubscribed($other) {
-		return $this->isSubscribed($other) &&
-		  $other->isSubscribed($this);
-	}
+        # XXX: Kind of a hack.
+        if ($cache) {
+            # This is the stream of favorite notices, in rev chron
+            # order. This forces it into cache.
+            $faves = $this->favoriteNotices(0, NOTICE_CACHE_WINDOW);
+            $cnt = 0;
+            while ($faves->fetch()) {
+                if ($faves->id < $notice->id) {
+                    # If we passed it, it's not a fave
+                    return false;
+                } else if ($faves->id == $notice->id) {
+                    # If it matches a cached notice, then it's a fave
+                    return true;
+                }
+                $cnt++;
+            }
+            # If we're not past the end of the cache window,
+            # then the cache has all available faves, so this one
+            # is not a fave.
+            if ($cnt < NOTICE_CACHE_WINDOW) {
+                return false;
+            }
+            # Otherwise, cache doesn't have all faves;
+            # fall through to the default
+        }
+        $fave = Fave::pkeyGet(array('user_id' => $this->id,
+                                    'notice_id' => $notice->id));
+        return ((is_null($fave)) ? false : true);
+    }
+    function mutuallySubscribed($other) {
+        return $this->isSubscribed($other) &&
+          $other->isSubscribed($this);
+    }
 
         function mutuallySubscribedUsers() {
 
-		# 3-way join; probably should get cached
-		$qry = 'SELECT user.* ' .
-		  'FROM subscription sub1 JOIN user ON sub1.subscribed = user.id ' .
-		  'JOIN subscription sub2 ON user.id = sub2.subscriber ' .
-		  'WHERE sub1.subscriber = %d and sub2.subscribed = %d ' .
-		  'ORDER BY user.nickname';
-		$user = new User();
-		$user->query(sprintf($qry, $this->id, $this->id));
+        # 3-way join; probably should get cached
+        $qry = 'SELECT user.* ' .
+          'FROM subscription sub1 JOIN user ON sub1.subscribed = user.id ' .
+          'JOIN subscription sub2 ON user.id = sub2.subscriber ' .
+          'WHERE sub1.subscriber = %d and sub2.subscribed = %d ' .
+          'ORDER BY user.nickname';
+        $user = new User();
+        $user->query(sprintf($qry, $this->id, $this->id));
 
-		return $user;
-	}
+        return $user;
+    }
 
-	function getReplies($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=NULL) {
-		$qry =
-		  'SELECT notice.* ' .
-		  'FROM notice JOIN reply ON notice.id = reply.notice_id ' .
-		  'WHERE reply.profile_id = %d ';
-		return Notice::getStream(sprintf($qry, $this->id),
-								 'user:replies:'.$this->id,
-								 $offset, $limit, $since_id, $before_id, NULL, $since);
-	}
+    function getReplies($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=NULL) {
+        $qry =
+          'SELECT notice.* ' .
+          'FROM notice JOIN reply ON notice.id = reply.notice_id ' .
+          'WHERE reply.profile_id = %d ';
+        return Notice::getStream(sprintf($qry, $this->id),
+                                 'user:replies:'.$this->id,
+                                 $offset, $limit, $since_id, $before_id, NULL, $since);
+    }
 
         function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=NULL) {
         $profile = $this->getProfile();
@@ -353,64 +353,64 @@ class User extends Memcached_DataObject
         } else {
             return $profile->getNotices($offset, $limit, $since_id, $before_id);
         }
-	}
+    }
 
       function favoriteNotices($offset=0, $limit=NOTICES_PER_PAGE) {
-		$qry =
-		  'SELECT notice.* ' .
-		  'FROM notice JOIN fave ON notice.id = fave.notice_id ' .
-		  'WHERE fave.user_id = %d ';
-		return Notice::getStream(sprintf($qry, $this->id),
-								 'user:faves:'.$this->id,
-								 $offset, $limit);
-	}
+        $qry =
+          'SELECT notice.* ' .
+          'FROM notice JOIN fave ON notice.id = fave.notice_id ' .
+          'WHERE fave.user_id = %d ';
+        return Notice::getStream(sprintf($qry, $this->id),
+                                 'user:faves:'.$this->id,
+                                 $offset, $limit);
+    }
 
         function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=NULL) {
-		$enabled = common_config('inboxes', 'enabled');
+        $enabled = common_config('inboxes', 'enabled');
 
-		# Complicated code, depending on whether we support inboxes yet
-		# XXX: make this go away when inboxes become mandatory
+        # Complicated code, depending on whether we support inboxes yet
+        # XXX: make this go away when inboxes become mandatory
 
-		if ($enabled === false ||
-			($enabled == 'transitional' && $this->inboxed == 0)) {
-			$qry =
-			  'SELECT notice.* ' .
-			  'FROM notice JOIN subscription ON notice.profile_id = subscription.subscribed ' .
-			  'WHERE subscription.subscriber = %d ';
-			$order = NULL;
-		} else if ($enabled === true ||
-			   ($enabled == 'transitional' && $this->inboxed == 1)) {
+        if ($enabled === false ||
+            ($enabled == 'transitional' && $this->inboxed == 0)) {
+            $qry =
+              'SELECT notice.* ' .
+              'FROM notice JOIN subscription ON notice.profile_id = subscription.subscribed ' .
+              'WHERE subscription.subscriber = %d ';
+            $order = NULL;
+        } else if ($enabled === true ||
+               ($enabled == 'transitional' && $this->inboxed == 1)) {
 
-			$qry =
-			  'SELECT notice.* ' .
-			  'FROM notice JOIN notice_inbox ON notice.id = notice_inbox.notice_id ' .
-			  'WHERE notice_inbox.user_id = %d ';
-			# NOTE: we override ORDER
-			$order = 'ORDER BY notice_inbox.created DESC, notice_inbox.notice_id DESC ';
-		}
-		return Notice::getStream(sprintf($qry, $this->id),
-								 'user:notices_with_friends:' . $this->id,
-								 $offset, $limit, $since_id, $before_id,
-								 $order, $since);
-	}
+            $qry =
+              'SELECT notice.* ' .
+              'FROM notice JOIN notice_inbox ON notice.id = notice_inbox.notice_id ' .
+              'WHERE notice_inbox.user_id = %d ';
+            # NOTE: we override ORDER
+            $order = 'ORDER BY notice_inbox.created DESC, notice_inbox.notice_id DESC ';
+        }
+        return Notice::getStream(sprintf($qry, $this->id),
+                                 'user:notices_with_friends:' . $this->id,
+                                 $offset, $limit, $since_id, $before_id,
+                                 $order, $since);
+    }
 
         function blowFavesCache() {
-		$cache = common_memcache();
-		if ($cache) {
-			# Faves don't happen chronologically, so we need to blow
-			# ;last cache, too
-			$cache->delete(common_cache_key('user:faves:'.$this->id));
-			$cache->delete(common_cache_key('user:faves:'.$this->id).';last');
-		}
-	}
+        $cache = common_memcache();
+        if ($cache) {
+            # Faves don't happen chronologically, so we need to blow
+            # ;last cache, too
+            $cache->delete(common_cache_key('user:faves:'.$this->id));
+            $cache->delete(common_cache_key('user:faves:'.$this->id).';last');
+        }
+    }
 
         function getSelfTags() {
-		return Profile_tag::getTags($this->id, $this->id);
-	}
+        return Profile_tag::getTags($this->id, $this->id);
+    }
 
         function setSelfTags($newtags) {
-		return Profile_tag::setTags($this->id, $this->id, $newtags);
-	}
+        return Profile_tag::setTags($this->id, $this->id, $newtags);
+    }
 
     function block($other) {
 
@@ -434,8 +434,8 @@ class User extends Memcached_DataObject
 
         # Cancel their subscription, if it exists
 
-		$sub = Subscription::pkeyGet(array('subscriber' => $other->id,
-										   'subscribed' => $this->id));
+        $sub = Subscription::pkeyGet(array('subscriber' => $other->id,
+                                           'subscribed' => $this->id));
 
         if ($sub) {
             $result = $sub->delete();

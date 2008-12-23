@@ -25,41 +25,41 @@ require_once(INSTALLDIR.'/lib/rssaction.php');
 
 class TagrssAction extends Rss10Action {
 
-	function init() {
-		$tag = $this->trimmed('tag');
-		$this->tag = Notice_tag::staticGet('tag', $tag);
+    function init() {
+        $tag = $this->trimmed('tag');
+        $this->tag = Notice_tag::staticGet('tag', $tag);
 
-		if (!$this->tag) {
-			common_user_error(_('No such tag.'));
-			return false;
-		} else {
-			return true;
-		}
-	}
+        if (!$this->tag) {
+            common_user_error(_('No such tag.'));
+            return false;
+        } else {
+            return true;
+        }
+    }
 
-	function get_notices($limit=0) {
-		$tag = $this->tag;
+    function get_notices($limit=0) {
+        $tag = $this->tag;
 
-		if (is_null($tag)) {
-			return NULL;
-		}
+        if (is_null($tag)) {
+            return NULL;
+        }
 
-		$notice = Notice_tag::getStream($tag->tag, 0, ($limit == 0) ? NOTICES_PER_PAGE : $limit);
+        $notice = Notice_tag::getStream($tag->tag, 0, ($limit == 0) ? NOTICES_PER_PAGE : $limit);
 
-		while ($notice->fetch()) {
-			$notices[] = clone($notice);
-		}
+        while ($notice->fetch()) {
+            $notices[] = clone($notice);
+        }
 
-		return $notices;
-	}
+        return $notices;
+    }
 
-	function get_channel() {
-		$tag = $this->tag->tag;
+    function get_channel() {
+        $tag = $this->tag->tag;
 
-		$c = array('url' => common_local_url('tagrss', array('tag' => $tagname)),
-			   'title' => $tagname,
-			   'link' => common_local_url('tagrss', array('tag' => $tagname)),
-			   'description' => sprintf(_('Microblog tagged with %s'), $tagname));
-		return $c;
-	}
+        $c = array('url' => common_local_url('tagrss', array('tag' => $tagname)),
+               'title' => $tagname,
+               'link' => common_local_url('tagrss', array('tag' => $tagname)),
+               'description' => sprintf(_('Microblog tagged with %s'), $tagname));
+        return $c;
+    }
 }

@@ -23,30 +23,30 @@ require_once(INSTALLDIR.'/lib/gallery.php');
 
 class SubscriptionsAction extends GalleryAction {
 
-	function gallery_type() {
-		return _('Subscriptions');
-	}
+    function gallery_type() {
+        return _('Subscriptions');
+    }
 
-	function get_instructions(&$profile) {
-		$user =& common_current_user();
-		if ($user && ($user->id == $profile->id)) {
-			return _('These are the people whose notices you listen to.');
-		} else {
-			return sprintf(_('These are the people whose notices %s listens to.'), $profile->nickname);
-		}
-	}
+    function get_instructions(&$profile) {
+        $user =& common_current_user();
+        if ($user && ($user->id == $profile->id)) {
+            return _('These are the people whose notices you listen to.');
+        } else {
+            return sprintf(_('These are the people whose notices %s listens to.'), $profile->nickname);
+        }
+    }
 
-	function fields() {
-		return array('subscribed', 'subscriber');
-	}
+    function fields() {
+        return array('subscribed', 'subscriber');
+    }
 
-	function div_class() {
-		return 'subscriptions';
-	}
+    function div_class() {
+        return 'subscriptions';
+    }
 
-	function get_other(&$subs) {
-		return $subs->subscribed;
-	}
+    function get_other(&$subs) {
+        return $subs->subscribed;
+    }
 
     function profile_list_class() {
         return 'SubscriptionsList';
@@ -57,8 +57,8 @@ class SubscriptionsList extends ProfileList {
 
     function show_owner_controls($profile) {
 
-		$sub = Subscription::pkeyGet(array('subscriber' => $this->owner->id,
-										   'subscribed' => $profile->id));
+        $sub = Subscription::pkeyGet(array('subscriber' => $this->owner->id,
+                                           'subscribed' => $profile->id));
         if (!$sub) {
             return;
         }

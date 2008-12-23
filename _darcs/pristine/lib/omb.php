@@ -44,256 +44,256 @@ define('OAUTH_POST_BODY', OAUTH_NAMESPACE.'parameters/post-body');
 define('OAUTH_HMAC_SHA1', OAUTH_NAMESPACE.'signature/HMAC-SHA1');
 
 function omb_oauth_consumer() {
-	static $con = NULL;
-	if (!$con) {
-		$con = new OAuthConsumer(common_root_url(), '');
-	}
-	return $con;
+    static $con = NULL;
+    if (!$con) {
+        $con = new OAuthConsumer(common_root_url(), '');
+    }
+    return $con;
 }
 
 function omb_oauth_server() {
-	static $server = null;
-	if (!$server) {
-		$server = new OAuthServer(omb_oauth_datastore());
-		$server->add_signature_method(omb_hmac_sha1());
-	}
-	return $server;
+    static $server = null;
+    if (!$server) {
+        $server = new OAuthServer(omb_oauth_datastore());
+        $server->add_signature_method(omb_hmac_sha1());
+    }
+    return $server;
 }
 
 function omb_oauth_datastore() {
-	static $store = NULL;
-	if (!$store) {
-		$store = new LaconicaOAuthDataStore();
-	}
-	return $store;
+    static $store = NULL;
+    if (!$store) {
+        $store = new LaconicaOAuthDataStore();
+    }
+    return $store;
 }
 
 function omb_hmac_sha1() {
-	static $hmac_method = NULL;
-	if (!$hmac_method) {
-		$hmac_method = new OAuthSignatureMethod_HMAC_SHA1();
-	}
-	return $hmac_method;
+    static $hmac_method = NULL;
+    if (!$hmac_method) {
+        $hmac_method = new OAuthSignatureMethod_HMAC_SHA1();
+    }
+    return $hmac_method;
 }
 
 function omb_get_services($xrd, $type) {
-	return $xrd->services(array(omb_service_filter($type)));
+    return $xrd->services(array(omb_service_filter($type)));
 }
 
 function omb_service_filter($type) {
-	return create_function('$s',
-						   'return omb_match_service($s, \''.$type.'\');');
+    return create_function('$s',
+                           'return omb_match_service($s, \''.$type.'\');');
 }
 
 function omb_match_service($service, $type) {
-	return in_array($type, $service->getTypes());
+    return in_array($type, $service->getTypes());
 }
 
 function omb_service_uri($service) {
-	if (!$service) {
-		return NULL;
-	}
-	$uris = $service->getURIs();
-	if (!$uris) {
-		return NULL;
-	}
-	return $uris[0];
+    if (!$service) {
+        return NULL;
+    }
+    $uris = $service->getURIs();
+    if (!$uris) {
+        return NULL;
+    }
+    return $uris[0];
 }
 
 function omb_local_id($service) {
-	if (!$service) {
-		return NULL;
-	}
-	$els = $service->getElements('xrd:LocalID');
-	if (!$els) {
-		return NULL;
-	}
-	$el = $els[0];
-	return $service->parser->content($el);
+    if (!$service) {
+        return NULL;
+    }
+    $els = $service->getElements('xrd:LocalID');
+    if (!$els) {
+        return NULL;
+    }
+    $el = $els[0];
+    return $service->parser->content($el);
 }
 
 function omb_broadcast_remote_subscribers($notice) {
 
-	# First, get remote users subscribed to this profile
-	$rp = new Remote_profile();
+    # First, get remote users subscribed to this profile
+    $rp = new Remote_profile();
 
-	$rp->query('SELECT postnoticeurl, token, secret ' .
-			   'FROM subscription JOIN remote_profile ' .
-			   'ON subscription.subscriber = remote_profile.id ' .
-			   'WHERE subscription.subscribed = ' . $notice->profile_id . ' ');
+    $rp->query('SELECT postnoticeurl, token, secret ' .
+               'FROM subscription JOIN remote_profile ' .
+               'ON subscription.subscriber = remote_profile.id ' .
+               'WHERE subscription.subscribed = ' . $notice->profile_id . ' ');
 
-	$posted = array();
+    $posted = array();
 
-	while ($rp->fetch()) {
-		if (!$posted[$rp->postnoticeurl]) {
-			common_log(LOG_DEBUG, 'Posting to ' . $rp->postnoticeurl);
-			if (omb_post_notice_keys($notice, $rp->postnoticeurl, $rp->token, $rp->secret)) {
-				common_log(LOG_DEBUG, 'Finished to ' . $rp->postnoticeurl);
-				$posted[$rp->postnoticeurl] = TRUE;
-			} else {
-				common_log(LOG_DEBUG, 'Failed posting to ' . $rp->postnoticeurl);
-			}
-		}
-	}
+    while ($rp->fetch()) {
+        if (!$posted[$rp->postnoticeurl]) {
+            common_log(LOG_DEBUG, 'Posting to ' . $rp->postnoticeurl);
+            if (omb_post_notice_keys($notice, $rp->postnoticeurl, $rp->token, $rp->secret)) {
+                common_log(LOG_DEBUG, 'Finished to ' . $rp->postnoticeurl);
+                $posted[$rp->postnoticeurl] = TRUE;
+            } else {
+                common_log(LOG_DEBUG, 'Failed posting to ' . $rp->postnoticeurl);
+            }
+        }
+    }
 
-	$rp->free();
-	unset($rp);
+    $rp->free();
+    unset($rp);
 
-	return true;
+    return true;
 }
 
 function omb_post_notice($notice, $remote_profile, $subscription) {
-	return omb_post_notice_keys($notice, $remote_profile->postnoticeurl, $subscription->token, $subscription->secret);
+    return omb_post_notice_keys($notice, $remote_profile->postnoticeurl, $subscription->token, $subscription->secret);
 }
 
 function omb_post_notice_keys($notice, $postnoticeurl, $tk, $secret) {
 
-	common_debug('Posting notice ' . $notice->id . ' to ' . $postnoticeurl, __FILE__);
+    common_debug('Posting notice ' . $notice->id . ' to ' . $postnoticeurl, __FILE__);
 
-	$user = User::staticGet('id', $notice->profile_id);
+    $user = User::staticGet('id', $notice->profile_id);
 
-	if (!$user) {
-		common_debug('Failed to get user for notice ' . $notice->id . ', profile = ' . $notice->profile_id, __FILE__);
-		return false;
-	}
+    if (!$user) {
+        common_debug('Failed to get user for notice ' . $notice->id . ', profile = ' . $notice->profile_id, __FILE__);
+        return false;
+    }
 
-	$con = omb_oauth_consumer();
+    $con = omb_oauth_consumer();
 
-	$token = new OAuthToken($tk, $secret);
+    $token = new OAuthToken($tk, $secret);
 
-	$url = $postnoticeurl;
-	$parsed = parse_url($url);
-	$params = array();
-	parse_str($parsed['query'], $params);
+    $url = $postnoticeurl;
+    $parsed = parse_url($url);
+    $params = array();
+    parse_str($parsed['query'], $params);
 
-	$req = OAuthRequest::from_consumer_and_token($con, $token,
-												 'POST', $url, $params);
+    $req = OAuthRequest::from_consumer_and_token($con, $token,
+                                                 'POST', $url, $params);
 
-	$req->set_parameter('omb_version', OMB_VERSION_01);
-	$req->set_parameter('omb_listenee', $user->uri);
-	$req->set_parameter('omb_notice', $notice->uri);
-	$req->set_parameter('omb_notice_content', $notice->content);
-	$req->set_parameter('omb_notice_url', common_local_url('shownotice',
-														   array('notice' =>
-																 $notice->id)));
-	$req->set_parameter('omb_notice_license', common_config('license', 'url'));
+    $req->set_parameter('omb_version', OMB_VERSION_01);
+    $req->set_parameter('omb_listenee', $user->uri);
+    $req->set_parameter('omb_notice', $notice->uri);
+    $req->set_parameter('omb_notice_content', $notice->content);
+    $req->set_parameter('omb_notice_url', common_local_url('shownotice',
+                                                           array('notice' =>
+                                                                 $notice->id)));
+    $req->set_parameter('omb_notice_license', common_config('license', 'url'));
 
-	$user->free();
-	unset($user);
+    $user->free();
+    unset($user);
 
-	$req->sign_request(omb_hmac_sha1(), $con, $token);
+    $req->sign_request(omb_hmac_sha1(), $con, $token);
 
-	# We re-use this tool's fetcher, since it's pretty good
+    # We re-use this tool's fetcher, since it's pretty good
 
-	$fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
+    $fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
 
-	if (!$fetcher) {
-		common_log(LOG_WARNING, 'Failed to initialize Yadis fetcher.', __FILE__);
-		return false;
-	}
+    if (!$fetcher) {
+        common_log(LOG_WARNING, 'Failed to initialize Yadis fetcher.', __FILE__);
+        return false;
+    }
 
-	$result = $fetcher->post($req->get_normalized_http_url(),
-							 $req->to_postdata(),
+    $result = $fetcher->post($req->get_normalized_http_url(),
+                             $req->to_postdata(),
                              array('User-Agent' => 'Laconica/' . LACONICA_VERSION));
 
-	common_debug('Got HTTP result "'.print_r($result,TRUE).'"', __FILE__);
+    common_debug('Got HTTP result "'.print_r($result,TRUE).'"', __FILE__);
 
-	if ($result->status == 403) { # not authorized, don't send again
-		common_debug('403 result, deleting subscription', __FILE__);
-		# FIXME: figure out how to delete this
-		# $subscription->delete();
-		return false;
-	} else if ($result->status != 200) {
-		common_debug('Error status '.$result->status, __FILE__);
-		return false;
-	} else { # success!
-		parse_str($result->body, $return);
-		if ($return['omb_version'] == OMB_VERSION_01) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+    if ($result->status == 403) { # not authorized, don't send again
+        common_debug('403 result, deleting subscription', __FILE__);
+        # FIXME: figure out how to delete this
+        # $subscription->delete();
+        return false;
+    } else if ($result->status != 200) {
+        common_debug('Error status '.$result->status, __FILE__);
+        return false;
+    } else { # success!
+        parse_str($result->body, $return);
+        if ($return['omb_version'] == OMB_VERSION_01) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 function omb_broadcast_profile($profile) {
-	# First, get remote users subscribed to this profile
-	# XXX: use a join here rather than looping through results
-	$sub = new Subscription();
-	$sub->subscribed = $profile->id;
-	if ($sub->find()) {
-		$updated = array();
-		while ($sub->fetch()) {
-			$rp = Remote_profile::staticGet('id', $sub->subscriber);
-			if ($rp) {
-				if (!$updated[$rp->updateprofileurl]) {
-					if (omb_update_profile($profile, $rp, $sub)) {
-						$updated[$rp->updateprofileurl] = TRUE;
-					}
-				}
-			}
-		}
-	}
+    # First, get remote users subscribed to this profile
+    # XXX: use a join here rather than looping through results
+    $sub = new Subscription();
+    $sub->subscribed = $profile->id;
+    if ($sub->find()) {
+        $updated = array();
+        while ($sub->fetch()) {
+            $rp = Remote_profile::staticGet('id', $sub->subscriber);
+            if ($rp) {
+                if (!$updated[$rp->updateprofileurl]) {
+                    if (omb_update_profile($profile, $rp, $sub)) {
+                        $updated[$rp->updateprofileurl] = TRUE;
+                    }
+                }
+            }
+        }
+    }
 }
 
 function omb_update_profile($profile, $remote_profile, $subscription) {
-	global $config; # for license URL
-	$user = User::staticGet($profile->id);
-	$con = omb_oauth_consumer();
-	$token = new OAuthToken($subscription->token, $subscription->secret);
-	$url = $remote_profile->updateprofileurl;
-	$parsed = parse_url($url);
-	$params = array();
-	parse_str($parsed['query'], $params);
-	$req = OAuthRequest::from_consumer_and_token($con, $token,
-												 "POST", $url, $params);
-	$req->set_parameter('omb_version', OMB_VERSION_01);
-	$req->set_parameter('omb_listenee', $user->uri);
-	$req->set_parameter('omb_listenee_profile', common_profile_url($profile->nickname));
-	$req->set_parameter('omb_listenee_nickname', $profile->nickname);
+    global $config; # for license URL
+    $user = User::staticGet($profile->id);
+    $con = omb_oauth_consumer();
+    $token = new OAuthToken($subscription->token, $subscription->secret);
+    $url = $remote_profile->updateprofileurl;
+    $parsed = parse_url($url);
+    $params = array();
+    parse_str($parsed['query'], $params);
+    $req = OAuthRequest::from_consumer_and_token($con, $token,
+                                                 "POST", $url, $params);
+    $req->set_parameter('omb_version', OMB_VERSION_01);
+    $req->set_parameter('omb_listenee', $user->uri);
+    $req->set_parameter('omb_listenee_profile', common_profile_url($profile->nickname));
+    $req->set_parameter('omb_listenee_nickname', $profile->nickname);
 
-	# We use blanks to force emptying any existing values in these optional fields
+    # We use blanks to force emptying any existing values in these optional fields
 
-	$req->set_parameter('omb_listenee_fullname',
-						($profile->fullname) ? $profile->fullname : '');
-	$req->set_parameter('omb_listenee_homepage',
-						($profile->homepage) ? $profile->homepage : '');
-	$req->set_parameter('omb_listenee_bio',
-						($profile->bio) ? $profile->bio : '');
-	$req->set_parameter('omb_listenee_location',
-						($profile->location) ? $profile->location : '');
+    $req->set_parameter('omb_listenee_fullname',
+                        ($profile->fullname) ? $profile->fullname : '');
+    $req->set_parameter('omb_listenee_homepage',
+                        ($profile->homepage) ? $profile->homepage : '');
+    $req->set_parameter('omb_listenee_bio',
+                        ($profile->bio) ? $profile->bio : '');
+    $req->set_parameter('omb_listenee_location',
+                        ($profile->location) ? $profile->location : '');
 
-	$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
-	$req->set_parameter('omb_listenee_avatar',
-						($avatar) ? $avatar->url : '');
+    $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
+    $req->set_parameter('omb_listenee_avatar',
+                        ($avatar) ? $avatar->url : '');
 
-	$req->sign_request(omb_hmac_sha1(), $con, $token);
+    $req->sign_request(omb_hmac_sha1(), $con, $token);
 
-	# We re-use this tool's fetcher, since it's pretty good
+    # We re-use this tool's fetcher, since it's pretty good
 
-	$fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
+    $fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
 
-	common_debug('request URL = '.$req->get_normalized_http_url(), __FILE__);
-	common_debug('postdata = '.$req->to_postdata(), __FILE__);
-	$result = $fetcher->post($req->get_normalized_http_url(),
-							 $req->to_postdata(),
+    common_debug('request URL = '.$req->get_normalized_http_url(), __FILE__);
+    common_debug('postdata = '.$req->to_postdata(), __FILE__);
+    $result = $fetcher->post($req->get_normalized_http_url(),
+                             $req->to_postdata(),
                              array('User-Agent' => 'Laconica/' . LACONICA_VERSION));
 
-	common_debug('Got HTTP result "'.print_r($result,TRUE).'"', __FILE__);
+    common_debug('Got HTTP result "'.print_r($result,TRUE).'"', __FILE__);
 
-	if ($result->status == 403) { # not authorized, don't send again
-		common_debug('403 result, deleting subscription', __FILE__);
-		$subscription->delete();
-		return false;
-	} else if ($result->status != 200) {
-		common_debug('Error status '.$result->status, __FILE__);
-		return false;
-	} else { # success!
-		parse_str($result->body, $return);
-		if ($return['omb_version'] == OMB_VERSION_01) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+    if ($result->status == 403) { # not authorized, don't send again
+        common_debug('403 result, deleting subscription', __FILE__);
+        $subscription->delete();
+        return false;
+    } else if ($result->status != 200) {
+        common_debug('Error status '.$result->status, __FILE__);
+        return false;
+    } else { # success!
+        parse_str($result->body, $return);
+        if ($return['omb_version'] == OMB_VERSION_01) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

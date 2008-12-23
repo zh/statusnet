@@ -10,11 +10,11 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.     See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.	 If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.     If not, see <http://www.gnu.org/licenses/>.
  */
 
 if (!defined('LACONICA')) { exit(1); }
@@ -23,110 +23,110 @@ require_once(INSTALLDIR.'/lib/facebookaction.php');
 
 class FacebookhomeAction extends FacebookAction {
 
-	function handle($args) {
-		parent::handle($args);
+    function handle($args) {
+        parent::handle($args);
 
-		$this->login();
-	}
+        $this->login();
+    }
 
-	function login() {
+    function login() {
 
-		$user = null;
+        $user = null;
 
-		$facebook = $this->get_facebook();
-		$fbuid = $facebook->require_login();
+        $facebook = $this->get_facebook();
+        $fbuid = $facebook->require_login();
 
-		# check to see whether there's already a Facebook link for this user
-		$flink = Foreign_link::getByForeignID($fbuid, 2); // 2 == Facebook
+        # check to see whether there's already a Facebook link for this user
+        $flink = Foreign_link::getByForeignID($fbuid, 2); // 2 == Facebook
 
-		if ($flink) {
+        if ($flink) {
 
-			$user = $flink->getUser();
-			$this->show_home($facebook, $fbuid, $user);
+            $user = $flink->getUser();
+            $this->show_home($facebook, $fbuid, $user);
 
-		} else {
+        } else {
 
-			# Make the user put in her Laconica creds
-			$nickname = common_canonical_nickname($this->trimmed('nickname'));
-			$password = $this->arg('password');
+            # Make the user put in her Laconica creds
+            $nickname = common_canonical_nickname($this->trimmed('nickname'));
+            $password = $this->arg('password');
 
-			if ($nickname) {
+            if ($nickname) {
 
-				if (common_check_user($nickname, $password)) {
+                if (common_check_user($nickname, $password)) {
 
 
-					$user = User::staticGet('nickname', $nickname);
+                    $user = User::staticGet('nickname', $nickname);
 
-					if (!$user) {
-						echo '<fb:error message="Coudln\'t get user!" />';
-						$this->show_login_form();
-					}
+                    if (!$user) {
+                        echo '<fb:error message="Coudln\'t get user!" />';
+                        $this->show_login_form();
+                    }
 
-					$flink = DB_DataObject::factory('foreign_link');
-					$flink->user_id = $user->id;
-					$flink->foreign_id = $fbuid;
-					$flink->service = 2; # Facebook
-					$flink->created = common_sql_now();
+                    $flink = DB_DataObject::factory('foreign_link');
+                    $flink->user_id = $user->id;
+                    $flink->foreign_id = $fbuid;
+                    $flink->service = 2; # Facebook
+                    $flink->created = common_sql_now();
 
-					# $this->set_flags($flink, $noticesync, $replysync, $friendsync);
+                    # $this->set_flags($flink, $noticesync, $replysync, $friendsync);
 
-					$flink_id = $flink->insert();
+                    $flink_id = $flink->insert();
 
-					if ($flink_id) {
-						echo '<fb:success message="You can now use the Identi.ca from Facebook!" />';
-					}
+                    if ($flink_id) {
+                        echo '<fb:success message="You can now use the Identi.ca from Facebook!" />';
+                    }
 
-					$this->show_home($facebook, $fbuid, $user);
+                    $this->show_home($facebook, $fbuid, $user);
 
-					return;
-				} else {
-					echo '<fb:error message="Incorrect username or password." />';
-				}
-			}
+                    return;
+                } else {
+                    echo '<fb:error message="Incorrect username or password." />';
+                }
+            }
 
-			$this->show_login_form();
-		}
+            $this->show_login_form();
+        }
 
-	}
+    }
 
-	function show_home($facebook, $fbuid, $user) {
+    function show_home($facebook, $fbuid, $user) {
 
-		$this->show_header('Home');
+        $this->show_header('Home');
 
-		echo $this->show_notices($user);
-		$this->update_profile_box($facebook, $fbuid, $user);
+        echo $this->show_notices($user);
+        $this->update_profile_box($facebook, $fbuid, $user);
 
-		$this->show_footer();
-	}
+        $this->show_footer();
+    }
 
-	function show_notices($user) {
+    function show_notices($user) {
 
-		$page = $this->trimmed('page');
-		if (!$page) {
-			$page = 1;
-		}
+        $page = $this->trimmed('page');
+        if (!$page) {
+            $page = 1;
+        }
 
-		$notice = $user->noticesWithFriends(($page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
+        $notice = $user->noticesWithFriends(($page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
 
-		echo '<ul id="notices">';
+        echo '<ul id="notices">';
 
-		$cnt = 0;
+        $cnt = 0;
 
-		while ($notice->fetch() && $cnt <= NOTICES_PER_PAGE) {
-			$cnt++;
+        while ($notice->fetch() && $cnt <= NOTICES_PER_PAGE) {
+            $cnt++;
 
-			if ($cnt > NOTICES_PER_PAGE) {
-				break;
-			}
+            if ($cnt > NOTICES_PER_PAGE) {
+                break;
+            }
 
-			echo $this->render_notice($notice);
-		}
+            echo $this->render_notice($notice);
+        }
 
-		echo '<ul>';
+        echo '<ul>';
 
-		$this->pagination($page > 1, $cnt > NOTICES_PER_PAGE,
-						  $page, 'index.php', array('nickname' => $user->nickname));
+        $this->pagination($page > 1, $cnt > NOTICES_PER_PAGE,
+                          $page, 'index.php', array('nickname' => $user->nickname));
 
-	}
+    }
 
 }

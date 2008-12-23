@@ -41,7 +41,7 @@ common_log(LOG_INFO, 'Updating user inboxes.');
 $user = new User();
 
 if ($start_at) {
-	$user->whereAdd('id >= ' . $start_at);
+    $user->whereAdd('id >= ' . $start_at);
 }
 
 $cnt = $user->find();
@@ -49,32 +49,32 @@ $cache = common_memcache();
 
 while ($user->fetch()) {
     common_log(LOG_INFO, 'Updating inbox for user ' . $user->id);
-	$user->query('BEGIN');
-	$inbox = new Notice_inbox();
-	$result = $inbox->query('INSERT LOW_PRIORITY INTO notice_inbox (user_id, notice_id, created) ' .
-							'SELECT ' . $user->id . ', notice.id, notice.created ' .
-							'FROM subscription JOIN notice ON subscription.subscribed = notice.profile_id ' .
-							'WHERE subscription.subscriber = ' . $user->id . ' ' .
-							'AND notice.created >= subscription.created ' . 
-							'AND NOT EXISTS (SELECT user_id, notice_id ' .
-							'FROM notice_inbox ' .
-							'WHERE user_id = ' . $user->id . ' ' . 
-							'AND notice_id = notice.id)');
-	if (is_null($result) || $result === false) {
-		common_log_db_error($inbox, 'INSERT', __FILE__);
-		continue;
-	}
-	$orig = clone($user);
-	$user->inboxed = 1;
-	$result = $user->update($orig);
-	if (!$result) {
-		common_log_db_error($user, 'UPDATE', __FILE__);
-		continue;
-	}
-	$user->query('COMMIT');
-	$inbox->free();
-	unset($inbox);
-	if ($cache) {
-		$cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
-	}
+    $user->query('BEGIN');
+    $inbox = new Notice_inbox();
+    $result = $inbox->query('INSERT LOW_PRIORITY INTO notice_inbox (user_id, notice_id, created) ' .
+                            'SELECT ' . $user->id . ', notice.id, notice.created ' .
+                            'FROM subscription JOIN notice ON subscription.subscribed = notice.profile_id ' .
+                            'WHERE subscription.subscriber = ' . $user->id . ' ' .
+                            'AND notice.created >= subscription.created ' . 
+                            'AND NOT EXISTS (SELECT user_id, notice_id ' .
+                            'FROM notice_inbox ' .
+                            'WHERE user_id = ' . $user->id . ' ' . 
+                            'AND notice_id = notice.id)');
+    if (is_null($result) || $result === false) {
+        common_log_db_error($inbox, 'INSERT', __FILE__);
+        continue;
+    }
+    $orig = clone($user);
+    $user->inboxed = 1;
+    $result = $user->update($orig);
+    if (!$result) {
+        common_log_db_error($user, 'UPDATE', __FILE__);
+        continue;
+    }
+    $user->query('COMMIT');
+    $inbox->free();
+    unset($inbox);
+    if ($cache) {
+        $cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
+    }
 }

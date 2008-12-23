@@ -21,8 +21,8 @@ class Sms_carrier extends Memcached_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
-	
-	function toEmailAddress($sms) {
-		return sprintf($this->email_pattern, $sms);
-	}
+    
+    function toEmailAddress($sms) {
+        return sprintf($this->email_pattern, $sms);
+    }
 }

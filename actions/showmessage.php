@@ -23,78 +23,78 @@ require_once(INSTALLDIR.'/lib/mailbox.php');
 
 class ShowmessageAction extends MailboxAction {
 
-	function handle($args) {
+    function handle($args) {
 
-		Action::handle($args);
+        Action::handle($args);
 
-		$message = $this->get_message();
+        $message = $this->get_message();
 
-		if (!$message) {
-			$this->client_error(_('No such message.'), 404);
-			return;
-		}
-		
-		$cur = common_current_user();
-		
-		if ($cur && ($cur->id == $message->from_profile || $cur->id == $message->to_profile)) {
-			$this->show_page($cur, 1);
-		} else {
-			$this->client_error(_('Only the sender and recipient may read this message.'), 403);
-			return;
-		}
-	}
-	
-	function get_message() {
-		$id = $this->trimmed('message');
-		$message = Message::staticGet('id', $id);
-		return $message;
-	}
-	
-	function get_title($user, $page) {
-		$message = $this->get_message();
-		if (!$message) {
-			return NULL;
-		}
-		
-		if ($user->id == $message->from_profile) {
-			$to = $message->getTo();
-			$title = sprintf(_("Message to %1\$s on %2\$s"),
-							 $to->nickname,
-							 common_exact_date($message->created));
-		} else if ($user->id == $message->to_profile) {
-			$from = $message->getFrom();
-			$title = sprintf(_("Message from %1\$s on %2\$s"),
-							 $from->nickname,
-							 common_exact_date($message->created));
-		}
-		return $title;
-	}
+        if (!$message) {
+            $this->client_error(_('No such message.'), 404);
+            return;
+        }
+        
+        $cur = common_current_user();
+        
+        if ($cur && ($cur->id == $message->from_profile || $cur->id == $message->to_profile)) {
+            $this->show_page($cur, 1);
+        } else {
+            $this->client_error(_('Only the sender and recipient may read this message.'), 403);
+            return;
+        }
+    }
+    
+    function get_message() {
+        $id = $this->trimmed('message');
+        $message = Message::staticGet('id', $id);
+        return $message;
+    }
+    
+    function get_title($user, $page) {
+        $message = $this->get_message();
+        if (!$message) {
+            return NULL;
+        }
+        
+        if ($user->id == $message->from_profile) {
+            $to = $message->getTo();
+            $title = sprintf(_("Message to %1\$s on %2\$s"),
+                             $to->nickname,
+                             common_exact_date($message->created));
+        } else if ($user->id == $message->to_profile) {
+            $from = $message->getFrom();
+            $title = sprintf(_("Message from %1\$s on %2\$s"),
+                             $from->nickname,
+                             common_exact_date($message->created));
+        }
+        return $title;
+    }
 
-	function get_messages($user, $page) {
-		$message = new Message();
-		$message->id = $this->trimmed('message');
-		$message->find();
-		return $message;
-	}
-	
-	function get_message_profile($message) {
-		$user = common_current_user();
-		if ($user->id == $message->from_profile) {
-			return $message->getTo();
-		} else if ($user->id == $message->to_profile) {
-			return $message->getFrom();
-		} else {
-			# This shouldn't happen
-			return NULL;
-		}
-	}
-	
-	function get_instructions() {
-		return '';
-	}
-	
-	function views_menu() {
-		return;
-	}
+    function get_messages($user, $page) {
+        $message = new Message();
+        $message->id = $this->trimmed('message');
+        $message->find();
+        return $message;
+    }
+    
+    function get_message_profile($message) {
+        $user = common_current_user();
+        if ($user->id == $message->from_profile) {
+            return $message->getTo();
+        } else if ($user->id == $message->to_profile) {
+            return $message->getFrom();
+        } else {
+            # This shouldn't happen
+            return NULL;
+        }
+    }
+    
+    function get_instructions() {
+        return '';
+    }
+    
+    function views_menu() {
+        return;
+    }
 }
-	
+    

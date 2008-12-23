@@ -20,8 +20,8 @@
 
 # Abort if called from a web server
 if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
-	print "This script must be run from the command line\n";
-	exit();
+    print "This script must be run from the command line\n";
+    exit();
 }
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
@@ -34,19 +34,19 @@ require_once(INSTALLDIR . '/lib/xmppqueuehandler.php');
 set_error_handler('common_error_handler');
 
 class PublicQueueHandler extends XmppQueueHandler {
-	
-	function transport() {
-		return 'public';
-	}
-	
-	function handle_notice($notice) {
-		try {
-			return jabber_public_notice($notice);
-		} catch (XMPPHP_Exception $e) {
-			$this->log(LOG_ERR, "Got an XMPPHP_Exception: " . $e->getMessage());
-			die($e->getMessage());
-		}
-	}
+    
+    function transport() {
+        return 'public';
+    }
+    
+    function handle_notice($notice) {
+        try {
+            return jabber_public_notice($notice);
+        } catch (XMPPHP_Exception $e) {
+            $this->log(LOG_ERR, "Got an XMPPHP_Exception: " . $e->getMessage());
+            die($e->getMessage());
+        }
+    }
 }
 
 ini_set("max_execution_time", "0");

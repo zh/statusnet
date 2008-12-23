@@ -22,82 +22,82 @@ if (!defined('LACONICA')) { exit(1); }
 require_once(INSTALLDIR.'/lib/profilelist.php');
 
 class PeopletagAction extends Action {
-	
-	function handle($args) {
+    
+    function handle($args) {
 
-		parent::handle($args);
+        parent::handle($args);
 
-		$tag = $this->trimmed('tag');
-		
-		if (!common_valid_profile_tag($tag)) {
-			$this->client_error(sprintf(_('Not a valid people tag: %s'), $tag));
-			return;
-		}
+        $tag = $this->trimmed('tag');
+        
+        if (!common_valid_profile_tag($tag)) {
+            $this->client_error(sprintf(_('Not a valid people tag: %s'), $tag));
+            return;
+        }
 
-		$page = $this->trimmed('page');
-		
-		if (!$page) {
-			$page = 1;
-		}
-		
-		# Looks like we're good; show the header
+        $page = $this->trimmed('page');
+        
+        if (!$page) {
+            $page = 1;
+        }
+        
+        # Looks like we're good; show the header
 
-		common_show_header(sprintf(_('Users self-tagged with %s - page %d'), $tag, $page),
-						   NULL, $tag, array($this, 'show_top'));
+        common_show_header(sprintf(_('Users self-tagged with %s - page %d'), $tag, $page),
+                           NULL, $tag, array($this, 'show_top'));
 
-		$this->show_people($tag, $page);
+        $this->show_people($tag, $page);
 
-		common_show_footer();
-	}
+        common_show_footer();
+    }
 
-	function show_people($tag, $page) {
-		
-		$profile = new Profile();
+    function show_people($tag, $page) {
+        
+        $profile = new Profile();
 
-		$offset = ($page-1)*PROFILES_PER_PAGE;
-		$limit = PROFILES_PER_PAGE + 1;
-		
-		if (common_config('db','type') == 'pgsql') {
-			$lim = ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-		} else {
-			$lim = ' LIMIT ' . $offset . ', ' . $limit;
-		}
+        $offset = ($page-1)*PROFILES_PER_PAGE;
+        $limit = PROFILES_PER_PAGE + 1;
+        
+        if (common_config('db','type') == 'pgsql') {
+            $lim = ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+        } else {
+            $lim = ' LIMIT ' . $offset . ', ' . $limit;
+        }
 
-		# XXX: memcached this
-		
-		$profile->query(sprintf('SELECT profile.* ' .
-								'FROM profile JOIN profile_tag ' .
-								'ON profile.id = profile_tag.tagger ' .
-								'WHERE profile_tag.tagger = profile_tag.tagged ' .
-								'AND tag = "%s" ' .
-								'ORDER BY profile_tag.modified DESC ' . 
-								$lim, $tag));
+        # XXX: memcached this
+        
+        $profile->query(sprintf('SELECT profile.* ' .
+                                'FROM profile JOIN profile_tag ' .
+                                'ON profile.id = profile_tag.tagger ' .
+                                'WHERE profile_tag.tagger = profile_tag.tagged ' .
+                                'AND tag = "%s" ' .
+                                'ORDER BY profile_tag.modified DESC ' . 
+                                $lim, $tag));
 
-		$pl = new ProfileList($profile);
-		$cnt = $pl->show_list();
-		
-		common_pagination($page > 1,
-						  $cnt > PROFILES_PER_PAGE,
-						  $page,
-						  $this->trimmed('action'),
-						  array('tag' => $tag));
-	}
-	
-	function show_top($tag) {
-		$instr = sprintf(_('These are users who have tagged themselves "%s" ' .
-						   'to show a common interest, characteristic, hobby or job.'), $tag);
-		common_element_start('div', 'instructions');
-		common_element_start('p');
-		common_text($instr);
-		common_element_end('p');
-		common_element_end('div');
-	}
+        $pl = new ProfileList($profile);
+        $cnt = $pl->show_list();
+        
+        common_pagination($page > 1,
+                          $cnt > PROFILES_PER_PAGE,
+                          $page,
+                          $this->trimmed('action'),
+                          array('tag' => $tag));
+    }
+    
+    function show_top($tag) {
+        $instr = sprintf(_('These are users who have tagged themselves "%s" ' .
+                           'to show a common interest, characteristic, hobby or job.'), $tag);
+        common_element_start('div', 'instructions');
+        common_element_start('p');
+        common_text($instr);
+        common_element_end('p');
+        common_element_end('div');
+    }
 
-	function get_title() {
-		return NULL;
-	}
+    function get_title() {
+        return NULL;
+    }
 
-	function show_header($arr) {
-		return;
-	}
+    function show_header($arr) {
+        return;
+    }
 }

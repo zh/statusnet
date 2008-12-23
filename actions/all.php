@@ -23,71 +23,71 @@ require_once(INSTALLDIR.'/actions/showstream.php');
 
 class AllAction extends StreamAction {
 
-	function handle($args) {
+    function handle($args) {
 
-		parent::handle($args);
+        parent::handle($args);
 
-		$nickname = common_canonical_nickname($this->arg('nickname'));
-		$user = User::staticGet('nickname', $nickname);
+        $nickname = common_canonical_nickname($this->arg('nickname'));
+        $user = User::staticGet('nickname', $nickname);
 
-		if (!$user) {
-			$this->client_error(_('No such user.'));
-			return;
-		}
+        if (!$user) {
+            $this->client_error(_('No such user.'));
+            return;
+        }
 
-		$profile = $user->getProfile();
+        $profile = $user->getProfile();
 
-		if (!$profile) {
-			common_server_error(_('User has no profile.'));
-			return;
-		}
+        if (!$profile) {
+            common_server_error(_('User has no profile.'));
+            return;
+        }
 
-		# Looks like we're good; show the header
+        # Looks like we're good; show the header
 
-		common_show_header(sprintf(_("%s and friends"), $profile->nickname),
-						   array($this, 'show_header'), $user,
-						   array($this, 'show_top'));
+        common_show_header(sprintf(_("%s and friends"), $profile->nickname),
+                           array($this, 'show_header'), $user,
+                           array($this, 'show_top'));
 
-		$this->show_notices($user);
+        $this->show_notices($user);
 
-		common_show_footer();
-	}
+        common_show_footer();
+    }
 
-	function show_header($user) {
-		common_element('link', array('rel' => 'alternate',
-									 'href' => common_local_url('allrss', array('nickname' =>
-																			   $user->nickname)),
-									 'type' => 'application/rss+xml',
-									 'title' => sprintf(_('Feed for friends of %s'), $user->nickname)));
-	}
+    function show_header($user) {
+        common_element('link', array('rel' => 'alternate',
+                                     'href' => common_local_url('allrss', array('nickname' =>
+                                                                               $user->nickname)),
+                                     'type' => 'application/rss+xml',
+                                     'title' => sprintf(_('Feed for friends of %s'), $user->nickname)));
+    }
 
-	function show_top($user) {
-		$cur = common_current_user();
+    function show_top($user) {
+        $cur = common_current_user();
 
-		if ($cur && $cur->id == $user->id) {
-			common_notice_form('all');
-		}
+        if ($cur && $cur->id == $user->id) {
+            common_notice_form('all');
+        }
 
-		$this->views_menu();
+        $this->views_menu();
 
-		$this->show_feeds_list(array(0=>array('href'=>common_local_url('allrss', array('nickname' => $user->nickname)),
-											  'type' => 'rss',
-											  'version' => 'RSS 1.0',
-											  'item' => 'allrss')));
-	}
+        $this->show_feeds_list(array(0=>array('href'=>common_local_url('allrss', array('nickname' => $user->nickname)),
+                                              'type' => 'rss',
+                                              'version' => 'RSS 1.0',
+                                              'item' => 'allrss')));
+    }
 
-	function show_notices($user) {
+    function show_notices($user) {
 
-		$page = $this->trimmed('page');
-		if (!$page) {
-			$page = 1;
-		}
+        $page = $this->trimmed('page');
+        if (!$page) {
+            $page = 1;
+        }
 
-		$notice = $user->noticesWithFriends(($page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
+        $notice = $user->noticesWithFriends(($page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
 
         $cnt = $this->show_notice_list($notice);
 
-		common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
-						  $page, 'all', array('nickname' => $user->nickname));
-	}
+        common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
+                          $page, 'all', array('nickname' => $user->nickname));
+    }
 }

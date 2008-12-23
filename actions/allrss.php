@@ -25,53 +25,53 @@ require_once(INSTALLDIR.'/lib/rssaction.php');
 
 class AllrssAction extends Rss10Action {
 
-	var $user = NULL;
+    var $user = NULL;
 
-	function init() {
-		$nickname = $this->trimmed('nickname');
-		$this->user = User::staticGet('nickname', $nickname);
+    function init() {
+        $nickname = $this->trimmed('nickname');
+        $this->user = User::staticGet('nickname', $nickname);
 
-		if (!$this->user) {
-			common_user_error(_('No such user.'));
-			return false;
-		} else {
-			return true;
-		}
-	}
+        if (!$this->user) {
+            common_user_error(_('No such user.'));
+            return false;
+        } else {
+            return true;
+        }
+    }
 
-	function get_notices($limit=0) {
+    function get_notices($limit=0) {
 
-		$user = $this->user;
-		
-		$notice = $user->noticesWithFriends(0, $limit);
-											
-		while ($notice->fetch()) {
-			$notices[] = clone($notice);
-		}
+        $user = $this->user;
+        
+        $notice = $user->noticesWithFriends(0, $limit);
+                                            
+        while ($notice->fetch()) {
+            $notices[] = clone($notice);
+        }
 
-		return $notices;
-	}
+        return $notices;
+    }
 
-	function get_channel() {
-		$user = $this->user;
-		$c = array('url' => common_local_url('allrss',
-											 array('nickname' =>
-												   $user->nickname)),
-				   'title' => sprintf(_('%s and friends'), $user->nickname),
-				   'link' => common_local_url('all',
-											 array('nickname' =>
-												   $user->nickname)),
-				   'description' => sprintf(_('Feed for friends of %s'), $user->nickname));
-		return $c;
-	}
+    function get_channel() {
+        $user = $this->user;
+        $c = array('url' => common_local_url('allrss',
+                                             array('nickname' =>
+                                                   $user->nickname)),
+                   'title' => sprintf(_('%s and friends'), $user->nickname),
+                   'link' => common_local_url('all',
+                                             array('nickname' =>
+                                                   $user->nickname)),
+                   'description' => sprintf(_('Feed for friends of %s'), $user->nickname));
+        return $c;
+    }
 
-	function get_image() {
-		$user = $this->user;
-		$profile = $user->getProfile();
-		if (!$profile) {
-			return NULL;
-		}
-		$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
-		return ($avatar) ? $avatar->url : NULL;
-	}
+    function get_image() {
+        $user = $this->user;
+        $profile = $user->getProfile();
+        if (!$profile) {
+            return NULL;
+        }
+        $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
+        return ($avatar) ? $avatar->url : NULL;
+    }
 }

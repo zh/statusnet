@@ -23,30 +23,30 @@ require_once(INSTALLDIR.'/lib/gallery.php');
 
 class SubscribersAction extends GalleryAction {
 
-	function gallery_type() {
-		return _('Subscribers');
-	}
+    function gallery_type() {
+        return _('Subscribers');
+    }
 
-	function get_instructions(&$profile) {
-		$user =& common_current_user();
-		if ($user && ($user->id == $profile->id)) {
-			return _('These are the people who listen to your notices.');
-		} else {
-			return sprintf(_('These are the people who listen to %s\'s notices.'), $profile->nickname);
-		}
-	}
+    function get_instructions(&$profile) {
+        $user =& common_current_user();
+        if ($user && ($user->id == $profile->id)) {
+            return _('These are the people who listen to your notices.');
+        } else {
+            return sprintf(_('These are the people who listen to %s\'s notices.'), $profile->nickname);
+        }
+    }
 
-	function fields() {
-		return array('subscriber', 'subscribed');
-	}
+    function fields() {
+        return array('subscriber', 'subscribed');
+    }
 
-	function div_class() {
-		return 'subscribers';
-	}
+    function div_class() {
+        return 'subscribers';
+    }
 
-	function get_other(&$subs) {
-		return $subs->subscriber;
-	}
+    function get_other(&$subs) {
+        return $subs->subscriber;
+    }
 
     function profile_list_class() {
         return 'SubscribersList';

@@ -22,49 +22,49 @@ class Foreign_user extends Memcached_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
-	
-	// XXX:  This only returns a 1->1 single obj mapping.  Change?  Or make
-	// a getForeignUsers() that returns more than one? --Zach
-	static function getForeignUser($id, $service) {		
-		$fuser = new Foreign_user();
-		$fuser->whereAdd("service = $service");
-		$fuser->whereAdd("id = $id");
-		$fuser->limit(1);
-		
-		if ($fuser->find()) {
-			$fuser->fetch();
-			return $fuser;
-		}
-		
-		return NULL;		
-	}
-	
-	function updateKeys(&$orig) {
-		$parts = array();
-		foreach (array('id', 'service', 'uri', 'nickname') as $k) {
-			if (strcmp($this->$k, $orig->$k) != 0) {
-				$parts[] = $k . ' = ' . $this->_quote($this->$k);
-			}
-		}
-		if (count($parts) == 0) {
-			# No changes
-			return true;
-		}
-		$toupdate = implode(', ', $parts);
+    
+    // XXX:  This only returns a 1->1 single obj mapping.  Change?  Or make
+    // a getForeignUsers() that returns more than one? --Zach
+    static function getForeignUser($id, $service) {        
+        $fuser = new Foreign_user();
+        $fuser->whereAdd("service = $service");
+        $fuser->whereAdd("id = $id");
+        $fuser->limit(1);
+        
+        if ($fuser->find()) {
+            $fuser->fetch();
+            return $fuser;
+        }
+        
+        return NULL;        
+    }
+    
+    function updateKeys(&$orig) {
+        $parts = array();
+        foreach (array('id', 'service', 'uri', 'nickname') as $k) {
+            if (strcmp($this->$k, $orig->$k) != 0) {
+                $parts[] = $k . ' = ' . $this->_quote($this->$k);
+            }
+        }
+        if (count($parts) == 0) {
+            # No changes
+            return true;
+        }
+        $toupdate = implode(', ', $parts);
 
-		$table = $this->tableName();
-		if(common_config('db','quote_identifiers')) {
-			$table = '"' . $table . '"';
-		}
-		$qry = 'UPDATE ' . $table . ' SET ' . $toupdate .
-		  ' WHERE id = ' . $this->id;
-		$orig->decache();
-		$result = $this->query($qry);
-		if ($result) {
-			$this->encache();
-		}
-		return $result;
-	}
+        $table = $this->tableName();
+        if(common_config('db','quote_identifiers')) {
+            $table = '"' . $table . '"';
+        }
+        $qry = 'UPDATE ' . $table . ' SET ' . $toupdate .
+          ' WHERE id = ' . $this->id;
+        $orig->decache();
+        $result = $this->query($qry);
+        if ($result) {
+            $this->encache();
+        }
+        return $result;
+    }
 
-	
+    
 }

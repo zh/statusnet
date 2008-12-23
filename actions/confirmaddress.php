@@ -43,44 +43,44 @@ class ConfirmaddressAction extends Action {
             $this->client_error(_('That confirmation code is not for you!'));
             return;
         }
-		$type = $confirm->address_type;
-		if (!in_array($type, array('email', 'jabber', 'sms'))) {
-			$this->server_error(sprintf(_('Unrecognized address type %s'), $type));
-			return;
-		}
+        $type = $confirm->address_type;
+        if (!in_array($type, array('email', 'jabber', 'sms'))) {
+            $this->server_error(sprintf(_('Unrecognized address type %s'), $type));
+            return;
+        }
         if ($cur->$type == $confirm->address) {
             $this->client_error(_('That address has already been confirmed.'));
-			return;
-		}
+            return;
+        }
 
         $cur->query('BEGIN');
 
         $orig_user = clone($cur);
 
-		$cur->$type = $confirm->address;
+        $cur->$type = $confirm->address;
 
-		if ($type == 'sms') {
-			$cur->carrier = ($confirm->address_extra)+0;
-			$carrier = Sms_carrier::staticGet($cur->carrier);
-			$cur->smsemail = $carrier->toEmailAddress($cur->sms);
-		}
+        if ($type == 'sms') {
+            $cur->carrier = ($confirm->address_extra)+0;
+            $carrier = Sms_carrier::staticGet($cur->carrier);
+            $cur->smsemail = $carrier->toEmailAddress($cur->sms);
+        }
 
-		$result = $cur->updateKeys($orig_user);
+        $result = $cur->updateKeys($orig_user);
 
         if (!$result) {
-			common_log_db_error($cur, 'UPDATE', __FILE__);
+            common_log_db_error($cur, 'UPDATE', __FILE__);
             $this->server_error(_('Couldn\'t update user.'));
             return;
         }
 
-		if ($type == 'email') {
-		    $cur->emailChanged();
-		}
+        if ($type == 'email') {
+            $cur->emailChanged();
+        }
 
         $result = $confirm->delete();
 
         if (!$result) {
-			common_log_db_error($confirm, 'DELETE', __FILE__);
+            common_log_db_error($confirm, 'DELETE', __FILE__);
             $this->server_error(_('Couldn\'t delete email confirmation.'));
             return;
         }

@@ -54,100 +54,100 @@ require_once(INSTALLDIR.'/lib/language.php');
 
 $config =
   array('site' =>
-		array('name' => 'Just another Laconica microblog',
-			  'server' => 'localhost',
-			  'theme' => 'default',
-			  'path' => '/',
-			  'logfile' => NULL,
-			  'fancy' => false,
-			  'locale_path' => INSTALLDIR.'/locale',
-			  'language' => 'en_US',
-			  'languages' => get_all_languages(),
-		      'email' =>
-		      array_key_exists('SERVER_ADMIN', $_SERVER) ? $_SERVER['SERVER_ADMIN'] : NULL,
-			  'broughtby' => NULL,
-			  'timezone' => 'UTC',
-			  'broughtbyurl' => NULL,
-			  'closed' => false,
-			  'inviteonly' => false,
+        array('name' => 'Just another Laconica microblog',
+              'server' => 'localhost',
+              'theme' => 'default',
+              'path' => '/',
+              'logfile' => NULL,
+              'fancy' => false,
+              'locale_path' => INSTALLDIR.'/locale',
+              'language' => 'en_US',
+              'languages' => get_all_languages(),
+              'email' =>
+              array_key_exists('SERVER_ADMIN', $_SERVER) ? $_SERVER['SERVER_ADMIN'] : NULL,
+              'broughtby' => NULL,
+              'timezone' => 'UTC',
+              'broughtbyurl' => NULL,
+              'closed' => false,
+              'inviteonly' => false,
               'private' => false),
-		'syslog' =>
-		array('appname' => 'laconica', # for syslog
-			  'priority' => 'debug'), # XXX: currently ignored
-		'queue' =>
-		array('enabled' => false),
-		'license' =>
-		array('url' => 'http://creativecommons.org/licenses/by/3.0/',
-			  'title' => 'Creative Commons Attribution 3.0',
-			  'image' => 'http://i.creativecommons.org/l/by/3.0/88x31.png'),
-		'mail' =>
-		array('backend' => 'mail',
-			  'params' => NULL),
-		'nickname' =>
-		array('blacklist' => array(),
-			  'featured' => array()),
-		'profile' =>
-		array('banned' => array()),
-		'avatar' =>
-		array('server' => NULL),
-		'public' =>
-		array('localonly' => true,
-			  'blacklist' => array()),
-		'theme' =>
-		array('server' => NULL),
-		'throttle' =>
+        'syslog' =>
+        array('appname' => 'laconica', # for syslog
+              'priority' => 'debug'), # XXX: currently ignored
+        'queue' =>
+        array('enabled' => false),
+        'license' =>
+        array('url' => 'http://creativecommons.org/licenses/by/3.0/',
+              'title' => 'Creative Commons Attribution 3.0',
+              'image' => 'http://i.creativecommons.org/l/by/3.0/88x31.png'),
+        'mail' =>
+        array('backend' => 'mail',
+              'params' => NULL),
+        'nickname' =>
+        array('blacklist' => array(),
+              'featured' => array()),
+        'profile' =>
+        array('banned' => array()),
+        'avatar' =>
+        array('server' => NULL),
+        'public' =>
+        array('localonly' => true,
+              'blacklist' => array()),
+        'theme' =>
+        array('server' => NULL),
+        'throttle' =>
         array('enabled' => false, // whether to throttle edits; false by default
               'count' => 20, // number of allowed messages in timespan
               'timespan' => 600), // timespan for throttling
-		'xmpp' =>
-		array('enabled' => false,
-			  'server' => 'INVALID SERVER',
-			  'port' => 5222,
-			  'user' => 'update',
-			  'encryption' => true,
-			  'resource' => 'uniquename',
-			  'password' => 'blahblahblah',
-			  'host' => NULL, # only set if != server
-			  'debug' => false, # print extra debug info
-			  'public' => array()), # JIDs of users who want to receive the public stream
+        'xmpp' =>
+        array('enabled' => false,
+              'server' => 'INVALID SERVER',
+              'port' => 5222,
+              'user' => 'update',
+              'encryption' => true,
+              'resource' => 'uniquename',
+              'password' => 'blahblahblah',
+              'host' => NULL, # only set if != server
+              'debug' => false, # print extra debug info
+              'public' => array()), # JIDs of users who want to receive the public stream
         'sphinx' =>
         array('enabled' => false,
               'server' => 'localhost',
               'port' => 3312),
-		'tag' =>
-		array('dropoff' => 864000.0),
-		'popular' =>
-		array('dropoff' => 864000.0),
-		'daemon' =>
-		array('piddir' => '/var/run',
-			  'user' => false,
-			  'group' => false),
-		'integration' =>
-		array('source' => 'Laconica'), # source attribute for Twitter
-		'memcached' =>
-		array('enabled' => false,
-			  'server' => 'localhost',
-			  'port' => 11211),
-		'inboxes' =>
-		array('enabled' => true), # on by default for new sites
-		);
+        'tag' =>
+        array('dropoff' => 864000.0),
+        'popular' =>
+        array('dropoff' => 864000.0),
+        'daemon' =>
+        array('piddir' => '/var/run',
+              'user' => false,
+              'group' => false),
+        'integration' =>
+        array('source' => 'Laconica'), # source attribute for Twitter
+        'memcached' =>
+        array('enabled' => false,
+              'server' => 'localhost',
+              'port' => 11211),
+        'inboxes' =>
+        array('enabled' => true), # on by default for new sites
+        );
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
 
 $config['db'] =
   array('database' => 'YOU HAVE TO SET THIS IN config.php',
-	    'schema_location' => INSTALLDIR . '/classes',
-		'class_location' => INSTALLDIR . '/classes',
-		'require_prefix' => 'classes/',
-		'class_prefix' => '',
-		'mirror' => NULL,
+        'schema_location' => INSTALLDIR . '/classes',
+        'class_location' => INSTALLDIR . '/classes',
+        'require_prefix' => 'classes/',
+        'class_prefix' => '',
+        'mirror' => NULL,
         'db_driver' => 'DB', # XXX: JanRain libs only work with DB
-		'quote_identifiers' => false,
-		'type' => 'mysql' );
+        'quote_identifiers' => false,
+        'type' => 'mysql' );
 
 if (function_exists('date_default_timezone_set')) {
-	/* Work internally in UTC */
-	date_default_timezone_set('UTC');
+    /* Work internally in UTC */
+    date_default_timezone_set('UTC');
 }
 
 require_once(INSTALLDIR.'/config.php');
@@ -164,9 +164,9 @@ require_once(INSTALLDIR.'/lib/Shorturl_api.php');
 require_once(INSTALLDIR.'/lib/twitter.php');
 
 function __autoload($class) {
-	if ($class == 'OAuthRequest') {
-		require_once('OAuth.php');
-	} else if (file_exists(INSTALLDIR.'/classes/' . $class . '.php')) {
+    if ($class == 'OAuthRequest') {
+        require_once('OAuth.php');
+    } else if (file_exists(INSTALLDIR.'/classes/' . $class . '.php')) {
         require_once(INSTALLDIR.'/classes/' . $class . '.php');
     }
 }

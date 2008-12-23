@@ -46,114 +46,114 @@ class Profile extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-	function getAvatar($width, $height=NULL) {
-		if (is_null($height)) {
-			$height = $width;
-		}
-		return Avatar::pkeyGet(array('profile_id' => $this->id,
-									 'width' => $width,
-									 'height' => $height));
-	}
+    function getAvatar($width, $height=NULL) {
+        if (is_null($height)) {
+            $height = $width;
+        }
+        return Avatar::pkeyGet(array('profile_id' => $this->id,
+                                     'width' => $width,
+                                     'height' => $height));
+    }
 
-	function getOriginalAvatar() {
-		$avatar = DB_DataObject::factory('avatar');
-		$avatar->profile_id = $this->id;
-		$avatar->original = true;
-		if ($avatar->find(true)) {
-			return $avatar;
-		} else {
-			return NULL;
-		}
-	}
+    function getOriginalAvatar() {
+        $avatar = DB_DataObject::factory('avatar');
+        $avatar->profile_id = $this->id;
+        $avatar->original = true;
+        if ($avatar->find(true)) {
+            return $avatar;
+        } else {
+            return NULL;
+        }
+    }
 
-	function setOriginal($source) {
+    function setOriginal($source) {
 
-		$info = @getimagesize($source);
+        $info = @getimagesize($source);
 
-		if (!$info) {
-			return NULL;
-		}
+        if (!$info) {
+            return NULL;
+        }
 
-		$filename = common_avatar_filename($this->id,
-										   image_type_to_extension($info[2]),
-										   NULL, common_timestamp());
-		$filepath = common_avatar_path($filename);
+        $filename = common_avatar_filename($this->id,
+                                           image_type_to_extension($info[2]),
+                                           NULL, common_timestamp());
+        $filepath = common_avatar_path($filename);
 
-		copy($source, $filepath);
+        copy($source, $filepath);
 
-		$avatar = new Avatar();
+        $avatar = new Avatar();
 
-		$avatar->profile_id = $this->id;
-		$avatar->width = $info[0];
-		$avatar->height = $info[1];
-		$avatar->mediatype = image_type_to_mime_type($info[2]);
-		$avatar->filename = $filename;
-		$avatar->original = true;
-		$avatar->url = common_avatar_url($filename);
-		$avatar->created = DB_DataObject_Cast::dateTime(); # current time
+        $avatar->profile_id = $this->id;
+        $avatar->width = $info[0];
+        $avatar->height = $info[1];
+        $avatar->mediatype = image_type_to_mime_type($info[2]);
+        $avatar->filename = $filename;
+        $avatar->original = true;
+        $avatar->url = common_avatar_url($filename);
+        $avatar->created = DB_DataObject_Cast::dateTime(); # current time
 
-		# XXX: start a transaction here
+        # XXX: start a transaction here
 
-		if (!$this->delete_avatars()) {
-			@unlink($filepath);
-			return NULL;
-		}
+        if (!$this->delete_avatars()) {
+            @unlink($filepath);
+            return NULL;
+        }
 
-		if (!$avatar->insert()) {
-			@unlink($filepath);
-			return NULL;
-		}
+        if (!$avatar->insert()) {
+            @unlink($filepath);
+            return NULL;
+        }
 
-		foreach (array(AVATAR_PROFILE_SIZE, AVATAR_STREAM_SIZE, AVATAR_MINI_SIZE) as $size) {
-			# We don't do a scaled one if original is our scaled size
-			if (!($avatar->width == $size && $avatar->height == $size)) {
-				$s = $avatar->scale($size);
-				if (!$s) {
-					return NULL;
-				}
-			}
-		}
+        foreach (array(AVATAR_PROFILE_SIZE, AVATAR_STREAM_SIZE, AVATAR_MINI_SIZE) as $size) {
+            # We don't do a scaled one if original is our scaled size
+            if (!($avatar->width == $size && $avatar->height == $size)) {
+                $s = $avatar->scale($size);
+                if (!$s) {
+                    return NULL;
+                }
+            }
+        }
 
-		return $avatar;
-	}
+        return $avatar;
+    }
 
-	function delete_avatars() {
-		$avatar = new Avatar();
-		$avatar->profile_id = $this->id;
-		$avatar->find();
-		while ($avatar->fetch()) {
-			$avatar->delete();
-		}
-		return true;
-	}
+    function delete_avatars() {
+        $avatar = new Avatar();
+        $avatar->profile_id = $this->id;
+        $avatar->find();
+        while ($avatar->fetch()) {
+            $avatar->delete();
+        }
+        return true;
+    }
 
-	function getBestName() {
-		return ($this->fullname) ? $this->fullname : $this->nickname;
-	}
+    function getBestName() {
+        return ($this->fullname) ? $this->fullname : $this->nickname;
+    }
 
     # Get latest notice on or before date; default now
-	function getCurrentNotice($dt=NULL) {
-		$notice = new Notice();
-		$notice->profile_id = $this->id;
-		if ($dt) {
-			$notice->whereAdd('created < "' . $dt . '"');
-		}
-		$notice->orderBy('created DESC, notice.id DESC');
-		$notice->limit(1);
-		if ($notice->find(true)) {
-			return $notice;
-		}
-		return NULL;
-	}
+    function getCurrentNotice($dt=NULL) {
+        $notice = new Notice();
+        $notice->profile_id = $this->id;
+        if ($dt) {
+            $notice->whereAdd('created < "' . $dt . '"');
+        }
+        $notice->orderBy('created DESC, notice.id DESC');
+        $notice->limit(1);
+        if ($notice->find(true)) {
+            return $notice;
+        }
+        return NULL;
+    }
 
-	function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0) {
-		$qry =
-		  'SELECT * ' .
-		  'FROM notice ' .
-		  'WHERE profile_id = %d ';
+    function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0) {
+        $qry =
+          'SELECT * ' .
+          'FROM notice ' .
+          'WHERE profile_id = %d ';
 
-		return Notice::getStream(sprintf($qry, $this->id),
-								 'profile:notices:'.$this->id,
-								 $offset, $limit, $since_id, $before_id);
-	}
+        return Notice::getStream(sprintf($qry, $this->id),
+                                 'profile:notices:'.$this->id,
+                                 $offset, $limit, $since_id, $before_id);
+    }
 }

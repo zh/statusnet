@@ -98,10 +98,10 @@ class MySQLSearch extends SearchEngine {
     function query($q) {
         if ('identica_people' === $this->table)
             return $this->target->whereAdd('MATCH(nickname, fullname, location, bio, homepage) ' .
-						   'against (\''.addslashes($q).'\')');
+                           'against (\''.addslashes($q).'\')');
         if ('identica_notices' === $this->table)
             return $this->target->whereAdd('MATCH(content) ' .
-						   'against (\''.addslashes($q).'\')');
+                           'against (\''.addslashes($q).'\')');
     }
 }
 

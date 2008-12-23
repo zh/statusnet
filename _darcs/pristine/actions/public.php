@@ -23,77 +23,77 @@ require_once(INSTALLDIR.'/lib/stream.php');
 
 class PublicAction extends StreamAction {
 
-	function handle($args) {
-		parent::handle($args);
+    function handle($args) {
+        parent::handle($args);
 
-		$page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
+        $page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 
-		header('X-XRDS-Location: '. common_local_url('publicxrds'));
+        header('X-XRDS-Location: '. common_local_url('publicxrds'));
 
-		common_show_header(_('Public timeline'),
-						   array($this, 'show_header'), NULL,
-						   array($this, 'show_top'));
+        common_show_header(_('Public timeline'),
+                           array($this, 'show_header'), NULL,
+                           array($this, 'show_top'));
 
-		# XXX: Public sidebar here?
+        # XXX: Public sidebar here?
 
-		$this->show_notices($page);
+        $this->show_notices($page);
 
-		common_show_footer();
-	}
+        common_show_footer();
+    }
 
-	function show_top() {
-		if (common_logged_in()) {
-			common_notice_form('public');
-		} else {
-			$instr = $this->get_instructions();
-			$output = common_markup_to_html($instr);
-			common_element_start('div', 'instructions');
-			common_raw($output);
-			common_element_end('div');
-		}
+    function show_top() {
+        if (common_logged_in()) {
+            common_notice_form('public');
+        } else {
+            $instr = $this->get_instructions();
+            $output = common_markup_to_html($instr);
+            common_element_start('div', 'instructions');
+            common_raw($output);
+            common_element_end('div');
+        }
 
-		$this->public_views_menu();
+        $this->public_views_menu();
 
-		$this->show_feeds_list(array(0=>array('href'=>common_local_url('publicrss'),
-											  'type' => 'rss',
-											  'version' => 'RSS 1.0',
-											  'item' => 'publicrss'),
-									 1=>array('href'=>common_local_url('publicatom'),
-											  'type' => 'atom',
-											  'version' => 'Atom 1.0',
-											  'item' => 'publicatom')));
-	}
+        $this->show_feeds_list(array(0=>array('href'=>common_local_url('publicrss'),
+                                              'type' => 'rss',
+                                              'version' => 'RSS 1.0',
+                                              'item' => 'publicrss'),
+                                     1=>array('href'=>common_local_url('publicatom'),
+                                              'type' => 'atom',
+                                              'version' => 'Atom 1.0',
+                                              'item' => 'publicatom')));
+    }
 
-	function get_instructions() {
-		return _('This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
-				 'based on the Free Software [Laconica](http://laconi.ca/) tool. ' .
-				 '[Join now](%%action.register%%) to share notices about yourself with friends, family, and colleagues! ([Read more](%%doc.help%%))');
-	}
+    function get_instructions() {
+        return _('This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
+                 'based on the Free Software [Laconica](http://laconi.ca/) tool. ' .
+                 '[Join now](%%action.register%%) to share notices about yourself with friends, family, and colleagues! ([Read more](%%doc.help%%))');
+    }
 
-	function show_header() {
-		common_element('link', array('rel' => 'alternate',
-									 'href' => common_local_url('publicrss'),
-									 'type' => 'application/rss+xml',
-									 'title' => _('Public Stream Feed')));
-		# for client side of OpenID authentication
-		common_element('meta', array('http-equiv' => 'X-XRDS-Location',
-									 'content' => common_local_url('publicxrds')));
-	}
+    function show_header() {
+        common_element('link', array('rel' => 'alternate',
+                                     'href' => common_local_url('publicrss'),
+                                     'type' => 'application/rss+xml',
+                                     'title' => _('Public Stream Feed')));
+        # for client side of OpenID authentication
+        common_element('meta', array('http-equiv' => 'X-XRDS-Location',
+                                     'content' => common_local_url('publicxrds')));
+    }
 
-	function show_notices($page) {
+    function show_notices($page) {
 
-		$cnt = 0;
-		$notice = Notice::publicStream(($page-1)*NOTICES_PER_PAGE,
-									   NOTICES_PER_PAGE + 1);
+        $cnt = 0;
+        $notice = Notice::publicStream(($page-1)*NOTICES_PER_PAGE,
+                                       NOTICES_PER_PAGE + 1);
 
-		if (!$notice) {
+        if (!$notice) {
             $this->server_error(_('Could not retrieve public stream.'));
             return;
-		}
+        }
 
         $cnt = $this->show_notice_list($notice);
 
-		common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
-						  $page, 'public');
-	}
+        common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
+                          $page, 'public');
+    }
 }

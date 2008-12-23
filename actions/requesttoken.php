@@ -22,21 +22,21 @@ if (!defined('LACONICA')) { exit(1); }
 require_once(INSTALLDIR.'/lib/omb.php');
 
 class RequesttokenAction extends Action {
-	
-	function is_readonly() {
-		return false;
-	}
-	
-	function handle($args) {
-		parent::handle($args);
-		try {
-			common_remove_magic_from_request();
-			$req = OAuthRequest::from_request();
-			$server = omb_oauth_server();
-			$token = $server->fetch_request_token($req);
-			print $token;
-		} catch (OAuthException $e) {
-			common_server_error($e->getMessage());
-		}
-	}
+    
+    function is_readonly() {
+        return false;
+    }
+    
+    function handle($args) {
+        parent::handle($args);
+        try {
+            common_remove_magic_from_request();
+            $req = OAuthRequest::from_request();
+            $server = omb_oauth_server();
+            $token = $server->fetch_request_token($req);
+            print $token;
+        } catch (OAuthException $e) {
+            common_server_error($e->getMessage());
+        }
+    }
 }

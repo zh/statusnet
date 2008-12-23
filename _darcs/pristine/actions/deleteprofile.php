@@ -32,101 +32,101 @@ class DeleteprofileAction extends Action {
         }
     }
 
-	function get_instructions() {
-		return _('Export and delete your user information.');
-	}
+    function get_instructions() {
+        return _('Export and delete your user information.');
+    }
 
-	function form_header($title, $msg=NULL, $success=false) {
-		common_show_header($title,
-		                   NULL,
-		                   array($msg, $success),
-						   array($this, 'show_top'));
-	}
+    function form_header($title, $msg=NULL, $success=false) {
+        common_show_header($title,
+                           NULL,
+                           array($msg, $success),
+                           array($this, 'show_top'));
+    }
 
-	function show_feeds_list($feeds) {
-		common_element_start('div', array('class' => 'feedsdel'));
-		common_element('p', null, 'Feeds:');
-		common_element_start('ul', array('class' => 'xoxo'));
+    function show_feeds_list($feeds) {
+        common_element_start('div', array('class' => 'feedsdel'));
+        common_element('p', null, 'Feeds:');
+        common_element_start('ul', array('class' => 'xoxo'));
 
-		foreach ($feeds as $key => $value) {
-			$this->common_feed_item($feeds[$key]);
-		}
-		common_element_end('ul');
-		common_element_end('div');
-	}
+        foreach ($feeds as $key => $value) {
+            $this->common_feed_item($feeds[$key]);
+        }
+        common_element_end('ul');
+        common_element_end('div');
+    }
 
     //TODO move to common.php (and retrace its origin)
-	function common_feed_item($feed) {
+    function common_feed_item($feed) {
         $user = common_current_user();
-		$nickname = $user->nickname;
+        $nickname = $user->nickname;
 
-		switch($feed['item']) {
-			case 'notices': default:
-				$feed_classname = $feed['type'];
-				$feed_mimetype = "application/".$feed['type']."+xml";
-				$feed_title = "$nickname's ".$feed['version']." notice feed";
-				$feed['textContent'] = "RSS";
-				break;
+        switch($feed['item']) {
+            case 'notices': default:
+                $feed_classname = $feed['type'];
+                $feed_mimetype = "application/".$feed['type']."+xml";
+                $feed_title = "$nickname's ".$feed['version']." notice feed";
+                $feed['textContent'] = "RSS";
+                break;
 
-			case 'foaf':
-				$feed_classname = "foaf";
-				$feed_mimetype = "application/".$feed['type']."+xml";
-				$feed_title = "$nickname's FOAF file";
-				$feed['textContent'] = "FOAF";
-				break;
-		}
-		common_element_start('li');
-		common_element('a', array('href' => $feed['href'],
-								  'class' => $feed_classname,
-								  'type' => $feed_mimetype,
-								  'title' => $feed_title),
-							$feed['textContent']);
-		common_element_end('li');
-	}
+            case 'foaf':
+                $feed_classname = "foaf";
+                $feed_mimetype = "application/".$feed['type']."+xml";
+                $feed_title = "$nickname's FOAF file";
+                $feed['textContent'] = "FOAF";
+                break;
+        }
+        common_element_start('li');
+        common_element('a', array('href' => $feed['href'],
+                                  'class' => $feed_classname,
+                                  'type' => $feed_mimetype,
+                                  'title' => $feed_title),
+                            $feed['textContent']);
+        common_element_end('li');
+    }
 
-	function show_form($msg=NULL, $success=false) {
-		$this->form_header(_('Delete my account'), $msg, $success);
-		common_element('h2', NULL, _('Delete my account confirmation'));
-		$this->show_confirm_delete_form();
-		common_show_footer();
-	}
+    function show_form($msg=NULL, $success=false) {
+        $this->form_header(_('Delete my account'), $msg, $success);
+        common_element('h2', NULL, _('Delete my account confirmation'));
+        $this->show_confirm_delete_form();
+        common_show_footer();
+    }
 
-	function show_confirm_delete_form() {
-		$user = common_current_user();
+    function show_confirm_delete_form() {
+        $user = common_current_user();
         $notices = DB_DataObject::factory('notice');
         $notices->profile_id = $user->id;
         $notice_count = (int) $notices->count();
 
-		common_element_start('form', array('method' => 'POST',
-										   'id' => 'delete',
-										   'action' =>
-										   common_local_url('deleteprofile')));
+        common_element_start('form', array('method' => 'POST',
+                                           'id' => 'delete',
+                                           'action' =>
+                                           common_local_url('deleteprofile')));
 
-		common_hidden('token', common_session_token());
+        common_hidden('token', common_session_token());
         common_element('p', null, "Last chance to copy your notices and contacts by saving the two links below before deleting your account. Be careful, this operation cannot be undone.");
 
-		$this->show_feeds_list(array(0=>array('href'=>common_local_url('userrss', array('limit' => $notice_count, 'nickname' => $user->nickname)),
-											  'type' => 'rss',
-											  'version' => 'RSS 1.0',
-											  'item' => 'notices'),
-									 1=>array('href'=>common_local_url('foaf',array('nickname' => $user->nickname)),
-											  'type' => 'rdf',
-											  'version' => 'FOAF',
-											  'item' => 'foaf')));
+        $this->show_feeds_list(array(0=>array('href'=>common_local_url('userrss', array('limit' => $notice_count, 'nickname' => $user->nickname)),
+                                              'type' => 'rss',
+                                              'version' => 'RSS 1.0',
+                                              'item' => 'notices'),
+                                     1=>array('href'=>common_local_url('foaf',array('nickname' => $user->nickname)),
+                                              'type' => 'rdf',
+                                              'version' => 'FOAF',
+                                              'item' => 'foaf')));
 
         common_checkbox('confirmation', _('Check if you are sure you want to delete your account.'));
 
-		common_submit('deleteaccount', _('Delete my account'));
-		common_element_end('form');
+        common_submit('deleteaccount', _('Delete my account'));
+        common_element_end('form');
     }
 
-	function handle_post() {
-		# CSRF protection
-		$token = $this->trimmed('token');
-		if (!$token || $token != common_session_token()) {
-			$this->show_form(_('There was a problem with your session token. Try again, please.'));
-			return;
-		}
+    function handle_post() {
+        # CSRF protection
+        $token = $this->trimmed('token');
+        if (!$token || $token != common_session_token()) {
+            $this->show_form(_('There was a problem with your session token. Try again, please.'));
+            return;
+        }
 
         if ($this->arg('deleteaccount') && $this->arg('confirmation')) {
             $this->delete_account();
@@ -134,9 +134,9 @@ class DeleteprofileAction extends Action {
         $this->show_form();
     }
 
-	function delete_account() {
-		$user = common_current_user();
-		assert(!is_null($user)); # should already be checked
+    function delete_account() {
+        $user = common_current_user();
+        assert(!is_null($user)); # should already be checked
 
         // deleted later through the profile
         /*
@@ -219,53 +219,53 @@ class DeleteprofileAction extends Action {
         common_redirect(common_local_url('public'));
     }
 
-	function show_top($arr) {
-		$msg = $arr[0];
-		$success = $arr[1];
-		if ($msg) {
-			$this->message($msg, $success);
-		} else {
-			$inst = $this->get_instructions();
-			$output = common_markup_to_html($inst);
-			common_element_start('div', 'instructions');
-			common_raw($output);
-			common_element_end('div');
-		}
-		$this->settings_menu();
-	}
+    function show_top($arr) {
+        $msg = $arr[0];
+        $success = $arr[1];
+        if ($msg) {
+            $this->message($msg, $success);
+        } else {
+            $inst = $this->get_instructions();
+            $output = common_markup_to_html($inst);
+            common_element_start('div', 'instructions');
+            common_raw($output);
+            common_element_end('div');
+        }
+        $this->settings_menu();
+    }
 
     function settings_menu() {
         # action => array('prompt', 'title')
-		$menu =
-		  array('profilesettings' =>
-				array(_('Profile'),
-					  _('Change your profile settings')),
-				'emailsettings' =>
-				array(_('Email'),
-					  _('Change email handling')),
-				'openidsettings' =>
-				array(_('OpenID'),
-					  _('Add or remove OpenIDs')),
-				'smssettings' =>
-				array(_('SMS'),
-					  _('Updates by SMS')),
-				'imsettings' =>
-				array(_('IM'),
-					  _('Updates by instant messenger (IM)')),
-				'twittersettings' =>
-				array(_('Twitter'),
-					  _('Twitter integration options')),
-				'othersettings' =>
-				array(_('Other'),
-					  _('Other options')));
+        $menu =
+          array('profilesettings' =>
+                array(_('Profile'),
+                      _('Change your profile settings')),
+                'emailsettings' =>
+                array(_('Email'),
+                      _('Change email handling')),
+                'openidsettings' =>
+                array(_('OpenID'),
+                      _('Add or remove OpenIDs')),
+                'smssettings' =>
+                array(_('SMS'),
+                      _('Updates by SMS')),
+                'imsettings' =>
+                array(_('IM'),
+                      _('Updates by instant messenger (IM)')),
+                'twittersettings' =>
+                array(_('Twitter'),
+                      _('Twitter integration options')),
+                'othersettings' =>
+                array(_('Other'),
+                      _('Other options')));
 
         $action = $this->trimmed('action');
         common_element_start('ul', array('id' => 'nav_views'));
         foreach ($menu as $menuaction => $menudesc) {
-			if ($menuaction == 'imsettings' &&
-				!common_config('xmpp', 'enabled')) {
-				continue;
-			}
+            if ($menuaction == 'imsettings' &&
+                !common_config('xmpp', 'enabled')) {
+                continue;
+            }
             common_menu_item(common_local_url($menuaction),
                     $menudesc[0],
                     $menudesc[1],

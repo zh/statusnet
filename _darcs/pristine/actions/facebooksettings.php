@@ -10,11 +10,11 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.     See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.	 If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.     If not, see <http://www.gnu.org/licenses/>.
  */
 
 if (!defined('LACONICA')) { exit(1); }
@@ -23,30 +23,30 @@ require_once(INSTALLDIR.'/lib/facebookaction.php');
 
 class FacebooksettingsAction extends FacebookAction {
 
-	function handle($args) {
-		parent::handle($args);
+    function handle($args) {
+        parent::handle($args);
 
-		$this->display();
-	}
+        $this->display();
+    }
 
-	function display() {
+    function display() {
 
-		$facebook = $this->get_facebook();
+        $facebook = $this->get_facebook();
 
-		$fbuid = $facebook->require_login();
+        $fbuid = $facebook->require_login();
 
-		$fbml = '<fb:if-section-not-added section="profile">'
-			.'<h2>Add an Identi.ca box to your profile!</h2>'
-			.'<fb:add-section-button section="profile"/>'
-			.'</fb:if-section-not-added>';
+        $fbml = '<fb:if-section-not-added section="profile">'
+            .'<h2>Add an Identi.ca box to your profile!</h2>'
+            .'<fb:add-section-button section="profile"/>'
+            .'</fb:if-section-not-added>';
 
 
-		$this->show_header('Settings');
+        $this->show_header('Settings');
 
-		echo $fbml;
+        echo $fbml;
 
-		$this->show_footer();
+        $this->show_footer();
 
-	}
+    }
 
 }

@@ -23,70 +23,70 @@ require_once(INSTALLDIR.'/lib/openid.php');
 
 class OpenidloginAction extends Action {
 
-	function handle($args) {
-		parent::handle($args);
-		if (common_logged_in()) {
-			common_user_error(_('Already logged in.'));
-		} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-			$openid_url = $this->trimmed('openid_url');
+    function handle($args) {
+        parent::handle($args);
+        if (common_logged_in()) {
+            common_user_error(_('Already logged in.'));
+        } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $openid_url = $this->trimmed('openid_url');
 
-			# CSRF protection
-			$token = $this->trimmed('token');
-			if (!$token || $token != common_session_token()) {
-				$this->show_form(_('There was a problem with your session token. Try again, please.'), $openid_url);
-				return;
-			}
+            # CSRF protection
+            $token = $this->trimmed('token');
+            if (!$token || $token != common_session_token()) {
+                $this->show_form(_('There was a problem with your session token. Try again, please.'), $openid_url);
+                return;
+            }
 
-			$rememberme = $this->boolean('rememberme');
-			
-			common_ensure_session();
-			
-			$_SESSION['openid_rememberme'] = $rememberme;
-			
-			$result = oid_authenticate($openid_url,
-									   'finishopenidlogin');
-			
-			if (is_string($result)) { # error message
-				unset($_SESSION['openid_rememberme']);
-				$this->show_form($result, $openid_url);
-			}
-		} else {
-			$openid_url = oid_get_last();
-			$this->show_form(NULL, $openid_url);
-		}
-	}
+            $rememberme = $this->boolean('rememberme');
+            
+            common_ensure_session();
+            
+            $_SESSION['openid_rememberme'] = $rememberme;
+            
+            $result = oid_authenticate($openid_url,
+                                       'finishopenidlogin');
+            
+            if (is_string($result)) { # error message
+                unset($_SESSION['openid_rememberme']);
+                $this->show_form($result, $openid_url);
+            }
+        } else {
+            $openid_url = oid_get_last();
+            $this->show_form(NULL, $openid_url);
+        }
+    }
 
-	function get_instructions() {
-		return _('Login with an [OpenID](%%doc.openid%%) account.');
-	}
+    function get_instructions() {
+        return _('Login with an [OpenID](%%doc.openid%%) account.');
+    }
 
-	function show_top($error=NULL) {
-		if ($error) {
-			common_element('div', array('class' => 'error'), $error);
-		} else {
-			$instr = $this->get_instructions();
-			$output = common_markup_to_html($instr);
-			common_element_start('div', 'instructions');
-			common_raw($output);
-			common_element_end('div');
-		}
-	}
+    function show_top($error=NULL) {
+        if ($error) {
+            common_element('div', array('class' => 'error'), $error);
+        } else {
+            $instr = $this->get_instructions();
+            $output = common_markup_to_html($instr);
+            common_element_start('div', 'instructions');
+            common_raw($output);
+            common_element_end('div');
+        }
+    }
 
-	function show_form($error=NULL, $openid_url) {
-		common_show_header(_('OpenID Login'), NULL, $error, array($this, 'show_top'));
-		$formaction = common_local_url('openidlogin');
-		common_element_start('form', array('method' => 'post',
-										   'id' => 'openidlogin',
-										   'action' => $formaction));
-		common_hidden('token', common_session_token());
-		common_input('openid_url', _('OpenID URL'),
-					 $openid_url,
-					 _('Your OpenID URL'));
-		common_checkbox('rememberme', _('Remember me'), false,
-		                _('Automatically login in the future; ' .
-		                   'not for shared computers!'));
-		common_submit('submit', _('Login'));
-		common_element_end('form');
-		common_show_footer();
-	}
+    function show_form($error=NULL, $openid_url) {
+        common_show_header(_('OpenID Login'), NULL, $error, array($this, 'show_top'));
+        $formaction = common_local_url('openidlogin');
+        common_element_start('form', array('method' => 'post',
+                                           'id' => 'openidlogin',
+                                           'action' => $formaction));
+        common_hidden('token', common_session_token());
+        common_input('openid_url', _('OpenID URL'),
+                     $openid_url,
+                     _('Your OpenID URL'));
+        common_checkbox('rememberme', _('Remember me'), false,
+                        _('Automatically login in the future; ' .
+                           'not for shared computers!'));
+        common_submit('submit', _('Login'));
+        common_element_end('form');
+        common_show_footer();
+    }
 }

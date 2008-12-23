@@ -25,49 +25,49 @@ require_once(INSTALLDIR.'/lib/rssaction.php');
 
 class FavoritesrssAction extends Rss10Action {
 
-	var $user = NULL;
-	
-	function init() {
-		$nickname = $this->trimmed('nickname');
-		$this->user = User::staticGet('nickname', $nickname);
+    var $user = NULL;
+    
+    function init() {
+        $nickname = $this->trimmed('nickname');
+        $this->user = User::staticGet('nickname', $nickname);
 
-		if (!$this->user) {
-			common_user_error(_('No such user.'));
-			return false;
-		} else {
-			return true;
-		}
-	}
+        if (!$this->user) {
+            common_user_error(_('No such user.'));
+            return false;
+        } else {
+            return true;
+        }
+    }
 
-	function get_notices($limit=0) {
+    function get_notices($limit=0) {
 
-		$user = $this->user;
+        $user = $this->user;
 
-		$notice = $user->favoriteNotices(0, $limit);
+        $notice = $user->favoriteNotices(0, $limit);
 
-		$notices = array();
+        $notices = array();
 
-		while ($notice->fetch()) {
-			$notices[] = clone($notice);
-		}
+        while ($notice->fetch()) {
+            $notices[] = clone($notice);
+        }
 
-		return $notices;
-	}
+        return $notices;
+    }
 
-	function get_channel() {
-		$user = $this->user;
-		$c = array('url' => common_local_url('favoritesrss',
-											 array('nickname' =>
-												   $user->nickname)),
-				   'title' => sprintf(_("%s favorite notices"), $user->nickname),
-				   'link' => common_local_url('showfavorites',
-											 array('nickname' =>
-												   $user->nickname)),
-				   'description' => sprintf(_('Feed of favorite notices of %s'), $user->nickname));
-		return $c;
-	}
+    function get_channel() {
+        $user = $this->user;
+        $c = array('url' => common_local_url('favoritesrss',
+                                             array('nickname' =>
+                                                   $user->nickname)),
+                   'title' => sprintf(_("%s favorite notices"), $user->nickname),
+                   'link' => common_local_url('showfavorites',
+                                             array('nickname' =>
+                                                   $user->nickname)),
+                   'description' => sprintf(_('Feed of favorite notices of %s'), $user->nickname));
+        return $c;
+    }
 
-	function get_image() {
-		return NULL;
-	}
+    function get_image() {
+        return NULL;
+    }
 }

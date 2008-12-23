@@ -20,8 +20,8 @@
 
 # Abort if called from a web server
 if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
-	print "This script must be run from the command line\n";
-	exit();
+    print "This script must be run from the command line\n";
+    exit();
 }
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
@@ -34,22 +34,22 @@ require_once(INSTALLDIR . '/lib/queuehandler.php');
 set_error_handler('common_error_handler');
 
 class SmsQueueHandler extends QueueHandler {
-	
-	function transport() {
-		return 'sms';
-	}
+    
+    function transport() {
+        return 'sms';
+    }
 
-	function start() {
-		$this->log(LOG_INFO, "INITIALIZE");
-		return true;
-	}
+    function start() {
+        $this->log(LOG_INFO, "INITIALIZE");
+        return true;
+    }
 
-	function handle_notice($notice) {
-		return mail_broadcast_notice_sms($notice);
-	}
-	
-	function finish() {
-	}
+    function handle_notice($notice) {
+        return mail_broadcast_notice_sms($notice);
+    }
+    
+    function finish() {
+    }
 }
 
 ini_set("max_execution_time", "0");

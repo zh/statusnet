@@ -23,43 +23,43 @@ require_once(INSTALLDIR.'/lib/openid.php');
 
 class FinishimmediateAction extends Action {
 
-	function handle($args) {
-		parent::handle($args);
+    function handle($args) {
+        parent::handle($args);
 
-		$consumer = oid_consumer();
+        $consumer = oid_consumer();
 
-		$response = $consumer->complete(common_local_url('finishimmediate'));
+        $response = $consumer->complete(common_local_url('finishimmediate'));
 
-		if ($response->status == Auth_OpenID_SUCCESS) {
-			$display = $response->getDisplayIdentifier();
-			$canonical = ($response->endpoint->canonicalID) ?
-			  $response->endpoint->canonicalID : $response->getDisplayIdentifier();
+        if ($response->status == Auth_OpenID_SUCCESS) {
+            $display = $response->getDisplayIdentifier();
+            $canonical = ($response->endpoint->canonicalID) ?
+              $response->endpoint->canonicalID : $response->getDisplayIdentifier();
 
-			$user = oid_get_user($canonical);
+            $user = oid_get_user($canonical);
 
-			if ($user) {
-				oid_update_user($user, $sreg);
-				oid_set_last($display); # refresh for another year
-				common_set_user($user->nickname);
-				$this->go_backto();
-				return;
-			}
-		}
+            if ($user) {
+                oid_update_user($user, $sreg);
+                oid_set_last($display); # refresh for another year
+                common_set_user($user->nickname);
+                $this->go_backto();
+                return;
+            }
+        }
 
-		# Failure! Clear openid so we don't try it again
+        # Failure! Clear openid so we don't try it again
 
-		oid_clear_last();
-		$this->go_backto();
-		return;
-	}
+        oid_clear_last();
+        $this->go_backto();
+        return;
+    }
 
-	function go_backto() {
-		common_ensure_session();
-		$backto = $_SESSION['openid_immediate_backto'];
-		if (!$backto) {
-			# gar. Well, push them to the public page
-			$backto = common_local_url('public');
-		}
-		common_redirect($backto);
-	}
+    function go_backto() {
+        common_ensure_session();
+        $backto = $_SESSION['openid_immediate_backto'];
+        if (!$backto) {
+            # gar. Well, push them to the public page
+            $backto = common_local_url('public');
+        }
+        common_redirect($backto);
+    }
 }

@@ -22,20 +22,20 @@ if (!defined('LACONICA')) { exit(1); }
 require_once(INSTALLDIR.'/lib/openid.php');
 
 class LogoutAction extends Action {
-	
-	function is_readonly() {
-		return true;
-	}
-	
-	function handle($args) {
-		parent::handle($args);
-		if (!common_logged_in()) {
-			common_user_error(_('Not logged in.'));
-		} else {
-			common_set_user(NULL);
-			common_real_login(false); # not logged in
-			common_forgetme(); # don't log back in!
-			common_redirect(common_local_url('public'));
-		}
-	}
+    
+    function is_readonly() {
+        return true;
+    }
+    
+    function handle($args) {
+        parent::handle($args);
+        if (!common_logged_in()) {
+            common_user_error(_('Not logged in.'));
+        } else {
+            common_set_user(NULL);
+            common_real_login(false); # not logged in
+            common_forgetme(); # don't log back in!
+            common_redirect(common_local_url('public'));
+        }
+    }
 }

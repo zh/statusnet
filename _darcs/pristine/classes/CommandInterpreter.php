@@ -22,174 +22,174 @@ if (!defined('LACONICA')) { exit(1); }
 require_once(INSTALLDIR.'/classes/Command.php');
 
 class CommandInterpreter {
-	
-	function handle_command($user, $text) {
-		# XXX: localise
+    
+    function handle_command($user, $text) {
+        # XXX: localise
 
-		$text = preg_replace('/\s+/', ' ', trim($text));
-		list($cmd, $arg) = explode(' ', $text, 2);
+        $text = preg_replace('/\s+/', ' ', trim($text));
+        list($cmd, $arg) = explode(' ', $text, 2);
 
-		# We try to support all the same commands as Twitter, see
-		# http://getsatisfaction.com/twitter/topics/what_are_the_twitter_commands
-		# There are a few compatibility commands from earlier versions of 
-		# Laconica
-		
-		switch(strtolower($cmd)) {
-		 case 'help':
-			if ($arg) {
-				return NULL;
-			}
-			return new HelpCommand($user);
-		 case 'on':
-			if ($arg) {
-				list($other, $extra) = explode(' ', $arg, 2);
-				if ($extra) {
-					return NULL;
-				} else {
-					return new OnCommand($user, $other);
-				}
-			} else {
-				return new OnCommand($user);
-			}
-		 case 'off':
-			if ($arg) {
-				list($other, $extra) = explode(' ', $arg, 2);
-				if ($extra) {
-					return NULL;
-				} else {
-					return new OffCommand($user, $other);
-				}
-			} else {
-				return new OffCommand($user);
-			}
-		 case 'stop':
-		 case 'quit':
-			if ($arg) {
-				return NULL;
-			} else {
-				return new OffCommand($user);
-			}
-		 case 'follow':
-		 case 'sub':
-			if (!$arg) {
-				return NULL;
-			}
-			list($other, $extra) = explode(' ', $arg, 2);
-			if ($extra) {
-				return NULL;
-			} else {
-				return new SubCommand($user, $other);
-			}
-		 case 'leave':
-		 case 'unsub':
-			if (!$arg) {
-				return NULL;
-			}
-			list($other, $extra) = explode(' ', $arg, 2);
-			if ($extra) {
-				return NULL;
-			} else {
-				return new UnsubCommand($user, $other);
-			}
-		 case 'get':
-		 case 'last':
-			if (!$arg) {
-				return NULL;
-			}
-			list($other, $extra) = explode(' ', $arg, 2);
-			if ($extra) {
-				return NULL;
-			} else {
-				return new GetCommand($user, $other);
-			}
-		 case 'd':
-			if (!$arg) {
-				return NULL;
-			}
-			list($other, $extra) = explode(' ', $arg, 2);
-			if (!$extra) {
-				return NULL;
-			} else {
-				return new MessageCommand($user, $other, $extra);
-			}
-		 case 'whois':
-			if (!$arg) {
-				return NULL;
-			}
-			list($other, $extra) = explode(' ', $arg, 2);
-			if ($extra) {
-				return NULL;
-			} else {
-				return new WhoisCommand($user, $other);
-			}
-		 case 'fav':
-			if (!$arg) {
-				return NULL;
-			}
-			list($other, $extra) = explode(' ', $arg, 2);
-			if ($extra) {
-				return NULL;
-			} else {
-				return new FavCommand($user, $other);
-			}
-		 case 'nudge':
-			if (!$arg) {
-				return NULL;
-			}
-			list($other, $extra) = explode(' ', $arg, 2);
-			if ($extra) {
-				return NULL;
-			} else {
-				return new NudgeCommand($user, $other);
-			}
-		 case 'stats':
-			if ($arg) {
-				return NULL;
-			}
-			return new StatsCommand($user);
-		 case 'invite':
-			if (!$arg) {
-				return NULL;
-			}
-			list($other, $extra) = explode(' ', $arg, 2);
-			if ($extra) {
-				return NULL;
-			} else {
-				return new InviteCommand($user, $other);
-			}
-		 case 'track':
-			if (!$arg) {
-				return NULL;
-			}
-			list($word, $extra) = explode(' ', $arg, 2);
-			if ($extra) {
-				return NULL;
-			} else if ($word == 'off') {
-				return new TrackOffCommand($user);
-			} else {
-				return new TrackCommand($user, $word);
-			}
-		 case 'untrack':
-			if (!$arg) {
-				return NULL;
-			}
-			list($word, $extra) = explode(' ', $arg, 2);
-			if ($extra) {
-				return NULL;
-			} else if ($word == 'all') {
-				return new TrackOffCommand($user);
-			} else {
-				return new UntrackCommand($user, $word);
-			}
-		 case 'tracks':
-		 case 'tracking':
-			if ($arg) {
-				return NULL;
-			}
-			return new TrackingCommand($user);
-		 default:
-			return false;
-		}
-	}
+        # We try to support all the same commands as Twitter, see
+        # http://getsatisfaction.com/twitter/topics/what_are_the_twitter_commands
+        # There are a few compatibility commands from earlier versions of 
+        # Laconica
+        
+        switch(strtolower($cmd)) {
+         case 'help':
+            if ($arg) {
+                return NULL;
+            }
+            return new HelpCommand($user);
+         case 'on':
+            if ($arg) {
+                list($other, $extra) = explode(' ', $arg, 2);
+                if ($extra) {
+                    return NULL;
+                } else {
+                    return new OnCommand($user, $other);
+                }
+            } else {
+                return new OnCommand($user);
+            }
+         case 'off':
+            if ($arg) {
+                list($other, $extra) = explode(' ', $arg, 2);
+                if ($extra) {
+                    return NULL;
+                } else {
+                    return new OffCommand($user, $other);
+                }
+            } else {
+                return new OffCommand($user);
+            }
+         case 'stop':
+         case 'quit':
+            if ($arg) {
+                return NULL;
+            } else {
+                return new OffCommand($user);
+            }
+         case 'follow':
+         case 'sub':
+            if (!$arg) {
+                return NULL;
+            }
+            list($other, $extra) = explode(' ', $arg, 2);
+            if ($extra) {
+                return NULL;
+            } else {
+                return new SubCommand($user, $other);
+            }
+         case 'leave':
+         case 'unsub':
+            if (!$arg) {
+                return NULL;
+            }
+            list($other, $extra) = explode(' ', $arg, 2);
+            if ($extra) {
+                return NULL;
+            } else {
+                return new UnsubCommand($user, $other);
+            }
+         case 'get':
+         case 'last':
+            if (!$arg) {
+                return NULL;
+            }
+            list($other, $extra) = explode(' ', $arg, 2);
+            if ($extra) {
+                return NULL;
+            } else {
+                return new GetCommand($user, $other);
+            }
+         case 'd':
+            if (!$arg) {
+                return NULL;
+            }
+            list($other, $extra) = explode(' ', $arg, 2);
+            if (!$extra) {
+                return NULL;
+            } else {
+                return new MessageCommand($user, $other, $extra);
+            }
+         case 'whois':
+            if (!$arg) {
+                return NULL;
+            }
+            list($other, $extra) = explode(' ', $arg, 2);
+            if ($extra) {
+                return NULL;
+            } else {
+                return new WhoisCommand($user, $other);
+            }
+         case 'fav':
+            if (!$arg) {
+                return NULL;
+            }
+            list($other, $extra) = explode(' ', $arg, 2);
+            if ($extra) {
+                return NULL;
+            } else {
+                return new FavCommand($user, $other);
+            }
+         case 'nudge':
+            if (!$arg) {
+                return NULL;
+            }
+            list($other, $extra) = explode(' ', $arg, 2);
+            if ($extra) {
+                return NULL;
+            } else {
+                return new NudgeCommand($user, $other);
+            }
+         case 'stats':
+            if ($arg) {
+                return NULL;
+            }
+            return new StatsCommand($user);
+         case 'invite':
+            if (!$arg) {
+                return NULL;
+            }
+            list($other, $extra) = explode(' ', $arg, 2);
+            if ($extra) {
+                return NULL;
+            } else {
+                return new InviteCommand($user, $other);
+            }
+         case 'track':
+            if (!$arg) {
+                return NULL;
+            }
+            list($word, $extra) = explode(' ', $arg, 2);
+            if ($extra) {
+                return NULL;
+            } else if ($word == 'off') {
+                return new TrackOffCommand($user);
+            } else {
+                return new TrackCommand($user, $word);
+            }
+         case 'untrack':
+            if (!$arg) {
+                return NULL;
+            }
+            list($word, $extra) = explode(' ', $arg, 2);
+            if ($extra) {
+                return NULL;
+            } else if ($word == 'all') {
+                return new TrackOffCommand($user);
+            } else {
+                return new UntrackCommand($user, $word);
+            }
+         case 'tracks':
+         case 'tracking':
+            if ($arg) {
+                return NULL;
+            }
+            return new TrackingCommand($user);
+         default:
+            return false;
+        }
+    }
 }
 

@@ -20,8 +20,8 @@
 
 # Abort if called from a web server
 if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
-	print "This script must be run from the command line\n";
-	exit();
+    print "This script must be run from the command line\n";
+    exit();
 }
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
@@ -35,20 +35,20 @@ set_error_handler('common_error_handler');
 
 class JabberQueueHandler extends XmppQueueHandler {
 
-	var $conn = NULL;
+    var $conn = NULL;
 
-	function transport() {
-		return 'jabber';
-	}
+    function transport() {
+        return 'jabber';
+    }
 
-	function handle_notice($notice) {
-		try {
-			return jabber_broadcast_notice($notice);
-		} catch (XMPPHP_Exception $e) {
-			$this->log(LOG_ERR, "Got an XMPPHP_Exception: " . $e->getMessage());
-			exit(1);
-		}
-	}
+    function handle_notice($notice) {
+        try {
+            return jabber_broadcast_notice($notice);
+        } catch (XMPPHP_Exception $e) {
+            $this->log(LOG_ERR, "Got an XMPPHP_Exception: " . $e->getMessage());
+            exit(1);
+        }
+    }
 }
 
 ini_set("max_execution_time", "0");

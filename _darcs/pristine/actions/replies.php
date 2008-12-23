@@ -23,72 +23,72 @@ require_once(INSTALLDIR.'/actions/showstream.php');
 
 class RepliesAction extends StreamAction {
 
-	function handle($args) {
+    function handle($args) {
 
-		parent::handle($args);
+        parent::handle($args);
 
-		$nickname = common_canonical_nickname($this->arg('nickname'));
-		$user = User::staticGet('nickname', $nickname);
+        $nickname = common_canonical_nickname($this->arg('nickname'));
+        $user = User::staticGet('nickname', $nickname);
 
-		if (!$user) {
-			$this->no_such_user();
-			return;
-		}
+        if (!$user) {
+            $this->no_such_user();
+            return;
+        }
 
-		$profile = $user->getProfile();
+        $profile = $user->getProfile();
 
-		if (!$profile) {
-			common_server_error(_('User has no profile.'));
-			return;
-		}
+        if (!$profile) {
+            common_server_error(_('User has no profile.'));
+            return;
+        }
 
-		# Looks like we're good; show the header
+        # Looks like we're good; show the header
 
-		common_show_header(sprintf(_("Replies to %s"), $profile->nickname),
-						   array($this, 'show_header'), $user,
-						   array($this, 'show_top'));
+        common_show_header(sprintf(_("Replies to %s"), $profile->nickname),
+                           array($this, 'show_header'), $user,
+                           array($this, 'show_top'));
 
-		$this->show_replies($user);
+        $this->show_replies($user);
 
-		common_show_footer();
-	}
+        common_show_footer();
+    }
 
-	function no_such_user() {
-		common_user_error(_('No such user.'));
-	}
+    function no_such_user() {
+        common_user_error(_('No such user.'));
+    }
 
-	function show_header($user) {
-		common_element('link', array('rel' => 'alternate',
-									 'href' => common_local_url('repliesrss', array('nickname' =>
-																					$user->nickname)),
-									 'type' => 'application/rss+xml',
-									 'title' => sprintf(_('Feed for replies to %s'), $user->nickname)));
-	}
+    function show_header($user) {
+        common_element('link', array('rel' => 'alternate',
+                                     'href' => common_local_url('repliesrss', array('nickname' =>
+                                                                                    $user->nickname)),
+                                     'type' => 'application/rss+xml',
+                                     'title' => sprintf(_('Feed for replies to %s'), $user->nickname)));
+    }
 
-	function show_top($user) {
-		$cur = common_current_user();
+    function show_top($user) {
+        $cur = common_current_user();
 
-		if ($cur && $cur->id == $user->id) {
-			common_notice_form('replies');
-		}
+        if ($cur && $cur->id == $user->id) {
+            common_notice_form('replies');
+        }
 
-		$this->views_menu();
+        $this->views_menu();
 
-		$this->show_feeds_list(array(0=>array('href'=>common_local_url('repliesrss', array('nickname' => $user->nickname)),
-											  'type' => 'rss',
-											  'version' => 'RSS 1.0',
-											  'item' => 'repliesrss')));
-	}
+        $this->show_feeds_list(array(0=>array('href'=>common_local_url('repliesrss', array('nickname' => $user->nickname)),
+                                              'type' => 'rss',
+                                              'version' => 'RSS 1.0',
+                                              'item' => 'repliesrss')));
+    }
 
-	function show_replies($user) {
+    function show_replies($user) {
 
-		$page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
+        $page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 
-		$notice = $user->getReplies(($page-1) * NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
+        $notice = $user->getReplies(($page-1) * NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
 
-		$cnt = $this->show_notice_list($notice);
+        $cnt = $this->show_notice_list($notice);
 
-		common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
-						  $page, 'replies', array('nickname' => $user->nickname));
-	}
+        common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
+                          $page, 'replies', array('nickname' => $user->nickname));
+    }
 }

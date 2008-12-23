@@ -25,33 +25,33 @@ require_once(INSTALLDIR.'/lib/rssaction.php');
 
 class PublicrssAction extends Rss10Action {
 
-	function init() {
-		return true;
-	}
+    function init() {
+        return true;
+    }
 
-	function get_notices($limit=0) {
-		
-		$notices = array();
-		
-		$notice = Notice::publicStream(0, ($limit == 0) ? 48 : $limit);
-		
-		while ($notice->fetch()) {
-			$notices[] = clone($notice);
-		}
-		
-		return $notices;
-	}
+    function get_notices($limit=0) {
+        
+        $notices = array();
+        
+        $notice = Notice::publicStream(0, ($limit == 0) ? 48 : $limit);
+        
+        while ($notice->fetch()) {
+            $notices[] = clone($notice);
+        }
+        
+        return $notices;
+    }
 
-	function get_channel() {
-		global $config;
-		$c = array('url' => common_local_url('publicrss'),
-				   'title' => sprintf(_('%s Public Stream'), $config['site']['name']),
-				   'link' => common_local_url('public'),
-				   'description' => sprintf(_('All updates for %s'), $config['site']['name']));
-		return $c;
-	}
+    function get_channel() {
+        global $config;
+        $c = array('url' => common_local_url('publicrss'),
+                   'title' => sprintf(_('%s Public Stream'), $config['site']['name']),
+                   'link' => common_local_url('public'),
+                   'description' => sprintf(_('All updates for %s'), $config['site']['name']));
+        return $c;
+    }
 
-	function get_image() {
-		return NULL;
-	}
+    function get_image() {
+        return NULL;
+    }
 }

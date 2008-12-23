@@ -11,17 +11,17 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.     See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.	 If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.     If not, see <http://www.gnu.org/licenses/>.
  */
 
 # Abort if called from a web server
 if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
-	print "This script must be run from the command line\n";
-	exit();
+    print "This script must be run from the command line\n";
+    exit();
 }
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
@@ -35,21 +35,21 @@ $flink->find();
 
 while ($flink->fetch()) {
 
-	if (($flink->friendsync & FOREIGN_FRIEND_RECV) == FOREIGN_FRIEND_RECV) {
+    if (($flink->friendsync & FOREIGN_FRIEND_RECV) == FOREIGN_FRIEND_RECV) {
 
-		$user = User::staticGet($flink->user_id);
+        $user = User::staticGet($flink->user_id);
 
-		print "Updating Twitter friends for user $user->nickname ($user->id)\n";
+        print "Updating Twitter friends for user $user->nickname ($user->id)\n";
 
-		$fuser = $flink->getForeignUser();
+        $fuser = $flink->getForeignUser();
 
-		$result = save_twitter_friends($user, $fuser->id, $fuser->nickname, $flink->credentials);
+        $result = save_twitter_friends($user, $fuser->id, $fuser->nickname, $flink->credentials);
 
-		if ($result == false) {
-			print "Problems updating Twitter friends! Check the log.\n";
-			exit(1);
-		}
-	}
+        if ($result == false) {
+            print "Problems updating Twitter friends! Check the log.\n";
+            exit(1);
+        }
+    }
 
 }
 

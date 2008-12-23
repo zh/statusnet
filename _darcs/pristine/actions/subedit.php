@@ -32,12 +32,12 @@ class SubeditAction extends Action {
             return false;
         }
 
-		$token = $this->trimmed('token');
+        $token = $this->trimmed('token');
 
-		if (!$token || $token != common_session_token()) {
-			$this->client_error(_('There was a problem with your session token. Try again, please.'));
-			return;
-		}
+        if (!$token || $token != common_session_token()) {
+            $this->client_error(_('There was a problem with your session token. Try again, please.'));
+            return;
+        }
 
         $id = $this->trimmed('profile');
 

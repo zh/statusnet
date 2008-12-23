@@ -23,15 +23,15 @@ require_once(INSTALLDIR.'/lib/twitterapi.php');
 
 class TwitapiblocksAction extends TwitterapiAction {
 
-	function create($args, $apidata) {
+    function create($args, $apidata) {
 
-		parent::handle($args);
+        parent::handle($args);
 
-		$blockee = $this->get_user($apidata['api_arg'], $apidata);
+        $blockee = $this->get_user($apidata['api_arg'], $apidata);
 
         if (!$blockee) {
-			$this->client_error('Not Found', 404, $apidata['content-type']);
-			return;
+            $this->client_error('Not Found', 404, $apidata['content-type']);
+            return;
         }
 
         $user = $apidata['user'];
@@ -42,17 +42,17 @@ class TwitapiblocksAction extends TwitterapiAction {
             $this->show_profile($blockee, $type);
             $this->end_document($type);
         } else {
-			common_server_error(_('Block user failed.'));
+            common_server_error(_('Block user failed.'));
         }
-	}
+    }
 
-	function destroy($args, $apidata) {
-		parent::handle($args);
-		$blockee = $this->get_user($apidata['api_arg'], $apidata);
+    function destroy($args, $apidata) {
+        parent::handle($args);
+        $blockee = $this->get_user($apidata['api_arg'], $apidata);
 
         if (!$blockee) {
-			$this->client_error('Not Found', 404, $apidata['content-type']);
-			return;
+            $this->client_error('Not Found', 404, $apidata['content-type']);
+            return;
         }
 
         $user = $apidata['user'];
@@ -63,7 +63,7 @@ class TwitapiblocksAction extends TwitterapiAction {
             $this->show_profile($blockee, $type);
             $this->end_document($type);
         } else {
-			common_server_error(_('Unblock user failed.'));
+            common_server_error(_('Unblock user failed.'));
         }
-	}
+    }
 }

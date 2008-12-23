@@ -24,61 +24,61 @@ require_once(INSTALLDIR.'/lib/profilelist.php');
 
 class PeoplesearchAction extends SearchAction {
 
-	function get_instructions() {
-		return _('Search for people on %%site.name%% by their name, location, or interests. ' .
-				  'Separate the terms by spaces; they must be 3 characters or more.');
-	}
+    function get_instructions() {
+        return _('Search for people on %%site.name%% by their name, location, or interests. ' .
+                  'Separate the terms by spaces; they must be 3 characters or more.');
+    }
 
-	function get_title() {
-		return _('People search');
-	}
+    function get_title() {
+        return _('People search');
+    }
 
-	function show_results($q, $page) {
+    function show_results($q, $page) {
 
-		$profile = new Profile();
+        $profile = new Profile();
 
-		# lcase it for comparison
-		$q = strtolower($q);
+        # lcase it for comparison
+        $q = strtolower($q);
 
         $search_engine = $profile->getSearchEngine('identica_people');
 
         $search_engine->set_sort_mode('chron');
-		# Ask for an extra to see if there's more.
+        # Ask for an extra to see if there's more.
         $search_engine->limit((($page-1)*PROFILES_PER_PAGE), PROFILES_PER_PAGE + 1);
         if (false === $search_engine->query($q)) {
             $cnt = 0;
         }
         else {
-		    $cnt = $profile->find();
+            $cnt = $profile->find();
         }
-		if ($cnt > 0) {
-			$terms = preg_split('/[\s,]+/', $q);
-			$results = new PeopleSearchResults($profile, $terms);
-			$results->show_list();
-		} else {
-			common_element('p', 'error', _('No results'));
-		}
+        if ($cnt > 0) {
+            $terms = preg_split('/[\s,]+/', $q);
+            $results = new PeopleSearchResults($profile, $terms);
+            $results->show_list();
+        } else {
+            common_element('p', 'error', _('No results'));
+        }
 
-		$profile->free();
-		
-		common_pagination($page > 1, $cnt > PROFILES_PER_PAGE,
-						  $page, 'peoplesearch', array('q' => $q));
-	}
+        $profile->free();
+        
+        common_pagination($page > 1, $cnt > PROFILES_PER_PAGE,
+                          $page, 'peoplesearch', array('q' => $q));
+    }
 }
 
 class PeopleSearchResults extends ProfileList {
 
-	var $terms = NULL;
-	var $pattern = NULL;
-	
-	function __construct($profile, $terms) {
-		parent::__construct($profile);
-		$this->terms = array_map('preg_quote', 
-								 array_map('htmlspecialchars', $terms));
-		$this->pattern = '/('.implode('|',$terms).')/i';
-	}
-	
-	function highlight($text) {
-		return preg_replace($this->pattern, '<strong>\\1</strong>', htmlspecialchars($text));
-	}
+    var $terms = NULL;
+    var $pattern = NULL;
+    
+    function __construct($profile, $terms) {
+        parent::__construct($profile);
+        $this->terms = array_map('preg_quote', 
+                                 array_map('htmlspecialchars', $terms));
+        $this->pattern = '/('.implode('|',$terms).')/i';
+    }
+    
+    function highlight($text) {
+        return preg_replace($this->pattern, '<strong>\\1</strong>', htmlspecialchars($text));
+    }
 }

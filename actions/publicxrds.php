@@ -25,55 +25,55 @@ require_once(INSTALLDIR.'/lib/openid.php');
 
 class PublicxrdsAction extends Action {
 
-	function is_readonly() {
-		return true;
-	}
+    function is_readonly() {
+        return true;
+    }
 
-	function handle($args) {
+    function handle($args) {
 
-		parent::handle($args);
+        parent::handle($args);
 
-		header('Content-Type: application/xrds+xml');
+        header('Content-Type: application/xrds+xml');
 
-		common_start_xml();
-		common_element_start('XRDS', array('xmlns' => 'xri://$xrds'));
+        common_start_xml();
+        common_element_start('XRDS', array('xmlns' => 'xri://$xrds'));
 
-		common_element_start('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
-										  'xmlns:simple' => 'http://xrds-simple.net/core/1.0',
-										  'version' => '2.0'));
+        common_element_start('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
+                                          'xmlns:simple' => 'http://xrds-simple.net/core/1.0',
+                                          'version' => '2.0'));
 
-		common_element('Type', NULL, 'xri://$xrds*simple');
+        common_element('Type', NULL, 'xri://$xrds*simple');
 
-		foreach (array('finishopenidlogin', 'finishaddopenid', 'finishimmediate') as $finish) {
-			$this->show_service(Auth_OpenID_RP_RETURN_TO_URL_TYPE,
-								common_local_url($finish));
-		}
+        foreach (array('finishopenidlogin', 'finishaddopenid', 'finishimmediate') as $finish) {
+            $this->show_service(Auth_OpenID_RP_RETURN_TO_URL_TYPE,
+                                common_local_url($finish));
+        }
 
-		common_element_end('XRD');
+        common_element_end('XRD');
 
-		common_element_end('XRDS');
-		common_end_xml();
-	}
+        common_element_end('XRDS');
+        common_end_xml();
+    }
 
-	function show_service($type, $uri, $params=NULL, $sigs=NULL, $localId=NULL) {
-		common_element_start('Service');
-		if ($uri) {
-			common_element('URI', NULL, $uri);
-		}
-		common_element('Type', NULL, $type);
-		if ($params) {
-			foreach ($params as $param) {
-				common_element('Type', NULL, $param);
-			}
-		}
-		if ($sigs) {
-			foreach ($sigs as $sig) {
-				common_element('Type', NULL, $sig);
-			}
-		}
-		if ($localId) {
-			common_element('LocalID', NULL, $localId);
-		}
-		common_element_end('Service');
-	}
+    function show_service($type, $uri, $params=NULL, $sigs=NULL, $localId=NULL) {
+        common_element_start('Service');
+        if ($uri) {
+            common_element('URI', NULL, $uri);
+        }
+        common_element('Type', NULL, $type);
+        if ($params) {
+            foreach ($params as $param) {
+                common_element('Type', NULL, $param);
+            }
+        }
+        if ($sigs) {
+            foreach ($sigs as $sig) {
+                common_element('Type', NULL, $sig);
+            }
+        }
+        if ($localId) {
+            common_element('LocalID', NULL, $localId);
+        }
+        common_element_end('Service');
+    }
 }

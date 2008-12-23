@@ -27,13 +27,13 @@ require_once('XMPPHP/XMPP.php');
 
 function subs_subscribe_user($user, $other_nickname) {
 
-	$other = User::staticGet('nickname', $other_nickname);
+    $other = User::staticGet('nickname', $other_nickname);
 
-	if (!$other) {
-		return _('No such user.');
-	}
+    if (!$other) {
+        return _('No such user.');
+    }
 
-	return subs_subscribe_to($user, $other);
+    return subs_subscribe_to($user, $other);
 }
 
 /* Subscribe user $user to other user $other.
@@ -43,54 +43,54 @@ function subs_subscribe_user($user, $other_nickname) {
 
 function subs_subscribe_to($user, $other) {
 
-	if ($user->isSubscribed($other)) {
-		return _('Already subscribed!.');
-	}
-
-    if ($other->hasBlocked($user)) {
-		return _('User has blocked you.');
+    if ($user->isSubscribed($other)) {
+        return _('Already subscribed!.');
     }
 
-	if (!$user->subscribeTo($other)) {
-		return _('Could not subscribe.');
-		return;
-	}
+    if ($other->hasBlocked($user)) {
+        return _('User has blocked you.');
+    }
+
+    if (!$user->subscribeTo($other)) {
+        return _('Could not subscribe.');
+        return;
+    }
 
     subs_notify($other, $user);
 
-	if (common_config('memcached', 'enabled')) {
-		$cache = new Memcache();
-		if ($cache->connect(common_config('memcached', 'server'), common_config('memcached', 'port'))) {
-			$cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
-		}
-	}
+    if (common_config('memcached', 'enabled')) {
+        $cache = new Memcache();
+        if ($cache->connect(common_config('memcached', 'server'), common_config('memcached', 'port'))) {
+            $cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
+        }
+    }
 
-	if ($other->autosubscribe && !$other->isSubscribed($user) && !$user->hasBlocked($other)) {
-		if (!$other->subscribeTo($user)) {
-			return _('Could not subscribe other to you.');
-		}
-		if (common_config('memcached', 'enabled')) {
-			$cache = new Memcache();
-			if ($cache->connect(common_config('memcached', 'server'), common_config('memcached', 'port'))) {
-				$cache->delete(common_cache_key('user:notices_with_friends:' . $other->id));
-			}
-		}
+    if ($other->autosubscribe && !$other->isSubscribed($user) && !$user->hasBlocked($other)) {
+        if (!$other->subscribeTo($user)) {
+            return _('Could not subscribe other to you.');
+        }
+        if (common_config('memcached', 'enabled')) {
+            $cache = new Memcache();
+            if ($cache->connect(common_config('memcached', 'server'), common_config('memcached', 'port'))) {
+                $cache->delete(common_cache_key('user:notices_with_friends:' . $other->id));
+            }
+        }
 
-		subs_notify($user, $other);
-	}
+        subs_notify($user, $other);
+    }
 
-	return true;
+    return true;
 }
 
 function subs_notify($listenee, $listener) {
-	# XXX: add other notifications (Jabber, SMS) here
-	# XXX: queue this and handle it offline
-	# XXX: Whatever happens, do it in Twitter-like API, too
-	subs_notify_email($listenee, $listener);
+    # XXX: add other notifications (Jabber, SMS) here
+    # XXX: queue this and handle it offline
+    # XXX: Whatever happens, do it in Twitter-like API, too
+    subs_notify_email($listenee, $listener);
 }
 
 function subs_notify_email($listenee, $listener) {
-	mail_subscribe_notify($listenee, $listener);
+    mail_subscribe_notify($listenee, $listener);
 }
 
 /* Unsubscribe $user from nickname $other_nickname
@@ -99,13 +99,13 @@ function subs_notify_email($listenee, $listener) {
 
 function subs_unsubscribe_user($user, $other_nickname) {
 
-	$other = User::staticGet('nickname', $other_nickname);
+    $other = User::staticGet('nickname', $other_nickname);
 
-	if (!$other) {
-		return _('No such user.');
-	}
+    if (!$other) {
+        return _('No such user.');
+    }
 
-	return subs_unsubscribe_to($user, $other->getProfile());
+    return subs_unsubscribe_to($user, $other->getProfile());
 }
 
 /* Unsubscribe user $user from profile $other
@@ -113,28 +113,28 @@ function subs_unsubscribe_user($user, $other_nickname) {
 
 function subs_unsubscribe_to($user, $other) {
 
-	if (!$user->isSubscribed($other))
-		return _('Not subscribed!.');
+    if (!$user->isSubscribed($other))
+        return _('Not subscribed!.');
 
-	$sub = DB_DataObject::factory('subscription');
+    $sub = DB_DataObject::factory('subscription');
 
-	$sub->subscriber = $user->id;
-	$sub->subscribed = $other->id;
+    $sub->subscriber = $user->id;
+    $sub->subscribed = $other->id;
 
-	$sub->find(true);
+    $sub->find(true);
 
-	// note we checked for existence above
+    // note we checked for existence above
 
-	if (!$sub->delete())
-		return _('Couldn\'t delete subscription.');
+    if (!$sub->delete())
+        return _('Couldn\'t delete subscription.');
 
-	if (common_config('memcached', 'enabled')) {
-		$cache = new Memcache();
-		if ($cache->connect(common_config('memcached', 'server'), common_config('memcached', 'port'))) {
-			$cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
-		}
-	}
+    if (common_config('memcached', 'enabled')) {
+        $cache = new Memcache();
+        if ($cache->connect(common_config('memcached', 'server'), common_config('memcached', 'port'))) {
+            $cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
+        }
+    }
 
-	return true;
+    return true;
 }
 

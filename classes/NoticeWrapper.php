@@ -35,25 +35,25 @@ class NoticeWrapper extends Notice {
     public $is_local;                        // tinyint(1)  
     public $source;                          // varchar(32)  
 
-	var $notices = NULL;
-	var $i = -1;
-	
-	function __construct($arr) {
-		$this->notices = $arr;
-	}
-	
-	function fetch() {
-		static $fields = array('id', 'profile_id', 'uri', 'content', 'rendered',
-							   'url', 'created', 'modified', 'reply_to', 'is_local', 'source');
-		$this->i++;
-		if ($this->i >= count($this->notices)) {
-			return false;
-		} else {
-			$n = $this->notices[$this->i];
-			foreach ($fields as $f) {
-				$this->$f = $n->$f;
-			}
-			return true;
-		}
-	}
+    var $notices = NULL;
+    var $i = -1;
+    
+    function __construct($arr) {
+        $this->notices = $arr;
+    }
+    
+    function fetch() {
+        static $fields = array('id', 'profile_id', 'uri', 'content', 'rendered',
+                               'url', 'created', 'modified', 'reply_to', 'is_local', 'source');
+        $this->i++;
+        if ($this->i >= count($this->notices)) {
+            return false;
+        } else {
+            $n = $this->notices[$this->i];
+            foreach ($fields as $f) {
+                $this->$f = $n->$f;
+            }
+            return true;
+        }
+    }
 }

@@ -10,11 +10,11 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.     See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.	 If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.     If not, see <http://www.gnu.org/licenses/>.
  */
 
 if (!defined('LACONICA')) { exit(1); }
@@ -23,77 +23,77 @@ require_once(INSTALLDIR.'/lib/stream.php');
 
 class FavoritedAction extends StreamAction {
 
-	function handle($args) {
-		parent::handle($args);
+    function handle($args) {
+        parent::handle($args);
 
-		$page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
+        $page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 
-		common_show_header(_('Popular notices'),
-						   array($this, 'show_header'), NULL,
-						   array($this, 'show_top'));
+        common_show_header(_('Popular notices'),
+                           array($this, 'show_header'), NULL,
+                           array($this, 'show_top'));
 
-		$this->show_notices($page);
+        $this->show_notices($page);
 
-		common_show_footer();
-	}
+        common_show_footer();
+    }
 
-	function show_top() {
-		$instr = $this->get_instructions();
-		$output = common_markup_to_html($instr);
-		common_element_start('div', 'instructions');
-		common_raw($output);
-		common_element_end('div');
-		$this->public_views_menu();
-	}
+    function show_top() {
+        $instr = $this->get_instructions();
+        $output = common_markup_to_html($instr);
+        common_element_start('div', 'instructions');
+        common_raw($output);
+        common_element_end('div');
+        $this->public_views_menu();
+    }
 
-	function show_header() {
+    function show_header() {
         return;
-	}
+    }
 
-	function get_instructions() {
-		return _('Showing recently popular notices');
-	}
+    function get_instructions() {
+        return _('Showing recently popular notices');
+    }
 
-	function show_notices($page) {
+    function show_notices($page) {
 
-		$qry = 'SELECT notice.*, sum(exp(-(now() - fave.modified) / %s)) as weight ' .
-				'FROM notice JOIN fave ON notice.id = fave.notice_id ' .
-				'GROUP BY fave.notice_id ' .
-				'ORDER BY weight DESC';
+        $qry = 'SELECT notice.*, sum(exp(-(now() - fave.modified) / %s)) as weight ' .
+                'FROM notice JOIN fave ON notice.id = fave.notice_id ' .
+                'GROUP BY fave.notice_id ' .
+                'ORDER BY weight DESC';
 
-		$offset = ($page - 1) * NOTICES_PER_PAGE;
-		$limit = NOTICES_PER_PAGE + 1;
+        $offset = ($page - 1) * NOTICES_PER_PAGE;
+        $limit = NOTICES_PER_PAGE + 1;
 
-		if (common_config('db','type') == 'pgsql') {
-			$qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-		} else {
-			$qry .= ' LIMIT ' . $offset . ', ' . $limit;
-		}
+        if (common_config('db','type') == 'pgsql') {
+            $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+        } else {
+            $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+        }
 
-		# Figure out how to cache this query
+        # Figure out how to cache this query
 
-		$notice = new Notice;
-		$notice->query(sprintf($qry, common_config('popular', 'dropoff')));
+        $notice = new Notice;
+        $notice->query(sprintf($qry, common_config('popular', 'dropoff')));
 
-		common_element_start('ul', array('id' => 'notices'));
+        common_element_start('ul', array('id' => 'notices'));
 
-		$cnt = 0;
+        $cnt = 0;
 
-		while ($notice->fetch() && $cnt <= NOTICES_PER_PAGE) {
-			$cnt++;
+        while ($notice->fetch() && $cnt <= NOTICES_PER_PAGE) {
+            $cnt++;
 
-			if ($cnt > NOTICES_PER_PAGE) {
-				break;
-			}
+            if ($cnt > NOTICES_PER_PAGE) {
+                break;
+            }
 
             $item = new NoticeListItem($notice);
             $item->show();
-		}
+        }
 
-		common_element_end('ul');
+        common_element_end('ul');
 
-		common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
-						  $page, 'favorited');
-	}
+        common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
+                          $page, 'favorited');
+    }
 
 }
