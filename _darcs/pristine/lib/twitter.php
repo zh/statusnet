@@ -28,9 +28,11 @@ function get_twitter_data($uri, $screen_name, $password)
             CURLOPT_FAILONERROR        => true,
             CURLOPT_HEADER            => false,
             CURLOPT_FOLLOWLOCATION    => true,
-            // CURLOPT_USERAGENT        => "identi.ca",
+            # CURLOPT_USERAGENT        => "identi.ca",
             CURLOPT_CONNECTTIMEOUT    => 120,
-            CURLOPT_TIMEOUT            => 120
+            CURLOPT_TIMEOUT            => 120,
+            # Twitter is strict about accepting invalid "Expect" headers
+            CURLOPT_HTTPHEADER => array('Expect:')
     );
 
 

@@ -1571,7 +1571,10 @@ function common_twitter_broadcast($notice, $flink)
                      CURLOPT_FOLLOWLOCATION    => true,
                      CURLOPT_USERAGENT        => "Laconica",
                      CURLOPT_CONNECTTIMEOUT    => 120,  // XXX: Scary!!!! How long should this be?
-                     CURLOPT_TIMEOUT            => 120
+                     CURLOPT_TIMEOUT            => 120,
+
+                     # Twitter is strict about accepting invalid "Expect" headers
+                     CURLOPT_HTTPHEADER => array('Expect:')
                      );
 
     $ch = curl_init($uri);
