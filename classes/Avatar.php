@@ -79,20 +79,63 @@ class Avatar extends Memcached_DataObject
         }
     }
 
-	function to_image() {
-		$filepath = common_avatar_path($this->filename);
-		if ($this->mediatype == 'image/gif') {
-			return imagecreatefromgif($filepath);
-		} else if ($this->mediatype == 'image/jpeg') {
-			return imagecreatefromjpeg($filepath);
-		} else if ($this->mediatype == 'image/png') {
-			return imagecreatefrompng($filepath);
-		} else {
-			return NULL;
-		}
-	}
-	
-	function &pkeyGet($kv) {
-		return Memcached_DataObject::pkeyGet('Avatar', $kv);
-	}
+    function scale_and_crop($size, $x, $y, $w, $h) 
+    {
+
+        $image_s = imagecreatetruecolor($size, $size);
+        $image_a = $this->to_image();
+
+        # Retain alpha channel info if possible for .pngs
+        $background = imagecolorallocate($image_s, 0, 0, 0);
+        ImageColorTransparent($image_s, $background);
+        imagealphablending($image_s, false);
+
+        imagecopyresized($image_s, $image_a, 0, 0, $x, $y, $size, $size, $w, $h);
+
+        $ext = ($this->mediattype == 'image/jpeg') ? ".jpeg" : ".png";
+
+        $filename = common_avatar_filename($this->profile_id, $ext, $size, common_timestamp());
+
+        if ($this->mediatype == 'image/jpeg') {
+            imagejpeg($image_s, common_avatar_path($filename));
+        } else {
+            imagepng($image_s, common_avatar_path($filename));
+        }
+
+        $cropped = DB_DataObject::factory('avatar');
+        $cropped->profile_id = $this->profile_id;
+        $cropped->width = $size;
+        $cropped->height = $size;
+        $cropped->original = false;
+        $cropped->mediatype = ($this->mediattype == 'image/jpeg') ? 'image/jpeg' : 'image/png';
+        $cropped->filename = $filename;
+        $cropped->url = common_avatar_url($filename);
+        $cropped->created = DB_DataObject_Cast::dateTime(); # current time
+
+        if ($cropped->insert()) {
+            return $cropped;
+        } else {
+            return NULL;
+        }
+    }
+
+    function to_image() 
+    {
+        $filepath = common_avatar_path($this->filename);
+        if ($this->mediatype == 'image/gif') {
+            return imagecreatefromgif($filepath);
+        } else if ($this->mediatype == 'image/jpeg') {
+            return imagecreatefromjpeg($filepath);
+        } else if ($this->mediatype == 'image/png') {
+            return imagecreatefrompng($filepath);
+        } else {
+            return NULL;
+        }
+    }
+    
+    function &pkeyGet($kv) 
+    {
+        return Memcached_DataObject::pkeyGet('Avatar', $kv);
+    }
+
 }

@@ -60,12 +60,25 @@ class SettingsAction extends Action
         }
     }
 
-	function form_header($title, $msg=NULL, $success=false) {
-		common_show_header($title,
-		                   NULL,
-		                   array($msg, $success),
-						   array($this, 'show_top'));
-	}
+    function form_header($title, $msg=NULL, $success=false) 
+    {
+        common_show_header($title,
+                           array($this, 'show_header'),
+                           array($msg, $success),
+                           array($this, 'show_top'));
+    }
+
+    function show_header() 
+    {
+        common_element('link', array('rel' => 'stylesheet',
+                                     'type' => 'text/css',
+                                     'href' => common_path('js/jcrop/jquery.Jcrop.css?version='.LACONICA_VERSION),
+                                     'media' => 'screen, projection, tv'));
+        common_element('script', array('type' => 'text/javascript',
+                                       'src' => common_path('js/jcrop/jquery.Jcrop.pack.js')));
+        common_element('script', array('type' => 'text/javascript',
+                                       'src' => common_path('js/jcrop/jquery.Jcrop.go.js')));
+    }
 
     function show_top($arr)
     {

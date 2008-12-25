@@ -121,15 +121,39 @@ class Profile extends Memcached_DataObject
         return $avatar;
     }
 
-	function delete_avatars() {
-		$avatar = new Avatar();
-		$avatar->profile_id = $this->id;
-		$avatar->find();
-		while ($avatar->fetch()) {
-			$avatar->delete();
-		}
-		return true;
-	}
+    function crop_avatars($x, $y, $w, $h) 
+    {
+
+        $avatar = $this->getOriginalAvatar();
+        $this->delete_avatars(false); # don't delete original
+
+        foreach (array(AVATAR_PROFILE_SIZE, AVATAR_STREAM_SIZE, AVATAR_MINI_SIZE) as $size) {
+            # We don't do a scaled one if original is our scaled size
+            if (!($avatar->width == $size && $avatar->height == $size)) {
+                $s = $avatar->scale_and_crop($size, $x, $y, $w, $h);
+                if (!$s) {
+                    return NULL;
+                }
+            }
+        }
+        return true;
+    }
+
+    function delete_avatars($original=true) 
+    {
+        $avatar = new Avatar();
+        $avatar->profile_id = $this->id;
+        $avatar->find();
+        while ($avatar->fetch()) {
+            if ($avatar->original) {
+                if ($original == false) {
+                    continue;
+                }
+            }
+            $avatar->delete();
+        }
+        return true;
+    }
 
     function getBestName()
     {
