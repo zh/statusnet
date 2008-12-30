@@ -115,6 +115,7 @@ class TwitapilaconicaAction extends TwitterapiAction
         switch ($apidata['content-type']) {
          case 'xml':
             $this->init_document('xml');
+            common_element_start('config');
             // XXX: check that all sections and settings are legal XML elements
             foreach ($keys as $section => $settings) {
                 common_element_start($section);
@@ -131,6 +132,7 @@ class TwitapilaconicaAction extends TwitterapiAction
                 }
                 common_element_end($section);
             }
+            common_element_end('config');
             $this->end_document('xml');
             break;
          case 'json':
