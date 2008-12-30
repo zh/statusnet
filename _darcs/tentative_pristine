@@ -1,17 +1,4 @@
-hunk ./actions/twitapilaconica.php 56
-+     * URL: http://identi.ca/api/laconica/version.(xml|json)
-+     * Formats: xml, json
-hunk ./actions/twitapilaconica.php 70
--        common_server_error(_('API method under construction.'), 501);
-+        switch ($apidata['content-type']) {
-+         case 'xml':
-+            $this->init_document('xml');
-+            common_element('version', null, LACONICA_VERSION);
-+            $this->end_document('xml');
-+         case 'json':
-+            $this->init_document('json');
-+            print '"'.LACONICA_VERSION.'"';
-+            $this->end_document('json');
-+         default:
-+            $this->client_error(_('API method not found!'), $code=404);
-+        }
+hunk ./actions/twitapilaconica.php 75
++            break;
+hunk ./actions/twitapilaconica.php 80
++            break;

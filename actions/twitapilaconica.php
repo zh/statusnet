@@ -72,10 +72,12 @@ class TwitapilaconicaAction extends TwitterapiAction
             $this->init_document('xml');
             common_element('version', null, LACONICA_VERSION);
             $this->end_document('xml');
+            break;
          case 'json':
             $this->init_document('json');
             print '"'.LACONICA_VERSION.'"';
             $this->end_document('json');
+            break;
          default:
             $this->client_error(_('API method not found!'), $code=404);
         }
