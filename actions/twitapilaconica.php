@@ -89,6 +89,8 @@ class TwitapilaconicaAction extends TwitterapiAction
      * Gives a full dump of configuration variables for this instance
      * of Laconica, minus variables that may be security-sensitive (like
      * passwords).
+     * URL: http://identi.ca/api/laconica/config.(xml|json)
+     * Formats: xml, json
      *
      * @param array $args    Web arguments
      * @param array $apidata Twitter API data
@@ -100,8 +102,44 @@ class TwitapilaconicaAction extends TwitterapiAction
 
     function config($args, $apidata)
     {
+        static $keys = array('site' => array('name', 'server', 'theme', 'path', 'fancy', 'language',
+                                             'email', 'broughtby', 'broughtbyurl', 'closed',
+                                             'inviteonly', 'private'),
+                             'license' => array('url', 'title', 'image'),
+                             'nickname' => array('featured'),
+                             'throttle' => array('enabled', 'count', 'timespan'),
+                             'xmpp' => array('enabled', 'server', 'user'));
+
         parent::handle($args);
-        common_server_error(_('API method under construction.'), 501);
+
+        switch ($apidata['content-type']) {
+         case 'xml':
+            $this->init_document('xml');
+            // XXX: check that all sections and settings are legal XML elements
+            foreach ($keys as $section => $settings) {
+                common_element_start($section);
+                foreach ($settings as $setting) {
+                    common_element($setting, null, common_config($section, $setting));
+                }
+                common_element_end($section);
+            }
+            $this->end_document('xml');
+            break;
+         case 'json':
+            $result = array();
+            foreach ($keys as $section => $settings) {
+                $result[$section] = array();
+                foreach ($settings as $setting) {
+                    $result[$section][$setting] = common_config($section, $setting);
+                }
+            }
+            $this->init_document('json');
+            $this->show_json_objects($result);
+            $this->end_document('json');
+            break;
+         default:
+            $this->client_error(_('API method not found!'), $code=404);
+        }
     }
 
     /**
