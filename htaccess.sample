@@ -143,6 +143,9 @@ RewriteRule ^api/notifications/leave/(.*)$ index.php?action=api&apiaction=notifi
 RewriteRule ^api/blocks/create/(.*)$ index.php?action=api&apiaction=blocks&method=create&argument=$1 [L,QSA]
 RewriteRule ^api/blocks/destroy/(.*)$ index.php?action=api&apiaction=blocks&method=destroy&argument=$1 [L,QSA]
 RewriteRule ^api/help/(.*)$ index.php?action=api&apiaction=help&method=$1 [L,QSA]
+RewriteRule ^api/laconica/version(.*)$ index.php?action=api&apiaction=laconica&method=version$1 [L,QSA]
+RewriteRule ^api/laconica/config(.*)$ index.php?action=api&apiaction=laconica&method=config$1 [L,QSA]
+RewriteRule ^api/laconica/wadl\.xml$ index.php?action=api&apiaction=laconica&method=wadl.xml [L,QSA]
 
 <FilesMatch "\.(ini)">
   Order allow,deny
