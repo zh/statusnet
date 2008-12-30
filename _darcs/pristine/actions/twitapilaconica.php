@@ -53,6 +53,8 @@ class TwitapilaconicaAction extends TwitterapiAction
      *
      * Returns a version number for this version of Laconica, which
      * should make things a bit easier for upgrades.
+     * URL: http://identi.ca/api/laconica/version.(xml|json)
+     * Formats: xml, json
      *
      * @param array $args    Web arguments
      * @param array $apidata Twitter API data
@@ -65,7 +67,18 @@ class TwitapilaconicaAction extends TwitterapiAction
     function version($args, $apidata)
     {
         parent::handle($args);
-        common_server_error(_('API method under construction.'), 501);
+        switch ($apidata['content-type']) {
+         case 'xml':
+            $this->init_document('xml');
+            common_element('version', null, LACONICA_VERSION);
+            $this->end_document('xml');
+         case 'json':
+            $this->init_document('json');
+            print '"'.LACONICA_VERSION.'"';
+            $this->end_document('json');
+         default:
+            $this->client_error(_('API method not found!'), $code=404);
+        }
     }
 
     /**

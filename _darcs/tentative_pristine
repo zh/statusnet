@@ -1,6 +1,17 @@
-hunk ./actions/api.php 120
--                                'help/downtime_schedule');
-+                                'help/downtime_schedule',
-+                                'laconica/version',
-+                                'laconica/config',
-+                                'laconica/wadl');
+hunk ./actions/twitapilaconica.php 56
++     * URL: http://identi.ca/api/laconica/version.(xml|json)
++     * Formats: xml, json
+hunk ./actions/twitapilaconica.php 70
+-        common_server_error(_('API method under construction.'), 501);
++        switch ($apidata['content-type']) {
++         case 'xml':
++            $this->init_document('xml');
++            common_element('version', null, LACONICA_VERSION);
++            $this->end_document('xml');
++         case 'json':
++            $this->init_document('json');
++            print '"'.LACONICA_VERSION.'"';
++            $this->end_document('json');
++         default:
++            $this->client_error(_('API method not found!'), $code=404);
++        }
