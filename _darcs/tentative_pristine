@@ -1,43 +1,11 @@
-hunk ./actions/twitapilaconica.php 92
-+     * URL: http://identi.ca/api/laconica/config.(xml|json)
-+     * Formats: xml, json
-hunk ./actions/twitapilaconica.php 105
-+        static $keys = array('site' => array('name', 'server', 'theme', 'path', 'fancy', 'language',
-+                                             'email', 'broughtby', 'broughtbyurl', 'closed',
-+                                             'inviteonly', 'private'),
-+                             'license' => array('url', 'title', 'image'),
-+                             'nickname' => array('featured'),
-+                             'throttle' => array('enabled', 'count', 'timespan'),
-+                             'xmpp' => array('enabled', 'server', 'user'));
-+
-hunk ./actions/twitapilaconica.php 114
--        common_server_error(_('API method under construction.'), 501);
-+
-+        switch ($apidata['content-type']) {
-+         case 'xml':
-+            $this->init_document('xml');
-+            // XXX: check that all sections and settings are legal XML elements
-+            foreach ($keys as $section => $settings) {
-+                common_element_start($section);
-+                foreach ($settings as $setting) {
-+                    common_element($setting, null, common_config($section, $setting));
-+                }
-+                common_element_end($section);
-+            }
-+            $this->end_document('xml');
-+            break;
-+         case 'json':
-+            $result = array();
-+            foreach ($keys as $section => $settings) {
-+                $result[$section] = array();
-+                foreach ($settings as $setting) {
-+                    $result[$section][$setting] = common_config($section, $setting);
-+                }
-+            }
-+            $this->init_document('json');
-+            $this->show_json_objects($result);
-+            $this->end_document('json');
-+            break;
-+         default:
-+            $this->client_error(_('API method not found!'), $code=404);
-+        }
+hunk ./actions/twitapilaconica.php 122
+-                    common_element($setting, null, common_config($section, $setting));
++                    $value = common_config($section, $setting);
++                    if (is_array($value)) {
++                        $value = implode(',', $value);
++                    } else if ($value === false) {
++                        $value = 'false';
++                    } else if ($value === true) {
++                        $value = 'true';
++                    }
++                    common_element($setting, null, $value);

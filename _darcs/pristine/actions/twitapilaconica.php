@@ -119,7 +119,15 @@ class TwitapilaconicaAction extends TwitterapiAction
             foreach ($keys as $section => $settings) {
                 common_element_start($section);
                 foreach ($settings as $setting) {
-                    common_element($setting, null, common_config($section, $setting));
+                    $value = common_config($section, $setting);
+                    if (is_array($value)) {
+                        $value = implode(',', $value);
+                    } else if ($value === false) {
+                        $value = 'false';
+                    } else if ($value === true) {
+                        $value = 'true';
+                    }
+                    common_element($setting, null, $value);
                 }
                 common_element_end($section);
             }
