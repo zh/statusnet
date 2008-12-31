@@ -103,6 +103,7 @@ class CommandInterpreter {
 				return new GetCommand($user, $other);
 			}
 		 case 'd':
+		 case 'dm':
 			if (!$arg) {
 				return NULL;
 			}
