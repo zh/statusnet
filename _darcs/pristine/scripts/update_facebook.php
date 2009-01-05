@@ -48,6 +48,10 @@ $current_time = time();
 
 $notice = get_facebook_notices(get_last_updated());
 
+print date('r', $current_time) . " Looking for notices to send to Facebook...\n";
+
+$cnt = 0;
+
 while($notice->fetch()) {
 
     $flink = Foreign_link::getByUserID($notice->profile_id, 2);
@@ -60,11 +64,14 @@ while($notice->fetch()) {
         if (!preg_match('/@[a-zA-Z0-9_]{1,15}\b/u', $content) ||
             (($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) == FOREIGN_NOTICE_SEND_REPLY)) {
                 update_status($fbuid, $content);
+                $cnt++;
             }
     }
 }
 
 update_last_updated($current_time);
+
+print "Sent $cnt notices to Facebook.\n";
 
 exit(0);
 
