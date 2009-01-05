@@ -34,7 +34,7 @@ class FacebookinviteAction extends FacebookAction
     function display()
     {
 
-        $facebook = $this->get_facebook();
+        $facebook = get_facebook();
 
         $fbuid = $facebook->require_login();
 

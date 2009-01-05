@@ -4,7 +4,7 @@
  */
 require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
-class Foreign_link extends Memcached_DataObject 
+class Foreign_link extends Memcached_DataObject
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -13,7 +13,7 @@ class Foreign_link extends Memcached_DataObject
     public $user_id;                         // int(4)  primary_key not_null
     public $foreign_id;                      // int(4)  primary_key not_null
     public $service;                         // int(4)  primary_key not_null
-    public $credentials;                     // varchar(255)  
+    public $credentials;                     // varchar(255)
     public $noticesync;                      // tinyint(1)   not_null default_1
     public $friendsync;                      // tinyint(1)   not_null default_2
     public $profilesync;                     // tinyint(1)   not_null default_1
@@ -29,7 +29,8 @@ class Foreign_link extends Memcached_DataObject
 
     // XXX:  This only returns a 1->1 single obj mapping.  Change?  Or make
     // a getForeignUsers() that returns more than one? --Zach
-    static function getByUserID($user_id, $service) {
+    static function getByUserID($user_id, $service)
+    {
         $flink = new Foreign_link();
         $flink->service = $service;
         $flink->user_id = $user_id;
@@ -39,10 +40,11 @@ class Foreign_link extends Memcached_DataObject
             return $flink;
         }
 
-        return null;        
+        return null;
     }
-    
-    static function getByForeignID($foreign_id, $service) {
+
+    static function getByForeignID($foreign_id, $service)
+    {
         $flink = new Foreign_link();
         $flink->service = $service;
         $flink->foreign_id = $foreign_id;
@@ -52,28 +54,28 @@ class Foreign_link extends Memcached_DataObject
             return $flink;
         }
 
-        return null;        
+        return null;
     }
-        
+
     # Convenience methods
     function getForeignUser()
-    {        
+    {
         $fuser = new Foreign_user();
         $fuser->service = $this->service;
         $fuser->id = $this->foreign_id;
-        
+
         $fuser->limit(1);
-        
+
         if ($fuser->find(true)) {
             return $fuser;
         }
-        
-        return null;        
+
+        return null;
     }
-    
+
     function getUser()
     {
         return User::staticGet($this->user_id);
     }
-        
+
 }

@@ -34,7 +34,7 @@ class FacebooksettingsAction extends FacebookAction
     function display()
     {
 
-        $facebook = $this->get_facebook();
+        $facebook = get_facebook();
 
         $fbuid = $facebook->require_login();
 
@@ -43,6 +43,8 @@ class FacebooksettingsAction extends FacebookAction
             .'<fb:add-section-button section="profile"/>'
             .'</fb:if-section-not-added>';
 
+
+        $fbml .= '<fb:prompt-permission perms="status_update"><h2>Allow Identi.ca to update my Facebook status</h2></fb:prompt-permission>';
 
         $this->show_header('Settings');
 

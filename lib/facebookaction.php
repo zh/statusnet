@@ -19,7 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-require_once(INSTALLDIR.'/extlib/facebook/facebook.php');
+require_once(INSTALLDIR.'/lib/facebookutil.php');
+
 
 class FacebookAction extends Action
 {
@@ -27,13 +28,6 @@ class FacebookAction extends Action
     function handle($args)
     {
         parent::handle($args);
-    }
-
-    function get_facebook()
-    {
-        $apikey = common_config('facebook', 'apikey');
-        $secret = common_config('facebook', 'secret');
-        return new Facebook($apikey, $secret);
     }
 
     function update_profile_box($facebook, $fbuid, $user)

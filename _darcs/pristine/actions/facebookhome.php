@@ -36,7 +36,7 @@ class FacebookhomeAction extends FacebookAction
 
         $user = null;
 
-        $facebook = $this->get_facebook();
+        $facebook = get_facebook();
         $fbuid = $facebook->require_login();
 
         # check to see whether there's already a Facebook link for this user
