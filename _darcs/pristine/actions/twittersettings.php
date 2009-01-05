@@ -251,7 +251,7 @@ class TwittersettingsAction extends SettingsAction
         $flink->credentials = $password;
         $flink->created = common_sql_now();
 
-        $this->set_flags($flink, $noticesync, $replysync, $friendsync);
+        $flink->set_flags($noticesync, $replysync, $friendsync);
 
         $flink_id = $flink->insert();
 
@@ -323,7 +323,7 @@ class TwittersettingsAction extends SettingsAction
         $screen_name = $fuser->nickname;
 
         $original = clone($flink);
-        $this->set_flags($flink, $noticesync, $replysync, $friendsync);
+        $flink->set_flags($noticesync, $replysync, $friendsync);
         $result = $flink->update($original);
 
         if ($result === false) {
@@ -363,27 +363,5 @@ class TwittersettingsAction extends SettingsAction
         return false;
     }
 
-    function set_flags(&$flink, $noticesync, $replysync, $friendsync)
-    {
-        if ($noticesync) {
-            $flink->noticesync |= FOREIGN_NOTICE_SEND;
-        } else {
-            $flink->noticesync &= ~FOREIGN_NOTICE_SEND;
-        }
-
-        if ($replysync) {
-            $flink->noticesync |= FOREIGN_NOTICE_SEND_REPLY;
-        } else {
-            $flink->noticesync &= ~FOREIGN_NOTICE_SEND_REPLY;
-        }
-
-        if ($friendsync) {
-            $flink->friendsync |= FOREIGN_FRIEND_RECV;
-        } else {
-            $flink->friendsync &= ~FOREIGN_FRIEND_RECV;
-        }
-
-        $flink->profilesync = 0;
-    }
 
 }

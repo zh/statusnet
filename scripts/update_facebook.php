@@ -52,9 +52,16 @@ while($notice->fetch()) {
 
     $flink = Foreign_link::getByUserID($notice->profile_id, 2);
     $fbuid = $flink->foreign_id;
+    $content = $notice->content;
 
-    update_status($fbuid, $notice);
+    if (($flink->noticesync & FOREIGN_NOTICE_SEND) == FOREIGN_NOTICE_SEND) {
 
+        // If it's not a reply, or if the user WANTS to send replies...
+        if (!preg_match('/@[a-zA-Z0-9_]{1,15}\b/u', $content) ||
+            (($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) == FOREIGN_NOTICE_SEND_REPLY)) {
+                update_status($fbuid, $content);
+            }
+    }
 }
 
 update_last_updated($current_time);
@@ -63,18 +70,14 @@ exit(0);
 
 
 
-function update_status($fbuid, $notice) {
+function update_status($fbuid, $content) {
     global $facebook;
 
     try {
-
-        $result = $facebook->api_client->users_setStatus($notice->content, $fbuid, false, true);
-
+        $result = $facebook->api_client->users_setStatus($content, $fbuid, false, true);
     } catch(FacebookRestClientException $e){
-
     	print_r($e);
     }
-
 }
 
 function get_last_updated(){

@@ -70,8 +70,7 @@ class FacebookhomeAction extends FacebookAction
                     $flink->foreign_id = $fbuid;
                     $flink->service = 2; # Facebook
                     $flink->created = common_sql_now();
-
-                    # $this->set_flags($flink, $noticesync, $replysync, $friendsync);
+                    $flink->set_flags(true, false, false);
 
                     $flink_id = $flink->insert();
 

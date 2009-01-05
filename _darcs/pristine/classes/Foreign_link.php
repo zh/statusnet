@@ -57,6 +57,29 @@ class Foreign_link extends Memcached_DataObject
         return null;
     }
 
+    function set_flags($noticesync, $replysync, $friendsync)
+    {
+        if ($noticesync) {
+            $this->noticesync |= FOREIGN_NOTICE_SEND;
+        } else {
+            $this->noticesync &= ~FOREIGN_NOTICE_SEND;
+        }
+
+        if ($replysync) {
+            $this->noticesync |= FOREIGN_NOTICE_SEND_REPLY;
+        } else {
+            $this->noticesync &= ~FOREIGN_NOTICE_SEND_REPLY;
+        }
+
+        if ($friendsync) {
+            $this->friendsync |= FOREIGN_FRIEND_RECV;
+        } else {
+            $this->friendsync &= ~FOREIGN_FRIEND_RECV;
+        }
+
+        $this->profilesync = 0;
+    }
+
     # Convenience methods
     function getForeignUser()
     {
