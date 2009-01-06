@@ -75,7 +75,7 @@ class FacebookhomeAction extends FacebookAction
                     $flink_id = $flink->insert();
 
                     if ($flink_id) {
-                        echo '<fb:success message="You can now use the Identi.ca from Facebook!" />';
+                        echo '<fb:success message="You can now use Identi.ca from Facebook!" />';
                     }
 
                     $this->show_home($facebook, $fbuid, $user);

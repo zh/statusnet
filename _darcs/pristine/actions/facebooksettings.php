@@ -69,10 +69,12 @@ class FacebooksettingsAction extends FacebookAction
 
         $fbml = '<fb:if-section-not-added section="profile">'
             .'<h2>Add an Identi.ca box to my profile</h2>'
-            .'<fb:add-section-button section="profile"/>'
+            .'<p><fb:add-section-button section="profile"/></p>'
             .'</fb:if-section-not-added>';
 
-        $fbml .= '<fb:prompt-permission perms="status_update"><h2>Allow Identi.ca to update my Facebook status</h2></fb:prompt-permission>';
+        $fbml .= '<p><fb:prompt-permission perms="status_update"><h2>Allow Identi.ca to update my Facebook status</h2></fb:prompt-permission></p>';
+
+        if ($facebook->api_client->users_hasAppPermission('status_update')) {
 
         $fbml .= '<form method="post" id="facebook_settings">'
         .'<h2>Sync preferences</h2>'
@@ -100,6 +102,8 @@ class FacebooksettingsAction extends FacebookAction
         .'<input type="submit" id="save" name="save" class="submit" value="Save"/>'
         .'</p>'
         .'</form>';
+
+    }
 
         echo $fbml;
 

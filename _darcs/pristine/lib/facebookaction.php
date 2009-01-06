@@ -72,7 +72,7 @@ class FacebookAction extends Action
          }
          </style>';
 
-        $html = Facebookaction::Aender_notice($notice);
+        $html = Facebookaction::render_notice($notice);
 
  
         $fbml = "<fb:wide>$style $html</fb:wide>";
