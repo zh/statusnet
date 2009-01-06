@@ -667,7 +667,7 @@ Upgrading
 =========
 
 If you've been using Laconica 0.6, 0.5 or lower, or if you've been
-tracking the "darcs" version of the software, you will probably want
+tracking the "git" version of the software, you will probably want
 to upgrade and keep your existing data. There is no automated upgrade
 procedure in Laconica 0.6.4. Try these step-by-step instructions; read
 to the end first before trying them.
@@ -1068,7 +1068,7 @@ The primary output for Laconica is syslog, unless you configured a
 separate logfile. This is probably the first place to look if you're
 getting weird behaviour from Laconica.
 
-If you're tracking the unstable version of Laconica in the darcs
+If you're tracking the unstable version of Laconica in the git
 repository (see below), and you get a compilation error ("unexpected
 T_STRING") in the browser, check to see that you don't have any
 conflicts in your code.
@@ -1103,12 +1103,12 @@ Unstable version
 ================
 
 If you're adventurous or impatient, you may want to install the
-development version of Laconica. To get it, use the darcs version
-control tool (http://darcs.net/) like so:
+development version of Laconica. To get it, use the git version
+control tool (http://git-scm.com/) like so:
 
-	darcs get http://laconi.ca/darcs/ mublog
+	git clone http://laconi.ca/software/laconica.git
 
-To keep it up-to-date, use 'darcs pull'. Watch for conflicts!
+To keep it up-to-date, use 'git pull'. Watch for conflicts!
 
 Further information
 ===================
