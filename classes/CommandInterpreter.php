@@ -23,7 +23,7 @@ require_once(INSTALLDIR.'/classes/Command.php');
 
 class CommandInterpreter
 {
-    
+
     function handle_command($user, $text)
     {
         # XXX: localise
@@ -33,9 +33,9 @@ class CommandInterpreter
 
         # We try to support all the same commands as Twitter, see
         # http://getsatisfaction.com/twitter/topics/what_are_the_twitter_commands
-        # There are a few compatibility commands from earlier versions of 
+        # There are a few compatibility commands from earlier versions of
         # Laconica
-        
+
         switch(strtolower($cmd)) {
          case 'help':
             if ($arg) {
@@ -105,6 +105,7 @@ class CommandInterpreter
                 return new GetCommand($user, $other);
             }
          case 'd':
+         case 'dm':
             if (!$arg) {
                 return null;
             }
