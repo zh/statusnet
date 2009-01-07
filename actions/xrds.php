@@ -23,7 +23,7 @@ require_once(INSTALLDIR.'/lib/omb.php');
 
 class XrdsAction extends Action {
 
-	function is_readonly() {
+	function is_readonly() {				
 		return true;
 	}
 
@@ -45,7 +45,7 @@ class XrdsAction extends Action {
 		common_start_xml();
 		common_element_start('XRDS', array('xmlns' => 'xri://$xrds'));
 
-		common_element_start('XRD', array('xmlns' => 'xri://$XRD*($v*2.0)',
+		common_element_start('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
 		                                  'xml:id' => 'oauth',
 										  'xmlns:simple' => 'http://xrds-simple.net/core/1.0',
 										  'version' => '2.0'));
@@ -77,7 +77,7 @@ class XrdsAction extends Action {
 
 		# XXX: decide whether to include user's ID/nickname in postNotice URL
 
-		common_element_start('XRD', array('xmlns' => 'xri://$XRD*($v*2.0)',
+		common_element_start('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
 		                                  'xml:id' => 'omb',
 										  'xmlns:simple' => 'http://xrds-simple.net/core/1.0',
 										  'version' => '2.0'));
@@ -92,7 +92,7 @@ class XrdsAction extends Action {
 
 		common_element_end('XRD');
 
-		common_element_start('XRD', array('xmlns' => 'xri://$XRD*($v*2.0)',
+		common_element_start('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
 										  'version' => '2.0'));
 
 		common_element('Type', NULL, 'xri://$xrds*simple');
