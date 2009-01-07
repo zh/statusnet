@@ -49,7 +49,8 @@ create table "user" (
     emailnotifysub integer default 1 /* comment 'Notify by email of subscriptions' */,
     emailnotifyfav integer default 1 /* comment 'Notify by email of favorites' */,
     emailnotifynudge integer default 1 /* comment 'Notify by email of nudges' */,
-    emailmicroid integer default 1 /* comment 'whether to publish email microid' */,
+    emailnotifymsg integer default 1 / * comment 'Notify by email of direct messages' */,
+emailmicroid integer default 1 /* comment 'whether to publish email microid' */,
     language varchar(50) /* comment 'preferred language' */,
     timezone varchar(50) /* comment 'timezone' */,
     emailpost integer default 1 /* comment 'Post by email' */,
@@ -87,6 +88,8 @@ create table remote_profile (
 create table subscription (
     subscriber integer not null /* comment 'profile listening' */,
     subscribed integer not null /* comment 'profile being listened to' */,
+    jabber integer default 1 /* comment 'deliver jabber messages',
+    sms integer default 1 comment 'deliver sms messages',
     token varchar(255) /* comment 'authorization token' */,
     secret varchar(255) /* comment 'token secret' */,
     created timestamp not null /* comment 'date this record was created' */,
