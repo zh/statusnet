@@ -275,8 +275,6 @@ create table foreign_user (
      service int not null /* comment 'foreign key to service' */ references foreign_service(id) ,
      uri varchar(255) not null unique /* comment 'identifying URI' */,
      nickname varchar(255) /* comment 'nickname on foreign service' */,
-     user_id int /* comment 'link to user on this system, if exists' */ references "user" (id),  
-     credentials varchar(255) /* comment 'authc credentials, typically a password' */,
      created timestamp not null /* comment 'date this record was created' */,
      modified timestamp /* comment 'date this record was modified' */,
      
@@ -284,11 +282,25 @@ create table foreign_user (
 );
 create index foreign_user_user_id_idx on foreign_user using btree(user_id);
 
+create table foreign_link (
+     user_id int /* comment 'link to user on this system, if exists' */ references "user" (id),
+     foreign_id int /* comment 'link' */ references foreign_user (id),
+     service int not null /* comment 'foreign key to service' */ references foreign_service (id),
+     credentials varchar(255) /* comment 'authc credentials, typically a password',
+     noticesync int not null default 1 /* comment 'notice synchronisation, bit 1 = sync outgoing, bit 2 = sync incoming, bit 3 = filter local replies' */,
+     friendsync int not null default 2 /* comment 'friend synchronisation, bit 1 = sync outgoing, bit 2 = sync incoming 
+     created timestamp not null /* comment 'date this record was created' */,
+     modified timestamp not null /* comment 'date this record was modified' */,
+
+     primary key (user_id,foreign_id,service)
+);
+create index foreign_user_user_id_idx on foreign_link using btree(user_id);
+
 create table foreign_subscription (
      service int not null /* comment 'service where relationship happens' */ references foreign_service(id) ,
      subscriber int not null /* comment 'subscriber on foreign service' */ ,
      subscribed int not null /* comment 'subscribed user' */ ,
-     created timestamp not null /* comment 'date this record was created' */,
+     created timestamp not null /* comment 'date this record was created' /,
      
      primary key (service, subscriber, subscribed)
 );
@@ -323,6 +335,38 @@ create table message (
 create index message_from_idx on message using btree(from_profile);
 create index message_to_idx on message using btree(to_profile);
 create index message_created_idx on message using btree(created);
+
+create table notice_inbox (
+
+    user_id integer not null /* comment 'user receiving the message' */ references user (id),
+    notice_id integer not null /* comment 'notice received' */ references notice (id),
+    created datetime not null /* comment 'date the notice was created' */,
+    source integer default 1 /* comment 'reason it is in the inbox; 1=subscription' */,
+
+    primary key (user_id, notice_id)
+);
+create index notice_inbox_notice_id_idx (notice_id) on notice_inbox using btree(notice_id);
+
+create table profile_tag (
+   tagger integer not null /* comment 'user making the tag' */ references "user" (id),
+   tagged integer not null /* comment 'profile tagged' */ references profile (id),
+   tag varchar(64) not null /* comment 'hash tag associated with this notice' */,
+   modified timestamp /* comment 'date the tag was added' */,
+
+   primary key (tagger, tagged, tag)
+);
+create index profile_tag_modified_idx on profile_tag using btree(modified);
+create index profile_tag_tagger_tag_idx on profile_tag using btree(tagger,tag);
+
+create table profile_block (
+
+   blocker integer not null i/* comment 'user making the block' */ references user (id),
+   blocked integer not null /* comment 'profile that is blocked' */ references profile (id),
+   modified timestamp /* comment 'date of blocking' */,
+
+   primary key (blocker, blocked)
+
+);
 
 /* Textsearch stuff */
 
