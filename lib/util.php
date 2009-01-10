@@ -1206,6 +1206,10 @@ function common_fancy_url($action, $args=NULL) {
 			$path = 'tags';
 		}
 		return common_path($path . (($args) ? ('?' . http_build_query($args)) : ''));
+	 case 'tagrss':
+        $path = 'tag/' . $args['tag'] . '/rss';
+        unset($args['tag']);
+		return common_path($path . (($args) ? ('?' . http_build_query($args)) : ''));
 	 case 'peopletag':
 		$path = 'peopletag/' . $args['tag'];
 		unset($args['tag']);
@@ -1499,7 +1503,7 @@ function common_twitter_broadcast($notice, $flink) {
 		CURLOPT_USERAGENT		=> "Laconica",
 		CURLOPT_CONNECTTIMEOUT	=> 120,  // XXX: Scary!!!! How long should this be?
         CURLOPT_TIMEOUT            => 120,
-        
+
         # Twitter is strict about accepting invalid "Expect" headers
         CURLOPT_HTTPHEADER => array('Expect:')
 	);
