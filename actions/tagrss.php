@@ -27,6 +27,12 @@ class TagrssAction extends Rss10Action {
 
 	function init() {
 		$tag = $this->trimmed('tag');
+
+        if (!$tag) {
+			common_user_error(_('No tag.'));
+			return false;
+        }
+
 		$this->tag = Notice_tag::staticGet('tag', $tag);
 
 		if (!$this->tag) {
