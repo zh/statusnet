@@ -28,7 +28,7 @@ class TagrssAction extends Rss10Action {
 	function init() {
 		$tag = $this->trimmed('tag');
 
-        if (!$tag) {
+        if (!isset($tag) || mb_strlen($tag) == 0) {
 			common_user_error(_('No tag.'));
 			return false;
         }
