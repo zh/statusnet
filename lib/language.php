@@ -19,8 +19,6 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-
-
 function client_prefered_language($httplang) {
         $client_langs = array();
         $all_languages = common_config('site','languages');
@@ -63,12 +61,9 @@ function get_nice_language_list() {
 function get_all_languages() {
 	return array(
 		'en-us' => array('q' => 1, 'lang' => 'en_US', 'name' => 'English (US)', 'direction' => 'ltr'),
-		'en-nz' => array('q' => 1, 'lang' => 'en_NZ', 'name' => 'English (NZ)', 'direction' => 'ltr'),
 		'en-gb' => array('q' => 1, 'lang' => 'en_GB', 'name' => 'English (British)', 'direction' => 'ltr'),
 		'en'    => array('q' => 1, 'lang' => 'en',    'name' => 'English', 'direction' => 'ltr'),
-		'da'    => array('q' => 0.1, 'lang' => 'da_DK', 'name' => 'Danish', 'direction' => 'ltr'),
 		'nl'    => array('q' => 1, 'lang' => 'nl_NL', 'name' => 'Dutch', 'direction' => 'ltr'),
-		'eo'    => array('q' => 0.1, 'lang' => 'eo',    'name' => 'Esperanto', 'direction' => 'ltr'),
 		'fr-fr' => array('q' => 0.9, 'lang' => 'fr_FR', 'name' => 'French', 'direction' => 'ltr'),
 		'de'    => array('q' => 1, 'lang' => 'de_DE', 'name' => 'German', 'direction' => 'ltr'),
 		'it'    => array('q' => 1, 'lang' => 'it_IT', 'name' => 'Italian', 'direction' => 'ltr'),
