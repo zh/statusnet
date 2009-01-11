@@ -18,6 +18,9 @@
  */
 
 require_once(INSTALLDIR.'/extlib/facebook/facebook.php');
+require_once(INSTALLDIR.'/lib/noticelist.php');
+
+define("FACEBOOK_SERVICE", 2); // Facebook is foreign_service ID 2
 
 // Gets all the notices from users with a Facebook link since a given ID
 function get_facebook_notices($since)
@@ -37,4 +40,12 @@ function get_facebook()
     $apikey = common_config('facebook', 'apikey');
     $secret = common_config('facebook', 'secret');
     return new Facebook($apikey, $secret);
+}
+
+function start_fbml($indent = true)
+{
+    global $xw;
+    $xw = new XMLWriter();
+    $xw->openURI('php://output');
+    $xw->setIndent($indent);
 }

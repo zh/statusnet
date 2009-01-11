@@ -28,75 +28,73 @@ class FacebookhomeAction extends FacebookAction
     {
         parent::handle($args);
 
-        $this->login();
-    }
-
-    function login()
-    {
-
-        $user = null;
-
         $facebook = get_facebook();
         $fbuid = $facebook->require_login();
 
-        # check to see whether there's already a Facebook link for this user
-        $flink = Foreign_link::getByForeignID($fbuid, 2); // 2 == Facebook
+        // Check to see whether there's already a Facebook link for this user
+        $flink = Foreign_link::getByForeignID($fbuid, FACEBOOK_SERVICE);
 
         if ($flink) {
-
-            $user = $flink->getUser();
-            $this->show_home($facebook, $fbuid, $user);
-
+            $this->showHome($flink, null);
         } else {
-
-            # Make the user put in her Laconica creds
-            $nickname = common_canonical_nickname($this->trimmed('nickname'));
-            $password = $this->arg('password');
-
-            if ($nickname) {
-
-                if (common_check_user($nickname, $password)) {
-
-
-                    $user = User::staticGet('nickname', $nickname);
-
-                    if (!$user) {
-                        echo '<fb:error message="Coudln\'t get user!" />';
-                        $this->show_login_form();
-                    }
-
-                    $flink = DB_DataObject::factory('foreign_link');
-                    $flink->user_id = $user->id;
-                    $flink->foreign_id = $fbuid;
-                    $flink->service = 2; # Facebook
-                    $flink->created = common_sql_now();
-                    $flink->set_flags(true, false, false);
-
-                    $flink_id = $flink->insert();
-
-                    if ($flink_id) {
-                        echo '<fb:success message="You can now use Identi.ca from Facebook!" />';
-                    }
-
-                    $this->show_home($facebook, $fbuid, $user);
-
-                    return;
-                } else {
-                    echo '<fb:error message="Incorrect username or password." />';
-                }
-            }
-
-            $this->show_login_form();
+            $this->login($fbuid);
         }
 
     }
 
-    function show_home($facebook, $fbuid, $user)
+    function login($fbuid)
     {
+        $nickname = common_canonical_nickname($this->trimmed('nickname'));
+        $password = $this->arg('password');
 
+        $msg = null;
+
+        if ($nickname) {
+
+            if (common_check_user($nickname, $password)) {
+
+                $user = User::staticGet('nickname', $nickname);
+
+                if (!$user) {
+                    $this->showLoginForm(_("Server error - couldn't get user!"));
+                }
+
+                $flink = DB_DataObject::factory('foreign_link');
+                $flink->user_id = $user->id;
+                $flink->foreign_id = $fbuid;
+                $flink->service = FACEBOOK_SERVICE;
+                $flink->created = common_sql_now();
+                $flink->set_flags(true, false, false);
+
+                $flink_id = $flink->insert();
+
+                // XXX: Do some error handling here
+
+                $this->showHome($flink, _('You can now use Identi.ca from Facebook!'));
+
+            } else {
+                $msg = _('Incorrect username or password.');
+            }
+        }
+
+        $this->showLoginForm($msg);
+    }
+
+    function showHome($flink, $msg)
+    {
         $this->show_header('Home');
 
+        if ($msg) {
+            common_element('fb:success', array('message' => $msg));
+        }
+
+        $facebook = get_facebook();
+        $fbuid = $facebook->require_login();
+
+        $user = $flink->getUser();
+
         echo $this->show_notices($user);
+
         $this->update_profile_box($facebook, $fbuid, $user);
 
         $this->show_footer();
@@ -112,25 +110,16 @@ class FacebookhomeAction extends FacebookAction
 
         $notice = $user->noticesWithFriends(($page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
 
-        echo '<ul id="notices">';
+        $cnt = $this->show_notice_list($notice);
 
-        $cnt = 0;
+        common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
+                          $page, 'all', array('nickname' => $user->nickname));
+    }
 
-        while ($notice->fetch() && $cnt <= NOTICES_PER_PAGE) {
-            $cnt++;
-
-            if ($cnt > NOTICES_PER_PAGE) {
-                break;
-            }
-
-            echo $this->render_notice($notice);
-        }
-
-        echo '<ul>';
-
-        $this->pagination($page > 1, $cnt > NOTICES_PER_PAGE,
-                          $page, 'index.php', array('nickname' => $user->nickname));
-
+    function show_notice_list($notice)
+    {
+        $nl = new NoticeList($notice);
+        return $nl->show();
     }
 
 }

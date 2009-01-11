@@ -35,7 +35,6 @@ class FacebooksettingsAction extends FacebookAction
         }
     }
 
-
     function save_settings() {
 
         $noticesync = $this->arg('noticesync');
@@ -44,68 +43,59 @@ class FacebooksettingsAction extends FacebookAction
         $facebook = get_facebook();
         $fbuid = $facebook->require_login();
 
-        $flink = Foreign_link::getByForeignID($fbuid, 2); // 2 == Facebook
+        $flink = Foreign_link::getByForeignID($fbuid, FACEBOOK_SERVICE);
 
         $original = clone($flink);
         $flink->set_flags($noticesync, $replysync, false);
         $result = $flink->update($original);
 
         if ($result) {
-            echo '<fb:success message="Sync preferences saved." />';
+            $this->show_form('Sync preferences saved.', true);
+        } else {
+            $this->show_form('There was a problem saving your sync preferences!');
         }
-
-        $this->show_form();
-
     }
 
-    function show_form() {
+    function show_form($msg = null, $success = false) {
 
         $facebook = get_facebook();
         $fbuid = $facebook->require_login();
 
-        $flink = Foreign_link::getByForeignID($fbuid, 2); // 2 == Facebook
+        $flink = Foreign_link::getByForeignID($fbuid, FACEBOOK_SERVICE);
 
-        $this->show_header('Settings');
+        $this->show_header('Settings', $msg, $success);
 
-        $fbml = '<fb:if-section-not-added section="profile">'
-            .'<h2>Add an Identi.ca box to my profile</h2>'
-            .'<p><fb:add-section-button section="profile"/></p>'
-            .'</fb:if-section-not-added>';
+        common_element_start('fb:if-section-not-added', array('section' => 'profile'));
+        common_element('h2', null, _('Add an Identi.ca box to my profile'));
+        common_element_start('p');
+        common_element('fb:add-section-button', array('section' => 'profile'));
+        common_element_end('p');
+        common_element_end('fb:if-section-not-added');
 
-        $fbml .= '<p><fb:prompt-permission perms="status_update"><h2>Allow Identi.ca to update my Facebook status</h2></fb:prompt-permission></p>';
+        common_element_start('p');
+        common_element_start('fb:prompt-permission', array('perms' => 'status_update'));
+        common_element('h2', null, _('Allow Identi.ca to update my Facebook status'));
+        common_element_end('fb:prompt-permission');
+        common_element_end('p');
 
         if ($facebook->api_client->users_hasAppPermission('status_update')) {
 
-        $fbml .= '<form method="post" id="facebook_settings">'
-        .'<h2>Sync preferences</h2>'
-        .'<p>';
+            common_element_start('form', array('method' => 'post',
+                                               'id' => 'facebook_settings'));
 
-        if ($flink->noticesync & FOREIGN_NOTICE_SEND) {
-            $fbml .= '<input name="noticesync" type="checkbox" class="checkbox" id="noticesync" checked="checked"/>';
-        } else {
-            $fbml .= '<input name="noticesync" type="checkbox" class="checkbox" id="noticesync">';
+            common_element('h2', null, _('Sync preferences'));
+
+            common_checkbox('noticesync', _('Automatically update my Facebook status with my notices.'),
+                                ($flink) ? ($flink->noticesync & FOREIGN_NOTICE_SEND) : true);
+
+            common_checkbox('replysync', _('Send local "@" replies to Facebook.'),
+                             ($flink) ? ($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) : true);
+
+            common_submit('save', _('Save'));
+
+            common_element_end('form');
+
         }
-
-        $fbml .= '<label class="checkbox_label" for="noticesync">Automatically update my Facebook status with my notices.</label>'
-        .'</p>'
-        .'<p>';
-
-        if ($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) {
-            $fbml .= '<input name="replysync" type="checkbox" class="checkbox" id="replysync" checked="checked"/>';
-        } else {
-            $fbml .= '<input name="replysync" type="checkbox" class="checkbox" id="replysync"/>';
-        }
-
-        $fbml .= '<label class="checkbox_label" for="replysync">Send &quot;@&quot; replies to Facebook.</label>'
-        .'</p>'
-        .'<p>'
-        .'<input type="submit" id="save" name="save" class="submit" value="Save"/>'
-        .'</p>'
-        .'</form>';
-
-    }
-
-        echo $fbml;
 
         $this->show_footer();
     }

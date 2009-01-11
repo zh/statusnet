@@ -21,7 +21,6 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/facebookutil.php');
 
-
 class FacebookAction extends Action
 {
 
@@ -74,7 +73,7 @@ class FacebookAction extends Action
 
         $html = Facebookaction::render_notice($notice);
 
- 
+
         $fbml = "<fb:wide>$style $html</fb:wide>";
         $fbml .= "<fb:narrow>$style $html</fb:narrow>";
 
@@ -85,205 +84,96 @@ class FacebookAction extends Action
 
     # Display methods
 
-    function show_header($selected ='Home')
+    function show_header($selected = 'Home', $msg = null, $success = false)
     {
+
+        start_fbml();
 
         # Add a timestamp to the CSS file so Facebook cache wont ignore our changes
         $ts = filemtime(theme_file('facebookapp.css'));
         $cssurl = theme_path('facebookapp.css') . "?ts=$ts";
 
-         $header = '<link rel="stylesheet" type="text/css" href="'. $cssurl . '" />';
-         # $header .='<script src="" ></script>';
-          $header .= '<fb:dashboard/>';
+        common_element('link', array('rel' => 'stylesheet',
+                                     'type' => 'text/css',
+                                     'href' => $cssurl));
 
-          $header .=
-            '<fb:tabs>'
-            .'<fb:tab-item title="Home" href="index.php" selected="' . ($selected == 'Home') .'" />'
-            .'<fb:tab-item title="Invite Friends"  href="invite.php" selected="' . ($selected == 'Invite') . '" />'
-            .'<fb:tab-item title="Settings"     href="settings.php" selected="' . ($selected == 'Settings') . '" />'
-            .'</fb:tabs>';
-          $header .= '<div id="main_body">';
+        common_element('fb:dashboard');
 
-      echo $header;
+        common_element_start('fb:tabs');
+        common_element('fb:tab-item', array('title' => 'Home',
+                                            'href' => 'index.php',
+                                            'selected' => ($selected == 'Home')));
+        common_element('fb:tab-item', array('title' => 'Invite Friends',
+                                            'href' => 'invite.php',
+                                            'selected' => ($selected == 'Invite')));
+        common_element('fb:tab-item', array('title' => 'Settings',
+                                            'href' => 'settings.php',
+                                            'selected' => ($selected == 'Settings')));
+        common_element_end('fb:tabs');
+
+
+        if ($msg) {
+            if ($success) {
+                common_element('fb:success', array('message' => $msg));
+            } else {
+                // XXX do an error message here
+            }
+        }
+
+        common_element_start('div', 'main_body');
 
     }
 
     function show_footer()
     {
-      $footer = '</div>';
-      echo $footer;
+        common_element_end('div');
+        common_end_xml();
     }
 
-    function show_login_form()
+    function showLoginForm($msg = null)
     {
+        start_fbml();
 
-        $loginform =
-            ' <h2>To add the Identi.ca application, you need to log into your Identi.ca account.</h2>'
-            .'<a href="http://identi.ca/">'
-            .'    <img src="http://theme.identi.ca/identica/logo.png" alt="Identi.ca" id="logo"/>'
-            .'</a>'
-            .'<h1 class="pagetitle">Login</h1>'
-            .'<div class="instructions">'
-            .'    <p>Login with your username and password. Don\'t have a username yet?'
-            .'      <a href="http://identi.ca/main/register">Register</a> a new account.'
-            .'    </p>'
-            .'</div>'
-            .'<div id="content">'
-            .'    <form method="post" id="login">'
-            .'      <p>'
-            .'        <label for="nickname">Nickname</label>'
-            .'        <input name="nickname" type="text" class="input_text" id="nickname"/>'
-            .'      </p>'
-            .'      <p>'
-            .'          <label for="password">Password</label>'
-            .'        <input name="password" type="password" class="password" id="password"/>'
-            .'      </p>'
-            .'      <p>'
-            .'        <input type="submit" id="submit" name="submit" class="submit" value="Login"/>'
-            .'      </p>'
-            .'    </form>'
-            .'    <p>'
-            .'      <a href="http://identi.ca/main/recoverpassword">Lost or forgotten password?</a>'
-            .'    </p>'
-            .'</div';
+        common_element_start('a', array('href' => 'http://identi.ca'));
+        common_element('img', array('src' => 'http://theme.identi.ca/identica/logo.png',
+                                    'alt' => 'Identi.ca',
+                                    'id' => 'logo'));
+        common_element_end('a');
 
-            echo $loginform;
+        if ($msg) {
+             common_element('fb:error', array('message' => $msg));
+        }
+
+        common_element("h2", null,
+            _('To add the Identi.ca application, you need to log into your Identi.ca account.'));
+
+
+        common_element_start('div', array('class' => 'instructions'));
+        common_element_start('p');
+        common_raw('Login with your username and password. Don\'t have a username yet?'
+        .' <a href="http://identi.ca/main/register">Register</a> a new account.');
+        common_element_end('p');
+        common_element_end('div');
+
+        common_element_start('div', array('id' => 'content'));
+        common_element_start('form', array('method' => 'post',
+                                               'id' => 'login',
+                                               'action' => 'index.php'));
+        common_input('nickname', _('Nickname'));
+        common_password('password', _('Password'));
+
+        common_submit('submit', _('Login'));
+        common_element_end('form');
+
+        common_element_start('p');
+        common_element('a', array('href' => common_local_url('recoverpassword')),
+                       _('Lost or forgotten password?'));
+        common_element_end('p');
+        common_element_end('div');
+
+        common_end_xml();
+
     }
 
-    function render_notice($notice)
-    {
-
-        global $config;
-
-        $profile = $notice->getProfile();
-        $avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
-
-        $noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
-
-        # XXX: we need to figure this out better. Is this right?
-        if (strcmp($notice->uri, $noticeurl) != 0 && preg_match('/^http/', $notice->uri)) {
-            $noticeurl = $notice->uri;
-        }
-
-        $html =
-        '<li class="notice_single" id="' . $notice->id . '">'
-        .'<a href="' . $profile->profileurl . '">'
-        .'<img src="';
-
-        if ($avatar) {
-            $html .= common_avatar_display_url($avatar);
-        } else {
-            $html .= common_default_avatar(AVATAR_STREAM_SIZE);
-        }
-
-        $html .=
-        '" class="avatar stream" width="'
-        . AVATAR_STREAM_SIZE . '" height="' . AVATAR_STREAM_SIZE .'"'
-        .' alt="';
-
-        if ($profile->fullname) {
-            $html .= $profile->fullname;
-        } else {
-            $html .= $profile->nickname;
-        }
-
-        $html .=
-        '"></a>'
-        .'<a href="' .    $profile->profileurl . '" class="nickname">' . $profile->nickname . '</a>'
-        .'<p class="content">' . $notice->rendered . '</p>'
-        .'<p class="time">'
-        .'<a class="permalink" href="' . $noticeurl . '" title="' . common_exact_date($notice->created) . '">' . common_date_string($notice->created) . '</a>';
-
-        if ($notice->source) {
-            $html .= _(' from ');
-            $html .= $this->source_link($notice->source);
-        }
-
-        if ($notice->reply_to) {
-            $replyurl = common_local_url('shownotice', array('notice' => $notice->reply_to));
-            $html .=
-            ' (<a class="inreplyto" href="' . $replyurl . '">' . _('in reply to...') . ')';
-        }
-
-        $html .= '</p></li>';
-
-        return $html;
-    }
-
-    function source_link($source)
-    {
-        $source_name = _($source);
-
-        $html = '<span class="noticesource">';
-
-        switch ($source) {
-         case 'web':
-         case 'xmpp':
-         case 'mail':
-         case 'omb':
-         case 'api':
-            $html .= $source_name;
-            break;
-         default:
-            $ns = Notice_source::staticGet($source);
-            if ($ns) {
-                $html .= '<a href="' . $ns->url . '">' . $ns->name . '</a>';
-            } else {
-                $html .= $source_name;
-            }
-            break;
-        }
-
-        $html .= '</span>';
-
-        return $html;
-    }
-
-    function pagination($have_before, $have_after, $page, $fbaction, $args=null)
-    {
-
-        $html = '';
-
-        if ($have_before || $have_after) {
-            $html = '<div id="pagination">';
-            $html .'<ul id="nav_pagination">';
-        }
-
-        if ($have_before) {
-            $pargs = array('page' => $page-1);
-            $newargs = ($args) ? array_merge($args,$pargs) : $pargs;
-            $html .= '<li class="before">';
-            $html .'<a href="' . $this->pagination_url($fbaction, $newargs) . '">' . _('« After') . '</a>';
-            $html .'</li>';
-        }
-
-        if ($have_after) {
-            $pargs = array('page' => $page+1);
-            $newargs = ($args) ? array_merge($args,$pargs) : $pargs;
-            $html .= '<li class="after">';
-            $html .'<a href="' . $this->pagination_url($fbaction, $newargs) . '">' . _('Before »') . '</a>';
-            $html .'</li>';
-        }
-
-        if ($have_before || $have_after) {
-            $html .= '<ul>';
-            $html .'<div>';
-        }
-    }
-
-    function pagination_url($fbaction, $args=null)
-    {
-        global $config;
-
-        $extra = '';
-
-        if ($args) {
-            foreach ($args as $key => $value) {
-                $extra .= "&${key}=${value}";
-            }
-        }
-
-        return "$fbaction?${extra}";
-    }
 
 }
