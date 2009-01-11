@@ -40,7 +40,17 @@ class FacebookinviteAction extends FacebookAction
 
         $this->show_header('Invite');
 
-        echo '<h2>Coming soon...</h2>';
+        $fbml = '<fb:request-form '
+        .'action="invite.php" '
+        .'method="POST" '
+        .'invite="true" '
+        .'type="Identi.ca" '
+        .'content="You have been invited to Identi.ca! '
+        . htmlentities('<fb:req-choice url="http://apps.facebook.com/identica_app/" label="Add"/>') . '">'
+        .'<fb:multi-friend-selector showborder="false" actiontext="Invite your friends to use Identi.ca.">'
+        .'</fb:request-form>';
+
+        echo $fbml;
 
         $this->show_footer();
 
