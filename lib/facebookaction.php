@@ -29,61 +29,6 @@ class FacebookAction extends Action
         parent::handle($args);
     }
 
-    function update_profile_box($facebook, $fbuid, $user)
-    {
-
-        $notice = $user->getCurrentNotice();
-
-        # Need to include inline CSS for styling the Profile box
-
-         $style = '<style>
-         #notices {
-         clear: both;
-         margin: 0 auto;
-         padding: 0;
-         list-style-type: none;
-         width: 600px;
-         border-top: 1px solid #dec5b5;
-         }
-         #notices a:hover {
-         text-decoration: underline;
-         }
-         .notice_single {
-         clear: both;
-         display: block;
-         margin: 0;
-         padding: 5px 5px 5px 0;
-         min-height: 48px;
-         font-family: Georgia, "Times New Roman", Times, serif;
-         font-size: 13px;
-         line-height: 16px;
-         border-bottom: 1px solid #dec5b5;
-         background-color:#FCFFF5;
-         opacity:1;
-         }
-         .notice_single:hover {
-         background-color: #f7ebcc;
-         }
-         .notice_single p {
-         display: inline;
-         margin: 0;
-         padding: 0;
-         }
-         </style>';
-
-        $html = Facebookaction::render_notice($notice);
-
-
-        $fbml = "<fb:wide>$style $html</fb:wide>";
-        $fbml .= "<fb:narrow>$style $html</fb:narrow>";
-
-        $fbml_main = "<fb:narrow>$style $html</fb:narrow>";
-
-        $facebook->api_client->profile_setFBML(null, $fbuid, $fbml, null, null, $fbml_main);
-    }
-
-    # Display methods
-
     function show_header($selected = 'Home', $msg = null, $success = false)
     {
 

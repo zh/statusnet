@@ -49,3 +49,58 @@ function start_fbml($indent = true)
     $xw->openURI('php://output');
     $xw->setIndent($indent);
 }
+
+function update_profile_box($facebook, $fbuid, $user, $notice)
+{
+
+    // Need to include inline CSS for styling the Profile box
+
+    $style = '<style>
+     #notices {
+         clear: both;
+         margin: 0 auto;
+         padding: 0;
+         list-style-type: none;
+         width: 600px;
+         border-top: 1px solid #dec5b5;
+     }
+     #notices a:hover {
+         text-decoration: underline;
+     }
+     .notice_single {
+         clear: both;
+         display: block;
+         margin: 0;
+         padding: 5px 5px 5px 0;
+         min-height: 48px;
+         font-family: Georgia, "Times New Roman", Times, serif;
+         font-size: 13px;
+         line-height: 16px;
+         border-bottom: 1px solid #dec5b5;
+         background-color:#FCFFF5;
+         opacity:1;
+     }
+     .notice_single:hover {
+         background-color: #f7ebcc;
+     }
+     .notice_single p {
+         display: inline;
+         margin: 0;
+         padding: 0;
+     }
+     </style>';
+
+    global $xw;
+    $xw = new XMLWriter();
+    $xw->openMemory();
+
+    $item = new NoticeListItem($notice);
+    $item->show();
+
+    $fbml = "<fb:wide>$style " . $xw->outputMemory(false) . "</fb:wide>";
+    $fbml .= "<fb:narrow>$style " . $xw->outputMemory(false) . "</fb:narrow>";
+
+    $fbml_main = "<fb:narrow>$style " . $xw->outputMemory(false) . "</fb:narrow>";
+
+    $facebook->api_client->profile_setFBML(null, $fbuid, $fbml, null, null, $fbml_main);
+}

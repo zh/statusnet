@@ -31,7 +31,7 @@ require_once(INSTALLDIR . '/lib/common.php');
 require_once(INSTALLDIR . '/lib/facebookutil.php');
 
 // For storing the last run date-time
-$last_updated_file = "/home/zach/laconica/scripts/facebook_last_updated";
+$last_updated_file = INSTALLDIR . '/scripts/facebook_last_updated';
 
 // Lock file name
 $tmp_file = "/tmp/update_facebook.lock";
@@ -54,7 +54,8 @@ $cnt = 0;
 
 while($notice->fetch()) {
 
-    $flink = Foreign_link::getByUserID($notice->profile_id, 2);
+    $flink = Foreign_link::getByUserID($notice->profile_id, FACEBOOK_SERVICE);
+    $user = $flink->getUser();
     $fbuid = $flink->foreign_id;
     $content = $notice->content;
 
@@ -64,6 +65,7 @@ while($notice->fetch()) {
         if (!preg_match('/@[a-zA-Z0-9_]{1,15}\b/u', $content) ||
             (($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) == FOREIGN_NOTICE_SEND_REPLY)) {
                 update_status($fbuid, $content);
+                update_profile_box($facebook, $fbuid, $user, $notice);
                 $cnt++;
             }
     }

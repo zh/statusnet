@@ -82,20 +82,23 @@ class FacebookhomeAction extends FacebookAction
 
     function showHome($flink, $msg)
     {
+        
+        $facebook = get_facebook();
+        $fbuid = $facebook->require_login();
+        
+        $user = $flink->getUser();
+        
+        $notice = $user->getCurrentNotice();
+        update_profile_box($facebook, $fbuid, $user, $notice);
+        
+        
         $this->show_header('Home');
 
         if ($msg) {
             common_element('fb:success', array('message' => $msg));
         }
 
-        $facebook = get_facebook();
-        $fbuid = $facebook->require_login();
-
-        $user = $flink->getUser();
-
         echo $this->show_notices($user);
-
-        $this->update_profile_box($facebook, $fbuid, $user);
 
         $this->show_footer();
     }
