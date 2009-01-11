@@ -336,7 +336,7 @@ class TwittersettingsAction extends SettingsAction
             save_twitter_friends($user, $flink->foreign_id, $screen_name, $password);
         }
 
-        $this->show_form(_('Twitter preferences saved.'));
+        $this->show_form(_('Twitter preferences saved.'), true);
     }
 
     function verify_credentials($screen_name, $password)
