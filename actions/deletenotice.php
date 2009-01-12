@@ -34,7 +34,7 @@ class DeletenoticeAction extends DeleteAction {
 	}
 
 	function get_instructions() {
-		return _('You are about to permanently delete a notice.  Once this is done, it cannot be undone.');
+		return _('You are about to permanently delete a notice. Once this is done, it cannot be undone.');
 	}
 
 	function get_title() {
