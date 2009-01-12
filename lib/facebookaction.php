@@ -48,7 +48,7 @@ class FacebookAction extends Action
         common_element('fb:tab-item', array('title' => 'Home',
                                             'href' => 'index.php',
                                             'selected' => ($selected == 'Home')));
-        common_element('fb:tab-item', array('title' => 'Invite Friends',
+        common_element('fb:tab-item', array('title' => 'Invite',
                                             'href' => 'invite.php',
                                             'selected' => ($selected == 'Invite')));
         common_element('fb:tab-item', array('title' => 'Settings',

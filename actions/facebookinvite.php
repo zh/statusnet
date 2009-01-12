@@ -40,6 +40,10 @@ class FacebookinviteAction extends FacebookAction
 
         $this->show_header('Invite');
 
+
+        // Get a list of users who are already using the app for exclusion
+        $exclude_ids = $facebook->api_client->friends_getAppUsers();
+
         $content = 'You have been invited to Identi.ca! ' .
             htmlentities('<fb:req-choice url="http://apps.facebook.com/identica_app/" label="Add"/>');
 
@@ -50,8 +54,9 @@ class FacebookinviteAction extends FacebookAction
                                                       'content' => $content));
 
         $actiontext = 'Invite your friends to use Identi.ca.';
-        common_element_start('fb:multi-friend-selector', array('showborder' => 'false',
-                                                               'actiontext' => $actiontext));
+        common_element('fb:multi-friend-selector', array('showborder' => 'false',
+                                                               'actiontext' => $actiontext,
+                                                               'exclude_ids' => implode(',', $exclude_ids)));
 
         common_element_end('fb:request-form');
 

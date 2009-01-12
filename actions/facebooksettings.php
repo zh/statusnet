@@ -70,8 +70,8 @@ class FacebooksettingsAction extends FacebookAction
         common_element_start('p');
         common_element('fb:add-section-button', array('section' => 'profile'));
         common_element_end('p');
-        common_element_end('fb:if-section-not-added');
 
+        common_element_end('fb:if-section-not-added');
         common_element_start('p');
         common_element_start('fb:prompt-permission', array('perms' => 'status_update'));
         common_element('h2', null, _('Allow Identi.ca to update my Facebook status'));
