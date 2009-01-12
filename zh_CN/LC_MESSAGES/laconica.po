@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: identi.ca\n"
-"Report-Msgid-Bugs-To: gouki@goukihq.org\n"
-"POT-Creation-Date: 2008-10-13 21:07+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-12 12:10+0000\n"
 "PO-Revision-Date: 2008-12-16 21:31+0800\n"
 "Last-Translator: Yuan Yijun <bbbush.yuan@gmail.com>\n"
 "Language-Team: i18n-zh <i18n-zh@googlegroups.com>\n"
@@ -16,23 +16,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../actions/noticesearchrss.php:64 actions/noticesearchrss.php:68
+#: actions/noticesearchrss.php:61
 #, php-format
 msgid " Search Stream for \"%s\""
 msgstr "搜索有关\"%s\"的聚合"
 
 #: ../actions/finishopenidlogin.php:82 ../actions/register.php:191
 #: actions/finishopenidlogin.php:88 actions/register.php:205
+#: actions/register.php:232
 msgid ""
-" except this private data: password, email address, IM address, phone "
-"number."
+" except this private data: password, email address, IM address, phone number."
 msgstr "除了隐私内容：密码，电子邮件，即时通讯帐号，电话号码。"
 
 #: ../actions/showstream.php:400 ../lib/stream.php:109
 #: actions/showstream.php:418 lib/mailbox.php:164 lib/stream.php:76
+#: lib/facebookaction.php:195 lib/noticelist.php:160
 msgid " from "
 msgstr " 从 "
 
 #: ../actions/twitapistatuses.php:478 actions/twitapistatuses.php:412
+#: actions/twitapistatuses.php:341
 #, php-format
 msgid "%1$s / Updates replying to %2$s"
 msgstr "%1$s / 回复 %2$s 的消息"
@@ -73,7 +76,8 @@ msgid ""
 "Sincerely, %2$s\n"
 msgstr ""
 
-#: ../lib/mail.php:124 lib/mail.php:124 lib/mail.php:126
+#: ../lib/mail.php:124 lib/mail.php:124 lib/mail.php:126 lib/mail.php:115
+#: lib/mail.php:117
 #, php-format
 msgid "%1$s is now listening to your notices on %2$s."
 msgstr "%1$s 开始关注您的 %2$s 信息。"
@@ -90,14 +94,18 @@ msgid ""
 msgstr ""
 "%1$s 开始关注您的 %2$s 信息。\n"
 "\n"
-"\t%3$s\n\n为您效力的 %4$s\n"
+"\t%3$s\n"
+"\n"
+"为您效力的 %4$s\n"
 
 #: ../actions/twitapistatuses.php:482 actions/twitapistatuses.php:415
+#: actions/twitapistatuses.php:344
 #, php-format
 msgid "%1$s updates that reply to updates from %2$s / %3$s."
 msgstr "回复 %2$s / %3$s 的 %1$s 更新。"
 
 #: ../actions/shownotice.php:45 actions/shownotice.php:45
+#: actions/shownotice.php:73
 #, php-format
 msgid "%1$s's status on %2$s"
 msgstr "%1$s 的 %2$s 状态"
@@ -116,26 +124,30 @@ msgstr "%s 公开聚合"
 #: ../actions/all.php:47 ../actions/allrss.php:60
 #: ../actions/twitapistatuses.php:238 ../lib/stream.php:51 actions/all.php:47
 #: actions/allrss.php:60 actions/twitapistatuses.php:155 lib/personal.php:51
+#: actions/twitapistatuses.php:123
 #, php-format
 msgid "%s and friends"
 msgstr "%s 及好友"
 
 #: ../actions/twitapistatuses.php:49 actions/twitapistatuses.php:49
+#: actions/twitapistatuses.php:31
 #, php-format
 msgid "%s public timeline"
 msgstr "%s 公众时间表"
 
-#: ../lib/mail.php:206 lib/mail.php:212
+#: ../lib/mail.php:206 lib/mail.php:212 lib/mail.php:217
 #, php-format
 msgid "%s status"
 msgstr "%s 状态"
 
 #: ../actions/twitapistatuses.php:338 actions/twitapistatuses.php:265
+#: actions/twitapistatuses.php:195
 #, php-format
 msgid "%s timeline"
 msgstr "%s 时间表"
 
 #: ../actions/twitapistatuses.php:52 actions/twitapistatuses.php:52
+#: actions/twitapistatuses.php:34
 #, php-format
 msgid "%s updates from everyone!"
 msgstr "来自所有人的 %s 消息！"
@@ -146,34 +158,37 @@ msgid ""
 "to confirm your email address.)"
 msgstr "(您将收到一封邮件，包含了如何确认邮件地址的说明。)"
 
-#: ../lib/util.php:257 lib/util.php:273
+#: ../lib/util.php:257 lib/util.php:273 lib/util.php:284
 #, php-format
 msgid ""
-"**%%site.name%%** is a microblogging service brought to you by "
-"[%%site.broughtby%%](%%site.broughtbyurl%%). "
+"**%%site.name%%** is a microblogging service brought to you by [%%site."
+"broughtby%%](%%site.broughtbyurl%%). "
 msgstr ""
-"**%%site.name%%** 是一个微博客服务，提供者为 "
-"[%%site.broughtby%%](%%site.broughtbyurl%%)。"
+"**%%site.name%%** 是一个微博客服务，提供者为 [%%site.broughtby%%](%%site."
+"broughtbyurl%%)。"
 
-#: ../lib/util.php:259 lib/util.php:275
+#: ../lib/util.php:259 lib/util.php:275 lib/util.php:286
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** 是一个微博客服务。"
 
-#: ../lib/util.php:274 lib/util.php:290
+#: ../lib/util.php:274 lib/util.php:290 lib/util.php:301
 msgid ". Contributors should be attributed by full name or nickname."
 msgstr "。贡献者应当有全名或昵称。"
 
 #: ../actions/finishopenidlogin.php:73 ../actions/profilesettings.php:43
 #: actions/finishopenidlogin.php:79 actions/profilesettings.php:76
+#: actions/profilesettings.php:78
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
 msgstr "1 到 64 个小写字母或数字，不包含标点及空白"
 
 #: ../actions/register.php:152 actions/register.php:166
+#: actions/register.php:193
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
 msgstr "1 到 64 个小写字母或数字，不包含标点及空白。此项必填。"
 
 #: ../actions/password.php:42 actions/profilesettings.php:181
+#: actions/profilesettings.php:186
 msgid "6 or more characters"
 msgstr "6 个或更多字符"
 
@@ -182,27 +197,33 @@ msgid "6 or more characters, and don't forget it!"
 msgstr "6 个或更多字符，不能忘记！"
 
 #: ../actions/register.php:154 actions/register.php:168
+#: actions/register.php:195
 msgid "6 or more characters. Required."
 msgstr "6 个或更多字符。此项必填。"
 
 #: ../actions/imsettings.php:197 actions/imsettings.php:205
 #, php-format
 msgid ""
-"A confirmation code was sent to the IM address you added. You must approve "
-"%s for sending messages to you."
+"A confirmation code was sent to the IM address you added. You must approve %"
+"s for sending messages to you."
 msgstr "验证码已被发送到您新增的即时通讯帐号。您必须允许 %s 向您发送信息。"
 
 #: ../actions/emailsettings.php:213 actions/emailsettings.php:231
+#: actions/emailsettings.php:234
 msgid ""
 "A confirmation code was sent to the email address you added. Check your "
 "inbox (and spam box!) for the code and instructions on how to use it."
-msgstr "验证码已被发送到您新增的电子邮件。请检查收件箱(和垃圾箱)，找到验证码并按要求使用它。"
+msgstr ""
+"验证码已被发送到您新增的电子邮件。请检查收件箱(和垃圾箱)，找到验证码并按要求"
+"使用它。"
 
 #: ../actions/smssettings.php:216 actions/smssettings.php:224
 msgid ""
 "A confirmation code was sent to the phone number you added. Check your inbox "
 "(and spam box!) for the code and instructions on how to use it."
-msgstr "验证码已被发送到您新增的电话号码。请检查收件箱(和垃圾箱)，找到验证码并按要求使用它。"
+msgstr ""
+"验证码已被发送到您新增的电话号码。请检查收件箱(和垃圾箱)，找到验证码并按要求"
+"使用它。"
 
 #: ../actions/twitapiaccount.php:49 ../actions/twitapihelp.php:45
 #: ../actions/twitapistatuses.php:88 ../actions/twitapistatuses.php:259
@@ -214,7 +235,14 @@ msgstr "验证码已被发送到您新增的电话号码。请检查收件箱(�
 #: actions/twitapistatuses.php:176 actions/twitapistatuses.php:288
 #: actions/twitapistatuses.php:298 actions/twitapistatuses.php:454
 #: actions/twitapistatuses.php:463 actions/twitapistatuses.php:504
-#: actions/twitapiusers.php:55
+#: actions/twitapiusers.php:55 actions/twitapiaccount.php:30
+#: actions/twitapidirect_messages.php:107 actions/twitapifavorites.php:83
+#: actions/twitapifavorites.php:99 actions/twitapifriendships.php:117
+#: actions/twitapihelp.php:42 actions/twitapistatuses.php:77
+#: actions/twitapistatuses.php:144 actions/twitapistatuses.php:224
+#: actions/twitapistatuses.php:234 actions/twitapistatuses.php:386
+#: actions/twitapistatuses.php:395 actions/twitapistatuses.php:421
+#: actions/twitapiusers.php:30
 msgid "API method not found!"
 msgstr "API 方法未实现！"
 
@@ -232,11 +260,14 @@ msgstr "API 方法未实现！"
 #: actions/twitapiblocks.php:33 actions/twitapidirect_messages.php:170
 #: actions/twitapifavorites.php:168 actions/twitapihelp.php:53
 #: actions/twitapinotifications.php:29 actions/twitapinotifications.php:34
-#: actions/twitapistatuses.php:690
+#: actions/twitapistatuses.php:690 actions/twitapiaccount.php:39
+#: actions/twitapiaccount.php:89 actions/twitapiaccount.php:94
+#: actions/twitapidirect_messages.php:178 actions/twitapifavorites.php:139
+#: actions/twitapihelp.php:49 actions/twitapistatuses.php:549
 msgid "API method under construction."
 msgstr "API 方法尚未实现。"
 
-#: ../lib/util.php:324 lib/util.php:340
+#: ../lib/util.php:324 lib/util.php:340 lib/util.php:352
 msgid "About"
 msgstr "关于"
 
@@ -248,7 +279,7 @@ msgstr "接受"
 #: ../actions/openidsettings.php:57 ../actions/smssettings.php:71
 #: actions/emailsettings.php:63 actions/imsettings.php:64
 #: actions/openidsettings.php:58 actions/smssettings.php:71
-#: actions/twittersettings.php:85
+#: actions/twittersettings.php:85 actions/twittersettings.php:84
 msgid "Add"
 msgstr "添加"
 
@@ -257,6 +288,7 @@ msgid "Add OpenID"
 msgstr "添加 OpenID"
 
 #: ../lib/settingsaction.php:97 lib/settingsaction.php:91
+#: actions/deleteprofile.php:248
 msgid "Add or remove OpenIDs"
 msgstr "添加或移除 OpenID"
 
@@ -271,6 +303,7 @@ msgid "Addresses of friends to invite (one per line)"
 msgstr "要邀请的好友地址(每行一个)"
 
 #: ../actions/showstream.php:273 actions/showstream.php:288
+#: actions/showstream.php:336
 msgid "All subscriptions"
 msgstr "所有订阅"
 
@@ -280,6 +313,7 @@ msgid "All updates for %s"
 msgstr "所有 %s 消息"
 
 #: ../actions/noticesearchrss.php:66 actions/noticesearchrss.php:70
+#: actions/noticesearchrss.php:63
 #, php-format
 msgid "All updates matching search term \"%s\""
 msgstr "所有匹配搜索条件\"%s\"的消息"
@@ -291,7 +325,7 @@ msgstr "所有匹配搜索条件\"%s\"的消息"
 msgid "Already logged in."
 msgstr "已登录。"
 
-#: ../lib/subs.php:42 lib/subs.php:42
+#: ../lib/subs.php:42 lib/subs.php:42 lib/subs.php:47
 msgid "Already subscribed!."
 msgstr "已订阅！"
 
@@ -304,14 +338,14 @@ msgid "Authorize subscription"
 msgstr "确认订阅"
 
 #: ../actions/login.php:104 ../actions/register.php:178
-#: actions/register.php:192
+#: actions/register.php:192 actions/register.php:219
 msgid "Automatically login in the future; not for shared computers!"
 msgstr "保持这台机器上的登录状态。不要在共用的机器上保持登录！"
 
 #: ../actions/profilesettings.php:65 actions/profilesettings.php:98
+#: actions/profilesettings.php:103
 msgid ""
-"Automatically subscribe to whoever subscribes to me (best for "
-"non-humans)"
+"Automatically subscribe to whoever subscribes to me (best for non-humans)"
 msgstr "自动订阅任何订阅我的更新的人(这个选项最适合机器人)"
 
 #: ../actions/avatar.php:32 ../lib/settingsaction.php:90
@@ -320,6 +354,7 @@ msgid "Avatar"
 msgstr "头像"
 
 #: ../actions/avatar.php:113 actions/profilesettings.php:350
+#: actions/profilesettings.php:379
 msgid "Avatar updated."
 msgstr "头像已更新。"
 
@@ -334,24 +369,30 @@ msgstr ""
 msgid ""
 "Awaiting confirmation on this address. Check your inbox (and spam box!) for "
 "a message with further instructions."
-msgstr "等待确认此地址。请查看您的收件箱(和垃圾箱)是否收到了邮件，其中包含了进一步的指示。"
+msgstr ""
+"等待确认此地址。请查看您的收件箱(和垃圾箱)是否收到了邮件，其中包含了进一步的"
+"指示。"
 
 #: ../actions/smssettings.php:58 actions/smssettings.php:58
 msgid "Awaiting confirmation on this phone number."
 msgstr "等待确认此电话号码。"
 
-#: ../lib/util.php:1318 lib/util.php:1452
-msgid "Before »"
+#: ../lib/util.php:1318 lib/util.php:1452 lib/facebookaction.php:259
+#: lib/util.php:1792
+#, fuzzy
+msgid "Before Â»"
 msgstr "之前 »"
 
 #: ../actions/profilesettings.php:49 ../actions/register.php:170
 #: actions/profilesettings.php:82 actions/register.php:184
+#: actions/profilesettings.php:84 actions/register.php:211
 msgid "Bio"
 msgstr "个人小传"
 
 #: ../actions/profilesettings.php:101 ../actions/register.php:82
 #: ../actions/updateprofile.php:103 actions/profilesettings.php:216
 #: actions/register.php:89 actions/updateprofile.php:104
+#: actions/profilesettings.php:222 actions/register.php:98
 msgid "Bio is too long (max 140 chars)."
 msgstr "个人小传过长(不能超过140字符)。"
 
@@ -366,6 +407,7 @@ msgstr "无法访问头像URL '%s'"
 
 #: ../actions/password.php:85 ../actions/recoverpassword.php:300
 #: actions/profilesettings.php:404 actions/recoverpassword.php:313
+#: actions/profilesettings.php:433
 msgid "Can't save new password."
 msgstr "无法保存新密码。"
 
@@ -384,14 +426,17 @@ msgid "Cannot normalize that Jabber ID"
 msgstr "无法识别此Jabber ID"
 
 #: ../actions/emailsettings.php:181 actions/emailsettings.php:199
+#: actions/emailsettings.php:204
 msgid "Cannot normalize that email address"
 msgstr "无法识别此电子邮件"
 
 #: ../actions/password.php:45 actions/profilesettings.php:184
+#: actions/profilesettings.php:189
 msgid "Change"
 msgstr "修改"
 
 #: ../lib/settingsaction.php:88 lib/settingsaction.php:88
+#: actions/deleteprofile.php:245
 msgid "Change email handling"
 msgstr "修改电子邮件"
 
@@ -404,6 +449,7 @@ msgid "Change your password"
 msgstr "修改密码"
 
 #: ../lib/settingsaction.php:85 lib/settingsaction.php:85
+#: actions/deleteprofile.php:242
 msgid "Change your profile settings"
 msgstr "修改您的个人信息"
 
@@ -411,6 +457,7 @@ msgstr "修改您的个人信息"
 #: ../actions/register.php:155 ../actions/smssettings.php:65
 #: actions/profilesettings.php:182 actions/recoverpassword.php:187
 #: actions/register.php:169 actions/smssettings.php:65
+#: actions/profilesettings.php:187 actions/register.php:196
 msgid "Confirm"
 msgstr "确认"
 
@@ -421,6 +468,7 @@ msgstr "确认地址"
 #: ../actions/emailsettings.php:238 ../actions/imsettings.php:222
 #: ../actions/smssettings.php:245 actions/emailsettings.php:256
 #: actions/imsettings.php:230 actions/smssettings.php:253
+#: actions/emailsettings.php:259
 msgid "Confirmation cancelled."
 msgstr "已取消确认。"
 
@@ -459,7 +507,7 @@ msgstr "连接"
 msgid "Connect existing account"
 msgstr "连接现有帐号"
 
-#: ../lib/util.php:332 lib/util.php:348
+#: ../lib/util.php:332 lib/util.php:348 lib/util.php:360
 msgid "Contact"
 msgstr "联系人"
 
@@ -470,11 +518,13 @@ msgstr "无法创建 OpenID 表单：%s"
 
 #: ../actions/twitapifriendships.php:60 ../actions/twitapifriendships.php:76
 #: actions/twitapifriendships.php:60 actions/twitapifriendships.php:76
+#: actions/twitapifriendships.php:46 actions/twitapifriendships.php:62
 #, php-format
 msgid "Could not follow user: %s is already on your list."
 msgstr "无法订阅用户：%s 已在订阅列表中。"
 
 #: ../actions/twitapifriendships.php:53 actions/twitapifriendships.php:53
+#: actions/twitapifriendships.php:39
 msgid "Could not follow user: User not found."
 msgstr "无法订阅用户：未找到。"
 
@@ -491,11 +541,11 @@ msgstr "无法保存头像"
 msgid "Could not save new profile info"
 msgstr "无法保存个人信息"
 
-#: ../lib/subs.php:54 lib/subs.php:61
+#: ../lib/subs.php:54 lib/subs.php:61 lib/subs.php:70
 msgid "Could not subscribe other to you."
 msgstr "无法订阅他人更新。"
 
-#: ../lib/subs.php:46 lib/subs.php:46
+#: ../lib/subs.php:46 lib/subs.php:46 lib/subs.php:55
 msgid "Could not subscribe."
 msgstr "无法订阅。"
 
@@ -504,7 +554,7 @@ msgid "Could not update user with confirmed email address."
 msgstr "无法更新已确认的电子邮件。"
 
 #: ../actions/finishremotesubscribe.php:99
-#: actions/finishremotesubscribe.php:101
+#: actions/finishremotesubscribe.php:101 actions/finishremotesubscribe.php:112
 msgid "Couldn't convert request tokens to access tokens."
 msgstr "无法将请求标记转换为访问令牌。"
 
@@ -512,43 +562,50 @@ msgstr "无法将请求标记转换为访问令牌。"
 #: ../actions/imsettings.php:218 ../actions/smssettings.php:241
 #: actions/confirmaddress.php:84 actions/emailsettings.php:252
 #: actions/imsettings.php:226 actions/smssettings.php:249
+#: actions/emailsettings.php:255
 msgid "Couldn't delete email confirmation."
 msgstr "无法删除电子邮件确认。"
 
-#: ../lib/subs.php:103 lib/subs.php:116
+#: ../lib/subs.php:103 lib/subs.php:116 lib/subs.php:129
 msgid "Couldn't delete subscription."
 msgstr "无法删除订阅。"
 
 #: ../actions/twitapistatuses.php:93 actions/twitapistatuses.php:98
+#: actions/twitapistatuses.php:82
 msgid "Couldn't find any statuses."
 msgstr "找不到任何信息。"
 
 #: ../actions/remotesubscribe.php:127 actions/remotesubscribe.php:136
+#: actions/remotesubscribe.php:148
 msgid "Couldn't get a request token."
 msgstr "无法获得一份请求标记。"
 
 #: ../actions/emailsettings.php:205 ../actions/imsettings.php:187
 #: ../actions/smssettings.php:206 actions/emailsettings.php:223
 #: actions/imsettings.php:195 actions/smssettings.php:214
+#: actions/emailsettings.php:228
 msgid "Couldn't insert confirmation code."
 msgstr "无法插入验证码。"
 
 #: ../actions/finishremotesubscribe.php:180
-#: actions/finishremotesubscribe.php:182
+#: actions/finishremotesubscribe.php:182 actions/finishremotesubscribe.php:216
 msgid "Couldn't insert new subscription."
 msgstr "无法添加新的订阅。"
 
 #: ../actions/profilesettings.php:184 ../actions/twitapiaccount.php:96
 #: actions/profilesettings.php:299 actions/twitapiaccount.php:94
+#: actions/profilesettings.php:319 actions/twitapiaccount.php:74
 msgid "Couldn't save profile."
 msgstr "无法保存个人信息。"
 
 #: ../actions/profilesettings.php:161 actions/profilesettings.php:276
+#: actions/profilesettings.php:296
 msgid "Couldn't update user for autosubscribe."
 msgstr "无法更新用户的自动订阅选项。"
 
 #: ../actions/emailsettings.php:280 ../actions/emailsettings.php:294
 #: actions/emailsettings.php:298 actions/emailsettings.php:312
+#: actions/emailsettings.php:301 actions/emailsettings.php:315
 msgid "Couldn't update user record."
 msgstr "无法更新用户记录。"
 
@@ -560,6 +617,8 @@ msgstr "无法更新用户记录。"
 #: actions/emailsettings.php:277 actions/imsettings.php:146
 #: actions/imsettings.php:251 actions/profilesettings.php:256
 #: actions/smssettings.php:165 actions/smssettings.php:277
+#: actions/emailsettings.php:179 actions/emailsettings.php:280
+#: actions/othersettings.php:173 actions/profilesettings.php:276
 msgid "Couldn't update user."
 msgstr "无法更新用户。"
 
@@ -576,6 +635,7 @@ msgid "Create new account"
 msgstr "创建新帐号"
 
 #: ../actions/finishopenidlogin.php:191 actions/finishopenidlogin.php:197
+#: actions/finishopenidlogin.php:208
 msgid "Creating new account for OpenID that already has a user."
 msgstr "为 OpenID 用户产生新的帐号。"
 
@@ -592,15 +652,16 @@ msgid "Current confirmed email address."
 msgstr "已确认的电子邮件。"
 
 #: ../actions/showstream.php:356 actions/showstream.php:367
+#: actions/showstream.php:418
 msgid "Currently"
 msgstr "目前"
 
-#: ../classes/Notice.php:72 classes/Notice.php:86
+#: ../classes/Notice.php:72 classes/Notice.php:86 classes/Notice.php:87
 #, php-format
 msgid "DB error inserting hashtag: %s"
 msgstr "添加标签时数据库出错：%s"
 
-#: ../lib/util.php:1061 lib/util.php:1110
+#: ../lib/util.php:1061 lib/util.php:1110 lib/util.php:1417
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "添加回复时数据库出错：%s"
@@ -611,12 +672,15 @@ msgstr "删除通告"
 
 #: ../actions/profilesettings.php:51 ../actions/register.php:172
 #: actions/profilesettings.php:84 actions/register.php:186
+#: actions/profilesettings.php:86 actions/register.php:213
 msgid "Describe yourself and your interests in 140 chars"
 msgstr "用不超过140个字符描述您自己和您的爱好"
 
 #: ../actions/register.php:158 ../actions/register.php:161
 #: ../lib/settingsaction.php:87 actions/register.php:172
 #: actions/register.php:175 lib/settingsaction.php:87
+#: actions/deleteprofile.php:244 actions/register.php:199
+#: actions/register.php:202
 msgid "Email"
 msgstr "电子邮件"
 
@@ -628,7 +692,7 @@ msgstr "电子邮件地址"
 msgid "Email Settings"
 msgstr "电子邮件设置"
 
-#: ../actions/register.php:73 actions/register.php:80
+#: ../actions/register.php:73 actions/register.php:80 actions/register.php:89
 msgid "Email address already exists."
 msgstr "电子邮件地址已存在。"
 
@@ -657,6 +721,7 @@ msgid "Error authorizing token"
 msgstr "无法认证令牌"
 
 #: ../actions/finishopenidlogin.php:253 actions/finishopenidlogin.php:259
+#: actions/finishopenidlogin.php:274
 msgid "Error connecting user to OpenID."
 msgstr "无法将用户与 OpenID 连接。"
 
@@ -665,17 +730,17 @@ msgid "Error connecting user."
 msgstr "无法连接用户。"
 
 #: ../actions/finishremotesubscribe.php:151
-#: actions/finishremotesubscribe.php:153
+#: actions/finishremotesubscribe.php:153 actions/finishremotesubscribe.php:164
 msgid "Error inserting avatar"
 msgstr "添加头像出错"
 
 #: ../actions/finishremotesubscribe.php:143
-#: actions/finishremotesubscribe.php:145
+#: actions/finishremotesubscribe.php:145 actions/finishremotesubscribe.php:156
 msgid "Error inserting new profile"
 msgstr "添加个人信息出错"
 
 #: ../actions/finishremotesubscribe.php:167
-#: actions/finishremotesubscribe.php:169
+#: actions/finishremotesubscribe.php:169 actions/finishremotesubscribe.php:180
 msgid "Error inserting remote profile"
 msgstr "添加远程的个人信息出错"
 
@@ -696,13 +761,15 @@ msgid "Error saving the user."
 msgstr "保存用户时出错。"
 
 #: ../actions/password.php:80 actions/profilesettings.php:399
+#: actions/profilesettings.php:428
 msgid "Error saving user; invalid."
 msgstr "保存用户时出错；不正确。"
 
 #: ../actions/login.php:47 ../actions/login.php:73
 #: ../actions/recoverpassword.php:307 ../actions/register.php:98
 #: actions/login.php:47 actions/login.php:73 actions/recoverpassword.php:320
-#: actions/register.php:108
+#: actions/register.php:108 actions/login.php:54 actions/login.php:80
+#: actions/register.php:117
 msgid "Error setting user."
 msgstr "保存用户设置时出错。"
 
@@ -711,7 +778,7 @@ msgid "Error updating profile"
 msgstr "更新个人信息时出错"
 
 #: ../actions/finishremotesubscribe.php:161
-#: actions/finishremotesubscribe.php:163
+#: actions/finishremotesubscribe.php:163 actions/finishremotesubscribe.php:174
 msgid "Error updating remote profile"
 msgstr "更新远程的个人信息时出错"
 
@@ -723,11 +790,12 @@ msgstr "验证码出错。"
 msgid "Existing nickname"
 msgstr "昵称已被使用"
 
-#: ../lib/util.php:326 lib/util.php:342
+#: ../lib/util.php:326 lib/util.php:342 lib/util.php:354
 msgid "FAQ"
 msgstr "常见问题FAQ"
 
 #: ../actions/avatar.php:115 actions/profilesettings.php:352
+#: actions/profilesettings.php:381
 msgid "Failed updating avatar."
 msgstr "更新头像失败。"
 
@@ -743,7 +811,7 @@ msgstr "%s 好友的聚合"
 msgid "Feed for replies to %s"
 msgstr "%s 回复的聚合"
 
-#: ../actions/tag.php:55 actions/tag.php:55
+#: ../actions/tag.php:55 actions/tag.php:55 actions/tag.php:54
 #, php-format
 msgid "Feed for tag %s"
 msgstr "%s 标签的聚合"
@@ -764,38 +832,44 @@ msgstr "由于安全原因，修改设置前需要输入用户名和密码。"
 
 #: ../actions/profilesettings.php:44 ../actions/register.php:164
 #: actions/profilesettings.php:77 actions/register.php:178
+#: actions/profilesettings.php:79 actions/register.php:205
 msgid "Full name"
 msgstr "全名"
 
 #: ../actions/profilesettings.php:98 ../actions/register.php:79
 #: ../actions/updateprofile.php:93 actions/profilesettings.php:213
 #: actions/register.php:86 actions/updateprofile.php:94
+#: actions/profilesettings.php:219 actions/register.php:95
 msgid "Full name is too long (max 255 chars)."
 msgstr "全名过长(不能超过 255 个字符)。"
 
-#: ../lib/util.php:322 lib/util.php:338
+#: ../lib/util.php:322 lib/util.php:338 lib/util.php:343 lib/util.php:350
 msgid "Help"
 msgstr "帮助"
 
-#: ../lib/util.php:298 lib/util.php:314
+#: ../lib/util.php:298 lib/util.php:314 lib/util.php:325
 msgid "Home"
 msgstr "主页"
 
 #: ../actions/profilesettings.php:46 ../actions/register.php:167
 #: actions/profilesettings.php:79 actions/register.php:181
+#: actions/profilesettings.php:81 actions/register.php:208
 msgid "Homepage"
 msgstr "主页"
 
 #: ../actions/profilesettings.php:95 ../actions/register.php:76
 #: actions/profilesettings.php:210 actions/register.php:83
+#: actions/profilesettings.php:216 actions/register.php:92
 msgid "Homepage is not a valid URL."
 msgstr "主页的URL不正确。"
 
 #: ../actions/emailsettings.php:91 actions/emailsettings.php:98
+#: actions/emailsettings.php:101
 msgid "I want to post notices by email."
 msgstr "我希望通过邮件发布信息。"
 
 #: ../lib/settingsaction.php:102 lib/settingsaction.php:96
+#: actions/deleteprofile.php:253
 msgid "IM"
 msgstr "即时通讯IM"
 
@@ -831,14 +905,16 @@ msgid "Incoming email"
 msgstr "发布用的电子邮件"
 
 #: ../actions/emailsettings.php:283 actions/emailsettings.php:301
+#: actions/emailsettings.php:304
 msgid "Incoming email address removed."
 msgstr "发布用的电子邮件被移除。"
 
 #: ../actions/password.php:69 actions/profilesettings.php:388
+#: actions/profilesettings.php:417
 msgid "Incorrect old password"
 msgstr "旧密码不正确"
 
-#: ../actions/login.php:67 actions/login.php:67
+#: ../actions/login.php:67 actions/login.php:67 actions/login.php:74
 msgid "Incorrect username or password."
 msgstr "用户名或密码不正确。"
 
@@ -869,14 +945,17 @@ msgid "Invalid license URL '%s'"
 msgstr "授权方式URL '%s'不正确"
 
 #: ../actions/postnotice.php:61 actions/postnotice.php:62
+#: actions/postnotice.php:63
 msgid "Invalid notice content"
 msgstr "通告内容不正确"
 
 #: ../actions/postnotice.php:67 actions/postnotice.php:68
+#: actions/postnotice.php:69
 msgid "Invalid notice uri"
 msgstr "通告URI不正确"
 
 #: ../actions/postnotice.php:72 actions/postnotice.php:73
+#: actions/postnotice.php:74
 msgid "Invalid notice url"
 msgstr "通告URL不正确"
 
@@ -890,7 +969,7 @@ msgid "Invalid profile URL (bad format)"
 msgstr "个人信息URL不正确(格式错误)"
 
 #: ../actions/finishremotesubscribe.php:77
-#: actions/finishremotesubscribe.php:79
+#: actions/finishremotesubscribe.php:79 actions/finishremotesubscribe.php:78
 msgid "Invalid profile URL returned by server."
 msgstr "服务器返回的个人信息URL不正确。"
 
@@ -901,6 +980,8 @@ msgstr "大小不正确。"
 #: ../actions/finishopenidlogin.php:235 ../actions/register.php:93
 #: ../actions/register.php:111 actions/finishopenidlogin.php:241
 #: actions/register.php:103 actions/register.php:121
+#: actions/finishopenidlogin.php:256 actions/register.php:112
+#: actions/register.php:130
 msgid "Invalid username or password."
 msgstr "用户名或密码不正确。"
 
@@ -912,7 +993,7 @@ msgstr "已发送邀请"
 msgid "Invitation(s) sent to the following people:"
 msgstr "已发送邀请给这些人："
 
-#: ../lib/util.php:306 lib/util.php:322
+#: ../lib/util.php:306 lib/util.php:322 lib/util.php:332
 msgid "Invite"
 msgstr "邀请"
 
@@ -920,16 +1001,16 @@ msgstr "邀请"
 msgid "Invite new users"
 msgstr "邀请新用户"
 
-#: ../lib/util.php:261 lib/util.php:277
+#: ../lib/util.php:261 lib/util.php:277 lib/util.php:288
 #, php-format
 msgid ""
-"It runs the [Laconica](http://laconi.ca/) microblogging software, version "
-"%s, available under the [GNU Affero General Public "
-"License](http://www.fsf.org/licensing/licenses/agpl-3.0.html)."
+"It runs the [Laconica](http://laconi.ca/) microblogging software, version %"
+"s, available under the [GNU Affero General Public License](http://www.fsf."
+"org/licensing/licenses/agpl-3.0.html)."
 msgstr ""
-"它运行[Laconica](http://laconi.ca/)微博客服务，版本 "
-"%s，采用[GNU Affero General Public "
-"License](http://www.fsf.org/licensing/licenses/agpl-3.0.html)授权。"
+"它运行[Laconica](http://laconi.ca/)微博客服务，版本 %s，采用[GNU Affero "
+"General Public License](http://www.fsf.org/licensing/licenses/agpl-3.0.html)"
+"授权。"
 
 #: ../actions/imsettings.php:173 actions/imsettings.php:181
 msgid "Jabber ID already belongs to another user."
@@ -941,35 +1022,42 @@ msgid ""
 "Jabber or GTalk address, like \"UserName@example.org\". First, make sure to "
 "add %s to your buddy list in your IM client or on GTalk."
 msgstr ""
-"Jabber 或 GTalk "
-"帐号，类似\"UserName@example.org\"。首先，必须在即时聊天工具或GTalk中将 %s 加为好友。"
+"Jabber 或 GTalk 帐号，类似\"UserName@example.org\"。首先，必须在即时聊天工具"
+"或GTalk中将 %s 加为好友。"
 
 #: ../actions/profilesettings.php:57 actions/profilesettings.php:90
+#: actions/profilesettings.php:95
 msgid "Language"
 msgstr "语言"
 
 #: ../actions/profilesettings.php:113 actions/profilesettings.php:228
+#: actions/profilesettings.php:234
 msgid "Language is too long (max 50 chars)."
 msgstr "语言过长(不能超过50个字符)。"
 
 #: ../actions/profilesettings.php:52 ../actions/register.php:173
 #: actions/profilesettings.php:85 actions/register.php:187
+#: actions/profilesettings.php:87 actions/register.php:214
 msgid "Location"
 msgstr "位置"
 
 #: ../actions/profilesettings.php:104 ../actions/register.php:85
 #: ../actions/updateprofile.php:108 actions/profilesettings.php:219
 #: actions/register.php:92 actions/updateprofile.php:109
+#: actions/profilesettings.php:225 actions/register.php:101
 msgid "Location is too long (max 255 chars)."
 msgstr "位置过长(不能超过255个字符)。"
 
 #: ../actions/login.php:97 ../actions/login.php:106
 #: ../actions/openidlogin.php:68 ../lib/util.php:310 actions/login.php:97
 #: actions/login.php:106 actions/openidlogin.php:77 lib/util.php:326
+#: actions/login.php:104 actions/login.php:113 actions/openidlogin.php:88
+#: lib/util.php:336
 msgid "Login"
 msgstr "登录"
 
 #: ../actions/openidlogin.php:44 actions/openidlogin.php:52
+#: actions/openidlogin.php:60
 #, php-format
 msgid "Login with an [OpenID](%%doc.openid%%) account."
 msgstr "使用[OpenID](%%doc.openid%%)帐号登录。"
@@ -977,20 +1065,21 @@ msgstr "使用[OpenID](%%doc.openid%%)帐号登录。"
 #: ../actions/login.php:126
 #, php-format
 msgid ""
-"Login with your username and password. Don't have a username yet? "
-"[Register](%%action.register%%) a new account, or try "
-"[OpenID](%%action.openidlogin%%). "
+"Login with your username and password. Don't have a username yet? [Register]"
+"(%%action.register%%) a new account, or try [OpenID](%%action.openidlogin%"
+"%). "
 msgstr ""
 
-#: ../lib/util.php:308 lib/util.php:324
+#: ../lib/util.php:308 lib/util.php:324 lib/util.php:334
 msgid "Logout"
 msgstr "登出"
 
 #: ../actions/register.php:166 actions/register.php:180
+#: actions/register.php:207
 msgid "Longer name, preferably your \"real\" name"
 msgstr "长名字，最好是“实名”"
 
-#: ../actions/login.php:110 actions/login.php:110
+#: ../actions/login.php:110 actions/login.php:110 actions/login.php:118
 msgid "Lost or forgotten password?"
 msgstr "忘记了密码？"
 
@@ -1005,6 +1094,7 @@ msgid "Manage how you get email from %%site.name%%."
 msgstr "设置 %%site.name%% 发送的邮件。"
 
 #: ../actions/showstream.php:300 actions/showstream.php:315
+#: actions/showstream.php:363
 msgid "Member since"
 msgstr "注册于"
 
@@ -1018,10 +1108,13 @@ msgstr "%s 的微博客服务"
 msgid ""
 "Mobile carrier for your phone. If you know a carrier that accepts SMS over "
 "email but isn't listed here, send email to let us know at %s."
-msgstr "电话的服务商。如果您的服务商支持通过电子邮件发送SMS短信，而这里尚未列出，请联系 %s 以告知。"
+msgstr ""
+"电话的服务商。如果您的服务商支持通过电子邮件发送SMS短信，而这里尚未列出，请联"
+"系 %s 以告知。"
 
 #: ../actions/finishopenidlogin.php:79 ../actions/register.php:188
 #: actions/finishopenidlogin.php:85 actions/register.php:202
+#: actions/register.php:229
 msgid "My text and files are available under "
 msgstr "我的文字和文件采用的授权方式为"
 
@@ -1030,12 +1123,13 @@ msgstr "我的文字和文件采用的授权方式为"
 msgid "New"
 msgstr "新建"
 
-#: ../lib/mail.php:144 lib/mail.php:144
+#: ../lib/mail.php:144 lib/mail.php:144 lib/mail.php:138
 #, php-format
 msgid "New email address for posting to %s"
 msgstr "新的电子邮件地址，用于发布 %s 信息"
 
 #: ../actions/emailsettings.php:297 actions/emailsettings.php:315
+#: actions/emailsettings.php:318
 msgid "New incoming email address added."
 msgstr "已添加新的发布用的电子邮件地址。"
 
@@ -1044,11 +1138,13 @@ msgid "New nickname"
 msgstr "新昵称"
 
 #: ../actions/newnotice.php:87 actions/newnotice.php:96
+#: actions/newnotice.php:141
 msgid "New notice"
 msgstr "新通告"
 
 #: ../actions/password.php:41 ../actions/recoverpassword.php:179
 #: actions/profilesettings.php:180 actions/recoverpassword.php:185
+#: actions/profilesettings.php:185
 msgid "New password"
 msgstr "新密码"
 
@@ -1059,12 +1155,16 @@ msgstr "新密码已保存，您现在已登录。"
 #: ../actions/login.php:101 ../actions/profilesettings.php:41
 #: ../actions/register.php:151 actions/login.php:101
 #: actions/profilesettings.php:74 actions/register.php:165
+#: actions/login.php:108 actions/profilesettings.php:76
+#: actions/register.php:192
 msgid "Nickname"
 msgstr "昵称"
 
 #: ../actions/finishopenidlogin.php:175 ../actions/profilesettings.php:110
 #: ../actions/register.php:69 actions/finishopenidlogin.php:181
 #: actions/profilesettings.php:225 actions/register.php:76
+#: actions/finishopenidlogin.php:192 actions/profilesettings.php:231
+#: actions/register.php:85
 msgid "Nickname already in use. Try another one."
 msgstr "昵称已被使用，换一个吧。"
 
@@ -1072,10 +1172,13 @@ msgstr "昵称已被使用，换一个吧。"
 #: ../actions/register.php:67 ../actions/updateprofile.php:77
 #: actions/finishopenidlogin.php:171 actions/profilesettings.php:203
 #: actions/register.php:74 actions/updateprofile.php:78
+#: actions/finishopenidlogin.php:182 actions/profilesettings.php:209
+#: actions/register.php:83
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
 msgstr "昵称只能使用小写字母和数字，不包含空格。"
 
 #: ../actions/finishopenidlogin.php:170 actions/finishopenidlogin.php:176
+#: actions/finishopenidlogin.php:187
 msgid "Nickname not allowed."
 msgstr "不允许的昵称。"
 
@@ -1088,6 +1191,7 @@ msgid "Nickname or email"
 msgstr "昵称或电子邮件"
 
 #: ../actions/deletenotice.php:59 actions/deletenotice.php:60
+#: actions/block.php:104
 msgid "No"
 msgstr "否"
 
@@ -1112,11 +1216,13 @@ msgid "No confirmation code."
 msgstr "没有验证码"
 
 #: ../actions/newnotice.php:44 actions/newmessage.php:53
-#: actions/newnotice.php:44 classes/Command.php:197
+#: actions/newnotice.php:44 classes/Command.php:197 actions/newmessage.php:52
+#: actions/newnotice.php:53
 msgid "No content!"
 msgstr "没有内容！"
 
 #: ../actions/emailsettings.php:174 actions/emailsettings.php:192
+#: actions/emailsettings.php:197
 msgid "No email address."
 msgstr "没有电子邮件地址。"
 
@@ -1125,11 +1231,12 @@ msgid "No id."
 msgstr "没有 id。"
 
 #: ../actions/emailsettings.php:271 actions/emailsettings.php:289
+#: actions/emailsettings.php:292
 msgid "No incoming email address."
 msgstr "没有发布用的电子邮件地址。"
 
 #: ../actions/finishremotesubscribe.php:65
-#: actions/finishremotesubscribe.php:67
+#: actions/finishremotesubscribe.php:67 actions/finishremotesubscribe.php:66
 msgid "No nickname provided by remote server."
 msgstr "远程服务器没有昵称。"
 
@@ -1140,6 +1247,7 @@ msgstr "没有昵称。"
 #: ../actions/emailsettings.php:222 ../actions/imsettings.php:206
 #: ../actions/smssettings.php:229 actions/emailsettings.php:240
 #: actions/imsettings.php:214 actions/smssettings.php:237
+#: actions/emailsettings.php:243
 msgid "No pending confirmation to cancel."
 msgstr "没有可以取消的确认。"
 
@@ -1148,7 +1256,7 @@ msgid "No phone number."
 msgstr "没有电话号码。"
 
 #: ../actions/finishremotesubscribe.php:72
-#: actions/finishremotesubscribe.php:74
+#: actions/finishremotesubscribe.php:74 actions/finishremotesubscribe.php:73
 msgid "No profile URL returned by server."
 msgstr "服务器没有返回个人信息URL。"
 
@@ -1162,6 +1270,7 @@ msgstr "没有找到请求！"
 
 #: ../actions/noticesearch.php:64 ../actions/peoplesearch.php:64
 #: actions/noticesearch.php:69 actions/peoplesearch.php:69
+#: actions/noticesearch.php:68 actions/peoplesearch.php:59
 msgid "No results"
 msgstr "没有结果"
 
@@ -1170,11 +1279,13 @@ msgid "No size."
 msgstr "没有大小。"
 
 #: ../actions/twitapistatuses.php:595 actions/twitapifavorites.php:136
-#: actions/twitapistatuses.php:520
+#: actions/twitapistatuses.php:520 actions/twitapifavorites.php:109
+#: actions/twitapistatuses.php:438
 msgid "No status found with that ID."
 msgstr "没有找到此ID的信息。"
 
 #: ../actions/twitapistatuses.php:555 actions/twitapistatuses.php:478
+#: actions/twitapistatuses.php:411
 msgid "No status with that ID found."
 msgstr "没有找到此ID的信息。"
 
@@ -1188,7 +1299,8 @@ msgstr "没有这份文档。"
 
 #: ../actions/shownotice.php:32 ../actions/shownotice.php:83
 #: ../lib/deleteaction.php:30 actions/shownotice.php:32
-#: actions/shownotice.php:83 lib/deleteaction.php:30
+#: actions/shownotice.php:83 lib/deleteaction.php:30 actions/shownotice.php:38
+#: actions/shownotice.php:114
 msgid "No such notice."
 msgstr "没有这份通告。"
 
@@ -1215,7 +1327,9 @@ msgstr "没有这个订阅"
 #: actions/userbyid.php:36 actions/userrss.php:35 actions/xrds.php:35
 #: classes/Command.php:120 classes/Command.php:162 classes/Command.php:203
 #: classes/Command.php:237 lib/gallery.php:62 lib/mailbox.php:36
-#: lib/subs.php:33 lib/subs.php:95
+#: lib/subs.php:33 lib/subs.php:95 actions/showstream.php:157
+#: classes/Command.php:208 classes/Command.php:242 lib/gallery.php:85
+#: lib/subs.php:105
 msgid "No such user."
 msgstr "没有这个用户。"
 
@@ -1237,7 +1351,8 @@ msgstr "不是已注册用户。"
 
 #: ../lib/twitterapi.php:226 ../lib/twitterapi.php:247
 #: ../lib/twitterapi.php:332 lib/twitterapi.php:391 lib/twitterapi.php:418
-#: lib/twitterapi.php:502
+#: lib/twitterapi.php:502 lib/twitterapi.php:423 lib/twitterapi.php:450
+#: lib/twitterapi.php:534
 msgid "Not a supported data format."
 msgstr "不支持的数据格式。"
 
@@ -1250,15 +1365,17 @@ msgid "Not a valid OpenID."
 msgstr "不是有效的 OpenID。"
 
 #: ../actions/emailsettings.php:185 actions/emailsettings.php:203
+#: actions/emailsettings.php:208
 msgid "Not a valid email address"
 msgstr "不是有效的电子邮件"
 
-#: ../actions/register.php:63 actions/register.php:70
+#: ../actions/register.php:63 actions/register.php:70 actions/register.php:79
 msgid "Not a valid email address."
 msgstr "不是有效的电子邮件。"
 
 #: ../actions/profilesettings.php:91 ../actions/register.php:71
 #: actions/profilesettings.php:206 actions/register.php:78
+#: actions/profilesettings.php:212 actions/register.php:87
 msgid "Not a valid nickname."
 msgstr "不是有效的昵称。"
 
@@ -1275,11 +1392,12 @@ msgid "Not a valid profile URL (no YADIS document)."
 msgstr "不是有效的个人信息URL(没有YADIS数据)。"
 
 #: ../actions/avatar.php:95 actions/profilesettings.php:332
+#: actions/profilesettings.php:361
 msgid "Not an image or corrupt file."
 msgstr "不是图片文件或文件已损坏。"
 
 #: ../actions/finishremotesubscribe.php:51
-#: actions/finishremotesubscribe.php:53
+#: actions/finishremotesubscribe.php:53 actions/finishremotesubscribe.php:52
 msgid "Not authorized."
 msgstr "未认证。"
 
@@ -1289,6 +1407,7 @@ msgid "Not expecting this response!"
 msgstr "未预料的响应！"
 
 #: ../actions/twitapistatuses.php:422 actions/twitapistatuses.php:361
+#: actions/twitapistatuses.php:304
 msgid "Not found"
 msgstr "未找到"
 
@@ -1299,11 +1418,12 @@ msgstr "未找到"
 #: actions/finishaddopenid.php:29 actions/logout.php:33
 #: actions/newmessage.php:28 actions/newnotice.php:29 actions/subscribe.php:28
 #: actions/unsubscribe.php:25 lib/deleteaction.php:38
-#: lib/settingsaction.php:27
+#: lib/settingsaction.php:27 actions/block.php:31 actions/newnotice.php:30
+#: actions/nudge.php:30 actions/subedit.php:31 actions/unblock.php:31
 msgid "Not logged in."
 msgstr "未登录。"
 
-#: ../lib/subs.php:91 lib/subs.php:104
+#: ../lib/subs.php:91 lib/subs.php:104 lib/subs.php:117
 msgid "Not subscribed!."
 msgstr "未订阅！"
 
@@ -1312,15 +1432,19 @@ msgid "Notice Search"
 msgstr "搜索通告"
 
 #: ../actions/showstream.php:82 actions/showstream.php:82
+#: actions/showstream.php:111 actions/showstream.php:118
+#: actions/showstream.php:123
 #, php-format
 msgid "Notice feed for %s"
 msgstr "%s 的通告聚合"
 
 #: ../actions/shownotice.php:39 actions/shownotice.php:39
+#: actions/shownotice.php:45
 msgid "Notice has no profile"
 msgstr "通告没有关联个人信息"
 
 #: ../actions/showstream.php:316 actions/showstream.php:331
+#: actions/showstream.php:379
 msgid "Notices"
 msgstr "通告"
 
@@ -1331,11 +1455,12 @@ msgid "Notices tagged with %s"
 msgstr "带 %s 标签的通告"
 
 #: ../actions/password.php:39 actions/profilesettings.php:178
+#: actions/profilesettings.php:183
 msgid "Old password"
 msgstr "旧密码"
 
 #: ../lib/settingsaction.php:96 ../lib/util.php:314 lib/settingsaction.php:90
-#: lib/util.php:330
+#: lib/util.php:330 actions/deleteprofile.php:247 lib/util.php:340
 msgid "OpenID"
 msgstr "OpenID"
 
@@ -1350,11 +1475,13 @@ msgstr "OpenID 自动提交"
 #: ../actions/finishaddopenid.php:99 ../actions/finishopenidlogin.php:140
 #: ../actions/openidlogin.php:60 actions/finishaddopenid.php:99
 #: actions/finishopenidlogin.php:146 actions/openidlogin.php:68
+#: actions/finishopenidlogin.php:150 actions/openidlogin.php:76
 msgid "OpenID Login"
 msgstr "OpenID 登录"
 
 #: ../actions/openidlogin.php:65 ../actions/openidsettings.php:49
 #: actions/openidlogin.php:74 actions/openidsettings.php:50
+#: actions/openidlogin.php:82
 msgid "OpenID URL"
 msgstr "OpenID URL"
 
@@ -1387,13 +1514,14 @@ msgid "Optionally add a personal message to the invitation."
 msgstr "在邀请中加几句话(可选)。"
 
 #: ../actions/avatar.php:84 actions/profilesettings.php:321
+#: actions/profilesettings.php:350
 msgid "Partial upload."
 msgstr "部分上传。"
 
 #: ../actions/finishopenidlogin.php:90 ../actions/login.php:102
 #: ../actions/register.php:153 ../lib/settingsaction.php:93
 #: actions/finishopenidlogin.php:96 actions/login.php:102
-#: actions/register.php:167
+#: actions/register.php:167 actions/login.php:109 actions/register.php:194
 msgid "Password"
 msgstr "密码"
 
@@ -1412,11 +1540,13 @@ msgstr "请求恢复密码"
 
 #: ../actions/password.php:89 ../actions/recoverpassword.php:313
 #: actions/profilesettings.php:408 actions/recoverpassword.php:326
+#: actions/profilesettings.php:437
 msgid "Password saved."
 msgstr "密码已保存。"
 
 #: ../actions/password.php:61 ../actions/register.php:88
 #: actions/profilesettings.php:380 actions/register.php:98
+#: actions/profilesettings.php:409 actions/register.php:107
 msgid "Passwords don't match."
 msgstr "密码不匹配。"
 
@@ -1449,7 +1579,9 @@ msgid ""
 "Please check these details to make sure that you want to subscribe to this "
 "user's notices. If you didn't just ask to subscribe to someone's notices, "
 "click \"Cancel\"."
-msgstr "请检查详细信息，确认希望订阅此用户的通告。如果您刚才没有要求订阅任何人的通告，请点击\"取消\"。"
+msgstr ""
+"请检查详细信息，确认希望订阅此用户的通告。如果您刚才没有要求订阅任何人的通"
+"告，请点击\"取消\"。"
 
 #: ../actions/imsettings.php:73 actions/imsettings.php:74
 msgid "Post a notice when my Jabber/GTalk status changes."
@@ -1465,24 +1597,26 @@ msgstr "首选项"
 #: ../actions/emailsettings.php:162 ../actions/imsettings.php:144
 #: ../actions/smssettings.php:163 actions/emailsettings.php:180
 #: actions/imsettings.php:152 actions/smssettings.php:171
+#: actions/emailsettings.php:185 actions/othersettings.php:179
 msgid "Preferences saved."
 msgstr "首选项已保存。"
 
 #: ../actions/profilesettings.php:57 actions/profilesettings.php:90
+#: actions/profilesettings.php:95
 msgid "Preferred language"
 msgstr "首选语言"
 
-#: ../lib/util.php:328 lib/util.php:344
+#: ../lib/util.php:328 lib/util.php:344 lib/util.php:356
 msgid "Privacy"
 msgstr "隐私"
 
 #: ../classes/Notice.php:95 ../classes/Notice.php:106 classes/Notice.php:109
-#: classes/Notice.php:119
+#: classes/Notice.php:119 classes/Notice.php:139 classes/Notice.php:149
 msgid "Problem saving notice."
 msgstr "保存通告时出错。"
 
 #: ../lib/settingsaction.php:84 ../lib/stream.php:60 lib/personal.php:60
-#: lib/settingsaction.php:84
+#: lib/settingsaction.php:84 actions/deleteprofile.php:241
 msgid "Profile"
 msgstr "个人信息"
 
@@ -1499,11 +1633,11 @@ msgstr "个人设置"
 msgid "Profile unknown"
 msgstr "未知的帐号"
 
-#: ../actions/public.php:54 actions/public.php:54
+#: ../actions/public.php:54 actions/public.php:54 actions/public.php:77
 msgid "Public Stream Feed"
 msgstr "公开的聚合"
 
-#: ../actions/public.php:33 actions/public.php:33
+#: ../actions/public.php:33 actions/public.php:33 lib/stream.php:34
 msgid "Public timeline"
 msgstr "公开的时间表"
 
@@ -1512,6 +1646,7 @@ msgid "Publish a MicroID for my Jabber/GTalk address."
 msgstr "公开Jabber/GTalk帐号的 MicroID。"
 
 #: ../actions/emailsettings.php:94 actions/emailsettings.php:101
+#: actions/emailsettings.php:104
 msgid "Publish a MicroID for my email address."
 msgstr "公开电子邮件的 MicroID。"
 
@@ -1534,14 +1669,17 @@ msgstr "恢复码未知"
 
 #: ../actions/register.php:142 ../actions/register.php:193 ../lib/util.php:312
 #: actions/register.php:152 actions/register.php:207 lib/util.php:328
+#: actions/register.php:181 actions/register.php:234 lib/util.php:338
 msgid "Register"
 msgstr "注册"
 
 #: ../actions/register.php:28 actions/register.php:28
+#: actions/finishopenidlogin.php:173
 msgid "Registration not allowed."
 msgstr "不允许注册。"
 
 #: ../actions/register.php:200 actions/register.php:214
+#: actions/register.php:241
 msgid "Registration successful"
 msgstr "注册成功。"
 
@@ -1550,7 +1688,8 @@ msgid "Reject"
 msgstr "拒绝"
 
 #: ../actions/login.php:103 ../actions/register.php:176 actions/login.php:103
-#: actions/register.php:190
+#: actions/register.php:190 actions/login.php:110 actions/openidlogin.php:85
+#: actions/register.php:217
 msgid "Remember me"
 msgstr "记住登录状态"
 
@@ -1568,7 +1707,7 @@ msgstr "远程订阅"
 #: actions/emailsettings.php:48 actions/emailsettings.php:76
 #: actions/imsettings.php:49 actions/openidsettings.php:108
 #: actions/smssettings.php:50 actions/smssettings.php:84
-#: actions/twittersettings.php:59
+#: actions/twittersettings.php:59 actions/twittersettings.php:61
 msgid "Remove"
 msgstr "移除"
 
@@ -1601,6 +1740,7 @@ msgid "Reset password"
 msgstr "重置密码"
 
 #: ../lib/settingsaction.php:99 lib/settingsaction.php:93
+#: actions/deleteprofile.php:250 actions/subscriptions.php:73
 msgid "SMS"
 msgstr "SMS短信"
 
@@ -1612,7 +1752,7 @@ msgstr "SMS短信电话号码"
 msgid "SMS Settings"
 msgstr "SMS短信设置"
 
-#: ../lib/mail.php:219 lib/mail.php:225
+#: ../lib/mail.php:219 lib/mail.php:225 lib/mail.php:230
 msgid "SMS confirmation"
 msgstr "SMS短信确认"
 
@@ -1621,6 +1761,7 @@ msgid "Same as password above"
 msgstr "相同的密码"
 
 #: ../actions/register.php:156 actions/register.php:170
+#: actions/register.php:197
 msgid "Same as password above. Required."
 msgstr "相同的密码。此项必填。"
 
@@ -1628,39 +1769,48 @@ msgstr "相同的密码。此项必填。"
 #: ../actions/profilesettings.php:67 ../actions/smssettings.php:100
 #: actions/emailsettings.php:104 actions/imsettings.php:82
 #: actions/profilesettings.php:101 actions/smssettings.php:100
-#: actions/twittersettings.php:83
+#: actions/twittersettings.php:83 actions/emailsettings.php:107
+#: actions/othersettings.php:56 actions/profilesettings.php:106
+#: actions/subscriptions.php:74 actions/tagother.php:100
+#: actions/twittersettings.php:82
 msgid "Save"
 msgstr "保存"
 
 #: ../lib/searchaction.php:84 ../lib/util.php:300 lib/searchaction.php:84
-#: lib/util.php:316
+#: lib/util.php:316 lib/util.php:327
 msgid "Search"
 msgstr "搜索"
 
 #: ../actions/noticesearch.php:80 actions/noticesearch.php:85
+#: actions/noticesearch.php:84
 msgid "Search Stream Feed"
 msgstr "搜索聚合"
 
 #: ../actions/noticesearch.php:30 actions/noticesearch.php:30
+#: actions/noticesearch.php:29
 #, php-format
 msgid ""
 "Search for notices on %%site.name%% by their contents. Separate search terms "
 "by spaces; they must be 3 characters or more."
-msgstr "在 %%site.name%% 的通告内容中搜索。搜索条件至少包含 3 个字符，多个搜索条件用空格分隔。"
+msgstr ""
+"在 %%site.name%% 的通告内容中搜索。搜索条件至少包含 3 个字符，多个搜索条件用"
+"空格分隔。"
 
 #: ../actions/peoplesearch.php:28
 #, php-format
 msgid ""
 "Search for people on %%site.name%% by their name, location, or interests. "
 "Separate the terms by spaces; they must be 3 characters or more."
-msgstr "在 %%site.name%% 的用户信息中搜索，可以搜索姓名、未知和爱好。搜索条件至少包含 3 个字符，多个搜索条件用空格分隔。"
+msgstr ""
+"在 %%site.name%% 的用户信息中搜索，可以搜索姓名、未知和爱好。搜索条件至少包"
+"含 3 个字符，多个搜索条件用空格分隔。"
 
 #: ../actions/smssettings.php:296 actions/smssettings.php:304
 msgid "Select a carrier"
 msgstr "选择运营商"
 
 #: ../actions/invite.php:137 ../lib/util.php:1172 actions/invite.php:145
-#: lib/util.php:1306 lib/util.php:1731
+#: lib/util.php:1306 lib/util.php:1731 lib/util.php:1646 lib/util.php:2158
 msgid "Send"
 msgstr "发送"
 
@@ -1687,15 +1837,16 @@ msgstr "通过SMS短信将通告发给我；我了解这样也许会给我带来
 msgid "Send me replies through Jabber/GTalk from people I'm not subscribed to."
 msgstr "如果我尚未订阅的用户回我消息，使用Jabber/GTalk通知我。"
 
-#: ../lib/util.php:304 lib/util.php:320
+#: ../lib/util.php:304 lib/util.php:320 lib/util.php:330
 msgid "Settings"
 msgstr "设置"
 
 #: ../actions/profilesettings.php:192 actions/profilesettings.php:307
+#: actions/profilesettings.php:336
 msgid "Settings saved."
 msgstr "设置已保存。"
 
-#: ../actions/tag.php:60 actions/tag.php:60
+#: ../actions/tag.php:60 actions/tag.php:60 actions/tag.php:59
 msgid "Showing most popular tags from the last week"
 msgstr "显示上周以来最流行的标签"
 
@@ -1716,27 +1867,31 @@ msgstr "对不起，发布用的电子邮件无法使用。"
 msgid "Sorry, that is not your incoming email address."
 msgstr "对不起，这个发布用的电子邮件属于其他用户。"
 
-#: ../lib/util.php:330 lib/util.php:346
+#: ../lib/util.php:330 lib/util.php:346 lib/util.php:358
 msgid "Source"
 msgstr "来源"
 
 #: ../actions/showstream.php:296 actions/showstream.php:311
+#: actions/showstream.php:359
 msgid "Statistics"
 msgstr "统计"
 
 #: ../actions/finishopenidlogin.php:182 ../actions/finishopenidlogin.php:246
 #: actions/finishopenidlogin.php:188 actions/finishopenidlogin.php:252
+#: actions/finishopenidlogin.php:199 actions/finishopenidlogin.php:267
 msgid "Stored OpenID not found."
 msgstr "未找到已有的OpenID。"
 
 #: ../actions/remotesubscribe.php:75 ../actions/showstream.php:188
 #: ../actions/showstream.php:197 actions/remotesubscribe.php:84
 #: actions/showstream.php:197 actions/showstream.php:206
+#: actions/showstream.php:254 lib/util.php:2078
 msgid "Subscribe"
 msgstr "订阅"
 
 #: ../actions/showstream.php:313 ../actions/subscribers.php:27
 #: actions/showstream.php:328 actions/subscribers.php:27
+#: actions/showstream.php:376 lib/gallery.php:136 lib/gallery.php:137
 msgid "Subscribers"
 msgstr "订阅者"
 
@@ -1751,15 +1906,20 @@ msgstr "订阅被拒绝"
 #: ../actions/showstream.php:230 ../actions/showstream.php:307
 #: ../actions/subscriptions.php:27 actions/showstream.php:240
 #: actions/showstream.php:322 actions/subscriptions.php:27
+#: actions/showstream.php:288 actions/showstream.php:370 lib/gallery.php:131
+#: lib/gallery.php:132
 msgid "Subscriptions"
 msgstr "订阅"
 
 #: ../actions/avatar.php:87 actions/profilesettings.php:324
+#: actions/profilesettings.php:353
 msgid "System error uploading file."
 msgstr "上传文件时出错。"
 
 #: ../actions/tag.php:41 ../lib/util.php:301 actions/tag.php:41
-#: lib/util.php:317
+#: lib/util.php:317 actions/profilesettings.php:90 actions/showstream.php:382
+#: actions/tag.php:40 actions/tagother.php:96 actions/tagother.php:162
+#: lib/profilelist.php:126 lib/profilelist.php:128
 msgid "Tags"
 msgstr "标签"
 
@@ -1768,6 +1928,7 @@ msgid "Text"
 msgstr "文本"
 
 #: ../actions/noticesearch.php:34 actions/noticesearch.php:34
+#: actions/noticesearch.php:33
 msgid "Text search"
 msgstr "搜索文本"
 
@@ -1784,10 +1945,12 @@ msgid "That confirmation code is not for you!"
 msgstr "此确认码不适用！"
 
 #: ../actions/emailsettings.php:191 actions/emailsettings.php:209
+#: actions/emailsettings.php:214
 msgid "That email address already belongs to another user."
 msgstr "此电子邮件属于其他用户。"
 
 #: ../actions/avatar.php:80 actions/profilesettings.php:317
+#: actions/profilesettings.php:346
 msgid "That file is too big."
 msgstr "文件超出大小限制。"
 
@@ -1796,6 +1959,7 @@ msgid "That is already your Jabber ID."
 msgstr "您已登记此Jabber帐号。"
 
 #: ../actions/emailsettings.php:188 actions/emailsettings.php:206
+#: actions/emailsettings.php:211
 msgid "That is already your email address."
 msgstr "您已登记此电子邮件。"
 
@@ -1808,6 +1972,7 @@ msgid "That is not your Jabber ID."
 msgstr "这不是您的Jabber帐号。"
 
 #: ../actions/emailsettings.php:249 actions/emailsettings.php:267
+#: actions/emailsettings.php:270
 msgid "That is not your email address."
 msgstr "这是他人的电子邮件。"
 
@@ -1817,6 +1982,7 @@ msgstr "这是他人的电话号码。"
 
 #: ../actions/emailsettings.php:226 ../actions/imsettings.php:210
 #: actions/emailsettings.php:244 actions/imsettings.php:218
+#: actions/emailsettings.php:247
 msgid "That is the wrong IM address."
 msgstr "即时通讯帐号错误。"
 
@@ -1830,10 +1996,12 @@ msgstr "这个电话号码属于另一个用户。"
 
 #: ../actions/newnotice.php:49 ../actions/twitapistatuses.php:408
 #: actions/newnotice.php:49 actions/twitapistatuses.php:330
+#: actions/newnotice.php:61 actions/twitapistatuses.php:271
 msgid "That's too long. Max notice size is 140 chars."
 msgstr "超出长度限制。不能超过 140 个字符。"
 
 #: ../actions/twitapiaccount.php:74 actions/twitapiaccount.php:72
+#: actions/twitapiaccount.php:55
 msgid "That's too long. Max notice size is 255 chars."
 msgstr "超出长度限制。不能超过 255 个字符。"
 
@@ -1845,6 +2013,7 @@ msgstr "地址 \"%s\" 已确认。"
 #: ../actions/emailsettings.php:264 ../actions/imsettings.php:250
 #: ../actions/smssettings.php:274 actions/emailsettings.php:282
 #: actions/imsettings.php:258 actions/smssettings.php:282
+#: actions/emailsettings.php:285
 msgid "The address was removed."
 msgstr "地址被移除。"
 
@@ -1853,7 +2022,8 @@ msgid ""
 "The subscription has been authorized, but no callback URL was passed. Check "
 "with the site's instructions for details on how to authorize the "
 "subscription. Your subscription token is:"
-msgstr "订阅已确认，但是没有回传URL。请到此网站查看如何确认订阅。您的订阅标识是："
+msgstr ""
+"订阅已确认，但是没有回传URL。请到此网站查看如何确认订阅。您的订阅标识是："
 
 #: ../actions/userauthorization.php:322
 msgid ""
@@ -1882,8 +2052,7 @@ msgstr "这是您订阅的用户。"
 
 #: ../actions/invite.php:89 actions/invite.php:96
 msgid ""
-"These people are already users and you were automatically subscribed to "
-"them:"
+"These people are already users and you were automatically subscribed to them:"
 msgstr "这些好友已注册，您已自动订阅这些用户。"
 
 #: ../actions/recoverpassword.php:88
@@ -1902,48 +2071,56 @@ msgid ""
 "This is the first time you've logged into %s so we must connect your OpenID "
 "to a local account. You can either create a new account, or connect with "
 "your existing account, if you have one."
-msgstr "这是您第一次登陆 %s，我们需要将 OpenID 连接到这里的帐号。您可以创建新帐号，或者连接到已有的帐号。"
+msgstr ""
+"这是您第一次登陆 %s，我们需要将 OpenID 连接到这里的帐号。您可以创建新帐号，或"
+"者连接到已有的帐号。"
 
 #: ../actions/twitapifriendships.php:108 ../actions/twitapistatuses.php:586
 #: actions/twitapifavorites.php:127 actions/twitapifriendships.php:108
-#: actions/twitapistatuses.php:511
+#: actions/twitapistatuses.php:511 actions/twitapifavorites.php:94
+#: actions/twitapifriendships.php:82 actions/twitapistatuses.php:428
 msgid "This method requires a POST or DELETE."
 msgstr "此方法接受POST或DELETE请求。"
 
 #: ../actions/twitapiaccount.php:65 ../actions/twitapifriendships.php:44
 #: ../actions/twitapistatuses.php:381 actions/twitapiaccount.php:63
 #: actions/twitapidirect_messages.php:114 actions/twitapifriendships.php:44
-#: actions/twitapistatuses.php:303
+#: actions/twitapistatuses.php:303 actions/twitapiaccount.php:46
+#: actions/twitapidirect_messages.php:117 actions/twitapifriendships.php:30
+#: actions/twitapistatuses.php:239
 msgid "This method requires a POST."
 msgstr "此方法接受POST请求。"
 
-#: ../lib/util.php:164 lib/util.php:246
+#: ../lib/util.php:164 lib/util.php:246 lib/util.php:257
 msgid "This page is not available in a media type you accept"
 msgstr "这个页面不提供您想要的媒体类型"
 
 #: ../actions/profilesettings.php:63 actions/profilesettings.php:96
+#: actions/profilesettings.php:101
 msgid "Timezone"
 msgstr "时区"
 
 #: ../actions/profilesettings.php:107 actions/profilesettings.php:222
+#: actions/profilesettings.php:228
 msgid "Timezone not selected."
 msgstr "未选择时区。"
 
 #: ../actions/remotesubscribe.php:43
 #, php-format
 msgid ""
-"To subscribe, you can [login](%%action.login%%), or "
-"[register](%%action.register%%) a new  account. If you already have an "
-"account  on a [compatible microblogging site](%%doc.openmublog%%),  enter "
-"your profile URL below."
+"To subscribe, you can [login](%%action.login%%), or [register](%%action."
+"register%%) a new  account. If you already have an account  on a [compatible "
+"microblogging site](%%doc.openmublog%%),  enter your profile URL below."
 msgstr ""
 
 #: ../actions/twitapifriendships.php:163 actions/twitapifriendships.php:167
+#: actions/twitapifriendships.php:128
 msgid "Two user ids or screen_names must be supplied."
 msgstr "必须提供两个用户帐号或昵称。"
 
 #: ../actions/profilesettings.php:48 ../actions/register.php:169
 #: actions/profilesettings.php:81 actions/register.php:183
+#: actions/profilesettings.php:83 actions/register.php:210
 msgid "URL of your homepage, blog, or profile on another site"
 msgstr "您的主页、博客或在其他站点的URL"
 
@@ -1955,7 +2132,8 @@ msgstr "您在其他兼容的微博客服务的个人信息URL"
 #: ../actions/recoverpassword.php:39 ../actions/smssettings.php:135
 #: actions/emailsettings.php:144 actions/imsettings.php:118
 #: actions/recoverpassword.php:39 actions/smssettings.php:143
-#: actions/twittersettings.php:108
+#: actions/twittersettings.php:108 actions/emailsettings.php:147
+#: actions/othersettings.php:146 actions/twittersettings.php:199
 msgid "Unexpected form submission."
 msgstr "未预料的表单提交。"
 
@@ -1968,11 +2146,11 @@ msgid "Unknown action"
 msgstr "未知动作"
 
 #: ../actions/finishremotesubscribe.php:58
-#: actions/finishremotesubscribe.php:60
+#: actions/finishremotesubscribe.php:60 actions/finishremotesubscribe.php:59
 msgid "Unknown version of OMB protocol."
 msgstr "此OMB协议版本无效。"
 
-#: ../lib/util.php:269 lib/util.php:285
+#: ../lib/util.php:269 lib/util.php:285 lib/util.php:296
 msgid ""
 "Unless otherwise specified, contents of this site are copyright by the "
 "contributors and available under the "
@@ -1984,6 +2162,7 @@ msgid "Unrecognized address type %s"
 msgstr "不可识别的地址类型 %s"
 
 #: ../actions/showstream.php:209 actions/showstream.php:219
+#: actions/showstream.php:267 lib/util.php:2094
 msgid "Unsubscribe"
 msgstr "退订"
 
@@ -1993,28 +2172,34 @@ msgid "Unsupported OMB version"
 msgstr "不支持此OMB版本"
 
 #: ../actions/avatar.php:105 actions/profilesettings.php:342
+#: actions/profilesettings.php:371
 msgid "Unsupported image file format."
 msgstr "不支持这种图像格式。"
 
 #: ../lib/settingsaction.php:100 lib/settingsaction.php:94
+#: actions/deleteprofile.php:251
 msgid "Updates by SMS"
 msgstr "使用SMS短信更新"
 
 #: ../lib/settingsaction.php:103 lib/settingsaction.php:97
+#: actions/deleteprofile.php:254
 msgid "Updates by instant messenger (IM)"
 msgstr "使用即时通讯工具(IM)更新"
 
 #: ../actions/twitapistatuses.php:241 actions/twitapistatuses.php:158
+#: actions/twitapistatuses.php:126
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "%2$s 上 %1$s 和好友的更新！"
 
 #: ../actions/twitapistatuses.php:341 actions/twitapistatuses.php:268
+#: actions/twitapistatuses.php:198
 #, php-format
 msgid "Updates from %1$s on %2$s!"
 msgstr "%2$s 上 %1$s 的更新！"
 
 #: ../actions/avatar.php:68 actions/profilesettings.php:161
+#: actions/profilesettings.php:166
 msgid "Upload"
 msgstr "上传"
 
@@ -2024,7 +2209,9 @@ msgid ""
 "you upload it, so make sure it's more or less square. It must be under the "
 "site license, also. Use a picture that belongs to you and that you want to "
 "share."
-msgstr "在这里上传新的头像。上传后无法修改，请尽量使用正方形图片。图片必须使用与站点相同的授权。请使用您希望分享的属于您的图片。"
+msgstr ""
+"在这里上传新的头像。上传后无法修改，请尽量使用正方形图片。图片必须使用与站点"
+"相同的授权。请使用您希望分享的属于您的图片。"
 
 #: ../lib/settingsaction.php:91
 msgid "Upload a new profile image"
@@ -2032,17 +2219,17 @@ msgstr "上传个人信息头像"
 
 #: ../actions/invite.php:114 actions/invite.php:121
 msgid ""
-"Use this form to invite your friends and colleagues to use this "
-"service."
+"Use this form to invite your friends and colleagues to use this service."
 msgstr "使用这个表单来邀请好友和同事加入。"
 
 #: ../actions/register.php:159 ../actions/register.php:162
-#: actions/register.php:173 actions/register.php:176
+#: actions/register.php:173 actions/register.php:176 actions/register.php:200
+#: actions/register.php:203
 msgid "Used only for updates, announcements, and password recovery"
 msgstr "只用于更新、通告或密码恢复"
 
 #: ../actions/finishremotesubscribe.php:86
-#: actions/finishremotesubscribe.php:88
+#: actions/finishremotesubscribe.php:88 actions/finishremotesubscribe.php:92
 msgid "User being listened to doesn't exist."
 msgstr "要查看的用户不存在。"
 
@@ -2055,7 +2242,10 @@ msgstr "要查看的用户不存在。"
 #: actions/showfavorites.php:41 actions/showstream.php:44
 #: actions/twitapiaccount.php:80 actions/twitapifavorites.php:68
 #: actions/twitapistatuses.php:235 actions/twitapistatuses.php:609
-#: actions/twitapiusers.php:87 lib/mailbox.php:50
+#: actions/twitapiusers.php:87 lib/mailbox.php:50 actions/showstream.php:57
+#: actions/twitapiaccount.php:63 actions/twitapifavorites.php:40
+#: actions/twitapistatuses.php:163 actions/twitapistatuses.php:492
+#: lib/twitterapi.php:590
 msgid "User has no profile."
 msgstr "用户没有个人信息。"
 
@@ -2068,16 +2258,18 @@ msgid "User not found."
 msgstr "未找到用户。"
 
 #: ../actions/profilesettings.php:63 actions/profilesettings.php:96
+#: actions/profilesettings.php:101
 msgid "What timezone are you normally in?"
 msgstr "您一般处于哪个时区？"
 
-#: ../lib/util.php:1159 lib/util.php:1293
+#: ../lib/util.php:1159 lib/util.php:1293 lib/util.php:1630
 #, php-format
 msgid "What's up, %s?"
 msgstr "怎么样，%s？"
 
 #: ../actions/profilesettings.php:54 ../actions/register.php:175
 #: actions/profilesettings.php:87 actions/register.php:189
+#: actions/profilesettings.php:89 actions/register.php:216
 msgid "Where you are, like \"City, State (or Region), Country\""
 msgstr "你的位置，格式类似\"城市，省份，国家\""
 
@@ -2093,6 +2285,7 @@ msgstr "图像大小 '%s' 错误"
 
 #: ../actions/deletenotice.php:63 ../actions/deletenotice.php:72
 #: actions/deletenotice.php:64 actions/deletenotice.php:79
+#: actions/block.php:105
 msgid "Yes"
 msgstr "是"
 
@@ -2115,6 +2308,7 @@ msgid "You are already subscribed to these users:"
 msgstr "您已订阅这些用户："
 
 #: ../actions/twitapifriendships.php:128 actions/twitapifriendships.php:128
+#: actions/twitapifriendships.php:102
 msgid "You are not friends with the specified user."
 msgstr "您与此用户并非好友。"
 
@@ -2140,23 +2334,26 @@ msgstr "您可以点击\"移除\"按钮，移除帐号的 OpenID。"
 #: ../actions/imsettings.php:28 actions/imsettings.php:28
 #, php-format
 msgid ""
-"You can send and receive notices through Jabber/GTalk [instant "
-"messages](%%doc.im%%). Configure your address and settings below."
-msgstr "您可以通过Jabber/GTalk [即时通讯工具](%%doc.im%%)发送和接受通告。在这里配置它们。"
+"You can send and receive notices through Jabber/GTalk [instant messages](%%"
+"doc.im%%). Configure your address and settings below."
+msgstr ""
+"您可以通过Jabber/GTalk [即时通讯工具](%%doc.im%%)发送和接受通告。在这里配置它"
+"们。"
 
 #: ../actions/profilesettings.php:27
 msgid ""
-"You can update your personal profile info here so people know more about "
-"you."
+"You can update your personal profile info here so people know more about you."
 msgstr "在这里更新个人信息，让大家对您了解得更多。"
 
 #: ../actions/finishremotesubscribe.php:31 ../actions/remotesubscribe.php:31
 #: actions/finishremotesubscribe.php:31 actions/remotesubscribe.php:31
+#: actions/finishremotesubscribe.php:83 actions/finishremotesubscribe.php:99
 msgid "You can use the local subscription!"
 msgstr "您可以在这里订阅！"
 
 #: ../actions/finishopenidlogin.php:33 ../actions/register.php:61
 #: actions/finishopenidlogin.php:38 actions/register.php:68
+#: actions/register.php:77
 msgid "You can't register if you don't agree to the license."
 msgstr "您必须同意此授权方可注册。"
 
@@ -2178,9 +2375,14 @@ msgid ""
 msgstr ""
 "您的 %1$s 发布用地址已更新。\n"
 "\n"
-"发送邮件到 %2$s 来发布新消息。\n\n更多电子邮件的帮助请见 %3$s。\n\n为您效力的 %4$s"
+"发送邮件到 %2$s 来发布新消息。\n"
+"\n"
+"更多电子邮件的帮助请见 %3$s。\n"
+"\n"
+"为您效力的 %4$s"
 
 #: ../actions/twitapistatuses.php:612 actions/twitapistatuses.php:537
+#: actions/twitapistatuses.php:455
 msgid "You may not delete another user's status."
 msgstr "您不能删除其他用户的状态。"
 
@@ -2200,6 +2402,7 @@ msgid "You've been identified. Enter a  new password below. "
 msgstr "您已得到确认。请输入新密码。"
 
 #: ../actions/openidlogin.php:67 actions/openidlogin.php:76
+#: actions/openidlogin.php:84
 msgid "Your OpenID URL"
 msgstr "您的OpenID URL"
 
@@ -2212,79 +2415,87 @@ msgstr "您在此服务器的昵称，或注册邮箱。"
 msgid ""
 "[OpenID](%%doc.openid%%) lets you log into many sites  with the same user "
 "account.  Manage your associated OpenIDs from here."
-msgstr "[OpenID](%%doc.openid%%)允许您使用相同的帐号登录许多不同的站点。在这里管理已关联的 OpenID。"
+msgstr ""
+"[OpenID](%%doc.openid%%)允许您使用相同的帐号登录许多不同的站点。在这里管理已"
+"关联的 OpenID。"
 
-#: ../lib/util.php:943 lib/util.php:992
+#: ../lib/util.php:943 lib/util.php:992 lib/util.php:1287
 msgid "a few seconds ago"
 msgstr "几秒前"
 
-#: ../lib/util.php:955 lib/util.php:1004
+#: ../lib/util.php:955 lib/util.php:1004 lib/util.php:1299
 #, php-format
 msgid "about %d days ago"
 msgstr "%d 天前"
 
-#: ../lib/util.php:951 lib/util.php:1000
+#: ../lib/util.php:951 lib/util.php:1000 lib/util.php:1295
 #, php-format
 msgid "about %d hours ago"
 msgstr "%d 小时前"
 
-#: ../lib/util.php:947 lib/util.php:996
+#: ../lib/util.php:947 lib/util.php:996 lib/util.php:1291
 #, php-format
 msgid "about %d minutes ago"
 msgstr "%d 分钟前"
 
-#: ../lib/util.php:959 lib/util.php:1008
+#: ../lib/util.php:959 lib/util.php:1008 lib/util.php:1303
 #, php-format
 msgid "about %d months ago"
 msgstr "%d 个月前"
 
-#: ../lib/util.php:953 lib/util.php:1002
+#: ../lib/util.php:953 lib/util.php:1002 lib/util.php:1297
 msgid "about a day ago"
 msgstr "一天前"
 
-#: ../lib/util.php:945 lib/util.php:994
+#: ../lib/util.php:945 lib/util.php:994 lib/util.php:1289
 msgid "about a minute ago"
 msgstr "一分钟前"
 
-#: ../lib/util.php:957 lib/util.php:1006
+#: ../lib/util.php:957 lib/util.php:1006 lib/util.php:1301
 msgid "about a month ago"
 msgstr "一个月前"
 
-#: ../lib/util.php:961 lib/util.php:1010
+#: ../lib/util.php:961 lib/util.php:1010 lib/util.php:1305
 msgid "about a year ago"
 msgstr "一年前"
 
-#: ../lib/util.php:949 lib/util.php:998
+#: ../lib/util.php:949 lib/util.php:998 lib/util.php:1293
 msgid "about an hour ago"
 msgstr "一小时前"
 
 #: ../actions/showstream.php:423 ../lib/stream.php:132
-#: actions/showstream.php:441 lib/stream.php:99
+#: actions/showstream.php:441 lib/stream.php:99 lib/noticelist.php:211
 msgid "delete"
 msgstr "删除"
 
 #: ../actions/noticesearch.php:130 ../actions/showstream.php:408
 #: ../lib/stream.php:117 actions/noticesearch.php:136
-#: actions/showstream.php:426 lib/stream.php:84
+#: actions/showstream.php:426 lib/stream.php:84 actions/noticesearch.php:135
+#: lib/facebookaction.php:202 lib/noticelist.php:189
 msgid "in reply to..."
 msgstr "先前……"
 
 #: ../actions/noticesearch.php:137 ../actions/showstream.php:415
 #: ../lib/stream.php:124 actions/noticesearch.php:143
-#: actions/showstream.php:433 lib/stream.php:91
+#: actions/showstream.php:433 lib/stream.php:91 actions/noticesearch.php:142
+#: lib/noticelist.php:199
 msgid "reply"
 msgstr "回复"
 
 #: ../actions/password.php:44 actions/profilesettings.php:183
+#: actions/profilesettings.php:188
 msgid "same as password above"
 msgstr "相同的密码"
 
 #: ../actions/twitapistatuses.php:755 actions/twitapistatuses.php:678
+#: actions/twitapistatuses.php:543
 msgid "unsupported file type"
 msgstr "不支持这种类型的文件"
 
-#: ../lib/util.php:1309 lib/util.php:1443
-msgid "« After"
+#: ../lib/util.php:1309 lib/util.php:1443 lib/facebookaction.php:251
+#: lib/util.php:1783
+#, fuzzy
+msgid "Â« After"
 msgstr "« 之后"
 
 #: actions/deletenotice.php:74 actions/disfavor.php:43
@@ -2296,6 +2507,12 @@ msgstr "« 之后"
 #: actions/remotesubscribe.php:40 actions/smssettings.php:124
 #: actions/subscribe.php:44 actions/twittersettings.php:97
 #: actions/unsubscribe.php:41 actions/userauthorization.php:35
+#: actions/block.php:38 actions/deleteprofile.php:127 actions/disfavor.php:47
+#: actions/emailsettings.php:130 actions/favor.php:49 actions/login.php:45
+#: actions/newmessage.php:44 actions/newnotice.php:36 actions/nudge.php:47
+#: actions/othersettings.php:139 actions/profilesettings.php:49
+#: actions/subedit.php:38 actions/tagother.php:113
+#: actions/twittersettings.php:188 actions/unblock.php:38
 msgid "There was a problem with your session token. Try again, please."
 msgstr "会话标识有问题，请重试。"
 
@@ -2319,12 +2536,14 @@ msgstr "如果有人收藏我的通告，发邮件通知我。"
 msgid "Send me email when someone sends me a private message."
 msgstr "如果收到私人信息，发邮件通知我。"
 
-#: actions/favor.php:53 actions/twitapifavorites.php:142
+#: actions/favor.php:53 actions/twitapifavorites.php:142 actions/favor.php:54
+#: actions/twitapifavorites.php:115
 msgid "This notice is already a favorite!"
 msgstr "已收藏此通告！"
 
 #: actions/favor.php:60 actions/twitapifavorites.php:151
-#: classes/Command.php:132
+#: classes/Command.php:132 actions/favor.php:61
+#: actions/twitapifavorites.php:122
 msgid "Could not create favorite."
 msgstr "无法创建收藏。"
 
@@ -2333,11 +2552,12 @@ msgid "Disfavor"
 msgstr "取消收藏"
 
 #: actions/favoritesrss.php:60 actions/showfavorites.php:47
+#: actions/favoritesrss.php:62
 #, php-format
 msgid "%s favorite notices"
 msgstr "%s 收藏的通告"
 
-#: actions/favoritesrss.php:64
+#: actions/favoritesrss.php:64 actions/favoritesrss.php:66
 #, php-format
 msgid "Feed of favorite notices of %s"
 msgstr "%s 的收藏的聚合"
@@ -2361,49 +2581,54 @@ msgstr "这是您的收件箱，包含发给您的私人消息。"
 msgid ""
 "%1$s has invited you to join them on %2$s (%3$s).\n"
 "\n"
-msgstr "%1$s 邀请您加入 %2$s (%3$s)。\n\n"
+msgstr ""
+"%1$s 邀请您加入 %2$s (%3$s)。\n"
+"\n"
 
-#: actions/login.php:104
+#: actions/login.php:104 actions/login.php:111 actions/openidlogin.php:86
 msgid "Automatically login in the future; "
 msgstr "保持登录状态；"
 
-#: actions/login.php:122
+#: actions/login.php:122 actions/login.php:130
 msgid "For security reasons, please re-enter your "
 msgstr "由于安全原因，请重新输入"
 
-#: actions/login.php:126
+#: actions/login.php:126 actions/login.php:134
 msgid "Login with your username and password. "
 msgstr "输入用户名和密码以登录。"
 
 #: actions/newmessage.php:58 actions/twitapidirect_messages.php:130
+#: actions/newmessage.php:60 actions/twitapidirect_messages.php:136
 msgid "That's too long. Max message size is 140 chars."
 msgstr "超出长度限制。不能超过 140 个字符。"
 
-#: actions/newmessage.php:65
+#: actions/newmessage.php:65 actions/newmessage.php:68
 msgid "No recipient specified."
 msgstr "没有收件人。"
 
 #: actions/newmessage.php:68 actions/newmessage.php:113
-#: classes/Command.php:206
+#: classes/Command.php:206 actions/newmessage.php:71
+#: actions/newmessage.php:116 classes/Command.php:211
 msgid "You can't send a message to this user."
 msgstr "无法向此用户发送消息。"
 
 #: actions/newmessage.php:71 actions/twitapidirect_messages.php:146
-#: classes/Command.php:209
+#: classes/Command.php:209 actions/newmessage.php:74
+#: actions/twitapidirect_messages.php:153 classes/Command.php:214
 msgid ""
-"Don't send a message to yourself; just say it to yourself quietly "
-"instead."
+"Don't send a message to yourself; just say it to yourself quietly instead."
 msgstr "不要向自己发送消息；跟自己悄悄说就得了。"
 
-#: actions/newmessage.php:108
+#: actions/newmessage.php:108 actions/microsummary.php:32
+#: actions/newmessage.php:111
 msgid "No such user"
 msgstr "未找到用户"
 
-#: actions/newmessage.php:117
+#: actions/newmessage.php:117 actions/newmessage.php:120
 msgid "New message"
 msgstr "新消息"
 
-#: actions/noticesearch.php:95
+#: actions/noticesearch.php:95 actions/noticesearch.php:94
 msgid "Notice without matching profile"
 msgstr "找不到匹配的通告"
 
@@ -2450,6 +2675,7 @@ msgstr "您可以在这里更新个人信息。"
 
 #: actions/profilesettings.php:115 actions/remotesubscribe.php:320
 #: actions/userauthorization.php:159 actions/userrss.php:76
+#: actions/profilesettings.php:120 actions/remotesubscribe.php:333
 msgid "User without matching profile"
 msgstr "找不到匹配的用户。"
 
@@ -2477,18 +2703,18 @@ msgstr "恢复密码的步骤"
 msgid "New password successfully saved. "
 msgstr "新密码已保存。"
 
-#: actions/register.php:95
+#: actions/register.php:95 actions/register.php:104
 msgid "Password must be 6 or more characters."
 msgstr "密码必须包含 6 个或更多字符。"
 
-#: actions/register.php:216
+#: actions/register.php:216 actions/register.php:243
 #, php-format
 msgid ""
 "Congratulations, %s! And welcome to %%%%site.name%%%%. From here, you may "
 "want to..."
 msgstr "祝贺你，%s！欢迎来到 %%%%site.name%%%%。在这里，您可以……"
 
-#: actions/register.php:227
+#: actions/register.php:227 actions/register.php:254
 msgid "(You should receive a message by email momentarily, with "
 msgstr "(您将立即收到一封电子邮件，含有"
 
@@ -2503,6 +2729,7 @@ msgid "Feed for favorites of %s"
 msgstr "%s 的收藏的聚合"
 
 #: actions/showfavorites.php:84 actions/twitapifavorites.php:85
+#: actions/showfavorites.php:88 actions/twitapifavorites.php:57
 msgid "Could not retrieve favorite notices."
 msgstr "无法获取收藏的通告。"
 
@@ -2524,7 +2751,7 @@ msgstr "发送给 %1$s 的 %2$s 消息"
 msgid "Message from %1$s on %2$s"
 msgstr "来自 %1$s 的 %2$s 消息"
 
-#: actions/showstream.php:154
+#: actions/showstream.php:154 lib/util.php:2105
 msgid "Send a message"
 msgstr "发送消息"
 
@@ -2533,73 +2760,80 @@ msgstr "发送消息"
 msgid "Mobile carrier for your phone. "
 msgstr "手机的运营商。"
 
-#: actions/twitapidirect_messages.php:76
+#: actions/twitapidirect_messages.php:76 actions/twitapidirect_messages.php:64
 #, php-format
 msgid "Direct messages to %s"
 msgstr "发给 %s 的直接消息"
 
-#: actions/twitapidirect_messages.php:77
+#: actions/twitapidirect_messages.php:77 actions/twitapidirect_messages.php:65
 #, php-format
 msgid "All the direct messages sent to %s"
 msgstr "发给 %s 的直接消息"
 
-#: actions/twitapidirect_messages.php:81
+#: actions/twitapidirect_messages.php:81 actions/twitapidirect_messages.php:69
 msgid "Direct Messages You've Sent"
 msgstr "您已发送的直接消息"
 
-#: actions/twitapidirect_messages.php:82
+#: actions/twitapidirect_messages.php:82 actions/twitapidirect_messages.php:70
 #, php-format
 msgid "All the direct messages sent from %s"
 msgstr "%s 发送的直接消息"
 
 #: actions/twitapidirect_messages.php:128
+#: actions/twitapidirect_messages.php:132
 msgid "No message text!"
 msgstr "消息没有正文！"
 
 #: actions/twitapidirect_messages.php:138
+#: actions/twitapidirect_messages.php:145
 msgid "Recipient user not found."
 msgstr "未找到收件人。"
 
 #: actions/twitapidirect_messages.php:141
+#: actions/twitapidirect_messages.php:148
 msgid "Can't send direct messages to users who aren't your friend."
 msgstr "无法向并非好友的用户发送直接消息。"
 
-#: actions/twitapifavorites.php:92
+#: actions/twitapifavorites.php:92 actions/twitapifavorites.php:64
 #, php-format
 msgid "%s / Favorites from %s"
 msgstr "%s 的收藏 / %s"
 
-#: actions/twitapifavorites.php:95
+#: actions/twitapifavorites.php:95 actions/twitapifavorites.php:67
 #, php-format
 msgid "%s updates favorited by %s / %s."
 msgstr "%s 收藏了 %s 的 %s 通告。"
 
 #: actions/twitapifavorites.php:187 lib/mail.php:275
+#: actions/twitapifavorites.php:158 lib/mail.php:303
 #, php-format
 msgid "%s added your notice as a favorite"
 msgstr "%s 收藏了您的通告"
 
 #: actions/twitapifavorites.php:188 lib/mail.php:276
+#: actions/twitapifavorites.php:159 lib/mail.php:304
 #, php-format
 msgid ""
 "%1$s just added your notice from %2$s as one of their favorites.\n"
 "\n"
-msgstr "%1$s 收藏了您的 %2$s 通告。\n\n"
+msgstr ""
+"%1$s 收藏了您的 %2$s 通告。\n"
+"\n"
 
-#: actions/twittersettings.php:27
+#: actions/twittersettings.php:27 actions/twittersettings.php:29
 msgid ""
 "Add your Twitter account to automatically send your notices to Twitter, "
 msgstr "添加 Twitter 帐号，自动向 Twitter 发送更新。"
 
-#: actions/twittersettings.php:41
+#: actions/twittersettings.php:41 actions/twittersettings.php:43
 msgid "Twitter settings"
 msgstr "Twitter 设置"
 
-#: actions/twittersettings.php:48
+#: actions/twittersettings.php:48 actions/twittersettings.php:50
 msgid "Twitter Account"
 msgstr "Twitter 帐号"
 
-#: actions/twittersettings.php:56
+#: actions/twittersettings.php:56 actions/twittersettings.php:58
 msgid "Current verified Twitter account."
 msgstr "已验证的 Twitter 帐号。"
 
@@ -2627,46 +2861,50 @@ msgstr "将这里的 \"@\" 回复发送到 Twitter。"
 msgid "Subscribe to my Twitter friends here."
 msgstr "在这里订阅 Twitter 好友。"
 
-#: actions/twittersettings.php:122
+#: actions/twittersettings.php:122 actions/twittersettings.php:216
 msgid ""
 "Username must have only numbers, upper- and lowercase letters, and "
 "underscore (_). 15 chars max."
 msgstr "用户名只能包含数字，大写和小写字母和下划线。不能超过 15 个字符。"
 
-#: actions/twittersettings.php:128
+#: actions/twittersettings.php:128 actions/twittersettings.php:221
 msgid "Could not verify your Twitter credentials!"
 msgstr "不能验证 Twitter 帐号！"
 
-#: actions/twittersettings.php:137
+#: actions/twittersettings.php:137 actions/twittersettings.php:228
 #, php-format
 msgid "Unable to retrieve account information for \"%s\" from Twitter."
 msgstr "无法从 Twitter 获取\"%s\"的帐号信息。"
 
 #: actions/twittersettings.php:151 actions/twittersettings.php:170
+#: actions/twittersettings.php:234 actions/twittersettings.php:253
 msgid "Unable to save your Twitter settings!"
 msgstr "无法保存 Twitter 设置！"
 
-#: actions/twittersettings.php:174
+#: actions/twittersettings.php:174 actions/twittersettings.php:261
 msgid "Twitter settings saved."
 msgstr "Twitter 设置已保存。"
 
-#: actions/twittersettings.php:192
+#: actions/twittersettings.php:192 actions/twittersettings.php:272
 msgid "That is not your Twitter account."
 msgstr "此 Twitter 帐号属于他人。"
 
 #: actions/twittersettings.php:200 actions/twittersettings.php:208
+#: actions/twittersettings.php:280
 msgid "Couldn't remove Twitter user."
 msgstr "无法移除 Twitter 用户。"
 
-#: actions/twittersettings.php:212
+#: actions/twittersettings.php:212 actions/twittersettings.php:284
 msgid "Twitter account removed."
 msgstr "Twitter 帐号已移除。"
 
 #: actions/twittersettings.php:225 actions/twittersettings.php:239
+#: actions/twittersettings.php:299 actions/twittersettings.php:310
+#: actions/twittersettings.php:322
 msgid "Couldn't save Twitter preferences."
 msgstr "无法保存 Twitter 首选项。"
 
-#: actions/twittersettings.php:245
+#: actions/twittersettings.php:245 actions/twittersettings.php:330
 msgid "Twitter preferences saved."
 msgstr "Twitter 首选项已保存。"
 
@@ -2682,15 +2920,15 @@ msgstr "订阅已确认，但是"
 msgid "The subscription has been rejected, but no "
 msgstr "订阅已拒绝，但是"
 
-#: classes/Channel.php:113
+#: classes/Channel.php:113 classes/Channel.php:129
 msgid "Command results"
 msgstr "执行结果"
 
-#: classes/Channel.php:148
+#: classes/Channel.php:148 classes/Channel.php:175
 msgid "Command complete"
 msgstr "执行完毕"
 
-#: classes/Channel.php:158
+#: classes/Channel.php:158 classes/Channel.php:185
 msgid "Command failed"
 msgstr "执行失败"
 
@@ -2703,7 +2941,7 @@ msgstr "对不起，这个命令还没有实现。"
 msgid "Subscriptions: %1$s\n"
 msgstr "订阅：%1$s\n"
 
-#: classes/Command.php:125 classes/Command.php:242
+#: classes/Command.php:125 classes/Command.php:242 classes/Command.php:247
 msgid "User has no last notice"
 msgstr "用户没有通告。"
 
@@ -2736,59 +2974,60 @@ msgstr "主页：%s"
 msgid "About: %s"
 msgstr "关于：%s"
 
-#: classes/Command.php:200
+#: classes/Command.php:200 classes/Command.php:202
 #, php-format
 msgid "Message too long - maximum is 140 characters, you sent %d"
 msgstr "您的消息包含 %d 个字符，超出长度限制 - 不能超过 140 个字符。"
 
-#: classes/Command.php:214
+#: classes/Command.php:214 classes/Command.php:219
 #, php-format
 msgid "Direct message to %s sent"
 msgstr "已向 %s 发送消息"
 
-#: classes/Command.php:216
+#: classes/Command.php:216 classes/Command.php:221
 msgid "Error sending direct message."
 msgstr "发送消息出错。"
 
-#: classes/Command.php:263
+#: classes/Command.php:263 classes/Command.php:268
 msgid "Specify the name of the user to subscribe to"
 msgstr "指定要订阅的用户名"
 
-#: classes/Command.php:270
+#: classes/Command.php:270 classes/Command.php:275
 #, php-format
 msgid "Subscribed to %s"
 msgstr "订阅 %s"
 
-#: classes/Command.php:288
+#: classes/Command.php:288 classes/Command.php:293
 msgid "Specify the name of the user to unsubscribe from"
 msgstr "指定要取消订阅的用户名"
 
-#: classes/Command.php:295
+#: classes/Command.php:295 classes/Command.php:300
 #, php-format
 msgid "Unsubscribed from %s"
 msgstr "取消订阅 %s"
 
-#: classes/Command.php:310 classes/Command.php:330
+#: classes/Command.php:310 classes/Command.php:330 classes/Command.php:315
+#: classes/Command.php:335
 msgid "Command not yet implemented."
 msgstr "命令尚未实现。"
 
-#: classes/Command.php:313
+#: classes/Command.php:313 classes/Command.php:318
 msgid "Notification off."
 msgstr "通告关闭。"
 
-#: classes/Command.php:315
+#: classes/Command.php:315 classes/Command.php:320
 msgid "Can't turn off notification."
 msgstr "无法关闭通告。"
 
-#: classes/Command.php:333
+#: classes/Command.php:333 classes/Command.php:338
 msgid "Notification on."
 msgstr "通告开启。"
 
-#: classes/Command.php:335
+#: classes/Command.php:335 classes/Command.php:340
 msgid "Can't turn on notification."
 msgstr "无法开启通告。"
 
-#: classes/Command.php:344
+#: classes/Command.php:344 classes/Command.php:349
 msgid "Commands:\n"
 msgstr "命令：\n"
 
@@ -2800,28 +3039,32 @@ msgstr "无法添加信息。"
 msgid "Could not update message with new URI."
 msgstr "无法添加新URI的信息。"
 
-#: lib/gallery.php:46
+#: lib/gallery.php:46 lib/gallery.php:55
 msgid "User without matching profile in system."
 msgstr "系统中没有相应用户的信息。"
 
-#: lib/mail.php:147
+#: lib/mail.php:147 lib/mail.php:141
 #, php-format
 msgid ""
 "You have a new posting address on %1$s.\n"
 "\n"
-msgstr "您的新的发布用的地址是 %1$s。\n\n"
+msgstr ""
+"您的新的发布用的地址是 %1$s。\n"
+"\n"
 
-#: lib/mail.php:249
+#: lib/mail.php:249 lib/mail.php:275
 #, php-format
 msgid "New private message from %s"
 msgstr "%s 发送了新的私人信息"
 
-#: lib/mail.php:253
+#: lib/mail.php:253 lib/mail.php:279
 #, php-format
 msgid ""
 "%1$s (%2$s) sent you a private message:\n"
 "\n"
-msgstr "%1$s (%2$s) 发送了新的私人信息：\n\n"
+msgstr ""
+"%1$s (%2$s) 发送了新的私人信息：\n"
+"\n"
 
 #: lib/mailbox.php:43
 msgid "Only the user can read their own mailboxes."
@@ -2860,18 +3103,460 @@ msgstr "发件箱"
 msgid "Your sent messages"
 msgstr "您发送的消息"
 
-#: lib/settingsaction.php:99
+#: lib/settingsaction.php:99 actions/deleteprofile.php:256
 msgid "Twitter"
 msgstr "Twitter"
 
-#: lib/settingsaction.php:100
+#: lib/settingsaction.php:100 actions/deleteprofile.php:257
 msgid "Twitter integration options"
 msgstr "Twitter 整合选项"
 
-#: lib/util.php:1718
+#: lib/util.php:1718 lib/util.php:2145
 msgid "To"
 msgstr "到"
 
 #: scripts/maildaemon.php:45
 msgid "Could not parse message."
 msgstr "无法解析消息。"
+
+#: actions/block.php:45 actions/subedit.php:45 actions/unblock.php:45
+#, fuzzy
+msgid "No profile specified."
+msgstr "没有收件人。"
+
+#: actions/block.php:52 actions/subedit.php:52 actions/tagother.php:45
+#: actions/unblock.php:52
+#, fuzzy
+msgid "No profile with that ID."
+msgstr "没有找到此ID的信息。"
+
+#: actions/block.php:78
+#, fuzzy
+msgid "Block user"
+msgstr "未找到用户"
+
+#: actions/block.php:81
+#, fuzzy
+msgid "Are you sure you want to block this user? "
+msgstr "确定要删除这条通告吗？"
+
+#: actions/block.php:117
+#, fuzzy
+msgid "You have already blocked this user."
+msgstr "您已订阅这些用户："
+
+#: actions/block.php:124
+msgid "Failed to save block information."
+msgstr ""
+
+#: actions/deleteprofile.php:25
+#, fuzzy
+msgid "Code not yet ready."
+msgstr "命令尚未实现。"
+
+#: actions/deleteprofile.php:36
+msgid "Export and delete your user information."
+msgstr ""
+
+#: actions/deleteprofile.php:88 actions/deleteprofile.php:119
+#, fuzzy
+msgid "Delete my account"
+msgstr "创建新帐号"
+
+#: actions/deleteprofile.php:89
+#, fuzzy
+msgid "Delete my account confirmation"
+msgstr "无法删除电子邮件确认。"
+
+#: actions/deleteprofile.php:117
+#, fuzzy
+msgid "Check if you are sure you want to delete your account."
+msgstr "确定要删除这条通告吗？"
+
+#: actions/deleteprofile.php:259 lib/settingsaction.php:102
+msgid "Other"
+msgstr ""
+
+#: actions/deleteprofile.php:260 lib/settingsaction.php:103
+msgid "Other options"
+msgstr ""
+
+#: actions/disfavor.php:72
+#, fuzzy
+msgid "Add to favorites"
+msgstr "%s 的收藏的聚合"
+
+#: actions/emailsettings.php:98
+msgid "Allow friends to nudge me and send me an email."
+msgstr ""
+
+#: actions/facebookremove.php:54
+#, fuzzy
+msgid "Couldn't remove Facebook user."
+msgstr "无法移除 Twitter 用户。"
+
+#: actions/favor.php:71
+#, fuzzy
+msgid "Disfavor favorite"
+msgstr "取消收藏"
+
+#: actions/favorited.php:31 lib/stream.php:45
+#, fuzzy
+msgid "Popular notices"
+msgstr "没有这份通告。"
+
+#: actions/favorited.php:54
+#, fuzzy
+msgid "Showing recently popular notices"
+msgstr "搜索通告内容"
+
+#: actions/featured.php:32 actions/featured.php:54 lib/stream.php:41
+msgid "Featured users"
+msgstr ""
+
+#: actions/finishremotesubscribe.php:186
+msgid "That user has blocked you from subscribing."
+msgstr ""
+
+#: actions/microsummary.php:39
+msgid "No current status"
+msgstr ""
+
+#: actions/newnotice.php:93
+#, fuzzy
+msgid "Notice posted"
+msgstr "通告"
+
+#: actions/newnotice.php:116 classes/Channel.php:140
+msgid "Ajax Error"
+msgstr ""
+
+#: actions/nudge.php:52
+msgid ""
+"This user doesn't allow nudges or hasn't confirmed or set his email yet."
+msgstr ""
+
+#: actions/nudge.php:61
+msgid "Nudge sent"
+msgstr ""
+
+#: actions/othersettings.php:27
+msgid "Manage various other options."
+msgstr ""
+
+#: actions/othersettings.php:33
+#, fuzzy
+msgid "Other Settings"
+msgstr "Twitter 设置"
+
+#: actions/othersettings.php:35
+msgid "URL Auto-shortening"
+msgstr ""
+
+#: actions/othersettings.php:54
+#, fuzzy
+msgid "Service"
+msgstr "搜索"
+
+#: actions/othersettings.php:54
+msgid "Automatic shortening service to use."
+msgstr ""
+
+#: actions/othersettings.php:155
+#, fuzzy
+msgid "URL shortening service is too long (max 50 chars)."
+msgstr "语言过长(不能超过50个字符)。"
+
+#: actions/peopletag.php:33
+#, fuzzy, php-format
+msgid "Not a valid people tag: %s"
+msgstr "不是有效的电子邮件"
+
+#: actions/peopletag.php:45
+#, php-format
+msgid "Users self-tagged with %s - page %d"
+msgstr ""
+
+#: actions/peopletag.php:87
+#, php-format
+msgid "These are users who have tagged themselves \"%s\" "
+msgstr ""
+
+#: actions/profilesettings.php:92
+msgid ""
+"Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated"
+msgstr ""
+
+#: actions/profilesettings.php:246 actions/tagother.php:131
+#, fuzzy, php-format
+msgid "Invalid tag: \"%s\""
+msgstr "主页'%s'不正确"
+
+#: actions/profilesettings.php:328
+#, fuzzy
+msgid "Couldn't save tags."
+msgstr "无法保存个人信息。"
+
+#: actions/public.php:68
+#, php-format
+msgid ""
+"This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
+"blogging) service "
+msgstr ""
+
+#: actions/public.php:90
+#, fuzzy
+msgid "Could not retrieve public stream."
+msgstr "无法获取收藏的通告。"
+
+#: actions/register.php:67 actions/register.php:177
+msgid "Sorry, only invited people can register."
+msgstr ""
+
+#: actions/register.php:156
+msgid "With this form you can create a new account. "
+msgstr ""
+
+#: actions/remotesubscribe.php:136 actions/remotesubscribe.php:141
+msgid "That's a local profile! Login to subscribe."
+msgstr ""
+
+#: actions/subedit.php:68
+#, fuzzy
+msgid "You are not subscribed to that profile."
+msgstr "您未告知此个人信息"
+
+#: actions/subedit.php:81
+#, fuzzy
+msgid "Could not save subscription."
+msgstr "无法删除订阅。"
+
+#: actions/subscribe.php:53
+#, fuzzy
+msgid "Not a local user."
+msgstr "没有这个用户。"
+
+#: actions/subscribe.php:67
+#, fuzzy
+msgid "Subscribed"
+msgstr "订阅"
+
+#: actions/subscriptions.php:72
+#, fuzzy
+msgid "Jabber"
+msgstr "没有 Jabber ID。"
+
+#: actions/tagother.php:31
+#, fuzzy
+msgid "Not logged in"
+msgstr "未登录。"
+
+#: actions/tagother.php:40
+#, fuzzy
+msgid "No id argument."
+msgstr "没有这份文档。"
+
+#: actions/tagother.php:56
+msgid "Tag a person"
+msgstr ""
+
+#: actions/tagother.php:98
+msgid ""
+"Tags for this user (letters, numbers, -, ., and _), comma- or space- "
+"separated"
+msgstr ""
+
+#: actions/tagother.php:120
+#, fuzzy
+msgid "No such profile."
+msgstr "没有这份通告。"
+
+#: actions/tagother.php:146
+msgid ""
+"You can only tag people you are subscribed to or who are subscribed to you."
+msgstr ""
+
+#: actions/tagother.php:153
+#, fuzzy
+msgid "Could not save tags."
+msgstr "无法保存头像"
+
+#: actions/tagother.php:188
+msgid "Use this form to add tags to your subscribers or subscriptions."
+msgstr ""
+
+#: actions/tagrss.php:33
+#, fuzzy
+msgid "No such tag."
+msgstr "未找到此消息。"
+
+#: actions/tagrss.php:62
+#, fuzzy, php-format
+msgid "Microblog tagged with %s"
+msgstr "带 %s 标签的通告"
+
+#: actions/twitapiblocks.php:45
+msgid "Block user failed."
+msgstr ""
+
+#: actions/twitapiblocks.php:66
+msgid "Unblock user failed."
+msgstr ""
+
+#: actions/twitapiusers.php:45
+#, fuzzy
+msgid "Not found."
+msgstr "未找到"
+
+#: actions/twittersettings.php:63
+#, fuzzy
+msgid "Twitter user name"
+msgstr "Twitter 用户名"
+
+#: actions/twittersettings.php:67
+#, fuzzy
+msgid "Twitter password"
+msgstr "Twitter 密码"
+
+#: actions/twittersettings.php:129
+#, fuzzy
+msgid "Twitter Friends"
+msgstr "Twitter 设置"
+
+#: actions/unblock.php:73
+#, fuzzy
+msgid "Error removing the block."
+msgstr "保存用户时出错。"
+
+#: actions/unsubscribe.php:48
+#, fuzzy
+msgid "No profile id in request."
+msgstr "服务器没有返回个人信息URL。"
+
+#: actions/unsubscribe.php:55
+#, fuzzy
+msgid "No profile with that id."
+msgstr "没有找到此ID的信息。"
+
+#: actions/unsubscribe.php:69
+#, fuzzy
+msgid "Unsubscribed"
+msgstr "退订"
+
+#: classes/Notice.php:100
+#, fuzzy
+msgid "Problem saving notice. Unknown user."
+msgstr "保存通告时出错。"
+
+#: classes/Notice.php:105
+msgid ""
+"Too many notices too fast; take a breather and post again in a few minutes."
+msgstr ""
+
+#: classes/Notice.php:112
+#, fuzzy
+msgid "You are banned from posting notices on this site."
+msgstr ""
+"您的新的发布用的地址是 %1$s。\n"
+"\n"
+
+#: lib/gallery.php:98
+#, fuzzy
+msgid "Filter tags"
+msgstr "%s 标签的聚合"
+
+#: lib/gallery.php:104
+msgid "All"
+msgstr ""
+
+#: lib/gallery.php:108
+#, fuzzy
+msgid "Tag"
+msgstr "标签"
+
+#: lib/gallery.php:109
+msgid "Choose a tag to narrow list"
+msgstr ""
+
+#: lib/gallery.php:110
+msgid "Go"
+msgstr ""
+
+#: lib/gallery.php:264
+#, fuzzy
+msgid "Subscriptions navigation"
+msgstr "订阅"
+
+#: lib/gallery.php:270 lib/gallery.php:292
+msgid "List"
+msgstr ""
+
+#: lib/gallery.php:280 lib/gallery.php:294
+msgid "Icons"
+msgstr ""
+
+#: lib/mail.php:92
+#, php-format
+msgid ""
+"Hey, %s.\n"
+"\n"
+"Someone just entered this email address on %s.\n"
+"\n"
+msgstr ""
+
+#: lib/mail.php:242
+#, fuzzy, php-format
+msgid "You've been nudged by %s"
+msgstr "您已得到确认。输入"
+
+#: lib/mail.php:246
+#, php-format
+msgid ""
+"%1$s (%2$s) is wondering what you are up to these days and is inviting you "
+"to post some news.\n"
+"\n"
+msgstr ""
+
+#: lib/profilelist.php:146
+msgid "(none)"
+msgstr ""
+
+#: lib/stream.php:33
+msgid "Public"
+msgstr ""
+
+#: lib/stream.php:36 lib/stream.php:37
+#, fuzzy
+msgid "Recent tags"
+msgstr "最近的标签"
+
+#: lib/stream.php:40
+msgid "Featured"
+msgstr ""
+
+#: lib/stream.php:44
+#, fuzzy
+msgid "Popular"
+msgstr "用户"
+
+#: lib/subs.php:51
+#, fuzzy
+msgid "User has blocked you."
+msgstr "用户没有个人信息。"
+
+#: lib/util.php:2059
+#, fuzzy
+msgid "Send a nudge"
+msgstr "发送消息"
+
+#: lib/util.php:2063
+msgid "Nudge sent!"
+msgstr ""
+
+#: lib/util.php:2194
+msgid "Block"
+msgstr ""
+
+#: lib/util.php:2198
+msgid "Unblock"
+msgstr ""

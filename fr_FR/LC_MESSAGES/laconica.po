@@ -17,1460 +17,42 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Project-Id-Version: 0.43\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-17 11:01-0400\n"
-"PO-Revision-Date: 2008-07-13 22:49+0200\n"
-"Last-Translator: Florian Birée <florian@biree.name>\n"
-"Language-Team: French\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-13 21:07+0100\n"
+"POT-Creation-Date: 2009-01-12 12:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 
-#: ../actions/noticesearchrss.php:64
+#: ../actions/noticesearchrss.php:64 actions/noticesearchrss.php:68
+#: actions/noticesearchrss.php:61
 #, php-format
 msgid " Search Stream for \"%s\""
 msgstr " Flux de recherche pour « %s »"
 
-#: ../actions/shownotice.php:45
-#, php-format
-msgid "%1$s's status on %2$s"
-msgstr "Statut de %1$s sur %2$s"
-
-#: ../actions/publicrss.php:60
-#, php-format
-msgid "%s Public Stream"
-msgstr "Flux public de %s"
-
-#: ../actions/openidsettings.php:43
-msgid "Add OpenID"
-msgstr "Ajouter un OpenID"
-
-#: ../actions/publicrss.php:62
-#, php-format
-msgid "All updates for %s"
-msgstr "Toutes les mises à jour pour %s"
-
-#: ../actions/noticesearchrss.php:66
-#, php-format
-msgid "All updates matching search term \"%s\""
-msgstr "Toutes les mises à jour correspondantes aux termes cherchés « %s »"
-
-#: ../actions/avatar.php:113
-msgid "Avatar updated."
-msgstr "Avatar mis à jour."
-
-#: ../actions/imsettings.php:55
-#, php-format
+#: ../actions/finishopenidlogin.php:82 ../actions/register.php:191
+#: actions/finishopenidlogin.php:88 actions/register.php:205
+#: actions/register.php:232
 msgid ""
-"Awaiting confirmation on this address. Check your Jabber/GTalk account for a "
-"message with further instructions. (Did you add %s to your buddy list?)"
+" except this private data: password, email address, IM address, phone number."
 msgstr ""
-"En attente d'une confirmation pour cette adresse. Vérifiez votre "
-"compteJabber/GTalk pour recevoir un message avec les instructions "
-"suivantes.(Avez-vous ajouté %s à votre liste de contacts ?)"
 
-#: ../lib/openid.php:121
-msgid "Cannot instantiate OpenID consumer object."
-msgstr "Impossible d'instancier l'objet client pour OpenID"
-
-#: ../actions/password.php:45
-msgid "Change"
-msgstr "Changer"
-
-#: ../actions/password.php:32
-msgid "Change password"
-msgstr "Changer de mot de passe"
-
-#: ../actions/confirmaddress.php:38
-msgid "Confirmation code not found."
-msgstr "Code de confirmation non trouvé."
-
-#: ../actions/finishopenidlogin.php:91
-msgid "Connect"
-msgstr "Connecter"
-
-#: ../actions/finishopenidlogin.php:86
-msgid "Connect existing account"
-msgstr "Connecté à un compte existant"
-
-#: ../lib/openid.php:178
-#, php-format
-msgid "Could not create OpenID form: %s"
-msgstr "Impossible de créer le formulaire OpenID : %s"
-
-#: ../lib/openid.php:160
-#, php-format
-msgid "Could not redirect to server: %s"
-msgstr "Impossible de rediriger vers le serveur : %s"
-
-#: ../actions/profilesettings.php:146
-msgid "Couldn't confirm email."
-msgstr "Impossible de confirmer l'email"
-
-#: ../actions/finishremotesubscribe.php:99
-msgid "Couldn't convert request tokens to access tokens."
-msgstr "Impossible de convertir les jetons de requête en jetons d'accès"
-
-#: ../actions/subscribe.php:59
-msgid "Couldn't create subscription."
-msgstr "Impossible de créer l'inscription."
-
-#: ../actions/remotesubscribe.php:125
-msgid "Couldn't get a request token."
-msgstr "Impossible d'obtenir le jeton de requête."
-
-#: ../actions/finishremotesubscribe.php:180
-msgid "Couldn't insert new subscription."
-msgstr "Impossible d'insérer une nouvelle inscription."
-
-#: ../actions/finishopenidlogin.php:84
-msgid "Create"
-msgstr "Créer"
-
-#: ../actions/finishopenidlogin.php:70
-msgid "Create a new user with this nickname."
-msgstr "Créer un nouvel utilisateur avec ce surnom."
-
-#: ../actions/finishopenidlogin.php:68
-msgid "Create new account"
-msgstr "Créer un nouveau compte"
-
-#: ../actions/finishopenidlogin.php:191
-msgid "Creating new account for OpenID that already has a user."
-msgstr "Création d'un nouveau compte pour un OpenID qui a déjà un utilisateur."
-
-#: ../actions/imsettings.php:45
-msgid "Current confirmed Jabber/GTalk address."
-msgstr "Adresse Jabber/GTalk actuellement confirmée."
-
-#: ../actions/profilesettings.php:46
-msgid "Email address"
-msgstr "Adresse email"
-
-#: ../actions/finishaddopenid.php:78
-msgid "Error connecting user."
-msgstr "Erreur de connexion d'utilisateur."
-
-#: ../actions/finishremotesubscribe.php:151
-msgid "Error inserting avatar"
-msgstr "Erreur lors de l'insertion d'un avatar"
-
-#: ../actions/finishremotesubscribe.php:143
-msgid "Error inserting new profile"
-msgstr "Erreur lors de l'insertion d'un nouveau profil"
-
-#: ../actions/postnotice.php:88
-msgid "Error inserting notice"
-msgstr "Erreur lors de l'insertion d'un message"
-
-#: ../actions/finishremotesubscribe.php:167
-msgid "Error inserting remote profile"
-msgstr "Erreur lors de l'insertion d'un profil distant"
-
-#: ../lib/openid.php:237
-msgid "Error saving the user."
-msgstr "Erreur lors de l'enregistrement de l'utilisateur."
-
-#: ../actions/password.php:80
-msgid "Error saving user; invalid."
-msgstr "Erreur lors de l'enregistrement de l'utilisateur ; invalide."
-
-#: ../actions/finishaddopenid.php:83
-msgid "Error updating profile"
-msgstr "Erreur lors de la mise à jour du profil"
-
-#: ../actions/finishremotesubscribe.php:161
-msgid "Error updating remote profile"
-msgstr "Erreur lors de la mise à jour du profil distant"
-
-#: ../actions/finishopenidlogin.php:89
-msgid "Existing nickname"
-msgstr "Surnom existant"
-
-#: ../actions/avatar.php:115
-msgid "Failed updating avatar."
-msgstr "La mise à jour de l'avatar a échoué."
-
-#: ../actions/imsettings.php:33
-msgid "IM Settings"
-msgstr "Paramètres de messagerie instantanée"
-
-#: ../actions/finishopenidlogin.php:88
-msgid ""
-"If you already have an account, login with your username and password to "
-"connect it to your OpenID."
-msgstr ""
-"Si vous avez déjà un compte, connectez-vous avec votre nom d'utilisateur "
-"et votre mot de passe pour les relier à votre OpenID."
-
-#: ../actions/openidsettings.php:45
-msgid ""
-"If you want to add an OpenID to your account, enter it in the box below and "
-"click \"Add\"."
-msgstr ""
-"Si vous voulez ajouter un OpenID à votre compte, entrez-le dans le champ "
-"ci-dessous et cliquez sur « Ajouter »."
-
-#: ../actions/password.php:69
-msgid "Incorrect old password"
-msgstr "Ancien mot de passe incorrect"
-
-#: ../actions/postnotice.php:61
-msgid "Invalid notice content"
-msgstr "Contenu du message invalide"
-
-#: ../actions/postnotice.php:67
-msgid "Invalid notice uri"
-msgstr "URI du message invalide"
-
-#: ../actions/postnotice.php:72
-msgid "Invalid notice url"
-msgstr "URL du message invalide"
-
-#: ../actions/remotesubscribe.php:96
-msgid "Invalid profile URL (bad format)"
-msgstr "URL du profil invalide (mauvais format)"
-
-#: ../actions/finishremotesubscribe.php:77
-msgid "Invalid profile URL returned by server."
-msgstr "URL du profil retourné par le serveur invalide."
-
-#: ../actions/avatarbynickname.php:37
-msgid "Invalid size."
-msgstr "Taille invalide."
-
-#: ../lib/util.php:237
-#, php-format
-msgid ""
-"It runs the [Laconica](http://laconi.ca/) microblogging software, version "
-"%s, available under the [GNU Affero General Public License] "
-"(http://www.fsf.org/licensing/licenses/agpl-3.0.html)."
-msgstr ""
-"Il utilise le logiciel de microblog [Laconica](http://laconi.ca/), version "
-"%s, disponible sous la licence [GNU Affero General Public License] "
-"(http://www.fsf.org/licensing/licenses/agpl-3.0.html)."
-
-#: ../actions/openidlogin.php:44
-#, php-format
-msgid "Login with an [OpenID](%%doc.openid%%) account."
-msgstr "Se connecter avec un compte [OpenID](%%doc.openid%%)."
-
-#: ../actions/userrss.php:70
-#, php-format
-msgid "Microblog by %s"
-msgstr "Microblog par %s"
-
-#: ../actions/finishopenidlogin.php:71
-msgid "New nickname"
-msgstr "Nouveau surnom"
-
-#: ../actions/finishopenidlogin.php:170
-msgid "Nickname not allowed."
-msgstr "Surnom non-autorisé."
-
-#: ../actions/remotesubscribe.php:72
-msgid "Nickname of the user you want to follow"
-msgstr "Surnom de l'utilisateur à surveiller"
-
-#: ../actions/confirmaddress.php:33
-msgid "No confirmation code."
-msgstr "Pas de code de confirmation."
-
-#: ../actions/finishremotesubscribe.php:65
-msgid "No nickname provided by remote server."
-msgstr "Pas de surnom proposé par le serveur distant."
-
-#: ../actions/avatarbynickname.php:27
-msgid "No nickname."
-msgstr "Pas de surnom."
-
-#: ../actions/finishremotesubscribe.php:72
-msgid "No profile URL returned by server."
-msgstr "Pas d'URL de profil retourné par le serveur."
-
-#: ../actions/noticesearch.php:64 ../actions/peoplesearch.php:64
-msgid "No results"
-msgstr "Pas de résultats"
-
-#: ../actions/avatarbynickname.php:32
-msgid "No size."
-msgstr "Pas de taille."
-
-#: ../actions/openidsettings.php:135
-msgid "No such OpenID."
-msgstr "Il n'y a pas cet OpenID."
-
-#: ../actions/doc.php:29
-msgid "No such document."
-msgstr "Il n'y a pas ce document.'"
-
-#: ../actions/recoverpassword.php:56
-msgid "No such recovery code."
-msgstr "Il n'y a pas ce code de récupération."
-
-#: ../actions/postnotice.php:56
-msgid "No such subscription"
-msgstr "Il n'y a pas cette inscription'"
-
-#: ../actions/recoverpassword.php:60
-msgid "Not a recovery code."
-msgstr "Pas de code de récupération."
-
-#: ../lib/openid.php:131
-msgid "Not a valid OpenID."
-msgstr "Ce n'est pas un OpenID valide."
-
-#: ../actions/remotesubscribe.php:118
-msgid "Not a valid profile URL (incorrect services)."
-msgstr "Ce n'est pas un URL de profil valide (services incorrects)."
-
-#: ../actions/remotesubscribe.php:111
-msgid "Not a valid profile URL (no XRDS defined)."
-msgstr "Ce n'est pas un URL de profil valide (pas de XRDS défini)."
-
-#: ../actions/remotesubscribe.php:104
-msgid "Not a valid profile URL (no YADIS document)."
-msgstr "Ce n'est pas un URL de profil valide (pas de document YADIS)."
-
-#: ../actions/avatar.php:95
-msgid "Not an image or corrupt file."
-msgstr "Ce n'est pas une image, ou c'est un fichier corrompu."
-
-#: ../actions/finishremotesubscribe.php:51
-msgid "Not authorized."
-msgstr "Non autorisé."
-
-#: ../actions/finishremotesubscribe.php:38
-msgid "Not expecting this response!"
-msgstr "Cette réponse n'était pas attendue !"
-
-#: ../actions/showstream.php:82
-#, php-format
-msgid "Notice feed for %s"
-msgstr "Fil des messages de %s"
-
-#: ../actions/shownotice.php:39
-msgid "Notice has no profile"
-msgstr "Le message n'a pas de profil"
-
-#: ../actions/password.php:39
-msgid "Old password"
-msgstr "Ancien mot de passe"
-
-#: ../actions/finishopenidlogin.php:61
-msgid "OpenID Account Setup"
-msgstr "Mise en place du compte OpenID"
-
-#: ../lib/openid.php:180
-msgid "OpenID Auto-Submit"
-msgstr "Soumission automatique OpenID"
-
-#: ../actions/finishaddopenid.php:99 ../actions/finishopenidlogin.php:140
-#: ../actions/openidlogin.php:60
-msgid "OpenID Login"
-msgstr "Connexion OpenID"
-
-#: ../actions/openidlogin.php:65 ../actions/openidsettings.php:49
-msgid "OpenID URL"
-msgstr "URL OpenID"
-
-#: ../actions/finishaddopenid.php:42 ../actions/finishopenidlogin.php:103
-msgid "OpenID authentication cancelled."
-msgstr "Authentification OpenID annulée."
-
-#: ../actions/finishaddopenid.php:46 ../actions/finishopenidlogin.php:107
-#, php-format
-msgid "OpenID authentication failed: %s"
-msgstr "L'authentification OpenID a échouée : %s'"
-
-#: ../lib/openid.php:133
-#, php-format
-msgid "OpenID failure: %s"
-msgstr "Erreur OpenID : %s"
-
-#: ../actions/openidsettings.php:144
-msgid "OpenID removed."
-msgstr "OpenID enlevé."
-
-#: ../actions/openidsettings.php:37
-msgid "OpenID settings"
-msgstr "Paramètres OpenID"
-
-#: ../actions/avatar.php:84
-msgid "Partial upload."
-msgstr "Transfert partiel."
-
-#: ../actions/peoplesearch.php:33
-msgid "People search"
-msgstr "Rechercher des personnes"
-
-#: ../actions/remotesubscribe.php:73
-msgid "Profile URL"
-msgstr "URL du profil"
-
-#: ../actions/profilesettings.php:34
-msgid "Profile settings"
-msgstr "Paramètres du profil"
-
-#: ../lib/util.php:276
-msgid "Public"
-msgstr "Public"
-
-#: ../actions/public.php:54
-msgid "Public Stream Feed"
-msgstr "Fil du flux public"
-
-#: ../actions/public.php:33
-msgid "Public timeline"
-msgstr "Évolution publique"
-
-#: ../actions/recoverpassword.php:67
-msgid "Recovery code for unknown user."
-msgstr "Code de récupération d'un utilisateur inconnu."
-
-#: ../actions/remotesubscribe.php:65
-msgid "Remote subscribe"
-msgstr "Inscription distante"
-
-#: ../actions/openidsettings.php:68
-msgid "Remove OpenID"
-msgstr "Enlever l'OpenID"
-
-#: ../actions/openidsettings.php:73
-msgid ""
-"Removing your only OpenID would make it impossible to log in! If you need to "
-"remove it, add another OpenID first."
-msgstr ""
-"Enlever votre seul OpenID vous empêcherai de vous connecter ! Si vous avez "
-"besoin de l'enlever, ajoutez un autre OpenID d'abord."
-
-#: ../actions/noticesearch.php:80
-msgid "Search Stream Feed"
-msgstr "Fil du flux de recherche"
-
-#: ../actions/noticesearch.php:30
-#, php-format
-msgid ""
-"Search for notices on %%site.name%% by their contents. Separate search terms "
-"by spaces; they must be 3 characters or more."
-msgstr ""
-"Recherche des messages sur %%site.name%% par leur contenu. Séparez les "
-"termes de la recherches par des espaces ; ils doivent être de 3 caractères "
-"ou plus."
-
-#: ../actions/peoplesearch.php:28
-#, php-format
-msgid ""
-"Search for people on %%site.name%% by their name, location, or interests. "
-"Separate the terms by spaces; they must be 3 characters or more."
-msgstr ""
-"Recherche de personne sur %%site.name%% par leur nom, localisation ou "
-"intérêt. Séparez les termes de la recherches par des espaces ; ils "
-"doivent être de 3 caractères ou plus."
-
-#: ../actions/finishaddopenid.php:66
-msgid "Someone else already has this OpenID."
-msgstr "Quelqu'un d'autre a déjà cet OpenID."
-
-#: ../actions/finishopenidlogin.php:42 ../actions/openidsettings.php:126
-msgid "Something weird happened."
-msgstr "Quelque chose de bizarre est arrivé."
-
-#: ../actions/avatar.php:87
-msgid "System error uploading file."
-msgstr "Erreur système en transférant le fichier."
-
-#: ../actions/noticesearch.php:34
-msgid "Text search"
-msgstr "Texte cherché"
-
-#: ../actions/openidsettings.php:140
-msgid "That OpenID does not belong to you."
-msgstr "Cet OpenID ne vous appartient pas."
-
-#: ../actions/confirmaddress.php:52
-msgid "That address has already been confirmed."
-msgstr "Cette adresse a déjà été confirmée."
-
-#: ../actions/confirmaddress.php:43
-msgid "That confirmation code is not for you!"
-msgstr "Ce code de confirmation n'est pas pour vous !"
-
-#: ../actions/avatar.php:80
-msgid "That file is too big."
-msgstr "Ce fichier est trop gros."
-
-#: ../actions/subscribers.php:35
-#, php-format
-msgid "These are the people who listen to %s's notices."
-msgstr "Ce sont les personnes qui suivent les messages de %s."
-
-#: ../actions/subscribers.php:33
-msgid "These are the people who listen to your notices."
-msgstr "Ce sont les personnes qui suivent vos messages."
-
-#: ../actions/subscriptions.php:35
-#, php-format
-msgid "These are the people whose notices %s listens to."
-msgstr "Ce sont les personnes dont les messages sont suivis par %s."
-
-#: ../actions/subscriptions.php:33
-msgid "These are the people whose notices you listen to."
-msgstr "Ce sont les personnes dont vous suivez les messages."
-
-#: ../lib/openid.php:195
-msgid ""
-"This form should automatically submit itself. If not, click the submit "
-"button to go to your OpenID provider."
-msgstr ""
-"Ce formulaire devrait se transmettre automatiquement. Si ce n'est pas le "
-"cas, cliquez sur le bouton de soumission pour aller chez votre fournisseur "
-"OpenID."
-
-#: ../actions/finishopenidlogin.php:56
-#, php-format
-msgid ""
-"This is the first time you've logged into %s so we must connect your OpenID "
-"to a local account. You can either create a new account, or connect with "
-"your existing account, if you have one."
-msgstr ""
-"Ce la première fois que vous vous êtes connectés à %s, donc nous devons "
-"connecter votre OpenID à un compte local. Vous pouvez soit créer un "
-"nouveau compte, soit vous connectez avec un compte existant, si vous en avez "
-
-#: ../actions/remotesubscribe.php:43
-#, php-format
-msgid ""
-"To subscribe, you can [login](%%action.login%%), or "
-"[register](%%action.register%%) a new  account. If you already have an "
-"account  on a [compatible microblogging site](%%doc.openmublog%%),  enter "
-"your profile URL below."
-msgstr ""
-"Pour s'inscrire, vous pouvez [vous connecter](%%action.login%%), ou [créer "
-"unnouveau compte](%%action.register%%). Si vous avez déjà un compte sur un "
-"[site de microblog compatible](%%doc.openmublog%%), entrez l'URL de votre "
-"profil ci-dessous."
-
-#: ../actions/remotesubscribe.php:74
-msgid "URL of your profile on another compatible microblogging service"
-msgstr "URL de votre profil sur un autre service de microblog compatible"
-
-#: ../actions/finishremotesubscribe.php:58
-msgid "Unknown version of OMB protocol."
-msgstr "Version inconnue du protocole OMB"
-
-#: ../actions/confirmaddress.php:48
-#, php-format
-msgid "Unrecognized address type %s"
-msgstr "Type d'adresse non reconnu : %s"
-
-#: ../actions/avatar.php:105
-msgid "Unsupported image file format."
-msgstr "Format de fichier d'image non-supporté."
-
-#: ../actions/avatar.php:68
-msgid "Upload"
-msgstr "Transfert."
-
-#: ../actions/avatar.php:27
-msgid ""
-"Upload a new \"avatar\" (user image) here. You can't edit the picture after "
-"you upload it, so make sure it's more or less square. It must be under the "
-"site license, also. Use a picture that belongs to you and that you want to "
-"share."
-msgstr ""
-"Transférez ici un nouvel « avatar » (image utilisateur). Vous ne pouvez "
-"modifier l'image après l'envoi, alors faites en sorte qu'elle soit plus ou "
-"moins carrée. Elle doit aussi être soumise à la licence du site. Utilisez "
-"une image qui vous appartient et que vous voulez partager."
-
-#: ../actions/finishremotesubscribe.php:86
-msgid "User being listened to doesn't exist."
-msgstr "L'utilisateur à suivre n'existe pas."
-
-#: ../actions/remotesubscribe.php:71
-msgid "User nickname"
-msgstr "Surnom de l'utilisateur"
-
-#: ../actions/finishaddopenid.php:64
-msgid "You already have this OpenID!"
-msgstr "Vous avez déjà cet OpenID !"
-
-#: ../actions/recoverpassword.php:31
-msgid "You are already logged in!"
-msgstr "Vous êtes déjà connecté !"
-
-#: ../actions/password.php:27
-msgid "You can change your password here. Choose a good one!"
-msgstr "Vous pouvez changer ici votre mot de passe. Choisissez-en un bon !"
-
-#: ../actions/openidsettings.php:86
-msgid ""
-"You can remove an OpenID from your account by clicking the button marked "
-"\"Remove\"."
-msgstr ""
-"Vous pouvez enlever un OpenID de votre compte en cliquant sur le bouton « "
-"Enlever »."
-
-#: ../actions/imsettings.php:28
-#, php-format
-msgid ""
-"You can send and receive notices through Jabber/GTalk [instant "
-"messages](%%doc.im%%). Configure your address and settings below."
-msgstr ""
-"Vous pouvez envoyer et recevoir des messages via [la messagerie "
-"instantanée](%%doc.im%%)Jabber/GTalk. Configurez votre adresse et vos "
-"paramètres ci-dessous."
-
-#: ../actions/profilesettings.php:27
-msgid ""
-"You can update your personal profile info here so people know more about "
-"you."
-msgstr ""
-"Vous pouvez mettre à jour les informations de votre profil personnel pour "
-"que l'on en sache plus sur vous."
-
-#: ../actions/finishremotesubscribe.php:31 ../actions/remotesubscribe.php:31
-msgid "You can use the local subscription!"
-msgstr "Vous pouvez utiliser l'inscription locale !"
-
-#: ../actions/openidlogin.php:67
-msgid "Your OpenID URL"
-msgstr "Votre URL OpenID"
-
-#: ../actions/openidsettings.php:28
-#, php-format
-msgid ""
-"[OpenID](%%doc.openid%%) lets you log into many sites  with the same user "
-"account.  Manage your associated OpenIDs from here."
-msgstr ""
-"[OpenID](%%doc.openid%%) vous permet de vous connecter à différents sites "
-"avec le même compte utilisateur. Gérez vos OpenID associés d'ici."
-
-#: ../actions/password.php:44
-msgid "same as password above"
-msgstr "identique au mot de passe ci-dessus"
-
-#: ../actions/showstream.php:400 ../lib/stream.php:105 ../lib/stream.php:109
+#: ../actions/showstream.php:400 ../lib/stream.php:109
 #: actions/showstream.php:418 lib/mailbox.php:164 lib/stream.php:76
+#: lib/facebookaction.php:195 lib/noticelist.php:160
 msgid " from "
 msgstr ""
 
-#: ../actions/twitapistatuses.php:470 ../actions/twitapistatuses.php:478
-#: actions/twitapistatuses.php:412
+#: ../actions/twitapistatuses.php:478 actions/twitapistatuses.php:412
+#: actions/twitapistatuses.php:341
 #, php-format
 msgid "%1$s / Updates replying to %2$s"
-msgstr ""
-
-#: ../actions/twitapistatuses.php:474 ../actions/twitapistatuses.php:482
-#: actions/twitapistatuses.php:415
-#, php-format
-msgid "%1$s updates that reply to updates from %2$s / %3$s."
-msgstr ""
-
-#: ../actions/twitapistatuses.php:49 actions/twitapistatuses.php:49
-#, php-format
-#, fuzzy
-msgid "%s public timeline"
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Évolution publique\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../lib/mail.php:202 ../lib/mail.php:206 lib/mail.php:212
-#, php-format
-#, fuzzy
-msgid "%s status"
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Statut de %1$s sur %2$s\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/twitapistatuses.php:335 ../actions/twitapistatuses.php:338
-#: actions/twitapistatuses.php:265
-#, php-format
-#, fuzzy
-msgid "%s timeline"
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Évolution publique\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/twitapistatuses.php:52 actions/twitapistatuses.php:52
-#, php-format
-msgid "%s updates from everyone!"
-msgstr ""
-
-#: ../actions/register.php:199 ../actions/register.php:213
-msgid ""
-"(You should receive a message by email momentarily, with instructions on how "
-"to confirm your email address.)"
-msgstr ""
-
-#: ../actions/register.php:143 ../actions/register.php:152
-#: actions/register.php:166
-#, fuzzy
-msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"1 à 64 lettres minuscules ou chiffres, sans ponctuation ni espaces\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/register.php:145 ../actions/register.php:154
-#: actions/register.php:168
-#, fuzzy
-msgid "6 or more characters. Required."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"6 caractères ou plus\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/emailsettings.php:213 actions/emailsettings.php:231
-#, fuzzy
-msgid ""
-"A confirmation code was sent to the email address you added. Check your "
-"inbox (and spam box!) for the code and instructions on how to use it."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Un code de confirmation a été envoyé à l'adresse que vous avez ajouté. "
-"Vousdevez approuver %s pour qu'il vous envoie des messages.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/smssettings.php:216 actions/smssettings.php:224
-#, fuzzy
-msgid ""
-"A confirmation code was sent to the phone number you added. Check your inbox "
-"(and spam box!) for the code and instructions on how to use it."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Un code de confirmation a été envoyé à l'adresse que vous avez ajouté. "
-"Vousdevez approuver %s pour qu'il vous envoie des messages.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../lib/settingsaction.php:97 lib/settingsaction.php:91
-#, fuzzy
-msgid "Add or remove OpenIDs"
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Enlever l'OpenID\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/deletenotice.php:54 actions/deletenotice.php:55
-msgid "Are you sure you want to delete this notice?"
-msgstr ""
-
-#: ../actions/profilesettings.php:65 actions/profilesettings.php:98
-msgid ""
-"Automatically subscribe to whoever subscribes to me (best for "
-"non-humans)"
-msgstr ""
-
-#: ../actions/emailsettings.php:54 actions/emailsettings.php:55
-#, fuzzy
-msgid ""
-"Awaiting confirmation on this address. Check your inbox (and spam box!) for "
-"a message with further instructions."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"En attente d'une confirmation pour cette adresse. Vérifiez votre "
-"compteJabber/GTalk pour recevoir un message avec les instructions "
-"suivantes.(Avez-vous ajouté %s à votre liste de contacts ?)\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/smssettings.php:58 actions/smssettings.php:58
-msgid "Awaiting confirmation on this phone number."
-msgstr ""
-
-#: ../lib/deleteaction.php:41 lib/deleteaction.php:41
-#, fuzzy
-msgid "Can't delete this notice."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Impossible de supprimer la confirmation d'email.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/emailsettings.php:181 actions/emailsettings.php:199
-#, fuzzy
-msgid "Cannot normalize that email address"
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Impossible de normaliser cet identifiant Jabber\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../lib/settingsaction.php:88 lib/settingsaction.php:88
-msgid "Change email handling"
-msgstr ""
-
-#: ../lib/settingsaction.php:94
-#, fuzzy
-msgid "Change your password"
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Changer de mot de passe\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../lib/settingsaction.php:85 lib/settingsaction.php:85
-#, fuzzy
-msgid "Change your profile settings"
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Paramètres du profil\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/smssettings.php:63 actions/smssettings.php:63
-#, fuzzy
-msgid "Confirmation code"
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Pas de code de confirmation.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/register.php:188 ../actions/register.php:202
-#, php-format
-msgid ""
-"Congratulations, %s! And welcome to %%%%site.name%%%%. From here, you may "
-"want to...\n"
-"\n"
-"* Go to [your profile](%s) and post your first message.\n"
-"* Add a [Jabber/GTalk address](%%%%action.imsettings%%%%) so you can send "
-"notices through instant messages.\n"
-"* [Search for people](%%%%action.peoplesearch%%%%) that you may know or that "
-"share your interests. \n"
-"* Update your [profile settings](%%%%action.profilesettings%%%%) to tell "
-"others more about you. \n"
-"* Read over the [online docs](%%%%doc.help%%%%) for features you may have "
-"missed. \n"
-"\n"
-"Thanks for signing up and we hope you enjoy using this service."
-msgstr ""
-
-#: ../actions/twitapifriendships.php:48 ../actions/twitapifriendships.php:53
-#: actions/twitapifriendships.php:53
-msgid "Could not follow user: User not found."
-msgstr ""
-
-#: ../actions/subscribe.php:62 ../lib/subs.php:54 lib/subs.php:61
-msgid "Could not subscribe other to you."
-msgstr ""
-
-#: ../actions/subscribe.php:54 ../lib/subs.php:46 lib/subs.php:46
-#, fuzzy
-msgid "Could not subscribe."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Non inscrit !\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/recoverpassword.php:102 actions/recoverpassword.php:105
-#, fuzzy
-msgid "Could not update user with confirmed email address."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Adresse Jabber/GTalk actuellement confirmée.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/profilesettings.php:161 actions/profilesettings.php:276
-#, fuzzy
-msgid "Couldn't update user for autosubscribe."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Impossible de mettre à jour l'utilisateur.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/emailsettings.php:280 ../actions/emailsettings.php:294
-#: actions/emailsettings.php:298 actions/emailsettings.php:312
-#, fuzzy
-msgid "Couldn't update user record."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Impossible de mettre à jour l'utilisateur.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/smssettings.php:46 actions/smssettings.php:46
-msgid "Current confirmed SMS-enabled phone number."
-msgstr ""
-
-#: ../actions/emailsettings.php:44 actions/emailsettings.php:45
-#, fuzzy
-msgid "Current confirmed email address."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Adresse Jabber/GTalk actuellement confirmée.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../classes/Notice.php:72 classes/Notice.php:86
-#, php-format
-#, fuzzy
-msgid "DB error inserting hashtag: %s"
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Erreur de base de donnée en insérant la réponse : %s\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/deletenotice.php:41 actions/deletenotice.php:41
-#, fuzzy
-msgid "Delete notice"
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Nouveau message\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/emailsettings.php:59 actions/emailsettings.php:60
-#, fuzzy
-msgid "Email Address"
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Adresse email\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/emailsettings.php:32 actions/emailsettings.php:32
-#, fuzzy
-msgid "Email Settings"
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Paramètres\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/emailsettings.php:61 actions/emailsettings.php:62
-msgid "Email address, like \"UserName@example.org\""
-msgstr ""
-
-#: ../actions/smssettings.php:64 actions/smssettings.php:64
-msgid "Enter the code you received on your phone."
-msgstr ""
-
-#: ../actions/tag.php:55 actions/tag.php:55
-#, php-format
-#, fuzzy
-msgid "Feed for tag %s"
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Fil des réponses à %s\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../lib/searchaction.php:105 lib/searchaction.php:105
-msgid "Find content of notices"
-msgstr ""
-
-#: ../lib/searchaction.php:101 lib/searchaction.php:101
-msgid "Find people on this site"
-msgstr ""
-
-#: ../actions/login.php:122
-msgid ""
-"For security reasons, please re-enter your user name and password before "
-"changing your settings."
-msgstr ""
-
-#: ../actions/emailsettings.php:91 actions/emailsettings.php:98
-msgid "I want to post notices by email."
-msgstr ""
-
-#: ../lib/settingsaction.php:102 lib/settingsaction.php:96
-msgid "IM"
-msgstr ""
-
-#: ../actions/emailsettings.php:67 ../actions/smssettings.php:76
-#: actions/emailsettings.php:68 actions/smssettings.php:76
-msgid "Incoming email"
-msgstr ""
-
-#: ../actions/emailsettings.php:283 actions/emailsettings.php:301
-#, fuzzy
-msgid "Incoming email address removed."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"L'adresse a été enlevée.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../lib/util.php:260 ../lib/util.php:261 lib/util.php:277
-#, php-format
-#, fuzzy
-msgid ""
-"It runs the [Laconica](http://laconi.ca/) microblogging software, version "
-"%s, available under the [GNU Affero General Public "
-"License](http://www.fsf.org/licensing/licenses/agpl-3.0.html)."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Il utilise le logiciel de microblog [Laconica](http://laconi.ca/), version "
-"%s, disponible sous la licence [GNU Affero General Public License] "
-"(http://www.fsf.org/licensing/licenses/agpl-3.0.html).\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/profilesettings.php:57 actions/profilesettings.php:90
-msgid "Language"
-msgstr ""
-
-#: ../actions/profilesettings.php:113 actions/profilesettings.php:228
-#, fuzzy
-msgid "Language is too long (max 50 chars)."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"La localisation est trop longue (255 caractères maximum).\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/register.php:152 ../actions/register.php:166
-#: actions/register.php:180
-msgid "Longer name, preferably your \"real\" name"
-msgstr ""
-
-#: ../actions/emailsettings.php:80 ../actions/smssettings.php:89
-#: actions/emailsettings.php:81 actions/smssettings.php:89
-msgid "Make a new email address for posting to; cancels the old one."
-msgstr ""
-
-#: ../actions/emailsettings.php:27 actions/emailsettings.php:27
-#, php-format
-msgid "Manage how you get email from %%site.name%%."
-msgstr ""
-
-#: ../actions/smssettings.php:304
-#, php-format
-msgid ""
-"Mobile carrier for your phone. If you know a carrier that accepts SMS over "
-"email but isn't listed here, send email to let us know at %s."
-msgstr ""
-
-#: ../actions/emailsettings.php:82 ../actions/smssettings.php:91
-#: actions/emailsettings.php:83 actions/smssettings.php:91
-msgid "New"
-msgstr ""
-
-#: ../lib/mail.php:140 ../lib/mail.php:144 lib/mail.php:144
-#, php-format
-#, fuzzy
-msgid "New email address for posting to %s"
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Pas d'adresse email définie pour cet utilisateur.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/emailsettings.php:297 actions/emailsettings.php:315
-#, fuzzy
-msgid "New incoming email address added."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Ce n'est pas une adresse email valide.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/deletenotice.php:59 actions/deletenotice.php:60
-msgid "No"
-msgstr ""
-
-#: ../actions/smssettings.php:181 actions/smssettings.php:189
-msgid "No carrier selected."
-msgstr ""
-
-#: ../actions/smssettings.php:316 actions/smssettings.php:324
-#, fuzzy
-msgid "No code entered"
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Pas de contenu !\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/emailsettings.php:174 actions/emailsettings.php:192
-#, fuzzy
-msgid "No email address."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Adresse email\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/emailsettings.php:271 actions/emailsettings.php:289
-#, fuzzy
-msgid "No incoming email address."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Ce n'est pas une adresse email valide.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/smssettings.php:176 actions/smssettings.php:184
-#, fuzzy
-msgid "No phone number."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Il n'y a pas cet utilisateur.'\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/recoverpassword.php:211 actions/recoverpassword.php:217
-#, fuzzy
-msgid "No user with that email address or username."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Pas d'adresse email définie pour cet utilisateur.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../scripts/maildaemon.php:50 scripts/maildaemon.php:50
-#, fuzzy
-msgid "Not a registered user."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Pas de code de récupération.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/emailsettings.php:185 actions/emailsettings.php:203
-#, fuzzy
-msgid "Not a valid email address"
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Ce n'est pas une adresse email valide.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/opensearch.php:35 actions/opensearch.php:35
-#, fuzzy
-msgid "Notice Search"
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Recherche\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/tag.php:35 ../actions/tag.php:81 actions/tag.php:35
-#: actions/tag.php:81
-#, php-format
-#, fuzzy
-msgid "Notices tagged with %s"
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Fil des messages de %s\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../lib/searchaction.php:100 lib/searchaction.php:100
-#, fuzzy
-msgid "People"
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Rechercher des personnes\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/opensearch.php:33 actions/opensearch.php:33
-#, fuzzy
-msgid "People Search"
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Rechercher des personnes\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/smssettings.php:69 actions/smssettings.php:69
-#, fuzzy
-msgid "Phone number, no punctuation or spaces, with area code"
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"1 à 64 lettres minuscules ou chiffres, sans ponctuation ni espaces\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/profilesettings.php:57 actions/profilesettings.php:90
-#, fuzzy
-msgid "Preferred language"
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Préférences\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/imsettings.php:79 actions/imsettings.php:80
-#, fuzzy
-msgid "Publish a MicroID for my Jabber/GTalk address."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Adresse Jabber/GTalk actuellement confirmée.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/emailsettings.php:94 actions/emailsettings.php:101
-#, fuzzy
-msgid "Publish a MicroID for my email address."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Entrez un surnom ou une adresse email.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/tag.php:75 ../actions/tag.php:76 actions/tag.php:75
-#: actions/tag.php:76
-msgid "Recent Tags"
-msgstr ""
-
-#: ../actions/register.php:28 actions/register.php:28
-#, fuzzy
-msgid "Registration not allowed."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Surnom non-autorisé.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/register.php:186 ../actions/register.php:200
-#: actions/register.php:214
-msgid "Registration successful"
-msgstr ""
-
-#: ../lib/settingsaction.php:99 lib/settingsaction.php:93
-msgid "SMS"
-msgstr ""
-
-#: ../actions/smssettings.php:67 actions/smssettings.php:67
-msgid "SMS Phone number"
-msgstr ""
-
-#: ../actions/smssettings.php:33 actions/smssettings.php:33
-#, fuzzy
-msgid "SMS Settings"
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Paramètres de messagerie instantanée\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../lib/mail.php:215 ../lib/mail.php:219 lib/mail.php:225
-#, fuzzy
-msgid "SMS confirmation"
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Pas de code de confirmation.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/register.php:147 ../actions/register.php:156
-#: actions/register.php:170
-#, fuzzy
-msgid "Same as password above. Required."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Identique au mot de passe ci-dessus\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/smssettings.php:296 actions/smssettings.php:304
-msgid "Select a carrier"
-msgstr ""
-
-#: ../actions/emailsettings.php:73 ../actions/smssettings.php:82
-#: actions/emailsettings.php:74 actions/smssettings.php:82
-msgid "Send email to this address to post new notices."
-msgstr ""
-
-#: ../actions/emailsettings.php:88 actions/emailsettings.php:89
-#, fuzzy
-msgid "Send me notices of new subscriptions through email."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"M'envoyer des messages par Jabber/GTalk.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/smssettings.php:97 actions/smssettings.php:97
-msgid ""
-"Send me notices through SMS; I understand I may incur exorbitant charges "
-"from my carrier."
-msgstr ""
-
-#: ../actions/imsettings.php:76 actions/imsettings.php:77
-#, fuzzy
-msgid "Send me replies through Jabber/GTalk from people I'm not subscribed to."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"M'envoyer des messages par Jabber/GTalk.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/tag.php:60 actions/tag.php:60
-msgid "Showing most popular tags from the last week"
-msgstr ""
-
-#: ../scripts/maildaemon.php:58 scripts/maildaemon.php:58
-msgid "Sorry, no incoming email allowed."
-msgstr ""
-
-#: ../scripts/maildaemon.php:54 scripts/maildaemon.php:54
-#, fuzzy
-msgid "Sorry, that is not your incoming email address."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"C'est la mauvaise adresse de messagerie instantanée.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/tag.php:41 ../lib/util.php:300 ../lib/util.php:301
-#: actions/tag.php:41 lib/util.php:317
-msgid "Tags"
-msgstr ""
-
-#: ../lib/searchaction.php:104 lib/searchaction.php:104
-msgid "Text"
-msgstr ""
-
-#: ../actions/emailsettings.php:191 actions/emailsettings.php:209
-#, fuzzy
-msgid "That email address already belongs to another user."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Cet identifiant Jabber appartient déjà à un autre utilisateur.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/emailsettings.php:188 actions/emailsettings.php:206
-#, fuzzy
-msgid "That is already your email address."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"C'est déjà votre identifiant Jabber.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/smssettings.php:188 actions/smssettings.php:196
-#, fuzzy
-msgid "That is already your phone number."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"C'est déjà votre identifiant Jabber.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/emailsettings.php:249 actions/emailsettings.php:267
-#, fuzzy
-msgid "That is not your email address."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"C'est la mauvaise adresse de messagerie instantanée.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/smssettings.php:257 actions/smssettings.php:265
-#, fuzzy
-msgid "That is not your phone number."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Ce n'est pas votre identifiant Jabber.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/smssettings.php:233 actions/smssettings.php:241
-#, fuzzy
-msgid "That is the wrong confirmation number."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"C'est la mauvaise adresse de messagerie instantanée.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/smssettings.php:191 actions/smssettings.php:199
-#, fuzzy
-msgid "That phone number already belongs to another user."
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Cet identifiant Jabber appartient déjà à un autre utilisateur.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/profilesettings.php:63 actions/profilesettings.php:96
-msgid "Timezone"
-msgstr ""
-
-#: ../actions/profilesettings.php:107 actions/profilesettings.php:222
-msgid "Timezone not selected."
-msgstr ""
-
-#: ../actions/twitapifriendships.php:150 ../actions/twitapifriendships.php:163
-#: actions/twitapifriendships.php:167
-msgid "Two user ids or screen_names must be supplied."
-msgstr ""
-
-#: ../index.php:57 index.php:57
-msgid "Unknown action"
-msgstr ""
-
-#: ../lib/twitterapi.php:248 ../lib/twitterapi.php:269
-#, fuzzy
-msgid "Unsupported type"
-msgstr "Version OMB non-supportée"
-
-#: ../lib/settingsaction.php:100 lib/settingsaction.php:94
-msgid "Updates by SMS"
-msgstr ""
-
-#: ../lib/settingsaction.php:103 lib/settingsaction.php:97
-msgid "Updates by instant messenger (IM)"
-msgstr ""
-
-#: ../actions/twitapistatuses.php:238 ../actions/twitapistatuses.php:241
-#: actions/twitapistatuses.php:158
-#, php-format
-msgid "Updates from %1$s and friends on %2$s!"
-msgstr ""
-
-#: ../actions/twitapistatuses.php:338 ../actions/twitapistatuses.php:341
-#: actions/twitapistatuses.php:268
-#, php-format
-msgid "Updates from %1$s on %2$s!"
-msgstr ""
-
-#: ../lib/settingsaction.php:91
-#, fuzzy
-msgid "Upload a new profile image"
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Impossible d'enregistrer les informations du nouveau profil\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/profilesettings.php:63 actions/profilesettings.php:96
-msgid "What timezone are you normally in?"
-msgstr ""
-
-#: ../actions/deletenotice.php:63 ../actions/deletenotice.php:72
-#: actions/deletenotice.php:64 actions/deletenotice.php:79
-msgid "Yes"
-msgstr ""
-
-#: ../actions/deletenotice.php:37 actions/deletenotice.php:37
-msgid ""
-"You are about to permanently delete a notice.  Once this is done, it cannot "
-"be undone."
-msgstr ""
-
-#: ../actions/twitapifriendships.php:115 ../actions/twitapifriendships.php:128
-#: actions/twitapifriendships.php:128
-msgid "You are not friends with the specified user."
-msgstr ""
-
-#: ../actions/smssettings.php:28 actions/smssettings.php:28
-#, php-format
-msgid "You can receive SMS messages through email from %%site.name%%."
-msgstr ""
-
-#: ../lib/mail.php:143 ../lib/mail.php:147
-#, php-format
-msgid ""
-"You have a new posting address on %1$s.\n"
-"\n"
-"Send email to %2$s to post new messages.\n"
-"\n"
-"More email instructions at %3$s.\n"
-"\n"
-"Faithfully yours,\n"
-"%4$s"
-msgstr ""
-
-#: ../actions/showstream.php:423 ../lib/stream.php:128 ../lib/stream.php:132
-#: actions/showstream.php:441 lib/stream.php:99
-msgid "delete"
-msgstr ""
-
-#: ../lib/twitterapi.php:354
-#, fuzzy
-msgid "not a supported data format"
-msgstr "Format de fichier d'image non-supporté."
-
-#: ../actions/twitapistatuses.php:692 ../actions/twitapistatuses.php:755
-#: actions/twitapistatuses.php:678
-#, fuzzy
-msgid "unsupported file type"
-msgstr ""
-"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
-"Format de fichier d'image non-supporté.\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/finishopenidlogin.php:82 ../actions/register.php:191
-#: actions/finishopenidlogin.php:88 actions/register.php:205
-msgid ""
-" except this private data: password, email address, IM address, phone "
-"number."
 msgstr ""
 
 #: ../actions/invite.php:168 actions/invite.php:176
@@ -1509,7 +91,8 @@ msgid ""
 "Sincerely, %2$s\n"
 msgstr ""
 
-#: ../lib/mail.php:124 lib/mail.php:124 lib/mail.php:126
+#: ../lib/mail.php:124 lib/mail.php:124 lib/mail.php:126 lib/mail.php:115
+#: lib/mail.php:117
 #, php-format
 msgid "%1$s is now listening to your notices on %2$s."
 msgstr ""
@@ -1525,41 +108,108 @@ msgid ""
 "%4$s.\n"
 msgstr ""
 
+#: ../actions/twitapistatuses.php:482 actions/twitapistatuses.php:415
+#: actions/twitapistatuses.php:344
+#, php-format
+msgid "%1$s updates that reply to updates from %2$s / %3$s."
+msgstr ""
+
+#: ../actions/shownotice.php:45 actions/shownotice.php:45
+#: actions/shownotice.php:73
+#, php-format
+msgid "%1$s's status on %2$s"
+msgstr "Statut de %1$s sur %2$s"
+
 #: ../actions/invite.php:84 ../actions/invite.php:92 actions/invite.php:91
 #: actions/invite.php:99
 #, php-format
 msgid "%s (%s)"
 msgstr ""
 
+#: ../actions/publicrss.php:62 actions/publicrss.php:48
+#, php-format
+msgid "%s Public Stream"
+msgstr "Flux public de %s"
+
 #: ../actions/all.php:47 ../actions/allrss.php:60
 #: ../actions/twitapistatuses.php:238 ../lib/stream.php:51 actions/all.php:47
 #: actions/allrss.php:60 actions/twitapistatuses.php:155 lib/personal.php:51
+#: actions/twitapistatuses.php:123
 #, php-format
 msgid "%s and friends"
 msgstr ""
 
-#: ../lib/util.php:257 lib/util.php:273
+#: ../actions/twitapistatuses.php:49 actions/twitapistatuses.php:49
+#: actions/twitapistatuses.php:31
+#, fuzzy, php-format
+msgid "%s public timeline"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Évolution publique\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../lib/mail.php:206 lib/mail.php:212 lib/mail.php:217
+#, fuzzy, php-format
+msgid "%s status"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Statut de %1$s sur %2$s\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/twitapistatuses.php:338 actions/twitapistatuses.php:265
+#: actions/twitapistatuses.php:195
+#, fuzzy, php-format
+msgid "%s timeline"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Évolution publique\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/twitapistatuses.php:52 actions/twitapistatuses.php:52
+#: actions/twitapistatuses.php:34
 #, php-format
-msgid ""
-"**%%site.name%%** is a microblogging service brought to you by "
-"[%%site.broughtby%%](%%site.broughtbyurl%%). "
+msgid "%s updates from everyone!"
 msgstr ""
 
-#: ../lib/util.php:259 lib/util.php:275
+#: ../actions/register.php:213
+msgid ""
+"(You should receive a message by email momentarily, with instructions on how "
+"to confirm your email address.)"
+msgstr ""
+
+#: ../lib/util.php:257 lib/util.php:273 lib/util.php:284
+#, php-format
+msgid ""
+"**%%site.name%%** is a microblogging service brought to you by [%%site."
+"broughtby%%](%%site.broughtbyurl%%). "
+msgstr ""
+
+#: ../lib/util.php:259 lib/util.php:275 lib/util.php:286
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr ""
 
-#: ../lib/util.php:274 lib/util.php:290
+#: ../lib/util.php:274 lib/util.php:290 lib/util.php:301
 msgid ". Contributors should be attributed by full name or nickname."
 msgstr ""
 
 #: ../actions/finishopenidlogin.php:73 ../actions/profilesettings.php:43
 #: actions/finishopenidlogin.php:79 actions/profilesettings.php:76
+#: actions/profilesettings.php:78
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
 msgstr ""
 
+#: ../actions/register.php:152 actions/register.php:166
+#: actions/register.php:193
+#, fuzzy
+msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"1 à 64 lettres minuscules ou chiffres, sans ponctuation ni espaces\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
 #: ../actions/password.php:42 actions/profilesettings.php:181
+#: actions/profilesettings.php:186
 msgid "6 or more characters"
 msgstr ""
 
@@ -1567,12 +217,44 @@ msgstr ""
 msgid "6 or more characters, and don't forget it!"
 msgstr ""
 
+#: ../actions/register.php:154 actions/register.php:168
+#: actions/register.php:195
+#, fuzzy
+msgid "6 or more characters. Required."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"6 caractères ou plus\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
 #: ../actions/imsettings.php:197 actions/imsettings.php:205
 #, php-format
 msgid ""
-"A confirmation code was sent to the IM address you added. You must approve "
-"%s for sending messages to you."
+"A confirmation code was sent to the IM address you added. You must approve %"
+"s for sending messages to you."
 msgstr ""
+
+#: ../actions/emailsettings.php:213 actions/emailsettings.php:231
+#: actions/emailsettings.php:234
+#, fuzzy
+msgid ""
+"A confirmation code was sent to the email address you added. Check your "
+"inbox (and spam box!) for the code and instructions on how to use it."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Un code de confirmation a été envoyé à l'adresse que vous avez ajouté. "
+"Vousdevez approuver %s pour qu'il vous envoie des messages.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/smssettings.php:216 actions/smssettings.php:224
+#, fuzzy
+msgid ""
+"A confirmation code was sent to the phone number you added. Check your inbox "
+"(and spam box!) for the code and instructions on how to use it."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Un code de confirmation a été envoyé à l'adresse que vous avez ajouté. "
+"Vousdevez approuver %s pour qu'il vous envoie des messages.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 
 #: ../actions/twitapiaccount.php:49 ../actions/twitapihelp.php:45
 #: ../actions/twitapistatuses.php:88 ../actions/twitapistatuses.php:259
@@ -1584,7 +266,14 @@ msgstr ""
 #: actions/twitapistatuses.php:176 actions/twitapistatuses.php:288
 #: actions/twitapistatuses.php:298 actions/twitapistatuses.php:454
 #: actions/twitapistatuses.php:463 actions/twitapistatuses.php:504
-#: actions/twitapiusers.php:55
+#: actions/twitapiusers.php:55 actions/twitapiaccount.php:30
+#: actions/twitapidirect_messages.php:107 actions/twitapifavorites.php:83
+#: actions/twitapifavorites.php:99 actions/twitapifriendships.php:117
+#: actions/twitapihelp.php:42 actions/twitapistatuses.php:77
+#: actions/twitapistatuses.php:144 actions/twitapistatuses.php:224
+#: actions/twitapistatuses.php:234 actions/twitapistatuses.php:386
+#: actions/twitapistatuses.php:395 actions/twitapistatuses.php:421
+#: actions/twitapiusers.php:30
 msgid "API method not found!"
 msgstr ""
 
@@ -1602,11 +291,14 @@ msgstr ""
 #: actions/twitapiblocks.php:33 actions/twitapidirect_messages.php:170
 #: actions/twitapifavorites.php:168 actions/twitapihelp.php:53
 #: actions/twitapinotifications.php:29 actions/twitapinotifications.php:34
-#: actions/twitapistatuses.php:690
+#: actions/twitapistatuses.php:690 actions/twitapiaccount.php:39
+#: actions/twitapiaccount.php:89 actions/twitapiaccount.php:94
+#: actions/twitapidirect_messages.php:178 actions/twitapifavorites.php:139
+#: actions/twitapihelp.php:49 actions/twitapistatuses.php:549
 msgid "API method under construction."
 msgstr ""
 
-#: ../lib/util.php:324 lib/util.php:340
+#: ../lib/util.php:324 lib/util.php:340 lib/util.php:352
 msgid "About"
 msgstr ""
 
@@ -1618,9 +310,22 @@ msgstr ""
 #: ../actions/openidsettings.php:57 ../actions/smssettings.php:71
 #: actions/emailsettings.php:63 actions/imsettings.php:64
 #: actions/openidsettings.php:58 actions/smssettings.php:71
-#: actions/twittersettings.php:85
+#: actions/twittersettings.php:85 actions/twittersettings.php:84
 msgid "Add"
 msgstr ""
+
+#: ../actions/openidsettings.php:43 actions/openidsettings.php:44
+msgid "Add OpenID"
+msgstr "Ajouter un OpenID"
+
+#: ../lib/settingsaction.php:97 lib/settingsaction.php:91
+#: actions/deleteprofile.php:248
+#, fuzzy
+msgid "Add or remove OpenIDs"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Enlever l'OpenID\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 
 #: ../actions/emailsettings.php:38 ../actions/imsettings.php:39
 #: ../actions/smssettings.php:39 actions/emailsettings.php:39
@@ -1633,8 +338,20 @@ msgid "Addresses of friends to invite (one per line)"
 msgstr ""
 
 #: ../actions/showstream.php:273 actions/showstream.php:288
+#: actions/showstream.php:336
 msgid "All subscriptions"
 msgstr ""
+
+#: ../actions/publicrss.php:64 actions/publicrss.php:50
+#, php-format
+msgid "All updates for %s"
+msgstr "Toutes les mises à jour pour %s"
+
+#: ../actions/noticesearchrss.php:66 actions/noticesearchrss.php:70
+#: actions/noticesearchrss.php:63
+#, php-format
+msgid "All updates matching search term \"%s\""
+msgstr "Toutes les mises à jour correspondantes aux termes cherchés « %s »"
 
 #: ../actions/finishopenidlogin.php:29 ../actions/login.php:31
 #: ../actions/openidlogin.php:29 ../actions/register.php:30
@@ -1643,8 +360,12 @@ msgstr ""
 msgid "Already logged in."
 msgstr ""
 
-#: ../lib/subs.php:42 lib/subs.php:42
+#: ../lib/subs.php:42 lib/subs.php:42 lib/subs.php:47
 msgid "Already subscribed!."
+msgstr ""
+
+#: ../actions/deletenotice.php:54 actions/deletenotice.php:55
+msgid "Are you sure you want to delete this notice?"
 msgstr ""
 
 #: ../actions/userauthorization.php:77 actions/userauthorization.php:83
@@ -1652,8 +373,14 @@ msgid "Authorize subscription"
 msgstr ""
 
 #: ../actions/login.php:104 ../actions/register.php:178
-#: actions/register.php:192
+#: actions/register.php:192 actions/register.php:219
 msgid "Automatically login in the future; not for shared computers!"
+msgstr ""
+
+#: ../actions/profilesettings.php:65 actions/profilesettings.php:98
+#: actions/profilesettings.php:103
+msgid ""
+"Automatically subscribe to whoever subscribes to me (best for non-humans)"
 msgstr ""
 
 #: ../actions/avatar.php:32 ../lib/settingsaction.php:90
@@ -1661,20 +388,62 @@ msgstr ""
 msgid "Avatar"
 msgstr ""
 
-#: ../lib/util.php:1318 lib/util.php:1452
-msgid "Before »"
+#: ../actions/avatar.php:113 actions/profilesettings.php:350
+#: actions/profilesettings.php:379
+msgid "Avatar updated."
+msgstr "Avatar mis à jour."
+
+#: ../actions/imsettings.php:55 actions/imsettings.php:56
+#, php-format
+msgid ""
+"Awaiting confirmation on this address. Check your Jabber/GTalk account for a "
+"message with further instructions. (Did you add %s to your buddy list?)"
+msgstr ""
+"En attente d'une confirmation pour cette adresse. Vérifiez votre "
+"compteJabber/GTalk pour recevoir un message avec les instructions suivantes."
+"(Avez-vous ajouté %s à votre liste de contacts ?)"
+
+#: ../actions/emailsettings.php:54 actions/emailsettings.php:55
+#, fuzzy
+msgid ""
+"Awaiting confirmation on this address. Check your inbox (and spam box!) for "
+"a message with further instructions."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"En attente d'une confirmation pour cette adresse. Vérifiez votre "
+"compteJabber/GTalk pour recevoir un message avec les instructions suivantes."
+"(Avez-vous ajouté %s à votre liste de contacts ?)\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/smssettings.php:58 actions/smssettings.php:58
+msgid "Awaiting confirmation on this phone number."
+msgstr ""
+
+#: ../lib/util.php:1318 lib/util.php:1452 lib/facebookaction.php:259
+#: lib/util.php:1792
+msgid "Before Â»"
 msgstr ""
 
 #: ../actions/profilesettings.php:49 ../actions/register.php:170
 #: actions/profilesettings.php:82 actions/register.php:184
+#: actions/profilesettings.php:84 actions/register.php:211
 msgid "Bio"
 msgstr ""
 
 #: ../actions/profilesettings.php:101 ../actions/register.php:82
 #: ../actions/updateprofile.php:103 actions/profilesettings.php:216
 #: actions/register.php:89 actions/updateprofile.php:104
+#: actions/profilesettings.php:222 actions/register.php:98
 msgid "Bio is too long (max 140 chars)."
 msgstr ""
+
+#: ../lib/deleteaction.php:41 lib/deleteaction.php:41
+#, fuzzy
+msgid "Can't delete this notice."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Impossible de supprimer la confirmation d'email.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 
 #: ../actions/updateprofile.php:119 actions/updateprofile.php:120
 #, php-format
@@ -1683,6 +452,7 @@ msgstr ""
 
 #: ../actions/password.php:85 ../actions/recoverpassword.php:300
 #: actions/profilesettings.php:404 actions/recoverpassword.php:313
+#: actions/profilesettings.php:433
 msgid "Can't save new password."
 msgstr ""
 
@@ -1692,14 +462,59 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
+#: ../lib/openid.php:121 lib/openid.php:121
+msgid "Cannot instantiate OpenID consumer object."
+msgstr "Impossible d'instancier l'objet client pour OpenID"
+
 #: ../actions/imsettings.php:163 actions/imsettings.php:171
 msgid "Cannot normalize that Jabber ID"
 msgstr ""
+
+#: ../actions/emailsettings.php:181 actions/emailsettings.php:199
+#: actions/emailsettings.php:204
+#, fuzzy
+msgid "Cannot normalize that email address"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Impossible de normaliser cet identifiant Jabber\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/password.php:45 actions/profilesettings.php:184
+#: actions/profilesettings.php:189
+msgid "Change"
+msgstr "Changer"
+
+#: ../lib/settingsaction.php:88 lib/settingsaction.php:88
+#: actions/deleteprofile.php:245
+msgid "Change email handling"
+msgstr ""
+
+#: ../actions/password.php:32 actions/profilesettings.php:36
+msgid "Change password"
+msgstr "Changer de mot de passe"
+
+#: ../lib/settingsaction.php:94
+#, fuzzy
+msgid "Change your password"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Changer de mot de passe\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../lib/settingsaction.php:85 lib/settingsaction.php:85
+#: actions/deleteprofile.php:242
+#, fuzzy
+msgid "Change your profile settings"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Paramètres du profil\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 
 #: ../actions/password.php:43 ../actions/recoverpassword.php:181
 #: ../actions/register.php:155 ../actions/smssettings.php:65
 #: actions/profilesettings.php:182 actions/recoverpassword.php:187
 #: actions/register.php:169 actions/smssettings.php:65
+#: actions/profilesettings.php:187 actions/register.php:196
 msgid "Confirm"
 msgstr ""
 
@@ -1710,18 +525,74 @@ msgstr ""
 #: ../actions/emailsettings.php:238 ../actions/imsettings.php:222
 #: ../actions/smssettings.php:245 actions/emailsettings.php:256
 #: actions/imsettings.php:230 actions/smssettings.php:253
+#: actions/emailsettings.php:259
 msgid "Confirmation cancelled."
 msgstr ""
 
-#: ../lib/util.php:332 lib/util.php:348
+#: ../actions/smssettings.php:63 actions/smssettings.php:63
+#, fuzzy
+msgid "Confirmation code"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Pas de code de confirmation.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/confirmaddress.php:38 actions/confirmaddress.php:38
+msgid "Confirmation code not found."
+msgstr "Code de confirmation non trouvé."
+
+#: ../actions/register.php:202
+#, php-format
+msgid ""
+"Congratulations, %s! And welcome to %%%%site.name%%%%. From here, you may "
+"want to...\n"
+"\n"
+"* Go to [your profile](%s) and post your first message.\n"
+"* Add a [Jabber/GTalk address](%%%%action.imsettings%%%%) so you can send "
+"notices through instant messages.\n"
+"* [Search for people](%%%%action.peoplesearch%%%%) that you may know or that "
+"share your interests. \n"
+"* Update your [profile settings](%%%%action.profilesettings%%%%) to tell "
+"others more about you. \n"
+"* Read over the [online docs](%%%%doc.help%%%%) for features you may have "
+"missed. \n"
+"\n"
+"Thanks for signing up and we hope you enjoy using this service."
+msgstr ""
+
+#: ../actions/finishopenidlogin.php:91 actions/finishopenidlogin.php:97
+msgid "Connect"
+msgstr "Connecter"
+
+#: ../actions/finishopenidlogin.php:86 actions/finishopenidlogin.php:92
+msgid "Connect existing account"
+msgstr "Connecté à un compte existant"
+
+#: ../lib/util.php:332 lib/util.php:348 lib/util.php:360
 msgid "Contact"
 msgstr ""
 
+#: ../lib/openid.php:178 lib/openid.php:178
+#, php-format
+msgid "Could not create OpenID form: %s"
+msgstr "Impossible de créer le formulaire OpenID : %s"
+
 #: ../actions/twitapifriendships.php:60 ../actions/twitapifriendships.php:76
 #: actions/twitapifriendships.php:60 actions/twitapifriendships.php:76
+#: actions/twitapifriendships.php:46 actions/twitapifriendships.php:62
 #, php-format
 msgid "Could not follow user: %s is already on your list."
 msgstr ""
+
+#: ../actions/twitapifriendships.php:53 actions/twitapifriendships.php:53
+#: actions/twitapifriendships.php:39
+msgid "Could not follow user: User not found."
+msgstr ""
+
+#: ../lib/openid.php:160 lib/openid.php:160
+#, php-format
+msgid "Could not redirect to server: %s"
+msgstr "Impossible de rediriger vers le serveur : %s"
 
 #: ../actions/updateprofile.php:162 actions/updateprofile.php:163
 msgid "Could not save avatar info"
@@ -1731,31 +602,89 @@ msgstr ""
 msgid "Could not save new profile info"
 msgstr ""
 
+#: ../lib/subs.php:54 lib/subs.php:61 lib/subs.php:70
+msgid "Could not subscribe other to you."
+msgstr ""
+
+#: ../lib/subs.php:46 lib/subs.php:46 lib/subs.php:55
+#, fuzzy
+msgid "Could not subscribe."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Non inscrit !\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/recoverpassword.php:102 actions/recoverpassword.php:105
+#, fuzzy
+msgid "Could not update user with confirmed email address."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Adresse Jabber/GTalk actuellement confirmée.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/finishremotesubscribe.php:99
+#: actions/finishremotesubscribe.php:101 actions/finishremotesubscribe.php:112
+msgid "Couldn't convert request tokens to access tokens."
+msgstr "Impossible de convertir les jetons de requête en jetons d'accès"
+
 #: ../actions/confirmaddress.php:84 ../actions/emailsettings.php:234
 #: ../actions/imsettings.php:218 ../actions/smssettings.php:241
 #: actions/confirmaddress.php:84 actions/emailsettings.php:252
 #: actions/imsettings.php:226 actions/smssettings.php:249
+#: actions/emailsettings.php:255
 msgid "Couldn't delete email confirmation."
 msgstr ""
 
-#: ../lib/subs.php:103 lib/subs.php:116
+#: ../lib/subs.php:103 lib/subs.php:116 lib/subs.php:129
 msgid "Couldn't delete subscription."
 msgstr ""
 
 #: ../actions/twitapistatuses.php:93 actions/twitapistatuses.php:98
+#: actions/twitapistatuses.php:82
 msgid "Couldn't find any statuses."
 msgstr ""
+
+#: ../actions/remotesubscribe.php:127 actions/remotesubscribe.php:136
+#: actions/remotesubscribe.php:148
+msgid "Couldn't get a request token."
+msgstr "Impossible d'obtenir le jeton de requête."
 
 #: ../actions/emailsettings.php:205 ../actions/imsettings.php:187
 #: ../actions/smssettings.php:206 actions/emailsettings.php:223
 #: actions/imsettings.php:195 actions/smssettings.php:214
+#: actions/emailsettings.php:228
 msgid "Couldn't insert confirmation code."
 msgstr ""
 
+#: ../actions/finishremotesubscribe.php:180
+#: actions/finishremotesubscribe.php:182 actions/finishremotesubscribe.php:216
+msgid "Couldn't insert new subscription."
+msgstr "Impossible d'insérer une nouvelle inscription."
+
 #: ../actions/profilesettings.php:184 ../actions/twitapiaccount.php:96
 #: actions/profilesettings.php:299 actions/twitapiaccount.php:94
+#: actions/profilesettings.php:319 actions/twitapiaccount.php:74
 msgid "Couldn't save profile."
 msgstr ""
+
+#: ../actions/profilesettings.php:161 actions/profilesettings.php:276
+#: actions/profilesettings.php:296
+#, fuzzy
+msgid "Couldn't update user for autosubscribe."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Impossible de mettre à jour l'utilisateur.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/emailsettings.php:280 ../actions/emailsettings.php:294
+#: actions/emailsettings.php:298 actions/emailsettings.php:312
+#: actions/emailsettings.php:301 actions/emailsettings.php:315
+#, fuzzy
+msgid "Couldn't update user record."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Impossible de mettre à jour l'utilisateur.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 
 #: ../actions/confirmaddress.php:72 ../actions/emailsettings.php:156
 #: ../actions/emailsettings.php:259 ../actions/imsettings.php:138
@@ -1765,35 +694,110 @@ msgstr ""
 #: actions/emailsettings.php:277 actions/imsettings.php:146
 #: actions/imsettings.php:251 actions/profilesettings.php:256
 #: actions/smssettings.php:165 actions/smssettings.php:277
+#: actions/emailsettings.php:179 actions/emailsettings.php:280
+#: actions/othersettings.php:173 actions/profilesettings.php:276
 msgid "Couldn't update user."
 msgstr ""
 
+#: ../actions/finishopenidlogin.php:84 actions/finishopenidlogin.php:90
+msgid "Create"
+msgstr "Créer"
+
+#: ../actions/finishopenidlogin.php:70 actions/finishopenidlogin.php:76
+msgid "Create a new user with this nickname."
+msgstr "Créer un nouvel utilisateur avec ce surnom."
+
+#: ../actions/finishopenidlogin.php:68 actions/finishopenidlogin.php:74
+msgid "Create new account"
+msgstr "Créer un nouveau compte"
+
+#: ../actions/finishopenidlogin.php:191 actions/finishopenidlogin.php:197
+#: actions/finishopenidlogin.php:208
+msgid "Creating new account for OpenID that already has a user."
+msgstr "Création d'un nouveau compte pour un OpenID qui a déjà un utilisateur."
+
+#: ../actions/imsettings.php:45 actions/imsettings.php:46
+msgid "Current confirmed Jabber/GTalk address."
+msgstr "Adresse Jabber/GTalk actuellement confirmée."
+
+#: ../actions/smssettings.php:46 actions/smssettings.php:46
+msgid "Current confirmed SMS-enabled phone number."
+msgstr ""
+
+#: ../actions/emailsettings.php:44 actions/emailsettings.php:45
+#, fuzzy
+msgid "Current confirmed email address."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Adresse Jabber/GTalk actuellement confirmée.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
 #: ../actions/showstream.php:356 actions/showstream.php:367
+#: actions/showstream.php:418
 msgid "Currently"
 msgstr ""
 
-#: ../lib/util.php:1061 lib/util.php:1110
+#: ../classes/Notice.php:72 classes/Notice.php:86 classes/Notice.php:87
+#, fuzzy, php-format
+msgid "DB error inserting hashtag: %s"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Erreur de base de donnée en insérant la réponse : %s\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../lib/util.php:1061 lib/util.php:1110 lib/util.php:1417
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr ""
 
+#: ../actions/deletenotice.php:41 actions/deletenotice.php:41
+#, fuzzy
+msgid "Delete notice"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Nouveau message\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
 #: ../actions/profilesettings.php:51 ../actions/register.php:172
 #: actions/profilesettings.php:84 actions/register.php:186
+#: actions/profilesettings.php:86 actions/register.php:213
 msgid "Describe yourself and your interests in 140 chars"
 msgstr ""
 
 #: ../actions/register.php:158 ../actions/register.php:161
 #: ../lib/settingsaction.php:87 actions/register.php:172
 #: actions/register.php:175 lib/settingsaction.php:87
+#: actions/deleteprofile.php:244 actions/register.php:199
+#: actions/register.php:202
 msgid "Email"
 msgstr ""
 
-#: ../actions/register.php:73 actions/register.php:80
+#: ../actions/emailsettings.php:59 actions/emailsettings.php:60
+#, fuzzy
+msgid "Email Address"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Adresse email\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/emailsettings.php:32 actions/emailsettings.php:32
+#, fuzzy
+msgid "Email Settings"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Paramètres\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/register.php:73 actions/register.php:80 actions/register.php:89
 msgid "Email address already exists."
 msgstr ""
 
 #: ../lib/mail.php:90 lib/mail.php:90
 msgid "Email address confirmation"
+msgstr ""
+
+#: ../actions/emailsettings.php:61 actions/emailsettings.php:62
+msgid "Email address, like \"UserName@example.org\""
 msgstr ""
 
 #: ../actions/invite.php:129 actions/invite.php:137
@@ -1804,13 +808,37 @@ msgstr ""
 msgid "Enter a nickname or email address."
 msgstr ""
 
+#: ../actions/smssettings.php:64 actions/smssettings.php:64
+msgid "Enter the code you received on your phone."
+msgstr ""
+
 #: ../actions/userauthorization.php:137 actions/userauthorization.php:144
 msgid "Error authorizing token"
 msgstr ""
 
 #: ../actions/finishopenidlogin.php:253 actions/finishopenidlogin.php:259
+#: actions/finishopenidlogin.php:274
 msgid "Error connecting user to OpenID."
 msgstr ""
+
+#: ../actions/finishaddopenid.php:78 actions/finishaddopenid.php:78
+msgid "Error connecting user."
+msgstr "Erreur de connexion d'utilisateur."
+
+#: ../actions/finishremotesubscribe.php:151
+#: actions/finishremotesubscribe.php:153 actions/finishremotesubscribe.php:164
+msgid "Error inserting avatar"
+msgstr "Erreur lors de l'insertion d'un avatar"
+
+#: ../actions/finishremotesubscribe.php:143
+#: actions/finishremotesubscribe.php:145 actions/finishremotesubscribe.php:156
+msgid "Error inserting new profile"
+msgstr "Erreur lors de l'insertion d'un nouveau profil"
+
+#: ../actions/finishremotesubscribe.php:167
+#: actions/finishremotesubscribe.php:169 actions/finishremotesubscribe.php:180
+msgid "Error inserting remote profile"
+msgstr "Erreur lors de l'insertion d'un profil distant"
 
 #: ../actions/recoverpassword.php:240 actions/recoverpassword.php:246
 msgid "Error saving address confirmation."
@@ -1824,20 +852,48 @@ msgstr ""
 msgid "Error saving the profile."
 msgstr ""
 
+#: ../lib/openid.php:237 lib/openid.php:237
+msgid "Error saving the user."
+msgstr "Erreur lors de l'enregistrement de l'utilisateur."
+
+#: ../actions/password.php:80 actions/profilesettings.php:399
+#: actions/profilesettings.php:428
+msgid "Error saving user; invalid."
+msgstr "Erreur lors de l'enregistrement de l'utilisateur ; invalide."
+
 #: ../actions/login.php:47 ../actions/login.php:73
 #: ../actions/recoverpassword.php:307 ../actions/register.php:98
 #: actions/login.php:47 actions/login.php:73 actions/recoverpassword.php:320
-#: actions/register.php:108
+#: actions/register.php:108 actions/login.php:54 actions/login.php:80
+#: actions/register.php:117
 msgid "Error setting user."
 msgstr ""
+
+#: ../actions/finishaddopenid.php:83 actions/finishaddopenid.php:83
+msgid "Error updating profile"
+msgstr "Erreur lors de la mise à jour du profil"
+
+#: ../actions/finishremotesubscribe.php:161
+#: actions/finishremotesubscribe.php:163 actions/finishremotesubscribe.php:174
+msgid "Error updating remote profile"
+msgstr "Erreur lors de la mise à jour du profil distant"
 
 #: ../actions/recoverpassword.php:80 actions/recoverpassword.php:80
 msgid "Error with confirmation code."
 msgstr ""
 
-#: ../lib/util.php:326 lib/util.php:342
+#: ../actions/finishopenidlogin.php:89 actions/finishopenidlogin.php:95
+msgid "Existing nickname"
+msgstr "Surnom existant"
+
+#: ../lib/util.php:326 lib/util.php:342 lib/util.php:354
 msgid "FAQ"
 msgstr ""
+
+#: ../actions/avatar.php:115 actions/profilesettings.php:352
+#: actions/profilesettings.php:381
+msgid "Failed updating avatar."
+msgstr "La mise à jour de l'avatar a échoué."
 
 #: ../actions/all.php:61 ../actions/allrss.php:64 actions/all.php:61
 #: actions/allrss.php:64
@@ -1851,38 +907,94 @@ msgstr ""
 msgid "Feed for replies to %s"
 msgstr ""
 
+#: ../actions/tag.php:55 actions/tag.php:55 actions/tag.php:54
+#, fuzzy, php-format
+msgid "Feed for tag %s"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Fil des réponses à %s\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../lib/searchaction.php:105 lib/searchaction.php:105
+msgid "Find content of notices"
+msgstr ""
+
+#: ../lib/searchaction.php:101 lib/searchaction.php:101
+msgid "Find people on this site"
+msgstr ""
+
+#: ../actions/login.php:122
+msgid ""
+"For security reasons, please re-enter your user name and password before "
+"changing your settings."
+msgstr ""
+
 #: ../actions/profilesettings.php:44 ../actions/register.php:164
 #: actions/profilesettings.php:77 actions/register.php:178
+#: actions/profilesettings.php:79 actions/register.php:205
 msgid "Full name"
 msgstr ""
 
 #: ../actions/profilesettings.php:98 ../actions/register.php:79
 #: ../actions/updateprofile.php:93 actions/profilesettings.php:213
 #: actions/register.php:86 actions/updateprofile.php:94
+#: actions/profilesettings.php:219 actions/register.php:95
 msgid "Full name is too long (max 255 chars)."
 msgstr ""
 
-#: ../lib/util.php:322 lib/util.php:338
+#: ../lib/util.php:322 lib/util.php:338 lib/util.php:343 lib/util.php:350
 msgid "Help"
 msgstr "Aide"
 
-#: ../lib/util.php:298 lib/util.php:314
+#: ../lib/util.php:298 lib/util.php:314 lib/util.php:325
 msgid "Home"
 msgstr ""
 
 #: ../actions/profilesettings.php:46 ../actions/register.php:167
 #: actions/profilesettings.php:79 actions/register.php:181
+#: actions/profilesettings.php:81 actions/register.php:208
 msgid "Homepage"
 msgstr ""
 
 #: ../actions/profilesettings.php:95 ../actions/register.php:76
 #: actions/profilesettings.php:210 actions/register.php:83
+#: actions/profilesettings.php:216 actions/register.php:92
 msgid "Homepage is not a valid URL."
+msgstr ""
+
+#: ../actions/emailsettings.php:91 actions/emailsettings.php:98
+#: actions/emailsettings.php:101
+msgid "I want to post notices by email."
+msgstr ""
+
+#: ../lib/settingsaction.php:102 lib/settingsaction.php:96
+#: actions/deleteprofile.php:253
+msgid "IM"
 msgstr ""
 
 #: ../actions/imsettings.php:60 actions/imsettings.php:61
 msgid "IM Address"
 msgstr ""
+
+#: ../actions/imsettings.php:33 actions/imsettings.php:33
+msgid "IM Settings"
+msgstr "Paramètres de messagerie instantanée"
+
+#: ../actions/finishopenidlogin.php:88 actions/finishopenidlogin.php:94
+msgid ""
+"If you already have an account, login with your username and password to "
+"connect it to your OpenID."
+msgstr ""
+"Si vous avez déjà un compte, connectez-vous avec votre nom d'utilisateur et "
+"votre mot de passe pour les relier à votre OpenID."
+
+#: ../actions/openidsettings.php:45
+msgid ""
+"If you want to add an OpenID to your account, enter it in the box below and "
+"click \"Add\"."
+msgstr ""
+"Si vous voulez ajouter un OpenID à votre compte, entrez-le dans le champ ci-"
+"dessous et cliquez sur « Ajouter »."
 
 #: ../actions/recoverpassword.php:137
 msgid ""
@@ -1890,7 +1002,26 @@ msgid ""
 "email address you have stored  in your account."
 msgstr ""
 
-#: ../actions/login.php:67 actions/login.php:67
+#: ../actions/emailsettings.php:67 ../actions/smssettings.php:76
+#: actions/emailsettings.php:68 actions/smssettings.php:76
+msgid "Incoming email"
+msgstr ""
+
+#: ../actions/emailsettings.php:283 actions/emailsettings.php:301
+#: actions/emailsettings.php:304
+#, fuzzy
+msgid "Incoming email address removed."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"L'adresse a été enlevée.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/password.php:69 actions/profilesettings.php:388
+#: actions/profilesettings.php:417
+msgid "Incorrect old password"
+msgstr "Ancien mot de passe incorrect"
+
+#: ../actions/login.php:67 actions/login.php:67 actions/login.php:74
 msgid "Incorrect username or password."
 msgstr ""
 
@@ -1920,14 +1051,44 @@ msgstr ""
 msgid "Invalid license URL '%s'"
 msgstr ""
 
+#: ../actions/postnotice.php:61 actions/postnotice.php:62
+#: actions/postnotice.php:63
+msgid "Invalid notice content"
+msgstr "Contenu du message invalide"
+
+#: ../actions/postnotice.php:67 actions/postnotice.php:68
+#: actions/postnotice.php:69
+msgid "Invalid notice uri"
+msgstr "URI du message invalide"
+
+#: ../actions/postnotice.php:72 actions/postnotice.php:73
+#: actions/postnotice.php:74
+msgid "Invalid notice url"
+msgstr "URL du message invalide"
+
 #: ../actions/updateprofile.php:87 actions/updateprofile.php:88
 #, php-format
 msgid "Invalid profile URL '%s'."
 msgstr ""
 
+#: ../actions/remotesubscribe.php:96 actions/remotesubscribe.php:105
+msgid "Invalid profile URL (bad format)"
+msgstr "URL du profil invalide (mauvais format)"
+
+#: ../actions/finishremotesubscribe.php:77
+#: actions/finishremotesubscribe.php:79 actions/finishremotesubscribe.php:78
+msgid "Invalid profile URL returned by server."
+msgstr "URL du profil retourné par le serveur invalide."
+
+#: ../actions/avatarbynickname.php:37 actions/avatarbynickname.php:37
+msgid "Invalid size."
+msgstr "Taille invalide."
+
 #: ../actions/finishopenidlogin.php:235 ../actions/register.php:93
 #: ../actions/register.php:111 actions/finishopenidlogin.php:241
 #: actions/register.php:103 actions/register.php:121
+#: actions/finishopenidlogin.php:256 actions/register.php:112
+#: actions/register.php:130
 msgid "Invalid username or password."
 msgstr ""
 
@@ -1939,13 +1100,26 @@ msgstr ""
 msgid "Invitation(s) sent to the following people:"
 msgstr ""
 
-#: ../lib/util.php:306 lib/util.php:322
+#: ../lib/util.php:306 lib/util.php:322 lib/util.php:332
 msgid "Invite"
 msgstr ""
 
 #: ../actions/invite.php:123 actions/invite.php:130
 msgid "Invite new users"
 msgstr ""
+
+#: ../lib/util.php:261 lib/util.php:277 lib/util.php:288
+#, fuzzy, php-format
+msgid ""
+"It runs the [Laconica](http://laconi.ca/) microblogging software, version %"
+"s, available under the [GNU Affero General Public License](http://www.fsf."
+"org/licensing/licenses/agpl-3.0.html)."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Il utilise le logiciel de microblog [Laconica](http://laconi.ca/), version %"
+"s, disponible sous la licence [GNU Affero General Public License] (http://"
+"www.fsf.org/licensing/licenses/agpl-3.0.html).\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 
 #: ../actions/imsettings.php:173 actions/imsettings.php:181
 msgid "Jabber ID already belongs to another user."
@@ -1958,54 +1132,135 @@ msgid ""
 "add %s to your buddy list in your IM client or on GTalk."
 msgstr ""
 
+#: ../actions/profilesettings.php:57 actions/profilesettings.php:90
+#: actions/profilesettings.php:95
+msgid "Language"
+msgstr ""
+
+#: ../actions/profilesettings.php:113 actions/profilesettings.php:228
+#: actions/profilesettings.php:234
+#, fuzzy
+msgid "Language is too long (max 50 chars)."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"La localisation est trop longue (255 caractères maximum).\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
 #: ../actions/profilesettings.php:52 ../actions/register.php:173
 #: actions/profilesettings.php:85 actions/register.php:187
+#: actions/profilesettings.php:87 actions/register.php:214
 msgid "Location"
 msgstr ""
 
 #: ../actions/profilesettings.php:104 ../actions/register.php:85
 #: ../actions/updateprofile.php:108 actions/profilesettings.php:219
 #: actions/register.php:92 actions/updateprofile.php:109
+#: actions/profilesettings.php:225 actions/register.php:101
 msgid "Location is too long (max 255 chars)."
 msgstr ""
 
 #: ../actions/login.php:97 ../actions/login.php:106
 #: ../actions/openidlogin.php:68 ../lib/util.php:310 actions/login.php:97
 #: actions/login.php:106 actions/openidlogin.php:77 lib/util.php:326
+#: actions/login.php:104 actions/login.php:113 actions/openidlogin.php:88
+#: lib/util.php:336
 msgid "Login"
 msgstr ""
+
+#: ../actions/openidlogin.php:44 actions/openidlogin.php:52
+#: actions/openidlogin.php:60
+#, php-format
+msgid "Login with an [OpenID](%%doc.openid%%) account."
+msgstr "Se connecter avec un compte [OpenID](%%doc.openid%%)."
 
 #: ../actions/login.php:126
 #, php-format
 msgid ""
-"Login with your username and password. Don't have a username yet? "
-"[Register](%%action.register%%) a new account, or try "
-"[OpenID](%%action.openidlogin%%). "
+"Login with your username and password. Don't have a username yet? [Register]"
+"(%%action.register%%) a new account, or try [OpenID](%%action.openidlogin%"
+"%). "
 msgstr ""
 
-#: ../lib/util.php:308 lib/util.php:324
+#: ../lib/util.php:308 lib/util.php:324 lib/util.php:334
 msgid "Logout"
 msgstr ""
 
-#: ../actions/login.php:110 actions/login.php:110
+#: ../actions/register.php:166 actions/register.php:180
+#: actions/register.php:207
+msgid "Longer name, preferably your \"real\" name"
+msgstr ""
+
+#: ../actions/login.php:110 actions/login.php:110 actions/login.php:118
 msgid "Lost or forgotten password?"
 msgstr ""
 
+#: ../actions/emailsettings.php:80 ../actions/smssettings.php:89
+#: actions/emailsettings.php:81 actions/smssettings.php:89
+msgid "Make a new email address for posting to; cancels the old one."
+msgstr ""
+
+#: ../actions/emailsettings.php:27 actions/emailsettings.php:27
+#, php-format
+msgid "Manage how you get email from %%site.name%%."
+msgstr ""
+
 #: ../actions/showstream.php:300 actions/showstream.php:315
+#: actions/showstream.php:363
 msgid "Member since"
+msgstr ""
+
+#: ../actions/userrss.php:70 actions/userrss.php:67
+#, php-format
+msgid "Microblog by %s"
+msgstr "Microblog par %s"
+
+#: ../actions/smssettings.php:304
+#, php-format
+msgid ""
+"Mobile carrier for your phone. If you know a carrier that accepts SMS over "
+"email but isn't listed here, send email to let us know at %s."
 msgstr ""
 
 #: ../actions/finishopenidlogin.php:79 ../actions/register.php:188
 #: actions/finishopenidlogin.php:85 actions/register.php:202
+#: actions/register.php:229
 msgid "My text and files are available under "
 msgstr ""
 
+#: ../actions/emailsettings.php:82 ../actions/smssettings.php:91
+#: actions/emailsettings.php:83 actions/smssettings.php:91
+msgid "New"
+msgstr ""
+
+#: ../lib/mail.php:144 lib/mail.php:144 lib/mail.php:138
+#, fuzzy, php-format
+msgid "New email address for posting to %s"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Pas d'adresse email définie pour cet utilisateur.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/emailsettings.php:297 actions/emailsettings.php:315
+#: actions/emailsettings.php:318
+#, fuzzy
+msgid "New incoming email address added."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Ce n'est pas une adresse email valide.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/finishopenidlogin.php:71 actions/finishopenidlogin.php:77
+msgid "New nickname"
+msgstr "Nouveau surnom"
+
 #: ../actions/newnotice.php:87 actions/newnotice.php:96
+#: actions/newnotice.php:141
 msgid "New notice"
 msgstr ""
 
 #: ../actions/password.php:41 ../actions/recoverpassword.php:179
 #: actions/profilesettings.php:180 actions/recoverpassword.php:185
+#: actions/profilesettings.php:185
 msgid "New password"
 msgstr ""
 
@@ -2016,12 +1271,16 @@ msgstr ""
 #: ../actions/login.php:101 ../actions/profilesettings.php:41
 #: ../actions/register.php:151 actions/login.php:101
 #: actions/profilesettings.php:74 actions/register.php:165
+#: actions/login.php:108 actions/profilesettings.php:76
+#: actions/register.php:192
 msgid "Nickname"
 msgstr ""
 
 #: ../actions/finishopenidlogin.php:175 ../actions/profilesettings.php:110
 #: ../actions/register.php:69 actions/finishopenidlogin.php:181
 #: actions/profilesettings.php:225 actions/register.php:76
+#: actions/finishopenidlogin.php:192 actions/profilesettings.php:231
+#: actions/register.php:85
 msgid "Nickname already in use. Try another one."
 msgstr ""
 
@@ -2029,11 +1288,27 @@ msgstr ""
 #: ../actions/register.php:67 ../actions/updateprofile.php:77
 #: actions/finishopenidlogin.php:171 actions/profilesettings.php:203
 #: actions/register.php:74 actions/updateprofile.php:78
+#: actions/finishopenidlogin.php:182 actions/profilesettings.php:209
+#: actions/register.php:83
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
 msgstr ""
 
+#: ../actions/finishopenidlogin.php:170 actions/finishopenidlogin.php:176
+#: actions/finishopenidlogin.php:187
+msgid "Nickname not allowed."
+msgstr "Surnom non-autorisé."
+
+#: ../actions/remotesubscribe.php:72 actions/remotesubscribe.php:81
+msgid "Nickname of the user you want to follow"
+msgstr "Surnom de l'utilisateur à surveiller"
+
 #: ../actions/recoverpassword.php:162 actions/recoverpassword.php:167
 msgid "Nickname or email"
+msgstr ""
+
+#: ../actions/deletenotice.php:59 actions/deletenotice.php:60
+#: actions/block.php:104
+msgid "No"
 msgstr ""
 
 #: ../actions/imsettings.php:156 actions/imsettings.php:164
@@ -2044,20 +1319,78 @@ msgstr ""
 msgid "No authorization request!"
 msgstr ""
 
+#: ../actions/smssettings.php:181 actions/smssettings.php:189
+msgid "No carrier selected."
+msgstr ""
+
+#: ../actions/smssettings.php:316 actions/smssettings.php:324
+#, fuzzy
+msgid "No code entered"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Pas de contenu !\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/confirmaddress.php:33 actions/confirmaddress.php:33
+msgid "No confirmation code."
+msgstr "Pas de code de confirmation."
+
 #: ../actions/newnotice.php:44 actions/newmessage.php:53
-#: actions/newnotice.php:44 classes/Command.php:197
+#: actions/newnotice.php:44 classes/Command.php:197 actions/newmessage.php:52
+#: actions/newnotice.php:53
 msgid "No content!"
 msgstr ""
+
+#: ../actions/emailsettings.php:174 actions/emailsettings.php:192
+#: actions/emailsettings.php:197
+#, fuzzy
+msgid "No email address."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Adresse email\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 
 #: ../actions/userbyid.php:32 actions/userbyid.php:32
 msgid "No id."
 msgstr ""
 
+#: ../actions/emailsettings.php:271 actions/emailsettings.php:289
+#: actions/emailsettings.php:292
+#, fuzzy
+msgid "No incoming email address."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Ce n'est pas une adresse email valide.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/finishremotesubscribe.php:65
+#: actions/finishremotesubscribe.php:67 actions/finishremotesubscribe.php:66
+msgid "No nickname provided by remote server."
+msgstr "Pas de surnom proposé par le serveur distant."
+
+#: ../actions/avatarbynickname.php:27 actions/avatarbynickname.php:27
+msgid "No nickname."
+msgstr "Pas de surnom."
+
 #: ../actions/emailsettings.php:222 ../actions/imsettings.php:206
 #: ../actions/smssettings.php:229 actions/emailsettings.php:240
 #: actions/imsettings.php:214 actions/smssettings.php:237
+#: actions/emailsettings.php:243
 msgid "No pending confirmation to cancel."
 msgstr ""
+
+#: ../actions/smssettings.php:176 actions/smssettings.php:184
+#, fuzzy
+msgid "No phone number."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Il n'y a pas cet utilisateur.'\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/finishremotesubscribe.php:72
+#: actions/finishremotesubscribe.php:74 actions/finishremotesubscribe.php:73
+msgid "No profile URL returned by server."
+msgstr "Pas d'URL de profil retourné par le serveur."
 
 #: ../actions/recoverpassword.php:226 actions/recoverpassword.php:232
 msgid "No registered email address for that user."
@@ -2067,20 +1400,49 @@ msgstr ""
 msgid "No request found!"
 msgstr ""
 
+#: ../actions/noticesearch.php:64 ../actions/peoplesearch.php:64
+#: actions/noticesearch.php:69 actions/peoplesearch.php:69
+#: actions/noticesearch.php:68 actions/peoplesearch.php:59
+msgid "No results"
+msgstr "Pas de résultats"
+
+#: ../actions/avatarbynickname.php:32 actions/avatarbynickname.php:32
+msgid "No size."
+msgstr "Pas de taille."
+
 #: ../actions/twitapistatuses.php:595 actions/twitapifavorites.php:136
-#: actions/twitapistatuses.php:520
+#: actions/twitapistatuses.php:520 actions/twitapifavorites.php:109
+#: actions/twitapistatuses.php:438
 msgid "No status found with that ID."
 msgstr ""
 
 #: ../actions/twitapistatuses.php:555 actions/twitapistatuses.php:478
+#: actions/twitapistatuses.php:411
 msgid "No status with that ID found."
 msgstr ""
 
+#: ../actions/openidsettings.php:135 actions/openidsettings.php:144
+msgid "No such OpenID."
+msgstr "Il n'y a pas cet OpenID."
+
+#: ../actions/doc.php:29 actions/doc.php:29
+msgid "No such document."
+msgstr "Il n'y a pas ce document.'"
+
 #: ../actions/shownotice.php:32 ../actions/shownotice.php:83
 #: ../lib/deleteaction.php:30 actions/shownotice.php:32
-#: actions/shownotice.php:83 lib/deleteaction.php:30
+#: actions/shownotice.php:83 lib/deleteaction.php:30 actions/shownotice.php:38
+#: actions/shownotice.php:114
 msgid "No such notice."
 msgstr ""
+
+#: ../actions/recoverpassword.php:56 actions/recoverpassword.php:56
+msgid "No such recovery code."
+msgstr "Il n'y a pas ce code de récupération."
+
+#: ../actions/postnotice.php:56 actions/postnotice.php:57
+msgid "No such subscription"
+msgstr "Il n'y a pas cette inscription'"
 
 #: ../actions/all.php:34 ../actions/allrss.php:35
 #: ../actions/avatarbynickname.php:43 ../actions/foaf.php:40
@@ -2097,17 +1459,40 @@ msgstr ""
 #: actions/userbyid.php:36 actions/userrss.php:35 actions/xrds.php:35
 #: classes/Command.php:120 classes/Command.php:162 classes/Command.php:203
 #: classes/Command.php:237 lib/gallery.php:62 lib/mailbox.php:36
-#: lib/subs.php:33 lib/subs.php:95
+#: lib/subs.php:33 lib/subs.php:95 actions/showstream.php:157
+#: classes/Command.php:208 classes/Command.php:242 lib/gallery.php:85
+#: lib/subs.php:105
 msgid "No such user."
 msgstr ""
+
+#: ../actions/recoverpassword.php:211 actions/recoverpassword.php:217
+#, fuzzy
+msgid "No user with that email address or username."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Pas d'adresse email définie pour cet utilisateur.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 
 #: ../lib/gallery.php:80 lib/gallery.php:85
 msgid "Nobody to show!"
 msgstr ""
 
+#: ../actions/recoverpassword.php:60 actions/recoverpassword.php:60
+msgid "Not a recovery code."
+msgstr "Pas de code de récupération."
+
+#: ../scripts/maildaemon.php:50 scripts/maildaemon.php:50
+#, fuzzy
+msgid "Not a registered user."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Pas de code de récupération.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
 #: ../lib/twitterapi.php:226 ../lib/twitterapi.php:247
 #: ../lib/twitterapi.php:332 lib/twitterapi.php:391 lib/twitterapi.php:418
-#: lib/twitterapi.php:502
+#: lib/twitterapi.php:502 lib/twitterapi.php:423 lib/twitterapi.php:450
+#: lib/twitterapi.php:534
 msgid "Not a supported data format."
 msgstr ""
 
@@ -2115,16 +1500,58 @@ msgstr ""
 msgid "Not a valid Jabber ID"
 msgstr ""
 
-#: ../actions/register.php:63 actions/register.php:70
+#: ../lib/openid.php:131 lib/openid.php:131
+msgid "Not a valid OpenID."
+msgstr "Ce n'est pas un OpenID valide."
+
+#: ../actions/emailsettings.php:185 actions/emailsettings.php:203
+#: actions/emailsettings.php:208
+#, fuzzy
+msgid "Not a valid email address"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Ce n'est pas une adresse email valide.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/register.php:63 actions/register.php:70 actions/register.php:79
 msgid "Not a valid email address."
 msgstr ""
 
 #: ../actions/profilesettings.php:91 ../actions/register.php:71
 #: actions/profilesettings.php:206 actions/register.php:78
+#: actions/profilesettings.php:212 actions/register.php:87
 msgid "Not a valid nickname."
 msgstr ""
 
+#: ../actions/remotesubscribe.php:120 actions/remotesubscribe.php:129
+msgid "Not a valid profile URL (incorrect services)."
+msgstr "Ce n'est pas un URL de profil valide (services incorrects)."
+
+#: ../actions/remotesubscribe.php:113 actions/remotesubscribe.php:122
+msgid "Not a valid profile URL (no XRDS defined)."
+msgstr "Ce n'est pas un URL de profil valide (pas de XRDS défini)."
+
+#: ../actions/remotesubscribe.php:104 actions/remotesubscribe.php:113
+msgid "Not a valid profile URL (no YADIS document)."
+msgstr "Ce n'est pas un URL de profil valide (pas de document YADIS)."
+
+#: ../actions/avatar.php:95 actions/profilesettings.php:332
+#: actions/profilesettings.php:361
+msgid "Not an image or corrupt file."
+msgstr "Ce n'est pas une image, ou c'est un fichier corrompu."
+
+#: ../actions/finishremotesubscribe.php:51
+#: actions/finishremotesubscribe.php:53 actions/finishremotesubscribe.php:52
+msgid "Not authorized."
+msgstr "Non autorisé."
+
+#: ../actions/finishremotesubscribe.php:38
+#: actions/finishremotesubscribe.php:38
+msgid "Not expecting this response!"
+msgstr "Cette réponse n'était pas attendue !"
+
 #: ../actions/twitapistatuses.php:422 actions/twitapistatuses.php:361
+#: actions/twitapistatuses.php:304
 msgid "Not found"
 msgstr ""
 
@@ -2135,31 +1562,117 @@ msgstr ""
 #: actions/finishaddopenid.php:29 actions/logout.php:33
 #: actions/newmessage.php:28 actions/newnotice.php:29 actions/subscribe.php:28
 #: actions/unsubscribe.php:25 lib/deleteaction.php:38
-#: lib/settingsaction.php:27
+#: lib/settingsaction.php:27 actions/block.php:31 actions/newnotice.php:30
+#: actions/nudge.php:30 actions/subedit.php:31 actions/unblock.php:31
 msgid "Not logged in."
 msgstr ""
 
-#: ../lib/subs.php:91 lib/subs.php:104
+#: ../lib/subs.php:91 lib/subs.php:104 lib/subs.php:117
 msgid "Not subscribed!."
 msgstr ""
 
+#: ../actions/opensearch.php:35 actions/opensearch.php:35
+#, fuzzy
+msgid "Notice Search"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Recherche\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/showstream.php:82 actions/showstream.php:82
+#: actions/showstream.php:111 actions/showstream.php:118
+#: actions/showstream.php:123
+#, php-format
+msgid "Notice feed for %s"
+msgstr "Fil des messages de %s"
+
+#: ../actions/shownotice.php:39 actions/shownotice.php:39
+#: actions/shownotice.php:45
+msgid "Notice has no profile"
+msgstr "Le message n'a pas de profil"
+
 #: ../actions/showstream.php:316 actions/showstream.php:331
+#: actions/showstream.php:379
 msgid "Notices"
 msgstr ""
 
+#: ../actions/tag.php:35 ../actions/tag.php:81 actions/tag.php:35
+#: actions/tag.php:81
+#, fuzzy, php-format
+msgid "Notices tagged with %s"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Fil des messages de %s\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/password.php:39 actions/profilesettings.php:178
+#: actions/profilesettings.php:183
+msgid "Old password"
+msgstr "Ancien mot de passe"
+
 #: ../lib/settingsaction.php:96 ../lib/util.php:314 lib/settingsaction.php:90
-#: lib/util.php:330
+#: lib/util.php:330 actions/deleteprofile.php:247 lib/util.php:340
 msgid "OpenID"
 msgstr ""
+
+#: ../actions/finishopenidlogin.php:61 actions/finishopenidlogin.php:66
+msgid "OpenID Account Setup"
+msgstr "Mise en place du compte OpenID"
+
+#: ../lib/openid.php:180 lib/openid.php:180
+msgid "OpenID Auto-Submit"
+msgstr "Soumission automatique OpenID"
+
+#: ../actions/finishaddopenid.php:99 ../actions/finishopenidlogin.php:140
+#: ../actions/openidlogin.php:60 actions/finishaddopenid.php:99
+#: actions/finishopenidlogin.php:146 actions/openidlogin.php:68
+#: actions/finishopenidlogin.php:150 actions/openidlogin.php:76
+msgid "OpenID Login"
+msgstr "Connexion OpenID"
+
+#: ../actions/openidlogin.php:65 ../actions/openidsettings.php:49
+#: actions/openidlogin.php:74 actions/openidsettings.php:50
+#: actions/openidlogin.php:82
+msgid "OpenID URL"
+msgstr "URL OpenID"
+
+#: ../actions/finishaddopenid.php:42 ../actions/finishopenidlogin.php:103
+#: actions/finishaddopenid.php:42 actions/finishopenidlogin.php:109
+msgid "OpenID authentication cancelled."
+msgstr "Authentification OpenID annulée."
+
+#: ../actions/finishaddopenid.php:46 ../actions/finishopenidlogin.php:107
+#: actions/finishaddopenid.php:46 actions/finishopenidlogin.php:113
+#, php-format
+msgid "OpenID authentication failed: %s"
+msgstr "L'authentification OpenID a échouée : %s'"
+
+#: ../lib/openid.php:133 lib/openid.php:133
+#, php-format
+msgid "OpenID failure: %s"
+msgstr "Erreur OpenID : %s"
+
+#: ../actions/openidsettings.php:144 actions/openidsettings.php:153
+msgid "OpenID removed."
+msgstr "OpenID enlevé."
+
+#: ../actions/openidsettings.php:37 actions/openidsettings.php:37
+msgid "OpenID settings"
+msgstr "Paramètres OpenID"
 
 #: ../actions/invite.php:135 actions/invite.php:143
 msgid "Optionally add a personal message to the invitation."
 msgstr ""
 
+#: ../actions/avatar.php:84 actions/profilesettings.php:321
+#: actions/profilesettings.php:350
+msgid "Partial upload."
+msgstr "Transfert partiel."
+
 #: ../actions/finishopenidlogin.php:90 ../actions/login.php:102
 #: ../actions/register.php:153 ../lib/settingsaction.php:93
 #: actions/finishopenidlogin.php:96 actions/login.php:102
-#: actions/register.php:167
+#: actions/register.php:167 actions/login.php:109 actions/register.php:194
 msgid "Password"
 msgstr ""
 
@@ -2178,13 +1691,35 @@ msgstr ""
 
 #: ../actions/password.php:89 ../actions/recoverpassword.php:313
 #: actions/profilesettings.php:408 actions/recoverpassword.php:326
+#: actions/profilesettings.php:437
 msgid "Password saved."
 msgstr ""
 
 #: ../actions/password.php:61 ../actions/register.php:88
 #: actions/profilesettings.php:380 actions/register.php:98
+#: actions/profilesettings.php:409 actions/register.php:107
 msgid "Passwords don't match."
 msgstr ""
+
+#: ../lib/searchaction.php:100 lib/searchaction.php:100
+#, fuzzy
+msgid "People"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Rechercher des personnes\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/opensearch.php:33 actions/opensearch.php:33
+#, fuzzy
+msgid "People Search"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Rechercher des personnes\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/peoplesearch.php:33 actions/peoplesearch.php:33
+msgid "People search"
+msgstr "Rechercher des personnes"
 
 #: ../lib/stream.php:50 lib/personal.php:50
 msgid "Personal"
@@ -2193,6 +1728,14 @@ msgstr ""
 #: ../actions/invite.php:133 actions/invite.php:141
 msgid "Personal message"
 msgstr ""
+
+#: ../actions/smssettings.php:69 actions/smssettings.php:69
+#, fuzzy
+msgid "Phone number, no punctuation or spaces, with area code"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"1 à 64 lettres minuscules ou chiffres, sans ponctuation ni espaces\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 
 #: ../actions/userauthorization.php:78
 msgid ""
@@ -2215,26 +1758,74 @@ msgstr ""
 #: ../actions/emailsettings.php:162 ../actions/imsettings.php:144
 #: ../actions/smssettings.php:163 actions/emailsettings.php:180
 #: actions/imsettings.php:152 actions/smssettings.php:171
+#: actions/emailsettings.php:185 actions/othersettings.php:179
 msgid "Preferences saved."
 msgstr ""
 
-#: ../lib/util.php:328 lib/util.php:344
+#: ../actions/profilesettings.php:57 actions/profilesettings.php:90
+#: actions/profilesettings.php:95
+#, fuzzy
+msgid "Preferred language"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Préférences\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../lib/util.php:328 lib/util.php:344 lib/util.php:356
 msgid "Privacy"
 msgstr ""
 
 #: ../classes/Notice.php:95 ../classes/Notice.php:106 classes/Notice.php:109
-#: classes/Notice.php:119
+#: classes/Notice.php:119 classes/Notice.php:139 classes/Notice.php:149
 msgid "Problem saving notice."
 msgstr ""
 
 #: ../lib/settingsaction.php:84 ../lib/stream.php:60 lib/personal.php:60
-#: lib/settingsaction.php:84
+#: lib/settingsaction.php:84 actions/deleteprofile.php:241
 msgid "Profile"
 msgstr ""
+
+#: ../actions/remotesubscribe.php:73 actions/remotesubscribe.php:82
+msgid "Profile URL"
+msgstr "URL du profil"
+
+#: ../actions/profilesettings.php:34 actions/profilesettings.php:32
+msgid "Profile settings"
+msgstr "Paramètres du profil"
 
 #: ../actions/postnotice.php:51 ../actions/updateprofile.php:52
 #: actions/postnotice.php:52 actions/updateprofile.php:53
 msgid "Profile unknown"
+msgstr ""
+
+#: ../actions/public.php:54 actions/public.php:54 actions/public.php:77
+msgid "Public Stream Feed"
+msgstr "Fil du flux public"
+
+#: ../actions/public.php:33 actions/public.php:33 lib/stream.php:34
+msgid "Public timeline"
+msgstr "Évolution publique"
+
+#: ../actions/imsettings.php:79 actions/imsettings.php:80
+#, fuzzy
+msgid "Publish a MicroID for my Jabber/GTalk address."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Adresse Jabber/GTalk actuellement confirmée.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/emailsettings.php:94 actions/emailsettings.php:101
+#: actions/emailsettings.php:104
+#, fuzzy
+msgid "Publish a MicroID for my email address."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Entrez un surnom ou une adresse email.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/tag.php:75 ../actions/tag.php:76 actions/tag.php:75
+#: actions/tag.php:76
+msgid "Recent Tags"
 msgstr ""
 
 #: ../actions/recoverpassword.php:166 actions/recoverpassword.php:171
@@ -2245,9 +1836,28 @@ msgstr ""
 msgid "Recover password"
 msgstr ""
 
+#: ../actions/recoverpassword.php:67 actions/recoverpassword.php:67
+msgid "Recovery code for unknown user."
+msgstr "Code de récupération d'un utilisateur inconnu."
+
 #: ../actions/register.php:142 ../actions/register.php:193 ../lib/util.php:312
 #: actions/register.php:152 actions/register.php:207 lib/util.php:328
+#: actions/register.php:181 actions/register.php:234 lib/util.php:338
 msgid "Register"
+msgstr ""
+
+#: ../actions/register.php:28 actions/register.php:28
+#: actions/finishopenidlogin.php:173
+#, fuzzy
+msgid "Registration not allowed."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Surnom non-autorisé.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/register.php:200 actions/register.php:214
+#: actions/register.php:241
+msgid "Registration successful"
 msgstr ""
 
 #: ../actions/userauthorization.php:120 actions/userauthorization.php:127
@@ -2255,7 +1865,8 @@ msgid "Reject"
 msgstr ""
 
 #: ../actions/login.php:103 ../actions/register.php:176 actions/login.php:103
-#: actions/register.php:190
+#: actions/register.php:190 actions/login.php:110 actions/openidlogin.php:85
+#: actions/register.php:217
 msgid "Remember me"
 msgstr ""
 
@@ -2263,15 +1874,31 @@ msgstr ""
 msgid "Remote profile with no matching profile"
 msgstr ""
 
+#: ../actions/remotesubscribe.php:65 actions/remotesubscribe.php:73
+msgid "Remote subscribe"
+msgstr "Inscription distante"
+
 #: ../actions/emailsettings.php:47 ../actions/emailsettings.php:75
 #: ../actions/imsettings.php:48 ../actions/openidsettings.php:106
 #: ../actions/smssettings.php:50 ../actions/smssettings.php:84
 #: actions/emailsettings.php:48 actions/emailsettings.php:76
 #: actions/imsettings.php:49 actions/openidsettings.php:108
 #: actions/smssettings.php:50 actions/smssettings.php:84
-#: actions/twittersettings.php:59
+#: actions/twittersettings.php:59 actions/twittersettings.php:61
 msgid "Remove"
 msgstr ""
+
+#: ../actions/openidsettings.php:68 actions/openidsettings.php:69
+msgid "Remove OpenID"
+msgstr "Enlever l'OpenID"
+
+#: ../actions/openidsettings.php:73
+msgid ""
+"Removing your only OpenID would make it impossible to log in! If you need to "
+"remove it, add another OpenID first."
+msgstr ""
+"Enlever votre seul OpenID vous empêcherai de vous connecter ! Si vous avez "
+"besoin de l'enlever, ajoutez un autre OpenID d'abord."
 
 #: ../lib/stream.php:55 lib/personal.php:55
 msgid "Replies"
@@ -2291,61 +1918,185 @@ msgstr ""
 msgid "Reset password"
 msgstr ""
 
+#: ../lib/settingsaction.php:99 lib/settingsaction.php:93
+#: actions/deleteprofile.php:250 actions/subscriptions.php:73
+msgid "SMS"
+msgstr ""
+
+#: ../actions/smssettings.php:67 actions/smssettings.php:67
+msgid "SMS Phone number"
+msgstr ""
+
+#: ../actions/smssettings.php:33 actions/smssettings.php:33
+#, fuzzy
+msgid "SMS Settings"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Paramètres de messagerie instantanée\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../lib/mail.php:219 lib/mail.php:225 lib/mail.php:230
+#, fuzzy
+msgid "SMS confirmation"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Pas de code de confirmation.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
 #: ../actions/recoverpassword.php:182 actions/recoverpassword.php:188
 msgid "Same as password above"
 msgstr ""
+
+#: ../actions/register.php:156 actions/register.php:170
+#: actions/register.php:197
+#, fuzzy
+msgid "Same as password above. Required."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Identique au mot de passe ci-dessus\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 
 #: ../actions/emailsettings.php:97 ../actions/imsettings.php:81
 #: ../actions/profilesettings.php:67 ../actions/smssettings.php:100
 #: actions/emailsettings.php:104 actions/imsettings.php:82
 #: actions/profilesettings.php:101 actions/smssettings.php:100
-#: actions/twittersettings.php:83
+#: actions/twittersettings.php:83 actions/emailsettings.php:107
+#: actions/othersettings.php:56 actions/profilesettings.php:106
+#: actions/subscriptions.php:74 actions/tagother.php:100
+#: actions/twittersettings.php:82
 msgid "Save"
 msgstr ""
 
 #: ../lib/searchaction.php:84 ../lib/util.php:300 lib/searchaction.php:84
-#: lib/util.php:316
+#: lib/util.php:316 lib/util.php:327
 msgid "Search"
 msgstr ""
 
+#: ../actions/noticesearch.php:80 actions/noticesearch.php:85
+#: actions/noticesearch.php:84
+msgid "Search Stream Feed"
+msgstr "Fil du flux de recherche"
+
+#: ../actions/noticesearch.php:30 actions/noticesearch.php:30
+#: actions/noticesearch.php:29
+#, php-format
+msgid ""
+"Search for notices on %%site.name%% by their contents. Separate search terms "
+"by spaces; they must be 3 characters or more."
+msgstr ""
+"Recherche des messages sur %%site.name%% par leur contenu. Séparez les "
+"termes de la recherches par des espaces ; ils doivent être de 3 caractères "
+"ou plus."
+
+#: ../actions/peoplesearch.php:28
+#, php-format
+msgid ""
+"Search for people on %%site.name%% by their name, location, or interests. "
+"Separate the terms by spaces; they must be 3 characters or more."
+msgstr ""
+"Recherche de personne sur %%site.name%% par leur nom, localisation ou "
+"intérêt. Séparez les termes de la recherches par des espaces ; ils doivent "
+"être de 3 caractères ou plus."
+
+#: ../actions/smssettings.php:296 actions/smssettings.php:304
+msgid "Select a carrier"
+msgstr ""
+
 #: ../actions/invite.php:137 ../lib/util.php:1172 actions/invite.php:145
-#: lib/util.php:1306 lib/util.php:1731
+#: lib/util.php:1306 lib/util.php:1731 lib/util.php:1646 lib/util.php:2158
 msgid "Send"
 msgstr ""
+
+#: ../actions/emailsettings.php:73 ../actions/smssettings.php:82
+#: actions/emailsettings.php:74 actions/smssettings.php:82
+msgid "Send email to this address to post new notices."
+msgstr ""
+
+#: ../actions/emailsettings.php:88 actions/emailsettings.php:89
+#, fuzzy
+msgid "Send me notices of new subscriptions through email."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"M'envoyer des messages par Jabber/GTalk.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 
 #: ../actions/imsettings.php:70 actions/imsettings.php:71
 msgid "Send me notices through Jabber/GTalk."
 msgstr ""
 
-#: ../lib/util.php:304 lib/util.php:320
+#: ../actions/smssettings.php:97 actions/smssettings.php:97
+msgid ""
+"Send me notices through SMS; I understand I may incur exorbitant charges "
+"from my carrier."
+msgstr ""
+
+#: ../actions/imsettings.php:76 actions/imsettings.php:77
+#, fuzzy
+msgid "Send me replies through Jabber/GTalk from people I'm not subscribed to."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"M'envoyer des messages par Jabber/GTalk.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../lib/util.php:304 lib/util.php:320 lib/util.php:330
 msgid "Settings"
 msgstr ""
 
 #: ../actions/profilesettings.php:192 actions/profilesettings.php:307
+#: actions/profilesettings.php:336
 msgid "Settings saved."
 msgstr ""
 
-#: ../lib/util.php:330 lib/util.php:346
+#: ../actions/tag.php:60 actions/tag.php:60 actions/tag.php:59
+msgid "Showing most popular tags from the last week"
+msgstr ""
+
+#: ../actions/finishaddopenid.php:66 actions/finishaddopenid.php:66
+msgid "Someone else already has this OpenID."
+msgstr "Quelqu'un d'autre a déjà cet OpenID."
+
+#: ../actions/finishopenidlogin.php:42 ../actions/openidsettings.php:126
+#: actions/finishopenidlogin.php:47 actions/openidsettings.php:135
+msgid "Something weird happened."
+msgstr "Quelque chose de bizarre est arrivé."
+
+#: ../scripts/maildaemon.php:58 scripts/maildaemon.php:58
+msgid "Sorry, no incoming email allowed."
+msgstr ""
+
+#: ../scripts/maildaemon.php:54 scripts/maildaemon.php:54
+#, fuzzy
+msgid "Sorry, that is not your incoming email address."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"C'est la mauvaise adresse de messagerie instantanée.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../lib/util.php:330 lib/util.php:346 lib/util.php:358
 msgid "Source"
 msgstr ""
 
 #: ../actions/showstream.php:296 actions/showstream.php:311
+#: actions/showstream.php:359
 msgid "Statistics"
 msgstr ""
 
 #: ../actions/finishopenidlogin.php:182 ../actions/finishopenidlogin.php:246
 #: actions/finishopenidlogin.php:188 actions/finishopenidlogin.php:252
+#: actions/finishopenidlogin.php:199 actions/finishopenidlogin.php:267
 msgid "Stored OpenID not found."
 msgstr ""
 
 #: ../actions/remotesubscribe.php:75 ../actions/showstream.php:188
 #: ../actions/showstream.php:197 actions/remotesubscribe.php:84
 #: actions/showstream.php:197 actions/showstream.php:206
+#: actions/showstream.php:254 lib/util.php:2078
 msgid "Subscribe"
 msgstr ""
 
 #: ../actions/showstream.php:313 ../actions/subscribers.php:27
 #: actions/showstream.php:328 actions/subscribers.php:27
+#: actions/showstream.php:376 lib/gallery.php:136 lib/gallery.php:137
 msgid "Subscribers"
 msgstr ""
 
@@ -2360,28 +2111,130 @@ msgstr ""
 #: ../actions/showstream.php:230 ../actions/showstream.php:307
 #: ../actions/subscriptions.php:27 actions/showstream.php:240
 #: actions/showstream.php:322 actions/subscriptions.php:27
+#: actions/showstream.php:288 actions/showstream.php:370 lib/gallery.php:131
+#: lib/gallery.php:132
 msgid "Subscriptions"
 msgstr ""
+
+#: ../actions/avatar.php:87 actions/profilesettings.php:324
+#: actions/profilesettings.php:353
+msgid "System error uploading file."
+msgstr "Erreur système en transférant le fichier."
+
+#: ../actions/tag.php:41 ../lib/util.php:301 actions/tag.php:41
+#: lib/util.php:317 actions/profilesettings.php:90 actions/showstream.php:382
+#: actions/tag.php:40 actions/tagother.php:96 actions/tagother.php:162
+#: lib/profilelist.php:126 lib/profilelist.php:128
+msgid "Tags"
+msgstr ""
+
+#: ../lib/searchaction.php:104 lib/searchaction.php:104
+msgid "Text"
+msgstr ""
+
+#: ../actions/noticesearch.php:34 actions/noticesearch.php:34
+#: actions/noticesearch.php:33
+msgid "Text search"
+msgstr "Texte cherché"
+
+#: ../actions/openidsettings.php:140 actions/openidsettings.php:149
+msgid "That OpenID does not belong to you."
+msgstr "Cet OpenID ne vous appartient pas."
+
+#: ../actions/confirmaddress.php:52 actions/confirmaddress.php:52
+msgid "That address has already been confirmed."
+msgstr "Cette adresse a déjà été confirmée."
+
+#: ../actions/confirmaddress.php:43 actions/confirmaddress.php:43
+msgid "That confirmation code is not for you!"
+msgstr "Ce code de confirmation n'est pas pour vous !"
+
+#: ../actions/emailsettings.php:191 actions/emailsettings.php:209
+#: actions/emailsettings.php:214
+#, fuzzy
+msgid "That email address already belongs to another user."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Cet identifiant Jabber appartient déjà à un autre utilisateur.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/avatar.php:80 actions/profilesettings.php:317
+#: actions/profilesettings.php:346
+msgid "That file is too big."
+msgstr "Ce fichier est trop gros."
 
 #: ../actions/imsettings.php:170 actions/imsettings.php:178
 msgid "That is already your Jabber ID."
 msgstr ""
 
+#: ../actions/emailsettings.php:188 actions/emailsettings.php:206
+#: actions/emailsettings.php:211
+#, fuzzy
+msgid "That is already your email address."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"C'est déjà votre identifiant Jabber.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/smssettings.php:188 actions/smssettings.php:196
+#, fuzzy
+msgid "That is already your phone number."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"C'est déjà votre identifiant Jabber.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
 #: ../actions/imsettings.php:233 actions/imsettings.php:241
 msgid "That is not your Jabber ID."
 msgstr ""
 
+#: ../actions/emailsettings.php:249 actions/emailsettings.php:267
+#: actions/emailsettings.php:270
+#, fuzzy
+msgid "That is not your email address."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"C'est la mauvaise adresse de messagerie instantanée.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/smssettings.php:257 actions/smssettings.php:265
+#, fuzzy
+msgid "That is not your phone number."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Ce n'est pas votre identifiant Jabber.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
 #: ../actions/emailsettings.php:226 ../actions/imsettings.php:210
 #: actions/emailsettings.php:244 actions/imsettings.php:218
+#: actions/emailsettings.php:247
 msgid "That is the wrong IM address."
 msgstr ""
 
+#: ../actions/smssettings.php:233 actions/smssettings.php:241
+#, fuzzy
+msgid "That is the wrong confirmation number."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"C'est la mauvaise adresse de messagerie instantanée.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/smssettings.php:191 actions/smssettings.php:199
+#, fuzzy
+msgid "That phone number already belongs to another user."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Cet identifiant Jabber appartient déjà à un autre utilisateur.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
 #: ../actions/newnotice.php:49 ../actions/twitapistatuses.php:408
 #: actions/newnotice.php:49 actions/twitapistatuses.php:330
+#: actions/newnotice.php:61 actions/twitapistatuses.php:271
 msgid "That's too long. Max notice size is 140 chars."
 msgstr ""
 
 #: ../actions/twitapiaccount.php:74 actions/twitapiaccount.php:72
+#: actions/twitapiaccount.php:55
 msgid "That's too long. Max notice size is 255 chars."
 msgstr ""
 
@@ -2393,6 +2246,7 @@ msgstr ""
 #: ../actions/emailsettings.php:264 ../actions/imsettings.php:250
 #: ../actions/smssettings.php:274 actions/emailsettings.php:282
 #: actions/imsettings.php:258 actions/smssettings.php:282
+#: actions/emailsettings.php:285
 msgid "The address was removed."
 msgstr ""
 
@@ -2410,43 +2264,116 @@ msgid ""
 "subscription."
 msgstr ""
 
+#: ../actions/subscribers.php:35 actions/subscribers.php:35
+#, php-format
+msgid "These are the people who listen to %s's notices."
+msgstr "Ce sont les personnes qui suivent les messages de %s."
+
+#: ../actions/subscribers.php:33 actions/subscribers.php:33
+msgid "These are the people who listen to your notices."
+msgstr "Ce sont les personnes qui suivent vos messages."
+
+#: ../actions/subscriptions.php:35 actions/subscriptions.php:35
+#, php-format
+msgid "These are the people whose notices %s listens to."
+msgstr "Ce sont les personnes dont les messages sont suivis par %s."
+
+#: ../actions/subscriptions.php:33 actions/subscriptions.php:33
+msgid "These are the people whose notices you listen to."
+msgstr "Ce sont les personnes dont vous suivez les messages."
+
 #: ../actions/invite.php:89 actions/invite.php:96
 msgid ""
-"These people are already users and you were automatically subscribed to "
-"them:"
+"These people are already users and you were automatically subscribed to them:"
 msgstr ""
 
 #: ../actions/recoverpassword.php:88
 msgid "This confirmation code is too old. Please start again."
 msgstr ""
 
+#: ../lib/openid.php:195
+msgid ""
+"This form should automatically submit itself. If not, click the submit "
+"button to go to your OpenID provider."
+msgstr ""
+"Ce formulaire devrait se transmettre automatiquement. Si ce n'est pas le "
+"cas, cliquez sur le bouton de soumission pour aller chez votre fournisseur "
+"OpenID."
+
+#: ../actions/finishopenidlogin.php:56 actions/finishopenidlogin.php:61
+#, php-format
+msgid ""
+"This is the first time you've logged into %s so we must connect your OpenID "
+"to a local account. You can either create a new account, or connect with "
+"your existing account, if you have one."
+msgstr ""
+"Ce la première fois que vous vous êtes connectés à %s, donc nous devons "
+"connecter votre OpenID à un compte local. Vous pouvez soit créer un nouveau "
+"compte, soit vous connectez avec un compte existant, si vous en avez "
+
 #: ../actions/twitapifriendships.php:108 ../actions/twitapistatuses.php:586
 #: actions/twitapifavorites.php:127 actions/twitapifriendships.php:108
-#: actions/twitapistatuses.php:511
+#: actions/twitapistatuses.php:511 actions/twitapifavorites.php:94
+#: actions/twitapifriendships.php:82 actions/twitapistatuses.php:428
 msgid "This method requires a POST or DELETE."
 msgstr ""
 
 #: ../actions/twitapiaccount.php:65 ../actions/twitapifriendships.php:44
 #: ../actions/twitapistatuses.php:381 actions/twitapiaccount.php:63
 #: actions/twitapidirect_messages.php:114 actions/twitapifriendships.php:44
-#: actions/twitapistatuses.php:303
+#: actions/twitapistatuses.php:303 actions/twitapiaccount.php:46
+#: actions/twitapidirect_messages.php:117 actions/twitapifriendships.php:30
+#: actions/twitapistatuses.php:239
 msgid "This method requires a POST."
 msgstr ""
 
-#: ../lib/util.php:164 lib/util.php:246
+#: ../lib/util.php:164 lib/util.php:246 lib/util.php:257
 msgid "This page is not available in a media type you accept"
+msgstr ""
+
+#: ../actions/profilesettings.php:63 actions/profilesettings.php:96
+#: actions/profilesettings.php:101
+msgid "Timezone"
+msgstr ""
+
+#: ../actions/profilesettings.php:107 actions/profilesettings.php:222
+#: actions/profilesettings.php:228
+msgid "Timezone not selected."
+msgstr ""
+
+#: ../actions/remotesubscribe.php:43
+#, php-format
+msgid ""
+"To subscribe, you can [login](%%action.login%%), or [register](%%action."
+"register%%) a new  account. If you already have an account  on a [compatible "
+"microblogging site](%%doc.openmublog%%),  enter your profile URL below."
+msgstr ""
+"Pour s'inscrire, vous pouvez [vous connecter](%%action.login%%), ou [créer "
+"unnouveau compte](%%action.register%%). Si vous avez déjà un compte sur un "
+"[site de microblog compatible](%%doc.openmublog%%), entrez l'URL de votre "
+"profil ci-dessous."
+
+#: ../actions/twitapifriendships.php:163 actions/twitapifriendships.php:167
+#: actions/twitapifriendships.php:128
+msgid "Two user ids or screen_names must be supplied."
 msgstr ""
 
 #: ../actions/profilesettings.php:48 ../actions/register.php:169
 #: actions/profilesettings.php:81 actions/register.php:183
+#: actions/profilesettings.php:83 actions/register.php:210
 msgid "URL of your homepage, blog, or profile on another site"
 msgstr ""
+
+#: ../actions/remotesubscribe.php:74 actions/remotesubscribe.php:83
+msgid "URL of your profile on another compatible microblogging service"
+msgstr "URL de votre profil sur un autre service de microblog compatible"
 
 #: ../actions/emailsettings.php:130 ../actions/imsettings.php:110
 #: ../actions/recoverpassword.php:39 ../actions/smssettings.php:135
 #: actions/emailsettings.php:144 actions/imsettings.php:118
 #: actions/recoverpassword.php:39 actions/smssettings.php:143
-#: actions/twittersettings.php:108
+#: actions/twittersettings.php:108 actions/emailsettings.php:147
+#: actions/othersettings.php:146 actions/twittersettings.php:199
 msgid "Unexpected form submission."
 msgstr ""
 
@@ -2454,13 +2381,28 @@ msgstr ""
 msgid "Unexpected password reset."
 msgstr ""
 
-#: ../lib/util.php:269 lib/util.php:285
+#: ../index.php:57 index.php:57
+msgid "Unknown action"
+msgstr ""
+
+#: ../actions/finishremotesubscribe.php:58
+#: actions/finishremotesubscribe.php:60 actions/finishremotesubscribe.php:59
+msgid "Unknown version of OMB protocol."
+msgstr "Version inconnue du protocole OMB"
+
+#: ../lib/util.php:269 lib/util.php:285 lib/util.php:296
 msgid ""
 "Unless otherwise specified, contents of this site are copyright by the "
 "contributors and available under the "
 msgstr ""
 
+#: ../actions/confirmaddress.php:48 actions/confirmaddress.php:48
+#, php-format
+msgid "Unrecognized address type %s"
+msgstr "Type d'adresse non reconnu : %s"
+
 #: ../actions/showstream.php:209 actions/showstream.php:219
+#: actions/showstream.php:267 lib/util.php:2094
 msgid "Unsubscribe"
 msgstr ""
 
@@ -2469,16 +2411,73 @@ msgstr ""
 msgid "Unsupported OMB version"
 msgstr ""
 
+#: ../actions/avatar.php:105 actions/profilesettings.php:342
+#: actions/profilesettings.php:371
+msgid "Unsupported image file format."
+msgstr "Format de fichier d'image non-supporté."
+
+#: ../lib/settingsaction.php:100 lib/settingsaction.php:94
+#: actions/deleteprofile.php:251
+msgid "Updates by SMS"
+msgstr ""
+
+#: ../lib/settingsaction.php:103 lib/settingsaction.php:97
+#: actions/deleteprofile.php:254
+msgid "Updates by instant messenger (IM)"
+msgstr ""
+
+#: ../actions/twitapistatuses.php:241 actions/twitapistatuses.php:158
+#: actions/twitapistatuses.php:126
+#, php-format
+msgid "Updates from %1$s and friends on %2$s!"
+msgstr ""
+
+#: ../actions/twitapistatuses.php:341 actions/twitapistatuses.php:268
+#: actions/twitapistatuses.php:198
+#, php-format
+msgid "Updates from %1$s on %2$s!"
+msgstr ""
+
+#: ../actions/avatar.php:68 actions/profilesettings.php:161
+#: actions/profilesettings.php:166
+msgid "Upload"
+msgstr "Transfert."
+
+#: ../actions/avatar.php:27
+msgid ""
+"Upload a new \"avatar\" (user image) here. You can't edit the picture after "
+"you upload it, so make sure it's more or less square. It must be under the "
+"site license, also. Use a picture that belongs to you and that you want to "
+"share."
+msgstr ""
+"Transférez ici un nouvel « avatar » (image utilisateur). Vous ne pouvez "
+"modifier l'image après l'envoi, alors faites en sorte qu'elle soit plus ou "
+"moins carrée. Elle doit aussi être soumise à la licence du site. Utilisez "
+"une image qui vous appartient et que vous voulez partager."
+
+#: ../lib/settingsaction.php:91
+#, fuzzy
+msgid "Upload a new profile image"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Impossible d'enregistrer les informations du nouveau profil\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
 #: ../actions/invite.php:114 actions/invite.php:121
 msgid ""
-"Use this form to invite your friends and colleagues to use this "
-"service."
+"Use this form to invite your friends and colleagues to use this service."
 msgstr ""
 
 #: ../actions/register.php:159 ../actions/register.php:162
-#: actions/register.php:173 actions/register.php:176
+#: actions/register.php:173 actions/register.php:176 actions/register.php:200
+#: actions/register.php:203
 msgid "Used only for updates, announcements, and password recovery"
 msgstr ""
+
+#: ../actions/finishremotesubscribe.php:86
+#: actions/finishremotesubscribe.php:88 actions/finishremotesubscribe.php:92
+msgid "User being listened to doesn't exist."
+msgstr "L'utilisateur à suivre n'existe pas."
 
 #: ../actions/all.php:41 ../actions/avatarbynickname.php:48
 #: ../actions/foaf.php:47 ../actions/replies.php:41
@@ -2489,21 +2488,34 @@ msgstr ""
 #: actions/showfavorites.php:41 actions/showstream.php:44
 #: actions/twitapiaccount.php:80 actions/twitapifavorites.php:68
 #: actions/twitapistatuses.php:235 actions/twitapistatuses.php:609
-#: actions/twitapiusers.php:87 lib/mailbox.php:50
+#: actions/twitapiusers.php:87 lib/mailbox.php:50 actions/showstream.php:57
+#: actions/twitapiaccount.php:63 actions/twitapifavorites.php:40
+#: actions/twitapistatuses.php:163 actions/twitapistatuses.php:492
+#: lib/twitterapi.php:590
 msgid "User has no profile."
 msgstr ""
+
+#: ../actions/remotesubscribe.php:71 actions/remotesubscribe.php:80
+msgid "User nickname"
+msgstr "Surnom de l'utilisateur"
 
 #: ../actions/twitapiusers.php:75 actions/twitapiusers.php:80
 msgid "User not found."
 msgstr ""
 
-#: ../lib/util.php:1159 lib/util.php:1293
+#: ../actions/profilesettings.php:63 actions/profilesettings.php:96
+#: actions/profilesettings.php:101
+msgid "What timezone are you normally in?"
+msgstr ""
+
+#: ../lib/util.php:1159 lib/util.php:1293 lib/util.php:1630
 #, php-format
 msgid "What's up, %s?"
 msgstr ""
 
 #: ../actions/profilesettings.php:54 ../actions/register.php:175
 #: actions/profilesettings.php:87 actions/register.php:189
+#: actions/profilesettings.php:89 actions/register.php:216
 msgid "Where you are, like \"City, State (or Region), Country\""
 msgstr ""
 
@@ -2517,16 +2529,82 @@ msgstr ""
 msgid "Wrong size image at '%s'"
 msgstr ""
 
+#: ../actions/deletenotice.php:63 ../actions/deletenotice.php:72
+#: actions/deletenotice.php:64 actions/deletenotice.php:79
+#: actions/block.php:105
+msgid "Yes"
+msgstr ""
+
+#: ../actions/finishaddopenid.php:64 actions/finishaddopenid.php:64
+msgid "You already have this OpenID!"
+msgstr "Vous avez déjà cet OpenID !"
+
+#: ../actions/deletenotice.php:37 actions/deletenotice.php:37
+msgid ""
+"You are about to permanently delete a notice.  Once this is done, it cannot "
+"be undone."
+msgstr ""
+
+#: ../actions/recoverpassword.php:31 actions/recoverpassword.php:31
+msgid "You are already logged in!"
+msgstr "Vous êtes déjà connecté !"
+
 #: ../actions/invite.php:81 actions/invite.php:88
 msgid "You are already subscribed to these users:"
 msgstr ""
+
+#: ../actions/twitapifriendships.php:128 actions/twitapifriendships.php:128
+#: actions/twitapifriendships.php:102
+msgid "You are not friends with the specified user."
+msgstr ""
+
+#: ../actions/password.php:27
+msgid "You can change your password here. Choose a good one!"
+msgstr "Vous pouvez changer ici votre mot de passe. Choisissez-en un bon !"
 
 #: ../actions/register.php:135 actions/register.php:145
 msgid "You can create a new account to start posting notices."
 msgstr ""
 
+#: ../actions/smssettings.php:28 actions/smssettings.php:28
+#, php-format
+msgid "You can receive SMS messages through email from %%site.name%%."
+msgstr ""
+
+#: ../actions/openidsettings.php:86
+msgid ""
+"You can remove an OpenID from your account by clicking the button marked "
+"\"Remove\"."
+msgstr ""
+"Vous pouvez enlever un OpenID de votre compte en cliquant sur le bouton « "
+"Enlever »."
+
+#: ../actions/imsettings.php:28 actions/imsettings.php:28
+#, php-format
+msgid ""
+"You can send and receive notices through Jabber/GTalk [instant messages](%%"
+"doc.im%%). Configure your address and settings below."
+msgstr ""
+"Vous pouvez envoyer et recevoir des messages via [la messagerie instantanée]"
+"(%%doc.im%%)Jabber/GTalk. Configurez votre adresse et vos paramètres ci-"
+"dessous."
+
+#: ../actions/profilesettings.php:27
+msgid ""
+"You can update your personal profile info here so people know more about you."
+msgstr ""
+"Vous pouvez mettre à jour les informations de votre profil personnel pour "
+"que l'on en sache plus sur vous."
+
+#: ../actions/finishremotesubscribe.php:31 ../actions/remotesubscribe.php:31
+#: actions/finishremotesubscribe.php:31 actions/remotesubscribe.php:31
+#: actions/finishremotesubscribe.php:83 actions/finishremotesubscribe.php:99
+msgid "You can use the local subscription!"
+msgstr "Vous pouvez utiliser l'inscription locale !"
+
 #: ../actions/finishopenidlogin.php:33 ../actions/register.php:61
 #: actions/finishopenidlogin.php:38 actions/register.php:68
+#: actions/register.php:77
 msgid "You can't register if you don't agree to the license."
 msgstr ""
 
@@ -2534,7 +2612,21 @@ msgstr ""
 msgid "You did not send us that profile"
 msgstr ""
 
+#: ../lib/mail.php:147
+#, php-format
+msgid ""
+"You have a new posting address on %1$s.\n"
+"\n"
+"Send email to %2$s to post new messages.\n"
+"\n"
+"More email instructions at %3$s.\n"
+"\n"
+"Faithfully yours,\n"
+"%4$s"
+msgstr ""
+
 #: ../actions/twitapistatuses.php:612 actions/twitapistatuses.php:537
+#: actions/twitapistatuses.php:455
 msgid "You may not delete another user's status."
 msgstr ""
 
@@ -2553,68 +2645,104 @@ msgstr ""
 msgid "You've been identified. Enter a  new password below. "
 msgstr ""
 
+#: ../actions/openidlogin.php:67 actions/openidlogin.php:76
+#: actions/openidlogin.php:84
+msgid "Your OpenID URL"
+msgstr "Votre URL OpenID"
+
 #: ../actions/recoverpassword.php:164
 msgid "Your nickname on this server, or your registered email address."
 msgstr ""
 
-#: ../lib/util.php:943 lib/util.php:992
+#: ../actions/openidsettings.php:28
+#, php-format
+msgid ""
+"[OpenID](%%doc.openid%%) lets you log into many sites  with the same user "
+"account.  Manage your associated OpenIDs from here."
+msgstr ""
+"[OpenID](%%doc.openid%%) vous permet de vous connecter à différents sites "
+"avec le même compte utilisateur. Gérez vos OpenID associés d'ici."
+
+#: ../lib/util.php:943 lib/util.php:992 lib/util.php:1287
 msgid "a few seconds ago"
 msgstr ""
 
-#: ../lib/util.php:955 lib/util.php:1004
+#: ../lib/util.php:955 lib/util.php:1004 lib/util.php:1299
 #, php-format
 msgid "about %d days ago"
 msgstr ""
 
-#: ../lib/util.php:951 lib/util.php:1000
+#: ../lib/util.php:951 lib/util.php:1000 lib/util.php:1295
 #, php-format
 msgid "about %d hours ago"
 msgstr ""
 
-#: ../lib/util.php:947 lib/util.php:996
+#: ../lib/util.php:947 lib/util.php:996 lib/util.php:1291
 #, php-format
 msgid "about %d minutes ago"
 msgstr ""
 
-#: ../lib/util.php:959 lib/util.php:1008
+#: ../lib/util.php:959 lib/util.php:1008 lib/util.php:1303
 #, php-format
 msgid "about %d months ago"
 msgstr ""
 
-#: ../lib/util.php:953 lib/util.php:1002
+#: ../lib/util.php:953 lib/util.php:1002 lib/util.php:1297
 msgid "about a day ago"
 msgstr ""
 
-#: ../lib/util.php:945 lib/util.php:994
+#: ../lib/util.php:945 lib/util.php:994 lib/util.php:1289
 msgid "about a minute ago"
 msgstr ""
 
-#: ../lib/util.php:957 lib/util.php:1006
+#: ../lib/util.php:957 lib/util.php:1006 lib/util.php:1301
 msgid "about a month ago"
 msgstr ""
 
-#: ../lib/util.php:961 lib/util.php:1010
+#: ../lib/util.php:961 lib/util.php:1010 lib/util.php:1305
 msgid "about a year ago"
 msgstr ""
 
-#: ../lib/util.php:949 lib/util.php:998
+#: ../lib/util.php:949 lib/util.php:998 lib/util.php:1293
 msgid "about an hour ago"
+msgstr ""
+
+#: ../actions/showstream.php:423 ../lib/stream.php:132
+#: actions/showstream.php:441 lib/stream.php:99 lib/noticelist.php:211
+msgid "delete"
 msgstr ""
 
 #: ../actions/noticesearch.php:130 ../actions/showstream.php:408
 #: ../lib/stream.php:117 actions/noticesearch.php:136
-#: actions/showstream.php:426 lib/stream.php:84
+#: actions/showstream.php:426 lib/stream.php:84 actions/noticesearch.php:135
+#: lib/facebookaction.php:202 lib/noticelist.php:189
 msgid "in reply to..."
 msgstr ""
 
 #: ../actions/noticesearch.php:137 ../actions/showstream.php:415
 #: ../lib/stream.php:124 actions/noticesearch.php:143
-#: actions/showstream.php:433 lib/stream.php:91
+#: actions/showstream.php:433 lib/stream.php:91 actions/noticesearch.php:142
+#: lib/noticelist.php:199
 msgid "reply"
 msgstr ""
 
-#: ../lib/util.php:1309 lib/util.php:1443
-msgid "« After"
+#: ../actions/password.php:44 actions/profilesettings.php:183
+#: actions/profilesettings.php:188
+msgid "same as password above"
+msgstr "identique au mot de passe ci-dessus"
+
+#: ../actions/twitapistatuses.php:755 actions/twitapistatuses.php:678
+#: actions/twitapistatuses.php:543
+#, fuzzy
+msgid "unsupported file type"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Format de fichier d'image non-supporté.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../lib/util.php:1309 lib/util.php:1443 lib/facebookaction.php:251
+#: lib/util.php:1783
+msgid "Â« After"
 msgstr ""
 
 #: actions/deletenotice.php:74 actions/disfavor.php:43
@@ -2626,6 +2754,12 @@ msgstr ""
 #: actions/remotesubscribe.php:40 actions/smssettings.php:124
 #: actions/subscribe.php:44 actions/twittersettings.php:97
 #: actions/unsubscribe.php:41 actions/userauthorization.php:35
+#: actions/block.php:38 actions/deleteprofile.php:127 actions/disfavor.php:47
+#: actions/emailsettings.php:130 actions/favor.php:49 actions/login.php:45
+#: actions/newmessage.php:44 actions/newnotice.php:36 actions/nudge.php:47
+#: actions/othersettings.php:139 actions/profilesettings.php:49
+#: actions/subedit.php:38 actions/tagother.php:113
+#: actions/twittersettings.php:188 actions/unblock.php:38
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 
@@ -2649,12 +2783,14 @@ msgstr ""
 msgid "Send me email when someone sends me a private message."
 msgstr ""
 
-#: actions/favor.php:53 actions/twitapifavorites.php:142
+#: actions/favor.php:53 actions/twitapifavorites.php:142 actions/favor.php:54
+#: actions/twitapifavorites.php:115
 msgid "This notice is already a favorite!"
 msgstr ""
 
 #: actions/favor.php:60 actions/twitapifavorites.php:151
-#: classes/Command.php:132
+#: classes/Command.php:132 actions/favor.php:61
+#: actions/twitapifavorites.php:122
 msgid "Could not create favorite."
 msgstr ""
 
@@ -2663,11 +2799,12 @@ msgid "Disfavor"
 msgstr ""
 
 #: actions/favoritesrss.php:60 actions/showfavorites.php:47
+#: actions/favoritesrss.php:62
 #, php-format
 msgid "%s favorite notices"
 msgstr ""
 
-#: actions/favoritesrss.php:64
+#: actions/favoritesrss.php:64 actions/favoritesrss.php:66
 #, php-format
 msgid "Feed of favorite notices of %s"
 msgstr ""
@@ -2693,47 +2830,50 @@ msgid ""
 "\n"
 msgstr ""
 
-#: actions/login.php:104
+#: actions/login.php:104 actions/login.php:111 actions/openidlogin.php:86
 msgid "Automatically login in the future; "
 msgstr ""
 
-#: actions/login.php:122
+#: actions/login.php:122 actions/login.php:130
 msgid "For security reasons, please re-enter your "
 msgstr ""
 
-#: actions/login.php:126
+#: actions/login.php:126 actions/login.php:134
 msgid "Login with your username and password. "
 msgstr ""
 
 #: actions/newmessage.php:58 actions/twitapidirect_messages.php:130
+#: actions/newmessage.php:60 actions/twitapidirect_messages.php:136
 msgid "That's too long. Max message size is 140 chars."
 msgstr ""
 
-#: actions/newmessage.php:65
+#: actions/newmessage.php:65 actions/newmessage.php:68
 msgid "No recipient specified."
 msgstr ""
 
 #: actions/newmessage.php:68 actions/newmessage.php:113
-#: classes/Command.php:206
+#: classes/Command.php:206 actions/newmessage.php:71
+#: actions/newmessage.php:116 classes/Command.php:211
 msgid "You can't send a message to this user."
 msgstr ""
 
 #: actions/newmessage.php:71 actions/twitapidirect_messages.php:146
-#: classes/Command.php:209
+#: classes/Command.php:209 actions/newmessage.php:74
+#: actions/twitapidirect_messages.php:153 classes/Command.php:214
 msgid ""
-"Don't send a message to yourself; just say it to yourself quietly "
-"instead."
+"Don't send a message to yourself; just say it to yourself quietly instead."
 msgstr ""
 
-#: actions/newmessage.php:108
+#: actions/newmessage.php:108 actions/microsummary.php:32
+#: actions/newmessage.php:111
 msgid "No such user"
 msgstr ""
 
-#: actions/newmessage.php:117
+#: actions/newmessage.php:117 actions/newmessage.php:120
 msgid "New message"
 msgstr ""
 
-#: actions/noticesearch.php:95
+#: actions/noticesearch.php:95 actions/noticesearch.php:94
 msgid "Notice without matching profile"
 msgstr ""
 
@@ -2780,6 +2920,7 @@ msgstr ""
 
 #: actions/profilesettings.php:115 actions/remotesubscribe.php:320
 #: actions/userauthorization.php:159 actions/userrss.php:76
+#: actions/profilesettings.php:120 actions/remotesubscribe.php:333
 msgid "User without matching profile"
 msgstr ""
 
@@ -2807,18 +2948,18 @@ msgstr ""
 msgid "New password successfully saved. "
 msgstr ""
 
-#: actions/register.php:95
+#: actions/register.php:95 actions/register.php:104
 msgid "Password must be 6 or more characters."
 msgstr ""
 
-#: actions/register.php:216
+#: actions/register.php:216 actions/register.php:243
 #, php-format
 msgid ""
 "Congratulations, %s! And welcome to %%%%site.name%%%%. From here, you may "
 "want to..."
 msgstr ""
 
-#: actions/register.php:227
+#: actions/register.php:227 actions/register.php:254
 msgid "(You should receive a message by email momentarily, with "
 msgstr ""
 
@@ -2833,6 +2974,7 @@ msgid "Feed for favorites of %s"
 msgstr ""
 
 #: actions/showfavorites.php:84 actions/twitapifavorites.php:85
+#: actions/showfavorites.php:88 actions/twitapifavorites.php:57
 msgid "Could not retrieve favorite notices."
 msgstr ""
 
@@ -2854,7 +2996,7 @@ msgstr ""
 msgid "Message from %1$s on %2$s"
 msgstr ""
 
-#: actions/showstream.php:154
+#: actions/showstream.php:154 lib/util.php:2105
 msgid "Send a message"
 msgstr ""
 
@@ -2863,73 +3005,78 @@ msgstr ""
 msgid "Mobile carrier for your phone. "
 msgstr ""
 
-#: actions/twitapidirect_messages.php:76
+#: actions/twitapidirect_messages.php:76 actions/twitapidirect_messages.php:64
 #, php-format
 msgid "Direct messages to %s"
 msgstr ""
 
-#: actions/twitapidirect_messages.php:77
+#: actions/twitapidirect_messages.php:77 actions/twitapidirect_messages.php:65
 #, php-format
 msgid "All the direct messages sent to %s"
 msgstr ""
 
-#: actions/twitapidirect_messages.php:81
+#: actions/twitapidirect_messages.php:81 actions/twitapidirect_messages.php:69
 msgid "Direct Messages You've Sent"
 msgstr ""
 
-#: actions/twitapidirect_messages.php:82
+#: actions/twitapidirect_messages.php:82 actions/twitapidirect_messages.php:70
 #, php-format
 msgid "All the direct messages sent from %s"
 msgstr ""
 
 #: actions/twitapidirect_messages.php:128
+#: actions/twitapidirect_messages.php:132
 msgid "No message text!"
 msgstr ""
 
 #: actions/twitapidirect_messages.php:138
+#: actions/twitapidirect_messages.php:145
 msgid "Recipient user not found."
 msgstr ""
 
 #: actions/twitapidirect_messages.php:141
+#: actions/twitapidirect_messages.php:148
 msgid "Can't send direct messages to users who aren't your friend."
 msgstr ""
 
-#: actions/twitapifavorites.php:92
+#: actions/twitapifavorites.php:92 actions/twitapifavorites.php:64
 #, php-format
 msgid "%s / Favorites from %s"
 msgstr ""
 
-#: actions/twitapifavorites.php:95
+#: actions/twitapifavorites.php:95 actions/twitapifavorites.php:67
 #, php-format
 msgid "%s updates favorited by %s / %s."
 msgstr ""
 
 #: actions/twitapifavorites.php:187 lib/mail.php:275
+#: actions/twitapifavorites.php:158 lib/mail.php:303
 #, php-format
 msgid "%s added your notice as a favorite"
 msgstr ""
 
 #: actions/twitapifavorites.php:188 lib/mail.php:276
+#: actions/twitapifavorites.php:159 lib/mail.php:304
 #, php-format
 msgid ""
 "%1$s just added your notice from %2$s as one of their favorites.\n"
 "\n"
 msgstr ""
 
-#: actions/twittersettings.php:27
+#: actions/twittersettings.php:27 actions/twittersettings.php:29
 msgid ""
 "Add your Twitter account to automatically send your notices to Twitter, "
 msgstr ""
 
-#: actions/twittersettings.php:41
+#: actions/twittersettings.php:41 actions/twittersettings.php:43
 msgid "Twitter settings"
 msgstr ""
 
-#: actions/twittersettings.php:48
+#: actions/twittersettings.php:48 actions/twittersettings.php:50
 msgid "Twitter Account"
 msgstr ""
 
-#: actions/twittersettings.php:56
+#: actions/twittersettings.php:56 actions/twittersettings.php:58
 msgid "Current verified Twitter account."
 msgstr ""
 
@@ -2957,46 +3104,50 @@ msgstr ""
 msgid "Subscribe to my Twitter friends here."
 msgstr ""
 
-#: actions/twittersettings.php:122
+#: actions/twittersettings.php:122 actions/twittersettings.php:216
 msgid ""
 "Username must have only numbers, upper- and lowercase letters, and "
 "underscore (_). 15 chars max."
 msgstr ""
 
-#: actions/twittersettings.php:128
+#: actions/twittersettings.php:128 actions/twittersettings.php:221
 msgid "Could not verify your Twitter credentials!"
 msgstr ""
 
-#: actions/twittersettings.php:137
+#: actions/twittersettings.php:137 actions/twittersettings.php:228
 #, php-format
 msgid "Unable to retrieve account information for \"%s\" from Twitter."
 msgstr ""
 
 #: actions/twittersettings.php:151 actions/twittersettings.php:170
+#: actions/twittersettings.php:234 actions/twittersettings.php:253
 msgid "Unable to save your Twitter settings!"
 msgstr ""
 
-#: actions/twittersettings.php:174
+#: actions/twittersettings.php:174 actions/twittersettings.php:261
 msgid "Twitter settings saved."
 msgstr ""
 
-#: actions/twittersettings.php:192
+#: actions/twittersettings.php:192 actions/twittersettings.php:272
 msgid "That is not your Twitter account."
 msgstr ""
 
 #: actions/twittersettings.php:200 actions/twittersettings.php:208
+#: actions/twittersettings.php:280
 msgid "Couldn't remove Twitter user."
 msgstr ""
 
-#: actions/twittersettings.php:212
+#: actions/twittersettings.php:212 actions/twittersettings.php:284
 msgid "Twitter account removed."
 msgstr ""
 
 #: actions/twittersettings.php:225 actions/twittersettings.php:239
+#: actions/twittersettings.php:299 actions/twittersettings.php:310
+#: actions/twittersettings.php:322
 msgid "Couldn't save Twitter preferences."
 msgstr ""
 
-#: actions/twittersettings.php:245
+#: actions/twittersettings.php:245 actions/twittersettings.php:330
 msgid "Twitter preferences saved."
 msgstr ""
 
@@ -3012,15 +3163,15 @@ msgstr ""
 msgid "The subscription has been rejected, but no "
 msgstr ""
 
-#: classes/Channel.php:113
+#: classes/Channel.php:113 classes/Channel.php:129
 msgid "Command results"
 msgstr ""
 
-#: classes/Channel.php:148
+#: classes/Channel.php:148 classes/Channel.php:175
 msgid "Command complete"
 msgstr ""
 
-#: classes/Channel.php:158
+#: classes/Channel.php:158 classes/Channel.php:185
 msgid "Command failed"
 msgstr ""
 
@@ -3033,7 +3184,7 @@ msgstr ""
 msgid "Subscriptions: %1$s\n"
 msgstr ""
 
-#: classes/Command.php:125 classes/Command.php:242
+#: classes/Command.php:125 classes/Command.php:242 classes/Command.php:247
 msgid "User has no last notice"
 msgstr ""
 
@@ -3066,59 +3217,60 @@ msgstr ""
 msgid "About: %s"
 msgstr ""
 
-#: classes/Command.php:200
+#: classes/Command.php:200 classes/Command.php:202
 #, php-format
 msgid "Message too long - maximum is 140 characters, you sent %d"
 msgstr ""
 
-#: classes/Command.php:214
+#: classes/Command.php:214 classes/Command.php:219
 #, php-format
 msgid "Direct message to %s sent"
 msgstr ""
 
-#: classes/Command.php:216
+#: classes/Command.php:216 classes/Command.php:221
 msgid "Error sending direct message."
 msgstr ""
 
-#: classes/Command.php:263
+#: classes/Command.php:263 classes/Command.php:268
 msgid "Specify the name of the user to subscribe to"
 msgstr ""
 
-#: classes/Command.php:270
+#: classes/Command.php:270 classes/Command.php:275
 #, php-format
 msgid "Subscribed to %s"
 msgstr ""
 
-#: classes/Command.php:288
+#: classes/Command.php:288 classes/Command.php:293
 msgid "Specify the name of the user to unsubscribe from"
 msgstr ""
 
-#: classes/Command.php:295
+#: classes/Command.php:295 classes/Command.php:300
 #, php-format
 msgid "Unsubscribed from %s"
 msgstr ""
 
-#: classes/Command.php:310 classes/Command.php:330
+#: classes/Command.php:310 classes/Command.php:330 classes/Command.php:315
+#: classes/Command.php:335
 msgid "Command not yet implemented."
 msgstr ""
 
-#: classes/Command.php:313
+#: classes/Command.php:313 classes/Command.php:318
 msgid "Notification off."
 msgstr ""
 
-#: classes/Command.php:315
+#: classes/Command.php:315 classes/Command.php:320
 msgid "Can't turn off notification."
 msgstr ""
 
-#: classes/Command.php:333
+#: classes/Command.php:333 classes/Command.php:338
 msgid "Notification on."
 msgstr ""
 
-#: classes/Command.php:335
+#: classes/Command.php:335 classes/Command.php:340
 msgid "Can't turn on notification."
 msgstr ""
 
-#: classes/Command.php:344
+#: classes/Command.php:344 classes/Command.php:349
 msgid "Commands:\n"
 msgstr ""
 
@@ -3130,23 +3282,23 @@ msgstr ""
 msgid "Could not update message with new URI."
 msgstr ""
 
-#: lib/gallery.php:46
+#: lib/gallery.php:46 lib/gallery.php:55
 msgid "User without matching profile in system."
 msgstr ""
 
-#: lib/mail.php:147
+#: lib/mail.php:147 lib/mail.php:141
 #, php-format
 msgid ""
 "You have a new posting address on %1$s.\n"
 "\n"
 msgstr ""
 
-#: lib/mail.php:249
+#: lib/mail.php:249 lib/mail.php:275
 #, php-format
 msgid "New private message from %s"
 msgstr ""
 
-#: lib/mail.php:253
+#: lib/mail.php:253 lib/mail.php:279
 #, php-format
 msgid ""
 "%1$s (%2$s) sent you a private message:\n"
@@ -3190,18 +3342,485 @@ msgstr ""
 msgid "Your sent messages"
 msgstr ""
 
-#: lib/settingsaction.php:99
+#: lib/settingsaction.php:99 actions/deleteprofile.php:256
 msgid "Twitter"
 msgstr ""
 
-#: lib/settingsaction.php:100
+#: lib/settingsaction.php:100 actions/deleteprofile.php:257
 msgid "Twitter integration options"
 msgstr ""
 
-#: lib/util.php:1718
+#: lib/util.php:1718 lib/util.php:2145
 msgid "To"
 msgstr ""
 
 #: scripts/maildaemon.php:45
 msgid "Could not parse message."
 msgstr ""
+
+#: actions/block.php:45 actions/subedit.php:45 actions/unblock.php:45
+msgid "No profile specified."
+msgstr ""
+
+#: actions/block.php:52 actions/subedit.php:52 actions/tagother.php:45
+#: actions/unblock.php:52
+msgid "No profile with that ID."
+msgstr ""
+
+#: actions/block.php:78
+msgid "Block user"
+msgstr ""
+
+#: actions/block.php:81
+msgid "Are you sure you want to block this user? "
+msgstr ""
+
+#: actions/block.php:117
+#, fuzzy
+msgid "You have already blocked this user."
+msgstr "Vous êtes déjà connecté !"
+
+#: actions/block.php:124
+msgid "Failed to save block information."
+msgstr ""
+
+#: actions/deleteprofile.php:25
+msgid "Code not yet ready."
+msgstr ""
+
+#: actions/deleteprofile.php:36
+msgid "Export and delete your user information."
+msgstr ""
+
+#: actions/deleteprofile.php:88 actions/deleteprofile.php:119
+#, fuzzy
+msgid "Delete my account"
+msgstr "Créer un nouveau compte"
+
+#: actions/deleteprofile.php:89
+msgid "Delete my account confirmation"
+msgstr ""
+
+#: actions/deleteprofile.php:117
+msgid "Check if you are sure you want to delete your account."
+msgstr ""
+
+#: actions/deleteprofile.php:259 lib/settingsaction.php:102
+msgid "Other"
+msgstr ""
+
+#: actions/deleteprofile.php:260 lib/settingsaction.php:103
+msgid "Other options"
+msgstr ""
+
+#: actions/disfavor.php:72
+msgid "Add to favorites"
+msgstr ""
+
+#: actions/emailsettings.php:98
+msgid "Allow friends to nudge me and send me an email."
+msgstr ""
+
+#: actions/facebookremove.php:54
+#, fuzzy
+msgid "Couldn't remove Facebook user."
+msgstr "Impossible de créer l'inscription."
+
+#: actions/favor.php:71
+msgid "Disfavor favorite"
+msgstr ""
+
+#: actions/favorited.php:31 lib/stream.php:45
+msgid "Popular notices"
+msgstr ""
+
+#: actions/favorited.php:54
+msgid "Showing recently popular notices"
+msgstr ""
+
+#: actions/featured.php:32 actions/featured.php:54 lib/stream.php:41
+msgid "Featured users"
+msgstr ""
+
+#: actions/finishremotesubscribe.php:186
+msgid "That user has blocked you from subscribing."
+msgstr ""
+
+#: actions/microsummary.php:39
+msgid "No current status"
+msgstr ""
+
+#: actions/newnotice.php:93
+#, fuzzy
+msgid "Notice posted"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Recherche\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: actions/newnotice.php:116 classes/Channel.php:140
+msgid "Ajax Error"
+msgstr ""
+
+#: actions/nudge.php:52
+msgid ""
+"This user doesn't allow nudges or hasn't confirmed or set his email yet."
+msgstr ""
+
+#: actions/nudge.php:61
+msgid "Nudge sent"
+msgstr ""
+
+#: actions/othersettings.php:27
+msgid "Manage various other options."
+msgstr ""
+
+#: actions/othersettings.php:33
+#, fuzzy
+msgid "Other Settings"
+msgstr "Paramètres de messagerie instantanée"
+
+#: actions/othersettings.php:35
+msgid "URL Auto-shortening"
+msgstr ""
+
+#: actions/othersettings.php:54
+msgid "Service"
+msgstr ""
+
+#: actions/othersettings.php:54
+msgid "Automatic shortening service to use."
+msgstr ""
+
+#: actions/othersettings.php:155
+#, fuzzy
+msgid "URL shortening service is too long (max 50 chars)."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"La localisation est trop longue (255 caractères maximum).\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: actions/peopletag.php:33
+#, fuzzy, php-format
+msgid "Not a valid people tag: %s"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Ce n'est pas une adresse email valide.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: actions/peopletag.php:45
+#, php-format
+msgid "Users self-tagged with %s - page %d"
+msgstr ""
+
+#: actions/peopletag.php:87
+#, php-format
+msgid "These are users who have tagged themselves \"%s\" "
+msgstr ""
+
+#: actions/profilesettings.php:92
+msgid ""
+"Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated"
+msgstr ""
+
+#: actions/profilesettings.php:246 actions/tagother.php:131
+#, fuzzy, php-format
+msgid "Invalid tag: \"%s\""
+msgstr "Taille invalide."
+
+#: actions/profilesettings.php:328
+msgid "Couldn't save tags."
+msgstr ""
+
+#: actions/public.php:68
+#, php-format
+msgid ""
+"This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
+"blogging) service "
+msgstr ""
+
+#: actions/public.php:90
+#, fuzzy
+msgid "Could not retrieve public stream."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Non inscrit !\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: actions/register.php:67 actions/register.php:177
+msgid "Sorry, only invited people can register."
+msgstr ""
+
+#: actions/register.php:156
+msgid "With this form you can create a new account. "
+msgstr ""
+
+#: actions/remotesubscribe.php:136 actions/remotesubscribe.php:141
+msgid "That's a local profile! Login to subscribe."
+msgstr ""
+
+#: actions/subedit.php:68
+msgid "You are not subscribed to that profile."
+msgstr ""
+
+#: actions/subedit.php:81
+#, fuzzy
+msgid "Could not save subscription."
+msgstr "Impossible de créer l'inscription."
+
+#: actions/subscribe.php:53
+#, fuzzy
+msgid "Not a local user."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Pas de code de récupération.\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: actions/subscribe.php:67
+#, fuzzy
+msgid "Subscribed"
+msgstr "Inscription distante"
+
+#: actions/subscriptions.php:72
+msgid "Jabber"
+msgstr ""
+
+#: actions/tagother.php:31
+msgid "Not logged in"
+msgstr ""
+
+#: actions/tagother.php:40
+#, fuzzy
+msgid "No id argument."
+msgstr "Il n'y a pas ce document.'"
+
+#: actions/tagother.php:56
+msgid "Tag a person"
+msgstr ""
+
+#: actions/tagother.php:98
+msgid ""
+"Tags for this user (letters, numbers, -, ., and _), comma- or space- "
+"separated"
+msgstr ""
+
+#: actions/tagother.php:120
+#, fuzzy
+msgid "No such profile."
+msgstr "Il n'y a pas cet OpenID."
+
+#: actions/tagother.php:146
+msgid ""
+"You can only tag people you are subscribed to or who are subscribed to you."
+msgstr ""
+
+#: actions/tagother.php:153
+#, fuzzy
+msgid "Could not save tags."
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Non inscrit !\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: actions/tagother.php:188
+msgid "Use this form to add tags to your subscribers or subscriptions."
+msgstr ""
+
+#: actions/tagrss.php:33
+#, fuzzy
+msgid "No such tag."
+msgstr "Il n'y a pas ce document.'"
+
+#: actions/tagrss.php:62
+#, fuzzy, php-format
+msgid "Microblog tagged with %s"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Fil des messages de %s\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: actions/twitapiblocks.php:45
+msgid "Block user failed."
+msgstr ""
+
+#: actions/twitapiblocks.php:66
+msgid "Unblock user failed."
+msgstr ""
+
+#: actions/twitapiusers.php:45
+msgid "Not found."
+msgstr ""
+
+#: actions/twittersettings.php:63
+msgid "Twitter user name"
+msgstr ""
+
+#: actions/twittersettings.php:67
+#, fuzzy
+msgid "Twitter password"
+msgstr "Changer de mot de passe"
+
+#: actions/twittersettings.php:129
+msgid "Twitter Friends"
+msgstr ""
+
+#: actions/unblock.php:73
+#, fuzzy
+msgid "Error removing the block."
+msgstr "Erreur lors de l'enregistrement de l'utilisateur."
+
+#: actions/unsubscribe.php:48
+#, fuzzy
+msgid "No profile id in request."
+msgstr "Pas d'URL de profil retourné par le serveur."
+
+#: actions/unsubscribe.php:55
+msgid "No profile with that id."
+msgstr ""
+
+#: actions/unsubscribe.php:69
+#, fuzzy
+msgid "Unsubscribed"
+msgstr "Inscription distante"
+
+#: classes/Notice.php:100
+#, fuzzy
+msgid "Problem saving notice. Unknown user."
+msgstr "Erreur lors de l'enregistrement de l'utilisateur."
+
+#: classes/Notice.php:105
+msgid ""
+"Too many notices too fast; take a breather and post again in a few minutes."
+msgstr ""
+
+#: classes/Notice.php:112
+msgid "You are banned from posting notices on this site."
+msgstr ""
+
+#: lib/gallery.php:98
+#, fuzzy
+msgid "Filter tags"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Fil des réponses à %s\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: lib/gallery.php:104
+msgid "All"
+msgstr ""
+
+#: lib/gallery.php:108
+msgid "Tag"
+msgstr ""
+
+#: lib/gallery.php:109
+msgid "Choose a tag to narrow list"
+msgstr ""
+
+#: lib/gallery.php:110
+msgid "Go"
+msgstr ""
+
+#: lib/gallery.php:264
+msgid "Subscriptions navigation"
+msgstr ""
+
+#: lib/gallery.php:270 lib/gallery.php:292
+msgid "List"
+msgstr ""
+
+#: lib/gallery.php:280 lib/gallery.php:294
+msgid "Icons"
+msgstr ""
+
+#: lib/mail.php:92
+#, php-format
+msgid ""
+"Hey, %s.\n"
+"\n"
+"Someone just entered this email address on %s.\n"
+"\n"
+msgstr ""
+
+#: lib/mail.php:242
+#, php-format
+msgid "You've been nudged by %s"
+msgstr ""
+
+#: lib/mail.php:246
+#, php-format
+msgid ""
+"%1$s (%2$s) is wondering what you are up to these days and is inviting you "
+"to post some news.\n"
+"\n"
+msgstr ""
+
+#: lib/profilelist.php:146
+msgid "(none)"
+msgstr ""
+
+#: lib/stream.php:33
+msgid "Public"
+msgstr "Public"
+
+#: lib/stream.php:36 lib/stream.php:37
+msgid "Recent tags"
+msgstr ""
+
+#: lib/stream.php:40
+msgid "Featured"
+msgstr ""
+
+#: lib/stream.php:44
+#, fuzzy
+msgid "Popular"
+msgstr ""
+"#-#-#-#-#  laconica-no-duplicates.po (0.43)  #-#-#-#-#\n"
+"Rechercher des personnes\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: lib/subs.php:51
+msgid "User has blocked you."
+msgstr ""
+
+#: lib/util.php:2059
+msgid "Send a nudge"
+msgstr ""
+
+#: lib/util.php:2063
+msgid "Nudge sent!"
+msgstr ""
+
+#: lib/util.php:2194
+msgid "Block"
+msgstr ""
+
+#: lib/util.php:2198
+msgid "Unblock"
+msgstr ""
+
+#~ msgid "Couldn't confirm email."
+#~ msgstr "Impossible de confirmer l'email"
+
+#~ msgid "Email address"
+#~ msgstr "Adresse email"
+
+#~ msgid "Error inserting notice"
+#~ msgstr "Erreur lors de l'insertion d'un message"
+
+#~ msgid ""
+#~ "It runs the [Laconica](http://laconi.ca/) microblogging software, version "
+#~ "%s, available under the [GNU Affero General Public License] (http://www."
+#~ "fsf.org/licensing/licenses/agpl-3.0.html)."
+#~ msgstr ""
+#~ "Il utilise le logiciel de microblog [Laconica](http://laconi.ca/), "
+#~ "version %s, disponible sous la licence [GNU Affero General Public "
+#~ "License] (http://www.fsf.org/licensing/licenses/agpl-3.0.html)."
+
+#, fuzzy
+#~ msgid "Unsupported type"
+#~ msgstr "Version OMB non-supportée"
+
+#, fuzzy
+#~ msgid "not a supported data format"
+#~ msgstr "Format de fichier d'image non-supporté."
