@@ -39,6 +39,7 @@ class FacebooksettingsAction extends FacebookAction
 
         $noticesync = $this->arg('noticesync');
         $replysync = $this->arg('replysync');
+        $prefix = $this->trimmed('prefix');
 
         $facebook = get_facebook();
         $fbuid = $facebook->require_login();
@@ -48,6 +49,8 @@ class FacebooksettingsAction extends FacebookAction
         $original = clone($flink);
         $flink->set_flags($noticesync, $replysync, false);
         $result = $flink->update($original);
+
+        $facebook->api_client->data_setUserPreference(1, substr($prefix, 0, 128));
 
         if ($result) {
             $this->show_form('Sync preferences saved.', true);
@@ -91,6 +94,14 @@ class FacebooksettingsAction extends FacebookAction
             common_checkbox('replysync', _('Send local "@" replies to Facebook.'),
                              ($flink) ? ($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) : true);
 
+            // function common_input($id, $label, $value=null,$instructions=null)
+
+            $prefix = $facebook->api_client->data_getUserPreference(1);
+            
+
+            common_input('prefix', _('Prefix'),
+                         ($prefix) ? $prefix : null,
+                         _('A string to prefix notices with.'));
             common_submit('save', _('Save'));
 
             common_element_end('form');

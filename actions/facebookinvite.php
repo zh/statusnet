@@ -46,7 +46,7 @@ class FacebookinviteAction extends FacebookAction
         common_element('h2', null, _('Thanks for inviting your friends to use Identi.ca!'));
         common_element('p', null, _('Invitations have been sent to the following users:'));
 
-        $friend_ids = $_POST['ids']; // Hmm... $arg->('ids) doesn't seem to work
+        $friend_ids = $_POST['ids']; // Hmm... $this->arg('ids') doesn't seem to work
 
         common_element_start("ul");
 

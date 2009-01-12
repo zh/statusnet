@@ -70,6 +70,8 @@ class FacebookhomeAction extends FacebookAction
 
                 // XXX: Do some error handling here
 
+                $this->setDefaults();
+
                 $this->showHome($flink, _('You can now use Identi.ca from Facebook!'));
 
             } else {
@@ -80,18 +82,26 @@ class FacebookhomeAction extends FacebookAction
         $this->showLoginForm($msg);
     }
 
+    function setDefaults()
+    {
+        $facebook = get_facebook();
+
+        // A default prefix string for notices
+        $facebook->api_client->data_setUserPreference(1, 'dented: ');
+    }
+
     function showHome($flink, $msg)
     {
-        
+
         $facebook = get_facebook();
         $fbuid = $facebook->require_login();
-        
+
         $user = $flink->getUser();
-        
+
         $notice = $user->getCurrentNotice();
         update_profile_box($facebook, $fbuid, $user, $notice);
-        
-        
+
+
         $this->show_header('Home');
 
         if ($msg) {

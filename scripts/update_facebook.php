@@ -57,7 +57,10 @@ while($notice->fetch()) {
     $flink = Foreign_link::getByUserID($notice->profile_id, FACEBOOK_SERVICE);
     $user = $flink->getUser();
     $fbuid = $flink->foreign_id;
-    $content = $notice->content;
+
+    $prefix = $facebook->api_client->data_getUserPreference(1, $fbuid);
+
+    $content = "$prefix $notice->content";
 
     if (($flink->noticesync & FOREIGN_NOTICE_SEND) == FOREIGN_NOTICE_SEND) {
 
