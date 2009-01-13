@@ -63,8 +63,8 @@ class XMLOutputter
      *
      * Initializes the wrapped XMLWriter.
      *
-     * @param $output URL for outputting, defaults to stdout
-     * @param $indent Whether to indent output, default true
+     * @param string  $output URL for outputting, defaults to stdout
+     * @param boolean $indent Whether to indent output, default true
      */
 
     function __construct($output='php://output', $indent=true)
@@ -119,6 +119,9 @@ class XMLOutputter
      * raw output, use elementStart() and elementEnd() with a call
      * to raw() in the middle.
      *
+     * If $attrs is a string instead of an array, it will be treated
+     * as the class attribute of the element.
+     *
      * @param string $tag     Element type or tagname
      * @param array  $attrs   Array of element attributes, as
      *                        key-value pairs
@@ -141,6 +144,9 @@ class XMLOutputter
      *
      * Mostly used for when an element has content that's
      * not a simple string.
+     *
+     * If $attrs is a string instead of an array, it will be treated
+     * as the class attribute of the element.
      *
      * @param string $tag   Element type or tagname
      * @param array  $attrs Array of element attributes
