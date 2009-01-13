@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* XXX: break up into separate modules (HTTP, HTML, user, files) */
+/* XXX: break up into separate modules (HTTP, user, files) */
 
 // Show a server error
 
@@ -108,8 +108,6 @@ function common_init_language()
     }
 }
 
-define('PAGE_TYPE_PREFS', 'text/html,application/xhtml+xml,application/xml;q=0.3,text/xml;q=0.2');
-
 function common_show_header($pagetitle, $callable=null, $data=null, $headercall=null)
 {
 
@@ -192,38 +190,6 @@ function common_show_header($pagetitle, $callable=null, $data=null, $headercall=
     }
     common_element_end('div');
     common_element_start('div', array('id' => 'content'));
-}
-
-function common_start_html($type=null, $indent=true)
-{
-
-    if (!$type) {
-        $httpaccept = isset($_SERVER['HTTP_ACCEPT']) ? $_SERVER['HTTP_ACCEPT'] : null;
-
-        // XXX: allow content negotiation for RDF, RSS, or XRDS
-
-        $type = common_negotiate_type(common_accept_to_prefs($httpaccept),
-                                      common_accept_to_prefs(PAGE_TYPE_PREFS));
-
-        if (!$type) {
-            common_user_error(_('This page is not available in a media type you accept'), 406);
-            exit(0);
-        }
-    }
-
-    header('Content-Type: '.$type);
-
-    common_start_xml('html',
-                     '-//W3C//DTD XHTML 1.0 Strict//EN',
-                     'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd', $indent);
-
-    // FIXME: correct language for interface
-
-    $language = common_language();
-
-    common_element_start('html', array('xmlns' => 'http://www.w3.org/1999/xhtml',
-                                       'xml:lang' => $language,
-                                       'lang' => $language));
 }
 
 function common_show_footer()
@@ -319,121 +285,6 @@ function common_menu_item($url, $text, $title=null, $is_selected=false)
     }
     common_element('a', $attrs, $text);
     common_element_end('li');
-}
-
-function common_input($id, $label, $value=null,$instructions=null)
-{
-    common_element_start('p');
-    common_element('label', array('for' => $id), $label);
-    $attrs = array('name' => $id,
-                   'type' => 'text',
-                   'class' => 'input_text',
-                   'id' => $id);
-    if ($value) {
-        $attrs['value'] = htmlspecialchars($value);
-    }
-    common_element('input', $attrs);
-    if ($instructions) {
-        common_element('span', 'input_instructions', $instructions);
-    }
-    common_element_end('p');
-}
-
-function common_checkbox($id, $label, $checked=false, $instructions=null, $value='true', $disabled=false)
-{
-    common_element_start('p');
-    $attrs = array('name' => $id,
-                   'type' => 'checkbox',
-                   'class' => 'checkbox',
-                   'id' => $id);
-    if ($value) {
-        $attrs['value'] = htmlspecialchars($value);
-    }
-    if ($checked) {
-        $attrs['checked'] = 'checked';
-    }
-    if ($disabled) {
-        $attrs['disabled'] = 'true';
-    }
-    common_element('input', $attrs);
-    common_text(' ');
-    common_element('label', array('class' => 'checkbox_label', 'for' => $id), $label);
-    common_text(' ');
-    if ($instructions) {
-        common_element('span', 'input_instructions', $instructions);
-    }
-    common_element_end('p');
-}
-
-function common_dropdown($id, $label, $content, $instructions=null, $blank_select=false, $selected=null)
-{
-    common_element_start('p');
-    common_element('label', array('for' => $id), $label);
-    common_element_start('select', array('id' => $id, 'name' => $id));
-    if ($blank_select) {
-        common_element('option', array('value' => ''));
-    }
-    foreach ($content as $value => $option) {
-        if ($value == $selected) {
-            common_element('option', array('value' => $value, 'selected' => $value), $option);
-        } else {
-            common_element('option', array('value' => $value), $option);
-        }
-    }
-    common_element_end('select');
-    if ($instructions) {
-        common_element('span', 'input_instructions', $instructions);
-    }
-    common_element_end('p');
-}
-function common_hidden($id, $value)
-{
-    common_element('input', array('name' => $id,
-                                  'type' => 'hidden',
-                                  'id' => $id,
-                                  'value' => $value));
-}
-
-function common_password($id, $label, $instructions=null)
-{
-    common_element_start('p');
-    common_element('label', array('for' => $id), $label);
-    $attrs = array('name' => $id,
-                   'type' => 'password',
-                   'class' => 'password',
-                   'id' => $id);
-    common_element('input', $attrs);
-    if ($instructions) {
-        common_element('span', 'input_instructions', $instructions);
-    }
-    common_element_end('p');
-}
-
-function common_submit($id, $label, $cls='submit')
-{
-    global $xw;
-    common_element_start('p');
-    common_element('input', array('type' => 'submit',
-                                  'id' => $id,
-                                  'name' => $id,
-                                  'class' => $cls,
-                                  'value' => $label));
-    common_element_end('p');
-}
-
-function common_textarea($id, $label, $content=null, $instructions=null)
-{
-    common_element_start('p');
-    common_element('label', array('for' => $id), $label);
-    common_element('textarea', array('rows' => 3,
-                                     'cols' => 40,
-                                     'name' => $id,
-                                     'id' => $id),
-                   ($content) ? $content : '');
-    if ($instructions) {
-        common_element('span', 'input_instructions', $instructions);
-    }
-    common_element_end('p');
 }
 
 function common_timezone()
