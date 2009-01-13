@@ -79,65 +79,6 @@ function common_user_error($msg, $code=400)
     common_show_footer();
 }
 
-$xw = null;
-
-// Start an HTML element
-function common_element_start($tag, $attrs=null)
-{
-    global $xw;
-    $xw->startElement($tag);
-    if (is_array($attrs)) {
-        foreach ($attrs as $name => $value) {
-            $xw->writeAttribute($name, $value);
-        }
-    } else if (is_string($attrs)) {
-        $xw->writeAttribute('class', $attrs);
-    }
-}
-
-function common_element_end($tag)
-{
-    static $empty_tag = array('base', 'meta', 'link', 'hr',
-                              'br', 'param', 'img', 'area',
-                              'input', 'col');
-    global $xw;
-    // XXX: check namespace
-    if (in_array($tag, $empty_tag)) {
-        $xw->endElement();
-    } else {
-        $xw->fullEndElement();
-    }
-}
-
-function common_element($tag, $attrs=null, $content=null)
-{
-    common_element_start($tag, $attrs);
-    global $xw;
-    if (!is_null($content)) {
-        $xw->text($content);
-    }
-    common_element_end($tag);
-}
-
-function common_start_xml($doc=null, $public=null, $system=null, $indent=true)
-{
-    global $xw;
-    $xw = new XMLWriter();
-    $xw->openURI('php://output');
-    $xw->setIndent($indent);
-    $xw->startDocument('1.0', 'UTF-8');
-    if ($doc) {
-        $xw->writeDTD($doc, $public, $system);
-    }
-}
-
-function common_end_xml()
-{
-    global $xw;
-    $xw->endDocument();
-    $xw->flush();
-}
-
 function common_init_locale($language=null)
 {
     if(!$language) {
@@ -317,18 +258,6 @@ function common_show_footer()
     common_element_end('body');
     common_element_end('html');
     common_end_xml();
-}
-
-function common_text($txt)
-{
-    global $xw;
-    $xw->text($txt);
-}
-
-function common_raw($xml)
-{
-    global $xw;
-    $xw->writeRaw($xml);
 }
 
 function common_nav_menu()
