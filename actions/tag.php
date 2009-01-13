@@ -69,7 +69,7 @@ class TagAction extends StreamAction {
 			$this->public_views_menu();
 		}
 		else {
-			$this->show_feeds_list(array(0=>array('href'=>common_local_url('tagrss'),
+			$this->show_feeds_list(array(0=>array('href'=>common_local_url('tagrss', array('tag' => $tag)),
 												  'type' => 'rss',
 												  'version' => 'RSS 1.0',
 												  'item' => 'tagrss')));

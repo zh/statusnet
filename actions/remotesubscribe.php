@@ -49,9 +49,9 @@ class RemotesubscribeAction extends Action {
 
 	function get_instructions() {
 		return _('To subscribe, you can [login](%%action.login%%),' .
-		          ' or [register](%%action.register%%) a new ' .
-		          ' account. If you already have an account ' .
-		          ' on a [compatible microblogging site](%%doc.openmublog%%), ' .
+		          ' or [register](%%action.register%%) a new' .
+		          ' account. If you already have an account' .
+		          ' on a [compatible microblogging site](%%doc.openmublog%%),' .
 		          ' enter your profile URL below.');
 	}
 
