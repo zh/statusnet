@@ -178,12 +178,23 @@ class Action extends HTMLOutputter // lawsuit
 
     function showHeader()
     {
-        // start header div stuff
+        $this->elementStart('div', array('id' => 'header'));
         $this->showLogo();
+
+//        common_element('h1', 'pagetitle', $pagetitle);
+
+        if ($headercall) {
+            if ($data) {
+                call_user_func($headercall, $data);
+            } else {
+                call_user_func($headercall);
+            }
+        }
+        //common_nav_menu();
         $this->showPrimaryNav();
         $this->showSiteNotice();
         $this->showNoticeForm();
-        // end header div stuff
+        $this->elementEnd('div');
     }
 
     function showLogo()
@@ -198,15 +209,17 @@ class Action extends HTMLOutputter // lawsuit
             $this->element('img', array('class' => 'logo photo',
                                         'src' => isset($config['site']['logo']) ?
                                         ($config['site']['logo']) : theme_path('logo.png'),
-                                        'alt' => $config['site']['name']);
+                                        'alt' => $config['site']['name']));
         }
-        $this->element('span', array('class' => 'fn org'), $config['site']['name']));
+        $this->element('span', array('class' => 'fn org'), $config['site']['name']);
         $this->elementEnd('a');
         $this->elementEnd('address');
     }
 
     function showPrimaryNav()
     {
+        $this->elementStart('dl', array('id' => 'site_nav_global_primary'));
+        $this->element('dt', null, _('Primary site navigation')); 
         $user = common_current_user();
         $this->elementStart('ul', array('id' => 'nav'));
         if ($user) {
@@ -231,11 +244,19 @@ class Action extends HTMLOutputter // lawsuit
         common_menu_item(common_local_url('doc', array('title' => 'help')),
                          _('Help'));
         $this->elementEnd('ul');
+        $this->elementEnd('dl');
     }
 
+
+    // Revist. Should probably do an hAtom pattern here
     function showSiteNotice()
     {
-        // show the site notice here
+        $this->elementStart('dl', array('id' => 'site_notice',
+                                        'class' => 'system_notice'));
+        $this->element('dt', null, _('Site notice'));
+        $this->elementStart('dd', null);
+        // Output a bunch of paragraphs here
+        $this->elementEnd('dd');
     }
 
     // MAY overload if no notice form needed... or direct message box????
@@ -254,17 +275,35 @@ class Action extends HTMLOutputter // lawsuit
         // end core div
     }
 
-    // SHOULD overload
+    // SHOULD overload (perhaps this should be a MUST because sometimes it is not used) 
 
-    function showLocalNav()
+    function showLocalNav($menu)
     {
+        $action = $this->trimmed('action');
+        
+        $this->elementStart('dl', array('id' => 'site_nav_local_views'));
+        $this->element('dt', null, _('Local views')); 
+        $this->elementStart('ul', array('id' => 'nav'));
+        foreach ($menu as $menuaction => $menudesc) {
+            common_menu_item(common_local_url($menuaction,
+                                              isset($menudesc[2]) ? $menudesc[2] : null),
+                             $menudesc[0],
+                             $menudesc[1],
+                             $action == $menuaction);
+        }
+        $this->elementEnd('ul');
+        $this->elementEnd('dd');
+        $this->elementEnd('dl');
     }
 
     function showContentBlock()
     {
+        $this->elementStart('div', array('id' => 'content',
+                                         (is_null("basic single content page e.g., about")) ? null : 'class' => 'hentry'));
         $this->showPageTitle();
         $this->showPageNotice();
         $this->showContent();
+        $this->elementEnd('div');
     }
 
     function showPageTitle() {
@@ -275,7 +314,12 @@ class Action extends HTMLOutputter // lawsuit
 
     function showPageNotice()
     {
-        // output page notice div
+        $this->elementStart('dl', array('id' => 'page_notice',
+                                        'class' => 'system_notice'));
+        $this->element('dt', null, _('Page notice'));
+        $this->elementStart('dd', null);
+        // Output a bunch of paragraphs here
+        $this->elementEnd('dd');
     }
 
     // MUST overload
@@ -283,6 +327,9 @@ class Action extends HTMLOutputter // lawsuit
     function showContent()
     {
         // show the actual content (forms, lists, whatever)
+        $this->elementStart('div', array('id' => 'content_inner',
+                                         (is_null("basic single content page e.g., about")) ? null : 'class' => 'entry-content'));
+        $this->elementEnd('div');
     }
 
     function showAside()
@@ -308,9 +355,10 @@ class Action extends HTMLOutputter // lawsuit
 
     function showFooter()
     {
-        // start footer div
+        $this->elementStart('div', array('id' => 'footer'));
         $this->showSecondaryNav();
         $this->showLicenses();
+        $this->elementEnd('div');
     }
 
     function showSecondaryNav()
@@ -333,15 +381,16 @@ class Action extends HTMLOutputter // lawsuit
 
     function showLicenses()
     {
-        // start license dl
+        $this->elementStart('dl', array('id' => 'licenses'));
         $this->showLaconicaLicense();
         $this->showContentLicense();
-        // end license dl
+        $this->elementEnd('dl');
     }
 
     function showLaconicaLicense()
     {
-        $this->elementStart('div', 'laconica');
+        $this->element('dt', array('id' => 'site_laconica_license'), _('Laconica software license')); 
+        $this->elementStart('dd', null);
         if (common_config('site', 'broughtby')) {
             $instr = _('**%%site.name%%** is a microblogging service brought to you by [%%site.broughtby%%](%%site.broughtbyurl%%). ');
         } else {
@@ -350,25 +399,26 @@ class Action extends HTMLOutputter // lawsuit
         $instr .= sprintf(_('It runs the [Laconica](http://laconi.ca/) microblogging software, version %s, available under the [GNU Affero General Public License](http://www.fsf.org/licensing/licenses/agpl-3.0.html).'), LACONICA_VERSION);
         $output = common_markup_to_html($instr);
         common_raw($output);
-        $this->elementEnd('div');
+        $this->elementEnd('dd');
         // do it
     }
 
     function showContentLicense()
     {
-        $this->elementStart('div', array('id' => 'footer'));
-        $this->element('img', array('id' => 'cc',
-                                    'src' => $config['license']['image'],
-                                    'alt' => $config['license']['title']));
+        $this->element('dt', array('id' => 'site_content_license'), _('Laconica software license')); 
+        $this->elementStart('dd', array('id' => 'site_content_license_cc'));
         $this->elementStart('p');
         common_text(_('Unless otherwise specified, contents of this site are copyright by the contributors and available under the '));
         $this->element('a', array('class' => 'license',
-                                  'rel' => 'license',
+                                  'rel' => 'external license',
                                   'href' => $config['license']['url']),
                        $config['license']['title']);
         common_text(_('. Contributors should be attributed by full name or nickname.'));
         $this->elementEnd('p');
-        $this->elementEnd('div');
+        $this->element('img', array('id' => 'license_cc',
+                                    'src' => $config['license']['image'],
+                                    'alt' => $config['license']['title']));
+        $this->elementEnd('dd');
     }
 
     // For comparison with If-Last-Modified
@@ -511,19 +561,6 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementEnd('head');
         $this->elementStart('body', $action);
         $this->elementStart('div', array('id' => 'wrap'));
-        $this->elementStart('div', array('id' => 'header'));
-        common_nav_menu();
-
-        $this->element('h1', 'pagetitle', $pagetitle);
-
-        if ($headercall) {
-            if ($data) {
-                call_user_func($headercall, $data);
-            } else {
-                call_user_func($headercall);
-            }
-        }
-        $this->elementEnd('div');
         $this->elementStart('div', array('id' => 'content'));
     }
 
@@ -538,13 +575,16 @@ class Action extends HTMLOutputter // lawsuit
         common_end_xml();
     }
 
-    function common_menu_item($url, $text, $title=null, $is_selected=false)
+
+    // Added @id to li for some control. We might want to move this to htmloutputter.php
+    function common_menu_item($id=null, $url, $text, $title=null, $is_selected=false)
     {
         $lattrs = array();
         if ($is_selected) {
             $lattrs['class'] = 'current';
         }
-        $this->elementStart('li', $lattrs);
+        
+        $this->elementStart('li', (is_null($id)) ? null : array('id' => $id),  $lattrs);
         $attrs['href'] = $url;
         if ($title) {
             $attrs['title'] = $title;
@@ -558,31 +598,36 @@ class Action extends HTMLOutputter // lawsuit
     function pagination($have_before, $have_after, $page, $action, $args=null)
     {
         if ($have_before || $have_after) {
-            $this->elementStart('div', array('id' => 'pagination'));
-            $this->elementStart('ul', array('id' => 'nav_pagination'));
+            $this->elementStart('div', array('class' => 'pagination'));
+            $this->elementStart('dl', null);
+            $this->element('dt', null, _('Pagination')); 
+            $this->elementStart('dd', null);
+            $this->elementStart('ul', array('class' => 'nav'));
         }
 
         if ($have_before) {
             $pargs = array('page' => $page-1);
             $newargs = ($args) ? array_merge($args,$pargs) : $pargs;
 
-            $this->elementStart('li', 'before');
+            $this->elementStart('li', array('class' => 'nav_prev'));
             $this->element('a', array('href' => common_local_url($action, $newargs), 'rel' => 'prev'),
-                           _('« After'));
+                           _('After'));
             $this->elementEnd('li');
         }
 
         if ($have_after) {
             $pargs = array('page' => $page+1);
             $newargs = ($args) ? array_merge($args,$pargs) : $pargs;
-            $this->elementStart('li', 'after');
+            $this->elementStart('li', array('class' => 'nav_next'));
             $this->element('a', array('href' => common_local_url($action, $newargs), 'rel' => 'next'),
-                           _('Before »'));
+                           _('Before'));
             $this->elementEnd('li');
         }
 
         if ($have_before || $have_after) {
             $this->elementEnd('ul');
+            $this->elementEnd('dd');
+            $this->elementEnd('dl');
             $this->elementEnd('div');
         }
     }
