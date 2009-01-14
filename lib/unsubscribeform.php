@@ -2,7 +2,7 @@
 /**
  * Laconica, the distributed open-source microblogging tool
  *
- * Form for nudging a user
+ * Form for unsubscribing from a user
  *
  * PHP version 5
  *
@@ -35,7 +35,7 @@ if (!defined('LACONICA')) {
 require_once INSTALLDIR.'/lib/form.php';
 
 /**
- * Form for nudging a user
+ * Form for unsubscribing from a user
  *
  * @category Form
  * @package  Laconica
@@ -44,10 +44,10 @@ require_once INSTALLDIR.'/lib/form.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://laconi.ca/
  *
- * @see      DisfavorForm
+ * @see      SubscribeForm
  */
 
-class NudgeForm extends Form
+class UnsubscribeForm extends Form
 {
     /**
      * Profile of user to nudge
@@ -77,7 +77,7 @@ class NudgeForm extends Form
 
     function id()
     {
-        return 'nudge';
+        return 'unsubscribe-' . $this->profile->id;
     }
 
     /**
@@ -88,8 +88,20 @@ class NudgeForm extends Form
 
     function action()
     {
-        return common_local_url('nudge',
-                                array('nickname' => $this->profile->nickname));
+        return common_local_url('unsubscribe');
+    }
+
+    /**
+     * Data elements of the form
+     *
+     * @return void
+     */
+
+    function formData()
+    {
+        $this->out->hidden('unsubscribeto-' . $this->profile->id,
+                           $this->profile->id,
+                           'unsubscribeto');
     }
 
     /**
@@ -100,6 +112,6 @@ class NudgeForm extends Form
 
     function formActions()
     {
-        $this->out->submit('submit', _('Send a nudge'));
+        $this->out->submit('submit', _('Unsubscribe'));
     }
 }
