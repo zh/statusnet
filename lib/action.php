@@ -32,6 +32,9 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
+require_once INSTALLDIR.'/lib/form.php';
+require_once INSTALLDIR.'/lib/htmloutputter.php';
+
 /**
  * Base class for all actions
  *
@@ -180,17 +183,6 @@ class Action extends HTMLOutputter // lawsuit
     {
         $this->elementStart('div', array('id' => 'header'));
         $this->showLogo();
-
-//        common_element('h1', 'pagetitle', $pagetitle);
-
-        if ($headercall) {
-            if ($data) {
-                call_user_func($headercall, $data);
-            } else {
-                call_user_func($headercall);
-            }
-        }
-        //common_nav_menu();
         $this->showPrimaryNav();
         $this->showSiteNotice();
         $this->showNoticeForm();
@@ -219,7 +211,7 @@ class Action extends HTMLOutputter // lawsuit
     function showPrimaryNav()
     {
         $this->elementStart('dl', array('id' => 'site_nav_global_primary'));
-        $this->element('dt', null, _('Primary site navigation')); 
+        $this->element('dt', null, _('Primary site navigation'));
         $user = common_current_user();
         $this->elementStart('ul', array('id' => 'nav'));
         if ($user) {
@@ -247,7 +239,6 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementEnd('dl');
     }
 
-
     // Revist. Should probably do an hAtom pattern here
     function showSiteNotice()
     {
@@ -263,7 +254,8 @@ class Action extends HTMLOutputter // lawsuit
 
     function showNoticeForm()
     {
-        // show the notice form here
+        $notice_form = new NoticeForm();
+        $notice_form->show();
     }
 
     function showCore()
@@ -275,14 +267,14 @@ class Action extends HTMLOutputter // lawsuit
         // end core div
     }
 
-    // SHOULD overload (perhaps this should be a MUST because sometimes it is not used) 
+    // SHOULD overload (perhaps this should be a MUST because sometimes it is not used)
 
     function showLocalNav($menu)
     {
         $action = $this->trimmed('action');
-        
+
         $this->elementStart('dl', array('id' => 'site_nav_local_views'));
-        $this->element('dt', null, _('Local views')); 
+        $this->element('dt', null, _('Local views'));
         $this->elementStart('ul', array('id' => 'nav'));
         foreach ($menu as $menuaction => $menudesc) {
             common_menu_item(common_local_url($menuaction,
@@ -389,7 +381,7 @@ class Action extends HTMLOutputter // lawsuit
 
     function showLaconicaLicense()
     {
-        $this->element('dt', array('id' => 'site_laconica_license'), _('Laconica software license')); 
+        $this->element('dt', array('id' => 'site_laconica_license'), _('Laconica software license'));
         $this->elementStart('dd', null);
         if (common_config('site', 'broughtby')) {
             $instr = _('**%%site.name%%** is a microblogging service brought to you by [%%site.broughtby%%](%%site.broughtbyurl%%). ');
@@ -405,7 +397,7 @@ class Action extends HTMLOutputter // lawsuit
 
     function showContentLicense()
     {
-        $this->element('dt', array('id' => 'site_content_license'), _('Laconica software license')); 
+        $this->element('dt', array('id' => 'site_content_license'), _('Laconica software license'));
         $this->elementStart('dd', array('id' => 'site_content_license_cc'));
         $this->elementStart('p');
         common_text(_('Unless otherwise specified, contents of this site are copyright by the contributors and available under the '));
@@ -575,7 +567,6 @@ class Action extends HTMLOutputter // lawsuit
         common_end_xml();
     }
 
-
     // Added @id to li for some control. We might want to move this to htmloutputter.php
     function common_menu_item($id=null, $url, $text, $title=null, $is_selected=false)
     {
@@ -583,7 +574,7 @@ class Action extends HTMLOutputter // lawsuit
         if ($is_selected) {
             $lattrs['class'] = 'current';
         }
-        
+
         $this->elementStart('li', (is_null($id)) ? null : array('id' => $id),  $lattrs);
         $attrs['href'] = $url;
         if ($title) {
@@ -600,7 +591,7 @@ class Action extends HTMLOutputter // lawsuit
         if ($have_before || $have_after) {
             $this->elementStart('div', array('class' => 'pagination'));
             $this->elementStart('dl', null);
-            $this->element('dt', null, _('Pagination')); 
+            $this->element('dt', null, _('Pagination'));
             $this->elementStart('dd', null);
             $this->elementStart('ul', array('class' => 'nav'));
         }
