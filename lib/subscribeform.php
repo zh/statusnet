@@ -50,7 +50,7 @@ require_once INSTALLDIR.'/lib/form.php';
 class SubscribeForm extends Form
 {
     /**
-     * Profile of user to nudge
+     * Profile of user to subscribe to
      */
 
     var $profile = null;
@@ -59,7 +59,7 @@ class SubscribeForm extends Form
      * Constructor
      *
      * @param HTMLOutputter $out     output channel
-     * @param Profile       $profile profile of user to nudge
+     * @param Profile       $profile profile of user to subscribe to
      */
 
     function __construct($out=null, $profile=null)

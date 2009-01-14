@@ -50,7 +50,7 @@ require_once INSTALLDIR.'/lib/form.php';
 class UnsubscribeForm extends Form
 {
     /**
-     * Profile of user to nudge
+     * Profile of user to unsubscribe from
      */
 
     var $profile = null;
@@ -59,7 +59,7 @@ class UnsubscribeForm extends Form
      * Constructor
      *
      * @param HTMLOutputter $out     output channel
-     * @param Profile       $profile profile of user to nudge
+     * @param Profile       $profile profile of user to unsub from
      */
 
     function __construct($out=null, $profile=null)
