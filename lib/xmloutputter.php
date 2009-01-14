@@ -226,4 +226,17 @@ class XMLOutputter
     {
         $this->xw->writeRaw($xml);
     }
+
+    /**
+     * output a comment
+     *
+     * @param string $txt text of the comment
+     *
+     * @return void
+     */
+
+    function comment($txt)
+    {
+        $this->xw->writeComment($txt);
+    }
 }

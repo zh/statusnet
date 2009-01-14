@@ -116,8 +116,8 @@ class Action extends HTMLOutputter // lawsuit
         foreach (array(6,7) as $ver) {
             if (file_exists(theme_file('ie'.$ver.'.css'))) {
                 // Yes, IE people should be put in jail.
-                $xw->writeComment('[if lte IE '.$ver.']><link rel="stylesheet" type="text/css" '.
-                                  'href="'.theme_path('ie'.$ver.'.css').'?version='.LACONICA_VERSION.'" /><![endif]');
+                $this->comment('[if lte IE '.$ver.']><link rel="stylesheet" type="text/css" '.
+                               'href="'.theme_path('ie'.$ver.'.css').'?version='.LACONICA_VERSION.'" /><![endif]');
             }
         }
     }
@@ -555,7 +555,6 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementStart('div', array('id' => 'wrap'));
         $this->elementStart('div', array('id' => 'content'));
     }
-
 
     // Added @id to li for some control. We might want to move this to htmloutputter.php
     function common_menu_item($id=null, $url, $text, $title=null, $is_selected=false)
