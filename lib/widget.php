@@ -35,8 +35,9 @@ if (!defined('LACONICA')) {
 /**
  * Base class for UI widgets
  *
- * A widget is a cluster of HTML elements that provide some functionality that's used on different
- * parts of the site. Examples would be profile lists, notice lists, and common forms.
+ * A widget is a cluster of HTML elements that provide some functionality
+ * that's used on different parts of the site. Examples would be profile
+ * lists, notice lists, navigation menus (tabsets) and common forms.
  *
  * @category Widget
  * @package  Laconica
