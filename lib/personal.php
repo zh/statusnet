@@ -21,12 +21,12 @@ if (!defined('LACONICA')) { exit(1); }
 
 class PersonalAction extends Action
 {
-    
+
     function is_readonly()
     {
         return true;
     }
-    
+
     function handle($args)
     {
         parent::handle($args);
@@ -69,11 +69,11 @@ class PersonalAction extends Action
                          _('Favorites'),
                          sprintf(_('%s\'s favorite notices'), ($user_profile) ? $user_profile->getBestName() : _('User')),
                          $action == 'showfavorites');
-        
+
         $cur = common_current_user();
-        
+
         if ($cur && $cur->id == $user->id) {
-            
+
             common_menu_item(common_local_url('inbox', array('nickname' =>
                                                                      $nickname)),
                              _('Inbox'),
@@ -85,108 +85,10 @@ class PersonalAction extends Action
                              _('Your sent messages'),
                              $action == 'outbox');
         }
-        
+
         common_element_end('ul');
     }
 
-    function show_feeds_list($feeds)
-    {
-        common_element_start('div', array('class' => 'feeds'));
-        common_element('p', null, 'Feeds:');
-        common_element_start('ul', array('class' => 'xoxo'));
-
-        foreach ($feeds as $key => $value) {
-            $this->common_feed_item($feeds[$key]);
-        }
-        common_element_end('ul');
-        common_element_end('div');
-    }
-
-    function common_feed_item($feed)
-    {
-        $nickname = $this->trimmed('nickname');
-
-        switch($feed['item']) {
-            case 'notices': default:
-                $feed_classname = $feed['type'];
-                $feed_mimetype = "application/".$feed['type']."+xml";
-                $feed_title = "$nickname's ".$feed['version']." notice feed";
-                $feed['textContent'] = "RSS";
-                break;
-
-            case 'allrss':
-                $feed_classname = $feed['type'];
-                $feed_mimetype = "application/".$feed['type']."+xml";
-                $feed_title = $feed['version']." feed for $nickname and friends";
-                $feed['textContent'] = "RSS";
-                break;
-
-            case 'repliesrss':
-                $feed_classname = $feed['type'];
-                $feed_mimetype = "application/".$feed['type']."+xml";
-                $feed_title = $feed['version']." feed for replies to $nickname";
-                $feed['textContent'] = "RSS";
-                break;
-
-            case 'publicrss':
-                $feed_classname = $feed['type'];
-                $feed_mimetype = "application/".$feed['type']."+xml";
-                $feed_title = "Public timeline ".$feed['version']." feed";
-                $feed['textContent'] = "RSS";
-                break;
-
-            case 'publicatom':
-                $feed_classname = "atom";
-                $feed_mimetype = "application/".$feed['type']."+xml";
-                $feed_title = "Public timeline ".$feed['version']." feed";
-                $feed['textContent'] = "Atom";
-                break;
-
-            case 'tagrss':
-                $feed_classname = $feed['type'];
-                $feed_mimetype = "application/".$feed['type']."+xml";
-                $feed_title = $feed['version']." feed for this tag";
-                $feed['textContent'] = "RSS";
-                break;
-
-            case 'favoritedrss':
-                $feed_classname = $feed['type'];
-                $feed_mimetype = "application/".$feed['type']."+xml";
-                $feed_title = "Favorited ".$feed['version']." feed";
-                $feed['textContent'] = "RSS";
-                break;
-
-            case 'foaf':
-                $feed_classname = "foaf";
-                $feed_mimetype = "application/".$feed['type']."+xml";
-                $feed_title = "$nickname's FOAF file";
-                $feed['textContent'] = "FOAF";
-                break;
-
-            case 'favoritesrss':
-                $feed_classname = "favorites";
-                $feed_mimetype = "application/".$feed['type']."+xml";
-                $feed_title = "Feed for favorites of $nickname";
-                $feed['textContent'] = "RSS";
-                break;
-
-            case 'usertimeline':
-                $feed_classname = "atom";
-                $feed_mimetype = "application/".$feed['type']."+xml";
-                $feed_title = "$nickname's ".$feed['version']." notice feed";
-                $feed['textContent'] = "Atom";
-                break;
-        }
-        common_element_start('li');
-        common_element('a', array('href' => $feed['href'],
-                                  'class' => $feed_classname,
-                                  'type' => $feed_mimetype,
-                                  'title' => $feed_title),
-                            $feed['textContent']);
-        common_element_end('li');
-    }
-
-    
     function source_link($source)
     {
         $source_name = _($source);

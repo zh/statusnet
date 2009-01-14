@@ -553,4 +553,38 @@ class Action extends HTMLOutputter // lawsuit
         common_element('a', $attrs, $text);
         common_element_end('li');
     }
+
+    // Does a little before-after block for next/prev page
+
+    function pagination($have_before, $have_after, $page, $action, $args=null)
+    {
+        if ($have_before || $have_after) {
+            $this->elementStart('div', array('id' => 'pagination'));
+            $this->elementStart('ul', array('id' => 'nav_pagination'));
+        }
+
+        if ($have_before) {
+            $pargs = array('page' => $page-1);
+            $newargs = ($args) ? array_merge($args,$pargs) : $pargs;
+
+            $this->elementStart('li', 'before');
+            $this->element('a', array('href' => common_local_url($action, $newargs), 'rel' => 'prev'),
+                           _('« After'));
+            $this->elementEnd('li');
+        }
+
+        if ($have_after) {
+            $pargs = array('page' => $page+1);
+            $newargs = ($args) ? array_merge($args,$pargs) : $pargs;
+            $this->elementStart('li', 'after');
+            $this->element('a', array('href' => common_local_url($action, $newargs), 'rel' => 'next'),
+                           _('Before »'));
+            $this->elementEnd('li');
+        }
+
+        if ($have_before || $have_after) {
+            $this->elementEnd('ul');
+            $this->elementEnd('div');
+        }
+    }
 }

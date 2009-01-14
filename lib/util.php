@@ -1459,41 +1459,6 @@ function common_valid_tag($tag)
     return false;
 }
 
-// Does a little before-after block for next/prev page
-
-function common_pagination($have_before, $have_after, $page, $action, $args=null)
-{
-
-    if ($have_before || $have_after) {
-        common_element_start('div', array('id' => 'pagination'));
-        common_element_start('ul', array('id' => 'nav_pagination'));
-    }
-
-    if ($have_before) {
-        $pargs = array('page' => $page-1);
-        $newargs = ($args) ? array_merge($args,$pargs) : $pargs;
-
-        common_element_start('li', 'before');
-        common_element('a', array('href' => common_local_url($action, $newargs), 'rel' => 'prev'),
-                       _('« After'));
-        common_element_end('li');
-    }
-
-    if ($have_after) {
-        $pargs = array('page' => $page+1);
-        $newargs = ($args) ? array_merge($args,$pargs) : $pargs;
-        common_element_start('li', 'after');
-        common_element('a', array('href' => common_local_url($action, $newargs), 'rel' => 'next'),
-                       _('Before »'));
-        common_element_end('li');
-    }
-
-    if ($have_before || $have_after) {
-        common_element_end('ul');
-        common_element_end('div');
-    }
-}
-
 /* Following functions are copied from MediaWiki GlobalFunctions.php
  * and written by Evan Prodromou. */
 

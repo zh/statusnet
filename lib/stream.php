@@ -24,32 +24,6 @@ require_once(INSTALLDIR.'/lib/noticelist.php');
 
 class StreamAction extends PersonalAction
 {
-
-    function public_views_menu()
-    {
-
-        $action = $this->trimmed('action');
-
-        common_element_start('ul', array('id' => 'nav_views'));
-
-        common_menu_item(common_local_url('public'), _('Public'),
-            _('Public timeline'), $action == 'public');
-
-        common_menu_item(common_local_url('tag'), _('Recent tags'),
-            _('Recent tags'), $action == 'tag');
-
-        if (count(common_config('nickname', 'featured')) > 0) {
-            common_menu_item(common_local_url('featured'), _('Featured'),
-                _('Featured users'), $action == 'featured');
-        }
-
-        common_menu_item(common_local_url('favorited'), _('Popular'),
-            _("Popular notices"), $action == 'favorited');
-
-        common_element_end('ul');
-
-    }
-
     function show_notice_list($notice)
     {
         $nl = new NoticeList($notice);
