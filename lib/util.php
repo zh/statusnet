@@ -1638,16 +1638,6 @@ function common_session_token()
     return $_SESSION['token'];
 }
 
-function common_nudge_form($profile)
-{
-    common_element_start('form', array('id' => 'nudge', 'method' => 'post',
-                                       'action' => common_local_url('nudge', array('nickname' => $profile->nickname))));
-    common_hidden('token', common_session_token());
-    common_element('input', array('type' => 'submit',
-                                  'class' => 'submit',
-                                  'value' => _('Send a nudge')));
-    common_element_end('form');
-}
 function common_nudge_response()
 {
     common_element('p', array('id' => 'nudge_response'), _('Nudge sent!'));
