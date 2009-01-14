@@ -188,7 +188,21 @@ class Action extends HTMLOutputter // lawsuit
 
     function showLogo()
     {
-        // show the logo here
+        $this->element_start('address', array('id' => 'site_contact',
+                                              'class' => 'vcard'));
+        $this->element_start('a', array('class' => 'url home bookmark',
+                                        'href' => common_local_url('public')));
+        if ((isset($config['site']['logo']) && is_string($config['site']['logo']) && (strlen($config['site']['logo']) > 0))
+            || file_exists(theme_file('logo.png')))
+        {
+            $this->element('img', array('class' => 'logo photo',
+                                        'src' => isset($config['site']['logo']) ?
+                                        ($config['site']['logo']) : theme_path('logo.png'),
+                                        'alt' => $config['site']['name']);
+        }
+        $this->element('span', array('class' => 'fn org'), $config['site']['name']));
+        $this->element_end('a');
+        $this->element_end('address');
     }
 
     function showPrimaryNav()
@@ -499,21 +513,7 @@ class Action extends HTMLOutputter // lawsuit
         common_element_start('div', array('id' => 'wrap'));
         common_element_start('div', array('id' => 'header'));
         common_nav_menu();
-        if ((isset($config['site']['logo']) && is_string($config['site']['logo']) && (strlen($config['site']['logo']) > 0))
-            || file_exists(theme_file('logo.png')))
-        {
-            common_element_start('a', array('href' => common_local_url('public')));
-            common_element('img', array('src' => isset($config['site']['logo']) ?
-                                        ($config['site']['logo']) : theme_path('logo.png'),
-                                        'alt' => $config['site']['name'],
-                                        'id' => 'logo'));
-            common_element_end('a');
-        } else {
-            common_element_start('p', array('id' => 'branding'));
-            common_element('a', array('href' => common_local_url('public')),
-                           $config['site']['name']);
-            common_element_end('p');
-        }
+
 
         common_element('h1', 'pagetitle', $pagetitle);
 
