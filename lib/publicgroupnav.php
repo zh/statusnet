@@ -62,7 +62,7 @@ class PublicGroupNav
 
     function show()
     {
-        $this->action->elementStart('ul', array('id' => 'nav_views'));
+        $this->action->elementStart('ul', array('class' => 'nav'));
 
         common_menu_item(common_local_url('public'), _('Public'),
             _('Public timeline'), $this->action == 'public');
