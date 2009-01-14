@@ -172,11 +172,13 @@ class Action extends HTMLOutputter // lawsuit
 
     function showBody()
     {
-        // output body
-        // output wrap element
+        $this->elementStart('body');
+        $this->elementStart('wrap');
         $this->showHeader();
         $this->showCore();
         $this->showFooter();
+        $this->elementEnd('wrap');
+        $this->elementEnd('body');
     }
 
     function showHeader()
@@ -260,11 +262,11 @@ class Action extends HTMLOutputter // lawsuit
 
     function showCore()
     {
-        // start core div
+        $this->elementStart('div' array('class' => 'core'));
         $this->showLocalNav();
         $this->showContentBlock();
         $this->showAside();
-        // end core div
+        $this->elementEnd('div');
     }
 
     // SHOULD overload (perhaps this should be a MUST because sometimes it is not used)
@@ -290,8 +292,7 @@ class Action extends HTMLOutputter // lawsuit
 
     function showContentBlock()
     {
-        $this->elementStart('div', array('id' => 'content',
-                                         (is_null("basic single content page e.g., about")) ? null : 'class' => 'hentry'));
+        $this->elementStart('div', array('id' => 'content'));
         $this->showPageTitle();
         $this->showPageNotice();
         $this->showContent();
@@ -319,8 +320,7 @@ class Action extends HTMLOutputter // lawsuit
     function showContent()
     {
         // show the actual content (forms, lists, whatever)
-        $this->elementStart('div', array('id' => 'content_inner',
-                                         (is_null("basic single content page e.g., about")) ? null : 'class' => 'entry-content'));
+        $this->elementStart('div', array('id' => 'content_inner'));
         $this->elementEnd('div');
     }
 
@@ -556,16 +556,6 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementStart('div', array('id' => 'content'));
     }
 
-    function common_show_footer()
-    {
-        global $xw, $config;
-        $this->elementEnd('div'); // content div
-        common_foot_menu();
-        $this->elementEnd('div');
-        $this->elementEnd('body');
-        $this->elementEnd('html');
-        common_end_xml();
-    }
 
     // Added @id to li for some control. We might want to move this to htmloutputter.php
     function common_menu_item($id=null, $url, $text, $title=null, $is_selected=false)
