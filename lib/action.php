@@ -262,7 +262,7 @@ class Action extends HTMLOutputter // lawsuit
 
     function showCore()
     {
-        $this->elementStart('div' array('class' => 'core'));
+        $this->elementStart('div', array('class' => 'core'));
         $this->showLocalNav();
         $this->showContentBlock();
         $this->showAside();
