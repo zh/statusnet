@@ -1295,39 +1295,6 @@ function common_profile_url($nickname)
     return common_local_url('showstream', array('nickname' => $nickname));
 }
 
-// Don't call if nobody's logged in
-
-function common_notice_form($action=null, $content=null)
-{
-    $user = common_current_user();
-    assert(!is_null($user));
-    common_element_start('form', array('id' => 'status_form',
-                                       'method' => 'post',
-                                       'action' => common_local_url('newnotice')));
-    common_element_start('p');
-    common_element('label', array('for' => 'status_textarea',
-                                  'id' => 'status_label'),
-                   sprintf(_('What\'s up, %s?'), $user->nickname));
-    common_element('span', array('id' => 'counter', 'class' => 'counter'), '140');
-    common_element('textarea', array('id' => 'status_textarea',
-                                     'cols' => 60,
-                                     'rows' => 3,
-                                     'name' => 'status_textarea'),
-                   ($content) ? $content : '');
-    common_hidden('token', common_session_token());
-    if ($action) {
-        common_hidden('returnto', $action);
-    }
-    // set by JavaScript
-    common_hidden('inreplyto', 'false');
-    common_element('input', array('id' => 'status_submit',
-                                  'name' => 'status_submit',
-                                  'type' => 'submit',
-                                  'value' => _('Send')));
-    common_element_end('p');
-    common_element_end('form');
-}
-
 // Should make up a reasonable root URL
 
 function common_root_url()
@@ -1669,62 +1636,6 @@ function common_session_token()
         $_SESSION['token'] = common_good_rand(64);
     }
     return $_SESSION['token'];
-}
-
-function common_disfavor_form($notice)
-{
-    common_element_start('form', array('id' => 'disfavor-' . $notice->id,
-                                       'method' => 'post',
-                                       'class' => 'disfavor',
-                                       'action' => common_local_url('disfavor')));
-
-    common_element('input', array('type' => 'hidden',
-                                  'name' => 'token-'. $notice->id,
-                                  'id' => 'token-'. $notice->id,
-                                  'class' => 'token',
-                                  'value' => common_session_token()));
-
-    common_element('input', array('type' => 'hidden',
-                                  'name' => 'notice',
-                                  'id' => 'notice-n'. $notice->id,
-                                  'class' => 'notice',
-                                  'value' => $notice->id));
-
-    common_element('input', array('type' => 'submit',
-                                  'id' => 'disfavor-submit-' . $notice->id,
-                                  'name' => 'disfavor-submit-' . $notice->id,
-                                  'class' => 'disfavor',
-                                  'value' => 'Disfavor favorite',
-                                  'title' => 'Remove this message from favorites'));
-    common_element_end('form');
-}
-
-function common_favor_form($notice)
-{
-    common_element_start('form', array('id' => 'favor-' . $notice->id,
-                                       'method' => 'post',
-                                       'class' => 'favor',
-                                       'action' => common_local_url('favor')));
-
-    common_element('input', array('type' => 'hidden',
-                                  'name' => 'token-'. $notice->id,
-                                  'id' => 'token-'. $notice->id,
-                                  'class' => 'token',
-                                  'value' => common_session_token()));
-
-    common_element('input', array('type' => 'hidden',
-                                  'name' => 'notice',
-                                  'id' => 'notice-n'. $notice->id,
-                                  'class' => 'notice',
-                                  'value' => $notice->id));
-
-    common_element('input', array('type' => 'submit',
-                                  'id' => 'favor-submit-' . $notice->id,
-                                  'name' => 'favor-submit-' . $notice->id,
-                                  'class' => 'favor',
-                                  'value' => 'Add to favorites',
-                                  'title' => 'Add this message to favorites'));
-    common_element_end('form');
 }
 
 function common_nudge_form($profile)
