@@ -66,7 +66,7 @@ class NudgeForm extends Form
     {
         parent::__construct($out);
 
-        $this->notice = $profile;
+        $this->profile = $profile;
     }
 
     /**
