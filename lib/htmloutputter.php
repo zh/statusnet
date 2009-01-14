@@ -258,15 +258,14 @@ class HTMLOutputter extends XMLOutputter
      *
      * @param string $id    element ID, must be unique on page
      * @param string $value hidden element value, default null
+     * @param string $name  name, if different than ID
      *
      * @return void
-     *
-     * @todo add a $name parameter
      */
 
-    function hidden($id, $value)
+    function hidden($id, $value, $name=null)
     {
-        $this->element('input', array('name' => $id,
+        $this->element('input', array('name' => ($name) ? $name : $id,
                                       'type' => 'hidden',
                                       'id' => $id,
                                       'value' => $value));
@@ -305,18 +304,19 @@ class HTMLOutputter extends XMLOutputter
      * @param string $id    element ID, must be unique on page
      * @param string $label text of the button
      * @param string $cls   class of the button, default 'submit'
+     * @param string $name  name, if different than ID
      *
      * @return void
      *
      * @todo add a $name parameter
      */
 
-    function submit($id, $label, $cls='submit')
+    function submit($id, $label, $cls='submit', $name=null)
     {
         $this->elementStart('p');
         $this->element('input', array('type' => 'submit',
                                       'id' => $id,
-                                      'name' => $id,
+                                      'name' => ($name) ? $name : $id,
                                       'class' => $cls,
                                       'value' => $label));
         $this->elementEnd('p');
