@@ -32,7 +32,7 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/widget.php';
+require_once INSTALLDIR.'/lib/form.php';
 
 /**
  * Form for posting a notice
