@@ -106,7 +106,7 @@ class Action extends HTMLOutputter // lawsuit
 
     function showStylesheets()
     {
-        common_element('link', array('rel' => 'stylesheet',
+        $this->element('link', array('rel' => 'stylesheet',
                                      'type' => 'text/css',
                                      'href' => theme_path('display.css') . '?version=' . LACONICA_VERSION,
                                      'media' => 'screen, projection, tv'));
@@ -121,27 +121,27 @@ class Action extends HTMLOutputter // lawsuit
 
     function showScripts()
     {
-        common_element('script', array('type' => 'text/javascript',
+        $this->element('script', array('type' => 'text/javascript',
                                        'src' => common_path('js/jquery.min.js')),
                        ' ');
-        common_element('script', array('type' => 'text/javascript',
+        $this->element('script', array('type' => 'text/javascript',
                                        'src' => common_path('js/jquery.form.js')),
                        ' ');
-        common_element('script', array('type' => 'text/javascript',
+        $this->element('script', array('type' => 'text/javascript',
                                        'src' => common_path('js/xbImportNode.js')),
                        ' ');
-        common_element('script', array('type' => 'text/javascript',
+        $this->element('script', array('type' => 'text/javascript',
                                        'src' => common_path('js/util.js?version='.LACONICA_VERSION)),
                        ' ');
     }
 
     function showOpenSearch()
     {
-        common_element('link', array('rel' => 'search', 'type' => 'application/opensearchdescription+xml',
+        $this->element('link', array('rel' => 'search', 'type' => 'application/opensearchdescription+xml',
                                      'href' =>  common_local_url('opensearch', array('type' => 'people')),
                                      'title' => common_config('site', 'name').' People Search'));
 
-        common_element('link', array('rel' => 'search', 'type' => 'application/opensearchdescription+xml',
+        $this->element('link', array('rel' => 'search', 'type' => 'application/opensearchdescription+xml',
                                      'href' =>  common_local_url('opensearch', array('type' => 'notice')),
                                      'title' => common_config('site', 'name').' Notice Search'));
     }
@@ -188,9 +188,9 @@ class Action extends HTMLOutputter // lawsuit
 
     function showLogo()
     {
-        $this->element_start('address', array('id' => 'site_contact',
+        $this->elementStart('address', array('id' => 'site_contact',
                                               'class' => 'vcard'));
-        $this->element_start('a', array('class' => 'url home bookmark',
+        $this->elementStart('a', array('class' => 'url home bookmark',
                                         'href' => common_local_url('public')));
         if ((isset($config['site']['logo']) && is_string($config['site']['logo']) && (strlen($config['site']['logo']) > 0))
             || file_exists(theme_file('logo.png')))
@@ -201,14 +201,14 @@ class Action extends HTMLOutputter // lawsuit
                                         'alt' => $config['site']['name']);
         }
         $this->element('span', array('class' => 'fn org'), $config['site']['name']));
-        $this->element_end('a');
-        $this->element_end('address');
+        $this->elementEnd('a');
+        $this->elementEnd('address');
     }
 
     function showPrimaryNav()
     {
         $user = common_current_user();
-        common_element_start('ul', array('id' => 'nav'));
+        $this->elementStart('ul', array('id' => 'nav'));
         if ($user) {
             common_menu_item(common_local_url('all', array('nickname' => $user->nickname)),
                              _('Home'));
@@ -230,7 +230,7 @@ class Action extends HTMLOutputter // lawsuit
         }
         common_menu_item(common_local_url('doc', array('title' => 'help')),
                          _('Help'));
-        common_element_end('ul');
+        $this->elementEnd('ul');
     }
 
     function showSiteNotice()
@@ -315,7 +315,7 @@ class Action extends HTMLOutputter // lawsuit
 
     function showSecondaryNav()
     {
-        common_element_start('ul', array('id' => 'nav_sub'));
+        $this->elementStart('ul', array('id' => 'nav_sub'));
         common_menu_item(common_local_url('doc', array('title' => 'help')),
                          _('Help'));
         common_menu_item(common_local_url('doc', array('title' => 'about')),
@@ -328,7 +328,7 @@ class Action extends HTMLOutputter // lawsuit
                          _('Source'));
         common_menu_item(common_local_url('doc', array('title' => 'contact')),
                          _('Contact'));
-        common_element_end('ul');
+        $this->elementEnd('ul');
     }
 
     function showLicenses()
@@ -341,7 +341,7 @@ class Action extends HTMLOutputter // lawsuit
 
     function showLaconicaLicense()
     {
-        common_element_start('div', 'laconica');
+        $this->elementStart('div', 'laconica');
         if (common_config('site', 'broughtby')) {
             $instr = _('**%%site.name%%** is a microblogging service brought to you by [%%site.broughtby%%](%%site.broughtbyurl%%). ');
         } else {
@@ -350,25 +350,25 @@ class Action extends HTMLOutputter // lawsuit
         $instr .= sprintf(_('It runs the [Laconica](http://laconi.ca/) microblogging software, version %s, available under the [GNU Affero General Public License](http://www.fsf.org/licensing/licenses/agpl-3.0.html).'), LACONICA_VERSION);
         $output = common_markup_to_html($instr);
         common_raw($output);
-        common_element_end('div');
+        $this->elementEnd('div');
         // do it
     }
 
     function showContentLicense()
     {
-        common_element_start('div', array('id' => 'footer'));
-        common_element('img', array('id' => 'cc',
+        $this->elementStart('div', array('id' => 'footer'));
+        $this->element('img', array('id' => 'cc',
                                     'src' => $config['license']['image'],
                                     'alt' => $config['license']['title']));
-        common_element_start('p');
+        $this->elementStart('p');
         common_text(_('Unless otherwise specified, contents of this site are copyright by the contributors and available under the '));
-        common_element('a', array('class' => 'license',
+        $this->element('a', array('class' => 'license',
                                   'rel' => 'license',
                                   'href' => $config['license']['url']),
                        $config['license']['title']);
         common_text(_('. Contributors should be attributed by full name or nickname.'));
-        common_element_end('p');
-        common_element_end('div');
+        $this->elementEnd('p');
+        $this->elementEnd('div');
     }
 
     // For comparison with If-Last-Modified
@@ -481,7 +481,7 @@ class Action extends HTMLOutputter // lawsuit
     function nav_menu($menu)
     {
         $action = $this->trimmed('action');
-        common_element_start('ul', array('id' => 'nav_views'));
+        $this->elementStart('ul', array('id' => 'nav_views'));
         foreach ($menu as $menuaction => $menudesc) {
             common_menu_item(common_local_url($menuaction,
                                               isset($menudesc[2]) ? $menudesc[2] : null),
@@ -489,7 +489,7 @@ class Action extends HTMLOutputter // lawsuit
                              $menudesc[1],
                              $action == $menuaction);
         }
-        common_element_end('ul');
+        $this->elementEnd('ul');
     }
 
     function common_show_header($pagetitle, $callable=null, $data=null, $headercall=null)
@@ -499,7 +499,7 @@ class Action extends HTMLOutputter // lawsuit
 
         common_start_html();
 
-        common_element_start('head');
+        $this->elementStart('head');
 
         if ($callable) {
             if ($data) {
@@ -508,14 +508,13 @@ class Action extends HTMLOutputter // lawsuit
                 call_user_func($callable);
             }
         }
-        common_element_end('head');
-        common_element_start('body', $action);
-        common_element_start('div', array('id' => 'wrap'));
-        common_element_start('div', array('id' => 'header'));
+        $this->elementEnd('head');
+        $this->elementStart('body', $action);
+        $this->elementStart('div', array('id' => 'wrap'));
+        $this->elementStart('div', array('id' => 'header'));
         common_nav_menu();
 
-
-        common_element('h1', 'pagetitle', $pagetitle);
+        $this->element('h1', 'pagetitle', $pagetitle);
 
         if ($headercall) {
             if ($data) {
@@ -524,18 +523,18 @@ class Action extends HTMLOutputter // lawsuit
                 call_user_func($headercall);
             }
         }
-        common_element_end('div');
-        common_element_start('div', array('id' => 'content'));
+        $this->elementEnd('div');
+        $this->elementStart('div', array('id' => 'content'));
     }
 
     function common_show_footer()
     {
         global $xw, $config;
-        common_element_end('div'); // content div
+        $this->elementEnd('div'); // content div
         common_foot_menu();
-        common_element_end('div');
-        common_element_end('body');
-        common_element_end('html');
+        $this->elementEnd('div');
+        $this->elementEnd('body');
+        $this->elementEnd('html');
         common_end_xml();
     }
 
@@ -545,13 +544,13 @@ class Action extends HTMLOutputter // lawsuit
         if ($is_selected) {
             $lattrs['class'] = 'current';
         }
-        common_element_start('li', $lattrs);
+        $this->elementStart('li', $lattrs);
         $attrs['href'] = $url;
         if ($title) {
             $attrs['title'] = $title;
         }
-        common_element('a', $attrs, $text);
-        common_element_end('li');
+        $this->element('a', $attrs, $text);
+        $this->elementEnd('li');
     }
 
     // Does a little before-after block for next/prev page
