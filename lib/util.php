@@ -1643,40 +1643,6 @@ function common_nudge_response()
     common_element('p', array('id' => 'nudge_response'), _('Nudge sent!'));
 }
 
-function common_subscribe_form($profile)
-{
-    common_element_start('form', array('id' => 'subscribe-' . $profile->id,
-                                       'method' => 'post',
-                                       'class' => 'subscribe',
-                                       'action' => common_local_url('subscribe')));
-    common_hidden('token', common_session_token());
-    common_element('input', array('id' => 'subscribeto-' . $profile->id,
-                                  'name' => 'subscribeto',
-                                  'type' => 'hidden',
-                                  'value' => $profile->id));
-    common_element('input', array('type' => 'submit',
-                                  'class' => 'submit',
-                                  'value' => _('Subscribe')));
-    common_element_end('form');
-}
-
-function common_unsubscribe_form($profile)
-{
-    common_element_start('form', array('id' => 'unsubscribe-' . $profile->id,
-                                       'method' => 'post',
-                                       'class' => 'unsubscribe',
-                                       'action' => common_local_url('unsubscribe')));
-    common_hidden('token', common_session_token());
-    common_element('input', array('id' => 'unsubscribeto-' . $profile->id,
-                                  'name' => 'unsubscribeto',
-                                  'type' => 'hidden',
-                                  'value' => $profile->id));
-    common_element('input', array('type' => 'submit',
-                                  'class' => 'submit',
-                                  'value' => _('Unsubscribe')));
-    common_element_end('form');
-}
-
 // XXX: Refactor this code
 function common_profile_new_message_nudge ($cur, $profile)
 {
