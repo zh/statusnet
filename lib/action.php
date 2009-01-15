@@ -58,8 +58,21 @@ class Action extends HTMLOutputter // lawsuit
 {
     var $args;
 
-    function Action()
+    /**
+     * Constructor
+     *
+     * Just wraps the HTMLOutputter constructor.
+     *
+     * @param string  $output URI to output to, default = stdout
+     * @param boolean $indent Whether to indent output, default true
+     *
+     * @see XMLOutputter::__construct
+     * @see HTMLOutputter::__construct
+     */
+
+    function __construct($output='php://output', $indent=true)
     {
+        parent::__construct($output, $indent);
     }
 
     // For initializing members of the class

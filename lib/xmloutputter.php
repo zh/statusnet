@@ -72,7 +72,6 @@ class XMLOutputter
         $this->xw = new XMLWriter();
         $this->xw->openURI($output);
         $this->xw->setIndent($indent);
-        $this->xw->startDocument('1.0', 'UTF-8');
     }
 
     /**
@@ -87,6 +86,7 @@ class XMLOutputter
 
     function startXML($doc=null, $public=null, $system=null)
     {
+        $this->xw->startDocument('1.0', 'UTF-8');
         if ($doc) {
             $this->xw->writeDTD($doc, $public, $system);
         }
