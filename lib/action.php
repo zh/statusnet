@@ -102,7 +102,7 @@ class Action extends HTMLOutputter // lawsuit
         $this->showFeeds();
         $this->showDescription();
         $this->extraHead();
-        $this->elementElement('head');
+        $this->elementEnd('head');
     }
 
     function showTitle()
