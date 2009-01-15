@@ -343,7 +343,7 @@ class NoticeListItem extends Widget
             $noticeurl = $this->notice->uri;
         }
         $this->out->elementStart('dl', 'timestamp');
-        $this->out->element('dt', _('Published')); 
+        $this->out->element('dt', null, _('Published')); 
         $this->out->elementStart('dd', null);
         $this->out->elementStart('a', array('rel' => 'bookmark',
                                         'href' => $noticeurl));
