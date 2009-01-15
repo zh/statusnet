@@ -208,7 +208,11 @@ class Action extends HTMLOutputter // lawsuit
         $this->showLogo();
         $this->showPrimaryNav();
         $this->showSiteNotice();
-        $this->showNoticeForm();
+	if (common_logged_in()) {
+	    $this->showNoticeForm();
+	} else {
+	    $this->showAnonymousMessage();
+	}
         $this->elementEnd('div');
     }
 
@@ -285,6 +289,11 @@ class Action extends HTMLOutputter // lawsuit
         $notice_form->show();
     }
 
+    function showAnonymousMessage()
+    {
+	// needs to be defined by the class
+    }
+    
     function showCore()
     {
         $this->elementStart('div', array('id' => 'core'));
