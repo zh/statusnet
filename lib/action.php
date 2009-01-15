@@ -297,7 +297,12 @@ class Action extends HTMLOutputter // lawsuit
     function showCore()
     {
         $this->elementStart('div', array('id' => 'core'));
+        $this->elementStart('dl', array('id' => 'site_nav_local_views'));
+        $this->element('dt', null, _('Local views'));
+        $this->elementStart('dd');
         $this->showLocalNav();
+        $this->elementEnd('dd');
+        $this->elementEnd('dl');
         $this->showContentBlock();
         $this->showAside();
         $this->elementEnd('div');
