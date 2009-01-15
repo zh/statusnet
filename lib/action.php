@@ -124,15 +124,15 @@ class Action extends HTMLOutputter // lawsuit
     {
         $this->element('link', array('rel' => 'stylesheet',
                                      'type' => 'text/css',
-                                     'href' => theme_path('display.css', 'base') . '?version=' . LACONICA_VERSION,
+                                     'href' => theme_path('css/display.css', 'base') . '?version=' . LACONICA_VERSION,
                                      'media' => 'screen, projection, tv'));
         $this->element('link', array('rel' => 'stylesheet',
                                      'type' => 'text/css',
-                                     'href' => theme_path('thickbox.css', 'base') . '?version=' . LACONICA_VERSION,
+                                     'href' => theme_path('css/thickbox.css', 'base') . '?version=' . LACONICA_VERSION,
                                      'media' => 'screen, projection, tv'));
         $this->element('link', array('rel' => 'stylesheet',
                                      'type' => 'text/css',
-                                     'href' => theme_path('display.css', null) . '?version=' . LACONICA_VERSION,
+                                     'href' => theme_path('css/display.css', null) . '?version=' . LACONICA_VERSION,
                                      'media' => 'screen, projection, tv'));
         foreach (array(6,7) as $ver) {
             if (file_exists(theme_file('ie'.$ver.'.css'))) {
