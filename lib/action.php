@@ -94,7 +94,7 @@ class Action extends HTMLOutputter // lawsuit
     function showHead()
     {
         // XXX: attributes (profile?)
-        $this->startElement('head');
+        $this->elementStart('head');
         $this->showTitle();
         $this->showStylesheets();
         $this->showScripts();
