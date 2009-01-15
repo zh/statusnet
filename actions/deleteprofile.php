@@ -24,7 +24,7 @@ class DeleteprofileAction extends Action
     function handle($args)
     {
         parent::handle($args);
-        $this->server_error(_('Code not yet ready.'));
+        $this->serverError(_('Code not yet ready.'));
         return;
         if ('POST' === $_SERVER['REQUEST_METHOD']) {
             $this->handle_post();

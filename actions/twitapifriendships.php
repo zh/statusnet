@@ -29,7 +29,7 @@ class TwitapifriendshipsAction extends TwitterapiAction
         parent::handle($args);
 
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            $this->client_error(_('This method requires a POST.'), 400, $apidata['content-type']);
+            $this->clientError(_('This method requires a POST.'), 400, $apidata['content-type']);
             return;
         }
 
@@ -38,7 +38,7 @@ class TwitapifriendshipsAction extends TwitterapiAction
         $other = $this->get_user($id);
 
         if (!$other) {
-            $this->client_error(_('Could not follow user: User not found.'), 403, $apidata['content-type']);
+            $this->clientError(_('Could not follow user: User not found.'), 403, $apidata['content-type']);
             return;
         }
 
@@ -46,7 +46,7 @@ class TwitapifriendshipsAction extends TwitterapiAction
 
         if ($user->isSubscribed($other)) {
             $errmsg = sprintf(_('Could not follow user: %s is already on your list.'), $other->nickname);
-            $this->client_error($errmsg, 403, $apidata['content-type']);
+            $this->clientError($errmsg, 403, $apidata['content-type']);
             return;
         }
 
@@ -62,7 +62,7 @@ class TwitapifriendshipsAction extends TwitterapiAction
 
         if (!$result) {
             $errmsg = sprintf(_('Could not follow user: %s is already on your list.'), $other->nickname);
-            $this->client_error($errmsg, 400, $apidata['content-type']);
+            $this->clientError($errmsg, 400, $apidata['content-type']);
             return;
         }
 
@@ -82,7 +82,7 @@ class TwitapifriendshipsAction extends TwitterapiAction
         parent::handle($args);
 
         if (!in_array($_SERVER['REQUEST_METHOD'], array('POST', 'DELETE'))) {
-            $this->client_error(_('This method requires a POST or DELETE.'), 400, $apidata['content-type']);
+            $this->clientError(_('This method requires a POST or DELETE.'), 400, $apidata['content-type']);
             return;
         }
 
@@ -102,7 +102,7 @@ class TwitapifriendshipsAction extends TwitterapiAction
             $sub->delete();
             $sub->query('COMMIT');
         } else {
-            $this->client_error(_('You are not friends with the specified user.'), 403, $apidata['content-type']);
+            $this->clientError(_('You are not friends with the specified user.'), 403, $apidata['content-type']);
             return;
         }
 
@@ -118,7 +118,7 @@ class TwitapifriendshipsAction extends TwitterapiAction
         parent::handle($args);
 
         if (!in_array($apidata['content-type'], array('xml', 'json'))) {
-            common_user_error(_('API method not found!'), $code = 404);
+            $this->clientError(_('API method not found!'), $code = 404);
             return;
         }
 
@@ -129,7 +129,7 @@ class TwitapifriendshipsAction extends TwitterapiAction
         $user_b = $this->get_user($user_b_id);
 
         if (!$user_a || !$user_b) {
-            $this->client_error(_('Two user ids or screen_names must be supplied.'), 400, $apidata['content-type']);
+            $this->clientError(_('Two user ids or screen_names must be supplied.'), 400, $apidata['content-type']);
             return;
         }
 

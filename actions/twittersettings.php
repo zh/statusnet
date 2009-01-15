@@ -285,7 +285,7 @@ class TwittersettingsAction extends SettingsAction
 
         if (!$result) {
             common_log_db_error($flink, 'DELETE', __FILE__);
-            common_server_error(_('Couldn\'t remove Twitter user.'));
+            $this->serverError(_('Couldn\'t remove Twitter user.'));
             return;
         }
 

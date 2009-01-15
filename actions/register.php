@@ -26,9 +26,9 @@ class RegisterAction extends Action
         parent::handle($args);
 
         if (common_config('site', 'closed')) {
-            common_user_error(_('Registration not allowed.'));
+            $this->clientError(_('Registration not allowed.'));
         } else if (common_logged_in()) {
-            common_user_error(_('Already logged in.'));
+            $this->clientError(_('Already logged in.'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->try_register();
         } else {
@@ -65,7 +65,7 @@ class RegisterAction extends Action
         }
 
         if (common_config('site', 'inviteonly') && !($code && $invite)) {
-            $this->client_error(_('Sorry, only invited people can register.'));
+            $this->clientError(_('Sorry, only invited people can register.'));
             return;
         }
 
@@ -115,7 +115,7 @@ class RegisterAction extends Action
             }
             # success!
             if (!common_set_user($user)) {
-                common_server_error(_('Error setting user.'));
+                $this->serverError(_('Error setting user.'));
                 return;
             }
             # this is a real login
@@ -179,7 +179,7 @@ class RegisterAction extends Action
         }
 
         if (common_config('site', 'inviteonly') && !($code && $invite)) {
-            $this->client_error(_('Sorry, only invited people can register.'));
+            $this->clientError(_('Sorry, only invited people can register.'));
             return;
         }
 

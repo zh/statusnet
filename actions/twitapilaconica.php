@@ -79,7 +79,7 @@ class TwitapilaconicaAction extends TwitterapiAction
             $this->end_document('json');
             break;
          default:
-            $this->client_error(_('API method not found!'), $code=404);
+            $this->clientError(_('API method not found!'), $code=404);
         }
     }
 
@@ -148,7 +148,7 @@ class TwitapilaconicaAction extends TwitterapiAction
             $this->end_document('json');
             break;
          default:
-            $this->client_error(_('API method not found!'), $code=404);
+            $this->clientError(_('API method not found!'), $code=404);
         }
     }
 
@@ -169,6 +169,6 @@ class TwitapilaconicaAction extends TwitterapiAction
     function wadl($args, $apidata)
     {
         parent::handle($args);
-        common_server_error(_('API method under construction.'), 501);
+        $this->serverError(_('API method under construction.'), 501);
     }
 }

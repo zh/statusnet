@@ -32,11 +32,11 @@ class UserbyidAction extends Action
         parent::handle($args);
         $id = $this->trimmed('id');
         if (!$id) {
-            $this->client_error(_('No id.'));
+            $this->clientError(_('No id.'));
         }
         $user =& User::staticGet($id);
         if (!$user) {
-            $this->client_error(_('No such user.'));
+            $this->clientError(_('No such user.'));
         }
 
         // support redirecting to FOAF rdf/xml if the agent prefers it

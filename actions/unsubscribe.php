@@ -24,7 +24,7 @@ class UnsubscribeAction extends Action
     {
         parent::handle($args);
         if (!common_logged_in()) {
-            common_user_error(_('Not logged in.'));
+            $this->clientError(_('Not logged in.'));
             return;
         }
 
@@ -40,28 +40,28 @@ class UnsubscribeAction extends Action
         $token = $this->trimmed('token');
 
         if (!$token || $token != common_session_token()) {
-            $this->client_error(_('There was a problem with your session token. Try again, please.'));
+            $this->clientError(_('There was a problem with your session token. Try again, please.'));
             return;
         }
 
         $other_id = $this->arg('unsubscribeto');
 
         if (!$other_id) {
-            $this->client_error(_('No profile id in request.'));
+            $this->clientError(_('No profile id in request.'));
             return;
         }
 
         $other = Profile::staticGet('id', $other_id);
 
         if (!$other_id) {
-            $this->client_error(_('No profile with that id.'));
+            $this->clientError(_('No profile with that id.'));
             return;
         }
 
         $result = subs_unsubscribe_to($user, $other);
 
         if ($result != true) {
-            common_user_error($result);
+            $this->clientError($result);
             return;
         }
 

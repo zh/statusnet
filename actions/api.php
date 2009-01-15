@@ -103,10 +103,10 @@ class ApiAction extends Action
 
                 call_user_func(array($action_obj, $this->api_method), $_REQUEST, $apidata);
             } else {
-                common_user_error("API method not found!", $code=404);
+                $this->clientError("API method not found!", $code=404);
             }
         } else {
-            common_user_error("API method not found!", $code=404);
+            $this->clientError("API method not found!", $code=404);
         }
     }
 

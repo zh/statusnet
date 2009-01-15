@@ -168,7 +168,7 @@ class SmssettingsAction extends EmailsettingsAction
 
         if ($result === false) {
             common_log_db_error($user, 'UPDATE', __FILE__);
-            common_server_error(_('Couldn\'t update user.'));
+            $this->serverError(_('Couldn\'t update user.'));
             return;
         }
 
@@ -218,7 +218,7 @@ class SmssettingsAction extends EmailsettingsAction
 
         if ($result === false) {
             common_log_db_error($confirm, 'INSERT', __FILE__);
-            common_server_error(_('Couldn\'t insert confirmation code.'));
+            $this->serverError(_('Couldn\'t insert confirmation code.'));
             return;
         }
 
@@ -254,7 +254,7 @@ class SmssettingsAction extends EmailsettingsAction
 
         if (!$result) {
             common_log_db_error($confirm, 'DELETE', __FILE__);
-            $this->server_error(_('Couldn\'t delete email confirmation.'));
+            $this->serverError(_('Couldn\'t delete email confirmation.'));
             return;
         }
 
@@ -283,7 +283,7 @@ class SmssettingsAction extends EmailsettingsAction
         $result = $user->updateKeys($original);
         if (!$result) {
             common_log_db_error($user, 'UPDATE', __FILE__);
-            common_server_error(_('Couldn\'t update user.'));
+            $this->serverError(_('Couldn\'t update user.'));
             return;
         }
         $user->query('COMMIT');

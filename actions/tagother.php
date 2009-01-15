@@ -30,7 +30,7 @@ class TagotherAction extends Action
         parent::handle($args);
 
         if (!common_logged_in()) {
-            $this->client_error(_('Not logged in'), 403);
+            $this->clientError(_('Not logged in'), 403);
             return;
         }
 
@@ -39,12 +39,12 @@ class TagotherAction extends Action
         } else {
             $id = $this->trimmed('id');
             if (!$id) {
-                $this->client_error(_('No id argument.'));
+                $this->clientError(_('No id argument.'));
                 return;
             }
             $profile = Profile::staticGet('id', $id);
             if (!$profile) {
-                $this->client_error(_('No profile with that ID.'));
+                $this->clientError(_('No profile with that ID.'));
                 return;
             }
             $this->show_form($profile);
@@ -121,7 +121,7 @@ class TagotherAction extends Action
         $profile = Profile::staticGet('id', $id);
 
         if (!$profile) {
-            $this->client_error(_('No such profile.'));
+            $this->clientError(_('No such profile.'));
             return;
         }
 
@@ -147,14 +147,14 @@ class TagotherAction extends Action
             !Subscription::pkeyGet(array('subscriber' => $profile->id,
                                          'subscribed' => $user->id)))
         {
-            $this->client_error(_('You can only tag people you are subscribed to or who are subscribed to you.'));
+            $this->clientError(_('You can only tag people you are subscribed to or who are subscribed to you.'));
             return;
         }
 
         $result = Profile_tag::setTags($user->id, $profile->id, $tags);
 
         if (!$result) {
-            $this->client_error(_('Could not save tags.'));
+            $this->clientError(_('Could not save tags.'));
             return;
         }
 

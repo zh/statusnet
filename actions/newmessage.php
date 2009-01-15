@@ -27,7 +27,7 @@ class NewmessageAction extends Action
         parent::handle($args);
 
         if (!common_logged_in()) {
-            $this->client_error(_('Not logged in.'), 403);
+            $this->clientError(_('Not logged in.'), 403);
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->save_new_message();
         } else {
@@ -71,10 +71,10 @@ class NewmessageAction extends Action
             $this->show_form(_('No recipient specified.'));
             return;
         } else if (!$user->mutuallySubscribed($other)) {
-            $this->client_error(_('You can\'t send a message to this user.'), 404);
+            $this->clientError(_('You can\'t send a message to this user.'), 404);
             return;
         } else if ($user->id == $other->id) {
-            $this->client_error(_('Don\'t send a message to yourself; just say it to yourself quietly instead.'), 403);
+            $this->clientError(_('Don\'t send a message to yourself; just say it to yourself quietly instead.'), 403);
             return;
         }
         
@@ -113,12 +113,12 @@ class NewmessageAction extends Action
         $other = User::staticGet('id', $to);
 
         if (!$other) {
-            $this->client_error(_('No such user'), 404);
+            $this->clientError(_('No such user'), 404);
             return;
         }
 
         if (!$user->mutuallySubscribed($other)) {
-            $this->client_error(_('You can\'t send a message to this user.'), 404);
+            $this->clientError(_('You can\'t send a message to this user.'), 404);
             return;
         }
         

@@ -182,7 +182,7 @@ class EmailsettingsAction extends SettingsAction
 
         if ($result === false) {
             common_log_db_error($user, 'UPDATE', __FILE__);
-            common_server_error(_('Couldn\'t update user.'));
+            $this->serverError(_('Couldn\'t update user.'));
             return;
         }
 
@@ -232,7 +232,7 @@ class EmailsettingsAction extends SettingsAction
 
         if ($result === false) {
             common_log_db_error($confirm, 'INSERT', __FILE__);
-            common_server_error(_('Couldn\'t insert confirmation code.'));
+            $this->serverError(_('Couldn\'t insert confirmation code.'));
             return;
         }
 
@@ -260,7 +260,7 @@ class EmailsettingsAction extends SettingsAction
 
         if (!$result) {
             common_log_db_error($confirm, 'DELETE', __FILE__);
-            $this->server_error(_('Couldn\'t delete email confirmation.'));
+            $this->serverError(_('Couldn\'t delete email confirmation.'));
             return;
         }
 
@@ -286,7 +286,7 @@ class EmailsettingsAction extends SettingsAction
         $result = $user->updateKeys($original);
         if (!$result) {
             common_log_db_error($user, 'UPDATE', __FILE__);
-            common_server_error(_('Couldn\'t update user.'));
+            $this->serverError(_('Couldn\'t update user.'));
             return;
         }
         $user->query('COMMIT');
@@ -308,7 +308,7 @@ class EmailsettingsAction extends SettingsAction
 
         if (!$user->updateKeys($orig)) {
             common_log_db_error($user, 'UPDATE', __FILE__);
-            $this->server_error(_("Couldn't update user record."));
+            $this->serverError(_("Couldn't update user record."));
         }
         
         $this->show_form(_('Incoming email address removed.'), true);
@@ -323,7 +323,7 @@ class EmailsettingsAction extends SettingsAction
         
         if (!$user->updateKeys($orig)) {
             common_log_db_error($user, 'UPDATE', __FILE__);
-            $this->server_error(_("Couldn't update user record."));
+            $this->serverError(_("Couldn't update user record."));
         }
 
         $this->show_form(_('New incoming email address added.'), true);

@@ -28,7 +28,7 @@ class OpenidloginAction extends Action
     {
         parent::handle($args);
         if (common_logged_in()) {
-            common_user_error(_('Already logged in.'));
+            $this->clientError(_('Already logged in.'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $openid_url = $this->trimmed('openid_url');
 

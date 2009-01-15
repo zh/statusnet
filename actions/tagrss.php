@@ -32,7 +32,7 @@ class TagrssAction extends Rss10Action
         $this->tag = Notice_tag::staticGet('tag', $tag);
 
         if (!$this->tag) {
-            common_user_error(_('No such tag.'));
+            $this->clientError(_('No such tag.'));
             return false;
         } else {
             return true;

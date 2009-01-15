@@ -31,7 +31,7 @@ class InviteAction extends Action
     {
         parent::handle($args);
         if (!common_logged_in()) {
-            $this->client_error(sprintf(_('You must be logged in to invite other users to use %s'),
+            $this->clientError(sprintf(_('You must be logged in to invite other users to use %s'),
                                         common_config('site', 'name')));
             return;
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {

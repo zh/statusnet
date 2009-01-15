@@ -108,7 +108,7 @@ class Twitapidirect_messagesAction extends TwitterapiAction
             $this->show_json_dmsgs($message);
             break;
          default:
-            common_user_error(_('API method not found!'), $code = 404);
+            $this->clientError(_('API method not found!'), $code = 404);
         }
 
     }
@@ -119,7 +119,7 @@ class Twitapidirect_messagesAction extends TwitterapiAction
         parent::handle($args);
 
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            $this->client_error(_('This method requires a POST.'), 400, $apidata['content-type']);
+            $this->clientError(_('This method requires a POST.'), 400, $apidata['content-type']);
             return;
         }
 
@@ -134,11 +134,11 @@ class Twitapidirect_messagesAction extends TwitterapiAction
         $content = $this->trimmed('text');
 
         if (!$content) {
-            $this->client_error(_('No message text!'), $code = 406, $apidata['content-type']);
+            $this->clientError(_('No message text!'), $code = 406, $apidata['content-type']);
         } else {
             $content_shortened = common_shorten_links($content);
             if (mb_strlen($content_shortened) > 140) {
-                $this->client_error(_('That\'s too long. Max message size is 140 chars.'),
+                $this->clientError(_('That\'s too long. Max message size is 140 chars.'),
                     $code = 406, $apidata['content-type']);
                 return;
             }
@@ -147,15 +147,15 @@ class Twitapidirect_messagesAction extends TwitterapiAction
         $other = $this->get_user($this->trimmed('user'));
 
         if (!$other) {
-            $this->client_error(_('Recipient user not found.'), $code = 403, $apidata['content-type']);
+            $this->clientError(_('Recipient user not found.'), $code = 403, $apidata['content-type']);
             return;
         } else if (!$user->mutuallySubscribed($other)) {
-            $this->client_error(_('Can\'t send direct messages to users who aren\'t your friend.'),
+            $this->clientError(_('Can\'t send direct messages to users who aren\'t your friend.'),
                 $code = 403, $apidata['content-type']);
             return;
         } else if ($user->id == $other->id) {
             // Sending msgs to yourself is allowed by Twitter
-            $this->client_error(_('Don\'t send a message to yourself; just say it to yourself quietly instead.'),
+            $this->clientError(_('Don\'t send a message to yourself; just say it to yourself quietly instead.'),
                 $code = 403, $apidata['content-type']);
             return;
         }
@@ -164,7 +164,7 @@ class Twitapidirect_messagesAction extends TwitterapiAction
             html_entity_decode($content, ENT_NOQUOTES, 'UTF-8'), $source);
 
         if (is_string($message)) {
-            $this->server_error($message);
+            $this->serverError($message);
             return;
         }
 
@@ -181,7 +181,7 @@ class Twitapidirect_messagesAction extends TwitterapiAction
     function destroy($args, $apidata)
     {
         parent::handle($args);
-        common_server_error(_('API method under construction.'), $code=501);
+        $this->serverError(_('API method under construction.'), $code=501);
     }
 
     function show_xml_dmsgs($message)

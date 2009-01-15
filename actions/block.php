@@ -30,28 +30,28 @@ class BlockAction extends Action
         parent::prepare($args);
 
         if (!common_logged_in()) {
-            $this->client_error(_('Not logged in.'));
+            $this->clientError(_('Not logged in.'));
             return false;
         }
 
         $token = $this->trimmed('token');
 
         if (!$token || $token != common_session_token()) {
-            $this->client_error(_('There was a problem with your session token. Try again, please.'));
+            $this->clientError(_('There was a problem with your session token. Try again, please.'));
             return;
         }
 
         $id = $this->trimmed('blockto');
 
         if (!$id) {
-            $this->client_error(_('No profile specified.'));
+            $this->clientError(_('No profile specified.'));
             return false;
         }
 
         $this->profile = Profile::staticGet('id', $id);
 
         if (!$this->profile) {
-            $this->client_error(_('No profile with that ID.'));
+            $this->clientError(_('No profile with that ID.'));
             return false;
         }
 
@@ -119,14 +119,14 @@ class BlockAction extends Action
         $cur = common_current_user();
 
         if ($cur->hasBlocked($this->profile)) {
-            $this->client_error(_('You have already blocked this user.'));
+            $this->clientError(_('You have already blocked this user.'));
             return;
         }
 
         $result = $cur->block($this->profile);
 
         if (!$result) {
-            $this->server_error(_('Failed to save block information.'));
+            $this->serverError(_('Failed to save block information.'));
             return;
         }
 

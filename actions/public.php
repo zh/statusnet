@@ -165,7 +165,7 @@ class PublicAction extends Action
                                        NOTICES_PER_PAGE + 1);
 
         if (!$notice) {
-            $this->server_error(_('Could not retrieve public stream.'));
+            $this->serverError(_('Could not retrieve public stream.'));
             return;
         }
 

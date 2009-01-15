@@ -28,7 +28,7 @@ class FinishopenidloginAction extends Action
     {
         parent::handle($args);
         if (common_logged_in()) {
-            common_user_error(_('Already logged in.'));
+            $this->clientError(_('Already logged in.'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $token = $this->trimmed('token');
             if (!$token || $token != common_session_token()) {
@@ -179,7 +179,7 @@ class FinishopenidloginAction extends Action
         # FIXME: save invite code before redirect, and check here
 
         if (common_config('site', 'closed') || common_config('site', 'inviteonly')) {
-            common_user_error(_('Registration not allowed.'));
+            $this->clientError(_('Registration not allowed.'));
             return;
         }
 
@@ -205,7 +205,7 @@ class FinishopenidloginAction extends Action
         list($display, $canonical, $sreg) = $this->get_saved_values();
 
         if (!$display || !$canonical) {
-            common_server_error(_('Stored OpenID not found.'));
+            $this->serverError(_('Stored OpenID not found.'));
             return;
         }
 
@@ -214,7 +214,7 @@ class FinishopenidloginAction extends Action
         $other = oid_get_user($canonical);
 
         if ($other) {
-            common_server_error(_('Creating new account for OpenID that already has a user.'));
+            $this->serverError(_('Creating new account for OpenID that already has a user.'));
             return;
         }
 
@@ -274,14 +274,14 @@ class FinishopenidloginAction extends Action
         list($display, $canonical, $sreg) = $this->get_saved_values();
 
         if (!$display || !$canonical) {
-            common_server_error(_('Stored OpenID not found.'));
+            $this->serverError(_('Stored OpenID not found.'));
             return;
         }
 
         $result = oid_link_user($user->id, $canonical, $display);
 
         if (!$result) {
-            common_server_error(_('Error connecting user to OpenID.'));
+            $this->serverError(_('Error connecting user to OpenID.'));
             return;
         }
 

@@ -30,7 +30,7 @@ class RemotesubscribeAction extends Action
         parent::handle($args);
 
         if (common_logged_in()) {
-            common_user_error(_('You can use the local subscription!'));
+            $this->clientError(_('You can use the local subscription!'));
             return;
         }
 
@@ -342,7 +342,7 @@ class RemotesubscribeAction extends Action
         $profile = $user->getProfile();
         if (!$profile) {
             common_log_db_error($user, 'SELECT', __FILE__);
-            $this->server_error(_('User without matching profile'));
+            $this->serverError(_('User without matching profile'));
             return;
         }
 
