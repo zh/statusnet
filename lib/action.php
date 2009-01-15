@@ -265,14 +265,16 @@ class Action extends HTMLOutputter // lawsuit
     // Revist. Should probably do an hAtom pattern here
     function showSiteNotice()
     {
-        $this->elementStart('dl', array('id' => 'site_notice',
-                                        'class' => 'system_notice'));
-        $this->element('dt', null, _('Site notice'));
-        $this->elementStart('dd', null);
-        // Output a bunch of paragraphs here
-        $this->elementEnd('dd');
+	$text = common_config('site', 'notice');
+	if ($text) {
+	    $this->elementStart('dl', array('id' => 'site_notice',
+					    'class' => 'system_notice'));
+	    $this->element('dt', null, _('Site notice'));
+	    $this->element('dd', null, $text);
+	    $this->elementEnd('dl');
+	}
     }
-
+    
     // MAY overload if no notice form needed... or direct message box????
 
     function showNoticeForm()
