@@ -40,7 +40,7 @@ class RepliesAction extends StreamAction
         $profile = $user->getProfile();
 
         if (!$profile) {
-            common_server_error(_('User has no profile.'));
+            $this->serverError(_('User has no profile.'));
             return;
         }
 
@@ -57,7 +57,7 @@ class RepliesAction extends StreamAction
 
     function no_such_user()
     {
-        common_user_error(_('No such user.'));
+        $this->clientError(_('No such user.'));
     }
 
     function show_header($user)

@@ -32,26 +32,26 @@ class ConfirmaddressAction extends Action
         }
         $code = $this->trimmed('code');
         if (!$code) {
-            $this->client_error(_('No confirmation code.'));
+            $this->clientError(_('No confirmation code.'));
             return;
         }
         $confirm = Confirm_address::staticGet('code', $code);
         if (!$confirm) {
-            $this->client_error(_('Confirmation code not found.'));
+            $this->clientError(_('Confirmation code not found.'));
             return;
         }
         $cur = common_current_user();
         if ($cur->id != $confirm->user_id) {
-            $this->client_error(_('That confirmation code is not for you!'));
+            $this->clientError(_('That confirmation code is not for you!'));
             return;
         }
         $type = $confirm->address_type;
         if (!in_array($type, array('email', 'jabber', 'sms'))) {
-            $this->server_error(sprintf(_('Unrecognized address type %s'), $type));
+            $this->serverError(sprintf(_('Unrecognized address type %s'), $type));
             return;
         }
         if ($cur->$type == $confirm->address) {
-            $this->client_error(_('That address has already been confirmed.'));
+            $this->clientError(_('That address has already been confirmed.'));
             return;
         }
 
@@ -71,7 +71,7 @@ class ConfirmaddressAction extends Action
 
         if (!$result) {
             common_log_db_error($cur, 'UPDATE', __FILE__);
-            $this->server_error(_('Couldn\'t update user.'));
+            $this->serverError(_('Couldn\'t update user.'));
             return;
         }
 
@@ -83,7 +83,7 @@ class ConfirmaddressAction extends Action
 
         if (!$result) {
             common_log_db_error($confirm, 'DELETE', __FILE__);
-            $this->server_error(_('Couldn\'t delete email confirmation.'));
+            $this->serverError(_('Couldn\'t delete email confirmation.'));
             return;
         }
 

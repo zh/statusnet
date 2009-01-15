@@ -32,14 +32,14 @@ class TwitapifavoritesAction extends TwitterapiAction
         $user = $this->get_user($apidata['api_arg'], $apidata);
 
         if (!$user) {
-            $this->client_error('Not Found', 404, $apidata['content-type']);
+            $this->clientError('Not Found', 404, $apidata['content-type']);
             return;
         }
 
         $profile = $user->getProfile();
 
         if (!$profile) {
-            common_server_error(_('User has no profile.'));
+            $this->serverError(_('User has no profile.'));
             return;
         }
 
@@ -56,7 +56,7 @@ class TwitapifavoritesAction extends TwitterapiAction
         $notice = $user->favoriteNotices((($page-1)*20), $count);
 
         if (!$notice) {
-            common_server_error(_('Could not retrieve favorite notices.'));
+            $this->serverError(_('Could not retrieve favorite notices.'));
             return;
         }
 
@@ -82,7 +82,7 @@ class TwitapifavoritesAction extends TwitterapiAction
             $this->show_json_timeline($notice);
             break;
          default:
-            common_user_error(_('API method not found!'), $code = 404);
+            $this->clientError(_('API method not found!'), $code = 404);
         }
 
     }
@@ -94,12 +94,12 @@ class TwitapifavoritesAction extends TwitterapiAction
         // Check for RESTfulness
         if (!in_array($_SERVER['REQUEST_METHOD'], array('POST', 'DELETE'))) {
             // XXX: Twitter just prints the err msg, no XML / JSON.
-            $this->client_error(_('This method requires a POST or DELETE.'), 400, $apidata['content-type']);
+            $this->clientError(_('This method requires a POST or DELETE.'), 400, $apidata['content-type']);
             return;
         }
 
         if (!in_array($apidata['content-type'], array('xml', 'json'))) {
-            common_user_error(_('API method not found!'), $code = 404);
+            $this->clientError(_('API method not found!'), $code = 404);
             return;
         }
 
@@ -109,20 +109,20 @@ class TwitapifavoritesAction extends TwitterapiAction
         $notice = Notice::staticGet($notice_id);
 
         if (!$notice) {
-            $this->client_error(_('No status found with that ID.'), 404, $apidata['content-type']);
+            $this->clientError(_('No status found with that ID.'), 404, $apidata['content-type']);
             return;
         }
 
         // XXX: Twitter lets you fave things repeatedly via api.
         if ($user->hasFave($notice)) {
-            $this->client_error(_('This notice is already a favorite!'), 403, $apidata['content-type']);
+            $this->clientError(_('This notice is already a favorite!'), 403, $apidata['content-type']);
             return;
         }
 
         $fave = Fave::addNew($user, $notice);
 
         if (!$fave) {
-            common_server_error(_('Could not create favorite.'));
+            $this->serverError(_('Could not create favorite.'));
             return;
         }
 
@@ -140,7 +140,7 @@ class TwitapifavoritesAction extends TwitterapiAction
     function destroy($args, $apidata)
     {
         parent::handle($args);
-        common_server_error(_('API method under construction.'), $code=501);
+        $this->serverError(_('API method under construction.'), $code=501);
     }
 
     // XXX: these two funcs swiped from faves.  Maybe put in util.php, or some common base class?

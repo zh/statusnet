@@ -30,28 +30,28 @@ class UnblockAction extends Action
         parent::prepare($args);
 
         if (!common_logged_in()) {
-            $this->client_error(_('Not logged in.'));
+            $this->clientError(_('Not logged in.'));
             return false;
         }
 
         $token = $this->trimmed('token');
 
         if (!$token || $token != common_session_token()) {
-            $this->client_error(_('There was a problem with your session token. Try again, please.'));
+            $this->clientError(_('There was a problem with your session token. Try again, please.'));
             return;
         }
 
         $id = $this->trimmed('unblockto');
 
         if (!$id) {
-            $this->client_error(_('No profile specified.'));
+            $this->clientError(_('No profile specified.'));
             return false;
         }
 
         $this->profile = Profile::staticGet('id', $id);
 
         if (!$this->profile) {
-            $this->client_error(_('No profile with that ID.'));
+            $this->clientError(_('No profile with that ID.'));
             return false;
         }
 
@@ -74,7 +74,7 @@ class UnblockAction extends Action
         $result = $cur->unblock($this->profile);
 
         if (!$result) {
-            $this->server_error(_('Error removing the block.'));
+            $this->serverError(_('Error removing the block.'));
             return;
         }
 

@@ -177,7 +177,7 @@ class OthersettingsAction extends SettingsAction
 
         if ($result === false) {
             common_log_db_error($user, 'UPDATE', __FILE__);
-            common_server_error(_('Couldn\'t update user.'));
+            $this->serverError(_('Couldn\'t update user.'));
             return;
         }
 

@@ -32,7 +32,7 @@ class PeopletagAction extends Action
         $tag = $this->trimmed('tag');
         
         if (!common_valid_profile_tag($tag)) {
-            $this->client_error(sprintf(_('Not a valid people tag: %s'), $tag));
+            $this->clientError(sprintf(_('Not a valid people tag: %s'), $tag));
             return;
         }
 

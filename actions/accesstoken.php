@@ -38,7 +38,7 @@ class AccesstokenAction extends Action
             common_debug('printing the access token', __FILE__);
             print $token;
         } catch (OAuthException $e) {
-            common_server_error($e->getMessage());
+            $this->serverError($e->getMessage());
         }
     }
 }

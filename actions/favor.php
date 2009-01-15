@@ -29,7 +29,7 @@ class FavorAction extends Action
         parent::handle($args);
 
         if (!common_logged_in()) {
-            common_user_error(_('Not logged in.'));
+            $this->clientError(_('Not logged in.'));
             return;
         }
 
@@ -48,19 +48,19 @@ class FavorAction extends Action
 
         $token = $this->trimmed('token-'.$notice->id);
         if (!$token || $token != common_session_token()) {
-            $this->client_error(_("There was a problem with your session token. Try again, please."));
+            $this->clientError(_("There was a problem with your session token. Try again, please."));
             return;
         }
 
         if ($user->hasFave($notice)) {
-            $this->client_error(_('This notice is already a favorite!'));
+            $this->clientError(_('This notice is already a favorite!'));
             return;
         }
 
         $fave = Fave::addNew($user, $notice);
 
         if (!$fave) {
-            $this->server_error(_('Could not create favorite.'));
+            $this->serverError(_('Could not create favorite.'));
             return;
         }
 

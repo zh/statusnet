@@ -28,7 +28,7 @@ class FinishaddopenidAction extends Action
     {
         parent::handle($args);
         if (!common_logged_in()) {
-            common_user_error(_('Not logged in.'));
+            $this->clientError(_('Not logged in.'));
         } else {
             $this->try_login();
         }

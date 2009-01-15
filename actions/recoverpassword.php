@@ -30,7 +30,7 @@ class RecoverpasswordAction extends Action
     {
         parent::handle($args);
         if (common_logged_in()) {
-            $this->client_error(_('You are already logged in!'));
+            $this->clientError(_('You are already logged in!'));
             return;
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->arg('recover')) {
@@ -38,7 +38,7 @@ class RecoverpasswordAction extends Action
             } else if ($this->arg('reset')) {
                 $this->reset_password();
             } else {
-                $this->client_error(_('Unexpected form submission.'));
+                $this->clientError(_('Unexpected form submission.'));
             }
         } else {
             if ($this->trimmed('code')) {
@@ -56,18 +56,18 @@ class RecoverpasswordAction extends Action
         $confirm = Confirm_address::staticGet('code', $code);
 
         if (!$confirm) {
-            $this->client_error(_('No such recovery code.'));
+            $this->clientError(_('No such recovery code.'));
             return;
         }
         if ($confirm->address_type != 'recover') {
-            $this->client_error(_('Not a recovery code.'));
+            $this->clientError(_('Not a recovery code.'));
             return;
         }
 
         $user = User::staticGet($confirm->user_id);
 
         if (!$user) {
-            $this->server_error(_('Recovery code for unknown user.'));
+            $this->serverError(_('Recovery code for unknown user.'));
             return;
         }
 
@@ -80,7 +80,7 @@ class RecoverpasswordAction extends Action
 
         if (!$result) {
             common_log_db_error($confirm, 'DELETE', __FILE__);
-            common_server_error(_('Error with confirmation code.'));
+            $this->serverError(_('Error with confirmation code.'));
             return;
         }
 
@@ -91,7 +91,7 @@ class RecoverpasswordAction extends Action
             common_log(LOG_WARNING, 
                        'Attempted redemption on recovery code ' .
                        'that is ' . $touched . ' seconds old. ');
-            $this->client_error(_('This confirmation code is too old. ' .
+            $this->clientError(_('This confirmation code is too old. ' .
                                    'Please start again.'));
             return;
         }
@@ -105,7 +105,7 @@ class RecoverpasswordAction extends Action
             $result = $user->updateKeys($orig);
             if (!$result) {
                 common_log_db_error($user, 'UPDATE', __FILE__);
-                $this->server_error(_('Could not update user with confirmed email address.'));
+                $this->serverError(_('Could not update user with confirmed email address.'));
                 return;
             }
         }
@@ -240,7 +240,7 @@ class RecoverpasswordAction extends Action
         }
 
         if (!$user->email && !$confirm_email) {
-            $this->client_error(_('No registered email address for that user.'));
+            $this->clientError(_('No registered email address for that user.'));
             return;
         }
 
@@ -254,7 +254,7 @@ class RecoverpasswordAction extends Action
 
         if (!$confirm->insert()) {
             common_log_db_error($confirm, 'INSERT', __FILE__);
-            $this->server_error(_('Error saving address confirmation.'));
+            $this->serverError(_('Error saving address confirmation.'));
             return;
         }
 
@@ -298,7 +298,7 @@ class RecoverpasswordAction extends Action
         $user = $this->get_temp_user();
 
         if (!$user) {
-            $this->client_error(_('Unexpected password reset.'));
+            $this->clientError(_('Unexpected password reset.'));
             return;
         }
 
@@ -322,14 +322,14 @@ class RecoverpasswordAction extends Action
 
         if (!$user->update($original)) {
             common_log_db_error($user, 'UPDATE', __FILE__);
-            common_server_error(_('Can\'t save new password.'));
+            $this->serverError(_('Can\'t save new password.'));
             return;
         }
 
         $this->clear_temp_user();
 
         if (!common_set_user($user->nickname)) {
-            common_server_error(_('Error setting user.'));
+            $this->serverError(_('Error setting user.'));
             return;
         }
 

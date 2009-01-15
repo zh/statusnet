@@ -40,14 +40,14 @@ class FoafAction extends Action
         $user = User::staticGet('nickname', $nickname);
 
         if (!$user) {
-            common_user_error(_('No such user.'), 404);
+            $this->clientError(_('No such user.'), 404);
             return;
         }
 
         $profile = $user->getProfile();
 
         if (!$profile) {
-            common_server_error(_('User has no profile.'), 500);
+            $this->serverError(_('User has no profile.'), 500);
             return;
         }
 

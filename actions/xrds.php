@@ -35,7 +35,7 @@ class XrdsAction extends Action
         $nickname = $this->trimmed('nickname');
         $user = User::staticGet('nickname', $nickname);
         if (!$user) {
-            common_user_error(_('No such user.'));
+            $this->clientError(_('No such user.'));
             return;
         }
         $this->show_xrds($user);

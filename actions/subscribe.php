@@ -27,7 +27,7 @@ class SubscribeAction extends Action
         parent::handle($args);
 
         if (!common_logged_in()) {
-            common_user_error(_('Not logged in.'));
+            $this->clientError(_('Not logged in.'));
             return;
         }
 
@@ -43,7 +43,7 @@ class SubscribeAction extends Action
         $token = $this->trimmed('token');
 
         if (!$token || $token != common_session_token()) {
-            $this->client_error(_('There was a problem with your session token. Try again, please.'));
+            $this->clientError(_('There was a problem with your session token. Try again, please.'));
             return;
         }
 
@@ -52,14 +52,14 @@ class SubscribeAction extends Action
         $other = User::staticGet('id', $other_id);
 
         if (!$other) {
-            $this->client_error(_('Not a local user.'));
+            $this->clientError(_('Not a local user.'));
             return;
         }
 
         $result = subs_subscribe_to($user, $other);
 
         if($result != true) {
-            common_user_error($result);
+            $this->clientError($result);
             return;
         }
 

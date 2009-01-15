@@ -29,13 +29,13 @@ class NewnoticeAction extends Action
         parent::handle($args);
 
         if (!common_logged_in()) {
-            common_user_error(_('Not logged in.'));
+            $this->clientError(_('Not logged in.'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             # CSRF protection - token set in common_notice_form()
             $token = $this->trimmed('token');
             if (!$token || $token != common_session_token()) {
-                $this->client_error(_('There was a problem with your session token. Try again, please.'));
+                $this->clientError(_('There was a problem with your session token. Try again, please.'));
                 return;
             }
 

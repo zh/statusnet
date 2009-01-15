@@ -33,14 +33,14 @@ class ShowfavoritesAction extends StreamAction
         $user = User::staticGet('nickname', $nickname);
 
         if (!$user) {
-            $this->client_error(_('No such user.'));
+            $this->clientError(_('No such user.'));
             return;
         }
 
         $profile = $user->getProfile();
 
         if (!$profile) {
-            common_server_error(_('User has no profile.'));
+            $this->serverError(_('User has no profile.'));
             return;
         }
 
@@ -90,7 +90,7 @@ class ShowfavoritesAction extends StreamAction
         $notice = $user->favoriteNotices(($page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
 
         if (!$notice) {
-            $this->server_error(_('Could not retrieve favorite notices.'));
+            $this->serverError(_('Could not retrieve favorite notices.'));
             return;
         }
 

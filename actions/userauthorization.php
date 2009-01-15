@@ -54,7 +54,7 @@ class UserauthorizationAction extends Action
                 common_debug('getting new request', __FILE__);
                 $req = $this->get_new_request();
                 if (!$req) {
-                    $this->client_error(_('No request found!'));
+                    $this->clientError(_('No request found!'));
                 }
                 common_debug('validating request', __FILE__);
                 # XXX: only validate new requests, since nonce is one-time use
@@ -64,7 +64,7 @@ class UserauthorizationAction extends Action
                 $this->show_form($req);
             } catch (OAuthException $e) {
                 $this->clear_request();
-                $this->client_error($e->getMessage());
+                $this->clientError($e->getMessage());
                 return;
             }
 
@@ -137,7 +137,7 @@ class UserauthorizationAction extends Action
         $req = $this->get_stored_request();
 
         if (!$req) {
-            common_user_error(_('No authorization request!'));
+            $this->clientError(_('No authorization request!'));
             return;
         }
 
@@ -145,10 +145,10 @@ class UserauthorizationAction extends Action
 
         if ($this->arg('accept')) {
             if (!$this->authorize_token($req)) {
-                $this->client_error(_('Error authorizing token'));
+                $this->clientError(_('Error authorizing token'));
             }
             if (!$this->save_remote_profile($req)) {
-                $this->client_error(_('Error saving remote profile'));
+                $this->clientError(_('Error saving remote profile'));
             }
             if (!$callback) {
                 $this->show_accept_message($req->get_parameter('oauth_token'));
@@ -160,7 +160,7 @@ class UserauthorizationAction extends Action
                 $profile = $user->getProfile();
                 if (!$profile) {
                     common_log_db_error($user, 'SELECT', __FILE__);
-                    $this->server_error(_('User without matching profile'));
+                    $this->serverError(_('User without matching profile'));
                     return;
                 }
                 $params['omb_listener_nickname'] = $user->nickname;

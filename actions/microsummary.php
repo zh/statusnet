@@ -31,14 +31,14 @@ class MicrosummaryAction extends Action
         $user = User::staticGet('nickname', $nickname);
 
         if (!$user) {
-            $this->client_error(_('No such user'), 404);
+            $this->clientError(_('No such user'), 404);
             return;
         }
         
         $notice = $user->getCurrentNotice();
         
         if (!$notice) {
-            $this->client_error(_('No current status'), 404);
+            $this->clientError(_('No current status'), 404);
         }
         
         header('Content-Type: text/plain');

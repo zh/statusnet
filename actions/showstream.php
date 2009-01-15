@@ -56,7 +56,7 @@ class ShowstreamAction extends StreamAction
         $profile = $user->getProfile();
 
         if (!$profile) {
-            common_server_error(_('User has no profile.'));
+            $this->serverError(_('User has no profile.'));
             return;
         }
 
@@ -159,7 +159,7 @@ class ShowstreamAction extends StreamAction
 
     function no_such_user()
     {
-        $this->client_error(_('No such user.'), 404);
+        $this->clientError(_('No such user.'), 404);
     }
 
     function show_profile($profile)

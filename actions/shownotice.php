@@ -37,14 +37,14 @@ class ShownoticeAction extends StreamAction
         $this->notice = Notice::staticGet($id);
 
         if (!$this->notice) {
-            $this->client_error(_('No such notice.'), 404);
+            $this->clientError(_('No such notice.'), 404);
             return false;
         }
 
         $this->profile = $this->notice->getProfile();
 
         if (!$this->profile) {
-            $this->server_error(_('Notice has no profile'), 500);
+            $this->serverError(_('Notice has no profile'), 500);
             return false;
         }
 
@@ -119,6 +119,6 @@ class ShownoticeAction extends StreamAction
 
     function no_such_notice()
     {
-        common_user_error(_('No such notice.'));
+        $this->clientError(_('No such notice.'));
     }
 }

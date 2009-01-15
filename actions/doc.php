@@ -28,7 +28,7 @@ class DocAction extends Action
         $title = $this->trimmed('title');
         $filename = INSTALLDIR.'/doc/'.$title;
         if (!file_exists($filename)) {
-            common_user_error(_('No such document.'));
+            $this->clientError(_('No such document.'));
             return;
         }
         $c = file_get_contents($filename);

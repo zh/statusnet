@@ -125,7 +125,7 @@ class ProfilesettingsAction extends SettingsAction
 
         if (!$profile) {
             common_log_db_error($user, 'SELECT', __FILE__);
-            $this->server_error(_('User without matching profile'));
+            $this->serverError(_('User without matching profile'));
             return;
         }
         
@@ -298,7 +298,7 @@ class ProfilesettingsAction extends SettingsAction
 
             if ($result === false) {
                 common_log_db_error($user, 'UPDATE', __FILE__);
-                common_server_error(_('Couldn\'t update user.'));
+                $this->serverError(_('Couldn\'t update user.'));
                 return;
             } else {
                 # Re-initialize language environment if it changed
@@ -318,7 +318,7 @@ class ProfilesettingsAction extends SettingsAction
 
             if ($result === false) {
                 common_log_db_error($user, 'UPDATE', __FILE__);
-                common_server_error(_('Couldn\'t update user for autosubscribe.'));
+                $this->serverError(_('Couldn\'t update user for autosubscribe.'));
                 return;
             }
         }
@@ -341,7 +341,7 @@ class ProfilesettingsAction extends SettingsAction
 
         if (!$result) {
             common_log_db_error($profile, 'UPDATE', __FILE__);
-            common_server_error(_('Couldn\'t save profile.'));
+            $this->serverError(_('Couldn\'t save profile.'));
             return;
         }
 
@@ -350,7 +350,7 @@ class ProfilesettingsAction extends SettingsAction
         $result = $user->setSelfTags($tags);
 
         if (!$result) {
-            common_server_error(_('Couldn\'t save tags.'));
+            $this->serverError(_('Couldn\'t save tags.'));
             return;
         }
         
@@ -475,7 +475,7 @@ class ProfilesettingsAction extends SettingsAction
         }
 
         if (!$user->update($original)) {
-            common_server_error(_('Can\'t save new password.'));
+            $this->serverError(_('Can\'t save new password.'));
             return;
         }
 

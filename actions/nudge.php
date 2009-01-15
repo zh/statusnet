@@ -29,7 +29,7 @@ class NudgeAction extends Action
         parent::handle($args);
 
         if (!common_logged_in()) {
-            $this->client_error(_('Not logged in.'));
+            $this->clientError(_('Not logged in.'));
             return;
         }
 
@@ -46,12 +46,12 @@ class NudgeAction extends Action
         $token = $this->trimmed('token');
         
         if (!$token || $token != common_session_token()) {
-            $this->client_error(_('There was a problem with your session token. Try again, please.'));
+            $this->clientError(_('There was a problem with your session token. Try again, please.'));
             return;
         }
 
         if (!$other->email || !$other->emailnotifynudge) {
-            $this->client_error(_('This user doesn\'t allow nudges or hasn\'t confirmed or set his email yet.'));
+            $this->clientError(_('This user doesn\'t allow nudges or hasn\'t confirmed or set his email yet.'));
             return;
         }
 

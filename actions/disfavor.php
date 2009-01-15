@@ -28,7 +28,7 @@ class DisfavorAction extends Action
         parent::handle($args);
 
         if (!common_logged_in()) {
-            common_user_error(_('Not logged in.'));
+            $this->clientError(_('Not logged in.'));
             return;
         }
 
@@ -46,7 +46,7 @@ class DisfavorAction extends Action
         $token = $this->trimmed('token-'.$notice->id);
 
         if (!$token || $token != common_session_token()) {
-            $this->client_error(_("There was a problem with your session token. Try again, please."));
+            $this->clientError(_("There was a problem with your session token. Try again, please."));
             return;
         }
 
@@ -54,7 +54,7 @@ class DisfavorAction extends Action
         $fave->user_id = $this->id;
         $fave->notice_id = $notice->id;
         if (!$fave->find(true)) {
-            $this->client_error(_('This notice is not a favorite!'));
+            $this->clientError(_('This notice is not a favorite!'));
             return;
         }
 
@@ -62,7 +62,7 @@ class DisfavorAction extends Action
 
         if (!$result) {
             common_log_db_error($fave, 'DELETE', __FILE__);
-            $this->server_error(_('Could not delete favorite.'));
+            $this->serverError(_('Could not delete favorite.'));
             return;
         }
         

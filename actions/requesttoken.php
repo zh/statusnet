@@ -39,7 +39,7 @@ class RequesttokenAction extends Action
             $token = $server->fetch_request_token($req);
             print $token;
         } catch (OAuthException $e) {
-            common_server_error($e->getMessage());
+            $this->serverError($e->getMessage());
         }
     }
 }

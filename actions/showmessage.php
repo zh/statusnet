@@ -32,7 +32,7 @@ class ShowmessageAction extends MailboxAction
         $message = $this->get_message();
 
         if (!$message) {
-            $this->client_error(_('No such message.'), 404);
+            $this->clientError(_('No such message.'), 404);
             return;
         }
         
@@ -41,7 +41,7 @@ class ShowmessageAction extends MailboxAction
         if ($cur && ($cur->id == $message->from_profile || $cur->id == $message->to_profile)) {
             $this->show_page($cur, 1);
         } else {
-            $this->client_error(_('Only the sender and recipient may read this message.'), 403);
+            $this->clientError(_('Only the sender and recipient may read this message.'), 403);
             return;
         }
     }

@@ -34,7 +34,7 @@ class FavoritesrssAction extends Rss10Action
         $this->user = User::staticGet('nickname', $nickname);
 
         if (!$this->user) {
-            common_user_error(_('No such user.'));
+            $this->clientError(_('No such user.'));
             return false;
         } else {
             return true;

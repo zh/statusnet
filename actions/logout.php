@@ -33,7 +33,7 @@ class LogoutAction extends Action
     {
         parent::handle($args);
         if (!common_logged_in()) {
-            common_user_error(_('Not logged in.'));
+            $this->clientError(_('Not logged in.'));
         } else {
             common_set_user(null);
             common_real_login(false); # not logged in
