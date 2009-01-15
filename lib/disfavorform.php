@@ -127,4 +127,16 @@ class DisfavorForm extends Form
         $this->out->submit('disfavor-submit-' . $this->notice->id,
                            _('Disfavor favorite'));
     }
+    
+    /**
+     * Class of the form.
+     *
+     * @return string the form's class
+     */
+
+    function formClass()
+    {
+	return 'disfavor';
+    }
+
 }

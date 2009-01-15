@@ -127,4 +127,15 @@ class FavorForm extends Form
         $this->out->submit('favor-submit-' . $this->notice->id,
                            _('Make a favorite'));
     }
+    
+    /**
+     * Class of the form.
+     *
+     * @return string the form's class
+     */
+    
+    function formClass()
+    {
+	return 'favor';
+    }
 }

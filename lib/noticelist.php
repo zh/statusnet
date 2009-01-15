@@ -229,9 +229,11 @@ class NoticeListItem extends Widget
         $user = common_current_user();
         if ($user) {
             if ($user->hasFave($this->notice)) {
-                common_disfavor_form($this->notice);
+		$disfavor = new DisfavorForm($this->out, $this->notice);
+		$disfavor->show();
             } else {
-                common_favor_form($this->notice);
+		$favor = new FavorForm($this->out, $this->notice);
+		$favor->show();
             }
         }
     }

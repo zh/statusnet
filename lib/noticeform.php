@@ -144,10 +144,8 @@ class NoticeForm extends Form
 
         if ($this->action) {
             $this->out->hidden('notice_return-to', $this->action, 'returnto');
+            $this->out->hidden('notice_in-reply-to', $this->action, 'inreplyto');
         }
-
-        $this->out->hidden('notice_in-reply-to', $this->action, 'inreplyto');
-
     }
 
     /**

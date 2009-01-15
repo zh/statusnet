@@ -65,6 +65,7 @@ class Form extends Widget
     {
         $this->out->elementStart('form',
                                  array('id' => $this->id(),
+				       'class' => $this->formClass(),
                                        'method' => 'POST',
                                        'action' => $this->action()));
         $this->out->elementStart('fieldset');
@@ -152,5 +153,16 @@ class Form extends Widget
 
     function action()
     {
+    }
+    
+    /**
+     * Class of the form.
+     *
+     * @return string the form's class
+     */
+
+    function formClass()
+    {
+	return 'form';
     }
 }

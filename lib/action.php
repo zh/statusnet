@@ -124,15 +124,15 @@ class Action extends HTMLOutputter // lawsuit
     {
         $this->element('link', array('rel' => 'stylesheet',
                                      'type' => 'text/css',
-                                     'href' => theme_path('display.css', 'base') . '?version=' . LACONICA_VERSION,
+                                     'href' => theme_path('css/display.css', 'base') . '?version=' . LACONICA_VERSION,
                                      'media' => 'screen, projection, tv'));
         $this->element('link', array('rel' => 'stylesheet',
                                      'type' => 'text/css',
-                                     'href' => theme_path('thickbox.css', 'base') . '?version=' . LACONICA_VERSION,
+                                     'href' => theme_path('css/thickbox.css', 'base') . '?version=' . LACONICA_VERSION,
                                      'media' => 'screen, projection, tv'));
         $this->element('link', array('rel' => 'stylesheet',
                                      'type' => 'text/css',
-                                     'href' => theme_path('display.css', null) . '?version=' . LACONICA_VERSION,
+                                     'href' => theme_path('css/display.css', null) . '?version=' . LACONICA_VERSION,
                                      'media' => 'screen, projection, tv'));
         foreach (array(6,7) as $ver) {
             if (file_exists(theme_file('ie'.$ver.'.css'))) {
@@ -324,6 +324,7 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementStart('dd', null);
         // Output a bunch of paragraphs here
         $this->elementEnd('dd');
+        $this->elementEnd('dl');
     }
 
     // MUST overload
@@ -366,7 +367,10 @@ class Action extends HTMLOutputter // lawsuit
 
     function showSecondaryNav()
     {
-        $this->elementStart('ul', array('id' => 'nav_sub'));
+        $this->elementStart('dl', array('id' => 'site_nav_global_secondary'));
+        $this->element('dt', null, _('Secondary site navigation'));
+        $this->elementStart('dd', null);
+        $this->elementStart('ul', array('id' => 'nav'));
         $this->menuItem(common_local_url('doc', array('title' => 'help')),
                          _('Help'));
         $this->menuItem(common_local_url('doc', array('title' => 'about')),
@@ -380,6 +384,8 @@ class Action extends HTMLOutputter // lawsuit
         $this->menuItem(common_local_url('doc', array('title' => 'contact')),
                          _('Contact'));
         $this->elementEnd('ul');
+        $this->elementEnd('dd');
+        $this->elementEnd('dl');
     }
 
     function showLicenses()
