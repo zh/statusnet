@@ -179,7 +179,7 @@ class NoticeListItem
     {
         $this->elementStart('div', 'entry-title');
         $this->showAuthor();
-        $this->showNoticeContent();
+        $this->showContent();
         $this->elementEnd('div');
     }
 
@@ -200,6 +200,7 @@ class NoticeListItem
         $this->showDeleteLink();
         $this->elementEnd('div');
     }
+
 
     /**
      * start a single notice.
@@ -243,13 +244,13 @@ class NoticeListItem
 
     function showAuthor()
     {
-        common_element_start('span', 'vcard author');
-        common_element_start('a', array('href' => $this->profile->profileurl,
+        $this->elementStart('span', 'vcard author');
+        $this->elementStart('a', array('href' => $this->profile->profileurl,
                                         'class' => 'url'));
         $this->showAvatar();
         $this->showNickname();
-        common_element_end('a');
-        common_element_end('span');
+        $this->elementEnd('a');
+        $this->elementEnd('span');
     }
 
     /**
@@ -265,7 +266,7 @@ class NoticeListItem
     {
         $avatar = $this->profile->getAvatar(AVATAR_STREAM_SIZE);
 
-        common_element('img', array('src' => ($avatar) ?
+        $this->element('img', array('src' => ($avatar) ?
                                     common_avatar_display_url($avatar) :
                                     common_default_avatar(AVATAR_STREAM_SIZE),
                                     'class' => 'avatar photo',
@@ -287,7 +288,7 @@ class NoticeListItem
 
     function showNickname()
     {
-        common_element('span', array('class' => 'nickname fn'),
+        $this->element('span', array('class' => 'nickname fn'),
                        $this->profile->nickname);
     }
 
@@ -304,7 +305,7 @@ class NoticeListItem
     function showContent()
     {
         // FIXME: URL, image, video, audio
-        common_element_start('p', array('class' => 'content entry-title'));
+        common_element_start('p', array('class' => 'entry-content'));
         if ($this->notice->rendered) {
             common_raw($this->notice->rendered);
         } else {
@@ -314,21 +315,6 @@ class NoticeListItem
             common_raw(common_render_content($this->notice->content, $this->notice));
         }
         common_element_end('p');
-    }
-
-    /**
-     * show the "time" section of a notice
-     *
-     * This is the greyed-out section that appears beneath the content, including
-     * links to delete or reply to the notice. Probably should be called something
-     * else.
-     *
-     * @return void
-     */
-
-    function startTimeSection()
-    {
-        common_element_start('p', 'time');
     }
 
     /**
@@ -472,17 +458,6 @@ class NoticeListItem
             common_raw(' &#215;');
             common_element_end('a');
         }
-    }
-
-    /**
-     * end the time section
-     *
-     * @return void
-     */
-
-    function endTimeSection()
-    {
-        common_element_end('p');
     }
 
     /**
