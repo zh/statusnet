@@ -324,13 +324,11 @@ class HTMLOutputter extends XMLOutputter
 
     function submit($id, $label, $cls='submit', $name=null)
     {
-        $this->elementStart('p');
         $this->element('input', array('type' => 'submit',
                                       'id' => $id,
                                       'name' => ($name) ? $name : $id,
                                       'class' => $cls,
                                       'value' => $label));
-        $this->elementEnd('p');
     }
 
     /**
