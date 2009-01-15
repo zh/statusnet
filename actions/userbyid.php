@@ -22,7 +22,7 @@ if (!defined('LACONICA')) { exit(1); }
 class UserbyidAction extends Action
 {
     
-    function is_readonly()
+    function isReadOnly()
     {                
         return true;
     }

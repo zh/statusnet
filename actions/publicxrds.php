@@ -26,7 +26,7 @@ require_once(INSTALLDIR.'/lib/openid.php');
 class PublicxrdsAction extends Action
 {
 
-    function is_readonly()
+    function isReadOnly()
     {
         return true;
     }
