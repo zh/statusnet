@@ -67,9 +67,12 @@ class Form extends Widget
                                  array('id' => $this->id(),
                                        'method' => 'POST',
                                        'action' => $this->action()));
+        $this->out->elementStart('fieldset');
+        $this->formLegend();
         $this->sessionToken();
         $this->formData();
         $this->formActions();
+        $this->out->elementEnd('fieldset');
         $this->out->elementEnd('form');
     }
 
@@ -83,6 +86,20 @@ class Form extends Widget
     {
         $this->out->hidden('token', common_session_token());
     }
+
+
+    /**
+     * Name of the form
+     *
+     * Sub-classes should overload this with the name of their form.
+     *
+     * @return void
+     */
+
+    function formLegend()
+    {
+    }
+
 
     /**
      * Visible or invisible data elements
