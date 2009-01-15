@@ -143,12 +143,10 @@ class NoticeForm extends Form
         $this->out->elementEnd('dl');
 
         if ($this->action) {
-        // FIXME: or VERIFY that notice_return-to doesn't break anything. Changed from 'returnto'
-            $this->out->hidden('notice_return-to', $this->action);
+            $this->out->hidden('notice_return-to', $this->action, 'returnto');
         }
 
-        // FIXME: Does this need to be checked like returnto?
-        $this->out->hidden('notice_in-reply-to', $this->action);
+        $this->out->hidden('notice_in-reply-to', $this->action, 'inreplyto');
 
     }
 
