@@ -98,6 +98,6 @@ class PublicGroupNav extends Widget
 
         $this->action->elementEnd('ul');
         $this->action->elementEnd('dd');
-        $this->action->elementEnd('dl')
+        $this->action->elementEnd('dl');
     }
 }
