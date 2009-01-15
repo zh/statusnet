@@ -336,7 +336,6 @@ class Action extends HTMLOutputter // lawsuit
 	$this->elementEnd('dd');
 	$this->elementEnd('dl');
 	}
-    }
 
     // SHOULD overload (unless there's not a notice)
 
