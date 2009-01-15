@@ -306,7 +306,10 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementStart('div', array('id' => 'content'));
         $this->showPageTitle();
         $this->showPageNotice();
+        $this->elementStart('div', array('id' => 'content_inner'));
+        // show the actual content (forms, lists, whatever)
         $this->showContent();
+        $this->elementEnd('div');
         $this->elementEnd('div');
     }
 
@@ -331,9 +334,6 @@ class Action extends HTMLOutputter // lawsuit
 
     function showContent()
     {
-        // show the actual content (forms, lists, whatever)
-        $this->elementStart('div', array('id' => 'content_inner'));
-        $this->elementEnd('div');
     }
 
     function showAside()
