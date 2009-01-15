@@ -331,7 +331,7 @@ class Action extends HTMLOutputter // lawsuit
 	$this->elementStart('dl', array('id' => 'page_notice',
 					'class' => 'system_notice'));
 	$this->element('dt', null, _('Page notice'));
-	$this->elementStart('dd', null);
+	$this->elementStart('dd');
 	$this->showPageNotice();
 	$this->elementEnd('dd');
 	$this->elementEnd('dl');
@@ -551,42 +551,6 @@ class Action extends HTMLOutputter // lawsuit
             unset($args[$cookie]);
         }
         return common_local_url($action, $args);
-    }
-
-    function nav_menu($menu)
-    {
-        $action = $this->trimmed('action');
-        $this->elementStart('ul', array('id' => 'nav_views'));
-        foreach ($menu as $menuaction => $menudesc) {
-            $this->menuItem(common_local_url($menuaction,
-                                              isset($menudesc[2]) ? $menudesc[2] : null),
-                             $menudesc[0],
-                             $menudesc[1],
-                             $action == $menuaction);
-        }
-        $this->elementEnd('ul');
-    }
-
-    function common_show_header($pagetitle, $callable=null, $data=null, $headercall=null)
-    {
-        global $config, $xw;
-        global $action; /* XXX: kind of cheating here. */
-
-        common_start_html();
-
-        $this->elementStart('head');
-
-        if ($callable) {
-            if ($data) {
-                call_user_func($callable, $data);
-            } else {
-                call_user_func($callable);
-            }
-        }
-        $this->elementEnd('head');
-        $this->elementStart('body', $action);
-        $this->elementStart('div', array('id' => 'wrap'));
-        $this->elementStart('div', array('id' => 'content'));
     }
 
     // Added @id to li for some control.
