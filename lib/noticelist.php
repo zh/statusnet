@@ -330,14 +330,18 @@ class NoticeListItem
             preg_match('/^http/', $this->notice->uri)) {
             $noticeurl = $this->notice->uri;
         }
-        common_element_start('a', array('class' => 'permalink',
-                                        'rel' => 'bookmark',
+        $this->elementStart('dl', 'timestamp');
+        $this->element('dt', _('Published')); 
+        $this->elementStart('dd', null);
+        $this->element('a', array('rel' => 'bookmark',
                                         'href' => $noticeurl));
         $dt = common_date_iso8601($this->notice->created);
-        common_element('abbr', array('class' => 'published',
+        $this->element('abbr', array('class' => 'published',
                                      'title' => $dt),
                        common_date_string($this->notice->created));
-        common_element_end('a');
+        $this->elementEnd('a');
+        $this->elementEnd('dd');
+        $this->elementEnd('dl');
     }
 
     /**
@@ -397,8 +401,7 @@ class NoticeListItem
             $this->elementStart('dl', 'response');
             $this->element('dt', null, _('To'));
             $this->elementStart('dd');
-            $this->element('a', array('class' => 'inreplyto',
-                                      'href' => $replyurl,
+            $this->element('a', array('href' => $replyurl,
                                       'rel' => 'in-reply-to'),
                            _('in reply to'));
             $this->elementEnd('dd');
