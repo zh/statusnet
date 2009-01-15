@@ -194,11 +194,11 @@ class Action extends HTMLOutputter // lawsuit
     function showBody()
     {
         $this->elementStart('body');
-        $this->elementStart('wrap');
+        $this->elementStart('div', 'wrap');
         $this->showHeader();
         $this->showCore();
         $this->showFooter();
-        $this->elementEnd('wrap');
+        $this->elementEnd('div', 'wrap');
         $this->elementEnd('body');
     }
 
@@ -576,7 +576,7 @@ class Action extends HTMLOutputter // lawsuit
     // Added @id to li for some control.
     // XXX: We might want to move this to htmloutputter.php
 
-    function menuItem($url, $text, $id=null, $title=null, $is_selected=false)
+    function menuItem($url, $text, $title=null, $is_selected=false, $id=null)
     {
         $lattrs = array();
         if ($is_selected) {
