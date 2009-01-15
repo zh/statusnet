@@ -277,7 +277,7 @@ class Action extends HTMLOutputter // lawsuit
 
     function showNoticeForm()
     {
-        $notice_form = new NoticeForm();
+        $notice_form = new NoticeForm($this);
         $notice_form->show();
     }
 
