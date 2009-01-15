@@ -187,7 +187,6 @@ class PublicAction extends Action
 
     function showExportData()
     {
-	$this->elementStart('div', array('id' => 'exportdata', 'class' => 'section'));
         $fl = new FeedList($this);
         $fl->show(array(0 => array('href' => common_local_url('publicrss'),
                                    'type' => 'rss',
@@ -197,6 +196,5 @@ class PublicAction extends Action
                                    'type' => 'atom',
                                    'version' => 'Atom 1.0',
                                    'item' => 'publicatom')));
-	$this->elementEnd('div');
     }
 }
