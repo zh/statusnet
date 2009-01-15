@@ -397,7 +397,7 @@ class Action extends HTMLOutputter // lawsuit
         }
         $instr .= sprintf(_('It runs the [Laconica](http://laconi.ca/) microblogging software, version %s, available under the [GNU Affero General Public License](http://www.fsf.org/licensing/licenses/agpl-3.0.html).'), LACONICA_VERSION);
         $output = common_markup_to_html($instr);
-        common_raw($output);
+        $this->raw($output);
         $this->elementEnd('dd');
         // do it
     }
@@ -407,12 +407,12 @@ class Action extends HTMLOutputter // lawsuit
         $this->element('dt', array('id' => 'site_content_license'), _('Laconica software license'));
         $this->elementStart('dd', array('id' => 'site_content_license_cc'));
         $this->elementStart('p');
-        common_text(_('Unless otherwise specified, contents of this site are copyright by the contributors and available under the '));
+        $this->text(_('Unless otherwise specified, contents of this site are copyright by the contributors and available under the '));
         $this->element('a', array('class' => 'license',
                                   'rel' => 'external license',
                                   'href' => $config['license']['url']),
                        $config['license']['title']);
-        common_text(_('. Contributors should be attributed by full name or nickname.'));
+        $this->text(_('. Contributors should be attributed by full name or nickname.'));
         $this->elementEnd('p');
         $this->element('img', array('id' => 'license_cc',
                                     'src' => $config['license']['image'],
