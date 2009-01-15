@@ -225,8 +225,8 @@ class NoticeListItem
     function showAuthor()
     {
         common_element_start('span', 'vcard author');
-        common_element_start('a', array('href' => $this->profile->profileurl),
-                                        'class' => 'url');
+        common_element_start('a', array('href' => $this->profile->profileurl,
+                                        'class' => 'url'));
         $this->showAvatar();
         $this->showNickname();
         common_element_end('a');
@@ -352,7 +352,8 @@ class NoticeListItem
     function showNoticeSource()
     {
         if ($this->notice->source) {
-            common_element('span', null, _(' from '));
+            $this->elementStart('dl', 'device');
+            $this->element('dt', null, _('From'));
             $source_name = _($this->notice->source);
             switch ($this->notice->source) {
             case 'web':
@@ -360,18 +361,22 @@ class NoticeListItem
             case 'mail':
             case 'omb':
             case 'api':
-                common_element('span', 'noticesource', $source_name);
+                $this->element('dd', 'noticesource', $source_name);
                 break;
             default:
                 $ns = Notice_source::staticGet($this->notice->source);
                 if ($ns) {
-                    common_element('a', array('href' => $ns->url),
+                    $this->elementStart('dd', null);
+                    $this->element('a', array('href' => $ns->url,
+                                              'rel' => 'external'),
                                    $ns->name);
+                    $this->elementEnd('dd');
                 } else {
-                    common_element('span', 'noticesource', $source_name);
+                    $this->element('dd', 'noticesource', $source_name);
                 }
                 break;
             }
+            $this->elementEnd('dl');
         }
     }
 
@@ -393,8 +398,8 @@ class NoticeListItem
             $this->element('dt', null, _('To'));
             $this->elementStart('dd');
             $this->element('a', array('class' => 'inreplyto',
-                                      'href' => $replyurl),
-                                      'rel' => 'in-reply-to',
+                                      'href' => $replyurl,
+                                      'rel' => 'in-reply-to'),
                            _('in reply to'));
             $this->elementEnd('dd');
             $this->elementEnd('dl');
