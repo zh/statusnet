@@ -32,7 +32,7 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/form.php';
+require_once INSTALLDIR.'/lib/noticeform.php';
 require_once INSTALLDIR.'/lib/htmloutputter.php';
 
 /**
