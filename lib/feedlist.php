@@ -47,13 +47,14 @@ if (!defined('LACONICA')) {
  * @see      Action::showExportList()
  */
 
-class FeedList
+class FeedList extends Widget
 {
-    var $out = null;
-
-    function __construct($out=null)
+    var $action = null;
+    
+    function __construct($action=null)
     {
-        $this->out = $out;
+	parent::__construct($action);
+	$this->action = $action;
     }
 
     function show($feeds)
@@ -72,7 +73,7 @@ class FeedList
 
     function feedItem($feed)
     {
-        $nickname = $this->trimmed('nickname');
+        $nickname = $this->action->trimmed('nickname');
 
         switch($feed['item']) {
          case 'notices': default:
