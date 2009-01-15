@@ -238,25 +238,25 @@ class Action extends HTMLOutputter // lawsuit
         $user = common_current_user();
         $this->elementStart('ul', array('id' => 'nav'));
         if ($user) {
-            common_menu_item(common_local_url('all', array('nickname' => $user->nickname)),
+            $this->menuItem(common_local_url('all', array('nickname' => $user->nickname)),
                              _('Home'));
         }
-        common_menu_item(common_local_url('peoplesearch'), _('Search'));
+        $this->menuItem(common_local_url('peoplesearch'), _('Search'));
         if ($user) {
-            common_menu_item(common_local_url('profilesettings'),
+            $this->menuItem(common_local_url('profilesettings'),
                              _('Settings'));
-            common_menu_item(common_local_url('invite'),
+            $this->menuItem(common_local_url('invite'),
                              _('Invite'));
-            common_menu_item(common_local_url('logout'),
+            $this->menuItem(common_local_url('logout'),
                              _('Logout'));
         } else {
-            common_menu_item(common_local_url('login'), _('Login'));
+            $this->menuItem(common_local_url('login'), _('Login'));
             if (!common_config('site', 'closed')) {
-                common_menu_item(common_local_url('register'), _('Register'));
+                $this->menuItem(common_local_url('register'), _('Register'));
             }
-            common_menu_item(common_local_url('openidlogin'), _('OpenID'));
+            $this->menuItem(common_local_url('openidlogin'), _('OpenID'));
         }
-        common_menu_item(common_local_url('doc', array('title' => 'help')),
+        $this->menuItem(common_local_url('doc', array('title' => 'help')),
                          _('Help'));
         $this->elementEnd('ul');
         $this->elementEnd('dl');
@@ -300,7 +300,7 @@ class Action extends HTMLOutputter // lawsuit
         $this->element('dt', null, _('Local views'));
         $this->elementStart('ul', array('id' => 'nav'));
         foreach ($menu as $menuaction => $menudesc) {
-            common_menu_item(common_local_url($menuaction,
+            $this->menuItem(common_local_url($menuaction,
                                               isset($menudesc[2]) ? $menudesc[2] : null),
                              $menudesc[0],
                              $menudesc[1],
@@ -377,17 +377,17 @@ class Action extends HTMLOutputter // lawsuit
     function showSecondaryNav()
     {
         $this->elementStart('ul', array('id' => 'nav_sub'));
-        common_menu_item(common_local_url('doc', array('title' => 'help')),
+        $this->menuItem(common_local_url('doc', array('title' => 'help')),
                          _('Help'));
-        common_menu_item(common_local_url('doc', array('title' => 'about')),
+        $this->menuItem(common_local_url('doc', array('title' => 'about')),
                          _('About'));
-        common_menu_item(common_local_url('doc', array('title' => 'faq')),
+        $this->menuItem(common_local_url('doc', array('title' => 'faq')),
                          _('FAQ'));
-        common_menu_item(common_local_url('doc', array('title' => 'privacy')),
+        $this->menuItem(common_local_url('doc', array('title' => 'privacy')),
                          _('Privacy'));
-        common_menu_item(common_local_url('doc', array('title' => 'source')),
+        $this->menuItem(common_local_url('doc', array('title' => 'source')),
                          _('Source'));
-        common_menu_item(common_local_url('doc', array('title' => 'contact')),
+        $this->menuItem(common_local_url('doc', array('title' => 'contact')),
                          _('Contact'));
         $this->elementEnd('ul');
     }
@@ -546,7 +546,7 @@ class Action extends HTMLOutputter // lawsuit
         $action = $this->trimmed('action');
         $this->elementStart('ul', array('id' => 'nav_views'));
         foreach ($menu as $menuaction => $menudesc) {
-            common_menu_item(common_local_url($menuaction,
+            $this->menuItem(common_local_url($menuaction,
                                               isset($menudesc[2]) ? $menudesc[2] : null),
                              $menudesc[0],
                              $menudesc[1],
@@ -578,7 +578,8 @@ class Action extends HTMLOutputter // lawsuit
     }
 
     // Added @id to li for some control. We might want to move this to htmloutputter.php
-    function common_menu_item($id=null, $url, $text, $title=null, $is_selected=false)
+
+    function menuItem($id=null, $url, $text, $title=null, $is_selected=false)
     {
         $lattrs = array();
         if ($is_selected) {
