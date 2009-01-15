@@ -50,7 +50,7 @@ if (!defined('LACONICA')) {
  * @see      ProfileNoticeList
  */
 
-class NoticeList
+class NoticeList extends Widget
 {
     /** the current stream of notices being displayed. */
 
@@ -62,8 +62,9 @@ class NoticeList
      * @param Notice $notice stream of notices from DB_DataObject
      */
 
-    function __construct($notice)
+    function __construct($notice, $out=null)
     {
+	parent::__construct($out);
         $this->notice = $notice;
     }
 
@@ -78,7 +79,7 @@ class NoticeList
 
     function show()
     {
-        common_element_start('ul', array('id' => 'notices'));
+        $this->out->elementStart('ul', array('id' => 'notices'));
 
         $cnt = 0;
 
@@ -93,7 +94,7 @@ class NoticeList
             $item->show();
         }
 
-        common_element_end('ul');
+        $this->out->elementEnd('ul');
 
         return $cnt;
     }
@@ -111,7 +112,7 @@ class NoticeList
 
     function newListItem($notice)
     {
-        return new NoticeListItem($notice);
+        return new NoticeListItem($notice, $this->out);
     }
 }
 
@@ -133,7 +134,7 @@ class NoticeList
  * @see      ProfileNoticeListItem
  */
 
-class NoticeListItem
+class NoticeListItem extends Widget
 {
     /** The notice this item will show. */
 
@@ -151,8 +152,9 @@ class NoticeListItem
      * @param Notice $notice The notice we'll display
      */
 
-    function __construct($notice)
+    function __construct($notice, $out=null)
     {
+	parent::__construct($out);
         $this->notice  = $notice;
         $this->profile = $notice->getProfile();
     }
@@ -177,28 +179,28 @@ class NoticeListItem
 
     function showNotice()
     {
-        $this->elementStart('div', 'entry-title');
+        $this->out->elementStart('div', 'entry-title');
         $this->showAuthor();
         $this->showContent();
-        $this->elementEnd('div');
+        $this->out->elementEnd('div');
     }
 
     function showNoticeInfo()
     {
-        $this->elementStart('div', 'entry-content');
+        $this->out->elementStart('div', 'entry-content');
         $this->showNoticeLink();
         $this->showNoticeSource();
         $this->showReplyTo();
-        $this->elementEnd('div');
+        $this->out->elementEnd('div');
     }
 
     function showNoticeOptions()
     {
-        $this->elementStart('div', 'notice-options');
+        $this->out->elementStart('div', 'notice-options');
         $this->showFaveForm();
         $this->showReplyLink();
         $this->showDeleteLink();
-        $this->elementEnd('div');
+        $this->out->elementEnd('div');
     }
 
 
@@ -212,7 +214,7 @@ class NoticeListItem
     {
         // XXX: RDFa
         // TODO: add notice_type class e.g., notice_video, notice_image
-        common_element_start('li', array('class' => 'hentry notice',
+        $this->out->elementStart('li', array('class' => 'hentry notice',
                                          'id' => 'notice-' . $this->notice->id));
     }
 
@@ -244,13 +246,13 @@ class NoticeListItem
 
     function showAuthor()
     {
-        $this->elementStart('span', 'vcard author');
-        $this->elementStart('a', array('href' => $this->profile->profileurl,
+        $this->out->elementStart('span', 'vcard author');
+        $this->out->elementStart('a', array('href' => $this->profile->profileurl,
                                         'class' => 'url'));
         $this->showAvatar();
         $this->showNickname();
-        $this->elementEnd('a');
-        $this->elementEnd('span');
+        $this->out->elementEnd('a');
+        $this->out->elementEnd('span');
     }
 
     /**
@@ -266,7 +268,7 @@ class NoticeListItem
     {
         $avatar = $this->profile->getAvatar(AVATAR_STREAM_SIZE);
 
-        $this->element('img', array('src' => ($avatar) ?
+        $this->out->element('img', array('src' => ($avatar) ?
                                     common_avatar_display_url($avatar) :
                                     common_default_avatar(AVATAR_STREAM_SIZE),
                                     'class' => 'avatar photo',
@@ -288,7 +290,7 @@ class NoticeListItem
 
     function showNickname()
     {
-        $this->element('span', array('class' => 'nickname fn'),
+        $this->out->element('span', array('class' => 'nickname fn'),
                        $this->profile->nickname);
     }
 
@@ -305,16 +307,16 @@ class NoticeListItem
     function showContent()
     {
         // FIXME: URL, image, video, audio
-        common_element_start('p', array('class' => 'entry-content'));
+        $this->out->elementStart('p', array('class' => 'entry-content'));
         if ($this->notice->rendered) {
-            common_raw($this->notice->rendered);
+            $this->out->raw($this->notice->rendered);
         } else {
             // XXX: may be some uncooked notices in the DB,
             // we cook them right now. This should probably disappear in future
             // versions (>> 0.4.x)
-            common_raw(common_render_content($this->notice->content, $this->notice));
+            $this->out->raw(common_render_content($this->notice->content, $this->notice));
         }
-        common_element_end('p');
+        $this->out->elementEnd('p');
     }
 
     /**
@@ -335,18 +337,18 @@ class NoticeListItem
             preg_match('/^http/', $this->notice->uri)) {
             $noticeurl = $this->notice->uri;
         }
-        $this->elementStart('dl', 'timestamp');
-        $this->element('dt', _('Published')); 
-        $this->elementStart('dd', null);
-        $this->element('a', array('rel' => 'bookmark',
+        $this->out->elementStart('dl', 'timestamp');
+        $this->out->element('dt', _('Published')); 
+        $this->out->elementStart('dd', null);
+        $this->out->element('a', array('rel' => 'bookmark',
                                         'href' => $noticeurl));
         $dt = common_date_iso8601($this->notice->created);
-        $this->element('abbr', array('class' => 'published',
+        $this->out->element('abbr', array('class' => 'published',
                                      'title' => $dt),
                        common_date_string($this->notice->created));
-        $this->elementEnd('a');
-        $this->elementEnd('dd');
-        $this->elementEnd('dl');
+        $this->out->elementEnd('a');
+        $this->out->elementEnd('dd');
+        $this->out->elementEnd('dl');
     }
 
     /**
@@ -361,8 +363,8 @@ class NoticeListItem
     function showNoticeSource()
     {
         if ($this->notice->source) {
-            $this->elementStart('dl', 'device');
-            $this->element('dt', null, _('From'));
+            $this->out->elementStart('dl', 'device');
+            $this->out->element('dt', null, _('From'));
             $source_name = _($this->notice->source);
             switch ($this->notice->source) {
             case 'web':
@@ -370,22 +372,22 @@ class NoticeListItem
             case 'mail':
             case 'omb':
             case 'api':
-                $this->element('dd', 'noticesource', $source_name);
+                $this->out->element('dd', 'noticesource', $source_name);
                 break;
             default:
                 $ns = Notice_source::staticGet($this->notice->source);
                 if ($ns) {
-                    $this->elementStart('dd', null);
-                    $this->element('a', array('href' => $ns->url,
+                    $this->out->elementStart('dd', null);
+                    $this->out->element('a', array('href' => $ns->url,
                                               'rel' => 'external'),
                                    $ns->name);
-                    $this->elementEnd('dd');
+                    $this->out->elementEnd('dd');
                 } else {
-                    $this->element('dd', 'noticesource', $source_name);
+                    $this->out->element('dd', 'noticesource', $source_name);
                 }
                 break;
             }
-            $this->elementEnd('dl');
+            $this->out->elementEnd('dl');
         }
     }
 
@@ -403,14 +405,14 @@ class NoticeListItem
         if ($this->notice->reply_to) {
             $replyurl = common_local_url('shownotice',
                                          array('notice' => $this->notice->reply_to));
-            $this->elementStart('dl', 'response');
-            $this->element('dt', null, _('To'));
-            $this->elementStart('dd');
-            $this->element('a', array('href' => $replyurl,
+            $this->out->elementStart('dl', 'response');
+            $this->out->element('dt', null, _('To'));
+            $this->out->elementStart('dd');
+            $this->out->element('a', array('href' => $replyurl,
                                       'rel' => 'in-reply-to'),
                            _('in reply to'));
-            $this->elementEnd('dd');
-            $this->elementEnd('dl');
+            $this->out->elementEnd('dd');
+            $this->out->elementEnd('dl');
         }
     }
 
@@ -431,13 +433,13 @@ class NoticeListItem
         $reply_js =
           'return doreply("'.$this->profile->nickname.'",'.$this->notice->id.');';
 
-        common_element_start('a',
+        $this->out->elementStart('a',
                              array('href' => $reply_url,
                                    'onclick' => $reply_js,
                                    'title' => _('reply'),
                                    'class' => 'replybutton'));
-        common_raw(' &#8594;');
-        common_element_end('a');
+        $this->out->raw(' &#8594;');
+        $this->out->elementEnd('a');
     }
 
     /**
@@ -452,11 +454,11 @@ class NoticeListItem
         if ($user && $this->notice->profile_id == $user->id) {
             $deleteurl = common_local_url('deletenotice',
                                           array('notice' => $this->notice->id));
-            common_element_start('a', array('class' => 'deletenotice',
+            $this->out->elementStart('a', array('class' => 'deletenotice',
                                             'href' => $deleteurl,
                                             'title' => _('delete')));
-            common_raw(' &#215;');
-            common_element_end('a');
+            $this->out->raw(' &#215;');
+            $this->out->elementEnd('a');
         }
     }
 
@@ -470,6 +472,6 @@ class NoticeListItem
 
     function showEnd()
     {
-        common_element_end('li');
+        $this->out->elementEnd('li');
     }
 }

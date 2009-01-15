@@ -32,6 +32,7 @@ if (!defined('LACONICA')) {
 }
 
 require_once INSTALLDIR.'/lib/publicgroupnav.php';
+require_once INSTALLDIR.'/lib/noticelist.php';
 
 /**
  * Action for displaying the public stream
@@ -167,7 +168,7 @@ class PublicAction extends Action
             return;
         }
 
-        $nl = new NoticeList($notice);
+        $nl = new NoticeList($notice, $this);
 
         $cnt = $nl->show();
 
