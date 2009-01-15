@@ -21,7 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 class LoginAction extends Action
 {
-
+    var $error = null;
+    
     function isReadOnly()
     {
         return true;
