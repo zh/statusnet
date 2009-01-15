@@ -33,6 +33,7 @@ if (!defined('LACONICA')) {
 
 require_once INSTALLDIR.'/lib/publicgroupnav.php';
 require_once INSTALLDIR.'/lib/noticelist.php';
+require_once INSTALLDIR.'/lib/feedlist.php';
 
 /**
  * Action for displaying the public stream
