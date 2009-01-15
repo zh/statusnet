@@ -79,6 +79,7 @@ class NoticeList extends Widget
 
     function show()
     {
+        $this->out->elementStart('div', array('id' =>'notices_primary'));
         $this->out->element('h2', null, _('Notices'));
         $this->out->elementStart('ul', array('class' => 'notices'));
 
@@ -96,6 +97,7 @@ class NoticeList extends Widget
         }
 
         $this->out->elementEnd('ul');
+        $this->out->elementEnd('div');
 
         return $cnt;
     }
