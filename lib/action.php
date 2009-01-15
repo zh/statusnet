@@ -290,25 +290,11 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementEnd('div');
     }
 
-    // SHOULD overload (perhaps this should be a MUST because sometimes it is not used)
+    // SHOULD overload
 
-    function showLocalNav($menu)
+    function showLocalNav()
     {
-        $action = $this->trimmed('action');
-
-        $this->elementStart('dl', array('id' => 'site_nav_local_views'));
-        $this->element('dt', null, _('Local views'));
-        $this->elementStart('ul', array('id' => 'nav'));
-        foreach ($menu as $menuaction => $menudesc) {
-            $this->menuItem(common_local_url($menuaction,
-                                              isset($menudesc[2]) ? $menudesc[2] : null),
-                             $menudesc[0],
-                             $menudesc[1],
-                             $action == $menuaction);
-        }
-        $this->elementEnd('ul');
-        $this->elementEnd('dd');
-        $this->elementEnd('dl');
+        // does nothing by default
     }
 
     function showContentBlock()
@@ -577,9 +563,10 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementStart('div', array('id' => 'content'));
     }
 
-    // Added @id to li for some control. We might want to move this to htmloutputter.php
+    // Added @id to li for some control.
+    // XXX: We might want to move this to htmloutputter.php
 
-    function menuItem($id=null, $url, $text, $title=null, $is_selected=false)
+    function menuItem($url, $text, $id=null, $title=null, $is_selected=false)
     {
         $lattrs = array();
         if ($is_selected) {
