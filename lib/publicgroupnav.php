@@ -82,19 +82,19 @@ class PublicGroupNav extends Widget
         $this->action->elementStart('dd', null);
         $this->action->elementStart('ul', array('class' => 'nav'));
 
-        $this->out->menuItem(common_local_url('public'), _('Public'), 'nav_timeline_public',
-            _('Public timeline'), $this->action == 'public');
+        $this->out->menuItem(common_local_url('public'), _('Public'),
+            _('Public timeline'), $this->action == 'public', 'nav_timeline_public');
 
-        $this->out->menuItem(common_local_url('tag'), _('Recent tags'), 'nav_recent-tags',
-            _('Recent tags'), $this->action == 'tag');
+        $this->out->menuItem(common_local_url('tag'), _('Recent tags'),
+            _('Recent tags'), $this->action == 'tag', 'nav_recent-tags');
 
         if (count(common_config('nickname', 'featured')) > 0) {
-            $this->out->menuItem(common_local_url('featured'), _('Featured'), 'nav_featured',
-                _('Featured users'), $this->action == 'featured');
+            $this->out->menuItem(common_local_url('featured'), _('Featured'),
+                _('Featured users'), $this->action == 'featured', 'nav_featured');
         }
 
-        $this->out->menuItem(common_local_url('favorited'), _('Popular'), 'nav_timeline_favorited',
-            _("Popular notices"), $this->action == 'favorited');
+        $this->out->menuItem(common_local_url('favorited'), _('Popular'),
+            _("Popular notices"), $this->action == 'favorited', 'nav_timeline_favorited');
 
         $this->action->elementEnd('ul');
         $this->action->elementEnd('dd');
