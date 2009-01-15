@@ -271,6 +271,7 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementStart('dd', null);
         // Output a bunch of paragraphs here
         $this->elementEnd('dd');
+        $this->elementEnd('dl');
     }
 
     // MAY overload if no notice form needed... or direct message box????
