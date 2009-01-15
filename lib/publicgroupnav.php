@@ -32,6 +32,8 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
+require_once INSTALLDIR.'/lib/widget.php';
+
 /**
  * Base class for all actions
  *
@@ -55,29 +57,42 @@ class PublicGroupNav
 {
     var $action = null;
 
+    /**
+     * Construction
+     *
+     * @param Action $action current action, used for output
+     */
+
     function __construct($action=null)
     {
+        parent::__construct($action);
         $this->action = $action;
     }
+
+    /**
+     * Show the menu
+     *
+     * @return void
+     */
 
     function show()
     {
         $this->action->elementStart('ul', array('class' => 'nav'));
 
-        common_menu_item(common_local_url('public'), _('Public'),
+        $this->menuItem(common_local_url('public'), _('Public'),
             _('Public timeline'), $this->action == 'public');
 
-        common_menu_item(common_local_url('tag'), _('Recent tags'),
+        $this->menuItem(common_local_url('tag'), _('Recent tags'),
             _('Recent tags'), $this->action == 'tag');
 
         if (count(common_config('nickname', 'featured')) > 0) {
-            common_menu_item(common_local_url('featured'), _('Featured'),
+            $this->menuItem(common_local_url('featured'), _('Featured'),
                 _('Featured users'), $this->action == 'featured');
         }
 
-        common_menu_item(common_local_url('favorited'), _('Popular'),
+        $this->menuItem(common_local_url('favorited'), _('Popular'),
             _("Popular notices"), $this->action == 'favorited');
 
-        common_element_end('ul');
+        $this->action->elementEnd('ul');
     }
 }
