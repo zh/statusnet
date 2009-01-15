@@ -321,6 +321,7 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementStart('dd', null);
         // Output a bunch of paragraphs here
         $this->elementEnd('dd');
+        $this->elementEnd('dl');
     }
 
     // MUST overload
