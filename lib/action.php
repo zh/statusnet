@@ -338,10 +338,11 @@ class Action extends HTMLOutputter // lawsuit
 
     function showAside()
     {
-	$this->elementStart('div', 'aside');
+        $this->elementStart('div', array('id' => 'aside_primary',
+                                         'class' => 'aside'));
         $this->showExportData();
         $this->showSections();
-	$this->elementEnd('div');
+        $this->elementEnd('div');
     }
 
     // MAY overload if there are feeds
