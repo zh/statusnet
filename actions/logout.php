@@ -24,7 +24,7 @@ require_once(INSTALLDIR.'/lib/openid.php');
 class LogoutAction extends Action
 {
     
-    function is_readonly()
+    function isReadOnly()
     {
         return true;
     }

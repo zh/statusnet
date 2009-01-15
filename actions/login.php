@@ -22,7 +22,7 @@ if (!defined('LACONICA')) { exit(1); }
 class LoginAction extends Action
 {
 
-    function is_readonly()
+    function isReadOnly()
     {
         return true;
     }
@@ -33,13 +33,13 @@ class LoginAction extends Action
         if (common_is_real_login()) {
             $this->clientError(_('Already logged in.'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->check_login();
+            $this->checkLogin();
         } else {
-            $this->show_form();
+            $this->showForm();
         }
     }
 
-    function check_login()
+    function checkLogin()
     {
         # XXX: login throttle
 
@@ -75,7 +75,7 @@ class LoginAction extends Action
             }
             common_redirect($url);
         } else {
-            $this->show_form(_('Incorrect username or password.'));
+            $this->showForm(_('Incorrect username or password.'));
             return;
         }
 
@@ -104,7 +104,7 @@ class LoginAction extends Action
         common_redirect($url);
     }
 
-    function show_form($error=null)
+    function showForm($error=null)
     {
 	$this->error = $error;
 	$this->showPage();
@@ -120,7 +120,7 @@ class LoginAction extends Action
         if ($this->error) {
             $this->element('p', 'error', $this->error);
         } else {
-            $instr = $this->get_instructions();
+            $instr = $this->getInstructions();
             $output = common_markup_to_html($instr);
             $this->raw($output);
         }
@@ -143,10 +143,9 @@ class LoginAction extends Action
         $this->element('a', array('href' => common_local_url('recoverpassword')),
                        _('Lost or forgotten password?'));
         $this->elementEnd('p');
-        common_show_footer();
     }
 
-    function get_instructions()
+    function getInstructions()
     {
         if (common_logged_in() &&
             !common_is_real_login() &&
@@ -163,9 +162,5 @@ class LoginAction extends Action
                      '[Register](%%action.register%%) a new account, or ' .
                      'try [OpenID](%%action.openidlogin%%). ');
         }
-    }
-
-    function show_top($error=null)
-    {
     }
 }

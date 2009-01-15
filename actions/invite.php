@@ -22,7 +22,7 @@ if (!defined('LACONICA')) { exit(1); }
 class InviteAction extends Action
 {
 
-    function is_readonly()
+    function isReadOnly()
     {
         return false;
     }

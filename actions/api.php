@@ -174,7 +174,7 @@ class ApiAction extends Action
         }
     }
 
-    function is_readonly()
+    function isReadOnly()
     {
         # NOTE: before handle(), can't use $this->arg
         $apiaction = $_REQUEST['apiaction'];

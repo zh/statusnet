@@ -459,7 +459,7 @@ class Action extends HTMLOutputter // lawsuit
         return null;
     }
 
-    function is_readonly()
+    function isReadOnly()
     {
         return false;
     }

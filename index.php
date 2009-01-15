@@ -55,7 +55,7 @@ if (file_exists($actionfile)) {
 
     $action_obj = new $action_class();
 
-    if ($config['db']['mirror'] && $action_obj->is_readonly()) {
+    if ($config['db']['mirror'] && $action_obj->isReadOnly()) {
         if (is_array($config['db']['mirror'])) {
             // "load balancing", ha ha
             $k = array_rand($config['db']['mirror']);
