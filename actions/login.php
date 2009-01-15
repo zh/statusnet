@@ -122,9 +122,7 @@ class LoginAction extends Action
         } else {
             $instr = $this->get_instructions();
             $output = common_markup_to_html($instr);
-	    $this->elementStart('div', 'instructions');
             $this->raw($output);
-            $this->elementEnd('div');
         }
     }
     
