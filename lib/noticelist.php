@@ -342,7 +342,7 @@ class NoticeListItem extends Widget
         $this->out->elementStart('dl', 'timestamp');
         $this->out->element('dt', _('Published')); 
         $this->out->elementStart('dd', null);
-        $this->out->element('a', array('rel' => 'bookmark',
+        $this->out->elementStart('a', array('rel' => 'bookmark',
                                         'href' => $noticeurl));
         $dt = common_date_iso8601($this->notice->created);
         $this->out->element('abbr', array('class' => 'published',
