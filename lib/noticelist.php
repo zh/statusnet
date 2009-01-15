@@ -79,7 +79,8 @@ class NoticeList extends Widget
 
     function show()
     {
-        $this->out->elementStart('ul', array('id' => 'notices'));
+        $this->out->element('h2', null, _('Notices'));
+        $this->out->elementStart('ul', array('class' => 'notices'));
 
         $cnt = 0;
 
