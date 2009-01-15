@@ -169,17 +169,36 @@ class NoticeListItem
     function show()
     {
         $this->showStart();
-        $this->showFaveForm();
+        $this->showNotice();
+        $this->showNoticeInfo();
+        $this->showNoticeOptions();
+        $this->showEnd();
+    }
+
+    function showNotice()
+    {
+        $this->elementStart('div', 'entry-title');
         $this->showAuthor();
-        $this->showContent();
-        $this->startTimeSection();
+        $this->showNoticeContent();
+        $this->elementEnd('div');
+    }
+
+    function showNoticeInfo()
+    {
+        $this->elementStart('div', 'entry-content');
         $this->showNoticeLink();
         $this->showNoticeSource();
         $this->showReplyTo();
+        $this->elementEnd('div');
+    }
+
+    function showNoticeOptions()
+    {
+        $this->elementStart('div', 'notice-options');
+        $this->showFaveForm();
         $this->showReplyLink();
         $this->showDeleteLink();
-        $this->endTimeSection();
-        $this->showEnd();
+        $this->elementEnd('div');
     }
 
     /**
