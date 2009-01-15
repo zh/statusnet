@@ -66,7 +66,7 @@ class Form extends Widget
         $this->out->elementStart('form',
                                  array('id' => $this->id(),
 				       'class' => $this->formClass(),
-                                       'method' => 'POST',
+                                       'method' => 'post',
                                        'action' => $this->action()));
         $this->out->elementStart('fieldset');
         $this->formLegend();
