@@ -31,6 +31,9 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
+require_once INSTALLDIR.'/lib/favorform.php';
+require_once INSTALLDIR.'/lib/disfavorform.php';
+
 /**
  * widget for displaying a list of notices
  *

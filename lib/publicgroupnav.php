@@ -77,9 +77,6 @@ class PublicGroupNav extends Widget
 
     function show()
     {
-        $this->action->elementStart('dl', array('id' => 'site_nav_local_views'));
-        $this->action->element('dt', null, _('Local views'));
-        $this->action->elementStart('dd', null);
         $this->action->elementStart('ul', array('class' => 'nav'));
 
         $this->out->menuItem(common_local_url('public'), _('Public'),
@@ -97,7 +94,5 @@ class PublicGroupNav extends Widget
             _("Popular notices"), $this->action == 'favorited', 'nav_timeline_favorited');
 
         $this->action->elementEnd('ul');
-        $this->action->elementEnd('dd');
-        $this->action->elementEnd('dl');
     }
 }
