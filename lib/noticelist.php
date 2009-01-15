@@ -169,18 +169,38 @@ class NoticeListItem
     function show()
     {
         $this->showStart();
-        $this->showFaveForm();
+        $this->showNotice();
+        $this->showNoticeInfo();
+        $this->showNoticeOptions();
+        $this->showEnd();
+    }
+
+    function showNotice()
+    {
+        $this->elementStart('div', 'entry-title');
         $this->showAuthor();
         $this->showContent();
-        $this->startTimeSection();
+        $this->elementEnd('div');
+    }
+
+    function showNoticeInfo()
+    {
+        $this->elementStart('div', 'entry-content');
         $this->showNoticeLink();
         $this->showNoticeSource();
         $this->showReplyTo();
+        $this->elementEnd('div');
+    }
+
+    function showNoticeOptions()
+    {
+        $this->elementStart('div', 'notice-options');
+        $this->showFaveForm();
         $this->showReplyLink();
         $this->showDeleteLink();
-        $this->endTimeSection();
-        $this->showEnd();
+        $this->elementEnd('div');
     }
+
 
     /**
      * start a single notice.
@@ -191,7 +211,8 @@ class NoticeListItem
     function showStart()
     {
         // XXX: RDFa
-        common_element_start('li', array('class' => 'notice_single hentry',
+        // TODO: add notice_type class e.g., notice_video, notice_image
+        common_element_start('li', array('class' => 'hentry notice',
                                          'id' => 'notice-' . $this->notice->id));
     }
 
@@ -223,10 +244,13 @@ class NoticeListItem
 
     function showAuthor()
     {
-        common_element_start('span', 'vcard author');
+        $this->elementStart('span', 'vcard author');
+        $this->elementStart('a', array('href' => $this->profile->profileurl,
+                                        'class' => 'url'));
         $this->showAvatar();
         $this->showNickname();
-        common_element_end('span');
+        $this->elementEnd('a');
+        $this->elementEnd('span');
     }
 
     /**
@@ -241,18 +265,17 @@ class NoticeListItem
     function showAvatar()
     {
         $avatar = $this->profile->getAvatar(AVATAR_STREAM_SIZE);
-        common_element_start('a', array('href' => $this->profile->profileurl));
-        common_element('img', array('src' => ($avatar) ?
+
+        $this->element('img', array('src' => ($avatar) ?
                                     common_avatar_display_url($avatar) :
                                     common_default_avatar(AVATAR_STREAM_SIZE),
-                                    'class' => 'avatar stream photo',
+                                    'class' => 'avatar photo',
                                     'width' => AVATAR_STREAM_SIZE,
                                     'height' => AVATAR_STREAM_SIZE,
                                     'alt' =>
                                     ($this->profile->fullname) ?
                                     $this->profile->fullname :
                                     $this->profile->nickname));
-        common_element_end('a');
     }
 
     /**
@@ -265,8 +288,7 @@ class NoticeListItem
 
     function showNickname()
     {
-        common_element('a', array('href' => $this->profile->profileurl,
-                                  'class' => 'nickname fn url'),
+        $this->element('span', array('class' => 'nickname fn'),
                        $this->profile->nickname);
     }
 
@@ -283,7 +305,7 @@ class NoticeListItem
     function showContent()
     {
         // FIXME: URL, image, video, audio
-        common_element_start('p', array('class' => 'content entry-title'));
+        common_element_start('p', array('class' => 'entry-content'));
         if ($this->notice->rendered) {
             common_raw($this->notice->rendered);
         } else {
@@ -293,21 +315,6 @@ class NoticeListItem
             common_raw(common_render_content($this->notice->content, $this->notice));
         }
         common_element_end('p');
-    }
-
-    /**
-     * show the "time" section of a notice
-     *
-     * This is the greyed-out section that appears beneath the content, including
-     * links to delete or reply to the notice. Probably should be called something
-     * else.
-     *
-     * @return void
-     */
-
-    function startTimeSection()
-    {
-        common_element_start('p', 'time');
     }
 
     /**
@@ -328,14 +335,18 @@ class NoticeListItem
             preg_match('/^http/', $this->notice->uri)) {
             $noticeurl = $this->notice->uri;
         }
-        common_element_start('a', array('class' => 'permalink',
-                                        'rel' => 'bookmark',
+        $this->elementStart('dl', 'timestamp');
+        $this->element('dt', _('Published')); 
+        $this->elementStart('dd', null);
+        $this->element('a', array('rel' => 'bookmark',
                                         'href' => $noticeurl));
         $dt = common_date_iso8601($this->notice->created);
-        common_element('abbr', array('class' => 'published',
+        $this->element('abbr', array('class' => 'published',
                                      'title' => $dt),
                        common_date_string($this->notice->created));
-        common_element_end('a');
+        $this->elementEnd('a');
+        $this->elementEnd('dd');
+        $this->elementEnd('dl');
     }
 
     /**
@@ -350,7 +361,8 @@ class NoticeListItem
     function showNoticeSource()
     {
         if ($this->notice->source) {
-            common_element('span', null, _(' from '));
+            $this->elementStart('dl', 'device');
+            $this->element('dt', null, _('From'));
             $source_name = _($this->notice->source);
             switch ($this->notice->source) {
             case 'web':
@@ -358,18 +370,22 @@ class NoticeListItem
             case 'mail':
             case 'omb':
             case 'api':
-                common_element('span', 'noticesource', $source_name);
+                $this->element('dd', 'noticesource', $source_name);
                 break;
             default:
                 $ns = Notice_source::staticGet($this->notice->source);
                 if ($ns) {
-                    common_element('a', array('href' => $ns->url),
+                    $this->elementStart('dd', null);
+                    $this->element('a', array('href' => $ns->url,
+                                              'rel' => 'external'),
                                    $ns->name);
+                    $this->elementEnd('dd');
                 } else {
-                    common_element('span', 'noticesource', $source_name);
+                    $this->element('dd', 'noticesource', $source_name);
                 }
                 break;
             }
+            $this->elementEnd('dl');
         }
     }
 
@@ -387,11 +403,14 @@ class NoticeListItem
         if ($this->notice->reply_to) {
             $replyurl = common_local_url('shownotice',
                                          array('notice' => $this->notice->reply_to));
-            common_text(' (');
-            common_element('a', array('class' => 'inreplyto',
-                                      'href' => $replyurl),
-                           _('in reply to...'));
-            common_text(')');
+            $this->elementStart('dl', 'response');
+            $this->element('dt', null, _('To'));
+            $this->elementStart('dd');
+            $this->element('a', array('href' => $replyurl,
+                                      'rel' => 'in-reply-to'),
+                           _('in reply to'));
+            $this->elementEnd('dd');
+            $this->elementEnd('dl');
         }
     }
 
@@ -439,17 +458,6 @@ class NoticeListItem
             common_raw(' &#215;');
             common_element_end('a');
         }
-    }
-
-    /**
-     * end the time section
-     *
-     * @return void
-     */
-
-    function endTimeSection()
-    {
-        common_element_end('p');
     }
 
     /**

@@ -87,7 +87,7 @@ class NoticeForm extends Form
 
     function id()
     {
-        return 'status_form';
+        return 'form_notice';
     }
 
     /**
@@ -101,6 +101,18 @@ class NoticeForm extends Form
         return common_local_url('newnotice');
     }
 
+
+    /**
+     * Legend of the Form
+     *
+     * @return void
+     */
+    function formLegend()
+    {
+        $this->out->element('legend', null, _('Send a notice'));
+    }
+
+
     /**
      * Data elements
      *
@@ -111,21 +123,33 @@ class NoticeForm extends Form
     {
         $user = common_current_user();
 
-        $this->out->element('label', array('for' => 'status_textarea',
-                                           'id' => 'status_label'),
+        $this->out->elementStart('ul', 'form_datas');
+        $this->out->elementStart('li', array('id' => 'notice_text'));
+        $this->out->element('label', array('for' => 'notice_data-text'),
                             sprintf(_('What\'s up, %s?'), $user->nickname));
         // XXX: vary by defined max size
-        $this->out->element('span', array('id' => 'counter',
-                                          'class' => 'counter'),
-                            '140');
-        $this->out->element('textarea', array('id' => 'status_textarea',
-                                              'cols' => 60,
-                                              'rows' => 3,
+        $this->out->element('textarea', array('id' => 'notice_data-text',
+                                              'cols' => 35,
+                                              'rows' => 4,
                                               'name' => 'status_textarea'),
                             ($this->content) ? $this->content : '');
+        $this->out->elementEnd('li');
+        $this->out->elementEnd('ul');
+
+        $this->out->elementStart('dl', 'form_note');
+        $this->out->element('dt', null, _('Available characters'));
+        $this->out->element('dd', array('id' => 'notice_text-count'),
+                            '140');
+        $this->out->elementEnd('dl');
+
         if ($this->action) {
-            $this->out->hidden('returnto', $this->action);
+        // FIXME: or VERIFY that notice_return-to doesn't break anything. Changed from 'returnto'
+            $this->out->hidden('notice_return-to', $this->action);
         }
+
+        // FIXME: Does this need to be checked like returnto?
+        $this->out->hidden('notice_in-reply-to', $this->action);
+
     }
 
     /**
@@ -136,9 +160,14 @@ class NoticeForm extends Form
 
     function formActions()
     {
-        $this->out->element('input', array('id' => 'status_submit',
+        $this->out->elementStart('ul', 'form_actions');
+        $this->out->elementStart('li', array('id' => 'notice_submit'));
+        $this->out->element('input', array('id' => 'notice_action-submit',
+                                           'class' => 'submit',
                                            'name' => 'status_submit',
                                            'type' => 'submit',
                                            'value' => _('Send')));
+        $this->out->elementEnd('li');
+        $this->out->elementEnd('ul');
     }
 }
