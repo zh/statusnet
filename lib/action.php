@@ -235,6 +235,7 @@ class Action extends HTMLOutputter // lawsuit
     {
         $this->elementStart('dl', array('id' => 'site_nav_global_primary'));
         $this->element('dt', null, _('Primary site navigation'));
+	$this->elementStart('dd');
         $user = common_current_user();
         $this->elementStart('ul', array('id' => 'nav'));
         if ($user) {
@@ -259,6 +260,7 @@ class Action extends HTMLOutputter // lawsuit
         $this->menuItem(common_local_url('doc', array('title' => 'help')),
                          _('Help'));
         $this->elementEnd('ul');
+	$this->elementEnd('dd');	
         $this->elementEnd('dl');
     }
 
