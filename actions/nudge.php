@@ -59,13 +59,13 @@ class NudgeAction extends Action
 
         if ($this->boolean('ajax')) {
             common_start_html('text/xml;charset=utf-8', true);
-            common_element_start('head');
-            common_element('title', null, _('Nudge sent'));
-            common_element_end('head');
-            common_element_start('body');
+            $this->elementStart('head');
+            $this->element('title', null, _('Nudge sent'));
+            $this->elementEnd('head');
+            $this->elementStart('body');
             common_nudge_response();
-            common_element_end('body');
-            common_element_end('html');
+            $this->elementEnd('body');
+            $this->elementEnd('html');
         } else {
             // display a confirmation to the user
             common_redirect(common_local_url('showstream',

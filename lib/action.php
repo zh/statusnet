@@ -314,7 +314,7 @@ class Action extends HTMLOutputter // lawsuit
     {
         $this->elementStart('div', array('id' => 'content'));
         $this->showPageTitle();
-        $this->showPageNotice();
+        $this->showPageNoticeBlock();
         $this->elementStart('div', array('id' => 'content_inner'));
         // show the actual content (forms, lists, whatever)
         $this->showContent();
@@ -326,19 +326,24 @@ class Action extends HTMLOutputter // lawsuit
         $this->element('h1', NULL, $this->title());
     }
 
+    function showPageNoticeBlock()
+    {
+	$this->elementStart('dl', array('id' => 'page_notice',
+					'class' => 'system_notice'));
+	$this->element('dt', null, _('Page notice'));
+	$this->elementStart('dd', null);
+	$this->showPageNotice();
+	$this->elementEnd('dd');
+	$this->elementEnd('dl');
+	}
+    }
+
     // SHOULD overload (unless there's not a notice)
 
     function showPageNotice()
     {
-        $this->elementStart('dl', array('id' => 'page_notice',
-                                        'class' => 'system_notice'));
-        $this->element('dt', null, _('Page notice'));
-        $this->elementStart('dd', null);
-        // Output a bunch of paragraphs here
-        $this->elementEnd('dd');
-        $this->elementEnd('dl');
     }
-
+    
     // MUST overload
 
     function showContent()

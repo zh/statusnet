@@ -105,7 +105,7 @@ class FacebookhomeAction extends FacebookAction
         $this->show_header('Home');
 
         if ($msg) {
-            common_element('fb:success', array('message' => $msg));
+            $this->element('fb:success', array('message' => $msg));
         }
 
         echo $this->show_notices($user);

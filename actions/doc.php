@@ -34,7 +34,7 @@ class DocAction extends Action
         $c = file_get_contents($filename);
         $output = common_markup_to_html($c);
         common_show_header(_(ucfirst($title)));
-        common_raw($output);
+        $this->raw($output);
         common_show_footer();
     }
 }

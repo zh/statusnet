@@ -44,52 +44,52 @@ class TwittersettingsAction extends SettingsAction
         }
 
         $this->form_header(_('Twitter settings'), $msg, $success);
-        common_element_start('form', array('method' => 'post',
+        $this->elementStart('form', array('method' => 'post',
                                            'id' => 'twittersettings',
                                            'action' =>
                                            common_local_url('twittersettings')));
-        common_hidden('token', common_session_token());
+        $this->hidden('token', common_session_token());
 
-        common_element('h2', null, _('Twitter Account'));
+        $this->element('h2', null, _('Twitter Account'));
 
         if ($fuser) {
-            common_element_start('p');
+            $this->elementStart('p');
 
-            common_element('span', 'twitter_user', $fuser->nickname);
-            common_element('a', array('href' => $fuser->uri),  $fuser->uri);
-            common_element('span', 'input_instructions',
+            $this->element('span', 'twitter_user', $fuser->nickname);
+            $this->element('a', array('href' => $fuser->uri),  $fuser->uri);
+            $this->element('span', 'input_instructions',
                            _('Current verified Twitter account.'));
-            common_hidden('flink_foreign_id', $flink->foreign_id);
-            common_element_end('p');
-            common_submit('remove', _('Remove'));
+            $this->hidden('flink_foreign_id', $flink->foreign_id);
+            $this->elementEnd('p');
+            $this->submit('remove', _('Remove'));
         } else {
-            common_input('twitter_username', _('Twitter user name'),
+            $this->input('twitter_username', _('Twitter user name'),
                          ($this->arg('twitter_username')) ? $this->arg('twitter_username') : $profile->nickname,
                          _('No spaces, please.')); // hey, it's what Twitter says
 
-            common_password('twitter_password', _('Twitter password'));
+            $this->password('twitter_password', _('Twitter password'));
         }
 
-        common_element('h2', null, _('Preferences'));
+        $this->element('h2', null, _('Preferences'));
 
-        common_checkbox('noticesync', _('Automatically send my notices to Twitter.'),
+        $this->checkbox('noticesync', _('Automatically send my notices to Twitter.'),
                         ($flink) ? ($flink->noticesync & FOREIGN_NOTICE_SEND) : true);
 
-        common_checkbox('replysync', _('Send local "@" replies to Twitter.'),
+        $this->checkbox('replysync', _('Send local "@" replies to Twitter.'),
                         ($flink) ? ($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) : true);
 
-        common_checkbox('friendsync', _('Subscribe to my Twitter friends here.'),
+        $this->checkbox('friendsync', _('Subscribe to my Twitter friends here.'),
                         ($flink) ? ($flink->friendsync & FOREIGN_FRIEND_RECV) : false);
 
         if ($flink) {
-            common_submit('save', _('Save'));
+            $this->submit('save', _('Save'));
         } else {
-            common_submit('add', _('Add'));
+            $this->submit('add', _('Add'));
         }
 
         $this->show_twitter_subscriptions();
 
-        common_element_end('form');
+        $this->elementEnd('form');
 
         common_show_footer();
     }
@@ -131,9 +131,9 @@ class TwittersettingsAction extends SettingsAction
 
         if ($friends_count > 0) {
 
-            common_element('h3', null, _('Twitter Friends'));
-            common_element_start('div', array('id' => 'subscriptions'));
-            common_element_start('ul', array('id' => 'subscriptions_avatars'));
+            $this->element('h3', null, _('Twitter Friends'));
+            $this->elementStart('div', array('id' => 'subscriptions'));
+            $this->elementStart('ul', array('id' => 'subscriptions_avatars'));
 
             for ($i = 0; $i < min($friends_count, SUBSCRIPTIONS); $i++) {
 
@@ -144,28 +144,28 @@ class TwittersettingsAction extends SettingsAction
                     continue;
                 }
 
-                common_element_start('li');
-                common_element_start('a', array('title' => ($other->fullname) ?
+                $this->elementStart('li');
+                $this->elementStart('a', array('title' => ($other->fullname) ?
                                                 $other->fullname :
                                                 $other->nickname,
                                                 'href' => $other->profileurl,
                                                 'rel' => 'contact',
                                                 'class' => 'subscription'));
                 $avatar = $other->getAvatar(AVATAR_MINI_SIZE);
-                common_element('img', array('src' => (($avatar) ? common_avatar_display_url($avatar) :  common_default_avatar(AVATAR_MINI_SIZE)),
+                $this->element('img', array('src' => (($avatar) ? common_avatar_display_url($avatar) :  common_default_avatar(AVATAR_MINI_SIZE)),
                                             'width' => AVATAR_MINI_SIZE,
                                             'height' => AVATAR_MINI_SIZE,
                                             'class' => 'avatar mini',
                                             'alt' =>  ($other->fullname) ?
                                             $other->fullname :
                                             $other->nickname));
-                common_element_end('a');
-                common_element_end('li');
+                $this->elementEnd('a');
+                $this->elementEnd('li');
 
             }
 
-            common_element_end('ul');
-            common_element_end('div');
+            $this->elementEnd('ul');
+            $this->elementEnd('div');
 
         }
 
@@ -173,13 +173,13 @@ class TwittersettingsAction extends SettingsAction
 
         /*
         if ($subs_count > SUBSCRIPTIONS) {
-            common_element_start('p', array('id' => 'subscriptions_viewall'));
+            $this->elementStart('p', array('id' => 'subscriptions_viewall'));
 
-            common_element('a', array('href' => common_local_url('subscriptions',
+            $this->element('a', array('href' => common_local_url('subscriptions',
                                                                  array('nickname' => $profile->nickname)),
                                       'class' => 'moresubscriptions'),
                            _('All subscriptions'));
-            common_element_end('p');
+            $this->elementEnd('p');
         }
         */
 

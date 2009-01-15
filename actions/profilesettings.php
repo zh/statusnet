@@ -34,11 +34,11 @@ class ProfilesettingsAction extends SettingsAction
     {
         $this->form_header(_('Profile settings'), $msg, $success);
         $this->show_settings_form();
-        common_element('h2', null, _('Avatar'));
+        $this->element('h2', null, _('Avatar'));
         $this->show_avatar_form();
-        common_element('h2', null, _('Change password'));
+        $this->element('h2', null, _('Change password'));
         $this->show_password_form();
-//        common_element('h2', null, _('Delete my account'));
+//        $this->element('h2', null, _('Delete my account'));
 //        $this->show_delete_form();
         common_show_footer();
     }
@@ -74,46 +74,46 @@ class ProfilesettingsAction extends SettingsAction
         $user = common_current_user();
         $profile = $user->getProfile();
 
-        common_element_start('form', array('method' => 'POST',
+        $this->elementStart('form', array('method' => 'POST',
                                            'id' => 'profilesettings',
                                            'action' => common_local_url('profilesettings')));
-        common_hidden('token', common_session_token());
+        $this->hidden('token', common_session_token());
         
         # too much common patterns here... abstractable?
         
-        common_input('nickname', _('Nickname'),
+        $this->input('nickname', _('Nickname'),
                      ($this->arg('nickname')) ? $this->arg('nickname') : $profile->nickname,
                      _('1-64 lowercase letters or numbers, no punctuation or spaces'));
-        common_input('fullname', _('Full name'),
+        $this->input('fullname', _('Full name'),
                      ($this->arg('fullname')) ? $this->arg('fullname') : $profile->fullname);
-        common_input('homepage', _('Homepage'),
+        $this->input('homepage', _('Homepage'),
                      ($this->arg('homepage')) ? $this->arg('homepage') : $profile->homepage,
                      _('URL of your homepage, blog, or profile on another site'));
-        common_textarea('bio', _('Bio'),
+        $this->textarea('bio', _('Bio'),
                         ($this->arg('bio')) ? $this->arg('bio') : $profile->bio,
                         _('Describe yourself and your interests in 140 chars'));
-        common_input('location', _('Location'),
+        $this->input('location', _('Location'),
                      ($this->arg('location')) ? $this->arg('location') : $profile->location,
                      _('Where you are, like "City, State (or Region), Country"'));
-        common_input('tags', _('Tags'),
+        $this->input('tags', _('Tags'),
                      ($this->arg('tags')) ? $this->arg('tags') : implode(' ', $user->getSelfTags()),
                      _('Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated'));
 
         $language = common_language();
-        common_dropdown('language', _('Language'), get_nice_language_list(), _('Preferred language'), true, $language);
+        $this->dropdown('language', _('Language'), get_nice_language_list(), _('Preferred language'), true, $language);
         $timezone = common_timezone();
         $timezones = array();
         foreach(DateTimeZone::listIdentifiers() as $k => $v) {
             $timezones[$v] = $v;
         }
-        common_dropdown('timezone', _('Timezone'), $timezones, _('What timezone are you normally in?'), true, $timezone);
+        $this->dropdown('timezone', _('Timezone'), $timezones, _('What timezone are you normally in?'), true, $timezone);
 
-        common_checkbox('autosubscribe', _('Automatically subscribe to whoever subscribes to me (best for non-humans)'),
+        $this->checkbox('autosubscribe', _('Automatically subscribe to whoever subscribes to me (best for non-humans)'),
                         ($this->arg('autosubscribe')) ? $this->boolean('autosubscribe') : $user->autosubscribe);
 
-        common_submit('save', _('Save'));
+        $this->submit('save', _('Save'));
 
-        common_element_end('form');
+        $this->elementEnd('form');
 
     }
 
@@ -132,62 +132,62 @@ class ProfilesettingsAction extends SettingsAction
         $original = $profile->getOriginalAvatar();
 
 
-        common_element_start('form', array('enctype' => 'multipart/form-data',
+        $this->elementStart('form', array('enctype' => 'multipart/form-data',
                                            'method' => 'POST',
                                            'id' => 'avatar',
                                            'action' =>
                                            common_local_url('profilesettings')));
-        common_hidden('token', common_session_token());
+        $this->hidden('token', common_session_token());
 
         if ($original) {
-            common_element_start('div', array('id'=>'avatar_original', 'class'=>'avatar_view'));
-            common_element('h3', null, _("Original:"));
-            common_element_start('div', array('id'=>'avatar_original_view'));
-            common_element('img', array('src' => $original->url,
+            $this->elementStart('div', array('id'=>'avatar_original', 'class'=>'avatar_view'));
+            $this->element('h3', null, _("Original:"));
+            $this->elementStart('div', array('id'=>'avatar_original_view'));
+            $this->element('img', array('src' => $original->url,
                                         'class' => 'avatar original',
                                         'width' => $original->width,
                                         'height' => $original->height,
                                         'alt' => $user->nickname));
-            common_element_end('div');
-            common_element_end('div');
+            $this->elementEnd('div');
+            $this->elementEnd('div');
         }
 
         $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
 
         if ($avatar) {
-            common_element_start('div', array('id'=>'avatar_preview', 'class'=>'avatar_view'));
-            common_element('h3', null, _("Preview:"));
-            common_element_start('div', array('id'=>'avatar_preview_view'));
-            common_element('img', array('src' => $original->url,//$avatar->url,
+            $this->elementStart('div', array('id'=>'avatar_preview', 'class'=>'avatar_view'));
+            $this->element('h3', null, _("Preview:"));
+            $this->elementStart('div', array('id'=>'avatar_preview_view'));
+            $this->element('img', array('src' => $original->url,//$avatar->url,
                                         'class' => 'avatar profile',
                                         'width' => AVATAR_PROFILE_SIZE,
                                         'height' => AVATAR_PROFILE_SIZE,
                                         'alt' => $user->nickname));
-            common_element_end('div');
-            common_element_end('div');
+            $this->elementEnd('div');
+            $this->elementEnd('div');
 
             foreach(array('avatar_crop_x', 'avatar_crop_y', 'avatar_crop_w', 'avatar_crop_h') as $crop_info) {
-                common_element('input', array('name' => $crop_info,
+                $this->element('input', array('name' => $crop_info,
                                               'type' => 'hidden',
                                               'id' => $crop_info));
             }
-            common_submit('crop', _('Crop'));
+            $this->submit('crop', _('Crop'));
         }
 
-        common_element('input', array('name' => 'MAX_FILE_SIZE',
+        $this->element('input', array('name' => 'MAX_FILE_SIZE',
                                       'type' => 'hidden',
                                       'id' => 'MAX_FILE_SIZE',
                                       'value' => MAX_AVATAR_SIZE));
 
-        common_element_start('p');
+        $this->elementStart('p');
 
-        common_element('input', array('name' => 'avatarfile',
+        $this->element('input', array('name' => 'avatarfile',
                                       'type' => 'file',
                                       'id' => 'avatarfile'));
-        common_element_end('p');
+        $this->elementEnd('p');
 
-        common_submit('upload', _('Upload'));
-        common_element_end('form');
+        $this->submit('upload', _('Upload'));
+        $this->elementEnd('form');
 
     }
 
@@ -195,23 +195,23 @@ class ProfilesettingsAction extends SettingsAction
     {
 
         $user = common_current_user();
-        common_element_start('form', array('method' => 'POST',
+        $this->elementStart('form', array('method' => 'POST',
                                            'id' => 'password',
                                            'action' =>
                                            common_local_url('profilesettings')));
 
-        common_hidden('token', common_session_token());
+        $this->hidden('token', common_session_token());
 
         # Users who logged in with OpenID won't have a pwd
         if ($user->password) {
-            common_password('oldpassword', _('Old password'));
+            $this->password('oldpassword', _('Old password'));
         }
-        common_password('newpassword', _('New password'),
+        $this->password('newpassword', _('New password'),
                         _('6 or more characters'));
-        common_password('confirm', _('Confirm'),
+        $this->password('confirm', _('Confirm'),
                         _('same as password above'));
-        common_submit('changepass', _('Change'));
-        common_element_end('form');
+        $this->submit('changepass', _('Change'));
+        $this->elementEnd('form');
     }
 
     function save_profile()

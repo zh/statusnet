@@ -60,7 +60,7 @@ class PeoplesearchAction extends SearchAction
             $results = new PeopleSearchResults($profile, $terms);
             $results->show_list();
         } else {
-            common_element('p', 'error', _('No results'));
+            $this->element('p', 'error', _('No results'));
         }
 
         $profile->free();

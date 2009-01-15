@@ -89,29 +89,29 @@ class InviteAction extends Action
 
         common_show_header(_('Invitation(s) sent'));
         if ($already) {
-            common_element('p', null, _('You are already subscribed to these users:'));
-            common_element_start('ul');
+            $this->element('p', null, _('You are already subscribed to these users:'));
+            $this->elementStart('ul');
             foreach ($already as $other) {
-                common_element('li', null, sprintf(_('%s (%s)'), $other->nickname, $other->email));
+                $this->element('li', null, sprintf(_('%s (%s)'), $other->nickname, $other->email));
             }
-            common_element_end('ul');
+            $this->elementEnd('ul');
         }
         if ($subbed) {
-            common_element('p', null, _('These people are already users and you were automatically subscribed to them:'));
-            common_element_start('ul');
+            $this->element('p', null, _('These people are already users and you were automatically subscribed to them:'));
+            $this->elementStart('ul');
             foreach ($subbed as $other) {
-                common_element('li', null, sprintf(_('%s (%s)'), $other->nickname, $other->email));
+                $this->element('li', null, sprintf(_('%s (%s)'), $other->nickname, $other->email));
             }
-            common_element_end('ul');
+            $this->elementEnd('ul');
         }
         if ($sent) {
-            common_element('p', null, _('Invitation(s) sent to the following people:'));
-            common_element_start('ul');
+            $this->element('p', null, _('Invitation(s) sent to the following people:'));
+            $this->elementStart('ul');
             foreach ($sent as $other) {
-                common_element('li', null, $other);
+                $this->element('li', null, $other);
             }
-            common_element_end('ul');
-            common_element('p', null, _('You will be notified when your invitees accept the invitation and register on the site. Thanks for growing the community!'));
+            $this->elementEnd('ul');
+            $this->element('p', null, _('You will be notified when your invitees accept the invitation and register on the site. Thanks for growing the community!'));
         }
         common_show_footer();
     }
@@ -119,12 +119,12 @@ class InviteAction extends Action
     function show_top($error=null)
     {
         if ($error) {
-            common_element('p', 'error', $error);
+            $this->element('p', 'error', $error);
         } else {
-            common_element_start('div', 'instructions');
-            common_element('p', null,
+            $this->elementStart('div', 'instructions');
+            $this->element('p', null,
                            _('Use this form to invite your friends and colleagues to use this service.'));
-            common_element_end('div');
+            $this->elementEnd('div');
         }
     }
 
@@ -135,22 +135,22 @@ class InviteAction extends Action
 
         common_show_header(_('Invite new users'), null, $error, array($this, 'show_top'));
 
-        common_element_start('form', array('method' => 'post',
+        $this->elementStart('form', array('method' => 'post',
                                            'id' => 'invite',
                                            'action' => common_local_url('invite')));
-        common_hidden('token', common_session_token());
+        $this->hidden('token', common_session_token());
 
-        common_textarea('addresses', _('Email addresses'),
+        $this->textarea('addresses', _('Email addresses'),
                         $this->trimmed('addresses'),
                         _('Addresses of friends to invite (one per line)'));
 
-        common_textarea('personal', _('Personal message'),
+        $this->textarea('personal', _('Personal message'),
                         $this->trimmed('personal'),
                         _('Optionally add a personal message to the invitation.'));
 
-        common_submit('send', _('Send'));
+        $this->submit('send', _('Send'));
 
-        common_element_end('form');
+        $this->elementEnd('form');
 
         common_show_footer();
     }

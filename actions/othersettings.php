@@ -35,12 +35,12 @@ class OthersettingsAction extends SettingsAction
 
         $this->form_header(_('Other Settings'), $msg, $success);
 
-        common_element('h2', null, _('URL Auto-shortening'));
-        common_element_start('form', array('method' => 'post',
+        $this->element('h2', null, _('URL Auto-shortening'));
+        $this->elementStart('form', array('method' => 'post',
                                            'id' => 'othersettings',
                                            'action' =>
                                            common_local_url('othersettings')));
-        common_hidden('token', common_session_token());
+        $this->hidden('token', common_session_token());
 
         $services = array(
             '' => 'None',
@@ -54,13 +54,13 @@ class OthersettingsAction extends SettingsAction
             'metamark.net' => 'metamark.net'
         );
 
-        common_dropdown('urlshorteningservice', _('Service'), $services, _('Automatic shortening service to use.'), false, $user->urlshorteningservice);
+        $this->dropdown('urlshorteningservice', _('Service'), $services, _('Automatic shortening service to use.'), false, $user->urlshorteningservice);
 
-        common_submit('save', _('Save'));
+        $this->submit('save', _('Save'));
 
-        common_element_end('form');
+        $this->elementEnd('form');
 
-//        common_element('h2', null, _('Delete my account'));
+//        $this->element('h2', null, _('Delete my account'));
 //        $this->show_delete_form();
 
         common_show_footer();
@@ -68,15 +68,15 @@ class OthersettingsAction extends SettingsAction
 
     function show_feeds_list($feeds)
     {
-        common_element_start('div', array('class' => 'feedsdel'));
-        common_element('p', null, 'Feeds:');
-        common_element_start('ul', array('class' => 'xoxo'));
+        $this->elementStart('div', array('class' => 'feedsdel'));
+        $this->element('p', null, 'Feeds:');
+        $this->elementStart('ul', array('class' => 'xoxo'));
 
         foreach ($feeds as $key => $value) {
             $this->common_feed_item($feeds[$key]);
         }
-        common_element_end('ul');
-        common_element_end('div');
+        $this->elementEnd('ul');
+        $this->elementEnd('div');
     }
 
     //TODO move to common.php (and retrace its origin)
@@ -100,13 +100,13 @@ class OthersettingsAction extends SettingsAction
                 $feed['textContent'] = "FOAF";
                 break;
         }
-        common_element_start('li');
-        common_element('a', array('href' => $feed['href'],
+        $this->elementStart('li');
+        $this->element('a', array('href' => $feed['href'],
                                   'class' => $feed_classname,
                                   'type' => $feed_mimetype,
                                   'title' => $feed_title),
                             $feed['textContent']);
-        common_element_end('li');
+        $this->elementEnd('li');
     }
 
 //    function show_delete_form() {
@@ -115,13 +115,13 @@ class OthersettingsAction extends SettingsAction
 //      $notices->profile_id = $user->id;
 //      $notice_count = (int) $notices->count();
 //
-//        common_element_start('form', array('method' => 'POST',
+//        $this->elementStart('form', array('method' => 'POST',
 //                                           'id' => 'delete',
 //                                           'action' =>
 //                                           common_local_url('deleteprofile')));
 //
-//        common_hidden('token', common_session_token());
-//      common_element('p', null, "You can copy your notices and contacts by saving the two links below before deleting your account. Be careful, this operation cannot be undone.");
+//        $this->hidden('token', common_session_token());
+//      $this->element('p', null, "You can copy your notices and contacts by saving the two links below before deleting your account. Be careful, this operation cannot be undone.");
 //
 //        $this->show_feeds_list(array(0=>array('href'=>common_local_url('userrss', array('limit' => $notice_count, 'nickname' => $user->nickname)),
 //                                              'type' => 'rss',
@@ -132,8 +132,8 @@ class OthersettingsAction extends SettingsAction
 //                                              'version' => 'FOAF',
 //                                              'item' => 'foaf')));
 //
-//        common_submit('deleteaccount', _('Delete my account'));
-//        common_element_end('form');
+//        $this->submit('deleteaccount', _('Delete my account'));
+//        $this->elementEnd('form');
 //    }
 
     function handle_post()

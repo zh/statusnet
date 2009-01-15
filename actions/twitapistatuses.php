@@ -538,11 +538,11 @@ class TwitapistatusesAction extends TwitterapiAction
     {
         switch ($type) {
          case 'xml':
-            common_element_start('users', array('type' => 'array'));
+            $this->elementStart('users', array('type' => 'array'));
             foreach ($profiles as $profile) {
                 $this->show_profile($profile);
             }
-            common_element_end('users');
+            $this->elementEnd('users');
             break;
          case 'json':
             $arrays = array();

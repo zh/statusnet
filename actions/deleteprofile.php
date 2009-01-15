@@ -49,15 +49,15 @@ class DeleteprofileAction extends Action
 
     function show_feeds_list($feeds)
     {
-        common_element_start('div', array('class' => 'feedsdel'));
-        common_element('p', null, 'Feeds:');
-        common_element_start('ul', array('class' => 'xoxo'));
+        $this->elementStart('div', array('class' => 'feedsdel'));
+        $this->element('p', null, 'Feeds:');
+        $this->elementStart('ul', array('class' => 'xoxo'));
 
         foreach ($feeds as $key => $value) {
             $this->common_feed_item($feeds[$key]);
         }
-        common_element_end('ul');
-        common_element_end('div');
+        $this->elementEnd('ul');
+        $this->elementEnd('div');
     }
 
     //TODO move to common.php (and retrace its origin)
@@ -81,19 +81,19 @@ class DeleteprofileAction extends Action
                 $feed['textContent'] = "FOAF";
                 break;
         }
-        common_element_start('li');
-        common_element('a', array('href' => $feed['href'],
+        $this->elementStart('li');
+        $this->element('a', array('href' => $feed['href'],
                                   'class' => $feed_classname,
                                   'type' => $feed_mimetype,
                                   'title' => $feed_title),
                             $feed['textContent']);
-        common_element_end('li');
+        $this->elementEnd('li');
     }
 
     function show_form($msg=null, $success=false)
     {
         $this->form_header(_('Delete my account'), $msg, $success);
-        common_element('h2', null, _('Delete my account confirmation'));
+        $this->element('h2', null, _('Delete my account confirmation'));
         $this->show_confirm_delete_form();
         common_show_footer();
     }
@@ -105,13 +105,13 @@ class DeleteprofileAction extends Action
         $notices->profile_id = $user->id;
         $notice_count = (int) $notices->count();
 
-        common_element_start('form', array('method' => 'POST',
+        $this->elementStart('form', array('method' => 'POST',
                                            'id' => 'delete',
                                            'action' =>
                                            common_local_url('deleteprofile')));
 
-        common_hidden('token', common_session_token());
-        common_element('p', null, "Last chance to copy your notices and contacts by saving the two links below before deleting your account. Be careful, this operation cannot be undone.");
+        $this->hidden('token', common_session_token());
+        $this->element('p', null, "Last chance to copy your notices and contacts by saving the two links below before deleting your account. Be careful, this operation cannot be undone.");
 
         $this->show_feeds_list(array(0=>array('href'=>common_local_url('userrss', array('limit' => $notice_count, 'nickname' => $user->nickname)),
                                               'type' => 'rss',
@@ -122,10 +122,10 @@ class DeleteprofileAction extends Action
                                               'version' => 'FOAF',
                                               'item' => 'foaf')));
 
-        common_checkbox('confirmation', _('Check if you are sure you want to delete your account.'));
+        $this->checkbox('confirmation', _('Check if you are sure you want to delete your account.'));
 
-        common_submit('deleteaccount', _('Delete my account'));
-        common_element_end('form');
+        $this->submit('deleteaccount', _('Delete my account'));
+        $this->elementEnd('form');
     }
 
     function handle_post()
@@ -238,9 +238,9 @@ class DeleteprofileAction extends Action
         } else {
             $inst = $this->get_instructions();
             $output = common_markup_to_html($inst);
-            common_element_start('div', 'instructions');
-            common_raw($output);
-            common_element_end('div');
+            $this->elementStart('div', 'instructions');
+            $this->raw($output);
+            $this->elementEnd('div');
         }
         $this->settings_menu();
     }
@@ -272,7 +272,7 @@ class DeleteprofileAction extends Action
                       _('Other options')));
 
         $action = $this->trimmed('action');
-        common_element_start('ul', array('id' => 'nav_views'));
+        $this->elementStart('ul', array('id' => 'nav_views'));
         foreach ($menu as $menuaction => $menudesc) {
             if ($menuaction == 'imsettings' &&
                 !common_config('xmpp', 'enabled')) {
@@ -283,7 +283,7 @@ class DeleteprofileAction extends Action
                     $menudesc[1],
                     $action == $menuaction);
         }
-        common_element_end('ul');
+        $this->elementEnd('ul');
     }
 }
 

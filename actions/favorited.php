@@ -43,9 +43,9 @@ class FavoritedAction extends StreamAction
     {
         $instr = $this->get_instructions();
         $output = common_markup_to_html($instr);
-        common_element_start('div', 'instructions');
-        common_raw($output);
-        common_element_end('div');
+        $this->elementStart('div', 'instructions');
+        $this->raw($output);
+        $this->elementEnd('div');
         $this->public_views_menu();
     }
 
@@ -81,7 +81,7 @@ class FavoritedAction extends StreamAction
         $notice = new Notice;
         $notice->query(sprintf($qry, common_config('popular', 'dropoff')));
 
-        common_element_start('ul', array('id' => 'notices'));
+        $this->elementStart('ul', array('id' => 'notices'));
 
         $cnt = 0;
 
@@ -96,7 +96,7 @@ class FavoritedAction extends StreamAction
             $item->show();
         }
 
-        common_element_end('ul');
+        $this->elementEnd('ul');
 
         common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
                           $page, 'favorited');

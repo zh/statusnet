@@ -69,13 +69,13 @@ class FavorAction extends Action
         
         if ($this->boolean('ajax')) {
             common_start_html('text/xml;charset=utf-8', true);
-            common_element_start('head');
-            common_element('title', null, _('Disfavor favorite'));
-            common_element_end('head');
-            common_element_start('body');
+            $this->elementStart('head');
+            $this->element('title', null, _('Disfavor favorite'));
+            $this->elementEnd('head');
+            $this->elementStart('body');
             common_disfavor_form($notice);
-            common_element_end('body');
-            common_element_end('html');
+            $this->elementEnd('body');
+            $this->elementEnd('html');
         } else {
             common_redirect(common_local_url('showfavorites',
                                              array('nickname' => $user->nickname)));

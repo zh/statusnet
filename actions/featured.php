@@ -44,9 +44,9 @@ class FeaturedAction extends StreamAction
     {
         $instr = $this->get_instructions();
         $output = common_markup_to_html($instr);
-        common_element_start('div', 'instructions');
-        common_raw($output);
-        common_element_end('div');
+        $this->elementStart('div', 'instructions');
+        $this->raw($output);
+        $this->elementEnd('div');
         $this->public_views_menu();
     }
 

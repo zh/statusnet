@@ -92,13 +92,13 @@ class NewnoticeAction extends Action
 
         if ($this->boolean('ajax')) {
             common_start_html('text/xml;charset=utf-8', true);
-            common_element_start('head');
-            common_element('title', null, _('Notice posted'));
-            common_element_end('head');
-            common_element_start('body');
+            $this->elementStart('head');
+            $this->element('title', null, _('Notice posted'));
+            $this->elementEnd('head');
+            $this->elementStart('body');
             $this->show_notice($notice);
-            common_element_end('body');
-            common_element_end('html');
+            $this->elementEnd('body');
+            $this->elementEnd('html');
         } else {
             $returnto = $this->trimmed('returnto');
 
@@ -116,13 +116,13 @@ class NewnoticeAction extends Action
     function ajax_error_msg($msg)
     {
         common_start_html('text/xml;charset=utf-8', true);
-        common_element_start('head');
-        common_element('title', null, _('Ajax Error'));
-        common_element_end('head');
-        common_element_start('body');
-        common_element('p', array('id' => 'error'), $msg);
-        common_element_end('body');
-        common_element_end('html');
+        $this->elementStart('head');
+        $this->element('title', null, _('Ajax Error'));
+        $this->elementEnd('head');
+        $this->elementStart('body');
+        $this->element('p', array('id' => 'error'), $msg);
+        $this->elementEnd('body');
+        $this->elementEnd('html');
     }
 
     function show_top($content=null)
@@ -147,7 +147,7 @@ class NewnoticeAction extends Action
         common_show_header(_('New notice'), null, $content,
                            array($this, 'show_top'));
         if ($msg) {
-            common_element('p', array('id' => 'error'), $msg);
+            $this->element('p', array('id' => 'error'), $msg);
         }
         common_show_footer();
     }

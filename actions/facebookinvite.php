@@ -43,22 +43,22 @@ class FacebookinviteAction extends FacebookAction
 
         $this->show_header('Invite');
 
-        common_element('h2', null, _('Thanks for inviting your friends to use Identi.ca!'));
-        common_element('p', null, _('Invitations have been sent to the following users:'));
+        $this->element('h2', null, _('Thanks for inviting your friends to use Identi.ca!'));
+        $this->element('p', null, _('Invitations have been sent to the following users:'));
 
         $friend_ids = $_POST['ids']; // Hmm... $this->arg('ids') doesn't seem to work
 
-        common_element_start("ul");
+        $this->elementStart("ul");
 
         foreach ($friend_ids as $friend) {
-            common_element_start('li');
-            common_element('fb:profile-pic', array('uid' => $friend));
-            common_element('fb:name', array('uid' => $friend,
+            $this->elementStart('li');
+            $this->element('fb:profile-pic', array('uid' => $friend));
+            $this->element('fb:name', array('uid' => $friend,
                                             'capitalize' => 'true'));
-            common_element_end('li');
+            $this->elementEnd('li');
         }
 
-        common_element_end("ul");
+        $this->elementEnd("ul");
 
         $this->show_footer();
     }
@@ -77,32 +77,32 @@ class FacebookinviteAction extends FacebookAction
         $content = _('You have been invited to Identi.ca!') .
             htmlentities('<fb:req-choice url="http://apps.facebook.com/identica_app/" label="Add"/>');
 
-        common_element_start('fb:request-form', array('action' => 'invite.php',
+        $this->elementStart('fb:request-form', array('action' => 'invite.php',
                                                       'method' => 'post',
                                                       'invite' => 'true',
                                                       'type' => 'Identi.ca',
                                                       'content' => $content));
-        common_hidden('invite', 'true');
+        $this->hidden('invite', 'true');
         $actiontext = 'Invite your friends to use Identi.ca.';
-        common_element('fb:multi-friend-selector', array('showborder' => 'false',
+        $this->element('fb:multi-friend-selector', array('showborder' => 'false',
                                                                'actiontext' => $actiontext,
                                                                'exclude_ids' => implode(',', $exclude_ids),
                                                                'bypass' => 'cancel'));
 
-        common_element_end('fb:request-form');
+        $this->elementEnd('fb:request-form');
 
-        common_element('h2', null, _('Friends already using Identi.ca:'));
-        common_element_start("ul");
+        $this->element('h2', null, _('Friends already using Identi.ca:'));
+        $this->elementStart("ul");
 
         foreach ($exclude_ids as $friend) {
-            common_element_start('li');
-            common_element('fb:profile-pic', array('uid' => $friend));
-            common_element('fb:name', array('uid' => $friend,
+            $this->elementStart('li');
+            $this->element('fb:profile-pic', array('uid' => $friend));
+            $this->element('fb:name', array('uid' => $friend,
                                             'capitalize' => 'true'));
-            common_element_end('li');
+            $this->elementEnd('li');
         }
 
-        common_element_end("ul");
+        $this->elementEnd("ul");
 
         $this->show_footer();
 

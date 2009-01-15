@@ -81,34 +81,34 @@ class BlockAction extends Action
 
         common_show_header(_('Block user'));
 
-        common_element('p', null,
+        $this->element('p', null,
                        _('Are you sure you want to block this user? '.
                          'Afterwards, they will be unsubscribed from you, '.
                          'unable to subscribe to you in the future, and '.
                          'you will not be notified of any @-replies from them.'));
 
-        common_element_start('form', array('id' => 'block-' . $id,
+        $this->elementStart('form', array('id' => 'block-' . $id,
                                            'method' => 'post',
                                            'class' => 'block',
                                            'action' => common_local_url('block')));
 
-        common_hidden('token', common_session_token());
+        $this->hidden('token', common_session_token());
 
-        common_element('input', array('id' => 'blockto-' . $id,
+        $this->element('input', array('id' => 'blockto-' . $id,
                                       'name' => 'blockto',
                                       'type' => 'hidden',
                                       'value' => $id));
 
         foreach ($this->args as $k => $v) {
             if (substr($k, 0, 9) == 'returnto-') {
-                common_hidden($k, $v);
+                $this->hidden($k, $v);
             }
         }
 
-        common_submit('no', _('No'));
-        common_submit('yes', _('Yes'));
+        $this->submit('no', _('No'));
+        $this->submit('yes', _('Yes'));
 
-        common_element_end('form');
+        $this->elementEnd('form');
 
         common_show_footer();
     }

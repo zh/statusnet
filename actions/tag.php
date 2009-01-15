@@ -51,7 +51,7 @@ class TagAction extends StreamAction
     function show_header($tag = false)
     {
         if ($tag) {
-            common_element('link', array('rel' => 'alternate',
+            $this->element('link', array('rel' => 'alternate',
                                          'href' => common_local_url('tagrss', array('tag' => $tag)),
                                          'type' => 'application/rss+xml',
                                          'title' => sprintf(_('Feed for tag %s'), $tag)));
@@ -68,9 +68,9 @@ class TagAction extends StreamAction
         if (!$tag) {
             $instr = $this->get_instructions();
             $output = common_markup_to_html($instr);
-            common_element_start('div', 'instructions');
-            common_raw($output);
-            common_element_end('div');
+            $this->elementStart('div', 'instructions');
+            $this->raw($output);
+            $this->elementEnd('div');
             $this->public_views_menu();
         }
         else {
@@ -110,7 +110,7 @@ class TagAction extends StreamAction
         $cnt = $tags->find();
 
         if ($cnt > 0) {
-            common_element_start('p', 'tagcloud');
+            $this->elementStart('p', 'tagcloud');
 
             $tw = array();
             $sum = 0;
@@ -125,7 +125,7 @@ class TagAction extends StreamAction
                 $this->show_tag($tag, $weight, $weight/$sum);
             }
 
-            common_element_end('p');
+            $this->elementEnd('p');
         }
     }
 
@@ -149,10 +149,10 @@ class TagAction extends StreamAction
             $cls = 'smallest';
         }
 
-        common_element('a', array('class' => "$cls weight-$weight relative-$relative",
+        $this->element('a', array('class' => "$cls weight-$weight relative-$relative",
                                   'href' => common_local_url('tag', array('tag' => $tag))),
                        $tag);
-        common_text(' ');
+        $this->text(' ');
     }
 
     function show_notices($tag)

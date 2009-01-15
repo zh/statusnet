@@ -106,22 +106,45 @@ class LoginAction extends Action
 
     function show_form($error=null)
     {
-        common_show_header(_('Login'), null, $error, array($this, 'show_top'));
-        common_element_start('form', array('method' => 'post',
+	$this->error = $error;
+	$this->showPage();
+    }
+
+    function title()
+    {
+	return _('Login');
+    }
+
+    function showPageNotice()
+    {
+        if ($this->error) {
+            $this->element('p', 'error', $this->error);
+        } else {
+            $instr = $this->get_instructions();
+            $output = common_markup_to_html($instr);
+	    $this->elementStart('div', 'instructions');
+            $this->raw($output);
+            $this->elementEnd('div');
+        }
+    }
+    
+    function showContent()
+    {      
+        $this->elementStart('form', array('method' => 'post',
                                            'id' => 'login',
                                            'action' => common_local_url('login')));
-        common_input('nickname', _('Nickname'));
-        common_password('password', _('Password'));
-        common_checkbox('rememberme', _('Remember me'), false,
+        $this->input('nickname', _('Nickname'));
+        $this->password('password', _('Password'));
+        $this->checkbox('rememberme', _('Remember me'), false,
                         _('Automatically login in the future; ' .
                            'not for shared computers!'));
-        common_submit('submit', _('Login'));
-        common_hidden('token', common_session_token());
-        common_element_end('form');
-        common_element_start('p');
-        common_element('a', array('href' => common_local_url('recoverpassword')),
+        $this->submit('submit', _('Login'));
+        $this->hidden('token', common_session_token());
+        $this->elementEnd('form');
+        $this->elementStart('p');
+        $this->element('a', array('href' => common_local_url('recoverpassword')),
                        _('Lost or forgotten password?'));
-        common_element_end('p');
+        $this->elementEnd('p');
         common_show_footer();
     }
 
@@ -146,14 +169,5 @@ class LoginAction extends Action
 
     function show_top($error=null)
     {
-        if ($error) {
-            common_element('p', 'error', $error);
-        } else {
-            $instr = $this->get_instructions();
-            $output = common_markup_to_html($instr);
-            common_element_start('div', 'instructions');
-            common_raw($output);
-            common_element_end('div');
-        }
     }
 }

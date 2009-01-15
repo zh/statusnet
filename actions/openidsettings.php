@@ -39,28 +39,28 @@ class OpenidsettingsAction extends SettingsAction
 
         $this->form_header(_('OpenID settings'), $msg, $success);
 
-        common_element_start('form', array('method' => 'post',
+        $this->elementStart('form', array('method' => 'post',
                                            'id' => 'openidadd',
                                            'action' =>
                                            common_local_url('openidsettings')));
-        common_hidden('token', common_session_token());
-        common_element('h2', null, _('Add OpenID'));
-        common_element('p', null,
+        $this->hidden('token', common_session_token());
+        $this->element('h2', null, _('Add OpenID'));
+        $this->element('p', null,
                        _('If you want to add an OpenID to your account, ' .
                           'enter it in the box below and click "Add".'));
-        common_element_start('p');
-        common_element('label', array('for' => 'openid_url'),
+        $this->elementStart('p');
+        $this->element('label', array('for' => 'openid_url'),
                        _('OpenID URL'));
-        common_element('input', array('name' => 'openid_url',
+        $this->element('input', array('name' => 'openid_url',
                                       'type' => 'text',
                                       'id' => 'openid_url'));
-        common_element('input', array('type' => 'submit',
+        $this->element('input', array('type' => 'submit',
                                       'id' => 'add',
                                       'name' => 'add',
                                       'class' => 'submit',
                                       'value' => _('Add')));
-        common_element_end('p');
-        common_element_end('form');
+        $this->elementEnd('p');
+        $this->elementEnd('form');
 
         $oid = new User_openid();
         $oid->user_id = $user->id;
@@ -69,48 +69,48 @@ class OpenidsettingsAction extends SettingsAction
 
         if ($cnt > 0) {
 
-            common_element('h2', null, _('Remove OpenID'));
+            $this->element('h2', null, _('Remove OpenID'));
 
             if ($cnt == 1 && !$user->password) {
 
-                common_element('p', null,
+                $this->element('p', null,
                                _('Removing your only OpenID would make it impossible to log in! ' .
                                   'If you need to remove it, add another OpenID first.'));
 
                 if ($oid->fetch()) {
-                    common_element_start('p');
-                    common_element('a', array('href' => $oid->canonical),
+                    $this->elementStart('p');
+                    $this->element('a', array('href' => $oid->canonical),
                                    $oid->display);
-                    common_element_end('p');
+                    $this->elementEnd('p');
                 }
 
             } else {
 
-                common_element('p', null,
+                $this->element('p', null,
                                _('You can remove an OpenID from your account '.
                                   'by clicking the button marked "Remove".'));
                 $idx = 0;
 
                 while ($oid->fetch()) {
-                    common_element_start('form', array('method' => 'POST',
+                    $this->elementStart('form', array('method' => 'POST',
                                                        'id' => 'openiddelete' . $idx,
                                                        'action' =>
                                                        common_local_url('openidsettings')));
-                    common_element_start('p');
-                    common_hidden('token', common_session_token());
-                    common_element('a', array('href' => $oid->canonical),
+                    $this->elementStart('p');
+                    $this->hidden('token', common_session_token());
+                    $this->element('a', array('href' => $oid->canonical),
                                    $oid->display);
-                    common_element('input', array('type' => 'hidden',
+                    $this->element('input', array('type' => 'hidden',
                                                   'id' => 'openid_url'.$idx,
                                                   'name' => 'openid_url',
                                                   'value' => $oid->canonical));
-                    common_element('input', array('type' => 'submit',
+                    $this->element('input', array('type' => 'submit',
                                                   'id' => 'remove'.$idx,
                                                   'name' => 'remove',
                                                   'class' => 'submit',
                                                   'value' => _('Remove')));
-                    common_element_end('p');
-                    common_element_end('form');
+                    $this->elementEnd('p');
+                    $this->elementEnd('form');
                     $idx++;
                 }
             }

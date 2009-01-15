@@ -81,10 +81,10 @@ class ShownoticeAction extends StreamAction
                            array($this, 'show_header'), null,
                            array($this, 'show_top'));
 
-        common_element_start('ul', array('id' => 'notices'));
+        $this->elementStart('ul', array('id' => 'notices'));
         $nli = new NoticeListItem($this->notice);
         $nli->show();
-        common_element_end('ul');
+        $this->elementEnd('ul');
 
         common_show_footer();
     }
@@ -99,12 +99,12 @@ class ShownoticeAction extends StreamAction
         }
 
         if ($user->emailmicroid && $user->email && $this->notice->uri) {
-            common_element('meta', array('name' => 'microid',
+            $this->element('meta', array('name' => 'microid',
                                          'content' => "mailto+http:sha1:" . sha1(sha1('mailto:' . $user->email) . sha1($this->notice->uri))));
         }
 
         if ($user->jabbermicroid && $user->jabber && $this->notice->uri) {
-            common_element('meta', array('name' => 'microid',
+            $this->element('meta', array('name' => 'microid',
                                          'content' => "xmpp+http:sha1:" . sha1(sha1('xmpp:' . $user->jabber) . sha1($this->notice->uri))));
         }
     }

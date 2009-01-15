@@ -70,7 +70,7 @@ class TwitapilaconicaAction extends TwitterapiAction
         switch ($apidata['content-type']) {
          case 'xml':
             $this->init_document('xml');
-            common_element('version', null, LACONICA_VERSION);
+            $this->element('version', null, LACONICA_VERSION);
             $this->end_document('xml');
             break;
          case 'json':
@@ -115,10 +115,10 @@ class TwitapilaconicaAction extends TwitterapiAction
         switch ($apidata['content-type']) {
          case 'xml':
             $this->init_document('xml');
-            common_element_start('config');
+            $this->elementStart('config');
             // XXX: check that all sections and settings are legal XML elements
             foreach ($keys as $section => $settings) {
-                common_element_start($section);
+                $this->elementStart($section);
                 foreach ($settings as $setting) {
                     $value = common_config($section, $setting);
                     if (is_array($value)) {
@@ -128,11 +128,11 @@ class TwitapilaconicaAction extends TwitterapiAction
                     } else if ($value === true) {
                         $value = 'true';
                     }
-                    common_element($setting, null, $value);
+                    $this->element($setting, null, $value);
                 }
-                common_element_end($section);
+                $this->elementEnd($section);
             }
-            common_element_end('config');
+            $this->elementEnd('config');
             $this->end_document('xml');
             break;
          case 'json':

@@ -47,14 +47,14 @@ class XrdsAction extends Action
         header('Content-Type: application/xrds+xml');
 
         common_start_xml();
-        common_element_start('XRDS', array('xmlns' => 'xri://$xrds'));
+        $this->elementStart('XRDS', array('xmlns' => 'xri://$xrds'));
 
-        common_element_start('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
+        $this->elementStart('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
                                           'xml:id' => 'oauth',
                                           'xmlns:simple' => 'http://xrds-simple.net/core/1.0',
                                           'version' => '2.0'));
 
-        common_element('Type', null, 'xri://$xrds*simple');
+        $this->element('Type', null, 'xri://$xrds*simple');
 
         $this->show_service(OAUTH_ENDPOINT_REQUEST,
                             common_local_url('requesttoken'),
@@ -77,16 +77,16 @@ class XrdsAction extends Action
                             array(OAUTH_AUTH_HEADER, OAUTH_POST_BODY),
                             array(OAUTH_HMAC_SHA1));
 
-        common_element_end('XRD');
+        $this->elementEnd('XRD');
 
         # XXX: decide whether to include user's ID/nickname in postNotice URL
 
-        common_element_start('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
+        $this->elementStart('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
                                           'xml:id' => 'omb',
                                           'xmlns:simple' => 'http://xrds-simple.net/core/1.0',
                                           'version' => '2.0'));
 
-        common_element('Type', null, 'xri://$xrds*simple');
+        $this->element('Type', null, 'xri://$xrds*simple');
 
         $this->show_service(OMB_ENDPOINT_POSTNOTICE,
                             common_local_url('postnotice'));
@@ -94,44 +94,44 @@ class XrdsAction extends Action
         $this->show_service(OMB_ENDPOINT_UPDATEPROFILE,
                             common_local_url('updateprofile'));
 
-        common_element_end('XRD');
+        $this->elementEnd('XRD');
 
-        common_element_start('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
+        $this->elementStart('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
                                           'version' => '2.0'));
 
-        common_element('Type', null, 'xri://$xrds*simple');
+        $this->element('Type', null, 'xri://$xrds*simple');
 
         $this->show_service(OAUTH_DISCOVERY,
                             '#oauth');
         $this->show_service(OMB_NAMESPACE,
                             '#omb');
 
-        common_element_end('XRD');
+        $this->elementEnd('XRD');
 
-        common_element_end('XRDS');
+        $this->elementEnd('XRDS');
         common_end_xml();
     }
 
     function show_service($type, $uri, $params=null, $sigs=null, $localId=null)
     {
-        common_element_start('Service');
+        $this->elementStart('Service');
         if ($uri) {
-            common_element('URI', null, $uri);
+            $this->element('URI', null, $uri);
         }
-        common_element('Type', null, $type);
+        $this->element('Type', null, $type);
         if ($params) {
             foreach ($params as $param) {
-                common_element('Type', null, $param);
+                $this->element('Type', null, $param);
             }
         }
         if ($sigs) {
             foreach ($sigs as $sig) {
-                common_element('Type', null, $sig);
+                $this->element('Type', null, $sig);
             }
         }
         if ($localId) {
-            common_element('LocalID', null, $localId);
+            $this->element('LocalID', null, $localId);
         }
-        common_element_end('Service');
+        $this->elementEnd('Service');
     }
 }

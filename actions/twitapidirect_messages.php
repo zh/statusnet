@@ -188,7 +188,7 @@ class Twitapidirect_messagesAction extends TwitterapiAction
     {
 
         $this->init_document('xml');
-        common_element_start('direct-messages', array('type' => 'array'));
+        $this->elementStart('direct-messages', array('type' => 'array'));
 
         if (is_array($messages)) {
             foreach ($message as $m) {
@@ -202,7 +202,7 @@ class Twitapidirect_messagesAction extends TwitterapiAction
             }
         }
 
-        common_element_end('direct-messages');
+        $this->elementEnd('direct-messages');
         $this->end_document('xml');
 
     }
@@ -236,13 +236,13 @@ class Twitapidirect_messagesAction extends TwitterapiAction
 
         $this->init_document('rss');
 
-        common_element_start('channel');
-        common_element('title', null, $title);
+        $this->elementStart('channel');
+        $this->element('title', null, $title);
 
-        common_element('link', null, $link);
-        common_element('description', null, $subtitle);
-        common_element('language', null, 'en-us');
-        common_element('ttl', null, '40');
+        $this->element('link', null, $link);
+        $this->element('description', null, $subtitle);
+        $this->element('language', null, 'en-us');
+        $this->element('ttl', null, '40');
 
         if (is_array($message)) {
             foreach ($message as $m) {
@@ -256,7 +256,7 @@ class Twitapidirect_messagesAction extends TwitterapiAction
             }
         }
 
-        common_element_end('channel');
+        $this->elementEnd('channel');
         $this->end_twitter_rss();
 
     }
@@ -266,12 +266,12 @@ class Twitapidirect_messagesAction extends TwitterapiAction
 
         $this->init_document('atom');
 
-        common_element('title', null, $title);
+        $this->element('title', null, $title);
         $siteserver = common_config('site', 'server');
-        common_element('id', null, "tag:$siteserver,2008:DirectMessage");
-        common_element('link', array('href' => $link, 'rel' => 'alternate', 'type' => 'text/html'), null);
-        common_element('updated', null, common_date_iso8601(strftime('%c')));
-        common_element('subtitle', null, $subtitle);
+        $this->element('id', null, "tag:$siteserver,2008:DirectMessage");
+        $this->element('link', array('href' => $link, 'rel' => 'alternate', 'type' => 'text/html'), null);
+        $this->element('updated', null, common_date_iso8601(strftime('%c')));
+        $this->element('subtitle', null, $subtitle);
 
         if (is_array($message)) {
             foreach ($message as $m) {

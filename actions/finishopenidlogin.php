@@ -57,10 +57,10 @@ class FinishopenidloginAction extends Action
     function show_top($error=null)
     {
         if ($error) {
-            common_element('div', array('class' => 'error'), $error);
+            $this->element('div', array('class' => 'error'), $error);
         } else {
             global $config;
-            common_element('div', 'instructions',
+            $this->element('div', 'instructions',
                            sprintf(_('This is the first time you\'ve logged into %s so we must connect your OpenID to a local account. You can either create a new account, or connect with your existing account, if you have one.'), $config['site']['name']));
         }
     }
@@ -70,36 +70,36 @@ class FinishopenidloginAction extends Action
         common_show_header(_('OpenID Account Setup'), null, $error,
                            array($this, 'show_top'));
 
-        common_element_start('form', array('method' => 'post',
+        $this->elementStart('form', array('method' => 'post',
                                            'id' => 'account_connect',
                                            'action' => common_local_url('finishopenidlogin')));
-        common_hidden('token', common_session_token());
-        common_element('h2', null,
+        $this->hidden('token', common_session_token());
+        $this->element('h2', null,
                        _('Create new account'));
-        common_element('p', null,
+        $this->element('p', null,
                        _('Create a new user with this nickname.'));
-        common_input('newname', _('New nickname'),
+        $this->input('newname', _('New nickname'),
                      ($username) ? $username : '',
                      _('1-64 lowercase letters or numbers, no punctuation or spaces'));
-        common_element_start('p');
-        common_element('input', array('type' => 'checkbox',
+        $this->elementStart('p');
+        $this->element('input', array('type' => 'checkbox',
                                       'id' => 'license',
                                       'name' => 'license',
                                       'value' => 'true'));
-        common_text(_('My text and files are available under '));
-        common_element('a', array(href => common_config('license', 'url')),
+        $this->text(_('My text and files are available under '));
+        $this->element('a', array(href => common_config('license', 'url')),
                        common_config('license', 'title'));
-        common_text(_(' except this private data: password, email address, IM address, phone number.'));
-        common_element_end('p');
-        common_submit('create', _('Create'));
-        common_element('h2', null,
+        $this->text(_(' except this private data: password, email address, IM address, phone number.'));
+        $this->elementEnd('p');
+        $this->submit('create', _('Create'));
+        $this->element('h2', null,
                        _('Connect existing account'));
-        common_element('p', null,
+        $this->element('p', null,
                        _('If you already have an account, login with your username and password to connect it to your OpenID.'));
-        common_input('nickname', _('Existing nickname'));
-        common_password('password', _('Password'));
-        common_submit('connect', _('Connect'));
-        common_element_end('form');
+        $this->input('nickname', _('Existing nickname'));
+        $this->password('password', _('Password'));
+        $this->submit('connect', _('Connect'));
+        $this->elementEnd('form');
         common_show_footer();
     }
 
@@ -154,7 +154,7 @@ class FinishopenidloginAction extends Action
     function message($msg)
     {
         common_show_header(_('OpenID Login'));
-        common_element('p', null, $msg);
+        $this->element('p', null, $msg);
         common_show_footer();
     }
 

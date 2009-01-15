@@ -33,83 +33,83 @@ class EmailsettingsAction extends SettingsAction
     {
         $user = common_current_user();
         $this->form_header(_('Email Settings'), $msg, $success);
-        common_element_start('form', array('method' => 'post',
+        $this->elementStart('form', array('method' => 'post',
                                            'id' => 'emailsettings',
                                            'action' =>
                                            common_local_url('emailsettings')));
-        common_hidden('token', common_session_token());
+        $this->hidden('token', common_session_token());
 
-        common_element('h2', null, _('Address'));
+        $this->element('h2', null, _('Address'));
 
         if ($user->email) {
-            common_element_start('p');
-            common_element('span', 'address confirmed', $user->email);
-            common_element('span', 'input_instructions',
+            $this->elementStart('p');
+            $this->element('span', 'address confirmed', $user->email);
+            $this->element('span', 'input_instructions',
                            _('Current confirmed email address.'));
-            common_hidden('email', $user->email);
-            common_element_end('p');
-            common_submit('remove', _('Remove'));
+            $this->hidden('email', $user->email);
+            $this->elementEnd('p');
+            $this->submit('remove', _('Remove'));
         } else {
             $confirm = $this->get_confirmation();
             if ($confirm) {
-                common_element_start('p');
-                common_element('span', 'address unconfirmed', $confirm->address);
-                common_element('span', 'input_instructions',
+                $this->elementStart('p');
+                $this->element('span', 'address unconfirmed', $confirm->address);
+                $this->element('span', 'input_instructions',
                                _('Awaiting confirmation on this address. Check your inbox (and spam box!) for a message with further instructions.'));
-                common_hidden('email', $confirm->address);
-                common_element_end('p');
-                common_submit('cancel', _('Cancel'));
+                $this->hidden('email', $confirm->address);
+                $this->elementEnd('p');
+                $this->submit('cancel', _('Cancel'));
             } else {
-                common_input('email', _('Email Address'),
+                $this->input('email', _('Email Address'),
                              ($this->arg('email')) ? $this->arg('email') : null,
                              _('Email address, like "UserName@example.org"'));
-                common_submit('add', _('Add'));
+                $this->submit('add', _('Add'));
             }
         }
 
         if ($user->email) {
-            common_element('h2', null, _('Incoming email'));
+            $this->element('h2', null, _('Incoming email'));
             
             if ($user->incomingemail) {
-                common_element_start('p');
-                common_element('span', 'address', $user->incomingemail);
-                common_element('span', 'input_instructions',
+                $this->elementStart('p');
+                $this->element('span', 'address', $user->incomingemail);
+                $this->element('span', 'input_instructions',
                                _('Send email to this address to post new notices.'));
-                common_element_end('p');
-                common_submit('removeincoming', _('Remove'));
+                $this->elementEnd('p');
+                $this->submit('removeincoming', _('Remove'));
             }
             
-            common_element_start('p');
-            common_element('span', 'input_instructions',
+            $this->elementStart('p');
+            $this->element('span', 'input_instructions',
                            _('Make a new email address for posting to; cancels the old one.'));
-            common_element_end('p');
-            common_submit('newincoming', _('New'));
+            $this->elementEnd('p');
+            $this->submit('newincoming', _('New'));
         }
         
-        common_element('h2', null, _('Preferences'));
+        $this->element('h2', null, _('Preferences'));
 
-        common_checkbox('emailnotifysub',
+        $this->checkbox('emailnotifysub',
                         _('Send me notices of new subscriptions through email.'),
                         $user->emailnotifysub);
-        common_checkbox('emailnotifyfav',
+        $this->checkbox('emailnotifyfav',
                         _('Send me email when someone adds my notice as a favorite.'),
                         $user->emailnotifyfav);
-        common_checkbox('emailnotifymsg',
+        $this->checkbox('emailnotifymsg',
                         _('Send me email when someone sends me a private message.'),
                         $user->emailnotifymsg);
-        common_checkbox('emailnotifynudge',
+        $this->checkbox('emailnotifynudge',
                         _('Allow friends to nudge me and send me an email.'),
                         $user->emailnotifynudge);
-        common_checkbox('emailpost',
+        $this->checkbox('emailpost',
                         _('I want to post notices by email.'),
                         $user->emailpost);
-        common_checkbox('emailmicroid',
+        $this->checkbox('emailmicroid',
                         _('Publish a MicroID for my email address.'),
                         $user->emailmicroid);
 
-        common_submit('save', _('Save'));
+        $this->submit('save', _('Save'));
         
-        common_element_end('form');
+        $this->elementEnd('form');
         common_show_footer();
     }
 

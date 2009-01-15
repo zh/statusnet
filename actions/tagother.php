@@ -61,7 +61,7 @@ class TagotherAction extends Action
 
         $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
 
-        common_element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_PROFILE_SIZE),
+        $this->element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_PROFILE_SIZE),
                                     'class' => 'avatar stream',
                                     'width' => AVATAR_PROFILE_SIZE,
                                     'height' => AVATAR_PROFILE_SIZE,
@@ -69,39 +69,39 @@ class TagotherAction extends Action
                                     ($profile->fullname) ? $profile->fullname :
                                     $profile->nickname));
 
-        common_element('a', array('href' => $profile->profileurl,
+        $this->element('a', array('href' => $profile->profileurl,
                                   'class' => 'external profile nickname'),
                        $profile->nickname);
 
         if ($profile->fullname) {
-            common_element_start('div', 'fullname');
+            $this->elementStart('div', 'fullname');
             if ($profile->homepage) {
-                common_element('a', array('href' => $profile->homepage),
+                $this->element('a', array('href' => $profile->homepage),
                                $profile->fullname);
             } else {
-                common_text($profile->fullname);
+                $this->text($profile->fullname);
             }
-            common_element_end('div');
+            $this->elementEnd('div');
         }
         if ($profile->location) {
-            common_element('div', 'location', $profile->location);
+            $this->element('div', 'location', $profile->location);
         }
         if ($profile->bio) {
-            common_element('div', 'bio', $profile->bio);
+            $this->element('div', 'bio', $profile->bio);
         }
 
-        common_element_start('form', array('method' => 'post',
+        $this->elementStart('form', array('method' => 'post',
                                            'id' => 'tag_user',
                                            'name' => 'tagother',
                                            'action' => $this->self_url()));
-        common_hidden('token', common_session_token());
-        common_hidden('id', $profile->id);
-        common_input('tags', _('Tags'),
+        $this->hidden('token', common_session_token());
+        $this->hidden('id', $profile->id);
+        $this->input('tags', _('Tags'),
                      ($this->arg('tags')) ? $this->arg('tags') : implode(' ', Profile_tag::getTags($user->id, $profile->id)),
                      _('Tags for this user (letters, numbers, -, ., and _), comma- or space- separated'));
 
-        common_submit('save', _('Save'));
-        common_element_end('form');
+        $this->submit('save', _('Save'));
+        $this->elementEnd('form');
         common_show_footer();
 
     }
@@ -162,20 +162,20 @@ class TagotherAction extends Action
 
         if ($this->boolean('ajax')) {
             common_start_html('text/xml');
-            common_element_start('head');
-            common_element('title', null, _('Tags'));
-            common_element_end('head');
-            common_element_start('body');
-            common_element_start('p', 'subtags');
+            $this->elementStart('head');
+            $this->element('title', null, _('Tags'));
+            $this->elementEnd('head');
+            $this->elementStart('body');
+            $this->elementStart('p', 'subtags');
             foreach ($tags as $tag) {
-                common_element('a', array('href' => common_local_url($action,
+                $this->element('a', array('href' => common_local_url($action,
                                                                      array('nickname' => $user->nickname,
                                                                            'tag' => $tag))),
                                $tag);
             }
-            common_element_end('p');
-            common_element_end('body');
-            common_element_end('html');
+            $this->elementEnd('p');
+            $this->elementEnd('body');
+            $this->elementEnd('html');
         } else {
             common_redirect(common_local_url($action, array('nickname' =>
                                                             $user->nickname)));
@@ -186,12 +186,12 @@ class TagotherAction extends Action
     {
         list($profile, $error) = $arr;
         if ($error) {
-            common_element('p', 'error', $error);
+            $this->element('p', 'error', $error);
         } else {
-            common_element_start('div', 'instructions');
-            common_element('p', null,
+            $this->elementStart('div', 'instructions');
+            $this->element('p', null,
                            _('Use this form to add tags to your subscribers or subscriptions.'));
-            common_element_end('div');
+            $this->elementEnd('div');
         }
     }
 }

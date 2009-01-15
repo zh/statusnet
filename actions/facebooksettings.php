@@ -68,43 +68,43 @@ class FacebooksettingsAction extends FacebookAction
 
         $this->show_header('Settings', $msg, $success);
 
-        common_element_start('fb:if-section-not-added', array('section' => 'profile'));
-        common_element('h2', null, _('Add an Identi.ca box to my profile'));
-        common_element_start('p');
-        common_element('fb:add-section-button', array('section' => 'profile'));
-        common_element_end('p');
+        $this->elementStart('fb:if-section-not-added', array('section' => 'profile'));
+        $this->element('h2', null, _('Add an Identi.ca box to my profile'));
+        $this->elementStart('p');
+        $this->element('fb:add-section-button', array('section' => 'profile'));
+        $this->elementEnd('p');
 
-        common_element_end('fb:if-section-not-added');
-        common_element_start('p');
-        common_element_start('fb:prompt-permission', array('perms' => 'status_update'));
-        common_element('h2', null, _('Allow Identi.ca to update my Facebook status'));
-        common_element_end('fb:prompt-permission');
-        common_element_end('p');
+        $this->elementEnd('fb:if-section-not-added');
+        $this->elementStart('p');
+        $this->elementStart('fb:prompt-permission', array('perms' => 'status_update'));
+        $this->element('h2', null, _('Allow Identi.ca to update my Facebook status'));
+        $this->elementEnd('fb:prompt-permission');
+        $this->elementEnd('p');
 
         if ($facebook->api_client->users_hasAppPermission('status_update')) {
 
-            common_element_start('form', array('method' => 'post',
+            $this->elementStart('form', array('method' => 'post',
                                                'id' => 'facebook_settings'));
 
-            common_element('h2', null, _('Sync preferences'));
+            $this->element('h2', null, _('Sync preferences'));
 
-            common_checkbox('noticesync', _('Automatically update my Facebook status with my notices.'),
+            $this->checkbox('noticesync', _('Automatically update my Facebook status with my notices.'),
                                 ($flink) ? ($flink->noticesync & FOREIGN_NOTICE_SEND) : true);
 
-            common_checkbox('replysync', _('Send local "@" replies to Facebook.'),
+            $this->checkbox('replysync', _('Send local "@" replies to Facebook.'),
                              ($flink) ? ($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) : true);
 
-            // function common_input($id, $label, $value=null,$instructions=null)
+            // function $this->input($id, $label, $value=null,$instructions=null)
 
             $prefix = $facebook->api_client->data_getUserPreference(1);
             
 
-            common_input('prefix', _('Prefix'),
+            $this->input('prefix', _('Prefix'),
                          ($prefix) ? $prefix : null,
                          _('A string to prefix notices with.'));
-            common_submit('save', _('Save'));
+            $this->submit('save', _('Save'));
 
-            common_element_end('form');
+            $this->elementEnd('form');
 
         }
 

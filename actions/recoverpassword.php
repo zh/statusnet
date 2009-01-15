@@ -141,24 +141,24 @@ class RecoverpasswordAction extends Action
     function show_top($msg=null)
     {
         if ($msg) {
-            common_element('div', 'error', $msg);
+            $this->element('div', 'error', $msg);
         } else {
-            common_element_start('div', 'instructions');
-            common_element('p', null, 
+            $this->elementStart('div', 'instructions');
+            $this->element('p', null, 
                            _('If you\'ve forgotten or lost your' .
                               ' password, you can get a new one sent to' .
                               ' the email address you have stored ' .
                               ' in your account.'));
-            common_element_end('div');
+            $this->elementEnd('div');
         }
     }
 
     function show_password_top($msg=null)
     {
         if ($msg) {
-            common_element('div', 'error', $msg);
+            $this->element('div', 'error', $msg);
         } else {
-            common_element('div', 'instructions',
+            $this->element('div', 'instructions',
                            _('You\'ve been identified. Enter a ' .
                               ' new password below. '));
         }
@@ -170,15 +170,15 @@ class RecoverpasswordAction extends Action
         common_show_header(_('Recover password'), null,
         $msg, array($this, 'show_top'));
 
-        common_element_start('form', array('method' => 'post',
+        $this->elementStart('form', array('method' => 'post',
                                            'id' => 'recoverpassword',
                                            'action' => common_local_url('recoverpassword')));
-        common_input('nicknameoremail', _('Nickname or email'),
+        $this->input('nicknameoremail', _('Nickname or email'),
                      $this->trimmed('nicknameoremail'),
                      _('Your nickname on this server, ' .
                         'or your registered email address.'));
-        common_submit('recover', _('Recover'));
-        common_element_end('form');
+        $this->submit('recover', _('Recover'));
+        $this->elementEnd('form');
         common_show_footer();
     }
 
@@ -188,16 +188,16 @@ class RecoverpasswordAction extends Action
         common_show_header(_('Reset password'), null,
         $msg, array($this, 'show_password_top'));
 
-        common_element_start('form', array('method' => 'post',
+        $this->elementStart('form', array('method' => 'post',
                                            'id' => 'recoverpassword',
                                            'action' => common_local_url('recoverpassword')));
-        common_hidden('token', common_session_token());
-        common_password('newpassword', _('New password'),
+        $this->hidden('token', common_session_token());
+        $this->password('newpassword', _('New password'),
                         _('6 or more characters, and don\'t forget it!'));
-        common_password('confirm', _('Confirm'),
+        $this->password('confirm', _('Confirm'),
                         _('Same as password above'));
-        common_submit('reset', _('Reset'));
-        common_element_end('form');
+        $this->submit('reset', _('Reset'));
+        $this->elementEnd('form');
         common_show_footer();
     }
 
@@ -278,7 +278,7 @@ class RecoverpasswordAction extends Action
         mail_to_user($user, _('Password recovery requested'), $body, $confirm->address);
 
         common_show_header(_('Password recovery requested'));
-        common_element('p', null,
+        $this->element('p', null,
                        _('Instructions for recovering your password ' .
                           'have been sent to the email address registered to your ' .
                           'account.'));
@@ -336,7 +336,7 @@ class RecoverpasswordAction extends Action
         common_real_login(true);
 
         common_show_header(_('Password saved.'));
-        common_element('p', null, _('New password successfully saved. ' .
+        $this->element('p', null, _('New password successfully saved. ' .
                                      'You are now logged in.'));
         common_show_footer();
     }

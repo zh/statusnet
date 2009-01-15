@@ -34,57 +34,57 @@ class ImsettingsAction extends SettingsAction
     {
         $user = common_current_user();
         $this->form_header(_('IM Settings'), $msg, $success);
-        common_element_start('form', array('method' => 'post',
+        $this->elementStart('form', array('method' => 'post',
                                            'id' => 'imsettings',
                                            'action' =>
                                            common_local_url('imsettings')));
-        common_hidden('token', common_session_token());
+        $this->hidden('token', common_session_token());
 
-        common_element('h2', null, _('Address'));
+        $this->element('h2', null, _('Address'));
 
         if ($user->jabber) {
-            common_element_start('p');
-            common_element('span', 'address confirmed', $user->jabber);
-            common_element('span', 'input_instructions',
+            $this->elementStart('p');
+            $this->element('span', 'address confirmed', $user->jabber);
+            $this->element('span', 'input_instructions',
                            _('Current confirmed Jabber/GTalk address.'));
-            common_hidden('jabber', $user->jabber);
-            common_element_end('p');
-            common_submit('remove', _('Remove'));
+            $this->hidden('jabber', $user->jabber);
+            $this->elementEnd('p');
+            $this->submit('remove', _('Remove'));
         } else {
             $confirm = $this->get_confirmation();
             if ($confirm) {
-                common_element_start('p');
-                common_element('span', 'address unconfirmed', $confirm->address);
-                common_element('span', 'input_instructions',
+                $this->elementStart('p');
+                $this->element('span', 'address unconfirmed', $confirm->address);
+                $this->element('span', 'input_instructions',
                                 sprintf(_('Awaiting confirmation on this address. Check your Jabber/GTalk account for a message with further instructions. (Did you add %s to your buddy list?)'), jabber_daemon_address()));
-                common_hidden('jabber', $confirm->address);
-                common_element_end('p');
-                common_submit('cancel', _('Cancel'));
+                $this->hidden('jabber', $confirm->address);
+                $this->elementEnd('p');
+                $this->submit('cancel', _('Cancel'));
             } else {
-                common_input('jabber', _('IM Address'),
+                $this->input('jabber', _('IM Address'),
                              ($this->arg('jabber')) ? $this->arg('jabber') : null,
                          sprintf(_('Jabber or GTalk address, like "UserName@example.org". First, make sure to add %s to your buddy list in your IM client or on GTalk.'), jabber_daemon_address()));
-                common_submit('add', _('Add'));
+                $this->submit('add', _('Add'));
             }
         }
 
-        common_element('h2', null, _('Preferences'));
+        $this->element('h2', null, _('Preferences'));
 
-        common_checkbox('jabbernotify',
+        $this->checkbox('jabbernotify',
                         _('Send me notices through Jabber/GTalk.'),
                         $user->jabbernotify);
-        common_checkbox('updatefrompresence',
+        $this->checkbox('updatefrompresence',
                         _('Post a notice when my Jabber/GTalk status changes.'),
                         $user->updatefrompresence);
-        common_checkbox('jabberreplies',
+        $this->checkbox('jabberreplies',
                         _('Send me replies through Jabber/GTalk from people I\'m not subscribed to.'),
                         $user->jabberreplies);
-        common_checkbox('jabbermicroid',
+        $this->checkbox('jabbermicroid',
                         _('Publish a MicroID for my Jabber/GTalk address.'),
                         $user->jabbermicroid);
-        common_submit('save', _('Save'));
+        $this->submit('save', _('Save'));
 
-        common_element_end('form');
+        $this->elementEnd('form');
         common_show_footer();
     }
 

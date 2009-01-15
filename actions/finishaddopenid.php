@@ -101,7 +101,7 @@ class FinishaddopenidAction extends Action
     function message($msg)
     {
         common_show_header(_('OpenID Login'));
-        common_element('p', null, $msg);
+        $this->element('p', null, $msg);
         common_show_footer();
     }
 }

@@ -34,75 +34,75 @@ class SmssettingsAction extends EmailsettingsAction
     {
         $user = common_current_user();
         $this->form_header(_('SMS Settings'), $msg, $success);
-        common_element_start('form', array('method' => 'post',
+        $this->elementStart('form', array('method' => 'post',
                                            'id' => 'smssettings',
                                            'action' =>
                                            common_local_url('smssettings')));
-        common_hidden('token', common_session_token());
-        common_element('h2', null, _('Address'));
+        $this->hidden('token', common_session_token());
+        $this->element('h2', null, _('Address'));
 
         if ($user->sms) {
-            common_element_start('p');
+            $this->elementStart('p');
             $carrier = $user->getCarrier();
-            common_element('span', 'address confirmed', $user->sms . ' (' . $carrier->name . ')');
-            common_element('span', 'input_instructions',
+            $this->element('span', 'address confirmed', $user->sms . ' (' . $carrier->name . ')');
+            $this->element('span', 'input_instructions',
                            _('Current confirmed SMS-enabled phone number.'));
-            common_hidden('sms', $user->sms);
-            common_hidden('carrier', $user->carrier);
-            common_element_end('p');
-            common_submit('remove', _('Remove'));
+            $this->hidden('sms', $user->sms);
+            $this->hidden('carrier', $user->carrier);
+            $this->elementEnd('p');
+            $this->submit('remove', _('Remove'));
         } else {
             $confirm = $this->get_confirmation();
             if ($confirm) {
                 $carrier = Sms_carrier::staticGet($confirm->address_extra);
-                common_element_start('p');
-                common_element('span', 'address unconfirmed', $confirm->address . ' (' . $carrier->name . ')');
-                common_element('span', 'input_instructions',
+                $this->elementStart('p');
+                $this->element('span', 'address unconfirmed', $confirm->address . ' (' . $carrier->name . ')');
+                $this->element('span', 'input_instructions',
                                _('Awaiting confirmation on this phone number.'));
-                common_hidden('sms', $confirm->address);
-                common_hidden('carrier', $confirm->address_extra);
-                common_element_end('p');
-                common_submit('cancel', _('Cancel'));
-                common_input('code', _('Confirmation code'), null,
+                $this->hidden('sms', $confirm->address);
+                $this->hidden('carrier', $confirm->address_extra);
+                $this->elementEnd('p');
+                $this->submit('cancel', _('Cancel'));
+                $this->input('code', _('Confirmation code'), null,
                              _('Enter the code you received on your phone.'));
-                common_submit('confirm', _('Confirm'));
+                $this->submit('confirm', _('Confirm'));
             } else {
-                common_input('sms', _('SMS Phone number'),
+                $this->input('sms', _('SMS Phone number'),
                              ($this->arg('sms')) ? $this->arg('sms') : null,
                              _('Phone number, no punctuation or spaces, with area code'));
                 $this->carrier_select();
-                common_submit('add', _('Add'));
+                $this->submit('add', _('Add'));
             }
         }
 
         if ($user->sms) {
-            common_element('h2', null, _('Incoming email'));
+            $this->element('h2', null, _('Incoming email'));
             
             if ($user->incomingemail) {
-                common_element_start('p');
-                common_element('span', 'address', $user->incomingemail);
-                common_element('span', 'input_instructions',
+                $this->elementStart('p');
+                $this->element('span', 'address', $user->incomingemail);
+                $this->element('span', 'input_instructions',
                                _('Send email to this address to post new notices.'));
-                common_element_end('p');
-                common_submit('removeincoming', _('Remove'));
+                $this->elementEnd('p');
+                $this->submit('removeincoming', _('Remove'));
             }
             
-            common_element_start('p');
-            common_element('span', 'input_instructions',
+            $this->elementStart('p');
+            $this->element('span', 'input_instructions',
                            _('Make a new email address for posting to; cancels the old one.'));
-            common_element_end('p');
-            common_submit('newincoming', _('New'));
+            $this->elementEnd('p');
+            $this->submit('newincoming', _('New'));
         }
         
-        common_element('h2', null, _('Preferences'));
+        $this->element('h2', null, _('Preferences'));
         
-        common_checkbox('smsnotify',
+        $this->checkbox('smsnotify',
                         _('Send me notices through SMS; I understand I may incur exorbitant charges from my carrier.'),
                         $user->smsnotify);
             
-        common_submit('save', _('Save'));
+        $this->submit('save', _('Save'));
         
-        common_element_end('form');
+        $this->elementEnd('form');
         common_show_footer();
     }
 
@@ -307,19 +307,19 @@ class SmssettingsAction extends EmailsettingsAction
         $carrier = new Sms_carrier();
         $cnt = $carrier->find();
 
-        common_element_start('p');
-        common_element('label', array('for' => 'carrier'));
-        common_element_start('select', array('name' => 'carrier',
+        $this->elementStart('p');
+        $this->element('label', array('for' => 'carrier'));
+        $this->elementStart('select', array('name' => 'carrier',
                                              'id' => 'carrier'));
-        common_element('option', array('value' => 0),
+        $this->element('option', array('value' => 0),
                        _('Select a carrier'));
         while ($carrier->fetch()) {
-            common_element('option', array('value' => $carrier->id),
+            $this->element('option', array('value' => $carrier->id),
                            $carrier->name);
         }
-        common_element_end('select');
-        common_element_end('p');
-        common_element('span', 'input_instructions',
+        $this->elementEnd('select');
+        $this->elementEnd('p');
+        $this->element('span', 'input_instructions',
                        sprintf(_('Mobile carrier for your phone. '.
                                  'If you know a carrier that accepts ' . 
                                  'SMS over email but isn\'t listed here, ' .

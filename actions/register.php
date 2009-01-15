@@ -155,16 +155,16 @@ class RegisterAction extends Action
     function show_top($error=null)
     {
         if ($error) {
-            common_element('p', 'error', $error);
+            $this->element('p', 'error', $error);
         } else {
             $instr = common_markup_to_html(_('With this form you can create a new account. ' .
                                              'You can then post notices and link up to friends and colleagues. '.
                                              '(Have an [OpenID](http://openid.net/)? ' .
                                              'Try our [OpenID registration](%%action.openidlogin%%)!)'));
 
-            common_element_start('div', 'instructions');
-            common_raw($instr);
-            common_element_end('div');
+            $this->elementStart('div', 'instructions');
+            $this->raw($instr);
+            $this->elementEnd('div');
         }
     }
 
@@ -184,45 +184,45 @@ class RegisterAction extends Action
         }
 
         common_show_header(_('Register'), null, $error, array($this, 'show_top'));
-        common_element_start('form', array('method' => 'post',
+        $this->elementStart('form', array('method' => 'post',
                                            'id' => 'login',
                                            'action' => common_local_url('register')));
 
-        common_hidden('token', common_session_token());
+        $this->hidden('token', common_session_token());
 
         if ($code) {
-            common_hidden('code', $code);
+            $this->hidden('code', $code);
         }
 
-        common_input('nickname', _('Nickname'), $this->trimmed('nickname'),
+        $this->input('nickname', _('Nickname'), $this->trimmed('nickname'),
                      _('1-64 lowercase letters or numbers, no punctuation or spaces. Required.'));
-        common_password('password', _('Password'),
+        $this->password('password', _('Password'),
                         _('6 or more characters. Required.'));
-        common_password('confirm', _('Confirm'),
+        $this->password('confirm', _('Confirm'),
                         _('Same as password above. Required.'));
         if ($invite && $invite->address_type == 'email') {
-            common_input('email', _('Email'), $invite->address,
+            $this->input('email', _('Email'), $invite->address,
                      _('Used only for updates, announcements, and password recovery'));
         } else {
-            common_input('email', _('Email'), $this->trimmed('email'),
+            $this->input('email', _('Email'), $this->trimmed('email'),
                          _('Used only for updates, announcements, and password recovery'));
         }
-        common_input('fullname', _('Full name'),
+        $this->input('fullname', _('Full name'),
                      $this->trimmed('fullname'),
                       _('Longer name, preferably your "real" name'));
-        common_input('homepage', _('Homepage'),
+        $this->input('homepage', _('Homepage'),
                      $this->trimmed('homepage'),
                      _('URL of your homepage, blog, or profile on another site'));
-        common_textarea('bio', _('Bio'),
+        $this->textarea('bio', _('Bio'),
                         $this->trimmed('bio'),
                          _('Describe yourself and your interests in 140 chars'));
-        common_input('location', _('Location'),
+        $this->input('location', _('Location'),
                      $this->trimmed('location'),
                      _('Where you are, like "City, State (or Region), Country"'));
-        common_checkbox('rememberme', _('Remember me'),
+        $this->checkbox('rememberme', _('Remember me'),
                         $this->boolean('rememberme'),
                         _('Automatically login in the future; not for shared computers!'));
-        common_element_start('p');
+        $this->elementStart('p');
         $attrs = array('type' => 'checkbox',
                        'id' => 'license',
                        'name' => 'license',
@@ -230,14 +230,14 @@ class RegisterAction extends Action
         if ($this->boolean('license')) {
             $attrs['checked'] = 'checked';
         }
-        common_element('input', $attrs);
-        common_text(_('My text and files are available under '));
-        common_element('a', array('href' => $config['license']['url']),
+        $this->element('input', $attrs);
+        $this->text(_('My text and files are available under '));
+        $this->element('a', array('href' => $config['license']['url']),
                        $config['license']['title']);
-        common_text(_(' except this private data: password, email address, IM address, phone number.'));
-        common_element_end('p');
-        common_submit('submit', _('Register'));
-        common_element_end('form');
+        $this->text(_(' except this private data: password, email address, IM address, phone number.'));
+        $this->elementEnd('p');
+        $this->submit('submit', _('Register'));
+        $this->elementEnd('form');
         common_show_footer();
     }
 
@@ -245,7 +245,7 @@ class RegisterAction extends Action
     {
         $nickname = $this->arg('nickname');
         common_show_header(_('Registration successful'));
-        common_element_start('div', 'success');
+        $this->elementStart('div', 'success');
         $instr = sprintf(_('Congratulations, %s! And welcome to %%%%site.name%%%%. From here, you may want to...'. "\n\n" .
                            '* Go to [your profile](%s) and post your first message.' .  "\n" .
                            '* Add a [Jabber/GTalk address](%%%%action.imsettings%%%%) so you can send notices through instant messages.' . "\n" .
@@ -254,14 +254,14 @@ class RegisterAction extends Action
                            '* Read over the [online docs](%%%%doc.help%%%%) for features you may have missed. ' . "\n\n" .
                            'Thanks for signing up and we hope you enjoy using this service.'),
                          $nickname, common_local_url('showstream', array('nickname' => $nickname)));
-        common_raw(common_markup_to_html($instr));
+        $this->raw(common_markup_to_html($instr));
         $have_email = $this->trimmed('email');
         if ($have_email) {
             $emailinstr = _('(You should receive a message by email momentarily, with ' .
                             'instructions on how to confirm your email address.)');
-            common_raw(common_markup_to_html($emailinstr));
+            $this->raw(common_markup_to_html($emailinstr));
         }
-        common_element_end('div');
+        $this->elementEnd('div');
         common_show_footer();
     }
 

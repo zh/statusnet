@@ -62,7 +62,7 @@ class RepliesAction extends StreamAction
 
     function show_header($user)
     {
-        common_element('link', array('rel' => 'alternate',
+        $this->element('link', array('rel' => 'alternate',
                                      'href' => common_local_url('repliesrss', array('nickname' =>
                                                                                     $user->nickname)),
                                      'type' => 'application/rss+xml',
