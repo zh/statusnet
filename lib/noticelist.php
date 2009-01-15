@@ -389,11 +389,15 @@ class NoticeListItem
         if ($this->notice->reply_to) {
             $replyurl = common_local_url('shownotice',
                                          array('notice' => $this->notice->reply_to));
-            common_text(' (');
-            common_element('a', array('class' => 'inreplyto',
+            $this->elementStart('dl', 'response');
+            $this->element('dt', null, _('To'));
+            $this->elementStart('dd');
+            $this->element('a', array('class' => 'inreplyto',
                                       'href' => $replyurl),
-                           _('in reply to...'));
-            common_text(')');
+                                      'rel' => 'in-reply-to',
+                           _('in reply to'));
+            $this->elementEnd('dd');
+            $this->elementEnd('dl');
         }
     }
 
