@@ -58,8 +58,21 @@ class Action extends HTMLOutputter // lawsuit
 {
     var $args;
 
-    function Action()
+    /**
+     * Constructor
+     *
+     * Just wraps the HTMLOutputter constructor.
+     *
+     * @param string  $output URI to output to, default = stdout
+     * @param boolean $indent Whether to indent output, default true
+     *
+     * @see XMLOutputter::__construct
+     * @see HTMLOutputter::__construct
+     */
+
+    function __construct($output='php://output', $indent=true)
     {
+        parent::__construct($output, $indent);
     }
 
     // For initializing members of the class
@@ -81,7 +94,7 @@ class Action extends HTMLOutputter // lawsuit
     function showHead()
     {
         // XXX: attributes (profile?)
-        $this->startElement('head');
+        $this->elementStart('head');
         $this->showTitle();
         $this->showStylesheets();
         $this->showScripts();
@@ -89,7 +102,7 @@ class Action extends HTMLOutputter // lawsuit
         $this->showFeeds();
         $this->showDescription();
         $this->extraHead();
-        $this->elementElement('head');
+        $this->elementEnd('head');
     }
 
     function showTitle()

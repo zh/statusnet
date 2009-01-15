@@ -122,7 +122,6 @@ class HTMLOutputter extends XMLOutputter
                                           'lang' => $language));
     }
 
-
     /**
     *  Ends an HTML document
     *
@@ -133,7 +132,6 @@ class HTMLOutputter extends XMLOutputter
         $this->elementEnd('html');
         $this->endXML();
     }
-
 
     /**
      * Output an HTML text input element
