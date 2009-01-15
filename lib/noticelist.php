@@ -191,7 +191,8 @@ class NoticeListItem
     function showStart()
     {
         // XXX: RDFa
-        common_element_start('li', array('class' => 'notice_single hentry',
+        // TODO: add notice_type class e.g., notice_video, notice_image
+        common_element_start('li', array('class' => 'hentry notice',
                                          'id' => 'notice-' . $this->notice->id));
     }
 
@@ -224,8 +225,11 @@ class NoticeListItem
     function showAuthor()
     {
         common_element_start('span', 'vcard author');
+        common_element_start('a', array('href' => $this->profile->profileurl),
+                                        'class' => 'url');
         $this->showAvatar();
         $this->showNickname();
+        common_element_end('a');
         common_element_end('span');
     }
 
@@ -241,18 +245,17 @@ class NoticeListItem
     function showAvatar()
     {
         $avatar = $this->profile->getAvatar(AVATAR_STREAM_SIZE);
-        common_element_start('a', array('href' => $this->profile->profileurl));
+
         common_element('img', array('src' => ($avatar) ?
                                     common_avatar_display_url($avatar) :
                                     common_default_avatar(AVATAR_STREAM_SIZE),
-                                    'class' => 'avatar stream photo',
+                                    'class' => 'avatar photo',
                                     'width' => AVATAR_STREAM_SIZE,
                                     'height' => AVATAR_STREAM_SIZE,
                                     'alt' =>
                                     ($this->profile->fullname) ?
                                     $this->profile->fullname :
                                     $this->profile->nickname));
-        common_element_end('a');
     }
 
     /**
@@ -265,8 +268,7 @@ class NoticeListItem
 
     function showNickname()
     {
-        common_element('a', array('href' => $this->profile->profileurl,
-                                  'class' => 'nickname fn url'),
+        common_element('span', array('class' => 'nickname fn'),
                        $this->profile->nickname);
     }
 
