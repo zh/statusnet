@@ -53,7 +53,7 @@ require_once INSTALLDIR.'/lib/widget.php';
  * @see      HTMLOutputter
  */
 
-class PublicGroupNav
+class PublicGroupNav extends Widget
 {
     var $action = null;
 
@@ -79,18 +79,18 @@ class PublicGroupNav
     {
         $this->action->elementStart('ul', array('class' => 'nav'));
 
-        $this->menuItem(common_local_url('public'), _('Public'),
+        $this->out->menuItem(common_local_url('public'), _('Public'),
             _('Public timeline'), $this->action == 'public');
 
-        $this->menuItem(common_local_url('tag'), _('Recent tags'),
+        $this->out->menuItem(common_local_url('tag'), _('Recent tags'),
             _('Recent tags'), $this->action == 'tag');
 
         if (count(common_config('nickname', 'featured')) > 0) {
-            $this->menuItem(common_local_url('featured'), _('Featured'),
+            $this->out->menuItem(common_local_url('featured'), _('Featured'),
                 _('Featured users'), $this->action == 'featured');
         }
 
-        $this->menuItem(common_local_url('favorited'), _('Popular'),
+        $this->out->menuItem(common_local_url('favorited'), _('Popular'),
             _("Popular notices"), $this->action == 'favorited');
 
         $this->action->elementEnd('ul');
