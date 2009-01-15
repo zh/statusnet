@@ -31,6 +31,8 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
+require_once INSTALLDIR.'/lib/publicgroupnav.php';
+
 /**
  * Action for displaying the public stream
  *
