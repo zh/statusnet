@@ -193,7 +193,7 @@ class Action extends HTMLOutputter // lawsuit
 
     function showBody()
     {
-        $this->elementStart('body');
+        $this->elementStart('body', array('id' => $this->trimmed('action')));
         $this->elementStart('div', 'wrap');
         $this->showHeader();
         $this->showCore();
