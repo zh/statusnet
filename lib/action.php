@@ -436,16 +436,16 @@ class Action extends HTMLOutputter // lawsuit
         $this->element('dt', array('id' => 'site_content_license'), _('Laconica software license'));
         $this->elementStart('dd', array('id' => 'site_content_license_cc'));
         $this->elementStart('p');
-        $this->text(_('Unless otherwise specified, contents of this site are copyright by the contributors and available under the '));
+        $this->element('img', array('id' => 'license_cc',
+                                    'src' => common_config('license', 'image'),
+                                    'alt' => common_config('license', 'title')));
+        $this->text(_('All criti.ca content and data are available under the '));
         $this->element('a', array('class' => 'license',
                                   'rel' => 'external license',
                                   'href' => common_config('license', 'url')),
                        common_config('license', 'title'));
-        $this->text(_('. Contributors should be attributed by full name or nickname.'));
+        $this->text(_('license.'));
         $this->elementEnd('p');
-        $this->element('img', array('id' => 'license_cc',
-                                    'src' => common_config('license', 'image'),
-                                    'alt' => common_config('license', 'title')));
         $this->elementEnd('dd');
     }
 
