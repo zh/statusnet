@@ -71,15 +71,16 @@ class FacebookhomeAction extends FacebookAction
                 // XXX: Do some error handling here
 
                 $this->setDefaults();
-
                 $this->showHome($flink, _('You can now use Identi.ca from Facebook!'));
-
+                return;
+                
             } else {
                 $msg = _('Incorrect username or password.');
             }
         }
 
         $this->showLoginForm($msg);
+        
     }
 
     function setDefaults()
