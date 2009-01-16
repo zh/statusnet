@@ -2,7 +2,7 @@
 /**
  * Laconica, the distributed open-source microblogging tool
  *
- * Base class for all actions (~views)
+ * Menu for public group of actions
  *
  * PHP version 5
  *
@@ -19,10 +19,9 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  Action
+ * @category  Menu
  * @package   Laconica
  * @author    Evan Prodromou <evan@controlyourself.ca>
- * @author    Sarven Capadisli <csarven@controlyourself.ca>
  * @copyright 2008 Control Yourself, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://laconi.ca/
@@ -35,22 +34,15 @@ if (!defined('LACONICA')) {
 require_once INSTALLDIR.'/lib/widget.php';
 
 /**
- * Base class for all actions
- *
- * This is the base class for all actions in the package. An action is
- * more or less a "view" in an MVC framework.
- *
- * Actions are responsible for extracting and validating parameters; using
- * model classes to read and write to the database; and doing ouput.
+ * Menu for public group of actions
  *
  * @category Output
  * @package  Laconica
  * @author   Evan Prodromou <evan@controlyourself.ca>
- * @author   Sarven Capadisli <csarven@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://laconi.ca/
  *
- * @see      HTMLOutputter
+ * @see      Widget
  */
 
 class PublicGroupNav extends Widget
