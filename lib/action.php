@@ -566,7 +566,7 @@ class Action extends HTMLOutputter // lawsuit
             $lattrs['class'] = 'current';
         }
 
-        $this->elementStart('li', (is_null($id)) ? null : array('id' => $id),  $lattrs);
+        $this->elementStart('li', (is_null($id)) ? $lattrs : array_merge(array('id' => $id), $lattrs));
         $attrs['href'] = $url;
         if ($title) {
             $attrs['title'] = $title;
