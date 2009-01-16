@@ -176,8 +176,6 @@ background-image:url(../images/icons/twotone/green/document.gif);
 .notice-options .reply a,
 .notice-options form input.submit {
 background-color:transparent;
-color:#333333;
-border-bottom-color:#ccc;
 }
 .notice-options .reply a {
 background:transparent url(../images/icons/twotone/green/reply.gif) no-repeat 0 45%;
@@ -188,6 +186,20 @@ background:transparent url(../images/icons/twotone/green/favourite.gif) no-repea
 .notice-options form.notice_delete input.submit {
 background:transparent url(../images/icons/twotone/green/trash.gif) no-repeat 0 45%;
 }
+
+.notice-options a,
+.notice-options input {
+opacity:0.1;
+}
+.notices li.hover {
+background-color:#fcfcfc;
+}
+.notices li.hover .notice-options a,
+.notices li.hover .notice-options input {
+opacity:1;
+}
+
+
 /*END: NOTICES */
 
 
@@ -220,7 +232,4 @@ background-color:#0f0;
 #home #intro #step_create-a-community a {
 background-color:#00f;
 }
-
-
-
 

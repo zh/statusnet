@@ -36,7 +36,7 @@ input, textarea, select, option {
 padding:4px;
 font-family:sans-serif;
 font-size:1em;
--moz-border:radius:4px;
+-moz-border-radius:4px;
 }
 select, option {
 padding-bottom:0;
@@ -47,7 +47,7 @@ padding:11px;
 input:focus, textarea:focus, select:focus {
 border-width:2px;
 border-style: solid;
--moz-border:radius:4px;
+-moz-border-radius:4px;
 }
 caption {
 font-weight:bold;
@@ -611,6 +611,9 @@ border-top:1px dashed #D1D9E4;
 list-style-type:none;
 /*margin-bottom:11px;*/
 }
+.notices li.over {
+background-color:#fcfcfc;
+}
 
 
 /* NOTICES */
@@ -786,11 +789,9 @@ display:none;
 .notice-options form input.submit {
 display:block;
 border:0;
-border-bottom-width:1px;
-border-bottom-style:dotted;
 padding-left:20px;
-
 }
+
 .notice-options .reply a {
 text-decoration:none;
 }
