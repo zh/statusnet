@@ -198,7 +198,7 @@ class Action extends HTMLOutputter // lawsuit
         $this->showHeader();
         $this->showCore();
         $this->showFooter();
-        $this->elementEnd('div', 'wrap');
+        $this->elementEnd('div');
         $this->elementEnd('body');
     }
 
