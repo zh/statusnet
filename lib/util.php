@@ -571,7 +571,7 @@ function common_tag_link($tag)
 {
     $canonical = common_canonical_tag($tag);
     $url = common_local_url('tag', array('tag' => $canonical));
-    return '<a href="' . htmlspecialchars($url) . '" rel="tag" class="hashlink">' . htmlspecialchars($tag) . '</a>';
+    return '<span class="tag"><a href="' . htmlspecialchars($url) . '" rel="tag">' . htmlspecialchars($tag) . '</a></span>';
 }
 
 function common_canonical_tag($tag)
@@ -589,7 +589,7 @@ function common_at_link($sender_id, $nickname)
     $sender = Profile::staticGet($sender_id);
     $recipient = common_relative_profile($sender, common_canonical_nickname($nickname));
     if ($recipient) {
-        return '<a href="'.htmlspecialchars($recipient->profileurl).'" class="atlink">'.$nickname.'</a>';
+        return '<span class="vcard"><a href="'.htmlspecialchars($recipient->profileurl).'" class="url"><span class="fn nickname">'.$nickname.'</span></a></span>';
     } else {
         return $nickname;
     }
@@ -606,7 +606,7 @@ function common_at_hash_link($sender_id, $tag)
         $url = common_local_url('subscriptions',
                                 array('nickname' => $user->nickname,
                                       'tag' => $tag));
-        return '<a href="'.htmlspecialchars($url).'" class="atlink">'.$tag.'</a>';
+        return '<span class="tag"><a href="'.htmlspecialchars($url).'" rel="tag">'.$tag.'</a></span>';
     } else {
         return $tag;
     }

@@ -438,16 +438,13 @@ class NoticeListItem extends Widget
         $reply_url = common_local_url('newnotice',
                                       array('replyto' => $this->profile->nickname));
 
-        $reply_js =
-          'return doreply("'.$this->profile->nickname.'",'.$this->notice->id.');';
-
-        $this->out->elementStart('a',
-                             array('href' => $reply_url,
-                                   'onclick' => $reply_js,
-                                   'title' => _('reply'),
-                                   'class' => 'replybutton'));
-        $this->out->raw(' &#8594;');
-        $this->out->elementEnd('a');
+        $this->out->elementStart('dl', 'reply');
+        $this->out->element('dt', null, _('Reply to this notice'));
+        $this->out->elementStart('dd');
+        $this->out->element('a', array('href' => $reply_url,
+                                       'title' => _('reply')), _('Reply'));
+        $this->out->elementEnd('dd');
+        $this->out->elementEnd('dl');
     }
 
     /**
