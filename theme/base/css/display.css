@@ -15,7 +15,6 @@ position:relative;
 margin:0 auto;
 width:1004px;
 width:71.714em;
-max-width:100%;
 }
 h1 {
 font-size:2.1em;
@@ -176,7 +175,7 @@ margin-bottom:18px;
 
 #footer {
 float:left;
-width:100%;
+width:68%;
 padding-bottom:11px;
 }
 
@@ -254,6 +253,9 @@ margin-left:0;
 
 
 
+#licenses {
+font-size:0.9em;
+}
 
 #licenses dt {
 font-weight:bold;
@@ -261,17 +263,16 @@ display:none;
 }
 #licenses dd {
 margin-bottom:11px;
+line-height:1.5;
 }
 
 
 #site_content_license_cc p {
-float:left;
-margin-left:10%;
-width:90%;
 }
 #site_content_license_cc img {
-float:left;
-margin-left:-100%;
+display:inline;
+vertical-align:top;
+margin-right:4px;
 }
 
 
@@ -632,11 +633,7 @@ padding-left:28px;
 
 
 .notice .author {
-float:left;
-width:96px;
-width:199px;
-margin-left:-217px;
-margin-left:-199px;
+margin-right:11px;
 }
 .notice .author a {
 }
@@ -646,34 +643,29 @@ content:":";
 
 .vcard .photo {
 display:inline;
-margin-right:11px;
-margin-right:4px;
-vertical-align:top;
+margin-right:7px;
+margin-bottom:7px;
+float:left;
 }
 .vcard .url {
 text-decoration:none;
 }
+.vcard .url:hover {
+text-decoration:underline;
+}
 .vcard .fn {
-border-bottom-width:1px;
-border-bottom-style:dotted;
 font-style:italic;
 }
 .vcard .fn:hover {
-border-bottom-width:1px;
-border-bottom-style:solid;
+
 }
 
 
 .notice .entry-title {
 float:left;
-margin-bottom:11px;
-margin-left:217px;
-margin-left:199px;
 }
 .notice p.entry-content {
-float:left;
-width:427px;
-width:100%;
+display:inline;
 }
 
 .notice_video p.entry-content,
@@ -682,8 +674,6 @@ width:100%;
 .notice_location p.entry-content,
 .notice_event p.entry-content,
 .notice_document p.entry-content {
-width:322px;
-width:75.41%;
 }
 #laconicat .notice p.entry-content {
 /*margin-left:199px;*/
@@ -706,11 +696,7 @@ width:75.41%;
 /*border:1px solid blue;*/
 clear:left;
 float:left;
-margin-left:11px;
-margin-left:0;
-margin-bottom:4px;
-width:199px;
-width:149px;
+width:48%;
 }
 .notice div.entry-content,
 .notice .notice-options a,
@@ -740,12 +726,9 @@ text-transform:lowercase;
 }
 .notice div.entry-content a {
 text-decoration:none;
-border-bottom-width:1px;
-border-bottom-style:dotted;
 }
 .notice div.entry-content a:hover {
-border-bottom-width:1px;
-border-bottom-style:solid;
+text-decoration:underline;
 }
 
 
@@ -769,11 +752,7 @@ outline:none;
 
 
 .notice-options {
-margin-left:18px;
-margin-left:260px;
-margin-left:304px;
-margin-left:18px;
-margin-left:50px;
+margin-left:2%;
 float:left;
 }
 .notice-options .reply,
@@ -782,6 +761,9 @@ float:left;
 float:left;
 margin-right:11px;
 }
+.notice-options .reply {
+margin-top:1px;
+}
 .notice-options .reply dt {
 display:none;
 }
@@ -789,21 +771,15 @@ display:none;
 .notice-options form input.submit {
 display:block;
 border:0;
-padding-left:20px;
 }
 
 .notice-options .reply a {
 text-decoration:none;
+padding-left:20px;
 }
 .notice-options form input.submit {
 cursor:pointer;
-width:16px;
-width:auto;
-height:16px;
-height:auto;
-padding-top:0;
-padding-right:0;
-padding-bottom:0;
+padding:0 0 0 17px;
 }
 
 .notice-options .notice_delete legend,
