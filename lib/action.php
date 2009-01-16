@@ -222,15 +222,13 @@ class Action extends HTMLOutputter // lawsuit
                                               'class' => 'vcard'));
         $this->elementStart('a', array('class' => 'url home bookmark',
                                         'href' => common_local_url('public')));
-        if ((isset($config['site']['logo']) && is_string($config['site']['logo']) && (strlen($config['site']['logo']) > 0))
-            || file_exists(theme_file('logo.png')))
+        if (common_config('site', 'logo') || file_exists(theme_file('logo.png')))
         {
             $this->element('img', array('class' => 'logo photo',
-                                        'src' => isset($config['site']['logo']) ?
-                                        ($config['site']['logo']) : theme_path('logo.png'),
-                                        'alt' => $config['site']['name']));
+                                        'src' => (common_config('site', 'logo')) ? common_config('site', 'logo') : theme_path('logo.png'),
+                                        'alt' => common_config('site', 'name')));
         }
-        $this->element('span', array('class' => 'fn org'), $config['site']['name']);
+        $this->element('span', array('class' => 'fn org'), common_config('site', 'name'));
         $this->elementEnd('a');
         $this->elementEnd('address');
     }
