@@ -545,7 +545,7 @@ class Action extends HTMLOutputter // lawsuit
         common_user_error($msg, $code);
     }
 
-    function self_url()
+    function selfUrl()
     {
         $action = $this->trimmed('action');
         $args = $this->args;
