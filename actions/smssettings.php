@@ -1,9 +1,12 @@
 <?php
-/*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+/**
+ * Laconica, the distributed open-source microblogging tool
  *
- * This program is free software: you can redistribute it and/or modify
+ * Settings for SMS
+ *
+ * PHP version 5
+ *
+ * LICENCE: This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -15,36 +18,83 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Settings
+ * @package   Laconica
+ * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @copyright 2008-2009 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
-require_once(INSTALLDIR.'/lib/settingsaction.php');
-require_once(INSTALLDIR.'/actions/emailsettings.php');
+require_once INSTALLDIR.'/lib/settingsaction.php';
 
-class SmssettingsAction extends EmailsettingsAction
+/**
+ * Settings for SMS
+ *
+ * @category Settings
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://laconi.ca/
+ *
+ * @see      SettingsAction
+ */
+
+class SmssettingsAction extends SettingsAction
 {
+    /**
+     * Title of the page
+     *
+     * @return string Title of the page
+     */
 
-    function get_instructions()
+    function title()
+    {
+        return _('SMS Settings');
+    }
+
+    /**
+     * Instructions for use
+     *
+     * @return instructions for use
+     */
+
+    function getInstructions()
     {
         return _('You can receive SMS messages through email from %%site.name%%.');
     }
 
-    function show_form($msg=null, $success=false)
+    /**
+     * Content area of the page
+     *
+     * Shows a form for adding and removing SMS phone numbers and setting
+     * SMS preferences.
+     *
+     * @return void
+     */
+
+    function showContent()
     {
         $user = common_current_user();
-        $this->form_header(_('SMS Settings'), $msg, $success);
+
         $this->elementStart('form', array('method' => 'post',
-                                           'id' => 'smssettings',
-                                           'action' =>
-                                           common_local_url('smssettings')));
+                                          'id' => 'smssettings',
+                                          'action' =>
+                                          common_local_url('smssettings')));
+
         $this->hidden('token', common_session_token());
         $this->element('h2', null, _('Address'));
 
         if ($user->sms) {
             $this->elementStart('p');
             $carrier = $user->getCarrier();
-            $this->element('span', 'address confirmed', $user->sms . ' (' . $carrier->name . ')');
+            $this->element('span', 'address confirmed',
+                           $user->sms . ' (' . $carrier->name . ')');
             $this->element('span', 'input_instructions',
                            _('Current confirmed SMS-enabled phone number.'));
             $this->hidden('sms', $user->sms);
@@ -52,11 +102,12 @@ class SmssettingsAction extends EmailsettingsAction
             $this->elementEnd('p');
             $this->submit('remove', _('Remove'));
         } else {
-            $confirm = $this->get_confirmation();
+            $confirm = $this->getConfirmation();
             if ($confirm) {
                 $carrier = Sms_carrier::staticGet($confirm->address_extra);
                 $this->elementStart('p');
-                $this->element('span', 'address unconfirmed', $confirm->address . ' (' . $carrier->name . ')');
+                $this->element('span', 'address unconfirmed',
+                               $confirm->address . ' (' . $carrier->name . ')');
                 $this->element('span', 'input_instructions',
                                _('Awaiting confirmation on this phone number.'));
                 $this->hidden('sms', $confirm->address);
@@ -69,15 +120,16 @@ class SmssettingsAction extends EmailsettingsAction
             } else {
                 $this->input('sms', _('SMS Phone number'),
                              ($this->arg('sms')) ? $this->arg('sms') : null,
-                             _('Phone number, no punctuation or spaces, with area code'));
-                $this->carrier_select();
+                             _('Phone number, no punctuation or spaces, '.
+                               'with area code'));
+                $this->carrierSelect();
                 $this->submit('add', _('Add'));
             }
         }
 
         if ($user->sms) {
             $this->element('h2', null, _('Incoming email'));
-            
+
             if ($user->incomingemail) {
                 $this->elementStart('p');
                 $this->element('span', 'address', $user->incomingemail);
@@ -86,32 +138,45 @@ class SmssettingsAction extends EmailsettingsAction
                 $this->elementEnd('p');
                 $this->submit('removeincoming', _('Remove'));
             }
-            
+
             $this->elementStart('p');
             $this->element('span', 'input_instructions',
-                           _('Make a new email address for posting to; cancels the old one.'));
+                           _('Make a new email address for posting to; '.
+                             'cancels the old one.'));
             $this->elementEnd('p');
             $this->submit('newincoming', _('New'));
         }
-        
+
         $this->element('h2', null, _('Preferences'));
-        
+
         $this->checkbox('smsnotify',
-                        _('Send me notices through SMS; I understand I may incur exorbitant charges from my carrier.'),
+                        _('Send me notices through SMS; '.
+                          'I understand I may incur '.
+                          'exorbitant charges from my carrier.'),
                         $user->smsnotify);
-            
+
         $this->submit('save', _('Save'));
-        
+
         $this->elementEnd('form');
-        common_show_footer();
     }
 
-    function get_confirmation()
+    /**
+     * Get a pending confirmation, if any, for this user
+     *
+     * @return void
+     *
+     * @todo very similar to EmailsettingsAction::getConfirmation(); refactor?
+     */
+
+    function getConfirmation()
     {
         $user = common_current_user();
+
         $confirm = new Confirm_address();
-        $confirm->user_id = $user->id;
+
+        $confirm->user_id      = $user->id;
         $confirm->address_type = 'sms';
+
         if ($confirm->find(true)) {
             return $confirm;
         } else {
@@ -119,44 +184,62 @@ class SmssettingsAction extends EmailsettingsAction
         }
     }
 
-    function handle_post()
-    {
+    /**
+     * Handle posts to this form
+     *
+     * Based on the button that was pressed, muxes out to other functions
+     * to do the actual task requested.
+     *
+     * All sub-functions reload the form with a message -- success or failure.
+     *
+     * @return void
+     */
 
-        # CSRF protection
+    function handlePost()
+    {
+        // CSRF protection
 
         $token = $this->trimmed('token');
         if (!$token || $token != common_session_token()) {
-            $this->show_form(_('There was a problem with your session token. Try again, please.'));
+            $this->showForm(_('There was a problem with your session token. '.
+                              'Try again, please.'));
             return;
         }
 
         if ($this->arg('save')) {
-            $this->save_preferences();
+            $this->savePreferences();
         } else if ($this->arg('add')) {
-            $this->add_address();
+            $this->addAddress();
         } else if ($this->arg('cancel')) {
-            $this->cancel_confirmation();
+            $this->cancelConfirmation();
         } else if ($this->arg('remove')) {
-            $this->remove_address();
+            $this->removeAddress();
         } else if ($this->arg('removeincoming')) {
-            $this->remove_incoming();
+            $this->removeIncoming();
         } else if ($this->arg('newincoming')) {
-            $this->new_incoming();
+            $this->newIncoming();
         } else if ($this->arg('confirm')) {
-            $this->confirm_code();
+            $this->confirmCode();
         } else {
-            $this->show_form(_('Unexpected form submission.'));
+            $this->showForm(_('Unexpected form submission.'));
         }
     }
 
-    function save_preferences()
-    {
+    /**
+     * Handle a request to save preferences
+     *
+     * Sets the user's SMS preferences in the DB.
+     *
+     * @return void
+     */
 
+    function savePreferences()
+    {
         $smsnotify = $this->boolean('smsnotify');
-        
+
         $user = common_current_user();
 
-        assert(!is_null($user)); # should already be checked
+        assert(!is_null($user)); // should already be checked
 
         $user->query('BEGIN');
 
@@ -174,45 +257,54 @@ class SmssettingsAction extends EmailsettingsAction
 
         $user->query('COMMIT');
 
-        $this->show_form(_('Preferences saved.'), true);
+        $this->showForm(_('Preferences saved.'), true);
     }
 
-    function add_address()
-    {
+    /**
+     * Add a new SMS number for confirmation
+     *
+     * When the user requests a new SMS number, sends a confirmation
+     * message.
+     *
+     * @return void
+     */
 
+    function addAddress()
+    {
         $user = common_current_user();
 
-        $sms = $this->trimmed('sms');
+        $sms        = $this->trimmed('sms');
         $carrier_id = $this->trimmed('carrier');
-        
-        # Some validation
+
+        // Some validation
 
         if (!$sms) {
-            $this->show_form(_('No phone number.'));
+            $this->showForm(_('No phone number.'));
             return;
         }
 
         if (!$carrier_id) {
-            $this->show_form(_('No carrier selected.'));
-            return;
-        }
-        
-        $sms = common_canonical_sms($sms);
-        
-        if ($user->sms == $sms) {
-            $this->show_form(_('That is already your phone number.'));
-            return;
-        } else if ($this->sms_exists($sms)) {
-            $this->show_form(_('That phone number already belongs to another user.'));
+            $this->showForm(_('No carrier selected.'));
             return;
         }
 
-          $confirm = new Confirm_address();
-           $confirm->address = $sms;
-           $confirm->address_extra = $carrier_id;
-           $confirm->address_type = 'sms';
-           $confirm->user_id = $user->id;
-           $confirm->code = common_confirmation_code(40);
+        $sms = common_canonical_sms($sms);
+
+        if ($user->sms == $sms) {
+            $this->showForm(_('That is already your phone number.'));
+            return;
+        } else if ($this->smsExists($sms)) {
+            $this->showForm(_('That phone number already belongs to another user.'));
+            return;
+        }
+
+        $confirm = new Confirm_address();
+
+        $confirm->address       = $sms;
+        $confirm->address_extra = $carrier_id;
+        $confirm->address_type  = 'sms';
+        $confirm->user_id       = $user->id;
+        $confirm->code          = common_confirmation_code(40);
 
         $result = $confirm->insert();
 
@@ -223,30 +315,39 @@ class SmssettingsAction extends EmailsettingsAction
         }
 
         $carrier = Sms_carrier::staticGet($carrier_id);
-        
+
         mail_confirm_sms($confirm->code,
                          $user->nickname,
                          $carrier->toEmailAddress($sms));
 
-        $msg = _('A confirmation code was sent to the phone number you added. Check your inbox (and spam box!) for the code and instructions on how to use it.');
+        $msg = _('A confirmation code was sent to the phone number you added. '.
+                 'Check your phone for the code and instructions '.
+                 'on how to use it.');
 
-        $this->show_form($msg, true);
+        $this->showForm($msg, true);
     }
 
-    function cancel_confirmation()
+    /**
+     * Cancel a pending confirmation
+     *
+     * Cancels the confirmation.
+     *
+     * @return void
+     */
+
+    function cancelConfirmation()
     {
-        
-        $sms = $this->trimmed('sms');
+        $sms     = $this->trimmed('sms');
         $carrier = $this->trimmed('carrier');
-        
-        $confirm = $this->get_confirmation();
-        
+
+        $confirm = $this->getConfirmation();
+
         if (!$confirm) {
-            $this->show_form(_('No pending confirmation to cancel.'));
+            $this->showForm(_('No pending confirmation to cancel.'));
             return;
         }
         if ($confirm->address != $sms) {
-            $this->show_form(_('That is the wrong confirmation number.'));
+            $this->showForm(_('That is the wrong confirmation number.'));
             return;
         }
 
@@ -258,28 +359,37 @@ class SmssettingsAction extends EmailsettingsAction
             return;
         }
 
-        $this->show_form(_('Confirmation cancelled.'), true);
+        $this->showForm(_('Confirmation cancelled.'), true);
     }
 
-    function remove_address()
-    {
+    /**
+     * Remove a phone number from the user's account
+     *
+     * @return void
+     */
 
+    function removeAddress()
+    {
         $user = common_current_user();
-        $sms = $this->arg('sms');
+
+        $sms     = $this->arg('sms');
         $carrier = $this->arg('carrier');
-        
-        # Maybe an old tab open...?
+
+        // Maybe an old tab open...?
 
         if ($user->sms != $sms) {
-            $this->show_form(_('That is not your phone number.'));
+            $this->showForm(_('That is not your phone number.'));
             return;
         }
 
         $user->query('BEGIN');
+
         $original = clone($user);
-        $user->sms = null;
-        $user->carrier = null;        
-        $user->smsemail = null;        
+
+        $user->sms      = null;
+        $user->carrier  = null;
+        $user->smsemail = null;
+
         $result = $user->updateKeys($original);
         if (!$result) {
             common_log_db_error($user, 'UPDATE', __FILE__);
@@ -288,13 +398,25 @@ class SmssettingsAction extends EmailsettingsAction
         }
         $user->query('COMMIT');
 
-        $this->show_form(_('The address was removed.'), true);
+        $this->showForm(_('The address was removed.'), true);
     }
-    
-    function sms_exists($sms)
+
+    /**
+     * Does this sms number exist in our database?
+     *
+     * Also checks if it belongs to someone else
+     *
+     * @param string $sms phone number to check
+     *
+     * @return boolean does the number exist
+     */
+
+    function smsExists($sms)
     {
         $user = common_current_user();
+
         $other = User::staticGet('sms', $sms);
+
         if (!$other) {
             return false;
         } else {
@@ -302,15 +424,22 @@ class SmssettingsAction extends EmailsettingsAction
         }
     }
 
-    function carrier_select()
+    /**
+     * Show a drop-down box with all the SMS carriers in the DB
+     *
+     * @return void
+     */
+
+    function carrierSelect()
     {
         $carrier = new Sms_carrier();
+
         $cnt = $carrier->find();
 
         $this->elementStart('p');
         $this->element('label', array('for' => 'carrier'));
         $this->elementStart('select', array('name' => 'carrier',
-                                             'id' => 'carrier'));
+                                            'id' => 'carrier'));
         $this->element('option', array('value' => 0),
                        _('Select a carrier'));
         while ($carrier->fetch()) {
@@ -321,23 +450,30 @@ class SmssettingsAction extends EmailsettingsAction
         $this->elementEnd('p');
         $this->element('span', 'input_instructions',
                        sprintf(_('Mobile carrier for your phone. '.
-                                 'If you know a carrier that accepts ' . 
+                                 'If you know a carrier that accepts ' .
                                  'SMS over email but isn\'t listed here, ' .
                                  'send email to let us know at %s.'),
                                common_config('site', 'email')));
     }
 
-    function confirm_code()
+    /**
+     * Confirm an SMS confirmation code
+     *
+     * Redirects to the confirmaddress page for this code
+     *
+     * @return void
+     */
+
+    function confirmCode()
     {
-        
         $code = $this->trimmed('code');
-        
+
         if (!$code) {
-            $this->show_form(_('No code entered'));
+            $this->showForm(_('No code entered'));
             return;
         }
-        
-        common_redirect(common_local_url('confirmaddress', 
+
+        common_redirect(common_local_url('confirmaddress',
                                          array('code' => $code)));
     }
 }
