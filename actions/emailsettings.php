@@ -85,42 +85,46 @@ class EmailsettingsAction extends SettingsAction
         $user = common_current_user();
 
         $this->elementStart('form', array('method' => 'post',
-                                          'id' => 'emailsettings',
+                                          'id' => 'form_settings_email',
+                                          'class' => 'form_settings',
                                           'action' =>
                                           common_local_url('emailsettings')));
-
+        $this->elementStart('fieldset');
+        $this->element('legend', null, _('Email settings'));
         $this->hidden('token', common_session_token());
 
+        $this->elementStart('div', array('id' => 'settings_email_address'));
         $this->element('h2', null, _('Address'));
 
         if ($user->email) {
-            $this->elementStart('p');
-            $this->element('span', 'address confirmed', $user->email);
-            $this->element('span', 'input_instructions',
-                           _('Current confirmed email address.'));
+            $this->element('p', array('id' => 'email_confirmed', $user->email));
+            $this->element('p', array('class' => 'form_note'), _('Current confirmed email address.'));
             $this->hidden('email', $user->email);
-            $this->elementEnd('p');
             $this->submit('remove', _('Remove'));
         } else {
             $confirm = $this->getConfirmation();
             if ($confirm) {
-                $this->elementStart('p');
-                $this->element('span', 'address unconfirmed', $confirm->address);
-                $this->element('span', 'input_instructions',
-                               _('Awaiting confirmation on this address. '.
-                                 'Check your inbox (and spam box!) for a message '.
-                                 'with further instructions.'));
+                $this->element('p', array('id' => 'email_unconfirmed'), $confirm->address);
+                $this->element('p', array('class' => 'form_note'), 
+                                        _('Awaiting confirmation on this address. '.
+                                        'Check your inbox (and spam box!) for a message '.
+                                        'with further instructions.'));
                 $this->hidden('email', $confirm->address);
-                $this->elementEnd('p');
                 $this->submit('cancel', _('Cancel'));
             } else {
+                $this->elementStart('ul', 'form_datas');
+                $this->elementStart('li');
                 $this->input('email', _('Email Address'),
                              ($this->arg('email')) ? $this->arg('email') : null,
                              _('Email address, like "UserName@example.org"'));
+                $this->elementEnd('li');
+                $this->elementEnd('ul');
                 $this->submit('add', _('Add'));
             }
         }
+        $this->elementEnd('div');
 
+        $this->elementStart('div', array('id' => 'settings_email_incoming'));
         if ($user->email) {
             $this->element('h2', null, _('Incoming email'));
 
@@ -140,31 +144,49 @@ class EmailsettingsAction extends SettingsAction
             $this->elementEnd('p');
             $this->submit('newincoming', _('New'));
         }
+        $this->elementEnd('div');
 
+        $this->elementStart('div', array('id' => 'settings_email_preferences'));
         $this->element('h2', null, _('Preferences'));
 
+        $this->elementStart('ul', 'form_datas');
+        $this->elementStart('li');
         $this->checkbox('emailnotifysub',
                         _('Send me notices of new subscriptions through email.'),
                         $user->emailnotifysub);
+        $this->elementEnd('li');
+        $this->elementStart('li');
         $this->checkbox('emailnotifyfav',
                         _('Send me email when someone '.
                           'adds my notice as a favorite.'),
                         $user->emailnotifyfav);
+        $this->elementEnd('li');
+        $this->elementStart('li');
         $this->checkbox('emailnotifymsg',
                         _('Send me email when someone sends me a private message.'),
                         $user->emailnotifymsg);
+        $this->elementEnd('li');
+        $this->elementStart('li');
         $this->checkbox('emailnotifynudge',
                         _('Allow friends to nudge me and send me an email.'),
                         $user->emailnotifynudge);
+        $this->elementEnd('li');
+        $this->elementStart('li');
         $this->checkbox('emailpost',
                         _('I want to post notices by email.'),
                         $user->emailpost);
+        $this->elementEnd('li');
+        $this->elementStart('li');
         $this->checkbox('emailmicroid',
                         _('Publish a MicroID for my email address.'),
                         $user->emailmicroid);
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
+        $this->elementEnd('div');
 
         $this->submit('save', _('Save'));
 
+        $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }
 
