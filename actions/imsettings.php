@@ -1,9 +1,12 @@
 <?php
-/*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+/**
+ * Laconica, the distributed open-source microblogging tool
  *
- * This program is free software: you can redistribute it and/or modify
+ * Settings for Jabber/XMPP integration
+ *
+ * PHP version 5
+ *
+ * LICENCE: This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -15,29 +18,77 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Settings
+ * @package   Laconica
+ * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @copyright 2008-2009 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
-require_once(INSTALLDIR.'/lib/settingsaction.php');
-require_once(INSTALLDIR.'/lib/jabber.php');
+require_once INSTALLDIR.'/lib/settingsaction.php';
+require_once INSTALLDIR.'/lib/jabber.php';
+
+/**
+ * Settings for Jabber/XMPP integration
+ *
+ * @category Settings
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://laconi.ca/
+ *
+ * @see      SettingsAction
+ */
 
 class ImsettingsAction extends SettingsAction
 {
+    /**
+     * Title of the page
+     *
+     * @return string Title of the page
+     */
 
-    function get_instructions()
+    function title()
     {
-        return _('You can send and receive notices through Jabber/GTalk [instant messages](%%doc.im%%). Configure your address and settings below.');
+        return _('IM Settings');
     }
 
-    function show_form($msg=null, $success=false)
+    /**
+     * Instructions for use
+     *
+     * @return instructions for use
+     */
+
+    function getInstructions()
+    {
+        return _('You can send and receive notices through '.
+                 'Jabber/GTalk [instant messages](%%doc.im%%). '.
+                 'Configure your address and settings below.');
+    }
+
+    /**
+     * Content area of the page
+     *
+     * We make different sections of the form for the different kinds of
+     * functions, and have submit buttons with different names. These
+     * are muxed by handlePost() to see what the user really wants to do.
+     *
+     * @return void
+     */
+
+    function showContent()
     {
         $user = common_current_user();
-        $this->form_header(_('IM Settings'), $msg, $success);
         $this->elementStart('form', array('method' => 'post',
-                                           'id' => 'imsettings',
-                                           'action' =>
-                                           common_local_url('imsettings')));
+                                          'id' => 'imsettings',
+                                          'action' =>
+                                          common_local_url('imsettings')));
         $this->hidden('token', common_session_token());
 
         $this->element('h2', null, _('Address'));
@@ -51,19 +102,27 @@ class ImsettingsAction extends SettingsAction
             $this->elementEnd('p');
             $this->submit('remove', _('Remove'));
         } else {
-            $confirm = $this->get_confirmation();
+            $confirm = $this->getConfirmation();
             if ($confirm) {
                 $this->elementStart('p');
                 $this->element('span', 'address unconfirmed', $confirm->address);
                 $this->element('span', 'input_instructions',
-                                sprintf(_('Awaiting confirmation on this address. Check your Jabber/GTalk account for a message with further instructions. (Did you add %s to your buddy list?)'), jabber_daemon_address()));
+                               sprintf(_('Awaiting confirmation on this address. '.
+                                         'Check your Jabber/GTalk account for a '.
+                                         'message with further instructions. '.
+                                         '(Did you add %s to your buddy list?)'),
+                                       jabber_daemon_address()));
                 $this->hidden('jabber', $confirm->address);
                 $this->elementEnd('p');
                 $this->submit('cancel', _('Cancel'));
             } else {
                 $this->input('jabber', _('IM Address'),
                              ($this->arg('jabber')) ? $this->arg('jabber') : null,
-                         sprintf(_('Jabber or GTalk address, like "UserName@example.org". First, make sure to add %s to your buddy list in your IM client or on GTalk.'), jabber_daemon_address()));
+                             sprintf(_('Jabber or GTalk address, '.
+                                       'like "UserName@example.org". '.
+                                       'First, make sure to add %s to your '.
+                                       'buddy list in your IM client or on GTalk.'),
+                                     jabber_daemon_address()));
                 $this->submit('add', _('Add'));
             }
         }
@@ -77,7 +136,8 @@ class ImsettingsAction extends SettingsAction
                         _('Post a notice when my Jabber/GTalk status changes.'),
                         $user->updatefrompresence);
         $this->checkbox('jabberreplies',
-                        _('Send me replies through Jabber/GTalk from people I\'m not subscribed to.'),
+                        _('Send me replies through Jabber/GTalk '.
+                          'from people I\'m not subscribed to.'),
                         $user->jabberreplies);
         $this->checkbox('jabbermicroid',
                         _('Publish a MicroID for my Jabber/GTalk address.'),
@@ -85,15 +145,23 @@ class ImsettingsAction extends SettingsAction
         $this->submit('save', _('Save'));
 
         $this->elementEnd('form');
-        common_show_footer();
     }
 
-    function get_confirmation()
+    /**
+     * Get a confirmation code for this user
+     *
+     * @return Confirm_address address object for this user
+     */
+
+    function getConfirmation()
     {
         $user = common_current_user();
+
         $confirm = new Confirm_address();
-        $confirm->user_id = $user->id;
+
+        $confirm->user_id      = $user->id;
         $confirm->address_type = 'jabber';
+
         if ($confirm->find(true)) {
             return $confirm;
         } else {
@@ -101,49 +169,69 @@ class ImsettingsAction extends SettingsAction
         }
     }
 
-    function handle_post()
-    {
+    /**
+     * Handle posts to this form
+     *
+     * Based on the button that was pressed, muxes out to other functions
+     * to do the actual task requested.
+     *
+     * All sub-functions reload the form with a message -- success or failure.
+     *
+     * @return void
+     */
 
-        # CSRF protection
+    function handlePost()
+    {
+        // CSRF protection
         $token = $this->trimmed('token');
         if (!$token || $token != common_session_token()) {
-            $this->show_form(_('There was a problem with your session token. Try again, please.'));
+            $this->showForm(_('There was a problem with your session token. '.
+                              'Try again, please.'));
             return;
         }
 
         if ($this->arg('save')) {
-            $this->save_preferences();
+            $this->savePreferences();
         } else if ($this->arg('add')) {
-            $this->add_address();
+            $this->addAddress();
         } else if ($this->arg('cancel')) {
-            $this->cancel_confirmation();
+            $this->cancelConfirmation();
         } else if ($this->arg('remove')) {
-            $this->remove_address();
+            $this->removeAddress();
         } else {
-            $this->show_form(_('Unexpected form submission.'));
+            $this->showForm(_('Unexpected form submission.'));
         }
     }
 
-    function save_preferences()
+    /**
+     * Save user's Jabber preferences
+     *
+     * These are the checkboxes at the bottom of the page. They're used to
+     * set different settings
+     *
+     * @return void
+     */
+
+    function savePreferences()
     {
 
-        $jabbernotify = $this->boolean('jabbernotify');
+        $jabbernotify       = $this->boolean('jabbernotify');
         $updatefrompresence = $this->boolean('updatefrompresence');
-        $jabberreplies = $this->boolean('jabberreplies');
-        $jabbermicroid = $this->boolean('jabbermicroid');
+        $jabberreplies      = $this->boolean('jabberreplies');
+        $jabbermicroid      = $this->boolean('jabbermicroid');
 
         $user = common_current_user();
 
-        assert(!is_null($user)); # should already be checked
+        assert(!is_null($user)); // should already be checked
 
         $user->query('BEGIN');
 
         $original = clone($user);
 
-        $user->jabbernotify = $jabbernotify;
+        $user->jabbernotify       = $jabbernotify;
         $user->updatefrompresence = $updatefrompresence;
-        $user->jabberreplies = $jabberreplies;
-        $user->jabbermicroid = $jabbermicroid;
+        $user->jabberreplies      = $jabberreplies;
+        $user->jabbermicroid      = $jabbermicroid;
 
         $result = $user->update($original);
 
@@ -155,45 +243,54 @@ class ImsettingsAction extends SettingsAction
 
         $user->query('COMMIT');
 
-        $this->show_form(_('Preferences saved.'), true);
+        $this->showForm(_('Preferences saved.'), true);
     }
 
-    function add_address()
-    {
+    /**
+     * Sends a confirmation to the address given
+     *
+     * Stores a confirmation record and sends out a
+     * Jabber message with the confirmation info.
+     *
+     * @return void
+     */
 
+    function addAddress()
+    {
         $user = common_current_user();
 
         $jabber = $this->trimmed('jabber');
 
-        # Some validation
+        // Some validation
 
         if (!$jabber) {
-            $this->show_form(_('No Jabber ID.'));
+            $this->showForm(_('No Jabber ID.'));
             return;
         }
 
         $jabber = jabber_normalize_jid($jabber);
 
         if (!$jabber) {
-            $this->show_form(_('Cannot normalize that Jabber ID'));
+            $this->showForm(_('Cannot normalize that Jabber ID'));
             return;
         }
         if (!jabber_valid_base_jid($jabber)) {
-            $this->show_form(_('Not a valid Jabber ID'));
+            $this->showForm(_('Not a valid Jabber ID'));
             return;
         } else if ($user->jabber == $jabber) {
-            $this->show_form(_('That is already your Jabber ID.'));
+            $this->showForm(_('That is already your Jabber ID.'));
             return;
-        } else if ($this->jabber_exists($jabber)) {
-            $this->show_form(_('Jabber ID already belongs to another user.'));
+        } else if ($this->jabberExists($jabber)) {
+            $this->showForm(_('Jabber ID already belongs to another user.'));
             return;
         }
 
-          $confirm = new Confirm_address();
-           $confirm->address = $jabber;
-           $confirm->address_type = 'jabber';
-           $confirm->user_id = $user->id;
-           $confirm->code = common_confirmation_code(64);
+        $confirm = new Confirm_address();
+
+        $confirm->address      = $jabber;
+        $confirm->address_type = 'jabber';
+        $confirm->user_id      = $user->id;
+        $confirm->code         = common_confirmation_code(64);
 
         $result = $confirm->insert();
 
@@ -209,21 +306,35 @@ class ImsettingsAction extends SettingsAction
                                    $jabber);
         }
 
-        $msg = sprintf(_('A confirmation code was sent to the IM address you added. You must approve %s for sending messages to you.'), jabber_daemon_address());
+        $msg = sprintf(_('A confirmation code was sent '.
+                         'to the IM address you added. '.
+                         'You must approve %s for '.
+                         'sending messages to you.'),
+                       jabber_daemon_address());
 
-        $this->show_form($msg, true);
+        $this->showForm($msg, true);
     }
 
-    function cancel_confirmation()
+    /**
+     * Cancel a confirmation
+     *
+     * If a confirmation exists, cancel it.
+     *
+     * @return void
+     */
+
+    function cancelConfirmation()
     {
         $jabber = $this->arg('jabber');
-        $confirm = $this->get_confirmation();
+
+        $confirm = $this->getConfirmation();
+
         if (!$confirm) {
-            $this->show_form(_('No pending confirmation to cancel.'));
+            $this->showForm(_('No pending confirmation to cancel.'));
             return;
         }
         if ($confirm->address != $jabber) {
-            $this->show_form(_('That is the wrong IM address.'));
+            $this->showForm(_('That is the wrong IM address.'));
             return;
         }
 
@@ -235,26 +346,38 @@ class ImsettingsAction extends SettingsAction
             return;
         }
 
-        $this->show_form(_('Confirmation cancelled.'), true);
+        $this->showForm(_('Confirmation cancelled.'), true);
     }
 
-    function remove_address()
-    {
+    /**
+     * Remove an address
+     *
+     * If the user has a confirmed address, remove it.
+     *
+     * @return void
+     */
 
+    function removeAddress()
+    {
         $user = common_current_user();
+
         $jabber = $this->arg('jabber');
 
-        # Maybe an old tab open...?
+        // Maybe an old tab open...?
 
         if ($user->jabber != $jabber) {
-            $this->show_form(_('That is not your Jabber ID.'));
+            $this->showForm(_('That is not your Jabber ID.'));
             return;
         }
 
         $user->query('BEGIN');
+
         $original = clone($user);
+
         $user->jabber = null;
+
         $result = $user->updateKeys($original);
+
         if (!$result) {
             common_log_db_error($user, 'UPDATE', __FILE__);
             $this->serverError(_('Couldn\'t update user.'));
@@ -262,15 +385,27 @@ class ImsettingsAction extends SettingsAction
         }
         $user->query('COMMIT');
 
-        # XXX: unsubscribe to the old address
+        // XXX: unsubscribe to the old address
 
-        $this->show_form(_('The address was removed.'), true);
+        $this->showForm(_('The address was removed.'), true);
     }
 
-    function jabber_exists($jabber)
+    /**
+     * Does this Jabber ID exist?
+     *
+     * Checks if we already have another user with this address.
+     *
+     * @param string $jabber Address to check
+     *
+     * @return boolean whether the Jabber ID exists
+     */
+
+    function jabberExists($jabber)
     {
         $user = common_current_user();
+
         $other = User::staticGet('jabber', $jabber);
+
         if (!$other) {
             return false;
         } else {
