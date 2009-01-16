@@ -22,13 +22,13 @@ $(document).ready(function(){
 		var maxLength = 140;
 		var currentLength = $("#notice_data-text").val().length;
 		var remaining = maxLength - currentLength;
-		var counter = $("#counter");
+		var counter = $("#notice_text-count");
 		counter.text(remaining);
 		
 		if (remaining <= 0) {
-			$("#form_notice").addClass("response_error");
+			$("#form_notice").addClass("warning");
 		} else {
-			$("#form_notice").removeClass("response_error");
+			$("#form_notice").removeClass("warning");
 		}
 	}
 
