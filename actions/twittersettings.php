@@ -354,7 +354,7 @@ class TwittersettingsAction extends SettingsAction
             return false;
         }
 
-         $twitter_id = $user->status->id;
+         $twitter_id = $user->id;
 
         if ($twitter_id) {
             return $twitter_id;
