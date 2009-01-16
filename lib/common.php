@@ -169,5 +169,7 @@ function __autoload($class)
         require_once('OAuth.php');
     } else if (file_exists(INSTALLDIR.'/classes/' . $class . '.php')) {
         require_once(INSTALLDIR.'/classes/' . $class . '.php');
+    } else if (file_exists(INSTALLDIR.'/lib/' . strtolower($class) . '.php')) {
+        require_once(INSTALLDIR.'/lib/' . strtolower($class) . '.php');
     }
 }
