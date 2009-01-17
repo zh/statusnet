@@ -83,11 +83,14 @@ class OthersettingsAction extends AccountSettingsAction
     {
         $user = common_current_user();
 
-        $this->element('h2', null, _('URL Auto-shortening'));
+
         $this->elementStart('form', array('method' => 'post',
-                                          'id' => 'othersettings',
+                                          'id' => 'form_settings_other',
+                                          'class' => 'form_settings',
                                           'action' =>
                                           common_local_url('othersettings')));
+        $this->elementStart('fieldset');
+        $this->element('legend', null, _('URL Auto-shortening'));
         $this->hidden('token', common_session_token());
 
         // I18N
@@ -104,12 +107,15 @@ class OthersettingsAction extends AccountSettingsAction
                           'metamark.net' => 'metamark.net'
                           );
 
+        $this->elementStart('ul', 'form_datas');
+        $this->elementStart('li');
         $this->dropdown('urlshorteningservice', _('Service'),
                         $services, _('Automatic shortening service to use.'),
                         false, $user->urlshorteningservice);
-
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
         $this->submit('save', _('Save'));
-
+        $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }
 
