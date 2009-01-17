@@ -30,30 +30,38 @@ h1,h2,h3,h4,h5,h6 {
 	text-transform:uppercase;
 	margin-bottom:7px;
 }
-legend { font-weight:bold; }
+caption {
+font-weight:bold;
+}
+.opened { display: block !important;}
+.closed { display: none !important;}
+
+
+legend {
+font-weight:bold; 
+font-size:1.6em;
+text-transform:uppercase;
+}
 input, textarea, select, option {
 padding:4px;
 font-family:sans-serif;
 font-size:1em;
 -moz-border-radius:4px;
 }
+input:focus, textarea:focus, select:focus {
+border-width:2px;
+border-style: solid;
+}
+
 select, option {
 padding-bottom:0;
 }
 fieldset {
-padding:11px;
+padding:0;
+border:0;
+margin-bottom:29px;
 }
-input:focus, textarea:focus, select:focus {
-border-width:2px;
-border-style: solid;
--moz-border-radius:4px;
-}
-caption {
-font-weight:bold;
-}
-.opened { display: block !important;}
-.closed { display: none !important;}
-span.required { font-weight:bold; }
+
 form ul li {
 list-style-type:none;
 margin:0 0 18px 0;
@@ -71,8 +79,10 @@ top:2px;
 left:0;
 }
 
-form .error {
-margin-right:11px;
+#page_notice .error {
+background-color:#F7E8E8;
+padding:4px 7px;
+-moz-border-radius:4px;
 }
 form label.submit {
 display:none;
@@ -83,15 +93,7 @@ display:block;
 .form_response {
 margin-bottom:18px;
 }
-.form_response dt {
-}
-.form_response dd {
-}
 
-form input.remove,
-form input.submit {
--moz-border-radius:4px;
-}
 form input.submit {
 }
 
@@ -99,24 +101,16 @@ form input.submit {
 
 
 /* FORM SETTINGS */
-.form_settings fieldset {
-padding:0;
-border:0;
-margin-bottom:29px;
-}
-.form_settings legend {
-font-size:1.6em;
-text-transform:uppercase;
-}
-.form_settings .form_datas label {
-
-}
-
 .form_guide {
 font-style:italic;
 }
 
-.form_settings .form_actions label {
+.form_login label,
+.form_settings label {
+margin-right:11px;
+}
+
+.form_actions label {
 display:none;
 }
 

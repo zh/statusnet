@@ -130,15 +130,27 @@ class LoginAction extends Action
     function showContent()
     {      
         $this->elementStart('form', array('method' => 'post',
-                                           'id' => 'login',
+                                           'id' => 'form_login',
+                                           'class' => 'form_login',
                                            'action' => common_local_url('login')));
+        $this->elementStart('fieldset');
+        $this->element('legend', null, _('Login to site'));
+        $this->elementStart('ul', 'form_datas');
+        $this->elementStart('li');
         $this->input('nickname', _('Nickname'));
+        $this->elementEnd('li');
+        $this->elementStart('li');
         $this->password('password', _('Password'));
+        $this->elementEnd('li');
+        $this->elementStart('li');
         $this->checkbox('rememberme', _('Remember me'), false,
                         _('Automatically login in the future; ' .
                            'not for shared computers!'));
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
         $this->submit('submit', _('Login'));
         $this->hidden('token', common_session_token());
+        $this->elementEnd('fieldset');
         $this->elementEnd('form');
         $this->elementStart('p');
         $this->element('a', array('href' => common_local_url('recoverpassword')),
