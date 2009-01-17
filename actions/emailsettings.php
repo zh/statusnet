@@ -90,7 +90,7 @@ class EmailsettingsAction extends SettingsAction
                                           'action' =>
                                           common_local_url('emailsettings')));
 
-        $this->elementStart('fieldset',array('id' => 'settings_email_address'));
+        $this->elementStart('fieldset', array('id' => 'settings_email_address'));
         $this->element('legend', null, _('Address'));
         $this->hidden('token', common_session_token());
 
@@ -123,7 +123,7 @@ class EmailsettingsAction extends SettingsAction
         $this->elementEnd('fieldset');
 
        if ($user->email) {
-            $this->elementStart('fieldset',array('id' => 'settings_email_incoming'));
+            $this->elementStart('fieldset', array('id' => 'settings_email_incoming'));
             $this->element('legend',_('Incoming email'));
             if ($user->incomingemail) {
                 $this->elementStart('p');
@@ -180,9 +180,8 @@ class EmailsettingsAction extends SettingsAction
                         $user->emailmicroid);
         $this->elementEnd('li');
         $this->elementEnd('ul');
-        $this->elementEnd('fieldset');
-
         $this->submit('save', _('Save'));
+        $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }
 
