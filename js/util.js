@@ -179,7 +179,7 @@ function doreply(nick,id) {
 		replyto = "@" + nick + " ";
 		if ($("#notice_data-text").length) {
 			$("#notice_data-text").val(replyto);
-			$("form#form_notice input#inreplyto").val(id);
+			$("#form_notice input#notice_in-reply-to").val(id);
 			$("#notice_data-text").focus();
 			return false;
 		}

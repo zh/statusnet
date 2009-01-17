@@ -85,26 +85,31 @@ class OpenidsettingsAction extends SettingsAction
         $user = common_current_user();
 
         $this->elementStart('form', array('method' => 'post',
-                                          'id' => 'openidadd',
+                                          'id' => 'form_settings_openid_add',
+                                          'class' => 'form_settings',
                                           'action' =>
                                           common_local_url('openidsettings')));
+        $this->elementStart('fieldset', array('id' => 'settings_openid_add'));
+        $this->element('legend', null, _('Add OpenID'));
         $this->hidden('token', common_session_token());
-        $this->element('h2', null, _('Add OpenID'));
-        $this->element('p', null,
+        $this->element('p', 'form_guide',
                        _('If you want to add an OpenID to your account, ' .
                          'enter it in the box below and click "Add".'));
-        $this->elementStart('p');
+        $this->elementStart('ul', 'form_datas');
+        $this->elementStart('li');
         $this->element('label', array('for' => 'openid_url'),
                        _('OpenID URL'));
         $this->element('input', array('name' => 'openid_url',
                                       'type' => 'text',
                                       'id' => 'openid_url'));
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
         $this->element('input', array('type' => 'submit',
-                                      'id' => 'add',
+                                      'id' => 'settings_openid_add_action-submit',
                                       'name' => 'add',
                                       'class' => 'submit',
                                       'value' => _('Add')));
-        $this->elementEnd('p');
+        $this->elementEnd('fieldset');
         $this->elementEnd('form');
 
         $oid = new User_openid();
@@ -134,7 +139,7 @@ class OpenidsettingsAction extends SettingsAction
 
             } else {
 
-                $this->element('p', null,
+                $this->element('p', 'form_guide',
                                _('You can remove an OpenID from your account '.
                                  'by clicking the button marked "Remove".'));
                 $idx = 0;
@@ -142,10 +147,11 @@ class OpenidsettingsAction extends SettingsAction
                 while ($oid->fetch()) {
                     $this->elementStart('form',
                                         array('method' => 'POST',
-                                              'id' => 'openiddelete' . $idx,
+                                              'id' => 'form_settings_openid_delete' . $idx,
+                                              'class' => 'form_settings',
                                               'action' =>
                                               common_local_url('openidsettings')));
-                    $this->elementStart('p');
+                    $this->elementStart('fieldset');
                     $this->hidden('token', common_session_token());
                     $this->element('a', array('href' => $oid->canonical),
                                    $oid->display);
@@ -158,7 +164,7 @@ class OpenidsettingsAction extends SettingsAction
                                                   'name' => 'remove',
                                                   'class' => 'submit',
                                                   'value' => _('Remove')));
-                    $this->elementEnd('p');
+                    $this->elementEnd('fieldset');
                     $this->elementEnd('form');
                     $idx++;
                 }

@@ -97,58 +97,71 @@ class TwittersettingsAction extends SettingsAction
         }
 
         $this->elementStart('form', array('method' => 'post',
-                                          'id' => 'twittersettings',
+                                          'id' => 'form_settings_twitter',
+                                          'class' => 'form_settings',
                                           'action' =>
                                           common_local_url('twittersettings')));
+        $this->elementStart('fieldset', array('id' => 'settings_twitter_account'));
+        $this->element('legend', null, _('Twitter Account'));
         $this->hidden('token', common_session_token());
-
-        $this->element('h2', null, _('Twitter Account'));
-
+        $this->elementStart('ul', 'form_datas');
         if ($fuser) {
-            $this->elementStart('p');
-
+            $this->elementStart('li');
             $this->element('span', 'twitter_user', $fuser->nickname);
             $this->element('a', array('href' => $fuser->uri), $fuser->uri);
-            $this->element('span', 'input_instructions',
+            $this->element('p', 'form_guide',
                            _('Current verified Twitter account.'));
             $this->hidden('flink_foreign_id', $flink->foreign_id);
-            $this->elementEnd('p');
             $this->submit('remove', _('Remove'));
+            $this->elementEnd('li');
         } else {
+            $this->elementStart('li');
             $this->input('twitter_username', _('Twitter user name'),
                          ($this->arg('twitter_username')) ?
                          $this->arg('twitter_username') :
                          $profile->nickname,
                          _('No spaces, please.')); // hey, it's what Twitter says
-
+            $this->elementEnd('li');
+            $this->elementStart('li');
             $this->password('twitter_password', _('Twitter password'));
+            $this->elementend('li');
         }
+        $this->elementEnd('ul');
+        $this->elementEnd('fieldset');
 
-        $this->element('h2', null, _('Preferences'));
+        $this->elementStart('fieldset', array('id' => 'settings_twitter_preferences'));
+        $this->element('legend', null, _('Preferences'));
 
+        $this->elementStart('ul');
+        $this->elementStart('li');
         $this->checkbox('noticesync',
                         _('Automatically send my notices to Twitter.'),
                         ($flink) ?
                         ($flink->noticesync & FOREIGN_NOTICE_SEND) :
                         true);
-
+        $this->elementEnd('li');
+        $this->elementStart('li');
         $this->checkbox('replysync',
                         _('Send local "@" replies to Twitter.'),
                         ($flink) ?
                         ($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) :
                         true);
-
+        $this->elementEnd('li');
+        $this->elementStart('li');
         $this->checkbox('friendsync',
                         _('Subscribe to my Twitter friends here.'),
                         ($flink) ?
                         ($flink->friendsync & FOREIGN_FRIEND_RECV) :
                         false);
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
 
         if ($flink) {
             $this->submit('save', _('Save'));
         } else {
             $this->submit('add', _('Add'));
         }
+        $this->elementEnd('fieldset');
 
         $this->showTwitterSubscriptions();
 

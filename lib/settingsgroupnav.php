@@ -94,7 +94,7 @@ class SettingsGroupNav extends Widget
                       _('Other options')));
         
         $action_name = $this->action->trimmed('action');
-        $this->action->elementStart('ul', array('id' => 'nav_views'));
+        $this->action->elementStart('ul', array('class' => 'nav'));
 	
         foreach ($menu as $menuaction => $menudesc) {
             if ($menuaction == 'imsettings' &&
@@ -104,7 +104,7 @@ class SettingsGroupNav extends Widget
             $this->action->menuItem(common_local_url($menuaction),
 				    $menudesc[0],
 				    $menudesc[1],
-				    $action_name == $menuaction);
+				    $action_name === $menuaction);
         }
 	
         $this->action->elementEnd('ul');

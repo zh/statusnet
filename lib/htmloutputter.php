@@ -155,20 +155,17 @@ class HTMLOutputter extends XMLOutputter
 
     function input($id, $label, $value=null, $instructions=null)
     {
-        $this->elementStart('p');
         $this->element('label', array('for' => $id), $label);
         $attrs = array('name' => $id,
                        'type' => 'text',
-                       'class' => 'input_text',
                        'id' => $id);
         if ($value) {
             $attrs['value'] = htmlspecialchars($value);
         }
         $this->element('input', $attrs);
         if ($instructions) {
-            $this->element('span', 'input_instructions', $instructions);
+            $this->element('p', 'form_guide', $instructions);
         }
-        $this->elementEnd('p');
     }
 
     /**
@@ -192,7 +189,6 @@ class HTMLOutputter extends XMLOutputter
     function checkbox($id, $label, $checked=false, $instructions=null,
                       $value='true', $disabled=false)
     {
-        $this->elementStart('p');
         $attrs = array('name' => $id,
                        'type' => 'checkbox',
                        'class' => 'checkbox',
@@ -208,14 +204,13 @@ class HTMLOutputter extends XMLOutputter
         }
         $this->element('input', $attrs);
         $this->text(' ');
-        $this->element('label', array('class' => 'checkbox_label',
+        $this->element('label', array('class' => 'checkbox',
                                       'for' => $id),
                        $label);
         $this->text(' ');
         if ($instructions) {
-            $this->element('span', 'input_instructions', $instructions);
+            $this->element('p', 'form_guide', $instructions);
         }
-        $this->elementEnd('p');
     }
 
     /**
@@ -240,7 +235,6 @@ class HTMLOutputter extends XMLOutputter
     function dropdown($id, $label, $content, $instructions=null,
                       $blank_select=false, $selected=null)
     {
-        $this->elementStart('p');
         $this->element('label', array('for' => $id), $label);
         $this->elementStart('select', array('id' => $id, 'name' => $id));
         if ($blank_select) {
@@ -257,9 +251,8 @@ class HTMLOutputter extends XMLOutputter
         }
         $this->elementEnd('select');
         if ($instructions) {
-            $this->element('span', 'input_instructions', $instructions);
+            $this->element('p', 'form_guide', $instructions);
         }
-        $this->elementEnd('p');
     }
 
     /**
@@ -296,7 +289,6 @@ class HTMLOutputter extends XMLOutputter
 
     function password($id, $label, $instructions=null)
     {
-        $this->elementStart('p');
         $this->element('label', array('for' => $id), $label);
         $attrs = array('name' => $id,
                        'type' => 'password',
@@ -304,9 +296,8 @@ class HTMLOutputter extends XMLOutputter
                        'id' => $id);
         $this->element('input', $attrs);
         if ($instructions) {
-            $this->element('span', 'input_instructions', $instructions);
+            $this->element('p', 'form_guide', $instructions);
         }
-        $this->elementEnd('p');
     }
 
     /**
@@ -348,7 +339,6 @@ class HTMLOutputter extends XMLOutputter
 
     function textarea($id, $label, $content=null, $instructions=null)
     {
-        $this->elementStart('p');
         $this->element('label', array('for' => $id), $label);
         $this->element('textarea', array('rows' => 3,
                                          'cols' => 40,
@@ -356,8 +346,7 @@ class HTMLOutputter extends XMLOutputter
                                          'id' => $id),
                        ($content) ? $content : '');
         if ($instructions) {
-            $this->element('span', 'input_instructions', $instructions);
+            $this->element('p', 'form_guide', $instructions);
         }
-        $this->elementEnd('p');
     }
 }
