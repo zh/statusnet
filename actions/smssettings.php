@@ -83,12 +83,14 @@ class SmssettingsAction extends SettingsAction
         $user = common_current_user();
 
         $this->elementStart('form', array('method' => 'post',
-                                          'id' => 'smssettings',
+                                          'id' => 'form_settings_sms',
+                                          'class' => 'form_settings',
                                           'action' =>
                                           common_local_url('smssettings')));
 
+        $this->elementStart('fieldset');
+        $this->element('legend', null, _('Address'));
         $this->hidden('token', common_session_token());
-        $this->element('h2', null, _('Address'));
 
         if ($user->sms) {
             $this->elementStart('p');
@@ -126,6 +128,7 @@ class SmssettingsAction extends SettingsAction
                 $this->submit('add', _('Add'));
             }
         }
+        $this->elementEnd('fieldset');
 
         if ($user->sms) {
             $this->element('h2', null, _('Incoming email'));
@@ -147,8 +150,8 @@ class SmssettingsAction extends SettingsAction
             $this->submit('newincoming', _('New'));
         }
 
-        $this->element('h2', null, _('Preferences'));
-
+        $this->elementStart('fieldset', array('id' => 'sms_preferences'));
+        $this->element('legend', null, _('Preferences'));
         $this->checkbox('smsnotify',
                         _('Send me notices through SMS; '.
                           'I understand I may incur '.
@@ -157,6 +160,7 @@ class SmssettingsAction extends SettingsAction
 
         $this->submit('save', _('Save'));
 
+        $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }
 
