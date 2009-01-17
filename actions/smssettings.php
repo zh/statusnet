@@ -88,7 +88,7 @@ class SmssettingsAction extends SettingsAction
                                           'action' =>
                                           common_local_url('smssettings')));
 
-        $this->elementStart('fieldset');
+        $this->elementStart('fieldset', array('id' => 'settings_sms_address'));
         $this->element('legend', null, _('Address'));
         $this->hidden('token', common_session_token());
 
@@ -142,21 +142,25 @@ class SmssettingsAction extends SettingsAction
                 $this->submit('removeincoming', _('Remove'));
             }
 
-            $this->elementStart('p');
-            $this->element('span', 'input_instructions',
+            $this->element('p', 'form_guide',
                            _('Make a new email address for posting to; '.
                              'cancels the old one.'));
-            $this->elementEnd('p');
             $this->submit('newincoming', _('New'));
         }
 
-        $this->elementStart('fieldset', array('id' => 'sms_preferences'));
+        $this->elementStart('fieldset', array('id' => 'settings_sms_preferences'));
         $this->element('legend', null, _('Preferences'));
+
+
+        $this->elementStart('ul', 'form_datas');
+        $this->elementStart('li');
         $this->checkbox('smsnotify',
                         _('Send me notices through SMS; '.
                           'I understand I may incur '.
                           'exorbitant charges from my carrier.'),
                         $user->smsnotify);
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
 
         $this->submit('save', _('Save'));
 
@@ -440,8 +444,9 @@ class SmssettingsAction extends SettingsAction
 
         $cnt = $carrier->find();
 
-        $this->elementStart('p');
-        $this->element('label', array('for' => 'carrier'));
+        $this->elementStart('ul');
+        $this->elementStart('li');
+        $this->element('label', array('for' => 'carrier'), _('Mobile carrier'));
         $this->elementStart('select', array('name' => 'carrier',
                                             'id' => 'carrier'));
         $this->element('option', array('value' => 0),
@@ -451,13 +456,14 @@ class SmssettingsAction extends SettingsAction
                            $carrier->name);
         }
         $this->elementEnd('select');
-        $this->elementEnd('p');
-        $this->element('span', 'input_instructions',
+        $this->element('p', 'form_guide',
                        sprintf(_('Mobile carrier for your phone. '.
                                  'If you know a carrier that accepts ' .
                                  'SMS over email but isn\'t listed here, ' .
                                  'send email to let us know at %s.'),
                                common_config('site', 'email')));
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
     }
 
     /**
