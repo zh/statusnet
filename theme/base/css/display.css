@@ -42,6 +42,8 @@ font-weight:bold;
 font-size:1.6em;
 text-transform:uppercase;
 }
+form {
+}
 input, textarea, select, option {
 padding:4px;
 font-family:sans-serif;
@@ -714,12 +716,15 @@ clear:left;
 float:left;
 width:48%;
 }
-.notice div.entry-content,
+.notice div.entry-content a,
 .notice .notice-options a,
 .notice .notice-options input {
-font-size:0.9em;
-}
 
+}
+.notice .notice-options a,
+.notice .notice-options input {
+float:left;
+}
 
 #laconicat .notice div.entry-content {
 /*margin-left:0;*/
@@ -734,17 +739,16 @@ display:inline;
 .notice div.entry-content .response dt {
 display:none;
 }
-.notice div.entry-content .timestamp {
+.notice div.entry-content .timestamp a {
 
 }
 .notice div.entry-content .device dt {
 text-transform:lowercase;
 }
 .notice div.entry-content a {
-text-decoration:none;
+
 }
 .notice div.entry-content a:hover {
-text-decoration:underline;
 }
 
 
@@ -765,20 +769,17 @@ display:block;
 outline:none;
 }
 
-
-
 .notice-options {
-margin-left:2%;
+padding-left:2%;
 float:left;
+width:50%;
 }
 .notice-options .notice_reply,
-.notice-options .notice_delete ,
 .notice-options .notice_favorite {
 float:left;
 margin-right:11px;
 }
 .notice-options .notice_reply {
-margin-top:1px;
 }
 .notice-options .notice_reply dt {
 display:none;
@@ -788,15 +789,19 @@ display:none;
 display:block;
 border:0;
 }
-
 .notice-options .notice_reply a,
 .notice-options .notice_delete a {
 text-decoration:none;
 padding-left:20px;
 }
+
+.notice-options .notice_delete {
+float:right;
+}
+
 .notice-options form input.submit {
 cursor:pointer;
-padding:0 0 0 17px;
+padding:2px 0 2px 17px;
 }
 
 .notice-options .notice_delete dt,
@@ -809,10 +814,6 @@ border:0;
 padding:0;
 }
 
-
-.notice-options .notice_delete {
-margin-left:3em;
-}
 /*END: NOTICES */
 
 

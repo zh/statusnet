@@ -1,28 +1,17 @@
 /* theme: identica */
 html {
-	background-color:#ddd;
+background-color:#ddd;
 }
 body {
-	font-family: sans-serif;
-	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-	font-size:1em;
-
+font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+font-size:1em;
 }
 input, textarea, select, option {
-	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 input:focus, textarea:focus, select:focus {
 border-color:#B2D0DD;
 }
-form span.required { color:#f00; }
-form .error {
-background-color:#f00;
-color:#fff;
-}
-form .error_message {
-color:#EC008C;
-}
-
 a {
 color:#002E6E;
 }
@@ -76,13 +65,6 @@ background-color:rgba(255, 255, 255, 0.2);
 background-color:rgba(255, 255, 255, 0.7);:
 }
 
-/*
-#site_nav_global_primary .current a {
-font-weight:bold;
-border-color:#ccc;
-border-style:solid;
-}
-*/
 
 #content,
 #site_nav_local_views .current a {
@@ -154,7 +136,7 @@ color:#555;
 
 /* NOTICES */
 .notice div.entry-content a {
-color:#333;
+
 }
 .notice div.entry-content a:hover {
 }
@@ -201,7 +183,16 @@ background:transparent url(../images/icons/twotone/green/trash.gif) no-repeat 0 
 div.entry-content,
 div.notice-options {
 opacity:0.2;
-color:#333;
+font-family:sans-serif;
+}
+div.entry-content a,
+div.notice-options a,
+div.notice-options input {
+font-family:sans-serif;
+}
+div.notice-options input {
+color:#002E6E;
+
 }
 .notices li.hover {
 background-color:#fcfcfc;
