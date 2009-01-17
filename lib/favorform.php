@@ -111,7 +111,7 @@ class FavorForm extends Form
      */
     function formLegend()
     {
-        $this->out->element('legend', null, _('Delete this notice'));
+        $this->out->element('legend', null, _('Favor this notice'));
     }
 
 
@@ -137,7 +137,7 @@ class FavorForm extends Form
     function formActions()
     {
         $this->out->submit('favor-submit-' . $this->notice->id,
-                           _('Favorite'));
+                           _('Favor this notice'));
     }
     
     /**

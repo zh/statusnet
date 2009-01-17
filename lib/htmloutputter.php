@@ -319,7 +319,8 @@ class HTMLOutputter extends XMLOutputter
                                       'id' => $id,
                                       'name' => ($name) ? $name : $id,
                                       'class' => $cls,
-                                      'value' => $label));
+                                      'value' => $label,
+                                      'title' => $label));
     }
 
     /**
