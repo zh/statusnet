@@ -137,7 +137,7 @@ class FavorForm extends Form
     function formActions()
     {
         $this->out->submit('favor-submit-' . $this->notice->id,
-                           _('Favor this notice'));
+                           _('Favor'), 'submit', null, _('Favor this notice'));
     }
     
     /**

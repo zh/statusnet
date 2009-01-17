@@ -313,14 +313,14 @@ class HTMLOutputter extends XMLOutputter
      * @todo add a $name parameter
      */
 
-    function submit($id, $label, $cls='submit', $name=null)
+    function submit($id, $label, $cls='submit', $name=null, $title=null)
     {
         $this->element('input', array('type' => 'submit',
                                       'id' => $id,
                                       'name' => ($name) ? $name : $id,
                                       'class' => $cls,
                                       'value' => $label,
-                                      'title' => $label));
+                                      'title' => $title));
     }
 
     /**
