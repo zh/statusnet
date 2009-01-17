@@ -91,28 +91,28 @@ class PersonalGroupNav extends Widget
             $user_profile = false;
         }
 
-        $this->out->elementStart('ul', array('id' => 'nav_views'));
+        $this->out->elementStart('ul', array('class' => 'nav'));
 
         $this->out->menuItem(common_local_url('all', array('nickname' =>
                                                        $nickname)),
                          _('Personal'),
                          sprintf(_('%s and friends'), (($user_profile && $user_profile->fullname) ? $user_profile->fullname : $nickname)),
-                         $action == 'all');
+                         $action == 'all', 'nav_timeline_personal');
         $this->out->menuItem(common_local_url('replies', array('nickname' =>
                                                               $nickname)),
                          _('Replies'),
                          sprintf(_('Replies to %s'), (($user_profile && $user_profile->fullname) ? $user_profile->fullname : $nickname)),
-                         $action == 'replies');
+                         $action == 'replies', 'nav_timeline_replies');
         $this->out->menuItem(common_local_url('showstream', array('nickname' =>
                                                               $nickname)),
                          _('Profile'),
                          ($user_profile && $user_profile->fullname) ? $user_profile->fullname : $nickname,
-                         $action == 'showstream');
+                         $action == 'showstream', 'nav_profile');
         $this->out->menuItem(common_local_url('showfavorites', array('nickname' =>
                                                               $nickname)),
                          _('Favorites'),
                          sprintf(_('%s\'s favorite notices'), ($user_profile) ? $user_profile->getBestName() : _('User')),
-                         $action == 'showfavorites');
+                         $action == 'showfavorites', 'nav_timeline_favorites');
 
         $cur = common_current_user();
 
