@@ -775,25 +775,26 @@ outline:none;
 margin-left:2%;
 float:left;
 }
-.notice-options .reply,
+.notice-options .notice_reply,
 .notice-options .notice_delete ,
 .notice-options .notice_favorite {
 float:left;
 margin-right:11px;
 }
-.notice-options .reply {
+.notice-options .notice_reply {
 margin-top:1px;
 }
-.notice-options .reply dt {
+.notice-options .notice_reply dt {
 display:none;
 }
-.notice-options .reply a,
+.notice-options .notice_reply a,
 .notice-options form input.submit {
 display:block;
 border:0;
 }
 
-.notice-options .reply a {
+.notice-options .notice_reply a,
+.notice-options .notice_delete a {
 text-decoration:none;
 padding-left:20px;
 }
@@ -802,7 +803,7 @@ cursor:pointer;
 padding:0 0 0 17px;
 }
 
-.notice-options .notice_delete legend,
+.notice-options .notice_delete dt,
 .notice-options .notice_favorite legend {
 display:none;
 }
@@ -813,8 +814,8 @@ padding:0;
 }
 
 
-.notice-options form.notice_delete {
-margin-left:2em;
+.notice-options .notice_delete {
+margin-left:3em;
 }
 /*END: NOTICES */
 

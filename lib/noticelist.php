@@ -438,7 +438,7 @@ class NoticeListItem extends Widget
         $reply_url = common_local_url('newnotice',
                                       array('replyto' => $this->profile->nickname));
 
-        $this->out->elementStart('dl', 'reply');
+        $this->out->elementStart('dl', 'notice_reply');
         $this->out->element('dt', null, _('Reply to this notice'));
         $this->out->elementStart('dd');
         $this->out->element('a', array('href' => $reply_url,
@@ -459,11 +459,13 @@ class NoticeListItem extends Widget
         if ($user && $this->notice->profile_id == $user->id) {
             $deleteurl = common_local_url('deletenotice',
                                           array('notice' => $this->notice->id));
-            $this->out->elementStart('a', array('class' => 'deletenotice',
-                                            'href' => $deleteurl,
-                                            'title' => _('delete')));
-            $this->out->raw(' &#215;');
-            $this->out->elementEnd('a');
+            $this->out->elementStart('dl', 'notice_delete');
+            $this->out->element('dt', null, _('Delete this notice'));
+            $this->out->elementStart('dd');
+            $this->out->element('a', array('href' => $deleteurl,
+                                           'title' => _('delete')), _('Delete'));
+            $this->out->elementEnd('dd');
+            $this->out->elementEnd('dl');
         }
     }
 
