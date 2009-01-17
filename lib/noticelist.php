@@ -442,7 +442,7 @@ class NoticeListItem extends Widget
         $this->out->element('dt', null, _('Reply to this notice'));
         $this->out->elementStart('dd');
         $this->out->element('a', array('href' => $reply_url,
-                                       'title' => _('reply')), _('Reply'));
+                                       'title' => _('Reply to this notice')), _('Reply'));
         $this->out->elementEnd('dd');
         $this->out->elementEnd('dl');
     }
@@ -463,7 +463,7 @@ class NoticeListItem extends Widget
             $this->out->element('dt', null, _('Delete this notice'));
             $this->out->elementStart('dd');
             $this->out->element('a', array('href' => $deleteurl,
-                                           'title' => _('delete')), _('Delete'));
+                                           'title' => _('Delete this notice')), _('Delete'));
             $this->out->elementEnd('dd');
             $this->out->elementEnd('dl');
         }
