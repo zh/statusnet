@@ -31,7 +31,7 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/settingsaction.php';
+require_once INSTALLDIR.'/lib/connectsettingsaction.php';
 require_once INSTALLDIR.'/lib/jabber.php';
 
 /**
@@ -46,7 +46,7 @@ require_once INSTALLDIR.'/lib/jabber.php';
  * @see      SettingsAction
  */
 
-class ImsettingsAction extends SettingsAction
+class ImsettingsAction extends ConnectSettingsAction
 {
     /**
      * Title of the page

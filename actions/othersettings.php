@@ -19,9 +19,9 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-require_once(INSTALLDIR.'/lib/settingsaction.php');
+require_once(INSTALLDIR.'/lib/accountsettingsaction.php');
 
-class OthersettingsAction extends SettingsAction
+class OthersettingsAction extends AccountSettingsAction
 {
 
     function get_instructions()

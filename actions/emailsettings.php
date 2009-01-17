@@ -32,7 +32,7 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/settingsaction.php';
+require_once INSTALLDIR.'/lib/accountsettingsaction.php';
 
 /**
  * Settings for email
@@ -47,7 +47,7 @@ require_once INSTALLDIR.'/lib/settingsaction.php';
  * @see      Widget
  */
 
-class EmailsettingsAction extends SettingsAction
+class EmailsettingsAction extends AccountSettingsAction
 {
     /**
      * Title of the page
@@ -103,7 +103,7 @@ class EmailsettingsAction extends SettingsAction
             $confirm = $this->getConfirmation();
             if ($confirm) {
                 $this->element('p', array('id' => 'email_unconfirmed'), $confirm->address);
-                $this->element('p', array('class' => 'form_note'), 
+                $this->element('p', array('class' => 'form_note'),
                                         _('Awaiting confirmation on this address. '.
                                         'Check your inbox (and spam box!) for a message '.
                                         'with further instructions.'));
@@ -142,7 +142,6 @@ class EmailsettingsAction extends SettingsAction
             $this->submit('newincoming', _('New'));
             $this->elementEnd('fieldset');
         }
-
 
         $this->elementStart('fieldset', array('id' => 'settings_email_preferences'));
         $this->element('legend', null, _('Preferences'));

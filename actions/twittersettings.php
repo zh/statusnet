@@ -31,7 +31,7 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/settingsaction.php';
+require_once INSTALLDIR.'/lib/connectsettingsaction.php';
 
 define('SUBSCRIPTIONS', 80);
 
@@ -47,7 +47,7 @@ define('SUBSCRIPTIONS', 80);
  * @see      SettingsAction
  */
 
-class TwittersettingsAction extends SettingsAction
+class TwittersettingsAction extends ConnectSettingsAction
 {
     /**
      * Title of the page
@@ -129,7 +129,8 @@ class TwittersettingsAction extends SettingsAction
         $this->elementEnd('ul');
         $this->elementEnd('fieldset');
 
-        $this->elementStart('fieldset', array('id' => 'settings_twitter_preferences'));
+        $this->elementStart('fieldset',
+                            array('id' => 'settings_twitter_preferences'));
         $this->element('legend', null, _('Preferences'));
 
         $this->elementStart('ul');

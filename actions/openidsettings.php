@@ -31,7 +31,7 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/settingsaction.php';
+require_once INSTALLDIR.'/lib/accountsettingsaction.php';
 require_once INSTALLDIR.'/lib/openid.php';
 
 /**
@@ -46,7 +46,7 @@ require_once INSTALLDIR.'/lib/openid.php';
  * @link     http://laconi.ca/
  */
 
-class OpenidsettingsAction extends SettingsAction
+class OpenidsettingsAction extends AccountSettingsAction
 {
     /**
      * Title of the page

@@ -31,7 +31,7 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/settingsaction.php';
+require_once INSTALLDIR.'/lib/connectsettingsaction.php';
 
 /**
  * Settings for SMS
@@ -45,7 +45,7 @@ require_once INSTALLDIR.'/lib/settingsaction.php';
  * @see      SettingsAction
  */
 
-class SmssettingsAction extends SettingsAction
+class SmssettingsAction extends ConnectSettingsAction
 {
     /**
      * Title of the page
@@ -150,7 +150,6 @@ class SmssettingsAction extends SettingsAction
 
         $this->elementStart('fieldset', array('id' => 'settings_sms_preferences'));
         $this->element('legend', null, _('Preferences'));
-
 
         $this->elementStart('ul', 'form_datas');
         $this->elementStart('li');

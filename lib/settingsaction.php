@@ -31,8 +31,6 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/settingsgroupnav.php';
-
 /**
  * Base class for settings group of actions
  *
@@ -149,17 +147,4 @@ class SettingsAction extends Action
         return '';
     }
 
-    /**
-     * Show the local navigation menu
-     *
-     * This is the same for all settings, so we show it here.
-     *
-     * @return void
-     */
-
-    function showLocalNav()
-    {
-        $menu = new SettingsGroupNav($this);
-        $menu->show();
-    }
 }

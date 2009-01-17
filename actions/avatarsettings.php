@@ -32,7 +32,7 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/settingsaction.php';
+require_once INSTALLDIR.'/lib/accountsettingsaction.php';
 
 /**
  * Upload an avatar
@@ -47,7 +47,7 @@ require_once INSTALLDIR.'/lib/settingsaction.php';
  * @link     http://laconi.ca/
  */
 
-class AvatarsettingsAction extends SettingsAction
+class AvatarsettingsAction extends AccountSettingsAction
 {
     /**
      * Title of the page

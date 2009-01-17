@@ -770,6 +770,8 @@ function common_fancy_url($action, $args=null)
         return common_path('main/openid');
      case 'profilesettings':
         return common_path('settings/profile');
+     case 'passwordsettings':
+        return common_path('settings/password');
      case 'emailsettings':
         return common_path('settings/email');
      case 'openidsettings':
@@ -852,6 +854,8 @@ function common_fancy_url($action, $args=null)
         return common_path($path);
      case 'imsettings':
         return common_path('settings/im');
+     case 'avatarsettings':
+        return common_path('settings/avatar');
      case 'peoplesearch':
         return common_path('search/people' . (($args) ? ('?' . http_build_query($args)) : ''));
      case 'noticesearch':

@@ -2,7 +2,7 @@
 /**
  * Laconica, the distributed open-source microblogging tool
  *
- * Navigation widget for the settings group
+ * Base class for connection settings actions
  *
  * PHP version 5
  *
@@ -19,10 +19,10 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  Widget
+ * @category  Settings
  * @package   Laconica
  * @author    Evan Prodromou <evan@controlyourself.ca>
- * @copyright 2009 Control Yourself, Inc.
+ * @copyright 2008-2009 Control Yourself, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://laconi.ca/
  */
@@ -31,10 +31,39 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/widget.php';
+require_once INSTALLDIR.'/lib/settingsaction.php';
 
 /**
- * A widget for showing the settings group local nav menu
+ * Base class for connection settings actions
+ *
+ * @category Settings
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://laconi.ca/
+ *
+ * @see      Widget
+ */
+
+class ConnectSettingsAction extends SettingsAction
+{
+    /**
+     * Show the local navigation menu
+     *
+     * This is the same for all settings, so we show it here.
+     *
+     * @return void
+     */
+
+    function showLocalNav()
+    {
+        $menu = new ConnectSettingsNav($this);
+        $menu->show();
+    }
+}
+
+/**
+ * A widget for showing the connect group local nav menu
  *
  * @category Widget
  * @package  Laconica
@@ -45,7 +74,7 @@ require_once INSTALLDIR.'/lib/widget.php';
  * @see      HTMLOutputter
  */
 
-class SettingsGroupNav extends Widget
+class ConnectSettingsNav extends Widget
 {
     var $action = null;
 
@@ -71,31 +100,19 @@ class SettingsGroupNav extends Widget
     {
         # action => array('prompt', 'title')
         $menu =
-          array('profilesettings' =>
-                array(_('Profile'),
-                      _('Change your profile settings')),
-                'emailsettings' =>
-                array(_('Email'),
-                      _('Change email handling')),
-                'openidsettings' =>
-                array(_('OpenID'),
-                      _('Add or remove OpenIDs')),
+          array('imsettings' =>
+                array(_('IM'),
+                      _('Updates by instant messenger (IM)')),
                 'smssettings' =>
                 array(_('SMS'),
                       _('Updates by SMS')),
-                'imsettings' =>
-                array(_('IM'),
-                      _('Updates by instant messenger (IM)')),
                 'twittersettings' =>
                 array(_('Twitter'),
-                      _('Twitter integration options')),
-                'othersettings' =>
-                array(_('Other'),
-                      _('Other options')));
-        
+                      _('Twitter integration options')));
+
         $action_name = $this->action->trimmed('action');
         $this->action->elementStart('ul', array('class' => 'nav'));
-	
+
         foreach ($menu as $menuaction => $menudesc) {
             if ($menuaction == 'imsettings' &&
                 !common_config('xmpp', 'enabled')) {
@@ -106,7 +123,7 @@ class SettingsGroupNav extends Widget
 				    $menudesc[1],
 				    $action_name === $menuaction);
         }
-	
+
         $this->action->elementEnd('ul');
     }
 }

@@ -208,20 +208,20 @@ class Action extends HTMLOutputter // lawsuit
         $this->showLogo();
         $this->showPrimaryNav();
         $this->showSiteNotice();
-	if (common_logged_in()) {
-	    $this->showNoticeForm();
-	} else {
-	    $this->showAnonymousMessage();
-	}
+        if (common_logged_in()) {
+            $this->showNoticeForm();
+        } else {
+            $this->showAnonymousMessage();
+        }
         $this->elementEnd('div');
     }
 
     function showLogo()
     {
         $this->elementStart('address', array('id' => 'site_contact',
-                                              'class' => 'vcard'));
+                                             'class' => 'vcard'));
         $this->elementStart('a', array('class' => 'url home bookmark',
-                                        'href' => common_local_url('public')));
+                                       'href' => common_local_url('public')));
         if (common_config('site', 'logo') || file_exists(theme_file('logo.png')))
         {
             $this->element('img', array('class' => 'logo photo',
@@ -237,21 +237,21 @@ class Action extends HTMLOutputter // lawsuit
     {
         $this->elementStart('dl', array('id' => 'site_nav_global_primary'));
         $this->element('dt', null, _('Primary site navigation'));
-	$this->elementStart('dd');
+        $this->elementStart('dd');
         $user = common_current_user();
         $this->elementStart('ul', array('class' => 'nav'));
         if ($user) {
             $this->menuItem(common_local_url('all', array('nickname' => $user->nickname)),
-                             _('Home'));
+                            _('Home'));
         }
         $this->menuItem(common_local_url('peoplesearch'), _('Search'));
         if ($user) {
             $this->menuItem(common_local_url('profilesettings'),
-                             _('Settings'));
-            $this->menuItem(common_local_url('invite'),
-                             _('Invite'));
+                            _('Account'));
+            $this->menuItem(common_local_url('imsettings'),
+                            _('Connect'));
             $this->menuItem(common_local_url('logout'),
-                             _('Logout'));
+                            _('Logout'));
         } else {
             $this->menuItem(common_local_url('login'), _('Login'));
             if (!common_config('site', 'closed')) {
@@ -260,25 +260,25 @@ class Action extends HTMLOutputter // lawsuit
             $this->menuItem(common_local_url('openidlogin'), _('OpenID'));
         }
         $this->menuItem(common_local_url('doc', array('title' => 'help')),
-                         _('Help'));
+                        _('Help'));
         $this->elementEnd('ul');
-	$this->elementEnd('dd');	
+        $this->elementEnd('dd');
         $this->elementEnd('dl');
     }
 
     // Revist. Should probably do an hAtom pattern here
     function showSiteNotice()
     {
-	$text = common_config('site', 'notice');
-	if ($text) {
-	    $this->elementStart('dl', array('id' => 'site_notice',
-					    'class' => 'system_notice'));
-	    $this->element('dt', null, _('Site notice'));
-	    $this->element('dd', null, $text);
-	    $this->elementEnd('dl');
-	}
+        $text = common_config('site', 'notice');
+        if ($text) {
+            $this->elementStart('dl', array('id' => 'site_notice',
+                                            'class' => 'system_notice'));
+            $this->element('dt', null, _('Site notice'));
+            $this->element('dd', null, $text);
+            $this->elementEnd('dl');
+        }
     }
-    
+
     // MAY overload if no notice form needed... or direct message box????
 
     function showNoticeForm()
@@ -289,9 +289,9 @@ class Action extends HTMLOutputter // lawsuit
 
     function showAnonymousMessage()
     {
-	// needs to be defined by the class
+        // needs to be defined by the class
     }
-    
+
     function showCore()
     {
         $this->elementStart('div', array('id' => 'core'));
@@ -331,13 +331,13 @@ class Action extends HTMLOutputter // lawsuit
 
     function showPageNoticeBlock()
     {
-	$this->elementStart('dl', array('id' => 'page_notice',
-					'class' => 'system_notice'));
-	$this->element('dt', null, _('Page notice'));
-	$this->elementStart('dd');
-	$this->showPageNotice();
-	$this->elementEnd('dd');
-	$this->elementEnd('dl');
+        $this->elementStart('dl', array('id' => 'page_notice',
+                                        'class' => 'system_notice'));
+        $this->element('dt', null, _('Page notice'));
+        $this->elementStart('dd');
+        $this->showPageNotice();
+        $this->elementEnd('dd');
+        $this->elementEnd('dl');
 	}
 
     // SHOULD overload (unless there's not a notice)
@@ -345,7 +345,7 @@ class Action extends HTMLOutputter // lawsuit
     function showPageNotice()
     {
     }
-    
+
     // MUST overload
 
     function showContent()
@@ -391,17 +391,17 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementStart('dd', null);
         $this->elementStart('ul', array('class' => 'nav'));
         $this->menuItem(common_local_url('doc', array('title' => 'help')),
-                         _('Help'));
+                        _('Help'));
         $this->menuItem(common_local_url('doc', array('title' => 'about')),
-                         _('About'));
+                        _('About'));
         $this->menuItem(common_local_url('doc', array('title' => 'faq')),
-                         _('FAQ'));
+                        _('FAQ'));
         $this->menuItem(common_local_url('doc', array('title' => 'privacy')),
-                         _('Privacy'));
+                        _('Privacy'));
         $this->menuItem(common_local_url('doc', array('title' => 'source')),
-                         _('Source'));
+                        _('Source'));
         $this->menuItem(common_local_url('doc', array('title' => 'contact')),
-                         _('Contact'));
+                        _('Contact'));
         $this->elementEnd('ul');
         $this->elementEnd('dd');
         $this->elementEnd('dl');
@@ -567,7 +567,7 @@ class Action extends HTMLOutputter // lawsuit
         }
 
         (is_null($id)) ? $lattrs : $lattrs['id'] = $id;
-        
+
         $this->elementStart('li', $lattrs);
         $attrs['href'] = $url;
         if ($title) {
