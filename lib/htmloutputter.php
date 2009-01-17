@@ -204,7 +204,7 @@ class HTMLOutputter extends XMLOutputter
         }
         $this->element('input', $attrs);
         $this->text(' ');
-        $this->element('label', array('class' => 'checkbox_label',
+        $this->element('label', array('class' => 'checkbox',
                                       'for' => $id),
                        $label);
         $this->text(' ');

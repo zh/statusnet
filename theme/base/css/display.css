@@ -64,6 +64,13 @@ font-weight:bold;
 }
 form ul li input {
 }
+
+form input.checkbox {
+position:relative;
+top:2px;
+left:0;
+}
+
 form .error {
 margin-right:11px;
 }
@@ -97,7 +104,8 @@ padding:0;
 border:0;
 }
 .form_settings legend {
-display:none;
+font-size:1.6em;
+text-transform:uppercase;
 }
 .form_settings .form_datas label {
 
@@ -124,6 +132,9 @@ margin-bottom:18px;
 margin-bottom:29px;
 }
 
+#settings_email_preferences label {
+font-weight:normal;
+}
 
 /* FORM SETTINGS */
 

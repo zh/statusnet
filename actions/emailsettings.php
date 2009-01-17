@@ -89,12 +89,10 @@ class EmailsettingsAction extends SettingsAction
                                           'class' => 'form_settings',
                                           'action' =>
                                           common_local_url('emailsettings')));
-        $this->elementStart('fieldset');
-        $this->element('legend', null, _('Email settings'));
-        $this->hidden('token', common_session_token());
 
-        $this->elementStart('div', array('id' => 'settings_email_address'));
-        $this->element('h2', null, _('Address'));
+        $this->elementStart('fieldset',array('id' => 'settings_email_address'));
+        $this->element('legend', null, _('Address'));
+        $this->hidden('token', common_session_token());
 
         if ($user->email) {
             $this->element('p', array('id' => 'email_confirmed', $user->email));
@@ -122,12 +120,11 @@ class EmailsettingsAction extends SettingsAction
                 $this->submit('add', _('Add'));
             }
         }
-        $this->elementEnd('div');
+        $this->elementEnd('fieldset');
 
-        $this->elementStart('div', array('id' => 'settings_email_incoming'));
-        if ($user->email) {
-            $this->element('h2', null, _('Incoming email'));
-
+       if ($user->email) {
+            $this->elementStart('fieldset',array('id' => 'settings_email_incoming'));
+            $this->element('legend',_('Incoming email'));
             if ($user->incomingemail) {
                 $this->elementStart('p');
                 $this->element('span', 'address', $user->incomingemail);
@@ -143,11 +140,12 @@ class EmailsettingsAction extends SettingsAction
                              'cancels the old one.'));
             $this->elementEnd('p');
             $this->submit('newincoming', _('New'));
+            $this->elementEnd('fieldset');
         }
-        $this->elementEnd('div');
 
-        $this->elementStart('div', array('id' => 'settings_email_preferences'));
-        $this->element('h2', null, _('Preferences'));
+
+        $this->elementStart('fieldset', array('id' => 'settings_email_preferences'));
+        $this->element('legend', null, _('Preferences'));
 
         $this->elementStart('ul', 'form_datas');
         $this->elementStart('li');
@@ -182,11 +180,9 @@ class EmailsettingsAction extends SettingsAction
                         $user->emailmicroid);
         $this->elementEnd('li');
         $this->elementEnd('ul');
-        $this->elementEnd('div');
+        $this->elementEnd('fieldset');
 
         $this->submit('save', _('Save'));
-
-        $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }
 
