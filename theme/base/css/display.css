@@ -109,9 +109,23 @@ margin-bottom:29px;
 font-style:italic;
 }
 
+
+.form_settings .form_datas li {
+width:100%;
+float:left;
+}
+
 .form_login label,
-.form_settings label {
+.form_settings .form_datas label,
+.form_login input,
+.form_settings .form_datas input {
 margin-right:11px;
+float:left;
+}
+
+.form_settings label {
+margin-top:7px;
+width:123px;
 }
 
 .form_actions label {
@@ -123,16 +137,31 @@ display:inline;
 font-weight:bold;
 }
 
+#form_settings_profile legend {
+display:none;
+}
+
+.form_settings .form_datas p.form_guide {
+clear:both;
+margin-left:134px;
+margin-bottom:0;
+}
+
 .form_settings p {
-margin-bottom:18px;
+margin-bottom:11px;
 }
 
 #settings_email_address {
 margin-bottom:29px;
 }
 
+.form_settings input.checkbox {
+margin-top:3px;
+}
 .form_settings label.checkbox {
 font-weight:normal;
+width:auto;
+margin-top:0;
 }
 
 /* FORM SETTINGS */
