@@ -103,6 +103,18 @@ class DisfavorForm extends Form
                            common_session_token());
     }
 
+
+    /**
+     * Legend of the Form
+     *
+     * @return void
+     */
+    function formLegend()
+    {
+        $this->out->element('legend', null, _('Disfavor this notice'));
+    }
+
+
     /**
      * Data elements
      *
