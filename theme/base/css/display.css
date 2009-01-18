@@ -79,11 +79,12 @@ top:2px;
 left:0;
 }
 
-#page_notice .error {
-background-color:#F7E8E8;
+#page_notice .error,
+#page_notice .success {
 padding:4px 7px;
 -moz-border-radius:4px;
 }
+
 form label.submit {
 display:none;
 }
@@ -666,10 +667,6 @@ border-top:1px dashed #D1D9E4;
 list-style-type:none;
 /*margin-bottom:11px;*/
 }
-.notices li.over {
-background-color:#fcfcfc;
-}
-
 
 /* NOTICES */
 #notices_primary {
