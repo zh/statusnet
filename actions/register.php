@@ -332,22 +332,32 @@ class RegisterAction extends Action
         }
 
         $this->elementStart('form', array('method' => 'post',
-                                          'id' => 'login',
+                                          'id' => 'form_register',
+                                          'class' => 'form_settings',
                                           'action' => common_local_url('register')));
-
+        $this->elementStart('fieldset');
+        $this->element('legend', null, 'Account settings');
         $this->hidden('token', common_session_token());
 
         if ($code) {
             $this->hidden('code', $code);
         }
 
+        $this->elementStart('ul', 'form_datas');
+        $this->elementStart('li');
         $this->input('nickname', _('Nickname'), $this->trimmed('nickname'),
                      _('1-64 lowercase letters or numbers, '.
                        'no punctuation or spaces. Required.'));
+        $this->elementEnd('li');
+        $this->elementStart('li');
         $this->password('password', _('Password'),
                         _('6 or more characters. Required.'));
+        $this->elementEnd('li');
+        $this->elementStart('li');
         $this->password('confirm', _('Confirm'),
                         _('Same as password above. Required.'));
+        $this->elementEnd('li');
+        $this->elementStart('li');
         if ($invite && $invite->address_type == 'email') {
             $this->input('email', _('Email'), $invite->address,
                          _('Used only for updates, announcements, '.
@@ -357,26 +367,36 @@ class RegisterAction extends Action
                          _('Used only for updates, announcements, '.
                            'and password recovery'));
         }
+        $this->elementEnd('li');
+        $this->elementStart('li');
         $this->input('fullname', _('Full name'),
                      $this->trimmed('fullname'),
                      _('Longer name, preferably your "real" name'));
+        $this->elementEnd('li');
+        $this->elementStart('li');
         $this->input('homepage', _('Homepage'),
                      $this->trimmed('homepage'),
                      _('URL of your homepage, blog, '.
                        'or profile on another site'));
+        $this->elementEnd('li');
+        $this->elementStart('li');
         $this->textarea('bio', _('Bio'),
                         $this->trimmed('bio'),
                         _('Describe yourself and your '.
                           'interests in 140 chars'));
+        $this->elementEnd('li');
+        $this->elementStart('li');
         $this->input('location', _('Location'),
                      $this->trimmed('location'),
                      _('Where you are, like "City, '.
                        'State (or Region), Country"'));
+        $this->elementEnd('li');
+        $this->elementStart('li', array('id' => 'settings_rememberme'));
         $this->checkbox('rememberme', _('Remember me'),
                         $this->boolean('rememberme'),
                         _('Automatically login in the future; '.
                           'not for shared computers!'));
-        $this->elementStart('p');
+        $this->elementEnd('li');
         $attrs = array('type' => 'checkbox',
                        'id' => 'license',
                        'name' => 'license',
@@ -384,14 +404,17 @@ class RegisterAction extends Action
         if ($this->boolean('license')) {
             $attrs['checked'] = 'checked';
         }
+        $this->elementStart('li');
         $this->element('input', $attrs);
         $this->text(_('My text and files are available under '));
         $this->element('a', array('href' => common_config('license', 'url')),
                        $config['license']['title']);
         $this->text(_(' except this private data: password, '.
                       'email address, IM address, phone number.'));
-        $this->elementEnd('p');
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
         $this->submit('submit', _('Register'));
+        $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }
 
