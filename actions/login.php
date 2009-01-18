@@ -131,7 +131,6 @@ class LoginAction extends Action
     {      
         $this->elementStart('form', array('method' => 'post',
                                            'id' => 'form_login',
-                                           'class' => 'form_login',
                                            'action' => common_local_url('login')));
         $this->elementStart('fieldset');
         $this->element('legend', null, _('Login to site'));
