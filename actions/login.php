@@ -2,7 +2,7 @@
 /**
  * Laconica, the distributed open-source microblogging tool
  *
- * List of replies
+ * Login form
  *
  * PHP version 5
  *
@@ -32,7 +32,7 @@ if (!defined('LACONICA')) {
 }
 
 /**
- * List of replies
+ * Login form
  *
  * @category Personal
  * @package  Laconica
