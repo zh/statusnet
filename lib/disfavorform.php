@@ -125,7 +125,7 @@ class DisfavorForm extends Form
     function formActions()
     {
         $this->out->submit('disfavor-submit-' . $this->notice->id,
-                           _('Disfavor favorite'));
+                           _('Disfavor favorite'), 'submit', null, _('Disfavor this notice'));
     }
     
     /**
