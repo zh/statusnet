@@ -452,7 +452,7 @@ class Action extends HTMLOutputter // lawsuit
     // For comparison with If-Last-Modified
     // If not applicable, return null
 
-    function last_modified()
+    function lastModified()
     {
         return null;
     }
@@ -487,7 +487,7 @@ class Action extends HTMLOutputter // lawsuit
     function handle($argarray=null)
     {
 
-        $lm = $this->last_modified();
+        $lm = $this->lastModified();
         $etag = $this->etag();
 
         if ($etag) {
@@ -501,7 +501,7 @@ class Action extends HTMLOutputter // lawsuit
                 $ims = strtotime($if_modified_since);
                 if ($lm <= $ims) {
                     if (!$etag ||
-                        $this->_has_etag($etag, $_SERVER['HTTP_IF_NONE_MATCH'])) {
+                        $this->_hasEtag($etag, $_SERVER['HTTP_IF_NONE_MATCH'])) {
                         header('HTTP/1.1 304 Not Modified');
                         // Better way to do this?
                         exit(0);
@@ -511,7 +511,7 @@ class Action extends HTMLOutputter // lawsuit
         }
     }
 
-    function _has_etag($etag, $if_none_match)
+    function _hasEtag($etag, $if_none_match)
     {
         return ($if_none_match) && in_array($etag, explode(',', $if_none_match));
     }
