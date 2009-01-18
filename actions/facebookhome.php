@@ -19,7 +19,7 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-require_once(INSTALLDIR.'/lib/facebookaction.php');
+require_once INSTALLDIR.'/lib/facebookaction.php';
 
 class FacebookhomeAction extends FacebookAction
 {
@@ -35,6 +35,8 @@ class FacebookhomeAction extends FacebookAction
         $flink = Foreign_link::getByForeignID($fbuid, FACEBOOK_SERVICE);
 
         if ($flink) {
+            $user = $flink->getUser();
+            common_set_user($user);
             $this->showHome($flink, null);
         } else {
             $this->login($fbuid);
@@ -103,7 +105,7 @@ class FacebookhomeAction extends FacebookAction
         update_profile_box($facebook, $fbuid, $user, $notice);
 
 
-        $this->show_header('Home');
+        $this->showHeader('Home');
 
         if ($msg) {
             common_element('fb:success', array('message' => $msg));
@@ -111,7 +113,7 @@ class FacebookhomeAction extends FacebookAction
 
         echo $this->show_notices($user);
 
-        $this->show_footer();
+        $this->showFooter();
     }
 
     function show_notices($user)
@@ -132,7 +134,7 @@ class FacebookhomeAction extends FacebookAction
 
     function show_notice_list($notice)
     {
-        $nl = new NoticeList($notice);
+        $nl = new FacebookNoticeList($notice);
         return $nl->show();
     }
 

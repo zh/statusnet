@@ -19,7 +19,7 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-require_once(INSTALLDIR.'/lib/facebookaction.php');
+require_once INSTALLDIR.'/lib/facebookaction.php';
 
 class FacebooksettingsAction extends FacebookAction
 {
@@ -29,13 +29,13 @@ class FacebooksettingsAction extends FacebookAction
         parent::handle($args);
 
         if ($this->arg('save')) {
-            $this->save_settings();
+            $this->saveSettings();
         } else {
-            $this->show_form();
+            $this->showForm();
         }
     }
 
-    function save_settings() {
+    function saveSettings() {
 
         $noticesync = $this->arg('noticesync');
         $replysync = $this->arg('replysync');
@@ -59,14 +59,14 @@ class FacebooksettingsAction extends FacebookAction
         }
     }
 
-    function show_form($msg = null, $success = false) {
+    function showForm($msg = null, $success = false) {
 
         $facebook = get_facebook();
         $fbuid = $facebook->require_login();
 
         $flink = Foreign_link::getByForeignID($fbuid, FACEBOOK_SERVICE);
 
-        $this->show_header('Settings', $msg, $success);
+        $this->showHeader('Settings', $msg, $success);
 
         common_element_start('fb:if-section-not-added', array('section' => 'profile'));
         common_element('h2', null, _('Add an Identi.ca box to my profile'));
@@ -108,7 +108,7 @@ class FacebooksettingsAction extends FacebookAction
 
         }
 
-        $this->show_footer();
+        $this->showFooter();
     }
 
 }

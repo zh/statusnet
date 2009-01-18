@@ -41,7 +41,7 @@ class FacebookinviteAction extends FacebookAction
         $facebook = get_facebook();
         $fbuid = $facebook->require_login();
 
-        $this->show_header('Invite');
+        $this->showHeader('Invite');
 
         common_element('h2', null, _('Thanks for inviting your friends to use Identi.ca!'));
         common_element('p', null, _('Invitations have been sent to the following users:'));
@@ -60,7 +60,7 @@ class FacebookinviteAction extends FacebookAction
 
         common_element_end("ul");
 
-        $this->show_footer();
+        $this->showFooter();
     }
 
     function showInviteForm()
@@ -69,7 +69,7 @@ class FacebookinviteAction extends FacebookAction
         $facebook = get_facebook();
         $fbuid = $facebook->require_login();
 
-        $this->show_header('Invite');
+        $this->showHeader('Invite');
 
         // Get a list of users who are already using the app for exclusion
         $exclude_ids = $facebook->api_client->friends_getAppUsers();
@@ -104,7 +104,7 @@ class FacebookinviteAction extends FacebookAction
 
         common_element_end("ul");
 
-        $this->show_footer();
+        $this->showFooter();
 
     }
 
