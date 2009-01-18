@@ -399,6 +399,7 @@ class RegisterAction extends Action
         $this->elementEnd('li');
         $attrs = array('type' => 'checkbox',
                        'id' => 'license',
+                       'class' => 'checkbox',
                        'name' => 'license',
                        'value' => 'true');
         if ($this->boolean('license')) {

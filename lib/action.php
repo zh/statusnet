@@ -242,25 +242,29 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementStart('ul', array('class' => 'nav'));
         if ($user) {
             $this->menuItem(common_local_url('all', array('nickname' => $user->nickname)),
-                            _('Home'));
+                            _('Home'), _('Personal timeline'), false, 'nav_home');
         }
-        $this->menuItem(common_local_url('peoplesearch'), _('Search'));
+        $this->menuItem(common_local_url('peoplesearch'),
+                        _('Search'), _('Search the site for people and text'), false, 'nav_search');
         if ($user) {
             $this->menuItem(common_local_url('profilesettings'),
-                            _('Account'));
+                            _('Account'), _('Account settings'), false, 'nav_account');
             $this->menuItem(common_local_url('imsettings'),
-                            _('Connect'));
+                            _('Connect'), _('Connect settings'), false, 'nav_connect');
             $this->menuItem(common_local_url('logout'),
-                            _('Logout'));
+                            _('Logout'), _('Logout from the site'), false, 'nav_logout');
         } else {
-            $this->menuItem(common_local_url('login'), _('Login'));
+            $this->menuItem(common_local_url('login'),
+                            _('Login'), _('Login to the site'), false, 'nav_login');
             if (!common_config('site', 'closed')) {
-                $this->menuItem(common_local_url('register'), _('Register'));
+                $this->menuItem(common_local_url('register'),
+                                _('Register'), _('Create an account'), false, 'nav_register');
             }
-            $this->menuItem(common_local_url('openidlogin'), _('OpenID'));
+            $this->menuItem(common_local_url('openidlogin'),
+                            _('OpenID'), _('Login with OpenID'), false, 'nav_openid');
         }
         $this->menuItem(common_local_url('doc', array('title' => 'help')),
-                        _('Help'));
+                        _('Help'), _('Help me!'), false, 'nav_help');
         $this->elementEnd('ul');
         $this->elementEnd('dd');
         $this->elementEnd('dl');
