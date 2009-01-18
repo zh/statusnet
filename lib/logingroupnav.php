@@ -69,7 +69,7 @@ class LoginGroupNav extends Widget
 
     function show()
     {
-        # action => array('prompt', 'title')
+        // action => array('prompt', 'title')
         $menu =
           array('login' =>
                 array(_('Login'),
@@ -86,9 +86,9 @@ class LoginGroupNav extends Widget
 
         foreach ($menu as $menuaction => $menudesc) {
             $this->action->menuItem(common_local_url($menuaction),
-				    $menudesc[0],
-				    $menudesc[1],
-				    $action_name === $menuaction);
+                                    $menudesc[0],
+                                    $menudesc[1],
+                                    $action_name === $menuaction);
         }
 
         $this->action->elementEnd('ul');
