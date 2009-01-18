@@ -88,7 +88,7 @@ class DisfavorForm extends Form
 
     function action()
     {
-        common_local_url('disfavor');
+        return common_local_url('disfavor');
     }
 
     /**
@@ -136,7 +136,7 @@ class DisfavorForm extends Form
 
     function formClass()
     {
-	return 'disfavor';
+        return 'form_disfavor';
     }
 
 }

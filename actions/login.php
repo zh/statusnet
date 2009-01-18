@@ -107,13 +107,13 @@ class LoginAction extends Action
 
     function showForm($error=null)
     {
-	$this->error = $error;
-	$this->showPage();
+        $this->error = $error;
+        $this->showPage();
     }
 
     function title()
     {
-	return _('Login');
+        return _('Login');
     }
 
     function showPageNotice()

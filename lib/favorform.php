@@ -88,7 +88,7 @@ class FavorForm extends Form
 
     function action()
     {
-        common_local_url('favor');
+        return common_local_url('favor');
     }
 
     /**
@@ -148,6 +148,6 @@ class FavorForm extends Form
     
     function formClass()
     {
-	return 'notice_favorite';
+        return 'form_favor';
     }
 }

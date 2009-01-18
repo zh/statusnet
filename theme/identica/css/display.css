@@ -62,7 +62,7 @@ border-color:#fff;
 background-color:rgba(255, 255, 255, 0.2);
 }
 #site_nav_local_views a:hover {
-background-color:rgba(255, 255, 255, 0.7);:
+background-color:rgba(255, 255, 255, 0.7);
 }
 
 
@@ -87,7 +87,7 @@ background-image:url(../../base/images/icons/icon_atom.jpg);
 }
 #export_data li a.foaf {
 background-image:url(../../base/images/icons/icon_foaf.gif);
-=}
+}
 #export_data li a.export_vcard {
 background-image:url(../../base/images/icons/icon_vcard.gif);
 }
@@ -173,8 +173,11 @@ background-color:transparent;
 .notice-options .notice_reply a {
 background:transparent url(../images/icons/twotone/green/reply.gif) no-repeat 0 45%;
 }
-.notice-options form.notice_favorite input.submit {
+.notice-options form.form_favor input.submit {
 background:transparent url(../images/icons/twotone/green/favourite.gif) no-repeat 0 45%;
+}
+.notice-options form.form_disfavor input.submit {
+background:transparent url(../images/icons/twotone/green/disfavourite.gif) no-repeat 0 45%;
 }
 .notice-options .notice_delete a {
 background:transparent url(../images/icons/twotone/green/trash.gif) no-repeat 0 45%;

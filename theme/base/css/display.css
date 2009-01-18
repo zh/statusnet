@@ -817,11 +817,13 @@ float:left;
 }
 .notice-options .notice_delete,
 .notice-options .notice_reply,
-.notice-options .notice_favorite {
+.notice-options .form_favor,
+.notice-options .form_disfavor {
 position:absolute;
 top:0;
 }
-.notice-options .notice_favorite {
+.notice-options .form_favor,
+.notice-options .form_disfavor {
 left:0;
 }
 .notice-options .notice_reply {
@@ -861,11 +863,11 @@ padding:2px 0 2px 10px;
 }
 
 .notice-options .notice_delete dt,
-.notice-options .notice_favorite legend {
+.notice-options .form_favor legend {
 display:none;
 }
 .notice-options .notice_delete fieldset,
-.notice-options .notice_favorite fieldset {
+.notice-options .form_favor fieldset {
 border:0;
 padding:0;
 }
