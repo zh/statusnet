@@ -37,7 +37,11 @@ class FacebookAction extends Action
         
         common_element('link', array('rel' => 'stylesheet',
                                      'type' => 'text/css',
-                                     'href' => get_facebook_css()));
+                                     'href' => getFacebookCSS()));
+
+        common_element('script', array('type' => 'text/javascript',
+                                       'src' => getFacebookJS()),
+                                       ' ');
 
         common_element_start('a', array('class' => 'url home bookmark',
                                             'href' => common_local_url('public')));
@@ -57,6 +61,12 @@ class FacebookAction extends Action
     {
 
         start_fbml();
+
+        common_element_start('fb:if-section-not-added', array('section' => 'profile'));
+        common_element_start('span', array('id' => 'add_to_profile'));
+        common_element('fb:add-section-button', array('section' => 'profile'));
+        common_element_end('span');
+        common_element_end('fb:if-section-not-added');
 
         $this->showLogo();
 
@@ -141,8 +151,7 @@ class FacebookAction extends Action
 
         common_element('link', array('rel' => 'stylesheet',
                                      'type' => 'text/css',
-                                     'href' => get_facebook_css()));
-
+                                     'href' => getFacebookCSS()));
 
         $this->showLogo();
                                  

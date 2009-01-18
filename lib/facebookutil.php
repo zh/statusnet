@@ -105,12 +105,20 @@ function update_profile_box($facebook, $fbuid, $user, $notice)
     $facebook->api_client->profile_setFBML(null, $fbuid, $fbml, null, null, $fbml_main);
 }
 
-function get_facebook_css()
+function getFacebookCSS()
 {    
     # Add a timestamp to the CSS file so Facebook cache wont ignore our changes
     $ts = filemtime(theme_file('facebookapp.css'));
     $cssurl = theme_path('facebookapp.css') . "?ts=$ts";   
     return $cssurl;
+}
+
+function getFacebookJS() {
+    
+    # Add a timestamp to the FBJS file so Facebook cache wont ignore our changes
+    $ts = filemtime(INSTALLDIR.'/js/facebookapp.js');
+    $jsurl = common_path('js/facebookapp.js') . "?ts=$ts";   
+    return $jsurl;
 }
 
 

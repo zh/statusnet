@@ -68,18 +68,17 @@ class FacebooksettingsAction extends FacebookAction
 
         $this->showHeader('Settings', $msg, $success);
 
-        common_element_start('fb:if-section-not-added', array('section' => 'profile'));
-        common_element('h2', null, _('Add an Identi.ca box to my profile'));
+        common_element('form', array('id' => 'redirect_form',
+                                     'style' => 'display: none;'));        
+                
         common_element_start('p');
-        common_element('fb:add-section-button', array('section' => 'profile'));
-        common_element_end('p');
-
-        common_element_end('fb:if-section-not-added');
-        common_element_start('p');
-        common_element_start('fb:prompt-permission', array('perms' => 'status_update'));
+        common_element_start('fb:prompt-permission', array('perms' => 'status_update',
+            'next_fbjs' => 'redirectSettings()'));
         common_element('h2', null, _('Allow Identi.ca to update my Facebook status'));
         common_element_end('fb:prompt-permission');
         common_element_end('p');
+
+
 
         if ($facebook->api_client->users_hasAppPermission('status_update')) {
 
@@ -93,8 +92,6 @@ class FacebooksettingsAction extends FacebookAction
 
             common_checkbox('replysync', _('Send local "@" replies to Facebook.'),
                              ($flink) ? ($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) : true);
-
-            // function common_input($id, $label, $value=null,$instructions=null)
 
             $prefix = $facebook->api_client->data_getUserPreference(1);
             
