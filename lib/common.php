@@ -163,6 +163,10 @@ require_once(INSTALLDIR.'/lib/subs.php');
 require_once(INSTALLDIR.'/lib/Shorturl_api.php');
 require_once(INSTALLDIR.'/lib/twitter.php');
 
+// XXX: other formats here
+
+define('NICKNAME_FMT', VALIDATE_NUM.VALIDATE_ALPHA_LOWER);
+
 function __autoload($class)
 {
     if ($class == 'OAuthRequest') {
