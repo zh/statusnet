@@ -116,15 +116,19 @@ width:100%;
 float:left;
 }
 
-.form_settings .form_datas label,
+.form_settings .form_datas label {
+float:left;
+}
+.form_settings .form_datas textarea,
+.form_settings .form_datas select,
 .form_settings .form_datas input {
-margin-right:11px;
+margin-left:11px;
 float:left;
 }
 
 .form_settings label {
 margin-top:7px;
-width:123px;
+width:152px;
 }
 
 .form_actions label {
@@ -144,7 +148,7 @@ display:none;
 
 .form_settings .form_datas p.form_guide {
 clear:both;
-margin-left:134px;
+margin-left:163px;
 margin-bottom:0;
 }
 
@@ -154,11 +158,15 @@ margin-bottom:11px;
 
 .form_settings input.checkbox {
 margin-top:3px;
+margin-left:0;
 }
 .form_settings label.checkbox {
 font-weight:normal;
-width:auto;
 margin-top:0;
+margin-right:0;
+margin-left:11px;
+float:left;
+width:90%;
 }
 
 #form_login p.form_guide,

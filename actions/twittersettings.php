@@ -133,7 +133,7 @@ class TwittersettingsAction extends ConnectSettingsAction
                             array('id' => 'settings_twitter_preferences'));
         $this->element('legend', null, _('Preferences'));
 
-        $this->elementStart('ul');
+        $this->elementStart('ul', 'form_datas');
         $this->elementStart('li');
         $this->checkbox('noticesync',
                         _('Automatically send my notices to Twitter.'),

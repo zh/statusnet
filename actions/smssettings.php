@@ -93,37 +93,42 @@ class SmssettingsAction extends ConnectSettingsAction
         $this->hidden('token', common_session_token());
 
         if ($user->sms) {
-            $this->elementStart('p');
             $carrier = $user->getCarrier();
-            $this->element('span', 'address confirmed',
+            $this->element('p', 'form_confirmed',
                            $user->sms . ' (' . $carrier->name . ')');
-            $this->element('span', 'input_instructions',
+            $this->element('p', 'form_guide',
                            _('Current confirmed SMS-enabled phone number.'));
             $this->hidden('sms', $user->sms);
             $this->hidden('carrier', $user->carrier);
-            $this->elementEnd('p');
             $this->submit('remove', _('Remove'));
         } else {
             $confirm = $this->getConfirmation();
             if ($confirm) {
                 $carrier = Sms_carrier::staticGet($confirm->address_extra);
-                $this->elementStart('p');
-                $this->element('span', 'address unconfirmed',
+                $this->element('p', 'form_unconfirmed',
                                $confirm->address . ' (' . $carrier->name . ')');
-                $this->element('span', 'input_instructions',
+                $this->element('p', 'form_guide',
                                _('Awaiting confirmation on this phone number.'));
                 $this->hidden('sms', $confirm->address);
                 $this->hidden('carrier', $confirm->address_extra);
-                $this->elementEnd('p');
                 $this->submit('cancel', _('Cancel'));
+
+                $this->elementStart('ul', 'form_datas');
+                $this->elementStart('li');
                 $this->input('code', _('Confirmation code'), null,
                              _('Enter the code you received on your phone.'));
+                $this->elementEnd('li');
+                $this->elementEnd('ul');
                 $this->submit('confirm', _('Confirm'));
             } else {
+                $this->elementStart('ul', 'form_datas');
+                $this->elementStart('li');
                 $this->input('sms', _('SMS Phone number'),
                              ($this->arg('sms')) ? $this->arg('sms') : null,
                              _('Phone number, no punctuation or spaces, '.
                                'with area code'));
+                $this->elementEnd('li');
+                $this->elementEnd('ul');
                 $this->carrierSelect();
                 $this->submit('add', _('Add'));
             }
@@ -131,14 +136,13 @@ class SmssettingsAction extends ConnectSettingsAction
         $this->elementEnd('fieldset');
 
         if ($user->sms) {
-            $this->element('h2', null, _('Incoming email'));
+        $this->elementStart('fieldset', array('id' => 'settings_sms_incoming_email'));
+            $this->element('legend', null, _('Incoming email'));
 
             if ($user->incomingemail) {
-                $this->elementStart('p');
-                $this->element('span', 'address', $user->incomingemail);
-                $this->element('span', 'input_instructions',
+                $this->element('p', 'form_unconfirmed', $user->incomingemail);
+                $this->element('p', 'form_note',
                                _('Send email to this address to post new notices.'));
-                $this->elementEnd('p');
                 $this->submit('removeincoming', _('Remove'));
             }
 
@@ -146,6 +150,7 @@ class SmssettingsAction extends ConnectSettingsAction
                            _('Make a new email address for posting to; '.
                              'cancels the old one.'));
             $this->submit('newincoming', _('New'));
+            $this->elementEnd('fieldset');
         }
 
         $this->elementStart('fieldset', array('id' => 'settings_sms_preferences'));
@@ -443,7 +448,7 @@ class SmssettingsAction extends ConnectSettingsAction
 
         $cnt = $carrier->find();
 
-        $this->elementStart('ul');
+        $this->elementStart('ul', 'form_datas');
         $this->elementStart('li');
         $this->element('label', array('for' => 'carrier'), _('Mobile carrier'));
         $this->elementStart('select', array('name' => 'carrier',
