@@ -52,12 +52,12 @@ class LoginAction extends Action
     /**
      * Is this a read-only action?
      *
-     * @return boolean true
+     * @return boolean false
      */
 
     function isReadOnly()
     {
-        return true;
+        return false;
     }
 
     /**
