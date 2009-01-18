@@ -16,10 +16,3 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-// Psycho Facebook redirect hack, used because 'document.location'
-// simply does not work in FBJS
-function redirectSettings() {
-    form = document.getElementById('redirect_form');
-    form.setAction('settings.php');
-    form.submit();
-}

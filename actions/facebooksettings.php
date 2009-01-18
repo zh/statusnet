@@ -67,18 +67,18 @@ class FacebooksettingsAction extends FacebookAction
         $flink = Foreign_link::getByForeignID($fbuid, FACEBOOK_SERVICE);
 
         $this->showHeader('Settings', $msg, $success);
-
-        common_element('form', array('id' => 'redirect_form',
-                                     'style' => 'display: none;'));        
                 
         common_element_start('p');
+        
+        // Figure what the URL of our app is.
+        $app_props = $facebook->api_client->Admin_getAppProperties(array('canvas_name'));
+        $app_url = 'http://apps.facebook.com/' . $app_props['canvas_name'] . '/settings.php';
+                
         common_element_start('fb:prompt-permission', array('perms' => 'status_update',
-            'next_fbjs' => 'redirectSettings()'));
+            'next_fbjs' => 'document.setLocation(\'' . $app_url . '\')'));
         common_element('h2', null, _('Allow Identi.ca to update my Facebook status'));
         common_element_end('fb:prompt-permission');
         common_element_end('p');
-
-
 
         if ($facebook->api_client->users_hasAppPermission('status_update')) {
 
