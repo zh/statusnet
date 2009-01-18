@@ -95,7 +95,7 @@ class EmailsettingsAction extends AccountSettingsAction
         $this->hidden('token', common_session_token());
 
         if ($user->email) {
-            $this->element('p', array('id' => 'email_confirmed', $user->email));
+            $this->element('p', array('id' => 'email_confirmed'), $user->email);
             $this->element('p', array('class' => 'form_note'), _('Current confirmed email address.'));
             $this->hidden('email', $user->email);
             $this->submit('remove', _('Remove'));
