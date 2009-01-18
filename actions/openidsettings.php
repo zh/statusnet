@@ -124,7 +124,7 @@ class OpenidsettingsAction extends AccountSettingsAction
 
             if ($cnt == 1 && !$user->password) {
 
-                $this->element('p', null,
+                $this->element('p', 'form_guide',
                                _('Removing your only OpenID '.
                                  'would make it impossible to log in! ' .
                                  'If you need to remove it, '.
@@ -162,7 +162,7 @@ class OpenidsettingsAction extends AccountSettingsAction
                     $this->element('input', array('type' => 'submit',
                                                   'id' => 'remove'.$idx,
                                                   'name' => 'remove',
-                                                  'class' => 'submit',
+                                                  'class' => 'submit remove',
                                                   'value' => _('Remove')));
                     $this->elementEnd('fieldset');
                     $this->elementEnd('form');
