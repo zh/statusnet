@@ -1,9 +1,12 @@
 <?php
-/*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+/**
+ * Laconica, the distributed open-source microblogging tool
  *
- * This program is free software: you can redistribute it and/or modify
+ * List of replies
+ *
+ * PHP version 5
+ *
+ * LICENCE: This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -15,18 +18,57 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Login
+ * @package   Laconica
+ * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @copyright 2008-2009 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
+
+/**
+ * List of replies
+ *
+ * @category Personal
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://laconi.ca/
+ */
 
 class LoginAction extends Action
 {
+    /**
+     * Has there been an error?
+     */
+
     var $error = null;
-    
+
+    /**
+     * Is this a read-only action?
+     *
+     * @return boolean true
+     */
+
     function isReadOnly()
     {
         return true;
     }
+
+    /**
+     * Handle input, produce output
+     *
+     * Switches on request method; either shows the form or handles its input.
+     *
+     * @param array $args $_REQUEST data
+     *
+     * @return void
+     */
 
     function handle($args)
     {
@@ -40,21 +82,32 @@ class LoginAction extends Action
         }
     }
 
+    /**
+     * Check the login data
+     *
+     * Determines if the login data is valid. If so, logs the user
+     * in, and redirects to the 'with friends' page, or to the stored
+     * return-to URL.
+     *
+     * @return void
+     */
+
     function checkLogin()
     {
-        # XXX: login throttle
+        // XXX: login throttle
 
-        # CSRF protection - token set in common_notice_form()
+        // CSRF protection - token set in common_notice_form()
         $token = $this->trimmed('token');
         if (!$token || $token != common_session_token()) {
-            $this->clientError(_('There was a problem with your session token. Try again, please.'));
+            $this->clientError(_('There was a problem with your session token. '.
+                                 'Try again, please.'));
             return;
         }
 
         $nickname = common_canonical_nickname($this->trimmed('nickname'));
         $password = $this->arg('password');
         if (common_check_user($nickname, $password)) {
-            # success!
+            // success!
             if (!common_set_user($nickname)) {
                 $this->serverError(_('Error setting user.'));
                 return;
@@ -64,10 +117,10 @@ class LoginAction extends Action
                 common_debug('Adding rememberme cookie for ' . $nickname);
                 common_rememberme();
             }
-            # success!
+            // success!
             $url = common_get_returnto();
             if ($url) {
-                # We don't have to return to it again
+                // We don't have to return to it again
                 common_set_returnto(null);
             } else {
                 $url = common_local_url('all',
@@ -80,7 +133,7 @@ class LoginAction extends Action
             return;
         }
 
-        # success!
+        // success!
         if (!common_set_user($user)) {
             $this->serverError(_('Error setting user.'));
             return;
@@ -92,10 +145,10 @@ class LoginAction extends Action
             common_debug('Adding rememberme cookie for ' . $nickname);
             common_rememberme($user);
         }
-        # success!
+        // success!
         $url = common_get_returnto();
         if ($url) {
-            # We don't have to return to it again
+            // We don't have to return to it again
             common_set_returnto(null);
         } else {
             $url = common_local_url('all',
@@ -105,30 +158,65 @@ class LoginAction extends Action
         common_redirect($url);
     }
 
+    /**
+     * Store an error and show the page
+     *
+     * This used to show the whole page; now, it's just a wrapper
+     * that stores the error in an attribute.
+     *
+     * @param string $error error, if any.
+     *
+     * @return void
+     */
+
     function showForm($error=null)
     {
         $this->error = $error;
         $this->showPage();
     }
 
+    /**
+     * Title of the page
+     *
+     * @return string title of the page
+     */
+
     function title()
     {
         return _('Login');
     }
+
+    /**
+     * Show page notice
+     *
+     * Display a notice for how to use the page, or the
+     * error if it exists.
+     *
+     * @return void
+     */
 
     function showPageNotice()
     {
         if ($this->error) {
             $this->element('p', 'error', $this->error);
         } else {
-            $instr = $this->getInstructions();
+            $instr  = $this->getInstructions();
             $output = common_markup_to_html($instr);
+
             $this->raw($output);
         }
     }
-    
+
+    /**
+     * Core of the display code
+     *
+     * Shows the login form.
+     *
+     * @return void
+     */
+
     function showContent()
-    {      
+    {
         $this->elementStart('form', array('method' => 'post',
                                            'id' => 'form_login',
                                            'class' => 'form_settings',
@@ -158,14 +246,21 @@ class LoginAction extends Action
         $this->elementEnd('p');
     }
 
+    /**
+     * Instructions for using the form
+     *
+     * For "remembered" logins, we make the user re-login when they
+     * try to change settings. Different instructions for this case.
+     *
+     * @return void
+     */
+
     function getInstructions()
     {
-        if (common_logged_in() &&
-            !common_is_real_login() &&
-            common_get_returnto())
-        {
-            # rememberme logins have to reauthenticate before
-            # changing any profile settings (cookie-stealing protection)
+        if (common_logged_in() && !common_is_real_login() &&
+            common_get_returnto()) {
+            // rememberme logins have to reauthenticate before
+            // changing any profile settings (cookie-stealing protection)
             return _('For security reasons, please re-enter your ' .
                      'user name and password ' .
                      'before changing your settings.');
@@ -175,5 +270,19 @@ class LoginAction extends Action
                      '[Register](%%action.register%%) a new account, or ' .
                      'try [OpenID](%%action.openidlogin%%). ');
         }
+    }
+
+    /**
+     * A local menu
+     *
+     * Shows different login/register actions.
+     *
+     * @return void
+     */
+
+    function showLocalNav()
+    {
+        $nav = new LoginGroupNav($this);
+        $nav->show();
     }
 }
