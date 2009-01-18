@@ -93,7 +93,7 @@ class TagotherAction extends Action
         $this->elementStart('form', array('method' => 'post',
                                            'id' => 'tag_user',
                                            'name' => 'tagother',
-                                           'action' => $this->self_url()));
+                                           'action' => $this->selfUrl()));
         $this->hidden('token', common_session_token());
         $this->hidden('id', $profile->id);
         $this->input('tags', _('Tags'),
