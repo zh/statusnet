@@ -1,28 +1,86 @@
 <?php
-/*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+/**
+ * Laconica, the distributed open-source microblogging tool
  *
- * This program is free software: you can redistribute it and/or modify
+ * Handler for posting new notices
+ *
+ * PHP version 5
+ *
+ * LICENCE: This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.     See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.     If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Personal
+ * @package   Laconica
+ * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @author    Zach Copley <zach@controlyourself.ca>
+ * @author    Sarven Capadisli <csarven@controlyourself.ca>
+ * @copyright 2008-2009 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
-require_once INSTALLDIR . '/lib/noticelist.php';
+require_once INSTALLDIR.'/lib/noticelist.php';
+
+/**
+ * Action for posting new notices
+ *
+ * @category Personal
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Zach Copley <zach@controlyourself.ca>
+ * @author   Sarven Capadisli <csarven@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://laconi.ca/
+ */
 
 class NewnoticeAction extends Action
 {
+    /**
+     * Error message, if any
+     */
+
+    var $msg = null;
+
+    /**
+     * Title of the page
+     *
+     * Note that this usually doesn't get called unless something went wrong
+     *
+     * @return string page title
+     */
+
+    function title()
+    {
+        return _('New notice');
+    }
+
+    /**
+     * Handle input, produce output
+     *
+     * Switches based on GET or POST method. On GET, shows a form
+     * for posting a notice. On POST, saves the results of that form.
+     *
+     * Results may be a full page, or just a single notice list item,
+     * depending on whether AJAX was requested.
+     *
+     * @param array $args $_REQUEST contents
+     *
+     * @return void
+     */
 
     function handle($args)
     {
@@ -32,36 +90,47 @@ class NewnoticeAction extends Action
             $this->clientError(_('Not logged in.'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            # CSRF protection - token set in common_notice_form()
+            // CSRF protection - token set in common_notice_form()
             $token = $this->trimmed('token');
             if (!$token || $token != common_session_token()) {
-                $this->clientError(_('There was a problem with your session token. Try again, please.'));
+                $this->clientError(_('There was a problem with your session token. '.
+                                     'Try again, please.'));
                 return;
             }
 
-            $this->save_new_notice();
+            $this->saveNewNotice();
         } else {
-            $this->show_form();
+            $this->showForm();
         }
     }
 
-    function save_new_notice()
-    {
+    /**
+     * Save a new notice, based on arguments
+     *
+     * If successful, will show the notice, or return an Ajax-y result.
+     * If not, it will show an error message -- possibly Ajax-y.
+     *
+     * Also, if the notice input looks like a command, it will run the
+     * command and show the results -- again, possibly ajaxy.
+     *
+     * @return void
+     */
 
+    function saveNewNotice()
+    {
         $user = common_current_user();
-        assert($user); # XXX: maybe an error instead...
+        assert($user); // XXX: maybe an error instead...
         $content = $this->trimmed('status_textarea');
 
         if (!$content) {
-            $this->show_form(_('No content!'));
+            $this->showForm(_('No content!'));
             return;
         } else {
             $content_shortened = common_shorten_links($content);
 
             if (mb_strlen($content_shortened) > 140) {
-                common_debug("Content = '$content_shortened'", __FILE__);
-                common_debug("mb_strlen(\$content) = " . mb_strlen($content_shortened), __FILE__);
-                $this->show_form(_('That\'s too long. Max notice size is 140 chars.'));
+                $this->showForm(_('That\'s too long. '.
+                                  'Max notice size is 140 chars.'));
                 return;
             }
         }
@@ -81,10 +150,11 @@ class NewnoticeAction extends Action
 
         $replyto = $this->trimmed('inreplyto');
 
-        $notice = Notice::saveNew($user->id, $content, 'web', 1, ($replyto == 'false') ? null : $replyto);
+        $notice = Notice::saveNew($user->id, $content, 'web', 1,
+                                  ($replyto == 'false') ? null : $replyto);
 
         if (is_string($notice)) {
-            $this->show_form($notice);
+            $this->showForm($notice);
             return;
         }
 
@@ -96,7 +166,7 @@ class NewnoticeAction extends Action
             $this->element('title', null, _('Notice posted'));
             $this->elementEnd('head');
             $this->elementStart('body');
-            $this->show_notice($notice);
+            $this->showNotice($notice);
             $this->elementEnd('body');
             $this->elementEnd('html');
         } else {
@@ -113,7 +183,17 @@ class NewnoticeAction extends Action
         }
     }
 
-    function ajax_error_msg($msg)
+    /**
+     * Show an Ajax-y error message
+     *
+     * Goes back to the browser, where it's shown in a popup.
+     *
+     * @param string $msg Message to show
+     *
+     * @return void
+     */
+
+    function ajaxErrorMsg($msg)
     {
         common_start_html('text/xml;charset=utf-8', true);
         $this->elementStart('head');
@@ -125,17 +205,42 @@ class NewnoticeAction extends Action
         $this->elementEnd('html');
     }
 
-    function show_top($content=null)
-    {
-        common_notice_form(null, $content);
-    }
+    /**
+     * Formerly page output
+     *
+     * This used to be the whole page output; now that's been largely
+     * subsumed by showPage. So this just stores an error message, if
+     * it was passed, and calls showPage.
+     *
+     * Note that since we started doing Ajax output, this page is rarely
+     * seen.
+     *
+     * @param string $msg An error message, if any
+     *
+     * @return void
+     */
 
-    function show_form($msg=null)
+    function showForm($msg=null)
     {
         if ($msg && $this->boolean('ajax')) {
-            $this->ajax_error_msg($msg);
+            $this->ajaxErrorMsg($msg);
             return;
         }
+
+        $this->msg = $msg;
+        $this->showPage();
+    }
+
+    /**
+     * Overload for replies or bad results
+     *
+     * We show content in the notice form if there were replies or results.
+     *
+     * @return void
+     */
+
+    function showNoticeForm()
+    {
         $content = $this->trimmed('status_textarea');
         if (!$content) {
             $replyto = $this->trimmed('replyto');
@@ -144,18 +249,41 @@ class NewnoticeAction extends Action
                 $content = '@' . $profile->nickname . ' ';
             }
         }
-        common_show_header(_('New notice'), null, $content,
-                           array($this, 'show_top'));
-        if ($msg) {
-            $this->element('p', array('id' => 'error'), $msg);
-        }
-        common_show_footer();
+
+        $notice_form = new NoticeForm($this, $content);
+        $notice_form->show();
     }
 
-    function show_notice($notice)
+    /**
+     * Show an error message
+     *
+     * Shows an error message if there is one.
+     *
+     * @return void
+     *
+     * @todo maybe show some instructions?
+     */
+
+    function showPageNotice()
     {
-        $nli = new NoticeListItem($notice);
+        if ($this->msg) {
+            $this->element('p', array('id' => 'error'), $this->msg);
+        }
+    }
+
+    /**
+     * Output a notice
+     *
+     * Used to generate the notice code for Ajax results.
+     *
+     * @param Notice $notice Notice that was saved
+     *
+     * @return void
+     */
+
+    function showNotice($notice)
+    {
+        $nli = new NoticeListItem($notice, $this);
         $nli->show();
     }
-
 }
