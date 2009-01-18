@@ -81,10 +81,10 @@ $(document).ready(function(){
 		this.appendChild(ajax);
 	}
 
-	$("form.favor").ajaxForm(favoptions);
-	$("form.disfavor").ajaxForm(disoptions);
-	$("form.favor").each(addAjaxHidden);
-	$("form.disfavor").each(addAjaxHidden);
+	$("form.form_favor").ajaxForm(favoptions);
+	$("form.form_disfavor").ajaxForm(disoptions);
+	$("form.form_favor").each(addAjaxHidden);
+	$("form.form_disfavor").each(addAjaxHidden);
 
 	$("#nudge").ajaxForm ({ dataType: 'xml',
 							beforeSubmit: function(xml) { $("form#nudge input[type=submit]").attr("disabled", "disabled");

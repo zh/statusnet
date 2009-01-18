@@ -84,52 +84,72 @@ class ProfilesettingsAction extends AccountSettingsAction
         $profile = $user->getProfile();
 
         $this->elementStart('form', array('method' => 'POST',
-                                           'id' => 'profilesettings',
+                                           'id' => 'form_settings_profile',
+                                           'class' => 'form_settings',
                                            'action' => common_local_url('profilesettings')));
+        $this->elementStart('fieldset');
+        $this->element('legend', null, _('Profile information'));
         $this->hidden('token', common_session_token());
 
         # too much common patterns here... abstractable?
 
+        $this->elementStart('ul', 'form_datas');
+        $this->elementStart('li');
         $this->input('nickname', _('Nickname'),
                      ($this->arg('nickname')) ? $this->arg('nickname') : $profile->nickname,
                      _('1-64 lowercase letters or numbers, no punctuation or spaces'));
+        $this->elementEnd('li');
+        $this->elementStart('li');
         $this->input('fullname', _('Full name'),
                      ($this->arg('fullname')) ? $this->arg('fullname') : $profile->fullname);
+        $this->elementEnd('li');
+        $this->elementStart('li');
         $this->input('homepage', _('Homepage'),
                      ($this->arg('homepage')) ? $this->arg('homepage') : $profile->homepage,
                      _('URL of your homepage, blog, or profile on another site'));
+        $this->elementEnd('li');
+        $this->elementStart('li');
         $this->textarea('bio', _('Bio'),
                         ($this->arg('bio')) ? $this->arg('bio') : $profile->bio,
                         _('Describe yourself and your interests in 140 chars'));
+        $this->elementEnd('li');
+        $this->elementStart('li');
         $this->input('location', _('Location'),
                      ($this->arg('location')) ? $this->arg('location') : $profile->location,
                      _('Where you are, like "City, State (or Region), Country"'));
+        $this->elementEnd('li');
+        $this->elementStart('li');
         $this->input('tags', _('Tags'),
                      ($this->arg('tags')) ? $this->arg('tags') : implode(' ', $user->getSelfTags()),
                      _('Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated'));
-
+        $this->elementEnd('li');
+        $this->elementStart('li');
         $language = common_language();
         $this->dropdown('language', _('Language'),
                         get_nice_language_list(), _('Preferred language'),
                         true, $language);
-
+        $this->elementEnd('li');
         $timezone = common_timezone();
         $timezones = array();
         foreach(DateTimeZone::listIdentifiers() as $k => $v) {
             $timezones[$v] = $v;
         }
+        $this->elementStart('li');
         $this->dropdown('timezone', _('Timezone'),
                         $timezones, _('What timezone are you normally in?'),
                         true, $timezone);
-
+        $this->elementEnd('li');
+        $this->elementStart('li');
         $this->checkbox('autosubscribe',
                         _('Automatically subscribe to whoever '.
                           'subscribes to me (best for non-humans)'),
                         ($this->arg('autosubscribe')) ?
                         $this->boolean('autosubscribe') : $user->autosubscribe);
-
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
         $this->submit('save', _('Save'));
 
+        $this->elementEnd('fieldset');
         $this->elementEnd('form');
 
     }
