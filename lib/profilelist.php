@@ -87,7 +87,6 @@ class ProfileList extends Widget
 
     function showProfile()
     {
-
         $this->out->elementStart('li', array('class' => 'profile_single',
                                          'id' => 'profile-' . $this->profile->id));
 
