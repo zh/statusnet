@@ -67,7 +67,7 @@ class NoticeList extends Widget
 
     function __construct($notice, $out=null)
     {
-	parent::__construct($out);
+        parent::__construct($out);
         $this->notice = $notice;
     }
 
@@ -160,7 +160,7 @@ class NoticeListItem extends Widget
 
     function __construct($notice, $out=null)
     {
-	parent::__construct($out);
+        parent::__construct($out);
         $this->notice  = $notice;
         $this->profile = $notice->getProfile();
     }
@@ -209,7 +209,6 @@ class NoticeListItem extends Widget
         $this->out->elementEnd('div');
     }
 
-
     /**
      * start a single notice.
      *
@@ -221,7 +220,7 @@ class NoticeListItem extends Widget
         // XXX: RDFa
         // TODO: add notice_type class e.g., notice_video, notice_image
         $this->out->elementStart('li', array('class' => 'hentry notice',
-                                         'id' => 'notice-' . $this->notice->id));
+                                             'id' => 'notice-' . $this->notice->id));
     }
 
     /**
@@ -235,11 +234,11 @@ class NoticeListItem extends Widget
         $user = common_current_user();
         if ($user) {
             if ($user->hasFave($this->notice)) {
-		$disfavor = new DisfavorForm($this->out, $this->notice);
-		$disfavor->show();
+                $disfavor = new DisfavorForm($this->out, $this->notice);
+                $disfavor->show();
             } else {
-		$favor = new FavorForm($this->out, $this->notice);
-		$favor->show();
+                $favor = new FavorForm($this->out, $this->notice);
+                $favor->show();
             }
         }
     }
@@ -256,7 +255,7 @@ class NoticeListItem extends Widget
     {
         $this->out->elementStart('span', 'vcard author');
         $this->out->elementStart('a', array('href' => $this->profile->profileurl,
-                                        'class' => 'url'));
+                                            'class' => 'url'));
         $this->showAvatar();
         $this->showNickname();
         $this->out->elementEnd('a');
@@ -277,15 +276,15 @@ class NoticeListItem extends Widget
         $avatar = $this->profile->getAvatar(AVATAR_STREAM_SIZE);
 
         $this->out->element('img', array('src' => ($avatar) ?
-                                    common_avatar_display_url($avatar) :
-                                    common_default_avatar(AVATAR_STREAM_SIZE),
-                                    'class' => 'avatar photo',
-                                    'width' => AVATAR_STREAM_SIZE,
-                                    'height' => AVATAR_STREAM_SIZE,
-                                    'alt' =>
-                                    ($this->profile->fullname) ?
-                                    $this->profile->fullname :
-                                    $this->profile->nickname));
+                                         common_avatar_display_url($avatar) :
+                                         common_default_avatar(AVATAR_STREAM_SIZE),
+                                         'class' => 'avatar photo',
+                                         'width' => AVATAR_STREAM_SIZE,
+                                         'height' => AVATAR_STREAM_SIZE,
+                                         'alt' =>
+                                         ($this->profile->fullname) ?
+                                         $this->profile->fullname :
+                                         $this->profile->nickname));
     }
 
     /**
@@ -299,7 +298,7 @@ class NoticeListItem extends Widget
     function showNickname()
     {
         $this->out->element('span', array('class' => 'nickname fn'),
-                       $this->profile->nickname);
+                            $this->profile->nickname);
     }
 
     /**
@@ -346,14 +345,14 @@ class NoticeListItem extends Widget
             $noticeurl = $this->notice->uri;
         }
         $this->out->elementStart('dl', 'timestamp');
-        $this->out->element('dt', null, _('Published')); 
+        $this->out->element('dt', null, _('Published'));
         $this->out->elementStart('dd', null);
         $this->out->elementStart('a', array('rel' => 'bookmark',
-                                        'href' => $noticeurl));
+                                            'href' => $noticeurl));
         $dt = common_date_iso8601($this->notice->created);
         $this->out->element('abbr', array('class' => 'published',
-                                     'title' => $dt),
-                       common_date_string($this->notice->created));
+                                          'title' => $dt),
+                            common_date_string($this->notice->created));
         $this->out->elementEnd('a');
         $this->out->elementEnd('dd');
         $this->out->elementEnd('dl');
@@ -375,20 +374,20 @@ class NoticeListItem extends Widget
             $this->out->element('dt', null, _('From'));
             $source_name = _($this->notice->source);
             switch ($this->notice->source) {
-            case 'web':
-            case 'xmpp':
-            case 'mail':
-            case 'omb':
-            case 'api':
+             case 'web':
+             case 'xmpp':
+             case 'mail':
+             case 'omb':
+             case 'api':
                 $this->out->element('dd', 'noticesource', $source_name);
                 break;
-            default:
+             default:
                 $ns = Notice_source::staticGet($this->notice->source);
                 if ($ns) {
                     $this->out->elementStart('dd', null);
                     $this->out->element('a', array('href' => $ns->url,
-                                              'rel' => 'external'),
-                                   $ns->name);
+                                                   'rel' => 'external'),
+                                        $ns->name);
                     $this->out->elementEnd('dd');
                 } else {
                     $this->out->element('dd', 'noticesource', $source_name);
@@ -417,8 +416,8 @@ class NoticeListItem extends Widget
             $this->out->element('dt', null, _('To'));
             $this->out->elementStart('dd');
             $this->out->element('a', array('href' => $replyurl,
-                                      'rel' => 'in-reply-to'),
-                           _('in reply to'));
+                                           'rel' => 'in-reply-to'),
+                                _('in reply to'));
             $this->out->elementEnd('dd');
             $this->out->elementEnd('dl');
         }
