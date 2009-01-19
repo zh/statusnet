@@ -110,16 +110,16 @@ function update_profile_box($facebook, $fbuid, $user, $notice)
 function getFacebookBaseCSS()
 {
     # Add a timestamp to the CSS file so Facebook cache wont ignore our changes
-    $ts = filemtime(theme_file('facebookapp_base.css'));
-    $cssurl = theme_path('facebookapp_base.css') . "?ts=$ts";
+    $ts = filemtime(INSTALLDIR.'/theme/base/css/facebookapp.base.css');
+    $cssurl = INSTALLDIR.'/theme/base/css/facebookapp.base.css' . "?ts=$ts";
     return $cssurl;
 }
 
 function getFacebookThemeCSS() 
 {
     # Add a timestamp to the CSS file so Facebook cache wont ignore our changes
-    $ts = filemtime(theme_file('facebookapp_theme.css'));
-    $cssurl = theme_path('facebookapp_theme.css') . "?ts=$ts";
+    $ts = filemtime(theme_file('css/facebookapp.theme.css'));
+    $cssurl = theme_path('css/facebookapp.theme.css') . "?ts=$ts";
     return $cssurl;   
 }
 
