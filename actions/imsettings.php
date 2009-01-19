@@ -113,7 +113,7 @@ class ImsettingsAction extends ConnectSettingsAction
                 $this->hidden('jabber', $confirm->address);
                 $this->submit('cancel', _('Cancel'));
             } else {
-                $this->elementStart('ul', 'form_datas');
+                $this->elementStart('ul', 'form_data');
                 $this->elementStart('li');
                 $this->input('jabber', _('IM Address'),
                              ($this->arg('jabber')) ? $this->arg('jabber') : null,
@@ -131,7 +131,7 @@ class ImsettingsAction extends ConnectSettingsAction
         
         $this->elementStart('fieldset', array('id' => 'settings_im_preferences'));
         $this->element('legend', null, _('Preferences'));
-        $this->elementStart('ul', 'form_datas');
+        $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
         $this->checkbox('jabbernotify',
                         _('Send me notices through Jabber/GTalk.'),

@@ -95,7 +95,7 @@ class OpenidsettingsAction extends AccountSettingsAction
         $this->element('p', 'form_guide',
                        _('If you want to add an OpenID to your account, ' .
                          'enter it in the box below and click "Add".'));
-        $this->elementStart('ul', 'form_datas');
+        $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
         $this->element('label', array('for' => 'openid_url'),
                        _('OpenID URL'));

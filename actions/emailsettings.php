@@ -110,7 +110,7 @@ class EmailsettingsAction extends AccountSettingsAction
                 $this->hidden('email', $confirm->address);
                 $this->submit('cancel', _('Cancel'));
             } else {
-                $this->elementStart('ul', 'form_datas');
+                $this->elementStart('ul', 'form_data');
                 $this->elementStart('li');
                 $this->input('email', _('Email Address'),
                              ($this->arg('email')) ? $this->arg('email') : null,
@@ -146,7 +146,7 @@ class EmailsettingsAction extends AccountSettingsAction
         $this->elementStart('fieldset', array('id' => 'settings_email_preferences'));
         $this->element('legend', null, _('Preferences'));
 
-        $this->elementStart('ul', 'form_datas');
+        $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
         $this->checkbox('emailnotifysub',
                         _('Send me notices of new subscriptions through email.'),

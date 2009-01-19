@@ -93,7 +93,7 @@ class ProfilesettingsAction extends AccountSettingsAction
 
         # too much common patterns here... abstractable?
 
-        $this->elementStart('ul', 'form_datas');
+        $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
         $this->input('nickname', _('Nickname'),
                      ($this->arg('nickname')) ? $this->arg('nickname') : $profile->nickname,

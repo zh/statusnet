@@ -123,7 +123,7 @@ class NoticeForm extends Form
     {
         $user = common_current_user();
 
-        $this->out->elementStart('ul', 'form_datas');
+        $this->out->elementStart('ul', 'form_data');
         $this->out->elementStart('li', array('id' => 'notice_text'));
         $this->out->element('label', array('for' => 'notice_data-text'),
                             sprintf(_('What\'s up, %s?'), $user->nickname));

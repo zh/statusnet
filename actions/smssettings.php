@@ -113,7 +113,7 @@ class SmssettingsAction extends ConnectSettingsAction
                 $this->hidden('carrier', $confirm->address_extra);
                 $this->submit('cancel', _('Cancel'));
 
-                $this->elementStart('ul', 'form_datas');
+                $this->elementStart('ul', 'form_data');
                 $this->elementStart('li');
                 $this->input('code', _('Confirmation code'), null,
                              _('Enter the code you received on your phone.'));
@@ -121,7 +121,7 @@ class SmssettingsAction extends ConnectSettingsAction
                 $this->elementEnd('ul');
                 $this->submit('confirm', _('Confirm'));
             } else {
-                $this->elementStart('ul', 'form_datas');
+                $this->elementStart('ul', 'form_data');
                 $this->elementStart('li');
                 $this->input('sms', _('SMS Phone number'),
                              ($this->arg('sms')) ? $this->arg('sms') : null,
@@ -156,7 +156,7 @@ class SmssettingsAction extends ConnectSettingsAction
         $this->elementStart('fieldset', array('id' => 'settings_sms_preferences'));
         $this->element('legend', null, _('Preferences'));
 
-        $this->elementStart('ul', 'form_datas');
+        $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
         $this->checkbox('smsnotify',
                         _('Send me notices through SMS; '.
@@ -448,7 +448,7 @@ class SmssettingsAction extends ConnectSettingsAction
 
         $cnt = $carrier->find();
 
-        $this->elementStart('ul', 'form_datas');
+        $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
         $this->element('label', array('for' => 'carrier'), _('Mobile carrier'));
         $this->elementStart('select', array('name' => 'carrier',

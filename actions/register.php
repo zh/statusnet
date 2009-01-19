@@ -343,7 +343,7 @@ class RegisterAction extends Action
             $this->hidden('code', $code);
         }
 
-        $this->elementStart('ul', 'form_datas');
+        $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
         $this->input('nickname', _('Nickname'), $this->trimmed('nickname'),
                      _('1-64 lowercase letters or numbers, '.

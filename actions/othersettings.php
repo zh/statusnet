@@ -107,7 +107,7 @@ class OthersettingsAction extends AccountSettingsAction
                           'metamark.net' => 'metamark.net'
                           );
 
-        $this->elementStart('ul', 'form_datas');
+        $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
         $this->dropdown('urlshorteningservice', _('Service'),
                         $services, _('Automatic shortening service to use.'),
