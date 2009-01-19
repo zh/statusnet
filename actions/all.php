@@ -27,77 +27,77 @@ class AllAction extends Action
 {
     var $user = null;
     var $page = null;
-    
+
     function isReadOnly()
     {
         return true;
     }
-    
+
     function prepare($args)
     {
-	parent::prepare($args);
+        parent::prepare($args);
         $nickname = common_canonical_nickname($this->arg('nickname'));
-	$this->user = User::staticGet('nickname', $nickname);
+        $this->user = User::staticGet('nickname', $nickname);
         $this->page = $this->trimmed('page');
         if (!$this->page) {
             $this->page = 1;
         }
-	return true;
+        return true;
     }
-    
+
     function handle($args)
     {
         parent::handle($args);
-	
+
         if (!$this->user) {
             $this->clientError(_('No such user.'));
             return;
         }
-	
-	$this->showPage();
+
+        $this->showPage();
     }
-    
+
     function title()
     {
-	if ($this->page > 1) {
-	    return sprintf(_("%s and friends, page %d"), $this->user->nickname, $this->page);
-	} else {
-	    return sprintf(_("%s and friends"), $this->user->nickname);
-	}
+        if ($this->page > 1) {
+            return sprintf(_("%s and friends, page %d"), $this->user->nickname, $this->page);
+        } else {
+            return sprintf(_("%s and friends"), $this->user->nickname);
+        }
     }
-    
+
     function showFeeds()
     {
         $this->element('link', array('rel' => 'alternate',
                                      'href' => common_local_url('allrss', array('nickname' =>
-										$this->user->nickname)),
+                                                                                $this->user->nickname)),
                                      'type' => 'application/rss+xml',
                                      'title' => sprintf(_('Feed for friends of %s'), $this->user->nickname)));
     }
-    
+
     function showLocalNav()
     {
-	$nav = new PersonalGroupNav($this);
-	$nav->show();
+        $nav = new PersonalGroupNav($this);
+        $nav->show();
     }
 
     function showExportData()
     {
         $fl = new FeedList($this);
         $fl->show(array(0=>array('href'=>common_local_url('allrss', array('nickname' => $this->user->nickname)),
-				 'type' => 'rss',
-				 'version' => 'RSS 1.0',
-				 'item' => 'allrss')));
+                                 'type' => 'rss',
+                                 'version' => 'RSS 1.0',
+                                 'item' => 'allrss')));
     }
-    
+
     function showContent()
     {
         $notice = $this->user->noticesWithFriends(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
-	
+
         $nl = new NoticeList($notice, $this);
 
         $cnt = $nl->show();
-	
+
         $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
                           $this->page, 'all', array('nickname' => $this->user->nickname));
     }
