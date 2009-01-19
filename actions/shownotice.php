@@ -180,6 +180,18 @@ class ShownoticeAction extends Action
         $this->showPage();
     }
 
+
+    /**
+     * Don't show local navigation
+     *
+     * @return void
+     */
+
+    function showLocalNavBlock()
+    {
+    }
+
+
     /**
      * Fill the content area of the page
      *
@@ -195,6 +207,29 @@ class ShownoticeAction extends Action
         $nli->show();
         $this->elementEnd('ul');
     }
+
+
+
+    /**
+     * Don't show page notice
+     *
+     * @return void
+     */
+
+    function showPageNoticeBlock()
+    {
+    }
+
+
+    /**
+     * Don't show aside
+     *
+     * @return void
+     */
+
+    function showAside() {
+    }
+
 
     /**
      * Extra <head> content
