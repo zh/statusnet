@@ -80,6 +80,19 @@ class SubscribeForm extends Form
         return 'subscribe-' . $this->profile->id;
     }
 
+
+    /**
+     * class of the form
+     *
+     * @return string of the form class
+     */
+
+    function formClass()
+    {
+        return 'form_subscribe';
+    }
+
+
     /**
      * Action of the form
      *

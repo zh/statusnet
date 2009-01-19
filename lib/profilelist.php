@@ -68,7 +68,7 @@ class ProfileList extends Widget
     function show()
     {
 
-        $this->out->elementStart('ul', array('id' => 'profiles', 'class' => 'profile_list'));
+        $this->out->elementStart('ul', 'profiles');
 
         $cnt = 0;
 
@@ -87,51 +87,40 @@ class ProfileList extends Widget
 
     function showProfile()
     {
-        $this->out->elementStart('li', array('class' => 'profile_single',
-                                         'id' => 'profile-' . $this->profile->id));
+        $this->out->elementStart('li', array('class' => 'profile vcard',
+                                             'id' => 'profile-' . $this->profile->id));
 
         $user = common_current_user();
 
-        if ($user && $user->id != $this->profile->id) {
-            # XXX: special-case for user looking at own
-            # subscriptions page
-            if ($user->isSubscribed($this->profile)) {
-                $usf = new UnsubscribeForm($this->out, $this->profile);
-                $usf->show();
-            } else {
-                $sf = new SubscribeForm($this->out, $this->profile);
-                $sf->show();
-            }
-        }
+
+        $this->out->elementStart('div', array('id' => 'user_profile',
+                                              'class' => 'vcard'));
 
         $avatar = $this->profile->getAvatar(AVATAR_STREAM_SIZE);
-        $this->out->elementStart('a', array('href' => $this->profile->profileurl));
+        $this->out->elementStart('a', array('href' => $this->profile->profileurl,
+                                            'class' => 'url'));
         $this->out->element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE),
-                                    'class' => 'avatar stream',
+                                    'class' => 'photo avatar',
                                     'width' => AVATAR_STREAM_SIZE,
                                     'height' => AVATAR_STREAM_SIZE,
                                     'alt' =>
                                     ($this->profile->fullname) ? $this->profile->fullname :
                                     $this->profile->nickname));
-        $this->out->elementEnd('a');
-        $this->out->elementStart('p');
-        $this->out->elementStart('a', array('href' => $this->profile->profileurl,
-                                        'class' => 'nickname'));
+        $this->out->elementStart('span', 'nickname');
         $this->out->raw($this->highlight($this->profile->nickname));
+        $this->out->elementEnd('span');
         $this->out->elementEnd('a');
+        
         if ($this->profile->fullname) {
-            $this->out->text(' | ');
-            $this->out->elementStart('span', 'fullname');
+            $this->out->elementStart('span', 'fn');
             $this->out->raw($this->highlight($this->profile->fullname));
             $this->out->elementEnd('span');
         }
         if ($this->profile->location) {
-            $this->out->text(' | ');
             $this->out->elementStart('span', 'location');
             $this->out->raw($this->highlight($this->profile->location));
             $this->out->elementEnd('span');
         }
-        $this->out->elementEnd('p');
         if ($this->profile->homepage) {
             $this->out->elementStart('p', 'website');
             $this->out->elementStart('a', array('href' => $this->profile->homepage));
@@ -186,6 +175,20 @@ class ProfileList extends Widget
 
         if ($user && $user->id == $this->owner->id) {
             $this->showOwnerControls($this->profile);
+        }
+
+        $this->out->elementEnd('div');
+
+        if ($user && $user->id != $this->profile->id) {
+            # XXX: special-case for user looking at own
+            # subscriptions page
+            if ($user->isSubscribed($this->profile)) {
+                $usf = new UnsubscribeForm($this->out, $this->profile);
+                $usf->show();
+            } else {
+                $sf = new SubscribeForm($this->out, $this->profile);
+                $sf->show();
+            }
         }
 
         $this->out->elementEnd('li');
