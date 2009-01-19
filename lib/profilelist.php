@@ -1,10 +1,13 @@
 <?php
 
-/*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+/**
+ * Laconica, the distributed open-source microblogging tool
  *
- * This program is free software: you can redistribute it and/or modify
+ * Widget to show a list of profiles
+ *
+ * PHP version 5
+ *
+ * LICENCE: This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -16,30 +19,56 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Public
+ * @package   Laconica
+ * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @copyright 2008-2009 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
+
+require_once INSTALLDIR.'/lib/widget.php';
 
 define('PROFILES_PER_PAGE', 20);
 
-class ProfileList
-{
+/**
+ * Widget to show a list of profiles
+ *
+ * @category Public
+ * @package  Laconica
+ * @author   Zach Copley <zach@controlyourself.ca>
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://laconi.ca/
+ */
 
+class ProfileList extends Widget
+{
+    /** Current profile, profile query. */
     var $profile = null;
+    /** Owner of this list */
     var $owner = null;
+    /** Action object using us. */
     var $action = null;
 
     function __construct($profile, $owner=null, $action=null)
     {
+        parent::__construct($action);
+
         $this->profile = $profile;
         $this->owner = $owner;
         $this->action = $action;
     }
 
-    function show_list()
+    function show()
     {
 
-        common_element_start('ul', array('id' => 'profiles', 'class' => 'profile_list'));
+        $this->out->elementStart('ul', array('id' => 'profiles', 'class' => 'profile_list'));
 
         $cnt = 0;
 
@@ -48,18 +77,18 @@ class ProfileList
             if($cnt > PROFILES_PER_PAGE) {
                 break;
             }
-            $this->show();
+            $this->showProfile();
         }
 
-        common_element_end('ul');
+        $this->out->elementEnd('ul');
 
         return $cnt;
     }
 
-    function show()
+    function showProfile()
     {
 
-        common_element_start('li', array('class' => 'profile_single',
+        $this->out->elementStart('li', array('class' => 'profile_single',
                                          'id' => 'profile-' . $this->profile->id));
 
         $user = common_current_user();
@@ -68,51 +97,53 @@ class ProfileList
             # XXX: special-case for user looking at own
             # subscriptions page
             if ($user->isSubscribed($this->profile)) {
-                common_unsubscribe_form($this->profile);
+                $usf = new UnsubscribeForm($this->out, $this->profile);
+                $usf->show();
             } else {
-                common_subscribe_form($this->profile);
+                $sf = new SubscribeForm($this->out, $this->profile);
+                $sf->show();
             }
         }
 
         $avatar = $this->profile->getAvatar(AVATAR_STREAM_SIZE);
-        common_element_start('a', array('href' => $this->profile->profileurl));
-        common_element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE),
+        $this->out->elementStart('a', array('href' => $this->profile->profileurl));
+        $this->out->element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE),
                                     'class' => 'avatar stream',
                                     'width' => AVATAR_STREAM_SIZE,
                                     'height' => AVATAR_STREAM_SIZE,
                                     'alt' =>
                                     ($this->profile->fullname) ? $this->profile->fullname :
                                     $this->profile->nickname));
-        common_element_end('a');
-        common_element_start('p');
-        common_element_start('a', array('href' => $this->profile->profileurl,
+        $this->out->elementEnd('a');
+        $this->out->elementStart('p');
+        $this->out->elementStart('a', array('href' => $this->profile->profileurl,
                                         'class' => 'nickname'));
-        common_raw($this->highlight($this->profile->nickname));
-        common_element_end('a');
+        $this->out->raw($this->highlight($this->profile->nickname));
+        $this->out->elementEnd('a');
         if ($this->profile->fullname) {
-            common_text(' | ');
-            common_element_start('span', 'fullname');
-            common_raw($this->highlight($this->profile->fullname));
-            common_element_end('span');
+            $this->out->text(' | ');
+            $this->out->elementStart('span', 'fullname');
+            $this->out->raw($this->highlight($this->profile->fullname));
+            $this->out->elementEnd('span');
         }
         if ($this->profile->location) {
-            common_text(' | ');
-            common_element_start('span', 'location');
-            common_raw($this->highlight($this->profile->location));
-            common_element_end('span');
+            $this->out->text(' | ');
+            $this->out->elementStart('span', 'location');
+            $this->out->raw($this->highlight($this->profile->location));
+            $this->out->elementEnd('span');
         }
-        common_element_end('p');
+        $this->out->elementEnd('p');
         if ($this->profile->homepage) {
-            common_element_start('p', 'website');
-            common_element_start('a', array('href' => $this->profile->homepage));
-            common_raw($this->highlight($this->profile->homepage));
-            common_element_end('a');
-            common_element_end('p');
+            $this->out->elementStart('p', 'website');
+            $this->out->elementStart('a', array('href' => $this->profile->homepage));
+            $this->out->raw($this->highlight($this->profile->homepage));
+            $this->out->elementEnd('a');
+            $this->out->elementEnd('p');
         }
         if ($this->profile->bio) {
-            common_element_start('p', 'bio');
-            common_raw($this->highlight($this->profile->bio));
-            common_element_end('p');
+            $this->out->elementStart('p', 'bio');
+            $this->out->raw($this->highlight($this->profile->bio));
+            $this->out->elementEnd('p');
         }
 
         # If we're on a list with an owner (subscriptions or subscribers)...
@@ -121,49 +152,49 @@ class ProfileList
             # Get tags
             $tags = Profile_tag::getTags($this->owner->id, $this->profile->id);
 
-            common_element_start('div', 'tags_user');
-            common_element_start('dl');
-            common_element_start('dt');
+            $this->out->elementStart('div', 'tags_user');
+            $this->out->elementStart('dl');
+            $this->out->elementStart('dt');
             if ($user->id == $this->owner->id) {
-                common_element('a', array('href' => common_local_url('tagother',
+                $this->out->element('a', array('href' => common_local_url('tagother',
                                                                      array('id' => $this->profile->id))),
                                _('Tags'));
             } else {
-                common_text(_('Tags'));
+                $this->out->text(_('Tags'));
             }
-            common_text(":");
-            common_element_end('dt');
-            common_element_start('dd');
+            $this->out->text(":");
+            $this->out->elementEnd('dt');
+            $this->out->elementStart('dd');
             if ($tags) {
-                common_element_start('ul', 'tags xoxo');
+                $this->out->elementStart('ul', 'tags xoxo');
                 foreach ($tags as $tag) {
-                    common_element_start('li');
-                    common_element('a', array('rel' => 'tag',
+                    $this->out->elementStart('li');
+                    $this->out->element('a', array('rel' => 'tag',
                                               'href' => common_local_url($this->action,
                                                                          array('nickname' => $this->owner->nickname,
                                                                                'tag' => $tag))),
                                    $tag);
-                    common_element_end('li');
+                    $this->out->elementEnd('li');
                 }
-                common_element_end('ul');
+                $this->out->elementEnd('ul');
             } else {
-                common_text(_('(none)'));
+                $this->out->text(_('(none)'));
             }
-            common_element_end('dd');
-            common_element_end('dl');
-            common_element_end('div');
+            $this->out->elementEnd('dd');
+            $this->out->elementEnd('dl');
+            $this->out->elementEnd('div');
         }
 
         if ($user && $user->id == $this->owner->id) {
-            $this->show_owner_controls($this->profile);
+            $this->showOwnerControls($this->profile);
         }
 
-        common_element_end('li');
+        $this->out->elementEnd('li');
     }
 
     /* Override this in subclasses. */
 
-    function show_owner_controls($profile)
+    function showOwnerControls($profile)
     {
         return;
     }
