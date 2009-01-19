@@ -48,13 +48,18 @@ input, textarea, select, option {
 padding:4px;
 font-family:sans-serif;
 font-size:1em;
--moz-border-radius:4px;
 }
-input:focus, textarea:focus, select:focus {
+input, textarea, select {
 border-width:2px;
 border-style: solid;
+-moz-border-radius:4px;
 }
-
+input.submit {
+font-weight:bold;
+}
+textarea {
+overflow:auto;
+}
 select, option {
 padding-bottom:0;
 }
@@ -73,10 +78,11 @@ font-weight:bold;
 form ul li input {
 }
 
-form input.checkbox {
+input.checkbox {
 position:relative;
 top:2px;
 left:0;
+border:0;
 }
 
 #page_notice .error,
@@ -120,7 +126,7 @@ float:left;
 }
 
 .form_settings label {
-margin-top:7px;
+margin-top:2px;
 width:152px;
 }
 
@@ -388,9 +394,7 @@ display:none;
 }
 #form_notice textarea {
 -moz-border-radius:4px;
-width:304px;
 width:377px;
-height:95px;
 height:86px;
 line-height:1.5;
 padding:7px 7px 14px 7px;
@@ -416,7 +420,6 @@ margin-left:4px;
 
 #form_notice .form_note {
 position:absolute;
-top:125px;
 top:116px;
 right:98px;
 z-index:9;
@@ -445,10 +448,14 @@ text-indent:-9999px;
 }
 #form_notice .form_actions {
 position:absolute;
-top:107px;
-top:98px;
+bottom:0;
 right:0;
 }
+#form_notice .form_actions input.submit {
+width:60px;
+padding:8px;
+}
+
 #form_notice li {
 margin-bottom:0;
 }
@@ -715,6 +722,7 @@ font-style:italic;
 
 .notice .entry-title {
 float:left;
+width:100%;
 }
 .notice p.entry-content {
 display:inline;

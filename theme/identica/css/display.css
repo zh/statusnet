@@ -5,13 +5,23 @@ background-color:#ddd;
 body {
 font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 font-size:1em;
+background-color:#ddd;
 }
 input, textarea, select, option {
 font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
-input:focus, textarea:focus, select:focus {
-border-color:#B2D0DD;
+input, textarea, select {
+border-color:#aaa;
 }
+
+input:focus, textarea:focus, select:focus {
+border-color:#A9BF4F;
+}
+input.submit {
+background-color:#A9BF4F;
+color:#fff;
+}
+
 a {
 color:#002E6E;
 }
@@ -33,7 +43,8 @@ background-color:#fcfffc;
 background-color:#CEE1E9;
 }
 
-
+#form_notice textarea {
+}
 
 #form_notice label {
 color:#88171A;
@@ -59,7 +70,8 @@ background-color:transparent;
 
 #site_nav_global_primary a {
 }
-
+#form_notice .form_actions input.submit {
+}
 #nav_register a {
 background-color:#A9BF4F;
 color:#fff;

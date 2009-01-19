@@ -138,7 +138,7 @@ class Action extends HTMLOutputter // lawsuit
             if (file_exists(theme_file('ie'.$ver.'.css'))) {
                 // Yes, IE people should be put in jail.
                 $this->comment('[if lte IE '.$ver.']><link rel="stylesheet" type="text/css" '.
-                               'href="'.theme_path('ie'.$ver.'.css').'?version='.LACONICA_VERSION.'" /><![endif]');
+                               'href="'.theme_path('css/ie'.$ver.'.css', 'base').'?version='.LACONICA_VERSION.'" /><![endif]');
             }
         }
     }
