@@ -69,21 +69,23 @@ class PublicGroupNav extends Widget
 
     function show()
     {
+        $action_name = $this->action->trimmed('action');
+
         $this->action->elementStart('ul', array('class' => 'nav'));
 
         $this->out->menuItem(common_local_url('public'), _('Public'),
-            _('Public timeline'), $this->action == 'public', 'nav_timeline_public');
+            _('Public timeline'), $action_name == 'public', 'nav_timeline_public');
 
         $this->out->menuItem(common_local_url('tag'), _('Recent tags'),
-            _('Recent tags'), $this->action == 'tag', 'nav_recent-tags');
+            _('Recent tags'), $action_name == 'tag', 'nav_recent-tags');
 
         if (count(common_config('nickname', 'featured')) > 0) {
             $this->out->menuItem(common_local_url('featured'), _('Featured'),
-                _('Featured users'), $this->action == 'featured', 'nav_featured');
+                _('Featured users'), $action_name == 'featured', 'nav_featured');
         }
 
         $this->out->menuItem(common_local_url('favorited'), _('Popular'),
-            _("Popular notices"), $this->action == 'favorited', 'nav_timeline_favorited');
+            _("Popular notices"), $action_name == 'favorited', 'nav_timeline_favorited');
 
         $this->action->elementEnd('ul');
     }
