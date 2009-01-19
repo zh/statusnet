@@ -50,6 +50,11 @@ class FeaturedAction extends Action
 {
     var $page = null;
 
+    function isReadOnly()
+    {
+        return true;
+    }
+
     function prepare($args)
     {
         parent::prepare($args);
