@@ -302,7 +302,6 @@ class Action extends HTMLOutputter // lawsuit
     {
         $this->elementStart('div', array('id' => 'core'));
         $this->showLocalNavBlock();
-        $this->elementEnd('dl');
         $this->showContentBlock();
         $this->showAside();
         $this->elementEnd('div');
@@ -315,6 +314,7 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementStart('dd');
         $this->showLocalNav();
         $this->elementEnd('dd');
+        $this->elementEnd('dl');
     }
 
     // SHOULD overload
