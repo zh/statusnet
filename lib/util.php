@@ -865,13 +865,11 @@ function common_fancy_url($action, $args=null)
      case 'avatarbynickname':
         return common_path($args['nickname'].'/avatar/'.$args['size']);
      case 'tag':
-        if (isset($args['tag']) && $args['tag']) {
-            $path = 'tag/' . $args['tag'];
-            unset($args['tag']);
-        } else {
-            $path = 'tags';
-        }
+        $path = 'tag/' . $args['tag'];
+        unset($args['tag']);
         return common_path($path . (($args) ? ('?' . http_build_query($args)) : ''));
+     case 'publictagcloud':
+        return common_path('tags');
      case 'peopletag':
         $path = 'peopletag/' . $args['tag'];
         unset($args['tag']);
