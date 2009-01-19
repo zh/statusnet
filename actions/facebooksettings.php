@@ -50,12 +50,13 @@ class FacebooksettingsAction extends FacebookAction
         $flink->set_flags($noticesync, $replysync, false);
         $result = $flink->update($original);
 
-        $facebook->api_client->data_setUserPreference(1, substr($prefix, 0, 128));
+        $facebook->api_client->data_setUserPreference(FACEBOOK_NOTICE_PREFIX,
+            substr($prefix, 0, 128));
 
         if ($result) {
-            $this->show_form('Sync preferences saved.', true);
+            $this->showForm('Sync preferences saved.', true);
         } else {
-            $this->show_form('There was a problem saving your sync preferences!');
+            $this->showForm('There was a problem saving your sync preferences!');
         }
     }
 
@@ -67,18 +68,7 @@ class FacebooksettingsAction extends FacebookAction
         $flink = Foreign_link::getByForeignID($fbuid, FACEBOOK_SERVICE);
 
         $this->showHeader('Settings', $msg, $success);
-                
-        common_element_start('p');
-        
-        // Figure what the URL of our app is.
-        $app_props = $facebook->api_client->Admin_getAppProperties(array('canvas_name'));
-        $app_url = 'http://apps.facebook.com/' . $app_props['canvas_name'] . '/settings.php';
-                
-        common_element_start('fb:prompt-permission', array('perms' => 'status_update',
-            'next_fbjs' => 'document.setLocation(\'' . $app_url . '\')'));
-        common_element('h2', null, _('Allow Identi.ca to update my Facebook status'));
-        common_element_end('fb:prompt-permission');
-        common_element_end('p');
+
 
         if ($facebook->api_client->users_hasAppPermission('status_update')) {
 
@@ -90,11 +80,11 @@ class FacebooksettingsAction extends FacebookAction
             common_checkbox('noticesync', _('Automatically update my Facebook status with my notices.'),
                                 ($flink) ? ($flink->noticesync & FOREIGN_NOTICE_SEND) : true);
 
-            common_checkbox('replysync', _('Send local "@" replies to Facebook.'),
+            common_checkbox('replysync', _('Send "@" replies to Facebook.'),
                              ($flink) ? ($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) : true);
 
             $prefix = $facebook->api_client->data_getUserPreference(1);
-            
+
 
             common_input('prefix', _('Prefix'),
                          ($prefix) ? $prefix : null,
@@ -103,6 +93,31 @@ class FacebooksettingsAction extends FacebookAction
 
             common_element_end('form');
 
+        } else {
+
+            // Figure what the URL of our app is.
+            $app_props = $facebook->api_client->Admin_getAppProperties(
+                    array('canvas_name', 'application_name'));
+            $app_url = 'http://apps.facebook.com/' . $app_props['canvas_name'] . '/settings.php';
+            $app_name = $app_props['application_name'];
+
+            $instructions = sprintf(_('If you would like the %s app to automatically update ' .
+                'your Facebook status with your latest notice, you need ' .
+                'to give it permission.'), $app_name);
+
+            common_element_start('p');
+            common_element('span', array('id' => 'permissions_notice'), $instructions);
+            common_element_end('p');
+
+            common_element_start('ul', array('id' => 'fb-permissions-list'));
+            common_element_start('li', array('id' => 'fb-permissions-item'));
+            common_element_start('fb:prompt-permission', array('perms' => 'status_update',
+                'next_fbjs' => 'document.setLocation(\'' . $app_url . '\')'));
+            common_element('span', array('class' => 'facebook-button'),
+                _('Allow Identi.ca to update my Facebook status'));
+            common_element_end('fb:prompt-permission');
+            common_element_end('li');
+            common_element_end('ul');
         }
 
         $this->showFooter();

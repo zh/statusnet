@@ -31,14 +31,41 @@ class FacebookhomeAction extends FacebookAction
         $facebook = get_facebook();
         $fbuid = $facebook->require_login();
 
+        // If the user has opted not to initially allow the app to have
+        // Facebook status update permission, store that preference. Only
+        // promt the user the first time she uses the app
+        if ($this->arg('skip')) {
+            $facebook->api_client->data_setUserPreference(
+                FACEBOOK_PROMPTED_UPDATE_PREF, 'true');
+        }
+
         // Check to see whether there's already a Facebook link for this user
         $flink = Foreign_link::getByForeignID($fbuid, FACEBOOK_SERVICE);
 
         if ($flink) {
+
             $user = $flink->getUser();
             common_set_user($user);
+
+            // If this is the first time the user has started the app
+            // prompt for Facebook status update permission
+            if (!$facebook->api_client->users_hasAppPermission('status_update')) {
+
+                if ($facebook->api_client->data_getUserPreference(
+                        FACEBOOK_PROMPTED_UPDATE_PREF) != 'true') {
+                    $this->getUpdatePermission();
+                    return;
+                }
+            }
+
+            // Use is authenticated and has already been prompted once for
+            // Facebook status update permission? Then show the main page
+            // of the app
             $this->showHome($flink, null);
+
         } else {
+
+            // User hasn't authenticated yet, prompt for creds
             $this->login($fbuid);
         }
 
@@ -73,16 +100,18 @@ class FacebookhomeAction extends FacebookAction
                 // XXX: Do some error handling here
 
                 $this->setDefaults();
-                $this->showHome($flink, _('You can now use Identi.ca from Facebook!'));
+                //$this->showHome($flink, _('You can now use Identi.ca from Facebook!'));
+
+                $this->getUpdatePermission();
                 return;
-                
+
             } else {
                 $msg = _('Incorrect username or password.');
             }
         }
 
         $this->showLoginForm($msg);
-        
+
     }
 
     function setDefaults()
@@ -90,7 +119,10 @@ class FacebookhomeAction extends FacebookAction
         $facebook = get_facebook();
 
         // A default prefix string for notices
-        $facebook->api_client->data_setUserPreference(1, 'dented: ');
+        $facebook->api_client->data_setUserPreference(
+            FACEBOOK_NOTICE_PREFIX, 'dented: ');
+        $facebook->api_client->data_setUserPreference(
+            FACEBOOK_PROMPTED_UPDATE_PREF, 'false');
     }
 
     function showHome($flink, $msg)
@@ -136,6 +168,60 @@ class FacebookhomeAction extends FacebookAction
     {
         $nl = new FacebookNoticeList($notice);
         return $nl->show();
+    }
+
+    function getUpdatePermission() {
+
+        $facebook = get_facebook();
+        $fbuid = $facebook->require_login();
+
+        start_fbml();
+
+        common_element('link', array('rel' => 'stylesheet',
+                                     'type' => 'text/css',
+                                     'href' => getFacebookCSS()));
+
+        $this->showLogo();
+
+        common_element_start('div', array('class' => 'content'));
+
+        // Figure what the URL of our app is.
+        $app_props = $facebook->api_client->Admin_getAppProperties(
+                array('canvas_name', 'application_name'));
+        $app_url = 'http://apps.facebook.com/' . $app_props['canvas_name'] . '/index.php';
+        $app_name = $app_props['application_name'];
+
+        $instructions = sprintf(_('If you would like the %s app to automatically update ' .
+            'your Facebook status with your latest notice, you need ' .
+            'to give it permission.'), $app_name);
+
+        common_element_start('p');
+        common_element('span', array('id' => 'permissions_notice'), $instructions);
+        common_element_end('p');
+
+        common_element_start('form', array('method' => 'post',
+                                           'action' => $app_url,
+                                           'id' => 'facebook-skip-permissions'));
+
+        common_element_start('ul', array('id' => 'fb-permissions-list'));
+        common_element_start('li', array('id' => 'fb-permissions-item'));
+        common_element_start('fb:prompt-permission', array('perms' => 'status_update',
+            'next_fbjs' => 'document.setLocation(\'' . $app_url . '\')'));
+        common_element('span', array('class' => 'facebook-button'),
+            _('Allow Identi.ca to update my Facebook status'));
+        common_element_end('fb:prompt-permission');
+        common_element_end('li');
+
+        common_element_start('li', array('id' => 'fb-permissions-item'));
+        common_submit('skip', _('Skip'));
+        common_element_end('li');
+        common_element_end('ul');
+
+        common_element_end('form');
+        common_element_end('div');
+
+        common_end_xml();
+
     }
 
 }

@@ -21,6 +21,8 @@ require_once INSTALLDIR.'/extlib/facebook/facebook.php';
 require_once INSTALLDIR.'/lib/noticelist.php';
 
 define("FACEBOOK_SERVICE", 2); // Facebook is foreign_service ID 2
+define("FACEBOOK_NOTICE_PREFIX", 1);
+define("FACEBOOK_PROMPTED_UPDATE_PREF", 2);
 
 // Gets all the notices from users with a Facebook link since a given ID
 function get_facebook_notices($since)
@@ -106,18 +108,18 @@ function update_profile_box($facebook, $fbuid, $user, $notice)
 }
 
 function getFacebookCSS()
-{    
+{
     # Add a timestamp to the CSS file so Facebook cache wont ignore our changes
     $ts = filemtime(theme_file('facebookapp.css'));
-    $cssurl = theme_path('facebookapp.css') . "?ts=$ts";   
+    $cssurl = theme_path('facebookapp.css') . "?ts=$ts";
     return $cssurl;
 }
 
 function getFacebookJS() {
-    
+
     # Add a timestamp to the FBJS file so Facebook cache wont ignore our changes
     $ts = filemtime(INSTALLDIR.'/js/facebookapp.js');
-    $jsurl = common_path('js/facebookapp.js') . "?ts=$ts";   
+    $jsurl = common_path('js/facebookapp.js') . "?ts=$ts";
     return $jsurl;
 }
 
@@ -157,7 +159,7 @@ class FacebookNoticeList extends NoticeList
 
         return $cnt;
     }
-    
+
     /**
      * returns a new list item for the current notice
      *
@@ -173,7 +175,7 @@ class FacebookNoticeList extends NoticeList
     {
         return new FacebookNoticeListItem($notice);
     }
-    
+
 }
 
 class FacebookNoticeListItem extends NoticeListItem
@@ -190,7 +192,7 @@ class FacebookNoticeListItem extends NoticeListItem
     function show()
     {
         $this->showStart();
-        
+
         common_element_start('div', 'entry-title');
         $this->showAuthor();
         $this->showContent();
@@ -201,10 +203,10 @@ class FacebookNoticeListItem extends NoticeListItem
         $this->showNoticeSource();
         $this->showReplyTo();
         common_element_end('div');
-        
+
         $this->showEnd();
     }
-    
+
     function showStart()
     {
         // XXX: RDFa
@@ -222,9 +224,9 @@ class FacebookNoticeListItem extends NoticeListItem
             preg_match('/^http/', $this->notice->uri)) {
             $noticeurl = $this->notice->uri;
         }
-        
+
         common_element_start('dl', 'timestamp');
-        common_element('dt', null, _('Published')); 
+        common_element('dt', null, _('Published'));
         common_element_start('dd', null);
         common_element_start('a', array('rel' => 'bookmark',
                                         'href' => $noticeurl));
@@ -237,5 +239,5 @@ class FacebookNoticeListItem extends NoticeListItem
         common_element_end('dl');
     }
 
-} 
+}
 

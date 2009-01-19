@@ -17,7 +17,7 @@
  * along with this program.     If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { 
+if (!defined('LACONICA')) {
     exit(1);
 }
 
@@ -32,9 +32,9 @@ class FacebookAction extends Action
     }
 
     function showLogo(){
-        
+
         global $xw;
-        
+
         common_element('link', array('rel' => 'stylesheet',
                                      'type' => 'text/css',
                                      'href' => getFacebookCSS()));
@@ -47,14 +47,14 @@ class FacebookAction extends Action
                                             'href' => common_local_url('public')));
         if (common_config('site', 'logo') || file_exists(theme_file('logo.png'))) {
             common_element('img', array('class' => 'logo photo',
-                'src' => (common_config('site', 'logo')) ? 
+                'src' => (common_config('site', 'logo')) ?
                     common_config('site', 'logo') : theme_path('logo.png'),
                 'alt' => common_config('site', 'name')));
         }
-         
+
         common_element('span', array('class' => 'fn org'), common_config('site', 'name'));
         common_element_end('a');
-    
+
     }
 
     function showHeader($selected = 'Home', $msg = null, $success = false)
@@ -76,25 +76,25 @@ class FacebookAction extends Action
 
         common_element_start('ul', array('class' => 'nav'));
 
-        common_element_start('li', array('class' => 
+        common_element_start('li', array('class' =>
             ($selected == 'Home') ? 'current' : 'facebook_home'));
-        common_element('a', 
+        common_element('a',
             array('href' => 'index.php', 'title' => _('Home')), _('Home'));
         common_element_end('li');
 
-        
-        common_element_start('li', 
+
+        common_element_start('li',
             array('class' =>
                 ($selected == 'Invite') ? 'current' : 'facebook_invite'));
-        common_element('a', 
+        common_element('a',
             array('href' => 'invite.php', 'title' => _('Invite')), _('Invite'));
         common_element_end('li');
 
-        common_element_start('li', 
+        common_element_start('li',
             array('class' =>
                 ($selected == 'Settings') ? 'current' : 'facebook_settings'));
-        common_element('a', 
-            array('href' => 'settings.php', 
+        common_element('a',
+            array('href' => 'settings.php',
                 'title' => _('Settings')), _('Settings'));
         common_element_end('li');
 
@@ -125,24 +125,24 @@ class FacebookAction extends Action
 
     function showInstructions()
     {
-        global $xw; 
-        
+        global $xw;
+
         common_element_start('dl', array('class' => 'system_notice'));
         common_element('dt', null, 'Page Notice');
-    
+
         $loginmsg_part1 = _('To use the %s Facebook Application you need to login ' .
-            'with your username and password. Don\'t have a username yet? '); 
-        
+            'with your username and password. Don\'t have a username yet? ');
+
         $loginmsg_part2 = _(' a new account.');
-        
+
         common_element_start('dd');
         common_element_start('p');
         common_text(sprintf($loginmsg_part1, common_config('site', 'name')));
-        common_element('a', 
+        common_element('a',
             array('href' => common_local_url('register')), _('Register'));
         common_text($loginmsg_part2);
         common_element_end('dd');
-        common_element_end('dl');        
+        common_element_end('dl');
     }
 
     function showLoginForm($msg = null)
@@ -154,14 +154,14 @@ class FacebookAction extends Action
                                      'href' => getFacebookCSS()));
 
         $this->showLogo();
-                                 
+
         common_element_start('div', array('class' => 'content'));
         common_element('h1', null, _('Login'));
-   
+
         if ($msg) {
              common_element('fb:error', array('message' => $msg));
         }
-        
+
         $this->showInstructions();
 
         common_element_start('div', array('id' => 'content_inner'));
@@ -169,19 +169,19 @@ class FacebookAction extends Action
         common_element_start('form', array('method' => 'post',
                                                'id' => 'login',
                                                'action' => 'index.php'));
-    
+
         common_element_start('fieldset');
         common_element('legend', null, _('Login to site'));
-        
+
         common_element_start('ul', array('class' => 'form_datas'));
-        common_element_start('li');                                             
+        common_element_start('li');
         common_input('nickname', _('Nickname'));
         common_element_end('li');
         common_element_start('li');
         common_password('password', _('Password'));
         common_element_end('li');
         common_element_end('ul');
-        
+
         common_submit('submit', _('Login'));
         common_element_end('form');
 
@@ -189,7 +189,7 @@ class FacebookAction extends Action
         common_element('a', array('href' => common_local_url('recoverpassword')),
                        _('Lost or forgotten password?'));
         common_element_end('p');
-        
+
         common_element_end('div');
 
         common_end_xml();
