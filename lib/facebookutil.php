@@ -44,7 +44,7 @@ function get_facebook()
     return new Facebook($apikey, $secret);
 }
 
-function start_fbml($indent = true)
+function startFBML($indent = true)
 {
     global $xw;
     $xw = new XMLWriter();
@@ -129,6 +129,42 @@ function getFacebookJS() {
     $ts = filemtime(INSTALLDIR.'/js/facebookapp.js');
     $jsurl = common_path('js/facebookapp.js') . "?ts=$ts";
     return $jsurl;
+}
+
+
+// Does a little before-after block for next/prev page
+
+function facebookPagination($have_before, $have_after, $page, $action, $args=null)
+{
+
+    if ($have_before || $have_after) {
+        common_element_start('div', array('id' => 'pagination'));
+        common_element_start('ul', array('id' => 'nav_pagination'));
+    }
+
+    if ($have_before) {
+        $pargs = array('page' => $page-1);
+        $newargs = ($args) ? array_merge($args,$pargs) : $pargs;
+
+        common_element_start('li', 'before');
+        common_element('a', array('href' => "index.php?page=$newargs[page]", 'rel' => 'prev'),
+                       _('« After'));
+        common_element_end('li');
+    }
+
+    if ($have_after) {
+        $pargs = array('page' => $page+1);
+        $newargs = ($args) ? array_merge($args,$pargs) : $pargs;
+        common_element_start('li', 'after');
+        common_element('a', array('href' => "index.php?page=$newargs[page]", 'rel' => 'next'),
+                       _('Before »'));
+        common_element_end('li');
+    }
+
+    if ($have_before || $have_after) {
+        common_element_end('ul');
+        common_element_end('div');
+    }
 }
 
 

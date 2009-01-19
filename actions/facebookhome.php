@@ -30,6 +30,9 @@ class FacebookhomeAction extends FacebookAction
 
         $facebook = get_facebook();
         $fbuid = $facebook->require_login();
+ 
+        // Check to see whether there's already a Facebook link for this user
+        $flink = Foreign_link::getByForeignID($fbuid, FACEBOOK_SERVICE);
 
         // If the user has opted not to initially allow the app to have
         // Facebook status update permission, store that preference. Only
@@ -39,10 +42,12 @@ class FacebookhomeAction extends FacebookAction
                 FACEBOOK_PROMPTED_UPDATE_PREF, 'true');
         }
 
-        // Check to see whether there's already a Facebook link for this user
-        $flink = Foreign_link::getByForeignID($fbuid, FACEBOOK_SERVICE);
-
         if ($flink) {
+
+            if ($_POST['submit'] == 'Send') {       
+                $this->saveNewNotice($flink);
+                return;
+            }
 
             $user = $flink->getUser();
             common_set_user($user);
@@ -136,19 +141,16 @@ class FacebookhomeAction extends FacebookAction
         $notice = $user->getCurrentNotice();
         update_profile_box($facebook, $fbuid, $user, $notice);
 
-
-        $this->showHeader('Home');
-
-        if ($msg) {
-            common_element('fb:success', array('message' => $msg));
-        }
-
-        echo $this->show_notices($user);
+        $this->showHeader($msg);      
+        $this->showNoticeForm($user);
+        $this->showNav('Home');
+        
+        echo $this->showNotices($user);
 
         $this->showFooter();
     }
 
-    function show_notices($user)
+    function showNotices($user)
     {
 
         $page = $this->trimmed('page');
@@ -158,13 +160,13 @@ class FacebookhomeAction extends FacebookAction
 
         $notice = $user->noticesWithFriends(($page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
 
-        $cnt = $this->show_notice_list($notice);
+        $cnt = $this->showNoticeList($notice);
 
-        common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
-                          $page, 'all', array('nickname' => $user->nickname));
+        facebookPagination($page > 1, $cnt > NOTICES_PER_PAGE,
+            $page, 'all', array('nickname' => $user->nickname));
     }
 
-    function show_notice_list($notice)
+    function showNoticeList($notice)
     {
         $nl = new FacebookNoticeList($notice);
         return $nl->show();
@@ -175,19 +177,10 @@ class FacebookhomeAction extends FacebookAction
         $facebook = get_facebook();
         $fbuid = $facebook->require_login();
 
-        start_fbml();
+        startFBML();
 
-        common_element('link', array('rel' => 'stylesheet',
-                                     'type' => 'text/css',
-                                     'href' => getFacebookBaseCSS()));
-
-        common_element('link', array('rel' => 'stylesheet',
-                                     'type' => 'text/css',
-                                     'href' => getFacebookThemeCSS()));
-
-        common_element('script', array('type' => 'text/javascript',
-                                       'src' => getFacebookJS()),
-                                       ' ');
+        $this->showStylesheets();
+        $this->showScripts();
 
         $this->showLogo();
 
@@ -231,5 +224,49 @@ class FacebookhomeAction extends FacebookAction
         common_end_xml();
 
     }
+    
+    function saveNewNotice($flink)
+    {
+        
+        $user = $flink->getUser();
 
+        $content = $_POST['status_textarea']; 
+
+        if (!$content) {
+            $this->showHome($flink, _('No content!'));
+            return;
+        } else {
+            $content_shortened = common_shorten_links($content);
+
+            if (mb_strlen($content_shortened) > 140) {
+                common_debug("Content = '$content_shortened'", __FILE__);
+                common_debug("mb_strlen(\$content) = " . mb_strlen($content_shortened), __FILE__);
+                $this->showHome($flink, _('That\'s too long. Max notice size is 140 chars.'));
+                return;
+            }
+        }
+
+        $inter = new CommandInterpreter();
+
+        $cmd = $inter->handle_command($user, $content_shortened);
+
+        if ($cmd) {
+            $cmd->execute(new WebChannel());
+            return;
+        }
+
+        $replyto = $this->trimmed('inreplyto');
+
+        $notice = Notice::saveNew($user->id, $content,
+            'Facebook', 1, ($replyto == 'false') ? null : $replyto);
+
+        if (is_string($notice)) {
+            $this->showHome($flink, 'Error!');
+            return;
+        }
+
+        common_broadcast_notice($notice);
+        $this->showHome($flink, 'Success!');
+    }
+    
 }

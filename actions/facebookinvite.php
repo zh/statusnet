@@ -69,7 +69,8 @@ class FacebookinviteAction extends FacebookAction
         $facebook = get_facebook();
         $fbuid = $facebook->require_login();
 
-        $this->showHeader('Invite');
+        $this->showHeader();
+        $this->showNav('Invite');
 
         // Get a list of users who are already using the app for exclusion
         $exclude_ids = $facebook->api_client->friends_getAppUsers();

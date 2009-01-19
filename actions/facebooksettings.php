@@ -67,8 +67,8 @@ class FacebooksettingsAction extends FacebookAction
 
         $flink = Foreign_link::getByForeignID($fbuid, FACEBOOK_SERVICE);
 
-        $this->showHeader('Settings', $msg, $success);
-
+        $this->showHeader($msg, $success);
+        $this->showNav('Settings');
 
         if ($facebook->api_client->users_hasAppPermission('status_update')) {
 
