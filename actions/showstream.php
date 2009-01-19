@@ -132,7 +132,12 @@ class ShowstreamAction extends Action
 
     function showPageTitle()
     {
-        // Don't show the H1; we have one in the profile block
+         $this->element('h1', NULL, $this->profile->nickname._("'s profile"));
+    }
+
+    function showPageNoticeBlock()
+    {
+        return;
     }
 
     function showExportData()
@@ -238,17 +243,16 @@ class ShowstreamAction extends Action
             $this->elementStart('dl', 'user_fn');
             $this->element('dt', null, _('Full name'));
             $this->elementStart('dd');
-            $this->element('a', array('href' => $this->profile->homepage,
-                                      'rel' => 'me', 'class' => 'fn url uid'),
-                           $this->profile->fullname);
+            $this->element('span', 'fn', $this->profile->fullname);
             $this->elementEnd('dd');
             $this->elementEnd('dl');
         }
-
         $this->elementStart('dl', 'user_nickname');
         $this->element('dt', null, _('Nickname'));
         $this->elementStart('dd');
-        $this->element('span', 'fn nickname', $this->profile->nickname);
+            $this->element('a', array('href' => $this->profile->profileurl,
+                                      'rel' => 'me', 'class' => 'fn nickname url uid'),
+                           $this->profile->nickname);
         $this->elementEnd('dd');
         $this->elementEnd('dl');
 
