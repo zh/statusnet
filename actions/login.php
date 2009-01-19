@@ -223,7 +223,7 @@ class LoginAction extends Action
                                            'action' => common_local_url('login')));
         $this->elementStart('fieldset');
         $this->element('legend', null, _('Login to site'));
-        $this->elementStart('ul', 'form_datas');
+        $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
         $this->input('nickname', _('Nickname'));
         $this->elementEnd('li');

@@ -86,36 +86,35 @@ class ImsettingsAction extends ConnectSettingsAction
     {
         $user = common_current_user();
         $this->elementStart('form', array('method' => 'post',
-                                          'id' => 'imsettings',
+                                          'id' => 'form_settings_im',
+                                          'class' => 'form_settings',
                                           'action' =>
                                           common_local_url('imsettings')));
+        $this->elementStart('fieldset', array('id' => 'settings_im_address'));
+        $this->element('legend', null, _('Address'));
         $this->hidden('token', common_session_token());
 
-        $this->element('h2', null, _('Address'));
-
         if ($user->jabber) {
-            $this->elementStart('p');
-            $this->element('span', 'address confirmed', $user->jabber);
-            $this->element('span', 'input_instructions',
+            $this->element('p', 'form_confirmed', $user->jabber);
+            $this->element('p', 'form_note',
                            _('Current confirmed Jabber/GTalk address.'));
             $this->hidden('jabber', $user->jabber);
-            $this->elementEnd('p');
             $this->submit('remove', _('Remove'));
         } else {
             $confirm = $this->getConfirmation();
             if ($confirm) {
-                $this->elementStart('p');
-                $this->element('span', 'address unconfirmed', $confirm->address);
-                $this->element('span', 'input_instructions',
+                $this->element('p', 'form_unconfirmed', $confirm->address);
+                $this->element('p', 'form_note',
                                sprintf(_('Awaiting confirmation on this address. '.
                                          'Check your Jabber/GTalk account for a '.
                                          'message with further instructions. '.
                                          '(Did you add %s to your buddy list?)'),
                                        jabber_daemon_address()));
                 $this->hidden('jabber', $confirm->address);
-                $this->elementEnd('p');
                 $this->submit('cancel', _('Cancel'));
             } else {
+                $this->elementStart('ul', 'form_data');
+                $this->elementStart('li');
                 $this->input('jabber', _('IM Address'),
                              ($this->arg('jabber')) ? $this->arg('jabber') : null,
                              sprintf(_('Jabber or GTalk address, '.
@@ -123,27 +122,40 @@ class ImsettingsAction extends ConnectSettingsAction
                                        'First, make sure to add %s to your '.
                                        'buddy list in your IM client or on GTalk.'),
                                      jabber_daemon_address()));
+                $this->elementEnd('li');
+                $this->elementEnd('ul');
                 $this->submit('add', _('Add'));
             }
         }
-
-        $this->element('h2', null, _('Preferences'));
-
+        $this->elementEnd('fieldset');
+        
+        $this->elementStart('fieldset', array('id' => 'settings_im_preferences'));
+        $this->element('legend', null, _('Preferences'));
+        $this->elementStart('ul', 'form_data');
+        $this->elementStart('li');
         $this->checkbox('jabbernotify',
                         _('Send me notices through Jabber/GTalk.'),
                         $user->jabbernotify);
+        $this->elementEnd('li');
+        $this->elementStart('li');
         $this->checkbox('updatefrompresence',
                         _('Post a notice when my Jabber/GTalk status changes.'),
                         $user->updatefrompresence);
+        $this->elementEnd('li');
+        $this->elementStart('li');
         $this->checkbox('jabberreplies',
                         _('Send me replies through Jabber/GTalk '.
                           'from people I\'m not subscribed to.'),
                         $user->jabberreplies);
+        $this->elementEnd('li');
+        $this->elementStart('li');
         $this->checkbox('jabbermicroid',
                         _('Publish a MicroID for my Jabber/GTalk address.'),
                         $user->jabbermicroid);
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
         $this->submit('save', _('Save'));
-
+        $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }
 

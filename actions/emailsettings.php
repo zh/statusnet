@@ -95,14 +95,14 @@ class EmailsettingsAction extends AccountSettingsAction
         $this->hidden('token', common_session_token());
 
         if ($user->email) {
-            $this->element('p', array('id' => 'email_confirmed'), $user->email);
+            $this->element('p', array('id' => 'form_confirmed'), $user->email);
             $this->element('p', array('class' => 'form_note'), _('Current confirmed email address.'));
             $this->hidden('email', $user->email);
             $this->submit('remove', _('Remove'));
         } else {
             $confirm = $this->getConfirmation();
             if ($confirm) {
-                $this->element('p', array('id' => 'email_unconfirmed'), $confirm->address);
+                $this->element('p', array('id' => 'form_unconfirmed'), $confirm->address);
                 $this->element('p', array('class' => 'form_note'),
                                         _('Awaiting confirmation on this address. '.
                                         'Check your inbox (and spam box!) for a message '.
@@ -110,7 +110,7 @@ class EmailsettingsAction extends AccountSettingsAction
                 $this->hidden('email', $confirm->address);
                 $this->submit('cancel', _('Cancel'));
             } else {
-                $this->elementStart('ul', 'form_datas');
+                $this->elementStart('ul', 'form_data');
                 $this->elementStart('li');
                 $this->input('email', _('Email Address'),
                              ($this->arg('email')) ? $this->arg('email') : null,
@@ -146,7 +146,7 @@ class EmailsettingsAction extends AccountSettingsAction
         $this->elementStart('fieldset', array('id' => 'settings_email_preferences'));
         $this->element('legend', null, _('Preferences'));
 
-        $this->elementStart('ul', 'form_datas');
+        $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
         $this->checkbox('emailnotifysub',
                         _('Send me notices of new subscriptions through email.'),

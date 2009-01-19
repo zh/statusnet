@@ -104,7 +104,7 @@ class TwittersettingsAction extends ConnectSettingsAction
         $this->elementStart('fieldset', array('id' => 'settings_twitter_account'));
         $this->element('legend', null, _('Twitter Account'));
         $this->hidden('token', common_session_token());
-        $this->elementStart('ul', 'form_datas');
+        $this->elementStart('ul', 'form_data');
         if ($fuser) {
             $this->elementStart('li');
             $this->element('span', 'twitter_user', $fuser->nickname);
@@ -133,7 +133,7 @@ class TwittersettingsAction extends ConnectSettingsAction
                             array('id' => 'settings_twitter_preferences'));
         $this->element('legend', null, _('Preferences'));
 
-        $this->elementStart('ul');
+        $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
         $this->checkbox('noticesync',
                         _('Automatically send my notices to Twitter.'),
