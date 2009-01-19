@@ -67,9 +67,13 @@ while($notice->fetch()) {
         // If it's not a reply, or if the user WANTS to send replies...
         if (!preg_match('/@[a-zA-Z0-9_]{1,15}\b/u', $content) ||
             (($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) == FOREIGN_NOTICE_SEND_REPLY)) {
-                update_status($fbuid, $content);
-                update_profile_box($facebook, $fbuid, $user, $notice);
-                $cnt++;
+             
+                // Avoid a Loop
+                if ($notice->source != 'Facebook') {
+                    update_status($fbuid, $content);
+                    update_profile_box($facebook, $fbuid, $user, $notice);
+                    $cnt++;
+                }
             }
     }
 }

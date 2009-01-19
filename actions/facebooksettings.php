@@ -19,7 +19,7 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-require_once(INSTALLDIR.'/lib/facebookaction.php');
+require_once INSTALLDIR.'/lib/facebookaction.php';
 
 class FacebooksettingsAction extends FacebookAction
 {
@@ -29,13 +29,13 @@ class FacebooksettingsAction extends FacebookAction
         parent::handle($args);
 
         if ($this->arg('save')) {
-            $this->save_settings();
+            $this->saveSettings();
         } else {
-            $this->show_form();
+            $this->showForm();
         }
     }
 
-    function save_settings() {
+    function saveSettings() {
 
         $noticesync = $this->arg('noticesync');
         $replysync = $this->arg('replysync');
@@ -50,36 +50,25 @@ class FacebooksettingsAction extends FacebookAction
         $flink->set_flags($noticesync, $replysync, false);
         $result = $flink->update($original);
 
-        $facebook->api_client->data_setUserPreference(1, substr($prefix, 0, 128));
+        $facebook->api_client->data_setUserPreference(FACEBOOK_NOTICE_PREFIX,
+            substr($prefix, 0, 128));
 
         if ($result) {
-            $this->show_form('Sync preferences saved.', true);
+            $this->showForm('Sync preferences saved.', true);
         } else {
-            $this->show_form('There was a problem saving your sync preferences!');
+            $this->showForm('There was a problem saving your sync preferences!');
         }
     }
 
-    function show_form($msg = null, $success = false) {
+    function showForm($msg = null, $success = false) {
 
         $facebook = get_facebook();
         $fbuid = $facebook->require_login();
 
         $flink = Foreign_link::getByForeignID($fbuid, FACEBOOK_SERVICE);
 
-        $this->show_header('Settings', $msg, $success);
-
-        $this->elementStart('fb:if-section-not-added', array('section' => 'profile'));
-        $this->element('h2', null, _('Add an Identi.ca box to my profile'));
-        $this->elementStart('p');
-        $this->element('fb:add-section-button', array('section' => 'profile'));
-        $this->elementEnd('p');
-
-        $this->elementEnd('fb:if-section-not-added');
-        $this->elementStart('p');
-        $this->elementStart('fb:prompt-permission', array('perms' => 'status_update'));
-        $this->element('h2', null, _('Allow Identi.ca to update my Facebook status'));
-        $this->elementEnd('fb:prompt-permission');
-        $this->elementEnd('p');
+        $this->showHeader($msg, $success);
+        $this->showNav('Settings');
 
         if ($facebook->api_client->users_hasAppPermission('status_update')) {
 
@@ -91,13 +80,10 @@ class FacebooksettingsAction extends FacebookAction
             $this->checkbox('noticesync', _('Automatically update my Facebook status with my notices.'),
                                 ($flink) ? ($flink->noticesync & FOREIGN_NOTICE_SEND) : true);
 
-            $this->checkbox('replysync', _('Send local "@" replies to Facebook.'),
+            $this->checkbox('replysync', _('Send "@" replies to Facebook.'),
                              ($flink) ? ($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) : true);
 
-            // function $this->input($id, $label, $value=null,$instructions=null)
-
             $prefix = $facebook->api_client->data_getUserPreference(1);
-            
 
             $this->input('prefix', _('Prefix'),
                          ($prefix) ? $prefix : null,
@@ -106,9 +92,34 @@ class FacebooksettingsAction extends FacebookAction
 
             $this->elementEnd('form');
 
+        } else {
+
+            // Figure what the URL of our app is.
+            $app_props = $facebook->api_client->Admin_getAppProperties(
+                    array('canvas_name', 'application_name'));
+            $app_url = 'http://apps.facebook.com/' . $app_props['canvas_name'] . '/settings.php';
+            $app_name = $app_props['application_name'];
+
+            $instructions = sprintf(_('If you would like the %s app to automatically update ' .
+                'your Facebook status with your latest notice, you need ' .
+                'to give it permission.'), $app_name);
+
+            common_element_start('p');
+            common_element('span', array('id' => 'permissions_notice'), $instructions);
+            common_element_end('p');
+
+            common_element_start('ul', array('id' => 'fb-permissions-list'));
+            common_element_start('li', array('id' => 'fb-permissions-item'));
+            common_element_start('fb:prompt-permission', array('perms' => 'status_update',
+                'next_fbjs' => 'document.setLocation(\'' . $app_url . '\')'));
+            common_element('span', array('class' => 'facebook-button'),
+                _('Allow Identi.ca to update my Facebook status'));
+            common_element_end('fb:prompt-permission');
+            common_element_end('li');
+            common_element_end('ul');
         }
 
-        $this->show_footer();
+        $this->showFooter();
     }
 
 }

@@ -17,9 +17,11 @@
  * along with this program.     If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
-require_once(INSTALLDIR.'/lib/facebookutil.php');
+require_once INSTALLDIR.'/lib/facebookutil.php';
 
 class FacebookAction extends Action
 {
@@ -29,33 +31,39 @@ class FacebookAction extends Action
         parent::handle($args);
     }
 
-    function show_header($selected = 'Home', $msg = null, $success = false)
+    function showLogo(){
+
+        global $xw;
+
+        $this->showStylesheets();
+        $this->showScripts();
+
+        common_element_start('a', array('class' => 'url home bookmark',
+                                            'href' => common_local_url('public')));
+        if (common_config('site', 'logo') || file_exists(theme_file('logo.png'))) {
+            common_element('img', array('class' => 'logo photo',
+                'src' => (common_config('site', 'logo')) ?
+                    common_config('site', 'logo') : theme_path('logo.png'),
+                'alt' => common_config('site', 'name')));
+        }
+
+        common_element('span', array('class' => 'fn org'), common_config('site', 'name'));
+        common_element_end('a');
+
+    }
+
+
+    function showHeader($msg = null, $success = false) 
     {
+        startFBML();
 
-        start_fbml();
-
-        # Add a timestamp to the CSS file so Facebook cache wont ignore our changes
-        $ts = filemtime(theme_file('facebookapp.css'));
-        $cssurl = theme_path('facebookapp.css') . "?ts=$ts";
-
-        common_element('link', array('rel' => 'stylesheet',
-                                     'type' => 'text/css',
-                                     'href' => $cssurl));
-
-        common_element('fb:dashboard');
-
-        common_element_start('fb:tabs');
-        common_element('fb:tab-item', array('title' => 'Home',
-                                            'href' => 'index.php',
-                                            'selected' => ($selected == 'Home')));
-        common_element('fb:tab-item', array('title' => 'Invite',
-                                            'href' => 'invite.php',
-                                            'selected' => ($selected == 'Invite')));
-        common_element('fb:tab-item', array('title' => 'Settings',
-                                            'href' => 'settings.php',
-                                            'selected' => ($selected == 'Settings')));
-        common_element_end('fb:tabs');
-
+        common_element_start('fb:if-section-not-added', array('section' => 'profile'));
+        common_element_start('span', array('id' => 'add_to_profile'));
+        common_element('fb:add-section-button', array('section' => 'profile'));
+        common_element_end('span');
+        common_element_end('fb:if-section-not-added');
+        
+        $this->showLogo();
 
         if ($msg) {
             if ($success) {
@@ -65,47 +73,135 @@ class FacebookAction extends Action
             }
         }
 
-        common_element_start('div', 'main_body');
+        common_element_start('div', 'main_body');        
+        
+    }
+
+    function showNav($selected = 'Home')
+    {
+
+        common_element_start('dl', array("id" => 'site_nav_local_views'));
+        common_element('dt', null, _('Local Views'));
+        common_element_start('dd');
+
+        common_element_start('ul', array('class' => 'nav'));
+
+        common_element_start('li', array('class' =>
+            ($selected == 'Home') ? 'current' : 'facebook_home'));
+        common_element('a',
+            array('href' => 'index.php', 'title' => _('Home')), _('Home'));
+        common_element_end('li');
+
+        common_element_start('li',
+            array('class' =>
+                ($selected == 'Invite') ? 'current' : 'facebook_invite'));
+        common_element('a',
+            array('href' => 'invite.php', 'title' => _('Invite')), _('Invite'));
+        common_element_end('li');
+
+        common_element_start('li',
+            array('class' =>
+                ($selected == 'Settings') ? 'current' : 'facebook_settings'));
+        common_element('a',
+            array('href' => 'settings.php',
+                'title' => _('Settings')), _('Settings'));
+        common_element_end('li');
+
+        common_element_end('ul');
+
+        common_element_end('dd');
+        common_element_end('dl');
 
     }
 
-    function show_footer()
+    function showFooter()
     {
         common_element_end('div');
         common_end_xml();
     }
 
+
+    function showInstructions()
+    {
+        global $xw;
+
+        common_element_start('dl', array('class' => 'system_notice'));
+        common_element('dt', null, 'Page Notice');
+
+        $loginmsg_part1 = _('To use the %s Facebook Application you need to login ' .
+            'with your username and password. Don\'t have a username yet? ');
+
+        $loginmsg_part2 = _(' a new account.');
+
+        common_element_start('dd');
+        common_element_start('p');
+        common_text(sprintf($loginmsg_part1, common_config('site', 'name')));
+        common_element('a',
+            array('href' => common_local_url('register')), _('Register'));
+        common_text($loginmsg_part2);
+        common_element_end('dd');
+        common_element_end('dl');
+    }
+
+
+    function showStylesheets() 
+    {
+        global $xw;
+        
+        common_element('link', array('rel' => 'stylesheet',
+                                     'type' => 'text/css',
+                                     'href' => getFacebookBaseCSS()));
+
+        common_element('link', array('rel' => 'stylesheet',
+                                     'type' => 'text/css',
+                                     'href' => getFacebookThemeCSS()));
+    }
+    
+    function showScripts() 
+    {
+        global $xw;
+        
+        common_element('script', array('type' => 'text/javascript',
+                                       'src' => getFacebookJS()));
+        
+    }
+
     function showLoginForm($msg = null)
     {
-        start_fbml();
+        startFBML();
 
-        common_element_start('a', array('href' => 'http://identi.ca'));
-        common_element('img', array('src' => 'http://theme.identi.ca/identica/logo.png',
-                                    'alt' => 'Identi.ca',
-                                    'id' => 'logo'));
-        common_element_end('a');
+        $this->showStylesheets();
+        $this->showScripts();
+
+        $this->showLogo();
+
+        common_element_start('div', array('class' => 'content'));
+        common_element('h1', null, _('Login'));
 
         if ($msg) {
              common_element('fb:error', array('message' => $msg));
         }
 
-        common_element("h2", null,
-            _('To add the Identi.ca application, you need to log into your Identi.ca account.'));
+        $this->showInstructions();
 
+        common_element_start('div', array('id' => 'content_inner'));
 
-        common_element_start('div', array('class' => 'instructions'));
-        common_element_start('p');
-        common_raw('Login with your username and password. Don\'t have a username yet?'
-        .' <a href="http://identi.ca/main/register">Register</a> a new account.');
-        common_element_end('p');
-        common_element_end('div');
-
-        common_element_start('div', array('id' => 'content'));
         common_element_start('form', array('method' => 'post',
+                                               'class' => 'form_settings',
                                                'id' => 'login',
                                                'action' => 'index.php'));
+
+        common_element_start('fieldset');
+        common_element('legend', null, _('Login to site'));
+
+        common_element_start('ul', array('class' => 'form_datas'));
+        common_element_start('li');
         common_input('nickname', _('Nickname'));
+        common_element_end('li');
+        common_element_start('li');
         common_password('password', _('Password'));
+        common_element_end('li');
+        common_element_end('ul');
 
         common_submit('submit', _('Login'));
         common_element_end('form');
@@ -114,11 +210,61 @@ class FacebookAction extends Action
         common_element('a', array('href' => common_local_url('recoverpassword')),
                        _('Lost or forgotten password?'));
         common_element_end('p');
+
         common_element_end('div');
 
         common_end_xml();
 
     }
 
+
+    function showNoticeForm($user) 
+    {
+    
+        global $xw;
+
+        common_element_start('form', array('id' => 'form_notice',
+                                           'method' => 'post',
+                                           'action' => 'index.php'));
+
+        common_element_start('fieldset');
+        common_element('legend', null, 'Send a notice');
+
+        common_element_start('ul', 'form_datas');
+        common_element_start('li', array('id' => 'noticcommon_elemente_text'));
+        common_element('label', array('for' => 'notice_data-text'),
+                            sprintf(_('What\'s up, %s?'), $user->nickname));
+
+        common_element('textarea', array('id' => 'notice_data-text',
+                                              'cols' => 35,
+                                              'rows' => 4,
+                                              'name' => 'status_textarea'));
+        common_element_end('li');
+        common_element_end('ul');
+
+        common_element_start('dl', 'form_note');
+        common_element('dt', null, _('Available characters'));
+        common_element('dd', array('id' => 'notice_text-count'),
+                            '140');
+        common_element_end('dl');
+
+        common_element_start('ul', array('class' => 'form_actions'));
+
+        common_element_start('li', array('id' => 'notice_submit'));
+        
+        common_submit('submit', _('Send'));
+        
+        /*
+        common_element('input', array('id' => 'notice_action-submit',
+                                           'class' => 'submit',
+                                           'name' => 'status_submit',
+                                           'type' => 'submit',
+                                           'value' => _('Send')));
+        */
+        common_element_end('li');
+        common_element_end('ul');    
+        common_element_end('fieldset');    
+        common_element_end('form');
+    }
 
 }
