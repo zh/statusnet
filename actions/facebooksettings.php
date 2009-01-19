@@ -104,19 +104,19 @@ class FacebooksettingsAction extends FacebookAction
                 'your Facebook status with your latest notice, you need ' .
                 'to give it permission.'), $app_name);
 
-            common_element_start('p');
-            common_element('span', array('id' => 'permissions_notice'), $instructions);
-            common_element_end('p');
+            $this->elementStart('p');
+            $this->element('span', array('id' => 'permissions_notice'), $instructions);
+            $this->elementEnd('p');
 
-            common_element_start('ul', array('id' => 'fb-permissions-list'));
-            common_element_start('li', array('id' => 'fb-permissions-item'));
-            common_element_start('fb:prompt-permission', array('perms' => 'status_update',
+            $this->elementStart('ul', array('id' => 'fb-permissions-list'));
+            $this->elementStart('li', array('id' => 'fb-permissions-item'));
+            $this->elementStart('fb:prompt-permission', array('perms' => 'status_update',
                 'next_fbjs' => 'document.setLocation(\'' . $app_url . '\')'));
-            common_element('span', array('class' => 'facebook-button'),
+            $this->element('span', array('class' => 'facebook-button'),
                 _('Allow Identi.ca to update my Facebook status'));
-            common_element_end('fb:prompt-permission');
-            common_element_end('li');
-            common_element_end('ul');
+            $this->elementEnd('fb:prompt-permission');
+            $this->elementEnd('li');
+            $this->elementEnd('ul');
         }
 
         $this->showFooter();
