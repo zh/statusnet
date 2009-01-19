@@ -696,6 +696,12 @@ border-top:1px dashed #D1D9E4;
 list-style-type:none;
 /*margin-bottom:11px;*/
 }
+.notices li.hover {
+border-radius:4px;
+-moz-border-radius:4px;
+-webkit-border-radius:4px;
+}
+
 
 /* NOTICES */
 #notices_primary {
@@ -761,19 +767,16 @@ display:inline;
 #laconicat .notice p.entry-content {
 /*margin-left:199px;*/
 }
-.notice p.entry-content a {
-
+.notice p.entry-content a:visited {
+border-radius:4px;
+-moz-border-radius:4px;
+-webkit-border-radius:4px;
 }
-.notice p.entry-content a:hover {
-
+.notice p.entry-content .vcard a {
+border-radius:4px;
+-moz-border-radius:4px;
+-webkit-border-radius:4px;
 }
-.notice p.entry-content .tag a {
-
-}
-.notice p.entry-content .tag a:hover {
-
-}
-
 
 .notice div.entry-content {
 /*border:1px solid blue;*/

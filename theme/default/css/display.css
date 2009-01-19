@@ -38,15 +38,9 @@ color:#002E6E;
 
 .notice p.entry-content a:visited {
 background-color:#fcfcfc;
-border-radius:4px;
--moz-border-radius:4px;
--webkit-border-radius:4px;
 }
 .notice p.entry-content .vcard a {
 background-color:#fcfffc;
-border-radius:4px;
--moz-border-radius:4px;
--webkit-border-radius:4px;
 }
 
 #aside_primary,
@@ -78,8 +72,16 @@ font-weight:bold;
 padding:2px 4px;
 }
 
+#content,
 #site_nav_local_views a {
 border-color:#fff;
+}
+#content,
+#site_nav_local_views .current a {
+background-color:#fff;
+}
+
+#site_nav_local_views a {
 background-color:rgba(255, 255, 255, 0.2);
 }
 #site_nav_local_views a:hover {
@@ -87,10 +89,6 @@ background-color:rgba(255, 255, 255, 0.7);
 }
 
 
-#content,
-#site_nav_local_views .current a {
-background-color:#fff;
-}
 
 
 #page_notice .error {
@@ -193,7 +191,9 @@ background:transparent url(../images/icons/twotone/green/trash.gif) no-repeat 0 
 div.notice-options {
 opacity:0.3;
 }
-
+.notices li.hover div.notice-options {
+opacity:1;
+}
 div.entry-content {
 color:#333;
 }
@@ -204,11 +204,6 @@ font-family:sans-serif;
 .notices li.hover {
 background-color:#fcfcfc;
 }
-.notices li.hover div.entry-content,
-.notices li.hover div.notice-options {
-opacity:1;
-}
-
 /*END: NOTICES */
 
 
