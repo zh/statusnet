@@ -244,15 +244,15 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementStart('ul', array('class' => 'nav'));
         if ($user) {
             $this->menuItem(common_local_url('all', array('nickname' => $user->nickname)),
-                            _('Home'), _('Personal timeline'), false, 'nav_home');
+                            _('Home'), _('Personal profile and friends timeline'), false, 'nav_home');
         }
         $this->menuItem(common_local_url('peoplesearch'),
-                        _('Search'), _('Search the site for people and text'), false, 'nav_search');
+                        _('Search'), _('Search for people or text'), false, 'nav_search');
         if ($user) {
             $this->menuItem(common_local_url('profilesettings'),
-                            _('Account'), _('Account settings'), false, 'nav_account');
+                            _('Account'), _('Change your email, avatar, password, profile'), false, 'nav_account');
             $this->menuItem(common_local_url('imsettings'),
-                            _('Connect'), _('Connect settings'), false, 'nav_connect');
+                            _('Connect'), _('Connect to IM, SMS, Twitter'), false, 'nav_connect');
             $this->menuItem(common_local_url('logout'),
                             _('Logout'), _('Logout from the site'), false, 'nav_logout');
         } else {
