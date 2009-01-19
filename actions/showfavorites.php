@@ -53,6 +53,17 @@ class ShowfavoritesAction extends Action
     var $page = null;
 
     /**
+     * Is this a read-only page?
+     *
+     * @return boolean true
+     */
+
+    function isReadOnly()
+    {
+        return true;
+    }
+
+    /**
      * Title of the page
      *
      * Includes name of user and page number.
