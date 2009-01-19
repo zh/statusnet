@@ -155,7 +155,15 @@ class FacebookAction extends Action
 
         common_element('link', array('rel' => 'stylesheet',
                                      'type' => 'text/css',
-                                     'href' => getFacebookCSS()));
+                                     'href' => getFacebookBaseCSS()));
+
+        common_element('link', array('rel' => 'stylesheet',
+                                     'type' => 'text/css',
+                                     'href' => getFacebookThemeCSS()));
+
+        common_element('script', array('type' => 'text/javascript',
+                                       'src' => getFacebookJS()),
+                                       ' ');
 
         $this->showLogo();
 
