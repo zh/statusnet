@@ -82,6 +82,7 @@ foreach ($ids as $id) {
 							'FROM notice_inbox ' .
 							'WHERE user_id = ' . $user->id . ' ' . 
 							'AND notice_id = notice.id) ' .
+				                        'ORDER BY notice.created DESC ' .
 							'LIMIT 0, 1000');
 	
 	if (is_null($result) || $result === false) {
@@ -105,5 +106,6 @@ foreach ($ids as $id) {
 	
 	if ($cache) {
 		$cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
+		$cache->delete(common_cache_key('user:notices_with_friends:' . $user->id . ';last'));
 	}
 }
