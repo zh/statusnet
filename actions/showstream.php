@@ -289,6 +289,7 @@ class ShowstreamAction extends Action
             $this->elementStart('ul', 'tags xoxo');
             foreach ($tags as $tag) {
                 $this->elementStart('li');
+                $this->element('span', 'mark_hash', '#');
                 $this->element('a', array('rel' => 'tag',
                                           'href' => common_local_url('peopletag',
                                                                      array('tag' => $tag))),
