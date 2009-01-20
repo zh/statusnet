@@ -89,6 +89,17 @@ class UnblockForm extends Form
     }
 
     /**
+     * class of the form
+     *
+     * @return string class of the form
+     */
+
+    function formClass()
+    {
+        return 'form_user_unblock';
+    }
+
+    /**
      * Action of the form
      *
      * @return string URL of the action

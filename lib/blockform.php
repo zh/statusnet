@@ -88,6 +88,19 @@ class BlockForm extends Form
         return 'block-' . $this->profile->id;
     }
 
+
+    /**
+     * class of the form
+     *
+     * @return string class of the form
+     */
+
+    function formClass()
+    {
+        return 'form_user_block';
+    }
+
+
     /**
      * Action of the form
      *

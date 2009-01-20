@@ -125,28 +125,39 @@ background-image:url(../../base/images/icons/icon_vcard.gif);
 
 /*user_actions*/
 #user_actions li {
-border-top-color:#eee;
+/*border-top-color:#eee;*/
 }
-#user_subscribe a,
-#TB_window input.submit,
-.form_user_subscribe input.submit {
-background-image: url(../images/icons/twotone/green/shield.gif);
-background-position: 0 45%;
+
+
+.form_user_send-a-message input.submit,
+.form_user_nudge input.submit,
+.form_user_block input.submit,
+.form_user_unblock input.submit {
+background-position: 0 40%;
 background-repeat: no-repeat;
+background-color:transparent;
 }
+.form_user_subscribe input.submit,
 .form_user_unsubscribe input.submit {
-background-color:#647819;
+background-color:#A9BF4F;
 color:#fff;
 }
+.form_user_unsubscribe input.submit {
+background-color:#97BFD1;
+}
+
 #user_send-a-message a {
-background:url(../images/icons/twotone/green/quote.gif) 0 45% no-repeat;
+background-image:url(../images/icons/twotone/green/quote.gif);
 }
 .form_user_nudge input.submit {
-background:url(../images/icons/twotone/green/mail.gif) 0 45% no-repeat;
+background-image:url(../images/icons/twotone/green/mail.gif);
 }
-.form_user_block input.submit {
-background:url(../images/icons/twotone/green/against.gif) 0 45% no-repeat;
+.form_user_block input.submit,
+.form_user_unblock input.submit {
+background-image:url(../images/icons/twotone/green/shield.gif);
+color:#000;
 }
+
 
 
 /* NOTICES */

@@ -570,8 +570,7 @@ display:none;
 list-style-type:none;
 }
 #user_actions li {
-border-top-width:1px;
-border-top-style:dotted;
+margin-bottom:4px;
 }
 #user_actions li:first-child {
 border-top:0;
@@ -584,34 +583,29 @@ padding:0;
 display:none;
 }
 
-#user_actions a,
 #user_actions input.submit {
 display:block;
 text-align:left;
-padding:4px 0 4px 19px;
+cursor:pointer;
+width:100%;
 }
 #user_actions a {
 text-decoration:none;
 }
-#user_subscribe a,
-#TB_window input.submit,
-#user_actions input.submit {
-border:0;
-cursor:pointer;
-padding-left:16px;
-width:100%;
-font-size:0.9em;
-}
 
-#user_subscribe a {
-width:auto;
+
+
+.form_user_block input.submit,
+.form_user_unblock input.submit {
+border:0;
 padding-left:20px;
 }
 
-#user_subscribe a,
-#TB_window input.submit,
+
+
+#user_subscribe input.submit,
 .form_user_subscribe input.submit {
-font-weight:bold;
+
 }
 
 
