@@ -338,8 +338,6 @@ class ShowstreamAction extends Action
         }
         $this->elementEnd('ul');
         $this->elementEnd('div');
-
-        $this->elementEnd('div');
     }
 
     function showRemoteSubscribeLink()
