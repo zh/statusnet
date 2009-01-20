@@ -155,6 +155,10 @@ class Notice extends Memcached_DataObject
 		common_save_replies($notice);
 		$notice->saveTags();
 
+		// Add to notice inboxes
+		
+		$notice->addToInboxes();
+		
 		# Clear the cache for subscribed users, so they'll update at next request
 		# XXX: someone clever could prepend instead of clearing the cache
 
@@ -162,7 +166,6 @@ class Notice extends Memcached_DataObject
 			$notice->blowCaches();
 		}
 
-		$notice->addToInboxes();
 		return $notice;
 	}
 

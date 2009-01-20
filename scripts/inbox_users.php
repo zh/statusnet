@@ -78,11 +78,12 @@ foreach ($ids as $id) {
 							'FROM subscription JOIN notice ON subscription.subscribed = notice.profile_id ' .
 							'WHERE subscription.subscriber = ' . $user->id . ' ' .
 							'AND notice.created >= subscription.created ' .
-							'AND now() - notice.created < ' . (7 * 24 * 3600) . ' ' .
 							'AND NOT EXISTS (SELECT user_id, notice_id ' .
 							'FROM notice_inbox ' .
 							'WHERE user_id = ' . $user->id . ' ' . 
-							'AND notice_id = notice.id)');
+							'AND notice_id = notice.id) ' .
+				                        'ORDER BY notice.created DESC ' .
+							'LIMIT 0, 1000');
 	
 	if (is_null($result) || $result === false) {
 		common_log_db_error($inbox, 'INSERT', __FILE__);
@@ -105,5 +106,6 @@ foreach ($ids as $id) {
 	
 	if ($cache) {
 		$cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
+		$cache->delete(common_cache_key('user:notices_with_friends:' . $user->id . ';last'));
 	}
 }
