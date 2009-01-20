@@ -132,7 +132,12 @@ class ShowstreamAction extends Action
 
     function showPageTitle()
     {
-        // Don't show the H1; we have one in the profile block
+         $this->element('h1', NULL, $this->profile->nickname._("'s profile"));
+    }
+
+    function showPageNoticeBlock()
+    {
+        return;
     }
 
     function showExportData()
@@ -219,19 +224,90 @@ class ShowstreamAction extends Action
 
     function showProfile()
     {
-        $this->elementStart('div', array('id' => 'profile', 'class' => 'vcard'));
+        $this->elementStart('div', array('id' => 'user_profile', 'class' => 'vcard author'));
+        $this->element('h2', null, _('User profile'));
 
         $avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
-        $this->elementStart('div', array('id' => 'profile_avatar'));
+        $this->elementStart('dl', 'user_depiction');
+        $this->element('dt', null, _('Photo'));
+        $this->elementStart('dd');
         $this->element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_PROFILE_SIZE),
-                                    'class' => 'avatar profile photo',
+                                    'class' => 'photo avatar',
                                     'width' => AVATAR_PROFILE_SIZE,
                                     'height' => AVATAR_PROFILE_SIZE,
                                     'alt' => $this->profile->nickname));
+        $this->elementEnd('dd');
+        $this->elementEnd('dl');
 
-        $this->elementStart('ul', array('id' => 'profile_actions'));
+        $this->elementStart('dl', 'user_nickname');
+        $this->element('dt', null, _('Nickname'));
+        $this->elementStart('dd');
+            $this->element('a', array('href' => $this->profile->profileurl,
+                                      'rel' => 'me', 'class' => 'nickname url uid'),
+                           $this->profile->nickname);
+        $this->elementEnd('dd');
+        $this->elementEnd('dl');
 
-        $this->elementStart('li', array('id' => 'profile_subscribe'));
+        if ($this->profile->fullname) {
+            $this->elementStart('dl', 'user_fn');
+            $this->element('dt', null, _('Full name'));
+            $this->elementStart('dd');
+            $this->element('span', 'fn', $this->profile->fullname);
+            $this->elementEnd('dd');
+            $this->elementEnd('dl');
+        }
+
+        if ($this->profile->location) {
+            $this->elementStart('dl', 'user_location');
+            $this->element('dt', null, _('Location'));
+            $this->element('dd', 'location', $this->profile->location);
+            $this->elementEnd('dl');
+        }
+
+        if ($this->profile->homepage) {
+            $this->elementStart('dl', 'user_url');
+            $this->element('dt', null, _('URL'));
+            $this->elementStart('dd');
+            $this->element('a', array('href' => $this->profile->homepage,
+                                      'rel' => 'me', 'class' => 'url'),
+                           $this->profile->homepage);
+            $this->elementEnd('dd');
+            $this->elementEnd('dl');
+        }
+
+        if ($this->profile->bio) {
+            $this->elementStart('dl', 'user_note');
+            $this->element('dt', null, _('Note'));
+            $this->element('dd', 'note', $this->profile->bio);
+            $this->elementEnd('dl');
+        }
+
+        $tags = Profile_tag::getTags($this->profile->id, $this->profile->id);
+        if (count($tags) > 0) {
+            $this->elementStart('dl', 'user_tags');
+            $this->element('dt', null, _('Tags'));
+            $this->elementStart('dd', 'tags');
+            $this->elementStart('ul', 'tags xoxo');
+            foreach ($tags as $tag) {
+                $this->elementStart('li');
+                $this->element('span', 'mark_hash', '#');
+                $this->element('a', array('rel' => 'tag',
+                                          'href' => common_local_url('peopletag',
+                                                                     array('tag' => $tag))),
+                               $tag);
+                $this->elementEnd('li');
+            }
+            $this->elementEnd('ul');
+            $this->elementEnd('dd');
+            $this->elementEnd('dl');
+        }
+        $this->elementEnd('div');
+
+
+        $this->elementStart('div', array('id' => 'user_actions'));
+        $this->element('h2', null, _('User actions'));
+        $this->elementStart('ul');
+        $this->elementStart('li', array('id' => 'user_subscribe'));
         $cur = common_current_user();
         if ($cur) {
             if ($cur->id != $this->profile->id) {
@@ -252,7 +328,7 @@ class ShowstreamAction extends Action
 
         if ($cur && $cur->id != $this->profile->id) {
             $blocked = $cur->hasBlocked($this->profile);
-            $this->elementStart('li', array('id' => 'profile_block'));
+            $this->elementStart('li', array('id' => 'user_block'));
             if ($blocked) {
                 $bf = new BlockForm($this, $this->profile);
                 $bf->show();
@@ -262,35 +338,7 @@ class ShowstreamAction extends Action
             }
             $this->elementEnd('li');
         }
-
         $this->elementEnd('ul');
-
-        $this->elementEnd('div');
-
-        $this->elementStart('div', array('id' => 'profile_information'));
-
-        if ($this->profile->fullname) {
-            $this->element('h1', array('class' => 'fn'), $this->profile->fullname . ' (' . $this->profile->nickname . ')');
-        } else {
-            $this->element('h1', array('class' => 'fn nickname'), $this->profile->nickname);
-        }
-
-        if ($this->profile->location) {
-            $this->element('p', 'location', $this->profile->location);
-        }
-        if ($this->profile->bio) {
-            $this->element('p', 'description note', $this->profile->bio);
-        }
-        if ($this->profile->homepage) {
-            $this->elementStart('p', 'website');
-            $this->element('a', array('href' => $this->profile->homepage,
-                                      'rel' => 'me', 'class' => 'url'),
-                           $this->profile->homepage);
-            $this->elementEnd('p');
-        }
-
-        $this->elementEnd('div');
-
         $this->elementEnd('div');
     }
 
@@ -334,14 +382,14 @@ class ShowstreamAction extends Action
 
         $subs_count = $subs->find();
 
-        $this->elementStart('div', array('id' => 'subscriptions',
+        $this->elementStart('div', array('id' => 'user_subscriptions',
                                          'class' => 'section'));
 
         $this->element('h2', null, _('Subscriptions'));
 
         if ($subs_count > 0) {
 
-            $this->elementStart('ul', array('id' => 'subscriptions_avatars'));
+            $this->elementStart('ul', 'users');
 
             for ($i = 0; $i < min($subs_count, SUBSCRIPTIONS); $i++) {
 
@@ -363,15 +411,16 @@ class ShowstreamAction extends Action
                                                 $other->nickname,
                                                 'href' => $other->profileurl,
                                                 'rel' => 'contact',
-                                                 'class' => 'subscription fn url'));
+                                                 'class' => 'url'));
                 $avatar = $other->getAvatar(AVATAR_MINI_SIZE);
                 $this->element('img', array('src' => (($avatar) ? common_avatar_display_url($avatar) :  common_default_avatar(AVATAR_MINI_SIZE)),
                                             'width' => AVATAR_MINI_SIZE,
                                             'height' => AVATAR_MINI_SIZE,
-                                            'class' => 'avatar mini photo',
+                                            'class' => 'avatar photo',
                                             'alt' =>  ($other->fullname) ?
                                             $other->fullname :
                                             $other->nickname));
+                $this->element('span', 'fn nickname', $other->nickname);
                 $this->elementEnd('a');
                 $this->elementEnd('li');
             }
@@ -380,11 +429,11 @@ class ShowstreamAction extends Action
         }
 
         if ($subs_count > SUBSCRIPTIONS) {
-            $this->elementStart('p', array('id' => 'subscriptions_viewall'));
+            $this->elementStart('p');
 
             $this->element('a', array('href' => common_local_url('subscriptions',
                                                                  array('nickname' => $this->profile->nickname)),
-                                      'class' => 'moresubscriptions'),
+                                      'class' => 'mores'),
                            _('All subscriptions'));
             $this->elementEnd('p');
         }
@@ -394,7 +443,6 @@ class ShowstreamAction extends Action
 
     function showStatistics()
     {
-
         // XXX: WORM cache this
         $subs = new Subscription();
         $subs->subscriber = $this->profile->id;
@@ -408,48 +456,39 @@ class ShowstreamAction extends Action
         $notices->profile_id = $this->profile->id;
         $notice_count = (int) $notices->count();
 
-        $this->elementStart('div', array('id' => 'statistics',
+        $this->elementStart('div', array('id' => 'user_statistics',
                                          'class' => 'section'));
 
-        $this->element('h2', 'statistics', _('Statistics'));
+        $this->element('h2', null, _('Statistics'));
 
         // Other stats...?
-        $this->elementStart('dl', 'statistics');
-        $this->element('dt', 'membersince', _('Member since'));
-        $this->element('dd', 'membersince', date('j M Y',
+        $this->elementStart('dl', 'user_member-since');
+        $this->element('dt', null, _('Member since'));
+        $this->element('dd', null, date('j M Y',
                                                  strtotime($this->profile->created)));
+        $this->elementEnd('dl');
 
-        $this->elementStart('dt', 'subscriptions');
+        $this->elementStart('dl', 'user_subscriptions');
+        $this->elementStart('dt');
         $this->element('a', array('href' => common_local_url('subscriptions',
                                                              array('nickname' => $this->profile->nickname))),
                        _('Subscriptions'));
         $this->elementEnd('dt');
-        $this->element('dd', 'subscriptions', (is_int($subs_count)) ? $subs_count : '0');
-        $this->elementStart('dt', 'subscribers');
+        $this->element('dd', null, (is_int($subs_count)) ? $subs_count : '0');
+        $this->elementEnd('dl');
+
+        $this->elementStart('dl', 'user_subscribers');
+        $this->elementStart('dt');
         $this->element('a', array('href' => common_local_url('subscribers',
                                                              array('nickname' => $this->profile->nickname))),
                        _('Subscribers'));
         $this->elementEnd('dt');
         $this->element('dd', 'subscribers', (is_int($subbed_count)) ? $subbed_count : '0');
-        $this->element('dt', 'notices', _('Notices'));
-        $this->element('dd', 'notices', (is_int($notice_count)) ? $notice_count : '0');
-        // XXX: link these to something
-        $this->element('dt', 'tags', _('Tags'));
-        $this->elementStart('dd', 'tags');
-        $tags = Profile_tag::getTags($this->profile->id, $this->profile->id);
+        $this->elementEnd('dl');
 
-        $this->elementStart('ul', 'tags xoxo');
-        foreach ($tags as $tag) {
-            $this->elementStart('li');
-            $this->element('a', array('rel' => 'bookmark tag',
-                                      'href' => common_local_url('peopletag',
-                                                                 array('tag' => $tag))),
-                           $tag);
-            $this->elementEnd('li');
-        }
-        $this->elementEnd('ul');
-        $this->elementEnd('dd');
-
+        $this->elementStart('dl', 'user_notices');
+        $this->element('dt', null, _('Notices'));
+        $this->element('dd', null, (is_int($notice_count)) ? $notice_count : '0');
         $this->elementEnd('dl');
 
         $this->elementEnd('div');

@@ -80,6 +80,18 @@ class UnsubscribeForm extends Form
         return 'unsubscribe-' . $this->profile->id;
     }
 
+
+    /**
+     * class of the form
+     *
+     * @return string of the form class
+     */
+
+    function formClass()
+    {
+        return 'form_unsubscribe';
+    }
+
     /**
      * Action of the form
      *
