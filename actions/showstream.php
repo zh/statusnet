@@ -455,31 +455,39 @@ class ShowstreamAction extends Action
         $notices->profile_id = $this->profile->id;
         $notice_count = (int) $notices->count();
 
-        $this->elementStart('div', array('id' => 'statistics',
+        $this->elementStart('div', array('id' => 'user_statistics',
                                          'class' => 'section'));
 
-        $this->element('h2', 'statistics', _('Statistics'));
+        $this->element('h2', null, _('Statistics'));
 
         // Other stats...?
-        $this->elementStart('dl', 'statistics');
-        $this->element('dt', 'membersince', _('Member since'));
-        $this->element('dd', 'membersince', date('j M Y',
+        $this->elementStart('dl', 'user_member-since');
+        $this->element('dt', null, _('Member since'));
+        $this->element('dd', null, date('j M Y',
                                                  strtotime($this->profile->created)));
+        $this->elementEnd('dl');
 
-        $this->elementStart('dt', 'subscriptions');
+        $this->elementStart('dl', 'user_subscriptions');
+        $this->elementStart('dt');
         $this->element('a', array('href' => common_local_url('subscriptions',
                                                              array('nickname' => $this->profile->nickname))),
                        _('Subscriptions'));
         $this->elementEnd('dt');
-        $this->element('dd', 'subscriptions', (is_int($subs_count)) ? $subs_count : '0');
-        $this->elementStart('dt', 'subscribers');
+        $this->element('dd', null, (is_int($subs_count)) ? $subs_count : '0');
+        $this->elementEnd('dl');
+
+        $this->elementStart('dl', 'user_subscribers');
+        $this->elementStart('dt');
         $this->element('a', array('href' => common_local_url('subscribers',
                                                              array('nickname' => $this->profile->nickname))),
                        _('Subscribers'));
         $this->elementEnd('dt');
         $this->element('dd', 'subscribers', (is_int($subbed_count)) ? $subbed_count : '0');
-        $this->element('dt', 'notices', _('Notices'));
-        $this->element('dd', 'notices', (is_int($notice_count)) ? $notice_count : '0');
+        $this->elementEnd('dl');
+
+        $this->elementStart('dl', 'user_notices');
+        $this->element('dt', null, _('Notices'));
+        $this->element('dd', null, (is_int($notice_count)) ? $notice_count : '0');
         $this->elementEnd('dl');
 
         $this->elementEnd('div');
