@@ -489,7 +489,7 @@ margin-bottom:0;
 /* user_profile */
 #user_profile {
 position:relative;
-width:633px;
+width:475px;
 min-height:123px;
 float:left;
 margin-bottom:17px;
@@ -514,7 +514,7 @@ width:96px;
 #user_profile .user_tags {
 float:left;
 clear:left;
-margin-left:125px;
+margin-left:113px;
 width:322px;
 margin-bottom:4px;
 }
@@ -524,21 +524,24 @@ margin-bottom:4px;
 width:auto;
 clear:none;
 }
-#user_profile .user_nickname {
+#user_profile .user_fn {
 margin-left:11px;
+margin-left:4px;
+margin-right:4px;
+font-weight:bold;
 }
 #user_profile .user_nickname .nickname {
 font-style:italic;
 font-weight:bold;
-margin-left:4px;
-margin-right:4px;
 }
 
-#user_profile .user_nickname dd:before {
+#user_profile .user_fn dd:before {
 content: "(";
+font-weight:normal;
 }
-#user_profile .user_nickname dd:after {
+#user_profile .user_fn dd:after {
 content: ")";
+font-weight:normal;
 }
 
 #user_profile dt {

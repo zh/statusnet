@@ -239,6 +239,15 @@ class ShowstreamAction extends Action
         $this->elementEnd('dd');
         $this->elementEnd('dl');
 
+        $this->elementStart('dl', 'user_nickname');
+        $this->element('dt', null, _('Nickname'));
+        $this->elementStart('dd');
+            $this->element('a', array('href' => $this->profile->profileurl,
+                                      'rel' => 'me', 'class' => 'nickname url uid'),
+                           $this->profile->nickname);
+        $this->elementEnd('dd');
+        $this->elementEnd('dl');
+
         if ($this->profile->fullname) {
             $this->elementStart('dl', 'user_fn');
             $this->element('dt', null, _('Full name'));
@@ -247,14 +256,6 @@ class ShowstreamAction extends Action
             $this->elementEnd('dd');
             $this->elementEnd('dl');
         }
-        $this->elementStart('dl', 'user_nickname');
-        $this->element('dt', null, _('Nickname'));
-        $this->elementStart('dd');
-            $this->element('a', array('href' => $this->profile->profileurl,
-                                      'rel' => 'me', 'class' => 'fn nickname url uid'),
-                           $this->profile->nickname);
-        $this->elementEnd('dd');
-        $this->elementEnd('dl');
 
         if ($this->profile->location) {
             $this->elementStart('dl', 'user_location');
