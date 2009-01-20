@@ -963,11 +963,19 @@ border-right:0;
 
 
 
+/*If there is hentry on #content_inner, this doesn't need to be specific to #doc */
 #doc #content_inner p {
 margin-bottom:18px;
 }
+#doc #content_inner ol,
 #doc #content_inner ul {
 list-style-position:inside;
+}
+#doc #content_inner li {
+margin-bottom:18px;
+}
+#doc #content_inner li li {
+margin-left:18px;
 }
 
 
