@@ -679,6 +679,8 @@ clear:both;
 
 
 
+
+
 /* NOTICE */
 .notice {
 position:relative;
@@ -961,8 +963,12 @@ border-right:0;
 
 
 
-
-
+#doc #content_inner p {
+margin-bottom:18px;
+}
+#doc #content_inner ul {
+list-style-position:inside;
+}
 
 
 /*START: LOAD ALONG WITH JS*/
