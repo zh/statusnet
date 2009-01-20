@@ -1,5 +1,15 @@
 <?php
-/*
+/**
+ * User by ID action class.
+ *
+ * PHP version 5
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
  * Laconica - a distributed open-source microblogging tool
  * Copyright (C) 2008, Controlez-Vous, Inc.
  *
@@ -17,16 +27,39 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
+/**
+ * User by ID action class.
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ */
 class UserbyidAction extends Action
 {
-    
+     /**
+     * Is read only?
+     * 
+     * @return boolean true
+     */
     function isReadOnly()
     {                
         return true;
     }
-    
+
+     /**
+     * Class handler.
+     * 
+     * @param array $args array of arguments
+     *
+     * @return nothing
+     */
     function handle($args)
     {
         parent::handle($args);
@@ -41,12 +74,13 @@ class UserbyidAction extends Action
 
         // support redirecting to FOAF rdf/xml if the agent prefers it
         $page_prefs = 'application/rdf+xml,text/html,application/xhtml+xml,application/xml;q=0.3,text/xml;q=0.2';
-        $httpaccept = isset($_SERVER['HTTP_ACCEPT']) ? $_SERVER['HTTP_ACCEPT'] : null;
-        $type = common_negotiate_type(common_accept_to_prefs($httpaccept),
-                                      common_accept_to_prefs($page_prefs));
-        $page = $type == 'application/rdf+xml' ? 'foaf' : 'showstream';
-
-        $url = common_local_url($page, array('nickname' => $user->nickname));
+        $httpaccept = isset($_SERVER['HTTP_ACCEPT'])
+                      ? $_SERVER['HTTP_ACCEPT'] : null;
+        $type       = common_negotiate_type(common_accept_to_prefs($httpaccept),
+                      common_accept_to_prefs($page_prefs));
+        $page       = $type == 'application/rdf+xml' ? 'foaf' : 'showstream';
+        $url        = common_local_url($page, array('nickname' => $user->nickname));
         common_redirect($url, 303);
     }
 }
+
