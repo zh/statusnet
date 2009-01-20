@@ -243,9 +243,10 @@ class ShowstreamAction extends Action
         $this->elementStart('dl', 'user_nickname');
         $this->element('dt', null, _('Nickname'));
         $this->elementStart('dd');
-            $this->element('a', array('href' => $this->profile->profileurl,
-                                      'rel' => 'me', 'class' => 'nickname url uid'),
-                           $this->profile->nickname);
+        $hasFN = ($this->profile->fullname) ? 'nickname url uid' : 'fn nickname url uid';
+        $this->element('a', array('href' => $this->profile->profileurl,
+                                  'rel' => 'me', 'class' => $hasFN),
+                            $this->profile->nickname);
         $this->elementEnd('dd');
         $this->elementEnd('dl');
 

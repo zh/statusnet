@@ -87,7 +87,7 @@ class ProfileList extends Widget
 
     function showProfile()
     {
-        $this->out->elementStart('li', array('class' => 'profile vcard',
+        $this->out->elementStart('li', array('class' => 'profile',
                                              'id' => 'profile-' . $this->profile->id));
 
         $user = common_current_user();
