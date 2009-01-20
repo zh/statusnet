@@ -382,14 +382,14 @@ class ShowstreamAction extends Action
 
         $subs_count = $subs->find();
 
-        $this->elementStart('div', array('id' => 'subscriptions',
+        $this->elementStart('div', array('id' => 'user_subscriptions',
                                          'class' => 'section'));
 
         $this->element('h2', null, _('Subscriptions'));
 
         if ($subs_count > 0) {
 
-            $this->elementStart('ul', array('id' => 'subscriptions_avatars'));
+            $this->elementStart('ul', 'users');
 
             for ($i = 0; $i < min($subs_count, SUBSCRIPTIONS); $i++) {
 
@@ -411,15 +411,16 @@ class ShowstreamAction extends Action
                                                 $other->nickname,
                                                 'href' => $other->profileurl,
                                                 'rel' => 'contact',
-                                                 'class' => 'subscription fn url'));
+                                                 'class' => 'url'));
                 $avatar = $other->getAvatar(AVATAR_MINI_SIZE);
                 $this->element('img', array('src' => (($avatar) ? common_avatar_display_url($avatar) :  common_default_avatar(AVATAR_MINI_SIZE)),
                                             'width' => AVATAR_MINI_SIZE,
                                             'height' => AVATAR_MINI_SIZE,
-                                            'class' => 'avatar mini photo',
+                                            'class' => 'avatar photo',
                                             'alt' =>  ($other->fullname) ?
                                             $other->fullname :
                                             $other->nickname));
+                $this->element('span', 'fn nickname', $other->nickname);
                 $this->elementEnd('a');
                 $this->elementEnd('li');
             }
@@ -428,11 +429,11 @@ class ShowstreamAction extends Action
         }
 
         if ($subs_count > SUBSCRIPTIONS) {
-            $this->elementStart('p', array('id' => 'subscriptions_viewall'));
+            $this->elementStart('p');
 
             $this->element('a', array('href' => common_local_url('subscriptions',
                                                                  array('nickname' => $this->profile->nickname)),
-                                      'class' => 'moresubscriptions'),
+                                      'class' => 'mores'),
                            _('All subscriptions'));
             $this->elementEnd('p');
         }
