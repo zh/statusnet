@@ -42,9 +42,7 @@ if (!defined('LACONICA')) {
  * @author   Robin Millette <millette@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://laconi.ca/
-
-
-*/
+ */
 class DocAction extends Action
 {
     var $filename;
@@ -56,7 +54,7 @@ class DocAction extends Action
      * @param array $args array of arguments
      *
      * @return nothing
-    */
+     */
     function handle($args)
     {
         parent::handle($args);
@@ -73,7 +71,7 @@ class DocAction extends Action
      * Display content.
      * 
      * @return nothing
-    */
+     */
     function showContent()
     {
         $c      = file_get_contents($this->filename);
@@ -85,7 +83,7 @@ class DocAction extends Action
      * Page title.
      * 
      * @return page title
-    */
+     */
     function title()
     {
         return ucfirst($this->title);
