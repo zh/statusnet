@@ -96,6 +96,8 @@ class EditgroupAction extends Action
             $this->clientError(_('No such group'), 404);
             return false;
         }
+
+        return true;
     }
 
     /**
@@ -122,6 +124,12 @@ class EditgroupAction extends Action
     {
         $this->msg = $msg;
         $this->showPage();
+    }
+
+    function showLocalNav()
+    {
+        $nav = new GroupNav($this, $this->group);
+        $nav->show();
     }
 
     function showContent()
