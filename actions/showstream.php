@@ -227,7 +227,7 @@ class ShowstreamAction extends Action
 
     function showProfile()
     {
-        $this->elementStart('div', array('id' => 'user_profile', 'class' => 'vcard author'));
+        $this->elementStart('div', 'entity_profile vcard author');
         $this->element('h2', null, _('User profile'));
 
         $avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);

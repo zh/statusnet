@@ -150,7 +150,8 @@ font-weight:bold;
 #form_register legend,
 #form_password legend,
 #form_settings_avatar legend,
-#form_group_add legend {
+#newgroup legend,
+#editgroup legend {
 display:none;
 }
 
@@ -448,7 +449,7 @@ margin-left:4px;
 
 #form_notice .form_note {
 position:absolute;
-top:120px;
+top:118px;
 right:98px;
 z-index:9;
 }
@@ -460,6 +461,7 @@ display:none;
 #notice_text-count {
 font-weight:bold;
 line-height:1.15;
+padding:1px 2px;
 }
 
 #form_notice #notice_data-attach_view {
@@ -508,7 +510,7 @@ float:left;
 
 
 /* user_profile */
-#user_profile {
+.entity_profile {
 position:relative;
 width:475px;
 min-height:123px;
@@ -516,23 +518,23 @@ float:left;
 margin-bottom:17px;
 margin-left:0;
 }
-#user_profile dt,
+.entity_profile dt,
 #user_statistics dt {
 font-weight:bold;
 }
-#user_profile .user_depiction {
+.entity_profile .user_depiction {
 float:left;
 position:absolute;
 top:0;
 left:0;
 width:96px;
 }
-#user_profile .user_fn,
-#user_profile .user_nickname,
-#user_profile .user_location,
-#user_profile .user_url,
-#user_profile .user_note,
-#user_profile .user_tags {
+.entity_profile .user_fn,
+.entity_profile .user_nickname,
+.entity_profile .user_location,
+.entity_profile .user_url,
+.entity_profile .user_note,
+.entity_profile .user_tags {
 float:left;
 clear:left;
 margin-left:113px;
@@ -540,37 +542,37 @@ width:322px;
 margin-bottom:4px;
 }
 
-#user_profile .user_fn,
-#user_profile .user_nickname {
+.entity_profile .user_fn,
+.entity_profile .user_nickname {
 width:auto;
 clear:none;
 }
-#user_profile .user_fn {
+.entity_profile .user_fn {
 margin-left:11px;
 margin-right:4px;
 }
-#user_profile .user_fn .fn {
+.entity_profile .user_fn .fn {
 font-weight:bold;
 font-style:normal;
 }
-#user_profile .nickname {
+.entity_profile .nickname {
 font-style:italic;
 font-weight:bold;
 }
 
-#user_profile .user_fn dd:before {
+.entity_profile .user_fn dd:before {
 content: "(";
 font-weight:normal;
 }
-#user_profile .user_fn dd:after {
+.entity_profile .user_fn dd:after {
 content: ")";
 font-weight:normal;
 }
 
-#user_profile dt {
+.entity_profile dt {
 display:none;
 }
-#user_profile h2 {
+.entity_profile h2 {
 display:none;
 }
 
@@ -664,6 +666,8 @@ float:left;
 .aside .section {
 margin-bottom:29px;
 clear:both;
+float:left;
+width:100%;
 }
 .aside .section h2 {
 text-transform:uppercase;
@@ -680,24 +684,25 @@ content: ":";
 
 
 #user_subscriptions,
-#user_subscriptions-common {
-float:left;
+#user_subscribers,
+#user_groups, {
+
 }
-#user_subscriptions ul.users {
+.section ul.users {
 width:220px;
 float:left;
 }
-#user_subscriptions .users li {
+.section .users li {
 list-style-type:none;
 float:left;
 margin-right:7px;
 margin-bottom:7px;
 }
-#user_subscriptions .users li .photo {
+.section .users li .photo {
 margin-right:0;
 margin-bottom:0;
 }
-#user_subscriptions .users li .fn {
+.section .users li .fn {
 display:none;
 }
 .aside .section .more {
@@ -706,29 +711,36 @@ clear:both;
 
 
 
-.profile #user_profile {
+.profile .entity_profile {
 margin-bottom:0;
 min-height:60px;
 }
 
+.profile .form_user_subscribe,
 .profile .form_user_unsubscribe {
 float:right;
 }
+.profile .form_user_subscribe legend,
+.profile .form_user_unsubscribe legend {
+display:none;
+}
+
+
 .profiles {
 list-style-type:none;
 }
-.profile #user_profile .user_location {
+.profile .entity_profile .user_location {
 width:auto;
 clear:none;
 margin-left:11px;
 }
-.profile #user_profile dl,
-.profile #user_profile dd {
+.profile .entity_profile dl,
+.profile .entity_profile dd {
 display:inline;
 float:none;
 }
-.profile #user_profile .user_note,
-.profile #user_profile .user_url {
+.profile .entity_profile .user_note,
+.profile .entity_profile .user_url {
 margin-left:59px;
 clear:none;
 display:block;

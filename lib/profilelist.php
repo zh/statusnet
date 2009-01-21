@@ -93,8 +93,7 @@ class ProfileList extends Widget
         $user = common_current_user();
 
 
-        $this->out->elementStart('div', array('id' => 'user_profile',
-                                              'class' => 'vcard'));
+        $this->out->elementStart('div', 'entity_profile vcard');
 
         $avatar = $this->profile->getAvatar(AVATAR_STREAM_SIZE);
         $this->out->elementStart('a', array('href' => $this->profile->profileurl,

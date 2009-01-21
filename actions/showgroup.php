@@ -195,8 +195,7 @@ class ShowgroupAction extends Action
 
     function showGroupProfile()
     {
-        $this->elementStart('div', array('id' => 'user_profile',
-                                         'class' => 'vcard author'));
+        $this->elementStart('div', 'entity_profile vcard author');
 
         $this->element('h2', null, _('Group profile'));
 
