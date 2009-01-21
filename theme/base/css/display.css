@@ -62,7 +62,9 @@ font-weight:bold;
 textarea {
 overflow:auto;
 }
-select, option {
+select {
+}
+option {
 padding-bottom:0;
 }
 fieldset {
@@ -526,14 +528,13 @@ clear:none;
 }
 #user_profile .user_fn {
 margin-left:11px;
-margin-left:4px;
 margin-right:4px;
 }
 #user_profile .user_fn .fn {
 font-weight:bold;
 font-style:normal;
 }
-#user_profile .user_nickname .nickname {
+#user_profile .nickname {
 font-style:italic;
 font-weight:bold;
 }
@@ -553,7 +554,12 @@ display:none;
 #user_profile h2 {
 display:none;
 }
+
 /* user_profile */
+
+
+
+
 
 /*user_actions*/
 #user_actions {
@@ -677,12 +683,40 @@ clear:both;
 
 
 
+.profile #user_profile {
+margin-bottom:0;
+min-height:60px;
+}
 
+.profile .form_user_unsubscribe {
+float:right;
+}
+.profiles {
+list-style-type:none;
+}
+.profile #user_profile .user_location {
+width:auto;
+clear:none;
+margin-left:11px;
+}
+.profile #user_profile dl,
+.profile #user_profile dd {
+display:inline;
+float:none;
+}
+.profile #user_profile .user_note,
+.profile #user_profile .user_url {
+margin-left:55px;
+clear:none;
+display:block;
+width:auto;
+}
 
 
 
 /* NOTICE */
-.notice {
+.notice,
+.profile {
 position:relative;
 padding-top:18px;
 padding-bottom:18px;

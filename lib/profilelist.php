@@ -106,32 +106,48 @@ class ProfileList extends Widget
                                     'alt' =>
                                     ($this->profile->fullname) ? $this->profile->fullname :
                                     $this->profile->nickname));
-        $this->out->elementStart('span', 'nickname');
+        $hasFN = ($this->profile->fullname) ? 'nickname' : 'fn nickname';
+        $this->out->elementStart('span', $hasFN);
         $this->out->raw($this->highlight($this->profile->nickname));
         $this->out->elementEnd('span');
         $this->out->elementEnd('a');
         
         if ($this->profile->fullname) {
+            $this->out->elementStart('dl', 'user_fn');
+            $this->out->element('dt', null, 'Full name');
+            $this->out->elementStart('dd');
             $this->out->elementStart('span', 'fn');
             $this->out->raw($this->highlight($this->profile->fullname));
             $this->out->elementEnd('span');
+            $this->out->elementEnd('dd');
+            $this->out->elementEnd('dl');
         }
         if ($this->profile->location) {
-            $this->out->elementStart('span', 'location');
+            $this->out->elementStart('dl', 'user_location');
+            $this->out->element('dt', null, _('Location'));
+            $this->out->elementStart('dd', 'location');
             $this->out->raw($this->highlight($this->profile->location));
-            $this->out->elementEnd('span');
+            $this->out->elementEnd('dd');
+            $this->out->elementEnd('dl');
         }
         if ($this->profile->homepage) {
-            $this->out->elementStart('p', 'website');
-            $this->out->elementStart('a', array('href' => $this->profile->homepage));
+            $this->out->elementStart('dl', 'user_url');
+            $this->out->element('dt', null, _('URL'));
+            $this->out->elementStart('dd');
+            $this->out->elementStart('a', array('href' => $this->profile->homepage,
+                                                'class' => 'url'));
             $this->out->raw($this->highlight($this->profile->homepage));
             $this->out->elementEnd('a');
-            $this->out->elementEnd('p');
+            $this->out->elementEnd('dd');
+            $this->out->elementEnd('dl');
         }
         if ($this->profile->bio) {
-            $this->out->elementStart('p', 'bio');
+            $this->out->elementStart('dl', 'user_note');
+            $this->out->element('dt', null, _('Note'));
+            $this->out->elementStart('dd', 'note');
             $this->out->raw($this->highlight($this->profile->bio));
-            $this->out->elementEnd('p');
+            $this->out->elementEnd('dd');
+            $this->out->elementEnd('dl');
         }
 
         # If we're on a list with an owner (subscriptions or subscribers)...
