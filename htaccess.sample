@@ -85,6 +85,14 @@ RewriteRule ^peopletag/([a-zA-Z0-9]+)$ index.php?action=peopletag&tag=$1 [L,QSA]
 RewriteRule ^featured/?$ index.php?action=featured [L,QSA]
 RewriteRule ^favorited/?$ index.php?action=favorited [L,QSA]
 
+RewriteRule ^group/new index.php?action=newgroup [L,QSA]
+RewriteRule ^group/([a-zA-Z0-9]+) index.php?action=showgroup&nickname=$1 [L,QSA]
+RewriteRule ^group/([a-zA-Z0-9]+)/edit index.php?action=editgroup&nickname=$1 [L,QSA]
+RewriteRule ^group/([a-zA-Z0-9]+)/join index.php?action=joingroup&nickname=$1 [L,QSA]
+RewriteRule ^group/([a-zA-Z0-9]+)/leave index.php?action=leavegroup&nickname=$1 [L,QSA]
+RewriteRule ^group/([0-9]+)/id index.php?action=groupbyid&id=$1 [L,QSA]
+RewriteRule ^group/([0-9]+)/rss index.php?action=grouprss&id=$1 [L,QSA]
+
 # Twitter-compatible API rewrites
 # XXX: Surely these can be refactored a little -- Zach
 RewriteRule ^api/statuses/public_timeline(.*)$ index.php?action=api&apiaction=statuses&method=public_timeline$1 [L,QSA]

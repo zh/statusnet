@@ -915,6 +915,20 @@ function common_fancy_url($action, $args=null)
         } else {
             return common_path('main/sup');
         }
+     case 'newgroup':
+        return common_path('group/new');
+     case 'showgroup':
+        return common_path('group/'.$args['nickname']);
+     case 'editgroup':
+        return common_path('group/'.$args['nickname'].'/edit');
+     case 'joingroup':
+        return common_path('group/'.$args['nickname'].'/join');
+     case 'leavegroup':
+        return common_path('group/'.$args['nickname'].'/leave');
+     case 'groupbyid':
+        return common_path('group/'.$args['id'].'/id');
+     case 'grouprss':
+        return common_path('group/'.$args['nickname'].'/rss');
      default:
         return common_simple_url($action, $args);
     }
