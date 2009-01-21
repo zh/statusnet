@@ -105,6 +105,18 @@ class NudgeForm extends Form
                                 array('nickname' => $this->profile->nickname));
     }
 
+
+    /**
+     * Legend of the Form
+     *
+     * @return void
+     */
+    function formLegend()
+    {
+        $this->out->element('legend', null, _('Nudge this user'));
+    }
+
+
     /**
      * Action elements
      *
@@ -113,6 +125,6 @@ class NudgeForm extends Form
 
     function formActions()
     {
-        $this->out->submit('submit', _('Send a nudge'));
+        $this->out->submit('submit', _('Nudge'), 'submit', null, _('Send a nudge to this user'));
     }
 }

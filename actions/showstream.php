@@ -331,8 +331,9 @@ class ShowstreamAction extends Action
         $user = User::staticGet('id', $this->profile->id);
         if ($cur && $cur->id != $user->id && $cur->mutuallySubscribed($user)) {
            $this->elementStart('li', array('id' => 'user_send-a-message'));
-            $this->element('a', array('href' => common_local_url('newmessage', array('to' => $user->id))),
-                           _('Send a message'));
+            $this->element('a', array('href' => common_local_url('newmessage', array('to' => $user->id)),
+                                      'title' => _('Send a direct message to this user')),
+                           _('Message'));
             $this->elementEnd('li');
 
             if ($user->email && $user->emailnotifynudge) {

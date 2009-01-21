@@ -112,6 +112,18 @@ class BlockForm extends Form
         return common_local_url('block');
     }
 
+
+    /**
+     * Legend of the Form
+     *
+     * @return void
+     */
+    function formLegend()
+    {
+        $this->out->element('legend', null, _('Block this user'));
+    }
+
+
     /**
      * Data elements of the form
      *
@@ -138,6 +150,6 @@ class BlockForm extends Form
 
     function formActions()
     {
-        $this->out->submit('submit', _('Block'));
+        $this->out->submit('submit', _('block'), 'submit', null, _('Block this user'));
     }
 }

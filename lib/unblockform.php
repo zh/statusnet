@@ -111,6 +111,17 @@ class UnblockForm extends Form
     }
 
     /**
+     * Legend of the Form
+     *
+     * @return void
+     */
+    function formLegend()
+    {
+        $this->out->element('legend', null, _('Unblock this user'));
+    }
+
+
+    /**
      * Data elements of the form
      *
      * @return void
@@ -136,6 +147,6 @@ class UnblockForm extends Form
 
     function formActions()
     {
-        $this->out->submit('submit', _('Unblock'));
+        $this->out->submit('submit', _('Unblock'), 'submit', null, _('Unblock this user'));
     }
 }
