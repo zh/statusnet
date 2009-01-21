@@ -24,7 +24,7 @@ $(document).ready(function(){
 		var remaining = maxLength - currentLength;
 		var counter = $("#notice_text-count");
 		counter.text(remaining);
-		
+
 		if (remaining <= 0) {
 			$("#form_notice").addClass("warning");
 		} else {
@@ -45,10 +45,10 @@ $(document).ready(function(){
 	if ($("#notice_data-text").length) {
 		$("#notice_data-text").bind("keyup", counter);
 		$("#notice_data-text").bind("keydown", submitonreturn);
-		
+
 		// run once in case there's something in there
 		counter();
-		
+
 		// set the focus
 		$("#notice_data-text").focus();
 	}
@@ -73,6 +73,24 @@ $(document).ready(function(){
 											  }
 					 };
 
+	var joinoptions = { dataType: 'xml',
+					   success: function(xml) { var new_form = document._importNode($('form', xml).get(0), true);
+												var leave = new_form.id;
+												var join = leave.replace('leave', 'join');
+												$('form#'+join).replaceWith(new_form);
+												$('form#'+leave).ajaxForm(leaveoptions).each(addAjaxHidden);
+											  }
+					 };
+
+	var leaveoptions = { dataType: 'xml',
+					   success: function(xml) { var new_form = document._importNode($('form', xml).get(0), true);
+												var join = new_form.id;
+												var leave = join.replace('join', 'leave');
+												$('form#'+leave).replaceWith(new_form);
+												$('form#'+join).ajaxForm(joinoptions).each(addAjaxHidden);
+											  }
+					 };
+
 	function addAjaxHidden() {
 		var ajax = document.createElement('input');
 		ajax.setAttribute('type', 'hidden');
@@ -83,14 +101,18 @@ $(document).ready(function(){
 
 	$("form.form_favor").ajaxForm(favoptions);
 	$("form.form_disfavor").ajaxForm(disoptions);
+	$("form.form_group_join").ajaxForm(joinoptions);
+	$("form.form_group_leave").ajaxForm(leaveoptions);
 	$("form.form_favor").each(addAjaxHidden);
 	$("form.form_disfavor").each(addAjaxHidden);
+	$("form.form_group_join").each(addAjaxHidden);
+	$("form.form_group_leave").each(addAjaxHidden);
 
 	$("#nudge").ajaxForm ({ dataType: 'xml',
 							beforeSubmit: function(xml) { $("form#nudge input[type=submit]").attr("disabled", "disabled");
 														  $("form#nudge input[type=submit]").addClass("disabled");
 														},
-							success: function(xml) { $("#nudge").replaceWith(document._importNode($("#nudge_response", xml).get(0),true)); 
+							success: function(xml) { $("#nudge").replaceWith(document._importNode($("#nudge_response", xml).get(0),true));
 												     $("#nudge input[type=submit]").removeAttr("disabled");
 												     $("#nudge input[type=submit]").removeClass("disabled");
 												   }
@@ -134,7 +156,6 @@ $(document).ready(function(){
 	$("form.subscribe").each(addAjaxHidden);
 	$("form.unsubscribe").each(addAjaxHidden);
 
-
 	var PostNotice = { dataType: 'xml',
 					   beforeSubmit: function(formData, jqForm, options) { if ($("#notice_data-text").get(0).value.length == 0) {
 																				$("#form_notice").addClass("warning");
@@ -166,7 +187,7 @@ $(document).ready(function(){
     $(".notice").hover(
         function () {
             $(this).addClass('hover');
-        }, 
+        },
         function () {
             $(this).removeClass('hover');
         }
