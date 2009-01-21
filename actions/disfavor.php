@@ -19,6 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
+require_once INSTALLDIR.'/lib/favorform.php';
+
 class DisfavorAction extends Action
 {
 
@@ -74,7 +76,8 @@ class DisfavorAction extends Action
             $this->element('title', null, _('Add to favorites'));
             $this->elementEnd('head');
             $this->elementStart('body');
-            common_favor_form($notice);
+            $favor = new FavorForm($this, $notice);
+            $favor->show();
             $this->elementEnd('body');
             $this->elementEnd('html');
         } else {
