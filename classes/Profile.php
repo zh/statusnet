@@ -121,7 +121,7 @@ class Profile extends Memcached_DataObject
         return $avatar;
     }
 
-    function crop_avatars($x, $y, $w, $h) 
+    function crop_avatars($x, $y, $w, $h)
     {
 
         $avatar = $this->getOriginalAvatar();
@@ -139,7 +139,7 @@ class Profile extends Memcached_DataObject
         return true;
     }
 
-    function delete_avatars($original=true) 
+    function delete_avatars($original=true)
     {
         $avatar = new Avatar();
         $avatar->profile_id = $this->id;
@@ -187,4 +187,34 @@ class Profile extends Memcached_DataObject
                                  'profile:notices:'.$this->id,
                                  $offset, $limit, $since_id, $before_id);
     }
+
+    function isMember($group)
+    {
+        $mem = new Group_member();
+
+        $mem->group_id = $group->id;
+        $mem->profile_id = $this->id;
+
+        if ($mem->find()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function isAdmin($group)
+    {
+        $mem = new Group_member();
+
+        $mem->group_id = $group->id;
+        $mem->profile_id = $this->id;
+        $mem->is_admin = 1;
+
+        if ($mem->find()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
