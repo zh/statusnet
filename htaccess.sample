@@ -90,8 +90,9 @@ RewriteRule ^group/([a-zA-Z0-9]+) index.php?action=showgroup&nickname=$1 [L,QSA]
 RewriteRule ^group/([a-zA-Z0-9]+)/edit index.php?action=editgroup&nickname=$1 [L,QSA]
 RewriteRule ^group/([a-zA-Z0-9]+)/join index.php?action=joingroup&nickname=$1 [L,QSA]
 RewriteRule ^group/([a-zA-Z0-9]+)/leave index.php?action=leavegroup&nickname=$1 [L,QSA]
+RewriteRule ^group/([a-zA-Z0-9]+)/members index.php?action=groupmembers&nickname=$1 [L,QSA]
 RewriteRule ^group/([0-9]+)/id index.php?action=groupbyid&id=$1 [L,QSA]
-RewriteRule ^group/([0-9]+)/rss index.php?action=grouprss&id=$1 [L,QSA]
+RewriteRule ^group/([a-zA-Z0-9]+)/rss index.php?action=grouprss&nickname=$1 [L,QSA]
 
 # Twitter-compatible API rewrites
 # XXX: Surely these can be refactored a little -- Zach
@@ -153,6 +154,7 @@ RewriteRule ^(\w+)/favorites/rss$ index.php?action=favoritesrss&nickname=$1 [L,Q
 RewriteRule ^(\w+)/inbox$ index.php?action=inbox&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/outbox$ index.php?action=outbox&nickname=$1 [L,QSA]
 RewriteRule ^(\w+)/microsummary$ index.php?action=microsummary&nickname=$1 [L,QSA]
+RewriteRule ^(\w+)/groups$ index.php?action=usergroups&nickname=$1 [L,QSA]
 
 RewriteRule ^(\w+)$ index.php?action=showstream&nickname=$1 [L,QSA]
 
