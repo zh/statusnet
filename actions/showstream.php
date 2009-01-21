@@ -34,6 +34,7 @@ if (!defined('LACONICA')) {
 
 require_once INSTALLDIR.'/lib/personalgroupnav.php';
 require_once INSTALLDIR.'/lib/noticelist.php';
+require_once INSTALLDIR.'/lib/profileminilist.php';
 require_once INSTALLDIR.'/lib/feedlist.php';
 
 /**
@@ -305,7 +306,6 @@ class ShowstreamAction extends Action
         }
         $this->elementEnd('div');
 
-
         $this->elementStart('div', array('id' => 'user_actions'));
         $this->element('h2', null, _('User actions'));
         $this->elementStart('ul');
@@ -314,11 +314,11 @@ class ShowstreamAction extends Action
         if ($cur) {
             if ($cur->id != $this->profile->id) {
                 if ($cur->isSubscribed($this->profile)) {
-                    $sf = new SubscribeForm($this, $this->profile);
-                    $sf->show();
-                } else {
                     $usf = new UnsubscribeForm($this, $this->profile);
                     $usf->show();
+                } else {
+                    $sf = new SubscribeForm($this, $this->profile);
+                    $sf->show();
                 }
             }
         } else {
@@ -344,17 +344,15 @@ class ShowstreamAction extends Action
             }
         }
 
-
-
         if ($cur && $cur->id != $this->profile->id) {
             $blocked = $cur->hasBlocked($this->profile);
             $this->elementStart('li', array('id' => 'user_block'));
             if ($blocked) {
-                $bf = new BlockForm($this, $this->profile);
-                $bf->show();
-            } else {
                 $ubf = new UnblockForm($this, $this->profile);
                 $ubf->show();
+            } else {
+                $bf = new BlockForm($this, $this->profile);
+                $bf->show();
             }
             $this->elementEnd('li');
         }
@@ -386,75 +384,61 @@ class ShowstreamAction extends Action
     {
         $this->showStatistics();
         $this->showSubscriptions();
+        $this->showSubscribers();
     }
 
     function showSubscriptions()
     {
-        $subs = new Subscription();
-        $subs->subscriber = $this->profile->id;
-        $subs->whereAdd('subscribed != ' . $this->profile->id);
-
-        $subs->orderBy('created DESC');
-
-        // We ask for an extra one to know if we need to do another page
-
-        $subs->limit(0, SUBSCRIPTIONS + 1);
-
-        $subs_count = $subs->find();
+        $profile = $this->user->getSubscriptions(0, PROFILES_PER_MINILIST + 1);
 
         $this->elementStart('div', array('id' => 'user_subscriptions',
                                          'class' => 'section'));
 
         $this->element('h2', null, _('Subscriptions'));
 
-        if ($subs_count > 0) {
-
-            $this->elementStart('ul', 'users');
-
-            for ($i = 0; $i < min($subs_count, SUBSCRIPTIONS); $i++) {
-
-                if (!$subs->fetch()) {
-                    common_debug('Weirdly, broke out of subscriptions loop early', __FILE__);
-                    break;
-                }
-
-                $other = Profile::staticGet($subs->subscribed);
-
-                if (!$other) {
-                    common_log_db_error($subs, 'SELECT', __FILE__);
-                    continue;
-                }
-
-                $this->elementStart('li', 'vcard');
-                $this->elementStart('a', array('title' => ($other->fullname) ?
-                                                $other->fullname :
-                                                $other->nickname,
-                                                'href' => $other->profileurl,
-                                                'rel' => 'contact',
-                                                 'class' => 'url'));
-                $avatar = $other->getAvatar(AVATAR_MINI_SIZE);
-                $this->element('img', array('src' => (($avatar) ? common_avatar_display_url($avatar) :  common_default_avatar(AVATAR_MINI_SIZE)),
-                                            'width' => AVATAR_MINI_SIZE,
-                                            'height' => AVATAR_MINI_SIZE,
-                                            'class' => 'avatar photo',
-                                            'alt' =>  ($other->fullname) ?
-                                            $other->fullname :
-                                            $other->nickname));
-                $this->element('span', 'fn nickname', $other->nickname);
-                $this->elementEnd('a');
-                $this->elementEnd('li');
+        if ($profile) {
+            $pml = new ProfileMiniList($profile, $this->user, $this);
+            $cnt = $pml->show();
+            if ($cnt == 0) {
+                $this->element('p', null, _('(None)'));
             }
-
-            $this->elementEnd('ul');
         }
 
-        if ($subs_count > SUBSCRIPTIONS) {
+        if ($cnt > PROFILES_PER_MINILIST) {
             $this->elementStart('p');
-
             $this->element('a', array('href' => common_local_url('subscriptions',
                                                                  array('nickname' => $this->profile->nickname)),
                                       'class' => 'mores'),
                            _('All subscriptions'));
+            $this->elementEnd('p');
+        }
+
+        $this->elementEnd('div');
+    }
+
+    function showSubscribers()
+    {
+        $profile = $this->user->getSubscribers(0, PROFILES_PER_MINILIST + 1);
+
+        $this->elementStart('div', array('id' => 'user_subscribers',
+                                         'class' => 'section'));
+
+        $this->element('h2', null, _('Subscribers'));
+
+        if ($profile) {
+            $pml = new ProfileMiniList($profile, $this->user, $this);
+            $cnt = $pml->show();
+            if ($cnt == 0) {
+                $this->element('p', null, _('(None)'));
+            }
+        }
+
+        if ($cnt > PROFILES_PER_MINILIST) {
+            $this->elementStart('p');
+            $this->element('a', array('href' => common_local_url('subscribers',
+                                                                 array('nickname' => $this->profile->nickname)),
+                                      'class' => 'mores'),
+                           _('All subscribers'));
             $this->elementEnd('p');
         }
 
@@ -513,7 +497,6 @@ class ShowstreamAction extends Action
 
         $this->elementEnd('div');
     }
-
 }
 
 // We don't show the author for a profile, since we already know who it is!
