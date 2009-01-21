@@ -520,4 +520,26 @@ class User extends Memcached_DataObject
             return false;
         }
     }
+
+    function getGroups($offset, $limit)
+    {
+        $qry =
+          'SELECT user_group.* ' .
+          'FROM user_group JOIN group_member '.
+          'ON user_group.id = group_member.group_id ' .
+          'WHERE group_member.profile_id = %d ' .
+          'ORDER BY group_member.created DESC ';
+
+        if (common_config('db','type') == 'pgsql') {
+            $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+        } else {
+            $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+        }
+
+        $groups = new User_group();
+
+        $cnt = $groups->query(sprintf($qry, $this->id));
+
+        return $groups;
+    }
 }
