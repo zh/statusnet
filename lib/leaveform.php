@@ -77,7 +77,7 @@ class LeaveForm extends Form
 
     function id()
     {
-        return 'subscribe-' . $this->group->id;
+        return 'group-leave-' . $this->group->id;
     }
 
     /**
