@@ -1,5 +1,17 @@
 <?php
-/*
+
+/**
+ * User by ID action class.
+ *
+ * PHP version 5
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ *
  * Laconica - a distributed open-source microblogging tool
  * Copyright (C) 2008, Controlez-Vous, Inc.
  *
@@ -17,13 +29,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
-require_once(INSTALLDIR.'/lib/mail.php');
+require_once INSTALLDIR.'/lib/mail.php';
 
+/**
+ * Nudge a user action class.
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ */
 class NudgeAction extends Action
 {
-
+     /**
+     * Class handler.
+     * 
+     * @param array $args array of arguments
+     *
+     * @return nothing
+     */
     function handle($args)
     {
         parent::handle($args);
@@ -33,16 +63,16 @@ class NudgeAction extends Action
             return;
         }
 
-        $user = common_current_user();
+        $user  = common_current_user();
         $other = User::staticGet('nickname', $this->arg('nickname'));
 
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            common_redirect(common_local_url('showstream', array('nickname' => $other->nickname)));
+            common_redirect(common_local_url('showstream',
+                array('nickname' => $other->nickname)));
             return;
         }
 
-        # CSRF protection
-
+        // CSRF protection
         $token = $this->trimmed('token');
         
         if (!$token || $token != common_session_token()) {
@@ -73,14 +103,22 @@ class NudgeAction extends Action
         }
     }
 
+     /**
+     * Do the actual notification
+     *
+     * @param class $user  nudger
+     * @param class $other nudgee
+     *
+     * @return nothing
+     */
     function notify($user, $other)
     {
         if ($other->id != $user->id) {
             if ($other->email && $other->emailnotifynudge) {
                 mail_notify_nudge($user, $other);
             }
-            # XXX: notify by IM
-            # XXX: notify by SMS
+            // XXX: notify by IM
+            // XXX: notify by SMS
         }
     }
 }
