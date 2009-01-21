@@ -268,14 +268,6 @@ class ShowgroupAction extends Action
             if ($cur->isMember($this->group)) {
                 $lf = new LeaveForm($this, $this->group);
                 $lf->show();
-                if ($cur->isAdmin($this->group)) {
-                    $edit = common_local_url('editgroup',
-                                             array('nickname' => $this->group->nickname));
-                    $this->element('a',
-                                   array('href' => $edit,
-                                         'id' => 'group_admin'),
-                                   _('Admin'));
-                }
             } else {
                 $jf = new JoinForm($this, $this->group);
                 $jf->show();
