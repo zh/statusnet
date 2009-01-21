@@ -347,35 +347,13 @@ class ShowgroupAction extends Action
 
         $this->element('h2', null, _('Members'));
 
-        $this->elementStart('ul', 'users');
-
-        $cnt = 0;
-
-        while ($member->fetch() && ++$cnt < MEMBERS_PER_SECTION) {
-
-            $cnt++;
-
-            $this->elementStart('li', 'vcard');
-            $this->elementStart('a', array('title' => ($member->fullname) ?
-                                           $member->fullname :
-                                           $member->nickname,
-                                           'href' => $member->profileurl,
-                                           'rel' => 'contact',
-                                           'class' => 'url'));
-            $avatar = $member->getAvatar(AVATAR_MINI_SIZE);
-            $this->element('img', array('src' => (($avatar) ? common_avatar_display_url($avatar) :  common_default_avatar(AVATAR_MINI_SIZE)),
-                                        'width' => AVATAR_MINI_SIZE,
-                                        'height' => AVATAR_MINI_SIZE,
-                                        'class' => 'avatar photo',
-                                        'alt' =>  ($member->fullname) ?
-                                        $member->fullname :
-                                        $member->nickname));
-            $this->element('span', 'fn nickname', $member->nickname);
-            $this->elementEnd('a');
-            $this->elementEnd('li');
+        if ($member) {
+            $pml = new ProfileMiniList($member, null, $this);
+            $cnt = $pml->show();
+            if ($cnt == 0) {
+                $this->element('p', null, _('(None)'));
+            }
         }
-
-        $this->elementEnd('ul');
 
         if ($cnt == MEMBERS_PER_SECTION) {
             $this->element('a', array('href' => common_local_url('groupmembers',
