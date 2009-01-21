@@ -2,7 +2,7 @@
 /**
  * Table Definition for group_member
  */
-require_once 'classes/Memcached_DataObject';
+require_once 'classes/Memcached_DataObject.php';
 
 class Group_member extends Memcached_DataObject
 {

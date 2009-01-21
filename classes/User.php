@@ -492,4 +492,32 @@ class User extends Memcached_DataObject
         return true;
     }
 
+    function isMember($group)
+    {
+        $mem = new Group_member();
+
+        $mem->group_id = $group->id;
+        $mem->profile_id = $this->id;
+
+        if ($mem->find()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function isAdmin($group)
+    {
+        $mem = new Group_member();
+
+        $mem->group_id = $group->id;
+        $mem->profile_id = $this->id;
+        $mem->is_admin = 1;
+
+        if ($mem->find()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

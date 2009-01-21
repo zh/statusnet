@@ -2,7 +2,7 @@
 /**
  * Table Definition for user_group
  */
-require_once 'classes/Memcached_DataObject';
+require_once 'classes/Memcached_DataObject.php';
 
 class User_group extends Memcached_DataObject
 {
@@ -28,4 +28,31 @@ class User_group extends Memcached_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+
+    function defaultLogo($size) {
+        static $sizenames = array(AVATAR_PROFILE_SIZE => 'profile',
+                                  AVATAR_STREAM_SIZE => 'stream',
+                                  AVATAR_MINI_SIZE => 'mini');
+        return theme_path('default-avatar-'.$sizenames[$size].'.png');
+    }
+
+    function homeUrl() {
+        return common_local_url('showgroup',
+                                array('nickname' => $this->nickname));
+    }
+
+    function permalink() {
+        return common_local_url('groupbyid',
+                                array('id' => $this->id));
+    }
+
+    function getNotices($offset, $limit) {
+        $qry =
+          'SELECT notice.* ' .
+          'FROM notice JOIN group_inbox ON notice.id = group_inbox.notice_id ' .
+          'WHERE group_inbox.group_id = %d ';
+        return Notice::getStream(sprintf($qry, $this->id),
+                                 'group:notices:'.$this->id,
+                                 $offset, $limit);
+    }
 }
