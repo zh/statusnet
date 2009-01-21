@@ -72,9 +72,7 @@ class EditgroupAction extends Action
             return false;
         }
 
-        return true;
-
-        $nickname_arg = $this->arg('nickname');
+        $nickname_arg = $this->trimmed('nickname');
         $nickname = common_canonical_nickname($nickname_arg);
 
         // Permanent redirect on non-canonical nickname
@@ -94,6 +92,13 @@ class EditgroupAction extends Action
 
         if (!$this->group) {
             $this->clientError(_('No such group'), 404);
+            return false;
+        }
+
+        $cur = common_current_user();
+
+        if (!$cur->isAdmin($group)) {
+            $this->clientError(_('You must be an admin to edit the group'), 403);
             return false;
         }
 
