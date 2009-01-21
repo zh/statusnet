@@ -85,27 +85,6 @@ RewriteRule ^peopletag/([a-zA-Z0-9]+)$ index.php?action=peopletag&tag=$1 [L,QSA]
 RewriteRule ^featured/?$ index.php?action=featured [L,QSA]
 RewriteRule ^favorited/?$ index.php?action=favorited [L,QSA]
 
-RewriteRule ^(\w+)/subscriptions$ index.php?action=subscriptions&nickname=$1 [L,QSA]
-RewriteRule ^(\w+)/subscriptions/([a-zA-Z0-9]+)$ index.php?action=subscriptions&nickname=$1&tag=$2 [L,QSA]
-RewriteRule ^(\w+)/subscribers/([a-zA-Z0-9]+)$ index.php?action=subscribers&nickname=$1&tag=$2 [L,QSA]
-RewriteRule ^(\w+)/subscribers$ index.php?action=subscribers&nickname=$1 [L,QSA]
-RewriteRule ^(\w+)/nudge$ index.php?action=nudge&nickname=$1 [L,QSA]
-RewriteRule ^(\w+)/xrds$ index.php?action=xrds&nickname=$1 [L,QSA]
-RewriteRule ^(\w+)/rss$ index.php?action=userrss&nickname=$1 [L,QSA]
-RewriteRule ^(\w+)/all$ index.php?action=all&nickname=$1 [L,QSA]
-RewriteRule ^(\w+)/all/rss$ index.php?action=allrss&nickname=$1 [L,QSA]
-RewriteRule ^(\w+)/foaf$ index.php?action=foaf&nickname=$1 [L,QSA]
-RewriteRule ^(\w+)/replies$ index.php?action=replies&nickname=$1 [L,QSA]
-RewriteRule ^(\w+)/replies/rss$ index.php?action=repliesrss&nickname=$1 [L,QSA]
-RewriteRule ^(\w+)/avatar/(original|96|48|24)$ index.php?action=avatarbynickname&nickname=$1&size=$2 [L,QSA]
-RewriteRule ^(\w+)/favorites$ index.php?action=showfavorites&nickname=$1 [L,QSA]
-RewriteRule ^(\w+)/favorites/rss$ index.php?action=favoritesrss&nickname=$1 [L,QSA]
-RewriteRule ^(\w+)/inbox$ index.php?action=inbox&nickname=$1 [L,QSA]
-RewriteRule ^(\w+)/outbox$ index.php?action=outbox&nickname=$1 [L,QSA]
-RewriteRule ^(\w+)/microsummary$ index.php?action=microsummary&nickname=$1 [L,QSA]
-
-RewriteRule ^(\w+)$ index.php?action=showstream&nickname=$1 [L,QSA]
-
 # Twitter-compatible API rewrites
 # XXX: Surely these can be refactored a little -- Zach
 RewriteRule ^api/statuses/public_timeline(.*)$ index.php?action=api&apiaction=statuses&method=public_timeline$1 [L,QSA]
@@ -147,6 +126,27 @@ RewriteRule ^api/help/(.*)$ index.php?action=api&apiaction=help&method=$1 [L,QSA
 RewriteRule ^api/laconica/version(.*)$ index.php?action=api&apiaction=laconica&method=version$1 [L,QSA]
 RewriteRule ^api/laconica/config(.*)$ index.php?action=api&apiaction=laconica&method=config$1 [L,QSA]
 RewriteRule ^api/laconica/wadl\.xml$ index.php?action=api&apiaction=laconica&method=wadl.xml [L,QSA]
+
+RewriteRule ^(\w+)/subscriptions$ index.php?action=subscriptions&nickname=$1 [L,QSA]
+RewriteRule ^(\w+)/subscriptions/([a-zA-Z0-9]+)$ index.php?action=subscriptions&nickname=$1&tag=$2 [L,QSA]
+RewriteRule ^(\w+)/subscribers/([a-zA-Z0-9]+)$ index.php?action=subscribers&nickname=$1&tag=$2 [L,QSA]
+RewriteRule ^(\w+)/subscribers$ index.php?action=subscribers&nickname=$1 [L,QSA]
+RewriteRule ^(\w+)/nudge$ index.php?action=nudge&nickname=$1 [L,QSA]
+RewriteRule ^(\w+)/xrds$ index.php?action=xrds&nickname=$1 [L,QSA]
+RewriteRule ^(\w+)/rss$ index.php?action=userrss&nickname=$1 [L,QSA]
+RewriteRule ^(\w+)/all$ index.php?action=all&nickname=$1 [L,QSA]
+RewriteRule ^(\w+)/all/rss$ index.php?action=allrss&nickname=$1 [L,QSA]
+RewriteRule ^(\w+)/foaf$ index.php?action=foaf&nickname=$1 [L,QSA]
+RewriteRule ^(\w+)/replies$ index.php?action=replies&nickname=$1 [L,QSA]
+RewriteRule ^(\w+)/replies/rss$ index.php?action=repliesrss&nickname=$1 [L,QSA]
+RewriteRule ^(\w+)/avatar/(original|96|48|24)$ index.php?action=avatarbynickname&nickname=$1&size=$2 [L,QSA]
+RewriteRule ^(\w+)/favorites$ index.php?action=showfavorites&nickname=$1 [L,QSA]
+RewriteRule ^(\w+)/favorites/rss$ index.php?action=favoritesrss&nickname=$1 [L,QSA]
+RewriteRule ^(\w+)/inbox$ index.php?action=inbox&nickname=$1 [L,QSA]
+RewriteRule ^(\w+)/outbox$ index.php?action=outbox&nickname=$1 [L,QSA]
+RewriteRule ^(\w+)/microsummary$ index.php?action=microsummary&nickname=$1 [L,QSA]
+
+RewriteRule ^(\w+)$ index.php?action=showstream&nickname=$1 [L,QSA]
 
 <FilesMatch "\.(ini)">
   Order allow,deny
