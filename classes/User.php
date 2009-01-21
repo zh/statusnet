@@ -118,7 +118,7 @@ class User extends Memcached_DataObject
         static $blacklist = array('rss', 'xrds', 'doc', 'main',
                                   'settings', 'notice', 'user',
                                   'search', 'avatar', 'tag', 'tags',
-                                  'api', 'message');
+                                  'api', 'message', 'group', 'groups');
         $merged = array_merge($blacklist, common_config('nickname', 'blacklist'));
         return !in_array($nickname, $merged);
     }
