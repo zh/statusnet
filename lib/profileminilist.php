@@ -55,7 +55,7 @@ class ProfileMiniList extends ProfileList
 
         while ($this->profile->fetch()) {
             $cnt++;
-            if($cnt > PROFILES_PER_PAGE) {
+            if($cnt > PROFILES_PER_MINILIST) {
                 break;
             }
             $this->showProfile();
