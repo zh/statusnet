@@ -104,6 +104,17 @@ class SubscribeForm extends Form
         return common_local_url('subscribe');
     }
 
+
+    /**
+     * Legend of the Form
+     *
+     * @return void
+     */
+    function formLegend()
+    {
+        $this->out->element('legend', null, _('Subscribe to this user'));
+    }
+
     /**
      * Data elements of the form
      *
@@ -125,6 +136,6 @@ class SubscribeForm extends Form
 
     function formActions()
     {
-        $this->out->submit('submit', _('Subscribe'));
+        $this->out->submit('submit', _('Subscribe'), 'submit', null, _('Subscribe to this user'));
     }
 }

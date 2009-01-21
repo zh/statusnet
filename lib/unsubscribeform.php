@@ -104,6 +104,16 @@ class UnsubscribeForm extends Form
     }
 
     /**
+     * Legend of the Form
+     *
+     * @return void
+     */
+    function formLegend()
+    {
+        $this->out->element('legend', null, _('Unsubscribe from this user'));
+    }
+
+    /**
      * Data elements of the form
      *
      * @return void
@@ -124,6 +134,6 @@ class UnsubscribeForm extends Form
 
     function formActions()
     {
-        $this->out->submit('submit', _('Unsubscribe'));
+        $this->out->submit('submit', _('Unsubscribe'), 'submit', null, _('Unsubscribe from this user'));
     }
 }

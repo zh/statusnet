@@ -120,8 +120,8 @@ $(document).ready(function(){
 	$("#nudge").each(addAjaxHidden);
 
 	var Subscribe = { dataType: 'xml',
-					  beforeSubmit: function(formData, jqForm, options) { $("form.subscribe input[type=submit]").attr("disabled", "disabled");
-																	      $("form.subscribe input[type=submit]").addClass("disabled");
+					  beforeSubmit: function(formData, jqForm, options) { $(".form_user_subscribe input[type=submit]").attr("disabled", "disabled");
+																	      $(".form_user_subscribe input[type=submit]").addClass("disabled");
 																	    },
 					  success: function(xml) { var form_unsubscribe = document._importNode($('form', xml).get(0), true);
 										  	   var form_unsubscribe_id = form_unsubscribe.id;
@@ -129,14 +129,14 @@ $(document).ready(function(){
 											   $("form#"+form_subscribe_id).replaceWith(form_unsubscribe);
 											   $("form#"+form_unsubscribe_id).ajaxForm(UnSubscribe).each(addAjaxHidden);
 											   $("dd.subscribers").text(parseInt($("dd.subscribers").text())+1);
-											   $("form.subscribe input[type=submit]").removeAttr("disabled");
-											   $("form.subscribe input[type=submit]").removeClass("disabled");
+											   $(".form_user_subscribe input[type=submit]").removeAttr("disabled");
+											   $(".form_user_subscribe input[type=submit]").removeClass("disabled");
 										     }
 					};
 
 	var UnSubscribe = { dataType: 'xml',
-						beforeSubmit: function(formData, jqForm, options) { $("form.unsubscribe input[type=submit]").attr("disabled", "disabled");
-																		    $("form.unsubscribe input[type=submit]").addClass("disabled");
+						beforeSubmit: function(formData, jqForm, options) { $(".form_user_unsubscribe input[type=submit]").attr("disabled", "disabled");
+																		    $(".form_user_unsubscribe input[type=submit]").addClass("disabled");
 																		  },
 					    success: function(xml) { var form_subscribe = document._importNode($('form', xml).get(0), true);
 										  		 var form_subscribe_id = form_subscribe.id;
@@ -146,15 +146,15 @@ $(document).ready(function(){
 												 $("#profile_send_a_new_message").remove();
 												 $("#profile_nudge").remove();
 											     $("dd.subscribers").text(parseInt($("dd.subscribers").text())-1);
-												 $("form.unsubscribe input[type=submit]").removeAttr("disabled");
-												 $("form.unsubscribe input[type=submit]").removeClass("disabled");
+												 $(".form_user_unsubscribe input[type=submit]").removeAttr("disabled");
+												 $(".form_user_unsubscribe input[type=submit]").removeClass("disabled");
 											   }
 					  };
 
-	$("form.subscribe").ajaxForm(Subscribe);
-	$("form.unsubscribe").ajaxForm(UnSubscribe);
-	$("form.subscribe").each(addAjaxHidden);
-	$("form.unsubscribe").each(addAjaxHidden);
+	$(".form_user_subscribe").ajaxForm(Subscribe);
+	$(".form_user_unsubscribe").ajaxForm(UnSubscribe);
+	$(".form_user_subscribe").each(addAjaxHidden);
+	$(".form_user_unsubscribe").each(addAjaxHidden);
 
 	var PostNotice = { dataType: 'xml',
 					   beforeSubmit: function(formData, jqForm, options) { if ($("#notice_data-text").get(0).value.length == 0) {

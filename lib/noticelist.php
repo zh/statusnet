@@ -379,7 +379,7 @@ class NoticeListItem extends Widget
              case 'mail':
              case 'omb':
              case 'api':
-                $this->out->element('dd', 'noticesource', $source_name);
+                $this->out->element('dd', null, $source_name);
                 break;
              default:
                 $ns = Notice_source::staticGet($this->notice->source);
@@ -390,7 +390,7 @@ class NoticeListItem extends Widget
                                         $ns->name);
                     $this->out->elementEnd('dd');
                 } else {
-                    $this->out->element('dd', 'noticesource', $source_name);
+                    $this->out->element('dd', null, $source_name);
                 }
                 break;
             }
