@@ -288,7 +288,7 @@ class ShowstreamAction extends Action
         if (count($tags) > 0) {
             $this->elementStart('dl', 'user_tags');
             $this->element('dt', null, _('Tags'));
-            $this->elementStart('dd', 'tags');
+            $this->elementStart('dd');
             $this->elementStart('ul', 'tags xoxo');
             foreach ($tags as $tag) {
                 $this->elementStart('li');

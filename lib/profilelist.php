@@ -156,8 +156,7 @@ class ProfileList extends Widget
             # Get tags
             $tags = Profile_tag::getTags($this->owner->id, $this->profile->id);
 
-            $this->out->elementStart('div', 'tags_user');
-            $this->out->elementStart('dl');
+            $this->out->elementStart('dl', 'user_tags');
             $this->out->elementStart('dt');
             if ($user->id == $this->owner->id) {
                 $this->out->element('a', array('href' => common_local_url('tagother',
@@ -166,13 +165,13 @@ class ProfileList extends Widget
             } else {
                 $this->out->text(_('Tags'));
             }
-            $this->out->text(":");
             $this->out->elementEnd('dt');
             $this->out->elementStart('dd');
             if ($tags) {
                 $this->out->elementStart('ul', 'tags xoxo');
                 foreach ($tags as $tag) {
                     $this->out->elementStart('li');
+                    $this->element('span', 'mark_hash', '#');
                     $this->out->element('a', array('rel' => 'tag',
                                               'href' => common_local_url($this->action,
                                                                          array('nickname' => $this->owner->nickname,
@@ -186,7 +185,6 @@ class ProfileList extends Widget
             }
             $this->out->elementEnd('dd');
             $this->out->elementEnd('dl');
-            $this->out->elementEnd('div');
         }
 
         if ($user && $user->id == $this->owner->id) {
