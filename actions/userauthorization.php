@@ -54,7 +54,7 @@ class UserauthorizationAction extends Action
                 common_debug('getting new request', __FILE__);
                 $req = $this->get_new_request();
                 if (!$req) {
-                    $this->client_error(_('No request found!'));
+                    $this->clientError(_('No request found!'));
                 }
                 common_debug('validating request', __FILE__);
                 # XXX: only validate new requests, since nonce is one-time use
@@ -64,7 +64,7 @@ class UserauthorizationAction extends Action
                 $this->show_form($req);
             } catch (OAuthException $e) {
                 $this->clear_request();
-                $this->client_error($e->getMessage());
+                $this->clientError($e->getMessage());
                 return;
             }
 
@@ -84,51 +84,51 @@ class UserauthorizationAction extends Action
         $avatar = $req->get_parameter('omb_listenee_avatar');
 
         common_show_header(_('Authorize subscription'));
-        common_element('p', null, _('Please check these details to make sure '.
+        $this->element('p', null, _('Please check these details to make sure '.
                                      'that you want to subscribe to this user\'s notices. '.
                                      'If you didn\'t just ask to subscribe to someone\'s notices, '.
                                      'click "Cancel".'));
-        common_element_start('div', 'profile');
+        $this->elementStart('div', 'profile');
         if ($avatar) {
-            common_element('img', array('src' => $avatar,
+            $this->element('img', array('src' => $avatar,
                                         'class' => 'avatar profile',
                                         'width' => AVATAR_PROFILE_SIZE,
                                         'height' => AVATAR_PROFILE_SIZE,
                                         'alt' => $nickname));
         }
-        common_element('a', array('href' => $profile,
+        $this->element('a', array('href' => $profile,
                                   'class' => 'external profile nickname'),
                        $nickname);
         if ($fullname) {
-            common_element_start('div', 'fullname');
+            $this->elementStart('div', 'fullname');
             if ($homepage) {
-                common_element('a', array('href' => $homepage),
+                $this->element('a', array('href' => $homepage),
                                $fullname);
             } else {
-                common_text($fullname);
+                $this->text($fullname);
             }
-            common_element_end('div');
+            $this->elementEnd('div');
         }
         if ($location) {
-            common_element('div', 'location', $location);
+            $this->element('div', 'location', $location);
         }
         if ($bio) {
-            common_element('div', 'bio', $bio);
+            $this->element('div', 'bio', $bio);
         }
-        common_element_start('div', 'license');
-        common_element('a', array('href' => $license,
+        $this->elementStart('div', 'license');
+        $this->element('a', array('href' => $license,
                                   'class' => 'license'),
                        $license);
-        common_element_end('div');
-        common_element_end('div');
-        common_element_start('form', array('method' => 'post',
+        $this->elementEnd('div');
+        $this->elementEnd('div');
+        $this->elementStart('form', array('method' => 'post',
                                            'id' => 'userauthorization',
                                            'name' => 'userauthorization',
                                            'action' => common_local_url('userauthorization')));
-        common_hidden('token', common_session_token());
-        common_submit('accept', _('Accept'));
-        common_submit('reject', _('Reject'));
-        common_element_end('form');
+        $this->hidden('token', common_session_token());
+        $this->submit('accept', _('Accept'));
+        $this->submit('reject', _('Reject'));
+        $this->elementEnd('form');
         common_show_footer();
     }
 
@@ -137,7 +137,7 @@ class UserauthorizationAction extends Action
         $req = $this->get_stored_request();
 
         if (!$req) {
-            common_user_error(_('No authorization request!'));
+            $this->clientError(_('No authorization request!'));
             return;
         }
 
@@ -145,10 +145,10 @@ class UserauthorizationAction extends Action
 
         if ($this->arg('accept')) {
             if (!$this->authorize_token($req)) {
-                $this->client_error(_('Error authorizing token'));
+                $this->clientError(_('Error authorizing token'));
             }
             if (!$this->save_remote_profile($req)) {
-                $this->client_error(_('Error saving remote profile'));
+                $this->clientError(_('Error saving remote profile'));
             }
             if (!$callback) {
                 $this->show_accept_message($req->get_parameter('oauth_token'));
@@ -160,7 +160,7 @@ class UserauthorizationAction extends Action
                 $profile = $user->getProfile();
                 if (!$profile) {
                     common_log_db_error($user, 'SELECT', __FILE__);
-                    $this->server_error(_('User without matching profile'));
+                    $this->serverError(_('User without matching profile'));
                     return;
                 }
                 $params['omb_listener_nickname'] = $user->nickname;
@@ -328,18 +328,18 @@ class UserauthorizationAction extends Action
     function show_accept_message($tok)
     {
         common_show_header(_('Subscription authorized'));
-        common_element('p', null,
+        $this->element('p', null,
                        _('The subscription has been authorized, but no '.
                           'callback URL was passed. Check with the site\'s instructions for '.
                           'details on how to authorize the subscription. Your subscription token is:'));
-        common_element('blockquote', 'token', $tok);
+        $this->element('blockquote', 'token', $tok);
         common_show_footer();
     }
 
     function show_reject_message($tok)
     {
         common_show_header(_('Subscription rejected'));
-        common_element('p', null,
+        $this->element('p', null,
                        _('The subscription has been rejected, but no '.
                           'callback URL was passed. Check with the site\'s instructions for '.
                           'details on how to fully reject the subscription.'));

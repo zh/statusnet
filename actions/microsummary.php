@@ -1,5 +1,16 @@
 <?php
-/*
+/**
+ * Microsummary action, see https://wiki.mozilla.org/Microsummaries
+ *
+ * PHP version 5
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ *
  * Laconica - a distributed open-source microblogging tool
  * Copyright (C) 2008, Controlez-Vous, Inc.
  *
@@ -17,28 +28,45 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
+/**
+ * Microsummary action class.
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ */
 class MicrosummaryAction extends Action
 {
-
+    /**
+     * Class handler.
+     * 
+     * @param array $args array of arguments
+     *
+     * @return nothing
+     */
     function handle($args)
     {
-
         parent::handle($args);
 
         $nickname = common_canonical_nickname($this->arg('nickname'));
-        $user = User::staticGet('nickname', $nickname);
+        $user     = User::staticGet('nickname', $nickname);
 
         if (!$user) {
-            $this->client_error(_('No such user'), 404);
+            $this->clientError(_('No such user'), 404);
             return;
         }
         
         $notice = $user->getCurrentNotice();
         
         if (!$notice) {
-            $this->client_error(_('No current status'), 404);
+            $this->clientError(_('No current status'), 404);
         }
         
         header('Content-Type: text/plain');

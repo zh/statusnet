@@ -76,12 +76,12 @@ class TwitapistatusesAction extends TwitterapiAction
                     $this->show_json_timeline($notice);
                     break;
                 default:
-                    common_user_error(_('API method not found!'), $code = 404);
+                    $this->clientError(_('API method not found!'), $code = 404);
                     break;
             }
 
         } else {
-            common_server_error(_('Couldn\'t find any statuses.'), $code = 503);
+            $this->serverError(_('Couldn\'t find any statuses.'), $code = 503);
         }
 
     }
@@ -144,7 +144,7 @@ class TwitapistatusesAction extends TwitterapiAction
             $this->show_json_timeline($notice);
             break;
          default:
-            common_user_error(_('API method not found!'), $code = 404);
+            $this->clientError(_('API method not found!'), $code = 404);
         }
 
     }
@@ -157,14 +157,14 @@ class TwitapistatusesAction extends TwitterapiAction
         $user = $this->get_user($apidata['api_arg'], $apidata);
 
         if (!$user) {
-            $this->client_error('Not Found', 404, $apidata['content-type']);
+            $this->clientError('Not Found', 404, $apidata['content-type']);
             return;
         }
 
         $profile = $user->getProfile();
 
         if (!$profile) {
-            common_server_error(_('User has no profile.'));
+            $this->serverError(_('User has no profile.'));
             return;
         }
 
@@ -225,7 +225,7 @@ class TwitapistatusesAction extends TwitterapiAction
             $this->show_json_timeline($notice);
             break;
          default:
-            common_user_error(_('API method not found!'), $code = 404);
+            $this->clientError(_('API method not found!'), $code = 404);
         }
 
     }
@@ -236,12 +236,12 @@ class TwitapistatusesAction extends TwitterapiAction
         parent::handle($args);
 
         if (!in_array($apidata['content-type'], array('xml', 'json'))) {
-            common_user_error(_('API method not found!'), $code = 404);
+            $this->clientError(_('API method not found!'), $code = 404);
             return;
         }
 
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            $this->client_error(_('This method requires a POST.'), 400, $apidata['content-type']);
+            $this->clientError(_('This method requires a POST.'), 400, $apidata['content-type']);
             return;
         }
 
@@ -273,7 +273,7 @@ class TwitapistatusesAction extends TwitterapiAction
                 // as "truncated." Sending this error may screw up some clients
                 // that assume Twitter will truncate for them.    Should we just
                 // truncate too? -- Zach
-                $this->client_error(_('That\'s too long. Max notice size is 140 chars.'), $code = 406, $apidata['content-type']);
+                $this->clientError(_('That\'s too long. Max notice size is 140 chars.'), $code = 406, $apidata['content-type']);
                 return;
 
             }
@@ -306,7 +306,7 @@ class TwitapistatusesAction extends TwitterapiAction
                 if ($reply) {
                     $reply_to = $in_reply_to_status_id;
                 } else {
-                    $this->client_error(_('Not found'), $code = 404, $apidata['content-type']);
+                    $this->clientError(_('Not found'), $code = 404, $apidata['content-type']);
                     return;
                 }
             }
@@ -315,7 +315,7 @@ class TwitapistatusesAction extends TwitterapiAction
                 $source, 1, $reply_to);
 
             if (is_string($notice)) {
-                $this->server_error($notice);
+                $this->serverError($notice);
                 return;
             }
 
@@ -389,7 +389,7 @@ class TwitapistatusesAction extends TwitterapiAction
             $this->show_json_timeline($notices);
             break;
          default:
-            common_user_error(_('API method not found!'), $code = 404);
+            $this->clientError(_('API method not found!'), $code = 404);
         }
 
     }
@@ -399,7 +399,7 @@ class TwitapistatusesAction extends TwitterapiAction
         parent::handle($args);
 
         if (!in_array($apidata['content-type'], array('xml', 'json'))) {
-            common_user_error(_('API method not found!'), $code = 404);
+            $this->clientError(_('API method not found!'), $code = 404);
             return;
         }
 
@@ -415,7 +415,7 @@ class TwitapistatusesAction extends TwitterapiAction
             }
         } else {
             // XXX: Twitter just sets a 404 header and doens't bother to return an err msg
-            $this->client_error(_('No status with that ID found.'), 404, $apidata['content-type']);
+            $this->clientError(_('No status with that ID found.'), 404, $apidata['content-type']);
         }
 
     }
@@ -426,14 +426,14 @@ class TwitapistatusesAction extends TwitterapiAction
         parent::handle($args);
 
         if (!in_array($apidata['content-type'], array('xml', 'json'))) {
-            common_user_error(_('API method not found!'), $code = 404);
+            $this->clientError(_('API method not found!'), $code = 404);
             return;
         }
 
         // Check for RESTfulness
         if (!in_array($_SERVER['REQUEST_METHOD'], array('POST', 'DELETE'))) {
             // XXX: Twitter just prints the err msg, no XML / JSON.
-            $this->client_error(_('This method requires a POST or DELETE.'), 400, $apidata['content-type']);
+            $this->clientError(_('This method requires a POST or DELETE.'), 400, $apidata['content-type']);
             return;
         }
 
@@ -443,7 +443,7 @@ class TwitapistatusesAction extends TwitterapiAction
         $notice = Notice::staticGet($notice_id);
 
         if (!$notice) {
-            $this->client_error(_('No status found with that ID.'), 404, $apidata['content-type']);
+            $this->clientError(_('No status found with that ID.'), 404, $apidata['content-type']);
             return;
         }
 
@@ -460,7 +460,7 @@ class TwitapistatusesAction extends TwitterapiAction
                 $this->show_single_json_status($notice);
             }
         } else {
-            $this->client_error(_('You may not delete another user\'s status.'), 403, $apidata['content-type']);
+            $this->clientError(_('You may not delete another user\'s status.'), 403, $apidata['content-type']);
         }
 
     }
@@ -487,7 +487,7 @@ class TwitapistatusesAction extends TwitterapiAction
         $user = $this->get_user($apidata['api_arg'], $apidata);
 
         if (!$user) {
-            $this->client_error('Not Found', 404, $apidata['content-type']);
+            $this->clientError('Not Found', 404, $apidata['content-type']);
             return;
         }
 
@@ -500,7 +500,7 @@ class TwitapistatusesAction extends TwitterapiAction
         $profile = $user->getProfile();
 
         if (!$profile) {
-            common_server_error(_('User has no profile.'));
+            $this->serverError(_('User has no profile.'));
             return;
         }
 
@@ -538,11 +538,11 @@ class TwitapistatusesAction extends TwitterapiAction
     {
         switch ($type) {
          case 'xml':
-            common_element_start('users', array('type' => 'array'));
+            $this->elementStart('users', array('type' => 'array'));
             foreach ($profiles as $profile) {
                 $this->show_profile($profile);
             }
-            common_element_end('users');
+            $this->elementEnd('users');
             break;
          case 'json':
             $arrays = array();
@@ -552,14 +552,14 @@ class TwitapistatusesAction extends TwitterapiAction
             print json_encode($arrays);
             break;
          default:
-            $this->client_error(_('unsupported file type'));
+            $this->clientError(_('unsupported file type'));
         }
     }
 
     function featured($args, $apidata)
     {
         parent::handle($args);
-        common_server_error(_('API method under construction.'), $code=501);
+        $this->serverError(_('API method under construction.'), $code=501);
     }
 
     function supported($cmd)

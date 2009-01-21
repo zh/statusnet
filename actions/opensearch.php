@@ -41,21 +41,21 @@ class OpensearchAction extends Action
         header('Content-Type: text/html');
 
         common_start_xml();
-        common_element_start('OpenSearchDescription', array('xmlns' => 'http://a9.com/-/spec/opensearch/1.1/'));
+        $this->elementStart('OpenSearchDescription', array('xmlns' => 'http://a9.com/-/spec/opensearch/1.1/'));
 
         $short_name =  common_config('site', 'name').' '.$short_name;
-        common_element('ShortName', null, $short_name);
-        common_element('Contact', null, common_config('site', 'email'));
-        common_element('Url', array('type' => 'text/html', 'method' => 'get',
+        $this->element('ShortName', null, $short_name);
+        $this->element('Contact', null, common_config('site', 'email'));
+        $this->element('Url', array('type' => 'text/html', 'method' => 'get',
                        'template' => str_replace('---', '{searchTerms}', common_local_url($type, array('q' => '---')))));
-        common_element('Image', array('height' => 16, 'width' => 16, 'type' => 'image/vnd.microsoft.icon'), common_path('favicon.ico'));
-        common_element('Image', array('height' => 50, 'width' => 50, 'type' => 'image/png'), theme_path('logo.png'));
-        common_element('AdultContent', null, 'false');
-        common_element('Language', null, common_language());
-        common_element('OutputEncoding', null, 'UTF-8');
-        common_element('InputEncoding', null, 'UTF-8');
+        $this->element('Image', array('height' => 16, 'width' => 16, 'type' => 'image/vnd.microsoft.icon'), common_path('favicon.ico'));
+        $this->element('Image', array('height' => 50, 'width' => 50, 'type' => 'image/png'), theme_path('logo.png'));
+        $this->element('AdultContent', null, 'false');
+        $this->element('Language', null, common_language());
+        $this->element('OutputEncoding', null, 'UTF-8');
+        $this->element('InputEncoding', null, 'UTF-8');
 
-        common_element_end('OpenSearchDescription');
+        $this->elementEnd('OpenSearchDescription');
         common_end_xml();
     }
 }

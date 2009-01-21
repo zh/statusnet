@@ -108,7 +108,7 @@ class Twitapidirect_messagesAction extends TwitterapiAction
             $this->show_json_dmsgs($message);
             break;
          default:
-            common_user_error(_('API method not found!'), $code = 404);
+            $this->clientError(_('API method not found!'), $code = 404);
         }
 
     }
@@ -119,7 +119,7 @@ class Twitapidirect_messagesAction extends TwitterapiAction
         parent::handle($args);
 
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            $this->client_error(_('This method requires a POST.'), 400, $apidata['content-type']);
+            $this->clientError(_('This method requires a POST.'), 400, $apidata['content-type']);
             return;
         }
 
@@ -134,11 +134,11 @@ class Twitapidirect_messagesAction extends TwitterapiAction
         $content = $this->trimmed('text');
 
         if (!$content) {
-            $this->client_error(_('No message text!'), $code = 406, $apidata['content-type']);
+            $this->clientError(_('No message text!'), $code = 406, $apidata['content-type']);
         } else {
             $content_shortened = common_shorten_links($content);
             if (mb_strlen($content_shortened) > 140) {
-                $this->client_error(_('That\'s too long. Max message size is 140 chars.'),
+                $this->clientError(_('That\'s too long. Max message size is 140 chars.'),
                     $code = 406, $apidata['content-type']);
                 return;
             }
@@ -147,15 +147,15 @@ class Twitapidirect_messagesAction extends TwitterapiAction
         $other = $this->get_user($this->trimmed('user'));
 
         if (!$other) {
-            $this->client_error(_('Recipient user not found.'), $code = 403, $apidata['content-type']);
+            $this->clientError(_('Recipient user not found.'), $code = 403, $apidata['content-type']);
             return;
         } else if (!$user->mutuallySubscribed($other)) {
-            $this->client_error(_('Can\'t send direct messages to users who aren\'t your friend.'),
+            $this->clientError(_('Can\'t send direct messages to users who aren\'t your friend.'),
                 $code = 403, $apidata['content-type']);
             return;
         } else if ($user->id == $other->id) {
             // Sending msgs to yourself is allowed by Twitter
-            $this->client_error(_('Don\'t send a message to yourself; just say it to yourself quietly instead.'),
+            $this->clientError(_('Don\'t send a message to yourself; just say it to yourself quietly instead.'),
                 $code = 403, $apidata['content-type']);
             return;
         }
@@ -164,7 +164,7 @@ class Twitapidirect_messagesAction extends TwitterapiAction
             html_entity_decode($content, ENT_NOQUOTES, 'UTF-8'), $source);
 
         if (is_string($message)) {
-            $this->server_error($message);
+            $this->serverError($message);
             return;
         }
 
@@ -181,14 +181,14 @@ class Twitapidirect_messagesAction extends TwitterapiAction
     function destroy($args, $apidata)
     {
         parent::handle($args);
-        common_server_error(_('API method under construction.'), $code=501);
+        $this->serverError(_('API method under construction.'), $code=501);
     }
 
     function show_xml_dmsgs($message)
     {
 
         $this->init_document('xml');
-        common_element_start('direct-messages', array('type' => 'array'));
+        $this->elementStart('direct-messages', array('type' => 'array'));
 
         if (is_array($messages)) {
             foreach ($message as $m) {
@@ -202,7 +202,7 @@ class Twitapidirect_messagesAction extends TwitterapiAction
             }
         }
 
-        common_element_end('direct-messages');
+        $this->elementEnd('direct-messages');
         $this->end_document('xml');
 
     }
@@ -236,13 +236,13 @@ class Twitapidirect_messagesAction extends TwitterapiAction
 
         $this->init_document('rss');
 
-        common_element_start('channel');
-        common_element('title', null, $title);
+        $this->elementStart('channel');
+        $this->element('title', null, $title);
 
-        common_element('link', null, $link);
-        common_element('description', null, $subtitle);
-        common_element('language', null, 'en-us');
-        common_element('ttl', null, '40');
+        $this->element('link', null, $link);
+        $this->element('description', null, $subtitle);
+        $this->element('language', null, 'en-us');
+        $this->element('ttl', null, '40');
 
         if (is_array($message)) {
             foreach ($message as $m) {
@@ -256,7 +256,7 @@ class Twitapidirect_messagesAction extends TwitterapiAction
             }
         }
 
-        common_element_end('channel');
+        $this->elementEnd('channel');
         $this->end_twitter_rss();
 
     }
@@ -266,12 +266,12 @@ class Twitapidirect_messagesAction extends TwitterapiAction
 
         $this->init_document('atom');
 
-        common_element('title', null, $title);
+        $this->element('title', null, $title);
         $siteserver = common_config('site', 'server');
-        common_element('id', null, "tag:$siteserver,2008:DirectMessage");
-        common_element('link', array('href' => $link, 'rel' => 'alternate', 'type' => 'text/html'), null);
-        common_element('updated', null, common_date_iso8601(strftime('%c')));
-        common_element('subtitle', null, $subtitle);
+        $this->element('id', null, "tag:$siteserver,2008:DirectMessage");
+        $this->element('link', array('href' => $link, 'rel' => 'alternate', 'type' => 'text/html'), null);
+        $this->element('updated', null, common_date_iso8601(strftime('%c')));
+        $this->element('subtitle', null, $subtitle);
 
         if (is_array($message)) {
             foreach ($message as $m) {

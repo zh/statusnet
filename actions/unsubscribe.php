@@ -24,7 +24,7 @@ class UnsubscribeAction extends Action
     {
         parent::handle($args);
         if (!common_logged_in()) {
-            common_user_error(_('Not logged in.'));
+            $this->clientError(_('Not logged in.'));
             return;
         }
 
@@ -40,40 +40,40 @@ class UnsubscribeAction extends Action
         $token = $this->trimmed('token');
 
         if (!$token || $token != common_session_token()) {
-            $this->client_error(_('There was a problem with your session token. Try again, please.'));
+            $this->clientError(_('There was a problem with your session token. Try again, please.'));
             return;
         }
 
         $other_id = $this->arg('unsubscribeto');
 
         if (!$other_id) {
-            $this->client_error(_('No profile id in request.'));
+            $this->clientError(_('No profile id in request.'));
             return;
         }
 
         $other = Profile::staticGet('id', $other_id);
 
         if (!$other_id) {
-            $this->client_error(_('No profile with that id.'));
+            $this->clientError(_('No profile with that id.'));
             return;
         }
 
         $result = subs_unsubscribe_to($user, $other);
 
         if ($result != true) {
-            common_user_error($result);
+            $this->clientError($result);
             return;
         }
 
         if ($this->boolean('ajax')) {
             common_start_html('text/xml;charset=utf-8', true);
-            common_element_start('head');
-            common_element('title', null, _('Unsubscribed'));
-            common_element_end('head');
-            common_element_start('body');
+            $this->elementStart('head');
+            $this->element('title', null, _('Unsubscribed'));
+            $this->elementEnd('head');
+            $this->elementStart('body');
             common_subscribe_form($other);
-            common_element_end('body');
-            common_element_end('html');
+            $this->elementEnd('body');
+            $this->elementEnd('html');
         } else {
             common_redirect(common_local_url('subscriptions', array('nickname' =>
                                                                     $user->nickname)));

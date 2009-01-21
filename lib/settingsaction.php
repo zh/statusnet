@@ -1,9 +1,12 @@
 <?php
-/*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+/**
+ * Laconica, the distributed open-source microblogging tool
  *
- * This program is free software: you can redistribute it and/or modify
+ * Base class for settings actions
+ *
+ * PHP version 5
+ *
+ * LICENCE: This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -15,125 +18,133 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Settings
+ * @package   Laconica
+ * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @copyright 2008-2009 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
+
+/**
+ * Base class for settings group of actions
+ *
+ * @category Settings
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://laconi.ca/
+ *
+ * @see      Widget
+ */
 
 class SettingsAction extends Action
 {
+    /**
+     * A message for the user.
+     */
+
+    var $msg = null;
+
+    /**
+     * Whether the message is a good one or a bad one.
+     */
+
+    var $success = false;
+
+    /**
+     * Handle input and output a page
+     *
+     * @param array $args $_REQUEST arguments
+     *
+     * @return void
+     */
 
     function handle($args)
     {
         parent::handle($args);
         if (!common_logged_in()) {
-            common_user_error(_('Not logged in.'));
+            $this->clientError(_('Not logged in.'));
             return;
         } else if (!common_is_real_login()) {
-            # Cookie theft means that automatic logins can't
-            # change important settings or see private info, and
-            # _all_ our settings are important
-            common_set_returnto($this->self_url());
+            // Cookie theft means that automatic logins can't
+            // change important settings or see private info, and
+            // _all_ our settings are important
+            common_set_returnto($this->selfUrl());
             common_redirect(common_local_url('login'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->handle_post();
+            $this->handlePost();
         } else {
-            $this->show_form();
+            $this->showForm();
         }
     }
 
-    # override!
-    function handle_post()
+    /**
+     * Handle a POST request
+     *
+     * @return boolean success flag
+     */
+
+    function handlePost()
     {
         return false;
     }
 
-    function show_form($msg=null, $success=false)
+    /**
+     * show the settings form
+     *
+     * @param string $msg     an extra message for the user
+     * @param string $success good message or bad message?
+     *
+     * @return void
+     */
+
+    function showForm($msg=null, $success=false)
     {
-        return false;
+        $this->msg     = $msg;
+        $this->success = $success;
+
+        $this->showPage();
     }
 
-    function message($msg, $success)
-    {
-        if ($msg) {
-            common_element('div', ($success) ? 'success' : 'error',
-                           $msg);
-        }
-    }
+    /**
+     * show human-readable instructions for the page
+     *
+     * @return void
+     */
 
-    function form_header($title, $msg=NULL, $success=false) 
+    function showPageNotice()
     {
-        common_show_header($title,
-                           array($this, 'show_header'),
-                           array($msg, $success),
-                           array($this, 'show_top'));
-    }
-
-    function show_header() 
-    {
-        common_element('link', array('rel' => 'stylesheet',
-                                     'type' => 'text/css',
-                                     'href' => common_path('js/jcrop/jquery.Jcrop.css?version='.LACONICA_VERSION),
-                                     'media' => 'screen, projection, tv'));
-        common_element('script', array('type' => 'text/javascript',
-                                       'src' => common_path('js/jcrop/jquery.Jcrop.pack.js')));
-        common_element('script', array('type' => 'text/javascript',
-                                       'src' => common_path('js/jcrop/jquery.Jcrop.go.js')));
-    }
-
-    function show_top($arr)
-    {
-        $msg = $arr[0];
-        $success = $arr[1];
-        if ($msg) {
-            $this->message($msg, $success);
+        if ($this->msg) {
+            $this->element('div', ($this->success) ? 'success' : 'error',
+                           $this->msg);
         } else {
-            $inst = $this->get_instructions();
+            $inst   = $this->getInstructions();
             $output = common_markup_to_html($inst);
-            common_element_start('div', 'instructions');
-            common_raw($output);
-            common_element_end('div');
+
+            $this->elementStart('div', 'instructions');
+            $this->raw($output);
+            $this->elementEnd('div');
         }
-        $this->settings_menu();
     }
 
-    function settings_menu()
+    /**
+     * instructions recipe for sub-classes
+     *
+     * Subclasses should override this to return readable instructions. They'll
+     * be processed by common_markup_to_html().
+     *
+     * @return string instructions text
+     */
+
+    function getInstructions()
     {
-        # action => array('prompt', 'title')
-        $menu =
-          array('profilesettings' =>
-                array(_('Profile'),
-                      _('Change your profile settings')),
-                'emailsettings' =>
-                array(_('Email'),
-                      _('Change email handling')),
-                'openidsettings' =>
-                array(_('OpenID'),
-                      _('Add or remove OpenIDs')),
-                'smssettings' =>
-                array(_('SMS'),
-                      _('Updates by SMS')),
-                'imsettings' =>
-                array(_('IM'),
-                      _('Updates by instant messenger (IM)')),
-                'twittersettings' =>
-                array(_('Twitter'),
-                      _('Twitter integration options')),
-                'othersettings' =>
-                array(_('Other'),
-                      _('Other options')));
-        
-        $action = $this->trimmed('action');
-        common_element_start('ul', array('id' => 'nav_views'));
-        foreach ($menu as $menuaction => $menudesc) {
-            if ($menuaction == 'imsettings' &&
-                !common_config('xmpp', 'enabled')) {
-                continue;
-            }
-            common_menu_item(common_local_url($menuaction),
-                    $menudesc[0],
-                    $menudesc[1],
-                    $action == $menuaction);
-        }
-        common_element_end('ul');
+        return '';
     }
+
 }

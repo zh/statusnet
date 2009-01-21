@@ -32,7 +32,7 @@ class TwitapiblocksAction extends TwitterapiAction
         $blockee = $this->get_user($apidata['api_arg'], $apidata);
 
         if (!$blockee) {
-            $this->client_error('Not Found', 404, $apidata['content-type']);
+            $this->clientError('Not Found', 404, $apidata['content-type']);
             return;
         }
 
@@ -44,7 +44,7 @@ class TwitapiblocksAction extends TwitterapiAction
             $this->show_profile($blockee, $type);
             $this->end_document($type);
         } else {
-            common_server_error(_('Block user failed.'));
+            $this->serverError(_('Block user failed.'));
         }
     }
 
@@ -54,7 +54,7 @@ class TwitapiblocksAction extends TwitterapiAction
         $blockee = $this->get_user($apidata['api_arg'], $apidata);
 
         if (!$blockee) {
-            $this->client_error('Not Found', 404, $apidata['content-type']);
+            $this->clientError('Not Found', 404, $apidata['content-type']);
             return;
         }
 
@@ -66,7 +66,7 @@ class TwitapiblocksAction extends TwitterapiAction
             $this->show_profile($blockee, $type);
             $this->end_document($type);
         } else {
-            common_server_error(_('Unblock user failed.'));
+            $this->serverError(_('Unblock user failed.'));
         }
     }
 }

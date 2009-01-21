@@ -44,3 +44,4 @@ document._importNode = function(node, allChildren) {
 			break;
 	}
 };
+

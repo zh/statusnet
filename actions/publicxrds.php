@@ -26,7 +26,7 @@ require_once(INSTALLDIR.'/lib/openid.php');
 class PublicxrdsAction extends Action
 {
 
-    function is_readonly()
+    function isReadOnly()
     {
         return true;
     }
@@ -39,45 +39,45 @@ class PublicxrdsAction extends Action
         header('Content-Type: application/xrds+xml');
 
         common_start_xml();
-        common_element_start('XRDS', array('xmlns' => 'xri://$xrds'));
+        $this->elementStart('XRDS', array('xmlns' => 'xri://$xrds'));
 
-        common_element_start('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
+        $this->elementStart('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
                                           'xmlns:simple' => 'http://xrds-simple.net/core/1.0',
                                           'version' => '2.0'));
 
-        common_element('Type', null, 'xri://$xrds*simple');
+        $this->element('Type', null, 'xri://$xrds*simple');
 
         foreach (array('finishopenidlogin', 'finishaddopenid', 'finishimmediate') as $finish) {
             $this->show_service(Auth_OpenID_RP_RETURN_TO_URL_TYPE,
                                 common_local_url($finish));
         }
 
-        common_element_end('XRD');
+        $this->elementEnd('XRD');
 
-        common_element_end('XRDS');
+        $this->elementEnd('XRDS');
         common_end_xml();
     }
 
     function show_service($type, $uri, $params=null, $sigs=null, $localId=null)
     {
-        common_element_start('Service');
+        $this->elementStart('Service');
         if ($uri) {
-            common_element('URI', null, $uri);
+            $this->element('URI', null, $uri);
         }
-        common_element('Type', null, $type);
+        $this->element('Type', null, $type);
         if ($params) {
             foreach ($params as $param) {
-                common_element('Type', null, $param);
+                $this->element('Type', null, $param);
             }
         }
         if ($sigs) {
             foreach ($sigs as $sig) {
-                common_element('Type', null, $sig);
+                $this->element('Type', null, $sig);
             }
         }
         if ($localId) {
-            common_element('LocalID', null, $localId);
+            $this->element('LocalID', null, $localId);
         }
-        common_element_end('Service');
+        $this->elementEnd('Service');
     }
 }

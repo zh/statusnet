@@ -1,9 +1,12 @@
 <?php
-/*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+/**
+ * Laconica, the distributed open-source microblogging tool
  *
- * This program is free software: you can redistribute it and/or modify
+ * Base class for RSS 1.0 feed actions
+ *
+ * PHP version 5
+ *
+ * LICENCE: This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -15,6 +18,14 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Mail
+ * @package   Laconica
+ * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @author    Earle Martin <earle@downlode.org>
+ * @copyright 2008-9 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
  */
 
 if (!defined('LACONICA')) { exit(1); }
@@ -23,35 +34,84 @@ define('DEFAULT_RSS_LIMIT', 48);
 
 class Rss10Action extends Action
 {
-
     # This will contain the details of each feed item's author and be used to generate SIOC data.
+    
     var $creators = array();
+    var $limit = DEFAULT_RSS_LIMIT;
+    
+    /**
+     * Constructor
+     *
+     * Just wraps the Action constructor.
+     *
+     * @param string  $output URI to output to, default = stdout
+     * @param boolean $indent Whether to indent output, default true
+     *
+     * @see Action::__construct
+     */
 
-    function is_readonly()
+    function __construct($output='php://output', $indent=true)
+    {
+        parent::__construct($output, $indent);
+    }
+
+    /**
+     * Do we need to write to the database?
+     * 
+     * @return boolean true
+     */
+    
+    function isReadonly()
     {
         return true;
     }
 
+    /**
+     * Read arguments and initialize members
+     * 
+     * @param array $args Arguments from $_REQUEST
+     * @return boolean success
+     */
+    
+    function prepare($args)
+    {
+	$this->limit = (int) $this->trimmed('limit');
+	if ($this->limit == 0) {
+	    $this->limit = DEFAULT_RSS_LIMIT;
+	}
+	return true;
+    }
+	
+    /**
+     * Handle a request
+     * 
+     * @param array $args Arguments from $_REQUEST
+     * 
+     * @return void
+     */
+    
     function handle($args)
     {
         parent::handle($args);
-        $limit = (int) $this->trimmed('limit');
-        if ($limit == 0) {
-            $limit = DEFAULT_RSS_LIMIT;
-        }
         $this->show_rss($limit);
     }
 
-    function init()
-    {
-        return true;
-    }
-
-    function get_notices()
+    /**
+     * Get the notices to output in this stream
+     * 
+     * @return array an array of Notice objects sorted in reverse chron
+     */
+    
+    function getNotices()
     {
         return array();
     }
 
+    /**
+     * Get a description of the channel
+     * 
+     * Returns an array with the following 
+     * @return array 
     function get_channel()
     {
         return array('url' => '',
@@ -67,11 +127,6 @@ class Rss10Action extends Action
 
     function show_rss($limit=0)
     {
-
-        if (!$this->init()) {
-            return;
-        }
-
         $notices = $this->get_notices($limit);
 
         $this->init_rss();

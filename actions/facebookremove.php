@@ -19,7 +19,7 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-require_once(INSTALLDIR.'/lib/facebookaction.php');
+require_once INSTALLDIR.'/lib/facebookaction.php';
 
 class FacebookremoveAction extends FacebookAction
 {
@@ -53,7 +53,7 @@ class FacebookremoveAction extends FacebookAction
 
             if (!$result) {
                 common_log_db_error($flink, 'DELETE', __FILE__);
-                common_server_error(_('Couldn\'t remove Facebook user.'));
+                $this->serverError(_('Couldn\'t remove Facebook user.'));
                 return;
             }
 

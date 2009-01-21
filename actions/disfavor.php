@@ -19,6 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
+require_once INSTALLDIR.'/lib/favorform.php';
+
 class DisfavorAction extends Action
 {
 
@@ -28,7 +30,7 @@ class DisfavorAction extends Action
         parent::handle($args);
 
         if (!common_logged_in()) {
-            common_user_error(_('Not logged in.'));
+            $this->clientError(_('Not logged in.'));
             return;
         }
 
@@ -46,7 +48,7 @@ class DisfavorAction extends Action
         $token = $this->trimmed('token-'.$notice->id);
 
         if (!$token || $token != common_session_token()) {
-            $this->client_error(_("There was a problem with your session token. Try again, please."));
+            $this->clientError(_("There was a problem with your session token. Try again, please."));
             return;
         }
 
@@ -54,7 +56,7 @@ class DisfavorAction extends Action
         $fave->user_id = $this->id;
         $fave->notice_id = $notice->id;
         if (!$fave->find(true)) {
-            $this->client_error(_('This notice is not a favorite!'));
+            $this->clientError(_('This notice is not a favorite!'));
             return;
         }
 
@@ -62,21 +64,22 @@ class DisfavorAction extends Action
 
         if (!$result) {
             common_log_db_error($fave, 'DELETE', __FILE__);
-            $this->server_error(_('Could not delete favorite.'));
+            $this->serverError(_('Could not delete favorite.'));
             return;
         }
         
         $user->blowFavesCache();
 
         if ($this->boolean('ajax')) {
-            common_start_html('text/xml;charset=utf-8', true);
-            common_element_start('head');
-            common_element('title', null, _('Add to favorites'));
-            common_element_end('head');
-            common_element_start('body');
-            common_favor_form($notice);
-            common_element_end('body');
-            common_element_end('html');
+            $this->startHTML('text/xml;charset=utf-8', true);
+            $this->elementStart('head');
+            $this->element('title', null, _('Add to favorites'));
+            $this->elementEnd('head');
+            $this->elementStart('body');
+            $favor = new FavorForm($this, $notice);
+            $favor->show();
+            $this->elementEnd('body');
+            $this->elementEnd('html');
         } else {
             common_redirect(common_local_url('showfavorites',
                                              array('nickname' => $user->nickname)));

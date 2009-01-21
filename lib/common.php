@@ -79,7 +79,7 @@ $config =
         'license' =>
         array('url' => 'http://creativecommons.org/licenses/by/3.0/',
               'title' => 'Creative Commons Attribution 3.0',
-              'image' => 'http://i.creativecommons.org/l/by/3.0/88x31.png'),
+              'image' => 'http://i.creativecommons.org/l/by/3.0/80x15.png'),
         'mail' =>
         array('backend' => 'mail',
               'params' => null),
@@ -163,11 +163,17 @@ require_once(INSTALLDIR.'/lib/subs.php');
 require_once(INSTALLDIR.'/lib/Shorturl_api.php');
 require_once(INSTALLDIR.'/lib/twitter.php');
 
+// XXX: other formats here
+
+define('NICKNAME_FMT', VALIDATE_NUM.VALIDATE_ALPHA_LOWER);
+
 function __autoload($class)
 {
     if ($class == 'OAuthRequest') {
         require_once('OAuth.php');
     } else if (file_exists(INSTALLDIR.'/classes/' . $class . '.php')) {
         require_once(INSTALLDIR.'/classes/' . $class . '.php');
+    } else if (file_exists(INSTALLDIR.'/lib/' . strtolower($class) . '.php')) {
+        require_once(INSTALLDIR.'/lib/' . strtolower($class) . '.php');
     }
 }

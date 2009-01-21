@@ -17,10 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once(INSTALLDIR.'/extlib/facebook/facebook.php');
-require_once(INSTALLDIR.'/lib/noticelist.php');
+require_once INSTALLDIR.'/extlib/facebook/facebook.php';
+require_once INSTALLDIR.'/lib/noticelist.php';
 
 define("FACEBOOK_SERVICE", 2); // Facebook is foreign_service ID 2
+define("FACEBOOK_NOTICE_PREFIX", 1);
+define("FACEBOOK_PROMPTED_UPDATE_PREF", 2);
 
 // Gets all the notices from users with a Facebook link since a given ID
 function get_facebook_notices($since)
@@ -42,7 +44,7 @@ function get_facebook()
     return new Facebook($apikey, $secret);
 }
 
-function start_fbml($indent = true)
+function startFBML($indent = true)
 {
     global $xw;
     $xw = new XMLWriter();
@@ -94,7 +96,7 @@ function update_profile_box($facebook, $fbuid, $user, $notice)
     $xw = new XMLWriter();
     $xw->openMemory();
 
-    $item = new NoticeListItem($notice);
+    $item = new FacebookNoticeListItem($notice);
     $item->show();
 
     $fbml = "<fb:wide>$style " . $xw->outputMemory(false) . "</fb:wide>";
@@ -104,3 +106,182 @@ function update_profile_box($facebook, $fbuid, $user, $notice)
 
     $facebook->api_client->profile_setFBML(null, $fbuid, $fbml, null, null, $fbml_main);
 }
+
+function getFacebookBaseCSS()
+{
+    # Add a timestamp to the CSS file so Facebook cache wont ignore our changes
+    $ts = filemtime(INSTALLDIR.'/theme/base/css/facebookapp.base.css');
+    $cssurl = INSTALLDIR.'/theme/base/css/facebookapp.base.css' . "?ts=$ts";
+    return $cssurl;
+}
+
+function getFacebookThemeCSS() 
+{
+    # Add a timestamp to the CSS file so Facebook cache wont ignore our changes
+    $ts = filemtime(theme_file('css/facebookapp.theme.css'));
+    $cssurl = theme_path('css/facebookapp.theme.css') . "?ts=$ts";
+    return $cssurl;   
+}
+
+function getFacebookJS() {
+
+    # Add a timestamp to the FBJS file so Facebook cache wont ignore our changes
+    $ts = filemtime(INSTALLDIR.'/js/facebookapp.js');
+    $jsurl = common_path('js/facebookapp.js') . "?ts=$ts";
+    return $jsurl;
+}
+
+
+// Does a little before-after block for next/prev page
+
+function facebookPagination($have_before, $have_after, $page, $action, $args=null)
+{
+
+    if ($have_before || $have_after) {
+        common_element_start('div', array('id' => 'pagination'));
+        common_element_start('ul', array('id' => 'nav_pagination'));
+    }
+
+    if ($have_before) {
+        $pargs = array('page' => $page-1);
+        $newargs = ($args) ? array_merge($args,$pargs) : $pargs;
+
+        common_element_start('li', 'before');
+        common_element('a', array('href' => "index.php?page=$newargs[page]", 'rel' => 'prev'),
+                       _('« After'));
+        common_element_end('li');
+    }
+
+    if ($have_after) {
+        $pargs = array('page' => $page+1);
+        $newargs = ($args) ? array_merge($args,$pargs) : $pargs;
+        common_element_start('li', 'after');
+        common_element('a', array('href' => "index.php?page=$newargs[page]", 'rel' => 'next'),
+                       _('Before »'));
+        common_element_end('li');
+    }
+
+    if ($have_before || $have_after) {
+        common_element_end('ul');
+        common_element_end('div');
+    }
+}
+
+
+class FacebookNoticeList extends NoticeList
+{
+    /**
+     * show the list of notices
+     *
+     * "Uses up" the stream by looping through it. So, probably can't
+     * be called twice on the same list.
+     *
+     * @return int count of notices listed.
+     */
+
+    function show()
+    {
+        common_element_start('div', array('id' =>'notices_primary'));
+        common_element('h2', null, _('Notices'));
+        common_element_start('ul', array('class' => 'notices'));
+
+        $cnt = 0;
+
+        while ($this->notice->fetch() && $cnt <= NOTICES_PER_PAGE) {
+            $cnt++;
+
+            if ($cnt > NOTICES_PER_PAGE) {
+                break;
+            }
+
+            $item = $this->newListItem($this->notice);
+            $item->show();
+        }
+
+        common_element_end('ul');
+        common_element_end('div');
+
+        return $cnt;
+    }
+
+    /**
+     * returns a new list item for the current notice
+     *
+     * Overridden to return a Facebook specific list item.
+     *
+     * @param Notice $notice the current notice
+     *
+     * @return FacebookNoticeListItem a list item for displaying the notice
+     * formatted for display in the Facebook App.
+     */
+
+    function newListItem($notice)
+    {
+        return new FacebookNoticeListItem($notice);
+    }
+
+}
+
+class FacebookNoticeListItem extends NoticeListItem
+{
+    /**
+     * recipe function for displaying a single notice in the Facebook App.
+     *
+     * Overridden to strip out some of the controls that we don't
+     * want to be available.
+     *
+     * @return void
+     */
+
+    function show()
+    {
+        $this->showStart();
+
+        common_element_start('div', 'entry-title');
+        $this->showAuthor();
+        $this->showContent();
+        common_element_end('div');
+
+        common_element_start('div', 'entry-content');
+        $this->showNoticeLink();
+        $this->showNoticeSource();
+        $this->showReplyTo();
+        common_element_end('div');
+
+        $this->showEnd();
+    }
+
+    function showStart()
+    {
+        // XXX: RDFa
+        // TODO: add notice_type class e.g., notice_video, notice_image
+        common_element_start('li', array('class' => 'hentry notice',
+                                         'id' => 'notice-' . $this->notice->id));
+    }
+
+    function showNoticeLink()
+    {
+        $noticeurl = common_local_url('shownotice',
+                                      array('notice' => $this->notice->id));
+        // XXX: we need to figure this out better. Is this right?
+        if (strcmp($this->notice->uri, $noticeurl) != 0 &&
+            preg_match('/^http/', $this->notice->uri)) {
+            $noticeurl = $this->notice->uri;
+        }
+
+        common_element_start('dl', 'timestamp');
+        common_element('dt', null, _('Published'));
+        common_element_start('dd', null);
+        common_element_start('a', array('rel' => 'bookmark',
+                                        'href' => $noticeurl));
+        $dt = common_date_iso8601($this->notice->created);
+        common_element('abbr', array('class' => 'published',
+                                     'title' => $dt),
+        common_date_string($this->notice->created));
+        common_element_end('a');
+        common_element_end('dd');
+        common_element_end('dl');
+    }
+
+}
+

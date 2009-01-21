@@ -26,7 +26,7 @@ define('BOTH', 0);
 class FoafAction extends Action
 {
 
-    function is_readonly()
+    function isReadOnly()
     {
         return true;
     }
@@ -40,21 +40,21 @@ class FoafAction extends Action
         $user = User::staticGet('nickname', $nickname);
 
         if (!$user) {
-            common_user_error(_('No such user.'), 404);
+            $this->clientError(_('No such user.'), 404);
             return;
         }
 
         $profile = $user->getProfile();
 
         if (!$profile) {
-            common_server_error(_('User has no profile.'), 500);
+            $this->serverError(_('User has no profile.'), 500);
             return;
         }
 
         header('Content-Type: application/rdf+xml');
 
         common_start_xml();
-        common_element_start('rdf:RDF', array('xmlns:rdf' =>
+        $this->elementStart('rdf:RDF', array('xmlns:rdf' =>
                                               'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
                                               'xmlns:rdfs' =>
                                               'http://www.w3.org/2000/01/rdf-schema#',
@@ -67,25 +67,25 @@ class FoafAction extends Action
         $this->show_ppd('', $user->uri);
 
         # XXX: might not be a person
-        common_element_start('Person', array('rdf:about' =>
+        $this->elementStart('Person', array('rdf:about' =>
                                              $user->uri));
-        common_element('mbox_sha1sum', null, sha1('mailto:' . $user->email));
+        $this->element('mbox_sha1sum', null, sha1('mailto:' . $user->email));
         if ($profile->fullname) {
-            common_element('name', null, $profile->fullname);
+            $this->element('name', null, $profile->fullname);
         }
         if ($profile->homepage) {
-            common_element('homepage', array('rdf:resource' => $profile->homepage));
+            $this->element('homepage', array('rdf:resource' => $profile->homepage));
         }
         if ($profile->bio) {
-            common_element('rdfs:comment', null, $profile->bio);
+            $this->element('rdfs:comment', null, $profile->bio);
         }
         # XXX: more structured location data
         if ($profile->location) {
-            common_element_start('based_near');
-            common_element_start('geo:SpatialThing');
-            common_element('name', null, $profile->location);
-            common_element_end('geo:SpatialThing');
-            common_element_end('based_near');
+            $this->elementStart('based_near');
+            $this->elementStart('geo:SpatialThing');
+            $this->element('name', null, $profile->location);
+            $this->elementEnd('geo:SpatialThing');
+            $this->elementEnd('based_near');
         }
 
         $this->show_microblogging_account($profile, common_root_url());
@@ -93,18 +93,18 @@ class FoafAction extends Action
         $avatar = $profile->getOriginalAvatar();
 
         if ($avatar) {
-            common_element_start('img');
-            common_element_start('Image', array('rdf:about' => $avatar->url));
+            $this->elementStart('img');
+            $this->elementStart('Image', array('rdf:about' => $avatar->url));
             foreach (array(AVATAR_PROFILE_SIZE, AVATAR_STREAM_SIZE, AVATAR_MINI_SIZE) as $size) {
                 $scaled = $profile->getAvatar($size);
                 if (!$scaled->original) { # sometimes the original has one of our scaled sizes
-                    common_element_start('thumbnail');
-                    common_element('Image', array('rdf:about' => $scaled->url));
-                    common_element_end('thumbnail');
+                    $this->elementStart('thumbnail');
+                    $this->element('Image', array('rdf:about' => $scaled->url));
+                    $this->elementEnd('thumbnail');
                 }
             }
-            common_element_end('Image');
-            common_element_end('img');
+            $this->elementEnd('Image');
+            $this->elementEnd('img');
         }
 
         # Get people user is subscribed to
@@ -126,7 +126,7 @@ class FoafAction extends Action
                     common_debug('Got a bad subscription: '.print_r($sub,true));
                     continue;
                 }
-                common_element('knows', array('rdf:resource' => $other->uri));
+                $this->element('knows', array('rdf:resource' => $other->uri));
                 $person[$other->uri] = array(LISTENEE, $other);
             }
         }
@@ -156,7 +156,7 @@ class FoafAction extends Action
             }
         }
 
-        common_element_end('Person');
+        $this->elementEnd('Person');
 
         foreach ($person as $uri => $p) {
             $foaf_url = null;
@@ -164,44 +164,44 @@ class FoafAction extends Action
                 $foaf_url = common_local_url('foaf', array('nickname' => $p[1]->nickname));
             }
             $profile = Profile::staticGet($p[1]->id);
-            common_element_start('Person', array('rdf:about' => $uri));
+            $this->elementStart('Person', array('rdf:about' => $uri));
             if ($p[0] == LISTENER || $p[0] == BOTH) {
-                common_element('knows', array('rdf:resource' => $user->uri));
+                $this->element('knows', array('rdf:resource' => $user->uri));
             }
             $this->show_microblogging_account($profile, ($p[1] instanceof User) ?
                                               common_root_url() : null);
             if ($foaf_url) {
-                common_element('rdfs:seeAlso', array('rdf:resource' => $foaf_url));
+                $this->element('rdfs:seeAlso', array('rdf:resource' => $foaf_url));
             }
-            common_element_end('Person');
+            $this->elementEnd('Person');
             if ($foaf_url) {
                 $this->show_ppd($foaf_url, $uri);
             }
         }
 
-        common_element_end('rdf:RDF');
+        $this->elementEnd('rdf:RDF');
     }
 
     function show_ppd($foaf_url, $person_uri)
     {
-        common_element_start('PersonalProfileDocument', array('rdf:about' => $foaf_url));
-        common_element('maker', array('rdf:resource' => $person_uri));
-        common_element('primaryTopic', array('rdf:resource' => $person_uri));
-        common_element_end('PersonalProfileDocument');
+        $this->elementStart('PersonalProfileDocument', array('rdf:about' => $foaf_url));
+        $this->element('maker', array('rdf:resource' => $person_uri));
+        $this->element('primaryTopic', array('rdf:resource' => $person_uri));
+        $this->elementEnd('PersonalProfileDocument');
     }
 
     function show_microblogging_account($profile, $service=null)
     {
         # Their account
-        common_element_start('holdsAccount');
-        common_element_start('OnlineAccount');
+        $this->elementStart('holdsAccount');
+        $this->elementStart('OnlineAccount');
         if ($service) {
-            common_element('accountServiceHomepage', array('rdf:resource' =>
+            $this->element('accountServiceHomepage', array('rdf:resource' =>
                                                            $service));
         }
-        common_element('accountName', null, $profile->nickname);
-        common_element('homepage', array('rdf:resource' => $profile->profileurl));
-        common_element_end('OnlineAccount');
-        common_element_end('holdsAccount');
+        $this->element('accountName', null, $profile->nickname);
+        $this->element('homepage', array('rdf:resource' => $profile->profileurl));
+        $this->elementEnd('OnlineAccount');
+        $this->elementEnd('holdsAccount');
     }
 }

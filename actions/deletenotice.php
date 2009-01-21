@@ -51,24 +51,24 @@ class DeletenoticeAction extends DeleteAction
 
         common_show_header($this->get_title(), array($this, 'show_header'), $error,
                            array($this, 'show_top'));
-        common_element_start('form', array('id' => 'notice_delete_form',
+        $this->elementStart('form', array('id' => 'notice_delete_form',
                                    'method' => 'post',
                                    'action' => common_local_url('deletenotice')));
-        common_hidden('token', common_session_token());
-        common_hidden('notice', $this->trimmed('notice'));
-        common_element_start('p');
-        common_element('span', array('id' => 'confirmation_text'), _('Are you sure you want to delete this notice?'));
+        $this->hidden('token', common_session_token());
+        $this->hidden('notice', $this->trimmed('notice'));
+        $this->elementStart('p');
+        $this->element('span', array('id' => 'confirmation_text'), _('Are you sure you want to delete this notice?'));
 
-        common_element('input', array('id' => 'submit_no',
+        $this->element('input', array('id' => 'submit_no',
                           'name' => 'submit',
                           'type' => 'submit',
                           'value' => _('No')));
-        common_element('input', array('id' => 'submit_yes',
+        $this->element('input', array('id' => 'submit_yes',
                           'name' => 'submit',
                           'type' => 'submit',
                           'value' => _('Yes')));
-        common_element_end('p');
-        common_element_end('form');
+        $this->elementEnd('p');
+        $this->elementEnd('form');
         common_show_footer();
     }
 

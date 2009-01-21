@@ -49,6 +49,23 @@ define('MESSAGES_PER_PAGE', 20);
 
 class MailboxAction extends PersonalAction
 {
+    var $page = null;
+
+    function prepare($args) 
+    {
+        parent::prepare($args);
+
+        $nickname   = common_canonical_nickname($this->arg('nickname'));
+        $this->user = User::staticGet('nickname', $nickname);
+        $this->page = $this->trimmed('page');
+
+        if (!$this->page) {
+            $this->page = 1;
+        }
+
+        return true;
+    }
+
     /**
      * output page based on arguments
      *
@@ -61,134 +78,42 @@ class MailboxAction extends PersonalAction
     {
         parent::handle($args);
 
-        $nickname = common_canonical_nickname($this->arg('nickname'));
-
-        $user = User::staticGet('nickname', $nickname);
-
-        if (!$user) {
-            $this->client_error(_('No such user.'), 404);
+        if (!$this->user) {
+            $this->clientError(_('No such user.'), 404);
             return;
         }
 
         $cur = common_current_user();
 
-        if (!$cur || $cur->id != $user->id) {
-            $this->client_error(_('Only the user can read their own mailboxes.'),
-                                403);
+        if (!$cur || $cur->id != $this->user->id) {
+            $this->clientError(_('Only the user can read their own mailboxes.'),
+                403);
             return;
         }
 
-        $profile = $user->getProfile();
-
-        if (!$profile) {
-            $this->server_error(_('User has no profile.'));
-            return;
-        }
-
-        $page = $this->trimmed('page');
-
-        if (!$page) {
-            $page = 1;
-        }
-
-        $this->showPage($user, $page);
+        $this->showPage();
     }
 
-    /**
-     * returns the title of the page
-     *
-     * @param User $user current user
-     * @param int  $page current page
-     *
-     * @return string localised title of the page
-     */
-
-    function getTitle($user, $page)
+    function showLocalNav()
     {
-        return '';
+        $nav = new PersonalGroupNav($this);
+        $nav->show();
     }
 
-    /**
-     * instructions for using this page
-     *
-     * @return string localised instructions for using the page
-     */
-
-    function getInstructions()
+    function showNoticeForm()
     {
-        return '';
+        $message_form = new MessageForm($this);
+        $message_form->show();
     }
 
-    /**
-     * do structured output for the "instructions" are of the page
-     *
-     * @return void
-     */
-
-    function showTop()
+    function showContent()
     {
-        $cur = common_current_user();
-
-        common_message_form(null, $cur, null);
-
-        $this->views_menu();
-    }
-
-    /**
-     * show a full page of output
-     *
-     * @param User $user The current user
-     * @param int  $page The page the user is on
-     *
-     * @return void
-     */
-
-    function showPage($user, $page)
-    {
-        common_show_header($this->getTitle($user, $page),
-                           null, null,
-                           array($this, 'showTop'));
-
-        $this->showBox($user, $page);
-
-        common_show_footer();
-    }
-
-    /**
-     * retrieve the messages appropriate for this mailbox
-     *
-     * Does a query for the right messages
-     *
-     * @param User $user The current user
-     * @param int  $page The page the user is on
-     *
-     * @return Message data object with stream for messages
-     */
-
-    function getMessages($user, $page)
-    {
-        return null;
-    }
-
-    /**
-     * show the messages for a mailbox in list format
-     *
-     * Includes the pagination links (before, after).
-     *
-     * @param User $user The current user
-     * @param int  $page The page the user is on
-     *
-     * @return void
-     */
-
-    function showBox($user, $page)
-    {
-        $message = $this->getMessages($user, $page);
+        $message = $this->getMessages();
 
         if ($message) {
 
             $cnt = 0;
-            common_element_start('ul', array('id' => 'messages'));
+            $this->elementStart('ul', array('id' => 'messages'));
 
             while ($message->fetch() && $cnt <= MESSAGES_PER_PAGE) {
                 $cnt++;
@@ -200,15 +125,20 @@ class MailboxAction extends PersonalAction
                 $this->showMessage($message);
             }
 
-            common_element_end('ul');
+            $this->elementEnd('ul');
 
-            common_pagination($page > 1, $cnt > MESSAGES_PER_PAGE,
-                              $page, $this->trimmed('action'),
-                              array('nickname' => $user->nickname));
+            $this->pagination($this->page > 1, $cnt > MESSAGES_PER_PAGE,
+                              $this->page, $this->trimmed('action'),
+                              array('nickname' => $this->user->nickname));
 
             $message->free();
             unset($message);
         }
+    }
+
+    function getMessages()
+    {
+        return null;
     }
 
     /**
@@ -229,6 +159,9 @@ class MailboxAction extends PersonalAction
     /**
      * show a single message in the list format
      *
+     * XXX: This needs to be extracted out into a MessageList similar
+     * to NoticeList.
+     *
      * @param Message $message the message to show
      *
      * @return void
@@ -236,14 +169,14 @@ class MailboxAction extends PersonalAction
 
     function showMessage($message)
     {
-        common_element_start('li', array('class' => 'message_single',
+        $this->elementStart('li', array('class' => 'message_single',
                                          'id' => 'message-' . $message->id));
 
         $profile = $this->getMessageProfile($message);
 
         $avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
-        common_element_start('a', array('href' => $profile->profileurl));
-        common_element('img', array('src' => ($avatar) ?
+        $this->elementStart('a', array('href' => $profile->profileurl));
+        $this->element('img', array('src' => ($avatar) ?
                                     common_avatar_display_url($avatar) :
                                     common_default_avatar(AVATAR_STREAM_SIZE),
                                     'class' => 'avatar stream',
@@ -252,14 +185,14 @@ class MailboxAction extends PersonalAction
                                     'alt' =>
                                     ($profile->fullname) ? $profile->fullname :
                                     $profile->nickname));
-        common_element_end('a');
-        common_element('a', array('href' => $profile->profileurl,
+        $this->elementEnd('a');
+        $this->element('a', array('href' => $profile->profileurl,
                                   'class' => 'nickname'),
                        $profile->nickname);
         // FIXME: URL, image, video, audio
-        common_element_start('p', array('class' => 'content'));
-        common_raw($message->rendered);
-        common_element_end('p');
+        $this->elementStart('p', array('class' => 'content'));
+        $this->raw($message->rendered);
+        $this->elementEnd('p');
 
         $messageurl = common_local_url('showmessage',
                                        array('message' => $message->id));
@@ -269,18 +202,72 @@ class MailboxAction extends PersonalAction
             preg_match('/^http/', $message->uri)) {
             $messageurl = $message->uri;
         }
-        common_element_start('p', 'time');
-        common_element('a', array('class' => 'permalink',
+        $this->elementStart('p', 'time');
+        $this->element('a', array('class' => 'permalink',
                                   'href' => $messageurl,
                                   'title' => common_exact_date($message->created)),
                        common_date_string($message->created));
         if ($message->source) {
-            common_text(_(' from '));
-            $this->source_link($message->source);
+            $this->text(_(' from '));
+            $this->showSource($message->source);
         }
 
-        common_element_end('p');
+        $this->elementEnd('p');
 
-        common_element_end('li');
+        $this->elementEnd('li');
     }
+
+    /**
+     * Show the page notice
+     *
+     * Shows instructions for the page
+     *
+     * @return void
+     */
+
+    function showPageNotice()
+    {
+        $instr  = $this->getInstructions();
+        $output = common_markup_to_html($instr);
+
+        $this->elementStart('div', 'instructions');
+        $this->raw($output);
+        $this->elementEnd('div');
+    }
+
+    /**
+     * Show the source of the message
+     *
+     * Returns either the name (and link) of the API client that posted the notice,
+     * or one of other other channels.
+     *
+     * @param string $source the source of the message 
+     *
+     * @return void
+     */
+
+    function showSource($source) 
+    {
+        $source_name = _($source);
+        switch ($source) {
+        case 'web':
+        case 'xmpp':
+        case 'mail':
+        case 'omb':
+        case 'api':
+            $this->element('span', 'noticesource', $source_name);
+            break;
+        default:
+            $ns = Notice_source::staticGet($source);
+            if ($ns) {
+                $this->element('a', array('href' => $ns->url),
+                               $ns->name);
+            } else {
+                $this->element('span', 'noticesource', $source_name);
+            }
+            break;
+        }
+        return;
+    }
+
 }

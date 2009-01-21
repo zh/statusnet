@@ -29,7 +29,7 @@ class TwitapiusersAction extends TwitterapiAction
         parent::handle($args);
 
         if (!in_array($apidata['content-type'], array('xml', 'json'))) {
-            common_user_error(_('API method not found!'), $code = 404);
+            $this->clientError(_('API method not found!'), $code = 404);
             return;
         }
 
@@ -44,7 +44,7 @@ class TwitapiusersAction extends TwitterapiAction
 
         if (!$user) {
             // XXX: Twitter returns a random(?) user instead of throwing and err! -- Zach
-            $this->client_error(_('Not found.'), 404, $apidata['content-type']);
+            $this->clientError(_('Not found.'), 404, $apidata['content-type']);
             return;
         }
 

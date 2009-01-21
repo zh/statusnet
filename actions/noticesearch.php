@@ -58,7 +58,7 @@ class NoticesearchAction extends SearchAction
         }
         if ($cnt > 0) {
             $terms = preg_split('/[\s,]+/', $q);
-            common_element_start('ul', array('id' => 'notices'));
+            $this->elementStart('ul', array('id' => 'notices'));
             for ($i = 0; $i < min($cnt, NOTICES_PER_PAGE); $i++) {
                 if ($notice->fetch()) {
                     $this->show_notice($notice, $terms);
@@ -67,9 +67,9 @@ class NoticesearchAction extends SearchAction
                     break;
                 }
             }
-            common_element_end('ul');
+            $this->elementEnd('ul');
         } else {
-            common_element('p', 'error', _('No results'));
+            $this->element('p', 'error', _('No results'));
         }
 
         common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
@@ -82,7 +82,7 @@ class NoticesearchAction extends SearchAction
             $q = $arr[0];
         }
         if ($q) {
-            common_element('link', array('rel' => 'alternate',
+            $this->element('link', array('rel' => 'alternate',
                                          'href' => common_local_url('noticesearchrss',
                                                                     array('q' => $q)),
                                          'type' => 'application/rss+xml',
@@ -97,62 +97,62 @@ class NoticesearchAction extends SearchAction
         $profile = $notice->getProfile();
         if (!$profile) {
             common_log_db_error($notice, 'SELECT', __FILE__);
-            $this->server_error(_('Notice without matching profile'));
+            $this->serverError(_('Notice without matching profile'));
             return;
         }
         # XXX: RDFa
-        common_element_start('li', array('class' => 'notice_single',
+        $this->elementStart('li', array('class' => 'notice_single',
                                           'id' => 'notice-' . $notice->id));
         $avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
-        common_element_start('a', array('href' => $profile->profileurl));
-        common_element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE),
+        $this->elementStart('a', array('href' => $profile->profileurl));
+        $this->element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE),
                                     'class' => 'avatar stream',
                                     'width' => AVATAR_STREAM_SIZE,
                                     'height' => AVATAR_STREAM_SIZE,
                                     'alt' =>
                                     ($profile->fullname) ? $profile->fullname :
                                     $profile->nickname));
-        common_element_end('a');
-        common_element('a', array('href' => $profile->profileurl,
+        $this->elementEnd('a');
+        $this->element('a', array('href' => $profile->profileurl,
                                   'class' => 'nickname'),
                        $profile->nickname);
         # FIXME: URL, image, video, audio
-        common_element_start('p', array('class' => 'content'));
+        $this->elementStart('p', array('class' => 'content'));
         if ($notice->rendered) {
-            common_raw($this->highlight($notice->rendered, $terms));
+            $this->raw($this->highlight($notice->rendered, $terms));
         } else {
             # XXX: may be some uncooked notices in the DB,
             # we cook them right now. This should probably disappear in future
             # versions (>> 0.4.x)
-            common_raw($this->highlight(common_render_content($notice->content, $notice), $terms));
+            $this->raw($this->highlight(common_render_content($notice->content, $notice), $terms));
         }
-        common_element_end('p');
+        $this->elementEnd('p');
         $noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
-        common_element_start('p', 'time');
-        common_element('a', array('class' => 'permalink',
+        $this->elementStart('p', 'time');
+        $this->element('a', array('class' => 'permalink',
                                   'href' => $noticeurl,
                                   'title' => common_exact_date($notice->created)),
                        common_date_string($notice->created));
         if ($notice->reply_to) {
             $replyurl = common_local_url('shownotice', array('notice' => $notice->reply_to));
-            common_text(' (');
-            common_element('a', array('class' => 'inreplyto',
+            $this->text(' (');
+            $this->element('a', array('class' => 'inreplyto',
                                       'href' => $replyurl),
                            _('in reply to...'));
-            common_text(')');
+            $this->text(')');
         }
-        common_element_start('a',
+        $this->elementStart('a',
                              array('href' => common_local_url('newnotice',
                                                               array('replyto' => $profile->nickname)),
                                    'onclick' => 'doreply("'.$profile->nickname.'"); return false',
                                    'title' => _('reply'),
                                    'class' => 'replybutton'));
-        common_hidden('posttoken', common_session_token());
+        $this->hidden('posttoken', common_session_token());
         
-        common_raw('&rarr;');
-        common_element_end('a');
-        common_element_end('p');
-        common_element_end('li');
+        $this->raw('&rarr;');
+        $this->elementEnd('a');
+        $this->elementEnd('p');
+        $this->elementEnd('li');
     }
 
     function highlight($text, $terms)

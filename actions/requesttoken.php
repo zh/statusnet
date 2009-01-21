@@ -24,7 +24,7 @@ require_once(INSTALLDIR.'/lib/omb.php');
 class RequesttokenAction extends Action
 {
     
-    function is_readonly()
+    function isReadOnly()
     {
         return false;
     }
@@ -39,7 +39,7 @@ class RequesttokenAction extends Action
             $token = $server->fetch_request_token($req);
             print $token;
         } catch (OAuthException $e) {
-            common_server_error($e->getMessage());
+            $this->serverError($e->getMessage());
         }
     }
 }

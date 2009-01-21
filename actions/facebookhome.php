@@ -19,7 +19,7 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-require_once(INSTALLDIR.'/lib/facebookaction.php');
+require_once INSTALLDIR.'/lib/facebookaction.php';
 
 class FacebookhomeAction extends FacebookAction
 {
@@ -34,9 +34,43 @@ class FacebookhomeAction extends FacebookAction
         // Check to see whether there's already a Facebook link for this user
         $flink = Foreign_link::getByForeignID($fbuid, FACEBOOK_SERVICE);
 
+        // If the user has opted not to initially allow the app to have
+        // Facebook status update permission, store that preference. Only
+        // promt the user the first time she uses the app
+        if ($this->arg('skip')) {
+            $facebook->api_client->data_setUserPreference(
+                FACEBOOK_PROMPTED_UPDATE_PREF, 'true');
+        }
+
         if ($flink) {
+
+            if ($_POST['submit'] == 'Send') {
+                $this->saveNewNotice($flink);
+                return;
+            }
+
+            $user = $flink->getUser();
+            common_set_user($user);
+
+            // If this is the first time the user has started the app
+            // prompt for Facebook status update permission
+            if (!$facebook->api_client->users_hasAppPermission('status_update')) {
+
+                if ($facebook->api_client->data_getUserPreference(
+                        FACEBOOK_PROMPTED_UPDATE_PREF) != 'true') {
+                    $this->getUpdatePermission();
+                    return;
+                }
+            }
+
+            // Use is authenticated and has already been prompted once for
+            // Facebook status update permission? Then show the main page
+            // of the app
             $this->showHome($flink, null);
+
         } else {
+
+            // User hasn't authenticated yet, prompt for creds
             $this->login($fbuid);
         }
 
@@ -71,8 +105,10 @@ class FacebookhomeAction extends FacebookAction
                 // XXX: Do some error handling here
 
                 $this->setDefaults();
+                //$this->showHome($flink, _('You can now use Identi.ca from Facebook!'));
 
-                $this->showHome($flink, _('You can now use Identi.ca from Facebook!'));
+                $this->getUpdatePermission();
+                return;
 
             } else {
                 $msg = _('Incorrect username or password.');
@@ -80,6 +116,7 @@ class FacebookhomeAction extends FacebookAction
         }
 
         $this->showLoginForm($msg);
+
     }
 
     function setDefaults()
@@ -87,7 +124,10 @@ class FacebookhomeAction extends FacebookAction
         $facebook = get_facebook();
 
         // A default prefix string for notices
-        $facebook->api_client->data_setUserPreference(1, 'dented: ');
+        $facebook->api_client->data_setUserPreference(
+            FACEBOOK_NOTICE_PREFIX, 'dented: ');
+        $facebook->api_client->data_setUserPreference(
+            FACEBOOK_PROMPTED_UPDATE_PREF, 'false');
     }
 
     function showHome($flink, $msg)
@@ -101,19 +141,16 @@ class FacebookhomeAction extends FacebookAction
         $notice = $user->getCurrentNotice();
         update_profile_box($facebook, $fbuid, $user, $notice);
 
+        $this->showHeader($msg);
+        $this->showNoticeForm($user);
+        $this->showNav('Home');
 
-        $this->show_header('Home');
+        echo $this->showNotices($user);
 
-        if ($msg) {
-            common_element('fb:success', array('message' => $msg));
-        }
-
-        echo $this->show_notices($user);
-
-        $this->show_footer();
+        $this->showFooter();
     }
 
-    function show_notices($user)
+    function showNotices($user)
     {
 
         $page = $this->trimmed('page');
@@ -123,16 +160,113 @@ class FacebookhomeAction extends FacebookAction
 
         $notice = $user->noticesWithFriends(($page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
 
-        $cnt = $this->show_notice_list($notice);
+        $cnt = $this->showNoticeList($notice);
 
-        common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
-                          $page, 'all', array('nickname' => $user->nickname));
+        facebookPagination($page > 1, $cnt > NOTICES_PER_PAGE,
+            $page, 'all', array('nickname' => $user->nickname));
     }
 
-    function show_notice_list($notice)
+    function showNoticeList($notice)
     {
-        $nl = new NoticeList($notice);
+        $nl = new FacebookNoticeList($notice);
         return $nl->show();
+    }
+
+    function getUpdatePermission() {
+
+        $facebook = get_facebook();
+        $fbuid = $facebook->require_login();
+
+        startFBML();
+
+        $this->showStylesheets();
+        $this->showScripts();
+
+        $this->showLogo();
+
+        $this->elementStart('div', array('class' => 'content'));
+
+        // Figure what the URL of our app is.
+        $app_props = $facebook->api_client->Admin_getAppProperties(
+                array('canvas_name', 'application_name'));
+        $app_url = 'http://apps.facebook.com/' . $app_props['canvas_name'] . '/index.php';
+        $app_name = $app_props['application_name'];
+
+        $instructions = sprintf(_('If you would like the %s app to automatically update ' .
+            'your Facebook status with your latest notice, you need ' .
+            'to give it permission.'), $app_name);
+
+        $this->elementStart('p');
+        $this->element('span', array('id' => 'permissions_notice'), $instructions);
+        $this->elementEnd('p');
+
+        $this->elementStart('form', array('method' => 'post',
+                                           'action' => $app_url,
+                                           'id' => 'facebook-skip-permissions'));
+
+        $this->elementStart('ul', array('id' => 'fb-permissions-list'));
+        $this->elementStart('li', array('id' => 'fb-permissions-item'));
+        $this->elementStart('fb:prompt-permission', array('perms' => 'status_update',
+            'next_fbjs' => 'document.setLocation(\'' . $app_url . '\')'));
+        $this->element('span', array('class' => 'facebook-button'),
+            _('Allow Identi.ca to update my Facebook status'));
+        $this->elementEnd('fb:prompt-permission');
+        $this->elementEnd('li');
+
+        $this->elementStart('li', array('id' => 'fb-permissions-item'));
+        common_submit('skip', _('Skip'));
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
+
+        $this->elementEnd('form');
+        $this->elementEnd('div');
+
+        common_end_xml();
+
+    }
+
+    function saveNewNotice($flink)
+    {
+
+        $user = $flink->getUser();
+
+        $content = $_POST['status_textarea'];
+
+        if (!$content) {
+            $this->showHome($flink, _('No content!'));
+            return;
+        } else {
+            $content_shortened = common_shorten_links($content);
+
+            if (mb_strlen($content_shortened) > 140) {
+                common_debug("Content = '$content_shortened'", __FILE__);
+                common_debug("mb_strlen(\$content) = " . mb_strlen($content_shortened), __FILE__);
+                $this->showHome($flink, _('That\'s too long. Max notice size is 140 chars.'));
+                return;
+            }
+        }
+
+        $inter = new CommandInterpreter();
+
+        $cmd = $inter->handle_command($user, $content_shortened);
+
+        if ($cmd) {
+            $cmd->execute(new WebChannel());
+            return;
+        }
+
+        $replyto = $this->trimmed('inreplyto');
+
+        $notice = Notice::saveNew($user->id, $content,
+            'Facebook', 1, ($replyto == 'false') ? null : $replyto);
+
+        if (is_string($notice)) {
+            $this->showHome($flink, 'Error!');
+            return;
+        }
+
+        common_broadcast_notice($notice);
+        $this->showHome($flink, 'Success!');
     }
 
 }

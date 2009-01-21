@@ -103,10 +103,10 @@ class ApiAction extends Action
 
                 call_user_func(array($action_obj, $this->api_method), $_REQUEST, $apidata);
             } else {
-                common_user_error("API method not found!", $code=404);
+                $this->clientError("API method not found!", $code=404);
             }
         } else {
-            common_user_error("API method not found!", $code=404);
+            $this->clientError("API method not found!", $code=404);
         }
     }
 
@@ -159,10 +159,10 @@ class ApiAction extends Action
         if ($this->content_type == 'xml') {
             header('Content-Type: application/xml; charset=utf-8');
             common_start_xml();
-            common_element_start('hash');
-            common_element('error', null, $msg);
-            common_element('request', null, $_SERVER['REQUEST_URI']);
-            common_element_end('hash');
+            $this->elementStart('hash');
+            $this->element('error', null, $msg);
+            $this->element('request', null, $_SERVER['REQUEST_URI']);
+            $this->elementEnd('hash');
             common_end_xml();
         } else if ($this->content_type == 'json')  {
             header('Content-Type: application/json; charset=utf-8');
@@ -174,7 +174,7 @@ class ApiAction extends Action
         }
     }
 
-    function is_readonly()
+    function isReadOnly()
     {
         # NOTE: before handle(), can't use $this->arg
         $apiaction = $_REQUEST['apiaction'];

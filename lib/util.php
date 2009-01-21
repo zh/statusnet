@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* XXX: break up into separate modules (HTTP, HTML, user, files) */
+/* XXX: break up into separate modules (HTTP, user, files) */
 
 // Show a server error
 
@@ -79,65 +79,6 @@ function common_user_error($msg, $code=400)
     common_show_footer();
 }
 
-$xw = null;
-
-// Start an HTML element
-function common_element_start($tag, $attrs=null)
-{
-    global $xw;
-    $xw->startElement($tag);
-    if (is_array($attrs)) {
-        foreach ($attrs as $name => $value) {
-            $xw->writeAttribute($name, $value);
-        }
-    } else if (is_string($attrs)) {
-        $xw->writeAttribute('class', $attrs);
-    }
-}
-
-function common_element_end($tag)
-{
-    static $empty_tag = array('base', 'meta', 'link', 'hr',
-                              'br', 'param', 'img', 'area',
-                              'input', 'col');
-    global $xw;
-    // XXX: check namespace
-    if (in_array($tag, $empty_tag)) {
-        $xw->endElement();
-    } else {
-        $xw->fullEndElement();
-    }
-}
-
-function common_element($tag, $attrs=null, $content=null)
-{
-    common_element_start($tag, $attrs);
-    global $xw;
-    if (!is_null($content)) {
-        $xw->text($content);
-    }
-    common_element_end($tag);
-}
-
-function common_start_xml($doc=null, $public=null, $system=null, $indent=true)
-{
-    global $xw;
-    $xw = new XMLWriter();
-    $xw->openURI('php://output');
-    $xw->setIndent($indent);
-    $xw->startDocument('1.0', 'UTF-8');
-    if ($doc) {
-        $xw->writeDTD($doc, $public, $system);
-    }
-}
-
-function common_end_xml()
-{
-    global $xw;
-    $xw->endDocument();
-    $xw->flush();
-}
-
 function common_init_locale($language=null)
 {
     if(!$language) {
@@ -165,346 +106,6 @@ function common_init_language()
     if(!$locale_set) {
         common_log(LOG_INFO,'Language requested:'.$language.' - locale could not be set:',__FILE__);
     }
-}
-
-define('PAGE_TYPE_PREFS', 'text/html,application/xhtml+xml,application/xml;q=0.3,text/xml;q=0.2');
-
-function common_show_header($pagetitle, $callable=null, $data=null, $headercall=null)
-{
-
-    global $config, $xw;
-    global $action; /* XXX: kind of cheating here. */
-
-    common_start_html();
-
-    common_element_start('head');
-    common_element('title', null,
-                   $pagetitle . " - " . $config['site']['name']);
-    common_element('link', array('rel' => 'stylesheet',
-                                 'type' => 'text/css',
-                                 'href' => theme_path('display.css') . '?version=' . LACONICA_VERSION,
-                                 'media' => 'screen, projection, tv'));
-    foreach (array(6,7) as $ver) {
-        if (file_exists(theme_file('ie'.$ver.'.css'))) {
-            // Yes, IE people should be put in jail.
-            $xw->writeComment('[if lte IE '.$ver.']><link rel="stylesheet" type="text/css" '.
-                              'href="'.theme_path('ie'.$ver.'.css').'?version='.LACONICA_VERSION.'" /><![endif]');
-        }
-    }
-
-    common_element('script', array('type' => 'text/javascript',
-                                   'src' => common_path('js/jquery.min.js')),
-                   ' ');
-    common_element('script', array('type' => 'text/javascript',
-                                   'src' => common_path('js/jquery.form.js')),
-                   ' ');
-    common_element('script', array('type' => 'text/javascript',
-                                   'src' => common_path('js/xbImportNode.js')),
-                   ' ');
-    common_element('script', array('type' => 'text/javascript',
-                                   'src' => common_path('js/util.js?version='.LACONICA_VERSION)),
-                   ' ');
-    common_element('link', array('rel' => 'search', 'type' => 'application/opensearchdescription+xml',
-                                 'href' =>  common_local_url('opensearch', array('type' => 'people')),
-                                 'title' => common_config('site', 'name').' People Search'));
-
-    common_element('link', array('rel' => 'search', 'type' => 'application/opensearchdescription+xml',
-                                 'href' =>  common_local_url('opensearch', array('type' => 'notice')),
-                                 'title' => common_config('site', 'name').' Notice Search'));
-
-    if ($callable) {
-        if ($data) {
-            call_user_func($callable, $data);
-        } else {
-            call_user_func($callable);
-        }
-    }
-    common_element_end('head');
-    common_element_start('body', $action);
-    common_element_start('div', array('id' => 'wrap'));
-    common_element_start('div', array('id' => 'header'));
-    common_nav_menu();
-    if ((isset($config['site']['logo']) && is_string($config['site']['logo']) && (strlen($config['site']['logo']) > 0))
-        || file_exists(theme_file('logo.png')))
-    {
-        common_element_start('a', array('href' => common_local_url('public')));
-        common_element('img', array('src' => isset($config['site']['logo']) ?
-                                    ($config['site']['logo']) : theme_path('logo.png'),
-                                    'alt' => $config['site']['name'],
-                                    'id' => 'logo'));
-        common_element_end('a');
-    } else {
-        common_element_start('p', array('id' => 'branding'));
-        common_element('a', array('href' => common_local_url('public')),
-                       $config['site']['name']);
-        common_element_end('p');
-    }
-
-    common_element('h1', 'pagetitle', $pagetitle);
-
-    if ($headercall) {
-        if ($data) {
-            call_user_func($headercall, $data);
-        } else {
-            call_user_func($headercall);
-        }
-    }
-    common_element_end('div');
-    common_element_start('div', array('id' => 'content'));
-}
-
-function common_start_html($type=null, $indent=true)
-{
-
-    if (!$type) {
-        $httpaccept = isset($_SERVER['HTTP_ACCEPT']) ? $_SERVER['HTTP_ACCEPT'] : null;
-
-        // XXX: allow content negotiation for RDF, RSS, or XRDS
-
-        $type = common_negotiate_type(common_accept_to_prefs($httpaccept),
-                                      common_accept_to_prefs(PAGE_TYPE_PREFS));
-
-        if (!$type) {
-            common_user_error(_('This page is not available in a media type you accept'), 406);
-            exit(0);
-        }
-    }
-
-    header('Content-Type: '.$type);
-
-    common_start_xml('html',
-                     '-//W3C//DTD XHTML 1.0 Strict//EN',
-                     'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd', $indent);
-
-    // FIXME: correct language for interface
-
-    $language = common_language();
-
-    common_element_start('html', array('xmlns' => 'http://www.w3.org/1999/xhtml',
-                                       'xml:lang' => $language,
-                                       'lang' => $language));
-}
-
-function common_show_footer()
-{
-    global $xw, $config;
-    common_element_end('div'); // content div
-    common_foot_menu();
-    common_element_start('div', array('id' => 'footer'));
-    common_element_start('div', 'laconica');
-    if (common_config('site', 'broughtby')) {
-        $instr = _('**%%site.name%%** is a microblogging service brought to you by [%%site.broughtby%%](%%site.broughtbyurl%%). ');
-    } else {
-        $instr = _('**%%site.name%%** is a microblogging service. ');
-    }
-    $instr .= sprintf(_('It runs the [Laconica](http://laconi.ca/) microblogging software, version %s, available under the [GNU Affero General Public License](http://www.fsf.org/licensing/licenses/agpl-3.0.html).'), LACONICA_VERSION);
-    $output = common_markup_to_html($instr);
-    common_raw($output);
-    common_element_end('div');
-    common_element('img', array('id' => 'cc',
-                                'src' => $config['license']['image'],
-                                'alt' => $config['license']['title']));
-    common_element_start('p');
-    common_text(_('Unless otherwise specified, contents of this site are copyright by the contributors and available under the '));
-    common_element('a', array('class' => 'license',
-                              'rel' => 'license',
-                              'href' => $config['license']['url']),
-                   $config['license']['title']);
-    common_text(_('. Contributors should be attributed by full name or nickname.'));
-    common_element_end('p');
-    common_element_end('div');
-    common_element_end('div');
-    common_element_end('body');
-    common_element_end('html');
-    common_end_xml();
-}
-
-function common_text($txt)
-{
-    global $xw;
-    $xw->text($txt);
-}
-
-function common_raw($xml)
-{
-    global $xw;
-    $xw->writeRaw($xml);
-}
-
-function common_nav_menu()
-{
-    $user = common_current_user();
-    common_element_start('ul', array('id' => 'nav'));
-    if ($user) {
-        common_menu_item(common_local_url('all', array('nickname' => $user->nickname)),
-                         _('Home'));
-    }
-    common_menu_item(common_local_url('peoplesearch'), _('Search'));
-    if ($user) {
-        common_menu_item(common_local_url('profilesettings'),
-                         _('Settings'));
-        common_menu_item(common_local_url('invite'),
-                         _('Invite'));
-        common_menu_item(common_local_url('logout'),
-                         _('Logout'));
-    } else {
-        common_menu_item(common_local_url('login'), _('Login'));
-        if (!common_config('site', 'closed')) {
-            common_menu_item(common_local_url('register'), _('Register'));
-        }
-        common_menu_item(common_local_url('openidlogin'), _('OpenID'));
-    }
-    common_menu_item(common_local_url('doc', array('title' => 'help')),
-                     _('Help'));
-    common_element_end('ul');
-}
-
-function common_foot_menu()
-{
-    common_element_start('ul', array('id' => 'nav_sub'));
-    common_menu_item(common_local_url('doc', array('title' => 'help')),
-                     _('Help'));
-    common_menu_item(common_local_url('doc', array('title' => 'about')),
-                     _('About'));
-    common_menu_item(common_local_url('doc', array('title' => 'faq')),
-                     _('FAQ'));
-    common_menu_item(common_local_url('doc', array('title' => 'privacy')),
-                     _('Privacy'));
-    common_menu_item(common_local_url('doc', array('title' => 'source')),
-                     _('Source'));
-    common_menu_item(common_local_url('doc', array('title' => 'contact')),
-                     _('Contact'));
-    common_element_end('ul');
-}
-
-function common_menu_item($url, $text, $title=null, $is_selected=false)
-{
-    $lattrs = array();
-    if ($is_selected) {
-        $lattrs['class'] = 'current';
-    }
-    common_element_start('li', $lattrs);
-    $attrs['href'] = $url;
-    if ($title) {
-        $attrs['title'] = $title;
-    }
-    common_element('a', $attrs, $text);
-    common_element_end('li');
-}
-
-function common_input($id, $label, $value=null,$instructions=null)
-{
-    common_element_start('p');
-    common_element('label', array('for' => $id), $label);
-    $attrs = array('name' => $id,
-                   'type' => 'text',
-                   'class' => 'input_text',
-                   'id' => $id);
-    if ($value) {
-        $attrs['value'] = htmlspecialchars($value);
-    }
-    common_element('input', $attrs);
-    if ($instructions) {
-        common_element('span', 'input_instructions', $instructions);
-    }
-    common_element_end('p');
-}
-
-function common_checkbox($id, $label, $checked=false, $instructions=null, $value='true', $disabled=false)
-{
-    common_element_start('p');
-    $attrs = array('name' => $id,
-                   'type' => 'checkbox',
-                   'class' => 'checkbox',
-                   'id' => $id);
-    if ($value) {
-        $attrs['value'] = htmlspecialchars($value);
-    }
-    if ($checked) {
-        $attrs['checked'] = 'checked';
-    }
-    if ($disabled) {
-        $attrs['disabled'] = 'true';
-    }
-    common_element('input', $attrs);
-    common_text(' ');
-    common_element('label', array('class' => 'checkbox_label', 'for' => $id), $label);
-    common_text(' ');
-    if ($instructions) {
-        common_element('span', 'input_instructions', $instructions);
-    }
-    common_element_end('p');
-}
-
-function common_dropdown($id, $label, $content, $instructions=null, $blank_select=false, $selected=null)
-{
-    common_element_start('p');
-    common_element('label', array('for' => $id), $label);
-    common_element_start('select', array('id' => $id, 'name' => $id));
-    if ($blank_select) {
-        common_element('option', array('value' => ''));
-    }
-    foreach ($content as $value => $option) {
-        if ($value == $selected) {
-            common_element('option', array('value' => $value, 'selected' => $value), $option);
-        } else {
-            common_element('option', array('value' => $value), $option);
-        }
-    }
-    common_element_end('select');
-    if ($instructions) {
-        common_element('span', 'input_instructions', $instructions);
-    }
-    common_element_end('p');
-}
-function common_hidden($id, $value)
-{
-    common_element('input', array('name' => $id,
-                                  'type' => 'hidden',
-                                  'id' => $id,
-                                  'value' => $value));
-}
-
-function common_password($id, $label, $instructions=null)
-{
-    common_element_start('p');
-    common_element('label', array('for' => $id), $label);
-    $attrs = array('name' => $id,
-                   'type' => 'password',
-                   'class' => 'password',
-                   'id' => $id);
-    common_element('input', $attrs);
-    if ($instructions) {
-        common_element('span', 'input_instructions', $instructions);
-    }
-    common_element_end('p');
-}
-
-function common_submit($id, $label, $cls='submit')
-{
-    global $xw;
-    common_element_start('p');
-    common_element('input', array('type' => 'submit',
-                                  'id' => $id,
-                                  'name' => $id,
-                                  'class' => $cls,
-                                  'value' => $label));
-    common_element_end('p');
-}
-
-function common_textarea($id, $label, $content=null, $instructions=null)
-{
-    common_element_start('p');
-    common_element('label', array('for' => $id), $label);
-    common_element('textarea', array('rows' => 3,
-                                     'cols' => 40,
-                                     'name' => $id,
-                                     'id' => $id),
-                   ($content) ? $content : '');
-    if ($instructions) {
-        common_element('span', 'input_instructions', $instructions);
-    }
-    common_element_end('p');
 }
 
 function common_timezone()
@@ -970,7 +571,7 @@ function common_tag_link($tag)
 {
     $canonical = common_canonical_tag($tag);
     $url = common_local_url('tag', array('tag' => $canonical));
-    return '<a href="' . htmlspecialchars($url) . '" rel="tag" class="hashlink">' . htmlspecialchars($tag) . '</a>';
+    return '<span class="tag"><a href="' . htmlspecialchars($url) . '" rel="tag">' . htmlspecialchars($tag) . '</a></span>';
 }
 
 function common_canonical_tag($tag)
@@ -988,7 +589,7 @@ function common_at_link($sender_id, $nickname)
     $sender = Profile::staticGet($sender_id);
     $recipient = common_relative_profile($sender, common_canonical_nickname($nickname));
     if ($recipient) {
-        return '<a href="'.htmlspecialchars($recipient->profileurl).'" class="atlink">'.$nickname.'</a>';
+        return '<span class="vcard"><a href="'.htmlspecialchars($recipient->profileurl).'" class="url"><span class="fn nickname">'.$nickname.'</span></a></span>';
     } else {
         return $nickname;
     }
@@ -1005,7 +606,7 @@ function common_at_hash_link($sender_id, $tag)
         $url = common_local_url('subscriptions',
                                 array('nickname' => $user->nickname,
                                       'tag' => $tag));
-        return '<a href="'.htmlspecialchars($url).'" class="atlink">'.$tag.'</a>';
+        return '<span class="tag"><a href="'.htmlspecialchars($url).'" rel="tag">'.$tag.'</a></span>';
     } else {
         return $tag;
     }
@@ -1169,6 +770,8 @@ function common_fancy_url($action, $args=null)
         return common_path('main/openid');
      case 'profilesettings':
         return common_path('settings/profile');
+     case 'passwordsettings':
+        return common_path('settings/password');
      case 'emailsettings':
         return common_path('settings/email');
      case 'openidsettings':
@@ -1251,6 +854,8 @@ function common_fancy_url($action, $args=null)
         return common_path($path);
      case 'imsettings':
         return common_path('settings/im');
+     case 'avatarsettings':
+        return common_path('settings/avatar');
      case 'peoplesearch':
         return common_path('search/people' . (($args) ? ('?' . http_build_query($args)) : ''));
      case 'noticesearch':
@@ -1260,13 +865,11 @@ function common_fancy_url($action, $args=null)
      case 'avatarbynickname':
         return common_path($args['nickname'].'/avatar/'.$args['size']);
      case 'tag':
-        if (isset($args['tag']) && $args['tag']) {
-            $path = 'tag/' . $args['tag'];
-            unset($args['tag']);
-        } else {
-            $path = 'tags';
-        }
+        $path = 'tag/' . $args['tag'];
+        unset($args['tag']);
         return common_path($path . (($args) ? ('?' . http_build_query($args)) : ''));
+     case 'publictagcloud':
+        return common_path('tags');
      case 'peopletag':
         $path = 'peopletag/' . $args['tag'];
         unset($args['tag']);
@@ -1694,39 +1297,6 @@ function common_profile_url($nickname)
     return common_local_url('showstream', array('nickname' => $nickname));
 }
 
-// Don't call if nobody's logged in
-
-function common_notice_form($action=null, $content=null)
-{
-    $user = common_current_user();
-    assert(!is_null($user));
-    common_element_start('form', array('id' => 'status_form',
-                                       'method' => 'post',
-                                       'action' => common_local_url('newnotice')));
-    common_element_start('p');
-    common_element('label', array('for' => 'status_textarea',
-                                  'id' => 'status_label'),
-                   sprintf(_('What\'s up, %s?'), $user->nickname));
-    common_element('span', array('id' => 'counter', 'class' => 'counter'), '140');
-    common_element('textarea', array('id' => 'status_textarea',
-                                     'cols' => 60,
-                                     'rows' => 3,
-                                     'name' => 'status_textarea'),
-                   ($content) ? $content : '');
-    common_hidden('token', common_session_token());
-    if ($action) {
-        common_hidden('returnto', $action);
-    }
-    // set by JavaScript
-    common_hidden('inreplyto', 'false');
-    common_element('input', array('id' => 'status_submit',
-                                  'name' => 'status_submit',
-                                  'type' => 'submit',
-                                  'value' => _('Send')));
-    common_element_end('p');
-    common_element_end('form');
-}
-
 // Should make up a reasonable root URL
 
 function common_root_url()
@@ -1856,41 +1426,6 @@ function common_valid_tag($tag)
                 preg_match('/^([\w-\.]+)$/', $matches[1]));
     }
     return false;
-}
-
-// Does a little before-after block for next/prev page
-
-function common_pagination($have_before, $have_after, $page, $action, $args=null)
-{
-
-    if ($have_before || $have_after) {
-        common_element_start('div', array('id' => 'pagination'));
-        common_element_start('ul', array('id' => 'nav_pagination'));
-    }
-
-    if ($have_before) {
-        $pargs = array('page' => $page-1);
-        $newargs = ($args) ? array_merge($args,$pargs) : $pargs;
-
-        common_element_start('li', 'before');
-        common_element('a', array('href' => common_local_url($action, $newargs), 'rel' => 'prev'),
-                       _('« After'));
-        common_element_end('li');
-    }
-
-    if ($have_after) {
-        $pargs = array('page' => $page+1);
-        $newargs = ($args) ? array_merge($args,$pargs) : $pargs;
-        common_element_start('li', 'after');
-        common_element('a', array('href' => common_local_url($action, $newargs), 'rel' => 'next'),
-                       _('Before »'));
-        common_element_end('li');
-    }
-
-    if ($have_before || $have_after) {
-        common_element_end('ul');
-        common_element_end('div');
-    }
 }
 
 /* Following functions are copied from MediaWiki GlobalFunctions.php
@@ -2105,109 +1640,9 @@ function common_session_token()
     return $_SESSION['token'];
 }
 
-function common_disfavor_form($notice)
-{
-    common_element_start('form', array('id' => 'disfavor-' . $notice->id,
-                                       'method' => 'post',
-                                       'class' => 'disfavor',
-                                       'action' => common_local_url('disfavor')));
-
-    common_element('input', array('type' => 'hidden',
-                                  'name' => 'token-'. $notice->id,
-                                  'id' => 'token-'. $notice->id,
-                                  'class' => 'token',
-                                  'value' => common_session_token()));
-
-    common_element('input', array('type' => 'hidden',
-                                  'name' => 'notice',
-                                  'id' => 'notice-n'. $notice->id,
-                                  'class' => 'notice',
-                                  'value' => $notice->id));
-
-    common_element('input', array('type' => 'submit',
-                                  'id' => 'disfavor-submit-' . $notice->id,
-                                  'name' => 'disfavor-submit-' . $notice->id,
-                                  'class' => 'disfavor',
-                                  'value' => 'Disfavor favorite',
-                                  'title' => 'Remove this message from favorites'));
-    common_element_end('form');
-}
-
-function common_favor_form($notice)
-{
-    common_element_start('form', array('id' => 'favor-' . $notice->id,
-                                       'method' => 'post',
-                                       'class' => 'favor',
-                                       'action' => common_local_url('favor')));
-
-    common_element('input', array('type' => 'hidden',
-                                  'name' => 'token-'. $notice->id,
-                                  'id' => 'token-'. $notice->id,
-                                  'class' => 'token',
-                                  'value' => common_session_token()));
-
-    common_element('input', array('type' => 'hidden',
-                                  'name' => 'notice',
-                                  'id' => 'notice-n'. $notice->id,
-                                  'class' => 'notice',
-                                  'value' => $notice->id));
-
-    common_element('input', array('type' => 'submit',
-                                  'id' => 'favor-submit-' . $notice->id,
-                                  'name' => 'favor-submit-' . $notice->id,
-                                  'class' => 'favor',
-                                  'value' => 'Add to favorites',
-                                  'title' => 'Add this message to favorites'));
-    common_element_end('form');
-}
-
-function common_nudge_form($profile)
-{
-    common_element_start('form', array('id' => 'nudge', 'method' => 'post',
-                                       'action' => common_local_url('nudge', array('nickname' => $profile->nickname))));
-    common_hidden('token', common_session_token());
-    common_element('input', array('type' => 'submit',
-                                  'class' => 'submit',
-                                  'value' => _('Send a nudge')));
-    common_element_end('form');
-}
 function common_nudge_response()
 {
     common_element('p', array('id' => 'nudge_response'), _('Nudge sent!'));
-}
-
-function common_subscribe_form($profile)
-{
-    common_element_start('form', array('id' => 'subscribe-' . $profile->id,
-                                       'method' => 'post',
-                                       'class' => 'subscribe',
-                                       'action' => common_local_url('subscribe')));
-    common_hidden('token', common_session_token());
-    common_element('input', array('id' => 'subscribeto-' . $profile->id,
-                                  'name' => 'subscribeto',
-                                  'type' => 'hidden',
-                                  'value' => $profile->id));
-    common_element('input', array('type' => 'submit',
-                                  'class' => 'submit',
-                                  'value' => _('Subscribe')));
-    common_element_end('form');
-}
-
-function common_unsubscribe_form($profile)
-{
-    common_element_start('form', array('id' => 'unsubscribe-' . $profile->id,
-                                       'method' => 'post',
-                                       'class' => 'unsubscribe',
-                                       'action' => common_local_url('unsubscribe')));
-    common_hidden('token', common_session_token());
-    common_element('input', array('id' => 'unsubscribeto-' . $profile->id,
-                                  'name' => 'unsubscribeto',
-                                  'type' => 'hidden',
-                                  'value' => $profile->id));
-    common_element('input', array('type' => 'submit',
-                                  'class' => 'submit',
-                                  'value' => _('Unsubscribe')));
-    common_element_end('form');
 }
 
 // XXX: Refactor this code
@@ -2241,47 +1676,6 @@ function common_keyize($str)
     return $str;
 }
 
-function common_message_form($content, $user, $to)
-{
-
-    common_element_start('form', array('id' => 'message_form',
-                                       'method' => 'post',
-                                       'action' => common_local_url('newmessage')));
-
-    $mutual_users = $user->mutuallySubscribedUsers();
-
-    $mutual = array();
-
-    while ($mutual_users->fetch()) {
-        if ($mutual_users->id != $user->id) {
-            $mutual[$mutual_users->id] = $mutual_users->nickname;
-        }
-    }
-
-    $mutual_users->free();
-    unset($mutual_users);
-
-    common_dropdown('to', _('To'), $mutual, null, false, $to->id);
-
-    common_element_start('p');
-
-    common_element('textarea', array('id' => 'message_content',
-                                     'cols' => 60,
-                                     'rows' => 3,
-                                     'name' => 'content'),
-                   ($content) ? $content : '');
-
-    common_element('input', array('id' => 'message_send',
-                                  'name' => 'message_send',
-                                  'type' => 'submit',
-                                  'value' => _('Send')));
-
-    common_hidden('token', common_session_token());
-
-    common_element_end('p');
-    common_element_end('form');
-}
-
 function common_memcache()
 {
     static $cache = null;
@@ -2307,40 +1701,4 @@ function common_compatible_license($from, $to)
 {
     // XXX: better compatibility check needed here!
     return ($from == $to);
-}
-
-/* These are almost identical, so we use a helper function */
-
-function common_block_form($profile, $args=null)
-{
-    common_blocking_form('block', _('Block'), $profile, $args);
-}
-
-function common_unblock_form($profile, $args=null)
-{
-    common_blocking_form('unblock', _('Unblock'), $profile, $args);
-}
-
-function common_blocking_form($type, $label, $profile, $args=null)
-{
-    common_element_start('form', array('id' => $type . '-' . $profile->id,
-                                       'method' => 'post',
-                                       'class' => $type,
-                                       'action' => common_local_url($type)));
-    common_hidden('token', common_session_token());
-    common_element('input', array('id' => $type . 'to-' . $profile->id,
-                                  'name' => $type . 'to',
-                                  'type' => 'hidden',
-                                  'value' => $profile->id));
-    common_element('input', array('type' => 'submit',
-                                  'class' => 'submit',
-                                  'name' => $type,
-                                  'value' => $label));
-    if ($args) {
-        foreach ($args as $k => $v) {
-            common_hidden('returnto-' . $k, $v);
-        }
-    }
-    common_element_end('form');
-    return;
 }

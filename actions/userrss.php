@@ -34,7 +34,7 @@ class UserrssAction extends Rss10Action
         $this->user = User::staticGet('nickname', $nickname);
 
         if (!$this->user) {
-            common_user_error(_('No such user.'));
+            $this->clientError(_('No such user.'));
             return false;
         } else {
             return true;
@@ -78,7 +78,7 @@ class UserrssAction extends Rss10Action
         $profile = $user->getProfile();
         if (!$profile) {
             common_log_db_error($user, 'SELECT', __FILE__);
-            $this->server_error(_('User without matching profile'));
+            $this->serverError(_('User without matching profile'));
             return null;
         }
         $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);

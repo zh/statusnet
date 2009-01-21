@@ -1,9 +1,12 @@
 <?php
-/*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+/**
+ * Laconica, the distributed open-source microblogging tool
  *
- * This program is free software: you can redistribute it and/or modify
+ * Settings for Twitter integration
+ *
+ * PHP version 5
+ *
+ * LICENCE: This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -15,96 +18,177 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Settings
+ * @package   Laconica
+ * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @copyright 2008-2009 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
-require_once(INSTALLDIR.'/lib/settingsaction.php');
+require_once INSTALLDIR.'/lib/connectsettingsaction.php';
 
 define('SUBSCRIPTIONS', 80);
 
-class TwittersettingsAction extends SettingsAction
-{
+/**
+ * Settings for Twitter integration
+ *
+ * @category Settings
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://laconi.ca/
+ *
+ * @see      SettingsAction
+ */
 
-    function get_instructions()
+class TwittersettingsAction extends ConnectSettingsAction
+{
+    /**
+     * Title of the page
+     *
+     * @return string Title of the page
+     */
+
+    function title()
     {
-        return _('Add your Twitter account to automatically send your notices to Twitter, ' .
-            'and subscribe to Twitter friends already here.');
+        _('Twitter settings');
     }
 
-    function show_form($msg=null, $success=false)
+    /**
+     * Instructions for use
+     *
+     * @return instructions for use
+     */
+
+    function getInstructions()
+    {
+        return _('Add your Twitter account to automatically send '.
+                 ' your notices to Twitter, ' .
+                 'and subscribe to Twitter friends already here.');
+    }
+
+    /**
+     * Content area of the page
+     *
+     * Shows a form for associating a Twitter account with this
+     * Laconica account. Also lets the user set preferences.
+     *
+     * @return void
+     */
+
+    function showContent()
     {
         $user = common_current_user();
+
         $profile = $user->getProfile();
+
         $fuser = null;
+
         $flink = Foreign_link::getByUserID($user->id, 1); // 1 == Twitter
 
         if ($flink) {
             $fuser = $flink->getForeignUser();
         }
 
-        $this->form_header(_('Twitter settings'), $msg, $success);
-        common_element_start('form', array('method' => 'post',
-                                           'id' => 'twittersettings',
-                                           'action' =>
-                                           common_local_url('twittersettings')));
-        common_hidden('token', common_session_token());
-
-        common_element('h2', null, _('Twitter Account'));
-
+        $this->elementStart('form', array('method' => 'post',
+                                          'id' => 'form_settings_twitter',
+                                          'class' => 'form_settings',
+                                          'action' =>
+                                          common_local_url('twittersettings')));
+        $this->elementStart('fieldset', array('id' => 'settings_twitter_account'));
+        $this->element('legend', null, _('Twitter Account'));
+        $this->hidden('token', common_session_token());
+        $this->elementStart('ul', 'form_data');
         if ($fuser) {
-            common_element_start('p');
-
-            common_element('span', 'twitter_user', $fuser->nickname);
-            common_element('a', array('href' => $fuser->uri),  $fuser->uri);
-            common_element('span', 'input_instructions',
+            $this->elementStart('li');
+            $this->element('span', 'twitter_user', $fuser->nickname);
+            $this->element('a', array('href' => $fuser->uri), $fuser->uri);
+            $this->element('p', 'form_guide',
                            _('Current verified Twitter account.'));
-            common_hidden('flink_foreign_id', $flink->foreign_id);
-            common_element_end('p');
-            common_submit('remove', _('Remove'));
+            $this->hidden('flink_foreign_id', $flink->foreign_id);
+            $this->submit('remove', _('Remove'));
+            $this->elementEnd('li');
         } else {
-            common_input('twitter_username', _('Twitter user name'),
-                         ($this->arg('twitter_username')) ? $this->arg('twitter_username') : $profile->nickname,
+            $this->elementStart('li');
+            $this->input('twitter_username', _('Twitter user name'),
+                         ($this->arg('twitter_username')) ?
+                         $this->arg('twitter_username') :
+                         $profile->nickname,
                          _('No spaces, please.')); // hey, it's what Twitter says
-
-            common_password('twitter_password', _('Twitter password'));
+            $this->elementEnd('li');
+            $this->elementStart('li');
+            $this->password('twitter_password', _('Twitter password'));
+            $this->elementend('li');
         }
+        $this->elementEnd('ul');
+        $this->elementEnd('fieldset');
 
-        common_element('h2', null, _('Preferences'));
+        $this->elementStart('fieldset',
+                            array('id' => 'settings_twitter_preferences'));
+        $this->element('legend', null, _('Preferences'));
 
-        common_checkbox('noticesync', _('Automatically send my notices to Twitter.'),
-                        ($flink) ? ($flink->noticesync & FOREIGN_NOTICE_SEND) : true);
-
-        common_checkbox('replysync', _('Send local "@" replies to Twitter.'),
-                        ($flink) ? ($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) : true);
-
-        common_checkbox('friendsync', _('Subscribe to my Twitter friends here.'),
-                        ($flink) ? ($flink->friendsync & FOREIGN_FRIEND_RECV) : false);
+        $this->elementStart('ul', 'form_data');
+        $this->elementStart('li');
+        $this->checkbox('noticesync',
+                        _('Automatically send my notices to Twitter.'),
+                        ($flink) ?
+                        ($flink->noticesync & FOREIGN_NOTICE_SEND) :
+                        true);
+        $this->elementEnd('li');
+        $this->elementStart('li');
+        $this->checkbox('replysync',
+                        _('Send local "@" replies to Twitter.'),
+                        ($flink) ?
+                        ($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) :
+                        true);
+        $this->elementEnd('li');
+        $this->elementStart('li');
+        $this->checkbox('friendsync',
+                        _('Subscribe to my Twitter friends here.'),
+                        ($flink) ?
+                        ($flink->friendsync & FOREIGN_FRIEND_RECV) :
+                        false);
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
 
         if ($flink) {
-            common_submit('save', _('Save'));
+            $this->submit('save', _('Save'));
         } else {
-            common_submit('add', _('Add'));
+            $this->submit('add', _('Add'));
         }
+        $this->elementEnd('fieldset');
 
-        $this->show_twitter_subscriptions();
+        $this->showTwitterSubscriptions();
 
-        common_element_end('form');
-
-        common_show_footer();
+        $this->elementEnd('form');
     }
 
-    function subscribed_twitter_users()
+    /**
+     * Gets some of the user's Twitter friends
+     *
+     * Gets the number of Twitter friends that are on this
+     * instance of Laconica.
+     *
+     * @return array array of User objects
+     */
+
+    function subscribedTwitterUsers()
     {
 
         $current_user = common_current_user();
 
         $qry = 'SELECT user.* ' .
-            'FROM subscription ' .
-            'JOIN user ON subscription.subscribed = user.id ' .
-            'JOIN foreign_link ON foreign_link.user_id = user.id ' .
-            'WHERE subscriber = %d ' .
-            'ORDER BY user.nickname';
+          'FROM subscription ' .
+          'JOIN user ON subscription.subscribed = user.id ' .
+          'JOIN foreign_link ON foreign_link.user_id = user.id ' .
+          'WHERE subscriber = %d ' .
+          'ORDER BY user.nickname';
 
         $user = new User();
 
@@ -123,17 +207,27 @@ class TwittersettingsAction extends SettingsAction
         return $users;
     }
 
-    function show_twitter_subscriptions()
+    /**
+     * Show user's Twitter friends
+     *
+     * Gets the number of Twitter friends that are on this
+     * instance of Laconica, and shows their mini-avatars.
+     *
+     * @return void
+     */
+
+    function showTwitterSubscriptions()
     {
 
-        $friends = $this->subscribed_twitter_users();
+        $friends = $this->subscribedTwitterUsers();
+
         $friends_count = count($friends);
 
         if ($friends_count > 0) {
 
-            common_element('h3', null, _('Twitter Friends'));
-            common_element_start('div', array('id' => 'subscriptions'));
-            common_element_start('ul', array('id' => 'subscriptions_avatars'));
+            $this->element('h3', null, _('Twitter Friends'));
+            $this->elementStart('div', array('id' => 'subscriptions'));
+            $this->elementStart('ul', array('id' => 'subscriptions_avatars'));
 
             for ($i = 0; $i < min($friends_count, SUBSCRIPTIONS); $i++) {
 
@@ -144,112 +238,126 @@ class TwittersettingsAction extends SettingsAction
                     continue;
                 }
 
-                common_element_start('li');
-                common_element_start('a', array('title' => ($other->fullname) ?
-                                                $other->fullname :
-                                                $other->nickname,
-                                                'href' => $other->profileurl,
-                                                'rel' => 'contact',
-                                                'class' => 'subscription'));
+                $this->elementStart('li');
+                $this->elementStart('a', array('title' => ($other->fullname) ?
+                                               $other->fullname :
+                                               $other->nickname,
+                                               'href' => $other->profileurl,
+                                               'rel' => 'contact',
+                                               'class' => 'subscription'));
+
                 $avatar = $other->getAvatar(AVATAR_MINI_SIZE);
-                common_element('img', array('src' => (($avatar) ? common_avatar_display_url($avatar) :  common_default_avatar(AVATAR_MINI_SIZE)),
+
+                $avatar_url = ($avatar) ?
+                  common_avatar_display_url($avatar) :
+                  common_default_avatar(AVATAR_MINI_SIZE);
+
+                $this->element('img', array('src' => $avatar_url,
                                             'width' => AVATAR_MINI_SIZE,
                                             'height' => AVATAR_MINI_SIZE,
                                             'class' => 'avatar mini',
                                             'alt' =>  ($other->fullname) ?
                                             $other->fullname :
                                             $other->nickname));
-                common_element_end('a');
-                common_element_end('li');
+                $this->elementEnd('a');
+                $this->elementEnd('li');
 
             }
 
-            common_element_end('ul');
-            common_element_end('div');
+            $this->elementEnd('ul');
+            $this->elementEnd('div');
 
         }
-
-        // XXX Figure out a way to show all Twitter friends... ?
-
-        /*
-        if ($subs_count > SUBSCRIPTIONS) {
-            common_element_start('p', array('id' => 'subscriptions_viewall'));
-
-            common_element('a', array('href' => common_local_url('subscriptions',
-                                                                 array('nickname' => $profile->nickname)),
-                                      'class' => 'moresubscriptions'),
-                           _('All subscriptions'));
-            common_element_end('p');
-        }
-        */
-
     }
 
-    function handle_post()
+    /**
+     * Handle posts to this form
+     *
+     * Based on the button that was pressed, muxes out to other functions
+     * to do the actual task requested.
+     *
+     * All sub-functions reload the form with a message -- success or failure.
+     *
+     * @return void
+     */
+
+    function handlePost()
     {
 
-        # CSRF protection
+        // CSRF protection
         $token = $this->trimmed('token');
         if (!$token || $token != common_session_token()) {
-            $this->show_form(_('There was a problem with your session token. Try again, please.'));
+            $this->showForm(_('There was a problem with your session token. '.
+                              'Try again, please.'));
             return;
         }
 
         if ($this->arg('save')) {
-            $this->save_preferences();
+            $this->savePreferences();
         } else if ($this->arg('add')) {
-            $this->add_twitter_acct();
+            $this->addTwitterAccount();
         } else if ($this->arg('remove')) {
-            $this->remove_twitter_acct();
+            $this->removeTwitterAccount();
         } else {
-            $this->show_form(_('Unexpected form submission.'));
+            $this->showForm(_('Unexpected form submission.'));
         }
     }
 
-    function add_twitter_acct()
-    {
+    /**
+     * Associate a Twitter account with the user's account
+     *
+     * Validates post input; verifies it against Twitter; and if
+     * successful stores in the database.
+     *
+     * @return void
+     */
 
+    function addTwitterAccount()
+    {
         $screen_name = $this->trimmed('twitter_username');
-        $password = $this->trimmed('twitter_password');
-        $noticesync = $this->boolean('noticesync');
-        $replysync = $this->boolean('replysync');
-        $friendsync = $this->boolean('friendsync');
+        $password    = $this->trimmed('twitter_password');
+        $noticesync  = $this->boolean('noticesync');
+        $replysync   = $this->boolean('replysync');
+        $friendsync  = $this->boolean('friendsync');
 
         if (!Validate::string($screen_name,
-                array(    'min_length' => 1,
-                        'max_length' => 15,
-                         'format' => VALIDATE_NUM . VALIDATE_ALPHA . '_'))) {
-            $this->show_form(
-                _('Username must have only numbers, upper- and lowercase letters, and underscore (_). 15 chars max.'));
+                              array('min_length' => 1,
+                                    'max_length' => 15,
+                                    'format' => VALIDATE_NUM.VALIDATE_ALPHA.'_'))) {
+            $this->showForm(_('Username must have only numbers, '.
+                              'upper- and lowercase letters, '.
+                              'and underscore (_). 15 chars max.'));
             return;
         }
 
-        if (!$this->verify_credentials($screen_name, $password)) {
-            $this->show_form(_('Could not verify your Twitter credentials!'));
+        if (!$this->verifyCredentials($screen_name, $password)) {
+            $this->showForm(_('Could not verify your Twitter credentials!'));
             return;
         }
 
         $twit_user = twitter_user_info($screen_name, $password);
 
         if (!$twit_user) {
-            $this->show_form(sprintf(_('Unable to retrieve account information for "%s" from Twitter.'),
-                $screen_name));
+            $this->showForm(sprintf(_('Unable to retrieve account information '.
+                                      'For "%s" from Twitter.'),
+                                    $screen_name));
             return;
         }
 
         if (!save_twitter_user($twit_user->id, $screen_name)) {
-            $this->show_form(_('Unable to save your Twitter settings!'));
+            $this->showForm(_('Unable to save your Twitter settings!'));
             return;
         }
 
         $user = common_current_user();
 
-        $flink = DB_DataObject::factory('foreign_link');
-        $flink->user_id = $user->id;
-        $flink->foreign_id = $twit_user->id;
-        $flink->service = 1; // Twitter
+        $flink = new Foreign_link();
+
+        $flink->user_id     = $user->id;
+        $flink->foreign_id  = $twit_user->id;
+        $flink->service     = 1; // Twitter
         $flink->credentials = $password;
-        $flink->created = common_sql_now();
+        $flink->created     = common_sql_now();
 
         $flink->set_flags($noticesync, $replysync, $friendsync);
 
@@ -257,7 +365,7 @@ class TwittersettingsAction extends SettingsAction
 
         if (!$flink_id) {
             common_log_db_error($flink, 'INSERT', __FILE__);
-            $this->show_form(_('Unable to save your Twitter settings!'));
+            $this->showForm(_('Unable to save your Twitter settings!'));
             return;
         }
 
@@ -265,19 +373,26 @@ class TwittersettingsAction extends SettingsAction
             save_twitter_friends($user, $twit_user->id, $screen_name, $password);
         }
 
-        $this->show_form(_('Twitter settings saved.'), true);
+        $this->showForm(_('Twitter settings saved.'), true);
     }
 
-    function remove_twitter_acct()
-    {
+    /**
+     * Disassociate an existing Twitter account from this account
+     *
+     * @return void
+     */
 
+    function removeTwitterAccount()
+    {
         $user = common_current_user();
+
         $flink = Foreign_link::getByUserID($user->id, 1);
+
         $flink_foreign_id = $this->arg('flink_foreign_id');
 
-        # Maybe an old tab open...?
+        // Maybe an old tab open...?
         if ($flink->foreign_id != $flink_foreign_id) {
-            $this->show_form(_('That is not your Twitter account.'));
+            $this->showForm(_('That is not your Twitter account.'));
             return;
         }
 
@@ -285,19 +400,24 @@ class TwittersettingsAction extends SettingsAction
 
         if (!$result) {
             common_log_db_error($flink, 'DELETE', __FILE__);
-            common_server_error(_('Couldn\'t remove Twitter user.'));
+            $this->serverError(_('Couldn\'t remove Twitter user.'));
             return;
         }
 
-        $this->show_form(_('Twitter account removed.'), true);
+        $this->showForm(_('Twitter account removed.'), true);
     }
 
-    function save_preferences()
-    {
+    /**
+     * Save user's Twitter-bridging preferences
+     *
+     * @return void
+     */
 
+    function savePreferences()
+    {
         $noticesync = $this->boolean('noticesync');
         $friendsync = $this->boolean('friendsync');
-        $replysync = $this->boolean('replysync');
+        $replysync  = $this->boolean('replysync');
 
         $user = common_current_user();
 
@@ -305,30 +425,32 @@ class TwittersettingsAction extends SettingsAction
 
         if (!$flink) {
             common_log_db_error($flink, 'SELECT', __FILE__);
-            $this->show_form(_('Couldn\'t save Twitter preferences.'));
+            $this->showForm(_('Couldn\'t save Twitter preferences.'));
             return;
         }
 
         $twitter_id = $flink->foreign_id;
-        $password = $flink->credentials;
+        $password   = $flink->credentials;
 
         $fuser = $flink->getForeignUser();
 
         if (!$fuser) {
             common_log_db_error($fuser, 'SELECT', __FILE__);
-            $this->show_form(_('Couldn\'t save Twitter preferences.'));
+            $this->showForm(_('Couldn\'t save Twitter preferences.'));
             return;
         }
 
         $screen_name = $fuser->nickname;
 
         $original = clone($flink);
+
         $flink->set_flags($noticesync, $replysync, $friendsync);
+
         $result = $flink->update($original);
 
         if ($result === false) {
             common_log_db_error($flink, 'UPDATE', __FILE__);
-            $this->show_form(_('Couldn\'t save Twitter preferences.'));
+            $this->showForm(_('Couldn\'t save Twitter preferences.'));
             return;
         }
 
@@ -336,12 +458,22 @@ class TwittersettingsAction extends SettingsAction
             save_twitter_friends($user, $flink->foreign_id, $screen_name, $password);
         }
 
-        $this->show_form(_('Twitter preferences saved.'), true);
+        $this->showForm(_('Twitter preferences saved.'), true);
     }
 
-    function verify_credentials($screen_name, $password)
+    /**
+     * Verifies a username and password against Twitter's API
+     *
+     * @param string $screen_name Twitter user name
+     * @param string $password    Twitter password
+     *
+     * @return boolean success flag
+     */
+
+    function verifyCredentials($screen_name, $password)
     {
-        $uri = 'http://twitter.com/account/verify_credentials.json';
+        $uri = 'http://twitter.com/account/verifyCredentials.json';
+
         $data = get_twitter_data($uri, $screen_name, $password);
 
         if (!$data) {
@@ -354,7 +486,7 @@ class TwittersettingsAction extends SettingsAction
             return false;
         }
 
-         $twitter_id = $user->status->id;
+        $twitter_id = $user->id;
 
         if ($twitter_id) {
             return $twitter_id;
@@ -362,6 +494,5 @@ class TwittersettingsAction extends SettingsAction
 
         return false;
     }
-
 
 }

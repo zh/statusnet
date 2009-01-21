@@ -47,46 +47,39 @@ require_once INSTALLDIR.'/lib/mailbox.php';
 class OutboxAction extends MailboxAction
 {
     /**
-     * returns the title of the page
+     * Title of the page
      *
-     * @param User $user current user
-     * @param int  $page current page
-     *
-     * @return string localised title of the page
-     *
-     * @see MailboxAction::getTitle()
+     * @return string page title
      */
 
-    function getTitle($user, $page)
+    function title()
     {
-        if ($page > 1) {
-            $title = sprintf(_("Outbox for %s - page %d"), $user->nickname, $page);
+        if ($this->page > 1) {
+            return sprintf(_("Outbox for %s - page %d"),
+                $this->user->nickname, $page);
         } else {
-            $title = sprintf(_("Outbox for %s"), $user->nickname);
+            return sprintf(_("Outbox for %s"), $this->user->nickname);
         }
-        return $title;
     }
 
     /**
      * retrieve the messages for this user and this page
      *
      * Does a query for the right messages
-     *
-     * @param User $user The current user
-     * @param int  $page The page the user is on
-     *
+     *  
      * @return Message data object with stream for messages
      *
      * @see MailboxAction::getMessages()
      */
 
-    function getMessages($user, $page)
+    function getMessages()
     {
         $message = new Message();
 
-        $message->from_profile = $user->id;
+        $message->from_profile = $this->user->id;
         $message->orderBy('created DESC, id DESC');
-        $message->limit((($page-1)*MESSAGES_PER_PAGE), MESSAGES_PER_PAGE + 1);
+        $message->limit((($this->page - 1) * MESSAGES_PER_PAGE),
+            MESSAGES_PER_PAGE + 1);
 
         if ($message->find()) {
             return $message;

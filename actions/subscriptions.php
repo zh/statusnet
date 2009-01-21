@@ -72,16 +72,16 @@ class SubscriptionsList extends ProfileList
             return;
         }
 
-        common_element_start('form', array('id' => 'subedit-' . $profile->id,
+        $this->elementStart('form', array('id' => 'subedit-' . $profile->id,
                                            'method' => 'post',
                                            'class' => 'subedit',
                                            'action' => common_local_url('subedit')));
-        common_hidden('token', common_session_token());
-        common_hidden('profile', $profile->id);
-        common_checkbox('jabber', _('Jabber'), $sub->jabber);
-        common_checkbox('sms', _('SMS'), $sub->sms);
-        common_submit('save', _('Save'));
-        common_element_end('form');
+        $this->hidden('token', common_session_token());
+        $this->hidden('profile', $profile->id);
+        $this->checkbox('jabber', _('Jabber'), $sub->jabber);
+        $this->checkbox('sms', _('SMS'), $sub->sms);
+        $this->submit('save', _('Save'));
+        $this->elementEnd('form');
         return;
     }
 }

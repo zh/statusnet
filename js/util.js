@@ -20,21 +20,21 @@ $(document).ready(function(){
 	// count character on keyup
 	function counter(event){
 		var maxLength = 140;
-		var currentLength = $("#status_textarea").val().length;
+		var currentLength = $("#notice_data-text").val().length;
 		var remaining = maxLength - currentLength;
-		var counter = $("#counter");
+		var counter = $("#notice_text-count");
 		counter.text(remaining);
 		
 		if (remaining <= 0) {
-			$("#status_form").addClass("response_error");
+			$("#form_notice").addClass("warning");
 		} else {
-			$("#status_form").removeClass("response_error");
+			$("#form_notice").removeClass("warning");
 		}
 	}
 
 	function submitonreturn(event) {
 		if (event.keyCode == 13) {
-			$("#status_form").submit();
+			$("#form_notice").submit();
 			event.preventDefault();
 			event.stopPropagation();
 			return false;
@@ -42,15 +42,15 @@ $(document).ready(function(){
 		return true;
 	}
 
-	if ($("#status_textarea").length) {
-		$("#status_textarea").bind("keyup", counter);
-		$("#status_textarea").bind("keydown", submitonreturn);
+	if ($("#notice_data-text").length) {
+		$("#notice_data-text").bind("keyup", counter);
+		$("#notice_data-text").bind("keydown", submitonreturn);
 		
 		// run once in case there's something in there
 		counter();
 		
 		// set the focus
-		$("#status_textarea").focus();
+		$("#notice_data-text").focus();
 	}
 
 	// XXX: refactor this code
@@ -81,10 +81,10 @@ $(document).ready(function(){
 		this.appendChild(ajax);
 	}
 
-	$("form.favor").ajaxForm(favoptions);
-	$("form.disfavor").ajaxForm(disoptions);
-	$("form.favor").each(addAjaxHidden);
-	$("form.disfavor").each(addAjaxHidden);
+	$("form.form_favor").ajaxForm(favoptions);
+	$("form.form_disfavor").ajaxForm(disoptions);
+	$("form.form_favor").each(addAjaxHidden);
+	$("form.form_disfavor").each(addAjaxHidden);
 
 	$("#nudge").ajaxForm ({ dataType: 'xml',
 							beforeSubmit: function(xml) { $("form#nudge input[type=submit]").attr("disabled", "disabled");
@@ -136,12 +136,12 @@ $(document).ready(function(){
 
 
 	var PostNotice = { dataType: 'xml',
-					   beforeSubmit: function(formData, jqForm, options) { if ($("#status_textarea").get(0).value.length == 0) {
-																				$("#status_form").addClass("response_error");
+					   beforeSubmit: function(formData, jqForm, options) { if ($("#notice_data-text").get(0).value.length == 0) {
+																				$("#form_notice").addClass("warning");
 																				return false;
 																		   }
-																		   $("#status_form input[type=submit]").attr("disabled", "disabled");
-																		   $("#status_form input[type=submit]").addClass("disabled");
+																		   $("#notice_action-submit").attr("disabled", "disabled");
+																		   $("#notice_action-submit").addClass("disabled");
 																		   return true;
 												 						 },
 					   success: function(xml) {	if ($("#error", xml).length > 0 || $("#command_result", xml).length > 0) {
@@ -150,28 +150,37 @@ $(document).ready(function(){
 													alert(result);
 												}
 												else {
-													$("#notices").prepend(document._importNode($("li", xml).get(0), true));
-													$("#status_textarea").val("");
+													$("#notices_primary .notices").prepend(document._importNode($("li", xml).get(0), true));
+													$("#notice_data-text").val("");
 													counter();
-													$(".notice_single:first").css({display:"none"});
-													$(".notice_single:first").fadeIn(2500);
+													$("#notices_primary .notice:first").css({display:"none"});
+													$("#notices_primary .notice:first").fadeIn(2500);
 												}
-												$("#status_form input[type=submit]").removeAttr("disabled");
-												$("#status_form input[type=submit]").removeClass("disabled");
+												$("#notice_action-submit").removeAttr("disabled");
+												$("#notice_action-submit").removeClass("disabled");
 											 }
 					   };
-	$("#status_form").ajaxForm(PostNotice);
-	$("#status_form").each(addAjaxHidden);
+	$("#form_notice").ajaxForm(PostNotice);
+	$("#form_notice").each(addAjaxHidden);
+
+    $(".notice").hover(
+        function () {
+            $(this).addClass('hover');
+        }, 
+        function () {
+            $(this).removeClass('hover');
+        }
+    );
 });
 
 function doreply(nick,id) {
 	rgx_username = /^[0-9a-zA-Z\-_.]*$/;
 	if (nick.match(rgx_username)) {
 		replyto = "@" + nick + " ";
-		if ($("#status_textarea").length) {
-			$("#status_textarea").val(replyto);
-			$("form#status_form input#inreplyto").val(id);
-			$("#status_textarea").focus();
+		if ($("#notice_data-text").length) {
+			$("#notice_data-text").val(replyto);
+			$("#form_notice input#notice_in-reply-to").val(id);
+			$("#notice_data-text").focus();
 			return false;
 		}
 	}

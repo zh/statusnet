@@ -32,7 +32,7 @@ class PeopletagAction extends Action
         $tag = $this->trimmed('tag');
         
         if (!common_valid_profile_tag($tag)) {
-            $this->client_error(sprintf(_('Not a valid people tag: %s'), $tag));
+            $this->clientError(sprintf(_('Not a valid people tag: %s'), $tag));
             return;
         }
 
@@ -90,11 +90,11 @@ class PeopletagAction extends Action
     {
         $instr = sprintf(_('These are users who have tagged themselves "%s" ' .
                            'to show a common interest, characteristic, hobby or job.'), $tag);
-        common_element_start('div', 'instructions');
-        common_element_start('p');
-        common_text($instr);
-        common_element_end('p');
-        common_element_end('div');
+        $this->elementStart('div', 'instructions');
+        $this->elementStart('p');
+        $this->text($instr);
+        $this->elementEnd('p');
+        $this->elementEnd('div');
     }
 
     function get_title()

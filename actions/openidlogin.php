@@ -28,7 +28,7 @@ class OpenidloginAction extends Action
     {
         parent::handle($args);
         if (common_logged_in()) {
-            common_user_error(_('Already logged in.'));
+            $this->clientError(_('Already logged in.'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $openid_url = $this->trimmed('openid_url');
 
@@ -66,13 +66,13 @@ class OpenidloginAction extends Action
     function show_top($error=null)
     {
         if ($error) {
-            common_element('div', array('class' => 'error'), $error);
+            $this->element('div', array('class' => 'error'), $error);
         } else {
             $instr = $this->get_instructions();
             $output = common_markup_to_html($instr);
-            common_element_start('div', 'instructions');
-            common_raw($output);
-            common_element_end('div');
+            $this->elementStart('div', 'instructions');
+            $this->raw($output);
+            $this->elementEnd('div');
         }
     }
 
@@ -80,18 +80,18 @@ class OpenidloginAction extends Action
     {
         common_show_header(_('OpenID Login'), null, $error, array($this, 'show_top'));
         $formaction = common_local_url('openidlogin');
-        common_element_start('form', array('method' => 'post',
+        $this->elementStart('form', array('method' => 'post',
                                            'id' => 'openidlogin',
                                            'action' => $formaction));
-        common_hidden('token', common_session_token());
-        common_input('openid_url', _('OpenID URL'),
+        $this->hidden('token', common_session_token());
+        $this->input('openid_url', _('OpenID URL'),
                      $openid_url,
                      _('Your OpenID URL'));
-        common_checkbox('rememberme', _('Remember me'), false,
+        $this->checkbox('rememberme', _('Remember me'), false,
                         _('Automatically login in the future; ' .
                            'not for shared computers!'));
-        common_submit('submit', _('Login'));
-        common_element_end('form');
+        $this->submit('submit', _('Login'));
+        $this->elementEnd('form');
         common_show_footer();
     }
 }

@@ -1,9 +1,12 @@
 <?php
-/*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+/**
+ * Laconica, the distributed open-source microblogging tool
  *
- * This program is free software: you can redistribute it and/or modify
+ * Action for displaying the public stream
+ *
+ * PHP version 5
+ *
+ * LICENCE: This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -15,91 +18,183 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Public
+ * @package   Laconica
+ * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @copyright 2008-2009 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
-require_once(INSTALLDIR.'/lib/stream.php');
+require_once INSTALLDIR.'/lib/publicgroupnav.php';
+require_once INSTALLDIR.'/lib/noticelist.php';
+require_once INSTALLDIR.'/lib/feedlist.php';
 
-class PublicAction extends StreamAction
+/**
+ * Action for displaying the public stream
+ *
+ * @category Public
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://laconi.ca/
+ *
+ * @see      PublicrssAction
+ * @see      PublicxrdsAction
+ */
+
+class PublicAction extends Action
 {
+    /**
+     * page of the stream we're on; default = 1
+     */
+
+    var $page = null;
+
+    /**
+     * Read and validate arguments
+     *
+     * @param array $args URL parameters
+     *
+     * @return boolean success value
+     */
+
+    function prepare($args)
+    {
+        parent::prepare($args);
+        $this->page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
+        return true;
+    }
+
+    /**
+     * handle request
+     *
+     * Show the public stream, using recipe method showPage()
+     *
+     * @param array $args arguments, mostly unused
+     *
+     * @return void
+     */
 
     function handle($args)
     {
         parent::handle($args);
 
-        $page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
-
         header('X-XRDS-Location: '. common_local_url('publicxrds'));
 
-        common_show_header(_('Public timeline'),
-                           array($this, 'show_header'), null,
-                           array($this, 'show_top'));
-
-        # XXX: Public sidebar here?
-
-        $this->show_notices($page);
-
-        common_show_footer();
+        $this->showPage();
     }
 
-    function show_top()
+    /**
+     * Title of the page
+     *
+     * @return page title, including page number if over 1
+     */
+
+    function title()
     {
-        if (common_logged_in()) {
-            common_notice_form('public');
+        if ($this->page > 1) {
+            return sprintf(_('Public timeline, page %d'), $this->page);
         } else {
-            $instr = $this->get_instructions();
-            $output = common_markup_to_html($instr);
-            common_element_start('div', 'instructions');
-            common_raw($output);
-            common_element_end('div');
+            return _('Public timeline');
         }
-
-        $this->public_views_menu();
-
-        $this->show_feeds_list(array(0=>array('href'=>common_local_url('publicrss'),
-                                              'type' => 'rss',
-                                              'version' => 'RSS 1.0',
-                                              'item' => 'publicrss'),
-                                     1=>array('href'=>common_local_url('publicatom'),
-                                              'type' => 'atom',
-                                              'version' => 'Atom 1.0',
-                                              'item' => 'publicatom')));
     }
 
-    function get_instructions()
-    {
-        return _('This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
-                 'based on the Free Software [Laconica](http://laconi.ca/) tool. ' .
-                 '[Join now](%%action.register%%) to share notices about yourself with friends, family, and colleagues! ([Read more](%%doc.help%%))');
-    }
+    /**
+     * Output <head> elements for RSS and Atom feeds
+     *
+     * @return void
+     */
 
-    function show_header()
+    function showFeeds()
     {
-        common_element('link', array('rel' => 'alternate',
+        $this->element('link', array('rel' => 'alternate',
                                      'href' => common_local_url('publicrss'),
                                      'type' => 'application/rss+xml',
                                      'title' => _('Public Stream Feed')));
-        # for client side of OpenID authentication
-        common_element('meta', array('http-equiv' => 'X-XRDS-Location',
+    }
+
+    /**
+     * Extra head elements
+     *
+     * We include a <meta> element linking to the publicxrds page, for OpenID
+     * client-side authentication.
+     *
+     * @return void
+     */
+
+    function extraHead()
+    {
+        // for client side of OpenID authentication
+        $this->element('meta', array('http-equiv' => 'X-XRDS-Location',
                                      'content' => common_local_url('publicxrds')));
     }
 
-    function show_notices($page)
-    {
+    /**
+     * Show tabset for this page
+     *
+     * Uses the PublicGroupNav widget
+     *
+     * @return void
+     * @see PublicGroupNav
+     */
 
-        $cnt = 0;
-        $notice = Notice::publicStream(($page-1)*NOTICES_PER_PAGE,
+    function showLocalNav()
+    {
+        $nav = new PublicGroupNav($this);
+        $nav->show();
+    }
+
+    /**
+     * Fill the content area
+     *
+     * Shows a list of the notices in the public stream, with some pagination
+     * controls.
+     *
+     * @return void
+     */
+
+    function showContent()
+    {
+        $notice = Notice::publicStream(($this->page-1)*NOTICES_PER_PAGE,
                                        NOTICES_PER_PAGE + 1);
 
         if (!$notice) {
-            $this->server_error(_('Could not retrieve public stream.'));
+            $this->serverError(_('Could not retrieve public stream.'));
             return;
         }
 
-        $cnt = $this->show_notice_list($notice);
+        $nl = new NoticeList($notice, $this);
 
-        common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
-                          $page, 'public');
+        $cnt = $nl->show();
+
+        $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
+                          $this->page, 'public');
+    }
+
+    /**
+     * Makes a list of exported feeds for this page
+     *
+     * @return void
+     *
+     * @todo I18N
+     */
+
+    function showExportData()
+    {
+        $fl = new FeedList($this);
+        $fl->show(array(0 => array('href' => common_local_url('publicrss'),
+                                   'type' => 'rss',
+                                   'version' => 'RSS 1.0',
+                                   'item' => 'publicrss'),
+                        1 => array('href' => common_local_url('publicatom'),
+                                   'type' => 'atom',
+                                   'version' => 'Atom 1.0',
+                                   'item' => 'publicatom')));
     }
 }

@@ -27,7 +27,7 @@ class SubscribeAction extends Action
         parent::handle($args);
 
         if (!common_logged_in()) {
-            common_user_error(_('Not logged in.'));
+            $this->clientError(_('Not logged in.'));
             return;
         }
 
@@ -43,7 +43,7 @@ class SubscribeAction extends Action
         $token = $this->trimmed('token');
 
         if (!$token || $token != common_session_token()) {
-            $this->client_error(_('There was a problem with your session token. Try again, please.'));
+            $this->clientError(_('There was a problem with your session token. Try again, please.'));
             return;
         }
 
@@ -52,26 +52,26 @@ class SubscribeAction extends Action
         $other = User::staticGet('id', $other_id);
 
         if (!$other) {
-            $this->client_error(_('Not a local user.'));
+            $this->clientError(_('Not a local user.'));
             return;
         }
 
         $result = subs_subscribe_to($user, $other);
 
         if($result != true) {
-            common_user_error($result);
+            $this->clientError($result);
             return;
         }
 
         if ($this->boolean('ajax')) {
             common_start_html('text/xml;charset=utf-8', true);
-            common_element_start('head');
-            common_element('title', null, _('Subscribed'));
-            common_element_end('head');
-            common_element_start('body');
+            $this->elementStart('head');
+            $this->element('title', null, _('Subscribed'));
+            $this->elementEnd('head');
+            $this->elementStart('body');
             common_unsubscribe_form($other->getProfile());
-            common_element_end('body');
-            common_element_end('html');
+            $this->elementEnd('body');
+            $this->elementEnd('html');
         } else {
             common_redirect(common_local_url('subscriptions', array('nickname' =>
                                                                 $user->nickname)));

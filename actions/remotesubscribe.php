@@ -30,7 +30,7 @@ class RemotesubscribeAction extends Action
         parent::handle($args);
 
         if (common_logged_in()) {
-            common_user_error(_('You can use the local subscription!'));
+            $this->clientError(_('You can use the local subscription!'));
             return;
         }
 
@@ -61,13 +61,13 @@ class RemotesubscribeAction extends Action
     function show_top($err=null)
     {
         if ($err) {
-            common_element('div', 'error', $err);
+            $this->element('div', 'error', $err);
         } else {
             $instructions = $this->get_instructions();
             $output = common_markup_to_html($instructions);
-            common_element_start('div', 'instructions');
-            common_raw($output);
-            common_element_end('p');
+            $this->elementStart('div', 'instructions');
+            $this->raw($output);
+            $this->elementEnd('p');
         }
     }
 
@@ -79,15 +79,15 @@ class RemotesubscribeAction extends Action
                            array($this, 'show_top'));
         # id = remotesubscribe conflicts with the
         # button on profile page
-        common_element_start('form', array('id' => 'remsub', 'method' => 'post',
+        $this->elementStart('form', array('id' => 'remsub', 'method' => 'post',
                                            'action' => common_local_url('remotesubscribe')));
-        common_hidden('token', common_session_token());
-        common_input('nickname', _('User nickname'), $nickname,
+        $this->hidden('token', common_session_token());
+        $this->input('nickname', _('User nickname'), $nickname,
                      _('Nickname of the user you want to follow'));
-        common_input('profile_url', _('Profile URL'), $profile,
+        $this->input('profile_url', _('Profile URL'), $profile,
                      _('URL of your profile on another compatible microblogging service'));
-        common_submit('submit', _('Subscribe'));
-        common_element_end('form');
+        $this->submit('submit', _('Subscribe'));
+        $this->elementEnd('form');
         common_show_footer();
     }
 
@@ -342,7 +342,7 @@ class RemotesubscribeAction extends Action
         $profile = $user->getProfile();
         if (!$profile) {
             common_log_db_error($user, 'SELECT', __FILE__);
-            $this->server_error(_('User without matching profile'));
+            $this->serverError(_('User without matching profile'));
             return;
         }
 

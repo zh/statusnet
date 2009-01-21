@@ -34,14 +34,14 @@ class TwitapihelpAction extends TwitterapiAction
 
         if ($apidata['content-type'] == 'xml') {
             $this->init_document('xml');
-            common_element('ok', null, 'true');
+            $this->element('ok', null, 'true');
             $this->end_document('xml');
         } elseif ($apidata['content-type'] == 'json') {
             $this->init_document('json');
             print '"ok"';
             $this->end_document('json');
         } else {
-            common_user_error(_('API method not found!'), $code=404);
+            $this->clientError(_('API method not found!'), $code=404);
         }
 
     }
@@ -49,7 +49,7 @@ class TwitapihelpAction extends TwitterapiAction
     function downtime_schedule($args, $apidata)
     {
         parent::handle($args);
-        common_server_error(_('API method under construction.'), $code=501);
+        $this->serverError(_('API method under construction.'), $code=501);
     }
 
 }
