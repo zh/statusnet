@@ -81,21 +81,35 @@ class PasswordsettingsAction extends AccountSettingsAction
     {
         $user = common_current_user();
         $this->elementStart('form', array('method' => 'POST',
-                                          'id' => 'password',
+                                          'id' => 'form_password',
+                                          'class' => 'form_settings',
                                           'action' =>
                                           common_local_url('profilesettings')));
-
+        $this->elementStart('fieldset');
+        $this->element('legend', null, _('Password change'));
         $this->hidden('token', common_session_token());
 
+
+        $this->elementStart('ul', 'form_data');
         // Users who logged in with OpenID won't have a pwd
         if ($user->password) {
+            $this->elementStart('li');
             $this->password('oldpassword', _('Old password'));
+            $this->elementEnd('li');
         }
+        $this->elementStart('li');
         $this->password('newpassword', _('New password'),
                         _('6 or more characters'));
+        $this->elementEnd('li');
+        $this->elementStart('li');
         $this->password('confirm', _('Confirm'),
                         _('same as password above'));
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
+
         $this->submit('changepass', _('Change'));
+
+        $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }
 
