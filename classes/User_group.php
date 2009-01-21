@@ -29,24 +29,28 @@ class User_group extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    function defaultLogo($size) {
+    function defaultLogo($size)
+    {
         static $sizenames = array(AVATAR_PROFILE_SIZE => 'profile',
                                   AVATAR_STREAM_SIZE => 'stream',
                                   AVATAR_MINI_SIZE => 'mini');
         return theme_path('default-avatar-'.$sizenames[$size].'.png');
     }
 
-    function homeUrl() {
+    function homeUrl()
+    {
         return common_local_url('showgroup',
                                 array('nickname' => $this->nickname));
     }
 
-    function permalink() {
+    function permalink()
+    {
         return common_local_url('groupbyid',
                                 array('id' => $this->id));
     }
 
-    function getNotices($offset, $limit) {
+    function getNotices($offset, $limit)
+    {
         $qry =
           'SELECT notice.* ' .
           'FROM notice JOIN group_inbox ON notice.id = group_inbox.notice_id ' .
@@ -54,5 +58,33 @@ class User_group extends Memcached_DataObject
         return Notice::getStream(sprintf($qry, $this->id),
                                  'group:notices:'.$this->id,
                                  $offset, $limit);
+    }
+
+    function allowedNickname($nickname)
+    {
+        static $blacklist = array('new');
+        return !in_array($nickname, $blacklist);
+    }
+
+    function getMembers($offset=0, $limit=null)
+    {
+        $qry =
+          'SELECT profile.* ' .
+          'FROM profile JOIN group_member '.
+          'ON profile.id = group_member.profile_id ' .
+          'WHERE group_member.group_id = %d ' .
+          'ORDER BY group_member.created DESC ';
+
+        if (common_config('db','type') == 'pgsql') {
+            $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+        } else {
+            $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+        }
+
+        $members = new Profile();
+
+        $cnt = $members->query(sprintf($qry, $this->id));
+
+        return $members;
     }
 }
