@@ -85,7 +85,7 @@ class MessageForm extends Form
 
     function id()
     {
-        return 'message_form';
+        return 'form_notice';
     }
 
     /**
@@ -98,6 +98,18 @@ class MessageForm extends Form
     {
         return common_local_url('newmessage');
     }
+
+
+    /**
+     * Legend of the Form
+     *
+     * @return void
+     */
+    function formLegend()
+    {
+        $this->out->element('legend', null, _('Send a direct notice'));
+    }
+
 
     /**
      * Data elements
@@ -122,18 +134,20 @@ class MessageForm extends Form
         $mutual_users->free();
         unset($mutual_users);
 
+        $this->out->elementStart('ul', 'form_data');
+        $this->out->elementStart('li', array('id' => 'notice_to'));
         $this->out->dropdown('to', _('To'), $mutual, null, false,
                              $this->to->id);
+        $this->out->elementEnd('li');
 
-        $this->out->elementStart('p');
-
-        $this->out->element('textarea', array('id' => 'message_content',
-                                              'cols' => 60,
-                                              'rows' => 3,
+        $this->out->elementStart('li', array('id' => 'notice_text'));
+        $this->out->element('textarea', array('id' => 'notice_data-text',
+                                              'cols' => 35,
+                                              'rows' => 4,
                                               'name' => 'content'),
                             ($this->content) ? $this->content : '');
-
-        $this->out->elementEnd('p');
+        $this->out->elementEnd('li');
+        $this->out->elementEnd('ul');
     }
 
     /**
@@ -144,9 +158,14 @@ class MessageForm extends Form
 
     function formActions()
     {
-        $this->out->element('input', array('id' => 'message_send',
+        $this->out->elementStart('ul', 'form_actions');
+        $this->out->elementStart('li', array('id' => 'notice_submit'));
+        $this->out->element('input', array('id' => 'notice_action-submit',
+                                           'class' => 'submit',
                                            'name' => 'message_send',
                                            'type' => 'submit',
                                            'value' => _('Send')));
+        $this->out->elementEnd('li');
+        $this->out->elementEnd('ul');
     }
 }
