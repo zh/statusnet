@@ -149,7 +149,8 @@ font-weight:bold;
 #form_login legend,
 #form_register legend,
 #form_password legend,
-#form_settings_avatar legend {
+#form_settings_avatar legend,
+#form_group_add legend {
 display:none;
 }
 
@@ -188,6 +189,8 @@ border-radius:4px;
 -webkit-border-radius:4px;
 padding:0 7px;
 }
+
+
 
 /* FORM SETTINGS */
 
@@ -691,9 +694,8 @@ margin-right:7px;
 margin-bottom:7px;
 }
 #user_subscriptions .users li .photo {
-width:24px;
-height:24px;
 margin-right:0;
+margin-bottom:0;
 }
 #user_subscriptions .users li .fn {
 display:none;

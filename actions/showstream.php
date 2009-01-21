@@ -410,7 +410,7 @@ class ShowstreamAction extends Action
             $this->elementStart('p');
             $this->element('a', array('href' => common_local_url('subscriptions',
                                                                  array('nickname' => $this->profile->nickname)),
-                                      'class' => 'mores'),
+                                      'class' => 'more'),
                            _('All subscriptions'));
             $this->elementEnd('p');
         }
@@ -439,7 +439,7 @@ class ShowstreamAction extends Action
             $this->elementStart('p');
             $this->element('a', array('href' => common_local_url('subscribers',
                                                                  array('nickname' => $this->profile->nickname)),
-                                      'class' => 'mores'),
+                                      'class' => 'more'),
                            _('All subscribers'));
             $this->elementEnd('p');
         }
@@ -521,7 +521,7 @@ class ShowstreamAction extends Action
             $this->elementStart('p');
             $this->element('a', array('href' => common_local_url('usergroups',
                                                                  array('nickname' => $this->profile->nickname)),
-                                      'class' => 'mores'),
+                                      'class' => 'more'),
                            _('All groups'));
             $this->elementEnd('p');
         }

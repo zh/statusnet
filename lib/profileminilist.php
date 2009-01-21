@@ -49,7 +49,7 @@ class ProfileMiniList extends ProfileList
 {
     function show()
     {
-        $this->out->elementStart('ul', 'users');
+        $this->out->elementStart('ul', 'users xoxo');
 
         $cnt = 0;
 
@@ -73,7 +73,7 @@ class ProfileMiniList extends ProfileList
                                        $this->profile->fullname :
                                        $this->profile->nickname,
                                        'href' => $this->profile->profileurl,
-                                       'rel' => 'contact',
+                                       'rel' => 'contact member',
                                        'class' => 'url'));
         $avatar = $this->profile->getAvatar(AVATAR_MINI_SIZE);
         $this->out->element('img', array('src' => (($avatar) ? common_avatar_display_url($avatar) :  common_default_avatar(AVATAR_MINI_SIZE)),

@@ -49,7 +49,7 @@ class GroupMiniList extends GroupList
 {
     function show()
     {
-        $this->out->elementStart('ul', 'groups');
+        $this->out->elementStart('ul', 'groups xoxo');
 
         $cnt = 0;
 
@@ -73,7 +73,7 @@ class GroupMiniList extends GroupList
                                        $this->group->fullname :
                                        $this->group->nickname,
                                        'href' => $this->group->homeUrl(),
-                                       'rel' => 'contact',
+                                       'rel' => 'contact group',
                                        'class' => 'url'));
         $logo = ($this->group->stream_logo) ?
           $this->group->stream_logo : User_group::defaultLogo(AVATAR_STREAM_SIZE);
@@ -85,7 +85,7 @@ class GroupMiniList extends GroupList
                                     'alt' =>  ($this->group->fullname) ?
                                     $this->group->fullname :
                                     $this->group->nickname));
-        $this->out->element('span', 'fn nickname', $this->group->nickname);
+        $this->out->element('span', 'fn org nickname', $this->group->nickname);
         $this->out->elementEnd('a');
         $this->out->elementEnd('li');
     }
