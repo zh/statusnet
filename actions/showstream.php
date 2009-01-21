@@ -326,7 +326,24 @@ class ShowstreamAction extends Action
         }
         $this->elementEnd('li');
 
-        common_profile_new_message_nudge($cur, $this->user, $this->profile);
+//        common_profile_new_message_nudge($cur, $this->user, $this->profile);
+
+        $user = User::staticGet('id', $this->profile->id);
+        if ($cur && $cur->id != $user->id && $cur->mutuallySubscribed($user)) {
+           $this->elementStart('li', array('id' => 'user_send_a_new_message'));
+            $this->element('a', array('href' => common_local_url('newmessage', array('to' => $user->id))),
+                           _('Send a message'));
+            $this->elementEnd('li');
+
+            if ($user->email && $user->emailnotifynudge) {
+                $this->elementStart('li', array('id' => 'user_nudge'));
+                $nf = new NudgeForm($this, $user);
+                $nf->show();
+                $this->elementEnd('li');
+            }
+        }
+
+
 
         if ($cur && $cur->id != $this->profile->id) {
             $blocked = $cur->hasBlocked($this->profile);
@@ -349,7 +366,7 @@ class ShowstreamAction extends Action
         $url = common_local_url('remotesubscribe',
                                 array('nickname' => $this->profile->nickname));
         $this->element('a', array('href' => $url,
-                                  'id' => 'remotesubscribe'),
+                                  'id' => 'user_subscribe_remote'),
                        _('Subscribe'));
     }
 

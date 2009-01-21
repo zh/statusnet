@@ -77,8 +77,21 @@ class NudgeForm extends Form
 
     function id()
     {
-        return 'nudge';
+        return 'form_user_nudge';
     }
+
+
+    /**
+     * class of the form
+     *
+     * @return string of the form class
+     */
+
+    function formClass()
+    {
+        return 'form_user_nudge';
+    }
+
 
     /**
      * Action of the form

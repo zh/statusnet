@@ -88,7 +88,7 @@ class NudgeAction extends Action
         $this->notify($user, $other);
 
         if ($this->boolean('ajax')) {
-            common_start_html('text/xml;charset=utf-8', true);
+            $this->startHTML('text/xml;charset=utf-8', true);
             $this->elementStart('head');
             $this->element('title', null, _('Nudge sent'));
             $this->elementEnd('head');
