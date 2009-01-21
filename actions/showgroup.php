@@ -53,6 +53,17 @@ class ShowgroupAction extends Action
     var $page = null;
 
     /**
+     * Is this page read-only?
+     *
+     * @return boolean true
+     */
+
+    function isReadOnly()
+    {
+        return true;
+    }
+
+    /**
      * Title of the page
      *
      * @return string page title, with page number
