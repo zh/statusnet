@@ -111,9 +111,10 @@ class MailboxAction extends PersonalAction
         $message = $this->getMessages();
 
         if ($message) {
-
             $cnt = 0;
-            $this->elementStart('ul', array('id' => 'messages'));
+            $this->elementStart('div', array('id' =>'notices_primary'));
+            $this->element('h2', null, _('Notices'));
+            $this->elementStart('ul', 'notices');
 
             while ($message->fetch() && $cnt <= MESSAGES_PER_PAGE) {
                 $cnt++;
@@ -130,7 +131,7 @@ class MailboxAction extends PersonalAction
             $this->pagination($this->page > 1, $cnt > MESSAGES_PER_PAGE,
                               $this->page, $this->trimmed('action'),
                               array('nickname' => $this->user->nickname));
-
+            $this->elementEnd('div');
             $message->free();
             unset($message);
         }
@@ -169,30 +170,35 @@ class MailboxAction extends PersonalAction
 
     function showMessage($message)
     {
-        $this->elementStart('li', array('class' => 'message_single',
+        $this->elementStart('li', array('class' => 'hentry notice',
                                          'id' => 'message-' . $message->id));
 
         $profile = $this->getMessageProfile($message);
 
+        $this->elementStart('div', 'entry-title');
+        $this->elementStart('span', 'vcard author');
+        $this->elementStart('a', array('href' => $profile->profileurl,
+                                       'class' => 'url'));
         $avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
-        $this->elementStart('a', array('href' => $profile->profileurl));
         $this->element('img', array('src' => ($avatar) ?
                                     common_avatar_display_url($avatar) :
                                     common_default_avatar(AVATAR_STREAM_SIZE),
-                                    'class' => 'avatar stream',
+                                    'class' => 'photo avatar',
                                     'width' => AVATAR_STREAM_SIZE,
                                     'height' => AVATAR_STREAM_SIZE,
                                     'alt' =>
                                     ($profile->fullname) ? $profile->fullname :
                                     $profile->nickname));
+        $this->element('span', array('class' => 'nickname fn'),
+                            $profile->nickname);
         $this->elementEnd('a');
-        $this->element('a', array('href' => $profile->profileurl,
-                                  'class' => 'nickname'),
-                       $profile->nickname);
+        $this->elementEnd('span');
+
         // FIXME: URL, image, video, audio
-        $this->elementStart('p', array('class' => 'content'));
+        $this->elementStart('p', array('class' => 'entry-content'));
         $this->raw($message->rendered);
         $this->elementEnd('p');
+        $this->elementEnd('div');
 
         $messageurl = common_local_url('showmessage',
                                        array('message' => $message->id));
@@ -202,17 +208,30 @@ class MailboxAction extends PersonalAction
             preg_match('/^http/', $message->uri)) {
             $messageurl = $message->uri;
         }
-        $this->elementStart('p', 'time');
-        $this->element('a', array('class' => 'permalink',
-                                  'href' => $messageurl,
-                                  'title' => common_exact_date($message->created)),
-                       common_date_string($message->created));
-        if ($message->source) {
-            $this->text(_(' from '));
-            $this->showSource($message->source);
-        }
 
-        $this->elementEnd('p');
+        $this->elementStart('div', 'entry-content');
+        $this->elementStart('dl', 'timestamp');
+        $this->element('dt', null, _('Published'));
+        $this->elementStart('dd', null);
+        $dt = common_date_iso8601($message->created);
+        $this->elementStart('a', array('rel' => 'bookmark',
+                                       'href' => $messageurl));
+        $this->element('abbr', array('class' => 'published',
+                                     'title' => $dt),
+                               common_date_string($message->created));
+        $this->elementEnd('a');
+        $this->elementEnd('dd');
+        $this->elementEnd('dl');
+
+        if ($message->source) {
+            $this->elementStart('dl', 'device');
+            $this->elementStart('dt');
+            $this->text(_('From'));
+            $this->elementEnd('dt');
+            $this->showSource($message->source);
+            $this->elementEnd('dl');
+        }
+        $this->elementEnd('div');
 
         $this->elementEnd('li');
     }
@@ -255,15 +274,18 @@ class MailboxAction extends PersonalAction
         case 'mail':
         case 'omb':
         case 'api':
-            $this->element('span', 'noticesource', $source_name);
+            $this->element('dd', null, $source_name);
             break;
         default:
             $ns = Notice_source::staticGet($source);
             if ($ns) {
-                $this->element('a', array('href' => $ns->url),
+                $this->elementStart('dd', null);
+                $this->element('a', array('href' => $ns->url,
+                                          'rel' => 'external'),
                                $ns->name);
+                $this->elementEnd('dd');
             } else {
-                $this->element('span', 'noticesource', $source_name);
+                $this->element('dd', null, $source_name);
             }
             break;
         }
