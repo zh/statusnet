@@ -20,6 +20,7 @@
 if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/mail.php');
+require_once INSTALLDIR.'/lib/disfavorform.php';
 
 class FavorAction extends Action
 {
@@ -73,7 +74,8 @@ class FavorAction extends Action
             $this->element('title', null, _('Disfavor favorite'));
             $this->elementEnd('head');
             $this->elementStart('body');
-            common_disfavor_form($notice);
+            $disfavor = new DisFavorForm($this, $notice);
+            $disfavor->show();
             $this->elementEnd('body');
             $this->elementEnd('html');
         } else {
