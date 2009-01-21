@@ -1,7 +1,7 @@
 		$(function(){
-			jQuery("#photo_original img").Jcrop({
+			jQuery("#avatar_original img").Jcrop({
 				onChange: showPreview,
-				setSelect: [ 0, 0, $("#photo_original img").attr("width"), $("#photo_original img").attr("height") ],
+				setSelect: [ 0, 0, $("#avatar_original img").attr("width"), $("#avatar_original img").attr("height") ],
 				onSelect: updateCoords,
 				aspectRatio: 1,
 				boxWidth: 480,
@@ -15,10 +15,10 @@
 			var rx = 96 / coords.w;
 			var ry = 96 / coords.h;
 
-			var img_width = $("#photo_original img").attr("width");
-			var img_height = $("#photo_original img").attr("height");
+			var img_width = $("#avatar_original img").attr("width");
+			var img_height = $("#avatar_original img").attr("height");
 
-			$('#photo_preview img').css({
+			$('#avatar_preview img').css({
 				width: Math.round(rx *img_width) + 'px',
 				height: Math.round(ry * img_height) + 'px',
 				marginLeft: '-' + Math.round(rx * coords.x) + 'px',
@@ -27,14 +27,14 @@
 		};
 
 		function updateCoords(c) {
-			$('#photo_crop_x').val(c.x);
-			$('#photo_crop_y').val(c.y);
-			$('#photo_crop_w').val(c.w);
-			$('#photo_crop_h').val(c.h);
+			$('#avatar_crop_x').val(c.x);
+			$('#avatar_crop_y').val(c.y);
+			$('#avatar_crop_w').val(c.w);
+			$('#avatar_crop_h').val(c.h);
 		};
 
 		function checkCoords() {
-			if (parseInt($('#photo_crop_w').val())) return true;
+			if (parseInt($('#avatar_crop_w').val())) return true;
 			alert('Please select a crop region then press submit.');
 			return false;
 		};

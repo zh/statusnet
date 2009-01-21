@@ -148,7 +148,8 @@ font-weight:bold;
 #form_settings_profile legend,
 #form_login legend,
 #form_register legend,
-#form_password legend {
+#form_password legend,
+#form_settings_avatar legend {
 display:none;
 }
 
@@ -1161,21 +1162,34 @@ clear:both;
 
 
 
-
-#photo_original,
-#photo_preview {
+#form_settings_avatar li {
+width:auto;
+}
+#form_settings_avatar input {
+margin-left:0; 
+}
+#avatar_original,
+#avatar_preview {
 float:left;
 }
-#photo_preview,
-#settings_photo_action-crop {
+#avatar_preview {
 margin-left:29px;
 }
-#photo_preview_view {
+#avatar_preview_view {
 height:96px;
 width:96px;
+margin-bottom:18px;
 overflow:hidden;
 }
 
+#settings_attach,
+#form_settings_avatar .form_actions {
+clear:both;
+}
+
+#form_settings_avatar .form_actions {
+margin-bottom:0;
+}
 
 
 
