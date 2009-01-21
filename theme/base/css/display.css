@@ -1110,33 +1110,41 @@ width:24px;
 
 
 /* tagcloud */
-#tagcloud ul {
+.tag-cloud {
 list-style-type:none;
 }
-#tagcloud ul li {
+.tag-cloud li {
 display:inline;
 margin-right:7px;
-line-height:1.4;
+line-height:1;
 }
-
+.tag-cloud li a {
+text-decoration:none;
+}
 #tagcloud.section dt {
 text-transform:uppercase;
 font-weight:bold;
 }
-#tagcloud .weight_1 {
+.tag-cloud-1 {
 font-size:1em;
 }
-#tagcloud .weight_2 {
-font-size:1.3em;
+.tag-cloud-2 {
+font-size:1.5em;
 }
-#tagcloud .weight_3 {
-font-size:1.6em;
+.tag-cloud-3 {
+font-size:2em;
 }
-#tagcloud .weight_4 {
-font-size:1.9em;
+.tag-cloud-4 {
+font-size:2.5em;
 }
-#tagcloud .weight_5 {
-font-size:2.2em;
+.tag-cloud-5 {
+font-size:3em;
+}
+.tag-cloud-6 {
+font-size:3.5em;
+}
+.tag-cloud-7 {
+font-size:4em;
 }
 
 
