@@ -83,7 +83,7 @@ class GroupNav extends Widget
                                                                  $nickname)),
                              _('Group'),
                              sprintf(_('%s group'), $nickname),
-                             $action_name == 'group',
+                             $action_name == 'showgroup',
                              'nav_group_group');
         $this->out->menuItem(common_local_url('groupmembers', array('nickname' =>
                                                                     $nickname)),
