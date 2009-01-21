@@ -2,7 +2,7 @@
 /**
  * Table Definition for group_inbox
  */
-require_once 'classes/Memcached_DataObject';
+require_once 'classes/Memcached_DataObject.php';
 
 class Group_inbox extends Memcached_DataObject
 {
