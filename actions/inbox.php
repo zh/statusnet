@@ -46,66 +46,57 @@ require_once INSTALLDIR.'/lib/mailbox.php';
 
 class InboxAction extends MailboxAction
 {
+    
     /**
-     * returns the title of the page
+     * Title of the page
      *
-     * @param User $user current user
-     * @param int  $page current page
-     *
-     * @return string localised title of the page
-     *
-     * @see MailboxAction::getTitle()
+     * @return string page title
      */
-
-    function getTitle($user, $page)
-    {
-        if ($page > 1) {
-            $title = sprintf(_("Inbox for %s - page %d"), $user->nickname, $page);
+    
+    function title()
+    {        
+        if ($this->page > 1) {
+            return sprintf(_("Inbox for %s - page %d"), $this->user->nickname,
+                $this->page);
         } else {
-            $title = sprintf(_("Inbox for %s"), $user->nickname);
+            return sprintf(_("Inbox for %s"), $this->user->nickname);
         }
-        return $title;
     }
 
     /**
-     * retrieve the messages for this user and this page
+     * Retrieve the messages for this user and this page
      *
      * Does a query for the right messages
-     *
-     * @param User $user The current user
-     * @param int  $page The page the user is on
-     *
+     *  
      * @return Message data object with stream for messages
      *
      * @see MailboxAction::getMessages()
      */
 
-    function getMessages($user, $page)
+    function getMessages()
     {
         $message = new Message();
 
-        $message->to_profile = $user->id;
-
+        $message->to_profile = $this->user->id;
         $message->orderBy('created DESC, id DESC');
-        $message->limit((($page-1)*MESSAGES_PER_PAGE), MESSAGES_PER_PAGE + 1);
+        $message->limit((($this->page - 1) * MESSAGES_PER_PAGE),
+            MESSAGES_PER_PAGE + 1);
 
         if ($message->find()) {
             return $message;
-        } else {
+        } else {            
             return null;
         }
     }
 
     /**
-     * returns the profile we want to show with the message
+     * Returns the profile we want to show with the message
      *
-     * For inboxes, we show the sender.
+     * For inboxes, we show the sender; for outboxes, the recipient.
      *
      * @param Message $message The message to get the profile for
      *
-     * @return Profile The profile of the message sender
-     *
-     * @see MailboxAction::getMessageProfile()
+     * @return Profile The profile that matches the message
      */
 
     function getMessageProfile($message)
@@ -114,7 +105,7 @@ class InboxAction extends MailboxAction
     }
 
     /**
-     * instructions for using this page
+     * Instructions for using this page
      *
      * @return string localised instructions for using the page
      */

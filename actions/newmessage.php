@@ -1,9 +1,12 @@
 <?php
-/*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+/**
+ * Laconica, the distributed open-source microblogging tool
  *
- * This program is free software: you can redistribute it and/or modify
+ * Handler for posting new notices
+ *
+ * PHP version 5
+ *
+ * LICENCE: This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -15,12 +18,62 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Personal
+ * @package   Laconica
+ * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @author    Zach Copley <zach@controlyourself.ca>
+ * @author    Sarven Capadisli <csarven@controlyourself.ca>
+ * @copyright 2008-2009 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
  */
+ 
+if (!defined('LACONICA')) { 
+    exit(1); 
+}
 
-if (!defined('LACONICA')) { exit(1); }
+/**
+ * Action for posting new direct messages
+ *
+ * @category Personal
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Zach Copley <zach@controlyourself.ca>
+ * @author   Sarven Capadisli <csarven@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://laconi.ca/
+ */
 
 class NewmessageAction extends Action
 {
+    
+    /**
+     * Error message, if any
+     */
+
+    var $msg = null;
+
+    /**
+     * Title of the page
+     *
+     * Note that this usually doesn't get called unless something went wrong
+     *
+     * @return string page title
+     */
+     
+    function title()
+    {
+        return _('New message');
+    }
+    
+    /**
+     * Handle input, produce output
+     *
+     * @param array $args $_REQUEST contents
+     *
+     * @return void
+     */
     
     function handle($args)
     {
@@ -29,38 +82,42 @@ class NewmessageAction extends Action
         if (!common_logged_in()) {
             $this->clientError(_('Not logged in.'), 403);
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->save_new_message();
+            $this->saveNewMessage();
         } else {
-            $this->show_form();
+            $this->showForm();
         }
     }
 
-    function save_new_message()
+    function saveNewMessage()
     {
         $user = common_current_user();
-        assert($user); # XXX: maybe an error instead...
+        assert($user); // XXX: maybe an error instead...
 
-        # CSRF protection
+        // CSRF protection
         
         $token = $this->trimmed('token');
         if (!$token || $token != common_session_token()) {
-            $this->show_form(_('There was a problem with your session token. Try again, please.'));
+            $this->showForm(_('There was a problem with your session token. ' .
+                'Try again, please.'));
             return;
         }
         
         $content = $this->trimmed('content');
-        $to = $this->trimmed('to');
+        $to      = $this->trimmed('to');
         
         if (!$content) {
-            $this->show_form(_('No content!'));
+            $this->showForm(_('No content!'));
             return;
         } else {
             $content_shortened = common_shorten_links($content);
 
             if (mb_strlen($content_shortened) > 140) {
                 common_debug("Content = '$content_shortened'", __FILE__);
-                common_debug("mb_strlen(\$content) = " . mb_strlen($content_shortened), __FILE__);
-                $this->show_form(_('That\'s too long. Max message size is 140 chars.'));
+                common_debug("mb_strlen(\$content) = " . 
+                    mb_strlen($content_shortened),
+                    __FILE__);
+                $this->showForm(_('That\'s too long. ' .
+                    'Max message size is 140 chars.'));
                 return;
             }
         }
@@ -68,20 +125,21 @@ class NewmessageAction extends Action
         $other = User::staticGet('id', $to);
         
         if (!$other) {
-            $this->show_form(_('No recipient specified.'));
+            $this->showForm(_('No recipient specified.'));
             return;
         } else if (!$user->mutuallySubscribed($other)) {
             $this->clientError(_('You can\'t send a message to this user.'), 404);
             return;
         } else if ($user->id == $other->id) {
-            $this->clientError(_('Don\'t send a message to yourself; just say it to yourself quietly instead.'), 403);
+            $this->clientError(_('Don\'t send a message to yourself; ' .
+                'just say it to yourself quietly instead.'), 403);
             return;
         }
         
         $message = Message::saveNew($user->id, $other->id, $content, 'web');
         
         if (is_string($message)) {
-            $this->show_form($message);
+            $this->showForm($message);
             return;
         }
 
@@ -92,21 +150,10 @@ class NewmessageAction extends Action
         common_redirect($url, 303);
     }
 
-    function show_top($params)
+    function showForm($msg = null)
     {
-
-        list($content, $user, $to) = $params;
-        
-        assert(!is_null($user));
-
-        common_message_form($content, $user, $to);
-    }
-
-    function show_form($msg=null)
-    {
-        
         $content = $this->trimmed('content');
-        $user = common_current_user();
+        $user    = common_current_user();
 
         $to = $this->trimmed('to');
         
@@ -120,22 +167,16 @@ class NewmessageAction extends Action
         if (!$user->mutuallySubscribed($other)) {
             $this->clientError(_('You can\'t send a message to this user.'), 404);
             return;
-        }
+        }        
         
-        common_show_header(_('New message'), null,
-                           array($content, $user, $other),
-                           array($this, 'show_top'));
+        $this->msg = $msg;
         
-        if ($msg) {
-            $this->element('p', array('id'=>'error'), $msg);
-        }
-        
-        common_show_footer();
+        $this->showPage();
     }
     
     function notify($from, $to, $message)
     {
         mail_notify_message($message, $from, $to);
-        # XXX: Jabber, SMS notifications... probably queued
+        // XXX: Jabber, SMS notifications... probably queued
     }
 }
