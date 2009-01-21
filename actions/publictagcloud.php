@@ -103,7 +103,8 @@ class PublictagcloudAction extends Action
         $cnt = $tags->find();
 
         if ($cnt > 0) {
-            $this->elementStart('p', 'tagcloud');
+            $this->elementStart('div', array('id' => 'tagcloud',
+                                             'class' => 'section'));
 
             $tw = array();
             $sum = 0;
@@ -114,36 +115,41 @@ class PublictagcloudAction extends Action
 
             ksort($tw);
 
+            $this->elementStart('dl');
+            $this->element('dt', null, _('Tag cloud'));
+            $this->elementStart('dd');
+            $this->elementStart('ul', 'tags xoxo tag-cloud');
             foreach ($tw as $tag => $weight) {
                 $this->showTag($tag, $weight, $weight/$sum);
             }
-
-            $this->elementEnd('p');
+            $this->elementEnd('ul');
+            $this->elementEnd('dd');
+            $this->elementEnd('dl');
+            $this->elementEnd('div');
         }
     }
 
     function showTag($tag, $weight, $relative)
     {
-        # XXX: these should probably tune to the size of the site
         if ($relative > 0.1) {
-            $cls =  'largest';
+            $rel =  'tag-cloud-7';
         } else if ($relative > 0.05) {
-            $cls = 'verylarge';
+            $rel = 'tag-cloud-6';
         } else if ($relative > 0.02) {
-            $cls = 'large';
+            $rel = 'tag-cloud-5';
         } else if ($relative > 0.01) {
-            $cls = 'medium';
+            $rel = 'tag-cloud-4';
         } else if ($relative > 0.005) {
-            $cls = 'small';
+            $rel = 'tag-cloud-3';
         } else if ($relative > 0.002) {
-            $cls = 'verysmall';
+            $rel = 'tag-cloud-2';
         } else {
-            $cls = 'smallest';
+            $rel = 'tag-cloud-1';
         }
 
-        $this->element('a', array('class' => "$cls weight-$weight relative-$relative",
-                                  'href' => common_local_url('tag', array('tag' => $tag))),
+        $this->elementStart('li', $rel);
+        $this->element('a', array('href' => common_local_url('tag', array('tag' => $tag))),
                        $tag);
-        $this->text(' ');
+        $this->elementEnd('li');
     }
 }
