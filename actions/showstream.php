@@ -35,6 +35,7 @@ if (!defined('LACONICA')) {
 require_once INSTALLDIR.'/lib/personalgroupnav.php';
 require_once INSTALLDIR.'/lib/noticelist.php';
 require_once INSTALLDIR.'/lib/profileminilist.php';
+require_once INSTALLDIR.'/lib/groupminilist.php';
 require_once INSTALLDIR.'/lib/feedlist.php';
 
 /**
@@ -385,6 +386,7 @@ class ShowstreamAction extends Action
         $this->showStatistics();
         $this->showSubscriptions();
         $this->showSubscribers();
+        $this->showGroups();
     }
 
     function showSubscriptions()
@@ -494,6 +496,35 @@ class ShowstreamAction extends Action
         $this->element('dt', null, _('Notices'));
         $this->element('dd', null, (is_int($notice_count)) ? $notice_count : '0');
         $this->elementEnd('dl');
+
+        $this->elementEnd('div');
+    }
+
+    function showGroups()
+    {
+        $groups = $this->user->getGroups(0, GROUPS_PER_MINILIST + 1);
+
+        $this->elementStart('div', array('id' => 'user_groups',
+                                         'class' => 'section'));
+
+        $this->element('h2', null, _('Groups'));
+
+        if ($groups) {
+            $gml = new GroupMiniList($groups, $this->user, $this);
+            $cnt = $gml->show();
+            if ($cnt == 0) {
+                $this->element('p', null, _('(None)'));
+            }
+        }
+
+        if ($cnt > GROUPS_PER_MINILIST) {
+            $this->elementStart('p');
+            $this->element('a', array('href' => common_local_url('usergroups',
+                                                                 array('nickname' => $this->profile->nickname)),
+                                      'class' => 'mores'),
+                           _('All groups'));
+            $this->elementEnd('p');
+        }
 
         $this->elementEnd('div');
     }
