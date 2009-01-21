@@ -611,16 +611,25 @@ width:100%;
 }
 #user_actions a {
 text-decoration:none;
+font-weight:bold;
+width:100%;
+display:block;
 }
 
 
 
 .form_user_block input.submit,
-.form_user_unblock input.submit {
+.form_user_unblock input.submit,
+#user_send-a-message a,
+.form_user_nudge input.submit {
 border:0;
 padding-left:20px;
 }
 
+#user_send-a-message a {
+padding:4px 4px 4px 23px;
+
+}
 
 
 #user_subscribe input.submit,
@@ -631,13 +640,9 @@ padding-left:20px;
 
 
 #user_send-a-message form {
-clear:left;
-width:322px;
-margin-top:18px;
 }
 
 #user_send-a-message textarea {
-width:96%;
 }
 
 .user_tags ul {

@@ -41,7 +41,9 @@ color:#fff;
 a,
 div.notice-options input,
 .form_user_block input.submit,
-.form_user_unblock input.submit {
+.form_user_unblock input.submit,
+#user_send-a-message a,
+.form_user_nudge input.submit {
 color:#002E6E;
 }
 
@@ -63,8 +65,7 @@ background-color:#CEE1E9;
 #notice_text-count {
 color:#333;
 }
-#form_notice.warning #notice_text-count,
-#user_actions a {
+#form_notice.warning #notice_text-count {
 color:#000;
 }
 
@@ -131,7 +132,7 @@ background-image:url(../../base/images/icons/icon_vcard.gif);
 }
 
 
-.form_user_send-a-message input.submit,
+#user_send-a-message a,
 .form_user_nudge input.submit,
 .form_user_block input.submit,
 .form_user_unblock input.submit {
