@@ -77,7 +77,7 @@ class JoinForm extends Form
 
     function id()
     {
-        return 'subscribe-' . $this->group->id;
+        return 'group-join-' . $this->group->id;
     }
 
     /**
