@@ -1040,14 +1040,16 @@ function common_redirect($url, $code=307)
                            302 => "Found",
                            303 => "See Other",
                            307 => "Temporary Redirect");
+
     header("Status: ${code} $status[$code]");
     header("Location: $url");
 
-    common_start_xml('a',
-                     '-//W3C//DTD XHTML 1.0 Strict//EN',
-                     'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd');
-    common_element('a', array('href' => $url), $url);
-    common_end_xml();
+    $xo = new XMLOutputter();
+    $xo->startXML('a',
+                  '-//W3C//DTD XHTML 1.0 Strict//EN',
+                  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd');
+    $xo->output('a', array('href' => $url), $url);
+    $xo->endXML();
     exit;
 }
 
