@@ -1,9 +1,12 @@
 <?php
-/*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+/**
+ * Laconica, the distributed open-source microblogging tool
  *
- * This program is free software: you can redistribute it and/or modify
+ * Class for deleting a notice
+ *
+ * PHP version 5
+ *
+ * LICENCE: This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -15,49 +18,99 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Personal
+ * @package   Laconica
+ * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @author    Sarven Capadisli <csarven@controlyourself.ca>
+ * @copyright 2008 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
-require_once(INSTALLDIR.'/lib/deleteaction.php');
+require_once INSTALLDIR.'/lib/deleteaction.php';
 
 class DeletenoticeAction extends DeleteAction
 {
+    var $error = null;
+
     function handle($args)
     {
         parent::handle($args);
-        # XXX: Ajax!
+        // XXX: Ajax!
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->delete_notice();
+            $this->deleteNotice();
         } else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            $this->show_form();
+            $this->showForm();
         }
     }
 
-    function get_instructions()
+    /**
+     * Show the page notice
+     *
+     * Shows instructions for the page
+     *
+     * @return void
+     */
+
+    function showPageNotice()
     {
-        return _('You are about to permanently delete a notice.  Once this is done, it cannot be undone.');
+        $instr  = $this->getInstructions();
+        $output = common_markup_to_html($instr);
+
+        $this->elementStart('div', 'instructions');
+        $this->raw($output);
+        $this->elementEnd('div');
     }
 
-    function get_title()
+    function getInstructions()
+    {
+        return _('You are about to permanently delete a notice. ' .
+            'Once this is done, it cannot be undone.');
+    }
+
+    function title()
     {
         return _('Delete notice');
     }
 
-    function show_form($error=null)
-    {
-        $user = common_current_user();
+    /**
+     * Wrapper for showing a page
+     *
+     * Stores an error and shows the page
+     *
+     * @param string $error Error, if any
+     *
+     * @return void
+     */
 
-        common_show_header($this->get_title(), array($this, 'show_header'), $error,
-                           array($this, 'show_top'));
+    function showForm($error = null)
+    {
+        $this->error = $error;
+        $this->showPage();
+    }
+
+    /**
+     * Insert delete notice form into the content
+     *
+     * @return void
+     */
+
+    function showContent()
+    {
         $this->elementStart('form', array('id' => 'notice_delete_form',
                                    'method' => 'post',
                                    'action' => common_local_url('deletenotice')));
         $this->hidden('token', common_session_token());
         $this->hidden('notice', $this->trimmed('notice'));
         $this->elementStart('p');
-        $this->element('span', array('id' => 'confirmation_text'), _('Are you sure you want to delete this notice?'));
+        $this->element('span', array('id' => 'confirmation_text'),
+            _('Are you sure you want to delete this notice?'));
 
         $this->element('input', array('id' => 'submit_no',
                           'name' => 'submit',
@@ -69,33 +122,38 @@ class DeletenoticeAction extends DeleteAction
                           'value' => _('Yes')));
         $this->elementEnd('p');
         $this->elementEnd('form');
-        common_show_footer();
     }
 
-    function delete_notice()
+    function deleteNotice()
     {
-        # CSRF protection
+        // CSRF protection
         $token = $this->trimmed('token');
+
         if (!$token || $token != common_session_token()) {
-            $this->show_form(_('There was a problem with your session token. Try again, please.'));
+            $this->showForm(_('There was a problem with your session token. ' .
+                ' Try again, please.'));
             return;
         }
-        $url = common_get_returnto();
-        $confirmed = $this->trimmed('submit');
-        if ($confirmed == _('Yes')) {
-            $user = common_current_user();
-            $notice_id = $this->trimmed('notice');
-            $notice = Notice::staticGet($notice_id);
-            $replies = new Reply;
-            $replies->get('notice_id', $notice_id);
 
-            common_dequeue_notice($notice);
+        $url       = common_get_returnto();
+        $confirmed = $this->trimmed('submit');
+
+        if ($confirmed == _('Yes')) {
+
+            $replies = new Reply;
+            $replies->get('notice_id', $this->notice->id);
+
+            common_dequeue_notice($this->notice);
+
             if (common_config('memcached', 'enabled')) {
                 $notice->blowSubsCache();
             }
+
             $replies->delete();
-            $notice->delete();
+            $this->notice->delete();
+
         } else {
+
             if ($url) {
                 common_set_returnto(null);
             } else {
