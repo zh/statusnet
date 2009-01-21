@@ -66,12 +66,13 @@ class UnsubscribeAction extends Action
         }
 
         if ($this->boolean('ajax')) {
-            common_start_html('text/xml;charset=utf-8', true);
+            $this->startHTML('text/xml;charset=utf-8', true);
             $this->elementStart('head');
             $this->element('title', null, _('Unsubscribed'));
             $this->elementEnd('head');
             $this->elementStart('body');
-            common_subscribe_form($other);
+            $subscribe = new SubscribeForm($this, $other);
+            $subscribe->show();
             $this->elementEnd('body');
             $this->elementEnd('html');
         } else {

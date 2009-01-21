@@ -64,12 +64,13 @@ class SubscribeAction extends Action
         }
 
         if ($this->boolean('ajax')) {
-            common_start_html('text/xml;charset=utf-8', true);
+            $this->startHTML('text/xml;charset=utf-8', true);
             $this->elementStart('head');
             $this->element('title', null, _('Subscribed'));
             $this->elementEnd('head');
             $this->elementStart('body');
-            common_unsubscribe_form($other->getProfile());
+            $unsubscribe = new UnsubscribeForm($this, $other->getProfile());
+            $unsubscribe->show();
             $this->elementEnd('body');
             $this->elementEnd('html');
         } else {
