@@ -69,14 +69,14 @@ class Section extends Widget
         $have_more = $this->showContent();
 
         if ($have_more) {
-            $this->elementStart('p');
-            $this->element('a', array('href' => $this->moreUrl(),
+            $this->out->elementStart('p');
+            $this->out->element('a', array('href' => $this->moreUrl(),
                                       'class' => 'more'),
                            $this->moreTitle());
-            $this->elementEnd('p');
+            $this->out->elementEnd('p');
         }
 
-        $this->elementEnd('div');
+        $this->out->elementEnd('div');
     }
 
     function divId()
