@@ -196,37 +196,10 @@ class AvatarsettingsAction extends AccountSettingsAction
 
     function uploadAvatar()
     {
-        switch ($_FILES['avatarfile']['error']) {
-        case UPLOAD_ERR_OK: // success, jump out
-            break;
-        case UPLOAD_ERR_INI_SIZE:
-        case UPLOAD_ERR_FORM_SIZE:
-            $this->showForm(_('That file is too big.'));
-            return;
-        case UPLOAD_ERR_PARTIAL:
-            @unlink($_FILES['avatarfile']['tmp_name']);
-            $this->showForm(_('Partial upload.'));
-            return;
-        default:
-            $this->showForm(_('System error uploading file.'));
-            return;
-        }
-
-        $info = @getimagesize($_FILES['avatarfile']['tmp_name']);
-
-        if (!$info) {
-            @unlink($_FILES['avatarfile']['tmp_name']);
-            $this->showForm(_('Not an image or corrupt file.'));
-            return;
-        }
-
-        switch ($info[2]) {
-        case IMAGETYPE_GIF:
-        case IMAGETYPE_JPEG:
-        case IMAGETYPE_PNG:
-            break;
-        default:
-            $this->showForm(_('Unsupported image file format.'));
+        try {
+            $imagefile = ImageFile::fromUpload('avatarfile');
+        } catch (Exception $e) {
+            $this->showForm($e->getMessage());
             return;
         }
 
@@ -234,13 +207,13 @@ class AvatarsettingsAction extends AccountSettingsAction
 
         $profile = $user->getProfile();
 
-        if ($profile->setOriginal($_FILES['avatarfile']['tmp_name'])) {
+        if ($profile->setOriginal($imagefile->filename)) {
             $this->showForm(_('Avatar updated.'), true);
         } else {
             $this->showForm(_('Failed updating avatar.'));
         }
 
-        @unlink($_FILES['avatarfile']['tmp_name']);
+        $imagefile->unlink();
     }
 
     /**
