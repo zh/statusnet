@@ -424,6 +424,7 @@ function common_render_content($text, $notice)
     $r = preg_replace('/(^|\s+)@([A-Za-z0-9]{1,64})/e', "'\\1@'.common_at_link($id, '\\2')", $r);
     $r = preg_replace('/^T ([A-Z0-9]{1,64}) /e', "'T '.common_at_link($id, '\\1').' '", $r);
     $r = preg_replace('/(^|\s+)@#([A-Za-z0-9]{1,64})/e', "'\\1@#'.common_at_hash_link($id, '\\2')", $r);
+    $r = preg_replace('/(^|\s)!([A-Za-z0-9]{1,64})/e', "\\1'!'.common_group_link($id, '\\2')", $r);
     return $r;
 }
 
@@ -590,6 +591,17 @@ function common_at_link($sender_id, $nickname)
     $recipient = common_relative_profile($sender, common_canonical_nickname($nickname));
     if ($recipient) {
         return '<span class="vcard"><a href="'.htmlspecialchars($recipient->profileurl).'" class="url"><span class="fn nickname">'.$nickname.'</span></a></span>';
+    } else {
+        return $nickname;
+    }
+}
+
+function common_group_link($sender_id, $nickname)
+{
+    $sender = Profile::staticGet($sender_id);
+    $group = User_group::staticGet(common_canonical_nickname($nickname));
+    if ($group && $sender->isMember($group)) {
+        return '<span class="vcard"><a href="'.htmlspecialchars($group->permalink()).'" class="url"><span class="fn nickname">'.$nickname.'</span></a></span>';
     } else {
         return $nickname;
     }
@@ -1052,7 +1064,7 @@ function common_redirect($url, $code=307)
     $xo->startXML('a',
                   '-//W3C//DTD XHTML 1.0 Strict//EN',
                   'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd');
-    $xo->output('a', array('href' => $url), $url);
+    $xo->element('a', array('href' => $url), $url);
     $xo->endXML();
     exit;
 }

@@ -158,6 +158,7 @@ class Notice extends Memcached_DataObject
 
         common_save_replies($notice);
         $notice->saveTags();
+        $notice->saveGroups();
 
         # Clear the cache for subscribed users, so they'll update at next request
         # XXX: someone clever could prepend instead of clearing the cache
@@ -195,6 +196,26 @@ class Notice extends Memcached_DataObject
         $this->blowRepliesCache($blowLast);
         $this->blowPublicCache($blowLast);
         $this->blowTagCache($blowLast);
+        $this->blowGroupCache($blowLast);
+    }
+
+    function blowGroupCache($blowLast=false)
+    {
+        $cache = common_memcache();
+        if ($cache) {
+            $group_inbox = new Group_inbox();
+            $group_inbox->notice_id = $this->id;
+            if ($group_inbox->find()) {
+                while ($group_inbox->fetch()) {
+                    $cache->delete(common_cache_key('group:notices:'.$group_inbox->group_id));
+                    if ($blowLast) {
+                        $cache->delete(common_cache_key('group:notices:'.$group_inbox->group_id.';last'));
+                    }
+                }
+            }
+            $group_inbox->free();
+            unset($group_inbox);
+        }
     }
 
     function blowTagCache($blowLast=false)
@@ -549,5 +570,59 @@ class Notice extends Memcached_DataObject
         return;
     }
 
+    function saveGroups()
+    {
+        $enabled = common_config('inboxes', 'enabled');
+        if ($enabled !== true && $enabled !== 'transitional') {
+            return;
+        }
+
+        /* extract all !group */
+        $count = preg_match_all('/(?:^|\s)!([A-Za-z0-9]{1,64})/',
+                                strtolower($this->content),
+                                $match);
+        if (!$count) {
+            return true;
+        }
+
+        $profile = $this->getProfile();
+
+        /* Add them to the database */
+
+        foreach (array_unique($match[1]) as $nickname) {
+            /* XXX: remote groups. */
+            $group = User_group::staticGet('nickname', $nickname);
+
+            if ($profile->isMember($group)) {
+                $gi = new Group_inbox();
+
+                $gi->group_id  = $group->id;
+                $gi->notice_id = $this->id;
+                $gi->created   = common_sql_now();
+
+                $result = $gi->insert();
+
+                if (!$result) {
+                    common_log_db_error($gi, 'INSERT', __FILE__);
+                }
+
+                // FIXME: do this in an offline daemon
+
+                $inbox = new Notice_inbox();
+                $qry = 'INSERT INTO notice_inbox (user_id, notice_id, created) ' .
+                  'SELECT user.id, ' . $this->id . ', "' . $this->created . '" ' .
+                  'FROM user JOIN user_group ON user.id = user_group.profile_id ' .
+                  'WHERE user_group.group_id = ' . $group->id . ' ' .
+                  'AND NOT EXISTS (SELECT user_id, notice_id ' .
+                  'FROM notice_inbox ' .
+                  'WHERE user_id = user.id ' .
+                  'AND notice_id = ' . $this->id . ' )';
+                if ($enabled === 'transitional') {
+                    $qry .= ' AND user.inboxed = 1';
+                }
+                $inbox->query($qry);
+            }
+        }
+    }
 }
 
