@@ -388,6 +388,8 @@ class ShowstreamAction extends Action
         $this->showSubscribers();
         $this->showGroups();
         $this->showStatistics();
+        $cloud = new PersonalTagCloudSection($this, $this->user);
+        $cloud->show();
     }
 
     function showSubscriptions()
