@@ -333,6 +333,8 @@ class ShowgroupAction extends Action
     function showSections()
     {
         $this->showMembers();
+        $cloud = new GroupTagCloudSection($this, $this->group);
+        $cloud->show();
     }
 
     /**
