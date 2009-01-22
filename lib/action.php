@@ -53,7 +53,6 @@ require_once INSTALLDIR.'/lib/htmloutputter.php';
  *
  * @see      HTMLOutputter
  */
-
 class Action extends HTMLOutputter // lawsuit
 {
     var $args;
@@ -69,20 +68,30 @@ class Action extends HTMLOutputter // lawsuit
      * @see XMLOutputter::__construct
      * @see HTMLOutputter::__construct
      */
-
     function __construct($output='php://output', $indent=true)
     {
         parent::__construct($output, $indent);
     }
 
-    // For initializing members of the class
 
+    /**
+     * For initializing members of the class.
+     *
+     * @param array $argarray misc. arguments
+     *
+     * @return boolean true
+     */
     function prepare($argarray)
     {
         $this->args =& common_copy_args($argarray);
         return true;
     }
 
+    /**
+     * Show page, a template method.
+     *
+     * @return nothing
+     */
     function showPage()
     {
         $this->startHTML();
@@ -91,6 +100,11 @@ class Action extends HTMLOutputter // lawsuit
         $this->endHTML();
     }
 
+    /**
+     * Show head, a template method.
+     *
+     * @return nothing
+     */
     function showHead()
     {
         // XXX: attributes (profile?)
@@ -105,6 +119,11 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementEnd('head');
     }
 
+    /**
+     * Show title, a template method.
+     *
+     * @return nothing
+     */
     function showTitle()
     {
         $this->element('title', null,
@@ -113,13 +132,24 @@ class Action extends HTMLOutputter // lawsuit
                                common_config('site', 'name')));
     }
 
-    // SHOULD overload
+    /**
+     * Returns the page title
+     *
+     * SHOULD overload
+     *
+     * @return string page title
+     */
 
     function title()
     {
         return _("Untitled page");
     }
 
+    /**
+     * Show stylesheets
+     *
+     * @return nothing
+     */
     function showStylesheets()
     {
         $this->element('link', array('rel' => 'stylesheet',
@@ -145,6 +175,11 @@ class Action extends HTMLOutputter // lawsuit
         }
     }
 
+    /**
+     * Show javascript headers
+     *
+     * @return nothing
+     */
     function showScripts()
     {
         $this->element('script', array('type' => 'text/javascript',
@@ -161,38 +196,66 @@ class Action extends HTMLOutputter // lawsuit
                        ' ');
     }
 
+    /**
+     * Show OpenSearch headers
+     *
+     * @return nothing
+     */
     function showOpenSearch()
     {
-        $this->element('link', array('rel' => 'search', 'type' => 'application/opensearchdescription+xml',
+        $this->element('link', array('rel' => 'search',
+                                     'type' => 'application/opensearchdescription+xml',
                                      'href' =>  common_local_url('opensearch', array('type' => 'people')),
                                      'title' => common_config('site', 'name').' People Search'));
-
         $this->element('link', array('rel' => 'search', 'type' => 'application/opensearchdescription+xml',
                                      'href' =>  common_local_url('opensearch', array('type' => 'notice')),
                                      'title' => common_config('site', 'name').' Notice Search'));
     }
 
-    // MAY overload
-
+    /**
+     * Show feed headers
+     *
+     * MAY overload
+     *
+     * @return nothing
+     */
     function showFeeds()
     {
         // does nothing by default
     }
 
-    // SHOULD overload
-
+    /**
+     * Show description.
+     *
+     * SHOULD overload
+     *
+     * @return nothing
+     */
     function showDescription()
     {
         // does nothing by default
     }
 
-    // MAY overload
-
+    /**
+     * Show extra stuff in <head>.
+     *
+     * MAY overload
+     *
+     * @return nothing
+     */
     function extraHead()
     {
         // does nothing by default
     }
 
+    
+    /**
+     * Show body.
+     *
+     * Calls template methods
+     *
+     * @return nothing
+     */
     function showBody()
     {
         $this->elementStart('body', array('id' => $this->trimmed('action')));
@@ -204,6 +267,13 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementEnd('body');
     }
 
+    /**
+     * Show header of the page.
+     *
+     * Calls template methods
+     *
+     * @return nothing
+     */
     function showHeader()
     {
         $this->elementStart('div', array('id' => 'header'));
@@ -218,14 +288,18 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementEnd('div');
     }
 
+    /**
+     * Show configured logo.
+     *
+     * @return nothing
+     */
     function showLogo()
     {
         $this->elementStart('address', array('id' => 'site_contact',
                                              'class' => 'vcard'));
         $this->elementStart('a', array('class' => 'url home bookmark',
                                        'href' => common_local_url('public')));
-        if (common_config('site', 'logo') || file_exists(theme_file('logo.png')))
-        {
+        if (common_config('site', 'logo') || file_exists(theme_file('logo.png'))) {
             $this->element('img', array('class' => 'logo photo',
                                         'src' => (common_config('site', 'logo')) ? common_config('site', 'logo') : theme_path('logo.png'),
                                         'alt' => common_config('site', 'name')));
@@ -235,6 +309,11 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementEnd('address');
     }
 
+    /**
+     * Show primary navigation.
+     *
+     * @return nothing
+     */
     function showPrimaryNav()
     {
         $this->elementStart('dl', array('id' => 'site_nav_global_primary'));
@@ -271,10 +350,15 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementEnd('dd');
         $this->elementEnd('dl');
     }
-
-    // Revist. Should probably do an hAtom pattern here
+    
+    /**
+     * Show site notice.
+     *
+     * @return nothing
+     */
     function showSiteNotice()
     {
+        // Revist. Should probably do an hAtom pattern here
         $text = common_config('site', 'notice');
         if ($text) {
             $this->elementStart('dl', array('id' => 'site_notice',
@@ -285,19 +369,38 @@ class Action extends HTMLOutputter // lawsuit
         }
     }
 
-    // MAY overload if no notice form needed... or direct message box????
-
+    /**
+     * Show notice form.
+     *
+     * MAY overload if no notice form needed... or direct message box????
+     *
+     * @return nothing
+     */
     function showNoticeForm()
     {
         $notice_form = new NoticeForm($this);
         $notice_form->show();
     }
-
+    
+    /**
+     * Show anonymous message.
+     *
+     * SHOULD overload
+     *
+     * @return nothing
+     */
     function showAnonymousMessage()
     {
         // needs to be defined by the class
     }
 
+    /**
+     * Show core.
+     *
+     * Shows local navigation, content block and aside.
+     *
+     * @return nothing
+     */
     function showCore()
     {
         $this->elementStart('div', array('id' => 'core'));
@@ -307,6 +410,11 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementEnd('div');
     }
 
+    /**
+     * Show local navigation block.
+     *
+     * @return nothing
+     */
     function showLocalNavBlock()
     {
         $this->elementStart('dl', array('id' => 'site_nav_local_views'));
@@ -317,13 +425,23 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementEnd('dl');
     }
 
-    // SHOULD overload
-
+    /**
+     * Show local navigation.
+     *
+     * SHOULD overload
+     *
+     * @return nothing
+     */
     function showLocalNav()
     {
         // does nothing by default
     }
 
+    /**
+     * Show content block.
+     *
+     * @return nothing
+     */
     function showContentBlock()
     {
         $this->elementStart('div', array('id' => 'content'));
@@ -336,10 +454,21 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementEnd('div');
     }
 
-    function showPageTitle() {
-        $this->element('h1', NULL, $this->title());
+    /**
+     * Show page title.
+     *
+     * @return nothing
+     */
+    function showPageTitle()
+    {
+        $this->element('h1', null, $this->title());
     }
 
+    /**
+     * Show page notice block.
+     *
+     * @return nothing
+     */
     function showPageNoticeBlock()
     {
         $this->elementStart('dl', array('id' => 'page_notice',
@@ -349,20 +478,35 @@ class Action extends HTMLOutputter // lawsuit
         $this->showPageNotice();
         $this->elementEnd('dd');
         $this->elementEnd('dl');
-	}
+    }
 
-    // SHOULD overload (unless there's not a notice)
-
+    /**
+     * Show page notice.
+     *
+     * SHOULD overload (unless there's not a notice)
+     *
+     * @return nothing
+     */
     function showPageNotice()
     {
     }
 
-    // MUST overload
-
+    /**
+     * Show content.
+     *
+     * MUST overload (unless there's not a notice)
+     *
+     * @return nothing
+     */
     function showContent()
     {
     }
 
+    /**
+     * Show Aside.
+     *
+     * @return nothing
+     */
     function showAside()
     {
         $this->elementStart('div', array('id' => 'aside_primary',
@@ -372,8 +516,13 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementEnd('div');
     }
 
-    // MAY overload if there are feeds
-
+    /**
+     * Show export data feeds.
+     *
+     * MAY overload if there are feeds
+     *
+     * @return nothing
+     */
     function showExportData()
     {
         // is there structure to this?
@@ -381,12 +530,23 @@ class Action extends HTMLOutputter // lawsuit
         // can we reuse list of feeds from showFeeds() ?
     }
 
-    // SHOULD overload
-
-    function showSections() {
+    /**
+     * Show sections.
+     *
+     * SHOULD overload
+     *
+     * @return nothing
+     */
+    function showSections()
+    {
         // for each section, show it
     }
 
+    /**
+     * Show footer.
+     *
+     * @return nothing
+     */
     function showFooter()
     {
         $this->elementStart('div', array('id' => 'footer'));
@@ -395,6 +555,11 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementEnd('div');
     }
 
+    /**
+     * Show secondary navigation.
+     *
+     * @return nothing
+     */
     function showSecondaryNav()
     {
         $this->elementStart('dl', array('id' => 'site_nav_global_secondary'));
@@ -418,6 +583,11 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementEnd('dl');
     }
 
+    /**
+     * Show licenses.
+     *
+     * @return nothing
+     */
     function showLicenses()
     {
         $this->elementStart('dl', array('id' => 'licenses'));
@@ -426,6 +596,11 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementEnd('dl');
     }
 
+    /**
+     * Show Laconica license.
+     *
+     * @return nothing
+     */
     function showLaconicaLicense()
     {
         $this->element('dt', array('id' => 'site_laconica_license'), _('Laconica software license'));
@@ -442,6 +617,11 @@ class Action extends HTMLOutputter // lawsuit
         // do it
     }
 
+    /**
+     * Show content license.
+     *
+     * @return nothing
+     */
     function showContentLicense()
     {
         $this->element('dt', array('id' => 'site_content_license'), _('Laconica software license'));
@@ -461,24 +641,52 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementEnd('dd');
     }
 
-    // For comparison with If-Last-Modified
-    // If not applicable, return null
-
+    /**
+     * Return last modified, if applicable.
+     *
+     * MAY override
+     *
+     * @return string last modified http header
+     */
     function lastModified()
     {
+        // For comparison with If-Last-Modified
+        // If not applicable, return null
         return null;
     }
 
+    /**
+     * Return etag, if applicable.
+     *
+     * MAY override
+     *
+     * @return string etag http header
+     */
     function etag()
     {
         return null;
     }
 
+    /**
+     * Return true if read only.
+     *
+     * MAY override
+     *
+     * @return boolean is read only action?
+     */
     function isReadOnly()
     {
         return false;
     }
 
+    /**
+     * Returns query argument or default value if not found
+     *
+     * @param string $key requested argument
+     * @param string $def default value to return if $key is not provided
+     *
+     * @return boolean is read only action?
+     */
     function arg($key, $def=null)
     {
         if (array_key_exists($key, $this->args)) {
@@ -488,24 +696,34 @@ class Action extends HTMLOutputter // lawsuit
         }
     }
 
+    /**
+     * Returns trimmed query argument or default value if not found
+     *
+     * @param string $key requested argument
+     * @param string $def default value to return if $key is not provided
+     *
+     * @return boolean is read only action?
+     */
     function trimmed($key, $def=null)
     {
         $arg = $this->arg($key, $def);
-        return (is_string($arg)) ? trim($arg) : $arg;
+        return is_string($arg) ? trim($arg) : $arg;
     }
 
-    // Note: argarray ignored, since it's now passed in in prepare()
-
+    /**
+     * Handler method
+     *
+     * @param array $argarray is ignored since it's now passed in in prepare()
+     *
+     * @return boolean is read only action?
+     */
     function handle($argarray=null)
     {
-
-        $lm = $this->lastModified();
+        $lm   = $this->lastModified();
         $etag = $this->etag();
-
         if ($etag) {
             header('ETag: ' . $etag);
         }
-
         if ($lm) {
             header('Last-Modified: ' . date(DATE_RFC1123, $lm));
             $if_modified_since = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
@@ -523,11 +741,27 @@ class Action extends HTMLOutputter // lawsuit
         }
     }
 
+    /**
+     * Has etag? (private)
+     *
+     * @param string $etag          etag http header
+     * @param string $if_none_match ifNoneMatch http header
+     *
+     * @return boolean
+     */
     function _hasEtag($etag, $if_none_match)
     {
         return ($if_none_match) && in_array($etag, explode(',', $if_none_match));
     }
 
+    /**
+     * Boolean understands english (yes, no, true, false)
+     *
+     * @param string $key query key we're interested in 
+     * @param string $def default value
+     *
+     * @return boolean interprets yes/no strings as boolean
+     */
     function boolean($key, $def=false)
     {
         $arg = strtolower($this->trimmed($key));
@@ -543,6 +777,14 @@ class Action extends HTMLOutputter // lawsuit
         }
     }
 
+    /**
+     * Server error
+     *
+     * @param string  $msg  error message to display
+     * @param integer $code http error code, 500 by default
+     *
+     * @return nothing
+     */
     function serverError($msg, $code=500)
     {
         $action = $this->trimmed('action');
@@ -550,6 +792,14 @@ class Action extends HTMLOutputter // lawsuit
         common_server_error($msg, $code);
     }
 
+    /**
+     * Client error
+     *
+     * @param string  $msg  error message to display
+     * @param integer $code http error code, 400 by default
+     *
+     * @return nothing
+     */
     function clientError($msg, $code=400)
     {
         $action = $this->trimmed('action');
@@ -557,10 +807,15 @@ class Action extends HTMLOutputter // lawsuit
         common_user_error($msg, $code);
     }
 
+    /**
+     * Returns the current URL
+     *
+     * @return string current URL
+     */
     function selfUrl()
     {
         $action = $this->trimmed('action');
-        $args = $this->args;
+        $args   = $this->args;
         unset($args['action']);
         foreach (array_keys($_COOKIE) as $cookie) {
             unset($args[$cookie]);
@@ -568,11 +823,21 @@ class Action extends HTMLOutputter // lawsuit
         return common_local_url($action, $args);
     }
 
-    // Added @id to li for some control.
-    // XXX: We might want to move this to htmloutputter.php
-
+    /**
+     * Generate a menu item
+     *
+     * @param string  $url         menu URL
+     * @param string  $text        menu name
+     * @param string  $title       title attribute, null by default
+     * @param boolean $is_selected current menu item, false by default
+     * @param string  $id          element id, null by default
+     *
+     * @return nothing
+     */
     function menuItem($url, $text, $title=null, $is_selected=false, $id=null)
     {
+        // Added @id to li for some control.
+        // XXX: We might want to move this to htmloutputter.php
         $lattrs = array();
         if ($is_selected) {
             $lattrs['class'] = 'current';
@@ -589,10 +854,20 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementEnd('li');
     }
 
-    // Does a little before-after block for next/prev page
-
+    /**
+     * Generate pagination links
+     *
+     * @param boolean $have_before is there something before?
+     * @param boolean $have_after  is there something after?
+     * @param integer $page        current page
+     * @param string  $action      current action
+     * @param array   $args        rest of query arguments
+     *
+     * @return nothing
+     */
     function pagination($have_before, $have_after, $page, $action, $args=null)
     {
+        // Does a little before-after block for next/prev page
         if ($have_before || $have_after) {
             $this->elementStart('div', array('class' => 'pagination'));
             $this->elementStart('dl', null);
@@ -600,26 +875,22 @@ class Action extends HTMLOutputter // lawsuit
             $this->elementStart('dd', null);
             $this->elementStart('ul', array('class' => 'nav'));
         }
-
         if ($have_before) {
-            $pargs = array('page' => $page-1);
-            $newargs = ($args) ? array_merge($args,$pargs) : $pargs;
-
+            $pargs   = array('page' => $page-1);
+            $newargs = $args ? array_merge($args, $pargs) : $pargs;
             $this->elementStart('li', array('class' => 'nav_prev'));
             $this->element('a', array('href' => common_local_url($action, $newargs), 'rel' => 'prev'),
                            _('After'));
             $this->elementEnd('li');
         }
-
         if ($have_after) {
-            $pargs = array('page' => $page+1);
-            $newargs = ($args) ? array_merge($args,$pargs) : $pargs;
+            $pargs   = array('page' => $page+1);
+            $newargs = $args ? array_merge($args, $pargs) : $pargs;
             $this->elementStart('li', array('class' => 'nav_next'));
             $this->element('a', array('href' => common_local_url($action, $newargs), 'rel' => 'next'),
                            _('Before'));
             $this->elementEnd('li');
         }
-
         if ($have_before || $have_after) {
             $this->elementEnd('ul');
             $this->elementEnd('dd');
