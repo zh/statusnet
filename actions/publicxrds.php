@@ -49,7 +49,6 @@ require_once INSTALLDIR.'/lib/openid.php';
  */
 class PublicxrdsAction extends Action
 {
-
     /**
      * Is read only?
      * 
@@ -78,7 +77,7 @@ class PublicxrdsAction extends Action
                                           'version' => '2.0'));
         $this->element('Type', null, 'xri://$xrds*simple');
         foreach (array('finishopenidlogin', 'finishaddopenid', 'finishimmediate') as $finish) {
-            $this->show_service(Auth_OpenID_RP_RETURN_TO_URL_TYPE,
+            $this->showService(Auth_OpenID_RP_RETURN_TO_URL_TYPE,
                                 common_local_url($finish));
         }
         $this->elementEnd('XRD');
