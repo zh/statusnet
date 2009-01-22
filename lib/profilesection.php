@@ -58,13 +58,13 @@ class ProfileSection extends Section
 
         $cnt = 0;
 
-        $this->out->elementStart('ul', 'entities users xoxo');
-
+        $this->out->elementStart('table');
+        $this->out->elementStart('tbody');
         while ($profiles->fetch() && ++$cnt <= PROFILES_PER_SECTION) {
             $this->showProfile($profiles);
         }
-
-        $this->out->elementEnd('ul');
+        $this->out->elementEnd('tbody');
+        $this->out->elementEnd('table');
 
         return ($cnt > PROFILES_PER_SECTION);
     }
