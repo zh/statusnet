@@ -50,6 +50,7 @@ class TopPostersSection extends ProfileSection
     {
         $qry = 'SELECT profile.*, count(*) as value ' .
           'FROM profile JOIN notice ON profile.id = notice.profile_id ' .
+          (common_config('public', 'localonly') ? 'WHERE is_local = 1 ' : '') .
           'GROUP BY profile.id ' .
           'ORDER BY value DESC ';
 
