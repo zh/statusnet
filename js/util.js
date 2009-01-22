@@ -184,7 +184,7 @@ $(document).ready(function(){
 	$("#form_notice").ajaxForm(PostNotice);
 	$("#form_notice").each(addAjaxHidden);
 
-    $(".notice").hover(
+    $("#content .notice").hover(
         function () {
             $(this).addClass('hover');
         },
