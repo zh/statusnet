@@ -181,10 +181,9 @@ class FavoritedAction extends Action
             $qry .= ' LIMIT ' . $offset . ', ' . $limit;
         }
 
-        // XXX: Figure out how to cache this query
-
-        $notice = new Notice;
-        $notice->query(sprintf($qry, common_config('popular', 'dropoff')));
+        $notice = Memcached_DataObject::cachedQuery('Notice',
+                                                    sprintf($qry, common_config('popular', 'dropoff')),
+                                                    600);
 
         $nl = new NoticeList($notice, $this);
 
