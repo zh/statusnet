@@ -227,4 +227,9 @@ class InviteAction extends Action
         mail_send($recipients, $headers, $body);
     }
 
+    function showLocalNav()
+    {
+        $nav = new SubGroupNav($this, common_current_user());
+        $nav->show();
+    }
 }
