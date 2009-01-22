@@ -218,10 +218,7 @@ class Memcached_DataObject extends DB_DataObject
         }
 
         $inst = new $cls();
-        $result = $inst->query($qry);
-        if (!$result) {
-            return $inst;
-        }
+        $inst->query($qry);
         $cached = array();
         while ($inst->fetch()) {
             $cached[] = clone($inst);
