@@ -228,6 +228,6 @@ class Memcached_DataObject extends DB_DataObject
         }
         $inst->free();
         $c->set($ckey, $cached, MEMCACHE_COMPRESSED, $expiry);
-        return ArrayWrapper($cached);
+        return new ArrayWrapper($cached);
     }
 }
