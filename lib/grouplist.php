@@ -66,7 +66,7 @@ class GroupList extends Widget
 
     function show()
     {
-        $this->out->elementStart('ul', 'groups');
+        $this->out->elementStart('ul', 'profiles groups xoxo');
 
         $cnt = 0;
 
@@ -85,19 +85,19 @@ class GroupList extends Widget
 
     function showGroup()
     {
-        $this->out->elementStart('li', array('class' => 'group',
+        $this->out->elementStart('li', array('class' => 'profile',
                                              'id' => 'group-' . $this->group->id));
 
         $user = common_current_user();
 
-        $this->out->elementStart('div', array('id' => 'group_group',
-                                              'class' => 'vcard'));
+        $this->out->elementStart('div', 'entity_profile vcard');
 
         $logo = ($this->group->stream_logo) ?
           $this->group->stream_logo : User_group::defaultLogo(AVATAR_STREAM_SIZE);
 
         $this->out->elementStart('a', array('href' => $this->group->homeUrl(),
-                                            'class' => 'url'));
+                                            'class' => 'url',
+                                            'rel' => 'group'));
         $this->out->element('img', array('src' => $logo,
                                     'class' => 'photo avatar',
                                     'width' => AVATAR_STREAM_SIZE,
@@ -105,24 +105,24 @@ class GroupList extends Widget
                                     'alt' =>
                                     ($this->group->fullname) ? $this->group->fullname :
                                     $this->group->nickname));
-        $hasFN = ($this->group->fullname) ? 'nickname' : 'fn nickname';
+        $hasFN = ($this->group->fullname) ? 'nickname url uid' : 'fn org nickname url uid';
         $this->out->elementStart('span', $hasFN);
         $this->out->raw($this->highlight($this->group->nickname));
         $this->out->elementEnd('span');
         $this->out->elementEnd('a');
 
         if ($this->group->fullname) {
-            $this->out->elementStart('dl', 'group_fn');
+            $this->out->elementStart('dl', 'entity_fn');
             $this->out->element('dt', null, 'Full name');
             $this->out->elementStart('dd');
-            $this->out->elementStart('span', 'fn');
+            $this->out->elementStart('span', 'fn org');
             $this->out->raw($this->highlight($this->group->fullname));
             $this->out->elementEnd('span');
             $this->out->elementEnd('dd');
             $this->out->elementEnd('dl');
         }
         if ($this->group->location) {
-            $this->out->elementStart('dl', 'group_location');
+            $this->out->elementStart('dl', 'entity_location');
             $this->out->element('dt', null, _('Location'));
             $this->out->elementStart('dd', 'location');
             $this->out->raw($this->highlight($this->group->location));
@@ -130,7 +130,7 @@ class GroupList extends Widget
             $this->out->elementEnd('dl');
         }
         if ($this->group->homepage) {
-            $this->out->elementStart('dl', 'group_url');
+            $this->out->elementStart('dl', 'entity_url');
             $this->out->element('dt', null, _('URL'));
             $this->out->elementStart('dd');
             $this->out->elementStart('a', array('href' => $this->group->homepage,
@@ -141,7 +141,7 @@ class GroupList extends Widget
             $this->out->elementEnd('dl');
         }
         if ($this->group->description) {
-            $this->out->elementStart('dl', 'group_note');
+            $this->out->elementStart('dl', 'entity_note');
             $this->out->element('dt', null, _('Note'));
             $this->out->elementStart('dd', 'note');
             $this->out->raw($this->highlight($this->group->description));
