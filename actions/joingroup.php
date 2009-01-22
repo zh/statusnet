@@ -91,7 +91,7 @@ class JoingroupAction extends Action
 
         $cur = common_current_user();
 
-        if ($cur->isMember($group)) {
+        if ($cur->isMember($this->group)) {
             $this->clientError(_('You are already a member of that group'), 403);
             return false;
         }
