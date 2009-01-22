@@ -84,7 +84,11 @@ class SubscriptionsAction extends GalleryAction
         $offset = ($this->page-1) * PROFILES_PER_PAGE;
         $limit =  PROFILES_PER_PAGE + 1;
 
-        $subscriptions = $this->user->getSubscriptions($offset, $limit);
+        if ($this->tag) {
+            $subscriptions = $this->user->getTaggedSubscriptions($this->tag, $offset, $limit);
+        } else {
+            $subscriptions = $this->user->getSubscriptions($offset, $limit);
+        }
 
         if ($subscriptions) {
             $subscriptions_list = new SubscriptionsList($subscriptions, $this->user, $this);

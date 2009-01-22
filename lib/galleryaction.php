@@ -32,6 +32,7 @@ class GalleryAction extends Action
     var $profile = null;
     var $user = null;
     var $page = null;
+    var $tag = null;
 
     function prepare($args)
     {
@@ -69,6 +70,8 @@ class GalleryAction extends Action
 
         $this->page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 
+        $this->tag = $this->trimmed('tag');
+
         return true;
     }
 
@@ -84,7 +87,7 @@ class GalleryAction extends Action
 		# Post from the tag dropdown; redirect to a GET
 
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-		    common_redirect($this->self_url(), 307);
+		    common_redirect($this->selfUrl(), 307);
             return;
 		}
 
@@ -124,7 +127,7 @@ class GalleryAction extends Action
                            array('href' =>
                                  common_local_url($this->trimmed('action'),
                                                   array('nickname' =>
-                                                        $profile->nickname))),
+                                                        $this->user->nickname))),
                            _('All'));
             $this->elementEnd('li');
             $this->elementStart('li', array('id'=>'filter_tags_item'));
