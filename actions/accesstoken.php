@@ -1,5 +1,16 @@
 <?php
-/*
+/**
+ * Access token class.
+ *
+ * PHP version 5
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ *
  * Laconica - a distributed open-source microblogging tool
  * Copyright (C) 2008, Controlez-Vous, Inc.
  *
@@ -17,12 +28,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
-require_once(INSTALLDIR.'/lib/omb.php');
+require_once INSTALLDIR.'/lib/omb.php';
 
+/**
+ * Access token class.
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ */
 class AccesstokenAction extends Action
 {
+    /**
+     * Class handler.
+     *
+     * @param array $args query arguments
+     * 
+     * @return boolean false if user doesn't exist
+     */
     function handle($args)
     {
         parent::handle($args);
@@ -34,7 +64,7 @@ class AccesstokenAction extends Action
             $server = omb_oauth_server();
             common_debug('fetching the access token', __FILE__);
             $token = $server->fetch_access_token($req);
-            common_debug('got this token: "'.print_r($token,true).'"', __FILE__);
+            common_debug('got this token: "'.print_r($token, true).'"', __FILE__);
             common_debug('printing the access token', __FILE__);
             print $token;
         } catch (OAuthException $e) {
