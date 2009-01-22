@@ -384,10 +384,10 @@ class ShowstreamAction extends Action
 
     function showSections()
     {
-        $this->showStatistics();
         $this->showSubscriptions();
         $this->showSubscribers();
         $this->showGroups();
+        $this->showStatistics();
     }
 
     function showSubscriptions()
