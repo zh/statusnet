@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Public RSS action class.
+ * RSS feed for user and friends timeline action class.
  *
  * PHP version 5
  *
