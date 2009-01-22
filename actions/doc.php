@@ -67,6 +67,25 @@ class DocAction extends Action
         $this->showPage();
     }
 
+    // overrrided to add entry-title class
+    function showPageTitle() {
+        $this->element('h1', array('class' => 'entry-title'), $this->title());
+    }
+    
+    // overrided to add hentry, and content-inner classes
+    function showContentBlock()
+     {
+         $this->elementStart('div', array('id' => 'content', 'class' => 'hentry'));
+         $this->showPageTitle();
+         $this->showPageNoticeBlock();
+         $this->elementStart('div', array('id' => 'content_inner', 
+             'class' => 'entry-content'));
+         // show the actual content (forms, lists, whatever)
+         $this->showContent();
+         $this->elementEnd('div');
+         $this->elementEnd('div');
+     }
+
     /**
      * Display content.
      * 
@@ -89,4 +108,3 @@ class DocAction extends Action
         return ucfirst($this->title);
     }
 }
-
