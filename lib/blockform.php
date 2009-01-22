@@ -150,6 +150,6 @@ class BlockForm extends Form
 
     function formActions()
     {
-        $this->out->submit('submit', _('block'), 'submit', null, _('Block this user'));
+        $this->out->submit('submit', _('Block'), 'submit', null, _('Block this user'));
     }
 }

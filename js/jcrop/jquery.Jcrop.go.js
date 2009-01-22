@@ -1,7 +1,12 @@
 		$(function(){
+			var x = ($('#avatar_crop_x').val()) ? $('#avatar_crop_x').val() : 0;
+			var y = ($('#avatar_crop_y').val()) ? $('#avatar_crop_y').val() : 0;
+			var w = ($('#avatar_crop_w').val()) ? $('#avatar_crop_w').val() : $("#avatar_original img").attr("width");
+			var h = ($('#avatar_crop_h').val()) ? $('#avatar_crop_h').val() : $("#avatar_original img").attr("height");
+
 			jQuery("#avatar_original img").Jcrop({
 				onChange: showPreview,
-				setSelect: [ 0, 0, $("#avatar_original img").attr("width"), $("#avatar_original img").attr("height") ],
+    			setSelect: [ x, y, w, h ],
 				onSelect: updateCoords,
 				aspectRatio: 1,
 				boxWidth: 480,
