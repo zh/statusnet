@@ -202,5 +202,7 @@ class PublicAction extends Action
     {
         $top = new TopPostersSection($this);
         $top->show();
+        $pop = new PopularNoticeSection($this);
+        $pop->show();
     }
 }
