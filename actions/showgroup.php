@@ -146,6 +146,12 @@ class ShowgroupAction extends Action
         $this->showPage();
     }
 
+    /**
+     * Local menu
+     *
+     * @return void
+     */
+
     function showLocalNav()
     {
         $nav = new GroupNav($this, $this->group);
