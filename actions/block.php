@@ -1,5 +1,16 @@
 <?php
-/*
+/**
+ * Block a user action class.
+ *
+ * PHP version 5
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ *
  * Laconica - a distributed open-source microblogging tool
  * Copyright (C) 2008, Controlez-Vous, Inc.
  *
@@ -17,121 +28,135 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
+/**
+ * Block a user action class.
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ */
 class BlockAction extends Action
 {
-
     var $profile = null;
-
+    /**
+     * Take arguments for running
+     *
+     * @param array $args $_REQUEST args
+     *
+     * @return boolean success flag
+     */
     function prepare($args)
     {
-
         parent::prepare($args);
-
         if (!common_logged_in()) {
             $this->clientError(_('Not logged in.'));
             return false;
         }
-
         $token = $this->trimmed('token');
-
         if (!$token || $token != common_session_token()) {
             $this->clientError(_('There was a problem with your session token. Try again, please.'));
             return;
         }
-
         $id = $this->trimmed('blockto');
-
         if (!$id) {
             $this->clientError(_('No profile specified.'));
             return false;
         }
-
         $this->profile = Profile::staticGet('id', $id);
-
         if (!$this->profile) {
             $this->clientError(_('No profile with that ID.'));
             return false;
         }
-
         return true;
     }
 
+    /**
+     * Handle request
+     *
+     * Shows a page with list of favorite notices
+     *
+     * @param array $args $_REQUEST args; handled in prepare()
+     *
+     * @return void
+     */
     function handle($args)
     {
         parent::handle($args);
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->arg('block')) {
-                $this->are_you_sure_form();
+                $this->areYouSureForm();
             } else if ($this->arg('no')) {
                 $cur = common_current_user();
-                common_redirect(common_local_url('subscribers',
-                                                 array('nickname' => $cur->nickname)));
+                common_redirect(common_local_url('subscribers', array('nickname' => $cur->nickname)));
             } else if ($this->arg('yes')) {
-                $this->block_profile();
+                $this->blockProfile();
             }
         }
     }
 
-    function are_you_sure_form()
+    /**
+     * Confirm with user.
+     *
+     * Shows a confirmation form.
+     *
+     * @return void
+     */
+    function areYouSureForm()
     {
-
         $id = $this->profile->id;
-
         common_show_header(_('Block user'));
-
         $this->element('p', null,
                        _('Are you sure you want to block this user? '.
                          'Afterwards, they will be unsubscribed from you, '.
                          'unable to subscribe to you in the future, and '.
                          'you will not be notified of any @-replies from them.'));
-
         $this->elementStart('form', array('id' => 'block-' . $id,
                                            'method' => 'post',
                                            'class' => 'block',
                                            'action' => common_local_url('block')));
-
         $this->hidden('token', common_session_token());
-
         $this->element('input', array('id' => 'blockto-' . $id,
                                       'name' => 'blockto',
                                       'type' => 'hidden',
                                       'value' => $id));
-
         foreach ($this->args as $k => $v) {
             if (substr($k, 0, 9) == 'returnto-') {
                 $this->hidden($k, $v);
             }
         }
-
         $this->submit('no', _('No'));
         $this->submit('yes', _('Yes'));
-
         $this->elementEnd('form');
-
         common_show_footer();
     }
 
-    function block_profile()
+    /**
+     * Actually block a user.
+     *
+     * @return void
+     */
+    function blockProfile()
     {
-
         $cur = common_current_user();
 
         if ($cur->hasBlocked($this->profile)) {
             $this->clientError(_('You have already blocked this user.'));
             return;
         }
-
         $result = $cur->block($this->profile);
-
         if (!$result) {
             $this->serverError(_('Failed to save block information.'));
             return;
         }
 
-        # Now, gotta figure where we go back to
-
+        // Now, gotta figure where we go back to
         foreach ($this->args as $k => $v) {
             if ($k == 'returnto-action') {
                 $action = $v;
@@ -148,3 +173,4 @@ class BlockAction extends Action
         }
     }
 }
+

@@ -108,6 +108,8 @@ class HTMLOutputter extends XMLOutputter
         }
 
         header('Content-Type: '.$type);
+        
+        $this->extraHeaders();
 
         $this->startXML('html',
                         '-//W3C//DTD XHTML 1.0 Strict//EN',
@@ -131,6 +133,16 @@ class HTMLOutputter extends XMLOutputter
     {
         $this->elementEnd('html');
         $this->endXML();
+    }
+    
+    /**
+    *  To specify additional HTTP headers for the action
+    *
+    *  @return void
+    */
+    function extraHeaders()
+    {
+        // Needs to be overloaded
     }
 
     /**

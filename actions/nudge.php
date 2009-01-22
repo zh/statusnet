@@ -42,6 +42,7 @@ require_once INSTALLDIR.'/lib/mail.php';
  * @package  Laconica
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @author   Robin Millette <millette@controlyourself.ca>
+ * @author   Sarven Capadisli <csarven@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://laconi.ca/
  */
@@ -93,7 +94,7 @@ class NudgeAction extends Action
             $this->element('title', null, _('Nudge sent'));
             $this->elementEnd('head');
             $this->elementStart('body');
-            common_nudge_response();
+            $this->element('p', array('id' => 'nudge_response'), _('Nudge sent!'));
             $this->elementEnd('body');
             $this->elementEnd('html');
         } else {

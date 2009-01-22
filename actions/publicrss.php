@@ -36,6 +36,8 @@ if (!defined('LACONICA')) {
 require_once INSTALLDIR.'/lib/rssaction.php';
 
 /**
+ * RSS feed for public timeline.
+ *
  * Formatting of RSS handled by Rss10Action
  *
  * @category Action

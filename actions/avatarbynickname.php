@@ -1,5 +1,16 @@
 <?php
-/*
+/**
+ * Retrieve user avatar by nickname action class.
+ *
+ * PHP version 5
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ *
  * Laconica - a distributed open-source microblogging tool
  * Copyright (C) 2008, Controlez-Vous, Inc.
  *
@@ -17,10 +28,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
+/**
+ * Retrieve user avatar by nickname action class.
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ */
 class AvatarbynicknameAction extends Action
 {
+    /**
+     * Class handler.
+     *
+     * @param array $args query arguments
+     * 
+     * @return boolean false if nickname or user isn't found
+     */
     function handle($args)
     {
         parent::handle($args);
@@ -68,3 +98,4 @@ class AvatarbynicknameAction extends Action
         common_redirect($url, 302);
     }
 }
+

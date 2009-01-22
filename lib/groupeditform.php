@@ -78,9 +78,9 @@ class GroupEditForm extends Form
     function id()
     {
         if ($this->group) {
-            return 'group_edit-' . $this->group->id;
+            return 'form_group_edit-' . $this->group->id;
         } else {
-            return 'group_add';
+            return 'form_group_add';
         }
     }
 
@@ -92,7 +92,7 @@ class GroupEditForm extends Form
 
     function formClass()
     {
-        return 'form_group_add';
+        return 'form_settings';
     }
 
     /**
@@ -111,6 +111,18 @@ class GroupEditForm extends Form
         }
     }
 
+
+    /**
+     * Name of the form
+     *
+     * @return void
+     */
+
+    function formLegend()
+    {
+        $this->out->element('legend', null, _('Create a new group'));
+    }
+
     /**
      * Data elements of the form
      *
@@ -121,6 +133,7 @@ class GroupEditForm extends Form
     {
         $this->out->elementStart('ul', 'form_data');
         $this->out->elementStart('li');
+        $this->out->hidden('groupid', $this->group->id);
         $this->out->input('nickname', _('Nickname'),
                      ($this->out->arg('nickname')) ? $this->out->arg('nickname') : $this->group->nickname,
                      _('1-64 lowercase letters or numbers, no punctuation or spaces'));
@@ -135,7 +148,7 @@ class GroupEditForm extends Form
                      _('URL of the homepage or blog of the group or topic'));
         $this->out->elementEnd('li');
         $this->out->elementStart('li');
-        $this->out->textarea('description', _('description'),
+        $this->out->textarea('description', _('Description'),
                         ($this->out->arg('description')) ? $this->out->arg('description') : $this->group->description,
                         _('Describe the group or topic in 140 chars'));
         $this->out->elementEnd('li');

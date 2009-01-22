@@ -1,4 +1,18 @@
 <?php
+
+/**
+ * Favor action.
+ *
+ * PHP version 5
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ *
+
 /*
  * Laconica - a distributed open-source microblogging tool
  * Copyright (C) 2008, Controlez-Vous, Inc.
@@ -17,57 +31,63 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
-require_once(INSTALLDIR.'/lib/mail.php');
+require_once INSTALLDIR.'/lib/mail.php';
 require_once INSTALLDIR.'/lib/disfavorform.php';
 
+/**
+ * Favor class.
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ */
 class FavorAction extends Action
 {
-
+    /**
+     * Class handler.
+     * 
+     * @param array $args query arguments
+     *
+     * @return void
+     */
     function handle($args)
     {
         parent::handle($args);
-
         if (!common_logged_in()) {
             $this->clientError(_('Not logged in.'));
             return;
         }
-
         $user = common_current_user();
-
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            common_redirect(common_local_url('showfavorites', array('nickname' => $user->nickname)));
+            common_redirect(common_local_url('showfavorites',
+                array('nickname' => $user->nickname)));
             return;
         }
-
-        $id = $this->trimmed('notice');
-
+        $id     = $this->trimmed('notice');
         $notice = Notice::staticGet($id);
-
-        # CSRF protection
-
-        $token = $this->trimmed('token-'.$notice->id);
+        $token  = $this->trimmed('token-'.$notice->id);
         if (!$token || $token != common_session_token()) {
             $this->clientError(_("There was a problem with your session token. Try again, please."));
             return;
         }
-
         if ($user->hasFave($notice)) {
             $this->clientError(_('This notice is already a favorite!'));
             return;
         }
-
         $fave = Fave::addNew($user, $notice);
-
         if (!$fave) {
             $this->serverError(_('Could not create favorite.'));
             return;
         }
-
-        $this->notify($fave, $notice, $user);
+        $this->notify($notice, $user);
         $user->blowFavesCache();
-        
         if ($this->boolean('ajax')) {
             $this->startHTML('text/xml;charset=utf-8', true);
             $this->elementStart('head');
@@ -84,16 +104,24 @@ class FavorAction extends Action
         }
     }
 
-    function notify($fave, $notice, $user)
+    /**
+     * Notifies a user when his notice is favorited.
+     * 
+     * @param class $notice favorited notice
+     * @param class $user   user declaring a favorite
+     *
+     * @return void
+     */
+    function notify($notice, $user)
     {
         $other = User::staticGet('id', $notice->profile_id);
         if ($other && $other->id != $user->id) {
             if ($other->email && $other->emailnotifyfav) {
                 mail_notify_fave($other, $user, $notice);
             }
-            # XXX: notify by IM
-            # XXX: notify by SMS
+            // XXX: notify by IM
+            // XXX: notify by SMS
         }
     }
-
 }
+

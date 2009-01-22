@@ -57,12 +57,12 @@ class LeavegroupAction extends Action
         parent::prepare($args);
 
         if (!common_config('inboxes','enabled')) {
-            $this->serverError(_('Inboxes must be enabled for groups to work'));
+            $this->serverError(_('Inboxes must be enabled for groups to work.'));
             return false;
         }
 
         if (!common_logged_in()) {
-            $this->clientError(_('You must be logged in to join a group.'));
+            $this->clientError(_('You must be logged in to leave a group.'));
             return false;
         }
 
@@ -78,22 +78,28 @@ class LeavegroupAction extends Action
         }
 
         if (!$nickname) {
-            $this->clientError(_('No nickname'), 404);
+            $this->clientError(_('No nickname.'), 404);
             return false;
         }
 
         $this->group = User_group::staticGet('nickname', $nickname);
 
         if (!$this->group) {
-            $this->clientError(_('No such group'), 404);
+            $this->clientError(_('No such group.'), 404);
             return false;
         }
 
         $cur = common_current_user();
 
-        if (!$cur->isMember($group)) {
-            $this->clientError(_('You are not a member of that group'), 403);
+        if (!$cur->isMember($this->group)) {
+            $this->clientError(_('You are not a member of that group.'), 403);
             return false;
+        }
+
+        if ($cur->isAdmin($this->group)) {
+            $this->clientError(_('You may not leave a group while you are its administrator.'), 403);
+            return false;
+
         }
 
         return true;

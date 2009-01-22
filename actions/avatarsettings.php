@@ -37,12 +37,13 @@ require_once INSTALLDIR.'/lib/accountsettingsaction.php';
 /**
  * Upload an avatar
  *
- * We use jQuery to crop the image after upload.
+ * We use jCrop plugin for jQuery to crop the image after upload.
  *
  * @category Settings
  * @package  Laconica
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @author   Zach Copley <zach@controlyourself.ca>
+ * @author   Sarven Capadisli <csarven@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://laconi.ca/
  */
@@ -94,41 +95,42 @@ class AvatarsettingsAction extends AccountSettingsAction
         $original = $profile->getOriginalAvatar();
 
         $this->elementStart('form', array('enctype' => 'multipart/form-data',
-                                          'method' => 'POST',
-                                          'id' => 'avatar',
+                                          'method' => 'post',
+                                          'id' => 'form_settings_avatar',
+                                          'class' => 'form_settings',
                                           'action' =>
                                           common_local_url('avatarsettings')));
+        $this->elementStart('fieldset');
+        $this->element('legend', null, _('Avatar settings'));
         $this->hidden('token', common_session_token());
 
+        $this->elementStart('ul', 'form_data');
         if ($original) {
-            $this->elementStart('div',
+            $this->elementStart('li',
                                 array('id' => 'avatar_original',
                                       'class' => 'avatar_view'));
-            $this->element('h3', null, _("Original:"));
+            $this->element('h2', null, _("Original"));
             $this->elementStart('div', array('id'=>'avatar_original_view'));
             $this->element('img', array('src' => $original->url,
-                                        'class' => 'avatar original',
                                         'width' => $original->width,
                                         'height' => $original->height,
                                         'alt' => $user->nickname));
             $this->elementEnd('div');
-            $this->elementEnd('div');
+            $this->elementEnd('li');
         }
 
         $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
 
         if ($avatar) {
-            $this->elementStart('div',
+            $this->elementStart('li',
                                 array('id' => 'avatar_preview',
                                       'class' => 'avatar_view'));
-            $this->element('h3', null, _("Preview:"));
+            $this->element('h2', null, _("Preview"));
             $this->elementStart('div', array('id'=>'avatar_preview_view'));
             $this->element('img', array('src' => $original->url,//$avatar->url,
-                                        'class' => 'avatar profile',
                                         'width' => AVATAR_PROFILE_SIZE,
                                         'height' => AVATAR_PROFILE_SIZE,
                                         'alt' => $user->nickname));
-            $this->elementEnd('div');
             $this->elementEnd('div');
 
             foreach (array('avatar_crop_x', 'avatar_crop_y',
@@ -138,21 +140,28 @@ class AvatarsettingsAction extends AccountSettingsAction
                                               'id' => $crop_info));
             }
             $this->submit('crop', _('Crop'));
+
+            $this->elementEnd('li');
         }
 
+        $this->elementStart('li', array ('id' => 'settings_attach'));
+        $this->element('input', array('name' => 'avatarfile',
+                                      'type' => 'file',
+                                      'id' => 'avatarfile'));
         $this->element('input', array('name' => 'MAX_FILE_SIZE',
                                       'type' => 'hidden',
                                       'id' => 'MAX_FILE_SIZE',
                                       'value' => MAX_AVATAR_SIZE));
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
 
-        $this->elementStart('p');
-
-        $this->element('input', array('name' => 'avatarfile',
-                                      'type' => 'file',
-                                      'id' => 'avatarfile'));
-        $this->elementEnd('p');
-
+        $this->elementStart('ul', 'form_actions');
+        $this->elementStart('li');
         $this->submit('upload', _('Upload'));
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
+
+        $this->elementEnd('fieldset');
         $this->elementEnd('form');
 
     }
@@ -250,7 +259,7 @@ class AvatarsettingsAction extends AccountSettingsAction
     {
         parent::showStylesheets();
         $jcropStyle =
-          common_path('js/jcrop/jquery.Jcrop.css?version='.LACONICA_VERSION);
+          common_path('theme/base/css/jquery.Jcrop.css?version='.LACONICA_VERSION);
 
         $this->element('link', array('rel' => 'stylesheet',
                                      'type' => 'text/css',

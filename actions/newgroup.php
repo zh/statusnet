@@ -202,3 +202,4 @@ class NewgroupAction extends Action
         return (!is_null($group) && $group != false);
     }
 }
+
