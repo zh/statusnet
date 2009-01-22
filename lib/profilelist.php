@@ -169,9 +169,9 @@ class ProfileList extends Widget
                 $this->out->elementStart('ul', 'tags xoxo');
                 foreach ($tags as $tag) {
                     $this->out->elementStart('li');
-                    $this->element('span', 'mark_hash', '#');
+                    $this->out->element('span', 'mark_hash', '#');
                     $this->out->element('a', array('rel' => 'tag',
-                                                   'href' => common_local_url($this->action,
+                                                   'href' => common_local_url($this->action->trimmed('action'),
                                                                               array('nickname' => $this->owner->nickname,
                                                                                     'tag' => $tag))),
                                         $tag);

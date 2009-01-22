@@ -575,4 +575,58 @@ class User extends Memcached_DataObject
 
         return $profile;
     }
+
+    function getTaggedSubscribers($tag, $offset=0, $limit=null)
+    {
+        $qry =
+          'SELECT profile.* ' .
+          'FROM profile JOIN subscription ' .
+          'ON profile.id = subscription.subscriber ' .
+          'JOIN profile_tag ON (profile_tag.tagged = subscription.subscriber ' .
+          'AND profile_tag.tagger = subscription.subscribed) ' .
+          'WHERE subscription.subscribed = %d ' .
+          'AND profile_tag.tag = "%s" ' .
+          'AND subscription.subscribed != subscription.subscriber ' .
+          'ORDER BY subscription.created DESC ';
+
+        if ($offset) {
+            if (common_config('db','type') == 'pgsql') {
+                $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+            } else {
+                $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+            }
+        }
+
+        $profile = new Profile();
+
+        $cnt = $profile->query(sprintf($qry, $this->id, $tag));
+
+        return $profile;
+    }
+
+    function getTaggedSubscriptions($tag, $offset=0, $limit=null)
+    {
+        $qry =
+          'SELECT profile.* ' .
+          'FROM profile JOIN subscription ' .
+          'ON profile.id = subscription.subscribed ' .
+          'JOIN profile_tag on (profile_tag.tagged = subscription.subscribed ' .
+          'AND profile_tag.tagger = subscription.subscriber) ' .
+          'WHERE subscription.subscriber = %d ' .
+          'AND profile_tag.tag = "%s" ' .
+          'AND subscription.subscribed != subscription.subscriber ' .
+          'ORDER BY subscription.created DESC ';
+
+        if (common_config('db','type') == 'pgsql') {
+            $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+        } else {
+            $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+        }
+
+        $profile = new Profile();
+
+        $profile->query(sprintf($qry, $this->id, $tag));
+
+        return $profile;
+    }
 }
