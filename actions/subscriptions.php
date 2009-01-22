@@ -1,9 +1,12 @@
 <?php
-/*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+/**
+ * Laconica, the distributed open-source microblogging tool
  *
- * This program is free software: you can redistribute it and/or modify
+ * List of a user's subscriptions
+ *
+ * PHP version 5
+ *
+ * LICENCE: This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -15,73 +18,107 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Social
+ * @package   Laconica
+ * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @author    Sarven Capadisli <csarven@controlyourself.ca>
+ * @copyright 2008-2009 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
+ */
+
+if (!defined('LACONICA')) {
+    exit(1);
+}
+
+/**
+ * A list of the user's subscriptions
+ *
+ * @category Social
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://laconi.ca/
  */
 
 if (!defined('LACONICA')) { exit(1); }
 
-require_once(INSTALLDIR.'/lib/gallery.php');
-
 class SubscriptionsAction extends GalleryAction
 {
-
-    function gallery_type()
+    function title()
     {
-        return _('Subscriptions');
-    }
-
-    function get_instructions(&$profile)
-    {
-        $user =& common_current_user();
-        if ($user && ($user->id == $profile->id)) {
-            return _('These are the people whose notices you listen to.');
+        if ($this->page == 1) {
+            return sprintf(_('%s subscriptions'), $this->user->nickname);
         } else {
-            return sprintf(_('These are the people whose notices %s listens to.'), $profile->nickname);
+            return sprintf(_('%s subscriptions, page %d'),
+                           $this->user->nickname,
+                           $this->page);
         }
     }
 
-    function fields()
+    function showPageNotice()
     {
-        return array('subscribed', 'subscriber');
+        $user =& common_current_user();
+        if ($user && ($user->id == $this->profile->id)) {
+            $this->element('p', null,
+                           _('These are the people whose notices '.
+                             'you listen to.'));
+        } else {
+            $this->element('p', null,
+                           sprintf(_('These are the people whose '.
+                                     'notices %s listens to.'),
+                                   $this->profile->nickname));
+        }
     }
 
-    function div_class()
+    function getAllTags()
     {
-        return 'subscriptions';
+        return $this->getTags('subscribed', 'subscriber');
     }
 
-    function get_other(&$subs)
+    function showContent()
     {
-        return $subs->subscribed;
-    }
+        parent::showContent();
 
-    function profile_list_class()
-    {
-        return 'SubscriptionsList';
+        $offset = ($this->page-1) * PROFILES_PER_PAGE;
+        $limit =  PROFILES_PER_PAGE + 1;
+
+        $subscriptions = $this->user->getSubscriptions($offset, $limit);
+
+        if ($subscriptions) {
+            $subscriptions_list = new SubscriptionsList($subscriptions, $this->user, $this);
+            $subscriptions_list->show();
+        }
+
+        $subscriptions->free();
+
+        $this->pagination($this->page > 1, $cnt > PROFILES_PER_PAGE,
+                          $this->page, 'subscriptions',
+                          array('nickname' => $this->user->nickname));
     }
 }
 
 class SubscriptionsList extends ProfileList
 {
-
-    function show_owner_controls($profile)
+    function showOwnerControls($profile)
     {
-
         $sub = Subscription::pkeyGet(array('subscriber' => $this->owner->id,
                                            'subscribed' => $profile->id));
         if (!$sub) {
             return;
         }
 
-        $this->elementStart('form', array('id' => 'subedit-' . $profile->id,
-                                           'method' => 'post',
-                                           'class' => 'subedit',
-                                           'action' => common_local_url('subedit')));
-        $this->hidden('token', common_session_token());
-        $this->hidden('profile', $profile->id);
-        $this->checkbox('jabber', _('Jabber'), $sub->jabber);
-        $this->checkbox('sms', _('SMS'), $sub->sms);
-        $this->submit('save', _('Save'));
-        $this->elementEnd('form');
+        $this->out->elementStart('form', array('id' => 'subedit-' . $profile->id,
+                                          'method' => 'post',
+                                          'class' => 'form_subcription_edit',
+                                          'action' => common_local_url('subedit')));
+        $this->out->hidden('token', common_session_token());
+        $this->out->hidden('profile', $profile->id);
+        $this->out->checkbox('jabber', _('Jabber'), $sub->jabber);
+        $this->out->checkbox('sms', _('SMS'), $sub->sms);
+        $this->out->submit('save', _('Save'));
+        $this->out->elementEnd('form');
         return;
     }
 }

@@ -108,7 +108,8 @@ class UsergroupsAction extends Action
 
     function showLocalNav()
     {
-        // XXX: Add to the subscriptions tabset
+        $nav = new SubGroupNav($this, $this->user);
+        $nav->show();
     }
 
     function showContent()

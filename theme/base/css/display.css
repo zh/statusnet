@@ -36,7 +36,7 @@ font-weight:bold;
 }
 
 legend {
-font-weight:bold; 
+font-weight:bold;
 font-size:1.3em;
 text-transform:uppercase;
 }
@@ -99,9 +99,6 @@ display:none;
 margin-left:11px;
 }
 
-
-
-
 /* FORM SETTINGS */
 .form_settings fieldset {
 margin-bottom:29px;
@@ -110,7 +107,6 @@ margin-bottom:29px;
 .form_guide {
 font-style:italic;
 }
-
 
 .form_settings .form_data li {
 width:100%;
@@ -179,7 +175,6 @@ width:90%;
 margin-left:0;
 }
 
-
 .form_settings .form_note {
 border-radius:4px;
 -moz-border-radius:4px;
@@ -187,12 +182,7 @@ border-radius:4px;
 padding:0 7px;
 }
 
-
-
 /* FORM SETTINGS */
-
-
-
 
 address {
 float:left;
@@ -205,7 +195,6 @@ margin-right:0;
 address .fn {
 font-weight:bold;
 }
-
 
 #header {
 width:100%;
@@ -225,7 +214,6 @@ display:inline;
 margin-left:11px;
 }
 
-
 .system_notice dt {
 font-weight:bold;
 text-transform:uppercase;
@@ -244,16 +232,11 @@ clear:both;
 margin-bottom:18px;
 }
 
-
-
-
 #footer {
 float:left;
 width:64%;
 padding:18px;
 }
-
-
 
 #site_nav_local_views {
 width:100%;
@@ -286,7 +269,6 @@ float:left;
 width:100%;
 }
 
-
 #site_nav_global_primary dt,
 #site_nav_global_secondary dt {
 display:none;
@@ -315,8 +297,6 @@ padding-left:30px;
 padding-left:28px;
 }
 
-
-
 #export_data ul {
 display:inline;
 }
@@ -328,8 +308,6 @@ margin-left:11px;
 #export_data li:first-child {
 margin-left:0;
 }
-
-
 
 #licenses {
 font-size:0.9em;
@@ -353,14 +331,12 @@ vertical-align:top;
 margin-right:4px;
 }
 
-
 #wrap {
 	float:left;
 	margin:0 auto;
     width:1004px;
     width:71.714em;
 }
-
 
 #core {
 position:relative;
@@ -395,9 +371,6 @@ border-radius:7px;
 -moz-border-radius:7px;
 -webkit-border-radius:7px;
 }
-
-
-
 
 /*Start: FORM NOTICE*/
 #form_notice {
@@ -501,10 +474,6 @@ float:left;
 
 /*end FORM NOTICE*/
 
-
-
-
-
 /* entity_profile */
 .entity_profile {
 position:relative;
@@ -575,10 +544,6 @@ display:none;
 
 /* entity_profile */
 
-
-
-
-
 /*entity_actions*/
 .entity_actions {
 float:right;
@@ -617,8 +582,6 @@ font-weight:bold;
 display:block;
 }
 
-
-
 .form_user_block input.submit,
 .form_user_unblock input.submit,
 #entity_send-a-message a,
@@ -633,8 +596,6 @@ padding-left:20px;
 padding:4px 4px 4px 23px;
 }
 
-
-
 .entity_tags ul {
 list-style-type:none;
 }
@@ -643,8 +604,6 @@ display:inline;
 margin-right:1em;
 float:left;
 }
-
-
 
 .aside .section {
 margin-bottom:29px;
@@ -664,7 +623,6 @@ display:inline;
 #entity_statistics dt:after {
 content: ":";
 }
-
 
 #user_subscriptions,
 #user_subscribers,
@@ -692,22 +650,24 @@ display:none;
 clear:both;
 }
 
-
-
 .profile .entity_profile {
 margin-bottom:0;
 min-height:60px;
 }
 
+
+.profile .form_group_join,
+.profile .form_group_leave,
 .profile .form_user_subscribe,
 .profile .form_user_unsubscribe {
 float:right;
 }
+.profile .form_group_join legend,
+.profile .form_group_leave legend,
 .profile .form_user_subscribe legend,
 .profile .form_user_unsubscribe legend {
 display:none;
 }
-
 
 .profiles {
 list-style-type:none;
@@ -723,12 +683,25 @@ display:inline;
 float:none;
 }
 .profile .entity_profile .entity_note,
-.profile .entity_profile .entity_url {
+.profile .entity_profile .entity_url,
+.profile .entity_profile .entity_tags,
+.profile .entity_profile .form_subcription_edit {
 margin-left:59px;
 clear:none;
 display:block;
 width:auto;
 }
+.profile .entity_profile .entity_tags dt {
+display:inline;
+margin-right:11px;
+}
+
+
+.profile .entity_profile .form_subcription_edit label {
+font-weight:normal;
+margin-right:11px;
+}
+
 
 
 
@@ -756,7 +729,6 @@ border-radius:4px;
 -webkit-border-radius:4px;
 }
 
-
 /* NOTICES */
 #notices_primary {
 float:left;
@@ -773,7 +745,6 @@ display:block;
 padding-left:28px;
 }
 
-
 .notice .author {
 margin-right:11px;
 }
@@ -781,6 +752,14 @@ margin-right:11px;
 }
 .notice .author:after {
 /*content:":";*/
+}
+
+.notice .author .fn {
+font-weight:bold;
+}
+
+.notice .author .photo {
+margin-bottom:0;
 }
 
 .vcard .photo {
@@ -801,7 +780,6 @@ font-style:italic;
 .vcard .fn:hover {
 
 }
-
 
 .notice .entry-title {
 float:left;
@@ -836,7 +814,7 @@ border-radius:4px;
 /*border:1px solid blue;*/
 clear:left;
 float:left;
-width:48%;
+/*width:48%;*/
 font-size:0.95em;
 }
 .notice div.entry-content a,
@@ -859,6 +837,10 @@ font-size:1.025em;
 .notice div.entry-content dd {
 display:inline;
 }
+.notice div.entry-content .timestamp {
+margin-left:59px;
+}
+
 .notice div.entry-content .timestamp dt,
 .notice div.entry-content .response dt {
 display:none;
@@ -874,6 +856,9 @@ text-transform:lowercase;
 }
 .notice div.entry-content a:hover {
 }
+
+
+
 
 
 
@@ -899,6 +884,8 @@ float:left;
 width:50%;
 position:relative;
 font-size:0.95em;
+width:12.5%;
+float:right;
 }
 
 .notice-options a {
@@ -966,10 +953,6 @@ padding:0;
 
 /*END: NOTICES */
 
-
-
-
-
 .pagination dt {
 font-weight:bold;
 display:none;
@@ -1010,10 +993,7 @@ padding-right:20px;
 border-right:0;
 }
 
-
 /* END: NOTICE */
-
-
 
 /*If there is hentry on #content_inner, then this doesn't need to be specific to #doc or any other section */
 .hentry .entry-content p {
@@ -1030,7 +1010,6 @@ margin-bottom:18px;
 margin-left:18px;
 }
 
-
 /*START: LOAD ALONG WITH JS*/
 .notice .in-reply-to {
 	width:98%;
@@ -1045,8 +1024,6 @@ background-color:#E4E9F0;
 .notice .in-reply-to li .in-reply-to li .in-reply-to li {
 background-color:#D1D9E4;
 }
-
-
 
 .entity_actions #user_subscribe .form_note,
 .entity_actions #user_subscribe .form_data,
@@ -1079,8 +1056,6 @@ background-color:#fff;
 
 /*END: LOAD ALONG WITH JS*/
 
-
-
 /* TOP_POSTERS */
 #top-posters caption {
 text-align:left;
@@ -1105,8 +1080,6 @@ margin-right:7px;
 height:24px;
 width:24px;
 }
-
-
 
 /* tagcloud */
 .tag-cloud {
@@ -1150,20 +1123,15 @@ font-size:4em;
 display:none;
 }
 
-
-
-
 #form_settings_photo .form_data {
 clear:both;
 }
-
-
 
 #form_settings_avatar li {
 width:auto;
 }
 #form_settings_avatar input {
-margin-left:0; 
+margin-left:0;
 }
 #avatar_original,
 #avatar_preview {
@@ -1187,8 +1155,6 @@ clear:both;
 #form_settings_avatar .form_actions {
 margin-bottom:0;
 }
-
-
 
 #groups_related ul,
 #users_featured ul {
@@ -1222,8 +1188,6 @@ clear:left;
 display:none;
 font-weight:bold;
 }
-
-
 
 #home.logged_out h1 {
 display:none;
@@ -1266,7 +1230,6 @@ font-size:1.6em;
 font-weight:bold;
 text-align:center;
 }
-
 
 #testimonials {
 clear:both;

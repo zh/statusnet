@@ -21,7 +21,7 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
-class Memcached_DataObject extends DB_DataObject 
+class Memcached_DataObject extends DB_DataObject
 {
     function &staticGet($cls, $k, $v=null)
     {
@@ -69,7 +69,7 @@ class Memcached_DataObject extends DB_DataObject
         $result = parent::insert();
         return $result;
     }
-    
+
     function update($orig=null)
     {
         if (is_object($orig) && $orig instanceof Memcached_DataObject) {
@@ -81,21 +81,21 @@ class Memcached_DataObject extends DB_DataObject
         }
         return $result;
     }
-    
+
     function delete()
     {
         $this->decache(); # while we still have the values!
         return parent::delete();
     }
-    
+
     static function memcache() {
         return common_memcache();
     }
-    
+
     static function cacheKey($cls, $k, $v) {
         return common_cache_key(strtolower($cls).':'.$k.':'.$v);
     }
-    
+
     static function getcached($cls, $k, $v) {
         $c = Memcached_DataObject::memcache();
         if (!$c) {
@@ -114,7 +114,7 @@ class Memcached_DataObject extends DB_DataObject
         }
         return $_DB_DATAOBJECT['INI'][$this->_database][$this->__table."__keys"];
     }
-    
+
     function encache()
     {
         $c = $this->memcache();
@@ -122,7 +122,7 @@ class Memcached_DataObject extends DB_DataObject
             return false;
         } else {
             $pkey = array();
-            $pval = array();            
+            $pval = array();
             $types = $this->keyTypes();
             ksort($types);
             foreach ($types as $key => $type) {
@@ -139,7 +139,7 @@ class Memcached_DataObject extends DB_DataObject
             $c->set($this->cacheKey($this->tableName(), $pkeys, $pvals), $this);
         }
     }
-    
+
     function decache()
     {
         $c = $this->memcache();
@@ -147,7 +147,7 @@ class Memcached_DataObject extends DB_DataObject
             return false;
         } else {
             $pkey = array();
-            $pval = array();            
+            $pval = array();
             $types = $this->keyTypes();
             ksort($types);
             foreach ($types as $key => $type) {
@@ -200,5 +200,34 @@ class Memcached_DataObject extends DB_DataObject
                 }
         }
         return $search_engine;
+    }
+
+    static function cachedQuery($cls, $qry, $expiry=3600)
+    {
+        $c = Memcached_DataObject::memcache();
+        if (!$c) {
+            $inst = new $cls();
+            $inst->query($qry);
+            return $inst;
+        }
+        $key_part = common_keyize($cls).':'.md5($qry);
+        $ckey = common_cache_key($key_part);
+        $stored = $c->get($ckey);
+        if ($stored) {
+            return new ArrayWrapper($stored);
+        }
+
+        $inst = new $cls();
+        $result = $inst->query($qry);
+        if (!$result) {
+            return $inst;
+        }
+        $cached = array();
+        while ($inst->fetch()) {
+            $cached[] = clone($inst);
+        }
+        $inst->free();
+        $c->set($ckey, $cached, MEMCACHE_COMPRESSED, $expiry);
+        return new ArrayWrapper($cached);
     }
 }

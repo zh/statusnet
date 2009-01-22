@@ -443,7 +443,7 @@ class Notice extends Memcached_DataObject
         # On a cache hit, return a DB-object-like wrapper
 
         if ($notices !== false) {
-            $wrapper = new NoticeWrapper(array_slice($notices, $offset, $limit));
+            $wrapper = new ArrayWrapper(array_slice($notices, $offset, $limit));
             return $wrapper;
         }
 
@@ -483,7 +483,7 @@ class Notice extends Memcached_DataObject
 
                 # return a wrapper of the array for use now
 
-                return new NoticeWrapper(array_slice($notices, $offset, $limit));
+                return new ArrayWrapper(array_slice($notices, $offset, $limit));
             }
         }
 
@@ -514,7 +514,7 @@ class Notice extends Memcached_DataObject
 
         # return a wrapper of the array for use now
 
-        $wrapper = new NoticeWrapper(array_slice($notices, $offset, $limit));
+        $wrapper = new ArrayWrapper(array_slice($notices, $offset, $limit));
 
         return $wrapper;
     }

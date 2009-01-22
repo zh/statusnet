@@ -197,4 +197,14 @@ class PublicAction extends Action
                                    'version' => 'Atom 1.0',
                                    'item' => 'publicatom')));
     }
+
+    function showSections()
+    {
+        $top = new TopPostersSection($this);
+        $top->show();
+        $pop = new PopularNoticeSection($this);
+        $pop->show();
+        $gbp = new GroupsByPostsSection($this);
+        $gbp->show();
+    }
 }
