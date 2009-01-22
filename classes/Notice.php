@@ -156,7 +156,7 @@ class Notice extends Memcached_DataObject
 
         # XXX: do we need to change this for remote users?
 
-        common_save_replies($notice);
+        $notice->saveReplies();
         $notice->saveTags();
         $notice->saveGroups();
 
@@ -210,6 +210,16 @@ class Notice extends Memcached_DataObject
                     $cache->delete(common_cache_key('group:notices:'.$group_inbox->group_id));
                     if ($blowLast) {
                         $cache->delete(common_cache_key('group:notices:'.$group_inbox->group_id.';last'));
+                    }
+                    $member = new Group_member();
+                    $member->group_id = $group_inbox->group_id;
+                    if ($member->find()) {
+                        while ($member->fetch()) {
+                            $cache->delete(common_cache_key('user:notices_with_friends:' . $member->profile_id));
+                            if ($blowLast) {
+                                $cache->delete(common_cache_key('user:notices_with_friends:' . $member->profile_id . ';last'));
+                            }
+                        }
                     }
                 }
             }
@@ -626,6 +636,90 @@ class Notice extends Memcached_DataObject
                     $qry .= ' AND user.inboxed = 1';
                 }
                 $result = $inbox->query($qry);
+            }
+        }
+    }
+
+    function saveReplies()
+    {
+        // Alternative reply format
+        $tname = false;
+        if (preg_match('/^T ([A-Z0-9]{1,64}) /', $this->content, $match)) {
+            $tname = $match[1];
+        }
+        // extract all @messages
+        $cnt = preg_match_all('/(?:^|\s)@([a-z0-9]{1,64})/', $this->content, $match);
+
+        $names = array();
+
+        if ($cnt || $tname) {
+            // XXX: is there another way to make an array copy?
+            $names = ($tname) ? array_unique(array_merge(array(strtolower($tname)), $match[1])) : array_unique($match[1]);
+        }
+
+        $sender = Profile::staticGet($this->profile_id);
+
+        $replied = array();
+
+        // store replied only for first @ (what user/notice what the reply directed,
+        // we assume first @ is it)
+
+        for ($i=0; $i<count($names); $i++) {
+            $nickname = $names[$i];
+            $recipient = common_relative_profile($sender, $nickname, $this->created);
+            if (!$recipient) {
+                continue;
+            }
+            if ($i == 0 && ($recipient->id != $sender->id) && !$this->reply_to) { // Don't save reply to self
+                $reply_for = $recipient;
+                $recipient_notice = $reply_for->getCurrentNotice();
+                if ($recipient_notice) {
+                    $orig = clone($this);
+                    $this->reply_to = $recipient_notice->id;
+                    $this->update($orig);
+                }
+            }
+            // Don't save replies from blocked profile to local user
+            $recipient_user = User::staticGet('id', $recipient->id);
+            if ($recipient_user && $recipient_user->hasBlocked($sender)) {
+                continue;
+            }
+            $reply = new Reply();
+            $reply->notice_id = $this->id;
+            $reply->profile_id = $recipient->id;
+            $id = $reply->insert();
+            if (!$id) {
+                $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
+                common_log(LOG_ERR, 'DB error inserting reply: ' . $last_error->message);
+                common_server_error(sprintf(_('DB error inserting reply: %s'), $last_error->message));
+                return;
+            } else {
+                $replied[$recipient->id] = 1;
+            }
+        }
+
+        // Hash format replies, too
+        $cnt = preg_match_all('/(?:^|\s)@#([a-z0-9]{1,64})/', $this->content, $match);
+        if ($cnt) {
+            foreach ($match[1] as $tag) {
+                $tagged = Profile_tag::getTagged($sender->id, $tag);
+                foreach ($tagged as $t) {
+                    if (!$replied[$t->id]) {
+                        // Don't save replies from blocked profile to local user
+                        $t_user = User::staticGet('id', $t->id);
+                        if ($t_user && $t_user->hasBlocked($sender)) {
+                            continue;
+                        }
+                        $reply = new Reply();
+                        $reply->notice_id = $this->id;
+                        $reply->profile_id = $t->id;
+                        $id = $reply->insert();
+                        if (!$id) {
+                            common_log_db_error($reply, 'INSERT', __FILE__);
+                            return;
+                        }
+                    }
+                }
             }
         }
     }
