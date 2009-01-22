@@ -147,7 +147,7 @@ class GroupEditForm extends Form
                      _('URL of the homepage or blog of the group or topic'));
         $this->out->elementEnd('li');
         $this->out->elementStart('li');
-        $this->out->textarea('description', _('description'),
+        $this->out->textarea('description', _('Description'),
                         ($this->out->arg('description')) ? $this->out->arg('description') : $this->group->description,
                         _('Describe the group or topic in 140 chars'));
         $this->out->elementEnd('li');

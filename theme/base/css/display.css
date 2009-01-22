@@ -547,6 +547,7 @@ margin-bottom:4px;
 width:auto;
 clear:none;
 }
+
 .entity_profile .entity_fn {
 margin-left:11px;
 margin-right:4px;
@@ -584,11 +585,8 @@ display:none;
 
 /*entity_actions*/
 .entity_actions {
-clear:left;
-float:left;
-position:absolute;
-top:0;
-right:0;
+float:right;
+
 }
 .entity_actions h2 {
 display:none;
@@ -936,7 +934,7 @@ outline:none;
 }
 
 .notice-options .notice_reply a,
-.notice-options form input.submit {
+.notice-options input.submit {
 display:block;
 border:0;
 }
@@ -1019,18 +1017,18 @@ border-right:0;
 
 
 
-/*If there is hentry on #content_inner, this doesn't need to be specific to #doc */
-#doc #content_inner p {
+/*If there is hentry on #content_inner, then this doesn't need to be specific to #doc or any other section */
+.hentry .entry-content p {
 margin-bottom:18px;
 }
-#doc #content_inner ol,
-#doc #content_inner ul {
+.hentry entry-content ol,
+.hentry .entry-content ul {
 list-style-position:inside;
 }
-#doc #content_inner li {
+.hentry .entry-content li {
 margin-bottom:18px;
 }
-#doc #content_inner li li {
+.hentry .entry-content li li {
 margin-left:18px;
 }
 
