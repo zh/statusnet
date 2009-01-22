@@ -58,13 +58,13 @@ class GroupSection extends Section
 
         $cnt = 0;
 
-        $this->out->elementStart('ul', 'entities group xoxo');
+        $this->out->elementStart('table');
 
         while ($profiles->fetch() && ++$cnt <= GROUPS_PER_SECTION) {
             $this->showGroup($profiles);
         }
 
-        $this->out->elementEnd('ul');
+        $this->out->elementEnd('table');
 
         return ($cnt > GROUPS_PER_SECTION);
     }
@@ -76,7 +76,9 @@ class GroupSection extends Section
 
     function showGroup($group)
     {
-        $this->out->elementStart('li', 'vcard');
+        $this->out->elementStart('tr');
+        $this->out->elementStart('td');
+        $this->out->elementStart('span', 'vcard');
         $this->out->elementStart('a', array('title' => ($group->fullname) ?
                                             $group->fullname :
                                             $group->nickname,
@@ -95,9 +97,11 @@ class GroupSection extends Section
                                          $group->nickname));
         $this->out->element('span', 'fn org nickname', $group->nickname);
         $this->out->elementEnd('a');
+        $this->out->elementEnd('span');
+        $this->out->elementEnd('td');
         if ($group->value) {
-            $this->out->element('span', 'value', $group->value);
+            $this->out->element('td', 'value', $group->value);
         }
-        $this->out->elementEnd('li');
+        $this->out->elementEnd('tr');
     }
 }
