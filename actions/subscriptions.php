@@ -2,7 +2,7 @@
 /**
  * Laconica, the distributed open-source microblogging tool
  *
- * User profile page
+ * List of a user's subscriptions
  *
  * PHP version 5
  *
@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  Personal
+ * @category  Social
  * @package   Laconica
  * @author    Evan Prodromou <evan@controlyourself.ca>
  * @author    Sarven Capadisli <csarven@controlyourself.ca>
@@ -32,18 +32,10 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/subsgroupnav.php';
-
 /**
- * User profile page
+ * A list of the user's subscriptions
  *
- * When I created this page, "show stream" seemed like the best name for it.
- * Now, it seems like a really bad name.
- *
- * It shows a stream of the user's posts, plus lots of profile info, links
- * to subscriptions and stuff, etc.
- *
- * @category Personal
+ * @category Social
  * @package  Laconica
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
@@ -52,62 +44,8 @@ require_once INSTALLDIR.'/lib/subsgroupnav.php';
 
 if (!defined('LACONICA')) { exit(1); }
 
-class SubscriptionsAction extends Action
+class SubscriptionsAction extends GalleryAction
 {
-    var $profile = null;
-    var $user = null;
-    var $page = null;
-
-    function prepare($args)
-    {
-        parent::prepare($args);
-
-        // FIXME very similar code below
-
-        $nickname_arg = $this->arg('nickname');
-        $nickname = common_canonical_nickname($nickname_arg);
-
-        // Permanent redirect on non-canonical nickname
-
-        if ($nickname_arg != $nickname) {
-            $args = array('nickname' => $nickname);
-            if ($this->arg('page') && $this->arg('page') != 1) {
-                $args['page'] = $this->arg['page'];
-            }
-            common_redirect(common_local_url('subscriptions', $args), 301);
-            return false;
-        }
-
-        $this->user = User::staticGet('nickname', $nickname);
-
-        if (!$this->user) {
-            $this->clientError(_('No such user.'), 404);
-            return false;
-        }
-
-        $this->profile = $this->user->getProfile();
-
-        if (!$this->profile) {
-            $this->serverError(_('User has no profile.'));
-            return false;
-        }
-
-        $this->page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
-
-        return true;
-    }
-
-    function isReadOnly()
-    {
-        return true;
-    }
-
-    function handle($args)
-    {
-        parent::handle($args);
-        $this->showPage();
-    }
-
     function title()
     {
         if ($this->page == 1) {
@@ -134,21 +72,22 @@ class SubscriptionsAction extends Action
         }
     }
 
-    function showLocalNav()
+    function getAllTags()
     {
-        $nav = new SubGroupNav($this, $this->user);
-        $nav->show();
+        return $this->getTags('subscribed', 'subscriber');
     }
 
     function showContent()
     {
+        parent::showContent();
+
         $offset = ($this->page-1) * PROFILES_PER_PAGE;
         $limit =  PROFILES_PER_PAGE + 1;
 
         $subscriptions = $this->user->getSubscriptions($offset, $limit);
 
-        if ($subs) {
-            $subscriptions_list = new SubscriptionsList($subscriptions, null, $this);
+        if ($subscriptions) {
+            $subscriptions_list = new SubscriptionsList($subscriptions, $this->user, $this);
             $subscriptions_list->show();
         }
 
@@ -170,16 +109,16 @@ class SubscriptionsList extends ProfileList
             return;
         }
 
-        $this->elementStart('form', array('id' => 'subedit-' . $profile->id,
+        $this->out->elementStart('form', array('id' => 'subedit-' . $profile->id,
                                           'method' => 'post',
                                           'class' => 'subedit',
                                           'action' => common_local_url('subedit')));
-        $this->hidden('token', common_session_token());
-        $this->hidden('profile', $profile->id);
-        $this->checkbox('jabber', _('Jabber'), $sub->jabber);
-        $this->checkbox('sms', _('SMS'), $sub->sms);
-        $this->submit('save', _('Save'));
-        $this->elementEnd('form');
+        $this->out->hidden('token', common_session_token());
+        $this->out->hidden('profile', $profile->id);
+        $this->out->checkbox('jabber', _('Jabber'), $sub->jabber);
+        $this->out->checkbox('sms', _('SMS'), $sub->sms);
+        $this->out->submit('save', _('Save'));
+        $this->out->elementEnd('form');
         return;
     }
 }
