@@ -1,5 +1,17 @@
 <?php
-/*
+
+/**
+ * Public XRDS for OpenID
+ *
+ * PHP version 5
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ *
  * Laconica - a distributed open-source microblogging tool
  * Copyright (C) 2008, Controlez-Vous, Inc.
  *
@@ -17,48 +29,75 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
-require_once(INSTALLDIR.'/lib/openid.php');
+require_once INSTALLDIR.'/lib/openid.php';
 
-# XXX: factor out similarities with XrdsAction
-
+/**
+ * Public XRDS for OpenID
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ *
+ * @todo factor out similarities with XrdsAction
+ */
 class PublicxrdsAction extends Action
 {
 
+    /**
+     * Is read only?
+     * 
+     * @return boolean true
+     */
     function isReadOnly()
     {
         return true;
     }
 
+    /**
+     * Class handler.
+     * 
+     * @param array $args array of arguments
+     *
+     * @return nothing
+     */
     function handle($args)
     {
-
         parent::handle($args);
-
         header('Content-Type: application/xrds+xml');
-
         common_start_xml();
         $this->elementStart('XRDS', array('xmlns' => 'xri://$xrds'));
-
         $this->elementStart('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
                                           'xmlns:simple' => 'http://xrds-simple.net/core/1.0',
                                           'version' => '2.0'));
-
         $this->element('Type', null, 'xri://$xrds*simple');
-
         foreach (array('finishopenidlogin', 'finishaddopenid', 'finishimmediate') as $finish) {
             $this->show_service(Auth_OpenID_RP_RETURN_TO_URL_TYPE,
                                 common_local_url($finish));
         }
-
         $this->elementEnd('XRD');
-
         $this->elementEnd('XRDS');
         common_end_xml();
     }
 
-    function show_service($type, $uri, $params=null, $sigs=null, $localId=null)
+    /**
+     * Show service.
+     * 
+     * @param string $type    XRDS type
+     * @param string $uri     URI
+     * @param array  $params  type parameters, null by default
+     * @param array  $sigs    type signatures, null by default
+     * @param string $localId local ID, null by default
+     *
+     * @return void
+     */
+    function showService($type, $uri, $params=null, $sigs=null, $localId=null)
     {
         $this->elementStart('Service');
         if ($uri) {
@@ -81,3 +120,4 @@ class PublicxrdsAction extends Action
         $this->elementEnd('Service');
     }
 }
+
