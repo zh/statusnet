@@ -593,7 +593,12 @@ class Notice extends Memcached_DataObject
             /* XXX: remote groups. */
             $group = User_group::staticGet('nickname', $nickname);
 
+            if (!$group) {
+                continue;
+            }
+
             if ($profile->isMember($group)) {
+
                 $gi = new Group_inbox();
 
                 $gi->group_id  = $group->id;
@@ -609,10 +614,10 @@ class Notice extends Memcached_DataObject
                 // FIXME: do this in an offline daemon
 
                 $inbox = new Notice_inbox();
-                $qry = 'INSERT INTO notice_inbox (user_id, notice_id, created) ' .
-                  'SELECT user.id, ' . $this->id . ', "' . $this->created . '" ' .
-                  'FROM user JOIN user_group ON user.id = user_group.profile_id ' .
-                  'WHERE user_group.group_id = ' . $group->id . ' ' .
+                $qry = 'INSERT INTO notice_inbox (user_id, notice_id, created, source) ' .
+                  'SELECT user.id, ' . $this->id . ', "' . $this->created . '", 2 ' .
+                  'FROM user JOIN group_member ON user.id = group_member.profile_id ' .
+                  'WHERE group_member.group_id = ' . $group->id . ' ' .
                   'AND NOT EXISTS (SELECT user_id, notice_id ' .
                   'FROM notice_inbox ' .
                   'WHERE user_id = user.id ' .
@@ -620,9 +625,8 @@ class Notice extends Memcached_DataObject
                 if ($enabled === 'transitional') {
                     $qry .= ' AND user.inboxed = 1';
                 }
-                $inbox->query($qry);
+                $result = $inbox->query($qry);
             }
         }
     }
 }
-
