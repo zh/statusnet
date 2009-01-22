@@ -133,6 +133,7 @@ class GroupEditForm extends Form
     {
         $this->out->elementStart('ul', 'form_data');
         $this->out->elementStart('li');
+        $this->out->hidden('groupid', $this->group->id);
         $this->out->input('nickname', _('Nickname'),
                      ($this->out->arg('nickname')) ? $this->out->arg('nickname') : $this->group->nickname,
                      _('1-64 lowercase letters or numbers, no punctuation or spaces'));

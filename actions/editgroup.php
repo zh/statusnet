@@ -88,7 +88,12 @@ class EditgroupAction extends Action
             return false;
         }
 
-        $this->group = User_group::staticGet('nickname', $nickname);
+        $groupid = $this->trimmed('groupid');
+        if ($groupid) {
+            $this->group = User_group::staticGet('id', $groupid);
+        } else {
+            $this->group = User_group::staticGet('nickname', $nickname);
+        }
 
         if (!$this->group) {
             $this->clientError(_('No such group'), 404);
@@ -97,7 +102,7 @@ class EditgroupAction extends Action
 
         $cur = common_current_user();
 
-        if (!$cur->isAdmin($group)) {
+        if (!$cur->isAdmin($this->group)) {
             $this->clientError(_('You must be an admin to edit the group'), 403);
             return false;
         }
@@ -155,6 +160,13 @@ class EditgroupAction extends Action
 
     function trySave()
     {
+        $cur = common_current_user();
+        if (!$cur->isAdmin($this->group)) {
+            $this->clientError(_('You must be an admin to edit the group'), 403);
+            return;
+        }
+
+
         $nickname    = common_canonical_nickname($this->trimmed('nickname'));
         $fullname    = $this->trimmed('fullname');
         $homepage    = $this->trimmed('homepage');
@@ -223,3 +235,4 @@ class EditgroupAction extends Action
                 $group->id != $this->group->id);
     }
 }
+
