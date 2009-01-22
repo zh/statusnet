@@ -22,6 +22,10 @@ if (!defined('LACONICA')) { exit(1); }
 class InviteAction extends Action
 {
     var $mode = null;
+    var $error = null;
+    var $already = null;
+    var $subbed = null;
+    var $sent = null;
 
     function isReadOnly()
     {
