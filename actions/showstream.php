@@ -169,14 +169,14 @@ class ShowstreamAction extends Action
         $this->element('link', array('rel' => 'alternate',
                                      'href' => common_local_url('api',
                                                                 array('apiaction' => 'statuses',
-                                                                      'method' => 'user_timeline.rss',
+                                                                      'method' => 'entity_timeline.rss',
                                                                       'argument' => $this->user->nickname)),
                                      'type' => 'application/rss+xml',
                                      'title' => sprintf(_('Notice feed for %s'), $this->user->nickname)));
         $this->element('link', array('rel' => 'alternate feed',
                                      'href' => common_local_url('api',
                                                                 array('apiaction' => 'statuses',
-                                                                      'method' => 'user_timeline.atom',
+                                                                      'method' => 'entity_timeline.atom',
                                                                       'argument' => $this->user->nickname)),
                                      'type' => 'application/atom+xml',
                                      'title' => sprintf(_('Notice feed for %s'), $this->user->nickname)));
@@ -231,7 +231,7 @@ class ShowstreamAction extends Action
         $this->element('h2', null, _('User profile'));
 
         $avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
-        $this->elementStart('dl', 'user_depiction');
+        $this->elementStart('dl', 'entity_depiction');
         $this->element('dt', null, _('Photo'));
         $this->elementStart('dd');
         $this->element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_PROFILE_SIZE),
@@ -242,7 +242,7 @@ class ShowstreamAction extends Action
         $this->elementEnd('dd');
         $this->elementEnd('dl');
 
-        $this->elementStart('dl', 'user_nickname');
+        $this->elementStart('dl', 'entity_nickname');
         $this->element('dt', null, _('Nickname'));
         $this->elementStart('dd');
         $hasFN = ($this->profile->fullname) ? 'nickname url uid' : 'fn nickname url uid';
@@ -253,7 +253,7 @@ class ShowstreamAction extends Action
         $this->elementEnd('dl');
 
         if ($this->profile->fullname) {
-            $this->elementStart('dl', 'user_fn');
+            $this->elementStart('dl', 'entity_fn');
             $this->element('dt', null, _('Full name'));
             $this->elementStart('dd');
             $this->element('span', 'fn', $this->profile->fullname);
@@ -262,14 +262,14 @@ class ShowstreamAction extends Action
         }
 
         if ($this->profile->location) {
-            $this->elementStart('dl', 'user_location');
+            $this->elementStart('dl', 'entity_location');
             $this->element('dt', null, _('Location'));
             $this->element('dd', 'location', $this->profile->location);
             $this->elementEnd('dl');
         }
 
         if ($this->profile->homepage) {
-            $this->elementStart('dl', 'user_url');
+            $this->elementStart('dl', 'entity_url');
             $this->element('dt', null, _('URL'));
             $this->elementStart('dd');
             $this->element('a', array('href' => $this->profile->homepage,
@@ -280,7 +280,7 @@ class ShowstreamAction extends Action
         }
 
         if ($this->profile->bio) {
-            $this->elementStart('dl', 'user_note');
+            $this->elementStart('dl', 'entity_note');
             $this->element('dt', null, _('Note'));
             $this->element('dd', 'note', $this->profile->bio);
             $this->elementEnd('dl');
@@ -288,7 +288,7 @@ class ShowstreamAction extends Action
 
         $tags = Profile_tag::getTags($this->profile->id, $this->profile->id);
         if (count($tags) > 0) {
-            $this->elementStart('dl', 'user_tags');
+            $this->elementStart('dl', 'entity_tags');
             $this->element('dt', null, _('Tags'));
             $this->elementStart('dd');
             $this->elementStart('ul', 'tags xoxo');
@@ -307,10 +307,11 @@ class ShowstreamAction extends Action
         }
         $this->elementEnd('div');
 
-        $this->elementStart('div', array('id' => 'user_actions'));
+        //XXX: entity_actions doesn't need to be outputted if entity is looking at their own profile
+        $this->elementStart('div', 'entity_actions');
         $this->element('h2', null, _('User actions'));
         $this->elementStart('ul');
-        $this->elementStart('li', array('id' => 'user_subscribe'));
+        $this->elementStart('li', array('id' => 'entity_subscribe'));
         $cur = common_current_user();
         if ($cur) {
             if ($cur->id != $this->profile->id) {
@@ -331,14 +332,14 @@ class ShowstreamAction extends Action
 
         $user = User::staticGet('id', $this->profile->id);
         if ($cur && $cur->id != $user->id && $cur->mutuallySubscribed($user)) {
-           $this->elementStart('li', array('id' => 'user_send-a-message'));
+           $this->elementStart('li', array('id' => 'entity_send-a-message'));
             $this->element('a', array('href' => common_local_url('newmessage', array('to' => $user->id)),
                                       'title' => _('Send a direct message to this user')),
                            _('Message'));
             $this->elementEnd('li');
 
             if ($user->email && $user->emailnotifynudge) {
-                $this->elementStart('li', array('id' => 'user_nudge'));
+                $this->elementStart('li', array('id' => 'entity_nudge'));
                 $nf = new NudgeForm($this, $user);
                 $nf->show();
                 $this->elementEnd('li');
@@ -347,7 +348,7 @@ class ShowstreamAction extends Action
 
         if ($cur && $cur->id != $this->profile->id) {
             $blocked = $cur->hasBlocked($this->profile);
-            $this->elementStart('li', array('id' => 'user_block'));
+            $this->elementStart('li', array('id' => 'entity_block'));
             if ($blocked) {
                 $ubf = new UnblockForm($this, $this->profile);
                 $ubf->show();
@@ -366,7 +367,7 @@ class ShowstreamAction extends Action
         $url = common_local_url('remotesubscribe',
                                 array('nickname' => $this->profile->nickname));
         $this->element('a', array('href' => $url,
-                                  'id' => 'user_subscribe_remote'),
+                                  'id' => 'entity_subscribe_remote'),
                        _('Subscribe'));
     }
 
@@ -393,7 +394,7 @@ class ShowstreamAction extends Action
     {
         $profile = $this->user->getSubscriptions(0, PROFILES_PER_MINILIST + 1);
 
-        $this->elementStart('div', array('id' => 'user_subscriptions',
+        $this->elementStart('div', array('id' => 'entity_subscriptions',
                                          'class' => 'section'));
 
         $this->element('h2', null, _('Subscriptions'));
@@ -422,7 +423,7 @@ class ShowstreamAction extends Action
     {
         $profile = $this->user->getSubscribers(0, PROFILES_PER_MINILIST + 1);
 
-        $this->elementStart('div', array('id' => 'user_subscribers',
+        $this->elementStart('div', array('id' => 'entity_subscribers',
                                          'class' => 'section'));
 
         $this->element('h2', null, _('Subscribers'));
@@ -462,19 +463,19 @@ class ShowstreamAction extends Action
         $notices->profile_id = $this->profile->id;
         $notice_count = (int) $notices->count();
 
-        $this->elementStart('div', array('id' => 'user_statistics',
+        $this->elementStart('div', array('id' => 'entity_statistics',
                                          'class' => 'section'));
 
         $this->element('h2', null, _('Statistics'));
 
         // Other stats...?
-        $this->elementStart('dl', 'user_member-since');
+        $this->elementStart('dl', 'entity_member-since');
         $this->element('dt', null, _('Member since'));
         $this->element('dd', null, date('j M Y',
                                                  strtotime($this->profile->created)));
         $this->elementEnd('dl');
 
-        $this->elementStart('dl', 'user_subscriptions');
+        $this->elementStart('dl', 'entity_subscriptions');
         $this->elementStart('dt');
         $this->element('a', array('href' => common_local_url('subscriptions',
                                                              array('nickname' => $this->profile->nickname))),
@@ -483,7 +484,7 @@ class ShowstreamAction extends Action
         $this->element('dd', null, (is_int($subs_count)) ? $subs_count : '0');
         $this->elementEnd('dl');
 
-        $this->elementStart('dl', 'user_subscribers');
+        $this->elementStart('dl', 'entity_subscribers');
         $this->elementStart('dt');
         $this->element('a', array('href' => common_local_url('subscribers',
                                                              array('nickname' => $this->profile->nickname))),
@@ -492,7 +493,7 @@ class ShowstreamAction extends Action
         $this->element('dd', 'subscribers', (is_int($subbed_count)) ? $subbed_count : '0');
         $this->elementEnd('dl');
 
-        $this->elementStart('dl', 'user_notices');
+        $this->elementStart('dl', 'entity_notices');
         $this->element('dt', null, _('Notices'));
         $this->element('dd', null, (is_int($notice_count)) ? $notice_count : '0');
         $this->elementEnd('dl');
@@ -504,7 +505,7 @@ class ShowstreamAction extends Action
     {
         $groups = $this->user->getGroups(0, GROUPS_PER_MINILIST + 1);
 
-        $this->elementStart('div', array('id' => 'user_groups',
+        $this->elementStart('div', array('id' => 'entity_groups',
                                          'class' => 'section'));
 
         $this->element('h2', null, _('Groups'));

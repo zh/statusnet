@@ -509,7 +509,7 @@ float:left;
 
 
 
-/* user_profile */
+/* entity_profile */
 .entity_profile {
 position:relative;
 width:475px;
@@ -519,22 +519,22 @@ margin-bottom:17px;
 margin-left:0;
 }
 .entity_profile dt,
-#user_statistics dt {
+#entity_statistics dt {
 font-weight:bold;
 }
-.entity_profile .user_depiction {
+.entity_profile .entity_depiction {
 float:left;
 position:absolute;
 top:0;
 left:0;
 width:96px;
 }
-.entity_profile .user_fn,
-.entity_profile .user_nickname,
-.entity_profile .user_location,
-.entity_profile .user_url,
-.entity_profile .user_note,
-.entity_profile .user_tags {
+.entity_profile .entity_fn,
+.entity_profile .entity_nickname,
+.entity_profile .entity_location,
+.entity_profile .entity_url,
+.entity_profile .entity_note,
+.entity_profile .entity_tags {
 float:left;
 clear:left;
 margin-left:113px;
@@ -542,16 +542,16 @@ width:322px;
 margin-bottom:4px;
 }
 
-.entity_profile .user_fn,
-.entity_profile .user_nickname {
+.entity_profile .entity_fn,
+.entity_profile .entity_nickname {
 width:auto;
 clear:none;
 }
-.entity_profile .user_fn {
+.entity_profile .entity_fn {
 margin-left:11px;
 margin-right:4px;
 }
-.entity_profile .user_fn .fn {
+.entity_profile .entity_fn .fn {
 font-weight:bold;
 font-style:normal;
 }
@@ -560,11 +560,11 @@ font-style:italic;
 font-weight:bold;
 }
 
-.entity_profile .user_fn dd:before {
+.entity_profile .entity_fn dd:before {
 content: "(";
 font-weight:normal;
 }
-.entity_profile .user_fn dd:after {
+.entity_profile .entity_fn dd:after {
 content: ")";
 font-weight:normal;
 }
@@ -576,47 +576,47 @@ display:none;
 display:none;
 }
 
-/* user_profile */
+/* entity_profile */
 
 
 
 
 
-/*user_actions*/
-#user_actions {
+/*entity_actions*/
+.entity_actions {
 clear:left;
 float:left;
 position:absolute;
 top:0;
 right:0;
 }
-#user_actions h2 {
+.entity_actions h2 {
 display:none;
 }
-#user_actions ul {
+.entity_actions ul {
 list-style-type:none;
 }
-#user_actions li {
+.entity_actions li {
 margin-bottom:4px;
 }
-#user_actions li:first-child {
+.entity_actions li:first-child {
 border-top:0;
 }
-#user_actions fieldset {
+.entity_actions fieldset {
 border:0;
 padding:0;
 }
-#user_actions legend {
+.entity_actions legend {
 display:none;
 }
 
-#user_actions input.submit {
+.entity_actions input.submit {
 display:block;
 text-align:left;
 cursor:pointer;
 width:100%;
 }
-#user_actions a {
+.entity_actions a {
 text-decoration:none;
 font-weight:bold;
 width:100%;
@@ -627,35 +627,22 @@ display:block;
 
 .form_user_block input.submit,
 .form_user_unblock input.submit,
-#user_send-a-message a,
+#entity_send-a-message a,
 .form_user_nudge input.submit {
 border:0;
 padding-left:20px;
 }
 
-#user_send-a-message a {
+#entity_send-a-message a {
 padding:4px 4px 4px 23px;
-
-}
-
-
-#user_subscribe input.submit,
-.form_user_subscribe input.submit {
-
 }
 
 
 
-#user_send-a-message form {
-}
-
-#user_send-a-message textarea {
-}
-
-.user_tags ul {
+.entity_tags ul {
 list-style-type:none;
 }
-.user_tags li {
+.entity_tags li {
 display:inline;
 margin-right:1em;
 float:left;
@@ -674,11 +661,11 @@ text-transform:uppercase;
 font-size:1em;
 }
 
-#user_statistics dt,
-#user_statistics dd {
+#entity_statistics dt,
+#entity_statistics dd {
 display:inline;
 }
-#user_statistics dt:after {
+#entity_statistics dt:after {
 content: ":";
 }
 
@@ -688,21 +675,21 @@ content: ":";
 #user_groups, {
 
 }
-.section ul.users {
+.section ul.entities {
 width:220px;
 float:left;
 }
-.section .users li {
+.section .entities li {
 list-style-type:none;
 float:left;
 margin-right:7px;
 margin-bottom:7px;
 }
-.section .users li .photo {
+.section .entities li .photo {
 margin-right:0;
 margin-bottom:0;
 }
-.section .users li .fn {
+.section .entities li .fn {
 display:none;
 }
 .aside .section .more {
@@ -729,7 +716,7 @@ display:none;
 .profiles {
 list-style-type:none;
 }
-.profile .entity_profile .user_location {
+.profile .entity_profile .entity_location {
 width:auto;
 clear:none;
 margin-left:11px;
@@ -739,8 +726,8 @@ margin-left:11px;
 display:inline;
 float:none;
 }
-.profile .entity_profile .user_note,
-.profile .entity_profile .user_url {
+.profile .entity_profile .entity_note,
+.profile .entity_profile .entity_url {
 margin-left:59px;
 clear:none;
 display:block;
@@ -1065,9 +1052,9 @@ background-color:#D1D9E4;
 
 
 
-#user_actions #user_subscribe .form_note,
-#user_actions #user_subscribe .form_data,
-#user_actions #user_subscribe .form_actions label {
+.entity_actions #user_subscribe .form_note,
+.entity_actions #user_subscribe .form_data,
+.entity_actions #user_subscribe .form_actions label {
 display:none;
 }
 #form_user-relationship .form_note,
@@ -1076,7 +1063,7 @@ display:none;
 display:block;
 }
 
-#user_actions #user-relationship_submit {
+.entity_actions #user-relationship_submit {
 margin-bottom:0;
 }
 #form_user-relationship .form_data li label {

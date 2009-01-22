@@ -49,7 +49,7 @@ class ProfileMiniList extends ProfileList
 {
     function show()
     {
-        $this->out->elementStart('ul', 'users xoxo');
+        $this->out->elementStart('ul', 'entities users xoxo');
 
         $cnt = 0;
 

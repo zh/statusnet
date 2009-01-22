@@ -199,7 +199,7 @@ class ShowgroupAction extends Action
 
         $this->element('h2', null, _('Group profile'));
 
-        $this->elementStart('dl', 'user_depiction');
+        $this->elementStart('dl', 'entity_depiction');
         $this->element('dt', null, _('Avatar'));
         $this->elementStart('dd');
 
@@ -214,10 +214,10 @@ class ShowgroupAction extends Action
         $this->elementEnd('dd');
         $this->elementEnd('dl');
 
-        $this->elementStart('dl', 'user_nickname');
+        $this->elementStart('dl', 'entity_nickname');
         $this->element('dt', null, _('Nickname'));
         $this->elementStart('dd');
-        $hasFN = ($this->group->fullname) ? 'nickname url uid' : 'fn nickname url uid';
+        $hasFN = ($this->group->fullname) ? 'nickname url uid' : 'fn org nickname url uid';
         $this->element('a', array('href' => $this->group->homeUrl(),
                                   'rel' => 'me', 'class' => $hasFN),
                             $this->group->nickname);
@@ -225,23 +225,23 @@ class ShowgroupAction extends Action
         $this->elementEnd('dl');
 
         if ($this->group->fullname) {
-            $this->elementStart('dl', 'user_fn');
+            $this->elementStart('dl', 'entity_fn');
             $this->element('dt', null, _('Full name'));
             $this->elementStart('dd');
-            $this->element('span', 'fn', $this->group->fullname);
+            $this->element('span', 'fn org', $this->group->fullname);
             $this->elementEnd('dd');
             $this->elementEnd('dl');
         }
 
         if ($this->group->location) {
-            $this->elementStart('dl', 'user_location');
+            $this->elementStart('dl', 'entity_location');
             $this->element('dt', null, _('Location'));
             $this->element('dd', 'location', $this->group->location);
             $this->elementEnd('dl');
         }
 
         if ($this->group->homepage) {
-            $this->elementStart('dl', 'user_url');
+            $this->elementStart('dl', 'entity_url');
             $this->element('dt', null, _('URL'));
             $this->elementStart('dd');
             $this->element('a', array('href' => $this->group->homepage,
@@ -252,7 +252,7 @@ class ShowgroupAction extends Action
         }
 
         if ($this->group->description) {
-            $this->elementStart('dl', 'user_note');
+            $this->elementStart('dl', 'entity_note');
             $this->element('dt', null, _('Note'));
             $this->element('dd', 'note', $this->group->description);
             $this->elementEnd('dl');
@@ -260,10 +260,10 @@ class ShowgroupAction extends Action
 
         $this->elementEnd('div');
 
-        $this->elementStart('div', array('id' => 'user_actions'));
+        $this->elementStart('div', 'entity_actions');
         $this->element('h2', null, _('Group actions'));
         $this->elementStart('ul');
-        $this->elementStart('li', array('id' => 'user_subscribe'));
+        $this->elementStart('li', array('id' => 'entity_subscribe'));
         $cur = common_current_user();
         if ($cur) {
             if ($cur->isMember($this->group)) {
@@ -341,7 +341,7 @@ class ShowgroupAction extends Action
             return;
         }
 
-        $this->elementStart('div', array('id' => 'user_subscriptions',
+        $this->elementStart('div', array('id' => 'entity_subscriptions',
                                          'class' => 'section'));
 
         $this->element('h2', null, _('Members'));

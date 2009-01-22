@@ -112,7 +112,7 @@ class ProfileList extends Widget
         $this->out->elementEnd('a');
         
         if ($this->profile->fullname) {
-            $this->out->elementStart('dl', 'user_fn');
+            $this->out->elementStart('dl', 'entity_fn');
             $this->out->element('dt', null, 'Full name');
             $this->out->elementStart('dd');
             $this->out->elementStart('span', 'fn');
@@ -122,7 +122,7 @@ class ProfileList extends Widget
             $this->out->elementEnd('dl');
         }
         if ($this->profile->location) {
-            $this->out->elementStart('dl', 'user_location');
+            $this->out->elementStart('dl', 'entity_location');
             $this->out->element('dt', null, _('Location'));
             $this->out->elementStart('dd', 'location');
             $this->out->raw($this->highlight($this->profile->location));
@@ -130,7 +130,7 @@ class ProfileList extends Widget
             $this->out->elementEnd('dl');
         }
         if ($this->profile->homepage) {
-            $this->out->elementStart('dl', 'user_url');
+            $this->out->elementStart('dl', 'entity_url');
             $this->out->element('dt', null, _('URL'));
             $this->out->elementStart('dd');
             $this->out->elementStart('a', array('href' => $this->profile->homepage,
@@ -141,7 +141,7 @@ class ProfileList extends Widget
             $this->out->elementEnd('dl');
         }
         if ($this->profile->bio) {
-            $this->out->elementStart('dl', 'user_note');
+            $this->out->elementStart('dl', 'entity_note');
             $this->out->element('dt', null, _('Note'));
             $this->out->elementStart('dd', 'note');
             $this->out->raw($this->highlight($this->profile->bio));
@@ -155,7 +155,7 @@ class ProfileList extends Widget
             # Get tags
             $tags = Profile_tag::getTags($this->owner->id, $this->profile->id);
 
-            $this->out->elementStart('dl', 'user_tags');
+            $this->out->elementStart('dl', 'entity_tags');
             $this->out->elementStart('dt');
             if ($user->id == $this->owner->id) {
                 $this->out->element('a', array('href' => common_local_url('tagother',

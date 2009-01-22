@@ -49,7 +49,7 @@ class GroupMiniList extends GroupList
 {
     function show()
     {
-        $this->out->elementStart('ul', 'groups xoxo');
+        $this->out->elementStart('ul', 'entities groups xoxo');
 
         $cnt = 0;
 
