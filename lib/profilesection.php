@@ -52,6 +52,10 @@ class ProfileSection extends Section
     {
         $profiles = $this->getProfiles();
 
+        if (!$profiles) {
+            return false;
+        }
+
         $cnt = 0;
 
         $this->out->elementStart('ul', 'entities users xoxo');
