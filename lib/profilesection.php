@@ -76,7 +76,9 @@ class ProfileSection extends Section
 
     function showProfile($profile)
     {
-        $this->out->elementStart('li', 'vcard');
+        $this->out->elementStart('tr');
+        $this->out->elementStart('td');
+        $this->out->elementStart('span', 'vcard');
         $this->out->elementStart('a', array('title' => ($profile->fullname) ?
                                        $profile->fullname :
                                        $profile->nickname,
@@ -92,10 +94,13 @@ class ProfileSection extends Section
                                     $profile->fullname :
                                     $profile->nickname));
         $this->out->element('span', 'fn nickname', $profile->nickname);
+        $this->out->elementEnd('span');
         $this->out->elementEnd('a');
+        $this->out->elementEnd('td');
         if ($profile->value) {
-            $this->out->element('span', 'value', $profile->value);
+            $this->out->element('td', 'value', $profile->value);
         }
-        $this->out->elementEnd('li');
+
+        $this->out->elementEnd('tr');
     }
 }

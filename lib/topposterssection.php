@@ -69,36 +69,6 @@ class TopPostersSection extends ProfileSection
         return $profile;
     }
 
-    function showProfile($profile)
-    {
-        $this->out->elementStart('tr');
-        $this->out->elementStart('td');
-        $this->out->elementStart('span', 'vcard');
-        $this->out->elementStart('a', array('title' => ($profile->fullname) ?
-                                       $profile->fullname :
-                                       $profile->nickname,
-                                       'href' => $profile->profileurl,
-                                       'rel' => 'contact member',
-                                       'class' => 'url'));
-        $avatar = $profile->getAvatar(AVATAR_MINI_SIZE);
-        $this->out->element('img', array('src' => (($avatar) ? common_avatar_display_url($avatar) :  common_default_avatar(AVATAR_MINI_SIZE)),
-                                    'width' => AVATAR_MINI_SIZE,
-                                    'height' => AVATAR_MINI_SIZE,
-                                    'class' => 'avatar photo',
-                                    'alt' =>  ($profile->fullname) ?
-                                    $profile->fullname :
-                                    $profile->nickname));
-        $this->out->element('span', 'fn nickname', $profile->nickname);
-        $this->out->elementEnd('span');
-        $this->out->elementEnd('a');
-        $this->out->elementEnd('td');
-        if ($profile->value) {
-            $this->out->element('td', 'value', $profile->value);
-        }
-
-        $this->out->elementEnd('tr');
-    }
-
     function title()
     {
         return _('Top posters');
