@@ -22,6 +22,7 @@ input, textarea, select {
 border-color:#aaa;
 }
 
+
 input.submit,
 #form_notice.warning #notice_text-count,
 #nav_register a,
@@ -43,7 +44,8 @@ div.notice-options input,
 .form_user_block input.submit,
 .form_user_unblock input.submit,
 #entity_send-a-message a,
-.form_user_nudge input.submit {
+.form_user_nudge input.submit,
+#entity_nudge p {
 color:#002E6E;
 }
 
@@ -135,7 +137,8 @@ background-image:url(../../base/images/icons/icon_vcard.gif);
 #entity_send-a-message a,
 .form_user_nudge input.submit,
 .form_user_block input.submit,
-.form_user_unblock input.submit {
+.form_user_unblock input.submit,
+#entity_nudge p {
 background-position: 0 40%;
 background-repeat: no-repeat;
 background-color:transparent;
@@ -152,6 +155,7 @@ background-color:#97BFD1;
 #entity_send-a-message a {
 background-image:url(../images/icons/twotone/green/quote.gif);
 }
+#entity_nudge p,
 .form_user_nudge input.submit {
 background-image:url(../images/icons/twotone/green/mail.gif);
 }

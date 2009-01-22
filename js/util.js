@@ -108,16 +108,16 @@ $(document).ready(function(){
 	$("form.form_group_join").each(addAjaxHidden);
 	$("form.form_group_leave").each(addAjaxHidden);
 
-	$("#nudge").ajaxForm ({ dataType: 'xml',
-							beforeSubmit: function(xml) { $("form#nudge input[type=submit]").attr("disabled", "disabled");
-														  $("form#nudge input[type=submit]").addClass("disabled");
-														},
-							success: function(xml) { $("#nudge").replaceWith(document._importNode($("#nudge_response", xml).get(0),true));
-												     $("#nudge input[type=submit]").removeAttr("disabled");
-												     $("#nudge input[type=submit]").removeClass("disabled");
-												   }
-						 });
-	$("#nudge").each(addAjaxHidden);
+	$("#form_user_nudge").ajaxForm ({ dataType: 'xml',
+		beforeSubmit: function(xml) { $("#form_user_nudge input[type=submit]").attr("disabled", "disabled");
+									  $("#form_user_nudge input[type=submit]").addClass("disabled");
+									},
+		success: function(xml) { $("#form_user_nudge").replaceWith(document._importNode($("#nudge_response", xml).get(0),true));
+							     $("#form_user_nudge input[type=submit]").removeAttr("disabled");
+							     $("#form_user_nudge input[type=submit]").removeClass("disabled");
+							   }
+	 });
+	$("#form_user_nudge").each(addAjaxHidden);
 
 	var Subscribe = { dataType: 'xml',
 					  beforeSubmit: function(formData, jqForm, options) { $(".form_user_subscribe input[type=submit]").attr("disabled", "disabled");
