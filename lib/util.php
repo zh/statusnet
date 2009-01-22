@@ -1660,11 +1660,6 @@ function common_session_token()
     return $_SESSION['token'];
 }
 
-function common_nudge_response()
-{
-    common_element('p', array('id' => 'nudge_response'), _('Nudge sent!'));
-}
-
 function common_cache_key($extra)
 {
     return 'laconica:' . common_keyize(common_config('site', 'name')) . ':' . $extra;

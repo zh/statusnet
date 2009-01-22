@@ -17,8 +17,8 @@ width:1004px;
 width:71.714em;
 }
 h1,h2,h3,h4,h5,h6 {
-	text-transform:uppercase;
-	margin-bottom:7px;
+text-transform:uppercase;
+margin-bottom:7px;
 }
 h1 {
 font-size:1.4em;
@@ -34,8 +34,6 @@ h6 { font-size:0.9em; }
 caption {
 font-weight:bold;
 }
-.opened { display: block !important;}
-.closed { display: none !important;}
 
 legend {
 font-weight:bold; 
@@ -56,6 +54,7 @@ border-radius:4px;
 -moz-border-radius:4px;
 -webkit-border-radius:4px;
 }
+
 input.submit {
 font-weight:bold;
 }
@@ -79,9 +78,6 @@ form label {
 font-weight:bold;
 /*margin:0 0 11px 0;*/
 }
-form ul li input {
-}
-
 input.checkbox {
 position:relative;
 top:2px;
@@ -465,7 +461,7 @@ padding:1px 2px;
 }
 
 #form_notice #notice_data-attach_view {
-/*position:absolute;*/
+position:absolute;
 top:25px;
 right:30px;
 margin-left:4px;
@@ -614,10 +610,10 @@ text-align:left;
 cursor:pointer;
 width:100%;
 }
-.entity_actions a {
+.entity_actions a,
+#entity_nudge p {
 text-decoration:none;
 font-weight:bold;
-width:100%;
 display:block;
 }
 
@@ -626,12 +622,14 @@ display:block;
 .form_user_block input.submit,
 .form_user_unblock input.submit,
 #entity_send-a-message a,
-.form_user_nudge input.submit {
+.form_user_nudge input.submit,
+#entity_nudge p {
 border:0;
 padding-left:20px;
 }
 
-#entity_send-a-message a {
+#entity_send-a-message a,
+#entity_nudge p {
 padding:4px 4px 4px 23px;
 }
 
