@@ -92,25 +92,24 @@ class ProfileList extends Widget
 
         $user = common_current_user();
 
-
         $this->out->elementStart('div', 'entity_profile vcard');
 
         $avatar = $this->profile->getAvatar(AVATAR_STREAM_SIZE);
         $this->out->elementStart('a', array('href' => $this->profile->profileurl,
                                             'class' => 'url'));
         $this->out->element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE),
-                                    'class' => 'photo avatar',
-                                    'width' => AVATAR_STREAM_SIZE,
-                                    'height' => AVATAR_STREAM_SIZE,
-                                    'alt' =>
-                                    ($this->profile->fullname) ? $this->profile->fullname :
-                                    $this->profile->nickname));
+                                         'class' => 'photo avatar',
+                                         'width' => AVATAR_STREAM_SIZE,
+                                         'height' => AVATAR_STREAM_SIZE,
+                                         'alt' =>
+                                         ($this->profile->fullname) ? $this->profile->fullname :
+                                         $this->profile->nickname));
         $hasFN = ($this->profile->fullname) ? 'nickname' : 'fn nickname';
         $this->out->elementStart('span', $hasFN);
         $this->out->raw($this->highlight($this->profile->nickname));
         $this->out->elementEnd('span');
         $this->out->elementEnd('a');
-        
+
         if ($this->profile->fullname) {
             $this->out->elementStart('dl', 'entity_fn');
             $this->out->element('dt', null, 'Full name');
@@ -159,8 +158,8 @@ class ProfileList extends Widget
             $this->out->elementStart('dt');
             if ($user->id == $this->owner->id) {
                 $this->out->element('a', array('href' => common_local_url('tagother',
-                                                                     array('id' => $this->profile->id))),
-                               _('Tags'));
+                                                                          array('id' => $this->profile->id))),
+                                    _('Tags'));
             } else {
                 $this->out->text(_('Tags'));
             }
@@ -172,10 +171,10 @@ class ProfileList extends Widget
                     $this->out->elementStart('li');
                     $this->element('span', 'mark_hash', '#');
                     $this->out->element('a', array('rel' => 'tag',
-                                              'href' => common_local_url($this->action,
-                                                                         array('nickname' => $this->owner->nickname,
-                                                                               'tag' => $tag))),
-                                   $tag);
+                                                   'href' => common_local_url($this->action,
+                                                                              array('nickname' => $this->owner->nickname,
+                                                                                    'tag' => $tag))),
+                                        $tag);
                     $this->out->elementEnd('li');
                 }
                 $this->out->elementEnd('ul');
