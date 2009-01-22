@@ -78,9 +78,9 @@ class GroupEditForm extends Form
     function id()
     {
         if ($this->group) {
-            return 'group_edit-' . $this->group->id;
+            return 'form_group_edit-' . $this->group->id;
         } else {
-            return 'group_add';
+            return 'form_group_add';
         }
     }
 
@@ -92,7 +92,7 @@ class GroupEditForm extends Form
 
     function formClass()
     {
-        return 'form_group_add';
+        return 'form_settings';
     }
 
     /**
@@ -109,6 +109,18 @@ class GroupEditForm extends Form
         } else {
             return common_local_url('newgroup');
         }
+    }
+
+
+    /**
+     * Name of the form
+     *
+     * @return void
+     */
+
+    function formLegend()
+    {
+        $this->out->element('legend', null, _('Create a new group'));
     }
 
     /**
