@@ -716,7 +716,8 @@ float:left;
 width:644px;
 width:96.699%;
 width:100%;
-border-top:1px dashed #D1D9E4;
+border-top-width:1px;
+border-top-style:dashed;
 /*-moz-border-radius:7px;*/
 }
 .notices li {
@@ -1086,7 +1087,8 @@ padding-bottom:11px;
 
 }
 
-.section .notice:first {
+.section .notice:first-child {
+padding-top:0;
 border-top:0;
 }
 
