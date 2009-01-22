@@ -208,7 +208,7 @@ class Memcached_DataObject extends DB_DataObject
         if (!$c) {
             $inst = new $cls();
             $inst->query($qry);
-            return $cls;
+            return $inst;
         }
         $key_part = common_keyize($cls).':'.md5($qry);
         $ckey = common_cache_key($key_part);
