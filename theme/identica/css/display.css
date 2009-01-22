@@ -143,12 +143,15 @@ background-position: 0 40%;
 background-repeat: no-repeat;
 background-color:transparent;
 }
+.form_group_join input.submit,
+.form_group_leave input.submit
 .form_user_subscribe input.submit,
 .form_user_unsubscribe input.submit {
 background-color:#A9BF4F;
 color:#fff;
 }
-.form_user_unsubscribe input.submit {
+.form_user_unsubscribe input.submit,
+.form_group_leave input.submit {
 background-color:#97BFD1;
 }
 
