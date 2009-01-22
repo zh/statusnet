@@ -149,8 +149,8 @@ class GalleryAction extends Action
         $profile_tag = new Notice_tag();
         $profile_tag->query('SELECT DISTINCT(tag) ' .
                             'FROM profile_tag, subscription ' .
-                            'WHERE tagger = ' . $profile->id . ' ' .
-                            'AND ' . $usr . ' = ' . $profile->id . ' ' .
+                            'WHERE tagger = ' . $this->profile->id . ' ' .
+                            'AND ' . $usr . ' = ' . $this->profile->id . ' ' .
                             'AND ' . $lst . ' = tagged ' .
                             'AND tagger != tagged');
         $tags = array();
