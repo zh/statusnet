@@ -2,7 +2,6 @@
 /**
  * Table Definition for related_group
  */
-require_once 'classes/Memcached_DataObject';
 
 class Related_group extends Memcached_DataObject
 {

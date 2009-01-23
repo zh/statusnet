@@ -2,7 +2,6 @@
 /**
  * Table Definition for user_group
  */
-require_once 'classes/Memcached_DataObject.php';
 
 class User_group extends Memcached_DataObject
 {
