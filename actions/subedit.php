@@ -21,12 +21,10 @@ if (!defined('LACONICA')) { exit(1); }
 
 class SubeditAction extends Action
 {
-
     var $profile = null;
 
     function prepare($args)
     {
-
         parent::prepare($args);
 
         if (!common_logged_in()) {
@@ -37,8 +35,9 @@ class SubeditAction extends Action
         $token = $this->trimmed('token');
 
         if (!$token || $token != common_session_token()) {
-            $this->clientError(_('There was a problem with your session token. Try again, please.'));
-            return;
+            $this->clientError(_('There was a problem with your session token. '.
+                                 'Try again, please.'));
+            return false;
         }
 
         $id = $this->trimmed('profile');
