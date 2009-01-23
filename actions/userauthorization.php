@@ -577,10 +577,10 @@ class UserauthorizationAction extends Action
     {
         $signature_method = $this->getSignatureMethod($req);
         $signature = $req->get_parameter('oauth_signature');
-        $valid_sig = $signature_method->checkSignature($req,
-                                                       $consumer,
-                                                       $token,
-                                                       $signature);
+        $valid_sig = $signature_method->check_signature($req,
+                                                        $consumer,
+                                                        $token,
+                                                        $signature);
         if (!$valid_sig) {
             throw new OAuthException("Invalid signature");
         }
