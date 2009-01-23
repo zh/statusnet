@@ -1,5 +1,16 @@
 <?php
-/*
+/**
+ * Base search action class.
+ *
+ * PHP version 5
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ *
  * Laconica - a distributed open-source microblogging tool
  * Copyright (C) 2008, Controlez-Vous, Inc.
  *
@@ -17,12 +28,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
+require_once INSTALLDIR.'/lib/searchgroupnav.php';
+
+/**
+ * Base search action class.
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ */
 class SearchAction extends Action
 {
-
-    function is_readonly()
+    /**
+     * Return true if read only.
+     *
+     * @return boolean true
+     */
+    function isReadOnly()
     {
         return true;
     }
@@ -30,27 +59,41 @@ class SearchAction extends Action
     function handle($args)
     {
         parent::handle($args);
-        $this->show_form();
+        $this->showPage();
     }
 
-    function show_top($arr=null)
+    /**
+     * Show tabset for this page
+     *
+     * Uses the SearchGroupNav widget
+     *
+     * @return void
+     * @see SearchGroupNav
+     */
+
+    function showLocalNav()
+    {
+        $nav = new SearchGroupNav($this);
+        $nav->show();
+    }
+
+    function showTop($arr=null)
     {
         if ($arr) {
             $error = $arr[1];
         }
         if ($error) {
-            common_element('p', 'error', $error);
+            $this->element('p', 'error', $error);
         } else {
-            $instr = $this->get_instructions();
+            $instr = $this->getInstructions();
             $output = common_markup_to_html($instr);
-            common_element_start('div', 'instructions');
-            common_raw($output);
-            common_element_end('div');
+            $this->elementStart('div', 'instructions');
+            $this->raw($output);
+            $this->elementEnd('div');
         }
-        $this->search_menu();
     }
 
-    function get_title()
+    function title()
     {
         return null;
     }
@@ -60,59 +103,37 @@ class SearchAction extends Action
         return;
     }
 
-    function show_form($error=null)
+    function showNoticeForm() {
+        // remote post notice form
+    }
+
+    function showContent() {
+        $this->showTop();
+        $this->showForm();
+    }
+
+    function showForm($error=null)
     {
         global $config;
 
         $q = $this->trimmed('q');
         $page = $this->trimmed('page', 1);
-
-        common_show_header($this->get_title(), array($this, 'show_header'), array($q, $error),
-                           array($this, 'show_top'));
-        common_element_start('form', array('method' => 'get',
+        $this->elementStart('form', array('method' => 'get',
                                            'id' => 'login',
                                            'action' => common_local_url($this->trimmed('action'))));
-        common_element_start('p');
+        $this->elementStart('p');
         if (!isset($config['site']['fancy']) || !$config['site']['fancy']) {
-            common_element('input', array('name' => 'action',
-                                          'type' => 'hidden',
-                                          'value' => $this->trimmed('action')));
+            $this->hidden('action', $this->trimmed('action'));
         }
-        common_element('input', array('name' => 'q',
-                                      'id' => 'q',
-                                      'type' => 'text',
-                                      'class' => 'input_text',
-                                      'value' => ($q) ? $q : ''));
-        common_text(' ');
-        common_element('input', array('type' => 'submit',
-                                      'id' => 'search',
-                                      'name' => 'search',
-                                      'class' => 'submit',
-                                      'value' => _('Search')));
+        $this->input('q', '', $q);
+        $this->text(' ');
+        $this->submit('search', 'Search');
 
-        common_element_end('p');
-        common_element_end('form');
+        $this->elementEnd('p');
+        $this->elementEnd('form');
         if ($q) {
-            $this->show_results($q, $page);
+            $this->showResults($q, $page);
         }
-        common_show_footer();
-    }
-
-    function search_menu()
-    {
-        # action => array('prompt', 'title', $args)
-        $action = $this->trimmed('action');
-        $menu =
-          array('peoplesearch' =>
-                array(
-                      _('People'),
-                      _('Find people on this site'),
-                      ($action != 'peoplesearch' && $this->trimmed('q')) ? array('q' => $this->trimmed('q')) : null),
-                'noticesearch' =>
-                array( _('Text'),
-                       _('Find content of notices'),
-                       ($action != 'noticesearch' && $this->trimmed('q')) ? array('q' => $this->trimmed('q')) : null)
-                );
-        $this->nav_menu($menu);
     }
 }
+
