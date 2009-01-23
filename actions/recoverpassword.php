@@ -23,309 +23,344 @@ if (!defined('LACONICA')) { exit(1); }
 
 define(MAX_RECOVERY_TIME, 24 * 60 * 60);
 
-class RecoverpasswordAction extends Action {
+class RecoverpasswordAction extends Action
+{
+    var $mode = null;
+    var $msg = null;
+    var $success = null;
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
         if (common_logged_in()) {
-			$this->client_error(_('You are already logged in!'));
+            $this->clientError(_('You are already logged in!'));
             return;
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        	if ($this->arg('recover')) {
-            	$this->recover_password();
+            if ($this->arg('recover')) {
+                $this->recoverPassword();
             } else if ($this->arg('reset')) {
-            	$this->reset_password();
-			} else {
-				$this->client_error(_('Unexpected form submission.'));
-			}
-		} else {
-			if ($this->trimmed('code')) {
-        		$this->check_code();
-        	} else {
-        		$this->show_form();
-			}
-		}
-	}
+                $this->resetPassword();
+            } else {
+                $this->clientError(_('Unexpected form submission.'));
+            }
+        } else {
+            if ($this->trimmed('code')) {
+                $this->checkCode();
+            } else {
+                $this->showForm();
+            }
+        }
+    }
 
-	function check_code() {
+    function checkCode()
+    {
 
-		$code = $this->trimmed('code');
-		$confirm = Confirm_address::staticGet('code', $code);
+        $code = $this->trimmed('code');
+        $confirm = Confirm_address::staticGet('code', $code);
 
-		if (!$confirm) {
-			$this->client_error(_('No such recovery code.'));
-			return;
-		}
-		if ($confirm->address_type != 'recover') {
-			$this->client_error(_('Not a recovery code.'));
-			return;
-		}
+        if (!$confirm) {
+            $this->clientError(_('No such recovery code.'));
+            return;
+        }
+        if ($confirm->address_type != 'recover') {
+            $this->clientError(_('Not a recovery code.'));
+            return;
+        }
 
-		$user = User::staticGet($confirm->user_id);
+        $user = User::staticGet($confirm->user_id);
 
-		if (!$user) {
-			$this->server_error(_('Recovery code for unknown user.'));
-			return;
-		}
+        if (!$user) {
+            $this->serverError(_('Recovery code for unknown user.'));
+            return;
+        }
 
-		$touched = strtotime($confirm->modified);
-		$email = $confirm->address;
+        $touched = strtotime($confirm->modified);
+        $email = $confirm->address;
 
-		# Burn this code
+        # Burn this code
 
-		$result = $confirm->delete();
+        $result = $confirm->delete();
 
-		if (!$result) {
-			common_log_db_error($confirm, 'DELETE', __FILE__);
-			common_server_error(_('Error with confirmation code.'));
-			return;
-		}
+        if (!$result) {
+            common_log_db_error($confirm, 'DELETE', __FILE__);
+            $this->serverError(_('Error with confirmation code.'));
+            return;
+        }
 
-		# These should be reaped, but for now we just check mod time
-		# Note: it's still deleted; let's avoid a second attempt!
+        # These should be reaped, but for now we just check mod time
+        # Note: it's still deleted; let's avoid a second attempt!
 
-		if ((time() - $touched) > MAX_RECOVERY_TIME) {
-			common_log(LOG_WARNING, 
-					   'Attempted redemption on recovery code ' .
-					   'that is ' . $touched . ' seconds old. ');
-			$this->client_error(_('This confirmation code is too old. ' .
-			                       'Please start again.'));
-			return;
-		}
+        if ((time() - $touched) > MAX_RECOVERY_TIME) {
+            common_log(LOG_WARNING,
+                       'Attempted redemption on recovery code ' .
+                       'that is ' . $touched . ' seconds old. ');
+            $this->clientError(_('This confirmation code is too old. ' .
+                                   'Please start again.'));
+            return;
+        }
 
-		# If we used an outstanding confirmation to send the email,
-		# it's been confirmed at this point.
+        # If we used an outstanding confirmation to send the email,
+        # it's been confirmed at this point.
 
-		if (!$user->email) {
-			$orig = clone($user);
-			$user->email = $email;
-			$result = $user->updateKeys($orig);
-			if (!$result) {
-				common_log_db_error($user, 'UPDATE', __FILE__);
-				$this->server_error(_('Could not update user with confirmed email address.'));
-				return;
-			}
-		}
+        if (!$user->email) {
+            $orig = clone($user);
+            $user->email = $email;
+            $result = $user->updateKeys($orig);
+            if (!$result) {
+                common_log_db_error($user, 'UPDATE', __FILE__);
+                $this->serverError(_('Could not update user with confirmed email address.'));
+                return;
+            }
+        }
 
-		# Success!
+        # Success!
 
-		$this->set_temp_user($user);
-		$this->show_password_form();
-	}
+        $this->setTempUser($user);
+        $this->showPasswordForm();
+    }
 
-	function set_temp_user(&$user) {
-		common_ensure_session();
-		$_SESSION['tempuser'] = $user->id;
-	}
+    function setTempUser(&$user)
+    {
+        common_ensure_session();
+        $_SESSION['tempuser'] = $user->id;
+    }
 
-	function get_temp_user() {
-		common_ensure_session();
-		$user_id = $_SESSION['tempuser'];
-		if ($user_id) {
-			$user = User::staticGet($user_id);
-		}
-		return $user;
-	}
+    function getTempUser()
+    {
+        common_ensure_session();
+        $user_id = $_SESSION['tempuser'];
+        if ($user_id) {
+            $user = User::staticGet($user_id);
+        }
+        return $user;
+    }
 
-	function clear_temp_user() {
-		common_ensure_session();
-		unset($_SESSION['tempuser']);
-	}
+    function clearTempUser()
+    {
+        common_ensure_session();
+        unset($_SESSION['tempuser']);
+    }
 
-	function show_top($msg=NULL) {
-		if ($msg) {
-            common_element('div', 'error', $msg);
-		} else {
-			common_element_start('div', 'instructions');
-			common_element('p', NULL, 
-						   _('If you\'ve forgotten or lost your' .
-						      ' password, you can get a new one sent to' .
-						      ' the email address you have stored' .
-						      ' in your account.'));
-			common_element_end('div');
-		}
-	}
+    function showPageNotice()
+    {
+        if ($this->msg) {
+            $this->element('div', ($this->success) ? 'success' : 'error', $this->msg);
+        } else {
+            $this->elementStart('div', 'instructions');
+            if ($this->mode == 'recover') {
+                $this->element('p', null,
+                               _('If you\'ve forgotten or lost your' .
+                                 ' password, you can get a new one sent to' .
+                                 ' the email address you have stored ' .
+                                 ' in your account.'));
+            } else if ($this->mode == 'reset') {
+                $this->element('p', null,
+                               _('You\'ve been identified. Enter a ' .
+                                 ' new password below. '));
+            }
+            $this->elementEnd('div');
+        }
+    }
 
-	function show_password_top($msg=NULL) {
-		if ($msg) {
-            common_element('div', 'error', $msg);
-		} else {
-			common_element('div', 'instructions',
-						   _('You\'ve been identified. Enter a ' .
-						      ' new password below. '));
-		}
-	}
+    function showForm($msg=null)
+    {
+        $this->msg = $msg;
+        $this->mode = 'recover';
+        $this->showPage();
+    }
 
-	function show_form($msg=NULL) {
+    function showContent()
+    {
+        if ($this->mode == 'recover') {
+            $this->showRecoverForm();
+        } else if ($this->mode == 'reset') {
+            $this->showResetForm();
+        }
+    }
 
-		common_show_header(_('Recover password'), NULL,
-		$msg, array($this, 'show_top'));
+    function showRecoverForm()
+    {
+        $this->elementStart('form', array('method' => 'post',
+                                           'id' => 'recoverpassword',
+                                           'action' => common_local_url('recoverpassword')));
+        $this->input('nicknameoremail', _('Nickname or email'),
+                     $this->trimmed('nicknameoremail'),
+                     _('Your nickname on this server, ' .
+                        'or your registered email address.'));
+        $this->submit('recover', _('Recover'));
+        $this->elementEnd('form');
+    }
 
-		common_element_start('form', array('method' => 'post',
-										   'id' => 'recoverpassword',
-										   'action' => common_local_url('recoverpassword')));
-		common_input('nicknameoremail', _('Nickname or email'),
-					 $this->trimmed('nicknameoremail'),
-		             _('Your nickname on this server, ' .
-		                'or your registered email address.'));
-		common_submit('recover', _('Recover'));
-		common_element_end('form');
-		common_show_footer();
-	}
+    function title()
+    {
+        switch ($this->mode) {
+         case 'reset': return _('Reset password');
+         case 'recover': return _('Recover password');
+         case 'sent': return _('Password recovery requested');
+         case 'saved': return _('Password saved.');
+         default:
+            return _('Unknown action');
+        }
+    }
 
-	function show_password_form($msg=NULL) {
+    function showPasswordForm($msg=null)
+    {
+        $this->msg = $msg;
+        $this->mode = 'reset';
+        $this->showPage();
+    }
 
-		common_show_header(_('Reset password'), NULL,
-		$msg, array($this, 'show_password_top'));
+    function showResetForm()
+    {
+        $this->elementStart('form', array('method' => 'post',
+                                           'id' => 'recoverpassword',
+                                           'action' => common_local_url('recoverpassword')));
+        $this->hidden('token', common_session_token());
+        $this->password('newpassword', _('New password'),
+                        _('6 or more characters, and don\'t forget it!'));
+        $this->password('confirm', _('Confirm'),
+                        _('Same as password above'));
+        $this->submit('reset', _('Reset'));
+        $this->elementEnd('form');
+    }
 
-		common_element_start('form', array('method' => 'post',
-										   'id' => 'recoverpassword',
-										   'action' => common_local_url('recoverpassword')));
-		common_hidden('token', common_session_token());
-		common_password('newpassword', _('New password'),
-						_('6 or more characters, and don\'t forget it!'));
-		common_password('confirm', _('Confirm'),
-						_('Same as password above'));
-		common_submit('reset', _('Reset'));
-		common_element_end('form');
-		common_show_footer();
-	}
+    function recoverPassword()
+    {
+        $nore = $this->trimmed('nicknameoremail');
+        if (!$nore) {
+            $this->showForm(_('Enter a nickname or email address.'));
+            return;
+        }
 
-	function recover_password() {
-		$nore = $this->trimmed('nicknameoremail');
-		if (!$nore) {
-			$this->show_form(_('Enter a nickname or email address.'));
-			return;
-		}
+        $user = User::staticGet('email', common_canonical_email($nore));
 
-		$user = User::staticGet('email', common_canonical_email($nore));
+        if (!$user) {
+            $user = User::staticGet('nickname', common_canonical_nickname($nore));
+        }
 
-		if (!$user) {
-			$user = User::staticGet('nickname', common_canonical_nickname($nore));
-		}
+        # See if it's an unconfirmed email address
 
-		# See if it's an unconfirmed email address
+        if (!$user) {
+            $confirm_email = Confirm_address::staticGet('address', common_canonical_email($nore));
+            if ($confirm_email && $confirm_email->address_type == 'email') {
+                $user = User::staticGet($confirm_email->user_id);
+            }
+        }
 
-		if (!$user) {
-			$confirm_email = Confirm_address::staticGet('address', common_canonical_email($nore));
-			if ($confirm_email && $confirm_email->address_type == 'email') {
-				$user = User::staticGet($confirm_email->user_id);
-			}
-		}
+        if (!$user) {
+            $this->showForm(_('No user with that email address or username.'));
+            return;
+        }
 
-		if (!$user) {
-			$this->show_form(_('No user with that email address or username.'));
-			return;
-		}
+        # Try to get an unconfirmed email address if they used a user name
 
-		# Try to get an unconfirmed email address if they used a user name
+        if (!$user->email && !$confirm_email) {
+            $confirm_email = Confirm_address::staticGet('user_id', $user->id);
+            if ($confirm_email && $confirm_email->address_type != 'email') {
+                # Skip non-email confirmations
+                $confirm_email = null;
+            }
+        }
 
-		if (!$user->email && !$confirm_email) {
-			$confirm_email = Confirm_address::staticGet('user_id', $user->id);
-			if ($confirm_email && $confirm_email->address_type != 'email') {
-				# Skip non-email confirmations
-				$confirm_email = NULL;
-			}
-		}
+        if (!$user->email && !$confirm_email) {
+            $this->clientError(_('No registered email address for that user.'));
+            return;
+        }
 
-		if (!$user->email && !$confirm_email) {
-			$this->client_error(_('No registered email address for that user.'));
-			return;
-		}
+        # Success! We have a valid user and a confirmed or unconfirmed email address
 
-		# Success! We have a valid user and a confirmed or unconfirmed email address
+        $confirm = new Confirm_address();
+        $confirm->code = common_confirmation_code(128);
+        $confirm->address_type = 'recover';
+        $confirm->user_id = $user->id;
+        $confirm->address = (isset($user->email)) ? $user->email : $confirm_email->address;
 
-		$confirm = new Confirm_address();
-		$confirm->code = common_confirmation_code(128);
-		$confirm->address_type = 'recover';
-		$confirm->user_id = $user->id;
-		$confirm->address = (isset($user->email)) ? $user->email : $confirm_email->address;
+        if (!$confirm->insert()) {
+            common_log_db_error($confirm, 'INSERT', __FILE__);
+            $this->serverError(_('Error saving address confirmation.'));
+            return;
+        }
 
-		if (!$confirm->insert()) {
-			common_log_db_error($confirm, 'INSERT', __FILE__);
-			$this->server_error(_('Error saving address confirmation.'));
-			return;
-		}
+        $body = "Hey, $user->nickname.";
+        $body .= "\n\n";
+        $body .= 'Someone just asked for a new password ' .
+                 'for this account on ' . common_config('site', 'name') . '.';
+        $body .= "\n\n";
+        $body .= 'If it was you, and you want to confirm, use the URL below:';
+        $body .= "\n\n";
+        $body .= "\t".common_local_url('recoverpassword',
+                                   array('code' => $confirm->code));
+        $body .= "\n\n";
+        $body .= 'If not, just ignore this message.';
+        $body .= "\n\n";
+        $body .= 'Thanks for your time, ';
+        $body .= "\n";
+        $body .= common_config('site', 'name');
+        $body .= "\n";
 
-		$body = "Hey, $user->nickname.";
-		$body .= "\n\n";
-		$body .= 'Someone just asked for a new password ' .
-		         'for this account on ' . common_config('site', 'name') . '.';
-		$body .= "\n\n";
-		$body .= 'If it was you, and you want to confirm, use the URL below:';
-		$body .= "\n\n";
-		$body .= "\t".common_local_url('recoverpassword',
-								   array('code' => $confirm->code));
-		$body .= "\n\n";
-		$body .= 'If not, just ignore this message.';
-		$body .= "\n\n";
-		$body .= 'Thanks for your time, ';
-		$body .= "\n";
-		$body .= common_config('site', 'name');
-		$body .= "\n";
+        mail_to_user($user, _('Password recovery requested'), $body, $confirm->address);
 
-		mail_to_user($user, _('Password recovery requested'), $body, $confirm->address);
+        $this->mode = 'sent';
+        $this->msg = _('Instructions for recovering your password ' .
+                          'have been sent to the email address registered to your ' .
+                          'account.');
+        $this->success = true;
+        $this->showPage();
+    }
 
-		common_show_header(_('Password recovery requested'));
-		common_element('p', NULL,
-		               _('Instructions for recovering your password ' .
-		                  'have been sent to the email address registered to your ' .
-		                  'account.'));
-		common_show_footer();
-	}
+    function resetPassword()
+    {
+        # CSRF protection
+        $token = $this->trimmed('token');
+        if (!$token || $token != common_session_token()) {
+            $this->showForm(_('There was a problem with your session token. Try again, please.'));
+            return;
+        }
 
-	function reset_password() {
+        $user = $this->getTempUser();
 
-		# CSRF protection
-		$token = $this->trimmed('token');
-		if (!$token || $token != common_session_token()) {
-			$this->show_form(_('There was a problem with your session token. Try again, please.'));
-			return;
-		}
+        if (!$user) {
+            $this->clientError(_('Unexpected password reset.'));
+            return;
+        }
 
-		$user = $this->get_temp_user();
+        $newpassword = $this->trimmed('newpassword');
+        $confirm = $this->trimmed('confirm');
 
-		if (!$user) {
-			$this->client_error(_('Unexpected password reset.'));
-			return;
-		}
+        if (!$newpassword || strlen($newpassword) < 6) {
+            $this->showPasswordForm(_('Password must be 6 chars or more.'));
+            return;
+        }
+        if ($newpassword != $confirm) {
+            $this->showPasswordForm(_('Password and confirmation do not match.'));
+            return;
+        }
 
-		$newpassword = $this->trimmed('newpassword');
-		$confirm = $this->trimmed('confirm');
+        # OK, we're ready to go
 
-		if (!$newpassword || strlen($newpassword) < 6) {
-			$this->show_password_form(_('Password must be 6 chars or more.'));
-			return;
-		}
-		if ($newpassword != $confirm) {
-			$this->show_password_form(_('Password and confirmation do not match.'));
-			return;
-		}
+        $original = clone($user);
 
-		# OK, we're ready to go
+        $user->password = common_munge_password($newpassword, $user->id);
 
-		$original = clone($user);
+        if (!$user->update($original)) {
+            common_log_db_error($user, 'UPDATE', __FILE__);
+            $this->serverError(_('Can\'t save new password.'));
+            return;
+        }
 
-		$user->password = common_munge_password($newpassword, $user->id);
+        $this->clearTempUser();
 
-		if (!$user->update($original)) {
-			common_log_db_error($user, 'UPDATE', __FILE__);
-			common_server_error(_('Can\'t save new password.'));
-			return;
-		}
+        if (!common_set_user($user->nickname)) {
+            $this->serverError(_('Error setting user.'));
+            return;
+        }
 
-		$this->clear_temp_user();
+        common_real_login(true);
 
-		if (!common_set_user($user->nickname)) {
-			common_server_error(_('Error setting user.'));
-			return;
-		}
-
-		common_real_login(true);
-
-		common_show_header(_('Password saved.'));
-		common_element('p', NULL, _('New password successfully saved. ' .
-		                             'You are now logged in.'));
-		common_show_footer();
-	}
+        $this->mode = 'saved';
+        $this->msg = _('New password successfully saved. ' .
+                       'You are now logged in.');
+        $this->success = true;
+        $this->showPage();
+    }
 }

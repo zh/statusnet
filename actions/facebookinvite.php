@@ -10,37 +10,124 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.     See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.	 If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.     If not, see <http://www.gnu.org/licenses/>.
  */
 
 if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/facebookaction.php');
 
-class FacebookinviteAction extends FacebookAction {
+class FacebookinviteAction extends FacebookAction
+{
 
-	function handle($args) {
-		parent::handle($args);
+    function handle($args)
+    {
+        parent::handle($args);
+        $this->showForm();
+    }
 
-		$this->display();
-	}
+    /**
+     * Wrapper for showing a page
+     *
+     * Stores an error and shows the page
+     *
+     * @param string $error Error, if any
+     *
+     * @return void
+     */
 
-	function display() {
+    function showForm($error=null)
+    {
+        $this->error = $error;
+        $this->showPage();
+    }
 
-		$facebook = $this->get_facebook();
+    /**
+     * Show the page content
+     *
+     * Either shows the registration form or, if registration was successful,
+     * instructions for using the site.
+     *
+     * @return void
+     */
 
-		$fbuid = $facebook->require_login();
+    function showContent()
+    {
+        if ($this->arg('ids')) {
+            $this->showSuccessContent();
+        } else {
+            $this->showFormContent();
+        }
+    }
 
-		$this->show_header('Invite');
+    function showSuccessContent()
+    {
 
-		echo '<h2>Coming soon...</h2>';
+        $this->element('h2', null, sprintf(_('Thanks for inviting your friends to use %s'), 
+            common_config('site', 'name')));
+        $this->element('p', null, _('Invitations have been sent to the following users:'));
 
-		$this->show_footer();
+        $friend_ids = $_POST['ids']; // XXX: Hmm... is this the best way to acces the list?
 
-	}
+        $this->elementStart("ul");
+
+        foreach ($friend_ids as $friend) {
+            $this->elementStart('li');
+            $this->element('fb:profile-pic', array('uid' => $friend));
+            $this->element('fb:name', array('uid' => $friend,
+                                            'capitalize' => 'true'));
+            $this->elementEnd('li');
+        }
+
+        $this->elementEnd("ul");
+
+    }
+
+    function showFormContent()
+    {
+
+        // Get a list of users who are already using the app for exclusion
+        $exclude_ids = $this->facebook->api_client->friends_getAppUsers();
+
+        $content = sprintf(_('You have been invited to %s'), common_config('site', 'name')) .
+            htmlentities('<fb:req-choice url="' . $this->app_uri . '" label="Add"/>');
+
+        $this->elementStart('fb:request-form', array('action' => 'invite.php',
+                                                      'method' => 'post',
+                                                      'invite' => 'true',
+                                                      'type' => common_config('site', 'name'),
+                                                      'content' => $content));
+        $this->hidden('invite', 'true');
+        $actiontext = sprintf(_('Invite your friends to use %s'), common_config('site', 'name'));
+        $this->element('fb:multi-friend-selector', array('showborder' => 'false',
+                                                               'actiontext' => $actiontext,
+                                                               'exclude_ids' => implode(',', $exclude_ids),
+                                                               'bypass' => 'cancel'));
+
+        $this->elementEnd('fb:request-form');
+
+        $this->element('h2', null, sprintf(_('Friends already using %s:'), 
+            common_config('site', 'name')));
+        $this->elementStart("ul");
+
+        foreach ($exclude_ids as $friend) {
+            $this->elementStart('li');
+            $this->element('fb:profile-pic', array('uid' => $friend));
+            $this->element('fb:name', array('uid' => $friend,
+                                            'capitalize' => 'true'));
+            $this->elementEnd('li');
+        }
+
+        $this->elementEnd("ul");
+    }
+    
+    function title() 
+    {
+        return sprintf(_('Send invitations'));
+    }
 
 }

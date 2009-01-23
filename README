@@ -817,6 +817,10 @@ private: If set to 'true', anonymous users will be redirected to the
          authentication will require it. Note that this does not turn
          off registration; use 'closed' or 'inviteonly' for the
          behaviour you want.
+notice: A plain string that will appear on every page. A good place
+	to put introductory information about your service, or info about
+	upgrades and outages, or other community info. Any HTML will
+        be escaped.
 
 db
 --

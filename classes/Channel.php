@@ -19,182 +19,213 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class Channel {
-	
-	function on($user) {
-		return false;
-	}
+class Channel
+{
+    
+    function on($user)
+    {
+        return false;
+    }
 
-	function off($user) {
-		return false;
-	}
+    function off($user)
+    {
+        return false;
+    }
 
-	function output($user, $text) {
-		return false;
-	}
-	
-	function error($user, $text) {
-		return false;
-	}
-	
-	function source() {
-		return NULL;
-	}
+    function output($user, $text)
+    {
+        return false;
+    }
+    
+    function error($user, $text)
+    {
+        return false;
+    }
+    
+    function source()
+    {
+        return null;
+    }
 }
 
-class XMPPChannel extends Channel {
+class XMPPChannel extends Channel
+{
 
-	var $conn = NULL;
-	
-	function source() {
-		return 'xmpp';
-	}
-	
-	function __construct($conn) {
-		$this->conn = $conn;
-	}
-	
-	function on($user) {
-		return $this->set_notify($user, 1);
-	}
-	
-	function off($user) {
-		return $this->set_notify($user, 0);
-	}
+    var $conn = null;
+    
+    function source()
+    {
+        return 'xmpp';
+    }
+    
+    function __construct($conn)
+    {
+        $this->conn = $conn;
+    }
+    
+    function on($user)
+    {
+        return $this->set_notify($user, 1);
+    }
+    
+    function off($user)
+    {
+        return $this->set_notify($user, 0);
+    }
 
-	function output($user, $text) {
-		$text = '['.common_config('site', 'name') . '] ' . $text;
-		jabber_send_message($user->jabber, $text);
-	}
-	
-	function error($user, $text) {
-		$text = '['.common_config('site', 'name') . '] ' . $text;
-		jabber_send_message($user->jabber, $text);
-	}
-	
-	function set_notify(&$user, $notify) {
-		$orig = clone($user);
-		$user->jabbernotify = $notify;
-		$result = $user->update($orig);
-		if (!$result) {
-			$last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-			common_log(LOG_ERR,
-					   'Could not set notify flag to ' . $notify .
-					   ' for user ' . common_log_objstring($user) .
-					   ': ' . $last_error->message);
-			return false;
-		} else {
-			common_log(LOG_INFO,
-					   'User ' . $user->nickname . ' set notify flag to ' . $notify);
-			return true;
-		}
-	}
-}
-
-
-class WebChannel extends Channel {
-
-	function source() {
-		return 'web';
-	}
-	
-	function on($user) {
-		return false;
-	}
-	
-	function off($user) {
-		return false;
-	}
-
-	function output($user, $text) {
-		# XXX: buffer all output and send it at the end
-		# XXX: even better, redirect to appropriate page
-		#      depending on what command was run
-		common_show_header(_('Command results'));
-		common_element('p', NULL, $text);
-		common_show_footer();
-	}
-	
-	function error($user, $text) {
-		common_user_error($text);
-	}
+    function output($user, $text)
+    {
+        $text = '['.common_config('site', 'name') . '] ' . $text;
+        jabber_send_message($user->jabber, $text);
+    }
+    
+    function error($user, $text)
+    {
+        $text = '['.common_config('site', 'name') . '] ' . $text;
+        jabber_send_message($user->jabber, $text);
+    }
+    
+    function set_notify(&$user, $notify)
+    {
+        $orig = clone($user);
+        $user->jabbernotify = $notify;
+        $result = $user->update($orig);
+        if (!$result) {
+            $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
+            common_log(LOG_ERR,
+                       'Could not set notify flag to ' . $notify .
+                       ' for user ' . common_log_objstring($user) .
+                       ': ' . $last_error->message);
+            return false;
+        } else {
+            common_log(LOG_INFO,
+                       'User ' . $user->nickname . ' set notify flag to ' . $notify);
+            return true;
+        }
+    }
 }
 
 
-class AjaxWebChannel extends WebChannel {
+class WebChannel extends Channel
+{
 
-	function output($user, $text) {
-		common_start_html('text/xml;charset=utf-8', true);
-		common_element_start('head');
-		common_element('title', null, _('Command results'));
-		common_element_end('head');
-		common_element_start('body');
-		common_element('p', array('id' => 'command_result'), $text);
-		common_element_end('body');
-		common_element_end('html');
-	}
+    function source()
+    {
+        return 'web';
+    }
+    
+    function on($user)
+    {
+        return false;
+    }
+    
+    function off($user)
+    {
+        return false;
+    }
 
-	function error($user, $text) {
-		common_start_html('text/xml;charset=utf-8', true);
-		common_element_start('head');
-		common_element('title', null, _('Ajax Error'));
-		common_element_end('head');
-		common_element_start('body');
-		common_element('p', array('id' => 'error'), $text);
-		common_element_end('body');
-		common_element_end('html');
-	}
+    function output($user, $text)
+    {
+        # XXX: buffer all output and send it at the end
+        # XXX: even better, redirect to appropriate page
+        #      depending on what command was run
+        common_show_header(_('Command results'));
+        common_element('p', null, $text);
+        common_show_footer();
+    }
+    
+    function error($user, $text)
+    {
+        common_user_error($text);
+    }
 }
 
 
-class MailChannel extends Channel {
+class AjaxWebChannel extends WebChannel
+{
 
-	var $addr = NULL;
+    function output($user, $text)
+    {
+        common_start_html('text/xml;charset=utf-8', true);
+        common_element_start('head');
+        common_element('title', null, _('Command results'));
+        common_element_end('head');
+        common_element_start('body');
+        common_element('p', array('id' => 'command_result'), $text);
+        common_element_end('body');
+        common_element_end('html');
+    }
 
-	function source() {
-		return 'mail';
-	}
-	
-	function __construct($addr=NULL) {
-		$this->addr = $addr;
-	}
-	
-	function on($user) {
-		return $this->set_notify($user, 1);
-	}
-	
-	function off($user) {
-		return $this->set_notify($user, 0);
-	}
+    function error($user, $text)
+    {
+        common_start_html('text/xml;charset=utf-8', true);
+        common_element_start('head');
+        common_element('title', null, _('Ajax Error'));
+        common_element_end('head');
+        common_element_start('body');
+        common_element('p', array('id' => 'error'), $text);
+        common_element_end('body');
+        common_element_end('html');
+    }
+}
 
-	function output($user, $text) {
 
-		$headers['From'] = $user->incomingemail;
-		$headers['To'] = $this->addr;
-		
-		$headers['Subject'] = _('Command complete');
+class MailChannel extends Channel
+{
 
-		return mail_send(array($this->addr), $headers, $text);
-	}
-	
-	function error($user, $text) {
-		
-		$headers['From'] = $user->incomingemail;
-		$headers['To'] = $this->addr;
-		
-		$headers['Subject'] = _('Command failed');
+    var $addr = null;
 
-		return mail_send(array($this->addr), $headers, $text);
-	}
-	
-	function set_notify($user, $value) {
-		$orig = clone($user);
-		$user->smsnotify = $value;
-		$result = $user->update($orig);
-		if (!$result) {
-			common_log_db_error($user, 'UPDATE', __FILE__);
-			return false;
-		}
-		return true;
-	}
+    function source()
+    {
+        return 'mail';
+    }
+    
+    function __construct($addr=null)
+    {
+        $this->addr = $addr;
+    }
+    
+    function on($user)
+    {
+        return $this->set_notify($user, 1);
+    }
+    
+    function off($user)
+    {
+        return $this->set_notify($user, 0);
+    }
+
+    function output($user, $text)
+    {
+
+        $headers['From'] = $user->incomingemail;
+        $headers['To'] = $this->addr;
+        
+        $headers['Subject'] = _('Command complete');
+
+        return mail_send(array($this->addr), $headers, $text);
+    }
+    
+    function error($user, $text)
+    {
+        
+        $headers['From'] = $user->incomingemail;
+        $headers['To'] = $this->addr;
+        
+        $headers['Subject'] = _('Command failed');
+
+        return mail_send(array($this->addr), $headers, $text);
+    }
+    
+    function set_notify($user, $value)
+    {
+        $orig = clone($user);
+        $user->smsnotify = $value;
+        $result = $user->update($orig);
+        if (!$result) {
+            common_log_db_error($user, 'UPDATE', __FILE__);
+            return false;
+        }
+        return true;
+    }
 }

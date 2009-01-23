@@ -19,63 +19,66 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class SupAction extends Action {
-	
-	function handle($args) {
-		
-		parent::handle($args);
-		
-		$seconds = $this->trimmed('seconds');
-		
-		if (!$seconds) {
-			$seconds = 15;
-		}
+class SupAction extends Action
+{
+    function handle($args)
+    {
+        parent::handle($args);
 
-		$updates = $this->get_updates($seconds);
-		
-		header('Content-Type: application/json; charset=utf-8');
-		
-		print json_encode(array('updated_time' => date('c'),
-								'since_time' => date('c', time() - $seconds),
-								'available_periods' => $this->available_periods(),
-								'period' => $seconds,
-								'updates' => $updates));
-	}
-	
-	function available_periods() {
-		static $periods = array(86400, 43200, 21600, 7200,
-								3600, 1800,	600, 300, 120,
-								60, 30, 15); 
-		$available = array();
-		foreach ($periods as $period) {
-			$available[$period] = common_local_url('sup',
-												   array('seconds' => $period));
-		}
-		
-		return $available;
-	}
-	
-	function get_updates($seconds) {
-		$notice = new Notice();
+        $seconds = $this->trimmed('seconds');
 
-		# XXX: cache this. Depends on how big this protocol becomes;
-		# Re-doing this query every 15 seconds isn't the end of the world.
+        if (!$seconds) {
+            $seconds = 15;
+        }
 
-		$notice->query('SELECT profile_id, max(id) AS max_id ' .
-					   'FROM notice ' .
-					   'WHERE created > (now() - ' . $seconds . ') ' .
-					   'GROUP BY profile_id');
-		
-		$updates = array();
-		
-		while ($notice->fetch()) {
-			$updates[] = array($notice->profile_id, $notice->max_id);
-		}
-		
-		return $updates;
-	}
-	
-	function is_readonly() {
-		return true;
-	}
+        $updates = $this->getUpdates($seconds);
+
+        header('Content-Type: application/json; charset=utf-8');
+
+        print json_encode(array('updated_time' => date('c'),
+                                'since_time' => date('c', time() - $seconds),
+                                'available_periods' => $this->availablePeriods(),
+                                'period' => $seconds,
+                                'updates' => $updates));
+    }
+
+    function availablePeriods()
+    {
+        static $periods = array(86400, 43200, 21600, 7200,
+                                3600, 1800,    600, 300, 120,
+                                60, 30, 15);
+        $available = array();
+        foreach ($periods as $period) {
+            $available[$period] = common_local_url('sup',
+                                                   array('seconds' => $period));
+        }
+
+        return $available;
+    }
+
+    function getUpdates($seconds)
+    {
+        $notice = new Notice();
+
+        # XXX: cache this. Depends on how big this protocol becomes;
+        # Re-doing this query every 15 seconds isn't the end of the world.
+
+        $notice->query('SELECT profile_id, max(id) AS max_id ' .
+                       'FROM notice ' .
+                       'WHERE created > (now() - ' . $seconds . ') ' .
+                       'GROUP BY profile_id');
+
+        $updates = array();
+
+        while ($notice->fetch()) {
+            $updates[] = array($notice->profile_id, $notice->max_id);
+        }
+
+        return $updates;
+    }
+
+    function isReadOnly()
+    {
+        return true;
+    }
 }

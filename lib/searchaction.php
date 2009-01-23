@@ -1,5 +1,16 @@
 <?php
-/*
+/**
+ * Base search action class.
+ *
+ * PHP version 5
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ *
  * Laconica - a distributed open-source microblogging tool
  * Copyright (C) 2008, Controlez-Vous, Inc.
  *
@@ -17,94 +28,107 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
-
-class SearchAction extends Action {
-
-	function is_readonly() {
-		return true;
-	}
-
-	function handle($args) {
-		parent::handle($args);
-		$this->show_form();
-	}
-
-	function show_top($arr=NULL) {
-		if ($arr) {
-			$error = $arr[1];
-		}
-		if ($error) {
-			common_element('p', 'error', $error);
-		} else {
-			$instr = $this->get_instructions();
-			$output = common_markup_to_html($instr);
-			common_element_start('div', 'instructions');
-			common_raw($output);
-			common_element_end('div');
-		}
-		$this->search_menu();
-	}
-
-	function get_title() {
-		return NULL;
-	}
-
-	function show_header($arr) {
-		return;
-	}
-
-	function show_form($error=NULL) {
-		global $config;
-
-		$q = $this->trimmed('q');
-		$page = $this->trimmed('page', 1);
-
-		common_show_header($this->get_title(), array($this, 'show_header'), array($q, $error),
-						   array($this, 'show_top'));
-		common_element_start('form', array('method' => 'get',
-										   'id' => 'login',
-										   'action' => common_local_url($this->trimmed('action'))));
-		common_element_start('p');
-		if (!isset($config['site']['fancy']) || !$config['site']['fancy']) {
-			common_element('input', array('name' => 'action',
-										  'type' => 'hidden',
-										  'value' => $this->trimmed('action')));
-		}
-		common_element('input', array('name' => 'q',
-									  'id' => 'q',
-									  'type' => 'text',
-									  'class' => 'input_text',
-									  'value' => ($q) ? $q : ''));
-		common_text(' ');
-		common_element('input', array('type' => 'submit',
-									  'id' => 'search',
-									  'name' => 'search',
-									  'class' => 'submit',
-									  'value' => _('Search')));
-
-		common_element_end('p');
-		common_element_end('form');
-		if ($q) {
-			$this->show_results($q, $page);
-		}
-		common_show_footer();
-	}
-
-	function search_menu() {
-		# action => array('prompt', 'title', $args)
-		$action = $this->trimmed('action');
-		$menu =
-		  array('peoplesearch' =>
-				array(
-					  _('People'),
-					  _('Find people on this site'),
-					  ($action != 'peoplesearch' && $this->trimmed('q')) ? array('q' => $this->trimmed('q')) : NULL),
-				'noticesearch' =>
-				array( _('Text'),
-					   _('Find content of notices'),
-					   ($action != 'noticesearch' && $this->trimmed('q')) ? array('q' => $this->trimmed('q')) : NULL)
-				);
-		$this->nav_menu($menu);
-	}
+if (!defined('LACONICA')) {
+    exit(1);
 }
+
+require_once INSTALLDIR.'/lib/searchgroupnav.php';
+
+/**
+ * Base search action class.
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ */
+class SearchAction extends Action
+{
+    /**
+     * Return true if read only.
+     *
+     * @return boolean true
+     */
+    function isReadOnly()
+    {
+        return true;
+    }
+
+    function handle($args)
+    {
+        parent::handle($args);
+        $this->showPage();
+    }
+
+    /**
+     * Show tabset for this page
+     *
+     * Uses the SearchGroupNav widget
+     *
+     * @return void
+     * @see SearchGroupNav
+     */
+
+    function showLocalNav()
+    {
+        $nav = new SearchGroupNav($this, $this->trimmed('q'));
+        $nav->show();
+    }
+
+    function showTop($arr=null)
+    {
+        if ($arr) {
+            $error = $arr[1];
+        }
+        if ($error) {
+            $this->element('p', 'error', $error);
+        } else {
+            $instr = $this->getInstructions();
+            $output = common_markup_to_html($instr);
+            $this->elementStart('div', 'instructions');
+            $this->raw($output);
+            $this->elementEnd('div');
+        }
+    }
+
+    function title()
+    {
+        return null;
+    }
+
+    function showNoticeForm() {
+        // remote post notice form
+    }
+
+    function showContent() {
+        $this->showTop();
+        $this->showForm();
+    }
+
+    function showForm($error=null)
+    {
+        global $config;
+
+        $q = $this->trimmed('q');
+        $page = $this->trimmed('page', 1);
+        $this->elementStart('form', array('method' => 'get',
+                                           'id' => 'login',
+                                           'action' => common_local_url($this->trimmed('action'))));
+        $this->elementStart('p');
+        if (!isset($config['site']['fancy']) || !$config['site']['fancy']) {
+            $this->hidden('action', $this->trimmed('action'));
+        }
+        $this->input('q', '', $q);
+        $this->text(' ');
+        $this->submit('search', 'Search');
+
+        $this->elementEnd('p');
+        $this->elementEnd('form');
+        if ($q) {
+            $this->showResults($q, $page);
+        }
+    }
+}
+

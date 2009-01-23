@@ -1,9 +1,12 @@
 <?php
-/*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+/**
+ * Laconica, the distributed open-source microblogging tool
  *
- * This program is free software: you can redistribute it and/or modify
+ * Show a single notice
+ *
+ * PHP version 5
+ *
+ * LICENCE: This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -15,102 +18,247 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Personal
+ * @package   Laconica
+ * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @copyright 2008-2009 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
-require_once(INSTALLDIR.'/lib/stream.php');
+require_once INSTALLDIR.'/lib/personalgroupnav.php';
+require_once INSTALLDIR.'/lib/noticelist.php';
+require_once INSTALLDIR.'/lib/feedlist.php';
 
-class ShownoticeAction extends StreamAction {
+/**
+ * Show a single notice
+ *
+ * @category Personal
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://laconi.ca/
+ */
 
-	var $notice = NULL;
-	var $profile = NULL;
-	var $avatar = NULL;
+class ShownoticeAction extends Action
+{
+    /**
+     * Notice object to show
+     */
 
-	function prepare($args) {
+    var $notice = null;
 
-		parent::prepare($args);
+    /**
+     * Profile of the notice object
+     */
 
-		$id = $this->arg('notice');
-		$this->notice = Notice::staticGet($id);
+    var $profile = null;
 
-		if (!$this->notice) {
-			$this->client_error(_('No such notice.'), 404);
-			return false;
-		}
+    /**
+     * Avatar of the profile of the notice object
+     */
 
-		$this->profile = $this->notice->getProfile();
+    var $avatar = null;
 
-		if (!$this->profile) {
-			$this->server_error(_('Notice has no profile'), 500);
-			return false;
-		}
+    /**
+     * Load attributes based on database arguments
+     *
+     * Loads all the DB stuff
+     *
+     * @param array $args $_REQUEST array
+     *
+     * @return success flag
+     */
 
-		$this->avatar = $this->profile->getAvatar(AVATAR_STREAM_SIZE);
+    function prepare($args)
+    {
+        parent::prepare($args);
 
-		return true;
-	}
+        $id = $this->arg('notice');
 
-	function last_modified() {
-		return max(strtotime($this->notice->created),
-				   strtotime($this->profile->modified),
-				   ($this->avatar) ? strtotime($this->avatar->modified) : 0);
-	}
+        $this->notice = Notice::staticGet($id);
 
-	function etag() {
-		return 'W/"' . implode(':', array($this->arg('action'),
-										  common_language(),
-										  $this->notice->id,
-										  strtotime($this->notice->created),
-										  strtotime($this->profile->modified),
-										  ($this->avatar) ? strtotime($this->avatar->modified) : 0)) . '"';
-	}
+        if (!$this->notice) {
+            $this->clientError(_('No such notice.'), 404);
+            return false;
+        }
 
-	function handle($args) {
+        $this->profile = $this->notice->getProfile();
 
-		parent::handle($args);
+        if (!$this->profile) {
+            $this->serverError(_('Notice has no profile'), 500);
+            return false;
+        }
 
-		common_show_header(sprintf(_('%1$s\'s status on %2$s'),
-								   $this->profile->nickname,
-								   common_exact_date($this->notice->created)),
-						   array($this, 'show_header'), NULL,
-						   array($this, 'show_top'));
+        $this->avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
 
-		common_element_start('ul', array('id' => 'notices'));
-        $nli = new NoticeListItem($this->notice);
+        return true;
+    }
+
+    /**
+     * Is this action read-only?
+     *
+     * @return boolean true
+     */
+
+    function isReadOnly()
+    {
+        return true;
+    }
+
+    /**
+     * Last-modified date for page
+     *
+     * When was the content of this page last modified? Based on notice,
+     * profile, avatar.
+     *
+     * @return int last-modified date as unix timestamp
+     */
+
+    function lastModified()
+    {
+        return max(strtotime($this->notice->created),
+                   strtotime($this->profile->modified),
+                   ($this->avatar) ? strtotime($this->avatar->modified) : 0);
+    }
+
+    /**
+     * An entity tag for this page
+     *
+     * Shows the ETag for the page, based on the notice ID and timestamps
+     * for the notice, profile, and avatar. It's weak, since we change
+     * the date text "one hour ago", etc.
+     *
+     * @return string etag
+     */
+
+    function etag()
+    {
+        $avtime = ($this->avatar) ?
+          strtotime($this->avatar->modified) : 0;
+
+        return 'W/"' . implode(':', array($this->arg('action'),
+                                          common_language(),
+                                          $this->notice->id,
+                                          strtotime($this->notice->created),
+                                          strtotime($this->profile->modified),
+                                          $avtime)) . '"';
+    }
+
+    /**
+     * Title of the page
+     *
+     * @return string title of the page
+     */
+
+    function title()
+    {
+        return sprintf(_('%1$s\'s status on %2$s'),
+                       $this->profile->nickname,
+                       common_exact_date($this->notice->created));
+    }
+
+    /**
+     * Handle input
+     *
+     * Only handles get, so just show the page.
+     *
+     * @param array $args $_REQUEST data (unused)
+     *
+     * @return void
+     */
+
+    function handle($args)
+    {
+        parent::handle($args);
+
+        $this->showPage();
+    }
+
+
+    /**
+     * Don't show local navigation
+     *
+     * @return void
+     */
+
+    function showLocalNavBlock()
+    {
+    }
+
+
+    /**
+     * Fill the content area of the page
+     *
+     * Shows a single notice list item.
+     *
+     * @return void
+     */
+
+    function showContent()
+    {
+        $this->elementStart('ul', array('class' => 'notices'));
+        $nli = new NoticeListItem($this->notice, $this);
         $nli->show();
-		common_element_end('ul');
+        $this->elementEnd('ul');
+    }
 
-		common_show_footer();
-	}
 
-	function show_header() {
 
-		$user = User::staticGet($this->profile->id);
+    /**
+     * Don't show page notice
+     *
+     * @return void
+     */
 
-		if (!$user) {
-			return;
-		}
+    function showPageNoticeBlock()
+    {
+    }
 
-		if ($user->emailmicroid && $user->email && $this->notice->uri) {
-			common_element('meta', array('name' => 'microid',
-										 'content' => "mailto+http:sha1:" . sha1(sha1('mailto:' . $user->email) . sha1($this->notice->uri))));
-		}
 
-		if ($user->jabbermicroid && $user->jabber && $this->notice->uri) {
-			common_element('meta', array('name' => 'microid',
-										 'content' => "xmpp+http:sha1:" . sha1(sha1('xmpp:' . $user->jabber) . sha1($this->notice->uri))));
-		}
-	}
+    /**
+     * Don't show aside
+     *
+     * @return void
+     */
 
-	function show_top() {
-		$cur = common_current_user();
-		if ($cur && $cur->id == $this->profile->id) {
-			common_notice_form();
-		}
-	}
+    function showAside() {
+    }
 
-	function no_such_notice() {
-		common_user_error(_('No such notice.'));
-	}
+
+    /**
+     * Extra <head> content
+     *
+     * We show the microid(s) for the author, if any.
+     *
+     * @return void
+     */
+
+    function extraHead()
+    {
+        $user = User::staticGet($this->profile->id);
+
+        if (!$user) {
+            return;
+        }
+
+        if ($user->emailmicroid && $user->email && $this->notice->uri) {
+            $id = new Microid('mailto:'. $user->email,
+                              $this->notice->uri);
+            $this->element('meta', array('name' => 'microid',
+                                         'content' => $id->toString()));
+        }
+
+        if ($user->jabbermicroid && $user->jabber && $this->notice->uri) {
+            $id = new Microid('xmpp:', $user->jabber,
+                              $this->notice->uri);
+            $this->element('meta', array('name' => 'microid',
+                                         'content' => $id->toString()));
+        }
+    }
 }

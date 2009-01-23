@@ -1,283 +1,572 @@
 <?php
-/*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+/**
+ * Laconica, the distributed open-source microblogging tool
  *
- * This program is free software: you can redistribute it and/or modify
+ * Low-level generator for HTML
+ *
+ * PHP version 5
+ *
+ * LICENCE: This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.	 If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Faceboook
+ * @package   Laconica
+ * @author    Zach Copley <zach@controlyourself.ca>
+ * @copyright 2008 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA'))
+{
+    exit(1);
+}
 
-require_once(INSTALLDIR.'/extlib/facebook/facebook.php');
+require_once INSTALLDIR.'/lib/facebookutil.php';
+require_once INSTALLDIR.'/lib/noticeform.php';
 
-class FacebookAction extends Action {
 
-	function handle($args) {
-		parent::handle($args);
-	}
+class FacebookAction extends Action
+{
+    
+    var $facebook = null;
+    var $fbuid    = null;
+    var $flink    = null;
+    var $action   = null;
+    var $app_uri  = null;
+    var $app_name = null;
+  
+    /**
+     * Constructor
+     *
+     * Just wraps the HTMLOutputter constructor.
+     *
+     * @param string  $output URI to output to, default = stdout
+     * @param boolean $indent Whether to indent output, default true
+     *
+     * @see XMLOutputter::__construct
+     * @see HTMLOutputter::__construct
+     */
+    function __construct($output='php://output', $indent=true, $facebook=null, $flink=null)
+    {
+        parent::__construct($output, $indent);
+        
+        $this->facebook = $facebook;
+        $this->flink = $flink;
+        
+        if ($this->flink) {
+            $this->fbuid = $flink->foreign_id; 
+            $this->user = $flink->getUser();
+        }
+        
+        $this->args = array();
+    }
+  
+    function prepare($argarray)
+    {        
+        parent::prepare($argarray);
+          
+        $this->facebook = getFacebook();
+        $this->fbuid = $this->facebook->require_login();
+        
+        $this->action = $this->trimmed('action');
+        
+        $app_props = $this->facebook->api_client->Admin_getAppProperties(
+                array('canvas_name', 'application_name'));
+        
+        $this->app_uri = 'http://apps.facebook.com/' . $app_props['canvas_name'];
+        $this->app_name = $app_props['application_name'];
 
-	function get_facebook() {
-		$apikey = common_config('facebook', 'apikey');
-		$secret = common_config('facebook', 'secret');
-		return new Facebook($apikey, $secret);
-	}
+        $this->flink = Foreign_link::getByForeignID($this->fbuid, FACEBOOK_SERVICE);
+        
+        return true;
+        
+    }
+  
+    function showStylesheets()
+    {
+        
+        $this->element('link', array('rel' => 'stylesheet',
+                                     'type' => 'text/css',
+                                     'href' => getFacebookBaseCSS()));
 
-	function update_profile_box($facebook, $fbuid, $user) {
+        $this->element('link', array('rel' => 'stylesheet',
+                                     'type' => 'text/css',
+                                     'href' => getFacebookThemeCSS()));
+    }
+  
+    function showScripts()
+    {
+        $this->element('script', array('type' => 'text/javascript',
+                                       'src' => getFacebookJS()),
+                       ' ');
+    }
+    
+    /**
+     * Start an Facebook ready HTML document
+     *
+     *  For Facebook we don't want to actually output any headers,
+     *  DTD info, etc.
+     *
+     * If $type isn't specified, will attempt to do content negotiation.
+     *
+     * @param string $type MIME type to use; default is to do negotation.
+     *
+     * @return void
+     */
 
-		$notice = $user->getCurrentNotice();
+    function startHTML($type=null) 
+    {          
+        $this->elementStart('div', array('class' => 'facebook-page'));
+    }
 
-		# Need to include inline CSS for styling the Profile box
+    /**
+    *  Ends a Facebook ready HTML document
+    *
+    *  @return void
+    */
+    function endHTML()
+    {
+        $this->elementEnd('div');
+        $this->endXML();
+    }
 
-		$style = '<style>
-		#notices {
-		clear: both;
-		margin: 0 auto;
-		padding: 0;
-		list-style-type: none;
-		width: 600px;
-		border-top: 1px solid #dec5b5;
-		}
-		#notices a:hover {
-		text-decoration: underline;
-		}
-		.notice_single {
-		clear: both;
-		display: block;
-		margin: 0;
-		padding: 5px 5px 5px 0;
-		min-height: 48px;
-		font-family: Georgia, "Times New Roman", Times, serif;
-		font-size: 13px;
-		line-height: 16px;
-		border-bottom: 1px solid #dec5b5;
-		background-color:#FCFFF5;
-		opacity:1;
-		}
-		.notice_single:hover {
-		background-color: #f7ebcc;
-		}
-		.notice_single p {
-		display: inline;
-		margin: 0;
-		padding: 0;
-		}
-		</style>';
+    /**
+     * Show notice form.
+     *
+     * MAY overload if no notice form needed... or direct message box????
+     *
+     * @return nothing
+     */
+    function showNoticeForm()
+    {
+        // don't do it for most of the Facebook pages
+    }
 
-		$html = $this->render_notice($notice);
+    function showBody()
+    {
+        $this->elementStart('div', 'wrap');
+        $this->showHeader();
+        $this->showCore();
+        $this->showFooter();
+        $this->elementEnd('div');
+    }
+      
+    function showAside()
+    {
+    }
 
-		$fbml = "<fb:wide>$content $html</fb:wide>";
-		$fbml .= "<fb:narrow>$content $html</fb:narrow>";
+    function showHead($error, $success)
+    {
+        $this->showStylesheets();
+        $this->showScripts();
+        
+        if ($error) {
+            $this->element("h1", null, $error);
+        }
+        
+        if ($success) {
+            $this->element("h1", null, $success);
+        }
 
-		$fbml_main = "<fb:narrow>$content $html</fb:narrow>";
+        $this->elementStart('fb:if-section-not-added', array('section' => 'profile'));
+        $this->elementStart('span', array('id' => 'add_to_profile'));
+        $this->element('fb:add-section-button', array('section' => 'profile'));
+        $this->elementEnd('span');
+        $this->elementEnd('fb:if-section-not-added');
+        
+    }
 
-		$facebook->api_client->profile_setFBML(NULL, $fbuid, $fbml, NULL, NULL, $fbml_main);
-	}
+    
+    // Make this into a widget later
+    function showLocalNav()
+    {
+                
+        $this->elementStart('ul', array('class' => 'nav'));
 
-	# Display methods
+        $this->elementStart('li', array('class' =>
+            ($this->action == 'facebookhome') ? 'current' : 'facebook_home'));
+        $this->element('a',
+            array('href' => 'index.php', 'title' => _('Home')), _('Home'));
+        $this->elementEnd('li');
 
-	function show_header($selected ='Home') {
+        $this->elementStart('li',
+            array('class' =>
+                ($this->action == 'facebookinvite') ? 'current' : 'facebook_invite'));
+        $this->element('a',
+            array('href' => 'invite.php', 'title' => _('Invite')), _('Invite'));
+        $this->elementEnd('li');
 
-		# Add a timestamp to the CSS file so Facebook cache wont ignore our changes
-		$ts = filemtime(theme_file('facebookapp.css'));
-		$cssurl = theme_path('facebookapp.css') . "?ts=$ts";
+        $this->elementStart('li',
+            array('class' =>
+                ($this->action == 'facebooksettings') ? 'current' : 'facebook_settings'));
+        $this->element('a',
+            array('href' => 'settings.php',
+                'title' => _('Settings')), _('Settings'));
+        $this->elementEnd('li');
 
-	 	$header = '<link rel="stylesheet" type="text/css" href="'. $cssurl . '" />';
-	 	# $header .='<script src="" ></script>';
-	  	$header .= '<fb:dashboard/>';
+        $this->elementEnd('ul');
 
-	  	$header .=
-			'<fb:tabs>'
-			.'<fb:tab-item title="Home" href="index.php" selected="' . ($selected == 'Home') .'" />'
-			.'<fb:tab-item title="Invite Friends"  href="invite.php" selected="' . ($selected == 'Invite') . '" />'
-			.'<fb:tab-item title="Settings"	 href="settings.php" selected="' . ($selected == 'Settings') . '" />'
-			.'</fb:tabs>';
-	  	$header .= '<div id="main_body">';
+    }     
 
-	  echo $header;
+    /**
+     * Show primary navigation.
+     *
+     * @return nothing
+     */
+    function showPrimaryNav()
+    {
+        // we don't want to show anything for this
+    }
+    
+    /**
+     * Show header of the page.
+     *
+     * Calls template methods
+     *
+     * @return nothing
+     */
+    function showHeader()
+    {
+        $this->elementStart('div', array('id' => 'header'));
+        $this->showLogo();
+        $this->showNoticeForm();
+        $this->showPrimaryNav();
+        $this->elementEnd('div');
+    }
+    
+    /**
+     * Show page, a template method.
+     *
+     * @return nothing
+     */
+    function showPage($error = null, $success = null)
+    {
+        $this->startHTML();
+        $this->showHead($error, $success);
+        $this->showBody();
+        $this->endHTML();
+    }
+    
 
-	}
+    function showInstructions()
+    {
 
-	function show_footer() {
-	  $footer = '</div>';
-	  echo $footer;
-	}
+        $this->elementStart('dl', array('class' => 'system_notice'));
+        $this->element('dt', null, 'Page Notice');
 
-	function show_login_form() {
+        $loginmsg_part1 = _('To use the %s Facebook Application you need to login ' .
+            'with your username and password. Don\'t have a username yet? ');
 
-		$loginform =
-			' <h2>To add the Identi.ca application, you need to log into your Identi.ca account.</h2>'
-			.'<a href="http://identi.ca/">'
-			.'	<img src="http://theme.identi.ca/identica/logo.png" alt="Identi.ca" id="logo"/>'
-			.'</a>'
-			.'<h1 class="pagetitle">Login</h1>'
-			.'<div class="instructions">'
-			.'	<p>Login with your username and password. Don\'t have a username yet?'
-			.'	  <a href="http://identi.ca/main/register">Register</a> a new account.'
-			.'	</p>'
-			.'</div>'
-			.'<div id="content">'
-			.'	<form method="post" id="login">'
-			.'	  <p>'
-			.'		<label for="nickname">Nickname</label>'
-			.'		<input name="nickname" type="text" class="input_text" id="nickname"/>'
-			.'	  </p>'
-			.'	  <p>'
-			.'		  <label for="password">Password</label>'
-			.'		<input name="password" type="password" class="password" id="password"/>'
-			.'	  </p>'
-			.'	  <p>'
-			.'		<input type="submit" id="submit" name="submit" class="submit" value="Login"/>'
-			.'	  </p>'
-			.'	</form>'
-			.'	<p>'
-			.'	  <a href="http://identi.ca/main/recoverpassword">Lost or forgotten password?</a>'
-			.'	</p>'
-			.'</div';
+        $loginmsg_part2 = _(' a new account.');
 
-			echo $loginform;
-	}
+        $this->elementStart('dd');
+        $this->elementStart('p');
+        $this->text(sprintf($loginmsg_part1, common_config('site', 'name')));
+        $this->element('a',
+            array('href' => common_local_url('register')), _('Register'));
+        $this->text($loginmsg_part2);
+        $this->elementEnd('dd');
+        $this->elementEnd('dl');
+    }
 
-	function render_notice($notice) {
 
-		global $config;
+    function showLoginForm($msg = null)
+    {
 
-		$profile = $notice->getProfile();
-		$avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
+        $this->elementStart('div', array('class' => 'content'));
+        $this->element('h1', null, _('Login'));
 
-		$noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
+        if ($msg) {
+             $this->element('fb:error', array('message' => $msg));
+        }
 
-		# XXX: we need to figure this out better. Is this right?
-		if (strcmp($notice->uri, $noticeurl) != 0 && preg_match('/^http/', $notice->uri)) {
-			$noticeurl = $notice->uri;
-		}
+        $this->showInstructions();
 
-		$html =
-		'<li class="notice_single" id="' . $notice->id . '">'
-		.'<a href="' . $profile->profileurl . '">'
-		.'<img src="';
+        $this->elementStart('div', array('id' => 'content_inner'));
 
-		if ($avatar) {
-			$html .= common_avatar_display_url($avatar);
-		} else {
-			$html .= common_default_avatar(AVATAR_STREAM_SIZE);
-		}
+        $this->elementStart('form', array('method' => 'post',
+                                               'class' => 'form_settings',
+                                               'id' => 'login',
+                                               'action' => 'index.php'));
 
-		$html .=
-		'" class="avatar stream" width="'
-		. AVATAR_STREAM_SIZE . '" height="' . AVATAR_STREAM_SIZE .'"'
-		.' alt="';
+        $this->elementStart('fieldset');
+        $this->element('legend', null, _('Login to site'));
 
-		if ($profile->fullname) {
-			$html .= $profile->fullname;
-		} else {
-			$html .= $profile->nickname;
-		}
+        $this->elementStart('ul', array('class' => 'form_datas'));
+        $this->elementStart('li');
+        $this->input('nickname', _('Nickname'));
+        $this->elementEnd('li');
+        $this->elementStart('li');
+        $this->password('password', _('Password'));
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
 
-		$html .=
-		'"></a>'
-		.'<a href="' .	$profile->profileurl . '" class="nickname">' . $profile->nickname . '</a>'
-		.'<p class="content">' . $notice->rendered . '</p>'
-		.'<p class="time">'
-		.'<a class="permalink" href="' . $noticeurl . '" title="' . common_exact_date($notice->created) . '">' . common_date_string($notice->created) . '</a>';
+        $this->submit('submit', _('Login'));
+        $this->elementEnd('form');
 
-		if ($notice->source) {
-			$html .= _(' from ');
-			$html .= $this->source_link($notice->source);
-		}
+        $this->elementStart('p');
+        $this->element('a', array('href' => common_local_url('recoverpassword')),
+                       _('Lost or forgotten password?'));
+        $this->elementEnd('p');
 
-		if ($notice->reply_to) {
-			$replyurl = common_local_url('shownotice', array('notice' => $notice->reply_to));
-			$html .=
-			' (<a class="inreplyto" href="' . $replyurl . '">' . _('in reply to...') . ')';
-		}
+        $this->elementEnd('div');
 
-		$html .= '</p></li>';
+    }
+    
+    
+    function updateProfileBox($notice)
+    {
 
-		return $html;
-	}
+        // Need to include inline CSS for styling the Profile box
 
-	function source_link($source) {
-		$source_name = _($source);
+        $style = '<style>
+         #notices {
+             clear: both;
+             margin: 0 auto;
+             padding: 0;
+             list-style-type: none;
+             width: 600px;
+             border-top: 1px solid #dec5b5;
+         }
+         #notices a:hover {
+             text-decoration: underline;
+         }
+         .notice_single {
+             clear: both;
+             display: block;
+             margin: 0;
+             padding: 5px 5px 5px 0;
+             min-height: 48px;
+             font-family: Georgia, "Times New Roman", Times, serif;
+             font-size: 13px;
+             line-height: 16px;
+             border-bottom: 1px solid #dec5b5;
+             background-color:#FCFFF5;
+             opacity:1;
+         }
+         .notice_single:hover {
+             background-color: #f7ebcc;
+         }
+         .notice_single p {
+             display: inline;
+             margin: 0;
+             padding: 0;
+         }
+         </style>';        
 
-		$html = '<span class="noticesource">';
+        $this->xw->openMemory();
 
-		switch ($source) {
-		 case 'web':
-		 case 'xmpp':
-		 case 'mail':
-		 case 'omb':
-		 case 'api':
-			$html .= $source_name;
-			break;
-		 default:
-			$ns = Notice_source::staticGet($source);
-			if ($ns) {
-				$html .= '<a href="' . $ns->url . '">' . $ns->name . '</a>';
-			} else {
-				$html .= $source_name;
-			}
-			break;
-		}
+        $item = new FacebookNoticeListItem($notice, $this);
+        $item->show();
 
-		$html .= '</span>';
+        $fbml = "<fb:wide>$style " . $this->xw->outputMemory(false) . "</fb:wide>";
+        $fbml .= "<fb:narrow>$style " . $this->xw->outputMemory(false) . "</fb:narrow>";
 
-		return $html;
-	}
+        $fbml_main = "<fb:narrow>$style " . $this->xw->outputMemory(false) . "</fb:narrow>";
 
-	function pagination($have_before, $have_after, $page, $fbaction, $args=NULL) {
+        $this->facebook->api_client->profile_setFBML(null, $this->fbuid, $fbml, null, null, $fbml_main);  
 
-		$html = '';
+        $this->xw->openURI('php://output');
+    }
+    
+    
+    /**
+     * Generate pagination links
+     *
+     * @param boolean $have_before is there something before?
+     * @param boolean $have_after  is there something after?
+     * @param integer $page        current page
+     * @param string  $action      current action
+     * @param array   $args        rest of query arguments
+     *
+     * @return nothing
+     */
+    function pagination($have_before, $have_after, $page, $action, $args=null)
+    {
+        // Does a little before-after block for next/prev page
+        if ($have_before || $have_after) {
+            $this->elementStart('div', array('class' => 'pagination'));
+            $this->elementStart('dl', null);
+            $this->element('dt', null, _('Pagination'));
+            $this->elementStart('dd', null);
+            $this->elementStart('ul', array('class' => 'nav'));
+        }
+        if ($have_before) {
+            $pargs   = array('page' => $page-1);
+            $newargs = $args ? array_merge($args, $pargs) : $pargs;
+            $this->elementStart('li', array('class' => 'nav_prev'));
+            $this->element('a', array('href' => "$this->app_uri/$action?page=$newargs[page]", 'rel' => 'prev'),
+                           _('After'));
+            $this->elementEnd('li');
+        }
+        if ($have_after) {
+            $pargs   = array('page' => $page+1);
+            $newargs = $args ? array_merge($args, $pargs) : $pargs;
+            $this->elementStart('li', array('class' => 'nav_next'));
+            $this->element('a', array('href' => "$this->app_uri/$action?page=$newargs[page]", 'rel' => 'next'),
+                           _('Before'));
+            $this->elementEnd('li');
+        }
+        if ($have_before || $have_after) {
+            $this->elementEnd('ul');
+            $this->elementEnd('dd');
+            $this->elementEnd('dl');
+            $this->elementEnd('div');
+        }
+    }
+    
 
-		if ($have_before || $have_after) {
-			$html = '<div id="pagination">';
-			$html .'<ul id="nav_pagination">';
-		}
+}
 
-		if ($have_before) {
-			$pargs = array('page' => $page-1);
-			$newargs = ($args) ? array_merge($args,$pargs) : $pargs;
-			$html .= '<li class="before">';
-			$html .'<a href="' . $this->pagination_url($fbaction, $newargs) . '">' . _('« After') . '</a>';
-			$html .'</li>';
-		}
+class FacebookNoticeForm extends NoticeForm 
+{
+    
+    var $post_action = null;
+    
+    /**
+     * Constructor
+     *
+     * @param HTMLOutputter $out     output channel
+     * @param string        $action  action to return to, if any
+     * @param string        $content content to pre-fill
+     */
 
-		if ($have_after) {
-			$pargs = array('page' => $page+1);
-			$newargs = ($args) ? array_merge($args,$pargs) : $pargs;
-			$html .= '<li class="after">';
-			$html .'<a href="' . $this->pagination_url($fbaction, $newargs) . '">' . _('Before »') . '</a>';
-			$html .'</li>';
-		}
+    function __construct($out=null, $action=null, $content=null, 
+        $post_action=null, $user=null)
+    {
+        parent::__construct($out, $action, $content, $user);
+        $this->post_action = $post_action;
+    }
+    
+    /**
+     * Action of the form
+     *
+     * @return string URL of the action
+     */
 
-		if ($have_before || $have_after) {
-			$html .= '<ul>';
-			$html .'<div>';
-		}
-	}
+    function action()
+    {
+        return $this->post_action;
+    }
 
-	function pagination_url($fbaction, $args=NULL) {
-		global $config;
+}
 
-		$extra = '';
+class FacebookNoticeList extends NoticeList
+{
+    /**
+     * show the list of notices
+     *
+     * "Uses up" the stream by looping through it. So, probably can't
+     * be called twice on the same list.
+     *
+     * @return int count of notices listed.
+     */
 
-		if ($args) {
-			foreach ($args as $key => $value) {
-				$extra .= "&${key}=${value}";
-			}
-		}
+    function show()
+    {
+        $this->out->elementStart('div', array('id' =>'notices_primary'));
+        $this->out->element('h2', null, _('Notices'));
+        $this->out->elementStart('ul', array('class' => 'notices'));
 
-		return "$fbaction?${extra}";
-	}
+        $cnt = 0;
+
+        while ($this->notice->fetch() && $cnt <= NOTICES_PER_PAGE) {
+            $cnt++;
+
+            if ($cnt > NOTICES_PER_PAGE) {
+                break;
+            }
+
+            $item = $this->newListItem($this->notice);
+            $item->show();
+        }
+
+        $this->out->elementEnd('ul');
+        $this->out->elementEnd('div');
+
+        return $cnt;
+    }
+
+    /**
+     * returns a new list item for the current notice
+     *
+     * Overridden to return a Facebook specific list item.
+     *
+     * @param Notice $notice the current notice
+     *
+     * @return FacebookNoticeListItem a list item for displaying the notice
+     * formatted for display in the Facebook App.
+     */
+
+    function newListItem($notice)
+    {
+        return new FacebookNoticeListItem($notice, $this);
+    }
+
+}
+
+class FacebookNoticeListItem extends NoticeListItem
+{    
+    /**
+     * recipe function for displaying a single notice in the Facebook App.
+     *
+     * Overridden to strip out some of the controls that we don't
+     * want to be available.
+     *
+     * @return void
+     */
+
+    function show()
+    {
+        $this->showStart();
+
+        $this->out->elementStart('div', 'entry-title');
+        $this->showAuthor();
+        $this->showContent();
+        $this->out->elementEnd('div');
+
+        $this->out->elementStart('div', 'entry-content');
+        $this->showNoticeLink();
+        $this->showNoticeSource();
+        $this->showReplyTo();
+        $this->out->elementEnd('div');
+
+        $this->showEnd();
+    }
+
+    function showNoticeLink()
+    {
+        $noticeurl = common_local_url('shownotice',
+                                      array('notice' => $this->notice->id));
+        // XXX: we need to figure this out better. Is this right?
+        if (strcmp($this->notice->uri, $noticeurl) != 0 &&
+            preg_match('/^http/', $this->notice->uri)) {
+            $noticeurl = $this->notice->uri;
+        }
+
+        $this->out->elementStart('dl', 'timestamp');
+        $this->out->element('dt', null, _('Published'));
+        $this->out->elementStart('dd', null);
+        $this->out->elementStart('a', array('rel' => 'bookmark',
+                                        'href' => $noticeurl));
+        $dt = common_date_iso8601($this->notice->created);
+        $this->out->element('abbr', array('class' => 'published',
+                                     'title' => $dt),
+        common_date_string($this->notice->created));
+        $this->out->elementEnd('a');
+        $this->out->elementEnd('dd');
+        $this->out->elementEnd('dl');
+    }
 
 }

@@ -1,154 +1,289 @@
 <?php
-/*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+/**
+ * Laconica, the distributed open-source microblogging tool
  *
- * This program is free software: you can redistribute it and/or modify
+ * Handler for posting new notices
+ *
+ * PHP version 5
+ *
+ * LICENCE: This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.	 If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Personal
+ * @package   Laconica
+ * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @author    Zach Copley <zach@controlyourself.ca>
+ * @author    Sarven Capadisli <csarven@controlyourself.ca>
+ * @copyright 2008-2009 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
-require_once INSTALLDIR . '/lib/noticelist.php';
+require_once INSTALLDIR.'/lib/noticelist.php';
 
-class NewnoticeAction extends Action {
+/**
+ * Action for posting new notices
+ *
+ * @category Personal
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Zach Copley <zach@controlyourself.ca>
+ * @author   Sarven Capadisli <csarven@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://laconi.ca/
+ */
 
-	function handle($args) {
-		parent::handle($args);
+class NewnoticeAction extends Action
+{
+    /**
+     * Error message, if any
+     */
 
-		if (!common_logged_in()) {
-			common_user_error(_('Not logged in.'));
-		} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    var $msg = null;
 
-			# CSRF protection - token set in common_notice_form()
-			$token = $this->trimmed('token');
-			if (!$token || $token != common_session_token()) {
-				$this->client_error(_('There was a problem with your session token. Try again, please.'));
-				return;
-			}
+    /**
+     * Title of the page
+     *
+     * Note that this usually doesn't get called unless something went wrong
+     *
+     * @return string page title
+     */
 
-			$this->save_new_notice();
-		} else {
-			$this->show_form();
-		}
-	}
+    function title()
+    {
+        return _('New notice');
+    }
 
-	function save_new_notice() {
+    /**
+     * Handle input, produce output
+     *
+     * Switches based on GET or POST method. On GET, shows a form
+     * for posting a notice. On POST, saves the results of that form.
+     *
+     * Results may be a full page, or just a single notice list item,
+     * depending on whether AJAX was requested.
+     *
+     * @param array $args $_REQUEST contents
+     *
+     * @return void
+     */
 
-		$user = common_current_user();
-		assert($user); # XXX: maybe an error instead...
-		$content = $this->trimmed('status_textarea');
+    function handle($args)
+    {
+        parent::handle($args);
 
-		if (!$content) {
-			$this->show_form(_('No content!'));
-			return;
-		} else {
-			$content_shortened = common_shorten_links($content);
+        if (!common_logged_in()) {
+            $this->clientError(_('Not logged in.'));
+        } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-			if (mb_strlen($content_shortened) > 140) {
-				common_debug("Content = '$content_shortened'", __FILE__);
-				common_debug("mb_strlen(\$content) = " . mb_strlen($content_shortened), __FILE__);
-				$this->show_form(_('That\'s too long. Max notice size is 140 chars.'));
-				return;
-			}
-		}
+            // CSRF protection - token set in common_notice_form()
+            $token = $this->trimmed('token');
+            if (!$token || $token != common_session_token()) {
+                $this->clientError(_('There was a problem with your session token. '.
+                                     'Try again, please.'));
+                return;
+            }
 
-		$inter = new CommandInterpreter();
+            $this->saveNewNotice();
+        } else {
+            $this->showForm();
+        }
+    }
 
-		$cmd = $inter->handle_command($user, $content_shortened);
+    /**
+     * Save a new notice, based on arguments
+     *
+     * If successful, will show the notice, or return an Ajax-y result.
+     * If not, it will show an error message -- possibly Ajax-y.
+     *
+     * Also, if the notice input looks like a command, it will run the
+     * command and show the results -- again, possibly ajaxy.
+     *
+     * @return void
+     */
 
-		if ($cmd) {
-			if ($this->boolean('ajax')) {
-				$cmd->execute(new AjaxWebChannel());
-			} else {
-				$cmd->execute(new WebChannel());
-			}
-			return;
-		}
+    function saveNewNotice()
+    {
+        $user = common_current_user();
+        assert($user); // XXX: maybe an error instead...
+        $content = $this->trimmed('status_textarea');
 
-		$replyto = $this->trimmed('inreplyto');
+        if (!$content) {
+            $this->showForm(_('No content!'));
+            return;
+        } else {
+            $content_shortened = common_shorten_links($content);
 
-		$notice = Notice::saveNew($user->id, $content, 'web', 1, ($replyto == 'false') ? NULL : $replyto);
+            if (mb_strlen($content_shortened) > 140) {
+                $this->showForm(_('That\'s too long. '.
+                                  'Max notice size is 140 chars.'));
+                return;
+            }
+        }
 
-		if (is_string($notice)) {
-			$this->show_form($notice);
-			return;
-		}
+        $inter = new CommandInterpreter();
 
-		common_broadcast_notice($notice);
+        $cmd = $inter->handle_command($user, $content_shortened);
 
-		if ($this->boolean('ajax')) {
-			common_start_html('text/xml;charset=utf-8', true);
-			common_element_start('head');
-			common_element('title', null, _('Notice posted'));
-			common_element_end('head');
-			common_element_start('body');
-			$this->show_notice($notice);
-			common_element_end('body');
-			common_element_end('html');
-		} else {
-			$returnto = $this->trimmed('returnto');
+        if ($cmd) {
+            if ($this->boolean('ajax')) {
+                $cmd->execute(new AjaxWebChannel());
+            } else {
+                $cmd->execute(new WebChannel());
+            }
+            return;
+        }
 
-			if ($returnto) {
-				$url = common_local_url($returnto,
-										array('nickname' => $user->nickname));
-			} else {
-				$url = common_local_url('shownotice',
-										array('notice' => $notice->id));
-			}
-			common_redirect($url, 303);
-		}
-	}
+        $replyto = $this->trimmed('inreplyto');
 
-	function ajax_error_msg($msg) {
-		common_start_html('text/xml;charset=utf-8', true);
-		common_element_start('head');
-		common_element('title', null, _('Ajax Error'));
-		common_element_end('head');
-		common_element_start('body');
-		common_element('p', array('id' => 'error'), $msg);
-		common_element_end('body');
-		common_element_end('html');
-	}
+        $notice = Notice::saveNew($user->id, $content, 'web', 1,
+                                  ($replyto == 'false') ? null : $replyto);
 
-	function show_top($content=NULL) {
-		common_notice_form(NULL, $content);
-	}
+        if (is_string($notice)) {
+            $this->showForm($notice);
+            return;
+        }
 
-	function show_form($msg=NULL) {
-		if ($msg && $this->boolean('ajax')) {
-			$this->ajax_error_msg($msg);
-			return;
-		}
-		$content = $this->trimmed('status_textarea');
-		if (!$content) {
-			$replyto = $this->trimmed('replyto');
-			$profile = Profile::staticGet('nickname', $replyto);
-			if ($profile) {
-				$content = '@' . $profile->nickname . ' ';
-			}
-		}
-		common_show_header(_('New notice'), NULL, $content,
-						   array($this, 'show_top'));
-		if ($msg) {
-			common_element('p', array('id' => 'error'), $msg);
-		}
-		common_show_footer();
-	}
+        common_broadcast_notice($notice);
 
-	function show_notice($notice) {
-        $nli = new NoticeListItem($notice);
+        if ($this->boolean('ajax')) {
+            $this->startHTML('text/xml;charset=utf-8', true);
+            $this->elementStart('head');
+            $this->element('title', null, _('Notice posted'));
+            $this->elementEnd('head');
+            $this->elementStart('body');
+            $this->showNotice($notice);
+            $this->elementEnd('body');
+            $this->elementEnd('html');
+        } else {
+            $returnto = $this->trimmed('returnto');
+
+            if ($returnto) {
+                $url = common_local_url($returnto,
+                                        array('nickname' => $user->nickname));
+            } else {
+                $url = common_local_url('shownotice',
+                                        array('notice' => $notice->id));
+            }
+            common_redirect($url, 303);
+        }
+    }
+
+    /**
+     * Show an Ajax-y error message
+     *
+     * Goes back to the browser, where it's shown in a popup.
+     *
+     * @param string $msg Message to show
+     *
+     * @return void
+     */
+
+    function ajaxErrorMsg($msg)
+    {
+        common_start_html('text/xml;charset=utf-8', true);
+        $this->elementStart('head');
+        $this->element('title', null, _('Ajax Error'));
+        $this->elementEnd('head');
+        $this->elementStart('body');
+        $this->element('p', array('id' => 'error'), $msg);
+        $this->elementEnd('body');
+        $this->elementEnd('html');
+    }
+
+    /**
+     * Formerly page output
+     *
+     * This used to be the whole page output; now that's been largely
+     * subsumed by showPage. So this just stores an error message, if
+     * it was passed, and calls showPage.
+     *
+     * Note that since we started doing Ajax output, this page is rarely
+     * seen.
+     *
+     * @param string $msg An error message, if any
+     *
+     * @return void
+     */
+
+    function showForm($msg=null)
+    {
+        if ($msg && $this->boolean('ajax')) {
+            $this->ajaxErrorMsg($msg);
+            return;
+        }
+
+        $this->msg = $msg;
+        $this->showPage();
+    }
+
+    /**
+     * Overload for replies or bad results
+     *
+     * We show content in the notice form if there were replies or results.
+     *
+     * @return void
+     */
+
+    function showNoticeForm()
+    {
+        $content = $this->trimmed('status_textarea');
+        if (!$content) {
+            $replyto = $this->trimmed('replyto');
+            $profile = Profile::staticGet('nickname', $replyto);
+            if ($profile) {
+                $content = '@' . $profile->nickname . ' ';
+            }
+        }
+
+        $notice_form = new NoticeForm($this, $content);
+        $notice_form->show();
+    }
+
+    /**
+     * Show an error message
+     *
+     * Shows an error message if there is one.
+     *
+     * @return void
+     *
+     * @todo maybe show some instructions?
+     */
+
+    function showPageNotice()
+    {
+        if ($this->msg) {
+            $this->element('p', array('id' => 'error'), $this->msg);
+        }
+    }
+
+    /**
+     * Output a notice
+     *
+     * Used to generate the notice code for Ajax results.
+     *
+     * @param Notice $notice Notice that was saved
+     *
+     * @return void
+     */
+
+    function showNotice($notice)
+    {
+        $nli = new NoticeListItem($notice, $this);
         $nli->show();
-	}
-
+    }
 }

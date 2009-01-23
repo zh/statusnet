@@ -1,9 +1,12 @@
 <?php
-/*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+/**
+ * Laconica, the distributed open-source microblogging tool
  *
- * This program is free software: you can redistribute it and/or modify
+ * Login form
+ *
+ * PHP version 5
+ *
+ * LICENCE: This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -15,138 +18,271 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Login
+ * @package   Laconica
+ * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @copyright 2008-2009 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
-class LoginAction extends Action {
+/**
+ * Login form
+ *
+ * @category Personal
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://laconi.ca/
+ */
 
-	function is_readonly() {
-		return true;
-	}
+class LoginAction extends Action
+{
+    /**
+     * Has there been an error?
+     */
 
-	function handle($args) {
-		parent::handle($args);
-		if (common_is_real_login()) {
-			common_user_error(_('Already logged in.'));
-		} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-			$this->check_login();
-		} else {
-			$this->show_form();
-		}
-	}
+    var $error = null;
 
-	function check_login() {
-		# XXX: login throttle
+    /**
+     * Is this a read-only action?
+     *
+     * @return boolean false
+     */
 
-		# CSRF protection - token set in common_notice_form()
-		$token = $this->trimmed('token');
-		if (!$token || $token != common_session_token()) {
-			$this->client_error(_('There was a problem with your session token. Try again, please.'));
-			return;
-		}
+    function isReadOnly()
+    {
+        return false;
+    }
 
-		$nickname = common_canonical_nickname($this->trimmed('nickname'));
-		$password = $this->arg('password');
-		if (common_check_user($nickname, $password)) {
-			# success!
-			if (!common_set_user($nickname)) {
-				common_server_error(_('Error setting user.'));
-				return;
-			}
-			common_real_login(true);
-			if ($this->boolean('rememberme')) {
-				common_debug('Adding rememberme cookie for ' . $nickname);
-				common_rememberme();
-			}
-			# success!
-			$url = common_get_returnto();
-			if ($url) {
-				# We don't have to return to it again
-				common_set_returnto(NULL);
-			} else {
-				$url = common_local_url('all',
-										array('nickname' =>
-											  $nickname));
-			}
-			common_redirect($url);
-		} else {
-			$this->show_form(_('Incorrect username or password.'));
-			return;
-		}
+    /**
+     * Handle input, produce output
+     *
+     * Switches on request method; either shows the form or handles its input.
+     *
+     * @param array $args $_REQUEST data
+     *
+     * @return void
+     */
 
-		# success!
-		if (!common_set_user($user)) {
-			common_server_error(_('Error setting user.'));
-			return;
-		}
+    function handle($args)
+    {
+        parent::handle($args);
+        if (common_is_real_login()) {
+            $this->clientError(_('Already logged in.'));
+        } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $this->checkLogin();
+        } else {
+            $this->showForm();
+        }
+    }
 
-		common_real_login(true);
+    /**
+     * Check the login data
+     *
+     * Determines if the login data is valid. If so, logs the user
+     * in, and redirects to the 'with friends' page, or to the stored
+     * return-to URL.
+     *
+     * @return void
+     */
 
-		if ($this->boolean('rememberme')) {
-			common_debug('Adding rememberme cookie for ' . $nickname);
-			common_rememberme($user);
-		}
-		# success!
-		$url = common_get_returnto();
-		if ($url) {
-			# We don't have to return to it again
-			common_set_returnto(NULL);
-		} else {
-			$url = common_local_url('all',
-									array('nickname' =>
-										  $nickname));
-		}
-		common_redirect($url);
-	}
+    function checkLogin()
+    {
+        // XXX: login throttle
 
-	function show_form($error=NULL) {
-		common_show_header(_('Login'), NULL, $error, array($this, 'show_top'));
-		common_element_start('form', array('method' => 'post',
-										   'id' => 'login',
-										   'action' => common_local_url('login')));
-		common_input('nickname', _('Nickname'));
-		common_password('password', _('Password'));
-		common_checkbox('rememberme', _('Remember me'), false,
-		                _('Automatically login in the future; ' .
-		                   'not for shared computers!'));
-		common_submit('submit', _('Login'));
-		common_hidden('token', common_session_token());
-		common_element_end('form');
-		common_element_start('p');
-		common_element('a', array('href' => common_local_url('recoverpassword')),
-					   _('Lost or forgotten password?'));
-		common_element_end('p');
-		common_show_footer();
-	}
+        // CSRF protection - token set in common_notice_form()
+        $token = $this->trimmed('token');
+        if (!$token || $token != common_session_token()) {
+            $this->clientError(_('There was a problem with your session token. '.
+                                 'Try again, please.'));
+            return;
+        }
 
-	function get_instructions() {
-		if (common_logged_in() &&
-			!common_is_real_login() &&
-			common_get_returnto())
-		{
-			# rememberme logins have to reauthenticate before
-			# changing any profile settings (cookie-stealing protection)
-			return _('For security reasons, please re-enter your ' .
-					 'user name and password ' .
-					 'before changing your settings.');
-		} else {
-			return _('Login with your username and password. ' .
-					 'Don\'t have a username yet? ' .
-					 '[Register](%%action.register%%) a new account, or ' .
-					 'try [OpenID](%%action.openidlogin%%). ');
-		}
-	}
+        $nickname = common_canonical_nickname($this->trimmed('nickname'));
+        $password = $this->arg('password');
+        if (common_check_user($nickname, $password)) {
+            // success!
+            if (!common_set_user($nickname)) {
+                $this->serverError(_('Error setting user.'));
+                return;
+            }
+            common_real_login(true);
+            if ($this->boolean('rememberme')) {
+                common_debug('Adding rememberme cookie for ' . $nickname);
+                common_rememberme();
+            }
+            // success!
+            $url = common_get_returnto();
+            if ($url) {
+                // We don't have to return to it again
+                common_set_returnto(null);
+            } else {
+                $url = common_local_url('all',
+                                        array('nickname' =>
+                                              $nickname));
+            }
+            common_redirect($url);
+        } else {
+            $this->showForm(_('Incorrect username or password.'));
+            return;
+        }
 
-	function show_top($error=NULL) {
-		if ($error) {
-			common_element('p', 'error', $error);
-		} else {
-			$instr = $this->get_instructions();
-			$output = common_markup_to_html($instr);
-			common_element_start('div', 'instructions');
-			common_raw($output);
-			common_element_end('div');
-		}
-	}
+        // success!
+        if (!common_set_user($user)) {
+            $this->serverError(_('Error setting user.'));
+            return;
+        }
+
+        common_real_login(true);
+
+        if ($this->boolean('rememberme')) {
+            common_debug('Adding rememberme cookie for ' . $nickname);
+            common_rememberme($user);
+        }
+        // success!
+        $url = common_get_returnto();
+        if ($url) {
+            // We don't have to return to it again
+            common_set_returnto(null);
+        } else {
+            $url = common_local_url('all',
+                                    array('nickname' =>
+                                          $nickname));
+        }
+        common_redirect($url);
+    }
+
+    /**
+     * Store an error and show the page
+     *
+     * This used to show the whole page; now, it's just a wrapper
+     * that stores the error in an attribute.
+     *
+     * @param string $error error, if any.
+     *
+     * @return void
+     */
+
+    function showForm($error=null)
+    {
+        $this->error = $error;
+        $this->showPage();
+    }
+
+    /**
+     * Title of the page
+     *
+     * @return string title of the page
+     */
+
+    function title()
+    {
+        return _('Login');
+    }
+
+    /**
+     * Show page notice
+     *
+     * Display a notice for how to use the page, or the
+     * error if it exists.
+     *
+     * @return void
+     */
+
+    function showPageNotice()
+    {
+        if ($this->error) {
+            $this->element('p', 'error', $this->error);
+        } else {
+            $instr  = $this->getInstructions();
+            $output = common_markup_to_html($instr);
+
+            $this->raw($output);
+        }
+    }
+
+    /**
+     * Core of the display code
+     *
+     * Shows the login form.
+     *
+     * @return void
+     */
+
+    function showContent()
+    {
+        $this->elementStart('form', array('method' => 'post',
+                                           'id' => 'form_login',
+                                           'class' => 'form_settings',
+                                           'action' => common_local_url('login')));
+        $this->elementStart('fieldset');
+        $this->element('legend', null, _('Login to site'));
+        $this->elementStart('ul', 'form_data');
+        $this->elementStart('li');
+        $this->input('nickname', _('Nickname'));
+        $this->elementEnd('li');
+        $this->elementStart('li');
+        $this->password('password', _('Password'));
+        $this->elementEnd('li');
+        $this->elementStart('li');
+        $this->checkbox('rememberme', _('Remember me'), false,
+                        _('Automatically login in the future; ' .
+                           'not for shared computers!'));
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
+        $this->submit('submit', _('Login'));
+        $this->hidden('token', common_session_token());
+        $this->elementEnd('fieldset');
+        $this->elementEnd('form');
+        $this->elementStart('p');
+        $this->element('a', array('href' => common_local_url('recoverpassword')),
+                       _('Lost or forgotten password?'));
+        $this->elementEnd('p');
+    }
+
+    /**
+     * Instructions for using the form
+     *
+     * For "remembered" logins, we make the user re-login when they
+     * try to change settings. Different instructions for this case.
+     *
+     * @return void
+     */
+
+    function getInstructions()
+    {
+        if (common_logged_in() && !common_is_real_login() &&
+            common_get_returnto()) {
+            // rememberme logins have to reauthenticate before
+            // changing any profile settings (cookie-stealing protection)
+            return _('For security reasons, please re-enter your ' .
+                     'user name and password ' .
+                     'before changing your settings.');
+        } else {
+            return _('Login with your username and password. ' .
+                     'Don\'t have a username yet? ' .
+                     '[Register](%%action.register%%) a new account, or ' .
+                     'try [OpenID](%%action.openidlogin%%). ');
+        }
+    }
+
+    /**
+     * A local menu
+     *
+     * Shows different login/register actions.
+     *
+     * @return void
+     */
+
+    function showLocalNav()
+    {
+        $nav = new LoginGroupNav($this);
+        $nav->show();
+    }
 }

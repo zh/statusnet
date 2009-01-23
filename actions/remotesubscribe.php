@@ -21,366 +21,396 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/omb.php');
 
-class RemotesubscribeAction extends Action {
+class RemotesubscribeAction extends Action
+{
+    var $nickname;
+    var $profile_url;
+    var $err;
 
-	function handle($args) {
+    function prepare($args)
+    {
+        parent::prepare($args);
 
-		parent::handle($args);
+        if (common_logged_in()) {
+            $this->clientError(_('You can use the local subscription!'));
+            return false;
+        }
 
-		if (common_logged_in()) {
-			common_user_error(_('You can use the local subscription!'));
-		    return;
-		}
+        $this->nickname = $this->trimmed('nickname');
+        $this->profile_url = $this->trimmed('profile_url');
 
-		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        return true;
+    }
 
-			# CSRF protection
-			$token = $this->trimmed('token');
-			if (!$token || $token != common_session_token()) {
-				$this->show_form(_('There was a problem with your session token. Try again, please.'));
-				return;
-			}
+    function handle($args)
+    {
+        parent::handle($args);
 
-			$this->remote_subscription();
-		} else {
-			$this->show_form();
-		}
-	}
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            # CSRF protection
+            $token = $this->trimmed('token');
+            if (!$token || $token != common_session_token()) {
+                $this->showForm(_('There was a problem with your session token. '.
+                                  'Try again, please.'));
+                return;
+            }
+            $this->remoteSubscription();
+        } else {
+            $this->showForm();
+        }
+    }
 
-	function get_instructions() {
-		return _('To subscribe, you can [login](%%action.login%%),' .
-		          ' or [register](%%action.register%%) a new' .
-		          ' account. If you already have an account' .
-		          ' on a [compatible microblogging site](%%doc.openmublog%%),' .
-		          ' enter your profile URL below.');
-	}
+    function showForm($err=null)
+    {
+        $this->err = $err;
+        $this->showPage();
+    }
 
-	function show_top($err=NULL) {
-		if ($err) {
-			common_element('div', 'error', $err);
-		} else {
-			$instructions = $this->get_instructions();
-			$output = common_markup_to_html($instructions);
-			common_element_start('div', 'instructions');
-			common_raw($output);
-			common_element_end('p');
-		}
-	}
+    function showPageNotice()
+    {
+        if ($this->err) {
+            $this->element('div', 'error', $this->err);
+        } else {
+            $inst = _('To subscribe, you can [login](%%action.login%%),' .
+                      ' or [register](%%action.register%%) a new ' .
+                      ' account. If you already have an account ' .
+                      ' on a [compatible microblogging site](%%doc.openmublog%%), ' .
+                      ' enter your profile URL below.');
+            $output = common_markup_to_html($inst);
+            $this->elementStart('div', 'instructions');
+            $this->raw($output);
+            $this->elementEnd('div');
+        }
+    }
 
-	function show_form($err=NULL) {
-		$nickname = $this->trimmed('nickname');
-		$profile = $this->trimmed('profile_url');
-		common_show_header(_('Remote subscribe'), NULL, $err,
-						   array($this, 'show_top'));
-		# id = remotesubscribe conflicts with the
-		# button on profile page
-		common_element_start('form', array('id' => 'remsub', 'method' => 'post',
-										   'action' => common_local_url('remotesubscribe')));
-		common_hidden('token', common_session_token());
-		common_input('nickname', _('User nickname'), $nickname,
-					 _('Nickname of the user you want to follow'));
-		common_input('profile_url', _('Profile URL'), $profile,
-					 _('URL of your profile on another compatible microblogging service'));
-		common_submit('submit', _('Subscribe'));
-		common_element_end('form');
-		common_show_footer();
-	}
+    function title()
+    {
+        return _('Remote subscribe');
+    }
 
-	function remote_subscription() {
-		$user = $this->get_user();
+    function showContent()
+    {
+        # id = remotesubscribe conflicts with the
+        # button on profile page
+        $this->elementStart('form', array('id' => 'form_remote_subscribe',
+                                          'method' => 'post',
+                                          'class' => 'form_settings',
+                                          'action' => common_local_url('remotesubscribe')));
+        $this->elementStart('fieldset');
+        $this->element('legend', 'Subscribe to a remote user');
+        $this->hidden('token', common_session_token());
+        
+        $this->elementStart('ul', 'form_data');
+        $this->elementStart('li');
+        $this->input('nickname', _('User nickname'), $this->nickname,
+                     _('Nickname of the user you want to follow'));
+        $this->elementEnd('li');
+        $this->elementStart('li');
+        $this->input('profile_url', _('Profile URL'), $this->profile_url,
+                     _('URL of your profile on another compatible microblogging service'));
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
+        $this->submit('submit', _('Subscribe'));
+        $this->elementEnd('fieldset');
+        $this->elementEnd('form');
+    }
 
-		if (!$user) {
-			$this->show_form(_('No such user.'));
-			return;
-		}
+    function remoteSubscription()
+    {
+        $user = $this->getUser();
 
-		$profile = $this->trimmed('profile_url');
+        if (!$user) {
+            $this->showForm(_('No such user.'));
+            return;
+        }
 
-		if (!$profile) {
-			$this->show_form(_('No such user.'));
-			return;
-		}
+        $this->profile_url = $this->trimmed('profile_url');
 
-		if (!Validate::uri($profile, array('allowed_schemes' => array('http', 'https')))) {
-			$this->show_form(_('Invalid profile URL (bad format)'));
-			return;
-		}
+        if (!$this->profile_url) {
+            $this->showForm(_('No such user.'));
+            return;
+        }
 
-		$fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
-		$yadis = Auth_Yadis_Yadis::discover($profile, $fetcher);
+        if (!Validate::uri($this->profile_url, array('allowed_schemes' => array('http', 'https')))) {
+            $this->showForm(_('Invalid profile URL (bad format)'));
+            return;
+        }
 
-		if (!$yadis || $yadis->failed) {
-			$this->show_form(_('Not a valid profile URL (no YADIS document).'));
-			return;
-		}
+        $fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
+        $yadis = Auth_Yadis_Yadis::discover($this->profile_url, $fetcher);
 
-		# XXX: a little liberal for sites that accidentally put whitespace before the xml declaration
+        if (!$yadis || $yadis->failed) {
+            $this->showForm(_('Not a valid profile URL (no YADIS document).'));
+            return;
+        }
+
+        # XXX: a little liberal for sites that accidentally put whitespace before the xml declaration
 
         $xrds =& Auth_Yadis_XRDS::parseXRDS(trim($yadis->response_text));
 
-		if (!$xrds) {
-			$this->show_form(_('Not a valid profile URL (no XRDS defined).'));
-			return;
-		}
+        if (!$xrds) {
+            $this->showForm(_('Not a valid profile URL (no XRDS defined).'));
+            return;
+        }
 
-		$omb = $this->getOmb($xrds);
+        $omb = $this->getOmb($xrds);
 
-		if (!$omb) {
-			$this->show_form(_('Not a valid profile URL (incorrect services).'));
-			return;
-		}
+        if (!$omb) {
+            $this->showForm(_('Not a valid profile URL (incorrect services).'));
+            return;
+        }
 
-		if (omb_service_uri($omb[OAUTH_ENDPOINT_REQUEST]) ==
-			common_local_url('requesttoken'))
-		{
-			$this->show_form(_('That\'s a local profile! Login to subscribe.'));
-			return;
-		}
+        if (omb_service_uri($omb[OAUTH_ENDPOINT_REQUEST]) ==
+            common_local_url('requesttoken'))
+        {
+            $this->showForm(_('That\'s a local profile! Login to subscribe.'));
+            return;
+        }
 
-		if (User::staticGet('uri', omb_local_id($omb[OAUTH_ENDPOINT_REQUEST]))) {
-			$this->show_form(_('That\'s a local profile! Login to subscribe.'));
-			return;
-		}
+        if (User::staticGet('uri', omb_local_id($omb[OAUTH_ENDPOINT_REQUEST]))) {
+            $this->showForm(_('That\'s a local profile! Login to subscribe.'));
+            return;
+        }
 
-		list($token, $secret) = $this->request_token($omb);
+        list($token, $secret) = $this->requestToken($omb);
 
-		if (!$token || !$secret) {
-			$this->show_form(_('Couldn\'t get a request token.'));
-			return;
-		}
+        if (!$token || !$secret) {
+            $this->showForm(_('Couldn\'t get a request token.'));
+            return;
+        }
 
-		$this->request_authorization($user, $omb, $token, $secret);
-	}
+        $this->requestAuthorization($user, $omb, $token, $secret);
+    }
 
-	function get_user() {
-		$user = NULL;
-		$nickname = $this->trimmed('nickname');
-		if ($nickname) {
-			$user = User::staticGet('nickname', $nickname);
-		}
-		return $user;
-	}
+    function getUser()
+    {
+        $user = null;
+        if ($this->nickname) {
+            $user = User::staticGet('nickname', $this->nickname);
+        }
+        return $user;
+    }
 
-	function getOmb($xrds) {
+    function getOmb($xrds)
+    {
+        static $omb_endpoints = array(OMB_ENDPOINT_UPDATEPROFILE, OMB_ENDPOINT_POSTNOTICE);
+        static $oauth_endpoints = array(OAUTH_ENDPOINT_REQUEST, OAUTH_ENDPOINT_AUTHORIZE,
+                                        OAUTH_ENDPOINT_ACCESS);
+        $omb = array();
 
-	    static $omb_endpoints = array(OMB_ENDPOINT_UPDATEPROFILE, OMB_ENDPOINT_POSTNOTICE);
-		static $oauth_endpoints = array(OAUTH_ENDPOINT_REQUEST, OAUTH_ENDPOINT_AUTHORIZE,
-										OAUTH_ENDPOINT_ACCESS);
-		$omb = array();
+        # XXX: the following code could probably be refactored to eliminate dupes
 
-		# XXX: the following code could probably be refactored to eliminate dupes
+        $oauth_services = omb_get_services($xrds, OAUTH_DISCOVERY);
 
-		$oauth_services = omb_get_services($xrds, OAUTH_DISCOVERY);
+        if (!$oauth_services) {
+            return null;
+        }
 
-		if (!$oauth_services) {
-			return NULL;
-		}
+        $oauth_service = $oauth_services[0];
 
-		$oauth_service = $oauth_services[0];
+        $oauth_xrd = $this->getXRD($oauth_service, $xrds);
 
-		$oauth_xrd = $this->getXRD($oauth_service, $xrds);
+        if (!$oauth_xrd) {
+            return null;
+        }
 
-		if (!$oauth_xrd) {
-			return NULL;
-		}
+        if (!$this->addServices($oauth_xrd, $oauth_endpoints, $omb)) {
+            return null;
+        }
 
-		if (!$this->addServices($oauth_xrd, $oauth_endpoints, $omb)) {
-			return NULL;
-		}
+        $omb_services = omb_get_services($xrds, OMB_NAMESPACE);
 
-		$omb_services = omb_get_services($xrds, OMB_NAMESPACE);
+        if (!$omb_services) {
+            return null;
+        }
 
-		if (!$omb_services) {
-			return NULL;
-		}
+        $omb_service = $omb_services[0];
 
-		$omb_service = $omb_services[0];
+        $omb_xrd = $this->getXRD($omb_service, $xrds);
 
-		$omb_xrd = $this->getXRD($omb_service, $xrds);
+        if (!$omb_xrd) {
+            return null;
+        }
 
-		if (!$omb_xrd) {
-			return NULL;
-		}
+        if (!$this->addServices($omb_xrd, $omb_endpoints, $omb)) {
+            return null;
+        }
 
-		if (!$this->addServices($omb_xrd, $omb_endpoints, $omb)) {
-			return NULL;
-		}
+        # XXX: check that we got all the services we needed
 
-		# XXX: check that we got all the services we needed
+        foreach (array_merge($omb_endpoints, $oauth_endpoints) as $type) {
+            if (!array_key_exists($type, $omb) || !$omb[$type]) {
+                return null;
+            }
+        }
 
-		foreach (array_merge($omb_endpoints, $oauth_endpoints) as $type) {
-			if (!array_key_exists($type, $omb) || !$omb[$type]) {
-				return NULL;
-			}
-		}
+        if (!omb_local_id($omb[OAUTH_ENDPOINT_REQUEST])) {
+            return null;
+        }
 
-		if (!omb_local_id($omb[OAUTH_ENDPOINT_REQUEST])) {
-			return NULL;
-		}
+        return $omb;
+    }
 
-		return $omb;
-	}
+    function getXRD($main_service, $main_xrds)
+    {
+        $uri = omb_service_uri($main_service);
+        if (strpos($uri, "#") !== 0) {
+            # FIXME: more rigorous handling of external service definitions
+            return null;
+        }
+        $id = substr($uri, 1);
+        $nodes = $main_xrds->allXrdNodes;
+        $parser = $main_xrds->parser;
+        foreach ($nodes as $node) {
+            $attrs = $parser->attributes($node);
+            if (array_key_exists('xml:id', $attrs) &&
+                $attrs['xml:id'] == $id) {
+                # XXX: trick the constructor into thinking this is the only node
+                $bogus_nodes = array($node);
+                return new Auth_Yadis_XRDS($parser, $bogus_nodes);
+            }
+        }
+        return null;
+    }
 
-	function getXRD($main_service, $main_xrds) {
-		$uri = omb_service_uri($main_service);
-		if (strpos($uri, "#") !== 0) {
-			# FIXME: more rigorous handling of external service definitions
-			return NULL;
-		}
-		$id = substr($uri, 1);
-		$nodes = $main_xrds->allXrdNodes;
-		$parser = $main_xrds->parser;
-		foreach ($nodes as $node) {
-			$attrs = $parser->attributes($node);
-			if (array_key_exists('xml:id', $attrs) &&
-				$attrs['xml:id'] == $id) {
-				# XXX: trick the constructor into thinking this is the only node
-				$bogus_nodes = array($node);
-				return new Auth_Yadis_XRDS($parser, $bogus_nodes);
-			}
-		}
-		return NULL;
-	}
+    function addServices($xrd, $types, &$omb)
+    {
+        foreach ($types as $type) {
+            $matches = omb_get_services($xrd, $type);
+            if ($matches) {
+                $omb[$type] = $matches[0];
+            } else {
+                # no match for type
+                return false;
+            }
+        }
+        return true;
+    }
 
-	function addServices($xrd, $types, &$omb) {
-		foreach ($types as $type) {
-			$matches = omb_get_services($xrd, $type);
-			if ($matches) {
-				$omb[$type] = $matches[0];
-			} else {
-				# no match for type
-				return false;
-			}
-		}
-		return true;
-	}
+    function requestToken($omb)
+    {
+        $con = omb_oauth_consumer();
 
-	function request_token($omb) {
-		$con = omb_oauth_consumer();
+        $url = omb_service_uri($omb[OAUTH_ENDPOINT_REQUEST]);
 
-		$url = omb_service_uri($omb[OAUTH_ENDPOINT_REQUEST]);
+        # XXX: Is this the right thing to do? Strip off GET params and make them
+        # POST params? Seems wrong to me.
 
-		# XXX: Is this the right thing to do? Strip off GET params and make them
-		# POST params? Seems wrong to me.
+        $parsed = parse_url($url);
+        $params = array();
+        parse_str($parsed['query'], $params);
 
-		$parsed = parse_url($url);
-		$params = array();
-		parse_str($parsed['query'], $params);
+        $req = OAuthRequest::from_consumer_and_token($con, null, "POST", $url, $params);
 
-		$req = OAuthRequest::from_consumer_and_token($con, NULL, "POST", $url, $params);
+        $listener = omb_local_id($omb[OAUTH_ENDPOINT_REQUEST]);
 
-		$listener = omb_local_id($omb[OAUTH_ENDPOINT_REQUEST]);
+        if (!$listener) {
+            return null;
+        }
 
-		if (!$listener) {
-			return NULL;
-		}
+        $req->set_parameter('omb_listener', $listener);
+        $req->set_parameter('omb_version', OMB_VERSION_01);
 
-		$req->set_parameter('omb_listener', $listener);
-		$req->set_parameter('omb_version', OMB_VERSION_01);
+        # XXX: test to see if endpoint accepts this signature method
 
-		# XXX: test to see if endpoint accepts this signature method
+        $req->sign_request(omb_hmac_sha1(), $con, null);
 
-		$req->sign_request(omb_hmac_sha1(), $con, NULL);
+        # We re-use this tool's fetcher, since it's pretty good
 
-		# We re-use this tool's fetcher, since it's pretty good
+        $fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
 
-		$fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
-
-		$result = $fetcher->post($req->get_normalized_http_url(),
-								 $req->to_postdata(),
+        $result = $fetcher->post($req->get_normalized_http_url(),
+                                 $req->to_postdata(),
                                  array('User-Agent' => 'Laconica/' . LACONICA_VERSION));
 
-		if ($result->status != 200) {
-			return NULL;
-		}
+        if ($result->status != 200) {
+            return null;
+        }
 
-		parse_str($result->body, $return);
+        parse_str($result->body, $return);
 
-		return array($return['oauth_token'], $return['oauth_token_secret']);
-	}
+        return array($return['oauth_token'], $return['oauth_token_secret']);
+    }
 
-	function request_authorization($user, $omb, $token, $secret) {
-		global $config; # for license URL
+    function requestAuthorization($user, $omb, $token, $secret)
+    {
+        global $config; # for license URL
 
-		$con = omb_oauth_consumer();
-		$tok = new OAuthToken($token, $secret);
+        $con = omb_oauth_consumer();
+        $tok = new OAuthToken($token, $secret);
 
-		$url = omb_service_uri($omb[OAUTH_ENDPOINT_AUTHORIZE]);
+        $url = omb_service_uri($omb[OAUTH_ENDPOINT_AUTHORIZE]);
 
-		# XXX: Is this the right thing to do? Strip off GET params and make them
-		# POST params? Seems wrong to me.
+        # XXX: Is this the right thing to do? Strip off GET params and make them
+        # POST params? Seems wrong to me.
 
-		$parsed = parse_url($url);
-		$params = array();
-		parse_str($parsed['query'], $params);
+        $parsed = parse_url($url);
+        $params = array();
+        parse_str($parsed['query'], $params);
 
-		$req = OAuthRequest::from_consumer_and_token($con, $tok, 'GET', $url, $params);
+        $req = OAuthRequest::from_consumer_and_token($con, $tok, 'GET', $url, $params);
 
-		# We send over a ton of information. This lets the other
-		# server store info about our user, and it lets the current
-		# user decide if they really want to authorize the subscription.
+        # We send over a ton of information. This lets the other
+        # server store info about our user, and it lets the current
+        # user decide if they really want to authorize the subscription.
 
-		$req->set_parameter('omb_version', OMB_VERSION_01);
-		$req->set_parameter('omb_listener', omb_local_id($omb[OAUTH_ENDPOINT_REQUEST]));
-		$req->set_parameter('omb_listenee', $user->uri);
-		$req->set_parameter('omb_listenee_profile', common_profile_url($user->nickname));
-		$req->set_parameter('omb_listenee_nickname', $user->nickname);
-		$req->set_parameter('omb_listenee_license', $config['license']['url']);
+        $req->set_parameter('omb_version', OMB_VERSION_01);
+        $req->set_parameter('omb_listener', omb_local_id($omb[OAUTH_ENDPOINT_REQUEST]));
+        $req->set_parameter('omb_listenee', $user->uri);
+        $req->set_parameter('omb_listenee_profile', common_profile_url($user->nickname));
+        $req->set_parameter('omb_listenee_nickname', $user->nickname);
+        $req->set_parameter('omb_listenee_license', $config['license']['url']);
 
-		$profile = $user->getProfile();
-		if (!$profile) {
-			common_log_db_error($user, 'SELECT', __FILE__);
-			$this->server_error(_('User without matching profile'));
-			return;
-		}
+        $profile = $user->getProfile();
+        if (!$profile) {
+            common_log_db_error($user, 'SELECT', __FILE__);
+            $this->serverError(_('User without matching profile'));
+            return;
+        }
 
-		if ($profile->fullname) {
-			$req->set_parameter('omb_listenee_fullname', $profile->fullname);
-		}
-		if ($profile->homepage) {
-			$req->set_parameter('omb_listenee_homepage', $profile->homepage);
-		}
-		if ($profile->bio) {
-			$req->set_parameter('omb_listenee_bio', $profile->bio);
-		}
-		if ($profile->location) {
-			$req->set_parameter('omb_listenee_location', $profile->location);
-		}
-		$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
-		if ($avatar) {
-			$req->set_parameter('omb_listenee_avatar', $avatar->url);
-		}
+        if ($profile->fullname) {
+            $req->set_parameter('omb_listenee_fullname', $profile->fullname);
+        }
+        if ($profile->homepage) {
+            $req->set_parameter('omb_listenee_homepage', $profile->homepage);
+        }
+        if ($profile->bio) {
+            $req->set_parameter('omb_listenee_bio', $profile->bio);
+        }
+        if ($profile->location) {
+            $req->set_parameter('omb_listenee_location', $profile->location);
+        }
+        $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
+        if ($avatar) {
+            $req->set_parameter('omb_listenee_avatar', $avatar->url);
+        }
 
-		# XXX: add a nonce to prevent replay attacks
+        # XXX: add a nonce to prevent replay attacks
 
-		$req->set_parameter('oauth_callback', common_local_url('finishremotesubscribe'));
+        $req->set_parameter('oauth_callback', common_local_url('finishremotesubscribe'));
 
-		# XXX: test to see if endpoint accepts this signature method
+        # XXX: test to see if endpoint accepts this signature method
 
-		$req->sign_request(omb_hmac_sha1(), $con, $tok);
+        $req->sign_request(omb_hmac_sha1(), $con, $tok);
 
-		# store all our info here
+        # store all our info here
 
-		$omb['listenee'] = $user->nickname;
-		$omb['listener'] = omb_local_id($omb[OAUTH_ENDPOINT_REQUEST]);
-		$omb['token'] = $token;
-		$omb['secret'] = $secret;
-		# call doesn't work after bounce back so we cache; maybe serialization issue...?
-		$omb['access_token_url'] = omb_service_uri($omb[OAUTH_ENDPOINT_ACCESS]);
-		$omb['post_notice_url'] = omb_service_uri($omb[OMB_ENDPOINT_POSTNOTICE]);
-		$omb['update_profile_url'] = omb_service_uri($omb[OMB_ENDPOINT_UPDATEPROFILE]);
+        $omb['listenee'] = $user->nickname;
+        $omb['listener'] = omb_local_id($omb[OAUTH_ENDPOINT_REQUEST]);
+        $omb['token'] = $token;
+        $omb['secret'] = $secret;
+        # call doesn't work after bounce back so we cache; maybe serialization issue...?
+        $omb['access_token_url'] = omb_service_uri($omb[OAUTH_ENDPOINT_ACCESS]);
+        $omb['post_notice_url'] = omb_service_uri($omb[OMB_ENDPOINT_POSTNOTICE]);
+        $omb['update_profile_url'] = omb_service_uri($omb[OMB_ENDPOINT_UPDATEPROFILE]);
 
-		common_ensure_session();
+        common_ensure_session();
 
-		$_SESSION['oauth_authorization_request'] = $omb;
+        $_SESSION['oauth_authorization_request'] = $omb;
 
-		# Redirect to authorization service
+        # Redirect to authorization service
 
-		common_redirect($req->to_url());
-		return;
-	}
-
-	function make_nonce() {
-		return common_good_rand(16);
-	}
+        common_redirect($req->to_url());
+        return;
+    }
 }

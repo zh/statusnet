@@ -20,8 +20,8 @@
 
 # Abort if called from a web server
 if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
-	print "This script must be run from the command line\n";
-	exit();
+    print "This script must be run from the command line\n";
+    exit();
 }
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
@@ -33,21 +33,25 @@ require_once(INSTALLDIR . '/lib/queuehandler.php');
 
 set_error_handler('common_error_handler');
 
-class EnjitQueueHandler extends QueueHandler {
-	
-	function transport() {
-		return 'enjit';
-	}
+class EnjitQueueHandler extends QueueHandler
+{
+    
+    function transport()
+    {
+        return 'enjit';
+    }
 
-	function start() {
+    function start()
+    {
                 $this->log(LOG_INFO, "Starting EnjitQueueHandler");
                 $this->log(LOG_INFO, "Broadcasting to ".common_config('enjit', 'apiurl'));
-		return true;
-	}
+        return true;
+    }
 
-	function handle_notice($notice) {
+    function handle_notice($notice)
+    {
 
-		$profile = Profile::staticGet($notice->profile_id);
+        $profile = Profile::staticGet($notice->profile_id);
 
                 $this->log(LOG_INFO, "Posting Notice ".$notice->id." from ".$profile->nickname);
 
@@ -60,25 +64,25 @@ class EnjitQueueHandler extends QueueHandler {
                 #
                 # Build an Atom message from the notice
                 #
-		$noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
-		$msg = $profile->nickname . ': ' . $notice->content;
+        $noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
+        $msg = $profile->nickname . ': ' . $notice->content;
 
-		$atom  = "<entry xmlns='http://www.w3.org/2005/Atom'>\n";
-		$atom .= "<apisource>".common_config('enjit','source')."</apisource>\n";
-		$atom .= "<source>\n";
-		$atom .= "<title>" . $profile->nickname . " - " . common_config('site', 'name') . "</title>\n";
-		$atom .= "<link href='" . $profile->profileurl . "'/>\n";
-		$atom .= "<link rel='self' type='application/rss+xml' href='" . common_local_url('userrss', array('nickname' => $profile->nickname)) . "'/>\n";
-		$atom .= "<author><name>" . $profile->nickname . "</name></author>\n";
-		$atom .= "<icon>" . common_profile_avatar_url($profile, AVATAR_PROFILE_SIZE) . "</icon>\n";
-		$atom .= "</source>\n";
-		$atom .= "<title>" . htmlspecialchars($msg) . "</title>\n";
-		$atom .= "<summary>" . htmlspecialchars($msg) . "</summary>\n";
-		$atom .= "<link rel='alternate' href='" . $noticeurl . "' />\n";
-		$atom .= "<id>". $notice->uri . "</id>\n";
-		$atom .= "<published>".common_date_w3dtf($notice->created)."</published>\n";
-		$atom .= "<updated>".common_date_w3dtf($notice->modified)."</updated>\n";
-		$atom .= "</entry>\n";
+        $atom  = "<entry xmlns='http://www.w3.org/2005/Atom'>\n";
+        $atom .= "<apisource>".common_config('enjit','source')."</apisource>\n";
+        $atom .= "<source>\n";
+        $atom .= "<title>" . $profile->nickname . " - " . common_config('site', 'name') . "</title>\n";
+        $atom .= "<link href='" . $profile->profileurl . "'/>\n";
+        $atom .= "<link rel='self' type='application/rss+xml' href='" . common_local_url('userrss', array('nickname' => $profile->nickname)) . "'/>\n";
+        $atom .= "<author><name>" . $profile->nickname . "</name></author>\n";
+        $atom .= "<icon>" . common_profile_avatar_url($profile, AVATAR_PROFILE_SIZE) . "</icon>\n";
+        $atom .= "</source>\n";
+        $atom .= "<title>" . htmlspecialchars($msg) . "</title>\n";
+        $atom .= "<summary>" . htmlspecialchars($msg) . "</summary>\n";
+        $atom .= "<link rel='alternate' href='" . $noticeurl . "' />\n";
+        $atom .= "<id>". $notice->uri . "</id>\n";
+        $atom .= "<published>".common_date_w3dtf($notice->created)."</published>\n";
+        $atom .= "<updated>".common_date_w3dtf($notice->modified)."</updated>\n";
+        $atom .= "</entry>\n";
 
                 $url  = common_config('enjit', 'apiurl') . "/submit/". common_config('enjit','apikey');
                 $data = "msg=$atom";
@@ -86,43 +90,43 @@ class EnjitQueueHandler extends QueueHandler {
                 #
                 # POST the message to $config['enjit']['apiurl']
                 #
-		$ch   = curl_init();
+        $ch   = curl_init();
 
-		curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_URL, $url);
  
                 curl_setopt($ch, CURLOPT_HEADER, 1); 
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($ch, CURLOPT_POST, 1) ;
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1) ;
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 
                 # SSL and Debugging options
                 #
-		# curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-		# curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        # curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        # curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
                 # curl_setopt($ch, CURLOPT_VERBOSE, 1); 
 
-		$result = curl_exec($ch);
+        $result = curl_exec($ch);
 
-		$code = curl_getinfo($ch, CURLINFO_HTTP_CODE );
+        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE );
 
                 $this->log(LOG_INFO, "Response Code: $code");
 
-		curl_close($ch);
+        curl_close($ch);
 
                 return $code;
-	}
-	
+    }
+    
 
 }
 
 mb_internal_encoding('UTF-8');
 
-$id = ($argc > 1) ? $argv[1] : NULL;
+$id = ($argc > 1) ? $argv[1] : null;
 
 $handler = new EnjitQueueHandler($id);
 
 if ($handler->start()) {
-	$handler->handle_queue();
+    $handler->handle_queue();
 }
 
 $handler->finish();

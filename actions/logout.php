@@ -1,5 +1,16 @@
 <?php
-/*
+/**
+ * Logout action.
+ *
+ * PHP version 5
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ *
  * Laconica - a distributed open-source microblogging tool
  * Copyright (C) 2008, Controlez-Vous, Inc.
  *
@@ -17,25 +28,52 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
-require_once(INSTALLDIR.'/lib/openid.php');
+require_once INSTALLDIR.'/lib/openid.php';
 
-class LogoutAction extends Action {
-	
-	function is_readonly() {
-		return true;
-	}
-	
-	function handle($args) {
-		parent::handle($args);
-		if (!common_logged_in()) {
-			common_user_error(_('Not logged in.'));
-		} else {
-			common_set_user(NULL);
-			common_real_login(false); # not logged in
-			common_forgetme(); # don't log back in!
-			common_redirect(common_local_url('public'));
-		}
-	}
+/**
+ * Logout action class.
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ */
+class LogoutAction extends Action
+{
+    
+    /**
+     * This is read only.
+     * 
+     * @return boolean true
+     */
+    function isReadOnly()
+    {
+        return true;
+    }
+
+    /**
+     * Class handler.
+     * 
+     * @param array $args array of arguments
+     *
+     * @return nothing
+     */
+    function handle($args)
+    {
+        parent::handle($args);
+        if (!common_logged_in()) {
+            $this->clientError(_('Not logged in.'));
+        } else {
+            common_set_user(null);
+            common_real_login(false); // not logged in
+            common_forgetme(); // don't log back in!
+            common_redirect(common_local_url('public'));
+        }
+    }
 }

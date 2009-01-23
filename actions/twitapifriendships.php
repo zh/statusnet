@@ -21,135 +21,139 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/twitterapi.php');
 
-class TwitapifriendshipsAction extends TwitterapiAction {
+class TwitapifriendshipsAction extends TwitterapiAction
+{
 
-	function create($args, $apidata) {
-		parent::handle($args);
+    function create($args, $apidata)
+    {
+        parent::handle($args);
 
-		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-			$this->client_error(_('This method requires a POST.'), 400, $apidata['content-type']);
-			return;
-		}
+        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+            $this->clientError(_('This method requires a POST.'), 400, $apidata['content-type']);
+            return;
+        }
 
-		$id = $apidata['api_arg'];
+        $id = $apidata['api_arg'];
 
-		$other = $this->get_user($id);
+        $other = $this->get_user($id);
 
-		if (!$other) {
-			$this->client_error(_('Could not follow user: User not found.'), 403, $apidata['content-type']);
-			return;
-		}
+        if (!$other) {
+            $this->clientError(_('Could not follow user: User not found.'), 403, $apidata['content-type']);
+            return;
+        }
 
-		$user = $apidata['user'];
+        $user = $apidata['user'];
 
-		if ($user->isSubscribed($other)) {
-			$errmsg = sprintf(_('Could not follow user: %s is already on your list.'), $other->nickname);
-			$this->client_error($errmsg, 403, $apidata['content-type']);
-			return;
-		}
+        if ($user->isSubscribed($other)) {
+            $errmsg = sprintf(_('Could not follow user: %s is already on your list.'), $other->nickname);
+            $this->clientError($errmsg, 403, $apidata['content-type']);
+            return;
+        }
 
-		$sub = new Subscription();
+        $sub = new Subscription();
 
-		$sub->query('BEGIN');
+        $sub->query('BEGIN');
 
-		$sub->subscriber = $user->id;
-		$sub->subscribed = $other->id;
-		$sub->created = DB_DataObject_Cast::dateTime(); # current time
+        $sub->subscriber = $user->id;
+        $sub->subscribed = $other->id;
+        $sub->created = DB_DataObject_Cast::dateTime(); # current time
 
-		$result = $sub->insert();
+        $result = $sub->insert();
 
-		if (!$result) {
-			$errmsg = sprintf(_('Could not follow user: %s is already on your list.'), $other->nickname);
-			$this->client_error($errmsg, 400, $apidata['content-type']);
-			return;
-		}
+        if (!$result) {
+            $errmsg = sprintf(_('Could not follow user: %s is already on your list.'), $other->nickname);
+            $this->clientError($errmsg, 400, $apidata['content-type']);
+            return;
+        }
 
-		$sub->query('COMMIT');
+        $sub->query('COMMIT');
 
-		mail_subscribe_notify($other, $user);
+        mail_subscribe_notify($other, $user);
 
-		$type = $apidata['content-type'];
-		$this->init_document($type);
-		$this->show_profile($other, $type);
-		$this->end_document($type);
+        $type = $apidata['content-type'];
+        $this->init_document($type);
+        $this->show_profile($other, $type);
+        $this->end_document($type);
 
-	}
+    }
 
-	function destroy($args, $apidata) {
-		parent::handle($args);
+    function destroy($args, $apidata)
+    {
+        parent::handle($args);
 
-		if (!in_array($_SERVER['REQUEST_METHOD'], array('POST', 'DELETE'))) {
-			$this->client_error(_('This method requires a POST or DELETE.'), 400, $apidata['content-type']);
-			return;
-		}
+        if (!in_array($_SERVER['REQUEST_METHOD'], array('POST', 'DELETE'))) {
+            $this->clientError(_('This method requires a POST or DELETE.'), 400, $apidata['content-type']);
+            return;
+        }
 
-		$id = $apidata['api_arg'];
+        $id = $apidata['api_arg'];
 
-		# We can't subscribe to a remote person, but we can unsub
+        # We can't subscribe to a remote person, but we can unsub
 
-		$other = $this->get_profile($id);
-		$user = $apidata['user'];
+        $other = $this->get_profile($id);
+        $user = $apidata['user'];
 
-		$sub = new Subscription();
-		$sub->subscriber = $user->id;
-		$sub->subscribed = $other->id;
+        $sub = new Subscription();
+        $sub->subscriber = $user->id;
+        $sub->subscribed = $other->id;
 
-		if ($sub->find(TRUE)) {
-			$sub->query('BEGIN');
-			$sub->delete();
-			$sub->query('COMMIT');
-		} else {
-			$this->client_error(_('You are not friends with the specified user.'), 403, $apidata['content-type']);
-			return;
-		}
+        if ($sub->find(true)) {
+            $sub->query('BEGIN');
+            $sub->delete();
+            $sub->query('COMMIT');
+        } else {
+            $this->clientError(_('You are not friends with the specified user.'), 403, $apidata['content-type']);
+            return;
+        }
 
-		$type = $apidata['content-type'];
-		$this->init_document($type);
-		$this->show_profile($other, $type);
-		$this->end_document($type);
+        $type = $apidata['content-type'];
+        $this->init_document($type);
+        $this->show_profile($other, $type);
+        $this->end_document($type);
 
-	}
+    }
 
-	function exists($args, $apidata) {
-		parent::handle($args);
+    function exists($args, $apidata)
+    {
+        parent::handle($args);
 
-		if (!in_array($apidata['content-type'], array('xml', 'json'))) {
-			common_user_error(_('API method not found!'), $code = 404);
-			return;
-		}
+        if (!in_array($apidata['content-type'], array('xml', 'json'))) {
+            $this->clientError(_('API method not found!'), $code = 404);
+            return;
+        }
 
-		$user_a_id = $this->trimmed('user_a');
-		$user_b_id = $this->trimmed('user_b');
+        $user_a_id = $this->trimmed('user_a');
+        $user_b_id = $this->trimmed('user_b');
 
-		$user_a = $this->get_user($user_a_id);
-		$user_b = $this->get_user($user_b_id);
+        $user_a = $this->get_user($user_a_id);
+        $user_b = $this->get_user($user_b_id);
 
-		if (!$user_a || !$user_b) {
-			$this->client_error(_('Two user ids or screen_names must be supplied.'), 400, $apidata['content-type']);
-			return;
-		}
+        if (!$user_a || !$user_b) {
+            $this->clientError(_('Two user ids or screen_names must be supplied.'), 400, $apidata['content-type']);
+            return;
+        }
 
-		if ($user_a->isSubscribed($user_b)) {
-			$result = 'true';
-		} else {
-			$result = 'false';
-		}
+        if ($user_a->isSubscribed($user_b)) {
+            $result = 'true';
+        } else {
+            $result = 'false';
+        }
 
-		switch ($apidata['content-type']) {
-		 case 'xml':
-			$this->init_document('xml');
-			common_element('friends', NULL, $result);
-			$this->end_document('xml');
-			break;
-		 case 'json':
-			$this->init_document('json');
-			print json_encode($result);
-			$this->end_document('json');
-			break;
-		 default:
-			break;
-		}
+        switch ($apidata['content-type']) {
+         case 'xml':
+            $this->init_document('xml');
+            $this->element('friends', null, $result);
+            $this->end_document('xml');
+            break;
+         case 'json':
+            $this->init_document('json');
+            print json_encode($result);
+            $this->end_document('json');
+            break;
+         default:
+            break;
+        }
 
-	}
+    }
 
 }

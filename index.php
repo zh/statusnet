@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Laconica - a distributed open-source microblogging tool
  * Copyright (C) 2008, Controlez-Vous, Inc.
  *
@@ -20,13 +20,13 @@
 define('INSTALLDIR', dirname(__FILE__));
 define('LACONICA', true);
 
-require_once(INSTALLDIR . "/lib/common.php");
+require_once INSTALLDIR . '/lib/common.php';
 
-# get and cache current user
+// get and cache current user
 
 $user = common_current_user();
 
-# initialize language env
+// initialize language env
 
 common_init_language();
 
@@ -41,30 +41,34 @@ if (!$action || !preg_match('/^[a-zA-Z0-9_-]*$/', $action)) {
 
 if (!$user && common_config('site', 'private') &&
     !in_array($action, array('login', 'openidlogin', 'finishopenidlogin',
-                             'recoverpassword', 'api', 'doc', 'register')))
-{
+                             'recoverpassword', 'api', 'doc', 'register'))) {
     common_redirect(common_local_url('login'));
 }
 
 $actionfile = INSTALLDIR."/actions/$action.php";
 
 if (file_exists($actionfile)) {
-    require_once($actionfile);
-    $action_class = ucfirst($action)."Action";
+
+    include_once $actionfile;
+
+    $action_class = ucfirst($action).'Action';
+
     $action_obj = new $action_class();
-	if ($config['db']['mirror'] && $action_obj->is_readonly()) {
-		if (is_array($config['db']['mirror'])) {
-			# "load balancing", ha ha
-			$k = array_rand($config['db']['mirror']);
-			$mirror = $config['db']['mirror'][$k];
-		} else {
-			$mirror = $config['db']['mirror'];
-		}
-		$config['db']['database'] = $mirror;
-	}
+
+    if ($config['db']['mirror'] && $action_obj->isReadOnly()) {
+        if (is_array($config['db']['mirror'])) {
+            // "load balancing", ha ha
+            $k = array_rand($config['db']['mirror']);
+
+            $mirror = $config['db']['mirror'][$k];
+        } else {
+            $mirror = $config['db']['mirror'];
+        }
+        $config['db']['database'] = $mirror;
+    }
     if (call_user_func(array($action_obj, 'prepare'), $_REQUEST)) {
-		call_user_func(array($action_obj, 'handle'), $_REQUEST);
-	}
+        call_user_func(array($action_obj, 'handle'), $_REQUEST);
+    }
 } else {
     common_user_error(_('Unknown action'));
 }

@@ -1,5 +1,17 @@
 <?php
-/*
+
+/**
+ * Opensearch action class.
+ *
+ * PHP version 5
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ *
  * Laconica - a distributed open-source microblogging tool
  * Copyright (C) 2008, Controlez-Vous, Inc.
  *
@@ -17,43 +29,59 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
-
-class OpensearchAction extends Action {
-
-	function handle($args) {
-
-		parent::handle($args);
-
-		$type = $this->trimmed('type');
-
-		$short_name = '';
-		if ($type == 'people') {
-			$type = 'peoplesearch';
-			$short_name = _('People Search');
-		} else {
-			$short_name = _('Notice Search');
-			$type = 'noticesearch';
-		}
-
-		header('Content-Type: text/html');
-
-		common_start_xml();
-		common_element_start('OpenSearchDescription', array('xmlns' => 'http://a9.com/-/spec/opensearch/1.1/'));
-
-		$short_name =  common_config('site', 'name').' '.$short_name;
-		common_element('ShortName', NULL, $short_name);
-		common_element('Contact', NULL, common_config('site', 'email'));
-		common_element('Url', array('type' => 'text/html', 'method' => 'get',
-					   'template' => str_replace('---', '{searchTerms}', common_local_url($type, array('q' => '---')))));
-		common_element('Image', array('height' => 16, 'width' => 16, 'type' => 'image/vnd.microsoft.icon'), common_path('favicon.ico'));
-		common_element('Image', array('height' => 50, 'width' => 50, 'type' => 'image/png'), theme_path('logo.png'));
-		common_element('AdultContent', NULL, 'false');
-		common_element('Language', NULL, common_language());
-		common_element('OutputEncoding', NULL, 'UTF-8');
-		common_element('InputEncoding', NULL, 'UTF-8');
-
-		common_element_end('OpenSearchDescription');
-		common_end_xml();
-	}
+if (!defined('LACONICA')) {
+    exit(1);
 }
+
+/**
+ * Opensearch action class.
+ *
+ * Formatting of RSS handled by Rss10Action
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ */
+class OpensearchAction extends Action
+{
+    /**
+     * Class handler.
+     *
+     * @param array $args query arguments
+     * 
+     * @return boolean false if user doesn't exist
+     */
+    function handle($args)
+    {
+        parent::handle($args);
+        $type       = $this->trimmed('type');
+        $short_name = '';
+        if ($type == 'people') {
+            $type       = 'peoplesearch';
+            $short_name = _('People Search');
+        } else {
+            $type       = 'noticesearch';
+            $short_name = _('Notice Search');
+        }
+        header('Content-Type: text/html');
+        common_start_xml();
+        $this->elementStart('OpenSearchDescription', array('xmlns' => 'http://a9.com/-/spec/opensearch/1.1/'));
+        $short_name =  common_config('site', 'name').' '.$short_name;
+        $this->element('ShortName', null, $short_name);
+        $this->element('Contact', null, common_config('site', 'email'));
+        $this->element('Url', array('type' => 'text/html', 'method' => 'get',
+                       'template' => str_replace('---', '{searchTerms}', common_local_url($type, array('q' => '---')))));
+        $this->element('Image', array('height' => 16, 'width' => 16, 'type' => 'image/vnd.microsoft.icon'), common_path('favicon.ico'));
+        $this->element('Image', array('height' => 50, 'width' => 50, 'type' => 'image/png'), theme_path('logo.png'));
+        $this->element('AdultContent', null, 'false');
+        $this->element('Language', null, common_language());
+        $this->element('OutputEncoding', null, 'UTF-8');
+        $this->element('InputEncoding', null, 'UTF-8');
+        $this->elementEnd('OpenSearchDescription');
+        common_end_xml();
+    }
+}
+

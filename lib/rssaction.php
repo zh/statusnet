@@ -1,9 +1,12 @@
 <?php
-/*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+/**
+ * Laconica, the distributed open-source microblogging tool
  *
- * This program is free software: you can redistribute it and/or modify
+ * Base class for RSS 1.0 feed actions
+ *
+ * PHP version 5
+ *
+ * LICENCE: This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -15,175 +18,245 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Mail
+ * @package   Laconica
+ * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @author    Earle Martin <earle@downlode.org>
+ * @copyright 2008-9 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
  */
 
 if (!defined('LACONICA')) { exit(1); }
 
 define('DEFAULT_RSS_LIMIT', 48);
 
-class Rss10Action extends Action {
+class Rss10Action extends Action
+{
+    # This will contain the details of each feed item's author and be used to generate SIOC data.
 
-	# This will contain the details of each feed item's author and be used to generate SIOC data.
-	var $creators = array();
+    var $creators = array();
+    var $limit = DEFAULT_RSS_LIMIT;
 
-	function is_readonly() {
-		return true;
-	}
+    /**
+     * Constructor
+     *
+     * Just wraps the Action constructor.
+     *
+     * @param string  $output URI to output to, default = stdout
+     * @param boolean $indent Whether to indent output, default true
+     *
+     * @see Action::__construct
+     */
 
-	function handle($args) {
-		parent::handle($args);
-		$limit = (int) $this->trimmed('limit');
-		if ($limit == 0) {
-			$limit = DEFAULT_RSS_LIMIT;
-		}
-		$this->show_rss($limit);
-	}
+    function __construct($output='php://output', $indent=true)
+    {
+        parent::__construct($output, $indent);
+    }
 
-	function init() {
-		return true;
-	}
+    /**
+     * Do we need to write to the database?
+     *
+     * @return boolean true
+     */
 
-	function get_notices() {
-		return array();
-	}
+    function isReadonly()
+    {
+        return true;
+    }
 
-	function get_channel() {
-		return array('url' => '',
-					 'title' => '',
-					 'link' => '',
-					 'description' => '');
-	}
+    /**
+     * Read arguments and initialize members
+     *
+     * @param array $args Arguments from $_REQUEST
+     * @return boolean success
+     */
 
-	function get_image() {
-		return NULL;
-	}
+    function prepare($args)
+    {
+        parent::prepare($args);
+        $this->limit = (int) $this->trimmed('limit');
+        if ($this->limit == 0) {
+            $this->limit = DEFAULT_RSS_LIMIT;
+        }
+        return true;
+    }
 
-	function show_rss($limit=0) {
+    /**
+     * Handle a request
+     *
+     * @param array $args Arguments from $_REQUEST
+     *
+     * @return void
+     */
 
-		if (!$this->init()) {
-			return;
-		}
+    function handle($args)
+    {
+        parent::handle($args);
+        $this->showRss($this->limit);
+    }
 
-		$notices = $this->get_notices($limit);
+    /**
+     * Get the notices to output in this stream
+     *
+     * @return array an array of Notice objects sorted in reverse chron
+     */
 
-		$this->init_rss();
-		$this->show_channel($notices);
-		$this->show_image();
+    function getNotices()
+    {
+        return array();
+    }
 
-		foreach ($notices as $n) {
-			$this->show_item($n);
-		}
+    /**
+     * Get a description of the channel
+     *
+     * Returns an array with the following
+     * @return array
+     */
 
-		$this->show_creators();
-		$this->end_rss();
-	}
+    function getChannel()
+    {
+        return array('url' => '',
+                     'title' => '',
+                     'link' => '',
+                     'description' => '');
+    }
 
-	function show_channel($notices) {
+    function getImage()
+    {
+        return null;
+    }
 
-		$channel = $this->get_channel();
-		$image = $this->get_image();
+    function showRss($limit=0)
+    {
+        $notices = $this->getNotices($limit);
 
-		common_element_start('channel', array('rdf:about' => $channel['url']));
-		common_element('title', NULL, $channel['title']);
-		common_element('link', NULL, $channel['link']);
-		common_element('description', NULL, $channel['description']);
-		common_element('cc:licence', array('rdf:resource' => common_config('license','url')));
+        $this->initRss();
+        $this->showChannel($notices);
+        $this->showImage();
 
-		if ($image) {
-			common_element('image', array('rdf:resource' => $image));
-		}
+        foreach ($notices as $n) {
+            $this->showItem($n);
+        }
 
-		common_element_start('items');
-		common_element_start('rdf:Seq');
+        $this->showCreators();
+        $this->endRss();
+    }
 
-		foreach ($notices as $notice) {
-			common_element('sioct:MicroblogPost', array('rdf:resource' => $notice->uri));
-		}
+    function showChannel($notices)
+    {
 
-		common_element_end('rdf:Seq');
-		common_element_end('items');
+        $channel = $this->getChannel();
+        $image = $this->getImage();
 
-		common_element_end('channel');
-	}
+        $this->elementStart('channel', array('rdf:about' => $channel['url']));
+        $this->element('title', null, $channel['title']);
+        $this->element('link', null, $channel['link']);
+        $this->element('description', null, $channel['description']);
+        $this->element('cc:licence', array('rdf:resource' => common_config('license','url')));
 
-	function show_image() {
-		$image = $this->get_image();
-		if ($image) {
-			$channel = $this->get_channel();
-			common_element_start('image', array('rdf:about' => $image));
-			common_element('title', NULL, $channel['title']);
-			common_element('link', NULL, $channel['link']);
-			common_element('url', NULL, $image);
-			common_element_end('image');
-		}
-	}
+        if ($image) {
+            $this->element('image', array('rdf:resource' => $image));
+        }
 
-	function show_item($notice) {
-		$profile = Profile::staticGet($notice->profile_id);
-		$nurl = common_local_url('shownotice', array('notice' => $notice->id));
-		$creator_uri = common_profile_uri($profile);
-		common_element_start('item', array('rdf:about' => $notice->uri));
-		$title = $profile->nickname . ': ' . common_xml_safe_str(trim($notice->content));
-		common_element('title', NULL, $title);
-		common_element('link', NULL, $nurl);
-		common_element('description', NULL, $profile->nickname."'s status on ".common_exact_date($notice->created));
-		common_element('dc:date', NULL, common_date_w3dtf($notice->created));
-		common_element('dc:creator', NULL, ($profile->fullname) ? $profile->fullname : $profile->nickname);
-		common_element('sioc:has_creator', array('rdf:resource' => $creator_uri));
-		common_element('laconica:postIcon', array('rdf:resource' => common_profile_avatar_url($profile)));
-		common_element('cc:licence', array('rdf:resource' => common_config('license', 'url')));
-		common_element_end('item');
-		$this->creators[$creator_uri] = $profile;
-	}
+        $this->elementStart('items');
+        $this->elementStart('rdf:Seq');
 
-	function show_creators() {
-		foreach ($this->creators as $uri => $profile) {
-			$id = $profile->id;
-			$nickname = $profile->nickname;
-			common_element_start('sioc:User', array('rdf:about' => $uri));
-			common_element('foaf:nick', NULL, $nickname);
-			if ($profile->fullname) {
-				common_element('foaf:name', NULL, $profile->fullname);
-			}
-			common_element('sioc:id', NULL, $id);
-			$avatar = common_profile_avatar_url($profile);
-			common_element('sioc:avatar', array('rdf:resource' => $avatar));
-			common_element_end('sioc:User');
-		}
-	}
+        foreach ($notices as $notice) {
+            $this->element('sioct:MicroblogPost', array('rdf:resource' => $notice->uri));
+        }
 
-	function init_rss() {
-		$channel = $this->get_channel();
-		header('Content-Type: application/rdf+xml');
+        $this->elementEnd('rdf:Seq');
+        $this->elementEnd('items');
 
-		common_start_xml();
-		common_element_start('rdf:RDF', array('xmlns:rdf' =>
-											  'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
-											  'xmlns:dc' =>
-											  'http://purl.org/dc/elements/1.1/',
-											  'xmlns:cc' =>
-											  'http://web.resource.org/cc/',
+        $this->elementEnd('channel');
+    }
+
+    function showImage()
+    {
+        $image = $this->getImage();
+        if ($image) {
+            $channel = $this->getChannel();
+            common_element_start('image', array('rdf:about' => $image));
+            common_element('title', null, $channel['title']);
+            common_element('link', null, $channel['link']);
+            common_element('url', null, $image);
+            common_element_end('image');
+        }
+    }
+
+    function showItem($notice)
+    {
+        $profile = Profile::staticGet($notice->profile_id);
+        $nurl = common_local_url('shownotice', array('notice' => $notice->id));
+        $creator_uri = common_profile_uri($profile);
+        $this->elementStart('item', array('rdf:about' => $notice->uri));
+        $title = $profile->nickname . ': ' . common_xml_safe_str(trim($notice->content));
+        $this->element('title', null, $title);
+        $this->element('link', null, $nurl);
+        $this->element('description', null, $profile->nickname."'s status on ".common_exact_date($notice->created));
+        $this->element('dc:date', null, common_date_w3dtf($notice->created));
+        $this->element('dc:creator', null, ($profile->fullname) ? $profile->fullname : $profile->nickname);
+        $this->element('sioc:has_creator', array('rdf:resource' => $creator_uri));
+        $this->element('laconica:postIcon', array('rdf:resource' => common_profile_avatar_url($profile)));
+        $this->element('cc:licence', array('rdf:resource' => common_config('license', 'url')));
+        $this->elementEnd('item');
+        $this->creators[$creator_uri] = $profile;
+    }
+
+    function showCreators()
+    {
+        foreach ($this->creators as $uri => $profile) {
+            $id = $profile->id;
+            $nickname = $profile->nickname;
+            $this->elementStart('sioc:User', array('rdf:about' => $uri));
+            $this->element('foaf:nick', null, $nickname);
+            if ($profile->fullname) {
+                $this->element('foaf:name', null, $profile->fullname);
+            }
+            $this->element('sioc:id', null, $id);
+            $avatar = common_profile_avatar_url($profile);
+            $this->element('sioc:avatar', array('rdf:resource' => $avatar));
+            $this->elementEnd('sioc:User');
+        }
+    }
+
+    function initRss()
+    {
+        $channel = $this->getChannel();
+        header('Content-Type: application/rdf+xml');
+
+        $this->startXml();
+        $this->elementStart('rdf:RDF', array('xmlns:rdf' =>
+                                              'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
+                                              'xmlns:dc' =>
+                                              'http://purl.org/dc/elements/1.1/',
+                                              'xmlns:cc' =>
+                                              'http://web.resource.org/cc/',
                                               'xmlns:content' =>
                                               'http://purl.org/rss/1.0/modules/content/',
-											  'xmlns:foaf' =>
-											  'http://xmlns.com/foaf/0.1/',
-											  'xmlns:sioc' =>
-											  'http://rdfs.org/sioc/ns#',
-		                                      'xmlns:sioct' =>
-		                                      'http://rdfs.org/sioc/types#',
-		                                      'xmlns:laconica' =>
-		                                      'http://laconi.ca/ont/',
-											  'xmlns' => 'http://purl.org/rss/1.0/'));
-		common_element_start('sioc:Site', array('rdf:about' => common_root_url()));
-		common_element('sioc:name', NULL, common_config('site', 'name'));
-		common_element_start('sioc:container_of');
-		common_element('sioc:Container', array('rdf:about' =>
-		                                       $channel['url']));
-		common_element_end('sioc:container_of');
-		common_element_end('sioc:Site');
-	}
+                                              'xmlns:foaf' =>
+                                              'http://xmlns.com/foaf/0.1/',
+                                              'xmlns:sioc' =>
+                                              'http://rdfs.org/sioc/ns#',
+                                              'xmlns:sioct' =>
+                                              'http://rdfs.org/sioc/types#',
+                                              'xmlns:laconica' =>
+                                              'http://laconi.ca/ont/',
+                                              'xmlns' => 'http://purl.org/rss/1.0/'));
+        $this->elementStart('sioc:Site', array('rdf:about' => common_root_url()));
+        $this->element('sioc:name', null, common_config('site', 'name'));
+        $this->elementStart('sioc:container_of');
+        $this->element('sioc:Container', array('rdf:about' =>
+                                               $channel['url']));
+        $this->elementEnd('sioc:container_of');
+        $this->elementEnd('sioc:Site');
+    }
 
-	function end_rss() {
-		common_element_end('rdf:RDF');
-	}
+    function endRss()
+    {
+        $this->elementEnd('rdf:RDF');
+    }
 }
+

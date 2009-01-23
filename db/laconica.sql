@@ -368,3 +368,60 @@ create table profile_block (
    constraint primary key (blocker, blocked)
 
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table user_group (
+
+    id integer auto_increment primary key comment 'unique identifier',
+
+    nickname varchar(64) unique key comment 'nickname for addressing',
+    fullname varchar(255) comment 'display name',
+    homepage varchar(255) comment 'URL, cached so we dont regenerate',
+    description varchar(140) comment 'descriptive biography',
+    location varchar(255) comment 'related physical location, if any',
+
+    original_logo varchar(255) comment 'original size logo',
+    homepage_logo varchar(255) comment 'homepage (profile) size logo',
+    stream_logo varchar(255) comment 'stream-sized logo',
+    mini_logo varchar(255) comment 'mini logo',
+
+    created datetime not null comment 'date this record was created',
+    modified timestamp comment 'date this record was modified',
+
+    index user_group_nickname_idx (nickname)
+
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table group_member (
+
+    group_id integer not null comment 'foreign key to user_group' references user_group (id),
+    profile_id integer not null comment 'foreign key to profile table' references profile (id),
+    is_admin boolean default false comment 'is this user an admin?',
+
+    created datetime not null comment 'date this record was created',
+    modified timestamp comment 'date this record was modified',
+
+    constraint primary key (group_id, profile_id)
+
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table related_group (
+
+    group_id integer not null comment 'foreign key to user_group' references user_group (id),
+    related_group_id integer not null comment 'foreign key to user_group' references user_group (id),
+
+    created datetime not null comment 'date this record was created',
+
+    constraint primary key (group_id, related_group_id)
+
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table group_inbox (
+    group_id integer not null comment 'group receiving the message' references user_group (id),
+    notice_id integer not null comment 'notice received' references notice (id),
+    created datetime not null comment 'date the notice was created',
+
+    constraint primary key (group_id, notice_id),
+    index group_inbox_created_idx (created)
+
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+

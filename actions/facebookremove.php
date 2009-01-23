@@ -10,56 +10,58 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.     See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.	 If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.     If not, see <http://www.gnu.org/licenses/>.
  */
 
 if (!defined('LACONICA')) { exit(1); }
 
-require_once(INSTALLDIR.'/lib/facebookaction.php');
+require_once INSTALLDIR.'/lib/facebookaction.php';
 
-class FacebookremoveAction extends FacebookAction {
+class FacebookremoveAction extends FacebookAction
+{
 
-	function handle($args) {
-		parent::handle($args);
+    function handle($args)
+    {
+        parent::handle($args);
 
-		$secret = common_config('facebook', 'secret');
+        $secret = common_config('facebook', 'secret');
 
-		$sig = '';
+        $sig = '';
 
-		ksort($_POST);
+        ksort($_POST);
 
-		foreach ($_POST as $key => $val) {
-			if (substr($key, 0, 7) == 'fb_sig_') {
-				$sig .= substr($key, 7) . '=' . $val;
-			}
-		 }
+        foreach ($_POST as $key => $val) {
+            if (substr($key, 0, 7) == 'fb_sig_') {
+                $sig .= substr($key, 7) . '=' . $val;
+            }
+         }
 
-		$sig .= $secret;
-		$verify = md5($sig);
+        $sig .= $secret;
+        $verify = md5($sig);
 
-		if ($verify == $this->arg('fb_sig')) {
+        if ($verify == $this->arg('fb_sig')) {
 
-			$flink = Foreign_link::getByForeignID($this->arg('fb_sig_user'), 2);
+            $flink = Foreign_link::getByForeignID($this->arg('fb_sig_user'), 2);
 
-			common_debug("Removing foreign link to Facebook - local user ID: $flink->user_id, Facebook ID: $flink->foreign_id");
+            common_debug("Removing foreign link to Facebook - local user ID: $flink->user_id, Facebook ID: $flink->foreign_id");
 
-			$result = $flink->delete();
+            $result = $flink->delete();
 
-			if (!$result) {
-				common_log_db_error($flink, 'DELETE', __FILE__);
-				common_server_error(_('Couldn\'t remove Facebook user.'));
-				return;
-			}
+            if (!$result) {
+                common_log_db_error($flink, 'DELETE', __FILE__);
+                $this->serverError(_('Couldn\'t remove Facebook user.'));
+                return;
+            }
 
-		} else {
-			# Someone bad tried to remove facebook link?
-			common_log(LOG_ERR, "Someone from $_SERVER[REMOTE_ADDR] " .
-				'unsuccessfully tried to remove a foreign link to Facebook!');
-		}
-	}
+        } else {
+            # Someone bad tried to remove facebook link?
+            common_log(LOG_ERR, "Someone from $_SERVER[REMOTE_ADDR] " .
+                'unsuccessfully tried to remove a foreign link to Facebook!');
+        }
+    }
 
 }

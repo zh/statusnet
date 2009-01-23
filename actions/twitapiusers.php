@@ -10,28 +10,30 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.     See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.	 If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.     If not, see <http://www.gnu.org/licenses/>.
  */
 
 if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/twitterapi.php');
 
-class TwitapiusersAction extends TwitterapiAction {
+class TwitapiusersAction extends TwitterapiAction
+{
 
-	function show($args, $apidata) {
-		parent::handle($args);
+    function show($args, $apidata)
+    {
+        parent::handle($args);
 
-		if (!in_array($apidata['content-type'], array('xml', 'json'))) {
-			common_user_error(_('API method not found!'), $code = 404);
-			return;
-		}
+        if (!in_array($apidata['content-type'], array('xml', 'json'))) {
+            $this->clientError(_('API method not found!'), $code = 404);
+            return;
+        }
 
-		$this->auth_user = $apidata['user'];
+ $this->auth_user = $apidata['user'];
 		$user = null;
 		$email = $this->arg('email');
 

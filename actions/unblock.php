@@ -1,5 +1,16 @@
 <?php
-/*
+/**
+ * Unblock a user action class.
+ *
+ * PHP version 5
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ *
  * Laconica - a distributed open-source microblogging tool
  * Copyright (C) 2008, Controlez-Vous, Inc.
  *
@@ -17,63 +28,86 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
-class UnblockAction extends Action {
+/**
+ * Unblock a user action class.
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ */
+class UnblockAction extends Action
+{
+    var $profile = null;
 
-    var $profile = NULL;
-
-    function prepare($args) {
-
+    /**
+     * Take arguments for running
+     *
+     * @param array $args $_REQUEST args
+     *
+     * @return boolean success flag
+     */
+    function prepare($args)
+    {
         parent::prepare($args);
-
         if (!common_logged_in()) {
-            $this->client_error(_('Not logged in.'));
+            $this->clientError(_('Not logged in.'));
             return false;
         }
-
-		$token = $this->trimmed('token');
-
-		if (!$token || $token != common_session_token()) {
-			$this->client_error(_('There was a problem with your session token. Try again, please.'));
-			return;
-		}
-
+        $token = $this->trimmed('token');
+        if (!$token || $token != common_session_token()) {
+            $this->clientError(_('There was a problem with your session token. Try again, please.'));
+            return;
+        }
         $id = $this->trimmed('unblockto');
-
         if (!$id) {
-            $this->client_error(_('No profile specified.'));
+            $this->clientError(_('No profile specified.'));
             return false;
         }
-
         $this->profile = Profile::staticGet('id', $id);
-
         if (!$this->profile) {
-            $this->client_error(_('No profile with that ID.'));
+            $this->clientError(_('No profile with that ID.'));
             return false;
         }
-
         return true;
     }
 
-    function handle($args) {
+    /**
+     * Handle request
+     *
+     * Shows a page with list of favorite notices
+     *
+     * @param array $args $_REQUEST args; handled in prepare()
+     *
+     * @return void
+     */
+    function handle($args)
+    {
         parent::handle($args);
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->unblock_profile();
+            $this->unblockProfile();
         }
     }
 
-    function unblock_profile() {
-
-        $cur = common_current_user();
-
+    /**
+     * Unblock a user.
+     *
+     * @return void
+     */
+    function unblockProfile()
+    {
+        $cur    = common_current_user();
         $result = $cur->unblock($this->profile);
-
         if (!$result) {
-            $this->server_error(_('Error removing the block.'));
+            $this->serverError(_('Error removing the block.'));
             return;
         }
-
         foreach ($this->args as $k => $v) {
             if ($k == 'returnto-action') {
                 $action = $v;
@@ -81,7 +115,6 @@ class UnblockAction extends Action {
                 $args[substr($k, 9)] = $v;
             }
         }
-
         if ($action) {
             common_redirect(common_local_url($action, $args));
         } else {
@@ -90,3 +123,4 @@ class UnblockAction extends Action {
         }
     }
 }
+
