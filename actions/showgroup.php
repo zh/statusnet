@@ -372,4 +372,16 @@ class ShowgroupAction extends Action
 
         $this->elementEnd('div');
     }
+
+    function showAnonymousMessage()
+    {
+		$m = sprintf(_('**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
+                       'based on the Free Software [Laconica](http://laconi.ca/) tool. Its members share ' .
+                       'short messages about their life and interests. '.
+                       '[Join now](%%%%action.register%%%%) to become part of this group and many more! ([Read more](%%%%doc.help%%%%))'),
+                     $this->group->nickname);
+        $this->elementStart('p', 'anonymous');
+        $this->raw(common_markup_to_html($m));
+        $this->elementEnd('p');
+    }
 }
