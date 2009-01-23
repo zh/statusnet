@@ -23,60 +23,15 @@
 
 function common_server_error($msg, $code=500)
 {
-    static $status = array(500 => 'Internal Server Error',
-                           501 => 'Not Implemented',
-                           502 => 'Bad Gateway',
-                           503 => 'Service Unavailable',
-                           504 => 'Gateway Timeout',
-                           505 => 'HTTP Version Not Supported');
-
-    if (!array_key_exists($code, $status)) {
-        $code = 500;
-    }
-
-    $status_string = $status[$code];
-
-    header('HTTP/1.1 '.$code.' '.$status_string);
-    header('Content-type: text/plain');
-
-    print $msg;
-    print "\n";
-    exit();
+    $err = new ServerErrorAction($msg, $code);
+    $err->showPage();
 }
 
 // Show a user error
 function common_user_error($msg, $code=400)
 {
-    static $status = array(400 => 'Bad Request',
-                           401 => 'Unauthorized',
-                           402 => 'Payment Required',
-                           403 => 'Forbidden',
-                           404 => 'Not Found',
-                           405 => 'Method Not Allowed',
-                           406 => 'Not Acceptable',
-                           407 => 'Proxy Authentication Required',
-                           408 => 'Request Timeout',
-                           409 => 'Conflict',
-                           410 => 'Gone',
-                           411 => 'Length Required',
-                           412 => 'Precondition Failed',
-                           413 => 'Request Entity Too Large',
-                           414 => 'Request-URI Too Long',
-                           415 => 'Unsupported Media Type',
-                           416 => 'Requested Range Not Satisfiable',
-                           417 => 'Expectation Failed');
-
-    if (!array_key_exists($code, $status)) {
-        $code = 400;
-    }
-
-    $status_string = $status[$code];
-
-    header('HTTP/1.1 '.$code.' '.$status_string);
-
-    common_show_header('Error');
-    common_element('div', array('class' => 'error'), $msg);
-    common_show_footer();
+    $err = new ClientErrorAction($msg, $code);
+    $err->showPage();
 }
 
 function common_init_locale($language=null)
