@@ -64,6 +64,12 @@ class NoticeForm extends Form
     var $content = null;
 
     /**
+     * The current user
+     */
+
+    var $user = null;
+
+    /**
      * Constructor
      *
      * @param HTMLOutputter $out     output channel
@@ -71,12 +77,19 @@ class NoticeForm extends Form
      * @param string        $content content to pre-fill
      */
 
-    function __construct($out=null, $action=null, $content=null)
+    function __construct($out=null, $action=null, $content=null, $user=null)
     {
         parent::__construct($out);
 
         $this->action  = $action;
         $this->content = $content;
+        
+        if ($user) {
+            $this->user = $user;
+        } else {
+            $this->user = common_current_user();
+        }
+        
     }
 
     /**
@@ -121,12 +134,11 @@ class NoticeForm extends Form
 
     function formData()
     {
-        $user = common_current_user();
 
         $this->out->elementStart('ul', 'form_data');
         $this->out->elementStart('li', array('id' => 'notice_text'));
         $this->out->element('label', array('for' => 'notice_data-text'),
-                            sprintf(_('What\'s up, %s?'), $user->nickname));
+                            sprintf(_('What\'s up, %s?'), $this->user->nickname));
         // XXX: vary by defined max size
         $this->out->element('textarea', array('id' => 'notice_data-text',
                                               'cols' => 35,

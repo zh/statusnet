@@ -21,62 +21,75 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once INSTALLDIR.'/lib/facebookaction.php';
 
+
 class FacebookhomeAction extends FacebookAction
 {
 
+    var $page = null;
+    
+    function prepare($argarray)
+    {        
+        parent::prepare($argarray);
+        
+        $this->page = $this->trimmed('page');
+       
+        if (!$this->page) {
+            $this->page = 1;
+        }
+        
+        return true;
+    }
+
     function handle($args)
     {
-        parent::handle($args);
-
-        $facebook = get_facebook();
-        $fbuid = $facebook->require_login();
-
-        // Check to see whether there's already a Facebook link for this user
-        $flink = Foreign_link::getByForeignID($fbuid, FACEBOOK_SERVICE);
-
+        parent::handle($args);        
+        
         // If the user has opted not to initially allow the app to have
         // Facebook status update permission, store that preference. Only
         // promt the user the first time she uses the app
         if ($this->arg('skip')) {
-            $facebook->api_client->data_setUserPreference(
+            $this->facebook->api_client->data_setUserPreference(
                 FACEBOOK_PROMPTED_UPDATE_PREF, 'true');
         }
 
-        if ($flink) {
+        if ($this->flink) {
 
-            if ($_POST['submit'] == 'Send') {
-                $this->saveNewNotice($flink);
-                return;
-            }
-
-            $user = $flink->getUser();
-            common_set_user($user);
+            $this->user = $this->flink->getUser();
 
             // If this is the first time the user has started the app
-            // prompt for Facebook status update permission
-            if (!$facebook->api_client->users_hasAppPermission('status_update')) {
+             // prompt for Facebook status update permission
+             if (!$this->facebook->api_client->users_hasAppPermission('status_update')) {
 
-                if ($facebook->api_client->data_getUserPreference(
-                        FACEBOOK_PROMPTED_UPDATE_PREF) != 'true') {
-                    $this->getUpdatePermission();
-                    return;
-                }
+                 if ($this->facebook->api_client->data_getUserPreference(
+                         FACEBOOK_PROMPTED_UPDATE_PREF) != 'true') {
+                     $this->getUpdatePermission();
+                     return;
+                 }
+             }
+
+             // Make sure the user's profile box has the lastest notice
+             $notice = $this->user->getCurrentNotice();
+             $this->updateProfileBox($notice);
+
+            if ($this->arg('status_submit') == 'Send') {            
+                $this->saveNewNotice();
             }
 
-            // Use is authenticated and has already been prompted once for
+            // User is authenticated and has already been prompted once for
             // Facebook status update permission? Then show the main page
             // of the app
-            $this->showHome($flink, null);
+            $this->showPage();
 
+            
         } else {
 
             // User hasn't authenticated yet, prompt for creds
-            $this->login($fbuid);
+            $this->login();
         }
 
     }
 
-    function login($fbuid)
+    function login()
     {
         $nickname = common_canonical_nickname($this->trimmed('nickname'));
         $password = $this->arg('password');
@@ -95,7 +108,7 @@ class FacebookhomeAction extends FacebookAction
 
                 $flink = DB_DataObject::factory('foreign_link');
                 $flink->user_id = $user->id;
-                $flink->foreign_id = $fbuid;
+                $flink->foreign_id = $this->fbuid;
                 $flink->service = FACEBOOK_SERVICE;
                 $flink->created = common_sql_now();
                 $flink->set_flags(true, false, false);
@@ -121,80 +134,62 @@ class FacebookhomeAction extends FacebookAction
 
     function setDefaults()
     {
-        $facebook = get_facebook();
-
         // A default prefix string for notices
-        $facebook->api_client->data_setUserPreference(
+        $this->facebook->api_client->data_setUserPreference(
             FACEBOOK_NOTICE_PREFIX, 'dented: ');
-        $facebook->api_client->data_setUserPreference(
+        $this->facebook->api_client->data_setUserPreference(
             FACEBOOK_PROMPTED_UPDATE_PREF, 'false');
     }
+    
 
-    function showHome($flink, $msg)
+    function showNoticeForm()
     {
-
-        $facebook = get_facebook();
-        $fbuid = $facebook->require_login();
-
-        $user = $flink->getUser();
-
-        $notice = $user->getCurrentNotice();
-        update_profile_box($facebook, $fbuid, $user, $notice);
-
-        $this->showHeader($msg);
-        $this->showNoticeForm($user);
-        $this->showNav('Home');
-
-        echo $this->showNotices($user);
-
-        $this->showFooter();
+        
+        $post_action = "$this->app_uri/index.php";
+        
+        $notice_form = new FacebookNoticeForm($this, $post_action, null, 
+            $post_action, $this->user);
+        $notice_form->show();
     }
 
-    function showNotices($user)
+    function title()
+    {
+        if ($this->page > 1) {
+            return sprintf(_("%s and friends, page %d"), $this->user->nickname, $this->page);
+        } else {
+            return sprintf(_("%s and friends"), $this->user->nickname);
+        }
+    }
+
+    function showContent()
     {
 
-        $page = $this->trimmed('page');
-        if (!$page) {
-            $page = 1;
-        }
+        $notice = $this->user->noticesWithFriends(($this->page-1) *
+            NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
+        
+        $nl = new NoticeList($notice, $this);
 
-        $notice = $user->noticesWithFriends(($page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
+        $cnt = $nl->show();
 
-        $cnt = $this->showNoticeList($notice);
+        $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
+                          $this->page, 'index.php', array('nickname' => $this->user->nickname));
 
-        facebookPagination($page > 1, $cnt > NOTICES_PER_PAGE,
-            $page, 'all', array('nickname' => $user->nickname));
     }
 
     function showNoticeList($notice)
     {
-        $nl = new FacebookNoticeList($notice);
+                
+        $nl = new NoticeList($notice, $this);
         return $nl->show();
     }
 
     function getUpdatePermission() {
 
-        $facebook = get_facebook();
-        $fbuid = $facebook->require_login();
-
-        startFBML();
-
-        $this->showStylesheets();
-        $this->showScripts();
-
-        $this->showLogo();
-
         $this->elementStart('div', array('class' => 'content'));
-
-        // Figure what the URL of our app is.
-        $app_props = $facebook->api_client->Admin_getAppProperties(
-                array('canvas_name', 'application_name'));
-        $app_url = 'http://apps.facebook.com/' . $app_props['canvas_name'] . '/index.php';
-        $app_name = $app_props['application_name'];
 
         $instructions = sprintf(_('If you would like the %s app to automatically update ' .
             'your Facebook status with your latest notice, you need ' .
-            'to give it permission.'), $app_name);
+            'to give it permission.'), $this->app_name);
 
         $this->elementStart('p');
         $this->element('span', array('id' => 'permissions_notice'), $instructions);
@@ -207,33 +202,31 @@ class FacebookhomeAction extends FacebookAction
         $this->elementStart('ul', array('id' => 'fb-permissions-list'));
         $this->elementStart('li', array('id' => 'fb-permissions-item'));
         $this->elementStart('fb:prompt-permission', array('perms' => 'status_update',
-            'next_fbjs' => 'document.setLocation(\'' . $app_url . '\')'));
+            'next_fbjs' => 'document.setLocation(\'' . $this->app_uri . '\')'));
         $this->element('span', array('class' => 'facebook-button'),
-            _('Allow Identi.ca to update my Facebook status'));
+            sprintf(_('Allow %s to update my Facebook status'), $this->app_name));
         $this->elementEnd('fb:prompt-permission');
         $this->elementEnd('li');
 
         $this->elementStart('li', array('id' => 'fb-permissions-item'));
-        common_submit('skip', _('Skip'));
+        $this->submit('skip', _('Skip'));
         $this->elementEnd('li');
         $this->elementEnd('ul');
 
         $this->elementEnd('form');
         $this->elementEnd('div');
 
-        common_end_xml();
-
     }
 
-    function saveNewNotice($flink)
+    function saveNewNotice()
     {
 
-        $user = $flink->getUser();
+        $user = $this->flink->getUser();
 
-        $content = $_POST['status_textarea'];
-
+        $content = $this->trimmed('status_textarea');
+        
         if (!$content) {
-            $this->showHome($flink, _('No content!'));
+            $this->showPage(_('No notice content!'));
             return;
         } else {
             $content_shortened = common_shorten_links($content);
@@ -241,7 +234,7 @@ class FacebookhomeAction extends FacebookAction
             if (mb_strlen($content_shortened) > 140) {
                 common_debug("Content = '$content_shortened'", __FILE__);
                 common_debug("mb_strlen(\$content) = " . mb_strlen($content_shortened), __FILE__);
-                $this->showHome($flink, _('That\'s too long. Max notice size is 140 chars.'));
+                $this->showPage(_('That\'s too long. Max notice size is 140 chars.'));
                 return;
             }
         }
@@ -251,6 +244,9 @@ class FacebookhomeAction extends FacebookAction
         $cmd = $inter->handle_command($user, $content_shortened);
 
         if ($cmd) {
+            
+            // XXX fix this
+            
             $cmd->execute(new WebChannel());
             return;
         }
@@ -261,12 +257,62 @@ class FacebookhomeAction extends FacebookAction
             'Facebook', 1, ($replyto == 'false') ? null : $replyto);
 
         if (is_string($notice)) {
-            $this->showHome($flink, 'Error!');
+            $this->showPage($notice);
             return;
         }
 
         common_broadcast_notice($notice);
-        $this->showHome($flink, 'Success!');
+        
     }
+    
+    /**
+     * Generate pagination links
+     *
+     * @param boolean $have_before is there something before?
+     * @param boolean $have_after  is there something after?
+     * @param integer $page        current page
+     * @param string  $action      current action
+     * @param array   $args        rest of query arguments
+     *
+     * @return nothing
+     */
+    function pagination($have_before, $have_after, $page, $action, $args=null)
+    {
+                
+        // Does a little before-after block for next/prev page
+     
+        // XXX: Fix so this uses common_local_url() if possible.
+     
+        if ($have_before || $have_after) {
+            $this->elementStart('div', array('class' => 'pagination'));
+            $this->elementStart('dl', null);
+            $this->element('dt', null, _('Pagination'));
+            $this->elementStart('dd', null);
+            $this->elementStart('ul', array('class' => 'nav'));
+        }
+        if ($have_before) {
+            $pargs   = array('page' => $page-1);
+            $newargs = $args ? array_merge($args, $pargs) : $pargs;
+            $this->elementStart('li', array('class' => 'nav_prev'));            
+            $this->element('a', array('href' => "$action?page=$newargs[page]", 'rel' => 'prev'),
+                           _('After'));
+            $this->elementEnd('li');
+        }
+        if ($have_after) {
+            $pargs   = array('page' => $page+1);
+            $newargs = $args ? array_merge($args, $pargs) : $pargs;
+            $this->elementStart('li', array('class' => 'nav_next'));
+            $this->element('a', array('href' => "$action?page=$newargs[page]", 'rel' => 'next'),
+                           _('Before'));
+            $this->elementEnd('li');
+        }
+        if ($have_before || $have_after) {
+            $this->elementEnd('ul');
+            $this->elementEnd('dd');
+            $this->elementEnd('dl');
+            $this->elementEnd('div');
+        }
+    }
+    
 
 }
