@@ -395,6 +395,27 @@ function jabber_broadcast_notice($notice)
         }
     }
 
+    // Now, get users who have it in their inbox because of groups
+
+    $user = new User();
+    $user->query('SELECT user.id, user.jabber ' .
+                 'FROM user JOIN notice_inbox ' .
+                 'ON user.id = notice_inbox.user_id ' .
+                 'WHERE notice_inbox.notice_id = ' . $notice->id . ' ' .
+                 'AND notice_inbox.source = 2 ');
+
+    while ($user->fetch()) {
+        if (!array_key_exists($user->id, $sent_to)) {
+            common_log(LOG_INFO,
+                       'Sending notice ' . $notice->id . ' to ' . $user->jabber,
+                       __FILE__);
+            $conn->message($user->jabber, $msg, 'chat', null, $entry);
+            // To keep the incoming queue from filling up,
+            // we service it after each send.
+            $conn->processTime(0);
+        }
+    }
+
     $user->free();
 
     return true;
