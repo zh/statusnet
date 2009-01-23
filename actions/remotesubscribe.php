@@ -92,14 +92,26 @@ class RemotesubscribeAction extends Action
     {
         # id = remotesubscribe conflicts with the
         # button on profile page
-        $this->elementStart('form', array('id' => 'remsub', 'method' => 'post',
-                                           'action' => common_local_url('remotesubscribe')));
+        $this->elementStart('form', array('id' => 'form_remote_subscribe',
+                                          'method' => 'post',
+                                          'class' => 'form_settings',
+                                          'action' => common_local_url('remotesubscribe')));
+        $this->elementStart('fieldset');
+        $this->element('legend', 'Subscribe to a remote user');
         $this->hidden('token', common_session_token());
+        
+        $this->elementStart('ul', 'form_data');
+        $this->elementStart('li');
         $this->input('nickname', _('User nickname'), $this->nickname,
                      _('Nickname of the user you want to follow'));
+        $this->elementEnd('li');
+        $this->elementStart('li');
         $this->input('profile_url', _('Profile URL'), $this->profile_url,
                      _('URL of your profile on another compatible microblogging service'));
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
         $this->submit('submit', _('Subscribe'));
+        $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }
 

@@ -1,4 +1,12 @@
-/* theme: identica */
+/** theme: identica
+ *
+ * @package   Laconica
+ * @author Sarven Capadisli <csarven@controlyourself.ca>
+ * @copyright 2009 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
+ */
+
 html,
 body,
 a:active {
@@ -18,7 +26,8 @@ display:none;
 input, textarea, select, option {
 font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
-input, textarea, select {
+input, textarea, select,
+.entity_remote_subscribe {
 border-color:#aaa;
 }
 
@@ -26,7 +35,8 @@ border-color:#aaa;
 input.submit,
 #form_notice.warning #notice_text-count,
 #nav_register a,
-.form_settings .form_note {
+.form_settings .form_note,
+.entity_remote_subscribe {
 background-color:#A9BF4F;
 }
 
@@ -35,7 +45,8 @@ input:focus, textarea:focus, select:focus,
 border-color:#A9BF4F;
 }
 input.submit,
-#nav_register a {
+#nav_register a,
+.entity_remote_subscribe {
 color:#fff;
 }
 
@@ -66,9 +77,7 @@ background-color:#fcfcfc;
 background-color:#fcfffc;
 }
 
-#aside_primary,
-#entity_subscribe a,
-#TB_window input.submit {
+#aside_primary {
 background-color:#CEE1E9;
 }
 
@@ -148,12 +157,6 @@ background-image:url(../../base/images/icons/icon_foaf.gif);
 }
 #export_data li a.export_vcard {
 background-image:url(../../base/images/icons/icon_vcard.gif);
-}
-
-
-/*user_actions*/
-#user_actions li {
-/*border-top-color:#eee;*/
 }
 
 
@@ -259,6 +262,10 @@ background-color:#fcfcfc;
 /*END: NOTICES */
 
 
+#groups #new_group a {
+background:transparent url(../images/icons/twotone/green/news.gif) no-repeat 0 45%;
+}
+
 
 .pagination .nav_prev a,
 .pagination .nav_next a {
@@ -271,20 +278,4 @@ background-position:0 45%;
 .pagination .nav_next a {
 background-image:url(../images/icons/twotone/green/arrow-right.gif);
 background-position:100% 45%;
-}
-
-
-
-#home #intro #guide_steps li a {
-border-color:#ccc;
-color:#fff;
-}
-#home #intro #step_join-now a {
-background-color:#f00;
-}
-#home #intro #step_start-a-group a {
-background-color:#0f0;
-}
-#home #intro #step_create-a-community a {
-background-color:#00f;
 }

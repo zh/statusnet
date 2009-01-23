@@ -95,7 +95,7 @@ class ShownoticeAction extends Action
             return false;
         }
 
-        $this->avatar = $this->profile->getAvatar(AVATAR_STREAM_SIZE);
+        $this->avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
 
         return true;
     }
