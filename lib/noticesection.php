@@ -80,7 +80,7 @@ class NoticeSection extends Section
         $this->out->elementStart('a', array('title' => ($profile->fullname) ?
                                             $profile->fullname :
                                             $profile->nickname,
-                                            'href' => $profile->noticeurl,
+                                            'href' => $profile->profileurl,
                                             'class' => 'url'));
         $this->out->element('img', array('src' => (($avatar) ? common_avatar_display_url($avatar) :  common_default_avatar(AVATAR_MINI_SIZE)),
                                          'width' => AVATAR_MINI_SIZE,
