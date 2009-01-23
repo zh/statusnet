@@ -76,7 +76,7 @@ class TagCloudSection extends Section
 
         $this->out->elementStart('ul', 'tags xoxo tag-cloud');
         foreach ($tw as $tag => $weight) {
-            $this->showTag($tag, $weight, ($sum == 0) ? $weight : $weight/$sum);
+            $this->showTag($tag, $weight, ($sum == 0) ? 0 : $weight/$sum);
         }
         $this->out->elementEnd('ul');
 
