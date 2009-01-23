@@ -50,6 +50,10 @@ require_once INSTALLDIR.'/lib/accountsettingsaction.php';
 
 class AvatarsettingsAction extends AccountSettingsAction
 {
+    var $mode = null;
+    var $imagefile = null;
+    var $filename = null;
+
     /**
      * Title of the page
      *
@@ -69,7 +73,7 @@ class AvatarsettingsAction extends AccountSettingsAction
 
     function getInstructions()
     {
-        return _('Set your personal avatar.');
+        return _('You can upload your personal avatar.');
     }
 
     /**
@@ -81,6 +85,15 @@ class AvatarsettingsAction extends AccountSettingsAction
      */
 
     function showContent()
+    {
+        if ($this->mode == 'crop') {
+            $this->showCropForm();
+        } else {
+            $this->showUploadForm();
+        }
+    }
+
+    function showUploadForm()
     {
         $user = common_current_user();
 
@@ -132,16 +145,6 @@ class AvatarsettingsAction extends AccountSettingsAction
                                         'height' => AVATAR_PROFILE_SIZE,
                                         'alt' => $user->nickname));
             $this->elementEnd('div');
-
-            foreach (array('avatar_crop_x', 'avatar_crop_y',
-                           'avatar_crop_w', 'avatar_crop_h') as $crop_info) {
-                $this->element('input', array('name' => $crop_info,
-                                              'type' => 'hidden',
-                                              'id' => $crop_info));
-            }
-            $this->submit('crop', _('Crop'));
-
-            $this->elementEnd('li');
         }
 
         $this->elementStart('li', array ('id' => 'settings_attach'));
@@ -161,6 +164,69 @@ class AvatarsettingsAction extends AccountSettingsAction
         $this->elementEnd('li');
         $this->elementEnd('ul');
 
+        $this->elementEnd('fieldset');
+        $this->elementEnd('form');
+
+    }
+
+    function showCropForm()
+    {
+        $user = common_current_user();
+
+        $profile = $user->getProfile();
+
+        if (!$profile) {
+            common_log_db_error($user, 'SELECT', __FILE__);
+            $this->serverError(_('User without matching profile'));
+            return;
+        }
+
+        $original = $profile->getOriginalAvatar();
+
+        $this->elementStart('form', array('method' => 'post',
+                                          'id' => 'form_settings_avatar',
+                                          'class' => 'form_settings',
+                                          'action' =>
+                                          common_local_url('avatarsettings')));
+        $this->elementStart('fieldset');
+        $this->element('legend', null, _('Avatar settings'));
+        $this->hidden('token', common_session_token());
+
+        $this->elementStart('ul', 'form_data');
+
+        $this->elementStart('li',
+                            array('id' => 'avatar_original',
+                                  'class' => 'avatar_view'));
+        $this->element('h2', null, _("Original"));
+        $this->elementStart('div', array('id'=>'avatar_original_view'));
+        $this->element('img', array('src' => common_avatar_url($this->filedata['filename']),
+                                    'width' => $this->filedata['width'],
+                                    'height' => $this->filedata['height'],
+                                    'alt' => $user->nickname));
+        $this->elementEnd('div');
+        $this->elementEnd('li');
+
+        $this->elementStart('li',
+                            array('id' => 'avatar_preview',
+                                  'class' => 'avatar_view'));
+        $this->element('h2', null, _("Preview"));
+        $this->elementStart('div', array('id'=>'avatar_preview_view'));
+        $this->element('img', array('src' => common_avatar_url($this->filedata['filename']),
+                                    'width' => AVATAR_PROFILE_SIZE,
+                                    'height' => AVATAR_PROFILE_SIZE,
+                                    'alt' => $user->nickname));
+        $this->elementEnd('div');
+
+        foreach (array('avatar_crop_x', 'avatar_crop_y',
+                       'avatar_crop_w', 'avatar_crop_h') as $crop_info) {
+            $this->element('input', array('name' => $crop_info,
+                                          'type' => 'hidden',
+                                          'id' => $crop_info));
+        }
+        $this->submit('crop', _('Crop'));
+
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
 
@@ -212,17 +278,31 @@ class AvatarsettingsAction extends AccountSettingsAction
             return;
         }
 
-        $user = common_current_user();
+        $cur = common_current_user();
 
-        $profile = $user->getProfile();
+        $filename = common_avatar_filename($cur->id,
+                                           image_type_to_extension($imagefile->type),
+                                           null,
+                                           'tmp'.common_timestamp());
 
-        if ($profile->setOriginal($imagefile->filename)) {
-            $this->showForm(_('Avatar updated.'), true);
-        } else {
-            $this->showForm(_('Failed updating avatar.'));
-        }
+        $filepath = common_avatar_path($filename);
 
-        $imagefile->unlink();
+        move_uploaded_file($imagefile->filename, $filepath);
+
+        $filedata = array('filename' => $filename,
+                          'filepath' => $filepath,
+                          'width' => $imagefile->width,
+                          'height' => $imagefile->height,
+                          'type' => $imagefile->type);
+
+        $_SESSION['FILEDATA'] = $filedata;
+
+        $this->filedata = $filedata;
+
+        $this->mode = 'crop';
+
+        $this->showForm(_('Pick a square area of the image to be your avatar'),
+                        true);
     }
 
     /**
@@ -242,7 +322,77 @@ class AvatarsettingsAction extends AccountSettingsAction
         $w = $this->arg('avatar_crop_w');
         $h = $this->arg('avatar_crop_h');
 
-        if ($profile->crop_avatars($x, $y, $w, $h)) {
+        $filedata = $_SESSION['FILEDATA'];
+
+        if (!$filedata) {
+            $this->serverError(_('Lost our file data.'));
+            return;
+        }
+
+        $filepath = common_avatar_path($filedata['filename']);
+
+        if (!file_exists($filepath)) {
+            $this->serverError(_('Lost our file.'));
+            return;
+        }
+
+        switch ($filedata['type']) {
+        case IMAGETYPE_GIF:
+            $image_src = imagecreatefromgif($filepath);
+            break;
+        case IMAGETYPE_JPEG:
+            $image_src = imagecreatefromjpeg($filepath);
+            break;
+        case IMAGETYPE_PNG:
+            $image_src = imagecreatefrompng($filepath);
+            break;
+         default:
+            $this->serverError(_('Unknown file type'));
+            return;
+        }
+
+        common_debug("W = $w, H = $h, X = $x, Y = $y");
+
+        $image_dest = imagecreatetruecolor($w, $h);
+
+        $background = imagecolorallocate($image_dest, 0, 0, 0);
+        ImageColorTransparent($image_dest, $background);
+        imagealphablending($image_dest, false);
+
+        imagecopyresized($image_dest, $image_src, 0, 0, $x, $y, $w, $h, $w, $h);
+
+        $cur = common_current_user();
+
+        $filename = common_avatar_filename($cur->id,
+                                           image_type_to_extension($filedata['type']),
+                                           null,
+                                           common_timestamp());
+
+        $filepath = common_avatar_path($filename);
+
+        switch ($filedata['type']) {
+        case IMAGETYPE_GIF:
+            imagegif($image_dest, $filepath);
+            break;
+        case IMAGETYPE_JPEG:
+            imagejpeg($image_dest, $filepath);
+            break;
+        case IMAGETYPE_PNG:
+            imagepng($image_dest, $filepath);
+            break;
+         default:
+            $this->serverError(_('Unknown file type'));
+            return;
+        }
+
+        $user = common_current_user();
+
+        $profile = $cur->getProfile();
+
+        if ($profile->setOriginal($filepath)) {
+            @unlink(common_avatar_path($filedata['filename']));
+            unset($_SESSION['FILEDATA']);
+            $this->mode = 'upload';
             $this->showForm(_('Avatar updated.'), true);
         } else {
             $this->showForm(_('Failed updating avatar.'));

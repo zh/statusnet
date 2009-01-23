@@ -48,12 +48,17 @@ if (!defined('LACONICA')) {
 class ImageFile
 {
     var $filename = null;
+    var $barename = null;
     var $type = null;
+    var $height = null;
+    var $width = null;
 
-    function __construct($filename=null, $type=null)
+    function __construct($filename=null, $type=null, $width=null, $height=null)
     {
         $this->filename = $filename;
         $this->type = $type;
+        $this->width = $type;
+        $this->height = $type;
     }
 
     static function fromUpload($param='upload')
@@ -82,6 +87,9 @@ class ImageFile
             throw new Exception(_('Not an image or corrupt file.'));
             return;
         }
+
+        $imagefile->width = $info[0];
+        $imagefile->height = $info[1];
 
         switch ($info[2]) {
         case IMAGETYPE_GIF:
