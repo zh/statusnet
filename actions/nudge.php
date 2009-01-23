@@ -122,5 +122,10 @@ class NudgeAction extends Action
             // XXX: notify by SMS
         }
     }
+
+    function isReadOnly()
+    {
+        return true;
+    }
 }
 
