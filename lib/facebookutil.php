@@ -57,7 +57,7 @@ function getFacebookBaseCSS()
 {
     # Add a timestamp to the CSS file so Facebook cache wont ignore our changes
     $ts = filemtime(INSTALLDIR.'/theme/base/css/facebookapp.base.css');
-    $cssurl = INSTALLDIR.'/theme/base/css/facebookapp.base.css' . "?ts=$ts";
+    $cssurl = theme_path('css/facebookapp.base.css', 'base') . "?ts=$ts";
     return $cssurl;
 }
 
