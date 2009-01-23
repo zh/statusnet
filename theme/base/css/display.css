@@ -1101,6 +1101,7 @@ border-top:0;
 /* tagcloud */
 .tag-cloud {
 list-style-type:none;
+text-align:center;
 }
 
 .aside .tag-cloud {
@@ -1110,7 +1111,10 @@ font-size:0.8em;
 .tag-cloud li {
 display:inline;
 margin-right:7px;
-line-height:1;
+line-height:1.25;
+}
+.aside .tag-cloud li {
+line-height:1.5;
 }
 .tag-cloud li a {
 text-decoration:none;
@@ -1123,22 +1127,22 @@ font-weight:bold;
 font-size:1em;
 }
 .tag-cloud-2 {
-font-size:1.5em;
+font-size:1.25em;
 }
 .tag-cloud-3 {
-font-size:2em;
+font-size:1.75em;
 }
 .tag-cloud-4 {
-font-size:2.5em;
+font-size:2em;
 }
 .tag-cloud-5 {
-font-size:3em;
+font-size:2.25em;
 }
 .tag-cloud-6 {
-font-size:3.5em;
+font-size:2.75em;
 }
 .tag-cloud-7 {
-font-size:4em;
+font-size:3.25em;
 }
 
 #publictagcloud #tagcloud.section dt {
