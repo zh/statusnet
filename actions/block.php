@@ -90,15 +90,29 @@ class BlockAction extends Action
     {
         parent::handle($args);
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if ($this->arg('block')) {
-                $this->areYouSureForm();
-            } else if ($this->arg('no')) {
+            if ($this->arg('no')) {
                 $cur = common_current_user();
-                common_redirect(common_local_url('subscribers', array('nickname' => $cur->nickname)));
-            } else if ($this->arg('yes')) {
+                $other = Profile::staticGet('id', $this->arg('blockto'));
+                common_redirect(common_local_url('showstream', array('nickname' => $other->nickname)));
+            } elseif ($this->arg('yes')) {
                 $this->blockProfile();
+            } elseif ($this->arg('blockto')) {
+                $this->showPage();
             }
         }
+    }
+
+
+    function showContent() {
+        $this->areYouSureForm();
+    }
+
+    function title() {
+        return _('Block user');
+    }
+    
+    function showNoticeForm() {
+        // nop
     }
 
     /**
@@ -111,7 +125,6 @@ class BlockAction extends Action
     function areYouSureForm()
     {
         $id = $this->profile->id;
-        common_show_header(_('Block user'));
         $this->element('p', null,
                        _('Are you sure you want to block this user? '.
                          'Afterwards, they will be unsubscribed from you, '.
@@ -134,7 +147,6 @@ class BlockAction extends Action
         $this->submit('no', _('No'));
         $this->submit('yes', _('Yes'));
         $this->elementEnd('form');
-        common_show_footer();
     }
 
     /**
@@ -160,7 +172,7 @@ class BlockAction extends Action
         foreach ($this->args as $k => $v) {
             if ($k == 'returnto-action') {
                 $action = $v;
-            } else if (substr($k, 0, 9) == 'returnto-') {
+            } elseif (substr($k, 0, 9) == 'returnto-') {
                 $args[substr($k, 9)] = $v;
             }
         }
