@@ -2,7 +2,7 @@
 /**
  * Laconica, the distributed open-source microblogging tool
  *
- * Base class for sections showing lists of people
+ * Personal tag cloud section
  *
  * PHP version 5
  *
@@ -32,10 +32,7 @@ if (!defined('LACONICA')) {
 }
 
 /**
- * Base class for sections
- *
- * These are the widgets that show interesting data about a person
- * group, or site.
+ * Personal tag cloud section
  *
  * @category Widget
  * @package  Laconica
@@ -44,17 +41,33 @@ if (!defined('LACONICA')) {
  * @link     http://laconi.ca/
  */
 
-class TopPostersSection extends ProfileSection
+class GroupTagCloudSection extends TagCloudSection
 {
-    function getProfiles()
-    {
-        $qry = 'SELECT profile.*, count(*) as value ' .
-          'FROM profile JOIN notice ON profile.id = notice.profile_id ' .
-          (common_config('public', 'localonly') ? 'WHERE is_local = 1 ' : '') .
-          'GROUP BY profile.id ' .
-          'ORDER BY value DESC ';
+    var $group = null;
 
-        $limit = PROFILES_PER_SECTION;
+    function __construct($out=null, $group=null)
+    {
+        parent::__construct($out);
+        $this->group = $group;
+    }
+
+    function title()
+    {
+        return sprintf(_('Tags in %s group\'s notices'), $this->group->nickname);
+    }
+
+    function getTags()
+    {
+        $qry = 'SELECT notice_tag.tag, '.
+          'sum(exp(-(now() - notice_tag.created)/%s)) as weight ' .
+          'FROM notice_tag JOIN notice ' .
+          'ON notice_tag.notice_id = notice.id ' .
+          'JOIN group_inbox on group_inbox.notice_id = notice.id ' .
+          'WHERE group_inbox.group_id = %d ' .
+          'GROUP BY notice_tag.tag ' .
+          'ORDER BY weight DESC ';
+
+        $limit = TAGS_PER_SECTION;
         $offset = 0;
 
         if (common_config('db','type') == 'pgsql') {
@@ -63,19 +76,12 @@ class TopPostersSection extends ProfileSection
             $qry .= ' LIMIT ' . $offset . ', ' . $limit;
         }
 
-        $profile = Memcached_DataObject::cachedQuery('Profile',
-                                                     $qry,
-                                                     6 * 3600);
-        return $profile;
+        $tag = Memcached_DataObject::cachedQuery('Notice_tag',
+                                                 sprintf($qry,
+                                                         common_config('tag', 'dropoff'),
+                                                         $this->group->id),
+                                                 3600);
+        return $tag;
     }
 
-    function title()
-    {
-        return _('Top posters');
-    }
-
-    function divId()
-    {
-        return 'top_posters';
-    }
 }

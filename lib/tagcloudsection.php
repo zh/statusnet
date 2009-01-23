@@ -53,6 +53,7 @@ class TagCloudSection extends Section
         $tags = $this->getTags();
 
         if (!$tags) {
+            $this->out->element('p', null, _('None'));
             return false;
         }
 
@@ -64,6 +65,11 @@ class TagCloudSection extends Section
         while ($tags->fetch() && ++$cnt <= TAGS_PER_SECTION) {
             $tw[$tags->tag] = $tags->weight;
             $sum += $tags->weight;
+        }
+
+        if ($cnt == 0) {
+            $this->out->element('p', null, _('(None)'));
+            return false;
         }
 
         ksort($tw);
@@ -109,5 +115,10 @@ class TagCloudSection extends Section
     function tagUrl($tag)
     {
         return common_local_url('tag', array('tag' => $tag));
+    }
+
+    function divId()
+    {
+        return 'tagcloud';
     }
 }

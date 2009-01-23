@@ -23,7 +23,6 @@ require_once(INSTALLDIR.'/lib/openid.php');
 
 class OpenidloginAction extends Action
 {
-
     function handle($args)
     {
         parent::handle($args);
@@ -35,40 +34,40 @@ class OpenidloginAction extends Action
             # CSRF protection
             $token = $this->trimmed('token');
             if (!$token || $token != common_session_token()) {
-                $this->show_form(_('There was a problem with your session token. Try again, please.'), $openid_url);
+                $this->showForm(_('There was a problem with your session token. Try again, please.'), $openid_url);
                 return;
             }
 
             $rememberme = $this->boolean('rememberme');
-            
+
             common_ensure_session();
-            
+
             $_SESSION['openid_rememberme'] = $rememberme;
-            
+
             $result = oid_authenticate($openid_url,
                                        'finishopenidlogin');
-            
+
             if (is_string($result)) { # error message
                 unset($_SESSION['openid_rememberme']);
-                $this->show_form($result, $openid_url);
+                $this->showForm($result, $openid_url);
             }
         } else {
             $openid_url = oid_get_last();
-            $this->show_form(null, $openid_url);
+            $this->showForm(null, $openid_url);
         }
     }
 
-    function get_instructions()
+    function getInstructions()
     {
         return _('Login with an [OpenID](%%doc.openid%%) account.');
     }
 
-    function show_top($error=null)
+    function showPageNotice()
     {
-        if ($error) {
-            $this->element('div', array('class' => 'error'), $error);
+        if ($this->error) {
+            $this->element('div', array('class' => 'error'), $this->error);
         } else {
-            $instr = $this->get_instructions();
+            $instr = $this->getInstructions();
             $output = common_markup_to_html($instr);
             $this->elementStart('div', 'instructions');
             $this->raw($output);
@@ -76,22 +75,37 @@ class OpenidloginAction extends Action
         }
     }
 
-    function show_form($error=null, $openid_url)
+    function title()
     {
-        common_show_header(_('OpenID Login'), null, $error, array($this, 'show_top'));
+        return _('OpenID Login');
+    }
+
+    function showForm($error=null, $openid_url)
+    {
+        $this->error = $error;
+        $this->openid_url = $openid_url;
+        $this->showPage();
+    }
+
+    function showContent() {
         $formaction = common_local_url('openidlogin');
         $this->elementStart('form', array('method' => 'post',
                                            'id' => 'openidlogin',
                                            'action' => $formaction));
         $this->hidden('token', common_session_token());
         $this->input('openid_url', _('OpenID URL'),
-                     $openid_url,
+                     $this->openid_url,
                      _('Your OpenID URL'));
         $this->checkbox('rememberme', _('Remember me'), false,
                         _('Automatically login in the future; ' .
                            'not for shared computers!'));
         $this->submit('submit', _('Login'));
         $this->elementEnd('form');
-        common_show_footer();
+    }
+
+    function showLocalNav()
+    {
+        $nav = new LoginGroupNav($this);
+        $nav->show();
     }
 }

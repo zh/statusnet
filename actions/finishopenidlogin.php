@@ -23,6 +23,9 @@ require_once(INSTALLDIR.'/lib/openid.php');
 
 class FinishopenidloginAction extends Action
 {
+    var $error = null;
+    var $username = null;
+    var $message = null;
 
     function handle($args)
     {
@@ -32,32 +35,32 @@ class FinishopenidloginAction extends Action
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $token = $this->trimmed('token');
             if (!$token || $token != common_session_token()) {
-                $this->show_form(_('There was a problem with your session token. Try again, please.'));
+                $this->showForm(_('There was a problem with your session token. Try again, please.'));
                 return;
             }
             if ($this->arg('create')) {
                 if (!$this->boolean('license')) {
-                    $this->show_form(_('You can\'t register if you don\'t agree to the license.'),
-                                     $this->trimmed('newname'));
+                    $this->showForm(_('You can\'t register if you don\'t agree to the license.'),
+                                    $this->trimmed('newname'));
                     return;
                 }
-                $this->create_new_user();
+                $this->createNewUser();
             } else if ($this->arg('connect')) {
-                $this->connect_user();
+                $this->connectUser();
             } else {
                 common_debug(print_r($this->args, true), __FILE__);
-                $this->show_form(_('Something weird happened.'),
-                                 $this->trimmed('newname'));
+                $this->showForm(_('Something weird happened.'),
+                                $this->trimmed('newname'));
             }
         } else {
-            $this->try_login();
+            $this->tryLogin();
         }
     }
 
-    function show_top($error=null)
+    function showPageNotice()
     {
-        if ($error) {
-            $this->element('div', array('class' => 'error'), $error);
+        if ($this->error) {
+            $this->element('div', array('class' => 'error'), $this->error);
         } else {
             global $config;
             $this->element('div', 'instructions',
@@ -65,21 +68,36 @@ class FinishopenidloginAction extends Action
         }
     }
 
-    function show_form($error=null, $username=null)
+    function title()
     {
-        common_show_header(_('OpenID Account Setup'), null, $error,
-                           array($this, 'show_top'));
+        return _('OpenID Account Setup');
+    }
+
+    function showForm($error=null, $username=null)
+    {
+        $this->error = $error;
+        $this->username = $username;
+
+        $this->showPage();
+    }
+
+    function showContent()
+    {
+        if ($this->message_text) {
+            $this->element('p', null, $this->message);
+            return;
+        }
 
         $this->elementStart('form', array('method' => 'post',
-                                           'id' => 'account_connect',
-                                           'action' => common_local_url('finishopenidlogin')));
+                                          'id' => 'account_connect',
+                                          'action' => common_local_url('finishopenidlogin')));
         $this->hidden('token', common_session_token());
         $this->element('h2', null,
                        _('Create new account'));
         $this->element('p', null,
                        _('Create a new user with this nickname.'));
         $this->input('newname', _('New nickname'),
-                     ($username) ? $username : '',
+                     ($this->username) ? $this->username : '',
                      _('1-64 lowercase letters or numbers, no punctuation or spaces'));
         $this->elementStart('p');
         $this->element('input', array('type' => 'checkbox',
@@ -87,7 +105,7 @@ class FinishopenidloginAction extends Action
                                       'name' => 'license',
                                       'value' => 'true'));
         $this->text(_('My text and files are available under '));
-        $this->element('a', array(href => common_config('license', 'url')),
+        $this->element('a', array('href' => common_config('license', 'url')),
                        common_config('license', 'title'));
         $this->text(_(' except this private data: password, email address, IM address, phone number.'));
         $this->elementEnd('p');
@@ -100,12 +118,10 @@ class FinishopenidloginAction extends Action
         $this->password('password', _('Password'));
         $this->submit('connect', _('Connect'));
         $this->elementEnd('form');
-        common_show_footer();
     }
 
-    function try_login()
+    function tryLogin()
     {
-
         $consumer = oid_consumer();
 
         $response = $consumer->complete(common_local_url('finishopenidlogin'));
@@ -143,22 +159,21 @@ class FinishopenidloginAction extends Action
                     common_rememberme($user);
                 }
                 unset($_SESSION['openid_rememberme']);
-                $this->go_home($user->nickname);
+                $this->goHome($user->nickname);
             } else {
-                $this->save_values($display, $canonical, $sreg);
-                $this->show_form(null, $this->best_new_nickname($display, $sreg));
+                $this->saveValues($display, $canonical, $sreg);
+                $this->showForm(null, $this->bestNewNickname($display, $sreg));
             }
         }
     }
 
     function message($msg)
     {
-        common_show_header(_('OpenID Login'));
-        $this->element('p', null, $msg);
-        common_show_footer();
+        $this->message_text = $msg;
+        $this->showPage();
     }
 
-    function save_values($display, $canonical, $sreg)
+    function saveValues($display, $canonical, $sreg)
     {
         common_ensure_session();
         $_SESSION['openid_display'] = $display;
@@ -166,16 +181,15 @@ class FinishopenidloginAction extends Action
         $_SESSION['openid_sreg'] = $sreg;
     }
 
-    function get_saved_values()
+    function getSavedValues()
     {
         return array($_SESSION['openid_display'],
                      $_SESSION['openid_canonical'],
                      $_SESSION['openid_sreg']);
     }
 
-    function create_new_user()
+    function createNewUser()
     {
-
         # FIXME: save invite code before redirect, and check here
 
         if (common_config('site', 'closed') || common_config('site', 'inviteonly')) {
@@ -188,21 +202,21 @@ class FinishopenidloginAction extends Action
         if (!Validate::string($nickname, array('min_length' => 1,
                                                'max_length' => 64,
                                                'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
-            $this->show_form(_('Nickname must have only lowercase letters and numbers and no spaces.'));
+            $this->showForm(_('Nickname must have only lowercase letters and numbers and no spaces.'));
             return;
         }
 
         if (!User::allowed_nickname($nickname)) {
-            $this->show_form(_('Nickname not allowed.'));
+            $this->showForm(_('Nickname not allowed.'));
             return;
         }
 
         if (User::staticGet('nickname', $nickname)) {
-            $this->show_form(_('Nickname already in use. Try another one.'));
+            $this->showForm(_('Nickname already in use. Try another one.'));
             return;
         }
 
-        list($display, $canonical, $sreg) = $this->get_saved_values();
+        list($display, $canonical, $sreg) = $this->getSavedValues();
 
         if (!$display || !$canonical) {
             $this->serverError(_('Stored OpenID not found.'));
@@ -256,14 +270,13 @@ class FinishopenidloginAction extends Action
         common_redirect(common_local_url('showstream', array('nickname' => $user->nickname)));
     }
 
-    function connect_user()
+    function connectUser()
     {
-
         $nickname = $this->trimmed('nickname');
         $password = $this->trimmed('password');
 
         if (!common_check_user($nickname, $password)) {
-            $this->show_form(_('Invalid username or password.'));
+            $this->showForm(_('Invalid username or password.'));
             return;
         }
 
@@ -271,7 +284,7 @@ class FinishopenidloginAction extends Action
 
         $user = User::staticGet('nickname', $nickname);
 
-        list($display, $canonical, $sreg) = $this->get_saved_values();
+        list($display, $canonical, $sreg) = $this->getSavedValues();
 
         if (!$display || !$canonical) {
             $this->serverError(_('Stored OpenID not found.'));
@@ -293,10 +306,10 @@ class FinishopenidloginAction extends Action
             common_rememberme($user);
         }
         unset($_SESSION['openid_rememberme']);
-        $this->go_home($user->nickname);
+        $this->goHome($user->nickname);
     }
 
-    function go_home($nickname)
+    function goHome($nickname)
     {
         $url = common_get_returnto();
         if ($url) {
@@ -310,14 +323,14 @@ class FinishopenidloginAction extends Action
         common_redirect($url);
     }
 
-    function best_new_nickname($display, $sreg)
+    function bestNewNickname($display, $sreg)
     {
 
         # Try the passed-in nickname
 
         if ($sreg['nickname']) {
             $nickname = $this->nicknamize($sreg['nickname']);
-            if ($this->is_new_nickname($nickname)) {
+            if ($this->isNewNickname($nickname)) {
                 return $nickname;
             }
         }
@@ -326,16 +339,16 @@ class FinishopenidloginAction extends Action
 
         if ($sreg['fullname']) {
             $fullname = $this->nicknamize($sreg['fullname']);
-            if ($this->is_new_nickname($fullname)) {
+            if ($this->isNewNickname($fullname)) {
                 return $fullname;
             }
         }
 
         # Try the URL
 
-        $from_url = $this->openid_to_nickname($display);
+        $from_url = $this->openidToNickname($display);
 
-        if ($from_url && $this->is_new_nickname($from_url)) {
+        if ($from_url && $this->isNewNickname($from_url)) {
             return $from_url;
         }
 
@@ -344,14 +357,14 @@ class FinishopenidloginAction extends Action
         return null;
     }
 
-    function is_new_nickname($str)
+    function isNewNickname($str)
     {
         if (!Validate::string($str, array('min_length' => 1,
                                           'max_length' => 64,
                                           'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
             return false;
         }
-    if (!User::allowed_nickname($str)) {
+        if (!User::allowed_nickname($str)) {
             return false;
         }
         if (User::staticGet('nickname', $str)) {
@@ -360,12 +373,12 @@ class FinishopenidloginAction extends Action
         return true;
     }
 
-    function openid_to_nickname($openid)
+    function openidToNickname($openid)
     {
         if (Auth_Yadis_identifierScheme($openid) == 'XRI') {
-            return $this->xri_to_nickname($openid);
+            return $this->xriToNickname($openid);
         } else {
-            return $this->url_to_nickname($openid);
+            return $this->urlToNickname($openid);
         }
     }
 
@@ -374,7 +387,7 @@ class FinishopenidloginAction extends Action
     # 2. One element in path, like http://profile.typekey.com/EvanProdromou/
     #    or http://getopenid.com/evanprodromou
 
-    function url_to_nickname($openid)
+    function urlToNickname($openid)
     {
         static $bad = array('query', 'user', 'password', 'port', 'fragment');
 
@@ -421,9 +434,9 @@ class FinishopenidloginAction extends Action
         return null;
     }
 
-    function xri_to_nickname($xri)
+    function xriToNickname($xri)
     {
-        $base = $this->xri_base($xri);
+        $base = $this->xriBase($xri);
 
         if (!$base) {
             return null;
@@ -435,7 +448,7 @@ class FinishopenidloginAction extends Action
         }
     }
 
-    function xri_base($xri)
+    function xriBase($xri)
     {
         if (substr($xri, 0, 6) == 'xri://') {
             return substr($xri, 6);

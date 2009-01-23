@@ -2,7 +2,7 @@
 /**
  * Laconica, the distributed open-source microblogging tool
  *
- * Base class for sections showing lists of people
+ * Section for featured users
  *
  * PHP version 5
  *
@@ -32,10 +32,7 @@ if (!defined('LACONICA')) {
 }
 
 /**
- * Base class for sections
- *
- * These are the widgets that show interesting data about a person
- * group, or site.
+ * Section for featured users
  *
  * @category Widget
  * @package  Laconica
@@ -44,17 +41,28 @@ if (!defined('LACONICA')) {
  * @link     http://laconi.ca/
  */
 
-class TopPostersSection extends ProfileSection
+class FeaturedUsersSection extends ProfileSection
 {
     function getProfiles()
     {
-        $qry = 'SELECT profile.*, count(*) as value ' .
-          'FROM profile JOIN notice ON profile.id = notice.profile_id ' .
-          (common_config('public', 'localonly') ? 'WHERE is_local = 1 ' : '') .
-          'GROUP BY profile.id ' .
-          'ORDER BY value DESC ';
+        $featured_nicks = common_config('nickname', 'featured');
 
-        $limit = PROFILES_PER_SECTION;
+        if (!$featured_nicks) {
+            return null;
+        }
+
+        $quoted = array();
+
+        foreach ($featured_nicks as $nick) {
+            $quoted[] = "'$nick'";
+        }
+
+        $qry = 'SELECT profile.* ' .
+          'FROM profile JOIN user on profile.id = user.id ' .
+          'WHERE user.nickname in (' . implode(',', $quoted) . ') ' .
+          'ORDER BY profile.created DESC ';
+
+        $limit = PROFILES_PER_SECTION + 1;
         $offset = 0;
 
         if (common_config('db','type') == 'pgsql') {
@@ -71,11 +79,11 @@ class TopPostersSection extends ProfileSection
 
     function title()
     {
-        return _('Top posters');
+        return _('Featured users');
     }
 
     function divId()
     {
-        return 'top_posters';
+        return 'featured_users';
     }
 }

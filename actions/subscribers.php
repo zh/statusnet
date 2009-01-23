@@ -75,7 +75,11 @@ class SubscribersAction extends GalleryAction
         $offset = ($this->page-1) * PROFILES_PER_PAGE;
         $limit =  PROFILES_PER_PAGE + 1;
 
-        $subscribers = $this->user->getSubscribers($offset, $limit);
+        if ($this->tag) {
+            $subscribers = $this->user->getTaggedSubscribers($this->tag, $offset, $limit);
+        } else {
+            $subscribers = $this->user->getSubscribers($offset, $limit);
+        }
 
         if ($subscribers) {
             $subscribers_list = new SubscribersList($subscribers, $this->user, $this);

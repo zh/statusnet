@@ -54,13 +54,13 @@ class NoticeSection extends Section
 
         $cnt = 0;
 
-        $this->out->elementStart('table', 'notices');
+        $this->out->elementStart('ul', 'notices');
 
         while ($notices->fetch() && ++$cnt <= NOTICES_PER_SECTION) {
             $this->showNotice($notices);
         }
 
-        $this->out->elementEnd('table');
+        $this->out->elementEnd('ul');
 
         return ($cnt > NOTICES_PER_SECTION);
     }
@@ -73,9 +73,15 @@ class NoticeSection extends Section
     function showNotice($notice)
     {
         $profile = $notice->getProfile();
-        $this->out->elementStart('tr');
-        $this->out->elementStart('td');
+        $this->out->elementStart('li', 'hentry notice');
+        $this->out->elementStart('div', 'entry-title');
         $avatar = $profile->getAvatar(AVATAR_MINI_SIZE);
+        $this->out->elementStart('span', 'vcard author');
+        $this->out->elementStart('a', array('title' => ($profile->fullname) ?
+                                            $profile->fullname :
+                                            $profile->nickname,
+                                            'href' => $profile->noticeurl,
+                                            'class' => 'url'));
         $this->out->element('img', array('src' => (($avatar) ? common_avatar_display_url($avatar) :  common_default_avatar(AVATAR_MINI_SIZE)),
                                          'width' => AVATAR_MINI_SIZE,
                                          'height' => AVATAR_MINI_SIZE,
@@ -83,25 +89,19 @@ class NoticeSection extends Section
                                          'alt' =>  ($profile->fullname) ?
                                          $profile->fullname :
                                          $profile->nickname));
-        $this->out->elementEnd('a');
-        $this->out->elementEnd('td');
-        $this->out->elementStart('td');
-        $this->out->elementStart('a', array('title' => ($profile->fullname) ?
-                                            $profile->fullname :
-                                            $profile->nickname,
-                                            'href' => $profile->noticeurl,
-                                            'rel' => 'contact member',
-                                            'class' => 'url'));
         $this->out->element('span', 'fn nickname', $profile->nickname);
-        $this->out->elementEnd('td');
-        $this->out->elementStart('td');
+        $this->out->elementEnd('a');
+        $this->out->elementEnd('span');
+
+        $this->out->elementStart('p', 'entry-content');
         $this->out->raw($notice->rendered);
-        $this->out->elementEnd('td');
+        $this->out->elementEnd('p');
         if ($notice->value) {
-            $this->out->elementStart('td');
+            $this->out->elementStart('p');
             $this->out->text($notice->value);
-            $this->out->elementEnd('td');
+            $this->out->elementEnd('p');
         }
-        $this->out->elementEnd('tr');
+        $this->out->elementEnd('div');
+        $this->out->elementEnd('li');
     }
 }

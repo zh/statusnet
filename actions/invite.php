@@ -21,6 +21,11 @@ if (!defined('LACONICA')) { exit(1); }
 
 class InviteAction extends Action
 {
+    var $mode = null;
+    var $error = null;
+    var $already = null;
+    var $subbed = null;
+    var $sent = null;
 
     function isReadOnly()
     {
@@ -35,19 +40,18 @@ class InviteAction extends Action
                                         common_config('site', 'name')));
             return;
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->send_invitations();
+            $this->sendInvitations();
         } else {
-            $this->show_form();
+            $this->showForm();
         }
     }
 
-    function send_invitations()
+    function sendInvitations()
     {
-
         # CSRF protection
         $token = $this->trimmed('token');
         if (!$token || $token != common_session_token()) {
-            $this->show_form(_('There was a problem with your session token. Try again, please.'));
+            $this->showForm(_('There was a problem with your session token. Try again, please.'));
             return;
         }
 
@@ -63,78 +67,105 @@ class InviteAction extends Action
         foreach ($addresses as $email) {
             $email = trim($email);
             if (!Validate::email($email, true)) {
-                $this->show_form(sprintf(_('Invalid email address: %s'), $email));
+                $this->showForm(sprintf(_('Invalid email address: %s'), $email));
                 return;
             }
         }
 
-        $already = array();
-        $subbed = array();
+        $this->already = array();
+        $this->subbed = array();
 
         foreach ($addresses as $email) {
             $email = common_canonical_email($email);
             $other = User::staticGet('email', $email);
             if ($other) {
                 if ($user->isSubscribed($other)) {
-                    $already[] = $other;
+                    $this->already[] = $other;
                 } else {
                     subs_subscribe_to($user, $other);
-                    $subbed[] = $other;
+                    $this->subbed[] = $other;
                 }
             } else {
-                $sent[] = $email;
-                $this->send_invitation($email, $user, $personal);
+                $this->sent[] = $email;
+                $this->sendInvitation($email, $user, $personal);
             }
         }
 
-        common_show_header(_('Invitation(s) sent'));
-        if ($already) {
+        $this->mode = 'sent';
+
+        $this->showPage();
+    }
+
+    function title()
+    {
+        if ($this->mode == 'sent') {
+            return _('Invitation(s) sent');
+        } else {
+            return _('Invite new users');
+        }
+    }
+
+    function showContent()
+    {
+        if ($this->mode == 'sent') {
+            $this->showInvitationSuccess();
+        } else {
+            $this->showInviteForm();
+        }
+    }
+
+    function showInvitationSuccess()
+    {
+        if ($this->already) {
             $this->element('p', null, _('You are already subscribed to these users:'));
             $this->elementStart('ul');
-            foreach ($already as $other) {
+            foreach ($this->already as $other) {
                 $this->element('li', null, sprintf(_('%s (%s)'), $other->nickname, $other->email));
             }
             $this->elementEnd('ul');
         }
-        if ($subbed) {
+        if ($this->subbed) {
             $this->element('p', null, _('These people are already users and you were automatically subscribed to them:'));
             $this->elementStart('ul');
-            foreach ($subbed as $other) {
+            foreach ($this->subbed as $other) {
                 $this->element('li', null, sprintf(_('%s (%s)'), $other->nickname, $other->email));
             }
             $this->elementEnd('ul');
         }
-        if ($sent) {
+        if ($this->sent) {
             $this->element('p', null, _('Invitation(s) sent to the following people:'));
             $this->elementStart('ul');
-            foreach ($sent as $other) {
+            foreach ($this->sent as $other) {
                 $this->element('li', null, $other);
             }
             $this->elementEnd('ul');
             $this->element('p', null, _('You will be notified when your invitees accept the invitation and register on the site. Thanks for growing the community!'));
         }
-        common_show_footer();
     }
 
-    function show_top($error=null)
+    function showPageNotice()
     {
-        if ($error) {
-            $this->element('p', 'error', $error);
-        } else {
-            $this->elementStart('div', 'instructions');
-            $this->element('p', null,
-                           _('Use this form to invite your friends and colleagues to use this service.'));
-            $this->elementEnd('div');
+        if ($this->mode != 'sent') {
+            if ($this->error) {
+                $this->element('p', 'error', $this->error);
+            } else {
+                $this->elementStart('div', 'instructions');
+                $this->element('p', null,
+                               _('Use this form to invite your friends and colleagues to use this service.'));
+                $this->elementEnd('div');
+            }
         }
     }
 
-    function show_form($error=null)
+    function showForm($error=null)
     {
+        $this->mode = 'form';
+        $this->error = $error;
+        $this->showPage();
+    }
 
-        global $config;
-
-        common_show_header(_('Invite new users'), null, $error, array($this, 'show_top'));
-
+    function showInviteForm()
+    {
         $this->elementStart('form', array('method' => 'post',
                                            'id' => 'invite',
                                            'action' => common_local_url('invite')));
@@ -151,13 +182,10 @@ class InviteAction extends Action
         $this->submit('send', _('Send'));
 
         $this->elementEnd('form');
-
-        common_show_footer();
     }
 
-    function send_invitation($email, $user, $personal)
+    function sendInvitation($email, $user, $personal)
     {
-
         $profile = $user->getProfile();
         $bestname = $profile->getBestName();
 
@@ -203,4 +231,9 @@ class InviteAction extends Action
         mail_send($recipients, $headers, $body);
     }
 
+    function showLocalNav()
+    {
+        $nav = new SubGroupNav($this, common_current_user());
+        $nav->show();
+    }
 }

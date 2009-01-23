@@ -393,7 +393,7 @@ border-radius:7px;
 -webkit-border-radius:7px;
 width:377px;
 width:370px;
-height:86px;
+height:67px;
 line-height:1.5;
 padding:7px 7px 16px 7px;
 }
@@ -418,7 +418,7 @@ margin-left:4px;
 
 #form_notice .form_note {
 position:absolute;
-top:118px;
+top:99px;
 right:98px;
 z-index:9;
 }
@@ -709,14 +709,15 @@ margin-right:11px;
 .notice,
 .profile {
 position:relative;
-padding-top:18px;
-padding-bottom:18px;
+padding-top:11px;
+padding-bottom:11px;
 clear:both;
 float:left;
 width:644px;
 width:96.699%;
 width:100%;
-border-top:1px dashed #D1D9E4;
+border-top-width:1px;
+border-top-style:dashed;
 /*-moz-border-radius:7px;*/
 }
 .notices li {
@@ -799,7 +800,7 @@ display:inline;
 #laconicat .notice p.entry-content {
 /*margin-left:199px;*/
 }
-.notice p.entry-content a:visited {
+#content .notice p.entry-content a:visited {
 border-radius:4px;
 -moz-border-radius:4px;
 -webkit-border-radius:4px;
@@ -811,34 +812,26 @@ border-radius:4px;
 }
 
 .notice div.entry-content {
-/*border:1px solid blue;*/
 clear:left;
 float:left;
-/*width:48%;*/
 font-size:0.95em;
+margin-left:59px;
+width:70%;
 }
-.notice div.entry-content a,
-.notice .notice-options a,
-.notice .notice-options input {
+#showstream .notice div.entry-content {
+margin-left:0;
+}
 
-}
 .notice .notice-options a,
 .notice .notice-options input {
 float:left;
 font-size:1.025em;
 }
 
-#laconicat .notice div.entry-content {
-/*margin-left:0;*/
-}
-
 .notice div.entry-content dl,
 .notice div.entry-content dt,
 .notice div.entry-content dd {
 display:inline;
-}
-.notice div.entry-content .timestamp {
-margin-left:59px;
 }
 
 .notice div.entry-content .timestamp dt,
@@ -851,14 +844,6 @@ display:inline-block;
 .notice div.entry-content .device dt {
 text-transform:lowercase;
 }
-.notice div.entry-content a {
-
-}
-.notice div.entry-content a:hover {
-}
-
-
-
 
 
 
@@ -1061,7 +1046,6 @@ background-color:#fff;
 text-align:left;
 text-transform:uppercase;
 }
-
 #top_posters thead {
 display:none;
 }
@@ -1071,14 +1055,30 @@ width:199px;
 #top_poster_number-of-notices {
 width:123px;
 }
-#top_posters tbody td {
+
+.section tbody td {
 padding-right:11px;
-padding-bottom:4px;
+padding-bottom:11px;
 }
-#top_posters img {
+.section .vcard .photo {
 margin-right:7px;
 margin-bottom:0;
 }
+
+.section .notice {
+padding-top:11px;
+padding-bottom:11px;
+
+}
+
+.section .notice:first-child {
+padding-top:0;
+border-top:0;
+}
+
+
+
+
 
 /* tagcloud */
 .tag-cloud {

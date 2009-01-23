@@ -49,17 +49,17 @@ class XrdsAction extends Action
 {
     /**
      * Is read only?
-     * 
+     *
      * @return boolean true
      */
     function isReadOnly()
-    {                
+    {
         return true;
     }
 
     /**
      * Class handler.
-     * 
+     *
      * @param array $args query arguments
      *
      * @return void
@@ -78,7 +78,7 @@ class XrdsAction extends Action
 
     /**
      * Show XRDS for a user.
-     * 
+     *
      * @param class $user XRDS for this user.
      *
      * @return void
@@ -86,7 +86,7 @@ class XrdsAction extends Action
     function showXrds($user)
     {
         header('Content-Type: application/xrds+xml');
-        common_start_xml();
+        $this->startXML();
         $this->elementStart('XRDS', array('xmlns' => 'xri://$xrds'));
 
         $this->elementStart('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
@@ -133,12 +133,12 @@ class XrdsAction extends Action
                             '#omb');
         $this->elementEnd('XRD');
         $this->elementEnd('XRDS');
-        common_end_xml();
+        $this->endXML();
     }
 
     /**
      * Show service.
-     * 
+     *
      * @param string $type    XRDS type
      * @param string $uri     URI
      * @param array  $params  type parameters, null by default
