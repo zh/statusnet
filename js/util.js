@@ -177,6 +177,7 @@ $(document).ready(function(){
 													$("#notices_primary .notice:first").css({display:"none"});
 													$("#notices_primary .notice:first").fadeIn(2500);
 													NoticeHover();
+													NoticeReply();
 												}
 												$("#notice_action-submit").removeAttr("disabled");
 												$("#notice_action-submit").removeClass("disabled");
@@ -186,15 +187,7 @@ $(document).ready(function(){
 	$("#form_notice").each(addAjaxHidden);
 
     NoticeHover();
-
-    $('#content .notice').each(function() {
-        var notice = $(this);
-        $('.notice_reply', $(this)).click(function() {
-            var nickname = ($('.author .nickname', notice).length > 0) ? $('.author .nickname', notice) : $('.author .nickname');
-            NoticeReply(nickname.text(), $('.notice_id', notice).text());
-            return false;
-        });
-    });
+    NoticeReply();
 });
 
 function NoticeHover() {
@@ -208,7 +201,18 @@ function NoticeHover() {
     );
 }
 
-function NoticeReply(nick,id) {
+function NoticeReply() {
+    $('#content .notice').each(function() {
+        var notice = $(this);
+        $('.notice_reply', $(this)).click(function() {
+            var nickname = ($('.author .nickname', notice).length > 0) ? $('.author .nickname', notice) : $('.author .nickname');
+            NoticeReplySet(nickname.text(), $('.notice_id', notice).text());
+            return false;
+        });
+    });
+}
+
+function NoticeReplySet(nick,id) {
 	rgx_username = /^[0-9a-zA-Z\-_.]*$/;
 	if (nick.match(rgx_username)) {
 		replyto = "@" + nick + " ";
