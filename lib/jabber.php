@@ -392,6 +392,7 @@ function jabber_broadcast_notice($notice)
             // To keep the incoming queue from filling up,
             // we service it after each send.
             $conn->processTime(0);
+            $sent_to[$user->id] = 1;
         }
     }
 
@@ -413,6 +414,7 @@ function jabber_broadcast_notice($notice)
             // To keep the incoming queue from filling up,
             // we service it after each send.
             $conn->processTime(0);
+            $sent_to[$user->id] = 1;
         }
     }
 
