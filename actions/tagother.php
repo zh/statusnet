@@ -73,48 +73,84 @@ class TagotherAction extends Action
 
     function showContent()
     {
-        $avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
+        $this->elementStart('div', 'entity_profile vcard author');
+        $this->element('h2', null, _('User profile'));
 
+        $avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
+        $this->elementStart('dl', 'entity_depiction');
+        $this->element('dt', null, _('Photo'));
+        $this->elementStart('dd');
         $this->element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_PROFILE_SIZE),
-                                    'class' => 'avatar stream',
+                                    'class' => 'photo avatar',
                                     'width' => AVATAR_PROFILE_SIZE,
                                     'height' => AVATAR_PROFILE_SIZE,
                                     'alt' =>
                                     ($this->profile->fullname) ? $this->profile->fullname :
                                     $this->profile->nickname));
+        $this->elementEnd('dd');
+        $this->elementEnd('dl');
 
+
+        $this->elementStart('dl', 'entity_nickname');
+        $this->element('dt', null, _('Nickname'));
+        $this->elementStart('dd');
         $this->element('a', array('href' => $this->profile->profileurl,
-                                  'class' => 'external profile nickname'),
+                                  'class' => 'nickname'),
                        $this->profile->nickname);
+        $this->elementEnd('dd');
+        $this->elementEnd('dl');
 
         if ($this->profile->fullname) {
-            $this->elementStart('div', 'fullname');
-            if ($this->profile->homepage) {
-                $this->element('a', array('href' => $this->profile->homepage),
-                               $this->profile->fullname);
-            } else {
-                $this->text($this->profile->fullname);
-            }
-            $this->elementEnd('div');
+            $this->elementStart('dl', 'entity_fn');
+            $this->element('dt', null, _('Full name'));
+            $this->elementStart('dd');
+            $this->element('span', 'fn', $this->profile->fullname);
+            $this->elementEnd('dd');
+            $this->elementEnd('dl');
         }
         if ($this->profile->location) {
-            $this->element('div', 'location', $this->profile->location);
+            $this->elementStart('dl', 'entity_location');
+            $this->element('dt', null, _('Location'));
+            $this->element('dd', 'location', $this->profile->location);
+            $this->elementEnd('dl');
+        }
+        if ($this->profile->homepage) {
+            $this->elementStart('dl', 'entity_url');
+            $this->element('dt', null, _('URL'));
+            $this->elementStart('dd');
+            $this->element('a', array('href' => $this->profile->homepage,
+                                      'rel' => 'me', 'class' => 'url'),
+                           $this->profile->homepage);
+            $this->elementEnd('dd');
+            $this->elementEnd('dl');
         }
         if ($this->profile->bio) {
-            $this->element('div', 'bio', $this->profile->bio);
+            $this->elementStart('dl', 'entity_note');
+            $this->element('dt', null, _('Note'));
+            $this->element('dd', 'note', $this->profile->bio);
+            $this->elementEnd('dl');
         }
+        $this->elementEnd('div');
 
         $this->elementStart('form', array('method' => 'post',
-                                           'id' => 'tag_user',
+                                           'id' => 'form_tag_user',
+                                           'class' => 'form_settings',
                                            'name' => 'tagother',
                                            'action' => $this->selfUrl()));
+        $this->elementStart('fieldset');
+        $this->element('legend', null, _('Tag user'));
         $this->hidden('token', common_session_token());
         $this->hidden('id', $this->profile->id);
+
+        $this->elementStart('ul', 'form_data');
+        $this->elementStart('li');
         $this->input('tags', _('Tags'),
                      ($this->arg('tags')) ? $this->arg('tags') : implode(' ', Profile_tag::getTags($user->id, $this->profile->id)),
                      _('Tags for this user (letters, numbers, -, ., and _), comma- or space- separated'));
-
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
         $this->submit('save', _('Save'));
+        $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }
 
@@ -166,7 +202,7 @@ class TagotherAction extends Action
         $action = $user->isSubscribed($this->profile) ? 'subscriptions' : 'subscribers';
 
         if ($this->boolean('ajax')) {
-            common_start_html('text/xml');
+            $this->startHTML('text/xml');
             $this->elementStart('head');
             $this->element('title', null, _('Tags'));
             $this->elementEnd('head');
