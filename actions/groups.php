@@ -119,5 +119,7 @@ class GroupsAction extends Action
     {
         $gbp = new GroupsByPostsSection($this);
         $gbp->show();
+        $gbm = new GroupsByMembersSection($this);
+        $gbm->show();
     }
 }
