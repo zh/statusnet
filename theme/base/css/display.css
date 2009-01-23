@@ -145,7 +145,8 @@ font-weight:bold;
 #newgroup legend,
 #editgroup legend,
 #form_tag_user legend,
-#form_remote_subscribe legend {
+#form_remote_subscribe legend,
+#form_openid_login legend {
 display:none;
 }
 
@@ -173,7 +174,8 @@ width:90%;
 }
 
 #form_login p.form_guide,
-#form_register #settings_rememberme p.form_guide {
+#form_register #settings_rememberme p.form_guide,
+#form_openid_login #settings_rememberme p.form_guide {
 margin-left:0;
 }
 

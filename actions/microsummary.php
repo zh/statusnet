@@ -73,4 +73,9 @@ class MicrosummaryAction extends Action
         
         print $user->nickname . ': ' . $notice->content;
     }
+
+    function isReadOnly()
+    {
+        return true;
+    }
 }

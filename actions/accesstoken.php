@@ -50,7 +50,7 @@ class AccesstokenAction extends Action
      * Class handler.
      *
      * @param array $args query arguments
-     * 
+     *
      * @return boolean false if user doesn't exist
      */
     function handle($args)
