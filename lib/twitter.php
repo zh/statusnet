@@ -42,7 +42,7 @@ function get_twitter_data($uri, $screen_name, $password)
     $errmsg = curl_error($ch);
 
     if ($errmsg) {
-        common_debug("Twitter bridge - cURL error: $errmsg - trying to load: $uri with user $twit_user.",
+        common_debug("Twitter bridge - cURL error: $errmsg - trying to load: $uri with user $screen_name.",
             __FILE__);
     }
 

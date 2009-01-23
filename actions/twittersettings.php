@@ -472,7 +472,7 @@ class TwittersettingsAction extends ConnectSettingsAction
 
     function verifyCredentials($screen_name, $password)
     {
-        $uri = 'http://twitter.com/account/verifyCredentials.json';
+        $uri = 'http://twitter.com/account/verify_credentials.json';
 
         $data = get_twitter_data($uri, $screen_name, $password);
 
