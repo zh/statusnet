@@ -52,6 +52,11 @@ class UsergroupsAction extends Action
     var $page = null;
     var $profile = null;
 
+    function isReadOnly()
+    {
+        return true;
+    }
+
     function title()
     {
         if ($this->page == 1) {
