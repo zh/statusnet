@@ -91,6 +91,9 @@ class FacebookhomeAction extends FacebookAction
 
     function login()
     {
+        
+        $this->showStylesheets();
+        
         $nickname = common_canonical_nickname($this->trimmed('nickname'));
         $password = $this->arg('password');
 
@@ -184,6 +187,8 @@ class FacebookhomeAction extends FacebookAction
     }
 
     function getUpdatePermission() {
+
+        $this->showStylesheets();
 
         $this->elementStart('div', array('class' => 'content'));
 
