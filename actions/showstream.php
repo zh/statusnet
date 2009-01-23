@@ -367,7 +367,7 @@ class ShowstreamAction extends Action
         $url = common_local_url('remotesubscribe',
                                 array('nickname' => $this->profile->nickname));
         $this->element('a', array('href' => $url,
-                                  'id' => 'entity_subscribe_remote'),
+                                  'class' => 'entity_remote_subscribe'),
                        _('Subscribe'));
     }
 

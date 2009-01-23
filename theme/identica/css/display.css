@@ -26,7 +26,8 @@ display:none;
 input, textarea, select, option {
 font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
-input, textarea, select {
+input, textarea, select,
+.entity_remote_subscribe {
 border-color:#aaa;
 }
 
@@ -34,7 +35,8 @@ border-color:#aaa;
 input.submit,
 #form_notice.warning #notice_text-count,
 #nav_register a,
-.form_settings .form_note {
+.form_settings .form_note,
+.entity_remote_subscribe {
 background-color:#A9BF4F;
 }
 
@@ -43,7 +45,8 @@ input:focus, textarea:focus, select:focus,
 border-color:#A9BF4F;
 }
 input.submit,
-#nav_register a {
+#nav_register a,
+.entity_remote_subscribe {
 color:#fff;
 }
 
@@ -74,9 +77,7 @@ background-color:#fcfcfc;
 background-color:#fcfffc;
 }
 
-#aside_primary,
-#entity_subscribe a,
-#TB_window input.submit {
+#aside_primary {
 background-color:#CEE1E9;
 }
 
