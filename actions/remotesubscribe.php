@@ -23,100 +23,112 @@ require_once(INSTALLDIR.'/lib/omb.php');
 
 class RemotesubscribeAction extends Action
 {
+    var $nickname;
+    var $profile_url;
+    var $err;
 
-    function handle($args)
+    function prepare($args)
     {
-
-        parent::handle($args);
+        parent::prepare($args);
 
         if (common_logged_in()) {
             $this->clientError(_('You can use the local subscription!'));
-            return;
+            return false;
         }
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $this->nickname = $this->trimmed('nickname');
+        $this->profile_url = $this->trimmed('profile_url');
 
+        return true;
+    }
+
+    function handle($args)
+    {
+        parent::handle($args);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             # CSRF protection
             $token = $this->trimmed('token');
             if (!$token || $token != common_session_token()) {
-                $this->show_form(_('There was a problem with your session token. Try again, please.'));
+                $this->showForm(_('There was a problem with your session token. '.
+                                  'Try again, please.'));
                 return;
             }
-
-            $this->remote_subscription();
+            $this->remoteSubscription();
         } else {
-            $this->show_form();
+            $this->showForm();
         }
     }
 
-    function get_instructions()
+    function showForm($err=null)
     {
-        return _('To subscribe, you can [login](%%action.login%%),' .
-                  ' or [register](%%action.register%%) a new ' .
-                  ' account. If you already have an account ' .
-                  ' on a [compatible microblogging site](%%doc.openmublog%%), ' .
-                  ' enter your profile URL below.');
+        $this->err = $err;
+        $this->showPage();
     }
 
-    function show_top($err=null)
+    function showPageNotice()
     {
-        if ($err) {
-            $this->element('div', 'error', $err);
+        if ($this->err) {
+            $this->element('div', 'error', $this->err);
         } else {
-            $instructions = $this->get_instructions();
-            $output = common_markup_to_html($instructions);
+            $inst = _('To subscribe, you can [login](%%action.login%%),' .
+                      ' or [register](%%action.register%%) a new ' .
+                      ' account. If you already have an account ' .
+                      ' on a [compatible microblogging site](%%doc.openmublog%%), ' .
+                      ' enter your profile URL below.');
+            $output = common_markup_to_html($inst);
             $this->elementStart('div', 'instructions');
             $this->raw($output);
-            $this->elementEnd('p');
+            $this->elementEnd('div');
         }
     }
 
-    function show_form($err=null)
+    function title()
     {
-        $nickname = $this->trimmed('nickname');
-        $profile = $this->trimmed('profile_url');
-        common_show_header(_('Remote subscribe'), null, $err,
-                           array($this, 'show_top'));
+        return _('Remote subscribe');
+    }
+
+    function showContent()
+    {
         # id = remotesubscribe conflicts with the
         # button on profile page
         $this->elementStart('form', array('id' => 'remsub', 'method' => 'post',
                                            'action' => common_local_url('remotesubscribe')));
         $this->hidden('token', common_session_token());
-        $this->input('nickname', _('User nickname'), $nickname,
+        $this->input('nickname', _('User nickname'), $this->nickname,
                      _('Nickname of the user you want to follow'));
-        $this->input('profile_url', _('Profile URL'), $profile,
+        $this->input('profile_url', _('Profile URL'), $this->profile_url,
                      _('URL of your profile on another compatible microblogging service'));
         $this->submit('submit', _('Subscribe'));
         $this->elementEnd('form');
-        common_show_footer();
     }
 
-    function remote_subscription()
+    function remoteSubscription()
     {
-        $user = $this->get_user();
+        $user = $this->getUser();
 
         if (!$user) {
-            $this->show_form(_('No such user.'));
+            $this->showForm(_('No such user.'));
             return;
         }
 
-        $profile = $this->trimmed('profile_url');
+        $this->profile_url = $this->trimmed('profile_url');
 
-        if (!$profile) {
-            $this->show_form(_('No such user.'));
+        if (!$this->profile_url) {
+            $this->showForm(_('No such user.'));
             return;
         }
 
-        if (!Validate::uri($profile, array('allowed_schemes' => array('http', 'https')))) {
-            $this->show_form(_('Invalid profile URL (bad format)'));
+        if (!Validate::uri($this->profile_url, array('allowed_schemes' => array('http', 'https')))) {
+            $this->showForm(_('Invalid profile URL (bad format)'));
             return;
         }
 
         $fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
-        $yadis = Auth_Yadis_Yadis::discover($profile, $fetcher);
+        $yadis = Auth_Yadis_Yadis::discover($this->profile_url, $fetcher);
 
         if (!$yadis || $yadis->failed) {
-            $this->show_form(_('Not a valid profile URL (no YADIS document).'));
+            $this->showForm(_('Not a valid profile URL (no YADIS document).'));
             return;
         }
 
@@ -125,52 +137,50 @@ class RemotesubscribeAction extends Action
         $xrds =& Auth_Yadis_XRDS::parseXRDS(trim($yadis->response_text));
 
         if (!$xrds) {
-            $this->show_form(_('Not a valid profile URL (no XRDS defined).'));
+            $this->showForm(_('Not a valid profile URL (no XRDS defined).'));
             return;
         }
 
         $omb = $this->getOmb($xrds);
 
         if (!$omb) {
-            $this->show_form(_('Not a valid profile URL (incorrect services).'));
+            $this->showForm(_('Not a valid profile URL (incorrect services).'));
             return;
         }
 
         if (omb_service_uri($omb[OAUTH_ENDPOINT_REQUEST]) ==
             common_local_url('requesttoken'))
         {
-            $this->show_form(_('That\'s a local profile! Login to subscribe.'));
+            $this->showForm(_('That\'s a local profile! Login to subscribe.'));
             return;
         }
 
         if (User::staticGet('uri', omb_local_id($omb[OAUTH_ENDPOINT_REQUEST]))) {
-            $this->show_form(_('That\'s a local profile! Login to subscribe.'));
+            $this->showForm(_('That\'s a local profile! Login to subscribe.'));
             return;
         }
 
-        list($token, $secret) = $this->request_token($omb);
+        list($token, $secret) = $this->requestToken($omb);
 
         if (!$token || !$secret) {
-            $this->show_form(_('Couldn\'t get a request token.'));
+            $this->showForm(_('Couldn\'t get a request token.'));
             return;
         }
 
-        $this->request_authorization($user, $omb, $token, $secret);
+        $this->requestAuthorization($user, $omb, $token, $secret);
     }
 
-    function get_user()
+    function getUser()
     {
         $user = null;
-        $nickname = $this->trimmed('nickname');
-        if ($nickname) {
-            $user = User::staticGet('nickname', $nickname);
+        if ($this->nickname) {
+            $user = User::staticGet('nickname', $this->nickname);
         }
         return $user;
     }
 
     function getOmb($xrds)
     {
-
         static $omb_endpoints = array(OMB_ENDPOINT_UPDATEPROFILE, OMB_ENDPOINT_POSTNOTICE);
         static $oauth_endpoints = array(OAUTH_ENDPOINT_REQUEST, OAUTH_ENDPOINT_AUTHORIZE,
                                         OAUTH_ENDPOINT_ACCESS);
@@ -265,7 +275,7 @@ class RemotesubscribeAction extends Action
         return true;
     }
 
-    function request_token($omb)
+    function requestToken($omb)
     {
         $con = omb_oauth_consumer();
 
@@ -310,7 +320,7 @@ class RemotesubscribeAction extends Action
         return array($return['oauth_token'], $return['oauth_token_secret']);
     }
 
-    function request_authorization($user, $omb, $token, $secret)
+    function requestAuthorization($user, $omb, $token, $secret)
     {
         global $config; # for license URL
 
@@ -390,10 +400,5 @@ class RemotesubscribeAction extends Action
 
         common_redirect($req->to_url());
         return;
-    }
-
-    function make_nonce()
-    {
-        return common_good_rand(16);
     }
 }
