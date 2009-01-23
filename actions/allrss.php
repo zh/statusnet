@@ -49,7 +49,6 @@ require_once INSTALLDIR.'/lib/rssaction.php';
  */
 class AllrssAction extends Rss10Action
 {
-
     var $user = null;
 
     /**
@@ -57,8 +56,9 @@ class AllrssAction extends Rss10Action
      * 
      * @return boolean false if user doesn't exist
      */
-    function init()
+    function prepare($args)
     {
+        parent::prepare($args);
         $nickname   = $this->trimmed('nickname');
         $this->user = User::staticGet('nickname', $nickname);
 
