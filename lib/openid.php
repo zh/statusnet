@@ -184,15 +184,13 @@ function oid_authenticate($openid_url, $returnto, $immediate=false)
         // Display an error if the form markup couldn't be generated;
         // otherwise, render the HTML.
         if (Auth_OpenID::isFailure($form_html)) {
-            $this->show_form(sprintf(_('Could not create OpenID form: %s'), $form_html->message));
+            common_server_error(sprintf(_('Could not create OpenID form: %s'), $form_html->message));
         } else {
-            common_show_header(_('OpenID Auto-Submit'), null, null, '_oid_print_instructions');
-            common_raw($form_html);
-            common_element('script', null,
-                           '$(document).ready(function() { ' .
-                           '    $("#'. $form_id .'").submit(); '.
-                           '});');
-            common_show_footer();
+            $action = new AutosubmitAction(); // see below
+            $action->form_html = $form_html;
+            $action->form_id = $form_id;
+            $action->prepare(array('action' => 'autosubmit'));
+            $action->handle(array('action' => 'autosubmit'));
         }
     }
 }
@@ -250,4 +248,30 @@ function oid_update_user(&$user, &$sreg)
     }
 
     return true;
+}
+
+class AutosubmitAction extends Action
+{
+    var $form_html = null;
+    var $form_id = null;
+
+    function handle($args)
+    {
+        parent::handle($args);
+        $this->showPage();
+    }
+
+    function title()
+    {
+        return _('OpenID Auto-Submit');
+    }
+
+    function showContent()
+    {
+        $this->raw($this->form_html);
+        $this->element('script', null,
+                       '$(document).ready(function() { ' .
+                       '    $(\'#'. $this->form_id .'\').submit(); '.
+                       '});');
+    }
 }
