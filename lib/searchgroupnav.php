@@ -48,6 +48,7 @@ require_once INSTALLDIR.'/lib/widget.php';
 class SearchGroupNav extends Widget
 {
     var $action = null;
+    var $q = null;
 
     /**
      * Construction
@@ -55,10 +56,11 @@ class SearchGroupNav extends Widget
      * @param Action $action current action, used for output
      */
 
-    function __construct($action=null)
+    function __construct($action=null, $q = null)
     {
         parent::__construct($action);
         $this->action = $action;
+        $this->q = $q;
     }
 
     /**
@@ -71,9 +73,13 @@ class SearchGroupNav extends Widget
     {
         $action_name = $this->action->trimmed('action');
         $this->action->elementStart('ul', array('class' => 'nav'));
-        $this->out->menuItem(common_local_url('peoplesearch'), _('People'),
+        $args = array();
+        if ($this->q) {
+            $args['q'] = $this->q;
+        }
+        $this->out->menuItem(common_local_url('peoplesearch', $args), _('People'),
             _('Find people on this site'), $action_name == 'peoplesearch', 'nav_search_people');
-        $this->out->menuItem(common_local_url('noticesearch'), _('Notice'),
+        $this->out->menuItem(common_local_url('noticesearch', $args), _('Notice'),
             _('Find content of notices'), $action_name == 'noticesearch', 'nav_search_notice');
         $this->action->elementEnd('ul');
     }

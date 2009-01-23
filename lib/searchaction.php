@@ -73,7 +73,7 @@ class SearchAction extends Action
 
     function showLocalNav()
     {
-        $nav = new SearchGroupNav($this);
+        $nav = new SearchGroupNav($this, $this->trimmed('q'));
         $nav->show();
     }
 
@@ -96,11 +96,6 @@ class SearchAction extends Action
     function title()
     {
         return null;
-    }
-
-    function show_header($arr)
-    {
-        return;
     }
 
     function showNoticeForm() {
