@@ -28,7 +28,7 @@ class TwitterapiAction extends Action
     {
         parent::handle($args);
     }
-
+    
     function twitter_user_array($profile, $get_notice=false)
     {
 
@@ -158,56 +158,56 @@ class TwitterapiAction extends Action
 
     function show_twitter_xml_status($twitter_status)
     {
-        common_element_start('status');
+        $this->elementStart('status');
         foreach($twitter_status as $element => $value) {
             switch ($element) {
             case 'user':
                 $this->show_twitter_xml_user($twitter_status['user']);
                 break;
             case 'text':
-                common_element($element, null, common_xml_safe_str($value));
+                $this->element($element, null, common_xml_safe_str($value));
                 break;
             default:
-                common_element($element, null, $value);
+                $this->element($element, null, $value);
             }
         }
-        common_element_end('status');
+        $this->elementEnd('status');
     }
 
     function show_twitter_xml_user($twitter_user, $role='user')
     {
-        common_element_start($role);
+        $this->elementStart($role);
         foreach($twitter_user as $element => $value) {
             if ($element == 'status') {
                 $this->show_twitter_xml_status($twitter_user['status']);
             } else {
-                common_element($element, null, $value);
+                $this->element($element, null, $value);
             }
         }
-        common_element_end($role);
+        $this->elementEnd($role);
     }
 
     function show_twitter_rss_item($entry)
     {
-        common_element_start('item');
-        common_element('title', null, $entry['title']);
-        common_element('description', null, $entry['description']);
-        common_element('pubDate', null, $entry['pubDate']);
-        common_element('guid', null, $entry['guid']);
-        common_element('link', null, $entry['link']);
-        common_element_end('item');
+        $this->elementStart('item');
+        $this->element('title', null, $entry['title']);
+        $this->element('description', null, $entry['description']);
+        $this->element('pubDate', null, $entry['pubDate']);
+        $this->element('guid', null, $entry['guid']);
+        $this->element('link', null, $entry['link']);
+        $this->elementEnd('item');
     }
 
     function show_twitter_atom_entry($entry)
     {
-        common_element_start('entry');
-        common_element('title', null, $entry['title']);
-        common_element('content', array('type' => 'html'), $entry['content']);
-        common_element('id', null, $entry['id']);
-        common_element('published', null, $entry['published']);
-        common_element('updated', null, $entry['updated']);
-        common_element('link', array('href' => $entry['link'], 'rel' => 'alternate', 'type' => 'text/html'), null);
-        common_element_end('entry');
+        $this->elementStart('entry');
+        $this->element('title', null, $entry['title']);
+        $this->element('content', array('type' => 'html'), $entry['content']);
+        $this->element('id', null, $entry['id']);
+        $this->element('published', null, $entry['published']);
+        $this->element('updated', null, $entry['updated']);
+        $this->element('link', array('href' => $entry['link'], 'rel' => 'alternate', 'type' => 'text/html'), null);
+        $this->elementEnd('entry');
     }
 
     function show_json_objects($objects)
@@ -249,7 +249,7 @@ class TwitterapiAction extends Action
 
     function show_twitter_xml_dmsg($twitter_dm)
     {
-        common_element_start('direct_message');
+        $this->elementStart('direct_message');
         foreach($twitter_dm as $element => $value) {
             switch ($element) {
             case 'sender':
@@ -257,20 +257,20 @@ class TwitterapiAction extends Action
                 $this->show_twitter_xml_user($value, $element);
                 break;
             case 'text':
-                common_element($element, null, common_xml_safe_str($value));
+                $this->element($element, null, common_xml_safe_str($value));
                 break;
             default:
-                common_element($element, null, $value);
+                $this->element($element, null, $value);
             }
         }
-        common_element_end('direct_message');
+        $this->elementEnd('direct_message');
     }
 
     function show_xml_timeline($notice)
     {
 
         $this->init_document('xml');
-        common_element_start('statuses', array('type' => 'array'));
+        $this->elementStart('statuses', array('type' => 'array'));
 
         if (is_array($notice)) {
             foreach ($notice as $n) {
@@ -284,7 +284,7 @@ class TwitterapiAction extends Action
             }
         }
 
-        common_element_end('statuses');
+        $this->elementEnd('statuses');
         $this->end_document('xml');
     }
 
@@ -293,19 +293,19 @@ class TwitterapiAction extends Action
 
         $this->init_document('rss');
 
-        common_element_start('channel');
-        common_element('title', null, $title);
-        common_element('link', null, $link);
+        $this->elementStart('channel');
+        $this->element('title', null, $title);
+        $this->element('link', null, $link);
         if (!is_null($suplink)) {
             # For FriendFeed's SUP protocol
-            common_element('link', array('xmlns' => 'http://www.w3.org/2005/Atom',
+            $this->element('link', array('xmlns' => 'http://www.w3.org/2005/Atom',
                                          'rel' => 'http://api.friendfeed.com/2008/03#sup',
                                          'href' => $suplink,
                                          'type' => 'application/json'));
         }
-        common_element('description', null, $subtitle);
-        common_element('language', null, 'en-us');
-        common_element('ttl', null, '40');
+        $this->element('description', null, $subtitle);
+        $this->element('language', null, 'en-us');
+        $this->element('ttl', null, '40');
 
         if (is_array($notice)) {
             foreach ($notice as $n) {
@@ -319,7 +319,7 @@ class TwitterapiAction extends Action
             }
         }
 
-        common_element_end('channel');
+        $this->elementEnd('channel');
         $this->end_twitter_rss();
     }
 
@@ -328,16 +328,16 @@ class TwitterapiAction extends Action
 
         $this->init_document('atom');
 
-        common_element('title', null, $title);
-        common_element('id', null, $id);
-        common_element('link', array('href' => $link, 'rel' => 'alternate', 'type' => 'text/html'), null);
+        $this->element('title', null, $title);
+        $this->element('id', null, $id);
+        $this->element('link', array('href' => $link, 'rel' => 'alternate', 'type' => 'text/html'), null);
         if (!is_null($suplink)) {
             # For FriendFeed's SUP protocol
-            common_element('link', array('rel' => 'http://api.friendfeed.com/2008/03#sup',
+            $this->element('link', array('rel' => 'http://api.friendfeed.com/2008/03#sup',
                                          'href' => $suplink,
                                          'type' => 'application/json'));
         }
-        common_element('subtitle', null, $subtitle);
+        $this->element('subtitle', null, $subtitle);
 
         if (is_array($notice)) {
             foreach ($notice as $n) {
@@ -425,7 +425,7 @@ class TwitterapiAction extends Action
         switch ($type) {
          case 'xml':
             header('Content-Type: application/xml; charset=utf-8');
-            common_start_xml();
+            $this->startXML();
             break;
          case 'json':
             header('Content-Type: application/json; charset=utf-8');
@@ -456,7 +456,7 @@ class TwitterapiAction extends Action
     {
         switch ($type) {
          case 'xml':
-            common_end_xml();
+            $this->endXML();
             break;
          case 'json':
 
@@ -514,10 +514,10 @@ class TwitterapiAction extends Action
 
         if ($content_type == 'xml') {
             $this->init_document('xml');
-            common_element_start('hash');
-            common_element('error', null, $msg);
-            common_element('request', null, $_SERVER['REQUEST_URI']);
-            common_element_end('hash');
+            $this->elementStart('hash');
+            $this->element('error', null, $msg);
+            $this->element('request', null, $_SERVER['REQUEST_URI']);
+            $this->elementEnd('hash');
             $this->end_document('xml');
         } else {
             $this->init_document('json');
@@ -530,26 +530,26 @@ class TwitterapiAction extends Action
 
     function init_twitter_rss()
     {
-        common_start_xml();
-        common_element_start('rss', array('version' => '2.0'));
+        $this->startXML();
+        $this->elementStart('rss', array('version' => '2.0'));
     }
 
     function end_twitter_rss()
     {
-        common_element_end('rss');
-        common_end_xml();
+        $this->elementEnd('rss');
+        $this->endXML();
     }
 
     function init_twitter_atom()
     {
-        common_start_xml();
-        common_element_start('feed', array('xmlns' => 'http://www.w3.org/2005/Atom', 'xml:lang' => 'en-US'));
+        $this->startXML();
+        $this->elementStart('feed', array('xmlns' => 'http://www.w3.org/2005/Atom', 'xml:lang' => 'en-US'));
     }
 
     function end_twitter_atom()
     {
-        common_end_xml();
-        common_element_end('feed');
+        $this->endXML();
+        $this->elementEnd('feed');
     }
 
     function show_profile($profile, $content_type='xml', $notice=null)
