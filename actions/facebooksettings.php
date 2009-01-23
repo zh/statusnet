@@ -132,7 +132,7 @@ class FacebooksettingsAction extends FacebookAction
             $this->elementStart('ul', array('id' => 'fb-permissions-list'));
             $this->elementStart('li', array('id' => 'fb-permissions-item'));
             $this->elementStart('fb:prompt-permission', array('perms' => 'status_update',
-                'next_fbjs' => 'document.setLocation(\'' . "$this->app_url/settings.php" . '\')'));
+                'next_fbjs' => 'document.setLocation(\'' . "$this->app_uri/settings.php" . '\')'));
             $this->element('span', array('class' => 'facebook-button'),
                 sprintf(_('Allow %s to update my Facebook status'), common_config('site', 'name')));
             $this->elementEnd('fb:prompt-permission');

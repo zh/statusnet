@@ -57,29 +57,30 @@ class FacebookhomeAction extends FacebookAction
             $this->user = $this->flink->getUser();
 
             // If this is the first time the user has started the app
-             // prompt for Facebook status update permission
-             if (!$this->facebook->api_client->users_hasAppPermission('status_update')) {
+            // prompt for Facebook status update permission
+            if (!$this->facebook->api_client->users_hasAppPermission('status_update')) {
 
                  if ($this->facebook->api_client->data_getUserPreference(
-                         FACEBOOK_PROMPTED_UPDATE_PREF) != 'true') {
-                     $this->getUpdatePermission();
-                     return;
+                    FACEBOOK_PROMPTED_UPDATE_PREF) != 'true') {
+                        $this->getUpdatePermission();
+                        return;
                  }
              }
 
              // Make sure the user's profile box has the lastest notice
              $notice = $this->user->getCurrentNotice();
-             $this->updateProfileBox($notice);
+             if ($notice) {
+                 $this->updateProfileBox($notice);
+             }
 
-            if ($this->arg('status_submit') == 'Send') {            
+             if ($this->arg('status_submit') == 'Send') {            
                 $this->saveNewNotice();
-            }
+             }
 
             // User is authenticated and has already been prompted once for
             // Facebook status update permission? Then show the main page
             // of the app
             $this->showPage();
-
             
         } else {
 
@@ -201,13 +202,13 @@ class FacebookhomeAction extends FacebookAction
         $this->elementEnd('p');
 
         $this->elementStart('form', array('method' => 'post',
-                                           'action' => $app_url,
+                                           'action' => "$app_url/index.php",
                                            'id' => 'facebook-skip-permissions'));
 
         $this->elementStart('ul', array('id' => 'fb-permissions-list'));
         $this->elementStart('li', array('id' => 'fb-permissions-item'));
         $this->elementStart('fb:prompt-permission', array('perms' => 'status_update',
-            'next_fbjs' => 'document.setLocation(\'' . $this->app_uri . '\')'));
+            'next_fbjs' => 'document.setLocation(\'' . "$this->app_uri/index.php" . '\')'));
         $this->element('span', array('class' => 'facebook-button'),
             sprintf(_('Allow %s to update my Facebook status'), $this->app_name));
         $this->elementEnd('fb:prompt-permission');

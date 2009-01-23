@@ -68,6 +68,8 @@ class FacebookAction extends Action
             $this->fbuid = $flink->foreign_id; 
             $this->user = $flink->getUser();
         }
+        
+        $this->args = array();
     }
   
     function prepare($argarray)

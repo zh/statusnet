@@ -158,10 +158,6 @@ class Action extends HTMLOutputter // lawsuit
                                      'media' => 'screen, projection, tv'));
         $this->element('link', array('rel' => 'stylesheet',
                                      'type' => 'text/css',
-                                     'href' => theme_path('css/thickbox.css', 'base') . '?version=' . LACONICA_VERSION,
-                                     'media' => 'screen, projection, tv'));
-        $this->element('link', array('rel' => 'stylesheet',
-                                     'type' => 'text/css',
                                      'href' => theme_path('css/display.css', null) . '?version=' . LACONICA_VERSION,
                                      'media' => 'screen, projection, tv'));
         $this->comment('[if IE]><link rel="stylesheet" type="text/css" '.

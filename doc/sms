@@ -1,0 +1,68 @@
+You can post messages to %%site.name%% using a many kinds of cell
+phones that support SMS messaging. This site does not support SMS
+directly; rather, it uses your carrier's email gateway to send and
+receive messages.
+
+Managing your SMS settings
+--------------------------
+
+Use the [SMS settings](%%action.smssettings%%) page to set your SMS
+preferences. You can add or change your SMS number and set the
+flags for SMS updates.
+
+When you add or change your phone number, you'll receive a message on your
+phone with a verification code. Enter it into the SMS settings page to
+confirm that the owner of the phone authorizes sending it messages.
+
+Note that only the carriers listed in the drop down list on the form
+are supported by %%site.name%%. They're the only ones we know how to
+make email addresses for.
+
+Receiving messages
+------------------
+
+Once you've verified your phone number, you can enable sending
+messages to your phone. If you have a lot of friends and a typical
+phone, it can be hard to keep up.
+
+Sending messages
+----------------
+
+To send a message, you must send an email to the incoming email
+address visible on your SMS settings page. The method for sending
+email from your phone varies from carrier to carrier and from handset
+to handet; if in doubt, ask your carrier.
+
+Keep your incoming email address a secret -- it's the only way we know
+you're really you!
+
+Commands
+--------
+
+You can use the following commands with %%site.name%%.
+
+* on - turn on notifications
+* off - turn off notifications
+* help - show this help
+* follow <nickname> - subscribe to user
+* leave <nickname> - unsubscribe from user
+* d <nickname> <text> - direct message to user
+* get <nickname> - get last notice from user
+* whois <nickname> - get profile info on user
+* fav <nickname> - add user's last notice as a 'fave'
+* stats - get your stats
+* stop - same as 'off'
+* quit - same as 'off'
+* sub <nickname> - same as 'follow'
+* unsub <nickname> - same as 'leave'
+* last <nickname> - same as 'get'
+* on <nickname> - not yet implemented.
+* off <nickname> - not yet implemented.
+* nudge <nickname> - not yet implemented.
+* invite <phone number> - not yet implemented.
+* track <word> - not yet implemented.
+* untrack <word> - not yet implemented.
+* track off - not yet implemented.
+* untrack all - not yet implemented.
+* tracks - not yet implemented.
+* tracking - not yet implemented.
