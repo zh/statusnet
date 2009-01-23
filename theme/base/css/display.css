@@ -61,6 +61,7 @@ border-radius:4px;
 
 input.submit {
 font-weight:bold;
+cursor:pointer;
 }
 textarea {
 overflow:auto;
@@ -120,6 +121,10 @@ float:left;
 margin-left:11px;
 float:left;
 }
+.form_settings .form_data input.submit {
+margin-left:0;
+}
+
 .form_settings label {
 margin-top:2px;
 width:152px;
@@ -175,7 +180,8 @@ width:90%;
 
 #form_login p.form_guide,
 #form_register #settings_rememberme p.form_guide,
-#form_openid_login #settings_rememberme p.form_guide {
+#form_openid_login #settings_rememberme p.form_guide,
+#settings_twitter_remove p.form_guide {
 margin-left:0;
 }
 
@@ -453,7 +459,6 @@ top:25px;
 right:30px;
 margin-left:4px;
 padding:0;
-cursor:pointer;
 width:16px;
 height:16px;
 border:0;
@@ -586,7 +591,6 @@ display:none;
 .entity_actions input.submit {
 display:block;
 text-align:left;
-cursor:pointer;
 width:100%;
 }
 .entity_actions a,
@@ -650,7 +654,7 @@ content: ":";
 }
 
 .section ul.entities {
-width:220px;
+width:280px;
 float:left;
 }
 .section .entities li {
@@ -918,7 +922,6 @@ padding-left:16px;
 }
 
 .notice-options form input.submit {
-cursor:pointer;
 width:16px;
 padding:2px 0;
 }
