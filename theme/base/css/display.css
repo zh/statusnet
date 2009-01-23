@@ -41,6 +41,7 @@ font-size:1.3em;
 text-transform:uppercase;
 }
 form {
+clear:both;
 }
 input, textarea, select, option {
 padding:4px;
@@ -143,7 +144,8 @@ font-weight:bold;
 #form_password legend,
 #form_settings_avatar legend,
 #newgroup legend,
-#editgroup legend {
+#editgroup legend,
+#form_tag_user legend {
 display:none;
 }
 
@@ -347,6 +349,7 @@ margin-bottom:1em;
 
 #content {
 width:644px;
+width:46em;
 padding:18px;
 float:left;
 border-radius:7px;
@@ -364,6 +367,7 @@ float;left;
 
 #aside_primary {
 width:300px;
+width:21.429em;
 float:left;
 margin-left:2px;
 padding:18px 4px 18px 18px;
@@ -705,6 +709,7 @@ margin-right:11px;
 
 
 
+
 /* NOTICE */
 .notice,
 .profile {
@@ -713,8 +718,6 @@ padding-top:11px;
 padding-bottom:11px;
 clear:both;
 float:left;
-width:644px;
-width:96.699%;
 width:100%;
 border-top-width:1px;
 border-top-style:dashed;
@@ -734,6 +737,7 @@ border-radius:4px;
 #notices_primary {
 float:left;
 width:644px;
+width:46em;
 border-radius:7px;
 -moz-border-radius:7px;
 -webkit-border-radius:7px;
