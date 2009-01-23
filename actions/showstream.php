@@ -531,6 +531,18 @@ class ShowstreamAction extends Action
 
         $this->elementEnd('div');
     }
+
+    function showAnonymousMessage()
+    {
+		$m = sprintf(_('**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
+                       'based on the Free Software [Laconica](http://laconi.ca/) tool. ' .
+                       '[Join now](%%%%action.register%%%%) to follow **%s**\'s notices and many more! ([Read more](%%%%doc.help%%%%))'),
+                     $this->user->nickname, $this->user->nickname);
+        $this->elementStart('p', 'anonymous');
+        $this->raw(common_markup_to_html($m));
+        $this->elementEnd('p');
+    }
+
 }
 
 // We don't show the author for a profile, since we already know who it is!
