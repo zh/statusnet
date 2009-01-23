@@ -202,7 +202,7 @@ class FacebookhomeAction extends FacebookAction
         $this->elementEnd('p');
 
         $this->elementStart('form', array('method' => 'post',
-                                           'action' => "$app_url/index.php",
+                                           'action' => "index.php",
                                            'id' => 'facebook-skip-permissions'));
 
         $this->elementStart('ul', array('id' => 'fb-permissions-list'));
