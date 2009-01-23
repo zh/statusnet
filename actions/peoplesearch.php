@@ -1,5 +1,16 @@
 <?php
-/*
+/**
+ * People search action class.
+ *
+ * PHP version 5
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ *
  * Laconica - a distributed open-source microblogging tool
  * Copyright (C) 2008, Controlez-Vous, Inc.
  *
@@ -17,26 +28,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
-require_once(INSTALLDIR.'/lib/searchaction.php');
-require_once(INSTALLDIR.'/lib/profilelist.php');
+require_once INSTALLDIR.'/lib/searchaction.php';
+require_once INSTALLDIR.'/lib/profilelist.php';
 
+/**
+ * People search action class.
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ */
 class PeoplesearchAction extends SearchAction
 {
-
-    function get_instructions()
+    function getInstructions()
     {
         return _('Search for people on %%site.name%% by their name, location, or interests. ' .
                   'Separate the terms by spaces; they must be 3 characters or more.');
     }
 
-    function get_title()
+    function title()
     {
         return _('People search');
     }
 
-    function show_results($q, $page)
+    function showResults($q, $page)
     {
 
         $profile = new Profile();
@@ -57,28 +79,27 @@ class PeoplesearchAction extends SearchAction
         }
         if ($cnt > 0) {
             $terms = preg_split('/[\s,]+/', $q);
-            $results = new PeopleSearchResults($profile, $terms);
-            $results->show_list();
+            $results = new PeopleSearchResults($profile, $terms, $this);
+            $results->show();
         } else {
             $this->element('p', 'error', _('No results'));
         }
 
         $profile->free();
         
-        common_pagination($page > 1, $cnt > PROFILES_PER_PAGE,
+        $this->pagination($page > 1, $cnt > PROFILES_PER_PAGE,
                           $page, 'peoplesearch', array('q' => $q));
     }
 }
 
 class PeopleSearchResults extends ProfileList
 {
-
     var $terms = null;
     var $pattern = null;
     
-    function __construct($profile, $terms)
+    function __construct($profile, $terms, $action)
     {
-        parent::__construct($profile);
+        parent::__construct($profile, $terms, $action);
         $this->terms = array_map('preg_quote', 
                                  array_map('htmlspecialchars', $terms));
         $this->pattern = '/('.implode('|',$terms).')/i';
@@ -89,3 +110,4 @@ class PeopleSearchResults extends ProfileList
         return preg_replace($this->pattern, '<strong>\\1</strong>', htmlspecialchars($text));
     }
 }
+
