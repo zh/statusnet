@@ -162,12 +162,12 @@ class ApiAction extends Action
 
         if ($this->content_type == 'xml') {
             header('Content-Type: application/xml; charset=utf-8');
-            common_start_xml();
+            $this->startXML();
             $this->elementStart('hash');
             $this->element('error', null, $msg);
             $this->element('request', null, $_SERVER['REQUEST_URI']);
             $this->elementEnd('hash');
-            common_end_xml();
+            $this->endXML();
         } else if ($this->content_type == 'json')  {
             header('Content-Type: application/json; charset=utf-8');
             $error_array = array('error' => $msg, 'request' => $_SERVER['REQUEST_URI']);
