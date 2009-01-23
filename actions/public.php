@@ -215,7 +215,7 @@ class PublicAction extends Action
 		$m = _('This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
                'based on the Free Software [Laconica](http://laconi.ca/) tool. ' .
                '[Join now](%%action.register%%) to share notices about yourself with friends, family, and colleagues! ([Read more](%%doc.help%%))');
-        $this->elementStart('div', 'anonymous');
+        $this->elementStart('div', array('id' => 'anon_notice'));
         $this->raw(common_markup_to_html($m));
         $this->elementEnd('div');
     }
