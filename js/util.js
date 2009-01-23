@@ -176,6 +176,7 @@ $(document).ready(function(){
 													counter();
 													$("#notices_primary .notice:first").css({display:"none"});
 													$("#notices_primary .notice:first").fadeIn(2500);
+													NoticeHover();
 												}
 												$("#notice_action-submit").removeAttr("disabled");
 												$("#notice_action-submit").removeClass("disabled");
@@ -184,6 +185,19 @@ $(document).ready(function(){
 	$("#form_notice").ajaxForm(PostNotice);
 	$("#form_notice").each(addAjaxHidden);
 
+    NoticeHover();
+
+    $('#content .notice').each(function() {
+        var notice = $(this);
+        $('.notice_reply', $(this)).click(function() {
+            var nickname = ($('.author .nickname', notice).length > 0) ? $('.author .nickname', notice) : $('.author .nickname');
+            NoticeReply(nickname.text(), $('.notice_id', notice).text());
+            return false;
+        });
+    });
+});
+
+function NoticeHover() {
     $("#content .notice").hover(
         function () {
             $(this).addClass('hover');
@@ -192,9 +206,9 @@ $(document).ready(function(){
             $(this).removeClass('hover');
         }
     );
-});
+}
 
-function doreply(nick,id) {
+function NoticeReply(nick,id) {
 	rgx_username = /^[0-9a-zA-Z\-_.]*$/;
 	if (nick.match(rgx_username)) {
 		replyto = "@" + nick + " ";

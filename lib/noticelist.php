@@ -22,6 +22,7 @@
  * @category  UI
  * @package   Laconica
  * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @author    Sarven Capadisli <csarven@controlyourself.ca>
  * @copyright 2008 Control Yourself, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://laconi.ca/
@@ -440,8 +441,11 @@ class NoticeListItem extends Widget
         $this->out->elementStart('dl', 'notice_reply');
         $this->out->element('dt', null, _('Reply to this notice'));
         $this->out->elementStart('dd');
-        $this->out->element('a', array('href' => $reply_url,
-                                       'title' => _('Reply to this notice')), _('Reply'));
+        $this->out->elementStart('a', array('href' => $reply_url,
+                                       'title' => _('Reply to this notice')));
+        $this->out->text(_('Reply'));
+        $this->out->element('span', 'notice_id', $this->notice->id);
+        $this->out->elementEnd('a');
         $this->out->elementEnd('dd');
         $this->out->elementEnd('dl');
     }
