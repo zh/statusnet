@@ -32,7 +32,7 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
-define('GROUPS_PER_PAGE', 20);
+require_once INSTALLDIR.'/lib/grouplist.php';
 
 /**
  * User groups page
