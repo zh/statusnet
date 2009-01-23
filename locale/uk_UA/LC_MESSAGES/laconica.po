@@ -1,8 +1,16 @@
+# #-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
 msgid ""
 msgstr ""
+"#-#-#-#-#  laconica.po  #-#-#-#-#\n"
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-27 14:57-0400\n"
+"POT-Creation-Date: 2008-07-29 20:02+1200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Kostyantyn Bakarzhiev <boogie@e-mail.ua>\n"
 "Language-Team: \n"
@@ -11,70 +19,50 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Ukrainian\n"
 "X-Poedit-Country: UKRAINE\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-10-13 21:07+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: ../actions/noticesearchrss.php:64
 #, php-format
 msgid " Search Stream for \"%s\""
 msgstr "Потік пошуку для \"%s\""
 
-#: ../actions/finishopenidlogin.php:82 ../actions/register.php:191
+#: ../actions/tag.php:139
+msgid " by "
+msgstr "від"
+
+#: ../actions/finishopenidlogin.php:82 ../actions/register.php:255
 msgid ""
-" except this private data: password, email address, IM address, phone number."
+" except this private data: password, email address, IM address, phone "
+"number."
 msgstr ""
-"окрім цих приватних даних: пароль, електронна адреса, адреса IM, телефонний "
-"номер."
+"окрім цих приватних даних: пароль, "
+"електронна адреса, адреса IM, телефонний номер."
 
-#: ../actions/showstream.php:400 ../lib/stream.php:109
-msgid " from "
-msgstr ""
-
-#: ../actions/twitapistatuses.php:478
+#: ../actions/twitapistatuses.php:469
 #, php-format
 msgid "%1$s / Updates replying to %2$s"
 msgstr "%1$s / Оновленні відповіді %2$s"
 
-#: ../actions/invite.php:168
-#, fuzzy, php-format
-msgid "%1$s has invited you to join them on %2$s"
-msgstr "%1$s тепер слідкує за вашими повідомленями на %2$s."
-
-#: ../actions/invite.php:170
+#: ../actions/tag.php:127
 #, php-format
-msgid ""
-"%1$s has invited you to join them on %2$s (%3$s).\n"
-"\n"
-"%2$s is a micro-blogging service that lets you keep up-to-date with people "
-"you know and people who interest you.\n"
-"\n"
-"You can also share news about yourself, your thoughts, or your life online "
-"with people who know about you. It's also great for meeting new people who "
-"share your interests.\n"
-"\n"
-"%1$s said:\n"
-"\n"
-"%4$s\n"
-"\n"
-"You can see %1$s's profile page on %2$s here:\n"
-"\n"
-"%5$s\n"
-"\n"
-"If you'd like to try the service, click on the link below to accept the "
-"invitation.\n"
-"\n"
-"%6$s\n"
-"\n"
-"If not, you can ignore this message. Thanks for your patience and your "
-"time.\n"
-"\n"
-"Sincerely, %2$s\n"
-msgstr ""
+msgid "%1$s Notices recently tagged with %2$s"
+msgstr "%1$s Повідомлення щойно позначені з %2$s"
 
-#: ../lib/mail.php:124
+#: ../lib/mail.php:120
 #, php-format
 msgid "%1$s is now listening to your notices on %2$s."
 msgstr "%1$s тепер слідкує за вашими повідомленями на %2$s."
 
-#: ../lib/mail.php:126
+#: ../lib/mail.php:122
 #, php-format
 msgid ""
 "%1$s is now listening to your notices on %2$s.\n"
@@ -84,14 +72,10 @@ msgid ""
 "Faithfully yours,\n"
 "%4$s.\n"
 msgstr ""
-"%1$s тепер слідкує за вашими повідомленями на %2$s.\n"
-"\n"
-"\t%3$s\n"
-"\n"
-"Щиро ваші,\n"
-"%4$s.\n"
+"%1$s тепер слідкує за вашими повідомленями "
+"на %2$s.\n\n\t%3$s\n\nЩиро ваші,\n%4$s.\n"
 
-#: ../actions/twitapistatuses.php:482
+#: ../actions/twitapistatuses.php:473
 #, php-format
 msgid "%1$s updates that reply to updates from %2$s / %3$s."
 msgstr "%1$s оновив(ла) цю відповідь на оновлення від %2$s / %3$s."
@@ -101,18 +85,13 @@ msgstr "%1$s оновив(ла) цю відповідь на оновлення 
 msgid "%1$s's status on %2$s"
 msgstr "%1$s має статус на %2$s"
 
-#: ../actions/invite.php:84 ../actions/invite.php:92
-#, php-format
-msgid "%s (%s)"
-msgstr ""
-
-#: ../actions/publicrss.php:62
+#: ../actions/publicrss.php:60
 #, php-format
 msgid "%s Public Stream"
 msgstr "%s Спільний потік"
 
 #: ../actions/all.php:47 ../actions/allrss.php:60
-#: ../actions/twitapistatuses.php:238 ../lib/stream.php:51
+#: ../actions/twitapistatuses.php:235 ../lib/stream.php:51
 #, php-format
 msgid "%s and friends"
 msgstr "%s з друзями"
@@ -122,12 +101,12 @@ msgstr "%s з друзями"
 msgid "%s public timeline"
 msgstr "%s спільний часовий потік"
 
-#: ../lib/mail.php:206
+#: ../lib/mail.php:202
 #, php-format
 msgid "%s status"
 msgstr "%s статус"
 
-#: ../actions/twitapistatuses.php:338
+#: ../actions/twitapistatuses.php:335
 #, php-format
 msgid "%s timeline"
 msgstr "%s часовий потік"
@@ -137,101 +116,84 @@ msgstr "%s часовий потік"
 msgid "%s updates from everyone!"
 msgstr "%s оновлення від всіх!"
 
-#: ../actions/register.php:213
+#: ../actions/register.php:277
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
 msgstr ""
-"(Ви маєте негайно отримати листа електронною поштою, в якому будуть "
-"інструкції, як підтвердити вашу електронну адресу.)"
+"(Ви маєте негайно отримати листа "
+"електронною поштою, в якому будуть інструкції, як підтвердити вашу електронну адресу.)"
 
-#: ../lib/util.php:257
+#: ../lib/util.php:244
 #, php-format
 msgid ""
-"**%%site.name%%** is a microblogging service brought to you by [%%site."
-"broughtby%%](%%site.broughtbyurl%%). "
+"**%%site.name%%** is a microblogging service brought to you by "
+"[%%site.broughtby%%](%%site.broughtbyurl%%). "
 msgstr ""
-"**%%site.name%%** це сервіс мікроблогів наданий вам [%%site.broughtby%%](%%"
-"site.broughtbyurl%%)."
+"**%%site.name%%** це сервіс мікроблогів наданий "
+"вам [%%site.broughtby%%](%%site.broughtbyurl%%)."
 
-#: ../lib/util.php:259
+#: ../lib/util.php:246
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** це сервіс мікроблогів."
 
-#: ../lib/util.php:274
+#: ../lib/util.php:261
 msgid ". Contributors should be attributed by full name or nickname."
 msgstr ""
-". Контрибутори мають бути зазначені повним ім'ям або ім'ям користувача."
+". Контрибутори мають бути зазначені "
+"повним ім'ям або ім'ям користувача."
 
 #: ../actions/finishopenidlogin.php:73 ../actions/profilesettings.php:43
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
 msgstr "1-64 букви нижнього регістра і цифри, ніякої пунктуації або інтервалів"
 
-#: ../actions/register.php:152
+#: ../actions/register.php:221
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
 msgstr ""
-"1-64 букви нижнього регістра і цифри, ніякої пунктуації або інтервалів. "
-"Неодмінно."
+"1-64 букви нижнього регістра і цифри, "
+"ніякої пунктуації або інтервалів. Неодмінно."
 
 #: ../actions/password.php:42
 msgid "6 or more characters"
 msgstr "6 або більше знаків"
 
-#: ../actions/recoverpassword.php:180
+#: ../actions/recoverpassword.php:165
 msgid "6 or more characters, and don't forget it!"
 msgstr "6 або більше знаків, і не забудьте їх!"
 
-#: ../actions/register.php:154
+#: ../actions/register.php:223
 msgid "6 or more characters. Required."
 msgstr "6 або більше знаків. Неодмінно."
 
 #: ../actions/imsettings.php:197
 #, php-format
 msgid ""
-"A confirmation code was sent to the IM address you added. You must approve %"
-"s for sending messages to you."
+"A confirmation code was sent to the IM address you added. You must approve "
+"%s for sending messages to you."
 msgstr ""
-"Код підтвердження був відправлений на адресу IM, яку ви додали. Ви повинні "
-"схвалити %s для відправлення вам повідомлень."
+"Код підтвердження був відправлений на "
+"адресу IM, яку ви додали. Ви повинні схвалити %s для відправлення вам повідомлень."
 
 #: ../actions/emailsettings.php:213
 msgid ""
 "A confirmation code was sent to the email address you added. Check your "
 "inbox (and spam box!) for the code and instructions on how to use it."
 msgstr ""
-"Код підтвердження був відправлений на електронну адресу, яку ви додали. "
-"Перевірте вхідну пошту (і теку зі спамом також!), там має бути код та "
-"подальші інструкції."
+"Код підтвердження був відправлений на "
+"електронну адресу, яку ви додали. "
+"Перевірте вхідну пошту (і теку зі спамом також!), там має бути код та подальші інструкції."
 
 #: ../actions/smssettings.php:216
 msgid ""
 "A confirmation code was sent to the phone number you added. Check your inbox "
 "(and spam box!) for the code and instructions on how to use it."
 msgstr ""
-"Код підтвердження був відправлений на телефонний номер, який ви додали. "
+"Код підтвердження був відправлений на "
+"телефонний номер, який ви додали. "
 "Перевірте вхідні повідомлення, там має бути код та подальші інструкції."
 
-#: ../actions/twitapiaccount.php:49 ../actions/twitapihelp.php:45
-#: ../actions/twitapistatuses.php:88 ../actions/twitapistatuses.php:259
-#: ../actions/twitapistatuses.php:370 ../actions/twitapistatuses.php:532
-#: ../actions/twitapiusers.php:122
-msgid "API method not found!"
-msgstr ""
-
-#: ../actions/twitapiaccount.php:57 ../actions/twitapiaccount.php:113
-#: ../actions/twitapiaccount.php:119 ../actions/twitapiblocks.php:28
-#: ../actions/twitapiblocks.php:34 ../actions/twitapidirect_messages.php:43
-#: ../actions/twitapidirect_messages.php:49
-#: ../actions/twitapidirect_messages.php:56
-#: ../actions/twitapidirect_messages.php:62 ../actions/twitapifavorites.php:41
-#: ../actions/twitapifavorites.php:47 ../actions/twitapifavorites.php:53
-#: ../actions/twitapihelp.php:52 ../actions/twitapinotifications.php:29
-#: ../actions/twitapinotifications.php:35 ../actions/twitapistatuses.php:768
-msgid "API method under construction."
-msgstr ""
-
-#: ../lib/util.php:324
+#: ../lib/util.php:310
 msgid "About"
 msgstr "Про"
 
@@ -248,25 +210,16 @@ msgstr "Додати"
 msgid "Add OpenID"
 msgstr "Додати OpenID"
 
-#: ../lib/settingsaction.php:97
-#, fuzzy
-msgid "Add or remove OpenIDs"
-msgstr "Видалити OpenID"
-
 #: ../actions/emailsettings.php:38 ../actions/imsettings.php:39
 #: ../actions/smssettings.php:39
 msgid "Address"
 msgstr "Адреса"
 
-#: ../actions/invite.php:131
-msgid "Addresses of friends to invite (one per line)"
-msgstr ""
-
 #: ../actions/showstream.php:273
 msgid "All subscriptions"
 msgstr "Всі підписки"
 
-#: ../actions/publicrss.php:64
+#: ../actions/publicrss.php:62
 #, php-format
 msgid "All updates for %s"
 msgstr "Всі оновлення для %s"
@@ -281,7 +234,7 @@ msgstr "Всі оновлення за збігом з \"%s\""
 msgid "Already logged in."
 msgstr "Тепер ви увійшли."
 
-#: ../lib/subs.php:42
+#: ../actions/subscribe.php:49
 msgid "Already subscribed!."
 msgstr "Тепер ви підписані!"
 
@@ -293,18 +246,19 @@ msgstr "Ви впевненні, що бажаєте видалити це по�
 msgid "Authorize subscription"
 msgstr "Авторизувати підписку"
 
-#: ../actions/login.php:104 ../actions/register.php:178
+#: ../actions/login.php:104 ../actions/register.php:242
 msgid "Automatically login in the future; not for shared computers!"
 msgstr "Автоматично входити у майбутньому; не для "
 
 #: ../actions/profilesettings.php:65
 msgid ""
-"Automatically subscribe to whoever subscribes to me (best for non-humans)"
+"Automatically subscribe to whoever subscribes to me (best for "
+"non-humans)"
 msgstr ""
-"Автоматично підписуватись до тих, хто підписався до мене (якщо ви бот, це "
-"саме для вас)"
+"Автоматично підписуватись до тих, хто "
+"підписався до мене (якщо ви бот, це саме для вас)"
 
-#: ../actions/avatar.php:32 ../lib/settingsaction.php:90
+#: ../actions/avatar.php:32
 msgid "Avatar"
 msgstr "Аватара"
 
@@ -318,31 +272,31 @@ msgid ""
 "Awaiting confirmation on this address. Check your Jabber/GTalk account for a "
 "message with further instructions. (Did you add %s to your buddy list?)"
 msgstr ""
-"Очікування підтвердження цієї адреси. Перевірте свій Jabber/GTalk рахунок, "
-"там має бути повідомлення з подальшими інструкціями. (Ви додали %s до вашого "
-"списку контактів?)"
+"Очікування підтвердження цієї адреси. "
+"Перевірте свій Jabber/GTalk рахунок, там має "
+"бути повідомлення з подальшими інструкціями. (Ви додали %s до вашого списку контактів?)"
 
 #: ../actions/emailsettings.php:54
 msgid ""
 "Awaiting confirmation on this address. Check your inbox (and spam box!) for "
 "a message with further instructions."
 msgstr ""
-"Очікування підтвердження цієї адреси. Перевірте вхідну пошту (і теку зі "
-"спамом також!), там має бути повідомлення з подальшими інструкціями."
+"Очікування підтвердження цієї адреси. "
+"Перевірте вхідну пошту (і теку зі спамом також!), там має бути повідомлення з подальшими інструкціями."
 
 #: ../actions/smssettings.php:58
 msgid "Awaiting confirmation on this phone number."
 msgstr "Очікування підтвердження телефонного номера."
 
-#: ../lib/util.php:1318
+#: ../lib/util.php:1290
 msgid "Before »"
 msgstr "Раніше"
 
-#: ../actions/profilesettings.php:49 ../actions/register.php:170
+#: ../actions/profilesettings.php:49 ../actions/register.php:234
 msgid "Bio"
 msgstr "Про себе"
 
-#: ../actions/profilesettings.php:101 ../actions/register.php:82
+#: ../actions/profilesettings.php:101 ../actions/register.php:78
 #: ../actions/updateprofile.php:103
 msgid "Bio is too long (max 140 chars)."
 msgstr "Про себе забагато написано (140 знаків максимум)"
@@ -356,7 +310,7 @@ msgstr "Не можна видалити це повідомлення."
 msgid "Can't read avatar URL '%s'"
 msgstr "Не можна прочитати URL аватари '%s'"
 
-#: ../actions/password.php:85 ../actions/recoverpassword.php:300
+#: ../actions/password.php:85 ../actions/recoverpassword.php:261
 msgid "Can't save new password."
 msgstr "Не можна зберегти новий пароль."
 
@@ -381,30 +335,16 @@ msgstr "Не можна полагодити цю поштову адресу"
 msgid "Change"
 msgstr "Змінити"
 
-#: ../lib/settingsaction.php:88
-msgid "Change email handling"
-msgstr ""
-
 #: ../actions/password.php:32
 msgid "Change password"
 msgstr "Змінити пароль"
 
-#: ../lib/settingsaction.php:94
-#, fuzzy
-msgid "Change your password"
-msgstr "Змінити пароль"
-
-#: ../lib/settingsaction.php:85
-#, fuzzy
-msgid "Change your profile settings"
-msgstr "Налаштування профілю"
-
-#: ../actions/password.php:43 ../actions/recoverpassword.php:181
-#: ../actions/register.php:155 ../actions/smssettings.php:65
+#: ../actions/password.php:43 ../actions/recoverpassword.php:166
+#: ../actions/register.php:224 ../actions/smssettings.php:65
 msgid "Confirm"
 msgstr "Підтвердити"
 
-#: ../actions/confirmaddress.php:90
+#: ../actions/confirmaddress.php:86
 msgid "Confirm Address"
 msgstr "Підтвердити адресу"
 
@@ -421,7 +361,7 @@ msgstr "Код підтвердження"
 msgid "Confirmation code not found."
 msgstr "Код підтвердження не знайдено."
 
-#: ../actions/register.php:202
+#: ../actions/register.php:266
 #, php-format
 msgid ""
 "Congratulations, %s! And welcome to %%%%site.name%%%%. From here, you may "
@@ -439,19 +379,16 @@ msgid ""
 "\n"
 "Thanks for signing up and we hope you enjoy using this service."
 msgstr ""
-"Вітаємо, %s! І ласкаво просимо до %%%%site.name%%%%. Звідси ви, можливо, "
-"схочете...\n"
+"Вітаємо, %s! І ласкаво просимо до %%%%site.name%%%%. "
+"Звідси ви, можливо, схочете...\n"
 "\n"
-"*Подивитись [ваш профіль](%s) та написати своє перше повідомлення.\n"
-"*Додати [адресу Jabber/GTalk](%%%%action.imsettings%%%%), так щоб мати змогу "
-"надсилати повідомлення через службу миттєвих повідомлень.\n"
-"*[Розшукати людей](%%%%action.peoplesearch%%%%), які мають спільні з вами "
-"інтереси. \n"
-"*Прочитати [додаткову інформацію](%%%%doc.help%%%%), аби переконатись, що ви "
-"нічого не пропустили. \n"
-"\n"
-"Дякуємо, що зареєструвались у нас, і, сподіваємось, вам сподобається наш "
-"сервіс."
+"*Подивитись [ваш профіль](%s) та написати "
+"своє перше повідомлення.\n"
+"*Додати [адресу Jabber/GTalk](%%%%action.imsettings%%%%), так "
+"щоб мати змогу надсилати повідомлення "
+"через службу миттєвих повідомлень.\n"
+"*[Розшукати людей](%%%%action.peoplesearch%%%%), які "
+"мають спільні з вами інтереси. \n*Прочитати [додаткову інформацію](%%%%doc.help%%%%), аби переконатись, що ви нічого не пропустили. \n\nДякуємо, що зареєструвались у нас, і, сподіваємось, вам сподобається наш сервіс."
 
 #: ../actions/finishopenidlogin.php:91
 msgid "Connect"
@@ -461,7 +398,7 @@ msgstr "З'єднатись"
 msgid "Connect existing account"
 msgstr "З'єднатись використовуючи існуючий рахунок"
 
-#: ../lib/util.php:332
+#: ../lib/util.php:318
 msgid "Contact"
 msgstr "Контакт"
 
@@ -470,12 +407,7 @@ msgstr "Контакт"
 msgid "Could not create OpenID form: %s"
 msgstr "Не вдалося створити форму OpenID: %s"
 
-#: ../actions/twitapifriendships.php:60 ../actions/twitapifriendships.php:76
-#, fuzzy, php-format
-msgid "Could not follow user: %s is already on your list."
-msgstr "Не вдалося слідувати за користувачем: користувача не знайдено."
-
-#: ../actions/twitapifriendships.php:53
+#: ../actions/twitapifriendships.php:48
 msgid "Could not follow user: User not found."
 msgstr "Не вдалося слідувати за користувачем: користувача не знайдено."
 
@@ -492,38 +424,28 @@ msgstr "Не вдалося зберегти інформацію про ава�
 msgid "Could not save new profile info"
 msgstr "Не вдалося зберегти інформацію про новий профіль"
 
-#: ../lib/subs.php:54
+#: ../actions/subscribe.php:62
 msgid "Could not subscribe other to you."
 msgstr "Не вдалося підписати іншого до вас."
 
-#: ../lib/subs.php:46
+#: ../actions/subscribe.php:54
 msgid "Could not subscribe."
 msgstr "Невдала підписка."
-
-#: ../actions/recoverpassword.php:102
-#, fuzzy
-msgid "Could not update user with confirmed email address."
-msgstr "Поточна підтверджена поштова адреса."
 
 #: ../actions/finishremotesubscribe.php:99
 msgid "Couldn't convert request tokens to access tokens."
 msgstr "Не вдалося перетворити токени запиту на токени звернення."
 
-#: ../actions/confirmaddress.php:84 ../actions/emailsettings.php:234
+#: ../actions/confirmaddress.php:80 ../actions/emailsettings.php:234
 #: ../actions/imsettings.php:218 ../actions/smssettings.php:241
 msgid "Couldn't delete email confirmation."
 msgstr "Не вдалося видалити підтвердження поштової адреси."
 
-#: ../lib/subs.php:103
+#: ../actions/unsubscribe.php:57
 msgid "Couldn't delete subscription."
 msgstr "Не вдалося видалити підписку."
 
-#: ../actions/twitapistatuses.php:93
-#, fuzzy
-msgid "Couldn't find any statuses."
-msgstr "Не вдалося оновити користувача."
-
-#: ../actions/remotesubscribe.php:127
+#: ../actions/remotesubscribe.php:125
 msgid "Couldn't get a request token."
 msgstr "Не вдалося отримати токен запиту."
 
@@ -536,11 +458,11 @@ msgstr "Не вдалося додати код підтвердження."
 msgid "Couldn't insert new subscription."
 msgstr "Не вдалося додати нову підписку."
 
-#: ../actions/profilesettings.php:184 ../actions/twitapiaccount.php:96
+#: ../actions/profilesettings.php:181 ../actions/twitapiaccount.php:92
 msgid "Couldn't save profile."
 msgstr "Не вдалося зберегти профіль."
 
-#: ../actions/profilesettings.php:161
+#: ../actions/profilesettings.php:158
 msgid "Couldn't update user for autosubscribe."
 msgstr "Не вдалося оновити користувача для автопідписки."
 
@@ -592,7 +514,7 @@ msgstr "Поточне"
 msgid "DB error inserting hashtag: %s"
 msgstr "Помилка бази даних при додаванні мітки: %s"
 
-#: ../lib/util.php:1061
+#: ../lib/util.php:1033
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Помилка бази даних при додаванні відповіді: %s"
@@ -601,12 +523,11 @@ msgstr "Помилка бази даних при додаванні відпо�
 msgid "Delete notice"
 msgstr "Видалити повідомлення"
 
-#: ../actions/profilesettings.php:51 ../actions/register.php:172
+#: ../actions/profilesettings.php:51 ../actions/register.php:236
 msgid "Describe yourself and your interests in 140 chars"
 msgstr "Опишіть себе та свої інтереси (140 знаків)"
 
-#: ../actions/register.php:158 ../actions/register.php:161
-#: ../lib/settingsaction.php:87
+#: ../actions/register.php:226
 msgid "Email"
 msgstr "Пошта"
 
@@ -618,7 +539,7 @@ msgstr "Електронна адреса"
 msgid "Email Settings"
 msgstr "Налаштування пошти"
 
-#: ../actions/register.php:73
+#: ../actions/register.php:69
 msgid "Email address already exists."
 msgstr "Ця адреса вже використовується."
 
@@ -630,12 +551,7 @@ msgstr "Підтвердження електронної адреси"
 msgid "Email address, like \"UserName@example.org\""
 msgstr "Електронна адреса, на зразок \"UserName@example.org\""
 
-#: ../actions/invite.php:129
-#, fuzzy
-msgid "Email addresses"
-msgstr "Електронна адреса"
-
-#: ../actions/recoverpassword.php:191
+#: ../actions/recoverpassword.php:176
 msgid "Enter a nickname or email address."
 msgstr "Введіть ім'я або електронну адресу."
 
@@ -647,7 +563,7 @@ msgstr "Введіть код, який ви отримали телефоном
 msgid "Error authorizing token"
 msgstr "Помилка токена авторизації"
 
-#: ../actions/finishopenidlogin.php:253
+#: ../actions/finishopenidlogin.php:282
 msgid "Error connecting user to OpenID."
 msgstr "Помилка при підключенні користувача до OpenID."
 
@@ -663,11 +579,15 @@ msgstr "Помилка при додаванні аватари"
 msgid "Error inserting new profile"
 msgstr "Помилка при додаванні нового профілю"
 
+#: ../actions/postnotice.php:89
+msgid "Error inserting notice"
+msgstr "Помилка при додаванні повідомлення"
+
 #: ../actions/finishremotesubscribe.php:167
 msgid "Error inserting remote profile"
 msgstr "Помилка при додаванні віддаленого профілю"
 
-#: ../actions/recoverpassword.php:240
+#: ../actions/recoverpassword.php:201
 msgid "Error saving address confirmation."
 msgstr "Помилка при збереженні підтвердження адреси."
 
@@ -675,7 +595,7 @@ msgstr "Помилка при збереженні підтвердження а
 msgid "Error saving remote profile"
 msgstr "Помилка при збереженні віддаленого профілю"
 
-#: ../lib/openid.php:226
+#: ../actions/finishopenidlogin.php:222 ../lib/openid.php:226
 msgid "Error saving the profile."
 msgstr "Помилка при збереженні профілю."
 
@@ -688,7 +608,7 @@ msgid "Error saving user; invalid."
 msgstr "Помилка при збереженні користувача; недійсний."
 
 #: ../actions/login.php:47 ../actions/login.php:73
-#: ../actions/recoverpassword.php:307 ../actions/register.php:98
+#: ../actions/recoverpassword.php:268 ../actions/register.php:92
 msgid "Error setting user."
 msgstr "Помилка в налаштуваннях користувача."
 
@@ -700,7 +620,7 @@ msgstr "Помилка при оновленні профілю"
 msgid "Error updating remote profile"
 msgstr "Помилка при оновленні віддаленого профілю"
 
-#: ../actions/recoverpassword.php:80
+#: ../actions/recoverpassword.php:79
 msgid "Error with confirmation code."
 msgstr "Помилка з кодом підтвердження."
 
@@ -708,7 +628,7 @@ msgstr "Помилка з кодом підтвердження."
 msgid "Existing nickname"
 msgstr "Існуюче ім'я"
 
-#: ../lib/util.php:326
+#: ../lib/util.php:312
 msgid "FAQ"
 msgstr "Пширені запитання"
 
@@ -744,41 +664,37 @@ msgid ""
 "For security reasons, please re-enter your user name and password before "
 "changing your settings."
 msgstr ""
-"З міркувань безпеки, будь ласка введіть ще раз ім'я та пароль, перед тим як "
-"змінювати налатування."
+"З міркувань безпеки, будь ласка введіть "
+"ще раз ім'я та пароль, перед тим як змінювати налатування."
 
-#: ../actions/profilesettings.php:44 ../actions/register.php:164
+#: ../actions/profilesettings.php:44 ../actions/register.php:228
 msgid "Full name"
 msgstr "Повне ім'я"
 
-#: ../actions/profilesettings.php:98 ../actions/register.php:79
+#: ../actions/profilesettings.php:98 ../actions/register.php:75
 #: ../actions/updateprofile.php:93
 msgid "Full name is too long (max 255 chars)."
 msgstr "Повне ім'я задовге (255 знаків максимум)"
 
-#: ../lib/util.php:322
+#: ../lib/util.php:291
 msgid "Help"
 msgstr "Допомога"
 
-#: ../lib/util.php:298
+#: ../lib/util.php:285
 msgid "Home"
 msgstr "Дім"
 
-#: ../actions/profilesettings.php:46 ../actions/register.php:167
+#: ../actions/profilesettings.php:46 ../actions/register.php:231
 msgid "Homepage"
 msgstr "Домашня сторінка"
 
-#: ../actions/profilesettings.php:95 ../actions/register.php:76
+#: ../actions/profilesettings.php:95 ../actions/register.php:72
 msgid "Homepage is not a valid URL."
 msgstr "Домашня сторінка має недійсну URL-адресу."
 
 #: ../actions/emailsettings.php:91
 msgid "I want to post notices by email."
 msgstr "Я хочу надсилати повідомлення поштою."
-
-#: ../lib/settingsaction.php:102
-msgid "IM"
-msgstr ""
 
 #: ../actions/imsettings.php:60
 msgid "IM Address"
@@ -793,25 +709,24 @@ msgid ""
 "If you already have an account, login with your username and password to "
 "connect it to your OpenID."
 msgstr ""
-"Якщо ви вже маєте рахунок, увійдіть використовуючи ім'я та пароль, щоб "
-"приєднати їх до вашого OpenID."
+"Якщо ви вже маєте рахунок, увійдіть "
+"використовуючи ім'я та пароль, щоб приєднати їх до вашого OpenID."
 
 #: ../actions/openidsettings.php:45
 msgid ""
 "If you want to add an OpenID to your account, enter it in the box below and "
 "click \"Add\"."
 msgstr ""
-"Якщо ви бажаєте додати OpenID до вашого рахунку, введіть адресу в поле нижче "
-"і натисніть \"Add\"."
+"Якщо ви бажаєте додати OpenID до вашого "
+"рахунку, введіть адресу в поле нижче і натисніть \"Add\"."
 
-#: ../actions/recoverpassword.php:137
-#, fuzzy
+#: ../actions/recoverpassword.php:122
 msgid ""
-"If you've forgotten or lost your password, you can get a new one sent to the "
+"If you've forgotten or lost your password, you can get a new one sent  the "
 "email address you have stored  in your account."
 msgstr ""
-"Якщо ви забули, або загубили свій пароль, ви можете отримати новий на "
-"електронну адресу, яку ви закріпили за своїм рахунком."
+"Якщо ви забули, або загубили свій пароль, "
+"ви можете отримати новий на електронну адресу, яку ви закріпили за своїм рахунком."
 
 #: ../actions/emailsettings.php:67 ../actions/smssettings.php:76
 msgid "Incoming email"
@@ -829,23 +744,18 @@ msgstr "Старий пароль неточний"
 msgid "Incorrect username or password."
 msgstr "Неточне ім'я або пароль."
 
-#: ../actions/recoverpassword.php:265
+#: ../actions/recoverpassword.php:226
 msgid ""
 "Instructions for recovering your password have been sent to the email "
 "address registered to your account."
 msgstr ""
-"Інструкції з відновлення паролю було надіслано на електронну адресу, яку ви "
-"закріпили за своїм ранком."
+"Інструкції з відновлення паролю було "
+"надіслано на електронну адресу, яку ви закріпили за своїм ранком."
 
 #: ../actions/updateprofile.php:114
 #, php-format
 msgid "Invalid avatar URL '%s'"
 msgstr "Недійсна URL-адреса аватари '%s'"
-
-#: ../actions/invite.php:55
-#, fuzzy, php-format
-msgid "Invalid email address: %s"
-msgstr "Це не дійсна електронна адреса"
 
 #: ../actions/updateprofile.php:98
 #, php-format
@@ -886,37 +796,22 @@ msgstr "Недійсну URL-адресу профілю було поверну
 msgid "Invalid size."
 msgstr "Недійсний розмір."
 
-#: ../actions/finishopenidlogin.php:235 ../actions/register.php:93
-#: ../actions/register.php:111
+#: ../actions/finishopenidlogin.php:264 ../actions/register.php:87
+#: ../actions/register.php:103
 msgid "Invalid username or password."
 msgstr "Недійсне ім'я або пароль."
 
-#: ../actions/invite.php:79
-msgid "Invitation(s) sent"
-msgstr ""
-
-#: ../actions/invite.php:97
-msgid "Invitation(s) sent to the following people:"
-msgstr ""
-
-#: ../lib/util.php:306
-msgid "Invite"
-msgstr ""
-
-#: ../actions/invite.php:123
-msgid "Invite new users"
-msgstr ""
-
-#: ../lib/util.php:261
+#: ../lib/util.php:248
 #, php-format
 msgid ""
-"It runs the [Laconica](http://laconi.ca/) microblogging software, version %"
-"s, available under the [GNU Affero General Public License](http://www.fsf."
-"org/licensing/licenses/agpl-3.0.html)."
-msgstr ""
-"Сервіс працює на [Laconica](http://laconi.ca/) - програмному забезпеченні "
-"для мікроблогів, версія %s, доступному під [GNU Affero General Public "
+"It runs the [Laconica](http://laconi.ca/) microblogging software, version "
+"%s, available under the [GNU Affero General Public "
 "License](http://www.fsf.org/licensing/licenses/agpl-3.0.html)."
+msgstr ""
+"Сервіс працює на [Laconica](http://laconi.ca/) - "
+"програмному забезпеченні для "
+"мікроблогів, версія %s, доступному під [GNU "
+"Affero General Public License](http://www.fsf.org/licensing/licenses/agpl-3.0.html)."
 
 #: ../actions/imsettings.php:173
 msgid "Jabber ID already belongs to another user."
@@ -928,9 +823,9 @@ msgid ""
 "Jabber or GTalk address, like \"UserName@example.org\". First, make sure to "
 "add %s to your buddy list in your IM client or on GTalk."
 msgstr ""
-"Jabber або GTalk адреса, на зразок \"UserName@example.org\". Але спершу "
-"переконайтеся, що додали %s до списку контактів в своєму IM-клієнті або в "
-"GTalk."
+"Jabber або GTalk адреса, на зразок "
+"\"UserName@example.org\". Але спершу переконайтеся, "
+"що додали %s до списку контактів в своєму IM-клієнті або в GTalk."
 
 #: ../actions/profilesettings.php:57
 msgid "Language"
@@ -940,17 +835,21 @@ msgstr "Мова"
 msgid "Language is too long (max 50 chars)."
 msgstr "Мова задовга (50 знаків максимум)"
 
-#: ../actions/profilesettings.php:52 ../actions/register.php:173
+#: ../actions/tag.php:133
+msgid "Last message posted: "
+msgstr "Останнє повідомлення:"
+
+#: ../actions/profilesettings.php:52 ../actions/register.php:237
 msgid "Location"
 msgstr "Місцезнаходження"
 
-#: ../actions/profilesettings.php:104 ../actions/register.php:85
+#: ../actions/profilesettings.php:104 ../actions/register.php:81
 #: ../actions/updateprofile.php:108
 msgid "Location is too long (max 255 chars)."
 msgstr "Місцезнаходження задовге (255 знаків максимум)"
 
 #: ../actions/login.php:97 ../actions/login.php:106
-#: ../actions/openidlogin.php:68 ../lib/util.php:310
+#: ../actions/openidlogin.php:68 ../lib/util.php:298
 msgid "Login"
 msgstr "Увійти"
 
@@ -962,19 +861,19 @@ msgstr "Увійти з [OpenID](%%doc.openid%%)."
 #: ../actions/login.php:126
 #, php-format
 msgid ""
-"Login with your username and password. Don't have a username yet? [Register]"
-"(%%action.register%%) a new account, or try [OpenID](%%action.openidlogin%"
-"%). "
+"Login with your username and password. Don't have a username yet? "
+"[Register](%%action.register%%) a new account, or try "
+"[OpenID](%%action.openidlogin%%). "
 msgstr ""
-"Увійти викристовуючи ім'я та пароль. Ще не маєте імені користувача? "
-"[Зареєструвати](%%action.register%%) новий акаунт, або спробувати [OpenID](%%"
-"action.openidlogin%%)."
+"Увійти викристовуючи ім'я та пароль. Ще не "
+"маєте імені користувача? "
+"[Зареєструвати](%%action.register%%) новий акаунт, або спробувати [OpenID](%%action.openidlogin%%)."
 
-#: ../lib/util.php:308
+#: ../lib/util.php:296
 msgid "Logout"
 msgstr "Вийти"
 
-#: ../actions/register.php:166
+#: ../actions/register.php:230
 msgid "Longer name, preferably your \"real\" name"
 msgstr "Довше ім'я, переважно це ваше \"real\" ім'я"
 
@@ -1006,11 +905,11 @@ msgid ""
 "Mobile carrier for your phone. If you know a carrier that accepts SMS over "
 "email but isn't listed here, send email to let us know at %s."
 msgstr ""
-"Оператор мобільного зв'язку. Якщо вам відомий оператор, що підтримує "
-"надсилання SMS через електронну пошту, але він тут не вказаний, напишіть нам "
-"і ми внесемо його до списку."
+"Оператор мобільного зв'язку. Якщо вам "
+"відомий оператор, що підтримує "
+"надсилання SMS через електронну пошту, але він тут не вказаний, напишіть нам і ми внесемо його до списку."
 
-#: ../actions/finishopenidlogin.php:79 ../actions/register.php:188
+#: ../actions/finishopenidlogin.php:79 ../actions/register.php:252
 msgid "My text and files are available under "
 msgstr "Мої повідомлення та файли доступні під"
 
@@ -1018,7 +917,7 @@ msgstr "Мої повідомлення та файли доступні під"
 msgid "New"
 msgstr "Нове"
 
-#: ../lib/mail.php:144
+#: ../lib/mail.php:140
 #, php-format
 msgid "New email address for posting to %s"
 msgstr "Нова електронна адреса для надсилання повідомлень на %s"
@@ -1031,34 +930,34 @@ msgstr "Нову адресу для вхідних повідомлень до�
 msgid "New nickname"
 msgstr "Нове ім'я"
 
-#: ../actions/newnotice.php:87
+#: ../actions/newnotice.php:102
 msgid "New notice"
 msgstr "Нове повідомлення"
 
-#: ../actions/password.php:41 ../actions/recoverpassword.php:179
+#: ../actions/password.php:41 ../actions/recoverpassword.php:164
 msgid "New password"
 msgstr "Новий пароль"
 
-#: ../actions/recoverpassword.php:314
+#: ../actions/recoverpassword.php:275
 msgid "New password successfully saved. You are now logged in."
 msgstr "Новий пароль успішно збережено. Тепер ви увійшли."
 
 #: ../actions/login.php:101 ../actions/profilesettings.php:41
-#: ../actions/register.php:151
+#: ../actions/register.php:220
 msgid "Nickname"
 msgstr "Ім'я користувача"
 
 #: ../actions/finishopenidlogin.php:175 ../actions/profilesettings.php:110
-#: ../actions/register.php:69
+#: ../actions/register.php:65
 msgid "Nickname already in use. Try another one."
 msgstr "Це ім'я вже використовується. Спробуйте інше."
 
 #: ../actions/finishopenidlogin.php:165 ../actions/profilesettings.php:88
-#: ../actions/register.php:67 ../actions/updateprofile.php:77
+#: ../actions/register.php:63 ../actions/updateprofile.php:77
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
 msgstr ""
-"Ім'я користувача повинно складатись з літер нижнього регістру і цифр, ніяких "
-"інтервалів."
+"Ім'я користувача повинно складатись з "
+"літер нижнього регістру і цифр, ніяких інтервалів."
 
 #: ../actions/finishopenidlogin.php:170
 msgid "Nickname not allowed."
@@ -1068,7 +967,7 @@ msgstr "Таке ім'я неприпустиме."
 msgid "Nickname of the user you want to follow"
 msgstr "Ім'я користувача, за яким ви бажаєте слідувати"
 
-#: ../actions/recoverpassword.php:162
+#: ../actions/recoverpassword.php:147
 msgid "Nickname or email"
 msgstr "Ім'я або електронна адреса"
 
@@ -1096,7 +995,7 @@ msgstr "Код не введено"
 msgid "No confirmation code."
 msgstr "Немає коду підтвердження."
 
-#: ../actions/newnotice.php:44
+#: ../actions/newnotice.php:50
 msgid "No content!"
 msgstr "Немає змісту!"
 
@@ -1133,7 +1032,7 @@ msgstr "Немає телефонного номера."
 msgid "No profile URL returned by server."
 msgstr "Немає URL-адреси профілю повернітої сервером."
 
-#: ../actions/recoverpassword.php:226
+#: ../actions/recoverpassword.php:189
 msgid "No registered email address for that user."
 msgstr "Для цього користувача немає зареєстрованої електронної адреси."
 
@@ -1148,14 +1047,6 @@ msgstr "Немає результатів"
 #: ../actions/avatarbynickname.php:32
 msgid "No size."
 msgstr "Немає розміру."
-
-#: ../actions/twitapistatuses.php:595
-msgid "No status found with that ID."
-msgstr ""
-
-#: ../actions/twitapistatuses.php:555
-msgid "No status with that ID found."
-msgstr ""
 
 #: ../actions/openidsettings.php:135
 msgid "No such OpenID."
@@ -1180,18 +1071,14 @@ msgstr "Немає такої підписки"
 
 #: ../actions/all.php:34 ../actions/allrss.php:35
 #: ../actions/avatarbynickname.php:43 ../actions/foaf.php:40
-#: ../actions/remotesubscribe.php:84 ../actions/remotesubscribe.php:91
-#: ../actions/replies.php:57 ../actions/repliesrss.php:35
-#: ../actions/showstream.php:110 ../actions/userbyid.php:36
-#: ../actions/userrss.php:35 ../actions/xrds.php:35 ../lib/gallery.php:57
-#: ../lib/subs.php:33 ../lib/subs.php:82
+#: ../actions/recoverpassword.php:185 ../actions/remotesubscribe.php:84
+#: ../actions/remotesubscribe.php:91 ../actions/replies.php:57
+#: ../actions/repliesrss.php:35 ../actions/showstream.php:110
+#: ../actions/subscribe.php:44 ../actions/unsubscribe.php:39
+#: ../actions/userbyid.php:36 ../actions/userrss.php:35 ../actions/xrds.php:35
+#: ../lib/gallery.php:57
 msgid "No such user."
 msgstr "Такого користувача немає."
-
-#: ../actions/recoverpassword.php:211
-#, fuzzy
-msgid "No user with that email address or username."
-msgstr "Для цього користувача немає зареєстрованої електронної адреси."
 
 #: ../lib/gallery.php:80
 msgid "Nobody to show!"
@@ -1200,17 +1087,6 @@ msgstr "Об'єктів для показу немає!"
 #: ../actions/recoverpassword.php:60
 msgid "Not a recovery code."
 msgstr "Це не код оновлення."
-
-#: ../scripts/maildaemon.php:50
-#, fuzzy
-msgid "Not a registered user."
-msgstr "Це не код оновлення."
-
-#: ../lib/twitterapi.php:226 ../lib/twitterapi.php:247
-#: ../lib/twitterapi.php:332
-#, fuzzy
-msgid "Not a supported data format."
-msgstr "формат даних не підтримується"
 
 #: ../actions/imsettings.php:167
 msgid "Not a valid Jabber ID"
@@ -1224,19 +1100,19 @@ msgstr "Це не дійсний OpenID."
 msgid "Not a valid email address"
 msgstr "Це не дійсна електронна адреса"
 
-#: ../actions/register.php:63
+#: ../actions/register.php:59
 msgid "Not a valid email address."
 msgstr "Це не дійсна електронна адреса."
 
-#: ../actions/profilesettings.php:91 ../actions/register.php:71
+#: ../actions/profilesettings.php:91 ../actions/register.php:67
 msgid "Not a valid nickname."
 msgstr "Це не дійсне ім'я користувача."
 
-#: ../actions/remotesubscribe.php:120
+#: ../actions/remotesubscribe.php:118
 msgid "Not a valid profile URL (incorrect services)."
 msgstr "Це не дійсна URL-адреса профілю (некоректні послуги)."
 
-#: ../actions/remotesubscribe.php:113
+#: ../actions/remotesubscribe.php:111
 msgid "Not a valid profile URL (no XRDS defined)."
 msgstr "Це не дійсна URL-адреса профілю (немає певного XRDS)."
 
@@ -1256,11 +1132,6 @@ msgstr "Не авторизовано."
 msgid "Not expecting this response!"
 msgstr "Ця відповідь не очікується!"
 
-#: ../actions/twitapistatuses.php:422
-#, fuzzy
-msgid "Not found"
-msgstr "Немає знайденого запиту!"
-
 #: ../actions/finishaddopenid.php:29 ../actions/logout.php:33
 #: ../actions/newnotice.php:29 ../actions/subscribe.php:28
 #: ../actions/unsubscribe.php:25 ../lib/deleteaction.php:38
@@ -1268,7 +1139,7 @@ msgstr "Немає знайденого запиту!"
 msgid "Not logged in."
 msgstr "Не увійшли."
 
-#: ../lib/subs.php:91
+#: ../actions/unsubscribe.php:44
 msgid "Not subscribed!."
 msgstr "Не підписано!."
 
@@ -1289,7 +1160,7 @@ msgstr "Повідомлення не має профілю"
 msgid "Notices"
 msgstr "Повідомлення"
 
-#: ../actions/tag.php:35 ../actions/tag.php:81
+#: ../actions/tag.php:35 ../actions/tag.php:81 ../actions/tag.php:124
 #, php-format
 msgid "Notices tagged with %s"
 msgstr "Повідомлення позначені з %s"
@@ -1298,7 +1169,7 @@ msgstr "Повідомлення позначені з %s"
 msgid "Old password"
 msgstr "Старий пароль"
 
-#: ../lib/settingsaction.php:96 ../lib/util.php:314
+#: ../lib/util.php:302
 msgid "OpenID"
 msgstr "OpenID"
 
@@ -1341,36 +1212,32 @@ msgstr "OpenID видалено."
 msgid "OpenID settings"
 msgstr "Налаштування OpenID"
 
-#: ../actions/invite.php:135
-msgid "Optionally add a personal message to the invitation."
-msgstr ""
-
 #: ../actions/avatar.php:84
 msgid "Partial upload."
 msgstr "Часткове завантаження."
 
 #: ../actions/finishopenidlogin.php:90 ../actions/login.php:102
-#: ../actions/register.php:153 ../lib/settingsaction.php:93
+#: ../actions/register.php:222
 msgid "Password"
 msgstr "Пароль"
 
-#: ../actions/recoverpassword.php:288
+#: ../actions/recoverpassword.php:249
 msgid "Password and confirmation do not match."
 msgstr "Пароль та підтвердження не співпадають."
 
-#: ../actions/recoverpassword.php:284
+#: ../actions/recoverpassword.php:245
 msgid "Password must be 6 chars or more."
 msgstr "Пароль містить 6 або більше знаків."
 
-#: ../actions/recoverpassword.php:261 ../actions/recoverpassword.php:263
+#: ../actions/recoverpassword.php:222 ../actions/recoverpassword.php:224
 msgid "Password recovery requested"
 msgstr "Запит на відновлення паролю відправлено."
 
-#: ../actions/password.php:89 ../actions/recoverpassword.php:313
+#: ../actions/password.php:89 ../actions/recoverpassword.php:274
 msgid "Password saved."
 msgstr "Пароль збережено."
 
-#: ../actions/password.php:61 ../actions/register.php:88
+#: ../actions/password.php:61 ../actions/register.php:84
 msgid "Passwords don't match."
 msgstr "Паролі не співпадають."
 
@@ -1390,11 +1257,6 @@ msgstr "Пошук людей"
 msgid "Personal"
 msgstr "Особисте"
 
-#: ../actions/invite.php:133
-#, fuzzy
-msgid "Personal message"
-msgstr "Особисте"
-
 #: ../actions/smssettings.php:69
 msgid "Phone number, no punctuation or spaces, with area code"
 msgstr "Телефонний номер та регіональний код, ніякої пунктуації чи інтервалів"
@@ -1405,9 +1267,10 @@ msgid ""
 "user's notices. If you didn't just ask to subscribe to someone's notices, "
 "click \"Cancel\"."
 msgstr ""
-"Будь ласка, перевірте всі деталі, щоб упевнитись, що ви дійсно бажаєте "
-"підписатись на повідомлення даного користувача. Якщо ви не збирались "
-"підписуватись ні на чиї повідомлення, просто натисніть \"Cancel\"."
+"Будь ласка, перевірте всі деталі, щоб "
+"упевнитись, що ви дійсно бажаєте "
+"підписатись на повідомлення даного "
+"користувача. Якщо ви не збирались підписуватись ні на чиї повідомлення, просто натисніть \"Cancel\"."
 
 #: ../actions/imsettings.php:73
 msgid "Post a notice when my Jabber/GTalk status changes."
@@ -1427,15 +1290,15 @@ msgstr "Переваги збережно."
 msgid "Preferred language"
 msgstr "Мова, якій надаєте перевагу"
 
-#: ../lib/util.php:328
+#: ../lib/util.php:314
 msgid "Privacy"
 msgstr "Конфіденційність"
 
-#: ../classes/Notice.php:95 ../classes/Notice.php:106
+#: ../actions/newnotice.php:62 ../actions/newnotice.php:70
 msgid "Problem saving notice."
 msgstr "Проблема при збереженні повідомлення."
 
-#: ../lib/settingsaction.php:84 ../lib/stream.php:60
+#: ../lib/stream.php:60
 msgid "Profile"
 msgstr "Профіль"
 
@@ -1450,6 +1313,10 @@ msgstr "Налаштування профілю"
 #: ../actions/postnotice.php:51 ../actions/updateprofile.php:52
 msgid "Profile unknown"
 msgstr "Невідомий профіль"
+
+#: ../lib/util.php:287
+msgid "Public"
+msgstr "Загал"
 
 #: ../actions/public.php:54
 msgid "Public Stream Feed"
@@ -1471,11 +1338,11 @@ msgstr "Позначати MicroID моєї електронної адреси.
 msgid "Recent Tags"
 msgstr "Недавні мітки"
 
-#: ../actions/recoverpassword.php:166
+#: ../actions/recoverpassword.php:151
 msgid "Recover"
 msgstr "Відновити"
 
-#: ../actions/recoverpassword.php:156
+#: ../actions/recoverpassword.php:141
 msgid "Recover password"
 msgstr "Відновити пароль"
 
@@ -1483,7 +1350,7 @@ msgstr "Відновити пароль"
 msgid "Recovery code for unknown user."
 msgstr "Код відновлення невідомого користувача."
 
-#: ../actions/register.php:142 ../actions/register.php:193 ../lib/util.php:312
+#: ../actions/register.php:216 ../actions/register.php:257 ../lib/util.php:300
 msgid "Register"
 msgstr "Зареєструватись"
 
@@ -1491,7 +1358,7 @@ msgstr "Зареєструватись"
 msgid "Registration not allowed."
 msgstr "Реєстрацію не дозволено."
 
-#: ../actions/register.php:200
+#: ../actions/register.php:264
 msgid "Registration successful"
 msgstr "Реєстрація успішна"
 
@@ -1499,7 +1366,7 @@ msgstr "Реєстрація успішна"
 msgid "Reject"
 msgstr "Забраковано"
 
-#: ../actions/login.php:103 ../actions/register.php:176
+#: ../actions/login.php:103 ../actions/register.php:240
 msgid "Remember me"
 msgstr "Пам'ятати мене"
 
@@ -1526,8 +1393,8 @@ msgid ""
 "Removing your only OpenID would make it impossible to log in! If you need to "
 "remove it, add another OpenID first."
 msgstr ""
-"Ви входите лише з OpenID, якщо ви його видалите, то не зможете увійти знову! "
-"Перед тим як видалити його, з початку додайте інший."
+"Ви входите лише з OpenID, якщо ви його "
+"видалите, то не зможете увійти знову! Перед тим як видалити його, з початку додайте інший."
 
 #: ../lib/stream.php:55
 msgid "Replies"
@@ -1538,17 +1405,13 @@ msgstr "Відповіді"
 msgid "Replies to %s"
 msgstr "Відповіді %s"
 
-#: ../actions/recoverpassword.php:183
+#: ../actions/recoverpassword.php:168
 msgid "Reset"
 msgstr "Скинути"
 
-#: ../actions/recoverpassword.php:173
+#: ../actions/recoverpassword.php:158
 msgid "Reset password"
 msgstr "Скинути пароль"
-
-#: ../lib/settingsaction.php:99
-msgid "SMS"
-msgstr ""
 
 #: ../actions/smssettings.php:67
 msgid "SMS Phone number"
@@ -1558,15 +1421,15 @@ msgstr "Телефонний номер"
 msgid "SMS Settings"
 msgstr "Налаштування SMS"
 
-#: ../lib/mail.php:219
+#: ../lib/mail.php:215
 msgid "SMS confirmation"
 msgstr "Підтвердження SMS"
 
-#: ../actions/recoverpassword.php:182
+#: ../actions/recoverpassword.php:167
 msgid "Same as password above"
 msgstr "Такий же, як пароль вище"
 
-#: ../actions/register.php:156
+#: ../actions/register.php:225
 msgid "Same as password above. Required."
 msgstr "Такий же, як пароль вище. Неодмінно."
 
@@ -1575,7 +1438,7 @@ msgstr "Такий же, як пароль вище. Неодмінно."
 msgid "Save"
 msgstr "Зберегти"
 
-#: ../lib/searchaction.php:84 ../lib/util.php:300
+#: ../lib/searchaction.php:84 ../lib/util.php:288
 msgid "Search"
 msgstr "Пошук"
 
@@ -1589,8 +1452,9 @@ msgid ""
 "Search for notices on %%site.name%% by their contents. Separate search terms "
 "by spaces; they must be 3 characters or more."
 msgstr ""
-"Пошук повідомлень на %%site.name%% за їх змістом. Відокремлюйте пошукові "
-"умови інтервалами; вони повинні складатись з 3 знаків або більше."
+"Пошук повідомлень на %%site.name%% за їх "
+"змістом. Відокремлюйте пошукові умови "
+"інтервалами; вони повинні складатись з 3 знаків або більше."
 
 #: ../actions/peoplesearch.php:28
 #, php-format
@@ -1598,15 +1462,15 @@ msgid ""
 "Search for people on %%site.name%% by their name, location, or interests. "
 "Separate the terms by spaces; they must be 3 characters or more."
 msgstr ""
-"Пошук людей на %%site.name%% за їх ім'ям, місцем знаходження або інтересами. "
-"Відокремлюйте пошукові умови інтервалами; вони повинні складатись з 3 знаків "
-"або більше."
+"Пошук людей на %%site.name%% за їх ім'ям, місцем "
+"знаходження або інтересами. "
+"Відокремлюйте пошукові умови інтервалами; вони повинні складатись з 3 знаків або більше."
 
 #: ../actions/smssettings.php:296
 msgid "Select a carrier"
 msgstr "Оберіть оператора"
 
-#: ../actions/invite.php:137 ../lib/util.php:1172
+#: ../lib/util.php:1144
 msgid "Send"
 msgstr "Надіслати"
 
@@ -1627,20 +1491,20 @@ msgid ""
 "Send me notices through SMS; I understand I may incur exorbitant charges "
 "from my carrier."
 msgstr ""
-"Повідомляти мене за допомогою SMS; Я розімію, що, можливо, понесу надмірні "
-"витрати від мого мобільного оператора."
+"Повідомляти мене за допомогою SMS; Я "
+"розімію, що, можливо, понесу надмірні витрати від мого мобільного оператора."
 
 #: ../actions/imsettings.php:76
 msgid "Send me replies through Jabber/GTalk from people I'm not subscribed to."
 msgstr ""
-"Надсилати також мені відповіді через Jabber/GTalk від людей, до яких я не "
-"підписаний."
+"Надсилати також мені відповіді через "
+"Jabber/GTalk від людей, до яких я не підписаний."
 
-#: ../lib/util.php:304
+#: ../lib/util.php:294
 msgid "Settings"
 msgstr "Налаштування"
 
-#: ../actions/profilesettings.php:192
+#: ../actions/profilesettings.php:189
 msgid "Settings saved."
 msgstr "Налаштування збережено."
 
@@ -1656,17 +1520,7 @@ msgstr "Хтось вже користується цим OpenID."
 msgid "Something weird happened."
 msgstr "Сталося щось погане."
 
-#: ../scripts/maildaemon.php:58
-#, fuzzy
-msgid "Sorry, no incoming email allowed."
-msgstr "Немає адреси для вхідної пошти."
-
-#: ../scripts/maildaemon.php:54
-#, fuzzy
-msgid "Sorry, that is not your incoming email address."
-msgstr "Це не ваша адреса."
-
-#: ../lib/util.php:330
+#: ../lib/util.php:316
 msgid "Source"
 msgstr "Джерело"
 
@@ -1674,7 +1528,7 @@ msgstr "Джерело"
 msgid "Statistics"
 msgstr "Статистика"
 
-#: ../actions/finishopenidlogin.php:182 ../actions/finishopenidlogin.php:246
+#: ../actions/finishopenidlogin.php:182 ../actions/finishopenidlogin.php:275
 msgid "Stored OpenID not found."
 msgstr "Збережений OpenID не знайдено."
 
@@ -1704,7 +1558,7 @@ msgstr "Підписки"
 msgid "System error uploading file."
 msgstr "Система відповіла помилкою при завантаженні цього файла."
 
-#: ../actions/tag.php:41 ../lib/util.php:301
+#: ../actions/tag.php:41 ../lib/util.php:289
 msgid "Tags"
 msgstr "Мітки"
 
@@ -1772,16 +1626,11 @@ msgstr "Це помилковий код підтвердження."
 msgid "That phone number already belongs to another user."
 msgstr "Цей телефонний номер належить іншому користувачу."
 
-#: ../actions/newnotice.php:49 ../actions/twitapistatuses.php:408
+#: ../actions/newnotice.php:53
 msgid "That's too long. Max notice size is 140 chars."
 msgstr "Задовге. Максимальний розмір повідомлення - 140 знаків."
 
-#: ../actions/twitapiaccount.php:74
-#, fuzzy
-msgid "That's too long. Max notice size is 255 chars."
-msgstr "Задовге. Максимальний розмір повідомлення - 140 знаків."
-
-#: ../actions/confirmaddress.php:92
+#: ../actions/confirmaddress.php:88
 #, php-format
 msgid "The address \"%s\" has been confirmed for your account."
 msgstr "Адресу \"%s\" було підтверджено для вашого рахунку."
@@ -1797,9 +1646,9 @@ msgid ""
 "with the site's instructions for details on how to authorize the "
 "subscription. Your subscription token is:"
 msgstr ""
-"Підписку було авторизовано, але URL-адреса у відповідь не передавалася. "
-"Звіртесь з інструкціями на сайті для більш конкретної інформації про те, як "
-"авторизувати підписку. Ваш підписний токен:"
+"Підписку було авторизовано, але URL-адреса "
+"у відповідь не передавалася. Звіртесь з "
+"інструкціями на сайті для більш конкретної інформації про те, як авторизувати підписку. Ваш підписний токен:"
 
 #: ../actions/userauthorization.php:322
 msgid ""
@@ -1807,9 +1656,9 @@ msgid ""
 "with the site's instructions for details on how to fully reject the "
 "subscription."
 msgstr ""
-"Підписку було скинуно, але URL-адреса у відповідь не передавалася. Звіртесь "
-"з інструкціями на сайті для більш конкретної інформації про те, як скинути "
-"підписку."
+"Підписку було скинуно, але URL-адреса у "
+"відповідь не передавалася. Звіртесь з "
+"інструкціями на сайті для більш конкретної інформації про те, як скинути підписку."
 
 #: ../actions/subscribers.php:35
 #, php-format
@@ -1829,12 +1678,7 @@ msgstr "Тут представлені ті, за чиїми повідомле
 msgid "These are the people whose notices you listen to."
 msgstr "Тут представлені ті, за чиїми повідомленнями ви слідкуєте."
 
-#: ../actions/invite.php:89
-msgid ""
-"These people are already users and you were automatically subscribed to them:"
-msgstr ""
-
-#: ../actions/recoverpassword.php:88
+#: ../actions/recoverpassword.php:87
 msgid "This confirmation code is too old. Please start again."
 msgstr "Цей код підтвердження застарий. Будь ласка, розпочніть з початку."
 
@@ -1843,9 +1687,9 @@ msgid ""
 "This form should automatically submit itself. If not, click the submit "
 "button to go to your OpenID provider."
 msgstr ""
-"Ця форма повинна автоматично себе представити. Якщо цього не сталося, "
-"натисніть на кнопку представлення і ви будете перенаправлені до вашого "
-"OpenID провайдера."
+"Ця форма повинна автоматично себе "
+"представити. Якщо цього не сталося, "
+"натисніть на кнопку представлення і ви будете перенаправлені до вашого OpenID провайдера."
 
 #: ../actions/finishopenidlogin.php:56
 #, php-format
@@ -1854,20 +1698,11 @@ msgid ""
 "to a local account. You can either create a new account, or connect with "
 "your existing account, if you have one."
 msgstr ""
-"Ви вперше увійшли до %s, так що ми повинні приєднати ваш OpenID до "
-"локального рахунку. Ви можете також створити новий рахунок, або приєднати "
-"OpenID до вашого вже існуючого рахунку, якщо ви його маєте."
+"Ви вперше увійшли до %s, так що ми повинні "
+"приєднати ваш OpenID до локального рахунку. "
+"Ви можете також створити новий рахунок, або приєднати OpenID до вашого вже існуючого рахунку, якщо ви його маєте."
 
-#: ../actions/twitapifriendships.php:108 ../actions/twitapistatuses.php:586
-msgid "This method requires a POST or DELETE."
-msgstr ""
-
-#: ../actions/twitapiaccount.php:65 ../actions/twitapifriendships.php:44
-#: ../actions/twitapistatuses.php:381
-msgid "This method requires a POST."
-msgstr ""
-
-#: ../lib/util.php:164
+#: ../lib/util.php:151
 msgid "This page is not available in a media type you accept"
 msgstr "Ця сторінка не доступна в медіа-типі, який ви приймаєте"
 
@@ -1882,19 +1717,21 @@ msgstr "Часовий пояс не обрано."
 #: ../actions/remotesubscribe.php:43
 #, php-format
 msgid ""
-"To subscribe, you can [login](%%action.login%%), or [register](%%action."
-"register%%) a new  account. If you already have an account  on a [compatible "
-"microblogging site](%%doc.openmublog%%),  enter your profile URL below."
+"To subscribe, you can [login](%%action.login%%), or "
+"[register](%%action.register%%) a new  account. If you already have an "
+"account  on a [compatible microblogging site](%%doc.openmublog%%),  enter "
+"your profile URL below."
 msgstr ""
-"Щоб підписатись, ви можете [увійти](%%action.login%%), або [зареєструвати](%%"
-"action.register%%) новий рахунок. Якщо ви вже маєте рахунок на [сумісному "
-"сайті](%%doc.openmublog%%), введіть URL-адресу вашого профілю."
+"Щоб підписатись, ви можете "
+"[увійти](%%action.login%%), або "
+"[зареєструвати](%%action.register%%) новий рахунок. "
+"Якщо ви вже маєте рахунок на [сумісному сайті](%%doc.openmublog%%), введіть URL-адресу вашого профілю."
 
-#: ../actions/twitapifriendships.php:163
+#: ../actions/twitapifriendships.php:150
 msgid "Two user ids or screen_names must be supplied."
 msgstr "Два ID або імені_у_мережі повинні підтримуватись."
 
-#: ../actions/profilesettings.php:48 ../actions/register.php:169
+#: ../actions/profilesettings.php:48 ../actions/register.php:233
 msgid "URL of your homepage, blog, or profile on another site"
 msgstr "URL-адреса вашої домашньої сторінки, блогу, "
 
@@ -1907,25 +1744,21 @@ msgstr "URL-адреса вашого профілю на іншому сумі�
 msgid "Unexpected form submission."
 msgstr "Несподіване представлення форми."
 
-#: ../actions/recoverpassword.php:276
+#: ../actions/recoverpassword.php:237
 msgid "Unexpected password reset."
 msgstr "Несподіване скидання паролю."
-
-#: ../index.php:57
-msgid "Unknown action"
-msgstr ""
 
 #: ../actions/finishremotesubscribe.php:58
 msgid "Unknown version of OMB protocol."
 msgstr "Невідома версія протоколу OMB."
 
-#: ../lib/util.php:269
+#: ../lib/util.php:256
 msgid ""
 "Unless otherwise specified, contents of this site are copyright by the "
 "contributors and available under the "
 msgstr ""
-"Якщо не зазначено інше, авторське право на вміст цього сайту належить "
-"контрибуторам і доступний під"
+"Якщо не зазначено інше, авторське право "
+"на вміст цього сайту належить контрибуторам і доступний під"
 
 #: ../actions/confirmaddress.php:48
 #, php-format
@@ -1944,20 +1777,16 @@ msgstr "Версія OMB не підтримується"
 msgid "Unsupported image file format."
 msgstr "Формат зображення не підтримується."
 
-#: ../lib/settingsaction.php:100
-msgid "Updates by SMS"
-msgstr ""
+#: ../lib/twitterapi.php:257 ../lib/twitterapi.php:278
+msgid "Unsupported type"
+msgstr "Тип не підтримується"
 
-#: ../lib/settingsaction.php:103
-msgid "Updates by instant messenger (IM)"
-msgstr ""
-
-#: ../actions/twitapistatuses.php:241
+#: ../actions/twitapistatuses.php:238
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "Оновлення від %1$s та друзів на %2$s!"
 
-#: ../actions/twitapistatuses.php:341
+#: ../actions/twitapistatuses.php:338
 #, php-format
 msgid "Updates from %1$s on %2$s!"
 msgstr "Оновлення від %1$s на %2$s!"
@@ -1973,26 +1802,18 @@ msgid ""
 "site license, also. Use a picture that belongs to you and that you want to "
 "share."
 msgstr ""
-"Завантажити нову \"avatar\" (зображення користувача) можна тут. Ви не "
-"зможете відредагувати свою аватару після завантаження, так що з початку "
-"переконайтеся, що вона має більш-менш квадратну форму. Ваше зображення "
-"зберігатиметься під ліцензією сайту, також. Використовуйте зображення, які "
-"належать вам, і які ви можете вільно демонструвати."
+"Завантажити нову \"avatar\" (зображення "
+"користувача) можна тут. Ви не зможете "
+"відредагувати свою аватару після "
+"завантаження, так що з початку "
+"переконайтеся, що вона має більш-менш "
+"квадратну форму. Ваше зображення зберігатиметься під ліцензією сайту, також. Використовуйте зображення, які належать вам, і які ви можете вільно демонструвати."
 
-#: ../lib/settingsaction.php:91
-#, fuzzy
-msgid "Upload a new profile image"
-msgstr "Не вдалося зберегти інформацію про новий профіль"
-
-#: ../actions/invite.php:114
-msgid ""
-"Use this form to invite your friends and colleagues to use this service."
-msgstr ""
-
-#: ../actions/register.php:159 ../actions/register.php:162
+#: ../actions/register.php:227
 msgid "Used only for updates, announcements, and password recovery"
 msgstr ""
-"Використовується лише для оновлень, оголошень та переустановлення паролю"
+"Використовується лише для оновлень, "
+"оголошень та переустановлення паролю"
 
 #: ../actions/finishremotesubscribe.php:86
 msgid "User being listened to doesn't exist."
@@ -2000,9 +1821,8 @@ msgstr "Користувача, який слідкував за вашими п
 
 #: ../actions/all.php:41 ../actions/avatarbynickname.php:48
 #: ../actions/foaf.php:47 ../actions/replies.php:41
-#: ../actions/showstream.php:44 ../actions/twitapiaccount.php:82
-#: ../actions/twitapistatuses.php:319 ../actions/twitapistatuses.php:685
-#: ../actions/twitapiusers.php:82
+#: ../actions/showstream.php:44 ../actions/twitapiaccount.php:78
+#: ../actions/twitapistatuses.php:316 ../actions/twitapistatuses.php:621
 msgid "User has no profile."
 msgstr "Користувач не має профілю."
 
@@ -2010,21 +1830,16 @@ msgstr "Користувач не має профілю."
 msgid "User nickname"
 msgstr "Ім'я користувача"
 
-#: ../actions/twitapiusers.php:75
-#, fuzzy
-msgid "User not found."
-msgstr "Збережений OpenID не знайдено."
-
 #: ../actions/profilesettings.php:63
 msgid "What timezone are you normally in?"
 msgstr "За яким часовим поясом ви живете?"
 
-#: ../lib/util.php:1159
+#: ../lib/util.php:1131
 #, php-format
 msgid "What's up, %s?"
 msgstr "Як ся маєш, %s?"
 
-#: ../actions/profilesettings.php:54 ../actions/register.php:175
+#: ../actions/profilesettings.php:54 ../actions/register.php:239
 msgid "Where you are, like \"City, State (or Region), Country\""
 msgstr "Де ви живете, на зразок \"City, State (or Region), Country\""
 
@@ -2051,19 +1866,14 @@ msgid ""
 "You are about to permanently delete a notice.  Once this is done, it cannot "
 "be undone."
 msgstr ""
-"Ви видаляєте повідомлення назавжди. Якщо ви так зробите, це не матиме "
-"зворотньої дії."
+"Ви видаляєте повідомлення назавжди. Якщо "
+"ви так зробите, це не матиме зворотньої дії."
 
 #: ../actions/recoverpassword.php:31
 msgid "You are already logged in!"
 msgstr "Ви вже в системі!"
 
-#: ../actions/invite.php:81
-#, fuzzy
-msgid "You are already subscribed to these users:"
-msgstr "Ви не є друзями із вказаним користувачем."
-
-#: ../actions/twitapifriendships.php:128
+#: ../actions/twitapifriendships.php:115
 msgid "You are not friends with the specified user."
 msgstr "Ви не є друзями із вказаним користувачем."
 
@@ -2071,7 +1881,7 @@ msgstr "Ви не є друзями із вказаним користуваче
 msgid "You can change your password here. Choose a good one!"
 msgstr "Тут ви можете замінити пароль. Оберіть собі якийсь гарний!"
 
-#: ../actions/register.php:135
+#: ../actions/register.php:209
 msgid "You can create a new account to start posting notices."
 msgstr "Ви можете створити новий рахунок, щоб почати писати повідомлення."
 
@@ -2085,29 +1895,32 @@ msgid ""
 "You can remove an OpenID from your account by clicking the button marked "
 "\"Remove\"."
 msgstr ""
-"Ви можете видалити OpenID із свого рахунку, якщо натиснете кнопку \"Remove\"."
+"Ви можете видалити OpenID із свого рахунку, "
+"якщо натиснете кнопку \"Remove\"."
 
 #: ../actions/imsettings.php:28
 #, php-format
 msgid ""
-"You can send and receive notices through Jabber/GTalk [instant messages](%%"
-"doc.im%%). Configure your address and settings below."
+"You can send and receive notices through Jabber/GTalk [instant "
+"messages](%%doc.im%%). Configure your address and settings below."
 msgstr ""
-"Ви можете надсилати на отримувати повідомлення через Jabber/GTalk [службу "
+"Ви можете надсилати на отримувати "
+"повідомлення через Jabber/GTalk [службу "
 "миттевих повідомлень](%%doc.im%%). Вкажить свою адресу і налаштуйте це нижче."
 
 #: ../actions/profilesettings.php:27
 msgid ""
-"You can update your personal profile info here so people know more about you."
+"You can update your personal profile info here so people know more about "
+"you."
 msgstr ""
-"Ви можете доповнити свій особистий профіль, так що люди знатимуть про вас "
-"більше."
+"Ви можете доповнити свій особистий "
+"профіль, так що люди знатимуть про вас більше."
 
 #: ../actions/finishremotesubscribe.php:31 ../actions/remotesubscribe.php:31
 msgid "You can use the local subscription!"
 msgstr "Ви можете користуватись локальними підписками!"
 
-#: ../actions/finishopenidlogin.php:33 ../actions/register.php:61
+#: ../actions/finishopenidlogin.php:33 ../actions/register.php:57
 msgid "You can't register if you don't agree to the license."
 msgstr "Ви не зможете зареєструватись, якщо не погодитесь з умовами ліцензії."
 
@@ -2115,7 +1928,7 @@ msgstr "Ви не зможете зареєструватись, якщо не �
 msgid "You did not send us that profile"
 msgstr "Ви не надсилали нам цього профілю"
 
-#: ../lib/mail.php:147
+#: ../lib/mail.php:143
 #, php-format
 msgid ""
 "You have a new posting address on %1$s.\n"
@@ -2129,29 +1942,12 @@ msgid ""
 msgstr ""
 "Ви маєте нову поштову адресу на %1$s.\n"
 "\n"
-"Надсилайте листи на %2$s, щоб друкувати нові повідомлення.\n"
+"Надсилайте листи на %2$s, щоб друкувати "
+"нові повідомлення.\n"
 "\n"
-"Більше інформації про використання електронної пошти на %3$s.\n"
-"\n"
-"Щиро ваші,\n"
-"%4$s"
+"Більше інформації про використання електронної пошти на %3$s.\n\nЩиро ваші,\n%4$s"
 
-#: ../actions/twitapistatuses.php:612
-msgid "You may not delete another user's status."
-msgstr ""
-
-#: ../actions/invite.php:31
-#, php-format
-msgid "You must be logged in to invite other users to use %s"
-msgstr ""
-
-#: ../actions/invite.php:103
-msgid ""
-"You will be notified when your invitees accept the invitation and register "
-"on the site. Thanks for growing the community!"
-msgstr ""
-
-#: ../actions/recoverpassword.php:149
+#: ../actions/recoverpassword.php:134
 msgid "You've been identified. Enter a  new password below. "
 msgstr "Вас ідентифіковано. Введіть новий пароль нижче."
 
@@ -2159,10 +1955,11 @@ msgstr "Вас ідентифіковано. Введіть новий паро�
 msgid "Your OpenID URL"
 msgstr "URL-адреса вашого OpenID"
 
-#: ../actions/recoverpassword.php:164
+#: ../actions/recoverpassword.php:149
 msgid "Your nickname on this server, or your registered email address."
 msgstr ""
-"Ваше ім'я користувача на цьому сервері, або зареєстрована електронна адреса."
+"Ваше ім'я користувача на цьому сервері, "
+"або зареєстрована електронна адреса."
 
 #: ../actions/openidsettings.php:28
 #, php-format
@@ -2170,64 +1967,69 @@ msgid ""
 "[OpenID](%%doc.openid%%) lets you log into many sites  with the same user "
 "account.  Manage your associated OpenIDs from here."
 msgstr ""
-"[OpenID](%%doc.openid%%) дає вам можливість реєструватися на багатьох "
-"сайтах, користуючись єдиним рахунком. Керувати вашими OpenID можна звідси."
+"[OpenID](%%doc.openid%%) дає вам можливість "
+"реєструватися на багатьох сайтах, "
+"користуючись єдиним рахунком. Керувати вашими OpenID можна звідси."
 
-#: ../lib/util.php:943
+#: ../lib/util.php:919
 msgid "a few seconds ago"
 msgstr "кілька секунд тому"
 
-#: ../lib/util.php:955
+#: ../lib/util.php:931
 #, php-format
 msgid "about %d days ago"
 msgstr "близько %d днів тому"
 
-#: ../lib/util.php:951
+#: ../lib/util.php:927
 #, php-format
 msgid "about %d hours ago"
 msgstr "близько %d годин тому"
 
-#: ../lib/util.php:947
+#: ../lib/util.php:923
 #, php-format
 msgid "about %d minutes ago"
 msgstr "близько %d хвилин тому"
 
-#: ../lib/util.php:959
+#: ../lib/util.php:935
 #, php-format
 msgid "about %d months ago"
 msgstr "близько %d місяців тому"
 
-#: ../lib/util.php:953
+#: ../lib/util.php:929
 msgid "about a day ago"
 msgstr "день тому"
 
-#: ../lib/util.php:945
+#: ../lib/util.php:921
 msgid "about a minute ago"
 msgstr "хвилину тому"
 
-#: ../lib/util.php:957
+#: ../lib/util.php:933
 msgid "about a month ago"
 msgstr "місяць тому"
 
-#: ../lib/util.php:961
+#: ../lib/util.php:937
 msgid "about a year ago"
 msgstr "рік тому"
 
-#: ../lib/util.php:949
+#: ../lib/util.php:925
 msgid "about an hour ago"
 msgstr "годину тому"
 
-#: ../actions/showstream.php:423 ../lib/stream.php:132
+#: ../actions/showstream.php:424 ../lib/stream.php:130
 msgid "delete"
 msgstr "видалити"
 
-#: ../actions/noticesearch.php:130 ../actions/showstream.php:408
-#: ../lib/stream.php:117
+#: ../actions/noticesearch.php:126 ../actions/showstream.php:408
+#: ../lib/stream.php:114
 msgid "in reply to..."
 msgstr "у відповідь на..."
 
-#: ../actions/noticesearch.php:137 ../actions/showstream.php:415
-#: ../lib/stream.php:124
+#: ../lib/twitterapi.php:363
+msgid "not a supported data format"
+msgstr "формат даних не підтримується"
+
+#: ../actions/noticesearch.php:133 ../actions/showstream.php:415
+#: ../lib/stream.php:121
 msgid "reply"
 msgstr "відповісти"
 
@@ -2235,28 +2037,862 @@ msgstr "відповісти"
 msgid "same as password above"
 msgstr "такий же, як пароль вище"
 
-#: ../actions/twitapistatuses.php:755
+#: ../actions/twitapistatuses.php:691
 msgid "unsupported file type"
 msgstr "тип файлу не підтримується"
 
-#: ../lib/util.php:1309
+#: ../lib/util.php:1281
 msgid "« After"
 msgstr "« Вперед"
 
-#~ msgid " by "
-#~ msgstr "від"
+#: ../actions/showstream.php:400 ../lib/stream.php:109
+#: actions/showstream.php:418 lib/mailbox.php:164 lib/stream.php:76
+msgid " from "
+msgstr ""
 
-#~ msgid "%1$s Notices recently tagged with %2$s"
-#~ msgstr "%1$s Повідомлення щойно позначені з %2$s"
+#: ../actions/invite.php:168 actions/invite.php:176
+#, php-format
+msgid "%1$s has invited you to join them on %2$s"
+msgstr ""
 
-#~ msgid "Error inserting notice"
-#~ msgstr "Помилка при додаванні повідомлення"
+#: ../actions/invite.php:170
+#, php-format
+msgid ""
+"%1$s has invited you to join them on %2$s (%3$s).\n"
+"\n"
+"%2$s is a micro-blogging service that lets you keep up-to-date with people "
+"you know and people who interest you.\n"
+"\n"
+"You can also share news about yourself, your thoughts, or your life online "
+"with people who know about you. It's also great for meeting new people who "
+"share your interests.\n"
+"\n"
+"%1$s said:\n"
+"\n"
+"%4$s\n"
+"\n"
+"You can see %1$s's profile page on %2$s here:\n"
+"\n"
+"%5$s\n"
+"\n"
+"If you'd like to try the service, click on the link below to accept the "
+"invitation.\n"
+"\n"
+"%6$s\n"
+"\n"
+"If not, you can ignore this message. Thanks for your patience and your "
+"time.\n"
+"\n"
+"Sincerely, %2$s\n"
+msgstr ""
 
-#~ msgid "Last message posted: "
-#~ msgstr "Останнє повідомлення:"
+#: ../actions/invite.php:84 ../actions/invite.php:92 actions/invite.php:91
+#: actions/invite.php:99
+#, php-format
+msgid "%s (%s)"
+msgstr ""
 
-#~ msgid "Public"
-#~ msgstr "Загал"
+#: ../actions/twitapiaccount.php:49 ../actions/twitapihelp.php:45
+#: ../actions/twitapistatuses.php:88 ../actions/twitapistatuses.php:259
+#: ../actions/twitapistatuses.php:370 ../actions/twitapistatuses.php:532
+#: ../actions/twitapiusers.php:122 actions/twitapiaccount.php:49
+#: actions/twitapidirect_messages.php:104 actions/twitapifavorites.php:111
+#: actions/twitapifavorites.php:120 actions/twitapifriendships.php:156
+#: actions/twitapihelp.php:46 actions/twitapistatuses.php:93
+#: actions/twitapistatuses.php:176 actions/twitapistatuses.php:288
+#: actions/twitapistatuses.php:298 actions/twitapistatuses.php:454
+#: actions/twitapistatuses.php:463 actions/twitapistatuses.php:504
+#: actions/twitapiusers.php:55
+msgid "API method not found!"
+msgstr ""
 
-#~ msgid "Unsupported type"
-#~ msgstr "Тип не підтримується"
+#: ../actions/twitapiaccount.php:57 ../actions/twitapiaccount.php:113
+#: ../actions/twitapiaccount.php:119 ../actions/twitapiblocks.php:28
+#: ../actions/twitapiblocks.php:34 ../actions/twitapidirect_messages.php:43
+#: ../actions/twitapidirect_messages.php:49
+#: ../actions/twitapidirect_messages.php:56
+#: ../actions/twitapidirect_messages.php:62 ../actions/twitapifavorites.php:41
+#: ../actions/twitapifavorites.php:47 ../actions/twitapifavorites.php:53
+#: ../actions/twitapihelp.php:52 ../actions/twitapinotifications.php:29
+#: ../actions/twitapinotifications.php:35 ../actions/twitapistatuses.php:768
+#: actions/twitapiaccount.php:56 actions/twitapiaccount.php:109
+#: actions/twitapiaccount.php:114 actions/twitapiblocks.php:28
+#: actions/twitapiblocks.php:33 actions/twitapidirect_messages.php:170
+#: actions/twitapifavorites.php:168 actions/twitapihelp.php:53
+#: actions/twitapinotifications.php:29 actions/twitapinotifications.php:34
+#: actions/twitapistatuses.php:690
+msgid "API method under construction."
+msgstr ""
+
+#: ../lib/settingsaction.php:97 lib/settingsaction.php:91
+msgid "Add or remove OpenIDs"
+msgstr ""
+
+#: ../actions/invite.php:131 actions/invite.php:139
+msgid "Addresses of friends to invite (one per line)"
+msgstr ""
+
+#: ../lib/settingsaction.php:88 lib/settingsaction.php:88
+msgid "Change email handling"
+msgstr ""
+
+#: ../lib/settingsaction.php:94
+msgid "Change your password"
+msgstr ""
+
+#: ../lib/settingsaction.php:85 lib/settingsaction.php:85
+msgid "Change your profile settings"
+msgstr ""
+
+#: ../actions/twitapifriendships.php:60 ../actions/twitapifriendships.php:76
+#: actions/twitapifriendships.php:60 actions/twitapifriendships.php:76
+#, php-format
+msgid "Could not follow user: %s is already on your list."
+msgstr ""
+
+#: ../actions/recoverpassword.php:102 actions/recoverpassword.php:105
+msgid "Could not update user with confirmed email address."
+msgstr ""
+
+#: ../actions/twitapistatuses.php:93 actions/twitapistatuses.php:98
+msgid "Couldn't find any statuses."
+msgstr ""
+
+#: ../actions/invite.php:129 actions/invite.php:137
+msgid "Email addresses"
+msgstr ""
+
+#: ../lib/settingsaction.php:102 lib/settingsaction.php:96
+msgid "IM"
+msgstr ""
+
+#: ../actions/recoverpassword.php:137
+msgid ""
+"If you've forgotten or lost your password, you can get a new one sent to the "
+"email address you have stored  in your account."
+msgstr ""
+
+#: ../actions/invite.php:55 actions/invite.php:62
+#, php-format
+msgid "Invalid email address: %s"
+msgstr ""
+
+#: ../actions/invite.php:79 actions/invite.php:86
+msgid "Invitation(s) sent"
+msgstr ""
+
+#: ../actions/invite.php:97 actions/invite.php:104
+msgid "Invitation(s) sent to the following people:"
+msgstr ""
+
+#: ../lib/util.php:306 lib/util.php:322
+msgid "Invite"
+msgstr ""
+
+#: ../actions/invite.php:123 actions/invite.php:130
+msgid "Invite new users"
+msgstr ""
+
+#: ../actions/twitapistatuses.php:595 actions/twitapifavorites.php:136
+#: actions/twitapistatuses.php:520
+msgid "No status found with that ID."
+msgstr ""
+
+#: ../actions/twitapistatuses.php:555 actions/twitapistatuses.php:478
+msgid "No status with that ID found."
+msgstr ""
+
+#: ../actions/recoverpassword.php:211 actions/recoverpassword.php:217
+msgid "No user with that email address or username."
+msgstr ""
+
+#: ../scripts/maildaemon.php:50 scripts/maildaemon.php:50
+msgid "Not a registered user."
+msgstr ""
+
+#: ../lib/twitterapi.php:226 ../lib/twitterapi.php:247
+#: ../lib/twitterapi.php:332 lib/twitterapi.php:391 lib/twitterapi.php:418
+#: lib/twitterapi.php:502
+msgid "Not a supported data format."
+msgstr ""
+
+#: ../actions/twitapistatuses.php:422 actions/twitapistatuses.php:361
+msgid "Not found"
+msgstr ""
+
+#: ../actions/invite.php:135 actions/invite.php:143
+msgid "Optionally add a personal message to the invitation."
+msgstr ""
+
+#: ../actions/invite.php:133 actions/invite.php:141
+msgid "Personal message"
+msgstr ""
+
+#: ../lib/settingsaction.php:99 lib/settingsaction.php:93
+msgid "SMS"
+msgstr ""
+
+#: ../scripts/maildaemon.php:58 scripts/maildaemon.php:58
+msgid "Sorry, no incoming email allowed."
+msgstr ""
+
+#: ../scripts/maildaemon.php:54 scripts/maildaemon.php:54
+msgid "Sorry, that is not your incoming email address."
+msgstr ""
+
+#: ../actions/twitapiaccount.php:74 actions/twitapiaccount.php:72
+msgid "That's too long. Max notice size is 255 chars."
+msgstr ""
+
+#: ../actions/invite.php:89 actions/invite.php:96
+msgid ""
+"These people are already users and you were automatically subscribed to "
+"them:"
+msgstr ""
+
+#: ../actions/twitapifriendships.php:108 ../actions/twitapistatuses.php:586
+#: actions/twitapifavorites.php:127 actions/twitapifriendships.php:108
+#: actions/twitapistatuses.php:511
+msgid "This method requires a POST or DELETE."
+msgstr ""
+
+#: ../actions/twitapiaccount.php:65 ../actions/twitapifriendships.php:44
+#: ../actions/twitapistatuses.php:381 actions/twitapiaccount.php:63
+#: actions/twitapidirect_messages.php:114 actions/twitapifriendships.php:44
+#: actions/twitapistatuses.php:303
+msgid "This method requires a POST."
+msgstr ""
+
+#: ../index.php:57 index.php:57
+msgid "Unknown action"
+msgstr ""
+
+#: ../lib/settingsaction.php:100 lib/settingsaction.php:94
+msgid "Updates by SMS"
+msgstr ""
+
+#: ../lib/settingsaction.php:103 lib/settingsaction.php:97
+msgid "Updates by instant messenger (IM)"
+msgstr ""
+
+#: ../lib/settingsaction.php:91
+msgid "Upload a new profile image"
+msgstr ""
+
+#: ../actions/invite.php:114 actions/invite.php:121
+msgid ""
+"Use this form to invite your friends and colleagues to use this "
+"service."
+msgstr ""
+
+#: ../actions/twitapiusers.php:75 actions/twitapiusers.php:80
+msgid "User not found."
+msgstr ""
+
+#: ../actions/invite.php:81 actions/invite.php:88
+msgid "You are already subscribed to these users:"
+msgstr ""
+
+#: ../actions/twitapistatuses.php:612 actions/twitapistatuses.php:537
+msgid "You may not delete another user's status."
+msgstr ""
+
+#: ../actions/invite.php:31 actions/invite.php:31
+#, php-format
+msgid "You must be logged in to invite other users to use %s"
+msgstr ""
+
+#: ../actions/invite.php:103 actions/invite.php:110
+msgid ""
+"You will be notified when your invitees accept the invitation and register "
+"on the site. Thanks for growing the community!"
+msgstr ""
+
+#: actions/deletenotice.php:74 actions/disfavor.php:43
+#: actions/emailsettings.php:127 actions/favor.php:45
+#: actions/finishopenidlogin.php:33 actions/imsettings.php:105
+#: actions/invite.php:46 actions/newmessage.php:45 actions/openidlogin.php:36
+#: actions/openidsettings.php:123 actions/profilesettings.php:47
+#: actions/recoverpassword.php:282 actions/register.php:42
+#: actions/remotesubscribe.php:40 actions/smssettings.php:124
+#: actions/subscribe.php:44 actions/twittersettings.php:97
+#: actions/unsubscribe.php:41 actions/userauthorization.php:35
+msgid "There was a problem with your session token. Try again, please."
+msgstr ""
+
+#: actions/disfavor.php:55
+msgid "This notice is not a favorite!"
+msgstr ""
+
+#: actions/disfavor.php:63
+msgid "Could not delete favorite."
+msgstr ""
+
+#: actions/disfavor.php:72
+msgid "Favor"
+msgstr ""
+
+#: actions/emailsettings.php:92
+msgid "Send me email when someone adds my notice as a favorite."
+msgstr ""
+
+#: actions/emailsettings.php:95
+msgid "Send me email when someone sends me a private message."
+msgstr ""
+
+#: actions/favor.php:53 actions/twitapifavorites.php:142
+msgid "This notice is already a favorite!"
+msgstr ""
+
+#: actions/favor.php:60 actions/twitapifavorites.php:151
+#: classes/Command.php:132
+msgid "Could not create favorite."
+msgstr ""
+
+#: actions/favor.php:70
+msgid "Disfavor"
+msgstr ""
+
+#: actions/favoritesrss.php:60 actions/showfavorites.php:47
+#, php-format
+msgid "%s favorite notices"
+msgstr ""
+
+#: actions/favoritesrss.php:64
+#, php-format
+msgid "Feed of favorite notices of %s"
+msgstr ""
+
+#: actions/inbox.php:28
+#, php-format
+msgid "Inbox for %s - page %d"
+msgstr ""
+
+#: actions/inbox.php:30
+#, php-format
+msgid "Inbox for %s"
+msgstr ""
+
+#: actions/inbox.php:53
+msgid "This is your inbox, which lists your incoming private messages."
+msgstr ""
+
+#: actions/invite.php:178
+#, php-format
+msgid ""
+"%1$s has invited you to join them on %2$s (%3$s).\n"
+"\n"
+msgstr ""
+
+#: actions/login.php:104
+msgid "Automatically login in the future; "
+msgstr ""
+
+#: actions/login.php:122
+msgid "For security reasons, please re-enter your "
+msgstr ""
+
+#: actions/login.php:126
+msgid "Login with your username and password. "
+msgstr ""
+
+#: actions/newmessage.php:58 actions/twitapidirect_messages.php:130
+msgid "That's too long. Max message size is 140 chars."
+msgstr ""
+
+#: actions/newmessage.php:65
+msgid "No recipient specified."
+msgstr ""
+
+#: actions/newmessage.php:68 actions/newmessage.php:113
+#: classes/Command.php:206
+msgid "You can't send a message to this user."
+msgstr ""
+
+#: actions/newmessage.php:71 actions/twitapidirect_messages.php:146
+#: classes/Command.php:209
+msgid ""
+"Don't send a message to yourself; just say it to yourself quietly "
+"instead."
+msgstr ""
+
+#: actions/newmessage.php:108
+msgid "No such user"
+msgstr ""
+
+#: actions/newmessage.php:117
+msgid "New message"
+msgstr ""
+
+#: actions/noticesearch.php:95
+msgid "Notice without matching profile"
+msgstr ""
+
+#: actions/openidsettings.php:28
+#, php-format
+msgid "[OpenID](%%doc.openid%%) lets you log into many sites "
+msgstr ""
+
+#: actions/openidsettings.php:46
+msgid "If you want to add an OpenID to your account, "
+msgstr ""
+
+#: actions/openidsettings.php:74
+msgid "Removing your only OpenID would make it impossible to log in! "
+msgstr ""
+
+#: actions/openidsettings.php:87
+msgid "You can remove an OpenID from your account "
+msgstr ""
+
+#: actions/outbox.php:28
+#, php-format
+msgid "Outbox for %s - page %d"
+msgstr ""
+
+#: actions/outbox.php:30
+#, php-format
+msgid "Outbox for %s"
+msgstr ""
+
+#: actions/outbox.php:53
+msgid "This is your outbox, which lists private messages you have sent."
+msgstr ""
+
+#: actions/peoplesearch.php:28
+#, php-format
+msgid ""
+"Search for people on %%site.name%% by their name, location, or interests. "
+msgstr ""
+
+#: actions/profilesettings.php:27
+msgid "You can update your personal profile info here "
+msgstr ""
+
+#: actions/profilesettings.php:115 actions/remotesubscribe.php:320
+#: actions/userauthorization.php:159 actions/userrss.php:76
+msgid "User without matching profile"
+msgstr ""
+
+#: actions/recoverpassword.php:91
+msgid "This confirmation code is too old. "
+msgstr ""
+
+#: actions/recoverpassword.php:141
+msgid "If you've forgotten or lost your"
+msgstr ""
+
+#: actions/recoverpassword.php:154
+msgid "You've been identified. Enter a "
+msgstr ""
+
+#: actions/recoverpassword.php:169
+msgid "Your nickname on this server, "
+msgstr ""
+
+#: actions/recoverpassword.php:271
+msgid "Instructions for recovering your password "
+msgstr ""
+
+#: actions/recoverpassword.php:327
+msgid "New password successfully saved. "
+msgstr ""
+
+#: actions/register.php:95
+msgid "Password must be 6 or more characters."
+msgstr ""
+
+#: actions/register.php:216
+#, php-format
+msgid ""
+"Congratulations, %s! And welcome to %%%%site.name%%%%. From here, you may "
+"want to..."
+msgstr ""
+
+#: actions/register.php:227
+msgid "(You should receive a message by email momentarily, with "
+msgstr ""
+
+#: actions/remotesubscribe.php:51
+#, php-format
+msgid "To subscribe, you can [login](%%action.login%%),"
+msgstr ""
+
+#: actions/showfavorites.php:61
+#, php-format
+msgid "Feed for favorites of %s"
+msgstr ""
+
+#: actions/showfavorites.php:84 actions/twitapifavorites.php:85
+msgid "Could not retrieve favorite notices."
+msgstr ""
+
+#: actions/showmessage.php:33
+msgid "No such message."
+msgstr ""
+
+#: actions/showmessage.php:42
+msgid "Only the sender and recipient may read this message."
+msgstr ""
+
+#: actions/showmessage.php:61
+#, php-format
+msgid "Message to %1$s on %2$s"
+msgstr ""
+
+#: actions/showmessage.php:66
+#, php-format
+msgid "Message from %1$s on %2$s"
+msgstr ""
+
+#: actions/showstream.php:154
+msgid "Send a message"
+msgstr ""
+
+#: actions/smssettings.php:312
+#, php-format
+msgid "Mobile carrier for your phone. "
+msgstr ""
+
+#: actions/twitapidirect_messages.php:76
+#, php-format
+msgid "Direct messages to %s"
+msgstr ""
+
+#: actions/twitapidirect_messages.php:77
+#, php-format
+msgid "All the direct messages sent to %s"
+msgstr ""
+
+#: actions/twitapidirect_messages.php:81
+msgid "Direct Messages You've Sent"
+msgstr ""
+
+#: actions/twitapidirect_messages.php:82
+#, php-format
+msgid "All the direct messages sent from %s"
+msgstr ""
+
+#: actions/twitapidirect_messages.php:128
+msgid "No message text!"
+msgstr ""
+
+#: actions/twitapidirect_messages.php:138
+msgid "Recipient user not found."
+msgstr ""
+
+#: actions/twitapidirect_messages.php:141
+msgid "Can't send direct messages to users who aren't your friend."
+msgstr ""
+
+#: actions/twitapifavorites.php:92
+#, php-format
+msgid "%s / Favorites from %s"
+msgstr ""
+
+#: actions/twitapifavorites.php:95
+#, php-format
+msgid "%s updates favorited by %s / %s."
+msgstr ""
+
+#: actions/twitapifavorites.php:187 lib/mail.php:275
+#, php-format
+msgid "%s added your notice as a favorite"
+msgstr ""
+
+#: actions/twitapifavorites.php:188 lib/mail.php:276
+#, php-format
+msgid ""
+"%1$s just added your notice from %2$s as one of their favorites.\n"
+"\n"
+msgstr ""
+
+#: actions/twittersettings.php:27
+msgid ""
+"Add your Twitter account to automatically send your notices to Twitter, "
+msgstr ""
+
+#: actions/twittersettings.php:41
+msgid "Twitter settings"
+msgstr ""
+
+#: actions/twittersettings.php:48
+msgid "Twitter Account"
+msgstr ""
+
+#: actions/twittersettings.php:56
+msgid "Current verified Twitter account."
+msgstr ""
+
+#: actions/twittersettings.php:63
+msgid "Twitter Username"
+msgstr ""
+
+#: actions/twittersettings.php:65
+msgid "No spaces, please."
+msgstr ""
+
+#: actions/twittersettings.php:67
+msgid "Twitter Password"
+msgstr ""
+
+#: actions/twittersettings.php:72
+msgid "Automatically send my notices to Twitter."
+msgstr ""
+
+#: actions/twittersettings.php:75
+msgid "Send local \"@\" replies to Twitter."
+msgstr ""
+
+#: actions/twittersettings.php:78
+msgid "Subscribe to my Twitter friends here."
+msgstr ""
+
+#: actions/twittersettings.php:122
+msgid ""
+"Username must have only numbers, upper- and lowercase letters, and "
+"underscore (_). 15 chars max."
+msgstr ""
+
+#: actions/twittersettings.php:128
+msgid "Could not verify your Twitter credentials!"
+msgstr ""
+
+#: actions/twittersettings.php:137
+#, php-format
+msgid "Unable to retrieve account information for \"%s\" from Twitter."
+msgstr ""
+
+#: actions/twittersettings.php:151 actions/twittersettings.php:170
+msgid "Unable to save your Twitter settings!"
+msgstr ""
+
+#: actions/twittersettings.php:174
+msgid "Twitter settings saved."
+msgstr ""
+
+#: actions/twittersettings.php:192
+msgid "That is not your Twitter account."
+msgstr ""
+
+#: actions/twittersettings.php:200 actions/twittersettings.php:208
+msgid "Couldn't remove Twitter user."
+msgstr ""
+
+#: actions/twittersettings.php:212
+msgid "Twitter account removed."
+msgstr ""
+
+#: actions/twittersettings.php:225 actions/twittersettings.php:239
+msgid "Couldn't save Twitter preferences."
+msgstr ""
+
+#: actions/twittersettings.php:245
+msgid "Twitter preferences saved."
+msgstr ""
+
+#: actions/userauthorization.php:84
+msgid "Please check these details to make sure "
+msgstr ""
+
+#: actions/userauthorization.php:324
+msgid "The subscription has been authorized, but no "
+msgstr ""
+
+#: actions/userauthorization.php:334
+msgid "The subscription has been rejected, but no "
+msgstr ""
+
+#: classes/Channel.php:113
+msgid "Command results"
+msgstr ""
+
+#: classes/Channel.php:148
+msgid "Command complete"
+msgstr ""
+
+#: classes/Channel.php:158
+msgid "Command failed"
+msgstr ""
+
+#: classes/Command.php:39
+msgid "Sorry, this command is not yet implemented."
+msgstr ""
+
+#: classes/Command.php:96
+#, php-format
+msgid "Subscriptions: %1$s\n"
+msgstr ""
+
+#: classes/Command.php:125 classes/Command.php:242
+msgid "User has no last notice"
+msgstr ""
+
+#: classes/Command.php:146
+msgid "Notice marked as fave."
+msgstr ""
+
+#: classes/Command.php:166
+#, php-format
+msgid "%1$s (%2$s)"
+msgstr ""
+
+#: classes/Command.php:169
+#, php-format
+msgid "Fullname: %s"
+msgstr ""
+
+#: classes/Command.php:172
+#, php-format
+msgid "Location: %s"
+msgstr ""
+
+#: classes/Command.php:175
+#, php-format
+msgid "Homepage: %s"
+msgstr ""
+
+#: classes/Command.php:178
+#, php-format
+msgid "About: %s"
+msgstr ""
+
+#: classes/Command.php:200
+#, php-format
+msgid "Message too long - maximum is 140 characters, you sent %d"
+msgstr ""
+
+#: classes/Command.php:214
+#, php-format
+msgid "Direct message to %s sent"
+msgstr ""
+
+#: classes/Command.php:216
+msgid "Error sending direct message."
+msgstr ""
+
+#: classes/Command.php:263
+msgid "Specify the name of the user to subscribe to"
+msgstr ""
+
+#: classes/Command.php:270
+#, php-format
+msgid "Subscribed to %s"
+msgstr ""
+
+#: classes/Command.php:288
+msgid "Specify the name of the user to unsubscribe from"
+msgstr ""
+
+#: classes/Command.php:295
+#, php-format
+msgid "Unsubscribed from %s"
+msgstr ""
+
+#: classes/Command.php:310 classes/Command.php:330
+msgid "Command not yet implemented."
+msgstr ""
+
+#: classes/Command.php:313
+msgid "Notification off."
+msgstr ""
+
+#: classes/Command.php:315
+msgid "Can't turn off notification."
+msgstr ""
+
+#: classes/Command.php:333
+msgid "Notification on."
+msgstr ""
+
+#: classes/Command.php:335
+msgid "Can't turn on notification."
+msgstr ""
+
+#: classes/Command.php:344
+msgid "Commands:\n"
+msgstr ""
+
+#: classes/Message.php:53
+msgid "Could not insert message."
+msgstr ""
+
+#: classes/Message.php:63
+msgid "Could not update message with new URI."
+msgstr ""
+
+#: lib/gallery.php:46
+msgid "User without matching profile in system."
+msgstr ""
+
+#: lib/mail.php:147
+#, php-format
+msgid ""
+"You have a new posting address on %1$s.\n"
+"\n"
+msgstr ""
+
+#: lib/mail.php:249
+#, php-format
+msgid "New private message from %s"
+msgstr ""
+
+#: lib/mail.php:253
+#, php-format
+msgid ""
+"%1$s (%2$s) sent you a private message:\n"
+"\n"
+msgstr ""
+
+#: lib/mailbox.php:43
+msgid "Only the user can read their own mailboxes."
+msgstr ""
+
+#: lib/openid.php:195
+msgid "This form should automatically submit itself. "
+msgstr ""
+
+#: lib/personal.php:65
+msgid "Favorites"
+msgstr ""
+
+#: lib/personal.php:66
+#, php-format
+msgid "%s's favorite notices"
+msgstr ""
+
+#: lib/personal.php:66
+msgid "User"
+msgstr ""
+
+#: lib/personal.php:75
+msgid "Inbox"
+msgstr ""
+
+#: lib/personal.php:76
+msgid "Your incoming messages"
+msgstr ""
+
+#: lib/personal.php:80
+msgid "Outbox"
+msgstr ""
+
+#: lib/personal.php:81
+msgid "Your sent messages"
+msgstr ""
+
+#: lib/settingsaction.php:99
+msgid "Twitter"
+msgstr ""
+
+#: lib/settingsaction.php:100
+msgid "Twitter integration options"
+msgstr ""
+
+#: lib/util.php:1718
+msgid "To"
+msgstr ""
+
+#: scripts/maildaemon.php:45
+msgid "Could not parse message."
+msgstr ""

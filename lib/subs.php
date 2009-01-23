@@ -60,23 +60,22 @@ function subs_subscribe_to($user, $other)
 
     subs_notify($other, $user);
 
-    if (common_config('memcached', 'enabled')) {
-        $cache = new Memcache();
-        if ($cache->connect(common_config('memcached', 'server'), common_config('memcached', 'port'))) {
-            $cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
-        }
-    }
+        $cache = common_memcache();
+
+    if ($cache) {
+        $cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
+	}
+
 
     if ($other->autosubscribe && !$other->isSubscribed($user) && !$user->hasBlocked($other)) {
         if (!$other->subscribeTo($user)) {
             return _('Could not subscribe other to you.');
         }
-        if (common_config('memcached', 'enabled')) {
-            $cache = new Memcache();
-            if ($cache->connect(common_config('memcached', 'server'), common_config('memcached', 'port'))) {
-                $cache->delete(common_cache_key('user:notices_with_friends:' . $other->id));
-            }
-        }
+        $cache = common_memcache();
+
+        if ($cache) {
+            $cache->delete(common_cache_key('user:notices_with_friends:' . $other->id));
+		}
 
         subs_notify($user, $other);
     }
@@ -134,12 +133,11 @@ function subs_unsubscribe_to($user, $other)
     if (!$sub->delete())
         return _('Couldn\'t delete subscription.');
 
-    if (common_config('memcached', 'enabled')) {
-        $cache = new Memcache();
-        if ($cache->connect(common_config('memcached', 'server'), common_config('memcached', 'port'))) {
-            $cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
-        }
-    }
+    $cache = common_memcache();
+
+    if ($cache) {
+        $cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
+	}
 
     return true;
 }

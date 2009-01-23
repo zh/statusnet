@@ -1,0 +1,3157 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: laconica\n"
+"Report-Msgid-Bugs-To: mikec@resnet.net.nz\n"
+"POT-Creation-Date: 2008-07-13 17:15+1200\n"
+"PO-Revision-Date: \n"
+"Last-Translator: LienNguyen <lien.nguyen@anhone.vn>\n"
+"Language-Team:  <support@saigonica.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: NEW ZEALAND\n"
+
+#: ../actions/noticesearchrss.php:64
+#, php-format
+msgid " Search Stream for \"%s\""
+msgstr " Tìm dòng thông tin cho \"%s\""
+
+#: ../actions/finishopenidlogin.php:82
+#: ../actions/register.php:193
+msgid ""
+" except this private data: password, email address, IM address, phone "
+"number."
+msgstr " ngoại trừ thông tin riêng: mật khẩu, email, địa chỉ IM, số điện thoại"
+
+#: ../actions/subscribe.php:84
+#, php-format
+msgid "%1$s is now listening to your notices on %2$s."
+msgstr "%1$s dang theo doi tin nhan cua ban tren %2$s."
+
+#: ../actions/subscribe.php:86
+#, php-format
+msgid ""
+"%1$s is now listening to your notices on %2$s.\n"
+"\n"
+"\t%3$s\n"
+"\n"
+"Faithfully yours,\n"
+"%4$s.\n"
+msgstr ""
+"%1$s đang theo dõi các tin nhắn của bạn trên %2$s.\n"
+"\n"
+"\t%3$s\n"
+"\n"
+"Người bạn trung thành của bạn,\n%4$s.\n"
+
+#: ../actions/shownotice.php:45
+#, php-format
+msgid "%1$s's status on %2$s"
+msgstr "Trạng thái của %1$s vào %2$s"
+
+#: ../actions/publicrss.php:60
+#, php-format
+msgid "%s Public Stream"
+msgstr "%s Dòng tin công cộng"
+
+#: ../actions/all.php:47
+#: ../actions/allrss.php:70
+#: ../lib/stream.php:45
+#, php-format
+msgid "%s and friends"
+msgstr "%s và bạn bè"
+
+#: ../lib/util.php:233
+#, php-format
+msgid ""
+"**%%site.name%%** is a microblogging service brought to you by "
+"[%%site.broughtby%%](%%site.broughtbyurl%%). "
+msgstr ""
+"**%%site.name%%** là dịch vụ gửi tin nhắn được cung cấp từ "
+"[%%site.broughtby%%](%%site.broughtbyurl%%). "
+
+#: ../lib/util.php:235
+#, php-format
+msgid "**%%site.name%%** is a microblogging service. "
+msgstr "**%%site.name%%** là dịch vụ gửi tin nhắn. "
+
+#: ../lib/util.php:250
+msgid ". Contributors should be attributed by full name or nickname."
+msgstr "Người đăng ký nên được phân theo tên hoặc nickname"
+
+#: ../actions/finishopenidlogin.php:73
+#: ../actions/profilesettings.php:43
+#: ../actions/register.php:176
+msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
+msgstr ""
+"1-64 chữ cái thường hoặc là chữ số, không có dấu chấm hay "
+
+#: ../actions/password.php:42
+#: ../actions/register.php:178
+msgid "6 or more characters"
+msgstr "Nhiều hơn 6 ký tự"
+
+#: ../actions/register.php:178
+msgid " Required."
+msgstr " Bắt buộc."
+
+#: ../actions/register.php:178
+msgid "Longer name, preferably your \"real\" name"
+msgstr "Họ tên đầy đủ của bạn, tốt nhất là tên thật của bạn."
+
+#: ../actions/recoverpassword.php:165
+msgid "6 or more characters, and don't forget it!"
+msgstr "Nhiều hơn 6 ký tự, đừng quên nó!"
+
+#: ../actions/imsettings.php:188
+#, php-format
+msgid ""
+"A confirmation code was sent to the IM address you added. You must approve "
+"%s for sending messages to you."
+msgstr ""
+"Mã xác nhận đã được gửi đến địa chỉ IM. Bạn phải "
+"chấp nhận %s để có thể gửi tin nhắn đến bạn."
+
+#: ../lib/util.php:296
+msgid "About"
+msgstr "Giới thiệu"
+
+#: ../actions/userauthorization.php:118
+msgid "Accept"
+msgstr "Chấp nhận"
+
+#: ../actions/imsettings.php:64
+#: ../actions/openidsettings.php:57
+msgid "Add"
+msgstr "Thêm"
+
+#: ../actions/openidsettings.php:43
+msgid "Add OpenID"
+msgstr "Thêm OpenID"
+
+#: ../actions/imsettings.php:39
+msgid "Address"
+msgstr "Địa chỉ"
+
+#: ../actions/showstream.php:254
+msgid "All subscriptions"
+msgstr "Tất cả đăng nhận"
+
+#: ../actions/publicrss.php:62
+#, php-format
+msgid "All updates for %s"
+msgstr "Tất cả các cập nhật của %s"
+
+#: ../actions/noticesearchrss.php:66
+#, php-format
+msgid "All updates matching search term \"%s\""
+msgstr "Các thay đổi phù hợp với từ \"%s\""
+
+#: ../actions/finishopenidlogin.php:29
+#: ../actions/login.php:27
+#: ../actions/openidlogin.php:29
+#: ../actions/register.php:28
+msgid "Already logged in."
+msgstr "Đã đăng nhập."
+
+#: ../actions/subscribe.php:48
+msgid "Already subscribed!."
+msgstr "Đã đăng nhận rồi!"
+
+#: ../actions/userauthorization.php:76
+msgid "Authorize subscription"
+msgstr "Đăng nhận cho phép"
+
+#: ../actions/login.php:100
+#: ../actions/register.php:184
+msgid "Automatically login in the future; not for shared computers!"
+msgstr "Sẽ tự động đăng nhập, không dành cho các máy sử dụng chung!"
+
+#: ../actions/avatar.php:32
+msgid "Avatar"
+msgstr "Hình đại diện"
+
+#: ../actions/avatar.php:113
+msgid "Avatar updated."
+msgstr "Hình đại diện đã được cập nhật."
+
+#: ../actions/imsettings.php:55
+#, php-format
+msgid ""
+"Awaiting confirmation on this address. Check your Jabber/GTalk account for a "
+"message with further instructions. (Did you add %s to your buddy list?)"
+msgstr ""
+"Đang đợi xác nhận đến địa chỉ này. Hãy kiểm tra tài "
+"khoản Jabber/GTalk để nhận tin nhắn và lời hướng dẫn. "
+"(Bạn đã thêm %s vào danh sách bạn thân chưa?)"
+
+#: ../actions/imsettings.php:55
+#, php-format
+msgid ""
+"Awaiting confirmation on this address. Check your inbox (and spam box!) for "
+"a message with further instructions."
+msgstr ""
+"Đang đợi xác nhận đến địa chỉ này. Hãy kiểm tra hộp "
+"thư đến (hoặc thư rác) để nhận tin nhắn và lời hướng dẫn."
+
+#: ../lib/util.php:1136
+msgid "Before"
+msgstr "Trước"
+
+#: ../actions/profilesettings.php:52
+msgid "Bio"
+msgstr "Lý lịch"
+
+#: ../actions/profilesettings.php:93
+#: ../actions/updateprofile.php:102
+msgid "Bio is too long (max 140 chars)."
+msgstr "Lý lịch quá dài (không quá 140 ký tự)"
+
+#: ../actions/updateprofile.php:118
+#, php-format
+msgid "Can't read avatar URL '%s'"
+msgstr "Không thể đọc URL cho hình đại diện '%s'"
+
+#: ../actions/password.php:85
+#: ../actions/recoverpassword.php:261
+msgid "Can't save new password."
+msgstr "Không thể lưu mật khẩu mới"
+
+#: ../actions/imsettings.php:59
+msgid "Cancel"
+msgstr "Hủy"
+
+#: ../lib/openid.php:121
+msgid "Cannot instantiate OpenID consumer object."
+msgstr "Không thể thiết lập đối tượng OpenID."
+
+#: ../actions/imsettings.php:154
+msgid "Cannot normalize that Jabber ID"
+msgstr "Không thể bình thường hóa Jabber ID"
+
+#: ../actions/password.php:45
+msgid "Change"
+msgstr "Thay đổi"
+
+#: ../actions/password.php:32
+msgid "Change password"
+msgstr "Đổi mật khẩu"
+
+#: ../actions/password.php:43
+#: ../actions/recoverpassword.php:166
+#: ../actions/register.php:179
+msgid "Confirm"
+msgstr "Xác nhận"
+
+#: ../actions/confirmaddress.php:84
+msgid "Confirm Address"
+msgstr "Xác nhận địa chỉ"
+
+#: ../actions/imsettings.php:213
+msgid "Confirmation cancelled."
+msgstr "Sự xác nhận đã bị hủy bỏ."
+
+#: ../actions/confirmaddress.php:38
+msgid "Confirmation code not found."
+msgstr "Không tìm thấy mã xác nhận."
+
+#: ../actions/finishopenidlogin.php:91
+msgid "Connect"
+msgstr "Kết nối"
+
+#: ../actions/finishopenidlogin.php:86
+msgid "Connect existing account"
+msgstr "Kết nối đến tài khoản hiện hữu"
+
+#: ../lib/util.php:304
+msgid "Contact"
+msgstr "Liên hệ"
+
+#: ../lib/openid.php:178
+#, php-format
+msgid "Could not create OpenID form: %s"
+msgstr "Không thể tạo OpenID mẫu: %s"
+
+#: ../lib/openid.php:160
+#, php-format
+msgid "Could not redirect to server: %s"
+msgstr "Không thể chuyển đến máy chủ: %s"
+
+#: ../actions/updateprofile.php:161
+msgid "Could not save avatar info"
+msgstr "Không thể lưu hình đại diện"
+
+#: ../actions/updateprofile.php:154
+msgid "Could not save new profile info"
+msgstr "Không thể lưu thông tin về hồ sơ cá nhân"
+
+#: ../actions/profilesettings.php:146
+msgid "Couldn't confirm email."
+msgstr "Không thể xác nhận địa chỉ email."
+
+#: ../actions/finishremotesubscribe.php:99
+msgid "Couldn't convert request tokens to access tokens."
+msgstr "Không thể chuyển các token yêu cầu đến token truy cập."
+
+#: ../actions/subscribe.php:59
+msgid "Couldn't create subscription."
+msgstr "Không thể tạo đăng nhận."
+
+#: ../actions/confirmaddress.php:78
+#: ../actions/imsettings.php:209
+msgid "Couldn't delete email confirmation."
+msgstr "Không thể xóa email xác nhận."
+
+#: ../actions/unsubscribe.php:56
+msgid "Couldn't delete subscription."
+msgstr "Không thể xóa đăng nhận."
+
+#: ../actions/remotesubscribe.php:125
+msgid "Couldn't get a request token."
+msgstr "Không thể lấy token yêu cầu."
+
+#: ../actions/imsettings.php:178
+msgid "Couldn't insert confirmation code."
+msgstr "Không thể  chèn mã xác nhận."
+
+#: ../actions/finishremotesubscribe.php:180
+msgid "Couldn't insert new subscription."
+msgstr "Không thể chèn thêm vào đăng nhận."
+
+#: ../actions/profilesettings.php:175
+msgid "Couldn't save profile."
+msgstr "Không thể lưu hồ sơ cá nhân."
+
+#: ../actions/confirmaddress.php:70
+#: ../actions/imsettings.php:129
+#: ../actions/imsettings.php:234
+#: ../actions/profilesettings.php:123
+msgid "Couldn't update user."
+msgstr "Không thể cập nhật thành viên."
+
+#: ../actions/finishopenidlogin.php:84
+msgid "Create"
+msgstr "Tạo"
+
+#: ../actions/finishopenidlogin.php:70
+msgid "Create a new user with this nickname."
+msgstr "Tạo người dùng mới với tên đăng nhập này."
+
+#: ../actions/finishopenidlogin.php:68
+msgid "Create new account"
+msgstr "Tạo tài khoản mới"
+
+#: ../actions/finishopenidlogin.php:191
+msgid "Creating new account for OpenID that already has a user."
+msgstr "Tạo tài khoản mới hoặc dùng OpenID"
+
+#: ../actions/imsettings.php:45
+msgid "Current confirmed Jabber/GTalk address."
+msgstr "Địa chỉ Jabber/GTalk vừa được xác nhận."
+
+#: ../actions/showstream.php:337
+msgid "Currently"
+msgstr "Hiện tại"
+
+#: ../lib/util.php:893
+#, php-format
+msgid "DB error inserting reply: %s"
+msgstr "Lỗi cơ sở dữ liệu khi chèn trả lời: %s"
+
+#: ../actions/profilesettings.php:54
+msgid "Describe your group's interest in 140 characters"
+msgstr "Nói về những sở thích của nhóm trong vòng 140 ký tự"
+
+#: ../actions/register.php:181
+msgid "Email"
+msgstr "Email"
+
+#: ../actions/profilesettings.php:46
+msgid "Email address"
+msgstr "Địa chỉ email"
+
+#: ../actions/profilesettings.php:102
+#: ../actions/register.php:63
+msgid "Email address already exists."
+msgstr "Địa chỉ email đã tồn tại."
+
+#: ../lib/mail.php:82
+msgid "Email address confirmation"
+msgstr "Xac nhan dia chi email"
+
+#: ../actions/recoverpassword.php:176
+msgid "Enter a nickname or email address."
+msgstr "Nhập biệt hiệu hoặc email."
+
+#: ../actions/userauthorization.php:136
+msgid "Error authorizing token"
+msgstr "Lỗi cho phép token"
+
+#: ../actions/finishopenidlogin.php:282
+msgid "Error connecting user to OpenID."
+msgstr "Lỗi xảy ra khi kết nối với OpenId"
+
+#: ../actions/finishaddopenid.php:78
+msgid "Error connecting user."
+msgstr "Lỗi khi kết nối người dùng."
+
+#: ../actions/finishremotesubscribe.php:151
+msgid "Error inserting avatar"
+msgstr "Lỗi xảy ra khi thêm mới hình đại diện"
+
+#: ../actions/finishremotesubscribe.php:143
+msgid "Error inserting new profile"
+msgstr "Lỗi xảy ra khi thêm mới hồ sơ cá nhân"
+
+#: ../actions/postnotice.php:88
+msgid "Error inserting notice"
+msgstr "Lỗi xảy ra khi thêm mới tin nhắn"
+
+#: ../actions/finishremotesubscribe.php:167
+msgid "Error inserting remote profile"
+msgstr "Lỗi xảy ra khi thêm mới hồ sơ cá nhân"
+
+#: ../actions/recoverpassword.php:201
+msgid "Error saving address confirmation."
+msgstr "Lỗi xảy ra khi lưu địa chỉ đã được xác nhận."
+
+#: ../actions/userauthorization.php:139
+msgid "Error saving remote profile"
+msgstr "Lỗi xảy ra khi lưu hồ sơ cá nhân"
+
+#: ../actions/finishopenidlogin.php:222
+#: ../lib/openid.php:226
+msgid "Error saving the profile."
+msgstr "Lỗi xảy ra khi lưu hồ sơ cá nhân."
+
+#: ../lib/openid.php:237
+msgid "Error saving the user."
+msgstr "Lỗi xảy ra khi lưu thành viên."
+
+#: ../actions/password.php:80
+msgid "Error saving user; invalid."
+msgstr "Lỗi xảy ra khi lưu thành viên;  không hợp lệ."
+
+#: ../actions/login.php:43
+#: ../actions/login.php:69
+#: ../actions/recoverpassword.php:268
+#: ../actions/register.php:73
+msgid "Error setting user."
+msgstr "Lỗi xảy ra khi tạo thành viên."
+
+#: ../actions/finishaddopenid.php:83
+msgid "Error updating profile"
+msgstr "Lỗi xảy ra khi cập nhật hồ sơ cá nhân"
+
+#: ../actions/finishremotesubscribe.php:161
+msgid "Error updating remote profile"
+msgstr "Lỗi xảy ra khi cập nhật hồ sơ cá nhân"
+
+#: ../actions/recoverpassword.php:79
+msgid "Error with confirmation code."
+msgstr "Lỗi xảy ra với mã xác nhận."
+
+#: ../actions/finishopenidlogin.php:89
+msgid "Existing nickname"
+msgstr "Biệt hiệu này đã tồn tại"
+
+#: ../lib/util.php:298
+msgid "FAQ"
+msgstr "FAQ"
+
+msgid "FAQ "
+msgstr "FAQ - Hỏi đáp"
+
+#: ../actions/avatar.php:115
+msgid "Failed updating avatar."
+msgstr "Cập nhật hình đại diện không thành công."
+
+#: ../actions/all.php:61
+#: ../actions/allrss.php:74
+#, php-format
+msgid "Feed for friends of %s"
+msgstr "Chọn những người bạn của %s"
+
+#: ../actions/replies.php:61
+#: ../actions/repliesrss.php:80
+#, php-format
+msgid "Feed for replies to %s"
+msgstr "Chọn các phản hồi đến %s"
+
+#: ../actions/profilesettings.php:44
+msgid "Full name"
+msgstr "Tên đầy đủ"
+
+#: ../actions/profilesettings.php:90
+#: ../actions/updateprofile.php:92
+msgid "Full name is too long (max 255 chars)."
+msgstr "Tên đầy đủ quá dài (tối đa là 255 ký tự)."
+
+#: ../lib/util.php:279
+msgid "Help"
+msgstr "Hướng dẫn"
+
+#: ../lib/util.php:274
+msgid "Home"
+msgstr "Trang chủ"
+
+#: ../actions/profilesettings.php:49
+msgid "Homepage"
+msgstr "Trang chủ hoặc Blog"
+
+#: ../actions/profilesettings.php:87
+msgid "Homepage is not a valid URL."
+msgstr "Trang chủ không phải là URL"
+
+#: ../actions/imsettings.php:61
+msgid "IM Address"
+msgstr "IM"
+
+#: ../actions/imsettings.php:33
+msgid "IM Settings"
+msgstr "Cấu hình IM"
+
+#: ../actions/finishopenidlogin.php:88
+msgid ""
+"If you already have an account, login with your username and password to "
+"connect it to your OpenID."
+msgstr ""
+"Bạn đã có tài khoản rồi, hãy đăng nhập bằng tên đăng "
+"nhập và mật khẩu để kết nối với OpenId của bạn."
+
+#: ../actions/openidsettings.php:45
+msgid ""
+"If you want to add an OpenID to your account, enter it in the box below and "
+"click \"Add\"."
+msgstr ""
+"Bạn muốn thêm một OpenId vào tài khoản của bạn, đánh nó "
+"vào hộp dưới đây và nhấn\" Thêm\"."
+
+#: ../actions/recoverpassword.php:122
+msgid ""
+"If you've forgotten or lost your password, you can get a new one sent to the "
+"email address you have stored  in your account."
+msgstr ""
+"Nếu bạn đã quên hoặc mất mật khẩu, bạn có thể tạo "
+"mới và được gửi đến địa chỉ email lưu trong tài khoản của bạn."
+
+#: ../actions/password.php:69
+msgid "Incorrect old password"
+msgstr "Mật khẩu cũ sai"
+
+#: ../actions/login.php:63
+msgid "Incorrect username or password."
+msgstr "Sai tên đăng nhập hoặc mật khẩu."
+
+#: ../actions/recoverpassword.php:226
+msgid ""
+"Instructions for recovering your password have been sent to the email "
+"address registered to your account."
+msgstr ""
+"Hướng dẫn cách khôi phục mật khẩu đã được gửi đến "
+"địa chỉ email đăng ký trong tài khoản của bạn."
+
+#: ../actions/updateprofile.php:113
+#, php-format
+msgid "Invalid avatar URL '%s'"
+msgstr "URL cho hình đại diện '%s'  không hợp lệ "
+
+#: ../actions/updateprofile.php:97
+#, php-format
+msgid "Invalid homepage '%s'"
+msgstr "Trang chủ '%s'  không hợp lệ"
+
+#: ../actions/updateprofile.php:81
+#, php-format
+msgid "Invalid license URL '%s'"
+msgstr "URL cấp phép '%s'  không hợp lệ"
+
+#: ../actions/postnotice.php:61
+msgid "Invalid notice content"
+msgstr "Nội dung tin nhắn không hợp lệ"
+
+#: ../actions/postnotice.php:67
+msgid "Invalid notice uri"
+msgstr "URI tin nhắn không hợp lệ"
+
+#: ../actions/postnotice.php:72
+msgid "Invalid notice url"
+msgstr "URL tin nhắn không hợp lệ"
+
+#: ../actions/updateprofile.php:86
+#, php-format
+msgid "Invalid profile URL '%s'."
+msgstr "URL hồ sơ cá nhân của '%s' không hợp lệ"
+
+#: ../actions/remotesubscribe.php:96
+msgid "Invalid profile URL (bad format)"
+msgstr "URL hồ sơ cá nhân không đúng định dạng."
+
+#: ../actions/finishremotesubscribe.php:77
+msgid "Invalid profile URL returned by server."
+msgstr "URL hồ sơ cá nhân không hợp lệ."
+
+#: ../actions/avatarbynickname.php:37
+msgid "Invalid size."
+msgstr "Kích thước không hợp lệ."
+
+#: ../actions/finishopenidlogin.php:264
+#: ../actions/register.php:68
+#: ../actions/register.php:84
+msgid "Invalid username or password."
+msgstr "Tên đăng nhập hoặc mật khẩu không hợp lệ."
+
+#: ../lib/util.php:237
+#, php-format
+msgid ""
+"It runs the [Laconica](http://laconi.ca/) microblogging software, version "
+"%s, available under the [GNU Affero General Public License] "
+"(http://www.fsf.org/licensing/licenses/agpl-3.0.html)."
+msgstr ""
+"Microblogging [Laconica](http://laconi.ca/), version %s đã có ở [GNU "
+"Affero General Public License] "
+"(http://www.fsf.org/licensing/licenses/agpl-3.0.html)."
+
+#: ../actions/imsettings.php:164
+msgid "Jabber ID already belongs to another user."
+msgstr "Jabber ID này đã thuộc về người khác rồi."
+
+#: ../actions/imsettings.php:63
+#, php-format
+msgid ""
+"Jabber or GTalk address, like \"UserName@example.org\". First, make sure to "
+"add %s to your buddy list in your IM client or on GTalk."
+msgstr ""
+"Địa chỉ Jabber hoặc GTalk, giống như \"UserName@example.org\". "
+"Đầu tiên, hãy tạo thêm %s vào danh sách buddy trên IM client hoặc GTalk của bạn."
+
+#: ../actions/profilesettings.php:55
+msgid "Location"
+msgstr "Thành phố"
+
+#: ../actions/profilesettings.php:96
+#: ../actions/updateprofile.php:107
+msgid "Location is too long (max 255 chars)."
+msgstr "Tên khu vực quá dài (không quá 255 ký tự)."
+
+#: ../actions/login.php:93
+#: ../actions/login.php:102
+#: ../actions/openidlogin.php:68
+#: ../lib/util.php:286
+msgid "Login"
+msgstr "Đăng nhập"
+
+#: ../actions/openidlogin.php:44
+#, php-format
+msgid "Login with an [OpenID](%%doc.openid%%) account."
+msgstr "Đăng nhập bằng tài khoản [OpenID](%%doc.openid%%)."
+
+#: ../actions/login.php:112
+#, php-format
+msgid ""
+"Login with your username and password. Don't have a username yet? "
+"[Register](%%action.register%%) a new account, or try "
+"[OpenID](%%action.openidlogin%%). "
+msgstr ""
+"Hãy đăng nhập với tên đăng nhập và mật khẩu của bạn. "
+"Nếu bạn chưa có tài khoản, [hãy đăng ký](%%action.register%%) "
+"tài khoản mới, hoặc thử đăng nhập bằng [OpenID](%%action.openidlogin%%). "
+
+msgid ""
+"Login with your username and password. Don't have a username yet? "
+"[Register](%%action.register%%) a new account."
+msgstr ""
+"Hãy đăng nhập với tên đăng nhập và mật khẩu của bạn. "
+"Nếu bạn chưa có tài khoản, [hãy đăng ký](%%action.register%%) tài khoản mới."
+
+#: ../lib/util.php:284
+msgid "Logout"
+msgstr "Thoát"
+
+#: ../actions/login.php:106
+msgid "Lost or forgotten password?"
+msgstr "Mất hoặc quên mật khẩu?"
+
+#: ../actions/showstream.php:281
+msgid "Member since"
+msgstr "Gia nhập từ"
+
+#: ../actions/userrss.php:70
+#, php-format
+msgid "Microblog by %s"
+msgstr "Microblog bởi  %s"
+
+#: ../actions/finishopenidlogin.php:79
+#: ../actions/register.php:190
+msgid "My text and files are available under "
+msgstr "Ghi chú và các file của tôi đã có ở phía dưới"
+
+#: ../actions/finishopenidlogin.php:71
+msgid "New nickname"
+msgstr "Biệt hiệu mới"
+
+#: ../actions/newnotice.php:100
+msgid "New notice"
+msgstr "Thông báo mới"
+
+#: ../actions/password.php:41
+#: ../actions/recoverpassword.php:164
+msgid "New password"
+msgstr "Mật khẩu mới"
+
+#: ../actions/recoverpassword.php:275
+msgid "New password successfully saved. You are now logged in."
+msgstr "Mật khẩu mới đã được lưu. Bạn có thể đăng nhập ngay bây giờ."
+
+#: ../actions/login.php:97
+#: ../actions/profilesettings.php:41
+#: ../actions/register.php:175
+msgid "Nickname"
+msgstr "Biệt danh"
+
+#: ../actions/finishopenidlogin.php:175
+#: ../actions/profilesettings.php:99
+#: ../actions/register.php:59
+msgid "Nickname already in use. Try another one."
+msgstr "Biệt hiệu này đã dùng rồi. Hãy nhập biệt hiệu khác."
+
+#: ../actions/finishopenidlogin.php:165
+#: ../actions/profilesettings.php:80
+#: ../actions/register.php:57
+#: ../actions/updateprofile.php:76
+msgid "Nickname must have only lowercase letters and numbers and no spaces."
+msgstr "Biệt hiệu phải là chữ viết thường hoặc số và không có khoảng trắng."
+
+#: ../actions/finishopenidlogin.php:170
+msgid "Nickname not allowed."
+msgstr "Biệt hiệu không được cho phép."
+
+#: ../actions/remotesubscribe.php:72
+msgid "Nickname of the user you want to follow"
+msgstr "Biệt hiệu của thành viên mà bạn muốn theo"
+
+#: ../actions/recoverpassword.php:147
+msgid "Nickname or email"
+msgstr "Biệt hiệu hoặc email"
+
+#: ../actions/imsettings.php:147
+msgid "No Jabber ID."
+msgstr "Không có Jabber ID."
+
+#: ../actions/userauthorization.php:128
+msgid "No authorization request!"
+msgstr "Không có yêu cầu!"
+
+#: ../actions/confirmaddress.php:33
+msgid "No confirmation code."
+msgstr "Không có mã số xác nhận."
+
+#: ../actions/newnotice.php:49
+msgid "No content!"
+msgstr "Không có nội dung!"
+
+#: ../actions/userbyid.php:27
+msgid "No id."
+msgstr "Không có id."
+
+#: ../actions/finishremotesubscribe.php:65
+msgid "No nickname provided by remote server."
+msgstr "Không có biệt hiệu được cung cấp."
+
+#: ../actions/avatarbynickname.php:27
+msgid "No nickname."
+msgstr "Không có biệt hiệu."
+
+#: ../actions/imsettings.php:197
+msgid "No pending confirmation to cancel."
+msgstr "Sự xác nhận chưa được hủy bỏ."
+
+#: ../actions/finishremotesubscribe.php:72
+msgid "No profile URL returned by server."
+msgstr "Không có URL cho hồ sơ để quay về."
+
+#: ../actions/recoverpassword.php:189
+msgid "No registered email address for that user."
+msgstr "Thành viên này đã không đăng ký địa chỉ email."
+
+#: ../actions/userauthorization.php:48
+msgid "No request found!"
+msgstr "Không tìm thấy yêu cầu nào!"
+
+#: ../actions/noticesearch.php:64
+#: ../actions/peoplesearch.php:64
+msgid "No results"
+msgstr "Không có kết quả nào"
+
+#: ../actions/avatarbynickname.php:32
+msgid "No size."
+msgstr "Không có kích thước."
+
+#: ../actions/openidsettings.php:135
+msgid "No such OpenID."
+msgstr "Không có OpenID nào."
+
+#: ../actions/doc.php:29
+msgid "No such document."
+msgstr "Không có tài liệu nào."
+
+#: ../actions/shownotice.php:32
+#: ../actions/shownotice.php:65
+msgid "No such notice."
+msgstr "Không có tin nhắn nào."
+
+#: ../actions/recoverpassword.php:56
+msgid "No such recovery code."
+msgstr "Không có mã khôi phục nào."
+
+#: ../actions/postnotice.php:56
+msgid "No such subscription"
+msgstr "Không có đăng ký nào."
+
+#: ../actions/all.php:34
+#: ../actions/allrss.php:35
+#: ../actions/avatarbynickname.php:43
+#: ../actions/foaf.php:36
+#: ../actions/recoverpassword.php:185
+#: ../actions/remotesubscribe.php:84
+#: ../actions/remotesubscribe.php:91
+#: ../actions/repliesrss.php:35
+#: ../actions/showstream.php:95
+#: ../actions/subscribe.php:43
+#: ../actions/unsubscribe.php:38
+#: ../actions/userbyid.php:31
+#: ../actions/userrss.php:35
+#: ../actions/xrds.php:31
+#: ../lib/gallery.php:53
+msgid "No such user."
+msgstr "Không có user nào."
+
+#: ../lib/gallery.php:76
+msgid "Nobody to show!"
+msgstr "Không có ai!"
+
+#: ../actions/recoverpassword.php:60
+msgid "Not a recovery code."
+msgstr "Mã khôi phục không đúng."
+
+#: ../actions/imsettings.php:158
+msgid "Not a valid Jabber ID"
+msgstr "Jabber ID không hợp lệ"
+
+#: ../lib/openid.php:131
+msgid "Not a valid OpenID."
+msgstr "OpenID không hợp lệ."
+
+#: ../actions/profilesettings.php:75
+#: ../actions/register.php:53
+msgid "Not a valid email address."
+msgstr "Địa chỉ email không hợp lệ."
+
+#: ../actions/profilesettings.php:83
+#: ../actions/register.php:61
+msgid "Not a valid nickname."
+msgstr "Biệt hiệu không hợp lệ."
+
+#: ../actions/remotesubscribe.php:118
+msgid "Not a valid profile URL (incorrect services)."
+msgstr "Không phải là URL về hồ sơ cá nhân hợp lệ (dịch vụ không xác định)."
+
+#: ../actions/remotesubscribe.php:111
+msgid "Not a valid profile URL (no XRDS defined)."
+msgstr "Không phải là URL về hồ sơ cá nhân hợp lệ (chưa định nghĩa XRDS)."
+
+#: ../actions/remotesubscribe.php:104
+msgid "Not a valid profile URL (no YADIS document)."
+msgstr ""
+"Không phải là URL về hồ sơ cá nhân hợp lệ (không phải là "
+
+#: ../actions/avatar.php:95
+msgid "Not an image or corrupt file."
+msgstr "File hỏng hoặc không phải là file ảnh."
+
+#: ../actions/finishremotesubscribe.php:51
+msgid "Not authorized."
+msgstr "Chưa được phép."
+
+#: ../actions/finishremotesubscribe.php:38
+msgid "Not expecting this response!"
+msgstr "Không mong đợi trả lời lại!"
+
+#: ../actions/finishaddopenid.php:29
+#: ../actions/logout.php:28
+#: ../actions/newnotice.php:29
+#: ../actions/subscribe.php:27
+#: ../actions/unsubscribe.php:24
+#: ../lib/settingsaction.php:27
+msgid "Not logged in."
+msgstr "Chưa đăng nhập."
+
+#: ../actions/unsubscribe.php:43
+msgid "Not subscribed!."
+msgstr "Chưa đăng nhận!"
+
+#: ../actions/showstream.php:82
+#, php-format
+msgid "Notice feed for %s"
+msgstr "Dòng tin nhắn cho %s"
+
+#: ../actions/shownotice.php:39
+msgid "Notice has no profile"
+msgstr "Tin nhắn không có hồ sơ cá nhân"
+
+#: ../actions/showstream.php:297
+msgid "Notices"
+msgstr "Tin nhắn"
+
+#: ../actions/password.php:39
+msgid "Old password"
+msgstr "Mật khẩu cũ"
+
+#: ../lib/util.php:288
+msgid "OpenID"
+msgstr "OpenID"
+
+#: ../actions/finishopenidlogin.php:61
+msgid "OpenID Account Setup"
+msgstr "Tạo tài khoản OpenID"
+
+#: ../lib/openid.php:180
+msgid "OpenID Auto-Submit"
+msgstr "Tự động nhập OpenID"
+
+#: ../actions/finishaddopenid.php:99
+#: ../actions/finishopenidlogin.php:140
+#: ../actions/openidlogin.php:60
+msgid "OpenID Login"
+msgstr "Đăng nhập OpenID"
+
+#: ../actions/openidlogin.php:65
+#: ../actions/openidsettings.php:49
+msgid "OpenID URL"
+msgstr "OpenID URL"
+
+#: ../actions/finishaddopenid.php:42
+#: ../actions/finishopenidlogin.php:103
+msgid "OpenID authentication cancelled."
+msgstr "Xác thực OpenID bị hủy."
+
+#: ../actions/finishaddopenid.php:46
+#: ../actions/finishopenidlogin.php:107
+#, php-format
+msgid "OpenID authentication failed: %s"
+msgstr "Xác thực OpendID bị lỗi: %s"
+
+#: ../lib/openid.php:133
+#, php-format
+msgid "OpenID failure: %s"
+msgstr "OpenID lỗi: %s"
+
+#: ../actions/openidsettings.php:144
+msgid "OpenID removed."
+msgstr "OpenID đã xóa."
+
+#: ../actions/openidsettings.php:37
+msgid "OpenID settings"
+msgstr "Cấu hình OpenID"
+
+#: ../actions/avatar.php:84
+msgid "Partial upload."
+msgstr "Upload từng phần."
+
+#: ../actions/finishopenidlogin.php:90
+#: ../actions/login.php:98
+#: ../actions/register.php:177
+msgid "Password"
+msgstr "Mật khẩu"
+
+#: ../actions/recoverpassword.php:249
+msgid "Password and confirmation do not match."
+msgstr "Mật khẩu và mật khẩu xác nhận không khớp nhau."
+
+#: ../actions/recoverpassword.php:245
+msgid "Password must be 6 chars or more."
+msgstr "Mật khẩu phải nhiều hơn 6 ký tự."
+
+#: ../actions/recoverpassword.php:222
+#: ../actions/recoverpassword.php:224
+msgid "Password recovery requested"
+msgstr "Yêu cầu khôi phục lại mật khẩu đã được gửi"
+
+msgid "Password recovery requested "
+msgstr "Yeu cau khoi phuc lai mat khau da duoc gui"
+
+#: ../actions/password.php:89
+#: ../actions/recoverpassword.php:274
+msgid "Password saved."
+msgstr "Đã lưu mật khẩu."
+
+#: ../actions/password.php:61
+#: ../actions/register.php:65
+msgid "Passwords don't match."
+msgstr "Mật khẩu không khớp."
+
+#: ../actions/peoplesearch.php:33
+msgid "People search"
+msgstr "Tìm kiếm nhiều người"
+
+#: ../lib/stream.php:44
+msgid "Personal"
+msgstr "Cá nhân"
+
+#: ../actions/userauthorization.php:77
+msgid ""
+"Please check these details to make sure that you want to subscribe to this "
+"user's notices. If you didn't just ask to subscribe to someone's notices, "
+"click \"Cancel\"."
+msgstr ""
+"Vui lòng kiểm tra các chi tiết để chắc chắn rằng bạn muốn "
+"đăng nhận xem tin nhắn của các thành viên này. Nếu bạn "
+"không yêu cầu đăng nhận xem tin nhắn của họ, hãy nhấn \"Hủy bỏ\""
+
+#: ../actions/imsettings.php:74
+msgid "Post a notice when my Jabber/GTalk status changes."
+msgstr ""
+"Gửi một tin nhắn khi trạng thái của tôi trên Jabber hay GTalk "
+
+#: ../actions/imsettings.php:68
+msgid "Preferences"
+msgstr "Tính năng"
+
+#: ../actions/imsettings.php:135
+msgid "Preferences saved."
+msgstr "Các tính năng đã được lưu."
+
+#: ../lib/util.php:300
+msgid "Privacy"
+msgstr "Riêng tư"
+
+#: ../actions/newnotice.php:61
+#: ../actions/newnotice.php:69
+msgid "Problem saving notice."
+msgstr "Có lỗi xảy ra khi lưu tin nhắn."
+
+#: ../lib/stream.php:54
+msgid "Profile"
+msgstr "Hồ sơ "
+
+#: ../actions/remotesubscribe.php:73
+msgid "Profile URL"
+msgstr "URL của Hồ sơ cá nhân"
+
+#: ../actions/profilesettings.php:34
+msgid "Profile settings"
+msgstr "Các thiết lập cho Hồ sơ cá nhân"
+
+#: ../actions/postnotice.php:51
+#: ../actions/updateprofile.php:51
+msgid "Profile unknown"
+msgstr "Hồ sơ này không biết"
+
+#: ../lib/util.php:276
+msgid "Public"
+msgstr "Công cộng"
+
+#: ../actions/public.php:54
+msgid "Public Stream Feed"
+msgstr "Dòng tin công cộng"
+
+#: ../actions/public.php:33
+msgid "Public timeline"
+msgstr "Dòng tin công cộng"
+
+#: ../actions/recoverpassword.php:151
+msgid "Recover"
+msgstr "Khôi phục"
+
+#: ../actions/recoverpassword.php:141
+msgid "Recover password"
+msgstr "Khôi phục mật khẩu"
+
+#: ../actions/recoverpassword.php:67
+msgid "Recovery code for unknown user."
+msgstr "Khôi phục lại code cho user không đăng ký."
+
+#: ../actions/register.php:171
+#: ../actions/register.php:195
+#: ../lib/util.php:287
+msgid "Register"
+msgstr "Đăng ký"
+
+#: ../actions/userauthorization.php:119
+msgid "Reject"
+msgstr "Từ chối"
+
+#: ../actions/login.php:99
+#: ../actions/register.php:183
+msgid "Remember me"
+msgstr "Nhớ tôi"
+
+#: ../actions/updateprofile.php:69
+msgid "Remote profile with no matching profile"
+msgstr "Hồ sơ ở nơi khác không khớp với hồ sơ này của bạn"
+
+#: ../actions/remotesubscribe.php:65
+msgid "Remote subscribe"
+msgstr "Đăng nhận từ xa"
+
+#: ../actions/imsettings.php:48
+#: ../actions/openidsettings.php:106
+msgid "Remove"
+msgstr "Xóa"
+
+#: ../actions/openidsettings.php:68
+msgid "Remove OpenID"
+msgstr "Xóa OpenID"
+
+#: ../actions/openidsettings.php:73
+msgid ""
+"Removing your only OpenID would make it impossible to log in! If you need to "
+"remove it, add another OpenID first."
+msgstr ""
+"Việc xóa OpenID của bạn có thể sẽ không đăng nhập được! "
+"Nếu bạn cần xóa nó, hãy tạo một OpenID khác trước đã."
+
+#: ../lib/stream.php:49
+msgid "Replies"
+msgstr "Trả lời"
+
+#: ../actions/replies.php:47
+#: ../actions/repliesrss.php:76
+#: ../lib/stream.php:50
+#, php-format
+msgid "Replies to %s"
+msgstr "Trả lời cho %s"
+
+#: ../actions/recoverpassword.php:168
+msgid "Reset"
+msgstr "Khởi tạo"
+
+#: ../actions/recoverpassword.php:158
+msgid "Reset password"
+msgstr "Khởi tạo lại mật khẩu"
+
+#: ../actions/recoverpassword.php:167
+#: ../actions/register.php:180
+msgid "Same as password above"
+msgstr "Cùng mật khẩu ở trên"
+
+#: ../actions/imsettings.php:76
+#: ../actions/profilesettings.php:58
+msgid "Save"
+msgstr "Lưu"
+
+#: ../lib/searchaction.php:73
+#: ../lib/util.php:277
+msgid "Search"
+msgstr "Tìm kiếm"
+
+#: ../actions/noticesearch.php:80
+msgid "Search Stream Feed"
+msgstr "Tìm kiếm dòng thông tin"
+
+#: ../actions/noticesearch.php:30
+#, php-format
+msgid ""
+"Search for notices on %%site.name%% by their contents. Separate search terms "
+"by spaces; they must be 3 characters or more."
+msgstr ""
+"Tìm kiếm những tin nhắn trên %%site.name%% bằng nội dung. Chia "
+"các cụm từ cần tìm bởi khoảng trắng; và phải là 3 ký tự trở lên."
+
+#: ../actions/peoplesearch.php:28
+#, php-format
+msgid ""
+"Search for people on %%site.name%% by their name, location, or interests. "
+"Separate the terms by spaces; they must be 3 characters or more."
+msgstr ""
+"Tìm kiếm những người trên %%site.name%% bằng tên, vị trí, "
+"hoặc sở thích của họ. Chia các cụm từ bởi khoảng trắng; và phải là 3 ký tự trở lên."
+
+#: ../lib/util.php:982
+msgid "Send"
+msgstr "Gửi"
+
+#: ../actions/imsettings.php:71
+msgid "Send me notices through Jabber/GTalk."
+msgstr "Hãy gửi tin nhắn đến tôi qua Jabber hay GTalk"
+
+#: ../lib/util.php:282
+msgid "Settings"
+msgstr "Điều chỉnh"
+
+#: ../actions/profilesettings.php:183
+msgid "Settings saved."
+msgstr "Đã lưu các điều chỉnh."
+
+#: ../actions/finishaddopenid.php:66
+msgid "Someone else already has this OpenID."
+msgstr "Đã có người sử dụng OpenID này rồi."
+
+#: ../actions/finishopenidlogin.php:42
+#: ../actions/openidsettings.php:126
+msgid "Something weird happened."
+msgstr "Vài điều bất thường xảy ra."
+
+#: ../lib/util.php:302
+msgid "Source"
+msgstr "Nguồn"
+
+#: ../actions/showstream.php:277
+msgid "Statistics"
+msgstr "Số liệu thống kê"
+
+#: ../actions/finishopenidlogin.php:182
+#: ../actions/finishopenidlogin.php:275
+msgid "Stored OpenID not found."
+msgstr "Không tìm thấy OpenID."
+
+#: ../actions/remotesubscribe.php:75
+#: ../actions/showstream.php:172
+#: ../actions/showstream.php:181
+msgid "Subscribe"
+msgstr "Theo bạn này"
+
+#: ../actions/showstream.php:294
+#: ../actions/subscribers.php:27
+msgid "Subscribers"
+msgstr "Bạn này theo tôi"
+
+#: ../actions/showstream.php:294
+#: ../actions/subscribers.php:27
+msgid "Subscribers "
+msgstr "Theo tôi"
+
+#: ../actions/userauthorization.php:309
+msgid "Subscription authorized"
+msgstr "Đăng nhận được phép"
+
+#: ../actions/userauthorization.php:319
+msgid "Subscription rejected"
+msgstr "Đăng nhận từ chối"
+
+#: ../actions/showstream.php:212
+#: ../actions/showstream.php:288
+#: ../actions/subscriptions.php:27
+msgid "Subscriptions"
+msgstr "Tôi theo bạn này"
+
+#: ../actions/showstream.php:212
+#: ../actions/showstream.php:288
+#: ../actions/subscriptions.php:27
+msgid "Subscriptions "
+msgstr "Tôi theo"
+
+#: ../actions/avatar.php:87
+msgid "System error uploading file."
+msgstr "Hệ thống xảy ra lỗi trong khi tải file."
+
+#: ../actions/noticesearch.php:34
+msgid "Text search"
+msgstr "Chuỗi cần tìm"
+
+#: ../actions/openidsettings.php:140
+msgid "That OpenID does not belong to you."
+msgstr "OpenID này không phải của bạn."
+
+#: ../actions/confirmaddress.php:52
+msgid "That address has already been confirmed."
+msgstr "Địa chỉ đó đã được xác nhận rồi."
+
+#: ../actions/confirmaddress.php:43
+msgid "That confirmation code is not for you!"
+msgstr "Mã xác nhận này không phải của bạn!"
+
+#: ../actions/avatar.php:80
+msgid "That file is too big."
+msgstr "File quá lớn."
+
+#: ../actions/imsettings.php:161
+msgid "That is already your Jabber ID."
+msgstr "Tài khoản đó đã là tên tài khoản Jabber của bạn rồi."
+
+#: ../actions/imsettings.php:224
+msgid "That is not your Jabber ID."
+msgstr "Đây không phải Jabber ID của bạn."
+
+#: ../actions/imsettings.php:201
+msgid "That is the wrong IM address."
+msgstr "Sai IM."
+
+#: ../actions/newnotice.php:52
+msgid "That's too long. Max notice size is 140 chars."
+msgstr "Quá dài. Tối đa là 140 ký tự."
+
+#: ../actions/confirmaddress.php:86
+#, php-format
+msgid "The address \"%s\" has been confirmed for your account."
+msgstr "Địa chỉ \"%s\" đã được xác nhận từ tài khoản của bạn."
+
+#: ../actions/imsettings.php:241
+msgid "The address was removed."
+msgstr "Đã xóa địa chỉ."
+
+#: ../actions/userauthorization.php:311
+msgid ""
+"The subscription has been authorized, but no callback URL was passed. Check "
+"with the site's instructions for details on how to authorize the "
+"subscription. Your subscription token is:"
+msgstr ""
+"Đăng nhận được phép, nhưng URL trả lại không được gởi "
+"trả. Hãy kiểm tra các hướng dẫn chi tiết trên site để "
+"biết cách cho phép đăng ký. Đăng nhận token của bạn là:"
+
+#: ../actions/userauthorization.php:321
+msgid ""
+"The subscription has been rejected, but no callback URL was passed. Check "
+"with the site's instructions for details on how to fully reject the "
+"subscription."
+msgstr ""
+"Đăng nhận này đã bị từ chối, nhưng không có URL nào để "
+"quay về. Hãy kiểm tra các hướng dẫn chi tiết trên site để "
+
+#: ../actions/subscribers.php:35
+#, php-format
+msgid "These are the people who listen to %s's notices."
+msgstr "Có nhiều người nghe theo lời nhắn của %s."
+
+#: ../actions/subscribers.php:33
+msgid "These are the people who listen to your notices."
+msgstr "Có nhiều người nghe theo lời nhắn của bạn."
+
+#: ../actions/subscriptions.php:35
+#, php-format
+msgid "These are the people whose notices %s listens to."
+msgstr "Có nhiều người gửi lời nhắn để  %s nghe theo."
+
+#: ../actions/subscriptions.php:33
+msgid "These are the people whose notices you listen to."
+msgstr "Có nhiều người gửi lời nhắn để bạn nghe theo."
+
+#: ../actions/recoverpassword.php:87
+msgid "This confirmation code is too old. Please start again."
+msgstr "Mã xác nhận quá cũ. Hãy thử lại cái khác."
+
+#: ../lib/openid.php:195
+msgid ""
+"This form should automatically submit itself. If not, click the submit "
+"button to go to your OpenID provider."
+msgstr ""
+"Trang này sẽ tự động gửi đi. Nếu không, hãy click lên nút "
+"Gửi để gửi đến nhà cung cấp OpenID của bạn."
+
+#: ../actions/finishopenidlogin.php:56
+#, php-format
+msgid ""
+"This is the first time you've logged into %s so we must connect your OpenID "
+"to a local account. You can either create a new account, or connect with "
+"your existing account, if you have one."
+msgstr ""
+"Đây là lần đầu tiên bạn đăng nhập vào %s, vì vậy chúng "
+"tôi phải kết nối tài khoản OpenID của bạn với tài khoản "
+"trên site này. Bạn có thể tạo một tài khoản mới, hoặc "
+"kết nối với tài khoản đã có của bạn, nếu như bạn đã có rồi."
+
+#: ../lib/util.php:147
+msgid "This page is not available in a media type you accept"
+msgstr "Trang này không phải là phương tiện truyền thông mà bạn chấp nhận."
+
+#: ../actions/remotesubscribe.php:43
+#, php-format
+msgid ""
+"To subscribe, you can [login](%%action.login%%), or "
+"[register](%%action.register%%) a new  account. If you already have an "
+"account  on a [compatible microblogging site](%%doc.openmublog%%),  enter "
+"your profile URL below."
+msgstr ""
+"Để đăng ký, bạn cần [Đăng nhập](%%action.login%%), hoặc "
+"[Đăng ký](%%action.register%%) tài khoản mới. Nếu bạn đã có "
+"một tài khoản khác trên [site microblogging tương "
+"ứng](%%doc.openmublog%%), hãy nhập URL về hồ sơ cá nhân của bạn dưới đây."
+
+#: ../actions/profilesettings.php:51
+msgid "URL of your homepage, blog, or profile on another site"
+msgstr ""
+"URL về Trang chính, Blog, hoặc hồ sơ cá nhân của bạn trên "
+
+#: ../actions/remotesubscribe.php:74
+msgid "URL of your profile on another compatible microblogging service"
+msgstr "URL trong hồ sơ cá nhân của bạn ở trên các trang microblogging khác"
+
+#: ../actions/imsettings.php:105
+#: ../actions/recoverpassword.php:39
+msgid "Unexpected form submission."
+msgstr "Bất ngờ gửi mẫu thông tin. "
+
+#: ../actions/recoverpassword.php:237
+msgid "Unexpected password reset."
+msgstr "Bất ngờ reset mật khẩu."
+
+#: ../actions/finishremotesubscribe.php:58
+msgid "Unknown version of OMB protocol."
+msgstr "Không biết phiên bản của giao thức OMB."
+
+#: ../lib/util.php:245
+msgid ""
+"Unless otherwise specified, contents of this site are copyright by the "
+"contributors and available under the "
+msgstr ""
+"Nếu không có các quy định khác, nội dung của trang web này có "
+"bản quyền của người đóng góp và theo bản quyền  "
+
+#: ../actions/confirmaddress.php:48
+#, php-format
+msgid "Unrecognized address type %s"
+msgstr "Không nhận dạng kiểu địa chỉ %s"
+
+#: ../actions/showstream.php:193
+msgid "Unsubscribe"
+msgstr "Hết theo"
+
+#: ../actions/postnotice.php:44
+#: ../actions/updateprofile.php:44
+msgid "Unsupported OMB version"
+msgstr "Không hỗ trợ cho version OMB"
+
+#: ../actions/avatar.php:105
+msgid "Unsupported image file format."
+msgstr "Không hỗ trợ kiểu file ảnh này."
+
+#: ../actions/avatar.php:68
+msgid "Upload"
+msgstr "Tải file"
+
+#: ../actions/avatar.php:27
+msgid ""
+"Upload a new \"avatar\" (user image) here. You can't edit the picture after "
+"you upload it, so make sure it's more or less square. It must be under the "
+"site license, also. Use a picture that belongs to you and that you want to "
+"share."
+msgstr ""
+"Tải \"hình đại diện\" mới (hình cá nhân) tại đây. Bạn "
+"không thể chỉnh sửa lại hình sau khi tải nó lên, vì thế "
+"nếu muốn hãy sửa trước khi tải lên. Hình phải phù hợp "
+
+#: ../actions/profilesettings.php:48
+#: ../actions/register.php:182
+msgid "Used only for updates, announcements, and password recovery"
+msgstr "Chỉ dùng để cập nhật, thông báo, và hồi phục mật khẩu"
+
+#: ../actions/finishremotesubscribe.php:86
+msgid "User being listened to doesn't exist."
+msgstr "Người dùng đang lắng nghe để không thoát khỏi."
+
+#: ../actions/all.php:41
+#: ../actions/avatarbynickname.php:48
+#: ../actions/foaf.php:43
+#: ../actions/replies.php:41
+#: ../actions/showstream.php:44
+msgid "User has no profile."
+msgstr "Người dùng không có thông tin."
+
+#: ../actions/remotesubscribe.php:71
+msgid "User nickname"
+msgstr "Biệt hiệu của người dùng"
+
+#: ../lib/util.php:969
+#, php-format
+msgid "What's up, %s?"
+msgstr "Bạn đang làm gì thế, %s?"
+
+#: ../lib/util.php:969
+#, php-format
+msgid "%s, Tell the world what's on your mind?"
+msgstr "%s, bạn đang làm gì?"
+
+#: ../actions/profilesettings.php:57
+msgid "City, State/Region, Country"
+msgstr "Thành phố, Tỉnh thành, Quốc gia"
+
+#: ../actions/updateprofile.php:127
+#, php-format
+msgid "Wrong image type for '%s'"
+msgstr "Kiểu file ảnh không phù hợp với  '%s'"
+
+#: ../actions/updateprofile.php:122
+#, php-format
+msgid "Wrong size image at '%s'"
+msgstr "Kích thước file ảnh không phù hợp đối với  '%s'"
+
+#: ../actions/finishaddopenid.php:64
+msgid "You already have this OpenID!"
+msgstr "Bạn đã có được tài khoản OpenID này rồi!"
+
+#: ../actions/recoverpassword.php:31
+msgid "You are already logged in!"
+msgstr "Bạn đã đăng nhập!"
+
+#: ../actions/password.php:27
+msgid "You can change your password here. Choose a good one!"
+msgstr "Bạn có thể thay đổi mật khẩu tại đây. Hãy chọn mật khẩu mới!"
+
+#: ../actions/register.php:164
+msgid "You can create a new account to start posting notices."
+msgstr "Bạn có thể tạo tài khoản mới để có thể gửi ý kiến của mình."
+
+#: ../actions/openidsettings.php:86
+msgid ""
+"You can remove an OpenID from your account by clicking the button marked "
+"\"Remove\"."
+msgstr ""
+"Bạn có thể loại bỏ OpenID khỏi tài khoản của bạn bằng "
+"cách nhấn vào nút \"Xóa\"."
+
+#: ../actions/imsettings.php:28
+#, php-format
+msgid ""
+"You can send and receive notices through Jabber/GTalk [instant "
+"messages](%%doc.im%%). Configure your address and settings below."
+msgstr ""
+"Bạn có thể gửi và nhận những tin nhắn qua Jabber hoặc GTalk "
+"[tin nhắn nhanh](%%doc.im%%). Định dạng địa chỉ của bạn và các thiết lập sau."
+
+#: ../actions/profilesettings.php:27
+msgid ""
+"You can update your personal profile info here so people know more about "
+"you."
+msgstr ""
+"Bạn có thể cập nhật hồ sơ cá nhân tại đây để mọi "
+"người có thể biết thông tin về bạn."
+
+#: ../actions/finishremotesubscribe.php:31
+#: ../actions/remotesubscribe.php:31
+msgid "You can use the local subscription!"
+msgstr "Bạn có thể đăng ký tại nơi bạn ở!"
+
+#: ../actions/finishopenidlogin.php:33
+#: ../actions/register.php:51
+msgid "You can't register if you don't agree to the license."
+msgstr "Bạn không thể đăng ký nếu không đồng ý các điều khoản."
+
+#: ../actions/updateprofile.php:62
+msgid "You did not send us that profile"
+msgstr "Bạn chưa cập nhật thông tin riêng"
+
+#: ../actions/recoverpassword.php:134
+msgid "You've been identified. Enter a  new password below. "
+msgstr "Bạn đã được xác định. Hãy nhập mật khẩu mới ở dưới."
+
+#: ../actions/openidlogin.php:67
+msgid "Your OpenID URL"
+msgstr "OpenID URL của bạn"
+
+#: ../actions/recoverpassword.php:149
+msgid "Your nickname on this server, or your registered email address."
+msgstr "Biệt hiệu của bạn đã tồn tại hoặc bạn đã đăng ký bằng email này rồi."
+
+#: ../actions/openidsettings.php:28
+#, php-format
+msgid ""
+"[OpenID](%%doc.openid%%) lets you log into many sites  with the same user "
+"account.  Manage your associated OpenIDs from here."
+msgstr ""
+"[OpenID](%%doc.openid%%) đăng nhập nhiều website với cùng 1 tài "
+"khoản. Quản lý các OpenID của bạn ở đây."
+
+#: ../lib/util.php:814
+msgid "a few seconds ago"
+msgstr "vài giây trước"
+
+#: ../lib/util.php:826
+#, php-format
+msgid "about %d days ago"
+msgstr "%d ngày trước"
+
+#: ../lib/util.php:822
+#, php-format
+msgid "about %d hours ago"
+msgstr "%d giờ trước"
+
+#: ../lib/util.php:818
+#, php-format
+msgid "about %d minutes ago"
+msgstr "%d phút trước"
+
+#: ../lib/util.php:830
+#, php-format
+msgid "about %d months ago"
+msgstr "%d tháng trước"
+
+#: ../lib/util.php:824
+msgid "about a day ago"
+msgstr "1 ngày trước"
+
+#: ../lib/util.php:816
+msgid "about a minute ago"
+msgstr "1 phút trước"
+
+#: ../lib/util.php:828
+msgid "about a month ago"
+msgstr "1 tháng trước"
+
+#: ../lib/util.php:832
+msgid "about a year ago"
+msgstr "1 năm trước"
+
+#: ../lib/util.php:820
+msgid "about an hour ago"
+msgstr "1 giờ trước"
+
+#: ../actions/noticesearch.php:126
+#: ../actions/showstream.php:383
+#: ../lib/stream.php:101
+msgid "in reply to..."
+msgstr "còn nữa..."
+
+#: ../actions/noticesearch.php:133
+#: ../actions/showstream.php:390
+#: ../lib/stream.php:108
+msgid "reply"
+msgstr "trả lời"
+
+#: ../actions/password.php:44
+msgid "same as password above"
+msgstr "cùng mật khẩu ở trên"
+
+#: ../lib/util.php:1127
+msgid "After"
+msgstr "Sau"
+
+#: ../lib/util.php:
+msgid "Tags"
+msgstr "Từ khóa"
+
+#: ../lib/util.php:
+msgid "Register for a free account!"
+msgstr "Đăng ký tài khoản miễn phí!"
+
+#: ../lib/util.php:
+msgid "Everyone"
+msgstr "Tất cả mọi người"
+
+#: ../lib/util.php:
+msgid "Welcome to %s"
+msgstr "%s chào mừng bạn "
+
+#: ../lib/util.php:
+msgid "Blog + Chat = Fun"
+msgstr "Vừa Blog vừa Chat = Vui Lắm"
+
+#: ../lib/util.php:
+msgid ""
+"%s is a new way to send short messages to your friends, family, and "
+"co-workers."
+msgstr ""
+"%s là dịch vụ cho bạn bè, gia đình và đồng nghiệp liên "
+"lạc và kết nối qua những trao đổi ngắn."
+
+#: ../lib/util.php:
+msgid ""
+"Starting a conversation is fast and easy: You can shout messages to your "
+"followers, or whisper to your friends. Just think of something to say, and "
+"get started!"
+msgstr ""
+"Để bắt đầu cuộc đàm luận: Bạn có thể gửi tin nhắn "
+"đến những người mà bạn theo, hoặc gửi những mong ước "
+"của bạn đến bạn bè, những câu trả lời thông thường cho một câu hỏi đơn giản: Bạn đang làm gì vậy? "
+
+#: ../lib/util.php:
+msgid "Register now!"
+msgstr "Hãy đăng ký ngay!"
+
+#: ../lib/util.php:
+msgid "What's the latest?"
+msgstr "Mọi người đang nói gì?"
+
+#: ../lib/util.php:
+msgid "What Everyone Is Talking About"
+msgstr "Mọi người đang nói gì?"
+
+#: ../lib/searchaction.php:
+msgid "People"
+msgstr "Tên tài khoản"
+
+#: ../lib/searchaction.php:
+msgid "Find people on this site"
+msgstr "Tìm kiếm mọi người trên trang web này"
+
+#: ../lib/searchaction.php:
+msgid "Text"
+msgstr "Chuỗi bất kỳ"
+
+#: ../lib/util.php:
+msgid "Find content of notices"
+msgstr "Tìm theo nội dung của tin nhắn"
+
+#: ../actions/tag.php:
+msgid "Showing most popular tags from the last week"
+msgstr "Các từ khóa phổ biến."
+
+#: ../actions/tag.php:
+msgid "Recent Tags"
+msgstr "Các từ khóa hiện tại"
+
+#: ../actions/profileseting.php:
+msgid "What timezone are you normally in?"
+msgstr "Khu vực nào bạn thường ở?"
+
+#: ../actions/profileseting.php:
+msgid "Timezone"
+msgstr "Khu vực"
+
+#: ../actions/profileseting.php:
+msgid "Language"
+msgstr "Ngôn ngữ"
+
+#: ../actions/profileseting.php:
+msgid "Preferred language"
+msgstr "Ngôn ngữ bạn thích"
+
+#: ../actions/profileseting.php:
+msgid ""
+"Automatically subscribe to whoever subscribes to me (best for "
+"non-humans)"
+msgstr "Tự động theo những người nào đăng ký theo tôi"
+
+#: ../actions/profileseting.php:
+msgid "Could not save profile."
+msgstr "Không thể lưu hồ sơ cá nhân."
+
+#: ../lib/setingactions.php:
+msgid "Change your profile settings"
+msgstr "Thay đổi các thiết lập trong hồ sơ cá nhân của bạn"
+
+#: ../lib/setingactions.php:
+msgid "Change email handling"
+msgstr "Đang thực hiện việc thay đổi email"
+
+#: ../lib/setingactions.php:
+msgid "Upload a new profile image"
+msgstr "Tải lên một file ảnh mới cho hồ sơ cá nhân"
+
+#: ../lib/setingactions.php:
+msgid "Change your password"
+msgstr "Thay đổi mật khẩu của bạn"
+
+#: ../lib/setingactions.php:
+msgid "Add or remove OpenIDs"
+msgstr "Thêm mới hoặc xóa OpenIDs"
+
+#: ../lib/setingactions.php:
+msgid "Updates by SMS"
+msgstr "Thay đổi bởi SMS"
+
+#: ../lib/setingactions.php:
+msgid "Updates by instant messenger (IM)"
+msgstr "Thay đổi bởi tin nhắn nhanh (IM)"
+
+#: ../lib/smsseting.php:
+msgid "SMS Phone number"
+msgstr "Số điện thoại để nhắn SMS "
+
+#: ../lib/smsseting.php:
+msgid "Phone number, no punctuation or spaces, with area code"
+msgstr ""
+"Số điện thoại, không cho phép nhập dấu chấm và ký tự "
+
+#: ../lib/smsseting.php:
+msgid "You can receive SMS messages through email from %%site.name%%."
+msgstr "Bạn có thể nhận tin nhắn SMS qua email từ %%site.name%%."
+
+#: ../lib/smsseting.php:
+msgid "SMS Settings"
+msgstr "Thiết lập SMS"
+
+#: ../lib/smsseting.php:
+msgid "Current confirmed SMS-enabled phone number."
+msgstr "SMS xác nhận ngay - đã cho phép gửi qua điện thoại. "
+
+#: ../lib/smsseting.php:
+msgid ""
+"Mobile carrier for your phone. If you know a carrier that accepts SMS over "
+"email but isn't listed here, send email to let us know at %s."
+msgstr ""
+"Nhà cung cấp dịch vụ điện thoại di động của bạn. Nếu "
+"bạn biết nhà cung cấp dịch vụ điện thoại nào cho phép "
+"nhận SMS qua email  mà chưa có trong danh sách này, vui lòng gửi mail cho chúng tôi đến địa chỉ %s."
+
+#: ../lib/smsseting.php:
+msgid "No code entered"
+msgstr "Không có mã nào được nhập"
+
+#: ../lib/smsseting.php:
+msgid "Select a carrier"
+msgstr "Chọn nhà cung cấp Mobile"
+
+#: ../lib/smsseting.php:
+msgid "That is not your phone number."
+msgstr "Đó không phải là số điện thoại của bạn."
+
+#: ../lib/smsseting.php:
+msgid ""
+"Send me notices through SMS; I understand I may incur exorbitant charges "
+"from my carrier."
+msgstr ""
+"Hãy gửi thông báo đến tôi qua SMS; Tôi  biết là bạn đang "
+"phải trả giá cao cho dịch vụ của chúng tôi. "
+
+#: ../lib/imseting.php:
+msgid "Send me replies through Jabber/GTalk from people I’m not subscribed to."
+msgstr ""
+"Gửi tin nhắn trả lời những người mà tôi không đăng ký qua "
+
+#: ../lib/imseting.php:
+msgid "Publish a MicroID for my Jabber/GTalk address."
+msgstr "Gửi MicroID đến địa chỉ Jabber/GTalk của tôi. "
+
+#: ../lib/emailseting.php:
+msgid "Manage how you get email from %%site.name%%."
+msgstr "Bạn nhận email từ %%site.name%% như thế nào."
+
+#: ../lib/emailseting.php:
+msgid "Send me notices of new subscriptions through email."
+msgstr "Hãy gửi email cho tôi thông báo về các đăng nhận mới."
+
+#: ../lib/emailseting.php:
+msgid "I want to post notices by email."
+msgstr "Tôi muốn đưa tin nhắn lên bằng email."
+
+#: ../lib/emailseting.php:
+msgid "Publish a MicroID for my email address."
+msgstr "Xuất bản một MicroID đến địa chỉ email của tôi."
+
+#: ../lib/emailseting.php:
+msgid "Make a new email address for posting to; cancels the old one."
+msgstr ""
+"Tạo một địa chỉ email mới để đưa tin nhắn lên; và xóa "
+
+#: ../lib/emailseting.php:
+msgid "Send email to this address to post new notices."
+msgstr "Gửi email đến địa chỉ này để đưa tin nhắn mới lên."
+
+#: ../actions/choosetheme.php:
+msgid ""
+"You can change the theme as you want by clicking a thumbnail image and then "
+"click Save button to active new theme."
+msgstr ""
+"Bạn có thể thay đổi theme bằng cách chọn vào một hình ảnh "
+"theme bạn thích. Sau đó nhấn nút Lưu để thay đổi theme mới."
+
+#: ../actions/choosetheme.php:
+msgid "Choose a theme"
+msgstr "Chọn theme"
+
+#: ../actions/choosetheme.php:
+msgid "Theme Error"
+msgstr "Lỗi Theme"
+
+#: ../actions/choosetheme.php:
+msgid ""
+"Tired of the same old colors on your timeline? Change is good so spice up "
+"your %s page."
+msgstr ""
+"Nếu cảm thấy nhàm chán với màu sắc cũ trên timeline của "
+"bạn, hãy thay đổi màu sắc để trang %s của bạn hấp dẫn hơn."
+
+#: ../actions/choosetheme.php:
+msgid "Preview"
+msgstr "Xem trước"
+
+#: ../actions/choosetheme.php:
+msgid "Background Theme:"
+msgstr "Background Theme:"
+
+#: ../actions/choosetheme.php:
+msgid "Customize your theme"
+msgstr "Tùy chỉnh theme "
+
+#: ../actions/choosetheme.php:
+msgid "Timeline Theme:"
+msgstr "Timeline Theme:"
+
+#: ../actions/choosetheme.php:
+msgid "Dashboard Theme:"
+msgstr "Dashboard Theme:"
+
+#: ../actions/choosetheme.php:
+msgid "Theme"
+msgstr "Theme"
+
+#: ../actions/public.php:
+msgid "Activity"
+msgstr "Các hoạt động"
+
+#: ../actions/public.php:
+msgid "Me & My Friends"
+msgstr "Tôi & bạn"
+
+#: ../actions/public.php:
+msgid "User & Friends"
+msgstr "Nhóm bạn"
+
+#: ../actions/public.php:
+msgid "My Profile"
+msgstr "Cá nhân"
+
+#: ../actions/public.php:
+msgid "User Profile"
+msgstr "Hồ sơ"
+
+#: ../actions/css.php:
+msgid "Customize your page even more with CSS"
+msgstr "Tùy chỉnh trang của bạn bằng CSS"
+
+#: ../actions/css.php:
+msgid "Save Changes"
+msgstr "Lưu"
+
+#: ../actions/css.php:
+msgid "Change css code"
+msgstr "Thay đổi code css"
+
+#: ../actions/css.php:
+msgid "You can change your css code here."
+msgstr "Bạn có thể thay đổi code css"
+
+#: ../actions/css.php:
+msgid "New css code saved."
+msgstr "CSS đã được lưu."
+
+#: ../lib/util.php:
+msgid "Reply"
+msgstr "Trả lời"
+
+#: ../actions/avatar.php:
+msgid "Upload from your computer"
+msgstr "Tải từ máy tính cá nhân  "
+
+#: ../actions/avatar.php:
+msgid "Get from library"
+msgstr "Lấy từ tập ảnh có sẵn"
+
+#: ../actions/avatar.php:
+msgid "Male"
+msgstr "Nam"
+
+#: ../actions/avatar.php:
+msgid "Female"
+msgstr "Nữ"
+
+#: ../dasboard.php:
+msgid "Last message"
+msgstr "Tin mới nhất"
+
+#: ../stream.php:
+msgid "No reply yet"
+msgstr "chưa có trả lời"
+
+msgid "replies"
+msgstr "trả lời"
+
+#: ../actions/showstream.php:400
+#: ../lib/stream.php:109
+msgid " from "
+msgstr " từ"
+
+#: ../actions/invite.php:168
+#, php-format
+msgid "%1$s has invited you to join them on %2$s"
+msgstr "%1$s moi ban tham gia vao %2$s"
+
+#: ../actions/invite.php:170
+#, php-format
+msgid ""
+"%1$s has invited you to join them on %2$s (%3$s).\n"
+"\n"
+"%2$s is a micro-blogging service that lets you keep up-to-date with people "
+"you know and people who interest you.\n"
+"\n"
+"You can also share news about yourself, your thoughts, or your life online "
+"with people who know about you. It's also great for meeting new people who "
+"share your interests.\n"
+"\n"
+"%1$s said:\n"
+"\n"
+"%4$s\n"
+"\n"
+"You can see %1$s's profile page on %2$s here:\n"
+"\n"
+"%5$s\n"
+"\n"
+"If you'd like to try the service, click on the link below to accept the "
+"invitation.\n"
+"\n"
+"%6$s\n"
+"\n"
+"If not, you can ignore this message. Thanks for your patience and your "
+"time.\n"
+"\n"
+"Sincerely, %2$s\n"
+msgstr ""
+"%1$s mời bạn tham gia vào %2$s (%3$s).\n"
+"\n"
+"%2$s là dịch vụ tin nhắn nhanh giúp bạn liên kết với người "
+"quen và những người yêu thích bạn.\n"
+"\n"
+"Bạn cũng có thể chia sẻ những suy nghĩ, thông tin về bạn, "
+"hoặc đời sống của bạn lên trên mạng cho những người quen "
+"của bạn biết. Dịch vụ này cũng giúp bạn gặp gỡ những "
+"người chưa quen biết nhưng có cùng sở thích.\n"
+"\n"
+"%1$s nói:\n"
+"\n"
+"%4$s\n"
+"\n"
+"Bạn có thể tham khảo trang thông tin cá nhân của  %1$s trên  "
+"%2$s tại đây:\n"
+"\n"
+"%5$s\n"
+"\n"
+"Nếu bạn muốn sử dụng dịch vụ này, hãy nhấn chuột vào "
+"liên kết dưới đây để chấp nhận lời mời.\n\n%6$s\n\nNếu không thích tham gia, bạn có thể bỏ qua tin nhắn này. Rất cảm ơn sự kiên nhẫn vì đã làm mất thời gian của bạn.\n\nThân, %2$s\n"
+
+#: ../actions/invite.php:84
+#: ../actions/invite.php:92
+#, php-format
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#: ../actions/invite.php:131
+msgid "Addresses of friends to invite (one per line)"
+msgstr ""
+"Các địa chỉ email của những người bạn muốn mời (mỗi "
+"địa chỉ nằm trên 1 dòng)"
+
+#: ../actions/twitapifriendships.php:60
+#: ../actions/twitapifriendships.php:76
+#, php-format
+msgid "Could not follow user: %s is already on your list."
+msgstr "Không thể theo bạn này: %s đã có trong danh sách bạn bè của bạn rồi."
+
+#: ../actions/recoverpassword.php:102
+msgid "Could not update user with confirmed email address."
+msgstr "Không thể cập nhật thông tin user với địa chỉ email đã được xác nhận."
+
+#: ../actions/twitapistatuses.php:93
+msgid "Couldn't find any statuses."
+msgstr "Không tìm thấy bất kỳ trạng thái nào."
+
+#: ../actions/invite.php:129
+msgid "Email addresses"
+msgstr "Địa chỉ email"
+
+#: ../lib/settingsaction.php:102
+msgid "IM"
+msgstr "IM"
+
+#: ../actions/invite.php:55
+#, php-format
+msgid "Invalid email address: %s"
+msgstr "Địa chỉ email không đúng:%s"
+
+#: ../actions/invite.php:79
+msgid "Invitation(s) sent"
+msgstr "Thư mời đã gửi"
+
+#: ../actions/invite.php:97
+msgid "Invitation(s) sent to the following people:"
+msgstr "Thư mời đã gửi đến:"
+
+#: ../lib/util.php:306
+msgid "Invite"
+msgstr "Thư mời"
+
+#: ../actions/invite.php:123
+msgid "Invite new users"
+msgstr "Gửi thư mời đến những người chưa có tài khoản"
+
+#: ../actions/twitapistatuses.php:595
+msgid "No status found with that ID."
+msgstr "Không tìm thấy trạng thái nào tương ứng với ID đó."
+
+#: ../actions/twitapistatuses.php:555
+msgid "No status with that ID found."
+msgstr "Không tìm thấy trạng thái nào tương ứng với ID đó."
+
+#: ../actions/recoverpassword.php:211
+msgid "No user with that email address or username."
+msgstr ""
+"Không tìm thấy người dùng nào tương ứng với địa chỉ "
+"email hoặc username đó."
+
+#: ../scripts/maildaemon.php:50
+msgid "Not a registered user."
+msgstr "Không có người dùng nào đăng ký"
+
+#: ../lib/twitterapi.php:226
+#: ../lib/twitterapi.php:247
+#: ../lib/twitterapi.php:332
+msgid "Not a supported data format."
+msgstr "Không hỗ trợ định dạng dữ liệu này."
+
+#: ../actions/twitapistatuses.php:422
+msgid "Not found"
+msgstr "Không tìm thấy"
+
+#: ../actions/invite.php:135
+msgid "Optionally add a personal message to the invitation."
+msgstr "Không bắt buộc phải thêm thông điệp vào thư mời."
+
+#: ../actions/invite.php:133
+msgid "Personal message"
+msgstr "Tin nhắn cá nhân"
+
+#: ../lib/settingsaction.php:99
+msgid "SMS"
+msgstr "SMS"
+
+#: ../scripts/maildaemon.php:58
+msgid "Sorry, no incoming email allowed."
+msgstr "Xin lỗi, không có địa chỉ email cho phép."
+
+#: ../scripts/maildaemon.php:54
+msgid "Sorry, that is not your incoming email address."
+msgstr "Xin lỗi, đó không phải là địa chỉ email mà bạn nhập vào."
+
+#: ../actions/twitapiaccount.php:74
+msgid "That's too long. Max notice size is 255 chars."
+msgstr "Tin nhắn quá dài. Chỉ được phép tối đa 255 ký tự."
+
+#: ../actions/invite.php:89
+msgid ""
+"These people are already users and you were automatically subscribed to "
+"them:"
+msgstr ""
+"Những người này đã là thành viên rồi và bạn chỉ cần "
+"nhấn nút \"Tôi theo người này\" để theo họ:"
+
+#: ../actions/twitapifriendships.php:108
+#: ../actions/twitapistatuses.php:586
+msgid "This method requires a POST or DELETE."
+msgstr "Phương thức này yêu cầu là POST hoặc DELETE"
+
+#: ../actions/twitapiaccount.php:65
+#: ../actions/twitapifriendships.php:44
+#: ../actions/twitapistatuses.php:381
+msgid "This method requires a POST."
+msgstr "Phương thức này yêu cầu là POST."
+
+#: ../index.php:57
+msgid "Unknown action"
+msgstr "Không tìm thấy action"
+
+#: ../actions/invite.php:114
+msgid ""
+"Use this form to invite your friends and colleagues to use this "
+"service."
+msgstr ""
+"Điền địa chỉ email và nội dung tin nhắn để gửi thư mời "
+"bạn bè và đồng nghiệp của bạn tham gia vào dịch vụ này."
+
+#: ../actions/twitapiusers.php:75
+msgid "User not found."
+msgstr "Không tìm thấy user."
+
+#: ../actions/invite.php:81
+msgid "You are already subscribed to these users:"
+msgstr "Bạn đã theo những người này:"
+
+#: ../actions/twitapistatuses.php:612
+msgid "You may not delete another user's status."
+msgstr "Bạn đã không xóa trạng thái của những người khác."
+
+#: ../actions/invite.php:31
+#, php-format
+msgid "You must be logged in to invite other users to use %s"
+msgstr ""
+"Bạn phải đăng nhập vào mới có thể gửi thư mời những "
+
+#: ../actions/invite.php:103
+msgid ""
+"You will be notified when your invitees accept the invitation and register "
+"on the site. Thanks for growing the community!"
+msgstr ""
+"Bạn sẽ nhận được thông báo khi những người được bạn "
+"mời nhận lời mời và đăng ký vào trang web này. Cảm ơn bạn "
+
+#: ..lib/personal.php:
+msgid "Favorites"
+msgstr "Ưa thích"
+
+#: ..lib/personal.php:
+msgid "%s's favorite notices"
+msgstr "Những tin nhắn ưa thích của %s"
+
+#: ..lib/personal.php:
+msgid "Inbox"
+msgstr "Hộp thư đến"
+
+#: ..lib/personal.php:
+msgid "Your incoming messages"
+msgstr "Thư đến của bạn"
+
+#: ..lib/personal.php:
+msgid "Outbox"
+msgstr "Hộp thư đi"
+
+#: ..lib/personal.php:
+msgid "Your sent messages"
+msgstr "Thư bạn đã gửi"
+
+#: ..actions/inbox.php:
+msgid "Inbox for %s - page %d"
+msgstr "Hộp thư đến của %s - trang %d"
+
+#: ..actions/inbox.php:
+msgid "Inbox for %s"
+msgstr "Hộp thư đến của %s"
+
+#: ..actions/inbox.php:
+msgid "This is your inbox, which lists your incoming private messages."
+msgstr "Đây là hộp thư đến của bạn, bao gồm các tin nhắn gửi đến riêng cho bạn"
+
+#: ..actions/outbox.php:
+msgid "Outbox for %s - page %d"
+msgstr "Hộp thư gửi đi của %s - trang %d"
+
+#: ..actions/outbox.php:
+msgid "Outbox for %s"
+msgstr "Hộp thư đi của %s"
+
+#: ..actions/outbox.php:
+msgid "This is your outbox, which lists private messages you have sent."
+msgstr ""
+"Hộp thư gửi đi của bạn, bao gồm danh sách các tin nhắn gửi "
+"trực tiếp mà bạn đã gửi."
+
+#: ..actions/showfavorites.php:
+msgid "%s favorite notices"
+msgstr "%s ưa thích các tin nhắn"
+
+#: ..actions/showfavorites.php:
+msgid "Feed for favorites of %s"
+msgstr "Tìm kiếm các tin nhắn ưa thích của %s"
+
+#: ..actions/showfavorites.php:
+msgid "Could not retrieve favorite notices."
+msgstr "Không thể lấy lại các tin nhắn ưa thích"
+
+#: ..actions/favor.php:
+msgid "There was a problem with your session token. Try again, please."
+msgstr "Có lỗi xảy ra khi thao tác. Hãy thử lại lần nữa."
+
+#: ..actions/favor.php:
+msgid "Could not create favorite."
+msgstr "Không thể tạo favorite."
+
+#: ..actions/favor.php:
+msgid "Disfavor"
+msgstr "Không thích"
+
+#: ..actions/favor.php:
+msgid "This notice is already a favorite!"
+msgstr "Tin nhắn này đã có trong danh sách tin nhắn ưa thích của bạn rồi!"
+
+#: ..actions/inbox.php:
+msgid "%s added your notice as a favorite"
+msgstr "%s da them tin nhan cua ban vao danh sach tin nhan ua thich"
+
+#: ..actions/inbox.php:
+msgid ""
+"%1$s just added your notice from %2$s as one of their favorites.\n"
+"\n"
+"In case you forgot, you can see the text of your notice here:\n"
+"\n"
+"%3$s\n"
+"\n"
+"You can see the list of %1$s's favorites here:\n"
+"\n"
+"%4$s\n"
+"\n"
+"Faithfully yours,\n"
+"%5$s\n"
+msgstr ""
+"%1$s vừa thêm tin nhắn của bạn trên %2$s vào danh sách tin "
+"nhắn ưa thích của mình.\n"
+"\n"
+"Bạn có thể xem lại nội dung tin nhắn của bạn tại "
+"đây:\n"
+"\n"
+"%3$s\n"
+"\n"
+"Bạn có thể xem danh sách tin nhắn ưa thích của %1$s tại đây: \n\n%4$s\n\nChúc sức khỏe,\n%5$s\n"
+
+#: ../actions/twitapiaccount.php:49
+#: ../actions/twitapihelp.php:45
+#: ../actions/twitapistatuses.php:88
+#: ../actions/twitapistatuses.php:259
+#: ../actions/twitapistatuses.php:370
+#: ../actions/twitapistatuses.php:532
+#: ../actions/twitapiusers.php:122
+msgid "API method not found!"
+msgstr "Phương thức API không tìm thấy!"
+
+#: ../actions/twitapiaccount.php:57
+#: ../actions/twitapiaccount.php:113
+#: ../actions/twitapiaccount.php:119
+#: ../actions/twitapiblocks.php:28
+#: ../actions/twitapiblocks.php:34
+#: ../actions/twitapidirect_messages.php:43
+#: ../actions/twitapidirect_messages.php:49
+#: ../actions/twitapidirect_messages.php:56
+#: ../actions/twitapidirect_messages.php:62
+#: ../actions/twitapifavorites.php:41
+#: ../actions/twitapifavorites.php:47
+#: ../actions/twitapifavorites.php:53
+#: ../actions/twitapihelp.php:52
+#: ../actions/twitapinotifications.php:29
+#: ../actions/twitapinotifications.php:35
+#: ../actions/twitapistatuses.php:768
+msgid "API method under construction."
+msgstr "Phương thức API dưới cấu trúc có sẵn."
+
+#: ../actions/register.php:176
+msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
+msgstr ""
+"1-64 chữ cái thường hoặc là chữ số, không có dấu chấm hay "
+"khoảng trắng. Bắt buộc."
+
+#: ../lib/Mailbox.php
+msgid "Direct Messages"
+msgstr "Tin nhắn riêng"
+
+#: ../.php
+msgid "Notices sent"
+msgstr "Tin đã gửi"
+
+#: ../action/deletenotice.php
+msgid "Delete notice"
+msgstr "Xóa tin nhắn"
+
+#: ../action/deletenotice.php
+msgid ""
+"You are about to permanently delete a notice.  Once this is done, it cannot "
+"be undone."
+msgstr "Bạn muốn xóa tin nhắn này? Sau khi xóa, bạn không thể lấy lại được."
+
+#: ../action/deletenotice.php
+msgid "No"
+msgstr "Không"
+
+#: ../action/deletenotice.php
+msgid "Yes"
+msgstr "Có"
+
+#: ../action/deletenotice.php
+msgid "Are you sure you want to delete this notice?"
+msgstr "Bạn có chắc chắn là muốn xóa tin nhắn này không?"
+
+#: ..//.php
+msgid "Flagged notices"
+msgstr "Các tin nhắn bị cảnh báo"
+
+#: ..//.php
+msgid "flag this notice"
+msgstr "cảnh báo tin nhắn"
+
+#: ..//.php
+msgid "Flag a notice"
+msgstr "Cảnh báo tin nhắn"
+
+#: ..//.php
+msgid "Flag this notice?"
+msgstr "Bạn muốn cảnh báo tin nhắn này?"
+
+#: ..//.php
+msgid ""
+"If you think this notice is an offensive message, please notify to the "
+"administrator. Thank you."
+msgstr ""
+"Nếu bạn nghĩ tin nhắn này có nội dung xấu không chấp nhận "
+"được, hãy báo cho ban quản trị web site. Cảm ơn rất nhiều."
+
+#. ./lib/util.php
+msgid ""
+"It runs the [Laconica](http://laconi.ca/) microblogging software, version "
+"%s, available under the [GNU Affero General Public "
+"License](http://www.fsf.org/licensing/licenses/agpl-3.0.html)."
+msgstr ""
+"Saigonica là bản sửa đổi của phiên bản [Laconica "
+"0.6.0](http://laconi.ca/),  phát hành theo bản quyền [GNU Affero "
+"General Public License](http://www.fsf.org/licensing/licenses/agpl-3.0.html)."
+
+msgid ""
+"To use this [Saigonica version](%%doc.source%%), you must write the license "
+"is of Laconica and has contributions from Saigonica."
+msgstr ""
+"Để sử dụng [phiên bản Saigonica](%%doc.source%%) này, cần ghi "
+"rõ bản quyền của Laconia cộng thêm sự đóng góp của Saigonica."
+
+#. ./.php
+msgid "Send me email when someone adds my notice as a favorite."
+msgstr ""
+"Gửi email thông báo tôi khi có ai đó lưu tin nhắn của tôi vào "
+"danh sách ưa thích của họ."
+
+#. ./.php
+msgid "Send me email when someone sends me a private message."
+msgstr "Gửi email báo cho tôi biết khi có ai đó gửi tin nhắn riêng cho tôi."
+
+#. ./.php
+msgid "Current verified Twitter account."
+msgstr "Tài khoản Twitter đã được xác nhận."
+
+#. ./.php
+msgid "Subscribe to my Twitter friends here."
+msgstr "Đăng ký theo những bạn trên Twitter tại đây."
+
+#. ./.php
+msgid "Twitter Account"
+msgstr "Tài khoản Twitter"
+
+#. ./.php
+msgid "Twitter settings"
+msgstr "Thiết lập tài khoản Twitter"
+
+#. ./.php
+msgid ""
+"Add your Twitter account to automatically send your notices to Twitter, and "
+"subscribe to Twitter friends already here."
+msgstr ""
+"Hãy đăng ký tài khoản Twitter của bạn để có thể gửi tin "
+"nhắn đến Twitter, bạn cũng có thể  đăng ký theo các bạn của mình trên Twitter tại đây."
+
+#. ./.php
+msgid "No spaces, please."
+msgstr "Không nhập ký tự trắng."
+
+#. ./.php
+msgid "Twitter Password"
+msgstr "Mật khẩu Twitter"
+
+#. ./.php
+msgid "That is not your Twitter account."
+msgstr "Không phải là tài khoản Twitter của bạn."
+
+#. ./.php
+msgid "Couldn't remove Twitter user."
+msgstr "Không thể xóa tài khoản Twitter."
+
+#. ./.php
+msgid "Twitter account removed."
+msgstr "Tài khoản Twitter đã xóa."
+
+#. ./.php
+msgid "Couldn't save Twitter preferences."
+msgstr "Không thể lưu các yêu cầu cho tài khoản Twitter. "
+
+#. ./.php
+msgid "Twitter preferences saved."
+msgstr "Các yêu cầu cho tài khoản Twitter đã lưu"
+
+#. ./.php
+msgid "Twitter Username"
+msgstr "Tên tài khoản Twitter"
+
+#. ./.php
+msgid "Could not verify your Twitter credentials!"
+msgstr "Không thể xác nhận tài khoản Twitter của bạn!"
+
+#. ./.php
+msgid "Unable to retrieve account information for '%s' from Twitter."
+msgstr "Không thể lấy thông tin tài khoản của '%s' từ Twitter."
+
+#. ./.php
+msgid "Unable to save your Twitter settings!"
+msgstr "Không thể lưu thông tin Twitter của bạn!"
+
+#. ./.php
+msgid ""
+"Username must have only numbers, upper- and lowercase letters, and "
+"underscore (_)."
+msgstr ""
+"Tên tài khoản phải là các chữ số, chữ cái thường hoặc "
+"viết hoa, hoặc là dấu gạch dưới (_)."
+
+msgid "Automatically send my notices to Twitter."
+msgstr "Tự động gửi tin nhắn của tôi đến Twitter."
+
+msgid "Send me replies through Jabber/GTalk from people I'm not subscribed to."
+msgstr ""
+"Gửi những tin nhắn trả lời của tôi từ những người mà "
+"tôi không theo qua Jabber/GTalk."
+
+msgid "New email address for posting to %s"
+msgstr "Dia chi email moi de gui tin nhan den %s"
+
+msgid "Registration successful"
+msgstr "Đăng ký thành công"
+
+msgid ""
+"Congratulations, %s! And welcome to %%%%site.name%%%%. From here, you may "
+"want to...\n"
+"\n"
+"* Go to [your profile](%s) and post your first message.\n"
+"* Add a [Jabber/GTalk address](%%%%action.imsettings%%%%) so you can send "
+"notices through instant messages.\n"
+"* [Search for people](%%%%action.peoplesearch%%%%) that you may know or that "
+"share your interests. \n"
+"* Update your [profile settings](%%%%action.profilesettings%%%%) to tell "
+"others more about you. \n"
+"* Read over the [online docs](%%%%doc.help%%%%) for features you may have "
+"missed. \n"
+"\n"
+"Thanks for signing up and we hope you enjoy using this service."
+msgstr ""
+"Chúc mừng, %s! Chào mừng bạn đến với  %%%%site.name%%%%. Bây "
+"giờ bạn có thể...\n"
+"\n"
+"* Vào trang [Hồ sơ cá nhân](%s) của bạn và gửi tin nhắn "
+"đầu tiên. \n"
+"* Thêm [địa chỉ Jabber/GTalk](%%%%action.imsettings%%%%) để có "
+"thể gửi tin nhắn nhanh.\n"
+"* [Tìm kiếm người quen](%%%%action.peoplesearch%%%%) mà bạn nghĩ "
+"là có thể chia sẻ niềm vui.\n"
+"* Đọc xuyên suốt [hướng dẫn](%%%%doc.help%%%%) để hiểu thêm "
+"về dịch vụ của chúng tôi.\n\nCảm ơn bạn đã đăng ký để là thành viên và rất mong bạn sẽ thích dịch vụ này."
+
+msgid ""
+"(You should receive a message by email momentarily, with instructions on how "
+"to confirm your email address.)"
+msgstr ""
+"(Bạn sẽ nhận email thông báo, hãy đọc hướng dẫn để xác "
+"nhận địa chỉ email của bạn.)"
+
+msgid "6 or more characters. Required."
+msgstr "Nhiều hơn 6 ký tự. Bắt buộc"
+
+msgid "Same as password above. Required."
+msgstr "Cùng mật khẩu ở trên. Bắt buộc."
+
+msgid "Email Settings"
+msgstr "Thiết lập địa chỉ email"
+
+msgid "Change theme"
+msgstr "Đổi theme"
+
+msgid "Customize theme"
+msgstr "Tùy chỉnh theme"
+
+msgid ""
+"You can change the theme as you want by choosing a thumbnail and then click "
+"Save button to active new theme."
+msgstr ""
+"Bạn có thể thay đổi theme bằng cách chọn một hình mẫu "
+"của các theme rồi nhấn nút \"Lưu\" để đổi theme. "
+
+msgid ""
+"Hey, %1$s .\n"
+"\n"
+"Someone just entered this email address on %2$s.\n"
+"\n"
+"If it was you, and you want to confirm your entry, use the URL below: \n"
+"\n"
+"\t%3$s\n"
+"\n"
+"If not, just ignore this message.\n"
+"\n"
+"Thanks for your time,\n"
+"\n"
+"%4$s\n"
+"\n"
+msgstr ""
+"Chào, %1$s .\n"
+"\n"
+"Không biết có phải bạn là người vừa nhập địa chỉ email "
+"này trên %2$s.\n"
+"\n"
+"Nếu bạn là người nhập, và bạn muốn xác nhận lại, hãy "
+"nhấn chuột vào đường dẫn dưới đây: \n"
+"\n"
+"\t%3$s\n"
+"\n"
+"Nếu không phải bạn, hãy bỏ qua tin nhắn này.\n\nCảm ơn bạn đã bỏ thời gian để đọc thư,\n\n%4$s\n\n"
+
+msgid ""
+"You have a new posting address on %1$s.\n"
+"\n"
+"Send email to %2$s to post new messages.\n"
+"\n"
+"More email instructions at %3$s.\n"
+"\n"
+"Faithfully yours,\n"
+"%4$s"
+msgstr ""
+"Bạn có địa chỉ mới để gửi tin nhắn trên %1$s.\n"
+"\n"
+"Hãy gửi email đến %2$s để  có thể nhắn tin.\n"
+"\n"
+"Bạn có thể đọc hướng dẫn tại %3$s.\n\nChúc sức khỏe,\n%4$s"
+
+msgid "SMS confirmation"
+msgstr "Xác nhận SMS"
+
+msgid ""
+"%1$s: confirm you own this phone number with this code:\n"
+"\n"
+"%2$s\n"
+"\n"
+msgstr "%1$s: Hãy xác nhận bạn là chủ nhân số điện thoại :\n\n%2$s\n\n"
+
+msgid "New private message from %s"
+msgstr "Bạn có tin nhắn riêng từ %s"
+
+msgid ""
+"%1$s (%2$s) sent you a private message:\n"
+"\n"
+"------------------------------------------------------\n"
+"%3$s\n"
+"------------------------------------------------------\n"
+"\n"
+"You can reply to their message here:\n"
+"\n"
+"%4$s\n"
+"\n"
+"Don't reply to this email; it won't get to them.\n"
+"\n"
+"With kind regards,\n"
+"%5$s\n"
+msgstr ""
+"%1$s (%2$s) đã gửi đến bạn tin nhắn riêng:\n"
+"\n"
+"------------------------------------------------------\n"
+"%3$s\n"
+"------------------------------------------------------\n"
+"\n"
+"Bạn có thể trả lời tại:\n"
+"\n"
+"%4$s\n"
+"\n"
+"Đừng trả lời lại thư này; sẽ không có ai nhận thư.\n\nChúc sức khỏe,\n%5$s\n"
+
+msgid "Terms of use"
+msgstr "TTSD"
+
+msgid " Terms of use"
+msgstr "Thỏa thuận sử dụng"
+
+msgid "Termsofuse"
+msgstr "Thỏa thuận sử dụng"
+
+msgid "Click here to view emotion icon"
+msgstr "Nhấn chuột vào đây để chọn biểu tượng cảm xúc"
+
+msgid "Import from Web Address Book"
+msgstr "Nhập địa chỉ từ Yahoo hoặc Gmail"
+
+msgid "Incorrect email address or password."
+msgstr "Địa chỉ email hoặc mật khẩu không đúng."
+
+msgid "Select All/None"
+msgstr "Chọn tất cả/Không chọn"
+
+msgid "Contacts not found."
+msgstr "Không tìm thấy kết nối."
+
+msgid ""
+"Please input your yahoo or gmail account. List of contacts will be loaded "
+"from your address book.\n"
+"\n"
+"Don't worry, we won't save your password and you'll get a chance to choose "
+"which friends to invite."
+msgstr ""
+"Hãy nhập tài khoản yahoo hoặc tài khoản gmail của bạn. Danh "
+"sách bạn bè, người thân sẽ được lấy từ sổ địa chỉ "
+"của bạn.\n"
+"\n"
+"Đừng lo, chúng tôi sẽ không lưu password của bạn và bạn sẽ có danh sách những người bạn để mời."
+
+msgid "Import Address Book"
+msgstr "Thêm vào danh sách địa chỉ"
+
+msgid "Import Contacts Address Book from Yahoo, Gmail"
+msgstr "Nhập sổ địa chỉ liên lạc từ Yahoo, Gmail"
+
+msgid "Your email address"
+msgstr "Địa chỉ email của bạn"
+
+msgid "Import Web Address Book from"
+msgstr "Nhập sổ địa chỉ web từ"
+
+msgid ""
+"%2$s is a micro-blogging service that lets you keep up-to-date with people "
+"you know and people who interest you.\n"
+"\n"
+"You can also share news about yourself, your thoughts, or your life online "
+"with people who know about you. It's also great for meeting new people who "
+"share your interests.\n"
+"\n"
+msgstr ""
+"%2$s là một dịch vụ gửi tin nhắn mà nó cho phép bạn giữ "
+"liên lạc, cập nhật thông tin với bạn bè, người thân và "
+"những người quan tâm đến bạn.\n"
+"\n"
+"Ban cũng có thể chia sẻ thông tin về bản thân, những suy "
+"nghĩ, cuộc sống của bạn với những người biết bạn. Là "
+"một công cụ hữu hiệu cho việc gặp gỡ người mới, những người có cùng sở thích với bạn.\n\n"
+
+msgid ""
+"%1$s has invited you to join them on %2$s (%3$s).\n"
+"\n"
+"%1$s said:\n"
+"\n"
+"%4$s\n"
+"\n"
+"You can see %1$s's profile page on %2$s here:\n"
+"\n"
+"%5$s\n"
+"\n"
+"If you'd like to try the service, click on the link below to accept the "
+"invitation.\n"
+"\n"
+"%6$s\n"
+"\n"
+"If not, you can ignore this message. Thanks for your patience and your "
+"time.\n"
+"\n"
+"Sincerely, %2$s\n"
+msgstr ""
+"%1$s đã mời bạn tham gia vào %2$s (%3$s).\n"
+"\n"
+"%1$s đã nói:\n"
+"\n"
+"%4$s\n"
+"\n"
+"Bạn có thể thấy trang hồ sơ của %1$s trên %2$s ở đây:\n"
+"\n"
+"%5$s\n"
+"\n"
+"Nếu bạn muốn thử dịch vụ này, hãy bấm vào đường liên "
+"kết bên dưới để chấp nhận lời mời.\n"
+"\n"
+"%6$s\n"
+"\n"
+"Nếu không, bạn có thể bỏ qua tin nhắn này. Cảm ơn sự kiên nhẫn và thời gian của bạn dành cho chúng tôi.\n\nXin chân thành cảm ơn, %2$s\n"
+
+msgid ""
+"Hi, I recently created an account at %1$s and want to share it with "
+"you.\n"
+"\n"
+"%1$s is a free, micro-blogging service, which combines the best of blog and "
+"chat. You can use it to write short notices (less than 140 characters) about "
+"your daily life: where you are, what you are doing, and how you are "
+"feeling.\n"
+"\n"
+"It is a tool that allows you to communicate, share, and stay in touch with "
+"friends and to follow other people that interest you through the exchange of "
+"short frequent messages (micro-blogging).\n"
+"\n"
+msgstr ""
+"Chào bạn, mình đã tạo tài khoản trên %1$s và muốn giới "
+"thiệu cho bạn cùng biết về dịch vụ này.\n"
+"\n"
+"%1$s là dịch vụ gửi tin nhắn ngắn miễn phí, một sự kết "
+"hợp tuyệt vời giữa blog và chat. Bạn có thể viết tin nhắn "
+"khoảng 140 kí tự về đời sống thường nhật của bạn như: "
+"bạn ở đâu, bạn đang làm gì, và bạn cảm thấy thế "
+"nào.\n"
+"\n"
+"Đây là công cụ để bạn giao tiếp, chia sẻ, kết nối với bạn bè và theo những người có cùng sở thích với bạn bằng cách gửi cho nhau những tin nhắn ngắn.\n\n"
+
+msgid "Copy and paste the embed code to your website or blog"
+msgstr "Copy và dán mã trên vào website hay blog của bạn"
+
+msgid ""
+"For security reasons, please re-enter your user name and password before "
+"changing your settings."
+msgstr ""
+"Vì lý do bảo mật, bạn hãy nhập lại tên đăng nhập và mật "
+"khẩu trước khi thay đổi trong điều chỉnh."
+
+msgid ""
+"A confirmation code was sent to the email address you added. Check your "
+"inbox (and spam box!) for the code and instructions on how to use it."
+msgstr ""
+"Mã xác nhận đã được gửi tới địa chỉ email của bạn. "
+"Hãy kiểm tra hộp thư và làm theo hướng dẫn."
+
+msgid ""
+"Hey, %1$s\n"
+"\n"
+"Someone just asked for a new password for this account on %2$s.\n"
+"\n"
+"If it was you, and you want to confirm, use the URL below:\n"
+"\n"
+"\t%3$s\n"
+"\n"
+"If not, just ignore this message.\n"
+"\n"
+"Thanks for your time, \n"
+"%1$s\n"
+msgstr ""
+"Xin chào, %1$s\n"
+"\n"
+"Không biết có phải bạn là người yêu cầu mật khẩu mới "
+"cho tài khoản này trên %2$s.\n"
+"\n"
+"Nếu chính là bạn và nếu bạn muốn xác nhận, hãy nhấn "
+"chuột vào đường dẫn dưới đây:\n"
+"\n"
+"\t%3$s\n"
+"\n"
+"Nếu không phải bạn, hãy bỏ qua tin nhắn này.\n\nCảm ơn bạn đã bỏ thời gian để đọc thư, \n%1$s\n"
+
+msgid "Create a group"
+msgstr "Tạo nhóm"
+
+msgid "No such message."
+msgstr "Không có tin nhắn nào."
+
+msgid "Only the sender and recipient may read this message"
+msgstr "Chỉ có người gửi hoặc người nhận mới có thể xem tin nhắn này"
+
+msgid "Are you sure you want to delete this message?"
+msgstr "Bạn có chắc chắn là muốn xóa tin nhắn này không?"
+
+msgid ""
+"You are about to permanently delete a message.  Once this is done, it cannot "
+"be undone."
+msgstr "Bạn muốn xóa tin nhắn này? Sau khi xóa, bạn không thể lấy lại được."
+
+msgid "Can't delete this message."
+msgstr "Không thể xóa tin nhắn này."
+
+msgid "Can't delete this notice."
+msgstr "Không thể xóa tin nhắn này."
+
+msgid "%s and group"
+msgstr "%s và nhóm"
+
+msgid "My Groups"
+msgstr "Nhóm"
+
+msgid "Group Profile"
+msgstr "Thông tin nhóm"
+
+msgid "Timeline"
+msgstr "Dòng tin"
+
+msgid "%s's timeline"
+msgstr "Dòng tin nhắn của %s"
+
+msgid "Share a thought? Vas-y, ton tour..."
+msgstr "Muốn chia sẽ ý nghĩ của bạn?"
+
+msgid "Group Members"
+msgstr "Thành viên"
+
+msgid "Group name"
+msgstr "Tên nhóm"
+
+msgid "Create date"
+msgstr "Ngày thành lập"
+
+msgid "Member count"
+msgstr "Số thành viên"
+
+msgid ""
+"By clicking on 'I accept' above, you confirm that you are over 13 years of "
+"age and accept the Terms of Service"
+msgstr ""
+"Nhấn vào 'Tôi đồng ý' ở trên để xác nhận là bạn trên 13 "
+"tuổi và chấp nhận những điều khoản của dịch vụ"
+
+msgid "I accept"
+msgstr "Tôi đồng ý"
+
+msgid "Group code invalid."
+msgstr "Mã số của nhóm không đúng."
+
+msgid "Register a Group"
+msgstr "Đăng ký nhóm"
+
+msgid "Group code"
+msgstr "Mã nhóm"
+
+msgid "Only people who know this code can join the group. Required."
+msgstr "Chỉ những ai biết mã này mới có thể gia nhập nhóm. Bắt buộc."
+
+msgid "Enter the code if you want to join this group"
+msgstr "Nhập vào mã của nhóm nếu bạn muốn tham gia."
+
+msgid "Manage"
+msgstr "Quản lý"
+
+msgid "You have no authentication to access this page."
+msgstr "Bạn không có quyền truy cập trang này."
+
+msgid "Check the flagged notice and then delete or ignore it."
+msgstr ""
+"Kiểm tra lại tin bị cảnh báo, sau đó bạn hãy quyết định "
+"xóa tin đó hoặc xác nhận nó là hợp lệ."
+
+msgid "Flagged"
+msgstr "Kiểm tin"
+
+msgid "Description"
+msgstr "Mô tả"
+
+msgid "Short description of the group"
+msgstr "Mô tả ngắn gọn về nhóm"
+
+msgid "Group"
+msgstr "Nhóm"
+
+msgid "Check notice flagged by user"
+msgstr "Kiểm tra các tin nhắn do người dùng cảnh báo"
+
+msgid "is more fun with friends."
+msgstr "vui hơn với bạn bè"
+
+msgid "Invite your friends"
+msgstr "Mời bạn bè"
+
+msgid "Hide recommendations"
+msgstr "Tắt"
+
+msgid ""
+"Sorry, but you need to activate your account first. We sent the activation "
+"email, so please check your email for details. Don't forget to look in your "
+"spam folder as well."
+msgstr ""
+"Xin lỗi, bạn cần phải kích hoạt tài khoản của bạn "
+"trước. Chúng tôi đã gửi email tới bạn, vì vậy hãy mở "
+"hộp mail để xem hướng dẫn chi tiết. Đừng quên tìm cả trong spam."
+
+msgid "Current confirmed email address."
+msgstr "Đã xác nhận địa chỉ này."
+
+msgid "Chat vs T8M"
+msgstr "Chat và T8M"
+
+msgid "Prev"
+msgstr "Trước"
+
+msgid "Next"
+msgstr "Kế"
+
+#: ../actions/profilesettings.php:54
+msgid "Describe yourself and your interests in 140 chars"
+msgstr "Nói về bạn và những sở thích của bạn khoảng 140 ký tự"
+
+#: ../actions/profilesettings.php:57
+msgid "Where you are, like \"City, State (or Region), Country\""
+msgstr "Bạn ở đâu, \"Thành phố, Tỉnh thành, Quốc gia\""
+
+msgid "Members"
+msgstr "Thành viên"
+
+msgid "Subscribe "
+msgstr "Theo nhóm này"
+
+msgid "Group View"
+msgstr "Xem theo nhóm"
+
+msgid "Linear View"
+msgstr "Xem tuần tự"
+
+msgid " and friends"
+msgstr " và bạn bè"
+
+msgid "Channels"
+msgstr "Kênh"
+
+msgid "Channel already exist. Try another one."
+msgstr "Kênh này đã có rồi. Hãy chọn tên khác."
+
+msgid "Can't save this chanel"
+msgstr "Lỗi khi lưu kênh"
+
+msgid "You can create a new channel here."
+msgstr "Bạn có thể tạo kênh tại đây."
+
+msgid "Create Channel"
+msgstr "Tạo Kênh"
+
+msgid "Channel name"
+msgstr "Tên kênh"
+
+msgid "Name of channel. Required."
+msgstr "Tên kênh. Bắt buộc"
+
+msgid "Channel saved successfully"
+msgstr "Tạo kênh thành công."
+
+msgid " You have just created channel %s successfuly."
+msgstr "Bạn vừa tạo thành công kênh %s."
+
+msgid "Channel"
+msgstr "Kênh"
+
+msgid "No such chanel."
+msgstr "Không tìm thấy kênh nào."
+
+msgid "Channels View"
+msgstr "Hệ thống các  kênh"
+
+msgid "Create a channel"
+msgstr "Tạo kênh"
+
+msgid "Register user by channel"
+msgstr "Đăng ký theo kênh"
+
+msgid "The channel this user in"
+msgstr "Kênh mà bạn tham gia"
+
+msgid " Subscribe"
+msgstr "Theo kênh này"
+
+msgid "Your incoming and sent messages"
+msgstr "Hộp thư của bạn"
+
+msgid "Send me all replies through Yahoo Messenger."
+msgstr "Hãy gửi tin nhắn đến tôi qua Yahoo Messenger"
+
+msgid "Yahoo Messenger Settings"
+msgstr "Thiết lập địa chỉ Yahoo"
+
+msgid ""
+"You can send and receive notices through Yahoo Messenger [instant "
+"messages](%%doc.im%%). Configure your yahoo address and settings below."
+msgstr ""
+"Bạn có thể gửi và nhận những tin nhắn qua Yahoo Messenger [tin "
+"nhắn nhanh](%%doc.im%%). Hãy định dạng địa chỉ của bạn và các thiết lập sau."
+
+msgid ""
+"Awaiting confirmation on this address. Check your Yahoo inbox (and spam "
+"box!) for a message with further instructions."
+msgstr ""
+"Đang đợi xác nhận đến địa chỉ này. Hãy kiểm tra hộp "
+"thư đến(và thư rác) để nhận tin nhắn và lời hướng dẫn. "
+
+msgid "Yahoo Address"
+msgstr "Địa chỉ email Yahoo"
+
+msgid "Yahoo address, like \"UserName@yahoo.com\""
+msgstr "Địa chỉ email Yahoo, Ví dụ: \"UserName@yahoo.com\""
+
+msgid "That yahoo address already belongs to another user."
+msgstr "Địa chỉ email Yahoo này đã có người khác sử dụng rồi."
+
+msgid "That is already your yahoo address."
+msgstr "Bạn đã dùng địa chỉ email này rồi"
+
+msgid "Cannot normalize that Yahoo address"
+msgstr "Không thể bình thường hóa địa chỉ Yahoo này"
+
+msgid "No yahoo address."
+msgstr "Chưa nhập địa chỉ email Yahoo"
+
+msgid ""
+"A confirmation code was sent to the yahoo email address you added. Check "
+"your inbox (and spam box!) for the code and instructions on how to use "
+"it."
+msgstr ""
+"Mã xác nhận đã được gửi đến địa chỉ email Yahoo của "
+"bạn. Hãy kiểm tra hộp thư đến (và thư rác) và làm theo hướng dẫn trong thư."
+
+msgid "says"
+msgstr "nói"
+
+msgid "Your message is posted successful."
+msgstr "Tin nhắn đã gửi đi"
+
+msgid "To use this service, You must register your YM with Saigonica."
+msgstr "Để được sử dụng dịch vụ này, bạn phải đăng ký YM trên Saigonica"
+
+msgid "To use this service, You must register your Gtalk with Saigonica."
+msgstr "Để được sử dụng dịch vụ này, bạn phải đăng ký GTalk trên Saigonica"
+
+msgid "Send me all replies through Jabber/GTalk."
+msgstr "Hãy gửi tin nhắn đến tôi qua Jabber/GTalk."
+
+msgid "GTalk Settings"
+msgstr "Thiết lập địa chỉ GTalk"
+
+msgid ""
+"You can send and receive notices through Jabber/GTalk [instant "
+"messages](%%doc.im%%). Configure your yahoo address and settings below."
+msgstr ""
+"Bạn có thể gửi và nhận những tin nhắn qua Jabber/GTalk [tin "
+"nhắn nhanh](%%doc.im%%). Hãy định dạng địa chỉ của bạn và các thiết lập sau."
+
+msgid ""
+"Awaiting confirmation on this address. Check your GTalk inbox (and spam "
+"box!) for a message with further instructions."
+msgstr ""
+"Đang đợi xác nhận đến địa chỉ này. Hãy kiểm tra hộp "
+"thư đến(và thư rác) để nhận tin nhắn và lời hướng dẫn. "
+
+msgid "GTalk Address"
+msgstr "Địa chỉ email GTalk"
+
+msgid "GTalk address, like \"UserName@gmail.com\""
+msgstr "Địa chỉ email GTalk, Ví dụ: \"UserName@gmail.com\""
+
+msgid "That GTalk address already belongs to another user."
+msgstr "Địa chỉ email GTalk này đã có người khác sử dụng rồi."
+
+msgid "That is already your GTalk address."
+msgstr "Bạn đã dùng địa chỉ email này rồi"
+
+msgid "Cannot normalize that GTalk address"
+msgstr "Không thể bình thường hóa địa chỉ GTalk này"
+
+msgid "No GTalk address."
+msgstr "Chưa nhập địa chỉ email GTalk"
+
+msgid ""
+"A confirmation code was sent to the GTalk email address you added. Check "
+"your inbox (and spam box!) for the code and instructions on how to use "
+"it."
+msgstr ""
+"Mã xác nhận đã được gửi đến địa chỉ email GTalk của "
+"bạn. Hãy kiểm tra hộp thư đến (và thư rác) và làm theo hướng dẫn trong thư."
+
+msgid "Check virus"
+msgstr "Kiểm tra virus"
+
+msgid "Error"
+msgstr "Lỗi"
+
+msgid "Avatar "
+msgstr "Hình"
+
+msgid "Avatar settings"
+msgstr "Thay đổi hình đại diện"
+
+msgid "No avatar is selected."
+msgstr "Bạn chưa chọn hình để đưa lên."
+
+msgid "Change your avatar"
+msgstr "Thay đổi hình đại diện của bạn"
+
+msgid "Updates by Yahoo Messenger (YM)"
+msgstr "Cập nhật địa chỉ Yahoo để gửi tin qua Yahoo Mesenger(YM)"
+
+msgid "Twitter integration options"
+msgstr "Các lựa chọn để tích hợp với Twitter "
+
+msgid "Ban from network"
+msgstr "Ban user ra khỏi mạng"
+
+msgid "Ban users violate rules of saigonica"
+msgstr "Ban user vi phạm nội quy của saigonica"
+
+msgid "Ban user"
+msgstr "Ban user"
+
+msgid "Are you sure to ban this user?"
+msgstr "Bạn có chắc muốn ban người này không?"
+
+msgid "Your account was banned."
+msgstr "Tài khoản của bạn đã bị ban."
+
+msgid "User has been baned."
+msgstr "User đã bị ban."
