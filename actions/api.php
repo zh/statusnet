@@ -72,10 +72,14 @@ class ApiAction extends Action
             }
         } else {
 
-            # Look for the user in the session
-            if (common_logged_in()) {
-                 $this->user = common_current_user();
-            }
+			# Caller might give us a username even if not required
+			if (isset($_SERVER['PHP_AUTH_USER'])) {
+				$user = User::staticGet('nickname', $_SERVER['PHP_AUTH_USER']);
+				if ($user) {
+					$this->user = $user;
+				}
+				# Twitter doesn't throw an error if the user isn't found
+			}
 
             $this->process_command();
         }

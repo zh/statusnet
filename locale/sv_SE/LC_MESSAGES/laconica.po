@@ -6,9 +6,20 @@
 #, fuzzy
 msgid ""
 msgstr ""
+"#-#-#-#-#  laconica.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-27 14:57-0400\n"
+"POT-Creation-Date: 2008-07-14 21:07+1200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-10-13 21:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,64 +32,20 @@ msgstr ""
 msgid " Search Stream for \"%s\""
 msgstr "Sök i strömmen efter \"%s\""
 
-#: ../actions/finishopenidlogin.php:82 ../actions/register.php:191
+#: ../actions/finishopenidlogin.php:82 ../actions/register.php:193
 msgid ""
-" except this private data: password, email address, IM address, phone number."
+" except this private data: password, email address, IM address, phone "
+"number."
 msgstr ""
 "förutom det här, som är privat: lösenord, epostadress, IM-adress, "
 "telefonnummer."
 
-#: ../actions/showstream.php:400 ../lib/stream.php:109
-msgid " from "
-msgstr ""
-
-#: ../actions/twitapistatuses.php:478
-#, php-format
-msgid "%1$s / Updates replying to %2$s"
-msgstr ""
-
-#: ../actions/invite.php:168
-#, fuzzy, php-format
-msgid "%1$s has invited you to join them on %2$s"
-msgstr "%1$s lyssnar nu på dina meddelanden i %2$s."
-
-#: ../actions/invite.php:170
-#, php-format
-msgid ""
-"%1$s has invited you to join them on %2$s (%3$s).\n"
-"\n"
-"%2$s is a micro-blogging service that lets you keep up-to-date with people "
-"you know and people who interest you.\n"
-"\n"
-"You can also share news about yourself, your thoughts, or your life online "
-"with people who know about you. It's also great for meeting new people who "
-"share your interests.\n"
-"\n"
-"%1$s said:\n"
-"\n"
-"%4$s\n"
-"\n"
-"You can see %1$s's profile page on %2$s here:\n"
-"\n"
-"%5$s\n"
-"\n"
-"If you'd like to try the service, click on the link below to accept the "
-"invitation.\n"
-"\n"
-"%6$s\n"
-"\n"
-"If not, you can ignore this message. Thanks for your patience and your "
-"time.\n"
-"\n"
-"Sincerely, %2$s\n"
-msgstr ""
-
-#: ../lib/mail.php:124
+#: ../actions/subscribe.php:84
 #, php-format
 msgid "%1$s is now listening to your notices on %2$s."
 msgstr "%1$s lyssnar nu på dina meddelanden i %2$s."
 
-#: ../lib/mail.php:126
+#: ../actions/subscribe.php:86
 #, php-format
 msgid ""
 "%1$s is now listening to your notices on %2$s.\n"
@@ -93,154 +60,70 @@ msgstr ""
 "\tHälsningar,\n"
 "%4$s.\n"
 
-#: ../actions/twitapistatuses.php:482
-#, php-format
-msgid "%1$s updates that reply to updates from %2$s / %3$s."
-msgstr ""
-
 #: ../actions/shownotice.php:45
 #, php-format
 msgid "%1$s's status on %2$s"
 msgstr "%1$s's status den %2$s"
 
-#: ../actions/invite.php:84 ../actions/invite.php:92
-#, php-format
-msgid "%s (%s)"
-msgstr ""
-
-#: ../actions/publicrss.php:62
+#: ../actions/publicrss.php:60
 #, php-format
 msgid "%s Public Stream"
 msgstr "%s Publik Ström"
 
-#: ../actions/all.php:47 ../actions/allrss.php:60
-#: ../actions/twitapistatuses.php:238 ../lib/stream.php:51
+#: ../actions/all.php:47 ../actions/allrss.php:70 ../lib/stream.php:45
 #, php-format
 msgid "%s and friends"
 msgstr "%s med vänner"
 
-#: ../actions/twitapistatuses.php:49
-#, fuzzy, php-format
-msgid "%s public timeline"
-msgstr "Publik tidslinje"
-
-#: ../lib/mail.php:206
-#, fuzzy, php-format
-msgid "%s status"
-msgstr "%1$s's status den %2$s"
-
-#: ../actions/twitapistatuses.php:338
-#, fuzzy, php-format
-msgid "%s timeline"
-msgstr "Publik tidslinje"
-
-#: ../actions/twitapistatuses.php:52
-#, php-format
-msgid "%s updates from everyone!"
-msgstr ""
-
-#: ../actions/register.php:213
-msgid ""
-"(You should receive a message by email momentarily, with instructions on how "
-"to confirm your email address.)"
-msgstr ""
-
-#: ../lib/util.php:257
+#: ../lib/util.php:233
 #, php-format
 msgid ""
-"**%%site.name%%** is a microblogging service brought to you by [%%site."
-"broughtby%%](%%site.broughtbyurl%%). "
+"**%%site.name%%** is a microblogging service brought to you by "
+"[%%site.broughtby%%](%%site.broughtbyurl%%). "
 msgstr ""
-"**%%site.name%%** är en mikroblogg service för dig ifrån [%%site.broughtby%%]"
-"(%%site.broughtbyurl%%)"
+"**%%site.name%%** är en mikroblogg service för dig ifrån "
+"[%%site.broughtby%%](%%site.broughtbyurl%%)"
 
-#: ../lib/util.php:259
+#: ../lib/util.php:235
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** är en mikroblogg service."
 
-#: ../lib/util.php:274
+#: ../lib/util.php:250
 msgid ". Contributors should be attributed by full name or nickname."
 msgstr ". Användarna är tydligt markerade med sitt fulla namn eller smeknamn."
 
 #: ../actions/finishopenidlogin.php:73 ../actions/profilesettings.php:43
+#: ../actions/register.php:176
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
 msgstr "1-64 små bokstäver eller nummer, inga punkter eller mellanslag"
 
-#: ../actions/register.php:152
-#, fuzzy
-msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
-msgstr "1-64 små bokstäver eller nummer, inga punkter eller mellanslag"
-
-#: ../actions/password.php:42
+#: ../actions/password.php:42 ../actions/register.php:178
 msgid "6 or more characters"
 msgstr "Minst 6 tecken"
 
-#: ../actions/recoverpassword.php:180
+#: ../actions/recoverpassword.php:165
 msgid "6 or more characters, and don't forget it!"
 msgstr "Minst 6 tecken och glöm inte bort det!"
 
-#: ../actions/register.php:154
-#, fuzzy
-msgid "6 or more characters. Required."
-msgstr "Minst 6 tecken"
-
-#: ../actions/imsettings.php:197
+#: ../actions/imsettings.php:188
 #, php-format
 msgid ""
-"A confirmation code was sent to the IM address you added. You must approve %"
-"s for sending messages to you."
+"A confirmation code was sent to the IM address you added. You must approve "
+"%s for sending messages to you."
 msgstr ""
 "En bekräftelsekod har skickats till den IM-adress som du angav. Du måste "
 "godkänna att %s får skicka meddelanden till dig."
 
-#: ../actions/emailsettings.php:213
-#, fuzzy
-msgid ""
-"A confirmation code was sent to the email address you added. Check your "
-"inbox (and spam box!) for the code and instructions on how to use it."
-msgstr ""
-"En bekräftelsekod har skickats till den IM-adress som du angav. Du måste "
-"godkänna att %s får skicka meddelanden till dig."
-
-#: ../actions/smssettings.php:216
-#, fuzzy
-msgid ""
-"A confirmation code was sent to the phone number you added. Check your inbox "
-"(and spam box!) for the code and instructions on how to use it."
-msgstr ""
-"En bekräftelsekod har skickats till den IM-adress som du angav. Du måste "
-"godkänna att %s får skicka meddelanden till dig."
-
-#: ../actions/twitapiaccount.php:49 ../actions/twitapihelp.php:45
-#: ../actions/twitapistatuses.php:88 ../actions/twitapistatuses.php:259
-#: ../actions/twitapistatuses.php:370 ../actions/twitapistatuses.php:532
-#: ../actions/twitapiusers.php:122
-msgid "API method not found!"
-msgstr ""
-
-#: ../actions/twitapiaccount.php:57 ../actions/twitapiaccount.php:113
-#: ../actions/twitapiaccount.php:119 ../actions/twitapiblocks.php:28
-#: ../actions/twitapiblocks.php:34 ../actions/twitapidirect_messages.php:43
-#: ../actions/twitapidirect_messages.php:49
-#: ../actions/twitapidirect_messages.php:56
-#: ../actions/twitapidirect_messages.php:62 ../actions/twitapifavorites.php:41
-#: ../actions/twitapifavorites.php:47 ../actions/twitapifavorites.php:53
-#: ../actions/twitapihelp.php:52 ../actions/twitapinotifications.php:29
-#: ../actions/twitapinotifications.php:35 ../actions/twitapistatuses.php:768
-msgid "API method under construction."
-msgstr ""
-
-#: ../lib/util.php:324
+#: ../lib/util.php:296
 msgid "About"
 msgstr "Om"
 
-#: ../actions/userauthorization.php:119
+#: ../actions/userauthorization.php:118
 msgid "Accept"
 msgstr "Acceptera"
 
-#: ../actions/emailsettings.php:62 ../actions/imsettings.php:63
-#: ../actions/openidsettings.php:57 ../actions/smssettings.php:71
+#: ../actions/imsettings.php:64 ../actions/openidsettings.php:57
 msgid "Add"
 msgstr "Lägg till"
 
@@ -248,25 +131,15 @@ msgstr "Lägg till"
 msgid "Add OpenID"
 msgstr "Lägg till OpenID"
 
-#: ../lib/settingsaction.php:97
-#, fuzzy
-msgid "Add or remove OpenIDs"
-msgstr "Ta bort OpenID"
-
-#: ../actions/emailsettings.php:38 ../actions/imsettings.php:39
-#: ../actions/smssettings.php:39
+#: ../actions/imsettings.php:39
 msgid "Address"
 msgstr "Adress"
 
-#: ../actions/invite.php:131
-msgid "Addresses of friends to invite (one per line)"
-msgstr ""
-
-#: ../actions/showstream.php:273
+#: ../actions/showstream.php:254
 msgid "All subscriptions"
 msgstr "Alla prenumerationer"
 
-#: ../actions/publicrss.php:64
+#: ../actions/publicrss.php:62
 #, php-format
 msgid "All updates for %s"
 msgstr "%s alla uppdateringar"
@@ -276,33 +149,24 @@ msgstr "%s alla uppdateringar"
 msgid "All updates matching search term \"%s\""
 msgstr "Alla uppdateringar som matchar söksträngen \"%s\""
 
-#: ../actions/finishopenidlogin.php:29 ../actions/login.php:31
-#: ../actions/openidlogin.php:29 ../actions/register.php:30
+#: ../actions/finishopenidlogin.php:29 ../actions/login.php:27
+#: ../actions/openidlogin.php:29 ../actions/register.php:28
 msgid "Already logged in."
 msgstr "Redan inloggad."
 
-#: ../lib/subs.php:42
+#: ../actions/subscribe.php:48
 msgid "Already subscribed!."
 msgstr "Det finns redan en prenumeration!"
 
-#: ../actions/deletenotice.php:54
-msgid "Are you sure you want to delete this notice?"
-msgstr ""
-
-#: ../actions/userauthorization.php:77
+#: ../actions/userauthorization.php:76
 msgid "Authorize subscription"
 msgstr "Tillåt prenumeration."
 
-#: ../actions/login.php:104 ../actions/register.php:178
+#: ../actions/login.php:100 ../actions/register.php:184
 msgid "Automatically login in the future; not for shared computers!"
 msgstr "Logga in automatiskt i framtiden; Ej för publika datorer!"
 
-#: ../actions/profilesettings.php:65
-msgid ""
-"Automatically subscribe to whoever subscribes to me (best for non-humans)"
-msgstr ""
-
-#: ../actions/avatar.php:32 ../lib/settingsaction.php:90
+#: ../actions/avatar.php:32
 msgid "Avatar"
 msgstr "Användarbild"
 
@@ -316,51 +180,31 @@ msgid ""
 "Awaiting confirmation on this address. Check your Jabber/GTalk account for a "
 "message with further instructions. (Did you add %s to your buddy list?)"
 msgstr ""
-"Väntar bekräftelse på denna adress. Kontrollera ditt Jabber/GTalk konto för "
-"vidare instruktioner. (La du till %s i din vännerlista?)"
+"Väntar bekräftelse på denna adress. Kontrollera ditt Jabber/GTalk konto "
+"för vidare instruktioner. (La du till %s i din vännerlista?)"
 
-#: ../actions/emailsettings.php:54
-#, fuzzy
-msgid ""
-"Awaiting confirmation on this address. Check your inbox (and spam box!) for "
-"a message with further instructions."
-msgstr ""
-"Väntar bekräftelse på denna adress. Kontrollera ditt Jabber/GTalk konto för "
-"vidare instruktioner. (La du till %s i din vännerlista?)"
-
-#: ../actions/smssettings.php:58
-msgid "Awaiting confirmation on this phone number."
-msgstr ""
-
-#: ../lib/util.php:1318
+#: ../lib/util.php:1136
 msgid "Before »"
 msgstr "Tidigare »"
 
-#: ../actions/profilesettings.php:49 ../actions/register.php:170
+#: ../actions/profilesettings.php:52
 msgid "Bio"
 msgstr "Biografi"
 
-#: ../actions/profilesettings.php:101 ../actions/register.php:82
-#: ../actions/updateprofile.php:103
+#: ../actions/profilesettings.php:93 ../actions/updateprofile.php:102
 msgid "Bio is too long (max 140 chars)."
 msgstr "Biografin är för lång (max 140 tecken)"
 
-#: ../lib/deleteaction.php:41
-#, fuzzy
-msgid "Can't delete this notice."
-msgstr "Kunde inte radera epost bekräftelsen."
-
-#: ../actions/updateprofile.php:119
+#: ../actions/updateprofile.php:118
 #, php-format
 msgid "Can't read avatar URL '%s'"
 msgstr "Kan inte läsa användarbild URL '%s'"
 
-#: ../actions/password.php:85 ../actions/recoverpassword.php:300
+#: ../actions/password.php:85 ../actions/recoverpassword.php:261
 msgid "Can't save new password."
 msgstr "Kan inte spara nya lösenordet."
 
-#: ../actions/emailsettings.php:57 ../actions/imsettings.php:58
-#: ../actions/smssettings.php:62
+#: ../actions/imsettings.php:59
 msgid "Cancel"
 msgstr "Avbryt"
 
@@ -368,78 +212,34 @@ msgstr "Avbryt"
 msgid "Cannot instantiate OpenID consumer object."
 msgstr "Kan inte initiera OpenID objekt."
 
-#: ../actions/imsettings.php:163
+#: ../actions/imsettings.php:154
 msgid "Cannot normalize that Jabber ID"
-msgstr "Kan inte normalisera det Jabber ID"
-
-#: ../actions/emailsettings.php:181
-#, fuzzy
-msgid "Cannot normalize that email address"
 msgstr "Kan inte normalisera det Jabber ID"
 
 #: ../actions/password.php:45
 msgid "Change"
 msgstr "Ändra"
 
-#: ../lib/settingsaction.php:88
-msgid "Change email handling"
-msgstr ""
-
 #: ../actions/password.php:32
 msgid "Change password"
 msgstr "Byt lösenord"
 
-#: ../lib/settingsaction.php:94
-#, fuzzy
-msgid "Change your password"
-msgstr "Byt lösenord"
-
-#: ../lib/settingsaction.php:85
-#, fuzzy
-msgid "Change your profile settings"
-msgstr "Profil inställningar"
-
-#: ../actions/password.php:43 ../actions/recoverpassword.php:181
-#: ../actions/register.php:155 ../actions/smssettings.php:65
+#: ../actions/password.php:43 ../actions/recoverpassword.php:166
+#: ../actions/register.php:179
 msgid "Confirm"
 msgstr "Bekräfta"
 
-#: ../actions/confirmaddress.php:90
+#: ../actions/confirmaddress.php:84
 msgid "Confirm Address"
 msgstr "Bekräfta adress"
 
-#: ../actions/emailsettings.php:238 ../actions/imsettings.php:222
-#: ../actions/smssettings.php:245
+#: ../actions/imsettings.php:213
 msgid "Confirmation cancelled."
 msgstr "Verifikation avbruten"
-
-#: ../actions/smssettings.php:63
-#, fuzzy
-msgid "Confirmation code"
-msgstr "Ingen bekräftelsekod."
 
 #: ../actions/confirmaddress.php:38
 msgid "Confirmation code not found."
 msgstr "Verifikation koden finns ej."
-
-#: ../actions/register.php:202
-#, php-format
-msgid ""
-"Congratulations, %s! And welcome to %%%%site.name%%%%. From here, you may "
-"want to...\n"
-"\n"
-"* Go to [your profile](%s) and post your first message.\n"
-"* Add a [Jabber/GTalk address](%%%%action.imsettings%%%%) so you can send "
-"notices through instant messages.\n"
-"* [Search for people](%%%%action.peoplesearch%%%%) that you may know or that "
-"share your interests. \n"
-"* Update your [profile settings](%%%%action.profilesettings%%%%) to tell "
-"others more about you. \n"
-"* Read over the [online docs](%%%%doc.help%%%%) for features you may have "
-"missed. \n"
-"\n"
-"Thanks for signing up and we hope you enjoy using this service."
-msgstr ""
 
 #: ../actions/finishopenidlogin.php:91
 msgid "Connect"
@@ -449,7 +249,7 @@ msgstr "Anslut"
 msgid "Connect existing account"
 msgstr "Anslut till existerande konto"
 
-#: ../lib/util.php:332
+#: ../lib/util.php:304
 msgid "Contact"
 msgstr "Kontakta"
 
@@ -458,67 +258,45 @@ msgstr "Kontakta"
 msgid "Could not create OpenID form: %s"
 msgstr "Kan inte skapa OpenID formulär: %s"
 
-#: ../actions/twitapifriendships.php:60 ../actions/twitapifriendships.php:76
-#, php-format
-msgid "Could not follow user: %s is already on your list."
-msgstr ""
-
-#: ../actions/twitapifriendships.php:53
-msgid "Could not follow user: User not found."
-msgstr ""
-
 #: ../lib/openid.php:160
 #, php-format
 msgid "Could not redirect to server: %s"
 msgstr "Kunde inte skicka vidare till servern: %s"
 
-#: ../actions/updateprofile.php:162
+#: ../actions/updateprofile.php:161
 msgid "Could not save avatar info"
 msgstr "Kunde inte spara informationen om användarbild"
 
-#: ../actions/updateprofile.php:155
+#: ../actions/updateprofile.php:154
 msgid "Could not save new profile info"
 msgstr "Kunde inte spara informationen om den nya profilen"
 
-#: ../lib/subs.php:54
-msgid "Could not subscribe other to you."
-msgstr ""
-
-#: ../lib/subs.php:46
-#, fuzzy
-msgid "Could not subscribe."
-msgstr "Ingen prenumerant!"
-
-#: ../actions/recoverpassword.php:102
-#, fuzzy
-msgid "Could not update user with confirmed email address."
-msgstr "Kunde inte lägga till bekräftelsekoden."
+#: ../actions/profilesettings.php:146
+msgid "Couldn't confirm email."
+msgstr "Kunde inte bekräfta epost"
 
 #: ../actions/finishremotesubscribe.php:99
 msgid "Couldn't convert request tokens to access tokens."
 msgstr "Kunde inte konvertera förfrågan tokens till Access tokens."
 
-#: ../actions/confirmaddress.php:84 ../actions/emailsettings.php:234
-#: ../actions/imsettings.php:218 ../actions/smssettings.php:241
+#: ../actions/subscribe.php:59
+msgid "Couldn't create subscription."
+msgstr "Kunde inte skapa prenumeration."
+
+#: ../actions/confirmaddress.php:78 ../actions/imsettings.php:209
 msgid "Couldn't delete email confirmation."
 msgstr "Kunde inte radera epost bekräftelsen."
 
-#: ../lib/subs.php:103
+#: ../actions/unsubscribe.php:56
 msgid "Couldn't delete subscription."
 msgstr "Kunde inte radera prenumerationen. "
 
-#: ../actions/twitapistatuses.php:93
-#, fuzzy
-msgid "Couldn't find any statuses."
-msgstr "Kunde inte uppdatera användare."
-
-#: ../actions/remotesubscribe.php:127
-#, fuzzy
+#: ../actions/remotesubscribe.php:125 ../actions/remotesubscribe.php:127
+#: actions/remotesubscribe.php:136
 msgid "Couldn't get a request token."
 msgstr "Kunde inte få en förfrågan token."
 
-#: ../actions/emailsettings.php:205 ../actions/imsettings.php:187
-#: ../actions/smssettings.php:206
+#: ../actions/imsettings.php:178
 msgid "Couldn't insert confirmation code."
 msgstr "Kunde inte lägga till bekräftelsekoden."
 
@@ -526,24 +304,12 @@ msgstr "Kunde inte lägga till bekräftelsekoden."
 msgid "Couldn't insert new subscription."
 msgstr "Kunde inte lägga till ny prenumeration."
 
-#: ../actions/profilesettings.php:184 ../actions/twitapiaccount.php:96
+#: ../actions/profilesettings.php:175
 msgid "Couldn't save profile."
 msgstr "Kunde inte spara profil."
 
-#: ../actions/profilesettings.php:161
-#, fuzzy
-msgid "Couldn't update user for autosubscribe."
-msgstr "Kunde inte uppdatera användare."
-
-#: ../actions/emailsettings.php:280 ../actions/emailsettings.php:294
-#, fuzzy
-msgid "Couldn't update user record."
-msgstr "Kunde inte uppdatera användare."
-
-#: ../actions/confirmaddress.php:72 ../actions/emailsettings.php:156
-#: ../actions/emailsettings.php:259 ../actions/imsettings.php:138
-#: ../actions/imsettings.php:243 ../actions/profilesettings.php:141
-#: ../actions/smssettings.php:157 ../actions/smssettings.php:269
+#: ../actions/confirmaddress.php:70 ../actions/imsettings.php:129
+#: ../actions/imsettings.php:234 ../actions/profilesettings.php:123
 msgid "Couldn't update user."
 msgstr "Kunde inte uppdatera användare."
 
@@ -567,84 +333,45 @@ msgstr "Skapar ett nytt konto för OpenID som redan har en användare"
 msgid "Current confirmed Jabber/GTalk address."
 msgstr "Aktuell bekräftad Jabber/Gtalk-adress."
 
-#: ../actions/smssettings.php:46
-msgid "Current confirmed SMS-enabled phone number."
-msgstr ""
-
-#: ../actions/emailsettings.php:44
-#, fuzzy
-msgid "Current confirmed email address."
-msgstr "Aktuell bekräftad Jabber/Gtalk-adress."
-
-#: ../actions/showstream.php:356
+#: ../actions/showstream.php:337
 msgid "Currently"
 msgstr "Just nu"
 
-#: ../classes/Notice.php:72
-#, fuzzy, php-format
-msgid "DB error inserting hashtag: %s"
-msgstr "Databasfel för svar: %s"
-
-#: ../lib/util.php:1061
+#: ../lib/util.php:893
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Databasfel för svar: %s"
 
-#: ../actions/deletenotice.php:41
-#, fuzzy
-msgid "Delete notice"
-msgstr "Nytt inlägg"
-
-#: ../actions/profilesettings.php:51 ../actions/register.php:172
+#: ../actions/profilesettings.php:54
 msgid "Describe yourself and your interests in 140 chars"
 msgstr "Berätta om dig själv och dina intressen inom 140 tecken"
 
-#: ../actions/register.php:158 ../actions/register.php:161
-#: ../lib/settingsaction.php:87
+#: ../actions/register.php:181
 msgid "Email"
 msgstr "Epost"
 
-#: ../actions/emailsettings.php:59
-#, fuzzy
-msgid "Email Address"
+#: ../actions/profilesettings.php:46
+msgid "Email address"
 msgstr "Epostadress"
 
-#: ../actions/emailsettings.php:32
-#, fuzzy
-msgid "Email Settings"
-msgstr "Inställningar"
-
-#: ../actions/register.php:73
+#: ../actions/profilesettings.php:102 ../actions/register.php:63
 msgid "Email address already exists."
 msgstr "Epostadressen finns redan."
 
-#: ../lib/mail.php:90
+#: ../lib/mail.php:82
 msgid "Email address confirmation"
 msgstr "Bekräfta epostadress"
 
-#: ../actions/emailsettings.php:61
-msgid "Email address, like \"UserName@example.org\""
-msgstr ""
-
-#: ../actions/invite.php:129
-#, fuzzy
-msgid "Email addresses"
-msgstr "Epostadress"
-
-#: ../actions/recoverpassword.php:191
+#: ../actions/recoverpassword.php:176
 msgid "Enter a nickname or email address."
 msgstr "Skriv in ett smeknamn eller en epostadress."
 
-#: ../actions/smssettings.php:64
-msgid "Enter the code you received on your phone."
-msgstr ""
-
-#: ../actions/userauthorization.php:137
-#, fuzzy
+#: ../actions/userauthorization.php:136 ../actions/userauthorization.php:137
+#: actions/userauthorization.php:144
 msgid "Error authorizing token"
 msgstr "Felaktig bekräftelse av token"
 
-#: ../actions/finishopenidlogin.php:253
+#: ../actions/finishopenidlogin.php:282
 msgid "Error connecting user to OpenID."
 msgstr "Lyckades inte ansluta användaren till OpenID."
 
@@ -660,19 +387,23 @@ msgstr "Fel uppstog när användarbild skulle läggas till"
 msgid "Error inserting new profile"
 msgstr "Fel uppstog när nya profilen skulle läggas till"
 
+#: ../actions/postnotice.php:88
+msgid "Error inserting notice"
+msgstr "Fel uppstog när inlägget skulle läggas till"
+
 #: ../actions/finishremotesubscribe.php:167
 msgid "Error inserting remote profile"
 msgstr "Fel uppstog när fjärrprofilen skulle läggas till"
 
-#: ../actions/recoverpassword.php:240
+#: ../actions/recoverpassword.php:201
 msgid "Error saving address confirmation."
 msgstr "Fel uppstog när adressen skulle bekräftas."
 
-#: ../actions/userauthorization.php:140
+#: ../actions/userauthorization.php:139
 msgid "Error saving remote profile"
 msgstr "Fel uppstog när fjärrprofil skulle sparas"
 
-#: ../lib/openid.php:226
+#: ../actions/finishopenidlogin.php:222 ../lib/openid.php:226
 msgid "Error saving the profile."
 msgstr "Fel uppstog när profilen skulle sparas."
 
@@ -684,8 +415,8 @@ msgstr "Fel uppstog när användaren skulle sparas."
 msgid "Error saving user; invalid."
 msgstr "Fel uppstog när användare skulle sparas."
 
-#: ../actions/login.php:47 ../actions/login.php:73
-#: ../actions/recoverpassword.php:307 ../actions/register.php:98
+#: ../actions/login.php:43 ../actions/login.php:69
+#: ../actions/recoverpassword.php:268 ../actions/register.php:73
 msgid "Error setting user."
 msgstr "Fel uppstog i användarens inställning"
 
@@ -697,7 +428,7 @@ msgstr "Fel uppstog vid uppdatering av profilen"
 msgid "Error updating remote profile"
 msgstr "Fel uppstog under uppdatering av fjärranvändare"
 
-#: ../actions/recoverpassword.php:80
+#: ../actions/recoverpassword.php:79
 msgid "Error with confirmation code."
 msgstr "Fel uppstog med bekräftelsekoden."
 
@@ -705,7 +436,7 @@ msgstr "Fel uppstog med bekräftelsekoden."
 msgid "Existing nickname"
 msgstr "Nuvarande smeknamn"
 
-#: ../lib/util.php:326
+#: ../lib/util.php:298
 msgid "FAQ"
 msgstr "Frågor & svar"
 
@@ -713,71 +444,49 @@ msgstr "Frågor & svar"
 msgid "Failed updating avatar."
 msgstr "Uppdatering av profilbild misslyckades."
 
-#: ../actions/all.php:61 ../actions/allrss.php:64
+#: ../actions/all.php:61 ../actions/allrss.php:74
 #, php-format
 msgid "Feed for friends of %s"
 msgstr "Flöden för $s vänner"
 
-#: ../actions/replies.php:65 ../actions/repliesrss.php:80
+#: ../actions/replies.php:61 ../actions/repliesrss.php:80
 #, php-format
 msgid "Feed for replies to %s"
 msgstr "Flöde för svar till %s"
 
-#: ../actions/tag.php:55
-#, fuzzy, php-format
-msgid "Feed for tag %s"
-msgstr "Flöde för svar till %s"
-
-#: ../lib/searchaction.php:105
-msgid "Find content of notices"
-msgstr ""
-
-#: ../lib/searchaction.php:101
-msgid "Find people on this site"
-msgstr ""
-
-#: ../actions/login.php:122
+#: ../actions/login.php:118
 msgid ""
 "For security reasons, please re-enter your user name and password before "
 "changing your settings."
 msgstr ""
-"Av säkerhetsskäl, var vänlig skriv in ditt användarnamn och lösenord innan "
-"du ändrar dina inställningar."
+"Av säkerhetsskäl, var vänlig skriv in ditt användarnamn och lösenord "
+"innan du ändrar dina inställningar."
 
-#: ../actions/profilesettings.php:44 ../actions/register.php:164
+#: ../actions/profilesettings.php:44
 msgid "Full name"
 msgstr "Ditt fulla namn."
 
-#: ../actions/profilesettings.php:98 ../actions/register.php:79
-#: ../actions/updateprofile.php:93
+#: ../actions/profilesettings.php:90 ../actions/updateprofile.php:92
 msgid "Full name is too long (max 255 chars)."
 msgstr "Ditt namn är för långt (max 255 tecken)."
 
-#: ../lib/util.php:322
+#: ../lib/util.php:279
 msgid "Help"
 msgstr "Hjälp"
 
-#: ../lib/util.php:298
+#: ../lib/util.php:274
 msgid "Home"
 msgstr "Hem"
 
-#: ../actions/profilesettings.php:46 ../actions/register.php:167
+#: ../actions/profilesettings.php:49
 msgid "Homepage"
 msgstr "Hemsida"
 
-#: ../actions/profilesettings.php:95 ../actions/register.php:76
+#: ../actions/profilesettings.php:87
 msgid "Homepage is not a valid URL."
 msgstr "Hemsidan har ingen giltig URL"
 
-#: ../actions/emailsettings.php:91
-msgid "I want to post notices by email."
-msgstr ""
-
-#: ../lib/settingsaction.php:102
-msgid "IM"
-msgstr ""
-
-#: ../actions/imsettings.php:60
+#: ../actions/imsettings.php:61
 msgid "IM Address"
 msgstr "IM adress"
 
@@ -790,67 +499,52 @@ msgid ""
 "If you already have an account, login with your username and password to "
 "connect it to your OpenID."
 msgstr ""
-"Om du redan har ett konto, logga in med ditt användarnamn och lösenord för "
-"att koppla det till ditt OpenID"
+"Om du redan har ett konto, logga in med ditt användarnamn och lösenord "
+"för att koppla det till ditt OpenID"
 
 #: ../actions/openidsettings.php:45
 msgid ""
 "If you want to add an OpenID to your account, enter it in the box below and "
 "click \"Add\"."
 msgstr ""
-"Om du vill lägga till OpenID till ditt konto, fyll i fältet nedan och tryck "
-"på \"Add\""
+"Om du vill lägga till OpenID till ditt konto, fyll i fältet nedan och "
+"tryck på \"Add\""
 
-#: ../actions/recoverpassword.php:137
-#, fuzzy
+#: ../actions/recoverpassword.php:122
 msgid ""
-"If you've forgotten or lost your password, you can get a new one sent to the "
+"If you've forgotten or lost your password, you can get a new one sent  the "
 "email address you have stored  in your account."
 msgstr ""
 "Om du har förlorat eller glömt bort ditt lösenord så kan du få ett nytt "
 "skickat till din epost, kopplat till ditt konto."
 
-#: ../actions/emailsettings.php:67 ../actions/smssettings.php:76
-msgid "Incoming email"
-msgstr ""
-
-#: ../actions/emailsettings.php:283
-#, fuzzy
-msgid "Incoming email address removed."
-msgstr "Adressen är borttagen."
-
 #: ../actions/password.php:69
 msgid "Incorrect old password"
 msgstr "Felaktigt, gammalt lösenord"
 
-#: ../actions/login.php:67
+#: ../actions/login.php:63
 msgid "Incorrect username or password."
 msgstr "Felaktigt användarnamn eller lösenord."
 
-#: ../actions/recoverpassword.php:265
+#: ../actions/recoverpassword.php:226
 msgid ""
 "Instructions for recovering your password have been sent to the email "
 "address registered to your account."
 msgstr ""
-"Instruktioner om hur du återställer ditt lösenord har sänts till din e-"
-"postadress "
+"Instruktioner om hur du återställer ditt lösenord har sänts till din "
+"e-postadress "
 
-#: ../actions/updateprofile.php:114
+#: ../actions/updateprofile.php:113
 #, php-format
 msgid "Invalid avatar URL '%s'"
 msgstr "Ogiltig användarbild URL '%s'"
 
-#: ../actions/invite.php:55
-#, fuzzy, php-format
-msgid "Invalid email address: %s"
-msgstr "Det är ingen giltig epost adress."
-
-#: ../actions/updateprofile.php:98
+#: ../actions/updateprofile.php:97
 #, php-format
 msgid "Invalid homepage '%s'"
 msgstr "Ogiltig hemsideadress '%s'"
 
-#: ../actions/updateprofile.php:82
+#: ../actions/updateprofile.php:81
 #, php-format
 msgid "Invalid license URL '%s'"
 msgstr "Ogiltig licens URL '%s'"
@@ -867,7 +561,7 @@ msgstr "Ogiltig inlägg uri"
 msgid "Invalid notice url"
 msgstr "Ogiltig inlägg url"
 
-#: ../actions/updateprofile.php:87
+#: ../actions/updateprofile.php:86
 #, php-format
 msgid "Invalid profile URL '%s'."
 msgstr "Ogiltig profil URL '%s' "
@@ -884,43 +578,27 @@ msgstr "Felaktig profil URL skickades åter av servern."
 msgid "Invalid size."
 msgstr "Felaktig storlek"
 
-#: ../actions/finishopenidlogin.php:235 ../actions/register.php:93
-#: ../actions/register.php:111
+#: ../actions/finishopenidlogin.php:264 ../actions/register.php:68
+#: ../actions/register.php:84
 msgid "Invalid username or password."
 msgstr "Felaktigt användarnamn eller lösenord."
 
-#: ../actions/invite.php:79
-msgid "Invitation(s) sent"
-msgstr ""
-
-#: ../actions/invite.php:97
-msgid "Invitation(s) sent to the following people:"
-msgstr ""
-
-#: ../lib/util.php:306
-msgid "Invite"
-msgstr ""
-
-#: ../actions/invite.php:123
-msgid "Invite new users"
-msgstr ""
-
-#: ../lib/util.php:261
+#: ../lib/util.php:237
 #, php-format
 msgid ""
-"It runs the [Laconica](http://laconi.ca/) microblogging software, version %"
-"s, available under the [GNU Affero General Public License](http://www.fsf."
-"org/licensing/licenses/agpl-3.0.html)."
+"It runs the [Laconica](http://laconi.ca/) microblogging software, version "
+"%s, available under the [GNU Affero General Public "
+"License](http://www.fsf.org/licensing/licenses/agpl-3.0.html)."
 msgstr ""
-"Det drivs med [Laconica](http://laconi.ca/) mikroblogging software, version %"
-"s, tillgängligt under [GNU Affero General Public License](http://www.fsf.org/"
-"licensing/licenses/agpl-3.0.html)."
+"Det drivs med [Laconica](http://laconi.ca/) mikroblogging software, version "
+"%s, tillgängligt under [GNU Affero General Public "
+"License](http://www.fsf.org/licensing/licenses/agpl-3.0.html)."
 
-#: ../actions/imsettings.php:173
+#: ../actions/imsettings.php:164
 msgid "Jabber ID already belongs to another user."
 msgstr "Jabber ID används redan utav en annan användare."
 
-#: ../actions/imsettings.php:62
+#: ../actions/imsettings.php:63
 #, php-format
 msgid ""
 "Jabber or GTalk address, like \"UserName@example.org\". First, make sure to "
@@ -929,26 +607,16 @@ msgstr ""
 "Jabber eller GTalk adress liknande \"användare@exempel.se\". Först se till "
 "att lägga till %s i din vännerlista i IM klienten eller GTalk."
 
-#: ../actions/profilesettings.php:57
-msgid "Language"
-msgstr ""
-
-#: ../actions/profilesettings.php:113
-#, fuzzy
-msgid "Language is too long (max 50 chars)."
-msgstr "Platse är för lång (max 255 tecken)."
-
-#: ../actions/profilesettings.php:52 ../actions/register.php:173
+#: ../actions/profilesettings.php:55
 msgid "Location"
 msgstr "Plats"
 
-#: ../actions/profilesettings.php:104 ../actions/register.php:85
-#: ../actions/updateprofile.php:108
+#: ../actions/profilesettings.php:96 ../actions/updateprofile.php:107
 msgid "Location is too long (max 255 chars)."
 msgstr "Platse är för lång (max 255 tecken)."
 
-#: ../actions/login.php:97 ../actions/login.php:106
-#: ../actions/openidlogin.php:68 ../lib/util.php:310
+#: ../actions/login.php:93 ../actions/login.php:102
+#: ../actions/openidlogin.php:68 ../lib/util.php:286
 msgid "Login"
 msgstr "Logga in"
 
@@ -957,39 +625,26 @@ msgstr "Logga in"
 msgid "Login with an [OpenID](%%doc.openid%%) account."
 msgstr "Logga in med ett [OpenID](%%doc.openid%%) konto."
 
-#: ../actions/login.php:126
+#: ../actions/login.php:122
 #, php-format
 msgid ""
-"Login with your username and password. Don't have a username yet? [Register]"
-"(%%action.register%%) a new account, or try [OpenID](%%action.openidlogin%"
-"%). "
+"Login with your username and password. Don't have a username yet? "
+"[Register](%%action.register%%) a new account, or try "
+"[OpenID](%%action.openidlogin%%). "
 msgstr ""
-"Logga in med ditt användarnamn och lösenord. Har du inget användarnamn ännu? "
-"[Registrera](%%action.register%%) ett nytt konto, eller testa [OpenID](%%"
-"action.openidlogin%%)."
+"Logga in med ditt användarnamn och lösenord. Har du inget användarnamn "
+"ännu? [Registrera](%%action.register%%) ett nytt konto, eller testa "
+"[OpenID](%%action.openidlogin%%)."
 
-#: ../lib/util.php:308
+#: ../lib/util.php:284
 msgid "Logout"
 msgstr "Logga ut"
 
-#: ../actions/register.php:166
-msgid "Longer name, preferably your \"real\" name"
-msgstr ""
-
-#: ../actions/login.php:110
+#: ../actions/login.php:106
 msgid "Lost or forgotten password?"
 msgstr "Glömt bort lösenord?"
 
-#: ../actions/emailsettings.php:80 ../actions/smssettings.php:89
-msgid "Make a new email address for posting to; cancels the old one."
-msgstr ""
-
-#: ../actions/emailsettings.php:27
-#, php-format
-msgid "Manage how you get email from %%site.name%%."
-msgstr ""
-
-#: ../actions/showstream.php:300
+#: ../actions/showstream.php:281
 msgid "Member since"
 msgstr "Medlem sedan"
 
@@ -998,62 +653,42 @@ msgstr "Medlem sedan"
 msgid "Microblog by %s"
 msgstr "Mikroblogg av %s"
 
-#: ../actions/smssettings.php:304
-#, php-format
-msgid ""
-"Mobile carrier for your phone. If you know a carrier that accepts SMS over "
-"email but isn't listed here, send email to let us know at %s."
-msgstr ""
-
-#: ../actions/finishopenidlogin.php:79 ../actions/register.php:188
+#: ../actions/finishopenidlogin.php:79 ../actions/register.php:190
 msgid "My text and files are available under "
 msgstr "Min text och filer finns tillgängliga under"
-
-#: ../actions/emailsettings.php:82 ../actions/smssettings.php:91
-msgid "New"
-msgstr ""
-
-#: ../lib/mail.php:144
-#, fuzzy, php-format
-msgid "New email address for posting to %s"
-msgstr "Ingen registrerad epost adress för den användaren."
-
-#: ../actions/emailsettings.php:297
-#, fuzzy
-msgid "New incoming email address added."
-msgstr "Det är ingen giltig epost adress."
 
 #: ../actions/finishopenidlogin.php:71
 msgid "New nickname"
 msgstr "Nytt användarnamn"
 
-#: ../actions/newnotice.php:87
+#: ../actions/newnotice.php:100
 msgid "New notice"
 msgstr "Nytt inlägg"
 
-#: ../actions/password.php:41 ../actions/recoverpassword.php:179
+#: ../actions/password.php:41 ../actions/recoverpassword.php:164
 msgid "New password"
 msgstr "Nytt lösenord"
 
-#: ../actions/recoverpassword.php:314
+#: ../actions/recoverpassword.php:275
 msgid "New password successfully saved. You are now logged in."
 msgstr "Nya lösenordet har blivit sparat. Du är nu även inloggad."
 
-#: ../actions/login.php:101 ../actions/profilesettings.php:41
-#: ../actions/register.php:151
+#: ../actions/login.php:97 ../actions/profilesettings.php:41
+#: ../actions/register.php:175
 msgid "Nickname"
 msgstr "Smeknamn"
 
-#: ../actions/finishopenidlogin.php:175 ../actions/profilesettings.php:110
-#: ../actions/register.php:69
+#: ../actions/finishopenidlogin.php:175 ../actions/profilesettings.php:99
+#: ../actions/register.php:59
 msgid "Nickname already in use. Try another one."
 msgstr "Användarnamnet används redan, försök med ett annat."
 
-#: ../actions/finishopenidlogin.php:165 ../actions/profilesettings.php:88
-#: ../actions/register.php:67 ../actions/updateprofile.php:77
+#: ../actions/finishopenidlogin.php:165 ../actions/profilesettings.php:80
+#: ../actions/register.php:57 ../actions/updateprofile.php:76
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
 msgstr ""
-"Smeknamnet får endast innehålla små bokstäver eller siffror, inga mellanslag."
+"Smeknamnet får endast innehålla små bokstäver eller siffror, inga "
+"mellanslag."
 
 #: ../actions/finishopenidlogin.php:170
 msgid "Nickname not allowed."
@@ -1063,52 +698,29 @@ msgstr "Inget giltigt smeknamn."
 msgid "Nickname of the user you want to follow"
 msgstr "Smeknamnet på användaren du vill följa"
 
-#: ../actions/recoverpassword.php:162
+#: ../actions/recoverpassword.php:147
 msgid "Nickname or email"
 msgstr "Smeknamn eller epost"
 
-#: ../actions/deletenotice.php:59
-msgid "No"
-msgstr ""
-
-#: ../actions/imsettings.php:156
+#: ../actions/imsettings.php:147
 msgid "No Jabber ID."
 msgstr "Inget Jabber ID."
 
-#: ../actions/userauthorization.php:129
+#: ../actions/userauthorization.php:128
 msgid "No authorization request!"
 msgstr "Ingen rättighet förfrågan!"
-
-#: ../actions/smssettings.php:181
-msgid "No carrier selected."
-msgstr ""
-
-#: ../actions/smssettings.php:316
-#, fuzzy
-msgid "No code entered"
-msgstr "Inget innehåll!"
 
 #: ../actions/confirmaddress.php:33
 msgid "No confirmation code."
 msgstr "Ingen bekräftelsekod."
 
-#: ../actions/newnotice.php:44
+#: ../actions/newnotice.php:49
 msgid "No content!"
 msgstr "Inget innehåll!"
 
-#: ../actions/emailsettings.php:174
-#, fuzzy
-msgid "No email address."
-msgstr "Epostadress"
-
-#: ../actions/userbyid.php:32
+#: ../actions/userbyid.php:27
 msgid "No id."
 msgstr "Inget id."
-
-#: ../actions/emailsettings.php:271
-#, fuzzy
-msgid "No incoming email address."
-msgstr "Det är ingen giltig epost adress."
 
 #: ../actions/finishremotesubscribe.php:65
 msgid "No nickname provided by remote server."
@@ -1118,25 +730,19 @@ msgstr "Inget smeknamn lämnades ut av fjärrservern."
 msgid "No nickname."
 msgstr "Inget användarnamn"
 
-#: ../actions/emailsettings.php:222 ../actions/imsettings.php:206
-#: ../actions/smssettings.php:229
+#: ../actions/imsettings.php:197
 msgid "No pending confirmation to cancel."
 msgstr "Ingen väntande bekräftelse att avbryta."
-
-#: ../actions/smssettings.php:176
-#, fuzzy
-msgid "No phone number."
-msgstr "Ingen sådan användare"
 
 #: ../actions/finishremotesubscribe.php:72
 msgid "No profile URL returned by server."
 msgstr "Ingen profil URL lämnades ut av servern."
 
-#: ../actions/recoverpassword.php:226
+#: ../actions/recoverpassword.php:189
 msgid "No registered email address for that user."
 msgstr "Ingen registrerad epost adress för den användaren."
 
-#: ../actions/userauthorization.php:49
+#: ../actions/userauthorization.php:48
 msgid "No request found!"
 msgstr "Ingen begäran funnen!"
 
@@ -1148,14 +754,6 @@ msgstr "Inget resultat"
 msgid "No size."
 msgstr "Ingen storlek"
 
-#: ../actions/twitapistatuses.php:595
-msgid "No status found with that ID."
-msgstr ""
-
-#: ../actions/twitapistatuses.php:555
-msgid "No status with that ID found."
-msgstr ""
-
 #: ../actions/openidsettings.php:135
 msgid "No such OpenID."
 msgstr "Det existerar inget sådant OpenID"
@@ -1164,8 +762,7 @@ msgstr "Det existerar inget sådant OpenID"
 msgid "No such document."
 msgstr "Inget sådant dokument."
 
-#: ../actions/shownotice.php:32 ../actions/shownotice.php:83
-#: ../lib/deleteaction.php:30
+#: ../actions/shownotice.php:32 ../actions/shownotice.php:65
 msgid "No such notice."
 msgstr "Inget sådant inlägg."
 
@@ -1178,21 +775,16 @@ msgid "No such subscription"
 msgstr "Ingen sådan prenumeration"
 
 #: ../actions/all.php:34 ../actions/allrss.php:35
-#: ../actions/avatarbynickname.php:43 ../actions/foaf.php:40
-#: ../actions/remotesubscribe.php:84 ../actions/remotesubscribe.php:91
-#: ../actions/replies.php:57 ../actions/repliesrss.php:35
-#: ../actions/showstream.php:110 ../actions/userbyid.php:36
-#: ../actions/userrss.php:35 ../actions/xrds.php:35 ../lib/gallery.php:57
-#: ../lib/subs.php:33 ../lib/subs.php:82
+#: ../actions/avatarbynickname.php:43 ../actions/foaf.php:36
+#: ../actions/recoverpassword.php:185 ../actions/remotesubscribe.php:84
+#: ../actions/remotesubscribe.php:91 ../actions/repliesrss.php:35
+#: ../actions/showstream.php:95 ../actions/subscribe.php:43
+#: ../actions/unsubscribe.php:38 ../actions/userbyid.php:31
+#: ../actions/userrss.php:35 ../actions/xrds.php:31 ../lib/gallery.php:53
 msgid "No such user."
 msgstr "Ingen sådan användare"
 
-#: ../actions/recoverpassword.php:211
-#, fuzzy
-msgid "No user with that email address or username."
-msgstr "Ingen registrerad epost adress för den användaren."
-
-#: ../lib/gallery.php:80
+#: ../lib/gallery.php:76
 msgid "Nobody to show!"
 msgstr "Finns inget att visa!"
 
@@ -1200,18 +792,7 @@ msgstr "Finns inget att visa!"
 msgid "Not a recovery code."
 msgstr "Det är ingen kod för återställning."
 
-#: ../scripts/maildaemon.php:50
-#, fuzzy
-msgid "Not a registered user."
-msgstr "Det är ingen kod för återställning."
-
-#: ../lib/twitterapi.php:226 ../lib/twitterapi.php:247
-#: ../lib/twitterapi.php:332
-#, fuzzy
-msgid "Not a supported data format."
-msgstr "Bildfilens format stödjs inte."
-
-#: ../actions/imsettings.php:167
+#: ../actions/imsettings.php:158
 msgid "Not a valid Jabber ID"
 msgstr "Det är inget giltigt Jabber ID"
 
@@ -1219,24 +800,19 @@ msgstr "Det är inget giltigt Jabber ID"
 msgid "Not a valid OpenID."
 msgstr "Det är inget giltigt OpenID."
 
-#: ../actions/emailsettings.php:185
-#, fuzzy
-msgid "Not a valid email address"
-msgstr "Det är ingen giltig epost adress."
-
-#: ../actions/register.php:63
+#: ../actions/profilesettings.php:75 ../actions/register.php:53
 msgid "Not a valid email address."
 msgstr "Det är ingen giltig epost adress."
 
-#: ../actions/profilesettings.php:91 ../actions/register.php:71
+#: ../actions/profilesettings.php:83 ../actions/register.php:61
 msgid "Not a valid nickname."
 msgstr "Det är inget giltigt användarnamn."
 
-#: ../actions/remotesubscribe.php:120
+#: ../actions/remotesubscribe.php:118
 msgid "Not a valid profile URL (incorrect services)."
 msgstr "Det är ingen giltig profil URL (felaktig service)."
 
-#: ../actions/remotesubscribe.php:113
+#: ../actions/remotesubscribe.php:111
 msgid "Not a valid profile URL (no XRDS defined)."
 msgstr "Det är ingen giltig profil URL (ingen XRDS angiven)."
 
@@ -1256,26 +832,15 @@ msgstr "Inte tillstånd ännu."
 msgid "Not expecting this response!"
 msgstr "Väntade mig inte detta svar!"
 
-#: ../actions/twitapistatuses.php:422
-#, fuzzy
-msgid "Not found"
-msgstr "Ingen begäran funnen!"
-
-#: ../actions/finishaddopenid.php:29 ../actions/logout.php:33
-#: ../actions/newnotice.php:29 ../actions/subscribe.php:28
-#: ../actions/unsubscribe.php:25 ../lib/deleteaction.php:38
-#: ../lib/settingsaction.php:27
+#: ../actions/finishaddopenid.php:29 ../actions/logout.php:28
+#: ../actions/newnotice.php:29 ../actions/subscribe.php:27
+#: ../actions/unsubscribe.php:24 ../lib/settingsaction.php:27
 msgid "Not logged in."
 msgstr "Inte inloggad."
 
-#: ../lib/subs.php:91
+#: ../actions/unsubscribe.php:43
 msgid "Not subscribed!."
 msgstr "Ingen prenumerant!"
-
-#: ../actions/opensearch.php:35
-#, fuzzy
-msgid "Notice Search"
-msgstr "Sök"
 
 #: ../actions/showstream.php:82
 #, php-format
@@ -1286,20 +851,15 @@ msgstr "Inlägg flöde för %s"
 msgid "Notice has no profile"
 msgstr "Inlägget har ingen profil"
 
-#: ../actions/showstream.php:316
+#: ../actions/showstream.php:297
 msgid "Notices"
 msgstr "Inlägg"
-
-#: ../actions/tag.php:35 ../actions/tag.php:81
-#, fuzzy, php-format
-msgid "Notices tagged with %s"
-msgstr "Inlägg flöde för %s"
 
 #: ../actions/password.php:39
 msgid "Old password"
 msgstr "Gammalt lösenord"
 
-#: ../lib/settingsaction.php:96 ../lib/util.php:314
+#: ../lib/util.php:288
 msgid "OpenID"
 msgstr "OpenID"
 
@@ -1342,68 +902,44 @@ msgstr "OpenID borttagen."
 msgid "OpenID settings"
 msgstr "OpenID inställningar"
 
-#: ../actions/invite.php:135
-msgid "Optionally add a personal message to the invitation."
-msgstr ""
-
 #: ../actions/avatar.php:84
 msgid "Partial upload."
 msgstr "Bitvis uppladdad."
 
-#: ../actions/finishopenidlogin.php:90 ../actions/login.php:102
-#: ../actions/register.php:153 ../lib/settingsaction.php:93
+#: ../actions/finishopenidlogin.php:90 ../actions/login.php:98
+#: ../actions/register.php:177
 msgid "Password"
 msgstr "Lösenord"
 
-#: ../actions/recoverpassword.php:288
+#: ../actions/recoverpassword.php:249
 msgid "Password and confirmation do not match."
 msgstr "Lösenord och bekräftelse matchar inte."
 
-#: ../actions/recoverpassword.php:284
+#: ../actions/recoverpassword.php:245
 msgid "Password must be 6 chars or more."
 msgstr "Lösenordet måste vara 6 tecken eller fler."
 
-#: ../actions/recoverpassword.php:261 ../actions/recoverpassword.php:263
+#: ../actions/recoverpassword.php:222 ../actions/recoverpassword.php:224
 msgid "Password recovery requested"
 msgstr "Förfrågan om återställning av lösenord"
 
-#: ../actions/password.php:89 ../actions/recoverpassword.php:313
+#: ../actions/password.php:89 ../actions/recoverpassword.php:274
 msgid "Password saved."
 msgstr "Lösenord är sparat."
 
-#: ../actions/password.php:61 ../actions/register.php:88
+#: ../actions/password.php:61 ../actions/register.php:65
 msgid "Passwords don't match."
 msgstr "Lösenorden matchar inte."
-
-#: ../lib/searchaction.php:100
-#, fuzzy
-msgid "People"
-msgstr "Sökning personer"
-
-#: ../actions/opensearch.php:33
-#, fuzzy
-msgid "People Search"
-msgstr "Sökning personer"
 
 #: ../actions/peoplesearch.php:33
 msgid "People search"
 msgstr "Sökning personer"
 
-#: ../lib/stream.php:50
+#: ../lib/stream.php:44
 msgid "Personal"
 msgstr "Personlig"
 
-#: ../actions/invite.php:133
-#, fuzzy
-msgid "Personal message"
-msgstr "Personlig"
-
-#: ../actions/smssettings.php:69
-#, fuzzy
-msgid "Phone number, no punctuation or spaces, with area code"
-msgstr "1-64 små bokstäver eller nummer, inga punkter eller mellanslag"
-
-#: ../actions/userauthorization.php:78
+#: ../actions/userauthorization.php:77
 msgid ""
 "Please check these details to make sure that you want to subscribe to this "
 "user's notices. If you didn't just ask to subscribe to someone's notices, "
@@ -1413,35 +949,27 @@ msgstr ""
 "prenumerera på denna användares inlägg. Om du inte frågade efter att "
 "prenumerera på någons inlägg, klicka på \"Cancel\""
 
-#: ../actions/imsettings.php:73
+#: ../actions/imsettings.php:74
 msgid "Post a notice when my Jabber/GTalk status changes."
 msgstr "Posta ett inlägg när min Jabber/GTalk status ändras."
 
-#: ../actions/emailsettings.php:85 ../actions/imsettings.php:67
-#: ../actions/smssettings.php:94
+#: ../actions/imsettings.php:68
 msgid "Preferences"
 msgstr "Inställningar"
 
-#: ../actions/emailsettings.php:162 ../actions/imsettings.php:144
-#: ../actions/smssettings.php:163
+#: ../actions/imsettings.php:135
 msgid "Preferences saved."
 msgstr "Inställningar sparade."
 
-#: ../actions/profilesettings.php:57
-#, fuzzy
-msgid "Preferred language"
-msgstr "Inställningar"
-
-#: ../lib/util.php:328
-#, fuzzy
+#: ../lib/util.php:300 ../lib/util.php:328 lib/util.php:344
 msgid "Privacy"
-msgstr "Privacy"
+msgstr "Sekretesspolicy"
 
-#: ../classes/Notice.php:95 ../classes/Notice.php:106
+#: ../actions/newnotice.php:61 ../actions/newnotice.php:69
 msgid "Problem saving notice."
 msgstr "Det var ett problem när inlägget sparades."
 
-#: ../lib/settingsaction.php:84 ../lib/stream.php:60
+#: ../lib/stream.php:54
 msgid "Profile"
 msgstr "Profil"
 
@@ -1453,9 +981,13 @@ msgstr "Profil URL"
 msgid "Profile settings"
 msgstr "Profil inställningar"
 
-#: ../actions/postnotice.php:51 ../actions/updateprofile.php:52
+#: ../actions/postnotice.php:51 ../actions/updateprofile.php:51
 msgid "Profile unknown"
 msgstr "Okänd profil"
+
+#: ../lib/util.php:276
+msgid "Public"
+msgstr "Publik"
 
 #: ../actions/public.php:54
 msgid "Public Stream Feed"
@@ -1465,25 +997,11 @@ msgstr "Publik ström"
 msgid "Public timeline"
 msgstr "Publik tidslinje"
 
-#: ../actions/imsettings.php:79
-#, fuzzy
-msgid "Publish a MicroID for my Jabber/GTalk address."
-msgstr "Aktuell bekräftad Jabber/Gtalk-adress."
-
-#: ../actions/emailsettings.php:94
-#, fuzzy
-msgid "Publish a MicroID for my email address."
-msgstr "Skriv in ett smeknamn eller en epostadress."
-
-#: ../actions/tag.php:75 ../actions/tag.php:76
-msgid "Recent Tags"
-msgstr ""
-
-#: ../actions/recoverpassword.php:166
+#: ../actions/recoverpassword.php:151
 msgid "Recover"
 msgstr "Återställ"
 
-#: ../actions/recoverpassword.php:156
+#: ../actions/recoverpassword.php:141
 msgid "Recover password"
 msgstr "Återställ lösenord"
 
@@ -1491,28 +1009,19 @@ msgstr "Återställ lösenord"
 msgid "Recovery code for unknown user."
 msgstr "Kod för återställning av okänd användare."
 
-#: ../actions/register.php:142 ../actions/register.php:193 ../lib/util.php:312
+#: ../actions/register.php:171 ../actions/register.php:195 ../lib/util.php:287
 msgid "Register"
 msgstr "Registrera"
 
-#: ../actions/register.php:28
-#, fuzzy
-msgid "Registration not allowed."
-msgstr "Inget giltigt smeknamn."
-
-#: ../actions/register.php:200
-msgid "Registration successful"
-msgstr ""
-
-#: ../actions/userauthorization.php:120
+#: ../actions/userauthorization.php:119
 msgid "Reject"
 msgstr "Avvisa"
 
-#: ../actions/login.php:103 ../actions/register.php:176
+#: ../actions/login.php:99 ../actions/register.php:183
 msgid "Remember me"
 msgstr "Kom ihåg mig"
 
-#: ../actions/updateprofile.php:70
+#: ../actions/updateprofile.php:69
 msgid "Remote profile with no matching profile"
 msgstr "Fjärrprofil utan motsvarande profil"
 
@@ -1520,9 +1029,7 @@ msgstr "Fjärrprofil utan motsvarande profil"
 msgid "Remote subscribe"
 msgstr "Fjärrprenumerera"
 
-#: ../actions/emailsettings.php:47 ../actions/emailsettings.php:75
 #: ../actions/imsettings.php:48 ../actions/openidsettings.php:106
-#: ../actions/smssettings.php:50 ../actions/smssettings.php:84
 msgid "Remove"
 msgstr "Ta bort"
 
@@ -1535,59 +1042,35 @@ msgid ""
 "Removing your only OpenID would make it impossible to log in! If you need to "
 "remove it, add another OpenID first."
 msgstr ""
-"Tar du bort din OpenID så gör du det omöjligt att logga in! Om du behöver ta "
-"bort den, lägg till en annan OpenID först."
+"Tar du bort din OpenID så gör du det omöjligt att logga in! Om du "
+"behöver ta bort den, lägg till en annan OpenID först."
 
-#: ../lib/stream.php:55
+#: ../lib/stream.php:49
 msgid "Replies"
 msgstr "Svar"
 
-#: ../actions/replies.php:47 ../actions/repliesrss.php:76 ../lib/stream.php:56
+#: ../actions/replies.php:47 ../actions/repliesrss.php:76 ../lib/stream.php:50
 #, php-format
 msgid "Replies to %s"
 msgstr "Svarat på %s"
 
-#: ../actions/recoverpassword.php:183
+#: ../actions/recoverpassword.php:168
 msgid "Reset"
 msgstr "Återställ"
 
-#: ../actions/recoverpassword.php:173
+#: ../actions/recoverpassword.php:158
 msgid "Reset password"
 msgstr "Återställ lösenord"
 
-#: ../lib/settingsaction.php:99
-msgid "SMS"
-msgstr ""
-
-#: ../actions/smssettings.php:67
-msgid "SMS Phone number"
-msgstr ""
-
-#: ../actions/smssettings.php:33
-#, fuzzy
-msgid "SMS Settings"
-msgstr "IM inställningar"
-
-#: ../lib/mail.php:219
-#, fuzzy
-msgid "SMS confirmation"
-msgstr "Ingen bekräftelsekod."
-
-#: ../actions/recoverpassword.php:182
+#: ../actions/recoverpassword.php:167 ../actions/register.php:180
 msgid "Same as password above"
 msgstr "Samma som lösenordet ovan"
 
-#: ../actions/register.php:156
-#, fuzzy
-msgid "Same as password above. Required."
-msgstr "Samma som lösenordet ovan"
-
-#: ../actions/emailsettings.php:97 ../actions/imsettings.php:81
-#: ../actions/profilesettings.php:67 ../actions/smssettings.php:100
+#: ../actions/imsettings.php:76 ../actions/profilesettings.php:58
 msgid "Save"
 msgstr "Spara"
 
-#: ../lib/searchaction.php:84 ../lib/util.php:300
+#: ../lib/searchaction.php:73 ../lib/util.php:277
 msgid "Search"
 msgstr "Sök"
 
@@ -1610,52 +1093,25 @@ msgid ""
 "Search for people on %%site.name%% by their name, location, or interests. "
 "Separate the terms by spaces; they must be 3 characters or more."
 msgstr ""
-"Sök efter personer på %%site.name%% efter deras namn, plats eller intressen. "
-"Skilj söktermerna åt med mellanslag; de måste vara minst tre tecken långa. "
+"Sök efter personer på %%site.name%% efter deras namn, plats eller "
+"intressen. Skilj söktermerna åt med mellanslag; de måste vara minst tre "
+"tecken långa. "
 
-#: ../actions/smssettings.php:296
-msgid "Select a carrier"
-msgstr ""
-
-#: ../actions/invite.php:137 ../lib/util.php:1172
+#: ../lib/util.php:982
 msgid "Send"
 msgstr "Skicka"
 
-#: ../actions/emailsettings.php:73 ../actions/smssettings.php:82
-msgid "Send email to this address to post new notices."
-msgstr ""
-
-#: ../actions/emailsettings.php:88
-#, fuzzy
-msgid "Send me notices of new subscriptions through email."
-msgstr "Skicka inlägg till mig via Jabber/GTalk."
-
-#: ../actions/imsettings.php:70
+#: ../actions/imsettings.php:71
 msgid "Send me notices through Jabber/GTalk."
 msgstr "Skicka inlägg till mig via Jabber/GTalk."
 
-#: ../actions/smssettings.php:97
-msgid ""
-"Send me notices through SMS; I understand I may incur exorbitant charges "
-"from my carrier."
-msgstr ""
-
-#: ../actions/imsettings.php:76
-#, fuzzy
-msgid "Send me replies through Jabber/GTalk from people I'm not subscribed to."
-msgstr "Skicka inlägg till mig via Jabber/GTalk."
-
-#: ../lib/util.php:304
+#: ../lib/util.php:282
 msgid "Settings"
 msgstr "Inställningar"
 
-#: ../actions/profilesettings.php:192
+#: ../actions/profilesettings.php:183
 msgid "Settings saved."
 msgstr "Inställningar sparade."
-
-#: ../actions/tag.php:60
-msgid "Showing most popular tags from the last week"
-msgstr ""
 
 #: ../actions/finishaddopenid.php:66
 msgid "Someone else already has this OpenID."
@@ -1665,45 +1121,36 @@ msgstr "Någon annan använder redan denna OpenID."
 msgid "Something weird happened."
 msgstr "Någonting konstigt inträffade."
 
-#: ../scripts/maildaemon.php:58
-msgid "Sorry, no incoming email allowed."
-msgstr ""
-
-#: ../scripts/maildaemon.php:54
-#, fuzzy
-msgid "Sorry, that is not your incoming email address."
-msgstr "Det är fel IM adress."
-
-#: ../lib/util.php:330
+#: ../lib/util.php:302
 msgid "Source"
 msgstr "Källa"
 
-#: ../actions/showstream.php:296
+#: ../actions/showstream.php:277
 msgid "Statistics"
 msgstr "Statistik"
 
-#: ../actions/finishopenidlogin.php:182 ../actions/finishopenidlogin.php:246
+#: ../actions/finishopenidlogin.php:182 ../actions/finishopenidlogin.php:275
 msgid "Stored OpenID not found."
 msgstr "Sparade OpenID kunde inte hittas."
 
-#: ../actions/remotesubscribe.php:75 ../actions/showstream.php:188
-#: ../actions/showstream.php:197
+#: ../actions/remotesubscribe.php:75 ../actions/showstream.php:172
+#: ../actions/showstream.php:181
 msgid "Subscribe"
 msgstr "Prenumerera"
 
-#: ../actions/showstream.php:313 ../actions/subscribers.php:27
+#: ../actions/showstream.php:294 ../actions/subscribers.php:27
 msgid "Subscribers"
-msgstr "Prenumeranter"
+msgstr "Prenumerant"
 
-#: ../actions/userauthorization.php:310
+#: ../actions/userauthorization.php:309
 msgid "Subscription authorized"
 msgstr "Prenumeration accepterad"
 
-#: ../actions/userauthorization.php:320
+#: ../actions/userauthorization.php:319
 msgid "Subscription rejected"
 msgstr "Prenumeration avvisad"
 
-#: ../actions/showstream.php:230 ../actions/showstream.php:307
+#: ../actions/showstream.php:212 ../actions/showstream.php:288
 #: ../actions/subscriptions.php:27
 msgid "Subscriptions"
 msgstr "Prenumerationer"
@@ -1711,14 +1158,6 @@ msgstr "Prenumerationer"
 #: ../actions/avatar.php:87
 msgid "System error uploading file."
 msgstr "Systemfel när filen laddades upp."
-
-#: ../actions/tag.php:41 ../lib/util.php:301
-msgid "Tags"
-msgstr ""
-
-#: ../lib/searchaction.php:104
-msgid "Text"
-msgstr ""
 
 #: ../actions/noticesearch.php:34
 msgid "Text search"
@@ -1736,78 +1175,36 @@ msgstr "Den adressen har redan blivit bekräftad en gång."
 msgid "That confirmation code is not for you!"
 msgstr "Den bekräftelsekoden är inte för dig!"
 
-#: ../actions/emailsettings.php:191
-#, fuzzy
-msgid "That email address already belongs to another user."
-msgstr "Jabber ID används redan utav en annan användare."
-
 #: ../actions/avatar.php:80
 msgid "That file is too big."
 msgstr "Filen är för stor."
 
-#: ../actions/imsettings.php:170
+#: ../actions/imsettings.php:161
 msgid "That is already your Jabber ID."
 msgstr "Det är redan din Jabber ID."
 
-#: ../actions/emailsettings.php:188
-#, fuzzy
-msgid "That is already your email address."
-msgstr "Det är redan din Jabber ID."
-
-#: ../actions/smssettings.php:188
-#, fuzzy
-msgid "That is already your phone number."
-msgstr "Det är redan din Jabber ID."
-
-#: ../actions/imsettings.php:233
+#: ../actions/imsettings.php:224
 msgid "That is not your Jabber ID."
 msgstr "Det är inte ditt Jabber ID."
 
-#: ../actions/emailsettings.php:249
-#, fuzzy
-msgid "That is not your email address."
-msgstr "Det är fel IM adress."
-
-#: ../actions/smssettings.php:257
-#, fuzzy
-msgid "That is not your phone number."
-msgstr "Det är inte ditt Jabber ID."
-
-#: ../actions/emailsettings.php:226 ../actions/imsettings.php:210
+#: ../actions/imsettings.php:201
 msgid "That is the wrong IM address."
 msgstr "Det är fel IM adress."
 
-#: ../actions/smssettings.php:233
-#, fuzzy
-msgid "That is the wrong confirmation number."
-msgstr "Det är fel IM adress."
-
-#: ../actions/smssettings.php:191
-#, fuzzy
-msgid "That phone number already belongs to another user."
-msgstr "Jabber ID används redan utav en annan användare."
-
-#: ../actions/newnotice.php:49 ../actions/twitapistatuses.php:408
+#: ../actions/newnotice.php:52
 msgid "That's too long. Max notice size is 140 chars."
 msgstr "För långt. Maximalt 140 tecken"
 
-#: ../actions/twitapiaccount.php:74
-#, fuzzy
-msgid "That's too long. Max notice size is 255 chars."
-msgstr "För långt. Maximalt 140 tecken"
-
-#: ../actions/confirmaddress.php:92
+#: ../actions/confirmaddress.php:86
 #, php-format
 msgid "The address \"%s\" has been confirmed for your account."
 msgstr "Adressen \"%s\" har blivit bekräftad för ditt konto."
 
-#: ../actions/emailsettings.php:264 ../actions/imsettings.php:250
-#: ../actions/smssettings.php:274
+#: ../actions/imsettings.php:241
 msgid "The address was removed."
 msgstr "Adressen är borttagen."
 
-#: ../actions/userauthorization.php:312
-#, fuzzy
+#: ../actions/userauthorization.php:311 ../actions/userauthorization.php:312
 msgid ""
 "The subscription has been authorized, but no callback URL was passed. Check "
 "with the site's instructions for details on how to authorize the "
@@ -1817,8 +1214,7 @@ msgstr ""
 "med sidans instruktioner hur du bekräftar en prenumeration. Din "
 "prenumerering token är:"
 
-#: ../actions/userauthorization.php:322
-#, fuzzy
+#: ../actions/userauthorization.php:321 ../actions/userauthorization.php:322
 msgid ""
 "The subscription has been rejected, but no callback URL was passed. Check "
 "with the site's instructions for details on how to fully reject the "
@@ -1845,12 +1241,7 @@ msgstr "Detta är personer och inlägg som %s lyssnar på."
 msgid "These are the people whose notices you listen to."
 msgstr "Detta är personer och inlägg som du lyssnar på."
 
-#: ../actions/invite.php:89
-msgid ""
-"These people are already users and you were automatically subscribed to them:"
-msgstr ""
-
-#: ../actions/recoverpassword.php:88
+#: ../actions/recoverpassword.php:87
 msgid "This confirmation code is too old. Please start again."
 msgstr "Denna bekräftelsekod är för gammal. Du får starta om på nytt igen."
 
@@ -1859,8 +1250,8 @@ msgid ""
 "This form should automatically submit itself. If not, click the submit "
 "button to go to your OpenID provider."
 msgstr ""
-"Detta formulär skall automatiskt skicka själv. Om den inte gör det, klicka "
-"på skicka för att gå dit där du skapade ditt OpenID."
+"Detta formulär skall automatiskt skicka själv. Om den inte gör det, "
+"klicka på skicka för att gå dit där du skapade ditt OpenID."
 
 #: ../actions/finishopenidlogin.php:56
 #, php-format
@@ -1869,48 +1260,28 @@ msgid ""
 "to a local account. You can either create a new account, or connect with "
 "your existing account, if you have one."
 msgstr ""
-"Detta är första gången du loggade in till %s så vi måste koppla sitt OpenID "
-"till ett lokalt konto. Du kan antingen skapa ett nytt konto eller med ett "
-"existerande konto, om du har något."
+"Detta är första gången du loggade in till %s så vi måste koppla sitt "
+"OpenID till ett lokalt konto. Du kan antingen skapa ett nytt konto eller med "
+"ett existerande konto, om du har något."
 
-#: ../actions/twitapifriendships.php:108 ../actions/twitapistatuses.php:586
-msgid "This method requires a POST or DELETE."
-msgstr ""
-
-#: ../actions/twitapiaccount.php:65 ../actions/twitapifriendships.php:44
-#: ../actions/twitapistatuses.php:381
-msgid "This method requires a POST."
-msgstr ""
-
-#: ../lib/util.php:164
+#: ../lib/util.php:147
 msgid "This page is not available in a media type you accept"
 msgstr "Denna sida är inte tillgänglig i den mediatyp du accepterat"
-
-#: ../actions/profilesettings.php:63
-msgid "Timezone"
-msgstr ""
-
-#: ../actions/profilesettings.php:107
-msgid "Timezone not selected."
-msgstr ""
 
 #: ../actions/remotesubscribe.php:43
 #, php-format
 msgid ""
-"To subscribe, you can [login](%%action.login%%), or [register](%%action."
-"register%%) a new  account. If you already have an account  on a [compatible "
-"microblogging site](%%doc.openmublog%%),  enter your profile URL below."
+"To subscribe, you can [login](%%action.login%%), or "
+"[register](%%action.register%%) a new  account. If you already have an "
+"account  on a [compatible microblogging site](%%doc.openmublog%%),  enter "
+"your profile URL below."
 msgstr ""
-"För att prenumerera så kan du [logga in](%%action.login%%) eller [registrera]"
-"(%%action.register%%) ett nytt konto. Om du redan har ett konto på en "
-"[kompatibel mikroblogg sida](%%doc.openmublog%%) fyll i din profils URL "
-"nedan."
+"För att prenumerera så kan du [logga in](%%action.login%%) eller "
+"[registrera](%%action.register%%) ett nytt konto. Om du redan har ett konto "
+"på en [kompatibel mikroblogg sida](%%doc.openmublog%%) fyll i din profils "
+"URL nedan."
 
-#: ../actions/twitapifriendships.php:163
-msgid "Two user ids or screen_names must be supplied."
-msgstr ""
-
-#: ../actions/profilesettings.php:48 ../actions/register.php:169
+#: ../actions/profilesettings.php:51
 msgid "URL of your homepage, blog, or profile on another site"
 msgstr "URL till din hemsida, blog eller profil på en annan sida."
 
@@ -1918,25 +1289,23 @@ msgstr "URL till din hemsida, blog eller profil på en annan sida."
 msgid "URL of your profile on another compatible microblogging service"
 msgstr "URL till din profil på en annan kompatibel mikroblogg"
 
+#: ../actions/imsettings.php:105 ../actions/recoverpassword.php:39
 #: ../actions/emailsettings.php:130 ../actions/imsettings.php:110
-#: ../actions/recoverpassword.php:39 ../actions/smssettings.php:135
-#, fuzzy
+#: ../actions/smssettings.php:135 actions/emailsettings.php:144
+#: actions/imsettings.php:118 actions/recoverpassword.php:39
+#: actions/smssettings.php:143 actions/twittersettings.php:108
 msgid "Unexpected form submission."
-msgstr "Oväntat utskick av formuläret"
+msgstr "Oväntat utskick av formuläret."
 
-#: ../actions/recoverpassword.php:276
+#: ../actions/recoverpassword.php:237
 msgid "Unexpected password reset."
 msgstr "Oväntad rensning av lösenord."
-
-#: ../index.php:57
-msgid "Unknown action"
-msgstr ""
 
 #: ../actions/finishremotesubscribe.php:58
 msgid "Unknown version of OMB protocol."
 msgstr "Okänd version av OMB protokollet."
 
-#: ../lib/util.php:269
+#: ../lib/util.php:245
 msgid ""
 "Unless otherwise specified, contents of this site are copyright by the "
 "contributors and available under the "
@@ -1949,35 +1318,17 @@ msgstr ""
 msgid "Unrecognized address type %s"
 msgstr "Adresstypen känns inte igen %s"
 
-#: ../actions/showstream.php:209
+#: ../actions/showstream.php:193
 msgid "Unsubscribe"
 msgstr "Lämnar pren."
 
-#: ../actions/postnotice.php:44 ../actions/updateprofile.php:45
+#: ../actions/postnotice.php:44 ../actions/updateprofile.php:44
 msgid "Unsupported OMB version"
 msgstr "OMB versionen stöds inte"
 
 #: ../actions/avatar.php:105
 msgid "Unsupported image file format."
 msgstr "Bildfilens format stödjs inte."
-
-#: ../lib/settingsaction.php:100
-msgid "Updates by SMS"
-msgstr ""
-
-#: ../lib/settingsaction.php:103
-msgid "Updates by instant messenger (IM)"
-msgstr ""
-
-#: ../actions/twitapistatuses.php:241
-#, php-format
-msgid "Updates from %1$s and friends on %2$s!"
-msgstr ""
-
-#: ../actions/twitapistatuses.php:341
-#, php-format
-msgid "Updates from %1$s on %2$s!"
-msgstr ""
 
 #: ../actions/avatar.php:68
 msgid "Upload"
@@ -1990,35 +1341,24 @@ msgid ""
 "site license, also. Use a picture that belongs to you and that you want to "
 "share."
 msgstr ""
-"Ladda upp en ny \"avatar\" (användarbild) här. Du kan inte göra ändringar i "
-"bilden efter uppladdning, försök att se till att den är så fykantig som "
-"möjligt. Den måste följa licensvillkoren, använd en bild som du äger och som "
-"du vill dela med dig utav."
+"Ladda upp en ny \"avatar\" (användarbild) här. Du kan inte göra "
+"ändringar i bilden efter uppladdning, försök att se till att den är så "
+"fykantig som möjligt. Den måste följa licensvillkoren, använd en bild "
+"som du äger och som du vill dela med dig utav."
 
-#: ../lib/settingsaction.php:91
-#, fuzzy
-msgid "Upload a new profile image"
-msgstr "Kunde inte spara informationen om den nya profilen"
-
-#: ../actions/invite.php:114
-msgid ""
-"Use this form to invite your friends and colleagues to use this service."
-msgstr ""
-
-#: ../actions/register.php:159 ../actions/register.php:162
+#: ../actions/profilesettings.php:48 ../actions/register.php:182
 msgid "Used only for updates, announcements, and password recovery"
 msgstr ""
-"Används endast för uppdateringar, annonsering och återställning av lösenord"
+"Används endast för uppdateringar, annonsering och återställning av "
+"lösenord"
 
 #: ../actions/finishremotesubscribe.php:86
 msgid "User being listened to doesn't exist."
 msgstr "Användaren som avlyssnas existerar inte."
 
 #: ../actions/all.php:41 ../actions/avatarbynickname.php:48
-#: ../actions/foaf.php:47 ../actions/replies.php:41
-#: ../actions/showstream.php:44 ../actions/twitapiaccount.php:82
-#: ../actions/twitapistatuses.php:319 ../actions/twitapistatuses.php:685
-#: ../actions/twitapiusers.php:82
+#: ../actions/foaf.php:43 ../actions/replies.php:41
+#: ../actions/showstream.php:44
 msgid "User has no profile."
 msgstr "Användaren har ingen profil."
 
@@ -2026,72 +1366,40 @@ msgstr "Användaren har ingen profil."
 msgid "User nickname"
 msgstr "Användarens smeknamn"
 
-#: ../actions/twitapiusers.php:75
-#, fuzzy
-msgid "User not found."
-msgstr "Sparade OpenID kunde inte hittas."
-
-#: ../actions/profilesettings.php:63
-msgid "What timezone are you normally in?"
-msgstr ""
-
-#: ../lib/util.php:1159
+#: ../lib/util.php:969
 #, php-format
 msgid "What's up, %s?"
 msgstr "Vad är på gång, %s?"
 
-#: ../actions/profilesettings.php:54 ../actions/register.php:175
+#: ../actions/profilesettings.php:57
 msgid "Where you are, like \"City, State (or Region), Country\""
 msgstr "Var du håller till, såsom \"Stad, Län, Land\""
 
-#: ../actions/updateprofile.php:128
+#: ../actions/updateprofile.php:127
 #, php-format
 msgid "Wrong image type for '%s'"
 msgstr "Fel filtyp för bild '%s'"
 
-#: ../actions/updateprofile.php:123
+#: ../actions/updateprofile.php:122
 #, php-format
 msgid "Wrong size image at '%s'"
 msgstr "Fel bildstorlek för '%s'"
-
-#: ../actions/deletenotice.php:63 ../actions/deletenotice.php:72
-msgid "Yes"
-msgstr ""
 
 #: ../actions/finishaddopenid.php:64
 msgid "You already have this OpenID!"
 msgstr "Du handhar redan denna OpenID!"
 
-#: ../actions/deletenotice.php:37
-msgid ""
-"You are about to permanently delete a notice.  Once this is done, it cannot "
-"be undone."
-msgstr ""
-
 #: ../actions/recoverpassword.php:31
 msgid "You are already logged in!"
 msgstr "Du är redan inloggad!"
-
-#: ../actions/invite.php:81
-msgid "You are already subscribed to these users:"
-msgstr ""
-
-#: ../actions/twitapifriendships.php:128
-msgid "You are not friends with the specified user."
-msgstr ""
 
 #: ../actions/password.php:27
 msgid "You can change your password here. Choose a good one!"
 msgstr "Du kan ändra ditt lösenord här. Välj ett bra!"
 
-#: ../actions/register.php:135
+#: ../actions/register.php:164
 msgid "You can create a new account to start posting notices."
 msgstr "Du kan skapa ett nytt konto och börja skriva inlägg."
-
-#: ../actions/smssettings.php:28
-#, php-format
-msgid "You can receive SMS messages through email from %%site.name%%."
-msgstr ""
 
 #: ../actions/openidsettings.php:86
 msgid ""
@@ -2104,29 +1412,859 @@ msgstr ""
 #: ../actions/imsettings.php:28
 #, php-format
 msgid ""
-"You can send and receive notices through Jabber/GTalk [instant messages](%%"
-"doc.im%%). Configure your address and settings below."
+"You can send and receive notices through Jabber/GTalk [instant "
+"messages](%%doc.im%%). Configure your address and settings below."
 msgstr ""
-"Du kan skicka och ta emot inlägg genom Jabber/GTalk [instant messages](%%doc."
-"im%%). Konfigurera din adress och inställningar nedan. "
+"Du kan skicka och ta emot inlägg genom Jabber/GTalk [instant "
+"messages](%%doc.im%%). Konfigurera din adress och inställningar nedan. "
 
 #: ../actions/profilesettings.php:27
 msgid ""
-"You can update your personal profile info here so people know more about you."
+"You can update your personal profile info here so people know more about "
+"you."
 msgstr ""
-"Du kan uppdatera din personliga profil här så personer får veta mer om dig."
+"Du kan uppdatera din personliga profil här så personer får veta mer om "
+"dig."
 
 #: ../actions/finishremotesubscribe.php:31 ../actions/remotesubscribe.php:31
 msgid "You can use the local subscription!"
 msgstr "Du kan använda lokala prenumerationer!"
 
-#: ../actions/finishopenidlogin.php:33 ../actions/register.php:61
+#: ../actions/finishopenidlogin.php:33 ../actions/register.php:51
 msgid "You can't register if you don't agree to the license."
 msgstr "Du kan inte registrera dig om du inte godkänner licensvillkor."
 
-#: ../actions/updateprofile.php:63
+#: ../actions/updateprofile.php:62
 msgid "You did not send us that profile"
 msgstr "Du skickade inte oss den profilen"
+
+#: ../actions/recoverpassword.php:134
+msgid "You've been identified. Enter a  new password below. "
+msgstr "Du är identifierad. Skriv ett nytt lösenord nedan."
+
+#: ../actions/openidlogin.php:67
+msgid "Your OpenID URL"
+msgstr "Din OpenID URL"
+
+#: ../actions/recoverpassword.php:149
+msgid "Your nickname on this server, or your registered email address."
+msgstr "Ditt användarnamn på denna server eller registrerad epost adress."
+
+#: ../actions/openidsettings.php:28
+#, php-format
+msgid ""
+"[OpenID](%%doc.openid%%) lets you log into many sites  with the same user "
+"account.  Manage your associated OpenIDs from here."
+msgstr ""
+"[OpenID](%%doc.openid%%) låter dig logga in på flera sidor med samma "
+"konto. Ställ in ditt OpenID konto härifrån."
+
+#: ../lib/util.php:814
+msgid "a few seconds ago"
+msgstr "ett par sekunder sedan"
+
+#: ../lib/util.php:826
+#, php-format
+msgid "about %d days ago"
+msgstr "för %d dagar sedan"
+
+#: ../lib/util.php:822
+#, php-format
+msgid "about %d hours ago"
+msgstr "för %d timmar sedan"
+
+#: ../lib/util.php:818
+#, php-format
+msgid "about %d minutes ago"
+msgstr "för %d minuter sedan"
+
+#: ../lib/util.php:830
+#, php-format
+msgid "about %d months ago"
+msgstr "för %d månader sedan"
+
+#: ../lib/util.php:824
+msgid "about a day ago"
+msgstr "för en dag sedan"
+
+#: ../lib/util.php:816
+msgid "about a minute ago"
+msgstr "för nån minut sedan"
+
+#: ../lib/util.php:828
+msgid "about a month ago"
+msgstr "för en månad sedan"
+
+#: ../lib/util.php:832
+msgid "about a year ago"
+msgstr "för ett år sedan"
+
+#: ../lib/util.php:820
+msgid "about an hour ago"
+msgstr "för en timma sedan"
+
+#: ../actions/noticesearch.php:126 ../actions/showstream.php:383
+#: ../lib/stream.php:101
+msgid "in reply to..."
+msgstr "svar till..."
+
+#: ../actions/noticesearch.php:133 ../actions/showstream.php:390
+#: ../lib/stream.php:108
+msgid "reply"
+msgstr "svar"
+
+#: ../actions/password.php:44
+msgid "same as password above"
+msgstr "samma som lösenordet ovan"
+
+#: ../lib/util.php:1127
+msgid "« After"
+msgstr "« Nyare"
+
+#: ../actions/showstream.php:400 ../lib/stream.php:109
+#: actions/showstream.php:418 lib/mailbox.php:164 lib/stream.php:76
+msgid " from "
+msgstr "från"
+
+#: ../actions/twitapistatuses.php:478 actions/twitapistatuses.php:412
+#, php-format
+msgid "%1$s / Updates replying to %2$s"
+msgstr "%1$s / Uppdateringar med svar till %2$s"
+
+#: ../actions/invite.php:168 actions/invite.php:176
+#, php-format
+msgid "%1$s has invited you to join them on %2$s"
+msgstr "%1$s har bjudit in dig till %2$s"
+
+#: ../actions/invite.php:170
+#, php-format
+msgid ""
+"%1$s has invited you to join them on %2$s (%3$s).\n"
+"\n"
+"%2$s is a micro-blogging service that lets you keep up-to-date with people "
+"you know and people who interest you.\n"
+"\n"
+"You can also share news about yourself, your thoughts, or your life online "
+"with people who know about you. It's also great for meeting new people who "
+"share your interests.\n"
+"\n"
+"%1$s said:\n"
+"\n"
+"%4$s\n"
+"\n"
+"You can see %1$s's profile page on %2$s here:\n"
+"\n"
+"%5$s\n"
+"\n"
+"If you'd like to try the service, click on the link below to accept the "
+"invitation.\n"
+"\n"
+"%6$s\n"
+"\n"
+"If not, you can ignore this message. Thanks for your patience and your "
+"time.\n"
+"\n"
+"Sincerely, %2$s\n"
+msgstr ""
+"%1$s har bjudit in dig till %2$s (%3$s).\n"
+"\n"
+"%2$s är en mikroblogg service som låter dig via sidan hålla direktkontakt "
+"med människor du känner eller intresserar dig.\n"
+"\n"
+"Du kan även dela med dig utav nyheter om dig själv, dina tankar, eller "
+"ditt liv online som känner igen dig. Det är också perfekt för att möta "
+"nya personer som delar ditt intresse.\n"
+"\n"
+"%1$s sa:\n"
+"\n"
+"%4$s\n"
+"\n"
+"Du kan se %1$s's profilsida på %2$s här:\n"
+"\n"
+"%5$s\n"
+"\n"
+"Om du vill prova på denna service, klicka på länken nedan för att "
+"acceptera denna inbjudan.\n"
+"\n"
+"%6$s\n"
+"\n"
+"Om inte, då kan du ignorera detta meddelande. Tack för att du tog dig\n"
+
+#: ../actions/twitapistatuses.php:482 actions/twitapistatuses.php:415
+#, php-format
+msgid "%1$s updates that reply to updates from %2$s / %3$s."
+msgstr "%1$s uppdateringar med svar till uppdatering från %2$s / %3$s."
+
+#: ../actions/invite.php:84 ../actions/invite.php:92 actions/invite.php:91
+#: actions/invite.php:99
+#, php-format
+msgid "%s (%s)"
+msgstr "%s(%s)"
+
+#: ../actions/twitapistatuses.php:49 actions/twitapistatuses.php:49
+#, php-format
+msgid "%s public timeline"
+msgstr "%s publika tidslinje"
+
+#: ../lib/mail.php:206 lib/mail.php:212
+#, php-format
+msgid "%s status"
+msgstr "%s status"
+
+#: ../actions/twitapistatuses.php:338 actions/twitapistatuses.php:265
+#, php-format
+msgid "%s timeline"
+msgstr "%s tidslinje"
+
+#: ../actions/twitapistatuses.php:52 actions/twitapistatuses.php:52
+#, php-format
+msgid "%s updates from everyone!"
+msgstr "%s uppdateringar ifrån allihop!"
+
+#: ../actions/register.php:213
+msgid ""
+"(You should receive a message by email momentarily, with instructions on how "
+"to confirm your email address.)"
+msgstr ""
+"(Du kommer få ett meddelande med email inom kort med instruktioner hur du "
+"bekräftar din emailadress)"
+
+#: ../actions/register.php:152 actions/register.php:166
+msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
+msgstr ""
+"1-64 små bokstäver eller nummer, inga punkter eller mellanslag. Måste "
+"fyllas i."
+
+#: ../actions/register.php:154 actions/register.php:168
+msgid "6 or more characters. Required."
+msgstr "6 eller fler tecken. Måste fyllas i."
+
+#: ../actions/emailsettings.php:213 actions/emailsettings.php:231
+msgid ""
+"A confirmation code was sent to the email address you added. Check your "
+"inbox (and spam box!) for the code and instructions on how to use it."
+msgstr ""
+"En bekräftelsekod har skickats ut till email adressen du fyllde i. "
+"Kontrollera din inbox (och spamlådan!) efter kod och instruktioner hur du "
+"använder den."
+
+#: ../actions/smssettings.php:216 actions/smssettings.php:224
+msgid ""
+"A confirmation code was sent to the phone number you added. Check your inbox "
+"(and spam box!) for the code and instructions on how to use it."
+msgstr ""
+"En bekräftelsekod har skickats ut till telefonnumret du fyllde i. "
+"Kontrollera din inbox (och spamlådan!) efter kod och instruktioner hur du "
+"använder den."
+
+#: ../actions/twitapiaccount.php:49 ../actions/twitapihelp.php:45
+#: ../actions/twitapistatuses.php:88 ../actions/twitapistatuses.php:259
+#: ../actions/twitapistatuses.php:370 ../actions/twitapistatuses.php:532
+#: ../actions/twitapiusers.php:122 actions/twitapiaccount.php:49
+#: actions/twitapidirect_messages.php:104 actions/twitapifavorites.php:111
+#: actions/twitapifavorites.php:120 actions/twitapifriendships.php:156
+#: actions/twitapihelp.php:46 actions/twitapistatuses.php:93
+#: actions/twitapistatuses.php:176 actions/twitapistatuses.php:288
+#: actions/twitapistatuses.php:298 actions/twitapistatuses.php:454
+#: actions/twitapistatuses.php:463 actions/twitapistatuses.php:504
+#: actions/twitapiusers.php:55
+msgid "API method not found!"
+msgstr "API metoden hittades inte!"
+
+#: ../actions/twitapiaccount.php:57 ../actions/twitapiaccount.php:113
+#: ../actions/twitapiaccount.php:119 ../actions/twitapiblocks.php:28
+#: ../actions/twitapiblocks.php:34 ../actions/twitapidirect_messages.php:43
+#: ../actions/twitapidirect_messages.php:49
+#: ../actions/twitapidirect_messages.php:56
+#: ../actions/twitapidirect_messages.php:62 ../actions/twitapifavorites.php:41
+#: ../actions/twitapifavorites.php:47 ../actions/twitapifavorites.php:53
+#: ../actions/twitapihelp.php:52 ../actions/twitapinotifications.php:29
+#: ../actions/twitapinotifications.php:35 ../actions/twitapistatuses.php:768
+#: actions/twitapiaccount.php:56 actions/twitapiaccount.php:109
+#: actions/twitapiaccount.php:114 actions/twitapiblocks.php:28
+#: actions/twitapiblocks.php:33 actions/twitapidirect_messages.php:170
+#: actions/twitapifavorites.php:168 actions/twitapihelp.php:53
+#: actions/twitapinotifications.php:29 actions/twitapinotifications.php:34
+#: actions/twitapistatuses.php:690
+msgid "API method under construction."
+msgstr "API metoden är under uppbyggnad."
+
+#: ../lib/settingsaction.php:97 lib/settingsaction.php:91
+msgid "Add or remove OpenIDs"
+msgstr "Lägg till eller tabort OpenIDs"
+
+#: ../actions/invite.php:131 actions/invite.php:139
+msgid "Addresses of friends to invite (one per line)"
+msgstr "Adresser till vänner att bjuda in (en rad per adress)"
+
+#: ../actions/deletenotice.php:54 actions/deletenotice.php:55
+msgid "Are you sure you want to delete this notice?"
+msgstr "Är du säker på att du vill tabort detta inlägg?"
+
+#: ../actions/profilesettings.php:65 actions/profilesettings.php:98
+msgid ""
+"Automatically subscribe to whoever subscribes to me (best for "
+"non-humans)"
+msgstr ""
+"Automatisk prenummeration på den som prenumererar på mig. (Bäst för icke "
+"mänsklig användare) "
+
+#: ../actions/emailsettings.php:54 actions/emailsettings.php:55
+msgid ""
+"Awaiting confirmation on this address. Check your inbox (and spam box!) for "
+"a message with further instructions."
+msgstr ""
+"Väntar bekräftelse på denna adress. Kontrollera din inbox (och "
+"spamlådan!) efter meddelande om vidare instruktioner."
+
+#: ../actions/smssettings.php:58 actions/smssettings.php:58
+msgid "Awaiting confirmation on this phone number."
+msgstr "Väntar bekräftelse på detta telefonnummer. "
+
+#: ../lib/deleteaction.php:41 lib/deleteaction.php:41
+msgid "Can't delete this notice."
+msgstr "Kan inte tabort detta inlägg."
+
+#: ../actions/emailsettings.php:181 actions/emailsettings.php:199
+msgid "Cannot normalize that email address"
+msgstr "Kan inte normalisera den emailadressen"
+
+#: ../lib/settingsaction.php:88 lib/settingsaction.php:88
+msgid "Change email handling"
+msgstr "Ändra email hantering"
+
+#: ../lib/settingsaction.php:94
+msgid "Change your password"
+msgstr "Ändra ditt lösenord"
+
+#: ../lib/settingsaction.php:85 lib/settingsaction.php:85
+msgid "Change your profile settings"
+msgstr "Ändra dina profil inställningar"
+
+#: ../actions/smssettings.php:63 actions/smssettings.php:63
+msgid "Confirmation code"
+msgstr "Bekräftelsekod"
+
+#: ../actions/register.php:202
+#, php-format
+msgid ""
+"Congratulations, %s! And welcome to %%%%site.name%%%%. From here, you may "
+"want to...\n"
+"\n"
+"* Go to [your profile](%s) and post your first message.\n"
+"* Add a [Jabber/GTalk address](%%%%action.imsettings%%%%) so you can send "
+"notices through instant messages.\n"
+"* [Search for people](%%%%action.peoplesearch%%%%) that you may know or that "
+"share your interests. \n"
+"* Update your [profile settings](%%%%action.profilesettings%%%%) to tell "
+"others more about you. \n"
+"* Read over the [online docs](%%%%doc.help%%%%) for features you may have "
+"missed. \n"
+"\n"
+"Thanks for signing up and we hope you enjoy using this service."
+msgstr ""
+"Grattis, %s! Välkommen till %%%%site.name%%%%. Härifrån, kanske du "
+"vill...\n"
+"\n"
+"* Gå till [din profil](%s) och göra ditt första inlägg.\n"
+"* Lägg till en [Jabber/GTalk adress](%%%%action.imsettings%%%%) så du kan "
+"skicka inlägg med en IM klient.\n"
+"* [Sök efter personer](%%%%action.peoplesearch%%%%) som du kanske känner "
+"eller delar dina intressen. \n"
+"* Uppdatera din [profil inställning](%%%%action.profilesettings%%%%) för "
+"att berätta lite mer om dig själv för andra här. \n"
+"* Läs igenom [online dok](%%%%doc.help%%%%) efter funktioner som du kanske "
+"missat. \n"
+"\n"
+"Tack för att du registrerade dig och vi hoppas du kommer trivas med denna service."
+
+#: ../actions/twitapifriendships.php:60 ../actions/twitapifriendships.php:76
+#: actions/twitapifriendships.php:60 actions/twitapifriendships.php:76
+#, php-format
+msgid "Could not follow user: %s is already on your list."
+msgstr "Kunde inte följa användaren: %s finns redan i din lista."
+
+#: ../actions/twitapifriendships.php:53 actions/twitapifriendships.php:53
+msgid "Could not follow user: User not found."
+msgstr "Kunde inte följa användaren: Användaren kunde inte hittas."
+
+#: ../lib/subs.php:54 lib/subs.php:61
+msgid "Could not subscribe other to you."
+msgstr "Kunde inte prenumerera på annat åt dig."
+
+#: ../lib/subs.php:46 lib/subs.php:46
+msgid "Could not subscribe."
+msgstr "Kunde inte prenumerera."
+
+#: ../actions/recoverpassword.php:102 actions/recoverpassword.php:105
+msgid "Could not update user with confirmed email address."
+msgstr "Kunde inte uppdatera användaren med bekräftad emailadress."
+
+#: ../actions/twitapistatuses.php:93 actions/twitapistatuses.php:98
+msgid "Couldn't find any statuses."
+msgstr "Kunde inte få fram status."
+
+#: ../actions/profilesettings.php:161 actions/profilesettings.php:276
+msgid "Couldn't update user for autosubscribe."
+msgstr "Kunde inte uppdatera användaren för automatisk prenumeration."
+
+#: ../actions/emailsettings.php:280 ../actions/emailsettings.php:294
+#: actions/emailsettings.php:298 actions/emailsettings.php:312
+msgid "Couldn't update user record."
+msgstr "Kunde inte uppdatera användarens inställningar."
+
+#: ../actions/smssettings.php:46 actions/smssettings.php:46
+msgid "Current confirmed SMS-enabled phone number."
+msgstr "Nuvarande bekäftat SMS telefonnummer"
+
+#: ../actions/emailsettings.php:44 actions/emailsettings.php:45
+msgid "Current confirmed email address."
+msgstr "Nuvarande bekräftade emailadress."
+
+#: ../classes/Notice.php:72 classes/Notice.php:86
+#, php-format
+msgid "DB error inserting hashtag: %s"
+msgstr "DB error vid infog av hashtag: %s"
+
+#: ../actions/deletenotice.php:41 actions/deletenotice.php:41
+msgid "Delete notice"
+msgstr "Tabort inlägg"
+
+#: ../actions/emailsettings.php:59 actions/emailsettings.php:60
+msgid "Email Address"
+msgstr "Emailadress"
+
+#: ../actions/emailsettings.php:32 actions/emailsettings.php:32
+msgid "Email Settings"
+msgstr "Email inställningar"
+
+#: ../actions/emailsettings.php:61 actions/emailsettings.php:62
+msgid "Email address, like \"UserName@example.org\""
+msgstr "Emailadress såsom \"användare@exempel.se\""
+
+#: ../actions/invite.php:129 actions/invite.php:137
+msgid "Email addresses"
+msgstr "Emailadresser"
+
+#: ../actions/smssettings.php:64 actions/smssettings.php:64
+msgid "Enter the code you received on your phone."
+msgstr "Fyll i koden du mottog i din telefon."
+
+#: ../actions/tag.php:55 actions/tag.php:55
+#, php-format
+msgid "Feed for tag %s"
+msgstr "Feed för taggar %s"
+
+#: ../lib/searchaction.php:105 lib/searchaction.php:105
+msgid "Find content of notices"
+msgstr "Sök innehåll i inlägg"
+
+#: ../lib/searchaction.php:101 lib/searchaction.php:101
+msgid "Find people on this site"
+msgstr "Sök personer på denna sida"
+
+#: ../actions/emailsettings.php:91 actions/emailsettings.php:98
+msgid "I want to post notices by email."
+msgstr "Jag vill posta inlägg via min email."
+
+#: ../lib/settingsaction.php:102 lib/settingsaction.php:96
+msgid "IM"
+msgstr "IM"
+
+#: ../actions/recoverpassword.php:137
+msgid ""
+"If you've forgotten or lost your password, you can get a new one sent to the "
+"email address you have stored  in your account."
+msgstr ""
+"Om du glömt eller tappat bort ditt lösenord så kan du få ett nytt "
+"skickat till den emailadress du sparat till ditt konto."
+
+#: ../actions/emailsettings.php:67 ../actions/smssettings.php:76
+#: actions/emailsettings.php:68 actions/smssettings.php:76
+msgid "Incoming email"
+msgstr "Inkommande email"
+
+#: ../actions/emailsettings.php:283 actions/emailsettings.php:301
+msgid "Incoming email address removed."
+msgstr "Inkommande emailadress borttagen."
+
+#: ../actions/invite.php:55 actions/invite.php:62
+#, php-format
+msgid "Invalid email address: %s"
+msgstr "Ogiltig emailadress: %s"
+
+#: ../actions/invite.php:79 actions/invite.php:86
+msgid "Invitation(s) sent"
+msgstr "Inbjudan(ar) skickad"
+
+#: ../actions/invite.php:97 actions/invite.php:104
+msgid "Invitation(s) sent to the following people:"
+msgstr "Inbjudan(ar) är skickade till följande personer:"
+
+#: ../lib/util.php:306 lib/util.php:322
+msgid "Invite"
+msgstr "Bjud in"
+
+#: ../actions/invite.php:123 actions/invite.php:130
+msgid "Invite new users"
+msgstr "Bjud in nya användare"
+
+#: ../actions/profilesettings.php:57 actions/profilesettings.php:90
+msgid "Language"
+msgstr "Språk"
+
+#: ../actions/profilesettings.php:113 actions/profilesettings.php:228
+msgid "Language is too long (max 50 chars)."
+msgstr "Språket är för långt(max 50 tecken)."
+
+#: ../actions/register.php:166 actions/register.php:180
+msgid "Longer name, preferably your \"real\" name"
+msgstr "Långt namn, förslagsvis ditt \"riktiga\" namn"
+
+#: ../actions/emailsettings.php:80 ../actions/smssettings.php:89
+#: actions/emailsettings.php:81 actions/smssettings.php:89
+msgid "Make a new email address for posting to; cancels the old one."
+msgstr "Skapa en ny emailadress för att posta till, avaktiverar den gamla"
+
+#: ../actions/emailsettings.php:27 actions/emailsettings.php:27
+#, php-format
+msgid "Manage how you get email from %%site.name%%."
+msgstr "Ställ in hur du tar emot email ifrån %%site.name%%"
+
+#: ../actions/smssettings.php:304
+#, php-format
+msgid ""
+"Mobile carrier for your phone. If you know a carrier that accepts SMS over "
+"email but isn't listed here, send email to let us know at %s."
+msgstr ""
+"Mobiloperatör för din telefon. Vet du nån operatör som kan taemot SMS "
+"över email som inte finns med i listan, skicka ett email till oss och tala "
+"det hit %s"
+
+#: ../actions/emailsettings.php:82 ../actions/smssettings.php:91
+#: actions/emailsettings.php:83 actions/smssettings.php:91
+msgid "New"
+msgstr "Ny"
+
+#: ../lib/mail.php:144 lib/mail.php:144
+#, php-format
+msgid "New email address for posting to %s"
+msgstr "Ny emailadress för att skicka till %s"
+
+#: ../actions/emailsettings.php:297 actions/emailsettings.php:315
+msgid "New incoming email address added."
+msgstr "Ny inkommande emailadress inlagd."
+
+#: ../actions/deletenotice.php:59 actions/deletenotice.php:60
+msgid "No"
+msgstr "Nej"
+
+#: ../actions/smssettings.php:181 actions/smssettings.php:189
+msgid "No carrier selected."
+msgstr "Ingen operatör vald."
+
+#: ../actions/smssettings.php:316 actions/smssettings.php:324
+msgid "No code entered"
+msgstr "Ingen kod är ifylld"
+
+#: ../actions/emailsettings.php:174 actions/emailsettings.php:192
+msgid "No email address."
+msgstr "Ingen emailadress."
+
+#: ../actions/emailsettings.php:271 actions/emailsettings.php:289
+msgid "No incoming email address."
+msgstr "Ingen inkommande emailadress."
+
+#: ../actions/smssettings.php:176 actions/smssettings.php:184
+msgid "No phone number."
+msgstr "Inget telefonnummer."
+
+#: ../actions/twitapistatuses.php:595 actions/twitapifavorites.php:136
+#: actions/twitapistatuses.php:520
+msgid "No status found with that ID."
+msgstr "Ingen status hittad med det ID"
+
+#: ../actions/twitapistatuses.php:555 actions/twitapistatuses.php:478
+msgid "No status with that ID found."
+msgstr "Ingen status med det ID hittades."
+
+#: ../actions/recoverpassword.php:211 actions/recoverpassword.php:217
+msgid "No user with that email address or username."
+msgstr "Ingen användare med den emailadressen eller användarnamn."
+
+#: ../scripts/maildaemon.php:50 scripts/maildaemon.php:50
+msgid "Not a registered user."
+msgstr "Inte registrerad användare."
+
+#: ../lib/twitterapi.php:226 ../lib/twitterapi.php:247
+#: ../lib/twitterapi.php:332 lib/twitterapi.php:391 lib/twitterapi.php:418
+#: lib/twitterapi.php:502
+msgid "Not a supported data format."
+msgstr "Ingen support för det formatet."
+
+#: ../actions/emailsettings.php:185 actions/emailsettings.php:203
+msgid "Not a valid email address"
+msgstr "Ingen giltig emailadress"
+
+#: ../actions/twitapistatuses.php:422 actions/twitapistatuses.php:361
+msgid "Not found"
+msgstr "Hittades inte"
+
+#: ../actions/opensearch.php:35 actions/opensearch.php:35
+msgid "Notice Search"
+msgstr "Inlägg sökning"
+
+#: ../actions/tag.php:35 ../actions/tag.php:81 actions/tag.php:35
+#: actions/tag.php:81
+#, php-format
+msgid "Notices tagged with %s"
+msgstr "Inlägg taggade med %s"
+
+#: ../actions/invite.php:135 actions/invite.php:143
+msgid "Optionally add a personal message to the invitation."
+msgstr "Om du vill, skriv ett personligt meddelande med inbjudan."
+
+#: ../lib/searchaction.php:100 lib/searchaction.php:100
+msgid "People"
+msgstr "Personer"
+
+#: ../actions/opensearch.php:33 actions/opensearch.php:33
+msgid "People Search"
+msgstr "Personer sökning"
+
+#: ../actions/invite.php:133 actions/invite.php:141
+msgid "Personal message"
+msgstr "Personligt meddelande"
+
+#: ../actions/smssettings.php:69 actions/smssettings.php:69
+msgid "Phone number, no punctuation or spaces, with area code"
+msgstr "Telefonnummer, inga punkter eller mellanslag, med landskod"
+
+#: ../actions/profilesettings.php:57 actions/profilesettings.php:90
+msgid "Preferred language"
+msgstr "Språkval"
+
+#: ../actions/imsettings.php:79 actions/imsettings.php:80
+msgid "Publish a MicroID for my Jabber/GTalk address."
+msgstr "Publicera ett MicroID för min Jabber/GTalk adress."
+
+#: ../actions/emailsettings.php:94 actions/emailsettings.php:101
+msgid "Publish a MicroID for my email address."
+msgstr "Publicera ett MicroID för min emailadress."
+
+#: ../actions/tag.php:75 ../actions/tag.php:76 actions/tag.php:75
+#: actions/tag.php:76
+msgid "Recent Tags"
+msgstr "Tidigare taggar"
+
+#: ../actions/register.php:28 actions/register.php:28
+msgid "Registration not allowed."
+msgstr "Registrering är inte möjlig."
+
+#: ../actions/register.php:200 actions/register.php:214
+msgid "Registration successful"
+msgstr "Registreringen är genomförd"
+
+#: ../lib/settingsaction.php:99 lib/settingsaction.php:93
+msgid "SMS"
+msgstr "SMS"
+
+#: ../actions/smssettings.php:67 actions/smssettings.php:67
+msgid "SMS Phone number"
+msgstr "SMS Telefonnummer"
+
+#: ../actions/smssettings.php:33 actions/smssettings.php:33
+msgid "SMS Settings"
+msgstr "SMS Inställningar"
+
+#: ../lib/mail.php:219 lib/mail.php:225
+msgid "SMS confirmation"
+msgstr "SMS Bekräftelse"
+
+#: ../actions/register.php:156 actions/register.php:170
+msgid "Same as password above. Required."
+msgstr "Samma som lösenordet ovan. Måste fyllas i."
+
+#: ../actions/smssettings.php:296 actions/smssettings.php:304
+msgid "Select a carrier"
+msgstr "Välj en operatör"
+
+#: ../actions/emailsettings.php:73 ../actions/smssettings.php:82
+#: actions/emailsettings.php:74 actions/smssettings.php:82
+msgid "Send email to this address to post new notices."
+msgstr "Skicka email till denna adress för att posta ett nya inlägg."
+
+#: ../actions/emailsettings.php:88 actions/emailsettings.php:89
+msgid "Send me notices of new subscriptions through email."
+msgstr "Skicka meddelande till mig via email vid nya prenumerationer."
+
+#: ../actions/smssettings.php:97 actions/smssettings.php:97
+msgid ""
+"Send me notices through SMS; I understand I may incur exorbitant charges "
+"from my carrier."
+msgstr ""
+"Skicka inlägg till mig via SMS; Jag är införstådd att min operatör kan "
+"debitera mig."
+
+#: ../actions/imsettings.php:76 actions/imsettings.php:77
+msgid "Send me replies through Jabber/GTalk from people I'm not subscribed to."
+msgstr ""
+"Skicka svar till mig via Jabber/GTalk från personer som inte jag "
+"prenumererar på."
+
+#: ../actions/tag.php:60 actions/tag.php:60
+msgid "Showing most popular tags from the last week"
+msgstr "Visar dom populäraste taggarna ifrån den senaste veckan."
+
+#: ../scripts/maildaemon.php:58 scripts/maildaemon.php:58
+msgid "Sorry, no incoming email allowed."
+msgstr "Ledsen, men inga inkommande email är tillåtna."
+
+#: ../scripts/maildaemon.php:54 scripts/maildaemon.php:54
+msgid "Sorry, that is not your incoming email address."
+msgstr "Ledsen, men det är inte din inkommande emailadress."
+
+#: ../actions/tag.php:41 ../lib/util.php:301 actions/tag.php:41
+#: lib/util.php:317
+msgid "Tags"
+msgstr "Taggar"
+
+#: ../lib/searchaction.php:104 lib/searchaction.php:104
+msgid "Text"
+msgstr "Text"
+
+#: ../actions/emailsettings.php:191 actions/emailsettings.php:209
+msgid "That email address already belongs to another user."
+msgstr "Den emailadressen tillhör redan en annan användare."
+
+#: ../actions/emailsettings.php:188 actions/emailsettings.php:206
+msgid "That is already your email address."
+msgstr "Det är redan din emailadress."
+
+#: ../actions/smssettings.php:188 actions/smssettings.php:196
+msgid "That is already your phone number."
+msgstr "Det är redan ditt telefonnummer."
+
+#: ../actions/emailsettings.php:249 actions/emailsettings.php:267
+msgid "That is not your email address."
+msgstr "Det är inte din emailadress."
+
+#: ../actions/smssettings.php:257 actions/smssettings.php:265
+msgid "That is not your phone number."
+msgstr "Det är inte ditt telefonnummer."
+
+#: ../actions/smssettings.php:233 actions/smssettings.php:241
+msgid "That is the wrong confirmation number."
+msgstr "Det är fel nummer i bekräftelsen"
+
+#: ../actions/smssettings.php:191 actions/smssettings.php:199
+msgid "That phone number already belongs to another user."
+msgstr "Det numret tillhör en annan användare."
+
+#: ../actions/twitapiaccount.php:74 actions/twitapiaccount.php:72
+msgid "That's too long. Max notice size is 255 chars."
+msgstr "Det är för långt. Max antal tecken är 255."
+
+#: ../actions/invite.php:89 actions/invite.php:96
+msgid ""
+"These people are already users and you were automatically subscribed to "
+"them:"
+msgstr ""
+"Dom personerna är redan registrerade användare och du blev nu automatiskt "
+"prenumerant till dom:"
+
+#: ../actions/twitapifriendships.php:108 ../actions/twitapistatuses.php:586
+#: actions/twitapifavorites.php:127 actions/twitapifriendships.php:108
+#: actions/twitapistatuses.php:511
+msgid "This method requires a POST or DELETE."
+msgstr "Denna metod kräver antingen skicka eller tabort."
+
+#: ../actions/twitapiaccount.php:65 ../actions/twitapifriendships.php:44
+#: ../actions/twitapistatuses.php:381 actions/twitapiaccount.php:63
+#: actions/twitapidirect_messages.php:114 actions/twitapifriendships.php:44
+#: actions/twitapistatuses.php:303
+msgid "This method requires a POST."
+msgstr "Denna metod kräver skicka."
+
+#: ../actions/profilesettings.php:63 actions/profilesettings.php:96
+msgid "Timezone"
+msgstr "Tidszon"
+
+#: ../actions/profilesettings.php:107 actions/profilesettings.php:222
+msgid "Timezone not selected."
+msgstr "Du har inte valt tidszon"
+
+#: ../actions/twitapifriendships.php:163 actions/twitapifriendships.php:167
+msgid "Two user ids or screen_names must be supplied."
+msgstr "Två användarid eller namn måste läggas till."
+
+#: ../index.php:57 index.php:57
+msgid "Unknown action"
+msgstr "Okänd funktion"
+
+#: ../lib/settingsaction.php:100 lib/settingsaction.php:94
+msgid "Updates by SMS"
+msgstr "Uppdateringar via SMS"
+
+#: ../lib/settingsaction.php:103 lib/settingsaction.php:97
+msgid "Updates by instant messenger (IM)"
+msgstr "Uppdateringar via instant messenger (IM)"
+
+#: ../actions/twitapistatuses.php:241 actions/twitapistatuses.php:158
+#, php-format
+msgid "Updates from %1$s and friends on %2$s!"
+msgstr "Uppdateringar från %1$s och vänner på %2$s!"
+
+#: ../actions/twitapistatuses.php:341 actions/twitapistatuses.php:268
+#, php-format
+msgid "Updates from %1$s on %2$s!"
+msgstr "Uppdateringar från %1$s på %2$s!"
+
+#: ../lib/settingsaction.php:91
+msgid "Upload a new profile image"
+msgstr "Ladda upp en ny profilbild"
+
+#: ../actions/invite.php:114 actions/invite.php:121
+msgid ""
+"Use this form to invite your friends and colleagues to use this "
+"service."
+msgstr ""
+"Använd detta formulär för att bjuda in dina vänner och kollegor till "
+"denna sida."
+
+#: ../actions/twitapiusers.php:75 actions/twitapiusers.php:80
+msgid "User not found."
+msgstr "Användare hittades inte."
+
+#: ../actions/profilesettings.php:63 actions/profilesettings.php:96
+msgid "What timezone are you normally in?"
+msgstr "Vilken tidszon befinner du dig normalt?"
+
+#: ../actions/deletenotice.php:63 ../actions/deletenotice.php:72
+#: actions/deletenotice.php:64 actions/deletenotice.php:79
+msgid "Yes"
+msgstr "Ja"
+
+#: ../actions/deletenotice.php:37 actions/deletenotice.php:37
+msgid ""
+"You are about to permanently delete a notice.  Once this is done, it cannot "
+"be undone."
+msgstr ""
+"Du håller på att tabort inlägget permanent. När det väl är gjort kan "
+"du inte ångra dig."
+
+#: ../actions/invite.php:81 actions/invite.php:88
+msgid "You are already subscribed to these users:"
+msgstr "Du prenumererar redan på dessa användare:"
+
+#: ../actions/twitapifriendships.php:128 actions/twitapifriendships.php:128
+msgid "You are not friends with the specified user."
+msgstr "Du är inte vän med den användaren."
+
+#: ../actions/smssettings.php:28 actions/smssettings.php:28
+#, php-format
+msgid "You can receive SMS messages through email from %%site.name%%."
+msgstr "Du kan ta emot SMS meddelande via email från %%site.name%%."
 
 #: ../lib/mail.php:147
 #, php-format
@@ -2140,122 +2278,637 @@ msgid ""
 "Faithfully yours,\n"
 "%4$s"
 msgstr ""
+"Du har en ny adress %1$s.\n"
+"\n"
+"Skicka email till %2$s för att göra ett nytt inlägg.\n"
+"\n"
+"Mer information får du på %3$s.\n"
+"\n"
+"Mvh,\n%4$s"
 
-#: ../actions/twitapistatuses.php:612
+#: ../actions/twitapistatuses.php:612 actions/twitapistatuses.php:537
 msgid "You may not delete another user's status."
-msgstr ""
+msgstr "Du kan inte tabort nån annan användares status."
 
-#: ../actions/invite.php:31
+#: ../actions/invite.php:31 actions/invite.php:31
 #, php-format
 msgid "You must be logged in to invite other users to use %s"
-msgstr ""
+msgstr "du måste vara inloggad för att kunna bjuda in andra användare till %s"
 
-#: ../actions/invite.php:103
+#: ../actions/invite.php:103 actions/invite.php:110
 msgid ""
 "You will be notified when your invitees accept the invitation and register "
 "on the site. Thanks for growing the community!"
 msgstr ""
-
-#: ../actions/recoverpassword.php:149
-msgid "You've been identified. Enter a  new password below. "
-msgstr "Du är identifierad. Skriv ett nytt lösenord nedan."
-
-#: ../actions/openidlogin.php:67
-msgid "Your OpenID URL"
-msgstr "Din OpenID URL"
-
-#: ../actions/recoverpassword.php:164
-msgid "Your nickname on this server, or your registered email address."
-msgstr "Ditt användarnamn på denna server eller registrerad epost adress."
-
-#: ../actions/openidsettings.php:28
-#, php-format
-msgid ""
-"[OpenID](%%doc.openid%%) lets you log into many sites  with the same user "
-"account.  Manage your associated OpenIDs from here."
-msgstr ""
-"[OpenID](%%doc.openid%%) låter dig logga in på flera sidor med samma konto. "
-"Ställ in ditt OpenID konto härifrån."
-
-#: ../lib/util.php:943
-msgid "a few seconds ago"
-msgstr "ett par sekunder sedan"
-
-#: ../lib/util.php:955
-#, php-format
-msgid "about %d days ago"
-msgstr "för %d dagar sedan"
-
-#: ../lib/util.php:951
-#, php-format
-msgid "about %d hours ago"
-msgstr "för %d timmar sedan"
-
-#: ../lib/util.php:947
-#, php-format
-msgid "about %d minutes ago"
-msgstr "för %d minuter sedan"
-
-#: ../lib/util.php:959
-#, php-format
-msgid "about %d months ago"
-msgstr "för %d månader sedan"
-
-#: ../lib/util.php:953
-msgid "about a day ago"
-msgstr "för en dag sedan"
-
-#: ../lib/util.php:945
-msgid "about a minute ago"
-msgstr "för nån minut sedan"
-
-#: ../lib/util.php:957
-msgid "about a month ago"
-msgstr "för en månad sedan"
-
-#: ../lib/util.php:961
-msgid "about a year ago"
-msgstr "för ett år sedan"
-
-#: ../lib/util.php:949
-msgid "about an hour ago"
-msgstr "för en timma sedan"
+"du kommer bli meddelad när någon du bjudit in accepterar inbjudan och "
+"registrerar sig. Tack för att du hjälper oss växa!"
 
 #: ../actions/showstream.php:423 ../lib/stream.php:132
+#: actions/showstream.php:441 lib/stream.php:99
 msgid "delete"
+msgstr "Tabort"
+
+#: ../actions/twitapistatuses.php:755 actions/twitapistatuses.php:678
+msgid "unsupported file type"
+msgstr "okänd fil typ"
+
+#: actions/deletenotice.php:74 actions/disfavor.php:43
+#: actions/emailsettings.php:127 actions/favor.php:45
+#: actions/finishopenidlogin.php:33 actions/imsettings.php:105
+#: actions/invite.php:46 actions/newmessage.php:45 actions/openidlogin.php:36
+#: actions/openidsettings.php:123 actions/profilesettings.php:47
+#: actions/recoverpassword.php:282 actions/register.php:42
+#: actions/remotesubscribe.php:40 actions/smssettings.php:124
+#: actions/subscribe.php:44 actions/twittersettings.php:97
+#: actions/unsubscribe.php:41 actions/userauthorization.php:35
+msgid "There was a problem with your session token. Try again, please."
+msgstr "Det var något problem med din session. Försök igen, tack."
+
+#: actions/disfavor.php:55
+msgid "This notice is not a favorite!"
+msgstr "Det inlägget är ingen favorit!"
+
+#: actions/disfavor.php:63
+msgid "Could not delete favorite."
+msgstr "Kunde inte tabort favoriten."
+
+#: actions/disfavor.php:72
+msgid "Favor"
+msgstr "Favorisera"
+
+#: actions/emailsettings.php:92
+msgid "Send me email when someone adds my notice as a favorite."
+msgstr "Skicka mig ett email när någon lägger till mitt inlägg som favorit."
+
+#: actions/emailsettings.php:95
+msgid "Send me email when someone sends me a private message."
+msgstr "Skicka mig ett email när någon sänder ett privat meddelande."
+
+#: actions/favor.php:53 actions/twitapifavorites.php:142
+msgid "This notice is already a favorite!"
+msgstr "Detta inlägg är redan en favorit!"
+
+#: actions/favor.php:60 actions/twitapifavorites.php:151
+#: classes/Command.php:132
+msgid "Could not create favorite."
+msgstr "Kunde inte skapa favorit."
+
+#: actions/favor.php:70
+msgid "Disfavor"
+msgstr "Avfavorisera"
+
+#: actions/favoritesrss.php:60 actions/showfavorites.php:47
+#, php-format
+msgid "%s favorite notices"
+msgstr "%s favoriter"
+
+#: actions/favoritesrss.php:64
+#, php-format
+msgid "Feed of favorite notices of %s"
+msgstr "Feed över %s favoriter"
+
+#: actions/inbox.php:28
+#, php-format
+msgid "Inbox for %s - page %d"
+msgstr "Inbox för %s - sida %d"
+
+#: actions/inbox.php:30
+#, php-format
+msgid "Inbox for %s"
+msgstr "Inbox för %s"
+
+#: actions/inbox.php:53
+msgid "This is your inbox, which lists your incoming private messages."
+msgstr "Detta är din inbox som innehåller dina privata meddelanden."
+
+#: actions/invite.php:178
+#, php-format
+msgid ""
+"%1$s has invited you to join them on %2$s (%3$s).\n"
+"\n"
+msgstr ""
+"%1$s har bjudit in dig till %2$s(%3$s).\n"
+"\n"
+
+#: actions/login.php:104
+msgid "Automatically login in the future; "
+msgstr "Logga in automatiskt;"
+
+#: actions/login.php:122
+msgid "For security reasons, please re-enter your "
+msgstr "För säkerhets skull, skriv in dina"
+
+#: actions/login.php:126
+msgid "Login with your username and password. "
+msgstr "Logga in med ditt användarnamn och lösenord."
+
+#: actions/newmessage.php:58 actions/twitapidirect_messages.php:130
+msgid "That's too long. Max message size is 140 chars."
+msgstr "Det är för långt. Max är 140 tecken. "
+
+#: actions/newmessage.php:65
+msgid "No recipient specified."
+msgstr "Ingen mottagare tillagd."
+
+#: actions/newmessage.php:68 actions/newmessage.php:113
+#: classes/Command.php:206
+msgid "You can't send a message to this user."
+msgstr "Du kan inte skicka meddelande till den användaren."
+
+#: actions/newmessage.php:71 actions/twitapidirect_messages.php:146
+#: classes/Command.php:209
+msgid ""
+"Don't send a message to yourself; just say it to yourself quietly "
+"instead."
+msgstr "Skicka inte meddelande till dig själv, viska lite tyst istället."
+
+#: actions/newmessage.php:108
+msgid "No such user"
+msgstr "Ingen sådan användare"
+
+#: actions/newmessage.php:117
+msgid "New message"
+msgstr "Nytt meddelande"
+
+#: actions/noticesearch.php:95
+msgid "Notice without matching profile"
+msgstr "Inlägg utan matchande profil"
+
+#: actions/openidsettings.php:28
+#, php-format
+msgid "[OpenID](%%doc.openid%%) lets you log into many sites "
+msgstr "[OpenID](%%doc.openid%%) låter dig logga in på många sidor"
+
+#: actions/openidsettings.php:46
+msgid "If you want to add an OpenID to your account, "
+msgstr "Om du vill lägga till en OpenID till ditt konto,"
+
+#: actions/openidsettings.php:74
+msgid "Removing your only OpenID would make it impossible to log in! "
+msgstr "Att tabort ditt enda OpenID skulle göra det omöjligt att logga in!"
+
+#: actions/openidsettings.php:87
+msgid "You can remove an OpenID from your account "
+msgstr "Du kan tabort ett OpenID ifrån ditt konto"
+
+#: actions/outbox.php:28
+#, php-format
+msgid "Outbox for %s - page %d"
+msgstr "Outbox för %s - sida %d"
+
+#: actions/outbox.php:30
+#, php-format
+msgid "Outbox for %s"
+msgstr "Outbox för %s"
+
+#: actions/outbox.php:53
+msgid "This is your outbox, which lists private messages you have sent."
+msgstr "Detta är din outbox som innehåller meddelanden som du skickat."
+
+#: actions/peoplesearch.php:28
+#, php-format
+msgid ""
+"Search for people on %%site.name%% by their name, location, or interests. "
+msgstr ""
+"Sök efter personer på %%site.name%% efter deras namn, plats eller "
+"intressen."
+
+#: actions/profilesettings.php:27
+msgid "You can update your personal profile info here "
+msgstr "Du kan uppdatera din personliga profil här"
+
+#: actions/profilesettings.php:115 actions/remotesubscribe.php:320
+#: actions/userauthorization.php:159 actions/userrss.php:76
+msgid "User without matching profile"
+msgstr "Användare utan matchande profil"
+
+#: actions/recoverpassword.php:91
+msgid "This confirmation code is too old. "
+msgstr "Denna bekräftelsekod är för gammal."
+
+#: actions/recoverpassword.php:141
+msgid "If you've forgotten or lost your"
+msgstr "Om du har glömt eller tappat bort din"
+
+#: actions/recoverpassword.php:154
+msgid "You've been identified. Enter a "
+msgstr "Du är identifierad. Skriv in"
+
+#: actions/recoverpassword.php:169
+msgid "Your nickname on this server, "
+msgstr "Ditt smeknamn på denna server,"
+
+#: actions/recoverpassword.php:271
+msgid "Instructions for recovering your password "
+msgstr "Instruktioner för att återfå ditt lösenord"
+
+#: actions/recoverpassword.php:327
+msgid "New password successfully saved. "
+msgstr "Nya lösenordet är sparat."
+
+#: actions/register.php:95
+msgid "Password must be 6 or more characters."
+msgstr "Lösenordet måste vara minst 6 tecken."
+
+#: actions/register.php:216
+#, php-format
+msgid ""
+"Congratulations, %s! And welcome to %%%%site.name%%%%. From here, you may "
+"want to..."
+msgstr ""
+"Gratulerar, %s! Välkommen till %%%%site.name%%%%. Härifrån vill du "
+"kanske..."
+
+#: actions/register.php:227
+msgid "(You should receive a message by email momentarily, with "
+msgstr "(Du kommer inom kort få ett email med"
+
+#: actions/remotesubscribe.php:51
+#, php-format
+msgid "To subscribe, you can [login](%%action.login%%),"
+msgstr "För att prenumerera så kan du [login](%%action.login%%),"
+
+#: actions/showfavorites.php:61
+#, php-format
+msgid "Feed for favorites of %s"
+msgstr "Feed för %s favoriter"
+
+#: actions/showfavorites.php:84 actions/twitapifavorites.php:85
+msgid "Could not retrieve favorite notices."
+msgstr "Kunde inte ta emot favoritinläggen."
+
+#: actions/showmessage.php:33
+msgid "No such message."
+msgstr "Inget sådant meddelande."
+
+#: actions/showmessage.php:42
+msgid "Only the sender and recipient may read this message."
+msgstr "Endast den som skickat och mottagaren kan läsa detta meddelande."
+
+#: actions/showmessage.php:61
+#, php-format
+msgid "Message to %1$s on %2$s"
+msgstr "Meddelande till %1$s på %2$s"
+
+#: actions/showmessage.php:66
+#, php-format
+msgid "Message from %1$s on %2$s"
+msgstr "Meddelande från %1$s på %2$s"
+
+#: actions/showstream.php:154
+msgid "Send a message"
+msgstr "Skicka ett meddelande"
+
+#: actions/smssettings.php:312
+#, php-format
+msgid "Mobile carrier for your phone. "
+msgstr "Mobiloperatören för din telefon."
+
+#: actions/twitapidirect_messages.php:76
+#, php-format
+msgid "Direct messages to %s"
+msgstr "Direktmeddelande till %s"
+
+#: actions/twitapidirect_messages.php:77
+#, php-format
+msgid "All the direct messages sent to %s"
+msgstr "Alla direktmeddelanden skickade till %s"
+
+#: actions/twitapidirect_messages.php:81
+msgid "Direct Messages You've Sent"
+msgstr "Direktmeddelanden du skickat"
+
+#: actions/twitapidirect_messages.php:82
+#, php-format
+msgid "All the direct messages sent from %s"
+msgstr "Alla direktmeddelanden skickade ifrån %s"
+
+#: actions/twitapidirect_messages.php:128
+msgid "No message text!"
+msgstr "Ingen meddelande text!"
+
+#: actions/twitapidirect_messages.php:138
+msgid "Recipient user not found."
+msgstr "Mottagaren kunde inte hittas."
+
+#: actions/twitapidirect_messages.php:141
+msgid "Can't send direct messages to users who aren't your friend."
+msgstr ""
+"Kan inte skicka direktmeddelanden till användare som inte är dina "
+"vänner."
+
+#: actions/twitapifavorites.php:92
+#, php-format
+msgid "%s / Favorites from %s"
+msgstr "%s / Favoriter från %s"
+
+#: actions/twitapifavorites.php:95
+#, php-format
+msgid "%s updates favorited by %s / %s."
+msgstr "%s uppdaterade favoriter av %s / %s."
+
+#: actions/twitapifavorites.php:187 lib/mail.php:275
+#, php-format
+msgid "%s added your notice as a favorite"
+msgstr "%s la till ditt inlägg som favorit"
+
+#: actions/twitapifavorites.php:188 lib/mail.php:276
+#, php-format
+msgid ""
+"%1$s just added your notice from %2$s as one of their favorites.\n"
+"\n"
+msgstr "%1$s la just in ditt inlägg ifrån %2$s som en av deras favorit.\n\n"
+
+#: actions/twittersettings.php:27
+msgid ""
+"Add your Twitter account to automatically send your notices to Twitter, "
+msgstr ""
+"Lägg till ditt Twitter konto för att automatiskt skicka dina inlägg till "
+"Twitter,"
+
+#: actions/twittersettings.php:41
+msgid "Twitter settings"
+msgstr "Twitter inställningar"
+
+#: actions/twittersettings.php:48
+msgid "Twitter Account"
+msgstr "Twitter konto"
+
+#: actions/twittersettings.php:56
+msgid "Current verified Twitter account."
+msgstr "Verifierat Twitter konto."
+
+#: actions/twittersettings.php:63
+msgid "Twitter Username"
+msgstr "Twitter användarnamn"
+
+#: actions/twittersettings.php:65
+msgid "No spaces, please."
+msgstr "Inga mellanslag tack."
+
+#: actions/twittersettings.php:67
+msgid "Twitter Password"
+msgstr "Twitter lösenord"
+
+#: actions/twittersettings.php:72
+msgid "Automatically send my notices to Twitter."
+msgstr "Skicka automatiskt mina inlägg till Twitter."
+
+#: actions/twittersettings.php:75
+msgid "Send local \"@\" replies to Twitter."
+msgstr "Skicka lokala \"@\" svar till Twitter."
+
+#: actions/twittersettings.php:78
+msgid "Subscribe to my Twitter friends here."
+msgstr "Prenumerera på mina Twitter vänner här."
+
+#: actions/twittersettings.php:122
+msgid ""
+"Username must have only numbers, upper- and lowercase letters, and "
+"underscore (_). 15 chars max."
+msgstr ""
+"Användarnamn får bara innehålla nummer, stora och små bokstäver, och "
+"underscore(_). 15 tecken max."
+
+#: actions/twittersettings.php:128
+msgid "Could not verify your Twitter credentials!"
+msgstr "Kunde inte verifiera din Twitter!"
+
+#: actions/twittersettings.php:137
+#, php-format
+msgid "Unable to retrieve account information for \"%s\" from Twitter."
+msgstr "Kunde inte mottaga konto information för \"%s\" Twitter."
+
+#: actions/twittersettings.php:151 actions/twittersettings.php:170
+msgid "Unable to save your Twitter settings!"
+msgstr "Kunde inte spara dina Twitter inställningar!"
+
+#: actions/twittersettings.php:174
+msgid "Twitter settings saved."
+msgstr "Twitter inställningar sparade."
+
+#: actions/twittersettings.php:192
+msgid "That is not your Twitter account."
+msgstr "Det är inte ditt Twitter konto."
+
+#: actions/twittersettings.php:200 actions/twittersettings.php:208
+msgid "Couldn't remove Twitter user."
+msgstr "Kunde inte tabort Twitter användaren."
+
+#: actions/twittersettings.php:212
+msgid "Twitter account removed."
+msgstr "Twitterkontot borttaget."
+
+#: actions/twittersettings.php:225 actions/twittersettings.php:239
+msgid "Couldn't save Twitter preferences."
+msgstr "Kunde inte spara Twitter inställningar."
+
+#: actions/twittersettings.php:245
+msgid "Twitter preferences saved."
 msgstr ""
 
-#: ../actions/noticesearch.php:130 ../actions/showstream.php:408
-#: ../lib/stream.php:117
-msgid "in reply to..."
-msgstr "svar till..."
+#: actions/userauthorization.php:84
+msgid "Please check these details to make sure "
+msgstr ""
 
-#: ../actions/noticesearch.php:137 ../actions/showstream.php:415
-#: ../lib/stream.php:124
-msgid "reply"
-msgstr "svar"
+#: actions/userauthorization.php:324
+msgid "The subscription has been authorized, but no "
+msgstr ""
 
-#: ../actions/password.php:44
-msgid "same as password above"
-msgstr "samma som lösenordet ovan"
+#: actions/userauthorization.php:334
+msgid "The subscription has been rejected, but no "
+msgstr ""
 
-#: ../actions/twitapistatuses.php:755
-#, fuzzy
-msgid "unsupported file type"
-msgstr "Bildfilens format stödjs inte."
+#: classes/Channel.php:113
+msgid "Command results"
+msgstr ""
 
-#: ../lib/util.php:1309
-msgid "« After"
-msgstr "« Nyare"
+#: classes/Channel.php:148
+msgid "Command complete"
+msgstr ""
 
-#~ msgid "Couldn't confirm email."
-#~ msgstr "Kunde inte bekräfta epost"
+#: classes/Channel.php:158
+msgid "Command failed"
+msgstr ""
 
-#~ msgid "Couldn't create subscription."
-#~ msgstr "Kunde inte skapa prenumeration."
+#: classes/Command.php:39
+msgid "Sorry, this command is not yet implemented."
+msgstr ""
 
-#~ msgid "Error inserting notice"
-#~ msgstr "Fel uppstog när inlägget skulle läggas till"
+#: classes/Command.php:96
+#, php-format
+msgid "Subscriptions: %1$s\n"
+msgstr ""
 
-#~ msgid "Public"
-#~ msgstr "Publik"
+#: classes/Command.php:125 classes/Command.php:242
+msgid "User has no last notice"
+msgstr ""
+
+#: classes/Command.php:146
+msgid "Notice marked as fave."
+msgstr ""
+
+#: classes/Command.php:166
+#, php-format
+msgid "%1$s (%2$s)"
+msgstr "%1$s (%2$s)"
+
+#: classes/Command.php:169
+#, php-format
+msgid "Fullname: %s"
+msgstr "Fullt namn: %s"
+
+#: classes/Command.php:172
+#, php-format
+msgid "Location: %s"
+msgstr "Plats: %s"
+
+#: classes/Command.php:175
+#, php-format
+msgid "Homepage: %s"
+msgstr "Hemsida: %s"
+
+#: classes/Command.php:178
+#, php-format
+msgid "About: %s"
+msgstr "Om: %s"
+
+#: classes/Command.php:200
+#, php-format
+msgid "Message too long - maximum is 140 characters, you sent %d"
+msgstr ""
+
+#: classes/Command.php:214
+#, php-format
+msgid "Direct message to %s sent"
+msgstr ""
+
+#: classes/Command.php:216
+msgid "Error sending direct message."
+msgstr ""
+
+#: classes/Command.php:263
+msgid "Specify the name of the user to subscribe to"
+msgstr ""
+
+#: classes/Command.php:270
+#, php-format
+msgid "Subscribed to %s"
+msgstr ""
+
+#: classes/Command.php:288
+msgid "Specify the name of the user to unsubscribe from"
+msgstr ""
+
+#: classes/Command.php:295
+#, php-format
+msgid "Unsubscribed from %s"
+msgstr ""
+
+#: classes/Command.php:310 classes/Command.php:330
+msgid "Command not yet implemented."
+msgstr ""
+
+#: classes/Command.php:313
+msgid "Notification off."
+msgstr ""
+
+#: classes/Command.php:315
+msgid "Can't turn off notification."
+msgstr ""
+
+#: classes/Command.php:333
+msgid "Notification on."
+msgstr ""
+
+#: classes/Command.php:335
+msgid "Can't turn on notification."
+msgstr ""
+
+#: classes/Command.php:344
+msgid "Commands:\n"
+msgstr ""
+
+#: classes/Message.php:53
+msgid "Could not insert message."
+msgstr ""
+
+#: classes/Message.php:63
+msgid "Could not update message with new URI."
+msgstr ""
+
+#: lib/gallery.php:46
+msgid "User without matching profile in system."
+msgstr ""
+
+#: lib/mail.php:147
+#, php-format
+msgid ""
+"You have a new posting address on %1$s.\n"
+"\n"
+msgstr ""
+
+#: lib/mail.php:249
+#, php-format
+msgid "New private message from %s"
+msgstr ""
+
+#: lib/mail.php:253
+#, php-format
+msgid ""
+"%1$s (%2$s) sent you a private message:\n"
+"\n"
+msgstr ""
+
+#: lib/mailbox.php:43
+msgid "Only the user can read their own mailboxes."
+msgstr ""
+
+#: lib/openid.php:195
+msgid "This form should automatically submit itself. "
+msgstr ""
+
+#: lib/personal.php:65
+msgid "Favorites"
+msgstr ""
+
+#: lib/personal.php:66
+#, php-format
+msgid "%s's favorite notices"
+msgstr ""
+
+#: lib/personal.php:66
+msgid "User"
+msgstr ""
+
+#: lib/personal.php:75
+msgid "Inbox"
+msgstr ""
+
+#: lib/personal.php:76
+msgid "Your incoming messages"
+msgstr ""
+
+#: lib/personal.php:80
+msgid "Outbox"
+msgstr ""
+
+#: lib/personal.php:81
+msgid "Your sent messages"
+msgstr ""
+
+#: lib/settingsaction.php:99
+msgid "Twitter"
+msgstr ""
+
+#: lib/settingsaction.php:100
+msgid "Twitter integration options"
+msgstr ""
+
+#: lib/util.php:1718
+msgid "To"
+msgstr ""
+
+#: scripts/maildaemon.php:45
+msgid "Could not parse message."
+msgstr ""
