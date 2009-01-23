@@ -274,14 +274,19 @@ class NoticeListItem extends Widget
 
     function showAvatar()
     {
-        $avatar = $this->profile->getAvatar(AVATAR_STREAM_SIZE);
+        if ('shownotice' === $this->out->trimmed('action')) {
+            $avatar_size = AVATAR_PROFILE_SIZE;
+        } else {
+            $avatar_size = AVATAR_STREAM_SIZE;
+        }
+        $avatar = $this->profile->getAvatar($avatar_size);
 
         $this->out->element('img', array('src' => ($avatar) ?
                                          common_avatar_display_url($avatar) :
-                                         common_default_avatar(AVATAR_STREAM_SIZE),
+                                         common_default_avatar($avatar_size),
                                          'class' => 'avatar photo',
-                                         'width' => AVATAR_STREAM_SIZE,
-                                         'height' => AVATAR_STREAM_SIZE,
+                                         'width' => $avatar_size,
+                                         'height' => $avatar_size,
                                          'alt' =>
                                          ($this->profile->fullname) ?
                                          $this->profile->fullname :
