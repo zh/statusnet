@@ -34,7 +34,7 @@ require_once INSTALLDIR . '/lib/facebookutil.php';
 $last_updated_file = INSTALLDIR . '/scripts/facebook_last_updated';
 
 // Lock file name
-$tmp_file = "/tmp/update_facebook.lock";
+$tmp_file = INSTALLDIR . '/scripts/update_facebook.lock';
 
 // Make sure only one copy of the script is running at a time
 if (!($tmp_file = @fopen($tmp_file, "w")))
