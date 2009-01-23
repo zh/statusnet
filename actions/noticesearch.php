@@ -1,5 +1,16 @@
 <?php
-/*
+/**
+ * Notice search action class.
+ *
+ * PHP version 5
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ *
  * Laconica - a distributed open-source microblogging tool
  * Copyright (C) 2008, Controlez-Vous, Inc.
  *
@@ -17,43 +28,64 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
-require_once(INSTALLDIR.'/lib/searchaction.php');
+require_once INSTALLDIR.'/lib/searchaction.php';
 
-# XXX common parent for people and content search?
-
+/**
+ * Notice search action class.
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ * @todo     common parent for people and content search?
+ */
 class NoticesearchAction extends SearchAction
 {
-
-    function get_instructions()
+    /**
+     * Get instructions
+     * 
+     * @return string instruction text 
+     */
+    function getInstructions()
     {
         return _('Search for notices on %%site.name%% by their contents. Separate search terms by spaces; they must be 3 characters or more.');
     }
 
-    function get_title()
+    /**
+     * Get title
+     * 
+     * @return string title
+     */
+    function title()
     {
         return _('Text search');
     }
 
-    function show_results($q, $page)
+    /**
+     * Show results
+     *
+     * @param string  $q    search query
+     * @param integer $page page number
+     *
+     * @return void
+     */
+    function showResults($q, $page)
     {
-
-        $notice = new Notice();
-
-        # lcase it for comparison
-        $q = strtolower($q);
-
+        $notice        = new Notice();
+        $q             = strtolower($q);
         $search_engine = $notice->getSearchEngine('identica_notices');
-
         $search_engine->set_sort_mode('chron');
-        # Ask for an extra to see if there's more.
+        // Ask for an extra to see if there's more.
         $search_engine->limit((($page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE + 1);
-
         if (false === $search_engine->query($q)) {
             $cnt = 0;
-        }
-        else {
+        } else {
             $cnt = $notice->find();
         }
         if ($cnt > 0) {
@@ -61,7 +93,7 @@ class NoticesearchAction extends SearchAction
             $this->elementStart('ul', array('id' => 'notices'));
             for ($i = 0; $i < min($cnt, NOTICES_PER_PAGE); $i++) {
                 if ($notice->fetch()) {
-                    $this->show_notice($notice, $terms);
+                    $this->showNotice($notice, $terms);
                 } else {
                     // shouldn't happen!
                     break;
@@ -72,15 +104,21 @@ class NoticesearchAction extends SearchAction
             $this->element('p', 'error', _('No results'));
         }
 
-        common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
+        $this->pagination($page > 1, $cnt > NOTICES_PER_PAGE,
                           $page, 'noticesearch', array('q' => $q));
     }
 
-    function show_header($arr)
+    /**
+     * Show header
+     *
+     * @param array $arr array containing the query
+     *
+     * @return void
+     */
+
+    function extraHead()
     {
-        if ($arr) {
-            $q = $arr[0];
-        }
+        $q = $this->trimmed('q');
         if ($q) {
             $this->element('link', array('rel' => 'alternate',
                                          'href' => common_local_url('noticesearchrss',
@@ -90,9 +128,17 @@ class NoticesearchAction extends SearchAction
         }
     }
 
-    # XXX: refactor and combine with StreamAction::show_notice()
-
-    function show_notice($notice, $terms)
+    /**
+     * Show notice
+     *
+     * @param class $notice notice
+     * @param array $terms  terms to highlight
+     *
+     * @return void
+     *
+     * @todo refactor and combine with StreamAction::showNotice()
+     */
+    function showNotice($notice, $terms)
     {
         $profile = $notice->getProfile();
         if (!$profile) {
@@ -100,7 +146,7 @@ class NoticesearchAction extends SearchAction
             $this->serverError(_('Notice without matching profile'));
             return;
         }
-        # XXX: RDFa
+        // XXX: RDFa
         $this->elementStart('li', array('class' => 'notice_single',
                                           'id' => 'notice-' . $notice->id));
         $avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
@@ -116,14 +162,14 @@ class NoticesearchAction extends SearchAction
         $this->element('a', array('href' => $profile->profileurl,
                                   'class' => 'nickname'),
                        $profile->nickname);
-        # FIXME: URL, image, video, audio
+        // FIXME: URL, image, video, audio
         $this->elementStart('p', array('class' => 'content'));
         if ($notice->rendered) {
             $this->raw($this->highlight($notice->rendered, $terms));
         } else {
-            # XXX: may be some uncooked notices in the DB,
-            # we cook them right now. This should probably disappear in future
-            # versions (>> 0.4.x)
+            // XXX: may be some uncooked notices in the DB,
+            // we cook them right now. This should probably disappear in future
+            // versions (>> 0.4.x)
             $this->raw($this->highlight(common_render_content($notice->content, $notice), $terms));
         }
         $this->elementEnd('p');
@@ -155,17 +201,26 @@ class NoticesearchAction extends SearchAction
         $this->elementEnd('li');
     }
 
+    /**
+     * Highlist query terms
+     *
+     * @param string $text  notice text
+     * @param array  $terms terms to highlight
+     *
+     * @return void
+     */
     function highlight($text, $terms)
     {
         /* Highligh serach terms */
-        $pattern = '/('.implode('|',array_map('htmlspecialchars', $terms)).')/i';
-        $result = preg_replace($pattern, '<strong>\\1</strong>', $text);
+        $pattern = '/('.implode('|', array_map('htmlspecialchars', $terms)).')/i';
+        $result  = preg_replace($pattern, '<strong>\\1</strong>', $text);
 
         /* Remove highlighting from inside links, loop incase multiple highlights in links */
-        $pattern = '/(href="[^"]*)<strong>('.implode('|',array_map('htmlspecialchars', $terms)).')<\/strong>([^"]*")/iU';
+        $pattern = '/(href="[^"]*)<strong>('.implode('|', array_map('htmlspecialchars', $terms)).')<\/strong>([^"]*")/iU';
         do {
             $result = preg_replace($pattern, '\\1\\2\\3', $result, -1, $count);
         } while ($count);
         return $result;
     }
 }
+
