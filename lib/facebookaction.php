@@ -46,13 +46,37 @@ class FacebookAction extends Action
     var $app_uri  = null;
     var $app_name = null;
   
+    /**
+     * Constructor
+     *
+     * Just wraps the HTMLOutputter constructor.
+     *
+     * @param string  $output URI to output to, default = stdout
+     * @param boolean $indent Whether to indent output, default true
+     *
+     * @see XMLOutputter::__construct
+     * @see HTMLOutputter::__construct
+     */
+    function __construct($output='php://output', $indent=true, $facebook=null, $flink=null)
+    {
+        parent::__construct($output, $indent);
+        
+        $this->facebook = $facebook;
+        $this->flink = $flink;
+        
+        if ($this->flink) {
+            $this->fbuid = $flink->foreign_id; 
+            $this->user = $flink->getUser();
+        }
+    }
+  
     function prepare($argarray)
     {        
         parent::prepare($argarray);
         
         common_debug("Facebookaction::prepare");
   
-        $this->facebook = get_facebook();
+        $this->facebook = getFacebook();
         $this->fbuid = $this->facebook->require_login();
         
         $this->action = $this->trimmed('action');

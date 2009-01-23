@@ -18,6 +18,7 @@
  */
 
 require_once INSTALLDIR.'/extlib/facebook/facebook.php';
+require_once INSTALLDIR.'/lib/facebookaction.php';
 require_once INSTALLDIR.'/lib/noticelist.php';
 
 define("FACEBOOK_SERVICE", 2); // Facebook is foreign_service ID 2
@@ -25,7 +26,7 @@ define("FACEBOOK_NOTICE_PREFIX", 1);
 define("FACEBOOK_PROMPTED_UPDATE_PREF", 2);
 
 // Gets all the notices from users with a Facebook link since a given ID
-function get_facebook_notices($since)
+function getFacebookNotices($since)
 {
     $qry = 'SELECT notice.* ' .
         'FROM notice ' .
@@ -37,7 +38,7 @@ function get_facebook_notices($since)
     return Notice::getStreamDirect($qry, 0, 100, 0, 0, null, $since);
 }
 
-function get_facebook()
+function getFacebook()
 {
     $apikey = common_config('facebook', 'apikey');
     $secret = common_config('facebook', 'secret');
@@ -74,5 +75,10 @@ function getFacebookJS() {
     $ts = filemtime(INSTALLDIR.'/js/facebookapp.js');
     $jsurl = common_path('js/facebookapp.js') . "?ts=$ts";
     return $jsurl;
+}
+
+function updateProfileBox($facebook, $flink, $notice) {
+    $fbaction = new FacebookAction($output='php://output', $indent=true, $facebook, $flink);
+    $fbaction->updateProfileBox($notice);
 }
 

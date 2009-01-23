@@ -27,8 +27,8 @@ if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 define('LACONICA', true);
 
-require_once(INSTALLDIR . '/lib/common.php');
-require_once(INSTALLDIR . '/lib/facebookutil.php');
+require_once INSTALLDIR . '/lib/common.php';
+require_once INSTALLDIR . '/lib/facebookutil.php';
 
 // For storing the last run date-time
 $last_updated_file = INSTALLDIR . '/scripts/facebook_last_updated';
@@ -42,11 +42,11 @@ if (!($tmp_file = @fopen($tmp_file, "w")))
 	die("Can't open lock file. Script already running?");
 }
 
-$facebook = get_facebook();
+$facebook = getFacebook();
 
 $current_time = time();
 
-$notice = get_facebook_notices(get_last_updated());
+$notice = getFacebookNotices(getLastUpdated());
 
 print date('r', $current_time) . " Looking for notices to send to Facebook...\n";
 
@@ -57,11 +57,14 @@ while($notice->fetch()) {
     $flink = Foreign_link::getByUserID($notice->profile_id, FACEBOOK_SERVICE);
     $user = $flink->getUser();
     $fbuid = $flink->foreign_id;
+    
+    if (!userCanUpdate($fbuid)) {
+        continue;
+    }
 
-    $prefix = $facebook->api_client->data_getUserPreference(1, $fbuid);
-
+    $prefix = $facebook->api_client->data_getUserPreference(FACEBOOK_NOTICE_PREFIX, $fbuid);
     $content = "$prefix $notice->content";
-
+    
     if (($flink->noticesync & FOREIGN_NOTICE_SEND) == FOREIGN_NOTICE_SEND) {
 
         // If it's not a reply, or if the user WANTS to send replies...
@@ -70,23 +73,38 @@ while($notice->fetch()) {
              
                 // Avoid a Loop
                 if ($notice->source != 'Facebook') {
-                    update_status($fbuid, $content);
-                    update_profile_box($facebook, $fbuid, $user, $notice);
+                    updateStatus($fbuid, $content);
+                    updateProfileBox($facebook, $flink, $notice);
                     $cnt++;
                 }
             }
     }
 }
 
-update_last_updated($current_time);
+updateLastUpdated($current_time);
 
 print "Sent $cnt notices to Facebook.\n";
 
 exit(0);
 
 
+function userCanUpdate($fbuid) {
+    
+    global $facebook;
 
-function update_status($fbuid, $content) {
+    $result = false;
+    
+    try {
+        $result = $facebook->api_client->users_hasAppPermission('status_update', $fbuid);
+    } catch(FacebookRestClientException $e){
+        print_r($e);
+    }
+
+    return $result;
+}
+
+
+function updateStatus($fbuid, $content) {
     global $facebook;
 
     try {
@@ -96,7 +114,7 @@ function update_status($fbuid, $content) {
     }
 }
 
-function get_last_updated(){
+function getLastUpdated(){
 	global $last_updated_file, $current_time;
 
 	$file = fopen($last_updated_file, 'r');
@@ -113,7 +131,7 @@ function get_last_updated(){
 	return $last;
 }
 
-function update_last_updated($time){
+function updateLastUpdated($time){
 	global $last_updated_file;
 	$file = fopen($last_updated_file, 'w') or die("Can't open $last_updated_file for writing!");
 	fwrite($file, $time);
