@@ -107,4 +107,9 @@ class DocAction extends Action
     {
         return ucfirst($this->title);
     }
+
+    function isReadOnly()
+    {
+        return true;
+    }
 }

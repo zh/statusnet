@@ -71,4 +71,9 @@ class AccesstokenAction extends Action
             $this->serverError($e->getMessage());
         }
     }
+
+    function isReadOnly()
+    {
+        return true;
+    }
 }

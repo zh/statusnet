@@ -508,4 +508,9 @@ class GrouplogoAction extends Action
         $nav = new GroupNav($this, $this->group);
         $nav->show();
     }
+
+    function isReadOnly()
+    {
+        return true;
+    }
 }

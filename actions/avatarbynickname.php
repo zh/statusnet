@@ -97,5 +97,10 @@ class AvatarbynicknameAction extends Action
         }
         common_redirect($url, 302);
     }
+
+    function isReadOnly()
+    {
+        return true;
+    }
 }
 
