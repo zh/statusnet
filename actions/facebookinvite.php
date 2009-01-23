@@ -27,26 +27,51 @@ class FacebookinviteAction extends FacebookAction
     function handle($args)
     {
         parent::handle($args);
+        $this->showForm();
+    }
 
+    /**
+     * Wrapper for showing a page
+     *
+     * Stores an error and shows the page
+     *
+     * @param string $error Error, if any
+     *
+     * @return void
+     */
+
+    function showForm($error=null)
+    {
+        $this->error = $error;
+        $this->showPage();
+    }
+
+    /**
+     * Show the page content
+     *
+     * Either shows the registration form or, if registration was successful,
+     * instructions for using the site.
+     *
+     * @return void
+     */
+
+    function showContent()
+    {
         if ($this->arg('ids')) {
-            $this->showThankYou();
+            $this->showSuccessContent();
         } else {
-            $this->showInviteForm();
+            $this->showFormContent();
         }
     }
 
-
-    function showThankYou()
+    function showSuccessContent()
     {
-        $facebook = get_facebook();
-        $fbuid = $facebook->require_login();
 
-        $this->showHeader('Invite');
-
-        $this->element('h2', null, _('Thanks for inviting your friends to use Identi.ca!'));
+        $this->element('h2', null, sprintf(_('Thanks for inviting your friends to use %s'), 
+            common_config('site', 'name')));
         $this->element('p', null, _('Invitations have been sent to the following users:'));
 
-        $friend_ids = $_POST['ids']; // Hmm... $this->arg('ids') doesn't seem to work
+        $friend_ids = $_POST['ids']; // XXX: Hmm... is this the best way to acces the list?
 
         $this->elementStart("ul");
 
@@ -60,31 +85,24 @@ class FacebookinviteAction extends FacebookAction
 
         $this->elementEnd("ul");
 
-        $this->showFooter();
     }
 
-    function showInviteForm()
+    function showFormContent()
     {
 
-        $facebook = get_facebook();
-        $fbuid = $facebook->require_login();
-
-        $this->showHeader();
-        $this->showNav('Invite');
-
         // Get a list of users who are already using the app for exclusion
-        $exclude_ids = $facebook->api_client->friends_getAppUsers();
+        $exclude_ids = $this->facebook->api_client->friends_getAppUsers();
 
-        $content = _('You have been invited to Identi.ca!') .
-            htmlentities('<fb:req-choice url="http://apps.facebook.com/identica_app/" label="Add"/>');
+        $content = sprintf(_('You have been invited to %s'), common_config('site', 'name')) .
+            htmlentities('<fb:req-choice url="' . $this->app_uri . '" label="Add"/>');
 
         $this->elementStart('fb:request-form', array('action' => 'invite.php',
                                                       'method' => 'post',
                                                       'invite' => 'true',
-                                                      'type' => 'Identi.ca',
+                                                      'type' => common_config('site', 'name'),
                                                       'content' => $content));
         $this->hidden('invite', 'true');
-        $actiontext = 'Invite your friends to use Identi.ca.';
+        $actiontext = sprintf(_('Invite your friends to use %s'), common_config('site', 'name'));
         $this->element('fb:multi-friend-selector', array('showborder' => 'false',
                                                                'actiontext' => $actiontext,
                                                                'exclude_ids' => implode(',', $exclude_ids),
@@ -92,7 +110,8 @@ class FacebookinviteAction extends FacebookAction
 
         $this->elementEnd('fb:request-form');
 
-        $this->element('h2', null, _('Friends already using Identi.ca:'));
+        $this->element('h2', null, sprintf(_('Friends already using %s:'), 
+            common_config('site', 'name')));
         $this->elementStart("ul");
 
         foreach ($exclude_ids as $friend) {
@@ -104,9 +123,11 @@ class FacebookinviteAction extends FacebookAction
         }
 
         $this->elementEnd("ul");
-
-        $this->showFooter();
-
+    }
+    
+    function title() 
+    {
+        return sprintf(_('Send invitations'));
     }
 
 }

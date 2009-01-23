@@ -27,7 +27,20 @@ class FacebooksettingsAction extends FacebookAction
     function handle($args)
     {
         parent::handle($args);
+        $this->showPage();
+    }
 
+    /**
+     * Show the page content
+     *
+     * Either shows the registration form or, if registration was successful,
+     * instructions for using the site.
+     *
+     * @return void
+     */
+
+    function showContent()
+    {
         if ($this->arg('save')) {
             $this->saveSettings();
         } else {
@@ -41,68 +54,76 @@ class FacebooksettingsAction extends FacebookAction
         $replysync = $this->arg('replysync');
         $prefix = $this->trimmed('prefix');
 
-        $facebook = get_facebook();
-        $fbuid = $facebook->require_login();
+        $original = clone($this->flink);
+        $this->flink->set_flags($noticesync, $replysync, false);
+        $result = $this->flink->update($original);
 
-        $flink = Foreign_link::getByForeignID($fbuid, FACEBOOK_SERVICE);
-
-        $original = clone($flink);
-        $flink->set_flags($noticesync, $replysync, false);
-        $result = $flink->update($original);
-
-        $facebook->api_client->data_setUserPreference(FACEBOOK_NOTICE_PREFIX,
+        $this->facebook->api_client->data_setUserPreference(FACEBOOK_NOTICE_PREFIX,
             substr($prefix, 0, 128));
 
-        if ($result) {
-            $this->showForm('Sync preferences saved.', true);
+        if ($result === false) {
+            $this->showForm(_('There was a problem saving your sync preferences!'));
         } else {
-            $this->showForm('There was a problem saving your sync preferences!');
+            $this->showForm(_('Sync preferences saved.'), true);
         }
     }
 
     function showForm($msg = null, $success = false) {
 
-        $facebook = get_facebook();
-        $fbuid = $facebook->require_login();
+        if ($msg) {
+            if ($success) {
+                $this->element('fb:success', array('message' => $msg));
+            } else {
+                $this->element('fb:error', array('message' => $msg));
+            }
+        }
 
-        $flink = Foreign_link::getByForeignID($fbuid, FACEBOOK_SERVICE);
-
-        $this->showHeader($msg, $success);
-        $this->showNav('Settings');
-
-        if ($facebook->api_client->users_hasAppPermission('status_update')) {
+        if ($this->facebook->api_client->users_hasAppPermission('status_update')) {
 
             $this->elementStart('form', array('method' => 'post',
                                                'id' => 'facebook_settings'));
 
-            $this->element('h2', null, _('Sync preferences'));
-
+            $this->elementStart('ul', 'form_data');
+                                           
+            $this->elementStart('li');
+            
             $this->checkbox('noticesync', _('Automatically update my Facebook status with my notices.'),
-                                ($flink) ? ($flink->noticesync & FOREIGN_NOTICE_SEND) : true);
+                                ($this->flink) ? ($this->flink->noticesync & FOREIGN_NOTICE_SEND) : true);
 
+            $this->elementEnd('li');
+            
+            $this->elementStart('li');
+            
             $this->checkbox('replysync', _('Send "@" replies to Facebook.'),
-                             ($flink) ? ($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) : true);
+                             ($this->flink) ? ($this->flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) : true);
 
-            $prefix = $facebook->api_client->data_getUserPreference(1);
+            $this->elementEnd('li');
+
+            $this->elementStart('li');
+
+            $prefix = $this->facebook->api_client->data_getUserPreference(FACEBOOK_NOTICE_PREFIX);
 
             $this->input('prefix', _('Prefix'),
                          ($prefix) ? $prefix : null,
                          _('A string to prefix notices with.'));
+
+            $this->elementEnd('li');
+            
+            $this->elementStart('li');
+            
             $this->submit('save', _('Save'));
 
+            $this->elementEnd('li');
+
+            $this->elementEnd('ul');
+        
             $this->elementEnd('form');
 
         } else {
 
-            // Figure what the URL of our app is.
-            $app_props = $facebook->api_client->Admin_getAppProperties(
-                    array('canvas_name', 'application_name'));
-            $app_url = 'http://apps.facebook.com/' . $app_props['canvas_name'] . '/settings.php';
-            $app_name = $app_props['application_name'];
-
-            $instructions = sprintf(_('If you would like the %s app to automatically update ' .
+            $instructions = sprintf(_('If you would like %s to automatically update ' .
                 'your Facebook status with your latest notice, you need ' .
-                'to give it permission.'), $app_name);
+                'to give it permission.'), $this->app_name);
 
             $this->elementStart('p');
             $this->element('span', array('id' => 'permissions_notice'), $instructions);
@@ -111,15 +132,19 @@ class FacebooksettingsAction extends FacebookAction
             $this->elementStart('ul', array('id' => 'fb-permissions-list'));
             $this->elementStart('li', array('id' => 'fb-permissions-item'));
             $this->elementStart('fb:prompt-permission', array('perms' => 'status_update',
-                'next_fbjs' => 'document.setLocation(\'' . $app_url . '\')'));
+                'next_fbjs' => 'document.setLocation(\'' . "$this->app_url/settings.php" . '\')'));
             $this->element('span', array('class' => 'facebook-button'),
-                _('Allow Identi.ca to update my Facebook status'));
+                sprintf(_('Allow %s to update my Facebook status'), common_config('site', 'name')));
             $this->elementEnd('fb:prompt-permission');
             $this->elementEnd('li');
             $this->elementEnd('ul');
         }
 
-        $this->showFooter();
+    }
+    
+    function title() 
+    {
+        return _('Sync preferences');
     }
 
 }
