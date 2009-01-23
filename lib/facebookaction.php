@@ -331,37 +331,35 @@ class FacebookAction extends Action
         // Need to include inline CSS for styling the Profile box
 
         $style = '<style>
-         #notices {
-             clear: both;
-             margin: 0 auto;
-             padding: 0;
-             list-style-type: none;
-             width: 600px;
-             border-top: 1px solid #dec5b5;
+         .entry-title .vcard .photo {
+         float:left;
+         display:inline;
          }
-         #notices a:hover {
-             text-decoration: underline;
+         .entry-title .vcard .nickname {
+         margin-left:5px;
          }
-         .notice_single {
-             clear: both;
-             display: block;
-             margin: 0;
-             padding: 5px 5px 5px 0;
-             min-height: 48px;
-             font-family: Georgia, "Times New Roman", Times, serif;
-             font-size: 13px;
-             line-height: 16px;
-             border-bottom: 1px solid #dec5b5;
-             background-color:#FCFFF5;
-             opacity:1;
+
+         .entry-title p.entry-content {
+         display:inline;
+         margin-left:5px;
          }
-         .notice_single:hover {
-             background-color: #f7ebcc;
+
+         div.entry-content dl,
+         div.entry-content dt,
+         div.entry-content dd {
+         display:inline;
          }
-         .notice_single p {
-             display: inline;
-             margin: 0;
-             padding: 0;
+
+         div.entry-content dt,
+         div.entry-content dd {
+         display:inline;
+         margin-left:5px;
+         }
+         div.entry-content dl.timestamp dt {
+         display:none;
+         }
+         div.entry-content dd a {
+         display:inline-block;
          }
          </style>';        
 
