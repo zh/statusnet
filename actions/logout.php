@@ -54,7 +54,7 @@ class LogoutAction extends Action
      */
     function isReadOnly()
     {
-        return true;
+        return false;
     }
 
     /**

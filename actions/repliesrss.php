@@ -82,4 +82,9 @@ class RepliesrssAction extends Rss10Action
         $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
         return ($avatar) ? $avatar->url : null;
     }
+
+    function isReadOnly()
+    {
+        return true;
+    }
 }

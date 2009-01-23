@@ -77,7 +77,7 @@ class LoginGroupNav extends Widget
                 'register' =>
                 array(_('Register'),
                       _('Sign up for a new account')),
-                'openid' =>
+                'openidlogin' =>
                 array(_('OpenID'),
                       _('Login or register with OpenID')));
 

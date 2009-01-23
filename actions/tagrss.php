@@ -66,4 +66,9 @@ class TagrssAction extends Rss10Action
                'description' => sprintf(_('Microblog tagged with %s'), $tagname));
         return $c;
     }
+
+    function isReadOnly()
+    {
+        return true;
+    }
 }

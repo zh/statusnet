@@ -129,6 +129,8 @@ class Notice extends Memcached_DataObject
             $notice->is_local = $is_local;
         }
 
+		$notice->query('BEGIN');
+
         $notice->reply_to = $reply_to;
         $notice->created = common_sql_now();
         $notice->content = common_shorten_links($content);
@@ -160,6 +162,9 @@ class Notice extends Memcached_DataObject
         $notice->saveTags();
         $notice->saveGroups();
 
+        $notice->addToInboxes();
+		$notice->query('COMMIT');
+
         # Clear the cache for subscribed users, so they'll update at next request
         # XXX: someone clever could prepend instead of clearing the cache
 
@@ -167,7 +172,6 @@ class Notice extends Memcached_DataObject
             $notice->blowCaches();
         }
 
-        $notice->addToInboxes();
         return $notice;
     }
 

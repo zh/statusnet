@@ -191,4 +191,9 @@ class RepliesAction extends Action
                           $this->page, 'replies',
                           array('nickname' => $this->user->nickname));
     }
+
+    function isReadOnly()
+    {
+        return true;
+    }
 }

@@ -94,5 +94,10 @@ class UserrssAction extends Rss10Action
         header('X-SUP-ID: '.$url);
         parent::initRss($limit);
     }
+
+    function isReadOnly()
+    {
+        return true;
+    }
 }
 

@@ -109,5 +109,10 @@ class PeopleSearchResults extends ProfileList
     {
         return preg_replace($this->pattern, '<strong>\\1</strong>', htmlspecialchars($text));
     }
+
+    function isReadOnly()
+    {
+        return true;
+    }
 }
 

@@ -103,4 +103,9 @@ class SubscribersList extends ProfileList
                                   'nickname' => $this->owner->nickname));
         $bf->show();
     }
+
+    function isReadOnly()
+    {
+        return true;
+    }
 }

@@ -83,5 +83,10 @@ class OpensearchAction extends Action
         $this->elementEnd('OpenSearchDescription');
         common_end_xml();
     }
+
+    function isReadOnly()
+    {
+        return true;
+    }
 }
 

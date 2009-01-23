@@ -222,5 +222,10 @@ class NoticesearchAction extends SearchAction
         } while ($count);
         return $result;
     }
+
+    function isReadOnly()
+    {
+        return true;
+    }
 }
 
