@@ -116,4 +116,9 @@ class TagCloudSection extends Section
     {
         return common_local_url('tag', array('tag' => $tag));
     }
+
+    function divId()
+    {
+        return 'tagcloud';
+    }
 }
