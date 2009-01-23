@@ -73,9 +73,7 @@ class FacebookAction extends Action
     function prepare($argarray)
     {        
         parent::prepare($argarray);
-        
-        common_debug("Facebookaction::prepare");
-  
+          
         $this->facebook = getFacebook();
         $this->fbuid = $this->facebook->require_login();
         
@@ -261,7 +259,6 @@ class FacebookAction extends Action
 
     function showInstructions()
     {
-        global $xw;
 
         $this->elementStart('dl', array('class' => 'system_notice'));
         $this->element('dt', null, 'Page Notice');
