@@ -1,4 +1,12 @@
-/* theme: identica */
+/** theme: identica
+ *
+ * @package   Laconica
+ * @author Sarven Capadisli <csarven@controlyourself.ca>
+ * @copyright 2009 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
+ */
+
 html,
 body,
 a:active {
@@ -151,12 +159,6 @@ background-image:url(../../base/images/icons/icon_vcard.gif);
 }
 
 
-/*user_actions*/
-#user_actions li {
-/*border-top-color:#eee;*/
-}
-
-
 #entity_send-a-message a,
 .form_user_nudge input.submit,
 .form_user_block input.submit,
@@ -259,6 +261,10 @@ background-color:#fcfcfc;
 /*END: NOTICES */
 
 
+#groups #new_group a {
+background:transparent url(../images/icons/twotone/green/news.gif) no-repeat 0 45%;
+}
+
 
 .pagination .nav_prev a,
 .pagination .nav_next a {
@@ -271,20 +277,4 @@ background-position:0 45%;
 .pagination .nav_next a {
 background-image:url(../images/icons/twotone/green/arrow-right.gif);
 background-position:100% 45%;
-}
-
-
-
-#home #intro #guide_steps li a {
-border-color:#ccc;
-color:#fff;
-}
-#home #intro #step_join-now a {
-background-color:#f00;
-}
-#home #intro #step_start-a-group a {
-background-color:#0f0;
-}
-#home #intro #step_create-a-community a {
-background-color:#00f;
 }

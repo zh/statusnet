@@ -1,4 +1,12 @@
-/* theme: base */
+/** theme: base
+ *
+ * @package   Laconica
+ * @author Sarven Capadisli <csarven@controlyourself.ca>
+ * @copyright 2009 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
+ */
+
 * { margin:0; padding:0; }
 img { display:block; border:0; }
 a abbr { cursor: pointer; border-bottom:0; }
@@ -13,7 +21,6 @@ font-size:1em;
 line-height:1.65;
 position:relative;
 margin:0 auto;
-width:1004px;
 width:71.714em;
 }
 h1,h2,h3,h4,h5,h6 {
@@ -34,7 +41,6 @@ h6 { font-size:0.9em; }
 caption {
 font-weight:bold;
 }
-
 legend {
 font-weight:bold;
 font-size:1.3em;
@@ -59,8 +65,6 @@ font-weight:bold;
 textarea {
 overflow:auto;
 }
-select {
-}
 option {
 padding-bottom:0;
 }
@@ -74,7 +78,6 @@ margin:0 0 18px 0;
 }
 form label {
 font-weight:bold;
-/*margin:0 0 11px 0;*/
 }
 input.checkbox {
 position:relative;
@@ -104,16 +107,10 @@ margin-bottom:29px;
 .form_settings input.remove {
 margin-left:11px;
 }
-
-.form_guide {
-font-style:italic;
-}
-
 .form_settings .form_data li {
 width:100%;
 float:left;
 }
-
 .form_settings .form_data label {
 float:left;
 }
@@ -123,7 +120,6 @@ float:left;
 margin-left:11px;
 float:left;
 }
-
 .form_settings label {
 margin-top:2px;
 width:152px;
@@ -131,6 +127,9 @@ width:152px;
 
 .form_actions label {
 display:none;
+}
+.form_guide {
+font-style:italic;
 }
 
 .form_settings #settings_autosubscribe label {
@@ -183,7 +182,6 @@ border-radius:4px;
 -webkit-border-radius:4px;
 padding:0 7px;
 }
-
 
 
 address {
@@ -291,12 +289,7 @@ width:100%;
 #site_nav_global_secondary dt {
 display:none;
 }
-/*
-#site_nav_global_primary .current a {
-font-weight:bold;
-border-style:solid;
-}
-*/
+
 #site_nav_global_secondary {
 margin-bottom:11px;
 }
@@ -350,10 +343,9 @@ margin-right:4px;
 }
 
 #wrap {
-	float:left;
-	margin:0 auto;
-    width:1004px;
-    width:71.714em;
+float:left;
+margin:0 auto;
+width:71.714em;
 }
 
 #core {
@@ -489,8 +481,8 @@ margin-top:11px;
 #notice_to select {
 float:left;
 }
-
 /*end FORM NOTICE*/
+
 
 /* entity_profile */
 .entity_profile {
@@ -559,8 +551,8 @@ display:none;
 .entity_profile h2 {
 display:none;
 }
-
 /* entity_profile */
+
 
 /*entity_actions*/
 .entity_actions {
@@ -642,11 +634,6 @@ display:inline;
 content: ":";
 }
 
-#user_subscriptions,
-#user_subscribers,
-#user_groups, {
-
-}
 .section ul.entities {
 width:220px;
 float:left;
@@ -721,9 +708,6 @@ margin-right:11px;
 }
 
 
-
-
-
 /* NOTICE */
 .notice,
 .profile {
@@ -735,11 +719,9 @@ float:left;
 width:100%;
 border-top-width:1px;
 border-top-style:dashed;
-/*-moz-border-radius:7px;*/
 }
 .notices li {
 list-style-type:none;
-/*margin-bottom:11px;*/
 }
 .notices li.hover {
 border-radius:4px;
@@ -767,11 +749,6 @@ padding-left:28px;
 .notice .author {
 margin-right:11px;
 }
-.notice .author a {
-}
-.notice .author:after {
-/*content:":";*/
-}
 
 .notice .author .fn {
 font-weight:bold;
@@ -796,28 +773,19 @@ text-decoration:underline;
 .vcard .fn {
 font-style:italic;
 }
-.vcard .fn:hover {
-
-}
 
 .notice .entry-title {
 float:left;
 width:100%;
 }
+#shownotice .notice .entry-title {
+font-size:2.2em;
+}
+
 .notice p.entry-content {
 display:inline;
 }
 
-.notice_video p.entry-content,
-.notice_audio p.entry-content,
-.notice_image p.entry-content,
-.notice_location p.entry-content,
-.notice_event p.entry-content,
-.notice_document p.entry-content {
-}
-#laconicat .notice p.entry-content {
-/*margin-left:199px;*/
-}
 #content .notice p.entry-content a:visited {
 border-radius:4px;
 -moz-border-radius:4px;
@@ -932,10 +900,6 @@ text-decoration:none;
 padding-left:16px;
 }
 
-.notice-options .notice_delete {
-
-}
-
 .notice-options form input.submit {
 cursor:pointer;
 width:16px;
@@ -953,8 +917,18 @@ display:none;
 border:0;
 padding:0;
 }
-
 /*END: NOTICES */
+
+
+
+#groups p {
+margin-bottom:18px;
+}
+#groups #new_group a {
+padding-left:20px;
+}
+
+
 
 .pagination dt {
 font-weight:bold;
@@ -995,10 +969,9 @@ border-left:0;
 padding-right:20px;
 border-right:0;
 }
-
 /* END: NOTICE */
 
-/*If there is hentry on #content_inner, then this doesn't need to be specific to #doc or any other section */
+
 .hentry .entry-content p {
 margin-bottom:18px;
 }
@@ -1013,67 +986,10 @@ margin-bottom:18px;
 margin-left:18px;
 }
 
-/*START: LOAD ALONG WITH JS*/
-.notice .in-reply-to {
-	width:98%;
-	margin-left:2%;
-}
-.notice .in-reply-to li {
-background-color:#F7F9FB;
-}
-.notice .in-reply-to li .in-reply-to li {
-background-color:#E4E9F0;
-}
-.notice .in-reply-to li .in-reply-to li .in-reply-to li {
-background-color:#D1D9E4;
-}
 
-.entity_actions #user_subscribe .form_note,
-.entity_actions #user_subscribe .form_data,
-.entity_actions #user_subscribe .form_actions label {
-display:none;
-}
-#form_user-relationship .form_note,
-#form_user-relationship .form_data,
-#form_user-relationship .form_actions label {
-display:block;
-}
 
-.entity_actions #user-relationship_submit {
-margin-bottom:0;
-}
-#form_user-relationship .form_data li label {
-margin-right:11px;
-}
-
-#user_relationship_xfn {
-/*z-index:1000;
-position:absolute;
-width:521px;
-height:322px;*/
-display:none;
-}
-#user_relationship_xfn fieldset {
-background-color:#fff;
-}
-
-/*END: LOAD ALONG WITH JS*/
 
 /* TOP_POSTERS */
-#top_posters caption {
-text-align:left;
-text-transform:uppercase;
-}
-#top_posters thead {
-display:none;
-}
-#top_poster_user {
-width:199px;
-}
-#top_poster_number-of-notices {
-width:123px;
-}
-
 .section tbody td {
 padding-right:11px;
 padding-bottom:11px;
@@ -1086,7 +1002,6 @@ margin-bottom:0;
 .section .notice {
 padding-top:11px;
 padding-bottom:11px;
-
 }
 
 .section .notice:first-child {
@@ -1095,19 +1010,14 @@ border-top:0;
 }
 
 
-
-
-
 /* tagcloud */
 .tag-cloud {
 list-style-type:none;
 text-align:center;
 }
-
 .aside .tag-cloud {
 font-size:0.8em;
 }
-
 .tag-cloud li {
 display:inline;
 margin-right:7px;
@@ -1180,83 +1090,4 @@ clear:both;
 
 #form_settings_avatar .form_actions {
 margin-bottom:0;
-}
-
-#groups_related ul,
-#users_featured ul {
-list-style-type:none;
-}
-#groups_related li,
-#users_featured li {
-margin-top:11px;
-float:left;
-width:100%;
-}
-#groups_related li:first-child,
-#users_featured li:first-child {
-margin-top:0;
-}
-
-#groups_related .vcard,
-#users_featured .vcard {
-float:left;
-margin-bottom:-23px;
-}
-
-#groups_related dl,
-#users_featured dl {
-float:left;
-margin-left:63px;
-clear:left;
-}
-#groups_related dt,
-#users_featured dt {
-display:none;
-font-weight:bold;
-}
-
-#home.logged_out h1 {
-display:none;
-}
-
-#home #intro {
-margin-bottom:29px;
-float:left;
-width:100%;
-}
-
-#home #intro p {
-margin-bottom:18px;
-font-size:1.8em;
-}
-
-#home #intro #guide_steps {
-list-style-type:none;
-}
-#home #intro #guide_steps li {
-float:left;
-margin-left:18px;
-}
-#home #intro #guide_steps li:first-child {
-margin-left:0;
-}
-#home #intro #guide_steps li a {
-display:block;
-float:left;
-width:185px;
-height:109px;
-border-width:1px;
-border-style:dotted;
-text-decoration:none;
-border-radius:7px;
--moz-border-radius:7px;
--webkit-border-radius:7px;
-padding:7px;
-font-size:1.6em;
-font-weight:bold;
-text-align:center;
-}
-
-#testimonials {
-clear:both;
 }
