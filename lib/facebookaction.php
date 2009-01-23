@@ -95,21 +95,35 @@ class FacebookAction extends Action
   
     function showStylesheets()
     {
+        // Add a timestamp to the file so Facebook cache wont ignore our changes
+        $ts = filemtime(INSTALLDIR.'/theme/base/css/display.css');
         
         $this->element('link', array('rel' => 'stylesheet',
                                      'type' => 'text/css',
-                                     'href' => getFacebookBaseCSS()));
-
+                                     'href' => theme_path('css/display.css', 'base') . '?ts=' . $ts));
+                                     
+        $theme = common_config('site', 'theme');
+        
+        $ts = filemtime(INSTALLDIR. '/theme/' . $theme .'/css/display.css');
+                                     
         $this->element('link', array('rel' => 'stylesheet',
                                      'type' => 'text/css',
-                                     'href' => getFacebookThemeCSS()));
+                                     'href' => theme_path('css/display.css', null) . '?ts=' . $ts));
+                                     
+        $ts = filemtime(INSTALLDIR.'/theme/base/css/facebookapp.css');
+        
+        $this->element('link', array('rel' => 'stylesheet',
+                                     'type' => 'text/css',
+                                     'href' => theme_path('css/facebookapp.css', 'base') . '?ts=' . $ts));
     }
   
     function showScripts()
     {
+        // Add a timestamp to the file so Facebook cache wont ignore our changes
+        $ts = filemtime(INSTALLDIR.'/js/facebookapp.js');
+        
         $this->element('script', array('type' => 'text/javascript',
-                                       'src' => getFacebookJS()),
-                       ' ');
+                                       'src' => common_path('js/facebookapp.js') . '?ts=' . $ts));
     }
     
     /**

@@ -45,38 +45,6 @@ function getFacebook()
     return new Facebook($apikey, $secret);
 }
 
-function startFBML($indent = true)
-{
-    global $xw;
-    $xw = new XMLWriter();
-    $xw->openURI('php://output');
-    $xw->setIndent($indent);
-}
-
-function getFacebookBaseCSS()
-{
-    # Add a timestamp to the CSS file so Facebook cache wont ignore our changes
-    $ts = filemtime(INSTALLDIR.'/theme/base/css/facebookapp.base.css');
-    $cssurl = theme_path('css/facebookapp.base.css', 'base') . "?ts=$ts";
-    return $cssurl;
-}
-
-function getFacebookThemeCSS() 
-{
-    # Add a timestamp to the CSS file so Facebook cache wont ignore our changes
-    $ts = filemtime(theme_file('css/facebookapp.theme.css'));
-    $cssurl = theme_path('css/facebookapp.theme.css') . "?ts=$ts";
-    return $cssurl;   
-}
-
-function getFacebookJS() {
-
-    # Add a timestamp to the FBJS file so Facebook cache wont ignore our changes
-    $ts = filemtime(INSTALLDIR.'/js/facebookapp.js');
-    $jsurl = common_path('js/facebookapp.js') . "?ts=$ts";
-    return $jsurl;
-}
-
 function updateProfileBox($facebook, $flink, $notice) {
     $fbaction = new FacebookAction($output='php://output', $indent=true, $facebook, $flink);
     $fbaction->updateProfileBox($notice);
