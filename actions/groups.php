@@ -114,4 +114,10 @@ class GroupsAction extends Action
         $this->pagination($this->page > 1, $cnt > GROUPS_PER_PAGE,
                           $this->page, 'groups');
     }
+
+    function showSections()
+    {
+        $gbp = new GroupsByPostsSection($this);
+        $gbp->show();
+    }
 }
