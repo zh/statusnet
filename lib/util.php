@@ -823,6 +823,8 @@ function common_fancy_url($action, $args=null)
         return common_path('settings/im');
      case 'avatarsettings':
         return common_path('settings/avatar');
+     case 'groupsearch':
+        return common_path('search/group' . (($args) ? ('?' . http_build_query($args)) : ''));
      case 'peoplesearch':
         return common_path('search/people' . (($args) ? ('?' . http_build_query($args)) : ''));
      case 'noticesearch':

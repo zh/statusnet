@@ -65,6 +65,7 @@ RewriteRule ^settings/sms$ index.php?action=smssettings [L,QSA]
 RewriteRule ^settings/twitter$ index.php?action=twittersettings [L,QSA]
 RewriteRule ^settings/other$ index.php?action=othersettings [L,QSA]
 
+RewriteRule ^search/group$ index.php?action=groupsearch [L,QSA]
 RewriteRule ^search/people$ index.php?action=peoplesearch [L,QSA]
 RewriteRule ^search/notice$ index.php?action=noticesearch [L,QSA]
 RewriteRule ^search/notice/rss$ index.php?action=noticesearchrss [L,QSA]
