@@ -380,8 +380,8 @@ class ShowgroupAction extends Action
                        'short messages about their life and interests. '.
                        '[Join now](%%%%action.register%%%%) to become part of this group and many more! ([Read more](%%%%doc.help%%%%))'),
                      $this->group->nickname);
-        $this->elementStart('p', 'anonymous');
+        $this->elementStart('div', 'anonymous');
         $this->raw(common_markup_to_html($m));
-        $this->elementEnd('p');
+        $this->elementEnd('div');
     }
 }

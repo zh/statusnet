@@ -538,9 +538,9 @@ class ShowstreamAction extends Action
                        'based on the Free Software [Laconica](http://laconi.ca/) tool. ' .
                        '[Join now](%%%%action.register%%%%) to follow **%s**\'s notices and many more! ([Read more](%%%%doc.help%%%%))'),
                      $this->user->nickname, $this->user->nickname);
-        $this->elementStart('p', 'anonymous');
+        $this->elementStart('div', 'anonymous');
         $this->raw(common_markup_to_html($m));
-        $this->elementEnd('p');
+        $this->elementEnd('div');
     }
 
 }
