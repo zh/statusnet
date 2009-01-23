@@ -50,7 +50,7 @@ class AccesstokenAction extends Action
      * Class handler.
      *
      * @param array $args query arguments
-     * 
+     *
      * @return boolean false if user doesn't exist
      */
     function handle($args)
@@ -70,10 +70,5 @@ class AccesstokenAction extends Action
         } catch (OAuthException $e) {
             $this->serverError($e->getMessage());
         }
-    }
-
-    function isReadOnly()
-    {
-        return true;
     }
 }
