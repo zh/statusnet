@@ -40,9 +40,6 @@ font-weight:bold;
 font-size:1.3em;
 text-transform:uppercase;
 }
-form {
-clear:both;
-}
 input, textarea, select, option {
 padding:4px;
 font-family:sans-serif;
@@ -96,13 +93,16 @@ border-radius:4px;
 form label.submit {
 display:none;
 }
-.form_settings input.remove {
-margin-left:11px;
+
+.form_settings {
+clear:both;
 }
 
-/* FORM SETTINGS */
 .form_settings fieldset {
 margin-bottom:29px;
+}
+.form_settings input.remove {
+margin-left:11px;
 }
 
 .form_guide {
@@ -184,7 +184,7 @@ border-radius:4px;
 padding:0 7px;
 }
 
-/* FORM SETTINGS */
+
 
 address {
 float:left;
