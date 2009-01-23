@@ -90,16 +90,27 @@ class OpenidloginAction extends Action
     function showContent() {
         $formaction = common_local_url('openidlogin');
         $this->elementStart('form', array('method' => 'post',
-                                           'id' => 'openidlogin',
+                                           'id' => 'form_openid_login',
+                                           'class' => 'form_settings',
                                            'action' => $formaction));
+        $this->elementStart('fieldset');
+        $this->element('legend', null, _('OpenID login'));
         $this->hidden('token', common_session_token());
+
+        $this->elementStart('ul', 'form_data');
+        $this->elementStart('li');
         $this->input('openid_url', _('OpenID URL'),
                      $this->openid_url,
                      _('Your OpenID URL'));
+        $this->elementEnd('li');
+        $this->elementStart('li', array('id' => 'settings_rememberme'));
         $this->checkbox('rememberme', _('Remember me'), false,
                         _('Automatically login in the future; ' .
                            'not for shared computers!'));
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
         $this->submit('submit', _('Login'));
+        $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }
 
