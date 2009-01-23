@@ -25,6 +25,9 @@ define(MAX_RECOVERY_TIME, 24 * 60 * 60);
 
 class RecoverpasswordAction extends Action
 {
+    var $mode = null;
+    var $msg = null;
+    var $success = null;
 
     function handle($args)
     {
@@ -34,22 +37,22 @@ class RecoverpasswordAction extends Action
             return;
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->arg('recover')) {
-                $this->recover_password();
+                $this->recoverPassword();
             } else if ($this->arg('reset')) {
-                $this->reset_password();
+                $this->resetPassword();
             } else {
                 $this->clientError(_('Unexpected form submission.'));
             }
         } else {
             if ($this->trimmed('code')) {
-                $this->check_code();
+                $this->checkCode();
             } else {
-                $this->show_form();
+                $this->showForm();
             }
         }
     }
 
-    function check_code()
+    function checkCode()
     {
 
         $code = $this->trimmed('code');
@@ -88,7 +91,7 @@ class RecoverpasswordAction extends Action
         # Note: it's still deleted; let's avoid a second attempt!
 
         if ((time() - $touched) > MAX_RECOVERY_TIME) {
-            common_log(LOG_WARNING, 
+            common_log(LOG_WARNING,
                        'Attempted redemption on recovery code ' .
                        'that is ' . $touched . ' seconds old. ');
             $this->clientError(_('This confirmation code is too old. ' .
@@ -112,17 +115,17 @@ class RecoverpasswordAction extends Action
 
         # Success!
 
-        $this->set_temp_user($user);
-        $this->show_password_form();
+        $this->setTempUser($user);
+        $this->showPasswordForm();
     }
 
-    function set_temp_user(&$user)
+    function setTempUser(&$user)
     {
         common_ensure_session();
         $_SESSION['tempuser'] = $user->id;
     }
 
-    function get_temp_user()
+    function getTempUser()
     {
         common_ensure_session();
         $user_id = $_SESSION['tempuser'];
@@ -132,44 +135,51 @@ class RecoverpasswordAction extends Action
         return $user;
     }
 
-    function clear_temp_user()
+    function clearTempUser()
     {
         common_ensure_session();
         unset($_SESSION['tempuser']);
     }
 
-    function show_top($msg=null)
+    function showPageNotice()
     {
-        if ($msg) {
-            $this->element('div', 'error', $msg);
+        if ($this->msg) {
+            $this->element('div', ($this->success) ? 'success' : 'error', $this->msg);
         } else {
             $this->elementStart('div', 'instructions');
-            $this->element('p', null, 
-                           _('If you\'ve forgotten or lost your' .
-                              ' password, you can get a new one sent to' .
-                              ' the email address you have stored ' .
-                              ' in your account.'));
+            if ($this->mode == 'recover') {
+                $this->element('p', null,
+                               _('If you\'ve forgotten or lost your' .
+                                 ' password, you can get a new one sent to' .
+                                 ' the email address you have stored ' .
+                                 ' in your account.'));
+            } else if ($this->mode == 'reset') {
+                $this->element('p', null,
+                               _('You\'ve been identified. Enter a ' .
+                                 ' new password below. '));
+            }
             $this->elementEnd('div');
         }
     }
 
-    function show_password_top($msg=null)
+    function showForm($msg=null)
     {
-        if ($msg) {
-            $this->element('div', 'error', $msg);
-        } else {
-            $this->element('div', 'instructions',
-                           _('You\'ve been identified. Enter a ' .
-                              ' new password below. '));
+        $this->msg = $msg;
+        $this->mode = 'recover';
+        $this->showPage();
+    }
+
+    function showContent()
+    {
+        if ($this->mode == 'recover') {
+            $this->showRecoverForm();
+        } else if ($this->mode == 'reset') {
+            $this->showResetForm();
         }
     }
 
-    function show_form($msg=null)
+    function showRecoverForm()
     {
-
-        common_show_header(_('Recover password'), null,
-        $msg, array($this, 'show_top'));
-
         $this->elementStart('form', array('method' => 'post',
                                            'id' => 'recoverpassword',
                                            'action' => common_local_url('recoverpassword')));
@@ -179,15 +189,29 @@ class RecoverpasswordAction extends Action
                         'or your registered email address.'));
         $this->submit('recover', _('Recover'));
         $this->elementEnd('form');
-        common_show_footer();
     }
 
-    function show_password_form($msg=null)
+    function title()
     {
+        switch ($this->mode) {
+         case 'reset': return _('Reset password');
+         case 'recover': return _('Recover password');
+         case 'sent': return _('Password recovery requested');
+         case 'saved': return _('Password saved.');
+         default:
+            return _('Unknown action');
+        }
+    }
 
-        common_show_header(_('Reset password'), null,
-        $msg, array($this, 'show_password_top'));
+    function showPasswordForm($msg=null)
+    {
+        $this->msg = $msg;
+        $this->mode = 'reset';
+        $this->showPage();
+    }
 
+    function showResetForm()
+    {
         $this->elementStart('form', array('method' => 'post',
                                            'id' => 'recoverpassword',
                                            'action' => common_local_url('recoverpassword')));
@@ -198,14 +222,13 @@ class RecoverpasswordAction extends Action
                         _('Same as password above'));
         $this->submit('reset', _('Reset'));
         $this->elementEnd('form');
-        common_show_footer();
     }
 
-    function recover_password()
+    function recoverPassword()
     {
         $nore = $this->trimmed('nicknameoremail');
         if (!$nore) {
-            $this->show_form(_('Enter a nickname or email address.'));
+            $this->showForm(_('Enter a nickname or email address.'));
             return;
         }
 
@@ -225,7 +248,7 @@ class RecoverpasswordAction extends Action
         }
 
         if (!$user) {
-            $this->show_form(_('No user with that email address or username.'));
+            $this->showForm(_('No user with that email address or username.'));
             return;
         }
 
@@ -277,25 +300,24 @@ class RecoverpasswordAction extends Action
 
         mail_to_user($user, _('Password recovery requested'), $body, $confirm->address);
 
-        common_show_header(_('Password recovery requested'));
-        $this->element('p', null,
-                       _('Instructions for recovering your password ' .
+        $this->mode = 'sent';
+        $this->msg = _('Instructions for recovering your password ' .
                           'have been sent to the email address registered to your ' .
-                          'account.'));
-        common_show_footer();
+                          'account.');
+        $this->success = true;
+        $this->showPage();
     }
 
-    function reset_password()
+    function resetPassword()
     {
-
         # CSRF protection
         $token = $this->trimmed('token');
         if (!$token || $token != common_session_token()) {
-            $this->show_form(_('There was a problem with your session token. Try again, please.'));
+            $this->showForm(_('There was a problem with your session token. Try again, please.'));
             return;
         }
 
-        $user = $this->get_temp_user();
+        $user = $this->getTempUser();
 
         if (!$user) {
             $this->clientError(_('Unexpected password reset.'));
@@ -306,11 +328,11 @@ class RecoverpasswordAction extends Action
         $confirm = $this->trimmed('confirm');
 
         if (!$newpassword || strlen($newpassword) < 6) {
-            $this->show_password_form(_('Password must be 6 chars or more.'));
+            $this->showPasswordForm(_('Password must be 6 chars or more.'));
             return;
         }
         if ($newpassword != $confirm) {
-            $this->show_password_form(_('Password and confirmation do not match.'));
+            $this->showPasswordForm(_('Password and confirmation do not match.'));
             return;
         }
 
@@ -326,7 +348,7 @@ class RecoverpasswordAction extends Action
             return;
         }
 
-        $this->clear_temp_user();
+        $this->clearTempUser();
 
         if (!common_set_user($user->nickname)) {
             $this->serverError(_('Error setting user.'));
@@ -335,9 +357,10 @@ class RecoverpasswordAction extends Action
 
         common_real_login(true);
 
-        common_show_header(_('Password saved.'));
-        $this->element('p', null, _('New password successfully saved. ' .
-                                     'You are now logged in.'));
-        common_show_footer();
+        $this->mode = 'saved';
+        $this->msg = _('New password successfully saved. ' .
+                       'You are now logged in.');
+        $this->success = true;
+        $this->showPage();
     }
 }
