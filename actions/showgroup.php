@@ -351,7 +351,7 @@ class ShowgroupAction extends Action
             return;
         }
 
-        $this->elementStart('div', array('id' => 'entity_subscriptions',
+        $this->elementStart('div', array('id' => 'entity_members',
                                          'class' => 'section'));
 
         $this->element('h2', null, _('Members'));
@@ -369,5 +369,7 @@ class ShowgroupAction extends Action
                                                                  array('nickname' => $this->group->nickname))),
                            _('All members'));
         }
+
+        $this->elementEnd('div');
     }
 }
