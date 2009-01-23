@@ -76,6 +76,9 @@ class PublicGroupNav extends Widget
         $this->out->menuItem(common_local_url('public'), _('Public'),
             _('Public timeline'), $action_name == 'public', 'nav_timeline_public');
 
+        $this->out->menuItem(common_local_url('groups'), _('Groups'),
+            _('User groups'), $action_name == 'groups', 'nav_groups');
+
         $this->out->menuItem(common_local_url('publictagcloud'), _('Recent tags'),
             _('Recent tags'), $action_name == 'publictagcloud', 'nav_recent-tags');
 

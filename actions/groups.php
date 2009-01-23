@@ -2,7 +2,7 @@
 /**
  * Laconica, the distributed open-source microblogging tool
  *
- * User groups information
+ * Latest groups information
  *
  * PHP version 5
  *
@@ -35,9 +35,9 @@ if (!defined('LACONICA')) {
 require_once INSTALLDIR.'/lib/grouplist.php';
 
 /**
- * User groups page
+ * Latest groups
  *
- * Show the groups a user belongs to
+ * Show the latest groups on the site
  *
  * @category Personal
  * @package  Laconica
@@ -46,57 +46,24 @@ require_once INSTALLDIR.'/lib/grouplist.php';
  * @link     http://laconi.ca/
  */
 
-class UsergroupsAction extends Action
+class GroupsAction extends Action
 {
-    var $user = null;
     var $page = null;
     var $profile = null;
 
     function title()
     {
         if ($this->page == 1) {
-            return sprintf(_("%s groups"), $this->user->nickname);
+            return _("Groups");
         } else {
-            return sprintf(_("%s groups, page %d"),
-                           $this->user->nickname,
-                           $this->page);
+            return sprintf(_("Groups, page %d"), $this->page);
         }
     }
 
     function prepare($args)
     {
         parent::prepare($args);
-
-        $nickname_arg = $this->arg('nickname');
-        $nickname = common_canonical_nickname($nickname_arg);
-
-        // Permanent redirect on non-canonical nickname
-
-        if ($nickname_arg != $nickname) {
-            $args = array('nickname' => $nickname);
-            if ($this->arg('page') && $this->arg('page') != 1) {
-                $args['page'] = $this->arg['page'];
-            }
-            common_redirect(common_local_url('usergroups', $args), 301);
-            return false;
-        }
-
-        $this->user = User::staticGet('nickname', $nickname);
-
-        if (!$this->user) {
-            $this->clientError(_('No such user.'), 404);
-            return false;
-        }
-
-        $this->profile = $this->user->getProfile();
-
-        if (!$this->profile) {
-            $this->serverError(_('User has no profile.'));
-            return false;
-        }
-
         $this->page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
-
         return true;
     }
 
@@ -108,8 +75,22 @@ class UsergroupsAction extends Action
 
     function showLocalNav()
     {
-        $nav = new SubGroupNav($this, $this->user);
+        $nav = new PublicGroupNav($this);
         $nav->show();
+    }
+
+    function showPageNotice()
+    {
+        $notice =
+          sprintf(_('%%%%site.name%%%% groups let you find and talk with ' .
+                    'people of similar interests. After you join a group ' .
+                    'you can send messages to all other members using the ' .
+                    'syntax "!groupname". Don\'t see a group you like? Try ' .
+                    '[searching for one](%%%%action.groupsearch%%%%) or ' .
+                    '[start your own!](%%%%action.newgroup%%%%)'));
+        $this->elementStart('div', 'instructions');
+        $this->raw(common_markup_to_html($notice));
+        $this->elementEnd('div');
     }
 
     function showContent()
@@ -121,15 +102,24 @@ class UsergroupsAction extends Action
         $offset = ($this->page-1) * GROUPS_PER_PAGE;
         $limit =  GROUPS_PER_PAGE + 1;
 
-        $groups = $this->user->getGroups($offset, $limit);
+        $groups = new User_group();
+        $groups->orderBy('created DESC');
+        $groups->limit($offset, $limit);
 
-        if ($groups) {
-            $gl = new GroupList($groups, $this->user, $this);
+        if ($groups->find()) {
+            $gl = new GroupList($groups, null, $this);
             $cnt = $gl->show();
         }
 
         $this->pagination($this->page > 1, $cnt > GROUPS_PER_PAGE,
-                          $this->page, 'usergroups',
-                          array('nickname' => $this->user->nickname));
+                          $this->page, 'groups');
+    }
+
+    function showSections()
+    {
+        $gbp = new GroupsByPostsSection($this);
+        $gbp->show();
+        $gbm = new GroupsByMembersSection($this);
+        $gbm->show();
     }
 }

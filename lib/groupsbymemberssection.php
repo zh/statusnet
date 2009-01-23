@@ -2,7 +2,7 @@
 /**
  * Laconica, the distributed open-source microblogging tool
  *
- * Menu for search actions
+ * Groups with the most members section
  *
  * PHP version 5
  *
@@ -19,10 +19,10 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  Menu
+ * @category  Widget
  * @package   Laconica
  * @author    Evan Prodromou <evan@controlyourself.ca>
- * @copyright 2008 Control Yourself, Inc.
+ * @copyright 2009 Control Yourself, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://laconi.ca/
  */
@@ -31,57 +31,48 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/widget.php';
-
 /**
- * Menu for public group of actions
+ * Groups with the most members section
  *
- * @category Output
+ * @category Widget
  * @package  Laconica
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://laconi.ca/
- *
- * @see      Widget
  */
 
-class SearchGroupNav extends Widget
+class GroupsByMembersSection extends GroupSection
 {
-    var $action = null;
-    var $q = null;
-
-    /**
-     * Construction
-     *
-     * @param Action $action current action, used for output
-     */
-
-    function __construct($action=null, $q = null)
+    function getGroups()
     {
-        parent::__construct($action);
-        $this->action = $action;
-        $this->q = $q;
+        $qry = 'SELECT user_group.*, count(*) as value ' .
+          'FROM user_group JOIN group_member '.
+          'ON user_group.id = group_member.group_id ' .
+          'GROUP BY user_group.id ' .
+          'ORDER BY value DESC ';
+
+        $limit = GROUPS_PER_SECTION;
+        $offset = 0;
+
+        if (common_config('db','type') == 'pgsql') {
+            $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+        } else {
+            $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+        }
+
+        $group = Memcached_DataObject::cachedQuery('User_group',
+                                                   $qry,
+                                                   3600);
+        return $group;
     }
 
-    /**
-     * Show the menu
-     *
-     * @return void
-     */
-
-    function show()
+    function title()
     {
-        $action_name = $this->action->trimmed('action');
-        $this->action->elementStart('ul', array('class' => 'nav'));
-        $args = array();
-        if ($this->q) {
-            $args['q'] = $this->q;
-        }
-        $this->out->menuItem(common_local_url('peoplesearch', $args), _('People'),
-            _('Find people on this site'), $action_name == 'peoplesearch', 'nav_search_people');
-        $this->out->menuItem(common_local_url('noticesearch', $args), _('Notice'),
-            _('Find content of notices'), $action_name == 'noticesearch', 'nav_search_notice');
-        $this->action->elementEnd('ul');
+        return _('Groups with most members');
+    }
+
+    function divId()
+    {
+        return 'top_groups_by_member';
     }
 }
-

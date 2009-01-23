@@ -65,7 +65,7 @@ class Form extends Widget
     {
         $this->out->elementStart('form',
                                  array('id' => $this->id(),
-				       'class' => $this->formClass(),
+                                       'class' => $this->formClass(),
                                        'method' => 'post',
                                        'action' => $this->action()));
         $this->out->elementStart('fieldset');
@@ -88,7 +88,6 @@ class Form extends Widget
         $this->out->hidden('token', common_session_token());
     }
 
-
     /**
      * Name of the form
      *
@@ -100,7 +99,6 @@ class Form extends Widget
     function formLegend()
     {
     }
-
 
     /**
      * Visible or invisible data elements
@@ -154,7 +152,7 @@ class Form extends Widget
     function action()
     {
     }
-    
+
     /**
      * Class of the form.
      *
@@ -163,6 +161,6 @@ class Form extends Widget
 
     function formClass()
     {
-	return 'form';
+        return 'form';
     }
 }

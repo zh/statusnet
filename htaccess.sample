@@ -93,6 +93,7 @@ RewriteRule ^group/([a-zA-Z0-9]+)/members index.php?action=groupmembers&nickname
 RewriteRule ^group/([0-9]+)/id index.php?action=groupbyid&id=$1 [L,QSA]
 RewriteRule ^group/([a-zA-Z0-9]+)/rss index.php?action=grouprss&nickname=$1 [L,QSA]
 RewriteRule ^group/([a-zA-Z0-9]+)$ index.php?action=showgroup&nickname=$1 [L,QSA]
+RewriteRule ^group$ index.php?action=groups [L,QSA]
 
 # Twitter-compatible API rewrites
 # XXX: Surely these can be refactored a little -- Zach

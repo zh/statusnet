@@ -34,7 +34,7 @@ if (!defined('LACONICA')) {
 
 require_once INSTALLDIR.'/lib/widget.php';
 
-define('groupS_PER_PAGE', 20);
+define('GROUPS_PER_PAGE', 20);
 
 /**
  * Widget to show a list of groups
@@ -72,7 +72,7 @@ class GroupList extends Widget
 
         while ($this->group->fetch()) {
             $cnt++;
-            if($cnt > groupS_PER_PAGE) {
+            if($cnt > GROUPS_PER_PAGE) {
                 break;
             }
             $this->showgroup();
@@ -99,12 +99,12 @@ class GroupList extends Widget
                                             'class' => 'url',
                                             'rel' => 'group'));
         $this->out->element('img', array('src' => $logo,
-                                    'class' => 'photo avatar',
-                                    'width' => AVATAR_STREAM_SIZE,
-                                    'height' => AVATAR_STREAM_SIZE,
-                                    'alt' =>
-                                    ($this->group->fullname) ? $this->group->fullname :
-                                    $this->group->nickname));
+                                         'class' => 'photo avatar',
+                                         'width' => AVATAR_STREAM_SIZE,
+                                         'height' => AVATAR_STREAM_SIZE,
+                                         'alt' =>
+                                         ($this->group->fullname) ? $this->group->fullname :
+                                         $this->group->nickname));
         $hasFN = ($this->group->fullname) ? 'nickname url uid' : 'fn org nickname url uid';
         $this->out->elementStart('span', $hasFN);
         $this->out->raw($this->highlight($this->group->nickname));
@@ -164,7 +164,7 @@ class GroupList extends Widget
                 $lf = new LeaveForm($this->out, $this->group);
                 $lf->show();
             } else {
-                $jf = new JoinForm();
+                $jf = new JoinForm($this->out, $this->group);
                 $jf->show();
             }
         }
