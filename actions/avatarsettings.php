@@ -119,9 +119,8 @@ class AvatarsettingsAction extends AccountSettingsAction
 
         $this->elementStart('ul', 'form_data');
         if ($original) {
-            $this->elementStart('li',
-                                array('id' => 'avatar_original',
-                                      'class' => 'avatar_view'));
+            $this->elementStart('li', array('id' => 'avatar_original',
+                                            'class' => 'avatar_view'));
             $this->element('h2', null, _("Original"));
             $this->elementStart('div', array('id'=>'avatar_original_view'));
             $this->element('img', array('src' => $original->url,
@@ -135,16 +134,16 @@ class AvatarsettingsAction extends AccountSettingsAction
         $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
 
         if ($avatar) {
-            $this->elementStart('li',
-                                array('id' => 'avatar_preview',
-                                      'class' => 'avatar_view'));
+            $this->elementStart('li', array('id' => 'avatar_preview',
+                                            'class' => 'avatar_view'));
             $this->element('h2', null, _("Preview"));
             $this->elementStart('div', array('id'=>'avatar_preview_view'));
-            $this->element('img', array('src' => $original->url,//$avatar->url,
+            $this->element('img', array('src' => $original->url,
                                         'width' => AVATAR_PROFILE_SIZE,
                                         'height' => AVATAR_PROFILE_SIZE,
                                         'alt' => $user->nickname));
             $this->elementEnd('div');
+            $this->elementEnd('li');
         }
 
         $this->elementStart('li', array ('id' => 'settings_attach'));
