@@ -32,7 +32,8 @@ function getFacebookNotices($since)
         'FROM notice ' .
         'JOIN foreign_link ' .
         'WHERE notice.profile_id = foreign_link.user_id ' .
-        'AND foreign_link.service = 2';
+        'AND foreign_link.service = 2 ' . 
+        'ORDER BY notice.created DESC';
 
     // XXX: What should the limit be?
     return Notice::getStreamDirect($qry, 0, 100, 0, 0, null, $since);
