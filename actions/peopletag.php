@@ -71,8 +71,8 @@ class PeopletagAction extends Action
                                 'ON profile.id = profile_tag.tagger ' .
                                 'WHERE profile_tag.tagger = profile_tag.tagged ' .
                                 'AND tag = "%s" ' .
-                                'ORDER BY profile_tag.modified DESC ' . 
-                                $lim, $this->tag));
+                                'ORDER BY profile_tag.modified DESC ',
+                                'LIMIT 0, %s'), $this->tag, $lim);
 
         $pl = new ProfileList($profile, null, $this);
         $cnt = $pl->show();
