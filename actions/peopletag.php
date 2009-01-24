@@ -24,35 +24,33 @@ require_once INSTALLDIR.'/lib/profilelist.php';
 class PeopletagAction extends Action
 {
     
+    var $tag = null;
+    var $page = null;
+        
     function handle($args)
     {
-
-        parent::handle($args);
-
-        $tag = $this->trimmed('tag');
+        parent::handle($args);    
         
-        if (!common_valid_profile_tag($tag)) {
-            $this->clientError(sprintf(_('Not a valid people tag: %s'), $tag));
+        parent::prepare($args);
+
+        $this->tag = $this->trimmed('tag');
+
+        if (!common_valid_profile_tag($this->tag)) {
+            $this->clientError(sprintf(_('Not a valid people tag: %s'), $this->tag));
             return;
         }
 
-        $page = $this->trimmed('page');
-        
-        if (!$page) {
-            $page = 1;
+        $this->page = $this->trimmed('page');
+
+        if (!$this->page) {
+            $this->page = 1;
         }
-
-        $this->showPeople($tag, $page);
-
+        
+        $this->showPage();
     }
     
-    function title() 
-    {
-        return sprintf(_('Users self-tagged with %s - page %d'), $tag, $page,
-                           null, $tag, array($this, 'show_top'));
-    }
-
-    function showPeople($tag, $page)
+  
+    function showContent()
     {
         
         $profile = new Profile();
@@ -74,16 +72,21 @@ class PeopletagAction extends Action
                                 'WHERE profile_tag.tagger = profile_tag.tagged ' .
                                 'AND tag = "%s" ' .
                                 'ORDER BY profile_tag.modified DESC ' . 
-                                $lim, $tag));
+                                $lim, $this->tag));
 
         $pl = new ProfileList($profile, null, $this);
         $cnt = $pl->show();
         
-        $this->pagination($page > 1,
+        $this->pagination($this->page > 1,
                           $cnt > PROFILES_PER_PAGE,
-                          $page,
+                          $this->page,
                           $this->trimmed('action'),
-                          array('tag' => $tag));
+                          array('tag' => $this->tag));
+    }
+    
+    function title() 
+    {
+        return sprintf( _('Users self-tagged with %s - page %d'), $this->tag, $this->page);
     }
     
 }
