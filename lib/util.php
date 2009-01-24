@@ -1124,7 +1124,7 @@ function common_twitter_broadcast($notice, $flink)
 
 function common_enqueue_notice($notice)
 {
-    foreach (array('jabber', 'omb', 'sms', 'public') as $transport) {
+    foreach (array('jabber', 'omb', 'sms', 'public', 'ping') as $transport) {
         $qi = new Queue_item();
         $qi->notice_id = $notice->id;
         $qi->transport = $transport;
