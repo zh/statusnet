@@ -19,7 +19,7 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-require_once(INSTALLDIR.'/lib/profilelist.php');
+require_once INSTALLDIR.'/lib/profilelist.php';
 
 class PeopletagAction extends Action
 {
@@ -41,18 +41,18 @@ class PeopletagAction extends Action
         if (!$page) {
             $page = 1;
         }
-        
-        # Looks like we're good; show the header
 
-        common_show_header(sprintf(_('Users self-tagged with %s - page %d'), $tag, $page),
+        $this->showPeople($tag, $page);
+
+    }
+    
+    function title() 
+    {
+        return sprintf(_('Users self-tagged with %s - page %d'), $tag, $page,
                            null, $tag, array($this, 'show_top'));
-
-        $this->show_people($tag, $page);
-
-        common_show_footer();
     }
 
-    function show_people($tag, $page)
+    function showPeople($tag, $page)
     {
         
         $profile = new Profile();
@@ -76,34 +76,14 @@ class PeopletagAction extends Action
                                 'ORDER BY profile_tag.modified DESC ' . 
                                 $lim, $tag));
 
-        $pl = new ProfileList($profile);
-        $cnt = $pl->show_list();
+        $pl = new ProfileList($profile, null, $this);
+        $cnt = $pl->show();
         
-        common_pagination($page > 1,
+        $this->pagination($page > 1,
                           $cnt > PROFILES_PER_PAGE,
                           $page,
                           $this->trimmed('action'),
                           array('tag' => $tag));
     }
     
-    function show_top($tag)
-    {
-        $instr = sprintf(_('These are users who have tagged themselves "%s" ' .
-                           'to show a common interest, characteristic, hobby or job.'), $tag);
-        $this->elementStart('div', 'instructions');
-        $this->elementStart('p');
-        $this->text($instr);
-        $this->elementEnd('p');
-        $this->elementEnd('div');
-    }
-
-    function get_title()
-    {
-        return null;
-    }
-
-    function show_header($arr)
-    {
-        return;
-    }
 }
