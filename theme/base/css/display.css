@@ -151,7 +151,8 @@ font-weight:bold;
 #editgroup legend,
 #form_tag_user legend,
 #form_remote_subscribe legend,
-#form_openid_login legend {
+#form_openid_login legend,
+#form_search legend {
 display:none;
 }
 
@@ -181,7 +182,8 @@ width:90%;
 #form_login p.form_guide,
 #form_register #settings_rememberme p.form_guide,
 #form_openid_login #settings_rememberme p.form_guide,
-#settings_twitter_remove p.form_guide {
+#settings_twitter_remove p.form_guide,
+#form_search ul.form_data #q {
 margin-left:0;
 }
 
@@ -191,6 +193,11 @@ border-radius:4px;
 -webkit-border-radius:4px;
 padding:0 7px;
 }
+
+#form_search .submit {
+margin-left:11px;
+}
+
 
 
 address {
@@ -627,11 +634,11 @@ border-radius:4px;
 
 .entity_tags ul {
 list-style-type:none;
+display:inline;
 }
 .entity_tags li {
 display:inline;
-margin-right:1em;
-float:left;
+margin-right:4px;
 }
 
 .aside .section {
