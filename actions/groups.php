@@ -106,12 +106,19 @@ class GroupsAction extends Action
                        _('Create a new group'));
         $this->elementEnd('p');
 
+        $limit = GROUPS_PER_PAGE + 1;
         $offset = ($this->page-1) * GROUPS_PER_PAGE;
-        $limit =  GROUPS_PER_PAGE + 1;
+
+        $qry = 'SELECT * from User_group ' .
+          'ORDER by created DESC ';
+        if (common_config('db','type') == 'pgsql') {
+            $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+        } else {
+            $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+        }
 
         $groups = new User_group();
-        $groups->orderBy('created DESC');
-        $groups->limit($offset, $limit);
+        $groups->query($qry);
 
         if ($groups->find()) {
             $gl = new GroupList($groups, null, $this);
@@ -119,7 +126,7 @@ class GroupsAction extends Action
         }
 
         $this->pagination($this->page > 1, $cnt > GROUPS_PER_PAGE,
-                          $this->page, 'groups');
+                          $this->page, 'groups', array());
     }
 
     function showSections()
