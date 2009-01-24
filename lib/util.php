@@ -903,9 +903,9 @@ function common_fancy_url($action, $args=null)
      case 'grouplogo':
         return common_path('group/'.$args['nickname'].'/logo');
      case 'usergroups':
-        return common_path($args['nickname'].'/groups');
+        return common_path($args['nickname'].'/groups' . (($args) ? ('?' . http_build_query($args)) : ''));
      case 'groups':
-        return common_path('group');
+        return common_path('search/group' . (($args) ? ('?' . http_build_query($args)) : ''));
      default:
         return common_simple_url($action, $args);
     }
