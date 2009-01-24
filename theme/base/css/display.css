@@ -954,6 +954,52 @@ padding-left:20px;
 }
 
 
+#filter_tags {
+margin-bottom:11px;
+float:left;
+}
+#filter_tags dt {
+display:none;
+}
+#filter_tags ul {
+list-style-type:none;
+}
+#filter_tags ul li {
+float:left;
+margin-left:7px;
+padding-left:7px;
+border-left:1px solid #ddd;
+}
+#filter_tags ul li.child_1 {
+margin-left:0;
+border-left:0;
+padding-left:0;
+}
+#filter_tags ul li#filter_tags_all a {
+font-weight:bold;
+margin-top:7px;
+float:left;
+}
+
+#filter_tags ul li#filter_tags_item label {
+margin-right:7px;
+}
+#filter_tags ul li#filter_tags_item label,
+#filter_tags ul li#filter_tags_item select {
+display:inline;
+}
+#filter_tags ul li#filter_tags_item p {
+float:left;
+margin-left:38px;
+}
+#filter_tags ul li#filter_tags_item input {
+position:relative;
+top:3px;
+left:3px;
+}
+
+
+
 .pagination {
 float:left;
 clear:both;
