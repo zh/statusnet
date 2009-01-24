@@ -1140,23 +1140,6 @@ function common_enqueue_notice($notice)
     return $result;
 }
 
-function common_dequeue_notice($notice)
-{
-    $qi = Queue_item::staticGet($notice->id);
-    if ($qi) {
-        $result = $qi->delete();
-        if (!$result) {
-            $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-            common_log(LOG_ERR, 'DB error deleting queue item: ' . $last_error->message);
-            return false;
-        }
-        common_log(LOG_DEBUG, 'complete dequeueing notice ID = ' . $notice->id);
-        return $result;
-    } else {
-        return false;
-    }
-}
-
 function common_real_broadcast($notice, $remote=false)
 {
     $success = true;

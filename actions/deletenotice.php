@@ -111,15 +111,8 @@ class DeletenoticeAction extends DeleteAction
         $this->elementStart('p');
         $this->element('span', array('id' => 'confirmation_text'),
                        _('Are you sure you want to delete this notice?'));
-
-        $this->element('input', array('id' => 'submit_no',
-                                      'name' => 'submit',
-                                      'type' => 'submit',
-                                      'value' => _('No')));
-        $this->element('input', array('id' => 'submit_yes',
-                                      'name' => 'submit',
-                                      'type' => 'submit',
-                                      'value' => _('Yes')));
+        $this->submit('yes', _('Yes'));
+        $this->submit('no', _('No'));
         $this->elementEnd('p');
         $this->elementEnd('form');
     }
@@ -135,31 +128,18 @@ class DeletenoticeAction extends DeleteAction
             return;
         }
 
-        $url       = common_get_returnto();
-        $confirmed = $this->trimmed('submit');
-
-        if ($confirmed == _('Yes')) {
-
-            $replies = new Reply;
-            $replies->get('notice_id', $this->notice->id);
-
-            common_dequeue_notice($this->notice);
-
-            if (common_config('memcached', 'enabled')) {
-                $notice->blowSubsCache();
-            }
-
-            $replies->delete();
+        if ($this->arg('yes')) {
             $this->notice->delete();
-
-        } else {
-
-            if ($url) {
-                common_set_returnto(null);
-            } else {
-                $url = common_local_url('public');
-            }
         }
+
+        $url = common_get_returnto();
+
+        if ($url) {
+            common_set_returnto(null);
+        } else {
+            $url = common_local_url('public');
+        }
+
         common_redirect($url);
     }
 }

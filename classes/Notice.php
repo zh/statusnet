@@ -63,8 +63,24 @@ class Notice extends Memcached_DataObject
     {
         $this->blowCaches(true);
         $this->blowFavesCache(true);
-        $this->blowInboxes();
-        return parent::delete();
+        $this->blowSubsCache(true);
+
+        $this->query('BEGIN');
+        $related = array('Reply',
+                         'Fave',
+                         'Notice_tag',
+                         'Group_inbox',
+                         'Queue_item');
+        if (common_config('inboxes', 'enabled')) {
+            $related[] = 'Notice_inbox';
+        }
+        foreach ($related as $cls) {
+            $inst = new $cls();
+            $inst->notice_id = $this->id;
+            $inst->delete();
+        }
+        $result = parent::delete();
+        $this->query('COMMIT');
     }
 
     function saveTags()
@@ -565,22 +581,6 @@ class Notice extends Memcached_DataObject
             }
             $inbox->query($qry);
         }
-        return;
-    }
-
-    # Delete from inboxes if we're deleted.
-
-    function blowInboxes()
-    {
-
-        $enabled = common_config('inboxes', 'enabled');
-
-        if ($enabled === true || $enabled === 'transitional') {
-            $inbox = new Notice_inbox();
-            $inbox->notice_id = $this->id;
-            $inbox->delete();
-        }
-
         return;
     }
 
