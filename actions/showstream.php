@@ -316,7 +316,7 @@ class ShowstreamAction extends Action
         $this->elementStart('div', 'entity_actions');
         $this->element('h2', null, _('User actions'));
         $this->elementStart('ul');
-        $this->elementStart('li', array('id' => 'entity_subscribe'));
+        $this->elementStart('li', array('class' => 'entity_subscribe'));
         $cur = common_current_user();
         if ($cur) {
             if ($cur->id != $this->profile->id) {
@@ -337,14 +337,14 @@ class ShowstreamAction extends Action
 
         $user = User::staticGet('id', $this->profile->id);
         if ($cur && $cur->id != $user->id && $cur->mutuallySubscribed($user)) {
-           $this->elementStart('li', array('id' => 'entity_send-a-message'));
+           $this->elementStart('li', array('class' => 'entity_send-a-message'));
             $this->element('a', array('href' => common_local_url('newmessage', array('to' => $user->id)),
                                       'title' => _('Send a direct message to this user')),
                            _('Message'));
             $this->elementEnd('li');
 
             if ($user->email && $user->emailnotifynudge) {
-                $this->elementStart('li', array('id' => 'entity_nudge'));
+                $this->elementStart('li', array('class' => 'entity_nudge'));
                 $nf = new NudgeForm($this, $user);
                 $nf->show();
                 $this->elementEnd('li');
@@ -353,7 +353,7 @@ class ShowstreamAction extends Action
 
         if ($cur && $cur->id != $this->profile->id) {
             $blocked = $cur->hasBlocked($this->profile);
-            $this->elementStart('li', array('id' => 'entity_block'));
+            $this->elementStart('li', array('class' => 'entity_block'));
             if ($blocked) {
                 $ubf = new UnblockForm($this, $this->profile);
                 $ubf->show();

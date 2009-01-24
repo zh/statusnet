@@ -30,6 +30,9 @@ input, textarea, select,
 .entity_remote_subscribe {
 border-color:#aaa;
 }
+#filter_tags ul li {
+border-color:#ddd;
+}
 
 
 input.submit,
@@ -54,9 +57,9 @@ a,
 div.notice-options input,
 .form_user_block input.submit,
 .form_user_unblock input.submit,
-#entity_send-a-message a,
+.entity_send-a-message a,
 .form_user_nudge input.submit,
-#entity_nudge p {
+.entity_nudge p {
 color:#002E6E;
 }
 
@@ -160,11 +163,11 @@ background-image:url(../../base/images/icons/icon_vcard.gif);
 }
 
 
-#entity_send-a-message a,
+.entity_send-a-message a,
 .form_user_nudge input.submit,
 .form_user_block input.submit,
 .form_user_unblock input.submit,
-#entity_nudge p {
+.entity_nudge p {
 background-position: 0 40%;
 background-repeat: no-repeat;
 background-color:transparent;
@@ -181,10 +184,10 @@ color:#fff;
 background-color:#97BFD1;
 }
 
-#entity_send-a-message a {
+.entity_send-a-message a {
 background-image:url(../images/icons/twotone/green/quote.gif);
 }
-#entity_nudge p,
+.entity_nudge p,
 .form_user_nudge input.submit {
 background-image:url(../images/icons/twotone/green/mail.gif);
 }
@@ -262,7 +265,7 @@ background-color:#fcfcfc;
 /*END: NOTICES */
 
 
-#groups #new_group a {
+#new_group a {
 background:transparent url(../images/icons/twotone/green/news.gif) no-repeat 0 45%;
 }
 

@@ -104,18 +104,20 @@ class TwittersettingsAction extends ConnectSettingsAction
         $this->elementStart('fieldset', array('id' => 'settings_twitter_account'));
         $this->element('legend', null, _('Twitter Account'));
         $this->hidden('token', common_session_token());
-        $this->elementStart('ul', 'form_data');
         if ($fuser) {
-            $this->elementStart('li');
+            $this->elementStart('ul', 'form_data');
+            $this->elementStart('li', array('id' => 'settings_twitter_remove'));
             $this->element('span', 'twitter_user', $fuser->nickname);
             $this->element('a', array('href' => $fuser->uri), $fuser->uri);
             $this->element('p', 'form_guide',
                            _('Current verified Twitter account.'));
             $this->hidden('flink_foreign_id', $flink->foreign_id);
-            $this->submit('remove', _('Remove'));
             $this->elementEnd('li');
+            $this->elementEnd('ul');
+            $this->submit('remove', _('Remove'));
         } else {
-            $this->elementStart('li');
+            $this->elementStart('ul', 'form_data');
+            $this->elementStart('li', array('id' => 'settings_twitter_login'));
             $this->input('twitter_username', _('Twitter user name'),
                          ($this->arg('twitter_username')) ?
                          $this->arg('twitter_username') :
@@ -125,8 +127,8 @@ class TwittersettingsAction extends ConnectSettingsAction
             $this->elementStart('li');
             $this->password('twitter_password', _('Twitter password'));
             $this->elementend('li');
+            $this->elementEnd('ul');
         }
-        $this->elementEnd('ul');
         $this->elementEnd('fieldset');
 
         $this->elementStart('fieldset',
@@ -224,10 +226,10 @@ class TwittersettingsAction extends ConnectSettingsAction
         $friends_count = count($friends);
 
         if ($friends_count > 0) {
-
-            $this->element('h3', null, _('Twitter Friends'));
-            $this->elementStart('div', array('id' => 'subscriptions'));
-            $this->elementStart('ul', array('id' => 'subscriptions_avatars'));
+            $this->elementStart('div', array('id' => 'entity_subscriptions',
+                                             'class' => 'section'));
+            $this->element('h2', null, _('Twitter Friends'));
+            $this->elementStart('ul', 'entities users xoxo');
 
             for ($i = 0; $i < min($friends_count, SUBSCRIPTIONS); $i++) {
 
@@ -238,13 +240,12 @@ class TwittersettingsAction extends ConnectSettingsAction
                     continue;
                 }
 
-                $this->elementStart('li');
+                $this->elementStart('li', 'vcard');
                 $this->elementStart('a', array('title' => ($other->fullname) ?
                                                $other->fullname :
                                                $other->nickname,
                                                'href' => $other->profileurl,
-                                               'rel' => 'contact',
-                                               'class' => 'subscription'));
+                                               'class' => 'url'));
 
                 $avatar = $other->getAvatar(AVATAR_MINI_SIZE);
 
@@ -255,10 +256,12 @@ class TwittersettingsAction extends ConnectSettingsAction
                 $this->element('img', array('src' => $avatar_url,
                                             'width' => AVATAR_MINI_SIZE,
                                             'height' => AVATAR_MINI_SIZE,
-                                            'class' => 'avatar mini',
+                                            'class' => 'avatar photo',
                                             'alt' =>  ($other->fullname) ?
                                             $other->fullname :
                                             $other->nickname));
+                
+                $this->element('span', 'fn nickname', $other->nickname);
                 $this->elementEnd('a');
                 $this->elementEnd('li');
 
