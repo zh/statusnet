@@ -193,9 +193,7 @@ class NoticesearchAction extends SearchAction
         $this->elementEnd('a');
         $this->elementEnd('dd');
         $this->elementEnd('dl');
-        $this->elementEnd('div');
 
-        $this->elementStart('div', 'notice-options');
         if ($notice->reply_to) {
             $replyurl = common_local_url('shownotice',
                                          array('notice' => $this->notice->reply_to));
@@ -208,6 +206,9 @@ class NoticesearchAction extends SearchAction
             $this->elementEnd('dd');
             $this->elementEnd('dl');
         }
+        $this->elementEnd('div');
+
+        $this->elementStart('div', 'notice-options');
 
         $reply_url = common_local_url('newnotice',
                                       array('replyto' => $profile->nickname));
