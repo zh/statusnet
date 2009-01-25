@@ -19,40 +19,37 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-require_once(INSTALLDIR.'/lib/profilelist.php');
+require_once INSTALLDIR.'/lib/profilelist.php';
 
 class PeopletagAction extends Action
 {
     
+    var $tag = null;
+    var $page = null;
+        
     function handle($args)
     {
-
-        parent::handle($args);
-
-        $tag = $this->trimmed('tag');
+        parent::handle($args);    
         
-        if (!common_valid_profile_tag($tag)) {
-            $this->clientError(sprintf(_('Not a valid people tag: %s'), $tag));
+        parent::prepare($args);
+
+        $this->tag = $this->trimmed('tag');
+
+        if (!common_valid_profile_tag($this->tag)) {
+            $this->clientError(sprintf(_('Not a valid people tag: %s'), $this->tag));
             return;
         }
 
-        $page = $this->trimmed('page');
-        
-        if (!$page) {
-            $page = 1;
+        $this->page = $this->trimmed('page');
+
+        if (!$this->page) {
+            $this->page = 1;
         }
         
-        # Looks like we're good; show the header
-
-        common_show_header(sprintf(_('Users self-tagged with %s - page %d'), $tag, $page),
-                           null, $tag, array($this, 'show_top'));
-
-        $this->show_people($tag, $page);
-
-        common_show_footer();
+        $this->showPage();
     }
-
-    function show_people($tag, $page)
+    
+    function showContent()
     {
         
         $profile = new Profile();
@@ -68,42 +65,28 @@ class PeopletagAction extends Action
 
         # XXX: memcached this
         
-        $profile->query(sprintf('SELECT profile.* ' .
-                                'FROM profile JOIN profile_tag ' .
-                                'ON profile.id = profile_tag.tagger ' .
-                                'WHERE profile_tag.tagger = profile_tag.tagged ' .
-                                'AND tag = "%s" ' .
-                                'ORDER BY profile_tag.modified DESC ' . 
-                                $lim, $tag));
-
-        $pl = new ProfileList($profile);
-        $cnt = $pl->show_list();
+        $qry =  'SELECT profile.* ' .
+                'FROM profile JOIN profile_tag ' .
+                'ON profile.id = profile_tag.tagger ' .
+                'WHERE profile_tag.tagger = profile_tag.tagged ' .
+                'AND tag = "%s" ' .
+                'ORDER BY profile_tag.modified DESC';
         
-        common_pagination($page > 1,
+        $profile->query(sprintf($qry, $this->tag, $lim));
+
+        $pl = new ProfileList($profile, null, $this);
+        $cnt = $pl->show();
+                
+        $this->pagination($this->page > 1,
                           $cnt > PROFILES_PER_PAGE,
-                          $page,
+                          $this->page,
                           $this->trimmed('action'),
-                          array('tag' => $tag));
+                          array('tag' => $this->tag));
     }
     
-    function show_top($tag)
+    function title() 
     {
-        $instr = sprintf(_('These are users who have tagged themselves "%s" ' .
-                           'to show a common interest, characteristic, hobby or job.'), $tag);
-        $this->elementStart('div', 'instructions');
-        $this->elementStart('p');
-        $this->text($instr);
-        $this->elementEnd('p');
-        $this->elementEnd('div');
+        return sprintf( _('Users self-tagged with %s - page %d'), $this->tag, $this->page);
     }
-
-    function get_title()
-    {
-        return null;
-    }
-
-    function show_header($arr)
-    {
-        return;
-    }
+    
 }
