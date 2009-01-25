@@ -49,7 +49,6 @@ class PeopletagAction extends Action
         $this->showPage();
     }
     
-  
     function showContent()
     {
         
@@ -66,17 +65,18 @@ class PeopletagAction extends Action
 
         # XXX: memcached this
         
-        $profile->query(sprintf('SELECT profile.* ' .
-                                'FROM profile JOIN profile_tag ' .
-                                'ON profile.id = profile_tag.tagger ' .
-                                'WHERE profile_tag.tagger = profile_tag.tagged ' .
-                                'AND tag = "%s" ' .
-                                'ORDER BY profile_tag.modified DESC ',
-                                'LIMIT 0, %s'), $this->tag, $lim);
+        $qry =  'SELECT profile.* ' .
+                'FROM profile JOIN profile_tag ' .
+                'ON profile.id = profile_tag.tagger ' .
+                'WHERE profile_tag.tagger = profile_tag.tagged ' .
+                'AND tag = "%s" ' .
+                'ORDER BY profile_tag.modified DESC';
+        
+        $profile->query(sprintf($qry, $this->tag, $lim));
 
         $pl = new ProfileList($profile, null, $this);
         $cnt = $pl->show();
-        
+                
         $this->pagination($this->page > 1,
                           $cnt > PROFILES_PER_PAGE,
                           $this->page,
