@@ -2,7 +2,7 @@
 /**
  * Laconica, the distributed open-source microblogging tool
  *
- * Handler for posting new notices
+ * Handler for posting new messages
  *
  * PHP version 5
  *
@@ -172,6 +172,12 @@ class NewmessageAction extends Action
         $this->msg = $msg;
         
         $this->showPage();
+    }
+
+    function showContent()
+    {
+        $message_form = new MessageForm($this);
+        $message_form->show();
     }
     
     function notify($from, $to, $message)
