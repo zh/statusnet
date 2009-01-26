@@ -193,9 +193,12 @@ class ProfileList extends Widget
 
         $this->out->elementStart('div', 'entity_actions');
 
+        $this->out->elementStart('ul');
+
         if ($user && $user->id != $this->profile->id) {
             # XXX: special-case for user looking at own
             # subscriptions page
+            $this->out->elementStart('li', 'entity_subscribe');
             if ($user->isSubscribed($this->profile)) {
                 $usf = new UnsubscribeForm($this->out, $this->profile);
                 $usf->show();
@@ -203,10 +206,15 @@ class ProfileList extends Widget
                 $sf = new SubscribeForm($this->out, $this->profile);
                 $sf->show();
             }
+            $this->out->elementEnd('li');
+            $this->out->elementStart('li', 'entity_block');
             if ($user && $user->id == $this->owner->id) {
                 $this->showBlockForm();
             }
+            $this->out->elementEnd('li');
         }
+
+        $this->out->elementEnd('ul');
 
         $this->out->elementEnd('div');
 
@@ -223,5 +231,9 @@ class ProfileList extends Widget
     function highlight($text)
     {
         return htmlspecialchars($text);
+    }
+
+    function showBlockForm()
+    {
     }
 }
