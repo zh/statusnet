@@ -46,7 +46,7 @@ function subs_subscribe_to($user, $other)
 {
 
     if ($user->isSubscribed($other)) {
-        return _('Already subscribed!.');
+        return _('Already subscribed!');
     }
 
     if ($other->hasBlocked($user)) {
