@@ -22,558 +22,579 @@ if (!defined('LACONICA')) { exit(1); }
 require_once(INSTALLDIR.'/lib/omb.php');
 define('TIMESTAMP_THRESHOLD', 300);
 
-class UserauthorizationAction extends Action {
+class UserauthorizationAction extends Action
+{
+    var $error;
+    var $req;
 
-	function handle($args) {
-		parent::handle($args);
+    function handle($args)
+    {
+        parent::handle($args);
 
-		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-			# CSRF protection
-			$token = $this->trimmed('token');
-			if (!$token || $token != common_session_token()) {
-				$req = $this->get_stored_request();
-				$this->show_form(_('There was a problem with your session token. Try again, please.'), $req);
-				return;
-			}
-			# We've shown the form, now post user's choice
-			$this->send_authorization();
-		} else {
-			if (!common_logged_in()) {
-				# Go log in, and then come back
-				common_debug('saving URL for returnto', __FILE__);
-				common_set_returnto($_SERVER['REQUEST_URI']);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            # CSRF protection
+            $token = $this->trimmed('token');
+            if (!$token || $token != common_session_token()) {
+                $req = $this->getStoredRequest();
+                $this->showForm($req, _('There was a problem with your session token. '.
+                                        'Try again, please.'));
+                return;
+            }
+            # We've shown the form, now post user's choice
+            $this->sendAuthorization();
+        } else {
+            if (!common_logged_in()) {
+                # Go log in, and then come back
+                common_set_returnto($_SERVER['REQUEST_URI']);
 
-				common_debug('redirecting to login', __FILE__);
-				common_redirect(common_local_url('login'));
-				return;
-			}
-			try {
-				# this must be a new request
-				common_debug('getting new request', __FILE__);
-				$req = $this->get_new_request();
-				if (!$req) {
-					$this->client_error(_('No request found!'));
-				}
-				common_debug('validating request', __FILE__);
-				# XXX: only validate new requests, since nonce is one-time use
-				$this->validate_request($req);
-				common_debug('showing form', __FILE__);
-				$this->store_request($req);
-				$this->show_form($req);
-			} catch (OAuthException $e) {
-				$this->clear_request();
-				$this->client_error($e->getMessage());
-				return;
-			}
+                common_redirect(common_local_url('login'));
+                return;
+            }
+            try {
+                # this must be a new request
+                $req = $this->getNewRequest();
+                if (!$req) {
+                    $this->clientError(_('No request found!'));
+                }
+                # XXX: only validate new requests, since nonce is one-time use
+                $this->validateRequest($req);
+                $this->storeRequest($req);
+                $this->showForm($req);
+            } catch (OAuthException $e) {
+                $this->clearRequest();
+                $this->clientError($e->getMessage());
+                return;
+            }
 
-		}
-	}
+        }
+    }
 
-	function show_form($req) {
+    function showForm($req, $error=null)
+    {
+        $this->req = $req;
+        $this->error = $error;
+        $this->showPage();
+    }
 
-		$nickname = $req->get_parameter('omb_listenee_nickname');
-		$profile = $req->get_parameter('omb_listenee_profile');
-		$license = $req->get_parameter('omb_listenee_license');
-		$fullname = $req->get_parameter('omb_listenee_fullname');
-		$homepage = $req->get_parameter('omb_listenee_homepage');
-		$bio = $req->get_parameter('omb_listenee_bio');
-		$location = $req->get_parameter('omb_listenee_location');
-		$avatar = $req->get_parameter('omb_listenee_avatar');
+    function title()
+    {
+        return _('Authorize subscription');
+    }
 
-		common_show_header(_('Authorize subscription'));
-		common_element('p', NULL, _('Please check these details to make sure '.
-									 'that you want to subscribe to this user\'s notices. '.
-									 'If you didn\'t just ask to subscribe to someone\'s notices, '.
-									 'click "Cancel".'));
-		common_element_start('div', 'profile');
-		if ($avatar) {
-			common_element('img', array('src' => $avatar,
-										'class' => 'avatar profile',
-										'width' => AVATAR_PROFILE_SIZE,
-										'height' => AVATAR_PROFILE_SIZE,
-										'alt' => $nickname));
-		}
-		common_element('a', array('href' => $profile,
-								  'class' => 'external profile nickname'),
-					   $nickname);
-		if ($fullname) {
-			common_element_start('div', 'fullname');
-			if ($homepage) {
-				common_element('a', array('href' => $homepage),
-							   $fullname);
-			} else {
-				common_text($fullname);
-			}
-			common_element_end('div');
-		}
-		if ($location) {
-			common_element('div', 'location', $location);
-		}
-		if ($bio) {
-			common_element('div', 'bio', $bio);
-		}
-		common_element_start('div', 'license');
-		common_element('a', array('href' => $license,
-								  'class' => 'license'),
-					   $license);
-		common_element_end('div');
-		common_element_end('div');
-		common_element_start('form', array('method' => 'post',
-										   'id' => 'userauthorization',
-										   'name' => 'userauthorization',
-										   'action' => common_local_url('userauthorization')));
-		common_hidden('token', common_session_token());
-		common_submit('accept', _('Accept'));
-		common_submit('reject', _('Reject'));
-		common_element_end('form');
-		common_show_footer();
-	}
+    function showPageNotice()
+    {
+        $this->element('p', null, _('Please check these details to make sure '.
+                                    'that you want to subscribe to this user\'s notices. '.
+                                    'If you didn\'t just ask to subscribe to someone\'s notices, '.
+                                    'click "Cancel".'));
+    }
 
-	function send_authorization() {
-		$req = $this->get_stored_request();
+    function showContent()
+    {
+        $req = $this->req;
 
-		if (!$req) {
-			common_user_error(_('No authorization request!'));
-			return;
-		}
+        $nickname = $req->get_parameter('omb_listenee_nickname');
+        $profile = $req->get_parameter('omb_listenee_profile');
+        $license = $req->get_parameter('omb_listenee_license');
+        $fullname = $req->get_parameter('omb_listenee_fullname');
+        $homepage = $req->get_parameter('omb_listenee_homepage');
+        $bio = $req->get_parameter('omb_listenee_bio');
+        $location = $req->get_parameter('omb_listenee_location');
+        $avatar = $req->get_parameter('omb_listenee_avatar');
 
-		$callback = $req->get_parameter('oauth_callback');
+        $this->elementStart('div', 'profile');
+        if ($avatar) {
+            $this->element('img', array('src' => $avatar,
+                                        'class' => 'avatar profile',
+                                        'width' => AVATAR_PROFILE_SIZE,
+                                        'height' => AVATAR_PROFILE_SIZE,
+                                        'alt' => $nickname));
+        }
+        $this->element('a', array('href' => $profile,
+                                  'class' => 'external profile nickname'),
+                       $nickname);
+        if ($fullname) {
+            $this->elementStart('div', 'fullname');
+            if ($homepage) {
+                $this->element('a', array('href' => $homepage),
+                               $fullname);
+            } else {
+                $this->text($fullname);
+            }
+            $this->elementEnd('div');
+        }
+        if ($location) {
+            $this->element('div', 'location', $location);
+        }
+        if ($bio) {
+            $this->element('div', 'bio', $bio);
+        }
+        $this->elementStart('div', 'license');
+        $this->element('a', array('href' => $license,
+                                  'class' => 'license'),
+                       $license);
+        $this->elementEnd('div');
+        $this->elementEnd('div');
+        $this->elementStart('form', array('method' => 'post',
+                                          'id' => 'userauthorization',
+                                          'name' => 'userauthorization',
+                                          'action' => common_local_url('userauthorization')));
+        $this->hidden('token', common_session_token());
+        $this->submit('accept', _('Accept'));
+        $this->submit('reject', _('Reject'));
+        $this->elementEnd('form');
+    }
 
-		if ($this->arg('accept')) {
-			if (!$this->authorize_token($req)) {
-				$this->client_error(_('Error authorizing token'));
-			}
-			if (!$this->save_remote_profile($req)) {
-				$this->client_error(_('Error saving remote profile'));
-			}
-			if (!$callback) {
-				$this->show_accept_message($req->get_parameter('oauth_token'));
-			} else {
-				$params = array();
-				$params['oauth_token'] = $req->get_parameter('oauth_token');
-				$params['omb_version'] = OMB_VERSION_01;
-				$user = User::staticGet('uri', $req->get_parameter('omb_listener'));
-				$profile = $user->getProfile();
-				if (!$profile) {
-					common_log_db_error($user, 'SELECT', __FILE__);
-					$this->server_error(_('User without matching profile'));
-					return;
-				}
-				$params['omb_listener_nickname'] = $user->nickname;
-				$params['omb_listener_profile'] = common_local_url('showstream',
-																   array('nickname' => $user->nickname));
-				if ($profile->fullname) {
-					$params['omb_listener_fullname'] = $profile->fullname;
-				}
-				if ($profile->homepage) {
-					$params['omb_listener_homepage'] = $profile->homepage;
-				}
-				if ($profile->bio) {
-					$params['omb_listener_bio'] = $profile->bio;
-				}
-				if ($profile->location) {
-					$params['omb_listener_location'] = $profile->location;
-				}
-				$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
-				if ($avatar) {
-					$params['omb_listener_avatar'] = $avatar->url;
-				}
-				$parts = array();
-				foreach ($params as $k => $v) {
-					$parts[] = $k . '=' . OAuthUtil::urlencodeRFC3986($v);
-				}
-				$query_string = implode('&', $parts);
-				$parsed = parse_url($callback);
-				$url = $callback . (($parsed['query']) ? '&' : '?') . $query_string;
-				common_redirect($url, 303);
-			}
-		} else {
-			if (!$callback) {
-				$this->show_reject_message();
-			} else {
-				# XXX: not 100% sure how to signal failure... just redirect without token?
-				common_redirect($callback, 303);
-			}
-		}
-	}
+    function sendAuthorization()
+    {
+        $req = $this->getStoredRequest();
 
-	function authorize_token(&$req) {
-		$consumer_key = $req->get_parameter('oauth_consumer_key');
-		$token_field = $req->get_parameter('oauth_token');
-		common_debug('consumer key = "'.$consumer_key.'"', __FILE__);
-		common_debug('token field = "'.$token_field.'"', __FILE__);
-		$rt = new Token();
-		$rt->consumer_key = $consumer_key;
-		$rt->tok = $token_field;
-		$rt->type = 0;
-		$rt->state = 0;
-		common_debug('request token to look up: "'.print_r($rt,TRUE).'"');
-		if ($rt->find(true)) {
-			common_debug('found request token to authorize', __FILE__);
-			$orig_rt = clone($rt);
-			$rt->state = 1; # Authorized but not used
-			if ($rt->update($orig_rt)) {
-				common_debug('updated request token so it is authorized', __FILE__);
-				return true;
-			}
-		}
-		return FALSE;
-	}
+        if (!$req) {
+            $this->clientError(_('No authorization request!'));
+            return;
+        }
 
-	# XXX: refactor with similar code in finishremotesubscribe.php
+        $callback = $req->get_parameter('oauth_callback');
 
-	function save_remote_profile(&$req) {
-		# FIXME: we should really do this when the consumer comes
-		# back for an access token. If they never do, we've got stuff in a
-		# weird state.
+        if ($this->arg('accept')) {
+            if (!$this->authorizeToken($req)) {
+                $this->clientError(_('Error authorizing token'));
+            }
+            if (!$this->saveRemoteProfile($req)) {
+                $this->clientError(_('Error saving remote profile'));
+            }
+            if (!$callback) {
+                $this->showAcceptMessage($req->get_parameter('oauth_token'));
+            } else {
+                $params = array();
+                $params['oauth_token'] = $req->get_parameter('oauth_token');
+                $params['omb_version'] = OMB_VERSION_01;
+                $user = User::staticGet('uri', $req->get_parameter('omb_listener'));
+                $profile = $user->getProfile();
+                if (!$profile) {
+                    common_log_db_error($user, 'SELECT', __FILE__);
+                    $this->serverError(_('User without matching profile'));
+                    return;
+                }
+                $params['omb_listener_nickname'] = $user->nickname;
+                $params['omb_listener_profile'] = common_local_url('showstream',
+                                                                   array('nickname' => $user->nickname));
+                if ($profile->fullname) {
+                    $params['omb_listener_fullname'] = $profile->fullname;
+                }
+                if ($profile->homepage) {
+                    $params['omb_listener_homepage'] = $profile->homepage;
+                }
+                if ($profile->bio) {
+                    $params['omb_listener_bio'] = $profile->bio;
+                }
+                if ($profile->location) {
+                    $params['omb_listener_location'] = $profile->location;
+                }
+                $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
+                if ($avatar) {
+                    $params['omb_listener_avatar'] = $avatar->url;
+                }
+                $parts = array();
+                foreach ($params as $k => $v) {
+                    $parts[] = $k . '=' . OAuthUtil::urlencodeRFC3986($v);
+                }
+                $query_string = implode('&', $parts);
+                $parsed = parse_url($callback);
+                $url = $callback . (($parsed['query']) ? '&' : '?') . $query_string;
+                common_redirect($url, 303);
+            }
+        } else {
+            if (!$callback) {
+                $this->showRejectMessage();
+            } else {
+                # XXX: not 100% sure how to signal failure... just redirect without token?
+                common_redirect($callback, 303);
+            }
+        }
+    }
 
-		$nickname = $req->get_parameter('omb_listenee_nickname');
-		$fullname = $req->get_parameter('omb_listenee_fullname');
-		$profile_url = $req->get_parameter('omb_listenee_profile');
-		$homepage = $req->get_parameter('omb_listenee_homepage');
-		$bio = $req->get_parameter('omb_listenee_bio');
-		$location = $req->get_parameter('omb_listenee_location');
-		$avatar_url = $req->get_parameter('omb_listenee_avatar');
+    function authorizeToken(&$req)
+    {
+        $consumer_key = $req->get_parameter('oauth_consumer_key');
+        $token_field = $req->get_parameter('oauth_token');
+        $rt = new Token();
+        $rt->consumer_key = $consumer_key;
+        $rt->tok = $token_field;
+        $rt->type = 0;
+        $rt->state = 0;
+        if ($rt->find(true)) {
+            $orig_rt = clone($rt);
+            $rt->state = 1; # Authorized but not used
+            if ($rt->update($orig_rt)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-		$listenee = $req->get_parameter('omb_listenee');
-		$remote = Remote_profile::staticGet('uri', $listenee);
+    # XXX: refactor with similar code in finishremotesubscribe.php
 
-		if ($remote) {
-			$exists = true;
-			$profile = Profile::staticGet($remote->id);
-			$orig_remote = clone($remote);
-			$orig_profile = clone($profile);
-		} else {
-			$exists = false;
-			$remote = new Remote_profile();
-			$remote->uri = $listenee;
-			$profile = new Profile();
-		}
+    function saveRemoteProfile(&$req)
+    {
+        # FIXME: we should really do this when the consumer comes
+        # back for an access token. If they never do, we've got stuff in a
+        # weird state.
 
-		$profile->nickname = $nickname;
-		$profile->profileurl = $profile_url;
+        $nickname = $req->get_parameter('omb_listenee_nickname');
+        $fullname = $req->get_parameter('omb_listenee_fullname');
+        $profile_url = $req->get_parameter('omb_listenee_profile');
+        $homepage = $req->get_parameter('omb_listenee_homepage');
+        $bio = $req->get_parameter('omb_listenee_bio');
+        $location = $req->get_parameter('omb_listenee_location');
+        $avatar_url = $req->get_parameter('omb_listenee_avatar');
 
-		if ($fullname) {
-			$profile->fullname = $fullname;
-		}
-		if ($homepage) {
-			$profile->homepage = $homepage;
-		}
-		if ($bio) {
-			$profile->bio = $bio;
-		}
-		if ($location) {
-			$profile->location = $location;
-		}
+        $listenee = $req->get_parameter('omb_listenee');
+        $remote = Remote_profile::staticGet('uri', $listenee);
 
-		if ($exists) {
-			$profile->update($orig_profile);
-		} else {
-			$profile->created = DB_DataObject_Cast::dateTime(); # current time
-			$id = $profile->insert();
-			if (!$id) {
-				return FALSE;
-			}
-			$remote->id = $id;
-		}
+        if ($remote) {
+            $exists = true;
+            $profile = Profile::staticGet($remote->id);
+            $orig_remote = clone($remote);
+            $orig_profile = clone($profile);
+        } else {
+            $exists = false;
+            $remote = new Remote_profile();
+            $remote->uri = $listenee;
+            $profile = new Profile();
+        }
 
-		if ($exists) {
-			if (!$remote->update($orig_remote)) {
-				return FALSE;
-			}
-		} else {
-			$remote->created = DB_DataObject_Cast::dateTime(); # current time
-			if (!$remote->insert()) {
-				return FALSE;
-			}
-		}
+        $profile->nickname = $nickname;
+        $profile->profileurl = $profile_url;
 
-		if ($avatar_url) {
-			if (!$this->add_avatar($profile, $avatar_url)) {
-				return FALSE;
-			}
-		}
+        if ($fullname) {
+            $profile->fullname = $fullname;
+        }
+        if ($homepage) {
+            $profile->homepage = $homepage;
+        }
+        if ($bio) {
+            $profile->bio = $bio;
+        }
+        if ($location) {
+            $profile->location = $location;
+        }
 
-		$user = common_current_user();
-		$datastore = omb_oauth_datastore();
-		$consumer = $this->get_consumer($datastore, $req);
-		$token = $this->get_token($datastore, $req, $consumer);
+        if ($exists) {
+            $profile->update($orig_profile);
+        } else {
+            $profile->created = DB_DataObject_Cast::dateTime(); # current time
+            $id = $profile->insert();
+            if (!$id) {
+                return false;
+            }
+            $remote->id = $id;
+        }
 
-		$sub = new Subscription();
-		$sub->subscriber = $user->id;
-		$sub->subscribed = $remote->id;
-		$sub->token = $token->key; # NOTE: request token, not valid for use!
-		$sub->created = DB_DataObject_Cast::dateTime(); # current time
+        if ($exists) {
+            if (!$remote->update($orig_remote)) {
+                return false;
+            }
+        } else {
+            $remote->created = DB_DataObject_Cast::dateTime(); # current time
+            if (!$remote->insert()) {
+                return false;
+            }
+        }
 
-		if (!$sub->insert()) {
-			return FALSE;
-		}
+        if ($avatar_url) {
+            if (!$this->addAvatar($profile, $avatar_url)) {
+                return false;
+            }
+        }
 
-		return TRUE;
-	}
+        $user = common_current_user();
+        $datastore = omb_oauth_datastore();
+        $consumer = $this->getConsumer($datastore, $req);
+        $token = $this->getToken($datastore, $req, $consumer);
 
-	function add_avatar($profile, $url) {
-		$temp_filename = tempnam(sys_get_temp_dir(), 'listenee_avatar');
-		copy($url, $temp_filename);
-		return $profile->setOriginal($temp_filename);
-	}
+        $sub = new Subscription();
+        $sub->subscriber = $user->id;
+        $sub->subscribed = $remote->id;
+        $sub->token = $token->key; # NOTE: request token, not valid for use!
+        $sub->created = DB_DataObject_Cast::dateTime(); # current time
 
-	function show_accept_message($tok) {
-		common_show_header(_('Subscription authorized'));
-		common_element('p', NULL,
-					   _('The subscription has been authorized, but no '.
-						  'callback URL was passed. Check with the site\'s instructions for '.
-						  'details on how to authorize the subscription. Your subscription token is:'));
-		common_element('blockquote', 'token', $tok);
-		common_show_footer();
-	}
+        if (!$sub->insert()) {
+            return false;
+        }
 
-	function show_reject_message($tok) {
-		common_show_header(_('Subscription rejected'));
-		common_element('p', NULL,
-					   _('The subscription has been rejected, but no '.
-						  'callback URL was passed. Check with the site\'s instructions for '.
-						  'details on how to fully reject the subscription.'));
-		common_show_footer();
-	}
+        return true;
+    }
 
-	function store_request($req) {
-		common_ensure_session();
-		$_SESSION['userauthorizationrequest'] = $req;
-	}
+    function addAvatar($profile, $url)
+    {
+        $temp_filename = tempnam(sys_get_temp_dir(), 'listenee_avatar');
+        copy($url, $temp_filename);
+        return $profile->setOriginal($temp_filename);
+    }
 
-	function clear_request() {
-		common_ensure_session();
-		unset($_SESSION['userauthorizationrequest']);
-	}
+    function showAcceptMessage($tok)
+    {
+        common_show_header(_('Subscription authorized'));
+        $this->element('p', null,
+                       _('The subscription has been authorized, but no '.
+                         'callback URL was passed. Check with the site\'s instructions for '.
+                         'details on how to authorize the subscription. Your subscription token is:'));
+        $this->element('blockquote', 'token', $tok);
+        common_show_footer();
+    }
 
-	function get_stored_request() {
-		common_ensure_session();
-		$req = $_SESSION['userauthorizationrequest'];
-		return $req;
-	}
+    function showRejectMessage($tok)
+    {
+        common_show_header(_('Subscription rejected'));
+        $this->element('p', null,
+                       _('The subscription has been rejected, but no '.
+                         'callback URL was passed. Check with the site\'s instructions for '.
+                         'details on how to fully reject the subscription.'));
+        common_show_footer();
+    }
 
-	function get_new_request() {
-		common_remove_magic_from_request();
-		$req = OAuthRequest::from_request();
-		return $req;
-	}
+    function storeRequest($req)
+    {
+        common_ensure_session();
+        $_SESSION['userauthorizationrequest'] = $req;
+    }
 
-	# Throws an OAuthException if anything goes wrong
+    function clearRequest()
+    {
+        common_ensure_session();
+        unset($_SESSION['userauthorizationrequest']);
+    }
 
-	function validate_request(&$req) {
-		# OAuth stuff -- have to copy from OAuth.php since they're
-		# all private methods, and there's no user-authentication method
-		common_debug('checking version', __FILE__);
-		$this->check_version($req);
-		common_debug('getting datastore', __FILE__);
-		$datastore = omb_oauth_datastore();
-		common_debug('getting consumer', __FILE__);
-		$consumer = $this->get_consumer($datastore, $req);
-		common_debug('getting token', __FILE__);
-		$token = $this->get_token($datastore, $req, $consumer);
-		common_debug('checking timestamp', __FILE__);
-		$this->check_timestamp($req);
-		common_debug('checking nonce', __FILE__);
-		$this->check_nonce($datastore, $req, $consumer, $token);
-		common_debug('checking signature', __FILE__);
-		$this->check_signature($req, $consumer, $token);
-		common_debug('validating omb stuff', __FILE__);
-		$this->validate_omb($req);
-		common_debug('done validating', __FILE__);
-		return true;
-	}
+    function getStoredRequest()
+    {
+        common_ensure_session();
+        $req = $_SESSION['userauthorizationrequest'];
+        return $req;
+    }
 
-	function validate_omb(&$req) {
-		foreach (array('omb_version', 'omb_listener', 'omb_listenee',
-					   'omb_listenee_profile', 'omb_listenee_nickname',
-					   'omb_listenee_license') as $param)
-		{
-			if (!$req->get_parameter($param)) {
-				throw new OAuthException("Required parameter '$param' not found");
-			}
-		}
-		# Now, OMB stuff
-		$version = $req->get_parameter('omb_version');
-		if ($version != OMB_VERSION_01) {
-			throw new OAuthException("OpenMicroBlogging version '$version' not supported");
-		}
-		$listener =	$req->get_parameter('omb_listener');
-		$user = User::staticGet('uri', $listener);
-		if (!$user) {
-			throw new OAuthException("Listener URI '$listener' not found here");
-		}
-		$cur = common_current_user();
-		if ($cur->id != $user->id) {
-			throw new OAuthException("Can't add for another user!");
-		}
-		$listenee = $req->get_parameter('omb_listenee');
-		if (!Validate::uri($listenee) &&
-			!common_valid_tag($listenee)) {
-			throw new OAuthException("Listenee URI '$listenee' not a recognizable URI");
-		}
-		if (strlen($listenee) > 255) {
-			throw new OAuthException("Listenee URI '$listenee' too long");
-		}
+    function getNewRequest()
+    {
+        common_remove_magic_from_request();
+        $req = OAuthRequest::from_request();
+        return $req;
+    }
 
-		$other = User::staticGet('uri', $listenee);
-		if ($other) {
-			throw new OAuthException("Listenee URI '$listenee' is local user");
-		}
+    # Throws an OAuthException if anything goes wrong
 
-		$remote = Remote_profile::staticGet('uri', $listenee);
-		if ($remote) {
-			$sub = new Subscription();
-			$sub->subscriber = $user->id;
-			$sub->subscribed = $remote->id;
-			if ($sub->find(TRUE)) {
-				throw new OAuthException("Already subscribed to user!");
-			}
-		}
-		$nickname = $req->get_parameter('omb_listenee_nickname');
-		if (!Validate::string($nickname, array('min_length' => 1,
-											   'max_length' => 64,
-											   'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
-			throw new OAuthException('Nickname must have only letters and numbers and no spaces.');
-		}
-		$profile = $req->get_parameter('omb_listenee_profile');
-		if (!common_valid_http_url($profile)) {
-			throw new OAuthException("Invalid profile URL '$profile'.");
-		}
+    function validateRequest(&$req)
+    {
+        # OAuth stuff -- have to copy from OAuth.php since they're
+        # all private methods, and there's no user-authentication method
+        $this->checkVersion($req);
+        $datastore = omb_oauth_datastore();
+        $consumer = $this->getConsumer($datastore, $req);
+        $token = $this->getToken($datastore, $req, $consumer);
+        $this->checkTimestamp($req);
+        $this->checkNonce($datastore, $req, $consumer, $token);
+        $this->checkSignature($req, $consumer, $token);
+        $this->validateOmb($req);
+        return true;
+    }
 
-		if ($profile == common_local_url('showstream', array('nickname' => $nickname))) {
-			throw new OAuthException("Profile URL '$profile' is for a local user.");
-		}
+    function validateOmb(&$req)
+    {
+        foreach (array('omb_version', 'omb_listener', 'omb_listenee',
+                       'omb_listenee_profile', 'omb_listenee_nickname',
+                       'omb_listenee_license') as $param)
+        {
+            if (!$req->get_parameter($param)) {
+                throw new OAuthException("Required parameter '$param' not found");
+            }
+        }
+        # Now, OMB stuff
+        $version = $req->get_parameter('omb_version');
+        if ($version != OMB_VERSION_01) {
+            throw new OAuthException("OpenMicroBlogging version '$version' not supported");
+        }
+        $listener =    $req->get_parameter('omb_listener');
+        $user = User::staticGet('uri', $listener);
+        if (!$user) {
+            throw new OAuthException("Listener URI '$listener' not found here");
+        }
+        $cur = common_current_user();
+        if ($cur->id != $user->id) {
+            throw new OAuthException("Can't add for another user!");
+        }
+        $listenee = $req->get_parameter('omb_listenee');
+        if (!Validate::uri($listenee) &&
+            !common_valid_tag($listenee)) {
+            throw new OAuthException("Listenee URI '$listenee' not a recognizable URI");
+        }
+        if (strlen($listenee) > 255) {
+            throw new OAuthException("Listenee URI '$listenee' too long");
+        }
 
-		$license = $req->get_parameter('omb_listenee_license');
-		if (!common_valid_http_url($license)) {
-			throw new OAuthException("Invalid license URL '$license'.");
-		}
-		$site_license = common_config('license', 'url');
-		if (!common_compatible_license($license, $site_license)) {
-			throw new OAuthException("Listenee stream license '$license' not compatible with site license '$site_license'.");
-		}
-		# optional stuff
-		$fullname = $req->get_parameter('omb_listenee_fullname');
-		if ($fullname && strlen($fullname) > 255) {
-			throw new OAuthException("Full name '$fullname' too long.");
-		}
-		$homepage = $req->get_parameter('omb_listenee_homepage');
-		if ($homepage && (!common_valid_http_url($homepage) || strlen($homepage) > 255)) {
-			throw new OAuthException("Invalid homepage '$homepage'");
-		}
-		$bio = $req->get_parameter('omb_listenee_bio');
-		if ($bio && strlen($bio) > 140) {
-			throw new OAuthException("Bio too long '$bio'");
-		}
-		$location = $req->get_parameter('omb_listenee_location');
-		if ($location && strlen($location) > 255) {
-			throw new OAuthException("Location too long '$location'");
-		}
-		$avatar = $req->get_parameter('omb_listenee_avatar');
-		if ($avatar) {
-			if (!common_valid_http_url($avatar) || strlen($avatar) > 255) {
-				throw new OAuthException("Invalid avatar URL '$avatar'");
-			}
-			$size = @getimagesize($avatar);
-			if (!$size) {
-				throw new OAuthException("Can't read avatar URL '$avatar'");
-			}
-			if ($size[0] != AVATAR_PROFILE_SIZE || $size[1] != AVATAR_PROFILE_SIZE) {
-				throw new OAuthException("Wrong size image at '$avatar'");
-			}
-			if (!in_array($size[2], array(IMAGETYPE_GIF, IMAGETYPE_JPEG,
-										  IMAGETYPE_PNG))) {
-				throw new OAuthException("Wrong image type for '$avatar'");
-			}
-		}
-		$callback = $req->get_parameter('oauth_callback');
-		if ($callback && !common_valid_http_url($callback)) {
-			throw new OAuthException("Invalid callback URL '$callback'");
-		}
-		if ($callback && $callback == common_local_url('finishremotesubscribe')) {
-			throw new OAuthException("Callback URL '$callback' is for local site.");
-		}
-	}
+        $other = User::staticGet('uri', $listenee);
+        if ($other) {
+            throw new OAuthException("Listenee URI '$listenee' is local user");
+        }
 
-	# Snagged from OAuthServer
+        $remote = Remote_profile::staticGet('uri', $listenee);
+        if ($remote) {
+            $sub = new Subscription();
+            $sub->subscriber = $user->id;
+            $sub->subscribed = $remote->id;
+            if ($sub->find(true)) {
+                throw new OAuthException("Already subscribed to user!");
+            }
+        }
+        $nickname = $req->get_parameter('omb_listenee_nickname');
+        if (!Validate::string($nickname, array('min_length' => 1,
+                                               'max_length' => 64,
+                                               'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
+            throw new OAuthException('Nickname must have only letters and numbers and no spaces.');
+        }
+        $profile = $req->get_parameter('omb_listenee_profile');
+        if (!common_valid_http_url($profile)) {
+            throw new OAuthException("Invalid profile URL '$profile'.");
+        }
 
-	function check_version(&$req) {
-		$version = $req->get_parameter("oauth_version");
-		if (!$version) {
-			$version = 1.0;
-		}
-		if ($version != 1.0) {
-			throw new OAuthException("OAuth version '$version' not supported");
-		}
-		return $version;
-	}
+        if ($profile == common_local_url('showstream', array('nickname' => $nickname))) {
+            throw new OAuthException("Profile URL '$profile' is for a local user.");
+        }
 
-	# Snagged from OAuthServer
+        $license = $req->get_parameter('omb_listenee_license');
+        if (!common_valid_http_url($license)) {
+            throw new OAuthException("Invalid license URL '$license'.");
+        }
+        $site_license = common_config('license', 'url');
+        if (!common_compatible_license($license, $site_license)) {
+            throw new OAuthException("Listenee stream license '$license' not compatible with site license '$site_license'.");
+        }
+        # optional stuff
+        $fullname = $req->get_parameter('omb_listenee_fullname');
+        if ($fullname && strlen($fullname) > 255) {
+            throw new OAuthException("Full name '$fullname' too long.");
+        }
+        $homepage = $req->get_parameter('omb_listenee_homepage');
+        if ($homepage && (!common_valid_http_url($homepage) || strlen($homepage) > 255)) {
+            throw new OAuthException("Invalid homepage '$homepage'");
+        }
+        $bio = $req->get_parameter('omb_listenee_bio');
+        if ($bio && strlen($bio) > 140) {
+            throw new OAuthException("Bio too long '$bio'");
+        }
+        $location = $req->get_parameter('omb_listenee_location');
+        if ($location && strlen($location) > 255) {
+            throw new OAuthException("Location too long '$location'");
+        }
+        $avatar = $req->get_parameter('omb_listenee_avatar');
+        if ($avatar) {
+            if (!common_valid_http_url($avatar) || strlen($avatar) > 255) {
+                throw new OAuthException("Invalid avatar URL '$avatar'");
+            }
+            $size = @getimagesize($avatar);
+            if (!$size) {
+                throw new OAuthException("Can't read avatar URL '$avatar'");
+            }
+            if ($size[0] != AVATAR_PROFILE_SIZE || $size[1] != AVATAR_PROFILE_SIZE) {
+                throw new OAuthException("Wrong size image at '$avatar'");
+            }
+            if (!in_array($size[2], array(IMAGETYPE_GIF, IMAGETYPE_JPEG,
+                                          IMAGETYPE_PNG))) {
+                throw new OAuthException("Wrong image type for '$avatar'");
+            }
+        }
+        $callback = $req->get_parameter('oauth_callback');
+        if ($callback && !common_valid_http_url($callback)) {
+            throw new OAuthException("Invalid callback URL '$callback'");
+        }
+        if ($callback && $callback == common_local_url('finishremotesubscribe')) {
+            throw new OAuthException("Callback URL '$callback' is for local site.");
+        }
+    }
 
-	function get_consumer($datastore, $req) {
-		$consumer_key = @$req->get_parameter("oauth_consumer_key");
-		if (!$consumer_key) {
-			throw new OAuthException("Invalid consumer key");
-		}
+    # Snagged from OAuthServer
 
-		$consumer = $datastore->lookup_consumer($consumer_key);
-		if (!$consumer) {
-			throw new OAuthException("Invalid consumer");
-		}
-		return $consumer;
-	}
+    function checkVersion(&$req)
+    {
+        $version = $req->get_parameter("oauth_version");
+        if (!$version) {
+            $version = 1.0;
+        }
+        if ($version != 1.0) {
+            throw new OAuthException("OAuth version '$version' not supported");
+        }
+        return $version;
+    }
 
-	# Mostly cadged from OAuthServer
+    # Snagged from OAuthServer
 
-	function get_token($datastore, &$req, $consumer) {/*{{{*/
-		$token_field = @$req->get_parameter('oauth_token');
-		$token = $datastore->lookup_token($consumer, 'request', $token_field);
-		if (!$token) {
-			throw new OAuthException("Invalid $token_type token: $token_field");
-		}
-		return $token;
-	}
+    function getConsumer($datastore, $req)
+    {
+        $consumer_key = @$req->get_parameter("oauth_consumer_key");
+        if (!$consumer_key) {
+            throw new OAuthException("Invalid consumer key");
+        }
 
-	function check_timestamp(&$req) {
-		$timestamp = @$req->get_parameter('oauth_timestamp');
-		$now = time();
-		if ($now - $timestamp > TIMESTAMP_THRESHOLD) {
-			throw new OAuthException("Expired timestamp, yours $timestamp, ours $now");
-		}
-	}
+        $consumer = $datastore->lookup_consumer($consumer_key);
+        if (!$consumer) {
+            throw new OAuthException("Invalid consumer");
+        }
+        return $consumer;
+    }
 
-	# NOTE: don't call twice on the same request; will fail!
-	function check_nonce(&$datastore, &$req, $consumer, $token) {
-		$timestamp = @$req->get_parameter('oauth_timestamp');
-		$nonce = @$req->get_parameter('oauth_nonce');
-		$found = $datastore->lookup_nonce($consumer, $token, $nonce, $timestamp);
-		if ($found) {
-			throw new OAuthException("Nonce already used");
-		}
-		return true;
-	}
+    # Mostly cadged from OAuthServer
 
-	function check_signature(&$req, $consumer, $token) {
-		$signature_method = $this->get_signature_method($req);
-		$signature = $req->get_parameter('oauth_signature');
-		$valid_sig = $signature_method->check_signature($req,
-														$consumer,
-														$token,
-														$signature);
-		if (!$valid_sig) {
-			throw new OAuthException("Invalid signature");
-		}
-	}
+    function getToken($datastore, &$req, $consumer)
+    {/*{{{*/
+        $token_field = @$req->get_parameter('oauth_token');
+        $token = $datastore->lookup_token($consumer, 'request', $token_field);
+        if (!$token) {
+            throw new OAuthException("Invalid $token_type token: $token_field");
+        }
+        return $token;
+    }
 
-	function get_signature_method(&$req) {
-		$signature_method = @$req->get_parameter("oauth_signature_method");
-		if (!$signature_method) {
-			$signature_method = "PLAINTEXT";
-		}
-		if ($signature_method != 'HMAC-SHA1') {
-			throw new OAuthException("Signature method '$signature_method' not supported.");
-		}
-		return omb_hmac_sha1();
-	}
+    function checkTimestamp(&$req)
+    {
+        $timestamp = @$req->get_parameter('oauth_timestamp');
+        $now = time();
+        if ($now - $timestamp > TIMESTAMP_THRESHOLD) {
+            throw new OAuthException("Expired timestamp, yours $timestamp, ours $now");
+        }
+    }
+
+    # NOTE: don't call twice on the same request; will fail!
+    function checkNonce(&$datastore, &$req, $consumer, $token)
+    {
+        $timestamp = @$req->get_parameter('oauth_timestamp');
+        $nonce = @$req->get_parameter('oauth_nonce');
+        $found = $datastore->lookup_nonce($consumer, $token, $nonce, $timestamp);
+        if ($found) {
+            throw new OAuthException("Nonce already used");
+        }
+        return true;
+    }
+
+    function checkSignature(&$req, $consumer, $token)
+    {
+        $signature_method = $this->getSignatureMethod($req);
+        $signature = $req->get_parameter('oauth_signature');
+        $valid_sig = $signature_method->check_signature($req,
+                                                        $consumer,
+                                                        $token,
+                                                        $signature);
+        if (!$valid_sig) {
+            throw new OAuthException("Invalid signature");
+        }
+    }
+
+    function getSignatureMethod(&$req)
+    {
+        $signature_method = @$req->get_parameter("oauth_signature_method");
+        if (!$signature_method) {
+            $signature_method = "PLAINTEXT";
+        }
+        if ($signature_method != 'HMAC-SHA1') {
+            throw new OAuthException("Signature method '$signature_method' not supported.");
+        }
+        return omb_hmac_sha1();
+    }
 }

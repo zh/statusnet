@@ -1,5 +1,16 @@
 <?php
-/*
+/**
+ * Retrieve user avatar by nickname action class.
+ *
+ * PHP version 5
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ *
  * Laconica - a distributed open-source microblogging tool
  * Copyright (C) 2008, Controlez-Vous, Inc.
  *
@@ -17,52 +28,79 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
-class AvatarbynicknameAction extends Action {
-    function handle($args) {
+/**
+ * Retrieve user avatar by nickname action class.
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ */
+class AvatarbynicknameAction extends Action
+{
+    /**
+     * Class handler.
+     *
+     * @param array $args query arguments
+     * 
+     * @return boolean false if nickname or user isn't found
+     */
+    function handle($args)
+    {
         parent::handle($args);
         $nickname = $this->trimmed('nickname');
         if (!$nickname) {
-        	$this->client_error(_('No nickname.'));
-			return;
-		}
-		$size = $this->trimmed('size');
+            $this->clientError(_('No nickname.'));
+            return;
+        }
+        $size = $this->trimmed('size');
         if (!$size) {
-        	$this->client_error(_('No size.'));
-			return;
-		}
-		$size = strtolower($size);
-		if (!in_array($size, array('original', '96', '48', '24'))) {
-        	$this->client_error(_('Invalid size.'));
-			return;
-		}
+            $this->clientError(_('No size.'));
+            return;
+        }
+        $size = strtolower($size);
+        if (!in_array($size, array('original', '96', '48', '24'))) {
+            $this->clientError(_('Invalid size.'));
+            return;
+        }
 
-		$user = User::staticGet('nickname', $nickname);
-		if (!$user) {
-        	$this->client_error(_('No such user.'));
-			return;
-		}
-		$profile = $user->getProfile();
-		if (!$profile) {
-        	$this->client_error(_('User has no profile.'));
-			return;
-		}
-		if ($size == 'original') {
-			$avatar = $profile->getOriginal();
-		} else {
-			$avatar = $profile->getAvatar($size+0);
-		}
+        $user = User::staticGet('nickname', $nickname);
+        if (!$user) {
+            $this->clientError(_('No such user.'));
+            return;
+        }
+        $profile = $user->getProfile();
+        if (!$profile) {
+            $this->clientError(_('User has no profile.'));
+            return;
+        }
+        if ($size == 'original') {
+            $avatar = $profile->getOriginal();
+        } else {
+            $avatar = $profile->getAvatar($size+0);
+        }
 
-		if ($avatar) {
-			$url = $avatar->url;
-		} else {
-			if ($size == 'original') {
-				$url = common_default_avatar(AVATAR_PROFILE_SIZE);
-			} else {
-				$url = common_default_avatar($size+0);
-			}
-		}
-		common_redirect($url, 302);
-	}
+        if ($avatar) {
+            $url = $avatar->url;
+        } else {
+            if ($size == 'original') {
+                $url = common_default_avatar(AVATAR_PROFILE_SIZE);
+            } else {
+                $url = common_default_avatar($size+0);
+            }
+        }
+        common_redirect($url, 302);
+    }
+
+    function isReadOnly()
+    {
+        return true;
+    }
 }
+

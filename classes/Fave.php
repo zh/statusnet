@@ -15,23 +15,25 @@ class Fave extends Memcached_DataObject
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
-    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Fave',$k,$v); }
+    function staticGet($k,$v=null)
+    { return Memcached_DataObject::staticGet('Fave',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-	static function addNew($user, $notice) {
-		$fave = new Fave();
-		$fave->user_id = $user->id;
-		$fave->notice_id = $notice->id;
-		if (!$fave->insert()) {
-			common_log_db_error($fave, 'INSERT', __FILE__);
-			return false;
-		}
-		return $fave;
-	}
-	
-	function &pkeyGet($kv) {
-		return Memcached_DataObject::pkeyGet('Fave', $kv);
-	}
+    static function addNew($user, $notice) {
+        $fave = new Fave();
+        $fave->user_id = $user->id;
+        $fave->notice_id = $notice->id;
+        if (!$fave->insert()) {
+            common_log_db_error($fave, 'INSERT', __FILE__);
+            return false;
+        }
+        return $fave;
+    }
+    
+    function &pkeyGet($kv)
+    {
+        return Memcached_DataObject::pkeyGet('Fave', $kv);
+    }
 }

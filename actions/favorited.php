@@ -1,99 +1,195 @@
 <?php
-/*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+/**
+ * Laconica, the distributed open-source microblogging tool
  *
- * This program is free software: you can redistribute it and/or modify
+ * List of popular notices
+ *
+ * PHP version 5
+ *
+ * LICENCE: This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.	 If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Public
+ * @package   Laconica
+ * @author    Zach Copley <zach@controlyourself.ca>
+ * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @copyright 2008-2009 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
-require_once(INSTALLDIR.'/lib/stream.php');
+require_once INSTALLDIR.'/lib/publicgroupnav.php';
+require_once INSTALLDIR.'/lib/noticelist.php';
 
-class FavoritedAction extends StreamAction {
+/**
+ * List of popular notices
+ *
+ * We provide a list of the most popular notices. Popularity
+ * is measured by
+ *
+ * @category Personal
+ * @package  Laconica
+ * @author   Zach Copley <zach@controlyourself.ca>
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://laconi.ca/
+ */
 
-	function handle($args) {
-		parent::handle($args);
+class FavoritedAction extends Action
+{
+    var $page = null;
 
-		$page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
+    /**
+     * Title of the page
+     *
+     * @return string Title of the page
+     */
 
-		common_show_header(_('Popular notices'),
-						   array($this, 'show_header'), NULL,
-						   array($this, 'show_top'));
+    function title()
+    {
+        if ($this->page == 1) {
+            return _('Popular notices');
+        } else {
+            return sprintf(_('Popular notices, page %d'), $this->page);
+        }
+    }
 
-		$this->show_notices($page);
+    /**
+     * Instructions for use
+     *
+     * @return instructions for use
+     */
 
-		common_show_footer();
-	}
+    function getInstructions()
+    {
+        return _('The most popular notices on the site right now.');
+    }
 
-	function show_top() {
-		$instr = $this->get_instructions();
-		$output = common_markup_to_html($instr);
-		common_element_start('div', 'instructions');
-		common_raw($output);
-		common_element_end('div');
-		$this->public_views_menu();
-	}
+    /**
+     * Is this page read-only?
+     *
+     * @return boolean true
+     */
 
-	function show_header() {
-        return;
-	}
+    function isReadOnly()
+    {
+        return true;
+    }
 
-	function get_instructions() {
-		return _('Showing recently popular notices');
-	}
+    /**
+     * Take arguments for running
+     *
+     * @param array $args $_REQUEST args
+     *
+     * @return boolean success flag
+     *
+     * @todo move queries from showContent() to here
+     */
 
-	function show_notices($page) {
+    function prepare($args)
+    {
+        parent::prepare($args);
+        $this->page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
+        return true;
+    }
 
-		$qry = 'SELECT notice.*, sum(exp(-(now() - fave.modified) / %s)) as weight ' .
-				'FROM notice JOIN fave ON notice.id = fave.notice_id ' .
-				'GROUP BY fave.notice_id ' .
-				'ORDER BY weight DESC';
+    /**
+     * Handle request
+     *
+     * Shows a page with list of favorite notices
+     *
+     * @param array $args $_REQUEST args; handled in prepare()
+     *
+     * @return void
+     */
 
-		$offset = ($page - 1) * NOTICES_PER_PAGE;
-		$limit = NOTICES_PER_PAGE + 1;
+    function handle($args)
+    {
+        parent::handle($args);
 
-		if (common_config('db','type') == 'pgsql') {
-			$qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-		} else {
-			$qry .= ' LIMIT ' . $offset . ', ' . $limit;
-		}
+        $this->showPage();
+    }
 
-		# Figure out how to cache this query
+    /**
+     * Show the page notice
+     *
+     * Shows instructions for the page
+     *
+     * @return void
+     */
 
-		$notice = new Notice;
-		$notice->query(sprintf($qry, common_config('popular', 'dropoff')));
+    function showPageNotice()
+    {
+        $instr  = $this->getInstructions();
+        $output = common_markup_to_html($instr);
 
-		common_element_start('ul', array('id' => 'notices'));
+        $this->elementStart('div', 'instructions');
+        $this->raw($output);
+        $this->elementEnd('div');
+    }
 
-		$cnt = 0;
+    /**
+     * Local navigation
+     *
+     * This page is part of the public group, so show that.
+     *
+     * @return void
+     */
 
-		while ($notice->fetch() && $cnt <= NOTICES_PER_PAGE) {
-			$cnt++;
+    function showLocalNav()
+    {
+        $nav = new PublicGroupNav($this);
+        $nav->show();
+    }
 
-			if ($cnt > NOTICES_PER_PAGE) {
-				break;
-			}
+    /**
+     * Content area
+     *
+     * Shows the list of popular notices
+     *
+     * @return void
+     */
 
-            $item = new NoticeListItem($notice);
-            $item->show();
-		}
+    function showContent()
+    {
+        $qry = 'SELECT notice.*, '.
+          'sum(exp(-(now() - fave.modified) / %s)) as weight ' .
+          'FROM notice JOIN fave ON notice.id = fave.notice_id ' .
+          'GROUP BY fave.notice_id ' .
+          'ORDER BY weight DESC';
 
-		common_element_end('ul');
+        $offset = ($this->page - 1) * NOTICES_PER_PAGE;
+        $limit  = NOTICES_PER_PAGE + 1;
 
-		common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
-						  $page, 'favorited');
-	}
+        if (common_config('db', 'type') == 'pgsql') {
+            $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+        } else {
+            $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+        }
 
+        $notice = Memcached_DataObject::cachedQuery('Notice',
+                                                    sprintf($qry, common_config('popular', 'dropoff')),
+                                                    600);
+
+        $nl = new NoticeList($notice, $this);
+
+        $cnt = $nl->show();
+
+        $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
+                          $this->page, 'favorited');
+    }
 }

@@ -1,9 +1,12 @@
 <?php
-/*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+/**
+ * Laconica, the distributed open-source microblogging tool
  *
- * This program is free software: you can redistribute it and/or modify
+ * utility functions for i18n
+ *
+ * PHP version 5
+ *
+ * LICENCE: This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -15,49 +18,87 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category I18n
+ * @package  Laconica
+ * @author   Matthew Gregg <matthew.gregg@gmail.com>
+ * @author   Ciaran Gultnieks <ciaran@ciarang.com>
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://laconi.ca/
  */
 
-if (!defined('LACONICA')) { exit(1); }
-
-function client_prefered_language($httplang) {
-        $client_langs = array();
-        $all_languages = common_config('site','languages');
-
-        preg_match_all('"(((\S\S)-?(\S\S)?)(;q=([0-9.]+))?)\s*(,\s*|$)"',strtolower($httplang),$httplang);
-        for ($i = 0; $i < count($httplang); $i++) {
-             if(!empty($httplang[2][$i])) {
-                    #if no q default to 1.0
-                    $client_langs[$httplang[2][$i]] = ($httplang[6][$i]? (float) $httplang[6][$i] : 1.0);
-                }
-                if(!empty($httplang[3][$i]) && empty($client_langs[$httplang[3][$i]])) {
-                    #if a catchall default 0.01 lower
-                    $client_langs[$httplang[3][$i]] = ($httplang[6][$i]? (float) $httplang[6][$i]-0.01 : 0.99);
-                }
-            }
-            #sort in decending q
-            arsort($client_langs);
-
-            foreach ($client_langs as $lang => $q) {
-                if (isset($all_languages[$lang])) {
-                    return($all_languages[$lang]['lang']);
-                }
-            }
-            return FALSE;
+if (!defined('LACONICA')) {
+    exit(1);
 }
 
-function get_nice_language_list() {
-        $nice_lang = array();
-        $all_languages = common_config('site','languages');
-        foreach ($all_languages as $lang) {
-                $nice_lang = $nice_lang + array($lang['lang'] => $lang['name']);
+/**
+ * Content negotiation for language codes
+ *
+ * @param string $httplang HTTP Accept-Language header
+ *
+ * @return string language code for best language match
+ */
+
+function client_prefered_language($httplang)
+{
+    $client_langs = array();
+
+    $all_languages = common_config('site', 'languages');
+
+    preg_match_all('"(((\S\S)-?(\S\S)?)(;q=([0-9.]+))?)\s*(,\s*|$)"',
+                   strtolower($httplang), $httplang);
+
+    for ($i = 0; $i < count($httplang); $i++) {
+        if (!empty($httplang[2][$i])) {
+            // if no q default to 1.0
+            $client_langs[$httplang[2][$i]] =
+              ($httplang[6][$i]? (float) $httplang[6][$i] : 1.0);
         }
-        return $nice_lang;
+        if (!empty($httplang[3][$i]) && empty($client_langs[$httplang[3][$i]])) {
+            // if a catchall default 0.01 lower
+            $client_langs[$httplang[3][$i]] =
+              ($httplang[6][$i]? (float) $httplang[6][$i]-0.01 : 0.99);
+        }
+    }
+    // sort in decending q
+    arsort($client_langs);
+
+    foreach ($client_langs as $lang => $q) {
+        if (isset($all_languages[$lang])) {
+            return($all_languages[$lang]['lang']);
+        }
+    }
+    return false;
 }
 
-// Get a list of all languages that are enabled in the default config. This
-// should ONLY be called when setting up the default config in common.php.
-// Any other attempt to get a list of lanugages should instead call
-// common_config('site','languages')
+/**
+ * returns a simple code -> name mapping for languages
+ *
+ * @return array map of available languages by code to language name.
+ */
+
+function get_nice_language_list()
+{
+    $nice_lang = array();
+
+    $all_languages = common_config('site', 'languages');
+
+    foreach ($all_languages as $lang) {
+        $nice_lang = $nice_lang + array($lang['lang'] => $lang['name']);
+    }
+    return $nice_lang;
+}
+
+/**
+ * Get a list of all languages that are enabled in the default config
+ *
+ * This should ONLY be called when setting up the default config in common.php.
+ * Any other attempt to get a list of lanugages should instead call
+ * common_config('site','languages')
+ *
+ * @return array mapping of language codes to language info
+ */
 function get_all_languages() {
 	return array(
 		'bg' => array('q' => 0.8, 'lang' => 'bg_BG', 'name' => 'Bulgarian', 'direction' => 'ltr'),
@@ -90,4 +131,3 @@ function get_all_languages() {
 		'zh-hant'    => array('q' => 0.2, 'lang' => 'zh_hant', 'name' => 'Chinese (Taiwanese)', 'direction' => 'ltr'),
 	);
 }
-

@@ -30,26 +30,28 @@ class Notice_tag extends Memcached_DataObject
     public $created;                         // datetime()   not_null
 
     /* Static get */
-    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Notice_tag',$k,$v); }
+    function staticGet($k,$v=null)
+    { return Memcached_DataObject::staticGet('Notice_tag',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
-	
-	static function getStream($tag, $offset=0, $limit=20) {
-		$qry = 
-		  'SELECT notice.* ' .
-		  'FROM notice JOIN notice_tag ON notice.id = notice_tag.notice_id ' .
-		  'WHERE notice_tag.tag = "%s" ';
+    
+    static function getStream($tag, $offset=0, $limit=20) {
+        $qry = 
+          'SELECT notice.* ' .
+          'FROM notice JOIN notice_tag ON notice.id = notice_tag.notice_id ' .
+          'WHERE notice_tag.tag = "%s" ';
 
-		return Notice::getStream(sprintf($qry, $tag),
-								 'notice_tag:notice_stream:' . common_keyize($tag),
-								 $offset, $limit);
-	}
-	
-	function blowCache() {
-		$cache = common_memcache();
-		if ($cache) {
-			$cache->delete(common_cache_key('notice_tag:notice_stream:' . $this->tag));
-		}
-	}
+        return Notice::getStream(sprintf($qry, $tag),
+                                 'notice_tag:notice_stream:' . common_keyize($tag),
+                                 $offset, $limit);
+    }
+    
+    function blowCache()
+    {
+        $cache = common_memcache();
+        if ($cache) {
+            $cache->delete(common_cache_key('notice_tag:notice_stream:' . $this->tag));
+        }
+    }
 }

@@ -1,5 +1,17 @@
 <?php
-/*
+
+/**
+ * Public XRDS for OpenID
+ *
+ * PHP version 5
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ *
  * Laconica - a distributed open-source microblogging tool
  * Copyright (C) 2008, Controlez-Vous, Inc.
  *
@@ -17,63 +29,94 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
-
-require_once(INSTALLDIR.'/lib/openid.php');
-
-# XXX: factor out similarities with XrdsAction
-
-class PublicxrdsAction extends Action {
-
-	function is_readonly() {
-		return true;
-	}
-
-	function handle($args) {
-
-		parent::handle($args);
-
-		header('Content-Type: application/xrds+xml');
-
-		common_start_xml();
-		common_element_start('XRDS', array('xmlns' => 'xri://$xrds'));
-
-		common_element_start('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
-										  'xmlns:simple' => 'http://xrds-simple.net/core/1.0',
-										  'version' => '2.0'));
-
-		common_element('Type', NULL, 'xri://$xrds*simple');
-
-		foreach (array('finishopenidlogin', 'finishaddopenid', 'finishimmediate') as $finish) {
-			$this->show_service(Auth_OpenID_RP_RETURN_TO_URL_TYPE,
-								common_local_url($finish));
-		}
-
-		common_element_end('XRD');
-
-		common_element_end('XRDS');
-		common_end_xml();
-	}
-
-	function show_service($type, $uri, $params=NULL, $sigs=NULL, $localId=NULL) {
-		common_element_start('Service');
-		if ($uri) {
-			common_element('URI', NULL, $uri);
-		}
-		common_element('Type', NULL, $type);
-		if ($params) {
-			foreach ($params as $param) {
-				common_element('Type', NULL, $param);
-			}
-		}
-		if ($sigs) {
-			foreach ($sigs as $sig) {
-				common_element('Type', NULL, $sig);
-			}
-		}
-		if ($localId) {
-			common_element('LocalID', NULL, $localId);
-		}
-		common_element_end('Service');
-	}
+if (!defined('LACONICA')) {
+    exit(1);
 }
+
+require_once INSTALLDIR.'/lib/openid.php';
+
+/**
+ * Public XRDS for OpenID
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ *
+ * @todo factor out similarities with XrdsAction
+ */
+class PublicxrdsAction extends Action
+{
+    /**
+     * Is read only?
+     * 
+     * @return boolean true
+     */
+    function isReadOnly()
+    {
+        return true;
+    }
+
+    /**
+     * Class handler.
+     * 
+     * @param array $args array of arguments
+     *
+     * @return nothing
+     */
+    function handle($args)
+    {
+        parent::handle($args);
+        header('Content-Type: application/xrds+xml');
+        common_start_xml();
+        $this->elementStart('XRDS', array('xmlns' => 'xri://$xrds'));
+        $this->elementStart('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
+                                          'xmlns:simple' => 'http://xrds-simple.net/core/1.0',
+                                          'version' => '2.0'));
+        $this->element('Type', null, 'xri://$xrds*simple');
+        foreach (array('finishopenidlogin', 'finishaddopenid', 'finishimmediate') as $finish) {
+            $this->showService(Auth_OpenID_RP_RETURN_TO_URL_TYPE,
+                                common_local_url($finish));
+        }
+        $this->elementEnd('XRD');
+        $this->elementEnd('XRDS');
+        common_end_xml();
+    }
+
+    /**
+     * Show service.
+     * 
+     * @param string $type    XRDS type
+     * @param string $uri     URI
+     * @param array  $params  type parameters, null by default
+     * @param array  $sigs    type signatures, null by default
+     * @param string $localId local ID, null by default
+     *
+     * @return void
+     */
+    function showService($type, $uri, $params=null, $sigs=null, $localId=null)
+    {
+        $this->elementStart('Service');
+        if ($uri) {
+            $this->element('URI', null, $uri);
+        }
+        $this->element('Type', null, $type);
+        if ($params) {
+            foreach ($params as $param) {
+                $this->element('Type', null, $param);
+            }
+        }
+        if ($sigs) {
+            foreach ($sigs as $sig) {
+                $this->element('Type', null, $sig);
+            }
+        }
+        if ($localId) {
+            $this->element('LocalID', null, $localId);
+        }
+        $this->elementEnd('Service');
+    }
+}
+

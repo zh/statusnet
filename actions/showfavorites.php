@@ -1,9 +1,12 @@
 <?php
-/*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+/**
+ * Laconica, the distributed open-source microblogging tool
  *
- * This program is free software: you can redistribute it and/or modify
+ * List of replies
+ *
+ * PHP version 5
+ *
+ * LICENCE: This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -15,83 +18,197 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Personal
+ * @package   Laconica
+ * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @copyright 2008-2009 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
-require_once(INSTALLDIR.'/actions/showstream.php');
+require_once INSTALLDIR.'/lib/personalgroupnav.php';
+require_once INSTALLDIR.'/lib/noticelist.php';
+require_once INSTALLDIR.'/lib/feedlist.php';
 
-class ShowfavoritesAction extends StreamAction {
+/**
+ * List of replies
+ *
+ * @category Personal
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://laconi.ca/
+ */
 
-	function handle($args) {
+class ShowfavoritesAction extends Action
+{
+    /** User we're getting the faves of */
+    var $user = null;
+    /** Page of the faves we're on */
+    var $page = null;
 
-		parent::handle($args);
+    /**
+     * Is this a read-only page?
+     *
+     * @return boolean true
+     */
 
-		$nickname = common_canonical_nickname($this->arg('nickname'));
-		$user = User::staticGet('nickname', $nickname);
+    function isReadOnly()
+    {
+        return true;
+    }
 
-		if (!$user) {
-			$this->client_error(_('No such user.'));
-			return;
-		}
+    /**
+     * Title of the page
+     *
+     * Includes name of user and page number.
+     *
+     * @return string title of page
+     */
 
-		$profile = $user->getProfile();
+    function title()
+    {
+        if ($this->page == 1) {
+            return sprintf(_("%s favorite notices"), $this->user->nickname);
+        } else {
+            return sprintf(_("%s favorite notices, page %d"),
+                           $this->user->nickname,
+                           $this->page);
+        }
+    }
 
-		if (!$profile) {
-			common_server_error(_('User has no profile.'));
-			return;
-		}
+    /**
+     * Prepare the object
+     *
+     * Check the input values and initialize the object.
+     * Shows an error page on bad input.
+     *
+     * @param array $args $_REQUEST data
+     *
+     * @return boolean success flag
+     */
 
-		# Looks like we're good; show the header
+    function prepare($args)
+    {
+        parent::prepare($args);
 
-		common_show_header(sprintf(_("%s favorite notices"), $profile->nickname),
-						   array($this, 'show_header'), $user,
-						   array($this, 'show_top'));
+        $nickname = common_canonical_nickname($this->arg('nickname'));
 
-		$this->show_notices($user);
+        $this->user = User::staticGet('nickname', $nickname);
 
-		common_show_footer();
-	}
+        if (!$this->user) {
+            $this->clientError(_('No such user.'));
+            return false;
+        }
 
-	function show_header($user) {
-		common_element('link', array('rel' => 'alternate',
-									 'href' => common_local_url('favoritesrss', array('nickname' =>
-																					  $user->nickname)),
-									 'type' => 'application/rss+xml',
-									 'title' => sprintf(_('Feed for favorites of %s'), $user->nickname)));
-	}
+        $this->page = $this->trimmed('page');
 
-	function show_top($user) {
-		$cur = common_current_user();
+        if (!$this->page) {
+            $this->page = 1;
+        }
 
-		if ($cur && $cur->id == $user->id) {
-			common_notice_form('all');
-		}
+        return true;
+    }
 
-		$this->show_feeds_list(array(0=>array('href'=>common_local_url('favoritesrss', array('nickname' => $user->nickname)),
-											  'type' => 'rss',
-											  'version' => 'RSS 1.0',
-											  'item' => 'Favorites')));
-		$this->views_menu();
-	}
+    /**
+     * Handle a request
+     *
+     * Just show the page. All args already handled.
+     *
+     * @param array $args $_REQUEST data
+     *
+     * @return void
+     */
 
-	function show_notices($user) {
+    function handle($args)
+    {
+        parent::handle($args);
+        $this->showPage();
+    }
 
-		$page = $this->trimmed('page');
-		if (!$page) {
-			$page = 1;
-		}
+    /**
+     * Feeds for the <head> section
+     *
+     * @return void
+     */
 
-		$notice = $user->favoriteNotices(($page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
+    function showFeeds()
+    {
+        $feedurl   = common_local_url('favoritesrss',
+                                      array('nickname' =>
+                                            $this->user->nickname));
+        $feedtitle = sprintf(_('Feed for favorites of %s'),
+                             $this->user->nickname);
 
-		if (!$notice) {
-			$this->server_error(_('Could not retrieve favorite notices.'));
-			return;
-		}
+        $this->element('link', array('rel' => 'alternate',
+                                     'href' => $feedurl,
+                                     'type' => 'application/rss+xml',
+                                     'title' => $feedtitle));
+    }
 
-        $cnt = $this->show_notice_list($notice);
+    /**
+     * show the personal group nav
+     *
+     * @return void
+     */
 
-		common_pagination($page > 1, $cnt > NOTICES_PER_PAGE,
-						  $page, 'showfavorites', array('nickname' => $user->nickname));
-	}
+    function showLocalNav()
+    {
+        $nav = new PersonalGroupNav($this);
+        $nav->show();
+    }
+
+    /**
+     * Show the replies feed links
+     *
+     * @return void
+     */
+
+    function showExportData()
+    {
+        $feedurl = common_local_url('favoritesrss',
+                                    array('nickname' =>
+                                          $this->user->nickname));
+
+        $fl = new FeedList($this);
+
+        // XXX: I18N
+
+        $fl->show(array(0=>array('href'=> $feedurl,
+                                 'type' => 'rss',
+                                 'version' => 'RSS 1.0',
+                                 'item' => 'Favorites')));
+    }
+
+    /**
+     * Show the content
+     *
+     * A list of notices that this user has marked as a favorite
+     *
+     * @return void
+     */
+
+    function showContent()
+    {
+        $notice = $this->user->favoriteNotices(($this->page-1)*NOTICES_PER_PAGE,
+                                               NOTICES_PER_PAGE + 1);
+
+        if (!$notice) {
+            $this->serverError(_('Could not retrieve favorite notices.'));
+            return;
+        }
+
+        $nl = new NoticeList($notice, $this);
+
+        $cnt = $nl->show();
+
+        $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
+                          $this->page, 'showfavorites',
+                          array('nickname' => $this->user->nickname));
+    }
 }

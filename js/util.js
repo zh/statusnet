@@ -20,21 +20,21 @@ $(document).ready(function(){
 	// count character on keyup
 	function counter(event){
 		var maxLength = 140;
-		var currentLength = $("#status_textarea").val().length;
+		var currentLength = $("#notice_data-text").val().length;
 		var remaining = maxLength - currentLength;
-		var counter = $("#counter");
+		var counter = $("#notice_text-count");
 		counter.text(remaining);
-		
+
 		if (remaining <= 0) {
-			$("#status_form").addClass("response_error");
+			$("#form_notice").addClass("warning");
 		} else {
-			$("#status_form").removeClass("response_error");
+			$("#form_notice").removeClass("warning");
 		}
 	}
 
 	function submitonreturn(event) {
 		if (event.keyCode == 13) {
-			$("#status_form").submit();
+			$("#form_notice").submit();
 			event.preventDefault();
 			event.stopPropagation();
 			return false;
@@ -42,15 +42,15 @@ $(document).ready(function(){
 		return true;
 	}
 
-	if ($("#status_textarea").length) {
-		$("#status_textarea").bind("keyup", counter);
-		$("#status_textarea").bind("keydown", submitonreturn);
-		
+	if ($("#notice_data-text").length) {
+		$("#notice_data-text").bind("keyup", counter);
+		$("#notice_data-text").bind("keydown", submitonreturn);
+
 		// run once in case there's something in there
 		counter();
-		
+
 		// set the focus
-		$("#status_textarea").focus();
+		$("#notice_data-text").focus();
 	}
 
 	// XXX: refactor this code
@@ -73,6 +73,24 @@ $(document).ready(function(){
 											  }
 					 };
 
+	var joinoptions = { dataType: 'xml',
+					   success: function(xml) { var new_form = document._importNode($('form', xml).get(0), true);
+												var leave = new_form.id;
+												var join = leave.replace('leave', 'join');
+												$('form#'+join).replaceWith(new_form);
+												$('form#'+leave).ajaxForm(leaveoptions).each(addAjaxHidden);
+											  }
+					 };
+
+	var leaveoptions = { dataType: 'xml',
+					   success: function(xml) { var new_form = document._importNode($('form', xml).get(0), true);
+												var join = new_form.id;
+												var leave = join.replace('join', 'leave');
+												$('form#'+leave).replaceWith(new_form);
+												$('form#'+join).ajaxForm(joinoptions).each(addAjaxHidden);
+											  }
+					 };
+
 	function addAjaxHidden() {
 		var ajax = document.createElement('input');
 		ajax.setAttribute('type', 'hidden');
@@ -81,25 +99,29 @@ $(document).ready(function(){
 		this.appendChild(ajax);
 	}
 
-	$("form.favor").ajaxForm(favoptions);
-	$("form.disfavor").ajaxForm(disoptions);
-	$("form.favor").each(addAjaxHidden);
-	$("form.disfavor").each(addAjaxHidden);
+	$("form.form_favor").ajaxForm(favoptions);
+	$("form.form_disfavor").ajaxForm(disoptions);
+	$("form.form_group_join").ajaxForm(joinoptions);
+	$("form.form_group_leave").ajaxForm(leaveoptions);
+	$("form.form_favor").each(addAjaxHidden);
+	$("form.form_disfavor").each(addAjaxHidden);
+	$("form.form_group_join").each(addAjaxHidden);
+	$("form.form_group_leave").each(addAjaxHidden);
 
-	$("#nudge").ajaxForm ({ dataType: 'xml',
-							beforeSubmit: function(xml) { $("form#nudge input[type=submit]").attr("disabled", "disabled");
-														  $("form#nudge input[type=submit]").addClass("disabled");
-														},
-							success: function(xml) { $("#nudge").replaceWith(document._importNode($("#nudge_response", xml).get(0),true)); 
-												     $("#nudge input[type=submit]").removeAttr("disabled");
-												     $("#nudge input[type=submit]").removeClass("disabled");
-												   }
-						 });
-	$("#nudge").each(addAjaxHidden);
+	$("#form_user_nudge").ajaxForm ({ dataType: 'xml',
+		beforeSubmit: function(xml) { $("#form_user_nudge input[type=submit]").attr("disabled", "disabled");
+									  $("#form_user_nudge input[type=submit]").addClass("disabled");
+									},
+		success: function(xml) { $("#form_user_nudge").replaceWith(document._importNode($("#nudge_response", xml).get(0),true));
+							     $("#form_user_nudge input[type=submit]").removeAttr("disabled");
+							     $("#form_user_nudge input[type=submit]").removeClass("disabled");
+							   }
+	 });
+	$("#form_user_nudge").each(addAjaxHidden);
 
 	var Subscribe = { dataType: 'xml',
-					  beforeSubmit: function(formData, jqForm, options) { $("form.subscribe input[type=submit]").attr("disabled", "disabled");
-																	      $("form.subscribe input[type=submit]").addClass("disabled");
+					  beforeSubmit: function(formData, jqForm, options) { $(".form_user_subscribe input[type=submit]").attr("disabled", "disabled");
+																	      $(".form_user_subscribe input[type=submit]").addClass("disabled");
 																	    },
 					  success: function(xml) { var form_unsubscribe = document._importNode($('form', xml).get(0), true);
 										  	   var form_unsubscribe_id = form_unsubscribe.id;
@@ -107,14 +129,14 @@ $(document).ready(function(){
 											   $("form#"+form_subscribe_id).replaceWith(form_unsubscribe);
 											   $("form#"+form_unsubscribe_id).ajaxForm(UnSubscribe).each(addAjaxHidden);
 											   $("dd.subscribers").text(parseInt($("dd.subscribers").text())+1);
-											   $("form.subscribe input[type=submit]").removeAttr("disabled");
-											   $("form.subscribe input[type=submit]").removeClass("disabled");
+											   $(".form_user_subscribe input[type=submit]").removeAttr("disabled");
+											   $(".form_user_subscribe input[type=submit]").removeClass("disabled");
 										     }
 					};
 
 	var UnSubscribe = { dataType: 'xml',
-						beforeSubmit: function(formData, jqForm, options) { $("form.unsubscribe input[type=submit]").attr("disabled", "disabled");
-																		    $("form.unsubscribe input[type=submit]").addClass("disabled");
+						beforeSubmit: function(formData, jqForm, options) { $(".form_user_unsubscribe input[type=submit]").attr("disabled", "disabled");
+																		    $(".form_user_unsubscribe input[type=submit]").addClass("disabled");
 																		  },
 					    success: function(xml) { var form_subscribe = document._importNode($('form', xml).get(0), true);
 										  		 var form_subscribe_id = form_subscribe.id;
@@ -124,24 +146,23 @@ $(document).ready(function(){
 												 $("#profile_send_a_new_message").remove();
 												 $("#profile_nudge").remove();
 											     $("dd.subscribers").text(parseInt($("dd.subscribers").text())-1);
-												 $("form.unsubscribe input[type=submit]").removeAttr("disabled");
-												 $("form.unsubscribe input[type=submit]").removeClass("disabled");
+												 $(".form_user_unsubscribe input[type=submit]").removeAttr("disabled");
+												 $(".form_user_unsubscribe input[type=submit]").removeClass("disabled");
 											   }
 					  };
 
-	$("form.subscribe").ajaxForm(Subscribe);
-	$("form.unsubscribe").ajaxForm(UnSubscribe);
-	$("form.subscribe").each(addAjaxHidden);
-	$("form.unsubscribe").each(addAjaxHidden);
-
+	$(".form_user_subscribe").ajaxForm(Subscribe);
+	$(".form_user_unsubscribe").ajaxForm(UnSubscribe);
+	$(".form_user_subscribe").each(addAjaxHidden);
+	$(".form_user_unsubscribe").each(addAjaxHidden);
 
 	var PostNotice = { dataType: 'xml',
-					   beforeSubmit: function(formData, jqForm, options) { if ($("#status_textarea").get(0).value.length == 0) {
-																				$("#status_form").addClass("response_error");
+					   beforeSubmit: function(formData, jqForm, options) { if ($("#notice_data-text").get(0).value.length == 0) {
+																				$("#form_notice").addClass("warning");
 																				return false;
 																		   }
-																		   $("#status_form input[type=submit]").attr("disabled", "disabled");
-																		   $("#status_form input[type=submit]").addClass("disabled");
+																		   $("#notice_action-submit").attr("disabled", "disabled");
+																		   $("#notice_action-submit").addClass("disabled");
 																		   return true;
 												 						 },
 					   success: function(xml) {	if ($("#error", xml).length > 0 || $("#command_result", xml).length > 0) {
@@ -150,28 +171,55 @@ $(document).ready(function(){
 													alert(result);
 												}
 												else {
-													$("#notices").prepend(document._importNode($("li", xml).get(0), true));
-													$("#status_textarea").val("");
+													$("#notices_primary .notices").prepend(document._importNode($("li", xml).get(0), true));
+													$("#notice_data-text").val("");
 													counter();
-													$(".notice_single:first").css({display:"none"});
-													$(".notice_single:first").fadeIn(2500);
+													$("#notices_primary .notice:first").css({display:"none"});
+													$("#notices_primary .notice:first").fadeIn(2500);
+													NoticeHover();
+													NoticeReply();
 												}
-												$("#status_form input[type=submit]").removeAttr("disabled");
-												$("#status_form input[type=submit]").removeClass("disabled");
+												$("#notice_action-submit").removeAttr("disabled");
+												$("#notice_action-submit").removeClass("disabled");
 											 }
 					   };
-	$("#status_form").ajaxForm(PostNotice);
-	$("#status_form").each(addAjaxHidden);
+	$("#form_notice").ajaxForm(PostNotice);
+	$("#form_notice").each(addAjaxHidden);
+
+    NoticeHover();
+    NoticeReply();
 });
 
-function doreply(nick,id) {
+function NoticeHover() {
+    $("#content .notice").hover(
+        function () {
+            $(this).addClass('hover');
+        },
+        function () {
+            $(this).removeClass('hover');
+        }
+    );
+}
+
+function NoticeReply() {
+    $('#content .notice').each(function() {
+        var notice = $(this);
+        $('.notice_reply', $(this)).click(function() {
+            var nickname = ($('.author .nickname', notice).length > 0) ? $('.author .nickname', notice) : $('.author .nickname');
+            NoticeReplySet(nickname.text(), $('.notice_id', notice).text());
+            return false;
+        });
+    });
+}
+
+function NoticeReplySet(nick,id) {
 	rgx_username = /^[0-9a-zA-Z\-_.]*$/;
 	if (nick.match(rgx_username)) {
 		replyto = "@" + nick + " ";
-		if ($("#status_textarea").length) {
-			$("#status_textarea").val(replyto);
-			$("form#status_form input#inreplyto").val(id);
-			$("#status_textarea").focus();
+		if ($("#notice_data-text").length) {
+			$("#notice_data-text").val(replyto);
+			$("#form_notice input#notice_in-reply-to").val(id);
+			$("#notice_data-text").focus();
 			return false;
 		}
 	}

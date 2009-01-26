@@ -21,173 +21,218 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/settingsaction.php');
 
-class TagotherAction extends Action {
+class TagotherAction extends Action
+{
+    var $profile = null;
+    var $error = null;
 
-	function handle($args) {
-
-		parent::handle($args);
-
-		if (!common_logged_in()) {
-			$this->client_error(_('Not logged in'), 403);
-			return;
-		}
-
-		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-			$this->save_tags();
-		} else {
-			$id = $this->trimmed('id');
-			if (!$id) {
-				$this->client_error(_('No id argument.'));
-				return;
-			}
-			$profile = Profile::staticGet('id', $id);
-			if (!$profile) {
-				$this->client_error(_('No profile with that ID.'));
-				return;
-			}
-			$this->show_form($profile);
-		}
-	}
-
-	function show_form($profile, $error=NULL) {
-
-		$user = common_current_user();
-
-		common_show_header(_('Tag a person'),
-						   NULL, array($profile, $error), array($this, 'show_top'));
-
-		$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
-
-		common_element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_PROFILE_SIZE),
-									'class' => 'avatar stream',
-									'width' => AVATAR_PROFILE_SIZE,
-									'height' => AVATAR_PROFILE_SIZE,
-									'alt' =>
-									($profile->fullname) ? $profile->fullname :
-									$profile->nickname));
-
-		common_element('a', array('href' => $profile->profileurl,
-								  'class' => 'external profile nickname'),
-					   $profile->nickname);
-
-		if ($profile->fullname) {
-			common_element_start('div', 'fullname');
-			if ($profile->homepage) {
-				common_element('a', array('href' => $profile->homepage),
-							   $profile->fullname);
-			} else {
-				common_text($profile->fullname);
-			}
-			common_element_end('div');
-		}
-		if ($profile->location) {
-			common_element('div', 'location', $profile->location);
-		}
-		if ($profile->bio) {
-			common_element('div', 'bio', $profile->bio);
-		}
-
-		common_element_start('form', array('method' => 'post',
-										   'id' => 'tag_user',
-										   'name' => 'tagother',
-										   'action' => $this->self_url()));
-		common_hidden('token', common_session_token());
-		common_hidden('id', $profile->id);
-		common_input('tags', _('Tags'),
-					 ($this->arg('tags')) ? $this->arg('tags') : implode(' ', Profile_tag::getTags($user->id, $profile->id)),
-					 _('Tags for this user (letters, numbers, -, ., and _), comma- or space- separated'));
-
-		common_submit('save', _('Save'));
-		common_element_end('form');
-		common_show_footer();
-
-	}
-
-	function save_tags() {
-
-		$id = $this->trimmed('id');
-		$tagstring = $this->trimmed('tags');
-		$token = $this->trimmed('token');
-
-		if (!$token || $token != common_session_token()) {
-			$this->show_form(_('There was a problem with your session token. Try again, please.'));
-			return;
-		}
-
-		$profile = Profile::staticGet('id', $id);
-
-		if (!$profile) {
-			$this->client_error(_('No such profile.'));
-			return;
-		}
-
-		if (is_string($tagstring) && strlen($tagstring) > 0) {
-
-			$tags = array_map('common_canonical_tag',
-							  preg_split('/[\s,]+/', $tagstring));
-
-			foreach ($tags as $tag) {
-				if (!common_valid_profile_tag($tag)) {
-					$this->show_form($profile, sprintf(_('Invalid tag: "%s"'), $tag));
-					return;
-				}
-			}
-		} else {
-			$tags = array();
-		}
-
-		$user = common_current_user();
-
-		if (!Subscription::pkeyGet(array('subscriber' => $user->id,
-										 'subscribed' => $profile->id)) &&
-			!Subscription::pkeyGet(array('subscriber' => $profile->id,
-										 'subscribed' => $user->id)))
-		{
-			$this->client_error(_('You can only tag people you are subscribed to or who are subscribed to you.'));
-			return;
-		}
-
-		$result = Profile_tag::setTags($user->id, $profile->id, $tags);
-
-		if (!$result) {
-			$this->client_error(_('Could not save tags.'));
-			return;
-		}
-
-		$action = $user->isSubscribed($profile) ? 'subscriptions' : 'subscribers';
-
-		if ($this->boolean('ajax')) {
-			common_start_html('text/xml');
-			common_element_start('head');
-			common_element('title', null, _('Tags'));
-			common_element_end('head');
-			common_element_start('body');
-			common_element_start('p', 'subtags');
-			foreach ($tags as $tag) {
-				common_element('a', array('href' => common_local_url($action,
-																	 array('nickname' => $user->nickname,
-																		   'tag' => $tag))),
-							   $tag);
-			}
-			common_element_end('p');
-			common_element_end('body');
-			common_element_end('html');
-		} else {
-			common_redirect(common_local_url($action, array('nickname' =>
-															$user->nickname)));
+    function prepare($args)
+    {
+        parent::prepare($args);
+        if (!common_logged_in()) {
+            $this->clientError(_('Not logged in'), 403);
+            return false;
         }
-	}
 
-	function show_top($arr = NULL) {
-		list($profile, $error) = $arr;
-		if ($error) {
-			common_element('p', 'error', $error);
-		} else {
-			common_element_start('div', 'instructions');
-			common_element('p', NULL,
-						   _('Use this form to add tags to your subscribers or subscriptions.'));
-			common_element_end('div');
-		}
-	}
+        $id = $this->trimmed('id');
+        if (!$id) {
+            $this->clientError(_('No id argument.'));
+            return false;
+        }
+
+        $this->profile = Profile::staticGet('id', $id);
+
+        if (!$this->profile) {
+            $this->clientError(_('No profile with that ID.'));
+            return false;
+        }
+
+        return true;
+    }
+
+    function handle($args)
+    {
+        parent::handle($args);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $this->saveTags();
+        } else {
+            $this->showForm($profile);
+        }
+    }
+
+    function title()
+    {
+        return sprintf(_('Tag %s'), $this->profile->nickname);
+    }
+
+    function showForm($error=null)
+    {
+        $this->error = $error;
+        $this->showPage();
+    }
+
+    function showContent()
+    {
+        $this->elementStart('div', 'entity_profile vcard author');
+        $this->element('h2', null, _('User profile'));
+
+        $avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
+        $this->elementStart('dl', 'entity_depiction');
+        $this->element('dt', null, _('Photo'));
+        $this->elementStart('dd');
+        $this->element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_PROFILE_SIZE),
+                                    'class' => 'photo avatar',
+                                    'width' => AVATAR_PROFILE_SIZE,
+                                    'height' => AVATAR_PROFILE_SIZE,
+                                    'alt' =>
+                                    ($this->profile->fullname) ? $this->profile->fullname :
+                                    $this->profile->nickname));
+        $this->elementEnd('dd');
+        $this->elementEnd('dl');
+
+
+        $this->elementStart('dl', 'entity_nickname');
+        $this->element('dt', null, _('Nickname'));
+        $this->elementStart('dd');
+        $this->element('a', array('href' => $this->profile->profileurl,
+                                  'class' => 'nickname'),
+                       $this->profile->nickname);
+        $this->elementEnd('dd');
+        $this->elementEnd('dl');
+
+        if ($this->profile->fullname) {
+            $this->elementStart('dl', 'entity_fn');
+            $this->element('dt', null, _('Full name'));
+            $this->elementStart('dd');
+            $this->element('span', 'fn', $this->profile->fullname);
+            $this->elementEnd('dd');
+            $this->elementEnd('dl');
+        }
+        if ($this->profile->location) {
+            $this->elementStart('dl', 'entity_location');
+            $this->element('dt', null, _('Location'));
+            $this->element('dd', 'location', $this->profile->location);
+            $this->elementEnd('dl');
+        }
+        if ($this->profile->homepage) {
+            $this->elementStart('dl', 'entity_url');
+            $this->element('dt', null, _('URL'));
+            $this->elementStart('dd');
+            $this->element('a', array('href' => $this->profile->homepage,
+                                      'rel' => 'me', 'class' => 'url'),
+                           $this->profile->homepage);
+            $this->elementEnd('dd');
+            $this->elementEnd('dl');
+        }
+        if ($this->profile->bio) {
+            $this->elementStart('dl', 'entity_note');
+            $this->element('dt', null, _('Note'));
+            $this->element('dd', 'note', $this->profile->bio);
+            $this->elementEnd('dl');
+        }
+        $this->elementEnd('div');
+
+        $this->elementStart('form', array('method' => 'post',
+                                           'id' => 'form_tag_user',
+                                           'class' => 'form_settings',
+                                           'name' => 'tagother',
+                                           'action' => $this->selfUrl()));
+        $this->elementStart('fieldset');
+        $this->element('legend', null, _('Tag user'));
+        $this->hidden('token', common_session_token());
+        $this->hidden('id', $this->profile->id);
+
+        $this->elementStart('ul', 'form_data');
+        $this->elementStart('li');
+        $this->input('tags', _('Tags'),
+                     ($this->arg('tags')) ? $this->arg('tags') : implode(' ', Profile_tag::getTags($user->id, $this->profile->id)),
+                     _('Tags for this user (letters, numbers, -, ., and _), comma- or space- separated'));
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
+        $this->submit('save', _('Save'));
+        $this->elementEnd('fieldset');
+        $this->elementEnd('form');
+    }
+
+    function saveTags()
+    {
+        $id = $this->trimmed('id');
+        $tagstring = $this->trimmed('tags');
+        $token = $this->trimmed('token');
+
+        if (!$token || $token != common_session_token()) {
+            $this->showForm(_('There was a problem with your session token.'.
+                              ' Try again, please.'));
+            return;
+        }
+
+        if (is_string($tagstring) && strlen($tagstring) > 0) {
+
+            $tags = array_map('common_canonical_tag',
+                              preg_split('/[\s,]+/', $tagstring));
+
+            foreach ($tags as $tag) {
+                if (!common_valid_profile_tag($tag)) {
+                    $this->showForm(sprintf(_('Invalid tag: "%s"'), $tag));
+                    return;
+                }
+            }
+        } else {
+            $tags = array();
+        }
+
+        $user = common_current_user();
+
+        if (!Subscription::pkeyGet(array('subscriber' => $user->id,
+                                         'subscribed' => $this->profile->id)) &&
+            !Subscription::pkeyGet(array('subscriber' => $this->profile->id,
+                                         'subscribed' => $user->id)))
+        {
+            $this->clientError(_('You can only tag people you are subscribed to or who are subscribed to you.'));
+            return;
+        }
+
+        $result = Profile_tag::setTags($user->id, $this->profile->id, $tags);
+
+        if (!$result) {
+            $this->clientError(_('Could not save tags.'));
+            return;
+        }
+
+        $action = $user->isSubscribed($this->profile) ? 'subscriptions' : 'subscribers';
+
+        if ($this->boolean('ajax')) {
+            $this->startHTML('text/xml');
+            $this->elementStart('head');
+            $this->element('title', null, _('Tags'));
+            $this->elementEnd('head');
+            $this->elementStart('body');
+            $this->elementStart('p', 'subtags');
+            foreach ($tags as $tag) {
+                $this->element('a', array('href' => common_local_url($action,
+                                                                     array('nickname' => $user->nickname,
+                                                                           'tag' => $tag))),
+                               $tag);
+            }
+            $this->elementEnd('p');
+            $this->elementEnd('body');
+            $this->elementEnd('html');
+        } else {
+            common_redirect(common_local_url($action, array('nickname' =>
+                                                            $user->nickname)));
+        }
+    }
+
+    function showPageNotice()
+    {
+        if ($this->error) {
+            $this->element('p', 'error', $this->error);
+        } else {
+            $this->elementStart('div', 'instructions');
+            $this->element('p', null,
+                           _('Use this form to add tags to your subscribers or subscriptions.'));
+            $this->elementEnd('div');
+        }
+    }
 }
 

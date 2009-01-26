@@ -23,68 +23,81 @@ require_once(INSTALLDIR.'/lib/rssaction.php');
 
 // Formatting of RSS handled by Rss10Action
 
-class UserrssAction extends Rss10Action {
+class UserrssAction extends Rss10Action
+{
 
-	var $user = NULL;
+    var $user = null;
 
-	function init() {
-		$nickname = $this->trimmed('nickname');
-		$this->user = User::staticGet('nickname', $nickname);
+    function prepare($args)
+    {
+        parent::prepare($args);
+        $nickname = $this->trimmed('nickname');
+        $this->user = User::staticGet('nickname', $nickname);
 
-		if (!$this->user) {
-			common_user_error(_('No such user.'));
-			return false;
-		} else {
-			return true;
-		}
-	}
+        if (!$this->user) {
+            $this->clientError(_('No such user.'));
+            return false;
+        } else {
+            return true;
+        }
+    }
 
-	function get_notices($limit=0) {
+    function getNotices($limit=0)
+    {
 
-		$user = $this->user;
-		
-		if (is_null($user)) {
-			return NULL;
-		}
-		
-		$notice = $user->getNotices(0, ($limit == 0) ? NOTICES_PER_PAGE : $limit);
-		
-		while ($notice->fetch()) {
-			$notices[] = clone($notice);
-		}
+        $user = $this->user;
+        
+        if (is_null($user)) {
+            return null;
+        }
+        
+        $notice = $user->getNotices(0, ($limit == 0) ? NOTICES_PER_PAGE : $limit);
+        
+        while ($notice->fetch()) {
+            $notices[] = clone($notice);
+        }
 
-		return $notices;
-	}
+        return $notices;
+    }
 
-	function get_channel() {
-		$user = $this->user;
-		$profile = $user->getProfile();
-		$c = array('url' => common_local_url('userrss',
-											 array('nickname' =>
-												   $user->nickname)),
-				   'title' => $user->nickname,
-				   'link' => $profile->profileurl,
-				   'description' => sprintf(_('Microblog by %s'), $user->nickname));
-		return $c;
-	}
+    function getChannel()
+    {
+        $user = $this->user;
+        $profile = $user->getProfile();
+        $c = array('url' => common_local_url('userrss',
+                                             array('nickname' =>
+                                                   $user->nickname)),
+                   'title' => $user->nickname,
+                   'link' => $profile->profileurl,
+                   'description' => sprintf(_('Microblog by %s'), $user->nickname));
+        return $c;
+    }
 
-	function get_image() {
-		$user = $this->user;
-		$profile = $user->getProfile();
-		if (!$profile) {
-			common_log_db_error($user, 'SELECT', __FILE__);
-			$this->server_error(_('User without matching profile'));
-			return NULL;
-		}
-		$avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
-		return ($avatar) ? $avatar->url : NULL;
-	}
+    function getImage()
+    {
+        $user = $this->user;
+        $profile = $user->getProfile();
+        if (!$profile) {
+            common_log_db_error($user, 'SELECT', __FILE__);
+            $this->serverError(_('User without matching profile'));
+            return null;
+        }
+        $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
+        return ($avatar) ? $avatar->url : null;
+    }
 
-	# override parent to add X-SUP-ID URL
-	
-	function init_rss($limit=0) {
-		$url = common_local_url('sup', NULL, $this->user->id);
-		header('X-SUP-ID: '.$url);
-		parent::init_rss($limit);
-	}
+    # override parent to add X-SUP-ID URL
+    
+    function initRss($limit=0)
+    {
+        $url = common_local_url('sup', null, $this->user->id);
+        header('X-SUP-ID: '.$url);
+        parent::initRss($limit);
+    }
+
+    function isReadOnly()
+    {
+        return true;
+    }
 }
+

@@ -1,5 +1,17 @@
 <?php
-/*
+
+/**
+ * Documentation action.
+ *
+ * PHP version 5
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ *
  * Laconica - a distributed open-source microblogging tool
  * Copyright (C) 2008, Controlez-Vous, Inc.
  *
@@ -17,22 +29,87 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
-class DocAction extends Action {
+/**
+ * Documentation class.
+ *
+ * @category Action
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Robin Millette <millette@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ */
+class DocAction extends Action
+{
+    var $filename;
+    var $title;
 
-	function handle($args) {
-		parent::handle($args);
-		$title = $this->trimmed('title');
-		$filename = INSTALLDIR.'/doc/'.$title;
-		if (!file_exists($filename)) {
-			common_user_error(_('No such document.'));
-			return;
-		}
-		$c = file_get_contents($filename);
-		$output = common_markup_to_html($c);
-		common_show_header(_(ucfirst($title)));
-		common_raw($output);
-		common_show_footer();
-	}
+    /**
+     * Class handler.
+     * 
+     * @param array $args array of arguments
+     *
+     * @return nothing
+     */
+    function handle($args)
+    {
+        parent::handle($args);
+        $this->title    = $this->trimmed('title');
+        $this->filename = INSTALLDIR.'/doc/'.$this->title;
+        if (!file_exists($this->filename)) {
+            $this->clientError(_('No such document.'));
+            return;
+        }
+        $this->showPage();
+    }
+
+    // overrrided to add entry-title class
+    function showPageTitle() {
+        $this->element('h1', array('class' => 'entry-title'), $this->title());
+    }
+    
+    // overrided to add hentry, and content-inner classes
+    function showContentBlock()
+     {
+         $this->elementStart('div', array('id' => 'content', 'class' => 'hentry'));
+         $this->showPageTitle();
+         $this->showPageNoticeBlock();
+         $this->elementStart('div', array('id' => 'content_inner', 
+             'class' => 'entry-content'));
+         // show the actual content (forms, lists, whatever)
+         $this->showContent();
+         $this->elementEnd('div');
+         $this->elementEnd('div');
+     }
+
+    /**
+     * Display content.
+     * 
+     * @return nothing
+     */
+    function showContent()
+    {
+        $c      = file_get_contents($this->filename);
+        $output = common_markup_to_html($c);
+        $this->raw($output);
+    }
+
+    /**
+     * Page title.
+     * 
+     * @return page title
+     */
+    function title()
+    {
+        return ucfirst($this->title);
+    }
+
+    function isReadOnly()
+    {
+        return true;
+    }
 }

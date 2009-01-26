@@ -1,102 +1,148 @@
 <?php
-/*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+/**
+ * Laconica, the distributed open-source microblogging tool
  *
- * This program is free software: you can redistribute it and/or modify
+ * List of featured users
+ *
+ * PHP version 5
+ *
+ * LICENCE: This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.	 If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Public
+ * @package   Laconica
+ * @author    Zach Copley <zach@controlyourself.ca>
+ * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @copyright 2008-2009 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
-require_once(INSTALLDIR.'/lib/stream.php');
 require_once(INSTALLDIR.'/lib/profilelist.php');
+require_once INSTALLDIR.'/lib/publicgroupnav.php';
 
-class FeaturedAction extends StreamAction {
+/**
+ * List of featured users
+ *
+ * @category Public
+ * @package  Laconica
+ * @author   Zach Copley <zach@controlyourself.ca>
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://laconi.ca/
+ */
 
-	function handle($args) {
-		parent::handle($args);
+class FeaturedAction extends Action
+{
+    var $page = null;
 
-		$page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
+    function isReadOnly()
+    {
+        return true;
+    }
 
-		common_show_header(_('Featured users'),
-						   array($this, 'show_header'), NULL,
-						   array($this, 'show_top'));
+    function prepare($args)
+    {
+        parent::prepare($args);
+        $this->page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 
-		$this->show_notices($page);
+        return true;
+    }
 
-		common_show_footer();
-	}
+    function title()
+    {
+        if ($this->page == 1) {
+            return _('Featured users');
+        } else {
+            return sprintf(_('Featured users, page %d'), $this->page);
+        }
+    }
 
-	function show_top() {
-		$instr = $this->get_instructions();
-		$output = common_markup_to_html($instr);
-		common_element_start('div', 'instructions');
-		common_raw($output);
-		common_element_end('div');
-		$this->public_views_menu();
-	}
+    function handle($args)
+    {
+        parent::handle($args);
 
-	function show_header() {
-	}
+        $this->showPage();
+    }
 
-	function get_instructions() {
-		return _('Featured users');
-	}
+    function showPageNotice()
+    {
+        $instr = $this->getInstructions();
+        $output = common_markup_to_html($instr);
+        $this->elementStart('div', 'instructions');
+        $this->raw($output);
+        $this->elementEnd('div');
+    }
 
-	function show_notices($page) {
+    function showLocalNav()
+    {
+        $nav = new PublicGroupNav($this);
+        $nav->show();
+    }
 
-		// XXX: Note I'm doing it this two-stage way because a raw query
-		// with a JOIN was *not* working. --Zach
+    function getInstructions()
+    {
+        return sprintf(_('A selection of some of the great users on %s'),
+                       common_config('site', 'name'));
+    }
 
-		$featured_nicks = common_config('nickname', 'featured');
+    function showContent()
+    {
+        // XXX: Note I'm doing it this two-stage way because a raw query
+        // with a JOIN was *not* working. --Zach
 
-		if (count($featured_nicks) > 0) {
+        $featured_nicks = common_config('nickname', 'featured');
 
-			$quoted = array();
+        if (count($featured_nicks) > 0) {
 
-			foreach ($featured_nicks as $nick) {
-				$quoted[] = "'$nick'";
-			}
+            $quoted = array();
 
-			$user = new User;
-			$user->whereAdd(sprintf('nickname IN (%s)', implode(',', $quoted)));
-			$user->limit(($page - 1) * PROFILES_PER_PAGE, PROFILES_PER_PAGE + 1);
-			$user->orderBy('user.nickname ASC');
+            foreach ($featured_nicks as $nick) {
+                $quoted[] = "'$nick'";
+            }
 
-			$user->find();
+            $user = new User;
+            $user->whereAdd(sprintf('nickname IN (%s)', implode(',', $quoted)));
+            $user->limit(($this->page - 1) * PROFILES_PER_PAGE, PROFILES_PER_PAGE + 1);
+            $user->orderBy('user.nickname ASC');
 
-			$profile_ids = array();
+            $user->find();
 
-			while ($user->fetch()) {
-				$profile_ids[] = $user->id;
-			}
+            $profile_ids = array();
 
-			$profile = new Profile;
-			$profile->whereAdd(sprintf('profile.id IN (%s)', implode(',', $profile_ids)));
-			$profile->orderBy('nickname ASC');
+            while ($user->fetch()) {
+                $profile_ids[] = $user->id;
+            }
 
-			$cnt = $profile->find();
+            $profile = new Profile;
+            $profile->whereAdd(sprintf('profile.id IN (%s)', implode(',', $profile_ids)));
+            $profile->orderBy('nickname ASC');
 
-			if ($cnt > 0) {
-				$featured = new ProfileList($profile);
-				$featured->show_list();
-			}
+            $cnt = $profile->find();
 
-			$profile->free();
+            if ($cnt > 0) {
+                $featured = new ProfileList($profile, null, $this);
+                $featured->show();
+            }
 
-			common_pagination($page > 1, $cnt > PROFILES_PER_PAGE, $page, 'featured');
-		}
-	}
+            $profile->free();
 
+            $this->pagination($this->page > 1, $cnt > PROFILES_PER_PAGE,
+                              $this->page, 'featured');
+        }
+    }
 }

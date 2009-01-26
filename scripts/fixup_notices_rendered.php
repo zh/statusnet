@@ -20,8 +20,8 @@
 
 # Abort if called from a web server
 if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
-	print "This script must be run from the command line\n";
-	exit();
+    print "This script must be run from the command line\n";
+    exit();
 }
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
@@ -31,20 +31,20 @@ require_once(INSTALLDIR . '/lib/common.php');
 
 common_log(LOG_INFO, 'Starting to render old notices.');
 
-$start_at = ($argc > 1) ? $argv[1] : NULL;
+$start_at = ($argc > 1) ? $argv[1] : null;
 
 $notice = new Notice();
 if ($start_at) {
-	$notice->whereAdd('id >= ' . $start_at);
+    $notice->whereAdd('id >= ' . $start_at);
 }
 $cnt = $notice->find();
 
 while ($notice->fetch()) {
-	common_log(LOG_INFO, 'Pre-rendering notice #' . $notice->id);
-	$original = clone($notice);
-	$notice->rendered = common_render_content($notice->content, $notice);
-	$result = $notice->update($original);
-	if (!$result) {
-		common_log_db_error($notice, 'UPDATE', __FILE__);
-	}
+    common_log(LOG_INFO, 'Pre-rendering notice #' . $notice->id);
+    $original = clone($notice);
+    $notice->rendered = common_render_content($notice->content, $notice);
+    $result = $notice->update($original);
+    if (!$result) {
+        common_log_db_error($notice, 'UPDATE', __FILE__);
+    }
 }

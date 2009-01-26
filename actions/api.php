@@ -10,65 +10,67 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.     See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.	 If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.     If not, see <http://www.gnu.org/licenses/>.
  */
 
 if (!defined('LACONICA')) { exit(1); }
 
-class ApiAction extends Action {
+class ApiAction extends Action
+{
 
-	var $user;
-	var $content_type;
-	var $api_arg;
-	var $api_method;
-	var $api_action;
+    var $user;
+    var $content_type;
+    var $api_arg;
+    var $api_method;
+    var $api_action;
 
-	function handle($args) {
-		parent::handle($args);
+    function handle($args)
+    {
+        parent::handle($args);
 
-		$this->api_action = $this->arg('apiaction');
-		$method = $this->arg('method');
-		$argument = $this->arg('argument');
+        $this->api_action = $this->arg('apiaction');
+        $method = $this->arg('method');
+        $argument = $this->arg('argument');
 
-		if (isset($argument)) {
-			$cmdext = explode('.', $argument);
-			$this->api_arg =  $cmdext[0];
-			$this->api_method = $method;
-			$this->content_type = strtolower($cmdext[1]);
-		} else {
+        if (isset($argument)) {
+            $cmdext = explode('.', $argument);
+            $this->api_arg =  $cmdext[0];
+            $this->api_method = $method;
+            $this->content_type = strtolower($cmdext[1]);
+        } else {
 
-			# Requested format / content-type will be an extension on the method
-			$cmdext = explode('.', $method);
-			$this->api_method = $cmdext[0];
-			$this->content_type = strtolower($cmdext[1]);
-		}
+            # Requested format / content-type will be an extension on the method
+            $cmdext = explode('.', $method);
+            $this->api_method = $cmdext[0];
+            $this->content_type = strtolower($cmdext[1]);
+        }
 
-		if($this->requires_auth()) {
-			if (!isset($_SERVER['PHP_AUTH_USER'])) {
+        if ($this->requires_auth()) {
+            if (!isset($_SERVER['PHP_AUTH_USER'])) {
 
-				# This header makes basic auth go
-				header('WWW-Authenticate: Basic realm="Laconica API"');
+                # This header makes basic auth go
+                header('WWW-Authenticate: Basic realm="Laconica API"');
 
-				# If the user hits cancel -- bam!
-				$this->show_basic_auth_error();
-			} else {
-				$nickname = $_SERVER['PHP_AUTH_USER'];
-				$password = $_SERVER['PHP_AUTH_PW'];
-				$user = common_check_user($nickname, $password);
+                # If the user hits cancel -- bam!
+                $this->show_basic_auth_error();
+            } else {
+                $nickname = $_SERVER['PHP_AUTH_USER'];
+                $password = $_SERVER['PHP_AUTH_PW'];
+                $user = common_check_user($nickname, $password);
 
-				if ($user) {
-					$this->user = $user;
-					$this->process_command();
-				} else {
-					# basic authentication failed
-					$this->show_basic_auth_error();
-				}
-			}
-		} else {
+                if ($user) {
+                    $this->user = $user;
+                    $this->process_command();
+                } else {
+                    # basic authentication failed
+                    $this->show_basic_auth_error();
+                }
+            }
+        } else {
 
 			# Caller might give us a username even if not required
 			if (isset($_SERVER['PHP_AUTH_USER'])) {
@@ -79,50 +81,55 @@ class ApiAction extends Action {
 				# Twitter doesn't throw an error if the user isn't found
 			}
 
-			$this->process_command();
-		}
-	}
+            $this->process_command();
+        }
+    }
 
-	function process_command() {
-		$action = "twitapi$this->api_action";
-		$actionfile = INSTALLDIR."/actions/$action.php";
+    function process_command()
+    {
+        $action = "twitapi$this->api_action";
+        $actionfile = INSTALLDIR."/actions/$action.php";
 
-		if (file_exists($actionfile)) {
-			require_once($actionfile);
-			$action_class = ucfirst($action)."Action";
-			$action_obj = new $action_class();
+        if (file_exists($actionfile)) {
+            require_once($actionfile);
+            $action_class = ucfirst($action)."Action";
+            $action_obj = new $action_class();
 
             if (!$action_obj->prepare($this->args)) {
                 return;
             }
 
-			if (method_exists($action_obj, $this->api_method)) {
-				$apidata = array(	'content-type' => $this->content_type,
-									'api_method' => $this->api_method,
-									'api_arg' => $this->api_arg,
-									'user' => $this->user);
+            if (method_exists($action_obj, $this->api_method)) {
+                $apidata = array(    'content-type' => $this->content_type,
+                                    'api_method' => $this->api_method,
+                                    'api_arg' => $this->api_arg,
+                                    'user' => $this->user);
 
-				call_user_func(array($action_obj, $this->api_method), $_REQUEST, $apidata);
-			} else {
-				common_user_error("API method not found!", $code=404);
-			}
-		} else {
-			common_user_error("API method not found!", $code=404);
-		}
-	}
+                call_user_func(array($action_obj, $this->api_method), $_REQUEST, $apidata);
+            } else {
+                $this->clientError("API method not found!", $code=404);
+            }
+        } else {
+            $this->clientError("API method not found!", $code=404);
+        }
+    }
 
-	# Whitelist of API methods that don't need authentication
-	function requires_auth() {
-		static $noauth = array( 'statuses/public_timeline',
-								'statuses/show',
-								'users/show',
-								'help/test',
-								'help/downtime_schedule');
+    # Whitelist of API methods that don't need authentication
+    function requires_auth()
+    {
+        static $noauth = array( 'statuses/public_timeline',
+                                'statuses/show',
+                                'users/show',
+                                'help/test',
+                                'help/downtime_schedule',
+                                'laconica/version',
+                                'laconica/config',
+                                'laconica/wadl');
 
-		static $bareauth = array('statuses/user_timeline',
-								 'statuses/friends',
-								 'statuses/followers',
-								 'favorites/favorites');
+        static $bareauth = array('statuses/user_timeline',
+                                 'statuses/friends',
+                                 'statuses/followers',
+                                 'favorites/favorites');
 
         # If the site is "private", all API methods need authentication
 
@@ -130,71 +137,73 @@ class ApiAction extends Action {
             return true;
         }
 
-		$fullname = "$this->api_action/$this->api_method";
+        $fullname = "$this->api_action/$this->api_method";
 
-		if (in_array($fullname, $bareauth)) {
-			# bareauth: only needs auth if without an argument
-			if ($this->api_arg) {
-				return false;
-			} else {
-				return true;
-			}
-		} else if (in_array($fullname, $noauth)) {
-			# noauth: never needs auth
-			return false;
-		} else {
-			# everybody else needs auth
-			return true;
-		}
-	}
+        if (in_array($fullname, $bareauth)) {
+            # bareauth: only needs auth if without an argument
+            if ($this->api_arg) {
+                return false;
+            } else {
+                return true;
+            }
+        } else if (in_array($fullname, $noauth)) {
+            # noauth: never needs auth
+            return false;
+        } else {
+            # everybody else needs auth
+            return true;
+        }
+    }
 
-	function show_basic_auth_error() {
-		header('HTTP/1.1 401 Unauthorized');
-		$msg = 'Could not authenticate you.';
+    function show_basic_auth_error()
+    {
+        header('HTTP/1.1 401 Unauthorized');
+        $msg = 'Could not authenticate you.';
 
-		if ($this->content_type == 'xml') {
-			header('Content-Type: application/xml; charset=utf-8');
-			common_start_xml();
-			common_element_start('hash');
-			common_element('error', NULL, $msg);
-			common_element('request', NULL, $_SERVER['REQUEST_URI']);
-			common_element_end('hash');
-			common_end_xml();
-		} else if ($this->content_type == 'json')  {
-			header('Content-Type: application/json; charset=utf-8');
-			$error_array = array('error' => $msg, 'request' => $_SERVER['REQUEST_URI']);
-			print(json_encode($error_array));
-		} else {
-			header('Content-type: text/plain');
-			print "$msg\n";
-		}
-	}
+        if ($this->content_type == 'xml') {
+            header('Content-Type: application/xml; charset=utf-8');
+            $this->startXML();
+            $this->elementStart('hash');
+            $this->element('error', null, $msg);
+            $this->element('request', null, $_SERVER['REQUEST_URI']);
+            $this->elementEnd('hash');
+            $this->endXML();
+        } else if ($this->content_type == 'json')  {
+            header('Content-Type: application/json; charset=utf-8');
+            $error_array = array('error' => $msg, 'request' => $_SERVER['REQUEST_URI']);
+            print(json_encode($error_array));
+        } else {
+            header('Content-type: text/plain');
+            print "$msg\n";
+        }
+    }
 
-	function is_readonly() {
-		# NOTE: before handle(), can't use $this->arg
-		$apiaction = $_REQUEST['apiaction'];
-		$method = $_REQUEST['method'];
-		list($cmdtext, $fmt) = explode('.', $method);
+    function isReadOnly()
+    {
+        # NOTE: before handle(), can't use $this->arg
+        $apiaction = $_REQUEST['apiaction'];
+        $method = $_REQUEST['method'];
+        list($cmdtext, $fmt) = explode('.', $method);
 
-		static $write_methods = array(
-			'account' => array('update_location', 'update_delivery_device', 'end_session'),
-			'blocks' => array('create', 'destroy'),
-			'direct_messages' => array('create', 'destroy'),
-			'favorites' => array('create', 'destroy'),
-			'friendships' => array('create', 'destroy'),
-			'help' => array(),
-			'notifications' => array('follow', 'leave'),
-			'statuses' => array('update', 'destroy'),
-			'users' => array()
-		);
+        static $write_methods = array(
+            'account' => array('update_location', 'update_delivery_device', 'end_session'),
+            'blocks' => array('create', 'destroy'),
+            'direct_messages' => array('create', 'destroy'),
+            'favorites' => array('create', 'destroy'),
+            'friendships' => array('create', 'destroy'),
+            'help' => array(),
+            'notifications' => array('follow', 'leave'),
+            'statuses' => array('update', 'destroy'),
+            'users' => array()
+        );
 
-		if (array_key_exists($apiaction, $write_methods)) {
-			if (!in_array($cmdtext, $write_methods[$apiaction])) {
-				return true;
-			}
-		}
+        if (array_key_exists($apiaction, $write_methods)) {
+            if (!in_array($cmdtext, $write_methods[$apiaction])) {
+                return true;
+            }
+        }
 
-		return false;
-	}
+        return false;
+    }
 
 }

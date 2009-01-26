@@ -1,9 +1,12 @@
 <?php
-/*
- * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+/**
+ * Laconica, the distributed open-source microblogging tool
  *
- * This program is free software: you can redistribute it and/or modify
+ * Show a single message
+ *
+ * PHP version 5
+ *
+ * LICENCE: This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -15,86 +18,167 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Personal
+ * @package   Laconica
+ * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @copyright 2008-2009 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
+ */
+if (!defined('LACONICA')) { 
+    exit(1); 
+}
+
+require_once INSTALLDIR.'/lib/mailbox.php';
+
+/**
+ * Show a single message
+ *
+ * // XXX: It is totally weird how this works!
+ * 
+ * @category Personal
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://laconi.ca/
  */
 
-if (!defined('LACONICA')) { exit(1); }
+class ShowmessageAction extends MailboxAction
+{
+    /**
+     * Message object to show
+     */
 
-require_once(INSTALLDIR.'/lib/mailbox.php');
+    var $message = null;
+    
+    /**
+     * The current user
+     */
+    
+    var $user = null;
 
-class ShowmessageAction extends MailboxAction {
+    /**
+     * Load attributes based on database arguments
+     *
+     * Loads all the DB stuff
+     *
+     * @param array $args $_REQUEST array
+     *
+     * @return success flag
+     */
 
-	function handle($args) {
+    function prepare($args)
+    {
+        parent::prepare($args);
+        
+        $this->page = 1;
+        
+        $id            = $this->trimmed('message');
+        $this->message = Message::staticGet('id', $id);
 
-		Action::handle($args);
+        if (!$this->message) {
+            $this->clientError(_('No such message.'), 404);
+            return false;
+        }
 
-		$message = $this->get_message();
+        $this->user = common_current_user();
 
-		if (!$message) {
-			$this->client_error(_('No such message.'), 404);
-			return;
-		}
-		
-		$cur = common_current_user();
-		
-		if ($cur && ($cur->id == $message->from_profile || $cur->id == $message->to_profile)) {
-			$this->show_page($cur, 1);
-		} else {
-			$this->client_error(_('Only the sender and recipient may read this message.'), 403);
-			return;
-		}
-	}
-	
-	function get_message() {
-		$id = $this->trimmed('message');
-		$message = Message::staticGet('id', $id);
-		return $message;
-	}
-	
-	function get_title($user, $page) {
-		$message = $this->get_message();
-		if (!$message) {
-			return NULL;
-		}
-		
-		if ($user->id == $message->from_profile) {
-			$to = $message->getTo();
-			$title = sprintf(_("Message to %1\$s on %2\$s"),
-							 $to->nickname,
-							 common_exact_date($message->created));
-		} else if ($user->id == $message->to_profile) {
-			$from = $message->getFrom();
-			$title = sprintf(_("Message from %1\$s on %2\$s"),
-							 $from->nickname,
-							 common_exact_date($message->created));
-		}
-		return $title;
-	}
+        return true;
+    }
 
-	function get_messages($user, $page) {
-		$message = new Message();
-		$message->id = $this->trimmed('message');
-		$message->find();
-		return $message;
-	}
-	
-	function get_message_profile($message) {
-		$user = common_current_user();
-		if ($user->id == $message->from_profile) {
-			return $message->getTo();
-		} else if ($user->id == $message->to_profile) {
-			return $message->getFrom();
-		} else {
-			# This shouldn't happen
-			return NULL;
-		}
-	}
-	
-	function get_instructions() {
-		return '';
-	}
-	
-	function views_menu() {
-		return;
-	}
+    function handle($args)
+    {
+        Action::handle($args);
+                        
+        if ($this->user && ($this->user->id == $this->message->from_profile || 
+            $this->user->id == $this->message->to_profile)) {
+                $this->showPage();
+        } else {
+            $this->clientError(_('Only the sender and recipient ' .
+                'may read this message.'), 403);
+            return;
+        }
+    }
+    
+    function title()
+    {                        
+        if ($this->user->id == $this->message->from_profile) {
+            $to = $this->message->getTo();
+            return sprintf(_("Message to %1\$s on %2\$s"),
+                             $to->nickname,
+                             common_exact_date($this->message->created));
+        } else if ($this->user->id == $this->message->to_profile) {
+            $from = $this->message->getFrom();
+            return sprintf(_("Message from %1\$s on %2\$s"),
+                             $from->nickname,
+                             common_exact_date($this->message->created));
+        }
+    }
+        
+    function getMessages() 
+    {    
+        $message     = new Message();
+        $message->id = $this->message->id;
+        $message->find();
+        return $message;
+    }
+    
+    function getMessageProfile()
+    {
+        if ($this->user->id == $this->message->from_profile) {
+            return $this->message->getTo();
+        } else if ($this->user->id == $this->message->to_profile) {
+            return $this->message->getFrom();
+        } else {
+            // This shouldn't happen
+            return null;
+        }
+    }
+    
+    /**
+     * Don't show local navigation
+     *
+     * @return void
+     */
+
+    function showLocalNavBlock()
+    {
+    }
+    
+    /**
+     * Don't show page notice
+     *
+     * @return void
+     */
+
+    function showPageNoticeBlock()
+    {
+    }
+
+    /**
+     * Don't show aside
+     *
+     * @return void
+     */
+
+    function showAside() 
+    {
+    }
+ 
+    /**
+     * Don't show any instructions
+     *
+     * @return string
+     */
+     
+    function getInstructions()
+    {
+        return '';
+    }
+
+    function isReadOnly()
+    {
+        return true;
+    }
 }
-	

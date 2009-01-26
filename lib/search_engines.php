@@ -19,33 +19,40 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class SearchEngine {
+class SearchEngine
+{
     protected $target;
     protected $table;
 
-    function __construct($target, $table) {
+    function __construct($target, $table)
+    {
         $this->target = $target;
         $this->table = $table;
     }
 
-    function query($q) {
+    function query($q)
+    {
     }
 
-    function limit($offset, $count, $rss = false) {
+    function limit($offset, $count, $rss = false)
+    {
         return $this->target->limit($offset, $count);
     }
 
-    function set_sort_mode($mode) {
+    function set_sort_mode($mode)
+    {
         if ('chron' === $mode)
             return $this->target->orderBy('created desc');
     }
 }
 
-class SphinxSearch extends SearchEngine {
+class SphinxSearch extends SearchEngine
+{
     private $sphinx;
     private $connected;
 
-    function __construct($target, $table) {
+    function __construct($target, $table)
+    {
         $fp = @fsockopen(common_config('sphinx', 'server'), common_config('sphinx', 'port'));
         if (!$fp) {
             $this->connected = false;
@@ -58,11 +65,13 @@ class SphinxSearch extends SearchEngine {
         $this->connected = true;
     }
 
-    function is_connected() {
+    function is_connected()
+    {
         return $this->connected;
     }
 
-    function limit($offset, $count, $rss = false) {
+    function limit($offset, $count, $rss = false)
+    {
         //FIXME without LARGEST_POSSIBLE, the most recent results aren't returned
         //      this probably has a large impact on performance
         $LARGEST_POSSIBLE = 1e6; 
@@ -78,7 +87,8 @@ class SphinxSearch extends SearchEngine {
         return $this->target->limit(0, $count);
     }
 
-    function query($q) {
+    function query($q)
+    {
         $result = $this->sphinx->query($q, $this->table);
         if (!isset($result['matches'])) return false;
         $id_set = join(', ', array_keys($result['matches']));
@@ -86,7 +96,8 @@ class SphinxSearch extends SearchEngine {
         return true;
      }
 
-    function set_sort_mode($mode) {
+    function set_sort_mode($mode)
+    {
         if ('chron' === $mode) {
             $this->sphinx->SetSortMode(SPH_SORT_ATTR_DESC, 'created_ts');
             return $this->target->orderBy('created desc');
@@ -94,19 +105,23 @@ class SphinxSearch extends SearchEngine {
     }
 }
 
-class MySQLSearch extends SearchEngine {
-    function query($q) {
+class MySQLSearch extends SearchEngine
+{
+    function query($q)
+    {
         if ('identica_people' === $this->table)
             return $this->target->whereAdd('MATCH(nickname, fullname, location, bio, homepage) ' .
-						   'against (\''.addslashes($q).'\')');
+                           'against (\''.addslashes($q).'\')');
         if ('identica_notices' === $this->table)
             return $this->target->whereAdd('MATCH(content) ' .
-						   'against (\''.addslashes($q).'\')');
+                           'against (\''.addslashes($q).'\')');
     }
 }
 
-class PGSearch extends SearchEngine {
-    function query($q) {
+class PGSearch extends SearchEngine
+{
+    function query($q)
+    {
         if ('identica_people' === $this->table)
             return $this->target->whereAdd('textsearch @@ plainto_tsquery(\''.addslashes($q).'\')');
         if ('identica_notices' === $this->table)

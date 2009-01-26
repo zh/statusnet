@@ -21,9 +21,11 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/twitterapi.php');
 
-class TwitapiaccountAction extends TwitterapiAction {
+class TwitapiaccountAction extends TwitterapiAction
+{
 
-	function verify_credentials($args, $apidata) {
+	function verify_credentials($args, $apidata)
+    {
 
 		if ($apidata['content-type'] == 'xml') {
 			header('Content-Type: application/xml; charset=utf-8');
@@ -37,63 +39,67 @@ class TwitapiaccountAction extends TwitterapiAction {
 
 	}
 
-	function end_session($args, $apidata) {
-		parent::handle($args);
-		common_server_error(_('API method under construction.'), $code=501);
-	}
+    function end_session($args, $apidata)
+    {
+        parent::handle($args);
+        $this->serverError(_('API method under construction.'), $code=501);
+    }
 
-	function update_location($args, $apidata) {
-		parent::handle($args);
+    function update_location($args, $apidata)
+    {
+        parent::handle($args);
 
-		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-			$this->client_error(_('This method requires a POST.'), 400, $apidata['content-type']);
-			return;
-		}
+        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+            $this->clientError(_('This method requires a POST.'), 400, $apidata['content-type']);
+            return;
+        }
 
-		$location = trim($this->arg('location'));
+        $location = trim($this->arg('location'));
 
-		if (!is_null($location) && strlen($location) > 255) {
+        if (!is_null($location) && strlen($location) > 255) {
 
-			// XXX: But Twitter just truncates and runs with it. -- Zach
-			$this->client_error(_('That\'s too long. Max notice size is 255 chars.'), 406, $apidate['content-type']);
-			return;
-		}
+            // XXX: But Twitter just truncates and runs with it. -- Zach
+            $this->clientError(_('That\'s too long. Max notice size is 255 chars.'), 406, $apidate['content-type']);
+            return;
+        }
 
-		$user = $apidata['user'];
-		$profile = $user->getProfile();
+        $user = $apidata['user'];
+        $profile = $user->getProfile();
 
-		if (!$profile) {
-			common_server_error(_('User has no profile.'));
-			return;
-		}
+        if (!$profile) {
+            $this->serverError(_('User has no profile.'));
+            return;
+        }
 
-		$orig_profile = clone($profile);
-		$profile->location = $location;
+        $orig_profile = clone($profile);
+        $profile->location = $location;
 
-		$result = $profile->update($orig_profile);
+        $result = $profile->update($orig_profile);
 
-		if (!$result) {
-			common_log_db_error($profile, 'UPDATE', __FILE__);
-			common_server_error(_('Couldn\'t save profile.'));
-			return;
-		}
+        if (!$result) {
+            common_log_db_error($profile, 'UPDATE', __FILE__);
+            $this->serverError(_('Couldn\'t save profile.'));
+            return;
+        }
 
-		common_broadcast_profile($profile);
-		$type = $apidata['content-type'];
+        common_broadcast_profile($profile);
+        $type = $apidata['content-type'];
 
-		$this->init_document($type);
-		$this->show_profile($profile, $type);
-		$this->end_document($type);
-	}
+        $this->init_document($type);
+        $this->show_profile($profile, $type);
+        $this->end_document($type);
+    }
 
 
-	function update_delivery_device($args, $apidata) {
-		parent::handle($args);
-		common_server_error(_('API method under construction.'), $code=501);
-	}
+    function update_delivery_device($args, $apidata)
+    {
+        parent::handle($args);
+        $this->serverError(_('API method under construction.'), $code=501);
+    }
 
-	function rate_limit_status($args, $apidata) {
-		parent::handle($args);
-		common_server_error(_('API method under construction.'), $code=501);
-	}
+    function rate_limit_status($args, $apidata)
+    {
+        parent::handle($args);
+        $this->serverError(_('API method under construction.'), $code=501);
+    }
 }

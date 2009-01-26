@@ -19,44 +19,46 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class SubeditAction extends Action {
+class SubeditAction extends Action
+{
+    var $profile = null;
 
-    var $profile = NULL;
-
-    function prepare($args) {
-
+    function prepare($args)
+    {
         parent::prepare($args);
 
         if (!common_logged_in()) {
-            $this->client_error(_('Not logged in.'));
+            $this->clientError(_('Not logged in.'));
             return false;
         }
 
-		$token = $this->trimmed('token');
+        $token = $this->trimmed('token');
 
-		if (!$token || $token != common_session_token()) {
-			$this->client_error(_('There was a problem with your session token. Try again, please.'));
-			return;
-		}
+        if (!$token || $token != common_session_token()) {
+            $this->clientError(_('There was a problem with your session token. '.
+                                 'Try again, please.'));
+            return false;
+        }
 
         $id = $this->trimmed('profile');
 
         if (!$id) {
-            $this->client_error(_('No profile specified.'));
+            $this->clientError(_('No profile specified.'));
             return false;
         }
 
         $this->profile = Profile::staticGet('id', $id);
 
         if (!$this->profile) {
-            $this->client_error(_('No profile with that ID.'));
+            $this->clientError(_('No profile with that ID.'));
             return false;
         }
 
         return true;
     }
 
-    function handle($args) {
+    function handle($args)
+    {
         parent::handle($args);
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $cur = common_current_user();
@@ -65,7 +67,7 @@ class SubeditAction extends Action {
                                                'subscribed' => $this->profile->id));
 
             if (!$sub) {
-                $this->client_error(_('You are not subscribed to that profile.'));
+                $this->clientError(_('You are not subscribed to that profile.'));
                 return false;
             }
 
@@ -78,7 +80,7 @@ class SubeditAction extends Action {
 
             if (!$result) {
                 common_log_db_error($sub, 'UPDATE', __FILE__);
-                $this->server_error(_('Could not save subscription.'));
+                $this->serverError(_('Could not save subscription.'));
                 return false;
             }
 

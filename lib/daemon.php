@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Laconica - a distributed open-source microblogging tool
  * Copyright (C) 2008, Controlez-Vous, Inc.
  *
@@ -17,117 +17,128 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
-class Daemon {
+class Daemon
+{
+    function name()
+    {
+        return null;
+    }
 
-	function name() {
-		return NULL;
-	}
-	
-	function background() {
-		$pid = pcntl_fork();
-		if ($pid < 0) { # error
-			common_log(LOG_ERR, "Could not fork.");
-			return false;
-		} else if ($pid > 0) { # parent
-			common_log(LOG_INFO, "Successfully forked.");
-			exit(0);
-		} else { # child
-			return true;
-		}
-	}
+    function background()
+    {
+        $pid = pcntl_fork();
+        if ($pid < 0) { // error
+            common_log(LOG_ERR, "Could not fork.");
+            return false;
+        } else if ($pid > 0) { // parent
+            common_log(LOG_INFO, "Successfully forked.");
+            exit(0);
+        } else { // child
+            return true;
+        }
+    }
 
-	function alreadyRunning() {
+    function alreadyRunning()
+    {
+        $pidfilename = $this->pidFilename();
 
-		$pidfilename = $this->pidFilename();
+        if (!$pidfilename) {
+            return false;
+        }
 
-		if (!$pidfilename) {
-			return false;
-		}
-		
-		if (!file_exists($pidfilename)) {
-			return false;
-		}
-		$contents = file_get_contents($pidfilename);
-		if (posix_kill(trim($contents),0)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	function writePidFile() {
-		$pidfilename = $this->pidFilename();
-		
-		if (!$pidfilename) {
-			return false;
-		}
-		
-	    return file_put_contents($pidfilename, posix_getpid() . "\n");
-	}
+        if (!file_exists($pidfilename)) {
+            return false;
+        }
+        $contents = file_get_contents($pidfilename);
+        if (posix_kill(trim($contents), 0)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	function clearPidFile() {
-		$pidfilename = $this->pidFilename();
-	        if (!$pidfilename) {
-		    return false;
-		}
-	        return unlink($pidfilename);
-	}
-	
-	function pidFilename() {
-		$piddir = common_config('daemon', 'piddir');
-		if (!$piddir) {
-			return NULL;
-		}
-		$name = $this->name();
-		if (!$name) {
-			return NULL;
-		}
-		return $piddir . '/' . $name . '.pid';
-	}
+    function writePidFile()
+    {
+        $pidfilename = $this->pidFilename();
 
-	function changeUser() {
+        if (!$pidfilename) {
+            return false;
+        }
 
-		$username = common_config('daemon', 'user');
-		
-		if ($username) {
-			$user_info = posix_getpwnam($username);
-			if (!$user_info) {
-				common_log(LOG_WARNING, 'Ignoring unknown user for daemon: ' . $username);
-			} else {
-				common_log(LOG_INFO, "Setting user to " . $username);
-				posix_setuid($user_info['uid']);
-			}
-		}
+        return file_put_contents($pidfilename, posix_getpid() . "\n");
+    }
 
-		$groupname = common_config('daemon', 'group');
-		
-		if ($groupname) {
-			$group_info = posix_getgrnam($groupname);
-			if (!$group_info) {
-				common_log(LOG_WARNING, 'Ignoring unknown group for daemon: ' . $groupname);
-			} else {
-				common_log(LOG_INFO, "Setting group to " . $groupname);
-				posix_setgid($group_info['gid']);
-			}
-		}
-	}
-	
-	function runOnce() {
-		if ($this->alreadyRunning()) {
-			common_log(LOG_INFO, $this->name() . ' already running. Exiting.');
-			exit(0);
-		}
-		if ($this->background()) {
-			$this->writePidFile();
-			$this->changeUser();
-			$this->run();
-			$this->clearPidFile();
-		}
-	}
-	
-	function run() {
-		return true;
-	}
+    function clearPidFile()
+    {
+        $pidfilename = $this->pidFilename();
+        if (!$pidfilename) {
+            return false;
+        }
+        return unlink($pidfilename);
+    }
+
+    function pidFilename()
+    {
+        $piddir = common_config('daemon', 'piddir');
+        if (!$piddir) {
+            return null;
+        }
+        $name = $this->name();
+        if (!$name) {
+            return null;
+        }
+        return $piddir . '/' . $name . '.pid';
+    }
+
+    function changeUser()
+    {
+        $username = common_config('daemon', 'user');
+
+        if ($username) {
+            $user_info = posix_getpwnam($username);
+            if (!$user_info) {
+                common_log(LOG_WARNING,
+                           'Ignoring unknown user for daemon: ' . $username);
+            } else {
+                common_log(LOG_INFO, "Setting user to " . $username);
+                posix_setuid($user_info['uid']);
+            }
+        }
+
+        $groupname = common_config('daemon', 'group');
+
+        if ($groupname) {
+            $group_info = posix_getgrnam($groupname);
+            if (!$group_info) {
+                common_log(LOG_WARNING,
+                           'Ignoring unknown group for daemon: ' . $groupname);
+            } else {
+                common_log(LOG_INFO, "Setting group to " . $groupname);
+                posix_setgid($group_info['gid']);
+            }
+        }
+    }
+
+    function runOnce()
+    {
+        if ($this->alreadyRunning()) {
+            common_log(LOG_INFO, $this->name() . ' already running. Exiting.');
+            exit(0);
+        }
+        if ($this->background()) {
+            $this->writePidFile();
+            $this->changeUser();
+            $this->run();
+            $this->clearPidFile();
+        }
+    }
+
+    function run()
+    {
+        return true;
+    }
 }
