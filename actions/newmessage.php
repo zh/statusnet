@@ -98,6 +98,11 @@ class NewmessageAction extends Action
 
         $user = common_current_user();
 
+        if (!$user) {
+            $this->clientError(_('Only logged-in users can send direct messages.'), 403);
+            return false;
+        }
+
         $this->content = $this->trimmed('content');
         $this->to = $this->trimmed('to');
 
