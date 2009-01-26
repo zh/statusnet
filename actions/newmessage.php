@@ -201,7 +201,7 @@ class NewmessageAction extends Action
 
     function showNoticeForm()
     {
-        $message_form = new MessageForm($this);
+        $message_form = new MessageForm($this, $this->to, $this->content);
         $message_form->show();
     }
 }
