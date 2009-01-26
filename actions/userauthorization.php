@@ -86,7 +86,7 @@ class UserauthorizationAction extends Action
         $this->element('p', null, _('Please check these details to make sure '.
                                     'that you want to subscribe to this user\'s notices. '.
                                     'If you didn\'t just ask to subscribe to someone\'s notices, '.
-                                    'click "Cancel".'));
+                                    'click "Reject".'));
     }
 
     function showContent()
