@@ -8,6 +8,7 @@
  * @package  Laconica
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @author   Robin Millette <millette@controlyourself.ca>
+ * @author   Sarven Capadisli <csarven@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://laconi.ca/
  *
@@ -90,7 +91,7 @@ class NoticesearchAction extends SearchAction
         }
         if ($cnt > 0) {
             $terms = preg_split('/[\s,]+/', $q);
-            $this->elementStart('ul', array('id' => 'notices'));
+            $this->elementStart('ul', array('class' => 'notices'));
             for ($i = 0; $i < min($cnt, NOTICES_PER_PAGE); $i++) {
                 if ($notice->fetch()) {
                     $this->showNotice($notice, $terms);
@@ -147,23 +148,26 @@ class NoticesearchAction extends SearchAction
             return;
         }
         // XXX: RDFa
-        $this->elementStart('li', array('class' => 'notice_single',
+        $this->elementStart('li', array('class' => 'hentry notice',
                                           'id' => 'notice-' . $notice->id));
+
+        $this->elementStart('div', 'entry-title');
+        $this->elementStart('span', 'vcard author');
         $avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
         $this->elementStart('a', array('href' => $profile->profileurl));
         $this->element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE),
-                                    'class' => 'avatar stream',
+                                    'class' => 'avatar photo',
                                     'width' => AVATAR_STREAM_SIZE,
                                     'height' => AVATAR_STREAM_SIZE,
                                     'alt' =>
                                     ($profile->fullname) ? $profile->fullname :
                                     $profile->nickname));
+        $this->element('span', 'nickname fn', $profile->nickname);
         $this->elementEnd('a');
-        $this->element('a', array('href' => $profile->profileurl,
-                                  'class' => 'nickname'),
-                       $profile->nickname);
+        $this->elementEnd('span');
+
         // FIXME: URL, image, video, audio
-        $this->elementStart('p', array('class' => 'content'));
+        $this->elementStart('p', array('class' => 'entry-content'));
         if ($notice->rendered) {
             $this->raw($this->highlight($notice->rendered, $terms));
         } else {
@@ -173,20 +177,53 @@ class NoticesearchAction extends SearchAction
             $this->raw($this->highlight(common_render_content($notice->content, $notice), $terms));
         }
         $this->elementEnd('p');
+        $this->elementEnd('div');
+
         $noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
-        $this->elementStart('p', 'time');
-        $this->element('a', array('class' => 'permalink',
-                                  'href' => $noticeurl,
-                                  'title' => common_exact_date($notice->created)),
-                       common_date_string($notice->created));
+        $this->elementStart('div', 'entry-content');
+        $this->elementStart('dl', 'timestamp');
+        $this->element('dt', null, _('Published'));
+        $this->elementStart('dd', null);
+        $this->elementStart('a', array('rel' => 'bookmark',
+                                       'href' => $noticeurl));
+        $dt = common_date_iso8601($notice->created);
+        $this->element('abbr', array('class' => 'published',
+                                          'title' => $dt),
+                            common_date_string($notice->created));
+        $this->elementEnd('a');
+        $this->elementEnd('dd');
+        $this->elementEnd('dl');
+
         if ($notice->reply_to) {
-            $replyurl = common_local_url('shownotice', array('notice' => $notice->reply_to));
-            $this->text(' (');
-            $this->element('a', array('class' => 'inreplyto',
-                                      'href' => $replyurl),
-                           _('in reply to...'));
-            $this->text(')');
+            $replyurl = common_local_url('shownotice',
+                                         array('notice' => $this->notice->reply_to));
+            $this->elementStart('dl', 'response');
+            $this->element('dt', null, _('To'));
+            $this->elementStart('dd');
+            $this->element('a', array('href' => $replyurl,
+                                           'rel' => 'in-reply-to'),
+                                _('in reply to'));
+            $this->elementEnd('dd');
+            $this->elementEnd('dl');
         }
+        $this->elementEnd('div');
+
+        $this->elementStart('div', 'notice-options');
+
+        $reply_url = common_local_url('newnotice',
+                                      array('replyto' => $profile->nickname));
+
+        $this->elementStart('dl', 'notice_reply');
+        $this->element('dt', null, _('Reply to this notice'));
+        $this->elementStart('dd');
+        $this->elementStart('a', array('href' => $reply_url,
+                                       'title' => _('Reply to this notice')));
+        $this->text(_('Reply'));
+        $this->element('span', 'notice_id', $notice->id);
+        $this->elementEnd('a');
+        $this->elementEnd('dd');
+        $this->elementEnd('dl');
+
         $this->elementStart('a',
                              array('href' => common_local_url('newnotice',
                                                               array('replyto' => $profile->nickname)),
@@ -194,10 +231,8 @@ class NoticesearchAction extends SearchAction
                                    'title' => _('reply'),
                                    'class' => 'replybutton'));
         $this->hidden('posttoken', common_session_token());
-        
-        $this->raw('&rarr;');
         $this->elementEnd('a');
-        $this->elementEnd('p');
+        $this->elementEnd('div');
         $this->elementEnd('li');
     }
 

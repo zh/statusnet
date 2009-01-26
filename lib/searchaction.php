@@ -114,17 +114,21 @@ class SearchAction extends Action
         $q = $this->trimmed('q');
         $page = $this->trimmed('page', 1);
         $this->elementStart('form', array('method' => 'get',
-                                           'id' => 'login',
+                                           'id' => 'form_search',
+                                           'class' => 'form_settings',
                                            'action' => common_local_url($this->trimmed('action'))));
-        $this->elementStart('p');
+        $this->elementStart('fieldset');
+        $this->element('legend', null, _('Search site'));
+        $this->elementStart('ul', 'form_data');
+        $this->elementStart('li');
         if (!isset($config['site']['fancy']) || !$config['site']['fancy']) {
             $this->hidden('action', $this->trimmed('action'));
         }
-        $this->input('q', '', $q);
-        $this->text(' ');
+        $this->input('q', 'Keyword(s)', $q);
         $this->submit('search', 'Search');
-
-        $this->elementEnd('p');
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
+        $this->elementEnd('fieldset');
         $this->elementEnd('form');
         if ($q) {
             $this->showResults($q, $page);

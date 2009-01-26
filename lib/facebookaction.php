@@ -95,21 +95,35 @@ class FacebookAction extends Action
   
     function showStylesheets()
     {
+        // Add a timestamp to the file so Facebook cache wont ignore our changes
+        $ts = filemtime(INSTALLDIR.'/theme/base/css/display.css');
         
         $this->element('link', array('rel' => 'stylesheet',
                                      'type' => 'text/css',
-                                     'href' => getFacebookBaseCSS()));
-
+                                     'href' => theme_path('css/display.css', 'base') . '?ts=' . $ts));
+                                     
+        $theme = common_config('site', 'theme');
+        
+        $ts = filemtime(INSTALLDIR. '/theme/' . $theme .'/css/display.css');
+                                     
         $this->element('link', array('rel' => 'stylesheet',
                                      'type' => 'text/css',
-                                     'href' => getFacebookThemeCSS()));
+                                     'href' => theme_path('css/display.css', null) . '?ts=' . $ts));
+                                     
+        $ts = filemtime(INSTALLDIR.'/theme/base/css/facebookapp.css');
+        
+        $this->element('link', array('rel' => 'stylesheet',
+                                     'type' => 'text/css',
+                                     'href' => theme_path('css/facebookapp.css', 'base') . '?ts=' . $ts));
     }
   
     function showScripts()
     {
+        // Add a timestamp to the file so Facebook cache wont ignore our changes
+        $ts = filemtime(INSTALLDIR.'/js/facebookapp.js');
+        
         $this->element('script', array('type' => 'text/javascript',
-                                       'src' => getFacebookJS()),
-                       ' ');
+                                       'src' => common_path('js/facebookapp.js') . '?ts=' . $ts));
     }
     
     /**
@@ -331,37 +345,35 @@ class FacebookAction extends Action
         // Need to include inline CSS for styling the Profile box
 
         $style = '<style>
-         #notices {
-             clear: both;
-             margin: 0 auto;
-             padding: 0;
-             list-style-type: none;
-             width: 600px;
-             border-top: 1px solid #dec5b5;
+         .entry-title .vcard .photo {
+         float:left;
+         display:inline;
          }
-         #notices a:hover {
-             text-decoration: underline;
+         .entry-title .vcard .nickname {
+         margin-left:5px;
          }
-         .notice_single {
-             clear: both;
-             display: block;
-             margin: 0;
-             padding: 5px 5px 5px 0;
-             min-height: 48px;
-             font-family: Georgia, "Times New Roman", Times, serif;
-             font-size: 13px;
-             line-height: 16px;
-             border-bottom: 1px solid #dec5b5;
-             background-color:#FCFFF5;
-             opacity:1;
+
+         .entry-title p.entry-content {
+         display:inline;
+         margin-left:5px;
          }
-         .notice_single:hover {
-             background-color: #f7ebcc;
+
+         div.entry-content dl,
+         div.entry-content dt,
+         div.entry-content dd {
+         display:inline;
          }
-         .notice_single p {
-             display: inline;
-             margin: 0;
-             padding: 0;
+
+         div.entry-content dt,
+         div.entry-content dd {
+         display:inline;
+         margin-left:5px;
+         }
+         div.entry-content dl.timestamp dt {
+         display:none;
+         }
+         div.entry-content dd a {
+         display:inline-block;
          }
          </style>';        
 

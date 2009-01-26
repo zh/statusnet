@@ -116,7 +116,7 @@ class RepliesAction extends Action
             return sprintf(_("Replies to %s"), $this->user->nickname);
         } else {
             return sprintf(_("Replies to %s, page %d"),
-                           $profile->nickname,
+                           $this->user->nickname,
                            $this->page);
         }
     }

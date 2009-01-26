@@ -119,9 +119,11 @@ class UsergroupsAction extends Action
 
     function showContent()
     {
+        $this->elementStart('p', array('id' => 'new_group'));
         $this->element('a', array('href' => common_local_url('newgroup'),
-                                  'id' => 'new_group'),
+                                  'class' => 'more'),
                        _('Create a new group'));
+        $this->elementEnd('p');
 
         $offset = ($this->page-1) * GROUPS_PER_PAGE;
         $limit =  GROUPS_PER_PAGE + 1;

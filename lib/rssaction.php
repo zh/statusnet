@@ -178,11 +178,11 @@ class Rss10Action extends Action
         $image = $this->getImage();
         if ($image) {
             $channel = $this->getChannel();
-            common_element_start('image', array('rdf:about' => $image));
-            common_element('title', null, $channel['title']);
-            common_element('link', null, $channel['link']);
-            common_element('url', null, $image);
-            common_element_end('image');
+            $this->elementStart('image', array('rdf:about' => $image));
+            $this->element('title', null, $channel['title']);
+            $this->element('link', null, $channel['link']);
+            $this->element('url', null, $image);
+            $this->elementEnd('image');
         }
     }
 

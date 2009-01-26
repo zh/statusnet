@@ -182,7 +182,7 @@ class GrouplogoAction extends Action
 
         $this->elementStart('form', array('enctype' => 'multipart/form-data',
                                           'method' => 'post',
-                                          'id' => 'form_settings_logo',
+                                          'id' => 'form_settings_avatar',
                                           'class' => 'form_settings',
                                           'action' =>
                                           common_local_url('grouplogo',

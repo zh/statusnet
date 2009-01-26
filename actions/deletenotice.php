@@ -71,7 +71,7 @@ class DeletenoticeAction extends DeleteAction
     function getInstructions()
     {
         return _('You are about to permanently delete a notice. ' .
-            'Once this is done, it cannot be undone.');
+                 'Once this is done, it cannot be undone.');
     }
 
     function title()
@@ -104,22 +104,15 @@ class DeletenoticeAction extends DeleteAction
     function showContent()
     {
         $this->elementStart('form', array('id' => 'notice_delete_form',
-                                   'method' => 'post',
-                                   'action' => common_local_url('deletenotice')));
+                                          'method' => 'post',
+                                          'action' => common_local_url('deletenotice')));
         $this->hidden('token', common_session_token());
         $this->hidden('notice', $this->trimmed('notice'));
         $this->elementStart('p');
         $this->element('span', array('id' => 'confirmation_text'),
-            _('Are you sure you want to delete this notice?'));
-
-        $this->element('input', array('id' => 'submit_no',
-                          'name' => 'submit',
-                          'type' => 'submit',
-                          'value' => _('No')));
-        $this->element('input', array('id' => 'submit_yes',
-                          'name' => 'submit',
-                          'type' => 'submit',
-                          'value' => _('Yes')));
+                       _('Are you sure you want to delete this notice?'));
+        $this->submit('yes', _('Yes'));
+        $this->submit('no', _('No'));
         $this->elementEnd('p');
         $this->elementEnd('form');
     }
@@ -131,35 +124,22 @@ class DeletenoticeAction extends DeleteAction
 
         if (!$token || $token != common_session_token()) {
             $this->showForm(_('There was a problem with your session token. ' .
-                ' Try again, please.'));
+                              ' Try again, please.'));
             return;
         }
 
-        $url       = common_get_returnto();
-        $confirmed = $this->trimmed('submit');
-
-        if ($confirmed == _('Yes')) {
-
-            $replies = new Reply;
-            $replies->get('notice_id', $this->notice->id);
-
-            common_dequeue_notice($this->notice);
-
-            if (common_config('memcached', 'enabled')) {
-                $notice->blowSubsCache();
-            }
-
-            $replies->delete();
+        if ($this->arg('yes')) {
             $this->notice->delete();
-
-        } else {
-
-            if ($url) {
-                common_set_returnto(null);
-            } else {
-                $url = common_local_url('public');
-            }
         }
+
+        $url = common_get_returnto();
+
+        if ($url) {
+            common_set_returnto(null);
+        } else {
+            $url = common_local_url('public');
+        }
+
         common_redirect($url);
     }
 }

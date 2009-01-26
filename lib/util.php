@@ -903,9 +903,9 @@ function common_fancy_url($action, $args=null)
      case 'grouplogo':
         return common_path('group/'.$args['nickname'].'/logo');
      case 'usergroups':
-        return common_path($args['nickname'].'/groups');
+        return common_path($args['nickname'].'/groups' . (($args) ? ('?' . http_build_query($args)) : ''));
      case 'groups':
-        return common_path('group');
+        return common_path('group' . (($args) ? ('?' . http_build_query($args)) : ''));
      default:
         return common_simple_url($action, $args);
     }
@@ -1138,23 +1138,6 @@ function common_enqueue_notice($notice)
         common_log(LOG_DEBUG, 'complete queueing notice ID = ' . $notice->id . ' for ' . $transport);
     }
     return $result;
-}
-
-function common_dequeue_notice($notice)
-{
-    $qi = Queue_item::staticGet($notice->id);
-    if ($qi) {
-        $result = $qi->delete();
-        if (!$result) {
-            $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-            common_log(LOG_ERR, 'DB error deleting queue item: ' . $last_error->message);
-            return false;
-        }
-        common_log(LOG_DEBUG, 'complete dequeueing notice ID = ' . $notice->id);
-        return $result;
-    } else {
-        return false;
-    }
 }
 
 function common_real_broadcast($notice, $remote=false)

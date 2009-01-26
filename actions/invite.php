@@ -167,20 +167,27 @@ class InviteAction extends Action
     function showInviteForm()
     {
         $this->elementStart('form', array('method' => 'post',
-                                           'id' => 'invite',
+                                           'id' => 'form_invite',
+                                           'class' => 'form_settings',
                                            'action' => common_local_url('invite')));
+        $this->elementStart('fieldset');
+        $this->element('legend', null, 'Send an invitation');
         $this->hidden('token', common_session_token());
 
+        $this->elementStart('ul', 'form_data');
+        $this->elementStart('li');
         $this->textarea('addresses', _('Email addresses'),
                         $this->trimmed('addresses'),
                         _('Addresses of friends to invite (one per line)'));
-
+        $this->elementEnd('li');
+        $this->elementStart('li');
         $this->textarea('personal', _('Personal message'),
                         $this->trimmed('personal'),
                         _('Optionally add a personal message to the invitation.'));
-
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
         $this->submit('send', _('Send'));
-
+        $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }
 

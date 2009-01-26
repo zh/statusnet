@@ -32,7 +32,8 @@ function getFacebookNotices($since)
         'FROM notice ' .
         'JOIN foreign_link ' .
         'WHERE notice.profile_id = foreign_link.user_id ' .
-        'AND foreign_link.service = 2';
+        'AND foreign_link.service = 2 ' . 
+        'ORDER BY notice.created DESC';
 
     // XXX: What should the limit be?
     return Notice::getStreamDirect($qry, 0, 100, 0, 0, null, $since);
@@ -43,38 +44,6 @@ function getFacebook()
     $apikey = common_config('facebook', 'apikey');
     $secret = common_config('facebook', 'secret');
     return new Facebook($apikey, $secret);
-}
-
-function startFBML($indent = true)
-{
-    global $xw;
-    $xw = new XMLWriter();
-    $xw->openURI('php://output');
-    $xw->setIndent($indent);
-}
-
-function getFacebookBaseCSS()
-{
-    # Add a timestamp to the CSS file so Facebook cache wont ignore our changes
-    $ts = filemtime(INSTALLDIR.'/theme/base/css/facebookapp.base.css');
-    $cssurl = theme_path('css/facebookapp.base.css', 'base') . "?ts=$ts";
-    return $cssurl;
-}
-
-function getFacebookThemeCSS() 
-{
-    # Add a timestamp to the CSS file so Facebook cache wont ignore our changes
-    $ts = filemtime(theme_file('css/facebookapp.theme.css'));
-    $cssurl = theme_path('css/facebookapp.theme.css') . "?ts=$ts";
-    return $cssurl;   
-}
-
-function getFacebookJS() {
-
-    # Add a timestamp to the FBJS file so Facebook cache wont ignore our changes
-    $ts = filemtime(INSTALLDIR.'/js/facebookapp.js');
-    $jsurl = common_path('js/facebookapp.js') . "?ts=$ts";
-    return $jsurl;
 }
 
 function updateProfileBox($facebook, $flink, $notice) {
