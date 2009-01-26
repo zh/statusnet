@@ -887,7 +887,7 @@ function common_fancy_url($action, $args=null)
      case 'newgroup':
         return common_path('group/new');
      case 'showgroup':
-        return common_path('group/'.$args['nickname']);
+        return common_path('group/'.$args['nickname'] . (($args['page']) ? ('?page=' . $args['page']) : ''));
      case 'editgroup':
         return common_path('group/'.$args['nickname'].'/edit');
      case 'joingroup':
