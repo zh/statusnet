@@ -191,6 +191,8 @@ class ProfileList extends Widget
 
         $this->out->elementEnd('div');
 
+        $this->out->elementStart('div', 'entity_actions');
+
         if ($user && $user->id != $this->profile->id) {
             # XXX: special-case for user looking at own
             # subscriptions page
@@ -201,7 +203,12 @@ class ProfileList extends Widget
                 $sf = new SubscribeForm($this->out, $this->profile);
                 $sf->show();
             }
+            if ($user && $user->id == $this->owner->id) {
+                $this->showBlockForm();
+            }
         }
+
+        $this->out->elementEnd('div');
 
         $this->out->elementEnd('li');
     }
