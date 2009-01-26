@@ -276,6 +276,8 @@ class FacebookAction extends Action
     function showInstructions()
     {
 
+        $this->elementStart('div', array('class' => 'facebook_guide'));
+
         $this->elementStart('dl', array('class' => 'system_notice'));
         $this->element('dt', null, 'Page Notice');
 
@@ -292,6 +294,9 @@ class FacebookAction extends Action
         $this->text($loginmsg_part2);
         $this->elementEnd('dd');
         $this->elementEnd('dl');
+        
+        $this->elementEnd('div');
+        
     }
 
 
@@ -315,7 +320,6 @@ class FacebookAction extends Action
                                                'action' => 'index.php'));
 
         $this->elementStart('fieldset');
-        $this->element('legend', null, _('Login to site'));
 
         $this->elementStart('ul', array('class' => 'form_datas'));
         $this->elementStart('li');

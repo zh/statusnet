@@ -43,11 +43,11 @@ class FacebookhomeAction extends FacebookAction
     function handle($args)
     {
         parent::handle($args);        
-        
+                
         // If the user has opted not to initially allow the app to have
         // Facebook status update permission, store that preference. Only
         // promt the user the first time she uses the app
-        if ($this->arg('skip')) {
+        if ($this->arg('skip') || $args['fb_sig_request_method'] == 'GET') {
             $this->facebook->api_client->data_setUserPreference(
                 FACEBOOK_PROMPTED_UPDATE_PREF, 'true');
         }
@@ -191,7 +191,7 @@ class FacebookhomeAction extends FacebookAction
 
         $this->showStylesheets();
 
-        $this->elementStart('div', array('class' => 'content'));
+        $this->elementStart('div', array('class' => 'facebook_guide'));
 
         $instructions = sprintf(_('If you would like the %s app to automatically update ' .
             'your Facebook status with your latest notice, you need ' .
@@ -207,11 +207,19 @@ class FacebookhomeAction extends FacebookAction
 
         $this->elementStart('ul', array('id' => 'fb-permissions-list'));
         $this->elementStart('li', array('id' => 'fb-permissions-item'));
-        $this->elementStart('fb:prompt-permission', array('perms' => 'status_update',
-            'next_fbjs' => 'document.setLocation(\'' . "$this->app_uri/index.php" . '\')'));
-        $this->element('span', array('class' => 'facebook-button'),
-            sprintf(_('Allow %s to update my Facebook status'), $this->app_name));
-        $this->elementEnd('fb:prompt-permission');
+        
+        $next = urlencode("$this->app_uri/index.php");
+        $api_key = common_config('facebook', 'apikey');
+        
+        $auth_url = 'http://www.facebook.com/authorize.php?api_key=' .
+            $api_key . '&v=1.0&ext_perm=status_update&next=' . $next . 
+            '&next_cancel=' . $next . '&submit=skip';
+        
+        $this->elementStart('span', array('class' => 'facebook-button'));
+        $this->element('a', array('href' => $auth_url), 
+            sprintf(_('Okay, do it!'), $this->app_name));
+        $this->elementEnd('span');
+
         $this->elementEnd('li');
 
         $this->elementStart('li', array('id' => 'fb-permissions-item'));
