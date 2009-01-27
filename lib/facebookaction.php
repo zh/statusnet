@@ -122,8 +122,7 @@ class FacebookAction extends Action
         // Add a timestamp to the file so Facebook cache wont ignore our changes
         $ts = filemtime(INSTALLDIR.'/js/facebookapp.js');
         
-        $this->element('script', array('type' => 'text/javascript',
-                                       'src' => common_path('js/facebookapp.js') . '?ts=' . $ts));
+        $this->element('script', array('src' => common_path('js/facebookapp.js') . '?ts=' . $ts));
     }
     
     /**
