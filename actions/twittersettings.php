@@ -57,7 +57,7 @@ class TwittersettingsAction extends ConnectSettingsAction
 
     function title()
     {
-        _('Twitter settings');
+        return _('Twitter settings');
     }
 
     /**
