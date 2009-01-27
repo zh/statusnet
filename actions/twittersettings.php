@@ -109,7 +109,7 @@ class TwittersettingsAction extends ConnectSettingsAction
             $this->elementStart('li', array('id' => 'settings_twitter_remove'));
             $this->element('span', 'twitter_user', $fuser->nickname);
             $this->element('a', array('href' => $fuser->uri), $fuser->uri);
-            $this->element('p', 'form_guide',
+            $this->element('p', 'form_note',
                            _('Current verified Twitter account.'));
             $this->hidden('flink_foreign_id', $flink->foreign_id);
             $this->elementEnd('li');
