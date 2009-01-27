@@ -2,7 +2,7 @@
 /**
  * Laconica, the distributed open-source microblogging tool
  *
- * Handler for posting new notices
+ * Handler for posting new messages
  *
  * PHP version 5
  *
@@ -28,9 +28,9 @@
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://laconi.ca/
  */
- 
-if (!defined('LACONICA')) { 
-    exit(1); 
+
+if (!defined('LACONICA')) {
+    exit(1);
 }
 
 /**
@@ -47,12 +47,16 @@ if (!defined('LACONICA')) {
 
 class NewmessageAction extends Action
 {
-    
+
     /**
      * Error message, if any
      */
 
     var $msg = null;
+
+    var $content = null;
+    var $to = null;
+    var $other = null;
 
     /**
      * Title of the page
@@ -61,12 +65,12 @@ class NewmessageAction extends Action
      *
      * @return string page title
      */
-     
+
     function title()
     {
         return _('New message');
     }
-    
+
     /**
      * Handle input, produce output
      *
@@ -74,7 +78,7 @@ class NewmessageAction extends Action
      *
      * @return void
      */
-    
+
     function handle($args)
     {
         parent::handle($args);
@@ -88,62 +92,85 @@ class NewmessageAction extends Action
         }
     }
 
+    function prepare($args)
+    {
+        parent::prepare($args);
+
+        $user = common_current_user();
+
+        if (!$user) {
+            $this->clientError(_('Only logged-in users can send direct messages.'), 403);
+            return false;
+        }
+
+        $this->content = $this->trimmed('content');
+        $this->to = $this->trimmed('to');
+
+        if ($this->to) {
+
+            $this->other = User::staticGet('id', $this->to);
+
+            if (!$this->other) {
+                $this->clientError(_('No such user'), 404);
+                return false;
+            }
+
+            if (!$user->mutuallySubscribed($this->other)) {
+                $this->clientError(_('You can\'t send a message to this user.'), 404);
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     function saveNewMessage()
     {
-        $user = common_current_user();
-        assert($user); // XXX: maybe an error instead...
-
         // CSRF protection
-        
+
         $token = $this->trimmed('token');
         if (!$token || $token != common_session_token()) {
             $this->showForm(_('There was a problem with your session token. ' .
                 'Try again, please.'));
             return;
         }
-        
-        $content = $this->trimmed('content');
-        $to      = $this->trimmed('to');
-        
-        if (!$content) {
+
+        $user = common_current_user();
+        assert($user); // XXX: maybe an error instead...
+
+        if (!$this->content) {
             $this->showForm(_('No content!'));
             return;
         } else {
-            $content_shortened = common_shorten_links($content);
+            $content_shortened = common_shorten_links($this->content);
 
             if (mb_strlen($content_shortened) > 140) {
-                common_debug("Content = '$content_shortened'", __FILE__);
-                common_debug("mb_strlen(\$content) = " . 
-                    mb_strlen($content_shortened),
-                    __FILE__);
                 $this->showForm(_('That\'s too long. ' .
                     'Max message size is 140 chars.'));
                 return;
             }
         }
 
-        $other = User::staticGet('id', $to);
-        
-        if (!$other) {
+        if (!$this->other) {
             $this->showForm(_('No recipient specified.'));
             return;
-        } else if (!$user->mutuallySubscribed($other)) {
+        } else if (!$user->mutuallySubscribed($this->other)) {
             $this->clientError(_('You can\'t send a message to this user.'), 404);
             return;
-        } else if ($user->id == $other->id) {
+        } else if ($user->id == $this->other->id) {
             $this->clientError(_('Don\'t send a message to yourself; ' .
                 'just say it to yourself quietly instead.'), 403);
             return;
         }
-        
-        $message = Message::saveNew($user->id, $other->id, $content, 'web');
-        
+
+        $message = Message::saveNew($user->id, $this->other->id, $this->content, 'web');
+
         if (is_string($message)) {
             $this->showForm($message);
             return;
         }
 
-        $this->notify($user, $other, $message);
+        $this->notify($user, $this->other, $message);
 
         $url = common_local_url('outbox', array('nickname' => $user->nickname));
 
@@ -152,31 +179,29 @@ class NewmessageAction extends Action
 
     function showForm($msg = null)
     {
-        $content = $this->trimmed('content');
-        $user    = common_current_user();
-
-        $to = $this->trimmed('to');
-        
-        $other = User::staticGet('id', $to);
-
-        if (!$other) {
-            $this->clientError(_('No such user'), 404);
-            return;
-        }
-
-        if (!$user->mutuallySubscribed($other)) {
-            $this->clientError(_('You can\'t send a message to this user.'), 404);
-            return;
-        }        
-        
         $this->msg = $msg;
-        
+
         $this->showPage();
     }
-    
+
+    function showPageNotice()
+    {
+        if ($this->msg) {
+            $this->element('p', 'error', $this->msg);
+        }
+    }
+
     function notify($from, $to, $message)
     {
         mail_notify_message($message, $from, $to);
         // XXX: Jabber, SMS notifications... probably queued
+    }
+
+    // Do nothing (override)
+
+    function showNoticeForm()
+    {
+        $message_form = new MessageForm($this, $this->to, $this->content);
+        $message_form->show();
     }
 }

@@ -252,14 +252,14 @@ class RegisterAction extends Action
     function showPageTitle() {
         $this->element('h1', array('class' => 'entry-title'), $this->title());
     }
-    
+
     // overrided to add hentry, and content-inner class
     function showContentBlock()
      {
          $this->elementStart('div', array('id' => 'content', 'class' => 'hentry'));
          $this->showPageTitle();
          $this->showPageNoticeBlock();
-         $this->elementStart('div', array('id' => 'content_inner', 
+         $this->elementStart('div', array('id' => 'content_inner',
              'class' => 'entry-content'));
          // show the actual content (forms, lists, whatever)
          $this->showContent();
@@ -428,7 +428,7 @@ class RegisterAction extends Action
         $this->element('input', $attrs);
         $this->text(_('My text and files are available under '));
         $this->element('a', array('href' => common_config('license', 'url')),
-                       $config['license']['title']);
+                       common_config('license', 'title'));
         $this->text(_(' except this private data: password, '.
                       'email address, IM address, phone number.'));
         $this->elementEnd('li');

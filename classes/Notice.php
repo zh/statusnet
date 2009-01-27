@@ -91,11 +91,11 @@ class Notice extends Memcached_DataObject
             return true;
         }
 
-        /* elide characters we don't want in the tag */
-        $match[1] = str_replace(array('-', '_', '.'), '', $match[1]);
-
         /* Add them to the database */
         foreach(array_unique($match[1]) as $hashtag) {
+            /* elide characters we don't want in the tag */
+            $hashtag = common_canonical_tag($hashtag);
+
             $tag = DB_DataObject::factory('Notice_tag');
             $tag->notice_id = $this->id;
             $tag->tag = $hashtag;

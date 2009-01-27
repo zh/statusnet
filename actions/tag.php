@@ -24,11 +24,16 @@ class TagAction extends Action
     function prepare($args)
     {
         parent::prepare($args);
-        $this->tag = $this->trimmed('tag');
+        $taginput = $this->trimmed('tag');
+        $this->tag = common_canonical_tag($taginput);
 
         if (!$this->tag) {
             common_redirect(common_local_url('publictagcloud'), 301);
             return false;
+        }
+
+        if ($this->tag != $taginput) {
+            common_redirect(common_local_url('tag', array('tag' => $this->tag)));
         }
 
         $this->page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;

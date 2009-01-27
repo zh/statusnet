@@ -99,7 +99,6 @@ class MessageForm extends Form
         return common_local_url('newmessage');
     }
 
-
     /**
      * Legend of the Form
      *
@@ -109,7 +108,6 @@ class MessageForm extends Form
     {
         $this->out->element('legend', null, _('Send a direct notice'));
     }
-
 
     /**
      * Data elements
@@ -137,7 +135,7 @@ class MessageForm extends Form
         $this->out->elementStart('ul', 'form_data');
         $this->out->elementStart('li', array('id' => 'notice_to'));
         $this->out->dropdown('to', _('To'), $mutual, null, false,
-                             $this->to->id);
+                             ($this->to) ? $this->to->id : null);
         $this->out->elementEnd('li');
 
         $this->out->elementStart('li', array('id' => 'notice_text'));

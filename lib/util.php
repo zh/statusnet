@@ -887,7 +887,7 @@ function common_fancy_url($action, $args=null)
      case 'newgroup':
         return common_path('group/new');
      case 'showgroup':
-        return common_path('group/'.$args['nickname']);
+        return common_path('group/'.$args['nickname'] . (($args['page']) ? ('?page=' . $args['page']) : ''));
      case 'editgroup':
         return common_path('group/'.$args['nickname'].'/edit');
      case 'joingroup':
@@ -903,7 +903,9 @@ function common_fancy_url($action, $args=null)
      case 'grouplogo':
         return common_path('group/'.$args['nickname'].'/logo');
      case 'usergroups':
-        return common_path($args['nickname'].'/groups' . (($args) ? ('?' . http_build_query($args)) : ''));
+        $nickname = $args['nickname'];
+        unset($args['nickname']);
+        return common_path($nickname.'/groups' . (($args) ? ('?' . http_build_query($args)) : ''));
      case 'groups':
         return common_path('group' . (($args) ? ('?' . http_build_query($args)) : ''));
      default:
