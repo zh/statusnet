@@ -428,7 +428,7 @@ class RegisterAction extends Action
         $this->element('input', $attrs);
         $this->text(_('My text and files are available under '));
         $this->element('a', array('href' => common_config('license', 'url')),
-                       common_config('license', 'title'));
+                       common_config('license', 'title'), _("Creative Commons Attribution 3.0"));
         $this->text(_(' except this private data: password, '.
                       'email address, IM address, phone number.'));
         $this->elementEnd('li');
