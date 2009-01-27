@@ -158,6 +158,9 @@ class GroupList extends Widget
         $this->out->elementEnd('div');
 
         if ($user) {
+            $this->out->elementStart('div', 'entity_actions');
+            $this->out->elementStart('ul');
+            $this->out->elementStart('li', 'entity_subscribe');
             # XXX: special-case for user looking at own
             # subscriptions page
             if ($user->isMember($this->group)) {
@@ -167,6 +170,9 @@ class GroupList extends Widget
                 $jf = new JoinForm($this->out, $this->group);
                 $jf->show();
             }
+            $this->out->elementEnd('li');
+            $this->out->elementEnd('ul');
+            $this->out->elementEnd('div');
         }
 
         $this->out->elementEnd('li');

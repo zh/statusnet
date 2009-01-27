@@ -83,7 +83,7 @@ class ProfilesettingsAction extends AccountSettingsAction
         $user = common_current_user();
         $profile = $user->getProfile();
 
-        $this->elementStart('form', array('method' => 'POST',
+        $this->elementStart('form', array('method' => 'post',
                                            'id' => 'form_settings_profile',
                                            'class' => 'form_settings',
                                            'action' => common_local_url('profilesettings')));
