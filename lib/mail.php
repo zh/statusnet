@@ -246,7 +246,7 @@ function mail_subscribe_notify_profile($listenee, $other)
                           "\n".'Faithfully yours,'."\n".'%7$s.'."\n\n".
                           "----\n".
                           "Change your email address or ".
-                          "notification options at %8$s\n"),
+                          "notification options at ".'%8$s\n'),
                         $long_name,
                         common_config('site', 'name'),
                         $other->profileurl,
