@@ -84,7 +84,7 @@ class PasswordsettingsAction extends AccountSettingsAction
                                           'id' => 'form_password',
                                           'class' => 'form_settings',
                                           'action' =>
-                                          common_local_url('profilesettings')));
+                                          common_local_url('passwordsettings')));
         $this->elementStart('fieldset');
         $this->element('legend', null, _('Password change'));
         $this->hidden('token', common_session_token());
@@ -141,7 +141,12 @@ class PasswordsettingsAction extends AccountSettingsAction
         $newpassword = $this->arg('newpassword');
         $confirm     = $this->arg('confirm');
 
-        if (0 != strcmp($newpassword, $confirm)) {
+        # Some validation
+
+        if (strlen($newpassword) < 6) {
+            $this->showForm(_('Password must be 6 or more characters.'));
+            return;
+        } else if (0 != strcmp($newpassword, $confirm)) {
             $this->showForm(_('Passwords don\'t match.'));
             return;
         }

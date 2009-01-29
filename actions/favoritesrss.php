@@ -44,22 +44,32 @@ require_once INSTALLDIR.'/lib/rssaction.php';
  * @package  Laconica
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @author   Robin Millette <millette@controlyourself.ca>
+ * @author   Zach Copley <zach@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://laconi.ca/
  */
 class FavoritesrssAction extends Rss10Action
 {
-    var $user = null;
     
+    /** The user whose favorites to display */
+    
+    var $user = null;
+        
     /**
-     * Initialization.
-     * 
-     * @return boolean false if user doesn't exist
+     * Find the user to display by supplied nickname
+     *
+     * @param array $args Arguments from $_REQUEST
+     *
+     * @return boolean success
      */
-    function init()
+
+    function prepare($args)
     {
+        parent::prepare($args);
+        
         $nickname   = $this->trimmed('nickname');
         $this->user = User::staticGet('nickname', $nickname);
+
         if (!$this->user) {
             $this->clientError(_('No such user.'));
             return false;
@@ -67,7 +77,7 @@ class FavoritesrssAction extends Rss10Action
             return true;
         }
     }
-
+    
     /**
      * Get notices
      *
@@ -94,30 +104,26 @@ class FavoritesrssAction extends Rss10Action
     function getChannel()
     {
         $user = $this->user;
-        $c     = array('url' => common_local_url('favoritesrss',
-                                             array('nickname' =>
-                                                   $user->nickname)),
+        $c    = array('url' => common_local_url('favoritesrss',
+                                        array('nickname' =>
+                                        $user->nickname)),
                    'title' => sprintf(_("%s favorite notices"), $user->nickname),
                    'link' => common_local_url('showfavorites',
-                                             array('nickname' =>
-                                                   $user->nickname)),
-                   'description' => sprintf(_('Feed of favorite notices of %s'), $user->nickname));
+                                        array('nickname' =>
+                                        $user->nickname)),
+                   'description' => sprintf(_('Feed of favorite notices of %s'), 
+                                        $user->nickname));
         return $c;
     }
 
     /**
      * Get image.
      *
-     * @return voir
+     * @return void
     */
     function getImage()
     {
         return null;
     }
 
-    function isReadOnly()
-    {
-        return true;
-    }
 }
-

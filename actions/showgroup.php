@@ -269,7 +269,7 @@ class ShowgroupAction extends Action
         $this->elementStart('div', 'entity_actions');
         $this->element('h2', null, _('Group actions'));
         $this->elementStart('ul');
-        $this->elementStart('li', array('id' => 'entity_subscribe'));
+        $this->elementStart('li', 'entity_subscribe');
         $cur = common_current_user();
         if ($cur) {
             if ($cur->isMember($this->group)) {

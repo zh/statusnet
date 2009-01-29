@@ -46,9 +46,9 @@ $facebook = getFacebook();
 
 $current_time = time();
 
-$notice = getFacebookNotices(getLastUpdated());
+$since = getLastUpdated();
 
-print date('r', $current_time) . " Looking for notices to send to Facebook...\n";
+$notice = getFacebookNotices($since);
 
 $cnt = 0;
 
@@ -81,9 +81,13 @@ while($notice->fetch()) {
     }
 }
 
-updateLastUpdated($current_time);
+if ($cnt > 0) {
+    print date('r', $current_time) . 
+	": Found $cnt new notices to send to Facebook since last run at " . 
+	 date('Y-m-d H:i:s', $since) . "\n";
 
-print "Sent $cnt notices to Facebook.\n";
+    updateLastUpdated($current_time);
+}
 
 exit(0);
 

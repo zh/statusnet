@@ -122,7 +122,6 @@ class FacebookhomeAction extends FacebookAction
                 // XXX: Do some error handling here
 
                 $this->setDefaults();
-                //$this->showHome($flink, _('You can now use Identi.ca from Facebook!'));
 
                 $this->getUpdatePermission();
                 return;
@@ -154,6 +153,8 @@ class FacebookhomeAction extends FacebookAction
         $notice_form = new FacebookNoticeForm($this, $post_action, null, 
             $post_action, $this->user);
         $notice_form->show();
+    
+    
     }
 
     function title()

@@ -96,9 +96,9 @@ class SubscribersAction extends GalleryAction
 
 class SubscribersList extends ProfileList
 {
-    function showOwnerControls($profile)
+    function showBlockForm()
     {
-        $bf = new BlockForm($this->out, $profile,
+        $bf = new BlockForm($this->out, $this->profile,
                             array('action' => 'subscribers',
                                   'nickname' => $this->owner->nickname));
         $bf->show();

@@ -391,13 +391,15 @@ float:left;
 }
 
 #aside_primary {
-width:286px;
+width:284px;
 float:left;
 margin-left:2px;
 padding:18px;
 border-radius:7px;
 -moz-border-radius:7px;
 -webkit-border-radius:7px;
+border-width:1px;
+border-style:solid;
 }
 
 /*Start: FORM NOTICE*/
@@ -688,12 +690,6 @@ min-height:60px;
 }
 
 
-.profile .form_group_join,
-.profile .form_group_leave,
-.profile .form_user_subscribe,
-.profile .form_user_unsubscribe {
-float:right;
-}
 .profile .form_group_join legend,
 .profile .form_group_leave legend,
 .profile .form_user_subscribe legend,
@@ -795,9 +791,6 @@ text-decoration:none;
 }
 .vcard .url:hover {
 text-decoration:underline;
-}
-.vcard .fn {
-font-style:italic;
 }
 
 .notice .entry-title {
