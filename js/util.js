@@ -202,14 +202,16 @@ function NoticeHover() {
 }
 
 function NoticeReply() {
-    $('#content .notice').each(function() {
-        var notice = $(this);
-        $('.notice_reply', $(this)).click(function() {
-            var nickname = ($('.author .nickname', notice).length > 0) ? $('.author .nickname', notice) : $('.author .nickname');
-            NoticeReplySet(nickname.text(), $('.notice_id', notice).text());
-            return false;
+    if ($('#notice_data-text').length > 0) {
+        $('#content .notice').each(function() {
+            var notice = $(this);
+            $('.notice_reply', $(this)).click(function() {
+                var nickname = ($('.author .nickname', notice).length > 0) ? $('.author .nickname', notice) : $('.author .nickname');
+                NoticeReplySet(nickname.text(), $('.notice_id', notice).text());
+                return false;
+            });
         });
-    });
+    }
 }
 
 function NoticeReplySet(nick,id) {

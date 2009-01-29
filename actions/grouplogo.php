@@ -34,6 +34,8 @@ if (!defined('LACONICA')) {
 
 require_once INSTALLDIR.'/lib/accountsettingsaction.php';
 
+define('MAX_ORIGINAL', 480);
+
 /**
  * Upload an avatar
  *
@@ -53,6 +55,8 @@ class GrouplogoAction extends Action
     var $mode = null;
     var $imagefile = null;
     var $filename = null;
+    var $msg = null;
+    var $success = null;
 
     /**
      * Prepare to run
@@ -121,9 +125,11 @@ class GrouplogoAction extends Action
         }
     }
 
-    function showForm($msg = null)
+    function showForm($msg = null, $success = false)
     {
-        $this->msg = $msg;
+        $this->msg     = $msg;
+        $this->success = $success;
+
         $this->showPage();
     }
 
@@ -281,6 +287,7 @@ class GrouplogoAction extends Action
                                           'type' => 'hidden',
                                           'id' => $crop_info));
         }
+
         $this->submit('crop', _('Crop'));
 
         $this->elementEnd('li');
@@ -310,9 +317,9 @@ class GrouplogoAction extends Action
         }
 
         if ($this->arg('upload')) {
-            $this->uploadAvatar();
+            $this->uploadLogo();
         } else if ($this->arg('crop')) {
-            $this->cropAvatar();
+            $this->cropLogo();
         } else {
             $this->showForm(_('Unexpected form submission.'));
         }
@@ -327,7 +334,7 @@ class GrouplogoAction extends Action
      * @return void
      */
 
-    function uploadAvatar()
+    function uploadLogo()
     {
         try {
             $imagefile = ImageFile::fromUpload('avatarfile');
@@ -367,7 +374,7 @@ class GrouplogoAction extends Action
      * @return void
      */
 
-    function cropAvatar()
+    function cropLogo()
     {
         $user = common_current_user();
 
@@ -407,20 +414,20 @@ class GrouplogoAction extends Action
             return;
         }
 
-        common_debug("W = $w, H = $h, X = $x, Y = $y");
+        $size = ($w > MAX_ORIGINAL) ? MAX_ORIGINAL : $w;
 
-        $image_dest = imagecreatetruecolor($w, $h);
+        $image_dest = imagecreatetruecolor($size, $size);
 
         $background = imagecolorallocate($image_dest, 0, 0, 0);
         ImageColorTransparent($image_dest, $background);
         imagealphablending($image_dest, false);
 
-        imagecopyresized($image_dest, $image_src, 0, 0, $x, $y, $w, $h, $w, $h);
-
-        $cur = common_current_user();
+        imagecopyresized($image_dest, $image_src,
+                         0, 0, $x, $y,
+                         $size, $size, $w, $h);
 
         $filename = common_avatar_filename($this->group->id,
-                                           image_type_to_extension($imagefile->type),
+                                           image_type_to_extension($filedata['type']),
                                            null,
                                            'group-'.common_timestamp());
 
@@ -494,13 +501,15 @@ class GrouplogoAction extends Action
     {
         parent::showScripts();
 
-        $jcropPack = common_path('js/jcrop/jquery.Jcrop.pack.js');
-        $jcropGo   = common_path('js/jcrop/jquery.Jcrop.go.js');
+        if ($this->mode == 'crop') {
+            $jcropPack = common_path('js/jcrop/jquery.Jcrop.pack.js');
+            $jcropGo   = common_path('js/jcrop/jquery.Jcrop.go.js');
 
-        $this->element('script', array('type' => 'text/javascript',
-                                       'src' => $jcropPack));
-        $this->element('script', array('type' => 'text/javascript',
-                                       'src' => $jcropGo));
+            $this->element('script', array('type' => 'text/javascript',
+                                           'src' => $jcropPack));
+            $this->element('script', array('type' => 'text/javascript',
+                                           'src' => $jcropGo));
+        }
     }
 
     function showLocalNav()

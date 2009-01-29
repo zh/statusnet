@@ -403,7 +403,9 @@ function jabber_broadcast_notice($notice)
                  'FROM user JOIN notice_inbox ' .
                  'ON user.id = notice_inbox.user_id ' .
                  'WHERE notice_inbox.notice_id = ' . $notice->id . ' ' .
-                 'AND notice_inbox.source = 2 ');
+                 'AND notice_inbox.source = 2 ' .
+                 'AND user.jabber is not null ' .
+                 'AND user.jabbernotify = 1 ');
 
     while ($user->fetch()) {
         if (!array_key_exists($user->id, $sent_to)) {
