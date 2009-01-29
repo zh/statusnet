@@ -92,14 +92,14 @@ class User_group extends Memcached_DataObject
         $orig = clone($this);
         $this->original_logo = common_avatar_url($filename);
         $this->homepage_logo = common_avatar_url($this->scale($filename,
-                                                                      AVATAR_PROFILE_SIZE,
-                                                                      $type));
+                                                              AVATAR_PROFILE_SIZE,
+                                                              $type));
         $this->stream_logo = common_avatar_url($this->scale($filename,
-                                                                    AVATAR_STREAM_SIZE,
-                                                                      $type));
+                                                            AVATAR_STREAM_SIZE,
+                                                            $type));
         $this->mini_logo = common_avatar_url($this->scale($filename,
-                                                                  AVATAR_MINI_SIZE,
-                                                                  $type));
+                                                          AVATAR_MINI_SIZE,
+                                                          $type));
         common_debug(common_log_objstring($this));
         return $this->update($orig);
     }
@@ -116,13 +116,13 @@ class User_group extends Memcached_DataObject
         $info = @getimagesize($filepath);
 
         switch ($type) {
-        case IMAGETYPE_GIF:
+         case IMAGETYPE_GIF:
             $image_src = imagecreatefromgif($filepath);
             break;
-        case IMAGETYPE_JPEG:
+         case IMAGETYPE_JPEG:
             $image_src = imagecreatefromjpeg($filepath);
             break;
-        case IMAGETYPE_PNG:
+         case IMAGETYPE_PNG:
             $image_src = imagecreatefrompng($filepath);
             break;
          default:
@@ -136,25 +136,25 @@ class User_group extends Memcached_DataObject
         ImageColorTransparent($image_dest, $background);
         imagealphablending($image_dest, false);
 
-        imagecopyresized($image_dest, $image_src, 0, 0, $x, $y, $size, $size, $info[0], $info[1]);
+        imagecopyresized($image_dest, $image_src,
+                         0, 0, 0, 0,
+                         $size, $size, $info[0], $info[1]);
 
-        $cur = common_current_user();
-
-        $outname = common_avatar_filename($cur->id,
+        $outname = common_avatar_filename($this->id,
                                           image_type_to_extension($type),
-                                          null,
+                                          $size,
                                           common_timestamp());
 
         $outpath = common_avatar_path($outname);
 
         switch ($type) {
-        case IMAGETYPE_GIF:
+         case IMAGETYPE_GIF:
             imagegif($image_dest, $outpath);
             break;
-        case IMAGETYPE_JPEG:
+         case IMAGETYPE_JPEG:
             imagejpeg($image_dest, $outpath);
             break;
-        case IMAGETYPE_PNG:
+         case IMAGETYPE_PNG:
             imagepng($image_dest, $outpath);
             break;
          default:
