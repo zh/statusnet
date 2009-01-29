@@ -122,11 +122,13 @@ class GroupmembersAction extends Action
         $offset = ($this->page-1) * PROFILES_PER_PAGE;
         $limit =  PROFILES_PER_PAGE + 1;
 
+        $cnt = 0;
+
         $members = $this->group->getMembers($offset, $limit);
 
         if ($members) {
             $member_list = new ProfileList($members, null, $this);
-            $member_list->show();
+            $cnt = $member_list->show();
         }
 
         $members->free();

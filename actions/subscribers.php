@@ -72,8 +72,12 @@ class SubscribersAction extends GalleryAction
 
     function showContent()
     {
+        parent::showContent();
+
         $offset = ($this->page-1) * PROFILES_PER_PAGE;
         $limit =  PROFILES_PER_PAGE + 1;
+
+        $cnt = 0;
 
         if ($this->tag) {
             $subscribers = $this->user->getTaggedSubscribers($this->tag, $offset, $limit);
@@ -83,7 +87,7 @@ class SubscribersAction extends GalleryAction
 
         if ($subscribers) {
             $subscribers_list = new SubscribersList($subscribers, $this->user, $this);
-            $subscribers_list->show();
+            $cnt = $subscribers_list->show();
         }
 
         $subscribers->free();
