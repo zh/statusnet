@@ -6,1531 +6,34 @@
 #, fuzzy
 msgid ""
 msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 16:24+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "#-#-#-#-#  laconica.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-14 21:07+1200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-13 21:07+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 
 #: ../actions/noticesearchrss.php:64 actions/noticesearchrss.php:68
-#, php-format
-#, fuzzy
+#: actions/noticesearchrss.php:88
+#, fuzzy, php-format
 msgid " Search Stream for \"%s\""
 msgstr ""
 "#-#-#-#-#  laconica.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Hledej ve Streamu \"%s\"\n"
 "#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 
-#: ../actions/finishopenidlogin.php:82 ../actions/register.php:193
+#: ../actions/finishopenidlogin.php:82 ../actions/register.php:191
+#: actions/finishopenidlogin.php:88 actions/register.php:205
+#: actions/finishopenidlogin.php:110
 msgid ""
-" except this private data: password, email address, IM address, phone "
-"number."
+" except this private data: password, email address, IM address, phone number."
 msgstr ""
-"až na tyto privátní data: heslo, emailová adresa, IM adresa, telefonní "
-"číslo."
-
-#: ../actions/subscribe.php:84
-#, php-format
-msgid "%1$s is now listening to your notices on %2$s."
-msgstr "%1 od teď naslouchá tvým sdělením v %2"
-
-#: ../actions/subscribe.php:86
-#, php-format
-msgid ""
-"%1$s is now listening to your notices on %2$s.\n"
-"\n"
-"\t%3$s\n"
-"\n"
-"Faithfully yours,\n"
-"%4$s.\n"
-msgstr ""
-"%1 naslouchá vašim sdělením na %s. \n"
-"\n"
-"\t%3\n"
-"\n"
-"S úctou váš,\n%4$s.\n"
-
-#: ../actions/shownotice.php:45
-#, php-format
-msgid "%1$s's status on %2$s"
-msgstr "%1 statusů na %2"
-
-#: ../actions/publicrss.php:60
-#, php-format
-msgid "%s Public Stream"
-msgstr "Veřejný \"Stream\""
-
-#: ../actions/all.php:47 ../actions/allrss.php:70 ../lib/stream.php:45
-#, php-format
-msgid "%s and friends"
-msgstr "%s a přátelé"
-
-#: ../lib/util.php:233
-#, php-format
-msgid ""
-"**%%site.name%%** is a microblogging service brought to you by "
-"[%%site.broughtby%%](%%site.broughtbyurl%%). "
-msgstr ""
-"**%%site.name%%** je služba microblogů, kterou pro vás poskytuje "
-"[%%site.broughtby%%](%%site.broughtbyurl%%). "
-
-#: ../lib/util.php:235
-#, php-format
-msgid "**%%site.name%%** is a microblogging service. "
-msgstr "**%%site.name%%** je služba mikroblogů."
-
-#: ../lib/util.php:250
-msgid ". Contributors should be attributed by full name or nickname."
-msgstr "Přispěvatelá by měly být zmíněny přezdívkou nebo celým jménem"
-
-#: ../actions/finishopenidlogin.php:73 ../actions/profilesettings.php:43
-#: ../actions/register.php:176
-msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
-msgstr "1-64 znaků nebo čísel, bez teček, čárek a mezer"
-
-#: ../actions/password.php:42 ../actions/register.php:178
-msgid "6 or more characters"
-msgstr "6 a více znaků"
-
-#: ../actions/recoverpassword.php:165
-msgid "6 or more characters, and don't forget it!"
-msgstr "6 a více znaků, a nezapomeňte"
-
-#: ../actions/imsettings.php:188
-#, php-format
-msgid ""
-"A confirmation code was sent to the IM address you added. You must approve "
-"%s for sending messages to you."
-msgstr ""
-"Ověřující kód byl poslán na vloženou IM adresu. Musíte prokázat %s "
-"pro posílání zpráv."
-
-#: ../lib/util.php:296
-msgid "About"
-msgstr "O nás"
-
-#: ../actions/userauthorization.php:118
-msgid "Accept"
-msgstr "Přijmout"
-
-#: ../actions/imsettings.php:64 ../actions/openidsettings.php:57
-msgid "Add"
-msgstr "Přidat"
-
-#: ../actions/openidsettings.php:43
-msgid "Add OpenID"
-msgstr "Přidej OpenID"
-
-#: ../actions/imsettings.php:39
-msgid "Address"
-msgstr "Adresa"
-
-#: ../actions/showstream.php:254
-msgid "All subscriptions"
-msgstr "Všechny odběry"
-
-#: ../actions/publicrss.php:62
-#, php-format
-msgid "All updates for %s"
-msgstr "Všechny aktualizace pro %s"
-
-#: ../actions/noticesearchrss.php:66
-#, php-format
-msgid "All updates matching search term \"%s\""
-msgstr "Všechny položky obsahující \"%s\""
-
-#: ../actions/finishopenidlogin.php:29 ../actions/login.php:27
-#: ../actions/openidlogin.php:29 ../actions/register.php:28
-msgid "Already logged in."
-msgstr "Již přihlášen"
-
-#: ../actions/subscribe.php:48
-msgid "Already subscribed!."
-msgstr "Již přihlášeno"
-
-#: ../actions/userauthorization.php:76
-msgid "Authorize subscription"
-msgstr "Autorizovaný odběr"
-
-#: ../actions/login.php:100 ../actions/register.php:184
-msgid "Automatically login in the future; not for shared computers!"
-msgstr "Příště automaticky přihlásit; ne pro počítače, které používá "
-
-#: ../actions/avatar.php:32
-msgid "Avatar"
-msgstr "Obrázek"
-
-#: ../actions/avatar.php:113
-msgid "Avatar updated."
-msgstr "Obrázek nahrán"
-
-#: ../actions/imsettings.php:55
-#, php-format
-msgid ""
-"Awaiting confirmation on this address. Check your Jabber/GTalk account for a "
-"message with further instructions. (Did you add %s to your buddy list?)"
-msgstr ""
-"Čakám na potvrzení této adresy. Zkontrolujte zprávy na vašem "
-"Jabber/GTalk účtu. (Přidal jste si %s do vašich kontaktů?)"
-
-#: ../lib/util.php:1136
-msgid "Before »"
-msgstr "Starší »"
-
-#: ../actions/profilesettings.php:52
-msgid "Bio"
-msgstr "O mě"
-
-#: ../actions/profilesettings.php:93 ../actions/updateprofile.php:102
-msgid "Bio is too long (max 140 chars)."
-msgstr "Text je příliš dlouhý (maximální délka je 140 zanků)"
-
-#: ../actions/updateprofile.php:118
-#, php-format
-msgid "Can't read avatar URL '%s'"
-msgstr "Nelze přečíst adresu obrázku '%s'"
-
-#: ../actions/password.php:85 ../actions/recoverpassword.php:261
-msgid "Can't save new password."
-msgstr "Nelze uložit nové heslo"
-
-#: ../actions/imsettings.php:59
-msgid "Cancel"
-msgstr "Zrušit"
-
-#: ../lib/openid.php:121
-msgid "Cannot instantiate OpenID consumer object."
-msgstr "Nelze dolozit zákaznický objekt OpenID"
-
-#: ../actions/imsettings.php:154
-msgid "Cannot normalize that Jabber ID"
-msgstr "Nelze normalizovat JabberID"
-
-#: ../actions/password.php:45
-msgid "Change"
-msgstr "Změnit"
-
-#: ../actions/password.php:32
-msgid "Change password"
-msgstr "Změnit heslo"
-
-#: ../actions/password.php:43 ../actions/recoverpassword.php:166
-#: ../actions/register.php:179
-msgid "Confirm"
-msgstr "Heslo znovu"
-
-#: ../actions/confirmaddress.php:84
-msgid "Confirm Address"
-msgstr "Potvrď adresu"
-
-#: ../actions/imsettings.php:213
-msgid "Confirmation cancelled."
-msgstr "Potvrď zrušení"
-
-#: ../actions/confirmaddress.php:38
-msgid "Confirmation code not found."
-msgstr "Potvrzující kód nebyl nalezen"
-
-#: ../actions/finishopenidlogin.php:91
-msgid "Connect"
-msgstr "Připojit"
-
-#: ../actions/finishopenidlogin.php:86
-msgid "Connect existing account"
-msgstr "Zruš existující účet"
-
-#: ../lib/util.php:304
-msgid "Contact"
-msgstr "Kontakt"
-
-#: ../lib/openid.php:178
-#, php-format
-msgid "Could not create OpenID form: %s"
-msgstr "Nelze vytvořit OpenID z: %s"
-
-#: ../lib/openid.php:160
-#, php-format
-msgid "Could not redirect to server: %s"
-msgstr "Nelze přesměrovat na server: %s"
-
-#: ../actions/updateprofile.php:161
-msgid "Could not save avatar info"
-msgstr "Nelze uložin informace o obrázku"
-
-#: ../actions/updateprofile.php:154
-msgid "Could not save new profile info"
-msgstr "Nelze uložit nové informace do profilu"
-
-#: ../actions/profilesettings.php:146
-msgid "Couldn't confirm email."
-msgstr "Nelze potvrdit email"
-
-#: ../actions/finishremotesubscribe.php:99
-msgid "Couldn't convert request tokens to access tokens."
-msgstr "Nelze konvertovat řetězec požadavku na přístupový řetězec."
-
-#: ../actions/subscribe.php:59
-msgid "Couldn't create subscription."
-msgstr "Nelze vytvořit odebírat"
-
-#: ../actions/confirmaddress.php:78 ../actions/imsettings.php:209
-msgid "Couldn't delete email confirmation."
-msgstr "Nelze smazat potvrzení emailu"
-
-#: ../actions/unsubscribe.php:56
-msgid "Couldn't delete subscription."
-msgstr "Nelze smazat odebírání"
-
-#: ../actions/remotesubscribe.php:125
-msgid "Couldn't get a request token."
-msgstr "Nelze získat řetězec požadavku."
-
-#: ../actions/imsettings.php:178
-msgid "Couldn't insert confirmation code."
-msgstr "Nelze vložit potvrzující kód"
-
-#: ../actions/finishremotesubscribe.php:180
-msgid "Couldn't insert new subscription."
-msgstr "Nelze vložit odebírání"
-
-#: ../actions/profilesettings.php:175
-msgid "Couldn't save profile."
-msgstr "Nelze uložit profil"
-
-#: ../actions/confirmaddress.php:70 ../actions/imsettings.php:129
-#: ../actions/imsettings.php:234 ../actions/profilesettings.php:123
-msgid "Couldn't update user."
-msgstr "Nelze aktualizovat uživatele"
-
-#: ../actions/finishopenidlogin.php:84
-msgid "Create"
-msgstr "Vytvořit"
-
-#: ../actions/finishopenidlogin.php:70
-msgid "Create a new user with this nickname."
-msgstr "Vytvořit nového uživatele s touto přezdívkou"
-
-#: ../actions/finishopenidlogin.php:68
-msgid "Create new account"
-msgstr "Vytvořit nový účet"
-
-#: ../actions/finishopenidlogin.php:191
-msgid "Creating new account for OpenID that already has a user."
-msgstr "Pro toto OpenID již uživatel existuje"
-
-#: ../actions/imsettings.php:45
-msgid "Current confirmed Jabber/GTalk address."
-msgstr "Potvrzené Jabber/GTalk adresy"
-
-#: ../actions/showstream.php:337
-msgid "Currently"
-msgstr "Nyní"
-
-#: ../lib/util.php:893
-#, php-format
-msgid "DB error inserting reply: %s"
-msgstr "Chyba v DB při vkládání odpovědi: %s"
-
-#: ../actions/profilesettings.php:54
-msgid "Describe yourself and your interests in 140 chars"
-msgstr "Popiš sebe a své zájmy ve 140 znacích"
-
-#: ../actions/register.php:181
-msgid "Email"
-msgstr "Email"
-
-#: ../actions/profilesettings.php:46
-msgid "Email address"
-msgstr "Emailová adresa"
-
-#: ../actions/profilesettings.php:102 ../actions/register.php:63
-msgid "Email address already exists."
-msgstr "Emailová adresa již existuje"
-
-#: ../lib/mail.php:82
-msgid "Email address confirmation"
-msgstr "Potvrzení emailové adresy"
-
-#: ../actions/recoverpassword.php:176
-msgid "Enter a nickname or email address."
-msgstr "Zadej přezdívku nebo emailovou adresu"
-
-#: ../actions/userauthorization.php:136
-msgid "Error authorizing token"
-msgstr "Chyba potvrujícího řetězce"
-
-#: ../actions/finishopenidlogin.php:282
-msgid "Error connecting user to OpenID."
-msgstr "Chyba při propojení uživatele na OpenID"
-
-#: ../actions/finishaddopenid.php:78
-msgid "Error connecting user."
-msgstr "Chyba přihlašování uživatele"
-
-#: ../actions/finishremotesubscribe.php:151
-msgid "Error inserting avatar"
-msgstr "Chyba při kládání obrázku"
-
-#: ../actions/finishremotesubscribe.php:143
-msgid "Error inserting new profile"
-msgstr "Chyba při vkládání nového profilu"
-
-#: ../actions/postnotice.php:88
-msgid "Error inserting notice"
-msgstr "Chyba při vkládání nového sdělení"
-
-#: ../actions/finishremotesubscribe.php:167
-msgid "Error inserting remote profile"
-msgstr "Chyba při vkládaní vzdáleného profilu"
-
-#: ../actions/recoverpassword.php:201
-msgid "Error saving address confirmation."
-msgstr "Chyba při ukládání potvrzení adresy"
-
-#: ../actions/userauthorization.php:139
-msgid "Error saving remote profile"
-msgstr "Chyba při ukládnání vzdáleného profilu"
-
-#: ../actions/finishopenidlogin.php:222 ../lib/openid.php:226
-msgid "Error saving the profile."
-msgstr "Chyba při ukládaní profilu"
-
-#: ../lib/openid.php:237
-msgid "Error saving the user."
-msgstr "Chyba při ukládaní uživatele"
-
-#: ../actions/password.php:80
-msgid "Error saving user; invalid."
-msgstr "Chyba při ukládaní uživatele; neplatný"
-
-#: ../actions/login.php:43 ../actions/login.php:69
-#: ../actions/recoverpassword.php:268 ../actions/register.php:73
-msgid "Error setting user."
-msgstr "Chyba nastavení uživatele"
-
-#: ../actions/finishaddopenid.php:83
-msgid "Error updating profile"
-msgstr "Chyba při aktualizaci profilu"
-
-#: ../actions/finishremotesubscribe.php:161
-msgid "Error updating remote profile"
-msgstr "Chyba při aktualizaci vzdáleného profilu"
-
-#: ../actions/recoverpassword.php:79
-msgid "Error with confirmation code."
-msgstr "Chyba v ověřovacím kódu"
-
-#: ../actions/finishopenidlogin.php:89
-msgid "Existing nickname"
-msgstr "Existující jméno"
-
-#: ../lib/util.php:298
-msgid "FAQ"
-msgstr "FAQ"
-
-#: ../actions/avatar.php:115
-msgid "Failed updating avatar."
-msgstr "Nahrávání obrázku selhalo."
-
-#: ../actions/all.php:61 ../actions/allrss.php:74 ../actions/allrss.php:64
-#: actions/all.php:61 actions/allrss.php:64
-#, php-format
-#, fuzzy
-msgid "Feed for friends of %s"
-msgstr ""
-"#-#-#-#-#  laconica.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-"Feed přítel uživatele: %s\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/replies.php:61 ../actions/repliesrss.php:80
-#: ../actions/replies.php:65 actions/replies.php:65 actions/repliesrss.php:66
-#, php-format
-#, fuzzy
-msgid "Feed for replies to %s"
-msgstr ""
-"#-#-#-#-#  laconica.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-"Feed odpovědí na %s\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/login.php:118
-msgid ""
-"For security reasons, please re-enter your user name and password before "
-"changing your settings."
-msgstr "Z bezpečnostních důvodů, prosím zadejte znovu své jméno a heslo."
-
-#: ../actions/profilesettings.php:44
-msgid "Full name"
-msgstr "Celé jméno"
-
-#: ../actions/profilesettings.php:90 ../actions/updateprofile.php:92
-msgid "Full name is too long (max 255 chars)."
-msgstr "Jméno je moc dlouhé (maximální délka je 255 znaků)"
-
-#: ../lib/util.php:279
-msgid "Help"
-msgstr "Nápověda"
-
-#: ../lib/util.php:274
-msgid "Home"
-msgstr "Domů"
-
-#: ../actions/profilesettings.php:49
-msgid "Homepage"
-msgstr "Moje stránky"
-
-#: ../actions/profilesettings.php:87
-msgid "Homepage is not a valid URL."
-msgstr "Stránka není platnou URL."
-
-#: ../actions/imsettings.php:61
-msgid "IM Address"
-msgstr "IM adresa"
-
-#: ../actions/imsettings.php:33
-msgid "IM Settings"
-msgstr "IM nastavení"
-
-#: ../actions/finishopenidlogin.php:88
-msgid ""
-"If you already have an account, login with your username and password to "
-"connect it to your OpenID."
-msgstr ""
-"Pokud již máte účet, přihlašte se pomocí přezdívky a hesla. A poté "
-"propojte účet s OpenID."
-
-#: ../actions/openidsettings.php:45
-msgid ""
-"If you want to add an OpenID to your account, enter it in the box below and "
-"click \"Add\"."
-msgstr ""
-"Pokud chcete přidat OpenID k vašemu účtu, zadejte OpenID do pole níže "
-"a klikněte na \"Přidat\"."
-
-#: ../actions/recoverpassword.php:122
-msgid ""
-"If you've forgotten or lost your password, you can get a new one sent  the "
-"email address you have stored  in your account."
-msgstr ""
-"Pokud jste zapomněl nebo stratil heslo, můžete si nechat zaslat nové na "
-"vaší emailovou adresu uloženou u vašeho účtu."
-
-#: ../actions/password.php:69
-msgid "Incorrect old password"
-msgstr "Neplatné heslo"
-
-#: ../actions/login.php:63
-msgid "Incorrect username or password."
-msgstr "Neplatné jméno nebo heslo"
-
-#: ../actions/recoverpassword.php:226
-msgid ""
-"Instructions for recovering your password have been sent to the email "
-"address registered to your account."
-msgstr ""
-"Návod jak obnovit heslo byl odeslát na vaší emailovou adresu "
-"zaregistrovanou u vašeho účtu."
-
-#: ../actions/updateprofile.php:113
-#, php-format
-msgid "Invalid avatar URL '%s'"
-msgstr "Neplatná adresa obrázku '%s'"
-
-#: ../actions/updateprofile.php:97
-#, php-format
-msgid "Invalid homepage '%s'"
-msgstr "Neplatná adresa '%s'"
-
-#: ../actions/updateprofile.php:81
-#, php-format
-msgid "Invalid license URL '%s'"
-msgstr "Neplatná adresa licence '%s'"
-
-#: ../actions/postnotice.php:61
-msgid "Invalid notice content"
-msgstr "Neplatný obsah sdělení"
-
-#: ../actions/postnotice.php:67
-msgid "Invalid notice uri"
-msgstr "Neplatná uri sdělení"
-
-#: ../actions/postnotice.php:72
-msgid "Invalid notice url"
-msgstr "Neplatná url sdělení"
-
-#: ../actions/updateprofile.php:86
-#, php-format
-msgid "Invalid profile URL '%s'."
-msgstr "Neplatná adresa profilu '%s'."
-
-#: ../actions/remotesubscribe.php:96
-msgid "Invalid profile URL (bad format)"
-msgstr "Neplatná adresa profilu (špatný formát)"
-
-#: ../actions/finishremotesubscribe.php:77
-msgid "Invalid profile URL returned by server."
-msgstr "Neplatná adresa profilu, vrácená serverem"
-
-#: ../actions/avatarbynickname.php:37
-msgid "Invalid size."
-msgstr "Neplatná velikost"
-
-#: ../actions/finishopenidlogin.php:264 ../actions/register.php:68
-#: ../actions/register.php:84
-msgid "Invalid username or password."
-msgstr "Neplatné jméno nebo heslo"
-
-#: ../lib/util.php:237
-#, php-format
-msgid ""
-"It runs the [Laconica](http://laconi.ca/) microblogging software, version "
-"%s, available under the [GNU Affero General Public "
-"License](http://www.fsf.org/licensing/licenses/agpl-3.0.html)."
-msgstr ""
-"Běží na [Laconica](http://laconi.ca/) mikroblogovací program, verze %s, "
-"dostupná pod [GNU Affero General Public "
-"License](http://www.fsf.org/licensing/licenses/agpl-3.0.html)."
-
-#: ../actions/imsettings.php:164
-msgid "Jabber ID already belongs to another user."
-msgstr "Jabber ID již patří jinému uživateli"
-
-#: ../actions/imsettings.php:63
-#, php-format
-msgid ""
-"Jabber or GTalk address, like \"UserName@example.org\". First, make sure to "
-"add %s to your buddy list in your IM client or on GTalk."
-msgstr ""
-"Jabber nebo GTalk adresy, například \"jmeno@neco.cz\". Neprve se ujistěte "
-"že jste přidal %s do vašeho seznamu kontaktů."
-
-#: ../actions/profilesettings.php:55
-msgid "Location"
-msgstr "Umístění"
-
-#: ../actions/profilesettings.php:96 ../actions/updateprofile.php:107
-msgid "Location is too long (max 255 chars)."
-msgstr "Umístění příliš dlouhé (maximálně 255 znaků)"
-
-#: ../actions/login.php:93 ../actions/login.php:102
-#: ../actions/openidlogin.php:68 ../lib/util.php:286
-msgid "Login"
-msgstr "Přihlásit"
-
-#: ../actions/openidlogin.php:44
-#, php-format
-msgid "Login with an [OpenID](%%doc.openid%%) account."
-msgstr "Přihlaste se pomocí [OpenID](%%doc.openid%%) účtu."
-
-#: ../actions/login.php:122
-#, php-format
-msgid ""
-"Login with your username and password. Don't have a username yet? "
-"[Register](%%action.register%%) a new account, or try "
-"[OpenID](%%action.openidlogin%%). "
-msgstr ""
-"Přihlaste se pomocí vaší prezdívky a hesla. Zatím nejste "
-"zaregistrován? [Registrovat](%%action.register%%) nový účet, nebo "
-"vyzkoušejte [OpenID](%%action.openidlogin%%)."
-
-#: ../lib/util.php:284
-msgid "Logout"
-msgstr "Odhlásit"
-
-#: ../actions/login.php:106
-msgid "Lost or forgotten password?"
-msgstr "Ztracené nebo zapomenuté heslo?"
-
-#: ../actions/showstream.php:281
-msgid "Member since"
-msgstr "Členem od"
-
-#: ../actions/userrss.php:70
-#, php-format
-msgid "Microblog by %s"
-msgstr "Mikroblog od %s"
-
-#: ../actions/finishopenidlogin.php:79 ../actions/register.php:190
-msgid "My text and files are available under "
-msgstr "Mé texty a soubory jsou k dispozici pod"
-
-#: ../actions/finishopenidlogin.php:71
-msgid "New nickname"
-msgstr "Nová přezdívka"
-
-#: ../actions/newnotice.php:100
-msgid "New notice"
-msgstr "Nové sdělení"
-
-#: ../actions/password.php:41 ../actions/recoverpassword.php:164
-msgid "New password"
-msgstr "Nové heslo"
-
-#: ../actions/recoverpassword.php:275
-msgid "New password successfully saved. You are now logged in."
-msgstr "Nové heslo bylo uloženo. Nyní jste přihlášen."
-
-#: ../actions/login.php:97 ../actions/profilesettings.php:41
-#: ../actions/register.php:175
-msgid "Nickname"
-msgstr "Přezdívka"
-
-#: ../actions/finishopenidlogin.php:175 ../actions/profilesettings.php:99
-#: ../actions/register.php:59
-msgid "Nickname already in use. Try another one."
-msgstr "Přezdívku již někdo používá. Zkuste jinou"
-
-#: ../actions/finishopenidlogin.php:165 ../actions/profilesettings.php:80
-#: ../actions/register.php:57 ../actions/updateprofile.php:76
-msgid "Nickname must have only lowercase letters and numbers and no spaces."
-msgstr "Přezdívka může obsahovat pouze malá písmena a čísla bez mezer"
-
-#: ../actions/finishopenidlogin.php:170
-msgid "Nickname not allowed."
-msgstr "Přezdívka není povolena"
-
-#: ../actions/remotesubscribe.php:72
-msgid "Nickname of the user you want to follow"
-msgstr "Přezdívka uživatele, kterého chcete sledovat"
-
-#: ../actions/recoverpassword.php:147
-msgid "Nickname or email"
-msgstr "Přezdívka nebo email"
-
-#: ../actions/imsettings.php:147
-msgid "No Jabber ID."
-msgstr "Žádné Jabber ID."
-
-#: ../actions/userauthorization.php:128
-msgid "No authorization request!"
-msgstr "Žádné potvrení!"
-
-#: ../actions/confirmaddress.php:33
-msgid "No confirmation code."
-msgstr "Žádný potvrzující kód."
-
-#: ../actions/newnotice.php:49
-msgid "No content!"
-msgstr "Žádný obsah!"
-
-#: ../actions/userbyid.php:27
-msgid "No id."
-msgstr "Žádné id"
-
-#: ../actions/finishremotesubscribe.php:65
-msgid "No nickname provided by remote server."
-msgstr "Nebyla poskytnuta žádná přezdívka od servru."
-
-#: ../actions/avatarbynickname.php:27
-msgid "No nickname."
-msgstr "Žádná přezdívka."
-
-#: ../actions/imsettings.php:197
-msgid "No pending confirmation to cancel."
-msgstr "Nečeká žádné potvrzení na zrušení."
-
-#: ../actions/finishremotesubscribe.php:72
-msgid "No profile URL returned by server."
-msgstr "Nebylo vráceno žádné URL profilu od servu."
-
-#: ../actions/recoverpassword.php:189
-msgid "No registered email address for that user."
-msgstr "Žádný registrovaný email pro tohoto uživatele."
-
-#: ../actions/userauthorization.php:48
-msgid "No request found!"
-msgstr "Žádný požadavek nebyl nalezen!"
-
-#: ../actions/noticesearch.php:64 ../actions/peoplesearch.php:64
-msgid "No results"
-msgstr "Žádné výsledky."
-
-#: ../actions/avatarbynickname.php:32
-msgid "No size."
-msgstr "Žádná velikost"
-
-#: ../actions/openidsettings.php:135
-msgid "No such OpenID."
-msgstr "Žádné takové OpenID"
-
-#: ../actions/doc.php:29
-msgid "No such document."
-msgstr "Žádný takový dokument."
-
-#: ../actions/shownotice.php:32 ../actions/shownotice.php:65
-msgid "No such notice."
-msgstr "Žádné takové oznámení."
-
-#: ../actions/recoverpassword.php:56
-msgid "No such recovery code."
-msgstr "Žádný takový obnovující kód."
-
-#: ../actions/postnotice.php:56
-msgid "No such subscription"
-msgstr "Žádné takové odebírání"
-
-#: ../actions/all.php:34 ../actions/allrss.php:35
-#: ../actions/avatarbynickname.php:43 ../actions/foaf.php:36
-#: ../actions/recoverpassword.php:185 ../actions/remotesubscribe.php:84
-#: ../actions/remotesubscribe.php:91 ../actions/repliesrss.php:35
-#: ../actions/showstream.php:95 ../actions/subscribe.php:43
-#: ../actions/unsubscribe.php:38 ../actions/userbyid.php:31
-#: ../actions/userrss.php:35 ../actions/xrds.php:31 ../lib/gallery.php:53
-msgid "No such user."
-msgstr "Žádný takový uživatel."
-
-#: ../lib/gallery.php:76
-msgid "Nobody to show!"
-msgstr "Nikdo k zobrazení!"
-
-#: ../actions/recoverpassword.php:60
-msgid "Not a recovery code."
-msgstr "Není obnovujícím kódem"
-
-#: ../actions/imsettings.php:158
-msgid "Not a valid Jabber ID"
-msgstr "Není platným Jabber ID"
-
-#: ../lib/openid.php:131
-msgid "Not a valid OpenID."
-msgstr "Není platným OpenID."
-
-#: ../actions/profilesettings.php:75 ../actions/register.php:53
-msgid "Not a valid email address."
-msgstr "Není platnou mailovou adresou."
-
-#: ../actions/profilesettings.php:83 ../actions/register.php:61
-msgid "Not a valid nickname."
-msgstr "Není platnou přezdívkou."
-
-#: ../actions/remotesubscribe.php:118
-msgid "Not a valid profile URL (incorrect services)."
-msgstr "Neplatný adresa profilu (nesprává služba)"
-
-#: ../actions/remotesubscribe.php:111
-msgid "Not a valid profile URL (no XRDS defined)."
-msgstr "Není platnou adresou profulu (XRDS nedefinováno)."
-
-#: ../actions/remotesubscribe.php:104
-msgid "Not a valid profile URL (no YADIS document)."
-msgstr "Není platnou adresou profilu (není YADIS dokumentem)."
-
-#: ../actions/avatar.php:95
-msgid "Not an image or corrupt file."
-msgstr "Není obrázkem, nebo jde o poškozený soubor."
-
-#: ../actions/finishremotesubscribe.php:51
-msgid "Not authorized."
-msgstr "Neautorizován."
-
-#: ../actions/finishremotesubscribe.php:38
-msgid "Not expecting this response!"
-msgstr "Nečekaná odpověď."
-
-#: ../actions/finishaddopenid.php:29 ../actions/logout.php:28
-#: ../actions/newnotice.php:29 ../actions/subscribe.php:27
-#: ../actions/unsubscribe.php:24 ../lib/settingsaction.php:27
-msgid "Not logged in."
-msgstr "Nepřihlášen"
-
-#: ../actions/unsubscribe.php:43
-msgid "Not subscribed!."
-msgstr "Nepřihlášen!"
-
-#: ../actions/showstream.php:82 actions/showstream.php:82
-#, php-format
-#, fuzzy
-msgid "Notice feed for %s"
-msgstr ""
-"#-#-#-#-#  laconica.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-"Feed sdělení pro %s\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/shownotice.php:39
-msgid "Notice has no profile"
-msgstr "Sdělení nemá profil"
-
-#: ../actions/showstream.php:297
-msgid "Notices"
-msgstr "Sdělení"
-
-#: ../actions/password.php:39
-msgid "Old password"
-msgstr "Staré heslo"
-
-#: ../lib/util.php:288
-msgid "OpenID"
-msgstr "OpenID"
-
-#: ../actions/finishopenidlogin.php:61
-msgid "OpenID Account Setup"
-msgstr "Nastavení OpenID účtu"
-
-#: ../lib/openid.php:180
-msgid "OpenID Auto-Submit"
-msgstr "Přihlásit automaticky pomocí OpenID"
-
-#: ../actions/finishaddopenid.php:99 ../actions/finishopenidlogin.php:140
-#: ../actions/openidlogin.php:60
-msgid "OpenID Login"
-msgstr "OpenID přihlášení"
-
-#: ../actions/openidlogin.php:65 ../actions/openidsettings.php:49
-msgid "OpenID URL"
-msgstr "OpenID adresa"
-
-#: ../actions/finishaddopenid.php:42 ../actions/finishopenidlogin.php:103
-msgid "OpenID authentication cancelled."
-msgstr "Přihlašovaní pomocí OpenID zrušeno"
-
-#: ../actions/finishaddopenid.php:46 ../actions/finishopenidlogin.php:107
-#, php-format
-msgid "OpenID authentication failed: %s"
-msgstr "Přihlašovaní pomocí OpenID selhalo: %s"
-
-#: ../lib/openid.php:133
-#, php-format
-msgid "OpenID failure: %s"
-msgstr "OpenID selhalo: %s"
-
-#: ../actions/openidsettings.php:144
-msgid "OpenID removed."
-msgstr "OpenID odstraněno"
-
-#: ../actions/openidsettings.php:37
-msgid "OpenID settings"
-msgstr "Nastavení OpenID"
-
-#: ../actions/avatar.php:84
-msgid "Partial upload."
-msgstr "Částečné náhrání."
-
-#: ../actions/finishopenidlogin.php:90 ../actions/login.php:98
-#: ../actions/register.php:177
-msgid "Password"
-msgstr "Heslo"
-
-#: ../actions/recoverpassword.php:249
-msgid "Password and confirmation do not match."
-msgstr "Heslo a potvrzení nesouhlasí"
-
-#: ../actions/recoverpassword.php:245
-msgid "Password must be 6 chars or more."
-msgstr "Heslo musí být alespoň 6 znaků dlouhé"
-
-#: ../actions/recoverpassword.php:222 ../actions/recoverpassword.php:224
-msgid "Password recovery requested"
-msgstr "Žádost o obnovu hesla"
-
-#: ../actions/password.php:89 ../actions/recoverpassword.php:274
-msgid "Password saved."
-msgstr "Heslo uloženo"
-
-#: ../actions/password.php:61 ../actions/register.php:65
-msgid "Passwords don't match."
-msgstr "Hesla nesouhlasí"
-
-#: ../actions/peoplesearch.php:33
-msgid "People search"
-msgstr "Hledání lidí"
-
-#: ../lib/stream.php:44
-msgid "Personal"
-msgstr "Osobní"
-
-#: ../actions/userauthorization.php:77
-msgid ""
-"Please check these details to make sure that you want to subscribe to this "
-"user's notices. If you didn't just ask to subscribe to someone's notices, "
-"click \"Cancel\"."
-msgstr ""
-"Prosím zkontrolujte tyto detailu, a ujistěte se že opravdu chcete "
-"odebírat sdělení tohoto uživatele. Pokud ne, ask to subscribe to "
-"somone's notices, klikněte na \"Zrušit\""
-
-#: ../actions/imsettings.php:74
-msgid "Post a notice when my Jabber/GTalk status changes."
-msgstr "Poslat oznámení, když se změní můj Jabber/Gtalk status."
-
-#: ../actions/imsettings.php:68
-msgid "Preferences"
-msgstr "Nastavení"
-
-#: ../actions/imsettings.php:135
-msgid "Preferences saved."
-msgstr "Nastavení uloženo"
-
-#: ../lib/util.php:300
-msgid "Privacy"
-msgstr "Soukromí"
-
-#: ../actions/newnotice.php:61 ../actions/newnotice.php:69
-msgid "Problem saving notice."
-msgstr "Problém při ukládání sdělení"
-
-#: ../lib/stream.php:54
-msgid "Profile"
-msgstr "Profil"
-
-#: ../actions/remotesubscribe.php:73
-msgid "Profile URL"
-msgstr "Adresa Profilu"
-
-#: ../actions/profilesettings.php:34
-msgid "Profile settings"
-msgstr "Nastavené Profilu"
-
-#: ../actions/postnotice.php:51 ../actions/updateprofile.php:51
-msgid "Profile unknown"
-msgstr "Neznámý profil"
-
-#: ../lib/util.php:276
-msgid "Public"
-msgstr "Veřejné"
-
-#: ../actions/public.php:54 actions/public.php:54
-#, fuzzy
-msgid "Public Stream Feed"
-msgstr ""
-"#-#-#-#-#  laconica.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-"Veřejný Stream Feed\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/public.php:33
-msgid "Public timeline"
-msgstr "Veřejné zprávy"
-
-#: ../actions/recoverpassword.php:151
-msgid "Recover"
-msgstr "Obnovit"
-
-#: ../actions/recoverpassword.php:141
-msgid "Recover password"
-msgstr "Obnovit"
-
-#: ../actions/recoverpassword.php:67
-msgid "Recovery code for unknown user."
-msgstr "Obnovyt kód pro neznámého uživatele"
-
-#: ../actions/register.php:171 ../actions/register.php:195 ../lib/util.php:287
-msgid "Register"
-msgstr "Registrovat"
-
-#: ../actions/userauthorization.php:119
-msgid "Reject"
-msgstr "Odmítnout"
-
-#: ../actions/login.php:99 ../actions/register.php:183
-msgid "Remember me"
-msgstr "Zapamatuj si mě"
-
-#: ../actions/updateprofile.php:69
-msgid "Remote profile with no matching profile"
-msgstr "Vzdálený profil s nesouhlasícím profilem"
-
-#: ../actions/remotesubscribe.php:65
-msgid "Remote subscribe"
-msgstr "Vzdálený odběr"
-
-#: ../actions/imsettings.php:48 ../actions/openidsettings.php:106
-msgid "Remove"
-msgstr "Odstranit"
-
-#: ../actions/openidsettings.php:68
-msgid "Remove OpenID"
-msgstr "Odstranit OpenID"
-
-#: ../actions/openidsettings.php:73
-msgid ""
-"Removing your only OpenID would make it impossible to log in! If you need to "
-"remove it, add another OpenID first."
-msgstr ""
-"Odstranění jediného OpenID, bude mít za následek nemožnost dalšího "
-"přihlášení, nejprve přidejte jiné OpenID"
-
-#: ../lib/stream.php:49
-msgid "Replies"
-msgstr "Odpovědi"
-
-#: ../actions/replies.php:47 ../actions/repliesrss.php:76 ../lib/stream.php:50
-#, php-format
-msgid "Replies to %s"
-msgstr "Odpovědi na %s"
-
-#: ../actions/recoverpassword.php:168
-msgid "Reset"
-msgstr "Reset"
-
-#: ../actions/recoverpassword.php:158
-msgid "Reset password"
-msgstr "Resetovat heslo"
-
-#: ../actions/recoverpassword.php:167 ../actions/register.php:180
-msgid "Same as password above"
-msgstr "Stejné jako heslo výše"
-
-#: ../actions/imsettings.php:76 ../actions/profilesettings.php:58
-msgid "Save"
-msgstr "Uložit"
-
-#: ../lib/searchaction.php:73 ../lib/util.php:277
-msgid "Search"
-msgstr "Hledat"
-
-#: ../actions/noticesearch.php:80 actions/noticesearch.php:85
-#, fuzzy
-msgid "Search Stream Feed"
-msgstr ""
-"#-#-#-#-#  laconica.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-"Hledat ve Stream Feed\n"
-"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
-
-#: ../actions/noticesearch.php:30
-#, php-format
-msgid ""
-"Search for notices on %%site.name%% by their contents. Separate search terms "
-"by spaces; they must be 3 characters or more."
-msgstr ""
-"Hledej sdělení na %%site.name%% podle obsahu. Minimální délka musí "
-"být alespoň 3 znaky"
-
-#: ../actions/peoplesearch.php:28
-#, php-format
-msgid ""
-"Search for people on %%site.name%% by their name, location, or interests. "
-"Separate the terms by spaces; they must be 3 characters or more."
-msgstr ""
-"Hledej uživatele na %%site.name%% podle jejich jména, místa, nebo "
-"zájmů. Minimální délka musí být alespoň 3 znaky"
-
-#: ../lib/util.php:982
-msgid "Send"
-msgstr "Odeslat"
-
-#: ../actions/imsettings.php:71
-msgid "Send me notices through Jabber/GTalk."
-msgstr "Zasílat oznámení pomocí Jabber/GTalk"
-
-#: ../lib/util.php:282
-msgid "Settings"
-msgstr "Nastavení"
-
-#: ../actions/profilesettings.php:183
-msgid "Settings saved."
-msgstr "Nastavení uloženo"
-
-#: ../actions/finishaddopenid.php:66
-msgid "Someone else already has this OpenID."
-msgstr "Někdo jiný již má toto OpenID"
-
-#: ../actions/finishopenidlogin.php:42 ../actions/openidsettings.php:126
-msgid "Something weird happened."
-msgstr "Něco zvláštního se stalo"
-
-#: ../lib/util.php:302
-msgid "Source"
-msgstr "Zdroj"
-
-#: ../actions/showstream.php:277
-msgid "Statistics"
-msgstr "Statistiky"
-
-#: ../actions/finishopenidlogin.php:182 ../actions/finishopenidlogin.php:275
-msgid "Stored OpenID not found."
-msgstr "Uložené OpenID nebylo nalezeno."
-
-#: ../actions/remotesubscribe.php:75 ../actions/showstream.php:172
-#: ../actions/showstream.php:181
-msgid "Subscribe"
-msgstr "Odebírat"
-
-#: ../actions/showstream.php:294 ../actions/subscribers.php:27
-msgid "Subscribers"
-msgstr "Odběratelé"
-
-#: ../actions/userauthorization.php:309
-msgid "Subscription authorized"
-msgstr "Odběr autorizován"
-
-#: ../actions/userauthorization.php:319
-msgid "Subscription rejected"
-msgstr "Odběr odmítnut"
-
-#: ../actions/showstream.php:212 ../actions/showstream.php:288
-#: ../actions/subscriptions.php:27
-msgid "Subscriptions"
-msgstr "Odběry"
-
-#: ../actions/avatar.php:87
-msgid "System error uploading file."
-msgstr "Chyba systému při nahrávání souboru"
-
-#: ../actions/noticesearch.php:34
-msgid "Text search"
-msgstr "Vyhledávání textu"
-
-#: ../actions/openidsettings.php:140
-msgid "That OpenID does not belong to you."
-msgstr "Toto OpenID vám nepatří"
-
-#: ../actions/confirmaddress.php:52
-msgid "That address has already been confirmed."
-msgstr "Adresa již byla potvrzena"
-
-#: ../actions/confirmaddress.php:43
-msgid "That confirmation code is not for you!"
-msgstr "Tento potvrzující kód vám nepatří!"
-
-#: ../actions/avatar.php:80
-msgid "That file is too big."
-msgstr "Soubor je příliš velký"
-
-#: ../actions/imsettings.php:161
-msgid "That is already your Jabber ID."
-msgstr "Toto je již vaše Jabber"
-
-#: ../actions/imsettings.php:224
-msgid "That is not your Jabber ID."
-msgstr "Toto není váš Jabber"
-
-#: ../actions/imsettings.php:201
-msgid "That is the wrong IM address."
-msgstr "Toto je špatná IM adresa"
-
-#: ../actions/newnotice.php:52
-msgid "That's too long. Max notice size is 140 chars."
-msgstr "Je to příliš dlouhé. Maximální sdělení délka je 140 znaků"
-
-#: ../actions/confirmaddress.php:86
-#, php-format
-msgid "The address \"%s\" has been confirmed for your account."
-msgstr "Adresa \"%s\" byla potvrzena pro váš účet"
-
-#: ../actions/imsettings.php:241
-msgid "The address was removed."
-msgstr "Adresa byla odstraněna"
-
-#: ../actions/userauthorization.php:311
-msgid ""
-"The subscription has been authorized, but no callback URL was passed. Check "
-"with the site's instructions for details on how to authorize the "
-"subscription. Your subscription token is:"
-msgstr ""
-"Odběr byl potvrzen, ale neprošla žádná callback adresa. Zkontrolujte v "
-"nápovědě jak správně postupovat při potvrzování odběru. Váš "
-"řetězec odběru je:"
-
-#: ../actions/userauthorization.php:321
-msgid ""
-"The subscription has been rejected, but no callback URL was passed. Check "
-"with the site's instructions for details on how to fully reject the "
-"subscription."
-msgstr ""
-"Odebírání bylo zamítnuto, ale neprošla žádná callback adresa. "
-"Zkontrolujte v nápovědě jak správně postupovat při zamítání odběru"
-
-#: ../actions/subscribers.php:35
-#, php-format
-msgid "These are the people who listen to %s's notices."
-msgstr "Toto jsou lidé, kteří naslouchají %s sdělením"
-
-#: ../actions/subscribers.php:33
-msgid "These are the people who listen to your notices."
-msgstr "Toto jsou lidé, kteří naslouchají vašim sdělením "
-
-#: ../actions/subscriptions.php:35
-#, php-format
-msgid "These are the people whose notices %s listens to."
-msgstr "Toto jsou lidé, jejiž sdělením %s naslouchá"
-
-#: ../actions/subscriptions.php:33
-msgid "These are the people whose notices you listen to."
-msgstr "Toto jsou lidé, jejiž sdělením nasloucháte"
-
-#: ../actions/recoverpassword.php:87
-msgid "This confirmation code is too old. Please start again."
-msgstr "Tento potvrzující kód je příliš starý Prosím zkuste znovu"
-
-#: ../lib/openid.php:195
-msgid ""
-"This form should automatically submit itself. If not, click the submit "
-"button to go to your OpenID provider."
-msgstr ""
-"Tento formulář by se měl odeslat sám, pokud ne tak klikněte na "
-"tlašítko pro přechod k vašemu OpenID poskytovately."
-
-#: ../actions/finishopenidlogin.php:56
-#, php-format
-msgid ""
-"This is the first time you've logged into %s so we must connect your OpenID "
-"to a local account. You can either create a new account, or connect with "
-"your existing account, if you have one."
-msgstr ""
-"Toto je poprvé co jste se přihlásil na %s proto musíme propojit vaše "
-"OpenID k našemu účtu. Můžete buď vytvořit nový účet, nebo propojit "
-"OpenID k vašemu již existujícímu účtu, pokud již takový máte."
-
-#: ../lib/util.php:147
-msgid "This page is not available in a media type you accept"
-msgstr "Tato stránka není k dispozici v typu média která přijímáte."
-
-#: ../actions/remotesubscribe.php:43
-#, php-format
-msgid ""
-"To subscribe, you can [login](%%action.login%%), or "
-"[register](%%action.register%%) a new  account. If you already have an "
-"account  on a [compatible microblogging site](%%doc.openmublog%%),  enter "
-"your profile URL below."
-msgstr ""
-"Pro odebírání, se musíte [přihlásit](%%action.login%%), nebo "
-"[registrovat](%%action.register%%) nový účet. Pokud již máte účet na "
-"[kompatibilních mikroblozích](%%doc.openmublog%%), vložte níže asdresu "
-
-#: ../actions/profilesettings.php:51
-msgid "URL of your homepage, blog, or profile on another site"
-msgstr "Adresa vašich stránek, blogu nebo profilu na jiných stránkách."
-
-#: ../actions/remotesubscribe.php:74
-msgid "URL of your profile on another compatible microblogging service"
-msgstr "Adresa profilu na jiných kompatibilních mikroblozích."
-
-#: ../actions/imsettings.php:105 ../actions/recoverpassword.php:39
-msgid "Unexpected form submission."
-msgstr "Nečekaná forma submission."
-
-#: ../actions/recoverpassword.php:237
-msgid "Unexpected password reset."
-msgstr "Nečekané resetování hesla."
-
-#: ../actions/finishremotesubscribe.php:58
-msgid "Unknown version of OMB protocol."
-msgstr "Neznámá verze OMB protokolu."
-
-#: ../lib/util.php:245
-msgid ""
-"Unless otherwise specified, contents of this site are copyright by the "
-"contributors and available under the "
-msgstr ""
-"Pokud není uvedeno jinak, obsah těchto stránek chráněn autorským "
-"právem, patří přispěvatelů a je k dipozici pod"
-
-#: ../actions/confirmaddress.php:48
-#, php-format
-msgid "Unrecognized address type %s"
-msgstr "Neznámý typ adresy %s"
-
-#: ../actions/showstream.php:193
-msgid "Unsubscribe"
-msgstr "Odhlásit"
-
-#: ../actions/postnotice.php:44 ../actions/updateprofile.php:44
-msgid "Unsupported OMB version"
-msgstr "Nepodporovaná verze OMB."
-
-#: ../actions/avatar.php:105
-msgid "Unsupported image file format."
-msgstr "Nepodporovaný formát obrázku."
-
-#: ../actions/avatar.php:68
-msgid "Upload"
-msgstr "Upload"
-
-#: ../actions/avatar.php:27
-msgid ""
-"Upload a new \"avatar\" (user image) here. You can't edit the picture after "
-"you upload it, so make sure it's more or less square. It must be under the "
-"site license, also. Use a picture that belongs to you and that you want to "
-"share."
-msgstr ""
-"Zde nahrajte nový obrázek k vašemu profilu. Po tom co nahrajete obrázek "
-"ho již nemůžete editovat, proto se ujistěte že jde víceméně o čtverec."
-
-#: ../actions/profilesettings.php:48 ../actions/register.php:182
-msgid "Used only for updates, announcements, and password recovery"
-msgstr "Použije se pouze pro aktualizace, oznámení a obnovu hesla."
-
-#: ../actions/finishremotesubscribe.php:86
-msgid "User being listened to doesn't exist."
-msgstr "Úživatel, kterému nasloucháte neexistuje."
-
-#: ../actions/all.php:41 ../actions/avatarbynickname.php:48
-#: ../actions/foaf.php:43 ../actions/replies.php:41
-#: ../actions/showstream.php:44
-msgid "User has no profile."
-msgstr "Uživatel nemá profil."
-
-#: ../actions/remotesubscribe.php:71
-msgid "User nickname"
-msgstr "Přezdívka"
-
-#: ../lib/util.php:969
-#, php-format
-msgid "What's up, %s?"
-msgstr "Co se děje %s?"
-
-#: ../actions/profilesettings.php:57
-msgid "Where you are, like \"City, State (or Region), Country\""
-msgstr "Místo. Město, stát."
-
-#: ../actions/updateprofile.php:127
-#, php-format
-msgid "Wrong image type for '%s'"
-msgstr "Neplatný typ obrázku pro '%s'"
-
-#: ../actions/updateprofile.php:122
-#, php-format
-msgid "Wrong size image at '%s'"
-msgstr "Neplatná velikost obrázku '%s'"
-
-#: ../actions/finishaddopenid.php:64
-msgid "You already have this OpenID!"
-msgstr "Již máte toto OpenID!"
-
-#: ../actions/recoverpassword.php:31
-msgid "You are already logged in!"
-msgstr "Již jste přihlášen"
-
-#: ../actions/password.php:27
-msgid "You can change your password here. Choose a good one!"
-msgstr "Zde můžeze změnit heslo."
-
-#: ../actions/register.php:164
-msgid "You can create a new account to start posting notices."
-msgstr "Můžete vytvožit nový účet a začít posílat oznámení."
-
-#: ../actions/openidsettings.php:86
-msgid ""
-"You can remove an OpenID from your account by clicking the button marked "
-"\"Remove\"."
-msgstr ""
-"Můžete odstranit OpenID z vašeho účtu, kliknutím na tlačítko "
-"\"Odebrat\"."
-
-#: ../actions/imsettings.php:28
-#, php-format
-msgid ""
-"You can send and receive notices through Jabber/GTalk [instant "
-"messages](%%doc.im%%). Configure your address and settings below."
-msgstr ""
-"Můžete odesílat nebo přijámat sdělení pomocí Jabber/GTalk "
-"[zpráv](%%doc.im%%).Zadejte svou adresu níže."
-
-#: ../actions/profilesettings.php:27
-msgid ""
-"You can update your personal profile info here so people know more about "
-"you."
-msgstr ""
-"Zde můžete aktualizovat informace o vašem profilu, aby se lidé o vás "
-"mohli více dozvědět."
-
-#: ../actions/finishremotesubscribe.php:31 ../actions/remotesubscribe.php:31
-msgid "You can use the local subscription!"
-msgstr "Můžete použít místní odebírání."
-
-#: ../actions/finishopenidlogin.php:33 ../actions/register.php:51
-msgid "You can't register if you don't agree to the license."
-msgstr "Nemůžete se registrovat, pokud nesouhlasíte s licencí."
-
-#: ../actions/updateprofile.php:62
-msgid "You did not send us that profile"
-msgstr "Neodeslal jste nám profil"
-
-#: ../actions/recoverpassword.php:134
-msgid "You've been identified. Enter a  new password below. "
-msgstr "Byl jste identifikován. Zadejte nové heslo"
-
-#: ../actions/openidlogin.php:67
-msgid "Your OpenID URL"
-msgstr "Vaše OpenID adresa"
-
-#: ../actions/recoverpassword.php:149
-msgid "Your nickname on this server, or your registered email address."
-msgstr "Vaše přezdívka na tomto servu, nebo váš email zadaný při registraci"
-
-#: ../actions/openidsettings.php:28
-#, php-format
-msgid ""
-"[OpenID](%%doc.openid%%) lets you log into many sites  with the same user "
-"account.  Manage your associated OpenIDs from here."
-msgstr ""
-"[OpenID](%%doc.openid%%) vám dovoluje použít stejný účet na více "
-"stránkách. Zde může spravovat vaše OpenID"
-
-#: ../lib/util.php:814
-msgid "a few seconds ago"
-msgstr "před pár sekundami"
-
-#: ../lib/util.php:826
-#, php-format
-msgid "about %d days ago"
-msgstr "před %d dny"
-
-#: ../lib/util.php:822
-#, php-format
-msgid "about %d hours ago"
-msgstr "asi před %d hodinami"
-
-#: ../lib/util.php:818
-#, php-format
-msgid "about %d minutes ago"
-msgstr "asi před %d minutami"
-
-#: ../lib/util.php:830
-#, php-format
-msgid "about %d months ago"
-msgstr "asi před %d mesíci"
-
-#: ../lib/util.php:824
-msgid "about a day ago"
-msgstr "asi přede dnem"
-
-#: ../lib/util.php:816
-msgid "about a minute ago"
-msgstr "asi před minutou"
-
-#: ../lib/util.php:828
-msgid "about a month ago"
-msgstr "asi před měsícem"
-
-#: ../lib/util.php:832
-msgid "about a year ago"
-msgstr "asi před rokem"
-
-#: ../lib/util.php:820
-msgid "about an hour ago"
-msgstr "asi před hodinou"
-
-#: ../actions/noticesearch.php:126 ../actions/showstream.php:383
-#: ../lib/stream.php:101
-msgid "in reply to..."
-msgstr "odpověd na ..."
-
-#: ../actions/noticesearch.php:133 ../actions/showstream.php:390
-#: ../lib/stream.php:108
-msgid "reply"
-msgstr "odpověď"
-
-#: ../actions/password.php:44
-msgid "same as password above"
-msgstr "stejné jako heslo výše"
-
-#: ../lib/util.php:1127
-msgid "« After"
-msgstr "« Novější"
+"až na tyto privátní data: heslo, emailová adresa, IM adresa, telefonní číslo."
 
 #: ../actions/showstream.php:400 ../lib/stream.php:109
 #: actions/showstream.php:418 lib/mailbox.php:164 lib/stream.php:76
@@ -1538,11 +41,12 @@ msgid " from "
 msgstr ""
 
 #: ../actions/twitapistatuses.php:478 actions/twitapistatuses.php:412
+#: actions/twitapistatuses.php:347
 #, php-format
 msgid "%1$s / Updates replying to %2$s"
 msgstr ""
 
-#: ../actions/invite.php:168 actions/invite.php:176
+#: ../actions/invite.php:168 actions/invite.php:176 actions/invite.php:211
 #, php-format
 msgid "%1$s has invited you to join them on %2$s"
 msgstr ""
@@ -1578,33 +82,80 @@ msgid ""
 "Sincerely, %2$s\n"
 msgstr ""
 
+#: ../lib/mail.php:124 lib/mail.php:124 lib/mail.php:126 lib/mail.php:241
+#, php-format
+msgid "%1$s is now listening to your notices on %2$s."
+msgstr "%1 od teď naslouchá tvým sdělením v %2"
+
+#: ../lib/mail.php:126
+#, php-format
+msgid ""
+"%1$s is now listening to your notices on %2$s.\n"
+"\n"
+"\t%3$s\n"
+"\n"
+"Faithfully yours,\n"
+"%4$s.\n"
+msgstr ""
+"%1 naslouchá vašim sdělením na %s. \n"
+"\n"
+"\t%3\n"
+"\n"
+"S úctou váš,\n"
+"%4$s.\n"
+
 #: ../actions/twitapistatuses.php:482 actions/twitapistatuses.php:415
+#: actions/twitapistatuses.php:350
 #, php-format
 msgid "%1$s updates that reply to updates from %2$s / %3$s."
 msgstr ""
 
+#: ../actions/shownotice.php:45 actions/shownotice.php:45
+#: actions/shownotice.php:161
+#, php-format
+msgid "%1$s's status on %2$s"
+msgstr "%1 statusů na %2"
+
 #: ../actions/invite.php:84 ../actions/invite.php:92 actions/invite.php:91
-#: actions/invite.php:99
+#: actions/invite.php:99 actions/invite.php:123 actions/invite.php:131
 #, php-format
 msgid "%s (%s)"
 msgstr ""
 
+#: ../actions/publicrss.php:62 actions/publicrss.php:48
+#: actions/publicrss.php:90
+#, php-format
+msgid "%s Public Stream"
+msgstr "Veřejný \"Stream\""
+
+#: ../actions/all.php:47 ../actions/allrss.php:60
+#: ../actions/twitapistatuses.php:238 ../lib/stream.php:51 actions/all.php:47
+#: actions/allrss.php:60 actions/twitapistatuses.php:155 lib/personal.php:51
+#: actions/all.php:65 actions/allrss.php:103 actions/facebookhome.php:164
+#: actions/twitapistatuses.php:126 lib/personalgroupnav.php:99
+#, php-format
+msgid "%s and friends"
+msgstr "%s a přátelé"
+
 #: ../actions/twitapistatuses.php:49 actions/twitapistatuses.php:49
+#: actions/twitapistatuses.php:33
 #, php-format
 msgid "%s public timeline"
 msgstr ""
 
-#: ../lib/mail.php:206 lib/mail.php:212
+#: ../lib/mail.php:206 lib/mail.php:212 lib/mail.php:411
 #, php-format
 msgid "%s status"
 msgstr ""
 
 #: ../actions/twitapistatuses.php:338 actions/twitapistatuses.php:265
+#: actions/twitapistatuses.php:199
 #, php-format
 msgid "%s timeline"
 msgstr ""
 
 #: ../actions/twitapistatuses.php:52 actions/twitapistatuses.php:52
+#: actions/twitapistatuses.php:36
 #, php-format
 msgid "%s updates from everyone!"
 msgstr ""
@@ -1615,13 +166,58 @@ msgid ""
 "to confirm your email address.)"
 msgstr ""
 
+#: ../lib/util.php:257 lib/util.php:273 lib/action.php:605
+#, php-format
+msgid ""
+"**%%site.name%%** is a microblogging service brought to you by [%%site."
+"broughtby%%](%%site.broughtbyurl%%). "
+msgstr ""
+"**%%site.name%%** je služba microblogů, kterou pro vás poskytuje [%%site."
+"broughtby%%](%%site.broughtbyurl%%). "
+
+#: ../lib/util.php:259 lib/util.php:275 lib/action.php:607
+#, php-format
+msgid "**%%site.name%%** is a microblogging service. "
+msgstr "**%%site.name%%** je služba mikroblogů."
+
+#: ../lib/util.php:274 lib/util.php:290
+msgid ". Contributors should be attributed by full name or nickname."
+msgstr "Přispěvatelá by měly být zmíněny přezdívkou nebo celým jménem"
+
+#: ../actions/finishopenidlogin.php:73 ../actions/profilesettings.php:43
+#: actions/finishopenidlogin.php:79 actions/profilesettings.php:76
+#: actions/finishopenidlogin.php:101 actions/profilesettings.php:100
+#: lib/groupeditform.php:139
+msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
+msgstr "1-64 znaků nebo čísel, bez teček, čárek a mezer"
+
 #: ../actions/register.php:152 actions/register.php:166
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
 msgstr ""
 
+#: ../actions/password.php:42 actions/profilesettings.php:181
+#: actions/passwordsettings.php:102
+msgid "6 or more characters"
+msgstr "6 a více znaků"
+
+#: ../actions/recoverpassword.php:180 actions/recoverpassword.php:186
+#: actions/recoverpassword.php:220
+msgid "6 or more characters, and don't forget it!"
+msgstr "6 a více znaků, a nezapomeňte"
+
 #: ../actions/register.php:154 actions/register.php:168
+#: actions/register.php:373
 msgid "6 or more characters. Required."
 msgstr ""
+
+#: ../actions/imsettings.php:197 actions/imsettings.php:205
+#, php-format
+msgid ""
+"A confirmation code was sent to the IM address you added. You must approve %"
+"s for sending messages to you."
+msgstr ""
+"Ověřující kód byl poslán na vloženou IM adresu. Musíte prokázat %s pro "
+"posílání zpráv."
 
 #: ../actions/emailsettings.php:213 actions/emailsettings.php:231
 msgid ""
@@ -1645,7 +241,15 @@ msgstr ""
 #: actions/twitapistatuses.php:176 actions/twitapistatuses.php:288
 #: actions/twitapistatuses.php:298 actions/twitapistatuses.php:454
 #: actions/twitapistatuses.php:463 actions/twitapistatuses.php:504
-#: actions/twitapiusers.php:55
+#: actions/twitapiusers.php:55 actions/twitapiaccount.php:37
+#: actions/twitapidirect_messages.php:111 actions/twitapifavorites.php:85
+#: actions/twitapifavorites.php:102 actions/twitapifriendships.php:121
+#: actions/twitapihelp.php:44 actions/twitapilaconica.php:82
+#: actions/twitapilaconica.php:151 actions/twitapistatuses.php:79
+#: actions/twitapistatuses.php:147 actions/twitapistatuses.php:228
+#: actions/twitapistatuses.php:239 actions/twitapistatuses.php:392
+#: actions/twitapistatuses.php:402 actions/twitapistatuses.php:429
+#: actions/twitapiusers.php:32
 msgid "API method not found!"
 msgstr ""
 
@@ -1663,27 +267,125 @@ msgstr ""
 #: actions/twitapiblocks.php:33 actions/twitapidirect_messages.php:170
 #: actions/twitapifavorites.php:168 actions/twitapihelp.php:53
 #: actions/twitapinotifications.php:29 actions/twitapinotifications.php:34
-#: actions/twitapistatuses.php:690
+#: actions/twitapistatuses.php:690 actions/twitapiaccount.php:45
+#: actions/twitapiaccount.php:97 actions/twitapiaccount.php:103
+#: actions/twitapidirect_messages.php:184 actions/twitapifavorites.php:143
+#: actions/twitapihelp.php:52 actions/twitapilaconica.php:172
+#: actions/twitapinotifications.php:31 actions/twitapinotifications.php:37
+#: actions/twitapistatuses.php:562
 msgid "API method under construction."
 msgstr ""
 
+#: ../lib/util.php:324 lib/util.php:340 lib/action.php:568
+msgid "About"
+msgstr "O nás"
+
+#: ../actions/userauthorization.php:119 actions/userauthorization.php:126
+#: actions/userauthorization.php:143
+msgid "Accept"
+msgstr "Přijmout"
+
+#: ../actions/emailsettings.php:62 ../actions/imsettings.php:63
+#: ../actions/openidsettings.php:57 ../actions/smssettings.php:71
+#: actions/emailsettings.php:63 actions/imsettings.php:64
+#: actions/openidsettings.php:58 actions/smssettings.php:71
+#: actions/twittersettings.php:85 actions/emailsettings.php:120
+#: actions/imsettings.php:127 actions/openidsettings.php:111
+#: actions/smssettings.php:133 actions/twittersettings.php:163
+msgid "Add"
+msgstr "Přidat"
+
+#: ../actions/openidsettings.php:43 actions/openidsettings.php:44
+#: actions/openidsettings.php:93
+msgid "Add OpenID"
+msgstr "Přidej OpenID"
+
 #: ../lib/settingsaction.php:97 lib/settingsaction.php:91
+#: lib/accountsettingsaction.php:117
 msgid "Add or remove OpenIDs"
 msgstr ""
 
-#: ../actions/invite.php:131 actions/invite.php:139
+#: ../actions/emailsettings.php:38 ../actions/imsettings.php:39
+#: ../actions/smssettings.php:39 actions/emailsettings.php:39
+#: actions/imsettings.php:40 actions/smssettings.php:39
+#: actions/emailsettings.php:94 actions/imsettings.php:94
+#: actions/smssettings.php:92
+msgid "Address"
+msgstr "Adresa"
+
+#: ../actions/invite.php:131 actions/invite.php:139 actions/invite.php:176
 msgid "Addresses of friends to invite (one per line)"
 msgstr ""
 
+#: ../actions/showstream.php:273 actions/showstream.php:288
+#: actions/showstream.php:422
+msgid "All subscriptions"
+msgstr "Všechny odběry"
+
+#: ../actions/publicrss.php:64 actions/publicrss.php:50
+#: actions/publicrss.php:92
+#, php-format
+msgid "All updates for %s"
+msgstr "Všechny aktualizace pro %s"
+
+#: ../actions/noticesearchrss.php:66 actions/noticesearchrss.php:70
+#: actions/noticesearchrss.php:90
+#, php-format
+msgid "All updates matching search term \"%s\""
+msgstr "Všechny položky obsahující \"%s\""
+
+#: ../actions/finishopenidlogin.php:29 ../actions/login.php:31
+#: ../actions/openidlogin.php:29 ../actions/register.php:30
+#: actions/finishopenidlogin.php:29 actions/login.php:31
+#: actions/openidlogin.php:29 actions/register.php:30
+#: actions/finishopenidlogin.php:34 actions/login.php:77
+#: actions/openidlogin.php:30 actions/register.php:92
+msgid "Already logged in."
+msgstr "Již přihlášen"
+
+#: ../lib/subs.php:42 lib/subs.php:42 lib/subs.php:49
+msgid "Already subscribed!."
+msgstr "Již přihlášeno"
+
 #: ../actions/deletenotice.php:54 actions/deletenotice.php:55
+#: actions/deletenotice.php:113
 msgid "Are you sure you want to delete this notice?"
 msgstr ""
 
+#: ../actions/userauthorization.php:77 actions/userauthorization.php:83
+#: actions/userauthorization.php:81
+msgid "Authorize subscription"
+msgstr "Autorizovaný odběr"
+
+#: ../actions/login.php:104 ../actions/register.php:178
+#: actions/register.php:192
+msgid "Automatically login in the future; not for shared computers!"
+msgstr "Příště automaticky přihlásit; ne pro počítače, které používá "
+
 #: ../actions/profilesettings.php:65 actions/profilesettings.php:98
 msgid ""
-"Automatically subscribe to whoever subscribes to me (best for "
-"non-humans)"
+"Automatically subscribe to whoever subscribes to me (best for non-humans)"
 msgstr ""
+
+#: ../actions/avatar.php:32 ../lib/settingsaction.php:90
+#: actions/profilesettings.php:34 actions/avatarsettings.php:65
+#: actions/showgroup.php:209 lib/accountsettingsaction.php:107
+msgid "Avatar"
+msgstr "Obrázek"
+
+#: ../actions/avatar.php:113 actions/profilesettings.php:350
+#: actions/avatarsettings.php:395
+msgid "Avatar updated."
+msgstr "Obrázek nahrán"
+
+#: ../actions/imsettings.php:55 actions/imsettings.php:56
+#, php-format
+msgid ""
+"Awaiting confirmation on this address. Check your Jabber/GTalk account for a "
+"message with further instructions. (Did you add %s to your buddy list?)"
+msgstr ""
+"Čakám na potvrzení této adresy. Zkontrolujte zprávy na vašem Jabber/GTalk "
+"účtu. (Přidal jste si %s do vašich kontaktů?)"
 
 #: ../actions/emailsettings.php:54 actions/emailsettings.php:55
 msgid ""
@@ -1692,32 +394,122 @@ msgid ""
 msgstr ""
 
 #: ../actions/smssettings.php:58 actions/smssettings.php:58
+#: actions/smssettings.php:111
 msgid "Awaiting confirmation on this phone number."
 msgstr ""
 
-#: ../lib/deleteaction.php:41 lib/deleteaction.php:41
+#: ../lib/util.php:1318 lib/util.php:1452
+#, fuzzy
+msgid "Before »"
+msgstr "Starší »"
+
+#: ../actions/profilesettings.php:49 ../actions/register.php:170
+#: actions/profilesettings.php:82 actions/register.php:184
+#: actions/profilesettings.php:112 actions/register.php:402
+msgid "Bio"
+msgstr "O mě"
+
+#: ../actions/profilesettings.php:101 ../actions/register.php:82
+#: ../actions/updateprofile.php:103 actions/profilesettings.php:216
+#: actions/register.php:89 actions/updateprofile.php:104
+#: actions/profilesettings.php:205 actions/register.php:174
+#: actions/updateprofile.php:107
+msgid "Bio is too long (max 140 chars)."
+msgstr "Text je příliš dlouhý (maximální délka je 140 zanků)"
+
+#: ../lib/deleteaction.php:41 lib/deleteaction.php:41 lib/deleteaction.php:69
 msgid "Can't delete this notice."
 msgstr ""
 
+#: ../actions/updateprofile.php:119 actions/updateprofile.php:120
+#: actions/updateprofile.php:123
+#, php-format
+msgid "Can't read avatar URL '%s'"
+msgstr "Nelze přečíst adresu obrázku '%s'"
+
+#: ../actions/password.php:85 ../actions/recoverpassword.php:300
+#: actions/profilesettings.php:404 actions/recoverpassword.php:313
+#: actions/passwordsettings.php:169 actions/recoverpassword.php:347
+msgid "Can't save new password."
+msgstr "Nelze uložit nové heslo"
+
+#: ../actions/emailsettings.php:57 ../actions/imsettings.php:58
+#: ../actions/smssettings.php:62 actions/emailsettings.php:58
+#: actions/imsettings.php:59 actions/smssettings.php:62
+#: actions/emailsettings.php:111 actions/imsettings.php:114
+#: actions/smssettings.php:114
+msgid "Cancel"
+msgstr "Zrušit"
+
+#: ../lib/openid.php:121 lib/openid.php:121 lib/openid.php:130
+msgid "Cannot instantiate OpenID consumer object."
+msgstr "Nelze dolozit zákaznický objekt OpenID"
+
+#: ../actions/imsettings.php:163 actions/imsettings.php:171
+#: actions/imsettings.php:286
+msgid "Cannot normalize that Jabber ID"
+msgstr "Nelze normalizovat JabberID"
+
 #: ../actions/emailsettings.php:181 actions/emailsettings.php:199
+#: actions/emailsettings.php:311
 msgid "Cannot normalize that email address"
 msgstr ""
 
+#: ../actions/password.php:45 actions/profilesettings.php:184
+#: actions/passwordsettings.php:110
+msgid "Change"
+msgstr "Změnit"
+
 #: ../lib/settingsaction.php:88 lib/settingsaction.php:88
+#: lib/accountsettingsaction.php:114
 msgid "Change email handling"
 msgstr ""
 
-#: ../lib/settingsaction.php:94
+#: ../actions/password.php:32 actions/profilesettings.php:36
+#: actions/passwordsettings.php:58
+msgid "Change password"
+msgstr "Změnit heslo"
+
+#: ../lib/settingsaction.php:94 lib/accountsettingsaction.php:111
 msgid "Change your password"
 msgstr ""
 
 #: ../lib/settingsaction.php:85 lib/settingsaction.php:85
+#: lib/accountsettingsaction.php:105
 msgid "Change your profile settings"
 msgstr ""
 
+#: ../actions/password.php:43 ../actions/recoverpassword.php:181
+#: ../actions/register.php:155 ../actions/smssettings.php:65
+#: actions/profilesettings.php:182 actions/recoverpassword.php:187
+#: actions/register.php:169 actions/smssettings.php:65
+#: actions/passwordsettings.php:105 actions/recoverpassword.php:221
+#: actions/register.php:376 actions/smssettings.php:122
+msgid "Confirm"
+msgstr "Heslo znovu"
+
+#: ../actions/confirmaddress.php:90 actions/confirmaddress.php:90
+#: actions/confirmaddress.php:144
+msgid "Confirm Address"
+msgstr "Potvrď adresu"
+
+#: ../actions/emailsettings.php:238 ../actions/imsettings.php:222
+#: ../actions/smssettings.php:245 actions/emailsettings.php:256
+#: actions/imsettings.php:230 actions/smssettings.php:253
+#: actions/emailsettings.php:379 actions/imsettings.php:361
+#: actions/smssettings.php:374
+msgid "Confirmation cancelled."
+msgstr "Potvrď zrušení"
+
 #: ../actions/smssettings.php:63 actions/smssettings.php:63
+#: actions/smssettings.php:118
 msgid "Confirmation code"
 msgstr ""
+
+#: ../actions/confirmaddress.php:38 actions/confirmaddress.php:38
+#: actions/confirmaddress.php:80
+msgid "Confirmation code not found."
+msgstr "Potvrzující kód nebyl nalezen"
 
 #: ../actions/register.php:202
 #, php-format
@@ -1738,98 +530,449 @@ msgid ""
 "Thanks for signing up and we hope you enjoy using this service."
 msgstr ""
 
+#: ../actions/finishopenidlogin.php:91 actions/finishopenidlogin.php:97
+#: actions/finishopenidlogin.php:119 lib/action.php:330
+msgid "Connect"
+msgstr "Připojit"
+
+#: ../actions/finishopenidlogin.php:86 actions/finishopenidlogin.php:92
+#: actions/finishopenidlogin.php:114
+msgid "Connect existing account"
+msgstr "Zruš existující účet"
+
+#: ../lib/util.php:332 lib/util.php:348 lib/action.php:576
+msgid "Contact"
+msgstr "Kontakt"
+
+#: ../lib/openid.php:178 lib/openid.php:178 lib/openid.php:187
+#, php-format
+msgid "Could not create OpenID form: %s"
+msgstr "Nelze vytvořit OpenID z: %s"
+
 #: ../actions/twitapifriendships.php:60 ../actions/twitapifriendships.php:76
 #: actions/twitapifriendships.php:60 actions/twitapifriendships.php:76
+#: actions/twitapifriendships.php:48 actions/twitapifriendships.php:64
 #, php-format
 msgid "Could not follow user: %s is already on your list."
 msgstr ""
 
 #: ../actions/twitapifriendships.php:53 actions/twitapifriendships.php:53
+#: actions/twitapifriendships.php:41
 msgid "Could not follow user: User not found."
 msgstr ""
 
-#: ../lib/subs.php:54 lib/subs.php:61
+#: ../lib/openid.php:160 lib/openid.php:160 lib/openid.php:169
+#, php-format
+msgid "Could not redirect to server: %s"
+msgstr "Nelze přesměrovat na server: %s"
+
+#: ../actions/updateprofile.php:162 actions/updateprofile.php:163
+#: actions/updateprofile.php:166
+msgid "Could not save avatar info"
+msgstr "Nelze uložin informace o obrázku"
+
+#: ../actions/updateprofile.php:155 actions/updateprofile.php:156
+#: actions/updateprofile.php:159
+msgid "Could not save new profile info"
+msgstr "Nelze uložit nové informace do profilu"
+
+#: ../lib/subs.php:54 lib/subs.php:61 lib/subs.php:72
 msgid "Could not subscribe other to you."
 msgstr ""
 
-#: ../lib/subs.php:46 lib/subs.php:46
+#: ../lib/subs.php:46 lib/subs.php:46 lib/subs.php:57
 msgid "Could not subscribe."
 msgstr ""
 
 #: ../actions/recoverpassword.php:102 actions/recoverpassword.php:105
+#: actions/recoverpassword.php:111
 msgid "Could not update user with confirmed email address."
 msgstr ""
 
+#: ../actions/finishremotesubscribe.php:99
+#: actions/finishremotesubscribe.php:101 actions/finishremotesubscribe.php:114
+msgid "Couldn't convert request tokens to access tokens."
+msgstr "Nelze konvertovat řetězec požadavku na přístupový řetězec."
+
+#: ../actions/confirmaddress.php:84 ../actions/emailsettings.php:234
+#: ../actions/imsettings.php:218 ../actions/smssettings.php:241
+#: actions/confirmaddress.php:84 actions/emailsettings.php:252
+#: actions/imsettings.php:226 actions/smssettings.php:249
+#: actions/confirmaddress.php:126 actions/emailsettings.php:375
+#: actions/imsettings.php:357 actions/smssettings.php:370
+msgid "Couldn't delete email confirmation."
+msgstr "Nelze smazat potvrzení emailu"
+
+#: ../lib/subs.php:103 lib/subs.php:116 lib/subs.php:134
+msgid "Couldn't delete subscription."
+msgstr "Nelze smazat odebírání"
+
 #: ../actions/twitapistatuses.php:93 actions/twitapistatuses.php:98
+#: actions/twitapistatuses.php:84
 msgid "Couldn't find any statuses."
 msgstr ""
 
+#: ../actions/remotesubscribe.php:127 actions/remotesubscribe.php:136
+#: actions/remotesubscribe.php:178
+msgid "Couldn't get a request token."
+msgstr "Nelze získat řetězec požadavku."
+
+#: ../actions/emailsettings.php:205 ../actions/imsettings.php:187
+#: ../actions/smssettings.php:206 actions/emailsettings.php:223
+#: actions/imsettings.php:195 actions/smssettings.php:214
+#: actions/emailsettings.php:337 actions/imsettings.php:311
+#: actions/smssettings.php:325
+msgid "Couldn't insert confirmation code."
+msgstr "Nelze vložit potvrzující kód"
+
+#: ../actions/finishremotesubscribe.php:180
+#: actions/finishremotesubscribe.php:182 actions/finishremotesubscribe.php:218
+msgid "Couldn't insert new subscription."
+msgstr "Nelze vložit odebírání"
+
+#: ../actions/profilesettings.php:184 ../actions/twitapiaccount.php:96
+#: actions/profilesettings.php:299 actions/twitapiaccount.php:94
+#: actions/profilesettings.php:302 actions/twitapiaccount.php:81
+msgid "Couldn't save profile."
+msgstr "Nelze uložit profil"
+
 #: ../actions/profilesettings.php:161 actions/profilesettings.php:276
+#: actions/profilesettings.php:279
 msgid "Couldn't update user for autosubscribe."
 msgstr ""
 
 #: ../actions/emailsettings.php:280 ../actions/emailsettings.php:294
 #: actions/emailsettings.php:298 actions/emailsettings.php:312
+#: actions/emailsettings.php:440 actions/emailsettings.php:462
 msgid "Couldn't update user record."
 msgstr ""
 
+#: ../actions/confirmaddress.php:72 ../actions/emailsettings.php:156
+#: ../actions/emailsettings.php:259 ../actions/imsettings.php:138
+#: ../actions/imsettings.php:243 ../actions/profilesettings.php:141
+#: ../actions/smssettings.php:157 ../actions/smssettings.php:269
+#: actions/confirmaddress.php:72 actions/emailsettings.php:174
+#: actions/emailsettings.php:277 actions/imsettings.php:146
+#: actions/imsettings.php:251 actions/profilesettings.php:256
+#: actions/smssettings.php:165 actions/smssettings.php:277
+#: actions/confirmaddress.php:114 actions/emailsettings.php:280
+#: actions/emailsettings.php:411 actions/imsettings.php:252
+#: actions/imsettings.php:395 actions/othersettings.php:162
+#: actions/profilesettings.php:259 actions/smssettings.php:266
+#: actions/smssettings.php:408
+msgid "Couldn't update user."
+msgstr "Nelze aktualizovat uživatele"
+
+#: ../actions/finishopenidlogin.php:84 actions/finishopenidlogin.php:90
+#: actions/finishopenidlogin.php:112
+msgid "Create"
+msgstr "Vytvořit"
+
+#: ../actions/finishopenidlogin.php:70 actions/finishopenidlogin.php:76
+#: actions/finishopenidlogin.php:98
+msgid "Create a new user with this nickname."
+msgstr "Vytvořit nového uživatele s touto přezdívkou"
+
+#: ../actions/finishopenidlogin.php:68 actions/finishopenidlogin.php:74
+#: actions/finishopenidlogin.php:96
+msgid "Create new account"
+msgstr "Vytvořit nový účet"
+
+#: ../actions/finishopenidlogin.php:191 actions/finishopenidlogin.php:197
+#: actions/finishopenidlogin.php:231
+msgid "Creating new account for OpenID that already has a user."
+msgstr "Pro toto OpenID již uživatel existuje"
+
+#: ../actions/imsettings.php:45 actions/imsettings.php:46
+#: actions/imsettings.php:100
+msgid "Current confirmed Jabber/GTalk address."
+msgstr "Potvrzené Jabber/GTalk adresy"
+
 #: ../actions/smssettings.php:46 actions/smssettings.php:46
+#: actions/smssettings.php:100
 msgid "Current confirmed SMS-enabled phone number."
 msgstr ""
 
 #: ../actions/emailsettings.php:44 actions/emailsettings.php:45
+#: actions/emailsettings.php:99
 msgid "Current confirmed email address."
 msgstr ""
 
-#: ../classes/Notice.php:72 classes/Notice.php:86
+#: ../actions/showstream.php:356 actions/showstream.php:367
+msgid "Currently"
+msgstr "Nyní"
+
+#: ../classes/Notice.php:72 classes/Notice.php:86 classes/Notice.php:91
 #, php-format
 msgid "DB error inserting hashtag: %s"
 msgstr ""
 
+#: ../lib/util.php:1061 lib/util.php:1110 classes/Notice.php:698
+#, php-format
+msgid "DB error inserting reply: %s"
+msgstr "Chyba v DB při vkládání odpovědi: %s"
+
 #: ../actions/deletenotice.php:41 actions/deletenotice.php:41
+#: actions/deletenotice.php:79
 msgid "Delete notice"
 msgstr ""
 
+#: ../actions/profilesettings.php:51 ../actions/register.php:172
+#: actions/profilesettings.php:84 actions/register.php:186
+#: actions/profilesettings.php:114
+msgid "Describe yourself and your interests in 140 chars"
+msgstr "Popiš sebe a své zájmy ve 140 znacích"
+
+#: ../actions/register.php:158 ../actions/register.php:161
+#: ../lib/settingsaction.php:87 actions/register.php:172
+#: actions/register.php:175 lib/settingsaction.php:87 actions/register.php:381
+#: actions/register.php:385 lib/accountsettingsaction.php:113
+msgid "Email"
+msgstr "Email"
+
 #: ../actions/emailsettings.php:59 actions/emailsettings.php:60
+#: actions/emailsettings.php:115
 msgid "Email Address"
 msgstr ""
 
 #: ../actions/emailsettings.php:32 actions/emailsettings.php:32
+#: actions/emailsettings.php:60
 msgid "Email Settings"
 msgstr ""
 
+#: ../actions/register.php:73 actions/register.php:80 actions/register.php:163
+msgid "Email address already exists."
+msgstr "Emailová adresa již existuje"
+
+#: ../lib/mail.php:90 lib/mail.php:90 lib/mail.php:173
+msgid "Email address confirmation"
+msgstr "Potvrzení emailové adresy"
+
 #: ../actions/emailsettings.php:61 actions/emailsettings.php:62
+#: actions/emailsettings.php:117
 msgid "Email address, like \"UserName@example.org\""
 msgstr ""
 
-#: ../actions/invite.php:129 actions/invite.php:137
+#: ../actions/invite.php:129 actions/invite.php:137 actions/invite.php:174
 msgid "Email addresses"
 msgstr ""
 
+#: ../actions/recoverpassword.php:191 actions/recoverpassword.php:197
+#: actions/recoverpassword.php:231
+msgid "Enter a nickname or email address."
+msgstr "Zadej přezdívku nebo emailovou adresu"
+
 #: ../actions/smssettings.php:64 actions/smssettings.php:64
+#: actions/smssettings.php:119
 msgid "Enter the code you received on your phone."
 msgstr ""
 
-#: ../actions/tag.php:55 actions/tag.php:55
+#: ../actions/userauthorization.php:137 actions/userauthorization.php:144
+#: actions/userauthorization.php:161
+msgid "Error authorizing token"
+msgstr "Chyba potvrujícího řetězce"
+
+#: ../actions/finishopenidlogin.php:253 actions/finishopenidlogin.php:259
+#: actions/finishopenidlogin.php:297
+msgid "Error connecting user to OpenID."
+msgstr "Chyba při propojení uživatele na OpenID"
+
+#: ../actions/finishaddopenid.php:78 actions/finishaddopenid.php:78
+#: actions/finishaddopenid.php:126
+msgid "Error connecting user."
+msgstr "Chyba přihlašování uživatele"
+
+#: ../actions/finishremotesubscribe.php:151
+#: actions/finishremotesubscribe.php:153 actions/finishremotesubscribe.php:166
+msgid "Error inserting avatar"
+msgstr "Chyba při kládání obrázku"
+
+#: ../actions/finishremotesubscribe.php:143
+#: actions/finishremotesubscribe.php:145 actions/finishremotesubscribe.php:158
+msgid "Error inserting new profile"
+msgstr "Chyba při vkládání nového profilu"
+
+#: ../actions/finishremotesubscribe.php:167
+#: actions/finishremotesubscribe.php:169 actions/finishremotesubscribe.php:182
+msgid "Error inserting remote profile"
+msgstr "Chyba při vkládaní vzdáleného profilu"
+
+#: ../actions/recoverpassword.php:240 actions/recoverpassword.php:246
+#: actions/recoverpassword.php:280
+msgid "Error saving address confirmation."
+msgstr "Chyba při ukládání potvrzení adresy"
+
+#: ../actions/userauthorization.php:140 actions/userauthorization.php:147
+#: actions/userauthorization.php:164
+msgid "Error saving remote profile"
+msgstr "Chyba při ukládnání vzdáleného profilu"
+
+#: ../lib/openid.php:226 lib/openid.php:226 lib/openid.php:235
+msgid "Error saving the profile."
+msgstr "Chyba při ukládaní profilu"
+
+#: ../lib/openid.php:237 lib/openid.php:237 lib/openid.php:246
+msgid "Error saving the user."
+msgstr "Chyba při ukládaní uživatele"
+
+#: ../actions/password.php:80 actions/profilesettings.php:399
+#: actions/passwordsettings.php:164
+msgid "Error saving user; invalid."
+msgstr "Chyba při ukládaní uživatele; neplatný"
+
+#: ../actions/login.php:47 ../actions/login.php:73
+#: ../actions/recoverpassword.php:307 ../actions/register.php:98
+#: actions/login.php:47 actions/login.php:73 actions/recoverpassword.php:320
+#: actions/register.php:108 actions/login.php:112 actions/login.php:138
+#: actions/recoverpassword.php:354 actions/register.php:198
+msgid "Error setting user."
+msgstr "Chyba nastavení uživatele"
+
+#: ../actions/finishaddopenid.php:83 actions/finishaddopenid.php:83
+#: actions/finishaddopenid.php:131
+msgid "Error updating profile"
+msgstr "Chyba při aktualizaci profilu"
+
+#: ../actions/finishremotesubscribe.php:161
+#: actions/finishremotesubscribe.php:163 actions/finishremotesubscribe.php:176
+msgid "Error updating remote profile"
+msgstr "Chyba při aktualizaci vzdáleného profilu"
+
+#: ../actions/recoverpassword.php:80 actions/recoverpassword.php:80
+#: actions/recoverpassword.php:86
+msgid "Error with confirmation code."
+msgstr "Chyba v ověřovacím kódu"
+
+#: ../actions/finishopenidlogin.php:89 actions/finishopenidlogin.php:95
+#: actions/finishopenidlogin.php:117
+msgid "Existing nickname"
+msgstr "Existující jméno"
+
+#: ../lib/util.php:326 lib/util.php:342 lib/action.php:570
+msgid "FAQ"
+msgstr "FAQ"
+
+#: ../actions/avatar.php:115 actions/profilesettings.php:352
+#: actions/avatarsettings.php:397
+msgid "Failed updating avatar."
+msgstr "Nahrávání obrázku selhalo."
+
+#: ../actions/all.php:61 ../actions/allrss.php:64 actions/all.php:61
+#: actions/allrss.php:64 actions/all.php:75 actions/allrss.php:107
+#, fuzzy, php-format
+msgid "Feed for friends of %s"
+msgstr ""
+"#-#-#-#-#  laconica.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+"Feed přítel uživatele: %s\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/replies.php:65 ../actions/repliesrss.php:80
+#: actions/replies.php:65 actions/repliesrss.php:66 actions/replies.php:134
+#: actions/repliesrss.php:71
+#, fuzzy, php-format
+msgid "Feed for replies to %s"
+msgstr ""
+"#-#-#-#-#  laconica.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+"Feed odpovědí na %s\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/tag.php:55 actions/tag.php:55 actions/tag.php:61
 #, php-format
 msgid "Feed for tag %s"
 msgstr ""
 
 #: ../lib/searchaction.php:105 lib/searchaction.php:105
+#: lib/searchgroupnav.php:83
 msgid "Find content of notices"
 msgstr ""
 
 #: ../lib/searchaction.php:101 lib/searchaction.php:101
+#: lib/searchgroupnav.php:81
 msgid "Find people on this site"
 msgstr ""
 
+#: ../actions/login.php:122
+msgid ""
+"For security reasons, please re-enter your user name and password before "
+"changing your settings."
+msgstr "Z bezpečnostních důvodů, prosím zadejte znovu své jméno a heslo."
+
+#: ../actions/profilesettings.php:44 ../actions/register.php:164
+#: actions/profilesettings.php:77 actions/register.php:178
+#: actions/profilesettings.php:103 actions/register.php:391
+#: actions/showgroup.php:235 actions/showstream.php:262
+#: actions/tagother.php:105 lib/groupeditform.php:142
+msgid "Full name"
+msgstr "Celé jméno"
+
+#: ../actions/profilesettings.php:98 ../actions/register.php:79
+#: ../actions/updateprofile.php:93 actions/profilesettings.php:213
+#: actions/register.php:86 actions/updateprofile.php:94
+#: actions/editgroup.php:195 actions/newgroup.php:146
+#: actions/profilesettings.php:202 actions/register.php:171
+#: actions/updateprofile.php:97
+msgid "Full name is too long (max 255 chars)."
+msgstr "Jméno je moc dlouhé (maximální délka je 255 znaků)"
+
+#: ../lib/util.php:322 lib/util.php:338 lib/action.php:344 lib/action.php:566
+msgid "Help"
+msgstr "Nápověda"
+
+#: ../lib/util.php:298 lib/util.php:314 lib/action.php:322
+#: lib/facebookaction.php:200
+msgid "Home"
+msgstr "Domů"
+
+#: ../actions/profilesettings.php:46 ../actions/register.php:167
+#: actions/profilesettings.php:79 actions/register.php:181
+#: actions/profilesettings.php:107 actions/register.php:396
+#: lib/groupeditform.php:146
+msgid "Homepage"
+msgstr "Moje stránky"
+
+#: ../actions/profilesettings.php:95 ../actions/register.php:76
+#: actions/profilesettings.php:210 actions/register.php:83
+#: actions/editgroup.php:192 actions/newgroup.php:143
+#: actions/profilesettings.php:199 actions/register.php:168
+msgid "Homepage is not a valid URL."
+msgstr "Stránka není platnou URL."
+
 #: ../actions/emailsettings.php:91 actions/emailsettings.php:98
+#: actions/emailsettings.php:173
 msgid "I want to post notices by email."
 msgstr ""
 
 #: ../lib/settingsaction.php:102 lib/settingsaction.php:96
+#: lib/connectsettingsaction.php:104
 msgid "IM"
 msgstr ""
+
+#: ../actions/imsettings.php:60 actions/imsettings.php:61
+#: actions/imsettings.php:118
+msgid "IM Address"
+msgstr "IM adresa"
+
+#: ../actions/imsettings.php:33 actions/imsettings.php:33
+#: actions/imsettings.php:59
+msgid "IM Settings"
+msgstr "IM nastavení"
+
+#: ../actions/finishopenidlogin.php:88 actions/finishopenidlogin.php:94
+#: actions/finishopenidlogin.php:116
+msgid ""
+"If you already have an account, login with your username and password to "
+"connect it to your OpenID."
+msgstr ""
+"Pokud již máte účet, přihlašte se pomocí přezdívky a hesla. A poté propojte "
+"účet s OpenID."
+
+#: ../actions/openidsettings.php:45
+msgid ""
+"If you want to add an OpenID to your account, enter it in the box below and "
+"click \"Add\"."
+msgstr ""
+"Pokud chcete přidat OpenID k vašemu účtu, zadejte OpenID do pole níže a "
+"klikněte na \"Přidat\"."
 
 #: ../actions/recoverpassword.php:137
 msgid ""
@@ -1839,45 +982,210 @@ msgstr ""
 
 #: ../actions/emailsettings.php:67 ../actions/smssettings.php:76
 #: actions/emailsettings.php:68 actions/smssettings.php:76
+#: actions/emailsettings.php:127 actions/smssettings.php:140
 msgid "Incoming email"
 msgstr ""
 
 #: ../actions/emailsettings.php:283 actions/emailsettings.php:301
+#: actions/emailsettings.php:443
 msgid "Incoming email address removed."
 msgstr ""
 
-#: ../actions/invite.php:55 actions/invite.php:62
+#: ../actions/password.php:69 actions/profilesettings.php:388
+#: actions/passwordsettings.php:153
+msgid "Incorrect old password"
+msgstr "Neplatné heslo"
+
+#: ../actions/login.php:67 actions/login.php:67 actions/facebookhome.php:131
+#: actions/login.php:132
+msgid "Incorrect username or password."
+msgstr "Neplatné jméno nebo heslo"
+
+#: ../actions/recoverpassword.php:265
+msgid ""
+"Instructions for recovering your password have been sent to the email "
+"address registered to your account."
+msgstr ""
+"Návod jak obnovit heslo byl odeslát na vaší emailovou adresu zaregistrovanou "
+"u vašeho účtu."
+
+#: ../actions/updateprofile.php:114 actions/updateprofile.php:115
+#: actions/updateprofile.php:118
+#, php-format
+msgid "Invalid avatar URL '%s'"
+msgstr "Neplatná adresa obrázku '%s'"
+
+#: ../actions/invite.php:55 actions/invite.php:62 actions/invite.php:70
 #, php-format
 msgid "Invalid email address: %s"
 msgstr ""
 
-#: ../actions/invite.php:79 actions/invite.php:86
+#: ../actions/updateprofile.php:98 actions/updateprofile.php:99
+#: actions/updateprofile.php:102
+#, php-format
+msgid "Invalid homepage '%s'"
+msgstr "Neplatná adresa '%s'"
+
+#: ../actions/updateprofile.php:82 actions/updateprofile.php:83
+#: actions/updateprofile.php:86
+#, php-format
+msgid "Invalid license URL '%s'"
+msgstr "Neplatná adresa licence '%s'"
+
+#: ../actions/postnotice.php:61 actions/postnotice.php:62
+#: actions/postnotice.php:66
+msgid "Invalid notice content"
+msgstr "Neplatný obsah sdělení"
+
+#: ../actions/postnotice.php:67 actions/postnotice.php:68
+#: actions/postnotice.php:72
+msgid "Invalid notice uri"
+msgstr "Neplatná uri sdělení"
+
+#: ../actions/postnotice.php:72 actions/postnotice.php:73
+#: actions/postnotice.php:77
+msgid "Invalid notice url"
+msgstr "Neplatná url sdělení"
+
+#: ../actions/updateprofile.php:87 actions/updateprofile.php:88
+#: actions/updateprofile.php:91
+#, php-format
+msgid "Invalid profile URL '%s'."
+msgstr "Neplatná adresa profilu '%s'."
+
+#: ../actions/remotesubscribe.php:96 actions/remotesubscribe.php:105
+#: actions/remotesubscribe.php:135
+msgid "Invalid profile URL (bad format)"
+msgstr "Neplatná adresa profilu (špatný formát)"
+
+#: ../actions/finishremotesubscribe.php:77
+#: actions/finishremotesubscribe.php:79 actions/finishremotesubscribe.php:80
+msgid "Invalid profile URL returned by server."
+msgstr "Neplatná adresa profilu, vrácená serverem"
+
+#: ../actions/avatarbynickname.php:37 actions/avatarbynickname.php:37
+#: actions/avatarbynickname.php:69
+msgid "Invalid size."
+msgstr "Neplatná velikost"
+
+#: ../actions/finishopenidlogin.php:235 ../actions/register.php:93
+#: ../actions/register.php:111 actions/finishopenidlogin.php:241
+#: actions/register.php:103 actions/register.php:121
+#: actions/finishopenidlogin.php:279 actions/register.php:193
+#: actions/register.php:211
+msgid "Invalid username or password."
+msgstr "Neplatné jméno nebo heslo"
+
+#: ../actions/invite.php:79 actions/invite.php:86 actions/invite.php:102
 msgid "Invitation(s) sent"
 msgstr ""
 
-#: ../actions/invite.php:97 actions/invite.php:104
+#: ../actions/invite.php:97 actions/invite.php:104 actions/invite.php:136
 msgid "Invitation(s) sent to the following people:"
 msgstr ""
 
-#: ../lib/util.php:306 lib/util.php:322
+#: ../lib/util.php:306 lib/util.php:322 lib/facebookaction.php:207
+#: lib/subgroupnav.php:103
 msgid "Invite"
 msgstr ""
 
-#: ../actions/invite.php:123 actions/invite.php:130
+#: ../actions/invite.php:123 actions/invite.php:130 actions/invite.php:104
 msgid "Invite new users"
 msgstr ""
 
+#: ../lib/util.php:261 lib/util.php:277 lib/action.php:609
+#, php-format
+msgid ""
+"It runs the [Laconica](http://laconi.ca/) microblogging software, version %"
+"s, available under the [GNU Affero General Public License](http://www.fsf."
+"org/licensing/licenses/agpl-3.0.html)."
+msgstr ""
+"Běží na [Laconica](http://laconi.ca/) mikroblogovací program, verze %s, "
+"dostupná pod [GNU Affero General Public License](http://www.fsf.org/"
+"licensing/licenses/agpl-3.0.html)."
+
+#: ../actions/imsettings.php:173 actions/imsettings.php:181
+#: actions/imsettings.php:296
+msgid "Jabber ID already belongs to another user."
+msgstr "Jabber ID již patří jinému uživateli"
+
+#: ../actions/imsettings.php:62 actions/imsettings.php:63
+#, php-format
+msgid ""
+"Jabber or GTalk address, like \"UserName@example.org\". First, make sure to "
+"add %s to your buddy list in your IM client or on GTalk."
+msgstr ""
+"Jabber nebo GTalk adresy, například \"jmeno@neco.cz\". Neprve se ujistěte že "
+"jste přidal %s do vašeho seznamu kontaktů."
+
 #: ../actions/profilesettings.php:57 actions/profilesettings.php:90
+#: actions/profilesettings.php:128
 msgid "Language"
 msgstr ""
 
 #: ../actions/profilesettings.php:113 actions/profilesettings.php:228
+#: actions/profilesettings.php:217
 msgid "Language is too long (max 50 chars)."
 msgstr ""
 
+#: ../actions/profilesettings.php:52 ../actions/register.php:173
+#: actions/profilesettings.php:85 actions/register.php:187
+#: actions/profilesettings.php:117 actions/register.php:408
+#: actions/showgroup.php:244 actions/showstream.php:271
+#: actions/tagother.php:113 lib/groupeditform.php:156 lib/grouplist.php:126
+#: lib/profilelist.php:125
+msgid "Location"
+msgstr "Umístění"
+
+#: ../actions/profilesettings.php:104 ../actions/register.php:85
+#: ../actions/updateprofile.php:108 actions/profilesettings.php:219
+#: actions/register.php:92 actions/updateprofile.php:109
+#: actions/editgroup.php:201 actions/newgroup.php:152
+#: actions/profilesettings.php:208 actions/register.php:177
+#: actions/updateprofile.php:112
+msgid "Location is too long (max 255 chars)."
+msgstr "Umístění příliš dlouhé (maximálně 255 znaků)"
+
+#: ../actions/login.php:97 ../actions/login.php:106
+#: ../actions/openidlogin.php:68 ../lib/util.php:310 actions/login.php:97
+#: actions/login.php:106 actions/openidlogin.php:77 lib/util.php:326
+#: actions/facebooklogin.php:93 actions/login.php:186 actions/login.php:239
+#: actions/openidlogin.php:112 lib/action.php:335 lib/facebookaction.php:288
+#: lib/facebookaction.php:315 lib/logingroupnav.php:75
+#, php-format
+msgid "Login"
+msgstr "Přihlásit"
+
+#: ../actions/openidlogin.php:44 actions/openidlogin.php:52
+#: actions/openidlogin.php:62
+#, php-format
+msgid "Login with an [OpenID](%%doc.openid%%) account."
+msgstr "Přihlaste se pomocí [OpenID](%%doc.openid%%) účtu."
+
+#: ../actions/login.php:126
+#, php-format
+msgid ""
+"Login with your username and password. Don't have a username yet? [Register]"
+"(%%action.register%%) a new account, or try [OpenID](%%action.openidlogin%"
+"%). "
+msgstr ""
+"Přihlaste se pomocí vaší prezdívky a hesla. Zatím nejste zaregistrován? "
+"[Registrovat](%%action.register%%) nový účet, nebo vyzkoušejte [OpenID](%%"
+"action.openidlogin%%)."
+
+#: ../lib/util.php:308 lib/util.php:324 lib/action.php:332
+msgid "Logout"
+msgstr "Odhlásit"
+
 #: ../actions/register.php:166 actions/register.php:180
+#: actions/register.php:393
 msgid "Longer name, preferably your \"real\" name"
 msgstr ""
+
+#: ../actions/login.php:110 actions/login.php:110 actions/login.php:245
+#: lib/facebookaction.php:320
+msgid "Lost or forgotten password?"
+msgstr "Ztracené nebo zapomenuté heslo?"
 
 #: ../actions/emailsettings.php:80 ../actions/smssettings.php:89
 #: actions/emailsettings.php:81 actions/smssettings.php:89
@@ -1885,9 +1193,20 @@ msgid "Make a new email address for posting to; cancels the old one."
 msgstr ""
 
 #: ../actions/emailsettings.php:27 actions/emailsettings.php:27
+#: actions/emailsettings.php:71
 #, php-format
 msgid "Manage how you get email from %%site.name%%."
 msgstr ""
+
+#: ../actions/showstream.php:300 actions/showstream.php:315
+#: actions/showstream.php:480
+msgid "Member since"
+msgstr "Členem od"
+
+#: ../actions/userrss.php:70 actions/userrss.php:67 actions/userrss.php:72
+#, php-format
+msgid "Microblog by %s"
+msgstr "Mikroblog od %s"
 
 #: ../actions/smssettings.php:304
 #, php-format
@@ -1896,98 +1215,521 @@ msgid ""
 "email but isn't listed here, send email to let us know at %s."
 msgstr ""
 
+#: ../actions/finishopenidlogin.php:79 ../actions/register.php:188
+#: actions/finishopenidlogin.php:85 actions/register.php:202
+#: actions/finishopenidlogin.php:107 actions/register.php:429
+msgid "My text and files are available under "
+msgstr "Mé texty a soubory jsou k dispozici pod"
+
 #: ../actions/emailsettings.php:82 ../actions/smssettings.php:91
 #: actions/emailsettings.php:83 actions/smssettings.php:91
+#: actions/emailsettings.php:142 actions/smssettings.php:152
 msgid "New"
 msgstr ""
 
-#: ../lib/mail.php:144 lib/mail.php:144
+#: ../lib/mail.php:144 lib/mail.php:144 lib/mail.php:286
 #, php-format
 msgid "New email address for posting to %s"
 msgstr ""
 
 #: ../actions/emailsettings.php:297 actions/emailsettings.php:315
+#: actions/emailsettings.php:465
 msgid "New incoming email address added."
 msgstr ""
 
+#: ../actions/finishopenidlogin.php:71 actions/finishopenidlogin.php:77
+#: actions/finishopenidlogin.php:99
+msgid "New nickname"
+msgstr "Nová přezdívka"
+
+#: ../actions/newnotice.php:87 actions/newnotice.php:96
+#: actions/newnotice.php:68
+msgid "New notice"
+msgstr "Nové sdělení"
+
+#: ../actions/password.php:41 ../actions/recoverpassword.php:179
+#: actions/profilesettings.php:180 actions/recoverpassword.php:185
+#: actions/passwordsettings.php:101 actions/recoverpassword.php:219
+msgid "New password"
+msgstr "Nové heslo"
+
+#: ../actions/recoverpassword.php:314
+msgid "New password successfully saved. You are now logged in."
+msgstr "Nové heslo bylo uloženo. Nyní jste přihlášen."
+
+#: ../actions/login.php:101 ../actions/profilesettings.php:41
+#: ../actions/register.php:151 actions/login.php:101
+#: actions/profilesettings.php:74 actions/register.php:165
+#: actions/login.php:228 actions/profilesettings.php:98
+#: actions/register.php:367 actions/showgroup.php:224
+#: actions/showstream.php:251 actions/tagother.php:95
+#: lib/facebookaction.php:308 lib/groupeditform.php:137
+msgid "Nickname"
+msgstr "Přezdívka"
+
+#: ../actions/finishopenidlogin.php:175 ../actions/profilesettings.php:110
+#: ../actions/register.php:69 actions/finishopenidlogin.php:181
+#: actions/profilesettings.php:225 actions/register.php:76
+#: actions/editgroup.php:183 actions/finishopenidlogin.php:215
+#: actions/newgroup.php:134 actions/profilesettings.php:214
+#: actions/register.php:159
+msgid "Nickname already in use. Try another one."
+msgstr "Přezdívku již někdo používá. Zkuste jinou"
+
+#: ../actions/finishopenidlogin.php:165 ../actions/profilesettings.php:88
+#: ../actions/register.php:67 ../actions/updateprofile.php:77
+#: actions/finishopenidlogin.php:171 actions/profilesettings.php:203
+#: actions/register.php:74 actions/updateprofile.php:78
+#: actions/finishopenidlogin.php:205 actions/profilesettings.php:192
+#: actions/updateprofile.php:81
+msgid "Nickname must have only lowercase letters and numbers and no spaces."
+msgstr "Přezdívka může obsahovat pouze malá písmena a čísla bez mezer"
+
+#: ../actions/finishopenidlogin.php:170 actions/finishopenidlogin.php:176
+#: actions/finishopenidlogin.php:210
+msgid "Nickname not allowed."
+msgstr "Přezdívka není povolena"
+
+#: ../actions/remotesubscribe.php:72 actions/remotesubscribe.php:81
+#: actions/remotesubscribe.php:106
+msgid "Nickname of the user you want to follow"
+msgstr "Přezdívka uživatele, kterého chcete sledovat"
+
+#: ../actions/recoverpassword.php:162 actions/recoverpassword.php:167
+#: actions/recoverpassword.php:186
+msgid "Nickname or email"
+msgstr "Přezdívka nebo email"
+
 #: ../actions/deletenotice.php:59 actions/deletenotice.php:60
+#: actions/block.php:147 actions/deletenotice.php:118
 msgid "No"
 msgstr ""
 
+#: ../actions/imsettings.php:156 actions/imsettings.php:164
+#: actions/imsettings.php:279
+msgid "No Jabber ID."
+msgstr "Žádné Jabber ID."
+
+#: ../actions/userauthorization.php:129 actions/userauthorization.php:136
+#: actions/userauthorization.php:153
+msgid "No authorization request!"
+msgstr "Žádné potvrení!"
+
 #: ../actions/smssettings.php:181 actions/smssettings.php:189
+#: actions/smssettings.php:299
 msgid "No carrier selected."
 msgstr ""
 
 #: ../actions/smssettings.php:316 actions/smssettings.php:324
+#: actions/smssettings.php:486
 msgid "No code entered"
 msgstr ""
 
+#: ../actions/confirmaddress.php:33 actions/confirmaddress.php:33
+#: actions/confirmaddress.php:75
+msgid "No confirmation code."
+msgstr "Žádný potvrzující kód."
+
+#: ../actions/newnotice.php:44 actions/newmessage.php:53
+#: actions/newnotice.php:44 classes/Command.php:197 actions/newmessage.php:109
+#: actions/newnotice.php:126 classes/Command.php:223
+msgid "No content!"
+msgstr "Žádný obsah!"
+
 #: ../actions/emailsettings.php:174 actions/emailsettings.php:192
+#: actions/emailsettings.php:304
 msgid "No email address."
 msgstr ""
 
+#: ../actions/userbyid.php:32 actions/userbyid.php:32 actions/userbyid.php:70
+msgid "No id."
+msgstr "Žádné id"
+
 #: ../actions/emailsettings.php:271 actions/emailsettings.php:289
+#: actions/emailsettings.php:430
 msgid "No incoming email address."
 msgstr ""
 
+#: ../actions/finishremotesubscribe.php:65
+#: actions/finishremotesubscribe.php:67 actions/finishremotesubscribe.php:68
+msgid "No nickname provided by remote server."
+msgstr "Nebyla poskytnuta žádná přezdívka od servru."
+
+#: ../actions/avatarbynickname.php:27 actions/avatarbynickname.php:27
+#: actions/avatarbynickname.php:59 actions/leavegroup.php:81
+msgid "No nickname."
+msgstr "Žádná přezdívka."
+
+#: ../actions/emailsettings.php:222 ../actions/imsettings.php:206
+#: ../actions/smssettings.php:229 actions/emailsettings.php:240
+#: actions/imsettings.php:214 actions/smssettings.php:237
+#: actions/emailsettings.php:363 actions/imsettings.php:345
+#: actions/smssettings.php:358
+msgid "No pending confirmation to cancel."
+msgstr "Nečeká žádné potvrzení na zrušení."
+
 #: ../actions/smssettings.php:176 actions/smssettings.php:184
+#: actions/smssettings.php:294
 msgid "No phone number."
 msgstr ""
 
+#: ../actions/finishremotesubscribe.php:72
+#: actions/finishremotesubscribe.php:74 actions/finishremotesubscribe.php:75
+msgid "No profile URL returned by server."
+msgstr "Nebylo vráceno žádné URL profilu od servu."
+
+#: ../actions/recoverpassword.php:226 actions/recoverpassword.php:232
+#: actions/recoverpassword.php:266
+msgid "No registered email address for that user."
+msgstr "Žádný registrovaný email pro tohoto uživatele."
+
+#: ../actions/userauthorization.php:49 actions/userauthorization.php:55
+#: actions/userauthorization.php:57
+msgid "No request found!"
+msgstr "Žádný požadavek nebyl nalezen!"
+
+#: ../actions/noticesearch.php:64 ../actions/peoplesearch.php:64
+#: actions/noticesearch.php:69 actions/peoplesearch.php:69
+#: actions/groupsearch.php:81 actions/noticesearch.php:104
+#: actions/peoplesearch.php:85
+msgid "No results"
+msgstr "Žádné výsledky."
+
+#: ../actions/avatarbynickname.php:32 actions/avatarbynickname.php:32
+#: actions/avatarbynickname.php:64
+msgid "No size."
+msgstr "Žádná velikost"
+
 #: ../actions/twitapistatuses.php:595 actions/twitapifavorites.php:136
-#: actions/twitapistatuses.php:520
+#: actions/twitapistatuses.php:520 actions/twitapifavorites.php:112
+#: actions/twitapistatuses.php:446
 msgid "No status found with that ID."
 msgstr ""
 
 #: ../actions/twitapistatuses.php:555 actions/twitapistatuses.php:478
+#: actions/twitapistatuses.php:418
 msgid "No status with that ID found."
 msgstr ""
 
+#: ../actions/openidsettings.php:135 actions/openidsettings.php:144
+#: actions/openidsettings.php:222
+msgid "No such OpenID."
+msgstr "Žádné takové OpenID"
+
+#: ../actions/doc.php:29 actions/doc.php:29 actions/doc.php:64
+msgid "No such document."
+msgstr "Žádný takový dokument."
+
+#: ../actions/shownotice.php:32 ../actions/shownotice.php:83
+#: ../lib/deleteaction.php:30 actions/shownotice.php:32
+#: actions/shownotice.php:83 lib/deleteaction.php:30 actions/shownotice.php:87
+#: lib/deleteaction.php:51
+msgid "No such notice."
+msgstr "Žádné takové oznámení."
+
+#: ../actions/recoverpassword.php:56 actions/recoverpassword.php:56
+#: actions/recoverpassword.php:62
+msgid "No such recovery code."
+msgstr "Žádný takový obnovující kód."
+
+#: ../actions/postnotice.php:56 actions/postnotice.php:57
+#: actions/postnotice.php:60
+msgid "No such subscription"
+msgstr "Žádné takové odebírání"
+
+#: ../actions/all.php:34 ../actions/allrss.php:35
+#: ../actions/avatarbynickname.php:43 ../actions/foaf.php:40
+#: ../actions/remotesubscribe.php:84 ../actions/remotesubscribe.php:91
+#: ../actions/replies.php:57 ../actions/repliesrss.php:35
+#: ../actions/showstream.php:110 ../actions/userbyid.php:36
+#: ../actions/userrss.php:35 ../actions/xrds.php:35 ../lib/gallery.php:57
+#: ../lib/subs.php:33 ../lib/subs.php:82 actions/all.php:34
+#: actions/allrss.php:35 actions/avatarbynickname.php:43
+#: actions/favoritesrss.php:35 actions/foaf.php:40 actions/ical.php:31
+#: actions/remotesubscribe.php:93 actions/remotesubscribe.php:100
+#: actions/replies.php:57 actions/repliesrss.php:35
+#: actions/showfavorites.php:34 actions/showstream.php:110
+#: actions/userbyid.php:36 actions/userrss.php:35 actions/xrds.php:35
+#: classes/Command.php:120 classes/Command.php:162 classes/Command.php:203
+#: classes/Command.php:237 lib/gallery.php:62 lib/mailbox.php:36
+#: lib/subs.php:33 lib/subs.php:95 actions/all.php:53 actions/allrss.php:66
+#: actions/avatarbynickname.php:75 actions/favoritesrss.php:64
+#: actions/foaf.php:41 actions/remotesubscribe.php:123
+#: actions/remotesubscribe.php:130 actions/replies.php:73
+#: actions/repliesrss.php:38 actions/showfavorites.php:105
+#: actions/showstream.php:100 actions/userbyid.php:74
+#: actions/usergroups.php:92 actions/userrss.php:38 actions/xrds.php:73
+#: classes/Command.php:140 classes/Command.php:185 classes/Command.php:234
+#: classes/Command.php:271 lib/galleryaction.php:60 lib/mailbox.php:82
+#: lib/subs.php:34 lib/subs.php:109
+msgid "No such user."
+msgstr "Žádný takový uživatel."
+
 #: ../actions/recoverpassword.php:211 actions/recoverpassword.php:217
+#: actions/recoverpassword.php:251
 msgid "No user with that email address or username."
 msgstr ""
 
+#: ../lib/gallery.php:80 lib/gallery.php:85
+msgid "Nobody to show!"
+msgstr "Nikdo k zobrazení!"
+
+#: ../actions/recoverpassword.php:60 actions/recoverpassword.php:60
+#: actions/recoverpassword.php:66
+msgid "Not a recovery code."
+msgstr "Není obnovujícím kódem"
+
 #: ../scripts/maildaemon.php:50 scripts/maildaemon.php:50
+#: scripts/maildaemon.php:53
 msgid "Not a registered user."
 msgstr ""
 
 #: ../lib/twitterapi.php:226 ../lib/twitterapi.php:247
 #: ../lib/twitterapi.php:332 lib/twitterapi.php:391 lib/twitterapi.php:418
-#: lib/twitterapi.php:502
+#: lib/twitterapi.php:502 lib/twitterapi.php:448 lib/twitterapi.php:476
+#: lib/twitterapi.php:566
 msgid "Not a supported data format."
 msgstr ""
 
+#: ../actions/imsettings.php:167 actions/imsettings.php:175
+#: actions/imsettings.php:290
+msgid "Not a valid Jabber ID"
+msgstr "Není platným Jabber ID"
+
+#: ../lib/openid.php:131 lib/openid.php:131 lib/openid.php:140
+msgid "Not a valid OpenID."
+msgstr "Není platným OpenID."
+
 #: ../actions/emailsettings.php:185 actions/emailsettings.php:203
+#: actions/emailsettings.php:315
 msgid "Not a valid email address"
 msgstr ""
 
+#: ../actions/register.php:63 actions/register.php:70 actions/register.php:152
+msgid "Not a valid email address."
+msgstr "Není platnou mailovou adresou."
+
+#: ../actions/profilesettings.php:91 ../actions/register.php:71
+#: actions/profilesettings.php:206 actions/register.php:78
+#: actions/editgroup.php:186 actions/newgroup.php:137
+#: actions/profilesettings.php:195 actions/register.php:161
+msgid "Not a valid nickname."
+msgstr "Není platnou přezdívkou."
+
+#: ../actions/remotesubscribe.php:120 actions/remotesubscribe.php:129
+#: actions/remotesubscribe.php:159
+msgid "Not a valid profile URL (incorrect services)."
+msgstr "Neplatný adresa profilu (nesprává služba)"
+
+#: ../actions/remotesubscribe.php:113 actions/remotesubscribe.php:122
+#: actions/remotesubscribe.php:152
+msgid "Not a valid profile URL (no XRDS defined)."
+msgstr "Není platnou adresou profulu (XRDS nedefinováno)."
+
+#: ../actions/remotesubscribe.php:104 actions/remotesubscribe.php:113
+#: actions/remotesubscribe.php:143
+msgid "Not a valid profile URL (no YADIS document)."
+msgstr "Není platnou adresou profilu (není YADIS dokumentem)."
+
+#: ../actions/avatar.php:95 actions/profilesettings.php:332
+#: lib/imagefile.php:87
+msgid "Not an image or corrupt file."
+msgstr "Není obrázkem, nebo jde o poškozený soubor."
+
+#: ../actions/finishremotesubscribe.php:51
+#: actions/finishremotesubscribe.php:53 actions/finishremotesubscribe.php:54
+msgid "Not authorized."
+msgstr "Neautorizován."
+
+#: ../actions/finishremotesubscribe.php:38
+#: actions/finishremotesubscribe.php:38 actions/finishremotesubscribe.php:40
+msgid "Not expecting this response!"
+msgstr "Nečekaná odpověď."
+
 #: ../actions/twitapistatuses.php:422 actions/twitapistatuses.php:361
+#: actions/twitapistatuses.php:309
 msgid "Not found"
 msgstr ""
 
+#: ../actions/finishaddopenid.php:29 ../actions/logout.php:33
+#: ../actions/newnotice.php:29 ../actions/subscribe.php:28
+#: ../actions/unsubscribe.php:25 ../lib/deleteaction.php:38
+#: ../lib/settingsaction.php:27 actions/disfavor.php:29 actions/favor.php:30
+#: actions/finishaddopenid.php:29 actions/logout.php:33
+#: actions/newmessage.php:28 actions/newnotice.php:29 actions/subscribe.php:28
+#: actions/unsubscribe.php:25 lib/deleteaction.php:38
+#: lib/settingsaction.php:27 actions/block.php:59 actions/disfavor.php:61
+#: actions/favor.php:64 actions/finishaddopenid.php:67 actions/logout.php:71
+#: actions/newmessage.php:83 actions/newnotice.php:90 actions/nudge.php:63
+#: actions/subedit.php:31 actions/subscribe.php:30 actions/unblock.php:60
+#: actions/unsubscribe.php:27 lib/deleteaction.php:66
+#: lib/settingsaction.php:72
+msgid "Not logged in."
+msgstr "Nepřihlášen"
+
+#: ../lib/subs.php:91 lib/subs.php:104 lib/subs.php:122
+msgid "Not subscribed!."
+msgstr "Nepřihlášen!"
+
 #: ../actions/opensearch.php:35 actions/opensearch.php:35
+#: actions/opensearch.php:67
 msgid "Notice Search"
 msgstr ""
 
+#: ../actions/showstream.php:82 actions/showstream.php:82
+#: actions/showstream.php:180 actions/showstream.php:187
+#: actions/showstream.php:192
+#, fuzzy, php-format
+msgid "Notice feed for %s"
+msgstr ""
+"#-#-#-#-#  laconica.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+"Feed sdělení pro %s\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/shownotice.php:39 actions/shownotice.php:39
+#: actions/shownotice.php:94
+msgid "Notice has no profile"
+msgstr "Sdělení nemá profil"
+
+#: ../actions/showstream.php:316 actions/showstream.php:331
+#: actions/showstream.php:504 lib/facebookaction.php:477 lib/mailbox.php:116
+#: lib/noticelist.php:87
+msgid "Notices"
+msgstr "Sdělení"
+
 #: ../actions/tag.php:35 ../actions/tag.php:81 actions/tag.php:35
-#: actions/tag.php:81
+#: actions/tag.php:81 actions/tag.php:41
 #, php-format
 msgid "Notices tagged with %s"
 msgstr ""
 
-#: ../actions/invite.php:135 actions/invite.php:143
+#: ../actions/password.php:39 actions/profilesettings.php:178
+#: actions/passwordsettings.php:97
+msgid "Old password"
+msgstr "Staré heslo"
+
+#: ../lib/settingsaction.php:96 ../lib/util.php:314 lib/settingsaction.php:90
+#: lib/util.php:330 lib/accountsettingsaction.php:116 lib/action.php:341
+#: lib/logingroupnav.php:81
+msgid "OpenID"
+msgstr "OpenID"
+
+#: ../actions/finishopenidlogin.php:61 actions/finishopenidlogin.php:66
+#: actions/finishopenidlogin.php:73
+msgid "OpenID Account Setup"
+msgstr "Nastavení OpenID účtu"
+
+#: ../lib/openid.php:180 lib/openid.php:180 lib/openid.php:266
+msgid "OpenID Auto-Submit"
+msgstr "Přihlásit automaticky pomocí OpenID"
+
+#: ../actions/finishaddopenid.php:99 ../actions/finishopenidlogin.php:140
+#: ../actions/openidlogin.php:60 actions/finishaddopenid.php:99
+#: actions/finishopenidlogin.php:146 actions/openidlogin.php:68
+#: actions/finishaddopenid.php:170 actions/openidlogin.php:80
+msgid "OpenID Login"
+msgstr "OpenID přihlášení"
+
+#: ../actions/openidlogin.php:65 ../actions/openidsettings.php:49
+#: actions/openidlogin.php:74 actions/openidsettings.php:50
+#: actions/openidlogin.php:102 actions/openidsettings.php:101
+msgid "OpenID URL"
+msgstr "OpenID adresa"
+
+#: ../actions/finishaddopenid.php:42 ../actions/finishopenidlogin.php:103
+#: actions/finishaddopenid.php:42 actions/finishopenidlogin.php:109
+#: actions/finishaddopenid.php:88 actions/finishopenidlogin.php:130
+msgid "OpenID authentication cancelled."
+msgstr "Přihlašovaní pomocí OpenID zrušeno"
+
+#: ../actions/finishaddopenid.php:46 ../actions/finishopenidlogin.php:107
+#: actions/finishaddopenid.php:46 actions/finishopenidlogin.php:113
+#: actions/finishaddopenid.php:92 actions/finishopenidlogin.php:134
+#, php-format
+msgid "OpenID authentication failed: %s"
+msgstr "Přihlašovaní pomocí OpenID selhalo: %s"
+
+#: ../lib/openid.php:133 lib/openid.php:133 lib/openid.php:142
+#, php-format
+msgid "OpenID failure: %s"
+msgstr "OpenID selhalo: %s"
+
+#: ../actions/openidsettings.php:144 actions/openidsettings.php:153
+#: actions/openidsettings.php:231
+msgid "OpenID removed."
+msgstr "OpenID odstraněno"
+
+#: ../actions/openidsettings.php:37 actions/openidsettings.php:37
+#: actions/openidsettings.php:59
+msgid "OpenID settings"
+msgstr "Nastavení OpenID"
+
+#: ../actions/invite.php:135 actions/invite.php:143 actions/invite.php:180
 msgid "Optionally add a personal message to the invitation."
 msgstr ""
 
+#: ../actions/avatar.php:84 actions/profilesettings.php:321
+#: lib/imagefile.php:75
+msgid "Partial upload."
+msgstr "Částečné náhrání."
+
+#: ../actions/finishopenidlogin.php:90 ../actions/login.php:102
+#: ../actions/register.php:153 ../lib/settingsaction.php:93
+#: actions/finishopenidlogin.php:96 actions/login.php:102
+#: actions/register.php:167 actions/finishopenidlogin.php:118
+#: actions/login.php:231 actions/register.php:372
+#: lib/accountsettingsaction.php:110 lib/facebookaction.php:311
+msgid "Password"
+msgstr "Heslo"
+
+#: ../actions/recoverpassword.php:288 actions/recoverpassword.php:301
+#: actions/recoverpassword.php:335
+msgid "Password and confirmation do not match."
+msgstr "Heslo a potvrzení nesouhlasí"
+
+#: ../actions/recoverpassword.php:284 actions/recoverpassword.php:297
+#: actions/recoverpassword.php:331
+msgid "Password must be 6 chars or more."
+msgstr "Heslo musí být alespoň 6 znaků dlouhé"
+
+#: ../actions/recoverpassword.php:261 ../actions/recoverpassword.php:263
+#: actions/recoverpassword.php:267 actions/recoverpassword.php:269
+#: actions/recoverpassword.php:199 actions/recoverpassword.php:301
+msgid "Password recovery requested"
+msgstr "Žádost o obnovu hesla"
+
+#: ../actions/password.php:89 ../actions/recoverpassword.php:313
+#: actions/profilesettings.php:408 actions/recoverpassword.php:326
+#: actions/passwordsettings.php:173 actions/recoverpassword.php:200
+msgid "Password saved."
+msgstr "Heslo uloženo"
+
+#: ../actions/password.php:61 ../actions/register.php:88
+#: actions/profilesettings.php:380 actions/register.php:98
+#: actions/passwordsettings.php:145 actions/register.php:183
+msgid "Passwords don't match."
+msgstr "Hesla nesouhlasí"
+
 #: ../lib/searchaction.php:100 lib/searchaction.php:100
+#: lib/searchgroupnav.php:80
 msgid "People"
 msgstr ""
 
 #: ../actions/opensearch.php:33 actions/opensearch.php:33
+#: actions/opensearch.php:64
 msgid "People Search"
 msgstr ""
 
-#: ../actions/invite.php:133 actions/invite.php:141
+#: ../actions/peoplesearch.php:33 actions/peoplesearch.php:33
+#: actions/peoplesearch.php:58
+msgid "People search"
+msgstr "Hledání lidí"
+
+#: ../lib/stream.php:50 lib/personal.php:50 lib/personalgroupnav.php:98
+msgid "Personal"
+msgstr "Osobní"
+
+#: ../actions/invite.php:133 actions/invite.php:141 actions/invite.php:178
 msgid "Personal message"
 msgstr ""
 
@@ -1995,15 +1737,94 @@ msgstr ""
 msgid "Phone number, no punctuation or spaces, with area code"
 msgstr ""
 
+#: ../actions/userauthorization.php:78
+msgid ""
+"Please check these details to make sure that you want to subscribe to this "
+"user's notices. If you didn't just ask to subscribe to someone's notices, "
+"click \"Cancel\"."
+msgstr ""
+"Prosím zkontrolujte tyto detailu, a ujistěte se že opravdu chcete odebírat "
+"sdělení tohoto uživatele. Pokud ne, ask to subscribe to somone's notices, "
+"klikněte na \"Zrušit\""
+
+#: ../actions/imsettings.php:73 actions/imsettings.php:74
+#: actions/imsettings.php:142
+msgid "Post a notice when my Jabber/GTalk status changes."
+msgstr "Poslat oznámení, když se změní můj Jabber/Gtalk status."
+
+#: ../actions/emailsettings.php:85 ../actions/imsettings.php:67
+#: ../actions/smssettings.php:94 actions/emailsettings.php:86
+#: actions/imsettings.php:68 actions/smssettings.php:94
+#: actions/twittersettings.php:70 actions/emailsettings.php:147
+#: actions/imsettings.php:133 actions/smssettings.php:157
+#: actions/twittersettings.php:134
+msgid "Preferences"
+msgstr "Nastavení"
+
+#: ../actions/emailsettings.php:162 ../actions/imsettings.php:144
+#: ../actions/smssettings.php:163 actions/emailsettings.php:180
+#: actions/imsettings.php:152 actions/smssettings.php:171
+#: actions/emailsettings.php:286 actions/imsettings.php:258
+#: actions/othersettings.php:168 actions/smssettings.php:272
+msgid "Preferences saved."
+msgstr "Nastavení uloženo"
+
 #: ../actions/profilesettings.php:57 actions/profilesettings.php:90
+#: actions/profilesettings.php:129
 msgid "Preferred language"
 msgstr ""
 
+#: ../lib/util.php:328 lib/util.php:344 lib/action.php:572
+msgid "Privacy"
+msgstr "Soukromí"
+
+#: ../classes/Notice.php:95 ../classes/Notice.php:106 classes/Notice.php:109
+#: classes/Notice.php:119 classes/Notice.php:145 classes/Notice.php:155
+msgid "Problem saving notice."
+msgstr "Problém při ukládání sdělení"
+
+#: ../lib/settingsaction.php:84 ../lib/stream.php:60 lib/personal.php:60
+#: lib/settingsaction.php:84 lib/accountsettingsaction.php:104
+#: lib/personalgroupnav.php:108
+msgid "Profile"
+msgstr "Profil"
+
+#: ../actions/remotesubscribe.php:73 actions/remotesubscribe.php:82
+#: actions/remotesubscribe.php:109
+msgid "Profile URL"
+msgstr "Adresa Profilu"
+
+#: ../actions/profilesettings.php:34 actions/profilesettings.php:32
+#: actions/profilesettings.php:58
+msgid "Profile settings"
+msgstr "Nastavené Profilu"
+
+#: ../actions/postnotice.php:51 ../actions/updateprofile.php:52
+#: actions/postnotice.php:52 actions/updateprofile.php:53
+#: actions/postnotice.php:55 actions/updateprofile.php:56
+msgid "Profile unknown"
+msgstr "Neznámý profil"
+
+#: ../actions/public.php:54 actions/public.php:54 actions/public.php:124
+#, fuzzy
+msgid "Public Stream Feed"
+msgstr ""
+"#-#-#-#-#  laconica.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+"Veřejný Stream Feed\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/public.php:33 actions/public.php:33 actions/public.php:109
+#: lib/publicgroupnav.php:77
+msgid "Public timeline"
+msgstr "Veřejné zprávy"
+
 #: ../actions/imsettings.php:79 actions/imsettings.php:80
+#: actions/imsettings.php:153
 msgid "Publish a MicroID for my Jabber/GTalk address."
 msgstr ""
 
 #: ../actions/emailsettings.php:94 actions/emailsettings.php:101
+#: actions/emailsettings.php:178
 msgid "Publish a MicroID for my email address."
 msgstr ""
 
@@ -2012,46 +1833,208 @@ msgstr ""
 msgid "Recent Tags"
 msgstr ""
 
+#: ../actions/recoverpassword.php:166 actions/recoverpassword.php:171
+#: actions/recoverpassword.php:190
+msgid "Recover"
+msgstr "Obnovit"
+
+#: ../actions/recoverpassword.php:156 actions/recoverpassword.php:161
+#: actions/recoverpassword.php:198
+msgid "Recover password"
+msgstr "Obnovit"
+
+#: ../actions/recoverpassword.php:67 actions/recoverpassword.php:67
+#: actions/recoverpassword.php:73
+msgid "Recovery code for unknown user."
+msgstr "Obnovyt kód pro neznámého uživatele"
+
+#: ../actions/register.php:142 ../actions/register.php:193 ../lib/util.php:312
+#: actions/register.php:152 actions/register.php:207 lib/util.php:328
+#: actions/register.php:69 actions/register.php:436 lib/action.php:338
+#: lib/facebookaction.php:277 lib/logingroupnav.php:78
+msgid "Register"
+msgstr "Registrovat"
+
 #: ../actions/register.php:28 actions/register.php:28
+#: actions/finishopenidlogin.php:196 actions/register.php:90
 msgid "Registration not allowed."
 msgstr ""
 
 #: ../actions/register.php:200 actions/register.php:214
+#: actions/register.php:67
 msgid "Registration successful"
 msgstr ""
 
+#: ../actions/userauthorization.php:120 actions/userauthorization.php:127
+#: actions/userauthorization.php:144
+msgid "Reject"
+msgstr "Odmítnout"
+
+#: ../actions/login.php:103 ../actions/register.php:176 actions/login.php:103
+#: actions/register.php:190 actions/login.php:234 actions/openidlogin.php:107
+#: actions/register.php:414
+msgid "Remember me"
+msgstr "Zapamatuj si mě"
+
+#: ../actions/updateprofile.php:70 actions/updateprofile.php:71
+#: actions/updateprofile.php:74
+msgid "Remote profile with no matching profile"
+msgstr "Vzdálený profil s nesouhlasícím profilem"
+
+#: ../actions/remotesubscribe.php:65 actions/remotesubscribe.php:73
+#: actions/remotesubscribe.php:88
+msgid "Remote subscribe"
+msgstr "Vzdálený odběr"
+
+#: ../actions/emailsettings.php:47 ../actions/emailsettings.php:75
+#: ../actions/imsettings.php:48 ../actions/openidsettings.php:106
+#: ../actions/smssettings.php:50 ../actions/smssettings.php:84
+#: actions/emailsettings.php:48 actions/emailsettings.php:76
+#: actions/imsettings.php:49 actions/openidsettings.php:108
+#: actions/smssettings.php:50 actions/smssettings.php:84
+#: actions/twittersettings.php:59 actions/emailsettings.php:101
+#: actions/emailsettings.php:134 actions/imsettings.php:102
+#: actions/openidsettings.php:166 actions/smssettings.php:103
+#: actions/smssettings.php:146 actions/twittersettings.php:115
+msgid "Remove"
+msgstr "Odstranit"
+
+#: ../actions/openidsettings.php:68 actions/openidsettings.php:69
+#: actions/openidsettings.php:123
+msgid "Remove OpenID"
+msgstr "Odstranit OpenID"
+
+#: ../actions/openidsettings.php:73
+msgid ""
+"Removing your only OpenID would make it impossible to log in! If you need to "
+"remove it, add another OpenID first."
+msgstr ""
+"Odstranění jediného OpenID, bude mít za následek nemožnost dalšího "
+"přihlášení, nejprve přidejte jiné OpenID"
+
+#: ../lib/stream.php:55 lib/personal.php:55 lib/personalgroupnav.php:103
+msgid "Replies"
+msgstr "Odpovědi"
+
+#: ../actions/replies.php:47 ../actions/repliesrss.php:76 ../lib/stream.php:56
+#: actions/replies.php:47 actions/repliesrss.php:62 lib/personal.php:56
+#: actions/replies.php:116 actions/repliesrss.php:67
+#: lib/personalgroupnav.php:104
+#, php-format
+msgid "Replies to %s"
+msgstr "Odpovědi na %s"
+
+#: ../actions/recoverpassword.php:183 actions/recoverpassword.php:189
+#: actions/recoverpassword.php:223
+msgid "Reset"
+msgstr "Reset"
+
+#: ../actions/recoverpassword.php:173 actions/recoverpassword.php:178
+#: actions/recoverpassword.php:197
+msgid "Reset password"
+msgstr "Resetovat heslo"
+
 #: ../lib/settingsaction.php:99 lib/settingsaction.php:93
+#: actions/subscriptions.php:123 lib/connectsettingsaction.php:107
 msgid "SMS"
 msgstr ""
 
 #: ../actions/smssettings.php:67 actions/smssettings.php:67
+#: actions/smssettings.php:126
 msgid "SMS Phone number"
 msgstr ""
 
 #: ../actions/smssettings.php:33 actions/smssettings.php:33
+#: actions/smssettings.php:58
 msgid "SMS Settings"
 msgstr ""
 
-#: ../lib/mail.php:219 lib/mail.php:225
+#: ../lib/mail.php:219 lib/mail.php:225 lib/mail.php:437
 msgid "SMS confirmation"
 msgstr ""
 
+#: ../actions/recoverpassword.php:182 actions/recoverpassword.php:188
+#: actions/recoverpassword.php:222
+msgid "Same as password above"
+msgstr "Stejné jako heslo výše"
+
 #: ../actions/register.php:156 actions/register.php:170
+#: actions/register.php:377
 msgid "Same as password above. Required."
 msgstr ""
 
+#: ../actions/emailsettings.php:97 ../actions/imsettings.php:81
+#: ../actions/profilesettings.php:67 ../actions/smssettings.php:100
+#: actions/emailsettings.php:104 actions/imsettings.php:82
+#: actions/profilesettings.php:101 actions/smssettings.php:100
+#: actions/twittersettings.php:83 actions/emailsettings.php:182
+#: actions/facebooksettings.php:114 actions/imsettings.php:157
+#: actions/othersettings.php:117 actions/profilesettings.php:150
+#: actions/smssettings.php:169 actions/subscriptions.php:124
+#: actions/tagother.php:152 actions/twittersettings.php:161
+#: lib/groupeditform.php:171
+msgid "Save"
+msgstr "Uložit"
+
+#: ../lib/searchaction.php:84 ../lib/util.php:300 lib/searchaction.php:84
+#: lib/util.php:316 lib/action.php:325
+msgid "Search"
+msgstr "Hledat"
+
+#: ../actions/noticesearch.php:80 actions/noticesearch.php:85
+#: actions/noticesearch.php:127
+#, fuzzy
+msgid "Search Stream Feed"
+msgstr ""
+"#-#-#-#-#  laconica.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+"Hledat ve Stream Feed\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: ../actions/noticesearch.php:30 actions/noticesearch.php:30
+#: actions/noticesearch.php:57
+#, php-format
+msgid ""
+"Search for notices on %%site.name%% by their contents. Separate search terms "
+"by spaces; they must be 3 characters or more."
+msgstr ""
+"Hledej sdělení na %%site.name%% podle obsahu. Minimální délka musí být "
+"alespoň 3 znaky"
+
+#: ../actions/peoplesearch.php:28
+#, php-format
+msgid ""
+"Search for people on %%site.name%% by their name, location, or interests. "
+"Separate the terms by spaces; they must be 3 characters or more."
+msgstr ""
+"Hledej uživatele na %%site.name%% podle jejich jména, místa, nebo zájmů. "
+"Minimální délka musí být alespoň 3 znaky"
+
 #: ../actions/smssettings.php:296 actions/smssettings.php:304
+#: actions/smssettings.php:457
 msgid "Select a carrier"
 msgstr ""
 
+#: ../actions/invite.php:137 ../lib/util.php:1172 actions/invite.php:145
+#: lib/util.php:1306 lib/util.php:1731 actions/invite.php:182
+#: lib/messageform.php:167 lib/noticeform.php:177
+msgid "Send"
+msgstr "Odeslat"
+
 #: ../actions/emailsettings.php:73 ../actions/smssettings.php:82
 #: actions/emailsettings.php:74 actions/smssettings.php:82
+#: actions/emailsettings.php:132 actions/smssettings.php:145
 msgid "Send email to this address to post new notices."
 msgstr ""
 
 #: ../actions/emailsettings.php:88 actions/emailsettings.php:89
+#: actions/emailsettings.php:152
 msgid "Send me notices of new subscriptions through email."
 msgstr ""
+
+#: ../actions/imsettings.php:70 actions/imsettings.php:71
+#: actions/imsettings.php:137
+msgid "Send me notices through Jabber/GTalk."
+msgstr "Zasílat oznámení pomocí Jabber/GTalk"
 
 #: ../actions/smssettings.php:97 actions/smssettings.php:97
 msgid ""
@@ -2063,20 +2046,97 @@ msgstr ""
 msgid "Send me replies through Jabber/GTalk from people I'm not subscribed to."
 msgstr ""
 
+#: ../lib/util.php:304 lib/util.php:320 lib/facebookaction.php:215
+msgid "Settings"
+msgstr "Nastavení"
+
+#: ../actions/profilesettings.php:192 actions/profilesettings.php:307
+#: actions/profilesettings.php:319
+msgid "Settings saved."
+msgstr "Nastavení uloženo"
+
 #: ../actions/tag.php:60 actions/tag.php:60
 msgid "Showing most popular tags from the last week"
 msgstr ""
 
+#: ../actions/finishaddopenid.php:66 actions/finishaddopenid.php:66
+#: actions/finishaddopenid.php:114
+msgid "Someone else already has this OpenID."
+msgstr "Někdo jiný již má toto OpenID"
+
+#: ../actions/finishopenidlogin.php:42 ../actions/openidsettings.php:126
+#: actions/finishopenidlogin.php:47 actions/openidsettings.php:135
+#: actions/finishopenidlogin.php:52 actions/openidsettings.php:202
+msgid "Something weird happened."
+msgstr "Něco zvláštního se stalo"
+
 #: ../scripts/maildaemon.php:58 scripts/maildaemon.php:58
+#: scripts/maildaemon.php:61
 msgid "Sorry, no incoming email allowed."
 msgstr ""
 
 #: ../scripts/maildaemon.php:54 scripts/maildaemon.php:54
+#: scripts/maildaemon.php:57
 msgid "Sorry, that is not your incoming email address."
 msgstr ""
 
+#: ../lib/util.php:330 lib/util.php:346 lib/action.php:574
+msgid "Source"
+msgstr "Zdroj"
+
+#: ../actions/showstream.php:296 actions/showstream.php:311
+#: actions/showstream.php:476
+msgid "Statistics"
+msgstr "Statistiky"
+
+#: ../actions/finishopenidlogin.php:182 ../actions/finishopenidlogin.php:246
+#: actions/finishopenidlogin.php:188 actions/finishopenidlogin.php:252
+#: actions/finishopenidlogin.php:222 actions/finishopenidlogin.php:290
+msgid "Stored OpenID not found."
+msgstr "Uložené OpenID nebylo nalezeno."
+
+#: ../actions/remotesubscribe.php:75 ../actions/showstream.php:188
+#: ../actions/showstream.php:197 actions/remotesubscribe.php:84
+#: actions/showstream.php:197 actions/showstream.php:206
+#: actions/remotesubscribe.php:113 actions/showstream.php:376
+#: lib/subscribeform.php:139
+msgid "Subscribe"
+msgstr "Odebírat"
+
+#: ../actions/showstream.php:313 ../actions/subscribers.php:27
+#: actions/showstream.php:328 actions/subscribers.php:27
+#: actions/showstream.php:436 actions/showstream.php:498
+#: lib/subgroupnav.php:88
+msgid "Subscribers"
+msgstr "Odběratelé"
+
+#: ../actions/userauthorization.php:310 actions/userauthorization.php:322
+#: actions/userauthorization.php:338
+msgid "Subscription authorized"
+msgstr "Odběr autorizován"
+
+#: ../actions/userauthorization.php:320 actions/userauthorization.php:332
+#: actions/userauthorization.php:349
+msgid "Subscription rejected"
+msgstr "Odběr odmítnut"
+
+#: ../actions/showstream.php:230 ../actions/showstream.php:307
+#: ../actions/subscriptions.php:27 actions/showstream.php:240
+#: actions/showstream.php:322 actions/subscriptions.php:27
+#: actions/showstream.php:407 actions/showstream.php:489
+#: lib/subgroupnav.php:80
+msgid "Subscriptions"
+msgstr "Odběry"
+
+#: ../actions/avatar.php:87 actions/profilesettings.php:324
+#: lib/imagefile.php:78
+msgid "System error uploading file."
+msgstr "Chyba systému při nahrávání souboru"
+
 #: ../actions/tag.php:41 ../lib/util.php:301 actions/tag.php:41
-#: lib/util.php:317
+#: lib/util.php:317 actions/profilesettings.php:122 actions/showstream.php:297
+#: actions/tagother.php:147 actions/tagother.php:207 lib/profilelist.php:162
+#: lib/profilelist.php:164
 msgid "Tags"
 msgstr ""
 
@@ -2084,113 +2144,405 @@ msgstr ""
 msgid "Text"
 msgstr ""
 
+#: ../actions/noticesearch.php:34 actions/noticesearch.php:34
+#: actions/noticesearch.php:67
+msgid "Text search"
+msgstr "Vyhledávání textu"
+
+#: ../actions/openidsettings.php:140 actions/openidsettings.php:149
+#: actions/openidsettings.php:227
+msgid "That OpenID does not belong to you."
+msgstr "Toto OpenID vám nepatří"
+
+#: ../actions/confirmaddress.php:52 actions/confirmaddress.php:52
+#: actions/confirmaddress.php:94
+msgid "That address has already been confirmed."
+msgstr "Adresa již byla potvrzena"
+
+#: ../actions/confirmaddress.php:43 actions/confirmaddress.php:43
+#: actions/confirmaddress.php:85
+msgid "That confirmation code is not for you!"
+msgstr "Tento potvrzující kód vám nepatří!"
+
 #: ../actions/emailsettings.php:191 actions/emailsettings.php:209
 msgid "That email address already belongs to another user."
 msgstr ""
 
+#: ../actions/avatar.php:80 actions/profilesettings.php:317
+#: lib/imagefile.php:71
+msgid "That file is too big."
+msgstr "Soubor je příliš velký"
+
+#: ../actions/imsettings.php:170 actions/imsettings.php:178
+#: actions/imsettings.php:293
+msgid "That is already your Jabber ID."
+msgstr "Toto je již vaše Jabber"
+
 #: ../actions/emailsettings.php:188 actions/emailsettings.php:206
+#: actions/emailsettings.php:318
 msgid "That is already your email address."
 msgstr ""
 
 #: ../actions/smssettings.php:188 actions/smssettings.php:196
+#: actions/smssettings.php:306
 msgid "That is already your phone number."
 msgstr ""
 
+#: ../actions/imsettings.php:233 actions/imsettings.php:241
+#: actions/imsettings.php:381
+msgid "That is not your Jabber ID."
+msgstr "Toto není váš Jabber"
+
 #: ../actions/emailsettings.php:249 actions/emailsettings.php:267
+#: actions/emailsettings.php:397
 msgid "That is not your email address."
 msgstr ""
 
 #: ../actions/smssettings.php:257 actions/smssettings.php:265
+#: actions/smssettings.php:393
 msgid "That is not your phone number."
 msgstr ""
 
+#: ../actions/emailsettings.php:226 ../actions/imsettings.php:210
+#: actions/emailsettings.php:244 actions/imsettings.php:218
+#: actions/emailsettings.php:367 actions/imsettings.php:349
+msgid "That is the wrong IM address."
+msgstr "Toto je špatná IM adresa"
+
 #: ../actions/smssettings.php:233 actions/smssettings.php:241
+#: actions/smssettings.php:362
 msgid "That is the wrong confirmation number."
 msgstr ""
 
 #: ../actions/smssettings.php:191 actions/smssettings.php:199
+#: actions/smssettings.php:309
 msgid "That phone number already belongs to another user."
 msgstr ""
 
+#: ../actions/newnotice.php:49 ../actions/twitapistatuses.php:408
+#: actions/newnotice.php:49 actions/twitapistatuses.php:330
+#: actions/facebookhome.php:243 actions/twitapistatuses.php:276
+msgid "That's too long. Max notice size is 140 chars."
+msgstr "Je to příliš dlouhé. Maximální sdělení délka je 140 znaků"
+
 #: ../actions/twitapiaccount.php:74 actions/twitapiaccount.php:72
+#: actions/twitapiaccount.php:62
 msgid "That's too long. Max notice size is 255 chars."
 msgstr ""
 
-#: ../actions/invite.php:89 actions/invite.php:96
+#: ../actions/confirmaddress.php:92 actions/confirmaddress.php:92
+#, php-format
+msgid "The address \"%s\" has been confirmed for your account."
+msgstr "Adresa \"%s\" byla potvrzena pro váš účet"
+
+#: ../actions/emailsettings.php:264 ../actions/imsettings.php:250
+#: ../actions/smssettings.php:274 actions/emailsettings.php:282
+#: actions/imsettings.php:258 actions/smssettings.php:282
+#: actions/emailsettings.php:416 actions/imsettings.php:402
+#: actions/smssettings.php:413
+msgid "The address was removed."
+msgstr "Adresa byla odstraněna"
+
+#: ../actions/userauthorization.php:312
 msgid ""
-"These people are already users and you were automatically subscribed to "
-"them:"
+"The subscription has been authorized, but no callback URL was passed. Check "
+"with the site's instructions for details on how to authorize the "
+"subscription. Your subscription token is:"
 msgstr ""
+"Odběr byl potvrzen, ale neprošla žádná callback adresa. Zkontrolujte v "
+"nápovědě jak správně postupovat při potvrzování odběru. Váš řetězec odběru "
+"je:"
+
+#: ../actions/userauthorization.php:322
+msgid ""
+"The subscription has been rejected, but no callback URL was passed. Check "
+"with the site's instructions for details on how to fully reject the "
+"subscription."
+msgstr ""
+"Odebírání bylo zamítnuto, ale neprošla žádná callback adresa. Zkontrolujte v "
+"nápovědě jak správně postupovat při zamítání odběru"
+
+#: ../actions/subscribers.php:35 actions/subscribers.php:35
+#, php-format
+msgid "These are the people who listen to %s's notices."
+msgstr "Toto jsou lidé, kteří naslouchají %s sdělením"
+
+#: ../actions/subscribers.php:33 actions/subscribers.php:33
+msgid "These are the people who listen to your notices."
+msgstr "Toto jsou lidé, kteří naslouchají vašim sdělením "
+
+#: ../actions/subscriptions.php:35 actions/subscriptions.php:35
+#, php-format
+msgid "These are the people whose notices %s listens to."
+msgstr "Toto jsou lidé, jejiž sdělením %s naslouchá"
+
+#: ../actions/subscriptions.php:33 actions/subscriptions.php:33
+msgid "These are the people whose notices you listen to."
+msgstr "Toto jsou lidé, jejiž sdělením nasloucháte"
+
+#: ../actions/invite.php:89 actions/invite.php:96 actions/invite.php:128
+msgid ""
+"These people are already users and you were automatically subscribed to them:"
+msgstr ""
+
+#: ../actions/recoverpassword.php:88
+msgid "This confirmation code is too old. Please start again."
+msgstr "Tento potvrzující kód je příliš starý Prosím zkuste znovu"
+
+#: ../lib/openid.php:195
+msgid ""
+"This form should automatically submit itself. If not, click the submit "
+"button to go to your OpenID provider."
+msgstr ""
+"Tento formulář by se měl odeslat sám, pokud ne tak klikněte na tlašítko pro "
+"přechod k vašemu OpenID poskytovately."
+
+#: ../actions/finishopenidlogin.php:56 actions/finishopenidlogin.php:61
+#: actions/finishopenidlogin.php:67
+#, php-format
+msgid ""
+"This is the first time you've logged into %s so we must connect your OpenID "
+"to a local account. You can either create a new account, or connect with "
+"your existing account, if you have one."
+msgstr ""
+"Toto je poprvé co jste se přihlásil na %s proto musíme propojit vaše OpenID "
+"k našemu účtu. Můžete buď vytvořit nový účet, nebo propojit OpenID k vašemu "
+"již existujícímu účtu, pokud již takový máte."
 
 #: ../actions/twitapifriendships.php:108 ../actions/twitapistatuses.php:586
 #: actions/twitapifavorites.php:127 actions/twitapifriendships.php:108
-#: actions/twitapistatuses.php:511
+#: actions/twitapistatuses.php:511 actions/twitapifavorites.php:97
+#: actions/twitapifriendships.php:85 actions/twitapistatuses.php:436
 msgid "This method requires a POST or DELETE."
 msgstr ""
 
 #: ../actions/twitapiaccount.php:65 ../actions/twitapifriendships.php:44
 #: ../actions/twitapistatuses.php:381 actions/twitapiaccount.php:63
 #: actions/twitapidirect_messages.php:114 actions/twitapifriendships.php:44
-#: actions/twitapistatuses.php:303
+#: actions/twitapistatuses.php:303 actions/twitapiaccount.php:53
+#: actions/twitapidirect_messages.php:122 actions/twitapifriendships.php:32
+#: actions/twitapistatuses.php:244
 msgid "This method requires a POST."
 msgstr ""
 
+#: ../lib/util.php:164 lib/util.php:246
+msgid "This page is not available in a media type you accept"
+msgstr "Tato stránka není k dispozici v typu média která přijímáte."
+
 #: ../actions/profilesettings.php:63 actions/profilesettings.php:96
+#: actions/profilesettings.php:138
 msgid "Timezone"
 msgstr ""
 
 #: ../actions/profilesettings.php:107 actions/profilesettings.php:222
+#: actions/profilesettings.php:211
 msgid "Timezone not selected."
 msgstr ""
 
+#: ../actions/remotesubscribe.php:43
+#, php-format
+msgid ""
+"To subscribe, you can [login](%%action.login%%), or [register](%%action."
+"register%%) a new  account. If you already have an account  on a [compatible "
+"microblogging site](%%doc.openmublog%%),  enter your profile URL below."
+msgstr ""
+"Pro odebírání, se musíte [přihlásit](%%action.login%%), nebo [registrovat](%%"
+"action.register%%) nový účet. Pokud již máte účet na [kompatibilních "
+"mikroblozích](%%doc.openmublog%%), vložte níže asdresu "
+
 #: ../actions/twitapifriendships.php:163 actions/twitapifriendships.php:167
+#: actions/twitapifriendships.php:132
 msgid "Two user ids or screen_names must be supplied."
 msgstr ""
 
-#: ../index.php:57 index.php:57
+#: ../actions/profilesettings.php:48 ../actions/register.php:169
+#: actions/profilesettings.php:81 actions/register.php:183
+#: actions/profilesettings.php:109
+msgid "URL of your homepage, blog, or profile on another site"
+msgstr "Adresa vašich stránek, blogu nebo profilu na jiných stránkách."
+
+#: ../actions/remotesubscribe.php:74 actions/remotesubscribe.php:83
+#: actions/remotesubscribe.php:110
+msgid "URL of your profile on another compatible microblogging service"
+msgstr "Adresa profilu na jiných kompatibilních mikroblozích."
+
+#: ../actions/emailsettings.php:130 ../actions/imsettings.php:110
+#: ../actions/recoverpassword.php:39 ../actions/smssettings.php:135
+#: actions/emailsettings.php:144 actions/imsettings.php:118
+#: actions/recoverpassword.php:39 actions/smssettings.php:143
+#: actions/twittersettings.php:108 actions/avatarsettings.php:258
+#: actions/emailsettings.php:242 actions/grouplogo.php:317
+#: actions/imsettings.php:214 actions/recoverpassword.php:44
+#: actions/smssettings.php:236 actions/twittersettings.php:302
+msgid "Unexpected form submission."
+msgstr "Nečekaná forma submission."
+
+#: ../actions/recoverpassword.php:276 actions/recoverpassword.php:289
+#: actions/recoverpassword.php:323
+msgid "Unexpected password reset."
+msgstr "Nečekané resetování hesla."
+
+#: ../index.php:57 index.php:57 actions/recoverpassword.php:202
 msgid "Unknown action"
 msgstr ""
 
+#: ../actions/finishremotesubscribe.php:58
+#: actions/finishremotesubscribe.php:60 actions/finishremotesubscribe.php:61
+msgid "Unknown version of OMB protocol."
+msgstr "Neznámá verze OMB protokolu."
+
+#: ../lib/util.php:269 lib/util.php:285
+msgid ""
+"Unless otherwise specified, contents of this site are copyright by the "
+"contributors and available under the "
+msgstr ""
+"Pokud není uvedeno jinak, obsah těchto stránek chráněn autorským právem, "
+"patří přispěvatelů a je k dipozici pod"
+
+#: ../actions/confirmaddress.php:48 actions/confirmaddress.php:48
+#: actions/confirmaddress.php:90
+#, php-format
+msgid "Unrecognized address type %s"
+msgstr "Neznámý typ adresy %s"
+
+#: ../actions/showstream.php:209 actions/showstream.php:219
+#: lib/unsubscribeform.php:137
+msgid "Unsubscribe"
+msgstr "Odhlásit"
+
+#: ../actions/postnotice.php:44 ../actions/updateprofile.php:45
+#: actions/postnotice.php:45 actions/updateprofile.php:46
+#: actions/postnotice.php:48 actions/updateprofile.php:49
+msgid "Unsupported OMB version"
+msgstr "Nepodporovaná verze OMB."
+
+#: ../actions/avatar.php:105 actions/profilesettings.php:342
+#: lib/imagefile.php:102
+msgid "Unsupported image file format."
+msgstr "Nepodporovaný formát obrázku."
+
 #: ../lib/settingsaction.php:100 lib/settingsaction.php:94
+#: lib/connectsettingsaction.php:108
 msgid "Updates by SMS"
 msgstr ""
 
 #: ../lib/settingsaction.php:103 lib/settingsaction.php:97
+#: lib/connectsettingsaction.php:105
 msgid "Updates by instant messenger (IM)"
 msgstr ""
 
 #: ../actions/twitapistatuses.php:241 actions/twitapistatuses.php:158
+#: actions/twitapistatuses.php:129
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr ""
 
 #: ../actions/twitapistatuses.php:341 actions/twitapistatuses.php:268
+#: actions/twitapistatuses.php:202
 #, php-format
 msgid "Updates from %1$s on %2$s!"
 msgstr ""
+
+#: ../actions/avatar.php:68 actions/profilesettings.php:161
+#: actions/avatarsettings.php:162 actions/grouplogo.php:232
+msgid "Upload"
+msgstr "Upload"
+
+#: ../actions/avatar.php:27
+msgid ""
+"Upload a new \"avatar\" (user image) here. You can't edit the picture after "
+"you upload it, so make sure it's more or less square. It must be under the "
+"site license, also. Use a picture that belongs to you and that you want to "
+"share."
+msgstr ""
+"Zde nahrajte nový obrázek k vašemu profilu. Po tom co nahrajete obrázek ho "
+"již nemůžete editovat, proto se ujistěte že jde víceméně o čtverec."
 
 #: ../lib/settingsaction.php:91
 msgid "Upload a new profile image"
 msgstr ""
 
-#: ../actions/invite.php:114 actions/invite.php:121
+#: ../actions/invite.php:114 actions/invite.php:121 actions/invite.php:154
 msgid ""
-"Use this form to invite your friends and colleagues to use this "
-"service."
+"Use this form to invite your friends and colleagues to use this service."
 msgstr ""
+
+#: ../actions/register.php:159 ../actions/register.php:162
+#: actions/register.php:173 actions/register.php:176
+msgid "Used only for updates, announcements, and password recovery"
+msgstr "Použije se pouze pro aktualizace, oznámení a obnovu hesla."
+
+#: ../actions/finishremotesubscribe.php:86
+#: actions/finishremotesubscribe.php:88 actions/finishremotesubscribe.php:94
+msgid "User being listened to doesn't exist."
+msgstr "Úživatel, kterému nasloucháte neexistuje."
+
+#: ../actions/all.php:41 ../actions/avatarbynickname.php:48
+#: ../actions/foaf.php:47 ../actions/replies.php:41
+#: ../actions/showstream.php:44 ../actions/twitapiaccount.php:82
+#: ../actions/twitapistatuses.php:319 ../actions/twitapistatuses.php:685
+#: ../actions/twitapiusers.php:82 actions/all.php:41
+#: actions/avatarbynickname.php:48 actions/foaf.php:47 actions/replies.php:41
+#: actions/showfavorites.php:41 actions/showstream.php:44
+#: actions/twitapiaccount.php:80 actions/twitapifavorites.php:68
+#: actions/twitapistatuses.php:235 actions/twitapistatuses.php:609
+#: actions/twitapiusers.php:87 lib/mailbox.php:50
+#: actions/avatarbynickname.php:80 actions/foaf.php:48 actions/replies.php:80
+#: actions/showstream.php:107 actions/twitapiaccount.php:70
+#: actions/twitapifavorites.php:42 actions/twitapistatuses.php:167
+#: actions/twitapistatuses.php:503 actions/twitapiusers.php:55
+#: actions/usergroups.php:99 lib/galleryaction.php:67 lib/twitterapi.php:626
+msgid "User has no profile."
+msgstr "Uživatel nemá profil."
+
+#: ../actions/remotesubscribe.php:71 actions/remotesubscribe.php:80
+#: actions/remotesubscribe.php:105
+msgid "User nickname"
+msgstr "Přezdívka"
 
 #: ../actions/twitapiusers.php:75 actions/twitapiusers.php:80
 msgid "User not found."
 msgstr ""
 
 #: ../actions/profilesettings.php:63 actions/profilesettings.php:96
+#: actions/profilesettings.php:139
 msgid "What timezone are you normally in?"
 msgstr ""
 
+#: ../lib/util.php:1159 lib/util.php:1293 lib/noticeform.php:141
+#, php-format
+msgid "What's up, %s?"
+msgstr "Co se děje %s?"
+
+#: ../actions/profilesettings.php:54 ../actions/register.php:175
+#: actions/profilesettings.php:87 actions/register.php:189
+#: actions/profilesettings.php:119
+msgid "Where you are, like \"City, State (or Region), Country\""
+msgstr "Místo. Město, stát."
+
+#: ../actions/updateprofile.php:128 actions/updateprofile.php:129
+#: actions/updateprofile.php:132
+#, php-format
+msgid "Wrong image type for '%s'"
+msgstr "Neplatný typ obrázku pro '%s'"
+
+#: ../actions/updateprofile.php:123 actions/updateprofile.php:124
+#: actions/updateprofile.php:127
+#, php-format
+msgid "Wrong size image at '%s'"
+msgstr "Neplatná velikost obrázku '%s'"
+
 #: ../actions/deletenotice.php:63 ../actions/deletenotice.php:72
 #: actions/deletenotice.php:64 actions/deletenotice.php:79
+#: actions/block.php:148 actions/deletenotice.php:122
+#: actions/deletenotice.php:141
 msgid "Yes"
 msgstr ""
+
+#: ../actions/finishaddopenid.php:64 actions/finishaddopenid.php:64
+#: actions/finishaddopenid.php:112
+msgid "You already have this OpenID!"
+msgstr "Již máte toto OpenID!"
 
 #: ../actions/deletenotice.php:37 actions/deletenotice.php:37
 msgid ""
@@ -2198,18 +2550,74 @@ msgid ""
 "be undone."
 msgstr ""
 
-#: ../actions/invite.php:81 actions/invite.php:88
+#: ../actions/recoverpassword.php:31 actions/recoverpassword.php:31
+#: actions/recoverpassword.php:36
+msgid "You are already logged in!"
+msgstr "Již jste přihlášen"
+
+#: ../actions/invite.php:81 actions/invite.php:88 actions/invite.php:120
 msgid "You are already subscribed to these users:"
 msgstr ""
 
 #: ../actions/twitapifriendships.php:128 actions/twitapifriendships.php:128
+#: actions/twitapifriendships.php:105
 msgid "You are not friends with the specified user."
 msgstr ""
 
+#: ../actions/password.php:27
+msgid "You can change your password here. Choose a good one!"
+msgstr "Zde můžeze změnit heslo."
+
+#: ../actions/register.php:135 actions/register.php:145
+msgid "You can create a new account to start posting notices."
+msgstr "Můžete vytvožit nový účet a začít posílat oznámení."
+
 #: ../actions/smssettings.php:28 actions/smssettings.php:28
+#: actions/smssettings.php:69
 #, php-format
 msgid "You can receive SMS messages through email from %%site.name%%."
 msgstr ""
+
+#: ../actions/openidsettings.php:86
+msgid ""
+"You can remove an OpenID from your account by clicking the button marked "
+"\"Remove\"."
+msgstr ""
+"Můžete odstranit OpenID z vašeho účtu, kliknutím na tlačítko \"Odebrat\"."
+
+#: ../actions/imsettings.php:28 actions/imsettings.php:28
+#, php-format
+msgid ""
+"You can send and receive notices through Jabber/GTalk [instant messages](%%"
+"doc.im%%). Configure your address and settings below."
+msgstr ""
+"Můžete odesílat nebo přijámat sdělení pomocí Jabber/GTalk [zpráv](%%doc.im%"
+"%).Zadejte svou adresu níže."
+
+#: ../actions/profilesettings.php:27
+msgid ""
+"You can update your personal profile info here so people know more about you."
+msgstr ""
+"Zde můžete aktualizovat informace o vašem profilu, aby se lidé o vás mohli "
+"více dozvědět."
+
+#: ../actions/finishremotesubscribe.php:31 ../actions/remotesubscribe.php:31
+#: actions/finishremotesubscribe.php:31 actions/remotesubscribe.php:31
+#: actions/finishremotesubscribe.php:33 actions/finishremotesubscribe.php:85
+#: actions/finishremotesubscribe.php:101 actions/remotesubscribe.php:35
+msgid "You can use the local subscription!"
+msgstr "Můžete použít místní odebírání."
+
+#: ../actions/finishopenidlogin.php:33 ../actions/register.php:61
+#: actions/finishopenidlogin.php:38 actions/register.php:68
+#: actions/finishopenidlogin.php:43
+msgid "You can't register if you don't agree to the license."
+msgstr "Nemůžete se registrovat, pokud nesouhlasíte s licencí."
+
+#: ../actions/updateprofile.php:63 actions/updateprofile.php:64
+#: actions/updateprofile.php:67
+msgid "You did not send us that profile"
+msgstr "Neodeslal jste nám profil"
 
 #: ../lib/mail.php:147
 #, php-format
@@ -2225,28 +2633,118 @@ msgid ""
 msgstr ""
 
 #: ../actions/twitapistatuses.php:612 actions/twitapistatuses.php:537
+#: actions/twitapistatuses.php:463
 msgid "You may not delete another user's status."
 msgstr ""
 
-#: ../actions/invite.php:31 actions/invite.php:31
+#: ../actions/invite.php:31 actions/invite.php:31 actions/invite.php:39
 #, php-format
 msgid "You must be logged in to invite other users to use %s"
 msgstr ""
 
-#: ../actions/invite.php:103 actions/invite.php:110
+#: ../actions/invite.php:103 actions/invite.php:110 actions/invite.php:142
 msgid ""
 "You will be notified when your invitees accept the invitation and register "
 "on the site. Thanks for growing the community!"
 msgstr ""
+
+#: ../actions/recoverpassword.php:149
+msgid "You've been identified. Enter a  new password below. "
+msgstr "Byl jste identifikován. Zadejte nové heslo"
+
+#: ../actions/openidlogin.php:67 actions/openidlogin.php:76
+#: actions/openidlogin.php:104
+msgid "Your OpenID URL"
+msgstr "Vaše OpenID adresa"
+
+#: ../actions/recoverpassword.php:164
+msgid "Your nickname on this server, or your registered email address."
+msgstr "Vaše přezdívka na tomto servu, nebo váš email zadaný při registraci"
+
+#: ../actions/openidsettings.php:28
+#, php-format
+msgid ""
+"[OpenID](%%doc.openid%%) lets you log into many sites  with the same user "
+"account.  Manage your associated OpenIDs from here."
+msgstr ""
+"[OpenID](%%doc.openid%%) vám dovoluje použít stejný účet na více stránkách. "
+"Zde může spravovat vaše OpenID"
+
+#: ../lib/util.php:943 lib/util.php:992 lib/util.php:945
+msgid "a few seconds ago"
+msgstr "před pár sekundami"
+
+#: ../lib/util.php:955 lib/util.php:1004 lib/util.php:957
+#, php-format
+msgid "about %d days ago"
+msgstr "před %d dny"
+
+#: ../lib/util.php:951 lib/util.php:1000 lib/util.php:953
+#, php-format
+msgid "about %d hours ago"
+msgstr "asi před %d hodinami"
+
+#: ../lib/util.php:947 lib/util.php:996 lib/util.php:949
+#, php-format
+msgid "about %d minutes ago"
+msgstr "asi před %d minutami"
+
+#: ../lib/util.php:959 lib/util.php:1008 lib/util.php:961
+#, php-format
+msgid "about %d months ago"
+msgstr "asi před %d mesíci"
+
+#: ../lib/util.php:953 lib/util.php:1002 lib/util.php:955
+msgid "about a day ago"
+msgstr "asi přede dnem"
+
+#: ../lib/util.php:945 lib/util.php:994 lib/util.php:947
+msgid "about a minute ago"
+msgstr "asi před minutou"
+
+#: ../lib/util.php:957 lib/util.php:1006 lib/util.php:959
+msgid "about a month ago"
+msgstr "asi před měsícem"
+
+#: ../lib/util.php:961 lib/util.php:1010 lib/util.php:963
+msgid "about a year ago"
+msgstr "asi před rokem"
+
+#: ../lib/util.php:949 lib/util.php:998 lib/util.php:951
+msgid "about an hour ago"
+msgstr "asi před hodinou"
 
 #: ../actions/showstream.php:423 ../lib/stream.php:132
 #: actions/showstream.php:441 lib/stream.php:99
 msgid "delete"
 msgstr ""
 
+#: ../actions/noticesearch.php:130 ../actions/showstream.php:408
+#: ../lib/stream.php:117 actions/noticesearch.php:136
+#: actions/showstream.php:426 lib/stream.php:84 actions/noticesearch.php:187
+msgid "in reply to..."
+msgstr "odpověd na ..."
+
+#: ../actions/noticesearch.php:137 ../actions/showstream.php:415
+#: ../lib/stream.php:124 actions/noticesearch.php:143
+#: actions/showstream.php:433 lib/stream.php:91 actions/noticesearch.php:194
+msgid "reply"
+msgstr "odpověď"
+
+#: ../actions/password.php:44 actions/profilesettings.php:183
+#: actions/passwordsettings.php:106
+msgid "same as password above"
+msgstr "stejné jako heslo výše"
+
 #: ../actions/twitapistatuses.php:755 actions/twitapistatuses.php:678
+#: actions/twitapistatuses.php:555
 msgid "unsupported file type"
 msgstr ""
+
+#: ../lib/util.php:1309 lib/util.php:1443
+#, fuzzy
+msgid "« After"
+msgstr "« Novější"
 
 #: actions/deletenotice.php:74 actions/disfavor.php:43
 #: actions/emailsettings.php:127 actions/favor.php:45
@@ -2257,18 +2755,22 @@ msgstr ""
 #: actions/remotesubscribe.php:40 actions/smssettings.php:124
 #: actions/subscribe.php:44 actions/twittersettings.php:97
 #: actions/unsubscribe.php:41 actions/userauthorization.php:35
+#: actions/block.php:64 actions/disfavor.php:74 actions/favor.php:77
+#: actions/finishopenidlogin.php:38 actions/invite.php:54 actions/nudge.php:80
+#: actions/openidlogin.php:37 actions/recoverpassword.php:316
+#: actions/subscribe.php:46 actions/unblock.php:65 actions/unsubscribe.php:43
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 
-#: actions/disfavor.php:55
+#: actions/disfavor.php:55 actions/disfavor.php:81
 msgid "This notice is not a favorite!"
 msgstr ""
 
-#: actions/disfavor.php:63
+#: actions/disfavor.php:63 actions/disfavor.php:87
 msgid "Could not delete favorite."
 msgstr ""
 
-#: actions/disfavor.php:72
+#: actions/disfavor.php:72 lib/favorform.php:140
 msgid "Favor"
 msgstr ""
 
@@ -2276,16 +2778,18 @@ msgstr ""
 msgid "Send me email when someone adds my notice as a favorite."
 msgstr ""
 
-#: actions/emailsettings.php:95
+#: actions/emailsettings.php:95 actions/emailsettings.php:163
 msgid "Send me email when someone sends me a private message."
 msgstr ""
 
-#: actions/favor.php:53 actions/twitapifavorites.php:142
+#: actions/favor.php:53 actions/twitapifavorites.php:142 actions/favor.php:81
+#: actions/twitapifavorites.php:118
 msgid "This notice is already a favorite!"
 msgstr ""
 
 #: actions/favor.php:60 actions/twitapifavorites.php:151
-#: classes/Command.php:132
+#: classes/Command.php:132 actions/favor.php:86
+#: actions/twitapifavorites.php:125 classes/Command.php:152
 msgid "Could not create favorite."
 msgstr ""
 
@@ -2294,86 +2798,91 @@ msgid "Disfavor"
 msgstr ""
 
 #: actions/favoritesrss.php:60 actions/showfavorites.php:47
+#: actions/favoritesrss.php:100 actions/showfavorites.php:77
 #, php-format
 msgid "%s favorite notices"
 msgstr ""
 
-#: actions/favoritesrss.php:64
+#: actions/favoritesrss.php:64 actions/favoritesrss.php:104
 #, php-format
 msgid "Feed of favorite notices of %s"
 msgstr ""
 
-#: actions/inbox.php:28
+#: actions/inbox.php:28 actions/inbox.php:59
 #, php-format
 msgid "Inbox for %s - page %d"
 msgstr ""
 
-#: actions/inbox.php:30
+#: actions/inbox.php:30 actions/inbox.php:62
 #, php-format
 msgid "Inbox for %s"
 msgstr ""
 
-#: actions/inbox.php:53
+#: actions/inbox.php:53 actions/inbox.php:115
 msgid "This is your inbox, which lists your incoming private messages."
 msgstr ""
 
-#: actions/invite.php:178
+#: actions/invite.php:178 actions/invite.php:213
 #, php-format
 msgid ""
 "%1$s has invited you to join them on %2$s (%3$s).\n"
 "\n"
 msgstr ""
 
-#: actions/login.php:104
+#: actions/login.php:104 actions/login.php:235 actions/openidlogin.php:108
+#: actions/register.php:416
 msgid "Automatically login in the future; "
 msgstr ""
 
-#: actions/login.php:122
+#: actions/login.php:122 actions/login.php:264
 msgid "For security reasons, please re-enter your "
 msgstr ""
 
-#: actions/login.php:126
+#: actions/login.php:126 actions/login.php:268
 msgid "Login with your username and password. "
 msgstr ""
 
 #: actions/newmessage.php:58 actions/twitapidirect_messages.php:130
+#: actions/twitapidirect_messages.php:141
 msgid "That's too long. Max message size is 140 chars."
 msgstr ""
 
-#: actions/newmessage.php:65
+#: actions/newmessage.php:65 actions/newmessage.php:128
 msgid "No recipient specified."
 msgstr ""
 
 #: actions/newmessage.php:68 actions/newmessage.php:113
-#: classes/Command.php:206
+#: classes/Command.php:206 actions/newmessage.php:131
+#: actions/newmessage.php:168 classes/Command.php:237
 msgid "You can't send a message to this user."
 msgstr ""
 
 #: actions/newmessage.php:71 actions/twitapidirect_messages.php:146
-#: classes/Command.php:209
+#: classes/Command.php:209 actions/twitapidirect_messages.php:158
+#: classes/Command.php:240
 msgid ""
-"Don't send a message to yourself; just say it to yourself quietly "
-"instead."
+"Don't send a message to yourself; just say it to yourself quietly instead."
 msgstr ""
 
-#: actions/newmessage.php:108
+#: actions/newmessage.php:108 actions/microsummary.php:62
+#: actions/newmessage.php:163
 msgid "No such user"
 msgstr ""
 
-#: actions/newmessage.php:117
+#: actions/newmessage.php:117 actions/newmessage.php:67
 msgid "New message"
 msgstr ""
 
-#: actions/noticesearch.php:95
+#: actions/noticesearch.php:95 actions/noticesearch.php:146
 msgid "Notice without matching profile"
 msgstr ""
 
-#: actions/openidsettings.php:28
+#: actions/openidsettings.php:28 actions/openidsettings.php:70
 #, php-format
 msgid "[OpenID](%%doc.openid%%) lets you log into many sites "
 msgstr ""
 
-#: actions/openidsettings.php:46
+#: actions/openidsettings.php:46 actions/openidsettings.php:96
 msgid "If you want to add an OpenID to your account, "
 msgstr ""
 
@@ -2381,64 +2890,67 @@ msgstr ""
 msgid "Removing your only OpenID would make it impossible to log in! "
 msgstr ""
 
-#: actions/openidsettings.php:87
+#: actions/openidsettings.php:87 actions/openidsettings.php:143
 msgid "You can remove an OpenID from your account "
 msgstr ""
 
-#: actions/outbox.php:28
+#: actions/outbox.php:28 actions/outbox.php:58
 #, php-format
 msgid "Outbox for %s - page %d"
 msgstr ""
 
-#: actions/outbox.php:30
+#: actions/outbox.php:30 actions/outbox.php:61
 #, php-format
 msgid "Outbox for %s"
 msgstr ""
 
-#: actions/outbox.php:53
+#: actions/outbox.php:53 actions/outbox.php:116
 msgid "This is your outbox, which lists private messages you have sent."
 msgstr ""
 
-#: actions/peoplesearch.php:28
+#: actions/peoplesearch.php:28 actions/peoplesearch.php:52
 #, php-format
 msgid ""
 "Search for people on %%site.name%% by their name, location, or interests. "
 msgstr ""
 
-#: actions/profilesettings.php:27
+#: actions/profilesettings.php:27 actions/profilesettings.php:69
 msgid "You can update your personal profile info here "
 msgstr ""
 
 #: actions/profilesettings.php:115 actions/remotesubscribe.php:320
 #: actions/userauthorization.php:159 actions/userrss.php:76
+#: actions/avatarsettings.php:104 actions/avatarsettings.php:179
+#: actions/grouplogo.php:177 actions/remotesubscribe.php:367
+#: actions/userauthorization.php:176 actions/userrss.php:82
 msgid "User without matching profile"
 msgstr ""
 
-#: actions/recoverpassword.php:91
+#: actions/recoverpassword.php:91 actions/recoverpassword.php:97
 msgid "This confirmation code is too old. "
 msgstr ""
 
-#: actions/recoverpassword.php:141
+#: actions/recoverpassword.php:141 actions/recoverpassword.php:152
 msgid "If you've forgotten or lost your"
 msgstr ""
 
-#: actions/recoverpassword.php:154
+#: actions/recoverpassword.php:154 actions/recoverpassword.php:158
 msgid "You've been identified. Enter a "
 msgstr ""
 
-#: actions/recoverpassword.php:169
+#: actions/recoverpassword.php:169 actions/recoverpassword.php:188
 msgid "Your nickname on this server, "
 msgstr ""
 
-#: actions/recoverpassword.php:271
+#: actions/recoverpassword.php:271 actions/recoverpassword.php:304
 msgid "Instructions for recovering your password "
 msgstr ""
 
-#: actions/recoverpassword.php:327
+#: actions/recoverpassword.php:327 actions/recoverpassword.php:361
 msgid "New password successfully saved. "
 msgstr ""
 
-#: actions/register.php:95
+#: actions/register.php:95 actions/register.php:180
 msgid "Password must be 6 or more characters."
 msgstr ""
 
@@ -2453,21 +2965,22 @@ msgstr ""
 msgid "(You should receive a message by email momentarily, with "
 msgstr ""
 
-#: actions/remotesubscribe.php:51
+#: actions/remotesubscribe.php:51 actions/remotesubscribe.php:74
 #, php-format
 msgid "To subscribe, you can [login](%%action.login%%),"
 msgstr ""
 
-#: actions/showfavorites.php:61
+#: actions/showfavorites.php:61 actions/showfavorites.php:145
 #, php-format
 msgid "Feed for favorites of %s"
 msgstr ""
 
 #: actions/showfavorites.php:84 actions/twitapifavorites.php:85
+#: actions/showfavorites.php:202 actions/twitapifavorites.php:59
 msgid "Could not retrieve favorite notices."
 msgstr ""
 
-#: actions/showmessage.php:33
+#: actions/showmessage.php:33 actions/showmessage.php:81
 msgid "No such message."
 msgstr ""
 
@@ -2475,12 +2988,12 @@ msgstr ""
 msgid "Only the sender and recipient may read this message."
 msgstr ""
 
-#: actions/showmessage.php:61
+#: actions/showmessage.php:61 actions/showmessage.php:108
 #, php-format
 msgid "Message to %1$s on %2$s"
 msgstr ""
 
-#: actions/showmessage.php:66
+#: actions/showmessage.php:66 actions/showmessage.php:113
 #, php-format
 msgid "Message from %1$s on %2$s"
 msgstr ""
@@ -2489,58 +3002,63 @@ msgstr ""
 msgid "Send a message"
 msgstr ""
 
-#: actions/smssettings.php:312
+#: actions/smssettings.php:312 actions/smssettings.php:464
 #, php-format
 msgid "Mobile carrier for your phone. "
 msgstr ""
 
-#: actions/twitapidirect_messages.php:76
+#: actions/twitapidirect_messages.php:76 actions/twitapidirect_messages.php:68
 #, php-format
 msgid "Direct messages to %s"
 msgstr ""
 
-#: actions/twitapidirect_messages.php:77
+#: actions/twitapidirect_messages.php:77 actions/twitapidirect_messages.php:69
 #, php-format
 msgid "All the direct messages sent to %s"
 msgstr ""
 
-#: actions/twitapidirect_messages.php:81
+#: actions/twitapidirect_messages.php:81 actions/twitapidirect_messages.php:73
 msgid "Direct Messages You've Sent"
 msgstr ""
 
-#: actions/twitapidirect_messages.php:82
+#: actions/twitapidirect_messages.php:82 actions/twitapidirect_messages.php:74
 #, php-format
 msgid "All the direct messages sent from %s"
 msgstr ""
 
 #: actions/twitapidirect_messages.php:128
+#: actions/twitapidirect_messages.php:137
 msgid "No message text!"
 msgstr ""
 
 #: actions/twitapidirect_messages.php:138
+#: actions/twitapidirect_messages.php:150
 msgid "Recipient user not found."
 msgstr ""
 
 #: actions/twitapidirect_messages.php:141
+#: actions/twitapidirect_messages.php:153
 msgid "Can't send direct messages to users who aren't your friend."
 msgstr ""
 
-#: actions/twitapifavorites.php:92
+#: actions/twitapifavorites.php:92 actions/twitapifavorites.php:66
 #, php-format
 msgid "%s / Favorites from %s"
 msgstr ""
 
-#: actions/twitapifavorites.php:95
+#: actions/twitapifavorites.php:95 actions/twitapifavorites.php:69
 #, php-format
 msgid "%s updates favorited by %s / %s."
 msgstr ""
 
 #: actions/twitapifavorites.php:187 lib/mail.php:275
+#: actions/twitapifavorites.php:164 lib/mail.php:553
 #, php-format
 msgid "%s added your notice as a favorite"
 msgstr ""
 
 #: actions/twitapifavorites.php:188 lib/mail.php:276
+#: actions/twitapifavorites.php:165
 #, php-format
 msgid ""
 "%1$s just added your notice from %2$s as one of their favorites.\n"
@@ -2552,15 +3070,15 @@ msgid ""
 "Add your Twitter account to automatically send your notices to Twitter, "
 msgstr ""
 
-#: actions/twittersettings.php:41
+#: actions/twittersettings.php:41 actions/twittersettings.php:60
 msgid "Twitter settings"
 msgstr ""
 
-#: actions/twittersettings.php:48
+#: actions/twittersettings.php:48 actions/twittersettings.php:105
 msgid "Twitter Account"
 msgstr ""
 
-#: actions/twittersettings.php:56
+#: actions/twittersettings.php:56 actions/twittersettings.php:113
 msgid "Current verified Twitter account."
 msgstr ""
 
@@ -2568,7 +3086,7 @@ msgstr ""
 msgid "Twitter Username"
 msgstr ""
 
-#: actions/twittersettings.php:65
+#: actions/twittersettings.php:65 actions/twittersettings.php:123
 msgid "No spaces, please."
 msgstr ""
 
@@ -2576,15 +3094,15 @@ msgstr ""
 msgid "Twitter Password"
 msgstr ""
 
-#: actions/twittersettings.php:72
+#: actions/twittersettings.php:72 actions/twittersettings.php:139
 msgid "Automatically send my notices to Twitter."
 msgstr ""
 
-#: actions/twittersettings.php:75
+#: actions/twittersettings.php:75 actions/twittersettings.php:146
 msgid "Send local \"@\" replies to Twitter."
 msgstr ""
 
-#: actions/twittersettings.php:78
+#: actions/twittersettings.php:78 actions/twittersettings.php:153
 msgid "Subscribe to my Twitter friends here."
 msgstr ""
 
@@ -2594,7 +3112,7 @@ msgid ""
 "underscore (_). 15 chars max."
 msgstr ""
 
-#: actions/twittersettings.php:128
+#: actions/twittersettings.php:128 actions/twittersettings.php:334
 msgid "Could not verify your Twitter credentials!"
 msgstr ""
 
@@ -2604,160 +3122,166 @@ msgid "Unable to retrieve account information for \"%s\" from Twitter."
 msgstr ""
 
 #: actions/twittersettings.php:151 actions/twittersettings.php:170
+#: actions/twittersettings.php:348 actions/twittersettings.php:368
 msgid "Unable to save your Twitter settings!"
 msgstr ""
 
-#: actions/twittersettings.php:174
+#: actions/twittersettings.php:174 actions/twittersettings.php:376
 msgid "Twitter settings saved."
 msgstr ""
 
-#: actions/twittersettings.php:192
+#: actions/twittersettings.php:192 actions/twittersettings.php:395
 msgid "That is not your Twitter account."
 msgstr ""
 
 #: actions/twittersettings.php:200 actions/twittersettings.php:208
+#: actions/twittersettings.php:403
 msgid "Couldn't remove Twitter user."
 msgstr ""
 
-#: actions/twittersettings.php:212
+#: actions/twittersettings.php:212 actions/twittersettings.php:407
 msgid "Twitter account removed."
 msgstr ""
 
 #: actions/twittersettings.php:225 actions/twittersettings.php:239
+#: actions/twittersettings.php:428 actions/twittersettings.php:439
+#: actions/twittersettings.php:453
 msgid "Couldn't save Twitter preferences."
 msgstr ""
 
-#: actions/twittersettings.php:245
+#: actions/twittersettings.php:245 actions/twittersettings.php:461
 msgid "Twitter preferences saved."
 msgstr ""
 
-#: actions/userauthorization.php:84
+#: actions/userauthorization.php:84 actions/userauthorization.php:86
 msgid "Please check these details to make sure "
 msgstr ""
 
-#: actions/userauthorization.php:324
+#: actions/userauthorization.php:324 actions/userauthorization.php:340
 msgid "The subscription has been authorized, but no "
 msgstr ""
 
-#: actions/userauthorization.php:334
+#: actions/userauthorization.php:334 actions/userauthorization.php:351
 msgid "The subscription has been rejected, but no "
 msgstr ""
 
-#: classes/Channel.php:113
+#: classes/Channel.php:113 classes/Channel.php:132 classes/Channel.php:151
 msgid "Command results"
 msgstr ""
 
-#: classes/Channel.php:148
+#: classes/Channel.php:148 classes/Channel.php:204
 msgid "Command complete"
 msgstr ""
 
-#: classes/Channel.php:158
+#: classes/Channel.php:158 classes/Channel.php:215
 msgid "Command failed"
 msgstr ""
 
-#: classes/Command.php:39
+#: classes/Command.php:39 classes/Command.php:44
 msgid "Sorry, this command is not yet implemented."
 msgstr ""
 
-#: classes/Command.php:96
+#: classes/Command.php:96 classes/Command.php:113
 #, php-format
 msgid "Subscriptions: %1$s\n"
 msgstr ""
 
-#: classes/Command.php:125 classes/Command.php:242
+#: classes/Command.php:125 classes/Command.php:242 classes/Command.php:145
+#: classes/Command.php:276
 msgid "User has no last notice"
 msgstr ""
 
-#: classes/Command.php:146
+#: classes/Command.php:146 classes/Command.php:166
 msgid "Notice marked as fave."
 msgstr ""
 
-#: classes/Command.php:166
+#: classes/Command.php:166 classes/Command.php:189
 #, php-format
 msgid "%1$s (%2$s)"
 msgstr ""
 
-#: classes/Command.php:169
+#: classes/Command.php:169 classes/Command.php:192
 #, php-format
 msgid "Fullname: %s"
 msgstr ""
 
-#: classes/Command.php:172
+#: classes/Command.php:172 classes/Command.php:195
 #, php-format
 msgid "Location: %s"
 msgstr ""
 
-#: classes/Command.php:175
+#: classes/Command.php:175 classes/Command.php:198
 #, php-format
 msgid "Homepage: %s"
 msgstr ""
 
-#: classes/Command.php:178
+#: classes/Command.php:178 classes/Command.php:201
 #, php-format
 msgid "About: %s"
 msgstr ""
 
-#: classes/Command.php:200
+#: classes/Command.php:200 classes/Command.php:228
 #, php-format
 msgid "Message too long - maximum is 140 characters, you sent %d"
 msgstr ""
 
-#: classes/Command.php:214
+#: classes/Command.php:214 classes/Command.php:245
 #, php-format
 msgid "Direct message to %s sent"
 msgstr ""
 
-#: classes/Command.php:216
+#: classes/Command.php:216 classes/Command.php:247
 msgid "Error sending direct message."
 msgstr ""
 
-#: classes/Command.php:263
+#: classes/Command.php:263 classes/Command.php:300
 msgid "Specify the name of the user to subscribe to"
 msgstr ""
 
-#: classes/Command.php:270
+#: classes/Command.php:270 classes/Command.php:307
 #, php-format
 msgid "Subscribed to %s"
 msgstr ""
 
-#: classes/Command.php:288
+#: classes/Command.php:288 classes/Command.php:328
 msgid "Specify the name of the user to unsubscribe from"
 msgstr ""
 
-#: classes/Command.php:295
+#: classes/Command.php:295 classes/Command.php:335
 #, php-format
 msgid "Unsubscribed from %s"
 msgstr ""
 
-#: classes/Command.php:310 classes/Command.php:330
+#: classes/Command.php:310 classes/Command.php:330 classes/Command.php:353
+#: classes/Command.php:376
 msgid "Command not yet implemented."
 msgstr ""
 
-#: classes/Command.php:313
+#: classes/Command.php:313 classes/Command.php:356
 msgid "Notification off."
 msgstr ""
 
-#: classes/Command.php:315
+#: classes/Command.php:315 classes/Command.php:358
 msgid "Can't turn off notification."
 msgstr ""
 
-#: classes/Command.php:333
+#: classes/Command.php:333 classes/Command.php:379
 msgid "Notification on."
 msgstr ""
 
-#: classes/Command.php:335
+#: classes/Command.php:335 classes/Command.php:381
 msgid "Can't turn on notification."
 msgstr ""
 
-#: classes/Command.php:344
+#: classes/Command.php:344 classes/Command.php:392
 msgid "Commands:\n"
 msgstr ""
 
-#: classes/Message.php:53
+#: classes/Message.php:53 classes/Message.php:56
 msgid "Could not insert message."
 msgstr ""
 
-#: classes/Message.php:63
+#: classes/Message.php:63 classes/Message.php:66
 msgid "Could not update message with new URI."
 msgstr ""
 
@@ -2765,74 +3289,1590 @@ msgstr ""
 msgid "User without matching profile in system."
 msgstr ""
 
-#: lib/mail.php:147
+#: lib/mail.php:147 lib/mail.php:289
 #, php-format
 msgid ""
 "You have a new posting address on %1$s.\n"
 "\n"
 msgstr ""
 
-#: lib/mail.php:249
+#: lib/mail.php:249 lib/mail.php:508
 #, php-format
 msgid "New private message from %s"
 msgstr ""
 
-#: lib/mail.php:253
+#: lib/mail.php:253 lib/mail.php:512
 #, php-format
 msgid ""
 "%1$s (%2$s) sent you a private message:\n"
 "\n"
 msgstr ""
 
-#: lib/mailbox.php:43
+#: lib/mailbox.php:43 lib/mailbox.php:89
 msgid "Only the user can read their own mailboxes."
 msgstr ""
 
-#: lib/openid.php:195
+#: lib/openid.php:195 lib/openid.php:203
 msgid "This form should automatically submit itself. "
 msgstr ""
 
-#: lib/personal.php:65
+#: lib/personal.php:65 lib/personalgroupnav.php:113
 msgid "Favorites"
 msgstr ""
 
-#: lib/personal.php:66
+#: lib/personal.php:66 lib/personalgroupnav.php:114
 #, php-format
 msgid "%s's favorite notices"
 msgstr ""
 
-#: lib/personal.php:66
+#: lib/personal.php:66 lib/personalgroupnav.php:114
 msgid "User"
 msgstr ""
 
-#: lib/personal.php:75
+#: lib/personal.php:75 lib/personalgroupnav.php:123
 msgid "Inbox"
 msgstr ""
 
-#: lib/personal.php:76
+#: lib/personal.php:76 lib/personalgroupnav.php:124
 msgid "Your incoming messages"
 msgstr ""
 
-#: lib/personal.php:80
+#: lib/personal.php:80 lib/personalgroupnav.php:128
 msgid "Outbox"
 msgstr ""
 
-#: lib/personal.php:81
+#: lib/personal.php:81 lib/personalgroupnav.php:129
 msgid "Your sent messages"
 msgstr ""
 
-#: lib/settingsaction.php:99
+#: lib/settingsaction.php:99 lib/connectsettingsaction.php:110
 msgid "Twitter"
 msgstr ""
 
-#: lib/settingsaction.php:100
+#: lib/settingsaction.php:100 lib/connectsettingsaction.php:111
 msgid "Twitter integration options"
 msgstr ""
 
-#: lib/util.php:1718
+#: lib/util.php:1718 lib/messageform.php:139 lib/noticelist.php:422
 msgid "To"
 msgstr ""
 
-#: scripts/maildaemon.php:45
+#: scripts/maildaemon.php:45 scripts/maildaemon.php:48
 msgid "Could not parse message."
 msgstr ""
+
+#: actions/all.php:63 actions/facebookhome.php:162
+#, fuzzy, php-format
+msgid "%s and friends, page %d"
+msgstr "%s a přátelé"
+
+#: actions/avatarsettings.php:76
+msgid "You can upload your personal avatar."
+msgstr ""
+
+#: actions/avatarsettings.php:117 actions/avatarsettings.php:191
+#: actions/grouplogo.php:250
+#, fuzzy
+msgid "Avatar settings"
+msgstr "Nastavení"
+
+#: actions/avatarsettings.php:124 actions/avatarsettings.php:199
+#: actions/grouplogo.php:198 actions/grouplogo.php:258
+msgid "Original"
+msgstr ""
+
+#: actions/avatarsettings.php:139 actions/avatarsettings.php:211
+#: actions/grouplogo.php:209 actions/grouplogo.php:270
+msgid "Preview"
+msgstr ""
+
+#: actions/avatarsettings.php:225 actions/grouplogo.php:284
+msgid "Crop"
+msgstr ""
+
+#: actions/avatarsettings.php:248 actions/deletenotice.php:133
+#: actions/emailsettings.php:224 actions/grouplogo.php:307
+#: actions/imsettings.php:200 actions/login.php:102 actions/newmessage.php:100
+#: actions/newnotice.php:96 actions/openidsettings.php:188
+#: actions/othersettings.php:136 actions/passwordsettings.php:131
+#: actions/profilesettings.php:172 actions/register.php:113
+#: actions/remotesubscribe.php:53 actions/smssettings.php:216
+#: actions/subedit.php:38 actions/twittersettings.php:290
+#: actions/userauthorization.php:39
+msgid "There was a problem with your session token. "
+msgstr ""
+
+#: actions/avatarsettings.php:303 actions/grouplogo.php:360
+msgid "Pick a square area of the image to be your avatar"
+msgstr ""
+
+#: actions/avatarsettings.php:327 actions/grouplogo.php:384
+msgid "Lost our file data."
+msgstr ""
+
+#: actions/avatarsettings.php:334 actions/grouplogo.php:391
+#: classes/User_group.php:112
+#, fuzzy
+msgid "Lost our file."
+msgstr "Žádné takové oznámení."
+
+#: actions/avatarsettings.php:349 actions/avatarsettings.php:383
+#: actions/grouplogo.php:406 actions/grouplogo.php:440
+#: classes/User_group.php:129 classes/User_group.php:161
+msgid "Unknown file type"
+msgstr ""
+
+#: actions/block.php:69 actions/subedit.php:46 actions/unblock.php:70
+msgid "No profile specified."
+msgstr ""
+
+#: actions/block.php:74 actions/subedit.php:53 actions/tagother.php:46
+#: actions/unblock.php:75
+msgid "No profile with that ID."
+msgstr ""
+
+#: actions/block.php:111
+#, fuzzy
+msgid "Block user"
+msgstr "Žádný takový uživatel."
+
+#: actions/block.php:129
+msgid "Are you sure you want to block this user? "
+msgstr ""
+
+#: actions/block.php:162
+#, fuzzy
+msgid "You have already blocked this user."
+msgstr "Již jste přihlášen"
+
+#: actions/block.php:167
+msgid "Failed to save block information."
+msgstr ""
+
+#: actions/confirmaddress.php:159
+#, fuzzy, php-format
+msgid "The address \"%s\" has been "
+msgstr "Adresa byla odstraněna"
+
+#: actions/deletenotice.php:73
+msgid "You are about to permanently delete a notice. "
+msgstr ""
+
+#: actions/disfavor.php:94
+msgid "Add to favorites"
+msgstr ""
+
+#: actions/editgroup.php:54
+#, php-format
+msgid "Edit %s group"
+msgstr ""
+
+#: actions/editgroup.php:66 actions/groupbyid.php:72 actions/grouplogo.php:66
+#: actions/joingroup.php:60 actions/newgroup.php:65 actions/showgroup.php:100
+msgid "Inboxes must be enabled for groups to work"
+msgstr ""
+
+#: actions/editgroup.php:71 actions/grouplogo.php:71 actions/newgroup.php:70
+msgid "You must be logged in to create a group."
+msgstr ""
+
+#: actions/editgroup.php:87 actions/grouplogo.php:87
+#: actions/groupmembers.php:76 actions/joingroup.php:81
+#: actions/showgroup.php:121
+#, fuzzy
+msgid "No nickname"
+msgstr "Žádná přezdívka."
+
+#: actions/editgroup.php:99 actions/groupbyid.php:88 actions/grouplogo.php:100
+#: actions/groupmembers.php:83 actions/joingroup.php:88
+#: actions/showgroup.php:128
+#, fuzzy
+msgid "No such group"
+msgstr "Žádné takové oznámení."
+
+#: actions/editgroup.php:106 actions/editgroup.php:165
+#: actions/grouplogo.php:107
+msgid "You must be an admin to edit the group"
+msgstr ""
+
+#: actions/editgroup.php:157
+msgid "Use this form to edit the group."
+msgstr ""
+
+#: actions/editgroup.php:179 actions/newgroup.php:130 actions/register.php:156
+#, fuzzy
+msgid "Nickname must have only lowercase letters "
+msgstr "Přezdívka může obsahovat pouze malá písmena a čísla bez mezer"
+
+#: actions/editgroup.php:198 actions/newgroup.php:149
+#, fuzzy
+msgid "description is too long (max 140 chars)."
+msgstr "Text je příliš dlouhý (maximální délka je 140 zanků)"
+
+#: actions/editgroup.php:218
+#, fuzzy
+msgid "Could not update group."
+msgstr "Nelze aktualizovat uživatele"
+
+#: actions/editgroup.php:226
+#, fuzzy
+msgid "Options saved."
+msgstr "Nastavení uloženo"
+
+#: actions/emailsettings.php:107 actions/imsettings.php:108
+#, fuzzy, php-format
+msgid "Awaiting confirmation on this address. "
+msgstr "Chyba v ověřovacím kódu"
+
+#: actions/emailsettings.php:139 actions/smssettings.php:150
+msgid "Make a new email address for posting to; "
+msgstr ""
+
+#: actions/emailsettings.php:157
+msgid "Send me email when someone "
+msgstr ""
+
+#: actions/emailsettings.php:168
+msgid "Allow friends to nudge me and send me an email."
+msgstr ""
+
+#: actions/emailsettings.php:321
+#, fuzzy
+msgid "That email address already belongs "
+msgstr "Emailová adresa již existuje"
+
+#: actions/emailsettings.php:343
+#, fuzzy
+msgid "A confirmation code was sent to the email address you added. "
+msgstr ""
+"Ověřující kód byl poslán na vloženou IM adresu. Musíte prokázat %s pro "
+"posílání zpráv."
+
+#: actions/facebookhome.php:110
+msgid "Server error - couldn't get user!"
+msgstr ""
+
+#: actions/facebookhome.php:196
+#, php-format
+msgid "If you would like the %s app to automatically update "
+msgstr ""
+
+#: actions/facebookhome.php:213 actions/facebooksettings.php:137
+#, php-format
+msgid "Allow %s to update my Facebook status"
+msgstr ""
+
+#: actions/facebookhome.php:218
+msgid "Skip"
+msgstr ""
+
+#: actions/facebookhome.php:235
+#, fuzzy
+msgid "No notice content!"
+msgstr "Žádný obsah!"
+
+#: actions/facebookhome.php:295 lib/action.php:870 lib/facebookaction.php:399
+msgid "Pagination"
+msgstr ""
+
+#: actions/facebookhome.php:304 lib/action.php:879 lib/facebookaction.php:408
+#, fuzzy
+msgid "After"
+msgstr "« Novější"
+
+#: actions/facebookhome.php:312 lib/action.php:887 lib/facebookaction.php:416
+#, fuzzy
+msgid "Before"
+msgstr "Starší »"
+
+#: actions/facebookinvite.php:70
+#, php-format
+msgid "Thanks for inviting your friends to use %s"
+msgstr ""
+
+#: actions/facebookinvite.php:72
+msgid "Invitations have been sent to the following users:"
+msgstr ""
+
+#: actions/facebookinvite.php:96
+#, php-format
+msgid "You have been invited to %s"
+msgstr ""
+
+#: actions/facebookinvite.php:105
+#, fuzzy, php-format
+msgid "Invite your friends to use %s"
+msgstr ""
+"#-#-#-#-#  laconica.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+"Feed přítel uživatele: %s\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: actions/facebookinvite.php:113
+#, php-format
+msgid "Friends already using %s:"
+msgstr ""
+
+#: actions/facebookinvite.php:130
+#, php-format
+msgid "Send invitations"
+msgstr ""
+
+#: actions/facebookremove.php:56
+#, fuzzy
+msgid "Couldn't remove Facebook user."
+msgstr "Nelze aktualizovat uživatele"
+
+#: actions/facebooksettings.php:65
+msgid "There was a problem saving your sync preferences!"
+msgstr ""
+
+#: actions/facebooksettings.php:67
+#, fuzzy
+msgid "Sync preferences saved."
+msgstr "Nastavení uloženo"
+
+#: actions/facebooksettings.php:90
+msgid "Automatically update my Facebook status with my notices."
+msgstr ""
+
+#: actions/facebooksettings.php:97
+msgid "Send \"@\" replies to Facebook."
+msgstr ""
+
+#: actions/facebooksettings.php:106
+#, fuzzy
+msgid "Prefix"
+msgstr "Profil"
+
+#: actions/facebooksettings.php:108
+msgid "A string to prefix notices with."
+msgstr ""
+
+#: actions/facebooksettings.php:124
+#, php-format
+msgid "If you would like %s to automatically update "
+msgstr ""
+
+#: actions/facebooksettings.php:147
+#, fuzzy
+msgid "Sync preferences"
+msgstr "Nastavení"
+
+#: actions/favor.php:94 lib/disfavorform.php:140
+msgid "Disfavor favorite"
+msgstr ""
+
+#: actions/favorited.php:65 lib/popularnoticesection.php:76
+#: lib/publicgroupnav.php:91
+#, fuzzy
+msgid "Popular notices"
+msgstr "Žádné takové oznámení."
+
+#: actions/favorited.php:67
+#, fuzzy, php-format
+msgid "Popular notices, page %d"
+msgstr "Žádné takové oznámení."
+
+#: actions/favorited.php:79
+msgid "The most popular notices on the site right now."
+msgstr ""
+
+#: actions/featured.php:69 lib/featureduserssection.php:82
+#: lib/publicgroupnav.php:87
+msgid "Featured users"
+msgstr ""
+
+#: actions/featured.php:71
+#, php-format
+msgid "Featured users, page %d"
+msgstr ""
+
+#: actions/featured.php:99
+#, php-format
+msgid "A selection of some of the great users on %s"
+msgstr ""
+
+#: actions/finishremotesubscribe.php:188
+msgid "That user has blocked you from subscribing."
+msgstr ""
+
+#: actions/groupbyid.php:79
+msgid "No ID"
+msgstr ""
+
+#: actions/grouplogo.php:138 actions/grouplogo.php:191
+msgid "Group logo"
+msgstr ""
+
+#: actions/grouplogo.php:149
+msgid "You can upload a logo image for your group."
+msgstr ""
+
+#: actions/grouplogo.php:448
+#, fuzzy
+msgid "Logo updated."
+msgstr "Obrázek nahrán"
+
+#: actions/grouplogo.php:450
+#, fuzzy
+msgid "Failed updating logo."
+msgstr "Nahrávání obrázku selhalo."
+
+#: actions/groupmembers.php:93 lib/groupnav.php:91
+#, php-format
+msgid "%s group members"
+msgstr ""
+
+#: actions/groupmembers.php:96
+#, php-format
+msgid "%s group members, page %d"
+msgstr ""
+
+#: actions/groupmembers.php:111
+msgid "A list of the users in this group."
+msgstr ""
+
+#: actions/groups.php:62 actions/showstream.php:518 lib/publicgroupnav.php:79
+#: lib/subgroupnav.php:96
+msgid "Groups"
+msgstr ""
+
+#: actions/groups.php:64
+#, php-format
+msgid "Groups, page %d"
+msgstr ""
+
+#: actions/groups.php:90
+#, php-format
+msgid "%%%%site.name%%%% groups let you find and talk with "
+msgstr ""
+
+#: actions/groups.php:106 actions/usergroups.php:124 lib/groupeditform.php:123
+#, fuzzy
+msgid "Create a new group"
+msgstr "Vytvořit nový účet"
+
+#: actions/groupsearch.php:57
+#, fuzzy, php-format
+msgid ""
+"Search for groups on %%site.name%% by their name, location, or description. "
+msgstr ""
+"Hledej uživatele na %%site.name%% podle jejich jména, místa, nebo zájmů. "
+"Minimální délka musí být alespoň 3 znaky"
+
+#: actions/groupsearch.php:63
+#, fuzzy
+msgid "Group search"
+msgstr "Hledání lidí"
+
+#: actions/imsettings.php:70
+msgid "You can send and receive notices through "
+msgstr ""
+
+#: actions/imsettings.php:120
+#, php-format
+msgid "Jabber or GTalk address, "
+msgstr ""
+
+#: actions/imsettings.php:147
+#, fuzzy
+msgid "Send me replies through Jabber/GTalk "
+msgstr "Zasílat oznámení pomocí Jabber/GTalk"
+
+#: actions/imsettings.php:321
+#, fuzzy, php-format
+msgid "A confirmation code was sent "
+msgstr "Žádný potvrzující kód."
+
+#: actions/joingroup.php:65
+msgid "You must be logged in to join a group."
+msgstr ""
+
+#: actions/joingroup.php:95
+#, fuzzy
+msgid "You are already a member of that group"
+msgstr "Již jste přihlášen"
+
+#: actions/joingroup.php:128
+#, fuzzy, php-format
+msgid "Could not join user %s to group %s"
+msgstr "Nelze přesměrovat na server: %s"
+
+#: actions/joingroup.php:135
+#, php-format
+msgid "%s joined group %s"
+msgstr ""
+
+#: actions/leavegroup.php:60
+msgid "Inboxes must be enabled for groups to work."
+msgstr ""
+
+#: actions/leavegroup.php:65
+msgid "You must be logged in to leave a group."
+msgstr ""
+
+#: actions/leavegroup.php:88
+#, fuzzy
+msgid "No such group."
+msgstr "Žádné takové oznámení."
+
+#: actions/leavegroup.php:95
+#, fuzzy
+msgid "You are not a member of that group."
+msgstr "Neodeslal jste nám profil"
+
+#: actions/leavegroup.php:100
+msgid "You may not leave a group while you are its administrator."
+msgstr ""
+
+#: actions/leavegroup.php:130
+msgid "Could not find membership record."
+msgstr ""
+
+#: actions/leavegroup.php:138
+#, fuzzy, php-format
+msgid "Could not remove user %s to group %s"
+msgstr "Nelze vytvořit OpenID z: %s"
+
+#: actions/leavegroup.php:145
+#, php-format
+msgid "%s left group %s"
+msgstr ""
+
+#: actions/login.php:225 lib/facebookaction.php:304
+msgid "Login to site"
+msgstr ""
+
+#: actions/microsummary.php:69
+msgid "No current status"
+msgstr ""
+
+#: actions/newgroup.php:53
+msgid "New group"
+msgstr ""
+
+#: actions/newgroup.php:115
+msgid "Use this form to create a new group."
+msgstr ""
+
+#: actions/newgroup.php:177
+#, fuzzy
+msgid "Could not create group."
+msgstr "Nelze uložin informace o obrázku"
+
+#: actions/newgroup.php:191
+#, fuzzy
+msgid "Could not set group membership."
+msgstr "Nelze vytvořit odebírat"
+
+#: actions/newmessage.php:119 actions/newnotice.php:132
+#, fuzzy
+msgid "That's too long. "
+msgstr "Soubor je příliš velký"
+
+#: actions/newmessage.php:134
+msgid "Don't send a message to yourself; "
+msgstr ""
+
+#: actions/newnotice.php:166
+#, fuzzy
+msgid "Notice posted"
+msgstr "Sdělení"
+
+#: actions/newnotice.php:200 classes/Channel.php:163
+msgid "Ajax Error"
+msgstr ""
+
+#: actions/nudge.php:85
+msgid ""
+"This user doesn't allow nudges or hasn't confirmed or set his email yet."
+msgstr ""
+
+#: actions/nudge.php:94
+msgid "Nudge sent"
+msgstr ""
+
+#: actions/nudge.php:97
+msgid "Nudge sent!"
+msgstr ""
+
+#: actions/openidlogin.php:97
+#, fuzzy
+msgid "OpenID login"
+msgstr "OpenID přihlášení"
+
+#: actions/openidsettings.php:128
+#, fuzzy
+msgid "Removing your only OpenID "
+msgstr "Odstranit OpenID"
+
+#: actions/othersettings.php:60
+#, fuzzy
+msgid "Other Settings"
+msgstr "Nastavení"
+
+#: actions/othersettings.php:71
+msgid "Manage various other options."
+msgstr ""
+
+#: actions/othersettings.php:93
+msgid "URL Auto-shortening"
+msgstr ""
+
+#: actions/othersettings.php:112
+#, fuzzy
+msgid "Service"
+msgstr "Hledat"
+
+#: actions/othersettings.php:113
+msgid "Automatic shortening service to use."
+msgstr ""
+
+#: actions/othersettings.php:144
+#, fuzzy
+msgid "URL shortening service is too long (max 50 chars)."
+msgstr "Umístění příliš dlouhé (maximálně 255 znaků)"
+
+#: actions/passwordsettings.php:69
+#, fuzzy
+msgid "Change your password."
+msgstr "Změnit heslo"
+
+#: actions/passwordsettings.php:89
+#, fuzzy
+msgid "Password change"
+msgstr "Heslo uloženo"
+
+#: actions/peopletag.php:35
+#, fuzzy, php-format
+msgid "Not a valid people tag: %s"
+msgstr "Není platnou mailovou adresou."
+
+#: actions/peopletag.php:47
+#, php-format
+msgid "Users self-tagged with %s - page %d"
+msgstr ""
+
+#: actions/peopletag.php:91
+#, php-format
+msgid "These are users who have tagged themselves \"%s\" "
+msgstr ""
+
+#: actions/profilesettings.php:91
+#, fuzzy
+msgid "Profile information"
+msgstr "Neznámý profil"
+
+#: actions/profilesettings.php:124
+msgid ""
+"Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated"
+msgstr ""
+
+#: actions/profilesettings.php:144
+msgid "Automatically subscribe to whoever "
+msgstr ""
+
+#: actions/profilesettings.php:229 actions/tagother.php:176
+#, fuzzy, php-format
+msgid "Invalid tag: \"%s\""
+msgstr "Neplatná adresa '%s'"
+
+#: actions/profilesettings.php:311
+#, fuzzy
+msgid "Couldn't save tags."
+msgstr "Nelze uložit profil"
+
+#: actions/public.php:107
+#, fuzzy, php-format
+msgid "Public timeline, page %d"
+msgstr "Veřejné zprávy"
+
+#: actions/public.php:173
+msgid "Could not retrieve public stream."
+msgstr ""
+
+#: actions/public.php:220
+#, php-format
+msgid ""
+"This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
+"blogging) service "
+msgstr ""
+
+#: actions/publictagcloud.php:57
+#, fuzzy
+msgid "Public tag cloud"
+msgstr ""
+"#-#-#-#-#  laconica.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+"Veřejný Stream Feed\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: actions/publictagcloud.php:63
+#, php-format
+msgid "These are most popular recent tags on %s "
+msgstr ""
+
+#: actions/publictagcloud.php:119
+msgid "Tag cloud"
+msgstr ""
+
+#: actions/register.php:139 actions/register.php:349
+msgid "Sorry, only invited people can register."
+msgstr ""
+
+#: actions/register.php:149
+#, fuzzy
+msgid "You can't register if you don't "
+msgstr "Nemůžete se registrovat, pokud nesouhlasíte s licencí."
+
+#: actions/register.php:286
+msgid "With this form you can create "
+msgstr ""
+
+#: actions/register.php:368
+#, fuzzy
+msgid "1-64 lowercase letters or numbers, "
+msgstr "1-64 znaků nebo čísel, bez teček, čárek a mezer"
+
+#: actions/register.php:382 actions/register.php:386
+#, fuzzy
+msgid "Used only for updates, announcements, "
+msgstr "Použije se pouze pro aktualizace, oznámení a obnovu hesla."
+
+#: actions/register.php:398
+#, fuzzy
+msgid "URL of your homepage, blog, "
+msgstr "Adresa vašich stránek, blogu nebo profilu na jiných stránkách."
+
+#: actions/register.php:404
+#, fuzzy
+msgid "Describe yourself and your "
+msgstr "Popiš sebe a své zájmy ve 140 znacích"
+
+#: actions/register.php:410
+#, fuzzy
+msgid "Where you are, like \"City, "
+msgstr "Místo. Město, stát."
+
+#: actions/register.php:432
+#, fuzzy
+msgid " except this private data: password, "
+msgstr ""
+"až na tyto privátní data: heslo, emailová adresa, IM adresa, telefonní číslo."
+
+#: actions/register.php:471
+#, php-format
+msgid "Congratulations, %s! And welcome to %%%%site.name%%%%. "
+msgstr ""
+
+#: actions/register.php:495
+msgid "(You should receive a message by email "
+msgstr ""
+
+#: actions/remotesubscribe.php:166 actions/remotesubscribe.php:171
+msgid "That's a local profile! Login to subscribe."
+msgstr ""
+
+#: actions/replies.php:118
+#, fuzzy, php-format
+msgid "Replies to %s, page %d"
+msgstr "Odpovědi na %s"
+
+#: actions/showfavorites.php:79
+#, php-format
+msgid "%s favorite notices, page %d"
+msgstr ""
+
+#: actions/showgroup.php:77 lib/groupnav.php:85
+#, php-format
+msgid "%s group"
+msgstr ""
+
+#: actions/showgroup.php:79
+#, php-format
+msgid "%s group, page %d"
+msgstr ""
+
+#: actions/showgroup.php:206
+#, fuzzy
+msgid "Group profile"
+msgstr "Žádné takové oznámení."
+
+#: actions/showgroup.php:251 actions/showstream.php:278
+#: actions/tagother.php:119 lib/grouplist.php:134 lib/profilelist.php:133
+msgid "URL"
+msgstr ""
+
+#: actions/showgroup.php:262 actions/showstream.php:289
+#: actions/tagother.php:129 lib/grouplist.php:145 lib/profilelist.php:144
+#, fuzzy
+msgid "Note"
+msgstr "Sdělení"
+
+#: actions/showgroup.php:270
+msgid "Group actions"
+msgstr ""
+
+#: actions/showgroup.php:323
+#, fuzzy, php-format
+msgid "Notice feed for %s group"
+msgstr ""
+"#-#-#-#-#  laconica.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+"Feed sdělení pro %s\n"
+"#-#-#-#-#  laconica.new.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+
+#: actions/showgroup.php:357 lib/groupnav.php:90
+#, fuzzy
+msgid "Members"
+msgstr "Členem od"
+
+#: actions/showgroup.php:363 actions/showstream.php:413
+#: actions/showstream.php:442 actions/showstream.php:524 lib/section.php:95
+#: lib/tagcloudsection.php:71
+msgid "(None)"
+msgstr ""
+
+#: actions/showgroup.php:370
+msgid "All members"
+msgstr ""
+
+#: actions/showgroup.php:378
+#, php-format
+msgid ""
+"**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
+"wikipedia.org/wiki/Micro-blogging) service "
+msgstr ""
+
+#: actions/showmessage.php:98
+msgid "Only the sender and recipient "
+msgstr ""
+
+#: actions/showstream.php:73
+#, php-format
+msgid "%s, page %d"
+msgstr ""
+
+#: actions/showstream.php:143
+#, fuzzy
+msgid "'s profile"
+msgstr "Profil"
+
+#: actions/showstream.php:236 actions/tagother.php:77
+#, fuzzy
+msgid "User profile"
+msgstr "Uživatel nemá profil."
+
+#: actions/showstream.php:240 actions/tagother.php:81
+msgid "Photo"
+msgstr ""
+
+#: actions/showstream.php:317
+msgid "User actions"
+msgstr ""
+
+#: actions/showstream.php:342
+msgid "Send a direct message to this user"
+msgstr ""
+
+#: actions/showstream.php:343
+msgid "Message"
+msgstr ""
+
+#: actions/showstream.php:451
+#, fuzzy
+msgid "All subscribers"
+msgstr "Odběratelé"
+
+#: actions/showstream.php:533
+msgid "All groups"
+msgstr ""
+
+#: actions/showstream.php:542
+#, php-format
+msgid ""
+"**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
+"wikipedia.org/wiki/Micro-blogging) service "
+msgstr ""
+
+#: actions/smssettings.php:128
+#, fuzzy
+msgid "Phone number, no punctuation or spaces, "
+msgstr "1-64 znaků nebo čísel, bez teček, čárek a mezer"
+
+#: actions/smssettings.php:162
+#, fuzzy
+msgid "Send me notices through SMS; "
+msgstr "Zasílat oznámení pomocí Jabber/GTalk"
+
+#: actions/smssettings.php:335
+#, fuzzy
+msgid "A confirmation code was sent to the phone number you added. "
+msgstr "Tento potvrzující kód vám nepatří!"
+
+#: actions/smssettings.php:453
+msgid "Mobile carrier"
+msgstr ""
+
+#: actions/subedit.php:70
+#, fuzzy
+msgid "You are not subscribed to that profile."
+msgstr "Neodeslal jste nám profil"
+
+#: actions/subedit.php:83
+#, fuzzy
+msgid "Could not save subscription."
+msgstr "Nelze vytvořit odebírat"
+
+#: actions/subscribe.php:55
+#, fuzzy
+msgid "Not a local user."
+msgstr "Žádný takový uživatel."
+
+#: actions/subscribe.php:69
+#, fuzzy
+msgid "Subscribed"
+msgstr "Odebírat"
+
+#: actions/subscribers.php:50
+#, fuzzy, php-format
+msgid "%s subscribers"
+msgstr "Odběratelé"
+
+#: actions/subscribers.php:52
+#, php-format
+msgid "%s subscribers, page %d"
+msgstr ""
+
+#: actions/subscribers.php:63
+#, fuzzy
+msgid "These are the people who listen to "
+msgstr "Toto jsou lidé, kteří naslouchají %s sdělením"
+
+#: actions/subscribers.php:67
+#, fuzzy, php-format
+msgid "These are the people who "
+msgstr "Toto jsou lidé, kteří naslouchají %s sdělením"
+
+#: actions/subscriptions.php:52
+#, fuzzy, php-format
+msgid "%s subscriptions"
+msgstr "Všechny odběry"
+
+#: actions/subscriptions.php:54
+#, fuzzy, php-format
+msgid "%s subscriptions, page %d"
+msgstr "Všechny odběry"
+
+#: actions/subscriptions.php:65
+#, fuzzy
+msgid "These are the people whose notices "
+msgstr "Toto jsou lidé, jejiž sdělením %s naslouchá"
+
+#: actions/subscriptions.php:69
+#, fuzzy, php-format
+msgid "These are the people whose "
+msgstr "Toto jsou lidé, kteří naslouchají %s sdělením"
+
+#: actions/subscriptions.php:122
+#, fuzzy
+msgid "Jabber"
+msgstr "Žádné Jabber ID."
+
+#: actions/tag.php:43
+#, fuzzy, php-format
+msgid "Notices tagged with %s, page %d"
+msgstr "Mikroblog od %s"
+
+#: actions/tag.php:66
+#, php-format
+msgid "Messages tagged \"%s\", most recent first"
+msgstr ""
+
+#: actions/tagother.php:33
+#, fuzzy
+msgid "Not logged in"
+msgstr "Nepřihlášen"
+
+#: actions/tagother.php:39
+#, fuzzy
+msgid "No id argument."
+msgstr "Žádný takový dokument."
+
+#: actions/tagother.php:65
+#, php-format
+msgid "Tag %s"
+msgstr ""
+
+#: actions/tagother.php:141
+msgid "Tag user"
+msgstr ""
+
+#: actions/tagother.php:149
+msgid ""
+"Tags for this user (letters, numbers, -, ., and _), comma- or space- "
+"separated"
+msgstr ""
+
+#: actions/tagother.php:164
+msgid "There was a problem with your session token."
+msgstr ""
+
+#: actions/tagother.php:191
+msgid ""
+"You can only tag people you are subscribed to or who are subscribed to you."
+msgstr ""
+
+#: actions/tagother.php:198
+#, fuzzy
+msgid "Could not save tags."
+msgstr "Nelze uložin informace o obrázku"
+
+#: actions/tagother.php:233
+msgid "Use this form to add tags to your subscribers or subscriptions."
+msgstr ""
+
+#: actions/tagrss.php:35
+#, fuzzy
+msgid "No such tag."
+msgstr "Žádné takové oznámení."
+
+#: actions/tagrss.php:66
+#, fuzzy, php-format
+msgid "Microblog tagged with %s"
+msgstr "Mikroblog od %s"
+
+#: actions/twitapiblocks.php:47
+msgid "Block user failed."
+msgstr ""
+
+#: actions/twitapiblocks.php:69
+msgid "Unblock user failed."
+msgstr ""
+
+#: actions/twitapiusers.php:48
+#, fuzzy
+msgid "Not found."
+msgstr "Žádný požadavek nebyl nalezen!"
+
+#: actions/twittersettings.php:71
+msgid "Add your Twitter account to automatically send "
+msgstr ""
+
+#: actions/twittersettings.php:119
+msgid "Twitter user name"
+msgstr ""
+
+#: actions/twittersettings.php:126
+#, fuzzy
+msgid "Twitter password"
+msgstr "Nové heslo"
+
+#: actions/twittersettings.php:228
+msgid "Twitter Friends"
+msgstr ""
+
+#: actions/twittersettings.php:327
+msgid "Username must have only numbers, "
+msgstr ""
+
+#: actions/twittersettings.php:341
+#, fuzzy, php-format
+msgid "Unable to retrieve account information "
+msgstr "Nelze smazat potvrzení emailu"
+
+#: actions/unblock.php:108
+#, fuzzy
+msgid "Error removing the block."
+msgstr "Chyba při ukládaní uživatele"
+
+#: actions/unsubscribe.php:50
+#, fuzzy
+msgid "No profile id in request."
+msgstr "Nebylo vráceno žádné URL profilu od servu."
+
+#: actions/unsubscribe.php:57
+#, fuzzy
+msgid "No profile with that id."
+msgstr "Vzdálený profil s nesouhlasícím profilem"
+
+#: actions/unsubscribe.php:71
+#, fuzzy
+msgid "Unsubscribed"
+msgstr "Odhlásit"
+
+#: actions/usergroups.php:63
+#, php-format
+msgid "%s groups"
+msgstr ""
+
+#: actions/usergroups.php:65
+#, php-format
+msgid "%s groups, page %d"
+msgstr ""
+
+#: classes/Notice.php:104
+#, fuzzy
+msgid "Problem saving notice. Unknown user."
+msgstr "Problém při ukládání sdělení"
+
+#: classes/Notice.php:109
+msgid ""
+"Too many notices too fast; take a breather and post again in a few minutes."
+msgstr ""
+
+#: classes/Notice.php:116
+msgid "You are banned from posting notices on this site."
+msgstr ""
+
+#: lib/accountsettingsaction.php:108
+#, fuzzy
+msgid "Upload an avatar"
+msgstr "Nahrávání obrázku selhalo."
+
+#: lib/accountsettingsaction.php:119
+msgid "Other"
+msgstr ""
+
+#: lib/accountsettingsaction.php:120
+msgid "Other options"
+msgstr ""
+
+#: lib/action.php:130
+#, php-format
+msgid "%s - %s"
+msgstr ""
+
+#: lib/action.php:145
+msgid "Untitled page"
+msgstr ""
+
+#: lib/action.php:316
+msgid "Primary site navigation"
+msgstr ""
+
+#: lib/action.php:322
+msgid "Personal profile and friends timeline"
+msgstr ""
+
+#: lib/action.php:325
+msgid "Search for people or text"
+msgstr ""
+
+#: lib/action.php:328
+#, fuzzy
+msgid "Account"
+msgstr "O nás"
+
+#: lib/action.php:328
+msgid "Change your email, avatar, password, profile"
+msgstr ""
+
+#: lib/action.php:330
+msgid "Connect to IM, SMS, Twitter"
+msgstr ""
+
+#: lib/action.php:332
+msgid "Logout from the site"
+msgstr ""
+
+#: lib/action.php:335
+msgid "Login to the site"
+msgstr ""
+
+#: lib/action.php:338
+#, fuzzy
+msgid "Create an account"
+msgstr "Vytvořit nový účet"
+
+#: lib/action.php:341
+#, fuzzy
+msgid "Login with OpenID"
+msgstr "Žádné takové OpenID"
+
+#: lib/action.php:344
+#, fuzzy
+msgid "Help me!"
+msgstr "Nápověda"
+
+#: lib/action.php:362
+#, fuzzy
+msgid "Site notice"
+msgstr "Nové sdělení"
+
+#: lib/action.php:417
+msgid "Local views"
+msgstr ""
+
+#: lib/action.php:472
+#, fuzzy
+msgid "Page notice"
+msgstr "Nové sdělení"
+
+#: lib/action.php:562
+#, fuzzy
+msgid "Secondary site navigation"
+msgstr "Odběry"
+
+#: lib/action.php:602 lib/action.php:623
+msgid "Laconica software license"
+msgstr ""
+
+#: lib/action.php:630
+msgid "All "
+msgstr ""
+
+#: lib/action.php:635
+msgid "license."
+msgstr ""
+
+#: lib/blockform.php:123 lib/blockform.php:153
+#, fuzzy
+msgid "Block this user"
+msgstr "Žádný takový uživatel."
+
+#: lib/blockform.php:153
+msgid "Block"
+msgstr ""
+
+#: lib/disfavorform.php:114 lib/disfavorform.php:140
+msgid "Disfavor this notice"
+msgstr ""
+
+#: lib/facebookaction.php:268
+#, php-format
+msgid "To use the %s Facebook Application you need to login "
+msgstr ""
+
+#: lib/facebookaction.php:271
+#, fuzzy
+msgid " a new account."
+msgstr "Vytvořit nový účet"
+
+#: lib/facebookaction.php:557 lib/mailbox.php:214 lib/noticelist.php:354
+#, fuzzy
+msgid "Published"
+msgstr "Veřejné"
+
+#: lib/favorform.php:114 lib/favorform.php:140
+#, fuzzy
+msgid "Favor this notice"
+msgstr "Žádné takové oznámení."
+
+#: lib/feedlist.php:64
+msgid "Export data"
+msgstr ""
+
+#: lib/galleryaction.php:121
+msgid "Filter tags"
+msgstr ""
+
+#: lib/galleryaction.php:131
+msgid "All"
+msgstr ""
+
+#: lib/galleryaction.php:137
+msgid "Tag"
+msgstr ""
+
+#: lib/galleryaction.php:138
+msgid "Choose a tag to narrow list"
+msgstr ""
+
+#: lib/galleryaction.php:139
+msgid "Go"
+msgstr ""
+
+#: lib/groupeditform.php:148
+#, fuzzy
+msgid "URL of the homepage or blog of the group or topic"
+msgstr "Adresa vašich stránek, blogu nebo profilu na jiných stránkách."
+
+#: lib/groupeditform.php:151
+#, fuzzy
+msgid "Description"
+msgstr "Odběry"
+
+#: lib/groupeditform.php:153
+#, fuzzy
+msgid "Describe the group or topic in 140 chars"
+msgstr "Popiš sebe a své zájmy ve 140 znacích"
+
+#: lib/groupeditform.php:158
+#, fuzzy
+msgid ""
+"Location for the group, if any, like \"City, State (or Region), Country\""
+msgstr "Místo. Město, stát."
+
+#: lib/groupnav.php:84 lib/searchgroupnav.php:84
+msgid "Group"
+msgstr ""
+
+#: lib/groupnav.php:100
+msgid "Admin"
+msgstr ""
+
+#: lib/groupnav.php:101
+#, php-format
+msgid "Edit %s group properties"
+msgstr ""
+
+#: lib/groupnav.php:106
+#, fuzzy
+msgid "Logo"
+msgstr "Odhlásit"
+
+#: lib/groupnav.php:107
+#, php-format
+msgid "Add or edit %s logo"
+msgstr ""
+
+#: lib/groupsbymemberssection.php:71
+msgid "Groups with most members"
+msgstr ""
+
+#: lib/groupsbypostssection.php:71
+msgid "Groups with most posts"
+msgstr ""
+
+#: lib/grouptagcloudsection.php:56
+#, php-format
+msgid "Tags in %s group's notices"
+msgstr ""
+
+#: lib/htmloutputter.php:104
+#, fuzzy
+msgid "This page is not available in a "
+msgstr "Tato stránka není k dispozici v typu média která přijímáte."
+
+#: lib/joinform.php:114
+#, fuzzy
+msgid "Join"
+msgstr "Přihlásit"
+
+#: lib/leaveform.php:114
+#, fuzzy
+msgid "Leave"
+msgstr "Uložit"
+
+#: lib/logingroupnav.php:76
+#, fuzzy
+msgid "Login with a username and password"
+msgstr "Neplatné jméno nebo heslo"
+
+#: lib/logingroupnav.php:79
+#, fuzzy
+msgid "Sign up for a new account"
+msgstr "Vytvořit nový účet"
+
+#: lib/logingroupnav.php:82
+msgid "Login or register with OpenID"
+msgstr ""
+
+#: lib/mail.php:175
+#, php-format
+msgid ""
+"Hey, %s.\n"
+"\n"
+msgstr ""
+
+#: lib/mail.php:236
+#, fuzzy, php-format
+msgid "%1$s is now listening to "
+msgstr "%1 od teď naslouchá tvým sdělením v %2"
+
+#: lib/mail.php:254
+#, fuzzy, php-format
+msgid "Location: %s\n"
+msgstr "Umístění"
+
+#: lib/mail.php:256
+#, fuzzy, php-format
+msgid "Homepage: %s\n"
+msgstr "Moje stránky"
+
+#: lib/mail.php:258
+#, php-format
+msgid ""
+"Bio: %s\n"
+"\n"
+msgstr ""
+
+#: lib/mail.php:461
+#, php-format
+msgid "You've been nudged by %s"
+msgstr ""
+
+#: lib/mail.php:465
+#, php-format
+msgid "%1$s (%2$s) is wondering what you are up to "
+msgstr ""
+
+#: lib/mail.php:555
+#, fuzzy, php-format
+msgid "%1$s just added your notice from %2$s"
+msgstr "%1 od teď naslouchá tvým sdělením v %2"
+
+#: lib/mailbox.php:229 lib/noticelist.php:380
+msgid "From"
+msgstr ""
+
+#: lib/messageform.php:110
+msgid "Send a direct notice"
+msgstr ""
+
+#: lib/noticeform.php:125
+#, fuzzy
+msgid "Send a notice"
+msgstr "Nové sdělení"
+
+#: lib/noticeform.php:152
+#, fuzzy
+msgid "Available characters"
+msgstr "6 a více znaků"
+
+#: lib/noticelist.php:426
+#, fuzzy
+msgid "in reply to"
+msgstr "odpověd na ..."
+
+#: lib/noticelist.php:447 lib/noticelist.php:450
+msgid "Reply to this notice"
+msgstr ""
+
+#: lib/noticelist.php:451
+#, fuzzy
+msgid "Reply"
+msgstr "odpověď"
+
+#: lib/noticelist.php:471 lib/noticelist.php:474
+msgid "Delete this notice"
+msgstr ""
+
+#: lib/noticelist.php:474
+msgid "Delete"
+msgstr ""
+
+#: lib/nudgeform.php:116
+msgid "Nudge this user"
+msgstr ""
+
+#: lib/nudgeform.php:128
+msgid "Nudge"
+msgstr ""
+
+#: lib/nudgeform.php:128
+msgid "Send a nudge to this user"
+msgstr ""
+
+#: lib/personaltagcloudsection.php:56
+#, php-format
+msgid "Tags in %s's notices"
+msgstr ""
+
+#: lib/profilelist.php:182
+msgid "(none)"
+msgstr ""
+
+#: lib/publicgroupnav.php:76
+msgid "Public"
+msgstr "Veřejné"
+
+#: lib/publicgroupnav.php:80
+msgid "User groups"
+msgstr ""
+
+#: lib/publicgroupnav.php:82 lib/publicgroupnav.php:83
+msgid "Recent tags"
+msgstr ""
+
+#: lib/publicgroupnav.php:86
+msgid "Featured"
+msgstr ""
+
+#: lib/publicgroupnav.php:90
+#, fuzzy
+msgid "Popular"
+msgstr "Hledání lidí"
+
+#: lib/searchgroupnav.php:82
+#, fuzzy
+msgid "Notice"
+msgstr "Sdělení"
+
+#: lib/searchgroupnav.php:85
+msgid "Find groups on this site"
+msgstr ""
+
+#: lib/section.php:89
+msgid "Untitled section"
+msgstr ""
+
+#: lib/subgroupnav.php:81
+#, fuzzy, php-format
+msgid "People %s subscribes to"
+msgstr "Vzdálený odběr"
+
+#: lib/subgroupnav.php:89
+#, fuzzy, php-format
+msgid "People subscribed to %s"
+msgstr "Vzdálený odběr"
+
+#: lib/subgroupnav.php:97
+#, php-format
+msgid "Groups %s is a member of"
+msgstr ""
+
+#: lib/subgroupnav.php:104
+#, php-format
+msgid "Invite friends and colleagues to join you on %s"
+msgstr ""
+
+#: lib/subs.php:53
+#, fuzzy
+msgid "User has blocked you."
+msgstr "Uživatel nemá profil."
+
+#: lib/subscribeform.php:115 lib/subscribeform.php:139
+#, fuzzy
+msgid "Subscribe to this user"
+msgstr "Odběr autorizován"
+
+#: lib/tagcloudsection.php:56
+msgid "None"
+msgstr ""
+
+#: lib/topposterssection.php:74
+msgid "Top posters"
+msgstr ""
+
+#: lib/unblockform.php:120 lib/unblockform.php:150
+#, fuzzy
+msgid "Unblock this user"
+msgstr "Žádný takový uživatel."
+
+#: lib/unblockform.php:150
+msgid "Unblock"
+msgstr ""
+
+#: lib/unsubscribeform.php:113 lib/unsubscribeform.php:137
+msgid "Unsubscribe from this user"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Delete my account"
+#~ msgstr "Vytvořit nový účet"
+
+#~ msgid "Couldn't confirm email."
+#~ msgstr "Nelze potvrdit email"
+
+#~ msgid "Email address"
+#~ msgstr "Emailová adresa"
+
+#~ msgid "Error inserting notice"
+#~ msgstr "Chyba při vkládání nového sdělení"
+
+#~ msgid ""
+#~ "If you've forgotten or lost your password, you can get a new one sent  "
+#~ "the email address you have stored  in your account."
+#~ msgstr ""
+#~ "Pokud jste zapomněl nebo stratil heslo, můžete si nechat zaslat nové na "
+#~ "vaší emailovou adresu uloženou u vašeho účtu."
