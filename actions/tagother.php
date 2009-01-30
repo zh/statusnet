@@ -90,7 +90,6 @@ class TagotherAction extends Action
         $this->elementEnd('dd');
         $this->elementEnd('dl');
 
-
         $this->elementStart('dl', 'entity_nickname');
         $this->element('dt', null, _('Nickname'));
         $this->elementStart('dd');
@@ -141,6 +140,8 @@ class TagotherAction extends Action
         $this->element('legend', null, _('Tag user'));
         $this->hidden('token', common_session_token());
         $this->hidden('id', $this->profile->id);
+
+        $user = common_current_user();
 
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');

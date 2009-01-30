@@ -441,6 +441,66 @@ class FacebookAction extends Action
         }
     }
     
+    function updateFacebookStatus($notice) 
+    {
+        $prefix = $this->facebook->api_client->data_getUserPreference(FACEBOOK_NOTICE_PREFIX, $this->fbuid);
+        $content = "$prefix $notice->content";
+        
+        if ($this->facebook->api_client->users_hasAppPermission('status_update', $this->fbuid)) {
+            $this->facebook->api_client->users_setStatus($content, $this->fbuid, false, true);
+        }
+    }
+    
+    function saveNewNotice()
+    {
+
+        $user = $this->flink->getUser();
+
+        $content = $this->trimmed('status_textarea');
+        
+        if (!$content) {
+            $this->showPage(_('No notice content!'));
+            return;
+        } else {
+            $content_shortened = common_shorten_links($content);
+
+            if (mb_strlen($content_shortened) > 140) {
+                common_debug("Content = '$content_shortened'", __FILE__);
+                common_debug("mb_strlen(\$content) = " . mb_strlen($content_shortened), __FILE__);
+                $this->showPage(_('That\'s too long. Max notice size is 140 chars.'));
+                return;
+            }
+        }
+
+        $inter = new CommandInterpreter();
+
+        $cmd = $inter->handle_command($user, $content_shortened);
+
+        if ($cmd) {
+            
+            // XXX fix this
+            
+            $cmd->execute(new WebChannel());
+            return;
+        }
+
+        $replyto = $this->trimmed('inreplyto');
+
+        $notice = Notice::saveNew($user->id, $content,
+            'Facebook', 1, ($replyto == 'false') ? null : $replyto);
+
+        if (is_string($notice)) {
+            $this->showPage($notice);
+            return;
+        }
+
+        common_broadcast_notice($notice);
+        
+        // Also update the user's Facebook status
+        $this->updateFacebookStatus($notice);
+        $this->updateProfileBox($notice);
+        
+    }
 
 }
 

@@ -89,7 +89,7 @@ class FacebookhomeAction extends FacebookAction
         }
 
     }
-
+    
     function login()
     {
         
@@ -132,6 +132,7 @@ class FacebookhomeAction extends FacebookAction
         }
 
         $this->showLoginForm($msg);
+        $this->showFooter();
 
     }
 
@@ -231,53 +232,6 @@ class FacebookhomeAction extends FacebookAction
         $this->elementEnd('form');
         $this->elementEnd('div');
 
-    }
-
-    function saveNewNotice()
-    {
-
-        $user = $this->flink->getUser();
-
-        $content = $this->trimmed('status_textarea');
-        
-        if (!$content) {
-            $this->showPage(_('No notice content!'));
-            return;
-        } else {
-            $content_shortened = common_shorten_links($content);
-
-            if (mb_strlen($content_shortened) > 140) {
-                common_debug("Content = '$content_shortened'", __FILE__);
-                common_debug("mb_strlen(\$content) = " . mb_strlen($content_shortened), __FILE__);
-                $this->showPage(_('That\'s too long. Max notice size is 140 chars.'));
-                return;
-            }
-        }
-
-        $inter = new CommandInterpreter();
-
-        $cmd = $inter->handle_command($user, $content_shortened);
-
-        if ($cmd) {
-            
-            // XXX fix this
-            
-            $cmd->execute(new WebChannel());
-            return;
-        }
-
-        $replyto = $this->trimmed('inreplyto');
-
-        $notice = Notice::saveNew($user->id, $content,
-            'Facebook', 1, ($replyto == 'false') ? null : $replyto);
-
-        if (is_string($notice)) {
-            $this->showPage($notice);
-            return;
-        }
-
-        common_broadcast_notice($notice);
-        
     }
     
     /**
