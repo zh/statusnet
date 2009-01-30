@@ -132,6 +132,7 @@ class FacebookhomeAction extends FacebookAction
         }
 
         $this->showLoginForm($msg);
+        $this->showFooter();
 
     }
 
