@@ -745,6 +745,15 @@ edit any other file in the directory, like lib/common.php (where most
 of the defaults are defined), you will lose your configuration options
 in any upgrade, and you will wish that you had been more careful.
 
+Starting with version 0.7.1, you can put config files in the
+/etc/laconica/ directory on your server, if it exists. Config files
+will be included in this order:
+
+* /etc/laconica/laconica.php - server-wide config
+* /etc/laconica/<servername>.php - for a virtual host
+* /etc/laconica/<servername>_<pathname>.php - for a path
+* INSTALLDIR/config.php - for a particular implementation
+
 Almost all configuration options are made through a two-dimensional
 associative array, cleverly named $config. A typical configuration
 line will be:

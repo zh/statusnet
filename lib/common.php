@@ -50,14 +50,23 @@ require_once('DB/DataObject/Cast.php'); # for dates
 
 require_once(INSTALLDIR.'/lib/language.php');
 
+// try to figure out where we are
+
+$_server = array_key_exists('SERVER_NAME', $_SERVER) ?
+  strtolower($_SERVER['SERVER_NAME']) :
+  null;
+$_path = array_key_exists('SCRIPT_NAME', $_SERVER) ?
+  substr($_SERVER['SCRIPT_NAME'], 1, strrpos($_SERVER['SCRIPT_NAME'], '/') - 1) :
+  null;
+
 // default configuration, overwritten in config.php
 
 $config =
   array('site' =>
         array('name' => 'Just another Laconica microblog',
-              'server' => 'localhost',
+              'server' => $_server,
               'theme' => 'default',
-              'path' => '/',
+              'path' => $_path,
               'logfile' => null,
               'fancy' => false,
               'locale_path' => INSTALLDIR.'/locale',
@@ -150,7 +159,24 @@ if (function_exists('date_default_timezone_set')) {
     date_default_timezone_set('UTC');
 }
 
-require_once(INSTALLDIR.'/config.php');
+// From most general to most specific:
+// server-wide, then vhost-wide, then for a path,
+// finally for a dir (usually only need one of the last two).
+
+$_config_files = array('/etc/laconica/laconica.php',
+                  '/etc/laconica/'.$_server.'.php');
+
+if (strlen($_path) > 0) {
+    $_config_files[] = '/etc/laconica/'.$_server.'_'.$_path.'.php';
+}
+
+$_config_files[] = INSTALLDIR.'/config.php';
+
+foreach ($_config_files as $_config_file) {
+    if (file_exists($_config_file)) {
+        include_once($_config_file);
+    }
+}
 
 require_once('Validate.php');
 require_once('markdown.php');
