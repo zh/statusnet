@@ -507,50 +507,43 @@ position:relative;
 width:475px;
 min-height:123px;
 float:left;
-margin-bottom:17px;
+margin-bottom:18px;
 margin-left:0;
 }
 .entity_profile dt,
 #entity_statistics dt {
 font-weight:bold;
 }
+.entity_profile dd {
+display:inline;
+}
+
 .entity_profile .entity_depiction {
 float:left;
-position:absolute;
-top:0;
-left:0;
 width:96px;
+margin-right:18px;
+margin-bottom:18px;
 }
+
 .entity_profile .entity_fn,
 .entity_profile .entity_nickname,
 .entity_profile .entity_location,
 .entity_profile .entity_url,
 .entity_profile .entity_note,
 .entity_profile .entity_tags {
-float:left;
-clear:left;
 margin-left:113px;
-width:322px;
 margin-bottom:4px;
+width:322px;
 }
 
 .entity_profile .entity_fn,
 .entity_profile .entity_nickname {
-width:auto;
-clear:none;
-}
-
-.entity_profile .entity_fn {
 margin-left:11px;
-margin-right:4px;
-}
-.entity_profile .entity_fn .fn {
+display:inline;
 font-weight:bold;
-font-style:normal;
 }
-.entity_profile .nickname {
-font-style:italic;
-font-weight:bold;
+.entity_profile .entity_nickname {
+margin-left:0;
 }
 
 .entity_profile .entity_fn dd:before {
@@ -568,13 +561,14 @@ display:none;
 .entity_profile h2 {
 display:none;
 }
+
 /* entity_profile */
 
 
 /*entity_actions*/
 .entity_actions {
 float:right;
-
+margin-left:28px;
 }
 .entity_actions h2 {
 display:none;
@@ -796,6 +790,7 @@ text-decoration:underline;
 .notice .entry-title {
 float:left;
 width:100%;
+overflow:auto;
 }
 #shownotice .notice .entry-title {
 font-size:2.2em;
@@ -1024,21 +1019,18 @@ display:block;
 text-decoration:none;
 font-weight:bold;
 padding:7px;
-border:1px dotted #D1D9E4;
-border-bottom:0;
+border-width:1px;
+border-style:solid;
+-moz-border-radius:7px;
+-webkit-border-radius:7px;
+border-radius:7px;
 }
 
 .pagination .nav_prev a {
--moz-border-radius-topright:7px;
--webkit-border-top-right-radius:7px;
-padding-left:20px;
-border-left:0;
+padding-left:30px;
 }
 .pagination .nav_next a {
--moz-border-radius-topleft:7px;
--webkit-border-top-left-radius:7px;
-padding-right:20px;
-border-right:0;
+padding-right:30px;
 }
 /* END: NOTICE */
 
