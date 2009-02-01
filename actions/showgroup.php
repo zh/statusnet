@@ -333,6 +333,7 @@ class ShowgroupAction extends Action
     function showSections()
     {
         $this->showMembers();
+        $this->showStatistics();
         $cloud = new GroupTagCloudSection($this, $this->group);
         $cloud->show();
     }
@@ -356,12 +357,10 @@ class ShowgroupAction extends Action
 
         $this->element('h2', null, _('Members'));
 
-        if ($member) {
-            $pml = new ProfileMiniList($member, null, $this);
-            $cnt = $pml->show();
-            if ($cnt == 0) {
-                $this->element('p', null, _('(None)'));
-            }
+        $pml = new ProfileMiniList($member, null, $this);
+        $cnt = $pml->show();
+        if ($cnt == 0) {
+             $this->element('p', null, _('(None)'));
         }
 
         if ($cnt == MEMBERS_PER_SECTION) {
@@ -369,6 +368,41 @@ class ShowgroupAction extends Action
                                                                  array('nickname' => $this->group->nickname))),
                            _('All members'));
         }
+
+        $this->elementEnd('div');
+    }
+
+    /**
+     * Show some statistics
+     *
+     * @return void
+     */
+
+    function showStatistics()
+    {
+        // XXX: WORM cache this
+        $members = $this->group->getMembers();
+        $members_count = 0;
+        /** $member->count() doesn't work. */
+        while ($members->fetch()) {
+            $members_count++;
+        }
+
+        $this->elementStart('div', array('id' => 'entity_statistics',
+                                         'class' => 'section'));
+
+        $this->element('h2', null, _('Statistics'));
+
+        $this->elementStart('dl', 'entity_created');
+        $this->element('dt', null, _('Created'));
+        $this->element('dd', null, date('j M Y',
+                                                 strtotime($this->group->created)));
+        $this->elementEnd('dl');
+
+        $this->elementStart('dl', 'entity_members');
+        $this->element('dt', null, _('Members'));
+        $this->element('dd', null, (is_int($members_count)) ? $members_count : '0');
+        $this->elementEnd('dl');
 
         $this->elementEnd('div');
     }
