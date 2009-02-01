@@ -67,7 +67,7 @@ class OpensearchAction extends Action
             $short_name = _('Notice Search');
         }
         header('Content-Type: text/html');
-        common_start_xml();
+        $this->startXML();
         $this->elementStart('OpenSearchDescription', array('xmlns' => 'http://a9.com/-/spec/opensearch/1.1/'));
         $short_name =  common_config('site', 'name').' '.$short_name;
         $this->element('ShortName', null, $short_name);
@@ -81,7 +81,7 @@ class OpensearchAction extends Action
         $this->element('OutputEncoding', null, 'UTF-8');
         $this->element('InputEncoding', null, 'UTF-8');
         $this->elementEnd('OpenSearchDescription');
-        common_end_xml();
+        $this->endXML();
     }
 
     function isReadOnly()
