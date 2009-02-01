@@ -162,6 +162,8 @@ class Action extends HTMLOutputter // lawsuit
                                      'media' => 'screen, projection, tv'));
         $this->comment('[if IE]><link rel="stylesheet" type="text/css" '.
                        'href="'.theme_path('css/ie.css', 'base').'?version='.LACONICA_VERSION.'" /><![endif]');
+        $this->comment('[if IE]><link rel="stylesheet" type="text/css" '.
+                       'href="'.theme_path('css/ie.css', null).'?version='.LACONICA_VERSION.'" /><![endif]');
         foreach (array(6,7) as $ver) {
             if (file_exists(theme_file('ie'.$ver.'.css'))) {
                 // Yes, IE people should be put in jail.
