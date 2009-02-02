@@ -312,14 +312,22 @@ class ShowstreamAction extends Action
         }
         $this->elementEnd('div');
 
-        //XXX: entity_actions doesn't need to be outputted if entity is looking at their own profile
         $this->elementStart('div', 'entity_actions');
         $this->element('h2', null, _('User actions'));
         $this->elementStart('ul');
-        $this->elementStart('li', array('class' => 'entity_subscribe'));
         $cur = common_current_user();
+
+        if ($cur && $cur->id == $this->profile->id) {
+            $this->elementStart('li', 'entity_edit');
+            $this->element('a', array('href' => common_local_url('profilesettings'),
+                                      'title' => _('Edit profile settings')),
+                                      _('Edit'));
+            $this->elementEnd('li');
+        }
+
         if ($cur) {
             if ($cur->id != $this->profile->id) {
+                $this->elementStart('li', 'entity_subscribe');
                 if ($cur->isSubscribed($this->profile)) {
                     $usf = new UnsubscribeForm($this, $this->profile);
                     $usf->show();
@@ -327,24 +335,24 @@ class ShowstreamAction extends Action
                     $sf = new SubscribeForm($this, $this->profile);
                     $sf->show();
                 }
+                $this->elementEnd('li');
             }
         } else {
+            $this->elementStart('li', 'entity_subscribe');
             $this->showRemoteSubscribeLink();
+            $this->elementEnd('li');
         }
-        $this->elementEnd('li');
-
-//        common_profile_new_message_nudge($cur, $this->user, $this->profile);
 
         $user = User::staticGet('id', $this->profile->id);
         if ($cur && $cur->id != $user->id && $cur->mutuallySubscribed($user)) {
-           $this->elementStart('li', array('class' => 'entity_send-a-message'));
+           $this->elementStart('li', 'entity_send-a-message');
             $this->element('a', array('href' => common_local_url('newmessage', array('to' => $user->id)),
                                       'title' => _('Send a direct message to this user')),
                            _('Message'));
             $this->elementEnd('li');
 
             if ($user->email && $user->emailnotifynudge) {
-                $this->elementStart('li', array('class' => 'entity_nudge'));
+                $this->elementStart('li', 'entity_nudge');
                 $nf = new NudgeForm($this, $user);
                 $nf->show();
                 $this->elementEnd('li');
@@ -353,7 +361,7 @@ class ShowstreamAction extends Action
 
         if ($cur && $cur->id != $this->profile->id) {
             $blocked = $cur->hasBlocked($this->profile);
-            $this->elementStart('li', array('class' => 'entity_block'));
+            $this->elementStart('li', 'entity_block');
             if ($blocked) {
                 $ubf = new UnblockForm($this, $this->profile);
                 $ubf->show();
