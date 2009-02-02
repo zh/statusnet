@@ -20,8 +20,6 @@ font-family:sans-serif;
 font-size:1em;
 line-height:1.65;
 position:relative;
-margin:0 auto;
-width:71.714em;
 }
 h1,h2,h3,h4,h5,h6 {
 text-transform:uppercase;
@@ -253,6 +251,7 @@ margin-bottom:18px;
 #anon_notice {
 float:left;
 width:432px;
+width:28.052em;
 padding:11px;
 border-radius:7px;
 -moz-border-radius:7px;
@@ -360,9 +359,10 @@ margin-right:4px;
 }
 
 #wrap {
-float:left;
 margin:0 auto;
 width:71.714em;
+width:1003px;
+overflow:hidden;
 }
 
 #core {
@@ -390,9 +390,9 @@ float:left;
 }
 
 #aside_primary {
-width:284px;
+width:280px;
 float:left;
-margin-left:2px;
+margin-left:4px;
 padding:18px;
 border-radius:7px;
 -moz-border-radius:7px;
@@ -748,7 +748,7 @@ border-radius:4px;
 /* NOTICES */
 #notices_primary {
 float:left;
-width:644px;
+width:100%;
 border-radius:7px;
 -moz-border-radius:7px;
 -webkit-border-radius:7px;
@@ -1153,3 +1153,4 @@ clear:both;
 #form_settings_avatar .form_actions {
 margin-bottom:0;
 }
+
