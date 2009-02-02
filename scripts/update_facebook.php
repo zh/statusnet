@@ -86,8 +86,12 @@ if ($cnt > 0) {
 	": Found $cnt new notices to send to Facebook since last run at " . 
 	 date('Y-m-d H:i:s', $since) . "\n";
 
-    updateLastUpdated($current_time);
 }
+
+#Save the last updated time. It needs to do this even if there were no
+#changes made, otherwise it will never create it and thus never send
+#any updates at all.
+updateLastUpdated($current_time);
 
 exit(0);
 
