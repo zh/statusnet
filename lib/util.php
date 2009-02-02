@@ -1391,7 +1391,7 @@ function common_negotiate_type($cprefs, $sprefs)
     }
 
     $bestq = 0;
-    $besttype = "text/html";
+    $besttype = 'text/html';
 
     foreach(array_keys($combine) as $type) {
         if($combine[$type] > $bestq) {
@@ -1400,6 +1400,9 @@ function common_negotiate_type($cprefs, $sprefs)
         }
     }
 
+    if ('text/html' === $besttype) {
+        return "text/html; charset=utf-8";
+    }
     return $besttype;
 }
 
