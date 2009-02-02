@@ -338,11 +338,12 @@ class User extends Memcached_DataObject
         {
 
         # 3-way join; probably should get cached
-        $qry = 'SELECT user.* ' .
-          'FROM subscription sub1 JOIN user ON sub1.subscribed = user.id ' .
-          'JOIN subscription sub2 ON user.id = sub2.subscriber ' .
+	$UT = common_config('db','type')=='pgsql'?'"user"':'user';
+        $qry = "SELECT $UT.* " .
+          "FROM subscription sub1 JOIN $UT ON sub1.subscribed = $UT.id " .
+          "JOIN subscription sub2 ON $UT.id = sub2.subscriber " .
           'WHERE sub1.subscriber = %d and sub2.subscribed = %d ' .
-          'ORDER BY user.nickname';
+          "ORDER BY $UT.nickname";
         $user = new User();
         $user->query(sprintf($qry, $this->id, $this->id));
 

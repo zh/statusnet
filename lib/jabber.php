@@ -354,12 +354,13 @@ function jabber_broadcast_notice($notice)
 
     // First, get users to whom this is a direct reply
     $user = new User();
-    $user->query('SELECT user.id, user.jabber ' .
-                 'FROM user JOIN reply ON user.id = reply.profile_id ' .
+    $UT = common_config('db','type')=='pgsql'?'"user"':'user';
+    $user->query("SELECT $UT.id, $UT.jabber " .
+                 "FROM $UT JOIN reply ON $UT.id = reply.profile_id " .
                  'WHERE reply.notice_id = ' . $notice->id . ' ' .
-                 'AND user.jabber is not null ' .
-                 'AND user.jabbernotify = 1 ' .
-                 'AND user.jabberreplies = 1 ');
+                 "AND $UT.jabber is not null " .
+                 "AND $UT.jabbernotify = 1 " .
+                 "AND $UT.jabberreplies = 1 ");
 
     while ($user->fetch()) {
         common_log(LOG_INFO,
@@ -375,12 +376,12 @@ function jabber_broadcast_notice($notice)
     // Now, get users subscribed to this profile
 
     $user = new User();
-    $user->query('SELECT user.id, user.jabber ' .
-                 'FROM user JOIN subscription ' .
-                 'ON user.id = subscription.subscriber ' .
+    $user->query("SELECT $UT.id, $UT.jabber " .
+                 "FROM $UT JOIN subscription " .
+                 "ON $UT.id = subscription.subscriber " .
                  'WHERE subscription.subscribed = ' . $notice->profile_id . ' ' .
-                 'AND user.jabber is not null ' .
-                 'AND user.jabbernotify = 1 ' .
+                 "AND $UT.jabber is not null " .
+                 "AND $UT.jabbernotify = 1 " .
                  'AND subscription.jabber = 1 ');
 
     while ($user->fetch()) {
@@ -399,9 +400,9 @@ function jabber_broadcast_notice($notice)
     // Now, get users who have it in their inbox because of groups
 
     $user = new User();
-    $user->query('SELECT user.id, user.jabber ' .
-                 'FROM user JOIN notice_inbox ' .
-                 'ON user.id = notice_inbox.user_id ' .
+    $user->query("SELECT $UT.id, $UT.jabber " .
+                 "FROM $UT JOIN notice_inbox " .
+                 "ON $UT.id = notice_inbox.user_id " .
                  'WHERE notice_inbox.notice_id = ' . $notice->id . ' ' .
                  'AND notice_inbox.source = 2 ' .
                  'AND user.jabber is not null ' .

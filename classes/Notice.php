@@ -273,8 +273,10 @@ class Notice extends Memcached_DataObject
         if ($cache) {
             $user = new User();
 
+            $UT = common_config('db','type')=='pgsql'?'"user"':'user';
             $user->query('SELECT id ' .
-                         'FROM user JOIN subscription ON user.id = subscription.subscriber ' .
+
+                         "FROM $UT JOIN subscription ON $UT.id = subscription.subscriber " .
                          'WHERE subscription.subscribed = ' . $this->profile_id);
 
             while ($user->fetch()) {
@@ -568,16 +570,17 @@ class Notice extends Memcached_DataObject
 
         if ($enabled === true || $enabled === 'transitional') {
             $inbox = new Notice_inbox();
+            $UT = common_config('db','type')=='pgsql'?'"user"':'user';
             $qry = 'INSERT INTO notice_inbox (user_id, notice_id, created) ' .
-              'SELECT user.id, ' . $this->id . ', "' . $this->created . '" ' .
-              'FROM user JOIN subscription ON user.id = subscription.subscriber ' .
+              "SELECT $UT.id, " . $this->id . ', "' . $this->created . '" ' .
+              "FROM $UT JOIN subscription ON $UT.id = subscription.subscriber " .
               'WHERE subscription.subscribed = ' . $this->profile_id . ' ' .
               'AND NOT EXISTS (SELECT user_id, notice_id ' .
               'FROM notice_inbox ' .
-              'WHERE user_id = user.id ' .
+              "WHERE user_id = $UT.id " .
               'AND notice_id = ' . $this->id . ' )';
             if ($enabled === 'transitional') {
-                $qry .= ' AND user.inboxed = 1';
+                $qry .= " AND $UT.inboxed = 1";
             }
             $inbox->query($qry);
         }
@@ -628,16 +631,17 @@ class Notice extends Memcached_DataObject
                 // FIXME: do this in an offline daemon
 
                 $inbox = new Notice_inbox();
+                $UT = common_config('db','type')=='pgsql'?'"user"':'user';
                 $qry = 'INSERT INTO notice_inbox (user_id, notice_id, created, source) ' .
-                  'SELECT user.id, ' . $this->id . ', "' . $this->created . '", 2 ' .
-                  'FROM user JOIN group_member ON user.id = group_member.profile_id ' .
+                  "SELECT $UT.id, " . $this->id . ', "' . $this->created . '", 2 ' .
+                  "FROM $UT JOIN group_member ON $UT.id = group_member.profile_id " .
                   'WHERE group_member.group_id = ' . $group->id . ' ' .
                   'AND NOT EXISTS (SELECT user_id, notice_id ' .
                   'FROM notice_inbox ' .
-                  'WHERE user_id = user.id ' .
+                  "WHERE user_id = $UT.id " .
                   'AND notice_id = ' . $this->id . ' )';
                 if ($enabled === 'transitional') {
-                    $qry .= ' AND user.inboxed = 1';
+                    $qry .= " AND $UT.inboxed = 1";
                 }
                 $result = $inbox->query($qry);
             }
