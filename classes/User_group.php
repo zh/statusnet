@@ -74,16 +74,17 @@ class User_group extends Memcached_DataObject
           'WHERE group_member.group_id = %d ' .
           'ORDER BY group_member.created DESC ';
 
-        if (common_config('db','type') == 'pgsql') {
-            $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-        } else {
-            $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+        if ($limit != null) {
+            if (common_config('db','type') == 'pgsql') {
+                $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+            } else {
+                $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+            }
         }
 
         $members = new Profile();
 
-        $cnt = $members->query(sprintf($qry, $this->id));
-
+        $members->query(sprintf($qry, $this->id));
         return $members;
     }
 

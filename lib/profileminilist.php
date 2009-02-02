@@ -69,9 +69,7 @@ class ProfileMiniList extends ProfileList
     function showProfile()
     {
         $this->out->elementStart('li', 'vcard');
-        $this->out->elementStart('a', array('title' => ($this->profile->fullname) ?
-                                       $this->profile->fullname :
-                                       $this->profile->nickname,
+        $this->out->elementStart('a', array('title' => $this->profile->getBestName(),
                                        'href' => $this->profile->profileurl,
                                        'rel' => 'contact member',
                                        'class' => 'url'));
