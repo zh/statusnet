@@ -203,7 +203,7 @@ class TagotherAction extends Action
         $action = $user->isSubscribed($this->profile) ? 'subscriptions' : 'subscribers';
 
         if ($this->boolean('ajax')) {
-            $this->startHTML('text/xml');
+            $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
             $this->element('title', null, _('Tags'));
             $this->elementEnd('head');

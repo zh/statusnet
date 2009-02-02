@@ -70,7 +70,7 @@ class ClientErrorAction extends ErrorAction
                                417 => 'Expectation Failed');
         $this->default = 400;
     }
-    
+
     // XXX: Should these error actions even be invokable via URI?
     
     function handle($args)
