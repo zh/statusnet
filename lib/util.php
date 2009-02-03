@@ -898,7 +898,7 @@ function common_fancy_url($action, $args=null)
      case 'grouprss':
         return common_path('group/'.$args['nickname'].'/rss');
      case 'groupmembers':
-        return common_path('group/'.$args['nickname'].'/members');
+        return common_path('group/'.$args['nickname'].'/members' . (($args['page']) ? ('?page=' . $args['page']) : ''));
      case 'grouplogo':
         return common_path('group/'.$args['nickname'].'/logo');
      case 'usergroups':
