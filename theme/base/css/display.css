@@ -20,8 +20,6 @@ font-family:sans-serif;
 font-size:1em;
 line-height:1.65;
 position:relative;
-margin:0 auto;
-width:71.714em;
 }
 h1,h2,h3,h4,h5,h6 {
 text-transform:uppercase;
@@ -240,10 +238,9 @@ display:none;
 
 #site_notice {
 position:absolute;
-right:0;
-top:49px;
-float:right;
-width:300px;
+top:65px;
+right:18px;
+width:250px;
 }
 #page_notice {
 clear:both;
@@ -254,6 +251,7 @@ margin-bottom:18px;
 #anon_notice {
 float:left;
 width:432px;
+width:28.052em;
 padding:11px;
 border-radius:7px;
 -moz-border-radius:7px;
@@ -361,9 +359,10 @@ margin-right:4px;
 }
 
 #wrap {
-float:left;
 margin:0 auto;
 width:71.714em;
+width:1003px;
+overflow:hidden;
 }
 
 #core {
@@ -391,9 +390,9 @@ float:left;
 }
 
 #aside_primary {
-width:284px;
+width:280px;
 float:left;
-margin-left:2px;
+margin-left:4px;
 padding:18px;
 border-radius:7px;
 -moz-border-radius:7px;
@@ -606,12 +605,14 @@ display:block;
 .form_user_block input.submit,
 .form_user_unblock input.submit,
 .entity_send-a-message a,
+.entity_edit a,
 .form_user_nudge input.submit,
 .entity_nudge p {
 border:0;
 padding-left:20px;
 }
 
+.entity_edit a,
 .entity_send-a-message a,
 .entity_nudge p {
 padding:4px 4px 4px 23px;
@@ -749,7 +750,7 @@ border-radius:4px;
 /* NOTICES */
 #notices_primary {
 float:left;
-width:644px;
+width:100%;
 border-radius:7px;
 -moz-border-radius:7px;
 -webkit-border-radius:7px;
@@ -1063,13 +1064,16 @@ margin-bottom:0;
 }
 
 .section .notice {
-padding-top:11px;
-padding-bottom:11px;
+padding-top:7px;
+padding-bottom:7px;
+border-top:0;
 }
 
 .section .notice:first-child {
 padding-top:0;
-border-top:0;
+}
+.section .notice .fn {
+display:none;
 }
 
 
@@ -1154,3 +1158,4 @@ clear:both;
 #form_settings_avatar .form_actions {
 margin-bottom:0;
 }
+
