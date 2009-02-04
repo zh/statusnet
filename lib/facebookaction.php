@@ -168,7 +168,7 @@ class FacebookAction extends Action
 
     function showBody()
     {
-        $this->elementStart('div', 'wrap');
+        $this->elementStart('div', array('id' => 'wrap'));
         $this->showHeader();
         $this->showCore();
         $this->showFooter();
