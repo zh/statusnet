@@ -21,7 +21,7 @@ if (!defined('LACONICA')) { exit(1); }
 
 class Channel
 {
-    
+
     function on($user)
     {
         return false;
@@ -36,12 +36,12 @@ class Channel
     {
         return false;
     }
-    
+
     function error($user, $text)
     {
         return false;
     }
-    
+
     function source()
     {
         return null;
@@ -52,22 +52,22 @@ class XMPPChannel extends Channel
 {
 
     var $conn = null;
-    
+
     function source()
     {
         return 'xmpp';
     }
-    
+
     function __construct($conn)
     {
         $this->conn = $conn;
     }
-    
+
     function on($user)
     {
         return $this->set_notify($user, 1);
     }
-    
+
     function off($user)
     {
         return $this->set_notify($user, 0);
@@ -78,13 +78,13 @@ class XMPPChannel extends Channel
         $text = '['.common_config('site', 'name') . '] ' . $text;
         jabber_send_message($user->jabber, $text);
     }
-    
+
     function error($user, $text)
     {
         $text = '['.common_config('site', 'name') . '] ' . $text;
         jabber_send_message($user->jabber, $text);
     }
-    
+
     function set_notify(&$user, $notify)
     {
         $orig = clone($user);
@@ -105,20 +105,25 @@ class XMPPChannel extends Channel
     }
 }
 
-
 class WebChannel extends Channel
 {
+    var $out = null;
+
+    function __construct($out=null)
+    {
+        $this->out = $out;
+    }
 
     function source()
     {
         return 'web';
     }
-    
+
     function on($user)
     {
         return false;
     }
-    
+
     function off($user)
     {
         return false;
@@ -129,46 +134,48 @@ class WebChannel extends Channel
         # XXX: buffer all output and send it at the end
         # XXX: even better, redirect to appropriate page
         #      depending on what command was run
-        common_show_header(_('Command results'));
-        common_element('p', null, $text);
-        common_show_footer();
+        $this->out->startHTML();
+        $this->out->elementStart('head');
+        $this->out->element('title', null, _('Command results'));
+        $this->out->elementEnd('head');
+        $this->out->elementStart('body');
+        $this->out->element('p', array('id' => 'command_result'), $text);
+        $this->out->elementEnd('body');
+        $this->out->endHTML();
     }
-    
+
     function error($user, $text)
     {
         common_user_error($text);
     }
 }
 
-
 class AjaxWebChannel extends WebChannel
 {
-
     function output($user, $text)
     {
-        common_start_html('text/xml;charset=utf-8', true);
-        common_element_start('head');
-        common_element('title', null, _('Command results'));
-        common_element_end('head');
-        common_element_start('body');
-        common_element('p', array('id' => 'command_result'), $text);
-        common_element_end('body');
-        common_element_end('html');
+        $this->out->startHTML('text/xml;charset=utf-8');
+        $this->out->elementStart('head');
+        $this->out->element('title', null, _('Command results'));
+        $this->out->elementEnd('head');
+        $this->out->elementStart('body');
+        $this->out->element('p', array('id' => 'command_result'), $text);
+        $this->out->elementEnd('body');
+        $this->out->endHTML();
     }
 
     function error($user, $text)
     {
-        common_start_html('text/xml;charset=utf-8', true);
-        common_element_start('head');
-        common_element('title', null, _('Ajax Error'));
-        common_element_end('head');
-        common_element_start('body');
-        common_element('p', array('id' => 'error'), $text);
-        common_element_end('body');
-        common_element_end('html');
+        $this->out->startHTML('text/xml;charset=utf-8');
+        $this->out->elementStart('head');
+        $this->out->element('title', null, _('Ajax Error'));
+        $this->out->elementEnd('head');
+        $this->out->elementStart('body');
+        $this->out->element('p', array('id' => 'error'), $text);
+        $this->out->elementEnd('body');
+        $this->out->endHTML();
     }
 }
-
 
 class MailChannel extends Channel
 {
@@ -179,17 +186,17 @@ class MailChannel extends Channel
     {
         return 'mail';
     }
-    
+
     function __construct($addr=null)
     {
         $this->addr = $addr;
     }
-    
+
     function on($user)
     {
         return $this->set_notify($user, 1);
     }
-    
+
     function off($user)
     {
         return $this->set_notify($user, 0);
@@ -200,23 +207,23 @@ class MailChannel extends Channel
 
         $headers['From'] = $user->incomingemail;
         $headers['To'] = $this->addr;
-        
+
         $headers['Subject'] = _('Command complete');
 
         return mail_send(array($this->addr), $headers, $text);
     }
-    
+
     function error($user, $text)
     {
-        
+
         $headers['From'] = $user->incomingemail;
         $headers['To'] = $this->addr;
-        
+
         $headers['Subject'] = _('Command failed');
 
         return mail_send(array($this->addr), $headers, $text);
     }
-    
+
     function set_notify($user, $value)
     {
         $orig = clone($user);

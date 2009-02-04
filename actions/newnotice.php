@@ -141,9 +141,9 @@ class NewnoticeAction extends Action
 
         if ($cmd) {
             if ($this->boolean('ajax')) {
-                $cmd->execute(new AjaxWebChannel());
+                $cmd->execute(new AjaxWebChannel($this));
             } else {
-                $cmd->execute(new WebChannel());
+                $cmd->execute(new WebChannel($this));
             }
             return;
         }
