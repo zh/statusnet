@@ -316,17 +316,17 @@ class AvatarsettingsAction extends AccountSettingsAction
 
         $profile = $user->getProfile();
 
-        $x = $this->arg('avatar_crop_x');
-        $y = $this->arg('avatar_crop_y');
-        $w = $this->arg('avatar_crop_w');
-        $h = $this->arg('avatar_crop_h');
-
         $filedata = $_SESSION['FILEDATA'];
 
         if (!$filedata) {
             $this->serverError(_('Lost our file data.'));
             return;
         }
+
+        $x = $this->arg('avatar_crop_x');
+        $y = $this->arg('avatar_crop_y');
+        $w = ($this->arg('avatar_crop_w')) ? $this->arg('avatar_crop_w') : $filedata['width'];
+        $h = ($this->arg('avatar_crop_h')) ? $this->arg('avatar_crop_h') : $filedata['height'];
 
         $filepath = common_avatar_path($filedata['filename']);
 
