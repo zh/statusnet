@@ -73,7 +73,6 @@ class Action extends HTMLOutputter // lawsuit
         parent::__construct($output, $indent);
     }
 
-
     /**
      * For initializing members of the class.
      *
@@ -246,7 +245,6 @@ class Action extends HTMLOutputter // lawsuit
         // does nothing by default
     }
 
-    
     /**
      * Show body.
      *
@@ -354,7 +352,7 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementEnd('dd');
         $this->elementEnd('dl');
     }
-    
+
     /**
      * Show site notice.
      *
@@ -368,7 +366,9 @@ class Action extends HTMLOutputter // lawsuit
             $this->elementStart('dl', array('id' => 'site_notice',
                                             'class' => 'system_notice'));
             $this->element('dt', null, _('Site notice'));
-            $this->element('dd', null, $text);
+            $this->elementStart('dd', null);
+            $this->raw($text);
+            $this->elementEnd('dd');
             $this->elementEnd('dl');
         }
     }
@@ -385,7 +385,7 @@ class Action extends HTMLOutputter // lawsuit
         $notice_form = new NoticeForm($this);
         $notice_form->show();
     }
-    
+
     /**
      * Show anonymous message.
      *
@@ -761,7 +761,7 @@ class Action extends HTMLOutputter // lawsuit
     /**
      * Boolean understands english (yes, no, true, false)
      *
-     * @param string $key query key we're interested in 
+     * @param string $key query key we're interested in
      * @param string $def default value
      *
      * @return boolean interprets yes/no strings as boolean
