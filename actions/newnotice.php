@@ -195,7 +195,7 @@ class NewnoticeAction extends Action
 
     function ajaxErrorMsg($msg)
     {
-        common_start_html('text/xml;charset=utf-8', true);
+        $this->startHTML('text/xml;charset=utf-8', true);
         $this->elementStart('head');
         $this->element('title', null, _('Ajax Error'));
         $this->elementEnd('head');

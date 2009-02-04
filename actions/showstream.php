@@ -170,26 +170,22 @@ class ShowstreamAction extends Action
 
     function showFeeds()
     {
-        // Feeds
         $this->element('link', array('rel' => 'alternate',
-                                     'href' => common_local_url('api',
-                                                                array('apiaction' => 'statuses',
-                                                                      'method' => 'entity_timeline.rss',
-                                                                      'argument' => $this->user->nickname)),
-                                     'type' => 'application/rss+xml',
-                                     'title' => sprintf(_('Notice feed for %s'), $this->user->nickname)));
-        $this->element('link', array('rel' => 'alternate feed',
-                                     'href' => common_local_url('api',
-                                                                array('apiaction' => 'statuses',
-                                                                      'method' => 'entity_timeline.atom',
-                                                                      'argument' => $this->user->nickname)),
-                                     'type' => 'application/atom+xml',
-                                     'title' => sprintf(_('Notice feed for %s'), $this->user->nickname)));
-        $this->element('link', array('rel' => 'alternate',
-                                     'href' => common_local_url('userrss', array('nickname' =>
-                                                                               $this->user->nickname)),
-                                     'type' => 'application/rdf+xml',
-                                     'title' => sprintf(_('Notice feed for %s'), $this->user->nickname)));
+                        'type' => 'application/rss+xml',
+                        'href' => common_local_url('userrss',
+                         array('nickname' => $this->user->nickname)),
+                               'title' => sprintf(_('Notice feed for %s (RSS)'),
+                                 $this->user->nickname)));
+
+         $this->element('link',
+             array('rel' => 'alternate',
+                   'href' => common_local_url('api',
+                     array('apiaction' => 'statuses',
+                           'method' => 'user_timeline.atom',
+                           'argument' => $this->user->nickname)),
+                           'type' => 'application/atom+xml',
+                           'title' => sprintf(_('Notice feed for %s (Atom)'),
+                             $this->user->nickname)));
     }
 
     function extraHead()
