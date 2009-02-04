@@ -90,7 +90,7 @@ class NewnoticeAction extends Action
             $this->clientError(_('Not logged in.'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            // CSRF protection - token set in common_notice_form()
+            // CSRF protection
             $token = $this->trimmed('token');
             if (!$token || $token != common_session_token()) {
                 $this->clientError(_('There was a problem with your session token. '.
