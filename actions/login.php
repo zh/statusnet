@@ -96,7 +96,6 @@ class LoginAction extends Action
     {
         // XXX: login throttle
 
-        // CSRF protection - token set in common_notice_form()
         $token = $this->trimmed('token');
         if (!$token || $token != common_session_token()) {
             $this->clientError(_('There was a problem with your session token. '.
