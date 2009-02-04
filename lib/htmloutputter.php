@@ -172,7 +172,7 @@ class HTMLOutputter extends XMLOutputter
                        'type' => 'text',
                        'id' => $id);
         if ($value) {
-            $attrs['value'] = htmlspecialchars($value);
+            $attrs['value'] = $value;
         }
         $this->element('input', $attrs);
         if ($instructions) {
@@ -206,7 +206,7 @@ class HTMLOutputter extends XMLOutputter
                        'class' => 'checkbox',
                        'id' => $id);
         if ($value) {
-            $attrs['value'] = htmlspecialchars($value);
+            $attrs['value'] = $value;
         }
         if ($checked) {
             $attrs['checked'] = 'checked';
