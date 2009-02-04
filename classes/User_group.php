@@ -132,14 +132,29 @@ class User_group extends Memcached_DataObject
         }
 
         $image_dest = imagecreatetruecolor($size, $size);
+        
+        if ($type == IMAGETYPE_GIF || $type == IMAGETYPE_PNG) {
 
-        $background = imagecolorallocate($image_dest, 0, 0, 0);
-        ImageColorTransparent($image_dest, $background);
-        imagealphablending($image_dest, false);
+            $transparent_idx = imagecolortransparent($image_src);
+            
+            if ($transparent_idx >= 0) {
+                
+                $transparent_color = imagecolorsforindex($image_src, $transparent_idx);
+                $transparent_idx = imagecolorallocate($image_dest, $transparent_color['red'], $transparent_color['green'], $transparent_color['blue']);
+                imagefill($image_dest, 0, 0, $transparent_idx);
+                imagecolortransparent($image_dest, $transparent_idx);
+                
+            } elseif ($type == IMAGETYPE_PNG) {
+                
+                imagealphablending($image_dest, false);
+                $transparent = imagecolorallocatealpha($image_dest, 0, 0, 0, 127);
+                imagefill($image_dest, 0, 0, $transparent);
+                imagesavealpha($image_dest, true);
+                
+            }
+        }
 
-        imagecopyresized($image_dest, $image_src,
-                         0, 0, 0, 0,
-                         $size, $size, $info[0], $info[1]);
+        imagecopyresampled($image_dest, $image_src, 0, 0, 0, 0, $size, $size, $info[0], $info[1]);
 
         $outname = common_avatar_filename($this->id,
                                           image_type_to_extension($type),

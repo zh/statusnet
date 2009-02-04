@@ -364,7 +364,7 @@ class GrouplogoAction extends Action
 
         $this->mode = 'crop';
 
-        $this->showForm(_('Pick a square area of the image to be your avatar'),
+        $this->showForm(_('Pick a square area of the image to be the logo.'),
                         true);
     }
 
@@ -377,7 +377,6 @@ class GrouplogoAction extends Action
     function cropLogo()
     {
         $user = common_current_user();
-
         $profile = $user->getProfile();
 
         $filedata = $_SESSION['FILEDATA'];
@@ -386,11 +385,6 @@ class GrouplogoAction extends Action
             $this->serverError(_('Lost our file data.'));
             return;
         }
-
-        $x = $this->arg('avatar_crop_x');
-        $y = $this->arg('avatar_crop_y');
-        $w = ($this->arg('avatar_crop_w')) ? $this->arg('avatar_crop_w') : $filedata['width'];
-        $h = ($this->arg('avatar_crop_h')) ? $this->arg('avatar_crop_h') : $filedata['height'];
 
         $filepath = common_avatar_path($filedata['filename']);
 
@@ -414,17 +408,39 @@ class GrouplogoAction extends Action
             return;
         }
 
-        $size = ($w > MAX_ORIGINAL) ? MAX_ORIGINAL : $w;
+        // If image is not being cropped assume pos & dimentions of original
+        $dest_x = $this->arg('avatar_crop_x') ? $this->arg('avatar_crop_x'):0;
+        $dest_y = $this->arg('avatar_crop_y') ? $this->arg('avatar_crop_y'):0;
+        $dest_w = $this->arg('avatar_crop_w') ? $this->arg('avatar_crop_w'):$filedata['width'];
+        $dest_h = $this->arg('avatar_crop_h') ? $this->arg('avatar_crop_h'):$filedata['height'];
+        $size = ($dest_w > MAX_ORIGINAL) ? MAX_ORIGINAL : $dest_w;
+        
+        common_debug("W = $dest_w, H = $dest_h, X = $dest_x, Y = $dest_y, size = $size");
 
         $image_dest = imagecreatetruecolor($size, $size);
+        
+        if ($filedata['type'] == IMAGETYPE_GIF || $filedata['type'] == IMAGETYPE_PNG) {
 
-        $background = imagecolorallocate($image_dest, 0, 0, 0);
-        ImageColorTransparent($image_dest, $background);
-        imagealphablending($image_dest, false);
+            $transparent_idx = imagecolortransparent($image_src);
 
-        imagecopyresized($image_dest, $image_src,
-                         0, 0, $x, $y,
-                         $size, $size, $w, $h);
+            if ($transparent_idx >= 0) {
+
+                $transparent_color = imagecolorsforindex($image_src, $transparent_idx);
+                $transparent_idx = imagecolorallocate($image_dest, $transparent_color['red'], $transparent_color['green'], $transparent_color['blue']);
+                imagefill($image_dest, 0, 0, $transparent_idx);
+                imagecolortransparent($image_dest, $transparent_idx);
+
+            } elseif ($filedata['type'] == IMAGETYPE_PNG) {
+
+                imagealphablending($image_dest, false);
+                $transparent = imagecolorallocatealpha($image_dest, 0, 0, 0, 127);
+                imagefill($image_dest, 0, 0, $transparent);
+                imagesavealpha($image_dest, true);
+
+            }
+        }
+
+        imagecopyresampled($image_dest, $image_src, 0, 0, $dest_x, $dest_y, $size, $size, $dest_w, $dest_h);
 
         $filename = common_avatar_filename($this->group->id,
                                            image_type_to_extension($filedata['type']),
