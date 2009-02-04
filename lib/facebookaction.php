@@ -129,7 +129,7 @@ class FacebookAction extends Action
      * Start an Facebook ready HTML document
      *
      *  For Facebook we don't want to actually output any headers,
-     *  DTD info, etc.
+     *  DTD info, etc.  Just Stylesheet and JavaScript links.
      *
      * If $type isn't specified, will attempt to do content negotiation.
      *
@@ -140,6 +140,9 @@ class FacebookAction extends Action
 
     function startHTML($type=null) 
     {          
+        $this->showStylesheets();
+        $this->showScripts();
+        
         $this->elementStart('div', array('class' => 'facebook-page'));
     }
 
@@ -181,8 +184,6 @@ class FacebookAction extends Action
 
     function showHead($error, $success)
     {
-        $this->showStylesheets();
-        $this->showScripts();
         
         if ($error) {
             $this->element("h1", null, $error);
@@ -204,7 +205,6 @@ class FacebookAction extends Action
     // Make this into a widget later
     function showLocalNav()
     {
-                
         $this->elementStart('ul', array('class' => 'nav'));
 
         $this->elementStart('li', array('class' =>
@@ -229,18 +229,7 @@ class FacebookAction extends Action
         $this->elementEnd('li');
 
         $this->elementEnd('ul');
-
     }     
-
-    /**
-     * Show primary navigation.
-     *
-     * @return nothing
-     */
-    function showPrimaryNav()
-    {
-        // we don't want to show anything for this
-    }
     
     /**
      * Show header of the page.
@@ -254,7 +243,6 @@ class FacebookAction extends Action
         $this->elementStart('div', array('id' => 'header'));
         $this->showLogo();
         $this->showNoticeForm();
-        $this->showPrimaryNav();
         $this->elementEnd('div');
     }
     
