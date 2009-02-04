@@ -19,7 +19,7 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class Channel extends Action
+class Channel
 {
     
     function on($user)
@@ -129,7 +129,6 @@ class WebChannel extends Channel
         # XXX: buffer all output and send it at the end
         # XXX: even better, redirect to appropriate page
         #      depending on what command was run
-
         common_show_header(_('Command results'));
         common_element('p', null, $text);
         common_show_footer();
@@ -147,26 +146,26 @@ class AjaxWebChannel extends WebChannel
 
     function output($user, $text)
     {
-        $this->startHTML('text/xml;charset=utf-8', true);
-        $this->elementStart('head');
-        $this->element('title', null, _('Command results'));
-        $this->elementEnd('head');
-        $this->elementStart('body');
-        $this->element('p', array('id' => 'command_result'), $text);
-        $this->elementEnd('body');
-        $this->elementEnd('html');
+        common_start_html('text/xml;charset=utf-8', true);
+        common_element_start('head');
+        common_element('title', null, _('Command results'));
+        common_element_end('head');
+        common_element_start('body');
+        common_element('p', array('id' => 'command_result'), $text);
+        common_element_end('body');
+        common_element_end('html');
     }
 
     function error($user, $text)
     {
-        $this->startHTML('text/xml;charset=utf-8', true);
-        $this->elementStart('head');
-        $this->element('title', null, _('Ajax error'));
-        $this->elementEnd('head');
-        $this->elementStart('body');
-        $this->element('p', array('id' => 'error'), $text);
-        $this->elementEnd('body');
-        $this->elementEnd('html');
+        common_start_html('text/xml;charset=utf-8', true);
+        common_element_start('head');
+        common_element('title', null, _('Ajax Error'));
+        common_element_end('head');
+        common_element_start('body');
+        common_element('p', array('id' => 'error'), $text);
+        common_element_end('body');
+        common_element_end('html');
     }
 }
 
