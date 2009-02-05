@@ -72,7 +72,7 @@ class ImageFile
             break;
         case UPLOAD_ERR_INI_SIZE:
         case UPLOAD_ERR_FORM_SIZE:
-            throw new Exception(_('That file is too big.'));
+            throw new Exception(_('That file is too big. The maximum file size is '.$this->maxFileSize().'.'));
             return;
         case UPLOAD_ERR_PARTIAL:
             @unlink($_FILES[$param]['tmp_name']);
@@ -181,5 +181,28 @@ class ImageFile
     function unlink()
     {
         @unlink($this->filename);
+    }
+    
+    static function maxFileSize()
+    {
+        $limit = min(ImageFile::strToInt(ini_get('post_max_size')), ImageFile::strToInt(ini_get('upload_max_filesize')));
+        return ($limit/(1024*1024)).'MB';
+    }
+    
+    static function strToInt($str)
+    {
+        $unit = substr($str, -1);
+        $num = substr($str, 0, -1);
+        
+        switch(strtoupper($unit)){
+            case 'G':
+                $num *= 1024;
+            case 'M':
+                $num *= 1024;
+            case 'K':
+                $num *= 1024;
+        }
+        
+        return $num;
     }
 }

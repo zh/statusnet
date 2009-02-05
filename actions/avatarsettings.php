@@ -75,7 +75,7 @@ class AvatarsettingsAction extends AccountSettingsAction
 
     function getInstructions()
     {
-        return _('You can upload your personal avatar.');
+        return _('You can upload your personal avatar. The maximum file size is '.ImageFile::maxFileSize().'.');
     }
 
     /**

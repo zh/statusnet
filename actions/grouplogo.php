@@ -152,7 +152,7 @@ class GrouplogoAction extends Action
 
     function getInstructions()
     {
-        return _('You can upload a logo image for your group.');
+        return _('You can upload a logo image for your group. The maximum file size is '.ImageFile::maxFileSize().'.');
     }
 
     /**
