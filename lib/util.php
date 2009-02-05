@@ -736,6 +736,8 @@ function common_fancy_url($action, $args=null)
         return common_path("api/statuses/public_timeline.atom");
      case 'publicxrds':
         return common_path('xrds');
+     case 'tagrss':
+        return common_path('tag/' . $args['tag'] . '/rss');
      case 'featuredrss':
         return common_path('featuredrss');
      case 'favoritedrss':

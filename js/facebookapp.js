@@ -19,10 +19,12 @@
 var max = 140;
 var noticeBox = document.getElementById('notice_data-text'); 
 
-noticeBox.addEventListener('keyup', keypress);
-noticeBox.addEventListener('keydown', keypress);
-noticeBox.addEventListener('keypress', keypress);
-noticeBox.addEventListener('change', keypress);
+if (noticeBox) {
+    noticeBox.addEventListener('keyup', keypress);
+    noticeBox.addEventListener('keydown', keypress);
+    noticeBox.addEventListener('keypress', keypress);
+    noticeBox.addEventListener('change', keypress);
+}
 
 // Do our the countdown
 function keypress(evt) {  
