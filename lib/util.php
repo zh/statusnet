@@ -386,46 +386,85 @@ function common_render_text($text)
     $r = htmlspecialchars($text);
 
     $r = preg_replace('/[\x{0}-\x{8}\x{b}-\x{c}\x{e}-\x{19}]/', '', $r);
-    $r = preg_replace_callback('@(ftp|http|https|mms|rtsp|gopher|news|nntp|telnet|wais|file|prospero|webcal|xmpp|irc)://[^\]>\s]+@', 'common_render_uri_thingy', $r);
-    $r = preg_replace_callback('@(mailto|aim|tel):[^\]>\s]+@', 'common_render_uri_thingy', $r); // Pseudo-protocols don't require '//' after ':'.
+    $r = common_replace_urls_callback($r, 'common_linkify');
     $r = preg_replace('/(^|\(|\[|\s+)#([A-Za-z0-9_\-\.]{1,64})/e', "'\\1#'.common_tag_link('\\2')", $r);
     // XXX: machine tags
     return $r;
 }
 
-function common_render_uri_thingy($matches)
-{
-    $uri = $matches[0];
-    $trailer = '';
+function common_replace_urls_callback($text, $callback) {
+    // Start off with a regex
+        preg_match_all('#(?:(?:(?:https?|ftps?|mms|rtsp|gopher|news|nntp|telnet|wais|file|prospero|webcal|xmpp|irc)://|(?:mailto|aim|tel):)[^.\s]+\.[^\s]+|(?:[^.\s/]+\.)+(?:museum|travel|[a-z]{2,4})(?:[:/][^\s]*)?)#i', $text, $matches);
+    
+    // Then clean up what the regex left behind
+    $offset = 0;
+    foreach($matches[0] as $url) {
+        $url = htmlspecialchars_decode($url);
+        
+        // Make sure we didn't pick up an email address
+        if (preg_match('#^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$#i', $url)) continue;
+        
+        // Remove trailing punctuation
+        $url = rtrim($url, '.?!,;:\'"`');
 
-    // Some heuristics for extracting URIs from surrounding punctuation
-    // Strip from trailing text...
-    if (preg_match('/^(.*)([,.:"\']+)$/', $uri, $matches)) {
-        $uri = $matches[1];
-        $trailer = $matches[2];
-    }
+        // Remove surrounding parens and the like
+        preg_match('/[)\]>]+$/', $url, $trailing);
+        if (isset($trailing[0])) {
+            preg_match_all('/[(\[<]/', $url, $opened);
+            preg_match_all('/[)\]>]/', $url, $closed);
+            $unopened = count($closed[0]) - count($opened[0]);
 
-    $pairs = array(
-                   ']' => '[', // technically disallowed in URIs, but used in Java docs
-                   ')' => '(', // far too frequent in Wikipedia and MSDN
-                   );
-    $final = substr($uri, -1, 1);
-    if (isset($pairs[$final])) {
-        $openers = substr_count($uri, $pairs[$final]);
-        $closers = substr_count($uri, $final);
-        if ($closers > $openers) {
-            // Assume the paren was opened outside the URI
-            $uri = substr($uri, 0, -1);
-            $trailer = $final . $trailer;
+            // Make sure not to take off more closing parens than there are at the end
+            $unopened = ($unopened > mb_strlen($trailing[0])) ? mb_strlen($trailing[0]):$unopened;
+
+            $url = ($unopened > 0) ? mb_substr($url, 0, $unopened * -1):$url;
         }
+
+        // Remove trailing punctuation again (in case there were some inside parens)
+        $url = rtrim($url, '.?!,;:\'"`');
+        
+        // Make sure we didn't capture part of the next sentence
+        preg_match('#((?:[^.\s/]+\.)+)(museum|travel|[a-z]{2,4})#i', $url, $url_parts);
+        
+        // Were the parts capitalized any?
+        $last_part = (mb_strtolower($url_parts[2]) !== $url_parts[2]) ? true:false;
+        $prev_part = (mb_strtolower($url_parts[1]) !== $url_parts[1]) ? true:false;
+        
+        // If the first part wasn't cap'd but the last part was, we captured too much
+        if ((!$prev_part && $last_part)) {
+            $url = substr_replace($url, '', mb_strpos($url, '.'.$url_parts[2], 0));
+        }
+        
+        // Capture the new TLD
+        preg_match('#((?:[^.\s/]+\.)+)(museum|travel|[a-z]{2,4})#i', $url, $url_parts);
+        
+        $tlds = array('ac', 'ad', 'ae', 'aero', 'af', 'ag', 'ai', 'al', 'am', 'an', 'ao', 'aq', 'ar', 'arpa', 'as', 'asia', 'at', 'au', 'aw', 'ax', 'az', 'ba', 'bb', 'bd', 'be', 'bf', 'bg', 'bh', 'bi', 'biz', 'bj', 'bm', 'bn', 'bo', 'br', 'bs', 'bt', 'bv', 'bw', 'by', 'bz', 'ca', 'cat', 'cc', 'cd', 'cf', 'cg', 'ch', 'ci', 'ck', 'cl', 'cm', 'cn', 'co', 'com', 'coop', 'cr', 'cu', 'cv', 'cx', 'cy', 'cz', 'de', 'dj', 'dk', 'dm', 'do', 'dz', 'ec', 'edu', 'ee', 'eg', 'er', 'es', 'et', 'eu', 'fi', 'fj', 'fk', 'fm', 'fo', 'fr', 'ga', 'gb', 'gd', 'ge', 'gf', 'gg', 'gh', 'gi', 'gl', 'gm', 'gn', 'gov', 'gp', 'gq', 'gr', 'gs', 'gt', 'gu', 'gw', 'gy', 'hk', 'hm', 'hn', 'hr', 'ht', 'hu', 'id', 'ie', 'il', 'im', 'in', 'info', 'int', 'io', 'iq', 'ir', 'is', 'it', 'je', 'jm', 'jo', 'jobs', 'jp', 'ke', 'kg', 'kh', 'ki', 'km', 'kn', 'kp', 'kr', 'kw', 'ky', 'kz', 'la', 'lb', 'lc', 'li', 'lk', 'lr', 'ls', 'lt', 'lu', 'lv', 'ly', 'ma', 'mc', 'md', 'me', 'mg', 'mh', 'mil', 'mk', 'ml', 'mm', 'mn', 'mo', 'mobi', 'mp', 'mq', 'mr', 'ms', 'mt', 'mu', 'museum', 'mv', 'mw', 'mx', 'my', 'mz', 'na', 'name', 'nc', 'ne', 'net', 'nf', 'ng', 'ni', 'nl', 'no', 'np', 'nr', 'nu', 'nz', 'om', 'org', 'pa', 'pe', 'pf', 'pg', 'ph', 'pk', 'pl', 'pm', 'pn', 'pr', 'pro', 'ps', 'pt', 'pw', 'py', 'qa', 're', 'ro', 'rs', 'ru', 'rw', 'sa', 'sb', 'sc', 'sd', 'se', 'sg', 'sh', 'si', 'sj', 'sk', 'sl', 'sm', 'sn', 'so', 'sr', 'st', 'su', 'sv', 'sy', 'sz', 'tc', 'td', 'tel', 'tf', 'tg', 'th', 'tj', 'tk', 'tl', 'tm', 'tn', 'to', 'tp', 'tr', 'travel', 'tt', 'tv', 'tw', 'tz', 'ua', 'ug', 'uk', 'us', 'uy', 'uz', 'va', 'vc', 've', 'vg', 'vi', 'vn', 'vu', 'wf', 'ws', 'ye', 'yt', 'yu', 'za', 'zm', 'zw');
+
+        if (!in_array($url_parts[2], $tlds)) continue;
+        
+        // Call user specified func
+        $modified_url = $callback($url);
+        
+        // Replace it!
+        $start = mb_strpos($text, $url, $offset);
+        $text = substr_replace($text, $modified_url, $start, mb_strlen($url));
+        $offset = $start + mb_strlen($modified_url);
     }
-    if ($longurl = common_longurl($uri)) {
+    
+    return $text;
+}
+
+function common_linkify($url) {
+    $display = $url;
+    $url = (!preg_match('#^([a-z]+://|(mailto|aim|tel):)#i', $url)) ? 'http://'.$url:$url;
+    
+    if ($longurl = common_longurl($url)) {
         $longurl = htmlentities($longurl, ENT_QUOTES, 'UTF-8');
-        $title = " title='$longurl'";
+        $title = "title=\"$longurl\"";
     }
     else $title = '';
-
-    return '<a href="' . $uri . '"' . $title . ' class="extlink">' . $uri . '</a>' . $trailer;
+    
+    return "<a href=\"$url\" $title class=\"extlink\">$display</a>";
 }
 
 function common_longurl($short_url)
