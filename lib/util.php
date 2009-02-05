@@ -388,7 +388,7 @@ function common_render_text($text)
     $r = preg_replace('/[\x{0}-\x{8}\x{b}-\x{c}\x{e}-\x{19}]/', '', $r);
     $r = preg_replace_callback('@(ftp|http|https|mms|rtsp|gopher|news|nntp|telnet|wais|file|prospero|webcal|xmpp|irc)://[^\]>\s]+@', 'common_render_uri_thingy', $r);
     $r = preg_replace_callback('@(mailto|aim|tel):[^\]>\s]+@', 'common_render_uri_thingy', $r); // Pseudo-protocols don't require '//' after ':'.
-    $r = preg_replace('/(^|\s+)#([A-Za-z0-9_\-\.]{1,64})/e', "'\\1#'.common_tag_link('\\2')", $r);
+    $r = preg_replace('/(^|\(|\[|\s+)#([A-Za-z0-9_\-\.]{1,64})/e', "'\\1#'.common_tag_link('\\2')", $r);
     // XXX: machine tags
     return $r;
 }
