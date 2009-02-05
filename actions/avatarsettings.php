@@ -75,7 +75,7 @@ class AvatarsettingsAction extends AccountSettingsAction
 
     function getInstructions()
     {
-        return _('You can upload your personal avatar. The maximum file size is '.ImageFile::maxFileSize().'.');
+        return sprintf(_('You can upload your personal avatar. The maximum file size is %s.'), ImageFile::maxFileSize());
     }
 
     /**
@@ -155,7 +155,7 @@ class AvatarsettingsAction extends AccountSettingsAction
         $this->element('input', array('name' => 'MAX_FILE_SIZE',
                                       'type' => 'hidden',
                                       'id' => 'MAX_FILE_SIZE',
-                                      'value' => ImageFile::maxFileSize(true)));
+                                      'value' => ImageFile::maxFileSizeInt()));
         $this->elementEnd('li');
         $this->elementEnd('ul');
 
