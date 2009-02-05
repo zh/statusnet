@@ -373,12 +373,14 @@ class AvatarsettingsAction extends AccountSettingsAction
     {
         parent::showScripts();
 
-        $jcropPack = common_path('js/jcrop/jquery.Jcrop.pack.js');
-        $jcropGo   = common_path('js/jcrop/jquery.Jcrop.go.js');
+        if ($this->mode == 'crop') {
+            $jcropPack = common_path('js/jcrop/jquery.Jcrop.pack.js');
+            $jcropGo   = common_path('js/jcrop/jquery.Jcrop.go.js');
 
-        $this->element('script', array('type' => 'text/javascript',
-                                       'src' => $jcropPack));
-        $this->element('script', array('type' => 'text/javascript',
-                                       'src' => $jcropGo));
+            $this->element('script', array('type' => 'text/javascript',
+                                           'src' => $jcropPack));
+            $this->element('script', array('type' => 'text/javascript',
+                                           'src' => $jcropGo));
+        }
     }
 }
