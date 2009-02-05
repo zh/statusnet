@@ -78,6 +78,7 @@ class LoginAction extends Action
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->checkLogin();
         } else {
+            common_ensure_session();
             $this->showForm();
         }
     }
