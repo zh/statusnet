@@ -270,7 +270,6 @@ class FacebookAction extends Action
 
         $loginmsg_part1 = _('To use the %s Facebook Application you need to login ' .
             'with your username and password. Don\'t have a username yet? ');
-
         $loginmsg_part2 = _(' a new account.');
 
         $this->elementStart('dd');
@@ -279,18 +278,18 @@ class FacebookAction extends Action
         $this->element('a',
             array('href' => common_local_url('register')), _('Register'));
         $this->text($loginmsg_part2);
+	$this->elementEnd('p');
         $this->elementEnd('dd');
+
         $this->elementEnd('dl');
-        
         $this->elementEnd('div');
-        
     }
 
 
     function showLoginForm($msg = null)
     {
 
-        $this->elementStart('div', array('class' => 'content'));
+        $this->elementStart('div', array('id' => 'content'));
         $this->element('h1', null, _('Login'));
 
         if ($msg) {
@@ -318,6 +317,7 @@ class FacebookAction extends Action
         $this->elementEnd('ul');
 
         $this->submit('submit', _('Login'));
+	$this->elementEnd('fieldset');
         $this->elementEnd('form');
 
         $this->elementStart('p');
@@ -325,6 +325,7 @@ class FacebookAction extends Action
                        _('Lost or forgotten password?'));
         $this->elementEnd('p');
 
+        $this->elementEnd('div');
         $this->elementEnd('div');
 
     }

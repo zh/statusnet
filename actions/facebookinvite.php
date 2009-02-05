@@ -73,7 +73,7 @@ class FacebookinviteAction extends FacebookAction
 
         $friend_ids = $_POST['ids']; // XXX: Hmm... is this the best way to acces the list?
 
-        $this->elementStart("ul");
+        $this->elementStart('ul', array('id' => 'facebook-friends'));
 
         foreach ($friend_ids as $friend) {
             $this->elementStart('li');
@@ -112,11 +112,11 @@ class FacebookinviteAction extends FacebookAction
 
         $this->element('h2', null, sprintf(_('Friends already using %s:'), 
             common_config('site', 'name')));
-        $this->elementStart("ul");
-
+        $this->elementStart('ul', array('id' => 'facebook-friends'));
+        
         foreach ($exclude_ids as $friend) {
             $this->elementStart('li');
-            $this->element('fb:profile-pic', array('uid' => $friend));
+            $this->element('fb:profile-pic', array('uid' => $friend, 'size' => 'square'));
             $this->element('fb:name', array('uid' => $friend,
                                             'capitalize' => 'true'));
             $this->elementEnd('li');
