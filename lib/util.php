@@ -370,8 +370,6 @@ function common_canonical_email($email)
     return $email;
 }
 
-define('URL_REGEX', '^|[ \t\r\n])((ftp|http|https|gopher|mailto|news|nntp|telnet|wais|file|prospero|aim|webcal):(([A-Za-z0-9$_.+!*(),;/?:@&~=-])|%[A-Fa-f0-9]{2}){2,}(#([a-zA-Z0-9][a-zA-Z0-9$_.+!*(),;/?:@&~=%-]*))?([A-Za-z0-9$_+!*();/?:~-]))');
-
 function common_render_content($text, $notice)
 {
     $r = common_render_text($text);
@@ -388,7 +386,8 @@ function common_render_text($text)
     $r = htmlspecialchars($text);
 
     $r = preg_replace('/[\x{0}-\x{8}\x{b}-\x{c}\x{e}-\x{19}]/', '', $r);
-    $r = preg_replace_callback('@https?://[^\]>\s]+@', 'common_render_uri_thingy', $r);
+    $r = preg_replace_callback('@(ftp|http|https|mms|rtsp|gopher|news|nntp|telnet|wais|file|prospero|webcal|xmpp|irc)://[^\]>\s]+@', 'common_render_uri_thingy', $r);
+    $r = preg_replace_callback('@(mailto|aim|tel):[^\]>\s]+@', 'common_render_uri_thingy', $r); // Pseudo-protocols don't require '//' after ':'.
     $r = preg_replace('/(^|\s+)#([A-Za-z0-9_\-\.]{1,64})/e', "'\\1#'.common_tag_link('\\2')", $r);
     // XXX: machine tags
     return $r;
@@ -899,7 +898,7 @@ function common_fancy_url($action, $args=null)
      case 'grouprss':
         return common_path('group/'.$args['nickname'].'/rss');
      case 'groupmembers':
-        return common_path('group/'.$args['nickname'].'/members');
+        return common_path('group/'.$args['nickname'].'/members' . (($args['page']) ? ('?page=' . $args['page']) : ''));
      case 'grouplogo':
         return common_path('group/'.$args['nickname'].'/logo');
      case 'usergroups':
@@ -1391,7 +1390,7 @@ function common_negotiate_type($cprefs, $sprefs)
     }
 
     $bestq = 0;
-    $besttype = "text/html";
+    $besttype = 'text/html';
 
     foreach(array_keys($combine) as $type) {
         if($combine[$type] > $bestq) {
@@ -1400,6 +1399,9 @@ function common_negotiate_type($cprefs, $sprefs)
         }
     }
 
+    if ('text/html' === $besttype) {
+        return "text/html; charset=utf-8";
+    }
     return $besttype;
 }
 

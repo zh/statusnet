@@ -26,16 +26,16 @@ instant messenger programs (GTalk/Jabber), and specially-designed
 desktop clients that support the Twitter API.
 
 Laconica supports an open standard called OpenMicroBlogging
-(http://openmicroblogging.org/) that lets users on different Web sites
+<http://openmicroblogging.org/> that lets users on different Web sites
 or in different companies subscribe to each others' notices. It
 enables a distributed social network spread all across the Web.
 
 Laconica was originally developed for the Open Software Service,
-Identi.ca (http://identi.ca/). It is shared with you in hope that you
+Identi.ca <http://identi.ca/>. It is shared with you in hope that you
 too make an Open Software Service available to your users. To learn
-more, please see the Open Software Service Definition 1.0:
+more, please see the Open Software Service Definition 1.1:
 
-      http://www.openknowledge.org/ossd
+      http://www.opendefinition.org/ossd
 
 License
 =======
@@ -404,7 +404,7 @@ config.php, and access to the Laconica database from the mail server.
 XMPP
 ----
 
-XMPP (eXtended Message and Presence Protocol, http://xmpp.org/) is the
+XMPP (eXtended Message and Presence Protocol, <http://xmpp.org/>) is the
 instant-messenger protocol that drives Jabber and GTalk IM. You can
 distribute messages via XMPP using the system below; however, you
 need to run the XMPP incoming daemon to allow incoming messages as
@@ -537,7 +537,7 @@ Sample cron job:
 Sitemaps
 --------
 
-Sitemap files (http://sitemaps.org/) are a very nice way of telling
+Sitemap files <http://sitemaps.org/> are a very nice way of telling
 search engines and other interested bots what's available on your site
 and what's changed recently. You can generate sitemap files for your
 Laconica instance.
@@ -558,7 +558,7 @@ Laconica instance.
    like './sitemapindex.xml'. sitemap-directory is the directory where
    you want the sitemaps stored, like './sitemaps/' (make sure the dir
    exists). URL-prefix-for-sitemaps is the full URL for the sitemap dir,
-   typically something like 'http://example.net/mublog/sitemaps/'.
+   typically something like <http://example.net/mublog/sitemaps/>.
 
 You can use several methods for submitting your sitemap index to
 search engines to get your site indexed. One is to add a line like the
@@ -612,13 +612,13 @@ modification to use the new output format.
 Translation
 -----------
 
-Translations in Laconica use the gettext system (http://www.gnu.org/software/gettext/).
+Translations in Laconica use the gettext system <http://www.gnu.org/software/gettext/>.
 Theoretically, you can add your own sub-directory to the locale/
 subdirectory to add a new language to your system. You'll need to
 compile the ".po" files into ".mo" files, however.
 
 Contributions of translation information to Laconica are very easy:
-you can use the Web interface at http://laconi.ca/entrans/ to add one
+you can use the Web interface at http://laconi.ca/pootle/ to add one
 or a few or lots of new translations -- or even new languages. You can
 also download more up-to-date .po files there, if you so desire.
 
@@ -627,7 +627,7 @@ Backups
 
 There is no built-in system for doing backups in Laconica. You can make
 backups of a working Laconica system by backing up the database and
-the Web directory. To backup the database use mysqldump (http://ur1.ca/7xo)
+the Web directory. To backup the database use mysqldump <http://ur1.ca/7xo>
 and to backup the Web directory, try tar.
 
 Private
@@ -745,6 +745,15 @@ edit any other file in the directory, like lib/common.php (where most
 of the defaults are defined), you will lose your configuration options
 in any upgrade, and you will wish that you had been more careful.
 
+Starting with version 0.7.1, you can put config files in the
+/etc/laconica/ directory on your server, if it exists. Config files
+will be included in this order:
+
+* /etc/laconica/laconica.php - server-wide config
+* /etc/laconica/<servername>.php - for a virtual host
+* /etc/laconica/<servername>_<pathname>.php - for a path
+* INSTALLDIR/config.php - for a particular implementation
+
 Almost all configuration options are made through a two-dimensional
 associative array, cleverly named $config. A typical configuration
 line will be:
@@ -810,7 +819,7 @@ db
 --
 
 This section is a reference to the configuration options for
-DB_DataObject (see http://ur1.ca/7xp). The ones that you may want to
+DB_DataObject (see <http://ur1.ca/7xp>). The ones that you may want to
 set are listed below for clarity.
 
 database: a DSN (Data Source Name) for your Laconica database. This is
@@ -910,7 +919,7 @@ server: If set, defines another server where avatars are stored in the
 	the client to speed up page loading, either with another
 	virtual server or with an NFS or SAMBA share. Clients
 	typically only make 2 connections to a single server at a
-	time (http://ur1.ca/6ih), so this can parallelize the job.
+	time <http://ur1.ca/6ih>, so this can parallelize the job.
 	Defaults to null.
 
 public
@@ -991,7 +1000,7 @@ memcached
 ---------
 
 You can get a significant boost in performance by caching some
-database data in memcached (http://www.danga.com/memcached/).
+database data in memcached <http://www.danga.com/memcached/>.
 
 enabled: Set to true to enable. Default false.
 server: a string with the hostname of the memcached server. Can also
@@ -1002,7 +1011,7 @@ sphinx
 
 You can get a significant boost in performance using Sphinx Search
 instead of your database server to search for users and notices.
-(http://sphinxsearch.com/).
+<http://sphinxsearch.com/>.
 
 enabled: Set to true to enable. Default false.
 server: a string with the hostname of the sphinx server.
@@ -1015,7 +1024,7 @@ A catch-all for integration with other systems.
 
 source: The name to use for the source of posts to Twitter. Defaults
 	to 'laconica', but if you request your own source name from
-	Twitter (http://twitter.com/help/request_source), you can use
+	Twitter <http://twitter.com/help/request_source>, you can use
 	that here instead. Status updates on Twitter will then have
 	links to your site.
 
@@ -1092,7 +1101,7 @@ Unstable version
 
 If you're adventurous or impatient, you may want to install the
 development version of Laconica. To get it, use the git version
-control tool (http://git-scm.com/) like so:
+control tool <http://git-scm.com/> like so:
 
 	git clone http://laconi.ca/software/laconica.git
 
@@ -1105,7 +1114,7 @@ There are several ways to get more information about Laconica.
 
 * There is a mailing list for Laconica developers and admins at
   http://mail.laconi.ca/mailman/listinfo/laconica-dev
-* The #laconica IRC channel on freenode.net (http://www.freenode.net/).
+* The #laconica IRC channel on freenode.net <http://www.freenode.net/>.
 * The Laconica wiki, http://laconi.ca/trac/
 
 Feedback

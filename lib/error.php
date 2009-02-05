@@ -130,6 +130,7 @@ class ErrorAction extends Action
     {
         $this->elementStart('div', array('id' => 'header'));
         $this->showLogo();
+        $this->showPrimaryNav();
         $this->elementEnd('div');
     }
 

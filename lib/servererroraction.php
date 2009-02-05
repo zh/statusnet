@@ -67,7 +67,7 @@ class ServerErrorAction extends ErrorAction
         
         $this->default = 500;
     }
-    
+
     // XXX: Should these error actions even be invokable via URI?
     
     function handle($args)

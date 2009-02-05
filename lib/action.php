@@ -73,7 +73,6 @@ class Action extends HTMLOutputter // lawsuit
         parent::__construct($output, $indent);
     }
 
-
     /**
      * For initializing members of the class.
      *
@@ -163,12 +162,14 @@ class Action extends HTMLOutputter // lawsuit
         $this->comment('[if IE]><link rel="stylesheet" type="text/css" '.
                        'href="'.theme_path('css/ie.css', 'base').'?version='.LACONICA_VERSION.'" /><![endif]');
         foreach (array(6,7) as $ver) {
-            if (file_exists(theme_file('ie'.$ver.'.css'))) {
+            if (file_exists(theme_file('css/ie'.$ver.'.css', 'base'))) {
                 // Yes, IE people should be put in jail.
                 $this->comment('[if lte IE '.$ver.']><link rel="stylesheet" type="text/css" '.
                                'href="'.theme_path('css/ie'.$ver.'.css', 'base').'?version='.LACONICA_VERSION.'" /><![endif]');
             }
         }
+        $this->comment('[if IE]><link rel="stylesheet" type="text/css" '.
+                       'href="'.theme_path('css/ie.css', null).'?version='.LACONICA_VERSION.'" /><![endif]');
     }
 
     /**
@@ -244,7 +245,6 @@ class Action extends HTMLOutputter // lawsuit
         // does nothing by default
     }
 
-    
     /**
      * Show body.
      *
@@ -255,7 +255,7 @@ class Action extends HTMLOutputter // lawsuit
     function showBody()
     {
         $this->elementStart('body', array('id' => $this->trimmed('action')));
-        $this->elementStart('div', 'wrap');
+        $this->elementStart('div', array('id' => 'wrap'));
         $this->showHeader();
         $this->showCore();
         $this->showFooter();
@@ -326,8 +326,14 @@ class Action extends HTMLOutputter // lawsuit
         if ($user) {
             $this->menuItem(common_local_url('profilesettings'),
                             _('Account'), _('Change your email, avatar, password, profile'), false, 'nav_account');
-            $this->menuItem(common_local_url('imsettings'),
+
+            if (common_config('xmpp', 'enabled')) {
+                $this->menuItem(common_local_url('imsettings'),
                             _('Connect'), _('Connect to IM, SMS, Twitter'), false, 'nav_connect');
+            } else {
+                $this->menuItem(common_local_url('smssettings'),
+                            _('Connect'), _('Connect to SMS, Twitter'), false, 'nav_connect');
+            }
             $this->menuItem(common_local_url('logout'),
                             _('Logout'), _('Logout from the site'), false, 'nav_logout');
         } else {
@@ -346,7 +352,7 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementEnd('dd');
         $this->elementEnd('dl');
     }
-    
+
     /**
      * Show site notice.
      *
@@ -360,7 +366,9 @@ class Action extends HTMLOutputter // lawsuit
             $this->elementStart('dl', array('id' => 'site_notice',
                                             'class' => 'system_notice'));
             $this->element('dt', null, _('Site notice'));
-            $this->element('dd', null, $text);
+            $this->elementStart('dd', null);
+            $this->raw($text);
+            $this->elementEnd('dd');
             $this->elementEnd('dl');
         }
     }
@@ -377,7 +385,7 @@ class Action extends HTMLOutputter // lawsuit
         $notice_form = new NoticeForm($this);
         $notice_form->show();
     }
-    
+
     /**
      * Show anonymous message.
      *
@@ -753,7 +761,7 @@ class Action extends HTMLOutputter // lawsuit
     /**
      * Boolean understands english (yes, no, true, false)
      *
-     * @param string $key query key we're interested in 
+     * @param string $key query key we're interested in
      * @param string $def default value
      *
      * @return boolean interprets yes/no strings as boolean

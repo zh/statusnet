@@ -203,11 +203,14 @@ class NoticeListItem extends Widget
 
     function showNoticeOptions()
     {
-        $this->out->elementStart('div', 'notice-options');
-        $this->showFaveForm();
-        $this->showReplyLink();
-        $this->showDeleteLink();
-        $this->out->elementEnd('div');
+        $user = common_current_user();
+        if ($user) {
+            $this->out->elementStart('div', 'notice-options');
+            $this->showFaveForm();
+            $this->showReplyLink();
+            $this->showDeleteLink();
+            $this->out->elementEnd('div');
+        }
     }
 
     /**

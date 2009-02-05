@@ -66,7 +66,7 @@ class UnsubscribeAction extends Action
         }
 
         if ($this->boolean('ajax')) {
-            $this->startHTML('text/xml;charset=utf-8', true);
+            $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
             $this->element('title', null, _('Unsubscribed'));
             $this->elementEnd('head');

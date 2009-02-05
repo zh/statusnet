@@ -141,9 +141,9 @@ class NewnoticeAction extends Action
 
         if ($cmd) {
             if ($this->boolean('ajax')) {
-                $cmd->execute(new AjaxWebChannel());
+                $cmd->execute(new AjaxWebChannel($this));
             } else {
-                $cmd->execute(new WebChannel());
+                $cmd->execute(new WebChannel($this));
             }
             return;
         }
@@ -161,7 +161,7 @@ class NewnoticeAction extends Action
         common_broadcast_notice($notice);
 
         if ($this->boolean('ajax')) {
-            $this->startHTML('text/xml;charset=utf-8', true);
+            $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
             $this->element('title', null, _('Notice posted'));
             $this->elementEnd('head');
@@ -195,7 +195,7 @@ class NewnoticeAction extends Action
 
     function ajaxErrorMsg($msg)
     {
-        common_start_html('text/xml;charset=utf-8', true);
+        $this->startHTML('text/xml;charset=utf-8', true);
         $this->elementStart('head');
         $this->element('title', null, _('Ajax Error'));
         $this->elementEnd('head');
