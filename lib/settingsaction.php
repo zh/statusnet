@@ -76,7 +76,12 @@ class SettingsAction extends Action
             // change important settings or see private info, and
             // _all_ our settings are important
             common_set_returnto($this->selfUrl());
-            common_redirect(common_local_url('login'));
+            $user = common_current_user();
+            if ($user->hasOpenID()) {
+                common_redirect(common_local_url('openidlogin'));
+            } else {
+                common_redirect(common_local_url('login'));
+            }
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->handlePost();
         } else {

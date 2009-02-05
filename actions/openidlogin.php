@@ -26,7 +26,7 @@ class OpenidloginAction extends Action
     function handle($args)
     {
         parent::handle($args);
-        if (common_logged_in()) {
+        if (common_is_real_login()) {
             $this->clientError(_('Already logged in.'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $openid_url = $this->trimmed('openid_url');
@@ -59,7 +59,16 @@ class OpenidloginAction extends Action
 
     function getInstructions()
     {
-        return _('Login with an [OpenID](%%doc.openid%%) account.');
+        if (common_logged_in() && !common_is_real_login() &&
+            common_get_returnto()) {
+            // rememberme logins have to reauthenticate before
+            // changing any profile settings (cookie-stealing protection)
+            return _('For security reasons, please re-login with your ' .
+                     '[OpenID](%%doc.openid%%) ' .
+                     'before changing your settings.');
+        } else {
+            return _('Login with an [OpenID](%%doc.openid%%) account.');
+        }
     }
 
     function showPageNotice()
