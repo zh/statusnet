@@ -488,7 +488,7 @@ function common_shorten_links($text)
     static $cache = array();
     if (isset($cache[$text])) return $cache[$text];
     // \s = not a horizontal whitespace character (since PHP 5.2.4)
-    return $cache[$text] = preg_replace('@https?://[^)\]>\s]+@e', "common_shorten_link('\\0')", $text);
+    return $cache[$text] = common_replace_urls_callback($text, 'common_shorten_link');;
 }
 
 function common_shorten_link($url, $reverse = false)
