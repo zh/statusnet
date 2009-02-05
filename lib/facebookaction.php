@@ -336,42 +336,70 @@ class FacebookAction extends Action
 
         // Need to include inline CSS for styling the Profile box
 
+	$app_props = $this->facebook->api_client->Admin_getAppProperties(array('icon_url'));
+	$icon_url = $app_props['icon_url'];
+
         $style = '<style>
+	 .entry-title *,
+	 .entry-content * {
+	 font-size:14px;
+	 font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	 }
+	 .entry-title a,
+	 .entry-content a {
+	 color:#002E6E;
+	 }
+
          .entry-title .vcard .photo {
          float:left;
          display:inline;
+	 margin-right:11px;
+	 margin-bottom:11px
          }
-         .entry-title .vcard .nickname {
-         margin-left:5px;
-         }
-
+	 .entry-title {
+	 margin-bottom:11px;
+	 }
          .entry-title p.entry-content {
          display:inline;
-         margin-left:5px;
+	 margin-left:5px;
          }
 
+	 div.entry-content {
+	 clear:both;
+	 }
          div.entry-content dl,
          div.entry-content dt,
          div.entry-content dd {
          display:inline;
+	 text-transform:lowercase;
          }
 
-         div.entry-content dt,
-         div.entry-content dd {
-         display:inline;
-         margin-left:5px;
+         div.entry-content dd,
+	 div.entry-content .device dt {
+	 margin-left:0;
+	 margin-right:5px;
          }
-         div.entry-content dl.timestamp dt {
+         div.entry-content dl.timestamp dt,
+	 div.entry-content dl.response dt {
          display:none;
          }
          div.entry-content dd a {
          display:inline-block;
          }
+
+	 #facebook_laconica_app {
+	 text-indent:-9999px;
+	 height:16px;
+	 width:16px;
+	 display:block;
+	 background:url('.$icon_url.') no-repeat 0 0;
+	 float:right;
+	 }
          </style>';        
 
         $this->xw->openMemory();
 
-        $item = new FacebookNoticeListItem($notice, $this);
+        $item = new FacebookProfileBoxNotice($notice, $this);
         $item->show();
 
         $fbml = "<fb:wide>$style " . $this->xw->outputMemory(false) . "</fb:wide>";
@@ -454,8 +482,6 @@ class FacebookAction extends Action
             $content_shortened = common_shorten_links($content);
 
             if (mb_strlen($content_shortened) > 140) {
-                common_debug("Content = '$content_shortened'", __FILE__);
-                common_debug("mb_strlen(\$content) = " . mb_strlen($content_shortened), __FILE__);
                 $this->showPage(_('That\'s too long. Max notice size is 140 chars.'));
                 return;
             }
@@ -528,6 +554,18 @@ class FacebookNoticeForm extends NoticeForm
 
 class FacebookNoticeList extends NoticeList
 {
+    
+    /**
+     * constructor
+     *
+     * @param Notice $notice stream of notices from DB_DataObject
+     */
+
+    function __construct($notice, $out=null)
+    {
+        parent::__construct($notice, $out);
+    }
+    
     /**
      * show the list of notices
      *
@@ -582,6 +620,20 @@ class FacebookNoticeList extends NoticeList
 
 class FacebookNoticeListItem extends NoticeListItem
 {    
+
+    /**
+     * constructor
+     *
+     * Also initializes the profile attribute.
+     *
+     * @param Notice $notice The notice we'll display
+     */
+
+    function __construct($notice, $out=null)
+    {
+        parent::__construct($notice, $out);
+    }
+
     /**
      * recipe function for displaying a single notice in the Facebook App.
      *
@@ -631,6 +683,68 @@ class FacebookNoticeListItem extends NoticeListItem
         $this->out->elementEnd('a');
         $this->out->elementEnd('dd');
         $this->out->elementEnd('dl');
+    }
+
+}
+
+
+class FacebookProfileBoxNotice extends FacebookNoticeListItem
+{    
+    
+    /**
+     * constructor
+     *
+     * Also initializes the profile attribute.
+     *
+     * @param Notice $notice The notice we'll display
+     */
+
+    function __construct($notice, $out=null)
+    {
+        parent::__construct($notice, $out);
+    }
+    
+    /**
+     * Recipe function for displaying a single notice in the 
+     * Facebook App's Profile
+     *
+     * @return void
+     */
+
+    function show()
+    {
+
+        $this->out->elementStart('div', 'entry-title');
+        $this->showAuthor();
+        $this->showContent();
+        $this->out->elementEnd('div');
+
+        $this->out->elementStart('div', 'entry-content');
+
+        $this->showNoticeLink();
+        $this->showNoticeSource();
+        $this->showReplyTo();
+        $this->out->elementEnd('div');
+        
+        $this->showAppLink();
+
+    }
+
+    function showAppLink() 
+    {
+        
+        $this->facebook = getFacebook();
+
+        $app_props = $this->facebook->api_client->Admin_getAppProperties(
+                array('canvas_name', 'application_name'));
+
+        $this->app_uri = 'http://apps.facebook.com/' . $app_props['canvas_name'];
+        $this->app_name = $app_props['application_name'];
+        
+        $this->out->elementStart('a', array('id' => 'facebook_laconica_app',
+                                            'href' => $this->app_uri));
+        $this->out->text($this->app_name);
+        $this->out->elementEnd('a');
     }
 
 }
