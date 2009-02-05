@@ -229,7 +229,7 @@ class GrouplogoAction extends Action
         $this->element('input', array('name' => 'MAX_FILE_SIZE',
                                       'type' => 'hidden',
                                       'id' => 'MAX_FILE_SIZE',
-                                      'value' => MAX_AVATAR_SIZE));
+                                      'value' => ImageFile::maxFileSize(true)));
         $this->elementEnd('li');
         $this->elementEnd('ul');
 

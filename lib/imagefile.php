@@ -183,9 +183,14 @@ class ImageFile
         @unlink($this->filename);
     }
     
-    static function maxFileSize()
+    static function maxFileSize($return_bytes = false)
     {
-        $limit = min(ImageFile::strToInt(ini_get('post_max_size')), ImageFile::strToInt(ini_get('upload_max_filesize')));
+        $limit = min(ImageFile::strToInt(ini_get('post_max_size')), ImageFile::strToInt(ini_get('upload_max_filesize')), ImageFile::strToInt(ini_get('memory_limit')));
+        
+        if ($return_bytes) {
+            return $limit;
+        }
+        
         return ($limit/(1024*1024)).'MB';
     }
     
