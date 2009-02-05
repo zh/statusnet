@@ -25,12 +25,12 @@ require_once(INSTALLDIR.'/lib/rssaction.php');
 
 class TagrssAction extends Rss10Action
 {
+    var $tag;
 
-    function init()
-    {
-        $tag = $this->trimmed('tag');
+    function prepare($args) {
+        parent::prepare($args);
+        $tag = common_canonical_tag($this->trimmed('tag'));
         $this->tag = Notice_tag::staticGet('tag', $tag);
-
         if (!$this->tag) {
             $this->clientError(_('No such tag.'));
             return false;
@@ -39,7 +39,7 @@ class TagrssAction extends Rss10Action
         }
     }
 
-    function get_notices($limit=0)
+    function getNotices($limit=0)
     {
         $tag = $this->tag;
 
@@ -48,7 +48,6 @@ class TagrssAction extends Rss10Action
         }
 
         $notice = Notice_tag::getStream($tag->tag, 0, ($limit == 0) ? NOTICES_PER_PAGE : $limit);
-
         while ($notice->fetch()) {
             $notices[] = clone($notice);
         }
@@ -56,10 +55,9 @@ class TagrssAction extends Rss10Action
         return $notices;
     }
 
-    function get_channel()
+    function getChannel()
     {
-        $tag = $this->tag->tag;
-
+        $tagname = $this->tag->tag;
         $c = array('url' => common_local_url('tagrss', array('tag' => $tagname)),
                'title' => $tagname,
                'link' => common_local_url('tagrss', array('tag' => $tagname)),
