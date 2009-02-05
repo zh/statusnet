@@ -350,7 +350,7 @@ class GrouplogoAction extends Action
 
         $filepath = common_avatar_path($filename);
 
-        move_uploaded_file($imagefile->filename, $filepath);
+        move_uploaded_file($imagefile->filepath, $filepath);
 
         $filedata = array('filename' => $filename,
                           'filepath' => $filepath,
@@ -376,96 +376,26 @@ class GrouplogoAction extends Action
 
     function cropLogo()
     {
-        $user = common_current_user();
-        $profile = $user->getProfile();
-
         $filedata = $_SESSION['FILEDATA'];
 
         if (!$filedata) {
             $this->serverError(_('Lost our file data.'));
             return;
         }
-
-        $filepath = common_avatar_path($filedata['filename']);
-
-        if (!file_exists($filepath)) {
-            $this->serverError(_('Lost our file.'));
-            return;
-        }
-
-        switch ($filedata['type']) {
-        case IMAGETYPE_GIF:
-            $image_src = imagecreatefromgif($filepath);
-            break;
-        case IMAGETYPE_JPEG:
-            $image_src = imagecreatefromjpeg($filepath);
-            break;
-        case IMAGETYPE_PNG:
-            $image_src = imagecreatefrompng($filepath);
-            break;
-         default:
-            $this->serverError(_('Unknown file type'));
-            return;
-        }
-
+        
         // If image is not being cropped assume pos & dimentions of original
         $dest_x = $this->arg('avatar_crop_x') ? $this->arg('avatar_crop_x'):0;
         $dest_y = $this->arg('avatar_crop_y') ? $this->arg('avatar_crop_y'):0;
         $dest_w = $this->arg('avatar_crop_w') ? $this->arg('avatar_crop_w'):$filedata['width'];
         $dest_h = $this->arg('avatar_crop_h') ? $this->arg('avatar_crop_h'):$filedata['height'];
-        $size = ($dest_w > MAX_ORIGINAL) ? MAX_ORIGINAL : $dest_w;
+        $size = min($dest_w, $dest_h);
+        $size = ($size > MAX_ORIGINAL) ? MAX_ORIGINAL:$size;
         
-        common_debug("W = $dest_w, H = $dest_h, X = $dest_x, Y = $dest_y, size = $size");
+        $imagefile = new ImageFile($this->group->id, $filedata['filepath']);
+        $filename = $imagefile->resize($size, $dest_x, $dest_y, $dest_w, $dest_h);
 
-        $image_dest = imagecreatetruecolor($size, $size);
-        
-        if ($filedata['type'] == IMAGETYPE_GIF || $filedata['type'] == IMAGETYPE_PNG) {
-
-            $transparent_idx = imagecolortransparent($image_src);
-
-            if ($transparent_idx >= 0) {
-
-                $transparent_color = imagecolorsforindex($image_src, $transparent_idx);
-                $transparent_idx = imagecolorallocate($image_dest, $transparent_color['red'], $transparent_color['green'], $transparent_color['blue']);
-                imagefill($image_dest, 0, 0, $transparent_idx);
-                imagecolortransparent($image_dest, $transparent_idx);
-
-            } elseif ($filedata['type'] == IMAGETYPE_PNG) {
-
-                imagealphablending($image_dest, false);
-                $transparent = imagecolorallocatealpha($image_dest, 0, 0, 0, 127);
-                imagefill($image_dest, 0, 0, $transparent);
-                imagesavealpha($image_dest, true);
-
-            }
-        }
-
-        imagecopyresampled($image_dest, $image_src, 0, 0, $dest_x, $dest_y, $size, $size, $dest_w, $dest_h);
-
-        $filename = common_avatar_filename($this->group->id,
-                                           image_type_to_extension($filedata['type']),
-                                           null,
-                                           'group-'.common_timestamp());
-
-        $filepath = common_avatar_path($filename);
-
-        switch ($filedata['type']) {
-        case IMAGETYPE_GIF:
-            imagegif($image_dest, $filepath);
-            break;
-        case IMAGETYPE_JPEG:
-            imagejpeg($image_dest, $filepath);
-            break;
-        case IMAGETYPE_PNG:
-            imagepng($image_dest, $filepath);
-            break;
-         default:
-            $this->serverError(_('Unknown file type'));
-            return;
-        }
-
-        if ($this->group->setOriginal($filename, $filedata['type'])) {
-            @unlink(common_avatar_path($filedata['filename']));
+        if ($this->group->setOriginal($filename)) {
+            @unlink($filedata['filepath']);
             unset($_SESSION['FILEDATA']);
             $this->mode = 'upload';
             $this->showForm(_('Logo updated.'), true);

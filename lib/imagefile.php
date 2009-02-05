@@ -47,18 +47,22 @@ if (!defined('LACONICA')) {
 
 class ImageFile
 {
-    var $filename = null;
-    var $barename = null;
-    var $type = null;
-    var $height = null;
-    var $width = null;
+    var $id;
+    var $filepath;
+    var $barename;
+    var $type;
+    var $height;
+    var $width;
 
-    function __construct($filename=null, $type=null, $width=null, $height=null)
+    function __construct($id=null, $filepath=null, $type=null, $width=null, $height=null)
     {
-        $this->filename = $filename;
-        $this->type = $type;
-        $this->width = $type;
-        $this->height = $type;
+        $this->id = $id;
+        $this->filepath = $filepath;
+        
+        $info = @getimagesize($this->filepath);
+        $this->type = ($info) ? $info[2]:$type;
+        $this->width = ($info) ? $info[0]:$width;
+        $this->height = ($info) ? $info[1]:$height;
     }
 
     static function fromUpload($param='upload')
@@ -78,32 +82,100 @@ class ImageFile
             throw new Exception(_('System error uploading file.'));
             return;
         }
-
-        $imagefile = new ImageFile($_FILES[$param]['tmp_name']);
-        $info = @getimagesize($imagefile->filename);
-
+        
+        $info = @getimagesize($_FILES[$param]['tmp_name']);
+        
         if (!$info) {
-            @unlink($imagefile->filename);
+            @unlink($_FILES[$param]['tmp_name']);
             throw new Exception(_('Not an image or corrupt file.'));
             return;
         }
-
-        $imagefile->width = $info[0];
-        $imagefile->height = $info[1];
-
-        switch ($info[2]) {
-        case IMAGETYPE_GIF:
-        case IMAGETYPE_JPEG:
-        case IMAGETYPE_PNG:
-            $imagefile->type = $info[2];
-            break;
-        default:
-            @unlink($imagefile->filename);
+        
+        if ($info[2] !== IMAGETYPE_GIF &&
+            $info[2] !== IMAGETYPE_JPEG &&
+            $info[2] !== IMAGETYPE_PNG) {
+        
+            @unlink($_FILES[$param]['tmp_name']);
             throw new Exception(_('Unsupported image file format.'));
             return;
         }
 
-        return $imagefile;
+        return new ImageFile(null, $_FILES[$param]['tmp_name']);
+    }
+    
+    function resize($size, $x = 0, $y = 0, $w = null, $h = null)
+    {
+        $w = ($w === null) ? $this->width:$w;
+        $h = ($h === null) ? $this->height:$h;
+
+        if (!file_exists($this->filepath)) {
+            throw new Exception(_('Lost our file.'));
+            return;
+        }
+
+        switch ($this->type) {
+         case IMAGETYPE_GIF:
+            $image_src = imagecreatefromgif($this->filepath);
+            break;
+         case IMAGETYPE_JPEG:
+            $image_src = imagecreatefromjpeg($this->filepath);
+            break;
+         case IMAGETYPE_PNG:
+            $image_src = imagecreatefrompng($this->filepath);
+            break;
+         default:
+            throw new Exception(_('Unknown file type'));
+            return;
+        }
+
+        $image_dest = imagecreatetruecolor($size, $size);
+        
+        if ($this->type == IMAGETYPE_GIF || $this->type == IMAGETYPE_PNG) {
+
+            $transparent_idx = imagecolortransparent($image_src);
+            
+            if ($transparent_idx >= 0) {
+                
+                $transparent_color = imagecolorsforindex($image_src, $transparent_idx);
+                $transparent_idx = imagecolorallocate($image_dest, $transparent_color['red'], $transparent_color['green'], $transparent_color['blue']);
+                imagefill($image_dest, 0, 0, $transparent_idx);
+                imagecolortransparent($image_dest, $transparent_idx);
+                
+            } elseif ($this->type == IMAGETYPE_PNG) {
+                
+                imagealphablending($image_dest, false);
+                $transparent = imagecolorallocatealpha($image_dest, 0, 0, 0, 127);
+                imagefill($image_dest, 0, 0, $transparent);
+                imagesavealpha($image_dest, true);
+                
+            }
+        }
+
+        imagecopyresampled($image_dest, $image_src, 0, 0, $x, $y, $size, $size, $w, $h);
+
+        $outname = common_avatar_filename($this->id,
+                                          image_type_to_extension($this->type),
+                                          $size,
+                                          common_timestamp());
+
+        $outpath = common_avatar_path($outname);
+
+        switch ($this->type) {
+         case IMAGETYPE_GIF:
+            imagegif($image_dest, $outpath);
+            break;
+         case IMAGETYPE_JPEG:
+            imagejpeg($image_dest, $outpath);
+            break;
+         case IMAGETYPE_PNG:
+            imagepng($image_dest, $outpath);
+            break;
+         default:
+            throw new Exception(_('Unknown file type'));
+            return;
+        }
+
+        return $outname;
     }
 
     function unlink()

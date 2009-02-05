@@ -88,96 +88,16 @@ class User_group extends Memcached_DataObject
         return $members;
     }
 
-    function setOriginal($filename, $type)
+    function setOriginal($filename)
     {
+        $imagefile = new ImageFile($this->id, common_avatar_path($filename));
+        
         $orig = clone($this);
         $this->original_logo = common_avatar_url($filename);
-        $this->homepage_logo = common_avatar_url($this->scale($filename,
-                                                              AVATAR_PROFILE_SIZE,
-                                                              $type));
-        $this->stream_logo = common_avatar_url($this->scale($filename,
-                                                            AVATAR_STREAM_SIZE,
-                                                            $type));
-        $this->mini_logo = common_avatar_url($this->scale($filename,
-                                                          AVATAR_MINI_SIZE,
-                                                          $type));
+        $this->homepage_logo = common_avatar_url($imagefile->resize(AVATAR_PROFILE_SIZE));
+        $this->stream_logo = common_avatar_url($imagefile->resize(AVATAR_STREAM_SIZE));
+        $this->mini_logo = common_avatar_url($imagefile->resize(AVATAR_MINI_SIZE));
         common_debug(common_log_objstring($this));
         return $this->update($orig);
-    }
-
-    function scale($filename, $size, $type)
-    {
-        $filepath = common_avatar_path($filename);
-
-        if (!file_exists($filepath)) {
-            $this->serverError(_('Lost our file.'));
-            return;
-        }
-
-        $info = @getimagesize($filepath);
-
-        switch ($type) {
-         case IMAGETYPE_GIF:
-            $image_src = imagecreatefromgif($filepath);
-            break;
-         case IMAGETYPE_JPEG:
-            $image_src = imagecreatefromjpeg($filepath);
-            break;
-         case IMAGETYPE_PNG:
-            $image_src = imagecreatefrompng($filepath);
-            break;
-         default:
-            $this->serverError(_('Unknown file type'));
-            return;
-        }
-
-        $image_dest = imagecreatetruecolor($size, $size);
-        
-        if ($type == IMAGETYPE_GIF || $type == IMAGETYPE_PNG) {
-
-            $transparent_idx = imagecolortransparent($image_src);
-            
-            if ($transparent_idx >= 0) {
-                
-                $transparent_color = imagecolorsforindex($image_src, $transparent_idx);
-                $transparent_idx = imagecolorallocate($image_dest, $transparent_color['red'], $transparent_color['green'], $transparent_color['blue']);
-                imagefill($image_dest, 0, 0, $transparent_idx);
-                imagecolortransparent($image_dest, $transparent_idx);
-                
-            } elseif ($type == IMAGETYPE_PNG) {
-                
-                imagealphablending($image_dest, false);
-                $transparent = imagecolorallocatealpha($image_dest, 0, 0, 0, 127);
-                imagefill($image_dest, 0, 0, $transparent);
-                imagesavealpha($image_dest, true);
-                
-            }
-        }
-
-        imagecopyresampled($image_dest, $image_src, 0, 0, 0, 0, $size, $size, $info[0], $info[1]);
-
-        $outname = common_avatar_filename($this->id,
-                                          image_type_to_extension($type),
-                                          $size,
-                                          common_timestamp());
-
-        $outpath = common_avatar_path($outname);
-
-        switch ($type) {
-         case IMAGETYPE_GIF:
-            imagegif($image_dest, $outpath);
-            break;
-         case IMAGETYPE_JPEG:
-            imagejpeg($image_dest, $outpath);
-            break;
-         case IMAGETYPE_PNG:
-            imagepng($image_dest, $outpath);
-            break;
-         default:
-            $this->serverError(_('Unknown file type'));
-            return;
-        }
-
-        return $outname;
     }
 }

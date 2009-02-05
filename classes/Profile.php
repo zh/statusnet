@@ -69,28 +69,15 @@ class Profile extends Memcached_DataObject
         }
     }
 
-    function setOriginal($source)
+    function setOriginal($filename)
     {
-
-        $info = @getimagesize($source);
-
-        if (!$info) {
-            return null;
-        }
-
-        $filename = common_avatar_filename($this->id,
-                                           image_type_to_extension($info[2]),
-                                           null, common_timestamp());
-        $filepath = common_avatar_path($filename);
-
-        copy($source, $filepath);
+        $imagefile = new ImageFile($this->id, common_avatar_path($filename));
 
         $avatar = new Avatar();
-
         $avatar->profile_id = $this->id;
-        $avatar->width = $info[0];
-        $avatar->height = $info[1];
-        $avatar->mediatype = image_type_to_mime_type($info[2]);
+        $avatar->width = $imagefile->width;
+        $avatar->height = $imagefile->height;
+        $avatar->mediatype = image_type_to_mime_type($imagefile->type);
         $avatar->filename = $filename;
         $avatar->original = true;
         $avatar->url = common_avatar_url($filename);
@@ -98,45 +85,35 @@ class Profile extends Memcached_DataObject
 
         # XXX: start a transaction here
 
-        if (!$this->delete_avatars()) {
-            @unlink($filepath);
-            return null;
-        }
-
-        if (!$avatar->insert()) {
-            @unlink($filepath);
+        if (!$this->delete_avatars() || !$avatar->insert()) {
+            @unlink(common_avatar_path($filename));
             return null;
         }
 
         foreach (array(AVATAR_PROFILE_SIZE, AVATAR_STREAM_SIZE, AVATAR_MINI_SIZE) as $size) {
             # We don't do a scaled one if original is our scaled size
             if (!($avatar->width == $size && $avatar->height == $size)) {
-                $s = $avatar->scale($size);
-                if (!$s) {
+                
+                $scaled_filename = $imagefile->resize($size);
+                
+                //$scaled = DB_DataObject::factory('avatar');
+                $scaled = new Avatar();
+                $scaled->profile_id = $this->id;
+                $scaled->width = $size;
+                $scaled->height = $size;
+                $scaled->original = false;
+                $scaled->mediatype = image_type_to_mime_type($imagefile->type);
+                $scaled->filename = $scaled_filename;
+                $scaled->url = common_avatar_url($scaled_filename);
+                $scaled->created = DB_DataObject_Cast::dateTime(); # current time
+
+                if (!$scaled->insert()) {
                     return null;
                 }
             }
         }
 
         return $avatar;
-    }
-
-    function crop_avatars($x, $y, $w, $h)
-    {
-
-        $avatar = $this->getOriginalAvatar();
-        $this->delete_avatars(false); # don't delete original
-
-        foreach (array(AVATAR_PROFILE_SIZE, AVATAR_STREAM_SIZE, AVATAR_MINI_SIZE) as $size) {
-            # We don't do a scaled one if original is our scaled size
-            if (!($avatar->width == $size && $avatar->height == $size)) {
-                $s = $avatar->scale_and_crop($size, $x, $y, $w, $h);
-                if (!$s) {
-                    return NULL;
-                }
-            }
-        }
-        return true;
     }
 
     function delete_avatars($original=true)
