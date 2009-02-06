@@ -245,6 +245,15 @@ class ShowstreamAction extends Action
                                     'height' => AVATAR_PROFILE_SIZE,
                                     'alt' => $this->profile->nickname));
         $this->elementEnd('dd');
+        
+        $user = User::staticGet('id', $this->profile->id);
+        $cur = common_current_user();
+        if ($cur && $cur->id == $user->id) {
+            $this->elementStart('dd');
+            $this->element('a', array('href' => common_local_url('avatarsettings')), _('Edit Avatar'));
+            $this->elementEnd('dd');
+        }
+        
         $this->elementEnd('dl');
 
         $this->elementStart('dl', 'entity_nickname');
@@ -317,7 +326,6 @@ class ShowstreamAction extends Action
         $this->element('h2', null, _('User actions'));
         $this->elementStart('ul');
         $this->elementStart('li', array('class' => 'entity_subscribe'));
-        $cur = common_current_user();
         if ($cur) {
             if ($cur->id != $this->profile->id) {
                 if ($cur->isSubscribed($this->profile)) {
@@ -335,7 +343,6 @@ class ShowstreamAction extends Action
 
 //        common_profile_new_message_nudge($cur, $this->user, $this->profile);
 
-        $user = User::staticGet('id', $this->profile->id);
         if ($cur && $cur->id != $user->id && $cur->mutuallySubscribed($user)) {
            $this->elementStart('li', array('class' => 'entity_send-a-message'));
             $this->element('a', array('href' => common_local_url('newmessage', array('to' => $user->id)),
