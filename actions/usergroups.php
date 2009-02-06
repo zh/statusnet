@@ -125,6 +125,12 @@ class UsergroupsAction extends Action
                        _('Create a new group'));
         $this->elementEnd('p');
 
+        $this->elementStart('p', array('id' => 'group_search'));
+        $this->element('a', array('href' => common_local_url('groupsearch'),
+                                  'class' => 'more'),
+                       _('Search for more groups'));
+        $this->elementEnd('p');
+
         $offset = ($this->page-1) * GROUPS_PER_PAGE;
         $limit =  GROUPS_PER_PAGE + 1;
 
