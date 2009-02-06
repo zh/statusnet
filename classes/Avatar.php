@@ -73,7 +73,7 @@ class Avatar extends Memcached_DataObject
         }
     }
 
-    static function defaultAvatar($size)
+    static function defaultImage($size)
     {
         static $sizenames = array(AVATAR_PROFILE_SIZE => 'profile',
                                   AVATAR_STREAM_SIZE => 'stream',
