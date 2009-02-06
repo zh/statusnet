@@ -447,7 +447,7 @@ function common_replace_urls_callback($text, $callback) {
         
         // Replace it!
         $start = mb_strpos($text, $url, $offset);
-        $text = substr_replace($text, $modified_url, $start, mb_strlen($url));
+        $text = mb_substr($text, 0, $start).$modified_url.mb_substr($text, $start + mb_strlen($url), mb_strlen($text));
         $offset = $start + mb_strlen($modified_url);
     }
     
