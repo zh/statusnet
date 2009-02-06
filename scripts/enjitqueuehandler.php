@@ -74,7 +74,7 @@ class EnjitQueueHandler extends QueueHandler
         $atom .= "<link href='" . $profile->profileurl . "'/>\n";
         $atom .= "<link rel='self' type='application/rss+xml' href='" . common_local_url('userrss', array('nickname' => $profile->nickname)) . "'/>\n";
         $atom .= "<author><name>" . $profile->nickname . "</name></author>\n";
-        $atom .= "<icon>" . common_profile_avatar_url($profile, AVATAR_PROFILE_SIZE) . "</icon>\n";
+        $atom .= "<icon>" . $profile->avatarUrl(AVATAR_PROFILE_SIZE) . "</icon>\n";
         $atom .= "</source>\n";
         $atom .= "<title>" . htmlspecialchars($msg) . "</title>\n";
         $atom .= "<summary>" . htmlspecialchars($msg) . "</summary>\n";

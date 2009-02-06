@@ -199,7 +199,7 @@ class Rss10Action extends Action
         $this->element('dc:date', null, common_date_w3dtf($notice->created));
         $this->element('dc:creator', null, ($profile->fullname) ? $profile->fullname : $profile->nickname);
         $this->element('sioc:has_creator', array('rdf:resource' => $creator_uri));
-        $this->element('laconica:postIcon', array('rdf:resource' => common_profile_avatar_url($profile)));
+        $this->element('laconica:postIcon', array('rdf:resource' => $profile->avatarUrl()));
         $this->element('cc:licence', array('rdf:resource' => common_config('license', 'url')));
         $this->elementEnd('item');
         $this->creators[$creator_uri] = $profile;
@@ -216,7 +216,7 @@ class Rss10Action extends Action
                 $this->element('foaf:name', null, $profile->fullname);
             }
             $this->element('sioc:id', null, $id);
-            $avatar = common_profile_avatar_url($profile);
+            $avatar = $profile->avatarUrl();
             $this->element('sioc:avatar', array('rdf:resource' => $avatar));
             $this->elementEnd('sioc:User');
         }

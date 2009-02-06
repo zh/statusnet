@@ -34,6 +34,8 @@ if (!defined('LACONICA')) {
 
 require_once INSTALLDIR.'/lib/accountsettingsaction.php';
 
+define('MAX_ORIGINAL', 480);
+
 /**
  * Upload an avatar
  *
@@ -73,7 +75,7 @@ class AvatarsettingsAction extends AccountSettingsAction
 
     function getInstructions()
     {
-        return _('You can upload your personal avatar.');
+        return sprintf(_('You can upload your personal avatar. The maximum file size is %s.'), ImageFile::maxFileSize());
     }
 
     /**
@@ -153,7 +155,7 @@ class AvatarsettingsAction extends AccountSettingsAction
         $this->element('input', array('name' => 'MAX_FILE_SIZE',
                                       'type' => 'hidden',
                                       'id' => 'MAX_FILE_SIZE',
-                                      'value' => MAX_AVATAR_SIZE));
+                                      'value' => ImageFile::maxFileSizeInt()));
         $this->elementEnd('li');
         $this->elementEnd('ul');
 
@@ -198,7 +200,7 @@ class AvatarsettingsAction extends AccountSettingsAction
                                   'class' => 'avatar_view'));
         $this->element('h2', null, _("Original"));
         $this->elementStart('div', array('id'=>'avatar_original_view'));
-        $this->element('img', array('src' => common_avatar_url($this->filedata['filename']),
+        $this->element('img', array('src' => Avatar::url($this->filedata['filename']),
                                     'width' => $this->filedata['width'],
                                     'height' => $this->filedata['height'],
                                     'alt' => $user->nickname));
@@ -210,7 +212,7 @@ class AvatarsettingsAction extends AccountSettingsAction
                                   'class' => 'avatar_view'));
         $this->element('h2', null, _("Preview"));
         $this->elementStart('div', array('id'=>'avatar_preview_view'));
-        $this->element('img', array('src' => common_avatar_url($this->filedata['filename']),
+        $this->element('img', array('src' => Avatar::url($this->filedata['filename']),
                                     'width' => AVATAR_PROFILE_SIZE,
                                     'height' => AVATAR_PROFILE_SIZE,
                                     'alt' => $user->nickname));
@@ -279,14 +281,14 @@ class AvatarsettingsAction extends AccountSettingsAction
 
         $cur = common_current_user();
 
-        $filename = common_avatar_filename($cur->id,
-                                           image_type_to_extension($imagefile->type),
-                                           null,
-                                           'tmp'.common_timestamp());
+        $filename = Avatar::filename($cur->id,
+                                     image_type_to_extension($imagefile->type),
+                                     null,
+                                     'tmp'.common_timestamp());
 
-        $filepath = common_avatar_path($filename);
+        $filepath = Avatar::path($filename);
 
-        move_uploaded_file($imagefile->filename, $filepath);
+        move_uploaded_file($imagefile->filepath, $filepath);
 
         $filedata = array('filename' => $filename,
                           'filepath' => $filepath,
@@ -312,15 +314,6 @@ class AvatarsettingsAction extends AccountSettingsAction
 
     function cropAvatar()
     {
-        $user = common_current_user();
-
-        $profile = $user->getProfile();
-
-        $x = $this->arg('avatar_crop_x');
-        $y = $this->arg('avatar_crop_y');
-        $w = $this->arg('avatar_crop_w');
-        $h = $this->arg('avatar_crop_h');
-
         $filedata = $_SESSION['FILEDATA'];
 
         if (!$filedata) {
@@ -328,68 +321,22 @@ class AvatarsettingsAction extends AccountSettingsAction
             return;
         }
 
-        $filepath = common_avatar_path($filedata['filename']);
-
-        if (!file_exists($filepath)) {
-            $this->serverError(_('Lost our file.'));
-            return;
-        }
-
-        switch ($filedata['type']) {
-        case IMAGETYPE_GIF:
-            $image_src = imagecreatefromgif($filepath);
-            break;
-        case IMAGETYPE_JPEG:
-            $image_src = imagecreatefromjpeg($filepath);
-            break;
-        case IMAGETYPE_PNG:
-            $image_src = imagecreatefrompng($filepath);
-            break;
-         default:
-            $this->serverError(_('Unknown file type'));
-            return;
-        }
-
-        common_debug("W = $w, H = $h, X = $x, Y = $y");
-
-        $image_dest = imagecreatetruecolor($w, $h);
-
-        $background = imagecolorallocate($image_dest, 0, 0, 0);
-        ImageColorTransparent($image_dest, $background);
-        imagealphablending($image_dest, false);
-
-        imagecopyresized($image_dest, $image_src, 0, 0, $x, $y, $w, $h, $w, $h);
-
-        $cur = common_current_user();
-
-        $filename = common_avatar_filename($cur->id,
-                                           image_type_to_extension($filedata['type']),
-                                           null,
-                                           common_timestamp());
-
-        $filepath = common_avatar_path($filename);
-
-        switch ($filedata['type']) {
-        case IMAGETYPE_GIF:
-            imagegif($image_dest, $filepath);
-            break;
-        case IMAGETYPE_JPEG:
-            imagejpeg($image_dest, $filepath);
-            break;
-        case IMAGETYPE_PNG:
-            imagepng($image_dest, $filepath);
-            break;
-         default:
-            $this->serverError(_('Unknown file type'));
-            return;
-        }
+        // If image is not being cropped assume pos & dimentions of original
+        $dest_x = $this->arg('avatar_crop_x') ? $this->arg('avatar_crop_x'):0;
+        $dest_y = $this->arg('avatar_crop_y') ? $this->arg('avatar_crop_y'):0;
+        $dest_w = $this->arg('avatar_crop_w') ? $this->arg('avatar_crop_w'):$filedata['width'];
+        $dest_h = $this->arg('avatar_crop_h') ? $this->arg('avatar_crop_h'):$filedata['height'];
+        $size = min($dest_w, $dest_h);
+        $size = ($size > MAX_ORIGINAL) ? MAX_ORIGINAL:$size;
 
         $user = common_current_user();
+        $profile = $user->getProfile();
 
-        $profile = $cur->getProfile();
+        $imagefile = new ImageFile($user->id, $filedata['filepath']);
+        $filename = $imagefile->resize($size, $dest_x, $dest_y, $dest_w, $dest_h);
 
-        if ($profile->setOriginal($filepath)) {
-            @unlink(common_avatar_path($filedata['filename']));
+        if ($profile->setOriginal($filename)) {
+            @unlink($filedata['filepath']);
             unset($_SESSION['FILEDATA']);
             $this->mode = 'upload';
             $this->showForm(_('Avatar updated.'), true);
@@ -426,12 +373,14 @@ class AvatarsettingsAction extends AccountSettingsAction
     {
         parent::showScripts();
 
-        $jcropPack = common_path('js/jcrop/jquery.Jcrop.pack.js');
-        $jcropGo   = common_path('js/jcrop/jquery.Jcrop.go.js');
+        if ($this->mode == 'crop') {
+            $jcropPack = common_path('js/jcrop/jquery.Jcrop.pack.js');
+            $jcropGo   = common_path('js/jcrop/jquery.Jcrop.go.js');
 
-        $this->element('script', array('type' => 'text/javascript',
-                                       'src' => $jcropPack));
-        $this->element('script', array('type' => 'text/javascript',
-                                       'src' => $jcropGo));
+            $this->element('script', array('type' => 'text/javascript',
+                                           'src' => $jcropPack));
+            $this->element('script', array('type' => 'text/javascript',
+                                           'src' => $jcropGo));
+        }
     }
 }

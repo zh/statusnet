@@ -103,17 +103,18 @@ class DeletenoticeAction extends DeleteAction
 
     function showContent()
     {
-        $this->elementStart('form', array('id' => 'notice_delete_form',
+        $this->elementStart('form', array('id' => 'form_notice_delete',
+                                          'class' => 'form_settings',
                                           'method' => 'post',
                                           'action' => common_local_url('deletenotice')));
+        $this->elementStart('fieldset');
+        $this->element('legend', null, _('Delete notice'));
         $this->hidden('token', common_session_token());
         $this->hidden('notice', $this->trimmed('notice'));
-        $this->elementStart('p');
-        $this->element('span', array('id' => 'confirmation_text'),
-                       _('Are you sure you want to delete this notice?'));
-        $this->submit('yes', _('Yes'));
-        $this->submit('no', _('No'));
-        $this->elementEnd('p');
+        $this->element('p', null, _('Are you sure you want to delete this notice?'));
+        $this->submit('form_action-yes', _('Yes'), 'submit form_action-primary', 'yes');
+        $this->submit('form_action-no', _('No'), 'submit form_action-secondary', 'no');
+        $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }
 

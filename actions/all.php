@@ -42,6 +42,9 @@ class AllAction extends Action
         if (!$this->page) {
             $this->page = 1;
         }
+        
+        common_set_returnto($this->selfUrl());
+        
         return true;
     }
 
@@ -101,4 +104,15 @@ class AllAction extends Action
         $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
                           $this->page, 'all', array('nickname' => $this->user->nickname));
     }
+
+    function showPageTitle()
+    {
+        $user =& common_current_user();
+        if ($user && ($user->id == $this->user->id)) {
+            $this->element('h1', NULL, _("You and friends"));
+        } else { 
+            $this->element('h1', NULL, sprintf(_('%s and friends'), $this->user->nickname));
+        }
+    }
+
 }

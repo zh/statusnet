@@ -78,6 +78,7 @@ class LoginAction extends Action
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->checkLogin();
         } else {
+            common_ensure_session();
             $this->showForm();
         }
     }
@@ -96,7 +97,7 @@ class LoginAction extends Action
     {
         // XXX: login throttle
 
-        // CSRF protection - token set in common_notice_form()
+        // CSRF protection - token set in NoticeForm
         $token = $this->trimmed('token');
         if (!$token || $token != common_session_token()) {
             $this->clientError(_('There was a problem with your session token. '.
@@ -106,35 +107,14 @@ class LoginAction extends Action
 
         $nickname = common_canonical_nickname($this->trimmed('nickname'));
         $password = $this->arg('password');
-        if (common_check_user($nickname, $password)) {
-            // success!
-            if (!common_set_user($nickname)) {
-                $this->serverError(_('Error setting user.'));
-                return;
-            }
-            common_real_login(true);
-            if ($this->boolean('rememberme')) {
-                common_debug('Adding rememberme cookie for ' . $nickname);
-                common_rememberme();
-            }
-            // success!
-            $url = common_get_returnto();
-            if ($url) {
-                // We don't have to return to it again
-                common_set_returnto(null);
-            } else {
-                $url = common_local_url('all',
-                                        array('nickname' =>
-                                              $nickname));
-            }
-            common_redirect($url);
-        } else {
+
+        if (!common_check_user($nickname, $password)) {
             $this->showForm(_('Incorrect username or password.'));
             return;
         }
 
         // success!
-        if (!common_set_user($user)) {
+        if (!common_set_user($nickname)) {
             $this->serverError(_('Error setting user.'));
             return;
         }
@@ -142,11 +122,11 @@ class LoginAction extends Action
         common_real_login(true);
 
         if ($this->boolean('rememberme')) {
-            common_debug('Adding rememberme cookie for ' . $nickname);
             common_rememberme($user);
         }
-        // success!
+
         $url = common_get_returnto();
+
         if ($url) {
             // We don't have to return to it again
             common_set_returnto(null);
@@ -155,6 +135,7 @@ class LoginAction extends Action
                                     array('nickname' =>
                                           $nickname));
         }
+
         common_redirect($url);
     }
 

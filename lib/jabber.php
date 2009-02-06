@@ -178,7 +178,7 @@ function jabber_format_entry($profile, $notice)
     $entry .= "<link href='" . htmlspecialchars($profile->profileurl) . "'/>\n";
     $entry .= "<link rel='self' type='application/rss+xml' href='" . $self_url . "'/>\n";
     $entry .= "<author><name>" . $profile->nickname . "</name></author>\n";
-    $entry .= "<icon>" . common_profile_avatar_url($profile, AVATAR_PROFILE_SIZE) . "</icon>\n";
+    $entry .= "<icon>" . $profile->avatarUrl(AVATAR_PROFILE_SIZE) . "</icon>\n";
     $entry .= "</source>\n";
     $entry .= "<title>" . htmlspecialchars($msg) . "</title>\n";
     $entry .= "<summary>" . htmlspecialchars($msg) . "</summary>\n";

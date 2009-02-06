@@ -19,12 +19,11 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-define('LACONICA_VERSION', '0.7.0');
+define('LACONICA_VERSION', '0.7.1');
 
 define('AVATAR_PROFILE_SIZE', 96);
 define('AVATAR_STREAM_SIZE', 48);
 define('AVATAR_MINI_SIZE', 24);
-define('MAX_AVATAR_SIZE', 256 * 1024);
 
 define('NOTICES_PER_PAGE', 20);
 define('PROFILES_PER_PAGE', 20);

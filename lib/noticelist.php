@@ -203,11 +203,14 @@ class NoticeListItem extends Widget
 
     function showNoticeOptions()
     {
-        $this->out->elementStart('div', 'notice-options');
-        $this->showFaveForm();
-        $this->showReplyLink();
-        $this->showDeleteLink();
-        $this->out->elementEnd('div');
+        $user = common_current_user();
+        if ($user) {
+            $this->out->elementStart('div', 'notice-options');
+            $this->showFaveForm();
+            $this->showReplyLink();
+            $this->showDeleteLink();
+            $this->out->elementEnd('div');
+        }
     }
 
     /**
@@ -282,8 +285,8 @@ class NoticeListItem extends Widget
         $avatar = $this->profile->getAvatar($avatar_size);
 
         $this->out->element('img', array('src' => ($avatar) ?
-                                         common_avatar_display_url($avatar) :
-                                         common_default_avatar($avatar_size),
+                                         $avatar->displayUrl() :
+                                         Avatar::defaultImage($avatar_size),
                                          'class' => 'avatar photo',
                                          'width' => $avatar_size,
                                          'height' => $avatar_size,
