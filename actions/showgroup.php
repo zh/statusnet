@@ -129,6 +129,8 @@ class ShowgroupAction extends Action
             return false;
         }
 
+        common_set_returnto($this->selfUrl());
+
         return true;
     }
 
