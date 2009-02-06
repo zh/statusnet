@@ -50,7 +50,7 @@ create table "user" (
     emailnotifyfav integer default 1 /* comment 'Notify by email of favorites' */,
     emailnotifynudge integer default 1 /* comment 'Notify by email of nudges' */,
     emailnotifymsg integer default 1 /* comment 'Notify by email of direct messages' */,
-emailmicroid integer default 1 /* comment 'whether to publish email microid' */,
+    emailmicroid integer default 1 /* comment 'whether to publish email microid' */,
     language varchar(50) /* comment 'preferred language' */,
     timezone varchar(50) /* comment 'timezone' */,
     emailpost integer default 1 /* comment 'Post by email' */,
@@ -146,7 +146,6 @@ create table fave (
     notice_id integer not null /* comment 'notice that is the favorite' */ references notice (id),
     user_id integer not null /* comment 'user who likes this notice' */ references "user" (id) ,
     modified timestamp not null /* comment 'date this record was modified' */,
-
     primary key (notice_id, user_id)
 
 );
@@ -288,6 +287,7 @@ create table foreign_link (
      credentials varchar(255) /* comment 'authc credentials, typically a password' */,
      noticesync int not null default 1 /* comment 'notice synchronisation, bit 1 = sync outgoing, bit 2 = sync incoming, bit 3 = filter local replies' */,
      friendsync int not null default 2 /* comment 'friend synchronisation, bit 1 = sync outgoing, bit 2 = sync incoming */, 
+     profilesync int not null default 1 /* comment 'profile synchronization, bit 1 = sync outgoing, bit 2 = sync incoming' */,
      created timestamp not null /* comment 'date this record was created' */,
      modified timestamp not null /* comment 'date this record was modified' */,
 
@@ -366,6 +366,59 @@ create table profile_block (
    primary key (blocker, blocked)
 
 );
+
+create table user_group (
+
+    id serial primary key /* comment 'unique identifier' */,
+
+    nickname varchar(64) unique /* comment 'nickname for addressing' */,
+    fullname varchar(255) /* comment 'display name' */,
+    homepage varchar(255) /* comment 'URL, cached so we dont regenerate' */,
+    description varchar(140) /* comment 'descriptive biography' */,
+    location varchar(255) /* comment 'related physical location, if any' */,
+
+    original_logo varchar(255) /* comment 'original size logo' */,
+    homepage_logo varchar(255) /* comment 'homepage (profile) size logo' */,
+    stream_logo varchar(255) /* comment 'stream-sized logo' */,
+    mini_logo varchar(255) /* comment 'mini logo' */,
+
+    created timestamp not null /* comment 'date this record was created' */,
+    modified timestamp /* comment 'date this record was modified' */
+
+);
+create index user_group_nickname_idx on user_group using btree(nickname);
+
+create table group_member (
+
+    group_id integer not null /* comment 'foreign key to user_group' */ references user_group (id),
+    profile_id integer not null /* comment 'foreign key to profile table' */ references profile (id),
+    is_admin integer default 0 /* comment 'is this user an admin?' */,
+
+    created timestamp not null /* comment 'date this record was created' */,
+    modified timestamp /* comment 'date this record was modified' */,
+
+    primary key (group_id, profile_id)
+);
+
+create table related_group (
+
+    group_id integer not null /* comment 'foreign key to user_group' */ references user_group (id) ,
+    related_group_id integer not null /* comment 'foreign key to user_group' */ references user_group (id),
+
+    created timestamp not null /* comment 'date this record was created' */,
+
+    primary key (group_id, related_group_id)
+
+);
+
+create table group_inbox (
+    group_id integer not null /* comment 'group receiving the message' references user_group (id) */,
+    notice_id integer not null /* comment 'notice received' references notice (id) */,
+    created timestamp not null /* comment 'date the notice was created' */,
+
+    primary key (group_id, notice_id)
+);
+create index group_inbox_created_idx on group_inbox using btree(created);
 
 /* Textsearch stuff */
 

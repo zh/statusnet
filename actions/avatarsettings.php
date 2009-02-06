@@ -75,7 +75,7 @@ class AvatarsettingsAction extends AccountSettingsAction
 
     function getInstructions()
     {
-        return _('You can upload your personal avatar.');
+        return sprintf(_('You can upload your personal avatar. The maximum file size is %s.'), ImageFile::maxFileSize());
     }
 
     /**
@@ -155,7 +155,7 @@ class AvatarsettingsAction extends AccountSettingsAction
         $this->element('input', array('name' => 'MAX_FILE_SIZE',
                                       'type' => 'hidden',
                                       'id' => 'MAX_FILE_SIZE',
-                                      'value' => MAX_AVATAR_SIZE));
+                                      'value' => ImageFile::maxFileSizeInt()));
         $this->elementEnd('li');
         $this->elementEnd('ul');
 
@@ -373,12 +373,14 @@ class AvatarsettingsAction extends AccountSettingsAction
     {
         parent::showScripts();
 
-        $jcropPack = common_path('js/jcrop/jquery.Jcrop.pack.js');
-        $jcropGo   = common_path('js/jcrop/jquery.Jcrop.go.js');
+        if ($this->mode == 'crop') {
+            $jcropPack = common_path('js/jcrop/jquery.Jcrop.pack.js');
+            $jcropGo   = common_path('js/jcrop/jquery.Jcrop.go.js');
 
-        $this->element('script', array('type' => 'text/javascript',
-                                       'src' => $jcropPack));
-        $this->element('script', array('type' => 'text/javascript',
-                                       'src' => $jcropGo));
+            $this->element('script', array('type' => 'text/javascript',
+                                           'src' => $jcropPack));
+            $this->element('script', array('type' => 'text/javascript',
+                                           'src' => $jcropGo));
+        }
     }
 }

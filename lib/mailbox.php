@@ -63,6 +63,8 @@ class MailboxAction extends PersonalAction
             $this->page = 1;
         }
 
+        common_set_returnto($this->selfUrl());
+
         return true;
     }
 

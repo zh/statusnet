@@ -112,6 +112,8 @@ class ShowfavoritesAction extends Action
             $this->page = 1;
         }
 
+        common_set_returnto($this->selfUrl());
+        
         return true;
     }
 

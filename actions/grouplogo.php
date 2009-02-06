@@ -152,7 +152,7 @@ class GrouplogoAction extends Action
 
     function getInstructions()
     {
-        return _('You can upload a logo image for your group.');
+        return sprintf(_('You can upload a logo image for your group. The maximum file size is %s.'), ImageFile::maxFileSize());
     }
 
     /**
@@ -229,7 +229,7 @@ class GrouplogoAction extends Action
         $this->element('input', array('name' => 'MAX_FILE_SIZE',
                                       'type' => 'hidden',
                                       'id' => 'MAX_FILE_SIZE',
-                                      'value' => MAX_AVATAR_SIZE));
+                                      'value' => ImageFile::maxFileSizeInt()));
         $this->elementEnd('li');
         $this->elementEnd('ul');
 
@@ -382,7 +382,7 @@ class GrouplogoAction extends Action
             $this->serverError(_('Lost our file data.'));
             return;
         }
-        
+
         // If image is not being cropped assume pos & dimentions of original
         $dest_x = $this->arg('avatar_crop_x') ? $this->arg('avatar_crop_x'):0;
         $dest_y = $this->arg('avatar_crop_y') ? $this->arg('avatar_crop_y'):0;
@@ -390,7 +390,7 @@ class GrouplogoAction extends Action
         $dest_h = $this->arg('avatar_crop_h') ? $this->arg('avatar_crop_h'):$filedata['height'];
         $size = min($dest_w, $dest_h);
         $size = ($size > MAX_ORIGINAL) ? MAX_ORIGINAL:$size;
-        
+
         $imagefile = new ImageFile($this->group->id, $filedata['filepath']);
         $filename = $imagefile->resize($size, $dest_x, $dest_y, $dest_w, $dest_h);
 

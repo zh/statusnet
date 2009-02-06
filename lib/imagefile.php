@@ -58,7 +58,7 @@ class ImageFile
     {
         $this->id = $id;
         $this->filepath = $filepath;
-        
+
         $info = @getimagesize($this->filepath);
         $this->type = ($info) ? $info[2]:$type;
         $this->width = ($info) ? $info[0]:$width;
@@ -72,7 +72,7 @@ class ImageFile
             break;
         case UPLOAD_ERR_INI_SIZE:
         case UPLOAD_ERR_FORM_SIZE:
-            throw new Exception(_('That file is too big.'));
+            throw new Exception(sprintf(_('That file is too big. The maximum file size is %d.'), $this->maxFileSize()));
             return;
         case UPLOAD_ERR_PARTIAL:
             @unlink($_FILES[$param]['tmp_name']);
@@ -82,19 +82,19 @@ class ImageFile
             throw new Exception(_('System error uploading file.'));
             return;
         }
-        
+
         $info = @getimagesize($_FILES[$param]['tmp_name']);
-        
+
         if (!$info) {
             @unlink($_FILES[$param]['tmp_name']);
             throw new Exception(_('Not an image or corrupt file.'));
             return;
         }
-        
+
         if ($info[2] !== IMAGETYPE_GIF &&
             $info[2] !== IMAGETYPE_JPEG &&
             $info[2] !== IMAGETYPE_PNG) {
-        
+
             @unlink($_FILES[$param]['tmp_name']);
             throw new Exception(_('Unsupported image file format.'));
             return;
@@ -102,7 +102,7 @@ class ImageFile
 
         return new ImageFile(null, $_FILES[$param]['tmp_name']);
     }
-    
+
     function resize($size, $x = 0, $y = 0, $w = null, $h = null)
     {
         $w = ($w === null) ? $this->width:$w;
@@ -129,25 +129,25 @@ class ImageFile
         }
 
         $image_dest = imagecreatetruecolor($size, $size);
-        
+
         if ($this->type == IMAGETYPE_GIF || $this->type == IMAGETYPE_PNG) {
 
             $transparent_idx = imagecolortransparent($image_src);
-            
+
             if ($transparent_idx >= 0) {
-                
+
                 $transparent_color = imagecolorsforindex($image_src, $transparent_idx);
                 $transparent_idx = imagecolorallocate($image_dest, $transparent_color['red'], $transparent_color['green'], $transparent_color['blue']);
                 imagefill($image_dest, 0, 0, $transparent_idx);
                 imagecolortransparent($image_dest, $transparent_idx);
-                
+
             } elseif ($this->type == IMAGETYPE_PNG) {
-                
+
                 imagealphablending($image_dest, false);
                 $transparent = imagecolorallocatealpha($image_dest, 0, 0, 0, 127);
                 imagefill($image_dest, 0, 0, $transparent);
                 imagesavealpha($image_dest, true);
-                
+
             }
         }
 
@@ -181,5 +181,42 @@ class ImageFile
     function unlink()
     {
         @unlink($this->filename);
+    }
+
+    static function maxFileSize()
+    {
+        $value = ImageFile::maxFileSizeInt();
+
+        if ($value > 1024 * 1024) {
+            return ($value/(1024*1024)).'Mb';
+        } else if ($value > 1024) {
+            return ($value/(1024)).'kB';
+        } else {
+            return $value;
+        }
+    }
+
+    static function maxFileSizeInt()
+    {
+        return min(ImageFile::strToInt(ini_get('post_max_size')),
+                   ImageFile::strToInt(ini_get('upload_max_filesize')),
+                   ImageFile::strToInt(ini_get('memory_limit')));
+    }
+
+    static function strToInt($str)
+    {
+        $unit = substr($str, -1);
+        $num = substr($str, 0, -1);
+
+        switch(strtoupper($unit)){
+            case 'G':
+                $num *= 1024;
+            case 'M':
+                $num *= 1024;
+            case 'K':
+                $num *= 1024;
+        }
+
+        return $num;
     }
 }
