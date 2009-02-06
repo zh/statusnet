@@ -490,4 +490,55 @@ class SmssettingsAction extends ConnectSettingsAction
         common_redirect(common_local_url('confirmaddress',
                                          array('code' => $code)));
     }
+
+    /**
+     * Handle a request to remove an incoming email address
+     *
+     * @return void
+     */
+
+    function removeIncoming()
+    {
+        $user = common_current_user();
+
+        if (!$user->incomingemail) {
+            $this->showForm(_('No incoming email address.'));
+            return;
+        }
+
+        $orig = clone($user);
+
+        $user->incomingemail = null;
+
+        if (!$user->updateKeys($orig)) {
+            common_log_db_error($user, 'UPDATE', __FILE__);
+            $this->serverError(_("Couldn't update user record."));
+        }
+
+        $this->showForm(_('Incoming email address removed.'), true);
+    }
+
+    /**
+     * Generate a new incoming email address
+     *
+     * @return void
+     *
+     * @see Emailsettings::newIncoming
+     */
+
+    function newIncoming()
+    {
+        $user = common_current_user();
+
+        $orig = clone($user);
+
+        $user->incomingemail = mail_new_incoming_address();
+
+        if (!$user->updateKeys($orig)) {
+            common_log_db_error($user, 'UPDATE', __FILE__);
+            $this->serverError(_("Couldn't update user record."));
+        }
+
+        $this->showForm(_('New incoming email address added.'), true);
+    }
 }
