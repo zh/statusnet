@@ -24,6 +24,7 @@ position:relative;
 h1,h2,h3,h4,h5,h6 {
 text-transform:uppercase;
 margin-bottom:7px;
+overflow:hidden;
 }
 h1 {
 font-size:1.4em;
@@ -508,6 +509,7 @@ min-height:123px;
 float:left;
 margin-bottom:18px;
 margin-left:0;
+overflow:hidden;
 }
 .entity_profile dt,
 #entity_statistics dt {
@@ -767,6 +769,10 @@ padding-left:28px;
 margin-right:11px;
 }
 
+.fn {
+overflow:hidden;
+}
+
 .notice .author .fn {
 font-weight:bold;
 }
@@ -791,7 +797,7 @@ text-decoration:underline;
 .notice .entry-title {
 float:left;
 width:100%;
-overflow:auto;
+overflow:hidden;
 }
 #shownotice .notice .entry-title {
 font-size:2.2em;
@@ -1072,7 +1078,11 @@ border-top:0;
 .section .notice:first-child {
 padding-top:0;
 }
-.section .notice .fn {
+
+.section .notice .author {
+margin-right:0;
+}
+.section .notice .author .fn {
 display:none;
 }
 

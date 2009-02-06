@@ -140,7 +140,12 @@ class ShowstreamAction extends Action
 
     function showPageTitle()
     {
-         $this->element('h1', NULL, $this->profile->nickname._("'s profile"));
+        $user =& common_current_user();
+        if ($user && ($user->id == $this->profile->id)) {
+            $this->element('h1', NULL, _("Your profile"));
+        } else {
+            $this->element('h1', NULL, sprintf(_('%s\'s profile'), $this->profile->nickname));
+        }
     }
 
     function showPageNoticeBlock()

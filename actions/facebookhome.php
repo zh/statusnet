@@ -148,14 +148,11 @@ class FacebookhomeAction extends FacebookAction
 
     function showNoticeForm()
     {
-        
         $post_action = "$this->app_uri/index.php";
         
         $notice_form = new FacebookNoticeForm($this, $post_action, null, 
             $post_action, $this->user);
         $notice_form->show();
-    
-    
     }
 
     function title()
@@ -169,7 +166,6 @@ class FacebookhomeAction extends FacebookAction
 
     function showContent()
     {
-
         $notice = $this->user->noticesWithFriends(($this->page-1) *
             NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
         
@@ -179,7 +175,6 @@ class FacebookhomeAction extends FacebookAction
 
         $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
                           $this->page, 'index.php', array('nickname' => $this->user->nickname));
-
     }
 
     function showNoticeList($notice)
