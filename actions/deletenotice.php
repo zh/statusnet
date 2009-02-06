@@ -134,6 +134,10 @@ class DeletenoticeAction extends DeleteAction
 
         $url = common_get_returnto();
 
+
+        $urlval = ($url) ? $url : 'null';
+        common_debug("deleteNotice() - returnto url = $urlval");  
+
         if ($url) {
             common_set_returnto(null);
         } else {

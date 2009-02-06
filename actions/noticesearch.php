@@ -48,6 +48,16 @@ require_once INSTALLDIR.'/lib/searchaction.php';
  */
 class NoticesearchAction extends SearchAction
 {
+
+    function prepare($args)
+    {
+        parent::prepare($args);
+
+        common_set_returnto($this->selfUrl());
+
+        return true;
+    }
+    
     /**
      * Get instructions
      * 

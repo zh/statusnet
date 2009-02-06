@@ -55,7 +55,6 @@ class PersonalAction extends Action
     function handle($args)
     {
         parent::handle($args);
-        common_set_returnto($this->selfUrl());
     }
 
 }
