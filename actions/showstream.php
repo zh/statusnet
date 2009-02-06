@@ -242,7 +242,7 @@ class ShowstreamAction extends Action
         $this->elementStart('dl', 'entity_depiction');
         $this->element('dt', null, _('Photo'));
         $this->elementStart('dd');
-        $this->element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_PROFILE_SIZE),
+        $this->element('img', array('src' => ($avatar) ? $avatar->displayUrl() : Avatar::defaultImage(AVATAR_PROFILE_SIZE),
                                     'class' => 'photo avatar',
                                     'width' => AVATAR_PROFILE_SIZE,
                                     'height' => AVATAR_PROFILE_SIZE,

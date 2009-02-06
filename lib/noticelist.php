@@ -285,8 +285,8 @@ class NoticeListItem extends Widget
         $avatar = $this->profile->getAvatar($avatar_size);
 
         $this->out->element('img', array('src' => ($avatar) ?
-                                         common_avatar_display_url($avatar) :
-                                         common_default_avatar($avatar_size),
+                                         $avatar->displayUrl() :
+                                         Avatar::defaultImage($avatar_size),
                                          'class' => 'avatar photo',
                                          'width' => $avatar_size,
                                          'height' => $avatar_size,

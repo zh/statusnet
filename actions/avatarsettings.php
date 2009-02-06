@@ -200,7 +200,7 @@ class AvatarsettingsAction extends AccountSettingsAction
                                   'class' => 'avatar_view'));
         $this->element('h2', null, _("Original"));
         $this->elementStart('div', array('id'=>'avatar_original_view'));
-        $this->element('img', array('src' => common_avatar_url($this->filedata['filename']),
+        $this->element('img', array('src' => Avatar::url($this->filedata['filename']),
                                     'width' => $this->filedata['width'],
                                     'height' => $this->filedata['height'],
                                     'alt' => $user->nickname));
@@ -212,7 +212,7 @@ class AvatarsettingsAction extends AccountSettingsAction
                                   'class' => 'avatar_view'));
         $this->element('h2', null, _("Preview"));
         $this->elementStart('div', array('id'=>'avatar_preview_view'));
-        $this->element('img', array('src' => common_avatar_url($this->filedata['filename']),
+        $this->element('img', array('src' => Avatar::url($this->filedata['filename']),
                                     'width' => AVATAR_PROFILE_SIZE,
                                     'height' => AVATAR_PROFILE_SIZE,
                                     'alt' => $user->nickname));
@@ -281,12 +281,12 @@ class AvatarsettingsAction extends AccountSettingsAction
 
         $cur = common_current_user();
 
-        $filename = common_avatar_filename($cur->id,
+        $filename = Avatar::filename($cur->id,
                                            image_type_to_extension($imagefile->type),
                                            null,
                                            'tmp'.common_timestamp());
 
-        $filepath = common_avatar_path($filename);
+        $filepath = Avatar::path($filename);
 
         move_uploaded_file($imagefile->filepath, $filepath);
 

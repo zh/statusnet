@@ -153,12 +153,12 @@ class ImageFile
 
         imagecopyresampled($image_dest, $image_src, 0, 0, $x, $y, $size, $size, $w, $h);
 
-        $outname = common_avatar_filename($this->id,
+        $outname = Avatar::filename($this->id,
                                           image_type_to_extension($this->type),
                                           $size,
                                           common_timestamp());
 
-        $outpath = common_avatar_path($outname);
+        $outpath = Avatar::path($outname);
 
         switch ($this->type) {
          case IMAGETYPE_GIF:

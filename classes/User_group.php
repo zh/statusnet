@@ -90,13 +90,13 @@ class User_group extends Memcached_DataObject
 
     function setOriginal($filename)
     {
-        $imagefile = new ImageFile($this->id, common_avatar_path($filename));
+        $imagefile = new ImageFile($this->id, Avatar::path($filename));
         
         $orig = clone($this);
-        $this->original_logo = common_avatar_url($filename);
-        $this->homepage_logo = common_avatar_url($imagefile->resize(AVATAR_PROFILE_SIZE));
-        $this->stream_logo = common_avatar_url($imagefile->resize(AVATAR_STREAM_SIZE));
-        $this->mini_logo = common_avatar_url($imagefile->resize(AVATAR_MINI_SIZE));
+        $this->original_logo = Avatar::url($filename);
+        $this->homepage_logo = Avatar::url($imagefile->resize(AVATAR_PROFILE_SIZE));
+        $this->stream_logo = Avatar::url($imagefile->resize(AVATAR_STREAM_SIZE));
+        $this->mini_logo = Avatar::url($imagefile->resize(AVATAR_MINI_SIZE));
         common_debug(common_log_objstring($this));
         return $this->update($orig);
     }

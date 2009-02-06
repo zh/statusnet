@@ -166,7 +166,7 @@ class NoticesearchAction extends SearchAction
         $avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
         $this->elementStart('a', array('href' => $profile->profileurl,
                                        'class' => 'url'));
-        $this->element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE),
+        $this->element('img', array('src' => ($avatar) ? $avatar->displayUrl() : Avatar::defaultImage(AVATAR_STREAM_SIZE),
                                     'class' => 'avatar photo',
                                     'width' => AVATAR_STREAM_SIZE,
                                     'height' => AVATAR_STREAM_SIZE,

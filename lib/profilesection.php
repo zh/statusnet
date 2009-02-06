@@ -86,7 +86,7 @@ class ProfileSection extends Section
                                        'rel' => 'contact member',
                                        'class' => 'url'));
         $avatar = $profile->getAvatar(AVATAR_MINI_SIZE);
-        $this->out->element('img', array('src' => (($avatar) ? common_avatar_display_url($avatar) :  common_default_avatar(AVATAR_MINI_SIZE)),
+        $this->out->element('img', array('src' => (($avatar) ? $avatar->displayUrl() :  Avatar::defaultImage(AVATAR_MINI_SIZE)),
                                     'width' => AVATAR_MINI_SIZE,
                                     'height' => AVATAR_MINI_SIZE,
                                     'class' => 'avatar photo',

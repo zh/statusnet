@@ -183,8 +183,8 @@ class MailboxAction extends PersonalAction
                                        'class' => 'url'));
         $avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
         $this->element('img', array('src' => ($avatar) ?
-                                    common_avatar_display_url($avatar) :
-                                    common_default_avatar(AVATAR_STREAM_SIZE),
+                                    $avatar->displayUrl() :
+                                    Avatar::defaultImage(AVATAR_STREAM_SIZE),
                                     'class' => 'photo avatar',
                                     'width' => AVATAR_STREAM_SIZE,
                                     'height' => AVATAR_STREAM_SIZE,
