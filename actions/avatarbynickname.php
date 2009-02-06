@@ -90,9 +90,9 @@ class AvatarbynicknameAction extends Action
             $url = $avatar->url;
         } else {
             if ($size == 'original') {
-                $url = common_default_avatar(AVATAR_PROFILE_SIZE);
+                $url = Avatar::defaultImage(AVATAR_PROFILE_SIZE);
             } else {
-                $url = common_default_avatar($size+0);
+                $url = Avatar::defaultImage($size+0);
             }
         }
         common_redirect($url, 302);

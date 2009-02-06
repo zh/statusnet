@@ -263,7 +263,7 @@ class GrouplogoAction extends Action
                                   'class' => 'avatar_view'));
         $this->element('h2', null, _("Original"));
         $this->elementStart('div', array('id'=>'avatar_original_view'));
-        $this->element('img', array('src' => common_avatar_url($this->filedata['filename']),
+        $this->element('img', array('src' => Avatar::url($this->filedata['filename']),
                                     'width' => $this->filedata['width'],
                                     'height' => $this->filedata['height'],
                                     'alt' => $this->group->nickname));
@@ -275,7 +275,7 @@ class GrouplogoAction extends Action
                                   'class' => 'avatar_view'));
         $this->element('h2', null, _("Preview"));
         $this->elementStart('div', array('id'=>'avatar_preview_view'));
-        $this->element('img', array('src' => common_avatar_url($this->filedata['filename']),
+        $this->element('img', array('src' => Avatar::url($this->filedata['filename']),
                                     'width' => AVATAR_PROFILE_SIZE,
                                     'height' => AVATAR_PROFILE_SIZE,
                                     'alt' => $this->group->nickname));
@@ -343,12 +343,12 @@ class GrouplogoAction extends Action
             return;
         }
 
-        $filename = common_avatar_filename($this->group->id,
-                                           image_type_to_extension($imagefile->type),
-                                           null,
-                                           'group-temp-'.common_timestamp());
+        $filename = Avatar::filename($this->group->id,
+                                     image_type_to_extension($imagefile->type),
+                                     null,
+                                     'group-temp-'.common_timestamp());
 
-        $filepath = common_avatar_path($filename);
+        $filepath = Avatar::path($filename);
 
         move_uploaded_file($imagefile->filepath, $filepath);
 

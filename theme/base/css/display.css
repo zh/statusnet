@@ -152,7 +152,8 @@ font-weight:bold;
 #form_remote_subscribe legend,
 #form_openid_login legend,
 #form_search legend,
-#form_invite legend {
+#form_invite legend,
+#form_notice_delete legend {
 display:none;
 }
 
@@ -179,6 +180,7 @@ float:left;
 width:90%;
 }
 
+
 #form_login p.form_guide,
 #form_register #settings_rememberme p.form_guide,
 #form_openid_login #settings_rememberme p.form_guide,
@@ -194,11 +196,15 @@ border-radius:4px;
 padding:0 7px;
 }
 
+
+.form_settings input.form_action-secondary {
+margin-left:29px;
+padding:0;
+}
+
 #form_search .submit {
 margin-left:11px;
 }
-
-
 
 address {
 float:left;
@@ -1168,4 +1174,5 @@ clear:both;
 #form_settings_avatar .form_actions {
 margin-bottom:0;
 }
+
 

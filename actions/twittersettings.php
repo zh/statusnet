@@ -250,8 +250,8 @@ class TwittersettingsAction extends ConnectSettingsAction
                 $avatar = $other->getAvatar(AVATAR_MINI_SIZE);
 
                 $avatar_url = ($avatar) ?
-                  common_avatar_display_url($avatar) :
-                  common_default_avatar(AVATAR_MINI_SIZE);
+                  $avatar->displayUrl() :
+                  Avatar::defaultImage(AVATAR_MINI_SIZE);
 
                 $this->element('img', array('src' => $avatar_url,
                                             'width' => AVATAR_MINI_SIZE,

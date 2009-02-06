@@ -34,6 +34,9 @@ border-color:#aaa;
 border-color:#ddd;
 }
 
+.form_settings input.form_action-secondary {
+background:none;
+}
 
 input.submit,
 #form_notice.warning #notice_text-count,
@@ -59,7 +62,8 @@ div.notice-options input,
 .form_user_unblock input.submit,
 .entity_send-a-message a,
 .form_user_nudge input.submit,
-.entity_nudge p {
+.entity_nudge p,
+.form_settings input.form_action-secondary {
 color:#002E6E;
 }
 
