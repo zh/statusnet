@@ -344,9 +344,9 @@ class GrouplogoAction extends Action
         }
 
         $filename = Avatar::filename($this->group->id,
-                                           image_type_to_extension($imagefile->type),
-                                           null,
-                                           'group-temp-'.common_timestamp());
+                                     image_type_to_extension($imagefile->type),
+                                     null,
+                                     'group-temp-'.common_timestamp());
 
         $filepath = Avatar::path($filename);
 

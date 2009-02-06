@@ -282,9 +282,9 @@ class AvatarsettingsAction extends AccountSettingsAction
         $cur = common_current_user();
 
         $filename = Avatar::filename($cur->id,
-                                           image_type_to_extension($imagefile->type),
-                                           null,
-                                           'tmp'.common_timestamp());
+                                     image_type_to_extension($imagefile->type),
+                                     null,
+                                     'tmp'.common_timestamp());
 
         $filepath = Avatar::path($filename);
 
