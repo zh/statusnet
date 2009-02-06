@@ -394,7 +394,21 @@ function common_render_text($text)
 
 function common_replace_urls_callback($text, $callback) {
     // Start off with a regex
-        preg_match_all('#(?:(?:(?:https?|ftps?|mms|rtsp|gopher|news|nntp|telnet|wais|file|prospero|webcal|xmpp|irc)://|(?:mailto|aim|tel):)[^.\s]+\.[^\s]+|(?:[^.\s/]+\.)+(?:museum|travel|[a-z]{2,4})(?:[:/][^\s]*)?)#i', $text, $matches);
+    $regex = '#
+    (?:
+        (?:
+            (?:https?|ftps?|mms|rtsp|gopher|news|nntp|telnet|wais|file|prospero|webcal|xmpp|irc)://
+            |
+            (?:mailto|aim|tel):
+        )
+        [^.\s]+\.[^\s]+
+        |
+        (?:[^.\s/:]+\.)+
+        (?:museum|travel|[a-z]{2,4})
+        (?:[:/][^\s]*)?
+    )
+    #ix';
+    preg_match_all($regex, $text, $matches);
     
     // Then clean up what the regex left behind
     $offset = 0;
