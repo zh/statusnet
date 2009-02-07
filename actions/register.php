@@ -167,13 +167,13 @@ class RegisterAction extends Action
                                         array('http', 'https')))) {
             $this->showForm(_('Homepage is not a valid URL.'));
             return;
-        } else if (!is_null($fullname) && strlen($fullname) > 255) {
+        } else if (!is_null($fullname) && mb_strlen($fullname) > 255) {
             $this->showForm(_('Full name is too long (max 255 chars).'));
             return;
-        } else if (!is_null($bio) && strlen($bio) > 140) {
+        } else if (!is_null($bio) && mb_strlen($bio) > 140) {
             $this->showForm(_('Bio is too long (max 140 chars).'));
             return;
-        } else if (!is_null($location) && strlen($location) > 255) {
+        } else if (!is_null($location) && mb_strlen($location) > 255) {
             $this->showForm(_('Location is too long (max 255 chars).'));
             return;
         } else if (strlen($password) < 6) {

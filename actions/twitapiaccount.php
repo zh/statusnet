@@ -56,7 +56,7 @@ class TwitapiaccountAction extends TwitterapiAction
 
         $location = trim($this->arg('location'));
 
-        if (!is_null($location) && strlen($location) > 255) {
+        if (!is_null($location) && mb_strlen($location) > 255) {
 
             // XXX: But Twitter just truncates and runs with it. -- Zach
             $this->clientError(_('That\'s too long. Max notice size is 255 chars.'), 406, $apidate['content-type']);
