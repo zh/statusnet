@@ -93,22 +93,22 @@ class UpdateprofileAction extends Action
         }
         # optional stuff
         $fullname = $req->get_parameter('omb_listenee_fullname');
-        if ($fullname && strlen($fullname) > 255) {
+        if ($fullname && mb_strlen($fullname) > 255) {
             $this->clientError(_("Full name is too long (max 255 chars)."));
             return false;
         }
         $homepage = $req->get_parameter('omb_listenee_homepage');
-        if ($homepage && (!common_valid_http_url($homepage) || strlen($homepage) > 255)) {
+        if ($homepage && (!common_valid_http_url($homepage) || mb_strlen($homepage) > 255)) {
             $this->clientError(sprintf(_("Invalid homepage '%s'"), $homepage));
             return false;
         }
         $bio = $req->get_parameter('omb_listenee_bio');
-        if ($bio && strlen($bio) > 140) {
+        if ($bio && mb_strlen($bio) > 140) {
             $this->clientError(_("Bio is too long (max 140 chars)."));
             return false;
         }
         $location = $req->get_parameter('omb_listenee_location');
-        if ($location && strlen($location) > 255) {
+        if ($location && mb_strlen($location) > 255) {
             $this->clientError(_("Location is too long (max 255 chars)."));
             return false;
         }

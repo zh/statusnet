@@ -242,7 +242,7 @@ class FinishopenidloginAction extends Action
             }
         }
 
-        if ($sreg['fullname'] && strlen($sreg['fullname']) <= 255) {
+        if ($sreg['fullname'] && mb_strlen($sreg['fullname']) <= 255) {
             $fullname = $sreg['fullname'];
         }
 
