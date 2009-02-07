@@ -112,6 +112,23 @@ class ImageFile
             throw new Exception(_('Lost our file.'));
             return;
         }
+        
+        // Don't crop/scale if it isn't necessary
+        if ($size === $this->width 
+            && $size === $this->height 
+            && $x === 0 
+            && $y === 0 
+            && $w === $this->width
+            && $h === $this->height) {
+            
+            $outname = common_avatar_filename($this->id,
+                                                image_type_to_extension($this->type),
+                                                $size,
+                                                common_timestamp());
+            $outpath = common_avatar_path($outname);
+            @copy($this->filepath, $outpath);
+            return $outname;
+        }
 
         switch ($this->type) {
          case IMAGETYPE_GIF:
@@ -165,7 +182,7 @@ class ImageFile
             imagegif($image_dest, $outpath);
             break;
          case IMAGETYPE_JPEG:
-            imagejpeg($image_dest, $outpath);
+            imagejpeg($image_dest, $outpath, 100);
             break;
          case IMAGETYPE_PNG:
             imagepng($image_dest, $outpath);
@@ -174,6 +191,9 @@ class ImageFile
             throw new Exception(_('Unknown file type'));
             return;
         }
+        
+        imagedestroy($image_src);
+        imagedestroy($image_dest);
 
         return $outname;
     }
