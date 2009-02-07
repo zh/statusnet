@@ -110,6 +110,8 @@ class ShowstreamAction extends Action
 
         $this->page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 
+        common_set_returnto($this->selfUrl());
+        
         return true;
     }
 
@@ -140,7 +142,12 @@ class ShowstreamAction extends Action
 
     function showPageTitle()
     {
-         $this->element('h1', NULL, $this->profile->nickname._("'s profile"));
+        $user =& common_current_user();
+        if ($user && ($user->id == $this->profile->id)) {
+            $this->element('h1', NULL, _("Your profile"));
+        } else {
+            $this->element('h1', NULL, sprintf(_('%s\'s profile'), $this->profile->nickname));
+        }
     }
 
     function showPageNoticeBlock()
@@ -170,26 +177,22 @@ class ShowstreamAction extends Action
 
     function showFeeds()
     {
-        // Feeds
         $this->element('link', array('rel' => 'alternate',
-                                     'href' => common_local_url('api',
-                                                                array('apiaction' => 'statuses',
-                                                                      'method' => 'entity_timeline.rss',
-                                                                      'argument' => $this->user->nickname)),
-                                     'type' => 'application/rss+xml',
-                                     'title' => sprintf(_('Notice feed for %s'), $this->user->nickname)));
-        $this->element('link', array('rel' => 'alternate feed',
-                                     'href' => common_local_url('api',
-                                                                array('apiaction' => 'statuses',
-                                                                      'method' => 'entity_timeline.atom',
-                                                                      'argument' => $this->user->nickname)),
-                                     'type' => 'application/atom+xml',
-                                     'title' => sprintf(_('Notice feed for %s'), $this->user->nickname)));
-        $this->element('link', array('rel' => 'alternate',
-                                     'href' => common_local_url('userrss', array('nickname' =>
-                                                                               $this->user->nickname)),
-                                     'type' => 'application/rdf+xml',
-                                     'title' => sprintf(_('Notice feed for %s'), $this->user->nickname)));
+                        'type' => 'application/rss+xml',
+                        'href' => common_local_url('userrss',
+                         array('nickname' => $this->user->nickname)),
+                               'title' => sprintf(_('Notice feed for %s (RSS)'),
+                                 $this->user->nickname)));
+
+         $this->element('link',
+             array('rel' => 'alternate',
+                   'href' => common_local_url('api',
+                     array('apiaction' => 'statuses',
+                           'method' => 'user_timeline.atom',
+                           'argument' => $this->user->nickname)),
+                           'type' => 'application/atom+xml',
+                           'title' => sprintf(_('Notice feed for %s (Atom)'),
+                             $this->user->nickname)));
     }
 
     function extraHead()
@@ -239,7 +242,7 @@ class ShowstreamAction extends Action
         $this->elementStart('dl', 'entity_depiction');
         $this->element('dt', null, _('Photo'));
         $this->elementStart('dd');
-        $this->element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_PROFILE_SIZE),
+        $this->element('img', array('src' => ($avatar) ? $avatar->displayUrl() : Avatar::defaultImage(AVATAR_PROFILE_SIZE),
                                     'class' => 'photo avatar',
                                     'width' => AVATAR_PROFILE_SIZE,
                                     'height' => AVATAR_PROFILE_SIZE,
@@ -321,13 +324,22 @@ class ShowstreamAction extends Action
         }
         $this->elementEnd('div');
 
-        //XXX: entity_actions doesn't need to be outputted if entity is looking at their own profile
         $this->elementStart('div', 'entity_actions');
         $this->element('h2', null, _('User actions'));
         $this->elementStart('ul');
-        $this->elementStart('li', array('class' => 'entity_subscribe'));
+        $cur = common_current_user();
+
+        if ($cur && $cur->id == $this->profile->id) {
+            $this->elementStart('li', 'entity_edit');
+            $this->element('a', array('href' => common_local_url('profilesettings'),
+                                      'title' => _('Edit profile settings')),
+                                      _('Edit'));
+            $this->elementEnd('li');
+        }
+
         if ($cur) {
             if ($cur->id != $this->profile->id) {
+                $this->elementStart('li', 'entity_subscribe');
                 if ($cur->isSubscribed($this->profile)) {
                     $usf = new UnsubscribeForm($this, $this->profile);
                     $usf->show();
@@ -335,23 +347,23 @@ class ShowstreamAction extends Action
                     $sf = new SubscribeForm($this, $this->profile);
                     $sf->show();
                 }
+                $this->elementEnd('li');
             }
         } else {
+            $this->elementStart('li', 'entity_subscribe');
             $this->showRemoteSubscribeLink();
+            $this->elementEnd('li');
         }
-        $this->elementEnd('li');
-
-//        common_profile_new_message_nudge($cur, $this->user, $this->profile);
 
         if ($cur && $cur->id != $user->id && $cur->mutuallySubscribed($user)) {
-           $this->elementStart('li', array('class' => 'entity_send-a-message'));
+           $this->elementStart('li', 'entity_send-a-message');
             $this->element('a', array('href' => common_local_url('newmessage', array('to' => $user->id)),
                                       'title' => _('Send a direct message to this user')),
                            _('Message'));
             $this->elementEnd('li');
 
             if ($user->email && $user->emailnotifynudge) {
-                $this->elementStart('li', array('class' => 'entity_nudge'));
+                $this->elementStart('li', 'entity_nudge');
                 $nf = new NudgeForm($this, $user);
                 $nf->show();
                 $this->elementEnd('li');
@@ -360,7 +372,7 @@ class ShowstreamAction extends Action
 
         if ($cur && $cur->id != $this->profile->id) {
             $blocked = $cur->hasBlocked($this->profile);
-            $this->elementStart('li', array('class' => 'entity_block'));
+            $this->elementStart('li', 'entity_block');
             if ($blocked) {
                 $ubf = new UnblockForm($this, $this->profile);
                 $ubf->show();

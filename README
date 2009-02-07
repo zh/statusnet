@@ -2,8 +2,8 @@
 README
 ------
 
-Laconica 0.7.0 ("Rockville")
-30 January 2009
+Laconica 0.7.1 ("West of the Fields")
+6 February 2009
 
 This is the README file for Laconica, the Open Source microblogging
 platform. It includes installation instructions, descriptions of
@@ -26,14 +26,14 @@ instant messenger programs (GTalk/Jabber), and specially-designed
 desktop clients that support the Twitter API.
 
 Laconica supports an open standard called OpenMicroBlogging
-(http://openmicroblogging.org/) that lets users on different Web sites
+<http://openmicroblogging.org/> that lets users on different Web sites
 or in different companies subscribe to each others' notices. It
 enables a distributed social network spread all across the Web.
 
 Laconica was originally developed for the Open Software Service,
-Identi.ca (http://identi.ca/). It is shared with you in hope that you
+Identi.ca <http://identi.ca/>. It is shared with you in hope that you
 too make an Open Software Service available to your users. To learn
-more, please see the Open Software Service Definition 1.0:
+more, please see the Open Software Service Definition 1.1:
 
       http://www.opendefinition.org/ossd
 
@@ -71,8 +71,27 @@ for additional terms.
 New this version
 ================
 
-This is a major feature release, and includes some bug fixes from the
-previous version (0.6.4, released December 14 2008.)
+This is a minor bug-fix release since version 0.7.0, released Jan 29
+2009. Notable changes this version:
+
+- Vast improvement in auto-linking to URLs.
+- Link to group search from user's group page
+- Improved interface in Facebook application
+- Fix bad redirects in delete notice
+- Updated PostgreSQL database creation script
+- Show filesize in avatar/logo upload
+- Vastly improved avatar/logo upload
+- Allow re-authentication with OpenID
+- Correctly link hashtabs inside parens and brackets
+- Group and avatar image transparency works
+- Better handling of commands through the Web and Ajax channels
+- Fix links for profile page feeds
+- Fixed destroy method in API
+- Fix endpoint of Connect menu when XMPP disabled
+- Show number of group members
+- Enable configuration files in /etc/laconica/
+
+Changes in version 0.7.0:
 
 - Support for groups. Users can join groups and send themed notices
   to those groups. All other members of the group receive the notices.
@@ -199,9 +218,9 @@ especially if you've previously installed PHP/MySQL packages.
 1. Unpack the tarball you downloaded on your Web server. Usually a
    command like this will work:
 
-   	   tar zxf laconica-0.7.0.tar.gz
+   	   tar zxf laconica-0.7.1.tar.gz
 
-   ...which will make a laconica-0.7.0 subdirectory in your current
+   ...which will make a laconica-0.7.1 subdirectory in your current
    directory. (If you don't have shell access on your Web server, you
    may have to unpack the tarball on your local computer and FTP the
    files to the server.)
@@ -209,7 +228,7 @@ especially if you've previously installed PHP/MySQL packages.
 2. Move the tarball to a directory of your choosing in your Web root
    directory. Usually something like this will work:
 
-   	   mv laconica-0.7.0 /var/www/mublog
+   	   mv laconica-0.7.1 /var/www/mublog
 
    This will make your Laconica instance available in the mublog path of
    your server, like "http://example.net/mublog". "microblog" or
@@ -404,7 +423,7 @@ config.php, and access to the Laconica database from the mail server.
 XMPP
 ----
 
-XMPP (eXtended Message and Presence Protocol, http://xmpp.org/) is the
+XMPP (eXtended Message and Presence Protocol, <http://xmpp.org/>) is the
 instant-messenger protocol that drives Jabber and GTalk IM. You can
 distribute messages via XMPP using the system below; however, you
 need to run the XMPP incoming daemon to allow incoming messages as
@@ -537,7 +556,7 @@ Sample cron job:
 Sitemaps
 --------
 
-Sitemap files (http://sitemaps.org/) are a very nice way of telling
+Sitemap files <http://sitemaps.org/> are a very nice way of telling
 search engines and other interested bots what's available on your site
 and what's changed recently. You can generate sitemap files for your
 Laconica instance.
@@ -558,7 +577,7 @@ Laconica instance.
    like './sitemapindex.xml'. sitemap-directory is the directory where
    you want the sitemaps stored, like './sitemaps/' (make sure the dir
    exists). URL-prefix-for-sitemaps is the full URL for the sitemap dir,
-   typically something like 'http://example.net/mublog/sitemaps/'.
+   typically something like <http://example.net/mublog/sitemaps/>.
 
 You can use several methods for submitting your sitemap index to
 search engines to get your site indexed. One is to add a line like the
@@ -612,7 +631,7 @@ modification to use the new output format.
 Translation
 -----------
 
-Translations in Laconica use the gettext system (http://www.gnu.org/software/gettext/).
+Translations in Laconica use the gettext system <http://www.gnu.org/software/gettext/>.
 Theoretically, you can add your own sub-directory to the locale/
 subdirectory to add a new language to your system. You'll need to
 compile the ".po" files into ".mo" files, however.
@@ -627,7 +646,7 @@ Backups
 
 There is no built-in system for doing backups in Laconica. You can make
 backups of a working Laconica system by backing up the database and
-the Web directory. To backup the database use mysqldump (http://ur1.ca/7xo)
+the Web directory. To backup the database use mysqldump <http://ur1.ca/7xo>
 and to backup the Web directory, try tar.
 
 Private
@@ -653,7 +672,7 @@ Upgrading
 If you've been using Laconica 0.6, 0.5 or lower, or if you've been
 tracking the "git" version of the software, you will probably want
 to upgrade and keep your existing data. There is no automated upgrade
-procedure in Laconica 0.7.0. Try these step-by-step instructions; read
+procedure in Laconica 0.7.1. Try these step-by-step instructions; read
 to the end first before trying them.
 
 0. Download Laconica and set up all the prerequisites as if you were
@@ -819,7 +838,7 @@ db
 --
 
 This section is a reference to the configuration options for
-DB_DataObject (see http://ur1.ca/7xp). The ones that you may want to
+DB_DataObject (see <http://ur1.ca/7xp>). The ones that you may want to
 set are listed below for clarity.
 
 database: a DSN (Data Source Name) for your Laconica database. This is
@@ -919,7 +938,7 @@ server: If set, defines another server where avatars are stored in the
 	the client to speed up page loading, either with another
 	virtual server or with an NFS or SAMBA share. Clients
 	typically only make 2 connections to a single server at a
-	time (http://ur1.ca/6ih), so this can parallelize the job.
+	time <http://ur1.ca/6ih>, so this can parallelize the job.
 	Defaults to null.
 
 public
@@ -1000,7 +1019,7 @@ memcached
 ---------
 
 You can get a significant boost in performance by caching some
-database data in memcached (http://www.danga.com/memcached/).
+database data in memcached <http://www.danga.com/memcached/>.
 
 enabled: Set to true to enable. Default false.
 server: a string with the hostname of the memcached server. Can also
@@ -1011,7 +1030,7 @@ sphinx
 
 You can get a significant boost in performance using Sphinx Search
 instead of your database server to search for users and notices.
-(http://sphinxsearch.com/).
+<http://sphinxsearch.com/>.
 
 enabled: Set to true to enable. Default false.
 server: a string with the hostname of the sphinx server.
@@ -1024,7 +1043,7 @@ A catch-all for integration with other systems.
 
 source: The name to use for the source of posts to Twitter. Defaults
 	to 'laconica', but if you request your own source name from
-	Twitter (http://twitter.com/help/request_source), you can use
+	Twitter <http://twitter.com/help/request_source>, you can use
 	that here instead. Status updates on Twitter will then have
 	links to your site.
 
@@ -1070,7 +1089,7 @@ repository (see below), and you get a compilation error ("unexpected
 T_STRING") in the browser, check to see that you don't have any
 conflicts in your code.
 
-If you upgraded to Laconica 0.7.0 without reading the "Notice inboxes"
+If you upgraded to Laconica 0.7.1 without reading the "Notice inboxes"
 section above, and all your users' 'Personal' tabs are empty, read the
 "Notice inboxes" section above.
 
@@ -1101,7 +1120,7 @@ Unstable version
 
 If you're adventurous or impatient, you may want to install the
 development version of Laconica. To get it, use the git version
-control tool (http://git-scm.com/) like so:
+control tool <http://git-scm.com/> like so:
 
 	git clone http://laconi.ca/software/laconica.git
 
@@ -1114,7 +1133,7 @@ There are several ways to get more information about Laconica.
 
 * There is a mailing list for Laconica developers and admins at
   http://mail.laconi.ca/mailman/listinfo/laconica-dev
-* The #laconica IRC channel on freenode.net (http://www.freenode.net/).
+* The #laconica IRC channel on freenode.net <http://www.freenode.net/>.
 * The Laconica wiki, http://laconi.ca/trac/
 
 Feedback
@@ -1155,6 +1174,7 @@ if anyone's been overlooked in error.
 * Meitar Moscovitz
 * Ken Sheppardson (Trac server, man-about-town)
 * Tiago 'gouki' Faria (i18n managerx)
+* Sean Murphy
 
 Thanks also to the developers of our upstream library code and to the
 thousands of people who have tried out Identi.ca, installed Laconi.ca,

@@ -152,7 +152,7 @@ class GrouplogoAction extends Action
 
     function getInstructions()
     {
-        return _('You can upload a logo image for your group. The maximum file size is '.ImageFile::maxFileSize().'.');
+        return sprintf(_('You can upload a logo image for your group. The maximum file size is %s.'), ImageFile::maxFileSize());
     }
 
     /**
@@ -229,7 +229,7 @@ class GrouplogoAction extends Action
         $this->element('input', array('name' => 'MAX_FILE_SIZE',
                                       'type' => 'hidden',
                                       'id' => 'MAX_FILE_SIZE',
-                                      'value' => ImageFile::maxFileSize(true)));
+                                      'value' => ImageFile::maxFileSizeInt()));
         $this->elementEnd('li');
         $this->elementEnd('ul');
 
@@ -263,7 +263,7 @@ class GrouplogoAction extends Action
                                   'class' => 'avatar_view'));
         $this->element('h2', null, _("Original"));
         $this->elementStart('div', array('id'=>'avatar_original_view'));
-        $this->element('img', array('src' => common_avatar_url($this->filedata['filename']),
+        $this->element('img', array('src' => Avatar::url($this->filedata['filename']),
                                     'width' => $this->filedata['width'],
                                     'height' => $this->filedata['height'],
                                     'alt' => $this->group->nickname));
@@ -275,7 +275,7 @@ class GrouplogoAction extends Action
                                   'class' => 'avatar_view'));
         $this->element('h2', null, _("Preview"));
         $this->elementStart('div', array('id'=>'avatar_preview_view'));
-        $this->element('img', array('src' => common_avatar_url($this->filedata['filename']),
+        $this->element('img', array('src' => Avatar::url($this->filedata['filename']),
                                     'width' => AVATAR_PROFILE_SIZE,
                                     'height' => AVATAR_PROFILE_SIZE,
                                     'alt' => $this->group->nickname));
@@ -343,12 +343,12 @@ class GrouplogoAction extends Action
             return;
         }
 
-        $filename = common_avatar_filename($this->group->id,
-                                           image_type_to_extension($imagefile->type),
-                                           null,
-                                           'group-temp-'.common_timestamp());
+        $filename = Avatar::filename($this->group->id,
+                                     image_type_to_extension($imagefile->type),
+                                     null,
+                                     'group-temp-'.common_timestamp());
 
-        $filepath = common_avatar_path($filename);
+        $filepath = Avatar::path($filename);
 
         move_uploaded_file($imagefile->filepath, $filepath);
 
@@ -382,7 +382,7 @@ class GrouplogoAction extends Action
             $this->serverError(_('Lost our file data.'));
             return;
         }
-        
+
         // If image is not being cropped assume pos & dimentions of original
         $dest_x = $this->arg('avatar_crop_x') ? $this->arg('avatar_crop_x'):0;
         $dest_y = $this->arg('avatar_crop_y') ? $this->arg('avatar_crop_y'):0;
@@ -390,7 +390,7 @@ class GrouplogoAction extends Action
         $dest_h = $this->arg('avatar_crop_h') ? $this->arg('avatar_crop_h'):$filedata['height'];
         $size = min($dest_w, $dest_h);
         $size = ($size > MAX_ORIGINAL) ? MAX_ORIGINAL:$size;
-        
+
         $imagefile = new ImageFile($this->group->id, $filedata['filepath']);
         $filename = $imagefile->resize($size, $dest_x, $dest_y, $dest_w, $dest_h);
 

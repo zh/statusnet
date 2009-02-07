@@ -71,7 +71,7 @@ class Profile extends Memcached_DataObject
 
     function setOriginal($filename)
     {
-        $imagefile = new ImageFile($this->id, common_avatar_path($filename));
+        $imagefile = new ImageFile($this->id, Avatar::path($filename));
 
         $avatar = new Avatar();
         $avatar->profile_id = $this->id;
@@ -80,22 +80,22 @@ class Profile extends Memcached_DataObject
         $avatar->mediatype = image_type_to_mime_type($imagefile->type);
         $avatar->filename = $filename;
         $avatar->original = true;
-        $avatar->url = common_avatar_url($filename);
+        $avatar->url = Avatar::url($filename);
         $avatar->created = DB_DataObject_Cast::dateTime(); # current time
 
         # XXX: start a transaction here
 
         if (!$this->delete_avatars() || !$avatar->insert()) {
-            @unlink(common_avatar_path($filename));
+            @unlink(Avatar::path($filename));
             return null;
         }
 
         foreach (array(AVATAR_PROFILE_SIZE, AVATAR_STREAM_SIZE, AVATAR_MINI_SIZE) as $size) {
             # We don't do a scaled one if original is our scaled size
             if (!($avatar->width == $size && $avatar->height == $size)) {
-                
+
                 $scaled_filename = $imagefile->resize($size);
-                
+
                 //$scaled = DB_DataObject::factory('avatar');
                 $scaled = new Avatar();
                 $scaled->profile_id = $this->id;
@@ -104,7 +104,7 @@ class Profile extends Memcached_DataObject
                 $scaled->original = false;
                 $scaled->mediatype = image_type_to_mime_type($imagefile->type);
                 $scaled->filename = $scaled_filename;
-                $scaled->url = common_avatar_url($scaled_filename);
+                $scaled->url = Avatar::url($scaled_filename);
                 $scaled->created = DB_DataObject_Cast::dateTime(); # current time
 
                 if (!$scaled->insert()) {
@@ -194,4 +194,13 @@ class Profile extends Memcached_DataObject
         }
     }
 
+    function avatarUrl($size=AVATAR_PROFILE_SIZE)
+    {
+        $avatar = $this->getAvatar($size);
+        if ($avatar) {
+            return $avatar->displayUrl();
+        } else {
+            return Avatar::defaultImage($size);
+        }
+    }
 }

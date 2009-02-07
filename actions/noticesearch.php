@@ -48,6 +48,16 @@ require_once INSTALLDIR.'/lib/searchaction.php';
  */
 class NoticesearchAction extends SearchAction
 {
+
+    function prepare($args)
+    {
+        parent::prepare($args);
+
+        common_set_returnto($this->selfUrl());
+
+        return true;
+    }
+    
     /**
      * Get instructions
      * 
@@ -154,8 +164,9 @@ class NoticesearchAction extends SearchAction
         $this->elementStart('div', 'entry-title');
         $this->elementStart('span', 'vcard author');
         $avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
-        $this->elementStart('a', array('href' => $profile->profileurl));
-        $this->element('img', array('src' => ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE),
+        $this->elementStart('a', array('href' => $profile->profileurl,
+                                       'class' => 'url'));
+        $this->element('img', array('src' => ($avatar) ? $avatar->displayUrl() : Avatar::defaultImage(AVATAR_STREAM_SIZE),
                                     'class' => 'avatar photo',
                                     'width' => AVATAR_STREAM_SIZE,
                                     'height' => AVATAR_STREAM_SIZE,
@@ -223,15 +234,6 @@ class NoticesearchAction extends SearchAction
         $this->elementEnd('a');
         $this->elementEnd('dd');
         $this->elementEnd('dl');
-
-        $this->elementStart('a',
-                             array('href' => common_local_url('newnotice',
-                                                              array('replyto' => $profile->nickname)),
-                                   'onclick' => 'doreply("'.$profile->nickname.'"); return false',
-                                   'title' => _('reply'),
-                                   'class' => 'replybutton'));
-        $this->hidden('posttoken', common_session_token());
-        $this->elementEnd('a');
         $this->elementEnd('div');
         $this->elementEnd('li');
     }

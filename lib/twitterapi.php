@@ -43,7 +43,7 @@ class TwitterapiAction extends Action
 
         $avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
 
-        $twitter_user['profile_image_url'] = ($avatar) ? common_avatar_display_url($avatar) : common_default_avatar(AVATAR_STREAM_SIZE);
+        $twitter_user['profile_image_url'] = ($avatar) ? $avatar->displayUrl() : Avatar::defaultImage(AVATAR_STREAM_SIZE);
         $twitter_user['protected'] = 'false'; # not supported by Laconica yet
         $twitter_user['url'] = ($profile->homepage) ? $profile->homepage : null;
 

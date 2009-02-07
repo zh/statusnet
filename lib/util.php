@@ -409,15 +409,15 @@ function common_replace_urls_callback($text, $callback) {
     )
     #ix';
     preg_match_all($regex, $text, $matches);
-    
+
     // Then clean up what the regex left behind
     $offset = 0;
     foreach($matches[0] as $url) {
         $url = htmlspecialchars_decode($url);
-        
+
         // Make sure we didn't pick up an email address
         if (preg_match('#^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$#i', $url)) continue;
-        
+
         // Remove trailing punctuation
         $url = rtrim($url, '.?!,;:\'"`');
 
@@ -436,48 +436,48 @@ function common_replace_urls_callback($text, $callback) {
 
         // Remove trailing punctuation again (in case there were some inside parens)
         $url = rtrim($url, '.?!,;:\'"`');
-        
+
         // Make sure we didn't capture part of the next sentence
         preg_match('#((?:[^.\s/]+\.)+)(museum|travel|[a-z]{2,4})#i', $url, $url_parts);
-        
+
         // Were the parts capitalized any?
         $last_part = (mb_strtolower($url_parts[2]) !== $url_parts[2]) ? true:false;
         $prev_part = (mb_strtolower($url_parts[1]) !== $url_parts[1]) ? true:false;
-        
+
         // If the first part wasn't cap'd but the last part was, we captured too much
         if ((!$prev_part && $last_part)) {
             $url = substr_replace($url, '', mb_strpos($url, '.'.$url_parts[2], 0));
         }
-        
+
         // Capture the new TLD
         preg_match('#((?:[^.\s/]+\.)+)(museum|travel|[a-z]{2,4})#i', $url, $url_parts);
-        
+
         $tlds = array('ac', 'ad', 'ae', 'aero', 'af', 'ag', 'ai', 'al', 'am', 'an', 'ao', 'aq', 'ar', 'arpa', 'as', 'asia', 'at', 'au', 'aw', 'ax', 'az', 'ba', 'bb', 'bd', 'be', 'bf', 'bg', 'bh', 'bi', 'biz', 'bj', 'bm', 'bn', 'bo', 'br', 'bs', 'bt', 'bv', 'bw', 'by', 'bz', 'ca', 'cat', 'cc', 'cd', 'cf', 'cg', 'ch', 'ci', 'ck', 'cl', 'cm', 'cn', 'co', 'com', 'coop', 'cr', 'cu', 'cv', 'cx', 'cy', 'cz', 'de', 'dj', 'dk', 'dm', 'do', 'dz', 'ec', 'edu', 'ee', 'eg', 'er', 'es', 'et', 'eu', 'fi', 'fj', 'fk', 'fm', 'fo', 'fr', 'ga', 'gb', 'gd', 'ge', 'gf', 'gg', 'gh', 'gi', 'gl', 'gm', 'gn', 'gov', 'gp', 'gq', 'gr', 'gs', 'gt', 'gu', 'gw', 'gy', 'hk', 'hm', 'hn', 'hr', 'ht', 'hu', 'id', 'ie', 'il', 'im', 'in', 'info', 'int', 'io', 'iq', 'ir', 'is', 'it', 'je', 'jm', 'jo', 'jobs', 'jp', 'ke', 'kg', 'kh', 'ki', 'km', 'kn', 'kp', 'kr', 'kw', 'ky', 'kz', 'la', 'lb', 'lc', 'li', 'lk', 'lr', 'ls', 'lt', 'lu', 'lv', 'ly', 'ma', 'mc', 'md', 'me', 'mg', 'mh', 'mil', 'mk', 'ml', 'mm', 'mn', 'mo', 'mobi', 'mp', 'mq', 'mr', 'ms', 'mt', 'mu', 'museum', 'mv', 'mw', 'mx', 'my', 'mz', 'na', 'name', 'nc', 'ne', 'net', 'nf', 'ng', 'ni', 'nl', 'no', 'np', 'nr', 'nu', 'nz', 'om', 'org', 'pa', 'pe', 'pf', 'pg', 'ph', 'pk', 'pl', 'pm', 'pn', 'pr', 'pro', 'ps', 'pt', 'pw', 'py', 'qa', 're', 'ro', 'rs', 'ru', 'rw', 'sa', 'sb', 'sc', 'sd', 'se', 'sg', 'sh', 'si', 'sj', 'sk', 'sl', 'sm', 'sn', 'so', 'sr', 'st', 'su', 'sv', 'sy', 'sz', 'tc', 'td', 'tel', 'tf', 'tg', 'th', 'tj', 'tk', 'tl', 'tm', 'tn', 'to', 'tp', 'tr', 'travel', 'tt', 'tv', 'tw', 'tz', 'ua', 'ug', 'uk', 'us', 'uy', 'uz', 'va', 'vc', 've', 'vg', 'vi', 'vn', 'vu', 'wf', 'ws', 'ye', 'yt', 'yu', 'za', 'zm', 'zw');
 
         if (!in_array($url_parts[2], $tlds)) continue;
-        
+
         // Call user specified func
         $modified_url = $callback($url);
-        
+
         // Replace it!
         $start = mb_strpos($text, $url, $offset);
         $text = mb_substr($text, 0, $start).$modified_url.mb_substr($text, $start + mb_strlen($url), mb_strlen($text));
         $offset = $start + mb_strlen($modified_url);
     }
-    
+
     return $text;
 }
 
 function common_linkify($url) {
     $display = $url;
     $url = (!preg_match('#^([a-z]+://|(mailto|aim|tel):)#i', $url)) ? 'http://'.$url:$url;
-    
+
     if ($longurl = common_longurl($url)) {
         $longurl = htmlentities($longurl, ENT_QUOTES, 'UTF-8');
         $title = "title=\"$longurl\"";
     }
     else $title = '';
-    
+
     return "<a href=\"$url\" $title class=\"extlink\">$display</a>";
 }
 
@@ -667,48 +667,6 @@ function common_relative_profile($sender, $nickname, $dt=null)
     return null;
 }
 
-// where should the avatar go for this user?
-
-function common_avatar_filename($id, $extension, $size=null, $extra=null)
-{
-    global $config;
-
-    if ($size) {
-        return $id . '-' . $size . (($extra) ? ('-' . $extra) : '') . $extension;
-    } else {
-        return $id . '-original' . (($extra) ? ('-' . $extra) : '') . $extension;
-    }
-}
-
-function common_avatar_path($filename)
-{
-    global $config;
-    return INSTALLDIR . '/avatar/' . $filename;
-}
-
-function common_avatar_url($filename)
-{
-    return common_path('avatar/'.$filename);
-}
-
-function common_avatar_display_url($avatar)
-{
-    $server = common_config('avatar', 'server');
-    if ($server) {
-        return 'http://'.$server.'/'.$avatar->filename;
-    } else {
-        return $avatar->url;
-    }
-}
-
-function common_default_avatar($size)
-{
-    static $sizenames = array(AVATAR_PROFILE_SIZE => 'profile',
-                              AVATAR_STREAM_SIZE => 'stream',
-                              AVATAR_MINI_SIZE => 'mini');
-    return theme_path('default-avatar-'.$sizenames[$size].'.png');
-}
-
 function common_local_url($action, $args=null, $fragment=null)
 {
     $url = null;
@@ -750,6 +708,8 @@ function common_fancy_url($action, $args=null)
         return common_path("api/statuses/public_timeline.atom");
      case 'publicxrds':
         return common_path('xrds');
+     case 'tagrss':
+        return common_path('tag/' . $args['tag'] . '/rss');
      case 'featuredrss':
         return common_path('featuredrss');
      case 'favoritedrss':
@@ -951,7 +911,7 @@ function common_fancy_url($action, $args=null)
      case 'grouprss':
         return common_path('group/'.$args['nickname'].'/rss');
      case 'groupmembers':
-        return common_path('group/'.$args['nickname'].'/members');
+        return common_path('group/'.$args['nickname'].'/members' . (($args['page']) ? ('?page=' . $args['page']) : ''));
      case 'grouplogo':
         return common_path('group/'.$args['nickname'].'/logo');
      case 'usergroups':
@@ -1521,16 +1481,6 @@ function common_markup_to_html($c)
     $c = preg_replace('/%%doc.(\w+)%%/e', "common_local_url('doc', array('title'=>'\\1'))", $c);
     $c = preg_replace('/%%(\w+).(\w+)%%/e', 'common_config(\'\\1\', \'\\2\')', $c);
     return Markdown($c);
-}
-
-function common_profile_avatar_url($profile, $size=AVATAR_PROFILE_SIZE)
-{
-    $avatar = $profile->getAvatar($size);
-    if ($avatar) {
-        return common_avatar_display_url($avatar);
-    } else {
-        return common_default_avatar($size);
-    }
 }
 
 function common_profile_uri($profile)

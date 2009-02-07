@@ -90,7 +90,7 @@ class NewnoticeAction extends Action
             $this->clientError(_('Not logged in.'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            // CSRF protection - token set in common_notice_form()
+            // CSRF protection
             $token = $this->trimmed('token');
             if (!$token || $token != common_session_token()) {
                 $this->clientError(_('There was a problem with your session token. '.
@@ -141,9 +141,9 @@ class NewnoticeAction extends Action
 
         if ($cmd) {
             if ($this->boolean('ajax')) {
-                $cmd->execute(new AjaxWebChannel());
+                $cmd->execute(new AjaxWebChannel($this));
             } else {
-                $cmd->execute(new WebChannel());
+                $cmd->execute(new WebChannel($this));
             }
             return;
         }
@@ -195,7 +195,7 @@ class NewnoticeAction extends Action
 
     function ajaxErrorMsg($msg)
     {
-        common_start_html('text/xml;charset=utf-8', true);
+        $this->startHTML('text/xml;charset=utf-8', true);
         $this->elementStart('head');
         $this->element('title', null, _('Ajax Error'));
         $this->elementEnd('head');

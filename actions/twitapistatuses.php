@@ -450,7 +450,6 @@ class TwitapistatusesAction extends TwitterapiAction
         if ($user->id == $notice->profile_id) {
             $replies = new Reply;
             $replies->get('notice_id', $notice_id);
-            common_dequeue_notice($notice);
             $replies->delete();
             $notice->delete();
 

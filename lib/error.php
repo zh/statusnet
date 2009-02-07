@@ -111,7 +111,7 @@ class ErrorAction extends Action
     function showBody()
     {
         $this->elementStart('body', array('id' => 'error'));
-        $this->elementStart('div', 'wrap');
+        $this->elementStart('div', array('id' => 'wrap'));
         $this->showHeader();
         $this->showCore();
         $this->showFooter();
