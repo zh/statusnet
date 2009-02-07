@@ -121,11 +121,11 @@ class ImageFile
             && $w === $this->width
             && $h === $this->height) {
             
-            $outname = common_avatar_filename($this->id,
+            $outname = Avatar::filename($this->id,
                                                 image_type_to_extension($this->type),
                                                 $size,
                                                 common_timestamp());
-            $outpath = common_avatar_path($outname);
+            $outpath = Avatar::path($outname);
             @copy($this->filepath, $outpath);
             return $outname;
         }
