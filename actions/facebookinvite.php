@@ -92,6 +92,12 @@ class FacebookinviteAction extends FacebookAction
 
         // Get a list of users who are already using the app for exclusion
         $exclude_ids = $this->facebook->api_client->friends_getAppUsers();
+        $exclude_ids_csv = null;
+        
+        // fbml needs these as a csv string, not an array
+        if ($exclude_ids) {
+            $exclude_ids_csv = implode(',', $exclude_ids);
+        }
 
         $content = sprintf(_('You have been invited to %s'), common_config('site', 'name')) .
             htmlentities('<fb:req-choice url="' . $this->app_uri . '" label="Add"/>');
@@ -103,10 +109,17 @@ class FacebookinviteAction extends FacebookAction
                                                       'content' => $content));
         $this->hidden('invite', 'true');
         $actiontext = sprintf(_('Invite your friends to use %s'), common_config('site', 'name'));
-        $this->element('fb:multi-friend-selector', array('showborder' => 'false',
-                                                               'actiontext' => $actiontext,
-                                                               'exclude_ids' => implode(',', $exclude_ids),
-                                                               'bypass' => 'cancel'));
+        
+        $multi_params = array('showborder' => 'false');    
+        $multi_params['actiontext'] = $actiontext;
+        
+        if ($exclude_ids_csv) {
+            $multi_params['exclude_ids'] = $exclude_ids_csv;
+        }
+
+        $multi_params['bypass'] = 'cancel';
+                
+        $this->element('fb:multi-friend-selector', $multi_params);
 
         $this->elementEnd('fb:request-form');
 
