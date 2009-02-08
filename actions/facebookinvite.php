@@ -71,13 +71,13 @@ class FacebookinviteAction extends FacebookAction
             common_config('site', 'name')));
         $this->element('p', null, _('Invitations have been sent to the following users:'));
 
-        $friend_ids = $_POST['ids']; // XXX: Hmm... is this the best way to acces the list?
+        $friend_ids = $_POST['ids']; // XXX: Hmm... is this the best way to access the list?
 
         $this->elementStart('ul', array('id' => 'facebook-friends'));
 
         foreach ($friend_ids as $friend) {
             $this->elementStart('li');
-            $this->element('fb:profile-pic', array('uid' => $friend));
+            $this->element('fb:profile-pic', array('uid' => $friend, 'size' => 'square'));
             $this->element('fb:name', array('uid' => $friend,
                                             'capitalize' => 'true'));
             $this->elementEnd('li');
