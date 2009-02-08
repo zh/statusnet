@@ -195,4 +195,24 @@ class FavoritedAction extends Action
         $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
                           $this->page, 'favorited');
     }
+
+    /**
+     * Output document relationship links
+     *
+     * @return void
+     */
+    function showRelationshipLinks()
+    {
+        // Machine-readable pagination
+        if ($this->page > 1) {
+            $this->element('link', array('rel' => 'next',
+                                         'href' => common_local_url('favorited',
+                                                                    array('page' => $this->page - 1)),
+                                         'title' => _('Next Notices')));
+        }
+        $this->element('link', array('rel' => 'prev',
+                                     'href' => common_local_url('favorited',
+                                                                array('page' => $this->page + 1)),
+                                     'title' => _('Previous Notices')));
+    }
 }

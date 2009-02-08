@@ -327,6 +327,28 @@ class ShowgroupAction extends Action
     }
 
     /**
+     * Output document relationship links
+     *
+     * @return void
+     */
+    function showRelationshipLinks()
+    {
+        // Machine-readable pagination
+        if ($this->page > 1) {
+            $this->element('link', array('rel' => 'next',
+                                         'href' => common_local_url('showgroup',
+                                                                    array('nickname' => $this->group->nickname,
+                                                                          'page' => $this->page - 1)),
+                                         'title' => _('Next Notices')));
+        }
+        $this->element('link', array('rel' => 'prev',
+                                     'href' => common_local_url('showgroup',
+                                                                array('nickname' => $this->group->nickname,
+                                                                      'page' => $this->page + 1)),
+                                     'title' => _('Previous Notices')));
+    }
+
+    /**
      * Fill in the sidebar.
      *
      * @return void

@@ -154,6 +154,28 @@ class ShowfavoritesAction extends Action
     }
 
     /**
+     * Output document relationship links
+     *
+     * @return void
+     */
+    function showRelationshipLinks()
+    {
+        // Machine-readable pagination
+        if ($this->page > 1) {
+            $this->element('link', array('rel' => 'next',
+                                         'href' => common_local_url('showfavorites',
+                                                                    array('nickname' => $this->user->nickname,
+                                                                          'page' => $this->page - 1)),
+                                         'title' => _('Next Favorite Notices')));
+        }
+        $this->element('link', array('rel' => 'prev',
+                                     'href' => common_local_url('showfavorites',
+                                                                array('nickname' => $this->user->nickname,
+                                                                      'page' => $this->page + 1)),
+                                     'title' => _('Previous Favorite Notices')));
+    }
+
+    /**
      * show the personal group nav
      *
      * @return void

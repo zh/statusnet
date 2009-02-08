@@ -137,4 +137,26 @@ class GroupmembersAction extends Action
                           $this->page, 'groupmembers',
                           array('nickname' => $this->group->nickname));
     }
+
+    /**
+     * Output document relationship links
+     *
+     * @return void
+     */
+    function showRelationshipLinks()
+    {
+        // Machine-readable pagination
+        if ($this->page > 1) {
+            $this->element('link', array('rel' => 'next',
+                                         'href' => common_local_url('groupmembers',
+                                                                    array('nickname' => $this->group->nickname,
+                                                                          'page' => $this->page - 1)),
+                                         'title' => _('Next Group Members')));
+        }
+        $this->element('link', array('rel' => 'prev',
+                                     'href' => common_local_url('groupmembers',
+                                                                array('nickname' => $this->group->nickname,
+                                                                      'page' => $this->page + 1)),
+                                     'title' => _('Previous Group Members')));
+    }
 }

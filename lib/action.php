@@ -111,6 +111,7 @@ class Action extends HTMLOutputter // lawsuit
         $this->showTitle();
         $this->showStylesheets();
         $this->showScripts();
+        $this->showRelationshipLinks();
         $this->showOpenSearch();
         $this->showFeeds();
         $this->showDescription();
@@ -191,6 +192,19 @@ class Action extends HTMLOutputter // lawsuit
         $this->element('script', array('type' => 'text/javascript',
                                        'src' => common_path('js/util.js?version='.LACONICA_VERSION)),
                        ' ');
+    }
+
+    /**
+     * Show document relationship links
+     *
+     * SHOULD overload
+     *
+     * @return nothing
+     */
+    function showRelationshipLinks()
+    {
+        // output <link> elements with appropriate HTML4.01 link types:
+        // http://www.w3.org/TR/html401/types.html#type-links
     }
 
     /**

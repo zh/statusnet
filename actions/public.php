@@ -128,6 +128,26 @@ class PublicAction extends Action
     }
 
     /**
+     * Output document relationship links
+     *
+     * @return void
+     */
+    function showRelationshipLinks()
+    {
+        // Machine-readable pagination
+        if ($this->page > 1) {
+            $this->element('link', array('rel' => 'next',
+                                         'href' => common_local_url('public',
+                                                                    array('page' => $this->page - 1)),
+                                         'title' => _('Next Notices')));
+        }
+        $this->element('link', array('rel' => 'prev',
+                                     'href' => common_local_url('public',
+                                                                array('page' => $this->page + 1)),
+                                     'title' => _('Previous Notices')));
+    }
+
+    /**
      * Extra head elements
      *
      * We include a <meta> element linking to the publicxrds page, for OpenID

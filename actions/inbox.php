@@ -64,6 +64,28 @@ class InboxAction extends MailboxAction
     }
 
     /**
+     * Output document relationship links
+     *
+     * @return void
+     */
+    function showRelationshipLinks()
+    {
+        // Machine-readable pagination
+        if ($this->page > 1) {
+            $this->element('link', array('rel' => 'next',
+                                         'href' => common_local_url('inbox',
+                                                                    array('nickname' => $this->user->nickname,
+                                                                          'page' => $this->page - 1)),
+                                         'title' => _('Next Messages')));
+        }
+        $this->element('link', array('rel' => 'prev',
+                                     'href' => common_local_url('inbox',
+                                                                array('nickname' => $this->user->nickname,
+                                                                      'page' => $this->page + 1)),
+                                     'title' => _('Previous Messages')));
+    }
+
+    /**
      * Retrieve the messages for this user and this page
      *
      * Does a query for the right messages

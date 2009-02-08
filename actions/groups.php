@@ -129,4 +129,24 @@ class GroupsAction extends Action
         $gbm = new GroupsByMembersSection($this);
         $gbm->show();
     }
+
+    /**
+     * Output document relationship links
+     *
+     * @return void
+     */
+    function showRelationshipLinks()
+    {
+        // Machine-readable pagination
+        if ($this->page > 1) {
+            $this->element('link', array('rel' => 'next',
+                                         'href' => common_local_url('groups',
+                                                                    array('page' => $this->page - 1)),
+                                         'title' => _('Next Groups')));
+        }
+        $this->element('link', array('rel' => 'prev',
+                                     'href' => common_local_url('groups',
+                                                                array('page' => $this->page + 1)),
+                                     'title' => _('Previous Groups')));
+    }
 }

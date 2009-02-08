@@ -195,6 +195,28 @@ class ShowstreamAction extends Action
                              $this->user->nickname)));
     }
 
+    /**
+     * Output document relationship links
+     *
+     * @return void
+     */
+    function showRelationshipLinks()
+    {
+        // Machine-readable pagination
+        if ($this->page > 1) {
+            $this->element('link', array('rel' => 'next',
+                                         'href' => common_local_url('showstream',
+                                                                    array('nickname' => $this->user->nickname,
+                                                                          'page' => $this->page - 1)),
+                                         'title' => _('Next Notices')));
+        }
+        $this->element('link', array('rel' => 'prev',
+                                     'href' => common_local_url('showstream',
+                                                                array('nickname' => $this->user->nickname,
+                                                                      'page' => $this->page + 1)),
+                                     'title' => _('Previous Notices')));
+    }
+
     function extraHead()
     {
         // FOAF

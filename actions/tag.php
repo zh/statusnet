@@ -69,6 +69,28 @@ class TagAction extends Action
                                      'title' => sprintf(_('Feed for tag %s'), $this->tag)));
     }
 
+    /**
+     * Output document relationship links
+     *
+     * @return void
+     */
+    function showRelationshipLinks()
+    {
+        // Machine-readable pagination
+        if ($this->page > 1) {
+            $this->element('link', array('rel' => 'next',
+                                         'href' => common_local_url('tag',
+                                                                    array('tag' => $this->tag,
+                                                                          'page' => $this->page - 1)),
+                                         'title' => _('Next Notices')));
+        }
+        $this->element('link', array('rel' => 'prev',
+                                     'href' => common_local_url('tag',
+                                                                array('tag' => $this->tag,
+                                                                      'page' => $this->page + 1)),
+                                     'title' => _('Previous Notices')));
+    }
+
     function showPageNotice()
     {
         return sprintf(_('Messages tagged "%s", most recent first'), $this->tag);
