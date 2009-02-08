@@ -478,7 +478,7 @@ function common_linkify($url) {
     }
     else $title = '';
 
-    return "<a href=\"$url\" $title class=\"extlink\">$display</a>";
+    return "<a href=\"$url\" $title rel=\"external\">$display</a>";
 }
 
 function common_longurl($short_url)
