@@ -255,7 +255,7 @@ class HTMLOutputter extends XMLOutputter
         foreach ($content as $value => $option) {
             if ($value == $selected) {
                 $this->element('option', array('value' => $value,
-                                               'selected' => $value),
+                                               'selected' => 'selected'),
                                $option);
             } else {
                 $this->element('option', array('value' => $value), $option);
