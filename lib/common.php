@@ -212,3 +212,7 @@ function __autoload($class)
         require_once(INSTALLDIR.'/lib/' . strtolower($class) . '.php');
     }
 }
+
+// Give plugins a chance to initialize in a fully-prepared environment
+
+Event::handle('InitializePlugin');
