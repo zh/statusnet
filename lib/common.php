@@ -49,6 +49,11 @@ require_once('DB/DataObject/Cast.php'); # for dates
 
 require_once(INSTALLDIR.'/lib/language.php');
 
+// This gets included before the config file, so that admin code and plugins
+// can use it
+
+require_once(INSTALLDIR.'/lib/event.php');
+
 // try to figure out where we are
 
 $_server = array_key_exists('SERVER_NAME', $_SERVER) ?
