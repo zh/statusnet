@@ -49,6 +49,12 @@ require_once('DB/DataObject/Cast.php'); # for dates
 
 require_once(INSTALLDIR.'/lib/language.php');
 
+// This gets included before the config file, so that admin code and plugins
+// can use it
+
+require_once(INSTALLDIR.'/lib/event.php');
+require_once(INSTALLDIR.'/lib/plugin.php');
+
 // try to figure out where we are
 
 $_server = array_key_exists('SERVER_NAME', $_SERVER) ?
@@ -177,6 +183,8 @@ foreach ($_config_files as $_config_file) {
     }
 }
 
+// XXX: how many of these could be auto-loaded on use?
+
 require_once('Validate.php');
 require_once('markdown.php');
 
@@ -187,6 +195,9 @@ require_once(INSTALLDIR.'/lib/mail.php');
 require_once(INSTALLDIR.'/lib/subs.php');
 require_once(INSTALLDIR.'/lib/Shorturl_api.php');
 require_once(INSTALLDIR.'/lib/twitter.php');
+
+require_once(INSTALLDIR.'/lib/clientexception.php');
+require_once(INSTALLDIR.'/lib/serverexception.php');
 
 // XXX: other formats here
 
@@ -202,3 +213,7 @@ function __autoload($class)
         require_once(INSTALLDIR.'/lib/' . strtolower($class) . '.php');
     }
 }
+
+// Give plugins a chance to initialize in a fully-prepared environment
+
+Event::handle('InitializePlugin');

@@ -47,7 +47,10 @@ if (!$user && common_config('site', 'private') &&
 
 $actionfile = INSTALLDIR."/actions/$action.php";
 
-if (file_exists($actionfile)) {
+if (!file_exists($actionfile)) {
+    $cac = new ClientErrorAction(_('Unknown action'), 404);
+    $cac->showPage();
+} else {
 
     include_once $actionfile;
 
@@ -66,9 +69,24 @@ if (file_exists($actionfile)) {
         }
         $config['db']['database'] = $mirror;
     }
-    if (call_user_func(array($action_obj, 'prepare'), $_REQUEST)) {
-        call_user_func(array($action_obj, 'handle'), $_REQUEST);
+
+    try {
+        if ($action_obj->prepare($_REQUEST)) {
+            $action_obj->handle($_REQUEST);
+        }
+    } catch (ClientException $cex) {
+        $cac = new ClientErrorAction($cex->getMessage(), $cex->getCode());
+        $cac->showPage();
+    } catch (ServerException $sex) { // snort snort guffaw
+        $sac = new ServerErrorAction($sex->getMessage(), $sex->getCode());
+        $sac->showPage();
+    } catch (Exception $ex) {
+        $sac = new ServerErrorAction($ex->getMessage());
+        $sac->showPage();
     }
-} else {
-    common_user_error(_('Unknown action'));
 }
+
+// XXX: cleanup exit() calls or add an exit handler so
+// this always gets called
+
+Event::handle('CleanupPlugin');
