@@ -179,18 +179,27 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showScripts()
     {
-        $this->element('script', array('type' => 'text/javascript',
-                                       'src' => common_path('js/jquery.min.js')),
-                       ' ');
-        $this->element('script', array('type' => 'text/javascript',
-                                       'src' => common_path('js/jquery.form.js')),
-                       ' ');
-        $this->element('script', array('type' => 'text/javascript',
-                                       'src' => common_path('js/xbImportNode.js')),
-                       ' ');
-        $this->element('script', array('type' => 'text/javascript',
-                                       'src' => common_path('js/util.js?version='.LACONICA_VERSION)),
-                       ' ');
+        if (Event::handle('StartShowScripts', array($this))) {
+            if (Event::handle('StartShowJQueryScripts', array($this))) {
+                $this->element('script', array('type' => 'text/javascript',
+                                               'src' => common_path('js/jquery.min.js')),
+                               ' ');
+                $this->element('script', array('type' => 'text/javascript',
+                                               'src' => common_path('js/jquery.form.js')),
+                               ' ');
+                Event::handle('EndShowJQueryScripts', array($this));
+            }
+            if (Event::handle('StartShowLaconicaScripts', array($this))) {
+                $this->element('script', array('type' => 'text/javascript',
+                                               'src' => common_path('js/xbImportNode.js')),
+                               ' ');
+                $this->element('script', array('type' => 'text/javascript',
+                                               'src' => common_path('js/util.js?version='.LACONICA_VERSION)),
+                               ' ');
+                Event::handle('EndShowLaconicaScripts', array($this));
+            }
+            Event::handle('EndShowScripts', array($this));
+        }
     }
 
     /**
