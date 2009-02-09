@@ -98,7 +98,7 @@ class Event {
      *                 on results of handlers.
      */
 
-    public static function handle($name, $args) {
+    public static function handle($name, $args=array()) {
         $result = null;
         if (array_key_exists($name, Event::$_handlers)) {
             foreach (Event::$_handlers[$name] as $handler) {
