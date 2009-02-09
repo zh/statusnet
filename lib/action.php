@@ -789,11 +789,12 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return nothing
      */
+
     function serverError($msg, $code=500)
     {
         $action = $this->trimmed('action');
         common_debug("Server error '$code' on '$action': $msg", __FILE__);
-        common_server_error($msg, $code);
+        throw new ServerException($msg, $code);
     }
 
     /**
@@ -804,11 +805,12 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return nothing
      */
+
     function clientError($msg, $code=400)
     {
         $action = $this->trimmed('action');
         common_debug("User error '$code' on '$action': $msg", __FILE__);
-        common_user_error($msg, $code);
+        throw new ClientException($msg, $code);
     }
 
     /**

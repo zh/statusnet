@@ -47,7 +47,11 @@ if (!$user && common_config('site', 'private') &&
 
 $actionfile = INSTALLDIR."/actions/$action.php";
 
-if (file_exists($actionfile)) {
+if (!file_exists($actionfile)) {
+    $cac = new ClientErrorAction();
+    $cac->handle(array('code' => 404,
+                       'message' => _('Unknown action')));
+} else {
 
     include_once $actionfile;
 
@@ -66,9 +70,22 @@ if (file_exists($actionfile)) {
         }
         $config['db']['database'] = $mirror;
     }
-    if (call_user_func(array($action_obj, 'prepare'), $_REQUEST)) {
-        call_user_func(array($action_obj, 'handle'), $_REQUEST);
+
+    try {
+        if ($action_obj->prepare($_REQUEST)) {
+            $action_obj->handle($_REQUEST);
+        }
+    } catch (ClientException cex) {
+        $cac = new ClientErrorAction();
+        $cac->handle(array('code' => $cex->code,
+                           'message' => $cex->message));
+    } catch (ServerException sex) { // snort snort guffaw
+        $sac = new ServerErrorAction();
+        $sac->handle(array('code' => $sex->code,
+                           'message' => $sex->message));
+    } catch (Exception ex) {
+        $sac = new ServerErrorAction();
+        $sac->handle(array('code' => 500,
+                           'message' => $ex->message));
     }
-} else {
-    common_user_error(_('Unknown action'));
 }
