@@ -211,6 +211,9 @@ function __autoload($class)
         require_once(INSTALLDIR.'/classes/' . $class . '.php');
     } else if (file_exists(INSTALLDIR.'/lib/' . strtolower($class) . '.php')) {
         require_once(INSTALLDIR.'/lib/' . strtolower($class) . '.php');
+    } else if (mb_substr($class, -6) == 'Action' &&
+               file_exists(INSTALLDIR.'/actions/' . strtolower(mb_substr($class, 0, -6)) . '.php')) {
+        require_once(INSTALLDIR.'/actions/' . strtolower(mb_substr($class, 0, -6)) . '.php');
     }
 }
 

@@ -22,6 +22,8 @@ define('LACONICA', true);
 
 require_once INSTALLDIR . '/lib/common.php';
 
+// XXX: we need a little more structure in this script
+
 // get and cache current user
 
 $user = common_current_user();
@@ -45,18 +47,15 @@ if (!$user && common_config('site', 'private') &&
     common_redirect(common_local_url('login'));
 }
 
-$actionfile = INSTALLDIR."/actions/$action.php";
+$action_class = ucfirst($action).'Action';
 
-if (!file_exists($actionfile)) {
+if (!class_exists($action_class)) {
     $cac = new ClientErrorAction(_('Unknown action'), 404);
     $cac->showPage();
 } else {
-
-    include_once $actionfile;
-
-    $action_class = ucfirst($action).'Action';
-
     $action_obj = new $action_class();
+
+    // XXX: find somewhere for this little block to live
 
     if ($config['db']['mirror'] && $action_obj->isReadOnly()) {
         if (is_array($config['db']['mirror'])) {
