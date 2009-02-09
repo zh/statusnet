@@ -329,10 +329,10 @@ class Action extends HTMLOutputter // lawsuit
 
             if (common_config('xmpp', 'enabled')) {
                 $this->menuItem(common_local_url('imsettings'),
-                            _('Connect'), _('Connect to IM, SMS, Twitter'), false, 'nav_connect');
+                                _('Connect'), _('Connect to IM, SMS, Twitter'), false, 'nav_connect');
             } else {
                 $this->menuItem(common_local_url('smssettings'),
-                            _('Connect'), _('Connect to SMS, Twitter'), false, 'nav_connect');
+                                _('Connect'), _('Connect to SMS, Twitter'), false, 'nav_connect');
             }
             $this->menuItem(common_local_url('logout'),
                             _('Logout'), _('Logout from the site'), false, 'nav_logout');
