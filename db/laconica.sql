@@ -258,7 +258,8 @@ create table notice_tag (
     created datetime not null comment 'date this record was created',
 
     constraint primary key (tag, notice_id),
-    index notice_tag_created_idx (created)
+    index notice_tag_created_idx (created),
+    index notice_tag_notice_id_idx (notice_id)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 /* Synching with foreign services */
@@ -356,7 +357,8 @@ create table profile_tag (
 
    constraint primary key (tagger, tagged, tag),
    index profile_tag_modified_idx (modified),
-   index profile_tag_tagger_tag_idx (tagger, tag)
+   index profile_tag_tagger_tag_idx (tagger, tag),
+   index profile_tag_tagged_idx (tagged)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table profile_block (
@@ -400,7 +402,9 @@ create table group_member (
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified',
 
-    constraint primary key (group_id, profile_id)
+    constraint primary key (group_id, profile_id),
+    index group_member_profile_id_idx (profile_id),
+    index group_member_created_idx (created)
 
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 

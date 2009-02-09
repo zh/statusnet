@@ -34,22 +34,19 @@ require_once INSTALLDIR . '/lib/facebookutil.php';
 $last_updated_file = INSTALLDIR . '/scripts/facebook_last_updated';
 
 // Lock file name
-$tmp_file = INSTALLDIR . '/scripts/update_facebook.lock';
+$lock_file = INSTALLDIR . '/scripts/update_facebook.lock';
 
 // Make sure only one copy of the script is running at a time
-if (!($tmp_file = @fopen($tmp_file, "w")))
-{
-	die("Can't open lock file. Script already running?");
+$lock_file = @fopen($lock_file, "w+");
+if (!flock( $lock_file, LOCK_EX | LOCK_NB, &$wouldblock) || $wouldblock) {
+    die("Can't open lock file. Script already running?\n");
 }
 
 $facebook = getFacebook();
-
 $current_time = time();
-
 $since = getLastUpdated();
-
+updateLastUpdated($current_time);
 $notice = getFacebookNotices($since);
-
 $cnt = 0;
 
 while($notice->fetch()) {
@@ -73,26 +70,30 @@ while($notice->fetch()) {
              
                 // Avoid a Loop
                 if ($notice->source != 'Facebook') {
-                    updateStatus($fbuid, $content);
-                    updateProfileBox($facebook, $flink, $notice);
-                    $cnt++;
+                    
+                    try {
+                        $facebook->api_client->users_setStatus($content, 
+                            $fbuid, false, true);
+                        updateProfileBox($facebook, $flink, $notice);
+                        $cnt++;
+                    } catch(FacebookRestClientException $e) {
+                        print "Couldn't sent notice $notice->id!\n";
+                        print $e->getMessage();
+
+                        // Remove flink?
+                    }
                 }
-            }
+        }
     }
 }
 
 if ($cnt > 0) {
     print date('r', $current_time) . 
-	": Found $cnt new notices to send to Facebook since last run at " . 
-	 date('Y-m-d H:i:s', $since) . "\n";
-
+    ": Found $cnt new notices for Facebook since last run at " . 
+     date('r', $since) . "\n";
 }
 
-#Save the last updated time. It needs to do this even if there were no
-#changes made, otherwise it will never create it and thus never send
-#any updates at all.
-updateLastUpdated($current_time);
-
+fclose($lock_file);
 exit(0);
 
 
@@ -111,37 +112,30 @@ function userCanUpdate($fbuid) {
     return $result;
 }
 
-
-function updateStatus($fbuid, $content) {
-    global $facebook;
-
-    try {
-        $result = $facebook->api_client->users_setStatus($content, $fbuid, false, true);
-    } catch(FacebookRestClientException $e){
-    	print_r($e);
-    }
-}
-
 function getLastUpdated(){
-	global $last_updated_file, $current_time;
+    global $last_updated_file, $current_time;
+    $last = $current_time;
 
-	$file = fopen($last_updated_file, 'r');
-
-	if ($file) {
-	    $last = fgets($file);
-	} else {
-	    print "Unable to read $last_updated_file. Using current time.\n";
-	    return $current_time;
-	}
-
-	fclose($file);
-
-	return $last;
+    if (file_exists($last_updated_file) && 
+        ($file = fopen($last_updated_file, 'r'))) {
+            $last = fgets($file);
+    } else {
+        print "$last_updated_file doesn't exit. Trying to create it...\n";
+        $file = fopen($last_updated_file, 'w+') or 
+            die("Can't open $last_updated_file for writing!\n");
+        print 'Success. Using current time (' . date('r', $last) . 
+            ") to look for new notices.\n";
+    }
+    
+    fclose($file);
+    return $last;
 }
 
 function updateLastUpdated($time){
-	global $last_updated_file;
-	$file = fopen($last_updated_file, 'w') or die("Can't open $last_updated_file for writing!");
-	fwrite($file, $time);
-	fclose($file);
+    global $last_updated_file;
+    $file = fopen($last_updated_file, 'w') or
+        die("Can't open $last_updated_file for writing!");
+    fwrite($file, $time);
+    fclose($file);
 }
+

@@ -111,7 +111,7 @@ class ShowstreamAction extends Action
         $this->page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 
         common_set_returnto($this->selfUrl());
-        
+
         return true;
     }
 
@@ -178,21 +178,21 @@ class ShowstreamAction extends Action
     function showFeeds()
     {
         $this->element('link', array('rel' => 'alternate',
-                        'type' => 'application/rss+xml',
-                        'href' => common_local_url('userrss',
-                         array('nickname' => $this->user->nickname)),
-                               'title' => sprintf(_('Notice feed for %s (RSS)'),
-                                 $this->user->nickname)));
+                                     'type' => 'application/rss+xml',
+                                     'href' => common_local_url('userrss',
+                                                                array('nickname' => $this->user->nickname)),
+                                     'title' => sprintf(_('Notice feed for %s (RSS)'),
+                                                        $this->user->nickname)));
 
-         $this->element('link',
-             array('rel' => 'alternate',
-                   'href' => common_local_url('api',
-                     array('apiaction' => 'statuses',
-                           'method' => 'user_timeline.atom',
-                           'argument' => $this->user->nickname)),
-                           'type' => 'application/atom+xml',
-                           'title' => sprintf(_('Notice feed for %s (Atom)'),
-                             $this->user->nickname)));
+        $this->element('link',
+                       array('rel' => 'alternate',
+                             'href' => common_local_url('api',
+                                                        array('apiaction' => 'statuses',
+                                                              'method' => 'user_timeline.atom',
+                                                              'argument' => $this->user->nickname)),
+                             'type' => 'application/atom+xml',
+                             'title' => sprintf(_('Notice feed for %s (Atom)'),
+                                                $this->user->nickname)));
     }
 
     function extraHead()
@@ -206,7 +206,7 @@ class ShowstreamAction extends Action
         // for remote subscriptions etc.
         $this->element('meta', array('http-equiv' => 'X-XRDS-Location',
                                      'content' => common_local_url('xrds', array('nickname' =>
-                                                                               $this->user->nickname))));
+                                                                                 $this->user->nickname))));
 
         if ($this->profile->bio) {
             $this->element('meta', array('name' => 'description',
@@ -248,7 +248,7 @@ class ShowstreamAction extends Action
                                     'height' => AVATAR_PROFILE_SIZE,
                                     'alt' => $this->profile->nickname));
         $this->elementEnd('dd');
-        
+
         $user = User::staticGet('id', $this->profile->id);
         $cur = common_current_user();
         if ($cur && $cur->id == $user->id) {
@@ -256,7 +256,7 @@ class ShowstreamAction extends Action
             $this->element('a', array('href' => common_local_url('avatarsettings')), _('Edit Avatar'));
             $this->elementEnd('dd');
         }
-        
+
         $this->elementEnd('dl');
 
         $this->elementStart('dl', 'entity_nickname');
@@ -265,7 +265,7 @@ class ShowstreamAction extends Action
         $hasFN = ($this->profile->fullname) ? 'nickname url uid' : 'fn nickname url uid';
         $this->element('a', array('href' => $this->profile->profileurl,
                                   'rel' => 'me', 'class' => $hasFN),
-                            $this->profile->nickname);
+                       $this->profile->nickname);
         $this->elementEnd('dd');
         $this->elementEnd('dl');
 
@@ -333,7 +333,7 @@ class ShowstreamAction extends Action
             $this->elementStart('li', 'entity_edit');
             $this->element('a', array('href' => common_local_url('profilesettings'),
                                       'title' => _('Edit profile settings')),
-                                      _('Edit'));
+                           _('Edit'));
             $this->elementEnd('li');
         }
 
@@ -356,7 +356,7 @@ class ShowstreamAction extends Action
         }
 
         if ($cur && $cur->id != $user->id && $cur->mutuallySubscribed($user)) {
-           $this->elementStart('li', 'entity_send-a-message');
+            $this->elementStart('li', 'entity_send-a-message');
             $this->element('a', array('href' => common_local_url('newmessage', array('to' => $user->id)),
                                       'title' => _('Send a direct message to this user')),
                            _('Message'));
@@ -498,7 +498,7 @@ class ShowstreamAction extends Action
         $this->elementStart('dl', 'entity_member-since');
         $this->element('dt', null, _('Member since'));
         $this->element('dd', null, date('j M Y',
-                                                 strtotime($this->profile->created)));
+                                        strtotime($this->profile->created)));
         $this->elementEnd('dl');
 
         $this->elementStart('dl', 'entity_subscriptions');

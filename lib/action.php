@@ -179,18 +179,27 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showScripts()
     {
-        $this->element('script', array('type' => 'text/javascript',
-                                       'src' => common_path('js/jquery.min.js')),
-                       ' ');
-        $this->element('script', array('type' => 'text/javascript',
-                                       'src' => common_path('js/jquery.form.js')),
-                       ' ');
-        $this->element('script', array('type' => 'text/javascript',
-                                       'src' => common_path('js/xbImportNode.js')),
-                       ' ');
-        $this->element('script', array('type' => 'text/javascript',
-                                       'src' => common_path('js/util.js?version='.LACONICA_VERSION)),
-                       ' ');
+        if (Event::handle('StartShowScripts', array($this))) {
+            if (Event::handle('StartShowJQueryScripts', array($this))) {
+                $this->element('script', array('type' => 'text/javascript',
+                                               'src' => common_path('js/jquery.min.js')),
+                               ' ');
+                $this->element('script', array('type' => 'text/javascript',
+                                               'src' => common_path('js/jquery.form.js')),
+                               ' ');
+                Event::handle('EndShowJQueryScripts', array($this));
+            }
+            if (Event::handle('StartShowLaconicaScripts', array($this))) {
+                $this->element('script', array('type' => 'text/javascript',
+                                               'src' => common_path('js/xbImportNode.js')),
+                               ' ');
+                $this->element('script', array('type' => 'text/javascript',
+                                               'src' => common_path('js/util.js?version='.LACONICA_VERSION)),
+                               ' ');
+                Event::handle('EndShowLaconicaScripts', array($this));
+            }
+            Event::handle('EndShowScripts', array($this));
+        }
     }
 
     /**
@@ -312,42 +321,46 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showPrimaryNav()
     {
+        $user = common_current_user();
+
         $this->elementStart('dl', array('id' => 'site_nav_global_primary'));
         $this->element('dt', null, _('Primary site navigation'));
         $this->elementStart('dd');
-        $user = common_current_user();
         $this->elementStart('ul', array('class' => 'nav'));
-        if ($user) {
-            $this->menuItem(common_local_url('all', array('nickname' => $user->nickname)),
-                            _('Home'), _('Personal profile and friends timeline'), false, 'nav_home');
-        }
-        $this->menuItem(common_local_url('peoplesearch'),
-                        _('Search'), _('Search for people or text'), false, 'nav_search');
-        if ($user) {
-            $this->menuItem(common_local_url('profilesettings'),
-                            _('Account'), _('Change your email, avatar, password, profile'), false, 'nav_account');
+        if (Event::handle('StartPrimaryNav', array($this))) {
+            if ($user) {
+                $this->menuItem(common_local_url('all', array('nickname' => $user->nickname)),
+                                _('Home'), _('Personal profile and friends timeline'), false, 'nav_home');
+            }
+            $this->menuItem(common_local_url('peoplesearch'),
+                            _('Search'), _('Search for people or text'), false, 'nav_search');
+            if ($user) {
+                $this->menuItem(common_local_url('profilesettings'),
+                                _('Account'), _('Change your email, avatar, password, profile'), false, 'nav_account');
 
-            if (common_config('xmpp', 'enabled')) {
-                $this->menuItem(common_local_url('imsettings'),
-                            _('Connect'), _('Connect to IM, SMS, Twitter'), false, 'nav_connect');
+                if (common_config('xmpp', 'enabled')) {
+                    $this->menuItem(common_local_url('imsettings'),
+                                    _('Connect'), _('Connect to IM, SMS, Twitter'), false, 'nav_connect');
+                } else {
+                    $this->menuItem(common_local_url('smssettings'),
+                                    _('Connect'), _('Connect to SMS, Twitter'), false, 'nav_connect');
+                }
+                $this->menuItem(common_local_url('logout'),
+                                _('Logout'), _('Logout from the site'), false, 'nav_logout');
             } else {
-                $this->menuItem(common_local_url('smssettings'),
-                            _('Connect'), _('Connect to SMS, Twitter'), false, 'nav_connect');
+                $this->menuItem(common_local_url('login'),
+                                _('Login'), _('Login to the site'), false, 'nav_login');
+                if (!common_config('site', 'closed')) {
+                    $this->menuItem(common_local_url('register'),
+                                    _('Register'), _('Create an account'), false, 'nav_register');
+                }
+                $this->menuItem(common_local_url('openidlogin'),
+                                _('OpenID'), _('Login with OpenID'), false, 'nav_openid');
             }
-            $this->menuItem(common_local_url('logout'),
-                            _('Logout'), _('Logout from the site'), false, 'nav_logout');
-        } else {
-            $this->menuItem(common_local_url('login'),
-                            _('Login'), _('Login to the site'), false, 'nav_login');
-            if (!common_config('site', 'closed')) {
-                $this->menuItem(common_local_url('register'),
-                                _('Register'), _('Create an account'), false, 'nav_register');
-            }
-            $this->menuItem(common_local_url('openidlogin'),
-                            _('OpenID'), _('Login with OpenID'), false, 'nav_openid');
+            $this->menuItem(common_local_url('doc', array('title' => 'help')),
+                            _('Help'), _('Help me!'), false, 'nav_help');
+            Event::handle('EndPrimaryNav', array($this));
         }
-        $this->menuItem(common_local_url('doc', array('title' => 'help')),
-                        _('Help'), _('Help me!'), false, 'nav_help');
         $this->elementEnd('ul');
         $this->elementEnd('dd');
         $this->elementEnd('dl');
@@ -511,12 +524,16 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return nothing
      */
+
     function showAside()
     {
         $this->elementStart('div', array('id' => 'aside_primary',
                                          'class' => 'aside'));
         $this->showExportData();
-        $this->showSections();
+        if (Event::handle('StartShowSections', array($this))) {
+            $this->showSections();
+            Event::handle('EndShowSections', array($this));
+        }
         $this->elementEnd('div');
     }
 
@@ -570,18 +587,21 @@ class Action extends HTMLOutputter // lawsuit
         $this->element('dt', null, _('Secondary site navigation'));
         $this->elementStart('dd', null);
         $this->elementStart('ul', array('class' => 'nav'));
-        $this->menuItem(common_local_url('doc', array('title' => 'help')),
-                        _('Help'));
-        $this->menuItem(common_local_url('doc', array('title' => 'about')),
-                        _('About'));
-        $this->menuItem(common_local_url('doc', array('title' => 'faq')),
-                        _('FAQ'));
-        $this->menuItem(common_local_url('doc', array('title' => 'privacy')),
-                        _('Privacy'));
-        $this->menuItem(common_local_url('doc', array('title' => 'source')),
-                        _('Source'));
-        $this->menuItem(common_local_url('doc', array('title' => 'contact')),
-                        _('Contact'));
+        if (Event::handle('StartSecondaryNav', array($this))) {
+            $this->menuItem(common_local_url('doc', array('title' => 'help')),
+                            _('Help'));
+            $this->menuItem(common_local_url('doc', array('title' => 'about')),
+                            _('About'));
+            $this->menuItem(common_local_url('doc', array('title' => 'faq')),
+                            _('FAQ'));
+            $this->menuItem(common_local_url('doc', array('title' => 'privacy')),
+                            _('Privacy'));
+            $this->menuItem(common_local_url('doc', array('title' => 'source')),
+                            _('Source'));
+            $this->menuItem(common_local_url('doc', array('title' => 'contact')),
+                            _('Contact'));
+            Event::handle('EndSecondaryNav', array($this));
+        }
         $this->elementEnd('ul');
         $this->elementEnd('dd');
         $this->elementEnd('dl');
@@ -789,11 +809,12 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return nothing
      */
+
     function serverError($msg, $code=500)
     {
         $action = $this->trimmed('action');
         common_debug("Server error '$code' on '$action': $msg", __FILE__);
-        common_server_error($msg, $code);
+        throw new ServerException($msg, $code);
     }
 
     /**
@@ -804,11 +825,12 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return nothing
      */
+
     function clientError($msg, $code=400)
     {
         $action = $this->trimmed('action');
         common_debug("User error '$code' on '$action': $msg", __FILE__);
-        common_user_error($msg, $code);
+        throw new ClientException($msg, $code);
     }
 
     /**
