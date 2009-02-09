@@ -182,6 +182,8 @@ foreach ($_config_files as $_config_file) {
     }
 }
 
+// XXX: how many of these could be auto-loaded on use?
+
 require_once('Validate.php');
 require_once('markdown.php');
 
@@ -192,6 +194,9 @@ require_once(INSTALLDIR.'/lib/mail.php');
 require_once(INSTALLDIR.'/lib/subs.php');
 require_once(INSTALLDIR.'/lib/Shorturl_api.php');
 require_once(INSTALLDIR.'/lib/twitter.php');
+
+require_once(INSTALLDIR.'/lib/clientexception.php');
+require_once(INSTALLDIR.'/lib/serverexception.php');
 
 // XXX: other formats here
 
