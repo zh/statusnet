@@ -71,13 +71,13 @@ class FacebookinviteAction extends FacebookAction
             common_config('site', 'name')));
         $this->element('p', null, _('Invitations have been sent to the following users:'));
 
-        $friend_ids = $_POST['ids']; // XXX: Hmm... is this the best way to acces the list?
+        $friend_ids = $_POST['ids']; // XXX: Hmm... is this the best way to access the list?
 
         $this->elementStart('ul', array('id' => 'facebook-friends'));
 
         foreach ($friend_ids as $friend) {
             $this->elementStart('li');
-            $this->element('fb:profile-pic', array('uid' => $friend));
+            $this->element('fb:profile-pic', array('uid' => $friend, 'size' => 'square'));
             $this->element('fb:name', array('uid' => $friend,
                                             'capitalize' => 'true'));
             $this->elementEnd('li');
@@ -92,6 +92,12 @@ class FacebookinviteAction extends FacebookAction
 
         // Get a list of users who are already using the app for exclusion
         $exclude_ids = $this->facebook->api_client->friends_getAppUsers();
+        $exclude_ids_csv = null;
+        
+        // fbml needs these as a csv string, not an array
+        if ($exclude_ids) {
+            $exclude_ids_csv = implode(',', $exclude_ids);
+        }
 
         $content = sprintf(_('You have been invited to %s'), common_config('site', 'name')) .
             htmlentities('<fb:req-choice url="' . $this->app_uri . '" label="Add"/>');
@@ -103,10 +109,17 @@ class FacebookinviteAction extends FacebookAction
                                                       'content' => $content));
         $this->hidden('invite', 'true');
         $actiontext = sprintf(_('Invite your friends to use %s'), common_config('site', 'name'));
-        $this->element('fb:multi-friend-selector', array('showborder' => 'false',
-                                                               'actiontext' => $actiontext,
-                                                               'exclude_ids' => implode(',', $exclude_ids),
-                                                               'bypass' => 'cancel'));
+        
+        $multi_params = array('showborder' => 'false');    
+        $multi_params['actiontext'] = $actiontext;
+        
+        if ($exclude_ids_csv) {
+            $multi_params['exclude_ids'] = $exclude_ids_csv;
+        }
+
+        $multi_params['bypass'] = 'cancel';
+                
+        $this->element('fb:multi-friend-selector', $multi_params);
 
         $this->elementEnd('fb:request-form');
 
