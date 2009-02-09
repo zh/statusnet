@@ -108,6 +108,6 @@ class Event {
                 }
             }
         }
-        return ($result === false);
+        return ($result !== false);
     }
 }
