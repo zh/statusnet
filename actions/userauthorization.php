@@ -330,7 +330,13 @@ class UserauthorizationAction extends Action
     {
         $temp_filename = tempnam(sys_get_temp_dir(), 'listenee_avatar');
         copy($url, $temp_filename);
-        return $profile->setOriginal($temp_filename);
+        $imagefile = new ImageFile($profile->id, $temp_filename);
+        $filename = Avatar::filename($profile->id,
+                                     image_type_to_extension($imagefile->type),
+                                     null,
+                                     common_timestamp());
+        rename($temp_filename, Avatar::path($filename));
+        return $profile->setOriginal($filename);
     }
 
     function showAcceptMessage($tok)
@@ -469,19 +475,19 @@ class UserauthorizationAction extends Action
         }
         # optional stuff
         $fullname = $req->get_parameter('omb_listenee_fullname');
-        if ($fullname && strlen($fullname) > 255) {
+        if ($fullname && mb_strlen($fullname) > 255) {
             throw new OAuthException("Full name '$fullname' too long.");
         }
         $homepage = $req->get_parameter('omb_listenee_homepage');
-        if ($homepage && (!common_valid_http_url($homepage) || strlen($homepage) > 255)) {
+        if ($homepage && (!common_valid_http_url($homepage) || mb_strlen($homepage) > 255)) {
             throw new OAuthException("Invalid homepage '$homepage'");
         }
         $bio = $req->get_parameter('omb_listenee_bio');
-        if ($bio && strlen($bio) > 140) {
+        if ($bio && mb_strlen($bio) > 140) {
             throw new OAuthException("Bio too long '$bio'");
         }
         $location = $req->get_parameter('omb_listenee_location');
-        if ($location && strlen($location) > 255) {
+        if ($location && mb_strlen($location) > 255) {
             throw new OAuthException("Location too long '$location'");
         }
         $avatar = $req->get_parameter('omb_listenee_avatar');
