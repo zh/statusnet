@@ -175,7 +175,7 @@ class Action extends HTMLOutputter // lawsuit
                                          'type' => 'text/css',
                                          'href' => theme_path('css/mobile.css', 'base') . '?version=' . LACONICA_VERSION,
                                          // TODO: "handheld" CSS for other mobile devices
-                                         'media' => 'screen and (max-device-width: 480px)')); // Mobile WebKit
+                                         'media' => 'only screen and (max-device-width: 480px)')); // Mobile WebKit
         }
     }
 
