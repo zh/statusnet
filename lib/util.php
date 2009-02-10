@@ -418,8 +418,8 @@ function common_replace_urls_callback($text, $callback) {
         // Make sure we didn't pick up an email address
         if (preg_match('#^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$#i', $url)) continue;
 
-        // Remove trailing punctuation
-        $url = rtrim($url, '.?!,;:\'"`');
+        // Remove surrounding punctuation
+        $url = trim($url, '.?!,;:\'"`([<');
 
         // Remove surrounding parens and the like
         preg_match('/[)\]>]+$/', $url, $trailing);
