@@ -538,12 +538,16 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return nothing
      */
+
     function showAside()
     {
         $this->elementStart('div', array('id' => 'aside_primary',
                                          'class' => 'aside'));
         $this->showExportData();
-        $this->showSections();
+        if (Event::handle('StartShowSections', array($this))) {
+            $this->showSections();
+            Event::handle('EndShowSections', array($this));
+        }
         $this->elementEnd('div');
     }
 
