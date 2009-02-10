@@ -446,7 +446,7 @@ function common_replace_urls_callback($text, $callback) {
 
         // If the first part wasn't cap'd but the last part was, we captured too much
         if ((!$prev_part && $last_part)) {
-            $url = substr_replace($url, '', mb_strpos($url, '.'.$url_parts[2], 0));
+            $url = mb_substr($url, 0 , mb_strpos($url, '.'.$url_parts['2'], 0));
         }
 
         // Capture the new TLD
