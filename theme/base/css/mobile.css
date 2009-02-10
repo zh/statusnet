@@ -1,0 +1,48 @@
+/** theme: base
+ *
+ * @package   Laconica
+ * @author    Meitar Moscovitz <meitar@maymay.net>
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
+ */
+
+/* Go linear. */
+#header,
+#header address,
+#site_nav_global_primary,
+#anon_notice,
+#site_nav_local_views .nav,
+#core,
+#content_inner,
+#notices_primary,
+.notice,
+.notice .entry-title,
+.notice div.entry-content,
+.pagination,
+.pagination .nav,
+.aside .section { float: none; }
+
+/* And liquid. */
+#wrap { width: 95%; }
+
+body { font-size: 2em; } /* Make things bigger on smaller screens. */
+
+#site_nav_global_primary, #site_nav_global_secondary { text-align: center; }
+
+.notice div.entry-content { margin-left: 0; }
+address { margin: 0; }
+
+#anon_notice, #footer { clear: left; width: auto; font-size: .5em; }
+
+#content { padding: 18px 0; width: 100%; }
+#content h1, #page_notice, #content_inner { padding: 0 18px; }
+#content_inner { width: auto; }
+.pagination .nav { overflow: auto; }
+
+#aside_primary { margin: 10px 0 0 0; border: none; padding: 0; width: 100%; }
+#popular_notices { float: none; width: auto; }
+/* Columns for supplemental info. */
+.aside .section { clear: none; padding: 9px; width: 45%; }
+#top_groups_by_post { float: left; }
+#featured_users { float: right; }
+#export_data { display: none; }

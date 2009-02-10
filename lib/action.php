@@ -170,6 +170,13 @@ class Action extends HTMLOutputter // lawsuit
         }
         $this->comment('[if IE]><link rel="stylesheet" type="text/css" '.
                        'href="'.theme_path('css/ie.css', null).'?version='.LACONICA_VERSION.'" /><![endif]');
+        if (common_config('site', 'mobile')) {
+            $this->element('link', array('rel' => 'stylesheet',
+                                         'type' => 'text/css',
+                                         'href' => theme_path('css/mobile.css', 'base') . '?version=' . LACONICA_VERSION,
+                                         // TODO: "handheld" CSS for other mobile devices
+                                         'media' => 'screen and (max-device-width: 480px)')); // Mobile WebKit
+        }
     }
 
     /**
