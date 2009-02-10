@@ -76,19 +76,8 @@ class TagAction extends Action
      */
     function showRelationshipLinks()
     {
-        // Machine-readable pagination
-        if ($this->page > 1) {
-            $this->element('link', array('rel' => 'next',
-                                         'href' => common_local_url('tag',
-                                                                    array('tag' => $this->tag,
-                                                                          'page' => $this->page - 1)),
-                                         'title' => _('Next Notices')));
-        }
-        $this->element('link', array('rel' => 'prev',
-                                     'href' => common_local_url('tag',
-                                                                array('tag' => $this->tag,
-                                                                      'page' => $this->page + 1)),
-                                     'title' => _('Previous Notices')));
+        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
+                                     $this->page, 'tag', array('tag' => $this->tag));
     }
 
     function showPageNotice()

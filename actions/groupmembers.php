@@ -145,18 +145,7 @@ class GroupmembersAction extends Action
      */
     function showRelationshipLinks()
     {
-        // Machine-readable pagination
-        if ($this->page > 1) {
-            $this->element('link', array('rel' => 'next',
-                                         'href' => common_local_url('groupmembers',
-                                                                    array('nickname' => $this->group->nickname,
-                                                                          'page' => $this->page - 1)),
-                                         'title' => _('Next Group Members')));
-        }
-        $this->element('link', array('rel' => 'prev',
-                                     'href' => common_local_url('groupmembers',
-                                                                array('nickname' => $this->group->nickname,
-                                                                      'page' => $this->page + 1)),
-                                     'title' => _('Previous Group Members')));
+        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
+                                     $this->page, 'groupmembers', array('nickname' => $this->group->nickname));
     }
 }

@@ -56,6 +56,18 @@ class PublicAction extends Action
 
     var $page = null;
 
+    /**
+     * Number of notices being shown on this page.
+     */
+    //    Does this need to be here? Should it be?
+    //    If it does, this property needs to be
+    //    added to other actions as well, like $page.
+    //    I'm trying to find a way to capture the
+    //    output of the $cnt variable from this
+    //    action's showContent() method but need
+    //    to do so earlier, I think...?
+    var $count = null;
+
     function isReadOnly()
     {
         return true;
@@ -134,17 +146,8 @@ class PublicAction extends Action
      */
     function showRelationshipLinks()
     {
-        // Machine-readable pagination
-        if ($this->page > 1) {
-            $this->element('link', array('rel' => 'next',
-                                         'href' => common_local_url('public',
-                                                                    array('page' => $this->page - 1)),
-                                         'title' => _('Next Notices')));
-        }
-        $this->element('link', array('rel' => 'prev',
-                                     'href' => common_local_url('public',
-                                                                array('page' => $this->page + 1)),
-                                     'title' => _('Previous Notices')));
+        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
+                                     $this->page, 'public');
     }
 
     /**

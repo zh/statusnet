@@ -160,20 +160,10 @@ class ShowfavoritesAction extends Action
      */
     function showRelationshipLinks()
     {
-        // Machine-readable pagination
-        if ($this->page > 1) {
-            $this->element('link', array('rel' => 'next',
-                                         'href' => common_local_url('showfavorites',
-                                                                    array('nickname' => $this->user->nickname,
-                                                                          'page' => $this->page - 1)),
-                                         'title' => _('Next Favorite Notices')));
-        }
-        $this->element('link', array('rel' => 'prev',
-                                     'href' => common_local_url('showfavorites',
-                                                                array('nickname' => $this->user->nickname,
-                                                                      'page' => $this->page + 1)),
-                                     'title' => _('Previous Favorite Notices')));
+        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
+                                     $this->page, 'showfavorites', array('nickname' => $this->user->nickname));
     }
+
 
     /**
      * show the personal group nav

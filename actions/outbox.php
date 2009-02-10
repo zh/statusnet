@@ -69,19 +69,8 @@ class OutboxAction extends MailboxAction
      */
     function showRelationshipLinks()
     {
-        // Machine-readable pagination
-        if ($this->page > 1) {
-            $this->element('link', array('rel' => 'next',
-                                         'href' => common_local_url('outbox',
-                                                                    array('nickname' => $this->user->nickname,
-                                                                          'page' => $this->page - 1)),
-                                         'title' => _('Next Messages')));
-        }
-        $this->element('link', array('rel' => 'prev',
-                                     'href' => common_local_url('outbox',
-                                                                array('nickname' => $this->user->nickname,
-                                                                      'page' => $this->page + 1)),
-                                     'title' => _('Previous Messages')));
+        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
+                                     $this->page, 'outbox', array('nickname' => $this->user->nickname));
     }
 
     /**

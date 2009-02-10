@@ -148,19 +148,8 @@ class RepliesAction extends Action
      */
     function showRelationshipLinks()
     {
-        // Machine-readable pagination
-        if ($this->page > 1) {
-            $this->element('link', array('rel' => 'next',
-                                         'href' => common_local_url('replies',
-                                                                    array('nickname' => $this->user->nickname,
-                                                                          'page' => $this->page - 1)),
-                                         'title' => _('Next Notices')));
-        }
-        $this->element('link', array('rel' => 'prev',
-                                     'href' => common_local_url('replies',
-                                                                array('nickname' => $this->user->nickname,
-                                                                      'page' => $this->page + 1)),
-                                     'title' => _('Previous Notices')));
+        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
+                                     $this->page, 'replies', array('nickname' => $this->user->nickname));
     }
 
     /**
