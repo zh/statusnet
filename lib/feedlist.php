@@ -112,6 +112,13 @@ class FeedList extends Widget
             $feed['textContent'] = "Atom";
             break;
 
+         case 'noticesearchrss':
+            $feed_classname = $feed['type'];
+            $feed_mimetype = "application/".$feed['type']."+xml";
+            $feed_title = $feed['version']." feed for this notice search";
+            $feed['textContent'] = "RSS";
+            break;
+
          case 'tagrss':
             $feed_classname = $feed['type'];
             $feed_mimetype = "application/".$feed['type']."+xml";
