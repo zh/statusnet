@@ -412,14 +412,14 @@ function common_replace_urls_callback($text, $callback) {
 
     // Then clean up what the regex left behind
     $offset = 0;
-    foreach($matches[0] as $url) {
-        $url = htmlspecialchars_decode($url);
+    foreach($matches[0] as $orig_url) {
+        $url = htmlspecialchars_decode($orig_url);
 
         // Make sure we didn't pick up an email address
         if (preg_match('#^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$#i', $url)) continue;
 
-        // Remove trailing punctuation
-        $url = rtrim($url, '.?!,;:\'"`');
+        // Remove surrounding punctuation
+        $url = trim($url, '.?!,;:\'"`([<');
 
         // Remove surrounding parens and the like
         preg_match('/[)\]>]+$/', $url, $trailing);
@@ -446,7 +446,7 @@ function common_replace_urls_callback($text, $callback) {
 
         // If the first part wasn't cap'd but the last part was, we captured too much
         if ((!$prev_part && $last_part)) {
-            $url = substr_replace($url, '', mb_strpos($url, '.'.$url_parts[2], 0));
+            $url = mb_substr($url, 0 , mb_strpos($url, '.'.$url_parts['2'], 0));
         }
 
         // Capture the new TLD
@@ -455,6 +455,9 @@ function common_replace_urls_callback($text, $callback) {
         $tlds = array('ac', 'ad', 'ae', 'aero', 'af', 'ag', 'ai', 'al', 'am', 'an', 'ao', 'aq', 'ar', 'arpa', 'as', 'asia', 'at', 'au', 'aw', 'ax', 'az', 'ba', 'bb', 'bd', 'be', 'bf', 'bg', 'bh', 'bi', 'biz', 'bj', 'bm', 'bn', 'bo', 'br', 'bs', 'bt', 'bv', 'bw', 'by', 'bz', 'ca', 'cat', 'cc', 'cd', 'cf', 'cg', 'ch', 'ci', 'ck', 'cl', 'cm', 'cn', 'co', 'com', 'coop', 'cr', 'cu', 'cv', 'cx', 'cy', 'cz', 'de', 'dj', 'dk', 'dm', 'do', 'dz', 'ec', 'edu', 'ee', 'eg', 'er', 'es', 'et', 'eu', 'fi', 'fj', 'fk', 'fm', 'fo', 'fr', 'ga', 'gb', 'gd', 'ge', 'gf', 'gg', 'gh', 'gi', 'gl', 'gm', 'gn', 'gov', 'gp', 'gq', 'gr', 'gs', 'gt', 'gu', 'gw', 'gy', 'hk', 'hm', 'hn', 'hr', 'ht', 'hu', 'id', 'ie', 'il', 'im', 'in', 'info', 'int', 'io', 'iq', 'ir', 'is', 'it', 'je', 'jm', 'jo', 'jobs', 'jp', 'ke', 'kg', 'kh', 'ki', 'km', 'kn', 'kp', 'kr', 'kw', 'ky', 'kz', 'la', 'lb', 'lc', 'li', 'lk', 'lr', 'ls', 'lt', 'lu', 'lv', 'ly', 'ma', 'mc', 'md', 'me', 'mg', 'mh', 'mil', 'mk', 'ml', 'mm', 'mn', 'mo', 'mobi', 'mp', 'mq', 'mr', 'ms', 'mt', 'mu', 'museum', 'mv', 'mw', 'mx', 'my', 'mz', 'na', 'name', 'nc', 'ne', 'net', 'nf', 'ng', 'ni', 'nl', 'no', 'np', 'nr', 'nu', 'nz', 'om', 'org', 'pa', 'pe', 'pf', 'pg', 'ph', 'pk', 'pl', 'pm', 'pn', 'pr', 'pro', 'ps', 'pt', 'pw', 'py', 'qa', 're', 'ro', 'rs', 'ru', 'rw', 'sa', 'sb', 'sc', 'sd', 'se', 'sg', 'sh', 'si', 'sj', 'sk', 'sl', 'sm', 'sn', 'so', 'sr', 'st', 'su', 'sv', 'sy', 'sz', 'tc', 'td', 'tel', 'tf', 'tg', 'th', 'tj', 'tk', 'tl', 'tm', 'tn', 'to', 'tp', 'tr', 'travel', 'tt', 'tv', 'tw', 'tz', 'ua', 'ug', 'uk', 'us', 'uy', 'uz', 'va', 'vc', 've', 'vg', 'vi', 'vn', 'vu', 'wf', 'ws', 'ye', 'yt', 'yu', 'za', 'zm', 'zw');
 
         if (!in_array($url_parts[2], $tlds)) continue;
+
+        // Put the url back the way we found it.
+        $url = (mb_strpos($orig_url, htmlspecialchars($url)) === FALSE) ? $url:htmlspecialchars($url);
 
         // Call user specified func
         $modified_url = $callback($url);
@@ -669,273 +672,20 @@ function common_relative_profile($sender, $nickname, $dt=null)
 
 function common_local_url($action, $args=null, $fragment=null)
 {
-    $url = null;
-    if (common_config('site','fancy')) {
-        $url = common_fancy_url($action, $args);
-    } else {
-        $url = common_simple_url($action, $args);
+    common_debug("Action = $action, args = " . (($args) ? '(' . implode($args, ',') . ')' : $args) . ", fragment = $fragment");
+    $r = Router::get();
+    $start = microtime();
+    $path = $r->build($action, $args, $fragment);
+    $end = microtime();
+    common_debug("Pathbuilding took " . ($end - $start));
+    if ($path) {
     }
-    if (!is_null($fragment)) {
-        $url .= '#'.$fragment;
+    if (common_config('site','fancy')) {
+        $url = common_path(mb_substr($path, 1));
+    } else {
+        $url = common_path('index.php'.$path);
     }
     return $url;
-}
-
-function common_fancy_url($action, $args=null)
-{
-    switch (strtolower($action)) {
-     case 'public':
-        if ($args && isset($args['page'])) {
-            return common_path('?page=' . $args['page']);
-        } else {
-            return common_path('');
-        }
-     case 'featured':
-        if ($args && isset($args['page'])) {
-            return common_path('featured?page=' . $args['page']);
-        } else {
-            return common_path('featured');
-        }
-     case 'favorited':
-        if ($args && isset($args['page'])) {
-            return common_path('favorited?page=' . $args['page']);
-        } else {
-            return common_path('favorited');
-        }
-     case 'publicrss':
-        return common_path('rss');
-     case 'publicatom':
-        return common_path("api/statuses/public_timeline.atom");
-     case 'publicxrds':
-        return common_path('xrds');
-     case 'tagrss':
-        return common_path('tag/' . $args['tag'] . '/rss');
-     case 'featuredrss':
-        return common_path('featuredrss');
-     case 'favoritedrss':
-        return common_path('favoritedrss');
-     case 'opensearch':
-        if ($args && $args['type']) {
-            return common_path('opensearch/'.$args['type']);
-        } else {
-            return common_path('opensearch/people');
-        }
-     case 'doc':
-        return common_path('doc/'.$args['title']);
-     case 'block':
-     case 'login':
-     case 'logout':
-     case 'subscribe':
-     case 'unsubscribe':
-     case 'invite':
-        return common_path('main/'.$action);
-     case 'tagother':
-        return common_path('main/tagother?id='.$args['id']);
-     case 'register':
-        if ($args && $args['code']) {
-            return common_path('main/register/'.$args['code']);
-        } else {
-            return common_path('main/register');
-        }
-     case 'remotesubscribe':
-        if ($args && $args['nickname']) {
-            return common_path('main/remote?nickname=' . $args['nickname']);
-        } else {
-            return common_path('main/remote');
-        }
-     case 'nudge':
-        return common_path($args['nickname'].'/nudge');
-     case 'openidlogin':
-        return common_path('main/openid');
-     case 'profilesettings':
-        return common_path('settings/profile');
-     case 'passwordsettings':
-        return common_path('settings/password');
-     case 'emailsettings':
-        return common_path('settings/email');
-     case 'openidsettings':
-        return common_path('settings/openid');
-     case 'smssettings':
-        return common_path('settings/sms');
-     case 'twittersettings':
-        return common_path('settings/twitter');
-     case 'othersettings':
-        return common_path('settings/other');
-     case 'deleteprofile':
-        return common_path('settings/delete');
-     case 'newnotice':
-        if ($args && $args['replyto']) {
-            return common_path('notice/new?replyto='.$args['replyto']);
-        } else {
-            return common_path('notice/new');
-        }
-     case 'shownotice':
-        return common_path('notice/'.$args['notice']);
-     case 'deletenotice':
-        if ($args && $args['notice']) {
-            return common_path('notice/delete/'.$args['notice']);
-        } else {
-            return common_path('notice/delete');
-        }
-     case 'microsummary':
-     case 'xrds':
-     case 'foaf':
-        return common_path($args['nickname'].'/'.$action);
-     case 'all':
-     case 'replies':
-     case 'inbox':
-     case 'outbox':
-        if ($args && isset($args['page'])) {
-            return common_path($args['nickname'].'/'.$action.'?page=' . $args['page']);
-        } else {
-            return common_path($args['nickname'].'/'.$action);
-        }
-     case 'subscriptions':
-     case 'subscribers':
-        $nickname = $args['nickname'];
-        unset($args['nickname']);
-        if (isset($args['tag'])) {
-            $tag = $args['tag'];
-            unset($args['tag']);
-        }
-        $params = http_build_query($args);
-        if ($params) {
-            return common_path($nickname.'/'.$action . (($tag) ? '/' . $tag : '') . '?' . $params);
-        } else {
-            return common_path($nickname.'/'.$action . (($tag) ? '/' . $tag : ''));
-        }
-     case 'allrss':
-        return common_path($args['nickname'].'/all/rss');
-     case 'repliesrss':
-        return common_path($args['nickname'].'/replies/rss');
-     case 'userrss':
-        if (isset($args['limit']))
-          return common_path($args['nickname'].'/rss?limit=' . $args['limit']);
-        return common_path($args['nickname'].'/rss');
-     case 'showstream':
-        if ($args && isset($args['page'])) {
-            return common_path($args['nickname'].'?page=' . $args['page']);
-        } else {
-            return common_path($args['nickname']);
-        }
-
-     case 'usertimeline':
-        return common_path("api/statuses/user_timeline/".$args['nickname'].".atom");
-     case 'confirmaddress':
-        return common_path('main/confirmaddress/'.$args['code']);
-     case 'userbyid':
-        return common_path('user/'.$args['id']);
-     case 'recoverpassword':
-        $path = 'main/recoverpassword';
-        if ($args['code']) {
-            $path .= '/' . $args['code'];
-        }
-        return common_path($path);
-     case 'imsettings':
-        return common_path('settings/im');
-     case 'avatarsettings':
-        return common_path('settings/avatar');
-     case 'groupsearch':
-        return common_path('search/group' . (($args) ? ('?' . http_build_query($args)) : ''));
-     case 'peoplesearch':
-        return common_path('search/people' . (($args) ? ('?' . http_build_query($args)) : ''));
-     case 'noticesearch':
-        return common_path('search/notice' . (($args) ? ('?' . http_build_query($args)) : ''));
-     case 'noticesearchrss':
-        return common_path('search/notice/rss' . (($args) ? ('?' . http_build_query($args)) : ''));
-     case 'avatarbynickname':
-        return common_path($args['nickname'].'/avatar/'.$args['size']);
-     case 'tag':
-        $path = 'tag/' . $args['tag'];
-        unset($args['tag']);
-        return common_path($path . (($args) ? ('?' . http_build_query($args)) : ''));
-     case 'publictagcloud':
-        return common_path('tags');
-     case 'peopletag':
-        $path = 'peopletag/' . $args['tag'];
-        unset($args['tag']);
-        return common_path($path . (($args) ? ('?' . http_build_query($args)) : ''));
-     case 'tags':
-        return common_path('tags' . (($args) ? ('?' . http_build_query($args)) : ''));
-     case 'favor':
-        return common_path('main/favor');
-     case 'disfavor':
-        return common_path('main/disfavor');
-     case 'showfavorites':
-        if ($args && isset($args['page'])) {
-            return common_path($args['nickname'].'/favorites?page=' . $args['page']);
-        } else {
-            return common_path($args['nickname'].'/favorites');
-        }
-     case 'favoritesrss':
-        return common_path($args['nickname'].'/favorites/rss');
-     case 'showmessage':
-        return common_path('message/' . $args['message']);
-     case 'newmessage':
-        return common_path('message/new' . (($args) ? ('?' . http_build_query($args)) : ''));
-     case 'api':
-        // XXX: do fancy URLs for all the API methods
-        switch (strtolower($args['apiaction'])) {
-         case 'statuses':
-            switch (strtolower($args['method'])) {
-             case 'user_timeline.rss':
-                return common_path('api/statuses/user_timeline/'.$args['argument'].'.rss');
-             case 'user_timeline.atom':
-                return common_path('api/statuses/user_timeline/'.$args['argument'].'.atom');
-             case 'user_timeline.json':
-                return common_path('api/statuses/user_timeline/'.$args['argument'].'.json');
-             case 'user_timeline.xml':
-                return common_path('api/statuses/user_timeline/'.$args['argument'].'.xml');
-             default: return common_simple_url($action, $args);
-            }
-         default: return common_simple_url($action, $args);
-        }
-     case 'sup':
-        if ($args && isset($args['seconds'])) {
-            return common_path('main/sup?seconds='.$args['seconds']);
-        } else {
-            return common_path('main/sup');
-        }
-     case 'newgroup':
-        return common_path('group/new');
-     case 'showgroup':
-        return common_path('group/'.$args['nickname'] . (($args['page']) ? ('?page=' . $args['page']) : ''));
-     case 'editgroup':
-        return common_path('group/'.$args['nickname'].'/edit');
-     case 'joingroup':
-        return common_path('group/'.$args['nickname'].'/join');
-     case 'leavegroup':
-        return common_path('group/'.$args['nickname'].'/leave');
-     case 'groupbyid':
-        return common_path('group/'.$args['id'].'/id');
-     case 'grouprss':
-        return common_path('group/'.$args['nickname'].'/rss');
-     case 'groupmembers':
-        return common_path('group/'.$args['nickname'].'/members' . (($args['page']) ? ('?page=' . $args['page']) : ''));
-     case 'grouplogo':
-        return common_path('group/'.$args['nickname'].'/logo');
-     case 'usergroups':
-        $nickname = $args['nickname'];
-        unset($args['nickname']);
-        return common_path($nickname.'/groups' . (($args) ? ('?' . http_build_query($args)) : ''));
-     case 'groups':
-        return common_path('group' . (($args) ? ('?' . http_build_query($args)) : ''));
-     default:
-        return common_simple_url($action, $args);
-    }
-}
-
-function common_simple_url($action, $args=null)
-{
-    global $config;
-    /* XXX: pretty URLs */
-    $extra = '';
-    if ($args) {
-        foreach ($args as $key => $value) {
-            $extra .= "&${key}=${value}";
-        }
-    }
-    return common_path("index.php?action=${action}${extra}");
 }
 
 function common_path($relative)
