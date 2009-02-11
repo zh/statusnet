@@ -37,9 +37,9 @@ class TagAction extends Action
         }
 
         $this->page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
-        
+
         common_set_returnto($this->selfUrl());
-        
+
         return true;
     }
 
@@ -61,26 +61,16 @@ class TagAction extends Action
         $this->showPage();
     }
 
-    function showFeeds()
+    function getFeeds()
     {
-        $this->element('link', array('rel' => 'alternate',
-                                     'href' => common_local_url('tagrss', array('tag' => $this->tag)),
-                                     'type' => 'application/rss+xml',
-                                     'title' => sprintf(_('Feed for tag %s'), $this->tag)));
+        return array(new Feed(Feed::RSS1,
+                              common_local_url('tagrss', array('tag' => $this->tag)),
+                              sprintf(_('Feed for tag %s'), $this->tag)));
     }
 
     function showPageNotice()
     {
         return sprintf(_('Messages tagged "%s", most recent first'), $this->tag);
-    }
-
-    function showExportData()
-    {
-        $fl = new FeedList($this);
-        $fl->show(array(0=>array('href'=>common_local_url('tagrss', array('tag' => $this->tag)),
-                                 'type' => 'rss',
-                                 'version' => 'RSS 1.0',
-                                 'item' => 'tagrss')));
     }
 
     function showContent()

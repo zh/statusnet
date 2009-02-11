@@ -119,24 +119,20 @@ class PublicAction extends Action
      * @return void
      */
 
-    function showFeeds()
+    function getFeeds()
     {
-        $this->element('link', array('rel' => 'alternate',
-                                     'href' => common_local_url('publicrss'),
-                                     'type' => 'application/rdf+xml',
-                                     'title' => _('Public Stream Feed (RSS 1.0)')));
-        $this->element('link', array('rel' => 'alternate',
-                                     'href' => common_local_url('api',
-                                                                array('apiaction' => 'statuses',
-                                                                      'method' => 'public_timeline.rss')),
-                                     'type' => 'application/rss+xml',
-                                     'title' => _('Public Stream Feed (RSS 2.0)')));
-        $this->element('link', array('rel' => 'alternate',
-                                     'href' => common_local_url('api',
-                                                                array('apiaction' => 'statuses',
-                                                                      'method' => 'public_timeline.atom')),
-                                     'type' => 'application/atom+xml',
-                                     'title' => _('Public Stream Feed (Atom)')));
+        return array(new Feed(Feed::RSS1, common_local_url('publicrss'),
+                              _('Public Stream Feed (RSS 1.0)')),
+                     new Feed(Feed::RSS2,
+                              common_local_url('api',
+                                               array('apiaction' => 'statuses',
+                                                     'method' => 'public_timeline.rss')),
+                              _('Public Stream Feed (RSS 2.0)')),
+                     new Feed(Feed::ATOM,
+                              common_local_url('api',
+                                               array('apiaction' => 'statuses',
+                                                     'method' => 'public_timeline.atom')),
+                              _('Public Stream Feed (Atom)')));
     }
 
     /**
@@ -195,29 +191,6 @@ class PublicAction extends Action
 
         $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
                           $this->page, 'public');
-    }
-
-    /**
-     * Makes a list of exported feeds for this page
-     *
-     * @return void
-     *
-     * @todo I18N
-     */
-
-    function showExportData()
-    {
-        $fl = new FeedList($this);
-        $fl->show(array(0 => array('href' => common_local_url('publicrss'),
-                                   'type' => 'rss',
-                                   'version' => 'RSS 1.0',
-                                   'item' => 'publicrss'),
-                        1 => array('href' => common_local_url('api',
-                                                              array('apiaction' => 'statuses',
-                                                                    'method' => 'public_timeline.atom')),
-                                   'type' => 'atom',
-                                   'version' => 'Atom 1.0',
-                                   'item' => 'publicatom')));
     }
 
     function showSections()

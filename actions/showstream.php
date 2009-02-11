@@ -155,54 +155,35 @@ class ShowstreamAction extends Action
         return;
     }
 
-    function showExportData()
+    function getFeeds()
     {
-        $fl = new FeedList($this);
-        $fl->show(array(0=>array('href'=>common_local_url('userrss',
-                                                          array('nickname' => $this->user->nickname)),
-                                 'type' => 'rss',
-                                 'version' => 'RSS 1.0',
-                                 'item' => 'notices'),
-                        1=>array('href'=>common_local_url('usertimeline',
-                                                          array('nickname' => $this->user->nickname)),
-                                 'type' => 'atom',
-                                 'version' => 'Atom 1.0',
-                                 'item' => 'usertimeline'),
-                        2=>array('href'=>common_local_url('foaf',
-                                                          array('nickname' => $this->user->nickname)),
-                                 'type' => 'rdf',
-                                 'version' => 'FOAF',
-                                 'item' => 'foaf')));
-    }
-
-    function showFeeds()
-    {
-        $this->element('link', array('rel' => 'alternate',
-                                     'type' => 'application/rss+xml',
-                                     'href' => common_local_url('userrss',
-                                                                array('nickname' => $this->user->nickname)),
-                                     'title' => sprintf(_('Notice feed for %s (RSS)'),
-                                                        $this->user->nickname)));
-
-        $this->element('link',
-                       array('rel' => 'alternate',
-                             'href' => common_local_url('api',
-                                                        array('apiaction' => 'statuses',
-                                                              'method' => 'user_timeline.atom',
-                                                              'argument' => $this->user->nickname)),
-                             'type' => 'application/atom+xml',
-                             'title' => sprintf(_('Notice feed for %s (Atom)'),
-                                                $this->user->nickname)));
+        return array(new Feed(Feed::RSS1,
+                              common_local_url('userrss',
+                                               array('nickname' => $this->user->nickname)),
+                              sprintf(_('Notice feed for %s (RSS 1.0)'),
+                                      $this->user->nickname)),
+                     new Feed(Feed::RSS2,
+                              common_local_url('api',
+                                               array('apiaction' => 'statuses',
+                                                     'method' => 'user_timeline',
+                                                     'argument' => $this->user->nickname.'.rss')),
+                              sprintf(_('Notice feed for %s (RSS 2.0)'),
+                                      $this->user->nickname)),
+                     new Feed(Feed::ATOM,
+                              common_local_url('api',
+                                               array('apiaction' => 'statuses',
+                                                     'method' => 'user_timeline',
+                                                     'argument' => $this->user->nickname.'.atom')),
+                              sprintf(_('Notice feed for %s (Atom)'),
+                                      $this->user->nickname)),
+                     new Feed(Feed::FOAF,
+                              common_local_url('foaf', array('nickname' =>
+                                                             $this->user->nickname)),
+                              sprintf(_('FOAF for %s'), $this->user->nickname)));
     }
 
     function extraHead()
     {
-        // FOAF
-        $this->element('link', array('rel' => 'meta',
-                                     'href' => common_local_url('foaf', array('nickname' =>
-                                                                              $this->user->nickname)),
-                                     'type' => 'application/rdf+xml',
-                                     'title' => 'FOAF'));
         // for remote subscriptions etc.
         $this->element('meta', array('http-equiv' => 'X-XRDS-Location',
                                      'content' => common_local_url('xrds', array('nickname' =>

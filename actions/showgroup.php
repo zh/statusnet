@@ -292,37 +292,18 @@ class ShowgroupAction extends Action
     }
 
     /**
-     * Show a list of links to feeds this page produces
+     * Get a list of the feeds for this page
      *
      * @return void
      */
 
-    function showExportData()
-    {
-        $fl = new FeedList($this);
-        $fl->show(array(0=>array('href'=>common_local_url('grouprss',
-                                                          array('nickname' => $this->group->nickname)),
-                                 'type' => 'rss',
-                                 'version' => 'RSS 1.0',
-                                 'item' => 'notices')));
-    }
-
-    /**
-     * Show a list of links to feeds this page produces
-     *
-     * @return void
-     */
-
-    function showFeeds()
+    function getFeeds()
     {
         $url =
           common_local_url('grouprss',
                            array('nickname' => $this->group->nickname));
 
-        $this->element('link', array('rel' => 'alternate',
-                                     'href' => $url,
-                                     'type' => 'application/rss+xml',
-                                     'title' => sprintf(_('Notice feed for %s group'),
+        return array(new Feed(Feed::RSS1, $url, sprintf(_('Notice feed for %s group'),
                                                         $this->group->nickname)));
     }
 
