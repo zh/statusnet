@@ -25,7 +25,8 @@ require_once INSTALLDIR . '/lib/common.php';
 $user = null;
 $action = null;
 
-function getPath($req) {
+function getPath($req)
+{
     if (common_config('site', 'fancy')) {
         return $req['p'];
     } else if ($_SERVER['PATH_INFO']) {
@@ -35,9 +36,29 @@ function getPath($req) {
     }
 }
 
-function main() {
+function handleError($error)
+{
+    common_log(LOG_ERR, "PEAR error: " . $error->getMessage());
+    $msg = sprintf(_('The database for %s isn\'t responding correctly, '.
+                     'so the site won\'t work properly. '.
+                     'The site admins probably know about the problem, '.
+                     'but you can contact them at %s to make sure. '.
+                     'Otherwise, wait a few minutes and try again.'),
+                   common_config('site', 'name'),
+                   common_config('site', 'email'));
 
+    $dac = new DBErrorAction($msg, 500);
+    $dac->showPage();
+    exit(-1);
+}
+
+function main()
+{
     global $user, $action;
+
+    // For database errors
+
+    PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, 'handleError');
 
     // XXX: we need a little more structure in this script
 
