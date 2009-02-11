@@ -37,7 +37,7 @@ if (!defined('LACONICA')) {
  * This plugin will spoot out the correct JavaScript spell to invoke Google Analytics on a page.
  *
  * Note that Google Analytics is not compatible with the Franklin Street Statement; consider using
- * Pikiw (http://www.pikiw.org/) instead!
+ * Piwik (http://www.piwik.org/) instead!
  *
  * @category Plugin
  * @package  Laconica
