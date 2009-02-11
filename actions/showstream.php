@@ -281,7 +281,7 @@ class ShowstreamAction extends Action
         if ($this->profile->location) {
             $this->elementStart('dl', 'entity_location');
             $this->element('dt', null, _('Location'));
-            $this->element('dd', 'location', $this->profile->location);
+            $this->element('dd', 'label', $this->profile->location);
             $this->elementEnd('dl');
         }
 
