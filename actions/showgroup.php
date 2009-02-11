@@ -244,7 +244,7 @@ class ShowgroupAction extends Action
         if ($this->group->location) {
             $this->elementStart('dl', 'entity_location');
             $this->element('dt', null, _('Location'));
-            $this->element('dd', 'location', $this->group->location);
+            $this->element('dd', 'label', $this->group->location);
             $this->elementEnd('dl');
         }
 
