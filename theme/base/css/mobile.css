@@ -12,31 +12,55 @@
 #site_nav_global_primary,
 #anon_notice,
 #site_nav_local_views .nav,
+#form_notice,
+#form_notice .form_data li,
 #core,
 #content_inner,
 #notices_primary,
 .notice,
 .notice .entry-title,
 .notice div.entry-content,
+.notice-options,
+.notice .notice-options a,
 .pagination,
 .pagination .nav,
 .aside .section { float: none; }
 
+.notice-options .notice_reply,
+.notice-options .notice_delete,
+.notice-options .form_favor,
+.notice-options .form_disfavor { position: static; }
+
+#form_notice,
+#anon_notice,
+#content_inner,
+#footer { width: auto; }
+
 /* And liquid. */
 #wrap { width: 95%; }
 
-body { font-size: 2em; } /* Make things bigger on smaller screens. */
+/* Make things bigger on smaller screens. */
+body { font-size: 2em; }
+.notices { font-size: 1.5em; }
 
 #site_nav_global_primary, #site_nav_global_secondary { text-align: center; }
 
 .notice div.entry-content { margin-left: 0; }
 address { margin: 0; }
 
-#anon_notice, #footer { clear: left; width: auto; font-size: .5em; }
+#anon_notice, #footer { clear: left; font-size: .5em; }
+
+#form_notice textarea { width: 80%; height: 5em; }
+#form_notice .form_note { right: 20%; top: 6em; }
+#form_notice .form_actions input.submit { width: auto; }
 
 #content { padding: 18px 0; width: 100%; }
 #content h1, #page_notice, #content_inner { padding: 0 18px; }
-#content_inner { width: auto; }
+.notices .entry-title, .notices div.entry-content { width: 90%; }
+.notice .author .photo { height: 4.5em; width: 4.5em; } /* about double physical size; TODO: do this scaling better */
+.notice-options { position: absolute; top: 0; right: 0; padding-left: 7%; width: 3%; }
+.notice-options .notice_delete a { float: left; } /* Works, but feels like it shouldn't. */
+/* TODO: Make the icons of the notice options bigger. Probably with mobile-specific images. */
 .pagination .nav { overflow: auto; }
 
 #aside_primary { margin: 10px 0 0 0; border: none; padding: 0; width: 100%; }
