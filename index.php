@@ -51,7 +51,7 @@ function main() {
 
     $path = getPath($_REQUEST);
 
-    $r = new Router();
+    $r = Router::get();
 
     $args = $r->map($path);
 

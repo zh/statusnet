@@ -669,8 +669,12 @@ function common_relative_profile($sender, $nickname, $dt=null)
 
 function common_local_url($action, $args=null, $fragment=null)
 {
-    $r = new Router();
+    common_debug("Action = $action, args = " . (($args) ? '(' . implode($args, ',') . ')' : $args) . ", fragment = $fragment");
+    $r = Router::get();
+    $start = microtime();
     $path = $r->build($action, $args, $fragment);
+    $end = microtime();
+    common_debug("Pathbuilding took " . ($end - $start));
     if ($path) {
     }
     if (common_config('site','fancy')) {

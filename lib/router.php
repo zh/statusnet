@@ -48,6 +48,15 @@ require_once 'Net/URL/Mapper.php';
 class Router
 {
     static $m = null;
+    static $inst = null;
+
+    static function get()
+    {
+        if (!Router::$inst) {
+            Router::$inst = new Router();
+        }
+        return Router::$inst;
+    }
 
     function __construct()
     {
@@ -344,7 +353,7 @@ class Router
         $action_arg = array('action' => $action);
 
         if ($args) {
-            $args = array_merge($args, $action_arg);
+            $args = array_merge($action_arg, $args);
         } else {
             $args = $action_arg;
         }
