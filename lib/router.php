@@ -47,10 +47,17 @@ require_once 'Net/URL/Mapper.php';
 
 class Router
 {
-    var $m = null;
+    static $m = null;
 
     function __construct()
     {
+        if (!$this->m) {
+            $this->m = $this->initialize();
+        }
+    }
+
+    function initialize() {
+
         $m = Net_URL_Mapper::getInstance();
 
         // In the "root"
@@ -134,8 +141,10 @@ class Router
                     array('action' => 'userbyid'),
                     array('id' => '[0-9]+'));
 
-        $m->connect('tags/?', array('action' => 'publictagcloud'));
-        $m->connect('tag/?', array('action' => 'publictagcloud'));
+        $m->connect('tags/', array('action' => 'publictagcloud'));
+        $m->connect('tag/', array('action' => 'publictagcloud'));
+        $m->connect('tags', array('action' => 'publictagcloud'));
+        $m->connect('tag', array('action' => 'publictagcloud'));
         $m->connect('tag/:tag/rss',
                     array('action' => 'tagrss'),
                     array('tag' => '[a-zA-Z0-9]+'));
@@ -147,8 +156,10 @@ class Router
                     array('action' => 'peopletag'),
                     array('tag' => '[a-zA-Z0-9]+'));
 
-        $m->connect('featured/?', array('action' => 'featured'));
-        $m->connect('favorited/?', array('action' => 'favorited'));
+        $m->connect('featured/', array('action' => 'featured'));
+        $m->connect('featured', array('action' => 'featured'));
+        $m->connect('favorited/', array('action' => 'favorited'));
+        $m->connect('favorited', array('action' => 'favorited'));
 
         // groups
 
@@ -174,7 +185,10 @@ class Router
                     array('action' => 'showgroup'),
                     array('nickname' => '[a-zA-Z0-9]+'));
 
-        $m->connect('group/?', array('action' => 'groups'));
+        $m->connect('group/', array('action' => 'groups'));
+        $m->connect('group', array('action' => 'groups'));
+        $m->connect('groups/', array('action' => 'groups'));
+        $m->connect('groups', array('action' => 'groups'));
 
         // Twitter-compatible API
 
@@ -317,7 +331,7 @@ class Router
                     array('action' => 'showstream'),
                     array('nickname' => '[a-zA-Z0-9]{1,64}'));
 
-        $this->m = $m;
+        return $m;
     }
 
     function map($path)
