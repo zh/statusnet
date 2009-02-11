@@ -225,9 +225,19 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return nothing
      */
+
     function showFeeds()
     {
-        // does nothing by default
+        $feeds = $this->getFeeds();
+
+        if ($feeds) {
+            foreach ($feeds as $feed) {
+                $this->element('link', array('rel' => $feed->rel(),
+                                             'href' => $feed->url,
+                                             'type' => $feed->mimeType(),
+                                             'title' => $feed->title));
+            }
+        }
     }
 
     /**
@@ -540,15 +550,16 @@ class Action extends HTMLOutputter // lawsuit
     /**
      * Show export data feeds.
      *
-     * MAY overload if there are feeds
-     *
-     * @return nothing
+     * @return void
      */
+
     function showExportData()
     {
-        // is there structure to this?
-        // list of (visible!) feed links
-        // can we reuse list of feeds from showFeeds() ?
+        $feeds = $this->getFeeds();
+        if ($feeds) {
+            $fl = new FeedList($this);
+            $fl->show($feeds);
+        }
     }
 
     /**
@@ -923,5 +934,18 @@ class Action extends HTMLOutputter // lawsuit
             $this->elementEnd('dl');
             $this->elementEnd('div');
         }
+    }
+
+    /**
+     * An array of feeds for this action.
+     *
+     * Returns an array of potential feeds for this action.
+     *
+     * @return array Feed object to show in head and links
+     */
+
+    function getFeeds()
+    {
+        return null;
     }
 }

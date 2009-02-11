@@ -57,11 +57,11 @@ class NoticesearchAction extends SearchAction
 
         return true;
     }
-    
+
     /**
      * Get instructions
-     * 
-     * @return string instruction text 
+     *
+     * @return string instruction text
      */
     function getInstructions()
     {
@@ -70,7 +70,7 @@ class NoticesearchAction extends SearchAction
 
     /**
      * Get title
-     * 
+     *
      * @return string title
      */
     function title()
@@ -78,61 +78,19 @@ class NoticesearchAction extends SearchAction
         return _('Text search');
     }
 
-
-    function showExportData()
+    function getFeeds()
     {
         $q = $this->trimmed('q');
+
         if (!$q) {
-            return;
-        }
-        $fl = new FeedList($this);
-        $fl->show(array(0 => array('href' => common_local_url('noticesearchrss', array('q' => $q)),
-                                   'type' => 'rss',
-                                   'version' => 'RSS 1.0',
-                                   'item' => 'noticesearchrss')));
-    }
-
-
-
-    function showFeeds()
-    {  
-        $q = $this->trimmed('q');
-        if (!$q) {
-            return;
+            return null;
         }
 
-       $this->element('link', array('rel' => 'alternate',
-                                         'href' => common_local_url('noticesearchrss',
-                                                                    array('q' => $q)),
-                                         'type' => 'application/rss+xml',
-                                         'title' => _('Search Stream Feed')));
+        return array(new Feed(Feed::RSS1, common_local_url('noticesearchrss',
+                                                           array('q' => $q)),
+                              sprintf(_('Search results for "%s" on %s'),
+                                      $q, common_config('site', 'name'))));
     }
-
-
-    /**
-     * Show header
-     *
-     * @param array $arr array containing the query
-     *
-     * @return void
-     */
-
-    function extraHead2()
-    {
-        $q = $this->trimmed('q');
-        if ($q) {
-            $this->element('link', array('rel' => 'alternate',
-                                         'href' => common_local_url('noticesearchrss',
-                                                                    array('q' => $q)),
-                                         'type' => 'application/rss+xml',
-                                         'title' => _('Search Stream Feed')));
-        }
-    }
-
-
-
-
-
 
     /**
      * Show results

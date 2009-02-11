@@ -84,7 +84,7 @@ class RepliesAction extends Action
         $this->page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 
         common_set_returnto($this->selfUrl());
-        
+
         return true;
     }
 
@@ -129,16 +129,13 @@ class RepliesAction extends Action
      * @return void
      */
 
-    function showFeeds()
+    function getFeeds()
     {
         $rssurl   = common_local_url('repliesrss',
                                      array('nickname' => $this->user->nickname));
         $rsstitle = sprintf(_('Feed for replies to %s'), $this->user->nickname);
 
-        $this->element('link', array('rel' => 'alternate',
-                                     'href' => $rssurl,
-                                     'type' => 'application/rss+xml',
-                                     'title' => $rsstitle));
+        return array(new Feed(Feed::RSS1, $rssurl, $rsstitle));
     }
 
     /**
@@ -151,25 +148,6 @@ class RepliesAction extends Action
     {
         $nav = new PersonalGroupNav($this);
         $nav->show();
-    }
-
-    /**
-     * Show the replies feed links
-     *
-     * @return void
-     */
-
-    function showExportData()
-    {
-        $fl = new FeedList($this);
-
-        $rssurl = common_local_url('repliesrss',
-                                   array('nickname' => $this->user->nickname));
-
-        $fl->show(array(0=>array('href'=> $rssurl,
-                                 'type' => 'rss',
-                                 'version' => 'RSS 1.0',
-                                 'item' => 'repliesrss')));
     }
 
     /**
