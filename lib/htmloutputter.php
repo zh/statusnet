@@ -101,9 +101,8 @@ class HTMLOutputter extends XMLOutputter
             $type = common_negotiate_type($cp, $sp);
 
             if (!$type) {
-                common_user_error(_('This page is not available in a '.
-                                    'media type you accept'), 406);
-                exit(0);
+                throw new ClientException(_('This page is not available in a '.
+                                            'media type you accept'), 406);
             }
         }
 
