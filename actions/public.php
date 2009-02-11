@@ -73,9 +73,9 @@ class PublicAction extends Action
     {
         parent::prepare($args);
         $this->page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
-        
+
         common_set_returnto($this->selfUrl());
-        
+
         return true;
     }
 
@@ -123,8 +123,20 @@ class PublicAction extends Action
     {
         $this->element('link', array('rel' => 'alternate',
                                      'href' => common_local_url('publicrss'),
+                                     'type' => 'application/rdf+xml',
+                                     'title' => _('Public Stream Feed (RSS 1.0)')));
+        $this->element('link', array('rel' => 'alternate',
+                                     'href' => common_local_url('api',
+                                                                array('apiaction' => 'statuses',
+                                                                      'method' => 'public_timeline.rss')),
                                      'type' => 'application/rss+xml',
-                                     'title' => _('Public Stream Feed')));
+                                     'title' => _('Public Stream Feed (RSS 2.0)')));
+        $this->element('link', array('rel' => 'alternate',
+                                     'href' => common_local_url('api',
+                                                                array('apiaction' => 'statuses',
+                                                                      'method' => 'public_timeline.atom')),
+                                     'type' => 'application/atom+xml',
+                                     'title' => _('Public Stream Feed (Atom)')));
     }
 
     /**
@@ -200,7 +212,9 @@ class PublicAction extends Action
                                    'type' => 'rss',
                                    'version' => 'RSS 1.0',
                                    'item' => 'publicrss'),
-                        1 => array('href' => common_local_url('publicatom'),
+                        1 => array('href' => common_local_url('api',
+                                                              array('apiaction' => 'statuses',
+                                                                    'method' => 'public_timeline.atom')),
                                    'type' => 'atom',
                                    'version' => 'Atom 1.0',
                                    'item' => 'publicatom')));
