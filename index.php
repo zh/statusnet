@@ -38,6 +38,10 @@ function getPath($req)
 
 function handleError($error)
 {
+    if ($error->getCode() == DB_DATAOBJECT_ERROR_NODATA) {
+        return;
+    }
+
     common_log(LOG_ERR, "PEAR error: " . $error->getMessage());
     $msg = sprintf(_('The database for %s isn\'t responding correctly, '.
                      'so the site won\'t work properly. '.
