@@ -101,27 +101,30 @@ class HTMLOutputter extends XMLOutputter
             $type = common_negotiate_type($cp, $sp);
 
             if (!$type) {
-                common_user_error(_('This page is not available in a '.
-                                    'media type you accept'), 406);
-                exit(0);
+                throw new ClientException(_('This page is not available in a '.
+                                            'media type you accept'), 406);
             }
         }
 
         header('Content-Type: '.$type);
-        
+
         $this->extraHeaders();
 
         $this->startXML('html',
                         '-//W3C//DTD XHTML 1.0 Strict//EN',
                         'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd');
 
-        // FIXME: correct language for interface
-
-        $language = common_language();
+        $language = $this->getLanguage();
 
         $this->elementStart('html', array('xmlns' => 'http://www.w3.org/1999/xhtml',
                                           'xml:lang' => $language,
                                           'lang' => $language));
+    }
+
+    function getLanguage()
+    {
+        // FIXME: correct language for interface
+        return common_language();
     }
 
     /**
@@ -134,7 +137,7 @@ class HTMLOutputter extends XMLOutputter
         $this->elementEnd('html');
         $this->endXML();
     }
-    
+
     /**
     *  To specify additional HTTP headers for the action
     *

@@ -82,6 +82,11 @@ class Action extends HTMLOutputter // lawsuit
      */
     function prepare($argarray)
     {
+     
+        // For PEAR_Errors comming from DB_DataObject
+        PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, 
+               array($this, "handleError"));
+        
         $this->args =& common_copy_args($argarray);
         return true;
     }
@@ -844,6 +849,32 @@ class Action extends HTMLOutputter // lawsuit
         throw new ClientException($msg, $code);
     }
 
+    /**
+     * Handle old fashioned PEAR_Error msgs coming from DB_DataObject
+     *
+     * Logs the DB_DataObject error. Override to do something else.
+     * 
+     * @param PEAR_Error 
+     *
+     * @return nothing
+     */
+     
+    function handleError($error) {
+                        
+        common_log(LOG_ERR, "PEAR error: " . $error->getMessage());
+         $msg = sprintf(_('The database for %s isn\'t responding correctly, '.
+                          'so the site won\'t work properly. '.
+                          'The site admins probably know about the problem, '.
+                          'but you can contact them at %s to make sure. '.
+                          'Otherwise, wait a few minutes and try again.'),
+                        common_config('site', 'name'),
+                        common_config('site', 'email'));
+
+         $dac = new DBErrorAction($msg, 500);
+         $dac->showPage();
+         exit(-1);            
+    }
+    
     /**
      * Returns the current URL
      *
