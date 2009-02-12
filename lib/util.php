@@ -475,13 +475,14 @@ function common_linkify($url) {
     $display = $url;
     $url = (!preg_match('#^([a-z]+://|(mailto|aim|tel):)#i', $url)) ? 'http://'.$url:$url;
 
+    $attrs = array('href' => $url, 'rel' => 'external');
+
     if ($longurl = common_longurl($url)) {
         $longurl = htmlentities($longurl, ENT_QUOTES, 'UTF-8');
-        $title = "title=\"$longurl\"";
+        $attrs['title'] = $longurl;
     }
-    else $title = '';
 
-    return "<a href=\"$url\" $title rel=\"external\">$display</a>";
+    return XMLStringer::estring('a', $attrs, $display);
 }
 
 function common_longurl($short_url)
@@ -582,7 +583,13 @@ function common_tag_link($tag)
 {
     $canonical = common_canonical_tag($tag);
     $url = common_local_url('tag', array('tag' => $canonical));
-    return '<span class="tag"><a href="' . htmlspecialchars($url) . '" rel="tag">' . htmlspecialchars($tag) . '</a></span>';
+    $xs = new XMLStringer();
+    $xs->elementStart('span', 'tag');
+    $xs->element('a', array('href' => $url,
+                            'rel' => 'tag'),
+                 $tag);
+    $xs->elementEnd();
+    return $xs->getString();
 }
 
 function common_canonical_tag($tag)
@@ -600,7 +607,14 @@ function common_at_link($sender_id, $nickname)
     $sender = Profile::staticGet($sender_id);
     $recipient = common_relative_profile($sender, common_canonical_nickname($nickname));
     if ($recipient) {
-        return '<span class="vcard"><a href="'.htmlspecialchars($recipient->profileurl).'" class="url"><span class="fn nickname">'.$nickname.'</span></a></span>';
+        $xs = new XMLStringer(false);
+        $xs->elementStart('span', 'vcard');
+        $xs->elementStart('a', array('href' => $recipient->profileurl,
+                                     'class' => 'url'));
+        $xs->element('span', 'fn nickname', $nickname);
+        $xs->elementEnd('a');
+        $xs->elementEnd('span');
+        return $xs->getString();
     } else {
         return $nickname;
     }
@@ -611,7 +625,14 @@ function common_group_link($sender_id, $nickname)
     $sender = Profile::staticGet($sender_id);
     $group = User_group::staticGet('nickname', common_canonical_nickname($nickname));
     if ($group && $sender->isMember($group)) {
-        return '<span class="vcard"><a href="'.htmlspecialchars($group->permalink()).'" class="url"><span class="fn nickname">'.$nickname.'</span></a></span>';
+        $xs = new XMLStringer();
+        $xs->elementStart('span', 'vcard');
+        $xs->elementStart('a', array('href' => $group->permalink(),
+                                     'class' => 'url'));
+        $xs->element('span', 'fn nickname', $nickname);
+        $xs->elementEnd('a');
+        $xs->elementEnd('span');
+        return $xs->getString();
     } else {
         return $nickname;
     }
@@ -628,7 +649,13 @@ function common_at_hash_link($sender_id, $tag)
         $url = common_local_url('subscriptions',
                                 array('nickname' => $user->nickname,
                                       'tag' => $tag));
-        return '<span class="tag"><a href="'.htmlspecialchars($url).'" rel="tag">'.$tag.'</a></span>';
+        $xs = new XMLStringer();
+        $xs->elementStart('span', 'tag');
+        $xs->element('a', array('href' => $url,
+                                'rel' => $tag),
+                     $tag);
+        $xs->elementEnd('span');
+        return $xs->getString();
     } else {
         return $tag;
     }
