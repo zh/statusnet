@@ -796,92 +796,12 @@ function common_redirect($url, $code=307)
 
 function common_broadcast_notice($notice, $remote=false)
 {
-
-    // Check to see if notice should go to Twitter
-    $flink = Foreign_link::getByUserID($notice->profile_id, 1); // 1 == Twitter
-    if (($flink->noticesync & FOREIGN_NOTICE_SEND) == FOREIGN_NOTICE_SEND) {
-
-        // If it's not a Twitter-style reply, or if the user WANTS to send replies...
-
-        if (!preg_match('/^@[a-zA-Z0-9_]{1,15}\b/u', $notice->content) ||
-            (($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) == FOREIGN_NOTICE_SEND_REPLY)) {
-
-            $result = common_twitter_broadcast($notice, $flink);
-
-            if (!$result) {
-                common_debug('Unable to send notice: ' . $notice->id . ' to Twitter.', __FILE__);
-            }
-        }
-    }
-
     if (common_config('queue', 'enabled')) {
         // Do it later!
         return common_enqueue_notice($notice);
     } else {
         return common_real_broadcast($notice, $remote);
     }
-}
-
-function common_twitter_broadcast($notice, $flink)
-{
-    global $config;
-    $success = true;
-    $fuser = $flink->getForeignUser();
-    $twitter_user = $fuser->nickname;
-    $twitter_password = $flink->credentials;
-    $uri = 'http://www.twitter.com/statuses/update.json';
-
-    // XXX: Hack to get around PHP cURL's use of @ being a a meta character
-    $statustxt = preg_replace('/^@/', ' @', $notice->content);
-
-    $options = array(
-                     CURLOPT_USERPWD         => "$twitter_user:$twitter_password",
-                     CURLOPT_POST            => true,
-                     CURLOPT_POSTFIELDS        => array(
-                                                        'status'    => $statustxt,
-                                                        'source'    => $config['integration']['source']
-                                                        ),
-                     CURLOPT_RETURNTRANSFER    => true,
-                     CURLOPT_FAILONERROR        => true,
-                     CURLOPT_HEADER            => false,
-                     CURLOPT_FOLLOWLOCATION    => true,
-                     CURLOPT_USERAGENT        => "Laconica",
-                     CURLOPT_CONNECTTIMEOUT    => 120,  // XXX: Scary!!!! How long should this be?
-                     CURLOPT_TIMEOUT            => 120,
-
-                     # Twitter is strict about accepting invalid "Expect" headers
-                     CURLOPT_HTTPHEADER => array('Expect:')
-                     );
-
-    $ch = curl_init($uri);
-    curl_setopt_array($ch, $options);
-    $data = curl_exec($ch);
-    $errmsg = curl_error($ch);
-
-    if ($errmsg) {
-        common_debug("cURL error: $errmsg - trying to send notice for $twitter_user.",
-                     __FILE__);
-        $success = false;
-    }
-
-    curl_close($ch);
-
-    if (!$data) {
-        common_debug("No data returned by Twitter's API trying to send update for $twitter_user",
-                     __FILE__);
-        $success = false;
-    }
-
-    // Twitter should return a status
-    $status = json_decode($data);
-
-    if (!$status->id) {
-        common_debug("Unexpected data returned by Twitter API trying to send update for $twitter_user",
-                     __FILE__);
-        $success = false;
-    }
-
-    return $success;
 }
 
 // Stick the notice on the queue
@@ -935,6 +855,13 @@ function common_real_broadcast($notice, $remote=false)
             common_log(LOG_ERR, 'Error in public broadcast for notice ' . $notice->id);
         }
     }
+    if ($success) {
+        $success = broadcast_twitter($notice);
+        if (!$success) {
+            common_log(LOG_ERR, 'Error in Twitter broadcast for notice ' . $notice->id);
+        }
+    }
+    
     // XXX: broadcast notices to other IM
     return $success;
 }
