@@ -489,7 +489,7 @@ class EmailsettingsAction extends AccountSettingsAction
     }
     
     /**
-     * Handle old fashioned PEAR_Error msgs coming from DB_DataObject
+     * Check old fashioned PEAR_Error msgs coming from DB_DataObject
      *
      * In this case email don't exist in the DB yet, so DB_DataObject
      * throws an error. Overrided from Action.
@@ -499,13 +499,13 @@ class EmailsettingsAction extends AccountSettingsAction
      * @return nothing
      */
      
-    function handleError($error) {
+    function checkDB_DataObjectError($error) {
         if ($error->getCode() == DB_DATAOBJECT_ERROR_NODATA) {
            
            // Do nothing.
                       
         } else {
-            parent::handleError($error);
+            parent::checkDB_DataObjectError($error);
         }
     }
     

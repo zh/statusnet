@@ -82,10 +82,16 @@ class Action extends HTMLOutputter // lawsuit
      */
     function prepare($argarray)
     {
-     
-        // For PEAR_Errors comming from DB_DataObject
+        // This is for checking PEAR_Errors raised by DB_DataObject.
+        // Setting this to PEAR_ERROR_CALLBACK because setting
+        // to PEAR_ERROR_EXCEPTION does't work to allow PEAR_Errors
+        // to be handled as PHP5 exceptions, and PEAR_ERROR_RETURN
+        // does not cause DB_DataObject to actually return PEAR_Errors
+        // that can be checked with PEAR::isError() -- instead
+        // they just disappear into the ether, and can only be checked for
+        // after the fact. -- Zach    
         PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, 
-               array($this, "handleError"));
+               array($this, "checkDB_DataObjectError"));
         
         $this->args =& common_copy_args($argarray);
         return true;
@@ -850,7 +856,7 @@ class Action extends HTMLOutputter // lawsuit
     }
 
     /**
-     * Handle old fashioned PEAR_Error msgs coming from DB_DataObject
+     * Check old fashioned PEAR_Error msgs coming from DB_DataObject
      *
      * Logs the DB_DataObject error. Override to do something else.
      * 
@@ -859,20 +865,9 @@ class Action extends HTMLOutputter // lawsuit
      * @return nothing
      */
      
-    function handleError($error) {
-                        
-        common_log(LOG_ERR, "PEAR error: " . $error->getMessage());
-         $msg = sprintf(_('The database for %s isn\'t responding correctly, '.
-                          'so the site won\'t work properly. '.
-                          'The site admins probably know about the problem, '.
-                          'but you can contact them at %s to make sure. '.
-                          'Otherwise, wait a few minutes and try again.'),
-                        common_config('site', 'name'),
-                        common_config('site', 'email'));
-
-         $dac = new DBErrorAction($msg, 500);
-         $dac->showPage();
-         exit(-1);            
+    function checkDB_DataObjectError($error) {
+        common_log(LOG_ERR, $error->getMessage());
+            // XXX: throw an exception here? --Zach
     }
     
     /**
