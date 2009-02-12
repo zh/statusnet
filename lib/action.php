@@ -275,9 +275,15 @@ class Action extends HTMLOutputter // lawsuit
     {
         $this->elementStart('body', array('id' => $this->trimmed('action')));
         $this->elementStart('div', array('id' => 'wrap'));
-        $this->showHeader();
+        if (Event::handle('StartShowHeader', array($this))) {
+            $this->showHeader();
+            Event::handle('EndShowHeader', array($this));
+        }
         $this->showCore();
-        $this->showFooter();
+        if (Event::handle('StartShowFooter', array($this))) {
+            $this->showFooter();
+            Event::handle('EndShowFooter', array($this));
+        }
         $this->elementEnd('div');
         $this->elementEnd('body');
     }
@@ -432,7 +438,10 @@ class Action extends HTMLOutputter // lawsuit
     {
         $this->elementStart('div', array('id' => 'core'));
         $this->showLocalNavBlock();
-        $this->showContentBlock();
+        if (Event::handle('StartShowContentBlock', array($this))) {
+            $this->showContentBlock();
+            Event::handle('EndShowContentBlock', array($this));
+        }
         $this->showAside();
         $this->elementEnd('div');
     }
