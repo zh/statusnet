@@ -19,11 +19,10 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-require_once(INSTALLDIR.'/classes/Command.php');
+require_once INSTALLDIR.'/lib/command.php';
 
 class CommandInterpreter
 {
-
     function handle_command($user, $text)
     {
         # XXX: localise
