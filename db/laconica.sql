@@ -31,7 +31,7 @@ create table avatar (
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table sms_carrier (
-    id integer auto_increment primary key comment 'primary key for SMS carrier',
+    id integer primary key comment 'primary key for SMS carrier',
     name varchar(64) unique key comment 'name of the carrier',
     email_pattern varchar(255) not null comment 'sprintf pattern for making an email address from a phone number',
     created datetime not null comment 'date this record was created',
