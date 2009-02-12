@@ -472,13 +472,15 @@ function common_replace_urls_callback($text, $callback) {
 }
 
 function common_linkify($url) {
+    // It comes in special'd, so we unspecial it before passing to the stringifying
+    // functions
+    $url = htmlspecialchars_decode($url);
     $display = $url;
-    $url = (!preg_match('#^([a-z]+://|(mailto|aim|tel):)#i', $url)) ? 'http://'.$url:$url;
+    $url = (!preg_match('#^([a-z]+://|(mailto|aim|tel):)#i', $url)) ? 'http://'.$url : $url;
 
     $attrs = array('href' => $url, 'rel' => 'external');
 
     if ($longurl = common_longurl($url)) {
-        $longurl = htmlentities($longurl, ENT_QUOTES, 'UTF-8');
         $attrs['title'] = $longurl;
     }
 
