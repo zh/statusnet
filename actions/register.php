@@ -229,7 +229,7 @@ class RegisterAction extends Action
     }
         
     /**
-     * Check old fashioned PEAR_Error msgs coming from DB_DataObject
+     * Handle old fashioned PEAR_Error msgs coming from DB_DataObject
      *
      * In this case nickname and email don't exist in the DB yet,
      * so DB_DataObject throws an error. Overrided from Action.
@@ -239,13 +239,13 @@ class RegisterAction extends Action
      * @return nothing
      */
      
-    function checkDB_DataObjectError($error) {
+    function handleError($error) {
         if ($error->getCode() == DB_DATAOBJECT_ERROR_NODATA) {
            
            // Do nothing.
                       
         } else {
-            parent::checkDB_DataObjectError($error);
+            parent::handleError($error);
         }
     }
 
