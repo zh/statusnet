@@ -82,17 +82,6 @@ class Action extends HTMLOutputter // lawsuit
      */
     function prepare($argarray)
     {
-        // This is for checking PEAR_Errors raised by DB_DataObject.
-        // Setting this to PEAR_ERROR_CALLBACK because setting
-        // to PEAR_ERROR_EXCEPTION does't work to allow PEAR_Errors
-        // to be handled as PHP5 exceptions, and PEAR_ERROR_RETURN
-        // does not cause DB_DataObject to actually return PEAR_Errors
-        // that can be checked with PEAR::isError() -- instead
-        // they just disappear into the ether, and can only be checked for
-        // after the fact. -- Zach    
-        PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, 
-               array($this, "checkDB_DataObjectError"));
-        
         $this->args =& common_copy_args($argarray);
         return true;
     }
@@ -855,21 +844,6 @@ class Action extends HTMLOutputter // lawsuit
         throw new ClientException($msg, $code);
     }
 
-    /**
-     * Check old fashioned PEAR_Error msgs coming from DB_DataObject
-     *
-     * Logs the DB_DataObject error. Override to do something else.
-     * 
-     * @param PEAR_Error 
-     *
-     * @return nothing
-     */
-     
-    function checkDB_DataObjectError($error) {
-        common_log(LOG_ERR, $error->getMessage());
-            // XXX: throw an exception here? --Zach
-    }
-    
     /**
      * Returns the current URL
      *

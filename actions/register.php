@@ -223,30 +223,9 @@ class RegisterAction extends Action
      */
 
     function nicknameExists($nickname)
-    {        
+    {
         $user = User::staticGet('nickname', $nickname);
         return ($user !== false);
-    }
-        
-    /**
-     * Check old fashioned PEAR_Error msgs coming from DB_DataObject
-     *
-     * In this case nickname and email don't exist in the DB yet,
-     * so DB_DataObject throws an error. Overrided from Action.
-     *
-     * @param PEAR_Error 
-     *
-     * @return nothing
-     */
-     
-    function checkDB_DataObjectError($error) {
-        if ($error->getCode() == DB_DATAOBJECT_ERROR_NODATA) {
-           
-           // Do nothing.
-                      
-        } else {
-            parent::checkDB_DataObjectError($error);
-        }
     }
 
     /**
