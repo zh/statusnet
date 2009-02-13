@@ -154,32 +154,37 @@ class Notice extends Memcached_DataObject
         $notice->source = $source;
         $notice->uri = $uri;
 
-        $id = $notice->insert();
+        if (Event::handle('StartNoticeSave', array(&$notice))) {
 
-        if (!$id) {
-            common_log_db_error($notice, 'INSERT', __FILE__);
-            return _('Problem saving notice.');
-        }
+            $id = $notice->insert();
 
-        # Update the URI after the notice is in the database
-        if (!$uri) {
-            $orig = clone($notice);
-            $notice->uri = common_notice_uri($notice);
-
-            if (!$notice->update($orig)) {
-                common_log_db_error($notice, 'UPDATE', __FILE__);
+            if (!$id) {
+                common_log_db_error($notice, 'INSERT', __FILE__);
                 return _('Problem saving notice.');
             }
+
+            # Update the URI after the notice is in the database
+            if (!$uri) {
+                $orig = clone($notice);
+                $notice->uri = common_notice_uri($notice);
+
+                if (!$notice->update($orig)) {
+                    common_log_db_error($notice, 'UPDATE', __FILE__);
+                    return _('Problem saving notice.');
+                }
+            }
+
+            # XXX: do we need to change this for remote users?
+
+            $notice->saveReplies();
+            $notice->saveTags();
+            $notice->saveGroups();
+
+            $notice->addToInboxes();
+            $notice->query('COMMIT');
+
+            Event::handle('EndNoticeSave', array($notice));
         }
-
-        # XXX: do we need to change this for remote users?
-
-        $notice->saveReplies();
-        $notice->saveTags();
-        $notice->saveGroups();
-
-        $notice->addToInboxes();
-		$notice->query('COMMIT');
 
         # Clear the cache for subscribed users, so they'll update at next request
         # XXX: someone clever could prepend instead of clearing the cache

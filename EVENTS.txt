@@ -30,7 +30,7 @@ EndShowLaconicaStyles: End showing Laconica Style links;  good place to add hand
 StartShowUAStyles: Showing custom UA Style links
 - $action: the current action
 
-EndShowUAStyles: End showing custom UA Style links; good place to add user-agent (e.g., filter, -webkit, -moz) specific styles 
+EndShowUAStyles: End showing custom UA Style links; good place to add user-agent (e.g., filter, -webkit, -moz) specific styles
 - $action: the current action
 
 StartShowScripts: Showing JavaScript links
@@ -75,4 +75,10 @@ StartShowContentBlock: Showing before the content container
 
 EndShowContentBlock: Showing after the content container
 - $action: the current action
+
+StartNoticeSave: before inserting a notice (good place for content filters)
+- $notice: notice being saved (no ID or URI)
+
+EndNoticeSave: after inserting a notice and related code
+- $notice: notice that was saved (with ID and URI)
 
