@@ -151,25 +151,34 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showStylesheets()
     {
-        $this->element('link', array('rel' => 'stylesheet',
-                                     'type' => 'text/css',
-                                     'href' => theme_path('css/display.css', 'base') . '?version=' . LACONICA_VERSION,
-                                     'media' => 'screen, projection, tv'));
-        $this->element('link', array('rel' => 'stylesheet',
-                                     'type' => 'text/css',
-                                     'href' => theme_path('css/display.css', null) . '?version=' . LACONICA_VERSION,
-                                     'media' => 'screen, projection, tv'));
-        $this->comment('[if IE]><link rel="stylesheet" type="text/css" '.
-                       'href="'.theme_path('css/ie.css', 'base').'?version='.LACONICA_VERSION.'" /><![endif]');
-        foreach (array(6,7) as $ver) {
-            if (file_exists(theme_file('css/ie'.$ver.'.css', 'base'))) {
-                // Yes, IE people should be put in jail.
-                $this->comment('[if lte IE '.$ver.']><link rel="stylesheet" type="text/css" '.
-                               'href="'.theme_path('css/ie'.$ver.'.css', 'base').'?version='.LACONICA_VERSION.'" /><![endif]');
+        if (Event::handle('StartShowStyles', array($this))) {
+            if (Event::handle('StartShowLaconicaStyles', array($this))) {
+                $this->element('link', array('rel' => 'stylesheet',
+                                             'type' => 'text/css',
+                                             'href' => theme_path('css/display.css', 'base') . '?version=' . LACONICA_VERSION,
+                                             'media' => 'screen, projection, tv'));
+                $this->element('link', array('rel' => 'stylesheet',
+                                             'type' => 'text/css',
+                                             'href' => theme_path('css/display.css', null) . '?version=' . LACONICA_VERSION,
+                                             'media' => 'screen, projection, tv'));
+                Event::handle('EndShowLaconicaStyles', array($this));
             }
+            if (Event::handle('StartShowUAStyles', array($this))) {
+                $this->comment('[if IE]><link rel="stylesheet" type="text/css" '.
+                               'href="'.theme_path('css/ie.css', 'base').'?version='.LACONICA_VERSION.'" /><![endif]');
+                foreach (array(6,7) as $ver) {
+                    if (file_exists(theme_file('css/ie'.$ver.'.css', 'base'))) {
+                        // Yes, IE people should be put in jail.
+                        $this->comment('[if lte IE '.$ver.']><link rel="stylesheet" type="text/css" '.
+                                       'href="'.theme_path('css/ie'.$ver.'.css', 'base').'?version='.LACONICA_VERSION.'" /><![endif]');
+                    }
+                }
+                $this->comment('[if IE]><link rel="stylesheet" type="text/css" '.
+                               'href="'.theme_path('css/ie.css', null).'?version='.LACONICA_VERSION.'" /><![endif]');
+                Event::handle('EndShowUAStyles', array($this));
+            }
+            Event::handle('EndShowStyles', array($this));
         }
-        $this->comment('[if IE]><link rel="stylesheet" type="text/css" '.
-                       'href="'.theme_path('css/ie.css', null).'?version='.LACONICA_VERSION.'" /><![endif]');
     }
 
     /**

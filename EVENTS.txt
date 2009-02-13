@@ -15,6 +15,24 @@ StartSecondaryNav: Showing the secondary nav menu
 EndSecondaryNav: At the end of the secondary nav menu
 - $action: the current action
 
+StartShowStyles: Showing Style links; good place to add UA style resets
+- $action: the current action
+
+EndShowStyles: End showing Style links; good place to add custom styles
+- $action: the current action
+
+StartShowLaconicaStyles: Showing Laconica Style links
+- $action: the current action
+
+EndShowLaconicaStyles: End showing Laconica Style links;  good place to add handheld or JavaScript dependant styles
+- $action: the current action
+
+StartShowUAStyles: Showing custom UA Style links
+- $action: the current action
+
+EndShowUAStyles: End showing custom UA Style links; good place to add user-agent (e.g., filter, -webkit, -moz) specific styles 
+- $action: the current action
+
 StartShowScripts: Showing JavaScript links
 - $action: the current action
 
