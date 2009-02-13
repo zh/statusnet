@@ -837,7 +837,7 @@ function common_broadcast_notice($notice, $remote=false)
 
 function common_enqueue_notice($notice)
 {
-    foreach (array('jabber', 'omb', 'sms', 'public', 'twitter') as $transport) {
+    foreach (array('jabber', 'omb', 'sms', 'public', 'twitter', 'facebook') as $transport) {
         $qi = new Queue_item();
         $qi->notice_id = $notice->id;
         $qi->transport = $transport;
@@ -891,6 +891,8 @@ function common_real_broadcast($notice, $remote=false)
         }
     }
     
+    // XXX: Do a real-time FB broadcast here? 
+        
     // XXX: broadcast notices to other IM
     return $success;
 }
