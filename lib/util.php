@@ -701,12 +701,8 @@ function common_relative_profile($sender, $nickname, $dt=null)
 
 function common_local_url($action, $args=null, $fragment=null)
 {
-    common_debug("Action = $action, args = " . (($args) ? '(' . implode($args, ',') . ')' : $args) . ", fragment = $fragment");
     $r = Router::get();
-    $start = microtime();
     $path = $r->build($action, $args, $fragment);
-    $end = microtime();
-    common_debug("Pathbuilding took " . ($end - $start));
     if ($path) {
     }
     if (common_config('site','fancy')) {
@@ -890,9 +886,9 @@ function common_real_broadcast($notice, $remote=false)
             common_log(LOG_ERR, 'Error in Twitter broadcast for notice ' . $notice->id);
         }
     }
-    
-    // XXX: Do a real-time FB broadcast here? 
-        
+
+    // XXX: Do a real-time FB broadcast here?
+
     // XXX: broadcast notices to other IM
     return $success;
 }
