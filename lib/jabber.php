@@ -114,7 +114,7 @@ function jabber_connect($resource=null)
         try {
             $conn->connect(true); // true = persistent connection
         } catch (XMPPHP_Exception $e) {
-            common_log(LOG_ERROR, $e->getMessage());
+            common_log(LOG_ERR, $e->getMessage());
             return false;
         }
 

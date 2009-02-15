@@ -25,21 +25,6 @@ define("FACEBOOK_SERVICE", 2); // Facebook is foreign_service ID 2
 define("FACEBOOK_NOTICE_PREFIX", 1);
 define("FACEBOOK_PROMPTED_UPDATE_PREF", 2);
 
-// Gets all the notices from users with a Facebook link since a given ID
-function getFacebookNotices($since)
-{
-    $qry = 'SELECT notice.* ' .
-        'FROM notice ' .
-        'JOIN foreign_link ' .
-        'WHERE notice.profile_id = foreign_link.user_id ' .
-        'AND foreign_link.service = 2';
-
-    // XXX: What should the limit be?
-    //static function getStreamDirect($qry, $offset, $limit, $since_id, $before_id, $order, $since) {
-
-    return Notice::getStreamDirect($qry, 0, 1000, 0, 0, null, $since);
-}
-
 function getFacebook()
 {
     $apikey = common_config('facebook', 'apikey');
@@ -97,7 +82,7 @@ function isFacebookBound($notice, $flink) {
             }
 
         } catch(FacebookRestClientException $e){
-            common_log(LOG_ERROR, $e->getMessage());
+            common_log(LOG_ERR, $e->getMessage());
             $success = false;
         }
 
@@ -126,7 +111,7 @@ function facebookBroadcastNotice($notice)
             $status = "$prefix $notice->content";
 
         } catch(FacebookRestClientException $e) {
-            common_log(LOG_ERROR, $e->getMessage());
+            common_log(LOG_ERR, $e->getMessage());
             return false;
         }
 
@@ -136,7 +121,7 @@ function facebookBroadcastNotice($notice)
             $facebook->api_client->users_setStatus($status, $fbuid, false, true);
             updateProfileBox($facebook, $flink, $notice);
         } catch(FacebookRestClientException $e) {
-            common_log(LOG_ERROR, $e->getMessage());
+            common_log(LOG_ERR, $e->getMessage());
             return false;
 
              // Should we remove flink if this fails?
