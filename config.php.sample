@@ -107,6 +107,14 @@ $config['sphinx']['port'] = 3312;
 #$config['public']['blacklist'][] = 123;
 #$config['public']['blacklist'][] = 2307;
 
+#Mark certain notice sources as automatic and thus not
+#appropriate for public feed
+#$config['public]['autosource'][] = 'twitterfeed';
+#$config['public]['autosource'][] = 'rssdent';
+#$config['public]['autosource'][] = 'Ping.Fm';
+#$config['public]['autosource'][] = 'HelloTxt';
+#$config['public]['autosource'][] = 'Updating.Me';
+
 #Do notice broadcasts offline
 #If you use this, you must run the six offline daemons in the
 #background. See the README for details.
