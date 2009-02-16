@@ -80,4 +80,9 @@ class PopularNoticeSection extends NoticeSection
     {
         return 'popular_notices';
     }
+
+    function moreUrl()
+    {
+        return common_local_url('favorited');
+    }
 }
