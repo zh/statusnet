@@ -94,21 +94,26 @@ class Notice extends Memcached_DataObject
         /* Add them to the database */
         foreach(array_unique($match[1]) as $hashtag) {
             /* elide characters we don't want in the tag */
-            $hashtag = common_canonical_tag($hashtag);
-
-            $tag = DB_DataObject::factory('Notice_tag');
-            $tag->notice_id = $this->id;
-            $tag->tag = $hashtag;
-            $tag->created = $this->created;
-            $id = $tag->insert();
-            if (!$id) {
-                $last_error = PEAR::getStaticProperty('DB_DataObject','lastError');
-                common_log(LOG_ERR, 'DB error inserting hashtag: ' . $last_error->message);
-                common_server_error(sprintf(_('DB error inserting hashtag: %s'), $last_error->message));
-                return;
-            }
+            $this->saveTag($hashtag);
         }
         return true;
+    }
+
+    function saveTag($hashtag)
+    {
+        $hashtag = common_canonical_tag($hashtag);
+
+        $tag = new Notice_tag();
+        $tag->notice_id = $this->id;
+        $tag->tag = $hashtag;
+        $tag->created = $this->created;
+        $id = $tag->insert();
+
+        if (!$id) {
+            throw new ServerException(sprintf(_('DB error inserting hashtag: %s'),
+                                              $last_error->message));
+            return;
+        }
     }
 
     static function saveNew($profile_id, $content, $source=null, $is_local=1, $reply_to=null, $uri=null) {
@@ -619,6 +624,15 @@ class Notice extends Memcached_DataObject
 
             if (!$group) {
                 continue;
+            }
+
+            // we automatically add a tag for every group name, too
+
+            $tag = Notice_tag::pkeyGet(array('tag' => common_canonical_tag($nickname),
+                                           'notice_id' => $this->id));
+
+            if (is_null($tag)) {
+                $this->saveTag($nickname);
             }
 
             if ($profile->isMember($group)) {
