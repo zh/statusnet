@@ -481,7 +481,7 @@ function common_linkify($url) {
     $url = (!preg_match('#^([a-z]+://|(mailto|aim|tel):)#i', $url)) ? 'http://'.$url : $url;
 
     $attrs = array('href' => $url, 'rel' => 'external');
-    
+
     if (in_array($ext, $video_ext)) {
         $attrs['class'] = 'media';
     }
@@ -596,7 +596,7 @@ function common_tag_link($tag)
     $xs->element('a', array('href' => $url,
                             'rel' => 'tag'),
                  $tag);
-    $xs->elementEnd();
+    $xs->elementEnd('span');
     return $xs->getString();
 }
 
