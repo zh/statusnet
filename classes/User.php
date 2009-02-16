@@ -40,6 +40,7 @@ class User extends Memcached_DataObject
     public $emailnotifyfav;                  // tinyint(1)   default_1
     public $emailnotifynudge;                // tinyint(1)   default_1
     public $emailnotifymsg;                  // tinyint(1)   default_1
+    public $emailnotifyattn;                 // tinyint(1)   default_1
     public $emailmicroid;                    // tinyint(1)   default_1
     public $language;                        // varchar(50)
     public $timezone;                        // varchar(50)
@@ -62,8 +63,10 @@ class User extends Memcached_DataObject
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
-    function staticGet($k,$v=null)
-    { return Memcached_DataObject::staticGet('User',$k,$v); }
+    function staticGet($k,$v=NULL)
+    {
+        return Memcached_DataObject::staticGet('User',$k,$v);
+    }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
