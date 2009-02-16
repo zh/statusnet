@@ -758,7 +758,7 @@ class Notice extends Memcached_DataObject
         foreach (array_keys($replied) as $recipient) {
             $user = User::staticGet('id', $recipient);
             if ($user) {
-                mail_attn_notify($user, $notice);
+                mail_notify_attn($user, $this);
             }
         }
     }
