@@ -34,22 +34,23 @@ class Notice extends Memcached_DataObject
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
 
-    public $__table = 'notice';                             // table name
-    public $id;                                 // int(4)    primary_key not_null
-    public $profile_id;                         // int(4)     not_null
+    public $__table = 'notice';                          // table name
+    public $id;                              // int(4)  primary_key not_null
+    public $profile_id;                      // int(4)   not_null
     public $uri;                             // varchar(255)  unique_key
     public $content;                         // varchar(140)
-    public $rendered;                         // text()
+    public $rendered;                        // text()
     public $url;                             // varchar(255)
-    public $created;                         // datetime()     not_null
-    public $modified;                         // timestamp()      not_null default_CURRENT_TIMESTAMP
-    public $reply_to;                         // int(4)
-    public $is_local;                         // tinyint(1)
-    public $source;                             // varchar(32)
+    public $created;                         // datetime()   not_null
+    public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
+    public $reply_to;                        // int(4)
+    public $is_local;                        // tinyint(1)
+    public $source;                          // varchar(32)
 
     /* Static get */
-    function staticGet($k,$v=null)
-    { return Memcached_DataObject::staticGet('Notice',$k,$v); }
+    function staticGet($k,$v=NULL) {
+        return Memcached_DataObject::staticGet('Notice',$k,$v);
+    }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
@@ -746,9 +747,18 @@ class Notice extends Memcached_DataObject
                         if (!$id) {
                             common_log_db_error($reply, 'INSERT', __FILE__);
                             return;
+                        } else {
+                            $replied[$recipient->id] = 1;
                         }
                     }
                 }
+            }
+        }
+
+        foreach (array_keys($replied) as $recipient) {
+            $user = User::staticGet('id', $recipient);
+            if ($user) {
+                mail_attn_notify($user, $notice);
             }
         }
     }
