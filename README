@@ -507,7 +507,7 @@ server is probably a good idea for high-volume sites.
    needs as a parameter the install path; if you run it from the
    Laconica dir, "." should suffice.
 
-This will run six (for now) queue handlers:
+This will run eight (for now) queue handlers:
 
 * xmppdaemon.php - listens for new XMPP messages from users and stores
   them as notices in the database.
@@ -521,6 +521,10 @@ This will run six (for now) queue handlers:
   of registered users.
 * xmppconfirmhandler.php - sends confirmation messages to registered
   users.
+* twitterqueuehandler.php - sends queued notices to Twitter for user
+  who have opted to set up Twitter bridging.
+* facebookqueuehandler.php - sends queued notices to Facebook for users
+  of the built-in Facebook application.
 
 Note that these queue daemons are pretty raw, and need your care. In
 particular, they leak memory, and you may want to restart them on a
@@ -552,6 +556,53 @@ Sample cron job:
 
 # Update Twitter friends subscriptions every half hour
 0,30 * * * * /path/to/php /path/to/laconica/scripts/synctwitterfriends.php>&/dev/null
+
+Built-in Facebook Application 
+-----------------------------
+
+Laconica's Facebook application allows your users to automatically
+update their Facebook statuses with their latest notices, invite
+their friends to use the app (and thus your site), view their notice
+timelines, and post notices -- all from within Facebook. The application
+is built into Laconica and runs on your host.  For automatic Facebook
+status updating to work you will need to enable queuing and run the
+facebookqueuehandler.php daemon (see the "Queues and daemons" section
+above).
+
+Quick setup instructions*:
+
+Install the Facebook Developer application on Facebook: 
+
+    http://www.facebook.com/developers/
+
+Use it to create a new application and generate an API key and secret.
+Uncomment the Facebook app section of your config.php and copy in the
+key and secret, e.g.:
+
+    # Config section for the built-in Facebook application
+    $config['facebook']['apikey'] = 'APIKEY';
+    $config['facebook']['secret'] = 'SECRET';
+
+In Facebook's application editor, specify the following URLs for your app:
+
+- Callback URL: http://example.net/mublog/facebook/
+- Post-Remove URL: http://example.net/mublog/facebook/remove
+- Post-Add Redirect URL: http://apps.facebook.com/yourapp/
+- Canvas URL: http://apps.facebook.com/yourapp/
+
+(Replace 'example.net' with your host's URL, 'mublog' with the path
+to your Laconica installation, and 'yourapp' with the name of the
+Facebook application you created.)
+
+Additionally, Choose "Web" for Application type in the Advanced tab.
+In the "Canvas setting" section, choose the "FBML" for Render Method,
+"Smart Size" for IFrame size, and "Full width (760px)" for Canvas Width.
+Everything else can be left with default values.
+
+*For more detailed instructions please see the installation guide on the
+Laconica wiki:
+
+    http://laconi.ca/trac/wiki/FacebookApplication
 
 Sitemaps
 --------
