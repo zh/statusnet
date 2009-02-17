@@ -158,8 +158,6 @@ class Action extends HTMLOutputter // lawsuit
                                              'type' => 'text/css',
                                              'href' => theme_path('css/display.css', 'base') . '?version=' . LACONICA_VERSION,
                                              'media' => 'screen, projection, tv'));
-
-
                 $this->element('link', array('rel' => 'stylesheet',
                                              'type' => 'text/css',
                                              'href' => theme_path('css/modal.css', 'base') . '?version=' . LACONICA_VERSION,
@@ -168,6 +166,13 @@ class Action extends HTMLOutputter // lawsuit
                                              'type' => 'text/css',
                                              'href' => theme_path('css/display.css', null) . '?version=' . LACONICA_VERSION,
                                              'media' => 'screen, projection, tv'));
+                if (common_config('site', 'mobile')) {
+                    $this->element('link', array('rel' => 'stylesheet',
+                                                 'type' => 'text/css',
+                                                 'href' => theme_path('css/mobile.css', 'base') . '?version=' . LACONICA_VERSION,
+                                                 // TODO: "handheld" CSS for other mobile devices
+                                                 'media' => 'only screen and (max-device-width: 480px)')); // Mobile WebKit
+                }
                 Event::handle('EndShowLaconicaStyles', array($this));
             }
             if (Event::handle('StartShowUAStyles', array($this))) {
