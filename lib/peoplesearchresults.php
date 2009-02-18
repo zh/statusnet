@@ -1,10 +1,10 @@
 <?php
 /**
- * People search action class.
+ * People search results class
  *
  * PHP version 5
  *
- * @category Action
+ * @category Widget
  * @package  Laconica
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @author   Robin Millette <millette@controlyourself.ca>
@@ -32,63 +32,44 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/searchaction.php';
 require_once INSTALLDIR.'/lib/profilelist.php';
 
 /**
- * People search action class.
+ * People search results class
  *
- * @category Action
+ * Derivative of ProfileList with specialization for highlighting search terms.
+ *
+ * @category Widget
  * @package  Laconica
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @author   Robin Millette <millette@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://laconi.ca/
+ *
+ * @see PeoplesearchAction
  */
-class PeoplesearchAction extends SearchAction
+
+class PeopleSearchResults extends ProfileList
 {
-    function getInstructions()
+    var $terms = null;
+    var $pattern = null;
+
+    function __construct($profile, $terms, $action)
     {
-        return _('Search for people on %%site.name%% by their name, location, or interests. ' .
-                  'Separate the terms by spaces; they must be 3 characters or more.');
+        parent::__construct($profile, $terms, $action);
+        $this->terms = array_map('preg_quote',
+                                 array_map('htmlspecialchars', $terms));
+        $this->pattern = '/('.implode('|',$terms).')/i';
     }
 
-    function title()
+    function highlight($text)
     {
-        return _('People search');
+        return preg_replace($this->pattern, '<strong>\\1</strong>', htmlspecialchars($text));
     }
 
-    function showResults($q, $page)
+    function isReadOnly()
     {
-
-        $profile = new Profile();
-
-        # lcase it for comparison
-        $q = strtolower($q);
-
-        $search_engine = $profile->getSearchEngine('identica_people');
-
-        $search_engine->set_sort_mode('chron');
-        # Ask for an extra to see if there's more.
-        $search_engine->limit((($page-1)*PROFILES_PER_PAGE), PROFILES_PER_PAGE + 1);
-        if (false === $search_engine->query($q)) {
-            $cnt = 0;
-        }
-        else {
-            $cnt = $profile->find();
-        }
-        if ($cnt > 0) {
-            $terms = preg_split('/[\s,]+/', $q);
-            $results = new PeopleSearchResults($profile, $terms, $this);
-            $results->show();
-        } else {
-            $this->element('p', 'error', _('No results'));
-        }
-
-        $profile->free();
-
-        $this->pagination($page > 1, $cnt > PROFILES_PER_PAGE,
-                          $page, 'peoplesearch', array('q' => $q));
+        return true;
     }
 }
 
