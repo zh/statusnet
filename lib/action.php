@@ -224,7 +224,9 @@ class Action extends HTMLOutputter // lawsuit
                 $this->element('script', array('type' => 'text/javascript',
                                                'src' => common_path('js/util.js?version='.LACONICA_VERSION)),
                                ' ');
-
+                // Frame-busting code to avoid clickjacking attacks.
+                $this->element('script', array('type' => 'text/javascript'),
+                               'if (window.top !== window.self) { window.top.location.href = window.self.location.href; }');
 
                 $this->element('script', array('type' => 'text/javascript',
                                                'src' => common_path('js/flowplayer-3.0.5.min.js')),
@@ -233,9 +235,6 @@ class Action extends HTMLOutputter // lawsuit
                 $this->element('script', array('type' => 'text/javascript',
                                                'src' => common_path('js/video.js')),
                                ' ');
-
-
-
                 Event::handle('EndShowLaconicaScripts', array($this));
             }
             Event::handle('EndShowScripts', array($this));
