@@ -31,8 +31,6 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
-define('NOTICES_PER_SECTION', 5);
-
 /**
  * Base class for sections showing lists of notices
  *
