@@ -209,11 +209,9 @@ class Action extends HTMLOutputter // lawsuit
                                                'src' => common_path('js/jquery.form.js')),
                                ' ');
 
-
                 $this->element('script', array('type' => 'text/javascript',
                                                'src' => common_path('js/jquery.simplemodal-1.2.2.pack.js')),
                                ' ');
-
 
                 Event::handle('EndShowJQueryScripts', array($this));
             }
@@ -813,8 +811,10 @@ class Action extends HTMLOutputter // lawsuit
             if ($if_modified_since) {
                 $ims = strtotime($if_modified_since);
                 if ($lm <= $ims) {
-                    if (!$etag ||
-                        $this->_hasEtag($etag, $_SERVER['HTTP_IF_NONE_MATCH'])) {
+                    $if_none_match = $_SERVER['HTTP_IF_NONE_MATCH'];
+                    if (!$if_none_match ||
+                        !$etag ||
+                        $this->_hasEtag($etag, $if_none_match)) {
                         header('HTTP/1.1 304 Not Modified');
                         // Better way to do this?
                         exit(0);
@@ -832,9 +832,11 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return boolean
      */
+
     function _hasEtag($etag, $if_none_match)
     {
-        return ($if_none_match) && in_array($etag, explode(',', $if_none_match));
+        $etags = explode(',', $if_none_match);
+        return in_array($etag, $etags) || in_array('*', $etags);
     }
 
     /**
