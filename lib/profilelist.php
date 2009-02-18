@@ -34,8 +34,6 @@ if (!defined('LACONICA')) {
 
 require_once INSTALLDIR.'/lib/widget.php';
 
-define('PROFILES_PER_PAGE', 20);
-
 /**
  * Widget to show a list of profiles
  *
