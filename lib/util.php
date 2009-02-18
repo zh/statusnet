@@ -474,11 +474,17 @@ function common_replace_urls_callback($text, $callback) {
 function common_linkify($url) {
     // It comes in special'd, so we unspecial it before passing to the stringifying
     // functions
+    $ext = pathinfo($url, PATHINFO_EXTENSION);
     $url = htmlspecialchars_decode($url);
+    $video_ext = array('mp4', 'flv', 'avi', 'mpg', 'mp3', 'ogg');
     $display = $url;
     $url = (!preg_match('#^([a-z]+://|(mailto|aim|tel):)#i', $url)) ? 'http://'.$url : $url;
 
     $attrs = array('href' => $url, 'rel' => 'external');
+
+    if (in_array($ext, $video_ext)) {
+        $attrs['class'] = 'media';
+    }
 
     if ($longurl = common_longurl($url)) {
         $attrs['title'] = $longurl;
@@ -590,7 +596,7 @@ function common_tag_link($tag)
     $xs->element('a', array('href' => $url,
                             'rel' => 'tag'),
                  $tag);
-    $xs->elementEnd();
+    $xs->elementEnd('span');
     return $xs->getString();
 }
 

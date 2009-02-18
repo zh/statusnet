@@ -34,22 +34,23 @@ class Notice extends Memcached_DataObject
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
 
-    public $__table = 'notice';                             // table name
-    public $id;                                 // int(4)    primary_key not_null
-    public $profile_id;                         // int(4)     not_null
+    public $__table = 'notice';                          // table name
+    public $id;                              // int(4)  primary_key not_null
+    public $profile_id;                      // int(4)   not_null
     public $uri;                             // varchar(255)  unique_key
     public $content;                         // varchar(140)
-    public $rendered;                         // text()
+    public $rendered;                        // text()
     public $url;                             // varchar(255)
-    public $created;                         // datetime()     not_null
-    public $modified;                         // timestamp()      not_null default_CURRENT_TIMESTAMP
-    public $reply_to;                         // int(4)
-    public $is_local;                         // tinyint(1)
-    public $source;                             // varchar(32)
+    public $created;                         // datetime()   not_null
+    public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
+    public $reply_to;                        // int(4)
+    public $is_local;                        // tinyint(1)
+    public $source;                          // varchar(32)
 
     /* Static get */
-    function staticGet($k,$v=null)
-    { return Memcached_DataObject::staticGet('Notice',$k,$v); }
+    function staticGet($k,$v=NULL) {
+        return Memcached_DataObject::staticGet('Notice',$k,$v);
+    }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
@@ -94,21 +95,26 @@ class Notice extends Memcached_DataObject
         /* Add them to the database */
         foreach(array_unique($match[1]) as $hashtag) {
             /* elide characters we don't want in the tag */
-            $hashtag = common_canonical_tag($hashtag);
-
-            $tag = DB_DataObject::factory('Notice_tag');
-            $tag->notice_id = $this->id;
-            $tag->tag = $hashtag;
-            $tag->created = $this->created;
-            $id = $tag->insert();
-            if (!$id) {
-                $last_error = PEAR::getStaticProperty('DB_DataObject','lastError');
-                common_log(LOG_ERR, 'DB error inserting hashtag: ' . $last_error->message);
-                common_server_error(sprintf(_('DB error inserting hashtag: %s'), $last_error->message));
-                return;
-            }
+            $this->saveTag($hashtag);
         }
         return true;
+    }
+
+    function saveTag($hashtag)
+    {
+        $hashtag = common_canonical_tag($hashtag);
+
+        $tag = new Notice_tag();
+        $tag->notice_id = $this->id;
+        $tag->tag = $hashtag;
+        $tag->created = $this->created;
+        $id = $tag->insert();
+
+        if (!$id) {
+            throw new ServerException(sprintf(_('DB error inserting hashtag: %s'),
+                                              $last_error->message));
+            return;
+        }
     }
 
     static function saveNew($profile_id, $content, $source=null, $is_local=1, $reply_to=null, $uri=null) {
@@ -136,10 +142,12 @@ class Notice extends Memcached_DataObject
         $notice->profile_id = $profile_id;
 
         $blacklist = common_config('public', 'blacklist');
+        $autosource = common_config('public', 'autosource');
 
         # Blacklisted are non-false, but not 1, either
 
-        if ($blacklist && in_array($profile_id, $blacklist)) {
+        if (($blacklist && in_array($profile_id, $blacklist)) ||
+            ($source && $autosource && in_array($source, $autosource))) {
             $notice->is_local = -1;
         } else {
             $notice->is_local = $is_local;
@@ -619,6 +627,15 @@ class Notice extends Memcached_DataObject
                 continue;
             }
 
+            // we automatically add a tag for every group name, too
+
+            $tag = Notice_tag::pkeyGet(array('tag' => common_canonical_tag($nickname),
+                                           'notice_id' => $this->id));
+
+            if (is_null($tag)) {
+                $this->saveTag($nickname);
+            }
+
             if ($profile->isMember($group)) {
 
                 $gi = new Group_inbox();
@@ -730,9 +747,18 @@ class Notice extends Memcached_DataObject
                         if (!$id) {
                             common_log_db_error($reply, 'INSERT', __FILE__);
                             return;
+                        } else {
+                            $replied[$recipient->id] = 1;
                         }
                     }
                 }
+            }
+        }
+
+        foreach (array_keys($replied) as $recipient) {
+            $user = User::staticGet('id', $recipient);
+            if ($user) {
+                mail_notify_attn($user, $this);
             }
         }
     }

@@ -50,6 +50,7 @@ create table user (
     emailnotifyfav tinyint default 1 comment 'Notify by email of favorites',
     emailnotifynudge tinyint default 1 comment 'Notify by email of nudges',
     emailnotifymsg tinyint default 1 comment 'Notify by email of direct messages',
+    emailnotifyattn tinyint default 1 comment 'Notify by email of @-replies',
     emailmicroid tinyint default 1 comment 'whether to publish email microid',
     language varchar(50) comment 'preferred language',
     timezone varchar(50) comment 'timezone',
