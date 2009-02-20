@@ -108,13 +108,15 @@ class LoginAction extends Action
         $nickname = common_canonical_nickname($this->trimmed('nickname'));
         $password = $this->arg('password');
 
-        if (!common_check_user($nickname, $password)) {
+        $user = common_check_user($nickname, $password);
+
+        if (!$user) {
             $this->showForm(_('Incorrect username or password.'));
             return;
         }
 
         // success!
-        if (!common_set_user($nickname)) {
+        if (!common_set_user($user)) {
             $this->serverError(_('Error setting user.'));
             return;
         }
