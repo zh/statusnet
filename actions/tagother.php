@@ -135,7 +135,8 @@ class TagotherAction extends Action
                                            'id' => 'form_tag_user',
                                            'class' => 'form_settings',
                                            'name' => 'tagother',
-                                           'action' => $this->selfUrl()));
+                                           'action' => common_local_url('tagother', array('id' => $this->profile->id))));
+
         $this->elementStart('fieldset');
         $this->element('legend', null, _('Tag user'));
         $this->hidden('token', common_session_token());

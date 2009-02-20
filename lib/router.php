@@ -98,11 +98,13 @@ class Router
         $main = array('login', 'logout', 'register', 'subscribe',
                       'unsubscribe', 'confirmaddress', 'recoverpassword',
                       'invite', 'favor', 'disfavor', 'sup',
-                      'tagother', 'block');
+                      'block');
 
         foreach ($main as $a) {
             $m->connect('main/'.$a, array('action' => $a));
         }
+
+        $m->connect('main/tagother/:id', array('action' => 'tagother'));
 
         // these take a code
 
