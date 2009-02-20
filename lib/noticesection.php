@@ -96,7 +96,7 @@ class NoticeSection extends Section
         $this->out->elementStart('p', 'entry-content');
         $this->out->raw($notice->rendered);
         $this->out->elementEnd('p');
-        if ($notice->value) {
+        if (!empty($notice->value)) {
             $this->out->elementStart('p');
             $this->out->text($notice->value);
             $this->out->elementEnd('p');
