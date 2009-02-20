@@ -226,19 +226,30 @@ class Router
 
         // direct messages
 
-        $m->connect('api/direct_messages/:method',
-                    array('action' => 'api',
-                          'apiaction' => 'direct_messages'),
-                    array('method' => '(sent|new)(\.(xml|json|atom|rss))?'));
+        foreach (array('xml', 'json') as $e) {
+            $m->connect('api/direct_messages/new.'.$e,
+                        array('action' => 'api',
+                              'apiaction' => 'direct_messages',
+                              'method' => 'create.'.$e));
+        }
+
+        foreach (array('xml', 'json', 'rss', 'atom') as $e) {
+            $m->connect('api/direct_messages.'.$e,
+                        array('action' => 'api',
+                              'apiaction' => 'direct_messages',
+                              'method' => 'direct_messages.'.$e));
+        }
+
+        foreach (array('xml', 'json', 'rss', 'atom') as $e) {
+            $m->connect('api/direct_message/sent.'.$e,
+                        array('action' => 'api',
+                        'apiaction' => 'direct_messages',
+                        'method' => 'sent.'.$e));
+        }
 
         $m->connect('api/direct_messages/destroy/:argument',
                     array('action' => 'api',
                           'apiaction' => 'direct_messages'));
-
-        $m->connect('api/:method',
-                    array('action' => 'api',
-                          'apiaction' => 'direct_messages'),
-                    array('method' => 'direct_messages(\.(xml|json|atom|rss))?'));
 
         // friendships
 
@@ -269,10 +280,12 @@ class Router
                           'apiaction' => 'favorites',
                           'method' => 'favorites'));
 
-        $m->connect('api/:method',
-                    array('action' => 'api',
-                          'apiaction' => 'favorites'),
-                    array('method' => 'favorites(\.(xml|json|rss|atom))?'));
+        foreach (array('xml', 'json', 'rss', 'atom') as $e) {
+            $m->connect('api/favorites.'.$e,
+                array('action' => 'api',
+                      'apiaction' => 'favorites',
+                      'method' => 'favorites.'.$e));
+        }
 
         // notifications
 
@@ -345,7 +358,16 @@ class Router
 
     function map($path)
     {
-        return $this->m->match($path);
+        try {
+            $match = $this->m->match($path);
+        } catch (Net_URL_Mapper_InvalidException $e) {
+            common_log(LOG_ERR, "Problem getting route for $path - " .
+                $e->getMessage());
+            $cac = new ClientErrorAction("Page not found.", 404);
+            $cac->showPage();
+        }
+
+        return $match;
     }
 
     function build($action, $args=null, $fragment=null)
