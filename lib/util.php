@@ -705,10 +705,10 @@ function common_relative_profile($sender, $nickname, $dt=null)
     return null;
 }
 
-function common_local_url($action, $args=null, $fragment=null)
+function common_local_url($action, $args=null, $params=null, $fragment=null)
 {
     $r = Router::get();
-    $path = $r->build($action, $args, $fragment);
+    $path = $r->build($action, $args, $params, $fragment);
     if ($path) {
     }
     if (common_config('site','fancy')) {

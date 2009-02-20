@@ -204,7 +204,7 @@ class TwitapistatusesAction extends TwitterapiAction
         # FriendFeed's SUP protocol
         # Also added RSS and Atom feeds
 
-        $suplink = common_local_url('sup', null, $user->id);
+        $suplink = common_local_url('sup', null, null, $user->id);
         header('X-SUP-ID: '.$suplink);
 
         # XXX: since

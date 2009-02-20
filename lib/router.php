@@ -350,7 +350,7 @@ class Router
         return $this->m->match($path);
     }
 
-    function build($action, $args=null, $fragment=null)
+    function build($action, $args=null, $params=null, $fragment=null)
     {
         $action_arg = array('action' => $action);
 
@@ -360,6 +360,6 @@ class Router
             $args = $action_arg;
         }
 
-        return $this->m->generate($args, null, $fragment);
+        return $this->m->generate($args, $params, $fragment);
     }
 }
