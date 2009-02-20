@@ -82,3 +82,9 @@ StartNoticeSave: before inserting a notice (good place for content filters)
 EndNoticeSave: after inserting a notice and related code
 - $notice: notice that was saved (with ID and URI)
 
+StartShowLocalNavBlock: Showing the local nav menu
+- $action: the current action
+
+EndShowLocalNavBlock: At the end of the local nav menu
+- $action: the current action
+
