@@ -111,13 +111,13 @@ class groupRssAction extends Rss10Action
     {
 
         $group = $this->group;
-        
+
         if (is_null($group)) {
             return null;
         }
-        
+
         $notice = $group->getNotices(0, ($limit == 0) ? NOTICES_PER_PAGE : $limit);
-        
+
         while ($notice->fetch()) {
             $notices[] = clone($notice);
         }
@@ -140,14 +140,5 @@ class groupRssAction extends Rss10Action
     function getImage()
     {
         return $this->group->homepage_logo;
-    }
-
-    # override parent to add X-SUP-ID URL
-    
-    function initRss($limit=0)
-    {
-        $url = common_local_url('sup', null, $this->group->id);
-        header('X-SUP-ID: '.$url);
-        parent::initRss($limit);
     }
 }
