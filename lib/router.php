@@ -47,7 +47,7 @@ require_once 'Net/URL/Mapper.php';
 
 class Router
 {
-    static $m = null;
+    var $m = null;
     static $inst = null;
 
     static function get()
