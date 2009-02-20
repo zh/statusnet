@@ -158,8 +158,6 @@ class Action extends HTMLOutputter // lawsuit
                                              'type' => 'text/css',
                                              'href' => theme_path('css/display.css', 'base') . '?version=' . LACONICA_VERSION,
                                              'media' => 'screen, projection, tv'));
-
-
                 $this->element('link', array('rel' => 'stylesheet',
                                              'type' => 'text/css',
                                              'href' => theme_path('css/modal.css', 'base') . '?version=' . LACONICA_VERSION,
@@ -168,6 +166,13 @@ class Action extends HTMLOutputter // lawsuit
                                              'type' => 'text/css',
                                              'href' => theme_path('css/display.css', null) . '?version=' . LACONICA_VERSION,
                                              'media' => 'screen, projection, tv'));
+                if (common_config('site', 'mobile')) {
+                    $this->element('link', array('rel' => 'stylesheet',
+                                                 'type' => 'text/css',
+                                                 'href' => theme_path('css/mobile.css', 'base') . '?version=' . LACONICA_VERSION,
+                                                 // TODO: "handheld" CSS for other mobile devices
+                                                 'media' => 'only screen and (max-device-width: 480px)')); // Mobile WebKit
+                }
                 Event::handle('EndShowLaconicaStyles', array($this));
             }
             if (Event::handle('StartShowUAStyles', array($this))) {
@@ -204,11 +209,9 @@ class Action extends HTMLOutputter // lawsuit
                                                'src' => common_path('js/jquery.form.js')),
                                ' ');
 
-
                 $this->element('script', array('type' => 'text/javascript',
                                                'src' => common_path('js/jquery.simplemodal-1.2.2.pack.js')),
                                ' ');
-
 
                 Event::handle('EndShowJQueryScripts', array($this));
             }
@@ -219,7 +222,9 @@ class Action extends HTMLOutputter // lawsuit
                 $this->element('script', array('type' => 'text/javascript',
                                                'src' => common_path('js/util.js?version='.LACONICA_VERSION)),
                                ' ');
-
+                // Frame-busting code to avoid clickjacking attacks.
+                $this->element('script', array('type' => 'text/javascript'),
+                               'if (window.top !== window.self) { window.top.location.href = window.self.location.href; }');
 
                 $this->element('script', array('type' => 'text/javascript',
                                                'src' => common_path('js/flowplayer-3.0.5.min.js')),
@@ -228,9 +233,6 @@ class Action extends HTMLOutputter // lawsuit
                 $this->element('script', array('type' => 'text/javascript',
                                                'src' => common_path('js/video.js')),
                                ' ');
-
-
-
                 Event::handle('EndShowLaconicaScripts', array($this));
             }
             Event::handle('EndShowScripts', array($this));
@@ -809,8 +811,10 @@ class Action extends HTMLOutputter // lawsuit
             if ($if_modified_since) {
                 $ims = strtotime($if_modified_since);
                 if ($lm <= $ims) {
-                    if (!$etag ||
-                        $this->_hasEtag($etag, $_SERVER['HTTP_IF_NONE_MATCH'])) {
+                    $if_none_match = $_SERVER['HTTP_IF_NONE_MATCH'];
+                    if (!$if_none_match ||
+                        !$etag ||
+                        $this->_hasEtag($etag, $if_none_match)) {
                         header('HTTP/1.1 304 Not Modified');
                         // Better way to do this?
                         exit(0);
@@ -828,9 +832,11 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return boolean
      */
+
     function _hasEtag($etag, $if_none_match)
     {
-        return ($if_none_match) && in_array($etag, explode(',', $if_none_match));
+        $etags = explode(',', $if_none_match);
+        return in_array($etag, $etags) || in_array('*', $etags);
     }
 
     /**
