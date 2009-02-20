@@ -1138,18 +1138,44 @@ function common_twitter_broadcast($notice, $flink)
 
 function common_enqueue_notice($notice)
 {
-    foreach (array('jabber', 'omb', 'sms', 'public') as $transport) {
-        $qi = new Queue_item();
-        $qi->notice_id = $notice->id;
-        $qi->transport = $transport;
-        $qi->created = $notice->created;
-        $result = $qi->insert();
-        if (!$result) {
-            $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-            common_log(LOG_ERR, 'DB error inserting queue item: ' . $last_error->message);
-            return false;
+    if (common_config('queue','subsystem') == 'stomp') {
+	// use an external message queue system via STOMP
+	require_once("Stomp.php");
+	$con = new Stomp(common_config('queue','stomp_server'));
+	if (!$con->connect()) {
+		common_log(LOG_ERR, 'Failed to connect to queue server');
+		return false;
+	}
+	$queue_basename = common_config('queue','queue_basename');
+    	foreach (array('jabber', 'omb', 'sms', 'public') as $transport) {
+		if (!$con->send(
+			'/queue/'.$queue_basename.'-'.$transport, // QUEUE
+			$notice->id, 		// BODY of the message
+			array (			// HEADERS of the msg
+			'created' => $notice->created
+			))) {
+			common_log(LOG_ERR, 'Error sending to '.$transport.' queue');
+			return false;
+		}
+        common_log(LOG_DEBUG, 'complete remote queueing notice ID = ' . $notice->id . ' for ' . $transport);
+	}
+	$result = true;
+    }
+    else {
+	// in any other case, 'internal'
+    	foreach (array('jabber', 'omb', 'sms', 'public') as $transport) {
+	        $qi = new Queue_item();
+        	$qi->notice_id = $notice->id;
+	        $qi->transport = $transport;
+        	$qi->created = $notice->created;
+	        $result = $qi->insert();
+        	if (!$result) {
+	            $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
+        	    common_log(LOG_ERR, 'DB error inserting queue item: ' . $last_error->message);
+            	    return false;
+        	}
+        	common_log(LOG_DEBUG, 'complete queueing notice ID = ' . $notice->id . ' for ' . $transport);
         }
-        common_log(LOG_DEBUG, 'complete queueing notice ID = ' . $notice->id . ' for ' . $transport);
     }
     return $result;
 }
