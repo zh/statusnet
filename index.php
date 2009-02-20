@@ -116,8 +116,8 @@ function main()
 
         // XXX: find somewhere for this little block to live
 
-        if ($config['db']['mirror'] && $action_obj->isReadOnly()) {
-            if (is_array($config['db']['mirror'])) {
+        if (common_config('db', 'mirror') && $action_obj->isReadOnly()) {
+            if (is_array(common_config('db', 'mirror'))) {
                 // "load balancing", ha ha
                 $k = array_rand($config['db']['mirror']);
 
