@@ -474,7 +474,10 @@ class Action extends HTMLOutputter // lawsuit
     function showCore()
     {
         $this->elementStart('div', array('id' => 'core'));
-        $this->showLocalNavBlock();
+        if (Event::handle('StartShowLocalNavBlock', array($this))) {
+            $this->showLocalNavBlock();
+            Event::handle('EndShowLocalNavBlock', array($this));
+        }
         if (Event::handle('StartShowContentBlock', array($this))) {
             $this->showContentBlock();
             Event::handle('EndShowContentBlock', array($this));
@@ -657,6 +660,8 @@ class Action extends HTMLOutputter // lawsuit
                             _('Source'));
             $this->menuItem(common_local_url('doc', array('title' => 'contact')),
                             _('Contact'));
+            $this->menuItem(common_local_url('doc', array('title' => 'badge')),
+                            _('Badge'));
             Event::handle('EndSecondaryNav', array($this));
         }
         $this->elementEnd('ul');
