@@ -117,6 +117,11 @@ class Router
         $m->connect('main/openid', array('action' => 'openidlogin'));
         $m->connect('main/remote', array('action' => 'remotesubscribe'));
 
+        foreach (array('requesttoken', 'accesstoken', 'userauthorization',
+                    'postnotice', 'updateprofile') as $action) {
+            $m->connect('index.php?action=' . $action, array('action' => $action));
+        }
+
         // settings
 
         foreach (array('profile', 'avatar', 'password', 'openid', 'im',
