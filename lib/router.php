@@ -118,7 +118,7 @@ class Router
         $m->connect('main/remote', array('action' => 'remotesubscribe'));
 
         foreach (array('requesttoken', 'accesstoken', 'userauthorization',
-                    'postnotice', 'updateprofile') as $action) {
+                    'postnotice', 'updateprofile', 'finishremotesubscribe') as $action) {
             $m->connect('index.php?action=' . $action, array('action' => $action));
         }
 
