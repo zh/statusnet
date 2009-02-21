@@ -657,6 +657,8 @@ class Action extends HTMLOutputter // lawsuit
                             _('Source'));
             $this->menuItem(common_local_url('doc', array('title' => 'contact')),
                             _('Contact'));
+            $this->menuItem(common_local_url('doc', array('title' => 'badge')),
+                            _('Badge'));
             Event::handle('EndSecondaryNav', array($this));
         }
         $this->elementEnd('ul');
