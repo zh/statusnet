@@ -474,7 +474,10 @@ class Action extends HTMLOutputter // lawsuit
     function showCore()
     {
         $this->elementStart('div', array('id' => 'core'));
-        $this->showLocalNavBlock();
+        if (Event::handle('StartShowLocalNavBlock', array($this))) {
+            $this->showLocalNavBlock();
+            Event::handle('EndShowLocalNavBlock', array($this));
+        }
         if (Event::handle('StartShowContentBlock', array($this))) {
             $this->showContentBlock();
             Event::handle('EndShowContentBlock', array($this));
