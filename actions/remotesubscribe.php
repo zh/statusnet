@@ -321,8 +321,7 @@ class RemotesubscribeAction extends Action
 
         $result = $fetcher->post($req->get_normalized_http_url(),
                                  $req->to_postdata(),
-                                 array('User-Agent' => 'Laconica/' . LACONICA_VERSION));
-
+                                 array('User-Agent: Laconica/' . LACONICA_VERSION));
         if ($result->status != 200) {
             return null;
         }

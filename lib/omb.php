@@ -206,7 +206,7 @@ function omb_post_notice_keys($notice, $postnoticeurl, $tk, $secret)
 
     $result = $fetcher->post($req->get_normalized_http_url(),
                              $req->to_postdata(),
-                             array('User-Agent' => 'Laconica/' . LACONICA_VERSION));
+                             array('User-Agent: Laconica/' . LACONICA_VERSION));
 
     common_debug('Got HTTP result "'.print_r($result,true).'"', __FILE__);
 
@@ -291,7 +291,7 @@ function omb_update_profile($profile, $remote_profile, $subscription)
     common_debug('postdata = '.$req->to_postdata(), __FILE__);
     $result = $fetcher->post($req->get_normalized_http_url(),
                              $req->to_postdata(),
-                             array('User-Agent' => 'Laconica/' . LACONICA_VERSION));
+                             array('User-Agent: Laconica/' . LACONICA_VERSION));
 
     common_debug('Got HTTP result "'.print_r($result,true).'"', __FILE__);
 
