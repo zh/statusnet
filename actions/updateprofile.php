@@ -162,7 +162,13 @@ class UpdateprofileAction extends Action
             if ($avatar) {
                 $temp_filename = tempnam(sys_get_temp_dir(), 'listenee_avatar');
                 copy($avatar, $temp_filename);
-                if (!$profile->setOriginal($temp_filename)) {
+                $imagefile = new ImageFile($profile->id, $temp_filename);
+                $filename = Avatar::filename($profile->id,
+                                     image_type_to_extension($imagefile->type),
+                                     null,
+                                     common_timestamp());
+                rename($temp_filename, Avatar::path($filename));
+                if (!$profile->setOriginal($filename)) {
                     $this->serverError(_('Could not save avatar info'), 500);
                     return false;
                 }
