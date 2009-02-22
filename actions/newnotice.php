@@ -253,7 +253,7 @@ class NewnoticeAction extends Action
             }
         }
 
-        $notice_form = new NoticeForm($this, $content);
+        $notice_form = new NoticeForm($this, '', $content);
         $notice_form->show();
     }
 
