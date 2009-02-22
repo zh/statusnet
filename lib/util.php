@@ -456,6 +456,9 @@ function common_replace_urls_callback($text, $callback) {
 
         if (!in_array($url_parts[2], $tlds)) continue;
 
+        // Make sure we didn't capture a hash tag
+        if (strpos($url, '#') === 0) continue;
+
         // Put the url back the way we found it.
         $url = (mb_strpos($orig_url, htmlspecialchars($url)) === FALSE) ? $url:htmlspecialchars($url);
 
