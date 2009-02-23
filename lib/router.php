@@ -265,6 +265,33 @@ class Router
                           'apiaction' => 'friendships'),
                     array('method' => 'exists(\.(xml|json|rss|atom))'));
 
+
+        // Social graph
+
+        $m->connect('api/friends/ids/:argument',
+                    array('action' => 'api',
+                          'apiaction' => 'statuses',
+                          'method' => 'friendsIDs'));
+                                                   
+        foreach (array('xml', 'json') as $e) {
+            $m->connect('api/friends/ids.'.$e,
+                        array('action' => 'api',
+                              'apiaction' => 'statuses',
+                              'method' => 'friendsIDs.'.$e));
+        }
+                                                    
+        $m->connect('api/followers/ids/:argument',
+                    array('action' => 'api',
+                          'apiaction' => 'statuses',
+                          'method' => 'followersIDs'));
+
+        foreach (array('xml', 'json') as $e) {
+            $m->connect('api/followers/ids.'.$e,
+                        array('action' => 'api',
+                              'apiaction' => 'statuses',
+                              'method' => 'followersIDs.'.$e));
+        }
+
         // account
 
         $m->connect('api/account/:method',
