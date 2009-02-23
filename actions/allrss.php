@@ -53,7 +53,9 @@ class AllrssAction extends Rss10Action
 
     /**
      * Initialization.
-     * 
+     *
+     * @param array $args Web and URL arguments
+     *
      * @return boolean false if user doesn't exist
      */
     function prepare($args)
@@ -81,7 +83,7 @@ class AllrssAction extends Rss10Action
     {
         $user   = $this->user;
         $notice = $user->noticesWithFriends(0, $limit);
-                                            
+
         while ($notice->fetch()) {
             $notices[] = clone($notice);
         }
@@ -104,7 +106,8 @@ class AllrssAction extends Rss10Action
                    'link' => common_local_url('all',
                                              array('nickname' =>
                                                    $user->nickname)),
-                   'description' => sprintf(_('Feed for friends of %s'), $user->nickname));
+                   'description' => sprintf(_('Feed for friends of %s'),
+                                            $user->nickname));
         return $c;
     }
 
@@ -122,11 +125,6 @@ class AllrssAction extends Rss10Action
         }
         $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
         return $avatar ? $avatar->url : null;
-    }
-
-    function isReadOnly()
-    {
-        return true;
     }
 }
 
