@@ -27,12 +27,13 @@ $action = null;
 
 function getPath($req)
 {
-    if (common_config('site', 'fancy')) {
+    if ((common_config('site', 'fancy') || !array_key_exists('PATH_INFO', $_SERVER))
+        && array_key_exists('p', $req)) {
         return $req['p'];
-    } else if ($_SERVER['PATH_INFO']) {
+    } else if (array_key_exists('PATH_INFO', $_SERVER)) {
         return $_SERVER['PATH_INFO'];
     } else {
-        return $req['p'];
+        return null;
     }
 }
 
@@ -115,8 +116,8 @@ function main()
 
         // XXX: find somewhere for this little block to live
 
-        if ($config['db']['mirror'] && $action_obj->isReadOnly()) {
-            if (is_array($config['db']['mirror'])) {
+        if (common_config('db', 'mirror') && $action_obj->isReadOnly()) {
+            if (is_array(common_config('db', 'mirror'))) {
                 // "load balancing", ha ha
                 $k = array_rand($config['db']['mirror']);
 

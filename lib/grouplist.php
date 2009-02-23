@@ -151,7 +151,7 @@ class GroupList extends Widget
 
         # If we're on a list with an owner (subscriptions or subscribers)...
 
-        if ($user && $user->id == $this->owner->id) {
+        if (!empty($user) && !empty($this->owner) && $user->id == $this->owner->id) {
             $this->showOwnerControls();
         }
 

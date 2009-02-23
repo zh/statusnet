@@ -47,7 +47,7 @@ require_once 'Net/URL/Mapper.php';
 
 class Router
 {
-    static $m = null;
+    var $m = null;
     static $inst = null;
 
     static function get()
@@ -98,11 +98,13 @@ class Router
         $main = array('login', 'logout', 'register', 'subscribe',
                       'unsubscribe', 'confirmaddress', 'recoverpassword',
                       'invite', 'favor', 'disfavor', 'sup',
-                      'tagother', 'block');
+                      'block');
 
         foreach ($main as $a) {
             $m->connect('main/'.$a, array('action' => $a));
         }
+
+        $m->connect('main/tagother/:id', array('action' => 'tagother'));
 
         // these take a code
 
@@ -370,7 +372,7 @@ class Router
         return $match;
     }
 
-    function build($action, $args=null, $fragment=null)
+    function build($action, $args=null, $params=null, $fragment=null)
     {
         $action_arg = array('action' => $action);
 
@@ -380,6 +382,6 @@ class Router
             $args = $action_arg;
         }
 
-        return $this->m->generate($args, null, $fragment);
+        return $this->m->generate($args, $params, $fragment);
     }
 }

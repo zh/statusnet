@@ -83,7 +83,7 @@ class FinishopenidloginAction extends Action
 
     function showContent()
     {
-        if ($this->message_text) {
+        if (!empty($this->message_text)) {
             $this->element('p', null, $this->message);
             return;
         }
@@ -232,7 +232,8 @@ class FinishopenidloginAction extends Action
             return;
         }
 
-        if ($sreg['country']) {
+        $location = '';
+        if (!empty($sreg['country'])) {
             if ($sreg['postcode']) {
                 # XXX: use postcode to get city and region
                 # XXX: also, store postcode somewhere -- it's valuable!
@@ -242,12 +243,16 @@ class FinishopenidloginAction extends Action
             }
         }
 
-        if ($sreg['fullname'] && mb_strlen($sreg['fullname']) <= 255) {
+        if (!empty($sreg['fullname']) && mb_strlen($sreg['fullname']) <= 255) {
             $fullname = $sreg['fullname'];
+        } else {
+            $fullname = '';
         }
 
-        if ($sreg['email'] && Validate::email($sreg['email'], true)) {
+        if (!empty($sreg['email']) && Validate::email($sreg['email'], true)) {
             $email = $sreg['email'];
+        } else {
+            $email = '';
         }
 
         # XXX: add language
@@ -328,7 +333,7 @@ class FinishopenidloginAction extends Action
 
         # Try the passed-in nickname
 
-        if ($sreg['nickname']) {
+        if (!empty($sreg['nickname'])) {
             $nickname = $this->nicknamize($sreg['nickname']);
             if ($this->isNewNickname($nickname)) {
                 return $nickname;
@@ -337,7 +342,7 @@ class FinishopenidloginAction extends Action
 
         # Try the full name
 
-        if ($sreg['fullname']) {
+        if (!empty($sreg['fullname'])) {
             $fullname = $this->nicknamize($sreg['fullname']);
             if ($this->isNewNickname($fullname)) {
                 return $fullname;
