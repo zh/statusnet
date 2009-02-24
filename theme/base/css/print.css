@@ -1,0 +1,28 @@
+body { font-size:12pt; }
+a:after { background-color:#fff; }
+a:not([href^="#"]):after { content:" ( "attr(href)" ) "; }
+a:not([href^="http:"]):after { content: " ( http://identi.ca/"attr(href)" ) "; }
+a[href^="/"]:after { content: " ( http://identi.ca" attr(href) " ) "; }
+
+img { border:none; }
+p { orphans: 2; widows: 1; }
+
+#site_nav_global_primary,
+#site_nav_local_views,
+#form_notice,
+.pagination,
+#site_nav_global_secondary,
+.entity_actions,
+.notice-options,
+#aside_primary {
+display:none;
+}
+
+.timestamp dt, .timestamp dd,
+.device dt, .device dd {
+display:inline;
+}
+
+.notices li {
+margin-bottom:18px;
+}
