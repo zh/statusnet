@@ -210,7 +210,7 @@ function save_twitter_friends($user, $twitter_id, $screen_name, $password)
 function is_twitter_bound($notice, $flink) {
 
     // Check to see if notice should go to Twitter
-    if (($flink->noticesync & FOREIGN_NOTICE_SEND)) {
+    if (!empty($flink) && ($flink->noticesync & FOREIGN_NOTICE_SEND)) {
 
         // If it's not a Twitter-style reply, or if the user WANTS to send replies.
         if (!preg_match('/^@[a-zA-Z0-9_]{1,15}\b/u', $notice->content) ||
@@ -218,7 +218,7 @@ function is_twitter_bound($notice, $flink) {
                 return true;
         }
     }
-    
+
     return false;
 }
 
@@ -227,10 +227,10 @@ function broadcast_twitter($notice)
     global $config;
     $success = true;
 
-    $flink = Foreign_link::getByUserID($notice->profile_id, 
+    $flink = Foreign_link::getByUserID($notice->profile_id,
         TWITTER_SERVICE);
-            
-    // XXX: Not sure WHERE to check whether a notice should go to 
+
+    // XXX: Not sure WHERE to check whether a notice should go to
     // Twitter. Should we even put in the queue if it shouldn't? --Zach
     if (is_twitter_bound($notice, $flink)) {
 
@@ -245,7 +245,7 @@ function broadcast_twitter($notice)
         $options = array(
             CURLOPT_USERPWD        => "$twitter_user:$twitter_password",
             CURLOPT_POST           => true,
-            CURLOPT_POSTFIELDS     => 
+            CURLOPT_POSTFIELDS     =>
                 array(
                         'status' => $statustxt,
                         'source' => $config['integration']['source']
@@ -293,7 +293,7 @@ function broadcast_twitter($notice)
             $success = false;
         }
     }
-    
+
     return $success;
 }
 
