@@ -93,7 +93,10 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showPage()
     {
-        $this->startHTML();
+        if (Event::handle('StartShowHTML', array($this))) {
+            $this->startHTML();
+            Event::handle('EndShowHTML', array($this));
+        }
         $this->showHead();
         $this->showBody();
         $this->endHTML();
