@@ -131,11 +131,13 @@ class RegisterAction extends Action
 
         $code = $this->trimmed('code');
 
+        $invite = null;
+
         if ($code) {
             $invite = Invitation::staticGet($code);
         }
 
-        if (common_config('site', 'inviteonly') && !($code && $invite)) {
+        if (common_config('site', 'inviteonly') && !($code && !empty($invite))) {
             $this->clientError(_('Sorry, only invited people can register.'));
             return;
         }
@@ -341,6 +343,8 @@ class RegisterAction extends Action
     {
         $code = $this->trimmed('code');
 
+        $invite = null;
+
         if ($code) {
             $invite = Invitation::staticGet($code);
         }
@@ -377,7 +381,7 @@ class RegisterAction extends Action
                         _('Same as password above. Required.'));
         $this->elementEnd('li');
         $this->elementStart('li');
-        if ($invite && $invite->address_type == 'email') {
+        if (!empty($invite) && $invite->address_type == 'email') {
             $this->input('email', _('Email'), $invite->address,
                          _('Used only for updates, announcements, '.
                            'and password recovery'));
