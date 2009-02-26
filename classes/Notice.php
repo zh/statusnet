@@ -46,6 +46,7 @@ class Notice extends Memcached_DataObject
     public $reply_to;                        // int(4)
     public $is_local;                        // tinyint(1)
     public $source;                          // varchar(32)
+    public $conversation;                    // int(4)
 
     /* Static get */
     function staticGet($k,$v=NULL) {
