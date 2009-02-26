@@ -812,11 +812,12 @@ class Action extends HTMLOutputter // lawsuit
         }
         if ($lm) {
             header('Last-Modified: ' . date(DATE_RFC1123, $lm));
-            $if_modified_since = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
-            if ($if_modified_since) {
+            if (array_key_exists('HTTP_IF_MODIFIED_SINCE', $_SERVER)) {
+                $if_modified_since = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
                 $ims = strtotime($if_modified_since);
                 if ($lm <= $ims) {
-                    $if_none_match = $_SERVER['HTTP_IF_NONE_MATCH'];
+                    $if_none_match = (array_key_exists('HTTP_IF_NONE_MATCH', $_SERVER)) ?
+                      $_SERVER['HTTP_IF_NONE_MATCH'] : null;
                     if (!$if_none_match ||
                         !$etag ||
                         $this->_hasEtag($etag, $if_none_match)) {
