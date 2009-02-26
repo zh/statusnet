@@ -156,12 +156,19 @@ class Notice extends Memcached_DataObject
 
 		$notice->query('BEGIN');
 
-        $notice->reply_to = $reply_to;
         $notice->created = common_sql_now();
         $notice->content = common_shorten_links($content);
         $notice->rendered = common_render_content($notice->content, $notice);
         $notice->source = $source;
         $notice->uri = $uri;
+
+        if (!empty($reply_to)) {
+            $reply_notice = Notice::staticGet('id', $reply_to);
+            if (!empty($reply_notice)) {
+                $notice->reply_to = $reply_to;
+                $notice->conversation = $reply_notice->conversation;
+            }
+        }
 
         if (Event::handle('StartNoticeSave', array(&$notice))) {
 
@@ -707,6 +714,7 @@ class Notice extends Memcached_DataObject
                 if ($recipient_notice) {
                     $orig = clone($this);
                     $this->reply_to = $recipient_notice->id;
+                    $this->conversation = $recipient_notice->conversation;
                     $this->update($orig);
                 }
             }
@@ -754,6 +762,14 @@ class Notice extends Memcached_DataObject
                     }
                 }
             }
+        }
+
+        // If it's not a reply, make it the root of a new conversation
+
+        if (empty($this->conversation)) {
+            $orig = clone($this);
+            $this->conversation = $this->id;
+            $this->update($orig);
         }
 
         foreach (array_keys($replied) as $recipient) {
