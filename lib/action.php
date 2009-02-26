@@ -151,25 +151,46 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showStylesheets()
     {
-        $this->element('link', array('rel' => 'stylesheet',
-                                     'type' => 'text/css',
-                                     'href' => theme_path('css/display.css', 'base') . '?version=' . LACONICA_VERSION,
-                                     'media' => 'screen, projection, tv'));
-        $this->element('link', array('rel' => 'stylesheet',
-                                     'type' => 'text/css',
-                                     'href' => theme_path('css/display.css', null) . '?version=' . LACONICA_VERSION,
-                                     'media' => 'screen, projection, tv'));
-        $this->comment('[if IE]><link rel="stylesheet" type="text/css" '.
-                       'href="'.theme_path('css/ie.css', 'base').'?version='.LACONICA_VERSION.'" /><![endif]');
-        foreach (array(6,7) as $ver) {
-            if (file_exists(theme_file('css/ie'.$ver.'.css', 'base'))) {
-                // Yes, IE people should be put in jail.
-                $this->comment('[if lte IE '.$ver.']><link rel="stylesheet" type="text/css" '.
-                               'href="'.theme_path('css/ie'.$ver.'.css', 'base').'?version='.LACONICA_VERSION.'" /><![endif]');
+        if (Event::handle('StartShowStyles', array($this))) {
+            if (Event::handle('StartShowLaconicaStyles', array($this))) {
+
+                $this->element('link', array('rel' => 'stylesheet',
+                                             'type' => 'text/css',
+                                             'href' => theme_path('css/display.css', 'base') . '?version=' . LACONICA_VERSION,
+                                             'media' => 'screen, projection, tv'));
+                $this->element('link', array('rel' => 'stylesheet',
+                                             'type' => 'text/css',
+                                             'href' => theme_path('css/modal.css', 'base') . '?version=' . LACONICA_VERSION,
+                                             'media' => 'screen, projection, tv'));
+                $this->element('link', array('rel' => 'stylesheet',
+                                             'type' => 'text/css',
+                                             'href' => theme_path('css/display.css', null) . '?version=' . LACONICA_VERSION,
+                                             'media' => 'screen, projection, tv'));
+                if (common_config('site', 'mobile')) {
+                    $this->element('link', array('rel' => 'stylesheet',
+                                                 'type' => 'text/css',
+                                                 'href' => theme_path('css/mobile.css', 'base') . '?version=' . LACONICA_VERSION,
+                                                 // TODO: "handheld" CSS for other mobile devices
+                                                 'media' => 'only screen and (max-device-width: 480px)')); // Mobile WebKit
+                }
+                Event::handle('EndShowLaconicaStyles', array($this));
             }
+            if (Event::handle('StartShowUAStyles', array($this))) {
+                $this->comment('[if IE]><link rel="stylesheet" type="text/css" '.
+                               'href="'.theme_path('css/ie.css', 'base').'?version='.LACONICA_VERSION.'" /><![endif]');
+                foreach (array(6,7) as $ver) {
+                    if (file_exists(theme_file('css/ie'.$ver.'.css', 'base'))) {
+                        // Yes, IE people should be put in jail.
+                        $this->comment('[if lte IE '.$ver.']><link rel="stylesheet" type="text/css" '.
+                                       'href="'.theme_path('css/ie'.$ver.'.css', 'base').'?version='.LACONICA_VERSION.'" /><![endif]');
+                    }
+                }
+                $this->comment('[if IE]><link rel="stylesheet" type="text/css" '.
+                               'href="'.theme_path('css/ie.css', null).'?version='.LACONICA_VERSION.'" /><![endif]');
+                Event::handle('EndShowUAStyles', array($this));
+            }
+            Event::handle('EndShowStyles', array($this));
         }
-        $this->comment('[if IE]><link rel="stylesheet" type="text/css" '.
-                       'href="'.theme_path('css/ie.css', null).'?version='.LACONICA_VERSION.'" /><![endif]');
     }
 
     /**
@@ -187,6 +208,11 @@ class Action extends HTMLOutputter // lawsuit
                 $this->element('script', array('type' => 'text/javascript',
                                                'src' => common_path('js/jquery.form.js')),
                                ' ');
+
+                $this->element('script', array('type' => 'text/javascript',
+                                               'src' => common_path('js/jquery.simplemodal-1.2.2.pack.js')),
+                               ' ');
+
                 Event::handle('EndShowJQueryScripts', array($this));
             }
             if (Event::handle('StartShowLaconicaScripts', array($this))) {
@@ -195,6 +221,17 @@ class Action extends HTMLOutputter // lawsuit
                                ' ');
                 $this->element('script', array('type' => 'text/javascript',
                                                'src' => common_path('js/util.js?version='.LACONICA_VERSION)),
+                               ' ');
+                // Frame-busting code to avoid clickjacking attacks.
+                $this->element('script', array('type' => 'text/javascript'),
+                               'if (window.top !== window.self) { window.top.location.href = window.self.location.href; }');
+
+                $this->element('script', array('type' => 'text/javascript',
+                                               'src' => common_path('js/flowplayer-3.0.5.min.js')),
+                               ' ');
+
+                $this->element('script', array('type' => 'text/javascript',
+                                               'src' => common_path('js/video.js')),
                                ' ');
                 Event::handle('EndShowLaconicaScripts', array($this));
             }
@@ -225,9 +262,19 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return nothing
      */
+
     function showFeeds()
     {
-        // does nothing by default
+        $feeds = $this->getFeeds();
+
+        if ($feeds) {
+            foreach ($feeds as $feed) {
+                $this->element('link', array('rel' => $feed->rel(),
+                                             'href' => $feed->url,
+                                             'type' => $feed->mimeType(),
+                                             'title' => $feed->title));
+            }
+        }
     }
 
     /**
@@ -265,9 +312,15 @@ class Action extends HTMLOutputter // lawsuit
     {
         $this->elementStart('body', array('id' => $this->trimmed('action')));
         $this->elementStart('div', array('id' => 'wrap'));
-        $this->showHeader();
+        if (Event::handle('StartShowHeader', array($this))) {
+            $this->showHeader();
+            Event::handle('EndShowHeader', array($this));
+        }
         $this->showCore();
-        $this->showFooter();
+        if (Event::handle('StartShowFooter', array($this))) {
+            $this->showFooter();
+            Event::handle('EndShowFooter', array($this));
+        }
         $this->elementEnd('div');
         $this->elementEnd('body');
     }
@@ -421,8 +474,14 @@ class Action extends HTMLOutputter // lawsuit
     function showCore()
     {
         $this->elementStart('div', array('id' => 'core'));
-        $this->showLocalNavBlock();
-        $this->showContentBlock();
+        if (Event::handle('StartShowLocalNavBlock', array($this))) {
+            $this->showLocalNavBlock();
+            Event::handle('EndShowLocalNavBlock', array($this));
+        }
+        if (Event::handle('StartShowContentBlock', array($this))) {
+            $this->showContentBlock();
+            Event::handle('EndShowContentBlock', array($this));
+        }
         $this->showAside();
         $this->elementEnd('div');
     }
@@ -524,27 +583,32 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return nothing
      */
+
     function showAside()
     {
         $this->elementStart('div', array('id' => 'aside_primary',
                                          'class' => 'aside'));
         $this->showExportData();
-        $this->showSections();
+        if (Event::handle('StartShowSections', array($this))) {
+            $this->showSections();
+            Event::handle('EndShowSections', array($this));
+        }
         $this->elementEnd('div');
     }
 
     /**
      * Show export data feeds.
      *
-     * MAY overload if there are feeds
-     *
-     * @return nothing
+     * @return void
      */
+
     function showExportData()
     {
-        // is there structure to this?
-        // list of (visible!) feed links
-        // can we reuse list of feeds from showFeeds() ?
+        $feeds = $this->getFeeds();
+        if ($feeds) {
+            $fl = new FeedList($this);
+            $fl->show($feeds);
+        }
     }
 
     /**
@@ -596,6 +660,8 @@ class Action extends HTMLOutputter // lawsuit
                             _('Source'));
             $this->menuItem(common_local_url('doc', array('title' => 'contact')),
                             _('Contact'));
+            $this->menuItem(common_local_url('doc', array('title' => 'badge')),
+                            _('Badge'));
             Event::handle('EndSecondaryNav', array($this));
         }
         $this->elementEnd('ul');
@@ -750,8 +816,10 @@ class Action extends HTMLOutputter // lawsuit
             if ($if_modified_since) {
                 $ims = strtotime($if_modified_since);
                 if ($lm <= $ims) {
-                    if (!$etag ||
-                        $this->_hasEtag($etag, $_SERVER['HTTP_IF_NONE_MATCH'])) {
+                    $if_none_match = $_SERVER['HTTP_IF_NONE_MATCH'];
+                    if (!$if_none_match ||
+                        !$etag ||
+                        $this->_hasEtag($etag, $if_none_match)) {
                         header('HTTP/1.1 304 Not Modified');
                         // Better way to do this?
                         exit(0);
@@ -769,9 +837,11 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return boolean
      */
+
     function _hasEtag($etag, $if_none_match)
     {
-        return ($if_none_match) && in_array($etag, explode(',', $if_none_match));
+        $etags = explode(',', $if_none_match);
+        return in_array($etag, $etags) || in_array('*', $etags);
     }
 
     /**
@@ -919,5 +989,18 @@ class Action extends HTMLOutputter // lawsuit
             $this->elementEnd('dl');
             $this->elementEnd('div');
         }
+    }
+
+    /**
+     * An array of feeds for this action.
+     *
+     * Returns an array of potential feeds for this action.
+     *
+     * @return array Feed object to show in head and links
+     */
+
+    function getFeeds()
+    {
+        return null;
     }
 }

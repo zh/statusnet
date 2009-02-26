@@ -113,7 +113,7 @@ class ShowfavoritesAction extends Action
         }
 
         common_set_returnto($this->selfUrl());
-        
+
         return true;
     }
 
@@ -136,10 +136,10 @@ class ShowfavoritesAction extends Action
     /**
      * Feeds for the <head> section
      *
-     * @return void
+     * @return array Feed objects to show
      */
 
-    function showFeeds()
+    function getFeeds()
     {
         $feedurl   = common_local_url('favoritesrss',
                                       array('nickname' =>
@@ -147,10 +147,7 @@ class ShowfavoritesAction extends Action
         $feedtitle = sprintf(_('Feed for favorites of %s'),
                              $this->user->nickname);
 
-        $this->element('link', array('rel' => 'alternate',
-                                     'href' => $feedurl,
-                                     'type' => 'application/rss+xml',
-                                     'title' => $feedtitle));
+        return array(new Feed(Feed::RSS1, $feedurl, $feedtitle));
     }
 
     /**
@@ -163,28 +160,6 @@ class ShowfavoritesAction extends Action
     {
         $nav = new PersonalGroupNav($this);
         $nav->show();
-    }
-
-    /**
-     * Show the replies feed links
-     *
-     * @return void
-     */
-
-    function showExportData()
-    {
-        $feedurl = common_local_url('favoritesrss',
-                                    array('nickname' =>
-                                          $this->user->nickname));
-
-        $fl = new FeedList($this);
-
-        // XXX: I18N
-
-        $fl->show(array(0=>array('href'=> $feedurl,
-                                 'type' => 'rss',
-                                 'version' => 'RSS 1.0',
-                                 'item' => 'Favorites')));
     }
 
     /**

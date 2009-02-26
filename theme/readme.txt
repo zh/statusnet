@@ -31,3 +31,6 @@ cp -r ./default ./mytheme
 nano ./mytheme/css/display.css
 
 3. Search and replace a colour or a path to the background image of your choice.
+
+4. Set /config.php to load 'mytheme':
+$config['site']['theme'] = 'mytheme';

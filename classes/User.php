@@ -40,6 +40,7 @@ class User extends Memcached_DataObject
     public $emailnotifyfav;                  // tinyint(1)   default_1
     public $emailnotifynudge;                // tinyint(1)   default_1
     public $emailnotifymsg;                  // tinyint(1)   default_1
+    public $emailnotifyattn;                 // tinyint(1)   default_1
     public $emailmicroid;                    // tinyint(1)   default_1
     public $language;                        // varchar(50)
     public $timezone;                        // varchar(50)
@@ -62,8 +63,10 @@ class User extends Memcached_DataObject
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
-    function staticGet($k,$v=null)
-    { return Memcached_DataObject::staticGet('User',$k,$v); }
+    function staticGet($k,$v=NULL)
+    {
+        return Memcached_DataObject::staticGet('User',$k,$v);
+    }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
@@ -180,16 +183,16 @@ class User extends Memcached_DataObject
         $profile->nickname = $nickname;
         $profile->profileurl = common_profile_url($nickname);
 
-        if ($fullname) {
+        if (!empty($fullname)) {
             $profile->fullname = $fullname;
         }
-        if ($homepage) {
+        if (!empty($homepage)) {
             $profile->homepage = $homepage;
         }
-        if ($bio) {
+        if (!empty($bio)) {
             $profile->bio = $bio;
         }
-        if ($location) {
+        if (!empty($location)) {
             $profile->location = $location;
         }
 
@@ -197,7 +200,7 @@ class User extends Memcached_DataObject
 
         $id = $profile->insert();
 
-        if (!$id) {
+        if (empty($id)) {
             common_log_db_error($profile, 'INSERT', __FILE__);
             return false;
         }
@@ -207,13 +210,13 @@ class User extends Memcached_DataObject
         $user->id = $id;
         $user->nickname = $nickname;
 
-        if ($password) { # may not have a password for OpenID users
+        if (!empty($password)) { # may not have a password for OpenID users
             $user->password = common_munge_password($password, $id);
         }
 
         # Users who respond to invite email have proven their ownership of that address
 
-        if ($code) {
+        if (!empty($code)) {
             $invite = Invitation::staticGet($code);
             if ($invite && $invite->address && $invite->address_type == 'email' && $invite->address == $email) {
                 $user->email = $invite->address;
@@ -250,7 +253,7 @@ class User extends Memcached_DataObject
             return false;
         }
 
-        if ($email && !$user->email) {
+        if (!empty($email) && !$user->email) {
 
             $confirm = new Confirm_address();
             $confirm->code = common_confirmation_code(128);
@@ -265,7 +268,7 @@ class User extends Memcached_DataObject
             }
         }
 
-        if ($code && $user->email) {
+        if (!empty($code) && $user->email) {
             $user->emailChanged();
         }
 

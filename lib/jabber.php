@@ -114,7 +114,7 @@ function jabber_connect($resource=null)
         try {
             $conn->connect(true); // true = persistent connection
         } catch (XMPPHP_Exception $e) {
-            common_log(LOG_ERROR, $e->getMessage());
+            common_log(LOG_ERR, $e->getMessage());
             return false;
         }
 
@@ -186,6 +186,11 @@ function jabber_format_entry($profile, $notice)
     $entry .= "<id>". $notice->uri . "</id>\n";
     $entry .= "<published>".common_date_w3dtf($notice->created)."</published>\n";
     $entry .= "<updated>".common_date_w3dtf($notice->modified)."</updated>\n";
+    if ($notice->reply_to) {
+        $replyurl = common_local_url('shownotice',
+                                     array('notice' => $notice->reply_to));
+        $entry .= "<link rel='related' href='" . $replyurl . "'/>\n";
+    }
     $entry .= "</entry>\n";
 
     $html  = "\n<html xmlns='http://jabber.org/protocol/xhtml-im'>\n";

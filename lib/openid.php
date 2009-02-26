@@ -64,6 +64,9 @@ function oid_set_last($openid_url)
 
 function oid_get_last()
 {
+    if (empty($_COOKIE[OPENID_COOKIE_KEY])) {
+        return null;
+    }
     $openid_url = $_COOKIE[OPENID_COOKIE_KEY];
     if ($openid_url && strlen($openid_url) > 0) {
         return $openid_url;

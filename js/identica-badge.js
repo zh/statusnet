@@ -1,4 +1,5 @@
 // identica badge -- updated to work with the native API, 12-4-2008
+// Modified to point to Identi.ca, 2-20-2009 by Zach
 // copyright Kent Brewster 2008
 // see http://kentbrewster.com/identica-badge for info
 ( function() { 
@@ -127,7 +128,7 @@
             var a = document.createElement('A');
             a.innerHTML = 'get this';
             a.target = '_blank';
-            a.href = 'http://kentbrewster.com/identica-badge';
+            a.href = 'http://identica/doc/badge';
             $.s.f.appendChild(a);
             $.s.appendChild($.s.f);
             $.f.getUser();

@@ -38,6 +38,7 @@ class Rss10Action extends Action
 
     var $creators = array();
     var $limit = DEFAULT_RSS_LIMIT;
+    var $notices = null;
 
     /**
      * Constructor
@@ -93,6 +94,9 @@ class Rss10Action extends Action
 
     function handle($args)
     {
+        // Get the list of notices
+        $this->notices = $this->getNotices();
+        // Parent handling, including cache check
         parent::handle($args);
         $this->showRss($this->limit);
     }
@@ -257,6 +261,26 @@ class Rss10Action extends Action
     function endRss()
     {
         $this->elementEnd('rdf:RDF');
+    }
+
+    /**
+     * When was this page last modified?
+     *
+     */
+
+    function lastModified()
+    {
+        if (empty($this->notices)) {
+            return null;
+        }
+
+        if (count($this->notices) == 0) {
+            return null;
+        }
+
+        // FIXME: doesn't handle modified profiles, avatars, deleted notices
+
+        return strtotime($this->notices[0]->created);
     }
 }
 

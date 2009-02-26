@@ -57,11 +57,11 @@ class NoticesearchAction extends SearchAction
 
         return true;
     }
-    
+
     /**
      * Get instructions
-     * 
-     * @return string instruction text 
+     *
+     * @return string instruction text
      */
     function getInstructions()
     {
@@ -70,12 +70,26 @@ class NoticesearchAction extends SearchAction
 
     /**
      * Get title
-     * 
+     *
      * @return string title
      */
     function title()
     {
         return _('Text search');
+    }
+
+    function getFeeds()
+    {
+        $q = $this->trimmed('q');
+
+        if (!$q) {
+            return null;
+        }
+
+        return array(new Feed(Feed::RSS1, common_local_url('noticesearchrss',
+                                                           array('q' => $q)),
+                              sprintf(_('Search results for "%s" on %s'),
+                                      $q, common_config('site', 'name'))));
     }
 
     /**
@@ -117,26 +131,6 @@ class NoticesearchAction extends SearchAction
 
         $this->pagination($page > 1, $cnt > NOTICES_PER_PAGE,
                           $page, 'noticesearch', array('q' => $q));
-    }
-
-    /**
-     * Show header
-     *
-     * @param array $arr array containing the query
-     *
-     * @return void
-     */
-
-    function extraHead()
-    {
-        $q = $this->trimmed('q');
-        if ($q) {
-            $this->element('link', array('rel' => 'alternate',
-                                         'href' => common_local_url('noticesearchrss',
-                                                                    array('q' => $q)),
-                                         'type' => 'application/rss+xml',
-                                         'title' => _('Search Stream Feed')));
-        }
     }
 
     /**

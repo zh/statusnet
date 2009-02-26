@@ -50,7 +50,7 @@ class DocAction extends Action
 
     /**
      * Class handler.
-     * 
+     *
      * @param array $args array of arguments
      *
      * @return nothing
@@ -59,7 +59,7 @@ class DocAction extends Action
     {
         parent::handle($args);
         $this->title    = $this->trimmed('title');
-        $this->filename = INSTALLDIR.'/doc/'.$this->title;
+        $this->filename = INSTALLDIR.'/doc-src/'.$this->title;
         if (!file_exists($this->filename)) {
             $this->clientError(_('No such document.'));
             return;
@@ -71,14 +71,14 @@ class DocAction extends Action
     function showPageTitle() {
         $this->element('h1', array('class' => 'entry-title'), $this->title());
     }
-    
+
     // overrided to add hentry, and content-inner classes
     function showContentBlock()
      {
          $this->elementStart('div', array('id' => 'content', 'class' => 'hentry'));
          $this->showPageTitle();
          $this->showPageNoticeBlock();
-         $this->elementStart('div', array('id' => 'content_inner', 
+         $this->elementStart('div', array('id' => 'content_inner',
              'class' => 'entry-content'));
          // show the actual content (forms, lists, whatever)
          $this->showContent();
@@ -88,7 +88,7 @@ class DocAction extends Action
 
     /**
      * Display content.
-     * 
+     *
      * @return nothing
      */
     function showContent()
@@ -100,7 +100,7 @@ class DocAction extends Action
 
     /**
      * Page title.
-     * 
+     *
      * @return page title
      */
     function title()

@@ -86,4 +86,9 @@ class FeaturedUsersSection extends ProfileSection
     {
         return 'featured_users';
     }
+
+    function moreUrl()
+    {
+        return common_local_url('featured');
+    }
 }

@@ -145,6 +145,7 @@ class AvatarsettingsAction extends AccountSettingsAction
                                         'height' => AVATAR_PROFILE_SIZE,
                                         'alt' => $user->nickname));
             $this->elementEnd('div');
+            $this->submit('delete', _('Delete'));
             $this->elementEnd('li');
         }
 
@@ -256,6 +257,8 @@ class AvatarsettingsAction extends AccountSettingsAction
             $this->uploadAvatar();
         } else if ($this->arg('crop')) {
             $this->cropAvatar();
+        } else if ($this->arg('delete')) {
+            $this->deleteAvatar();
         } else {
             $this->showForm(_('Unexpected form submission.'));
         }
@@ -343,6 +346,29 @@ class AvatarsettingsAction extends AccountSettingsAction
         } else {
             $this->showForm(_('Failed updating avatar.'));
         }
+    }
+    
+    /**
+     * Get rid of the current avatar.
+     *
+     * @return void
+     */
+    
+    function deleteAvatar()
+    {
+        $user = common_current_user();
+        $profile = $user->getProfile();
+        
+        $avatar = $profile->getOriginalAvatar();
+        $avatar->delete();
+        $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
+        $avatar->delete();
+        $avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
+        $avatar->delete();
+        $avatar = $profile->getAvatar(AVATAR_MINI_SIZE);
+        $avatar->delete();
+
+        $this->showForm(_('Avatar deleted.'), true);
     }
 
     /**

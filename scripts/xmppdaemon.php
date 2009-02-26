@@ -208,6 +208,8 @@ class XMPPDaemon extends Daemon
     {
         if (preg_match('/[\[\(]?[Aa]uto[-\s]?[Rr]e(ply|sponse)[\]\)]/', $txt)) {
             return true;
+        } else if (preg_match('/^System: Message wasn\'t delivered. Offline storage size was exceeded.$/', $txt)) {
+            return true;
         } else {
             return false;
         }

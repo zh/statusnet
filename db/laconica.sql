@@ -31,7 +31,7 @@ create table avatar (
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table sms_carrier (
-    id integer auto_increment primary key comment 'primary key for SMS carrier',
+    id integer primary key comment 'primary key for SMS carrier',
     name varchar(64) unique key comment 'name of the carrier',
     email_pattern varchar(255) not null comment 'sprintf pattern for making an email address from a phone number',
     created datetime not null comment 'date this record was created',
@@ -50,6 +50,7 @@ create table user (
     emailnotifyfav tinyint default 1 comment 'Notify by email of favorites',
     emailnotifynudge tinyint default 1 comment 'Notify by email of nudges',
     emailnotifymsg tinyint default 1 comment 'Notify by email of direct messages',
+    emailnotifyattn tinyint default 1 comment 'Notify by email of @-replies',
     emailmicroid tinyint default 1 comment 'whether to publish email microid',
     language varchar(50) comment 'preferred language',
     timezone varchar(50) comment 'timezone',
@@ -260,7 +261,8 @@ create table notice_tag (
     created datetime not null comment 'date this record was created',
 
     constraint primary key (tag, notice_id),
-    index notice_tag_created_idx (created)
+    index notice_tag_created_idx (created),
+    index notice_tag_notice_id_idx (notice_id)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 /* Synching with foreign services */
@@ -358,7 +360,8 @@ create table profile_tag (
 
    constraint primary key (tagger, tagged, tag),
    index profile_tag_modified_idx (modified),
-   index profile_tag_tagger_tag_idx (tagger, tag)
+   index profile_tag_tagger_tag_idx (tagger, tag),
+   index profile_tag_tagged_idx (tagged)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table profile_block (
@@ -402,7 +405,9 @@ create table group_member (
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified',
 
-    constraint primary key (group_id, profile_id)
+    constraint primary key (group_id, profile_id),
+    index group_member_profile_id_idx (profile_id),
+    index group_member_created_idx (created)
 
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 

@@ -31,8 +31,6 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
-define('NOTICES_PER_SECTION', 5);
-
 /**
  * Base class for sections showing lists of notices
  *
@@ -79,5 +77,10 @@ class PopularNoticeSection extends NoticeSection
     function divId()
     {
         return 'popular_notices';
+    }
+
+    function moreUrl()
+    {
+        return common_local_url('favorited');
     }
 }

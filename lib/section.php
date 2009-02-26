@@ -103,6 +103,6 @@ class Section extends Widget
 
     function moreTitle()
     {
-        return null;
+        return _('More...');
     }
 }
