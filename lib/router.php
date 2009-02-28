@@ -143,6 +143,12 @@ class Router
                     array('action' => 'deletenotice'),
                     array('notice' => '[0-9]+'));
 
+        // conversation
+
+        $m->connect('conversation/:id',
+                    array('action' => 'conversation'),
+                    array('id' => '[0-9]+'));
+
         $m->connect('message/new', array('action' => 'newmessage'));
         $m->connect('message/:message',
                     array('action' => 'showmessage'),
@@ -265,21 +271,20 @@ class Router
                           'apiaction' => 'friendships'),
                     array('method' => 'exists(\.(xml|json|rss|atom))'));
 
-
         // Social graph
 
         $m->connect('api/friends/ids/:argument',
                     array('action' => 'api',
                           'apiaction' => 'statuses',
                           'method' => 'friendsIDs'));
-                                                   
+
         foreach (array('xml', 'json') as $e) {
             $m->connect('api/friends/ids.'.$e,
                         array('action' => 'api',
                               'apiaction' => 'statuses',
                               'method' => 'friendsIDs.'.$e));
         }
-                                                    
+
         $m->connect('api/followers/ids/:argument',
                     array('action' => 'api',
                           'apiaction' => 'statuses',
