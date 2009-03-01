@@ -105,7 +105,7 @@ class UserauthorizationAction extends Action
         $this->elementStart('div', 'profile');
         if ($avatar) {
             $this->element('img', array('src' => $avatar,
-                                        'class' => 'avatar profile',
+                                        'class' => 'avatar',
                                         'width' => AVATAR_PROFILE_SIZE,
                                         'height' => AVATAR_PROFILE_SIZE,
                                         'alt' => $nickname));

@@ -93,7 +93,10 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showPage()
     {
-        $this->startHTML();
+        if (Event::handle('StartShowHTML', array($this))) {
+            $this->startHTML();
+            Event::handle('EndShowHTML', array($this));
+        }
         $this->showHead();
         $this->showBody();
         $this->endHTML();
@@ -173,6 +176,10 @@ class Action extends HTMLOutputter // lawsuit
                                                  // TODO: "handheld" CSS for other mobile devices
                                                  'media' => 'only screen and (max-device-width: 480px)')); // Mobile WebKit
                 }
+                $this->element('link', array('rel' => 'stylesheet',
+                                             'type' => 'text/css',
+                                             'href' => theme_path('css/print.css', 'base') . '?version=' . LACONICA_VERSION,
+                                             'media' => 'print'));
                 Event::handle('EndShowLaconicaStyles', array($this));
             }
             if (Event::handle('StartShowUAStyles', array($this))) {

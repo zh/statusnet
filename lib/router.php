@@ -116,6 +116,12 @@ class Router
 
         $m->connect('main/openid', array('action' => 'openidlogin'));
         $m->connect('main/remote', array('action' => 'remotesubscribe'));
+        $m->connect('main/remote?nickname=:nickname', array('action' => 'remotesubscribe'), array('nickname' => '[A-Za-z0-9_-]+'));
+
+        foreach (array('requesttoken', 'accesstoken', 'userauthorization',
+                    'postnotice', 'updateprofile', 'finishremotesubscribe') as $action) {
+            $m->connect('index.php?action=' . $action, array('action' => $action));
+        }
 
         // settings
 
@@ -128,6 +134,7 @@ class Router
 
         foreach (array('group', 'people', 'notice') as $s) {
             $m->connect('search/'.$s, array('action' => $s.'search'));
+            $m->connect('search/'.$s.'?q=:q', array('action' => $s.'search'), array('q' => '.+'));
         }
 
         $m->connect('search/notice/rss', array('action' => 'noticesearchrss'));
@@ -135,6 +142,9 @@ class Router
         // notice
 
         $m->connect('notice/new', array('action' => 'newnotice'));
+        $m->connect('notice/new?replyto=:replyto',
+                    array('action' => 'newnotice'),
+                    array('replyto' => '[A-Za-z0-9_-]+'));
         $m->connect('notice/:notice',
                     array('action' => 'shownotice'),
                     array('notice' => '[0-9]+'));
@@ -150,6 +160,7 @@ class Router
                     array('id' => '[0-9]+'));
 
         $m->connect('message/new', array('action' => 'newmessage'));
+        $m->connect('message/new?to=:to', array('action' => 'newmessage'), array('to' => '[A-Za-z0-9_-]'));
         $m->connect('message/:message',
                     array('action' => 'showmessage'),
                     array('message' => '[0-9]+'));
