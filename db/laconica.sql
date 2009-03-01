@@ -171,7 +171,7 @@ create table token (
     tok char(32) not null comment 'identifying value',
     secret char(32) not null comment 'secret value',
     type tinyint not null default 0 comment 'request or access',
-    state tinyint default 0 comment 'for requests; 0 = initial, 1 = authorized, 2 = used',
+    state tinyint default 0 comment 'for requests, 0 = initial, 1 = authorized, 2 = used',
 
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified',
@@ -344,7 +344,7 @@ create table notice_inbox (
     user_id integer not null comment 'user receiving the message' references user (id),
     notice_id integer not null comment 'notice received' references notice (id),
     created datetime not null comment 'date the notice was created',
-    source tinyint default 1 comment 'reason it is in the inbox; 1=subscription',
+    source tinyint default 1 comment 'reason it is in the inbox, 1=subscription',
 
     constraint primary key (user_id, notice_id),
     index notice_inbox_notice_id_idx (notice_id)
