@@ -3,7 +3,11 @@ define('INSTALLDIR', dirname(__FILE__));
 
 function main()
 {
-    checkPrereqs();
+    if (!checkPrereqs())
+    {
+        return;
+    }
+
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         handlePost();
     } else {
@@ -13,6 +17,55 @@ function main()
 
 function checkPrereqs()
 {
+    if (file_exists(INSTALLDIR.'/config.php')) {
+         ?><p class="error">Config file &quot;config.php&quot; already exists.</p>
+         <?
+        return false;
+    }
+
+    if (version_compare(PHP_VERSION, '5.0.0', '<')) {
+            ?><p class="error">Require PHP version 5 or greater.</p><?
+		    return false;
+    }
+
+    $reqs = array('gd', 'mysql', 'curl',
+                  'xmlwriter', 'mbstring',
+                  'gettext');
+
+    foreach ($reqs as $req) {
+        if (!checkExtension($req)) {
+            ?><p class="error">Cannot load required extension &quot;<?= $req ?>&quot;.</p><?
+		    return false;
+        }
+    }
+
+	if (!is_writable(INSTALLDIR)) {
+         ?><p class="error">Cannot write config file to &quot;<?= INSTALLDIR ?>&quot;.</p>
+	       <p>On your server, try this command:</p>
+	       <blockquote>chmod a+w <?= INSTALLDIR ?></blockquote>
+         <?
+	     return false;
+	}
+
+	if (!is_writable(INSTALLDIR.'/avatar/')) {
+         ?><p class="error">Cannot write avatar directory &quot;<?= INSTALLDIR ?>/avatar/&quot;.</p>
+	       <p>On your server, try this command:</p>
+	       <blockquote>chmod a+w <?= INSTALLDIR ?>/avatar/</blockquote>
+         <?
+	     return false;
+	}
+
+	return true;
+}
+
+function checkExtension($name)
+{
+    if (!extension_loaded($name)) {
+        if (!dl($name.'.so')) {
+            return false;
+        }
+    }
+    return true;
 }
 
 function showForm()
