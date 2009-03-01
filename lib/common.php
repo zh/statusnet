@@ -187,6 +187,16 @@ foreach ($_config_files as $_config_file) {
     }
 }
 
+// XXX: Throw a conniption if database not installed
+
+// Fixup for laconica.ini
+
+$_db_name = substr($config['db']['database'], strrpos($config['db']['database'], '/') + 1);
+
+if ($_db_name != 'laconica' && !array_key_exists('ini_'.$_db_name, $config['db'])) {
+    $config['db']['ini_'.$_db_name] = INSTALLDIR.'/classes/laconica.ini';
+}
+
 // XXX: how many of these could be auto-loaded on use?
 
 require_once('Validate.php');
