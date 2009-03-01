@@ -17,6 +17,8 @@ Requires:	php-curl
 Requires:	php-mysql
 Requires:	php-mbstring
 Requires:	php-gettext
+Requires:	php-xml
+Requires:	php-gd
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
@@ -67,6 +69,7 @@ rm -rf %buildroot
 %dir %{wwwpath}
 %{wwwpath}/*
 %{_datadir}/laconica/*
+%attr(-,apache,apache) %dir %{_datadir}/laconica/avatar
 %doc COPYING README doc-src/*
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/laconica.conf
 
