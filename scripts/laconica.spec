@@ -5,7 +5,7 @@ Name:           laconica
 Version:        0.7.1
 Release:        1%{?dist}
 License:        GAGPL v3 or later
-Source:         laconica-0.7.1.tar.bz2
+Source:         laconica-0.7.1.tar.gz
 Group:          Applications/Internet
 Summary:        Laconica, the Open Source microblogging platform
 BuildArch:      noarch
