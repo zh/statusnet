@@ -138,22 +138,24 @@ class UpdateprofileAction extends Action
 
         $orig_profile = clone($profile);
 
-        if ($nickname) {
+        /* Use values even if they are an empty string. Parsing an empty string in
+           updateProfile is the specified way of clearing a parameter in OMB. */
+        if (!is_null($nickname)) {
             $profile->nickname = $nickname;
         }
-        if ($profile_url) {
+        if (!is_null($profile_url)) {
             $profile->profileurl = $profile_url;
         }
-        if ($fullname) {
+        if (!is_null($fullname)) {
             $profile->fullname = $fullname;
         }
-        if ($homepage) {
+        if (!is_null($homepage)) {
             $profile->homepage = $homepage;
         }
-        if ($bio) {
+        if (!is_null($bio)) {
             $profile->bio = $bio;
         }
-        if ($location) {
+        if (!is_null($location)) {
             $profile->location = $location;
         }
 
