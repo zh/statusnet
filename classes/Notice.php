@@ -585,7 +585,7 @@ class Notice extends Memcached_DataObject
             $inbox = new Notice_inbox();
             $UT = common_config('db','type')=='pgsql'?'"user"':'user';
             $qry = 'INSERT INTO notice_inbox (user_id, notice_id, created) ' .
-              "SELECT $UT.id, " . $this->id . ', "' . $this->created . '" ' .
+              "SELECT $UT.id, " . $this->id . ", '" . $this->created . "' " .
               "FROM $UT JOIN subscription ON $UT.id = subscription.subscriber " .
               'WHERE subscription.subscribed = ' . $this->profile_id . ' ' .
               'AND NOT EXISTS (SELECT user_id, notice_id ' .
@@ -655,7 +655,7 @@ class Notice extends Memcached_DataObject
                 $inbox = new Notice_inbox();
                 $UT = common_config('db','type')=='pgsql'?'"user"':'user';
                 $qry = 'INSERT INTO notice_inbox (user_id, notice_id, created, source) ' .
-                  "SELECT $UT.id, " . $this->id . ', "' . $this->created . '", 2 ' .
+                  "SELECT $UT.id, " . $this->id . ", '" . $this->created . "', 2 " .
                   "FROM $UT JOIN group_member ON $UT.id = group_member.profile_id " .
                   'WHERE group_member.group_id = ' . $group->id . ' ' .
                   'AND NOT EXISTS (SELECT user_id, notice_id ' .
