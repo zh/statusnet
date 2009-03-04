@@ -189,6 +189,13 @@ function handlePost()
         showForm();
         return;
     }
+    updateStatus("Adding notice source data to database...");
+    $res = runDbScript(INSTALLDIR.'/db/notice_source.sql', $conn);
+    if ($res === false) {
+        updateStatus("Can't run notice source script.", true);
+        showForm();
+        return;
+    }
     updateStatus("Writing config file...");
     $sqlUrl = "mysqli://$username:$password@$host/$database";
     $res = writeConf($sitename, $sqlUrl);
