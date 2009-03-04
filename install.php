@@ -196,6 +196,13 @@ function handlePost()
         showForm();
         return;
     }
+    updateStatus("Adding foreign service data to database...");
+    $res = runDbScript(INSTALLDIR.'/db/foreign_services.sql', $conn);
+    if ($res === false) {
+        updateStatus("Can't run foreign service script.", true);
+        showForm();
+        return;
+    }
     updateStatus("Writing config file...");
     $sqlUrl = "mysqli://$username:$password@$host/$database";
     $res = writeConf($sitename, $sqlUrl);
