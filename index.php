@@ -61,6 +61,14 @@ function main()
 {
     global $user, $action;
 
+    if (!_have_config()) {
+        $msg = sprintf(_("No configuration file found. Try running ".
+                         "the installation program first."));
+        $sac = new ServerErrorAction($msg);
+        $sac->showPage();
+        return;
+    }
+
     // For database errors
 
     PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, 'handleError');
