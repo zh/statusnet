@@ -152,6 +152,13 @@ function handlePost()
         showForm();
         return;
     }
+    updateStatus("Adding SMS carrier data to database...");
+    $res = runDbScript(INSTALLDIR.'/db/sms_carrier.sql', $conn);
+    if ($res === false) {
+        updateStatus("Can't run SMS carrier script.", true);
+        showForm();
+        return;
+    }
     updateStatus("Writing config file...");
     $sqlUrl = "mysqli://$username:$password@$host/$database";
     $res = writeConf($sitename, $sqlUrl);
