@@ -48,10 +48,16 @@ class PopularNoticeSection extends NoticeSection
 {
     function getNotices()
     {
-        $qry = 'SELECT notice.*, '.
-          'sum(exp(-(now() - fave.modified) / %s)) as weight ' .
+        if (common_config('db', 'type') == 'pgsql') {
+            $weightexpr='sum(exp(-extract(epoch from (now() - fave.modified)) / %s))';
+        } else {
+            $weightexpr='sum(exp(-(now() - fave.modified) / %s))';
+        }
+
+        $qry = 'SELECT notice.id, '.
+          $weightexpr . ' as weight ' .
           'FROM notice JOIN fave ON notice.id = fave.notice_id ' .
-          'GROUP BY fave.notice_id ' .
+          'GROUP BY notice.id ' .
           'ORDER BY weight DESC';
 
         $offset = 0;
