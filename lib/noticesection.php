@@ -73,6 +73,11 @@ class NoticeSection extends Section
     function showNotice($notice)
     {
         $profile = $notice->getProfile();
+        if (empty($profile)) {
+            common_log(LOG_WARNING, sprintf("Notice %d has no profile",
+                                            $notice->id));
+            return;
+        }
         $this->out->elementStart('li', 'hentry notice');
         $this->out->elementStart('div', 'entry-title');
         $avatar = $profile->getAvatar(AVATAR_MINI_SIZE);
