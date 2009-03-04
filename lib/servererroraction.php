@@ -42,7 +42,7 @@ require_once INSTALLDIR.'/lib/error.php';
  * says that 500 errors should be treated similarly to 400 errors, and
  * it's easier to give an HTML response.  Maybe we can customize these
  * to display some funny animal cartoons.  If not, we can probably role
- * these classes up into a single class. 
+ * these classes up into a single class.
  *
  * See: http://tools.ietf.org/html/rfc2616#section-10
  *
@@ -57,19 +57,19 @@ class ServerErrorAction extends ErrorAction
     function __construct($message='Error', $code=500)
     {
         parent::__construct($message, $code);
-        
+
         $this->status  = array(500 => 'Internal Server Error',
                                501 => 'Not Implemented',
                                502 => 'Bad Gateway',
                                503 => 'Service Unavailable',
                                504 => 'Gateway Timeout',
                                505 => 'HTTP Version Not Supported');
-        
+
         $this->default = 500;
     }
 
     // XXX: Should these error actions even be invokable via URI?
-    
+
     function handle($args)
     {
         parent::handle($args);
@@ -81,12 +81,16 @@ class ServerErrorAction extends ErrorAction
         }
 
         $this->message = $this->trimmed('message');
-        
+
         if (!$this->message) {
-            $this->message = "Server Error $this->code"; 
-        }        
+            $this->message = "Server Error $this->code";
+        }
 
         $this->showPage();
     }
-     
+
+    function title()
+    {
+        return $this->status[$this->code];
+    }
 }
