@@ -182,26 +182,17 @@ function handlePost()
         showForm();
         return;
     }
-    updateStatus("Adding SMS carrier data to database...");
-    $res = runDbScript(INSTALLDIR.'/db/sms_carrier.sql', $conn);
-    if ($res === false) {
-        updateStatus("Can't run SMS carrier script.", true);
-        showForm();
-        return;
-    }
-    updateStatus("Adding notice source data to database...");
-    $res = runDbScript(INSTALLDIR.'/db/notice_source.sql', $conn);
-    if ($res === false) {
-        updateStatus("Can't run notice source script.", true);
-        showForm();
-        return;
-    }
-    updateStatus("Adding foreign service data to database...");
-    $res = runDbScript(INSTALLDIR.'/db/foreign_services.sql', $conn);
-    if ($res === false) {
-        updateStatus("Can't run foreign service script.", true);
-        showForm();
-        return;
+    foreach (array('sms_carrier' => 'SMS carrier',
+                   'notice_source' => 'notice source',
+                   'foreign_services' => 'foreign service')
+             as $scr => $name) {
+        updateStatus(sprintf("Adding %s data to database...", $name));
+        $res = runDbScript(INSTALLDIR.'/db/'.$scr.'.sql', $conn);
+        if ($res === false) {
+            updateStatus(sprintf("Can't run %d script.", $name), true);
+            showForm();
+            return;
+        }
     }
     updateStatus("Writing config file...");
     $sqlUrl = "mysqli://$username:$password@$host/$database";
