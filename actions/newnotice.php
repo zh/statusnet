@@ -152,6 +152,11 @@ class NewnoticeAction extends Action
         }
 
         $replyto = $this->trimmed('inreplyto');
+        #If an ID of 0 is wrongly passed here, it will cause a database error,
+        #so override it...
+        if ($replyto == 0) {
+            $replyto = 'false';
+        }
 
         $notice = Notice::saveNew($user->id, $content, 'web', 1,
                                   ($replyto == 'false') ? null : $replyto);

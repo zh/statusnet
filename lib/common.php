@@ -73,6 +73,7 @@ $config =
               'theme' => 'default',
               'path' => $_path,
               'logfile' => null,
+              'logdebug' => false,
               'fancy' => false,
               'locale_path' => INSTALLDIR.'/locale',
               'language' => 'en_US',

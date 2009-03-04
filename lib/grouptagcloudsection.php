@@ -58,8 +58,14 @@ class GroupTagCloudSection extends TagCloudSection
 
     function getTags()
     {
+        if (common_config('db', 'type') == 'pgsql') {
+            $weightexpr='sum(exp(-extract(epoch from (now() - notice_tag.created)) / %s))';
+        } else {
+            $weightexpr='sum(exp(-(now() - notice_tag.created) / %s))';
+        }
+
         $qry = 'SELECT notice_tag.tag, '.
-          'sum(exp(-(now() - notice_tag.created)/%s)) as weight ' .
+          $weightexpr . ' as weight ' .
           'FROM notice_tag JOIN notice ' .
           'ON notice_tag.notice_id = notice.id ' .
           'JOIN group_inbox on group_inbox.notice_id = notice.id ' .
