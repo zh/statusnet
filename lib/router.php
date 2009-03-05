@@ -228,14 +228,15 @@ class Router
 
         // users
 
-        $m->connect('api/users/show/:argument',
+        $m->connect('api/users/:method/:argument',
                     array('action' => 'api',
-                          'apiaction' => 'users'));
+                          'apiaction' => 'users'), 
+                    array('method' => 'show(\.(xml|json))?'));
 
         $m->connect('api/users/:method',
                     array('action' => 'api',
                           'apiaction' => 'users'),
-                    array('method' => 'show(\.(xml|json|atom|rss))?'));
+                    array('method' => 'show(\.(xml|json))?'));
 
         // direct messages
 
@@ -304,11 +305,11 @@ class Router
         }
 
         // account
-
+        
         $m->connect('api/account/:method',
                     array('action' => 'api',
                           'apiaction' => 'account'));
-
+                          
         // favorites
 
         $m->connect('api/favorites/:method/:argument',
