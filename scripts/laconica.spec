@@ -74,7 +74,7 @@ rm -rf %buildroot
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/laconica.conf
 
 %changelog
-* Sat Feb 28 2009 Zach Copley <zach@controlyourself.ca> - 0.7.2
+* Wed Mar 03 2009 Zach Copley <zach@controlyourself.ca> - 0.7.2
 - Changed version number to 0.7.2.
 
 * Sat Feb 28 2009 Ken Sedgwick <ken@bonsai.com> - 0.7.1-1
