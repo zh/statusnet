@@ -181,7 +181,7 @@ create table nonce (
     consumer_key varchar(255) not null /* comment 'unique identifier, root URL' */,
     tok char(32) not null /* comment 'identifying value' */,
     nonce char(32) not null /* comment 'nonce' */,
-    ts timestamp not null /* comment 'timestamp sent' */,
+    ts integer not null /* comment 'timestamp sent' values are epoch, and only used internally */,
 
     created timestamp not null default CURRENT_TIMESTAMP /* comment 'date this record was created' */,
     modified timestamp /* comment 'date this record was modified' */,
