@@ -622,9 +622,15 @@ function common_at_link($sender_id, $nickname)
     $sender = Profile::staticGet($sender_id);
     $recipient = common_relative_profile($sender, common_canonical_nickname($nickname));
     if ($recipient) {
+        $user = User::staticGet('id', $recipient->id);
+        if ($user) {
+            $url = common_local_url('userbyid', array('id' => $user->id));
+        } else {
+            $url = $recipient->profileurl;
+        }
         $xs = new XMLStringer(false);
         $xs->elementStart('span', 'vcard');
-        $xs->elementStart('a', array('href' => $recipient->profileurl,
+        $xs->elementStart('a', array('href' => $url,
                                      'class' => 'url'));
         $xs->element('span', 'fn nickname', $nickname);
         $xs->elementEnd('a');
