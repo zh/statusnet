@@ -54,7 +54,7 @@ class PopularNoticeSection extends NoticeSection
             $weightexpr='sum(exp(-(now() - fave.modified) / %s))';
         }
 
-        $qry = 'SELECT notice.id, '.
+        $qry = 'SELECT notice.*, '.
           $weightexpr . ' as weight ' .
           'FROM notice JOIN fave ON notice.id = fave.notice_id ' .
           'GROUP BY notice.id ' .
