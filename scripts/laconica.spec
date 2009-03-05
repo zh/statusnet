@@ -2,10 +2,10 @@ BuildRequires:	php-pear
 BuildRequires:	httpd-devel
 
 Name:           laconica
-Version:        0.7.1
+Version:        0.7.2
 Release:        1%{?dist}
 License:        GAGPL v3 or later
-Source:         laconica-0.7.1.tar.gz
+Source:         laconica-0.7.2.tar.gz
 Group:          Applications/Internet
 Summary:        Laconica, the Open Source microblogging platform
 BuildArch:      noarch
@@ -74,6 +74,9 @@ rm -rf %buildroot
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/laconica.conf
 
 %changelog
+* Sat Feb 28 2009 Zach Copley <zach@controlyourself.ca> - 0.7.2
+- Changed version number to 0.7.2.
+
 * Sat Feb 28 2009 Ken Sedgwick <ken@bonsai.com> - 0.7.1-1
 - Modified RPM for Fedora.
 
