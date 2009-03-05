@@ -144,6 +144,8 @@ $config =
         array('enabled' => false,
               'server' => 'localhost',
               'port' => 11211),
+ 		'ping' =>
+        array('notify' => array()),
         'inboxes' =>
         array('enabled' => true), # on by default for new sites
         );
