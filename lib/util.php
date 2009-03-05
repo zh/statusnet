@@ -81,7 +81,7 @@ function common_language()
 
     // If there is a user logged in and they've set a language preference
     // then return that one...
-    if (common_logged_in()) {
+    if (_have_config() && common_logged_in()) {
         $user = common_current_user();
         $user_language = $user->language;
         if ($user_language)
@@ -314,6 +314,10 @@ function common_forgetme()
 function common_current_user()
 {
     global $_cur;
+
+    if (!_have_config()) {
+        return null;
+    }
 
     if ($_cur === false) {
 

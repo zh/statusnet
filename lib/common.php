@@ -188,6 +188,12 @@ foreach ($_config_files as $_config_file) {
     }
 }
 
+function _have_config()
+{
+    global $_have_a_config;
+    return $_have_a_config;
+}
+
 // XXX: Throw a conniption if database not installed
 
 // Fixup for laconica.ini

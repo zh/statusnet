@@ -394,6 +394,8 @@ class Router
                     array('action' => 'showstream'),
                     array('nickname' => '[a-zA-Z0-9]{1,64}'));
 
+        Event::handle('RouterInitialized', array($m));
+
         return $m;
     }
 

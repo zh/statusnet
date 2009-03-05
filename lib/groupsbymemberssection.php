@@ -45,7 +45,7 @@ class GroupsByMembersSection extends GroupSection
 {
     function getGroups()
     {
-        $qry = 'SELECT user_group.*, count(*) as value ' .
+        $qry = 'SELECT user_group.id, count(*) as value ' .
           'FROM user_group JOIN group_member '.
           'ON user_group.id = group_member.group_id ' .
           'GROUP BY user_group.id ' .
