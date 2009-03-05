@@ -60,20 +60,34 @@ class TwitterapiAction extends Action
 
     function twitter_status_array($notice, $include_user=true)
     {
-
         $profile = $notice->getProfile();
 
         $twitter_status = array();
         $twitter_status['text'] = $notice->content;
         $twitter_status['truncated'] = 'false'; # Not possible on Laconica
         $twitter_status['created_at'] = $this->date_twitter($notice->created);
-        $twitter_status['in_reply_to_status_id'] = ($notice->reply_to) ? intval($notice->reply_to) : null;
+        $twitter_status['in_reply_to_status_id'] = ($notice->reply_to) ?
+            intval($notice->reply_to) : null;
         $twitter_status['source'] = $this->source_link($notice->source);
         $twitter_status['id'] = intval($notice->id);
-        $twitter_status['in_reply_to_user_id'] = ($notice->reply_to) ? $this->replier_by_reply(intval($notice->reply_to)) : null;
+
+        $replier_profile = null;
+
+        if ($notice->reply_to) {
+            $reply = Notice::staticGet(intval($notice->reply_to));
+            if ($reply) {
+                $replier_profile = $reply->getProfile();
+            }
+        }
+
+        $twitter_status['in_reply_to_user_id'] =
+            ($replier_profile) ? intval($replier_profile->id) : null;
+        $twitter_status['in_reply_to_screen_name'] =
+            ($replier_profile) ? $replier_profile->nickname : null;
 
         if (isset($this->auth_user)) {
-            $twitter_status['favorited'] = ($this->auth_user->hasFave($notice)) ? 'true' : 'false';
+            $twitter_status['favorited'] = 
+                ($this->auth_user->hasFave($notice)) ? 'true' : 'false';
         } else {
             $twitter_status['favorited'] = 'false';
         }
@@ -137,7 +151,6 @@ class TwitterapiAction extends Action
 
     function twitter_dmsg_array($message)
     {
-
         $twitter_dm = array();
 
         $from_profile = $message->getFrom();
@@ -386,23 +399,7 @@ class TwitterapiAction extends Action
         $t = strtotime($dt);
         return date("D M d G:i:s O Y", $t);
     }
-
-    function replier_by_reply($reply_id)
-    {
-        $notice = Notice::staticGet($reply_id);
-        if ($notice) {
-            $profile = $notice->getProfile();
-            if ($profile) {
-                return intval($profile->id);
-            } else {
-                common_debug('Can\'t find a profile for notice: ' . $notice->id, __FILE__);
-            }
-        } else {
-            common_debug("Can't get notice: $reply_id", __FILE__);
-        }
-        return null;
-    }
-
+    
     // XXX: Candidate for a general utility method somewhere?
     function count_subscriptions($profile)
     {

@@ -40,7 +40,7 @@ class Notice_tag extends Memcached_DataObject
         $qry =
           'SELECT notice.* ' .
           'FROM notice JOIN notice_tag ON notice.id = notice_tag.notice_id ' .
-          'WHERE notice_tag.tag = "%s" ';
+          "WHERE notice_tag.tag = '%s' ";
 
         return Notice::getStream(sprintf($qry, $tag),
                                  'notice_tag:notice_stream:' . common_keyize($tag),
