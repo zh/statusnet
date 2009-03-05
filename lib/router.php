@@ -228,14 +228,15 @@ class Router
 
         // users
 
-        $m->connect('api/users/show/:argument',
+        $m->connect('api/users/:method/:argument',
                     array('action' => 'api',
-                          'apiaction' => 'users'));
+                          'apiaction' => 'users'),
+                    array('method' => 'show(\.(xml|json))?'));
 
         $m->connect('api/users/:method',
                     array('action' => 'api',
                           'apiaction' => 'users'),
-                    array('method' => 'show(\.(xml|json|atom|rss))?'));
+                    array('method' => 'show(\.(xml|json))?'));
 
         // direct messages
 
@@ -283,14 +284,14 @@ class Router
                     array('action' => 'api',
                           'apiaction' => 'statuses',
                           'method' => 'friendsIDs'));
-                                                   
+
         foreach (array('xml', 'json') as $e) {
             $m->connect('api/friends/ids.'.$e,
                         array('action' => 'api',
                               'apiaction' => 'statuses',
                               'method' => 'friendsIDs.'.$e));
         }
-                                                    
+
         $m->connect('api/followers/ids/:argument',
                     array('action' => 'api',
                           'apiaction' => 'statuses',
@@ -350,6 +351,16 @@ class Router
         $m->connect('api/laconica/:method',
                     array('action' => 'api',
                           'apiaction' => 'laconica'));
+
+
+        // search
+
+        foreach (array('json', 'atom') as $e) {
+            $m->connect('api/search.'.$e,
+                        array('action' => 'twitapisearch'));
+        }
+
+        $m->connect('api/trends.json', array('action' => 'twitapitrends'));
 
         // user stuff
 

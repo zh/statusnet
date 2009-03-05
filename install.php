@@ -130,6 +130,36 @@ function handlePost()
     $password = $_POST['password'];
     $sitename = $_POST['sitename'];
 
+    if (empty($host)) {
+        updateStatus("No hostname specified.", true);
+        showForm();
+        return;
+    }
+
+    if (empty($database)) {
+        updateStatus("No database specified.", true);
+        showForm();
+        return;
+    }
+
+    if (empty($username)) {
+        updateStatus("No username specified.", true);
+        showForm();
+        return;
+    }
+
+    if (empty($password)) {
+        updateStatus("No password specified.", true);
+        showForm();
+        return;
+    }
+
+    if (empty($sitename)) {
+        updateStatus("No sitename specified.", true);
+        showForm();
+        return;
+    }
+
     updateStatus("Starting installation...");
     updateStatus("Checking database...");
     $conn = mysql_connect($host, $username, $password);
@@ -151,6 +181,18 @@ function handlePost()
         updateStatus("Can't run database script.", true);
         showForm();
         return;
+    }
+    foreach (array('sms_carrier' => 'SMS carrier',
+                   'notice_source' => 'notice source',
+                   'foreign_services' => 'foreign service')
+             as $scr => $name) {
+        updateStatus(sprintf("Adding %s data to database...", $name));
+        $res = runDbScript(INSTALLDIR.'/db/'.$scr.'.sql', $conn);
+        if ($res === false) {
+            updateStatus(sprintf("Can't run %d script.", $name), true);
+            showForm();
+            return;
+        }
     }
     updateStatus("Writing config file...");
     $sqlUrl = "mysqli://$username:$password@$host/$database";

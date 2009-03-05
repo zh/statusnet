@@ -976,17 +976,17 @@ class Action extends HTMLOutputter // lawsuit
         }
         if ($have_before) {
             $pargs   = array('page' => $page-1);
-            $newargs = $args ? array_merge($args, $pargs) : $pargs;
             $this->elementStart('li', array('class' => 'nav_prev'));
-            $this->element('a', array('href' => common_local_url($action, $newargs), 'rel' => 'prev'),
+            $this->element('a', array('href' => common_local_url($action, $args, $pargs),
+                                      'rel' => 'prev'),
                            _('After'));
             $this->elementEnd('li');
         }
         if ($have_after) {
             $pargs   = array('page' => $page+1);
-            $newargs = $args ? array_merge($args, $pargs) : $pargs;
             $this->elementStart('li', array('class' => 'nav_next'));
-            $this->element('a', array('href' => common_local_url($action, $newargs), 'rel' => 'next'),
+            $this->element('a', array('href' => common_local_url($action, $args, $pargs),
+                                      'rel' => 'next'),
                            _('Before'));
             $this->elementEnd('li');
         }
