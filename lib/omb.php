@@ -305,7 +305,7 @@ function omb_update_profile($profile, $remote_profile, $subscription)
         return false;
     } else { # success!
         parse_str($result->body, $return);
-        if ($return['omb_version'] == OMB_VERSION_01) {
+        if (isset($return['omb_version']) && $return['omb_version'] === OMB_VERSION_01) {
             return true;
         } else {
             return false;
