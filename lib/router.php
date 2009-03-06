@@ -354,17 +354,13 @@ class Router
 
 
         // search
-
-        foreach (array('json', 'atom') as $e) {
-            $m->connect('api/search.'.$e,
-                        array('action' => 'twitapisearch'));
-        }
-
+        $m->connect('api/search.atom', array('action' => 'twitapisearchatom'));
+        $m->connect('api/search.json', array('action' => 'twitapisearchjson'));
         $m->connect('api/trends.json', array('action' => 'twitapitrends'));
 
         // user stuff
 
-        foreach (array('subscriptions', 'subscribers',
+      foreach (array('subscriptions', 'subscribers',
                        'nudge', 'xrds', 'all', 'foaf',
                        'replies', 'inbox', 'outbox', 'microsummary') as $a) {
             $m->connect(':nickname/'.$a,

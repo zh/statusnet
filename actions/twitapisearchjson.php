@@ -27,11 +27,12 @@
  * @link      http://laconi.ca/
  */
 
-if (!defined('LACONICA')) { 
+if (!defined('LACONICA')) {
     exit(1);
 }
 
 require_once INSTALLDIR.'/lib/twitterapi.php';
+require_once INSTALLDIR.'/lib/jsonsearchresultslist.php';
 
 /**
  * Action handler for Twitter-compatible API search
@@ -44,29 +45,52 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
  * @see      TwitterapiAction
  */
 
-class TwitapisearchAction extends TwitterapiAction
+class TwitapisearchjsonAction extends TwitterapiAction
 {
-    
     var $query;
+    var $lang;
+    var $rpp;
+    var $page;
+    var $since_id;
     var $limit;
-    var $callback;
-    
+    var $geocode;
+
     /**
      * Initialization.
      *
      * @param array $args Web and URL arguments
      *
-     * @return boolean false if user doesn't exist
+     * @return boolean true if nothing goes wrong
      */
-     
+
     function prepare($args)
     {
         parent::prepare($args);
-        $qeury = $this->trimmed('query');
+
+        $this->query = $this->trimmed('q');
+        $this->lang  = $this->trimmed('lang');
+        $this->rpp   = $this->trimmed('rpp');
+
+        if (!$this->rpp) {
+            $this->rpp = 15;
+        }
+
+        if ($this->rpp > 100) {
+            $this->rpp = 100;
+        }
+
+        $this->page = $this->trimmed('page');
+
+        if (!$this->page) {
+            $this->page = 1;
+        }
+
+        $this->since_id = $this->trimmed('since_id');
+        $this->geocode  = $this->trimmed('geocode');
 
         return true;
     }
-    
+
     /**
      * Handle a request
      *
@@ -78,20 +102,48 @@ class TwitapisearchAction extends TwitterapiAction
     function handle($args)
     {
         parent::handle($args);
-        $this->showResults($this->limit);
+        $this->showResults();
     }
-    
+
     /**
      * Show search results
      *
-     * @param int $limit Number of notices to show
-     *
      * @return void
      */
-    
-    function showResults($limit) 
+
+    function showResults()
     {
-        $this->serverError(_('API method under construction.'), $code = 501);        
+
+        // TODO: Support search operators like from: and to:
+
+        $notice = new Notice();
+
+        // lcase it for comparison
+        $q = strtolower($this->query);
+
+        $search_engine = $notice->getSearchEngine('identica_notices');
+        $search_engine->set_sort_mode('chron');
+        $search_engine->limit(($this->page - 1) * $this->rpp, $this->rpp + 1, true);
+        $search_engine->query($q);
+        $cnt = $notice->find();
+
+        // TODO: since_id, lang, geocode
+
+        $results = new JSONSearchResultsList($notice, $q, $this->rpp, $this->page);
+
+        $this->init_document('json');
+        $results->show();
+        $this->end_document('json');
     }
-    
+
+    /**
+     * This is a read-only action
+     *
+     * @return boolean true
+     */
+
+    function isReadOnly()
+    {
+        return true;
+    }
 }

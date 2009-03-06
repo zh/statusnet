@@ -24,11 +24,33 @@ class TwitterapiAction extends Action
 
     var $auth_user;
 
+    /**
+     * Initialization.
+     *
+     * @param array $args Web and URL arguments
+     *
+     * @return boolean false if user doesn't exist
+     */
+
+    function prepare($args)
+    {
+        parent::prepare($args);
+        return true;
+    }
+
+    /**
+     * Handle a request
+     *
+     * @param array $args Arguments from $_REQUEST
+     *
+     * @return void
+     */
+
     function handle($args)
     {
         parent::handle($args);
     }
-    
+
     function twitter_user_array($profile, $get_notice=false)
     {
 
@@ -86,7 +108,7 @@ class TwitterapiAction extends Action
             ($replier_profile) ? $replier_profile->nickname : null;
 
         if (isset($this->auth_user)) {
-            $twitter_status['favorited'] = 
+            $twitter_status['favorited'] =
                 ($this->auth_user->hasFave($notice)) ? 'true' : 'false';
         } else {
             $twitter_status['favorited'] = 'false';
@@ -399,7 +421,7 @@ class TwitterapiAction extends Action
         $t = strtotime($dt);
         return date("D M d G:i:s O Y", $t);
     }
-    
+
     // XXX: Candidate for a general utility method somewhere?
     function count_subscriptions($profile)
     {
