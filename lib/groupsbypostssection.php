@@ -45,10 +45,10 @@ class GroupsByPostsSection extends GroupSection
 {
     function getGroups()
     {
-        $qry = 'SELECT user_group.id, count(*) as value ' .
+        $qry = 'SELECT user_group.*, count(*) as value ' .
           'FROM user_group JOIN group_inbox '.
           'ON user_group.id = group_inbox.group_id ' .
-          'GROUP BY user_group.id ' .
+          'GROUP BY user_group.id,user_group.nickname,user_group.fullname,user_group.homepage,user_group.description,user_group.location,user_group.original_logo,user_group.homepage_logo,user_group.stream_logo,user_group.mini_logo,user_group.created,user_group.modified ' .
           'ORDER BY value DESC ';
 
         $limit = GROUPS_PER_SECTION;
