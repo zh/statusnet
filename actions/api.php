@@ -127,7 +127,9 @@ class ApiAction extends Action
                                 'laconica/wadl');
 
         static $bareauth = array('statuses/user_timeline',
+                                 'statuses/friends_timeline',
                                  'statuses/friends',
+                                 'statuses/replies',
                                  'statuses/followers',
                                  'favorites/favorites');
 
