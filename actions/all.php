@@ -77,12 +77,12 @@ class AllAction extends Action
                               sprintf(_('Feed for friends of %s (RSS 1.0)'), $this->user->nickname)),
                      new Feed(Feed::RSS2,
                               common_local_url('api', array('apiaction' => 'statuses',
-                                                            'method' => 'friends',
+                                                            'method' => 'friends_timeline',
                                                             'argument' => $this->user->nickname.'.rss')),
                               sprintf(_('Feed for friends of %s (RSS 2.0)'), $this->user->nickname)),
                      new Feed(Feed::ATOM,
                               common_local_url('api', array('apiaction' => 'statuses',
-                                                            'method' => 'friends',
+                                                            'method' => 'friends_timeline',
                                                             'argument' => $this->user->nickname.'.atom')),
                               sprintf(_('Feed for friends of %s (Atom)'), $this->user->nickname)));
     }
