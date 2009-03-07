@@ -89,6 +89,7 @@ class ProfileList extends Widget
                                              'id' => 'profile-' . $this->profile->id));
 
         $user = common_current_user();
+        $is_own = !is_null($user) && ($user->id === $this->user->id);
 
         $this->out->elementStart('div', 'entity_profile vcard');
 
@@ -154,7 +155,7 @@ class ProfileList extends Widget
 
             $this->out->elementStart('dl', 'entity_tags');
             $this->out->elementStart('dt');
-            if ($user->id == $this->owner->id) {
+            if ($is_own) {
                 $this->out->element('a', array('href' => common_local_url('tagother',
                                                                           array('id' => $this->profile->id))),
                                     _('Tags'));
@@ -183,7 +184,7 @@ class ProfileList extends Widget
             $this->out->elementEnd('dl');
         }
 
-        if ($user && $user->id == $this->owner->id) {
+        if ($is_own) {
             $this->showOwnerControls($this->profile);
         }
 
@@ -193,11 +194,11 @@ class ProfileList extends Widget
 
         $this->out->elementStart('ul');
 
-        if ($user && $user->id != $this->profile->id) {
+        if (!$is_own) {
             # XXX: special-case for user looking at own
             # subscriptions page
             $this->out->elementStart('li', 'entity_subscribe');
-            if ($user->isSubscribed($this->profile)) {
+            if (!is_null($user) && $user->isSubscribed($this->profile)) {
                 $usf = new UnsubscribeForm($this->out, $this->profile);
                 $usf->show();
             } else {
@@ -206,9 +207,6 @@ class ProfileList extends Widget
             }
             $this->out->elementEnd('li');
             $this->out->elementStart('li', 'entity_block');
-            if ($user && $user->id == $this->owner->id) {
-                $this->showBlockForm();
-            }
             $this->out->elementEnd('li');
         }
 
