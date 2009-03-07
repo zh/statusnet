@@ -73,6 +73,7 @@ $config =
               'theme' => 'default',
               'path' => $_path,
               'logfile' => null,
+              'logdebug' => false,
               'fancy' => false,
               'locale_path' => INSTALLDIR.'/locale',
               'language' => 'en_US',
@@ -106,7 +107,8 @@ $config =
         array('server' => null),
         'public' =>
         array('localonly' => true,
-              'blacklist' => array()),
+              'blacklist' => array(),
+              'autosource' => array()),
         'theme' =>
         array('server' => null),
         'throttle' =>
@@ -142,6 +144,8 @@ $config =
         array('enabled' => false,
               'server' => 'localhost',
               'port' => 11211),
+ 		'ping' =>
+        array('notify' => array()),
         'inboxes' =>
         array('enabled' => true), # on by default for new sites
         );
@@ -177,10 +181,29 @@ if (strlen($_path) > 0) {
 
 $_config_files[] = INSTALLDIR.'/config.php';
 
+$_have_a_config = false;
+
 foreach ($_config_files as $_config_file) {
     if (file_exists($_config_file)) {
         include_once($_config_file);
+        $_have_a_config = true;
     }
+}
+
+function _have_config()
+{
+    global $_have_a_config;
+    return $_have_a_config;
+}
+
+// XXX: Throw a conniption if database not installed
+
+// Fixup for laconica.ini
+
+$_db_name = substr($config['db']['database'], strrpos($config['db']['database'], '/') + 1);
+
+if ($_db_name != 'laconica' && !array_key_exists('ini_'.$_db_name, $config['db'])) {
+    $config['db']['ini_'.$_db_name] = INSTALLDIR.'/classes/laconica.ini';
 }
 
 // XXX: how many of these could be auto-loaded on use?
@@ -211,6 +234,9 @@ function __autoload($class)
         require_once(INSTALLDIR.'/classes/' . $class . '.php');
     } else if (file_exists(INSTALLDIR.'/lib/' . strtolower($class) . '.php')) {
         require_once(INSTALLDIR.'/lib/' . strtolower($class) . '.php');
+    } else if (mb_substr($class, -6) == 'Action' &&
+               file_exists(INSTALLDIR.'/actions/' . strtolower(mb_substr($class, 0, -6)) . '.php')) {
+        require_once(INSTALLDIR.'/actions/' . strtolower(mb_substr($class, 0, -6)) . '.php');
     }
 }
 

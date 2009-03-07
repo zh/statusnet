@@ -237,7 +237,13 @@ class FinishremotesubscribeAction extends Action
     {
         $temp_filename = tempnam(sys_get_temp_dir(), 'listener_avatar');
         copy($url, $temp_filename);
-        return $profile->setOriginal($temp_filename);
+        $imagefile = new ImageFile($profile->id, $temp_filename);
+        $filename = Avatar::filename($profile->id,
+                                     image_type_to_extension($imagefile->type),
+                                     null,
+                                     common_timestamp());
+        rename($temp_filename, Avatar::path($filename));
+        return $profile->setOriginal($filename);
     }
 
     function access_token($omb)
@@ -277,7 +283,7 @@ class FinishremotesubscribeAction extends Action
         $fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
         $result = $fetcher->post($req->get_normalized_http_url(),
                                  $req->to_postdata(),
-                                 array('User-Agent' => 'Laconica/' . LACONICA_VERSION));
+                                 array('User-Agent: Laconica/' . LACONICA_VERSION));
 
         common_debug('got result: "'.print_r($result,true).'"', __FILE__);
 

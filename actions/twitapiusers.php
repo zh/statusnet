@@ -25,25 +25,29 @@ class TwitapiusersAction extends TwitterapiAction
 {
 
     function show($args, $apidata)
-    {
+    {        
         parent::handle($args);
 
-        if (!in_array($apidata['content-type'], array('xml', 'json'))) {
+        if (!in_array($apidata['content-type'], array('xml', 'json'))) {            
             $this->clientError(_('API method not found!'), $code = 404);
             return;
         }
-
- $this->auth_user = $apidata['user'];
+                
 		$user = null;
 		$email = $this->arg('email');
+		$user_id = $this->arg('user_id');
 
 		if ($email) {
 			$user = User::staticGet('email', $email);
+		} elseif ($user_id) {
+		 	$user = $this->get_user($user_id);  
 		} elseif (isset($apidata['api_arg'])) {
 			$user = $this->get_user($apidata['api_arg']);
-		}
-
-		if (!$user) {
+	    } elseif (isset($apidata['user'])) {
+	        $user = $apidata['user'];
+	    }
+	
+		if (!$user) {		    
 			// XXX: Twitter returns a random(?) user instead of throwing and err! -- Zach
 			$this->client_error(_('Not found.'), 404, $apidata['content-type']);
 			return;
@@ -74,9 +78,12 @@ class TwitapiusersAction extends TwitterapiAction
 
 		// Other fields Twitter sends...
 		$twitter_user['profile_background_color'] = '';
+		$twitter_user['profile_background_image_url'] = '';
 		$twitter_user['profile_text_color'] = '';
 		$twitter_user['profile_link_color'] = '';
 		$twitter_user['profile_sidebar_fill_color'] = '';
+        $twitter_user['profile_sidebar_border_color'] = '';
+        $twitter_user['profile_background_tile'] = 'false';
 
 		$faves = DB_DataObject::factory('fave');
 		$faves->user_id = $user->id;
@@ -94,18 +101,27 @@ class TwitapiusersAction extends TwitterapiAction
 		$twitter_user['utc_offset'] = $t->format('Z');
 		$twitter_user['time_zone'] = $timezone;
 
-		if (isset($this->auth_user)) {
+		if (isset($apidata['user'])) {
 
-			if ($this->auth_user->isSubscribed($profile)) {
+			if ($apidata['user']->isSubscribed($profile)) {
 				$twitter_user['following'] = 'true';
 			} else {
 				$twitter_user['following'] = 'false';
 			}
-
-			// Not implemented yet
-			$twitter_user['notifications'] = 'false';
-		}
-
+            
+            // Notifications on?
+		    $sub = Subscription::pkeyGet(array('subscriber' =>
+		        $apidata['user']->id, 'subscribed' => $profile->id));
+            
+            if ($sub) {
+                if ($sub->jabber || $sub->sms) {
+                    $twitter_user['notifications'] = 'true';
+                } else {
+                    $twitter_user['notifications'] = 'false';
+                }
+            }
+        }
+        
 		if ($apidata['content-type'] == 'xml') {
 			$this->init_document('xml');
 			$this->show_twitter_xml_user($twitter_user);
@@ -114,7 +130,13 @@ class TwitapiusersAction extends TwitterapiAction
 			$this->init_document('json');
 			$this->show_json_objects($twitter_user);
 			$this->end_document('json');
-		}
+		} else {
+		    
+		    // This is in case 'show' was called via /account/verify_credentials
+		    // without a format (xml or json).
+            header('Content-Type: text/html; charset=utf-8');
+            print 'Authorized';
+        }
 
 	}
 }

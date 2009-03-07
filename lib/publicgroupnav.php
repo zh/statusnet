@@ -39,6 +39,7 @@ require_once INSTALLDIR.'/lib/widget.php';
  * @category Output
  * @package  Laconica
  * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @author   Sarven Capadisli <csarven@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://laconi.ca/
  *
@@ -73,23 +74,26 @@ class PublicGroupNav extends Widget
 
         $this->action->elementStart('ul', array('class' => 'nav'));
 
-        $this->out->menuItem(common_local_url('public'), _('Public'),
-            _('Public timeline'), $action_name == 'public', 'nav_timeline_public');
+        if (Event::handle('StartPublicGroupNav', array($this))) {
+            $this->out->menuItem(common_local_url('public'), _('Public'),
+                _('Public timeline'), $action_name == 'public', 'nav_timeline_public');
 
-        $this->out->menuItem(common_local_url('groups'), _('Groups'),
-            _('User groups'), $action_name == 'groups', 'nav_groups');
+            $this->out->menuItem(common_local_url('groups'), _('Groups'),
+                _('User groups'), $action_name == 'groups', 'nav_groups');
 
-        $this->out->menuItem(common_local_url('publictagcloud'), _('Recent tags'),
-            _('Recent tags'), $action_name == 'publictagcloud', 'nav_recent-tags');
+            $this->out->menuItem(common_local_url('publictagcloud'), _('Recent tags'),
+                _('Recent tags'), $action_name == 'publictagcloud', 'nav_recent-tags');
 
-        if (count(common_config('nickname', 'featured')) > 0) {
-            $this->out->menuItem(common_local_url('featured'), _('Featured'),
-                _('Featured users'), $action_name == 'featured', 'nav_featured');
+            if (count(common_config('nickname', 'featured')) > 0) {
+                $this->out->menuItem(common_local_url('featured'), _('Featured'),
+                    _('Featured users'), $action_name == 'featured', 'nav_featured');
+            }
+
+            $this->out->menuItem(common_local_url('favorited'), _('Popular'),
+                _("Popular notices"), $action_name == 'favorited', 'nav_timeline_favorited');
+
+            Event::handle('EndPublicGroupNav', array($this));
         }
-
-        $this->out->menuItem(common_local_url('favorited'), _('Popular'),
-            _("Popular notices"), $action_name == 'favorited', 'nav_timeline_favorited');
-
         $this->action->elementEnd('ul');
     }
 }

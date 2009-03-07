@@ -124,7 +124,7 @@ class GroupList extends Widget
         if ($this->group->location) {
             $this->out->elementStart('dl', 'entity_location');
             $this->out->element('dt', null, _('Location'));
-            $this->out->elementStart('dd', 'location');
+            $this->out->elementStart('dd', 'label');
             $this->out->raw($this->highlight($this->group->location));
             $this->out->elementEnd('dd');
             $this->out->elementEnd('dl');
@@ -151,7 +151,7 @@ class GroupList extends Widget
 
         # If we're on a list with an owner (subscriptions or subscribers)...
 
-        if ($user && $user->id == $this->owner->id) {
+        if (!empty($user) && !empty($this->owner) && $user->id == $this->owner->id) {
             $this->showOwnerControls();
         }
 

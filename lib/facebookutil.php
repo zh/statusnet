@@ -25,21 +25,6 @@ define("FACEBOOK_SERVICE", 2); // Facebook is foreign_service ID 2
 define("FACEBOOK_NOTICE_PREFIX", 1);
 define("FACEBOOK_PROMPTED_UPDATE_PREF", 2);
 
-// Gets all the notices from users with a Facebook link since a given ID
-function getFacebookNotices($since)
-{
-    $qry = 'SELECT notice.* ' .
-        'FROM notice ' .
-        'JOIN foreign_link ' .
-        'WHERE notice.profile_id = foreign_link.user_id ' .
-        'AND foreign_link.service = 2';
-
-    // XXX: What should the limit be?
-    //static function getStreamDirect($qry, $offset, $limit, $since_id, $before_id, $order, $since) {
-    
-    return Notice::getStreamDirect($qry, 0, 1000, 0, 0, null, $since);
-}
-
 function getFacebook()
 {
     $apikey = common_config('facebook', 'apikey');
@@ -52,3 +37,97 @@ function updateProfileBox($facebook, $flink, $notice) {
     $fbaction->updateProfileBox($notice);
 }
 
+function isFacebookBound($notice, $flink) {
+
+    // If the user does not want to broadcast to Facebook, move along
+    if (!($flink->noticesync & FOREIGN_NOTICE_SEND == FOREIGN_NOTICE_SEND)) {
+        common_log(LOG_INFO, "Skipping notice $notice->id " .
+            'because user has FOREIGN_NOTICE_SEND bit off.');
+        return false;
+    }
+
+    $success = false;
+
+    // If it's not a reply, or if the user WANTS to send @-replies...
+    if (!preg_match('/@[a-zA-Z0-9_]{1,15}\b/u', $notice->content) ||
+        ($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY)) {
+
+        $success = true;
+
+        // The two condition below are deal breakers:
+
+        // Avoid a loop
+        if ($notice->source == 'Facebook') {
+            common_log(LOG_INFO, "Skipping notice $notice->id because its " .
+                'source is Facebook.');
+            $success = false;
+        }
+
+        $facebook = getFacebook();
+        $fbuid = $flink->foreign_id;
+
+        try {
+
+            // Check to see if the user has given the FB app status update perms
+            $result = $facebook->api_client->
+                users_hasAppPermission('status_update', $fbuid);
+
+            if ($result != 1) {
+                $user = $flink->getUser();
+                $msg = "Can't send notice $notice->id to Facebook " .
+                    "because user $user->nickname hasn't given the " .
+                    'Facebook app \'status_update\' permission.';
+                common_log(LOG_INFO, $msg);
+                $success = false;
+            }
+
+        } catch(FacebookRestClientException $e){
+            common_log(LOG_ERR, $e->getMessage());
+            $success = false;
+        }
+
+    }
+
+    return $success;
+
+}
+
+
+function facebookBroadcastNotice($notice)
+{
+    $facebook = getFacebook();
+    $flink = Foreign_link::getByUserID($notice->profile_id, FACEBOOK_SERVICE);
+    $fbuid = $flink->foreign_id;
+
+    if (isFacebookBound($notice, $flink)) {
+
+        $status = null;
+
+        // Get the status 'verb' (prefix) the user has set
+        try {
+            $prefix = $facebook->api_client->
+                data_getUserPreference(FACEBOOK_NOTICE_PREFIX, $fbuid);
+
+            $status = "$prefix $notice->content";
+
+        } catch(FacebookRestClientException $e) {
+            common_log(LOG_ERR, $e->getMessage());
+            return false;
+        }
+
+        // Okay, we're good to go!
+
+        try {
+            $facebook->api_client->users_setStatus($status, $fbuid, false, true);
+            updateProfileBox($facebook, $flink, $notice);
+        } catch(FacebookRestClientException $e) {
+            common_log(LOG_ERR, $e->getMessage());
+            return false;
+
+             // Should we remove flink if this fails?
+        }
+
+    }
+
+    return true;
+}

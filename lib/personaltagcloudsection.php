@@ -58,8 +58,14 @@ class PersonalTagCloudSection extends TagCloudSection
 
     function getTags()
     {
-        $qry = 'SELECT notice_tag.tag, '.
-          'sum(exp(-(now() - notice_tag.created)/%s)) as weight ' .
+        if (common_config('db', 'type') == 'pgsql') {
+            $weightexpr='sum(exp(-extract(epoch from (now() - notice_tag.created)) / %s))';
+        } else {
+            $weightexpr='sum(exp(-(now() - notice_tag.created) / %s))';
+        }
+ 
+       $qry = 'SELECT notice_tag.tag, '.
+          $weightexpr . ' as weight ' .
           'FROM notice_tag JOIN notice ' .
           'ON notice_tag.notice_id = notice.id ' .
           'WHERE notice.profile_id = %d ' .

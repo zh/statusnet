@@ -18,6 +18,8 @@ $config['site']['server'] = 'localhost';
 $config['site']['path'] = 'laconica';
 #$config['site']['fancy'] = false;
 #$config['site']['theme'] = 'default';
+#To enable the built-in mobile style sheet, defaults to false.
+#$config['site']['mobile'] = true;
 #For contact email, defaults to $_SERVER["SERVER_ADMIN"]
 #$config['site']['email'] = 'admin@example.net';
 #Brought by...
@@ -31,6 +33,9 @@ $config['site']['path'] = 'laconica';
 
 # If you want logging sent to a file instead of syslog
 #$config['site']['logfile'] = '/tmp/laconica.log';
+
+# Enables extra log information, for example full details of PEAR DB errors
+#$config['site']['logdebug'] = true;
 
 # This is a PEAR DB DSN, see http://pear.php.net/manual/en/package.database.db.intro-dsn.php
 # Set it to match your actual database
@@ -107,6 +112,14 @@ $config['sphinx']['port'] = 3312;
 #$config['public']['blacklist'][] = 123;
 #$config['public']['blacklist'][] = 2307;
 
+#Mark certain notice sources as automatic and thus not
+#appropriate for public feed
+#$config['public]['autosource'][] = 'twitterfeed';
+#$config['public]['autosource'][] = 'rssdent';
+#$config['public]['autosource'][] = 'Ping.Fm';
+#$config['public]['autosource'][] = 'HelloTxt';
+#$config['public]['autosource'][] = 'Updating.Me';
+
 #Do notice broadcasts offline
 #If you use this, you must run the six offline daemons in the
 #background. See the README for details.
@@ -147,7 +160,7 @@ $config['sphinx']['port'] = 3312;
 #$config['profile']['banned'][] = 'hacker';
 #$config['profile']['banned'][] = 12345;
 
-# config section for the built-in Facebook application
+# Config section for the built-in Facebook application
 #$config['facebook']['apikey'] = 'APIKEY';
 #$config['facebook']['secret'] = 'SECRET';
 

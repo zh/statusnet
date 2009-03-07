@@ -105,7 +105,7 @@ class UserauthorizationAction extends Action
         $this->elementStart('div', 'profile');
         if ($avatar) {
             $this->element('img', array('src' => $avatar,
-                                        'class' => 'avatar profile',
+                                        'class' => 'avatar',
                                         'width' => AVATAR_PROFILE_SIZE,
                                         'height' => AVATAR_PROFILE_SIZE,
                                         'alt' => $nickname));
@@ -330,7 +330,13 @@ class UserauthorizationAction extends Action
     {
         $temp_filename = tempnam(sys_get_temp_dir(), 'listenee_avatar');
         copy($url, $temp_filename);
-        return $profile->setOriginal($temp_filename);
+        $imagefile = new ImageFile($profile->id, $temp_filename);
+        $filename = Avatar::filename($profile->id,
+                                     image_type_to_extension($imagefile->type),
+                                     null,
+                                     common_timestamp());
+        rename($temp_filename, Avatar::path($filename));
+        return $profile->setOriginal($filename);
     }
 
     function showAcceptMessage($tok)

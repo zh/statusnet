@@ -34,8 +34,6 @@ if (!defined('LACONICA')) {
 
 require_once INSTALLDIR.'/lib/widget.php';
 
-define('PROFILES_PER_PAGE', 20);
-
 /**
  * Widget to show a list of profiles
  *
@@ -123,7 +121,7 @@ class ProfileList extends Widget
         if ($this->profile->location) {
             $this->out->elementStart('dl', 'entity_location');
             $this->out->element('dt', null, _('Location'));
-            $this->out->elementStart('dd', 'location');
+            $this->out->elementStart('dd', 'label');
             $this->out->raw($this->highlight($this->profile->location));
             $this->out->elementEnd('dd');
             $this->out->elementEnd('dl');

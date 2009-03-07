@@ -22,13 +22,11 @@ line-height:1.65;
 position:relative;
 }
 h1,h2,h3,h4,h5,h6 {
-text-transform:uppercase;
 margin-bottom:7px;
 overflow:hidden;
 }
 h1 {
 font-size:1.4em;
-line-height:1;
 margin-bottom:18px;
 }
 h2 { font-size:1.3em; }
@@ -43,7 +41,6 @@ font-weight:bold;
 legend {
 font-weight:bold;
 font-size:1.3em;
-text-transform:uppercase;
 }
 input, textarea, select, option {
 padding:4px;
@@ -300,7 +297,7 @@ padding:4px 11px;
 border-width:1px;
 border-style:solid;
 border-bottom:0;
-text-shadow: 4px 4px 4px #ddd;
+text-shadow: 2px 2px 2px #ddd;
 font-weight:bold;
 }
 #site_nav_local_views .nav {
@@ -367,7 +364,6 @@ margin-right:4px;
 
 #wrap {
 margin:0 auto;
-width:71.714em;
 width:1003px;
 overflow:hidden;
 }
@@ -904,7 +900,7 @@ left:0;
 left:29px;
 }
 .notice-options .notice_delete {
-left:76px;
+right:0;
 }
 .notice-options .notice_reply dt {
 display:none;

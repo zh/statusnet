@@ -79,10 +79,11 @@ class SearchAction extends Action
 
     function showTop($arr=null)
     {
+        $error = null;
         if ($arr) {
             $error = $arr[1];
         }
-        if ($error) {
+        if (!empty($error)) {
             $this->element('p', 'error', $error);
         } else {
             $instr = $this->getInstructions();

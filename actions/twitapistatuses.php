@@ -204,7 +204,7 @@ class TwitapistatusesAction extends TwitterapiAction
         # FriendFeed's SUP protocol
         # Also added RSS and Atom feeds
 
-        $suplink = common_local_url('sup', null, $user->id);
+        $suplink = common_local_url('sup', null, null, $user->id);
         header('X-SUP-ID: '.$suplink);
 
         # XXX: since
@@ -470,19 +470,28 @@ class TwitapistatusesAction extends TwitterapiAction
         return $this->subscriptions($apidata, 'subscribed', 'subscriber');
     }
 
+    function friendsIDs($args, $apidata)
+    {
+        parent::handle($args);
+        return $this->subscriptions($apidata, 'subscribed', 'subscriber', true);
+    }
+
     function followers($args, $apidata)
     {
         parent::handle($args);
-
         return $this->subscriptions($apidata, 'subscriber', 'subscribed');
     }
 
-    function subscriptions($apidata, $other_attr, $user_attr)
+    function followersIDs($args, $apidata)
+    {
+        parent::handle($args);
+        return $this->subscriptions($apidata, 'subscriber', 'subscribed', true);
+    }
+
+    function subscriptions($apidata, $other_attr, $user_attr, $onlyIDs=false)
     {
 
-        # XXX: lite
-
-        $this->auth_user = $apidate['user'];
+        $this->auth_user = $apidata['user'];
         $user = $this->get_user($apidata['api_arg'], $apidata);
 
         if (!$user) {
@@ -514,7 +523,10 @@ class TwitapistatusesAction extends TwitterapiAction
         }
 
         $sub->orderBy('created DESC');
-        $sub->limit(($page-1)*100, 100);
+
+        if (!$onlyIDs) {
+            $sub->limit(($page-1)*100, 100);
+        }
 
         $others = array();
 
@@ -529,7 +541,13 @@ class TwitapistatusesAction extends TwitterapiAction
         $type = $apidata['content-type'];
 
         $this->init_document($type);
-        $this->show_profiles($others, $type);
+
+        if ($onlyIDs) {
+            $this->showIDs($others, $type);
+        } else {
+            $this->show_profiles($others, $type);
+        }
+
         $this->end_document($type);
     }
 
@@ -549,6 +567,28 @@ class TwitapistatusesAction extends TwitterapiAction
                 $arrays[] = $this->twitter_user_array($profile, true);
             }
             print json_encode($arrays);
+            break;
+         default:
+            $this->clientError(_('unsupported file type'));
+        }
+    }
+
+    function showIDs($profiles, $type)
+    {
+        switch ($type) {
+         case 'xml':
+            $this->elementStart('ids');
+            foreach ($profiles as $profile) {
+                $this->element('id', null, $profile->id);
+            }
+            $this->elementEnd('ids');
+            break;
+         case 'json':
+            $ids = array();
+            foreach ($profiles as $profile) {
+                $ids[] = (int)$profile->id;
+            }
+            print json_encode($ids);
             break;
          default:
             $this->clientError(_('unsupported file type'));
