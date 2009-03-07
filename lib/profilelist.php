@@ -89,7 +89,7 @@ class ProfileList extends Widget
                                              'id' => 'profile-' . $this->profile->id));
 
         $user = common_current_user();
-        $is_own = !is_null($user) && ($user->id === $this->user->id);
+        $is_own = !is_null($user) && isset($this->user) && ($user->id === $this->user->id);
 
         $this->out->elementStart('div', 'entity_profile vcard');
 
