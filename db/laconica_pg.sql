@@ -180,14 +180,13 @@ create table token (
 create table nonce (
     consumer_key varchar(255) not null /* comment 'unique identifier, root URL' */,
     tok char(32) not null /* comment 'identifying value' */,
-    nonce char(32) not null /* comment 'nonce' */,
+    nonce char(32) null /* comment 'buggy old value, ignored */,
     ts integer not null /* comment 'timestamp sent' values are epoch, and only used internally */,
 
     created timestamp not null default CURRENT_TIMESTAMP /* comment 'date this record was created' */,
     modified timestamp /* comment 'date this record was modified' */,
 
-    primary key (consumer_key, tok, nonce),
-    foreign key (consumer_key, tok) references token (consumer_key, tok)
+    primary key (consumer_key, ts, nonce)
 );
 
 /* One-to-many relationship of user to openid_url */
