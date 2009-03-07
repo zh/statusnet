@@ -58,12 +58,11 @@ class LaconicaOAuthDataStore extends OAuthDataStore
     {
         $n = new Nonce();
         $n->consumer_key = $consumer->key;
-        $n->tok = $token->key;
+        $n->ts = $timestamp;
         $n->nonce = $nonce;
         if ($n->find(true)) {
             return true;
         } else {
-            $n->ts = $timestamp;
             $n->created = DB_DataObject_Cast::dateTime();
             $n->insert();
             return false;

@@ -181,15 +181,14 @@ create table token (
 
 create table nonce (
     consumer_key varchar(255) not null comment 'unique identifier, root URL',
-    tok char(32) not null comment 'identifying value',
+    tok char(32) null comment 'buggy old value, ignored',
     nonce char(32) not null comment 'nonce',
     ts datetime not null comment 'timestamp sent',
 
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified',
 
-    constraint primary key (consumer_key, tok, nonce),
-    constraint foreign key (consumer_key, tok) references token (consumer_key, tok)
+    constraint primary key (consumer_key, ts, nonce)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 /* One-to-many relationship of user to openid_url */
