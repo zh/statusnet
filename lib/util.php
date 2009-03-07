@@ -1159,6 +1159,20 @@ function common_enqueue_notice($notice)
 		}
         common_log(LOG_DEBUG, 'complete remote queueing notice ID = ' . $notice->id . ' for ' . $transport);
 	}
+	$con->send('/topic/laconica.'.$notice->profile_id,
+			$notice->content,
+			array(
+				'profile_id' => $notice->profile_id,
+				'created' => $notice->created
+				)
+			);
+	$con->send('/topic/laconica.allusers',
+			$notice->content,
+			array(
+				'profile_id' => $notice->profile_id,
+				'created' => $notice->created
+				)
+			);
 	$result = true;
     }
     else {
