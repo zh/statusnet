@@ -56,7 +56,6 @@ class UserauthorizationAction extends Action
                 if (!$req) {
                     $this->clientError(_('No request found!'));
                 }
-                # XXX: only validate new requests, since nonce is one-time use
                 $this->validateRequest($req);
                 $this->storeRequest($req);
                 $this->showForm($req);
@@ -307,14 +306,11 @@ class UserauthorizationAction extends Action
         }
 
         $user = common_current_user();
-        $datastore = omb_oauth_datastore();
-        $consumer = $this->getConsumer($datastore, $req);
-        $token = $this->getToken($datastore, $req, $consumer);
 
         $sub = new Subscription();
         $sub->subscriber = $user->id;
         $sub->subscribed = $remote->id;
-        $sub->token = $token->key; # NOTE: request token, not valid for use!
+        $sub->token = $req->get_parameter('oauth_token'); # NOTE: request token, not valid for use!
         $sub->created = DB_DataObject_Cast::dateTime(); # current time
 
         if (!$sub->insert()) {
@@ -388,7 +384,9 @@ class UserauthorizationAction extends Action
 
     function validateRequest(&$req)
     {
-        /* Find token. */
+        /* Find token.
+           TODO: If no token is passed the user should get a prompt to enter it
+                 according to OAuth Core 1.0 */
         $t = new Token();
         $t->tok = $req->get_parameter('oauth_token');
         $t->type = 0;
