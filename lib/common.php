@@ -73,6 +73,7 @@ $config =
               'theme' => 'default',
               'path' => $_path,
               'logfile' => null,
+              'logdebug' => false,
               'fancy' => false,
               'locale_path' => INSTALLDIR.'/locale',
               'language' => 'en_US',
@@ -143,6 +144,8 @@ $config =
         array('enabled' => false,
               'server' => 'localhost',
               'port' => 11211),
+ 		'ping' =>
+        array('notify' => array()),
         'inboxes' =>
         array('enabled' => true), # on by default for new sites
         );
@@ -185,6 +188,12 @@ foreach ($_config_files as $_config_file) {
         include_once($_config_file);
         $_have_a_config = true;
     }
+}
+
+function _have_config()
+{
+    global $_have_a_config;
+    return $_have_a_config;
 }
 
 // XXX: Throw a conniption if database not installed

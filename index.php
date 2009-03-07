@@ -43,7 +43,11 @@ function handleError($error)
         return;
     }
 
-    common_log(LOG_ERR, "PEAR error: " . $error->getMessage());
+    $logmsg = "PEAR error: " . $error->getMessage();
+    if(common_config('site', 'logdebug')) {
+        $logmsg .= " : ". $error->getDebugInfo();
+    }
+    common_log(LOG_ERR, $logmsg);
     $msg = sprintf(_('The database for %s isn\'t responding correctly, '.
                      'so the site won\'t work properly. '.
                      'The site admins probably know about the problem, '.
@@ -60,6 +64,14 @@ function handleError($error)
 function main()
 {
     global $user, $action;
+
+    if (!_have_config()) {
+        $msg = sprintf(_("No configuration file found. Try running ".
+                         "the installation program first."));
+        $sac = new ServerErrorAction($msg);
+        $sac->showPage();
+        return;
+    }
 
     // For database errors
 

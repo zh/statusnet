@@ -34,6 +34,9 @@ $config['site']['path'] = 'laconica';
 # If you want logging sent to a file instead of syslog
 #$config['site']['logfile'] = '/tmp/laconica.log';
 
+# Enables extra log information, for example full details of PEAR DB errors
+#$config['site']['logdebug'] = true;
+
 # This is a PEAR DB DSN, see http://pear.php.net/manual/en/package.database.db.intro-dsn.php
 # Set it to match your actual database
 

@@ -63,7 +63,7 @@ class LaconicaOAuthDataStore extends OAuthDataStore
         if ($n->find(true)) {
             return true;
         } else {
-            $n->timestamp = $timestamp;
+            $n->ts = $timestamp;
             $n->created = DB_DataObject_Cast::dateTime();
             $n->insert();
             return false;

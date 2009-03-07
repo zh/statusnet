@@ -81,7 +81,7 @@ function common_language()
 
     // If there is a user logged in and they've set a language preference
     // then return that one...
-    if (common_logged_in()) {
+    if (_have_config() && common_logged_in()) {
         $user = common_current_user();
         $user_language = $user->language;
         if ($user_language)
@@ -314,6 +314,10 @@ function common_forgetme()
 function common_current_user()
 {
     global $_cur;
+
+    if (!_have_config()) {
+        return null;
+    }
 
     if ($_cur === false) {
 
@@ -618,9 +622,15 @@ function common_at_link($sender_id, $nickname)
     $sender = Profile::staticGet($sender_id);
     $recipient = common_relative_profile($sender, common_canonical_nickname($nickname));
     if ($recipient) {
+        $user = User::staticGet('id', $recipient->id);
+        if ($user) {
+            $url = common_local_url('userbyid', array('id' => $user->id));
+        } else {
+            $url = $recipient->profileurl;
+        }
         $xs = new XMLStringer(false);
         $xs->elementStart('span', 'vcard');
-        $xs->elementStart('a', array('href' => $recipient->profileurl,
+        $xs->elementStart('a', array('href' => $url,
                                      'class' => 'url'));
         $xs->element('span', 'fn nickname', $nickname);
         $xs->elementEnd('a');
@@ -842,7 +852,7 @@ function common_broadcast_notice($notice, $remote=false)
 
 function common_enqueue_notice($notice)
 {
-    foreach (array('jabber', 'omb', 'sms', 'public', 'twitter', 'facebook') as $transport) {
+    foreach (array('jabber', 'omb', 'sms', 'public', 'twitter', 'facebook', 'ping') as $transport) {
         $qi = new Queue_item();
         $qi->notice_id = $notice->id;
         $qi->transport = $transport;

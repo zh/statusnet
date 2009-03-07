@@ -182,6 +182,18 @@ function handlePost()
         showForm();
         return;
     }
+    foreach (array('sms_carrier' => 'SMS carrier',
+                   'notice_source' => 'notice source',
+                   'foreign_services' => 'foreign service')
+             as $scr => $name) {
+        updateStatus(sprintf("Adding %s data to database...", $name));
+        $res = runDbScript(INSTALLDIR.'/db/'.$scr.'.sql', $conn);
+        if ($res === false) {
+            updateStatus(sprintf("Can't run %d script.", $name), true);
+            showForm();
+            return;
+        }
+    }
     updateStatus("Writing config file...");
     $sqlUrl = "mysqli://$username:$password@$host/$database";
     $res = writeConf($sitename, $sqlUrl);

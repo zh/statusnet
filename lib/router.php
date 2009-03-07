@@ -234,14 +234,15 @@ class Router
 
         // users
 
-        $m->connect('api/users/show/:argument',
+        $m->connect('api/users/:method/:argument',
                     array('action' => 'api',
-                          'apiaction' => 'users'));
+                          'apiaction' => 'users'),
+                    array('method' => 'show(\.(xml|json))?'));
 
         $m->connect('api/users/:method',
                     array('action' => 'api',
                           'apiaction' => 'users'),
-                    array('method' => 'show(\.(xml|json|atom|rss))?'));
+                    array('method' => 'show(\.(xml|json))?'));
 
         // direct messages
 
@@ -356,9 +357,15 @@ class Router
                     array('action' => 'api',
                           'apiaction' => 'laconica'));
 
+
+        // search
+        $m->connect('api/search.atom', array('action' => 'twitapisearchatom'));
+        $m->connect('api/search.json', array('action' => 'twitapisearchjson'));
+        $m->connect('api/trends.json', array('action' => 'twitapitrends'));
+
         // user stuff
 
-        foreach (array('subscriptions', 'subscribers',
+      foreach (array('subscriptions', 'subscribers',
                        'nudge', 'xrds', 'all', 'foaf',
                        'replies', 'inbox', 'outbox', 'microsummary') as $a) {
             $m->connect(':nickname/'.$a,
@@ -397,6 +404,8 @@ class Router
         $m->connect(':nickname',
                     array('action' => 'showstream'),
                     array('nickname' => '[a-zA-Z0-9]{1,64}'));
+
+        Event::handle('RouterInitialized', array($m));
 
         return $m;
     }

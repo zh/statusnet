@@ -589,7 +589,7 @@ class User extends Memcached_DataObject
           'JOIN profile_tag ON (profile_tag.tagged = subscription.subscriber ' .
           'AND profile_tag.tagger = subscription.subscribed) ' .
           'WHERE subscription.subscribed = %d ' .
-          'AND profile_tag.tag = "%s" ' .
+          "AND profile_tag.tag = '%s' " .
           'AND subscription.subscribed != subscription.subscriber ' .
           'ORDER BY subscription.created DESC ';
 
@@ -617,7 +617,7 @@ class User extends Memcached_DataObject
           'JOIN profile_tag on (profile_tag.tagged = subscription.subscribed ' .
           'AND profile_tag.tagger = subscription.subscriber) ' .
           'WHERE subscription.subscriber = %d ' .
-          'AND profile_tag.tag = "%s" ' .
+          "AND profile_tag.tag = '%s' " .
           'AND subscription.subscribed != subscription.subscriber ' .
           'ORDER BY subscription.created DESC ';
 

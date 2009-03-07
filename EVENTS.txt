@@ -88,9 +88,18 @@ StartShowLocalNavBlock: Showing the local nav menu
 EndShowLocalNavBlock: At the end of the local nav menu
 - $action: the current action
 
-StartShowHTML: Chance to set document content type, charset, language, DOCTYPE and html element properties
+StartShowHTML: Chance to set document headers (e.g., content type, charset, language), DOCTYPE and html element properties
 - $action: the current action
 
 EndShowHTML: Showing after the html element
 - $action: the current action
+
+StartPublicGroupNav: Showing the public group nav menu
+- $action: the current action
+
+EndPublicGroupNav: At the end of the public group nav menu
+- $action: the current action
+
+RouterInitialized: After the router instance has been initialized
+- $m: the Net_URL_Mapper that has just been set up
 

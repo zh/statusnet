@@ -240,21 +240,28 @@ especially if you've previously installed PHP/MySQL packages.
    configure virtual hosts on your web server, you can try setting up
    "http://micro.example.net/" or the like.
 
-3. You should also take this moment to make your avatar subdirectory
+3. Make your target directory writeable by the Web server.
+
+   	  chmod a+w /var/www/mublog/
+
+   On some systems, this will probably work:
+
+      	   chgrp www-data /var/www/mublog/
+	   chmod g+w /var/www/mublog/
+
+   If your Web server runs as another user besides "www-data", try
+   that user's default group instead. As a last resort, you can create
+   a new group like "mublog" and add the Web server's user to the group.
+
+4. You should also take this moment to make your avatar subdirectory
    writeable by the Web server. An insecure way to do this is:
 
    	  chmod a+w /var/www/mublog/avatar
 
-   On some systems, this will probably work:
+   You can also make the avatar directory writeable by the Web server
+   group, as noted above.
 
-      	   chgrp www-data /var/www/mublog/avatar
-	   chmod g+w /var/www/mublog/avatar
-
-   If your Web server runs as another user besides "www-data", try
-   that user's default group instead. As a last resort, you can create
-   a new group like "avatar" and add the Web server's user to the group.
-
-4. Create a database to hold your microblog data. Something like this
+5. Create a database to hold your microblog data. Something like this
    should work:
 
    	  mysqladmin -u "username" --password="password" create laconica
@@ -267,63 +274,55 @@ especially if you've previously installed PHP/MySQL packages.
    a tool like PHPAdmin to create a database. Check your hosting
    service's documentation for how to create a new MySQL database.)
 
-5. Run the laconica.sql SQL script in the db subdirectory to create
-   the database tables in the database. A typical system would work
-   like this:
-
-   	  mysql -u "username" --password="password" laconica < /var/www/mublog/db/laconica.sql
-
-   You may want to test by logging into the database and checking that
-   the tables were created. Here's an example:
-
-          SHOW TABLES;
-
 6. Create a new database account that Laconica will use to access the
    database. If you have shell access, this will probably work from the
    MySQL shell:
 
-          GRANT SELECT,INSERT,DELETE,UPDATE on laconica.*
+          GRANT ALL on laconica.*
 	  TO 'lacuser'@'localhost'
 	  IDENTIFIED BY 'lacpassword';
 
    You should change 'lacuser' and 'lacpassword' to your preferred new
-   username and password. You may want to test logging in as this new
-   user and testing that you can SELECT from some of the tables in the
-   DB (use SHOW TABLES to see which ones are there).
+   username and password. You may want to test logging in to MySQL as
+   this new user.
 
-7. Copy the config.php.sample in the Laconica directory to config.php.
+7. In a browser, navigate to the Laconica install script; something like:
 
-8. Edit config.php to set the basic configuration for your system.
-   (See descriptions below for basic config options.) Note that there
-   are lots of options and if you try to do them all at once, you will
-   have a hard time making sure what's working and what's not. So,
-   stick with the basics at first. In particular, customizing the
-   'site' and 'db' settings will almost definitely be needed.
+           http://yourserver.example.com/mublog/install.php
 
-9. At this point, you should be able to navigate in a browser to your
-   microblog's main directory and see the "Public Timeline", which
-   will be empty. If not, magic has happened! You can now register a
-   new user, post some notices, edit your profile, etc. However, you
-   may want to wait to do that stuff if you think you can set up
-   "fancy URLs" (see below), since some URLs are stored in the database.
+   Enter the database connection information and your site name. The
+   install program will configure your site and install the initial,
+   almost-empty database.
+
+8. You should now be able to navigate to your microblog's main directory
+   and see the "Public Timeline", which will be empty. If not, magic
+   has happened! You can now register a new user, post some notices,
+   edit your profile, etc. However, you may want to wait to do that stuff
+   if you think you can set up "fancy URLs" (see below), since some
+   URLs are stored in the database.
 
 Fancy URLs
 ----------
 
-By default, Laconica will have big long sloppy URLs that are hard for
-people to remember or use. For example, a user's home profile might be
+By default, Laconica will use URLs that include the main PHP program's
+name in them. For example, a user's home profile might be
 found at:
 
-    http://example.org/mublog/index.php?action=showstream&nickname=fred
+    http://example.org/mublog/index.php/mublog/fred
+
+On certain systems that don't support this kind of syntax, they'll
+look like this:
+
+    http://example.org/mublog/index.php?p=mublog/fred
 
 It's possible to configure the software so it looks like this instead:
 
     http://example.org/mublog/fred
 
 These "fancy URLs" are more readable and memorable for users. To use
-fancy URLs, you must either have Apache 2.2.x with .htaccess enabled
-and mod_redirect enabled, -OR- know how to configure "url redirection"
-in your server.
+fancy URLs, you must either have Apache 2.x with .htaccess enabled and
+mod_redirect enabled, -OR- know how to configure "url redirection" in
+your server.
 
 1. Copy the htaccess.sample file to .htaccess in your Laconica
    directory. Note: if you have control of your server's httpd.conf or
@@ -347,10 +346,6 @@ like:
 
 If you changed your HTTP server configuration, you may need to restart
 the server first.
-
-If you have problems with the .htaccess file on versions of Apache
-earlier than 2.2.x, try changing the regular expressions in the
-htaccess.sample file that use "\w" to just use ".".
 
 Sphinx
 ------
@@ -561,7 +556,7 @@ Sample cron job:
 # Update Twitter friends subscriptions every half hour
 0,30 * * * * /path/to/php /path/to/laconica/scripts/synctwitterfriends.php>&/dev/null
 
-Built-in Facebook Application 
+Built-in Facebook Application
 -----------------------------
 
 Laconica's Facebook application allows your users to automatically
@@ -575,7 +570,7 @@ above).
 
 Quick setup instructions*:
 
-Install the Facebook Developer application on Facebook: 
+Install the Facebook Developer application on Facebook:
 
     http://www.facebook.com/developers/
 
@@ -648,7 +643,7 @@ to these resources.
 Themes
 ------
 
-There are two themes shipped with this version of Laconica: "stoica",
+There are two themes shipped with this version of Laconica: "identica",
 which is what the Identi.ca site uses, and "default", which is a good
 basis for other sites.
 

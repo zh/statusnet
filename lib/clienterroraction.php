@@ -49,7 +49,7 @@ class ClientErrorAction extends ErrorAction
     function __construct($message='Error', $code=400)
     {
         parent::__construct($message, $code);
-        
+
         $this->status  = array(400 => 'Bad Request',
                                401 => 'Unauthorized',
                                402 => 'Payment Required',
@@ -72,7 +72,7 @@ class ClientErrorAction extends ErrorAction
     }
 
     // XXX: Should these error actions even be invokable via URI?
-    
+
     function handle($args)
     {
         parent::handle($args);
@@ -84,11 +84,16 @@ class ClientErrorAction extends ErrorAction
         }
 
         $this->message = $this->trimmed('message');
-        
+
         if (!$this->message) {
-            $this->message = "Client Error $this->code"; 
-        }        
+            $this->message = "Client Error $this->code";
+        }
 
         $this->showPage();
+    }
+
+    function title()
+    {
+        return $this->status[$this->code];
     }
 }
