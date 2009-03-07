@@ -115,8 +115,13 @@ class TwitapistatusesAction extends TwitterapiAction
 
         $since = strtotime($this->arg('since'));
 
-        $user = $this->get_user(null, $apidata);
+        $user = $this->get_user($apidata['api_arg'], $apidata);
         $this->auth_user = $user;
+
+        if (empty($user)) {
+             $this->clientError(_('No such user!'), 404, $apidata['content-type']);
+            return;
+        }
 
         $profile = $user->getProfile();
 
