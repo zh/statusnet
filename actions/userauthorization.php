@@ -197,7 +197,7 @@ class UserauthorizationAction extends Action
                 }
                 $parts = array();
                 foreach ($params as $k => $v) {
-                    $parts[] = $k . '=' . OAuthUtil::urlencodeRFC3986($v);
+                    $parts[] = $k . '=' . OAuthUtil::urlencode_RFC3986($v);
                 }
                 $query_string = implode('&', $parts);
                 $parsed = parse_url($callback);
