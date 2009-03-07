@@ -819,9 +819,8 @@ class Action extends HTMLOutputter // lawsuit
         }
         if ($lm) {
             header('Last-Modified: ' . date(DATE_RFC1123, $lm));
-            $if_modified_since = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
-            if ($if_modified_since) {
-                $ims = strtotime($if_modified_since);
+            if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
+                $ims = strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']);
                 if ($lm <= $ims) {
                     $if_none_match = $_SERVER['HTTP_IF_NONE_MATCH'];
                     if (!$if_none_match ||
