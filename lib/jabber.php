@@ -176,14 +176,14 @@ function jabber_format_entry($profile, $notice)
     $entry .= "<source>\n";
     $entry .= "<title>" . $profile->nickname . " - " . common_config('site', 'name') . "</title>\n";
     $entry .= "<link href='" . htmlspecialchars($profile->profileurl) . "'/>\n";
-    $entry .= "<link rel='self' type='application/rss+xml' href='" . $self_url . "'/>\n";
+    $entry .= "<link rel='self' type='application/rss+xml' href='" . htmlspecialchars($self_url) . "'/>\n";
     $entry .= "<author><name>" . $profile->nickname . "</name></author>\n";
     $entry .= "<icon>" . $profile->avatarUrl(AVATAR_PROFILE_SIZE) . "</icon>\n";
     $entry .= "</source>\n";
     $entry .= "<title>" . htmlspecialchars($msg) . "</title>\n";
     $entry .= "<summary>" . htmlspecialchars($msg) . "</summary>\n";
-    $entry .= "<link rel='alternate' href='" . $noticeurl . "' />\n";
-    $entry .= "<id>". $notice->uri . "</id>\n";
+    $entry .= "<link rel='alternate' href='" . htmlspecialchars($noticeurl) . "' />\n";
+    $entry .= "<id>". htmlspecialchars($notice->uri) . "</id>\n";
     $entry .= "<published>".common_date_w3dtf($notice->created)."</published>\n";
     $entry .= "<updated>".common_date_w3dtf($notice->modified)."</updated>\n";
     $entry .= "</entry>\n";
