@@ -159,3 +159,9 @@ $config['sphinx']['port'] = 3312;
 # Add Google Analytics
 # require_once('plugins/GoogleAnalyticsPlugin.php');
 # $ga = new GoogleAnalyticsPlugin('your secret code');
+
+#Don't allow saying the same thing more than once per hour
+#$config['site']['dupelimit'] = 3600;
+#Don't enforce the dupe limit
+#$config['site']['dupelimit'] = -1;
+

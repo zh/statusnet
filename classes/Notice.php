@@ -121,6 +121,8 @@ class Notice extends Memcached_DataObject
 
         $profile = Profile::staticGet($profile_id);
 
+        $final =  common_shorten_links($content);
+
         if (!$profile) {
             common_log(LOG_ERR, 'Problem saving notice. Unknown user.');
             return _('Problem saving notice. Unknown user.');
@@ -131,7 +133,12 @@ class Notice extends Memcached_DataObject
             return _('Too many notices too fast; take a breather and post again in a few minutes.');
         }
 
-        $banned = common_config('profile', 'banned');
+        if (common_config('site', 'dupelimit') > 0 && !Notice::checkDupes($profile_id, $final)) {
+            common_log(LOG_WARNING, 'Dupe posting by profile #' . $profile_id . '; throttled.');
+			return _('Too many duplicate messages too quickly; take a breather and post again in a few minutes.');
+        }
+
+		$banned = common_config('profile', 'banned');
 
         if ( in_array($profile_id, $banned) || in_array($profile->nickname, $banned)) {
             common_log(LOG_WARNING, "Attempted post from banned user: $profile->nickname (user id = $profile_id).");
@@ -155,12 +162,12 @@ class Notice extends Memcached_DataObject
 
 		$notice->query('BEGIN');
 
-        $notice->reply_to = $reply_to;
-        $notice->created = common_sql_now();
-        $notice->content = common_shorten_links($content);
-        $notice->rendered = common_render_content($notice->content, $notice);
-        $notice->source = $source;
-        $notice->uri = $uri;
+		$notice->reply_to = $reply_to;
+		$notice->created = common_sql_now();
+		$notice->content = $final;
+		$notice->rendered = common_render_content($final, $notice);
+		$notice->source = $source;
+		$notice->uri = $uri;
 
         if (Event::handle('StartNoticeSave', array(&$notice))) {
 
@@ -202,6 +209,32 @@ class Notice extends Memcached_DataObject
         }
 
         return $notice;
+    }
+
+    static function checkDupes($profile_id, $content) {
+        $profile = Profile::staticGet($profile_id);
+        if (!$profile) {
+            return false;
+        }
+        $notice = $profile->getNotices(0, NOTICE_CACHE_WINDOW);
+        if ($notice) {
+            $last = 0;
+            while ($notice->fetch()) {
+                if (time() - strtotime($notice->created) >= common_config('site', 'dupelimit')) {
+                    return true;
+                } else if ($notice->content == $content) {
+                    return false;
+                }
+            }
+        }
+        # If we get here, oldest item in cache window is not
+        # old enough for dupe limit; do direct check against DB
+        $notice = new Notice();
+        $notice->profile_id = $profile_id;
+        $notice->content = $content;
+        $notice->whereAdd('now() - created < ' . common_config('notice', 'dupelimit'));
+        $cnt = $notice->count();
+        return ($cnt > 0);
     }
 
     static function checkEditThrottle($profile_id) {
