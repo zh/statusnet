@@ -49,6 +49,8 @@ class Router
 {
     var $m = null;
     static $inst = null;
+    static $bare = array('requesttoken', 'accesstoken', 'userauthorization',
+                    'postnotice', 'updateprofile', 'finishremotesubscribe');
 
     static function get()
     {
@@ -118,8 +120,7 @@ class Router
         $m->connect('main/remote', array('action' => 'remotesubscribe'));
         $m->connect('main/remote?nickname=:nickname', array('action' => 'remotesubscribe'), array('nickname' => '[A-Za-z0-9_-]+'));
 
-        foreach (array('requesttoken', 'accesstoken', 'userauthorization',
-                    'postnotice', 'updateprofile', 'finishremotesubscribe') as $action) {
+        foreach (Router::$bare as $action) {
             $m->connect('index.php?action=' . $action, array('action' => $action));
         }
 
@@ -277,7 +278,6 @@ class Router
                           'apiaction' => 'friendships'),
                     array('method' => 'exists(\.(xml|json|rss|atom))'));
 
-
         // Social graph
 
         $m->connect('api/friends/ids/:argument',
@@ -351,7 +351,6 @@ class Router
         $m->connect('api/laconica/:method',
                     array('action' => 'api',
                           'apiaction' => 'laconica'));
-
 
         // search
         $m->connect('api/search.atom', array('action' => 'twitapisearchatom'));
