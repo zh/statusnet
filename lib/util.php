@@ -722,12 +722,15 @@ function common_local_url($action, $args=null, $params=null, $fragment=null)
 {
     $r = Router::get();
     $path = $r->build($action, $args, $params, $fragment);
-    if ($path) {
-    }
+
     if (common_config('site','fancy')) {
         $url = common_path(mb_substr($path, 1));
     } else {
-        $url = common_path('index.php'.$path);
+        if (mb_strpos($path, '/index.php') === 0) {
+            $url = common_path(mb_substr($path, 1));
+        } else {
+            $url = common_path('index.php'.$path);
+        }
     }
     return $url;
 }
