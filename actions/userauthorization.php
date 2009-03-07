@@ -216,10 +216,8 @@ class UserauthorizationAction extends Action
 
     function authorizeToken(&$req)
     {
-        $consumer_key = $req->get_parameter('oauth_consumer_key');
         $token_field = $req->get_parameter('oauth_token');
         $rt = new Token();
-        $rt->consumer_key = $consumer_key;
         $rt->tok = $token_field;
         $rt->type = 0;
         $rt->state = 0;
@@ -390,15 +388,14 @@ class UserauthorizationAction extends Action
 
     function validateRequest(&$req)
     {
-        # OAuth stuff -- have to copy from OAuth.php since they're
-        # all private methods, and there's no user-authentication method
-        $this->checkVersion($req);
-        $datastore = omb_oauth_datastore();
-        $consumer = $this->getConsumer($datastore, $req);
-        $token = $this->getToken($datastore, $req, $consumer);
-        $this->checkTimestamp($req);
-        $this->checkNonce($datastore, $req, $consumer, $token);
-        $this->checkSignature($req, $consumer, $token);
+        /* Find token. */
+        $t = new Token();
+        $t->tok = $req->get_parameter('oauth_token');
+        $t->type = 0;
+        if (!$t->find(true)) {
+            throw new OAuthException("Invalid request token: " . $req->get_parameter('oauth_token'));
+        }
+
         $this->validateOmb($req);
         return true;
     }
@@ -514,93 +511,5 @@ class UserauthorizationAction extends Action
         if ($callback && $callback == common_local_url('finishremotesubscribe')) {
             throw new OAuthException("Callback URL '$callback' is for local site.");
         }
-    }
-
-    # Snagged from OAuthServer
-
-    function checkVersion(&$req)
-    {
-        $version = $req->get_parameter("oauth_version");
-        if (!$version) {
-            $version = 1.0;
-        }
-        if ($version != 1.0) {
-            throw new OAuthException("OAuth version '$version' not supported");
-        }
-        return $version;
-    }
-
-    # Snagged from OAuthServer
-
-    function getConsumer($datastore, $req)
-    {
-        $consumer_key = @$req->get_parameter("oauth_consumer_key");
-        if (!$consumer_key) {
-            throw new OAuthException("Invalid consumer key");
-        }
-
-        $consumer = $datastore->lookup_consumer($consumer_key);
-        if (!$consumer) {
-            throw new OAuthException("Invalid consumer");
-        }
-        return $consumer;
-    }
-
-    # Mostly cadged from OAuthServer
-
-    function getToken($datastore, &$req, $consumer)
-    {/*{{{*/
-        $token_field = @$req->get_parameter('oauth_token');
-        $token = $datastore->lookup_token($consumer, 'request', $token_field);
-        if (!$token) {
-            throw new OAuthException("Invalid $token_type token: $token_field");
-        }
-        return $token;
-    }
-
-    function checkTimestamp(&$req)
-    {
-        $timestamp = @$req->get_parameter('oauth_timestamp');
-        $now = time();
-        if ($now - $timestamp > TIMESTAMP_THRESHOLD) {
-            throw new OAuthException("Expired timestamp, yours $timestamp, ours $now");
-        }
-    }
-
-    # NOTE: don't call twice on the same request; will fail!
-    function checkNonce(&$datastore, &$req, $consumer, $token)
-    {
-        $timestamp = @$req->get_parameter('oauth_timestamp');
-        $nonce = @$req->get_parameter('oauth_nonce');
-        $found = $datastore->lookup_nonce($consumer, $token, $nonce, $timestamp);
-        if ($found) {
-            throw new OAuthException("Nonce already used");
-        }
-        return true;
-    }
-
-    function checkSignature(&$req, $consumer, $token)
-    {
-        $signature_method = $this->getSignatureMethod($req);
-        $signature = $req->get_parameter('oauth_signature');
-        $valid_sig = $signature_method->check_signature($req,
-                                                        $consumer,
-                                                        $token,
-                                                        $signature);
-        if (!$valid_sig) {
-            throw new OAuthException("Invalid signature");
-        }
-    }
-
-    function getSignatureMethod(&$req)
-    {
-        $signature_method = @$req->get_parameter("oauth_signature_method");
-        if (!$signature_method) {
-            $signature_method = "PLAINTEXT";
-        }
-        if ($signature_method != 'HMAC-SHA1') {
-            throw new OAuthException("Signature method '$signature_method' not supported.");
-        }
-        return omb_hmac_sha1();
     }
 }
