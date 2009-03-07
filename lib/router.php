@@ -50,7 +50,8 @@ class Router
     var $m = null;
     static $inst = null;
     static $bare = array('requesttoken', 'accesstoken', 'userauthorization',
-                    'postnotice', 'updateprofile', 'finishremotesubscribe');
+                         'postnotice', 'updateprofile', 'finishremotesubscribe',
+                         'finishopenidlogin', 'finishaddopenid');
 
     static function get()
     {
