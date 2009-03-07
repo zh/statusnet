@@ -234,7 +234,7 @@ class Notice extends Memcached_DataObject
         $notice->content = $content;
         $notice->whereAdd('now() - created < ' . common_config('notice', 'dupelimit'));
         $cnt = $notice->count();
-        return ($cnt > 0);
+        return ($cnt == 0);
     }
 
     static function checkEditThrottle($profile_id) {
