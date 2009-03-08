@@ -382,7 +382,7 @@ class UserauthorizationAction extends Action
     function getNewRequest()
     {
         common_remove_magic_from_request();
-        $req = OAuthRequest::from_request();
+        $req = OAuthRequest::from_request('GET', common_local_url('userauthorization'));
         return $req;
     }
 

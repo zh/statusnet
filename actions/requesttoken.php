@@ -69,7 +69,7 @@ class RequesttokenAction extends Action
         parent::handle($args);
         try {
             common_remove_magic_from_request();
-            $req    = OAuthRequest::from_request();
+            $req    = OAuthRequest::from_request('POST', common_local_url('requesttoken'));
             $server = omb_oauth_server();
             $token  = $server->fetch_request_token($req);
             print $token;

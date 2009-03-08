@@ -44,7 +44,7 @@ class FinishremotesubscribeAction extends Action
         common_debug('stored request: '.print_r($omb,true), __FILE__);
 
         common_remove_magic_from_request();
-        $req = OAuthRequest::from_request();
+        $req = OAuthRequest::from_request('POST', common_local_url('finishuserauthorization'));
 
         $token = $req->get_parameter('oauth_token');
 
