@@ -275,10 +275,8 @@ class ShowgroupAction extends Action
         $cur = common_current_user();
         if ($cur) {
             if ($cur->isMember($this->group)) {
-                if (!$cur->isAdmin($this->group)) {
-                    $lf = new LeaveForm($this, $this->group);
-                    $lf->show();
-                }
+                $lf = new LeaveForm($this, $this->group);
+                $lf->show();
             } else {
                 $jf = new JoinForm($this, $this->group);
                 $jf->show();
