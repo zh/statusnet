@@ -96,12 +96,6 @@ class LeavegroupAction extends Action
             return false;
         }
 
-        if ($cur->isAdmin($this->group)) {
-            $this->clientError(_('You may not leave a group while you are its administrator.'), 403);
-            return false;
-
-        }
-
         return true;
     }
 

@@ -164,10 +164,8 @@ class GroupList extends Widget
             # XXX: special-case for user looking at own
             # subscriptions page
             if ($user->isMember($this->group)) {
-                if (!$user->isAdmin($this->group)) {
-                    $lf = new LeaveForm($this->out, $this->group);
-                    $lf->show();
-                }
+                $lf = new LeaveForm($this->out, $this->group);
+                $lf->show();
             } else {
                 $jf = new JoinForm($this->out, $this->group);
                 $jf->show();
