@@ -73,7 +73,7 @@ class JoingroupAction extends Action
 
         if ($nickname_arg != $nickname) {
             $args = array('nickname' => $nickname);
-            common_redirect(common_local_url('editgroup', $args), 301);
+            common_redirect(common_local_url('joingroup', $args), 301);
             return false;
         }
 
