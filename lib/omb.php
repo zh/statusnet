@@ -295,7 +295,7 @@ function omb_update_profile($profile, $remote_profile, $subscription)
 
     common_debug('Got HTTP result "'.print_r($result,true).'"', __FILE__);
 
-    if (empty($result) || $result) {
+    if (empty($result) || !$result) {
         common_debug("Unable to contact " . $req->get_normalized_http_url());
     } else if ($result->status == 403) { # not authorized, don't send again
         common_debug('403 result, deleting subscription', __FILE__);
