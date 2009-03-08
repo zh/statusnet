@@ -34,6 +34,8 @@ class UpdateprofileAction extends Action
             $server = omb_oauth_server();
             list($consumer, $token) = $server->verify_request($req);
             if ($this->update_profile($req, $consumer, $token)) {
+                header('HTTP/1.1 200 OK');
+                header('Content-type: text/plain');
                 print "omb_version=".OMB_VERSION_01;
             }
         } catch (OAuthException $e) {
@@ -173,10 +175,6 @@ class UpdateprofileAction extends Action
                     return false;
                 }
             }
-            header('HTTP/1.1 200 OK');
-            header('Content-type: text/plain');
-            print 'Updated profile';
-            print "\n";
             return true;
         }
     }
