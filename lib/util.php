@@ -688,7 +688,7 @@ function common_relative_profile($sender, $nickname, $dt=null)
     $recipient = new Profile();
     // XXX: use a join instead of a subquery
     $recipient->whereAdd('EXISTS (SELECT subscribed from subscription where subscriber = '.$sender->id.' and subscribed = id)', 'AND');
-    $recipient->whereAdd('nickname = "' . trim($nickname) . '"', 'AND');
+    $recipient->whereAdd("nickname = '" . trim($nickname) . "'", 'AND');
     if ($recipient->find(true)) {
         // XXX: should probably differentiate between profiles with
         // the same name by date of most recent update
@@ -698,7 +698,7 @@ function common_relative_profile($sender, $nickname, $dt=null)
     $recipient = new Profile();
     // XXX: use a join instead of a subquery
     $recipient->whereAdd('EXISTS (SELECT subscriber from subscription where subscribed = '.$sender->id.' and subscriber = id)', 'AND');
-    $recipient->whereAdd('nickname = "' . trim($nickname) . '"', 'AND');
+    $recipient->whereAdd("nickname = '" . trim($nickname) . "'", 'AND');
     if ($recipient->find(true)) {
         // XXX: should probably differentiate between profiles with
         // the same name by date of most recent update

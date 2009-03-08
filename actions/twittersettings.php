@@ -186,12 +186,12 @@ class TwittersettingsAction extends ConnectSettingsAction
 
         $current_user = common_current_user();
 
-        $qry = 'SELECT user.* ' .
+        $qry = 'SELECT "user".* ' .
           'FROM subscription ' .
-          'JOIN user ON subscription.subscribed = user.id ' .
-          'JOIN foreign_link ON foreign_link.user_id = user.id ' .
+          'JOIN "user" ON subscription.subscribed = "user".id ' .
+          'JOIN foreign_link ON foreign_link.user_id = "user".id ' .
           'WHERE subscriber = %d ' .
-          'ORDER BY user.nickname';
+          'ORDER BY "user".nickname';
 
         $user = new User();
 
