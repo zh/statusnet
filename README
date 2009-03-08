@@ -745,16 +745,19 @@ to the end first before trying them.
    directory to your new directory.
 9. Copy htaccess.sample to .htaccess in the new directory. Change the
    RewriteBase to use the correct path.
-10. Rebuild the database. Go to your Laconica directory and run the
-   rebuilddb.sh script like this:
+10. Rebuild the database. For MySQL, go to your Laconica directory and
+    run the rebuilddb.sh script like this:
 
-   ./scripts/rebuilddb.sh rootuser rootpassword database db/laconica.sql
+    ./scripts/rebuilddb.sh rootuser rootpassword database db/laconica.sql
 
-   Here, rootuser and rootpassword are the username and password for a
-   user who can drop and create databases as well as tables; typically
-   that's _not_ the user Laconica runs as.
-11. Use mysql client to log into your database and make sure that the
-    notice, user, profile, subscription etc. tables are non-empty.
+    Here, rootuser and rootpassword are the username and password for a
+    user who can drop and create databases as well as tables; typically
+    that's _not_ the user Laconica runs as.
+    For PostgreSQL databases there is an equivalent, rebuilddb_psql.sh,
+    which operates slightly differently. Read the documentation in that
+    script before running it.
+11. Use mysql or psql client to log into your database and make sure that
+    the notice, user, profile, subscription etc. tables are non-empty.
 12. Turn back on the Web server, and check that things still work.
 13. Turn back on XMPP bots and email maildaemon. Note that the XMPP
     bots have changed since version 0.5; see above for details.
