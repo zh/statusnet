@@ -190,7 +190,7 @@ class Twitapidirect_messagesAction extends TwitterapiAction
         $this->init_document('xml');
         $this->elementStart('direct-messages', array('type' => 'array'));
 
-        if (is_array($messages)) {
+        if (is_array($message)) {
             foreach ($message as $m) {
                 $twitter_dm = $this->twitter_dmsg_array($m);
                 $this->show_twitter_xml_dmsg($twitter_dm);
