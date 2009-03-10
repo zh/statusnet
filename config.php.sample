@@ -165,3 +165,9 @@ $config['sphinx']['port'] = 3312;
 #Don't enforce the dupe limit
 #$config['site']['dupelimit'] = -1;
 
+#Base string for minting Tag URIs in Atom feeds. Defaults to
+#"yourserver,2009". This needs to be configured properly for your Atom
+#feeds to validate.  See: http://www.faqs.org/rfcs/rfc4151.html and
+#http://taguri.org/ Examples:
+#$config['integration']['taguri'] = 'example.net,2008';
+#$config['integration']['taguri'] = 'admin@example.net,2009-03-09'
