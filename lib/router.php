@@ -226,7 +226,7 @@ class Router
         $m->connect('api/statuses/:method/:argument',
                     array('action' => 'api',
                           'apiaction' => 'statuses'),
-                    array('method' => '(user_timeline|friends_timeline|show|destroy|friends|followers)'));
+                    array('method' => '(user_timeline|friends_timeline|replies|show|destroy|friends|followers)'));
 
         // users
 
@@ -257,7 +257,7 @@ class Router
         }
 
         foreach (array('xml', 'json', 'rss', 'atom') as $e) {
-            $m->connect('api/direct_message/sent.'.$e,
+            $m->connect('api/direct_messages/sent.'.$e,
                         array('action' => 'api',
                         'apiaction' => 'direct_messages',
                         'method' => 'sent.'.$e));
@@ -277,7 +277,7 @@ class Router
         $m->connect('api/friendships/:method',
                     array('action' => 'api',
                           'apiaction' => 'friendships'),
-                    array('method' => 'exists(\.(xml|json|rss|atom))'));
+                    array('method' => 'exists(\.(xml|json))'));
 
         // Social graph
 
@@ -360,7 +360,7 @@ class Router
 
         // user stuff
 
-      foreach (array('subscriptions', 'subscribers',
+        foreach (array('subscriptions', 'subscribers',
                        'nudge', 'xrds', 'all', 'foaf',
                        'replies', 'inbox', 'outbox', 'microsummary') as $a) {
             $m->connect(':nickname/'.$a,
