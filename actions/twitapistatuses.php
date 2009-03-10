@@ -355,8 +355,8 @@ class TwitapistatusesAction extends TwitterapiAction
         $since_id = $this->arg('since_id');
         $before_id = $this->arg('before_id');
 
+        $user = $this->get_user($apidata['api_arg'], $apidata);
         $this->auth_user = $apidata['user'];
-        $user = $this->auth_user;
         $profile = $user->getProfile();
 
         $sitename = common_config('site', 'name');
