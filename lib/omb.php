@@ -251,7 +251,6 @@ function omb_broadcast_profile($profile)
 
 function omb_update_profile($profile, $remote_profile, $subscription)
 {
-    global $config; # for license URL
     $user = User::staticGet($profile->id);
     $con = omb_oauth_consumer();
     $token = new OAuthToken($subscription->token, $subscription->secret);

@@ -72,8 +72,7 @@ function common_timezone()
         }
     }
 
-    global $config;
-    return $config['site']['timezone'];
+    return common_config('site', 'timezone');
 }
 
 function common_language()
@@ -737,9 +736,8 @@ function common_local_url($action, $args=null, $params=null, $fragment=null)
 
 function common_path($relative)
 {
-    global $config;
-    $pathpart = ($config['site']['path']) ? $config['site']['path']."/" : '';
-    return "http://".$config['site']['server'].'/'.$pathpart.$relative;
+    $pathpart = (common_config('site', 'path')) ? common_config('site', 'path')."/" : '';
+    return "http://".common_config('site', 'server').'/'.$pathpart.$relative;
 }
 
 function common_date_string($dt)
@@ -992,8 +990,7 @@ function common_ensure_syslog()
 {
     static $initialized = false;
     if (!$initialized) {
-        global $config;
-        openlog($config['syslog']['appname'], 0, LOG_USER);
+        openlog(common_config('syslog', 'appname'), 0, LOG_USER);
         $initialized = true;
     }
 }
