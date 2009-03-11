@@ -229,8 +229,8 @@ class TwitapisearchatomAction extends TwitterapiAction
                              'xmlns:twitter' => 'http://api.twitter.com/',
                              'xml:lang' => $lang));
 
-        $year = date('Y');
-        $this->element('id', null, "tag:$server,$year:search/$server");
+        $taguribase = common_config('integration', 'taguri');
+        $this->element('id', null, "tag:$taguribase:search/$server");
 
         $site_uri = common_path(false);
 
@@ -258,6 +258,7 @@ class TwitapisearchatomAction extends TwitterapiAction
                                      'href' => $self_uri));
 
         $this->element('title', null, "$this->query - $sitename Search");
+        $this->element('updated', null, common_date_iso8601('now'));
 
         // refresh link
 
@@ -308,9 +309,9 @@ class TwitapisearchatomAction extends TwitterapiAction
 
         $this->elementStart('entry');
 
-        $year = date('Y', strtotime($notice->created));
+        $taguribase = common_config('integration', 'taguri');
 
-        $this->element('id', null, "tag:$server,$year:$notice->id");
+        $this->element('id', null, "tag:$taguribase:$notice->id");
         $this->element('published', null, common_date_w3dtf($notice->created));
         $this->element('link', array('type' => 'text/html',
                                      'rel'  => 'alternate',
