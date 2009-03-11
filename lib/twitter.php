@@ -224,7 +224,6 @@ function is_twitter_bound($notice, $flink) {
 
 function broadcast_twitter($notice)
 {
-    global $config;
     $success = true;
 
     $flink = Foreign_link::getByUserID($notice->profile_id, 
@@ -248,7 +247,7 @@ function broadcast_twitter($notice)
             CURLOPT_POSTFIELDS     => 
                 array(
                         'status' => $statustxt,
-                        'source' => $config['integration']['source']
+                        'source' => common_config('integration', 'source')
                      ),
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_FAILONERROR    => true,

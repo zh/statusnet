@@ -333,8 +333,6 @@ class RemotesubscribeAction extends Action
 
     function requestAuthorization($user, $omb, $token, $secret)
     {
-        global $config; # for license URL
-
         $con = omb_oauth_consumer();
         $tok = new OAuthToken($token, $secret);
 
@@ -358,7 +356,7 @@ class RemotesubscribeAction extends Action
         $req->set_parameter('omb_listenee', $user->uri);
         $req->set_parameter('omb_listenee_profile', common_profile_url($user->nickname));
         $req->set_parameter('omb_listenee_nickname', $user->nickname);
-        $req->set_parameter('omb_listenee_license', $config['license']['url']);
+        $req->set_parameter('omb_listenee_license', common_config('license', 'url'));
 
         $profile = $user->getProfile();
         if (!$profile) {
