@@ -232,7 +232,11 @@ class Notice extends Memcached_DataObject
         $notice = new Notice();
         $notice->profile_id = $profile_id;
         $notice->content = $content;
-        $notice->whereAdd('now() - created < ' . common_config('site', 'dupelimit'));
+        if (common_config('db','type') == 'pgsql')
+            $notice->whereAdd('extract(epoch from now() - created) < ' . common_config('site', 'dupelimit'));
+        else
+            $notice->whereAdd('now() - created < ' . common_config('site', 'dupelimit'));
+
         $cnt = $notice->count();
         return ($cnt == 0);
     }
