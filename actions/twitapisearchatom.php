@@ -52,7 +52,6 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
 class TwitapisearchatomAction extends TwitterapiAction
 {
 
-    var $notices;
     var $cnt;
     var $query;
     var $lang;
@@ -156,6 +155,7 @@ class TwitapisearchatomAction extends TwitterapiAction
     {
         // TODO: Support search operators like from: and to:, boolean, etc.
 
+        $notices = array();
         $notice = new Notice();
 
         // lcase it for comparison
@@ -226,6 +226,10 @@ class TwitapisearchatomAction extends TwitterapiAction
 
         $this->elementStart('feed',
             array('xmlns' => 'http://www.w3.org/2005/Atom',
+
+                             // XXX: xmlns:twitter causes Atom validation to fail
+                             // It's used for the source attr on notices
+
                              'xmlns:twitter' => 'http://api.twitter.com/',
                              'xml:lang' => $lang));
 
@@ -251,7 +255,8 @@ class TwitapisearchatomAction extends TwitterapiAction
 
         // self link
 
-        $self_uri = $search_uri . '&page=' . $this->page;
+        $self_uri = $search_uri;
+        $self_uri .= ($this->page > 1) ? '&page=' . $this->page : '';
 
         $this->element('link', array('type' => 'application/atom+xml',
                                      'rel'  => 'self',
@@ -317,10 +322,11 @@ class TwitapisearchatomAction extends TwitterapiAction
                                      'rel'  => 'alternate',
                                      'href' => $nurl));
         $this->element('title', null, common_xml_safe_str(trim($notice->content)));
-        $this->element('content', array('type' => 'text/html'), $notice->rendered);
+        $this->element('content', array('type' => 'html'), $notice->rendered);
         $this->element('updated', null, common_date_w3dtf($notice->created));
         $this->element('link', array('type' => 'image/png',
-                                     'rel' => 'image',
+                                     // XXX: Twitter uses rel="image" (not valid)
+                                     'rel' => 'related',
                                      'href' => $profile->avatarUrl()));
 
         // TODO: Here is where we'd put in a link to an atom feed for threads
