@@ -218,7 +218,6 @@ class TwitapisearchatomAction extends TwitterapiAction
     {
         // TODO: A9 OpenSearch stuff like search.twitter.com?
 
-        $lang     = common_config('site', 'language');
         $server   = common_config('site', 'server');
         $sitename = common_config('site', 'name');
 
@@ -231,7 +230,7 @@ class TwitapisearchatomAction extends TwitterapiAction
                              // It's used for the source attr on notices
 
                              'xmlns:twitter' => 'http://api.twitter.com/',
-                             'xml:lang' => $lang));
+                             'xml:lang' => 'en-US')); // XXX Other locales ?
 
         $taguribase = common_config('integration', 'taguri');
         $this->element('id', null, "tag:$taguribase:search/$server");
@@ -264,6 +263,9 @@ class TwitapisearchatomAction extends TwitterapiAction
 
         $this->element('title', null, "$this->query - $sitename Search");
         $this->element('updated', null, common_date_iso8601('now'));
+
+        // XXX: The below "rel" links are not valid Atom, but it's what
+        // Twitter does...
 
         // refresh link
 
