@@ -94,18 +94,25 @@ class LinkbackPlugin extends Plugin
             return $orig;
         }
 
+        $pb = null;
+        $tb = null;
+
         if (array_key_exists('X-Pingback', $result->headers)) {
-            $endpoint = $result->headers['X-Pingback'];
+            $pb = $result->headers['X-Pingback'];
         } else if (preg_match('/<link rel="pingback" href="([^"]+)" ?/?>/',
                               $result->body,
                               $match)) {
-            $endpoint = $match[1];
-        } else {
-            // XXX: do Trackback lookup
-            return $orig;
+            $pb = $match[1];
         }
 
-        $this->pingback($url, $endpoint);
+        $tb = $this->getTrackback($result->body, $result->final_url);
+
+        if (!empty($tb)) {
+            $this->trackback($result->final_url, $tb);
+        } else if (!empty($pb)) {
+            $this->pingback($result->final_url, $pb);
+        }
+
         return $orig;
     }
 
@@ -129,6 +136,82 @@ class LinkbackPlugin extends Plugin
             common_log(LOG_INFO,
                        "Pingback success for '$url' ($endpoint): ".
                        "'$response'");
+        }
+    }
+
+    // Largely cadged from trackback_cls.php by
+    // Ran Aroussi <ran@blogish.org>, GPL2
+    // http://phptrackback.sourceforge.net/
+
+    function getTrackback($text, $url)
+    {
+        if (preg_match_all('/(<rdf:RDF.*?<\/rdf:RDF>)/sm', $text, $match, PREG_SET_ORDER)) {
+            for ($i = 0; $i < count($match); $i++) {
+                if (preg_match('|dc:identifier="' . preg_quote($url) . '"|ms', $match[$i][1])) {
+                    $rdf_array[] = trim($match[$i][1]);
+                }
+            }
+
+            // Loop through the RDFs array and extract trackback URIs
+
+            $tb_array = array(); // <- holds list of trackback URIs
+
+            if (!empty($rdf_array)) {
+
+                for ($i = 0; $i < count($rdf_array); $i++) {
+                    if (preg_match('/trackback:ping="([^"]+)"/', $rdf_array[$i], $array)) {
+                        $tb_array[] = trim($array[1]);
+                        break;
+                    }
+                }
+            }
+
+            // Return Trackbacks
+
+            if (empty($tb_array)) {
+                return null;
+            } else {
+                return $tb_array[0];
+            }
+        }
+
+        if (preg_match_all('/(<a[^>]*?rel=[\'"]trackback[\'"][^>]*?>)/', $text, $match)) {
+            foreach ($match[1] as $atag) {
+                if (preg_match('/href=[\'"]([^\'"]*?)[\'"]/', $atag, $url)) {
+                    return $url[1];
+                }
+            }
+        }
+
+        return null;
+
+    }
+
+    function trackback($url, $endpoint)
+    {
+        $profile = $this->notice->getProfile();
+
+        $args = array('title' => sprintf(_('%1$s\'s status on %2$s'),
+                                         $profile->nickname,
+                                         common_exact_date($this->notice->created)),
+                      'excerpt' => $this->notice->content,
+                      'url' => $this->notice->uri,
+                      'blog_name' => $profile->nickname);
+
+        $fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
+
+        $result = $fetcher->post($endpoint,
+                                 http_build_query($args),
+                                 array('User-Agent: ' . $this->userAgent()));
+
+        if ($result->status != '200') {
+            common_log(LOG_WARNING,
+                       "Trackback error for '$url' ($endpoint): ".
+                       "$result->body");
+        } else {
+            common_log(LOG_INFO,
+                       "Trackback success for '$url' ($endpoint): ".
+                       "'$result->body'");
         }
     }
 
