@@ -156,14 +156,9 @@ class Action extends HTMLOutputter // lawsuit
     {
         if (Event::handle('StartShowStyles', array($this))) {
             if (Event::handle('StartShowLaconicaStyles', array($this))) {
-
                 $this->element('link', array('rel' => 'stylesheet',
                                              'type' => 'text/css',
                                              'href' => theme_path('css/display.css', 'base') . '?version=' . LACONICA_VERSION,
-                                             'media' => 'screen, projection, tv'));
-                $this->element('link', array('rel' => 'stylesheet',
-                                             'type' => 'text/css',
-                                             'href' => theme_path('css/modal.css', 'base') . '?version=' . LACONICA_VERSION,
                                              'media' => 'screen, projection, tv'));
                 $this->element('link', array('rel' => 'stylesheet',
                                              'type' => 'text/css',
@@ -215,11 +210,6 @@ class Action extends HTMLOutputter // lawsuit
                 $this->element('script', array('type' => 'text/javascript',
                                                'src' => common_path('js/jquery.form.js')),
                                ' ');
-
-                $this->element('script', array('type' => 'text/javascript',
-                                               'src' => common_path('js/jquery.simplemodal-1.2.2.pack.js')),
-                               ' ');
-
                 Event::handle('EndShowJQueryScripts', array($this));
             }
             if (Event::handle('StartShowLaconicaScripts', array($this))) {
@@ -232,14 +222,6 @@ class Action extends HTMLOutputter // lawsuit
                 // Frame-busting code to avoid clickjacking attacks.
                 $this->element('script', array('type' => 'text/javascript'),
                                'if (window.top !== window.self) { window.top.location.href = window.self.location.href; }');
-
-                $this->element('script', array('type' => 'text/javascript',
-                                               'src' => common_path('js/flowplayer-3.0.5.min.js')),
-                               ' ');
-
-                $this->element('script', array('type' => 'text/javascript',
-                                               'src' => common_path('js/video.js')),
-                               ' ');
                 Event::handle('EndShowLaconicaScripts', array($this));
             }
             Event::handle('EndShowScripts', array($this));
