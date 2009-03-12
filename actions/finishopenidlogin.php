@@ -62,9 +62,8 @@ class FinishopenidloginAction extends Action
         if ($this->error) {
             $this->element('div', array('class' => 'error'), $this->error);
         } else {
-            global $config;
             $this->element('div', 'instructions',
-                           sprintf(_('This is the first time you\'ve logged into %s so we must connect your OpenID to a local account. You can either create a new account, or connect with your existing account, if you have one.'), $config['site']['name']));
+                           sprintf(_('This is the first time you\'ve logged into %s so we must connect your OpenID to a local account. You can either create a new account, or connect with your existing account, if you have one.'), common_config('site', 'name')));
         }
     }
 

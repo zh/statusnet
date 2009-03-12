@@ -49,6 +49,9 @@ class Router
 {
     var $m = null;
     static $inst = null;
+    static $bare = array('requesttoken', 'accesstoken', 'userauthorization',
+                         'postnotice', 'updateprofile', 'finishremotesubscribe',
+                         'finishopenidlogin', 'finishaddopenid');
 
     static function get()
     {
@@ -98,7 +101,7 @@ class Router
         $main = array('login', 'logout', 'register', 'subscribe',
                       'unsubscribe', 'confirmaddress', 'recoverpassword',
                       'invite', 'favor', 'disfavor', 'sup',
-                      'block');
+                      'block', 'subedit');
 
         foreach ($main as $a) {
             $m->connect('main/'.$a, array('action' => $a));
@@ -118,8 +121,7 @@ class Router
         $m->connect('main/remote', array('action' => 'remotesubscribe'));
         $m->connect('main/remote?nickname=:nickname', array('action' => 'remotesubscribe'), array('nickname' => '[A-Za-z0-9_-]+'));
 
-        foreach (array('requesttoken', 'accesstoken', 'userauthorization',
-                    'postnotice', 'updateprofile', 'finishremotesubscribe') as $action) {
+        foreach (Router::$bare as $action) {
             $m->connect('index.php?action=' . $action, array('action' => $action));
         }
 
@@ -230,7 +232,7 @@ class Router
         $m->connect('api/statuses/:method/:argument',
                     array('action' => 'api',
                           'apiaction' => 'statuses'),
-                    array('method' => '(user_timeline|friends_timeline|show|destroy|friends|followers)'));
+                    array('method' => '(user_timeline|friends_timeline|replies|show|destroy|friends|followers)'));
 
         // users
 
@@ -261,7 +263,7 @@ class Router
         }
 
         foreach (array('xml', 'json', 'rss', 'atom') as $e) {
-            $m->connect('api/direct_message/sent.'.$e,
+            $m->connect('api/direct_messages/sent.'.$e,
                         array('action' => 'api',
                         'apiaction' => 'direct_messages',
                         'method' => 'sent.'.$e));
@@ -281,7 +283,7 @@ class Router
         $m->connect('api/friendships/:method',
                     array('action' => 'api',
                           'apiaction' => 'friendships'),
-                    array('method' => 'exists(\.(xml|json|rss|atom))'));
+                    array('method' => 'exists(\.(xml|json))'));
 
         // Social graph
 
@@ -357,7 +359,6 @@ class Router
                     array('action' => 'api',
                           'apiaction' => 'laconica'));
 
-
         // search
         $m->connect('api/search.atom', array('action' => 'twitapisearchatom'));
         $m->connect('api/search.json', array('action' => 'twitapisearchjson'));
@@ -365,7 +366,7 @@ class Router
 
         // user stuff
 
-      foreach (array('subscriptions', 'subscribers',
+        foreach (array('subscriptions', 'subscribers',
                        'nudge', 'xrds', 'all', 'foaf',
                        'replies', 'inbox', 'outbox', 'microsummary') as $a) {
             $m->connect(':nickname/'.$a,

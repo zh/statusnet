@@ -63,7 +63,7 @@ function handleError($error)
 
 function main()
 {
-    global $user, $action;
+    global $user, $action, $config;
 
     if (!_have_config()) {
         $msg = sprintf(_("No configuration file found. Try running ".
@@ -131,11 +131,11 @@ function main()
         if (common_config('db', 'mirror') && $action_obj->isReadOnly()) {
             if (is_array(common_config('db', 'mirror'))) {
                 // "load balancing", ha ha
-                $k = array_rand($config['db']['mirror']);
-
-                $mirror = $config['db']['mirror'][$k];
+                $arr = common_config('db', 'mirror');
+                $k = array_rand($arr);
+                $mirror = $arr[$k];
             } else {
-                $mirror = $config['db']['mirror'];
+                $mirror = common_config('db', 'mirror');
             }
             $config['db']['database'] = $mirror;
         }

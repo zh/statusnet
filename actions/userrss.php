@@ -53,6 +53,7 @@ class UserrssAction extends Rss10Action
 
         $notice = $user->getNotices(0, ($limit == 0) ? NOTICES_PER_PAGE : $limit);
 
+        $notices = array();
         while ($notice->fetch()) {
             $notices[] = clone($notice);
         }

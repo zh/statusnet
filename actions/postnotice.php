@@ -79,7 +79,7 @@ class PostnoticeAction extends Action
         }
         $notice = Notice::staticGet('uri', $notice_uri);
         if (!$notice) {
-            $notice = Notice::saveNew($remote_profile->id, $content, 'omb', false, 0, $notice_uri);
+            $notice = Notice::saveNew($remote_profile->id, $content, 'omb', false, null, $notice_uri);
             if (is_string($notice)) {
                 common_server_serror($notice, 500);
                 return false;

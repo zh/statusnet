@@ -81,8 +81,9 @@ class AllrssAction extends Rss10Action
      */
     function getNotices($limit=0)
     {
-        $user   = $this->user;
-        $notice = $user->noticesWithFriends(0, $limit);
+        $user    = $this->user;
+        $notice  = $user->noticesWithFriends(0, $limit);
+        $notices = array();
 
         while ($notice->fetch()) {
             $notices[] = clone($notice);

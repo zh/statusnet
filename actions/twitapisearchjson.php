@@ -2,7 +2,7 @@
 /**
  * Laconica, the distributed open-source microblogging tool
  *
- * List of replies
+ * Action for showing Twitter-like JSON search results
  *
  * PHP version 5
  *
@@ -114,7 +114,7 @@ class TwitapisearchjsonAction extends TwitterapiAction
     function showResults()
     {
 
-        // TODO: Support search operators like from: and to:
+        // TODO: Support search operators like from: and to:, boolean, etc.
 
         $notice = new Notice();
 
@@ -137,7 +137,7 @@ class TwitapisearchjsonAction extends TwitterapiAction
     }
 
     /**
-     * This is a read-only action
+     * Do we need to write to the database?
      *
      * @return boolean true
      */

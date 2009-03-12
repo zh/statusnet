@@ -73,7 +73,7 @@ class LeavegroupAction extends Action
 
         if ($nickname_arg != $nickname) {
             $args = array('nickname' => $nickname);
-            common_redirect(common_local_url('editgroup', $args), 301);
+            common_redirect(common_local_url('leavegroup', $args), 301);
             return false;
         }
 
@@ -94,12 +94,6 @@ class LeavegroupAction extends Action
         if (!$cur->isMember($this->group)) {
             $this->clientError(_('You are not a member of that group.'), 403);
             return false;
-        }
-
-        if ($cur->isAdmin($this->group)) {
-            $this->clientError(_('You may not leave a group while you are its administrator.'), 403);
-            return false;
-
         }
 
         return true;

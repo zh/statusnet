@@ -127,8 +127,6 @@ class TwitterapiAction extends Action
     {
 
         $profile = $notice->getProfile();
-
-        $server = common_config('site', 'server');
         $entry = array();
 
         # We trim() to avoid extraneous whitespace in the output
@@ -137,8 +135,12 @@ class TwitterapiAction extends Action
         $entry['title'] = $profile->nickname . ': ' . common_xml_safe_str(trim($notice->content));
         $entry['link'] = common_local_url('shownotice', array('notice' => $notice->id));
         $entry['published'] = common_date_iso8601($notice->created);
-        $entry['id'] = "tag:$server,2008:$entry[link]";
+
+        $taguribase = common_config('integration', 'taguri');
+        $entry['id'] = "tag:$taguribase:$entry[link]";
+
         $entry['updated'] = $entry['published'];
+        $entry['author'] = $profile->getBestName();
 
         # RSS Item specific
         $entry['description'] = $entry['content'];
@@ -151,7 +153,6 @@ class TwitterapiAction extends Action
     function twitter_rss_dmsg_array($message)
     {
 
-        $server = common_config('site', 'server');
         $entry = array();
 
         $entry['title'] = sprintf('Message from %s to %s',
@@ -160,8 +161,12 @@ class TwitterapiAction extends Action
         $entry['content'] = common_xml_safe_str(trim($message->content));
         $entry['link'] = common_local_url('showmessage', array('message' => $message->id));
         $entry['published'] = common_date_iso8601($message->created);
-        $entry['id'] = "tag:$server,2008:$entry[link]";
+
+        $taguribase = common_config('integration', 'taguri');
+
+        $entry['id'] = "tag:$taguribase,:$entry[link]";
         $entry['updated'] = $entry['published'];
+        $entry['author'] = $message->getFrom()->getBestName();
 
         # RSS Item specific
         $entry['description'] = $entry['content'];
@@ -242,6 +247,9 @@ class TwitterapiAction extends Action
         $this->element('published', null, $entry['published']);
         $this->element('updated', null, $entry['updated']);
         $this->element('link', array('href' => $entry['link'], 'rel' => 'alternate', 'type' => 'text/html'), null);
+        $this->elementStart('author');
+        $this->element('name', null, $entry['author']);
+        $this->elementEnd('author');
         $this->elementEnd('entry');
     }
 
@@ -358,7 +366,7 @@ class TwitterapiAction extends Action
         $this->end_twitter_rss();
     }
 
-    function show_atom_timeline($notice, $title, $id, $link, $subtitle=null, $suplink=null)
+    function show_atom_timeline($notice, $title, $id, $link, $subtitle=null, $suplink=null, $selfuri=null)
     {
 
         $this->init_document('atom');
@@ -366,12 +374,20 @@ class TwitterapiAction extends Action
         $this->element('title', null, $title);
         $this->element('id', null, $id);
         $this->element('link', array('href' => $link, 'rel' => 'alternate', 'type' => 'text/html'), null);
+
         if (!is_null($suplink)) {
             # For FriendFeed's SUP protocol
             $this->element('link', array('rel' => 'http://api.friendfeed.com/2008/03#sup',
                                          'href' => $suplink,
                                          'type' => 'application/json'));
         }
+
+        if (!is_null($selfuri)) {
+            $this->element('link', array('href' => $selfuri, 
+                'rel' => 'self', 'type' => 'application/atom+xml'), null);
+        }
+
+        $this->element('updated', null, common_date_iso8601('now'));
         $this->element('subtitle', null, $subtitle);
 
         if (is_array($notice)) {
@@ -632,81 +648,6 @@ class TwitterapiAction extends Action
             break;
         }
         return $source_name;
-    }
-
-    function show_extended_profile($user, $apidata)
-    {
-
-        $this->auth_user = $apidata['user'];
-
-        $profile = $user->getProfile();
-
-        if (!$profile) {
-            common_server_error(_('User has no profile.'));
-            return;
-        }
-
-        $twitter_user = $this->twitter_user_array($profile, true);
-
-        // Add in extended user fields offered up by this method
-        $twitter_user['created_at'] = $this->date_twitter($profile->created);
-
-        $subbed = DB_DataObject::factory('subscription');
-        $subbed->subscriber = $profile->id;
-        $subbed_count = (int) $subbed->count() - 1;
-
-        $notices = DB_DataObject::factory('notice');
-        $notices->profile_id = $profile->id;
-        $notice_count = (int) $notices->count();
-
-        $twitter_user['friends_count'] = (is_int($subbed_count)) ? $subbed_count : 0;
-        $twitter_user['statuses_count'] = (is_int($notice_count)) ? $notice_count : 0;
-
-        // Other fields Twitter sends...
-        $twitter_user['profile_background_color'] = '';
-        $twitter_user['profile_text_color'] = '';
-        $twitter_user['profile_link_color'] = '';
-        $twitter_user['profile_sidebar_fill_color'] = '';
-
-        $faves = DB_DataObject::factory('fave');
-        $faves->user_id = $user->id;
-        $faves_count = (int) $faves->count();
-        $twitter_user['favourites_count'] = $faves_count;
-
-        $timezone = 'UTC';
-
-        if ($user->timezone) {
-            $timezone = $user->timezone;
-        }
-
-        $t = new DateTime;
-        $t->setTimezone(new DateTimeZone($timezone));
-        $twitter_user['utc_offset'] = $t->format('Z');
-        $twitter_user['time_zone'] = $timezone;
-
-        $following = 'false';
-
-        if (isset($this->auth_user)) {
-            if ($this->auth_user->isSubscribed($profile)) {
-                $following = 'true';
-            }
-
-            // Not implemented yet
-            $twitter_user['notifications'] = 'false';
-        }
-
-        $twitter_user['following'] = $following;
-
-        if ($apidata['content-type'] == 'xml') {
-            $this->init_document('xml');
-            $this->show_twitter_xml_user($twitter_user);
-            $this->end_document('xml');
-        } elseif ($apidata['content-type'] == 'json') {
-            $this->init_document('json');
-            $this->show_json_objects($twitter_user);
-            $this->end_document('json');
-        }
-
     }
 
 }

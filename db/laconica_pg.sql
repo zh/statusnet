@@ -1,7 +1,8 @@
 /* local and remote users have profiles */
 
+create sequence profile_seq;
 create table profile (
-    id serial primary key /* comment 'unique identifier' */,
+    id bigint default nextval('profile_seq') primary key /* comment 'unique identifier' */,
     nickname varchar(64) not null /* comment 'nickname or username' */,
     fullname varchar(255) /* comment 'display name' */,
     profileurl varchar(255) /* comment 'URL, cached so we dont regenerate' */,
@@ -30,8 +31,9 @@ create table avatar (
 );
 create index avatar_profile_id_idx on avatar using btree(profile_id);
 
+create sequence sms_carrier_seq;
 create table sms_carrier (
-    id serial primary key /* comment 'primary key for SMS carrier' */,
+    id bigint default nextval('sms_carrier_seq') primary key /* comment 'primary key for SMS carrier' */,
     name varchar(64) unique /* comment 'name of the carrier' */,
     email_pattern varchar(255) not null /* comment 'sprintf pattern for making an email address from a phone number' */,
     created timestamp not null default CURRENT_TIMESTAMP /* comment 'date this record was created' */,
@@ -101,9 +103,10 @@ create table subscription (
 create index subscription_subscriber_idx on subscription using btree(subscriber);
 create index subscription_subscribed_idx on subscription using btree(subscribed);
 
+create sequence notice_seq;
 create table notice (
 
-    id serial primary key /* comment 'unique identifier' */,
+    id bigint default nextval('notice_seq') primary key /* comment 'unique identifier' */,
     profile_id integer not null /* comment 'who made the update' */ references profile (id) ,
     uri varchar(255) unique /* comment 'universally unique identifier, usually a tag URI' */,
     content varchar(140) /* comment 'update content' */,
@@ -180,14 +183,13 @@ create table token (
 create table nonce (
     consumer_key varchar(255) not null /* comment 'unique identifier, root URL' */,
     tok char(32) not null /* comment 'identifying value' */,
-    nonce char(32) not null /* comment 'nonce' */,
+    nonce char(32) null /* comment 'buggy old value, ignored */,
     ts integer not null /* comment 'timestamp sent' values are epoch, and only used internally */,
 
     created timestamp not null default CURRENT_TIMESTAMP /* comment 'date this record was created' */,
     modified timestamp /* comment 'date this record was modified' */,
 
-    primary key (consumer_key, tok, nonce),
-    foreign key (consumer_key, tok) references token (consumer_key, tok)
+    primary key (consumer_key, ts, nonce)
 );
 
 /* One-to-many relationship of user to openid_url */
@@ -318,9 +320,10 @@ create table invitation (
 create index invitation_address_idx on invitation using btree(address,address_type);
 create index invitation_user_id_idx on invitation using btree(user_id);
 
+create sequence message_seq;
 create table message (
 
-    id serial primary key /* comment 'unique identifier' */,
+    id bigint default nextval('message_seq') primary key /* comment 'unique identifier' */,
     uri varchar(255) unique /* comment 'universally unique identifier' */,
     from_profile integer not null /* comment 'who the message is from' */ references profile (id),
     to_profile integer not null /* comment 'who the message is to' */ references profile (id),
@@ -368,9 +371,10 @@ create table profile_block (
 
 );
 
+create sequence user_group_seq;
 create table user_group (
 
-    id serial primary key /* comment 'unique identifier' */,
+    id bigint default nextval('user_group_seq') primary key /* comment 'unique identifier' */,
 
     nickname varchar(64) unique /* comment 'nickname for addressing' */,
     fullname varchar(255) /* comment 'display name' */,

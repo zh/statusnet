@@ -19,7 +19,7 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-define('LACONICA_VERSION', '0.7.1');
+define('LACONICA_VERSION', '0.7.2');
 
 define('AVATAR_PROFILE_SIZE', 96);
 define('AVATAR_STREAM_SIZE', 48);
@@ -73,6 +73,7 @@ $config =
               'theme' => 'default',
               'path' => $_path,
               'logfile' => null,
+              'logo' => null,
               'logdebug' => false,
               'fancy' => false,
               'locale_path' => INSTALLDIR.'/locale',
@@ -85,7 +86,8 @@ $config =
               'broughtbyurl' => null,
               'closed' => false,
               'inviteonly' => false,
-              'private' => false),
+              'private' => false,
+              'dupelimit' => 60), # default for same person saying the same thing
         'syslog' =>
         array('appname' => 'laconica', # for syslog
               'priority' => 'debug'), # XXX: currently ignored
@@ -139,7 +141,8 @@ $config =
               'user' => false,
               'group' => false),
         'integration' =>
-        array('source' => 'Laconica'), # source attribute for Twitter
+        array('source' => 'Laconica', # source attribute for Twitter
+              'taguri' => $_server.',2009'), # base for tag URIs
         'memcached' =>
         array('enabled' => false,
               'server' => 'localhost',

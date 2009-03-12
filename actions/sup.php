@@ -65,7 +65,9 @@ class SupAction extends Action
 
         $notice->query('SELECT profile_id, max(id) AS max_id ' .
                        'FROM notice ' .
-                       'WHERE created > (now() - ' . $seconds . ') ' .
+                        ((common_config('db','type') == 'pgsql') ?
+                       'WHERE extract(epoch from created) > (extract(epoch from now()) - ' . $seconds . ') ' :
+                       'WHERE created > (now() - ' . $seconds . ') ' ) .
                        'GROUP BY profile_id');
 
         $updates = array();

@@ -72,8 +72,7 @@ function common_timezone()
         }
     }
 
-    global $config;
-    return $config['site']['timezone'];
+    return common_config('site', 'timezone');
 }
 
 function common_language()
@@ -467,7 +466,7 @@ function common_replace_urls_callback($text, $callback) {
         $url = (mb_strpos($orig_url, htmlspecialchars($url)) === FALSE) ? $url:htmlspecialchars($url);
 
         // Call user specified func
-        $modified_url = $callback($url);
+        $modified_url = call_user_func($callback, $url);
 
         // Replace it!
         $start = mb_strpos($text, $url, $offset);
@@ -481,17 +480,11 @@ function common_replace_urls_callback($text, $callback) {
 function common_linkify($url) {
     // It comes in special'd, so we unspecial it before passing to the stringifying
     // functions
-    $ext = pathinfo($url, PATHINFO_EXTENSION);
     $url = htmlspecialchars_decode($url);
-    $video_ext = array('mp4', 'flv', 'avi', 'mpg', 'mp3', 'ogg');
     $display = $url;
     $url = (!preg_match('#^([a-z]+://|(mailto|aim|tel):)#i', $url)) ? 'http://'.$url : $url;
 
     $attrs = array('href' => $url, 'rel' => 'external');
-
-    if (in_array($ext, $video_ext)) {
-        $attrs['class'] = 'media';
-    }
 
     if ($longurl = common_longurl($url)) {
         $attrs['title'] = $longurl;
@@ -688,7 +681,7 @@ function common_relative_profile($sender, $nickname, $dt=null)
     $recipient = new Profile();
     // XXX: use a join instead of a subquery
     $recipient->whereAdd('EXISTS (SELECT subscribed from subscription where subscriber = '.$sender->id.' and subscribed = id)', 'AND');
-    $recipient->whereAdd('nickname = "' . trim($nickname) . '"', 'AND');
+    $recipient->whereAdd("nickname = '" . trim($nickname) . "'", 'AND');
     if ($recipient->find(true)) {
         // XXX: should probably differentiate between profiles with
         // the same name by date of most recent update
@@ -698,7 +691,7 @@ function common_relative_profile($sender, $nickname, $dt=null)
     $recipient = new Profile();
     // XXX: use a join instead of a subquery
     $recipient->whereAdd('EXISTS (SELECT subscriber from subscription where subscribed = '.$sender->id.' and subscriber = id)', 'AND');
-    $recipient->whereAdd('nickname = "' . trim($nickname) . '"', 'AND');
+    $recipient->whereAdd("nickname = '" . trim($nickname) . "'", 'AND');
     if ($recipient->find(true)) {
         // XXX: should probably differentiate between profiles with
         // the same name by date of most recent update
@@ -722,21 +715,23 @@ function common_local_url($action, $args=null, $params=null, $fragment=null)
 {
     $r = Router::get();
     $path = $r->build($action, $args, $params, $fragment);
-    if ($path) {
-    }
+
     if (common_config('site','fancy')) {
         $url = common_path(mb_substr($path, 1));
     } else {
-        $url = common_path('index.php'.$path);
+        if (mb_strpos($path, '/index.php') === 0) {
+            $url = common_path(mb_substr($path, 1));
+        } else {
+            $url = common_path('index.php'.$path);
+        }
     }
     return $url;
 }
 
 function common_path($relative)
 {
-    global $config;
-    $pathpart = ($config['site']['path']) ? $config['site']['path']."/" : '';
-    return "http://".$config['site']['server'].'/'.$pathpart.$relative;
+    $pathpart = (common_config('site', 'path')) ? common_config('site', 'path')."/" : '';
+    return "http://".common_config('site', 'server').'/'.$pathpart.$relative;
 }
 
 function common_date_string($dt)
@@ -989,8 +984,7 @@ function common_ensure_syslog()
 {
     static $initialized = false;
     if (!$initialized) {
-        global $config;
-        openlog($config['syslog']['appname'], 0, LOG_USER);
+        openlog(common_config('syslog', 'appname'), 0, LOG_USER);
         $initialized = true;
     }
 }
