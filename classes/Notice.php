@@ -67,6 +67,8 @@ class Notice extends Memcached_DataObject
         $this->blowSubsCache(true);
 
         $this->query('BEGIN');
+        //Null any notices that are replies to this notice
+        $this->query(sprintf("UPDATE notice set reply_to = null WHERE reply_to = %d", $this->id));
         $related = array('Reply',
                          'Fave',
                          'Notice_tag',
