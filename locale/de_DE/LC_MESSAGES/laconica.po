@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-25 16:24+0000\n"
-"PO-Revision-Date: 2009-01-29 15:47+0000\n"
-"Last-Translator: Mathias <mathias.reinhardt@web.de>\n"
+"PO-Revision-Date: 2009-03-12 16:13+0000\n"
+"Last-Translator: Evan Prodromou <evan@controlyourself.ca>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -99,11 +99,9 @@ msgstr ""
 "\n"
 "%6$s\n"
 "\n"
-"Wenn nicht, ignoriere diese Nachricht. Danke für Deine Geduld und Deine "
-"Zeit\n"
+"Wenn nicht, ignoriere diese Nachricht. Danke für Deine Geduld und Deine Zeit\n"
 "\n"
 "Schöne Grüße von %2$s\n"
-" "
 
 #: ../lib/mail.php:124 lib/mail.php:124 lib/mail.php:126 lib/mail.php:241
 #, php-format
@@ -131,7 +129,7 @@ msgstr ""
 #: actions/twitapistatuses.php:350
 #, php-format
 msgid "%1$s updates that reply to updates from %2$s / %3$s."
-msgstr ""
+msgstr "Nachrichten von %1$, die auf Nachrichten von %2$ / %3$ antworten."
 
 #: ../actions/shownotice.php:45 actions/shownotice.php:45
 #: actions/shownotice.php:161
@@ -397,7 +395,7 @@ msgstr "Abonnement bestätigen"
 #: ../actions/login.php:104 ../actions/register.php:178
 #: actions/register.php:192
 msgid "Automatically login in the future; not for shared computers!"
-msgstr "Automatisch einloggen; Nicht bei gemeinsam genutzten PCs einsetzen!"
+msgstr "Automatisch einloggen; nicht bei gemeinsam genutzten PCs einsetzen!"
 
 #: ../actions/profilesettings.php:65 actions/profilesettings.php:98
 msgid ""
@@ -441,9 +439,8 @@ msgid "Awaiting confirmation on this phone number."
 msgstr "Warte auf die Bestätigung dieser Telefonnummer."
 
 #: ../lib/util.php:1318 lib/util.php:1452
-#, fuzzy
 msgid "Before »"
-msgstr "Früher »"
+msgstr "Ältere »"
 
 #: ../actions/profilesettings.php:49 ../actions/register.php:170
 #: actions/profilesettings.php:82 actions/register.php:184
@@ -585,7 +582,7 @@ msgstr ""
 "* deine [Profildaten ergänzen](%%%%action.profilesettings%%%%) um mehr über "
 "dich zu veröffentlichen\n"
 "* die [Dokumentation](%%%%doc.help%%%%) lesen um mehr über weitere Features "
-"zu erfahren\n"
+"zu erfahren"
 
 #: ../actions/finishopenidlogin.php:91 actions/finishopenidlogin.php:97
 #: actions/finishopenidlogin.php:119 lib/action.php:330
@@ -634,7 +631,6 @@ msgid "Could not save new profile info"
 msgstr "Neue Profildaten konnten nicht gespeichert werden."
 
 #: ../lib/subs.php:54 lib/subs.php:61 lib/subs.php:72
-#, fuzzy
 msgid "Could not subscribe other to you."
 msgstr "Die Gegenseite konnte Dich nicht abonnieren."
 
@@ -993,9 +989,8 @@ msgstr "Homepage ist kein gültiger URL."
 
 #: ../actions/emailsettings.php:91 actions/emailsettings.php:98
 #: actions/emailsettings.php:173
-#, fuzzy
 msgid "I want to post notices by email."
-msgstr "Ich möchte Einträge per E-Mail posten."
+msgstr "Ich möchte Einträge per E-Mail veröffentlichen."
 
 #: ../lib/settingsaction.php:102 lib/settingsaction.php:96
 #: lib/connectsettingsaction.php:104
@@ -1413,7 +1408,6 @@ msgstr "Keine ID."
 
 #: ../actions/emailsettings.php:271 actions/emailsettings.php:289
 #: actions/emailsettings.php:430
-#, fuzzy
 msgid "No incoming email address."
 msgstr "Keine Eingangs-Emailadresse"
 
@@ -1785,9 +1779,8 @@ msgstr "Leute"
 
 #: ../actions/opensearch.php:33 actions/opensearch.php:33
 #: actions/opensearch.php:64
-#, fuzzy
 msgid "People Search"
-msgstr "Suchen von Personen"
+msgstr "Suche nach Nutzern"
 
 #: ../actions/peoplesearch.php:33 actions/peoplesearch.php:33
 #: actions/peoplesearch.php:58
@@ -2100,7 +2093,6 @@ msgid "Send me notices through Jabber/GTalk."
 msgstr "Schicke mir Nachrichten mittels Jabber/GTalk."
 
 #: ../actions/smssettings.php:97 actions/smssettings.php:97
-#, fuzzy
 msgid ""
 "Send me notices through SMS; I understand I may incur exorbitant charges "
 "from my carrier."
@@ -2109,7 +2101,6 @@ msgstr ""
 "meinem Netzbetreiber entstehen können."
 
 #: ../actions/imsettings.php:76 actions/imsettings.php:77
-#, fuzzy
 msgid "Send me replies through Jabber/GTalk from people I'm not subscribed to."
 msgstr ""
 "Schicke mir Antworten von Leuten, die ich nicht abonniert habe, mit "
@@ -2353,7 +2344,6 @@ msgid "These are the people whose notices you listen to."
 msgstr "Dies sind die Leute, deren Nachrichten du liest."
 
 #: ../actions/invite.php:89 actions/invite.php:96 actions/invite.php:128
-#, fuzzy
 msgid ""
 "These people are already users and you were automatically subscribed to them:"
 msgstr ""
@@ -2388,7 +2378,6 @@ msgstr ""
 #: actions/twitapifavorites.php:127 actions/twitapifriendships.php:108
 #: actions/twitapistatuses.php:511 actions/twitapifavorites.php:97
 #: actions/twitapifriendships.php:85 actions/twitapistatuses.php:436
-#, fuzzy
 msgid "This method requires a POST or DELETE."
 msgstr "Diese Methode benötigt ein POST oder DELETE."
 
@@ -2398,7 +2387,6 @@ msgstr "Diese Methode benötigt ein POST oder DELETE."
 #: actions/twitapistatuses.php:303 actions/twitapiaccount.php:53
 #: actions/twitapidirect_messages.php:122 actions/twitapifriendships.php:32
 #: actions/twitapistatuses.php:244
-#, fuzzy
 msgid "This method requires a POST."
 msgstr "Diese Methode benötigt ein POST."
 
@@ -2431,7 +2419,7 @@ msgstr ""
 #: ../actions/twitapifriendships.php:163 actions/twitapifriendships.php:167
 #: actions/twitapifriendships.php:132
 msgid "Two user ids or screen_names must be supplied."
-msgstr ""
+msgstr "Zwei IDs oder Benutzernamen müssen angegeben werden."
 
 #: ../actions/profilesettings.php:48 ../actions/register.php:169
 #: actions/profilesettings.php:81 actions/register.php:183
@@ -2596,7 +2584,7 @@ msgstr "In welcher Zeitzone befinden Sie sich üblicherweise?"
 #: ../lib/util.php:1159 lib/util.php:1293 lib/noticeform.php:141
 #, php-format
 msgid "What's up, %s?"
-msgstr "Was ist los, %s?\n"
+msgstr "Was ist los, %s?"
 
 #: ../actions/profilesettings.php:54 ../actions/register.php:175
 #: actions/profilesettings.php:87 actions/register.php:189
@@ -2621,7 +2609,7 @@ msgstr "Falsche Bildgröße bei '%s'"
 #: actions/block.php:148 actions/deletenotice.php:122
 #: actions/deletenotice.php:141
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: ../actions/finishaddopenid.php:64 actions/finishaddopenid.php:64
 #: actions/finishaddopenid.php:112
@@ -2633,6 +2621,8 @@ msgid ""
 "You are about to permanently delete a notice.  Once this is done, it cannot "
 "be undone."
 msgstr ""
+"Du bist gerade dabei eine Nachricht unwiderruflich zu löschen. Diese Aktion "
+"ist irreversibel."
 
 #: ../actions/recoverpassword.php:31 actions/recoverpassword.php:31
 #: actions/recoverpassword.php:36
@@ -2646,7 +2636,7 @@ msgstr "Du hast diese Benutzer bereits abonniert:"
 #: ../actions/twitapifriendships.php:128 actions/twitapifriendships.php:128
 #: actions/twitapifriendships.php:105
 msgid "You are not friends with the specified user."
-msgstr ""
+msgstr "Der angebene Benutzer gehört nicht zu Deinem Freunde-Netzwerk"
 
 #: ../actions/password.php:27
 msgid "You can change your password here. Choose a good one!"
