@@ -1,11 +1,14 @@
+# This version needs to match the tarball and unpacked directory name.
+%define LACVER 0.7.2.1
+
 BuildRequires:	php-pear
 BuildRequires:	httpd-devel
 
 Name:           laconica
-Version:        0.7.1
+Version:        %{LACVER}
 Release:        1%{?dist}
 License:        GAGPL v3 or later
-Source:         laconica-0.7.1.tar.gz
+Source:         laconica-%{version}.tar.gz
 Group:          Applications/Internet
 Summary:        Laconica, the Open Source microblogging platform
 BuildArch:      noarch
@@ -49,6 +52,8 @@ cp -a * %{buildroot}%{wwwpath}
 mkdir -p %{buildroot}%{_datadir}/laconica
 cp -a db %{buildroot}%{_datadir}/laconica/db
 
+mkdir -p %{buildroot}%{_datadir}/laconica/avatar
+
 mkdir -p %{buildroot}%{_sysconfdir}/httpd/conf.d
 cat > %{buildroot}%{_sysconfdir}/httpd/conf.d/laconica.conf <<"EOF"
 Alias /laconica/ "/var/www/laconica/"
@@ -74,6 +79,12 @@ rm -rf %buildroot
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/laconica.conf
 
 %changelog
+* Fri Mar 13 2009 Ken Sedgwick <ksedgwic@bonsai.com> - 0.7.2.1-1
+- Factored laconica version to the first line of the file.
+
+* Wed Mar 03 2009 Zach Copley <zach@controlyourself.ca> - 0.7.2
+- Changed version number to 0.7.2.
+
 * Sat Feb 28 2009 Ken Sedgwick <ken@bonsai.com> - 0.7.1-1
 - Modified RPM for Fedora.
 
