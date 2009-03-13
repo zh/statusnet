@@ -156,7 +156,7 @@ class Router
                     array('notice' => '[0-9]+'));
 
         $m->connect('message/new', array('action' => 'newmessage'));
-        $m->connect('message/new?to=:to', array('action' => 'newmessage'), array('to' => '[A-Za-z0-9_-]'));
+        $m->connect('message/new?to=:to', array('action' => 'newmessage'), array('to' => '[A-Za-z0-9_-]+'));
         $m->connect('message/:message',
                     array('action' => 'showmessage'),
                     array('message' => '[0-9]+'));

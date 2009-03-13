@@ -22,6 +22,7 @@
  * @category  Plugin
  * @package   Laconica
  * @author    Evan Prodromou <evan@controlyourself.ca>
+ * @author    Tobias Diekershoff <tobias.diekershoff@gmx.net>
  * @copyright 2008 Control Yourself, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://laconi.ca/
@@ -34,15 +35,16 @@ if (!defined('LACONICA')) {
 /**
  * Plugin to use Piwik Analytics (based on the Google Analytics plugin by Evan)
  *
- * This plugin will spoot out the correct JavaScript spell to invoke Piwik Analytics on a page.
+ * This plugin will spoot out the correct JavaScript spell to invoke
+ * Piwik Analytics on a page.
  *
  * To use this plugin please add the following three lines to your config.php
-#Add Piwik Analytics
-require_once('plugins/PiwikAnalyticsPlugin.php');
-$pa = new PiwikAnalyticsPlugin("example.com/piwik/","id");
  *
- * exchange example.com/piwik/ with the url (without http:// or https:// !) to your
- *          piwik installation and make sure you don't forget the final /
+ *     require_once('plugins/PiwikAnalyticsPlugin.php');
+ *     $pa = new PiwikAnalyticsPlugin("example.com/piwik/","id");
+ *
+ * exchange example.com/piwik/ with the url to your piwik installation and
+ * make sure you don't forget the final /
  * exchange id with the ID your laconica installation has in your Piwik analytics
  *
  * @category Plugin
@@ -56,17 +58,32 @@ $pa = new PiwikAnalyticsPlugin("example.com/piwik/","id");
 
 class PiwikAnalyticsPlugin extends Plugin
 {
-    // the base of your Piwik installation
+    /** the base of your Piwik installation */
     var $piwikroot = null;
-    // the Piwik Id of your laconica installation
+    /** the Piwik Id of your laconica installation */
     var $piwikId   = null;
+
+    /**
+     * constructor
+     *
+     * @param string $root Piwik root URL
+     * @param string $id   Piwik ID of this app
+     */
 
     function __construct($root=null, $id=null)
     {
         $this->piwikroot = $root;
-        $this->piwikid = $id;
+        $this->piwikid   = $id;
         parent::__construct();
     }
+
+    /**
+     * Called when all scripts have been shown
+     *
+     * @param Action $action Current action
+     *
+     * @return boolean ignored
+     */
 
     function onEndShowScripts($action)
     {
@@ -82,5 +99,6 @@ class PiwikAnalyticsPlugin extends Plugin
         $action->elementStart('script', array('type' => 'text/javascript'));
         $action->raw($js2);
         $action->elementEnd('script');
+        return true;
     }
 }
