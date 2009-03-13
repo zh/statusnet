@@ -18,6 +18,8 @@ $config['site']['server'] = 'localhost';
 $config['site']['path'] = 'laconica';
 #$config['site']['fancy'] = false;
 #$config['site']['theme'] = 'default';
+#To enable the built-in mobile style sheet, defaults to false.
+#$config['site']['mobile'] = true;
 #For contact email, defaults to $_SERVER["SERVER_ADMIN"]
 #$config['site']['email'] = 'admin@example.net';
 #Brought by...
@@ -31,6 +33,12 @@ $config['site']['path'] = 'laconica';
 
 # If you want logging sent to a file instead of syslog
 #$config['site']['logfile'] = '/tmp/laconica.log';
+
+# Enables extra log information, for example full details of PEAR DB errors
+#$config['site']['logdebug'] = true;
+
+#To set your own logo, overriding the one in the theme
+#$config['site']['logo'] = '/mylogo.png';
 
 # This is a PEAR DB DSN, see http://pear.php.net/manual/en/package.database.db.intro-dsn.php
 # Set it to match your actual database
@@ -147,6 +155,22 @@ $config['sphinx']['port'] = 3312;
 #$config['profile']['banned'][] = 'hacker';
 #$config['profile']['banned'][] = 12345;
 
-# config section for the built-in Facebook application
+# Config section for the built-in Facebook application
 #$config['facebook']['apikey'] = 'APIKEY';
 #$config['facebook']['secret'] = 'SECRET';
+
+# Add Google Analytics
+# require_once('plugins/GoogleAnalyticsPlugin.php');
+# $ga = new GoogleAnalyticsPlugin('your secret code');
+
+#Don't allow saying the same thing more than once per hour
+#$config['site']['dupelimit'] = 3600;
+#Don't enforce the dupe limit
+#$config['site']['dupelimit'] = -1;
+
+#Base string for minting Tag URIs in Atom feeds. Defaults to
+#"yourserver,2009". This needs to be configured properly for your Atom
+#feeds to validate.  See: http://www.faqs.org/rfcs/rfc4151.html and
+#http://taguri.org/ Examples:
+#$config['integration']['taguri'] = 'example.net,2008';
+#$config['integration']['taguri'] = 'admin@example.net,2009-03-09'

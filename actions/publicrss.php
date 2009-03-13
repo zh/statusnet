@@ -84,12 +84,11 @@ class PublicrssAction extends Rss10Action
      */
     function getChannel()
     {
-        global $config;
         $c = array(
               'url' => common_local_url('publicrss')
-            , 'title' => sprintf(_('%s Public Stream'), $config['site']['name'])
+            , 'title' => sprintf(_('%s Public Stream'), common_config('site', 'name'))
             , 'link' => common_local_url('public')
-            , 'description' => sprintf(_('All updates for %s'), $config['site']['name']));
+            , 'description' => sprintf(_('All updates for %s'), common_config('site', 'name')));
         return $c;
     }
 

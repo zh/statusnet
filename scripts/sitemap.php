@@ -61,7 +61,8 @@ function standard_map()
                                     )
                               );
 
-    $docs = array('about', 'faq', 'contact', 'im', 'openid', 'openmublog', 'privacy', 'source');
+    $docs = array('about', 'faq', 'contact', 'im', 'openid', 'openmublog', 
+        'privacy', 'source', 'badge');
 
     foreach($docs as $title) {
         $standard_map_urls .= url(

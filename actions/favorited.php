@@ -169,10 +169,16 @@ class FavoritedAction extends Action
 
     function showContent()
     {
+        if (common_config('db', 'type') == 'pgsql') {
+            $weightexpr='sum(exp(-extract(epoch from (now() - fave.modified)) / %s))';
+        } else {
+            $weightexpr='sum(exp(-(now() - fave.modified) / %s))';
+        }
+
         $qry = 'SELECT notice.*, '.
-          'sum(exp(-(now() - fave.modified) / %s)) as weight ' .
+          $weightexpr . ' as weight ' .
           'FROM notice JOIN fave ON notice.id = fave.notice_id ' .
-          'GROUP BY fave.notice_id ' .
+          'GROUP BY id,profile_id,uri,content,rendered,url,created,notice.modified,reply_to,is_local,source ' .
           'ORDER BY weight DESC';
 
         $offset = ($this->page - 1) * NOTICES_PER_PAGE;

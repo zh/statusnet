@@ -50,7 +50,7 @@ if (!defined('LACONICA')) {
 class FeedList extends Widget
 {
     var $action = null;
-    
+
     function __construct($action=null)
     {
 	parent::__construct($action);
@@ -64,8 +64,8 @@ class FeedList extends Widget
         $this->out->element('h2', null, _('Export data'));
         $this->out->elementStart('ul', array('class' => 'xoxo'));
 
-        foreach ($feeds as $key => $value) {
-            $this->feedItem($feeds[$key]);
+        foreach ($feeds as $feed) {
+            $this->feedItem($feed);
         }
 
         $this->out->elementEnd('ul');
@@ -74,85 +74,27 @@ class FeedList extends Widget
 
     function feedItem($feed)
     {
-        $nickname = $this->action->trimmed('nickname');
+        $classname = null;
 
-        switch($feed['item']) {
-         case 'notices': default:
-            $feed_classname = $feed['type'];
-            $feed_mimetype = "application/".$feed['type']."+xml";
-            $feed_title = "$nickname's ".$feed['version']." notice feed";
-            $feed['textContent'] = "RSS";
+        switch ($feed->type) {
+         case Feed::RSS1:
+         case Feed::RSS2:
+            $classname = 'rss';
             break;
-
-         case 'allrss':
-            $feed_classname = $feed['type'];
-            $feed_mimetype = "application/".$feed['type']."+xml";
-            $feed_title = $feed['version']." feed for $nickname and friends";
-            $feed['textContent'] = "RSS";
+         case Feed::ATOM:
+            $classname = 'atom';
             break;
-
-         case 'repliesrss':
-            $feed_classname = $feed['type'];
-            $feed_mimetype = "application/".$feed['type']."+xml";
-            $feed_title = $feed['version']." feed for replies to $nickname";
-            $feed['textContent'] = "RSS";
-            break;
-
-         case 'publicrss':
-            $feed_classname = $feed['type'];
-            $feed_mimetype = "application/".$feed['type']."+xml";
-            $feed_title = "Public timeline ".$feed['version']." feed";
-            $feed['textContent'] = "RSS";
-            break;
-
-         case 'publicatom':
-            $feed_classname = "atom";
-            $feed_mimetype = "application/".$feed['type']."+xml";
-            $feed_title = "Public timeline ".$feed['version']." feed";
-            $feed['textContent'] = "Atom";
-            break;
-
-         case 'tagrss':
-            $feed_classname = $feed['type'];
-            $feed_mimetype = "application/".$feed['type']."+xml";
-            $feed_title = $feed['version']." feed for this tag";
-            $feed['textContent'] = "RSS";
-            break;
-
-         case 'favoritedrss':
-            $feed_classname = $feed['type'];
-            $feed_mimetype = "application/".$feed['type']."+xml";
-            $feed_title = "Favorited ".$feed['version']." feed";
-            $feed['textContent'] = "RSS";
-            break;
-
-         case 'foaf':
-            $feed_classname = "foaf";
-            $feed_mimetype = "application/".$feed['type']."+xml";
-            $feed_title = "$nickname's FOAF file";
-            $feed['textContent'] = "FOAF";
-            break;
-
-         case 'favoritesrss':
-            $feed_classname = "favorites";
-            $feed_mimetype = "application/".$feed['type']."+xml";
-            $feed_title = "Feed for favorites of $nickname";
-            $feed['textContent'] = "RSS";
-            break;
-
-         case 'usertimeline':
-            $feed_classname = "atom";
-            $feed_mimetype = "application/".$feed['type']."+xml";
-            $feed_title = "$nickname's ".$feed['version']." notice feed";
-            $feed['textContent'] = "Atom";
+         case Feed::FOAF:
+            $classname = 'foaf';
             break;
         }
+
         $this->out->elementStart('li');
-        $this->out->element('a', array('href' => $feed['href'],
-                                  'class' => $feed_classname,
-                                  'type' => $feed_mimetype,
-                                  'title' => $feed_title),
-                       $feed['textContent']);
+        $this->out->element('a', array('href' => $feed->url,
+                                       'class' => $classname,
+                                       'type' => $feed->mimeType(),
+                                       'title' => $feed->title),
+                            $feed->typeName());
         $this->out->elementEnd('li');
     }
 }

@@ -127,17 +127,19 @@ class ApiAction extends Action
                                 'laconica/wadl');
 
         static $bareauth = array('statuses/user_timeline',
+                                 'statuses/friends_timeline',
                                  'statuses/friends',
+                                 'statuses/replies',
                                  'statuses/followers',
                                  'favorites/favorites');
 
-        # If the site is "private", all API methods need authentication
-
-        if (common_config('site', 'private')) {
-            return true;
-        }
-
         $fullname = "$this->api_action/$this->api_method";
+        
+        // If the site is "private", all API methods except laconica/config 
+        // need authentication
+        if (common_config('site', 'private')) {
+            return $fullname != 'laconica/config' || false;
+        }
 
         if (in_array($fullname, $bareauth)) {
             # bareauth: only needs auth if without an argument

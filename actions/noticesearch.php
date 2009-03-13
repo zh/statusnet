@@ -57,11 +57,11 @@ class NoticesearchAction extends SearchAction
 
         return true;
     }
-    
+
     /**
      * Get instructions
-     * 
-     * @return string instruction text 
+     *
+     * @return string instruction text
      */
     function getInstructions()
     {
@@ -70,12 +70,26 @@ class NoticesearchAction extends SearchAction
 
     /**
      * Get title
-     * 
+     *
      * @return string title
      */
     function title()
     {
         return _('Text search');
+    }
+
+    function getFeeds()
+    {
+        $q = $this->trimmed('q');
+
+        if (!$q) {
+            return null;
+        }
+
+        return array(new Feed(Feed::RSS1, common_local_url('noticesearchrss',
+                                                           array('q' => $q)),
+                              sprintf(_('Search results for "%s" on %s'),
+                                      $q, common_config('site', 'name'))));
     }
 
     /**
@@ -99,143 +113,58 @@ class NoticesearchAction extends SearchAction
         } else {
             $cnt = $notice->find();
         }
-        if ($cnt > 0) {
-            $terms = preg_split('/[\s,]+/', $q);
-            $this->elementStart('ul', array('class' => 'notices'));
-            for ($i = 0; $i < min($cnt, NOTICES_PER_PAGE); $i++) {
-                if ($notice->fetch()) {
-                    $this->showNotice($notice, $terms);
-                } else {
-                    // shouldn't happen!
-                    break;
-                }
-            }
-            $this->elementEnd('ul');
-        } else {
+        if ($cnt === 0) {
             $this->element('p', 'error', _('No results'));
-        }
-
-        $this->pagination($page > 1, $cnt > NOTICES_PER_PAGE,
-                          $page, 'noticesearch', array('q' => $q));
-    }
-
-    /**
-     * Show header
-     *
-     * @param array $arr array containing the query
-     *
-     * @return void
-     */
-
-    function extraHead()
-    {
-        $q = $this->trimmed('q');
-        if ($q) {
-            $this->element('link', array('rel' => 'alternate',
-                                         'href' => common_local_url('noticesearchrss',
-                                                                    array('q' => $q)),
-                                         'type' => 'application/rss+xml',
-                                         'title' => _('Search Stream Feed')));
-        }
-    }
-
-    /**
-     * Show notice
-     *
-     * @param class $notice notice
-     * @param array $terms  terms to highlight
-     *
-     * @return void
-     *
-     * @todo refactor and combine with StreamAction::showNotice()
-     */
-    function showNotice($notice, $terms)
-    {
-        $profile = $notice->getProfile();
-        if (!$profile) {
-            common_log_db_error($notice, 'SELECT', __FILE__);
-            $this->serverError(_('Notice without matching profile'));
             return;
         }
-        // XXX: RDFa
-        $this->elementStart('li', array('class' => 'hentry notice',
-                                          'id' => 'notice-' . $notice->id));
+        $terms = preg_split('/[\s,]+/', $q);
+        $nl = new SearchNoticeList($notice, $this, $terms);
 
-        $this->elementStart('div', 'entry-title');
-        $this->elementStart('span', 'vcard author');
-        $avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
-        $this->elementStart('a', array('href' => $profile->profileurl,
-                                       'class' => 'url'));
-        $this->element('img', array('src' => ($avatar) ? $avatar->displayUrl() : Avatar::defaultImage(AVATAR_STREAM_SIZE),
-                                    'class' => 'avatar photo',
-                                    'width' => AVATAR_STREAM_SIZE,
-                                    'height' => AVATAR_STREAM_SIZE,
-                                    'alt' =>
-                                    ($profile->fullname) ? $profile->fullname :
-                                    $profile->nickname));
-        $this->element('span', 'nickname fn', $profile->nickname);
-        $this->elementEnd('a');
-        $this->elementEnd('span');
+        $cnt = $nl->show();
 
+        $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
+                          $this->page, 'noticesearch', array('q' => $q));
+    }
+    function isReadOnly()
+    {
+        return true;
+    }
+}
+
+class SearchNoticeList extends NoticeList {
+    function __construct($notice, $out=null, $terms)
+    {
+        parent::__construct($notice, $out);
+        $this->terms = $terms;
+    }
+
+    function newListItem($notice)
+    {
+        return new SearchNoticeListItem($notice, $this->out, $this->terms);
+    }
+}
+
+class SearchNoticeListItem extends NoticeListItem {
+    function __construct($notice, $out=null, $terms)
+    {
+        parent::__construct($notice, $out);
+        $this->terms = $terms;
+    }
+
+    function showContent()
+    {
         // FIXME: URL, image, video, audio
-        $this->elementStart('p', array('class' => 'entry-content'));
-        if ($notice->rendered) {
-            $this->raw($this->highlight($notice->rendered, $terms));
+        $this->out->elementStart('p', array('class' => 'entry-content'));
+        if ($this->notice->rendered) {
+            $this->out->raw($this->highlight($this->notice->rendered, $this->terms));
         } else {
             // XXX: may be some uncooked notices in the DB,
             // we cook them right now. This should probably disappear in future
             // versions (>> 0.4.x)
-            $this->raw($this->highlight(common_render_content($notice->content, $notice), $terms));
+            $this->out->raw($this->highlight(common_render_content($this->notice->content, $this->notice), $this->terms));
         }
-        $this->elementEnd('p');
-        $this->elementEnd('div');
+        $this->out->elementEnd('p');
 
-        $noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
-        $this->elementStart('div', 'entry-content');
-        $this->elementStart('dl', 'timestamp');
-        $this->element('dt', null, _('Published'));
-        $this->elementStart('dd', null);
-        $this->elementStart('a', array('rel' => 'bookmark',
-                                       'href' => $noticeurl));
-        $dt = common_date_iso8601($notice->created);
-        $this->element('abbr', array('class' => 'published',
-                                          'title' => $dt),
-                            common_date_string($notice->created));
-        $this->elementEnd('a');
-        $this->elementEnd('dd');
-        $this->elementEnd('dl');
-
-        if ($notice->reply_to) {
-            $replyurl = common_local_url('shownotice',
-                                         array('notice' => $this->notice->reply_to));
-            $this->elementStart('dl', 'response');
-            $this->element('dt', null, _('To'));
-            $this->elementStart('dd');
-            $this->element('a', array('href' => $replyurl,
-                                           'rel' => 'in-reply-to'),
-                                _('in reply to'));
-            $this->elementEnd('dd');
-            $this->elementEnd('dl');
-        }
-        $this->elementEnd('div');
-
-        $this->elementStart('div', 'notice-options');
-
-        $reply_url = common_local_url('newnotice',
-                                      array('replyto' => $profile->nickname));
-
-        $this->elementStart('dl', 'notice_reply');
-        $this->element('dt', null, _('Reply to this notice'));
-        $this->elementStart('dd');
-        $this->elementStart('a', array('href' => $reply_url,
-                                       'title' => _('Reply to this notice')));
-        $this->text(_('Reply'));
-        $this->element('span', 'notice_id', $notice->id);
-        $this->elementEnd('a');
-        $this->elementEnd('dd');
-        $this->elementEnd('dl');
-        $this->elementEnd('div');
-        $this->elementEnd('li');
     }
 
     /**
@@ -248,7 +177,7 @@ class NoticesearchAction extends SearchAction
      */
     function highlight($text, $terms)
     {
-        /* Highligh serach terms */
+        /* Highligh search terms */
         $pattern = '/('.implode('|', array_map('htmlspecialchars', $terms)).')/i';
         $result  = preg_replace($pattern, '<strong>\\1</strong>', $text);
 
@@ -258,11 +187,6 @@ class NoticesearchAction extends SearchAction
             $result = preg_replace($pattern, '\\1\\2\\3', $result, -1, $count);
         } while ($count);
         return $result;
-    }
-
-    function isReadOnly()
-    {
-        return true;
     }
 }
 

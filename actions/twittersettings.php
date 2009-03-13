@@ -32,6 +32,7 @@ if (!defined('LACONICA')) {
 }
 
 require_once INSTALLDIR.'/lib/connectsettingsaction.php';
+require_once INSTALLDIR.'/lib/twitter.php';
 
 define('SUBSCRIPTIONS', 80);
 
@@ -90,7 +91,7 @@ class TwittersettingsAction extends ConnectSettingsAction
 
         $fuser = null;
 
-        $flink = Foreign_link::getByUserID($user->id, 1); // 1 == Twitter
+        $flink = Foreign_link::getByUserID($user->id, TWITTER_SERVICE);
 
         if ($flink) {
             $fuser = $flink->getForeignUser();
@@ -185,12 +186,12 @@ class TwittersettingsAction extends ConnectSettingsAction
 
         $current_user = common_current_user();
 
-        $qry = 'SELECT user.* ' .
+        $qry = 'SELECT "user".* ' .
           'FROM subscription ' .
-          'JOIN user ON subscription.subscribed = user.id ' .
-          'JOIN foreign_link ON foreign_link.user_id = user.id ' .
+          'JOIN "user" ON subscription.subscribed = "user".id ' .
+          'JOIN foreign_link ON foreign_link.user_id = "user".id ' .
           'WHERE subscriber = %d ' .
-          'ORDER BY user.nickname';
+          'ORDER BY "user".nickname';
 
         $user = new User();
 
@@ -358,7 +359,7 @@ class TwittersettingsAction extends ConnectSettingsAction
 
         $flink->user_id     = $user->id;
         $flink->foreign_id  = $twit_user->id;
-        $flink->service     = 1; // Twitter
+        $flink->service     = TWITTER_SERVICE;
         $flink->credentials = $password;
         $flink->created     = common_sql_now();
 

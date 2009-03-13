@@ -82,10 +82,9 @@ class NoticesearchrssAction extends Rss10Action
 
     function getChannel()
     {
-        global $config;
         $q = $this->trimmed('q');
         $c = array('url' => common_local_url('noticesearchrss', array('q' => $q)),
-                   'title' => $config['site']['name'] . sprintf(_(' Search Stream for "%s"'), $q),
+                   'title' => common_config('site', 'name') . sprintf(_(' Search Stream for "%s"'), $q),
                    'link' => common_local_url('noticesearch', array('q' => $q)),
                    'description' => sprintf(_('All updates matching search term "%s"'), $q));
         return $c;

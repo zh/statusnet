@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Laconica - a distributed open-source microblogging tool
 
@@ -23,19 +23,30 @@
 SDIR=`dirname $0`
 DIR=`php $SDIR/getpiddir.php`
 
-for f in jabberhandler ombhandler publichandler smshandler \
-	 xmppconfirmhandler xmppdaemon; do
+for f in jabberhandler ombhandler publichandler smshandler pinghandler \
+	 xmppconfirmhandler xmppdaemon twitterhandler facebookhandler ; do
 
 	FILES="$DIR/$f.*.pid"
 	for ff in "$FILES" ; do
 
-	 	echo -n "Stopping $f..."
-	 	PID=`cat $ff`
-		kill -3 $PID
-		if kill -9 $PID ; then
-			echo "DONE."
-		else
-			echo "FAILED."
+	 	PID=`cat $ff 2>/dev/null`
+		if [ -n "$PID" ] ; then
+		 	echo -n "Stopping $f ($PID)..."
+			if kill -3 $PID 2>/dev/null ; then
+				count=0
+				while kill -0 $PID 2>/dev/null ;  do
+					sleep 1
+					count=$(($count + 1))
+					if [ $count -gt 5 ]; then break; fi
+				done
+				if kill -9 $PID 2>/dev/null ; then
+					echo "FORCIBLY TERMINATED"
+				else
+					echo "STOPPED CLEANLY"
+				fi
+			else
+				echo "NOT FOUND"
+			fi
 		fi
 		rm -f $ff
 	done

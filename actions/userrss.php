@@ -46,13 +46,14 @@ class UserrssAction extends Rss10Action
     {
 
         $user = $this->user;
-        
+
         if (is_null($user)) {
             return null;
         }
-        
+
         $notice = $user->getNotices(0, ($limit == 0) ? NOTICES_PER_PAGE : $limit);
-        
+
+        $notices = array();
         while ($notice->fetch()) {
             $notices[] = clone($notice);
         }
@@ -87,10 +88,10 @@ class UserrssAction extends Rss10Action
     }
 
     # override parent to add X-SUP-ID URL
-    
+
     function initRss($limit=0)
     {
-        $url = common_local_url('sup', null, $this->user->id);
+        $url = common_local_url('sup', null, null, $this->user->id);
         header('X-SUP-ID: '.$url);
         parent::initRss($limit);
     }
@@ -100,4 +101,3 @@ class UserrssAction extends Rss10Action
         return true;
     }
 }
-

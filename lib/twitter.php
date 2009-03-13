@@ -19,6 +19,8 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
+define("TWITTER_SERVICE", 1); // Twitter is foreign_service ID 1
+
 function get_twitter_data($uri, $screen_name, $password)
 {
 
@@ -28,13 +30,12 @@ function get_twitter_data($uri, $screen_name, $password)
             CURLOPT_FAILONERROR        => true,
             CURLOPT_HEADER            => false,
             CURLOPT_FOLLOWLOCATION    => true,
-            # CURLOPT_USERAGENT        => "identi.ca",
+            CURLOPT_USERAGENT      => "Laconica",
             CURLOPT_CONNECTTIMEOUT    => 120,
             CURLOPT_TIMEOUT            => 120,
             # Twitter is strict about accepting invalid "Expect" headers
             CURLOPT_HTTPHEADER => array('Expect:')
     );
-
 
     $ch = curl_init($uri);
     curl_setopt_array($ch, $options);
@@ -95,7 +96,7 @@ function add_twitter_user($twitter_id, $screen_name)
     $fuser->nickname = $screen_name;
     $fuser->uri = 'http://twitter.com/' . $screen_name;
     $fuser->id = $twitter_id;
-    $fuser->service = 1; // Twitter
+    $fuser->service = TWITTER_SERVICE; // Twitter
     $fuser->created = common_sql_now();
     $result = $fuser->insert();
 
@@ -204,5 +205,94 @@ function save_twitter_friends($user, $twitter_id, $screen_name, $password)
     }
 
     return true;
+}
+
+function is_twitter_bound($notice, $flink) {
+
+    // Check to see if notice should go to Twitter
+    if ($flink->noticesync & FOREIGN_NOTICE_SEND) {
+
+        // If it's not a Twitter-style reply, or if the user WANTS to send replies.
+        if (!preg_match('/^@[a-zA-Z0-9_]{1,15}\b/u', $notice->content) ||
+            ($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY)) {
+                return true;
+        }
+    }
+    
+    return false;
+}
+
+function broadcast_twitter($notice)
+{
+    $success = true;
+
+    $flink = Foreign_link::getByUserID($notice->profile_id, 
+        TWITTER_SERVICE);
+            
+    // XXX: Not sure WHERE to check whether a notice should go to 
+    // Twitter. Should we even put in the queue if it shouldn't? --Zach
+    if (!is_null($flink) && is_twitter_bound($notice, $flink)) {
+
+        $fuser = $flink->getForeignUser();
+        $twitter_user = $fuser->nickname;
+        $twitter_password = $flink->credentials;
+        $uri = 'http://www.twitter.com/statuses/update.json';
+
+        // XXX: Hack to get around PHP cURL's use of @ being a a meta character
+        $statustxt = preg_replace('/^@/', ' @', $notice->content);
+
+        $options = array(
+            CURLOPT_USERPWD        => "$twitter_user:$twitter_password",
+            CURLOPT_POST           => true,
+            CURLOPT_POSTFIELDS     => 
+                array(
+                        'status' => $statustxt,
+                        'source' => common_config('integration', 'source')
+                     ),
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_FAILONERROR    => true,
+            CURLOPT_HEADER         => false,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_USERAGENT      => "Laconica",
+            CURLOPT_CONNECTTIMEOUT => 120,  // XXX: How long should this be?
+            CURLOPT_TIMEOUT        => 120,
+
+            # Twitter is strict about accepting invalid "Expect" headers
+            CURLOPT_HTTPHEADER => array('Expect:')
+            );
+
+        $ch = curl_init($uri);
+        curl_setopt_array($ch, $options);
+        $data = curl_exec($ch);
+        $errmsg = curl_error($ch);
+
+        if ($errmsg) {
+            common_debug("cURL error: $errmsg - " .
+                "trying to send notice for $twitter_user.",
+                         __FILE__);
+            $success = false;
+        }
+
+        curl_close($ch);
+
+        if (!$data) {
+            common_debug("No data returned by Twitter's " .
+                "API trying to send update for $twitter_user",
+                         __FILE__);
+            $success = false;
+        }
+
+        // Twitter should return a status
+        $status = json_decode($data);
+
+        if (!$status->id) {
+            common_debug("Unexpected data returned by Twitter " .
+                " API trying to send update for $twitter_user",
+                         __FILE__);
+            $success = false;
+        }
+    }
+    
+    return $success;
 }
 

@@ -1,0 +1,150 @@
+/** theme: base
+ *
+ * @package   Laconica
+ * @author    Meitar Moscovitz <meitar@maymay.net>
+ * @author    Sarven Capadisli <csarven@controlyourself.ca>
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
+ */
+
+body {
+font-size:2.5em;
+}
+
+#wrap {
+width:95%;
+}
+
+#header,
+#header address,
+#anon_notice,
+#site_nav_local_views .nav,
+#form_notice,
+#form_notice .form_data li,
+#core,
+#content_inner,
+#notices_primary,
+.notice,
+.notice .entry-title,
+.notice div.entry-content,
+.notice-options,
+.notice .notice-options a,
+.pagination,
+.pagination .nav,
+.aside .section {
+float:none;
+}
+
+.notice-options .notice_reply,
+.notice-options .notice_delete,
+.notice-options .form_favor,
+.notice-options .form_disfavor {
+position:static;
+}
+
+#form_notice,
+#anon_notice,
+#footer,
+#form_notice .form_actions input.submit {
+width:auto;
+}
+
+.form_settings label {
+width:25%;
+}
+.form_settings .form_data p.form_guide {
+margin-left:26%;
+}
+
+#site_nav_global_primary {
+width:75%;
+}
+
+.entity_profile {
+width:65%;
+}
+.entity_actions {
+margin-left:0;
+}
+
+#form_notice,
+#anon_notice {
+clear:both;
+}
+
+#content,
+#aside_primary {
+width:96%;
+padding-left:2%;
+padding-right:2%;
+}
+
+#site_notice {
+position:static;
+float:right;
+clear:right;
+width:75%;
+margin-right:0;
+margin-bottom:11px;
+}
+
+.notices {
+font-size:1.5em;
+}
+
+#form_notice textarea {
+width:80%;
+height:5em;
+}
+#form_notice .form_note {
+right:20%;
+top:6em;
+}
+
+
+.vcard .photo,
+.section .vcard .photo {
+margin-right:18px;
+}
+.notice,
+.profile {
+margin-bottom:18px;
+}
+
+.notices .entry-title,
+.notices div.entry-content {
+width:90%;
+}
+.notice div.entry-content {
+margin-left:0;
+}
+
+.notice .author .photo {
+height:4.5em;
+width:4.5em;
+}
+.notice-options {
+position:absolute;
+top:0;
+right:0;
+padding-left:7%;
+width:3%;
+}
+
+.notice-options .notice_delete a {
+float:left;
+}
+.pagination .nav {
+overflow:auto;
+}
+
+#export_data {
+display:none;
+}
+
+#site_nav_local_views li {
+margin-right:4px;
+}
+#site_nav_local_views a {
+padding:18px 11px;
+}

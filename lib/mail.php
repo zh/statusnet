@@ -50,10 +50,9 @@ function mail_backend()
     static $backend = null;
 
     if (!$backend) {
-        global $config;
-        $backend = Mail::factory($config['mail']['backend'],
-                                 ($config['mail']['params']) ?
-                                 $config['mail']['params'] :
+        $backend = Mail::factory(common_config('mail', 'backend'),
+                                 (common_config('mail', 'params')) ?
+                                 common_config('mail', 'params') :
                                  array());
         if (PEAR::isError($backend)) {
             common_server_error($backend->getMessage(), 500);
@@ -572,4 +571,54 @@ function mail_notify_fave($other, $user, $notice)
 
     common_init_locale();
     mail_to_user($other, $subject, $body);
+}
+
+/**
+ * notify a user that they have received an "attn:" message AKA "@-reply"
+ *
+ * @param User   $user   The user who recevied the notice
+ * @param Notice $notice The notice that was sent
+ *
+ * @return void
+ */
+
+function mail_notify_attn($user, $notice)
+{
+    if (!$user->email || !$user->emailnotifyattn) {
+        return;
+    }
+
+    $sender = $notice->getProfile();
+
+    $bestname = $sender->getBestName();
+
+    common_init_locale($user->language);
+
+    $subject = sprintf(_('%s sent a notice to your attention'), $bestname);
+
+    $body = sprintf(_("%1\$s just sent a notice to your attention (an '@-reply') on %2\$s.\n\n".
+                      "The notice is here:\n\n".
+                      "\t%3\$s\n\n" .
+                      "It reads:\n\n".
+                      "\t%4\$s\n\n" .
+                      "You can reply back here:\n\n".
+                      "\t%5\$s\n\n" .
+                      "The list of all @-replies for you here:\n\n" .
+                      "%6\$s\n\n" .
+                      "Faithfully yours,\n" .
+                      "%2\$s\n\n" .
+                      "P.S. You can turn off these email notifications here: %7\$s\n"),
+                    $bestname,
+                    common_config('site', 'name'),
+                    common_local_url('shownotice',
+                                     array('notice' => $notice->id)),
+                    $notice->content,
+                    common_local_url('newnotice',
+                                     array('replyto' => $sender->nickname)),
+                    common_local_url('replies',
+                                     array('nickname' => $user->nickname)),
+                    common_local_url('emailsettings'));
+
+    common_init_locale();
+    mail_to_user($user, $subject, $body);
 }

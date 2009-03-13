@@ -2,8 +2,8 @@
 README
 ------
 
-Laconica 0.7.1 ("West of the Fields")
-6 February 2009
+Laconica 0.7.2.1 ("Talk about the Passion")
+11 March 2009
 
 This is the README file for Laconica, the Open Source microblogging
 platform. It includes installation instructions, descriptions of
@@ -71,8 +71,47 @@ for additional terms.
 New this version
 ================
 
-This is a minor bug-fix release since version 0.7.0, released Jan 29
-2009. Notable changes this version:
+This is a minor bug-fix and feature release since version 0.7.1,
+released Feb 9 2009. Notable changes this version:
+
+- First version of a web-based installer
+- Use Net_URL_Mapper instead of mod_rewrite to map "fancy URLs",
+  for a much simpler installation and use of PATH_INFO on sites
+  that don't have mod_rewrite.
+- A plugin framework for system events, to make it easier to build
+  server-side plugins.
+- A plugin for Google Analytics
+- A plugin to use blogspam.net to check notices for spam
+- A plugin to send linkbacks for notices about blog posts
+- Configurable check for duplicate notices in a specific time
+  period
+- Better Atom feeds
+- First implementation of Twitter Search API
+- Add streamlined mobile device-friendly styles when enabled in config.
+- A queue server for sending notices to Twitter
+- A queue server for sending notices to Facebook
+- A queue server for sending notices to a ping server
+- Fixed a bug in nonces for OAuth in OpenMicroBlogging
+- Fixed bugs in transfer of avatars in OpenMicroBlogging
+- @-links go to permalinks for local users
+- Better handling of DB errors (instead of dreaded DB_DataObject blank
+  screen)
+- Initial version of an RPM spec file
+- More consistent display of notices in notice search
+- A stylesheet for printed output
+- "Social graph" methods for Twitter API
+- Documentation for the JavaScript badge
+- Debugged a ton of problems that happened with E_NOTICE on
+- Better caching in RSS feeds
+- Optionally send email when an @-message is received
+- Automatically add tags for every group message
+- Add framebusting JavaScript to help avoid clickjacking attacks.
+- Optionally ignore some notice sources for public page.
+- Add default SMS carriers and notice sources to distribution file.
+- Change titles to use mixed case instead of all uppercase.
+- Use exceptions for error handling.
+
+Changes in version 0.7.1:
 
 - Vast improvement in auto-linking to URLs.
 - Link to group search from user's group page
@@ -218,9 +257,9 @@ especially if you've previously installed PHP/MySQL packages.
 1. Unpack the tarball you downloaded on your Web server. Usually a
    command like this will work:
 
-   	   tar zxf laconica-0.7.1.tar.gz
+   	   tar zxf laconica-0.7.2.1.tar.gz
 
-   ...which will make a laconica-0.7.1 subdirectory in your current
+   ...which will make a laconica-0.7.2.1 subdirectory in your current
    directory. (If you don't have shell access on your Web server, you
    may have to unpack the tarball on your local computer and FTP the
    files to the server.)
@@ -228,7 +267,7 @@ especially if you've previously installed PHP/MySQL packages.
 2. Move the tarball to a directory of your choosing in your Web root
    directory. Usually something like this will work:
 
-   	   mv laconica-0.7.1 /var/www/mublog
+   	   mv laconica-0.7.2.1 /var/www/mublog
 
    This will make your Laconica instance available in the mublog path of
    your server, like "http://example.net/mublog". "microblog" or
@@ -236,21 +275,28 @@ especially if you've previously installed PHP/MySQL packages.
    configure virtual hosts on your web server, you can try setting up
    "http://micro.example.net/" or the like.
 
-3. You should also take this moment to make your avatar subdirectory
+3. Make your target directory writeable by the Web server.
+
+   	  chmod a+w /var/www/mublog/
+
+   On some systems, this will probably work:
+
+      	   chgrp www-data /var/www/mublog/
+	   chmod g+w /var/www/mublog/
+
+   If your Web server runs as another user besides "www-data", try
+   that user's default group instead. As a last resort, you can create
+   a new group like "mublog" and add the Web server's user to the group.
+
+4. You should also take this moment to make your avatar subdirectory
    writeable by the Web server. An insecure way to do this is:
 
    	  chmod a+w /var/www/mublog/avatar
 
-   On some systems, this will probably work:
+   You can also make the avatar directory writeable by the Web server
+   group, as noted above.
 
-      	   chgrp www-data /var/www/mublog/avatar
-	   chmod g+w /var/www/mublog/avatar
-
-   If your Web server runs as another user besides "www-data", try
-   that user's default group instead. As a last resort, you can create
-   a new group like "avatar" and add the Web server's user to the group.
-
-4. Create a database to hold your microblog data. Something like this
+5. Create a database to hold your microblog data. Something like this
    should work:
 
    	  mysqladmin -u "username" --password="password" create laconica
@@ -263,63 +309,55 @@ especially if you've previously installed PHP/MySQL packages.
    a tool like PHPAdmin to create a database. Check your hosting
    service's documentation for how to create a new MySQL database.)
 
-5. Run the laconica.sql SQL script in the db subdirectory to create
-   the database tables in the database. A typical system would work
-   like this:
-
-   	  mysql -u "username" --password="password" laconica < /var/www/mublog/db/laconica.sql
-
-   You may want to test by logging into the database and checking that
-   the tables were created. Here's an example:
-
-          SHOW TABLES;
-
 6. Create a new database account that Laconica will use to access the
    database. If you have shell access, this will probably work from the
    MySQL shell:
 
-          GRANT SELECT,INSERT,DELETE,UPDATE on laconica.*
+          GRANT ALL on laconica.*
 	  TO 'lacuser'@'localhost'
 	  IDENTIFIED BY 'lacpassword';
 
    You should change 'lacuser' and 'lacpassword' to your preferred new
-   username and password. You may want to test logging in as this new
-   user and testing that you can SELECT from some of the tables in the
-   DB (use SHOW TABLES to see which ones are there).
+   username and password. You may want to test logging in to MySQL as
+   this new user.
 
-7. Copy the config.php.sample in the Laconica directory to config.php.
+7. In a browser, navigate to the Laconica install script; something like:
 
-8. Edit config.php to set the basic configuration for your system.
-   (See descriptions below for basic config options.) Note that there
-   are lots of options and if you try to do them all at once, you will
-   have a hard time making sure what's working and what's not. So,
-   stick with the basics at first. In particular, customizing the
-   'site' and 'db' settings will almost definitely be needed.
+           http://yourserver.example.com/mublog/install.php
 
-9. At this point, you should be able to navigate in a browser to your
-   microblog's main directory and see the "Public Timeline", which
-   will be empty. If not, magic has happened! You can now register a
-   new user, post some notices, edit your profile, etc. However, you
-   may want to wait to do that stuff if you think you can set up
-   "fancy URLs" (see below), since some URLs are stored in the database.
+   Enter the database connection information and your site name. The
+   install program will configure your site and install the initial,
+   almost-empty database.
+
+8. You should now be able to navigate to your microblog's main directory
+   and see the "Public Timeline", which will be empty. If not, magic
+   has happened! You can now register a new user, post some notices,
+   edit your profile, etc. However, you may want to wait to do that stuff
+   if you think you can set up "fancy URLs" (see below), since some
+   URLs are stored in the database.
 
 Fancy URLs
 ----------
 
-By default, Laconica will have big long sloppy URLs that are hard for
-people to remember or use. For example, a user's home profile might be
+By default, Laconica will use URLs that include the main PHP program's
+name in them. For example, a user's home profile might be
 found at:
 
-    http://example.org/mublog/index.php?action=showstream&nickname=fred
+    http://example.org/mublog/index.php/mublog/fred
+
+On certain systems that don't support this kind of syntax, they'll
+look like this:
+
+    http://example.org/mublog/index.php?p=mublog/fred
 
 It's possible to configure the software so it looks like this instead:
 
     http://example.org/mublog/fred
 
 These "fancy URLs" are more readable and memorable for users. To use
-fancy URLs, you must either have Apache 2.2.x with .htaccess enabled
-and mod_redirect enabled, -OR- know how to configure "url redirection"
-in your server.
+fancy URLs, you must either have Apache 2.x with .htaccess enabled and
+mod_redirect enabled, -OR- know how to configure "url redirection" in
+your server.
 
 1. Copy the htaccess.sample file to .htaccess in your Laconica
    directory. Note: if you have control of your server's httpd.conf or
@@ -343,10 +381,6 @@ like:
 
 If you changed your HTTP server configuration, you may need to restart
 the server first.
-
-If you have problems with the .htaccess file on versions of Apache
-earlier than 2.2.x, try changing the regular expressions in the
-htaccess.sample file that use "\w" to just use ".".
 
 Sphinx
 ------
@@ -507,7 +541,7 @@ server is probably a good idea for high-volume sites.
    needs as a parameter the install path; if you run it from the
    Laconica dir, "." should suffice.
 
-This will run six (for now) queue handlers:
+This will run eight (for now) queue handlers:
 
 * xmppdaemon.php - listens for new XMPP messages from users and stores
   them as notices in the database.
@@ -521,6 +555,10 @@ This will run six (for now) queue handlers:
   of registered users.
 * xmppconfirmhandler.php - sends confirmation messages to registered
   users.
+* twitterqueuehandler.php - sends queued notices to Twitter for user
+  who have opted to set up Twitter bridging.
+* facebookqueuehandler.php - sends queued notices to Facebook for users
+  of the built-in Facebook application.
 
 Note that these queue daemons are pretty raw, and need your care. In
 particular, they leak memory, and you may want to restart them on a
@@ -552,6 +590,53 @@ Sample cron job:
 
 # Update Twitter friends subscriptions every half hour
 0,30 * * * * /path/to/php /path/to/laconica/scripts/synctwitterfriends.php>&/dev/null
+
+Built-in Facebook Application
+-----------------------------
+
+Laconica's Facebook application allows your users to automatically
+update their Facebook statuses with their latest notices, invite
+their friends to use the app (and thus your site), view their notice
+timelines, and post notices -- all from within Facebook. The application
+is built into Laconica and runs on your host.  For automatic Facebook
+status updating to work you will need to enable queuing and run the
+facebookqueuehandler.php daemon (see the "Queues and daemons" section
+above).
+
+Quick setup instructions*:
+
+Install the Facebook Developer application on Facebook:
+
+    http://www.facebook.com/developers/
+
+Use it to create a new application and generate an API key and secret.
+Uncomment the Facebook app section of your config.php and copy in the
+key and secret, e.g.:
+
+    # Config section for the built-in Facebook application
+    $config['facebook']['apikey'] = 'APIKEY';
+    $config['facebook']['secret'] = 'SECRET';
+
+In Facebook's application editor, specify the following URLs for your app:
+
+- Callback URL: http://example.net/mublog/facebook/
+- Post-Remove URL: http://example.net/mublog/facebook/remove
+- Post-Add Redirect URL: http://apps.facebook.com/yourapp/
+- Canvas URL: http://apps.facebook.com/yourapp/
+
+(Replace 'example.net' with your host's URL, 'mublog' with the path
+to your Laconica installation, and 'yourapp' with the name of the
+Facebook application you created.)
+
+Additionally, Choose "Web" for Application type in the Advanced tab.
+In the "Canvas setting" section, choose the "FBML" for Render Method,
+"Smart Size" for IFrame size, and "Full width (760px)" for Canvas Width.
+Everything else can be left with default values.
+
+*For more detailed instructions please see the installation guide on the
+Laconica wiki:
+
+    http://laconi.ca/trac/wiki/FacebookApplication
 
 Sitemaps
 --------
@@ -593,7 +678,7 @@ to these resources.
 Themes
 ------
 
-There are two themes shipped with this version of Laconica: "stoica",
+There are two themes shipped with this version of Laconica: "identica",
 which is what the Identi.ca site uses, and "default", which is a good
 basis for other sites.
 
@@ -672,7 +757,7 @@ Upgrading
 If you've been using Laconica 0.6, 0.5 or lower, or if you've been
 tracking the "git" version of the software, you will probably want
 to upgrade and keep your existing data. There is no automated upgrade
-procedure in Laconica 0.7.1. Try these step-by-step instructions; read
+procedure in Laconica 0.7.2.1. Try these step-by-step instructions; read
 to the end first before trying them.
 
 0. Download Laconica and set up all the prerequisites as if you were
@@ -699,16 +784,19 @@ to the end first before trying them.
    directory to your new directory.
 9. Copy htaccess.sample to .htaccess in the new directory. Change the
    RewriteBase to use the correct path.
-10. Rebuild the database. Go to your Laconica directory and run the
-   rebuilddb.sh script like this:
+10. Rebuild the database. For MySQL, go to your Laconica directory and
+    run the rebuilddb.sh script like this:
 
-   ./scripts/rebuilddb.sh rootuser rootpassword database db/laconica.sql
+    ./scripts/rebuilddb.sh rootuser rootpassword database db/laconica.sql
 
-   Here, rootuser and rootpassword are the username and password for a
-   user who can drop and create databases as well as tables; typically
-   that's _not_ the user Laconica runs as.
-11. Use mysql client to log into your database and make sure that the
-    notice, user, profile, subscription etc. tables are non-empty.
+    Here, rootuser and rootpassword are the username and password for a
+    user who can drop and create databases as well as tables; typically
+    that's _not_ the user Laconica runs as.
+    For PostgreSQL databases there is an equivalent, rebuilddb_psql.sh,
+    which operates slightly differently. Read the documentation in that
+    script before running it.
+11. Use mysql or psql client to log into your database and make sure that
+    the notice, user, profile, subscription etc. tables are non-empty.
 12. Turn back on the Web server, and check that things still work.
 13. Turn back on XMPP bots and email maildaemon. Note that the XMPP
     bots have changed since version 0.5; see above for details.
@@ -833,6 +921,10 @@ notice: A plain string that will appear on every page. A good place
 	to put introductory information about your service, or info about
 	upgrades and outages, or other community info. Any HTML will
         be escaped.
+dupelimit: Time in which it's not OK for the same person to post the
+           same notice; default = 60 seconds.
+logo: URL of an image file to use as the logo for the site. Overrides
+      the logo in the theme, if any.
 
 db
 --
@@ -1089,7 +1181,7 @@ repository (see below), and you get a compilation error ("unexpected
 T_STRING") in the browser, check to see that you don't have any
 conflicts in your code.
 
-If you upgraded to Laconica 0.7.1 without reading the "Notice inboxes"
+If you upgraded to Laconica 0.7.2.1 without reading the "Notice inboxes"
 section above, and all your users' 'Personal' tabs are empty, read the
 "Notice inboxes" section above.
 
@@ -1175,6 +1267,9 @@ if anyone's been overlooked in error.
 * Ken Sheppardson (Trac server, man-about-town)
 * Tiago 'gouki' Faria (i18n managerx)
 * Sean Murphy
+* Leslie Michael Orchard
+* Eric Helgeson
+* Ken Sedgwick
 
 Thanks also to the developers of our upstream library code and to the
 thousands of people who have tried out Identi.ca, installed Laconi.ca,

@@ -1,0 +1,105 @@
+InitializePlugin: a chance to initialize a plugin in a complete
+		  environment
+
+CleanupPlugin: a chance to cleanup a plugin at the end of a program
+
+StartPrimaryNav: Showing the primary nav menu
+- $action: the current action
+
+EndPrimaryNav: At the end of the primary nav menu
+- $action: the current action
+
+StartSecondaryNav: Showing the secondary nav menu
+- $action: the current action
+
+EndSecondaryNav: At the end of the secondary nav menu
+- $action: the current action
+
+StartShowStyles: Showing Style links; good place to add UA style resets
+- $action: the current action
+
+EndShowStyles: End showing Style links; good place to add custom styles
+- $action: the current action
+
+StartShowLaconicaStyles: Showing Laconica Style links
+- $action: the current action
+
+EndShowLaconicaStyles: End showing Laconica Style links;  good place to add handheld or JavaScript dependant styles
+- $action: the current action
+
+StartShowUAStyles: Showing custom UA Style links
+- $action: the current action
+
+EndShowUAStyles: End showing custom UA Style links; good place to add user-agent (e.g., filter, -webkit, -moz) specific styles
+- $action: the current action
+
+StartShowScripts: Showing JavaScript links
+- $action: the current action
+
+EndShowScripts: End showing JavaScript links; good place to add custom
+		links like Google Analytics
+- $action: the current action
+
+StartShowJQueryScripts: Showing JQuery script links (use this to link to e.g. Google mirrors)
+- $action: the current action
+
+EndShowJQueryScripts: End showing JQuery script links
+- $action: the current action
+
+StartShowLaconicaScripts: Showing Laconica script links (use this to link to a CDN or something)
+- $action: the current action
+
+EndShowLaconicaScripts: End showing Laconica script links
+- $action: the current action
+
+StartShowSections: Start the list of sections in the sidebar
+- $action: the current action
+
+EndShowSections: End the list of sections in the sidebar
+- $action: the current action
+
+StartShowHeader: Showing before the header container
+- $action: the current action
+
+EndShowHeader: Showing after the header container
+- $action: the current action
+
+StartShowFooter: Showing before the footer container
+- $action: the current action
+
+EndShowFooter: Showing after the footer container
+- $action: the current action
+
+StartShowContentBlock: Showing before the content container
+- $action: the current action
+
+EndShowContentBlock: Showing after the content container
+- $action: the current action
+
+StartNoticeSave: before inserting a notice (good place for content filters)
+- $notice: notice being saved (no ID or URI)
+
+EndNoticeSave: after inserting a notice and related code
+- $notice: notice that was saved (with ID and URI)
+
+StartShowLocalNavBlock: Showing the local nav menu
+- $action: the current action
+
+EndShowLocalNavBlock: At the end of the local nav menu
+- $action: the current action
+
+StartShowHTML: Chance to set document headers (e.g., content type, charset, language), DOCTYPE and html element properties
+- $action: the current action
+
+EndShowHTML: Showing after the html element
+- $action: the current action
+
+StartPublicGroupNav: Showing the public group nav menu
+- $action: the current action
+
+EndPublicGroupNav: At the end of the public group nav menu
+- $action: the current action
+
+RouterInitialized: After the router instance has been initialized
+- $m: the Net_URL_Mapper that has just been set up
+

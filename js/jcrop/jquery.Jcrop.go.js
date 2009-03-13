@@ -37,10 +37,3 @@
 			$('#avatar_crop_w').val(c.w);
 			$('#avatar_crop_h').val(c.h);
 		};
-
-		function checkCoords() {
-			if (parseInt($('#avatar_crop_w').val())) return true;
-			alert('Please select a crop region then press submit.');
-			return false;
-		};
-

@@ -34,6 +34,8 @@ class UpdateprofileAction extends Action
             $server = omb_oauth_server();
             list($consumer, $token) = $server->verify_request($req);
             if ($this->update_profile($req, $consumer, $token)) {
+                header('HTTP/1.1 200 OK');
+                header('Content-type: text/plain');
                 print "omb_version=".OMB_VERSION_01;
             }
         } catch (OAuthException $e) {
@@ -136,22 +138,24 @@ class UpdateprofileAction extends Action
 
         $orig_profile = clone($profile);
 
-        if ($nickname) {
+        /* Use values even if they are an empty string. Parsing an empty string in
+           updateProfile is the specified way of clearing a parameter in OMB. */
+        if (!is_null($nickname)) {
             $profile->nickname = $nickname;
         }
-        if ($profile_url) {
+        if (!is_null($profile_url)) {
             $profile->profileurl = $profile_url;
         }
-        if ($fullname) {
+        if (!is_null($fullname)) {
             $profile->fullname = $fullname;
         }
-        if ($homepage) {
+        if (!is_null($homepage)) {
             $profile->homepage = $homepage;
         }
-        if ($bio) {
+        if (!is_null($bio)) {
             $profile->bio = $bio;
         }
-        if ($location) {
+        if (!is_null($location)) {
             $profile->location = $location;
         }
 
@@ -162,15 +166,17 @@ class UpdateprofileAction extends Action
             if ($avatar) {
                 $temp_filename = tempnam(sys_get_temp_dir(), 'listenee_avatar');
                 copy($avatar, $temp_filename);
-                if (!$profile->setOriginal($temp_filename)) {
+                $imagefile = new ImageFile($profile->id, $temp_filename);
+                $filename = Avatar::filename($profile->id,
+                                     image_type_to_extension($imagefile->type),
+                                     null,
+                                     common_timestamp());
+                rename($temp_filename, Avatar::path($filename));
+                if (!$profile->setOriginal($filename)) {
                     $this->serverError(_('Could not save avatar info'), 500);
                     return false;
                 }
             }
-            header('HTTP/1.1 200 OK');
-            header('Content-type: text/plain');
-            print 'Updated profile';
-            print "\n";
             return true;
         }
     }

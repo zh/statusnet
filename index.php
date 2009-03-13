@@ -22,53 +22,144 @@ define('LACONICA', true);
 
 require_once INSTALLDIR . '/lib/common.php';
 
-// get and cache current user
+$user = null;
+$action = null;
 
-$user = common_current_user();
-
-// initialize language env
-
-common_init_language();
-
-$action = $_REQUEST['action'];
-
-if (!$action || !preg_match('/^[a-zA-Z0-9_-]*$/', $action)) {
-    common_redirect(common_local_url('public'));
+function getPath($req)
+{
+    if ((common_config('site', 'fancy') || !array_key_exists('PATH_INFO', $_SERVER))
+        && array_key_exists('p', $req)) {
+        return $req['p'];
+    } else if (array_key_exists('PATH_INFO', $_SERVER)) {
+        return $_SERVER['PATH_INFO'];
+    } else {
+        return null;
+    }
 }
 
-// If the site is private, and they're not on one of the "public"
-// parts of the site, redirect to login
+function handleError($error)
+{
+    if ($error->getCode() == DB_DATAOBJECT_ERROR_NODATA) {
+        return;
+    }
 
-if (!$user && common_config('site', 'private') &&
-    !in_array($action, array('login', 'openidlogin', 'finishopenidlogin',
-                             'recoverpassword', 'api', 'doc', 'register'))) {
-    common_redirect(common_local_url('login'));
+    $logmsg = "PEAR error: " . $error->getMessage();
+    if(common_config('site', 'logdebug')) {
+        $logmsg .= " : ". $error->getDebugInfo();
+    }
+    common_log(LOG_ERR, $logmsg);
+    $msg = sprintf(_('The database for %s isn\'t responding correctly, '.
+                     'so the site won\'t work properly. '.
+                     'The site admins probably know about the problem, '.
+                     'but you can contact them at %s to make sure. '.
+                     'Otherwise, wait a few minutes and try again.'),
+                   common_config('site', 'name'),
+                   common_config('site', 'email'));
+
+    $dac = new DBErrorAction($msg, 500);
+    $dac->showPage();
+    exit(-1);
 }
 
-$actionfile = INSTALLDIR."/actions/$action.php";
+function main()
+{
+    global $user, $action, $config;
 
-if (file_exists($actionfile)) {
+    if (!_have_config()) {
+        $msg = sprintf(_("No configuration file found. Try running ".
+                         "the installation program first."));
+        $sac = new ServerErrorAction($msg);
+        $sac->showPage();
+        return;
+    }
 
-    include_once $actionfile;
+    // For database errors
+
+    PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, 'handleError');
+
+    // XXX: we need a little more structure in this script
+
+    // get and cache current user
+
+    $user = common_current_user();
+
+    // initialize language env
+
+    common_init_language();
+
+    $path = getPath($_REQUEST);
+
+    $r = Router::get();
+
+    $args = $r->map($path);
+
+    if (!$args) {
+        $cac = new ClientErrorAction(_('Unknown page'), 404);
+        $cac->showPage();
+        return;
+    }
+
+    $args = array_merge($args, $_REQUEST);
+
+    $action = $args['action'];
+
+    if (!$action || !preg_match('/^[a-zA-Z0-9_-]*$/', $action)) {
+        common_redirect(common_local_url('public'));
+        return;
+    }
+
+    // If the site is private, and they're not on one of the "public"
+    // parts of the site, redirect to login
+
+    if (!$user && common_config('site', 'private') &&
+        !in_array($action, array('login', 'openidlogin', 'finishopenidlogin',
+                                 'recoverpassword', 'api', 'doc', 'register'))) {
+        common_redirect(common_local_url('login'));
+        return;
+    }
 
     $action_class = ucfirst($action).'Action';
 
-    $action_obj = new $action_class();
+    if (!class_exists($action_class)) {
+        $cac = new ClientErrorAction(_('Unknown action'), 404);
+        $cac->showPage();
+    } else {
+        $action_obj = new $action_class();
 
-    if ($config['db']['mirror'] && $action_obj->isReadOnly()) {
-        if (is_array($config['db']['mirror'])) {
-            // "load balancing", ha ha
-            $k = array_rand($config['db']['mirror']);
+        // XXX: find somewhere for this little block to live
 
-            $mirror = $config['db']['mirror'][$k];
-        } else {
-            $mirror = $config['db']['mirror'];
+        if (common_config('db', 'mirror') && $action_obj->isReadOnly()) {
+            if (is_array(common_config('db', 'mirror'))) {
+                // "load balancing", ha ha
+                $arr = common_config('db', 'mirror');
+                $k = array_rand($arr);
+                $mirror = $arr[$k];
+            } else {
+                $mirror = common_config('db', 'mirror');
+            }
+            $config['db']['database'] = $mirror;
         }
-        $config['db']['database'] = $mirror;
+
+        try {
+            if ($action_obj->prepare($args)) {
+                $action_obj->handle($args);
+            }
+        } catch (ClientException $cex) {
+            $cac = new ClientErrorAction($cex->getMessage(), $cex->getCode());
+            $cac->showPage();
+        } catch (ServerException $sex) { // snort snort guffaw
+            $sac = new ServerErrorAction($sex->getMessage(), $sex->getCode());
+            $sac->showPage();
+        } catch (Exception $ex) {
+            $sac = new ServerErrorAction($ex->getMessage());
+            $sac->showPage();
+        }
     }
-    if (call_user_func(array($action_obj, 'prepare'), $_REQUEST)) {
-        call_user_func(array($action_obj, 'handle'), $_REQUEST);
-    }
-} else {
-    common_user_error(_('Unknown action'));
 }
+
+main();
+
+// XXX: cleanup exit() calls or add an exit handler so
+// this always gets called
+
+Event::handle('CleanupPlugin');

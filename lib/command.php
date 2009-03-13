@@ -19,18 +19,18 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-require_once(INSTALLDIR.'/classes/Channel.php');
+require_once(INSTALLDIR.'/lib/channel.php');
 
 class Command
 {
-    
+
     var $user = null;
-    
+
     function __construct($user=null)
     {
         $this->user = $user;
     }
-    
+
     function execute($channel)
     {
         return false;
@@ -109,7 +109,7 @@ class StatsCommand extends Command
         $notices = new Notice();
         $notices->profile_id = $this->user->id;
         $notice_count = (int) $notices->count();
-        
+
         $channel->output($this->user, sprintf(_("Subscriptions: %1\$s\n".
                                    "Subscribers: %2\$s\n".
                                    "Notices: %3\$s"),
@@ -121,21 +121,21 @@ class StatsCommand extends Command
 
 class FavCommand extends Command
 {
-    
+
     var $other = null;
-    
+
     function __construct($user, $other)
     {
         parent::__construct($user);
         $this->other = $other;
     }
-    
+
     function execute($channel)
     {
-        
-        $recipient = 
+
+        $recipient =
           common_relative_profile($this->user, common_canonical_nickname($this->other));
-        
+
         if (!$recipient) {
             $channel->error($this->user, _('No such user.'));
             return;
@@ -145,7 +145,7 @@ class FavCommand extends Command
             $channel->error($this->user, _('User has no last notice'));
             return;
         }
-        
+
         $fave = Fave::addNew($this->user, $notice);
 
         if (!$fave) {
@@ -154,15 +154,15 @@ class FavCommand extends Command
         }
 
         $other = User::staticGet('id', $recipient->id);
-        
+
         if ($other && $other->id != $user->id) {
             if ($other->email && $other->emailnotifyfav) {
                 mail_notify_fave($other, $this->user, $notice);
             }
         }
-        
+
         $this->user->blowFavesCache();
-        
+
         $channel->output($this->user, _('Notice marked as fave.'));
     }
 }
@@ -175,17 +175,17 @@ class WhoisCommand extends Command
         parent::__construct($user);
         $this->other = $other;
     }
-    
+
     function execute($channel)
     {
-        $recipient = 
+        $recipient =
           common_relative_profile($this->user, common_canonical_nickname($this->other));
-        
+
         if (!$recipient) {
             $channel->error($this->user, _('No such user.'));
             return;
         }
-        
+
         $whois = sprintf(_("%1\$s (%2\$s)"), $recipient->nickname,
                          $recipient->profileurl);
         if ($recipient->fullname) {
@@ -214,7 +214,7 @@ class MessageCommand extends Command
         $this->other = $other;
         $this->text = $text;
     }
-    
+
     function execute($channel)
     {
         $other = User::staticGet('nickname', common_canonical_nickname($this->other));
@@ -229,7 +229,7 @@ class MessageCommand extends Command
                 return;
             }
         }
-        
+
         if (!$other) {
             $channel->error($this->user, _('No such user.'));
             return;
@@ -251,19 +251,19 @@ class MessageCommand extends Command
 
 class GetCommand extends Command
 {
-    
+
     var $other = null;
-    
+
     function __construct($user, $other)
     {
         parent::__construct($user);
         $this->other = $other;
     }
-    
+
     function execute($channel)
     {
         $target_nickname = common_canonical_nickname($this->other);
-        
+
         $target =
           common_relative_profile($this->user, $target_nickname);
 
@@ -277,32 +277,32 @@ class GetCommand extends Command
             return;
         }
         $notice_content = $notice->content;
-        
+
         $channel->output($this->user, $target_nickname . ": " . $notice_content);
     }
 }
 
 class SubCommand extends Command
 {
-    
+
     var $other = null;
-    
+
     function __construct($user, $other)
     {
         parent::__construct($user);
         $this->other = $other;
     }
-    
+
     function execute($channel)
     {
-        
+
         if (!$this->other) {
             $channel->error($this->user, _('Specify the name of the user to subscribe to'));
             return;
         }
-        
+
         $result = subs_subscribe_user($this->user, $this->other);
-        
+
         if ($result == 'true') {
             $channel->output($this->user, sprintf(_('Subscribed to %s'), $this->other));
         } else {
@@ -315,7 +315,7 @@ class UnsubCommand extends Command
 {
 
     var $other = null;
-    
+
     function __construct($user, $other)
     {
         parent::__construct($user);
@@ -328,9 +328,9 @@ class UnsubCommand extends Command
             $channel->error($this->user, _('Specify the name of the user to unsubscribe from'));
             return;
         }
-        
+
         $result=subs_unsubscribe_user($this->user, $this->other);
-        
+
         if ($result) {
             $channel->output($this->user, sprintf(_('Unsubscribed from %s'), $this->other));
         } else {
@@ -369,7 +369,7 @@ class OnCommand extends Command
         parent::__construct($user);
         $this->other = $other;
     }
-    
+
     function execute($channel)
     {
         if ($other) {
@@ -406,7 +406,7 @@ class HelpCommand extends Command
                            "unsub <nickname> - same as 'leave'\n".
                            "last <nickname> - same as 'get'\n".
                            "on <nickname> - not yet implemented.\n".
-                           "off <nickname> - not yet implemented.\n".                           
+                           "off <nickname> - not yet implemented.\n".
                            "nudge <nickname> - not yet implemented.\n".
                            "invite <phone number> - not yet implemented.\n".
                            "track <word> - not yet implemented.\n".

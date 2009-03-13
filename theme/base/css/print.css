@@ -1,0 +1,36 @@
+/** theme: base
+ *
+ * @package   Laconica
+ * @author Sarven Capadisli <csarven@controlyourself.ca>
+ * @copyright 2009 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
+ */
+
+a:after { background-color:#fff; }
+a:not([href^="#"]):after { content:" ( "attr(href)" ) "; }
+
+img { border:none; }
+p { orphans: 2; widows: 1; }
+
+#site_nav_global_primary,
+#site_nav_local_views,
+#form_notice,
+.pagination,
+#site_nav_global_secondary,
+.entity_actions,
+.notice-options,
+#aside_primary,
+.form_subcription_edit .submit {
+display:none;
+}
+
+.timestamp dt, .timestamp dd,
+.device dt, .device dd {
+display:inline;
+}
+
+.profiles li,
+.notices li {
+margin-bottom:18px;
+}

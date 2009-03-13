@@ -98,7 +98,12 @@ class NewnoticeAction extends Action
                 return;
             }
 
-            $this->saveNewNotice();
+            try {
+                $this->saveNewNotice();
+            } catch (Exception $e) {
+                $this->showForm($e->getMessage());
+                return;
+            }
         } else {
             $this->showForm();
         }
@@ -123,15 +128,13 @@ class NewnoticeAction extends Action
         $content = $this->trimmed('status_textarea');
 
         if (!$content) {
-            $this->showForm(_('No content!'));
-            return;
+            $this->clientError(_('No content!'));
         } else {
             $content_shortened = common_shorten_links($content);
 
             if (mb_strlen($content_shortened) > 140) {
-                $this->showForm(_('That\'s too long. '.
-                                  'Max notice size is 140 chars.'));
-                return;
+                $this->clientError(_('That\'s too long. '.
+                                     'Max notice size is 140 chars.'));
             }
         }
 
@@ -149,12 +152,17 @@ class NewnoticeAction extends Action
         }
 
         $replyto = $this->trimmed('inreplyto');
+        #If an ID of 0 is wrongly passed here, it will cause a database error,
+        #so override it...
+        if ($replyto == 0) {
+            $replyto = 'false';
+        }
 
         $notice = Notice::saveNew($user->id, $content, 'web', 1,
                                   ($replyto == 'false') ? null : $replyto);
 
         if (is_string($notice)) {
-            $this->showForm($notice);
+            $this->clientError($notice);
             return;
         }
 
@@ -250,7 +258,7 @@ class NewnoticeAction extends Action
             }
         }
 
-        $notice_form = new NoticeForm($this, $content);
+        $notice_form = new NoticeForm($this, '', $content);
         $notice_form->show();
     }
 

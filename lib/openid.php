@@ -64,6 +64,9 @@ function oid_set_last($openid_url)
 
 function oid_get_last()
 {
+    if (empty($_COOKIE[OPENID_COOKIE_KEY])) {
+        return null;
+    }
     $openid_url = $_COOKIE[OPENID_COOKIE_KEY];
     if ($openid_url && strlen($openid_url) > 0) {
         return $openid_url;
@@ -157,7 +160,7 @@ function oid_authenticate($openid_url, $returnto, $immediate=false)
         $auth_request->addExtension($sreg_request);
     }
 
-    $trust_root = common_local_url('public');
+    $trust_root = common_path('');
     $process_url = common_local_url($returnto);
 
     if ($auth_request->shouldSendRedirect()) {

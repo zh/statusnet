@@ -68,17 +68,17 @@ class ImageFile
     static function fromUpload($param='upload')
     {
         switch ($_FILES[$param]['error']) {
-        case UPLOAD_ERR_OK: // success, jump out
+         case UPLOAD_ERR_OK: // success, jump out
             break;
-        case UPLOAD_ERR_INI_SIZE:
-        case UPLOAD_ERR_FORM_SIZE:
+         case UPLOAD_ERR_INI_SIZE:
+         case UPLOAD_ERR_FORM_SIZE:
             throw new Exception(sprintf(_('That file is too big. The maximum file size is %d.'), $this->maxFileSize()));
             return;
-        case UPLOAD_ERR_PARTIAL:
+         case UPLOAD_ERR_PARTIAL:
             @unlink($_FILES[$param]['tmp_name']);
             throw new Exception(_('Partial upload.'));
             return;
-        default:
+         default:
             throw new Exception(_('System error uploading file.'));
             return;
         }
@@ -111,6 +111,23 @@ class ImageFile
         if (!file_exists($this->filepath)) {
             throw new Exception(_('Lost our file.'));
             return;
+        }
+
+        // Don't crop/scale if it isn't necessary
+        if ($size === $this->width
+            && $size === $this->height
+            && $x === 0
+            && $y === 0
+            && $w === $this->width
+            && $h === $this->height) {
+
+            $outname = Avatar::filename($this->id,
+                                        image_type_to_extension($this->type),
+                                        $size,
+                                        common_timestamp());
+            $outpath = Avatar::path($outname);
+            @copy($this->filepath, $outpath);
+            return $outname;
         }
 
         switch ($this->type) {
@@ -154,9 +171,9 @@ class ImageFile
         imagecopyresampled($image_dest, $image_src, 0, 0, $x, $y, $size, $size, $w, $h);
 
         $outname = Avatar::filename($this->id,
-                                          image_type_to_extension($this->type),
-                                          $size,
-                                          common_timestamp());
+                                    image_type_to_extension($this->type),
+                                    $size,
+                                    common_timestamp());
 
         $outpath = Avatar::path($outname);
 
@@ -165,7 +182,7 @@ class ImageFile
             imagegif($image_dest, $outpath);
             break;
          case IMAGETYPE_JPEG:
-            imagejpeg($image_dest, $outpath);
+            imagejpeg($image_dest, $outpath, 100);
             break;
          case IMAGETYPE_PNG:
             imagepng($image_dest, $outpath);
@@ -174,6 +191,9 @@ class ImageFile
             throw new Exception(_('Unknown file type'));
             return;
         }
+
+        imagedestroy($image_src);
+        imagedestroy($image_dest);
 
         return $outname;
     }
@@ -209,12 +229,12 @@ class ImageFile
         $num = substr($str, 0, -1);
 
         switch(strtoupper($unit)){
-            case 'G':
-                $num *= 1024;
-            case 'M':
-                $num *= 1024;
-            case 'K':
-                $num *= 1024;
+         case 'G':
+            $num *= 1024;
+         case 'M':
+            $num *= 1024;
+         case 'K':
+            $num *= 1024;
         }
 
         return $num;

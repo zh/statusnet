@@ -31,7 +31,7 @@ create table avatar (
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table sms_carrier (
-    id integer auto_increment primary key comment 'primary key for SMS carrier',
+    id integer primary key comment 'primary key for SMS carrier',
     name varchar(64) unique key comment 'name of the carrier',
     email_pattern varchar(255) not null comment 'sprintf pattern for making an email address from a phone number',
     created datetime not null comment 'date this record was created',
@@ -50,6 +50,7 @@ create table user (
     emailnotifyfav tinyint default 1 comment 'Notify by email of favorites',
     emailnotifynudge tinyint default 1 comment 'Notify by email of nudges',
     emailnotifymsg tinyint default 1 comment 'Notify by email of direct messages',
+    emailnotifyattn tinyint default 1 comment 'Notify by email of @-replies',
     emailmicroid tinyint default 1 comment 'whether to publish email microid',
     language varchar(50) comment 'preferred language',
     timezone varchar(50) comment 'timezone',
@@ -170,7 +171,7 @@ create table token (
     tok char(32) not null comment 'identifying value',
     secret char(32) not null comment 'secret value',
     type tinyint not null default 0 comment 'request or access',
-    state tinyint default 0 comment 'for requests; 0 = initial, 1 = authorized, 2 = used',
+    state tinyint default 0 comment 'for requests, 0 = initial, 1 = authorized, 2 = used',
 
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified',
@@ -180,15 +181,14 @@ create table token (
 
 create table nonce (
     consumer_key varchar(255) not null comment 'unique identifier, root URL',
-    tok char(32) not null comment 'identifying value',
+    tok char(32) null comment 'buggy old value, ignored',
     nonce char(32) not null comment 'nonce',
     ts datetime not null comment 'timestamp sent',
 
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified',
 
-    constraint primary key (consumer_key, tok, nonce),
-    constraint foreign key (consumer_key, tok) references token (consumer_key, tok)
+    constraint primary key (consumer_key, ts, nonce)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 /* One-to-many relationship of user to openid_url */
@@ -258,7 +258,8 @@ create table notice_tag (
     created datetime not null comment 'date this record was created',
 
     constraint primary key (tag, notice_id),
-    index notice_tag_created_idx (created)
+    index notice_tag_created_idx (created),
+    index notice_tag_notice_id_idx (notice_id)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 /* Synching with foreign services */
@@ -342,7 +343,7 @@ create table notice_inbox (
     user_id integer not null comment 'user receiving the message' references user (id),
     notice_id integer not null comment 'notice received' references notice (id),
     created datetime not null comment 'date the notice was created',
-    source tinyint default 1 comment 'reason it is in the inbox; 1=subscription',
+    source tinyint default 1 comment 'reason it is in the inbox, 1=subscription',
 
     constraint primary key (user_id, notice_id),
     index notice_inbox_notice_id_idx (notice_id)
@@ -356,7 +357,8 @@ create table profile_tag (
 
    constraint primary key (tagger, tagged, tag),
    index profile_tag_modified_idx (modified),
-   index profile_tag_tagger_tag_idx (tagger, tag)
+   index profile_tag_tagger_tag_idx (tagger, tag),
+   index profile_tag_tagged_idx (tagged)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table profile_block (
@@ -400,7 +402,9 @@ create table group_member (
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified',
 
-    constraint primary key (group_id, profile_id)
+    constraint primary key (group_id, profile_id),
+    index group_member_profile_id_idx (profile_id),
+    index group_member_created_idx (created)
 
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 

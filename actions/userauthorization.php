@@ -105,7 +105,7 @@ class UserauthorizationAction extends Action
         $this->elementStart('div', 'profile');
         if ($avatar) {
             $this->element('img', array('src' => $avatar,
-                                        'class' => 'avatar profile',
+                                        'class' => 'avatar',
                                         'width' => AVATAR_PROFILE_SIZE,
                                         'height' => AVATAR_PROFILE_SIZE,
                                         'alt' => $nickname));
@@ -113,9 +113,9 @@ class UserauthorizationAction extends Action
         $this->element('a', array('href' => $profile,
                                   'class' => 'external profile nickname'),
                        $nickname);
-        if ($fullname) {
+        if (!is_null($fullname)) {
             $this->elementStart('div', 'fullname');
-            if ($homepage) {
+            if (!is_null($homepage)) {
                 $this->element('a', array('href' => $homepage),
                                $fullname);
             } else {
@@ -123,10 +123,10 @@ class UserauthorizationAction extends Action
             }
             $this->elementEnd('div');
         }
-        if ($location) {
+        if (!is_null($location)) {
             $this->element('div', 'location', $location);
         }
-        if ($bio) {
+        if (!is_null($bio)) {
             $this->element('div', 'bio', $bio);
         }
         $this->elementStart('div', 'license');
@@ -179,16 +179,16 @@ class UserauthorizationAction extends Action
                 $params['omb_listener_nickname'] = $user->nickname;
                 $params['omb_listener_profile'] = common_local_url('showstream',
                                                                    array('nickname' => $user->nickname));
-                if ($profile->fullname) {
+                if (!is_null($profile->fullname)) {
                     $params['omb_listener_fullname'] = $profile->fullname;
                 }
-                if ($profile->homepage) {
+                if (!is_null($profile->homepage)) {
                     $params['omb_listener_homepage'] = $profile->homepage;
                 }
-                if ($profile->bio) {
+                if (!is_null($profile->bio)) {
                     $params['omb_listener_bio'] = $profile->bio;
                 }
-                if ($profile->location) {
+                if (!is_null($profile->location)) {
                     $params['omb_listener_location'] = $profile->location;
                 }
                 $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
@@ -197,7 +197,7 @@ class UserauthorizationAction extends Action
                 }
                 $parts = array();
                 foreach ($params as $k => $v) {
-                    $parts[] = $k . '=' . OAuthUtil::urlencodeRFC3986($v);
+                    $parts[] = $k . '=' . OAuthUtil::urlencode_rfc3986($v);
                 }
                 $query_string = implode('&', $parts);
                 $parsed = parse_url($callback);
@@ -267,16 +267,16 @@ class UserauthorizationAction extends Action
         $profile->nickname = $nickname;
         $profile->profileurl = $profile_url;
 
-        if ($fullname) {
+        if (!is_null($fullname)) {
             $profile->fullname = $fullname;
         }
-        if ($homepage) {
+        if (!is_null($homepage)) {
             $profile->homepage = $homepage;
         }
-        if ($bio) {
+        if (!is_null($bio)) {
             $profile->bio = $bio;
         }
-        if ($location) {
+        if (!is_null($location)) {
             $profile->location = $location;
         }
 
@@ -409,7 +409,7 @@ class UserauthorizationAction extends Action
                        'omb_listenee_profile', 'omb_listenee_nickname',
                        'omb_listenee_license') as $param)
         {
-            if (!$req->get_parameter($param)) {
+            if (is_null($req->get_parameter($param))) {
                 throw new OAuthException("Required parameter '$param' not found");
             }
         }

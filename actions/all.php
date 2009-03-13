@@ -42,9 +42,9 @@ class AllAction extends Action
         if (!$this->page) {
             $this->page = 1;
         }
-        
+
         common_set_returnto($this->selfUrl());
-        
+
         return true;
     }
 
@@ -69,28 +69,28 @@ class AllAction extends Action
         }
     }
 
-    function showFeeds()
+    function getFeeds()
     {
-        $this->element('link', array('rel' => 'alternate',
-                                     'href' => common_local_url('allrss', array('nickname' =>
-                                                                                $this->user->nickname)),
-                                     'type' => 'application/rss+xml',
-                                     'title' => sprintf(_('Feed for friends of %s'), $this->user->nickname)));
+        return array(new Feed(Feed::RSS1,
+                              common_local_url('allrss', array('nickname' =>
+                                                               $this->user->nickname)),
+                              sprintf(_('Feed for friends of %s (RSS 1.0)'), $this->user->nickname)),
+                     new Feed(Feed::RSS2,
+                              common_local_url('api', array('apiaction' => 'statuses',
+                                                            'method' => 'friends_timeline',
+                                                            'argument' => $this->user->nickname.'.rss')),
+                              sprintf(_('Feed for friends of %s (RSS 2.0)'), $this->user->nickname)),
+                     new Feed(Feed::ATOM,
+                              common_local_url('api', array('apiaction' => 'statuses',
+                                                            'method' => 'friends_timeline',
+                                                            'argument' => $this->user->nickname.'.atom')),
+                              sprintf(_('Feed for friends of %s (Atom)'), $this->user->nickname)));
     }
 
     function showLocalNav()
     {
         $nav = new PersonalGroupNav($this);
         $nav->show();
-    }
-
-    function showExportData()
-    {
-        $fl = new FeedList($this);
-        $fl->show(array(0=>array('href'=>common_local_url('allrss', array('nickname' => $this->user->nickname)),
-                                 'type' => 'rss',
-                                 'version' => 'RSS 1.0',
-                                 'item' => 'allrss')));
     }
 
     function showContent()
@@ -110,7 +110,7 @@ class AllAction extends Action
         $user =& common_current_user();
         if ($user && ($user->id == $this->user->id)) {
             $this->element('h1', NULL, _("You and friends"));
-        } else { 
+        } else {
             $this->element('h1', NULL, sprintf(_('%s and friends'), $this->user->nickname));
         }
     }

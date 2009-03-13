@@ -21,7 +21,6 @@ if (!defined('LACONICA')) { exit(1); }
 
 class Channel
 {
-
     function on($user)
     {
         return false;

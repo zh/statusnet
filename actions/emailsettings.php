@@ -164,6 +164,11 @@ class EmailsettingsAction extends AccountSettingsAction
                         $user->emailnotifymsg);
         $this->elementEnd('li');
         $this->elementStart('li');
+        $this->checkbox('emailnotifyattn',
+                        _('Send me email when someone sends me an "@-reply".'),
+                        $user->emailnotifyattn);
+        $this->elementEnd('li');
+        $this->elementStart('li');
         $this->checkbox('emailnotifynudge',
                         _('Allow friends to nudge me and send me an email.'),
                         $user->emailnotifynudge);
@@ -255,6 +260,7 @@ class EmailsettingsAction extends AccountSettingsAction
         $emailnotifyfav   = $this->boolean('emailnotifyfav');
         $emailnotifymsg   = $this->boolean('emailnotifymsg');
         $emailnotifynudge = $this->boolean('emailnotifynudge');
+        $emailnotifyattn  = $this->boolean('emailnotifyattn');
         $emailmicroid     = $this->boolean('emailmicroid');
         $emailpost        = $this->boolean('emailpost');
 
@@ -270,6 +276,7 @@ class EmailsettingsAction extends AccountSettingsAction
         $user->emailnotifyfav   = $emailnotifyfav;
         $user->emailnotifymsg   = $emailnotifymsg;
         $user->emailnotifynudge = $emailnotifynudge;
+        $user->emailnotifyattn  = $emailnotifyattn;
         $user->emailmicroid     = $emailmicroid;
         $user->emailpost        = $emailpost;
 
