@@ -43,4 +43,5 @@ VALUES
     ('twittertools','Twitter Tools','http://wordpress.org/extend/plugins/twitter-tools/', now()),
     ('twitux','Twitux','http://live.gnome.org/DanielMorales/Twitux', now()),
     ('twitvim','TwitVim','http://vim.sourceforge.net/scripts/script.php?script_id=2204', now()),
-    ('urfastr','urfastr','http://urfastr.net/', now());
+    ('urfastr','urfastr','http://urfastr.net/', now()),
+    ('adium', 'Adium', 'http://www.adiumx.com/', now()));
