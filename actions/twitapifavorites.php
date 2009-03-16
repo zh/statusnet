@@ -61,10 +61,9 @@ class TwitapifavoritesAction extends TwitterapiAction
         }
 
         $sitename = common_config('site', 'name');
-        $siteserver = common_config('site', 'server');
-
         $title = sprintf(_('%s / Favorites from %s'), $sitename, $user->nickname);
-        $id = "tag:$siteserver:favorites:".$user->id;
+        $taguribase = common_config('integration', 'taguri');
+        $id = "tag:$taguribase:Favorites:".$user->id;
         $link = common_local_url('favorites', array('nickname' => $user->nickname));
         $subtitle = sprintf(_('%s updates favorited by %s / %s.'), $sitename, $profile->getBestName(), $user->nickname);
 
@@ -76,7 +75,14 @@ class TwitapifavoritesAction extends TwitterapiAction
             $this->show_rss_timeline($notice, $title, $link, $subtitle);
             break;
          case 'atom':
-            $this->show_atom_timeline($notice, $title, $id, $link, $subtitle);
+            if (isset($apidata['api_arg'])) {
+                 $selfuri = $selfuri = common_root_url() .
+                     'api/favorites/' . $apidata['api_arg'] . '.atom';
+            } else {
+                 $selfuri = $selfuri = common_root_url() .
+                  'api/favorites.atom';
+            }
+            $this->show_atom_timeline($notice, $title, $id, $link, $subtitle, null, $selfuri);
             break;
          case 'json':
             $this->show_json_timeline($notice);

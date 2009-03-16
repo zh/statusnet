@@ -22,7 +22,7 @@
  * @category  Search
  * @package   Laconica
  * @author    Zach Copley <zach@controlyourself.ca>
- * @copyright 2008-2009 Control Yourself, Inc.
+ * @copyright 2009 Control Yourself, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://laconi.ca/
  */
@@ -62,14 +62,19 @@ class JSONSearchResultsList
     /**
      * constructor
      *
-     * @param Notice $notice stream of notices from DB_DataObject
+     * @param Notice $notice   stream of notices from DB_DataObject
+     * @param string $query    the original search query
+     * @param int    $rpp      the number of results to display per page
+     * @param int    $page     a page offset
+     * @param int    $since_id only display notices newer than this
      */
 
     function __construct($notice, $query, $rpp, $page, $since_id = 0)
     {
         $this->notice           = $notice;
         $this->query            = urlencode($query);
-        $this->results_per_page = $this->rpp = $rpp;
+        $this->results_per_page = $rpp;
+        $this->rpp              = $rpp;
         $this->page             = $page;
         $this->since_id         = $since_id;
         $this->results          = array();
@@ -78,7 +83,7 @@ class JSONSearchResultsList
     /**
      * show the list of search results
      *
-     * @return int count of the search results listed.
+     * @return int $count of the search results listed.
      */
 
     function show()
@@ -103,7 +108,7 @@ class JSONSearchResultsList
             array_push($this->results, $item);
         }
 
-        $time_end = microtime(true);
+        $time_end           = microtime(true);
         $this->completed_in = $time_end - $time_start;
 
         // Set other attrs
@@ -197,7 +202,7 @@ class ResultItem
 
     function buildResult()
     {
-        $this->text = $this->notice->content;
+        $this->text      = $this->notice->content;
         $replier_profile = null;
 
         if ($this->notice->reply_to) {
@@ -209,18 +214,21 @@ class ResultItem
 
         $this->to_user_id = ($replier_profile) ?
             intval($replier_profile->id) : null;
-        $this->to_user = ($replier_profile) ?
+        $this->to_user    = ($replier_profile) ?
             $replier_profile->nickname : null;
-        $this->from_user = $this->profile->nickname;
-        $this->id = $this->notice->id;
+
+        $this->from_user    = $this->profile->nickname;
+        $this->id           = $this->notice->id;
         $this->from_user_id = $this->profile->id;
 
         $user = User::staticGet('id', $this->profile->id);
+
         $this->iso_language_code = $this->user->language;
 
         $this->source = $this->getSourceLink($this->notice->source);
 
         $avatar = $this->profile->getAvatar(AVATAR_STREAM_SIZE);
+
         $this->profile_image_url = ($avatar) ?
             $avatar->displayUrl() : Avatar::defaultImage(AVATAR_STREAM_SIZE);
 
@@ -233,27 +241,30 @@ class ResultItem
      * Either the name (and link) of the API client that posted the notice,
      * or one of other other channels.
      *
-     * @return string the source of the Notice
+     * @param string $source the source of the Notice
+     *
+     * @return string a fully rendered source of the Notice
      */
 
-     function getSourceLink($source)
-     {
-         $source_name = _($source);
-         switch ($source) {
-          case 'web':
-          case 'xmpp':
-          case 'mail':
-          case 'omb':
-          case 'api':
-             break;
-          default:
-             $ns = Notice_source::staticGet($source);
-             if ($ns) {
-                 $source_name = '<a href="' . $ns->url . '">' . $ns->name . '</a>';
-             }
-             break;
-         }
-         return $source_name;
-     }
+    function getSourceLink($source)
+    {
+        $source_name = _($source);
+        switch ($source) {
+        case 'web':
+        case 'xmpp':
+        case 'mail':
+        case 'omb':
+        case 'api':
+            break;
+        default:
+            $ns = Notice_source::staticGet($source);
+            if ($ns) {
+                $source_name = '<a href="' . $ns->url . '">' . $ns->name . '</a>';
+            }
+            break;
+        }
+
+        return $source_name;
+    }
 
 }

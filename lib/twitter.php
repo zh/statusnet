@@ -224,7 +224,6 @@ function is_twitter_bound($notice, $flink) {
 
 function broadcast_twitter($notice)
 {
-    global $config;
     $success = true;
 
     $flink = Foreign_link::getByUserID($notice->profile_id,
@@ -232,7 +231,7 @@ function broadcast_twitter($notice)
 
     // XXX: Not sure WHERE to check whether a notice should go to
     // Twitter. Should we even put in the queue if it shouldn't? --Zach
-    if (is_twitter_bound($notice, $flink)) {
+    if (!is_null($flink) && is_twitter_bound($notice, $flink)) {
 
         $fuser = $flink->getForeignUser();
         $twitter_user = $fuser->nickname;
@@ -248,7 +247,7 @@ function broadcast_twitter($notice)
             CURLOPT_POSTFIELDS     =>
                 array(
                         'status' => $statustxt,
-                        'source' => $config['integration']['source']
+                        'source' => common_config('integration', 'source')
                      ),
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_FAILONERROR    => true,

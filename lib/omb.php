@@ -251,7 +251,6 @@ function omb_broadcast_profile($profile)
 
 function omb_update_profile($profile, $remote_profile, $subscription)
 {
-    global $config; # for license URL
     $user = User::staticGet($profile->id);
     $con = omb_oauth_consumer();
     $token = new OAuthToken($subscription->token, $subscription->secret);
@@ -295,7 +294,7 @@ function omb_update_profile($profile, $remote_profile, $subscription)
 
     common_debug('Got HTTP result "'.print_r($result,true).'"', __FILE__);
 
-    if (empty($result) || $result) {
+    if (empty($result) || !$result) {
         common_debug("Unable to contact " . $req->get_normalized_http_url());
     } else if ($result->status == 403) { # not authorized, don't send again
         common_debug('403 result, deleting subscription', __FILE__);
@@ -306,7 +305,7 @@ function omb_update_profile($profile, $remote_profile, $subscription)
         return false;
     } else { # success!
         parse_str($result->body, $return);
-        if ($return['omb_version'] == OMB_VERSION_01) {
+        if (isset($return['omb_version']) && $return['omb_version'] === OMB_VERSION_01) {
             return true;
         } else {
             return false;

@@ -38,7 +38,6 @@ class Twitapidirect_messagesAction extends TwitterapiAction
 
     function show_messages($args, $apidata, $type)
     {
-
         $user = $apidata['user'];
 
         $count = $this->arg('count');
@@ -102,7 +101,17 @@ class Twitapidirect_messagesAction extends TwitterapiAction
             $this->show_rss_dmsgs($message, $title, $link, $subtitle);
             break;
          case 'atom':
-            $this->show_atom_dmsgs($message, $title, $link, $subtitle);
+            $selfuri = common_root_url() . 'api/direct_messages';
+            $selfuri .= ($type == 'received') ? '.atom' : '/sent.atom';
+            $taguribase = common_config('integration', 'taguri');
+
+            if ($type == 'sent') {
+                $id = "tag:$taguribase:SentDirectMessages:" . $user->id;
+            } else {
+                $id = "tag:$taguribase:DirectMessages:" . $user->id;
+            }
+
+            $this->show_atom_dmsgs($message, $title, $link, $subtitle, $selfuri, $id);
             break;
          case 'json':
             $this->show_json_dmsgs($message);
@@ -190,7 +199,7 @@ class Twitapidirect_messagesAction extends TwitterapiAction
         $this->init_document('xml');
         $this->elementStart('direct-messages', array('type' => 'array'));
 
-        if (is_array($messages)) {
+        if (is_array($message)) {
             foreach ($message as $m) {
                 $twitter_dm = $this->twitter_dmsg_array($m);
                 $this->show_twitter_xml_dmsg($twitter_dm);
@@ -261,16 +270,17 @@ class Twitapidirect_messagesAction extends TwitterapiAction
 
     }
 
-    function show_atom_dmsgs($message, $title, $link, $subtitle)
+    function show_atom_dmsgs($message, $title, $link, $subtitle, $selfuri, $id)
     {
 
         $this->init_document('atom');
 
         $this->element('title', null, $title);
-        $siteserver = common_config('site', 'server');
-        $this->element('id', null, "tag:$siteserver,2008:DirectMessage");
+        $this->element('id', null, $id);
         $this->element('link', array('href' => $link, 'rel' => 'alternate', 'type' => 'text/html'), null);
-        $this->element('updated', null, common_date_iso8601(strftime('%c')));
+        $this->element('link', array('href' => $selfuri, 'rel' => 'self',
+            'type' => 'application/atom+xml'), null);
+        $this->element('updated', null, common_date_iso8601('now'));
         $this->element('subtitle', null, $subtitle);
 
         if (is_array($message)) {

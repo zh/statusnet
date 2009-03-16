@@ -110,8 +110,6 @@ class SearchAction extends Action
 
     function showForm($error=null)
     {
-        global $config;
-
         $q = $this->trimmed('q');
         $page = $this->trimmed('page', 1);
         $this->elementStart('form', array('method' => 'get',
@@ -122,7 +120,7 @@ class SearchAction extends Action
         $this->element('legend', null, _('Search site'));
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
-        if (!isset($config['site']['fancy']) || !$config['site']['fancy']) {
+        if (!common_config('site', 'fancy')) {
             $this->hidden('action', $this->trimmed('action'));
         }
         $this->input('q', 'Keyword(s)', $q);

@@ -333,8 +333,6 @@ class RemotesubscribeAction extends Action
 
     function requestAuthorization($user, $omb, $token, $secret)
     {
-        global $config; # for license URL
-
         $con = omb_oauth_consumer();
         $tok = new OAuthToken($token, $secret);
 
@@ -358,7 +356,7 @@ class RemotesubscribeAction extends Action
         $req->set_parameter('omb_listenee', $user->uri);
         $req->set_parameter('omb_listenee_profile', common_profile_url($user->nickname));
         $req->set_parameter('omb_listenee_nickname', $user->nickname);
-        $req->set_parameter('omb_listenee_license', $config['license']['url']);
+        $req->set_parameter('omb_listenee_license', common_config('license', 'url'));
 
         $profile = $user->getProfile();
         if (!$profile) {
@@ -367,16 +365,16 @@ class RemotesubscribeAction extends Action
             return;
         }
 
-        if ($profile->fullname) {
+        if (!is_null($profile->fullname)) {
             $req->set_parameter('omb_listenee_fullname', $profile->fullname);
         }
-        if ($profile->homepage) {
+        if (!is_null($profile->homepage)) {
             $req->set_parameter('omb_listenee_homepage', $profile->homepage);
         }
-        if ($profile->bio) {
+        if (!is_null($profile->bio)) {
             $req->set_parameter('omb_listenee_bio', $profile->bio);
         }
-        if ($profile->location) {
+        if (!is_null($profile->location)) {
             $req->set_parameter('omb_listenee_location', $profile->location);
         }
         $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);

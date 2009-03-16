@@ -119,7 +119,7 @@ class PeopletagAction extends Action
                 'FROM profile JOIN profile_tag ' .
                 'ON profile.id = profile_tag.tagger ' .
                 'WHERE profile_tag.tagger = profile_tag.tagged ' .
-                'AND tag = "%s" ' .
+                "AND tag = '%s' " .
                 'ORDER BY profile_tag.modified DESC%s';
 
         $profile->query(sprintf($qry, $this->tag, $lim));

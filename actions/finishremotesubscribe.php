@@ -136,16 +136,16 @@ class FinishremotesubscribeAction extends Action
         $profile->nickname = $nickname;
         $profile->profileurl = $profile_url;
 
-        if ($fullname) {
+        if (!is_null($fullname)) {
             $profile->fullname = $fullname;
         }
-        if ($homepage) {
+        if (!is_null($homepage)) {
             $profile->homepage = $homepage;
         }
-        if ($bio) {
+        if (!is_null($bio)) {
             $profile->bio = $bio;
         }
-        if ($location) {
+        if (!is_null($location)) {
             $profile->location = $location;
         }
 
