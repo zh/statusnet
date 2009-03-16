@@ -162,6 +162,16 @@ class Action extends HTMLOutputter // lawsuit
             $this->element('link', array('rel' => 'shortcut icon',
                                          'href' => common_path('favicon.ico')));
         }
+
+        if (common_config('site', 'mobile')) {
+            if (is_readable(INSTALLDIR . '/theme/' . common_config('site', 'theme') . '/apple-touch-icon.png')) {
+                $this->element('link', array('rel' => 'apple-touch-icon',
+                                             'href' => theme_path('apple-touch-icon.png')));
+            } else {
+                $this->element('link', array('rel' => 'apple-touch-icon',
+                                             'href' => common_path('apple-touch-icon.png')));
+            }
+        }
     }
 
     /**
