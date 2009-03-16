@@ -116,15 +116,10 @@ class FeaturedAction extends Action
                 $quoted[] = "'$nick'";
             }
 
-            $table = "user";
-            if(common_config('db','quote_identifiers')) {
-              $table = '"' . $table . '"';
-            }
-
             $user = new User;
             $user->whereAdd(sprintf('nickname IN (%s)', implode(',', $quoted)));
             $user->limit(($this->page - 1) * PROFILES_PER_PAGE, PROFILES_PER_PAGE + 1);
-            $user->orderBy($table .'.nickname ASC');
+            $user->orderBy(common_database_tablename('user') .'.nickname ASC');
 
             $user->find();
 
