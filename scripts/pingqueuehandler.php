@@ -34,7 +34,7 @@ require_once(INSTALLDIR . '/lib/queuehandler.php');
 set_error_handler('common_error_handler');
 
 class PingQueueHandler extends QueueHandler {
-	
+
 	function transport() {
 		return 'ping';
 	}
@@ -47,7 +47,7 @@ class PingQueueHandler extends QueueHandler {
 	function handle_notice($notice) {
 		return ping_broadcast_notice($notice);
 	}
-	
+
 	function finish() {
 	}
 }
