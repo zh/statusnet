@@ -177,9 +177,16 @@ class ShownoticeAction extends Action
     {
         parent::handle($args);
 
-        $this->showPage();
+        if ($this->notice->is_local == 0) {
+            if (!empty($this->notice->url)) {
+                common_redirect($this->notice->url, 301);
+            } else if (!empty($this->notice->uri) && preg_match('/^https?:/', $this->notice->uri)) {
+                common_redirect($this->notice->uri, 301);
+            }
+        } else {
+            $this->showPage();
+        }
     }
-
 
     /**
      * Don't show local navigation
@@ -190,7 +197,6 @@ class ShownoticeAction extends Action
     function showLocalNavBlock()
     {
     }
-
 
     /**
      * Fill the content area of the page
@@ -208,8 +214,6 @@ class ShownoticeAction extends Action
         $this->elementEnd('ul');
     }
 
-
-
     /**
      * Don't show page notice
      *
@@ -220,7 +224,6 @@ class ShownoticeAction extends Action
     {
     }
 
-
     /**
      * Don't show aside
      *
@@ -229,7 +232,6 @@ class ShownoticeAction extends Action
 
     function showAside() {
     }
-
 
     /**
      * Extra <head> content
