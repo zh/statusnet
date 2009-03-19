@@ -62,9 +62,6 @@ class NoticesearchrssAction extends Rss10Action
 
         $notice = new Notice();
 
-        # lcase it for comparison
-        $q = strtolower($q);
-
         $search_engine = $notice->getSearchEngine('identica_notices');
         $search_engine->set_sort_mode('chron');
 
