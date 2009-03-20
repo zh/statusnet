@@ -97,9 +97,18 @@ class Action extends HTMLOutputter // lawsuit
             $this->startHTML();
             Event::handle('EndShowHTML', array($this));
         }
+        if (Event::handle('StartShowHead', array($this))) {
         $this->showHead();
+            Event::handle('EndShowHead', array($this));
+        }
+        if (Event::handle('StartShowBody', array($this))) {
         $this->showBody();
+            Event::handle('EndShowBody', array($this));
+        }
+        if (Event::handle('StartEndHTML', array($this))) {
         $this->endHTML();
+            Event::handle('EndEndHTML', array($this));
+        }
     }
 
     /**
@@ -577,7 +586,10 @@ class Action extends HTMLOutputter // lawsuit
     {
         $this->elementStart('div', array('id' => 'aside_primary',
                                          'class' => 'aside'));
+        if (Event::handle('StartShowExportData', array($this))) {
         $this->showExportData();
+            Event::handle('EndShowExportData', array($this));
+        }
         if (Event::handle('StartShowSections', array($this))) {
             $this->showSections();
             Event::handle('EndShowSections', array($this));
