@@ -48,7 +48,7 @@ function ping_broadcast_notice($notice) {
                                                                    'header' =>
                                                                    "Content-Type: text/xml\r\n".
                                                                    "User-Agent: Laconica/".LACONICA_VERSION."\r\n",
-                                                                   'content' => $request)));
+                                                                   'content' => $req)));
             $file = file_get_contents($notify_url, false, $context);
             $response = xmlrpc_decode($file);
             if (xmlrpc_is_fault($response)) {
