@@ -6,8 +6,8 @@ msgstr ""
 "Project-Id-Version: Laconica 0.6.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-25 16:24+0000\n"
-"PO-Revision-Date: 2009-01-28 13:27+0000\n"
-"Last-Translator: Simon Hansen <simonboba@gmail.com>\n"
+"PO-Revision-Date: 2009-02-18 22:11+0000\n"
+"Last-Translator: Tor Christian <tctovsli@gmail.com>\n"
 "Language-Team: Norwegian/Nynorsk <i18n-nn@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -80,7 +80,7 @@ msgstr ""
 "%$2s er ei mikrobloggingteneste som let deg halda deg oppdatert på folk du "
 "kjenner og/eller som interesserer deg.\n"
 "\n"
-"Du kan óg dela nyhende om deg sjølv, dine tankar eller livet ditt på nettet "
+"Du kan òg dela nyhende om deg sjølv, dine tankar eller livet ditt på nettet "
 "med folk som kjenner til deg. Det er supert for å møte nye folk med like "
 "interesser.\n"
 "\n"
@@ -92,7 +92,7 @@ msgstr ""
 "\n"
 "%5$s\n"
 "\n"
-"Viss du vil prøva tenesta, klikk på lenka nedonfor for å akseptera "
+"Viss du vil prøva tenesta, klikk på lenka nedanfor for å akseptera "
 "invitasjonen.\n"
 "\n"
 "Beste helsing, %2$s\n"
@@ -100,7 +100,7 @@ msgstr ""
 #: ../lib/mail.php:124 lib/mail.php:124 lib/mail.php:126 lib/mail.php:241
 #, php-format
 msgid "%1$s is now listening to your notices on %2$s."
-msgstr "%1$s høyrer no på notisane dine på %2$s."
+msgstr "%1$s høyrar no på notisane dine på %2$s."
 
 #: ../lib/mail.php:126
 #, php-format
@@ -426,7 +426,6 @@ msgid "Awaiting confirmation on this phone number."
 msgstr "Ventar på godkjenning for dette telefonnummeret."
 
 #: ../lib/util.php:1318 lib/util.php:1452
-#, fuzzy
 msgid "Before »"
 msgstr "Før »"
 
@@ -540,7 +539,6 @@ msgstr "Fann ikkje stadfestingskode."
 
 #: ../actions/register.php:202
 #, php-format
-#, fuzzy
 msgid ""
 "Congratulations, %s! And welcome to %%%%site.name%%%%. From here, you may "
 "want to...\n"
@@ -557,9 +555,19 @@ msgid ""
 "\n"
 "Thanks for signing up and we hope you enjoy using this service."
 msgstr ""
-"Gratulerer, %s! Velkomen til %%%%site.name%%%%. Du vil kanhenda...\n"
+"Gratulerer, %s! Og velkomen til %%%%site.name%%%%. Frå her kann det henda du "
+"vil...\n"
 "\n"
-"* Gå til [profilen din](%s) og "
+"* Gå til [profilen din](%s) og skriva den fyrste meldinga.\n"
+"* Leggja til ei [Jabber/GTalk adresse](%%%%action.imsettings%%%%) so du kann "
+"laga nye meldingar ved hjelp av direktemeldingar.\n"
+"* [Søkje etter folk](%%%%action.profilesettings%%%%) det kan hende du "
+"kjenner, eller som du delar interesser med.\n"
+"* Uppdatere dine [profilval] so du kann fortelja andre meir um deg sjølv.* "
+"Lesa [hjelpetekstane](%%%%doc.help%%%%) for å finna ut meir um funksjonar du "
+"kann ha gådd glipp av.\n"
+"\n"
+"Takk for at du blei med, og vi håpar du vil lika tenesta!"
 
 #: ../actions/finishopenidlogin.php:91 actions/finishopenidlogin.php:97
 #: actions/finishopenidlogin.php:119 lib/action.php:330
@@ -594,9 +602,8 @@ msgstr "Fann ikkje brukaren, so han kan ikkje fylgjast"
 
 #: ../lib/openid.php:160 lib/openid.php:160 lib/openid.php:169
 #, php-format
-#, fuzzy
 msgid "Could not redirect to server: %s"
-msgstr "Kan ikkje "
+msgstr "Klarte ikkje å omdirigera til tenaren: %s"
 
 #: ../actions/updateprofile.php:162 actions/updateprofile.php:163
 #: actions/updateprofile.php:166
@@ -619,13 +626,12 @@ msgstr "Kan ikkje tinga."
 #: ../actions/recoverpassword.php:102 actions/recoverpassword.php:105
 #: actions/recoverpassword.php:111
 msgid "Could not update user with confirmed email address."
-msgstr "Kan ikkje oppdatera brukar med stadfesta epostadresse."
+msgstr "Kan ikkje oppdatera brukar med stadfesta e-postadresse."
 
 #: ../actions/finishremotesubscribe.php:99
 #: actions/finishremotesubscribe.php:101 actions/finishremotesubscribe.php:114
-#, fuzzy
 msgid "Couldn't convert request tokens to access tokens."
-msgstr "Kan ikkje konvertera spyrje"
+msgstr "Kan ikkje konvertera spyrjebillett til tilgongsbillett."
 
 #: ../actions/confirmaddress.php:84 ../actions/emailsettings.php:234
 #: ../actions/imsettings.php:218 ../actions/smssettings.php:241
@@ -634,7 +640,7 @@ msgstr "Kan ikkje konvertera spyrje"
 #: actions/confirmaddress.php:126 actions/emailsettings.php:375
 #: actions/imsettings.php:357 actions/smssettings.php:370
 msgid "Couldn't delete email confirmation."
-msgstr "Kan ikkje sletta epostgodkjenning."
+msgstr "Kan ikkje sletta e-postgodkjenning."
 
 #: ../lib/subs.php:103 lib/subs.php:116 lib/subs.php:134
 msgid "Couldn't delete subscription."
@@ -648,7 +654,7 @@ msgstr "Kan ikkje finna einkvan status."
 #: ../actions/remotesubscribe.php:127 actions/remotesubscribe.php:136
 #: actions/remotesubscribe.php:178
 msgid "Couldn't get a request token."
-msgstr "Fekk ikkje spørjingsbillett (request token)"
+msgstr "Fekk ikkje spørjingsbillett (request token)."
 
 #: ../actions/emailsettings.php:205 ../actions/imsettings.php:187
 #: ../actions/smssettings.php:206 actions/emailsettings.php:223
@@ -1000,7 +1006,7 @@ msgid ""
 "If you want to add an OpenID to your account, enter it in the box below and "
 "click \"Add\"."
 msgstr ""
-"Skriv OpenID-en din i boksen nedanfor og trykk «Legg til» om du ynskjerå "
+"Skriv OpenID-en din i boksen nedanfor og trykk «Legg til» om du ynskjer å "
 "leggja han til."
 
 #: ../actions/recoverpassword.php:137
@@ -1082,17 +1088,17 @@ msgstr "Ugyldig notis-adresse"
 #: actions/updateprofile.php:91
 #, php-format
 msgid "Invalid profile URL '%s'."
-msgstr "Ugyldig profil-netadresse «%s»"
+msgstr "Ugyldig profil-nettadresse «%s»"
 
 #: ../actions/remotesubscribe.php:96 actions/remotesubscribe.php:105
 #: actions/remotesubscribe.php:135
 msgid "Invalid profile URL (bad format)"
-msgstr "Ugyldig profil-netadresse (feil format)"
+msgstr "Ugyldig profil-nettadresse (feil format)"
 
 #: ../actions/finishremotesubscribe.php:77
 #: actions/finishremotesubscribe.php:79 actions/finishremotesubscribe.php:80
 msgid "Invalid profile URL returned by server."
-msgstr "Ugyldig profil-netadresse returnert av tenar."
+msgstr "Ugyldig profil-nettadresse returnert av tenar."
 
 #: ../actions/avatarbynickname.php:37 actions/avatarbynickname.php:37
 #: actions/avatarbynickname.php:69
@@ -1227,7 +1233,7 @@ msgstr "Vel ny epostadresse til å oppdatera med; fjerner den gamle."
 #: actions/emailsettings.php:71
 #, php-format
 msgid "Manage how you get email from %%site.name%%."
-msgstr "Styr korleis du fær epost frå %%site.name%%."
+msgstr "Styr korleis du får epost frå %%site.name%%."
 
 #: ../actions/showstream.php:300 actions/showstream.php:315
 #: actions/showstream.php:480
@@ -1409,7 +1415,7 @@ msgstr "Ingen telefonnummer."
 #: ../actions/finishremotesubscribe.php:72
 #: actions/finishremotesubscribe.php:74 actions/finishremotesubscribe.php:75
 msgid "No profile URL returned by server."
-msgstr "Ingen profil-netadresse returnert av tenar."
+msgstr "Ingen profil-nettadresse returnert av tenar."
 
 #: ../actions/recoverpassword.php:226 actions/recoverpassword.php:232
 #: actions/recoverpassword.php:266
@@ -1419,7 +1425,7 @@ msgstr "Ingen registrert epostadresse for den brukaren."
 #: ../actions/userauthorization.php:49 actions/userauthorization.php:55
 #: actions/userauthorization.php:57
 msgid "No request found!"
-msgstr "Fann ingen spørjing."
+msgstr "Fann inga spørjing."
 
 #: ../actions/noticesearch.php:64 ../actions/peoplesearch.php:64
 #: actions/noticesearch.php:69 actions/peoplesearch.php:69
@@ -1468,7 +1474,7 @@ msgstr "Opprettingskoden finst ikkje."
 #: ../actions/postnotice.php:56 actions/postnotice.php:57
 #: actions/postnotice.php:60
 msgid "No such subscription"
-msgstr "Tingingi finst ikkje."
+msgstr "Tinginga finst ikkje."
 
 #: ../actions/all.php:34 ../actions/allrss.php:35
 #: ../actions/avatarbynickname.php:43 ../actions/foaf.php:40
@@ -2272,6 +2278,9 @@ msgid ""
 "with the site's instructions for details on how to authorize the "
 "subscription. Your subscription token is:"
 msgstr ""
+"Tingina har blitt autorisert, men ingen henvisnings URL er tilgjengleg. "
+"Sjekk med sida sine instruksjonar for korleis autorisering til tinginga skal "
+"gjennomførast. Ditt tingings teikn er: "
 
 #: ../actions/userauthorization.php:322
 msgid ""
@@ -2279,6 +2288,8 @@ msgid ""
 "with the site's instructions for details on how to fully reject the "
 "subscription."
 msgstr ""
+"Tingina har blitt avvist, men ingen henvisnings URL er tilgjengleg. Sjekk "
+"med sida sine instruksjonar for korleis ein skal avvise tinginga."
 
 #: ../actions/subscribers.php:35 actions/subscribers.php:35
 #, php-format
@@ -2292,7 +2303,7 @@ msgstr "Dette er folk som lyttar til dine notisar."
 #: ../actions/subscriptions.php:35 actions/subscriptions.php:35
 #, php-format
 msgid "These are the people whose notices %s listens to."
-msgstr ""
+msgstr "Dette er folka som %s tingar oppdateringar frå."
 
 #: ../actions/subscriptions.php:33 actions/subscriptions.php:33
 msgid "These are the people whose notices you listen to."
@@ -2313,6 +2324,8 @@ msgid ""
 "This form should automatically submit itself. If not, click the submit "
 "button to go to your OpenID provider."
 msgstr ""
+"Skjemaet burde automatisk sendast inn av seg sjølv.  Om det ikkje gjer det, "
+"kann du klikka på knappen for å gå til OpenID-tilbydaren din."
 
 #: ../actions/finishopenidlogin.php:56 actions/finishopenidlogin.php:61
 #: actions/finishopenidlogin.php:67
@@ -2322,13 +2335,16 @@ msgid ""
 "to a local account. You can either create a new account, or connect with "
 "your existing account, if you have one."
 msgstr ""
+"Dette er den fyrste gongen du hev logga inn på %s, so vi må kopla din OpenID "
+"til den lokale kontoen din.  Du kann anten laga ein ny konto, eller kopla "
+"til ein eksisterande konto, om du hev ein frå før."
 
 #: ../actions/twitapifriendships.php:108 ../actions/twitapistatuses.php:586
 #: actions/twitapifavorites.php:127 actions/twitapifriendships.php:108
 #: actions/twitapistatuses.php:511 actions/twitapifavorites.php:97
 #: actions/twitapifriendships.php:85 actions/twitapistatuses.php:436
 msgid "This method requires a POST or DELETE."
-msgstr ""
+msgstr "Dette krev anten ein POST eller DELETE."
 
 #: ../actions/twitapiaccount.php:65 ../actions/twitapifriendships.php:44
 #: ../actions/twitapistatuses.php:381 actions/twitapiaccount.php:63
@@ -2337,11 +2353,11 @@ msgstr ""
 #: actions/twitapidirect_messages.php:122 actions/twitapifriendships.php:32
 #: actions/twitapistatuses.php:244
 msgid "This method requires a POST."
-msgstr ""
+msgstr "Dette krev ein POST."
 
 #: ../lib/util.php:164 lib/util.php:246
 msgid "This page is not available in a media type you accept"
-msgstr ""
+msgstr "Denne sida er ikkje tilgjengeleg i nokon mediatype du aksepterer."
 
 #: ../actions/profilesettings.php:63 actions/profilesettings.php:96
 #: actions/profilesettings.php:138
@@ -2351,7 +2367,7 @@ msgstr "Tidssone"
 #: ../actions/profilesettings.php:107 actions/profilesettings.php:222
 #: actions/profilesettings.php:211
 msgid "Timezone not selected."
-msgstr ""
+msgstr "Tidssone er ikkje valt."
 
 #: ../actions/remotesubscribe.php:43
 #, php-format
@@ -2360,22 +2376,26 @@ msgid ""
 "register%%) a new  account. If you already have an account  on a [compatible "
 "microblogging site](%%doc.openmublog%%),  enter your profile URL below."
 msgstr ""
+"For å tinga kann du [logga inn](%%action.login%%), eller "
+"[registrera](%%action.register%%) ein ny konto.  Um du allereie hev ein "
+"konto på ei [kompatibel mikrobloggingside](%%doc.openmublog%%), kann du "
+"oppgje URLen til profilen under."
 
 #: ../actions/twitapifriendships.php:163 actions/twitapifriendships.php:167
 #: actions/twitapifriendships.php:132
 msgid "Two user ids or screen_names must be supplied."
-msgstr ""
+msgstr "To brukar IDer eller kallenamn er naudsynte."
 
 #: ../actions/profilesettings.php:48 ../actions/register.php:169
 #: actions/profilesettings.php:81 actions/register.php:183
 #: actions/profilesettings.php:109
 msgid "URL of your homepage, blog, or profile on another site"
-msgstr ""
+msgstr "URL til heimesida di, bloggen din, eller ein profil på ei anna side."
 
 #: ../actions/remotesubscribe.php:74 actions/remotesubscribe.php:83
 #: actions/remotesubscribe.php:110
 msgid "URL of your profile on another compatible microblogging service"
-msgstr ""
+msgstr "URL til profilsida di på ei anna kompatibel mikrobloggingteneste."
 
 #: ../actions/emailsettings.php:130 ../actions/imsettings.php:110
 #: ../actions/recoverpassword.php:39 ../actions/smssettings.php:135
@@ -2386,33 +2406,35 @@ msgstr ""
 #: actions/imsettings.php:214 actions/recoverpassword.php:44
 #: actions/smssettings.php:236 actions/twittersettings.php:302
 msgid "Unexpected form submission."
-msgstr ""
+msgstr "Uventa skjemasending."
 
 #: ../actions/recoverpassword.php:276 actions/recoverpassword.php:289
 #: actions/recoverpassword.php:323
 msgid "Unexpected password reset."
-msgstr ""
+msgstr "Uventa passordnullstilling."
 
 #: ../index.php:57 index.php:57 actions/recoverpassword.php:202
 msgid "Unknown action"
-msgstr ""
+msgstr "Uventa handling."
 
 #: ../actions/finishremotesubscribe.php:58
 #: actions/finishremotesubscribe.php:60 actions/finishremotesubscribe.php:61
 msgid "Unknown version of OMB protocol."
-msgstr ""
+msgstr "Ukjend versjon av OMB-protokollen."
 
 #: ../lib/util.php:269 lib/util.php:285
 msgid ""
 "Unless otherwise specified, contents of this site are copyright by the "
 "contributors and available under the "
 msgstr ""
+"Vist anna ikkje er spesifert er innhaldet på denne sida opphavsrettslig "
+"beskyttet av bidragsytaren og er tilgjengleg under "
 
 #: ../actions/confirmaddress.php:48 actions/confirmaddress.php:48
 #: actions/confirmaddress.php:90
 #, php-format
 msgid "Unrecognized address type %s"
-msgstr ""
+msgstr "Ukjend adressetype %s"
 
 #: ../actions/showstream.php:209 actions/showstream.php:219
 #: lib/unsubscribeform.php:137
@@ -2423,39 +2445,39 @@ msgstr "Fjern tinging"
 #: actions/postnotice.php:45 actions/updateprofile.php:46
 #: actions/postnotice.php:48 actions/updateprofile.php:49
 msgid "Unsupported OMB version"
-msgstr ""
+msgstr "Støttar ikkje OMB-versjonen"
 
 #: ../actions/avatar.php:105 actions/profilesettings.php:342
 #: lib/imagefile.php:102
 msgid "Unsupported image file format."
-msgstr ""
+msgstr "Støttar ikkje bileteformatet."
 
 #: ../lib/settingsaction.php:100 lib/settingsaction.php:94
 #: lib/connectsettingsaction.php:108
 msgid "Updates by SMS"
-msgstr ""
+msgstr "Oppdateringar over SMS"
 
 #: ../lib/settingsaction.php:103 lib/settingsaction.php:97
 #: lib/connectsettingsaction.php:105
 msgid "Updates by instant messenger (IM)"
-msgstr ""
+msgstr "Oppdateringar over direktemeldingar (IM)"
 
 #: ../actions/twitapistatuses.php:241 actions/twitapistatuses.php:158
 #: actions/twitapistatuses.php:129
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
-msgstr ""
+msgstr "Oppdateringar frå %1$s og vener på %2$s!"
 
 #: ../actions/twitapistatuses.php:341 actions/twitapistatuses.php:268
 #: actions/twitapistatuses.php:202
 #, php-format
 msgid "Updates from %1$s on %2$s!"
-msgstr ""
+msgstr "Oppdateringar frå %1$s på %2$s!"
 
 #: ../actions/avatar.php:68 actions/profilesettings.php:161
 #: actions/avatarsettings.php:162 actions/grouplogo.php:232
 msgid "Upload"
-msgstr "Lasta opp"
+msgstr "Last opp"
 
 #: ../actions/avatar.php:27
 msgid ""
@@ -2464,25 +2486,32 @@ msgid ""
 "site license, also. Use a picture that belongs to you and that you want to "
 "share."
 msgstr ""
+"Last opp ein ny «avatar» (brukarbilete) her.  Du kan ikkje redigera bilete "
+"etter du har lasta det opp, so sørg for at det er meir eller mindre "
+"firkanta.  Det må ogso vera under den same lisensen.  Nytta eit bilete som "
+"tilhøyrer deg, og som du vil dela."
 
 #: ../lib/settingsaction.php:91
 msgid "Upload a new profile image"
-msgstr "Last opp eit nytt brukarbilete"
+msgstr "Last opp eit nytt profilbilete"
 
 #: ../actions/invite.php:114 actions/invite.php:121 actions/invite.php:154
 msgid ""
 "Use this form to invite your friends and colleagues to use this service."
 msgstr ""
+"Bruk dette skjemaet for å invitera vener og kolleger til å nytta denne "
+"tenesta."
 
 #: ../actions/register.php:159 ../actions/register.php:162
 #: actions/register.php:173 actions/register.php:176
 msgid "Used only for updates, announcements, and password recovery"
 msgstr ""
+"Blir berre brukt for uppdateringar, viktige meldingar og for gløymde passord"
 
 #: ../actions/finishremotesubscribe.php:86
 #: actions/finishremotesubscribe.php:88 actions/finishremotesubscribe.php:94
 msgid "User being listened to doesn't exist."
-msgstr ""
+msgstr "Brukaren du lyttar til eksisterer ikkje."
 
 #: ../actions/all.php:41 ../actions/avatarbynickname.php:48
 #: ../actions/foaf.php:47 ../actions/replies.php:41
@@ -2500,7 +2529,7 @@ msgstr ""
 #: actions/twitapistatuses.php:503 actions/twitapiusers.php:55
 #: actions/usergroups.php:99 lib/galleryaction.php:67 lib/twitterapi.php:626
 msgid "User has no profile."
-msgstr ""
+msgstr "Brukaren har inga profil."
 
 #: ../actions/remotesubscribe.php:71 actions/remotesubscribe.php:80
 #: actions/remotesubscribe.php:105
@@ -2509,87 +2538,91 @@ msgstr "Brukaren sitt kallenamn"
 
 #: ../actions/twitapiusers.php:75 actions/twitapiusers.php:80
 msgid "User not found."
-msgstr ""
+msgstr "Fant ikkje brukaren."
 
 #: ../actions/profilesettings.php:63 actions/profilesettings.php:96
 #: actions/profilesettings.php:139
 msgid "What timezone are you normally in?"
-msgstr ""
+msgstr "Kva tidssone er du vanlegvis i?"
 
 #: ../lib/util.php:1159 lib/util.php:1293 lib/noticeform.php:141
 #, php-format
 msgid "What's up, %s?"
-msgstr "Kva skjer %s?"
+msgstr "Kva skjer, %s?"
 
 #: ../actions/profilesettings.php:54 ../actions/register.php:175
 #: actions/profilesettings.php:87 actions/register.php:189
 #: actions/profilesettings.php:119
 msgid "Where you are, like \"City, State (or Region), Country\""
-msgstr "Kvar er du, t.d. «Stavanger, Rogaland, Noreg»"
+msgstr "Kvar er du, t.d. «By, Fylke (eller Region), Land»"
 
 #: ../actions/updateprofile.php:128 actions/updateprofile.php:129
 #: actions/updateprofile.php:132
 #, php-format
 msgid "Wrong image type for '%s'"
-msgstr ""
+msgstr "Feil biletetype for '%s'"
 
 #: ../actions/updateprofile.php:123 actions/updateprofile.php:124
 #: actions/updateprofile.php:127
 #, php-format
 msgid "Wrong size image at '%s'"
-msgstr ""
+msgstr "Feil storleik på biletet, på '%s'"
 
 #: ../actions/deletenotice.php:63 ../actions/deletenotice.php:72
 #: actions/deletenotice.php:64 actions/deletenotice.php:79
 #: actions/block.php:148 actions/deletenotice.php:122
 #: actions/deletenotice.php:141
 msgid "Yes"
-msgstr "Ja"
+msgstr "Jau"
 
 #: ../actions/finishaddopenid.php:64 actions/finishaddopenid.php:64
 #: actions/finishaddopenid.php:112
 msgid "You already have this OpenID!"
-msgstr ""
+msgstr "Du hev denne OpenIDen allereie!"
 
 #: ../actions/deletenotice.php:37 actions/deletenotice.php:37
 msgid ""
 "You are about to permanently delete a notice.  Once this is done, it cannot "
 "be undone."
 msgstr ""
+"Du er i ferd med å sletta ei melding.  Når den fyrst er sletta, kann du "
+"ikkje finne ho att."
 
 #: ../actions/recoverpassword.php:31 actions/recoverpassword.php:31
 #: actions/recoverpassword.php:36
 msgid "You are already logged in!"
-msgstr "Du er allereie innlogga."
+msgstr "Du er allereie logga inn!"
 
 #: ../actions/invite.php:81 actions/invite.php:88 actions/invite.php:120
 msgid "You are already subscribed to these users:"
-msgstr ""
+msgstr "Du tingar allereie oppdatering frå desse brukarane:"
 
 #: ../actions/twitapifriendships.php:128 actions/twitapifriendships.php:128
 #: actions/twitapifriendships.php:105
 msgid "You are not friends with the specified user."
-msgstr ""
+msgstr "Du er ikkje ven med brukaren."
 
 #: ../actions/password.php:27
 msgid "You can change your password here. Choose a good one!"
-msgstr ""
+msgstr "Du kan endra passord her.  Vel eit godt passord!"
 
 #: ../actions/register.php:135 actions/register.php:145
 msgid "You can create a new account to start posting notices."
-msgstr ""
+msgstr "Du kan laga ein ny konto og byrja skriva meldingar."
 
 #: ../actions/smssettings.php:28 actions/smssettings.php:28
 #: actions/smssettings.php:69
 #, php-format
 msgid "You can receive SMS messages through email from %%site.name%%."
-msgstr ""
+msgstr "Du kan motta SMS-meldingar gjennom e-post frå %%site.name%%."
 
 #: ../actions/openidsettings.php:86
 msgid ""
 "You can remove an OpenID from your account by clicking the button marked "
 "\"Remove\"."
 msgstr ""
+"Du kan fjerna OpenID frå kontoen din ved å klikka på knappen som seier "
+"«Fjern»."
 
 #: ../actions/imsettings.php:28 actions/imsettings.php:28
 #, php-format
@@ -2597,29 +2630,33 @@ msgid ""
 "You can send and receive notices through Jabber/GTalk [instant messages](%%"
 "doc.im%%). Configure your address and settings below."
 msgstr ""
+"Du kan sende og motta meldingar gjennom Jabber/GTalk "
+"[direktemeldingar](%%doc.im%%).  Set opp adressa og innstillingar under."
 
 #: ../actions/profilesettings.php:27
 msgid ""
 "You can update your personal profile info here so people know more about you."
 msgstr ""
+"Du kan oppdatera informasjonen i profilen din her, so folk kan vite meir om "
+"deg."
 
 #: ../actions/finishremotesubscribe.php:31 ../actions/remotesubscribe.php:31
 #: actions/finishremotesubscribe.php:31 actions/remotesubscribe.php:31
 #: actions/finishremotesubscribe.php:33 actions/finishremotesubscribe.php:85
 #: actions/finishremotesubscribe.php:101 actions/remotesubscribe.php:35
 msgid "You can use the local subscription!"
-msgstr ""
+msgstr "Du kan nytta det lokale abonnementet!"
 
 #: ../actions/finishopenidlogin.php:33 ../actions/register.php:61
 #: actions/finishopenidlogin.php:38 actions/register.php:68
 #: actions/finishopenidlogin.php:43
 msgid "You can't register if you don't agree to the license."
-msgstr ""
+msgstr "Du kan ikkje registrera deg om du ikkje godtek vilkåra i lisensen."
 
 #: ../actions/updateprofile.php:63 actions/updateprofile.php:64
 #: actions/updateprofile.php:67
 msgid "You did not send us that profile"
-msgstr ""
+msgstr "Du sende oss ikkje den profilen"
 
 #: ../lib/mail.php:147
 #, php-format
@@ -2633,26 +2670,35 @@ msgid ""
 "Faithfully yours,\n"
 "%4$s"
 msgstr ""
+"Du hev ei ny posteadresse på %1½s.\n"
+"\n"
+"Send e-post til %2$s for å posta nyte meldingar.\n"
+"\n"
+"Fleiere e-postinstruksjonar finn du på %3½s.\n"
+"\n"
+"Helsing frå %4$s"
 
 #: ../actions/twitapistatuses.php:612 actions/twitapistatuses.php:537
 #: actions/twitapistatuses.php:463
 msgid "You may not delete another user's status."
-msgstr ""
+msgstr "Du kan ikkje sletta statusen til ein annan brukar."
 
 #: ../actions/invite.php:31 actions/invite.php:31 actions/invite.php:39
 #, php-format
 msgid "You must be logged in to invite other users to use %s"
-msgstr ""
+msgstr "Du må verta logga inn for å invitera andre brukarar til %s"
 
 #: ../actions/invite.php:103 actions/invite.php:110 actions/invite.php:142
 msgid ""
 "You will be notified when your invitees accept the invitation and register "
 "on the site. Thanks for growing the community!"
 msgstr ""
+"Du vil få ein notis når dei du har invitert har akseptert invitasjonen og "
+"har registrert seg på sida. Takk for å bidra til fellesskapet her!"
 
 #: ../actions/recoverpassword.php:149
 msgid "You've been identified. Enter a  new password below. "
-msgstr ""
+msgstr "Du har blitt identifisert. Skriv inn eit nytt passord under her."
 
 #: ../actions/openidlogin.php:67 actions/openidlogin.php:76
 #: actions/openidlogin.php:104
@@ -2661,7 +2707,7 @@ msgstr "Din OpenID"
 
 #: ../actions/recoverpassword.php:164
 msgid "Your nickname on this server, or your registered email address."
-msgstr ""
+msgstr "Ditt kallenamn på denne servere, eller din registrerte epost addresse."
 
 #: ../actions/openidsettings.php:28
 #, php-format
@@ -2669,6 +2715,8 @@ msgid ""
 "[OpenID](%%doc.openid%%) lets you log into many sites  with the same user "
 "account.  Manage your associated OpenIDs from here."
 msgstr ""
+"[OpenID](%%doc.openid%%) lar deg logge inn på mangen sider med den samme "
+"brukar kontoen. Velikehold dine OpenID herfra."
 
 #: ../lib/util.php:943 lib/util.php:992 lib/util.php:945
 msgid "a few seconds ago"
@@ -2696,7 +2744,7 @@ msgstr "~%d månadar sidan"
 
 #: ../lib/util.php:953 lib/util.php:1002 lib/util.php:955
 msgid "about a day ago"
-msgstr "Omtrent ein dag sidan"
+msgstr "omtrent ein dag sidan"
 
 #: ../lib/util.php:945 lib/util.php:994 lib/util.php:947
 msgid "about a minute ago"
@@ -2739,10 +2787,9 @@ msgstr "same passord som ovanfor"
 #: ../actions/twitapistatuses.php:755 actions/twitapistatuses.php:678
 #: actions/twitapistatuses.php:555
 msgid "unsupported file type"
-msgstr ""
+msgstr "ikkje støtta fil type"
 
 #: ../lib/util.php:1309 lib/util.php:1443
-#, fuzzy
 msgid "« After"
 msgstr "« Etter"
 
@@ -2760,53 +2807,53 @@ msgstr "« Etter"
 #: actions/openidlogin.php:37 actions/recoverpassword.php:316
 #: actions/subscribe.php:46 actions/unblock.php:65 actions/unsubscribe.php:43
 msgid "There was a problem with your session token. Try again, please."
-msgstr ""
+msgstr "Der var eit problem med sesjonen din. Vennlegst prøv på nytt."
 
 #: actions/disfavor.php:55 actions/disfavor.php:81
 msgid "This notice is not a favorite!"
-msgstr ""
+msgstr "Denne notisen er ikkje ein favoritt!"
 
 #: actions/disfavor.php:63 actions/disfavor.php:87
 msgid "Could not delete favorite."
-msgstr ""
+msgstr "Kunne ikkje slette favoritt."
 
 #: actions/disfavor.php:72 lib/favorform.php:140
 msgid "Favor"
-msgstr ""
+msgstr "Tjeneste"
 
 #: actions/emailsettings.php:92
 msgid "Send me email when someone adds my notice as a favorite."
-msgstr ""
+msgstr "Send meg ein epost når nokon legg til ein av mine notisar som favoritt."
 
 #: actions/emailsettings.php:95 actions/emailsettings.php:163
 msgid "Send me email when someone sends me a private message."
-msgstr ""
+msgstr "Send meg ein epost når nokon sender meg ei privat melding."
 
 #: actions/favor.php:53 actions/twitapifavorites.php:142 actions/favor.php:81
 #: actions/twitapifavorites.php:118
 msgid "This notice is already a favorite!"
-msgstr ""
+msgstr "Denne notisen er alt ein favoritt!"
 
 #: actions/favor.php:60 actions/twitapifavorites.php:151
 #: classes/Command.php:132 actions/favor.php:86
 #: actions/twitapifavorites.php:125 classes/Command.php:152
 msgid "Could not create favorite."
-msgstr ""
+msgstr "Kunne ikkje lagre favoritt."
 
 #: actions/favor.php:70
 msgid "Disfavor"
-msgstr ""
+msgstr "Fjern favoritt"
 
 #: actions/favoritesrss.php:60 actions/showfavorites.php:47
 #: actions/favoritesrss.php:100 actions/showfavorites.php:77
 #, php-format
 msgid "%s favorite notices"
-msgstr ""
+msgstr "%s sine favorittar"
 
 #: actions/favoritesrss.php:64 actions/favoritesrss.php:104
 #, php-format
 msgid "Feed of favorite notices of %s"
-msgstr ""
+msgstr "Favoritt straum for %s"
 
 #: actions/inbox.php:28 actions/inbox.php:59
 #, php-format
@@ -2820,7 +2867,7 @@ msgstr "Innboks for %s"
 
 #: actions/inbox.php:53 actions/inbox.php:115
 msgid "This is your inbox, which lists your incoming private messages."
-msgstr ""
+msgstr "Dette er innboksen for dine private meldingar."
 
 #: actions/invite.php:178 actions/invite.php:213
 #, php-format
@@ -2828,34 +2875,36 @@ msgid ""
 "%1$s has invited you to join them on %2$s (%3$s).\n"
 "\n"
 msgstr ""
+"%1$s har invitert deg til å bli med dei på %2$s (%3$s).\n"
+"\n"
 
 #: actions/login.php:104 actions/login.php:235 actions/openidlogin.php:108
 #: actions/register.php:416
 msgid "Automatically login in the future; "
-msgstr ""
+msgstr "Logg inn automatisk i framtida;"
 
 #: actions/login.php:122 actions/login.php:264
 msgid "For security reasons, please re-enter your "
-msgstr ""
+msgstr "Av åsyn til tryggleiken, skriv inn"
 
 #: actions/login.php:126 actions/login.php:268
 msgid "Login with your username and password. "
-msgstr ""
+msgstr "Logg inn med ditt brukarnamn og passord."
 
 #: actions/newmessage.php:58 actions/twitapidirect_messages.php:130
 #: actions/twitapidirect_messages.php:141
 msgid "That's too long. Max message size is 140 chars."
-msgstr ""
+msgstr "Det er for langt. Ein notis kan berre være 140 teikn."
 
 #: actions/newmessage.php:65 actions/newmessage.php:128
 msgid "No recipient specified."
-msgstr ""
+msgstr "Ingen mottakar spesifisert."
 
 #: actions/newmessage.php:68 actions/newmessage.php:113
 #: classes/Command.php:206 actions/newmessage.php:131
 #: actions/newmessage.php:168 classes/Command.php:237
 msgid "You can't send a message to this user."
-msgstr ""
+msgstr "Du kan ikkje sende melding til denne brukaren."
 
 #: actions/newmessage.php:71 actions/twitapidirect_messages.php:146
 #: classes/Command.php:209 actions/twitapidirect_messages.php:158
@@ -2863,11 +2912,13 @@ msgstr ""
 msgid ""
 "Don't send a message to yourself; just say it to yourself quietly instead."
 msgstr ""
+"Ikkje send ei melding til deg sjølv; berre sei det til deg sjølv stille og "
+"fredleg."
 
 #: actions/newmessage.php:108 actions/microsummary.php:62
 #: actions/newmessage.php:163
 msgid "No such user"
-msgstr ""
+msgstr "Ingen slik brukar"
 
 #: actions/newmessage.php:117 actions/newmessage.php:67
 msgid "New message"
@@ -2875,48 +2926,49 @@ msgstr "Ny melding"
 
 #: actions/noticesearch.php:95 actions/noticesearch.php:146
 msgid "Notice without matching profile"
-msgstr ""
+msgstr "Notis utan tiløyrande profil"
 
 #: actions/openidsettings.php:28 actions/openidsettings.php:70
 #, php-format
 msgid "[OpenID](%%doc.openid%%) lets you log into many sites "
-msgstr ""
+msgstr "[OpenID](%%doc.openid%%) lar deg logge inn til mangen sider"
 
 #: actions/openidsettings.php:46 actions/openidsettings.php:96
 msgid "If you want to add an OpenID to your account, "
-msgstr ""
+msgstr "Vist du ønskjer å legge til ein OpenID til din konto,"
 
 #: actions/openidsettings.php:74
 msgid "Removing your only OpenID would make it impossible to log in! "
-msgstr ""
+msgstr "Ved å fjerne din einaste OpenID vil gjere det umuleg å logge inn!"
 
 #: actions/openidsettings.php:87 actions/openidsettings.php:143
 msgid "You can remove an OpenID from your account "
-msgstr ""
+msgstr "Du kan fjerne ein OpenID fra din konto."
 
 #: actions/outbox.php:28 actions/outbox.php:58
 #, php-format
 msgid "Outbox for %s - page %d"
-msgstr ""
+msgstr "Utboks for %s - side %d"
 
 #: actions/outbox.php:30 actions/outbox.php:61
 #, php-format
 msgid "Outbox for %s"
-msgstr ""
+msgstr "Utboks for %s"
 
 #: actions/outbox.php:53 actions/outbox.php:116
 msgid "This is your outbox, which lists private messages you have sent."
-msgstr ""
+msgstr "Dette er din utboks som syner alle private meldingar du har sendt."
 
 #: actions/peoplesearch.php:28 actions/peoplesearch.php:52
 #, php-format
 msgid ""
 "Search for people on %%site.name%% by their name, location, or interests. "
 msgstr ""
+"Søk etter folk på %%site.name%% etter deira namn, lokasjon eller interesser."
 
 #: actions/profilesettings.php:27 actions/profilesettings.php:69
 msgid "You can update your personal profile info here "
-msgstr ""
+msgstr "Du kan oppdatere din personlege profil her"
 
 #: actions/profilesettings.php:115 actions/remotesubscribe.php:320
 #: actions/userauthorization.php:159 actions/userrss.php:76
@@ -2924,35 +2976,35 @@ msgstr ""
 #: actions/grouplogo.php:177 actions/remotesubscribe.php:367
 #: actions/userauthorization.php:176 actions/userrss.php:82
 msgid "User without matching profile"
-msgstr ""
+msgstr "Kan ikkje finne brukar"
 
 #: actions/recoverpassword.php:91 actions/recoverpassword.php:97
 msgid "This confirmation code is too old. "
-msgstr ""
+msgstr "Godkjenningskoden er for gammal."
 
 #: actions/recoverpassword.php:141 actions/recoverpassword.php:152
 msgid "If you've forgotten or lost your"
-msgstr ""
+msgstr "Vist du har gløymt eller mista ditt"
 
 #: actions/recoverpassword.php:154 actions/recoverpassword.php:158
 msgid "You've been identified. Enter a "
-msgstr ""
+msgstr "Du har blitt identifisert. Skriv inn"
 
 #: actions/recoverpassword.php:169 actions/recoverpassword.php:188
 msgid "Your nickname on this server, "
-msgstr ""
+msgstr "Ditt kallenamn på denne serveren,"
 
 #: actions/recoverpassword.php:271 actions/recoverpassword.php:304
 msgid "Instructions for recovering your password "
-msgstr ""
+msgstr "Instruksjonar for å hente fram passordet ditt"
 
 #: actions/recoverpassword.php:327 actions/recoverpassword.php:361
 msgid "New password successfully saved. "
-msgstr ""
+msgstr "Nytt passord lagra."
 
 #: actions/register.php:95 actions/register.php:180
 msgid "Password must be 6 or more characters."
-msgstr ""
+msgstr "Passord må være minst 6 teikn."
 
 #: actions/register.php:216
 #, php-format
@@ -2960,43 +3012,45 @@ msgid ""
 "Congratulations, %s! And welcome to %%%%site.name%%%%. From here, you may "
 "want to..."
 msgstr ""
+"Gratulerer, %s!  Og velkomen til %%%%site.name%%%%.  Herfrå kann det hende "
+"du vil..."
 
 #: actions/register.php:227
 msgid "(You should receive a message by email momentarily, with "
-msgstr ""
+msgstr "(Du burde motteke ein e-post snart, med"
 
 #: actions/remotesubscribe.php:51 actions/remotesubscribe.php:74
 #, php-format
 msgid "To subscribe, you can [login](%%action.login%%),"
-msgstr ""
+msgstr "For å tinga må du [logga inn](%%action.login%%),"
 
 #: actions/showfavorites.php:61 actions/showfavorites.php:145
 #, php-format
 msgid "Feed for favorites of %s"
-msgstr ""
+msgstr "Straum for %s sine favorittar"
 
 #: actions/showfavorites.php:84 actions/twitapifavorites.php:85
 #: actions/showfavorites.php:202 actions/twitapifavorites.php:59
 msgid "Could not retrieve favorite notices."
-msgstr ""
+msgstr "Kunne ikkje hente fram favorittane."
 
 #: actions/showmessage.php:33 actions/showmessage.php:81
 msgid "No such message."
-msgstr ""
+msgstr "Kan ikkje finne den meldinga."
 
 #: actions/showmessage.php:42
 msgid "Only the sender and recipient may read this message."
-msgstr ""
+msgstr "Kun sendaren og mottakaren kan lese denne meldinga."
 
 #: actions/showmessage.php:61 actions/showmessage.php:108
 #, php-format
 msgid "Message to %1$s on %2$s"
-msgstr ""
+msgstr "Melding til %1$s på %2$s"
 
 #: actions/showmessage.php:66 actions/showmessage.php:113
 #, php-format
 msgid "Message from %1$s on %2$s"
-msgstr ""
+msgstr "Melding fra %1$s på %2$s"
 
 #: actions/showstream.php:154
 msgid "Send a message"
@@ -3005,26 +3059,26 @@ msgstr "Send ei melding"
 #: actions/smssettings.php:312 actions/smssettings.php:464
 #, php-format
 msgid "Mobile carrier for your phone. "
-msgstr ""
+msgstr "Tenestetilbydar for telefonen din."
 
 #: actions/twitapidirect_messages.php:76 actions/twitapidirect_messages.php:68
 #, php-format
 msgid "Direct messages to %s"
-msgstr ""
+msgstr "Direkte meldingar til %s"
 
 #: actions/twitapidirect_messages.php:77 actions/twitapidirect_messages.php:69
 #, php-format
 msgid "All the direct messages sent to %s"
-msgstr ""
+msgstr "Alle direkte meldingar sendt til %s"
 
 #: actions/twitapidirect_messages.php:81 actions/twitapidirect_messages.php:73
 msgid "Direct Messages You've Sent"
-msgstr ""
+msgstr "Alle direkte meldingar du har sendt"
 
 #: actions/twitapidirect_messages.php:82 actions/twitapidirect_messages.php:74
 #, php-format
 msgid "All the direct messages sent from %s"
-msgstr ""
+msgstr "Alle direkte meldingar sendt fra %s"
 
 #: actions/twitapidirect_messages.php:128
 #: actions/twitapidirect_messages.php:137
@@ -3034,28 +3088,28 @@ msgstr "Inga meldingstekst!"
 #: actions/twitapidirect_messages.php:138
 #: actions/twitapidirect_messages.php:150
 msgid "Recipient user not found."
-msgstr ""
+msgstr "Kunne ikkje finne mottakar."
 
 #: actions/twitapidirect_messages.php:141
 #: actions/twitapidirect_messages.php:153
 msgid "Can't send direct messages to users who aren't your friend."
-msgstr ""
+msgstr "Kan ikkje senda direktemeldingar til brukarar som du ikkje er ven med."
 
 #: actions/twitapifavorites.php:92 actions/twitapifavorites.php:66
 #, php-format
 msgid "%s / Favorites from %s"
-msgstr ""
+msgstr "%s / Favorittar frå %s"
 
 #: actions/twitapifavorites.php:95 actions/twitapifavorites.php:69
 #, php-format
 msgid "%s updates favorited by %s / %s."
-msgstr ""
+msgstr "%s oppdateringar favorisert av %s / %s."
 
 #: actions/twitapifavorites.php:187 lib/mail.php:275
 #: actions/twitapifavorites.php:164 lib/mail.php:553
 #, php-format
 msgid "%s added your notice as a favorite"
-msgstr ""
+msgstr "%s la til di melding som ein favoritt"
 
 #: actions/twitapifavorites.php:188 lib/mail.php:276
 #: actions/twitapifavorites.php:165
@@ -3064,11 +3118,15 @@ msgid ""
 "%1$s just added your notice from %2$s as one of their favorites.\n"
 "\n"
 msgstr ""
+"%1$s la akkurat til di melding frå %2$s som ein av deira favorittar.\n"
+"\n"
 
 #: actions/twittersettings.php:27
 msgid ""
 "Add your Twitter account to automatically send your notices to Twitter, "
 msgstr ""
+"Legg til Twitter-kontoen din for å automatisk senda dine uppdateringar til "
+"Twitter,"
 
 #: actions/twittersettings.php:41 actions/twittersettings.php:60
 msgid "Twitter settings"
@@ -3121,12 +3179,12 @@ msgstr "Twitter-informasjonen fungerer ikkje mot Twitter."
 #: actions/twittersettings.php:137
 #, php-format
 msgid "Unable to retrieve account information for \"%s\" from Twitter."
-msgstr ""
+msgstr "Klarte ikkje å hente informasjon fra kontoen din, «%s», frå Twitter."
 
 #: actions/twittersettings.php:151 actions/twittersettings.php:170
 #: actions/twittersettings.php:348 actions/twittersettings.php:368
 msgid "Unable to save your Twitter settings!"
-msgstr ""
+msgstr "Klarte ikkje å lagra Twitter-innstillingane dine!"
 
 #: actions/twittersettings.php:174 actions/twittersettings.php:376
 msgid "Twitter settings saved."
@@ -3149,39 +3207,39 @@ msgstr "Fjerna Twitter-brukar."
 #: actions/twittersettings.php:428 actions/twittersettings.php:439
 #: actions/twittersettings.php:453
 msgid "Couldn't save Twitter preferences."
-msgstr ""
+msgstr "Klarte ikkje å lagra Twitter-innstillingar."
 
 #: actions/twittersettings.php:245 actions/twittersettings.php:461
 msgid "Twitter preferences saved."
-msgstr ""
+msgstr "Twitter-innstillingar lagra."
 
 #: actions/userauthorization.php:84 actions/userauthorization.php:86
 msgid "Please check these details to make sure "
-msgstr ""
+msgstr "Ver venleg å sjekke denne informasjonen for å forsikra um at"
 
 #: actions/userauthorization.php:324 actions/userauthorization.php:340
 msgid "The subscription has been authorized, but no "
-msgstr ""
+msgstr "Abonnementet blei godkjend, men ingen"
 
 #: actions/userauthorization.php:334 actions/userauthorization.php:351
 msgid "The subscription has been rejected, but no "
-msgstr ""
+msgstr "Abonnementet blei avslådd, men ingen"
 
 #: classes/Channel.php:113 classes/Channel.php:132 classes/Channel.php:151
 msgid "Command results"
-msgstr ""
+msgstr "Resultat frå kommandoen"
 
 #: classes/Channel.php:148 classes/Channel.php:204
 msgid "Command complete"
-msgstr ""
+msgstr "Kommandoen utførd"
 
 #: classes/Channel.php:158 classes/Channel.php:215
 msgid "Command failed"
-msgstr ""
+msgstr "Kommandoen feila"
 
 #: classes/Command.php:39 classes/Command.php:44
 msgid "Sorry, this command is not yet implemented."
-msgstr ""
+msgstr "Orsak, men kommandoen er ikkje laga enno."
 
 #: classes/Command.php:96 classes/Command.php:113
 #, php-format
@@ -3195,7 +3253,7 @@ msgstr "Brukaren har ikkje siste notis"
 
 #: classes/Command.php:146 classes/Command.php:166
 msgid "Notice marked as fave."
-msgstr ""
+msgstr "Notis markert som favoritt."
 
 #: classes/Command.php:166 classes/Command.php:189
 #, php-format
@@ -3225,20 +3283,20 @@ msgstr "Om: %s"
 #: classes/Command.php:200 classes/Command.php:228
 #, php-format
 msgid "Message too long - maximum is 140 characters, you sent %d"
-msgstr ""
+msgstr "Melding for lang - maksimum 140 teikn, du skreiv %d"
 
 #: classes/Command.php:214 classes/Command.php:245
 #, php-format
 msgid "Direct message to %s sent"
-msgstr ""
+msgstr "Direkte melding til %s sendt"
 
 #: classes/Command.php:216 classes/Command.php:247
 msgid "Error sending direct message."
-msgstr ""
+msgstr "Ein feil oppstod ved sending av direkte melding."
 
 #: classes/Command.php:263 classes/Command.php:300
 msgid "Specify the name of the user to subscribe to"
-msgstr ""
+msgstr "Spesifer namnet til brukaren du vil tinge"
 
 #: classes/Command.php:270 classes/Command.php:307
 #, php-format
@@ -3247,7 +3305,7 @@ msgstr "Tingar %s"
 
 #: classes/Command.php:288 classes/Command.php:328
 msgid "Specify the name of the user to unsubscribe from"
-msgstr ""
+msgstr "Spesifer namnet til brukar du vil fjerne tinging på"
 
 #: classes/Command.php:295 classes/Command.php:335
 #, php-format
@@ -3257,7 +3315,7 @@ msgstr "Tingar ikkje %s lengre"
 #: classes/Command.php:310 classes/Command.php:330 classes/Command.php:353
 #: classes/Command.php:376
 msgid "Command not yet implemented."
-msgstr ""
+msgstr "Kommando ikkje implementert."
 
 #: classes/Command.php:313 classes/Command.php:356
 msgid "Notification off."
@@ -3281,15 +3339,15 @@ msgstr "Komandoar:\n"
 
 #: classes/Message.php:53 classes/Message.php:56
 msgid "Could not insert message."
-msgstr ""
+msgstr "Kunne ikkje lagre melding."
 
 #: classes/Message.php:63 classes/Message.php:66
 msgid "Could not update message with new URI."
-msgstr ""
+msgstr "Kunne ikkje oppdatere melding med ny URI."
 
 #: lib/gallery.php:46
 msgid "User without matching profile in system."
-msgstr ""
+msgstr "Kunne ikkje finne ein brukar med den profilen i systemet."
 
 #: lib/mail.php:147 lib/mail.php:289
 #, php-format
@@ -3297,11 +3355,13 @@ msgid ""
 "You have a new posting address on %1$s.\n"
 "\n"
 msgstr ""
+"Du har ei ny addresse å sende til på %1$s.\n"
+"\n"
 
 #: lib/mail.php:249 lib/mail.php:508
 #, php-format
 msgid "New private message from %s"
-msgstr ""
+msgstr "Ny privat melding fra %s"
 
 #: lib/mail.php:253 lib/mail.php:512
 #, php-format
@@ -3309,23 +3369,25 @@ msgid ""
 "%1$s (%2$s) sent you a private message:\n"
 "\n"
 msgstr ""
+"%1$s (%2$s) sendte deg ei privat melding: \n"
+"\n"
 
 #: lib/mailbox.php:43 lib/mailbox.php:89
 msgid "Only the user can read their own mailboxes."
-msgstr ""
+msgstr "Kun brukaren kan lese sine eigne meldingar."
 
 #: lib/openid.php:195 lib/openid.php:203
 msgid "This form should automatically submit itself. "
-msgstr ""
+msgstr "Dette skjemaet vil automatisk bli sendt."
 
 #: lib/personal.php:65 lib/personalgroupnav.php:113
 msgid "Favorites"
-msgstr ""
+msgstr "Favorittar"
 
 #: lib/personal.php:66 lib/personalgroupnav.php:114
 #, php-format
 msgid "%s's favorite notices"
-msgstr ""
+msgstr "%s's favoritt meldingar"
 
 #: lib/personal.php:66 lib/personalgroupnav.php:114
 msgid "User"
@@ -3364,33 +3426,32 @@ msgid "Could not parse message."
 msgstr "Kunne ikkje prosessera melding."
 
 #: actions/all.php:63 actions/facebookhome.php:162
-#, fuzzy, php-format
+#, php-format
 msgid "%s and friends, page %d"
-msgstr "%s med vener"
+msgstr "%s med vener, side %d"
 
 #: actions/avatarsettings.php:76
 msgid "You can upload your personal avatar."
-msgstr ""
+msgstr "Du kan laste opp ein personleg avatar."
 
 #: actions/avatarsettings.php:117 actions/avatarsettings.php:191
 #: actions/grouplogo.php:250
-#, fuzzy
 msgid "Avatar settings"
-msgstr "Twitter-innstillingar"
+msgstr "Avatar-innstillingar"
 
 #: actions/avatarsettings.php:124 actions/avatarsettings.php:199
 #: actions/grouplogo.php:198 actions/grouplogo.php:258
 msgid "Original"
-msgstr ""
+msgstr "Original"
 
 #: actions/avatarsettings.php:139 actions/avatarsettings.php:211
 #: actions/grouplogo.php:209 actions/grouplogo.php:270
 msgid "Preview"
-msgstr ""
+msgstr "Forhandsvis"
 
 #: actions/avatarsettings.php:225 actions/grouplogo.php:284
 msgid "Crop"
-msgstr ""
+msgstr "Skaler"
 
 #: actions/avatarsettings.php:248 actions/deletenotice.php:133
 #: actions/emailsettings.php:224 actions/grouplogo.php:307
@@ -3402,606 +3463,553 @@ msgstr ""
 #: actions/subedit.php:38 actions/twittersettings.php:290
 #: actions/userauthorization.php:39
 msgid "There was a problem with your session token. "
-msgstr ""
+msgstr "Der var eit problem med sesjonen."
 
 #: actions/avatarsettings.php:303 actions/grouplogo.php:360
 msgid "Pick a square area of the image to be your avatar"
-msgstr ""
+msgstr "Velg eit utvalg av bildet som vil blir din avatar."
 
 #: actions/avatarsettings.php:327 actions/grouplogo.php:384
 msgid "Lost our file data."
-msgstr ""
+msgstr "Fant ikkje igjen fil data."
 
 #: actions/avatarsettings.php:334 actions/grouplogo.php:391
 #: classes/User_group.php:112
-#, fuzzy
 msgid "Lost our file."
-msgstr "Denne notisen finst ikkje."
+msgstr "Mista fila vår."
 
 #: actions/avatarsettings.php:349 actions/avatarsettings.php:383
 #: actions/grouplogo.php:406 actions/grouplogo.php:440
 #: classes/User_group.php:129 classes/User_group.php:161
 msgid "Unknown file type"
-msgstr ""
+msgstr "Ukjend fil type"
 
 #: actions/block.php:69 actions/subedit.php:46 actions/unblock.php:70
-#, fuzzy
 msgid "No profile specified."
-msgstr "Ingen mobiloperatør vald."
+msgstr "Ingen vald profil."
 
 #: actions/block.php:74 actions/subedit.php:53 actions/tagother.php:46
 #: actions/unblock.php:75
-#, fuzzy
 msgid "No profile with that ID."
-msgstr "Fann ingen status med den ID-en."
+msgstr "Fann ingen profil med den IDen."
 
 #: actions/block.php:111
-#, fuzzy
 msgid "Block user"
-msgstr "Brukaren finst ikkje."
+msgstr "Blokker brukaren"
 
 #: actions/block.php:129
-#, fuzzy
 msgid "Are you sure you want to block this user? "
-msgstr "Sikker på at du vil sletta notisen?"
+msgstr "Er du sikker på at du vil blokkera denne brukaren?"
 
 #: actions/block.php:162
-#, fuzzy
 msgid "You have already blocked this user."
-msgstr "Du er allereie innlogga."
+msgstr "Du har allereie blokkert denne brukaren."
 
 #: actions/block.php:167
 msgid "Failed to save block information."
-msgstr ""
+msgstr "Lagring av informasjon feila."
 
 #: actions/confirmaddress.php:159
-#, fuzzy, php-format
+#, php-format
 msgid "The address \"%s\" has been "
-msgstr "Addressa blei fjerna."
+msgstr "Addressa «%s» blei"
 
 #: actions/deletenotice.php:73
-#, fuzzy
 msgid "You are about to permanently delete a notice. "
-msgstr "Sikker på at du vil sletta notisen?"
+msgstr "Du er i ferd med å fjerne ein oppdatering for godt."
 
 #: actions/disfavor.php:94
 msgid "Add to favorites"
-msgstr ""
+msgstr "Legg til i favorittar"
 
 #: actions/editgroup.php:54
 #, php-format
 msgid "Edit %s group"
-msgstr ""
+msgstr "Rediger %s gruppa"
 
 #: actions/editgroup.php:66 actions/groupbyid.php:72 actions/grouplogo.php:66
 #: actions/joingroup.php:60 actions/newgroup.php:65 actions/showgroup.php:100
 msgid "Inboxes must be enabled for groups to work"
-msgstr ""
+msgstr "Innboks må være slått på for at grupper skal virke"
 
 #: actions/editgroup.php:71 actions/grouplogo.php:71 actions/newgroup.php:70
 msgid "You must be logged in to create a group."
-msgstr ""
+msgstr "Du må være logga inn for å lage ei gruppe."
 
 #: actions/editgroup.php:87 actions/grouplogo.php:87
 #: actions/groupmembers.php:76 actions/joingroup.php:81
 #: actions/showgroup.php:121
-#, fuzzy
 msgid "No nickname"
-msgstr "Ingen kallenamn."
+msgstr "Ingen kallenamn"
 
 #: actions/editgroup.php:99 actions/groupbyid.php:88 actions/grouplogo.php:100
 #: actions/groupmembers.php:83 actions/joingroup.php:88
 #: actions/showgroup.php:128
-#, fuzzy
 msgid "No such group"
-msgstr "Denne notisen finst ikkje."
+msgstr "Fann ikkje gruppa"
 
 #: actions/editgroup.php:106 actions/editgroup.php:165
 #: actions/grouplogo.php:107
 msgid "You must be an admin to edit the group"
-msgstr ""
+msgstr "Du må være administrator for å redigere gruppa"
 
 #: actions/editgroup.php:157
 msgid "Use this form to edit the group."
-msgstr ""
+msgstr "Bruk dette skjemaet for å redigere gruppa"
 
 #: actions/editgroup.php:179 actions/newgroup.php:130 actions/register.php:156
-#, fuzzy
 msgid "Nickname must have only lowercase letters "
-msgstr "Kallenamn må berre ha små bokstavar og nummer, ingen mellomrom."
+msgstr "Kallenamn kann berre ha små bokstavar"
 
 #: actions/editgroup.php:198 actions/newgroup.php:149
-#, fuzzy
 msgid "description is too long (max 140 chars)."
-msgstr "«Om meg» er for lang (maks 140 "
+msgstr "skildringa er for lang (maks 140 teikn)."
 
 #: actions/editgroup.php:218
-#, fuzzy
 msgid "Could not update group."
-msgstr "Kan ikkje oppdatera brukar."
+msgstr "Kann ikkje oppdatera gruppa."
 
 #: actions/editgroup.php:226
-#, fuzzy
 msgid "Options saved."
 msgstr "Lagra innstillingar."
 
 #: actions/emailsettings.php:107 actions/imsettings.php:108
-#, fuzzy, php-format
+#, php-format
 msgid "Awaiting confirmation on this address. "
-msgstr "Ventar på godkjenning for dette telefonnummeret."
+msgstr "Ventar på godkjenning for denne adressa."
 
 #: actions/emailsettings.php:139 actions/smssettings.php:150
-#, fuzzy
 msgid "Make a new email address for posting to; "
-msgstr "Ny epostadresse for å oppdatera %s"
+msgstr "Lag ei ny e-postadresse for å posta til;"
 
 #: actions/emailsettings.php:157
 msgid "Send me email when someone "
-msgstr ""
+msgstr "Send meg ein epost når nokon "
 
 #: actions/emailsettings.php:168
 msgid "Allow friends to nudge me and send me an email."
-msgstr ""
+msgstr "Tillat vennar å sende meg ein epost."
 
 #: actions/emailsettings.php:321
-#, fuzzy
 msgid "That email address already belongs "
-msgstr "Den epost addressa er alt registrert hos ein annan brukar."
+msgstr "Den e-postadressa er alt registrert hjå"
 
 #: actions/emailsettings.php:343
-#, fuzzy
 msgid "A confirmation code was sent to the email address you added. "
-msgstr ""
-"Sendte konfirmasjonskode til ljonmeldingsadressa du la til. Du må godtaka %"
-"sfor å senda meldinger til deg."
+msgstr "Sendte konfirmasjonskode til e-postadresse du la til."
 
 #: actions/facebookhome.php:110
 msgid "Server error - couldn't get user!"
-msgstr ""
+msgstr "Server feil - kunne ikkje hente brukar!"
 
 #: actions/facebookhome.php:196
 #, php-format
 msgid "If you would like the %s app to automatically update "
-msgstr ""
+msgstr "Vist du ønskjer at %s applikasjon skal automatisk oppgradere"
 
 #: actions/facebookhome.php:213 actions/facebooksettings.php:137
 #, php-format
 msgid "Allow %s to update my Facebook status"
-msgstr ""
+msgstr "Tillat %s å oppdatere min Facebook status"
 
 #: actions/facebookhome.php:218
 msgid "Skip"
-msgstr ""
+msgstr "Hopp over"
 
 #: actions/facebookhome.php:235
-#, fuzzy
 msgid "No notice content!"
 msgstr "Ingen innhald."
 
 #: actions/facebookhome.php:295 lib/action.php:870 lib/facebookaction.php:399
 msgid "Pagination"
-msgstr ""
+msgstr "Paginering"
 
 #: actions/facebookhome.php:304 lib/action.php:879 lib/facebookaction.php:408
-#, fuzzy
 msgid "After"
 msgstr "« Etter"
 
 #: actions/facebookhome.php:312 lib/action.php:887 lib/facebookaction.php:416
-#, fuzzy
 msgid "Before"
 msgstr "Før »"
 
 #: actions/facebookinvite.php:70
 #, php-format
 msgid "Thanks for inviting your friends to use %s"
-msgstr ""
+msgstr "Takk for at du inviterar vennane dine til å bruke %s"
 
 #: actions/facebookinvite.php:72
-#, fuzzy
 msgid "Invitations have been sent to the following users:"
 msgstr "Invitasjon(er) sendt til fylgjande folk:"
 
 #: actions/facebookinvite.php:96
 #, php-format
 msgid "You have been invited to %s"
-msgstr ""
+msgstr "Du har blitt invitert til %s"
 
 #: actions/facebookinvite.php:105
-#, fuzzy, php-format
+#, php-format
 msgid "Invite your friends to use %s"
-msgstr "Straum for vener av %s"
+msgstr "Inviter venane dine til å nytta %s"
 
 #: actions/facebookinvite.php:113
 #, php-format
 msgid "Friends already using %s:"
-msgstr ""
+msgstr "Vennar som alt brukar %s:"
 
 #: actions/facebookinvite.php:130
 #, php-format
 msgid "Send invitations"
-msgstr ""
+msgstr "Send invitasjonar"
 
 #: actions/facebookremove.php:56
-#, fuzzy
 msgid "Couldn't remove Facebook user."
-msgstr "Kunne ikkje fjerna Twitter-brukar."
+msgstr "Kunne ikkje fjerna Facebook-brukar."
 
 #: actions/facebooksettings.php:65
 msgid "There was a problem saving your sync preferences!"
-msgstr ""
+msgstr "Der oppstod eit problem med å lagre synkroniserings innstillingane!"
 
 #: actions/facebooksettings.php:67
-#, fuzzy
 msgid "Sync preferences saved."
-msgstr "Lagra brukarval."
+msgstr "Synkroniserings innstillingar blei lagra."
 
 #: actions/facebooksettings.php:90
-#, fuzzy
 msgid "Automatically update my Facebook status with my notices."
-msgstr "Send mine notisar til Twitter."
+msgstr "Automatisk uppdater Facebook-statusen min med nye uppdateringar."
 
 #: actions/facebooksettings.php:97
-#, fuzzy
 msgid "Send \"@\" replies to Facebook."
-msgstr "Send lokale «@»-svar til Twitter."
+msgstr "Send lokale «@»-svar til Facebook."
 
 #: actions/facebooksettings.php:106
-#, fuzzy
 msgid "Prefix"
-msgstr "Profil"
+msgstr "Førestaving"
 
 #: actions/facebooksettings.php:108
 msgid "A string to prefix notices with."
-msgstr ""
+msgstr "Ein tekst å legge til før alle notisar."
 
 #: actions/facebooksettings.php:124
 #, php-format
 msgid "If you would like %s to automatically update "
-msgstr ""
+msgstr "Vist du ønskjer at %s skal atuomatisk oppdatere"
 
 #: actions/facebooksettings.php:147
-#, fuzzy
 msgid "Sync preferences"
-msgstr "Brukarval"
+msgstr "Synkronisering"
 
 #: actions/favor.php:94 lib/disfavorform.php:140
 msgid "Disfavor favorite"
-msgstr ""
+msgstr "Fjern favoritt"
 
 #: actions/favorited.php:65 lib/popularnoticesection.php:76
 #: lib/publicgroupnav.php:91
-#, fuzzy
 msgid "Popular notices"
-msgstr "Denne notisen finst ikkje."
+msgstr "Populære notisar"
 
 #: actions/favorited.php:67
-#, fuzzy, php-format
+#, php-format
 msgid "Popular notices, page %d"
-msgstr "Denne notisen finst ikkje."
+msgstr "Populære notisar, side %d"
 
 #: actions/favorited.php:79
-#, fuzzy
 msgid "The most popular notices on the site right now."
-msgstr "Viser dei mest populære merkelappane fra siste veka"
+msgstr "Viser dei mest populære notisane på sida akkurat no."
 
 #: actions/featured.php:69 lib/featureduserssection.php:82
 #: lib/publicgroupnav.php:87
 msgid "Featured users"
-msgstr ""
+msgstr "Profilerte folk"
 
 #: actions/featured.php:71
 #, php-format
 msgid "Featured users, page %d"
-msgstr ""
+msgstr "Profilerte folk, side %d"
 
 #: actions/featured.php:99
 #, php-format
 msgid "A selection of some of the great users on %s"
-msgstr ""
+msgstr "Eit utval av nokre av dei flotte folka på %s"
 
 #: actions/finishremotesubscribe.php:188
 msgid "That user has blocked you from subscribing."
-msgstr ""
+msgstr "Brukaren tillet deg ikkje å tinga meldingane sine."
 
 #: actions/groupbyid.php:79
 msgid "No ID"
-msgstr ""
+msgstr "Ingen ID"
 
 #: actions/grouplogo.php:138 actions/grouplogo.php:191
 msgid "Group logo"
-msgstr ""
+msgstr "Logo åt gruppa"
 
 #: actions/grouplogo.php:149
 msgid "You can upload a logo image for your group."
-msgstr ""
+msgstr "Du kan lasta opp ein logo for gruppa."
 
 #: actions/grouplogo.php:448
-#, fuzzy
 msgid "Logo updated."
-msgstr "Lasta opp brukarbilete."
+msgstr "Logo oppdatert."
 
 #: actions/grouplogo.php:450
-#, fuzzy
 msgid "Failed updating logo."
-msgstr "Feil ved oppdatering av brukarbilete."
+msgstr "Feil ved oppdatering av logo."
 
 #: actions/groupmembers.php:93 lib/groupnav.php:91
 #, php-format
 msgid "%s group members"
-msgstr ""
+msgstr "%s medlemmar i gruppa"
 
 #: actions/groupmembers.php:96
 #, php-format
 msgid "%s group members, page %d"
-msgstr ""
+msgstr "%s medlemmar i gruppa, side %d"
 
 #: actions/groupmembers.php:111
 msgid "A list of the users in this group."
-msgstr ""
+msgstr "Ei liste over brukarane i denne gruppa."
 
 #: actions/groups.php:62 actions/showstream.php:518 lib/publicgroupnav.php:79
 #: lib/subgroupnav.php:96
 msgid "Groups"
-msgstr ""
+msgstr "Grupper"
 
 #: actions/groups.php:64
 #, php-format
 msgid "Groups, page %d"
-msgstr ""
+msgstr "Grupper, side %d"
 
 #: actions/groups.php:90
 #, php-format
 msgid "%%%%site.name%%%% groups let you find and talk with "
-msgstr ""
+msgstr "%%%%site.name%%%% grupper lar deg finne og snakke med"
 
 #: actions/groups.php:106 actions/usergroups.php:124 lib/groupeditform.php:123
-#, fuzzy
 msgid "Create a new group"
-msgstr "Opprett ny konto"
+msgstr "Opprett ei ny gruppe"
 
 #: actions/groupsearch.php:57
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Search for groups on %%site.name%% by their name, location, or description. "
-msgstr ""
-"Søk for mennesker på %%site.name%% i namn, lokasjon eller interesse. Separer "
-"nøkkelord med mellomrom; dei må være minimum 3 bokstavar eller meir."
+msgstr "Søk etter grupper på %%site.name%% etter namn, stad eller skildring."
 
 #: actions/groupsearch.php:63
-#, fuzzy
 msgid "Group search"
-msgstr "Søk etter folk"
+msgstr "Gruppesøk"
 
 #: actions/imsettings.php:70
 msgid "You can send and receive notices through "
-msgstr ""
+msgstr "Du kan sende og motta meldingar gjennom"
 
 #: actions/imsettings.php:120
 #, php-format
 msgid "Jabber or GTalk address, "
-msgstr ""
+msgstr "Jabber eller GTalk addresse,"
 
 #: actions/imsettings.php:147
-#, fuzzy
 msgid "Send me replies through Jabber/GTalk "
-msgstr "Send meg ein notis via Jabber/GTalk."
+msgstr "Send meg svar på Jabber/GTalk."
 
 #: actions/imsettings.php:321
-#, fuzzy, php-format
+#, php-format
 msgid "A confirmation code was sent "
-msgstr "Ingen stadfestingskode."
+msgstr "Ein stadfestingskode vart sendt"
 
 #: actions/joingroup.php:65
 msgid "You must be logged in to join a group."
-msgstr ""
+msgstr "Du må være logga inn for å bli med i ei gruppe."
 
 #: actions/joingroup.php:95
-#, fuzzy
 msgid "You are already a member of that group"
-msgstr "Du er allereie innlogga."
+msgstr "Du er allereie medlem av den gruppa"
 
 #: actions/joingroup.php:128
-#, fuzzy, php-format
+#, php-format
 msgid "Could not join user %s to group %s"
-msgstr "Fann ikkje brukaren, so han kan ikkje fylgjast"
+msgstr "Kunne ikkje melde brukaren %s inn i gruppa %s"
 
 #: actions/joingroup.php:135
 #, php-format
 msgid "%s joined group %s"
-msgstr ""
+msgstr "%s blei medlem av gruppe %s"
 
 #: actions/leavegroup.php:60
 msgid "Inboxes must be enabled for groups to work."
-msgstr ""
+msgstr "Innboks må være slått på for at grupper skal kunne fungere."
 
 #: actions/leavegroup.php:65
 msgid "You must be logged in to leave a group."
-msgstr ""
+msgstr "Du må være innlogga for å melde deg ut av ei gruppe."
 
 #: actions/leavegroup.php:88
-#, fuzzy
 msgid "No such group."
-msgstr "Denne notisen finst ikkje."
+msgstr "Denne gruppa finst ikkje."
 
 #: actions/leavegroup.php:95
-#, fuzzy
 msgid "You are not a member of that group."
-msgstr "Kan ikkje tinga andre til deg."
+msgstr "Du er ikkje medlem av den gruppa."
 
 #: actions/leavegroup.php:100
 msgid "You may not leave a group while you are its administrator."
-msgstr ""
+msgstr "Du kan ikkje melde deg ut av ei gruppe når du er administrator i den."
 
 #: actions/leavegroup.php:130
-#, fuzzy
 msgid "Could not find membership record."
-msgstr "Kan ikkje oppdatera brukarinformajon."
+msgstr "Kan ikkje finne brukar."
 
 #: actions/leavegroup.php:138
-#, fuzzy, php-format
+#, php-format
 msgid "Could not remove user %s to group %s"
-msgstr "Fann ikkje brukaren, so han kan ikkje fylgjast"
+msgstr "Kunne ikkje fjerne %s fra %s gruppa "
 
 #: actions/leavegroup.php:145
 #, php-format
 msgid "%s left group %s"
-msgstr ""
+msgstr "%s forlot %s gruppa"
 
 #: actions/login.php:225 lib/facebookaction.php:304
 msgid "Login to site"
-msgstr ""
+msgstr "Logg inn "
 
 #: actions/microsummary.php:69
 msgid "No current status"
-msgstr ""
+msgstr "Ingen status"
 
 #: actions/newgroup.php:53
 msgid "New group"
-msgstr ""
+msgstr "Ny gruppe"
 
 #: actions/newgroup.php:115
 msgid "Use this form to create a new group."
-msgstr ""
+msgstr "Bruk dette skjemaet for å lage ein ny gruppe."
 
 #: actions/newgroup.php:177
-#, fuzzy
 msgid "Could not create group."
-msgstr "Kan ikkje lagra brukarbilete-informasjon"
+msgstr "Kunne ikkje laga gruppa."
 
 #: actions/newgroup.php:191
-#, fuzzy
 msgid "Could not set group membership."
-msgstr "Kan ikkje sletta tinging."
+msgstr "Kunne ikkje bli med i gruppa."
 
 #: actions/newmessage.php:119 actions/newnotice.php:132
-#, fuzzy
 msgid "That's too long. "
-msgstr "Fila er for stor."
+msgstr "Det er for langt."
 
 #: actions/newmessage.php:134
 msgid "Don't send a message to yourself; "
-msgstr ""
+msgstr "Ikkje send melding til deg sjølv;"
 
 #: actions/newnotice.php:166
-#, fuzzy
 msgid "Notice posted"
-msgstr "Notisar"
+msgstr "Melding lagra"
 
 #: actions/newnotice.php:200 classes/Channel.php:163
 msgid "Ajax Error"
-msgstr ""
+msgstr "Ajax feil"
 
 #: actions/nudge.php:85
 msgid ""
 "This user doesn't allow nudges or hasn't confirmed or set his email yet."
 msgstr ""
+"Denne brukaren tillét ikkje å bli dytta, eller har ikkje stadfasta eller sat "
+"e-postadressa si enno."
 
 #: actions/nudge.php:94
 msgid "Nudge sent"
-msgstr ""
+msgstr "Dytta!"
 
 #: actions/nudge.php:97
 msgid "Nudge sent!"
-msgstr ""
+msgstr "Dytta!"
 
 #: actions/openidlogin.php:97
-#, fuzzy
 msgid "OpenID login"
-msgstr "OpenID-adresse"
+msgstr "OpenID-innlogging"
 
 #: actions/openidsettings.php:128
-#, fuzzy
 msgid "Removing your only OpenID "
-msgstr "Fjern OpenID"
+msgstr "Fjernar din einaste OpenID"
 
 #: actions/othersettings.php:60
-#, fuzzy
 msgid "Other Settings"
-msgstr "Twitter-innstillingar"
+msgstr "Andre innstillingar"
 
 #: actions/othersettings.php:71
 msgid "Manage various other options."
-msgstr ""
+msgstr "Velikehald andre innstillingar"
 
 #: actions/othersettings.php:93
 msgid "URL Auto-shortening"
-msgstr ""
+msgstr "URL forkorting"
 
 #: actions/othersettings.php:112
-#, fuzzy
 msgid "Service"
-msgstr "Søk"
+msgstr "Teneste"
 
 #: actions/othersettings.php:113
 msgid "Automatic shortening service to use."
-msgstr ""
+msgstr "Den automatisk forkortingstenesta du vil bruke"
 
 #: actions/othersettings.php:144
-#, fuzzy
 msgid "URL shortening service is too long (max 50 chars)."
-msgstr "Språk er for langt (maksimalt 50 teikn)."
+msgstr "Adressa til forkortingstenesta er for lang (maksimalt 50 teikn)."
 
 #: actions/passwordsettings.php:69
-#, fuzzy
 msgid "Change your password."
 msgstr "Endra passordet ditt"
 
 #: actions/passwordsettings.php:89
-#, fuzzy
 msgid "Password change"
-msgstr "Lagra passord."
+msgstr "Endra passord"
 
 #: actions/peopletag.php:35
-#, fuzzy, php-format
+#, php-format
 msgid "Not a valid people tag: %s"
-msgstr "Ikkje ei gyldig epostadresse"
+msgstr "Ikkje gyldig merkelapp: %s"
 
 #: actions/peopletag.php:47
 #, php-format
 msgid "Users self-tagged with %s - page %d"
-msgstr ""
+msgstr "Brukarar sjølv-merka med %s, side %d"
 
 #: actions/peopletag.php:91
 #, php-format
 msgid "These are users who have tagged themselves \"%s\" "
-msgstr ""
+msgstr "Desse brukarane har merka seg sjølve med «%s»"
 
 #: actions/profilesettings.php:91
-#, fuzzy
 msgid "Profile information"
-msgstr "Ukjend profil"
+msgstr "Profil informasjon"
 
 #: actions/profilesettings.php:124
 msgid ""
 "Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated"
 msgstr ""
+"merkelappar for deg sjølv ( bokstavar, nummer, -, ., og _ ), komma eller "
+"mellomroms separert."
 
 #: actions/profilesettings.php:144
-#, fuzzy
 msgid "Automatically subscribe to whoever "
-msgstr ""
-"Automatisk ting notisane til dei som tingar mine (best for ikkje-menneskje)"
+msgstr "Automatisk tinging av alle som"
 
 #: actions/profilesettings.php:229 actions/tagother.php:176
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid tag: \"%s\""
-msgstr "Ugyldig heimeside «%s»"
+msgstr "Ugyldig merkelapp: %s"
 
 #: actions/profilesettings.php:311
-#, fuzzy
 msgid "Couldn't save tags."
-msgstr "Kan ikkje lagra profil."
+msgstr "Kan ikkje lagra merkelapp."
 
 #: actions/public.php:107
-#, fuzzy, php-format
+#, php-format
 msgid "Public timeline, page %d"
-msgstr "Offentleg tidsline"
+msgstr "Offentleg tidsline, side %d"
 
 #: actions/public.php:173
-#, fuzzy
 msgid "Could not retrieve public stream."
-msgstr "Kan ikkje tinga."
+msgstr "Kan ikkje hente offentleg straum."
 
 #: actions/public.php:220
 #, php-format
@@ -4009,136 +4017,127 @@ msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
 "blogging) service "
 msgstr ""
+"Dette er %%site.name%%, ei [mikroblogging](http://en.wikipedia.org/wiki"
+"/Micro-blogging)-teneste"
 
 #: actions/publictagcloud.php:57
-#, fuzzy
 msgid "Public tag cloud"
-msgstr "Offentleg straum"
+msgstr "Offentleg emne sky"
 
 #: actions/publictagcloud.php:63
 #, php-format
 msgid "These are most popular recent tags on %s "
-msgstr ""
+msgstr "Dei mest populære emna på %s"
 
 #: actions/publictagcloud.php:119
 msgid "Tag cloud"
-msgstr ""
+msgstr "Emne sky"
 
 #: actions/register.php:139 actions/register.php:349
 msgid "Sorry, only invited people can register."
-msgstr ""
+msgstr "Beklage, men kun inviterte kan registrere seg."
 
 #: actions/register.php:149
 msgid "You can't register if you don't "
-msgstr ""
+msgstr "Du kan ikkje registrera om du ikkje"
 
 #: actions/register.php:286
 msgid "With this form you can create "
-msgstr ""
+msgstr "Med dette skjemaet kan du laga"
 
 #: actions/register.php:368
-#, fuzzy
 msgid "1-64 lowercase letters or numbers, "
-msgstr ""
-"1-64 små bokstavar eller tal, ingen punktum (og liknande) eller mellomrom"
+msgstr "1-64 små bokstavar eller tal,"
 
 #: actions/register.php:382 actions/register.php:386
 msgid "Used only for updates, announcements, "
-msgstr ""
+msgstr "Berre nytta for oppdatering, annonseringar,"
 
 #: actions/register.php:398
 msgid "URL of your homepage, blog, "
-msgstr ""
+msgstr "URL til heimesida, bloggen,"
 
 #: actions/register.php:404
-#, fuzzy
 msgid "Describe yourself and your "
-msgstr "Skriv om deg og interessene dine med 140 teikn"
+msgstr "Skildra deg sjølv og din"
 
 #: actions/register.php:410
-#, fuzzy
 msgid "Where you are, like \"City, "
-msgstr "Kvar er du, t.d. «Stavanger, Rogaland, Noreg»"
+msgstr "Kvar er du, t.d. «Stad, Fylke, Land»"
 
 #: actions/register.php:432
-#, fuzzy
 msgid " except this private data: password, "
-msgstr ""
-" unnateke privat data: passord, epostadresse, ljonmeldingsadresse og "
-"telefonnummer."
+msgstr " unnateke privat data: passord,"
 
 #: actions/register.php:471
 #, php-format
 msgid "Congratulations, %s! And welcome to %%%%site.name%%%%. "
-msgstr ""
+msgstr "Gratulerer, %s!  Og velkomen til %%%%site.name%%%%."
 
 #: actions/register.php:495
 msgid "(You should receive a message by email "
-msgstr ""
+msgstr "(Du skal få ein beskjed via epost )"
 
 #: actions/remotesubscribe.php:166 actions/remotesubscribe.php:171
 msgid "That's a local profile! Login to subscribe."
-msgstr ""
+msgstr "Det er ikkje ein lokal profil! Log inn for å tinge."
 
 #: actions/replies.php:118
-#, fuzzy, php-format
+#, php-format
 msgid "Replies to %s, page %d"
-msgstr "Svar til %s"
+msgstr "Svar til %s, side %d"
 
 #: actions/showfavorites.php:79
 #, php-format
 msgid "%s favorite notices, page %d"
-msgstr ""
+msgstr "%s favoritt meldingar, side %d"
 
 #: actions/showgroup.php:77 lib/groupnav.php:85
 #, php-format
 msgid "%s group"
-msgstr ""
+msgstr "%s gruppe"
 
 #: actions/showgroup.php:79
 #, php-format
 msgid "%s group, page %d"
-msgstr ""
+msgstr "%s gruppe, side %d"
 
 #: actions/showgroup.php:206
-#, fuzzy
 msgid "Group profile"
-msgstr "Denne notisen finst ikkje."
+msgstr "Gruppe profil"
 
 #: actions/showgroup.php:251 actions/showstream.php:278
 #: actions/tagother.php:119 lib/grouplist.php:134 lib/profilelist.php:133
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: actions/showgroup.php:262 actions/showstream.php:289
 #: actions/tagother.php:129 lib/grouplist.php:145 lib/profilelist.php:144
-#, fuzzy
 msgid "Note"
-msgstr "Notisar"
+msgstr "Merknad"
 
 #: actions/showgroup.php:270
 msgid "Group actions"
-msgstr ""
+msgstr "Gruppe handlingar"
 
 #: actions/showgroup.php:323
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %s group"
-msgstr "Notisstraum for %s"
+msgstr "Notisstraum for %s gruppa"
 
 #: actions/showgroup.php:357 lib/groupnav.php:90
-#, fuzzy
 msgid "Members"
-msgstr "Medlem sidan"
+msgstr "Medlemmar"
 
 #: actions/showgroup.php:363 actions/showstream.php:413
 #: actions/showstream.php:442 actions/showstream.php:524 lib/section.php:95
 #: lib/tagcloudsection.php:71
 msgid "(None)"
-msgstr ""
+msgstr "(Ingen)"
 
 #: actions/showgroup.php:370
 msgid "All members"
-msgstr ""
+msgstr "Alle medlemmar"
 
 #: actions/showgroup.php:378
 #, php-format
@@ -4146,51 +4145,49 @@ msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
 "wikipedia.org/wiki/Micro-blogging) service "
 msgstr ""
+"**%s** er ei brukargruppe på %%%%site.name%%%%, ei "
+"[mikroblogging](http://en.wikipedia.org/wiki/Micro-blogging)-teneste"
 
 #: actions/showmessage.php:98
 msgid "Only the sender and recipient "
-msgstr ""
+msgstr "Berre sendaren og mottakaren"
 
 #: actions/showstream.php:73
-#, fuzzy, php-format
+#, php-format
 msgid "%s, page %d"
-msgstr "Innboks for %s - side %d"
+msgstr "%s, side %d"
 
 #: actions/showstream.php:143
-#, fuzzy
 msgid "'s profile"
-msgstr "Profil"
+msgstr " sin profil"
 
 #: actions/showstream.php:236 actions/tagother.php:77
-#, fuzzy
 msgid "User profile"
-msgstr "Denne notisen finst ikkje."
+msgstr "Brukarprofil"
 
 #: actions/showstream.php:240 actions/tagother.php:81
 msgid "Photo"
-msgstr ""
+msgstr "Bilete"
 
 #: actions/showstream.php:317
 msgid "User actions"
-msgstr ""
+msgstr "Brukarverkty"
 
 #: actions/showstream.php:342
 msgid "Send a direct message to this user"
-msgstr ""
+msgstr "Send ei direktemelding til denne brukaren"
 
 #: actions/showstream.php:343
-#, fuzzy
 msgid "Message"
-msgstr "Ny melding"
+msgstr "Melding"
 
 #: actions/showstream.php:451
-#, fuzzy
 msgid "All subscribers"
 msgstr "Tingarar"
 
 #: actions/showstream.php:533
 msgid "All groups"
-msgstr ""
+msgstr "Alle gruppar"
 
 #: actions/showstream.php:542
 #, php-format
@@ -4198,485 +4195,446 @@ msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
 "wikipedia.org/wiki/Micro-blogging) service "
 msgstr ""
+"**%s** har ein konto på %%%%site.name%%%%, ei "
+"[mikroblogging](http://en.wikipedia.org/wiki/Micro-blogging)-teneste"
 
 #: actions/smssettings.php:128
-#, fuzzy
 msgid "Phone number, no punctuation or spaces, "
-msgstr "Telefonnummer, kun tall, med landskode"
+msgstr "Telefonnummer, ingen punktum eller mellomrom,"
 
 #: actions/smssettings.php:162
-#, fuzzy
 msgid "Send me notices through SMS; "
-msgstr "Send meg ein notis via Jabber/GTalk."
+msgstr "Send meg notisar på SMS;"
 
 #: actions/smssettings.php:335
-#, fuzzy
 msgid "A confirmation code was sent to the phone number you added. "
-msgstr "Ventar på godkjenning for dette telefonnummeret."
+msgstr "Ei stadfestingskode vart sendt til telefonnummeret du la til."
 
 #: actions/smssettings.php:453
-#, fuzzy
 msgid "Mobile carrier"
-msgstr "Velg ein tilbydar"
+msgstr "Telefontilbydar"
 
 #: actions/subedit.php:70
-#, fuzzy
 msgid "You are not subscribed to that profile."
-msgstr "Kan ikkje tinga andre til deg."
+msgstr "Du tingar ikkje oppdateringar til den profilen."
 
 #: actions/subedit.php:83
-#, fuzzy
 msgid "Could not save subscription."
-msgstr "Kan ikkje sletta tinging."
+msgstr "Kunne ikkje lagra abonnement."
 
 #: actions/subscribe.php:55
-#, fuzzy
 msgid "Not a local user."
-msgstr "Brukaren finst ikkje."
+msgstr "Ikkje ein lokal brukar."
 
 #: actions/subscribe.php:69
-#, fuzzy
 msgid "Subscribed"
-msgstr "Ting"
+msgstr "Abonnent"
 
 #: actions/subscribers.php:50
-#, fuzzy, php-format
+#, php-format
 msgid "%s subscribers"
-msgstr "Tingarar"
+msgstr "%s tingarar"
 
 #: actions/subscribers.php:52
 #, php-format
 msgid "%s subscribers, page %d"
-msgstr ""
+msgstr "%s tingarar, side %d"
 
 #: actions/subscribers.php:63
-#, fuzzy
 msgid "These are the people who listen to "
-msgstr "Dette er folk som lyttar til %s's notisar"
+msgstr "Dette er folk som lyttar til"
 
 #: actions/subscribers.php:67
-#, fuzzy, php-format
+#, php-format
 msgid "These are the people who "
-msgstr "Dette er folk som lyttar til %s's notisar"
+msgstr "Dette er folk som"
 
 #: actions/subscriptions.php:52
-#, fuzzy, php-format
+#, php-format
 msgid "%s subscriptions"
-msgstr "Alle tingingar"
+msgstr "%s tingarar"
 
 #: actions/subscriptions.php:54
-#, fuzzy, php-format
+#, php-format
 msgid "%s subscriptions, page %d"
-msgstr "Alle tingingar"
+msgstr "%s tingingar, side %d"
 
 #: actions/subscriptions.php:65
-#, fuzzy
 msgid "These are the people whose notices "
 msgstr "Dette er dei du lyttar til."
 
 #: actions/subscriptions.php:69
-#, fuzzy, php-format
+#, php-format
 msgid "These are the people whose "
-msgstr "Dette er folk som lyttar til %s's notisar"
+msgstr "Dette er folk som"
 
 #: actions/subscriptions.php:122
-#, fuzzy
 msgid "Jabber"
-msgstr "Nei Jabber-ID"
+msgstr "Jabber"
 
 #: actions/tag.php:43
-#, fuzzy, php-format
+#, php-format
 msgid "Notices tagged with %s, page %d"
-msgstr "Notisar merka med %s"
+msgstr "Notisar merka med %s, side %d"
 
 #: actions/tag.php:66
 #, php-format
 msgid "Messages tagged \"%s\", most recent first"
-msgstr ""
+msgstr "Meldingar merka med «%s», dei siste fyrst"
 
 #: actions/tagother.php:33
-#, fuzzy
 msgid "Not logged in"
 msgstr "Ikkje logga inn"
 
 #: actions/tagother.php:39
-#, fuzzy
 msgid "No id argument."
-msgstr "Slikt dokument finst ikkje."
+msgstr "Manglar argumentet ID."
 
 #: actions/tagother.php:65
-#, fuzzy, php-format
+#, php-format
 msgid "Tag %s"
-msgstr "Merkelappar"
+msgstr "Merkelapp %s"
 
 #: actions/tagother.php:141
-#, fuzzy
 msgid "Tag user"
-msgstr "Merkelappar"
+msgstr "Merk brukar"
 
 #: actions/tagother.php:149
 msgid ""
 "Tags for this user (letters, numbers, -, ., and _), comma- or space- "
 "separated"
 msgstr ""
+"Emneord for denne brukaren (bokstavar, tal, <kbd>-</kbd>, <kbd>.</kbd>, og "
+"<kbd>_</kbd>, separert med komma eller mellomrom"
 
 #: actions/tagother.php:164
 msgid "There was a problem with your session token."
-msgstr ""
+msgstr "Det var eit problem med sesjons billetten din."
 
 #: actions/tagother.php:191
 msgid ""
 "You can only tag people you are subscribed to or who are subscribed to you."
 msgstr ""
+"Du kan berre leggje til emneord på folk som du tingar notisar frå, eller som "
+"tingar notisar frå deg."
 
 #: actions/tagother.php:198
-#, fuzzy
 msgid "Could not save tags."
-msgstr "Kan ikkje lagra brukarbilete-informasjon"
+msgstr "Kunne ikkje lagra emneord."
 
 #: actions/tagother.php:233
 msgid "Use this form to add tags to your subscribers or subscriptions."
 msgstr ""
+"Bruk dette skjemaet for å leggje til emneord til dei som tingar notisar frå "
+"deg, eller som du tingar notisar frå."
 
 #: actions/tagrss.php:35
-#, fuzzy
 msgid "No such tag."
-msgstr "Denne notisen finst ikkje."
+msgstr "Dette emneord finst ikkje."
 
 #: actions/tagrss.php:66
-#, fuzzy, php-format
+#, php-format
 msgid "Microblog tagged with %s"
-msgstr "Notisar merka med %s"
+msgstr "Mikroblogg merka med emneordet %s"
 
 #: actions/twitapiblocks.php:47
 msgid "Block user failed."
-msgstr ""
+msgstr "Blokkering av brukar feila."
 
 #: actions/twitapiblocks.php:69
 msgid "Unblock user failed."
-msgstr ""
+msgstr "De-blokkering av brukar feila."
 
 #: actions/twitapiusers.php:48
-#, fuzzy
 msgid "Not found."
-msgstr "Fann ikkje"
+msgstr "Finst ikkje."
 
 #: actions/twittersettings.php:71
 msgid "Add your Twitter account to automatically send "
-msgstr ""
+msgstr "Legg til Twitter-kontoen din for å automatisk sende"
 
 #: actions/twittersettings.php:119
-#, fuzzy
 msgid "Twitter user name"
-msgstr "Brukarnamn på twitter"
+msgstr "Brukarnamn hjå Twitter"
 
 #: actions/twittersettings.php:126
-#, fuzzy
 msgid "Twitter password"
-msgstr "Passord på Twitter"
+msgstr "Passord hjå Twitter"
 
 #: actions/twittersettings.php:228
-#, fuzzy
 msgid "Twitter Friends"
-msgstr "Twitter-innstillingar"
+msgstr "Vener på Twitter"
 
 #: actions/twittersettings.php:327
 msgid "Username must have only numbers, "
-msgstr ""
+msgstr "Brukarnamn kan berre innehalde tal,"
 
 #: actions/twittersettings.php:341
-#, fuzzy, php-format
+#, php-format
 msgid "Unable to retrieve account information "
-msgstr "Kan ikkje sletta epostgodkjenning."
+msgstr "Klarte ikkje å hente informasjon om kontoen."
 
 #: actions/unblock.php:108
-#, fuzzy
 msgid "Error removing the block."
-msgstr "Feil ved lagring av brukar"
+msgstr "Feil ved fjerning av blokka."
 
 #: actions/unsubscribe.php:50
-#, fuzzy
 msgid "No profile id in request."
-msgstr "Ingen profil-netadresse returnert av tenar."
+msgstr "Ingen profil-ID i førespurnaden."
 
 #: actions/unsubscribe.php:57
-#, fuzzy
 msgid "No profile with that id."
-msgstr "Fann ingen status med den ID-en."
+msgstr "Fann ingen profil med den IDen."
 
 #: actions/unsubscribe.php:71
-#, fuzzy
 msgid "Unsubscribed"
-msgstr "Fjern tinging"
+msgstr "Fjerna tinging"
 
 #: actions/usergroups.php:63
 #, php-format
 msgid "%s groups"
-msgstr ""
+msgstr "%s grupper"
 
 #: actions/usergroups.php:65
 #, php-format
 msgid "%s groups, page %d"
-msgstr ""
+msgstr "%s grupper, side %d"
 
 #: classes/Notice.php:104
-#, fuzzy
 msgid "Problem saving notice. Unknown user."
-msgstr "Feil ved lagring av brukar"
+msgstr "Feil ved lagring av notis.  Ukjend brukar."
 
 #: classes/Notice.php:109
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
+"For mange notisar for raskt; tek ei pause, og prøv igjen om eit par minutt."
 
 #: classes/Notice.php:116
 msgid "You are banned from posting notices on this site."
-msgstr ""
+msgstr "Du kan ikkje lengre legge inn notisar på denne sida."
 
 #: lib/accountsettingsaction.php:108
-#, fuzzy
 msgid "Upload an avatar"
-msgstr "Feil ved oppdatering av brukarbilete."
+msgstr "Last opp ein avatar"
 
 #: lib/accountsettingsaction.php:119
 msgid "Other"
-msgstr ""
+msgstr "Anna"
 
 #: lib/accountsettingsaction.php:120
 msgid "Other options"
-msgstr ""
+msgstr "Andre val"
 
 #: lib/action.php:130
-#, fuzzy, php-format
+#, php-format
 msgid "%s - %s"
-msgstr "%s (%s)"
+msgstr "%s - %s"
 
 #: lib/action.php:145
 msgid "Untitled page"
-msgstr ""
+msgstr "Ingen tittel"
 
 #: lib/action.php:316
 msgid "Primary site navigation"
-msgstr ""
+msgstr "Navigasjon for hovudsida"
 
 #: lib/action.php:322
 msgid "Personal profile and friends timeline"
-msgstr ""
+msgstr "Personleg profil og oversyn over vener"
 
 #: lib/action.php:325
 msgid "Search for people or text"
-msgstr ""
+msgstr "Søk etter folk eller innhald"
 
 #: lib/action.php:328
-#, fuzzy
 msgid "Account"
-msgstr "Om"
+msgstr "Konto"
 
 #: lib/action.php:328
-#, fuzzy
 msgid "Change your email, avatar, password, profile"
-msgstr "Endra passordet ditt"
+msgstr "Endra e-posten, avataren, passordet eller profilen"
 
 #: lib/action.php:330
 msgid "Connect to IM, SMS, Twitter"
-msgstr ""
+msgstr "Kopla til IM, SMS, Twitter"
 
 #: lib/action.php:332
 msgid "Logout from the site"
-msgstr ""
+msgstr "Logg ut or sida"
 
 #: lib/action.php:335
 msgid "Login to the site"
-msgstr ""
+msgstr "Logg inn or sida"
 
 #: lib/action.php:338
-#, fuzzy
 msgid "Create an account"
 msgstr "Opprett ny konto"
 
 #: lib/action.php:341
-#, fuzzy
 msgid "Login with OpenID"
-msgstr "Fann ingen slik OpenID."
+msgstr "Logg inn med OpenID"
 
 #: lib/action.php:344
-#, fuzzy
 msgid "Help me!"
-msgstr "Hjelp"
+msgstr "Hjelp meg!"
 
 #: lib/action.php:362
-#, fuzzy
 msgid "Site notice"
-msgstr "Ny notis"
+msgstr "Statusmelding"
 
 #: lib/action.php:417
 msgid "Local views"
-msgstr ""
+msgstr "Lokale syningar"
 
 #: lib/action.php:472
-#, fuzzy
 msgid "Page notice"
-msgstr "Ny notis"
+msgstr "Sidenotis"
 
 #: lib/action.php:562
-#, fuzzy
 msgid "Secondary site navigation"
-msgstr "Tingingar"
+msgstr "Andrenivås side navigasjon"
 
 #: lib/action.php:602 lib/action.php:623
 msgid "Laconica software license"
-msgstr ""
+msgstr "Laconicas programvarelisens"
 
 #: lib/action.php:630
 msgid "All "
-msgstr ""
+msgstr "Alle"
 
 #: lib/action.php:635
 msgid "license."
-msgstr ""
+msgstr "lisens."
 
 #: lib/blockform.php:123 lib/blockform.php:153
-#, fuzzy
 msgid "Block this user"
-msgstr "Brukaren finst ikkje."
+msgstr "Blokkér denne brukaren"
 
 #: lib/blockform.php:153
 msgid "Block"
-msgstr "Blokker"
+msgstr "Blokkér"
 
 #: lib/disfavorform.php:114 lib/disfavorform.php:140
 msgid "Disfavor this notice"
-msgstr ""
+msgstr "Fjern favoriseringsmerket"
 
 #: lib/facebookaction.php:268
 #, php-format
 msgid "To use the %s Facebook Application you need to login "
-msgstr ""
+msgstr "For å nytta %s Facebook-programmet må du logga inn"
 
 #: lib/facebookaction.php:271
-#, fuzzy
 msgid " a new account."
-msgstr "Opprett ny konto"
+msgstr "ein ny konto."
 
 #: lib/facebookaction.php:557 lib/mailbox.php:214 lib/noticelist.php:354
 msgid "Published"
-msgstr ""
+msgstr "Publisert"
 
 #: lib/favorform.php:114 lib/favorform.php:140
-#, fuzzy
 msgid "Favor this notice"
-msgstr "Denne notisen finst ikkje."
+msgstr "Favoriser denne notisen"
 
 #: lib/feedlist.php:64
 msgid "Export data"
-msgstr ""
+msgstr "Eksporter data"
 
 #: lib/galleryaction.php:121
-#, fuzzy
 msgid "Filter tags"
-msgstr "Straum for merkelapp %s"
+msgstr "Filtrer emneord"
 
 #: lib/galleryaction.php:131
 msgid "All"
-msgstr ""
+msgstr "Alle"
 
 #: lib/galleryaction.php:137
-#, fuzzy
 msgid "Tag"
-msgstr "Merkelappar"
+msgstr "Merkelapp"
 
 #: lib/galleryaction.php:138
 msgid "Choose a tag to narrow list"
-msgstr ""
+msgstr "Velg ein merkelapp for å begrense lista"
 
 #: lib/galleryaction.php:139
 msgid "Go"
-msgstr ""
+msgstr "Gå"
 
 #: lib/groupeditform.php:148
 msgid "URL of the homepage or blog of the group or topic"
-msgstr ""
+msgstr "URL til heimesida eller bloggen for gruppa eller emnet"
 
 #: lib/groupeditform.php:151
-#, fuzzy
 msgid "Description"
-msgstr "Tingingar"
+msgstr "Beskriving"
 
 #: lib/groupeditform.php:153
-#, fuzzy
 msgid "Describe the group or topic in 140 chars"
-msgstr "Skriv om deg og interessene dine med 140 teikn"
+msgstr "Beskriv gruppa eller emnet med 140 teikn"
 
 #: lib/groupeditform.php:158
-#, fuzzy
 msgid ""
 "Location for the group, if any, like \"City, State (or Region), Country\""
 msgstr "Kvar er du, t.d. «Stavanger, Rogaland, Noreg»"
 
 #: lib/groupnav.php:84 lib/searchgroupnav.php:84
 msgid "Group"
-msgstr ""
+msgstr "Gruppe"
 
 #: lib/groupnav.php:100
 msgid "Admin"
-msgstr ""
+msgstr "Administrator"
 
 #: lib/groupnav.php:101
 #, php-format
 msgid "Edit %s group properties"
-msgstr ""
+msgstr "Rediger %s gruppa sine eigenskapar"
 
 #: lib/groupnav.php:106
-#, fuzzy
 msgid "Logo"
-msgstr "Logg ut"
+msgstr "Logo"
 
 #: lib/groupnav.php:107
 #, php-format
 msgid "Add or edit %s logo"
-msgstr ""
+msgstr "Legg til eller rediger logoen til %s"
 
 #: lib/groupsbymemberssection.php:71
 msgid "Groups with most members"
-msgstr ""
+msgstr "Grupper med flest medlemmar"
 
 #: lib/groupsbypostssection.php:71
 msgid "Groups with most posts"
-msgstr ""
+msgstr "Grupper med flest innlegg"
 
 #: lib/grouptagcloudsection.php:56
 #, php-format
 msgid "Tags in %s group's notices"
-msgstr ""
+msgstr "Merkelappar i %s gruppa sine notisar"
 
 #: lib/htmloutputter.php:104
-#, fuzzy
 msgid "This page is not available in a "
-msgstr "Heimesida er ikkje ei gyldig internettadresse."
+msgstr "Denne sida er ikkje tilgjengleg i eit"
 
 #: lib/joinform.php:114
-#, fuzzy
 msgid "Join"
-msgstr "Logg inn"
+msgstr "Bli med"
 
 #: lib/leaveform.php:114
-#, fuzzy
 msgid "Leave"
-msgstr "Lagra"
+msgstr "Forlat"
 
 #: lib/logingroupnav.php:76
-#, fuzzy
 msgid "Login with a username and password"
-msgstr "Ugyldig brukarnamn eller passord."
+msgstr "Log inn med brukarnamn og passord."
 
 #: lib/logingroupnav.php:79
-#, fuzzy
 msgid "Sign up for a new account"
 msgstr "Opprett ny konto"
 
 #: lib/logingroupnav.php:82
 msgid "Login or register with OpenID"
-msgstr ""
+msgstr "Login eller registrer med OpenID"
 
 #: lib/mail.php:175
 #, php-format
@@ -4684,21 +4642,23 @@ msgid ""
 "Hey, %s.\n"
 "\n"
 msgstr ""
+"Hei, %s\n"
+"\n"
 
 #: lib/mail.php:236
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s is now listening to "
-msgstr "%1$s høyrer no på notisane dine på %2$s."
+msgstr "%1$s høyrer no på"
 
 #: lib/mail.php:254
-#, fuzzy, php-format
+#, php-format
 msgid "Location: %s\n"
-msgstr "Stad: %s"
+msgstr "Stad: %s\n"
 
 #: lib/mail.php:256
-#, fuzzy, php-format
+#, php-format
 msgid "Homepage: %s\n"
-msgstr "Heimeside: %s"
+msgstr "Heimeside: %s\n"
 
 #: lib/mail.php:258
 #, php-format
@@ -4706,176 +4666,160 @@ msgid ""
 "Bio: %s\n"
 "\n"
 msgstr ""
+"Bio: %s\n"
+"\n"
 
 #: lib/mail.php:461
 #, php-format
 msgid "You've been nudged by %s"
-msgstr ""
+msgstr "Du har blitt dulta av %s"
 
 #: lib/mail.php:465
 #, php-format
 msgid "%1$s (%2$s) is wondering what you are up to "
-msgstr ""
+msgstr "%1$s (%2$s) lurer på kva du gjer på"
 
 #: lib/mail.php:555
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s just added your notice from %2$s"
-msgstr "%1$s høyrer no på notisane dine på %2$s."
+msgstr "%1$s lyttar no til notisane dine på %2$s"
 
 #: lib/mailbox.php:229 lib/noticelist.php:380
-#, fuzzy
 msgid "From"
-msgstr " frå "
+msgstr "Frå"
 
 #: lib/messageform.php:110
-#, fuzzy
 msgid "Send a direct notice"
-msgstr "Slett notis"
+msgstr "Send ei direkte melding"
 
 #: lib/noticeform.php:125
-#, fuzzy
 msgid "Send a notice"
 msgstr "Send ei melding"
 
 #: lib/noticeform.php:152
-#, fuzzy
 msgid "Available characters"
-msgstr "6 eller fleire teikn"
+msgstr "Tilgjenglege teikn"
 
 #: lib/noticelist.php:426
-#, fuzzy
 msgid "in reply to"
-msgstr "som svar på..."
+msgstr "som svar på"
 
 #: lib/noticelist.php:447 lib/noticelist.php:450
-#, fuzzy
 msgid "Reply to this notice"
-msgstr "Kan ikkje sletta notisen."
+msgstr "Svar på denne notisen"
 
 #: lib/noticelist.php:451
-#, fuzzy
 msgid "Reply"
-msgstr "svar"
+msgstr "Svar"
 
 #: lib/noticelist.php:471 lib/noticelist.php:474
-#, fuzzy
 msgid "Delete this notice"
-msgstr "Slett notis"
+msgstr "Slett denne notisen"
 
 #: lib/noticelist.php:474
-#, fuzzy
 msgid "Delete"
-msgstr "slett"
+msgstr "Slett"
 
 #: lib/nudgeform.php:116
 msgid "Nudge this user"
-msgstr ""
+msgstr "Dult denne brukaren"
 
 #: lib/nudgeform.php:128
 msgid "Nudge"
-msgstr ""
+msgstr "Dult"
 
 #: lib/nudgeform.php:128
-#, fuzzy
 msgid "Send a nudge to this user"
-msgstr "Send ei melding"
+msgstr "Send eit dult til denne brukaren"
 
 #: lib/personaltagcloudsection.php:56
-#, fuzzy, php-format
+#, php-format
 msgid "Tags in %s's notices"
-msgstr "Brukaren har ikkje siste notis"
+msgstr "Merkelappar i %s sine notisar"
 
 #: lib/profilelist.php:182
 msgid "(none)"
-msgstr ""
+msgstr "(ingen)"
 
 #: lib/publicgroupnav.php:76
 msgid "Public"
-msgstr ""
+msgstr "Offentleg"
 
 #: lib/publicgroupnav.php:80
 msgid "User groups"
-msgstr ""
+msgstr "Brukar grupper"
 
 #: lib/publicgroupnav.php:82 lib/publicgroupnav.php:83
-#, fuzzy
 msgid "Recent tags"
-msgstr "Nylege merkelappar"
+msgstr "Nylege emneord"
 
 #: lib/publicgroupnav.php:86
 msgid "Featured"
-msgstr ""
+msgstr "Framheva"
 
 #: lib/publicgroupnav.php:90
-#, fuzzy
 msgid "Popular"
-msgstr "Folk"
+msgstr "Populære"
 
 #: lib/searchgroupnav.php:82
-#, fuzzy
 msgid "Notice"
-msgstr "Notisar"
+msgstr "Notis"
 
 #: lib/searchgroupnav.php:85
-#, fuzzy
 msgid "Find groups on this site"
-msgstr "Finn folk på denne sida"
+msgstr "Finn grupper på denne sida"
 
 #: lib/section.php:89
 msgid "Untitled section"
-msgstr ""
+msgstr "Seksjon utan tittel"
 
 #: lib/subgroupnav.php:81
-#, fuzzy, php-format
+#, php-format
 msgid "People %s subscribes to"
-msgstr "Eksternt abbonement"
+msgstr "Mennesker %s tingar"
 
 #: lib/subgroupnav.php:89
-#, fuzzy, php-format
+#, php-format
 msgid "People subscribed to %s"
-msgstr "Tingar %s"
+msgstr "Mennesker som tingar %s"
 
 #: lib/subgroupnav.php:97
 #, php-format
 msgid "Groups %s is a member of"
-msgstr ""
+msgstr "Grupper %s er medlem av"
 
 #: lib/subgroupnav.php:104
 #, php-format
 msgid "Invite friends and colleagues to join you on %s"
-msgstr ""
+msgstr "Inviter vennar og kollega til å bli med deg på %s"
 
 #: lib/subs.php:53
 msgid "User has blocked you."
 msgstr "Brukar har blokkert deg."
 
 #: lib/subscribeform.php:115 lib/subscribeform.php:139
-#, fuzzy
 msgid "Subscribe to this user"
-msgstr "Tingar %s"
+msgstr "Lagre tinging for brukar: %s"
 
 #: lib/tagcloudsection.php:56
-#, fuzzy
 msgid "None"
-msgstr "Nei"
+msgstr "Ingen"
 
 #: lib/topposterssection.php:74
 msgid "Top posters"
-msgstr ""
+msgstr "Med flest meldingar"
 
 #: lib/unblockform.php:120 lib/unblockform.php:150
-#, fuzzy
 msgid "Unblock this user"
-msgstr "Brukaren finst ikkje."
+msgstr "Lås opp brukaren"
 
 #: lib/unblockform.php:150
 msgid "Unblock"
 msgstr "Lås opp"
 
 #: lib/unsubscribeform.php:113 lib/unsubscribeform.php:137
-#, fuzzy
 msgid "Unsubscribe from this user"
-msgstr "Tingar ikkje %s lengre"
+msgstr "Fjern tinging fra denne brukaren"
 
 #, fuzzy
 #~ msgid "Code not yet ready."

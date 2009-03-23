@@ -74,7 +74,7 @@ class SphinxSearch extends SearchEngine
     {
         //FIXME without LARGEST_POSSIBLE, the most recent results aren't returned
         //      this probably has a large impact on performance
-        $LARGEST_POSSIBLE = 1e6; 
+        $LARGEST_POSSIBLE = 1e6;
 
         if ($rss) {
             $this->sphinx->setLimits($offset, $count, $count, $LARGEST_POSSIBLE);
@@ -109,12 +109,25 @@ class MySQLSearch extends SearchEngine
 {
     function query($q)
     {
-        if ('identica_people' === $this->table)
-            return $this->target->whereAdd('MATCH(nickname, fullname, location, bio, homepage) ' .
-                           'against (\''.addslashes($q).'\')');
-        if ('identica_notices' === $this->table)
-            return $this->target->whereAdd('MATCH(content) ' .
-                           'against (\''.addslashes($q).'\')');
+        if ('identica_people' === $this->table) {
+            $this->target->whereAdd('MATCH(nickname, fullname, location, bio, homepage) ' .
+                                    'AGAINST (\''.addslashes($q).'\' IN BOOLEAN MODE)');
+            if (strtolower($q) != $q) {
+                $this->target->whereAdd('MATCH(nickname, fullname, location, bio, homepage) ' .
+                                        'AGAINST (\''.addslashes(strtolower($q)).'\' IN BOOLEAN MODE)', 'OR');
+            }
+            return true;
+        } else if ('identica_notices' === $this->table) {
+             $this->target->whereAdd('MATCH(content) ' .
+                                     'AGAINST (\''.addslashes($q).'\' IN BOOLEAN MODE)');
+            if (strtolower($q) != $q) {
+                $this->target->whereAdd('MATCH(content) ' .
+                                        'AGAINST (\''.addslashes(strtolower($q)).'\' IN BOOLEAN MODE)', 'OR');
+            }
+            return true;
+        } else {
+            throw new ServerException('Unknown table: ' . $this->table);
+        }
     }
 }
 
@@ -122,10 +135,13 @@ class PGSearch extends SearchEngine
 {
     function query($q)
     {
-        if ('identica_people' === $this->table)
+        if ('identica_people' === $this->table) {
             return $this->target->whereAdd('textsearch @@ plainto_tsquery(\''.addslashes($q).'\')');
-        if ('identica_notices' === $this->table)
+        } else if ('identica_notices' === $this->table) {
             return $this->target->whereAdd('to_tsvector(\'english\', content) @@ plainto_tsquery(\''.addslashes($q).'\')');
+        } else {
+            throw new ServerException('Unknown table: ' . $this->table);
+        }
     }
 }
 

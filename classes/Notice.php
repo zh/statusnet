@@ -817,4 +817,98 @@ class Notice extends Memcached_DataObject
             }
         }
     }
+
+    function asAtomEntry($namespace=false, $source=false)
+    {
+        $profile = $this->getProfile();
+
+        $xs = new XMLStringer(true);
+
+        if ($namespace) {
+            $attrs = array('xmlns' => 'http://www.w3.org/2005/Atom',
+                           'xmlns:thr' => 'http://purl.org/syndication/thread/1.0');
+        } else {
+            $attrs = array();
+        }
+
+        $xs->elementStart('entry', $attrs);
+
+        if ($source) {
+            $xs->elementStart('source');
+            $xs->element('title', null, $profile->nickname . " - " . common_config('site', 'name'));
+            $xs->element('link', array('href' => $profile->profileurl));
+            $user = User::staticGet('id', $profile->id);
+            if (!empty($user)) {
+                $atom_feed = common_local_url('api',
+                                              array('apiaction' => 'statuses',
+                                                    'method' => 'user_timeline',
+                                                    'argument' => $profile->nickname.'.atom'));
+                $xs->element('link', array('rel' => 'self',
+                                           'type' => 'application/atom+xml',
+                                           'href' => $profile->profileurl));
+                $xs->element('link', array('rel' => 'license',
+                                           'href' => common_config('license', 'url')));
+            }
+
+            $xs->element('icon', null, $profile->avatarUrl(AVATAR_PROFILE_SIZE));
+        }
+
+        $xs->elementStart('author');
+        $xs->element('name', null, $profile->nickname);
+        $xs->element('uri', null, $profile->profileurl);
+        $xs->elementEnd('author');
+
+        if ($source) {
+            $xs->elementEnd('source');
+        }
+
+        $xs->element('title', null, $this->content);
+        $xs->element('summary', null, $this->content);
+
+        $xs->element('link', array('rel' => 'alternate',
+                                   'href' => $this->bestUrl()));
+
+        $xs->element('id', null, $this->uri);
+
+        $xs->element('published', null, common_date_w3dtf($this->created));
+        $xs->element('updated', null, common_date_w3dtf($this->modified));
+
+        if ($this->reply_to) {
+            $reply_notice = Notice::staticGet('id', $this->reply_to);
+            if (!empty($reply_notice)) {
+                $xs->element('link', array('rel' => 'related',
+                                           'href' => $reply_notice->bestUrl()));
+                $xs->element('thr:in-reply-to',
+                             array('ref' => $reply_notice->uri,
+                                   'href' => $reply_notice->bestUrl()));
+            }
+        }
+
+        $xs->element('content', array('type' => 'html'), $this->rendered);
+
+        $tag = new Notice_tag();
+        $tag->notice_id = $this->id;
+        if ($tag->find()) {
+            while ($tag->fetch()) {
+                $xs->element('category', array('term' => $tag->tag));
+            }
+        }
+        $tag->free();
+
+        $xs->elementEnd('entry');
+
+        return $xs->getString();
+    }
+
+    function bestUrl()
+    {
+        if (!empty($this->url)) {
+            return $this->url;
+        } else if (!empty($this->uri) && preg_match('/^https?:/', $this->uri)) {
+            return $this->uri;
+        } else {
+            return common_local_url('shownotice',
+                                    array('notice' => $this->id));
+        }
+    }
 }

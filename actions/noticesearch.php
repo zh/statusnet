@@ -103,7 +103,7 @@ class NoticesearchAction extends SearchAction
     function showResults($q, $page)
     {
         $notice        = new Notice();
-        $q             = strtolower($q);
+
         $search_engine = $notice->getSearchEngine('identica_notices');
         $search_engine->set_sort_mode('chron');
         // Ask for an extra to see if there's more.
@@ -122,8 +122,8 @@ class NoticesearchAction extends SearchAction
 
         $cnt = $nl->show();
 
-        $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
-                          $this->page, 'noticesearch', array('q' => $q));
+        $this->pagination($page > 1, $cnt > NOTICES_PER_PAGE,
+                          $page, 'noticesearch', array('q' => $q));
     }
     function isReadOnly()
     {

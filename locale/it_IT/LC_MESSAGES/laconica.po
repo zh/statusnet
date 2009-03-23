@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: laconica\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-25 16:24+0000\n"
-"PO-Revision-Date: 2009-01-27 13:38+0000\n"
+"PO-Revision-Date: 2009-02-18 12:57+0000\n"
 "Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -3574,7 +3574,6 @@ msgstr "Modifica il gruppo %s"
 
 #: actions/editgroup.php:66 actions/groupbyid.php:72 actions/grouplogo.php:66
 #: actions/joingroup.php:60 actions/newgroup.php:65 actions/showgroup.php:100
-#, fuzzy
 msgid "Inboxes must be enabled for groups to work"
 msgstr "La casella della posta in arrivo deve essere abilitata per funzionare"
 
@@ -3665,7 +3664,6 @@ msgid "Allow %s to update my Facebook status"
 msgstr "Consenti a %s di aggiornare il mio stato su Facebook"
 
 #: actions/facebookhome.php:218
-#, fuzzy
 msgid "Skip"
 msgstr "Salta"
 
@@ -3674,7 +3672,6 @@ msgid "No notice content!"
 msgstr "Nessun contenuto!"
 
 #: actions/facebookhome.php:295 lib/action.php:870 lib/facebookaction.php:399
-#, fuzzy
 msgid "Pagination"
 msgstr "Paginazione"
 
@@ -3692,12 +3689,11 @@ msgid "Thanks for inviting your friends to use %s"
 msgstr "Grazie per aver invitato i tuoi amici a usare %s"
 
 #: actions/facebookinvite.php:72
-#, fuzzy
 msgid "Invitations have been sent to the following users:"
 msgstr "Gli inviti sono stati inviati ai seguenti utenti:"
 
 #: actions/facebookinvite.php:96
-#, fuzzy, php-format
+#, php-format
 msgid "You have been invited to %s"
 msgstr "Hai un invito per %s"
 
@@ -3713,7 +3709,6 @@ msgstr "Amici che già usano %s:"
 
 #: actions/facebookinvite.php:130
 #, php-format
-#, fuzzy
 msgid "Send invitations"
 msgstr "Invia"
 
@@ -3722,12 +3717,11 @@ msgid "Couldn't remove Facebook user."
 msgstr "Impossibile rimuovere l'utente Facebook."
 
 #: actions/facebooksettings.php:65
-#, fuzzy
 msgid "There was a problem saving your sync preferences!"
-msgstr "C'è stato un problema nel salvare le preferenze di sincronizzazione."
+msgstr ""
+"Si è verificato un problema nel salvare le preferenze di sincronizzazione."
 
 #: actions/facebooksettings.php:67
-#, fuzzy
 msgid "Sync preferences saved."
 msgstr "Preferenze di sincronizzazione salvate."
 
@@ -3744,7 +3738,6 @@ msgid "Prefix"
 msgstr "Prefisso"
 
 #: actions/facebooksettings.php:108
-#, fuzzy
 msgid "A string to prefix notices with."
 msgstr "Una stringa con cui iniziare i messaggi."
 
@@ -3755,7 +3748,6 @@ msgid "If you would like %s to automatically update "
 msgstr "Se vuoi che %s aggiorni automaticamente "
 
 #: actions/facebooksettings.php:147
-#, fuzzy
 msgid "Sync preferences"
 msgstr "Preferenze di sincronizzazione"
 
@@ -3792,7 +3784,6 @@ msgstr "Utenti in evidenza, pagina %d"
 
 #: actions/featured.php:99
 #, php-format
-#, fuzzy
 msgid "A selection of some of the great users on %s"
 msgstr "Una selezione dei migliori utenti su %s"
 
@@ -3855,7 +3846,7 @@ msgid "Create a new group"
 msgstr "Crea un nuovo gruppo"
 
 #: actions/groupsearch.php:57
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Search for groups on %%site.name%% by their name, location, or description. "
 msgstr "Ricerca gruppi su %%site.name%% per nome, ubicazione o descrizione. "
@@ -3903,7 +3894,6 @@ msgid "%s joined group %s"
 msgstr "%s si è iscritto al gruppo %s"
 
 #: actions/leavegroup.php:60
-#, fuzzy
 msgid "Inboxes must be enabled for groups to work."
 msgstr ""
 "Le caselle di posta in arrivo devono essere abilitate per i gruppi per poter "
@@ -3926,7 +3916,6 @@ msgid "You may not leave a group while you are its administrator."
 msgstr "Non puoi lasciare un gruppo fintantoché ne sei amministratore."
 
 #: actions/leavegroup.php:130
-#, fuzzy
 msgid "Could not find membership record."
 msgstr "Impossibile trovare il record della membership."
 
@@ -3941,7 +3930,6 @@ msgid "%s left group %s"
 msgstr "%s ha lasciato il gruppo %s"
 
 #: actions/login.php:225 lib/facebookaction.php:304
-#, fuzzy
 msgid "Login to site"
 msgstr "Accedi al sito"
 
@@ -3962,7 +3950,6 @@ msgid "Could not create group."
 msgstr "Impossibile creare il gruppo."
 
 #: actions/newgroup.php:191
-#, fuzzy
 msgid "Could not set group membership."
 msgstr "Impossibile impostare la membership al gruppo."
 
@@ -4038,7 +4025,6 @@ msgid "Change your password."
 msgstr "Modifica la tua password."
 
 #: actions/passwordsettings.php:89
-#, fuzzy
 msgid "Password change"
 msgstr "Cambio password"
 
@@ -4058,7 +4044,6 @@ msgid "These are users who have tagged themselves \"%s\" "
 msgstr "Questi sono gli utenti che si sono etichettati con \"%s\" "
 
 #: actions/profilesettings.php:91
-#, fuzzy
 msgid "Profile information"
 msgstr "Informazioni sul profilo"
 
@@ -4102,9 +4087,8 @@ msgstr ""
 "blog](http://it.wikipedia.org/wiki/Microblogging) "
 
 #: actions/publictagcloud.php:57
-#, fuzzy
 msgid "Public tag cloud"
-msgstr "Cloud delle etichette"
+msgstr "Insieme delle etichette"
 
 #: actions/publictagcloud.php:63
 #, php-format
@@ -4113,9 +4097,8 @@ msgid "These are most popular recent tags on %s "
 msgstr "Queste sono le etichette più usate e recenti su %s "
 
 #: actions/publictagcloud.php:119
-#, fuzzy
 msgid "Tag cloud"
-msgstr "Cloud etichette"
+msgstr "Insieme etichette"
 
 #: actions/register.php:139 actions/register.php:349
 msgid "Sorry, only invited people can register."
@@ -4208,12 +4191,10 @@ msgstr "URL"
 
 #: actions/showgroup.php:262 actions/showstream.php:289
 #: actions/tagother.php:129 lib/grouplist.php:145 lib/profilelist.php:144
-#, fuzzy
 msgid "Note"
-msgstr "Note"
+msgstr "Nota"
 
 #: actions/showgroup.php:270
-#, fuzzy
 msgid "Group actions"
 msgstr "Azioni dei gruppi"
 
@@ -4266,12 +4247,10 @@ msgid "User profile"
 msgstr "Profilo utente"
 
 #: actions/showstream.php:240 actions/tagother.php:81
-#, fuzzy
 msgid "Photo"
 msgstr "Fotografia"
 
 #: actions/showstream.php:317
-#, fuzzy
 msgid "User actions"
 msgstr "Azioni utente"
 
@@ -4402,7 +4381,6 @@ msgid "Tag %s"
 msgstr "Etichetta %s"
 
 #: actions/tagother.php:141
-#, fuzzy
 msgid "Tag user"
 msgstr "Etichette utente"
 
@@ -4594,12 +4572,10 @@ msgid "Site notice"
 msgstr "Messaggio del sito"
 
 #: lib/action.php:417
-#, fuzzy
 msgid "Local views"
 msgstr "Viste locali"
 
 #: lib/action.php:472
-#, fuzzy
 msgid "Page notice"
 msgstr "Pagina messaggio"
 
@@ -4653,9 +4629,8 @@ msgid "Favor this notice"
 msgstr "Rendi questo messaggio un favorito"
 
 #: lib/feedlist.php:64
-#, fuzzy
 msgid "Export data"
-msgstr "Esporta dai"
+msgstr "Esporta dati"
 
 #: lib/galleryaction.php:121
 msgid "Filter tags"
@@ -4742,7 +4717,6 @@ msgid "Join"
 msgstr "Iscriviti"
 
 #: lib/leaveform.php:114
-#, fuzzy
 msgid "Leave"
 msgstr "Lascia"
 
@@ -4802,7 +4776,7 @@ msgid "%1$s (%2$s) is wondering what you are up to "
 msgstr "%1$s (%2$s) si chiede cosa tu "
 
 #: lib/mail.php:555
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s just added your notice from %2$s"
 msgstr "%1$s ha appena aggiunto il tuo messaggio da %2$s"
 

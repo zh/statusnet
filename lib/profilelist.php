@@ -89,7 +89,7 @@ class ProfileList extends Widget
                                              'id' => 'profile-' . $this->profile->id));
 
         $user = common_current_user();
-        $is_own = !is_null($user) && isset($this->user) && ($user->id === $this->user->id);
+        $is_own = !is_null($user) && isset($this->owner) && ($user->id === $this->owner->id);
 
         $this->out->elementStart('div', 'entity_profile vcard');
 
@@ -109,7 +109,7 @@ class ProfileList extends Widget
         $this->out->elementEnd('span');
         $this->out->elementEnd('a');
 
-        if ($this->profile->fullname !== '') {
+        if (!empty($this->profile->fullname)) {
             $this->out->elementStart('dl', 'entity_fn');
             $this->out->element('dt', null, 'Full name');
             $this->out->elementStart('dd');
@@ -119,7 +119,7 @@ class ProfileList extends Widget
             $this->out->elementEnd('dd');
             $this->out->elementEnd('dl');
         }
-        if ($this->profile->location !== '') {
+        if (!empty($this->profile->location)) {
             $this->out->elementStart('dl', 'entity_location');
             $this->out->element('dt', null, _('Location'));
             $this->out->elementStart('dd', 'label');
@@ -127,7 +127,7 @@ class ProfileList extends Widget
             $this->out->elementEnd('dd');
             $this->out->elementEnd('dl');
         }
-        if ($this->profile->homepage !== '') {
+        if (!empty($this->profile->homepage)) {
             $this->out->elementStart('dl', 'entity_url');
             $this->out->element('dt', null, _('URL'));
             $this->out->elementStart('dd');
@@ -138,7 +138,7 @@ class ProfileList extends Widget
             $this->out->elementEnd('dd');
             $this->out->elementEnd('dl');
         }
-        if ($this->profile->bio !== '') {
+        if (!empty($this->profile->bio)) {
             $this->out->elementStart('dl', 'entity_note');
             $this->out->element('dt', null, _('Note'));
             $this->out->elementStart('dd', 'note');
@@ -194,11 +194,12 @@ class ProfileList extends Widget
 
         $this->out->elementStart('ul');
 
-        if (!$is_own) {
-            # XXX: special-case for user looking at own
-            # subscriptions page
+        // Is this a logged-in user, looking at someone else's
+        // profile?
+
+        if (!empty($user) && $this->profile->id != $user->id) {
             $this->out->elementStart('li', 'entity_subscribe');
-            if (!is_null($user) && $user->isSubscribed($this->profile)) {
+            if ($user->isSubscribed($this->profile)) {
                 $usf = new UnsubscribeForm($this->out, $this->profile);
                 $usf->show();
             } else {
@@ -207,6 +208,9 @@ class ProfileList extends Widget
             }
             $this->out->elementEnd('li');
             $this->out->elementStart('li', 'entity_block');
+            if ($user->id == $this->owner->id) {
+                $this->showBlockForm();
+            }
             $this->out->elementEnd('li');
         }
 
