@@ -63,13 +63,13 @@ class PeoplesearchAction extends SearchAction
 
         $profile = new Profile();
 
-        # lcase it for comparison
-        $q = strtolower($q);
+        // lcase it for comparison
+        // $q = strtolower($q);
 
         $search_engine = $profile->getSearchEngine('identica_people');
 
         $search_engine->set_sort_mode('chron');
-        # Ask for an extra to see if there's more.
+        // Ask for an extra to see if there's more.
         $search_engine->limit((($page-1)*PROFILES_PER_PAGE), PROFILES_PER_PAGE + 1);
         if (false === $search_engine->query($q)) {
             $cnt = 0;
