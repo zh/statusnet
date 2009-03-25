@@ -161,6 +161,7 @@ $(document).ready(function(){
 																				$("#form_notice").addClass("warning");
 																				return false;
 																		   }
+																		   $("#form_notice").addClass("processing");
 																		   $("#notice_action-submit").attr("disabled", "disabled");
 																		   $("#notice_action-submit").addClass("disabled");
 																		   return true;
@@ -179,6 +180,7 @@ $(document).ready(function(){
 													NoticeHover();
 													NoticeReply();
 												}
+												$("#form_notice").removeClass("processing");
 												$("#notice_action-submit").removeAttr("disabled");
 												$("#notice_action-submit").removeClass("disabled");
 											 }
