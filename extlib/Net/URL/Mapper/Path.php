@@ -241,12 +241,7 @@ class Net_URL_Mapper_Path
         }
         $path = '/'.trim(Net_URL::resolvePath($path), '/');
         if (!empty($qstring)) {
-            if (!strpos($path, '?')) {
-                $path .= '?';
-            } else {
-                $path .= '&';
-            }
-	    $path .= http_build_query($qstring);
+            $path .= '?'.http_build_query($qstring);
         }
         if (!empty($anchor)) {
             $path .= '#'.ltrim($anchor, '#');
