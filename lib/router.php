@@ -429,6 +429,16 @@ class Router
             $args = $action_arg;
         }
 
-        return $this->m->generate($args, $params, $fragment);
+        $url = $this->m->generate($args, $params, $fragment);
+
+        // Due to a bug in the Net_URL_Mapper code, the returned URL may
+        // contain a malformed query of the form ?p1=v1?p2=v2?p3=v3. We
+        // repair that here rather than modifying the upstream code...
+        $qpos = strpos($url,'?');
+        if ($qpos !== false) {
+            $url = substr($url, 0, $qpos+1) .
+	              str_replace('?', '&', substr($url, $qpos+1));
+        }
+        return $url;
     }
 }
