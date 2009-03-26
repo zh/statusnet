@@ -122,9 +122,10 @@ class NoticesearchAction extends SearchAction
 
         $cnt = $nl->show();
 
-        $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
-                          $this->page, 'noticesearch', array('q' => $q));
+        $this->pagination($page > 1, $cnt > NOTICES_PER_PAGE,
+                          $page, 'noticesearch', array('q' => $q));
     }
+
     function isReadOnly()
     {
         return true;
