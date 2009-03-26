@@ -1,9 +1,4 @@
 <?php
-
-
-//        define('GROUPS_PER_PAGE', 20);
-
-
 /**
  * Group search action class.
  *
@@ -90,15 +85,15 @@ class GroupSearchResults extends GroupList
 {
     var $terms = null;
     var $pattern = null;
-    
+
     function __construct($user_group, $terms, $action)
     {
         parent::__construct($user_group, $terms, $action);
-        $this->terms = array_map('preg_quote', 
+        $this->terms = array_map('preg_quote',
                                  array_map('htmlspecialchars', $terms));
         $this->pattern = '/('.implode('|',$terms).')/i';
     }
-    
+
     function highlight($text)
     {
         return preg_replace($this->pattern, '<strong>\\1</strong>', htmlspecialchars($text));

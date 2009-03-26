@@ -150,7 +150,9 @@ font-weight:bold;
 #form_openid_login legend,
 #form_search legend,
 #form_invite legend,
-#form_notice_delete legend {
+#form_notice_delete legend,
+#form_password_recover legend,
+#form_password_change legend {
 display:none;
 }
 
@@ -419,6 +421,7 @@ padding:0;
 display:none;
 }
 #form_notice textarea {
+float:left;
 border-radius:7px;
 -moz-border-radius:7px;
 -webkit-border-radius:7px;
@@ -429,30 +432,19 @@ padding:7px 7px 16px 7px;
 }
 #form_notice label {
 display:block;
+float:left;
 font-size:1.3em;
 margin-bottom:7px;
 }
-#form_notice .form_data li {
-float:left;
-}
-
-#form_notice #notice_attach_file label,
 #form_notice #notice_submit label {
 display:none;
 }
-
-#form_notice #notice_attachment {
-margin-top:25px;
-margin-left:4px;
-}
-
 #form_notice .form_note {
 position:absolute;
 top:99px;
 right:98px;
 z-index:9;
 }
-
 #form_notice .form_note dt {
 font-weight:bold;
 display:none;
@@ -462,42 +454,19 @@ font-weight:bold;
 line-height:1.15;
 padding:1px 2px;
 }
-
-#form_notice #notice_data-attach_view {
-position:absolute;
-top:25px;
-right:30px;
-margin-left:4px;
-padding:0;
-width:16px;
-height:16px;
-border:0;
-text-indent:-9999px;
-}
-#form_notice .form_actions {
+#form_notice #notice_action-submit {
+width:60px;
+padding:8px;
 position:absolute;
 bottom:0;
 right:0;
 }
-#form_notice .form_actions input.submit {
-width:60px;
-padding:8px;
-}
-
-#form_notice li {
-margin-bottom:0;
-}
-
-#form_notice #notice_to {
-margin-bottom:7px;
-}
-
-#notice_to label {
-float:left;
-margin-right:18px;
+#form_notice label[for=to] {
 margin-top:11px;
 }
-#notice_to select {
+#form_notice select[id=to] {
+margin-bottom:7px;
+margin-left:18px;
 float:left;
 }
 /*end FORM NOTICE*/
