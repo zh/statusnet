@@ -925,6 +925,16 @@ dupelimit: Time in which it's not OK for the same person to post the
            same notice; default = 60 seconds.
 logo: URL of an image file to use as the logo for the site. Overrides
       the logo in the theme, if any.
+ssl: Whether to use SSL and https:// URLs for some or all pages.
+     Possible values are 'always' (use it for all pages), 'never'
+     (don't use it for any pages), or 'sometimes' (use it for
+     sensitive pages that include passwords like login and registration,
+     but not for regular pages). Default to 'never'.
+sslserver: use an alternate server name for SSL URLs, like
+           'secure.example.org'. You should be careful to set cookie
+           parameters correctly so that both the SSL server and the
+           "normal" server can access the session cookie and
+           preferably other cookies as well.
 
 db
 --
