@@ -868,20 +868,38 @@ function common_enqueue_notice($notice)
 		}
         common_log(LOG_DEBUG, 'complete remote queueing notice ID = ' . $notice->id . ' for ' . $transport);
 	}
+
+	//send tags as headers, so they can be used as JMS selectors
+        common_log(LOG_DEBUG, 'searching for tags ' . $notice->id);
+        $tags = array();
+	$tag = new Notice_tag();
+        $tag->notice_id = $notice->id;
+        if ($tag->find()) {
+            while ($tag->fetch()) {
+        	common_log(LOG_DEBUG, 'tag found = ' . $tag->tag);
+		array_push($tags,$tag->tag);
+            }
+        }
+        $tag->free();
+
 	$con->send('/topic/laconica.'.$notice->profile_id,
 			$notice->content,
 			array(
 				'profile_id' => $notice->profile_id,
-				'created' => $notice->created
+				'created' => $notice->created,
+				'tags' => implode($tags,' - ')
 				)
 			);
+        common_log(LOG_DEBUG, 'sent to personal topic ' . $notice->id);
 	$con->send('/topic/laconica.allusers',
 			$notice->content,
 			array(
 				'profile_id' => $notice->profile_id,
-				'created' => $notice->created
+				'created' => $notice->created,
+				'tags' => implode($tags,' - ')
 				)
 			);
+        common_log(LOG_DEBUG, 'sent to catch-all topic ' . $notice->id);
 	$result = true;
     }
     else {
