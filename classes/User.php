@@ -273,10 +273,52 @@ class User extends Memcached_DataObject
             $user->emailChanged();
         }
 
+        // Default system subscription
+
+        $defnick = common_config('newuser', 'default');
+
+        if (!empty($defnick)) {
+            $defuser = User::staticGet('nickname', $defnick);
+            if (empty($defuser)) {
+                common_log(LOG_WARNING, sprintf("Default user %s does not exist.", $defnick),
+                           __FILE__);
+            } else {
+                $defsub = new Subscription();
+                $defsub->subscriber = $user->id;
+                $defsub->subscribed = $defuser->id;
+                $defsub->created = $user->created;
+
+                $result = $defsub->insert();
+
+                if (!$result) {
+                    common_log_db_error($defsub, 'INSERT', __FILE__);
+                    return false;
+                }
+            }
+        }
+
         $profile->query('COMMIT');
 
         if ($email && !$user->email) {
             mail_confirm_address($user, $confirm->code, $profile->nickname, $email);
+        }
+
+        // Welcome message
+
+        $welcome = common_config('newuser', 'welcome');
+
+        if (!empty($welcome)) {
+            $welcomeuser = User::staticGet('nickname', $welcome);
+            if (empty($welcomeuser)) {
+                common_log(LOG_WARNING, sprintf("Welcome user %s does not exist.", $defnick),
+                           __FILE__);
+            } else {
+                $notice = Notice::saveNew($welcomeuser->id,
+                                          sprintf(_('Welcome to %1$s, @%2$s!'),
+                                                  common_config('site', 'name'),
+                                                  $user->nickname),
+                                          'system');
+            }
         }
 
         return $user;

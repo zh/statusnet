@@ -153,6 +153,9 @@ $config =
         array('notify' => array()),
         'inboxes' =>
         array('enabled' => true), # on by default for new sites
+        'newuser' =>
+        array('subscribe' => null,
+              'welcome' => null),
         );
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
