@@ -391,6 +391,7 @@ class NoticeListItem extends Widget
              case 'xmpp':
              case 'mail':
              case 'omb':
+             case 'system':
              case 'api':
                 $this->out->element('dd', null, $source_name);
                 break;
