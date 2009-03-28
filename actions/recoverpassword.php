@@ -181,13 +181,21 @@ class RecoverpasswordAction extends Action
     function showRecoverForm()
     {
         $this->elementStart('form', array('method' => 'post',
-                                           'id' => 'recoverpassword',
+                                           'id' => 'form_password_recover',
+                                           'class' => 'form_settings',
                                            'action' => common_local_url('recoverpassword')));
+        $this->elementStart('fieldset');
+        $this->element('legend', null, _('Password recover'));
+        $this->elementStart('ul', 'form_data');
+        $this->elementStart('li');
         $this->input('nicknameoremail', _('Nickname or email'),
                      $this->trimmed('nicknameoremail'),
                      _('Your nickname on this server, ' .
                         'or your registered email address.'));
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
         $this->submit('recover', _('Recover'));
+        $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }
 
@@ -213,14 +221,24 @@ class RecoverpasswordAction extends Action
     function showResetForm()
     {
         $this->elementStart('form', array('method' => 'post',
-                                           'id' => 'recoverpassword',
+                                           'id' => 'form_password_change',
+                                           'class' => 'form_settings',
                                            'action' => common_local_url('recoverpassword')));
+        $this->elementStart('fieldset');
+        $this->element('legend', null, _('Password change'));
         $this->hidden('token', common_session_token());
+        $this->elementStart('ul', 'form_data');
+        $this->elementStart('li');
         $this->password('newpassword', _('New password'),
                         _('6 or more characters, and don\'t forget it!'));
+        $this->elementEnd('li');
+        $this->elementStart('li');
         $this->password('confirm', _('Confirm'),
                         _('Same as password above'));
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
         $this->submit('reset', _('Reset'));
+        $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }
 
