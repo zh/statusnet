@@ -1,7 +1,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,11 +17,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
 /**
  * Table Definition for user
  */
+
 require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 require_once 'Validate.php';
 
@@ -79,13 +82,13 @@ class User extends Memcached_DataObject
     function isSubscribed($other)
     {
         assert(!is_null($other));
-        # XXX: cache results of this query
+        // XXX: cache results of this query
         $sub = Subscription::pkeyGet(array('subscriber' => $this->id,
                                            'subscribed' => $other->id));
         return (is_null($sub)) ? false : true;
     }
 
-    # 'update' won't write key columns, so we have to do it ourselves.
+    // 'update' won't write key columns, so we have to do it ourselves.
 
     function updateKeys(&$orig)
     {
@@ -96,7 +99,7 @@ class User extends Memcached_DataObject
             }
         }
         if (count($parts) == 0) {
-            # No changes
+            // No changes
             return true;
         }
         $toupdate = implode(', ', $parts);
@@ -117,7 +120,7 @@ class User extends Memcached_DataObject
 
     function allowed_nickname($nickname)
     {
-        # XXX: should already be validated for size, content, etc.
+        // XXX: should already be validated for size, content, etc.
         static $blacklist = array('rss', 'xrds', 'doc', 'main',
                                   'settings', 'notice', 'user',
                                   'search', 'avatar', 'tag', 'tags',
@@ -147,7 +150,7 @@ class User extends Memcached_DataObject
         $sub->subscriber = $this->id;
         $sub->subscribed = $other->id;
 
-        $sub->created = common_sql_now(); # current time
+        $sub->created = common_sql_now(); // current time
 
         if (!$sub->insert()) {
             return false;
@@ -173,7 +176,7 @@ class User extends Memcached_DataObject
 
     static function register($fields) {
 
-        # MAGICALLY put fields into current scope
+        // MAGICALLY put fields into current scope
 
         extract($fields);
 
@@ -211,11 +214,11 @@ class User extends Memcached_DataObject
         $user->id = $id;
         $user->nickname = $nickname;
 
-        if (!empty($password)) { # may not have a password for OpenID users
+        if (!empty($password)) { // may not have a password for OpenID users
             $user->password = common_munge_password($password, $id);
         }
 
-        # Users who respond to invite email have proven their ownership of that address
+        // Users who respond to invite email have proven their ownership of that address
 
         if (!empty($code)) {
             $invite = Invitation::staticGet($code);
@@ -240,7 +243,7 @@ class User extends Memcached_DataObject
             return false;
         }
 
-        # Everyone is subscribed to themself
+        // Everyone is subscribed to themself
 
         $subscription = new Subscription();
         $subscription->subscriber = $user->id;
@@ -324,7 +327,7 @@ class User extends Memcached_DataObject
         return $user;
     }
 
-    # Things we do when the email changes
+    // Things we do when the email changes
 
     function emailChanged()
     {
@@ -345,46 +348,46 @@ class User extends Memcached_DataObject
     {
         $cache = common_memcache();
 
-        # XXX: Kind of a hack.
+        // XXX: Kind of a hack.
         if ($cache) {
-            # This is the stream of favorite notices, in rev chron
-            # order. This forces it into cache.
+            // This is the stream of favorite notices, in rev chron
+            // order. This forces it into cache.
             $faves = $this->favoriteNotices(0, NOTICE_CACHE_WINDOW);
             $cnt = 0;
             while ($faves->fetch()) {
                 if ($faves->id < $notice->id) {
-                    # If we passed it, it's not a fave
+                    // If we passed it, it's not a fave
                     return false;
                 } else if ($faves->id == $notice->id) {
-                    # If it matches a cached notice, then it's a fave
+                    // If it matches a cached notice, then it's a fave
                     return true;
                 }
                 $cnt++;
             }
-            # If we're not past the end of the cache window,
-            # then the cache has all available faves, so this one
-            # is not a fave.
+            // If we're not past the end of the cache window,
+            // then the cache has all available faves, so this one
+            // is not a fave.
             if ($cnt < NOTICE_CACHE_WINDOW) {
                 return false;
             }
-            # Otherwise, cache doesn't have all faves;
-            # fall through to the default
+            // Otherwise, cache doesn't have all faves;
+            // fall through to the default
         }
         $fave = Fave::pkeyGet(array('user_id' => $this->id,
                                     'notice_id' => $notice->id));
         return ((is_null($fave)) ? false : true);
     }
+
     function mutuallySubscribed($other)
     {
         return $this->isSubscribed($other) &&
           $other->isSubscribed($this);
     }
 
-        function mutuallySubscribedUsers()
-        {
-
-        # 3-way join; probably should get cached
-	$UT = common_config('db','type')=='pgsql'?'"user"':'user';
+    function mutuallySubscribedUsers()
+    {
+        // 3-way join; probably should get cached
+        $UT = common_config('db','type')=='pgsql'?'"user"':'user';
         $qry = "SELECT $UT.* " .
           "FROM subscription sub1 JOIN $UT ON sub1.subscribed = $UT.id " .
           "JOIN subscription sub2 ON $UT.id = sub2.subscriber " .
@@ -407,8 +410,8 @@ class User extends Memcached_DataObject
                                  $offset, $limit, $since_id, $before_id, null, $since);
     }
 
-        function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
-        {
+    function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
+    {
         $profile = $this->getProfile();
         if (!$profile) {
             return null;
@@ -417,8 +420,8 @@ class User extends Memcached_DataObject
         }
     }
 
-      function favoriteNotices($offset=0, $limit=NOTICES_PER_PAGE)
-      {
+    function favoriteNotices($offset=0, $limit=NOTICES_PER_PAGE)
+    {
         $qry =
           'SELECT notice.* ' .
           'FROM notice JOIN fave ON notice.id = fave.notice_id ' .
@@ -428,12 +431,12 @@ class User extends Memcached_DataObject
                                  $offset, $limit);
     }
 
-        function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
-        {
+    function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
+    {
         $enabled = common_config('inboxes', 'enabled');
 
-        # Complicated code, depending on whether we support inboxes yet
-        # XXX: make this go away when inboxes become mandatory
+        // Complicated code, depending on whether we support inboxes yet
+        // XXX: make this go away when inboxes become mandatory
 
         if ($enabled === false ||
             ($enabled == 'transitional' && $this->inboxed == 0)) {
@@ -443,13 +446,13 @@ class User extends Memcached_DataObject
               'WHERE subscription.subscriber = %d ';
             $order = null;
         } else if ($enabled === true ||
-               ($enabled == 'transitional' && $this->inboxed == 1)) {
+                   ($enabled == 'transitional' && $this->inboxed == 1)) {
 
             $qry =
               'SELECT notice.* ' .
               'FROM notice JOIN notice_inbox ON notice.id = notice_inbox.notice_id ' .
               'WHERE notice_inbox.user_id = %d ';
-            # NOTE: we override ORDER
+            // NOTE: we override ORDER
             $order = null;
         }
         return Notice::getStream(sprintf($qry, $this->id),
@@ -458,35 +461,34 @@ class User extends Memcached_DataObject
                                  $order, $since);
     }
 
-        function blowFavesCache()
-        {
+    function blowFavesCache()
+    {
         $cache = common_memcache();
         if ($cache) {
-            # Faves don't happen chronologically, so we need to blow
-            # ;last cache, too
+            // Faves don't happen chronologically, so we need to blow
+            // ;last cache, too
             $cache->delete(common_cache_key('user:faves:'.$this->id));
             $cache->delete(common_cache_key('user:faves:'.$this->id).';last');
         }
     }
 
-        function getSelfTags()
-        {
+    function getSelfTags()
+    {
         return Profile_tag::getTags($this->id, $this->id);
     }
 
-        function setSelfTags($newtags)
-        {
+    function setSelfTags($newtags)
+    {
         return Profile_tag::setTags($this->id, $this->id, $newtags);
     }
 
     function block($other)
     {
-
-        # Add a new block record
+        // Add a new block record
 
         $block = new Profile_block();
 
-        # Begin a transaction
+        // Begin a transaction
 
         $block->query('BEGIN');
 
@@ -500,7 +502,7 @@ class User extends Memcached_DataObject
             return false;
         }
 
-        # Cancel their subscription, if it exists
+        // Cancel their subscription, if it exists
 
         $sub = Subscription::pkeyGet(array('subscriber' => $other->id,
                                            'subscribed' => $this->id));
@@ -520,8 +522,7 @@ class User extends Memcached_DataObject
 
     function unblock($other)
     {
-
-        # Get the block record
+        // Get the block record
 
         $block = Profile_block::get($this->id, $other->id);
 
