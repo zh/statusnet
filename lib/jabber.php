@@ -179,7 +179,7 @@ function jabber_format_entry($profile, $notice)
     $xs->elementEnd('body');
     $xs->elementEnd('html');
 
-    $html = $xs->asString();
+    $html = $xs->getString();
 
     return $html . ' ' . $entry;
 }

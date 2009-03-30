@@ -132,20 +132,14 @@ class MessageForm extends Form
         $mutual_users->free();
         unset($mutual_users);
 
-        $this->out->elementStart('ul', 'form_data');
-        $this->out->elementStart('li', array('id' => 'notice_to'));
         $this->out->dropdown('to', _('To'), $mutual, null, false,
                              ($this->to) ? $this->to->id : null);
-        $this->out->elementEnd('li');
 
-        $this->out->elementStart('li', array('id' => 'notice_text'));
         $this->out->element('textarea', array('id' => 'notice_data-text',
                                               'cols' => 35,
                                               'rows' => 4,
                                               'name' => 'content'),
                             ($this->content) ? $this->content : '');
-        $this->out->elementEnd('li');
-        $this->out->elementEnd('ul');
     }
 
     /**
@@ -156,14 +150,10 @@ class MessageForm extends Form
 
     function formActions()
     {
-        $this->out->elementStart('ul', 'form_actions');
-        $this->out->elementStart('li', array('id' => 'notice_submit'));
         $this->out->element('input', array('id' => 'notice_action-submit',
                                            'class' => 'submit',
                                            'name' => 'message_send',
                                            'type' => 'submit',
                                            'value' => _('Send')));
-        $this->out->elementEnd('li');
-        $this->out->elementEnd('ul');
     }
 }
