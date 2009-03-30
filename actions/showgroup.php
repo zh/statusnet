@@ -73,11 +73,17 @@ class ShowgroupAction extends Action
 
     function title()
     {
+        if (!empty($this->group->fullname)) {
+            $base = $this->group->fullname . ' (' . $this->group->nickname . ')';
+        } else {
+            $base = $this->group->nickname;
+        }
+
         if ($this->page == 1) {
-            return sprintf(_("%s group"), $this->group->nickname);
+            return sprintf(_("%s group"), $base);
         } else {
             return sprintf(_("%s group, page %d"),
-                           $this->group->nickname,
+                           $base,
                            $this->page);
         }
     }
