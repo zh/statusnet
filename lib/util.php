@@ -643,10 +643,14 @@ function common_group_link($sender_id, $nickname)
     $sender = Profile::staticGet($sender_id);
     $group = User_group::staticGet('nickname', common_canonical_nickname($nickname));
     if ($group && $sender->isMember($group)) {
+        $attrs = array('href' => $group->permalink(),
+                       'class' => 'url');
+        if (!empty($group->fullname)) {
+            $attrs['title'] = $group->fullname . ' (' . $group->nickname . ')';
+        }
         $xs = new XMLStringer();
         $xs->elementStart('span', 'vcard');
-        $xs->elementStart('a', array('href' => $group->permalink(),
-                                     'class' => 'url'));
+        $xs->elementStart('a', $attrs);
         $xs->element('span', 'fn nickname', $nickname);
         $xs->elementEnd('a');
         $xs->elementEnd('span');
