@@ -622,9 +622,13 @@ function common_at_link($sender_id, $nickname)
             $url = $recipient->profileurl;
         }
         $xs = new XMLStringer(false);
+        $attrs = array('href' => $url,
+                       'class' => 'url');
+        if (!empty($recipient->fullname)) {
+            $attrs['title'] = $recipient->fullname . ' (' . $recipient->nickname . ')';
+        }
         $xs->elementStart('span', 'vcard');
-        $xs->elementStart('a', array('href' => $url,
-                                     'class' => 'url'));
+        $xs->elementStart('a', $attrs);
         $xs->element('span', 'fn nickname', $nickname);
         $xs->elementEnd('a');
         $xs->elementEnd('span');
@@ -639,10 +643,14 @@ function common_group_link($sender_id, $nickname)
     $sender = Profile::staticGet($sender_id);
     $group = User_group::staticGet('nickname', common_canonical_nickname($nickname));
     if ($group && $sender->isMember($group)) {
+        $attrs = array('href' => $group->permalink(),
+                       'class' => 'url');
+        if (!empty($group->fullname)) {
+            $attrs['title'] = $group->fullname . ' (' . $group->nickname . ')';
+        }
         $xs = new XMLStringer();
         $xs->elementStart('span', 'vcard');
-        $xs->elementStart('a', array('href' => $group->permalink(),
-                                     'class' => 'url'));
+        $xs->elementStart('a', $attrs);
         $xs->element('span', 'fn nickname', $nickname);
         $xs->elementEnd('a');
         $xs->elementEnd('span');
@@ -713,25 +721,46 @@ function common_relative_profile($sender, $nickname, $dt=null)
 
 function common_local_url($action, $args=null, $params=null, $fragment=null)
 {
+    static $sensitive = array('login', 'register', 'passwordsettings',
+                              'twittersettings', 'finishopenidlogin',
+                              'api');
+
     $r = Router::get();
     $path = $r->build($action, $args, $params, $fragment);
 
+    $ssl = in_array($action, $sensitive);
+
     if (common_config('site','fancy')) {
-        $url = common_path(mb_substr($path, 1));
+        $url = common_path(mb_substr($path, 1), $ssl);
     } else {
         if (mb_strpos($path, '/index.php') === 0) {
-            $url = common_path(mb_substr($path, 1));
+            $url = common_path(mb_substr($path, 1), $ssl);
         } else {
-            $url = common_path('index.php'.$path);
+            $url = common_path('index.php'.$path, $ssl);
         }
     }
     return $url;
 }
 
-function common_path($relative)
+function common_path($relative, $ssl=false)
 {
     $pathpart = (common_config('site', 'path')) ? common_config('site', 'path')."/" : '';
-    return "http://".common_config('site', 'server').'/'.$pathpart.$relative;
+
+    if (($ssl && (common_config('site', 'ssl') === 'sometimes'))
+        || common_config('site', 'ssl') === 'always') {
+        $proto = 'https';
+        if (is_string(common_config('site', 'sslserver')) &&
+            mb_strlen(common_config('site', 'sslserver')) > 0) {
+            $serverpart = common_config('site', 'sslserver');
+        } else {
+            $serverpart = common_config('site', 'server');
+        }
+    } else {
+        $proto = 'http';
+        $serverpart = common_config('site', 'server');
+    }
+
+    return $proto.'://'.$serverpart.'/'.$pathpart.$relative;
 }
 
 function common_date_string($dt)

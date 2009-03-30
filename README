@@ -929,6 +929,16 @@ dupelimit: Time in which it's not OK for the same person to post the
            same notice; default = 60 seconds.
 logo: URL of an image file to use as the logo for the site. Overrides
       the logo in the theme, if any.
+ssl: Whether to use SSL and https:// URLs for some or all pages.
+     Possible values are 'always' (use it for all pages), 'never'
+     (don't use it for any pages), or 'sometimes' (use it for
+     sensitive pages that include passwords like login and registration,
+     but not for regular pages). Default to 'never'.
+sslserver: use an alternate server name for SSL URLs, like
+           'secure.example.org'. You should be careful to set cookie
+           parameters correctly so that both the SSL server and the
+           "normal" server can access the session cookie and
+           preferably other cookies as well.
 
 db
 --
@@ -1172,6 +1182,20 @@ banned: an array of usernames and/or profile IDs of 'banned' profiles.
         The site will reject any notices by these users -- they will
         not be accepted at all. (Compare with blacklisted users above,
         whose posts just won't show up in the public stream.)
+
+newuser
+-------
+
+Options with new users.
+
+subscribe: nickname of a user account to automatically subscribe new
+           users to. Typically this would be system account for e.g.
+           service updates or announcements. Users are able to unsub
+           if they want. Default is null; no auto subscribe.
+welcome: nickname of a user account that sends welcome messages to new
+         users. Can be the same as 'subscribe' account, although on
+         busy servers it may be a good idea to keep that one just for
+         'urgent' messages. Default is null; no message.
 
 Troubleshooting
 ===============

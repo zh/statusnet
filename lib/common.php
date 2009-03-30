@@ -87,6 +87,8 @@ $config =
               'closed' => false,
               'inviteonly' => false,
               'private' => false,
+              'ssl' => 'never',
+              'sslserver' => null,
               'dupelimit' => 60), # default for same person saying the same thing
         'syslog' =>
         array('appname' => 'laconica', # for syslog
@@ -151,6 +153,9 @@ $config =
         array('notify' => array()),
         'inboxes' =>
         array('enabled' => true), # on by default for new sites
+        'newuser' =>
+        array('subscribe' => null,
+              'welcome' => null),
         );
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
