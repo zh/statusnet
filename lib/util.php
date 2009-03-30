@@ -622,9 +622,13 @@ function common_at_link($sender_id, $nickname)
             $url = $recipient->profileurl;
         }
         $xs = new XMLStringer(false);
+        $attrs = array('href' => $url,
+                       'class' => 'url');
+        if (!empty($recipient->fullname)) {
+            $attrs['title'] = $recipient->fullname . ' (' . $recipient->nickname . ')';
+        }
         $xs->elementStart('span', 'vcard');
-        $xs->elementStart('a', array('href' => $url,
-                                     'class' => 'url'));
+        $xs->elementStart('a', $attrs);
         $xs->element('span', 'fn nickname', $nickname);
         $xs->elementEnd('a');
         $xs->elementEnd('span');
