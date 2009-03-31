@@ -952,9 +952,9 @@ function common_profile_url($nickname)
 
 // Should make up a reasonable root URL
 
-function common_root_url()
+function common_root_url($ssl=false)
 {
-    return common_path('');
+    return common_path('', $ssl);
 }
 
 // returns $bytes bytes of random data as a hexadecimal string
