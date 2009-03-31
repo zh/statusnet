@@ -136,10 +136,14 @@ class Router
 
         foreach (array('group', 'people', 'notice') as $s) {
             $m->connect('search/'.$s, array('action' => $s.'search'));
-            $m->connect('search/'.$s.'?q=:q', array('action' => $s.'search'), array('q' => '.+'));
+            $m->connect('search/'.$s.'?q=:q', array('action' => $s.'search'),array('q' => '.+'));
         }
 
+        // The second of these is needed to make the link work correctly
+        // when inserted into the page. The first is needed to match the
+        // route on the way in. Seems to be another Net_URL_Mapper bug to me.
         $m->connect('search/notice/rss', array('action' => 'noticesearchrss'));
+        $m->connect('search/notice/rss?q=:q', array('action' => 'noticesearchrss'),array('q' => '.+'));
 
         // notice
 

@@ -67,11 +67,17 @@ class ShowstreamAction extends Action
 
     function title()
     {
+        if (!empty($this->profile->fullname)) {
+            $base = $this->profile->fullname . ' (' . $this->user->nickname . ') ';
+        } else {
+            $base = $this->user->nickname;
+        }
+
         if ($this->page == 1) {
-            return $this->user->nickname;
+            return $base;
         } else {
             return sprintf(_("%s, page %d"),
-                           $this->user->nickname,
+                           $base,
                            $this->page);
         }
     }
@@ -138,16 +144,6 @@ class ShowstreamAction extends Action
     {
         $nav = new PersonalGroupNav($this);
         $nav->show();
-    }
-
-    function showPageTitle()
-    {
-        $user =& common_current_user();
-        if ($user && ($user->id == $this->profile->id)) {
-            $this->element('h1', NULL, _("Your profile"));
-        } else {
-            $this->element('h1', NULL, sprintf(_('%s\'s profile'), $this->profile->nickname));
-        }
     }
 
     function showPageNoticeBlock()
