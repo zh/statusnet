@@ -877,7 +877,7 @@ This section is a catch-all for site-wide variables.
 
 name: the name of your site, like 'YourCompany Microblog'.
 server: the server part of your site's URLs, like 'example.net'.
-path: The path part of your site's URLs, like 'mublog' or '/'
+path: The path part of your site's URLs, like 'mublog' or ''
       (installed in root).
 fancy: whether or not your site uses fancy URLs (see Fancy URLs
        section above). Default is false.
@@ -1184,10 +1184,10 @@ newuser
 
 Options with new users.
 
-subscribe: nickname of a user account to automatically subscribe new
-           users to. Typically this would be system account for e.g.
-           service updates or announcements. Users are able to unsub
-           if they want. Default is null; no auto subscribe.
+default: nickname of a user account to automatically subscribe new
+	 users to. Typically this would be system account for e.g.
+         service updates or announcements. Users are able to unsub
+         if they want. Default is null; no auto subscribe.
 welcome: nickname of a user account that sends welcome messages to new
          users. Can be the same as 'subscribe' account, although on
          busy servers it may be a good idea to keep that one just for

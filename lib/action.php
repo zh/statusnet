@@ -112,6 +112,7 @@ class Action extends HTMLOutputter // lawsuit
         // XXX: attributes (profile?)
         $this->elementStart('head');
         $this->showTitle();
+        $this->showShortcutIcon();
         $this->showStylesheets();
         $this->showScripts();
         $this->showOpenSearch();
@@ -145,6 +146,32 @@ class Action extends HTMLOutputter // lawsuit
     function title()
     {
         return _("Untitled page");
+    }
+
+    /**
+     * Show themed shortcut icon
+     *
+     * @return nothing
+     */
+    function showShortcutIcon()
+    {
+        if (is_readable(INSTALLDIR . '/theme/' . common_config('site', 'theme') . '/favicon.ico')) {
+            $this->element('link', array('rel' => 'shortcut icon',
+                                         'href' => theme_path('favicon.ico')));
+        } else {
+            $this->element('link', array('rel' => 'shortcut icon',
+                                         'href' => common_path('favicon.ico')));
+        }
+
+        if (common_config('site', 'mobile')) {
+            if (is_readable(INSTALLDIR . '/theme/' . common_config('site', 'theme') . '/apple-touch-icon.png')) {
+                $this->element('link', array('rel' => 'apple-touch-icon',
+                                             'href' => theme_path('apple-touch-icon.png')));
+            } else {
+                $this->element('link', array('rel' => 'apple-touch-icon',
+                                             'href' => common_path('apple-touch-icon.png')));
+            }
+        }
     }
 
     /**

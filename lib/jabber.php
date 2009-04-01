@@ -163,50 +163,25 @@ function jabber_send_notice($to, $notice)
 
 function jabber_format_entry($profile, $notice)
 {
-    // FIXME: notice url might be remote
+    $entry = $notice->asAtomEntry(true, true);
 
-    $noticeurl = common_local_url('shownotice',
-                                  array('notice' => $notice->id));
-
-    $msg = jabber_format_notice($profile, $notice);
-
-    $self_url = common_local_url('userrss', array('nickname' => $profile->nickname));
-
-    $entry  = "\n<entry xmlns='http://www.w3.org/2005/Atom'>\n";
-    $entry .= "<source>\n";
-    $entry .= "<title>" . $profile->nickname . " - " . common_config('site', 'name') . "</title>\n";
-    $entry .= "<link href='" . htmlspecialchars($profile->profileurl) . "'/>\n";
-    $entry .= "<link rel='self' type='application/rss+xml' href='" . $self_url . "'/>\n";
-    $entry .= "<author><name>" . $profile->nickname . "</name></author>\n";
-    $entry .= "<icon>" . $profile->avatarUrl(AVATAR_PROFILE_SIZE) . "</icon>\n";
-    $entry .= "</source>\n";
-    $entry .= "<title>" . htmlspecialchars($msg) . "</title>\n";
-    $entry .= "<summary>" . htmlspecialchars($msg) . "</summary>\n";
-    $entry .= "<link rel='alternate' href='" . $noticeurl . "' />\n";
-    $entry .= "<id>". $notice->uri . "</id>\n";
-    $entry .= "<published>".common_date_w3dtf($notice->created)."</published>\n";
-    $entry .= "<updated>".common_date_w3dtf($notice->modified)."</updated>\n";
-    if ($notice->reply_to) {
-        $replyurl = common_local_url('shownotice',
-                                     array('notice' => $notice->reply_to));
-        $entry .= "<link rel='related' href='" . $replyurl . "'/>\n";
+    $xs = new XMLStringer();
+    $xs->elementStart('html', array('xmlns' => 'http://jabber.org/protocol/xhtml-im'));
+    $xs->elementStart('body', array('xmlns' => 'http://www.w3.org/1999/xhtml'));
+    $xs->element('a', array('href' => $profile->profileurl),
+                 $profile->nickname);
+    $xs->text(": ");
+    if (!empty($notice->rendered)) {
+        $xs->raw($notice->rendered);
+    } else {
+        $xs->raw(common_render_content($notice->content, $notice));
     }
-    $entry .= "</entry>\n";
+    $xs->elementEnd('body');
+    $xs->elementEnd('html');
 
-    $html  = "\n<html xmlns='http://jabber.org/protocol/xhtml-im'>\n";
-    $html .= "<body xmlns='http://www.w3.org/1999/xhtml'>\n";
-    $html .= "<a href='".htmlspecialchars($profile->profileurl)."'>".$profile->nickname."</a>: ";
-    $html .= ($notice->rendered) ? $notice->rendered : common_render_content($notice->content, $notice);
-    $html .= "\n</body>\n";
-    $html .= "\n</html>\n";
+    $html = $xs->getString();
 
-    $address  = "<addresses xmlns='http://jabber.org/protocol/address'>\n";
-    $address .= "<address type='replyto' jid='" . jabber_daemon_address() . "' />\n";
-    $address .= "</addresses>\n";
-
-    // FIXME: include a pubsub event, too.
-
-    return $html . $entry . $address;
+    return $html . ' ' . $entry;
 }
 
 /**

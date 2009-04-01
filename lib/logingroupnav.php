@@ -70,16 +70,16 @@ class LoginGroupNav extends Widget
     function show()
     {
         // action => array('prompt', 'title')
-        $menu =
-          array('login' =>
-                array(_('Login'),
-                      _('Login with a username and password')),
-                'register' =>
-                array(_('Register'),
-                      _('Sign up for a new account')),
-                'openidlogin' =>
-                array(_('OpenID'),
-                      _('Login or register with OpenID')));
+        $menu = array();
+
+        $menu['login'] = array(_('Login'),
+                         _('Login with a username and password'));
+        if (!(common_config('site','closed') || common_config('site','inviteonly'))) {
+            $menu['register'] = array(_('Register'),
+                                _('Sign up for a new account'));
+        }
+        $menu['openidlogin'] = array(_('OpenID'),
+                               _('Login or register with OpenID'));
 
         $action_name = $this->action->trimmed('action');
         $this->action->elementStart('ul', array('class' => 'nav'));

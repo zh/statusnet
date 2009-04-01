@@ -19,9 +19,6 @@ font-size:1em;
 address {
 margin-right:71px;
 }
-address .fn {
-display:none;
-}
 
 input, textarea, select, option {
 font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
@@ -93,6 +90,11 @@ color:#333;
 }
 #form_notice.warning #notice_text-count {
 color:#000;
+}
+#form_notice.processing #notice_action-submit {
+background:#fff url(../../base/images/icons/icon_processing.gif) no-repeat 47% 47%;
+cursor:wait;
+text-indent:-9999px;
 }
 
 

@@ -19,6 +19,7 @@ VALUES
     ('identichat','identichat','http://identichat.prosody.im/', now()),
     ('identitwitch','IdentiTwitch','http://richfish.org/identitwitch/', now()),
     ('mbpidgin','mbpidgin','http://code.google.com/p/microblog-purple/', now()),
+    ('Mobidentica', 'Mobidentica', 'http://www.substanceofcode.com/software/mobidentica/', now()),
     ('moconica','Moconica','http://moconica.com/', now()),
     ('pocketwit','PockeTwit','http://code.google.com/p/pocketwit/', now()),
     ('posty','Posty','http://spreadingfunkyness.com/posty/', now()),
@@ -44,4 +45,4 @@ VALUES
     ('twitux','Twitux','http://live.gnome.org/DanielMorales/Twitux', now()),
     ('twitvim','TwitVim','http://vim.sourceforge.net/scripts/script.php?script_id=2204', now()),
     ('urfastr','urfastr','http://urfastr.net/', now()),
-    ('adium', 'Adium', 'http://www.adiumx.com/', now()));
+    ('adium', 'Adium', 'http://www.adiumx.com/', now());

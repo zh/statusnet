@@ -535,10 +535,16 @@ class ShowstreamAction extends Action
 
     function showAnonymousMessage()
     {
-		$m = sprintf(_('**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
-                       'based on the Free Software [Laconica](http://laconi.ca/) tool. ' .
-                       '[Join now](%%%%action.register%%%%) to follow **%s**\'s notices and many more! ([Read more](%%%%doc.help%%%%))'),
-                     $this->user->nickname, $this->user->nickname);
+        if (!(common_config('site','closed') || common_config('site','inviteonly'))) {
+            $m = sprintf(_('**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
+                 'based on the Free Software [Laconica](http://laconi.ca/) tool. ' .
+                 '[Join now](%%%%action.register%%%%) to follow **%s**\'s notices and many more! ([Read more](%%%%doc.help%%%%))'),
+                 $this->user->nickname, $this->user->nickname);
+        } else {
+            $m = sprintf(_('**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
+                 'based on the Free Software [Laconica](http://laconi.ca/) tool. '),
+                 $this->user->nickname, $this->user->nickname);
+	}
         $this->elementStart('div', array('id' => 'anon_notice'));
         $this->raw(common_markup_to_html($m));
         $this->elementEnd('div');
