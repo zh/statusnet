@@ -116,10 +116,11 @@ class UnblockAction extends Action
             }
         }
         if ($action) {
-            common_redirect(common_local_url($action, $args));
+            common_redirect(common_local_url($action, $args), 303);
         } else {
             common_redirect(common_local_url('subscriptions',
-                                             array('nickname' => $cur->nickname)));
+                                             array('nickname' => $cur->nickname)),
+                            303);
         }
     }
 }

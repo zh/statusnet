@@ -50,7 +50,7 @@ class NudgeAction extends Action
 {
      /**
      * Class handler.
-     * 
+     *
      * @param array $args array of arguments
      *
      * @return nothing
@@ -75,7 +75,7 @@ class NudgeAction extends Action
 
         // CSRF protection
         $token = $this->trimmed('token');
-        
+
         if (!$token || $token != common_session_token()) {
             $this->clientError(_('There was a problem with your session token. Try again, please.'));
             return;
@@ -100,7 +100,8 @@ class NudgeAction extends Action
         } else {
             // display a confirmation to the user
             common_redirect(common_local_url('showstream',
-                                             array('nickname' => $other->nickname)));
+                                             array('nickname' => $other->nickname)),
+                            303);
         }
     }
 

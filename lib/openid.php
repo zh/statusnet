@@ -171,7 +171,7 @@ function oid_authenticate($openid_url, $returnto, $immediate=false)
         } else if (Auth_OpenID::isFailure($redirect_url)) {
             return sprintf(_('Could not redirect to server: %s'), $redirect_url->message);
         } else {
-            common_redirect($redirect_url);
+            common_redirect($redirect_url, 303);
         }
     } else {
         // Generate form markup and render it.

@@ -488,7 +488,8 @@ class SmssettingsAction extends ConnectSettingsAction
         }
 
         common_redirect(common_local_url('confirmaddress',
-                                         array('code' => $code)));
+                                         array('code' => $code)),
+                        303);
     }
 
     /**
