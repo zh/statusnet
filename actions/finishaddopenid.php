@@ -139,7 +139,7 @@ class FinishaddopenidAction extends Action
 
             oid_set_last($display);
 
-            common_redirect(common_local_url('openidsettings'));
+            common_redirect(common_local_url('openidsettings'), 303);
         }
     }
 

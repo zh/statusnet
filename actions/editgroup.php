@@ -166,7 +166,6 @@ class EditgroupAction extends Action
             return;
         }
 
-
         $nickname    = common_canonical_nickname($this->trimmed('nickname'));
         $fullname    = $this->trimmed('fullname');
         $homepage    = $this->trimmed('homepage');
@@ -221,7 +220,7 @@ class EditgroupAction extends Action
         if ($this->group->nickname != $orig->nickname) {
             common_redirect(common_local_url('editgroup',
                                              array('nickname' => $nickname)),
-                            307);
+                            303);
         } else {
             $this->showForm(_('Options saved.'));
         }

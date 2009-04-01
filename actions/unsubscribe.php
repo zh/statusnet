@@ -77,7 +77,8 @@ class UnsubscribeAction extends Action
             $this->elementEnd('html');
         } else {
             common_redirect(common_local_url('subscriptions', array('nickname' =>
-                                                                    $user->nickname)));
+                                                                    $user->nickname)),
+                            303);
         }
     }
 }

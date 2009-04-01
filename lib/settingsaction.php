@@ -78,9 +78,9 @@ class SettingsAction extends Action
             common_set_returnto($this->selfUrl());
             $user = common_current_user();
             if ($user->hasOpenID()) {
-                common_redirect(common_local_url('openidlogin'));
+                common_redirect(common_local_url('openidlogin'), 303);
             } else {
-                common_redirect(common_local_url('login'));
+                common_redirect(common_local_url('login'), 303);
             }
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->handlePost();
