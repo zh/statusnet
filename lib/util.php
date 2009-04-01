@@ -850,7 +850,7 @@ function common_redirect($url, $code=307)
                            303 => "See Other",
                            307 => "Temporary Redirect");
 
-    header("Status: ${code} $status[$code]");
+    header('HTTP/1.1 '.$code.' '.$status[$code]);
     header("Location: $url");
 
     $xo = new XMLOutputter();
