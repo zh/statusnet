@@ -160,7 +160,7 @@ function oid_authenticate($openid_url, $returnto, $immediate=false)
         $auth_request->addExtension($sreg_request);
     }
 
-    $trust_root = common_path('');
+    $trust_root = common_root_url(true);
     $process_url = common_local_url($returnto);
 
     if ($auth_request->shouldSendRedirect()) {
