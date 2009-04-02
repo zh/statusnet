@@ -250,6 +250,7 @@ position:absolute;
 top:65px;
 right:18px;
 width:250px;
+width:24%;
 }
 #page_notice {
 clear:both;
@@ -259,9 +260,8 @@ margin-bottom:18px;
 
 #anon_notice {
 float:left;
-width:432px;
-width:28.052em;
-padding:11px;
+width:43.2%;
+padding:1.1%;
 border-radius:7px;
 -moz-border-radius:7px;
 -webkit-border-radius:7px;
@@ -369,7 +369,9 @@ margin-right:4px;
 
 #wrap {
 margin:0 auto;
-width:1003px;
+width:100%;
+min-width:760px;
+max-width:1003px;
 overflow:hidden;
 }
 
@@ -381,14 +383,16 @@ margin-bottom:1em;
 }
 
 #content {
-width:644px;
-padding:18px;
+width:64.009%;
+padding:1.795%;
 float:left;
 border-radius:7px;
 -moz-border-radius:7px;
 -moz-border-radius-topleft:0;
 -webkit-border-radius:7px;
 -webkit-border-top-left-radius:0;
+border-style:solid;
+border-width:1px;
 }
 
 #content_inner {
@@ -398,10 +402,10 @@ float:left;
 }
 
 #aside_primary {
-width:280px;
+width:27.917%;
 float:left;
-margin-left:4px;
-padding:18px;
+margin-left:0.395%;
+padding:1.795%;
 border-radius:7px;
 -moz-border-radius:7px;
 -webkit-border-radius:7px;
@@ -409,9 +413,8 @@ border-width:1px;
 border-style:solid;
 }
 
-/*Start: FORM NOTICE*/
 #form_notice {
-width:458px;
+width:45.664%;
 float:left;
 position:relative;
 line-height:1;
@@ -428,7 +431,7 @@ float:left;
 border-radius:7px;
 -moz-border-radius:7px;
 -webkit-border-radius:7px;
-width:370px;
+width:80.789%;
 height:67px;
 line-height:1.5;
 padding:7px 7px 16px 7px;
@@ -458,8 +461,9 @@ line-height:1.15;
 padding:1px 2px;
 }
 #form_notice #notice_action-submit {
-width:60px;
-padding:8px;
+width:14%;
+height:47px;
+padding:0;
 position:absolute;
 bottom:0;
 right:0;
@@ -472,13 +476,12 @@ margin-bottom:7px;
 margin-left:18px;
 float:left;
 }
-/*end FORM NOTICE*/
 
 
 /* entity_profile */
 .entity_profile {
 position:relative;
-width:475px;
+width:67.702%;
 min-height:123px;
 float:left;
 margin-bottom:18px;
@@ -508,7 +511,6 @@ margin-bottom:18px;
 .entity_profile .entity_tags {
 margin-left:113px;
 margin-bottom:4px;
-width:322px;
 }
 
 .entity_profile .entity_fn,
@@ -536,14 +538,14 @@ display:none;
 .entity_profile h2 {
 display:none;
 }
-
 /* entity_profile */
 
 
 /*entity_actions*/
 .entity_actions {
 float:right;
-margin-left:28px;
+margin-left:4.35%;
+max-width:25%;
 }
 .entity_actions h2 {
 display:none;
@@ -911,8 +913,6 @@ display:none;
 border:0;
 padding:0;
 }
-/*END: NOTICES */
-
 
 
 #new_group, #group_search {
