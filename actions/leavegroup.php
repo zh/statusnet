@@ -147,7 +147,8 @@ class LeavegroupAction extends Action
             $this->elementEnd('html');
         } else {
             common_redirect(common_local_url('groupmembers', array('nickname' =>
-                                                                   $this->group->nickname)));
+                                                                   $this->group->nickname)),
+                            303);
         }
     }
 }

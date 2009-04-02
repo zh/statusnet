@@ -46,10 +46,10 @@ require_once INSTALLDIR.'/lib/openid.php';
  */
 class LogoutAction extends Action
 {
-    
+
     /**
      * This is read only.
-     * 
+     *
      * @return boolean true
      */
     function isReadOnly()
@@ -59,7 +59,7 @@ class LogoutAction extends Action
 
     /**
      * Class handler.
-     * 
+     *
      * @param array $args array of arguments
      *
      * @return nothing
@@ -73,7 +73,7 @@ class LogoutAction extends Action
             common_set_user(null);
             common_real_login(false); // not logged in
             common_forgetme(); // don't log back in!
-            common_redirect(common_local_url('public'));
+            common_redirect(common_local_url('public'), 303);
         }
     }
 }

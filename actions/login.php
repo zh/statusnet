@@ -138,7 +138,7 @@ class LoginAction extends Action
                                           $nickname));
         }
 
-        common_redirect($url);
+        common_redirect($url, 303);
     }
 
     /**
