@@ -141,6 +141,6 @@ class DeletenoticeAction extends DeleteAction
             $url = common_local_url('public');
         }
 
-        common_redirect($url);
+        common_redirect($url, 303);
     }
 }

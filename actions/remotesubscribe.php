@@ -99,7 +99,7 @@ class RemotesubscribeAction extends Action
         $this->elementStart('fieldset');
         $this->element('legend', 'Subscribe to a remote user');
         $this->hidden('token', common_session_token());
-        
+
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
         $this->input('nickname', _('User nickname'), $this->nickname,
@@ -407,7 +407,7 @@ class RemotesubscribeAction extends Action
 
         # Redirect to authorization service
 
-        common_redirect($req->to_url());
+        common_redirect($req->to_url(), 303);
         return;
     }
 }

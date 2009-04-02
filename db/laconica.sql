@@ -13,7 +13,7 @@ create table profile (
 
     index profile_nickname_idx (nickname),
     FULLTEXT(nickname, fullname, location, bio, homepage)
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 create table avatar (
     profile_id integer not null comment 'foreign key to profile table' references profile (id),
@@ -73,7 +73,7 @@ create table user (
     modified timestamp comment 'date this record was modified',
 
     index user_smsemail_idx (smsemail)
-) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 /* remote people */
 
@@ -103,7 +103,6 @@ create table subscription (
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table notice (
-
     id integer auto_increment primary key comment 'unique identifier',
     profile_id integer not null comment 'who made the update' references profile (id),
     uri varchar(255) unique key comment 'universally unique identifier, usually a tag URI',
@@ -121,7 +120,7 @@ create table notice (
     index notice_conversation_idx (conversation),
     index notice_created_idx (created),
     FULLTEXT(content)
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_bin;
+) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 create table notice_source (
      code varchar(32) primary key not null comment 'source code',
@@ -132,7 +131,6 @@ create table notice_source (
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table reply (
-
     notice_id integer not null comment 'notice that is the reply' references notice (id),
     profile_id integer not null comment 'profile replied to' references profile (id),
     modified timestamp not null comment 'date this record was modified',
@@ -146,7 +144,6 @@ create table reply (
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table fave (
-
     notice_id integer not null comment 'notice that is the favorite' references notice (id),
     user_id integer not null comment 'user who likes this notice' references user (id),
     modified timestamp not null comment 'date this record was modified',
@@ -323,7 +320,6 @@ create table invitation (
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table message (
-
     id integer auto_increment primary key comment 'unique identifier',
     uri varchar(255) unique key comment 'universally unique identifier',
     from_profile integer not null comment 'who the message is from' references profile (id),
@@ -338,10 +334,9 @@ create table message (
     index message_from_idx (from_profile),
     index message_to_idx (to_profile),
     index message_created_idx (created)
-) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 create table notice_inbox (
-
     user_id integer not null comment 'user receiving the message' references user (id),
     notice_id integer not null comment 'notice received' references notice (id),
     created datetime not null comment 'date the notice was created',
@@ -364,7 +359,6 @@ create table profile_tag (
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table profile_block (
-
    blocker integer not null comment 'user making the block' references user (id),
    blocked integer not null comment 'profile that is blocked' references profile (id),
    modified timestamp comment 'date of blocking',
@@ -374,7 +368,6 @@ create table profile_block (
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table user_group (
-
     id integer auto_increment primary key comment 'unique identifier',
 
     nickname varchar(64) unique key comment 'nickname for addressing',
@@ -393,10 +386,9 @@ create table user_group (
 
     index user_group_nickname_idx (nickname)
 
-) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 create table group_member (
-
     group_id integer not null comment 'foreign key to user_group' references user_group (id),
     profile_id integer not null comment 'foreign key to profile table' references profile (id),
     is_admin boolean default false comment 'is this user an admin?',
@@ -411,7 +403,6 @@ create table group_member (
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table related_group (
-
     group_id integer not null comment 'foreign key to user_group' references user_group (id),
     related_group_id integer not null comment 'foreign key to user_group' references user_group (id),
 
