@@ -723,7 +723,7 @@ function common_local_url($action, $args=null, $params=null, $fragment=null)
 {
     static $sensitive = array('login', 'register', 'passwordsettings',
                               'twittersettings', 'finishopenidlogin',
-                              'api');
+                              'finishaddopenid', 'api');
 
     $r = Router::get();
     $path = $r->build($action, $args, $params, $fragment);
