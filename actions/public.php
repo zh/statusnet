@@ -168,14 +168,13 @@ class PublicAction extends Action
 
     function showPageNotice()
     {
-        $notice = Notice::publicStream(0, 1);
+        $notice = new Notice;
 
         if (!$notice) {
             $this->serverError(_('Could not retrieve public stream.'));
             return;
         }
 
-        // no notices in the public stream, let's get out of here
         if ($notice->count()) {
             return;
         }
@@ -184,25 +183,9 @@ class PublicAction extends Action
 
         if (common_logged_in()) {
             $message .= _('Be the first to post!');
-/*
-                sprintf(_('You are logged in... %%%%site.name%%%% groups let you find and talk with ' .
-                    'people of similar interests. After you join a group ' .
-                    'you can send messages to all other members using the ' .
-                    'syntax "!groupname". Don\'t see a group you like? Try ' .
-                    '[searching for one](%%%%action.groupsearch%%%%) or ' .
-                    '[start your own!](%%%%action.newgroup%%%%)'));
-*/
         }
         else {
             $message .= _('Why not [register an account](%%action.register%%) and be the first to post!');
-/*
-                sprintf(_('You are not logged in... %%%%site.name%%%% groups let you find and talk with ' .
-                    'people of similar interests. After you join a group ' .
-                    'you can send messages to all other members using the ' .
-                    'syntax "!groupname". Don\'t see a group you like? Try ' .
-                    '[searching for one](%%%%action.groupsearch%%%%) or ' .
-                    '[start your own!](%%%%action.newgroup%%%%)'));
-*/
         }
 
         $this->elementStart('div', 'blankfiller');

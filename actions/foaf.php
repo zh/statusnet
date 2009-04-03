@@ -33,7 +33,24 @@ class FoafAction extends Action
     function prepare($args)
     {
         parent::prepare($args);
-        $this->nickname = $this->trimmed('nickname');
+
+        $nickname_arg = $this->arg('nickname');
+
+        if (empty($nickname_arg)) {
+            $this->clientError(_('No such user.'), 404);
+            return false;
+        }
+
+        $this->nickname = common_canonical_nickname($nickname_arg);
+
+        // Permanent redirect on non-canonical nickname
+
+        if ($nickname_arg != $this->nickname) {
+            common_redirect(common_local_url('foaf',
+                                             array('nickname' => $this->nickname)),
+                            301);
+            return false;
+        }
 
         $this->user = User::staticGet('nickname', $this->nickname);
 
@@ -122,19 +139,29 @@ class FoafAction extends Action
 
         if ($sub->find()) {
             while ($sub->fetch()) {
-                if ($sub->token) {
+                if (!empty($sub->token)) {
                     $other = Remote_profile::staticGet('id', $sub->subscribed);
                 } else {
                     $other = User::staticGet('id', $sub->subscribed);
                 }
-                if (!$other) {
+                if (empty($other)) {
                     common_debug('Got a bad subscription: '.print_r($sub,true));
                     continue;
                 }
                 $this->element('knows', array('rdf:resource' => $other->uri));
-                $person[$other->uri] = array(LISTENEE, $other);
+                $person[$other->uri] = array(LISTENEE,
+                                             $other->id,
+                                             $other->nickname,
+                                             (empty($sub->token)) ? 'User' : 'Remote_profile');
+                $other->free();
+                $other = null;
+                unset($other);
             }
         }
+
+        $sub->free();
+        $sub = null;
+        unset($sub);
 
         // Get people who subscribe to user
 
@@ -156,25 +183,36 @@ class FoafAction extends Action
                 if (array_key_exists($other->uri, $person)) {
                     $person[$other->uri][0] = BOTH;
                 } else {
-                    $person[$other->uri] = array(LISTENER, $other);
+                    $person[$other->uri] = array(LISTENER,
+                                                 $other->id,
+                                                 $other->nickname,
+                                                 (empty($sub->token)) ? 'User' : 'Remote_profile');
                 }
+                $other->free();
+                $other = null;
+                unset($other);
             }
         }
+
+        $sub->free();
+        $sub = null;
+        unset($sub);
 
         $this->elementEnd('Person');
 
         foreach ($person as $uri => $p) {
             $foaf_url = null;
-            if ($p[1] instanceof User) {
-                $foaf_url = common_local_url('foaf', array('nickname' => $p[1]->nickname));
+            list($type, $id, $nickname, $cls) = $p;
+            if ($cls == 'User') {
+                $foaf_url = common_local_url('foaf', array('nickname' => $nickname));
             }
-            $this->profile = Profile::staticGet($p[1]->id);
+            $profile = Profile::staticGet($id);
             $this->elementStart('Person', array('rdf:about' => $uri));
-            if ($p[0] == LISTENER || $p[0] == BOTH) {
+            if ($type == LISTENER || $type == BOTH) {
                 $this->element('knows', array('rdf:resource' => $this->user->uri));
             }
-            $this->showMicrobloggingAccount($this->profile, ($p[1] instanceof User) ?
-                                              common_root_url() : null);
+            $this->showMicrobloggingAccount($profile, ($cls == 'User') ?
+                                            common_root_url() : null);
             if ($foaf_url) {
                 $this->element('rdfs:seeAlso', array('rdf:resource' => $foaf_url));
             }
@@ -182,6 +220,9 @@ class FoafAction extends Action
             if ($foaf_url) {
                 $this->showPpd($foaf_url, $uri);
             }
+            $profile->free();
+            $profile = null;
+            unset($profile);
         }
 
         $this->elementEnd('rdf:RDF');

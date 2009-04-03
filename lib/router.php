@@ -107,6 +107,9 @@ class Router
             $m->connect('main/'.$a, array('action' => $a));
         }
 
+        $m->connect('main/sup/:seconds', array('action' => 'sup'),
+                    array('seconds' => '[0-9]+'));
+
         $m->connect('main/tagother/:id', array('action' => 'tagother'));
 
         // these take a code

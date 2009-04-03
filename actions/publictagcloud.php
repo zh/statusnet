@@ -62,6 +62,24 @@ class PublictagcloudAction extends Action
         $this->element('p', 'instructions',
                        sprintf(_('These are most popular recent tags on %s '),
                                common_config('site', 'name')));
+
+        $tags = new Notice_tag;
+        if ($tags->count()) {
+            return;
+        }
+
+        $message = _('Noone has posted a notice with a [hashtag](%%doc.tags%%) yet.') . ' ';
+
+        if (common_logged_in()) {
+            $message .= _('Be the first to post one!');
+        }
+        else {
+            $message .= _('Why not [register an account](%%action.register%%) and be the first to post one!');
+        }
+
+        $this->elementStart('div', 'blankfiller');
+        $this->raw(common_markup_to_html($message));
+        $this->elementEnd('div');
     }
 
     function showLocalNav()
