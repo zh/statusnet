@@ -97,7 +97,7 @@ class RemotesubscribeAction extends Action
                                           'class' => 'form_settings',
                                           'action' => common_local_url('remotesubscribe')));
         $this->elementStart('fieldset');
-        $this->element('legend', 'Subscribe to a remote user');
+        $this->element('legend', _('Subscribe to a remote user'));
         $this->hidden('token', common_session_token());
 
         $this->elementStart('ul', 'form_data');
