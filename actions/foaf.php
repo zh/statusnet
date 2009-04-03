@@ -33,7 +33,24 @@ class FoafAction extends Action
     function prepare($args)
     {
         parent::prepare($args);
-        $this->nickname = $this->trimmed('nickname');
+
+        $nickname_arg = $this->arg('nickname');
+
+        if (empty($nickname_arg)) {
+            $this->clientError(_('No such user.'), 404);
+            return false;
+        }
+
+        $this->nickname = common_canonical_nickname($nickname_arg);
+
+        // Permanent redirect on non-canonical nickname
+
+        if ($nickname_arg != $this->nickname) {
+            common_redirect(common_local_url('foaf',
+                                             array('nickname' => $this->nickname)),
+                            301);
+            return false;
+        }
 
         $this->user = User::staticGet('nickname', $this->nickname);
 
