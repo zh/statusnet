@@ -168,14 +168,13 @@ class PublicAction extends Action
 
     function showPageNotice()
     {
-        $notice = Notice::publicStream(0, 1);
+        $notice = new Notice;
 
         if (!$notice) {
             $this->serverError(_('Could not retrieve public stream.'));
             return;
         }
 
-        // no notices in the public stream, let's get out of here
         if ($notice->count()) {
             return;
         }
