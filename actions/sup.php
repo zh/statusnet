@@ -45,7 +45,7 @@ class SupAction extends Action
     function availablePeriods()
     {
         static $periods = array(86400, 43200, 21600, 7200,
-                                3600, 1800,    600, 300, 120,
+                                3600, 1800, 600, 300, 120,
                                 60, 30, 15);
         $available = array();
         foreach ($periods as $period) {

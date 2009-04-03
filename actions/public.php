@@ -166,6 +166,34 @@ class PublicAction extends Action
         $nav->show();
     }
 
+    function showPageNotice()
+    {
+        $notice = Notice::publicStream(0, 1);
+
+        if (!$notice) {
+            $this->serverError(_('Could not retrieve public stream.'));
+            return;
+        }
+
+        // no notices in the public stream, let's get out of here
+        if ($notice->count()) {
+            return;
+        }
+
+        $message = _('This is the public timeline for %%site.name%% but noone has posted anything yet.') . ' ';
+
+        if (common_logged_in()) {
+            $message .= _('Be the first to post!');
+        }
+        else {
+            $message .= _('Why not [register an account](%%action.register%%) and be the first to post!');
+        }
+
+        $this->elementStart('div', 'blankfiller');
+        $this->raw(common_markup_to_html($message));
+        $this->elementEnd('div');
+    }
+
     /**
      * Fill the content area
      *

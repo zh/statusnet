@@ -68,8 +68,8 @@ class Router
         }
     }
 
-    function initialize() {
-
+    function initialize()
+    {
         $m = Net_URL_Mapper::getInstance();
 
         // In the "root"
@@ -107,6 +107,9 @@ class Router
             $m->connect('main/'.$a, array('action' => $a));
         }
 
+        $m->connect('main/sup/:seconds', array('action' => 'sup'),
+                    array('seconds' => '[0-9]+'));
+
         $m->connect('main/tagother/:id', array('action' => 'tagother'));
 
         // these take a code
@@ -136,10 +139,17 @@ class Router
 
         foreach (array('group', 'people', 'notice') as $s) {
             $m->connect('search/'.$s, array('action' => $s.'search'));
-            $m->connect('search/'.$s.'?q=:q', array('action' => $s.'search'), array('q' => '.+'));
+            $m->connect('search/'.$s.'?q=:q',
+                        array('action' => $s.'search'),
+                        array('q' => '.+'));
         }
 
+        // The second of these is needed to make the link work correctly
+        // when inserted into the page. The first is needed to match the
+        // route on the way in. Seems to be another Net_URL_Mapper bug to me.
         $m->connect('search/notice/rss', array('action' => 'noticesearchrss'));
+        $m->connect('search/notice/rss?q=:q', array('action' => 'noticesearchrss'),
+                    array('q' => '.+'));
 
         // notice
 
@@ -259,8 +269,8 @@ class Router
         foreach (array('xml', 'json', 'rss', 'atom') as $e) {
             $m->connect('api/direct_messages/sent.'.$e,
                         array('action' => 'api',
-                        'apiaction' => 'direct_messages',
-                        'method' => 'sent.'.$e));
+                              'apiaction' => 'direct_messages',
+                              'method' => 'sent.'.$e));
         }
 
         $m->connect('api/direct_messages/destroy/:argument',
@@ -324,9 +334,9 @@ class Router
 
         foreach (array('xml', 'json', 'rss', 'atom') as $e) {
             $m->connect('api/favorites.'.$e,
-                array('action' => 'api',
-                      'apiaction' => 'favorites',
-                      'method' => 'favorites.'.$e));
+                        array('action' => 'api',
+                              'apiaction' => 'favorites',
+                              'method' => 'favorites.'.$e));
         }
 
         // notifications
@@ -411,7 +421,7 @@ class Router
             $match = $this->m->match($path);
         } catch (Net_URL_Mapper_InvalidException $e) {
             common_log(LOG_ERR, "Problem getting route for $path - " .
-                $e->getMessage());
+                       $e->getMessage());
             $cac = new ClientErrorAction("Page not found.", 404);
             $cac->showPage();
         }
@@ -429,6 +439,17 @@ class Router
             $args = $action_arg;
         }
 
-        return $this->m->generate($args, $params, $fragment);
+        $url = $this->m->generate($args, $params, $fragment);
+
+        // Due to a bug in the Net_URL_Mapper code, the returned URL may
+        // contain a malformed query of the form ?p1=v1?p2=v2?p3=v3. We
+        // repair that here rather than modifying the upstream code...
+
+        $qpos = strpos($url, '?');
+        if ($qpos !== false) {
+            $url = substr($url, 0, $qpos+1) .
+              str_replace('?', '&', substr($url, $qpos+1));
+        }
+        return $url;
     }
 }

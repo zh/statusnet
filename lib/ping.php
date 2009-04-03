@@ -48,9 +48,17 @@ function ping_broadcast_notice($notice) {
                                                                    'header' =>
                                                                    "Content-Type: text/xml\r\n".
                                                                    "User-Agent: Laconica/".LACONICA_VERSION."\r\n",
-                                                                   'content' => $request)));
+                                                                   'content' => $req)));
             $file = file_get_contents($notify_url, false, $context);
+
+            if ($file === false || mb_strlen($file) == 0) {
+                common_log(LOG_WARNING,
+                           "XML-RPC empty results for ping ($notify_url, $notice->id) ");
+                continue;
+            }
+
             $response = xmlrpc_decode($file);
+
             if (xmlrpc_is_fault($response)) {
                 common_log(LOG_WARNING,
                            "XML-RPC error for ping ($notify_url, $notice->id) ".

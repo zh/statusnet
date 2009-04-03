@@ -230,7 +230,8 @@ class FinishremotesubscribeAction extends Action
         # show up close to the top of the page
 
         common_redirect(common_local_url('subscribers', array('nickname' =>
-                                                             $user->nickname)));
+                                                             $user->nickname)),
+                        303);
     }
 
     function add_avatar($profile, $url)

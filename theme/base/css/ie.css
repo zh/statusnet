@@ -1,8 +1,21 @@
 /* IE specific styles */
-
-#aside_primary {
-padding-left:11px;
+legend {
+margin-left:-7px;
 }
+input.checkbox {
+top:0;
+}
+#form_notice textarea {
+width:78%;
+}
+#form_notice #notice_action-submit {
+width:17%;
+max-width:17%;
+}
+#anon_notice {
+max-width:39%;
+}
+
 .notice-options input.submit {
 font-size:0;
 margin-top:3px;
@@ -11,15 +24,9 @@ text-align:right;
 text-indent:0;
 width:24px;
 }
-
-input.checkbox {
-top:0;
-}
-
-legend {
-margin-left:-7px;
-}
-
 .notice div.entry-content .timestamp a {
 margin-right:4px;
+}
+.entity_profile {
+width:64%;
 }

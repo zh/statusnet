@@ -238,21 +238,6 @@ class TwitterapiAction extends Action
         $this->elementEnd('item');
     }
 
-    function show_twitter_atom_entry($entry)
-    {
-        $this->elementStart('entry');
-        $this->element('title', null, $entry['title']);
-        $this->element('content', array('type' => 'html'), $entry['content']);
-        $this->element('id', null, $entry['id']);
-        $this->element('published', null, $entry['published']);
-        $this->element('updated', null, $entry['updated']);
-        $this->element('link', array('href' => $entry['link'], 'rel' => 'alternate', 'type' => 'text/html'), null);
-        $this->elementStart('author');
-        $this->element('name', null, $entry['author']);
-        $this->elementEnd('author');
-        $this->elementEnd('entry');
-    }
-
     function show_json_objects($objects)
     {
         print(json_encode($objects));
@@ -383,7 +368,7 @@ class TwitterapiAction extends Action
         }
 
         if (!is_null($selfuri)) {
-            $this->element('link', array('href' => $selfuri, 
+            $this->element('link', array('href' => $selfuri,
                 'rel' => 'self', 'type' => 'application/atom+xml'), null);
         }
 
@@ -392,13 +377,11 @@ class TwitterapiAction extends Action
 
         if (is_array($notice)) {
             foreach ($notice as $n) {
-                $entry = $this->twitter_rss_entry_array($n);
-                $this->show_twitter_atom_entry($entry);
+                $this->raw($n->asAtomEntry());
             }
         } else {
             while ($notice->fetch()) {
-                $entry = $this->twitter_rss_entry_array($notice);
-                $this->show_twitter_atom_entry($entry);
+                $this->raw($notice->asAtomEntry());
             }
         }
 
@@ -578,13 +561,16 @@ class TwitterapiAction extends Action
     function init_twitter_atom()
     {
         $this->startXML();
-        $this->elementStart('feed', array('xmlns' => 'http://www.w3.org/2005/Atom', 'xml:lang' => 'en-US'));
+        // FIXME: don't hardcode the language here!
+        $this->elementStart('feed', array('xmlns' => 'http://www.w3.org/2005/Atom',
+                                          'xml:lang' => 'en-US',
+                                          'xmlns:thr' => 'http://purl.org/syndication/thread/1.0'));
     }
 
     function end_twitter_atom()
     {
-        $this->endXML();
         $this->elementEnd('feed');
+        $this->endXML();
     }
 
     function show_profile($profile, $content_type='xml', $notice=null)

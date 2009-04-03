@@ -174,3 +174,13 @@ $config['sphinx']['port'] = 3312;
 #http://taguri.org/ Examples:
 #$config['integration']['taguri'] = 'example.net,2008';
 #$config['integration']['taguri'] = 'admin@example.net,2009-03-09'
+
+#Don't use SSL
+#$config['site']['ssl'] = 'never';
+#Use SSL only for sensitive pages (like login, password change)
+#$config['site']['ssl'] = 'sometimes';
+#Use SSL for all pages
+#$config['site']['ssl'] = 'always';
+
+#Use a different hostname for SSL-encrypted pages
+#$config['site']['sslserver'] = 'secure.example.org';

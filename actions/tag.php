@@ -33,7 +33,9 @@ class TagAction extends Action
         }
 
         if ($this->tag != $taginput) {
-            common_redirect(common_local_url('tag', array('tag' => $this->tag)));
+            common_redirect(common_local_url('tag', array('tag' => $this->tag)),
+                            301);
+            return false;
         }
 
         $this->page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;

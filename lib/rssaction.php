@@ -94,11 +94,11 @@ class Rss10Action extends Action
 
     function handle($args)
     {
-        // Get the list of notices
-        $this->notices = $this->getNotices();
         // Parent handling, including cache check
         parent::handle($args);
-        $this->showRss($this->limit);
+        // Get the list of notices
+        $this->notices = $this->getNotices($this->limit);
+        $this->showRss();
     }
 
     /**
@@ -132,15 +132,13 @@ class Rss10Action extends Action
         return null;
     }
 
-    function showRss($limit=0)
+    function showRss()
     {
-        $notices = $this->getNotices($limit);
-
         $this->initRss();
-        $this->showChannel($notices);
+        $this->showChannel();
         $this->showImage();
 
-        foreach ($notices as $n) {
+        foreach ($this->notices as $n) {
             $this->showItem($n);
         }
 
@@ -148,7 +146,7 @@ class Rss10Action extends Action
         $this->endRss();
     }
 
-    function showChannel($notices)
+    function showChannel()
     {
 
         $channel = $this->getChannel();
@@ -167,7 +165,7 @@ class Rss10Action extends Action
         $this->elementStart('items');
         $this->elementStart('rdf:Seq');
 
-        foreach ($notices as $notice) {
+        foreach ($this->notices as $notice) {
             $this->element('sioct:MicroblogPost', array('rdf:resource' => $notice->uri));
         }
 
