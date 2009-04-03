@@ -1,5 +1,5 @@
 # This version needs to match the tarball and unpacked directory name.
-%define LACVER 0.7.2.1
+%define LACVER 0.7.3
 
 BuildRequires:	php-pear
 BuildRequires:	httpd-devel
@@ -79,11 +79,11 @@ rm -rf %buildroot
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/laconica.conf
 
 %changelog
+* Wed Apr 03 2009 Zach Copley <zach@controlyourself.ca> - 0.7.3
+- Changed version number to 0.7.3.
+
 * Fri Mar 13 2009 Ken Sedgwick <ksedgwic@bonsai.com> - 0.7.2.1-1
 - Factored laconica version to the first line of the file.
-
-* Wed Mar 03 2009 Zach Copley <zach@controlyourself.ca> - 0.7.2
-- Changed version number to 0.7.2.
 
 * Wed Mar 03 2009 Zach Copley <zach@controlyourself.ca> - 0.7.2
 - Changed version number to 0.7.2.
