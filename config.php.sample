@@ -128,6 +128,14 @@ $config['sphinx']['port'] = 3312;
 #background. See the README for details.
 #$config['queue']['enabled'] = true;
 
+#Queue subsystem
+#subsystems: internal (default) or stomp
+#using stomp requires an external message queue server
+#$config['queue']['subsystem'] = 'stomp';
+#$config['queue']['stomp_server'] = 'tcp://localhost:61613';
+#use different queue_basename for each laconica instance managed by the server
+#$config['queue']['queue_basename'] = 'laconica';
+
 #The following customise the behaviour of the various daemons:
 #$config['daemon']['piddir'] = '/var/run';
 #$config['daemon']['user'] = false;
