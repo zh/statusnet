@@ -82,25 +82,8 @@ class PeoplesearchAction extends SearchAction
         } else {
             $this->element('p', 'error', _('No results.'));
 
-            $qe = urlencode($q);
-            $message = _(<<<E_O_T
-* Make sure all words are spelled correctly.
-* Try different keywords.
-* Try more general keywords.
-* Try fewer keywords.
-
-You can also try your search on other engines:
-
-* [Twingly](http://www.twingly.com/search?q=$qe&content=microblog&site=identi.ca)
-* [Tweet scan](http://www.tweetscan.com/indexi.php?s=$qe)
-* [Google](http://www.google.com/search?q=site%3Aidenti.ca+$qe)
-* [Yahoo](http://search.yahoo.com/search?p=site%3Aidenti.ca+$qe)
-
-E_O_T
-);
-            $this->elementStart('div', 'blankfiller');
-            $this->raw(common_markup_to_html($message));
-            $this->elementEnd('div');
+//TODO
+            $this->searchSuggestions($q);
             $profile->free();
         }
     }
