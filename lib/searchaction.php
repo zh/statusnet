@@ -146,8 +146,8 @@ You can also try your search on other engines:
 
 * [Twingly](http://www.twingly.com/search?q=%s&content=microblog&site=identi.ca)
 * [Tweet scan](http://www.tweetscan.com/indexi.php?s=%s)
-* [Google](http://www.google.com/search?q=site%%3Aidenti.ca+%s)
-* [Yahoo](http://search.yahoo.com/search?p=site%%3Aidenti.ca+%s)
+* [Google](http://www.google.com/search?q=site%%3A%%%%site.server%%%%+%s)
+* [Yahoo](http://search.yahoo.com/search?p=site%%3A%%%%site.server%%%%+%s)
 
 
 E_O_T

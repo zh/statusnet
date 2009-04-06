@@ -81,8 +81,6 @@ class PeoplesearchAction extends SearchAction
 
         } else {
             $this->element('p', 'error', _('No results.'));
-
-//TODO
             $this->searchSuggestions($q);
             $profile->free();
         }
