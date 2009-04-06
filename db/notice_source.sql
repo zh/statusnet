@@ -21,6 +21,7 @@ VALUES
     ('mbpidgin','mbpidgin','http://code.google.com/p/microblog-purple/', now()),
     ('Mobidentica', 'Mobidentica', 'http://www.substanceofcode.com/software/mobidentica/', now()),
     ('moconica','Moconica','http://moconica.com/', now()),
+    ('peoplebrowsr', 'PeopleBrowsr', 'http://www.peoplebrowsr.com/', now()),
     ('pocketwit','PockeTwit','http://code.google.com/p/pocketwit/', now()),
     ('posty','Posty','http://spreadingfunkyness.com/posty/', now()),
     ('royalewithcheese','Royale With Cheese','http://p.hellyeah.org/', now()),
