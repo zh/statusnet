@@ -93,6 +93,32 @@ class AllAction extends Action
         $nav->show();
     }
 
+    function showPageNotice()
+    {
+        $notice = $this->user->noticesWithFriends(0, 1);
+        if ($notice->count()) {
+            return;
+        }
+
+        $message = sprintf(_('This is the timeline for %s and friends but no one has posted anything yet.'), $this->user->nickname) . ' ';
+
+        if (common_logged_in()) {
+            $current_user = common_current_user();
+            if ($this->user->id === $current_user->id) {
+                $message .= _('Try subscribing to more people, [join a group](%%action.groups) or post something yourself.');
+            } else {
+                $message .= sprintf(_('You can try to [nudge %s](./) from his profile or [post something to his or her attention](%%%%action.newnotice%%%%?status_textarea=%s).'), $this->user->nickname, '@' . $this->user->nickname);
+            }
+        }
+        else {
+            $message .= sprintf(_('Why not [register an account](%%%%action.register%%%%) and then nudge %s or post a notice to his or her attention.'), $this->user->nickname);
+        }
+
+        $this->elementStart('div', 'guide');
+        $this->raw(common_markup_to_html($message));
+        $this->elementEnd('div');
+    }
+
     function showContent()
     {
         $notice = $this->user->noticesWithFriends(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);

@@ -84,7 +84,7 @@ class GroupsearchAction extends SearchAction
             else {
                 $message = _('Why not [register an account](%%action.register%%) and [create the group](%%action.newgroup%%) yourself!');
             }
-            $this->elementStart('div', 'blankfiller');
+            $this->elementStart('div', 'guide');
             $this->raw(common_markup_to_html($message));
             $this->elementEnd('div');
             $user_group->free();

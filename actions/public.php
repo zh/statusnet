@@ -179,7 +179,7 @@ class PublicAction extends Action
             return;
         }
 
-        $message = _('This is the public timeline for %%site.name%% but noone has posted anything yet.') . ' ';
+        $message = _('This is the public timeline for %%site.name%% but no one has posted anything yet.') . ' ';
 
         if (common_logged_in()) {
             $message .= _('Be the first to post!');
@@ -188,7 +188,7 @@ class PublicAction extends Action
             $message .= _('Why not [register an account](%%action.register%%) and be the first to post!');
         }
 
-        $this->elementStart('div', 'blankfiller');
+        $this->elementStart('div', 'guide');
         $this->raw(common_markup_to_html($message));
         $this->elementEnd('div');
     }

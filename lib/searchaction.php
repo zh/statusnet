@@ -152,8 +152,11 @@ You can also try your search on other engines:
 
 E_O_T
 ), $qe, $qe, $qe, $qe);
-        $this->elementStart('div', 'blankfiller');
+        $this->elementStart('dl', array('id' => 'help_search', 'class' => 'help'));
+        $this->element('dt', null, _('Search help'));
+        $this->elementStart('dd', 'instructions');
         $this->raw(common_markup_to_html($message));
+        $this->elementEnd('dd');
         $this->elementEnd('div');
     }
 }
