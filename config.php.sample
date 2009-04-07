@@ -192,3 +192,11 @@ $config['sphinx']['port'] = 3312;
 
 #Use a different hostname for SSL-encrypted pages
 #$config['site']['sslserver'] = 'secure.example.org';
+
+#If you have a lot of status networks on the same server, you can
+#store the site data in a database and switch as follows
+#Status_network::setupDB('localhost', 'statusnet', 'statuspass', 'statusnet');
+#if (!Status_network::setupSite($_server, $_path)) {
+#        print "Error\n";
+#        exit(1);
+#}
