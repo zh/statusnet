@@ -345,7 +345,6 @@ class ShowstreamAction extends ProfileAction
             $message .= sprintf(_('Why not [register an account](%%%%action.register%%%%) and then nudge %s or post a notice to his or her attention.'), $this->user->nickname);
         }
 
-        $this->element('br', array('clear' => 'both'));
         $this->elementStart('div', 'guide');
         $this->raw(common_markup_to_html($message));
         $this->elementEnd('div');
