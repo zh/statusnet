@@ -63,7 +63,7 @@ class PublictagcloudAction extends Action
                        sprintf(_('These are most popular recent tags on %s '),
                                common_config('site', 'name')));
 
-        $tags = new Notice_tag();
+        $tags = new Notice_tag;
         if ($tags->count()) {
             return;
         }

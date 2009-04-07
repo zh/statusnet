@@ -133,5 +133,28 @@ class SearchAction extends Action
             $this->showResults($q, $page);
         }
     }
+
+    function searchSuggestions($q) {
+        $qe = urlencode($q);
+        $message = sprintf(_(<<<E_O_T
+* Make sure all words are spelled correctly.
+* Try different keywords.
+* Try more general keywords.
+* Try fewer keywords.
+
+You can also try your search on other engines:
+
+* [Twingly](http://www.twingly.com/search?q=%s&content=microblog&site=identi.ca)
+* [Tweet scan](http://www.tweetscan.com/indexi.php?s=%s)
+* [Google](http://www.google.com/search?q=site%%3A%%%%site.server%%%%+%s)
+* [Yahoo](http://search.yahoo.com/search?p=site%%3A%%%%site.server%%%%+%s)
+
+
+E_O_T
+), $qe, $qe, $qe, $qe);
+        $this->elementStart('div', 'blankfiller');
+        $this->raw(common_markup_to_html($message));
+        $this->elementEnd('div');
+    }
 }
 
