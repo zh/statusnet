@@ -84,7 +84,7 @@ class AllAction extends ProfileAction
             if ($this->user->id === $current_user->id) {
                 $message .= _('Try subscribing to more people, [join a group](%%action.groups) or post something yourself.');
             } else {
-                $message .= sprintf(_('You can try to [nudge %s](./) from his profile or [post something to his or her attention](%%%%action.newnotice%%%%?status_textarea=%s).'), $this->user->nickname, '@' . $this->user->nickname);
+                $message .= sprintf(_('You can try to [nudge %s](../%s) from his profile or [post something to his or her attention](%%%%action.newnotice%%%%?status_textarea=%s).'), $this->user->nickname, $this->user->nickname, '@' . $this->user->nickname);
             }
         }
         else {
