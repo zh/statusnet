@@ -75,13 +75,8 @@ class AllAction extends ProfileAction
         $nav->show();
     }
 
-    function showPageNotice()
+    function showEmptyListMessage()
     {
-        $notice = $this->user->noticesWithFriends(0, 1);
-        if ($notice->count()) {
-            return;
-        }
-
         $message = sprintf(_('This is the timeline for %s and friends but no one has posted anything yet.'), $this->user->nickname) . ' ';
 
         if (common_logged_in()) {
@@ -108,6 +103,10 @@ class AllAction extends ProfileAction
         $nl = new NoticeList($notice, $this);
 
         $cnt = $nl->show();
+
+        if (0 == $cnt) {
+            $this->showEmptyListMessage();
+        }
 
         $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
                           $this->page, 'all', array('nickname' => $this->user->nickname));
