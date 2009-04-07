@@ -402,13 +402,8 @@ class Action extends HTMLOutputter // lawsuit
             if ($user) {
                 $this->menuItem(common_local_url('all', array('nickname' => $user->nickname)),
                                 _('Home'), _('Personal profile and friends timeline'), false, 'nav_home');
-            }
-            $this->menuItem(common_local_url('peoplesearch'),
-                            _('Search'), _('Search for people or text'), false, 'nav_search');
-            if ($user) {
                 $this->menuItem(common_local_url('profilesettings'),
                                 _('Account'), _('Change your email, avatar, password, profile'), false, 'nav_account');
-
                 if (common_config('xmpp', 'enabled')) {
                     $this->menuItem(common_local_url('imsettings'),
                                     _('Connect'), _('Connect to IM, SMS, Twitter'), false, 'nav_connect');
@@ -423,18 +418,21 @@ class Action extends HTMLOutputter // lawsuit
                                  false, 'nav_invitecontact');
                 $this->menuItem(common_local_url('logout'),
                                 _('Logout'), _('Logout from the site'), false, 'nav_logout');
-            } else {
-                $this->menuItem(common_local_url('login'),
-                                _('Login'), _('Login to the site'), false, 'nav_login');
+            }
+            else {
                 if (!common_config('site', 'closed')) {
                     $this->menuItem(common_local_url('register'),
                                     _('Register'), _('Create an account'), false, 'nav_register');
                 }
                 $this->menuItem(common_local_url('openidlogin'),
                                 _('OpenID'), _('Login with OpenID'), false, 'nav_openid');
+                $this->menuItem(common_local_url('login'),
+                                _('Login'), _('Login to the site'), false, 'nav_login');
             }
             $this->menuItem(common_local_url('doc', array('title' => 'help')),
                             _('Help'), _('Help me!'), false, 'nav_help');
+            $this->menuItem(common_local_url('peoplesearch'),
+                            _('Search'), _('Search for people or text'), false, 'nav_search');
             Event::handle('EndPrimaryNav', array($this));
         }
         $this->elementEnd('ul');
