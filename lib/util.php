@@ -581,10 +581,8 @@ function common_shorten_link($url, $reverse = false)
 
 function common_xml_safe_str($str)
 {
-    $xmlStr = htmlentities(iconv('UTF-8', 'UTF-8//IGNORE', $str), ENT_NOQUOTES, 'UTF-8');
-
-    // Replace control, formatting, and surrogate characters with '*', ala Twitter
-    return preg_replace('/[\p{Cc}\p{Cf}\p{Cs}]/u', '*', $str);
+    // Neutralize control codes and surrogates
+	return preg_replace('/[\p{Cc}\p{Cs}]/u', '*', $str);
 }
 
 function common_tag_link($tag)
