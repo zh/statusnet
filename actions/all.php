@@ -114,7 +114,7 @@ class AllAction extends Action
             $message .= sprintf(_('Why not [register an account](%%%%action.register%%%%) and then nudge %s or post a notice to his or her attention.'), $this->user->nickname);
         }
 
-        $this->elementStart('div', 'blankfiller');
+        $this->elementStart('div', 'guide');
         $this->raw(common_markup_to_html($message));
         $this->elementEnd('div');
     }

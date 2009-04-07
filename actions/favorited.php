@@ -159,7 +159,7 @@ class FavoritedAction extends Action
             $message .= _('Why not [register an account](%%action.register%%) and be the first to add a notice to your favorites!');
         }
 
-        $this->elementStart('div', 'blankfiller');
+        $this->elementStart('div', 'guide');
         $this->raw(common_markup_to_html($message));
         $this->elementEnd('div');
     }
