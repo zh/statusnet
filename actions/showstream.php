@@ -329,12 +329,37 @@ class ShowstreamAction extends ProfileAction
                        _('Subscribe'));
     }
 
+    function showEmptyListMessage()
+    {
+        $message = sprintf(_('This is the timeline for %s but %s hasn\'t posted anything yet.'), $this->user->nickname, $this->user->nickname) . ' ';
+
+        if (common_logged_in()) {
+            $current_user = common_current_user();
+            if ($this->user->id === $current_user->id) {
+                $message .= _('Seen anything interesting recently? You haven\'t posted any notices yet, now would be a good time to start :)');
+            } else {
+                $message .= sprintf(_('You can try to nudge %s or [post something to his or her attention](%%%%action.newnotice%%%%?status_textarea=%s).'), $this->user->nickname, '@' . $this->user->nickname);
+            }
+        }
+        else {
+            $message .= sprintf(_('Why not [register an account](%%%%action.register%%%%) and then nudge %s or post a notice to his or her attention.'), $this->user->nickname);
+        }
+
+        $this->element('br', array('clear' => 'both'));
+        $this->elementStart('div', 'guide');
+        $this->raw(common_markup_to_html($message));
+        $this->elementEnd('div');
+    }
+
     function showNotices()
     {
         $notice = $this->user->getNotices(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
 
         $pnl = new ProfileNoticeList($notice, $this);
         $cnt = $pnl->show();
+        if (0 == $cnt) {
+            $this->showemptyListMessage();
+        }
 
         $this->pagination($this->page>1, $cnt>NOTICES_PER_PAGE, $this->page,
                           'showstream', array('nickname' => $this->user->nickname));
