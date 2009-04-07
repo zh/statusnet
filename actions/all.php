@@ -23,28 +23,10 @@ require_once INSTALLDIR.'/lib/personalgroupnav.php';
 require_once INSTALLDIR.'/lib/noticelist.php';
 require_once INSTALLDIR.'/lib/feedlist.php';
 
-class AllAction extends Action
+class AllAction extends ProfileAction
 {
-    var $user = null;
-    var $page = null;
-
     function isReadOnly()
     {
-        return true;
-    }
-
-    function prepare($args)
-    {
-        parent::prepare($args);
-        $nickname = common_canonical_nickname($this->arg('nickname'));
-        $this->user = User::staticGet('nickname', $nickname);
-        $this->page = $this->trimmed('page');
-        if (!$this->page) {
-            $this->page = 1;
-        }
-
-        common_set_returnto($this->selfUrl());
-
         return true;
     }
 
