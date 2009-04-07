@@ -83,12 +83,13 @@ left:0;
 border:0;
 }
 
-#page_notice .error,
-#page_notice .success {
+.error,
+.success {
 padding:4px 7px;
 border-radius:4px;
 -moz-border-radius:4px;
 -webkit-border-radius:4px;
+margin-bottom:18px;
 }
 form label.submit {
 display:none;
@@ -1145,4 +1146,13 @@ clear:both;
 margin-bottom:0;
 }
 
-
+.instructions ul {
+list-style-position:inside;
+}
+.instructions p,
+.instructions ul {
+margin-bottom:18px;
+}
+.help dt {
+display:none;
+}
