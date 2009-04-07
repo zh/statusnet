@@ -83,12 +83,13 @@ left:0;
 border:0;
 }
 
-#page_notice .error,
-#page_notice .success {
+.error,
+.success {
 padding:4px 7px;
 border-radius:4px;
 -moz-border-radius:4px;
 -webkit-border-radius:4px;
+margin-bottom:18px;
 }
 form label.submit {
 display:none;
@@ -384,6 +385,7 @@ margin-bottom:1em;
 
 #content {
 width:64.009%;
+min-height:259px;
 padding:1.795%;
 float:left;
 border-radius:7px;
@@ -403,6 +405,7 @@ float:left;
 
 #aside_primary {
 width:27.917%;
+min-height:259px;
 float:left;
 margin-left:0.395%;
 padding:1.795%;
@@ -1143,4 +1146,13 @@ clear:both;
 margin-bottom:0;
 }
 
-
+.instructions ul {
+list-style-position:inside;
+}
+.instructions p,
+.instructions ul {
+margin-bottom:18px;
+}
+.help dt {
+display:none;
+}

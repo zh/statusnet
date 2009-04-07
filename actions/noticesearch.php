@@ -114,21 +114,26 @@ class NoticesearchAction extends SearchAction
             $cnt = $notice->find();
         }
         if ($cnt === 0) {
-            $this->element('p', 'error', _('No results'));
+            $this->element('p', 'error', _('No results.'));
+
+            $this->searchSuggestions($q);
+            if (common_logged_in()) {
+                $message = sprintf(_('Be the first to [post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!'), urlencode($q));
+            }
+            else {
+                $message = sprintf(_('Why not [register an account](%%%%action.register%%%%) and be the first to  [post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!'), urlencode($q));
+            }
+
+            $this->elementStart('div', 'guide');
+            $this->raw(common_markup_to_html($message));
+            $this->elementEnd('div');
             return;
         }
         $terms = preg_split('/[\s,]+/', $q);
         $nl = new SearchNoticeList($notice, $this, $terms);
-
         $cnt = $nl->show();
-
         $this->pagination($page > 1, $cnt > NOTICES_PER_PAGE,
                           $page, 'noticesearch', array('q' => $q));
-    }
-
-    function isReadOnly()
-    {
-        return true;
     }
 }
 

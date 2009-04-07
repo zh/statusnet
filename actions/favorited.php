@@ -150,7 +150,7 @@ class FavoritedAction extends Action
             return;
         }
 
-        $message = _('Favorite notices appear on this page but noone has favorited one yet.') . ' ';
+        $message = _('Favorite notices appear on this page but no one has favorited one yet.') . ' ';
 
         if (common_logged_in()) {
             $message .= _('Be the first to add a notice to your favorites by clicking the fave button next to any notice you like.');
@@ -159,7 +159,7 @@ class FavoritedAction extends Action
             $message .= _('Why not [register an account](%%action.register%%) and be the first to add a notice to your favorites!');
         }
 
-        $this->elementStart('div', 'blankfiller');
+        $this->elementStart('div', 'guide');
         $this->raw(common_markup_to_html($message));
         $this->elementEnd('div');
     }
