@@ -68,7 +68,7 @@ class PublictagcloudAction extends Action
             return;
         }
 
-        $message = _('Noone has posted a notice with a [hashtag](%%doc.tags%%) yet.') . ' ';
+        $message = _('No one has posted a notice with a [hashtag](%%doc.tags%%) yet.') . ' ';
 
         if (common_logged_in()) {
             $message .= _('Be the first to post one!');

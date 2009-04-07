@@ -179,7 +179,7 @@ class PublicAction extends Action
             return;
         }
 
-        $message = _('This is the public timeline for %%site.name%% but noone has posted anything yet.') . ' ';
+        $message = _('This is the public timeline for %%site.name%% but no one has posted anything yet.') . ' ';
 
         if (common_logged_in()) {
             $message .= _('Be the first to post!');

@@ -100,7 +100,7 @@ class AllAction extends Action
             return;
         }
 
-        $message = sprintf(_('This is the timeline for %s and friends but noone has posted anything yet.'), $this->user->nickname) . ' ';
+        $message = sprintf(_('This is the timeline for %s and friends but no one has posted anything yet.'), $this->user->nickname) . ' ';
 
         if (common_logged_in()) {
             $current_user = common_current_user();
