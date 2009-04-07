@@ -921,11 +921,15 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return string current URL
      */
+
     function selfUrl()
     {
         $action = $this->trimmed('action');
         $args   = $this->args;
         unset($args['action']);
+        if (array_key_exists('submit', $args)) {
+            unset($args['submit']);
+        }
         foreach (array_keys($_COOKIE) as $cookie) {
             unset($args[$cookie]);
         }

@@ -50,7 +50,7 @@ class GalleryAction extends Action
             if ($this->arg('page') && $this->arg('page') != 1) {
                 $args['page'] = $this->arg['page'];
             }
-            common_redirect(common_local_url('subscriptions', $args), 301);
+            common_redirect(common_local_url($this->trimmed('action'), $args), 301);
             return false;
         }
 
@@ -71,6 +71,7 @@ class GalleryAction extends Action
         $this->page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 
         $this->tag = $this->trimmed('tag');
+        $this->q   = $this->trimmed('q');
 
         return true;
     }
@@ -87,7 +88,7 @@ class GalleryAction extends Action
 		# Post from the tag dropdown; redirect to a GET
 
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-		    common_redirect($this->selfUrl(), 307);
+		    common_redirect($this->selfUrl(), 303);
             return;
 		}
 
@@ -136,7 +137,7 @@ class GalleryAction extends Action
                                                'method' => 'post'));
             $this->dropdown('tag', _('Tag'), $content,
                             _('Choose a tag to narrow list'), false, $tag);
-            $this->submit('go', _('Go'));
+            $this->submit('submit', _('Go'));
             $this->elementEnd('form');
             $this->elementEnd('li');
             $this->elementEnd('ul');
