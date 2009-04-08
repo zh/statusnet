@@ -3,6 +3,6 @@ A bookmarklet is a small piece of javascript code used as a bookmark. This one w
 Drag-and-drop the following link to your bookmarks bar or right-click it and add it to your browser favorites to keep it handy.
 
 <MTMarkdownOptions output='raw'>
-<a href="javascript:var%20d=document,w=window,e=w.getSelection,k=d.getSelection,x=d.selection,s=(e?e():(k)?k():(x?x.createRange().text:0)),f='http://%%site.server%%/%%site.path%%/notice/new',l=d.location,e=encodeURIComponent,g=f+'?status_textarea=%22'+e(s)+'%22 from '+l.href;function%20a(){if(!w.open(g,'t','toolbar=0,resizable=0,scrollbars=1,status=1,width=720,height=570')){l.href=g;}}a();void(0);">Post to %%site.name%%</a>
+<a href="javascript:var%20d=document,w=window,e=w.getSelection,k=d.getSelection,x=d.selection,s=(e?e():(k)?k():(x?x.createRange().text:0)),f='http://%%site.server%%/%%site.path%%/index.php?action=newnotice',l=d.location,e=encodeURIComponent,g=f+'&status_textarea=%22'+e(s)+'%22 from '+l.href;function%20a(){if(!w.open(g,'t','toolbar=0,resizable=0,scrollbars=1,status=1,width=720,height=570')){l.href=g;}}a();void(0);">Post to %%site.name%%</a>
 </MTMarkdownOptions>
 
