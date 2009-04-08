@@ -137,6 +137,9 @@ class MailboxAction extends PersonalAction
             $message->free();
             unset($message);
         }
+        else {
+            $this->element('p', 'guide', _('You have no private messages. You can send private message to engage other users in conversation. People can send you messages for your eyes only.'));
+        }
     }
 
     function getMessages()
