@@ -62,12 +62,10 @@ class PublictagcloudAction extends Action
         $this->element('p', 'instructions',
                        sprintf(_('These are most popular recent tags on %s '),
                                common_config('site', 'name')));
+    }
 
-        $tags = new Notice_tag;
-        if ($tags->count()) {
-            return;
-        }
-
+    function showEmptyList()
+    {
         $message = _('No one has posted a notice with a [hashtag](%%doc.tags%%) yet.') . ' ';
 
         if (common_logged_in()) {
@@ -144,6 +142,8 @@ class PublictagcloudAction extends Action
             $this->elementEnd('dd');
             $this->elementEnd('dl');
             $this->elementEnd('div');
+        } else {
+            $this->showEmptyList();
         }
     }
 
