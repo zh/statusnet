@@ -203,7 +203,7 @@ class ShowfavoritesAction extends Action
 
         $cnt = $nl->show();
         if (0 == $cnt) {
-            $this->showemptyListMessage();
+            $this->showEmptyListMessage();
         }
 
         $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
