@@ -88,6 +88,9 @@ class SubscribersAction extends GalleryAction
         if ($subscribers) {
             $subscribers_list = new SubscribersList($subscribers, $this->user, $this);
             $cnt = $subscribers_list->show();
+            if (0 == $cnt) {
+                $this->showEmptyListMessage();
+            }
         }
 
         $subscribers->free();
@@ -95,6 +98,25 @@ class SubscribersAction extends GalleryAction
         $this->pagination($this->page > 1, $cnt > PROFILES_PER_PAGE,
                           $this->page, 'subscribers',
                           array('nickname' => $this->user->nickname));
+    }
+
+    function showEmptyListMessage()
+    {
+        if (common_logged_in()) {
+            $current_user = common_current_user();
+            if ($this->user->id === $current_user->id) {
+                $message = _('You have no subscribers. Try subscribing to people you know and they might return the favor');
+            } else {
+                $message = sprintf(_('%s has no subscribers. Want to be the first?'), $this->user->nickname);
+            }
+        }
+        else {
+            $message = sprintf(_('%s has no subscribers. Why not [register an account](%%%%action.register%%%%) and be the first?'), $this->user->nickname);
+        }
+
+        $this->elementStart('div', 'guide');
+        $this->raw(common_markup_to_html($message));
+        $this->elementEnd('div');
     }
 }
 

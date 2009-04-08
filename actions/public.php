@@ -166,20 +166,9 @@ class PublicAction extends Action
         $nav->show();
     }
 
-    function showPageNotice()
+    function showEmptyList()
     {
-        $notice = new Notice;
-
-        if (!$notice) {
-            $this->serverError(_('Could not retrieve public stream.'));
-            return;
-        }
-
-        if ($notice->count()) {
-            return;
-        }
-
-        $message = _('This is the public timeline for %%site.name%% but noone has posted anything yet.') . ' ';
+        $message = _('This is the public timeline for %%site.name%% but no one has posted anything yet.') . ' ';
 
         if (common_logged_in()) {
             $message .= _('Be the first to post!');
@@ -188,7 +177,7 @@ class PublicAction extends Action
             $message .= _('Why not [register an account](%%action.register%%) and be the first to post!');
         }
 
-        $this->elementStart('div', 'blankfiller');
+        $this->elementStart('div', 'guide');
         $this->raw(common_markup_to_html($message));
         $this->elementEnd('div');
     }
@@ -215,6 +204,10 @@ class PublicAction extends Action
         $nl = new NoticeList($notice, $this);
 
         $cnt = $nl->show();
+
+        if ($cnt == 0) {
+            $this->showEmptyList();
+        }
 
         $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
                           $this->page, 'public');
