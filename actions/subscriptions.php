@@ -114,11 +114,11 @@ class SubscriptionsAction extends GalleryAction
             if ($this->user->id === $current_user->id) {
                 $message = _('You\'re not listening to anyone\'s notices right now, try subscribing to people you know. Try [people search](%%action.peoplesearch%%), look for members in groups you\'re interested in and in our [featured users](%%action.featured%%). If you\'re a [Twitter user](%%action.twittersettings%%), you can automatically subscribe to people you already follow there.');
             } else {
-                $message = sprintf(_('%s is not listening to anyone.'), $this->profile->nickname);
+                $message = sprintf(_('%s is not listening to anyone.'), $this->user->nickname);
             }
         }
         else {
-            $message = sprintf(_('%s is not listening to anyone.'), $this->profile->fullname);
+            $message = sprintf(_('%s is not listening to anyone.'), $this->user->nickname);
         }
 
         $this->elementStart('div', 'guide');
