@@ -57,9 +57,14 @@ class FeaturedUsersSection extends ProfileSection
             $quoted[] = "'$nick'";
         }
 
+        $table = "user";
+        if(common_config('db','quote_identifiers')) {
+          $table = '"' . $table . '"';
+        }
+
         $qry = 'SELECT profile.* ' .
-          'FROM profile JOIN user on profile.id = user.id ' .
-          'WHERE user.nickname in (' . implode(',', $quoted) . ') ' .
+            'FROM profile JOIN '. $table .' on profile.id = '. $table .'.id ' .
+          'WHERE '. $table .'.nickname in (' . implode(',', $quoted) . ') ' .
           'ORDER BY profile.created DESC ';
 
         $limit = PROFILES_PER_SECTION + 1;
