@@ -1321,3 +1321,16 @@ function common_compatible_license($from, $to)
     // XXX: better compatibility check needed here!
     return ($from == $to);
 }
+
+/**
+ * returns a quoted table name, if required according to config
+ */
+function common_database_tablename($tablename)
+{
+  
+  if(common_config('db','quote_identifiers')) {
+      $tablename = '"'. $tablename .'"';
+  }
+  //table prefixes could be added here later
+  return $tablename;
+}
