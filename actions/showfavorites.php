@@ -169,11 +169,11 @@ class ShowfavoritesAction extends Action
             if ($this->user->id === $current_user->id) {
                 $message = _('You haven\'t chosen any favorite notices yet. Click the fave button on notices you like to bookmark them for later or shed a spotlight on them.');
             } else {
-                $message = sprintf(_('%s hasn\'t any notices to his favorites yet. Post something interesting they would add to their favorites :)'), $this->user->nickname);
+                $message = sprintf(_('%s hasn\'t added any notices to his favorites yet. Post something interesting they would add to their favorites :)'), $this->user->nickname);
             }
         }
         else {
-            $message = sprintf(_('%s hasn\'t any notices to his favorites yet. Why not [register an account](%%%%action.register%%%%) and then post something interesting they would add to thier favorites :)'), $this->user->nickname);
+            $message = sprintf(_('%s hasn\'t added any notices to his favorites yet. Why not [register an account](%%%%action.register%%%%) and then post something interesting they would add to thier favorites :)'), $this->user->nickname);
         }
 
         $this->elementStart('div', 'guide');
