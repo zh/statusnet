@@ -197,7 +197,7 @@ class NoticeListItem extends Widget
         $this->out->elementStart('div', 'entry-content');
         $this->showNoticeLink();
         $this->showNoticeSource();
-        $this->showReplyTo();
+        $this->showContext();
         $this->out->elementEnd('div');
     }
 
@@ -421,17 +421,18 @@ class NoticeListItem extends Widget
      * @return void
      */
 
-    function showReplyTo()
+    function showContext()
     {
-        if ($this->notice->reply_to) {
-            $replyurl = common_local_url('shownotice',
-                                         array('notice' => $this->notice->reply_to));
+        // XXX: also show context if there are replies to this notice
+        if (!empty($this->notice->conversation)
+            && $this->notice->conversation != $this->notice->id) {
+            $convurl = common_local_url('conversation',
+                                         array('id' => $this->notice->conversation));
             $this->out->elementStart('dl', 'response');
             $this->out->element('dt', null, _('To'));
             $this->out->elementStart('dd');
-            $this->out->element('a', array('href' => $replyurl,
-                                           'rel' => 'in-reply-to'),
-                                _('in reply to'));
+            $this->out->element('a', array('href' => $convurl),
+                                _('in context'));
             $this->out->elementEnd('dd');
             $this->out->elementEnd('dl');
         }

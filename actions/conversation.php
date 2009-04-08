@@ -31,6 +31,8 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
+require_once(INSTALLDIR.'/lib/noticelist.php');
+
 /**
  * Conversation tree in the browser
  *
@@ -43,7 +45,6 @@ if (!defined('LACONICA')) {
 class ConversationAction extends Action
 {
     var $id = null;
-    var $notices = null;
     var $page = null;
 
     /**
@@ -58,10 +59,9 @@ class ConversationAction extends Action
     {
         parent::prepare($args);
         $this->id = $this->trimmed('id');
-        if (!$this->id) {
+        if (empty($this->id)) {
             return false;
         }
-        $this->notices = $this->getNotices();
         $this->page = $this->trimmed('page');
         if (empty($this->page)) {
             $this->page = 1;
@@ -69,36 +69,9 @@ class ConversationAction extends Action
         return true;
     }
 
-    /**
-     * Get notices
-     *
-     * @param integer $limit max number of notices to return
-     *
-     * @return array notices
-     */
-
-    function getNotices($limit=0)
-    {
-        $qry = 'SELECT notice.*, '.
-          'FROM notice WHERE conversation = %d '.
-          'ORDER BY created ';
-
-        $offset = 0;
-        $limit  = NOTICES_PER_PAGE + 1;
-
-        if (common_config('db', 'type') == 'pgsql') {
-            $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-        } else {
-            $qry .= ' LIMIT ' . $offset . ', ' . $limit;
-        }
-
-        return Notice::getStream(sprintf($qry, $this->id),
-                                 'notice:conversation:'.$this->id,
-                                 $offset, $limit);
-    }
-
     function handle($args)
     {
+        parent::handle($args);
         $this->showPage();
     }
 
@@ -111,7 +84,18 @@ class ConversationAction extends Action
     {
         // FIXME this needs to be a tree, not a list
 
-        $nl = new NoticeList($this->notices, $this);
+        $qry = 'SELECT * FROM notice WHERE conversation = %s ';
+
+        $offset = ($this->page-1)*NOTICES_PER_PAGE;
+        $limit  = NOTICES_PER_PAGE + 1;
+
+        $txt = sprintf($qry, $this->id);
+
+        $notices = Notice::getStream($txt,
+                                     'notice:conversation:'.$this->id,
+                                     $offset, $limit);
+
+        $nl = new NoticeList($notices, $this);
 
         $cnt = $nl->show();
 
