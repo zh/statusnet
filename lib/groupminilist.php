@@ -75,8 +75,9 @@ class GroupMiniList extends GroupList
                                        'href' => $this->group->homeUrl(),
                                        'rel' => 'contact group',
                                        'class' => 'url'));
-        $logo = ($this->group->stream_logo) ?
-          $this->group->stream_logo : User_group::defaultLogo(AVATAR_STREAM_SIZE);
+
+        $logo = ($this->group->mini_logo) ?
+          $this->group->mini_logo : User_group::defaultLogo(AVATAR_MINI_SIZE);
 
         $this->out->element('img', array('src' => $logo,
                                     'width' => AVATAR_MINI_SIZE,
