@@ -33,7 +33,7 @@ if (!defined('LACONICA')) {
 
 require_once INSTALLDIR.'/lib/grouplist.php';
 
-define('GROUPS_PER_MINILIST', 80);
+define('GROUPS_PER_MINILIST', 27);
 
 /**
  * Widget to show a list of groups, good for sidebar
