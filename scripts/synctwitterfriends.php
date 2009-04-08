@@ -27,8 +27,8 @@ if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 define('LACONICA', true);
 
-// Set this to true to get useful console output
-define('SCRIPT_DEBUG', false);
+// Uncomment this to get useful console output
+//define('SCRIPT_DEBUG', true);
 
 require_once(INSTALLDIR . '/lib/common.php');
 
@@ -62,7 +62,7 @@ while ($flink->fetch()) {
 
         $result = save_twitter_friends($user, $fuser->id,
                        $fuser->nickname, $flink->credentials);
-        if (SCRIPT_DEBUG) {
+        if (defined('SCRIPT_DEBUG')) {
             print "\nDONE\n";
         } else {
             print "DONE\n";
