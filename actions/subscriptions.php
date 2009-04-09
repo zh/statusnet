@@ -139,7 +139,7 @@ class SubscriptionsList extends ProfileList
 
         $this->out->elementStart('form', array('id' => 'subedit-' . $profile->id,
                                           'method' => 'post',
-                                          'class' => 'form_subcription_edit',
+                                          'class' => 'form_subscription_edit',
                                           'action' => common_local_url('subedit')));
         $this->out->hidden('token', common_session_token());
         $this->out->hidden('profile', $profile->id);
