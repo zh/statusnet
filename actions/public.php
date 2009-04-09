@@ -166,6 +166,33 @@ class PublicAction extends Action
         $nav->show();
     }
 
+    function showPageNotice()
+    {
+        $notice = new Notice;
+
+        if (!$notice) {
+            $this->serverError(_('Could not retrieve public stream.'));
+            return;
+        }
+
+        if ($notice->count()) {
+            return;
+        }
+
+        $message = _('This is the public timeline for %%site.name%% but no one has posted anything yet.') . ' ';
+
+        if (common_logged_in()) {
+            $message .= _('Be the first to post!');
+        }
+        else {
+            $message .= _('Why not [register an account](%%action.register%%) and be the first to post!');
+        }
+
+        $this->elementStart('div', 'guide');
+        $this->raw(common_markup_to_html($message));
+        $this->elementEnd('div');
+    }
+
     /**
      * Fill the content area
      *
@@ -207,9 +234,14 @@ class PublicAction extends Action
 
     function showAnonymousMessage()
     {
-		$m = _('This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
-               'based on the Free Software [Laconica](http://laconi.ca/) tool. ' .
-               '[Join now](%%action.register%%) to share notices about yourself with friends, family, and colleagues! ([Read more](%%doc.help%%))');
+        if (! (common_config('site','closed') || common_config('site','inviteonly'))) {
+	    $m = _('This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
+                  'based on the Free Software [Laconica](http://laconi.ca/) tool. ' .
+                  '[Join now](%%action.register%%) to share notices about yourself with friends, family, and colleagues! ([Read more](%%doc.help%%))');
+        } else {
+            $m = _('This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
+                   'based on the Free Software [Laconica](http://laconi.ca/) tool.');
+        }
         $this->elementStart('div', array('id' => 'anon_notice'));
         $this->raw(common_markup_to_html($m));
         $this->elementEnd('div');

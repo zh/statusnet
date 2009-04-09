@@ -166,10 +166,34 @@ class RepliesAction extends Action
         $nl = new NoticeList($notice, $this);
 
         $cnt = $nl->show();
+        if (0 === $cnt) {
+            $this->showEmptyListMessage();
+        }
 
         $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
                           $this->page, 'replies',
                           array('nickname' => $this->user->nickname));
+    }
+
+    function showEmptyListMessage()
+    {
+        $message = sprintf(_('This is the timeline showing replies to %s but %s hasn\'t received a notice to his attention yet.'), $this->user->nickname, $this->user->nickname) . ' ';
+
+        if (common_logged_in()) {
+            $current_user = common_current_user();
+            if ($this->user->id === $current_user->id) {
+                $message .= _('You can engage other users in a conversation, subscribe to more people or [join groups](%%action.groups%%).');
+            } else {
+                $message .= sprintf(_('You can try to [nudge %s](../%s) or [post something to his or her attention](%%%%action.newnotice%%%%?status_textarea=%s).'), $this->user->nickname, $this->user->nickname, '@' . $this->user->nickname);
+            }
+        }
+        else {
+            $message .= sprintf(_('Why not [register an account](%%%%action.register%%%%) and then nudge %s or post a notice to his or her attention.'), $this->user->nickname);
+        }
+
+        $this->elementStart('div', 'guide');
+        $this->raw(common_markup_to_html($message));
+        $this->elementEnd('div');
     }
 
     function isReadOnly()
