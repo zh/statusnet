@@ -18,6 +18,7 @@ VALUES
     ('identicatools','Laconica Tools','http://bitbucketlabs.net/laconica-tools/', now()),
     ('identichat','identichat','http://identichat.prosody.im/', now()),
     ('identitwitch','IdentiTwitch','http://richfish.org/identitwitch/', now()),
+    ('maisha', 'Maisha', 'http://maisha.grango.org/', now()),
     ('mbpidgin','mbpidgin','http://code.google.com/p/microblog-purple/', now()),
     ('Mobidentica', 'Mobidentica', 'http://www.substanceofcode.com/software/mobidentica/', now()),
     ('moconica','Moconica','http://moconica.com/', now()),
