@@ -14,6 +14,7 @@ VALUES
     ('Updating.Me','Updating.Me','http://updating.me/', now()),
     ('betwittered','BeTwittered','http://www.32hours.com/betwitteredinfo/', now()),
     ('bti','bti','http://gregkh.github.com/bti/', now()),
+    ('cliqset', 'Cliqset', 'http://www.cliqset.com/', now()),
     ('deskbar','Deskbar-Applet','http://www.gnome.org/projects/deskbar-applet/', now()),
     ('identicatools','Laconica Tools','http://bitbucketlabs.net/laconica-tools/', now()),
     ('identichat','identichat','http://identichat.prosody.im/', now()),
