@@ -64,6 +64,22 @@ class PublictagcloudAction extends Action
                                common_config('site', 'name')));
     }
 
+    function showEmptyList()
+    {
+        $message = _('No one has posted a notice with a [hashtag](%%doc.tags%%) yet.') . ' ';
+
+        if (common_logged_in()) {
+            $message .= _('Be the first to post one!');
+        }
+        else {
+            $message .= _('Why not [register an account](%%action.register%%) and be the first to post one!');
+        }
+
+        $this->elementStart('div', 'guide');
+        $this->raw(common_markup_to_html($message));
+        $this->elementEnd('div');
+    }
+
     function showLocalNav()
     {
         $nav = new PublicGroupNav($this);
@@ -126,6 +142,8 @@ class PublictagcloudAction extends Action
             $this->elementEnd('dd');
             $this->elementEnd('dl');
             $this->elementEnd('div');
+        } else {
+            $this->showEmptyList();
         }
     }
 

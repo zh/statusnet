@@ -52,7 +52,7 @@ class FavorAction extends Action
 {
     /**
      * Class handler.
-     * 
+     *
      * @param array $args query arguments
      *
      * @return void
@@ -100,13 +100,14 @@ class FavorAction extends Action
             $this->elementEnd('html');
         } else {
             common_redirect(common_local_url('showfavorites',
-                                             array('nickname' => $user->nickname)));
+                                             array('nickname' => $user->nickname)),
+                            303);
         }
     }
 
     /**
      * Notifies a user when his notice is favorited.
-     * 
+     *
      * @param class $notice favorited notice
      * @param class $user   user declaring a favorite
      *

@@ -162,6 +162,25 @@ class ShowfavoritesAction extends Action
         $nav->show();
     }
 
+    function showEmptyListMessage()
+    {
+        if (common_logged_in()) {
+            $current_user = common_current_user();
+            if ($this->user->id === $current_user->id) {
+                $message = _('You haven\'t chosen any favorite notices yet. Click the fave button on notices you like to bookmark them for later or shed a spotlight on them.');
+            } else {
+                $message = sprintf(_('%s hasn\'t added any notices to his favorites yet. Post something interesting they would add to their favorites :)'), $this->user->nickname);
+            }
+        }
+        else {
+            $message = sprintf(_('%s hasn\'t added any notices to his favorites yet. Why not [register an account](%%%%action.register%%%%) and then post something interesting they would add to thier favorites :)'), $this->user->nickname);
+        }
+
+        $this->elementStart('div', 'guide');
+        $this->raw(common_markup_to_html($message));
+        $this->elementEnd('div');
+    }
+
     /**
      * Show the content
      *
@@ -183,9 +202,17 @@ class ShowfavoritesAction extends Action
         $nl = new NoticeList($notice, $this);
 
         $cnt = $nl->show();
+        if (0 == $cnt) {
+            $this->showEmptyListMessage();
+        }
 
         $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
                           $this->page, 'showfavorites',
                           array('nickname' => $this->user->nickname));
     }
+
+    function showPageNotice() {
+        $this->element('p', 'instructions', _('This is a way to share what you like.'));
+    }
 }
+

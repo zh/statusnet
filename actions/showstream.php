@@ -54,12 +54,8 @@ require_once INSTALLDIR.'/lib/feedlist.php';
  * @link     http://laconi.ca/
  */
 
-class ShowstreamAction extends Action
+class ShowstreamAction extends ProfileAction
 {
-    var $user = null;
-    var $page = null;
-    var $profile = null;
-
     function isReadOnly()
     {
         return true;
@@ -67,52 +63,19 @@ class ShowstreamAction extends Action
 
     function title()
     {
+        if (!empty($this->profile->fullname)) {
+            $base = $this->profile->fullname . ' (' . $this->user->nickname . ') ';
+        } else {
+            $base = $this->user->nickname;
+        }
+
         if ($this->page == 1) {
-            return $this->user->nickname;
+            return $base;
         } else {
             return sprintf(_("%s, page %d"),
-                           $this->user->nickname,
+                           $base,
                            $this->page);
         }
-    }
-
-    function prepare($args)
-    {
-        parent::prepare($args);
-
-        $nickname_arg = $this->arg('nickname');
-        $nickname = common_canonical_nickname($nickname_arg);
-
-        // Permanent redirect on non-canonical nickname
-
-        if ($nickname_arg != $nickname) {
-            $args = array('nickname' => $nickname);
-            if ($this->arg('page') && $this->arg('page') != 1) {
-                $args['page'] = $this->arg['page'];
-            }
-            common_redirect(common_local_url('showstream', $args), 301);
-            return false;
-        }
-
-        $this->user = User::staticGet('nickname', $nickname);
-
-        if (!$this->user) {
-            $this->clientError(_('No such user.'), 404);
-            return false;
-        }
-
-        $this->profile = $this->user->getProfile();
-
-        if (!$this->profile) {
-            $this->serverError(_('User has no profile.'));
-            return false;
-        }
-
-        $this->page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
-
-        common_set_returnto($this->selfUrl());
-
-        return true;
     }
 
     function handle($args)
@@ -138,16 +101,6 @@ class ShowstreamAction extends Action
     {
         $nav = new PersonalGroupNav($this);
         $nav->show();
-    }
-
-    function showPageTitle()
-    {
-        $user =& common_current_user();
-        if ($user && ($user->id == $this->profile->id)) {
-            $this->element('h1', NULL, _("Your profile"));
-        } else {
-            $this->element('h1', NULL, sprintf(_('%s\'s profile'), $this->profile->nickname));
-        }
     }
 
     function showPageNoticeBlock()
@@ -376,165 +329,39 @@ class ShowstreamAction extends Action
                        _('Subscribe'));
     }
 
+    function showEmptyListMessage()
+    {
+        $message = sprintf(_('This is the timeline for %s but %s hasn\'t posted anything yet.'), $this->user->nickname, $this->user->nickname) . ' ';
+
+        if (common_logged_in()) {
+            $current_user = common_current_user();
+            if ($this->user->id === $current_user->id) {
+                $message .= _('Seen anything interesting recently? You haven\'t posted any notices yet, now would be a good time to start :)');
+            } else {
+                $message .= sprintf(_('You can try to nudge %s or [post something to his or her attention](%%%%action.newnotice%%%%?status_textarea=%s).'), $this->user->nickname, '@' . $this->user->nickname);
+            }
+        }
+        else {
+            $message .= sprintf(_('Why not [register an account](%%%%action.register%%%%) and then nudge %s or post a notice to his or her attention.'), $this->user->nickname);
+        }
+
+        $this->elementStart('div', 'guide');
+        $this->raw(common_markup_to_html($message));
+        $this->elementEnd('div');
+    }
+
     function showNotices()
     {
         $notice = $this->user->getNotices(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
 
         $pnl = new ProfileNoticeList($notice, $this);
         $cnt = $pnl->show();
+        if (0 == $cnt) {
+            $this->showEmptyListMessage();
+        }
 
         $this->pagination($this->page>1, $cnt>NOTICES_PER_PAGE, $this->page,
                           'showstream', array('nickname' => $this->user->nickname));
-    }
-
-    function showSections()
-    {
-        $this->showSubscriptions();
-        $this->showSubscribers();
-        $this->showGroups();
-        $this->showStatistics();
-        $cloud = new PersonalTagCloudSection($this, $this->user);
-        $cloud->show();
-    }
-
-    function showSubscriptions()
-    {
-        $profile = $this->user->getSubscriptions(0, PROFILES_PER_MINILIST + 1);
-
-        $this->elementStart('div', array('id' => 'entity_subscriptions',
-                                         'class' => 'section'));
-
-        $this->element('h2', null, _('Subscriptions'));
-
-        if ($profile) {
-            $pml = new ProfileMiniList($profile, $this->user, $this);
-            $cnt = $pml->show();
-            if ($cnt == 0) {
-                $this->element('p', null, _('(None)'));
-            }
-        }
-
-        if ($cnt > PROFILES_PER_MINILIST) {
-            $this->elementStart('p');
-            $this->element('a', array('href' => common_local_url('subscriptions',
-                                                                 array('nickname' => $this->profile->nickname)),
-                                      'class' => 'more'),
-                           _('All subscriptions'));
-            $this->elementEnd('p');
-        }
-
-        $this->elementEnd('div');
-    }
-
-    function showSubscribers()
-    {
-        $profile = $this->user->getSubscribers(0, PROFILES_PER_MINILIST + 1);
-
-        $this->elementStart('div', array('id' => 'entity_subscribers',
-                                         'class' => 'section'));
-
-        $this->element('h2', null, _('Subscribers'));
-
-        if ($profile) {
-            $pml = new ProfileMiniList($profile, $this->user, $this);
-            $cnt = $pml->show();
-            if ($cnt == 0) {
-                $this->element('p', null, _('(None)'));
-            }
-        }
-
-        if ($cnt > PROFILES_PER_MINILIST) {
-            $this->elementStart('p');
-            $this->element('a', array('href' => common_local_url('subscribers',
-                                                                 array('nickname' => $this->profile->nickname)),
-                                      'class' => 'more'),
-                           _('All subscribers'));
-            $this->elementEnd('p');
-        }
-
-        $this->elementEnd('div');
-    }
-
-    function showStatistics()
-    {
-        // XXX: WORM cache this
-        $subs = new Subscription();
-        $subs->subscriber = $this->profile->id;
-        $subs_count = (int) $subs->count() - 1;
-
-        $subbed = new Subscription();
-        $subbed->subscribed = $this->profile->id;
-        $subbed_count = (int) $subbed->count() - 1;
-
-        $notices = new Notice();
-        $notices->profile_id = $this->profile->id;
-        $notice_count = (int) $notices->count();
-
-        $this->elementStart('div', array('id' => 'entity_statistics',
-                                         'class' => 'section'));
-
-        $this->element('h2', null, _('Statistics'));
-
-        // Other stats...?
-        $this->elementStart('dl', 'entity_member-since');
-        $this->element('dt', null, _('Member since'));
-        $this->element('dd', null, date('j M Y',
-                                        strtotime($this->profile->created)));
-        $this->elementEnd('dl');
-
-        $this->elementStart('dl', 'entity_subscriptions');
-        $this->elementStart('dt');
-        $this->element('a', array('href' => common_local_url('subscriptions',
-                                                             array('nickname' => $this->profile->nickname))),
-                       _('Subscriptions'));
-        $this->elementEnd('dt');
-        $this->element('dd', null, (is_int($subs_count)) ? $subs_count : '0');
-        $this->elementEnd('dl');
-
-        $this->elementStart('dl', 'entity_subscribers');
-        $this->elementStart('dt');
-        $this->element('a', array('href' => common_local_url('subscribers',
-                                                             array('nickname' => $this->profile->nickname))),
-                       _('Subscribers'));
-        $this->elementEnd('dt');
-        $this->element('dd', 'subscribers', (is_int($subbed_count)) ? $subbed_count : '0');
-        $this->elementEnd('dl');
-
-        $this->elementStart('dl', 'entity_notices');
-        $this->element('dt', null, _('Notices'));
-        $this->element('dd', null, (is_int($notice_count)) ? $notice_count : '0');
-        $this->elementEnd('dl');
-
-        $this->elementEnd('div');
-    }
-
-    function showGroups()
-    {
-        $groups = $this->user->getGroups(0, GROUPS_PER_MINILIST + 1);
-
-        $this->elementStart('div', array('id' => 'entity_groups',
-                                         'class' => 'section'));
-
-        $this->element('h2', null, _('Groups'));
-
-        if ($groups) {
-            $gml = new GroupMiniList($groups, $this->user, $this);
-            $cnt = $gml->show();
-            if ($cnt == 0) {
-                $this->element('p', null, _('(None)'));
-            }
-        }
-
-        if ($cnt > GROUPS_PER_MINILIST) {
-            $this->elementStart('p');
-            $this->element('a', array('href' => common_local_url('usergroups',
-                                                                 array('nickname' => $this->profile->nickname)),
-                                      'class' => 'more'),
-                           _('All groups'));
-            $this->elementEnd('p');
-        }
-
-        $this->elementEnd('div');
     }
 
     function showAnonymousMessage()
@@ -554,6 +381,12 @@ class ShowstreamAction extends Action
         $this->elementEnd('div');
     }
 
+    function showSections()
+    {
+        parent::showSections();
+        $cloud = new PersonalTagCloudSection($this, $this->user);
+        $cloud->show();
+    }
 }
 
 // We don't show the author for a profile, since we already know who it is!

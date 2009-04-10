@@ -166,6 +166,22 @@ class PublicAction extends Action
         $nav->show();
     }
 
+    function showEmptyList()
+    {
+        $message = _('This is the public timeline for %%site.name%% but no one has posted anything yet.') . ' ';
+
+        if (common_logged_in()) {
+            $message .= _('Be the first to post!');
+        }
+        else {
+            $message .= _('Why not [register an account](%%action.register%%) and be the first to post!');
+        }
+
+        $this->elementStart('div', 'guide');
+        $this->raw(common_markup_to_html($message));
+        $this->elementEnd('div');
+    }
+
     /**
      * Fill the content area
      *
@@ -188,6 +204,10 @@ class PublicAction extends Action
         $nl = new NoticeList($notice, $this);
 
         $cnt = $nl->show();
+
+        if ($cnt == 0) {
+            $this->showEmptyList();
+        }
 
         $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
                           $this->page, 'public');

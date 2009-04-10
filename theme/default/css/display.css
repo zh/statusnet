@@ -17,10 +17,7 @@ font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 font-size:1em;
 }
 address {
-margin-right:71px;
-}
-address .fn {
-display:none;
+margin-right:7.18%;
 }
 
 input, textarea, select, option {
@@ -40,7 +37,6 @@ background:none;
 
 input.submit,
 #form_notice.warning #notice_text-count,
-#nav_register a,
 .form_settings .form_note,
 .entity_remote_subscribe {
 background-color:#A9BF4F;
@@ -51,7 +47,6 @@ input:focus, textarea:focus, select:focus,
 border-color:#A9BF4F;
 }
 input.submit,
-#nav_register a,
 .entity_remote_subscribe {
 color:#fff;
 }
@@ -100,13 +95,6 @@ cursor:wait;
 text-indent:-9999px;
 }
 
-
-#nav_register a {
-text-decoration:none;
-font-weight:bold;
-padding:2px 4px;
-}
-
 #content,
 #site_nav_local_views a,
 #aside_primary {
@@ -125,10 +113,10 @@ background-color:rgba(255, 255, 255, 0.7);
 }
 
 
-#page_notice .error {
+.error {
 background-color:#F7E8E8;
 }
-#page_notice .success {
+.success {
 background-color:#EFF3DC;
 }
 

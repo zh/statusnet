@@ -18,7 +18,7 @@
  * along with this program.     If not, see <http://www.gnu.org/licenses/>.
  */
 
-# Abort if called from a web server
+// Abort if called from a web server
 if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
     print "This script must be run from the command line\n";
     exit();
@@ -27,11 +27,16 @@ if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 define('LACONICA', true);
 
+// Uncomment this to get useful console output
+//define('SCRIPT_DEBUG', true);
+
 require_once(INSTALLDIR . '/lib/common.php');
 
 $flink = new Foreign_link();
 $flink->service = 1; // Twitter
-$flink->find();
+$cnt = $flink->find();
+
+print "Updating Twitter friends subscriptions for $cnt users.\n";
 
 while ($flink->fetch()) {
 
@@ -39,20 +44,30 @@ while ($flink->fetch()) {
 
         $user = User::staticGet($flink->user_id);
 
-        print "Updating Twitter friends for user $user->nickname ($user->id)\n";
+        if (empty($user)) {
+            common_log(LOG_WARNING, "Unmatched user for ID " . $flink->user_id);
+            print "Unmatched user for ID $flink->user_id\n";
+            continue;
+        }
+
+        print "Updating Twitter friends for $user->nickname (Laconica ID: $user->id)... ";
 
         $fuser = $flink->getForeignUser();
 
-        $result = save_twitter_friends($user, $fuser->id, $fuser->nickname, $flink->credentials);
+        if (empty($fuser)) {
+            common_log(LOG_WARNING, "Unmatched user for ID " . $flink->user_id);
+            print "Unmatched user for ID $flink->user_id\n";
+            continue;
+        }
 
-        if ($result == false) {
-            print "Problems updating Twitter friends! Check the log.\n";
-            exit(1);
+        $result = save_twitter_friends($user, $fuser->id,
+                       $fuser->nickname, $flink->credentials);
+        if (defined('SCRIPT_DEBUG')) {
+            print "\nDONE\n";
+        } else {
+            print "DONE\n";
         }
     }
-
 }
 
 exit(0);
-
-

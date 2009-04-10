@@ -105,12 +105,13 @@ class LinkbackPlugin extends Plugin
             $pb = $match[1];
         }
 
-        $tb = $this->getTrackback($result->body, $result->final_url);
-
-        if (!empty($tb)) {
-            $this->trackback($result->final_url, $tb);
-        } else if (!empty($pb)) {
+        if (!empty($pb)) {
             $this->pingback($result->final_url, $pb);
+        } else {
+            $tb = $this->getTrackback($result->body, $result->final_url);
+            if (!empty($tb)) {
+                $this->trackback($result->final_url, $tb);
+            }
         }
 
         return $orig;

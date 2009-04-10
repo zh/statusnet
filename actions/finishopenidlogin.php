@@ -271,7 +271,8 @@ class FinishopenidloginAction extends Action
             common_rememberme($user);
         }
         unset($_SESSION['openid_rememberme']);
-        common_redirect(common_local_url('showstream', array('nickname' => $user->nickname)));
+        common_redirect(common_local_url('showstream', array('nickname' => $user->nickname)),
+                        303);
     }
 
     function connectUser()
@@ -324,7 +325,7 @@ class FinishopenidloginAction extends Action
                                     array('nickname' =>
                                           $nickname));
         }
-        common_redirect($url);
+        common_redirect($url, 303);
     }
 
     function bestNewNickname($display, $sreg)

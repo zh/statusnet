@@ -97,9 +97,18 @@ class Action extends HTMLOutputter // lawsuit
             $this->startHTML();
             Event::handle('EndShowHTML', array($this));
         }
+        if (Event::handle('StartShowHead', array($this))) {
         $this->showHead();
+            Event::handle('EndShowHead', array($this));
+        }
+        if (Event::handle('StartShowBody', array($this))) {
         $this->showBody();
+            Event::handle('EndShowBody', array($this));
+        }
+        if (Event::handle('StartEndHTML', array($this))) {
         $this->endHTML();
+            Event::handle('EndEndHTML', array($this));
+        }
     }
 
     /**
@@ -326,7 +335,9 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showBody()
     {
-        $this->elementStart('body', array('id' => $this->trimmed('action')));
+        $this->elementStart('body', (common_current_user()) ? array('id' => $this->trimmed('action'),
+                                                                    'class' => 'user_in')
+                                                            : array('id' => $this->trimmed('action')));
         $this->elementStart('div', array('id' => 'wrap'));
         if (Event::handle('StartShowHeader', array($this))) {
             $this->showHeader();
@@ -400,13 +411,8 @@ class Action extends HTMLOutputter // lawsuit
             if ($user) {
                 $this->menuItem(common_local_url('all', array('nickname' => $user->nickname)),
                                 _('Home'), _('Personal profile and friends timeline'), false, 'nav_home');
-            }
-            $this->menuItem(common_local_url('peoplesearch'),
-                            _('Search'), _('Search for people or text'), false, 'nav_search');
-            if ($user) {
                 $this->menuItem(common_local_url('profilesettings'),
                                 _('Account'), _('Change your email, avatar, password, profile'), false, 'nav_account');
-
                 if (common_config('xmpp', 'enabled')) {
                     $this->menuItem(common_local_url('imsettings'),
                                     _('Connect'), _('Connect to IM, SMS, Twitter'), false, 'nav_connect');
@@ -414,20 +420,28 @@ class Action extends HTMLOutputter // lawsuit
                     $this->menuItem(common_local_url('smssettings'),
                                     _('Connect'), _('Connect to SMS, Twitter'), false, 'nav_connect');
                 }
+                $this->menuItem(common_local_url('invite'),
+                                 _('Invite'),
+                                 sprintf(_('Invite friends and colleagues to join you on %s'),
+                                 common_config('site', 'name')),
+                                 false, 'nav_invitecontact');
                 $this->menuItem(common_local_url('logout'),
                                 _('Logout'), _('Logout from the site'), false, 'nav_logout');
-            } else {
-                $this->menuItem(common_local_url('login'),
-                                _('Login'), _('Login to the site'), false, 'nav_login');
+            }
+            else {
                 if (!common_config('site', 'closed')) {
                     $this->menuItem(common_local_url('register'),
                                     _('Register'), _('Create an account'), false, 'nav_register');
                 }
                 $this->menuItem(common_local_url('openidlogin'),
                                 _('OpenID'), _('Login with OpenID'), false, 'nav_openid');
+                $this->menuItem(common_local_url('login'),
+                                _('Login'), _('Login to the site'), false, 'nav_login');
             }
             $this->menuItem(common_local_url('doc', array('title' => 'help')),
                             _('Help'), _('Help me!'), false, 'nav_help');
+            $this->menuItem(common_local_url('peoplesearch'),
+                            _('Search'), _('Search for people or text'), false, 'nav_search');
             Event::handle('EndPrimaryNav', array($this));
         }
         $this->elementEnd('ul');
@@ -604,7 +618,10 @@ class Action extends HTMLOutputter // lawsuit
     {
         $this->elementStart('div', array('id' => 'aside_primary',
                                          'class' => 'aside'));
+        if (Event::handle('StartShowExportData', array($this))) {
         $this->showExportData();
+            Event::handle('EndShowExportData', array($this));
+        }
         if (Event::handle('StartShowSections', array($this))) {
             $this->showSections();
             Event::handle('EndShowSections', array($this));
@@ -919,11 +936,15 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return string current URL
      */
+
     function selfUrl()
     {
         $action = $this->trimmed('action');
         $args   = $this->args;
         unset($args['action']);
+        if (array_key_exists('submit', $args)) {
+            unset($args['submit']);
+        }
         foreach (array_keys($_COOKIE) as $cookie) {
             unset($args[$cookie]);
         }

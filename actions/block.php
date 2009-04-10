@@ -93,7 +93,8 @@ class BlockAction extends Action
             if ($this->arg('no')) {
                 $cur = common_current_user();
                 $other = Profile::staticGet('id', $this->arg('blockto'));
-                common_redirect(common_local_url('showstream', array('nickname' => $other->nickname)));
+                common_redirect(common_local_url('showstream', array('nickname' => $other->nickname)),
+                                303);
             } elseif ($this->arg('yes')) {
                 $this->blockProfile();
             } elseif ($this->arg('blockto')) {
@@ -102,7 +103,6 @@ class BlockAction extends Action
         }
     }
 
-
     function showContent() {
         $this->areYouSureForm();
     }
@@ -110,7 +110,7 @@ class BlockAction extends Action
     function title() {
         return _('Block user');
     }
-    
+
     function showNoticeForm() {
         // nop
     }
@@ -178,10 +178,11 @@ class BlockAction extends Action
         }
 
         if ($action) {
-            common_redirect(common_local_url($action, $args));
+            common_redirect(common_local_url($action, $args), 303);
         } else {
             common_redirect(common_local_url('subscriptions',
-                                             array('nickname' => $cur->nickname)));
+                                             array('nickname' => $cur->nickname)),
+                            303);
         }
     }
 }
