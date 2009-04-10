@@ -1152,7 +1152,7 @@ function common_accept_to_prefs($accept, $def = '*/*')
 
     foreach($parts as $part) {
         // FIXME: doesn't deal with params like 'text/html; level=1'
-        @list($value, $qpart) = explode(';', $part);
+        @list($value, $qpart) = explode(';', trim($part));
         $match = array();
         if(!isset($qpart)) {
             $prefs[$value] = 1;
