@@ -97,47 +97,90 @@ class UserauthorizationAction extends Action
         $location = $params['omb_listenee_location'];
         $avatar = $params['omb_listenee_avatar'];
 
-        $this->elementStart('div', 'profile');
+        $this->elementStart('div', array('class' => 'profile'));
+        $this->elementStart('div', 'entity_profile vcard');
+        $this->elementStart('a', array('href' => $profile,
+                                            'class' => 'url'));
         if ($avatar) {
             $this->element('img', array('src' => $avatar,
-                                        'class' => 'avatar',
+                                        'class' => 'photo avatar',
                                         'width' => AVATAR_PROFILE_SIZE,
                                         'height' => AVATAR_PROFILE_SIZE,
                                         'alt' => $nickname));
         }
-        $this->element('a', array('href' => $profile,
-                                  'class' => 'external profile nickname'),
-                       $nickname);
+        $hasFN = ($fullname !== '') ? 'nickname' : 'fn nickname';
+        $this->elementStart('span', $hasFN);
+        $this->raw($nickname);
+        $this->elementEnd('span');
+        $this->elementEnd('a');
+
         if (!is_null($fullname)) {
-            $this->elementStart('div', 'fullname');
-            if (!is_null($homepage)) {
-                $this->element('a', array('href' => $homepage),
-                               $fullname);
-            } else {
-                $this->text($fullname);
-            }
-            $this->elementEnd('div');
+            $this->elementStart('dl', 'entity_fn');
+            $this->elementStart('dd');
+            $this->elementStart('span', 'fn');
+            $this->raw($fullname);
+            $this->elementEnd('span');
+            $this->elementEnd('dd');
+            $this->elementEnd('dl');
         }
         if (!is_null($location)) {
-            $this->element('div', 'location', $location);
+            $this->elementStart('dl', 'entity_location');
+            $this->element('dt', null, _('Location'));
+            $this->elementStart('dd', 'label');
+            $this->raw($location);
+            $this->elementEnd('dd');
+            $this->elementEnd('dl');
         }
+
+        if (!is_null($homepage)) {
+            $this->elementStart('dl', 'entity_url');
+            $this->element('dt', null, _('URL'));
+            $this->elementStart('dd');
+            $this->elementStart('a', array('href' => $homepage,
+                                                'class' => 'url'));
+            $this->raw($homepage);
+            $this->elementEnd('a');
+            $this->elementEnd('dd');
+            $this->elementEnd('dl');
+        }
+
         if (!is_null($bio)) {
-            $this->element('div', 'bio', $bio);
+            $this->elementStart('dl', 'entity_note');
+            $this->element('dt', null, _('Note'));
+            $this->elementStart('dd', 'note');
+            $this->raw($bio);
+            $this->elementEnd('dd');
+            $this->elementEnd('dl');
         }
-        $this->elementStart('div', 'license');
-        $this->element('a', array('href' => $license,
-                                  'class' => 'license'),
-                       $license);
+
+        if (!is_null($license)) {
+            $this->elementStart('dl', 'entity_license');
+            $this->element('dt', null, _('License'));
+            $this->elementStart('dd', 'license');
+            $this->element('a', array('href' => $license,
+                                      'class' => 'license'),
+                           $license);
+            $this->elementEnd('dd');
+            $this->elementEnd('dl');
+        }
         $this->elementEnd('div');
-        $this->elementEnd('div');
+
+        $this->elementStart('div', 'entity_actions');
+        $this->elementStart('ul');
+        $this->elementStart('li', 'entity_subscribe');
         $this->elementStart('form', array('method' => 'post',
                                           'id' => 'userauthorization',
                                           'name' => 'userauthorization',
                                           'action' => common_local_url('userauthorization')));
         $this->hidden('token', common_session_token());
-        $this->submit('accept', _('Accept'));
-        $this->submit('reject', _('Reject'));
+
+        $this->submit('accept', _('Accept'), 'submit accept', null, _('Subscribe to this user'));
+        $this->submit('reject', _('Reject'), 'submit reject', null, _('Reject this subscription'));
         $this->elementEnd('form');
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
+        $this->elementEnd('div');
+        $this->elementEnd('div');
     }
 
     function sendAuthorization()
