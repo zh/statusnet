@@ -131,7 +131,7 @@ class Router
         // settings
 
         foreach (array('profile', 'avatar', 'password', 'openid', 'im',
-                       'email', 'sms', 'twitter', 'other') as $s) {
+                       'email', 'sms', 'twitter', 'design', 'other') as $s) {
             $m->connect('settings/'.$s, array('action' => $s.'settings'));
         }
 
