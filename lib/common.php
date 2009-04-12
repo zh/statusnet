@@ -71,6 +71,7 @@ $config =
         array('name' => 'Just another Laconica microblog',
               'server' => $_server,
               'theme' => 'default',
+              'skin' => 'default',
               'path' => $_path,
               'logfile' => null,
               'logo' => null,
