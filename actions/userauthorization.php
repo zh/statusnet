@@ -170,6 +170,7 @@ class UserauthorizationAction extends Action
         $this->elementStart('li', 'entity_subscribe');
         $this->elementStart('form', array('method' => 'post',
                                           'id' => 'userauthorization',
+                                          'class' => 'form_user_authorization',
                                           'name' => 'userauthorization',
                                           'action' => common_local_url('userauthorization')));
         $this->hidden('token', common_session_token());
