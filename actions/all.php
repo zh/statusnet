@@ -25,7 +25,7 @@ require_once INSTALLDIR.'/lib/feedlist.php';
 
 class AllAction extends ProfileAction
 {
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }

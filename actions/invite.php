@@ -27,7 +27,7 @@ class InviteAction extends Action
     var $subbed = null;
     var $sent = null;
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return false;
     }

@@ -56,7 +56,7 @@ class PublicAction extends Action
 
     var $page = null;
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }

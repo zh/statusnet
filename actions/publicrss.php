@@ -102,7 +102,7 @@ class PublicrssAction extends Rss10Action
         // nop
     }
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }
