@@ -88,19 +88,34 @@ class DesignsettingsAction extends AccountSettingsAction
         $this->elementEnd('ul');
         $this->elementEnd('fieldset');
 
-        $this->elementStart('fieldset', array('id' => 'settings_design_colour'));
+        $this->elementStart('fieldset', array('id' => 'settings_design_color'));
         $this->element('legend', null, _('Change colours'));
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
-        $this->element('p', null, _('Edit text colours'));
+        $this->input('color-1', _('Background color'), '#F0F2F5', null);
         $this->elementEnd('li');
-        $this->elementEnd('ul');        
+        $this->elementStart('li');
+        $this->input('color-2', _('Content background color'), '#FFFFFF', null);
+        $this->elementEnd('li');
+        $this->elementStart('li');
+        $this->input('color-3', _('Sidebar background color'), '#CEE1E9', null);
+        $this->elementEnd('li');
+        $this->elementStart('li');
+        $this->input('color-4', _('Text color'), '#000000', null);
+        $this->elementEnd('li');
+        $this->elementStart('li');
+        $this->input('color-5', _('Link color'), '#002E6E', null);
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
+        $this->element('div', array('id' => 'color-picker'));
         $this->elementEnd('fieldset');
+
 
         $this->submit('save', _('Save'));
 
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
+
     }
 
     /**
@@ -168,5 +183,45 @@ class DesignsettingsAction extends AccountSettingsAction
 
         $this->showForm(_('Password saved.'), true);
         */
+    }
+
+
+    /**
+     * Add the jCrop stylesheet
+     *
+     * @return void
+     */
+
+    function showStylesheets()
+    {
+        parent::showStylesheets();
+        $farbtasticStyle =
+          common_path('theme/default/base/css/farbtastic.css?version='.LACONICA_VERSION);
+
+        $this->element('link', array('rel' => 'stylesheet',
+                                     'type' => 'text/css',
+                                     'href' => $farbtasticStyle,
+                                     'media' => 'screen, projection, tv'));
+    }
+
+    /**
+     * Add the jCrop scripts
+     *
+     * @return void
+     */
+
+    function showScripts()
+    {
+        parent::showScripts();
+
+//        if ($this->mode == 'crop') {
+            $farbtasticPack = common_path('js/farbtastic/farbtastic.js');
+            $farbtasticGo   = common_path('js/farbtastic/farbtastic.go.js');
+
+            $this->element('script', array('type' => 'text/javascript',
+                                           'src' => $farbtasticPack));
+            $this->element('script', array('type' => 'text/javascript',
+                                           'src' => $farbtasticGo));
+//        }
     }
 }
