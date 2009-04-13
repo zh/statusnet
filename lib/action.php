@@ -796,7 +796,7 @@ class Action extends HTMLOutputter // lawsuit
      * @return boolean is read only action?
      */
 
-    function isReadOnly($args)($args)
+    function isReadOnly($args)
     {
         return false;
     }
