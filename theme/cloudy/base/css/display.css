@@ -30,6 +30,7 @@ h1 {
 font-size:1.4em;
 margin-bottom:18px;
 }
+#showstream h1 { display:none; }
 h2 { font-size:1.3em; }
 h3 { font-size:1.2em; }
 h4 { font-size:1.1em; }
@@ -630,7 +631,9 @@ border-radius:4px;
 -moz-border-radius:4px;
 -webkit-border-radius:4px;
 }
-
+.entity_actions .accept {
+margin-bottom:18px;
+}
 
 .entity_tags ul {
 list-style-type:none;
