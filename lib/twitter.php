@@ -46,7 +46,7 @@ function get_twitter_data($uri, $screen_name, $password)
         common_debug("Twitter bridge - cURL error: $errmsg - trying to load: $uri with user $screen_name.",
             __FILE__);
 
-        if (SCRIPT_DEBUG) {
+        if (defined('SCRIPT_DEBUG')) {
             print "cURL error: $errmsg - trying to load: $uri with user $screen_name.\n";
         }
     }
@@ -106,7 +106,7 @@ function update_twitter_user($twitter_id, $screen_name)
 
     if ($result) {
         common_debug("Removed uri ($uri) from another foreign_user who was squatting on it.");
-        if (SCRIPT_DEBUG) {
+        if (defined('SCRIPT_DEBUG')) {
             print("Removed uri ($uri) from another Twitter user who was squatting on it.\n");
         }
     }
@@ -122,7 +122,7 @@ function update_twitter_user($twitter_id, $screen_name)
         common_log(LOG_WARNING,
             "Couldn't update foreign_user data for Twitter user: $screen_name");
         common_log_db_error($fuser, 'UPDATE', __FILE__);
-        if (SCRIPT_DEBUG) {
+        if (defined('SCRIPT_DEBUG')) {
             print "UPDATE failed: for Twitter user:  $twitter_id - $screen_name. - ";
             print common_log_objstring($fuser) . "\n";
             $error = &PEAR::getStaticProperty('DB_DataObject','lastError');
@@ -155,7 +155,7 @@ function add_twitter_user($twitter_id, $screen_name)
     if ($result) {
         common_log(LOG_WARNING,
             "Twitter bridge - removed invalid Twitter user squatting on uri: $new_uri");
-        if (SCRIPT_DEBUG) {
+        if (defined('SCRIPT_DEBUG')) {
             print "Removed invalid Twitter user squatting on uri: $new_uri\n";
         }
     }
@@ -177,7 +177,7 @@ function add_twitter_user($twitter_id, $screen_name)
         common_log(LOG_WARNING,
             "Twitter bridge - failed to add new Twitter user: $twitter_id - $screen_name.");
         common_log_db_error($fuser, 'INSERT', __FILE__);
-        if (SCRIPT_DEBUG) {
+        if (defined('SCRIPT_DEBUG')) {
             print "INSERT failed: could not add new Twitter user: $twitter_id - $screen_name. - ";
             print common_log_objstring($fuser) . "\n";
             $error = &PEAR::getStaticProperty('DB_DataObject','lastError');
@@ -185,7 +185,7 @@ function add_twitter_user($twitter_id, $screen_name)
         }
     } else {
         common_debug("Twitter bridge - Added new Twitter user: $screen_name ($twitter_id).");
-        if (SCRIPT_DEBUG) {
+        if (defined('SCRIPT_DEBUG')) {
             print "Added new Twitter user: $screen_name ($twitter_id).\n";
         }
     }
@@ -212,7 +212,7 @@ function save_twitter_user($twitter_id, $screen_name)
             common_debug('Twitter bridge - Updated nickname (and URI) for Twitter user ' .
                 "$fuser->id to $screen_name, was $fuser->nickname");
 
-            if (SCRIPT_DEBUG) {
+            if (defined('SCRIPT_DEBUG')) {
                 print 'Updated nickname (and URI) for Twitter user ' .
                     "$fuser->id to $screen_name, was $fuser->nickname\n";
             }
@@ -241,7 +241,7 @@ function retreive_twitter_friends($twitter_id, $screen_name, $password)
         return $friends;
     }
 
-    if (SCRIPT_DEBUG) {
+    if (defined('SCRIPT_DEBUG')) {
         print "Twitter 'social graph' ids method says $screen_name has " .
             count($friends_ids) . " friends.\n";
     }
@@ -252,7 +252,7 @@ function retreive_twitter_friends($twitter_id, $screen_name, $password)
     if ($pages == 0) {
         common_log(LOG_WARNING,
             "Twitter bridge - $screen_name seems to have no friends.");
-        if (SCRIPT_DEBUG) {
+        if (defined('SCRIPT_DEBUG')) {
             print "$screen_name seems to have no friends.\n";
         }
     }
@@ -264,7 +264,7 @@ function retreive_twitter_friends($twitter_id, $screen_name, $password)
         if (!$data) {
             common_log(LOG_WARNING,
                 "Twitter bridge - Couldn't retrieve page $i of $screen_name's friends.");
-            if (SCRIPT_DEBUG) {
+            if (defined('SCRIPT_DEBUG')) {
                 print "Couldn't retrieve page $i of $screen_name's friends.\n";
             }
             continue;
@@ -276,7 +276,7 @@ function retreive_twitter_friends($twitter_id, $screen_name, $password)
 
             common_log(LOG_WARNING,
                 "Twitter bridge - No data for page $i of $screen_name's friends.");
-            if (SCRIPT_DEBUG) {
+            if (defined('SCRIPT_DEBUG')) {
                 print "No data for page $i of $screen_name's friends.\n";
             }
             continue;
@@ -295,7 +295,7 @@ function save_twitter_friends($user, $twitter_id, $screen_name, $password)
 
     if (empty($friends)) {
         common_debug("Twitter bridge - Couldn't get friends data from Twitter for $screen_name.");
-        if (SCRIPT_DEBUG) {
+        if (defined('SCRIPT_DEBUG')) {
             print "Couldn't get friends data from Twitter for $screen_name.\n";
         }
         return false;
@@ -310,7 +310,7 @@ function save_twitter_friends($user, $twitter_id, $screen_name, $password)
         if (!save_twitter_user($friend_id, $friend_name)) {
             common_log(LOG_WARNING,
                 "Twitter bridge - couldn't save $screen_name's friend, $friend_name.");
-            if (SCRIPT_DEBUG) {
+            if (defined('SCRIPT_DEBUG')) {
                 print "Couldn't save $screen_name's friend, $friend_name.\n";
             }
             continue;
@@ -328,11 +328,11 @@ function save_twitter_friends($user, $twitter_id, $screen_name, $password)
 
                 if ($result === true) {
                     common_debug("Twitter bridge - subscribed $friend_user->nickname to $user->nickname.");
-                    if (SCRIPT_DEBUG) {
+                    if (defined('SCRIPT_DEBUG')) {
                         print("Subscribed $friend_user->nickname to $user->nickname.\n");
                     }
                 } else {
-                    if (SCRIPT_DEBUG) {
+                    if (defined('SCRIPT_DEBUG')) {
                         print "$result ($friend_user->nickname to $user->nickname)\n";
                     }
                 }

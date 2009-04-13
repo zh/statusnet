@@ -33,7 +33,7 @@ if (!defined('LACONICA')) {
 
 require_once INSTALLDIR.'/lib/grouplist.php';
 
-define('GROUPS_PER_MINILIST', 80);
+define('GROUPS_PER_MINILIST', 27);
 
 /**
  * Widget to show a list of groups, good for sidebar
@@ -75,8 +75,9 @@ class GroupMiniList extends GroupList
                                        'href' => $this->group->homeUrl(),
                                        'rel' => 'contact group',
                                        'class' => 'url'));
-        $logo = ($this->group->stream_logo) ?
-          $this->group->stream_logo : User_group::defaultLogo(AVATAR_STREAM_SIZE);
+
+        $logo = ($this->group->mini_logo) ?
+          $this->group->mini_logo : User_group::defaultLogo(AVATAR_MINI_SIZE);
 
         $this->out->element('img', array('src' => $logo,
                                     'width' => AVATAR_MINI_SIZE,

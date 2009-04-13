@@ -104,9 +104,9 @@ class FavoritedAction extends Action
     {
         parent::prepare($args);
         $this->page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
-        
+
         common_set_returnto($this->selfUrl());
-        
+
         return true;
     }
 
@@ -143,13 +143,10 @@ class FavoritedAction extends Action
         $this->elementStart('div', 'instructions');
         $this->raw($output);
         $this->elementEnd('div');
+    }
 
-        $favorite = new Fave;
-
-        if ($favorite->count()) {
-            return;
-        }
-
+    function showEmptyList()
+    {
         $message = _('Favorite notices appear on this page but no one has favorited one yet.') . ' ';
 
         if (common_logged_in()) {
@@ -216,6 +213,10 @@ class FavoritedAction extends Action
         $nl = new NoticeList($notice, $this);
 
         $cnt = $nl->show();
+
+        if ($cnt == 0) {
+            $this->showEmptyList();
+        }
 
         $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
                           $this->page, 'favorited');
