@@ -180,7 +180,7 @@ class ApiAction extends Action
         }
     }
 
-    function isReadOnly($args)($args)
+    function isReadOnly($args)
     {
         $apiaction = $args['apiaction'];
         $method = $args['method'];
