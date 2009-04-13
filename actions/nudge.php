@@ -124,7 +124,7 @@ class NudgeAction extends Action
         }
     }
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }

@@ -47,7 +47,7 @@ define('TAGS_PER_PAGE', 100);
 
 class PublictagcloudAction extends Action
 {
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }

@@ -142,7 +142,7 @@ class TwitapisearchjsonAction extends TwitterapiAction
      * @return boolean true
      */
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }

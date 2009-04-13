@@ -177,7 +177,7 @@ class ShowmessageAction extends MailboxAction
         return '';
     }
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }

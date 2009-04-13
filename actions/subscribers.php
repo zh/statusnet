@@ -130,7 +130,7 @@ class SubscribersList extends ProfileList
         $bf->show();
     }
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }
