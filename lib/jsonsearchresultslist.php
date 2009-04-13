@@ -232,7 +232,7 @@ class ResultItem
         $this->profile_image_url = ($avatar) ?
             $avatar->displayUrl() : Avatar::defaultImage(AVATAR_STREAM_SIZE);
 
-        $this->created_at = date('r', $this->notice->created);
+        $this->created_at = common_date_rfc2822($this->notice->created);
     }
 
     /**
