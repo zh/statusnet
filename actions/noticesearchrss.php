@@ -92,7 +92,7 @@ class NoticesearchrssAction extends Rss10Action
         return null;
     }
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }

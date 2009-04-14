@@ -134,8 +134,8 @@ class ApiAction extends Action
                                  'favorites/favorites');
 
         $fullname = "$this->api_action/$this->api_method";
-        
-        // If the site is "private", all API methods except laconica/config 
+
+        // If the site is "private", all API methods except laconica/config
         // need authentication
         if (common_config('site', 'private')) {
             return $fullname != 'laconica/config' || false;
@@ -180,11 +180,11 @@ class ApiAction extends Action
         }
     }
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
-        # NOTE: before handle(), can't use $this->arg
-        $apiaction = $_REQUEST['apiaction'];
-        $method = $_REQUEST['method'];
+        $apiaction = $args['apiaction'];
+        $method = $args['method'];
+
         list($cmdtext, $fmt) = explode('.', $method);
 
         static $write_methods = array(
@@ -207,5 +207,4 @@ class ApiAction extends Action
 
         return false;
     }
-
 }

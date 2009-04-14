@@ -76,7 +76,7 @@ class GalleryAction extends Action
         return true;
     }
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }
