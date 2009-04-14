@@ -194,10 +194,6 @@ class Action extends HTMLOutputter // lawsuit
             if (Event::handle('StartShowLaconicaStyles', array($this))) {
                 $this->element('link', array('rel' => 'stylesheet',
                                              'type' => 'text/css',
-                                             'href' => theme_path('css/display.css', 'base') . '?version=' . LACONICA_VERSION,
-                                             'media' => 'screen, projection, tv'));
-                $this->element('link', array('rel' => 'stylesheet',
-                                             'type' => 'text/css',
                                              'href' => theme_path('css/display.css', null) . '?version=' . LACONICA_VERSION,
                                              'media' => 'screen, projection, tv'));
                 if (common_config('site', 'mobile')) {
