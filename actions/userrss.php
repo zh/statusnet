@@ -96,7 +96,7 @@ class UserrssAction extends Rss10Action
         parent::initRss($limit);
     }
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }

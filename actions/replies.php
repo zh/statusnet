@@ -196,7 +196,7 @@ class RepliesAction extends Action
         $this->elementEnd('div');
     }
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }

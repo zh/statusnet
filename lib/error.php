@@ -93,7 +93,7 @@ class ErrorAction extends Action
         return $this->message;
     }
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }

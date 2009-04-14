@@ -52,7 +52,7 @@ class UsergroupsAction extends Action
     var $page = null;
     var $profile = null;
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }

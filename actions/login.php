@@ -55,7 +55,7 @@ class LoginAction extends Action
      * @return boolean false
      */
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return false;
     }

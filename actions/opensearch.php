@@ -84,7 +84,7 @@ class OpensearchAction extends Action
         $this->endXML();
     }
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }
