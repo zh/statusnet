@@ -56,7 +56,7 @@ require_once INSTALLDIR.'/lib/feedlist.php';
 
 class ShowstreamAction extends ProfileAction
 {
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }

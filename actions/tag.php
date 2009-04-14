@@ -87,7 +87,7 @@ class TagAction extends Action
                           $this->page, 'tag', array('tag' => $this->tag));
     }
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }

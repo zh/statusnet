@@ -47,7 +47,7 @@ class PersonalAction extends Action
 
     var $user = null;
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
          return true;
     }

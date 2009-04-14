@@ -791,9 +791,12 @@ class Action extends HTMLOutputter // lawsuit
      *
      * MAY override
      *
+     * @param array $args other arguments
+     *
      * @return boolean is read only action?
      */
-    function isReadOnly()
+
+    function isReadOnly($args)
     {
         return false;
     }
