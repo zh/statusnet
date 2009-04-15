@@ -56,6 +56,18 @@ class PublicAction extends Action
 
     var $page = null;
 
+    /**
+     * Number of notices being shown on this page.
+     */
+    //    Does this need to be here? Should it be?
+    //    If it does, this property needs to be
+    //    added to other actions as well, like $page.
+    //    I'm trying to find a way to capture the
+    //    output of the $cnt variable from this
+    //    action's showContent() method but need
+    //    to do so earlier, I think...?
+    var $count = null;
+
     function isReadOnly()
     {
         return true;
@@ -133,6 +145,17 @@ class PublicAction extends Action
                                                array('apiaction' => 'statuses',
                                                      'method' => 'public_timeline.atom')),
                               _('Public Stream Feed (Atom)')));
+    }
+
+    /**
+     * Output document relationship links
+     *
+     * @return void
+     */
+    function showRelationshipLinks()
+    {
+        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
+                                     $this->page, 'public');
     }
 
     /**

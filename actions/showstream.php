@@ -135,6 +135,17 @@ class ShowstreamAction extends ProfileAction
                               sprintf(_('FOAF for %s'), $this->user->nickname)));
     }
 
+    /**
+     * Output document relationship links
+     *
+     * @return void
+     */
+    function showRelationshipLinks()
+    {
+        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
+                                     $this->page, 'showstream', array('nickname' => $this->user->nickname));
+    }
+
     function extraHead()
     {
         // for remote subscriptions etc.

@@ -312,6 +312,17 @@ class ShowgroupAction extends Action
     }
 
     /**
+     * Output document relationship links
+     *
+     * @return void
+     */
+    function showRelationshipLinks()
+    {
+        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
+                                     $this->page, 'showgroup', array('nickname' => $this->group->nickname));
+    }
+
+    /**
      * Fill in the sidebar.
      *
      * @return void
