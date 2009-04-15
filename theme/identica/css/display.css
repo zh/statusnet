@@ -7,6 +7,8 @@
  * @link      http://laconi.ca/
  */
 
+@import url(../../base/css/display.css);
+
 html,
 body,
 a:active {
@@ -70,7 +72,6 @@ border-top-color:#CEE1E9;
 border-top-color:#87B4C8;
 }
 
-
 #content .notice p.entry-content a:visited {
 background-color:#fcfcfc;
 }
@@ -81,7 +82,6 @@ background-color:#fcfffc;
 #aside_primary {
 background-color:#CEE1E9;
 }
-
 
 #notice_text-count {
 color:#333;
@@ -112,14 +112,12 @@ background-color:rgba(135, 180, 200, 0.3);
 background-color:rgba(255, 255, 255, 0.7);
 }
 
-
 .error {
 background-color:#F7E8E8;
 }
 .success {
 background-color:#EFF3DC;
 }
-
 
 #anon_notice {
 background-color:#87B4C8;
@@ -130,7 +128,6 @@ border-color:#fff;
 #showstream #anon_notice {
 background-color:#9BB43E;
 }
-
 
 #export_data li a {
 background-repeat:no-repeat;
@@ -184,8 +181,6 @@ background-image:url(../images/icons/twotone/green/mail.gif);
 background-image:url(../images/icons/twotone/green/shield.gif);
 }
 
-
-
 /* NOTICES */
 .notices li.over {
 background-color:#fcfcfc;
@@ -227,7 +222,6 @@ font-family:sans-serif;
 background-color:#fcfcfc;
 }
 /*END: NOTICES */
-
 
 #new_group a {
 background:transparent url(../images/icons/twotone/green/news.gif) no-repeat 0 45%;
