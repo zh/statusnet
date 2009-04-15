@@ -64,6 +64,17 @@ class InboxAction extends MailboxAction
     }
 
     /**
+     * Output document relationship links
+     *
+     * @return void
+     */
+    function showRelationshipLinks()
+    {
+        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
+                                     $this->page, 'inbox', array('nickname' => $this->user->nickname));
+    }
+
+    /**
      * Retrieve the messages for this user and this page
      *
      * Does a query for the right messages

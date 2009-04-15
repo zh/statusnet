@@ -50,17 +50,26 @@ class PopularNoticeSection extends NoticeSection
     {
         if (common_config('db', 'type') == 'pgsql') {
             $weightexpr='sum(exp(-extract(epoch from (now() - fave.modified)) / %s))';
+            if (!empty($this->out->tag)) {
+                $tag = pg_escape_string($this->tag);
+            }
         } else {
             $weightexpr='sum(exp(-(now() - fave.modified) / %s))';
+            if (!empty($this->out->tag)) {
+                 $tag = mysql_escape_string($this->out->tag);
+            }
         }
-
-        $qry = 'SELECT notice.*, '.
-          $weightexpr . ' as weight ' .
-          'FROM notice JOIN fave ON notice.id = fave.notice_id ' .
-          'GROUP BY notice.id,notice.profile_id,notice.content,notice.uri,' .
-                   'notice.rendered,notice.url,notice.created,notice.modified,' .
-                   'notice.reply_to,notice.is_local,notice.source ' .
-          'ORDER BY weight DESC';
+        $qry = "SELECT notice.*, $weightexpr as weight ";
+        if(isset($tag)) {
+            $qry .= 'FROM notice_tag, notice JOIN fave ON notice.id = fave.notice_id ' .
+                    "WHERE notice.id = notice_tag.notice_id and '$tag' = notice_tag.tag";
+        } else {
+            $qry .= 'FROM notice JOIN fave ON notice.id = fave.notice_id';
+        }
+        $qry .= ' GROUP BY notice.id,notice.profile_id,notice.content,notice.uri,' .
+                'notice.rendered,notice.url,notice.created,notice.modified,' .
+                'notice.reply_to,notice.is_local,notice.source ' .
+                'ORDER BY weight DESC';
 
         $offset = 0;
         $limit  = NOTICES_PER_SECTION + 1;
