@@ -1,4 +1,22 @@
-<?
+<?php
+/**
+ * Laconica - a distributed open-source microblogging tool
+ * Copyright (C) 2009, Controlez-Vous, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 define('INSTALLDIR', dirname(__FILE__));
 
 function main()
@@ -19,12 +37,12 @@ function checkPrereqs()
 {
     if (file_exists(INSTALLDIR.'/config.php')) {
          ?><p class="error">Config file &quot;config.php&quot; already exists.</p>
-         <?
+         <?php
         return false;
     }
 
     if (version_compare(PHP_VERSION, '5.0.0', '<')) {
-            ?><p class="error">Require PHP version 5 or greater.</p><?
+            ?><p class="error">Require PHP version 5 or greater.</p><?php
 		    return false;
     }
 
@@ -34,23 +52,23 @@ function checkPrereqs()
 
     foreach ($reqs as $req) {
         if (!checkExtension($req)) {
-            ?><p class="error">Cannot load required extension &quot;<?= $req ?>&quot;.</p><?
+            ?><p class="error">Cannot load required extension &quot;<?php echo $req; ?>&quot;.</p><?php
 		    return false;
         }
     }
 
 	if (!is_writable(INSTALLDIR)) {
-         ?><p class="error">Cannot write config file to &quot;<?= INSTALLDIR ?>&quot;.</p>
+         ?><p class="error">Cannot write config file to &quot;<?php echo INSTALLDIR; ?>&quot;.</p>
 	       <p>On your server, try this command:</p>
-	       <blockquote>chmod a+w <?= INSTALLDIR ?></blockquote>
-         <?
+	       <blockquote>chmod a+w <?php echo INSTALLDIR; ?></blockquote>
+         <?php
 	     return false;
 	}
 
 	if (!is_writable(INSTALLDIR.'/avatar/')) {
-         ?><p class="error">Cannot write avatar directory &quot;<?= INSTALLDIR ?>/avatar/&quot;.</p>
+         ?><p class="error">Cannot write avatar directory &quot;<?php echo INSTALLDIR; ?>/avatar/&quot;.</p>
 	       <p>On your server, try this command:</p>
-	       <blockquote>chmod a+w <?= INSTALLDIR ?>/avatar/</blockquote>
+	       <blockquote>chmod a+w <?php echo INSTALLDIR; ?>/avatar/</blockquote>
          <?
 	     return false;
 	}
@@ -211,7 +229,7 @@ function handlePost()
 function writeConf($sitename, $sqlUrl)
 {
     $res = file_put_contents(INSTALLDIR.'/config.php',
-                             "<?\n".
+                             "<?php\n".
                              "\$config['site']['name'] = \"$sitename\";\n\n".
                              "\$config['db']['database'] = \"$sqlUrl\";\n\n");
     return $res;
@@ -247,7 +265,7 @@ function runDbScript($filename, $conn)
 	<div id="core">
 	<div id="content">
 	<h1>Install Laconica</h1>
-<? main() ?>
+<?php main(); ?>
 	</div>
 	</div>
 	</div>
