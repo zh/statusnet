@@ -73,10 +73,6 @@ class Snapshot
 
     static function check()
     {
-        if (!common_config('snapshot', 'enabled')) {
-            return;
-        }
-
         switch (common_config('snapshot', 'run')) {
         case 'web':
             // skip if we're not running on the Web.
