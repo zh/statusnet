@@ -157,6 +157,9 @@ $config =
         'newuser' =>
         array('subscribe' => null,
               'welcome' => null),
+        'snapshot' =>
+        array('run' => 'web',
+              'frequency' => 10000),
         );
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
