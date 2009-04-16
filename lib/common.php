@@ -158,7 +158,8 @@ $config =
         array('subscribe' => null,
               'welcome' => null),
         'snapshot' =>
-        array('run' => 'web',
+        array('enabled' => true,
+              'run' => 'web',
               'frequency' => 10000,
               'reporturl' => 'http://laconi.ca/stats/report'),
         );
