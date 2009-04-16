@@ -49,18 +49,32 @@ if (!defined('LACONICA')) {
  *
  */
 
-class Snapshot {
-
+class Snapshot
+{
     var $stats = null;
+
+    /**
+     * Constructor for a snapshot
+     */
 
     function __construct()
     {
     }
 
+    /**
+     * Static function for reporting statistics
+     *
+     * This function checks whether it should report statistics, based on
+     * the current configuation settings. If it should, it creates a new
+     * Snapshot object, takes a snapshot, and reports it to headquarters.
+     *
+     * @return void
+     */
+
     static function check()
     {
         switch (common_config('snapshot', 'run')) {
-         case 'web':
+        case 'web':
             // skip if we're not running on the Web.
             if (!isset($_SERVER) || !array_key_exists('REQUEST_METHOD', $_SERVER)) {
                 break;
@@ -75,7 +89,7 @@ class Snapshot {
                 }
             }
             break;
-         case 'cron':
+        case 'cron':
             // skip if we're running on the Web
             if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
                 break;
@@ -86,12 +100,22 @@ class Snapshot {
                 $snapshot->report();
             }
             break;
-         case 'never':
+        case 'never':
             break;
-         default:
+        default:
             common_log(LOG_WARNING, "Unrecognized value for snapshot run config.");
         }
     }
+
+    /**
+     * Take a snapshot of the server
+     *
+     * Builds an array of statistical and configuration data based
+     * on the local database and config files. We avoid grabbing any
+     * information that could be personal or private.
+     *
+     * @return void
+     */
 
     function take()
     {
@@ -99,10 +123,10 @@ class Snapshot {
 
         // Some basic identification stuff
 
-        $this->stats['version'] = LACONICA_VERSION;
+        $this->stats['version']    = LACONICA_VERSION;
         $this->stats['phpversion'] = phpversion();
-        $this->stats['name'] = common_config('site', 'name');
-        $this->stats['root'] = common_root_url();
+        $this->stats['name']       = common_config('site', 'name');
+        $this->stats['root']       = common_root_url();
 
         // non-identifying stats on various tables. Primary
         // interest is size and rate of activity of service.
@@ -119,19 +143,27 @@ class Snapshot {
 
         // stats on some important config options
 
-        $this->stats['theme'] = common_config('site', 'theme');
-        $this->stats['dbtype'] = common_config('db', 'type');
-        $this->stats['xmpp'] = common_config('xmpp', 'enabled');
-        $this->stats['inboxes'] = common_config('inboxes', 'enabled');
-        $this->stats['queue'] = common_config('queue', 'enabled');
-        $this->stats['license'] = common_config('license', 'url');
-        $this->stats['fancy'] = common_config('site', 'fancy');
-        $this->stats['private'] = common_config('site', 'private');
-        $this->stats['closed'] = common_config('site', 'closed');
+        $this->stats['theme']     = common_config('site', 'theme');
+        $this->stats['dbtype']    = common_config('db', 'type');
+        $this->stats['xmpp']      = common_config('xmpp', 'enabled');
+        $this->stats['inboxes']   = common_config('inboxes', 'enabled');
+        $this->stats['queue']     = common_config('queue', 'enabled');
+        $this->stats['license']   = common_config('license', 'url');
+        $this->stats['fancy']     = common_config('site', 'fancy');
+        $this->stats['private']   = common_config('site', 'private');
+        $this->stats['closed']    = common_config('site', 'closed');
         $this->stats['memcached'] = common_config('memcached', 'enabled');
-        $this->stats['language'] = common_config('site', 'language');
-        $this->stats['timezone'] = common_config('site', 'timezone');
+        $this->stats['language']  = common_config('site', 'language');
+        $this->stats['timezone']  = common_config('site', 'timezone');
     }
+
+    /**
+     * Reports statistics to headquarters
+     *
+     * Posts statistics to a reporting server.
+     *
+     * @return void
+     */
 
     function report()
     {
@@ -139,14 +171,16 @@ class Snapshot {
 
         $postdata = http_build_query($this->stats);
 
-        $opts = array('http' =>
-                      array(
-                            'method'  => 'POST',
-                            'header'  => 'Content-type: application/x-www-form-urlencoded',
-                            'content' => $postdata,
-                            'user_agent' => 'Laconica/'.LACONICA_VERSION
-                            )
-                      );
+        $opts =
+          array('http' =>
+                array(
+                      'method'  => 'POST',
+                      'header'  => 'Content-type: '.
+                                   'application/x-www-form-urlencoded',
+                      'content' => $postdata,
+                      'user_agent' => 'Laconica/'.LACONICA_VERSION
+                      )
+                );
 
         $context = stream_context_create($opts);
 
@@ -155,18 +189,33 @@ class Snapshot {
         $result = file_get_contents($reporturl, false, $context);
     }
 
+    /**
+     * Updates statistics for a single table
+     *
+     * Determines the size of a table and its oldest and newest rows.
+     * Goal here is to see how active a site is. Note that it
+     * fills up the instance stats variable.
+     *
+     * @param string $table name of table to check
+     *
+     * @return void
+     */
+
     function tableStats($table)
     {
         $inst = DB_DataObject::Factory($table);
+
         $res = $inst->query('SELECT count(*) as cnt, '.
                             'min(created) as first, '.
                             'max(created) as last '.
                             'from ' . $table);
+
         if ($res) {
             $this->stats[$table.'count'] = $inst->cnt;
             $this->stats[$table.'first'] = $inst->first;
-            $this->stats[$table.'last'] = $inst->last;
+            $this->stats[$table.'last']  = $inst->last;
         }
+
         $inst->free();
         unset($inst);
     }
