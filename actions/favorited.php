@@ -85,7 +85,7 @@ class FavoritedAction extends Action
      * @return boolean true
      */
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }
@@ -220,5 +220,16 @@ class FavoritedAction extends Action
 
         $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
                           $this->page, 'favorited');
+    }
+
+    /**
+     * Output document relationship links
+     *
+     * @return void
+     */
+    function showRelationshipLinks()
+    {
+        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
+                                     $this->page, 'favorited');
     }
 }

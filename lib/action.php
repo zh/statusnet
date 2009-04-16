@@ -124,6 +124,7 @@ class Action extends HTMLOutputter // lawsuit
         $this->showShortcutIcon();
         $this->showStylesheets();
         $this->showScripts();
+        $this->showRelationshipLinks();
         $this->showOpenSearch();
         $this->showFeeds();
         $this->showDescription();
@@ -194,37 +195,33 @@ class Action extends HTMLOutputter // lawsuit
             if (Event::handle('StartShowLaconicaStyles', array($this))) {
                 $this->element('link', array('rel' => 'stylesheet',
                                              'type' => 'text/css',
-                                             'href' => theme_path('base/css/display.css') . '?version=' . LACONICA_VERSION,
-                                             'media' => 'screen, projection, tv'));
-                $this->element('link', array('rel' => 'stylesheet',
-                                             'type' => 'text/css',
-                                             'href' => skin_path('css/display.css') . '?version=' . LACONICA_VERSION,
+                                             'href' => theme_path('css/display.css', null) . '?version=' . LACONICA_VERSION,
                                              'media' => 'screen, projection, tv'));
                 if (common_config('site', 'mobile')) {
                     $this->element('link', array('rel' => 'stylesheet',
                                                  'type' => 'text/css',
-                                                 'href' => theme_path('base/css/mobile.css') . '?version=' . LACONICA_VERSION,
+                                                 'href' => theme_path('css/mobile.css', 'base') . '?version=' . LACONICA_VERSION,
                                                  // TODO: "handheld" CSS for other mobile devices
                                                  'media' => 'only screen and (max-device-width: 480px)')); // Mobile WebKit
                 }
                 $this->element('link', array('rel' => 'stylesheet',
                                              'type' => 'text/css',
-                                             'href' => theme_path('base/css/print.css') . '?version=' . LACONICA_VERSION,
+                                             'href' => theme_path('css/print.css', 'base') . '?version=' . LACONICA_VERSION,
                                              'media' => 'print'));
                 Event::handle('EndShowLaconicaStyles', array($this));
             }
             if (Event::handle('StartShowUAStyles', array($this))) {
                 $this->comment('[if IE]><link rel="stylesheet" type="text/css" '.
-                               'href="'.theme_path('base/css/ie.css').'?version='.LACONICA_VERSION.'" /><![endif]');
+                               'href="'.theme_path('css/ie.css', 'base').'?version='.LACONICA_VERSION.'" /><![endif]');
                 foreach (array(6,7) as $ver) {
-                    if (file_exists(theme_file('base/css/ie'.$ver.'.css'))) {
+                    if (file_exists(theme_file('css/ie'.$ver.'.css', 'base'))) {
                         // Yes, IE people should be put in jail.
                         $this->comment('[if lte IE '.$ver.']><link rel="stylesheet" type="text/css" '.
-                                       'href="'.theme_path('base/css/ie'.$ver.'.css').'?version='.LACONICA_VERSION.'" /><![endif]');
+                                       'href="'.theme_path('css/ie'.$ver.'.css', 'base').'?version='.LACONICA_VERSION.'" /><![endif]');
                     }
                 }
                 $this->comment('[if IE]><link rel="stylesheet" type="text/css" '.
-                               'href="'.skin_path('css/ie.css').'?version='.LACONICA_VERSION.'" /><![endif]');
+                               'href="'.theme_path('css/ie.css', null).'?version='.LACONICA_VERSION.'" /><![endif]');
                 Event::handle('EndShowUAStyles', array($this));
             }
             Event::handle('EndShowStyles', array($this));
@@ -262,6 +259,19 @@ class Action extends HTMLOutputter // lawsuit
             }
             Event::handle('EndShowScripts', array($this));
         }
+    }
+
+    /**
+     * Show document relationship links
+     *
+     * SHOULD overload
+     *
+     * @return nothing
+     */
+    function showRelationshipLinks()
+    {
+        // output <link> elements with appropriate HTML4.01 link types:
+        // http://www.w3.org/TR/html401/types.html#type-links
     }
 
     /**
@@ -791,9 +801,12 @@ class Action extends HTMLOutputter // lawsuit
      *
      * MAY override
      *
+     * @param array $args other arguments
+     *
      * @return boolean is read only action?
      */
-    function isReadOnly()
+
+    function isReadOnly($args)
     {
         return false;
     }
@@ -1040,5 +1053,37 @@ class Action extends HTMLOutputter // lawsuit
     function getFeeds()
     {
         return null;
+    }
+
+    /**
+     * Generate document metadata for sequential navigation
+     *
+     * @param boolean $have_before is there something before?
+     * @param boolean $have_after  is there something after?
+     * @param integer $page        current page
+     * @param string  $action      current action
+     * @param array   $args        rest of query arguments
+     *
+     * @return nothing
+     */
+    function sequenceRelationships($have_next, $have_previous, $page, $action, $args=null)
+    {
+        // Outputs machine-readable pagination in <link> elements.
+        // Pattern taken from $this->pagination() method.
+
+        // "next" is equivalent to "after"
+        if ($have_next) {
+            $pargs   = array('page' => $page-1);
+            $this->element('link', array('rel' => 'next',
+                                         'href' => common_local_url($action, $args, $pargs),
+                                         'title' => _('Next')));
+        }
+        // "previous" is equivalent to "before"
+        if ($have_previous=true) { // FIXME
+            $pargs   = array('page' => $page+1);
+            $this->element('link', array('rel' => 'prev',
+                                         'href' => common_local_url($action, $args, $pargs),
+                                         'title' => _('Previous')));
+        }
     }
 }

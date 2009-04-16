@@ -179,6 +179,11 @@ class ProfileAction extends Action
         $this->element('h2', null, _('Statistics'));
 
         // Other stats...?
+        $this->elementStart('dl', 'entity_user-id');
+        $this->element('dt', null, _('User ID'));
+        $this->element('dd', null, $this->profile->id);
+        $this->elementEnd('dl');
+
         $this->elementStart('dl', 'entity_member-since');
         $this->element('dt', null, _('Member since'));
         $this->element('dd', null, date('j M Y',

@@ -25,7 +25,7 @@ define('BOTH', 0);
 
 class FoafAction extends Action
 {
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }

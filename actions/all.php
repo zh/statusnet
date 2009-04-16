@@ -25,7 +25,7 @@ require_once INSTALLDIR.'/lib/feedlist.php';
 
 class AllAction extends ProfileAction
 {
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }
@@ -67,6 +67,17 @@ class AllAction extends ProfileAction
                                                             'method' => 'friends_timeline',
                                                             'argument' => $this->user->nickname.'.atom')),
                               sprintf(_('Feed for friends of %s (Atom)'), $this->user->nickname)));
+    }
+
+    /**
+     * Output document relationship links
+     *
+     * @return void
+     */
+    function showRelationshipLinks()
+    {
+        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
+                                     $this->page, 'all', array('nickname' => $this->user->nickname));
     }
 
     function showLocalNav()

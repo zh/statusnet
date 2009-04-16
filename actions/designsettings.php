@@ -196,7 +196,7 @@ class DesignsettingsAction extends AccountSettingsAction
     {
         parent::showStylesheets();
         $farbtasticStyle =
-          common_path('theme/default/base/css/farbtastic.css?version='.LACONICA_VERSION);
+          common_path('theme/base/css/farbtastic.css?version='.LACONICA_VERSION);
 
         $this->element('link', array('rel' => 'stylesheet',
                                      'type' => 'text/css',

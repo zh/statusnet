@@ -99,7 +99,7 @@ class LinkbackPlugin extends Plugin
 
         if (array_key_exists('X-Pingback', $result->headers)) {
             $pb = $result->headers['X-Pingback'];
-        } else if (preg_match('/<link rel="pingback" href="([^"]+)" ?/?>/',
+        } else if (preg_match('/<link rel="pingback" href="([^"]+)" ?\/?>/',
                               $result->body,
                               $match)) {
             $pb = $match[1];

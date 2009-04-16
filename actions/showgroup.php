@@ -60,7 +60,7 @@ class ShowgroupAction extends Action
      * @return boolean true
      */
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }
@@ -309,6 +309,17 @@ class ShowgroupAction extends Action
 
         return array(new Feed(Feed::RSS1, $url, sprintf(_('Notice feed for %s group'),
                                                         $this->group->nickname)));
+    }
+
+    /**
+     * Output document relationship links
+     *
+     * @return void
+     */
+    function showRelationshipLinks()
+    {
+        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
+                                     $this->page, 'showgroup', array('nickname' => $this->group->nickname));
     }
 
     /**

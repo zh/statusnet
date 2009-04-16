@@ -56,7 +56,7 @@ require_once INSTALLDIR.'/lib/feedlist.php';
 
 class ShowstreamAction extends ProfileAction
 {
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }
@@ -133,6 +133,17 @@ class ShowstreamAction extends ProfileAction
                               common_local_url('foaf', array('nickname' =>
                                                              $this->user->nickname)),
                               sprintf(_('FOAF for %s'), $this->user->nickname)));
+    }
+
+    /**
+     * Output document relationship links
+     *
+     * @return void
+     */
+    function showRelationshipLinks()
+    {
+        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
+                                     $this->page, 'showstream', array('nickname' => $this->user->nickname));
     }
 
     function extraHead()

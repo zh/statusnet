@@ -45,6 +45,13 @@ class TagAction extends Action
         return true;
     }
 
+    function showSections()
+    {
+        $pop = new PopularNoticeSection($this);
+        $pop->show();
+    }
+
+
     function title()
     {
         if ($this->page == 1) {
@@ -70,6 +77,17 @@ class TagAction extends Action
                               sprintf(_('Feed for tag %s'), $this->tag)));
     }
 
+    /**
+     * Output document relationship links
+     *
+     * @return void
+     */
+    function showRelationshipLinks()
+    {
+        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
+                                     $this->page, 'tag', array('tag' => $this->tag));
+    }
+
     function showPageNotice()
     {
         return sprintf(_('Messages tagged "%s", most recent first'), $this->tag);
@@ -87,7 +105,7 @@ class TagAction extends Action
                           $this->page, 'tag', array('tag' => $this->tag));
     }
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }

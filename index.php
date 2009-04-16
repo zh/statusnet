@@ -128,7 +128,7 @@ function main()
 
         // XXX: find somewhere for this little block to live
 
-        if (common_config('db', 'mirror') && $action_obj->isReadOnly()) {
+        if (common_config('db', 'mirror') && $action_obj->isReadOnly($args)) {
             if (is_array(common_config('db', 'mirror'))) {
                 // "load balancing", ha ha
                 $arr = common_config('db', 'mirror');

@@ -139,6 +139,17 @@ class RepliesAction extends Action
     }
 
     /**
+     * Output document relationship links
+     *
+     * @return void
+     */
+    function showRelationshipLinks()
+    {
+        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
+                                     $this->page, 'replies', array('nickname' => $this->user->nickname));
+    }
+
+    /**
      * show the personal group nav
      *
      * @return void
@@ -196,7 +207,7 @@ class RepliesAction extends Action
         $this->elementEnd('div');
     }
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }

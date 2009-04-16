@@ -56,7 +56,7 @@ class PublicAction extends Action
 
     var $page = null;
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }
@@ -133,6 +133,17 @@ class PublicAction extends Action
                                                array('apiaction' => 'statuses',
                                                      'method' => 'public_timeline.atom')),
                               _('Public Stream Feed (Atom)')));
+    }
+
+    /**
+     * Output document relationship links
+     *
+     * @return void
+     */
+    function showRelationshipLinks()
+    {
+        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
+                                     $this->page, 'public');
     }
 
     /**

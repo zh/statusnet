@@ -383,7 +383,7 @@ class AvatarsettingsAction extends AccountSettingsAction
     {
         parent::showStylesheets();
         $jcropStyle =
-          common_path('theme/default/base/css/jquery.Jcrop.css?version='.LACONICA_VERSION);
+          common_path('theme/base/css/jquery.Jcrop.css?version='.LACONICA_VERSION);
 
         $this->element('link', array('rel' => 'stylesheet',
                                      'type' => 'text/css',

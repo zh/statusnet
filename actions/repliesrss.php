@@ -83,7 +83,7 @@ class RepliesrssAction extends Rss10Action
         return ($avatar) ? $avatar->url : null;
     }
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }

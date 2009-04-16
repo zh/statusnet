@@ -48,7 +48,7 @@ class GroupmembersAction extends Action
 {
     var $page = null;
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }
@@ -136,5 +136,16 @@ class GroupmembersAction extends Action
         $this->pagination($this->page > 1, $cnt > PROFILES_PER_PAGE,
                           $this->page, 'groupmembers',
                           array('nickname' => $this->group->nickname));
+    }
+
+    /**
+     * Output document relationship links
+     *
+     * @return void
+     */
+    function showRelationshipLinks()
+    {
+        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
+                                     $this->page, 'groupmembers', array('nickname' => $this->group->nickname));
     }
 }

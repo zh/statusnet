@@ -79,7 +79,7 @@ class SupAction extends Action
         return $updates;
     }
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }
