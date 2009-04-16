@@ -444,21 +444,42 @@ class User extends Memcached_DataObject
               'SELECT notice.* ' .
               'FROM notice JOIN subscription ON notice.profile_id = subscription.subscribed ' .
               'WHERE subscription.subscriber = %d ';
-            $order = null;
+            return Notice::getStream(sprintf($qry, $this->id),
+                                     'user:notices_with_friends:' . $this->id,
+                                     $offset, $limit, $since_id, $before_id,
+                                     $order, $since);
         } else if ($enabled === true ||
                    ($enabled == 'transitional' && $this->inboxed == 1)) {
 
-            $qry =
-              'SELECT notice.* ' .
-              'FROM notice JOIN notice_inbox ON notice.id = notice_inbox.notice_id ' .
-              'WHERE notice_inbox.user_id = %d ';
-            // NOTE: we override ORDER
-            $order = null;
+            $cache = common_memcache();
+
+            if (!empty($cache)) {
+
+                # Get the notices out of the cache
+
+                $notices = $cache->get(common_cache_key($cachekey));
+
+                # On a cache hit, return a DB-object-like wrapper
+
+                if ($notices !== false) {
+                    $wrapper = new ArrayWrapper(array_slice($notices, $offset, $limit));
+                    return $wrapper;
+                }
+            }
+
+            $inbox = Notice_inbox::stream($this->id, $offset, $limit, $since_id, $before_id, $since);
+
+            $ids = array();
+
+            while ($inbox->fetch()) {
+                $ids[] = $inbox->notice_id;
+            }
+
+            $inbox->free();
+            unset($inbox);
+
+            return Notice::getStreamByIds($ids, 'user:notices_with_friends:' . $this->id);
         }
-        return Notice::getStream(sprintf($qry, $this->id),
-                                 'user:notices_with_friends:' . $this->id,
-                                 $offset, $limit, $since_id, $before_id,
-                                 $order, $since);
     }
 
     function blowFavesCache()
