@@ -51,15 +51,9 @@ if (!defined('LACONICA')) {
 
 class Snapshot {
 
+    var $stats = null;
+
     function __construct()
-    {
-    }
-
-    function take()
-    {
-    }
-
-    function report()
     {
     }
 
@@ -97,5 +91,83 @@ class Snapshot {
          default:
             common_log(LOG_WARNING, "Unrecognized value for snapshot run config.");
         }
+    }
+
+    function take()
+    {
+        $this->stats = array();
+
+        // Some basic identification stuff
+
+        $this->stats['version'] = LACONICA_VERSION;
+        $this->stats['phpversion'] = phpversion();
+        $this->stats['name'] = common_config('site', 'name');
+        $this->stats['root'] = common_root_url();
+
+        // non-identifying stats on various tables. Primary
+        // interest is size and rate of activity of service.
+
+        $tables = array('user',
+                        'notice',
+                        'subscription',
+                        'remote_profile',
+                        'user_group');
+
+        foreach ($tables as $table) {
+            $this->tableStats($table);
+        }
+
+        // stats on some important config options
+
+        $this->stats['theme'] = common_config('site', 'theme');
+        $this->stats['dbtype'] = common_config('db', 'type');
+        $this->stats['xmpp'] = common_config('xmpp', 'enabled');
+        $this->stats['inboxes'] = common_config('inboxes', 'enabled');
+        $this->stats['queue'] = common_config('queue', 'enabled');
+        $this->stats['license'] = common_config('license', 'url');
+        $this->stats['fancy'] = common_config('site', 'fancy');
+        $this->stats['private'] = common_config('site', 'private');
+        $this->stats['closed'] = common_config('site', 'closed');
+        $this->stats['memcached'] = common_config('memcached', 'enabled');
+        $this->stats['language'] = common_config('site', 'language');
+        $this->stats['timezone'] = common_config('site', 'timezone');
+    }
+
+    function report()
+    {
+        // XXX: Use OICU2 and OAuth to make authorized requests
+
+        $postdata = http_build_query($this->stats);
+
+        $opts = array('http' =>
+                      array(
+                            'method'  => 'POST',
+                            'header'  => 'Content-type: application/x-www-form-urlencoded',
+                            'content' => $postdata,
+                            'user_agent' => 'Laconica/'.LACONICA_VERSION
+                            )
+                      );
+
+        $context = stream_context_create($opts);
+
+        $reporturl = common_config('snapshot', 'reporturl');
+
+        $result = file_get_contents($reporturl, false, $context);
+    }
+
+    function tableStats($table)
+    {
+        $inst = DB_DataObject::Factory($table);
+        $res = $inst->query('SELECT count(*) as cnt, '.
+                            'min(created) as first, '.
+                            'max(created) as last '.
+                            'from ' . $table);
+        if ($res) {
+            $this->stats[$table.'count'] = $inst->cnt;
+            $this->stats[$table.'first'] = $inst->first;
+            $this->stats[$table.'last'] = $inst->last;
+        }
+        $inst->free();
+        unset($inst);
     }
 }
