@@ -1334,3 +1334,4 @@ function common_database_tablename($tablename)
   //table prefixes could be added here later
   return $tablename;
 }
+
