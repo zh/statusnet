@@ -418,7 +418,7 @@ class TwitterapiAction extends Action
     function date_twitter($dt)
     {
         $t = strtotime($dt);
-        return date("D M d G:i:s O Y", $t);
+        return date("D M d H:i:s O Y", $t);
     }
 
     // XXX: Candidate for a general utility method somewhere?
