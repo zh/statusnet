@@ -184,8 +184,8 @@ $(document).ready(function(){
 													    NoticeHover();
 													    NoticeReply();
 													}
-                                                    counter();
 													$("#notice_data-text").val("");
+                                                    counter();
 												}
 												$("#form_notice").removeClass("processing");
 												$("#notice_action-submit").removeAttr("disabled");
