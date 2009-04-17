@@ -51,7 +51,7 @@ class SearchAction extends Action
      *
      * @return boolean true
      */
-    function isReadOnly($args)
+    function isReadOnly()
     {
         return true;
     }
