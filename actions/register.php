@@ -63,13 +63,14 @@ class RegisterAction extends Action
      * @return string title
      */
 
-    function prepare()
+    function prepare($args)
     {
+        parent::prepare($args);
         $this->code = $this->trimmed('code');
 
         if (empty($this->code)) {
             common_ensure_session();
-            if (!empty($_SESSION['invitecode'])) {
+            if (array_key_exists('invitecode', $_SESSION)) {
                 $this->code = $_SESSION['invitecode'];
             }
         }
@@ -80,7 +81,7 @@ class RegisterAction extends Action
         }
 
         if (!empty($this->code)) {
-            $this->invite = Invitation::staticGet($code);
+            $this->invite = Invitation::staticGet('code', $this->code);
             if (empty($this->invite)) {
                 $this->clientError(_('Sorry, invalid invitation code.'));
                 return false;
