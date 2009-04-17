@@ -50,24 +50,32 @@ class TagCloudSection extends Section
 {
     function showContent()
     {
-        $tags = $this->getAllTags();
+        $tags = $this->getTags();
 
         if (!$tags) {
             $this->out->element('p', null, _('None'));
             return false;
         }
 
-        $cnt = count($tags);
+        $cnt = 0;
+
+        $tw = array();
+        $sum = 0;
+
+        while ($tags->fetch() && ++$cnt <= TAGS_PER_SECTION) {
+            $tw[$tags->tag] = $tags->weight;
+            $sum += $tags->weight;
+        }
 
         if ($cnt == 0) {
             $this->out->element('p', null, _('(None)'));
             return false;
         }
 
-        ksort($tags);
+        ksort($tw);
 
         $this->out->elementStart('ul', 'tags xoxo tag-cloud');
-        foreach ($tags as $tag => $weight) {
+        foreach ($tw as $tag => $weight) {
             $this->showTag($tag, $weight, ($sum == 0) ? 0 : $weight/$sum);
         }
         $this->out->elementEnd('ul');
@@ -75,34 +83,8 @@ class TagCloudSection extends Section
         return ($cnt > TAGS_PER_SECTION);
     }
 
-    function getTags($lst, $usr)
+    function getTags()
     {
-        $profile_tag = new Profile_tag;
-        $profile_tag->selectAdd();
-        $profile_tag->selectAdd('tag');
-        $profile_tag->selectAdd('count(tag) as weight');
-        $profile_tag->groupBy('tag');
-        $profile_tag->orderBy('weight DESC');
-        $cnt = $profile_tag->find();
-
-        $profile_tag->query("
-SELECT tag, count(tag) as weight from profile_tag, (SELECT subscriber, subscribed from subscription where subscriber=$usr and subscribed != subscriber) as t where tagger=subscriber and tagged=subscribed group by tag order by weight dest");
-
-        $tags = array();
-        while ($profile_tag->fetch()) {
-//            var_dump($profile_tag);
-            $tags[$profile_tag->tag] = $profile_tag->weight;
-        }
-        $profile_tag->free();
-        if (0) {
-            echo 'tags: <pre>';
-            var_dump($tags);
-            echo '</pre>';
-        }
-        return $tags;             
-    }
-
-    function getAllTags() {
         return null;
     }
 
