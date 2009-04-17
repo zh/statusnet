@@ -179,12 +179,12 @@ $(document).ready(function(){
                                                     }
                                                     else {
 													    $("#notices_primary .notices").prepend(document._importNode($("li", xml).get(0), true));
-													    counter();
 													    $("#notices_primary .notice:first").css({display:"none"});
 													    $("#notices_primary .notice:first").fadeIn(2500);
 													    NoticeHover();
 													    NoticeReply();
 													}
+                                                    counter();
 													$("#notice_data-text").val("");
 												}
 												$("#form_notice").removeClass("processing");
