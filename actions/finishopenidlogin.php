@@ -191,9 +191,26 @@ class FinishopenidloginAction extends Action
     {
         # FIXME: save invite code before redirect, and check here
 
-        if (common_config('site', 'closed') || common_config('site', 'inviteonly')) {
+        if (common_config('site', 'closed')) {
             $this->clientError(_('Registration not allowed.'));
             return;
+        }
+
+        $invite = null;
+
+        if (common_config('site', 'inviteonly')) {
+            $code = $_SESSION['invitecode'];
+            if (empty($code)) {
+                $this->clientError(_('Registration not allowed.'));
+                return;
+            }
+
+            $invite = Invitation::staticGet($code);
+
+            if (empty($invite)) {
+                $this->clientError(_('Not a valid invitation code.'));
+                return;
+            }
         }
 
         $nickname = $this->trimmed('newname');
@@ -257,10 +274,16 @@ class FinishopenidloginAction extends Action
         # XXX: add language
         # XXX: add timezone
 
-        $user = User::register(array('nickname' => $nickname,
-                                     'email' => $email,
-                                     'fullname' => $fullname,
-                                     'location' => $location));
+        $args = array('nickname' => $nickname,
+                      'email' => $email,
+                      'fullname' => $fullname,
+                      'location' => $location);
+
+        if (!empty($invite)) {
+            $args['code'] = $invite->code;
+        }
+
+        $user = User::register($args);
 
         $result = oid_link_user($user->id, $canonical, $display);
 
