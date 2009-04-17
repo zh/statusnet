@@ -54,6 +54,13 @@ class JabberQueueHandler extends XmppQueueHandler
     }
 }
 
+// Abort immediately if xmpp is not enabled, otherwise the daemon chews up
+// lots of CPU trying to connect to unconfigured servers
+if (common_config('xmpp','enabled')==false) {
+    print "Aborting daemon - xmpp is disabled\n";
+    exit();
+}
+
 ini_set("max_execution_time", "0");
 ini_set("max_input_time", "0");
 set_time_limit(0);
