@@ -83,7 +83,7 @@ class TwitapiusersAction extends TwitterapiAction
 		$twitter_user['profile_link_color'] = '';
 		$twitter_user['profile_sidebar_fill_color'] = '';
         $twitter_user['profile_sidebar_border_color'] = '';
-        $twitter_user['profile_background_tile'] = 'false';
+        $twitter_user['profile_background_tile'] = false;
 
 		$faves = DB_DataObject::factory('fave');
 		$faves->user_id = $user->id;
