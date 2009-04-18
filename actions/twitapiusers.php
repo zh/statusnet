@@ -82,8 +82,8 @@ class TwitapiusersAction extends TwitterapiAction
 		$twitter_user['profile_text_color'] = '';
 		$twitter_user['profile_link_color'] = '';
 		$twitter_user['profile_sidebar_fill_color'] = '';
-        $twitter_user['profile_sidebar_border_color'] = '';
-        $twitter_user['profile_background_tile'] = false;
+		$twitter_user['profile_sidebar_border_color'] = '';
+		$twitter_user['profile_background_tile'] = false;
 
 		$faves = DB_DataObject::factory('fave');
 		$faves->user_id = $user->id;
@@ -103,16 +103,16 @@ class TwitapiusersAction extends TwitterapiAction
 
 		if (isset($apidata['user'])) {
 
-            $twitter_user['following'] = $apidata['user']->isSubscribed($profile);
+			$twitter_user['following'] = $apidata['user']->isSubscribed($profile);
             
-            // Notifications on?
-		    $sub = Subscription::pkeyGet(array('subscriber' =>
-		        $apidata['user']->id, 'subscribed' => $profile->id));
+			// Notifications on?
+			$sub = Subscription::pkeyGet(array('subscriber' =>
+				$apidata['user']->id, 'subscribed' => $profile->id));
             
-            if ($sub) {
-                $twitter_user['notifications'] = ($sub->jabber || $sub->sms);
-            }
-        }
+			if ($sub) {
+				$twitter_user['notifications'] = ($sub->jabber || $sub->sms);
+			}
+		}
         
 		if ($apidata['content-type'] == 'xml') {
 			$this->init_document('xml');
