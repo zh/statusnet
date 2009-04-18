@@ -519,11 +519,16 @@ function common_shorten_links($text)
 
 function common_shorten_link($url, $reverse = false)
 {
+
     static $url_cache = array();
     if ($reverse) return isset($url_cache[$url]) ? $url_cache[$url] : $url;
 
     $user = common_current_user();
-
+    if (!isset($user)) {
+      // common current user does not find a user when called from the XMPP daemon
+      // therefore we'll set one here fix, so that XMPP given URLs may be shortened
+      $user->urlshorteningservice = 'ur1.ca';
+    }
     $curlh = curl_init();
     curl_setopt($curlh, CURLOPT_CONNECTTIMEOUT, 20); // # seconds to wait
     curl_setopt($curlh, CURLOPT_USERAGENT, 'Laconica');
@@ -1320,17 +1325,4 @@ function common_compatible_license($from, $to)
 {
     // XXX: better compatibility check needed here!
     return ($from == $to);
-}
-
-/**
- * returns a quoted table name, if required according to config
- */
-function common_database_tablename($tablename)
-{
-  
-  if(common_config('db','quote_identifiers')) {
-      $tablename = '"'. $tablename .'"';
-  }
-  //table prefixes could be added here later
-  return $tablename;
 }
