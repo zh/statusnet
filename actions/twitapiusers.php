@@ -103,22 +103,14 @@ class TwitapiusersAction extends TwitterapiAction
 
 		if (isset($apidata['user'])) {
 
-			if ($apidata['user']->isSubscribed($profile)) {
-				$twitter_user['following'] = 'true';
-			} else {
-				$twitter_user['following'] = 'false';
-			}
+            $twitter_user['following'] = $apidata['user']->isSubscribed($profile);
             
             // Notifications on?
 		    $sub = Subscription::pkeyGet(array('subscriber' =>
 		        $apidata['user']->id, 'subscribed' => $profile->id));
             
             if ($sub) {
-                if ($sub->jabber || $sub->sms) {
-                    $twitter_user['notifications'] = 'true';
-                } else {
-                    $twitter_user['notifications'] = 'false';
-                }
+                $twitter_user['notifications'] = ($sub->jabber || $sub->sms);
             }
         }
         
