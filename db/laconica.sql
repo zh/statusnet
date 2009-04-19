@@ -119,6 +119,7 @@ create table notice (
     index notice_profile_id_idx (profile_id),
     index notice_conversation_idx (conversation),
     index notice_created_idx (created),
+    index notice_replyto_idx (reply_to),
     FULLTEXT(content)
 ) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
