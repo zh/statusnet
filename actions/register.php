@@ -56,6 +56,45 @@ class RegisterAction extends Action
     var $registered = false;
 
     /**
+     * Prepare page to run
+     *
+     *
+     * @param $args
+     * @return string title
+     */
+
+    function prepare($args)
+    {
+        parent::prepare($args);
+        $this->code = $this->trimmed('code');
+
+        if (empty($this->code)) {
+            common_ensure_session();
+            if (array_key_exists('invitecode', $_SESSION)) {
+                $this->code = $_SESSION['invitecode'];
+            }
+        }
+
+        if (common_config('site', 'inviteonly') && empty($this->code)) {
+            $this->clientError(_('Sorry, only invited people can register.'));
+            return false;
+        }
+
+        if (!empty($this->code)) {
+            $this->invite = Invitation::staticGet('code', $this->code);
+            if (empty($this->invite)) {
+                $this->clientError(_('Sorry, invalid invitation code.'));
+                return false;
+            }
+            // Store this in case we need it
+            common_ensure_session();
+            $_SESSION['invitecode'] = $this->code;
+        }
+
+        return true;
+    }
+
+    /**
      * Title of the page
      *
      * @return string title
@@ -108,107 +147,109 @@ class RegisterAction extends Action
 
     function tryRegister()
     {
-        $token = $this->trimmed('token');
-        if (!$token || $token != common_session_token()) {
-            $this->showForm(_('There was a problem with your session token. '.
-                              'Try again, please.'));
-            return;
-        }
+        if (Event::handle('StartRegistrationTry', array($this))) {
+            $token = $this->trimmed('token');
+            if (!$token || $token != common_session_token()) {
+                $this->showForm(_('There was a problem with your session token. '.
+                                  'Try again, please.'));
+                return;
+            }
 
-        $nickname = $this->trimmed('nickname');
-        $email    = $this->trimmed('email');
-        $fullname = $this->trimmed('fullname');
-        $homepage = $this->trimmed('homepage');
-        $bio      = $this->trimmed('bio');
-        $location = $this->trimmed('location');
+            $nickname = $this->trimmed('nickname');
+            $email    = $this->trimmed('email');
+            $fullname = $this->trimmed('fullname');
+            $homepage = $this->trimmed('homepage');
+            $bio      = $this->trimmed('bio');
+            $location = $this->trimmed('location');
 
-        // We don't trim these... whitespace is OK in a password!
+            // We don't trim these... whitespace is OK in a password!
+            $password = $this->arg('password');
+            $confirm  = $this->arg('confirm');
 
-        $password = $this->arg('password');
-        $confirm  = $this->arg('confirm');
+            // invitation code, if any
+            $code = $this->trimmed('code');
 
-        // invitation code, if any
+            if ($code) {
+                $invite = Invitation::staticGet($code);
+            }
 
-        $code = $this->trimmed('code');
+            if (common_config('site', 'inviteonly') && !($code && $invite)) {
+                $this->clientError(_('Sorry, only invited people can register.'));
+                return;
+            }
 
-        if ($code) {
-            $invite = Invitation::staticGet($code);
-        }
+            // Input scrubbing
+            $nickname = common_canonical_nickname($nickname);
+            $email    = common_canonical_email($email);
 
-        if (common_config('site', 'inviteonly') && !($code && $invite)) {
-            $this->clientError(_('Sorry, only invited people can register.'));
-            return;
-        }
+            if (!$this->boolean('license')) {
+                $this->showForm(_('You can\'t register if you don\'t '.
+                                  'agree to the license.'));
+            } else if ($email && !Validate::email($email, true)) {
+                $this->showForm(_('Not a valid email address.'));
+            } else if (!Validate::string($nickname, array('min_length' => 1,
+                                                          'max_length' => 64,
+                                                          'format' => NICKNAME_FMT))) {
+                $this->showForm(_('Nickname must have only lowercase letters '.
+                                  'and numbers and no spaces.'));
+            } else if ($this->nicknameExists($nickname)) {
+                $this->showForm(_('Nickname already in use. Try another one.'));
+            } else if (!User::allowed_nickname($nickname)) {
+                $this->showForm(_('Not a valid nickname.'));
+            } else if ($this->emailExists($email)) {
+                $this->showForm(_('Email address already exists.'));
+            } else if (!is_null($homepage) && (strlen($homepage) > 0) &&
+                       !Validate::uri($homepage,
+                                      array('allowed_schemes' =>
+                                            array('http', 'https')))) {
+                $this->showForm(_('Homepage is not a valid URL.'));
+                return;
+            } else if (!is_null($fullname) && mb_strlen($fullname) > 255) {
+                $this->showForm(_('Full name is too long (max 255 chars).'));
+                return;
+            } else if (!is_null($bio) && mb_strlen($bio) > 140) {
+                $this->showForm(_('Bio is too long (max 140 chars).'));
+                return;
+            } else if (!is_null($location) && mb_strlen($location) > 255) {
+                $this->showForm(_('Location is too long (max 255 chars).'));
+                return;
+            } else if (strlen($password) < 6) {
+                $this->showForm(_('Password must be 6 or more characters.'));
+                return;
+            } else if ($password != $confirm) {
+                $this->showForm(_('Passwords don\'t match.'));
+            } else if ($user = User::register(array('nickname' => $nickname,
+                                                    'password' => $password,
+                                                    'email' => $email,
+                                                    'fullname' => $fullname,
+                                                    'homepage' => $homepage,
+                                                    'bio' => $bio,
+                                                    'location' => $location,
+                                                    'code' => $code))) {
+                if (!$user) {
+                    $this->showForm(_('Invalid username or password.'));
+                    return;
+                }
+                // success!
+                if (!common_set_user($user)) {
+                    $this->serverError(_('Error setting user.'));
+                    return;
+                }
+                // this is a real login
+                common_real_login(true);
+                if ($this->boolean('rememberme')) {
+                    common_debug('Adding rememberme cookie for ' . $nickname);
+                    common_rememberme($user);
+                }
 
-        // Input scrubbing
+                Event::handle('EndRegistrationTry', array($this));
 
-        $nickname = common_canonical_nickname($nickname);
-        $email    = common_canonical_email($email);
-
-        if (!$this->boolean('license')) {
-            $this->showForm(_('You can\'t register if you don\'t '.
-                              'agree to the license.'));
-        } else if ($email && !Validate::email($email, true)) {
-            $this->showForm(_('Not a valid email address.'));
-        } else if (!Validate::string($nickname, array('min_length' => 1,
-                                                      'max_length' => 64,
-                                                      'format' => NICKNAME_FMT))) {
-            $this->showForm(_('Nickname must have only lowercase letters '.
-                              'and numbers and no spaces.'));
-        } else if ($this->nicknameExists($nickname)) {
-            $this->showForm(_('Nickname already in use. Try another one.'));
-        } else if (!User::allowed_nickname($nickname)) {
-            $this->showForm(_('Not a valid nickname.'));
-        } else if ($this->emailExists($email)) {
-            $this->showForm(_('Email address already exists.'));
-        } else if (!is_null($homepage) && (strlen($homepage) > 0) &&
-                   !Validate::uri($homepage,
-                                  array('allowed_schemes' =>
-                                        array('http', 'https')))) {
-            $this->showForm(_('Homepage is not a valid URL.'));
-            return;
-        } else if (!is_null($fullname) && mb_strlen($fullname) > 255) {
-            $this->showForm(_('Full name is too long (max 255 chars).'));
-            return;
-        } else if (!is_null($bio) && mb_strlen($bio) > 140) {
-            $this->showForm(_('Bio is too long (max 140 chars).'));
-            return;
-        } else if (!is_null($location) && mb_strlen($location) > 255) {
-            $this->showForm(_('Location is too long (max 255 chars).'));
-            return;
-        } else if (strlen($password) < 6) {
-            $this->showForm(_('Password must be 6 or more characters.'));
-            return;
-        } else if ($password != $confirm) {
-            $this->showForm(_('Passwords don\'t match.'));
-        } else if ($user = User::register(array('nickname' => $nickname,
-                                                'password' => $password,
-                                                'email' => $email,
-                                                'fullname' => $fullname,
-                                                'homepage' => $homepage,
-                                                'bio' => $bio,
-                                                'location' => $location,
-                                                'code' => $code))) {
-            if (!$user) {
+                // Re-init language env in case it changed (not yet, but soon)
+                common_init_language();
+                $this->showSuccess();
+            } else {
                 $this->showForm(_('Invalid username or password.'));
-                return;
             }
-            // success!
-            if (!common_set_user($user)) {
-                $this->serverError(_('Error setting user.'));
-                return;
-            }
-            // this is a real login
-            common_real_login(true);
-            if ($this->boolean('rememberme')) {
-                common_debug('Adding rememberme cookie for ' . $nickname);
-                common_rememberme($user);
-            }
-            // Re-init language env in case it changed (not yet, but soon)
-            common_init_language();
-            $this->showSuccess();
-        } else {
-            $this->showForm(_('Invalid username or password.'));
         }
     }
 
@@ -250,22 +291,24 @@ class RegisterAction extends Action
 
     // overrrided to add entry-title class
     function showPageTitle() {
-        $this->element('h1', array('class' => 'entry-title'), $this->title());
+        if (Event::handle('StartShowPageTitle', array($this))) {
+            $this->element('h1', array('class' => 'entry-title'), $this->title());
+        }
     }
 
     // overrided to add hentry, and content-inner class
     function showContentBlock()
-     {
-         $this->elementStart('div', array('id' => 'content', 'class' => 'hentry'));
-         $this->showPageTitle();
-         $this->showPageNoticeBlock();
-         $this->elementStart('div', array('id' => 'content_inner',
-             'class' => 'entry-content'));
-         // show the actual content (forms, lists, whatever)
-         $this->showContent();
-         $this->elementEnd('div');
-         $this->elementEnd('div');
-     }
+    {
+        $this->elementStart('div', array('id' => 'content', 'class' => 'hentry'));
+        $this->showPageTitle();
+        $this->showPageNoticeBlock();
+        $this->elementStart('div', array('id' => 'content_inner',
+                                         'class' => 'entry-content'));
+        // show the actual content (forms, lists, whatever)
+        $this->showContent();
+        $this->elementEnd('div');
+        $this->elementEnd('div');
+    }
 
     /**
      * Instructions or a notice for the page
@@ -339,17 +382,6 @@ class RegisterAction extends Action
 
     function showFormContent()
     {
-        $code = $this->trimmed('code');
-
-        if ($code) {
-            $invite = Invitation::staticGet($code);
-        }
-
-        if (common_config('site', 'inviteonly') && !($code && $invite)) {
-            $this->clientError(_('Sorry, only invited people can register.'));
-            return;
-        }
-
         $this->elementStart('form', array('method' => 'post',
                                           'id' => 'form_register',
                                           'class' => 'form_settings',
@@ -358,82 +390,85 @@ class RegisterAction extends Action
         $this->element('legend', null, 'Account settings');
         $this->hidden('token', common_session_token());
 
-        if ($code) {
-            $this->hidden('code', $code);
+        if ($this->code) {
+            $this->hidden('code', $this->code);
         }
 
         $this->elementStart('ul', 'form_data');
-        $this->elementStart('li');
-        $this->input('nickname', _('Nickname'), $this->trimmed('nickname'),
-                     _('1-64 lowercase letters or numbers, '.
-                       'no punctuation or spaces. Required.'));
-        $this->elementEnd('li');
-        $this->elementStart('li');
-        $this->password('password', _('Password'),
-                        _('6 or more characters. Required.'));
-        $this->elementEnd('li');
-        $this->elementStart('li');
-        $this->password('confirm', _('Confirm'),
-                        _('Same as password above. Required.'));
-        $this->elementEnd('li');
-        $this->elementStart('li');
-        if ($invite && $invite->address_type == 'email') {
-            $this->input('email', _('Email'), $invite->address,
-                         _('Used only for updates, announcements, '.
-                           'and password recovery'));
-        } else {
-            $this->input('email', _('Email'), $this->trimmed('email'),
-                         _('Used only for updates, announcements, '.
-                           'and password recovery'));
+        if (Event::handle('StartRegistrationFormData', array($this))) {
+            $this->elementStart('li');
+            $this->input('nickname', _('Nickname'), $this->trimmed('nickname'),
+                         _('1-64 lowercase letters or numbers, '.
+                           'no punctuation or spaces. Required.'));
+            $this->elementEnd('li');
+            $this->elementStart('li');
+            $this->password('password', _('Password'),
+                            _('6 or more characters. Required.'));
+            $this->elementEnd('li');
+            $this->elementStart('li');
+            $this->password('confirm', _('Confirm'),
+                            _('Same as password above. Required.'));
+            $this->elementEnd('li');
+            $this->elementStart('li');
+            if ($this->invite && $this->invite->address_type == 'email') {
+                $this->input('email', _('Email'), $this->invite->address,
+                             _('Used only for updates, announcements, '.
+                               'and password recovery'));
+            } else {
+                $this->input('email', _('Email'), $this->trimmed('email'),
+                             _('Used only for updates, announcements, '.
+                               'and password recovery'));
+            }
+            $this->elementEnd('li');
+            $this->elementStart('li');
+            $this->input('fullname', _('Full name'),
+                         $this->trimmed('fullname'),
+                         _('Longer name, preferably your "real" name'));
+            $this->elementEnd('li');
+            $this->elementStart('li');
+            $this->input('homepage', _('Homepage'),
+                         $this->trimmed('homepage'),
+                         _('URL of your homepage, blog, '.
+                           'or profile on another site'));
+            $this->elementEnd('li');
+            $this->elementStart('li');
+            $this->textarea('bio', _('Bio'),
+                            $this->trimmed('bio'),
+                            _('Describe yourself and your '.
+                              'interests in 140 chars'));
+            $this->elementEnd('li');
+            $this->elementStart('li');
+            $this->input('location', _('Location'),
+                         $this->trimmed('location'),
+                         _('Where you are, like "City, '.
+                           'State (or Region), Country"'));
+            $this->elementEnd('li');
+            Event::handle('EndRegistrationFormData', array($this));
+            $this->elementStart('li', array('id' => 'settings_rememberme'));
+            $this->checkbox('rememberme', _('Remember me'),
+                            $this->boolean('rememberme'),
+                            _('Automatically login in the future; '.
+                              'not for shared computers!'));
+            $this->elementEnd('li');
+            $attrs = array('type' => 'checkbox',
+                           'id' => 'license',
+                           'class' => 'checkbox',
+                           'name' => 'license',
+                           'value' => 'true');
+            if ($this->boolean('license')) {
+                $attrs['checked'] = 'checked';
+            }
+            $this->elementStart('li');
+            $this->element('input', $attrs);
+            $this->elementStart('label', array('class' => 'checkbox', 'for' => 'license'));
+            $this->text(_('My text and files are available under '));
+            $this->element('a', array('href' => common_config('license', 'url')),
+                           common_config('license', 'title'), _("Creative Commons Attribution 3.0"));
+            $this->text(_(' except this private data: password, '.
+                          'email address, IM address, and phone number.'));
+            $this->elementEnd('label');
+            $this->elementEnd('li');
         }
-        $this->elementEnd('li');
-        $this->elementStart('li');
-        $this->input('fullname', _('Full name'),
-                     $this->trimmed('fullname'),
-                     _('Longer name, preferably your "real" name'));
-        $this->elementEnd('li');
-        $this->elementStart('li');
-        $this->input('homepage', _('Homepage'),
-                     $this->trimmed('homepage'),
-                     _('URL of your homepage, blog, '.
-                       'or profile on another site'));
-        $this->elementEnd('li');
-        $this->elementStart('li');
-        $this->textarea('bio', _('Bio'),
-                        $this->trimmed('bio'),
-                        _('Describe yourself and your '.
-                          'interests in 140 chars'));
-        $this->elementEnd('li');
-        $this->elementStart('li');
-        $this->input('location', _('Location'),
-                     $this->trimmed('location'),
-                     _('Where you are, like "City, '.
-                       'State (or Region), Country"'));
-        $this->elementEnd('li');
-        $this->elementStart('li', array('id' => 'settings_rememberme'));
-        $this->checkbox('rememberme', _('Remember me'),
-                        $this->boolean('rememberme'),
-                        _('Automatically login in the future; '.
-                          'not for shared computers!'));
-        $this->elementEnd('li');
-        $attrs = array('type' => 'checkbox',
-                       'id' => 'license',
-                       'class' => 'checkbox',
-                       'name' => 'license',
-                       'value' => 'true');
-        if ($this->boolean('license')) {
-            $attrs['checked'] = 'checked';
-        }
-        $this->elementStart('li');
-        $this->element('input', $attrs);
-        $this->elementStart('label', array('class' => 'checkbox', 'for' => 'license'));
-        $this->text(_('My text and files are available under '));
-        $this->element('a', array('href' => common_config('license', 'url')),
-                       common_config('license', 'title'), _("Creative Commons Attribution 3.0"));
-        $this->text(_(' except this private data: password, '.
-                      'email address, IM address, and phone number.'));
-        $this->elementEnd('label');
-        $this->elementEnd('li');
         $this->elementEnd('ul');
         $this->submit('submit', _('Register'));
         $this->elementEnd('fieldset');
@@ -515,3 +550,4 @@ class RegisterAction extends Action
         $nav->show();
     }
 }
+
