@@ -22,6 +22,10 @@ address {
 margin-right:7.18%;
 }
 
+h1 {
+color:#fff;
+}
+
 input, textarea, select, option {
 font-family: Verdana, sans-serif;
 }
@@ -66,7 +70,7 @@ color:#ee4400;
 
 .notice,
 .profile {
-border-top-color:#DDAA00;
+border-color:#DDAA00;
 }
 .section .profile {
 border-top-color:#aaaa66;
@@ -96,11 +100,13 @@ text-indent:-9999px;
 }
 
 #content,
+#site_nav_local_views .nav,
 #site_nav_local_views a,
 #aside_primary {
 border-color:#dddd33;
 }
-#content,
+#content .notice,
+#content .profile,
 #site_nav_local_views .current a {
 background-color:#dddd33;
 }
@@ -108,11 +114,11 @@ background-color:#dddd33;
 color:#EE4400;
 }
 #site_nav_local_views a {
-background-color:rgba(135, 180, 200, 0.3);
+background-color:rgba(255, 255, 255, 0.2);
 color:#fff;
 }
 #site_nav_local_views a:hover {
-background-color:rgba(255, 255, 255, 0.7);
+background-color:rgba(255, 255, 255, 0.4);
 }
 
 .error {

@@ -28,6 +28,7 @@ overflow:hidden;
 h1 {
 font-size:1.4em;
 margin-bottom:18px;
+text-align:right;
 }
 #showstream h1 { display:none; }
 h2 { font-size:1.3em; }
@@ -309,6 +310,8 @@ font-weight:bold;
 #site_nav_local_views .nav {
 float:left;
 width:100%;
+border-bottom-width:1px;
+border-bottom-style:solid;
 }
 
 #site_nav_global_primary dt,
@@ -384,17 +387,15 @@ margin-bottom:1em;
 }
 
 #content {
-width:64.009%;
+width:63.009%;
 min-height:259px;
-padding:1.795%;
+padding-top:1.795%;
+padding-bottom:1.795%;
 float:right;
+clear:both;
 border-radius:7px;
--moz-border-radius:7px;
--moz-border-radius-topright:0;
--webkit-border-radius:7px;
--webkit-border-top-right-radius:0;
 border-style:solid;
-border-width:1px;
+border-width:0;
 }
 
 #content_inner {
@@ -407,7 +408,8 @@ float:left;
 width:27.917%;
 min-height:259px;
 float:right;
-margin-right:0.385%;
+margin-right:4.385%;
+margin-top:73px;
 padding:1.795%;
 border-radius:7px;
 -moz-border-radius:7px;
@@ -713,14 +715,24 @@ margin-right:11px;
 .notice,
 .profile {
 position:relative;
-padding-top:11px;
-padding-bottom:11px;
 clear:both;
 float:left;
 width:100%;
-border-top-width:1px;
-border-top-style:dotted;
+border-width:1px;
+border-style:solid;
+border-radius:7px;
+-moz-border-radius:7px;
+-webkit-border-radius:7px;
 }
+#content .notice,
+#content .profile {
+padding:1.795%;
+margin-bottom:44px;
+}
+#content .notice {
+width:96.25%;
+}
+
 .notices li {
 list-style-type:none;
 }
