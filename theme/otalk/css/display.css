@@ -74,7 +74,9 @@ color:#8F0000;
 border-color:#CEE1E9;
 }
 #content .notice .entry-title,
-input, textarea, select, option {
+input, textarea, select, option,
+.pagination .nav_prev a,
+.pagination .nav_next a {
 background-color:rgba(255,255,255,0.8);
 }
 
@@ -84,19 +86,15 @@ background-color:rgba(255,255,255,0.9);
 
 #content .notice:nth-child(1) .entry-title {
 background-color:rgba(255,255,255,0.95);
-font-size:2em;
 }
 #content .notice:nth-child(2) .entry-title {
 background-color:rgba(255,255,255,0.9);
-font-size:1.9em;
 }
 #content .notice:nth-child(3) .entry-title {
 background-color:rgba(255,255,255,0.8);
-font-size:1.8em;
 }
 #content .notice:nth-child(4) .entry-title {
 background-color:rgba(255,255,255,0.7);
-font-size:1.7em;
 }
 #content .notice:nth-child(5) .entry-title {
 background-color:rgba(255,255,255,0.6);
