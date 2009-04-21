@@ -966,7 +966,7 @@ function common_root_url($ssl=false)
 function common_good_rand($bytes)
 {
     // XXX: use random.org...?
-    if (file_exists('/dev/urandom')) {
+    if (@file_exists('/dev/urandom')) {
         return common_urandom($bytes);
     } else { // FIXME: this is probably not good enough
         return common_mtrand($bytes);
