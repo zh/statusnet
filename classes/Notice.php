@@ -197,7 +197,9 @@ class Notice extends Memcached_DataObject
             $notice->saveTags();
             $notice->saveGroups();
 
-            if (!common_config('queue', 'enabled')) {
+            if (common_config('queue', 'enabled')) {
+                $notice->addToAuthorInbox();
+            } else {
                 $notice->addToInboxes();
             }
 
@@ -282,16 +284,8 @@ class Notice extends Memcached_DataObject
     {
         // Clear the user's cache
         $cache = common_memcache();
-        if ($cache) {
-            $user = User::staticGet($this->profile_id);
-            if (!empty($user)) {
-                $cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
-                if ($blowLast) {
-                    $cache->delete(common_cache_key('user:notices_with_friends:' . $user->id . ';last'));
-                }
-            }
-            $user->free();
-            unset($user);
+        if (!empty($cache)) {
+            $cache->delete(common_cache_key('user:notices_with_friends:' . $this->profile_id));
         }
         $this->blowNoticeCache($blowLast);
         $this->blowPublicCache($blowLast);
@@ -665,6 +659,33 @@ class Notice extends Memcached_DataObject
         return;
     }
 
+    function addToAuthorInbox()
+    {
+        $enabled = common_config('inboxes', 'enabled');
+
+        if ($enabled === true || $enabled === 'transitional') {
+            $user = User::staticGet('id', $this->profile_id);
+            if (empty($user)) {
+                return;
+            }
+            $inbox = new Notice_inbox();
+            $UT = common_config('db','type')=='pgsql'?'"user"':'user';
+            $qry = 'INSERT INTO notice_inbox (user_id, notice_id, created) ' .
+              "SELECT $UT.id, " . $this->id . ", '" . $this->created . "' " .
+              "FROM $UT " .
+              "WHERE $UT.id = " . $this->profile_id . ' ' .
+              'AND NOT EXISTS (SELECT user_id, notice_id ' .
+              'FROM notice_inbox ' .
+              "WHERE user_id = " . $this->profile_id . ' '.
+              'AND notice_id = ' . $this->id . ' )';
+            if ($enabled === 'transitional') {
+                $qry .= " AND $UT.inboxed = 1";
+            }
+            $inbox->query($qry);
+        }
+        return;
+    }
+
     function saveGroups()
     {
         $enabled = common_config('inboxes', 'enabled');
@@ -717,22 +738,27 @@ class Notice extends Memcached_DataObject
 
                 // FIXME: do this in an offline daemon
 
-                $inbox = new Notice_inbox();
-                $UT = common_config('db','type')=='pgsql'?'"user"':'user';
-                $qry = 'INSERT INTO notice_inbox (user_id, notice_id, created, source) ' .
-                  "SELECT $UT.id, " . $this->id . ", '" . $this->created . "', 2 " .
-                  "FROM $UT JOIN group_member ON $UT.id = group_member.profile_id " .
-                  'WHERE group_member.group_id = ' . $group->id . ' ' .
-                  'AND NOT EXISTS (SELECT user_id, notice_id ' .
-                  'FROM notice_inbox ' .
-                  "WHERE user_id = $UT.id " .
-                  'AND notice_id = ' . $this->id . ' )';
-                if ($enabled === 'transitional') {
-                    $qry .= " AND $UT.inboxed = 1";
-                }
-                $result = $inbox->query($qry);
+                $this->addToGroupInboxes($group);
             }
         }
+    }
+
+    function addToGroupInboxes($group)
+    {
+        $inbox = new Notice_inbox();
+        $UT = common_config('db','type')=='pgsql'?'"user"':'user';
+        $qry = 'INSERT INTO notice_inbox (user_id, notice_id, created, source) ' .
+          "SELECT $UT.id, " . $this->id . ", '" . $this->created . "', 2 " .
+          "FROM $UT JOIN group_member ON $UT.id = group_member.profile_id " .
+          'WHERE group_member.group_id = ' . $group->id . ' ' .
+          'AND NOT EXISTS (SELECT user_id, notice_id ' .
+          'FROM notice_inbox ' .
+          "WHERE user_id = $UT.id " .
+          'AND notice_id = ' . $this->id . ' )';
+        if ($enabled === 'transitional') {
+            $qry .= " AND $UT.inboxed = 1";
+        }
+        $result = $inbox->query($qry);
     }
 
     function saveReplies()
