@@ -889,7 +889,8 @@ function common_enqueue_notice($notice)
         $transports[] = 'memcached';
     }
 
-    if (common_config('queues', 'enabled')) {
+    if (common_config('inboxes', 'enabled') === true ||
+        common_config('inboxes', 'enabled') === 'transitional') {
         $transports[] = 'inbox';
     }
 
