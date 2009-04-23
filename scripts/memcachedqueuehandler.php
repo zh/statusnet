@@ -42,7 +42,7 @@ class MemcachedQueueHandler extends QueueHandler
     function handle_notice($notice)
     {
         // XXX: fork here
-        common_log(LOG_INFO, "Blowing memcached for $notice->id\n";
+        common_log(LOG_INFO, "Blowing memcached for $notice->id");
         $notice->blowCaches();
         return true;
     }
