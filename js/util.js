@@ -166,7 +166,7 @@ $(document).ready(function(){
 																		   $("#notice_action-submit").addClass("disabled");
 																		   return true;
 												 						 },
-					   timeout: 1000,
+					   timeout: 7000,
 					   error: function (xhr, textStatus, errorThrown) {	$("#form_notice").removeClass("processing");
 																		$("#notice_action-submit").removeAttr("disabled");
 																		$("#notice_action-submit").removeClass("disabled");
