@@ -192,10 +192,8 @@ $(document).ready(function(){
 												$("#notice_action-submit").removeClass("disabled");
 											 }
 					   };
-    if (document.body.id  != 'inbox' && document.body.id != 'outbox') {
-	    $("#form_notice").ajaxForm(PostNotice);
-	    $("#form_notice").each(addAjaxHidden);
-    }
+	$("#form_notice").ajaxForm(PostNotice);
+	$("#form_notice").each(addAjaxHidden);
     NoticeHover();
     NoticeReply();
 });
