@@ -886,7 +886,8 @@ function common_enqueue_notice($notice)
     }
 
     if (common_config('memcached', 'enabled')) {
-        $transports[] = 'memcached';
+        // Note: limited to 8 chars
+        $transports[] = 'memcache';
     }
 
     if (common_config('inboxes', 'enabled') === true ||

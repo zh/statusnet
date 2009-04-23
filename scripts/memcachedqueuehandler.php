@@ -37,7 +37,7 @@ class MemcachedQueueHandler extends QueueHandler
 {
     function transport()
     {
-        return 'memcached';
+        return 'memcache';
     }
 
 	function start() {
