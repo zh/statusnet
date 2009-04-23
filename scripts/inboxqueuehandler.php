@@ -29,6 +29,7 @@ define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 define('LACONICA', true);
 
 require_once(INSTALLDIR . '/lib/common.php');
+require_once(INSTALLDIR . '/lib/queuehandler.php');
 
 set_error_handler('common_error_handler');
 
@@ -39,12 +40,20 @@ class InboxQueueHandler extends QueueHandler
         return 'inbox';
     }
 
+	function start() {
+		$this->log(LOG_INFO, "INITIALIZE");
+		return true;
+	}
+
     function handle_notice($notice)
     {
-        common_log(LOG_INFO, "Distributing notice to inboxes for $notice->id");
+        $this->log(LOG_INFO, "Distributing notice to inboxes for $notice->id");
         $notice->addToInboxes();
         return true;
     }
+
+	function finish() {
+	}
 }
 
 ini_set("max_execution_time", "0");
@@ -52,6 +61,8 @@ ini_set("max_input_time", "0");
 set_time_limit(0);
 mb_internal_encoding('UTF-8');
 
-$handler = new InboxQueueHandler($resource);
+$id = ($argc > 1) ? $argv[1] : null;
+
+$handler = new InboxQueueHandler($id);
 
 $handler->runOnce();

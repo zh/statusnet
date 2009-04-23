@@ -29,6 +29,7 @@ define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 define('LACONICA', true);
 
 require_once(INSTALLDIR . '/lib/common.php');
+require_once(INSTALLDIR . '/lib/queuehandler.php');
 
 set_error_handler('common_error_handler');
 
@@ -39,13 +40,22 @@ class MemcachedQueueHandler extends QueueHandler
         return 'memcached';
     }
 
+	function start() {
+		$this->log(LOG_INFO, "INITIALIZE");
+		return true;
+	}
+
     function handle_notice($notice)
     {
         // XXX: fork here
-        common_log(LOG_INFO, "Blowing memcached for $notice->id");
+        $this->log(LOG_INFO, "Blowing memcached for $notice->id");
         $notice->blowCaches();
         return true;
     }
+
+	function finish() {
+	}
+
 }
 
 ini_set("max_execution_time", "0");
@@ -53,6 +63,8 @@ ini_set("max_input_time", "0");
 set_time_limit(0);
 mb_internal_encoding('UTF-8');
 
-$handler = new MemcachedQueueHandler($resource);
+$id = ($argc > 1) ? $argv[1] : null;
+
+$handler = new MemcachedQueueHandler($id);
 
 $handler->runOnce();
