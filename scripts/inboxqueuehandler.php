@@ -49,6 +49,7 @@ class InboxQueueHandler extends QueueHandler
     {
         $this->log(LOG_INFO, "Distributing notice to inboxes for $notice->id");
         $notice->addToInboxes();
+        $notice->blowSubsCache();
         return true;
     }
 
