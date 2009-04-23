@@ -166,6 +166,25 @@ $(document).ready(function(){
 																		   $("#notice_action-submit").addClass("disabled");
 																		   return true;
 												 						 },
+					   timeout: 1000,
+					   error: function (xhr, textStatus, errorThrown) {	$("#form_notice").removeClass("processing");
+																		$("#notice_action-submit").removeAttr("disabled");
+																		$("#notice_action-submit").removeClass("disabled");
+
+																		if (textStatus == "timeout") {
+																			alert ("Sorry! We had trouble sending your notice. The servers are overloaded. Please try again, and contact the site administrator if this problem persists");
+																		}
+																		else {
+																			switch(xhr.status) {
+																				default: case 404:
+																					alert("Sorry! We had trouble sending your notice.  Please report the problem to the site administrator if this happens again.");
+																					break;
+																				case 502: case 503: case 504:
+																					alert("Sorry! We had trouble sending your notice. The servers are overloaded. Please try again, and contact the site administrator if this problem persists.");
+																					break;
+																			}
+																		}
+																	  },
 					   success: function(xml) {	if ($("#error", xml).length > 0) {
 													var result = document._importNode($("p", xml).get(0), true);
 													result = result.textContent || result.innerHTML;
