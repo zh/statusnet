@@ -166,28 +166,36 @@ $(document).ready(function(){
 																		   $("#notice_action-submit").addClass("disabled");
 																		   return true;
 												 						 },
-					   success: function(xml) {	if ($("#error", xml).length > 0 || $("#command_result", xml).length > 0) {
+					   success: function(xml) {	if ($("#error", xml).length > 0) {
 													var result = document._importNode($("p", xml).get(0), true);
 													result = result.textContent || result.innerHTML;
 													alert(result);
 												}
 												else {
-													$("#notices_primary .notices").prepend(document._importNode($("li", xml).get(0), true));
+												    if ($("#command_result", xml).length > 0) {
+													    var result = document._importNode($("p", xml).get(0), true);
+													    result = result.textContent || result.innerHTML;
+													    alert(result);
+                                                    }
+                                                    else {
+													    $("#notices_primary .notices").prepend(document._importNode($("li", xml).get(0), true));
+													    $("#notices_primary .notice:first").css({display:"none"});
+													    $("#notices_primary .notice:first").fadeIn(2500);
+													    NoticeHover();
+													    NoticeReply();
+													}
 													$("#notice_data-text").val("");
-													counter();
-													$("#notices_primary .notice:first").css({display:"none"});
-													$("#notices_primary .notice:first").fadeIn(2500);
-													NoticeHover();
-													NoticeReply();
+                                                    counter();
 												}
 												$("#form_notice").removeClass("processing");
 												$("#notice_action-submit").removeAttr("disabled");
 												$("#notice_action-submit").removeClass("disabled");
 											 }
 					   };
-	$("#form_notice").ajaxForm(PostNotice);
-	$("#form_notice").each(addAjaxHidden);
-
+    if (document.body.id  != 'inbox' && document.body.id != 'outbox') {
+	    $("#form_notice").ajaxForm(PostNotice);
+	    $("#form_notice").each(addAjaxHidden);
+    }
     NoticeHover();
     NoticeReply();
 });
