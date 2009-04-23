@@ -197,7 +197,10 @@ class Notice extends Memcached_DataObject
             $notice->saveTags();
             $notice->saveGroups();
 
-            $notice->addToInboxes();
+            if (!common_config('queues', 'enabled')) {
+                $notice->addToInboxes();
+            }
+
             $notice->query('COMMIT');
 
             Event::handle('EndNoticeSave', array($notice));

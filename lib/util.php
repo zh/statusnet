@@ -889,6 +889,10 @@ function common_enqueue_notice($notice)
         $transports[] = 'memcached';
     }
 
+    if (common_config('queues', 'enabled')) {
+        $transports[] = 'inbox';
+    }
+
     foreach ($transports as $transport) {
         $qi = new Queue_item();
         $qi->notice_id = $notice->id;
