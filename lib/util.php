@@ -879,7 +879,17 @@ function common_broadcast_notice($notice, $remote=false)
 
 function common_enqueue_notice($notice)
 {
-    foreach (array('jabber', 'omb', 'sms', 'public', 'twitter', 'facebook', 'ping') as $transport) {
+    $transports = array('omb', 'sms', 'twitter', 'facebook', 'ping');
+
+    if (common_config('xmpp', 'enabled')) {
+        $transports = array_merge($transports, array('jabber', 'public'));
+    }
+
+    if (common_config('memcached', 'enabled')) {
+        $transports[] = 'memcached';
+    }
+
+    foreach ($transports as $transport) {
         $qi = new Queue_item();
         $qi->notice_id = $notice->id;
         $qi->transport = $transport;
@@ -1332,7 +1342,7 @@ function common_compatible_license($from, $to)
  */
 function common_database_tablename($tablename)
 {
-  
+
   if(common_config('db','quote_identifiers')) {
       $tablename = '"'. $tablename .'"';
   }

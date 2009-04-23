@@ -207,7 +207,11 @@ class Notice extends Memcached_DataObject
         # XXX: someone clever could prepend instead of clearing the cache
 
         if (common_config('memcached', 'enabled')) {
-            $notice->blowCaches();
+            if (common_config('queues', 'enabled')) {
+                $notice->blowAuthorCaches();
+            } else {
+                $notice->blowCaches();
+            }
         }
 
         return $notice;
@@ -269,6 +273,25 @@ class Notice extends Memcached_DataObject
         $this->blowPublicCache($blowLast);
         $this->blowTagCache($blowLast);
         $this->blowGroupCache($blowLast);
+    }
+
+    function blowAuthorCaches($blowLast=false)
+    {
+        // Clear the user's cache
+        $cache = common_memcache();
+        if ($cache) {
+            $user = User::staticGet($this->profile_id);
+            if (!empty($user)) {
+                $cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
+                if ($blowLast) {
+                    $cache->delete(common_cache_key('user:notices_with_friends:' . $user->id . ';last'));
+                }
+            }
+            $user->free();
+            unset($user);
+        }
+        $this->blowNoticeCache($blowLast);
+        $this->blowPublicCache($blowLast);
     }
 
     function blowGroupCache($blowLast=false)
