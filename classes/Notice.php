@@ -197,7 +197,7 @@ class Notice extends Memcached_DataObject
             $notice->saveTags();
             $notice->saveGroups();
 
-            if (!common_config('queues', 'enabled')) {
+            if (!common_config('queue', 'enabled')) {
                 $notice->addToInboxes();
             }
 
@@ -210,7 +210,7 @@ class Notice extends Memcached_DataObject
         # XXX: someone clever could prepend instead of clearing the cache
 
         if (common_config('memcached', 'enabled')) {
-            if (common_config('queues', 'enabled')) {
+            if (common_config('queue', 'enabled')) {
                 $notice->blowAuthorCaches();
             } else {
                 $notice->blowCaches();
