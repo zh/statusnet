@@ -32,38 +32,117 @@ define('SCRIPT_DEBUG', true);
 
 require_once(INSTALLDIR . '/lib/common.php');
 
-$flink = new Foreign_link();
-$flink->service = 1; // Twitter
-$cnt = $flink->find();
+$children = array();
+$flink_ids = null;
 
-print "Updating Twitter friends subscriptions for $cnt users.\n";
+$MAXCHILDREN = 5;
+$POLL_INTERVAL = 10; // 10 seconds
 
+do {
 
-while ($flink->fetch()) {
+    $flink = new Foreign_link();
+    $flink->service = 1; // Twitter
+    $cnt = $flink->find();
 
-    if (($flink->noticesync & FOREIGN_NOTICE_RECV) == FOREIGN_NOTICE_RECV) {
+    if (defined('SCRIPT_DEBUG')) {
+        print "Updating Twitter friends subscriptions for $cnt users.\n";
+    }
 
-        $user = User::staticGet($flink->user_id);
+    $flink_ids = array();
 
-        if (empty($user)) {
-            common_log(LOG_WARNING, "Unmatched user for ID " . $flink->user_id);
-            print "Unmatched user for ID $flink->user_id\n";
-            continue;
+    // XXX: This only reliably happens once.  After the first interation of
+    // the do loop, the ->find() doesn't work ... lost DB connection?
+
+    while ($flink->fetch()) {
+
+        if (($flink->noticesync & FOREIGN_NOTICE_RECV) == FOREIGN_NOTICE_RECV) {
+            $flink_ids[] = $flink->foreign_id;
         }
-        
-        print 'Retrieving Friends Timeline for ' . $flink->user_id . "\n";
-        
-        getTimeline($flink);
-        
+    }
+
+    $flink->free();
+    unset($flink);
+
+    foreach ($flink_ids as $f){
+
+        $pid = pcntl_fork();
+
+        if ($pid == -1) {
+            die ("Couldn't fork!");
+        }
+
+        // Parent
+        if ($pid) {
+            if (defined('SCRIPT_DEBUG')) {
+                print "Parent: forked " . $pid . "\n";
+            }
+            $children[] = $pid;
+        } else {
+
+            // Child
+
+            // XXX: Each child needs its own DB connection
+
+            getTimeline($f);
+            exit();
+        }
+
+        // Remove child from ps list as it finishes
+        while(($c = pcntl_wait($status, WNOHANG OR WUNTRACED)) > 0) {
+            if (defined('SCRIPT_DEBUG')) {
+                print "Child $c finished.\n";
+            }
+            remove_ps($children, $c);
+        }
+
+        // Wait if we have too many kids
+        if(sizeof($children) > $MAXCHILDREN) {
+            if (defined('SCRIPT_DEBUG')) {
+                print "Too many children. Waiting...\n";
+            }
+            if( ($c = pcntl_wait($status, WUNTRACED) ) > 0){
+                if (defined('SCRIPT_DEBUG')) {
+                    print "Finished waiting for $c\n";
+                }
+                remove_ps($children, $c);
+            }
+        }
+    }
+
+    // Remove all children from the process list before restarting
+    while(($c = pcntl_wait($status, WUNTRACED)) > 0) {
         if (defined('SCRIPT_DEBUG')) {
-            print "\nDONE\n";
+            print "Child $c finished.\n";
+        }
+        remove_ps($children, $c);
+    }
+
+    // Rest for a bit before we fetch more statuses
+    if (defined('SCRIPT_DEBUG')) {
+        print "Waiting $POLL_INTERVAL secs before hitting Twitter again.\n";
+    }
+
+    sleep($POLL_INTERVAL);
+
+} while (true);
+
+
+function remove_ps(&$plist, $ps){
+    for($i = 0; $i < sizeof($plist); $i++){
+        if($plist[$i] == $ps){
+            unset($plist[$i]);
+            $plist = array_values($plist);
+            break;
         }
     }
 }
 
-function getTimeline($flink) 
+function getTimeline($fid)
 {
 
+    // XXX: Need to reconnect to the DB here?
+
+    $flink = Foreign_link::getByForeignID($fid, 1);
     $fuser = $flink->getForeignUser();
 
     if (empty($fuser)) {
@@ -71,7 +150,6 @@ function getTimeline($flink)
         if (defined('SCRIPT_DEBUG')) {
             print "Unmatched user for ID $flink->user_id\n";
         }
-        continue;
     }
 
     $screenname = $fuser->nickname;
@@ -82,26 +160,34 @@ function getTimeline($flink)
         $flink->credentials);
 
     $timeline = json_decode($timeline_json);
-    
+
+    if (empty($timeline)) {
+        common_log(LOG_WARNING, "Empty timeline.");
+         if (defined('SCRIPT_DEBUG')) {
+            print "Empty timeline!\n";
+        }
+        return;
+    }
+
     foreach ($timeline as $status) {
-        
+
         // Hacktastic: filter out stuff coming from Laconica
         $source = mb_strtolower(common_config('integration', 'source'));
-        
+
         if (preg_match("/$source/", mb_strtolower($status->source))) {
             continue;
         }
-        
+
         saveStatus($status, $flink);
     }
-    
+
 }
 
 function saveStatus($status, $flink)
 {
-    // Do we have a profile for this Twitter user? 
-    
-    $id = ensureProfile($status->user);    
+    // Do we have a profile for this Twitter user?
+
+    $id = ensureProfile($status->user);
     $profile = Profile::staticGet($id);
 
     if (!$profile) {
@@ -112,34 +198,33 @@ function saveStatus($status, $flink)
         return null;
     }
 
-    $uri = 'http://twitter.com/' . $status->user->screen_name . 
+    $uri = 'http://twitter.com/' . $status->user->screen_name .
         '/status/' . $status->id;
-	
-	// Skip save if notice source is Laconica or Identi.ca?
-	
-	$notice = Notice::staticGet('uri', $uri);
-	
+
+    // Skip save if notice source is Laconica or Identi.ca?
+
+    $notice = Notice::staticGet('uri', $uri);
+
     // check to see if we've already imported the status
     if (!$notice) {
-        
-        $notice = new Notice();
 
+        $notice = new Notice();
         $notice->profile_id = $id;
 
-    	$notice->query('BEGIN');
+        $notice->query('BEGIN');
 
         // XXX: figure out reply_to
-    	$notice->reply_to = null;
-	
-    	// XXX: Should this be common_sql_now() instead of status create date?
-    	    	
-    	$notice->created = strftime('%Y-%m-%d %H:%M:%S', 
-    	    strtotime($status->created_at));
-    	$notice->content = $status->text;
-    	$notice->rendered = common_render_content($status->text, $notice);
-    	$notice->source = 'twitter';
-    	$notice->is_local = 0;  
-    	$notice->uri = $uri;
+        $notice->reply_to = null;
+
+        // XXX: Should this be common_sql_now() instead of status create date?
+
+        $notice->created = strftime('%Y-%m-%d %H:%M:%S',
+            strtotime($status->created_at));
+        $notice->content = $status->text;
+        $notice->rendered = common_render_content($status->text, $notice);
+        $notice->source = 'twitter';
+        $notice->is_local = 0;
+        $notice->uri = $uri;
 
         $notice_id = $notice->insert();
 
@@ -150,59 +235,54 @@ function saveStatus($status, $flink)
             }
         }
 
-        # XXX: do we need to change this for remote users?
-
+        // XXX: Figure out a better way to link replies?
         $notice->saveReplies();
-    
+
         // XXX: Do we want to polute our tag cloud with hashtags from Twitter?
         $notice->saveTags();
-        $notice->saveGroups();   
-        
+        $notice->saveGroups();
+
         $notice->query('COMMIT');
-        
+
     }
 
     if (!Notice_inbox::staticGet('notice_id', $notice->id)) {
-        
+
         // Add to inbox
         $inbox = new Notice_inbox();
         $inbox->user_id = $flink->user_id;
         $inbox->notice_id = $notice->id;
         $inbox->created = common_sql_now();
-	
-    	$inbox->insert();
-	}
 
+        $inbox->insert();
+    }
 }
 
-function ensureProfile($user) 
+function ensureProfile($user)
 {
- 
+
     // check to see if there's already a profile for this user
     $profileurl = 'http://twitter.com/' . $user->screen_name;
-    
     $profile = Profile::staticGet('profileurl', $profileurl);
-    
+
     if ($profile) {
-        
         common_debug("Profile for $profile->nickname found.");
-        
+
         // Check to see if the user's Avatar has changed
         checkAvatar($user, $profile);
         return $profile->id;
-        
+
     } else {
-        
         $debugmsg = 'Adding profile and remote profile ' .
             "for Twitter user: $profileurl\n";
         common_debug($debugmsg, __FILE__);
         if (defined('SCRIPT_DEBUG')) {
             print $debugmsg;
         }
-        
+
         $profile = new Profile();
         $profile->query("BEGIN");
-        
+
         $profile->nickname = $user->screen_name;
         $profile->fullname = $user->name;
         $profile->homepage = $user->url;
@@ -216,37 +296,37 @@ function ensureProfile($user)
         if (empty($id)) {
             common_log_db_error($profile, 'INSERT', __FILE__);
             if (defined('SCRIPT_DEBUG')) {
-                print 'Could not insert Profile: ' . 
+                print 'Could not insert Profile: ' .
                     common_log_objstring($profile) . "\n";
             }
             $profile->query("ROLLBACK");
             return false;
-        }        
-    
-        // check for remote profile 
+        }
+
+        // check for remote profile
         $remote_pro = Remote_profile::staticGet('uri', $profileurl);
-    
+
         if (!$remote_pro) {
-        
+
             $remote_pro = new Remote_profile();
 
             $remote_pro->id = $id;
             $remote_pro->uri = $profileurl;
             $remote_pro->created = common_sql_now();
-        
+
             $rid = $remote_pro->insert();
-        
-            if (empty($rid)) {            
+
+            if (empty($rid)) {
                 common_log_db_error($profile, 'INSERT', __FILE__);
                 if (defined('SCRIPT_DEBUG')) {
-                    print 'Could not insert Remote_profile: ' . 
+                    print 'Could not insert Remote_profile: ' .
                         common_log_objstring($remote_pro) . "\n";
                 }
                 $profile->query("ROLLBACK");
                 return false;
-            }        
+            }
         }
-        
+
         $profile->query("COMMIT");
         $profile->free();
         unset($profile);
@@ -258,24 +338,22 @@ function ensureProfile($user)
 }
 
 function checkAvatar($user, $profile)
-{            
-    common_debug("in check avatar");
-    
+{
     $path_parts = pathinfo($user->profile_image_url);
-    $newname = 'Twitter_' . $user->id . '_' . 
+    $newname = 'Twitter_' . $user->id . '_' .
         $path_parts['basename'];
-        
+
     $oldname = $profile->getAvatar(48)->filename;
 
     if ($newname != $oldname) {
-        
+
         common_debug("Avatar for Twitter user $profile->nickname has changed.");
         common_debug("old: $oldname new: $newname");
-        
+
         if (defined('SCRIPT_DEBUG')) {
             print "Avatar for Twitter user $user->id has changed.\n";
             print "old: $oldname\n";
-            print "new: $newname\n";            
+            print "new: $newname\n";
         }
 
         $img_root = substr($path_parts['basename'], 0, -11);
@@ -283,23 +361,22 @@ function checkAvatar($user, $profile)
         $mediatype = getMediatype($ext);
 
         foreach (array('mini', 'normal', 'bigger') as $size) {
-            $url = $path_parts['dirname'] . '/' . 
+            $url = $path_parts['dirname'] . '/' .
                 $img_root . '_' . $size . ".$ext";
-            $filename = 'Twitter_' . $user->id . '_' . 
+            $filename = 'Twitter_' . $user->id . '_' .
                 $img_root . "_$size.$ext";
 
             if (fetchAvatar($url, $filename)) {
-                updateAvatar($profile->id, $size, $mediatype, $filename);    
+                updateAvatar($profile->id, $size, $mediatype, $filename);
             }
         }
     }
-    
 }
 
-function getMediatype($ext) 
+function getMediatype($ext)
 {
     $mediatype = null;
-    
+
     switch (strtolower($ext)) {
     case 'jpg':
         $mediatype = 'image/jpg';
@@ -310,26 +387,22 @@ function getMediatype($ext)
     default:
         $mediatype = 'image/png';
     }
-    
+
     return $mediatype;
 }
 
-
-function saveAvatars($user, $id) 
+function saveAvatars($user, $id)
 {
     $path_parts = pathinfo($user->profile_image_url);
-
-    // basename minus '_normal.ext'
-    
     $ext = $path_parts['extension'];
     $end = strlen('_normal' . $ext);
     $img_root = substr($path_parts['basename'], 0, -($end+1));
     $mediatype = getMediatype($ext);
-    
+
     foreach (array('mini', 'normal', 'bigger') as $size) {
-        $url = $path_parts['dirname'] . '/' . 
+        $url = $path_parts['dirname'] . '/' .
             $img_root . '_' . $size . ".$ext";
-        $filename = 'Twitter_' . $user->id . '_' . 
+        $filename = 'Twitter_' . $user->id . '_' .
             $img_root . "_$size.$ext";
 
         if (fetchAvatar($url, $filename)) {
@@ -348,7 +421,7 @@ function updateAvatar($profile_id, $size, $mediatype, $filename) {
     common_debug("updating avatar: $size");
 
     $profile = Profile::staticGet($profile_id);
-    
+
     if (!$profile) {
         common_debug("Couldn't get profile: $profile_id!");
         if (defined('SCRIPT_DEBUG')) {
@@ -356,17 +429,17 @@ function updateAvatar($profile_id, $size, $mediatype, $filename) {
         }
         return;
     }
-    
+
     $sizes = array('mini' => 24, 'normal' => 48, 'bigger' => 73);
     $avatar = $profile->getAvatar($sizes[$size]);
-    
+
     if ($avatar) {
         common_debug("Deleting $size avatar for $profile->nickname.");
         @unlink(INSTALLDIR . '/avatar/' . $avatar->filename);
         $avatar->delete();
     }
-   
-    newAvatar($profile->id, $size, $mediatype, $filename); 
+
+    newAvatar($profile->id, $size, $mediatype, $filename);
 }
 
 function newAvatar($profile_id, $size, $mediatype, $filename)
@@ -376,19 +449,19 @@ function newAvatar($profile_id, $size, $mediatype, $filename)
 
     switch($size) {
     case 'mini':
-        $avatar->width = 24;
+        $avatar->width  = 24;
         $avatar->height = 24;
         break;
     case 'normal':
-        $avatar->width = 48;
+        $avatar->width  = 48;
         $avatar->height = 48;
         break;
     default:
-    
-        // Note: Twitter's big avatars are a different size than 
+
+        // Note: Twitter's big avatars are a different size than
         // Laconica's (Laconica's = 96)
-    
-        $avatar->width = 73;
+
+        $avatar->width  = 73;
         $avatar->height = 73;
     }
 
@@ -396,33 +469,33 @@ function newAvatar($profile_id, $size, $mediatype, $filename)
     $avatar->mediatype = $mediatype;
     $avatar->filename = $filename;
     $avatar->url = Avatar::url($filename);
-    
+
     common_debug("new filename: $avatar->url");
-    
+
     $avatar->created = common_sql_now();
 
     $id = $avatar->insert();
 
-    if (!$id) {                
+    if (!$id) {
         common_log_db_error($avatar, 'INSERT', __FILE__);
         if (defined('SCRIPT_DEBUG')) {
             print "Could not insert avatar!\n";
         }
-        
+
         return null;
     }
-    
+
     common_debug("Saved new $size avatar for $profile_id.");
-    
+
     return $id;
 }
 
-function fetchAvatar($url, $filename) 
+function fetchAvatar($url, $filename)
 {
     $avatar_dir = INSTALLDIR . '/avatar/';
-    
+
     $avatarfile = $avatar_dir . $filename;
-    
+
     $out = fopen($avatarfile, 'wb');
     if (!$out) {
         common_log(LOG_WARNING, "Couldn't open file $filename", __FILE__);
@@ -431,12 +504,12 @@ function fetchAvatar($url, $filename)
         }
         return false;
     }
-    
+
     common_debug("Fetching avatar: $url", __FILE__);
     if (defined('SCRIPT_DEBUG')) {
         print "Fetching avatar from Twitter: $url\n";
     }
-    
+
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_FILE, $out);
@@ -447,7 +520,6 @@ function fetchAvatar($url, $filename)
     curl_close($ch);
 
     fclose($out);
-    
+
     return $result;
 }
-
