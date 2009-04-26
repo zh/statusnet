@@ -69,8 +69,6 @@ class Bayeux
 
         $oReturn = json_decode($data);
 
-        common_debug(print_r($oReturn, true));
-
         if (is_array($oReturn)) {
             $oReturn = $oReturn[0];
         }
