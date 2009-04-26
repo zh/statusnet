@@ -62,6 +62,14 @@ class CometPlugin extends Plugin
          case 'public':
             $timeline = '/timelines/public';
             break;
+         case 'tag':
+            $tag = $action->trimmed('tag');
+            if (!empty($tag)) {
+                $timeline = '/timelines/tag/'.$tag;
+            } else {
+                return true;
+            }
+            break;
          default:
             return true;
         }
@@ -92,6 +100,14 @@ class CometPlugin extends Plugin
         if ($notice->is_local ||
             ($notice->is_local == 0 && !common_config('public', 'localonly'))) {
             $timelines[] = '/timelines/public';
+        }
+
+        $tags = $this->getNoticeTags($notice);
+
+        if (!empty($tags)) {
+            foreach ($tags as $tag) {
+                $timelines[] = '/timelines/tag/' . $tag;
+            }
         }
 
         if (count($timelines) > 0) {
@@ -132,6 +148,26 @@ class CometPlugin extends Plugin
         $arr['user']['profile_url'] = $profile->profileurl;
 
         return $arr;
+    }
+
+    function getNoticeTags($notice)
+    {
+        $tags = null;
+
+        $nt = new Notice_tag();
+        $nt->notice_id = $notice->id;
+
+        if ($nt->find()) {
+            $tags = array();
+            while ($nt->fetch()) {
+                $tags[] = $nt->tag;
+            }
+        }
+
+        $nt->free();
+        $nt = null;
+
+        return $tags;
     }
 
     // Push this up to Plugin
