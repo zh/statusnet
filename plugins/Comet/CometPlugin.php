@@ -56,6 +56,8 @@ class CometPlugin extends Plugin
     {
         $timeline = null;
 
+        $this->log(LOG_DEBUG, 'got action ' . $action->trimmed('action'));
+
         switch ($action->trimmed('action')) {
          case 'public':
             $timeline = '/timelines/public';
@@ -64,16 +66,18 @@ class CometPlugin extends Plugin
             return true;
         }
 
-        $action->element('script', array('type' => 'text/javascript',
-                                         'src' => common_path('plugins/Comet/jquery.comet.js')),
+        $scripts = array('jquery.comet.js', 'json2.js', 'updatetimeline.js');
+
+        foreach ($scripts as $script) {
+            $action->element('script', array('type' => 'text/javascript',
+                                             'src' => common_path('plugins/Comet/'.$script)),
                          ' ');
+        }
+
         $action->elementStart('script', array('type' => 'text/javascript'));
-        $action->raw("var _timelineServer = \"$this->server\"; ".
-                     "var _timeline = \"$timeline\";");
+        $action->raw("$(document).ready(function() { updater.init(\"$this->server\", \"$timeline\");});");
         $action->elementEnd('script');
-        $action->element('script', array('type' => 'text/javascript',
-                                         'src' => common_path('plugins/Comet/updatetimeline.js')),
-                         ' ');
+
         return true;
     }
 
@@ -96,21 +100,17 @@ class CometPlugin extends Plugin
 
             $json = $this->noticeAsJson($notice);
 
-            $this->log(LOG_DEBUG, "JSON = '$json'");
-
             // Bayeux? Comet? Huh? These terms confuse me
             $bay = new Bayeux($this->server);
 
             foreach ($timelines as $timeline) {
                 $this->log(LOG_INFO, "Posting notice $notice->id to '$timeline'.");
                 $bay->publish($timeline, $json);
-                $this->log(LOG_DEBUG, "Done posting notice $notice->id to '$timeline'.");
             }
 
             $bay = NULL;
         }
 
-        $this->log(LOG_DEBUG, "All done.");
         return true;
     }
 
