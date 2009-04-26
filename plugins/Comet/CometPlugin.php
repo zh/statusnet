@@ -126,6 +126,11 @@ class CometPlugin extends Plugin
         $act = new TwitterApiAction('/dev/null');
 
         $arr = $act->twitter_status_array($notice, true);
+        $arr['url'] = $notice->bestUrl();
+
+        $profile = $notice->getProfile();
+        $arr['user']['profile_url'] = $profile->profileurl;
+
         return $arr;
     }
 

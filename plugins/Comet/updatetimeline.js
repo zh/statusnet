@@ -23,14 +23,45 @@ var updater = function()
 
      function receive(message)
      {
-          alert("Received notice.");
           var noticeItem = makeNoticeItem(message.data);
-          var noticeList = $('ul.notices');
+          $("#notices_primary .notices").prepend(noticeItem, true);
+          $("#notices_primary .notice:first").css({display:"none"});
+          $("#notices_primary .notice:first").fadeIn(2500);
+          NoticeHover();
+          NoticeReply();
      }
 
      function makeNoticeItem(data)
      {
-          return '';
+          user = data['user'];
+          ni = "<li class=\"hentry notice\" id=\"notice-"+data['id']+"\">"+
+               "<div class=\"entry-title\">"+
+               "<span class=\"vcard author\">"+
+               "<a href=\""+user['profile_url']+"\" class=\"url\">"+
+               "<img src=\""+user['profile_image_url']+"\" class=\"avatar photo\" width=\"48\" height=\"48\" alt=\""+user['screen_name']+"\"/>"+
+               "<span class=\"nickname fn\">"+user['screen_name']+"</span>"+
+               "</a>"+
+               "</span>"+
+               "<p class=\"entry-content\">"+data['text']+"</p>"+
+               "</div>"+
+               "<div class=\"entry-content\">"+
+               "<dl class=\"timestamp\">"+
+               "<dt>Published</dt>"+
+               "<dd>"+
+               "<a rel=\"bookmark\" href=\""+data['url']+"\" >"+
+               "<abbr class=\"published\" title=\""+data['created_at']+"\">a few seconds ago</abbr>"+
+               "</a> "+
+               "</dd>"+
+               "</dl>"+
+               "<dl class=\"device\">"+
+               "<dt>From</dt> "+
+               "<dd>"+data['source']+"</dd>"+
+               "</dl>"+
+               "</div>"+
+               "<div class=\"notice-options\">"+
+               "</div>"+
+               "</li>";
+          return ni;
      }
 }();
 
