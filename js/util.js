@@ -188,11 +188,15 @@ $(document).ready(function(){
 													    alert(result);
                                                     }
                                                     else {
-													    $("#notices_primary .notices").prepend(document._importNode($("li", xml).get(0), true));
-													    $("#notices_primary .notice:first").css({display:"none"});
-													    $("#notices_primary .notice:first").fadeIn(2500);
-													    NoticeHover();
-													    NoticeReply();
+                                                         li = $("li", xml).get(0);
+                                                         id = li.id;
+                                                         if ($("#"+li.id).length == 0) {
+                                                              $("#notices_primary .notices").prepend(document._importNode(li, true));
+                                                              $("#notices_primary .notice:first").css({display:"none"});
+                                                              $("#notices_primary .notice:first").fadeIn(2500);
+                                                              NoticeHover();
+                                                              NoticeReply();
+                                                         }
 													}
 													$("#notice_data-text").val("");
                                                     counter();
