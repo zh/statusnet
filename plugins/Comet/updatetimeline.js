@@ -23,6 +23,14 @@ var updater = function()
 
      function receive(message)
      {
+          id = message.data.id;
+
+          // Don't add it if it already exists
+
+          if ($("#notice-"+id).length > 0) {
+               return;
+          }
+
           var noticeItem = makeNoticeItem(message.data);
           $("#notices_primary .notices").prepend(noticeItem, true);
           $("#notices_primary .notice:first").css({display:"none"});
