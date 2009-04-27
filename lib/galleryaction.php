@@ -134,9 +134,11 @@ class GalleryAction extends Action
             $this->elementStart('li', array('id'=>'filter_tags_item'));
             $this->elementStart('form', array('name' => 'bytag',
                                                'id' => 'bytag',
+                                               'action' => common_path('?action=' . $this->trimmed('action')),
                                                'method' => 'post'));
             $this->dropdown('tag', _('Tag'), $content,
                             _('Choose a tag to narrow list'), false, $tag);
+            $this->hidden('nickname', $this->user->nickname);
             $this->submit('submit', _('Go'));
             $this->elementEnd('form');
             $this->elementEnd('li');

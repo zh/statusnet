@@ -24,7 +24,8 @@ DIR=`dirname $0`
 
 for f in xmppdaemon.php jabberqueuehandler.php publicqueuehandler.php \
          xmppconfirmhandler.php smsqueuehandler.php ombqueuehandler.php \
-         twitterqueuehandler.php facebookqueuehandler.php pingqueuehandler.php; do
+         twitterqueuehandler.php facebookqueuehandler.php pingqueuehandler.php \
+	 memcachedqueuehandler.php inboxqueuehandler.php; do
 
          echo -n "Starting $f...";
 	 php $DIR/$f

@@ -8,6 +8,7 @@ VALUES
     ('deskbar','Deskbar-Applet','http://www.gnome.org/projects/deskbar-applet/', now()),
     ('Do','Gnome Do','http://do.davebsd.com/wiki/index.php?title=Microblog_Plugin', now()),
     ('Facebook','Facebook','http://apps.facebook.com/identica/', now()),
+    ('feed2omb','feed2omb','http://projects.ciarang.com/p/feed2omb/', now()),
     ('Gwibber','Gwibber','http://launchpad.net/gwibber', now()),
     ('HelloTxt','HelloTxt','http://hellotxt.com/', now()),
     ('identicatools','Laconica Tools','http://bitbucketlabs.net/laconica-tools/', now()),
