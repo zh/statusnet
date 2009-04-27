@@ -34,6 +34,8 @@ var updater = function()
      function makeNoticeItem(data)
      {
           user = data['user'];
+          html = data['html'].replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>');
+
           ni = "<li class=\"hentry notice\" id=\"notice-"+data['id']+"\">"+
                "<div class=\"entry-title\">"+
                "<span class=\"vcard author\">"+
@@ -42,7 +44,7 @@ var updater = function()
                "<span class=\"nickname fn\">"+user['screen_name']+"</span>"+
                "</a>"+
                "</span>"+
-               "<p class=\"entry-content\">"+data['text']+"</p>"+
+               "<p class=\"entry-content\">"+html+"</p>"+
                "</div>"+
                "<div class=\"entry-content\">"+
                "<dl class=\"timestamp\">"+

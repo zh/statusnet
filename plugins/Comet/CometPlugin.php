@@ -143,6 +143,7 @@ class CometPlugin extends Plugin
 
         $arr = $act->twitter_status_array($notice, true);
         $arr['url'] = $notice->bestUrl();
+        $arr['html'] = htmlspecialchars($notice->rendered);
 
         $profile = $notice->getProfile();
         $arr['user']['profile_url'] = $profile->profileurl;
