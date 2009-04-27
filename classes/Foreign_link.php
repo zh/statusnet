@@ -57,12 +57,18 @@ class Foreign_link extends Memcached_DataObject
         return null;
     }
 
-    function set_flags($noticesync, $replysync, $friendsync)
+    function set_flags($noticesend, $noticerecv, $replysync, $friendsync)
     {
-        if ($noticesync) {
+        if ($noticesend) {
             $this->noticesync |= FOREIGN_NOTICE_SEND;
         } else {
             $this->noticesync &= ~FOREIGN_NOTICE_SEND;
+        }
+        
+        if ($noticerecv) {
+            $this->noticesync |= FOREIGN_NOTICE_RECV;
+        } else {
+            $this->noticesync &= ~FOREIGN_NOTICE_RECV;
         }
 
         if ($replysync) {
