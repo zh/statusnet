@@ -451,34 +451,9 @@ class User extends Memcached_DataObject
         } else if ($enabled === true ||
                    ($enabled == 'transitional' && $this->inboxed == 1)) {
 
-            $cache = common_memcache();
+            $ids = Notice_inbox::stream($this->id, $offset, $limit, $since_id, $before_id, $since);
 
-            if (!empty($cache)) {
-
-                # Get the notices out of the cache
-
-                $notices = $cache->get(common_cache_key($cachekey));
-
-                # On a cache hit, return a DB-object-like wrapper
-
-                if ($notices !== false) {
-                    $wrapper = new ArrayWrapper(array_slice($notices, $offset, $limit));
-                    return $wrapper;
-                }
-            }
-
-            $inbox = Notice_inbox::stream($this->id, $offset, $limit, $since_id, $before_id, $since);
-
-            $ids = array();
-
-            while ($inbox->fetch()) {
-                $ids[] = $inbox->notice_id;
-            }
-
-            $inbox->free();
-            unset($inbox);
-
-            return Notice::getStreamByIds($ids, 'user:notices_with_friends:' . $this->id);
+            return Notice::getStreamByIds($ids);
         }
     }
 

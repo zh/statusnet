@@ -215,6 +215,7 @@ class Notice extends Memcached_DataObject
             if (common_config('queue', 'enabled')) {
                 $notice->blowAuthorCaches();
             } else {
+                common_debug("Blowing caches for new notice.");
                 $notice->blowCaches();
             }
         }
@@ -285,7 +286,7 @@ class Notice extends Memcached_DataObject
         // Clear the user's cache
         $cache = common_memcache();
         if (!empty($cache)) {
-            $cache->delete(common_cache_key('user:notices_with_friends:' . $this->profile_id));
+            $cache->delete(common_cache_key('notice_inbox:by_user:'.$this->profile_id));
         }
         $this->blowNoticeCache($blowLast);
         $this->blowPublicCache($blowLast);
@@ -307,9 +308,9 @@ class Notice extends Memcached_DataObject
                     $member->group_id = $group_inbox->group_id;
                     if ($member->find()) {
                         while ($member->fetch()) {
-                            $cache->delete(common_cache_key('user:notices_with_friends:' . $member->profile_id));
+                            $cache->delete(common_cache_key('notice_inbox:by_user:' . $member->profile_id));
                             if ($blowLast) {
-                                $cache->delete(common_cache_key('user:notices_with_friends:' . $member->profile_id . ';last'));
+                                $cache->delete(common_cache_key('notice_inbox:by_user:' . $member->profile_id . ';last'));
                             }
                         }
                     }
@@ -352,9 +353,9 @@ class Notice extends Memcached_DataObject
                          'WHERE subscription.subscribed = ' . $this->profile_id);
 
             while ($user->fetch()) {
-                $cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
+                $cache->delete(common_cache_key('notice_inbox:by_user:'.$user_id));
                 if ($blowLast) {
-                    $cache->delete(common_cache_key('user:notices_with_friends:' . $user->id . ';last'));
+                    $cache->delete(common_cache_key('notice_inbox:by_user:'.$user_id.';last'));
                 }
             }
             $user->free();
@@ -611,6 +612,26 @@ class Notice extends Memcached_DataObject
         $wrapper = new ArrayWrapper(array_slice($notices, $offset, $limit));
 
         return $wrapper;
+    }
+
+    function getStreamByIds($ids)
+    {
+        $cache = common_memcache();
+
+        if (!empty($cache)) {
+            $notices = array();
+            foreach ($ids as $id) {
+                $notices[] = Notice::staticGet('id', $id);
+            }
+            return new ArrayWrapper($notices);
+        } else {
+            $notice = new Notice();
+            $notice->whereAdd('id in (' . implode(', ', $ids) . ')');
+            $notice->orderBy('id DESC');
+
+            $notice->find();
+            return $notice;
+        }
     }
 
     function publicStream($offset=0, $limit=20, $since_id=0, $before_id=0, $since=null)
