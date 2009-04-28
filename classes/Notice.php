@@ -215,7 +215,6 @@ class Notice extends Memcached_DataObject
             if (common_config('queue', 'enabled')) {
                 $notice->blowAuthorCaches();
             } else {
-                common_debug("Blowing caches for new notice.");
                 $notice->blowCaches();
             }
         }
@@ -353,9 +352,9 @@ class Notice extends Memcached_DataObject
                          'WHERE subscription.subscribed = ' . $this->profile_id);
 
             while ($user->fetch()) {
-                $cache->delete(common_cache_key('notice_inbox:by_user:'.$user_id));
+                $cache->delete(common_cache_key('notice_inbox:by_user:'.$user->id));
                 if ($blowLast) {
-                    $cache->delete(common_cache_key('notice_inbox:by_user:'.$user_id.';last'));
+                    $cache->delete(common_cache_key('notice_inbox:by_user:'.$user->id.';last'));
                 }
             }
             $user->free();

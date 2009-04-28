@@ -50,7 +50,6 @@ class Notice_inbox extends Memcached_DataObject
         if (empty($cache) ||
             $since_id != 0 || $before_id != 0 || !is_null($since) ||
             ($offset + $limit) > INBOX_CACHE_WINDOW) {
-            common_debug('Doing direct DB hit for notice_inbox since the params are screwy.');
             return Notice_inbox::_streamDirect($user_id, $offset, $limit, $since_id, $before_id, $since);
         }
 
@@ -60,7 +59,6 @@ class Notice_inbox extends Memcached_DataObject
 
         if (!empty($idstr)) {
             // Cache hit! Woohoo!
-            common_debug('Cache hit for notice_inbox.');
             $window = explode(',', $idstr);
             $ids = array_slice($window, $offset, $limit);
             return $ids;
@@ -69,8 +67,6 @@ class Notice_inbox extends Memcached_DataObject
         $laststr = common_cache_key($idkey.';last');
 
         if (!empty($laststr)) {
-            common_debug('Cache hit for notice_inbox on last item.');
-
             $window = explode(',', $laststr);
             $last_id = $window[0];
             $new_ids = Notice_inbox::_streamDirect($user_id, 0, INBOX_CACHE_WINDOW,
