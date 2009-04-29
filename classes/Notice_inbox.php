@@ -43,58 +43,12 @@ class Notice_inbox extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    function stream($user_id, $offset=0, $limit=20, $since_id=0, $before_id=0, $since=null)
+    function stream($user_id, $offset, $limit, $since_id, $before_id, $since)
     {
-        $cache = common_memcache();
-
-        if (empty($cache) ||
-            $since_id != 0 || $before_id != 0 || !is_null($since) ||
-            ($offset + $limit) > INBOX_CACHE_WINDOW) {
-            return Notice_inbox::_streamDirect($user_id, $offset, $limit, $since_id, $before_id, $since);
-        }
-
-        $idkey = common_cache_key('notice_inbox:by_user:'.$user_id);
-
-        $idstr = $cache->get($idkey);
-
-        if (!empty($idstr)) {
-            // Cache hit! Woohoo!
-            $window = explode(',', $idstr);
-            $ids = array_slice($window, $offset, $limit);
-            return $ids;
-        }
-
-        $laststr = common_cache_key($idkey.';last');
-
-        if (!empty($laststr)) {
-            $window = explode(',', $laststr);
-            $last_id = $window[0];
-            $new_ids = Notice_inbox::_streamDirect($user_id, 0, INBOX_CACHE_WINDOW,
-                                                   $last_id, null, null);
-
-            $new_window = array_merge($new_ids, $window);
-
-            $new_windowstr = implode(',', $new_window);
-
-            $result = $cache->set($idkey, $new_windowstr);
-            $result = $cache->set($idkey . ';last', $new_windowstr);
-
-            $ids = array_slice($new_window, $offset, $limit);
-
-            return $ids;
-        }
-
-        $window = Notice_inbox::_streamDirect($user_id, 0, INBOX_CACHE_WINDOW,
-                                              null, null, null);
-
-        $windowstr = implode(',', $new_window);
-
-        $result = $cache->set($idkey, $windowstr);
-        $result = $cache->set($idkey . ';last', $windowstr);
-
-        $ids = array_slice($window, $offset, $limit);
-
-        return $ids;
+        return Notice::stream(array('Notice_inbox', '_streamDirect'),
+                              array($user_id),
+                              'notice_inbox:by_user:'.$user_id,
+                              $offset, $limit, $since_id, $before_id, $since);
     }
 
     function _streamDirect($user_id, $offset, $limit, $since_id, $before_id, $since)

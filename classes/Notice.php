@@ -967,4 +967,59 @@ class Notice extends Memcached_DataObject
                                     array('notice' => $this->id));
         }
     }
+
+    function stream($fn, $args, $cachekey, $offset=0, $limit=20, $since_id=0, $before_id=0, $since=null)
+    {
+        $cache = common_memcache();
+
+        if (empty($cache) ||
+            $since_id != 0 || $before_id != 0 || !is_null($since) ||
+            ($offset + $limit) > NOTICE_CACHE_WINDOW) {
+            return call_user_func_array($fn, array_merge($args, array($offset, $limit, $since_id,
+                                                                      $before_id, $since)));
+        }
+
+        $idkey = common_cache_key($cachekey);
+
+        $idstr = $cache->get($idkey);
+
+        if (!empty($idstr)) {
+            // Cache hit! Woohoo!
+            $window = explode(',', $idstr);
+            $ids = array_slice($window, $offset, $limit);
+            return $ids;
+        }
+
+        $laststr = common_cache_key($idkey.';last');
+
+        if (!empty($laststr)) {
+            $window = explode(',', $laststr);
+            $last_id = $window[0];
+            $new_ids = call_user_func_array($fn, array_merge($args, array(0, NOTICE_CACHE_WINDOW,
+                                                                          $last_id, 0, null)));
+
+            $new_window = array_merge($new_ids, $window);
+
+            $new_windowstr = implode(',', $new_window);
+
+            $result = $cache->set($idkey, $new_windowstr);
+            $result = $cache->set($idkey . ';last', $new_windowstr);
+
+            $ids = array_slice($new_window, $offset, $limit);
+
+            return $ids;
+        }
+
+        $window = call_user_func_array($fn, array_merge($args, array(0, NOTICE_CACHE_WINDOW,
+                                                                     0, 0, null)));
+
+        $windowstr = implode(',', $new_window);
+
+        $result = $cache->set($idkey, $windowstr);
+        $result = $cache->set($idkey . ';last', $windowstr);
+
+        $ids = array_slice($window, $offset, $limit);
+
+        return $ids;
+    }
 }
