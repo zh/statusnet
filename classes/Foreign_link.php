@@ -17,6 +17,8 @@ class Foreign_link extends Memcached_DataObject
     public $noticesync;                      // tinyint(1)   not_null default_1
     public $friendsync;                      // tinyint(1)   not_null default_2
     public $profilesync;                     // tinyint(1)   not_null default_1
+    public $last_noticesync;                 // datetime()
+    public $last_friendsync;                 // datetime()
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
