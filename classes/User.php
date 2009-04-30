@@ -401,13 +401,9 @@ class User extends Memcached_DataObject
 
     function getReplies($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
     {
-        $qry =
-          'SELECT notice.* ' .
-          'FROM notice JOIN reply ON notice.id = reply.notice_id ' .
-          'WHERE reply.profile_id = %d ';
-        return Notice::getStream(sprintf($qry, $this->id),
-                                 'user:replies:'.$this->id,
-                                 $offset, $limit, $since_id, $before_id, null, $since);
+        $ids = Reply::stream($this->id, $offset, $limit, $since_id, $before_id, $since);
+        common_debug("Ids = " . implode(',', $ids));
+        return Notice::getStreamByIds($ids);
     }
 
     function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)

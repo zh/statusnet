@@ -380,9 +380,9 @@ class Notice extends Memcached_DataObject
             $reply->notice_id = $this->id;
             if ($reply->find()) {
                 while ($reply->fetch()) {
-                    $cache->delete(common_cache_key('user:replies:'.$reply->profile_id));
+                    $cache->delete(common_cache_key('reply:stream:'.$reply->profile_id));
                     if ($blowLast) {
-                        $cache->delete(common_cache_key('user:replies:'.$reply->profile_id.';last'));
+                        $cache->delete(common_cache_key('reply:stream:'.$reply->profile_id.';last'));
                     }
                 }
             }
