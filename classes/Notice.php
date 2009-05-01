@@ -299,9 +299,9 @@ class Notice extends Memcached_DataObject
             $group_inbox->notice_id = $this->id;
             if ($group_inbox->find()) {
                 while ($group_inbox->fetch()) {
-                    $cache->delete(common_cache_key('group:notices:'.$group_inbox->group_id));
+                    $cache->delete(common_cache_key('user_group:notice_ids:' . $group_inbox->group_id));
                     if ($blowLast) {
-                        $cache->delete(common_cache_key('group:notices:'.$group_inbox->group_id.';last'));
+                        $cache->delete(common_cache_key('user_group:notice_ids:' . $group_inbox->group_id.';last'));
                     }
                     $member = new Group_member();
                     $member->group_id = $group_inbox->group_id;
