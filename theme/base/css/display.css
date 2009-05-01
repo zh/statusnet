@@ -86,7 +86,7 @@ border:0;
 
 .error,
 .success {
-padding:4px 7px;
+padding:4px 1.55%;
 border-radius:4px;
 -moz-border-radius:4px;
 -webkit-border-radius:4px;
@@ -426,6 +426,7 @@ line-height:1;
 #form_notice fieldset {
 border:0;
 padding:0;
+position:relative;
 }
 #form_notice legend {
 display:none;
@@ -480,7 +481,13 @@ margin-bottom:7px;
 margin-left:18px;
 float:left;
 }
-
+#form_notice .error {
+float:left;
+clear:both;
+width:96.9%;
+margin-bottom:0;
+line-height:1.618;
+}
 
 /* entity_profile */
 .entity_profile {
@@ -835,23 +842,6 @@ text-transform:lowercase;
 }
 
 
-
-.notice-data {
-position:absolute;
-top:18px;
-right:0;
-min-height:50px;
-margin-bottom:4px;
-}
-.notice .entry-content .notice-data dt {
-display:none;
-}
-
-.notice-data a {
-display:block;
-outline:none;
-}
-
 .notice-options {
 padding-left:2%;
 float:left;
@@ -1029,6 +1019,8 @@ padding-right:30px;
 .hentry .entry-content p {
 margin-bottom:18px;
 }
+.system_notice ul,
+.instructions ul,
 .hentry entry-content ol,
 .hentry .entry-content ul {
 list-style-position:inside;
@@ -1153,9 +1145,6 @@ clear:both;
 margin-bottom:0;
 }
 
-.instructions ul {
-list-style-position:inside;
-}
 .instructions p,
 .instructions ul {
 margin-bottom:18px;

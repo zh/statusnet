@@ -74,3 +74,4 @@ class SubPeopleTagCloudSection extends TagCloudSection
         $this->out->elementEnd('li');
     }
 }
+

@@ -144,10 +144,10 @@ class TwitapistatusesAction extends TwitterapiAction
             break;
          case 'atom':
             if (isset($apidata['api_arg'])) {
-                $selfuri = $selfuri = common_root_url() .
+                $selfuri = common_root_url() .
                     'api/statuses/friends_timeline/' . $apidata['api_arg'] . '.atom';
             } else {
-                $selfuri = $selfuri = common_root_url() .
+                $selfuri = common_root_url() .
                     'api/statuses/friends_timeline.atom';
             }
             $this->show_atom_timeline($notice, $title, $id, $link, $subtitle, null, $selfuri);
@@ -231,10 +231,10 @@ class TwitapistatusesAction extends TwitterapiAction
             break;
          case 'atom':
             if (isset($apidata['api_arg'])) {
-                $selfuri = $selfuri = common_root_url() .
+                $selfuri = common_root_url() .
                     'api/statuses/user_timeline/' . $apidata['api_arg'] . '.atom';
             } else {
-                $selfuri = $selfuri = common_root_url() .
+                $selfuri = common_root_url() .
                  'api/statuses/user_timeline.atom';
             }
             $this->show_atom_timeline($notice, $title, $id, $link, $subtitle, $suplink, $selfuri);
@@ -344,7 +344,7 @@ class TwitapistatusesAction extends TwitterapiAction
         $this->show($args, $apidata);
     }
 
-    function replies($args, $apidata)
+    function mentions($args, $apidata)
     {
 
         parent::handle($args);
@@ -360,11 +360,13 @@ class TwitapistatusesAction extends TwitterapiAction
         $profile = $user->getProfile();
 
         $sitename = common_config('site', 'name');
-        $title = sprintf(_('%1$s / Updates replying to %2$s'), $sitename, $user->nickname);
+        $title = sprintf(_('%1$s / Updates mentioning %2$s'),
+            $sitename, $user->nickname);
         $taguribase = common_config('integration', 'taguri');
-        $id = "tag:$taguribase:Replies:".$user->id;
+        $id = "tag:$taguribase:Mentions:".$user->id;
         $link = common_local_url('replies', array('nickname' => $user->nickname));
-        $subtitle = sprintf(_('%1$s updates that reply to updates from %2$s / %3$s.'), $sitename, $user->nickname, $profile->getBestName());
+        $subtitle = sprintf(_('%1$s updates that reply to updates from %2$s / %3$s.'),
+            $sitename, $user->nickname, $profile->getBestName());
 
         if (!$page) {
             $page = 1;
@@ -385,7 +387,8 @@ class TwitapistatusesAction extends TwitterapiAction
 
         $since = strtotime($this->arg('since'));
 
-        $notice = $user->getReplies((($page-1)*20), $count, $since_id, $before_id, $since);
+        $notice = $user->getReplies((($page-1)*20),
+            $count, $since_id, $before_id, $since);
         $notices = array();
 
         while ($notice->fetch()) {
@@ -400,14 +403,10 @@ class TwitapistatusesAction extends TwitterapiAction
             $this->show_rss_timeline($notices, $title, $link, $subtitle);
             break;
          case 'atom':
-             if (isset($apidata['api_arg'])) {
-                 $selfuri = $selfuri = common_root_url() .
-                     'api/statuses/replies/' . $apidata['api_arg'] . '.atom';
-             } else {
-                 $selfuri = $selfuri = common_root_url() .
-                  'api/statuses/replies.atom';
-             }
-            $this->show_atom_timeline($notices, $title, $id, $link, $subtitle, null, $selfuri);
+            $selfuri = common_root_url() .
+                ltrim($_SERVER['QUERY_STRING'], 'p=');
+            $this->show_atom_timeline($notices, $title, $id, $link, $subtitle,
+                null, $selfuri);
             break;
          case 'json':
             $this->show_json_timeline($notices);
@@ -416,6 +415,11 @@ class TwitapistatusesAction extends TwitterapiAction
             $this->clientError(_('API method not found!'), $code = 404);
         }
 
+    }
+
+    function replies($args, $apidata)
+    {
+        call_user_func(array($this, 'mentions'), $args, $apidata);
     }
 
     function show($args, $apidata)

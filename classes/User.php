@@ -444,21 +444,17 @@ class User extends Memcached_DataObject
               'SELECT notice.* ' .
               'FROM notice JOIN subscription ON notice.profile_id = subscription.subscribed ' .
               'WHERE subscription.subscriber = %d ';
-            $order = null;
+            return Notice::getStream(sprintf($qry, $this->id),
+                                     'user:notices_with_friends:' . $this->id,
+                                     $offset, $limit, $since_id, $before_id,
+                                     $order, $since);
         } else if ($enabled === true ||
                    ($enabled == 'transitional' && $this->inboxed == 1)) {
 
-            $qry =
-              'SELECT notice.* ' .
-              'FROM notice JOIN notice_inbox ON notice.id = notice_inbox.notice_id ' .
-              'WHERE notice_inbox.user_id = %d ';
-            // NOTE: we override ORDER
-            $order = null;
+            $ids = Notice_inbox::stream($this->id, $offset, $limit, $since_id, $before_id, $since);
+
+            return Notice::getStreamByIds($ids);
         }
-        return Notice::getStream(sprintf($qry, $this->id),
-                                 'user:notices_with_friends:' . $this->id,
-                                 $offset, $limit, $since_id, $before_id,
-                                 $order, $since);
     }
 
     function blowFavesCache()

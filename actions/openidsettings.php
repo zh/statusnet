@@ -67,8 +67,8 @@ class OpenidsettingsAction extends AccountSettingsAction
 
     function getInstructions()
     {
-        return _('[OpenID](%%doc.openid%%) lets you log into many sites ' .
-                 ' with the same user account. '.
+        return _('[OpenID](%%doc.openid%%) lets you log into many sites' .
+                 ' with the same user account.'.
                  ' Manage your associated OpenIDs from here.');
     }
 
