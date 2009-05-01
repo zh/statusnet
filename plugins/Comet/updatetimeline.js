@@ -54,7 +54,8 @@ var updater = function()
      function makeNoticeItem(data)
      {
           user = data['user'];
-          html = data['html'].replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>');
+          html = data['html'].replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"');
+          source = data['source'].replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"');
 
           ni = "<li class=\"hentry notice\" id=\"notice-"+data['id']+"\">"+
                "<div class=\"entry-title\">"+
@@ -77,9 +78,19 @@ var updater = function()
                "</dl>"+
                "<dl class=\"device\">"+
                "<dt>From</dt> "+
-               "<dd>"+data['source']+"</dd>"+
-               "</dl>"+
-               "</div>"+
+               "<dd>"+source+"</dd>"+ // may have a link, I think
+               "</dl>";
+
+          if (data['in_reply_to_status_id']) {
+               ni = ni+" <dl class=\"response\">"+
+                    "<dt>To</dt>"+
+                    "<dd>"+
+                    "<a href=\""+data['in_reply_to_status_url']+"\" rel=\"in-reply-to\">in reply to</a>"+
+                    "</dd>"+
+                    "</dl>";
+          }
+
+          ni = ni+"</div>"+
                "<div class=\"notice-options\">";
 
           if (_userid != 0) {
