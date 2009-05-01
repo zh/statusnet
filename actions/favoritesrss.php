@@ -107,7 +107,7 @@ class FavoritesrssAction extends Rss10Action
         $c    = array('url' => common_local_url('favoritesrss',
                                         array('nickname' =>
                                         $user->nickname)),
-                   'title' => sprintf(_("%s favorite notices"), $user->nickname),
+                   'title' => sprintf(_("%s's favorite notices"), $user->nickname),
                    'link' => common_local_url('showfavorites',
                                         array('nickname' =>
                                         $user->nickname)),
