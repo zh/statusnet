@@ -133,11 +133,7 @@ class TwitapifriendshipsAction extends TwitterapiAction
             return;
         }
 
-        if ($user_a->isSubscribed($user_b)) {
-            $result = 'true';
-        } else {
-            $result = 'false';
-        }
+        $result = $user_a->isSubscribed($user_b);
 
         switch ($apidata['content-type']) {
          case 'xml':
