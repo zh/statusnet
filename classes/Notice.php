@@ -363,10 +363,10 @@ class Notice extends Memcached_DataObject
     {
         if ($this->is_local) {
             $cache = common_memcache();
-            if ($cache) {
-                $cache->delete(common_cache_key('profile:notices:'.$this->profile_id));
+            if (!empty($cache)) {
+                $cache->delete(common_cache_key('profile:notice_ids:'.$this->profile_id));
                 if ($blowLast) {
-                    $cache->delete(common_cache_key('profile:notices:'.$this->profile_id.';last'));
+                    $cache->delete(common_cache_key('profile:notice_ids:'.$this->profile_id.';last'));
                 }
             }
         }
