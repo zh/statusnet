@@ -45,9 +45,11 @@ class CometPlugin extends Plugin
 {
     var $server = null;
 
-    function __construct($server=null)
+    function __construct($server=null, $username=null, $password=null)
     {
-        $this->server = $server;
+        $this->server   = $server;
+        $this->username = $username;
+        $this->password = $password;
 
         parent::__construct();
     }
@@ -131,7 +133,7 @@ class CometPlugin extends Plugin
             $json = $this->noticeAsJson($notice);
 
             // Bayeux? Comet? Huh? These terms confuse me
-            $bay = new Bayeux($this->server);
+            $bay = new Bayeux($this->server, $this->user, $this->password);
 
             foreach ($timelines as $timeline) {
                 $this->log(LOG_INFO, "Posting notice $notice->id to '$timeline'.");
