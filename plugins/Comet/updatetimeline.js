@@ -3,14 +3,26 @@
 
 var updater = function()
 {
+     var _server;
+     var _timeline;
+     var _userid;
+     var _replyurl;
+     var _favorurl;
+     var _deleteurl;
      var _cometd;
 
      return {
-          init: function(server, timeline)
+          init: function(server, timeline, userid, replyurl, favorurl, deleteurl)
           {
                _cometd = $.cometd; // Uses the default Comet object
                _cometd.setLogLevel('debug');
                _cometd.init(server);
+               _server = server;
+               _timeline = timeline;
+               _userid = userid;
+               _favorurl = favorurl;
+               _replyurl = replyurl;
+               _deleteurl = deleteurl;
                _cometd.subscribe(timeline, receive);
                $(window).unload(leave);
           }
@@ -34,7 +46,7 @@ var updater = function()
           var noticeItem = makeNoticeItem(message.data);
           $("#notices_primary .notices").prepend(noticeItem, true);
           $("#notices_primary .notice:first").css({display:"none"});
-          $("#notices_primary .notice:first").fadeIn(2500);
+          $("#notices_primary .notice:first").fadeIn(1000);
           NoticeHover();
           NoticeReply();
      }
@@ -68,10 +80,64 @@ var updater = function()
                "<dd>"+data['source']+"</dd>"+
                "</dl>"+
                "</div>"+
-               "<div class=\"notice-options\">"+
-               "</div>"+
+               "<div class=\"notice-options\">";
+
+          if (_userid != 0) {
+               var input = $("form#form_notice fieldset input#token");
+               var session_key = input.val();
+               ni = ni+makeFavoriteForm(data['id'], session_key);
+               ni = ni+makeReplyLink(data['id'], data['user']['screen_name']);
+               if (_userid == data['user']['id']) {
+                    ni = ni+makeDeleteLink(data['id']);
+               }
+          }
+
+          ni = ni+"</div>"+
                "</li>";
           return ni;
+     }
+
+     function makeFavoriteForm(id, session_key)
+     {
+          var ff;
+
+          ff = "<form id=\"favor-"+id+"\" class=\"form_favor\" method=\"post\" action=\""+_favorurl+"\">"+
+               "<fieldset>"+
+               "<legend>Favor this notice</legend>"+ // XXX: i18n
+               "<input name=\"token-"+id+"\" type=\"hidden\" id=\"token-"+id+"\" value=\""+session_key+"\"/>"+
+               "<input name=\"notice\" type=\"hidden\" id=\"notice-n"+id+"\" value=\""+id+"\"/>"+
+               "<input type=\"submit\" id=\"favor-submit-"+id+"\" name=\"favor-submit-"+id+"\" class=\"submit\" value=\"Favor\" title=\"Favor this notice\"/>"+
+               "</fieldset>"+
+               "</form>";
+          return ff;
+     }
+
+     function makeReplyLink(id, nickname)
+     {
+          var rl;
+          rl = "<dl class=\"notice_reply\">"+
+               "<dt>Reply to this notice</dt>"+
+               "<dd>"+
+               "<a href=\""+_replyurl+"?replyto="+nickname+"\" title=\"Reply to this notice\">Reply <span class=\"notice_id\">"+id+"</span>"+
+               "</a>"+
+               "</dd>"+
+               "</dl>";
+          return rl;
+     }
+
+     function makeDeleteLink(id)
+     {
+          var dl, delurl;
+          delurl = _deleteurl.replace("0000000000", id);
+
+          dl = "<dl class=\"notice_delete\">"+
+               "<dt>Delete this notice</dt>"+
+               "<dd>"+
+               "<a href=\""+delurl+"\" title=\"Delete this notice\">Delete</a>"+
+               "</dd>"+
+               "</dl>";
+
+          return dl;
      }
 }();
 

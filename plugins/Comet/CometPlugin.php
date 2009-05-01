@@ -82,8 +82,22 @@ class CometPlugin extends Plugin
                          ' ');
         }
 
+        $user = common_current_user();
+
+        if (!empty($user->id)) {
+            $user_id = $user->id;
+        } else {
+            $user_id = 0;
+        }
+
+        $replyurl = common_local_url('newnotice');
+        $favorurl = common_local_url('favor');
+        // FIXME: need to find a better way to pass this pattern in
+        $deleteurl = common_local_url('deletenotice',
+                                      array('notice' => '0000000000'));
+
         $action->elementStart('script', array('type' => 'text/javascript'));
-        $action->raw("$(document).ready(function() { updater.init(\"$this->server\", \"$timeline\");});");
+        $action->raw("$(document).ready(function() { updater.init(\"$this->server\", \"$timeline\", $user_id, \"$replyurl\", \"$favorurl\", \"$deleteurl\"); });");
         $action->elementEnd('script');
 
         return true;
