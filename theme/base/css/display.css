@@ -769,15 +769,13 @@ overflow:hidden;
 font-weight:bold;
 }
 
-.notice .author .photo {
-margin-bottom:0;
-}
-
 .vcard .photo {
 display:inline;
 margin-right:11px;
-margin-bottom:11px;
 float:left;
+}
+#shownotice .vcard .photo {
+margin-bottom:4px;
 }
 .vcard .url {
 text-decoration:none;
@@ -817,11 +815,9 @@ font-size:0.95em;
 margin-left:59px;
 width:65%;
 }
-#showstream .notice div.entry-content {
-margin-left:0;
-}
+#showstream .notice div.entry-content,
 #shownotice .notice div.entry-content {
-margin-left:108px;
+margin-left:0;
 }
 
 .notice .notice-options a,
