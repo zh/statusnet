@@ -26,9 +26,12 @@ class Bayeux
     private $oCurl = '';
     private $nNextId = 0;
 
+    private $sUser = '';
+    private $sPassword = '';
+
     public $sUrl = '';
 
-    function __construct($sUrl)
+    function __construct($sUrl, $sUser='', $sPassword='')
     {
         $this->sUrl = $sUrl;
 
@@ -42,6 +45,10 @@ class Bayeux
         curl_setopt($this->oCurl, CURLOPT_HEADER, 0);
         curl_setopt($this->oCurl, CURLOPT_POST, 1);
         curl_setopt($this->oCurl, CURLOPT_RETURNTRANSFER,1);
+
+        if (!is_null($sUser) && mb_strlen($sUser) > 0) {
+            curl_setopt($this->oCurl, CURLOPT_USERPWD,"$sUser:$sPassword");
+        }
 
         $this->handShake();
     }
