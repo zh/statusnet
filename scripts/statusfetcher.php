@@ -27,41 +27,20 @@ if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 define('LACONICA', true);
 
+// Tune number of processes and how often to poll Twitter
+define('MAXCHILDREN', 5);
+define('POLL_INTERVAL', 60 * 5); // in seconds
+
 // Uncomment this to get useful console output
 define('SCRIPT_DEBUG', true);
 
 require_once(INSTALLDIR . '/lib/common.php');
 
 $children = array();
-$flink_ids = null;
-
-$MAXCHILDREN = 5;
-$POLL_INTERVAL = 10; // 10 seconds
 
 do {
 
-    $flink = new Foreign_link();
-    $flink->service = 1; // Twitter
-    $cnt = $flink->find();
-
-    if (defined('SCRIPT_DEBUG')) {
-        print "Updating Twitter friends subscriptions for $cnt users.\n";
-    }
-
-    $flink_ids = array();
-
-    // XXX: This only reliably happens once.  After the first interation of
-    // the do loop, the ->find() doesn't work ... lost DB connection?
-
-    while ($flink->fetch()) {
-
-        if (($flink->noticesync & FOREIGN_NOTICE_RECV) == FOREIGN_NOTICE_RECV) {
-            $flink_ids[] = $flink->foreign_id;
-        }
-    }
-
-    $flink->free();
-    unset($flink);
+    $flink_ids = refreshFlinks();
 
     foreach ($flink_ids as $f){
 
@@ -82,7 +61,6 @@ do {
             // Child
 
             // XXX: Each child needs its own DB connection
-
             getTimeline($f);
             exit();
         }
@@ -96,11 +74,11 @@ do {
         }
 
         // Wait if we have too many kids
-        if(sizeof($children) > $MAXCHILDREN) {
+        if(sizeof($children) > MAXCHILDREN) {
             if (defined('SCRIPT_DEBUG')) {
                 print "Too many children. Waiting...\n";
             }
-            if( ($c = pcntl_wait($status, WUNTRACED) ) > 0){
+            if(($c = pcntl_wait($status, WUNTRACED)) > 0){
                 if (defined('SCRIPT_DEBUG')) {
                     print "Finished waiting for $c\n";
                 }
@@ -119,13 +97,43 @@ do {
 
     // Rest for a bit before we fetch more statuses
     if (defined('SCRIPT_DEBUG')) {
-        print "Waiting $POLL_INTERVAL secs before hitting Twitter again.\n";
+        print 'Waiting ' . POLL_INTERVAL .
+            " secs before hitting Twitter again.\n";
     }
 
-    sleep($POLL_INTERVAL);
+    sleep(POLL_INTERVAL);
 
 } while (true);
 
+
+function refreshFlinks() {
+
+    global $config;
+
+    $flink = new Foreign_link();
+    $flink->service = 1; // Twitter
+    $flink->orderBy('last_noticesync');
+
+    $cnt = $flink->find();
+
+    if (defined('SCRIPT_DEBUG')) {
+        print "Updating Twitter friends subscriptions for $cnt users.\n";
+    }
+
+    $flinks = array();
+
+    while ($flink->fetch()) {
+
+        if (($flink->noticesync & FOREIGN_NOTICE_RECV) == FOREIGN_NOTICE_RECV) {
+            $flinks[] = clone($flink);
+        }
+    }
+
+    $flink->free();
+    unset($flink);
+
+    return $flinks;
+}
 
 function remove_ps(&$plist, $ps){
     for($i = 0; $i < sizeof($plist); $i++){
@@ -137,22 +145,43 @@ function remove_ps(&$plist, $ps){
     }
 }
 
-function getTimeline($fid)
+function getTimeline($flink)
 {
 
-    // XXX: Need to reconnect to the DB here?
+    global $config;
+    $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
+    require_once(INSTALLDIR . '/lib/common.php');
 
-    $flink = Foreign_link::getByForeignID($fid, 1);
-    $fuser = $flink->getForeignUser();
+    if (defined('SCRIPT_DEBUG')) {
+        print "Trying to get timeline for $flink->foreign_id\n";
+    }
+
+    if (empty($flink)) {
+        common_log(LOG_WARNING, "Can't retrieve Foreign_link for foreign ID $fid");
+        if (defined('SCRIPT_DEBUG')) {
+            print "Can't retrieve Foreign_link for foreign ID $fid\n";
+        }
+        return;
+    }
+
+    $fuser = new Foreign_user();
+    $fuser->service = 1;
+    $fuser->id = $flink->foreign_id;
+    $fuser->limit(1);
+    $fuser->find(true);
 
     if (empty($fuser)) {
         common_log(LOG_WARNING, "Unmatched user for ID " . $flink->user_id);
         if (defined('SCRIPT_DEBUG')) {
             print "Unmatched user for ID $flink->user_id\n";
         }
+        return;
     }
 
-    $screenname = $fuser->nickname;
+    if (defined('SCRIPT_DEBUG')) {
+        // XXX: This is horrible and must be removed before releasing this
+        print 'username: ' . $fuser->nickname . ' password: ' . $flink->credentials . "\n";
+    }
 
     $url = 'http://twitter.com/statuses/friends_timeline.json';
 
@@ -181,10 +210,19 @@ function getTimeline($fid)
         saveStatus($status, $flink);
     }
 
+    // Okay, record the time we synced with Twitter for posterity
+
+    $flink->last_noticesync = common_sql_now();
+    $flink->update();
 }
 
 function saveStatus($status, $flink)
 {
+
+    global $config;
+    $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
+    require_once(INSTALLDIR . '/lib/common.php');
+
     // Do we have a profile for this Twitter user?
 
     $id = ensureProfile($status->user);
@@ -244,6 +282,9 @@ function saveStatus($status, $flink)
 
         $notice->query('COMMIT');
 
+        if (defined('SCRIPT_DEBUG')) {
+            print "Saved status $status->id as notice $notice->id.\n";
+        }
     }
 
     if (!Notice_inbox::staticGet('notice_id', $notice->id)) {
@@ -260,6 +301,7 @@ function saveStatus($status, $flink)
 
 function ensureProfile($user)
 {
+    global $config;
 
     // check to see if there's already a profile for this user
     $profileurl = 'http://twitter.com/' . $user->screen_name;
@@ -328,8 +370,6 @@ function ensureProfile($user)
         }
 
         $profile->query("COMMIT");
-        $profile->free();
-        unset($profile);
 
         saveAvatars($user, $id);
 
@@ -339,6 +379,8 @@ function ensureProfile($user)
 
 function checkAvatar($user, $profile)
 {
+    global $config;
+
     $path_parts = pathinfo($user->profile_image_url);
     $newname = 'Twitter_' . $user->id . '_' .
         $path_parts['basename'];
@@ -393,6 +435,8 @@ function getMediatype($ext)
 
 function saveAvatars($user, $id)
 {
+    global $config;
+
     $path_parts = pathinfo($user->profile_image_url);
     $ext = $path_parts['extension'];
     $end = strlen('_normal' . $ext);
@@ -418,7 +462,12 @@ function saveAvatars($user, $id)
 
 function updateAvatar($profile_id, $size, $mediatype, $filename) {
 
-    common_debug("updating avatar: $size");
+    global $config;
+
+    common_debug("Updating avatar: $size");
+    if (defined('SCRIPT_DEBUG')) {
+        print "Updating avatar: $size\n";
+    }
 
     $profile = Profile::staticGet($profile_id);
 
@@ -444,6 +493,8 @@ function updateAvatar($profile_id, $size, $mediatype, $filename) {
 
 function newAvatar($profile_id, $size, $mediatype, $filename)
 {
+    global $config;
+
     $avatar = new Avatar();
     $avatar->profile_id = $profile_id;
 
@@ -471,6 +522,9 @@ function newAvatar($profile_id, $size, $mediatype, $filename)
     $avatar->url = Avatar::url($filename);
 
     common_debug("new filename: $avatar->url");
+    if (defined('SCRIPT_DEBUG')) {
+        print "New filename: $avatar->url\n";
+    }
 
     $avatar->created = common_sql_now();
 
@@ -486,6 +540,9 @@ function newAvatar($profile_id, $size, $mediatype, $filename)
     }
 
     common_debug("Saved new $size avatar for $profile_id.");
+    if (defined('SCRIPT_DEBUG')) {
+          print "Saved new $size avatar for $profile_id.\n";
+    }
 
     return $id;
 }
