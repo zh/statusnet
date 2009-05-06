@@ -29,7 +29,11 @@ define('LACONICA', true);
 
 // Tune number of processes and how often to poll Twitter
 define('MAXCHILDREN', 5);
+<<<<<<< HEAD:scripts/statusfetcher.php
+define('POLL_INTERVAL', 60 * 10); // in seconds
+=======
 define('POLL_INTERVAL', 60 * 5); // in seconds
+>>>>>>> b8c700a7454db825b3867eadfa22afa1e5eb4f6c:scripts/statusfetcher.php
 
 // Uncomment this to get useful console output
 define('SCRIPT_DEBUG', true);
@@ -40,9 +44,20 @@ $children = array();
 
 do {
 
-    $flink_ids = refreshFlinks();
+<<<<<<< HEAD:scripts/statusfetcher.php
+    $flinks = refreshFlinks();
 
-    foreach ($flink_ids as $f){
+    foreach ($flinks as $f){
+
+        // We have to disconnect from the DB before forking so
+        // each process will open its own connection and
+        // avoid stomping on each other
+=======
+    $flink_ids = refreshFlinks();
+>>>>>>> b8c700a7454db825b3867eadfa22afa1e5eb4f6c:scripts/statusfetcher.php
+
+        $conn = &$f->getDatabaseConnection();
+        $conn->disconnect();
 
         $pid = pcntl_fork();
 
@@ -50,38 +65,60 @@ do {
             die ("Couldn't fork!");
         }
 
-        // Parent
         if ($pid) {
+
+            // Parent
+
             if (defined('SCRIPT_DEBUG')) {
                 print "Parent: forked " . $pid . "\n";
             }
+
             $children[] = $pid;
+
         } else {
 
             // Child
 
+<<<<<<< HEAD:scripts/statusfetcher.php
+            getTimeline($f, $child_db_name);
+=======
             // XXX: Each child needs its own DB connection
             getTimeline($f);
+>>>>>>> b8c700a7454db825b3867eadfa22afa1e5eb4f6c:scripts/statusfetcher.php
             exit();
         }
 
         // Remove child from ps list as it finishes
         while(($c = pcntl_wait($status, WNOHANG OR WUNTRACED)) > 0) {
+
             if (defined('SCRIPT_DEBUG')) {
                 print "Child $c finished.\n";
             }
+
             remove_ps($children, $c);
         }
 
         // Wait if we have too many kids
+<<<<<<< HEAD:scripts/statusfetcher.php
+        if (sizeof($children) > MAXCHILDREN) {
+
+            if (defined('SCRIPT_DEBUG')) {
+                print "Too many children. Waiting...\n";
+            }
+
+            if (($c = pcntl_wait($status, WUNTRACED)) > 0){
+
+=======
         if(sizeof($children) > MAXCHILDREN) {
             if (defined('SCRIPT_DEBUG')) {
                 print "Too many children. Waiting...\n";
             }
             if(($c = pcntl_wait($status, WUNTRACED)) > 0){
+>>>>>>> b8c700a7454db825b3867eadfa22afa1e5eb4f6c:scripts/statusfetcher.php
                 if (defined('SCRIPT_DEBUG')) {
                     print "Finished waiting for $c\n";
                 }
+
                 remove_ps($children, $c);
             }
         }
@@ -89,13 +126,17 @@ do {
 
     // Remove all children from the process list before restarting
     while(($c = pcntl_wait($status, WUNTRACED)) > 0) {
+
         if (defined('SCRIPT_DEBUG')) {
             print "Child $c finished.\n";
         }
+
         remove_ps($children, $c);
     }
 
     // Rest for a bit before we fetch more statuses
+    common_debug('Waiting ' . POLL_INTERVAL .
+        ' secs before hitting Twitter again.');
     if (defined('SCRIPT_DEBUG')) {
         print 'Waiting ' . POLL_INTERVAL .
             " secs before hitting Twitter again.\n";
@@ -108,8 +149,11 @@ do {
 
 function refreshFlinks() {
 
+<<<<<<< HEAD:scripts/statusfetcher.php
+=======
     global $config;
 
+>>>>>>> b8c700a7454db825b3867eadfa22afa1e5eb4f6c:scripts/statusfetcher.php
     $flink = new Foreign_link();
     $flink->service = 1; // Twitter
     $flink->orderBy('last_noticesync');
@@ -136,8 +180,8 @@ function refreshFlinks() {
 }
 
 function remove_ps(&$plist, $ps){
-    for($i = 0; $i < sizeof($plist); $i++){
-        if($plist[$i] == $ps){
+    for ($i = 0; $i < sizeof($plist); $i++) {
+        if ($plist[$i] == $ps) {
             unset($plist[$i]);
             $plist = array_values($plist);
             break;
@@ -148,6 +192,17 @@ function remove_ps(&$plist, $ps){
 function getTimeline($flink)
 {
 
+<<<<<<< HEAD:scripts/statusfetcher.php
+    if (empty($flink)) {
+        common_log(LOG_WARNING, "Can't retrieve Foreign_link for foreign ID $fid");
+        if (defined('SCRIPT_DEBUG')) {
+            print "Can't retrieve Foreign_link for foreign ID $fid\n";
+        }
+        return;
+    }
+
+    $fuser = $flink->getForeignUser();
+=======
     global $config;
     $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
     require_once(INSTALLDIR . '/lib/common.php');
@@ -169,6 +224,7 @@ function getTimeline($flink)
     $fuser->id = $flink->foreign_id;
     $fuser->limit(1);
     $fuser->find(true);
+>>>>>>> b8c700a7454db825b3867eadfa22afa1e5eb4f6c:scripts/statusfetcher.php
 
     if (empty($fuser)) {
         common_log(LOG_WARNING, "Unmatched user for ID " . $flink->user_id);
@@ -178,9 +234,17 @@ function getTimeline($flink)
         return;
     }
 
+<<<<<<< HEAD:scripts/statusfetcher.php
+    common_debug('Trying to get timeline for Twitter user ' .
+        "$fuser->nickname ($flink->foreign_id).");
+    if (defined('SCRIPT_DEBUG')) {
+        print 'Trying to get timeline for Twitter user ' .
+            "$fuser->nickname ($flink->foreign_id).\n";
+=======
     if (defined('SCRIPT_DEBUG')) {
         // XXX: This is horrible and must be removed before releasing this
         print 'username: ' . $fuser->nickname . ' password: ' . $flink->credentials . "\n";
+>>>>>>> b8c700a7454db825b3867eadfa22afa1e5eb4f6c:scripts/statusfetcher.php
     }
 
     $url = 'http://twitter.com/statuses/friends_timeline.json';
@@ -218,6 +282,8 @@ function getTimeline($flink)
 
 function saveStatus($status, $flink)
 {
+<<<<<<< HEAD:scripts/statusfetcher.php
+=======
 
     global $config;
     $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
@@ -225,6 +291,7 @@ function saveStatus($status, $flink)
 
     // Do we have a profile for this Twitter user?
 
+>>>>>>> b8c700a7454db825b3867eadfa22afa1e5eb4f6c:scripts/statusfetcher.php
     $id = ensureProfile($status->user);
     $profile = Profile::staticGet($id);
 
@@ -282,6 +349,10 @@ function saveStatus($status, $flink)
 
         $notice->query('COMMIT');
 
+<<<<<<< HEAD:scripts/statusfetcher.php
+        common_debug("Saved status $status->id as notice $notice->id.");
+=======
+>>>>>>> b8c700a7454db825b3867eadfa22afa1e5eb4f6c:scripts/statusfetcher.php
         if (defined('SCRIPT_DEBUG')) {
             print "Saved status $status->id as notice $notice->id.\n";
         }
@@ -301,8 +372,11 @@ function saveStatus($status, $flink)
 
 function ensureProfile($user)
 {
+<<<<<<< HEAD:scripts/statusfetcher.php
+=======
     global $config;
 
+>>>>>>> b8c700a7454db825b3867eadfa22afa1e5eb4f6c:scripts/statusfetcher.php
     // check to see if there's already a profile for this user
     $profileurl = 'http://twitter.com/' . $user->screen_name;
     $profile = Profile::staticGet('profileurl', $profileurl);
@@ -462,8 +536,11 @@ function saveAvatars($user, $id)
 
 function updateAvatar($profile_id, $size, $mediatype, $filename) {
 
+<<<<<<< HEAD:scripts/statusfetcher.php
+=======
     global $config;
 
+>>>>>>> b8c700a7454db825b3867eadfa22afa1e5eb4f6c:scripts/statusfetcher.php
     common_debug("Updating avatar: $size");
     if (defined('SCRIPT_DEBUG')) {
         print "Updating avatar: $size\n";
