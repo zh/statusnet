@@ -72,10 +72,8 @@ class TwitterStatusFetcher extends Daemon
                 if ($pid) {
 
                     // Parent
-                    common_debug("Parent: forked new status fetcher process " . $pid);
-
                     if (defined('SCRIPT_DEBUG')) {
-                        print "Parent: forked fetcher process " . $pid . "\n";
+                        common_debug("Parent: forked new status fetcher process " . $pid);
                     }
 
                     $this->children[] = $pid;
@@ -90,10 +88,8 @@ class TwitterStatusFetcher extends Daemon
                 // Remove child from ps list as it finishes
                 while(($c = pcntl_wait($status, WNOHANG OR WUNTRACED)) > 0) {
 
-                    common_debug("Child $c finished.");
-
                     if (defined('SCRIPT_DEBUG')) {
-                        print "Child $c finished.\n";
+                        common_debug("Child $c finished.");
                     }
 
                     $this->remove_ps($this->children, $c);
@@ -102,18 +98,14 @@ class TwitterStatusFetcher extends Daemon
                 // Wait! We have too many damn kids.
                 if (sizeof($this->children) > MAXCHILDREN) {
 
-                    common_debug('Too many children. Waiting...');
-
                     if (defined('SCRIPT_DEBUG')) {
-                        print "Too many children. Waiting...\n";
+                        common_debug('Too many children. Waiting...');
                     }
 
                     if (($c = pcntl_wait($status, WUNTRACED)) > 0){
 
-                        common_debug("Finished waiting for $c");
-
                         if (defined('SCRIPT_DEBUG')) {
-                            print "Finished waiting for $c\n";
+                            common_debug("Finished waiting for $c");
                         }
 
                         $this->remove_ps($this->children, $c);
@@ -124,21 +116,18 @@ class TwitterStatusFetcher extends Daemon
             // Remove all children from the process list before restarting
             while(($c = pcntl_wait($status, WUNTRACED)) > 0) {
 
-                common_debug("Child $c finished.");
-
                 if (defined('SCRIPT_DEBUG')) {
-                    print "Child $c finished.\n";
+                    common_debug("Child $c finished.");
                 }
 
                 $this->remove_ps($this->children, $c);
             }
 
             // Rest for a bit before we fetch more statuses
-            common_debug('Waiting ' . POLL_INTERVAL .
-                ' secs before hitting Twitter again.');
+
             if (defined('SCRIPT_DEBUG')) {
-                print 'Waiting ' . POLL_INTERVAL .
-                    " secs before hitting Twitter again.\n";
+                common_debug('Waiting ' . POLL_INTERVAL .
+                    ' secs before hitting Twitter again.');
             }
 
             sleep(POLL_INTERVAL);
@@ -155,14 +144,16 @@ class TwitterStatusFetcher extends Daemon
         $cnt = $flink->find();
 
         if (defined('SCRIPT_DEBUG')) {
-            print "Updating Twitter friends subscriptions for $cnt users.\n";
+            common_debug('Updating Twitter friends subscriptions' .
+                " for $cnt users.");
         }
 
         $flinks = array();
 
         while ($flink->fetch()) {
 
-            if (($flink->noticesync & FOREIGN_NOTICE_RECV) == FOREIGN_NOTICE_RECV) {
+            if (($flink->noticesync & FOREIGN_NOTICE_RECV) ==
+                FOREIGN_NOTICE_RECV) {
                 $flinks[] = clone($flink);
             }
         }
@@ -187,29 +178,27 @@ class TwitterStatusFetcher extends Daemon
     {
 
         if (empty($flink)) {
-            common_log(LOG_WARNING, "Can't retrieve Foreign_link for foreign ID $fid");
-            if (defined('SCRIPT_DEBUG')) {
-                print "Can't retrieve Foreign_link for foreign ID $fid\n";
-            }
+            common_log(LOG_WARNING,
+                "Can't retrieve Foreign_link for foreign ID $fid");
             return;
         }
 
         $fuser = $flink->getForeignUser();
 
         if (empty($fuser)) {
-            common_log(LOG_WARNING, "Unmatched user for ID " . $flink->user_id);
-            if (defined('SCRIPT_DEBUG')) {
-                print "Unmatched user for ID $flink->user_id\n";
-            }
+            common_log(LOG_WARNING, "Unmatched user for ID " .
+                $flink->user_id);
             return;
         }
 
-        common_debug('Trying to get timeline for Twitter user ' .
-            "$fuser->nickname ($flink->foreign_id).");
         if (defined('SCRIPT_DEBUG')) {
-            print 'Trying to get timeline for Twitter user ' .
-                "$fuser->nickname ($flink->foreign_id).\n";
+            common_debug('Trying to get timeline for Twitter user ' .
+                "$fuser->nickname ($flink->foreign_id).");
         }
+
+        // XXX: Biggest remaining issue - How do we know at which status
+        // to start importing?  How many statuses?  Right now I'm going
+        // with the default last 20.
 
         $url = 'http://twitter.com/statuses/friends_timeline.json';
 
@@ -220,18 +209,19 @@ class TwitterStatusFetcher extends Daemon
 
         if (empty($timeline)) {
             common_log(LOG_WARNING, "Empty timeline.");
-             if (defined('SCRIPT_DEBUG')) {
-                print "Empty timeline!\n";
-            }
             return;
         }
 
         foreach ($timeline as $status) {
 
-            // Hacktastic: filter out stuff coming from Laconica
+            // Hacktastic: filter out stuff coming from this Laconica
             $source = mb_strtolower(common_config('integration', 'source'));
 
             if (preg_match("/$source/", mb_strtolower($status->source))) {
+                if (defined('SCRIPT_DEBUG')) {
+                    common_debug('Skipping import of status ' . $status->id .
+                        ' with source ' . $source);
+                }
                 continue;
             }
 
@@ -239,7 +229,6 @@ class TwitterStatusFetcher extends Daemon
         }
 
         // Okay, record the time we synced with Twitter for posterity
-
         $flink->last_noticesync = common_sql_now();
         $flink->update();
     }
@@ -250,17 +239,13 @@ class TwitterStatusFetcher extends Daemon
         $profile = Profile::staticGet($id);
 
         if (!$profile) {
-            common_log(LOG_ERR, 'Problem saving notice. No associated Profile.');
-            if (defined('SCRIPT_DEBUG')) {
-                print "Problem saving notice. No associated Profile.\n";
-            }
+            common_log(LOG_ERR,
+                'Problem saving notice. No associated Profile.');
             return null;
         }
 
         $uri = 'http://twitter.com/' . $status->user->screen_name .
             '/status/' . $status->id;
-
-        // Skip save if notice source is Laconica or Identi.ca?
 
         $notice = Notice::staticGet('uri', $uri);
 
@@ -290,21 +275,23 @@ class TwitterStatusFetcher extends Daemon
             if (!$notice_id) {
                 common_log_db_error($notice, 'INSERT', __FILE__);
                 if (defined('SCRIPT_DEBUG')) {
-                    print "Could not save notice!\n";
+                    common_debug('Could not save notice!');
                 }
             }
 
-            // XXX: Figure out a better way to link replies?
+            // XXX: Figure out a better way to link Twitter replies?
             $notice->saveReplies();
 
-            // XXX: Do we want to polute our tag cloud with hashtags from Twitter?
+            // XXX: Do we want to polute our tag cloud with
+            // hashtags from Twitter?
             $notice->saveTags();
             $notice->saveGroups();
 
             $notice->query('COMMIT');
 
             if (defined('SCRIPT_DEBUG')) {
-                print "Saved status $status->id as notice $notice->id.\n";
+                common_debug("Saved status $status->id" .
+                    " as notice $notice->id.");
             }
         }
 
@@ -327,18 +314,19 @@ class TwitterStatusFetcher extends Daemon
         $profile = Profile::staticGet('profileurl', $profileurl);
 
         if ($profile) {
-            common_debug("Profile for $profile->nickname found.");
+            if (defined('SCRIPT_DEBUG')) {
+                common_debug("Profile for $profile->nickname found.");
+            }
 
             // Check to see if the user's Avatar has changed
             $this->checkAvatar($user, $profile);
+
             return $profile->id;
 
         } else {
-            $debugmsg = 'Adding profile and remote profile ' .
-                "for Twitter user: $profileurl\n";
-            common_debug($debugmsg, __FILE__);
             if (defined('SCRIPT_DEBUG')) {
-                print $debugmsg;
+                common_debug('Adding profile and remote profile ' .
+                    "for Twitter user: $profileurl");
             }
 
             $profile = new Profile();
@@ -356,10 +344,6 @@ class TwitterStatusFetcher extends Daemon
 
             if (empty($id)) {
                 common_log_db_error($profile, 'INSERT', __FILE__);
-                if (defined('SCRIPT_DEBUG')) {
-                    print 'Could not insert Profile: ' .
-                        common_log_objstring($profile) . "\n";
-                }
                 $profile->query("ROLLBACK");
                 return false;
             }
@@ -379,10 +363,6 @@ class TwitterStatusFetcher extends Daemon
 
                 if (empty($rid)) {
                     common_log_db_error($profile, 'INSERT', __FILE__);
-                    if (defined('SCRIPT_DEBUG')) {
-                        print 'Could not insert Remote_profile: ' .
-                            common_log_objstring($remote_pro) . "\n";
-                    }
                     $profile->query("ROLLBACK");
                     return false;
                 }
@@ -408,13 +388,10 @@ class TwitterStatusFetcher extends Daemon
 
         if ($newname != $oldname) {
 
-            common_debug("Avatar for Twitter user $profile->nickname has changed.");
-            common_debug("old: $oldname new: $newname");
-
             if (defined('SCRIPT_DEBUG')) {
-                print "Avatar for Twitter user $user->id has changed.\n";
-                print "old: $oldname\n";
-                print "new: $newname\n";
+                common_debug('Avatar for Twitter user ' .
+                    "$profile->nickname has changed.");
+                common_debug("old: $oldname new: $newname");
             }
 
             $img_root = substr($path_parts['basename'], 0, -11);
@@ -472,26 +449,21 @@ class TwitterStatusFetcher extends Daemon
                 $this->newAvatar($id, $size, $mediatype, $filename);
             } else {
                 common_log(LOG_WARNING, "Problem fetching Avatar: $url", __FILE__);
-                if (defined('SCRIPT_DEBUG')) {
-                    print "Problem fetching Avatar: $url\n";
-                }
             }
         }
     }
 
     function updateAvatar($profile_id, $size, $mediatype, $filename) {
 
-        common_debug("Updating avatar: $size");
         if (defined('SCRIPT_DEBUG')) {
-            print "Updating avatar: $size\n";
+            common_debug("Updating avatar: $size");
         }
 
         $profile = Profile::staticGet($profile_id);
 
         if (!$profile) {
-            common_debug("Couldn't get profile: $profile_id!");
             if (defined('SCRIPT_DEBUG')) {
-                print "Couldn't get profile: $profile_id!\n";
+                common_debug("Couldn't get profile: $profile_id!");
             }
             return;
         }
@@ -500,7 +472,9 @@ class TwitterStatusFetcher extends Daemon
         $avatar = $profile->getAvatar($sizes[$size]);
 
         if ($avatar) {
-            common_debug("Deleting $size avatar for $profile->nickname.");
+            if (defined('SCRIPT_DEBUG')) {
+                common_debug("Deleting $size avatar for $profile->nickname.");
+            }
             @unlink(INSTALLDIR . '/avatar/' . $avatar->filename);
             $avatar->delete();
         }
@@ -538,9 +512,8 @@ class TwitterStatusFetcher extends Daemon
         $avatar->filename = $filename;
         $avatar->url = Avatar::url($filename);
 
-        common_debug("new filename: $avatar->url");
         if (defined('SCRIPT_DEBUG')) {
-            print "New filename: $avatar->url\n";
+            common_debug("new filename: $avatar->url");
         }
 
         $avatar->created = common_sql_now();
@@ -549,16 +522,11 @@ class TwitterStatusFetcher extends Daemon
 
         if (!$id) {
             common_log_db_error($avatar, 'INSERT', __FILE__);
-            if (defined('SCRIPT_DEBUG')) {
-                print "Could not insert avatar!\n";
-            }
-
             return null;
         }
 
-        common_debug("Saved new $size avatar for $profile_id.");
         if (defined('SCRIPT_DEBUG')) {
-              print "Saved new $size avatar for $profile_id.\n";
+            common_debug("Saved new $size avatar for $profile_id.");
         }
 
         return $id;
@@ -573,15 +541,11 @@ class TwitterStatusFetcher extends Daemon
         $out = fopen($avatarfile, 'wb');
         if (!$out) {
             common_log(LOG_WARNING, "Couldn't open file $filename", __FILE__);
-            if (defined('SCRIPT_DEBUG')) {
-                print "Couldn't open file! $filename\n";
-            }
             return false;
         }
 
-        common_debug("Fetching avatar: $url", __FILE__);
         if (defined('SCRIPT_DEBUG')) {
-            print "Fetching avatar from Twitter: $url\n";
+            common_debug("Fetching avatar: $url");
         }
 
         $ch = curl_init();
