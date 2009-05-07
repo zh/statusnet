@@ -44,6 +44,9 @@ if(common_config('xmpp','enabled')) {
 if(common_config('memcached','enabled')) {
     echo "memcachedqueuehandler.php ";
 }
+if(common_config('twitterbridge','enabled')) {
+    echo "twitterstatusfetcher.php ";
+}
 echo "ombqueuehandler.php ";
 echo "twitterqueuehandler.php ";
 echo "facebookqueuehandler.php ";

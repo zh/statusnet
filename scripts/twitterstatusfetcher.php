@@ -32,7 +32,7 @@ define('LACONICA', true);
 define('MAXCHILDREN', 2);
 define('POLL_INTERVAL', 60); // in seconds
 
-// Uncomment this to get useful console output
+// Uncomment this to get useful logging
 define('SCRIPT_DEBUG', true);
 
 require_once(INSTALLDIR . '/lib/common.php');
@@ -45,7 +45,7 @@ class TwitterStatusFetcher extends Daemon
 
     function name()
     {
-        return 'twitterstatusfetcher';
+        return ('twitterstatusfetcher.generic');
     }
 
     function run()
@@ -130,7 +130,9 @@ class TwitterStatusFetcher extends Daemon
                     ' secs before hitting Twitter again.');
             }
 
-            sleep(POLL_INTERVAL);
+            if (POLL_INTERVAL > 0) {
+                sleep(POLL_INTERVAL);
+            }
 
         } while (true);
     }
@@ -282,7 +284,7 @@ class TwitterStatusFetcher extends Daemon
             // XXX: Figure out a better way to link Twitter replies?
             $notice->saveReplies();
 
-            // XXX: Do we want to polute our tag cloud with
+            // XXX: Do we want to pollute our tag cloud with
             // hashtags from Twitter?
             $notice->saveTags();
             $notice->saveGroups();
