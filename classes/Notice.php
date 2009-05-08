@@ -308,9 +308,9 @@ class Notice extends Memcached_DataObject
             $group_inbox->notice_id = $this->id;
             if ($group_inbox->find()) {
                 while ($group_inbox->fetch()) {
-                    $cache->delete(common_cache_key('group:notices:'.$group_inbox->group_id));
+                    $cache->delete(common_cache_key('user_group:notice_ids:' . $group_inbox->group_id));
                     if ($blowLast) {
-                        $cache->delete(common_cache_key('group:notices:'.$group_inbox->group_id.';last'));
+                        $cache->delete(common_cache_key('user_group:notice_ids:' . $group_inbox->group_id.';last'));
                     }
                     $member = new Group_member();
                     $member->group_id = $group_inbox->group_id;
@@ -337,10 +337,7 @@ class Notice extends Memcached_DataObject
             $tag->notice_id = $this->id;
             if ($tag->find()) {
                 while ($tag->fetch()) {
-                    $cache->delete(common_cache_key('notice_tag:notice_stream:' . $tag->tag));
-                    if ($blowLast) {
-                        $cache->delete(common_cache_key('notice_tag:notice_stream:' . $tag->tag . ';last'));
-                    }
+                    $tag->blowCache($blowLast);
                 }
             }
             $tag->free();
@@ -375,10 +372,10 @@ class Notice extends Memcached_DataObject
     {
         if ($this->is_local) {
             $cache = common_memcache();
-            if ($cache) {
-                $cache->delete(common_cache_key('profile:notices:'.$this->profile_id));
+            if (!empty($cache)) {
+                $cache->delete(common_cache_key('profile:notice_ids:'.$this->profile_id));
                 if ($blowLast) {
-                    $cache->delete(common_cache_key('profile:notices:'.$this->profile_id.';last'));
+                    $cache->delete(common_cache_key('profile:notice_ids:'.$this->profile_id.';last'));
                 }
             }
         }
@@ -392,9 +389,9 @@ class Notice extends Memcached_DataObject
             $reply->notice_id = $this->id;
             if ($reply->find()) {
                 while ($reply->fetch()) {
-                    $cache->delete(common_cache_key('user:replies:'.$reply->profile_id));
+                    $cache->delete(common_cache_key('reply:stream:'.$reply->profile_id));
                     if ($blowLast) {
-                        $cache->delete(common_cache_key('user:replies:'.$reply->profile_id.';last'));
+                        $cache->delete(common_cache_key('reply:stream:'.$reply->profile_id.';last'));
                     }
                 }
             }
@@ -424,9 +421,9 @@ class Notice extends Memcached_DataObject
             $fave->notice_id = $this->id;
             if ($fave->find()) {
                 while ($fave->fetch()) {
-                    $cache->delete(common_cache_key('user:faves:'.$fave->user_id));
+                    $cache->delete(common_cache_key('fave:ids_by_user:'.$fave->user_id));
                     if ($blowLast) {
-                        $cache->delete(common_cache_key('user:faves:'.$fave->user_id.';last'));
+                        $cache->delete(common_cache_key('fave:ids_by_user:'.$fave->user_id.';last'));
                     }
                 }
             }

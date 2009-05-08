@@ -24,6 +24,7 @@ VALUES
     ('peoplebrowsr', 'PeopleBrowsr', 'http://www.peoplebrowsr.com/', now()),
     ('Pikchur','Pikchur','http://www.pikchur.com/', now()),
     ('Ping.fm','Ping.fm','http://ping.fm/', now()),
+    ('pingvine','PingVine','http://pingvine.com/', now()),
     ('pocketwit','PockeTwit','http://code.google.com/p/pocketwit/', now()),
     ('posty','Posty','http://spreadingfunkyness.com/posty/', now()),
     ('royalewithcheese','Royale With Cheese','http://p.hellyeah.org/', now()),
