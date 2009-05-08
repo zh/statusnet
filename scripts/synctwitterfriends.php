@@ -32,8 +32,25 @@ define('LACONICA', true);
 
 require_once(INSTALLDIR . '/lib/common.php');
 
+// Make a lockfile
+$lockfilename = lockFilename();
+if (!($lockfile = @fopen($lockfilename, "w"))) {
+    print "Already running... exiting.\n";
+    exit(1);
+}
+
+// Obtain an exlcusive lock on file (will fail if script is already going)
+if (!@flock( $lockfile, LOCK_EX | LOCK_NB, &$wouldblock) || $wouldblock) {
+    // Script already running - abort
+    @fclose($lockfile);
+    print "Already running... exiting.\n";
+    exit(1);
+}
+
 $flink = new Foreign_link();
 $flink->service = 1; // Twitter
+$flink->orderBy('last_friendsync');
+$flink->limit(25);  // sync this many users during this run
 $cnt = $flink->find();
 
 print "Updating Twitter friends subscriptions for $cnt users.\n";
@@ -60,8 +77,11 @@ while ($flink->fetch()) {
             continue;
         }
 
-        $result = save_twitter_friends($user, $fuser->id,
-                       $fuser->nickname, $flink->credentials);
+        save_twitter_friends($user, $fuser->id, $fuser->nickname, $flink->credentials);
+
+        $flink->last_friendsync = common_sql_now();
+        $flink->update();
+
         if (defined('SCRIPT_DEBUG')) {
             print "\nDONE\n";
         } else {
@@ -69,5 +89,19 @@ while ($flink->fetch()) {
         }
     }
 }
+
+function lockFilename()
+{
+    $piddir = common_config('daemon', 'piddir');
+    if (!$piddir) {
+        $piddir = '/var/run';
+    }
+
+    return $piddir . '/synctwitterfriends.lock';
+}
+
+// Cleanup
+fclose($lockfile);
+unlink($lockfilename);
 
 exit(0);
