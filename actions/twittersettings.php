@@ -392,6 +392,8 @@ class TwittersettingsAction extends ConnectSettingsAction
 
         if ($friendsync) {
             save_twitter_friends($user, $twit_user->id, $screen_name, $password);
+            $flink->last_friendsync = common_sql_now();
+            $flink->update();
         }
 
         $this->showForm(_('Twitter settings saved.'), true);
