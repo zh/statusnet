@@ -143,6 +143,8 @@ $config =
         array('piddir' => '/var/run',
               'user' => false,
               'group' => false),
+        'twitterbridge' =>
+        array('enabled' => false),
         'integration' =>
         array('source' => 'Laconica', # source attribute for Twitter
               'taguri' => $_server.',2009'), # base for tag URIs
@@ -193,7 +195,7 @@ $_config_files[] = INSTALLDIR.'/config.php';
 $_have_a_config = false;
 
 foreach ($_config_files as $_config_file) {
-    if (file_exists($_config_file)) {
+    if (@file_exists($_config_file)) {
         include_once($_config_file);
         $_have_a_config = true;
     }

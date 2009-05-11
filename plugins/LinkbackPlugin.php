@@ -121,6 +121,12 @@ class LinkbackPlugin extends Plugin
     {
         $args = array($this->notice->uri, $url);
 
+        if (!extension_loaded('xmlrpc')) {
+            if (!dl('xmlrpc.so')) {
+                common_log(LOG_ERR, "Can't pingback; xmlrpc extension not available.");
+            }
+        }
+
         $request = xmlrpc_encode_request('pingback.ping', $args);
         $context = stream_context_create(array('http' => array('method' => "POST",
                                                                'header' =>
@@ -141,7 +147,7 @@ class LinkbackPlugin extends Plugin
     }
 
     // Largely cadged from trackback_cls.php by
-    // Ran Aroussi <ran@blogish.org>, GPL2
+    // Ran Aroussi <ran@blogish.org>, GPL2 or any later version
     // http://phptrackback.sourceforge.net/
 
     function getTrackback($text, $url)

@@ -158,13 +158,22 @@ class TwittersettingsAction extends ConnectSettingsAction
                         ($flink->friendsync & FOREIGN_FRIEND_RECV) :
                         false);
         $this->elementEnd('li');
-        $this->elementStart('li');
-        $this->checkbox('noticerecv',
-                        _('Import my Friends Timeline.'),
-                        ($flink) ?
-                        ($flink->noticesync & FOREIGN_NOTICE_RECV) :
-                        false);
-        $this->elementEnd('li');
+
+        if (common_config('twitterbridge','enabled')) {
+            $this->elementStart('li');
+            $this->checkbox('noticerecv',
+                            _('Import my Friends Timeline.'),
+                            ($flink) ?
+                            ($flink->noticesync & FOREIGN_NOTICE_RECV) :
+                            false);
+            $this->elementEnd('li');
+        } else {
+            // preserve setting even if bidrection bridge toggled off
+            if ($flink && ($flink->noticesync & FOREIGN_NOTICE_RECV)) {
+                $this->hidden('noticerecv', true, 'noticerecv');
+            }
+        }
+
         $this->elementEnd('ul');
 
         if ($flink) {
@@ -383,6 +392,8 @@ class TwittersettingsAction extends ConnectSettingsAction
 
         if ($friendsync) {
             save_twitter_friends($user, $twit_user->id, $screen_name, $password);
+            $flink->last_friendsync = common_sql_now();
+            $flink->update();
         }
 
         $this->showForm(_('Twitter settings saved.'), true);

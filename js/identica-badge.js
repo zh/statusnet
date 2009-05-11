@@ -128,7 +128,7 @@
             var a = document.createElement('A');
             a.innerHTML = 'get this';
             a.target = '_blank';
-            a.href = 'http://identica/doc/badge';
+            a.href = 'http://identi.ca/doc/badge';
             $.s.f.appendChild(a);
             $.s.appendChild($.s.f);
             $.f.getUser();

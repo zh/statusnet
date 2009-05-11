@@ -52,23 +52,21 @@ function checkPrereqs()
 
     foreach ($reqs as $req) {
         if (!checkExtension($req)) {
-            ?><p class="error">Cannot load required extension &quot;<?php echo $req; ?>&quot;.</p><?php
+            ?><p class="error">Cannot load required extension: <code><?php echo $req; ?></code></p><?php
 		    return false;
         }
     }
 
 	if (!is_writable(INSTALLDIR)) {
-         ?><p class="error">Cannot write config file to &quot;<?php echo INSTALLDIR; ?>&quot;.</p>
-	       <p>On your server, try this command:</p>
-	       <blockquote>chmod a+w <?php echo INSTALLDIR; ?></blockquote>
+         ?><p class="error">Cannot write config file to: <code><?php echo INSTALLDIR; ?></code></p>
+	       <p>On your server, try this command: <code>chmod a+w <?php echo INSTALLDIR; ?></code>
          <?php
 	     return false;
 	}
 
 	if (!is_writable(INSTALLDIR.'/avatar/')) {
-         ?><p class="error">Cannot write avatar directory &quot;<?php echo INSTALLDIR; ?>/avatar/&quot;.</p>
-	       <p>On your server, try this command:</p>
-	       <blockquote>chmod a+w <?php echo INSTALLDIR; ?>/avatar/</blockquote>
+         ?><p class="error">Cannot write avatar directory: <code><?php echo INSTALLDIR; ?>/avatar/</code></p>
+	       <p>On your server, try this command: <code>chmod a+w <?php echo INSTALLDIR; ?>/avatar/</code></p>
          <?
 	     return false;
 	}
@@ -89,65 +87,78 @@ function checkExtension($name)
 function showForm()
 {
 ?>
-<p>Enter your database connection information below to initialize the database.</p>
-<form method='post' action='install.php'>
-	<fieldset>
-	<ul class='form_data'>
-	<li>
-	<label for='sitename'>Site name</label>
-	<input type='text' id='sitename' name='sitename' />
-	<p>The name of your site</p>
-	</li>
-	<li>
-	<li>
-	<label for='host'>Hostname</label>
-	<input type='text' id='host' name='host' />
-	<p>Database hostname</p>
-	</li>
-	<li>
-	<label for='host'>Database</label>
-	<input type='text' id='database' name='database' />
-	<p>Database name</p>
-	</li>
-	<li>
-	<label for='username'>Username</label>
-	<input type='text' id='username' name='username' />
-	<p>Database username</p>
-	</li>
-	<li>
-	<label for='password'>Password</label>
-	<input type='password' id='password' name='password' />
-	<p>Database password</p>
-	</li>
-	</ul>
-	<input type='submit' name='submit' value='Submit'>
-	</fieldset>
+        </ul>
+    </dd>
+</dl>
+<dl id="page_notice" class="system_notice">
+    <dt>Page notice</dt>
+    <dd>
+        <div class="instructions">
+            <p>Enter your database connection information below to initialize the database.</p>
+        </div>
+    </dd>
+</dl>
+<form method="post" action="install.php" class="form_settings" id="form_install">
+    <fieldset>
+        <legend>Connection settings</legend>
+        <ul class="form_data">
+            <li>
+                <label for="sitename">Site name</label>
+                <input type="text" id="sitename" name="sitename" />
+                <p class="form_guide">The name of your site</p>
+            </li>
+            <li>
+            <li>
+                <label for="host">Hostname</label>
+                <input type="text" id="host" name="host" />
+                <p class="form_guide">Database hostname</p>
+            </li>
+            <li>
+                <label for="host">Database</label>
+                <input type="text" id="database" name="database" />
+                <p class="form_guide">Database name</p>
+            </li>
+            <li>
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" />
+                <p class="form_guide">Database username</p>
+            </li>
+            <li>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" />
+                <p class="form_guide">Database password</p>
+            </li>
+        </ul>
+        <input type="submit" name="submit" class="submit" value="Submit" />
+    </fieldset>
 </form>
-<?
+<?php
 }
 
 function updateStatus($status, $error=false)
 {
 ?>
-	<li>
-<?
-    print $status;
-?>
-	</li>
-<?
+                <li <?php echo ($error) ? 'class="error"': ''; ?>><?print $status;?></li>
+
+<?php
 }
 
 function handlePost()
 {
 ?>
-	<ul>
-<?
+
+<?php
     $host = $_POST['host'];
     $database = $_POST['database'];
     $username = $_POST['username'];
     $password = $_POST['password'];
     $sitename = $_POST['sitename'];
-
+?>
+    <dl class="system_notice">
+        <dt>Page notice</dt>
+        <dd>
+            <ul>
+<?php
     if (empty($host)) {
         updateStatus("No hostname specified.", true);
         showForm();
@@ -222,8 +233,8 @@ function handlePost()
     }
     updateStatus("Done!");
 ?>
-	</ul>
-<?
+
+<?php
 }
 
 function writeConf($sitename, $sqlUrl)
@@ -253,21 +264,35 @@ function runDbScript($filename, $conn)
 }
 
 ?>
-<html>
-<head>
-	<title>Install Laconica</title>
-	<link rel="stylesheet" type="text/css" href="theme/base/css/display.css?version=0.7.1" media="screen, projection, tv"/>
-	<link rel="stylesheet" type="text/css" href="theme/base/css/modal.css?version=0.7.1" media="screen, projection, tv"/>
-	<link rel="stylesheet" type="text/css" href="theme/default/css/display.css?version=0.7.1" media="screen, projection, tv"/>
-</head>
-<body>
-	<div id="wrap">
-	<div id="core">
-	<div id="content">
-	<h1>Install Laconica</h1>
+<?php echo"<?"; ?> xml version="1.0" encoding="UTF-8" <?php echo "?>"; ?>
+<!DOCTYPE html
+PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en_US" lang="en_US">
+    <head>
+        <title>Install Laconica</title>
+        <link rel="stylesheet" type="text/css" href="theme/base/css/display.css?version=0.8" media="screen, projection, tv"/>
+        <link rel="stylesheet" type="text/css" href="theme/default/css/display.css?version=0.8" media="screen, projection, tv"/>
+        <!--[if IE]><link rel="stylesheet" type="text/css" href="theme/base/css/ie.css?version=0.8" /><![endif]-->
+        <!--[if lte IE 6]><link rel="stylesheet" type="text/css" theme/base/css/ie6.css?version=0.8" /><![endif]-->
+        <!--[if IE]><link rel="stylesheet" type="text/css" href="theme/earthy/css/ie.css?version=0.8" /><![endif]-->
+    </head>
+    <body id="install">
+        <div id="wrap">
+            <div id="header">
+                <address id="site_contact" class="vcard">
+                    <a class="url home bookmark" href=".">
+                        <img class="logo photo" src="theme/default/logo.png" alt="Laconica"/>
+                        <span class="fn org">Laconica</span>
+                    </a>
+                </address>
+            </div>
+            <div id="core">
+                <div id="content">
+                    <h1>Install Laconica</h1>
 <?php main(); ?>
-	</div>
-	</div>
-	</div>
-</body>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
