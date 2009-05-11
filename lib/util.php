@@ -395,7 +395,7 @@ function common_render_text($text)
     return $r;
 }
 
-function common_replace_urls_callback($text, $callback) {
+function common_replace_urls_callback($text, $callback, $notice_id = null) {
     // Start off with a regex
     $regex = '#'.
     '(?:'.
@@ -466,7 +466,11 @@ function common_replace_urls_callback($text, $callback) {
         $url = (mb_strpos($orig_url, htmlspecialchars($url)) === FALSE) ? $url:htmlspecialchars($url);
 
         // Call user specified func
-        $modified_url = call_user_func($callback, $url);
+        if (isset($notice_id)) {
+            $modified_url = call_user_func($callback, array($url, $notice_id));
+        } else {
+            $modified_url = call_user_func($callback, $url);
+        }
 
         // Replace it!
         $start = mb_strpos($text, $url, $offset);
