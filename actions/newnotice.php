@@ -158,7 +158,8 @@ class NewnoticeAction extends Action
             $replyto = 'false';
         }
 
-        $notice = Notice::saveNew($user->id, $content, 'web', 1,
+//        $notice = Notice::saveNew($user->id, $content_shortened, 'web', 1,
+        $notice = Notice::saveNew($user->id, $content_shortened, 'web', 1,
                                   ($replyto == 'false') ? null : $replyto);
 
         if (is_string($notice)) {
@@ -203,25 +204,12 @@ class NewnoticeAction extends Action
      * @return void
      */
     function saveUrls($notice) {
-        common_debug("Saving all URLs");
         common_replace_urls_callback($notice->content, array($this, 'saveUrl'), $notice->id);
     }
 
     function saveUrl($data) {
         list($url, $notice_id) = $data;
-        common_debug("Saving $url for $notice_id");
-        $file = File::staticGet('url', $url);
-        if (empty($file)) {
-            common_debug('unknown file/url');
-            $file = new File;
-            $file->url = $url;
-            $file->insert();
-        }
-        common_debug('File: ' . print_r($file, true));
-        $f2p = new File_to_post;
-        $f2p->file_id = $file->id;
-        $f2p->post_id = $notice_id;
-        $f2p->insert();
+        $zzz = File::processNew($url, $notice_id);
     }
 
     /**

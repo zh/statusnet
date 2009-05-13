@@ -20,6 +20,11 @@
 if (!defined('LACONICA')) { exit(1); }
 
 require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
+require_once INSTALLDIR.'/classes/File_redirection.php';
+require_once INSTALLDIR.'/classes/File_oembed.php';
+require_once INSTALLDIR.'/classes/File_thumbnail.php';
+require_once INSTALLDIR.'/classes/File_to_post.php';
+//require_once INSTALLDIR.'/classes/File_redirection.php';
 
 /**
  * Table Definition for file
@@ -44,4 +49,64 @@ class File extends Memcached_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+
+    function isProtected($url) {
+        return 'http://www.facebook.com/login.php' === $url;
+    }
+
+    function saveNew($redir_data, $given_url) {
+        $x = new File;
+        $x->url = $given_url;
+        if (!empty($redir_data['protected'])) $x->protected = $redir_data['protected'];
+        if (!empty($redir_data['title'])) $x->title = $redir_data['title'];
+        if (!empty($redir_data['type'])) $x->mimetype = $redir_data['type'];
+        if (!empty($redir_data['size'])) $x->size = intval($redir_data['size']);
+        if (isset($redir_data['time']) && $redir_data['time'] > 0) $x->date = intval($redir_data['time']);
+        $file_id = $x->insert();
+
+        if (isset($redir_data['type'])
+            && ('text/html' === substr($redir_data['type'], 0, 9))
+            && ($oembed_data = File_oembed::_getOembed($given_url))
+            && isset($oembed_data['json'])) {
+
+            File_oembed::saveNew($oembed_data['json'], $file_id);
+        }
+        return $x;
+    }
+
+    function processNew($given_url, $notice_id) {
+        if (empty($given_url)) return -1;   // error, no url to process
+        $given_url = File_redirection::_canonUrl($given_url);
+        if (empty($given_url)) return -1;   // error, no url to process
+        $file = File::staticGet('url', $given_url);
+        if (empty($file->id)) {
+            $file_redir = File_redirection::staticGet('url', $given_url);
+            if (empty($file_redir->id)) {
+                $redir_data = File_redirection::where($given_url);
+                $redir_url = $redir_data['url'];
+                if ($redir_url === $given_url) {
+                    $x = File::saveNew($redir_data, $given_url);
+                    $file_id = $x->id;
+
+                } else {
+                    $x = File::processNew($redir_url, $notice_id);
+                    $file_id = $x->id;
+                    File_redirection::saveNew($redir_data, $file_id, $given_url);
+                }
+            } else {
+                $file_id = $file_redir->file_id;
+            }
+        } else {
+            $file_id = $file->id;
+            $x = $file;
+        }
+
+        if (empty($x)) {
+            $x = File::staticGet($file_id);
+            if (empty($x)) die('Impossible!');
+        }
+       
+        File_to_post::processNew($file_id, $notice_id);
+        return $x;
+    }
 }

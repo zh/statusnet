@@ -22,6 +22,7 @@ if (!defined('LACONICA')) { exit(1); }
 class ShortUrlApi
 {
     protected $service_url;
+    protected $long_limit = 27;
 
     function __construct($service_url)
     {
@@ -39,7 +40,7 @@ class ShortUrlApi
     }
 
     private function is_long($url) {
-        return strlen($url) >= 30;
+        return strlen($url) >= $this->long_limit;
     }
 
     protected function http_post($data) {

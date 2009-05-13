@@ -40,4 +40,21 @@ class File_to_post extends Memcached_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+
+    function processNew($file_id, $notice_id) {
+        static $seen = array();
+        if (empty($seen[$notice_id]) || !in_array($file_id, $seen[$notice_id])) {
+            $f2p = new File_to_post;
+            $f2p->file_id = $file_id;
+            $f2p->post_id = $notice_id;
+            $f2p->insert();
+            if (empty($seen[$notice_id])) {
+                $seen[$notice_id] = array($file_id);
+            } else {
+                $seen[$notice_id][] = $file_id;
+            }
+        }
+
+    }
 }
+

@@ -466,10 +466,10 @@ function common_replace_urls_callback($text, $callback, $notice_id = null) {
         $url = (mb_strpos($orig_url, htmlspecialchars($url)) === FALSE) ? $url:htmlspecialchars($url);
 
         // Call user specified func
-        if (isset($notice_id)) {
-            $modified_url = call_user_func($callback, array($url, $notice_id));
-        } else {
+        if (empty($notice_id)) {
             $modified_url = call_user_func($callback, $url);
+        } else {
+            $modified_url = call_user_func($callback, array($url, $notice_id));
         }
 
         // Replace it!
@@ -485,107 +485,29 @@ function common_linkify($url) {
     // It comes in special'd, so we unspecial it before passing to the stringifying
     // functions
     $url = htmlspecialchars_decode($url);
-    $display = $url;
-    $url = (!preg_match('#^([a-z]+://|(mailto|aim|tel):)#i', $url)) ? 'http://'.$url : $url;
-
-    $attrs = array('href' => $url, 'rel' => 'external');
-
-    if ($longurl = common_longurl($url)) {
-        $attrs['title'] = $longurl;
+    $display = File_redirection::_canonUrl($url);
+    $longurl_data = File_redirection::where($url);
+    if (is_array($longurl_data)) {
+        $longurl = $longurl_data['url'];
+    } elseif (is_string($longurl_data)) {
+        $longurl = $longurl_data;
+    } else {
+        die('impossible to linkify');
     }
 
+    $attrs = array('href' => $longurl, 'rel' => 'external');
+if(0){
+    if ($longurl !== $url) {
+        $attrs['title'] = $longurl;
+    }
+}
     return XMLStringer::estring('a', $attrs, $display);
-}
-
-function common_longurl($short_url)
-{
-    $long_url = common_shorten_link($short_url, true);
-    if ($long_url === $short_url) return false;
-    return $long_url;
-}
-
-function common_longurl2($uri)
-{
-    $uri_e = urlencode($uri);
-    $longurl = unserialize(file_get_contents("http://api.longurl.org/v1/expand?format=php&url=$uri_e"));
-    if (empty($longurl['long_url']) || $uri === $longurl['long_url']) return false;
-    return stripslashes($longurl['long_url']);
 }
 
 function common_shorten_links($text)
 {
     if (mb_strlen($text) <= 140) return $text;
-    static $cache = array();
-    if (isset($cache[$text])) return $cache[$text];
-    // \s = not a horizontal whitespace character (since PHP 5.2.4)
-    return $cache[$text] = common_replace_urls_callback($text, 'common_shorten_link');;
-}
-
-function common_shorten_link($url, $reverse = false)
-{
-
-    static $url_cache = array();
-    if ($reverse) return isset($url_cache[$url]) ? $url_cache[$url] : $url;
-
-    $user = common_current_user();
-    if (!isset($user)) {
-      // common current user does not find a user when called from the XMPP daemon
-      // therefore we'll set one here fix, so that XMPP given URLs may be shortened
-      $user->urlshorteningservice = 'ur1.ca';
-    }
-    $curlh = curl_init();
-    curl_setopt($curlh, CURLOPT_CONNECTTIMEOUT, 20); // # seconds to wait
-    curl_setopt($curlh, CURLOPT_USERAGENT, 'Laconica');
-    curl_setopt($curlh, CURLOPT_RETURNTRANSFER, true);
-
-    switch($user->urlshorteningservice) {
-     case 'ur1.ca':
-        $short_url_service = new LilUrl;
-        $short_url = $short_url_service->shorten($url);
-        break;
-
-     case '2tu.us':
-        $short_url_service = new TightUrl;
-        $short_url = $short_url_service->shorten($url);
-        break;
-
-     case 'ptiturl.com':
-        $short_url_service = new PtitUrl;
-        $short_url = $short_url_service->shorten($url);
-        break;
-
-     case 'bit.ly':
-        curl_setopt($curlh, CURLOPT_URL, 'http://bit.ly/api?method=shorten&long_url='.urlencode($url));
-        $short_url = current(json_decode(curl_exec($curlh))->results)->hashUrl;
-        break;
-
-     case 'is.gd':
-        curl_setopt($curlh, CURLOPT_URL, 'http://is.gd/api.php?longurl='.urlencode($url));
-        $short_url = curl_exec($curlh);
-        break;
-     case 'snipr.com':
-        curl_setopt($curlh, CURLOPT_URL, 'http://snipr.com/site/snip?r=simple&link='.urlencode($url));
-        $short_url = curl_exec($curlh);
-        break;
-     case 'metamark.net':
-        curl_setopt($curlh, CURLOPT_URL, 'http://metamark.net/api/rest/simple?long_url='.urlencode($url));
-        $short_url = curl_exec($curlh);
-        break;
-     case 'tinyurl.com':
-        curl_setopt($curlh, CURLOPT_URL, 'http://tinyurl.com/api-create.php?url='.urlencode($url));
-        $short_url = curl_exec($curlh);
-        break;
-     default:
-        $short_url = false;
-    }
-
-    curl_close($curlh);
-
-    if ($short_url) {
-        $url_cache[(string)$short_url] = $url;
-        return (string)$short_url;
-    }
-    return $url;
+    return common_replace_urls_callback($text, array('File_redirection', 'makeShort'));
 }
 
 function common_xml_safe_str($str)

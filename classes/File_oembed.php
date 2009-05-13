@@ -50,4 +50,47 @@ class File_oembed extends Memcached_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+
+
+    function _getOembed($url, $maxwidth = 500, $maxheight = 400, $format = 'json') {
+        $cmd = 'http://oohembed.com/oohembed/?url=' . urlencode($url);
+        if (is_int($maxwidth)) $cmd .= "&maxwidth=$maxwidth";
+        if (is_int($maxheight)) $cmd .= "&maxheight=$maxheight";
+        if (is_string($format)) $cmd .= "&format=$format";
+        $oe = @file_get_contents($cmd);
+        if (false === $oe) return false;
+        return array($format => (('json' === $format) ? json_decode($oe, true) : $oe));
+    }
+
+    function saveNew($data, $file_id) {
+        $file_oembed = new File_oembed;
+        $file_oembed->file_id = $file_id;
+        $file_oembed->version = $data['version'];
+        $file_oembed->type = $data['type'];
+        if (!empty($data['provider_name'])) $file_oembed->provider = $data['provider_name'];
+        if (!isset($file_oembed->provider) && !empty($data['provide'])) $file_oembed->provider = $data['provider'];
+        if (!empty($data['provide_url'])) $file_oembed->provider_url = $data['provider_url'];
+        if (!empty($data['width'])) $file_oembed->width = intval($data['width']);
+        if (!empty($data['height'])) $file_oembed->height = intval($data['height']);
+        if (!empty($data['html'])) $file_oembed->html = $data['html'];
+        if (!empty($data['title'])) $file_oembed->title = $data['title'];
+        if (!empty($data['author_name'])) $file_oembed->author_name = $data['author_name'];
+        if (!empty($data['author_url'])) $file_oembed->author_url = $data['author_url'];
+        if (!empty($data['url'])) $file_oembed->url = $data['url'];
+        $file_oembed->insert();
+
+        if (!empty($data['thumbnail_url'])) {
+            $tn = new File_thumbnail;
+            $tn->file_id = $file_id;
+            $tn->url = $data['thumbnail_url'];
+            $tn->width = intval($data['thumbnail_width']);
+            $tn->height = intval($data['thumbnail_height']);
+            $tn->insert();
+        }
+
+
+        
+    }
 }
+
+

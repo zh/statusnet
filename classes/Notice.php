@@ -124,7 +124,7 @@ class Notice extends Memcached_DataObject
 
         $profile = Profile::staticGet($profile_id);
 
-        $final =  common_shorten_links($content);
+//        $final =  common_shorten_links($content);
 
         if (!$profile) {
             common_log(LOG_ERR, 'Problem saving notice. Unknown user.');
@@ -167,8 +167,8 @@ class Notice extends Memcached_DataObject
 
 		$notice->reply_to = $reply_to;
 		$notice->created = common_sql_now();
-		$notice->content = $final;
-		$notice->rendered = common_render_content($final, $notice);
+		$notice->content = $content;
+		$notice->rendered = common_render_content($content, $notice);
 		$notice->source = $source;
 		$notice->uri = $uri;
 
