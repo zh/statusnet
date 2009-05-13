@@ -1,4 +1,4 @@
-/** theme: otalk
+/** theme: pigeonthoughts
  *
  * @package   Laconica
  * @author Sarven Capadisli <csarven@controlyourself.ca>
@@ -10,20 +10,19 @@
 @import url(base.css);
 
 html {
+background:#fff url(../images/illustrations/illu_pigeons-01.png) no-repeat 0 100%;
 }
 
-html,
 body,
 a:active {
+background-color:#AEA187;
 }
 body {
 font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 font-size:1em;
-background:#ddd url(../images/illustrations/illu_pattern-01.png) repeat 0 0;
-background-color:rgba(127, 127, 127, 0.1);
 }
 address {
-margin-right:7.18%;
+margin-left:2%;
 }
 
 input, textarea, select, option {
@@ -45,12 +44,12 @@ input.submit,
 #form_notice.warning #notice_text-count,
 .form_settings .form_note,
 .entity_remote_subscribe {
-background-color:#9BB43E;
+background-color:#8F0000;
 }
 
 input:focus, textarea:focus, select:focus,
 #form_notice.warning #notice_data-text {
-border-color:#9BB43E;
+border-color:#8F0000;
 }
 input.submit,
 .entity_remote_subscribe {
@@ -65,66 +64,84 @@ div.notice-options input,
 .form_user_nudge input.submit,
 .entity_nudge p,
 .form_settings input.form_action-secondary {
-color:#8F0000;
+color:#000;
 }
 
 .notice,
 .profile {
-border-color:#CEE1E9;
+border-color:#000;
 }
-#content .notice .entry-title,
-input, textarea, select, option,
-.pagination .nav_prev a,
-.pagination .nav_next a {
-background-color:rgba(255,255,255,0.8);
+.notice a,
+.profile a {
+color:#fff;
 }
 
-#content .notices li.hover .entry-title {
-background-color:rgba(255,255,255,0.9);
+.notice:nth-child(3n-1),
+.profile:nth-child(3n-1) {
+border-color:#fff;
+}
+.notice:nth-child(3n-1) a,
+.profile:nth-child(3n-1) a {
+color:#7F1114;
+}
+.notice:nth-child(3n),
+.profile:nth-child(3n) {
+border-color:#7F1114;
+}
+.notice:nth-child(3n) a,
+.profile:nth-child(3n) a {
+color:#000;
 }
 
-#content .notice:nth-child(1) .entry-title {
-background-color:rgba(255,255,255,0.95);
-}
-#content .notice:nth-child(2) .entry-title {
-background-color:rgba(255,255,255,0.9);
-}
-#content .notice:nth-child(3) .entry-title {
-background-color:rgba(255,255,255,0.8);
-}
-#content .notice:nth-child(4) .entry-title {
-background-color:rgba(255,255,255,0.7);
-}
-#content .notice:nth-child(5) .entry-title {
-background-color:rgba(255,255,255,0.6);
-}
-#content .notice:nth-child(6) .entry-title {
-background-color:rgba(255,255,255,0.5);
-}
-#content .notice:nth-child(7) .entry-title {
-background-color:rgba(255,255,255,0.4);
-}
-#content .notice:nth-child(8) .entry-title {
-background-color:rgba(255,255,255,0.3);
-}
-#content .notice:nth-child(9) .entry-title {
-background-color:rgba(255,255,255,0.2);
-}
-#content .notice:nth-child(10) {
-background-color:rgba(255,255,255,0.1);
+.aside .section .notice,
+.aside .section .profile,
+.aside .section .notice:nth-child(3n-1),
+.aside .section .profile:nth-child(3n-1),
+.aside .section .notice:nth-child(3n),
+.aside .section .profile:nth-child(3n) {
+background-color:transparent;
+color:#000;
 }
 
 
-#content .notice .author .photo {
-background:url(../images/illustrations/illu_arrow-left-01.gif) no-repeat 100% 0;
+.aside .section {
+border-color:#fff;
+background-color:#fff;
+color:#000;
 }
+
+.aside .section:nth-child(n) {
+border-color:#000;
+background-color:#000;
+color:#fff;
+}
+.aside .section:nth-child(3n-1) {
+border-color:#fff;
+background-color:#fff;
+color:#000;
+}
+.aside .section:nth-child(3n) {
+background-color:#7F1114;
+border-color:#7F1114;
+color:#000;
+}
+.aside .section a {
+color:#7F1114;
+}
+.aside .section:nth-child(3n-1) a {
+color:#7F1114;
+}
+.aside .section:nth-child(3n) a {
+color:#fff;
+}
+
 
 .section .profile {
 border-top-color:#87B4C8;
 }
 
 #aside_primary {
-background-color:rgba(206, 225, 233,0.5);
+background:url(../images/illustrations/illu_pigeons-02.png) no-repeat 10% 100%;
 }
 
 #notice_text-count {
@@ -140,26 +157,20 @@ text-indent:-9999px;
 }
 
 #content,
-#site_nav_local_views .nav,
-#site_nav_local_views a,
-#aside_primary {
+#site_nav_local_views a {
 border-color:#fff;
 }
-#content,
 #site_nav_local_views .current a {
-background-color:transparent;
-/*background-color:red;*/
-}
-
-#site_nav_local_views .current a {
-background-color:transparent;
+background-color:rgba(143, 0, 0, 0.8);
+color:#fff;
 }
 
 #site_nav_local_views a {
-background-color:rgba(127, 127, 127, 0.2);
+background-color:rgba(255, 255, 255, 0.3);
 }
 #site_nav_local_views a:hover {
-background-color:rgba(255, 255, 255, 0.8);
+background-color:#fff;
+color:#8F0000;
 }
 
 .error {
@@ -170,14 +181,9 @@ background-color:#EFF3DC;
 }
 
 #anon_notice {
-background-color:rgba(206, 225, 233, 0.7);
-color:#fff;
-border-color:#fff;
+color:#000;
 }
 
-#showstream #anon_notice {
-background-color:rgba(155, 180, 62, 0.7);
-}
 
 #export_data li a {
 background-repeat:no-repeat;
@@ -207,7 +213,7 @@ background-color:transparent;
 .form_group_leave input.submit
 .form_user_subscribe input.submit,
 .form_user_unsubscribe input.submit {
-background-color:#9BB43E;
+background-color:#8F0000;
 color:#fff;
 }
 .form_user_unsubscribe input.submit,
@@ -268,9 +274,6 @@ div.notice-options a,
 div.notice-options input {
 font-family:sans-serif;
 }
-.notices li.hover {
-/*background-color:#fcfcfc;*/
-}
 /*END: NOTICES */
 
 #new_group a {
@@ -280,7 +283,7 @@ background:transparent url(../../base/images/icons/twotone/green/news.gif) no-re
 .pagination .nav_prev a,
 .pagination .nav_next a {
 background-repeat:no-repeat;
-border-color:#CEE1E9;
+border-color:#000;
 }
 .pagination .nav_prev a {
 background-image:url(../../base/images/icons/twotone/green/arrow-left.gif);
