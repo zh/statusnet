@@ -49,8 +49,18 @@ class TagAction extends Action
     {
         $pop = new PopularNoticeSection($this);
         $pop->show();
-    }
 
+        $notice_tag = new Notice_tag;
+        $query = 'select file_id, count(file_id) as c from notice_tag join file_to_post on post_id = notice_id where tag="' . $notice_tag->escape($this->tag) . '" group by file_id order by c desc';
+        $notice_tag->query($query);
+        $this->elementStart('ol');
+        while ($notice_tag->fetch()) {
+            $this->elementStart('li');
+            $this->element('a', array('class' => 'attachment', 'href' => common_local_url('attachment', array('attachment' => $notice_tag->file_id))), "Attachment tagged {$notice_tag->c} times");
+            $this->elementEnd('li');
+        }
+        $this->elementEnd('ol');
+    }
 
     function title()
     {
