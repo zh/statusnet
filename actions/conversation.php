@@ -42,6 +42,7 @@ require_once(INSTALLDIR.'/lib/noticelist.php');
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://laconi.ca/
  */
+
 class ConversationAction extends Action
 {
     var $id = null;
@@ -95,9 +96,9 @@ class ConversationAction extends Action
                                      'notice:conversation:'.$this->id,
                                      $offset, $limit);
 
-        $nl = new NoticeList($notices, $this);
+        $ct = new ConversationTree($notices, $this);
 
-        $cnt = $nl->show();
+        $cnt = $ct->show();
 
         $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
                           $this->page, 'conversation', array('id' => $this->id));
@@ -105,3 +106,94 @@ class ConversationAction extends Action
 
 }
 
+class ConversationTree extends NoticeList
+{
+    var $tree = null;
+    var $table = null;
+
+    function show()
+    {
+        $cnt = 0;
+
+        $this->tree = array();
+        $table = array();
+
+        while ($this->notice->fetch()) {
+            $cnt++;
+            $this->table[$this->notice->id] = clone($this->notice);
+            if (is_null($notice->reply_to)) {
+                // We assume no notice has -1 ID
+                $this->tree[-1] = array($notice->id);
+            } else if (array_key_exists($notice->reply_to, $this->tree)) {
+                $this->tree[$notice->reply_to][] = $notice->id;
+            } else {
+                $this->tree[$notice->reply_to] = array($notice->id);
+            }
+        }
+
+        $this->out->elementStart('div', array('id' =>'notices_primary'));
+        $this->out->element('h2', null, _('Notices'));
+        $this->out->elementStart('ul', array('class' => 'notices'));
+
+        if (array_key_exists(-1, $this->tree)) {
+            $this->showNoticePlus($this->tree[-1][0]);
+        }
+
+        $this->out->elementEnd('ul');
+        $this->out->elementEnd('div');
+
+        return $cnt;
+    }
+
+    function showNoticePlus($id)
+    {
+        $notice = $this->table[$id];
+
+        print_r($notice);
+
+        // We take responsibility for doing the li
+
+        $this->out->elementStart('li', array('class' => 'hentry notice',
+                                             'id' => 'notice-' . $this->notice->id));
+
+        $item = $this->newListItem($notice);
+        $item->show();
+
+        if (array_key_exists($id, $this->tree)) {
+            $children = $this->tree[$id];
+
+            $this->out->elementStart('ul', array('class' => 'notices'));
+
+            foreach ($children as $child) {
+                $this->showNoticePlus($child);
+            }
+
+            $this->out->elementEnd('ul');
+        }
+
+        $this->out->elementEnd('li');
+    }
+
+    function newListItem($notice)
+    {
+        return new ConversationTreeItem($notice, $this->out);
+    }
+}
+
+class ConversationTreeItem extends NoticeListItem
+{
+    function showStart()
+    {
+        // skip; ConversationTree draws the list
+    }
+
+    function showEnd()
+    {
+        // skip; ConversationTree draws the list
+    }
+
+    function showContext()
+    {
+        // skip; this _is_ the context!
+    }
+}
