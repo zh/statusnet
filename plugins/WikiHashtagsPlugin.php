@@ -82,13 +82,20 @@ class WikiHashtagsPlugin extends Plugin
 
                 $action->elementStart('div', array('id' => 'wikihashtags', 'class' => 'section'));
 
-                $action->element('h2', null, _('WikiHashtags'));
-
                 if (!empty($html)) {
-                    $action->element('style', null, 'span.editsection { display: none }');
+                    $action->element('style', null,
+                                     "span.editsection { display: none }\n".
+                                     "table.toc { display: none }");
                     $action->raw($html);
-                    $action->element('a', array('href' => $editurl),
+                    $action->elementStart('p');
+                    $action->element('a', array('href' => $editurl,
+                                                'title' => sprintf(_('Edit the article for #%s on WikiHashtags'), $tag)),
                                      _('Edit'));
+                    $action->element('a', array('href' => 'http://www.gnu.org/copyleft/fdl.html',
+                                                'title' => _('Shared under the terms of the GNU Free Documentation License'),
+                                                'rel' => 'license'),
+                                     'GNU FDL');
+                    $action->elementEnd('p');
                 } else {
                     $action->element('a', array('href' => $editurl),
                                      sprintf(_('Start the article for #%s on WikiHashtags'), $tag));
