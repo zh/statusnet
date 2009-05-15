@@ -103,3 +103,9 @@ EndPublicGroupNav: At the end of the public group nav menu
 RouterInitialized: After the router instance has been initialized
 - $m: the Net_URL_Mapper that has just been set up
 
+StartLogout: Before logging out
+- $action: the logout action
+
+EndLogout: After logging out
+- $action: the logout action
+
