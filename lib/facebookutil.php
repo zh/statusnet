@@ -27,9 +27,21 @@ define("FACEBOOK_PROMPTED_UPDATE_PREF", 2);
 
 function getFacebook()
 {
+    static $facebook = null;
+
     $apikey = common_config('facebook', 'apikey');
     $secret = common_config('facebook', 'secret');
-    return new Facebook($apikey, $secret);
+
+    if ($facebook === null) {
+        $facebook = new Facebook($apikey, $secret);
+    }
+
+    if (!$facebook) {
+        common_log(LOG_ERR, 'Could not make new Facebook client obj!',
+            __FILE__);
+    }
+
+    return $facebook;
 }
 
 function updateProfileBox($facebook, $flink, $notice) {
@@ -91,7 +103,6 @@ function isFacebookBound($notice, $flink) {
     return $success;
 
 }
-
 
 function facebookBroadcastNotice($notice)
 {
