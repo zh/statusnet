@@ -98,15 +98,15 @@ class Action extends HTMLOutputter // lawsuit
             Event::handle('EndShowHTML', array($this));
         }
         if (Event::handle('StartShowHead', array($this))) {
-        $this->showHead();
+            $this->showHead();
             Event::handle('EndShowHead', array($this));
         }
         if (Event::handle('StartShowBody', array($this))) {
-        $this->showBody();
+            $this->showBody();
             Event::handle('EndShowBody', array($this));
         }
         if (Event::handle('StartEndHTML', array($this))) {
-        $this->endHTML();
+            $this->endHTML();
             Event::handle('EndEndHTML', array($this));
         }
     }
@@ -243,6 +243,12 @@ class Action extends HTMLOutputter // lawsuit
                 $this->element('script', array('type' => 'text/javascript',
                                                'src' => common_path('js/jquery.form.js')),
                                ' ');
+
+                $this->element('script', array('type' => 'text/javascript',
+                                               'src' => common_path('js/jquery.joverlay.min.js')),
+                               ' ');
+
+
                 Event::handle('EndShowJQueryScripts', array($this));
             }
             if (Event::handle('StartShowLaconicaScripts', array($this))) {

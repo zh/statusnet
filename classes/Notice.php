@@ -124,8 +124,6 @@ class Notice extends Memcached_DataObject
 
         $profile = Profile::staticGet($profile_id);
 
-//        $final =  common_shorten_links($content);
-
         if (!$profile) {
             common_log(LOG_ERR, 'Problem saving notice. Unknown user.');
             return _('Problem saving notice. Unknown user.');
@@ -277,6 +275,16 @@ class Notice extends Memcached_DataObject
         }
         # Either not N notices in the stream, OR the Nth was not posted within timespan seconds
         return true;
+    }
+
+    function hasAttachments() {
+        $post = clone($this);
+        $query = "select count(file_id) as n_attachments from file join file_to_post on (file_id = file.id) join notice on (post_id = notice.id) where post_id = " . $post->escape($this->id);
+        $post->query($query);
+        $post->fetch();
+        $n_attachments = intval($post->n_attachments);
+        $post->free();
+        return $n_attachments;
     }
 
     function blowCaches($blowLast=false)

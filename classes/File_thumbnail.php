@@ -42,4 +42,14 @@ class File_thumbnail extends Memcached_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+
+    function saveNew($data, $file_id) {
+        $tn = new File_thumbnail;
+        $tn->file_id = $file_id;
+        $tn->url = $data['thumbnail_url'];
+        $tn->width = intval($data['thumbnail_width']);
+        $tn->height = intval($data['thumbnail_height']);
+        $tn->insert();
+    }
 }
+

@@ -54,6 +54,17 @@ class File extends Memcached_DataObject
         return 'http://www.facebook.com/login.php' === $url;
     }
 
+    function getAttachments($post_id) {
+        $query = "select file.* from file join file_to_post on (file_id = file.id) join notice on (post_id = notice.id) where post_id = " . $this->escape($post_id);
+        $this->query($query);
+        $att = array();
+        while ($this->fetch()) {
+            $att[] = clone($this);
+        }
+        $this->free();
+        return $att;
+    }
+
     function saveNew($redir_data, $given_url) {
         $x = new File;
         $x->url = $given_url;
