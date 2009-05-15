@@ -591,7 +591,10 @@ class Action extends HTMLOutputter // lawsuit
                                         'class' => 'system_notice'));
         $this->element('dt', null, _('Page notice'));
         $this->elementStart('dd');
-        $this->showPageNotice();
+        if (Event::handle('StartShowPageNotice', array($this))) {
+            $this->showPageNotice();
+            Event::handle('EndShowPageNotice', array($this));
+        }
         $this->elementEnd('dd');
         $this->elementEnd('dl');
     }
