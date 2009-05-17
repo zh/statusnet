@@ -63,6 +63,10 @@ function handleError($error)
 
 function main()
 {
+    // quick check for fancy URL auto-detection support in installer.
+    if ('/check-fancy' === $_SERVER['REDIRECT_URL']) {
+        die("Fancy URL support detection succeeded. We suggest you enable this to get fancy (pretty) URLs.");
+    }
     global $user, $action, $config;
 
     if (!_have_config()) {
