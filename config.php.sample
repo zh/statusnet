@@ -172,6 +172,10 @@ $config['sphinx']['port'] = 3312;
 #$config['facebook']['apikey'] = 'APIKEY';
 #$config['facebook']['secret'] = 'SECRET';
 
+# Facebook Connect plugin (Needs valid APIKEY above)
+#require_once(INSTALLDIR.'/plugins/FBConnect/FBConnectPlugin.php');
+#$fbc = new FBConnectPlugin();
+
 # Add Google Analytics
 # require_once('plugins/GoogleAnalyticsPlugin.php');
 # $ga = new GoogleAnalyticsPlugin('your secret code');
