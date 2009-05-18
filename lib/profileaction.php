@@ -49,16 +49,17 @@ require_once INSTALLDIR.'/lib/groupminilist.php';
 
 class ProfileAction extends Action
 {
-    var $user = null;
-    var $page = null;
+    var $user    = null;
+    var $page    = null;
     var $profile = null;
+    var $tag     = null;
 
     function prepare($args)
     {
         parent::prepare($args);
 
         $nickname_arg = $this->arg('nickname');
-        $nickname = common_canonical_nickname($nickname_arg);
+        $nickname     = common_canonical_nickname($nickname_arg);
 
         // Permanent redirect on non-canonical nickname
 
@@ -85,10 +86,9 @@ class ProfileAction extends Action
             return false;
         }
 
+        $this->tag = $this->trimmed('tag');
         $this->page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
-
         common_set_returnto($this->selfUrl());
-
         return true;
     }
 
@@ -245,3 +245,4 @@ class ProfileAction extends Action
         $this->elementEnd('div');
     }
 }
+

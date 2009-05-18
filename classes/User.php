@@ -407,13 +407,22 @@ class User extends Memcached_DataObject
         return Notice::getStreamByIds($ids);
     }
 
+    function getTaggedNotices($tag, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null) {
+        $profile = $this->getProfile();
+        if (!$profile) {
+            return null;
+        } else {
+            return $profile->getTaggedNotices($tag, $offset, $limit, $since_id, $before_id, $since);
+        }
+    }
+
     function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
     {
         $profile = $this->getProfile();
         if (!$profile) {
             return null;
         } else {
-            return $profile->getNotices($offset, $limit, $since_id, $before_id);
+            return $profile->getNotices($offset, $limit, $since_id, $before_id, $since);
         }
     }
 

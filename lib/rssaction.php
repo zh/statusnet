@@ -97,7 +97,11 @@ class Rss10Action extends Action
         // Parent handling, including cache check
         parent::handle($args);
         // Get the list of notices
-        $this->notices = $this->getNotices($this->limit);
+        if (empty($this->tag)) {
+            $this->notices = $this->getNotices($this->limit);
+        } else {
+            $this->notices = $this->getTaggedNotices($this->tag, $this->limit);
+        }
         $this->showRss();
     }
 

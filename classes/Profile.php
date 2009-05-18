@@ -153,18 +153,66 @@ class Profile extends Memcached_DataObject
         return null;
     }
 
-    function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
+    function getTaggedNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null, $tag=null)
+    {
+        // XXX: I'm not sure this is going to be any faster. It probably isn't.
+        $ids = Notice::stream(array($this, '_streamTaggedDirect'),
+                              array(),
+                              'profile:notice_ids:' . $this->id,
+                              $offset, $limit, $since_id, $before_id, $since, $tag);
+        common_debug(print_r($ids, true));
+        return Notice::getStreamByIds($ids);
+    }
+
+    function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
     {
         // XXX: I'm not sure this is going to be any faster. It probably isn't.
         $ids = Notice::stream(array($this, '_streamDirect'),
                               array(),
                               'profile:notice_ids:' . $this->id,
-                              $offset, $limit, $since_id, $before_id);
+                              $offset, $limit, $since_id, $before_id, $since);
 
         return Notice::getStreamByIds($ids);
     }
 
-    function _streamDirect($offset, $limit, $since_id, $before_id, $since)
+    function _streamTaggedDirect($offset, $limit, $since_id, $before_id, $since=null, $tag=null)
+    {
+        common_debug('_streamTaggedDirect()');
+        $notice = new Notice();
+        $notice->profile_id = $this->id;
+        $query = "select id from notice join notice_tag on id=notice_id where tag='" . $notice->escape($tag) . "' and profile_id=" . $notice->escape($notice->profile_id);
+        if ($since_id != 0) {
+            $query .= " and id > $since_id";
+        }
+
+        if ($before_id != 0) {
+            $query .= " and id < $before_id";
+        }
+
+        if (!is_null($since)) {
+            $query .= " and created > '" . date('Y-m-d H:i:s', $since) . "'";
+        }
+
+        $query .= ' order by id DESC';
+
+        if (!is_null($offset)) {
+            $query .= " limit $offset, $limit";
+        }
+        $notice->query($query);
+        $ids = array();
+
+        while ($notice->fetch()) {
+            common_debug(print_r($notice, true));
+            $ids[] = $notice->id;
+        }
+
+        return $ids;
+    }
+
+
+
+
+    function _streamDirect($offset, $limit, $since_id, $before_id, $since = null)
     {
         $notice = new Notice();
 
