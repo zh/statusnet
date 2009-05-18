@@ -426,6 +426,11 @@ class Router
                     array('size' => '(original|96|48|24)',
                           'nickname' => '[a-zA-Z0-9]{1,64}'));
 
+        $m->connect(':nickname/tag/:tag',
+                    array('action' => 'showstream'),
+                    array('nickname' => '[a-zA-Z0-9]{1,64}'),
+                    array('tag' => '[a-zA-Z0-9]+'));
+
         $m->connect(':nickname',
                     array('action' => 'showstream'),
                     array('nickname' => '[a-zA-Z0-9]{1,64}'));

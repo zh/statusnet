@@ -1024,7 +1024,7 @@ class Notice extends Memcached_DataObject
         }
     }
 
-    function stream($fn, $args, $cachekey, $offset=0, $limit=20, $since_id=0, $before_id=0, $since=null)
+    function stream($fn, $args, $cachekey, $offset=0, $limit=20, $since_id=0, $before_id=0, $since=null, $tag=null)
     {
         $cache = common_memcache();
 
@@ -1032,7 +1032,7 @@ class Notice extends Memcached_DataObject
             $since_id != 0 || $before_id != 0 || !is_null($since) ||
             ($offset + $limit) > NOTICE_CACHE_WINDOW) {
             return call_user_func_array($fn, array_merge($args, array($offset, $limit, $since_id,
-                                                                      $before_id, $since)));
+                                                                      $before_id, $since, $tag)));
         }
 
         $idkey = common_cache_key($cachekey);
@@ -1052,7 +1052,7 @@ class Notice extends Memcached_DataObject
             $window = explode(',', $laststr);
             $last_id = $window[0];
             $new_ids = call_user_func_array($fn, array_merge($args, array(0, NOTICE_CACHE_WINDOW,
-                                                                          $last_id, 0, null)));
+                                                                          $last_id, 0, null, $tag)));
 
             $new_window = array_merge($new_ids, $window);
 
@@ -1067,7 +1067,7 @@ class Notice extends Memcached_DataObject
         }
 
         $window = call_user_func_array($fn, array_merge($args, array(0, NOTICE_CACHE_WINDOW,
-                                                                     0, 0, null)));
+                                                                     0, 0, null, $tag)));
 
         $windowstr = implode(',', $window);
 

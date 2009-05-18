@@ -68,6 +68,9 @@ class ShowstreamAction extends ProfileAction
         } else {
             $base = $this->user->nickname;
         }
+        if (!empty($this->tag)) {
+            $base .= sprintf(_(' tagged %s'), $this->tag);
+        }
 
         if ($this->page == 1) {
             return $base;
@@ -363,7 +366,9 @@ class ShowstreamAction extends ProfileAction
 
     function showNotices()
     {
-        $notice = $this->user->getNotices(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
+        $notice = empty($this->tag)
+            ? $this->user->getNotices(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1)
+            : $this->user->getTaggedNotices(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1, 0, 0, null, $this->tag);
 
         $pnl = new ProfileNoticeList($notice, $this);
         $cnt = $pnl->show();
