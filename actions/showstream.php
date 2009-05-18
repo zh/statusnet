@@ -113,6 +113,15 @@ class ShowstreamAction extends ProfileAction
 
     function getFeeds()
     {
+        if (!empty($this->tag)) {
+            return array(new Feed(Feed::RSS1,
+                common_local_url('userrss',
+                    array('nickname' => $this->user->nickname,
+                        'tag' => $this->tag)),
+                sprintf(_('Notice feed for %s tagged %s (RSS 1.0)'),
+                    $this->user->nickname, $this->tag)));
+        }
+
         return array(new Feed(Feed::RSS1,
                               common_local_url('userrss',
                                                array('nickname' => $this->user->nickname)),
