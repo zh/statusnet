@@ -54,18 +54,6 @@ class AttachmentAction extends Action
     var $attachment = null;
 
     /**
-     * Profile of the notice object
-     */
-
-//    var $profile = null;
-
-    /**
-     * Avatar of the profile of the notice object
-     */
-
-//    var $avatar = null;
-
-    /**
      * Load attributes based on database arguments
      *
      * Loads all the DB stuff
@@ -111,8 +99,6 @@ class AttachmentAction extends Action
         $a = new Attachment($this->attachment);
         return $a->title();
     }
-
-
 
     /**
      * Last-modified date for page
@@ -213,38 +199,11 @@ class AttachmentAction extends Action
      *
      * @return void
      */
-
-    function showAside() {
-        $notice = new Notice;
-        $f2p = new File_to_post;
-        $f2p->file_id = $this->attachment->id;
-        $notice->joinAdd($f2p);
-        $notice->orderBy('created desc');
-        $x = $notice->find();
-        $this->elementStart('ol');
-        while($notice->fetch()) {
-            $this->elementStart('li');
-            $profile = $notice->getProfile();
-            $this->element('a', array('href' => $notice->uri), $profile->nickname . ' on ' . $notice->created);
-            $this->elementEnd('li');
-        }
-        $this->elementEnd('ol');
-        $notice->free();
-        $f2p->free();
-
-        $notice_tag = new Notice_tag;
-        $attachment = new File;
-
-        $query = 'select tag,count(tag) as c from notice_tag join file_to_post on (notice_tag.notice_id=post_id) join notice on notice_id = notice.id where file_id=' . $notice_tag->escape($this->attachment->id) . ' group by tag order by c desc';
-
-        $notice_tag->query($query);
-        $this->elementStart('ol');
-        while($notice_tag->fetch()) {
-            $this->elementStart('li');
-            $href = common_local_url('tag', array('tag' => $notice_tag->tag));
-            $this->element('a', array('href' => $href), $notice_tag->tag . ' (' . $notice_tag->c . ')');
-            $this->elementEnd('li');
-        }
-        $this->elementEnd('ol');
+    function showSections() {
+        $ns = new AttachmentNoticeSection($this);
+        $ns->show();
+        $atcs = new AttachmentTagCloudSection($this);
+        $atcs->show();
     }
 }
+

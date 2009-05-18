@@ -134,7 +134,7 @@ class Notice extends Memcached_DataObject
             return _('Too many notices too fast; take a breather and post again in a few minutes.');
         }
 
-        if (common_config('site', 'dupelimit') > 0 && !Notice::checkDupes($profile_id, $final)) {
+        if (common_config('site', 'dupelimit') > 0 && !Notice::checkDupes($profile_id, $content)) {
             common_log(LOG_WARNING, 'Dupe posting by profile #' . $profile_id . '; throttled.');
 			return _('Too many duplicate messages too quickly; take a breather and post again in a few minutes.');
         }
@@ -278,8 +278,8 @@ class Notice extends Memcached_DataObject
     }
 
     function hasAttachments() {
-        $post = clone($this);
-        $query = "select count(file_id) as n_attachments from file join file_to_post on (file_id = file.id) join notice on (post_id = notice.id) where post_id = " . $post->escape($this->id);
+        $post = clone $this;
+        $query = "select count(file_id) as n_attachments from file join file_to_post on (file_id = file.id) join notice on (post_id = notice.id) where post_id = " . $post->escape($post->id);
         $post->query($query);
         $post->fetch();
         $n_attachments = intval($post->n_attachments);
