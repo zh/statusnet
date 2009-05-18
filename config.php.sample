@@ -33,6 +33,12 @@ $config['site']['path'] = 'laconica';
 #Make the site invisible to  non-logged-in users
 #$config['site']['private'] = true;
 
+# 'direct' for direct notice links in sections
+# 'attachment' for notice attachment links in sections
+# left undefined, no link is showed
+#$config['site']['notice_link'] = 'attachment';
+#$config['site']['notice_link'] = 'direct';
+
 # If you want logging sent to a file instead of syslog
 #$config['site']['logfile'] = '/tmp/laconica.log';
 
@@ -171,6 +177,10 @@ $config['sphinx']['port'] = 3312;
 # Config section for the built-in Facebook application
 #$config['facebook']['apikey'] = 'APIKEY';
 #$config['facebook']['secret'] = 'SECRET';
+
+# Facebook Connect plugin (Needs valid APIKEY above)
+#require_once(INSTALLDIR.'/plugins/FBConnect/FBConnectPlugin.php');
+#$fbc = new FBConnectPlugin();
 
 # Add Google Analytics
 # require_once('plugins/GoogleAnalyticsPlugin.php');

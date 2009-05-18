@@ -1,9 +1,10 @@
 <?php
+// Copyright 2004-2009 Facebook. All Rights Reserved.
 //
 // +---------------------------------------------------------------------------+
 // | Facebook Platform PHP5 client                                             |
 // +---------------------------------------------------------------------------+
-// | Copyright (c) 2007-2008 Facebook, Inc.                                    |
+// | Copyright (c) 2007-2009 Facebook, Inc.                                    |
 // | All rights reserved.                                                      |
 // |                                                                           |
 // | Redistribution and use in source and binary forms, with or without        |
@@ -32,6 +33,7 @@
 //
 
 include_once 'jsonwrapper/jsonwrapper.php';
+
 class FacebookRestClient {
   public $secret;
   public $session_key;
@@ -50,7 +52,9 @@ class FacebookRestClient {
   public $canvas_user;
   public $batch_mode;
   private $batch_queue;
+  private $pending_batch;
   private $call_as_apikey;
+  private $use_curl_if_available;
 
   const BATCH_MODE_DEFAULT = 0;
   const BATCH_MODE_SERVER_PARALLEL = 0;
@@ -70,7 +74,8 @@ class FacebookRestClient {
     $this->batch_mode = FacebookRestClient::BATCH_MODE_DEFAULT;
     $this->last_call_id = 0;
     $this->call_as_apikey = '';
-      $this->server_addr  = Facebook::get_facebook_url('api') . '/restserver.php';
+    $this->use_curl_if_available = true;
+    $this->server_addr  = Facebook::get_facebook_url('api') . '/restserver.php';
 
     if (!empty($GLOBALS['facebook_config']['debug'])) {
       $this->cur_id = 0;
@@ -123,39 +128,61 @@ function toggleDisplay(id, type) {
   }
 
   /**
+   * Normally, if the cURL library/PHP extension is available, it is used for
+   * HTTP transactions.  This allows that behavior to be overridden, falling
+   * back to a vanilla-PHP implementation even if cURL is installed.
+   *
+   * @param $use_curl_if_available bool whether or not to use cURL if available
+   */
+  public function set_use_curl_if_available($use_curl_if_available) {
+    $this->use_curl_if_available = $use_curl_if_available;
+  }
+
+  /**
    * Start a batch operation.
    */
   public function begin_batch() {
-    if($this->batch_queue !== null) {
+    if ($this->pending_batch()) {
       $code = FacebookAPIErrorCodes::API_EC_BATCH_ALREADY_STARTED;
-      throw new FacebookRestClientException($code,
-        FacebookAPIErrorCodes::$api_error_descriptions[$code]);
+      $description = FacebookAPIErrorCodes::$api_error_descriptions[$code];
+      throw new FacebookRestClientException($description, $code);
     }
 
     $this->batch_queue = array();
+    $this->pending_batch = true;
   }
 
   /*
    * End current batch operation
    */
   public function end_batch() {
-    if($this->batch_queue === null) {
+    if (!$this->pending_batch()) {
       $code = FacebookAPIErrorCodes::API_EC_BATCH_NOT_STARTED;
-      throw new FacebookRestClientException($code,
-      FacebookAPIErrorCodes::$api_error_descriptions[$code]);
+      $description = FacebookAPIErrorCodes::$api_error_descriptions[$code];
+      throw new FacebookRestClientException($description, $code);
     }
 
-    $this->execute_server_side_batch();
+    $this->pending_batch = false;
 
+    $this->execute_server_side_batch();
     $this->batch_queue = null;
+  }
+
+  /**
+   * are we currently queueing up calls for a batch?
+   */
+  public function pending_batch() {
+    return $this->pending_batch;
   }
 
   private function execute_server_side_batch() {
     $item_count = count($this->batch_queue);
     $method_feed = array();
     foreach($this->batch_queue as $batch_item) {
-      $method_feed[] = $this->create_post_string($batch_item['m'],
-                                                 $batch_item['p']);
+      $method = $batch_item['m'];
+      $params = $batch_item['p'];
+      $this->finalize_params($method, $params);
+      $method_feed[] = $this->create_post_string($method, $params);
     }
 
     $method_feed_json = json_encode($method_feed);
@@ -202,6 +229,18 @@ function toggleDisplay(id, type) {
     $this->call_as_apikey = '';
   }
 
+
+  /*
+   * If a page is loaded via HTTPS, then all images and static
+   * resources need to be printed with HTTPS urls to avoid
+   * mixed content warnings. If your page loads with an HTTPS
+   * url, then call set_use_ssl_resources to retrieve the correct
+   * urls.
+   */
+  public function set_use_ssl_resources($is_ssl = true) {
+    $this->use_ssl_resources = $is_ssl;
+  }
+
   /**
    * Returns public information for an application (as shown in the application
    * directory) by either application ID, API key, or canvas page name.
@@ -231,7 +270,7 @@ function toggleDisplay(id, type) {
    * @return string  An authentication token.
    */
   public function auth_createToken() {
-    return $this->call_method('facebook.auth.createToken', array());
+    return $this->call_method('facebook.auth.createToken');
   }
 
   /**
@@ -246,8 +285,7 @@ function toggleDisplay(id, type) {
    * @return array  An assoc array containing session_key, uid
    */
   public function auth_getSession($auth_token, $generate_session_secret=false) {
-    //Check if we are in batch mode
-    if($this->batch_queue === null) {
+    if (!$this->pending_batch()) {
       $result = $this->call_method('facebook.auth.getSession',
           array('auth_token' => $auth_token,
                 'generate_session_secret' => $generate_session_secret));
@@ -271,7 +309,7 @@ function toggleDisplay(id, type) {
    *        API_EC_PARAM_UNKNOWN
    */
   public function auth_promoteSession() {
-      return $this->call_method('facebook.auth.promoteSession', array());
+      return $this->call_method('facebook.auth.promoteSession');
   }
 
   /**
@@ -282,7 +320,20 @@ function toggleDisplay(id, type) {
    * @return bool  true if session expiration was successful, false otherwise
    */
   public function auth_expireSession() {
-      return $this->call_method('facebook.auth.expireSession', array());
+      return $this->call_method('facebook.auth.expireSession');
+  }
+
+  /**
+   *  Revokes the given extended permission that the user granted at some
+   *  prior time (for instance, offline_access or email).  If no user is
+   *  provided, it will be revoked for the user of the current session.
+   *
+   *  @param  string  $perm  The permission to revoke
+   *  @param  int     $uid   The user for whom to revoke the permission.
+   */
+  public function auth_revokeExtendedPermission($perm, $uid=null) {
+    return $this->call_method('facebook.auth.revokeExtendedPermission',
+        array('perm' => $perm, 'uid' => $uid));
   }
 
   /**
@@ -300,6 +351,30 @@ function toggleDisplay(id, type) {
   public function auth_revokeAuthorization($uid=null) {
       return $this->call_method('facebook.auth.revokeAuthorization',
           array('uid' => $uid));
+  }
+
+  /**
+   * Get public key that is needed to verify digital signature
+   * an app may pass to other apps. The public key is only used by
+   * other apps for verification purposes.
+   * @param  string  API key of an app
+   * @return string  The public key for the app.
+   */
+  public function auth_getAppPublicKey($target_app_key) {
+    return $this->call_method('facebook.auth.getAppPublicKey',
+          array('target_app_key' => $target_app_key));
+  }
+
+  /**
+   * Get a structure that can be passed to another app
+   * as proof of session. The other app can verify it using public
+   * key of this app.
+   *
+   * @return signed public session data structure.
+   */
+  public function auth_getSignedPublicSessionData() {
+    return $this->call_method('facebook.auth.getSignedPublicSessionData',
+                              array());
   }
 
   /**
@@ -363,8 +438,9 @@ function toggleDisplay(id, type) {
    *
    * @param int $uid            (Optional) User associated with events. A null
    *                            parameter will default to the session user.
-   * @param array $eids         (Optional) Filter by these event ids. A null
-   *                            parameter will get all events for the user.
+   * @param array/string $eids  (Optional) Filter by these event
+   *                            ids. A null parameter will get all events for
+   *                            the user. (A csv list will work but is deprecated)
    * @param int $start_time     (Optional) Filter with this unix time as lower
    *                            bound.  A null or zero parameter indicates no
    *                            lower bound.
@@ -718,12 +794,15 @@ function toggleDisplay(id, type) {
    * @param string $body_general     (Optional) Additional markup that extends
    *                                 the body of a short story.
    * @param int $story_size          (Optional) A story size (see above)
+   * @param string $user_message     (Optional) A user message for a short
+   *                                 story.
    *
    * @return bool  true on success
    */
   public function &feed_publishUserAction(
       $template_bundle_id, $template_data, $target_ids='', $body_general='',
-      $story_size=FacebookRestClient::STORY_SIZE_ONE_LINE) {
+      $story_size=FacebookRestClient::STORY_SIZE_ONE_LINE,
+      $user_message='') {
 
     if (is_array($template_data)) {
       $template_data = json_encode($template_data);
@@ -739,7 +818,107 @@ function toggleDisplay(id, type) {
               'template_data' => $template_data,
               'target_ids' => $target_ids,
               'body_general' => $body_general,
-              'story_size' => $story_size));
+              'story_size' => $story_size,
+              'user_message' => $user_message));
+  }
+
+
+  /**
+   * Publish a post to the user's stream.
+   *
+   * @param $message        the user's message
+   * @param $attachment     the post's attachment (optional)
+   * @param $action links   the post's action links (optional)
+   * @param $target_id      the user on whose wall the post will be posted
+   *                        (optional)
+   * @param $uid            the actor (defaults to session user)
+   * @return string the post id
+   */
+  public function stream_publish(
+    $message, $attachment = null, $action_links = null, $target_id = null,
+    $uid = null) {
+
+    return $this->call_method(
+      'facebook.stream.publish',
+      array('message' => $message,
+            'attachment' => $attachment,
+            'action_links' => $action_links,
+            'target_id' => $target_id,
+            'uid' => $this->get_uid($uid)));
+  }
+
+  /**
+   * Remove a post from the user's stream.
+   * Currently, you may only remove stories you application created.
+   *
+   * @param $post_id  the post id
+   * @param $uid      the actor (defaults to session user)
+   * @return bool
+   */
+  public function stream_remove($post_id, $uid = null) {
+    return $this->call_method(
+      'facebook.stream.remove',
+      array('post_id' => $post_id,
+            'uid' => $this->get_uid($uid)));
+  }
+
+  /**
+   * Add a comment to a stream post
+   *
+   * @param $post_id  the post id
+   * @param $comment  the comment text
+   * @param $uid      the actor (defaults to session user)
+   * @return string the id of the created comment
+   */
+  public function stream_addComment($post_id, $comment, $uid = null) {
+    return $this->call_method(
+      'facebook.stream.addComment',
+      array('post_id' => $post_id,
+            'comment' => $comment,
+            'uid' => $this->get_uid($uid)));
+  }
+
+
+  /**
+   * Remove a comment from a stream post
+   *
+   * @param $comment_id  the comment id
+   * @param $uid      the actor (defaults to session user)
+   * @return bool
+   */
+  public function stream_removeComment($comment_id, $uid = null) {
+    return $this->call_method(
+      'facebook.stream.removeComment',
+      array('comment_id' => $comment_id,
+            'uid' => $this->get_uid($uid)));
+  }
+
+  /**
+   * Add a like to a stream post
+   *
+   * @param $post_id  the post id
+   * @param $uid      the actor (defaults to session user)
+   * @return bool
+   */
+  public function stream_addLike($post_id, $uid = null) {
+    return $this->call_method(
+      'facebook.stream.addLike',
+      array('post_id' => $post_id,
+            'uid' => $this->get_uid($uid)));
+  }
+
+  /**
+   * Remove a like from a stream post
+   *
+   * @param $post_id  the post id
+   * @param $uid      the actor (defaults to session user)
+   * @return bool
+   */
+  public function stream_removeLike($post_id, $uid = null) {
+    return $this->call_method(
+      'facebook.stream.removeLike',
+      array('post_id' => $post_id,
+            'uid' => $this->get_uid($uid)));
   }
 
   /**
@@ -750,7 +929,7 @@ function toggleDisplay(id, type) {
    * @return array  An array of feed story objects.
    */
   public function &feed_getAppFriendStories() {
-    return $this->call_method('facebook.feed.getAppFriendStories', array());
+    return $this->call_method('facebook.feed.getAppFriendStories');
   }
 
   /**
@@ -771,33 +950,42 @@ function toggleDisplay(id, type) {
    * Returns whether or not pairs of users are friends.
    * Note that the Facebook friend relationship is symmetric.
    *
-   * @param array $uids1  array of ids (id_1, id_2,...) of some length X
-   * @param array $uids2  array of ids (id_A, id_B,...) of SAME length X
+   * @param array/string $uids1  list of ids (id_1, id_2,...)
+   *                       of some length X (csv is deprecated)
+   * @param array/string $uids2  list of ids (id_A, id_B,...)
+   *                       of SAME length X (csv is deprecated)
    *
    * @return array  An array with uid1, uid2, and bool if friends, e.g.:
    *   array(0 => array('uid1' => id_1, 'uid2' => id_A, 'are_friends' => 1),
    *         1 => array('uid1' => id_2, 'uid2' => id_B, 'are_friends' => 0)
    *         ...)
+   * @error
+   *    API_EC_PARAM_USER_ID_LIST
    */
   public function &friends_areFriends($uids1, $uids2) {
     return $this->call_method('facebook.friends.areFriends',
-        array('uids1' => $uids1, 'uids2' => $uids2));
+                 array('uids1' => $uids1,
+                       'uids2' => $uids2));
   }
 
   /**
    * Returns the friends of the current session user.
    *
    * @param int $flid  (Optional) Only return friends on this friend list.
+   * @param int $uid   (Optional) Return friends for this user.
    *
    * @return array  An array of friends
    */
-  public function &friends_get($flid=null) {
+  public function &friends_get($flid=null, $uid = null) {
     if (isset($this->friends_list)) {
       return $this->friends_list;
     }
     $params = array();
-    if (isset($this->canvas_user)) {
-      $params['uid'] = $this->canvas_user;
+    if (!$uid && isset($this->canvas_user)) {
+      $uid = $this->canvas_user;
+    }
+    if ($uid) {
+      $params['uid'] = $uid;
     }
     if ($flid) {
       $params['flid'] = $flid;
@@ -812,7 +1000,7 @@ function toggleDisplay(id, type) {
    * @return array  An array of friend list objects
    */
   public function &friends_getLists() {
-    return $this->call_method('facebook.friends.getLists', array());
+    return $this->call_method('facebook.friends.getLists');
   }
 
   /**
@@ -822,7 +1010,7 @@ function toggleDisplay(id, type) {
    * @return array  An array of friends also using the app
    */
   public function &friends_getAppUsers() {
-    return $this->call_method('facebook.friends.getAppUsers', array());
+    return $this->call_method('facebook.friends.getAppUsers');
   }
 
   /**
@@ -830,8 +1018,9 @@ function toggleDisplay(id, type) {
    *
    * @param int $uid     (Optional) User associated with groups.  A null
    *                     parameter will default to the session user.
-   * @param array $gids  (Optional) Group ids to query. A null parameter will
-   *                     get all groups for the user.
+   * @param array/string $gids (Optional) Array of group ids to query. A null
+   *                     parameter will get all groups for the user.
+   *                     (csv is deprecated)
    *
    * @return array  An array of group objects
    */
@@ -887,6 +1076,40 @@ function toggleDisplay(id, type) {
               'value' => $value,
               'expires' => $expires,
               'path' => $path));
+  }
+
+  /**
+   * Retrieves links posted by the given user.
+   *
+   * @param int    $uid      The user whose links you wish to retrieve
+   * @param int    $limit    The maximimum number of links to retrieve
+   * @param array $link_ids (Optional) Array of specific link
+   *                          IDs to retrieve by this user
+   *
+   * @return array  An array of links.
+   */
+  public function &links_get($uid, $limit, $link_ids = null) {
+    return $this->call_method('links.get',
+        array('uid' => $uid,
+              'limit' => $limit,
+              'link_ids' => $link_ids));
+  }
+
+  /**
+   * Posts a link on Facebook.
+   *
+   * @param string $url     URL/link you wish to post
+   * @param string $comment (Optional) A comment about this link
+   * @param int    $uid     (Optional) User ID that is posting this link;
+   *                        defaults to current session user
+   *
+   * @return bool
+   */
+  public function &links_post($url, $comment='', $uid = null) {
+    return $this->call_method('links.post',
+        array('uid' => $uid,
+              'url' => $url,
+              'comment' => $comment));
   }
 
   /**
@@ -946,6 +1169,78 @@ function toggleDisplay(id, type) {
   }
 
   /**
+   * Creates a note with the specified title and content.
+   *
+   * @param string $title   Title of the note.
+   * @param string $content Content of the note.
+   * @param int    $uid     (Optional) The user for whom you are creating a
+   *                        note; defaults to current session user
+   *
+   * @return int   The ID of the note that was just created.
+   */
+  public function &notes_create($title, $content, $uid = null) {
+    return $this->call_method('notes.create',
+        array('uid' => $uid,
+              'title' => $title,
+              'content' => $content));
+  }
+
+  /**
+   * Deletes the specified note.
+   *
+   * @param int $note_id  ID of the note you wish to delete
+   * @param int $uid      (Optional) Owner of the note you wish to delete;
+   *                      defaults to current session user
+   *
+   * @return bool
+   */
+  public function &notes_delete($note_id, $uid = null) {
+    return $this->call_method('notes.delete',
+        array('uid' => $uid,
+              'note_id' => $note_id));
+  }
+
+  /**
+   * Edits a note, replacing its title and contents with the title
+   * and contents specified.
+   *
+   * @param int    $note_id  ID of the note you wish to edit
+   * @param string $title    Replacement title for the note
+   * @param string $content  Replacement content for the note
+   * @param int    $uid      (Optional) Owner of the note you wish to edit;
+   *                         defaults to current session user
+   *
+   * @return bool
+   */
+  public function &notes_edit($note_id, $title, $content, $uid = null) {
+    return $this->call_method('notes.edit',
+        array('uid' => $uid,
+              'note_id' => $note_id,
+              'title' => $title,
+              'content' => $content));
+  }
+
+  /**
+   * Retrieves all notes by a user. If note_ids are specified,
+   * retrieves only those specific notes by that user.
+   *
+   * @param int    $uid      User whose notes you wish to retrieve
+   * @param array  $note_ids (Optional) List of specific note
+   *                         IDs by this user to retrieve
+   *
+   * @return array A list of all of the given user's notes, or an empty list
+   *               if the viewer lacks permissions or if there are no visible
+   *               notes.
+   */
+  public function &notes_get($uid, $note_ids = null) {
+
+    return $this->call_method('notes.get',
+        array('uid' => $uid,
+              'note_ids' => $note_ids));
+  }
+
+
+  /**
    * Returns the outstanding notifications for the session user.
    *
    * @return array An assoc array of notification count objects for
@@ -954,13 +1249,15 @@ function toggleDisplay(id, type) {
    *               and an eid list of 'event_invites'
    */
   public function &notifications_get() {
-    return $this->call_method('facebook.notifications.get', array());
+    return $this->call_method('facebook.notifications.get');
   }
 
   /**
    * Sends a notification to the specified users.
    *
    * @return A comma separated list of successful recipients
+   * @error
+   *    API_EC_PARAM_USER_ID_LIST
    */
   public function &notifications_send($to_ids, $notification, $type) {
     return $this->call_method('facebook.notifications.send',
@@ -972,12 +1269,14 @@ function toggleDisplay(id, type) {
   /**
    * Sends an email to the specified user of the application.
    *
-   * @param array $recipients  id of the recipients
+   * @param array/string $recipients array of ids of the recipients (csv is deprecated)
    * @param string $subject    subject of the email
    * @param string $text       (plain text) body of the email
    * @param string $fbml       fbml markup for an html version of the email
    *
    * @return string  A comma separated list of successful recipients
+   * @error
+   *    API_EC_PARAM_USER_ID_LIST
    */
   public function &notifications_sendEmail($recipients,
                                            $subject,
@@ -993,9 +1292,9 @@ function toggleDisplay(id, type) {
   /**
    * Returns the requested info fields for the requested set of pages.
    *
-   * @param array  $page_ids  an array of page ids
-   * @param array  $fields    an array of strings describing the info fields
-   *                          desired
+   * @param array/string $page_ids  an array of page ids (csv is deprecated)
+   * @param array/string  $fields    an array of strings describing the
+   *                           info fields desired (csv is deprecated)
    * @param int    $uid       (Optional) limit results to pages of which this
    *                          user is a fan.
    * @param string type       limits results to a particular type of page.
@@ -1090,7 +1389,7 @@ function toggleDisplay(id, type) {
               'tag_text' => $tag_text,
               'x' => $x,
               'y' => $y,
-              'tags' => json_encode($tags),
+              'tags' => (is_array($tags)) ? json_encode($tags) : null,
               'owner_uid' => $this->get_uid($owner_uid)));
   }
 
@@ -1128,7 +1427,8 @@ function toggleDisplay(id, type) {
    * @param int $subj_id  (Optional) Filter by uid of user tagged in the photos.
    * @param int $aid      (Optional) Filter by an album, as returned by
    *                      photos_getAlbums.
-   * @param array $pids   (Optional) Restrict to a list of pids
+   * @param array/string $pids   (Optional) Restrict to an array of pids
+   *                             (csv is deprecated)
    *
    * Note that at least one of these parameters needs to be specified, or an
    * error is returned.
@@ -1143,9 +1443,10 @@ function toggleDisplay(id, type) {
   /**
    * Returns the albums created by the given user.
    *
-   * @param int $uid     (Optional) The uid of the user whose albums you want.
-   *                     A null will return the albums of the session user.
-   * @param array $aids  (Optional) A list of aids to restrict the query.
+   * @param int $uid      (Optional) The uid of the user whose albums you want.
+   *                       A null will return the albums of the session user.
+   * @param string $aids  (Optional) An array of aids to restrict
+   *                       the query. (csv is deprecated)
    *
    * Note that at least one of the (uid, aids) parameters must be specified.
    *
@@ -1172,16 +1473,66 @@ function toggleDisplay(id, type) {
   }
 
   /**
+   * Uploads a photo.
+   *
+   * @param string $file     The location of the photo on the local filesystem.
+   * @param int $aid         (Optional) The album into which to upload the
+   *                         photo.
+   * @param string $caption  (Optional) A caption for the photo.
+   * @param int uid          (Optional) The user ID of the user whose photo you
+   *                         are uploading
+   *
+   * @return array  An array of user objects
+   */
+  public function photos_upload($file, $aid=null, $caption=null, $uid=null) {
+    return $this->call_upload_method('facebook.photos.upload',
+                                     array('aid' => $aid,
+                                           'caption' => $caption,
+                                           'uid' => $uid),
+                                     $file);
+  }
+
+
+  /**
+   * Uploads a video.
+   *
+   * @param  string $file        The location of the video on the local filesystem.
+   * @param  string $title       (Optional) A title for the video. Titles over 65 characters in length will be truncated.
+   * @param  string $description (Optional) A description for the video.
+   *
+   * @return array  An array with the video's ID, title, description, and a link to view it on Facebook.
+   */
+  public function video_upload($file, $title=null, $description=null) {
+    return $this->call_upload_method('facebook.video.upload',
+                                     array('title' => $title,
+                                           'description' => $description),
+                                     $file,
+                                     Facebook::get_facebook_url('api-video') . '/restserver.php');
+  }
+
+  /**
+   * Returns an array with the video limitations imposed on the current session's
+   * associated user. Maximum length is measured in seconds; maximum size is
+   * measured in bytes.
+   *
+   * @return array  Array with "length" and "size" keys
+   */
+  public function &video_getUploadLimits() {
+    return $this->call_method('facebook.video.getUploadLimits');
+  }
+
+  /**
    * Returns the requested info fields for the requested set of users.
    *
-   * @param array $uids    An array of user ids
-   * @param array $fields  An array of info field names desired
+   * @param array/string $uids    An array of user ids (csv is deprecated)
+   * @param array/string $fields  An array of info field names desired (csv is deprecated)
    *
    * @return array  An array of user objects
    */
   public function &users_getInfo($uids, $fields) {
     return $this->call_method('facebook.users.getInfo',
-        array('uids' => $uids, 'fields' => $fields));
+                  array('uids' => $uids,
+                        'fields' => $fields));
   }
 
   /**
@@ -1194,14 +1545,15 @@ function toggleDisplay(id, type) {
    * users, use users.getInfo instead, so that proper privacy rules will be
    * applied.
    *
-   * @param array $uids    An array of user ids
-   * @param array $fields  An array of info field names desired
+   * @param array/string $uids    An array of user ids (csv is deprecated)
+   * @param array/string $fields  An array of info field names desired (csv is deprecated)
    *
    * @return array  An array of user objects
    */
   public function &users_getStandardInfo($uids, $fields) {
     return $this->call_method('facebook.users.getStandardInfo',
-        array('uids' => $uids, 'fields' => $fields));
+                              array('uids' => $uids,
+                                    'fields' => $fields));
   }
 
   /**
@@ -1210,7 +1562,7 @@ function toggleDisplay(id, type) {
    * @return integer  User id
    */
   public function &users_getLoggedInUser() {
-    return $this->call_method('facebook.users.getLoggedInUser', array());
+    return $this->call_method('facebook.users.getLoggedInUser');
   }
 
   /**
@@ -1236,6 +1588,17 @@ function toggleDisplay(id, type) {
     }
 
     return $this->call_method('facebook.users.isAppUser', array('uid' => $uid));
+  }
+
+  /**
+   * Returns whether or not the user corresponding to the current
+   * session object is verified by Facebook. See the documentation
+   * for Users.isVerified for details.
+   *
+   * @return boolean  true if the user is verified
+   */
+  public function &users_isVerified() {
+    return $this->call_method('facebook.users.isVerified');
   }
 
   /**
@@ -1266,6 +1629,69 @@ function toggleDisplay(id, type) {
       'status_includes_verb' => $status_includes_verb,
     );
     return $this->call_method('facebook.users.setStatus', $args);
+  }
+
+  /**
+   * Gets the stream on behalf of a user using a set of users. This
+   * call will return the latest $limit queries between $start_time
+   * and $end_time.
+   *
+   * @param int    $viewer_id  user making the call (def: session)
+   * @param array  $source_ids users/pages to look at (def: all connections)
+   * @param int    $start_time start time to look for stories (def: 1 day ago)
+   * @param int    $end_time   end time to look for stories (def: now)
+   * @param int    $limit      number of stories to attempt to fetch (def: 30)
+   * @param string $filter_key key returned by stream.getFilters to fetch
+   *
+   * @return array(
+   *           'posts'    => array of posts,
+   *           'profiles' => array of profile metadata of users/pages in posts
+   *           'albums'   => array of album metadata in posts
+   *         )
+   */
+  public function &stream_get($viewer_id = null,
+                              $source_ids = null,
+                              $start_time = 0,
+                              $end_time = 0,
+                              $limit = 30,
+                              $filter_key = '') {
+    $args = array(
+      'viewer_id'  => $viewer_id,
+      'source_ids' => $source_ids,
+      'start_time' => $start_time,
+      'end_time'   => $end_time,
+      'limit'      => $limit,
+      'filter_key' => $filter_key);
+    return $this->call_method('facebook.stream.get', $args);
+  }
+
+  /**
+   * Gets the filters (with relevant filter keys for stream.get) for a
+   * particular user. These filters are typical things like news feed,
+   * friend lists, networks. They can be used to filter the stream
+   * without complex queries to determine which ids belong in which groups.
+   *
+   * @param int $uid user to get filters for
+   *
+   * @return array of stream filter objects
+   */
+  public function &stream_getFilters($uid = null) {
+    $args = array('uid' => $uid);
+    return $this->call_method('facebook.stream.getFilters', $args);
+  }
+
+  /**
+   * Gets the full comments given a post_id from stream.get or the
+   * stream FQL table. Initially, only a set of preview comments are
+   * returned because some posts can have many comments.
+   *
+   * @param string $post_id id of the post to get comments for
+   *
+   * @return array of comment objects
+   */
+  public function &stream_getComments($post_id) {
+    $args = array('post_id' => $post_id);
+    return $this->call_method('facebook.stream.getComments', $args);
   }
 
   /**
@@ -1690,7 +2116,7 @@ function toggleDisplay(id, type) {
    *    API_EC_DATA_UNKNOWN_ERROR
    */
   public function &data_getObjectTypes() {
-    return $this->call_method('facebook.data.getObjectTypes', array());
+    return $this->call_method('facebook.data.getObjectTypes');
   }
 
   /**
@@ -2315,12 +2741,14 @@ function toggleDisplay(id, type) {
    *
    * @param string $integration_point_name  Name of an integration point
    *                                        (see developer wiki for list).
+   * @param int    $uid                     Specific user to check the limit.
    *
    * @return int  Integration point allocation value
    */
-  public function &admin_getAllocation($integration_point_name) {
+  public function &admin_getAllocation($integration_point_name, $uid=null) {
     return $this->call_method('facebook.admin.getAllocation',
-        array('integration_point_name' => $integration_point_name));
+        array('integration_point_name' => $integration_point_name,
+              'uid' => $uid));
   }
 
   /**
@@ -2376,28 +2804,75 @@ function toggleDisplay(id, type) {
    */
   public function admin_getRestrictionInfo() {
     return json_decode(
-        $this->call_method('admin.getRestrictionInfo', array()),
+        $this->call_method('admin.getRestrictionInfo'),
         true);
+  }
+
+
+  /**
+   * Bans a list of users from the app. Banned users can't
+   * access the app's canvas page and forums.
+   *
+   * @param array $uids an array of user ids
+   * @return bool true on success
+   */
+  public function admin_banUsers($uids) {
+    return $this->call_method(
+      'admin.banUsers', array('uids' => json_encode($uids)));
+  }
+
+  /**
+   * Unban users that have been previously banned with
+   * admin_banUsers().
+   *
+   * @param array $uids an array of user ids
+   * @return bool true on success
+   */
+  public function admin_unbanUsers($uids) {
+    return $this->call_method(
+      'admin.unbanUsers', array('uids' => json_encode($uids)));
+  }
+
+  /**
+   * Gets the list of users that have been banned from the application.
+   * $uids is an optional parameter that filters the result with the list
+   * of provided user ids. If $uids is provided,
+   * only banned user ids that are contained in $uids are returned.
+   *
+   * @param array $uids an array of user ids to filter by
+   * @return bool true on success
+   */
+
+  public function admin_getBannedUsers($uids = null) {
+    return $this->call_method(
+      'admin.getBannedUsers',
+      array('uids' => $uids ? json_encode($uids) : null));
   }
 
   /* UTILITY FUNCTIONS */
 
   /**
-   * Calls the specified method with the specified parameters.
+   * Calls the specified normal POST method with the specified parameters.
    *
    * @param string $method  Name of the Facebook method to invoke
    * @param array $params   A map of param names => param values
    *
-   * @return mixed  Result of method call
+   * @return mixed  Result of method call; this returns a reference to support
+   *                'delayed returns' when in a batch context.
+   *     See: http://wiki.developers.facebook.com/index.php/Using_batching_API
    */
-  public function & call_method($method, $params) {
-    //Check if we are in batch mode
-    if($this->batch_queue === null) {
+  public function &call_method($method, $params = array()) {
+    if (!$this->pending_batch()) {
       if ($this->call_as_apikey) {
         $params['call_as_apikey'] = $this->call_as_apikey;
       }
-      $xml = $this->post_request($method, $params);
-      $result = $this->convert_xml_to_result($xml, $method, $params);
+      $data = $this->post_request($method, $params);
+      if (empty($params['format']) || strtolower($params['format']) != 'json') {
+        $result = $this->convert_xml_to_result($data, $method, $params);
+      }
+      else {
+        $result = json_decode($data, true);
+      }
 
       if (is_array($result) && isset($result['error_code'])) {
         throw new FacebookRestClientException($result['error_msg'],
@@ -2413,10 +2888,45 @@ function toggleDisplay(id, type) {
     return $result;
   }
 
-  private function convert_xml_to_result($xml, $method, $params) {
+  /**
+   * Calls the specified file-upload POST method with the specified parameters
+   *
+   * @param string $method Name of the Facebook method to invoke
+   * @param array  $params A map of param names => param values
+   * @param string $file   A path to the file to upload (required)
+   *
+   * @return array A dictionary representing the response.
+   */
+  public function call_upload_method($method, $params, $file, $server_addr = null) {
+    if (!$this->pending_batch()) {
+      if (!file_exists($file)) {
+        $code =
+          FacebookAPIErrorCodes::API_EC_PARAM;
+        $description = FacebookAPIErrorCodes::$api_error_descriptions[$code];
+        throw new FacebookRestClientException($description, $code);
+      }
+
+      $xml = $this->post_upload_request($method, $params, $file, $server_addr);
+      $result = $this->convert_xml_to_result($xml, $method, $params);
+
+      if (is_array($result) && isset($result['error_code'])) {
+        throw new FacebookRestClientException($result['error_msg'],
+                                              $result['error_code']);
+      }
+    }
+    else {
+      $code =
+        FacebookAPIErrorCodes::API_EC_BATCH_METHOD_NOT_ALLOWED_IN_BATCH_MODE;
+      $description = FacebookAPIErrorCodes::$api_error_descriptions[$code];
+      throw new FacebookRestClientException($description, $code);
+    }
+
+    return $result;
+  }
+
+  protected function convert_xml_to_result($xml, $method, $params) {
     $sxml = simplexml_load_string($xml);
     $result = self::convert_simplexml_to_array($sxml);
-
 
     if (!empty($GLOBALS['facebook_config']['debug'])) {
       // output the raw xml and its corresponding php object, for debugging:
@@ -2436,7 +2946,25 @@ function toggleDisplay(id, type) {
     return $result;
   }
 
-  private function create_post_string($method, $params) {
+  private function finalize_params($method, &$params) {
+    $this->add_standard_params($method, $params);
+    // we need to do this before signing the params
+    $this->convert_array_values_to_json($params);
+    $params['sig'] = Facebook::generate_sig($params, $this->secret);
+  }
+
+  private function convert_array_values_to_json(&$params) {
+    foreach ($params as $key => &$val) {
+      if (is_array($val)) {
+        $val = json_encode($val);
+      }
+    }
+  }
+
+  private function add_standard_params($method, &$params) {
+    if ($this->call_as_apikey) {
+      $params['call_as_apikey'] = $this->call_as_apikey;
+    }
     $params['method'] = $method;
     $params['session_key'] = $this->session_key;
     $params['api_key'] = $this->api_key;
@@ -2448,50 +2976,118 @@ function toggleDisplay(id, type) {
     if (!isset($params['v'])) {
       $params['v'] = '1.0';
     }
+    if (isset($this->use_ssl_resources) &&
+        $this->use_ssl_resources) {
+      $params['return_ssl_resources'] = true;
+    }
+  }
+
+  private function create_post_string($method, $params) {
     $post_params = array();
     foreach ($params as $key => &$val) {
-      if (is_array($val)) $val = implode(',', $val);
       $post_params[] = $key.'='.urlencode($val);
     }
-    $secret = $this->secret;
-    $post_params[] = 'sig='.Facebook::generate_sig($params, $secret);
     return implode('&', $post_params);
   }
 
+  private function run_multipart_http_transaction($method, $params, $file, $server_addr) {
+
+    // the format of this message is specified in RFC1867/RFC1341.
+    // we add twenty pseudo-random digits to the end of the boundary string.
+    $boundary = '--------------------------FbMuLtIpArT' .
+                sprintf("%010d", mt_rand()) .
+                sprintf("%010d", mt_rand());
+    $content_type = 'multipart/form-data; boundary=' . $boundary;
+    // within the message, we prepend two extra hyphens.
+    $delimiter = '--' . $boundary;
+    $close_delimiter = $delimiter . '--';
+    $content_lines = array();
+    foreach ($params as $key => &$val) {
+      $content_lines[] = $delimiter;
+      $content_lines[] = 'Content-Disposition: form-data; name="' . $key . '"';
+      $content_lines[] = '';
+      $content_lines[] = $val;
+    }
+    // now add the file data
+    $content_lines[] = $delimiter;
+    $content_lines[] =
+      'Content-Disposition: form-data; filename="' . $file . '"';
+    $content_lines[] = 'Content-Type: application/octet-stream';
+    $content_lines[] = '';
+    $content_lines[] = file_get_contents($file);
+    $content_lines[] = $close_delimiter;
+    $content_lines[] = '';
+    $content = implode("\r\n", $content_lines);
+    return $this->run_http_post_transaction($content_type, $content, $server_addr);
+  }
+
   public function post_request($method, $params) {
-
+    $this->finalize_params($method, $params);
     $post_string = $this->create_post_string($method, $params);
-
-    if (function_exists('curl_init')) {
-      // Use CURL if installed...
+    if ($this->use_curl_if_available && function_exists('curl_init')) {
       $useragent = 'Facebook API PHP5 Client 1.1 (curl) ' . phpversion();
       $ch = curl_init();
       curl_setopt($ch, CURLOPT_URL, $this->server_addr);
       curl_setopt($ch, CURLOPT_POSTFIELDS, $post_string);
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
       curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
+      curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+      curl_setopt($ch, CURLOPT_TIMEOUT, 30);
       $result = curl_exec($ch);
       curl_close($ch);
     } else {
-      // Non-CURL based version...
       $content_type = 'application/x-www-form-urlencoded';
-      $user_agent = 'Facebook API PHP5 Client 1.1 (non-curl) '.phpversion();
-      $context =
-        array('http' =>
-              array('method' => 'POST',
-                    'header' => 'Content-type: '.$content_type."\r\n".
-                                'User-Agent: '.$user_agent."\r\n".
-                                'Content-length: ' . strlen($post_string),
-                    'content' => $post_string));
-      $contextid=stream_context_create($context);
-      $sock=fopen($this->server_addr, 'r', false, $contextid);
-      if ($sock) {
-        $result='';
-        while (!feof($sock))
-          $result.=fgets($sock, 4096);
+      $content = $post_string;
+      $result = $this->run_http_post_transaction($content_type,
+                                                 $content,
+                                                 $this->server_addr);
+    }
+    return $result;
+  }
 
-        fclose($sock);
+  private function post_upload_request($method, $params, $file, $server_addr = null) {
+    $server_addr = $server_addr ? $server_addr : $this->server_addr;
+    $this->finalize_params($method, $params);
+    if ($this->use_curl_if_available && function_exists('curl_init')) {
+      // prepending '@' causes cURL to upload the file; the key is ignored.
+      $params['_file'] = '@' . $file;
+      $useragent = 'Facebook API PHP5 Client 1.1 (curl) ' . phpversion();
+      $ch = curl_init();
+      curl_setopt($ch, CURLOPT_URL, $server_addr);
+      // this has to come before the POSTFIELDS set!
+      curl_setopt($ch, CURLOPT_POST, 1 );
+      // passing an array gets curl to use the multipart/form-data content type
+      curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
+      $result = curl_exec($ch);
+      curl_close($ch);
+    } else {
+      $result = $this->run_multipart_http_transaction($method, $params, $file, $server_addr);
+    }
+    return $result;
+  }
+
+  private function run_http_post_transaction($content_type, $content, $server_addr) {
+
+    $user_agent = 'Facebook API PHP5 Client 1.1 (non-curl) ' . phpversion();
+    $content_length = strlen($content);
+    $context =
+      array('http' =>
+              array('method' => 'POST',
+                    'user_agent' => $user_agent,
+                    'header' => 'Content-Type: ' . $content_type . "\r\n" .
+                                'Content-Length: ' . $content_length,
+                    'content' => $content));
+    $context_id = stream_context_create($context);
+    $sock = fopen($server_addr, 'r', false, $context_id);
+
+    $result = '';
+    if ($sock) {
+      while (!feof($sock)) {
+        $result .= fgets($sock, 4096);
       }
+      fclose($sock);
     }
     return $result;
   }
@@ -2541,6 +3137,14 @@ class FacebookAPIErrorCodes {
   const API_EC_METHOD = 3;
   const API_EC_TOO_MANY_CALLS = 4;
   const API_EC_BAD_IP = 5;
+  const API_EC_HOST_API = 6;
+  const API_EC_HOST_UP = 7;
+  const API_EC_SECURE = 8;
+  const API_EC_RATE = 9;
+  const API_EC_PERMISSION_DENIED = 10;
+  const API_EC_DEPRECATED = 11;
+  const API_EC_VERSION = 12;
+  const API_EC_INTERNAL_FQL_ERROR = 13;
 
   /*
    * PARAMETER ERRORS
@@ -2550,27 +3154,121 @@ class FacebookAPIErrorCodes {
   const API_EC_PARAM_SESSION_KEY = 102;
   const API_EC_PARAM_CALL_ID = 103;
   const API_EC_PARAM_SIGNATURE = 104;
+  const API_EC_PARAM_TOO_MANY = 105;
   const API_EC_PARAM_USER_ID = 110;
   const API_EC_PARAM_USER_FIELD = 111;
   const API_EC_PARAM_SOCIAL_FIELD = 112;
+  const API_EC_PARAM_EMAIL = 113;
+  const API_EC_PARAM_USER_ID_LIST = 114;
+  const API_EC_PARAM_FIELD_LIST = 115;
   const API_EC_PARAM_ALBUM_ID = 120;
+  const API_EC_PARAM_PHOTO_ID = 121;
+  const API_EC_PARAM_FEED_PRIORITY = 130;
+  const API_EC_PARAM_CATEGORY = 140;
+  const API_EC_PARAM_SUBCATEGORY = 141;
+  const API_EC_PARAM_TITLE = 142;
+  const API_EC_PARAM_DESCRIPTION = 143;
+  const API_EC_PARAM_BAD_JSON = 144;
   const API_EC_PARAM_BAD_EID = 150;
   const API_EC_PARAM_UNKNOWN_CITY = 151;
+  const API_EC_PARAM_BAD_PAGE_TYPE = 152;
 
   /*
    * USER PERMISSIONS ERRORS
    */
   const API_EC_PERMISSION = 200;
   const API_EC_PERMISSION_USER = 210;
+  const API_EC_PERMISSION_NO_DEVELOPERS = 211;
   const API_EC_PERMISSION_ALBUM = 220;
   const API_EC_PERMISSION_PHOTO = 221;
+  const API_EC_PERMISSION_MESSAGE = 230;
+  const API_EC_PERMISSION_OTHER_USER = 240;
+  const API_EC_PERMISSION_STATUS_UPDATE = 250;
+  const API_EC_PERMISSION_PHOTO_UPLOAD = 260;
+  const API_EC_PERMISSION_VIDEO_UPLOAD = 261;
+  const API_EC_PERMISSION_SMS = 270;
+  const API_EC_PERMISSION_CREATE_LISTING = 280;
+  const API_EC_PERMISSION_CREATE_NOTE = 281;
+  const API_EC_PERMISSION_SHARE_ITEM = 282;
   const API_EC_PERMISSION_EVENT = 290;
+  const API_EC_PERMISSION_LARGE_FBML_TEMPLATE = 291;
+  const API_EC_PERMISSION_LIVEMESSAGE = 292;
   const API_EC_PERMISSION_RSVP_EVENT = 299;
 
-  const FQL_EC_PARSER = 601;
+  /*
+   * DATA EDIT ERRORS
+   */
+  const API_EC_EDIT = 300;
+  const API_EC_EDIT_USER_DATA = 310;
+  const API_EC_EDIT_PHOTO = 320;
+  const API_EC_EDIT_ALBUM_SIZE = 321;
+  const API_EC_EDIT_PHOTO_TAG_SUBJECT = 322;
+  const API_EC_EDIT_PHOTO_TAG_PHOTO = 323;
+  const API_EC_EDIT_PHOTO_FILE = 324;
+  const API_EC_EDIT_PHOTO_PENDING_LIMIT = 325;
+  const API_EC_EDIT_PHOTO_TAG_LIMIT = 326;
+  const API_EC_EDIT_ALBUM_REORDER_PHOTO_NOT_IN_ALBUM = 327;
+  const API_EC_EDIT_ALBUM_REORDER_TOO_FEW_PHOTOS = 328;
+
+  const API_EC_MALFORMED_MARKUP = 329;
+  const API_EC_EDIT_MARKUP = 330;
+
+  const API_EC_EDIT_FEED_TOO_MANY_USER_CALLS = 340;
+  const API_EC_EDIT_FEED_TOO_MANY_USER_ACTION_CALLS = 341;
+  const API_EC_EDIT_FEED_TITLE_LINK = 342;
+  const API_EC_EDIT_FEED_TITLE_LENGTH = 343;
+  const API_EC_EDIT_FEED_TITLE_NAME = 344;
+  const API_EC_EDIT_FEED_TITLE_BLANK = 345;
+  const API_EC_EDIT_FEED_BODY_LENGTH = 346;
+  const API_EC_EDIT_FEED_PHOTO_SRC = 347;
+  const API_EC_EDIT_FEED_PHOTO_LINK = 348;
+
+  const API_EC_EDIT_VIDEO_SIZE = 350;
+  const API_EC_EDIT_VIDEO_INVALID_FILE = 351;
+  const API_EC_EDIT_VIDEO_INVALID_TYPE = 352;
+  const API_EC_EDIT_VIDEO_FILE = 353;
+
+  const API_EC_EDIT_FEED_TITLE_ARRAY = 360;
+  const API_EC_EDIT_FEED_TITLE_PARAMS = 361;
+  const API_EC_EDIT_FEED_BODY_ARRAY = 362;
+  const API_EC_EDIT_FEED_BODY_PARAMS = 363;
+  const API_EC_EDIT_FEED_PHOTO = 364;
+  const API_EC_EDIT_FEED_TEMPLATE = 365;
+  const API_EC_EDIT_FEED_TARGET = 366;
+  const API_EC_EDIT_FEED_MARKUP = 367;
+
+  /**
+   * SESSION ERRORS
+   */
+  const API_EC_SESSION_TIMED_OUT = 450;
+  const API_EC_SESSION_METHOD = 451;
+  const API_EC_SESSION_INVALID = 452;
+  const API_EC_SESSION_REQUIRED = 453;
+  const API_EC_SESSION_REQUIRED_FOR_SECRET = 454;
+  const API_EC_SESSION_CANNOT_USE_SESSION_SECRET = 455;
+
+
+  /**
+   * FQL ERRORS
+   */
+  const FQL_EC_UNKNOWN_ERROR = 600;
+  const FQL_EC_PARSER = 601; // backwards compatibility
+  const FQL_EC_PARSER_ERROR = 601;
   const FQL_EC_UNKNOWN_FIELD = 602;
   const FQL_EC_UNKNOWN_TABLE = 603;
-  const FQL_EC_NOT_INDEXABLE = 604;
+  const FQL_EC_NOT_INDEXABLE = 604; // backwards compatibility
+  const FQL_EC_NO_INDEX = 604;
+  const FQL_EC_UNKNOWN_FUNCTION = 605;
+  const FQL_EC_INVALID_PARAM = 606;
+  const FQL_EC_INVALID_FIELD = 607;
+  const FQL_EC_INVALID_SESSION = 608;
+  const FQL_EC_UNSUPPORTED_APP_TYPE = 609;
+  const FQL_EC_SESSION_SECRET_NOT_ALLOWED = 610;
+  const FQL_EC_DEPRECATED_TABLE = 611;
+  const FQL_EC_EXTENDED_PERMISSION = 612;
+  const FQL_EC_RATE_LIMIT_EXCEEDED = 613;
+
+  const API_EC_REF_SET_FAILED = 700;
 
   /**
    * DATA STORE API ERRORS
@@ -2581,52 +3279,122 @@ class FacebookAPIErrorCodes {
   const API_EC_DATA_OBJECT_NOT_FOUND = 803;
   const API_EC_DATA_OBJECT_ALREADY_EXISTS = 804;
   const API_EC_DATA_DATABASE_ERROR = 805;
+  const API_EC_DATA_CREATE_TEMPLATE_ERROR = 806;
+  const API_EC_DATA_TEMPLATE_EXISTS_ERROR = 807;
+  const API_EC_DATA_TEMPLATE_HANDLE_TOO_LONG = 808;
+  const API_EC_DATA_TEMPLATE_HANDLE_ALREADY_IN_USE = 809;
+  const API_EC_DATA_TOO_MANY_TEMPLATE_BUNDLES = 810;
+  const API_EC_DATA_MALFORMED_ACTION_LINK = 811;
+  const API_EC_DATA_TEMPLATE_USES_RESERVED_TOKEN = 812;
 
   /*
-   * Batch ERROR
+   * APPLICATION INFO ERRORS
    */
-  const API_EC_BATCH_ALREADY_STARTED = 900;
-  const API_EC_BATCH_NOT_STARTED = 901;
-  const API_EC_BATCH_METHOD_NOT_ALLOWED_IN_BATCH_MODE = 902;
+  const API_EC_NO_SUCH_APP = 900;
 
+  /*
+   * BATCH ERRORS
+   */
+  const API_EC_BATCH_TOO_MANY_ITEMS = 950;
+  const API_EC_BATCH_ALREADY_STARTED = 951;
+  const API_EC_BATCH_NOT_STARTED = 952;
+  const API_EC_BATCH_METHOD_NOT_ALLOWED_IN_BATCH_MODE = 953;
+
+  /*
+   * EVENT API ERRORS
+   */
+  const API_EC_EVENT_INVALID_TIME = 1000;
+
+  /*
+   * INFO BOX ERRORS
+   */
+  const API_EC_INFO_NO_INFORMATION = 1050;
+  const API_EC_INFO_SET_FAILED = 1051;
+
+  /*
+   * LIVEMESSAGE API ERRORS
+   */
+  const API_EC_LIVEMESSAGE_SEND_FAILED = 1100;
+  const API_EC_LIVEMESSAGE_EVENT_NAME_TOO_LONG = 1101;
+  const API_EC_LIVEMESSAGE_MESSAGE_TOO_LONG = 1102;
+
+  /*
+   * CONNECT SESSION ERRORS
+   */
+  const API_EC_CONNECT_FEED_DISABLED = 1300;
+
+  /*
+   * Platform tag bundles errors
+   */
+  const API_EC_TAG_BUNDLE_QUOTA = 1400;
+
+  /*
+   * SHARE
+   */
+  const API_EC_SHARE_BAD_URL = 1500;
+
+  /*
+   * NOTES
+   */
+  const API_EC_NOTE_CANNOT_MODIFY = 1600;
+
+  /*
+   * COMMENTS
+   */
+  const API_EC_COMMENTS_UNKNOWN = 1700;
+  const API_EC_COMMENTS_POST_TOO_LONG = 1701;
+  const API_EC_COMMENTS_DB_DOWN = 1702;
+  const API_EC_COMMENTS_INVALID_XID = 1703;
+  const API_EC_COMMENTS_INVALID_UID = 1704;
+  const API_EC_COMMENTS_INVALID_POST = 1705;
+
+  /**
+   * This array is no longer maintained; to view the description of an error
+   * code, please look at the message element of the API response or visit
+   * the developer wiki at http://wiki.developers.facebook.com/.
+   */
   public static $api_error_descriptions = array(
-      API_EC_SUCCESS           => 'Success',
-      API_EC_UNKNOWN           => 'An unknown error occurred',
-      API_EC_SERVICE           => 'Service temporarily unavailable',
-      API_EC_METHOD            => 'Unknown method',
-      API_EC_TOO_MANY_CALLS    => 'Application request limit reached',
-      API_EC_BAD_IP            => 'Unauthorized source IP address',
-      API_EC_PARAM             => 'Invalid parameter',
-      API_EC_PARAM_API_KEY     => 'Invalid API key',
-      API_EC_PARAM_SESSION_KEY => 'Session key invalid or no longer valid',
-      API_EC_PARAM_CALL_ID     => 'Call_id must be greater than previous',
-      API_EC_PARAM_SIGNATURE   => 'Incorrect signature',
-      API_EC_PARAM_USER_ID     => 'Invalid user id',
-      API_EC_PARAM_USER_FIELD  => 'Invalid user info field',
-      API_EC_PARAM_SOCIAL_FIELD => 'Invalid user field',
-      API_EC_PARAM_ALBUM_ID    => 'Invalid album id',
-      API_EC_PARAM_BAD_EID     => 'Invalid eid',
-      API_EC_PARAM_UNKNOWN_CITY => 'Unknown city',
-      API_EC_PERMISSION        => 'Permissions error',
-      API_EC_PERMISSION_USER   => 'User not visible',
-      API_EC_PERMISSION_ALBUM  => 'Album not visible',
-      API_EC_PERMISSION_PHOTO  => 'Photo not visible',
-      API_EC_PERMISSION_EVENT  => 'Creating and modifying events required the extended permission create_event',
-      API_EC_PERMISSION_RSVP_EVENT => 'RSVPing to events required the extended permission rsvp_event',
-      FQL_EC_PARSER            => 'FQL: Parser Error',
-      FQL_EC_UNKNOWN_FIELD     => 'FQL: Unknown Field',
-      FQL_EC_UNKNOWN_TABLE     => 'FQL: Unknown Table',
-      FQL_EC_NOT_INDEXABLE     => 'FQL: Statement not indexable',
-      FQL_EC_UNKNOWN_FUNCTION  => 'FQL: Attempted to call unknown function',
-      FQL_EC_INVALID_PARAM     => 'FQL: Invalid parameter passed in',
-      API_EC_DATA_UNKNOWN_ERROR => 'Unknown data store API error',
-      API_EC_DATA_INVALID_OPERATION => 'Invalid operation',
-      API_EC_DATA_QUOTA_EXCEEDED => 'Data store allowable quota was exceeded',
-      API_EC_DATA_OBJECT_NOT_FOUND => 'Specified object cannot be found',
-      API_EC_DATA_OBJECT_ALREADY_EXISTS => 'Specified object already exists',
-      API_EC_DATA_DATABASE_ERROR => 'A database error occurred. Please try again',
-      API_EC_BATCH_ALREADY_STARTED => 'begin_batch already called, please make sure to call end_batch first',
-      API_EC_BATCH_NOT_STARTED => 'end_batch called before start_batch',
-      API_EC_BATCH_METHOD_NOT_ALLOWED_IN_BATCH_MODE => 'This method is not allowed in batch mode',
+      self::API_EC_SUCCESS           => 'Success',
+      self::API_EC_UNKNOWN           => 'An unknown error occurred',
+      self::API_EC_SERVICE           => 'Service temporarily unavailable',
+      self::API_EC_METHOD            => 'Unknown method',
+      self::API_EC_TOO_MANY_CALLS    => 'Application request limit reached',
+      self::API_EC_BAD_IP            => 'Unauthorized source IP address',
+      self::API_EC_PARAM             => 'Invalid parameter',
+      self::API_EC_PARAM_API_KEY     => 'Invalid API key',
+      self::API_EC_PARAM_SESSION_KEY => 'Session key invalid or no longer valid',
+      self::API_EC_PARAM_CALL_ID     => 'Call_id must be greater than previous',
+      self::API_EC_PARAM_SIGNATURE   => 'Incorrect signature',
+      self::API_EC_PARAM_USER_ID     => 'Invalid user id',
+      self::API_EC_PARAM_USER_FIELD  => 'Invalid user info field',
+      self::API_EC_PARAM_SOCIAL_FIELD => 'Invalid user field',
+      self::API_EC_PARAM_USER_ID_LIST => 'Invalid user id list',
+      self::API_EC_PARAM_FIELD_LIST => 'Invalid field list',
+      self::API_EC_PARAM_ALBUM_ID    => 'Invalid album id',
+      self::API_EC_PARAM_BAD_EID     => 'Invalid eid',
+      self::API_EC_PARAM_UNKNOWN_CITY => 'Unknown city',
+      self::API_EC_PERMISSION        => 'Permissions error',
+      self::API_EC_PERMISSION_USER   => 'User not visible',
+      self::API_EC_PERMISSION_NO_DEVELOPERS  => 'Application has no developers',
+      self::API_EC_PERMISSION_ALBUM  => 'Album not visible',
+      self::API_EC_PERMISSION_PHOTO  => 'Photo not visible',
+      self::API_EC_PERMISSION_EVENT  => 'Creating and modifying events required the extended permission create_event',
+      self::API_EC_PERMISSION_RSVP_EVENT => 'RSVPing to events required the extended permission rsvp_event',
+      self::API_EC_EDIT_ALBUM_SIZE   => 'Album is full',
+      self::FQL_EC_PARSER            => 'FQL: Parser Error',
+      self::FQL_EC_UNKNOWN_FIELD     => 'FQL: Unknown Field',
+      self::FQL_EC_UNKNOWN_TABLE     => 'FQL: Unknown Table',
+      self::FQL_EC_NOT_INDEXABLE     => 'FQL: Statement not indexable',
+      self::FQL_EC_UNKNOWN_FUNCTION  => 'FQL: Attempted to call unknown function',
+      self::FQL_EC_INVALID_PARAM     => 'FQL: Invalid parameter passed in',
+      self::API_EC_DATA_UNKNOWN_ERROR => 'Unknown data store API error',
+      self::API_EC_DATA_INVALID_OPERATION => 'Invalid operation',
+      self::API_EC_DATA_QUOTA_EXCEEDED => 'Data store allowable quota was exceeded',
+      self::API_EC_DATA_OBJECT_NOT_FOUND => 'Specified object cannot be found',
+      self::API_EC_DATA_OBJECT_ALREADY_EXISTS => 'Specified object already exists',
+      self::API_EC_DATA_DATABASE_ERROR => 'A database error occurred. Please try again',
+      self::API_EC_BATCH_ALREADY_STARTED => 'begin_batch already called, please make sure to call end_batch first',
+      self::API_EC_BATCH_NOT_STARTED => 'end_batch called before begin_batch',
+      self::API_EC_BATCH_METHOD_NOT_ALLOWED_IN_BATCH_MODE => 'This method is not allowed in batch mode'
   );
 }

@@ -86,7 +86,8 @@ function checkExtension($name)
 
 function showForm()
 {
-?>
+    $config_path = htmlentities(trim(dirname($_SERVER['REQUEST_URI']), '/'));
+    echo<<<E_O_T
         </ul>
     </dd>
 </dl>
@@ -108,10 +109,20 @@ function showForm()
                 <p class="form_guide">The name of your site</p>
             </li>
             <li>
+                <label for="fancy-enable">Fancy URLs</label>
+                <input type="radio" name="fancy" id="fancy-enable" value="enable" checked='checked' /> enable<br />
+                <input type="radio" name="fancy" id="fancy-disable" value="" /> disable<br />
+                <p class="form_guide" id='fancy-form_guide'>Enable fancy (pretty) URLs. Auto-detection failed, it depends on Javascript.</p>
+            </li>
             <li>
                 <label for="host">Hostname</label>
                 <input type="text" id="host" name="host" />
                 <p class="form_guide">Database hostname</p>
+            </li>
+            <li>
+                <label for="host">Site path</label>
+                <input type="text" id="path" name="path" value="$config_path" />
+                <p class="form_guide">Site path, following the "/" after the domain name in the URL. Empty is fine. Field should be filled automatically.</p>
             </li>
             <li>
                 <label for="host">Database</label>
@@ -132,7 +143,8 @@ function showForm()
         <input type="submit" name="submit" class="submit" value="Submit" />
     </fieldset>
 </form>
-<?php
+
+E_O_T;
 }
 
 function updateStatus($status, $error=false)
@@ -148,11 +160,13 @@ function handlePost()
 ?>
 
 <?php
-    $host = $_POST['host'];
+    $host     = $_POST['host'];
     $database = $_POST['database'];
     $username = $_POST['username'];
     $password = $_POST['password'];
     $sitename = $_POST['sitename'];
+    $path     = $_POST['path'];
+    $fancy    = !empty($_POST['fancy']);
 ?>
     <dl class="system_notice">
         <dt>Page notice</dt>
@@ -225,29 +239,34 @@ function handlePost()
     }
     updateStatus("Writing config file...");
     $sqlUrl = "mysqli://$username:$password@$host/$database";
-    $res = writeConf($sitename, $sqlUrl);
+    $res = writeConf($sitename, $sqlUrl, $fancy, $path);
     if (!$res) {
         updateStatus("Can't write config file.", true);
         showForm();
         return;
     }
     updateStatus("Done!");
+    if ($path) $path .= '/';
+    updateStatus("You can visit your <a href='/$path'>new Laconica site</a).");
 ?>
 
 <?php
 }
 
-function writeConf($sitename, $sqlUrl)
+function writeConf($sitename, $sqlUrl, $fancy, $path)
 {
     $res = file_put_contents(INSTALLDIR.'/config.php',
                              "<?php\n".
                              "\$config['site']['name'] = \"$sitename\";\n\n".
+                             ($fancy ? "\$config['site']['fancy'] = true;\n\n":'').
+                             "\$config['site']['path'] = \"$path\";\n\n".
                              "\$config['db']['database'] = \"$sqlUrl\";\n\n");
     return $res;
 }
 
 function runDbScript($filename, $conn)
 {
+return true;
     $sql = trim(file_get_contents($filename));
     $stmts = explode(';', $sql);
     foreach ($stmts as $stmt) {
@@ -276,6 +295,8 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         <!--[if IE]><link rel="stylesheet" type="text/css" href="theme/base/css/ie.css?version=0.8" /><![endif]-->
         <!--[if lte IE 6]><link rel="stylesheet" type="text/css" theme/base/css/ie6.css?version=0.8" /><![endif]-->
         <!--[if IE]><link rel="stylesheet" type="text/css" href="theme/earthy/css/ie.css?version=0.8" /><![endif]-->
+        <script src='js/jquery.min.js'></script>
+        <script src='js/install.js'></script>
     </head>
     <body id="install">
         <div id="wrap">
