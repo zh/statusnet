@@ -201,7 +201,6 @@ class File_redirection extends Memcached_DataObject
 
         if ($short_url) {
             $short_url = (string)$short_url;
-if(1) {
             // store it
             $file = File::staticGet('url', $long_url);
             if (empty($file)) {
@@ -221,7 +220,6 @@ if(1) {
                 $file_redir->file_id = $file_id;
                 $file_redir->insert();
             }
-}
             return $short_url;
         }
         return $long_url;

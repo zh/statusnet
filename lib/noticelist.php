@@ -187,7 +187,7 @@ class NoticeListItem extends Widget
 
     function showNotice()
     {
-if (0)
+if(0)
         $this->out->elementStart('entry-title');
 else
 
@@ -236,7 +236,7 @@ else
             $clip .= '.png';
             $top = '20px';
         }
-if (0)
+if(0)
         $this->out->elementStart('div', 'entry-attachments');
 else
         $this->out->elementStart('p', array('class' => 'entry-attachments', 'style' => "float: right; width: $width_att; background: url($clip) no-repeat; text-align: right; height: $height;"));

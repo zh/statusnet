@@ -496,11 +496,6 @@ function common_linkify($url) {
     }
 
     $attrs = array('href' => $longurl, 'rel' => 'external');
-if(0){
-    if ($longurl !== $url) {
-        $attrs['title'] = $longurl;
-    }
-}
     return XMLStringer::estring('a', $attrs, $display);
 }
 
