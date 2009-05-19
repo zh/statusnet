@@ -254,6 +254,8 @@ class FBConnectloginAction extends Action
 
     function tryLogin()
     {
+        common_debug("Trying Facebook Login...");
+
         $flink = Foreign_link::getByForeignID($this->fbuid, FACEBOOK_SERVICE);
 
         if ($flink) {
@@ -261,7 +263,7 @@ class FBConnectloginAction extends Action
 
             if ($user) {
 
-                common_debug("Logged in Facebook user $flink->foreign_id as user $user->id");
+                common_debug("Logged in Facebook user $flink->foreign_id as user $user->id ($user->nickname)");
 
                 common_set_user($user);
                 common_real_login(true);
@@ -284,6 +286,7 @@ class FBConnectloginAction extends Action
                                     array('nickname' =>
                                           $nickname));
         }
+
         common_redirect($url, 303);
     }
 
@@ -302,10 +305,6 @@ class FBConnectloginAction extends Action
 
     function bestNewNickname()
     {
-
-        common_debug("bestNewNickname()");
-        common_debug(print_r($this->fb_fields, true));
-
         if (!empty($this->fb_fields['name'])) {
             $nickname = $this->nicknamize($this->fb_fields['name']);
             if ($this->isNewNickname($nickname)) {
