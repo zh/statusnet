@@ -74,38 +74,44 @@ class SubGroupNav extends Widget
 
         $this->out->elementStart('ul', array('class' => 'nav'));
 
-        $this->out->menuItem(common_local_url('subscriptions',
-                                              array('nickname' =>
-                                                    $this->user->nickname)),
-                             _('Subscriptions'),
-                             sprintf(_('People %s subscribes to'),
-                                     $this->user->nickname),
-                             $action == 'subscriptions',
-                             'nav_subscriptions');
-        $this->out->menuItem(common_local_url('subscribers',
-                                              array('nickname' =>
-                                                    $this->user->nickname)),
-                             _('Subscribers'),
-                             sprintf(_('People subscribed to %s'),
-                                     $this->user->nickname),
-                             $action == 'subscribers',
-                             'nav_subscribers');
-        $this->out->menuItem(common_local_url('usergroups',
-                                              array('nickname' =>
-                                                    $this->user->nickname)),
-                             _('Groups'),
-                             sprintf(_('Groups %s is a member of'),
-                                     $this->user->nickname),
-                             $action == 'usergroups',
-                             'nav_usergroups');
-        if (!is_null($cur) && $this->user->id === $cur->id) {
-            $this->out->menuItem(common_local_url('invite'),
-                                 _('Invite'),
-                                 sprintf(_('Invite friends and colleagues to join you on %s'),
-                                         common_config('site', 'name')),
-                                 $action == 'invite',
-                                 'nav_invite');
+        if (Event::handle('StartSubGroupNav', array($this))) {
+
+            $this->out->menuItem(common_local_url('subscriptions',
+                                                  array('nickname' =>
+                                                        $this->user->nickname)),
+                                 _('Subscriptions'),
+                                 sprintf(_('People %s subscribes to'),
+                                         $this->user->nickname),
+                                 $action == 'subscriptions',
+                                 'nav_subscriptions');
+            $this->out->menuItem(common_local_url('subscribers',
+                                                  array('nickname' =>
+                                                        $this->user->nickname)),
+                                 _('Subscribers'),
+                                 sprintf(_('People subscribed to %s'),
+                                         $this->user->nickname),
+                                 $action == 'subscribers',
+                                 'nav_subscribers');
+            $this->out->menuItem(common_local_url('usergroups',
+                                                  array('nickname' =>
+                                                        $this->user->nickname)),
+                                 _('Groups'),
+                                 sprintf(_('Groups %s is a member of'),
+                                         $this->user->nickname),
+                                 $action == 'usergroups',
+                                 'nav_usergroups');
+            if (!is_null($cur) && $this->user->id === $cur->id) {
+                $this->out->menuItem(common_local_url('invite'),
+                                     _('Invite'),
+                                     sprintf(_('Invite friends and colleagues to join you on %s'),
+                                             common_config('site', 'name')),
+                                     $action == 'invite',
+                                     'nav_invite');
+            }
+
+            Event::handle('EndSubGroupNav', array($this));
         }
+
         $this->out->elementEnd('ul');
     }
 }

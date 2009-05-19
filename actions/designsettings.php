@@ -76,14 +76,22 @@ class DesignsettingsAction extends AccountSettingsAction
                                           'action' =>
                                           common_local_url('designsettings')));
         $this->elementStart('fieldset');
-//        $this->element('legend', null, _('Design settings'));
         $this->hidden('token', common_session_token());
 
         $this->elementStart('fieldset', array('id' => 'settings_design_background-image'));
         $this->element('legend', null, _('Change background image'));
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
-        $this->element('p', null, _('Upload background image'));
+        $this->element('label', array('for' => 'design_ background-image_file'), 
+                                _('Upload file'));
+        $this->element('input', array('name' => 'design_background-image_file',
+                                      'type' => 'file',
+                                      'id' => 'design_background-image_file'));
+        $this->element('p', 'form_guide', _('You can upload your personal background image. The maximum file size is 2Mb.'));
+        $this->element('input', array('name' => 'MAX_FILE_SIZE',
+                                      'type' => 'hidden',
+                                      'id' => 'MAX_FILE_SIZE',
+                                      'value' => ImageFile::maxFileSizeInt()));
         $this->elementEnd('li');
         $this->elementEnd('ul');
         $this->elementEnd('fieldset');
@@ -91,28 +99,57 @@ class DesignsettingsAction extends AccountSettingsAction
         $this->elementStart('fieldset', array('id' => 'settings_design_color'));
         $this->element('legend', null, _('Change colours'));
         $this->elementStart('ul', 'form_data');
-        $this->elementStart('li');
-        $this->input('color-1', _('Background color'), '#F0F2F5', null);
-        $this->elementEnd('li');
-        $this->elementStart('li');
-        $this->input('color-2', _('Content background color'), '#FFFFFF', null);
-        $this->elementEnd('li');
-        $this->elementStart('li');
-        $this->input('color-3', _('Sidebar background color'), '#CEE1E9', null);
-        $this->elementEnd('li');
-        $this->elementStart('li');
-        $this->input('color-4', _('Text color'), '#000000', null);
-        $this->elementEnd('li');
-        $this->elementStart('li');
-        $this->input('color-5', _('Link color'), '#002E6E', null);
-        $this->elementEnd('li');
+
+        //This is a JSON object in the DB field. Here for testing. Remove later.
+        $userSwatch = '{"body":{"background-color":"#F0F2F5"},
+                        "#content":{"background-color":"#FFFFFF"},
+                        "#aside_primary":{"background-color":"#CEE1E9"},
+                        "html body":{"color":"#000000"},
+                        "a":{"color":"#002E6E"}}';
+
+        //Default theme swatch -- Where should this be stored?
+        $defaultSwatch = array('body' => array('background-color' => '#F0F2F5'),
+                               '#content' => array('background-color' => '#FFFFFF'),
+                               '#aside_primary' => array('background-color' => '#CEE1E9'),
+                               'html body' => array('color' => '#000000'),
+                               'a' => array('color' => '#002E6E'));
+
+        $userSwatch = ($userSwatch) ? json_decode($userSwatch, true) : $defaultSwatch;
+
+        $s = 0;
+        $labelSwatch = array('Background',
+                             'Content',
+                             'Sidebar',
+                             'Text',
+                             'Links');
+        foreach($userSwatch as $propertyvalue => $value) {
+            $foo = array_values($value);
+            $this->elementStart('li');
+            $this->element('label', array('for' => 'swatch-'.$s), _($labelSwatch[$s]));
+            $this->element('input', array('name' => 'swatch-'.$s, //prefer swatch[$s] ?
+                                          'type' => 'text',
+                                          'id' => 'swatch-'.$s,
+                                          'class' => 'swatch',
+                                          'maxlength' => '7',
+                                          'size' => '7',
+                                          'value' => $foo[0]));
+            $this->elementEnd('li');
+            $s++;
+        }
+
         $this->elementEnd('ul');
-        $this->element('div', array('id' => 'color-picker'));
         $this->elementEnd('fieldset');
 
-
         $this->submit('save', _('Save'));
+        $this->element('input', array('type' => 'reset',
+                                      'value' => 'Reset',
+                                      'class' => 'form_action-secondary'));
 
+/*TODO: Check submitted form values: 
+json_encode(form values)
+if submitted Swatch == DefaultSwatch, don't store in DB.
+else store in BD
+*/
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
 
@@ -187,7 +224,7 @@ class DesignsettingsAction extends AccountSettingsAction
 
 
     /**
-     * Add the jCrop stylesheet
+     * Add the Farbtastic stylesheet
      *
      * @return void
      */
@@ -205,7 +242,7 @@ class DesignsettingsAction extends AccountSettingsAction
     }
 
     /**
-     * Add the jCrop scripts
+     * Add the Farbtastic scripts
      *
      * @return void
      */
@@ -214,14 +251,12 @@ class DesignsettingsAction extends AccountSettingsAction
     {
         parent::showScripts();
 
-//        if ($this->mode == 'crop') {
-            $farbtasticPack = common_path('js/farbtastic/farbtastic.js');
-            $farbtasticGo   = common_path('js/farbtastic/farbtastic.go.js');
+        $farbtasticPack = common_path('js/farbtastic/farbtastic.js');
+        $farbtasticGo   = common_path('js/farbtastic/farbtastic.go.js');
 
-            $this->element('script', array('type' => 'text/javascript',
-                                           'src' => $farbtasticPack));
-            $this->element('script', array('type' => 'text/javascript',
-                                           'src' => $farbtasticGo));
-//        }
+        $this->element('script', array('type' => 'text/javascript',
+                                       'src' => $farbtasticPack));
+        $this->element('script', array('type' => 'text/javascript',
+                                       'src' => $farbtasticGo));
     }
 }

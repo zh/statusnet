@@ -1,4 +1,4 @@
-/** theme: earthy
+/** theme: h4ck3r
  *
  * @package   Laconica
  * @author Sarven Capadisli <csarven@controlyourself.ca>
@@ -12,26 +12,27 @@
 html,
 body,
 a:active {
-background-color:#665500;
+background-color:#000;
 }
+
 body {
-font-family: Verdana, sans-serif;
+background-image:url(../images/illustrations/illu_h4x0r1ng.gif);
+font-family: monospace;
 font-size:1em;
+color:#647819;
 }
 address {
 margin-right:7.18%;
 }
 
-h1 {
-color:#fff;
-}
-
 input, textarea, select, option {
-font-family: Verdana, sans-serif;
+font-family:  monospace;
 }
 input, textarea, select,
 .entity_remote_subscribe {
 border-color:#aaa;
+background-color:#000;
+color:#ccc;
 }
 #filter_tags ul li {
 border-color:#ddd;
@@ -45,7 +46,7 @@ input.submit,
 #form_notice.warning #notice_text-count,
 .form_settings .form_note,
 .entity_remote_subscribe {
-background-color:#9BB43E;
+background-color:rgba(0, 255, 0, 0.5);
 }
 
 input:focus, textarea:focus, select:focus,
@@ -54,7 +55,7 @@ border-color:#9BB43E;
 }
 input.submit,
 .entity_remote_subscribe {
-color:#dddd33;
+color:#fff;
 }
 
 a,
@@ -65,57 +66,45 @@ div.notice-options input,
 .form_user_nudge input.submit,
 .entity_nudge p,
 .form_settings input.form_action-secondary {
-color:#ee4400;
+color:#0f0;
 }
 
 .notice,
 .profile {
-border-color:#DDAA00;
+border-top-color:#333;
 }
 .section .profile {
-border-top-color:#aaaa66;
-}
-
-#content .notice p.entry-content a:visited {
-background-color:#fcfcfc;
-}
-#content .notice p.entry-content .vcard a {
-background-color:#fcfffc;
+border-top-color:#87B4C8;
 }
 
 #aside_primary {
-background-color:#DDAA00;
+background-color:rgba(0,128,0,0.3);
 }
 
 #notice_text-count {
-color:#333;
+color:#0f0;
 }
 #form_notice.warning #notice_text-count {
 color:#000;
 }
 #form_notice.processing #notice_action-submit {
-background:#dddd33 url(../../base/images/icons/icon_processing.gif) no-repeat 47% 47%;
+background:#ccc url(../../base/images/icons/icon_processing.gif) no-repeat 47% 47%;
 cursor:wait;
 text-indent:-9999px;
 }
 
 #content,
-#site_nav_local_views .nav,
 #site_nav_local_views a,
 #aside_primary {
-border-color:#dddd33;
+border-color:#50964D;
 }
-#content .notice,
-#content .profile,
+#content,
 #site_nav_local_views .current a {
-background-color:#dddd33;
+background-color:rgba(0, 0, 0, 0.698);
 }
-#site_nav_local_views .current a {
-color:#EE4400;
-}
+
 #site_nav_local_views a {
-background-color:rgba(255, 255, 255, 0.2);
-color:#fff;
+background-color:rgba(0, 200, 0, 0.3);
 }
 #site_nav_local_views a:hover {
 background-color:rgba(255, 255, 255, 0.4);
@@ -129,13 +118,11 @@ background-color:#EFF3DC;
 }
 
 #anon_notice {
-background-color:#aaaa66;
-color:#dddd33;
-border-color:#dddd33;
+color:#ccc;
+border-color:#50964D;
 }
 
 #showstream #anon_notice {
-background-color:#9BB43E;
 }
 
 #export_data li a {
@@ -167,12 +154,12 @@ background-color:transparent;
 .form_user_subscribe input.submit,
 .form_user_unsubscribe input.submit {
 background-color:#9BB43E;
-color:#dddd33;
+color:#ccc;
 }
 .form_user_unsubscribe input.submit,
 .form_group_leave input.submit,
 .form_user_authorization input.reject {
-background-color:#aaaa66;
+background-color:#87B4C8;
 }
 
 .entity_edit a {
@@ -221,15 +208,13 @@ opacity:0.4;
 opacity:1;
 }
 div.entry-content {
-color:#333;
+color:#ccc;
 }
 div.notice-options a,
 div.notice-options input {
 font-family:sans-serif;
 }
-.notices li.hover {
-/*background-color:#fcfcfc;*/
-}
+
 /*END: NOTICES */
 
 #new_group a {
@@ -239,7 +224,7 @@ background:transparent url(../../base/images/icons/twotone/green/news.gif) no-re
 .pagination .nav_prev a,
 .pagination .nav_next a {
 background-repeat:no-repeat;
-border-color:#DDAA00;
+border-color:#000;
 }
 .pagination .nav_prev a {
 background-image:url(../../base/images/icons/twotone/green/arrow-left.gif);

@@ -17,6 +17,10 @@
  */
 
 $(document).ready(function(){
+    $('.attachments').click(function() {$().jOverlay({zIndex:999, success:function(html) {$('.attachment').click(function() {$().jOverlay({url:$(this).attr('href') + '/ajax'}); return false; });
+        }, url:$(this).attr('href') + '/ajax'}); return false; });
+    $('.attachment').click(function() {$().jOverlay({url:$(this).attr('href') + '/ajax'}); return false; });
+
 	// count character on keyup
 	function counter(event){
 		var maxLength = 140;
