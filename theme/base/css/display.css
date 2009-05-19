@@ -492,7 +492,7 @@ line-height:1.618;
 /* entity_profile */
 .entity_profile {
 position:relative;
-width:67.702%;
+width:74.702%;
 min-height:123px;
 float:left;
 margin-bottom:18px;
@@ -528,12 +528,15 @@ margin-bottom:4px;
 .entity_profile .entity_nickname {
 margin-left:11px;
 display:inline;
-font-weight:bold;
 }
 .entity_profile .entity_nickname {
 margin-left:0;
 }
-
+.entity_profile .fn,
+.entity_profile .nickname {
+font-size:1.1em;
+font-weight:bold;
+}
 .entity_profile .entity_fn dd:before {
 content: "(";
 font-weight:normal;
@@ -555,7 +558,7 @@ display:none;
 /*entity_actions*/
 .entity_actions {
 float:right;
-margin-left:4.35%;
+margin-left:2.35%;
 max-width:25%;
 }
 .entity_actions h2 {
