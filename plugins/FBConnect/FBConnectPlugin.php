@@ -67,10 +67,8 @@ class FBConnectPlugin extends Plugin
 
         $name = get_class($action);
 
-        common_debug("action: $name");
-
         // Avoid a redirect loop
-        if ($name != 'FBConnectloginAction') {
+        if (!in_array($name, array('FBConnectloginAction', 'ClientErrorAction'))) {
 
             $this->checkFacebookUser($action);
 
@@ -122,7 +120,14 @@ class FBConnectPlugin extends Plugin
         $apikey = common_config('facebook', 'apikey');
         $plugin_path = common_path('plugins/FBConnect');
 
-        $login_url = common_get_returnto() || common_local_url('public');
+        $url = common_get_returnto();
+
+        if ($url) {
+            // We don't have to return to it again
+            common_set_returnto(null);
+        } else {
+            $url = common_local_url('public');
+        }
 
         $html = sprintf('<script type="text/javascript">FB.init("%s", "%s/xd_receiver.htm");
 
@@ -130,7 +135,7 @@ class FBConnectPlugin extends Plugin
                                 window.location = "%s";
                             }
 
-                         </script>', $apikey, $plugin_path, $login_url);
+                         </script>', $apikey, $plugin_path, $url);
 
 
         $action->raw($html);
@@ -203,11 +208,16 @@ class FBConnectPlugin extends Plugin
 
     function checkFacebookUser() {
 
+        $user = common_current_user();
+
+        if ($user) {
+            return;
+        }
+
         try {
 
             $facebook = getFacebook();
             $fbuid = $facebook->get_loggedin_user();
-            $user = common_current_user();
 
             // If you're a Facebook user and you're logged in do nothing
 
@@ -242,35 +252,6 @@ class FBConnectPlugin extends Plugin
             common_debug('Expired FB session.');
         }
 
-    }
-
-    function onStartLogout($action)
-    {
-        common_debug("onEndLogout()");
-
-        common_set_user(null);
-        common_real_login(false); // not logged in
-        common_forgetme(); // don't log back in!
-
-        try {
-
-            $facebook = getFacebook();
-            $fbuid = $facebook->get_loggedin_user();
-
-            // XXX: ARGGGH this doesn't work right!
-
-            if ($fbuid) {
-                $facebook->expire_session();
-                $facebook->logout(common_local_url('public'));
-              }
-
-        } catch (Exception $e) {
-            common_debug('Problem expiring FB session');
-        }
-
-        common_debug("logged out.");
-
-        return false;
     }
 
 }
