@@ -65,7 +65,7 @@ class TagrssAction extends Rss10Action
         return $c;
     }
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }

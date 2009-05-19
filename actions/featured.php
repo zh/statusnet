@@ -50,7 +50,7 @@ class FeaturedAction extends Action
 {
     var $page = null;
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }
@@ -107,6 +107,7 @@ class FeaturedAction extends Action
 
         $featured_nicks = common_config('nickname', 'featured');
 
+
         if (count($featured_nicks) > 0) {
 
             $quoted = array();
@@ -118,7 +119,7 @@ class FeaturedAction extends Action
             $user = new User;
             $user->whereAdd(sprintf('nickname IN (%s)', implode(',', $quoted)));
             $user->limit(($this->page - 1) * PROFILES_PER_PAGE, PROFILES_PER_PAGE + 1);
-            $user->orderBy('user.nickname ASC');
+            $user->orderBy(common_database_tablename('user') .'.nickname ASC');
 
             $user->find();
 

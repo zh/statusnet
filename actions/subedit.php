@@ -85,7 +85,8 @@ class SubeditAction extends Action
             }
 
             common_redirect(common_local_url('subscriptions',
-                                             array('nickname' => $cur->nickname)));
+                                             array('nickname' => $cur->nickname)),
+                            303);
         }
     }
 }

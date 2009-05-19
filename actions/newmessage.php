@@ -172,15 +172,54 @@ class NewmessageAction extends Action
 
         $this->notify($user, $this->other, $message);
 
-        $url = common_local_url('outbox', array('nickname' => $user->nickname));
+        if ($this->boolean('ajax')) {
+            $this->startHTML('text/xml;charset=utf-8');
+            $this->elementStart('head');
+            $this->element('title', null, _('Message sent'));
+            $this->elementEnd('head');
+            $this->elementStart('body');
+            $this->element('p', array('id' => 'command_result'),
+                sprintf(_('Direct message to %s sent'),
+                    $this->other->nickname));
+            $this->elementEnd('body');
+            $this->elementEnd('html');
+        } else {
+            $url = common_local_url('outbox',
+                array('nickname' => $user->nickname));
+            common_redirect($url, 303);
+        }
+    }
 
-        common_redirect($url, 303);
+    /**
+     * Show an Ajax-y error message
+     *
+     * Goes back to the browser, where it's shown in a popup.
+     *
+     * @param string $msg Message to show
+     *
+     * @return void
+     */
+
+    function ajaxErrorMsg($msg)
+    {
+        $this->startHTML('text/xml;charset=utf-8', true);
+        $this->elementStart('head');
+        $this->element('title', null, _('Ajax Error'));
+        $this->elementEnd('head');
+        $this->elementStart('body');
+        $this->element('p', array('id' => 'error'), $msg);
+        $this->elementEnd('body');
+        $this->elementEnd('html');
     }
 
     function showForm($msg = null)
     {
-        $this->msg = $msg;
+        if ($msg && $this->boolean('ajax')) {
+            $this->ajaxErrorMsg($msg);
+            return;
+        }
 
+        $this->msg = $msg;
         $this->showPage();
     }
 

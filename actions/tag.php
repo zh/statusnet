@@ -33,7 +33,9 @@ class TagAction extends Action
         }
 
         if ($this->tag != $taginput) {
-            common_redirect(common_local_url('tag', array('tag' => $this->tag)));
+            common_redirect(common_local_url('tag', array('tag' => $this->tag)),
+                            301);
+            return false;
         }
 
         $this->page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
@@ -41,6 +43,14 @@ class TagAction extends Action
         common_set_returnto($this->selfUrl());
 
         return true;
+    }
+
+    function showSections()
+    {
+        $pop = new PopularNoticeSection($this);
+        $pop->show();
+        $freqatt = new FrequentAttachmentSection($this);
+        $freqatt->show();
     }
 
     function title()
@@ -68,6 +78,17 @@ class TagAction extends Action
                               sprintf(_('Feed for tag %s'), $this->tag)));
     }
 
+    /**
+     * Output document relationship links
+     *
+     * @return void
+     */
+    function showRelationshipLinks()
+    {
+        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
+                                     $this->page, 'tag', array('tag' => $this->tag));
+    }
+
     function showPageNotice()
     {
         return sprintf(_('Messages tagged "%s", most recent first'), $this->tag);
@@ -83,5 +104,10 @@ class TagAction extends Action
 
         $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
                           $this->page, 'tag', array('tag' => $this->tag));
+    }
+
+    function isReadOnly($args)
+    {
+        return true;
     }
 }

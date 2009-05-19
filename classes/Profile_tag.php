@@ -4,7 +4,7 @@
  */
 require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
-class Profile_tag extends Memcached_DataObject 
+class Profile_tag extends Memcached_DataObject
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -23,45 +23,46 @@ class Profile_tag extends Memcached_DataObject
     ###END_AUTOCODE
 
     static function getTags($tagger, $tagged) {
-        
+
         $tags = array();
 
         # XXX: store this in memcached
-        
+
         $profile_tag = new Profile_tag();
         $profile_tag->tagger = $tagger;
         $profile_tag->tagged = $tagged;
-        
+
         $profile_tag->find();
-        
+
         while ($profile_tag->fetch()) {
             $tags[] = $profile_tag->tag;
         }
-        
+
         $profile_tag->free();
-        
+
         return $tags;
     }
-    
+
     static function setTags($tagger, $tagged, $newtags) {
-        
+
+        $newtags = array_unique($newtags);
         $oldtags = Profile_tag::getTags($tagger, $tagged);
-        
+
         # Delete stuff that's old that not in new
-        
+
         $to_delete = array_diff($oldtags, $newtags);
-        
+
         # Insert stuff that's in new and not in old
-        
+
         $to_insert = array_diff($newtags, $oldtags);
-        
+
         $profile_tag = new Profile_tag();
-        
+
         $profile_tag->tagger = $tagger;
         $profile_tag->tagged = $tagged;
-        
+
         $profile_tag->query('BEGIN');
-        
+
         foreach ($to_delete as $deltag) {
             $profile_tag->tag = $deltag;
             $result = $profile_tag->delete();
@@ -70,7 +71,7 @@ class Profile_tag extends Memcached_DataObject
                 return false;
             }
         }
-        
+
         foreach ($to_insert as $instag) {
             $profile_tag->tag = $instag;
             $result = $profile_tag->insert();
@@ -79,12 +80,12 @@ class Profile_tag extends Memcached_DataObject
                 return false;
             }
         }
-        
+
         $profile_tag->query('COMMIT');
-        
+
         return true;
     }
-    
+
     # Return profiles with a given tag
     static function getTagged($tagger, $tag) {
         $profile = new Profile();

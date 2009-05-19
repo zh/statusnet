@@ -23,28 +23,10 @@ require_once INSTALLDIR.'/lib/personalgroupnav.php';
 require_once INSTALLDIR.'/lib/noticelist.php';
 require_once INSTALLDIR.'/lib/feedlist.php';
 
-class AllAction extends Action
+class AllAction extends ProfileAction
 {
-    var $user = null;
-    var $page = null;
-
-    function isReadOnly()
+    function isReadOnly($args)
     {
-        return true;
-    }
-
-    function prepare($args)
-    {
-        parent::prepare($args);
-        $nickname = common_canonical_nickname($this->arg('nickname'));
-        $this->user = User::staticGet('nickname', $nickname);
-        $this->page = $this->trimmed('page');
-        if (!$this->page) {
-            $this->page = 1;
-        }
-
-        common_set_returnto($this->selfUrl());
-
         return true;
     }
 
@@ -77,20 +59,52 @@ class AllAction extends Action
                               sprintf(_('Feed for friends of %s (RSS 1.0)'), $this->user->nickname)),
                      new Feed(Feed::RSS2,
                               common_local_url('api', array('apiaction' => 'statuses',
-                                                            'method' => 'friends',
+                                                            'method' => 'friends_timeline',
                                                             'argument' => $this->user->nickname.'.rss')),
                               sprintf(_('Feed for friends of %s (RSS 2.0)'), $this->user->nickname)),
                      new Feed(Feed::ATOM,
                               common_local_url('api', array('apiaction' => 'statuses',
-                                                            'method' => 'friends',
+                                                            'method' => 'friends_timeline',
                                                             'argument' => $this->user->nickname.'.atom')),
                               sprintf(_('Feed for friends of %s (Atom)'), $this->user->nickname)));
+    }
+
+    /**
+     * Output document relationship links
+     *
+     * @return void
+     */
+    function showRelationshipLinks()
+    {
+        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
+                                     $this->page, 'all', array('nickname' => $this->user->nickname));
     }
 
     function showLocalNav()
     {
         $nav = new PersonalGroupNav($this);
         $nav->show();
+    }
+
+    function showEmptyListMessage()
+    {
+        $message = sprintf(_('This is the timeline for %s and friends but no one has posted anything yet.'), $this->user->nickname) . ' ';
+
+        if (common_logged_in()) {
+            $current_user = common_current_user();
+            if ($this->user->id === $current_user->id) {
+                $message .= _('Try subscribing to more people, [join a group](%%action.groups%%) or post something yourself.');
+            } else {
+                $message .= sprintf(_('You can try to [nudge %s](../%s) from his profile or [post something to his or her attention](%%%%action.newnotice%%%%?status_textarea=%s).'), $this->user->nickname, $this->user->nickname, '@' . $this->user->nickname);
+            }
+        }
+        else {
+            $message .= sprintf(_('Why not [register an account](%%%%action.register%%%%) and then nudge %s or post a notice to his or her attention.'), $this->user->nickname);
+        }
+
+        $this->elementStart('div', 'guide');
+        $this->raw(common_markup_to_html($message));
+        $this->elementEnd('div');
     }
 
     function showContent()
@@ -100,6 +114,10 @@ class AllAction extends Action
         $nl = new NoticeList($notice, $this);
 
         $cnt = $nl->show();
+
+        if (0 == $cnt) {
+            $this->showEmptyListMessage();
+        }
 
         $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
                           $this->page, 'all', array('nickname' => $this->user->nickname));

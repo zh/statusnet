@@ -18,6 +18,8 @@ $config['site']['server'] = 'localhost';
 $config['site']['path'] = 'laconica';
 #$config['site']['fancy'] = false;
 #$config['site']['theme'] = 'default';
+#To enable the built-in mobile style sheet, defaults to false.
+#$config['site']['mobile'] = true;
 #For contact email, defaults to $_SERVER["SERVER_ADMIN"]
 #$config['site']['email'] = 'admin@example.net';
 #Brought by...
@@ -28,9 +30,23 @@ $config['site']['path'] = 'laconica';
 #$config['site']['closed'] = true;
 #Only allow registration for people invited by another user
 #$config['site']['inviteonly'] = true;
+#Make the site invisible to  non-logged-in users
+#$config['site']['private'] = true;
+
+# 'direct' for direct notice links in sections
+# 'attachment' for notice attachment links in sections
+# left undefined, no link is showed
+#$config['site']['notice_link'] = 'attachment';
+#$config['site']['notice_link'] = 'direct';
 
 # If you want logging sent to a file instead of syslog
 #$config['site']['logfile'] = '/tmp/laconica.log';
+
+# Enables extra log information, for example full details of PEAR DB errors
+#$config['site']['logdebug'] = true;
+
+#To set your own logo, overriding the one in the theme
+#$config['site']['logo'] = '/mylogo.png';
 
 # This is a PEAR DB DSN, see http://pear.php.net/manual/en/package.database.db.intro-dsn.php
 # Set it to match your actual database
@@ -120,6 +136,14 @@ $config['sphinx']['port'] = 3312;
 #background. See the README for details.
 #$config['queue']['enabled'] = true;
 
+#Queue subsystem
+#subsystems: internal (default) or stomp
+#using stomp requires an external message queue server
+#$config['queue']['subsystem'] = 'stomp';
+#$config['queue']['stomp_server'] = 'tcp://localhost:61613';
+#use different queue_basename for each laconica instance managed by the server
+#$config['queue']['queue_basename'] = 'laconica';
+
 #The following customise the behaviour of the various daemons:
 #$config['daemon']['piddir'] = '/var/run';
 #$config['daemon']['user'] = false;
@@ -131,6 +155,9 @@ $config['sphinx']['port'] = 3312;
 #$config['memcached']['enabled'] = false;
 #$config['memcached']['server'] = 'localhost';
 #$config['memcached']['port'] = 11211;
+
+# Enable bidirectional Twitter bridge
+#$config['twitterbridge']['enabled'] = true;
 
 #Twitter integration source attribute. Note: default is Laconica
 #$config['integration']['source'] = 'Laconica';
@@ -147,10 +174,48 @@ $config['sphinx']['port'] = 3312;
 #$config['profile']['banned'][] = 'hacker';
 #$config['profile']['banned'][] = 12345;
 
-# config section for the built-in Facebook application
+# Config section for the built-in Facebook application
 #$config['facebook']['apikey'] = 'APIKEY';
 #$config['facebook']['secret'] = 'SECRET';
+
+# Facebook Connect plugin (Needs valid APIKEY above)
+#require_once(INSTALLDIR.'/plugins/FBConnect/FBConnectPlugin.php');
+#$fbc = new FBConnectPlugin();
 
 # Add Google Analytics
 # require_once('plugins/GoogleAnalyticsPlugin.php');
 # $ga = new GoogleAnalyticsPlugin('your secret code');
+
+# Use Templating (template: /tpl/index.php)
+# require_once('plugins/TemplatePlugin.php');
+# $tpl = new TemplatePlugin();
+
+#Don't allow saying the same thing more than once per hour
+#$config['site']['dupelimit'] = 3600;
+#Don't enforce the dupe limit
+#$config['site']['dupelimit'] = -1;
+
+#Base string for minting Tag URIs in Atom feeds. Defaults to
+#"yourserver,2009". This needs to be configured properly for your Atom
+#feeds to validate.  See: http://www.faqs.org/rfcs/rfc4151.html and
+#http://taguri.org/ Examples:
+#$config['integration']['taguri'] = 'example.net,2008';
+#$config['integration']['taguri'] = 'admin@example.net,2009-03-09'
+
+#Don't use SSL
+#$config['site']['ssl'] = 'never';
+#Use SSL only for sensitive pages (like login, password change)
+#$config['site']['ssl'] = 'sometimes';
+#Use SSL for all pages
+#$config['site']['ssl'] = 'always';
+
+#Use a different hostname for SSL-encrypted pages
+#$config['site']['sslserver'] = 'secure.example.org';
+
+#If you have a lot of status networks on the same server, you can
+#store the site data in a database and switch as follows
+#Status_network::setupDB('localhost', 'statusnet', 'statuspass', 'statusnet');
+#if (!Status_network::setupSite($_server, $_path)) {
+#        print "Error\n";
+#        exit(1);
+#}

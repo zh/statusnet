@@ -51,17 +51,13 @@ class NoticeSection extends Section
     function showContent()
     {
         $notices = $this->getNotices();
-
         $cnt = 0;
-
         $this->out->elementStart('ul', 'notices');
-
         while ($notices->fetch() && ++$cnt <= NOTICES_PER_SECTION) {
             $this->showNotice($notices);
         }
 
         $this->out->elementEnd('ul');
-
         return ($cnt > NOTICES_PER_SECTION);
     }
 
@@ -73,6 +69,11 @@ class NoticeSection extends Section
     function showNotice($notice)
     {
         $profile = $notice->getProfile();
+        if (empty($profile)) {
+            common_log(LOG_WARNING, sprintf("Notice %d has no profile",
+                                            $notice->id));
+            return;
+        }
         $this->out->elementStart('li', 'hentry notice');
         $this->out->elementStart('div', 'entry-title');
         $avatar = $profile->getAvatar(AVATAR_MINI_SIZE);
@@ -95,8 +96,39 @@ class NoticeSection extends Section
 
         $this->out->elementStart('p', 'entry-content');
         $this->out->raw($notice->rendered);
+
+        $notice_link_cfg = common_config('site', 'notice_link');
+        if ('direct' === $notice_link_cfg) {
+            $this->out->text(' (');
+            $this->out->element('a', array('href' => $notice->uri), 'see');
+            $this->out->text(')');
+        } elseif ('attachment' === $notice_link_cfg) {
+            if ($count = $notice->hasAttachments()) {
+            // link to attachment(s) pages
+                if (1 === $count) {
+                    $f2p = File_to_post::staticGet('post_id', $notice->id);
+                    $href = common_local_url('attachment', array('attachment' => $f2p->file_id));
+                    $att_class = 'attachment';
+                } else {
+                    $href = common_local_url('attachments', array('notice' => $notice->id));
+                    $att_class = 'attachments';
+                }
+
+                $clip = theme_path('images/icons/clip.png', 'base');
+                $this->out->elementStart('a', array('class' => $att_class, 'style' => "font-style: italic;", 'href' => $href, 'title' => "# of attachments: $count"));
+                $this->out->raw(" ($count&nbsp");
+                $this->out->element('img', array('style' => 'display: inline', 'align' => 'top', 'width' => 20, 'height' => 20, 'src' => $clip, 'alt' => 'alt'));
+                $this->out->text(')');
+                $this->out->elementEnd('a');
+            } else {
+                $this->out->text(' (');
+                $this->out->element('a', array('href' => $notice->uri), 'see');
+                $this->out->text(')');
+            }
+        }
+
         $this->out->elementEnd('p');
-        if ($notice->value) {
+        if (!empty($notice->value)) {
             $this->out->elementStart('p');
             $this->out->text($notice->value);
             $this->out->elementEnd('p');

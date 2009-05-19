@@ -134,9 +134,6 @@ class NoticeForm extends Form
 
     function formData()
     {
-
-        $this->out->elementStart('ul', 'form_data');
-        $this->out->elementStart('li', array('id' => 'notice_text'));
         $this->out->element('label', array('for' => 'notice_data-text'),
                             sprintf(_('What\'s up, %s?'), $this->user->nickname));
         // XXX: vary by defined max size
@@ -145,8 +142,6 @@ class NoticeForm extends Form
                                               'rows' => 4,
                                               'name' => 'status_textarea'),
                             ($this->content) ? $this->content : '');
-        $this->out->elementEnd('li');
-        $this->out->elementEnd('ul');
 
         $this->out->elementStart('dl', 'form_note');
         $this->out->element('dt', null, _('Available characters'));
@@ -168,14 +163,10 @@ class NoticeForm extends Form
 
     function formActions()
     {
-        $this->out->elementStart('ul', 'form_actions');
-        $this->out->elementStart('li', array('id' => 'notice_submit'));
         $this->out->element('input', array('id' => 'notice_action-submit',
                                            'class' => 'submit',
                                            'name' => 'status_submit',
                                            'type' => 'submit',
                                            'value' => _('Send')));
-        $this->out->elementEnd('li');
-        $this->out->elementEnd('ul');
     }
 }

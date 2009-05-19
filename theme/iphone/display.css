@@ -2,6 +2,8 @@
 /* Design & CSS by Marie-Claude Doyon http://www.marieclaudedoyon.com */
 /* Simplified for mobile by Ken Sheppardson http://identi.ca/kshep    */
 
+@import url(../../base/css/display.css);
+
 html {}
 body {
   width: 100%;
@@ -27,7 +29,6 @@ img, img a {
 h1 {
   font-size: 1.2em;
 }
-
 
 #wrap {
   margin: 0;
@@ -196,7 +197,7 @@ p#branding a {
 }
 .instructions a:hover, .success a:hover, .error a:hover {
   color: #FCFFF5;
-}    
+}
 .success {
   clear: both;
   float: left;
@@ -209,7 +210,6 @@ p#branding a {
   margin: 5px 5px 10px 5px;
   background-color: #ce3728;
 }
-
 
 /* ----- Stream -----*/
 
@@ -273,7 +273,7 @@ p.time {
 p.time a {
   color: #91AA9D;
 }
-  
+
 /* ----- Profile -----*/
 #profile {
   clear: both;
@@ -356,7 +356,7 @@ dl.statistics {
   clear: left;
   float: left;
   width: 200px;
-}  
+}
 .statistics dd {
   float: left;
 }
@@ -401,8 +401,6 @@ ul.subscriptions li, ul.subscribers li {
   padding: 0;
 }
 /* ----- End Subscriptions & Subscribers -----*/
-
-
 
 #pagination {
   margin: 18px auto;
@@ -488,7 +486,7 @@ input#submit:hover, input.submit:hover {
 input.checkbox {
   width: auto;
   border: 0;
-}  
+}
 textarea, input {
   font-family: Verdana, Arial, Helvetica, sans-serif;
   font-size: 1em;
@@ -629,7 +627,7 @@ input#openid_url {
 #profiles a:hover {
   text-decoration: underline;
 }
-  
+
 .profile_single {
   clear: both;
   display: block;

@@ -50,10 +50,9 @@ function mail_backend()
     static $backend = null;
 
     if (!$backend) {
-        global $config;
-        $backend = Mail::factory($config['mail']['backend'],
-                                 ($config['mail']['params']) ?
-                                 $config['mail']['params'] :
+        $backend = Mail::factory(common_config('mail', 'backend'),
+                                 (common_config('mail', 'params')) ?
+                                 common_config('mail', 'params') :
                                  array());
         if (PEAR::isError($backend)) {
             common_server_error($backend->getMessage(), 500);
@@ -555,17 +554,19 @@ function mail_notify_fave($other, $user, $notice)
 
     $body = sprintf(_("%1\$s just added your notice from %2\$s".
                       " as one of their favorites.\n\n" .
-                      "In case you forgot, you can see the text".
-                      " of your notice here:\n\n" .
+                      "The URL of your notice is:\n\n" .
                       "%3\$s\n\n" .
-                      "You can see the list of %1\$s's favorites here:\n\n" .
+                      "The text of your notice is:\n\n" .
                       "%4\$s\n\n" .
+                      "You can see the list of %1\$s's favorites here:\n\n" .
+                      "%5\$s\n\n" .
                       "Faithfully yours,\n" .
-                      "%5\$s\n"),
+                      "%6\$s\n"),
                     $bestname,
                     common_exact_date($notice->created),
                     common_local_url('shownotice',
                                      array('notice' => $notice->id)),
+                    $notice->content,
                     common_local_url('showfavorites',
                                      array('nickname' => $user->nickname)),
                     common_config('site', 'name'));

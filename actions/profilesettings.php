@@ -91,67 +91,68 @@ class ProfilesettingsAction extends AccountSettingsAction
         $this->element('legend', null, _('Profile information'));
         $this->hidden('token', common_session_token());
 
-        # too much common patterns here... abstractable?
-
+        // too much common patterns here... abstractable?
         $this->elementStart('ul', 'form_data');
-        $this->elementStart('li');
-        $this->input('nickname', _('Nickname'),
-                     ($this->arg('nickname')) ? $this->arg('nickname') : $profile->nickname,
-                     _('1-64 lowercase letters or numbers, no punctuation or spaces'));
-        $this->elementEnd('li');
-        $this->elementStart('li');
-        $this->input('fullname', _('Full name'),
-                     ($this->arg('fullname')) ? $this->arg('fullname') : $profile->fullname);
-        $this->elementEnd('li');
-        $this->elementStart('li');
-        $this->input('homepage', _('Homepage'),
-                     ($this->arg('homepage')) ? $this->arg('homepage') : $profile->homepage,
-                     _('URL of your homepage, blog, or profile on another site'));
-        $this->elementEnd('li');
-        $this->elementStart('li');
-        $this->textarea('bio', _('Bio'),
-                        ($this->arg('bio')) ? $this->arg('bio') : $profile->bio,
-                        _('Describe yourself and your interests in 140 chars'));
-        $this->elementEnd('li');
-        $this->elementStart('li');
-        $this->input('location', _('Location'),
-                     ($this->arg('location')) ? $this->arg('location') : $profile->location,
-                     _('Where you are, like "City, State (or Region), Country"'));
-        $this->elementEnd('li');
-        $this->elementStart('li');
-        $this->input('tags', _('Tags'),
-                     ($this->arg('tags')) ? $this->arg('tags') : implode(' ', $user->getSelfTags()),
-                     _('Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated'));
-        $this->elementEnd('li');
-        $this->elementStart('li');
-        $language = common_language();
-        $this->dropdown('language', _('Language'),
-                        get_nice_language_list(), _('Preferred language'),
-                        true, $language);
-        $this->elementEnd('li');
-        $timezone = common_timezone();
-        $timezones = array();
-        foreach(DateTimeZone::listIdentifiers() as $k => $v) {
-            $timezones[$v] = $v;
+        if (Event::handle('StartProfileFormData', array($this))) {
+            $this->elementStart('li');
+            $this->input('nickname', _('Nickname'),
+                         ($this->arg('nickname')) ? $this->arg('nickname') : $profile->nickname,
+                         _('1-64 lowercase letters or numbers, no punctuation or spaces'));
+            $this->elementEnd('li');
+            $this->elementStart('li');
+            $this->input('fullname', _('Full name'),
+                         ($this->arg('fullname')) ? $this->arg('fullname') : $profile->fullname);
+            $this->elementEnd('li');
+            $this->elementStart('li');
+            $this->input('homepage', _('Homepage'),
+                         ($this->arg('homepage')) ? $this->arg('homepage') : $profile->homepage,
+                         _('URL of your homepage, blog, or profile on another site'));
+            $this->elementEnd('li');
+            $this->elementStart('li');
+            $this->textarea('bio', _('Bio'),
+                            ($this->arg('bio')) ? $this->arg('bio') : $profile->bio,
+                            _('Describe yourself and your interests in 140 chars'));
+            $this->elementEnd('li');
+            $this->elementStart('li');
+            $this->input('location', _('Location'),
+                         ($this->arg('location')) ? $this->arg('location') : $profile->location,
+                         _('Where you are, like "City, State (or Region), Country"'));
+            $this->elementEnd('li');
+            Event::handle('EndProfileFormData', array($this));
+            $this->elementStart('li');
+            $this->input('tags', _('Tags'),
+                         ($this->arg('tags')) ? $this->arg('tags') : implode(' ', $user->getSelfTags()),
+                         _('Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated'));
+            $this->elementEnd('li');
+            $this->elementStart('li');
+            $language = common_language();
+            $this->dropdown('language', _('Language'),
+                            get_nice_language_list(), _('Preferred language'),
+                            false, $language);
+            $this->elementEnd('li');
+            $timezone = common_timezone();
+            $timezones = array();
+            foreach(DateTimeZone::listIdentifiers() as $k => $v) {
+                $timezones[$v] = $v;
+            }
+            $this->elementStart('li');
+            $this->dropdown('timezone', _('Timezone'),
+                            $timezones, _('What timezone are you normally in?'),
+                            true, $timezone);
+            $this->elementEnd('li');
+            $this->elementStart('li');
+            $this->checkbox('autosubscribe',
+                            _('Automatically subscribe to whoever '.
+                              'subscribes to me (best for non-humans)'),
+                            ($this->arg('autosubscribe')) ?
+                            $this->boolean('autosubscribe') : $user->autosubscribe);
+            $this->elementEnd('li');
         }
-        $this->elementStart('li');
-        $this->dropdown('timezone', _('Timezone'),
-                        $timezones, _('What timezone are you normally in?'),
-                        true, $timezone);
-        $this->elementEnd('li');
-        $this->elementStart('li');
-        $this->checkbox('autosubscribe',
-                        _('Automatically subscribe to whoever '.
-                          'subscribes to me (best for non-humans)'),
-                        ($this->arg('autosubscribe')) ?
-                        $this->boolean('autosubscribe') : $user->autosubscribe);
-        $this->elementEnd('li');
         $this->elementEnd('ul');
         $this->submit('save', _('Save'));
 
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
-
     }
 
     /**
@@ -165,158 +166,158 @@ class ProfilesettingsAction extends AccountSettingsAction
 
     function handlePost()
     {
-        # CSRF protection
-
+        // CSRF protection
         $token = $this->trimmed('token');
         if (!$token || $token != common_session_token()) {
             $this->showForm(_('There was a problem with your session token. '.
-                               'Try again, please.'));
+                        'Try again, please.'));
             return;
         }
 
-        $nickname = $this->trimmed('nickname');
-        $fullname = $this->trimmed('fullname');
-        $homepage = $this->trimmed('homepage');
-        $bio = $this->trimmed('bio');
-        $location = $this->trimmed('location');
-        $autosubscribe = $this->boolean('autosubscribe');
-        $language = $this->trimmed('language');
-        $timezone = $this->trimmed('timezone');
-        $tagstring = $this->trimmed('tags');
+        if (Event::handle('StartProfileSaveForm', array($this))) {
 
-        # Some validation
+            $nickname = $this->trimmed('nickname');
+            $fullname = $this->trimmed('fullname');
+            $homepage = $this->trimmed('homepage');
+            $bio = $this->trimmed('bio');
+            $location = $this->trimmed('location');
+            $autosubscribe = $this->boolean('autosubscribe');
+            $language = $this->trimmed('language');
+            $timezone = $this->trimmed('timezone');
+            $tagstring = $this->trimmed('tags');
 
-        if (!Validate::string($nickname, array('min_length' => 1,
-                                               'max_length' => 64,
-                                               'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
-            $this->showForm(_('Nickname must have only lowercase letters and numbers and no spaces.'));
-            return;
-        } else if (!User::allowed_nickname($nickname)) {
-            $this->showForm(_('Not a valid nickname.'));
-            return;
-        } else if (!is_null($homepage) && (strlen($homepage) > 0) &&
-                   !Validate::uri($homepage, array('allowed_schemes' => array('http', 'https')))) {
-            $this->showForm(_('Homepage is not a valid URL.'));
-            return;
-        } else if (!is_null($fullname) && mb_strlen($fullname) > 255) {
-            $this->showForm(_('Full name is too long (max 255 chars).'));
-            return;
-        } else if (!is_null($bio) && mb_strlen($bio) > 140) {
-            $this->showForm(_('Bio is too long (max 140 chars).'));
-            return;
-        } else if (!is_null($location) && mb_strlen($location) > 255) {
-            $this->showForm(_('Location is too long (max 255 chars).'));
-            return;
-        }  else if (is_null($timezone) || !in_array($timezone, DateTimeZone::listIdentifiers())) {
-            $this->showForm(_('Timezone not selected.'));
-            return;
-        } else if ($this->nicknameExists($nickname)) {
-            $this->showForm(_('Nickname already in use. Try another one.'));
-            return;
-        } else if (!is_null($language) && strlen($language) > 50) {
-            $this->showForm(_('Language is too long (max 50 chars).'));
-            return;
-        }
-
-        if ($tagstring) {
-            $tags = array_map('common_canonical_tag', preg_split('/[\s,]+/', $tagstring));
-        } else {
-            $tags = array();
-        }
-
-        foreach ($tags as $tag) {
-            if (!common_valid_profile_tag($tag)) {
-                $this->showForm(sprintf(_('Invalid tag: "%s"'), $tag));
+            // Some validation
+            if (!Validate::string($nickname, array('min_length' => 1,
+                            'max_length' => 64,
+                            'format' => VALIDATE_NUM . VALIDATE_ALPHA_LOWER))) {
+                $this->showForm(_('Nickname must have only lowercase letters and numbers and no spaces.'));
+                return;
+            } else if (!User::allowed_nickname($nickname)) {
+                $this->showForm(_('Not a valid nickname.'));
+                return;
+            } else if (!is_null($homepage) && (strlen($homepage) > 0) &&
+                    !Validate::uri($homepage, array('allowed_schemes' => array('http', 'https')))) {
+                $this->showForm(_('Homepage is not a valid URL.'));
+                return;
+            } else if (!is_null($fullname) && mb_strlen($fullname) > 255) {
+                $this->showForm(_('Full name is too long (max 255 chars).'));
+                return;
+            } else if (!is_null($bio) && mb_strlen($bio) > 140) {
+                $this->showForm(_('Bio is too long (max 140 chars).'));
+                return;
+            } else if (!is_null($location) && mb_strlen($location) > 255) {
+                $this->showForm(_('Location is too long (max 255 chars).'));
+                return;
+            }  else if (is_null($timezone) || !in_array($timezone, DateTimeZone::listIdentifiers())) {
+                $this->showForm(_('Timezone not selected.'));
+                return;
+            } else if ($this->nicknameExists($nickname)) {
+                $this->showForm(_('Nickname already in use. Try another one.'));
+                return;
+            } else if (!is_null($language) && strlen($language) > 50) {
+                $this->showForm(_('Language is too long (max 50 chars).'));
                 return;
             }
-        }
 
-        $user = common_current_user();
-
-        $user->query('BEGIN');
-
-        if ($user->nickname != $nickname ||
-            $user->language != $language ||
-            $user->timezone != $timezone) {
-
-            common_debug('Updating user nickname from ' . $user->nickname . ' to ' . $nickname,
-                         __FILE__);
-            common_debug('Updating user language from ' . $user->language . ' to ' . $language,
-                         __FILE__);
-            common_debug('Updating user timezone from ' . $user->timezone . ' to ' . $timezone,
-                         __FILE__);
-
-            $original = clone($user);
-
-            $user->nickname = $nickname;
-            $user->language = $language;
-            $user->timezone = $timezone;
-
-            $result = $user->updateKeys($original);
-
-            if ($result === false) {
-                common_log_db_error($user, 'UPDATE', __FILE__);
-                $this->serverError(_('Couldn\'t update user.'));
-                return;
+            if ($tagstring) {
+                $tags = array_map('common_canonical_tag', preg_split('/[\s,]+/', $tagstring));
             } else {
-                # Re-initialize language environment if it changed
-                common_init_language();
+                $tags = array();
             }
-        }
 
-        # XXX: XOR
+            foreach ($tags as $tag) {
+                if (!common_valid_profile_tag($tag)) {
+                    $this->showForm(sprintf(_('Invalid tag: "%s"'), $tag));
+                    return;
+                }
+            }
 
-        if ($user->autosubscribe ^ $autosubscribe) {
+            $user = common_current_user();
 
-            $original = clone($user);
+            $user->query('BEGIN');
 
-            $user->autosubscribe = $autosubscribe;
+            if ($user->nickname != $nickname ||
+                    $user->language != $language ||
+                    $user->timezone != $timezone) {
 
-            $result = $user->update($original);
+                common_debug('Updating user nickname from ' . $user->nickname . ' to ' . $nickname,
+                        __FILE__);
+                common_debug('Updating user language from ' . $user->language . ' to ' . $language,
+                        __FILE__);
+                common_debug('Updating user timezone from ' . $user->timezone . ' to ' . $timezone,
+                        __FILE__);
 
-            if ($result === false) {
-                common_log_db_error($user, 'UPDATE', __FILE__);
-                $this->serverError(_('Couldn\'t update user for autosubscribe.'));
+                $original = clone($user);
+
+                $user->nickname = $nickname;
+                $user->language = $language;
+                $user->timezone = $timezone;
+
+                $result = $user->updateKeys($original);
+
+                if ($result === false) {
+                    common_log_db_error($user, 'UPDATE', __FILE__);
+                    $this->serverError(_('Couldn\'t update user.'));
+                    return;
+                } else {
+                    // Re-initialize language environment if it changed
+                    common_init_language();
+                }
+            }
+
+// XXX: XOR
+            if ($user->autosubscribe ^ $autosubscribe) {
+
+                $original = clone($user);
+
+                $user->autosubscribe = $autosubscribe;
+
+                $result = $user->update($original);
+
+                if ($result === false) {
+                    common_log_db_error($user, 'UPDATE', __FILE__);
+                    $this->serverError(_('Couldn\'t update user for autosubscribe.'));
+                    return;
+                }
+            }
+
+            $profile = $user->getProfile();
+
+            $orig_profile = clone($profile);
+
+            $profile->nickname = $user->nickname;
+            $profile->fullname = $fullname;
+            $profile->homepage = $homepage;
+            $profile->bio = $bio;
+            $profile->location = $location;
+            $profile->profileurl = common_profile_url($nickname);
+
+            common_debug('Old profile: ' . common_log_objstring($orig_profile), __FILE__);
+            common_debug('New profile: ' . common_log_objstring($profile), __FILE__);
+
+            $result = $profile->update($orig_profile);
+
+            if (!$result) {
+                common_log_db_error($profile, 'UPDATE', __FILE__);
+                $this->serverError(_('Couldn\'t save profile.'));
                 return;
             }
+
+            // Set the user tags
+            $result = $user->setSelfTags($tags);
+
+            if (!$result) {
+                $this->serverError(_('Couldn\'t save tags.'));
+                return;
+            }
+
+            $user->query('COMMIT');
+            Event::handle('EndProfileSaveForm', array($this));
+            common_broadcast_profile($profile);
+
+            $this->showForm(_('Settings saved.'), true);
+
         }
-
-        $profile = $user->getProfile();
-
-        $orig_profile = clone($profile);
-
-        $profile->nickname = $user->nickname;
-        $profile->fullname = $fullname;
-        $profile->homepage = $homepage;
-        $profile->bio = $bio;
-        $profile->location = $location;
-        $profile->profileurl = common_profile_url($nickname);
-
-        common_debug('Old profile: ' . common_log_objstring($orig_profile), __FILE__);
-        common_debug('New profile: ' . common_log_objstring($profile), __FILE__);
-
-        $result = $profile->update($orig_profile);
-
-        if (!$result) {
-            common_log_db_error($profile, 'UPDATE', __FILE__);
-            $this->serverError(_('Couldn\'t save profile.'));
-            return;
-        }
-
-        # Set the user tags
-
-        $result = $user->setSelfTags($tags);
-
-        if (!$result) {
-            $this->serverError(_('Couldn\'t save tags.'));
-            return;
-        }
-
-        $user->query('COMMIT');
-
-        common_broadcast_profile($profile);
-
-        $this->showForm(_('Settings saved.'), true);
     }
 
     function nicknameExists($nickname)

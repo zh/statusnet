@@ -72,8 +72,7 @@ function common_timezone()
         }
     }
 
-    global $config;
-    return $config['site']['timezone'];
+    return common_config('site', 'timezone');
 }
 
 function common_language()
@@ -81,7 +80,7 @@ function common_language()
 
     // If there is a user logged in and they've set a language preference
     // then return that one...
-    if (common_logged_in()) {
+    if (_have_config() && common_logged_in()) {
         $user = common_current_user();
         $user_language = $user->language;
         if ($user_language)
@@ -315,6 +314,10 @@ function common_current_user()
 {
     global $_cur;
 
+    if (!_have_config()) {
+        return null;
+    }
+
     if ($_cur === false) {
 
         if (isset($_REQUEST[session_name()]) || (isset($_SESSION['userid']) && $_SESSION['userid'])) {
@@ -392,7 +395,7 @@ function common_render_text($text)
     return $r;
 }
 
-function common_replace_urls_callback($text, $callback) {
+function common_replace_urls_callback($text, $callback, $notice_id = null) {
     // Start off with a regex
     $regex = '#'.
     '(?:'.
@@ -456,11 +459,18 @@ function common_replace_urls_callback($text, $callback) {
 
         if (!in_array($url_parts[2], $tlds)) continue;
 
+        // Make sure we didn't capture a hash tag
+        if (strpos($url, '#') === 0) continue;
+
         // Put the url back the way we found it.
         $url = (mb_strpos($orig_url, htmlspecialchars($url)) === FALSE) ? $url:htmlspecialchars($url);
 
         // Call user specified func
-        $modified_url = $callback($url);
+        if (empty($notice_id)) {
+            $modified_url = call_user_func($callback, $url);
+        } else {
+            $modified_url = call_user_func($callback, array($url, $notice_id));
+        }
 
         // Replace it!
         $start = mb_strpos($text, $url, $offset);
@@ -474,117 +484,31 @@ function common_replace_urls_callback($text, $callback) {
 function common_linkify($url) {
     // It comes in special'd, so we unspecial it before passing to the stringifying
     // functions
-    $ext = pathinfo($url, PATHINFO_EXTENSION);
     $url = htmlspecialchars_decode($url);
-    $video_ext = array('mp4', 'flv', 'avi', 'mpg', 'mp3', 'ogg');
-    $display = $url;
-    $url = (!preg_match('#^([a-z]+://|(mailto|aim|tel):)#i', $url)) ? 'http://'.$url : $url;
-
-    $attrs = array('href' => $url, 'rel' => 'external');
-
-    if (in_array($ext, $video_ext)) {
-        $attrs['class'] = 'media';
+    $display = File_redirection::_canonUrl($url);
+    $longurl_data = File_redirection::where($url);
+    if (is_array($longurl_data)) {
+        $longurl = $longurl_data['url'];
+    } elseif (is_string($longurl_data)) {
+        $longurl = $longurl_data;
+    } else {
+        die('impossible to linkify');
     }
 
-    if ($longurl = common_longurl($url)) {
-        $attrs['title'] = $longurl;
-    }
-
+    $attrs = array('href' => $longurl, 'rel' => 'external');
     return XMLStringer::estring('a', $attrs, $display);
-}
-
-function common_longurl($short_url)
-{
-    $long_url = common_shorten_link($short_url, true);
-    if ($long_url === $short_url) return false;
-    return $long_url;
-}
-
-function common_longurl2($uri)
-{
-    $uri_e = urlencode($uri);
-    $longurl = unserialize(file_get_contents("http://api.longurl.org/v1/expand?format=php&url=$uri_e"));
-    if (empty($longurl['long_url']) || $uri === $longurl['long_url']) return false;
-    return stripslashes($longurl['long_url']);
 }
 
 function common_shorten_links($text)
 {
     if (mb_strlen($text) <= 140) return $text;
-    static $cache = array();
-    if (isset($cache[$text])) return $cache[$text];
-    // \s = not a horizontal whitespace character (since PHP 5.2.4)
-    return $cache[$text] = common_replace_urls_callback($text, 'common_shorten_link');;
-}
-
-function common_shorten_link($url, $reverse = false)
-{
-    static $url_cache = array();
-    if ($reverse) return isset($url_cache[$url]) ? $url_cache[$url] : $url;
-
-    $user = common_current_user();
-
-    $curlh = curl_init();
-    curl_setopt($curlh, CURLOPT_CONNECTTIMEOUT, 20); // # seconds to wait
-    curl_setopt($curlh, CURLOPT_USERAGENT, 'Laconica');
-    curl_setopt($curlh, CURLOPT_RETURNTRANSFER, true);
-
-    switch($user->urlshorteningservice) {
-     case 'ur1.ca':
-        $short_url_service = new LilUrl;
-        $short_url = $short_url_service->shorten($url);
-        break;
-
-     case '2tu.us':
-        $short_url_service = new TightUrl;
-        $short_url = $short_url_service->shorten($url);
-        break;
-
-     case 'ptiturl.com':
-        $short_url_service = new PtitUrl;
-        $short_url = $short_url_service->shorten($url);
-        break;
-
-     case 'bit.ly':
-        curl_setopt($curlh, CURLOPT_URL, 'http://bit.ly/api?method=shorten&long_url='.urlencode($url));
-        $short_url = current(json_decode(curl_exec($curlh))->results)->hashUrl;
-        break;
-
-     case 'is.gd':
-        curl_setopt($curlh, CURLOPT_URL, 'http://is.gd/api.php?longurl='.urlencode($url));
-        $short_url = curl_exec($curlh);
-        break;
-     case 'snipr.com':
-        curl_setopt($curlh, CURLOPT_URL, 'http://snipr.com/site/snip?r=simple&link='.urlencode($url));
-        $short_url = curl_exec($curlh);
-        break;
-     case 'metamark.net':
-        curl_setopt($curlh, CURLOPT_URL, 'http://metamark.net/api/rest/simple?long_url='.urlencode($url));
-        $short_url = curl_exec($curlh);
-        break;
-     case 'tinyurl.com':
-        curl_setopt($curlh, CURLOPT_URL, 'http://tinyurl.com/api-create.php?url='.urlencode($url));
-        $short_url = curl_exec($curlh);
-        break;
-     default:
-        $short_url = false;
-    }
-
-    curl_close($curlh);
-
-    if ($short_url) {
-        $url_cache[(string)$short_url] = $url;
-        return (string)$short_url;
-    }
-    return $url;
+    return common_replace_urls_callback($text, array('File_redirection', 'makeShort'));
 }
 
 function common_xml_safe_str($str)
 {
-    $xmlStr = htmlentities(iconv('UTF-8', 'UTF-8//IGNORE', $str), ENT_NOQUOTES, 'UTF-8');
-
-    // Replace control, formatting, and surrogate characters with '*', ala Twitter
-    return preg_replace('/[\p{Cc}\p{Cf}\p{Cs}]/u', '*', $str);
+    // Neutralize control codes and surrogates
+	return preg_replace('/[\p{Cc}\p{Cs}]/u', '*', $str);
 }
 
 function common_tag_link($tag)
@@ -615,10 +539,20 @@ function common_at_link($sender_id, $nickname)
     $sender = Profile::staticGet($sender_id);
     $recipient = common_relative_profile($sender, common_canonical_nickname($nickname));
     if ($recipient) {
+        $user = User::staticGet('id', $recipient->id);
+        if ($user) {
+            $url = common_local_url('userbyid', array('id' => $user->id));
+        } else {
+            $url = $recipient->profileurl;
+        }
         $xs = new XMLStringer(false);
+        $attrs = array('href' => $url,
+                       'class' => 'url');
+        if (!empty($recipient->fullname)) {
+            $attrs['title'] = $recipient->fullname . ' (' . $recipient->nickname . ')';
+        }
         $xs->elementStart('span', 'vcard');
-        $xs->elementStart('a', array('href' => $recipient->profileurl,
-                                     'class' => 'url'));
+        $xs->elementStart('a', $attrs);
         $xs->element('span', 'fn nickname', $nickname);
         $xs->elementEnd('a');
         $xs->elementEnd('span');
@@ -633,10 +567,14 @@ function common_group_link($sender_id, $nickname)
     $sender = Profile::staticGet($sender_id);
     $group = User_group::staticGet('nickname', common_canonical_nickname($nickname));
     if ($group && $sender->isMember($group)) {
+        $attrs = array('href' => $group->permalink(),
+                       'class' => 'url');
+        if (!empty($group->fullname)) {
+            $attrs['title'] = $group->fullname . ' (' . $group->nickname . ')';
+        }
         $xs = new XMLStringer();
         $xs->elementStart('span', 'vcard');
-        $xs->elementStart('a', array('href' => $group->permalink(),
-                                     'class' => 'url'));
+        $xs->elementStart('a', $attrs);
         $xs->element('span', 'fn nickname', $nickname);
         $xs->elementEnd('a');
         $xs->elementEnd('span');
@@ -675,7 +613,7 @@ function common_relative_profile($sender, $nickname, $dt=null)
     $recipient = new Profile();
     // XXX: use a join instead of a subquery
     $recipient->whereAdd('EXISTS (SELECT subscribed from subscription where subscriber = '.$sender->id.' and subscribed = id)', 'AND');
-    $recipient->whereAdd('nickname = "' . trim($nickname) . '"', 'AND');
+    $recipient->whereAdd("nickname = '" . trim($nickname) . "'", 'AND');
     if ($recipient->find(true)) {
         // XXX: should probably differentiate between profiles with
         // the same name by date of most recent update
@@ -685,7 +623,7 @@ function common_relative_profile($sender, $nickname, $dt=null)
     $recipient = new Profile();
     // XXX: use a join instead of a subquery
     $recipient->whereAdd('EXISTS (SELECT subscriber from subscription where subscribed = '.$sender->id.' and subscriber = id)', 'AND');
-    $recipient->whereAdd('nickname = "' . trim($nickname) . '"', 'AND');
+    $recipient->whereAdd("nickname = '" . trim($nickname) . "'", 'AND');
     if ($recipient->find(true)) {
         // XXX: should probably differentiate between profiles with
         // the same name by date of most recent update
@@ -705,25 +643,48 @@ function common_relative_profile($sender, $nickname, $dt=null)
     return null;
 }
 
-function common_local_url($action, $args=null, $fragment=null)
+function common_local_url($action, $args=null, $params=null, $fragment=null)
 {
+    static $sensitive = array('login', 'register', 'passwordsettings',
+                              'twittersettings', 'finishopenidlogin',
+                              'finishaddopenid', 'api');
+
     $r = Router::get();
-    $path = $r->build($action, $args, $fragment);
-    if ($path) {
-    }
+    $path = $r->build($action, $args, $params, $fragment);
+
+    $ssl = in_array($action, $sensitive);
+
     if (common_config('site','fancy')) {
-        $url = common_path(mb_substr($path, 1));
+        $url = common_path(mb_substr($path, 1), $ssl);
     } else {
-        $url = common_path('index.php'.$path);
+        if (mb_strpos($path, '/index.php') === 0) {
+            $url = common_path(mb_substr($path, 1), $ssl);
+        } else {
+            $url = common_path('index.php'.$path, $ssl);
+        }
     }
     return $url;
 }
 
-function common_path($relative)
+function common_path($relative, $ssl=false)
 {
-    global $config;
-    $pathpart = ($config['site']['path']) ? $config['site']['path']."/" : '';
-    return "http://".$config['site']['server'].'/'.$pathpart.$relative;
+    $pathpart = (common_config('site', 'path')) ? common_config('site', 'path')."/" : '';
+
+    if (($ssl && (common_config('site', 'ssl') === 'sometimes'))
+        || common_config('site', 'ssl') === 'always') {
+        $proto = 'https';
+        if (is_string(common_config('site', 'sslserver')) &&
+            mb_strlen(common_config('site', 'sslserver')) > 0) {
+            $serverpart = common_config('site', 'sslserver');
+        } else {
+            $serverpart = common_config('site', 'server');
+        }
+    } else {
+        $proto = 'http';
+        $serverpart = common_config('site', 'server');
+    }
+
+    return $proto.'://'.$serverpart.'/'.$pathpart.$relative;
 }
 
 function common_date_string($dt)
@@ -813,7 +774,7 @@ function common_redirect($url, $code=307)
                            303 => "See Other",
                            307 => "Temporary Redirect");
 
-    header("Status: ${code} $status[$code]");
+    header('HTTP/1.1 '.$code.' '.$status[$code]);
     header("Location: $url");
 
     $xo = new XMLOutputter();
@@ -839,18 +800,76 @@ function common_broadcast_notice($notice, $remote=false)
 
 function common_enqueue_notice($notice)
 {
-    foreach (array('jabber', 'omb', 'sms', 'public', 'twitter', 'facebook') as $transport) {
-        $qi = new Queue_item();
-        $qi->notice_id = $notice->id;
-        $qi->transport = $transport;
-        $qi->created = $notice->created;
-        $result = $qi->insert();
-        if (!$result) {
-            $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-            common_log(LOG_ERR, 'DB error inserting queue item: ' . $last_error->message);
-            return false;
+    if (common_config('queue','subsystem') == 'stomp') {
+	// use an external message queue system via STOMP
+	require_once("Stomp.php");
+	$con = new Stomp(common_config('queue','stomp_server'));
+	if (!$con->connect()) {
+		common_log(LOG_ERR, 'Failed to connect to queue server');
+		return false;
+	}
+	$queue_basename = common_config('queue','queue_basename');
+    	foreach (array('jabber', 'omb', 'sms', 'public', 'twitter', 'facebook', 'ping') as $transport) {
+		if (!$con->send(
+			'/queue/'.$queue_basename.'-'.$transport, // QUEUE
+			$notice->id, 		// BODY of the message
+			array (			// HEADERS of the msg
+			'created' => $notice->created
+			))) {
+			common_log(LOG_ERR, 'Error sending to '.$transport.' queue');
+			return false;
+		}
+        common_log(LOG_DEBUG, 'complete remote queueing notice ID = ' . $notice->id . ' for ' . $transport);
+	}
+
+	//send tags as headers, so they can be used as JMS selectors
+        common_log(LOG_DEBUG, 'searching for tags ' . $notice->id);
+        $tags = array();
+	$tag = new Notice_tag();
+        $tag->notice_id = $notice->id;
+        if ($tag->find()) {
+            while ($tag->fetch()) {
+        	common_log(LOG_DEBUG, 'tag found = ' . $tag->tag);
+		array_push($tags,$tag->tag);
+            }
         }
-        common_log(LOG_DEBUG, 'complete queueing notice ID = ' . $notice->id . ' for ' . $transport);
+        $tag->free();
+
+	$con->send('/topic/laconica.'.$notice->profile_id,
+			$notice->content,
+			array(
+				'profile_id' => $notice->profile_id,
+				'created' => $notice->created,
+				'tags' => implode($tags,' - ')
+				)
+			);
+        common_log(LOG_DEBUG, 'sent to personal topic ' . $notice->id);
+	$con->send('/topic/laconica.allusers',
+			$notice->content,
+			array(
+				'profile_id' => $notice->profile_id,
+				'created' => $notice->created,
+				'tags' => implode($tags,' - ')
+				)
+			);
+        common_log(LOG_DEBUG, 'sent to catch-all topic ' . $notice->id);
+	$result = true;
+    }
+    else {
+	// in any other case, 'internal'
+    	foreach (array('jabber', 'omb', 'sms', 'public', 'twitter', 'facebook', 'ping') as $transport) {
+	        $qi = new Queue_item();
+        	$qi->notice_id = $notice->id;
+	        $qi->transport = $transport;
+        	$qi->created = $notice->created;
+	        $result = $qi->insert();
+        	if (!$result) {
+	            $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
+        	    common_log(LOG_ERR, 'DB error inserting queue item: ' . $last_error->message);
+            	    return false;
+        	}
+        	common_log(LOG_DEBUG, 'complete queueing notice ID = ' . $notice->id . ' for ' . $transport);
+        }
     }
     return $result;
 }
@@ -915,9 +934,9 @@ function common_profile_url($nickname)
 
 // Should make up a reasonable root URL
 
-function common_root_url()
+function common_root_url($ssl=false)
 {
-    return common_path('');
+    return common_path('', $ssl);
 }
 
 // returns $bytes bytes of random data as a hexadecimal string
@@ -926,7 +945,7 @@ function common_root_url()
 function common_good_rand($bytes)
 {
     // XXX: use random.org...?
-    if (file_exists('/dev/urandom')) {
+    if (@file_exists('/dev/urandom')) {
         return common_urandom($bytes);
     } else { // FIXME: this is probably not good enough
         return common_mtrand($bytes);
@@ -976,8 +995,7 @@ function common_ensure_syslog()
 {
     static $initialized = false;
     if (!$initialized) {
-        global $config;
-        openlog($config['syslog']['appname'], 0, LOG_USER);
+        openlog(common_config('syslog', 'appname'), 0, LOG_USER);
         $initialized = true;
     }
 }
@@ -1060,7 +1078,7 @@ function common_accept_to_prefs($accept, $def = '*/*')
 
     foreach($parts as $part) {
         // FIXME: doesn't deal with params like 'text/html; level=1'
-        @list($value, $qpart) = explode(';', $part);
+        @list($value, $qpart) = explode(';', trim($part));
         $match = array();
         if(!isset($qpart)) {
             $prefs[$value] = 1;
@@ -1286,4 +1304,17 @@ function common_compatible_license($from, $to)
 {
     // XXX: better compatibility check needed here!
     return ($from == $to);
+}
+
+/**
+ * returns a quoted table name, if required according to config
+ */
+function common_database_tablename($tablename)
+{
+
+  if(common_config('db','quote_identifiers')) {
+      $tablename = '"'. $tablename .'"';
+  }
+  //table prefixes could be added here later
+  return $tablename;
 }

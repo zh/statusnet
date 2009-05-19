@@ -60,16 +60,10 @@ class PeoplesearchAction extends SearchAction
 
     function showResults($q, $page)
     {
-
         $profile = new Profile();
-
-        # lcase it for comparison
-        $q = strtolower($q);
-
         $search_engine = $profile->getSearchEngine('identica_people');
-
         $search_engine->set_sort_mode('chron');
-        # Ask for an extra to see if there's more.
+        // Ask for an extra to see if there's more.
         $search_engine->limit((($page-1)*PROFILES_PER_PAGE), PROFILES_PER_PAGE + 1);
         if (false === $search_engine->query($q)) {
             $cnt = 0;
@@ -81,38 +75,15 @@ class PeoplesearchAction extends SearchAction
             $terms = preg_split('/[\s,]+/', $q);
             $results = new PeopleSearchResults($profile, $terms, $this);
             $results->show();
-        } else {
-            $this->element('p', 'error', _('No results'));
-        }
-
-        $profile->free();
-        
-        $this->pagination($page > 1, $cnt > PROFILES_PER_PAGE,
+            $profile->free();
+            $this->pagination($page > 1, $cnt > PROFILES_PER_PAGE,
                           $page, 'peoplesearch', array('q' => $q));
-    }
-}
 
-class PeopleSearchResults extends ProfileList
-{
-    var $terms = null;
-    var $pattern = null;
-    
-    function __construct($profile, $terms, $action)
-    {
-        parent::__construct($profile, $terms, $action);
-        $this->terms = array_map('preg_quote', 
-                                 array_map('htmlspecialchars', $terms));
-        $this->pattern = '/('.implode('|',$terms).')/i';
-    }
-    
-    function highlight($text)
-    {
-        return preg_replace($this->pattern, '<strong>\\1</strong>', htmlspecialchars($text));
-    }
-
-    function isReadOnly()
-    {
-        return true;
+        } else {
+            $this->element('p', 'error', _('No results.'));
+            $this->searchSuggestions($q);
+            $profile->free();
+        }
     }
 }
 

@@ -7,6 +7,8 @@
  * @link      http://laconi.ca/
  */
 
+@import url(../../base/css/display.css);
+
 html,
 body,
 a:active {
@@ -17,10 +19,7 @@ font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 font-size:1em;
 }
 address {
-margin-right:71px;
-}
-address .fn {
-display:none;
+margin-right:7.18%;
 }
 
 input, textarea, select, option {
@@ -40,7 +39,6 @@ background:none;
 
 input.submit,
 #form_notice.warning #notice_text-count,
-#nav_register a,
 .form_settings .form_note,
 .entity_remote_subscribe {
 background-color:#9BB43E;
@@ -51,7 +49,6 @@ input:focus, textarea:focus, select:focus,
 border-color:#9BB43E;
 }
 input.submit,
-#nav_register a,
 .entity_remote_subscribe {
 color:#fff;
 }
@@ -75,18 +72,9 @@ border-top-color:#CEE1E9;
 border-top-color:#87B4C8;
 }
 
-
-#content .notice p.entry-content a:visited {
-background-color:#fcfcfc;
-}
-#content .notice p.entry-content .vcard a {
-background-color:#fcfffc;
-}
-
 #aside_primary {
 background-color:#CEE1E9;
 }
-
 
 #notice_text-count {
 color:#333;
@@ -94,12 +82,10 @@ color:#333;
 #form_notice.warning #notice_text-count {
 color:#000;
 }
-
-
-#nav_register a {
-text-decoration:none;
-font-weight:bold;
-padding:2px 4px;
+#form_notice.processing #notice_action-submit {
+background:#fff url(../../base/images/icons/icon_processing.gif) no-repeat 47% 47%;
+cursor:wait;
+text-indent:-9999px;
 }
 
 #content,
@@ -119,14 +105,12 @@ background-color:rgba(135, 180, 200, 0.3);
 background-color:rgba(255, 255, 255, 0.7);
 }
 
-
-#page_notice .error {
+.error {
 background-color:#F7E8E8;
 }
-#page_notice .success {
+.success {
 background-color:#EFF3DC;
 }
-
 
 #anon_notice {
 background-color:#87B4C8;
@@ -137,7 +121,6 @@ border-color:#fff;
 #showstream #anon_notice {
 background-color:#9BB43E;
 }
-
 
 #export_data li a {
 background-repeat:no-repeat;
@@ -171,26 +154,25 @@ background-color:#9BB43E;
 color:#fff;
 }
 .form_user_unsubscribe input.submit,
-.form_group_leave input.submit {
+.form_group_leave input.submit,
+.form_user_authorization input.reject {
 background-color:#87B4C8;
 }
 
 .entity_edit a {
-background-image:url(../images/icons/twotone/green/edit.gif);
+background-image:url(../../base/images/icons/twotone/green/edit.gif);
 }
 .entity_send-a-message a {
-background-image:url(../images/icons/twotone/green/quote.gif);
+background-image:url(../../base/images/icons/twotone/green/quote.gif);
 }
 .entity_nudge p,
 .form_user_nudge input.submit {
-background-image:url(../images/icons/twotone/green/mail.gif);
+background-image:url(../../base/images/icons/twotone/green/mail.gif);
 }
 .form_user_block input.submit,
 .form_user_unblock input.submit {
-background-image:url(../images/icons/twotone/green/shield.gif);
+background-image:url(../../base/images/icons/twotone/green/shield.gif);
 }
-
-
 
 /* NOTICES */
 .notices li.over {
@@ -202,16 +184,16 @@ background-color:#fcfcfc;
 background-color:transparent;
 }
 .notice-options .notice_reply a {
-background:transparent url(../images/icons/twotone/green/reply.gif) no-repeat 0 45%;
+background:transparent url(../../base/images/icons/twotone/green/reply.gif) no-repeat 0 45%;
 }
 .notice-options form.form_favor input.submit {
-background:transparent url(../images/icons/twotone/green/favourite.gif) no-repeat 0 45%;
+background:transparent url(../../base/images/icons/twotone/green/favourite.gif) no-repeat 0 45%;
 }
 .notice-options form.form_disfavor input.submit {
-background:transparent url(../images/icons/twotone/green/disfavourite.gif) no-repeat 0 45%;
+background:transparent url(../../base/images/icons/twotone/green/disfavourite.gif) no-repeat 0 45%;
 }
 .notice-options .notice_delete a {
-background:transparent url(../images/icons/twotone/green/trash.gif) no-repeat 0 45%;
+background:transparent url(../../base/images/icons/twotone/green/trash.gif) no-repeat 0 45%;
 }
 
 .notices div.entry-content,
@@ -234,13 +216,8 @@ background-color:#fcfcfc;
 }
 /*END: NOTICES */
 
-
 #new_group a {
-background:transparent url(../images/icons/twotone/green/news.gif) no-repeat 0 45%;
-}
-#usergroups #new_group {
-float: left;
-margin-right: 2em;
+background:transparent url(../../base/images/icons/twotone/green/news.gif) no-repeat 0 45%;
 }
 
 .pagination .nav_prev a,
@@ -249,10 +226,10 @@ background-repeat:no-repeat;
 border-color:#CEE1E9;
 }
 .pagination .nav_prev a {
-background-image:url(../images/icons/twotone/green/arrow-left.gif);
+background-image:url(../../base/images/icons/twotone/green/arrow-left.gif);
 background-position:10% 45%;
 }
 .pagination .nav_next a {
-background-image:url(../images/icons/twotone/green/arrow-right.gif);
+background-image:url(../../base/images/icons/twotone/green/arrow-right.gif);
 background-position:90% 45%;
 }

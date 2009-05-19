@@ -103,7 +103,7 @@ class NoticesearchAction extends SearchAction
     function showResults($q, $page)
     {
         $notice        = new Notice();
-        $q             = strtolower($q);
+
         $search_engine = $notice->getSearchEngine('identica_notices');
         $search_engine->set_sort_mode('chron');
         // Ask for an extra to see if there's more.
@@ -113,123 +113,64 @@ class NoticesearchAction extends SearchAction
         } else {
             $cnt = $notice->find();
         }
-        if ($cnt > 0) {
-            $terms = preg_split('/[\s,]+/', $q);
-            $this->elementStart('ul', array('class' => 'notices'));
-            for ($i = 0; $i < min($cnt, NOTICES_PER_PAGE); $i++) {
-                if ($notice->fetch()) {
-                    $this->showNotice($notice, $terms);
-                } else {
-                    // shouldn't happen!
-                    break;
-                }
-            }
-            $this->elementEnd('ul');
-        } else {
-            $this->element('p', 'error', _('No results'));
-        }
+        if ($cnt === 0) {
+            $this->element('p', 'error', _('No results.'));
 
+            $this->searchSuggestions($q);
+            if (common_logged_in()) {
+                $message = sprintf(_('Be the first to [post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!'), urlencode($q));
+            }
+            else {
+                $message = sprintf(_('Why not [register an account](%%%%action.register%%%%) and be the first to  [post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!'), urlencode($q));
+            }
+
+            $this->elementStart('div', 'guide');
+            $this->raw(common_markup_to_html($message));
+            $this->elementEnd('div');
+            return;
+        }
+        $terms = preg_split('/[\s,]+/', $q);
+        $nl = new SearchNoticeList($notice, $this, $terms);
+        $cnt = $nl->show();
         $this->pagination($page > 1, $cnt > NOTICES_PER_PAGE,
                           $page, 'noticesearch', array('q' => $q));
     }
+}
 
-    /**
-     * Show notice
-     *
-     * @param class $notice notice
-     * @param array $terms  terms to highlight
-     *
-     * @return void
-     *
-     * @todo refactor and combine with StreamAction::showNotice()
-     */
-    function showNotice($notice, $terms)
+class SearchNoticeList extends NoticeList {
+    function __construct($notice, $out=null, $terms)
     {
-        $profile = $notice->getProfile();
-        if (!$profile) {
-            common_log_db_error($notice, 'SELECT', __FILE__);
-            $this->serverError(_('Notice without matching profile'));
-            return;
-        }
-        // XXX: RDFa
-        $this->elementStart('li', array('class' => 'hentry notice',
-                                          'id' => 'notice-' . $notice->id));
+        parent::__construct($notice, $out);
+        $this->terms = $terms;
+    }
 
-        $this->elementStart('div', 'entry-title');
-        $this->elementStart('span', 'vcard author');
-        $avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
-        $this->elementStart('a', array('href' => $profile->profileurl,
-                                       'class' => 'url'));
-        $this->element('img', array('src' => ($avatar) ? $avatar->displayUrl() : Avatar::defaultImage(AVATAR_STREAM_SIZE),
-                                    'class' => 'avatar photo',
-                                    'width' => AVATAR_STREAM_SIZE,
-                                    'height' => AVATAR_STREAM_SIZE,
-                                    'alt' =>
-                                    ($profile->fullname) ? $profile->fullname :
-                                    $profile->nickname));
-        $this->element('span', 'nickname fn', $profile->nickname);
-        $this->elementEnd('a');
-        $this->elementEnd('span');
+    function newListItem($notice)
+    {
+        return new SearchNoticeListItem($notice, $this->out, $this->terms);
+    }
+}
 
+class SearchNoticeListItem extends NoticeListItem {
+    function __construct($notice, $out=null, $terms)
+    {
+        parent::__construct($notice, $out);
+        $this->terms = $terms;
+    }
+
+    function showContent()
+    {
         // FIXME: URL, image, video, audio
-        $this->elementStart('p', array('class' => 'entry-content'));
-        if ($notice->rendered) {
-            $this->raw($this->highlight($notice->rendered, $terms));
+        $this->out->elementStart('p', array('class' => 'entry-content'));
+        if ($this->notice->rendered) {
+            $this->out->raw($this->highlight($this->notice->rendered, $this->terms));
         } else {
             // XXX: may be some uncooked notices in the DB,
             // we cook them right now. This should probably disappear in future
             // versions (>> 0.4.x)
-            $this->raw($this->highlight(common_render_content($notice->content, $notice), $terms));
+            $this->out->raw($this->highlight(common_render_content($this->notice->content, $this->notice), $this->terms));
         }
-        $this->elementEnd('p');
-        $this->elementEnd('div');
+        $this->out->elementEnd('p');
 
-        $noticeurl = common_local_url('shownotice', array('notice' => $notice->id));
-        $this->elementStart('div', 'entry-content');
-        $this->elementStart('dl', 'timestamp');
-        $this->element('dt', null, _('Published'));
-        $this->elementStart('dd', null);
-        $this->elementStart('a', array('rel' => 'bookmark',
-                                       'href' => $noticeurl));
-        $dt = common_date_iso8601($notice->created);
-        $this->element('abbr', array('class' => 'published',
-                                          'title' => $dt),
-                            common_date_string($notice->created));
-        $this->elementEnd('a');
-        $this->elementEnd('dd');
-        $this->elementEnd('dl');
-
-        if ($notice->reply_to) {
-            $replyurl = common_local_url('shownotice',
-                                         array('notice' => $this->notice->reply_to));
-            $this->elementStart('dl', 'response');
-            $this->element('dt', null, _('To'));
-            $this->elementStart('dd');
-            $this->element('a', array('href' => $replyurl,
-                                           'rel' => 'in-reply-to'),
-                                _('in reply to'));
-            $this->elementEnd('dd');
-            $this->elementEnd('dl');
-        }
-        $this->elementEnd('div');
-
-        $this->elementStart('div', 'notice-options');
-
-        $reply_url = common_local_url('newnotice',
-                                      array('replyto' => $profile->nickname));
-
-        $this->elementStart('dl', 'notice_reply');
-        $this->element('dt', null, _('Reply to this notice'));
-        $this->elementStart('dd');
-        $this->elementStart('a', array('href' => $reply_url,
-                                       'title' => _('Reply to this notice')));
-        $this->text(_('Reply'));
-        $this->element('span', 'notice_id', $notice->id);
-        $this->elementEnd('a');
-        $this->elementEnd('dd');
-        $this->elementEnd('dl');
-        $this->elementEnd('div');
-        $this->elementEnd('li');
     }
 
     /**
@@ -242,21 +183,18 @@ class NoticesearchAction extends SearchAction
      */
     function highlight($text, $terms)
     {
-        /* Highligh serach terms */
-        $pattern = '/('.implode('|', array_map('htmlspecialchars', $terms)).')/i';
+        /* Highligh search terms */
+        $options = implode('|', array_map('preg_quote', array_map('htmlspecialchars', $terms),
+                                                            array_fill(0, sizeof($terms), '/')));
+        $pattern = "/($options)/i";
         $result  = preg_replace($pattern, '<strong>\\1</strong>', $text);
 
         /* Remove highlighting from inside links, loop incase multiple highlights in links */
-        $pattern = '/(href="[^"]*)<strong>('.implode('|', array_map('htmlspecialchars', $terms)).')<\/strong>([^"]*")/iU';
+        $pattern = '/(href="[^"]*)<strong>('.$options.')<\/strong>([^"]*")/iU';
         do {
             $result = preg_replace($pattern, '\\1\\2\\3', $result, -1, $count);
         } while ($count);
         return $result;
-    }
-
-    function isReadOnly()
-    {
-        return true;
     }
 }
 

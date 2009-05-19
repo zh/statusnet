@@ -52,7 +52,7 @@ class UsergroupsAction extends Action
     var $page = null;
     var $profile = null;
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }
@@ -139,10 +139,28 @@ class UsergroupsAction extends Action
         if ($groups) {
             $gl = new GroupList($groups, $this->user, $this);
             $cnt = $gl->show();
+            if (0 == $cnt) {
+                $this->showEmptyListMessage();
+            }
         }
 
         $this->pagination($this->page > 1, $cnt > GROUPS_PER_PAGE,
                           $this->page, 'usergroups',
                           array('nickname' => $this->user->nickname));
+    }
+
+    function showEmptyListMessage()
+    {
+        $message = sprintf(_('%s is not a member of any group.'), $this->user->nickname) . ' ';
+
+        if (common_logged_in()) {
+            $current_user = common_current_user();
+            if ($this->user->id === $current_user->id) {
+                $message .= _('Try [searching for groups](%%action.groupsearch%%) and joining them.');
+            }
+        }
+        $this->elementStart('div', 'guide');
+        $this->raw(common_markup_to_html($message));
+        $this->elementEnd('div');
     }
 }

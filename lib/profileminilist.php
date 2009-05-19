@@ -33,7 +33,7 @@ if (!defined('LACONICA')) {
 
 require_once INSTALLDIR.'/lib/profilelist.php';
 
-define('PROFILES_PER_MINILIST', 80);
+define('PROFILES_PER_MINILIST', 27);
 
 /**
  * Widget to show a list of profiles, good for sidebar

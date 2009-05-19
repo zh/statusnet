@@ -51,17 +51,17 @@ class PublicxrdsAction extends Action
 {
     /**
      * Is read only?
-     * 
+     *
      * @return boolean true
      */
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }
 
     /**
      * Class handler.
-     * 
+     *
      * @param array $args array of arguments
      *
      * @return nothing
@@ -70,24 +70,24 @@ class PublicxrdsAction extends Action
     {
         parent::handle($args);
         header('Content-Type: application/xrds+xml');
-        common_start_xml();
+        $this->startXML();
         $this->elementStart('XRDS', array('xmlns' => 'xri://$xrds'));
         $this->elementStart('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
                                           'xmlns:simple' => 'http://xrds-simple.net/core/1.0',
                                           'version' => '2.0'));
         $this->element('Type', null, 'xri://$xrds*simple');
-        foreach (array('finishopenidlogin', 'finishaddopenid', 'finishimmediate') as $finish) {
+        foreach (array('finishopenidlogin', 'finishaddopenid') as $finish) {
             $this->showService(Auth_OpenID_RP_RETURN_TO_URL_TYPE,
                                 common_local_url($finish));
         }
         $this->elementEnd('XRD');
         $this->elementEnd('XRDS');
-        common_end_xml();
+        $this->endXML();
     }
 
     /**
      * Show service.
-     * 
+     *
      * @param string $type    XRDS type
      * @param string $uri     URI
      * @param array  $params  type parameters, null by default

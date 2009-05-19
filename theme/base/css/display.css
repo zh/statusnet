@@ -27,9 +27,9 @@ overflow:hidden;
 }
 h1 {
 font-size:1.4em;
-line-height:1;
 margin-bottom:18px;
 }
+#showstream h1 { display:none; }
 h2 { font-size:1.3em; }
 h3 { font-size:1.2em; }
 h4 { font-size:1.1em; }
@@ -84,12 +84,13 @@ left:0;
 border:0;
 }
 
-#page_notice .error,
-#page_notice .success {
-padding:4px 7px;
+.error,
+.success {
+padding:4px 1.55%;
 border-radius:4px;
 -moz-border-radius:4px;
 -webkit-border-radius:4px;
+margin-bottom:18px;
 }
 form label.submit {
 display:none;
@@ -151,7 +152,9 @@ font-weight:bold;
 #form_openid_login legend,
 #form_search legend,
 #form_invite legend,
-#form_notice_delete legend {
+#form_notice_delete legend,
+#form_password_recover legend,
+#form_password_change legend {
 display:none;
 }
 
@@ -215,6 +218,9 @@ margin-right:0;
 address .fn {
 font-weight:bold;
 }
+address img + .fn {
+display:none;
+}
 
 #header {
 width:100%;
@@ -242,10 +248,11 @@ display:none;
 }
 
 #site_notice {
-position:absolute;
-top:65px;
-right:18px;
-width:250px;
+float:right;
+clear:right;
+margin-top:7px;
+margin-right:18px;
+width:24%;
 }
 #page_notice {
 clear:both;
@@ -255,9 +262,8 @@ margin-bottom:18px;
 
 #anon_notice {
 float:left;
-width:432px;
-width:28.052em;
-padding:11px;
+width:43.2%;
+padding:1.1%;
 border-radius:7px;
 -moz-border-radius:7px;
 -webkit-border-radius:7px;
@@ -298,7 +304,7 @@ padding:4px 11px;
 border-width:1px;
 border-style:solid;
 border-bottom:0;
-text-shadow: 4px 4px 4px #ddd;
+text-shadow: 2px 2px 2px #ddd;
 font-weight:bold;
 }
 #site_nav_local_views .nav {
@@ -365,8 +371,9 @@ margin-right:4px;
 
 #wrap {
 margin:0 auto;
-width:71.714em;
-width:1003px;
+width:100%;
+min-width:760px;
+max-width:1003px;
 overflow:hidden;
 }
 
@@ -378,14 +385,20 @@ margin-bottom:1em;
 }
 
 #content {
-width:644px;
-padding:18px;
+width:64.009%;
+min-height:259px;
+padding:1.795%;
 float:left;
 border-radius:7px;
 -moz-border-radius:7px;
 -moz-border-radius-topleft:0;
 -webkit-border-radius:7px;
 -webkit-border-top-left-radius:0;
+border-style:solid;
+border-width:1px;
+}
+#shownotice #content {
+min-height:0;
 }
 
 #content_inner {
@@ -395,10 +408,11 @@ float:left;
 }
 
 #aside_primary {
-width:280px;
+width:27.917%;
+min-height:259px;
 float:left;
-margin-left:4px;
-padding:18px;
+margin-left:0.385%;
+padding:1.795%;
 border-radius:7px;
 -moz-border-radius:7px;
 -webkit-border-radius:7px;
@@ -406,9 +420,8 @@ border-width:1px;
 border-style:solid;
 }
 
-/*Start: FORM NOTICE*/
 #form_notice {
-width:458px;
+width:45.664%;
 float:left;
 position:relative;
 line-height:1;
@@ -416,45 +429,36 @@ line-height:1;
 #form_notice fieldset {
 border:0;
 padding:0;
+position:relative;
 }
 #form_notice legend {
 display:none;
 }
 #form_notice textarea {
+float:left;
 border-radius:7px;
 -moz-border-radius:7px;
 -webkit-border-radius:7px;
-width:370px;
+width:80.789%;
 height:67px;
 line-height:1.5;
 padding:7px 7px 16px 7px;
 }
 #form_notice label {
 display:block;
+float:left;
 font-size:1.3em;
 margin-bottom:7px;
 }
-#form_notice .form_data li {
-float:left;
-}
-
-#form_notice #notice_attach_file label,
 #form_notice #notice_submit label {
 display:none;
 }
-
-#form_notice #notice_attachment {
-margin-top:25px;
-margin-left:4px;
-}
-
 #form_notice .form_note {
 position:absolute;
 top:99px;
 right:98px;
 z-index:9;
 }
-
 #form_notice .form_note dt {
 font-weight:bold;
 display:none;
@@ -464,51 +468,34 @@ font-weight:bold;
 line-height:1.15;
 padding:1px 2px;
 }
-
-#form_notice #notice_data-attach_view {
-position:absolute;
-top:25px;
-right:30px;
-margin-left:4px;
+#form_notice #notice_action-submit {
+width:14%;
+height:47px;
 padding:0;
-width:16px;
-height:16px;
-border:0;
-text-indent:-9999px;
-}
-#form_notice .form_actions {
 position:absolute;
 bottom:0;
 right:0;
 }
-#form_notice .form_actions input.submit {
-width:60px;
-padding:8px;
+#form_notice label[for=to] {
+margin-top:7px;
 }
-
-#form_notice li {
-margin-bottom:0;
-}
-
-#form_notice #notice_to {
+#form_notice select[id=to] {
 margin-bottom:7px;
-}
-
-#notice_to label {
-float:left;
-margin-right:18px;
-margin-top:11px;
-}
-#notice_to select {
+margin-left:18px;
 float:left;
 }
-/*end FORM NOTICE*/
-
+#form_notice .error {
+float:left;
+clear:both;
+width:96.9%;
+margin-bottom:0;
+line-height:1.618;
+}
 
 /* entity_profile */
 .entity_profile {
 position:relative;
-width:475px;
+width:74.702%;
 min-height:123px;
 float:left;
 margin-bottom:18px;
@@ -538,19 +525,21 @@ margin-bottom:18px;
 .entity_profile .entity_tags {
 margin-left:113px;
 margin-bottom:4px;
-width:322px;
 }
 
 .entity_profile .entity_fn,
 .entity_profile .entity_nickname {
 margin-left:11px;
 display:inline;
-font-weight:bold;
 }
 .entity_profile .entity_nickname {
 margin-left:0;
 }
-
+.entity_profile .fn,
+.entity_profile .nickname {
+font-size:1.1em;
+font-weight:bold;
+}
 .entity_profile .entity_fn dd:before {
 content: "(";
 font-weight:normal;
@@ -566,14 +555,14 @@ display:none;
 .entity_profile h2 {
 display:none;
 }
-
 /* entity_profile */
 
 
 /*entity_actions*/
 .entity_actions {
 float:right;
-margin-left:28px;
+margin-left:2.35%;
+max-width:25%;
 }
 .entity_actions h2 {
 display:none;
@@ -632,7 +621,9 @@ border-radius:4px;
 -moz-border-radius:4px;
 -webkit-border-radius:4px;
 }
-
+.entity_actions .accept {
+margin-bottom:18px;
+}
 
 .entity_tags ul {
 list-style-type:none;
@@ -648,6 +639,7 @@ margin-bottom:29px;
 clear:both;
 float:left;
 width:100%;
+list-style-position:inside;
 }
 .aside .section h2 {
 text-transform:uppercase;
@@ -671,6 +663,7 @@ list-style-type:none;
 float:left;
 margin-right:7px;
 margin-bottom:7px;
+display:inline;
 }
 .section .entities li .photo {
 margin-right:0;
@@ -714,7 +707,7 @@ float:none;
 .profile .entity_profile .entity_note,
 .profile .entity_profile .entity_url,
 .profile .entity_profile .entity_tags,
-.profile .entity_profile .form_subcription_edit {
+.profile .entity_profile .form_subscription_edit {
 margin-left:59px;
 clear:none;
 display:block;
@@ -726,7 +719,7 @@ margin-right:11px;
 }
 
 
-.profile .entity_profile .form_subcription_edit label {
+.profile .entity_profile .form_subscription_edit label {
 font-weight:normal;
 margin-right:11px;
 }
@@ -742,7 +735,7 @@ clear:both;
 float:left;
 width:100%;
 border-top-width:1px;
-border-top-style:dashed;
+border-top-style:dotted;
 }
 .notices li {
 list-style-type:none;
@@ -781,15 +774,13 @@ overflow:hidden;
 font-weight:bold;
 }
 
-.notice .author .photo {
-margin-bottom:0;
-}
-
 .vcard .photo {
 display:inline;
 margin-right:11px;
-margin-bottom:11px;
 float:left;
+}
+#shownotice .vcard .photo {
+margin-bottom:4px;
 }
 .vcard .url {
 text-decoration:none;
@@ -827,9 +818,10 @@ clear:left;
 float:left;
 font-size:0.95em;
 margin-left:59px;
-width:70%;
+width:65%;
 }
-#showstream .notice div.entry-content {
+#showstream .notice div.entry-content,
+#shownotice .notice div.entry-content {
 margin-left:0;
 }
 
@@ -856,23 +848,6 @@ display:inline-block;
 text-transform:lowercase;
 }
 
-
-
-.notice-data {
-position:absolute;
-top:18px;
-right:0;
-min-height:50px;
-margin-bottom:4px;
-}
-.notice .entry-content .notice-data dt {
-display:none;
-}
-
-.notice-data a {
-display:block;
-outline:none;
-}
 
 .notice-options {
 padding-left:2%;
@@ -902,7 +877,7 @@ left:0;
 left:29px;
 }
 .notice-options .notice_delete {
-left:76px;
+right:0;
 }
 .notice-options .notice_reply dt {
 display:none;
@@ -941,10 +916,12 @@ display:none;
 border:0;
 padding:0;
 }
-/*END: NOTICES */
 
 
-
+#usergroups #new_group {
+float: left;
+margin-right: 2em;
+}
 #new_group, #group_search {
 margin-bottom:18px;
 }
@@ -1049,6 +1026,8 @@ padding-right:30px;
 .hentry .entry-content p {
 margin-bottom:18px;
 }
+.system_notice ul,
+.instructions ul,
 .hentry entry-content ol,
 .hentry .entry-content ul {
 list-style-position:inside;
@@ -1065,7 +1044,7 @@ margin-left:18px;
 
 /* TOP_POSTERS */
 .section tbody td {
-padding-right:11px;
+padding-right:18px;
 padding-bottom:11px;
 }
 .section .vcard .photo {
@@ -1173,4 +1152,36 @@ clear:both;
 margin-bottom:0;
 }
 
+#form_settings_design #settings_design_color .form_data,
+#form_settings_design #color-picker {
+float:left;
+}
+#form_settings_design #settings_design_color .form_data {
+width:400px;
+margin-right:28px;
+}
 
+#settings_design_color .form_data li {
+width:33%;
+}
+#settings_design_color .form_data label {
+float:none;
+}
+#settings_design_color .form_data .swatch {
+padding:11px;
+margin-left:0;
+}
+
+.instructions ul {
+list-style-position:inside;
+}
+.instructions p,
+.instructions ul {
+margin-bottom:18px;
+}
+.help dt {
+display:none;
+}
+.guide {
+clear:both;
+}

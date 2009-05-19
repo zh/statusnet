@@ -179,25 +179,89 @@ class NoticeListItem extends Widget
     {
         $this->showStart();
         $this->showNotice();
-        $this->showNoticeInfo();
+        $this->showNoticeAttachments();
         $this->showNoticeOptions();
+        $this->showNoticeInfo();
         $this->showEnd();
     }
 
     function showNotice()
     {
-        $this->out->elementStart('div', 'entry-title');
+if(0)
+        $this->out->elementStart('entry-title');
+else
+
+        if ('shownotice' === $this->out->args['action']) {
+            $width = '85%';
+        } else {
+            $width = '90%';
+        }
+
+
+        $this->out->elementStart('div', array('class' => 'entry-title', 'style' => "float: left; width: $width;"));
         $this->showAuthor();
         $this->showContent();
         $this->out->elementEnd('div');
     }
 
+    function showNoticeAttachments()
+    {
+        $f2p = new File_to_post;
+        $f2p->post_id = $this->notice->id;
+        $file = new File;
+        $file->joinAdd($f2p);
+        $file->selectAdd();
+        $file->selectAdd('file.id as id');
+        $count = $file->find(true);
+        if (!$count) return;
+        if (1 === $count) {
+            $href = common_local_url('attachment', array('attachment' => $file->id));
+            $att_class = 'attachment';
+        } else {
+            $href = common_local_url('attachments', array('notice' => $this->notice->id));
+            $att_class = 'attachments';
+        }
+
+        $clip = theme_path('images/icons/clip', 'base');
+        if ('shownotice' === $this->out->args['action']) {
+            $height = '96px';
+            $width = '83%';
+            $width_att = '15%';
+            $clip .= '-big.png';
+            $top = '70px';
+        } else {
+            $height = '48px';
+            $width = '90%';
+            $width_att = '8%';
+            $clip .= '.png';
+            $top = '20px';
+        }
+if(0)
+        $this->out->elementStart('div', 'entry-attachments');
+else
+        $this->out->elementStart('p', array('class' => 'entry-attachments', 'style' => "float: right; width: $width_att; background: url($clip) no-repeat; text-align: right; height: $height;"));
+        $this->out->element('a', array('class' => $att_class, 'style' => "text-decoration: none; padding-top: $top; display: block; height: $height;", 'href' => $href, 'title' => "# of attachments: $count"), $count === 1 ? '' : $count);
+
+
+        $this->out->elementEnd('p');
+    }
+
     function showNoticeInfo()
     {
+if(0)
         $this->out->elementStart('div', 'entry-content');
+else
+
+        if ('shownotice' === $this->out->args['action']) {
+            $width = '85%';
+        } else {
+            $width = '90%';
+        }
+
+        $this->out->elementStart('div', array('class' => 'entry-content', 'style' => "float: left; width: $width;"));
         $this->showNoticeLink();
         $this->showNoticeSource();
-        $this->showReplyTo();
+        $this->showContext();
         $this->out->elementEnd('div');
     }
 
@@ -205,7 +269,10 @@ class NoticeListItem extends Widget
     {
         $user = common_current_user();
         if ($user) {
+if(0)
             $this->out->elementStart('div', 'notice-options');
+else
+            $this->out->elementStart('div', array('class' => 'notice-options', 'style' => 'float: right; width: 16%;'));
             $this->showFaveForm();
             $this->showReplyLink();
             $this->showDeleteLink();
@@ -258,8 +325,12 @@ class NoticeListItem extends Widget
     function showAuthor()
     {
         $this->out->elementStart('span', 'vcard author');
-        $this->out->elementStart('a', array('href' => $this->profile->profileurl,
-                                            'class' => 'url'));
+        $attrs = array('href' => $this->profile->profileurl,
+                       'class' => 'url');
+        if (!empty($this->profile->fullname)) {
+            $attrs['title'] = $this->profile->fullname . ' (' . $this->profile->nickname . ') ';
+        }
+        $this->out->elementStart('a', $attrs);
         $this->showAvatar();
         $this->showNickname();
         $this->out->elementEnd('a');
@@ -387,6 +458,7 @@ class NoticeListItem extends Widget
              case 'xmpp':
              case 'mail':
              case 'omb':
+             case 'system':
              case 'api':
                 $this->out->element('dd', null, $source_name);
                 break;
@@ -416,17 +488,18 @@ class NoticeListItem extends Widget
      * @return void
      */
 
-    function showReplyTo()
+    function showContext()
     {
-        if ($this->notice->reply_to) {
-            $replyurl = common_local_url('shownotice',
-                                         array('notice' => $this->notice->reply_to));
+        // XXX: also show context if there are replies to this notice
+        if (!empty($this->notice->conversation)
+            && $this->notice->conversation != $this->notice->id) {
+            $convurl = common_local_url('conversation',
+                                         array('id' => $this->notice->conversation));
             $this->out->elementStart('dl', 'response');
             $this->out->element('dt', null, _('To'));
             $this->out->elementStart('dd');
-            $this->out->element('a', array('href' => $replyurl,
-                                           'rel' => 'in-reply-to'),
-                                _('in reply to'));
+            $this->out->element('a', array('href' => $convurl),
+                                _('in context'));
             $this->out->elementEnd('dd');
             $this->out->elementEnd('dl');
         }

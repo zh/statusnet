@@ -127,17 +127,20 @@ class ApiAction extends Action
                                 'laconica/wadl');
 
         static $bareauth = array('statuses/user_timeline',
+                                 'statuses/friends_timeline',
                                  'statuses/friends',
+                                 'statuses/replies',
+                                 'statuses/mentions',
                                  'statuses/followers',
                                  'favorites/favorites');
 
-        # If the site is "private", all API methods need authentication
-
-        if (common_config('site', 'private')) {
-            return true;
-        }
-
         $fullname = "$this->api_action/$this->api_method";
+
+        // If the site is "private", all API methods except laconica/config
+        // need authentication
+        if (common_config('site', 'private')) {
+            return $fullname != 'laconica/config' || false;
+        }
 
         if (in_array($fullname, $bareauth)) {
             # bareauth: only needs auth if without an argument
@@ -178,11 +181,11 @@ class ApiAction extends Action
         }
     }
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
-        # NOTE: before handle(), can't use $this->arg
-        $apiaction = $_REQUEST['apiaction'];
-        $method = $_REQUEST['method'];
+        $apiaction = $args['apiaction'];
+        $method = $args['method'];
+
         list($cmdtext, $fmt) = explode('.', $method);
 
         static $write_methods = array(
@@ -205,5 +208,4 @@ class ApiAction extends Action
 
         return false;
     }
-
 }

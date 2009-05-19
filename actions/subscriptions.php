@@ -95,6 +95,9 @@ class SubscriptionsAction extends GalleryAction
         if ($subscriptions) {
             $subscriptions_list = new SubscriptionsList($subscriptions, $this->user, $this);
             $cnt = $subscriptions_list->show();
+            if (0 == $cnt) {
+                $this->showEmptyListMessage();
+            }
         }
 
         $subscriptions->free();
@@ -102,6 +105,35 @@ class SubscriptionsAction extends GalleryAction
         $this->pagination($this->page > 1, $cnt > PROFILES_PER_PAGE,
                           $this->page, 'subscriptions',
                           array('nickname' => $this->user->nickname));
+    }
+
+    function showEmptyListMessage()
+    {
+        if (common_logged_in()) {
+            $current_user = common_current_user();
+            if ($this->user->id === $current_user->id) {
+                $message = _('You\'re not listening to anyone\'s notices right now, try subscribing to people you know. Try [people search](%%action.peoplesearch%%), look for members in groups you\'re interested in and in our [featured users](%%action.featured%%). If you\'re a [Twitter user](%%action.twittersettings%%), you can automatically subscribe to people you already follow there.');
+            } else {
+                $message = sprintf(_('%s is not listening to anyone.'), $this->user->nickname);
+            }
+        }
+        else {
+            $message = sprintf(_('%s is not listening to anyone.'), $this->user->nickname);
+        }
+
+        $this->elementStart('div', 'guide');
+        $this->raw(common_markup_to_html($message));
+        $this->elementEnd('div');
+    }
+
+    function showSections()
+    {
+        parent::showSections();
+        $cloud = new SubscriptionsPeopleTagCloudSection($this);
+        $cloud->show();
+
+        $cloud2 = new SubscriptionsPeopleSelfTagCloudSection($this);
+        $cloud2->show();
     }
 }
 
@@ -117,7 +149,7 @@ class SubscriptionsList extends ProfileList
 
         $this->out->elementStart('form', array('id' => 'subedit-' . $profile->id,
                                           'method' => 'post',
-                                          'class' => 'form_subcription_edit',
+                                          'class' => 'form_subscription_edit',
                                           'action' => common_local_url('subedit')));
         $this->out->hidden('token', common_session_token());
         $this->out->hidden('profile', $profile->id);

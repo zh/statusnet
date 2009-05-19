@@ -56,7 +56,7 @@ class PublicAction extends Action
 
     var $page = null;
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }
@@ -136,6 +136,17 @@ class PublicAction extends Action
     }
 
     /**
+     * Output document relationship links
+     *
+     * @return void
+     */
+    function showRelationshipLinks()
+    {
+        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
+                                     $this->page, 'public');
+    }
+
+    /**
      * Extra head elements
      *
      * We include a <meta> element linking to the publicxrds page, for OpenID
@@ -166,6 +177,22 @@ class PublicAction extends Action
         $nav->show();
     }
 
+    function showEmptyList()
+    {
+        $message = _('This is the public timeline for %%site.name%% but no one has posted anything yet.') . ' ';
+
+        if (common_logged_in()) {
+            $message .= _('Be the first to post!');
+        }
+        else {
+            $message .= _('Why not [register an account](%%action.register%%) and be the first to post!');
+        }
+
+        $this->elementStart('div', 'guide');
+        $this->raw(common_markup_to_html($message));
+        $this->elementEnd('div');
+    }
+
     /**
      * Fill the content area
      *
@@ -189,6 +216,10 @@ class PublicAction extends Action
 
         $cnt = $nl->show();
 
+        if ($cnt == 0) {
+            $this->showEmptyList();
+        }
+
         $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
                           $this->page, 'public');
     }
@@ -207,9 +238,14 @@ class PublicAction extends Action
 
     function showAnonymousMessage()
     {
-		$m = _('This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
-               'based on the Free Software [Laconica](http://laconi.ca/) tool. ' .
-               '[Join now](%%action.register%%) to share notices about yourself with friends, family, and colleagues! ([Read more](%%doc.help%%))');
+        if (! (common_config('site','closed') || common_config('site','inviteonly'))) {
+	    $m = _('This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
+                  'based on the Free Software [Laconica](http://laconi.ca/) tool. ' .
+                  '[Join now](%%action.register%%) to share notices about yourself with friends, family, and colleagues! ([Read more](%%doc.help%%))');
+        } else {
+            $m = _('This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
+                   'based on the Free Software [Laconica](http://laconi.ca/) tool.');
+        }
         $this->elementStart('div', array('id' => 'anon_notice'));
         $this->raw(common_markup_to_html($m));
         $this->elementEnd('div');

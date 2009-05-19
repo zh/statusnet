@@ -35,7 +35,7 @@ if (!defined('LACONICA')) {
 require_once INSTALLDIR.'/lib/noticelist.php';
 require_once INSTALLDIR.'/lib/feedlist.php';
 
-define('MEMBERS_PER_SECTION', 81);
+define('MEMBERS_PER_SECTION', 27);
 
 /**
  * Group main page
@@ -60,7 +60,7 @@ class ShowgroupAction extends Action
      * @return boolean true
      */
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }
@@ -73,11 +73,17 @@ class ShowgroupAction extends Action
 
     function title()
     {
+        if (!empty($this->group->fullname)) {
+            $base = $this->group->fullname . ' (' . $this->group->nickname . ')';
+        } else {
+            $base = $this->group->nickname;
+        }
+
         if ($this->page == 1) {
-            return sprintf(_("%s group"), $this->group->nickname);
+            return sprintf(_("%s group"), $base);
         } else {
             return sprintf(_("%s group, page %d"),
-                           $this->group->nickname,
+                           $base,
                            $this->page);
         }
     }
@@ -275,10 +281,8 @@ class ShowgroupAction extends Action
         $cur = common_current_user();
         if ($cur) {
             if ($cur->isMember($this->group)) {
-                if (!$cur->isAdmin($this->group)) {
-                    $lf = new LeaveForm($this, $this->group);
-                    $lf->show();
-                }
+                $lf = new LeaveForm($this, $this->group);
+                $lf->show();
             } else {
                 $jf = new JoinForm($this, $this->group);
                 $jf->show();
@@ -305,6 +309,17 @@ class ShowgroupAction extends Action
 
         return array(new Feed(Feed::RSS1, $url, sprintf(_('Notice feed for %s group'),
                                                         $this->group->nickname)));
+    }
+
+    /**
+     * Output document relationship links
+     *
+     * @return void
+     */
+    function showRelationshipLinks()
+    {
+        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
+                                     $this->page, 'showgroup', array('nickname' => $this->group->nickname));
     }
 
     /**
@@ -346,7 +361,7 @@ class ShowgroupAction extends Action
              $this->element('p', null, _('(None)'));
         }
 
-        if ($cnt == MEMBERS_PER_SECTION) {
+        if ($cnt > MEMBERS_PER_SECTION) {
             $this->element('a', array('href' => common_local_url('groupmembers',
                                                                  array('nickname' => $this->group->nickname))),
                            _('All members'));
@@ -392,11 +407,18 @@ class ShowgroupAction extends Action
 
     function showAnonymousMessage()
     {
-		$m = sprintf(_('**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
-                       'based on the Free Software [Laconica](http://laconi.ca/) tool. Its members share ' .
-                       'short messages about their life and interests. '.
-                       '[Join now](%%%%action.register%%%%) to become part of this group and many more! ([Read more](%%%%doc.help%%%%))'),
+        if (!(common_config('site','closed') || common_config('site','inviteonly'))) {
+            $m = sprintf(_('**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
+                'based on the Free Software [Laconica](http://laconi.ca/) tool. Its members share ' .
+                'short messages about their life and interests. '.
+                '[Join now](%%%%action.register%%%%) to become part of this group and many more! ([Read more](%%%%doc.help%%%%))'),
                      $this->group->nickname);
+        } else {
+            $m = sprintf(_('**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
+                'based on the Free Software [Laconica](http://laconi.ca/) tool. Its members share ' .
+                'short messages about their life and interests. '),
+                     $this->group->nickname);
+        }
         $this->elementStart('div', array('id' => 'anon_notice'));
         $this->raw(common_markup_to_html($m));
         $this->elementEnd('div');

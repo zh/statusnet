@@ -27,12 +27,13 @@ $action = null;
 
 function getPath($req)
 {
-    if (common_config('site', 'fancy')) {
+    if ((common_config('site', 'fancy') || !array_key_exists('PATH_INFO', $_SERVER))
+        && array_key_exists('p', $req)) {
         return $req['p'];
-    } else if ($_SERVER['PATH_INFO']) {
+    } else if (array_key_exists('PATH_INFO', $_SERVER)) {
         return $_SERVER['PATH_INFO'];
     } else {
-        return $req['p'];
+        return null;
     }
 }
 
@@ -42,7 +43,11 @@ function handleError($error)
         return;
     }
 
-    common_log(LOG_ERR, "PEAR error: " . $error->getMessage());
+    $logmsg = "PEAR error: " . $error->getMessage();
+    if(common_config('site', 'logdebug')) {
+        $logmsg .= " : ". $error->getDebugInfo();
+    }
+    common_log(LOG_ERR, $logmsg);
     $msg = sprintf(_('The database for %s isn\'t responding correctly, '.
                      'so the site won\'t work properly. '.
                      'The site admins probably know about the problem, '.
@@ -58,7 +63,19 @@ function handleError($error)
 
 function main()
 {
-    global $user, $action;
+    // quick check for fancy URL auto-detection support in installer.
+    if (isset($_SERVER['REDIRECT_URL']) && ('/check-fancy' === $_SERVER['REDIRECT_URL'])) {
+        die("Fancy URL support detection succeeded. We suggest you enable this to get fancy (pretty) URLs.");
+    }
+    global $user, $action, $config;
+
+    if (!_have_config()) {
+        $msg = sprintf(_("No configuration file found. Try running ".
+                         "the installation program first."));
+        $sac = new ServerErrorAction($msg);
+        $sac->showPage();
+        return;
+    }
 
     // For database errors
 
@@ -88,6 +105,8 @@ function main()
 
     $args = array_merge($args, $_REQUEST);
 
+    Event::handle('ArgsInitialize', array(&$args));
+
     $action = $args['action'];
 
     if (!$action || !preg_match('/^[a-zA-Z0-9_-]*$/', $action)) {
@@ -115,14 +134,14 @@ function main()
 
         // XXX: find somewhere for this little block to live
 
-        if ($config['db']['mirror'] && $action_obj->isReadOnly()) {
-            if (is_array($config['db']['mirror'])) {
+        if (common_config('db', 'mirror') && $action_obj->isReadOnly($args)) {
+            if (is_array(common_config('db', 'mirror'))) {
                 // "load balancing", ha ha
-                $k = array_rand($config['db']['mirror']);
-
-                $mirror = $config['db']['mirror'][$k];
+                $arr = common_config('db', 'mirror');
+                $k = array_rand($arr);
+                $mirror = $arr[$k];
             } else {
-                $mirror = $config['db']['mirror'];
+                $mirror = common_config('db', 'mirror');
             }
             $config['db']['database'] = $mirror;
         }

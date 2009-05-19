@@ -47,8 +47,11 @@ require_once 'Net/URL/Mapper.php';
 
 class Router
 {
-    static $m = null;
+    var $m = null;
     static $inst = null;
+    static $bare = array('requesttoken', 'accesstoken', 'userauthorization',
+                         'postnotice', 'updateprofile', 'finishremotesubscribe',
+                         'finishopenidlogin', 'finishaddopenid');
 
     static function get()
     {
@@ -65,8 +68,8 @@ class Router
         }
     }
 
-    function initialize() {
-
+    function initialize()
+    {
         $m = Net_URL_Mapper::getInstance();
 
         // In the "root"
@@ -98,11 +101,16 @@ class Router
         $main = array('login', 'logout', 'register', 'subscribe',
                       'unsubscribe', 'confirmaddress', 'recoverpassword',
                       'invite', 'favor', 'disfavor', 'sup',
-                      'tagother', 'block');
+                      'block', 'subedit');
 
         foreach ($main as $a) {
             $m->connect('main/'.$a, array('action' => $a));
         }
+
+        $m->connect('main/sup/:seconds', array('action' => 'sup'),
+                    array('seconds' => '[0-9]+'));
+
+        $m->connect('main/tagother/:id', array('action' => 'tagother'));
 
         // these take a code
 
@@ -114,11 +122,16 @@ class Router
 
         $m->connect('main/openid', array('action' => 'openidlogin'));
         $m->connect('main/remote', array('action' => 'remotesubscribe'));
+        $m->connect('main/remote?nickname=:nickname', array('action' => 'remotesubscribe'), array('nickname' => '[A-Za-z0-9_-]+'));
+
+        foreach (Router::$bare as $action) {
+            $m->connect('index.php?action=' . $action, array('action' => $action));
+        }
 
         // settings
 
         foreach (array('profile', 'avatar', 'password', 'openid', 'im',
-                       'email', 'sms', 'twitter', 'other') as $s) {
+                       'email', 'sms', 'twitter', 'design', 'other') as $s) {
             $m->connect('settings/'.$s, array('action' => $s.'settings'));
         }
 
@@ -126,13 +139,38 @@ class Router
 
         foreach (array('group', 'people', 'notice') as $s) {
             $m->connect('search/'.$s, array('action' => $s.'search'));
+            $m->connect('search/'.$s.'?q=:q',
+                        array('action' => $s.'search'),
+                        array('q' => '.+'));
         }
 
+        // The second of these is needed to make the link work correctly
+        // when inserted into the page. The first is needed to match the
+        // route on the way in. Seems to be another Net_URL_Mapper bug to me.
         $m->connect('search/notice/rss', array('action' => 'noticesearchrss'));
+        $m->connect('search/notice/rss?q=:q', array('action' => 'noticesearchrss'),
+                    array('q' => '.+'));
+
+        $m->connect('attachment/:attachment/ajax',
+                    array('action' => 'attachment_ajax'),
+                    array('notice' => '[0-9]+'));
+
+        $m->connect('attachment/:attachment',
+                    array('action' => 'attachment'),
+                    array('notice' => '[0-9]+'));
 
         // notice
 
         $m->connect('notice/new', array('action' => 'newnotice'));
+        $m->connect('notice/new?replyto=:replyto',
+                    array('action' => 'newnotice'),
+                    array('replyto' => '[A-Za-z0-9_-]+'));
+        $m->connect('notice/:notice/attachments/ajax',
+                    array('action' => 'attachments_ajax'),
+                    array('notice' => '[0-9]+'));
+        $m->connect('notice/:notice/attachments',
+                    array('action' => 'attachments'),
+                    array('notice' => '[0-9]+'));
         $m->connect('notice/:notice',
                     array('action' => 'shownotice'),
                     array('notice' => '[0-9]+'));
@@ -141,7 +179,14 @@ class Router
                     array('action' => 'deletenotice'),
                     array('notice' => '[0-9]+'));
 
+        // conversation
+
+        $m->connect('conversation/:id',
+                    array('action' => 'conversation'),
+                    array('id' => '[0-9]+'));
+
         $m->connect('message/new', array('action' => 'newmessage'));
+        $m->connect('message/new?to=:to', array('action' => 'newmessage'), array('to' => '[A-Za-z0-9_-]+'));
         $m->connect('message/:message',
                     array('action' => 'showmessage'),
                     array('message' => '[0-9]+'));
@@ -206,39 +251,51 @@ class Router
         $m->connect('api/statuses/:method',
                     array('action' => 'api',
                           'apiaction' => 'statuses'),
-                    array('method' => '(public_timeline|friends_timeline|user_timeline|update|replies|friends|followers|featured)(\.(atom|rss|xml|json))?'));
+                    array('method' => '(public_timeline|friends_timeline|user_timeline|update|replies|mentions|friends|followers|featured)(\.(atom|rss|xml|json))?'));
 
         $m->connect('api/statuses/:method/:argument',
                     array('action' => 'api',
                           'apiaction' => 'statuses'),
-                    array('method' => '(user_timeline|show|destroy|friends|followers)'));
+                    array('method' => '(user_timeline|friends_timeline|replies|mentions|show|destroy|friends|followers)'));
 
         // users
 
-        $m->connect('api/users/show/:argument',
+        $m->connect('api/users/:method/:argument',
                     array('action' => 'api',
-                          'apiaction' => 'users'));
+                          'apiaction' => 'users'),
+                    array('method' => 'show(\.(xml|json))?'));
 
         $m->connect('api/users/:method',
                     array('action' => 'api',
                           'apiaction' => 'users'),
-                    array('method' => 'show(\.(xml|json|atom|rss))?'));
+                    array('method' => 'show(\.(xml|json))?'));
 
         // direct messages
 
-        $m->connect('api/direct_messages/:method',
-                    array('action' => 'api',
-                          'apiaction' => 'direct_messages'),
-                    array('method' => '(sent|new)(\.(xml|json|atom|rss))?'));
+        foreach (array('xml', 'json') as $e) {
+            $m->connect('api/direct_messages/new.'.$e,
+                        array('action' => 'api',
+                              'apiaction' => 'direct_messages',
+                              'method' => 'create.'.$e));
+        }
+
+        foreach (array('xml', 'json', 'rss', 'atom') as $e) {
+            $m->connect('api/direct_messages.'.$e,
+                        array('action' => 'api',
+                              'apiaction' => 'direct_messages',
+                              'method' => 'direct_messages.'.$e));
+        }
+
+        foreach (array('xml', 'json', 'rss', 'atom') as $e) {
+            $m->connect('api/direct_messages/sent.'.$e,
+                        array('action' => 'api',
+                              'apiaction' => 'direct_messages',
+                              'method' => 'sent.'.$e));
+        }
 
         $m->connect('api/direct_messages/destroy/:argument',
                     array('action' => 'api',
                           'apiaction' => 'direct_messages'));
-
-        $m->connect('api/:method',
-                    array('action' => 'api',
-                          'apiaction' => 'direct_messages'),
-                    array('method' => 'direct_messages(\.(xml|json|atom|rss))?'));
 
         // friendships
 
@@ -250,7 +307,33 @@ class Router
         $m->connect('api/friendships/:method',
                     array('action' => 'api',
                           'apiaction' => 'friendships'),
-                    array('method' => 'exists(\.(xml|json|rss|atom))'));
+                    array('method' => 'exists(\.(xml|json))'));
+
+        // Social graph
+
+        $m->connect('api/friends/ids/:argument',
+                    array('action' => 'api',
+                          'apiaction' => 'statuses',
+                          'method' => 'friendsIDs'));
+
+        foreach (array('xml', 'json') as $e) {
+            $m->connect('api/friends/ids.'.$e,
+                        array('action' => 'api',
+                              'apiaction' => 'statuses',
+                              'method' => 'friendsIDs.'.$e));
+        }
+
+        $m->connect('api/followers/ids/:argument',
+                    array('action' => 'api',
+                          'apiaction' => 'statuses',
+                          'method' => 'followersIDs'));
+
+        foreach (array('xml', 'json') as $e) {
+            $m->connect('api/followers/ids.'.$e,
+                        array('action' => 'api',
+                              'apiaction' => 'statuses',
+                              'method' => 'followersIDs.'.$e));
+        }
 
         // account
 
@@ -269,10 +352,12 @@ class Router
                           'apiaction' => 'favorites',
                           'method' => 'favorites'));
 
-        $m->connect('api/:method',
-                    array('action' => 'api',
-                          'apiaction' => 'favorites'),
-                    array('method' => 'favorites(\.(xml|json|rss|atom))?'));
+        foreach (array('xml', 'json', 'rss', 'atom') as $e) {
+            $m->connect('api/favorites.'.$e,
+                        array('action' => 'api',
+                              'apiaction' => 'favorites',
+                              'method' => 'favorites.'.$e));
+        }
 
         // notifications
 
@@ -297,6 +382,11 @@ class Router
         $m->connect('api/laconica/:method',
                     array('action' => 'api',
                           'apiaction' => 'laconica'));
+
+        // search
+        $m->connect('api/search.atom', array('action' => 'twitapisearchatom'));
+        $m->connect('api/search.json', array('action' => 'twitapisearchjson'));
+        $m->connect('api/trends.json', array('action' => 'twitapitrends'));
 
         // user stuff
 
@@ -336,19 +426,40 @@ class Router
                     array('size' => '(original|96|48|24)',
                           'nickname' => '[a-zA-Z0-9]{1,64}'));
 
+        $m->connect(':nickname/tag/:tag/rss',
+            array('action' => 'userrss'),
+            array('nickname' => '[a-zA-Z0-9]{1,64}'),
+            array('tag' => '[a-zA-Z0-9]+'));
+
+        $m->connect(':nickname/tag/:tag',
+                    array('action' => 'showstream'),
+                    array('nickname' => '[a-zA-Z0-9]{1,64}'),
+                    array('tag' => '[a-zA-Z0-9]+'));
+
         $m->connect(':nickname',
                     array('action' => 'showstream'),
                     array('nickname' => '[a-zA-Z0-9]{1,64}'));
+
+        Event::handle('RouterInitialized', array($m));
 
         return $m;
     }
 
     function map($path)
     {
-        return $this->m->match($path);
+        try {
+            $match = $this->m->match($path);
+        } catch (Net_URL_Mapper_InvalidException $e) {
+            common_log(LOG_ERR, "Problem getting route for $path - " .
+                       $e->getMessage());
+            $cac = new ClientErrorAction("Page not found.", 404);
+            $cac->showPage();
+        }
+
+        return $match;
     }
 
-    function build($action, $args=null, $fragment=null)
+    function build($action, $args=null, $params=null, $fragment=null)
     {
         $action_arg = array('action' => $action);
 
@@ -358,6 +469,17 @@ class Router
             $args = $action_arg;
         }
 
-        return $this->m->generate($args, null, $fragment);
+        $url = $this->m->generate($args, $params, $fragment);
+
+        // Due to a bug in the Net_URL_Mapper code, the returned URL may
+        // contain a malformed query of the form ?p1=v1?p2=v2?p3=v3. We
+        // repair that here rather than modifying the upstream code...
+
+        $qpos = strpos($url, '?');
+        if ($qpos !== false) {
+            $url = substr($url, 0, $qpos+1) .
+              str_replace('?', '&', substr($url, $qpos+1));
+        }
+        return $url;
     }
 }

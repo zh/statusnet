@@ -28,7 +28,7 @@ class PostnoticeAction extends Action
         parent::handle($args);
         try {
             common_remove_magic_from_request();
-            $req = OAuthRequest::from_request();
+            $req = OAuthRequest::from_request('POST', common_local_url('postnotice'));
             # Note: server-to-server function!
             $server = omb_oauth_server();
             list($consumer, $token) = $server->verify_request($req);
@@ -79,7 +79,7 @@ class PostnoticeAction extends Action
         }
         $notice = Notice::staticGet('uri', $notice_uri);
         if (!$notice) {
-            $notice = Notice::saveNew($remote_profile->id, $content, 'omb', false, 0, $notice_uri);
+            $notice = Notice::saveNew($remote_profile->id, $content, 'omb', false, null, $notice_uri);
             if (is_string($notice)) {
                 common_server_serror($notice, 500);
                 return false;

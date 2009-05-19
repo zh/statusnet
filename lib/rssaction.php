@@ -38,6 +38,7 @@ class Rss10Action extends Action
 
     var $creators = array();
     var $limit = DEFAULT_RSS_LIMIT;
+    var $notices = null;
 
     /**
      * Constructor
@@ -93,8 +94,15 @@ class Rss10Action extends Action
 
     function handle($args)
     {
+        // Parent handling, including cache check
         parent::handle($args);
-        $this->showRss($this->limit);
+        // Get the list of notices
+        if (empty($this->tag)) {
+            $this->notices = $this->getNotices($this->limit);
+        } else {
+            $this->notices = $this->getTaggedNotices($this->tag, $this->limit);
+        }
+        $this->showRss();
     }
 
     /**
@@ -128,15 +136,13 @@ class Rss10Action extends Action
         return null;
     }
 
-    function showRss($limit=0)
+    function showRss()
     {
-        $notices = $this->getNotices($limit);
-
         $this->initRss();
-        $this->showChannel($notices);
+        $this->showChannel();
         $this->showImage();
 
-        foreach ($notices as $n) {
+        foreach ($this->notices as $n) {
             $this->showItem($n);
         }
 
@@ -144,7 +150,7 @@ class Rss10Action extends Action
         $this->endRss();
     }
 
-    function showChannel($notices)
+    function showChannel()
     {
 
         $channel = $this->getChannel();
@@ -163,7 +169,7 @@ class Rss10Action extends Action
         $this->elementStart('items');
         $this->elementStart('rdf:Seq');
 
-        foreach ($notices as $notice) {
+        foreach ($this->notices as $notice) {
             $this->element('sioct:MicroblogPost', array('rdf:resource' => $notice->uri));
         }
 
@@ -257,6 +263,26 @@ class Rss10Action extends Action
     function endRss()
     {
         $this->elementEnd('rdf:RDF');
+    }
+
+    /**
+     * When was this page last modified?
+     *
+     */
+
+    function lastModified()
+    {
+        if (empty($this->notices)) {
+            return null;
+        }
+
+        if (count($this->notices) == 0) {
+            return null;
+        }
+
+        // FIXME: doesn't handle modified profiles, avatars, deleted notices
+
+        return strtotime($this->notices[0]->created);
     }
 }
 

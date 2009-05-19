@@ -54,16 +54,21 @@ class LaconicaOAuthDataStore extends OAuthDataStore
         }
     }
 
+    // http://oauth.net/core/1.0/#nonce
+    // "The Consumer SHALL then generate a Nonce value that is unique for
+    // all requests with that timestamp."
+
+    // XXX: It's not clear why the token is here
+
     function lookup_nonce($consumer, $token, $nonce, $timestamp)
     {
         $n = new Nonce();
         $n->consumer_key = $consumer->key;
-        $n->tok = $token->key;
+        $n->ts = $timestamp;
         $n->nonce = $nonce;
         if ($n->find(true)) {
             return true;
         } else {
-            $n->timestamp = $timestamp;
             $n->created = DB_DataObject_Cast::dateTime();
             $n->insert();
             return false;

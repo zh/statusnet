@@ -324,13 +324,14 @@ class AvatarsettingsAction extends AccountSettingsAction
             return;
         }
 
-        // If image is not being cropped assume pos & dimentions of original
+        $file_d = ($filedata['width'] > $filedata['height'])
+                     ? $filedata['height'] : $filedata['width'];
+
         $dest_x = $this->arg('avatar_crop_x') ? $this->arg('avatar_crop_x'):0;
         $dest_y = $this->arg('avatar_crop_y') ? $this->arg('avatar_crop_y'):0;
-        $dest_w = $this->arg('avatar_crop_w') ? $this->arg('avatar_crop_w'):$filedata['width'];
-        $dest_h = $this->arg('avatar_crop_h') ? $this->arg('avatar_crop_h'):$filedata['height'];
-        $size = min($dest_w, $dest_h);
-        $size = ($size > MAX_ORIGINAL) ? MAX_ORIGINAL:$size;
+        $dest_w = $this->arg('avatar_crop_w') ? $this->arg('avatar_crop_w'):$file_d;
+        $dest_h = $this->arg('avatar_crop_h') ? $this->arg('avatar_crop_h'):$file_d;
+        $size = min($dest_w, $dest_h, MAX_ORIGINAL);
 
         $user = common_current_user();
         $profile = $user->getProfile();
@@ -343,6 +344,7 @@ class AvatarsettingsAction extends AccountSettingsAction
             unset($_SESSION['FILEDATA']);
             $this->mode = 'upload';
             $this->showForm(_('Avatar updated.'), true);
+            common_broadcast_profile($profile);
         } else {
             $this->showForm(_('Failed updating avatar.'));
         }

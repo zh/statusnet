@@ -44,7 +44,7 @@ class FinishremotesubscribeAction extends Action
         common_debug('stored request: '.print_r($omb,true), __FILE__);
 
         common_remove_magic_from_request();
-        $req = OAuthRequest::from_request();
+        $req = OAuthRequest::from_request('POST', common_local_url('finishuserauthorization'));
 
         $token = $req->get_parameter('oauth_token');
 
@@ -136,16 +136,16 @@ class FinishremotesubscribeAction extends Action
         $profile->nickname = $nickname;
         $profile->profileurl = $profile_url;
 
-        if ($fullname) {
+        if (!is_null($fullname)) {
             $profile->fullname = $fullname;
         }
-        if ($homepage) {
+        if (!is_null($homepage)) {
             $profile->homepage = $homepage;
         }
-        if ($bio) {
+        if (!is_null($bio)) {
             $profile->bio = $bio;
         }
-        if ($location) {
+        if (!is_null($location)) {
             $profile->location = $location;
         }
 
@@ -230,7 +230,8 @@ class FinishremotesubscribeAction extends Action
         # show up close to the top of the page
 
         common_redirect(common_local_url('subscribers', array('nickname' =>
-                                                             $user->nickname)));
+                                                             $user->nickname)),
+                        303);
     }
 
     function add_avatar($profile, $url)
@@ -283,7 +284,7 @@ class FinishremotesubscribeAction extends Action
         $fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
         $result = $fetcher->post($req->get_normalized_http_url(),
                                  $req->to_postdata(),
-                                 array('User-Agent' => 'Laconica/' . LACONICA_VERSION));
+                                 array('User-Agent: Laconica/' . LACONICA_VERSION));
 
         common_debug('got result: "'.print_r($result,true).'"', __FILE__);
 

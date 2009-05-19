@@ -93,10 +93,22 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showPage()
     {
-        $this->startHTML();
-        $this->showHead();
-        $this->showBody();
-        $this->endHTML();
+        if (Event::handle('StartShowHTML', array($this))) {
+            $this->startHTML();
+            Event::handle('EndShowHTML', array($this));
+        }
+        if (Event::handle('StartShowHead', array($this))) {
+            $this->showHead();
+            Event::handle('EndShowHead', array($this));
+        }
+        if (Event::handle('StartShowBody', array($this))) {
+            $this->showBody();
+            Event::handle('EndShowBody', array($this));
+        }
+        if (Event::handle('StartEndHTML', array($this))) {
+            $this->endHTML();
+            Event::handle('EndEndHTML', array($this));
+        }
     }
 
     /**
@@ -109,8 +121,10 @@ class Action extends HTMLOutputter // lawsuit
         // XXX: attributes (profile?)
         $this->elementStart('head');
         $this->showTitle();
+        $this->showShortcutIcon();
         $this->showStylesheets();
         $this->showScripts();
+        $this->showRelationshipLinks();
         $this->showOpenSearch();
         $this->showFeeds();
         $this->showDescription();
@@ -145,6 +159,32 @@ class Action extends HTMLOutputter // lawsuit
     }
 
     /**
+     * Show themed shortcut icon
+     *
+     * @return nothing
+     */
+    function showShortcutIcon()
+    {
+        if (is_readable(INSTALLDIR . '/theme/' . common_config('site', 'theme') . '/favicon.ico')) {
+            $this->element('link', array('rel' => 'shortcut icon',
+                                         'href' => theme_path('favicon.ico')));
+        } else {
+            $this->element('link', array('rel' => 'shortcut icon',
+                                         'href' => common_path('favicon.ico')));
+        }
+
+        if (common_config('site', 'mobile')) {
+            if (is_readable(INSTALLDIR . '/theme/' . common_config('site', 'theme') . '/apple-touch-icon.png')) {
+                $this->element('link', array('rel' => 'apple-touch-icon',
+                                             'href' => theme_path('apple-touch-icon.png')));
+            } else {
+                $this->element('link', array('rel' => 'apple-touch-icon',
+                                             'href' => common_path('apple-touch-icon.png')));
+            }
+        }
+    }
+
+    /**
      * Show stylesheets
      *
      * @return nothing
@@ -153,21 +193,21 @@ class Action extends HTMLOutputter // lawsuit
     {
         if (Event::handle('StartShowStyles', array($this))) {
             if (Event::handle('StartShowLaconicaStyles', array($this))) {
-
-                $this->element('link', array('rel' => 'stylesheet',
-                                             'type' => 'text/css',
-                                             'href' => theme_path('css/display.css', 'base') . '?version=' . LACONICA_VERSION,
-                                             'media' => 'screen, projection, tv'));
-
-
-                $this->element('link', array('rel' => 'stylesheet',
-                                             'type' => 'text/css',
-                                             'href' => theme_path('css/modal.css', 'base') . '?version=' . LACONICA_VERSION,
-                                             'media' => 'screen, projection, tv'));
                 $this->element('link', array('rel' => 'stylesheet',
                                              'type' => 'text/css',
                                              'href' => theme_path('css/display.css', null) . '?version=' . LACONICA_VERSION,
                                              'media' => 'screen, projection, tv'));
+                if (common_config('site', 'mobile')) {
+                    $this->element('link', array('rel' => 'stylesheet',
+                                                 'type' => 'text/css',
+                                                 'href' => theme_path('css/mobile.css', 'base') . '?version=' . LACONICA_VERSION,
+                                                 // TODO: "handheld" CSS for other mobile devices
+                                                 'media' => 'only screen and (max-device-width: 480px)')); // Mobile WebKit
+                }
+                $this->element('link', array('rel' => 'stylesheet',
+                                             'type' => 'text/css',
+                                             'href' => theme_path('css/print.css', 'base') . '?version=' . LACONICA_VERSION,
+                                             'media' => 'print'));
                 Event::handle('EndShowLaconicaStyles', array($this));
             }
             if (Event::handle('StartShowUAStyles', array($this))) {
@@ -204,9 +244,8 @@ class Action extends HTMLOutputter // lawsuit
                                                'src' => common_path('js/jquery.form.js')),
                                ' ');
 
-
                 $this->element('script', array('type' => 'text/javascript',
-                                               'src' => common_path('js/jquery.simplemodal-1.2.2.pack.js')),
+                                               'src' => common_path('js/jquery.joverlay.min.js')),
                                ' ');
 
 
@@ -219,22 +258,26 @@ class Action extends HTMLOutputter // lawsuit
                 $this->element('script', array('type' => 'text/javascript',
                                                'src' => common_path('js/util.js?version='.LACONICA_VERSION)),
                                ' ');
-
-
-                $this->element('script', array('type' => 'text/javascript',
-                                               'src' => common_path('js/flowplayer-3.0.5.min.js')),
-                               ' ');
-
-                $this->element('script', array('type' => 'text/javascript',
-                                               'src' => common_path('js/video.js')),
-                               ' ');
-
-
-
+                // Frame-busting code to avoid clickjacking attacks.
+                $this->element('script', array('type' => 'text/javascript'),
+                               'if (window.top !== window.self) { window.top.location.href = window.self.location.href; }');
                 Event::handle('EndShowLaconicaScripts', array($this));
             }
             Event::handle('EndShowScripts', array($this));
         }
+    }
+
+    /**
+     * Show document relationship links
+     *
+     * SHOULD overload
+     *
+     * @return nothing
+     */
+    function showRelationshipLinks()
+    {
+        // output <link> elements with appropriate HTML4.01 link types:
+        // http://www.w3.org/TR/html401/types.html#type-links
     }
 
     /**
@@ -308,7 +351,9 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showBody()
     {
-        $this->elementStart('body', array('id' => $this->trimmed('action')));
+        $this->elementStart('body', (common_current_user()) ? array('id' => $this->trimmed('action'),
+                                                                    'class' => 'user_in')
+                            : array('id' => $this->trimmed('action')));
         $this->elementStart('div', array('id' => 'wrap'));
         if (Event::handle('StartShowHeader', array($this))) {
             $this->showHeader();
@@ -382,13 +427,8 @@ class Action extends HTMLOutputter // lawsuit
             if ($user) {
                 $this->menuItem(common_local_url('all', array('nickname' => $user->nickname)),
                                 _('Home'), _('Personal profile and friends timeline'), false, 'nav_home');
-            }
-            $this->menuItem(common_local_url('peoplesearch'),
-                            _('Search'), _('Search for people or text'), false, 'nav_search');
-            if ($user) {
                 $this->menuItem(common_local_url('profilesettings'),
                                 _('Account'), _('Change your email, avatar, password, profile'), false, 'nav_account');
-
                 if (common_config('xmpp', 'enabled')) {
                     $this->menuItem(common_local_url('imsettings'),
                                     _('Connect'), _('Connect to IM, SMS, Twitter'), false, 'nav_connect');
@@ -396,20 +436,28 @@ class Action extends HTMLOutputter // lawsuit
                     $this->menuItem(common_local_url('smssettings'),
                                     _('Connect'), _('Connect to SMS, Twitter'), false, 'nav_connect');
                 }
+                $this->menuItem(common_local_url('invite'),
+                                _('Invite'),
+                                sprintf(_('Invite friends and colleagues to join you on %s'),
+                                        common_config('site', 'name')),
+                                false, 'nav_invitecontact');
                 $this->menuItem(common_local_url('logout'),
                                 _('Logout'), _('Logout from the site'), false, 'nav_logout');
-            } else {
-                $this->menuItem(common_local_url('login'),
-                                _('Login'), _('Login to the site'), false, 'nav_login');
+            }
+            else {
                 if (!common_config('site', 'closed')) {
                     $this->menuItem(common_local_url('register'),
                                     _('Register'), _('Create an account'), false, 'nav_register');
                 }
                 $this->menuItem(common_local_url('openidlogin'),
                                 _('OpenID'), _('Login with OpenID'), false, 'nav_openid');
+                $this->menuItem(common_local_url('login'),
+                                _('Login'), _('Login to the site'), false, 'nav_login');
             }
             $this->menuItem(common_local_url('doc', array('title' => 'help')),
                             _('Help'), _('Help me!'), false, 'nav_help');
+            $this->menuItem(common_local_url('peoplesearch'),
+                            _('Search'), _('Search for people or text'), false, 'nav_search');
             Event::handle('EndPrimaryNav', array($this));
         }
         $this->elementEnd('ul');
@@ -472,7 +520,10 @@ class Action extends HTMLOutputter // lawsuit
     function showCore()
     {
         $this->elementStart('div', array('id' => 'core'));
-        $this->showLocalNavBlock();
+        if (Event::handle('StartShowLocalNavBlock', array($this))) {
+            $this->showLocalNavBlock();
+            Event::handle('EndShowLocalNavBlock', array($this));
+        }
         if (Event::handle('StartShowContentBlock', array($this))) {
             $this->showContentBlock();
             Event::handle('EndShowContentBlock', array($this));
@@ -546,7 +597,10 @@ class Action extends HTMLOutputter // lawsuit
                                         'class' => 'system_notice'));
         $this->element('dt', null, _('Page notice'));
         $this->elementStart('dd');
-        $this->showPageNotice();
+        if (Event::handle('StartShowPageNotice', array($this))) {
+            $this->showPageNotice();
+            Event::handle('EndShowPageNotice', array($this));
+        }
         $this->elementEnd('dd');
         $this->elementEnd('dl');
     }
@@ -583,7 +637,10 @@ class Action extends HTMLOutputter // lawsuit
     {
         $this->elementStart('div', array('id' => 'aside_primary',
                                          'class' => 'aside'));
-        $this->showExportData();
+        if (Event::handle('StartShowExportData', array($this))) {
+            $this->showExportData();
+            Event::handle('EndShowExportData', array($this));
+        }
         if (Event::handle('StartShowSections', array($this))) {
             $this->showSections();
             Event::handle('EndShowSections', array($this));
@@ -655,6 +712,8 @@ class Action extends HTMLOutputter // lawsuit
                             _('Source'));
             $this->menuItem(common_local_url('doc', array('title' => 'contact')),
                             _('Contact'));
+            $this->menuItem(common_local_url('doc', array('title' => 'badge')),
+                            _('Badge'));
             Event::handle('EndSecondaryNav', array($this));
         }
         $this->elementEnd('ul');
@@ -751,9 +810,12 @@ class Action extends HTMLOutputter // lawsuit
      *
      * MAY override
      *
+     * @param array $args other arguments
+     *
      * @return boolean is read only action?
      */
-    function isReadOnly()
+
+    function isReadOnly($args)
     {
         return false;
     }
@@ -805,12 +867,15 @@ class Action extends HTMLOutputter // lawsuit
         }
         if ($lm) {
             header('Last-Modified: ' . date(DATE_RFC1123, $lm));
-            $if_modified_since = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
-            if ($if_modified_since) {
+            if (array_key_exists('HTTP_IF_MODIFIED_SINCE', $_SERVER)) {
+                $if_modified_since = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
                 $ims = strtotime($if_modified_since);
                 if ($lm <= $ims) {
-                    if (!$etag ||
-                        $this->_hasEtag($etag, $_SERVER['HTTP_IF_NONE_MATCH'])) {
+                    $if_none_match = (array_key_exists('HTTP_IF_NONE_MATCH', $_SERVER)) ?
+                      $_SERVER['HTTP_IF_NONE_MATCH'] : null;
+                    if (!$if_none_match ||
+                        !$etag ||
+                        $this->_hasEtag($etag, $if_none_match)) {
                         header('HTTP/1.1 304 Not Modified');
                         // Better way to do this?
                         exit(0);
@@ -828,9 +893,11 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return boolean
      */
+
     function _hasEtag($etag, $if_none_match)
     {
-        return ($if_none_match) && in_array($etag, explode(',', $if_none_match));
+        $etags = explode(',', $if_none_match);
+        return in_array($etag, $etags) || in_array('*', $etags);
     }
 
     /**
@@ -893,11 +960,15 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return string current URL
      */
+
     function selfUrl()
     {
         $action = $this->trimmed('action');
         $args   = $this->args;
         unset($args['action']);
+        if (array_key_exists('submit', $args)) {
+            unset($args['submit']);
+        }
         foreach (array_keys($_COOKIE) as $cookie) {
             unset($args[$cookie]);
         }
@@ -958,17 +1029,17 @@ class Action extends HTMLOutputter // lawsuit
         }
         if ($have_before) {
             $pargs   = array('page' => $page-1);
-            $newargs = $args ? array_merge($args, $pargs) : $pargs;
             $this->elementStart('li', array('class' => 'nav_prev'));
-            $this->element('a', array('href' => common_local_url($action, $newargs), 'rel' => 'prev'),
+            $this->element('a', array('href' => common_local_url($action, $args, $pargs),
+                                      'rel' => 'prev'),
                            _('After'));
             $this->elementEnd('li');
         }
         if ($have_after) {
             $pargs   = array('page' => $page+1);
-            $newargs = $args ? array_merge($args, $pargs) : $pargs;
             $this->elementStart('li', array('class' => 'nav_next'));
-            $this->element('a', array('href' => common_local_url($action, $newargs), 'rel' => 'next'),
+            $this->element('a', array('href' => common_local_url($action, $args, $pargs),
+                                      'rel' => 'next'),
                            _('Before'));
             $this->elementEnd('li');
         }
@@ -991,5 +1062,37 @@ class Action extends HTMLOutputter // lawsuit
     function getFeeds()
     {
         return null;
+    }
+
+    /**
+     * Generate document metadata for sequential navigation
+     *
+     * @param boolean $have_before is there something before?
+     * @param boolean $have_after  is there something after?
+     * @param integer $page        current page
+     * @param string  $action      current action
+     * @param array   $args        rest of query arguments
+     *
+     * @return nothing
+     */
+    function sequenceRelationships($have_next, $have_previous, $page, $action, $args=null)
+    {
+        // Outputs machine-readable pagination in <link> elements.
+        // Pattern taken from $this->pagination() method.
+
+        // "next" is equivalent to "after"
+        if ($have_next) {
+            $pargs   = array('page' => $page-1);
+            $this->element('link', array('rel' => 'next',
+                                         'href' => common_local_url($action, $args, $pargs),
+                                         'title' => _('Next')));
+        }
+        // "previous" is equivalent to "before"
+        if ($have_previous=true) { // FIXME
+            $pargs   = array('page' => $page+1);
+            $this->element('link', array('rel' => 'prev',
+                                         'href' => common_local_url($action, $args, $pargs),
+                                         'title' => _('Previous')));
+        }
     }
 }

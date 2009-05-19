@@ -152,11 +152,6 @@ class XMPPDaemon extends Daemon
             $body = preg_replace('/d[\ ]*('. $to .')[\ ]*/', '', $pl['body']);
             $this->add_direct($user, $body, $to, $from);
         } else {
-            $len = mb_strlen($pl['body']);
-            if($len > 140) {
-                $this->from_site($from, 'Message too long - maximum is 140 characters, you sent ' . $len);
-                return;
-            }
             $this->add_notice($user, $pl);
         }
 
@@ -208,6 +203,8 @@ class XMPPDaemon extends Daemon
     {
         if (preg_match('/[\[\(]?[Aa]uto[-\s]?[Rr]e(ply|sponse)[\]\)]/', $txt)) {
             return true;
+        } else if (preg_match('/^System: Message wasn\'t delivered. Offline storage size was exceeded.$/', $txt)) {
+            return true;
         } else {
             return false;
         }
@@ -253,15 +250,13 @@ class XMPPDaemon extends Daemon
     function add_notice(&$user, &$pl)
     {
         $body = trim($pl['body']);
-        $content_shortened = common_shorten_link($body);
+        $content_shortened = common_shorten_links($body);
         if (mb_strlen($content_shortened) > 140) {
-            $content = trim(mb_substr($body, 0, 140));
-            $content_shortened = common_shorten_link($content);
+          $from = jabber_normalize_jid($pl['from']);
+          $this->from_site($from, "Message too long - maximum is 140 characters, you sent ".mb_strlen($content_shortened));
+          return;
         }
-        else {
-            $content = $body;
-        }
-        $notice = Notice::saveNew($user->id, $content, 'xmpp');
+        $notice = Notice::saveNew($user->id, $content_shortened, 'xmpp');
         if (is_string($notice)) {
             $this->log(LOG_ERR, $notice);
             return;
@@ -317,6 +312,13 @@ class XMPPDaemon extends Daemon
     {
         jabber_special_presence('subscribed', $to);
     }
+}
+
+// Abort immediately if xmpp is not enabled, otherwise the daemon chews up
+// lots of CPU trying to connect to unconfigured servers
+if (common_config('xmpp','enabled')==false) {
+    print "Aborting daemon - xmpp is disabled\n";
+    exit();
 }
 
 ini_set("max_execution_time", "0");

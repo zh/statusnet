@@ -18,7 +18,7 @@
  * along with this program.     If not, see <http://www.gnu.org/licenses/>.
  */
 
-# Abort if called from a web server
+// Abort if called from a web server
 if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
     print "This script must be run from the command line\n";
     exit();
@@ -27,11 +27,33 @@ if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 define('LACONICA', true);
 
+// Uncomment this to get useful console output
+//define('SCRIPT_DEBUG', true);
+
 require_once(INSTALLDIR . '/lib/common.php');
+
+// Make a lockfile
+$lockfilename = lockFilename();
+if (!($lockfile = @fopen($lockfilename, "w"))) {
+    print "Already running... exiting.\n";
+    exit(1);
+}
+
+// Obtain an exlcusive lock on file (will fail if script is already going)
+if (!@flock( $lockfile, LOCK_EX | LOCK_NB, &$wouldblock) || $wouldblock) {
+    // Script already running - abort
+    @fclose($lockfile);
+    print "Already running... exiting.\n";
+    exit(1);
+}
 
 $flink = new Foreign_link();
 $flink->service = 1; // Twitter
-$flink->find();
+$flink->orderBy('last_friendsync');
+$flink->limit(25);  // sync this many users during this run
+$cnt = $flink->find();
+
+print "Updating Twitter friends subscriptions for $cnt users.\n";
 
 while ($flink->fetch()) {
 
@@ -39,20 +61,47 @@ while ($flink->fetch()) {
 
         $user = User::staticGet($flink->user_id);
 
-        print "Updating Twitter friends for user $user->nickname ($user->id)\n";
+        if (empty($user)) {
+            common_log(LOG_WARNING, "Unmatched user for ID " . $flink->user_id);
+            print "Unmatched user for ID $flink->user_id\n";
+            continue;
+        }
+
+        print "Updating Twitter friends for $user->nickname (Laconica ID: $user->id)... ";
 
         $fuser = $flink->getForeignUser();
 
-        $result = save_twitter_friends($user, $fuser->id, $fuser->nickname, $flink->credentials);
+        if (empty($fuser)) {
+            common_log(LOG_WARNING, "Unmatched user for ID " . $flink->user_id);
+            print "Unmatched user for ID $flink->user_id\n";
+            continue;
+        }
 
-        if ($result == false) {
-            print "Problems updating Twitter friends! Check the log.\n";
-            exit(1);
+        save_twitter_friends($user, $fuser->id, $fuser->nickname, $flink->credentials);
+
+        $flink->last_friendsync = common_sql_now();
+        $flink->update();
+
+        if (defined('SCRIPT_DEBUG')) {
+            print "\nDONE\n";
+        } else {
+            print "DONE\n";
         }
     }
-
 }
 
+function lockFilename()
+{
+    $piddir = common_config('daemon', 'piddir');
+    if (!$piddir) {
+        $piddir = '/var/run';
+    }
+
+    return $piddir . '/synctwitterfriends.lock';
+}
+
+// Cleanup
+fclose($lockfile);
+unlink($lockfilename);
+
 exit(0);
-
-

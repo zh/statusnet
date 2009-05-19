@@ -193,7 +193,7 @@ class NewgroupAction extends Action
 
         $group->query('COMMIT');
 
-        common_redirect($group->homeUrl(), 307);
+        common_redirect($group->homeUrl(), 303);
     }
 
     function nicknameExists($nickname)

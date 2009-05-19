@@ -34,8 +34,6 @@ if (!defined('LACONICA')) {
 
 require_once INSTALLDIR.'/lib/widget.php';
 
-define('PROFILES_PER_PAGE', 20);
-
 /**
  * Widget to show a list of profiles
  *
@@ -91,6 +89,7 @@ class ProfileList extends Widget
                                              'id' => 'profile-' . $this->profile->id));
 
         $user = common_current_user();
+        $is_own = !is_null($user) && isset($this->owner) && ($user->id === $this->owner->id);
 
         $this->out->elementStart('div', 'entity_profile vcard');
 
@@ -104,13 +103,13 @@ class ProfileList extends Widget
                                          'alt' =>
                                          ($this->profile->fullname) ? $this->profile->fullname :
                                          $this->profile->nickname));
-        $hasFN = ($this->profile->fullname) ? 'nickname' : 'fn nickname';
+        $hasFN = ($this->profile->fullname !== '') ? 'nickname' : 'fn nickname';
         $this->out->elementStart('span', $hasFN);
         $this->out->raw($this->highlight($this->profile->nickname));
         $this->out->elementEnd('span');
         $this->out->elementEnd('a');
 
-        if ($this->profile->fullname) {
+        if (!empty($this->profile->fullname)) {
             $this->out->elementStart('dl', 'entity_fn');
             $this->out->element('dt', null, 'Full name');
             $this->out->elementStart('dd');
@@ -120,7 +119,7 @@ class ProfileList extends Widget
             $this->out->elementEnd('dd');
             $this->out->elementEnd('dl');
         }
-        if ($this->profile->location) {
+        if (!empty($this->profile->location)) {
             $this->out->elementStart('dl', 'entity_location');
             $this->out->element('dt', null, _('Location'));
             $this->out->elementStart('dd', 'label');
@@ -128,7 +127,7 @@ class ProfileList extends Widget
             $this->out->elementEnd('dd');
             $this->out->elementEnd('dl');
         }
-        if ($this->profile->homepage) {
+        if (!empty($this->profile->homepage)) {
             $this->out->elementStart('dl', 'entity_url');
             $this->out->element('dt', null, _('URL'));
             $this->out->elementStart('dd');
@@ -139,7 +138,7 @@ class ProfileList extends Widget
             $this->out->elementEnd('dd');
             $this->out->elementEnd('dl');
         }
-        if ($this->profile->bio) {
+        if (!empty($this->profile->bio)) {
             $this->out->elementStart('dl', 'entity_note');
             $this->out->element('dt', null, _('Note'));
             $this->out->elementStart('dd', 'note');
@@ -156,7 +155,7 @@ class ProfileList extends Widget
 
             $this->out->elementStart('dl', 'entity_tags');
             $this->out->elementStart('dt');
-            if ($user->id == $this->owner->id) {
+            if ($is_own) {
                 $this->out->element('a', array('href' => common_local_url('tagother',
                                                                           array('id' => $this->profile->id))),
                                     _('Tags'));
@@ -185,7 +184,7 @@ class ProfileList extends Widget
             $this->out->elementEnd('dl');
         }
 
-        if ($user && $user->id == $this->owner->id) {
+        if ($is_own) {
             $this->showOwnerControls($this->profile);
         }
 
@@ -195,9 +194,10 @@ class ProfileList extends Widget
 
         $this->out->elementStart('ul');
 
-        if ($user && $user->id != $this->profile->id) {
-            # XXX: special-case for user looking at own
-            # subscriptions page
+        // Is this a logged-in user, looking at someone else's
+        // profile?
+
+        if (!empty($user) && $this->profile->id != $user->id) {
             $this->out->elementStart('li', 'entity_subscribe');
             if ($user->isSubscribed($this->profile)) {
                 $usf = new UnsubscribeForm($this->out, $this->profile);
@@ -208,7 +208,7 @@ class ProfileList extends Widget
             }
             $this->out->elementEnd('li');
             $this->out->elementStart('li', 'entity_block');
-            if ($user && $user->id == $this->owner->id) {
+            if ($user->id == $this->owner->id) {
                 $this->showBlockForm();
             }
             $this->out->elementEnd('li');

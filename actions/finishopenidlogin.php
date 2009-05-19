@@ -62,9 +62,8 @@ class FinishopenidloginAction extends Action
         if ($this->error) {
             $this->element('div', array('class' => 'error'), $this->error);
         } else {
-            global $config;
             $this->element('div', 'instructions',
-                           sprintf(_('This is the first time you\'ve logged into %s so we must connect your OpenID to a local account. You can either create a new account, or connect with your existing account, if you have one.'), $config['site']['name']));
+                           sprintf(_('This is the first time you\'ve logged into %s so we must connect your OpenID to a local account. You can either create a new account, or connect with your existing account, if you have one.'), common_config('site', 'name')));
         }
     }
 
@@ -83,7 +82,7 @@ class FinishopenidloginAction extends Action
 
     function showContent()
     {
-        if ($this->message_text) {
+        if (!empty($this->message_text)) {
             $this->element('p', null, $this->message);
             return;
         }
@@ -192,9 +191,26 @@ class FinishopenidloginAction extends Action
     {
         # FIXME: save invite code before redirect, and check here
 
-        if (common_config('site', 'closed') || common_config('site', 'inviteonly')) {
+        if (common_config('site', 'closed')) {
             $this->clientError(_('Registration not allowed.'));
             return;
+        }
+
+        $invite = null;
+
+        if (common_config('site', 'inviteonly')) {
+            $code = $_SESSION['invitecode'];
+            if (empty($code)) {
+                $this->clientError(_('Registration not allowed.'));
+                return;
+            }
+
+            $invite = Invitation::staticGet($code);
+
+            if (empty($invite)) {
+                $this->clientError(_('Not a valid invitation code.'));
+                return;
+            }
         }
 
         $nickname = $this->trimmed('newname');
@@ -232,7 +248,8 @@ class FinishopenidloginAction extends Action
             return;
         }
 
-        if ($sreg['country']) {
+        $location = '';
+        if (!empty($sreg['country'])) {
             if ($sreg['postcode']) {
                 # XXX: use postcode to get city and region
                 # XXX: also, store postcode somewhere -- it's valuable!
@@ -242,21 +259,31 @@ class FinishopenidloginAction extends Action
             }
         }
 
-        if ($sreg['fullname'] && mb_strlen($sreg['fullname']) <= 255) {
+        if (!empty($sreg['fullname']) && mb_strlen($sreg['fullname']) <= 255) {
             $fullname = $sreg['fullname'];
+        } else {
+            $fullname = '';
         }
 
-        if ($sreg['email'] && Validate::email($sreg['email'], true)) {
+        if (!empty($sreg['email']) && Validate::email($sreg['email'], true)) {
             $email = $sreg['email'];
+        } else {
+            $email = '';
         }
 
         # XXX: add language
         # XXX: add timezone
 
-        $user = User::register(array('nickname' => $nickname,
-                                     'email' => $email,
-                                     'fullname' => $fullname,
-                                     'location' => $location));
+        $args = array('nickname' => $nickname,
+                      'email' => $email,
+                      'fullname' => $fullname,
+                      'location' => $location);
+
+        if (!empty($invite)) {
+            $args['code'] = $invite->code;
+        }
+
+        $user = User::register($args);
 
         $result = oid_link_user($user->id, $canonical, $display);
 
@@ -267,7 +294,8 @@ class FinishopenidloginAction extends Action
             common_rememberme($user);
         }
         unset($_SESSION['openid_rememberme']);
-        common_redirect(common_local_url('showstream', array('nickname' => $user->nickname)));
+        common_redirect(common_local_url('showstream', array('nickname' => $user->nickname)),
+                        303);
     }
 
     function connectUser()
@@ -320,7 +348,7 @@ class FinishopenidloginAction extends Action
                                     array('nickname' =>
                                           $nickname));
         }
-        common_redirect($url);
+        common_redirect($url, 303);
     }
 
     function bestNewNickname($display, $sreg)
@@ -328,7 +356,7 @@ class FinishopenidloginAction extends Action
 
         # Try the passed-in nickname
 
-        if ($sreg['nickname']) {
+        if (!empty($sreg['nickname'])) {
             $nickname = $this->nicknamize($sreg['nickname']);
             if ($this->isNewNickname($nickname)) {
                 return $nickname;
@@ -337,7 +365,7 @@ class FinishopenidloginAction extends Action
 
         # Try the full name
 
-        if ($sreg['fullname']) {
+        if (!empty($sreg['fullname'])) {
             $fullname = $this->nicknamize($sreg['fullname']);
             if ($this->isNewNickname($fullname)) {
                 return $fullname;

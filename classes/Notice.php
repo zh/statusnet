@@ -46,6 +46,7 @@ class Notice extends Memcached_DataObject
     public $reply_to;                        // int(4)
     public $is_local;                        // tinyint(1)
     public $source;                          // varchar(32)
+    public $conversation;                    // int(4)
 
     /* Static get */
     function staticGet($k,$v=NULL) {
@@ -67,6 +68,8 @@ class Notice extends Memcached_DataObject
         $this->blowSubsCache(true);
 
         $this->query('BEGIN');
+        //Null any notices that are replies to this notice
+        $this->query(sprintf("UPDATE notice set reply_to = null WHERE reply_to = %d", $this->id));
         $related = array('Reply',
                          'Fave',
                          'Notice_tag',
@@ -131,7 +134,12 @@ class Notice extends Memcached_DataObject
             return _('Too many notices too fast; take a breather and post again in a few minutes.');
         }
 
-        $banned = common_config('profile', 'banned');
+        if (common_config('site', 'dupelimit') > 0 && !Notice::checkDupes($profile_id, $content)) {
+            common_log(LOG_WARNING, 'Dupe posting by profile #' . $profile_id . '; throttled.');
+			return _('Too many duplicate messages too quickly; take a breather and post again in a few minutes.');
+        }
+
+		$banned = common_config('profile', 'banned');
 
         if ( in_array($profile_id, $banned) || in_array($profile->nickname, $banned)) {
             common_log(LOG_WARNING, "Attempted post from banned user: $profile->nickname (user id = $profile_id).");
@@ -155,12 +163,20 @@ class Notice extends Memcached_DataObject
 
 		$notice->query('BEGIN');
 
-        $notice->reply_to = $reply_to;
-        $notice->created = common_sql_now();
-        $notice->content = common_shorten_links($content);
-        $notice->rendered = common_render_content($notice->content, $notice);
-        $notice->source = $source;
-        $notice->uri = $uri;
+		$notice->reply_to = $reply_to;
+		$notice->created = common_sql_now();
+		$notice->content = $content;
+		$notice->rendered = common_render_content($content, $notice);
+		$notice->source = $source;
+		$notice->uri = $uri;
+
+        if (!empty($reply_to)) {
+            $reply_notice = Notice::staticGet('id', $reply_to);
+            if (!empty($reply_notice)) {
+                $notice->reply_to = $reply_to;
+                $notice->conversation = $reply_notice->conversation;
+            }
+        }
 
         if (Event::handle('StartNoticeSave', array(&$notice))) {
 
@@ -188,7 +204,12 @@ class Notice extends Memcached_DataObject
             $notice->saveTags();
             $notice->saveGroups();
 
-            $notice->addToInboxes();
+            if (common_config('queue', 'enabled')) {
+                $notice->addToAuthorInbox();
+            } else {
+                $notice->addToInboxes();
+            }
+
             $notice->query('COMMIT');
 
             Event::handle('EndNoticeSave', array($notice));
@@ -198,10 +219,44 @@ class Notice extends Memcached_DataObject
         # XXX: someone clever could prepend instead of clearing the cache
 
         if (common_config('memcached', 'enabled')) {
-            $notice->blowCaches();
+            if (common_config('queue', 'enabled')) {
+                $notice->blowAuthorCaches();
+            } else {
+                $notice->blowCaches();
+            }
         }
 
         return $notice;
+    }
+
+    static function checkDupes($profile_id, $content) {
+        $profile = Profile::staticGet($profile_id);
+        if (!$profile) {
+            return false;
+        }
+        $notice = $profile->getNotices(0, NOTICE_CACHE_WINDOW);
+        if ($notice) {
+            $last = 0;
+            while ($notice->fetch()) {
+                if (time() - strtotime($notice->created) >= common_config('site', 'dupelimit')) {
+                    return true;
+                } else if ($notice->content == $content) {
+                    return false;
+                }
+            }
+        }
+        # If we get here, oldest item in cache window is not
+        # old enough for dupe limit; do direct check against DB
+        $notice = new Notice();
+        $notice->profile_id = $profile_id;
+        $notice->content = $content;
+        if (common_config('db','type') == 'pgsql')
+            $notice->whereAdd('extract(epoch from now() - created) < ' . common_config('site', 'dupelimit'));
+        else
+            $notice->whereAdd('now() - created < ' . common_config('site', 'dupelimit'));
+
+        $cnt = $notice->count();
+        return ($cnt == 0);
     }
 
     static function checkEditThrottle($profile_id) {
@@ -222,6 +277,16 @@ class Notice extends Memcached_DataObject
         return true;
     }
 
+    function hasAttachments() {
+        $post = clone $this;
+        $query = "select count(file_id) as n_attachments from file join file_to_post on (file_id = file.id) join notice on (post_id = notice.id) where post_id = " . $post->escape($post->id);
+        $post->query($query);
+        $post->fetch();
+        $n_attachments = intval($post->n_attachments);
+        $post->free();
+        return $n_attachments;
+    }
+
     function blowCaches($blowLast=false)
     {
         $this->blowSubsCache($blowLast);
@@ -232,6 +297,17 @@ class Notice extends Memcached_DataObject
         $this->blowGroupCache($blowLast);
     }
 
+    function blowAuthorCaches($blowLast=false)
+    {
+        // Clear the user's cache
+        $cache = common_memcache();
+        if (!empty($cache)) {
+            $cache->delete(common_cache_key('notice_inbox:by_user:'.$this->profile_id));
+        }
+        $this->blowNoticeCache($blowLast);
+        $this->blowPublicCache($blowLast);
+    }
+
     function blowGroupCache($blowLast=false)
     {
         $cache = common_memcache();
@@ -240,17 +316,17 @@ class Notice extends Memcached_DataObject
             $group_inbox->notice_id = $this->id;
             if ($group_inbox->find()) {
                 while ($group_inbox->fetch()) {
-                    $cache->delete(common_cache_key('group:notices:'.$group_inbox->group_id));
+                    $cache->delete(common_cache_key('user_group:notice_ids:' . $group_inbox->group_id));
                     if ($blowLast) {
-                        $cache->delete(common_cache_key('group:notices:'.$group_inbox->group_id.';last'));
+                        $cache->delete(common_cache_key('user_group:notice_ids:' . $group_inbox->group_id.';last'));
                     }
                     $member = new Group_member();
                     $member->group_id = $group_inbox->group_id;
                     if ($member->find()) {
                         while ($member->fetch()) {
-                            $cache->delete(common_cache_key('user:notices_with_friends:' . $member->profile_id));
+                            $cache->delete(common_cache_key('notice_inbox:by_user:' . $member->profile_id));
                             if ($blowLast) {
-                                $cache->delete(common_cache_key('user:notices_with_friends:' . $member->profile_id . ';last'));
+                                $cache->delete(common_cache_key('notice_inbox:by_user:' . $member->profile_id . ';last'));
                             }
                         }
                     }
@@ -269,10 +345,7 @@ class Notice extends Memcached_DataObject
             $tag->notice_id = $this->id;
             if ($tag->find()) {
                 while ($tag->fetch()) {
-                    $cache->delete(common_cache_key('notice_tag:notice_stream:' . $tag->tag));
-                    if ($blowLast) {
-                        $cache->delete(common_cache_key('notice_tag:notice_stream:' . $tag->tag . ';last'));
-                    }
+                    $tag->blowCache($blowLast);
                 }
             }
             $tag->free();
@@ -293,9 +366,9 @@ class Notice extends Memcached_DataObject
                          'WHERE subscription.subscribed = ' . $this->profile_id);
 
             while ($user->fetch()) {
-                $cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
+                $cache->delete(common_cache_key('notice_inbox:by_user:'.$user->id));
                 if ($blowLast) {
-                    $cache->delete(common_cache_key('user:notices_with_friends:' . $user->id . ';last'));
+                    $cache->delete(common_cache_key('notice_inbox:by_user:'.$user->id.';last'));
                 }
             }
             $user->free();
@@ -307,10 +380,10 @@ class Notice extends Memcached_DataObject
     {
         if ($this->is_local) {
             $cache = common_memcache();
-            if ($cache) {
-                $cache->delete(common_cache_key('profile:notices:'.$this->profile_id));
+            if (!empty($cache)) {
+                $cache->delete(common_cache_key('profile:notice_ids:'.$this->profile_id));
                 if ($blowLast) {
-                    $cache->delete(common_cache_key('profile:notices:'.$this->profile_id.';last'));
+                    $cache->delete(common_cache_key('profile:notice_ids:'.$this->profile_id.';last'));
                 }
             }
         }
@@ -324,9 +397,9 @@ class Notice extends Memcached_DataObject
             $reply->notice_id = $this->id;
             if ($reply->find()) {
                 while ($reply->fetch()) {
-                    $cache->delete(common_cache_key('user:replies:'.$reply->profile_id));
+                    $cache->delete(common_cache_key('reply:stream:'.$reply->profile_id));
                     if ($blowLast) {
-                        $cache->delete(common_cache_key('user:replies:'.$reply->profile_id.';last'));
+                        $cache->delete(common_cache_key('reply:stream:'.$reply->profile_id.';last'));
                     }
                 }
             }
@@ -356,9 +429,9 @@ class Notice extends Memcached_DataObject
             $fave->notice_id = $this->id;
             if ($fave->find()) {
                 while ($fave->fetch()) {
-                    $cache->delete(common_cache_key('user:faves:'.$fave->user_id));
+                    $cache->delete(common_cache_key('fave:ids_by_user:'.$fave->user_id));
                     if ($blowLast) {
-                        $cache->delete(common_cache_key('user:faves:'.$fave->user_id.';last'));
+                        $cache->delete(common_cache_key('fave:ids_by_user:'.$fave->user_id.';last'));
                     }
                 }
             }
@@ -554,27 +627,80 @@ class Notice extends Memcached_DataObject
         return $wrapper;
     }
 
+    function getStreamByIds($ids)
+    {
+        $cache = common_memcache();
+
+        if (!empty($cache)) {
+            $notices = array();
+            foreach ($ids as $id) {
+                $notices[] = Notice::staticGet('id', $id);
+            }
+            return new ArrayWrapper($notices);
+        } else {
+            $notice = new Notice();
+            $notice->whereAdd('id in (' . implode(', ', $ids) . ')');
+            $notice->orderBy('id DESC');
+
+            $notice->find();
+            return $notice;
+        }
+    }
+
     function publicStream($offset=0, $limit=20, $since_id=0, $before_id=0, $since=null)
     {
+        $ids = Notice::stream(array('Notice', '_publicStreamDirect'),
+                              array(),
+                              'public',
+                              $offset, $limit, $since_id, $before_id, $since);
 
-        $parts = array();
+        return Notice::getStreamByIds($ids);
+    }
 
-        $qry = 'SELECT * FROM notice ';
+    function _publicStreamDirect($offset=0, $limit=20, $since_id=0, $before_id=0, $since=null)
+    {
+        $notice = new Notice();
+
+        $notice->selectAdd(); // clears it
+        $notice->selectAdd('id');
+
+        $notice->orderBy('id DESC');
+
+        if (!is_null($offset)) {
+            $notice->limit($offset, $limit);
+        }
 
         if (common_config('public', 'localonly')) {
-            $parts[] = 'is_local = 1';
+            $notice->whereAdd('is_local = 1');
         } else {
             # -1 == blacklisted
-            $parts[] = 'is_local != -1';
+            $notice->whereAdd('is_local != -1');
         }
 
-        if ($parts) {
-            $qry .= ' WHERE ' . implode(' AND ', $parts);
+        if ($since_id != 0) {
+            $notice->whereAdd('id > ' . $since_id);
         }
 
-        return Notice::getStream($qry,
-                                 'public',
-                                 $offset, $limit, $since_id, $before_id, null, $since);
+        if ($before_id != 0) {
+            $notice->whereAdd('id < ' . $before_id);
+        }
+
+        if (!is_null($since)) {
+            $notice->whereAdd('created > \'' . date('Y-m-d H:i:s', $since) . '\'');
+        }
+
+        $ids = array();
+
+        if ($notice->find()) {
+            while ($notice->fetch()) {
+                $ids[] = $notice->id;
+            }
+        }
+
+        $notice->free();
+        $notice = NULL;
+
+        return $ids;
     }
 
     function addToInboxes()
@@ -585,12 +711,39 @@ class Notice extends Memcached_DataObject
             $inbox = new Notice_inbox();
             $UT = common_config('db','type')=='pgsql'?'"user"':'user';
             $qry = 'INSERT INTO notice_inbox (user_id, notice_id, created) ' .
-              "SELECT $UT.id, " . $this->id . ', "' . $this->created . '" ' .
+              "SELECT $UT.id, " . $this->id . ", '" . $this->created . "' " .
               "FROM $UT JOIN subscription ON $UT.id = subscription.subscriber " .
               'WHERE subscription.subscribed = ' . $this->profile_id . ' ' .
               'AND NOT EXISTS (SELECT user_id, notice_id ' .
               'FROM notice_inbox ' .
               "WHERE user_id = $UT.id " .
+              'AND notice_id = ' . $this->id . ' )';
+            if ($enabled === 'transitional') {
+                $qry .= " AND $UT.inboxed = 1";
+            }
+            $inbox->query($qry);
+        }
+        return;
+    }
+
+    function addToAuthorInbox()
+    {
+        $enabled = common_config('inboxes', 'enabled');
+
+        if ($enabled === true || $enabled === 'transitional') {
+            $user = User::staticGet('id', $this->profile_id);
+            if (empty($user)) {
+                return;
+            }
+            $inbox = new Notice_inbox();
+            $UT = common_config('db','type')=='pgsql'?'"user"':'user';
+            $qry = 'INSERT INTO notice_inbox (user_id, notice_id, created) ' .
+              "SELECT $UT.id, " . $this->id . ", '" . $this->created . "' " .
+              "FROM $UT " .
+              "WHERE $UT.id = " . $this->profile_id . ' ' .
+              'AND NOT EXISTS (SELECT user_id, notice_id ' .
+              'FROM notice_inbox ' .
+              "WHERE user_id = " . $this->profile_id . ' '.
               'AND notice_id = ' . $this->id . ' )';
             if ($enabled === 'transitional') {
                 $qry .= " AND $UT.inboxed = 1";
@@ -652,22 +805,27 @@ class Notice extends Memcached_DataObject
 
                 // FIXME: do this in an offline daemon
 
-                $inbox = new Notice_inbox();
-                $UT = common_config('db','type')=='pgsql'?'"user"':'user';
-                $qry = 'INSERT INTO notice_inbox (user_id, notice_id, created, source) ' .
-                  "SELECT $UT.id, " . $this->id . ', "' . $this->created . '", 2 ' .
-                  "FROM $UT JOIN group_member ON $UT.id = group_member.profile_id " .
-                  'WHERE group_member.group_id = ' . $group->id . ' ' .
-                  'AND NOT EXISTS (SELECT user_id, notice_id ' .
-                  'FROM notice_inbox ' .
-                  "WHERE user_id = $UT.id " .
-                  'AND notice_id = ' . $this->id . ' )';
-                if ($enabled === 'transitional') {
-                    $qry .= " AND $UT.inboxed = 1";
-                }
-                $result = $inbox->query($qry);
+                $this->addToGroupInboxes($group);
             }
         }
+    }
+
+    function addToGroupInboxes($group)
+    {
+        $inbox = new Notice_inbox();
+        $UT = common_config('db','type')=='pgsql'?'"user"':'user';
+        $qry = 'INSERT INTO notice_inbox (user_id, notice_id, created, source) ' .
+          "SELECT $UT.id, " . $this->id . ", '" . $this->created . "', 2 " .
+          "FROM $UT JOIN group_member ON $UT.id = group_member.profile_id " .
+          'WHERE group_member.group_id = ' . $group->id . ' ' .
+          'AND NOT EXISTS (SELECT user_id, notice_id ' .
+          'FROM notice_inbox ' .
+          "WHERE user_id = $UT.id " .
+          'AND notice_id = ' . $this->id . ' )';
+        if ($enabled === 'transitional') {
+            $qry .= " AND $UT.inboxed = 1";
+        }
+        $result = $inbox->query($qry);
     }
 
     function saveReplies()
@@ -706,6 +864,7 @@ class Notice extends Memcached_DataObject
                 if ($recipient_notice) {
                     $orig = clone($this);
                     $this->reply_to = $recipient_notice->id;
+                    $this->conversation = $recipient_notice->conversation;
                     $this->update($orig);
                 }
             }
@@ -755,11 +914,168 @@ class Notice extends Memcached_DataObject
             }
         }
 
+        // If it's not a reply, make it the root of a new conversation
+
+        if (empty($this->conversation)) {
+            $orig = clone($this);
+            $this->conversation = $this->id;
+            $this->update($orig);
+        }
+
         foreach (array_keys($replied) as $recipient) {
             $user = User::staticGet('id', $recipient);
             if ($user) {
                 mail_notify_attn($user, $this);
             }
         }
+    }
+
+    function asAtomEntry($namespace=false, $source=false)
+    {
+        $profile = $this->getProfile();
+
+        $xs = new XMLStringer(true);
+
+        if ($namespace) {
+            $attrs = array('xmlns' => 'http://www.w3.org/2005/Atom',
+                           'xmlns:thr' => 'http://purl.org/syndication/thread/1.0');
+        } else {
+            $attrs = array();
+        }
+
+        $xs->elementStart('entry', $attrs);
+
+        if ($source) {
+            $xs->elementStart('source');
+            $xs->element('title', null, $profile->nickname . " - " . common_config('site', 'name'));
+            $xs->element('link', array('href' => $profile->profileurl));
+            $user = User::staticGet('id', $profile->id);
+            if (!empty($user)) {
+                $atom_feed = common_local_url('api',
+                                              array('apiaction' => 'statuses',
+                                                    'method' => 'user_timeline',
+                                                    'argument' => $profile->nickname.'.atom'));
+                $xs->element('link', array('rel' => 'self',
+                                           'type' => 'application/atom+xml',
+                                           'href' => $profile->profileurl));
+                $xs->element('link', array('rel' => 'license',
+                                           'href' => common_config('license', 'url')));
+            }
+
+            $xs->element('icon', null, $profile->avatarUrl(AVATAR_PROFILE_SIZE));
+        }
+
+        $xs->elementStart('author');
+        $xs->element('name', null, $profile->nickname);
+        $xs->element('uri', null, $profile->profileurl);
+        $xs->elementEnd('author');
+
+        if ($source) {
+            $xs->elementEnd('source');
+        }
+
+        $xs->element('title', null, $this->content);
+        $xs->element('summary', null, $this->content);
+
+        $xs->element('link', array('rel' => 'alternate',
+                                   'href' => $this->bestUrl()));
+
+        $xs->element('id', null, $this->uri);
+
+        $xs->element('published', null, common_date_w3dtf($this->created));
+        $xs->element('updated', null, common_date_w3dtf($this->modified));
+
+        if ($this->reply_to) {
+            $reply_notice = Notice::staticGet('id', $this->reply_to);
+            if (!empty($reply_notice)) {
+                $xs->element('link', array('rel' => 'related',
+                                           'href' => $reply_notice->bestUrl()));
+                $xs->element('thr:in-reply-to',
+                             array('ref' => $reply_notice->uri,
+                                   'href' => $reply_notice->bestUrl()));
+            }
+        }
+
+        $xs->element('content', array('type' => 'html'), $this->rendered);
+
+        $tag = new Notice_tag();
+        $tag->notice_id = $this->id;
+        if ($tag->find()) {
+            while ($tag->fetch()) {
+                $xs->element('category', array('term' => $tag->tag));
+            }
+        }
+        $tag->free();
+
+        $xs->elementEnd('entry');
+
+        return $xs->getString();
+    }
+
+    function bestUrl()
+    {
+        if (!empty($this->url)) {
+            return $this->url;
+        } else if (!empty($this->uri) && preg_match('/^https?:/', $this->uri)) {
+            return $this->uri;
+        } else {
+            return common_local_url('shownotice',
+                                    array('notice' => $this->id));
+        }
+    }
+
+    function stream($fn, $args, $cachekey, $offset=0, $limit=20, $since_id=0, $before_id=0, $since=null, $tag=null)
+    {
+        $cache = common_memcache();
+
+        if (empty($cache) ||
+            $since_id != 0 || $before_id != 0 || !is_null($since) ||
+            ($offset + $limit) > NOTICE_CACHE_WINDOW) {
+            return call_user_func_array($fn, array_merge($args, array($offset, $limit, $since_id,
+                                                                      $before_id, $since, $tag)));
+        }
+
+        $idkey = common_cache_key($cachekey);
+
+        $idstr = $cache->get($idkey);
+
+        if (!empty($idstr)) {
+            // Cache hit! Woohoo!
+            $window = explode(',', $idstr);
+            $ids = array_slice($window, $offset, $limit);
+            return $ids;
+        }
+
+        $laststr = $cache->get($idkey.';last');
+
+        if (!empty($laststr)) {
+            $window = explode(',', $laststr);
+            $last_id = $window[0];
+            $new_ids = call_user_func_array($fn, array_merge($args, array(0, NOTICE_CACHE_WINDOW,
+                                                                          $last_id, 0, null, $tag)));
+
+            $new_window = array_merge($new_ids, $window);
+
+            $new_windowstr = implode(',', $new_window);
+
+            $result = $cache->set($idkey, $new_windowstr);
+            $result = $cache->set($idkey . ';last', $new_windowstr);
+
+            $ids = array_slice($new_window, $offset, $limit);
+
+            return $ids;
+        }
+
+        $window = call_user_func_array($fn, array_merge($args, array(0, NOTICE_CACHE_WINDOW,
+                                                                     0, 0, null, $tag)));
+
+        $windowstr = implode(',', $window);
+
+        $result = $cache->set($idkey, $windowstr);
+        $result = $cache->set($idkey . ';last', $windowstr);
+
+        $ids = array_slice($window, $offset, $limit);
+
+        return $ids;
     }
 }

@@ -62,9 +62,6 @@ class NoticesearchrssAction extends Rss10Action
 
         $notice = new Notice();
 
-        # lcase it for comparison
-        $q = strtolower($q);
-
         $search_engine = $notice->getSearchEngine('identica_notices');
         $search_engine->set_sort_mode('chron');
 
@@ -82,10 +79,9 @@ class NoticesearchrssAction extends Rss10Action
 
     function getChannel()
     {
-        global $config;
         $q = $this->trimmed('q');
         $c = array('url' => common_local_url('noticesearchrss', array('q' => $q)),
-                   'title' => $config['site']['name'] . sprintf(_(' Search Stream for "%s"'), $q),
+                   'title' => common_config('site', 'name') . sprintf(_(' Search Stream for "%s"'), $q),
                    'link' => common_local_url('noticesearch', array('q' => $q)),
                    'description' => sprintf(_('All updates matching search term "%s"'), $q));
         return $c;
@@ -96,7 +92,7 @@ class NoticesearchrssAction extends Rss10Action
         return null;
     }
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }

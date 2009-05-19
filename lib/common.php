@@ -19,7 +19,7 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-define('LACONICA_VERSION', '0.7.1');
+define('LACONICA_VERSION', '0.7.3');
 
 define('AVATAR_PROFILE_SIZE', 96);
 define('AVATAR_STREAM_SIZE', 48);
@@ -71,8 +71,11 @@ $config =
         array('name' => 'Just another Laconica microblog',
               'server' => $_server,
               'theme' => 'default',
+              'skin' => 'default',
               'path' => $_path,
               'logfile' => null,
+              'logo' => null,
+              'logdebug' => false,
               'fancy' => false,
               'locale_path' => INSTALLDIR.'/locale',
               'language' => 'en_US',
@@ -84,7 +87,10 @@ $config =
               'broughtbyurl' => null,
               'closed' => false,
               'inviteonly' => false,
-              'private' => false),
+              'private' => false,
+              'ssl' => 'never',
+              'sslserver' => null,
+              'dupelimit' => 60), # default for same person saying the same thing
         'syslog' =>
         array('appname' => 'laconica', # for syslog
               'priority' => 'debug'), # XXX: currently ignored
@@ -137,14 +143,22 @@ $config =
         array('piddir' => '/var/run',
               'user' => false,
               'group' => false),
+        'twitterbridge' =>
+        array('enabled' => false),
         'integration' =>
-        array('source' => 'Laconica'), # source attribute for Twitter
+        array('source' => 'Laconica', # source attribute for Twitter
+              'taguri' => $_server.',2009'), # base for tag URIs
         'memcached' =>
         array('enabled' => false,
               'server' => 'localhost',
               'port' => 11211),
+ 		'ping' =>
+        array('notify' => array()),
         'inboxes' =>
         array('enabled' => true), # on by default for new sites
+        'newuser' =>
+        array('subscribe' => null,
+              'welcome' => null),
         );
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
@@ -178,10 +192,29 @@ if (strlen($_path) > 0) {
 
 $_config_files[] = INSTALLDIR.'/config.php';
 
+$_have_a_config = false;
+
 foreach ($_config_files as $_config_file) {
-    if (file_exists($_config_file)) {
+    if (@file_exists($_config_file)) {
         include_once($_config_file);
+        $_have_a_config = true;
     }
+}
+
+function _have_config()
+{
+    global $_have_a_config;
+    return $_have_a_config;
+}
+
+// XXX: Throw a conniption if database not installed
+
+// Fixup for laconica.ini
+
+$_db_name = substr($config['db']['database'], strrpos($config['db']['database'], '/') + 1);
+
+if ($_db_name != 'laconica' && !array_key_exists('ini_'.$_db_name, $config['db'])) {
+    $config['db']['ini_'.$_db_name] = INSTALLDIR.'/classes/laconica.ini';
 }
 
 // XXX: how many of these could be auto-loaded on use?

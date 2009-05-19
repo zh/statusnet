@@ -45,7 +45,7 @@ class SupAction extends Action
     function availablePeriods()
     {
         static $periods = array(86400, 43200, 21600, 7200,
-                                3600, 1800,    600, 300, 120,
+                                3600, 1800, 600, 300, 120,
                                 60, 30, 15);
         $available = array();
         foreach ($periods as $period) {
@@ -65,7 +65,9 @@ class SupAction extends Action
 
         $notice->query('SELECT profile_id, max(id) AS max_id ' .
                        'FROM notice ' .
-                       'WHERE created > (now() - ' . $seconds . ') ' .
+                        ((common_config('db','type') == 'pgsql') ?
+                       'WHERE extract(epoch from created) > (extract(epoch from now()) - ' . $seconds . ') ' :
+                       'WHERE created > (now() - ' . $seconds . ') ' ) .
                        'GROUP BY profile_id');
 
         $updates = array();
@@ -77,7 +79,7 @@ class SupAction extends Action
         return $updates;
     }
 
-    function isReadOnly()
+    function isReadOnly($args)
     {
         return true;
     }

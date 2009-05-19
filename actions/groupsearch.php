@@ -1,9 +1,4 @@
 <?php
-
-
-//        define('GROUPS_PER_PAGE', 20);
-
-
 /**
  * Group search action class.
  *
@@ -77,12 +72,23 @@ class GroupsearchAction extends SearchAction
             $terms = preg_split('/[\s,]+/', $q);
             $results = new GroupSearchResults($user_group, $terms, $this);
             $results->show();
-        } else {
-            $this->element('p', 'error', _('No results'));
-        }
-        $user_group->free();
-        $this->pagination($page > 1, $cnt > GROUPS_PER_PAGE,
+            $user_group->free();
+            $this->pagination($page > 1, $cnt > GROUPS_PER_PAGE,
                           $page, 'groupsearch', array('q' => $q));
+        } else {
+            $this->element('p', 'error', _('No results.'));
+            $this->searchSuggestions($q);
+            if (common_logged_in()) {
+                $message = _('If you can\'t find the group you\'re looking for, you can [create it](%%action.newgroup%%) yourself.');
+            }
+            else {
+                $message = _('Why not [register an account](%%action.register%%) and [create the group](%%action.newgroup%%) yourself!');
+            }
+            $this->elementStart('div', 'guide');
+            $this->raw(common_markup_to_html($message));
+            $this->elementEnd('div');
+            $user_group->free();
+        }
     }
 }
 
@@ -90,23 +96,18 @@ class GroupSearchResults extends GroupList
 {
     var $terms = null;
     var $pattern = null;
-    
+
     function __construct($user_group, $terms, $action)
     {
         parent::__construct($user_group, $terms, $action);
-        $this->terms = array_map('preg_quote', 
+        $this->terms = array_map('preg_quote',
                                  array_map('htmlspecialchars', $terms));
         $this->pattern = '/('.implode('|',$terms).')/i';
     }
-    
+
     function highlight($text)
     {
         return preg_replace($this->pattern, '<strong>\\1</strong>', htmlspecialchars($text));
-    }
-
-    function isReadOnly()
-    {
-        return true;
     }
 }
 

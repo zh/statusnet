@@ -79,10 +79,11 @@ class SearchAction extends Action
 
     function showTop($arr=null)
     {
+        $error = null;
         if ($arr) {
             $error = $arr[1];
         }
-        if ($error) {
+        if (!empty($error)) {
             $this->element('p', 'error', $error);
         } else {
             $instr = $this->getInstructions();
@@ -109,8 +110,6 @@ class SearchAction extends Action
 
     function showForm($error=null)
     {
-        global $config;
-
         $q = $this->trimmed('q');
         $page = $this->trimmed('page', 1);
         $this->elementStart('form', array('method' => 'get',
@@ -121,7 +120,7 @@ class SearchAction extends Action
         $this->element('legend', null, _('Search site'));
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
-        if (!isset($config['site']['fancy']) || !$config['site']['fancy']) {
+        if (!common_config('site', 'fancy')) {
             $this->hidden('action', $this->trimmed('action'));
         }
         $this->input('q', 'Keyword(s)', $q);
@@ -133,6 +132,32 @@ class SearchAction extends Action
         if ($q) {
             $this->showResults($q, $page);
         }
+    }
+
+    function searchSuggestions($q) {
+        $qe = urlencode($q);
+        $message = sprintf(_(<<<E_O_T
+* Make sure all words are spelled correctly.
+* Try different keywords.
+* Try more general keywords.
+* Try fewer keywords.
+
+You can also try your search on other engines:
+
+* [Twingly](http://www.twingly.com/search?q=%s&content=microblog&site=identi.ca)
+* [Tweet scan](http://www.tweetscan.com/indexi.php?s=%s)
+* [Google](http://www.google.com/search?q=site%%3A%%%%site.server%%%%+%s)
+* [Yahoo](http://search.yahoo.com/search?p=site%%3A%%%%site.server%%%%+%s)
+
+
+E_O_T
+), $qe, $qe, $qe, $qe);
+        $this->elementStart('dl', array('id' => 'help_search', 'class' => 'help'));
+        $this->element('dt', null, _('Search help'));
+        $this->elementStart('dd', 'instructions');
+        $this->raw(common_markup_to_html($message));
+        $this->elementEnd('dd');
+        $this->elementEnd('div');
     }
 }
 
