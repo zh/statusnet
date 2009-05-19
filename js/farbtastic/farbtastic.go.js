@@ -43,7 +43,7 @@ $(document).ready(function() {
     $('#color-picker').hide();
 
     var f = $.farbtastic('#color-picker', UpdateColors);
-    var swatches = $('#settings_design_color input');
+    var swatches = $('#settings_design_color .swatch');
 
     swatches
         .each(UpdateColors)
