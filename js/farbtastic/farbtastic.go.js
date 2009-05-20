@@ -7,19 +7,19 @@ $(document).ready(function() {
             UpdateSwatch(S);
 
             switch (parseInt(f.linked.id.slice(-1))) {
-                case 1: default:
+                case 0: default:
                     $('body').css({'background-color':C});
                     break;
-                case 2:
+                case 1:
                     $('#content').css({'background-color':C});
                     break;
-                case 3:
+                case 2:
                     $('#aside_primary').css({'background-color':C});
                     break;
-                case 4:
+                case 3:
                     $('body').css({'color':C});
                     break;
-                case 5:
+                case 4:
                     $('a').css({'color':C});
                     break;
             }
@@ -43,7 +43,7 @@ $(document).ready(function() {
     $('#color-picker').hide();
 
     var f = $.farbtastic('#color-picker', UpdateColors);
-    var swatches = $('#settings_design_color input');
+    var swatches = $('#settings_design_color .swatch');
 
     swatches
         .each(UpdateColors)
