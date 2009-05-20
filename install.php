@@ -260,7 +260,8 @@ function writeConf($sitename, $sqlUrl, $fancy, $path)
                              "\$config['site']['name'] = \"$sitename\";\n\n".
                              ($fancy ? "\$config['site']['fancy'] = true;\n\n":'').
                              "\$config['site']['path'] = \"$path\";\n\n".
-                             "\$config['db']['database'] = \"$sqlUrl\";\n\n");
+                             "\$config['db']['database'] = \"$sqlUrl\";\n\n".
+                             "?>");
     return $res;
 }
 
