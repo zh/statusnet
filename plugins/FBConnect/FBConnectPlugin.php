@@ -31,8 +31,10 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/plugins/FBConnect/FBConnectLogin.php';
 require_once INSTALLDIR . '/lib/facebookutil.php';
+require_once INSTALLDIR . '/plugins/FBConnect/FBConnectAuth.php';
+require_once INSTALLDIR . '/plugins/FBConnect/FBConnectLogin.php';
+require_once INSTALLDIR . '/plugins/FBConnect/FBCLoginGroupNav.php';
 
 /**
  * Plugin to enable Facebook Connect
@@ -54,7 +56,11 @@ class FBConnectPlugin extends Plugin
 
     // Hook in new actions
     function onRouterInitialized(&$m) {
-        $m->connect('main/facebookconnect', array('action' => 'fbconnectlogin'));
+        
+        common_debug("onRouterIntialized()");
+        
+        $m->connect('main/facebookconnect', array('action' => 'FBConnectAuth'));
+        $m->connect('main/facebooklogin', array('action' => 'FBConnectLogin'));
      }
 
     // Add in xmlns:fb
@@ -67,8 +73,10 @@ class FBConnectPlugin extends Plugin
 
         $name = get_class($action);
 
+        common_debug("onStartShowHTML: action = $name");
+
         // Avoid a redirect loop
-        if (!in_array($name, array('FBConnectloginAction', 'ClientErrorAction'))) {
+        if (!in_array($name, array('FBConnectAuthAction', 'ClientErrorAction'))) {
 
             $this->checkFacebookUser($action);
 
@@ -246,7 +254,7 @@ class FBConnectPlugin extends Plugin
 
                     } else {
                         common_debug("Facebook user is NOT logged in.");
-                        common_redirect(common_local_url('fbconnectlogin'), 303);
+                        common_redirect(common_local_url('FBConnectAuth'), 303);
                     }
 
                 } else {
@@ -259,7 +267,28 @@ class FBConnectPlugin extends Plugin
         }
 
     }
-
+    
+    function onStartShowLocalNavBlock($action)
+    {
+        $action_name = get_class($action);
+        
+        common_debug($action_name);
+        
+        $login_actions = array('LoginAction', 'RegisterAction', 
+            'OpenidloginAction', 'FacebookStart');
+        
+        if (in_array($action_name, $login_actions)) {
+        
+            common_debug("LoginAction found!");
+        
+            $nav = new FBCLoginGroupNav($action);
+            $nav->show();
+            return false;
+        }
+        
+        return true;
+        
+    }
 }
 
 
