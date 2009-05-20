@@ -1,3 +1,11 @@
+/** Init for Farbtastic library and page setup
+ *
+ * @package   Laconica
+ * @author Sarven Capadisli <csarven@controlyourself.ca>
+ * @copyright 2009 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
+ */
 $(document).ready(function() {
     function UpdateColors(S) {
         C = $(S).val();
