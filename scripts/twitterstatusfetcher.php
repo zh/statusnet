@@ -214,7 +214,8 @@ class TwitterStatusFetcher extends Daemon
             return;
         }
 
-        foreach ($timeline as $status) {
+        // Reverse to preserve order
+        foreach (array_reverse($timeline) as $status) {
 
             // Hacktastic: filter out stuff coming from this Laconica
             $source = mb_strtolower(common_config('integration', 'source'));
