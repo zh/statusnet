@@ -120,22 +120,28 @@ class FBConnectPlugin extends Plugin
         $apikey = common_config('facebook', 'apikey');
         $plugin_path = common_path('plugins/FBConnect');
 
-        $url = common_get_returnto();
+        $login_url = common_get_returnto();
 
-        if ($url) {
+        if ($login_url) {
             // We don't have to return to it again
             common_set_returnto(null);
         } else {
             $url = common_local_url('public');
         }
+        
+        $logout_url = common_local_url('logout');
 
         $html = sprintf('<script type="text/javascript">FB.init("%s", "%s/xd_receiver.htm");
 
-                            function refresh_page() {
+                            function goto_login() {
+                                window.location = "%s";
+                            }
+                            
+                            function goto_logout() {
                                 window.location = "%s";
                             }
 
-                         </script>', $apikey, $plugin_path, $url);
+                         </script>', $apikey, $plugin_path, $login_url, $logout_url);
 
 
         $action->raw($html);
@@ -170,8 +176,8 @@ class FBConnectPlugin extends Plugin
              $text = _('Logout');
 
              $html = sprintf('<li id="nav_logout"><a href="%s" title="%s" ' .
-                 'onclick="FB.Connect.logoutAndRedirect(\'%s\')">%s</a></li>',
-                    $logout_url, $title, $logout_url, $text);
+                 'onclick="FB.Connect.logout(function() { goto_logout() })">%s</a></li>',
+                    $logout_url, $title, $text);
 
              $action->raw($html);
 
@@ -198,7 +204,7 @@ class FBConnectPlugin extends Plugin
 
         if (!$user) {
              $action->elementStart('li');
-             $action->element('fb:login-button', array('onlogin' => 'refresh_page()',
+             $action->element('fb:login-button', array('onlogin' => 'goto_login()',
                  'length' => 'long'));
              $action->elementEnd('li');
         }
