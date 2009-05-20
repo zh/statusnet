@@ -35,15 +35,17 @@ function main()
 
 function checkPrereqs()
 {
+	$pass = true;
+	
     if (file_exists(INSTALLDIR.'/config.php')) {
          ?><p class="error">Config file &quot;config.php&quot; already exists.</p>
          <?php
-        return false;
+        $pass = false;
     }
 
     if (version_compare(PHP_VERSION, '5.0.0', '<')) {
             ?><p class="error">Require PHP version 5 or greater.</p><?php
-		    return false;
+		    $pass = false;
     }
 
     $reqs = array('gd', 'mysql', 'curl',
@@ -53,7 +55,7 @@ function checkPrereqs()
     foreach ($reqs as $req) {
         if (!checkExtension($req)) {
             ?><p class="error">Cannot load required extension: <code><?php echo $req; ?></code></p><?php
-		    return false;
+		    $pass = false;
         }
     }
 
@@ -61,17 +63,17 @@ function checkPrereqs()
          ?><p class="error">Cannot write config file to: <code><?php echo INSTALLDIR; ?></code></p>
 	       <p>On your server, try this command: <code>chmod a+w <?php echo INSTALLDIR; ?></code>
          <?php
-	     return false;
+	     $pass = false;
 	}
 
 	if (!is_writable(INSTALLDIR.'/avatar/')) {
          ?><p class="error">Cannot write avatar directory: <code><?php echo INSTALLDIR; ?>/avatar/</code></p>
 	       <p>On your server, try this command: <code>chmod a+w <?php echo INSTALLDIR; ?>/avatar/</code></p>
          <?
-	     return false;
+	     $pass = false;
 	}
 
-	return true;
+	return $pass;
 }
 
 function checkExtension($name)
@@ -173,35 +175,37 @@ function handlePost()
         <dd>
             <ul>
 <?php
+	$fail = false;
+	
     if (empty($host)) {
         updateStatus("No hostname specified.", true);
-        showForm();
-        return;
+		$fail = true;
     }
 
     if (empty($database)) {
         updateStatus("No database specified.", true);
-        showForm();
-        return;
+		$fail = true;
     }
 
     if (empty($username)) {
         updateStatus("No username specified.", true);
-        showForm();
-        return;
+		$fail = true;
     }
 
     if (empty($password)) {
         updateStatus("No password specified.", true);
-        showForm();
-        return;
+		$fail = true;
     }
 
     if (empty($sitename)) {
         updateStatus("No sitename specified.", true);
-        showForm();
-        return;
+		$fail = true;
     }
+
+	if($fail){
+		showForm();
+	    return;
+	}
 
     updateStatus("Starting installation...");
     updateStatus("Checking database...");
@@ -247,7 +251,7 @@ function handlePost()
     }
     updateStatus("Done!");
     if ($path) $path .= '/';
-    updateStatus("You can visit your <a href='/$path'>new Laconica site</a).");
+    updateStatus("You can visit your <a href='/$path'>new Laconica site</a>.");
 ?>
 
 <?php
@@ -257,6 +261,7 @@ function writeConf($sitename, $sqlUrl, $fancy, $path)
 {
     $res = file_put_contents(INSTALLDIR.'/config.php',
                              "<?php\n".
+                             "if (!defined('LACONICA')) { exit(1); }\n\n".
                              "\$config['site']['name'] = \"$sitename\";\n\n".
                              ($fancy ? "\$config['site']['fancy'] = true;\n\n":'').
                              "\$config['site']['path'] = \"$path\";\n\n".
@@ -267,7 +272,6 @@ function writeConf($sitename, $sqlUrl, $fancy, $path)
 
 function runDbScript($filename, $conn)
 {
-return true;
     $sql = trim(file_get_contents($filename));
     $stmts = explode(';', $sql);
     foreach ($stmts as $stmt) {
