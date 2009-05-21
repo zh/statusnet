@@ -140,11 +140,12 @@ class DesignsettingsAction extends AccountSettingsAction
         $this->elementEnd('ul');
         $this->elementEnd('fieldset');
 
-        $this->submit('save', _('Save'));
         $this->element('input', array('id' => 'settings_design_reset',
                                       'type' => 'reset',
                                       'value' => 'Reset',
-                                      'class' => 'form_action-secondary'));
+                                      'class' => 'submit form_action-primary',
+                                      'title' => _('Reset back to default')));
+        $this->submit('save', _('Save'), 'submit form_action-secondary', 'save', _('Save design'));
 
 /*TODO: Check submitted form values: 
 json_encode(form values)
