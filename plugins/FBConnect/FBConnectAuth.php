@@ -29,7 +29,7 @@
 
 require_once INSTALLDIR . '/plugins/FBConnect/FBConnectPlugin.php';
 
-class FbconnectauthAction extends Action
+class FBConnectauthAction extends Action
 {
 
     var $fbuid      = null;
@@ -38,9 +38,20 @@ class FbconnectauthAction extends Action
     function prepare($args) {
         parent::prepare($args);
 
-        $this->fbuid = getFacebook()->get_loggedin_user();
-        $this->fb_fields = $this->getFacebookFields($this->fbuid,
-            array('first_name', 'last_name', 'name'));
+        try {
+
+            $this->fbuid = getFacebook()->get_loggedin_user();
+
+            if ($this->fbuid > 0) {
+                $this->fb_fields = $this->getFacebookFields($this->fbuid,
+                    array('first_name', 'last_name', 'name'));
+            } else {
+                common_debug("No Facebook User found.");
+            }
+
+        } catch (Exception $e) {
+            common_debug("Problem getting fbuid.");
+        }
 
         return true;
     }
@@ -52,6 +63,7 @@ class FbconnectauthAction extends Action
         if (common_is_real_login()) {
             $this->clientError(_('Already logged in.'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
             $token = $this->trimmed('token');
             if (!$token || $token != common_session_token()) {
                 $this->showForm(_('There was a problem with your session token. Try again, please.'));
@@ -113,7 +125,7 @@ class FbconnectauthAction extends Action
 
         $this->elementStart('form', array('method' => 'post',
                                           'id' => 'account_connect',
-                                          'action' => common_local_url('fbconnectlogin')));
+                                          'action' => common_local_url('FBConnectAuth')));
         $this->hidden('token', common_session_token());
         $this->element('h2', null,
                        _('Create new account'));
@@ -255,7 +267,7 @@ class FbconnectauthAction extends Action
     {
         common_debug("Trying Facebook Login...");
 
-        $flink = Foreign_link::getByForeignID($this->fbuid, FACEBOOK_SERVICE);
+        $flink = Foreign_link::getByForeignID($this->fbuid, FACEBOOK_CONNECT_SERVICE);
 
         if ($flink) {
             $user = $flink->getUser();
@@ -270,6 +282,9 @@ class FbconnectauthAction extends Action
             }
 
         } else {
+
+            common_debug("no flink found for fbuid: $this->fbuid");
+
             $this->showForm(null, $this->bestNewNickname());
         }
     }
@@ -291,10 +306,12 @@ class FbconnectauthAction extends Action
 
     function flinkUser($user_id, $fbuid)
     {
+        common_debug("flinkUser()");
+
         $flink = new Foreign_link();
         $flink->user_id = $user_id;
         $flink->foreign_id = $fbuid;
-        $flink->service = FACEBOOK_SERVICE;
+        $flink->service = FACEBOOK_CONNECT_SERVICE;
         $flink->created = common_sql_now();
 
         $flink_id = $flink->insert();

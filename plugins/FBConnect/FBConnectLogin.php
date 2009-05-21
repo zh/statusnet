@@ -17,8 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { 
-    exit(1); 
+if (!defined('LACONICA')) {
+    exit(1);
 }
 
 require_once INSTALLDIR . '/plugins/FBConnect/FBConnectPlugin.php';
@@ -31,8 +31,8 @@ class FBConnectLoginAction extends Action
 
         if (common_is_real_login()) {
             $this->clientError(_('Already logged in.'));
-        } 
-        
+        }
+
         $this->showPage();
     }
 
@@ -58,7 +58,7 @@ class FBConnectLoginAction extends Action
     function showContent() {
 
         $this->elementStart('fieldset');
-        
+
 
         $this->element('fb:login-button', array('onlogin' => 'goto_login()',
             'length' => 'long'));
