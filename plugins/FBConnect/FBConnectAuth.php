@@ -125,21 +125,12 @@ class FBConnectauthAction extends Action
         }
 
         $this->elementStart('form', array('method' => 'post',
-                                          'id' => 'form_facebook_account_connect',
+                                          'id' => 'form_settings_facebook_connect',
                                           'class' => 'form_settings',
                                           'action' => common_local_url('FBConnectAuth')));
-        $this->elementStart('fieldset');
-        $this->hidden('token', common_session_token());
-        $this->element('legend', null,
-                       _('Create new account'));
-        $this->element('p', null,
-                       _('Create a new user with this nickname.'));
+        $this->elementStart('fieldset', array('id' => 'settings_facebook_connect_options'));
+        $this->element('legend', null, _('Connection options'));
         $this->elementStart('ul', 'form_data');
-        $this->elementStart('li');
-        $this->input('newname', _('New nickname'),
-                     ($this->username) ? $this->username : '',
-                     _('1-64 lowercase letters or numbers, no punctuation or spaces'));
-        $this->elementEnd('li');
         $this->elementStart('li');
         $this->element('input', array('type' => 'checkbox',
                                       'id' => 'license',
@@ -154,6 +145,20 @@ class FBConnectauthAction extends Action
         $this->elementEnd('label');
         $this->elementEnd('li');
         $this->elementEnd('ul');
+
+        $this->elementStart('fieldset');
+        $this->hidden('token', common_session_token());
+        $this->element('legend', null,
+                       _('Create new account'));
+        $this->element('p', null,
+                       _('Create a new user with this nickname.'));
+        $this->elementStart('ul', 'form_data');
+        $this->elementStart('li');
+        $this->input('newname', _('New nickname'),
+                     ($this->username) ? $this->username : '',
+                     _('1-64 lowercase letters or numbers, no punctuation or spaces'));
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
         $this->submit('create', _('Create'));
         $this->elementEnd('fieldset');
 
@@ -162,7 +167,6 @@ class FBConnectauthAction extends Action
                        _('Connect existing account'));
         $this->element('p', null,
                        _('If you already have an account, login with your username and password to connect it to your Facebook.'));
-
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
         $this->input('nickname', _('Existing nickname'));
@@ -172,6 +176,8 @@ class FBConnectauthAction extends Action
         $this->elementEnd('li');
         $this->elementEnd('ul');
         $this->submit('connect', _('Connect'));
+        $this->elementEnd('fieldset');
+
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }
