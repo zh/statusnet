@@ -180,25 +180,14 @@ class NoticeListItem extends Widget
         $this->showStart();
         $this->showNotice();
         $this->showNoticeAttachments();
-        $this->showNoticeOptions();
         $this->showNoticeInfo();
+        $this->showNoticeOptions();
         $this->showEnd();
     }
 
     function showNotice()
     {
-if(0)
-        $this->out->elementStart('entry-title');
-else
-
-        if ('shownotice' === $this->out->args['action']) {
-            $width = '85%';
-        } else {
-            $width = '90%';
-        }
-
-
-        $this->out->elementStart('div', array('class' => 'entry-title', 'style' => "float: left; width: $width;"));
+        $this->out->elementStart('div', 'entry-title');
         $this->showAuthor();
         $this->showContent();
         $this->out->elementEnd('div');
@@ -248,17 +237,7 @@ else
 
     function showNoticeInfo()
     {
-if(0)
         $this->out->elementStart('div', 'entry-content');
-else
-
-        if ('shownotice' === $this->out->args['action']) {
-            $width = '85%';
-        } else {
-            $width = '90%';
-        }
-
-        $this->out->elementStart('div', array('class' => 'entry-content', 'style' => "float: left; width: $width;"));
         $this->showNoticeLink();
         $this->showNoticeSource();
         $this->showContext();
@@ -269,10 +248,7 @@ else
     {
         $user = common_current_user();
         if ($user) {
-if(0)
             $this->out->elementStart('div', 'notice-options');
-else
-            $this->out->elementStart('div', array('class' => 'notice-options', 'style' => 'float: right; width: 16%;'));
             $this->showFaveForm();
             $this->showReplyLink();
             $this->showDeleteLink();

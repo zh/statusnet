@@ -175,10 +175,6 @@ background-image:url(../../base/images/icons/twotone/green/shield.gif);
 }
 
 /* NOTICES */
-.notices li.over {
-background-color:#fcfcfc;
-}
-
 .notice-options .notice_reply a,
 .notice-options form input.submit {
 background-color:transparent;
@@ -213,6 +209,19 @@ font-family:sans-serif;
 }
 .notices li.hover {
 background-color:#fcfcfc;
+}
+
+.notices .notices {
+background-color:rgba(200, 200, 200, 0.025);
+}
+.notices .notices .notices {
+background-color:rgba(200, 200, 200, 0.050);
+}
+.notices .notices .notices .notices {
+background-color:rgba(200, 200, 200, 0.075);
+}
+.notices .notices .notices .notices .notices {
+background-color:rgba(200, 200, 200, 0.100);
 }
 /*END: NOTICES */
 

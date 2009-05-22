@@ -169,8 +169,18 @@ class FBConnectSettingsAction extends ConnectSettingsAction
                 return;
             }
 
-            $facebook = getFacebook();
-            $facebook->logout();
+            try {
+
+                // XXX: not sure what exactly to do here
+
+                $facebook = getFacebook();
+                $facebook->clear_cookie_state();
+
+            } catch (Exception $e) {
+                common_log(LOG_WARNING,
+                    'Couldn\'t clear Facebook cookies: ' .
+                        $e->getMessage());
+            }
 
             $this->showForm(_('Facebook user disconnected.'), true);
 
