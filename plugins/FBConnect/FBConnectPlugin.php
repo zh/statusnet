@@ -130,6 +130,13 @@ class FBConnectPlugin extends Plugin
         $action->raw($html);
     }
 
+    function onEndShowLaconicaStyles($action)
+    {
+        $action->element('link', array('rel' => 'stylesheet',
+            'type' => 'text/css',
+            'href' => common_path('plugins/FBConnect/FBConnectPlugin.css')));
+    }
+
     function onStartPrimaryNav($action)
     {
         $user = common_current_user();
