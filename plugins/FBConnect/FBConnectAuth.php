@@ -50,7 +50,8 @@ class FBConnectauthAction extends Action
             }
 
         } catch (Exception $e) {
-            common_debug("Problem getting fbuid.");
+            common_log(LOG_WARNING, 'Problem getting Facebook uid: ' .
+                $e->getMessage());
         }
 
         return true;
@@ -283,7 +284,7 @@ class FBConnectauthAction extends Action
 
         } else {
 
-            common_debug("no flink found for fbuid: $this->fbuid");
+            common_debug("No flink found for fbuid: $this->fbuid");
 
             $this->showForm(null, $this->bestNewNickname());
         }
@@ -306,8 +307,6 @@ class FBConnectauthAction extends Action
 
     function flinkUser($user_id, $fbuid)
     {
-        common_debug("flinkUser()");
-
         $flink = new Foreign_link();
         $flink->user_id = $user_id;
         $flink->foreign_id = $fbuid;
@@ -370,7 +369,10 @@ class FBConnectauthAction extends Action
     // XXX: Consider moving this to lib/facebookutil.php
     function getFacebookFields($fb_uid, $fields) {
         try {
-            $infos = getFacebook()->api_client->users_getInfo($fb_uid, $fields);
+
+            $facebook = getFacebook();
+
+            $infos = $facebook->api_client->users_getInfo($fb_uid, $fields);
 
             if (empty($infos)) {
                 return null;
@@ -378,9 +380,10 @@ class FBConnectauthAction extends Action
             return reset($infos);
 
         } catch (Exception $e) {
-            error_log("Failure in the api when requesting " . join(",", $fields)
-                  ." on uid " . $fb_uid . " : ". $e->getMessage());
-              return null;
+            common_log(LOG_WARNING, "Facebook client failure when requesting " .
+                join(",", $fields) . " on uid " . $fb_uid .
+                    " : ". $e->getMessage());
+            return null;
         }
     }
 

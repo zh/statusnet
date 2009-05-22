@@ -71,26 +71,24 @@ class FBCLoginGroupNav extends Widget
 
     function show()
     {
-        common_debug('FBCLoginGroupNav');
-        
         $this->action->elementStart('dl', array('id' => 'site_nav_local_views'));
         $this->action->element('dt', null, _('Local views'));
         $this->action->elementStart('dd');
-        
+
         // action => array('prompt', 'title')
         $menu = array();
 
         $menu['login'] = array(_('Login'),
                          _('Login with a username and password'));
-        
+
         if (!(common_config('site','closed') || common_config('site','inviteonly'))) {
             $menu['register'] = array(_('Register'),
                                 _('Sign up for a new account'));
         }
-        
+
         $menu['openidlogin'] = array(_('OpenID'),
                                _('Login or register with OpenID'));
-                               
+
         $menu['FBConnectLogin'] = array(_('Facebook'),
                                _('Login or register using Facebook'));
 
@@ -105,7 +103,7 @@ class FBCLoginGroupNav extends Widget
         }
 
         $this->action->elementEnd('ul');
-        
+
         $this->action->elementEnd('dd');
         $this->action->elementEnd('dl');
     }
