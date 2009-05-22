@@ -235,10 +235,10 @@ function NoticeHover() {
 function NoticeReply() {
     if ($('#notice_data-text').length > 0) {
         $('#content .notice').each(function() {
-            var notice = $(this);
-            $('.notice_reply', $(this)).click(function() {
-                var nickname = ($('.author .nickname', notice).length > 0) ? $('.author .nickname', notice) : $('.author .nickname');
-                NoticeReplySet(nickname.text(), $('.notice_id', notice).text());
+            var notice = $(this)[0];
+            $($('.notice_reply', notice)[0]).click(function() {
+                var nickname = ($('.author .nickname', notice).length > 0) ? $($('.author .nickname', notice)[0]) : $('.author .nickname');
+                NoticeReplySet(nickname.text(), $($('.notice_id', notice)[0]).text());
                 return false;
             });
         });
