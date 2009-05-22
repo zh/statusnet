@@ -295,13 +295,13 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en_US" lang="en_US">
     <head>
         <title>Install Laconica</title>
-        <link rel="stylesheet" type="text/css" href="theme/base/css/display.css?version=0.8" media="screen, projection, tv"/>
+	<link rel="shortcut icon" href="favicon.ico"/>
         <link rel="stylesheet" type="text/css" href="theme/default/css/display.css?version=0.8" media="screen, projection, tv"/>
         <!--[if IE]><link rel="stylesheet" type="text/css" href="theme/base/css/ie.css?version=0.8" /><![endif]-->
         <!--[if lte IE 6]><link rel="stylesheet" type="text/css" theme/base/css/ie6.css?version=0.8" /><![endif]-->
-        <!--[if IE]><link rel="stylesheet" type="text/css" href="theme/earthy/css/ie.css?version=0.8" /><![endif]-->
-        <script src='js/jquery.min.js'></script>
-        <script src='js/install.js'></script>
+        <!--[if IE]><link rel="stylesheet" type="text/css" href="theme/default/css/ie.css?version=0.8" /><![endif]-->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/install.js"></script>
     </head>
     <body id="install">
         <div id="wrap">
