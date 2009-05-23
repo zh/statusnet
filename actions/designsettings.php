@@ -33,8 +33,6 @@ if (!defined('LACONICA')) {
 
 require_once INSTALLDIR.'/lib/accountsettingsaction.php';
 
-
-
 class DesignsettingsAction extends AccountSettingsAction
 {
     /**
@@ -82,8 +80,8 @@ class DesignsettingsAction extends AccountSettingsAction
         $this->element('legend', null, _('Change background image'));
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
-        $this->element('label', array('for' => 'design_ background-image_file'), 
-                                _('Upload file'));
+        $this->element('label', array('for' => 'design_ background-image_file'),
+                       _('Upload file'));
         $this->element('input', array('name' => 'design_background-image_file',
                                       'type' => 'file',
                                       'id' => 'design_background-image_file'));
@@ -101,11 +99,11 @@ class DesignsettingsAction extends AccountSettingsAction
         $this->elementStart('ul', 'form_data');
 
         //This is a JSON object in the DB field. Here for testing. Remove later.
-        $userSwatch = '{"body":{"background-color":"#F0F2F5"},
-                        "#content":{"background-color":"#FFFFFF"},
-                        "#aside_primary":{"background-color":"#CEE1E9"},
-                        "html body":{"color":"#000000"},
-                        "a":{"color":"#002E6E"}}';
+        $userSwatch = '{"body":{"background-color":"#F0F2F5"},'.
+          '"#content":{"background-color":"#FFFFFF"},'.
+          '"#aside_primary":{"background-color":"#CEE1E9"},'.
+          '"html body":{"color":"#000000"},'.
+          '"a":{"color":"#002E6E"}}';
 
         //Default theme swatch -- Where should this be stored?
         $defaultSwatch = array('body' => array('background-color' => '#F0F2F5'),
@@ -147,14 +145,13 @@ class DesignsettingsAction extends AccountSettingsAction
                                       'title' => _('Reset back to default')));
         $this->submit('save', _('Save'), 'submit form_action-secondary', 'save', _('Save design'));
 
-/*TODO: Check submitted form values: 
-json_encode(form values)
-if submitted Swatch == DefaultSwatch, don't store in DB.
-else store in BD
-*/
+        /*TODO: Check submitted form values:
+         json_encode(form values)
+         if submitted Swatch == DefaultSwatch, don't store in DB.
+         else store in BD
+         */
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
-
     }
 
     /**
@@ -168,62 +165,9 @@ else store in BD
 
     function handlePost()
     {
-    /*
-        // CSRF protection
-
-        $token = $this->trimmed('token');
-        if (!$token || $token != common_session_token()) {
-            $this->showForm(_('There was a problem with your session token. '.
-                               'Try again, please.'));
-            return;
-        }
-
-        $user = common_current_user();
-        assert(!is_null($user)); // should already be checked
-
-        // FIXME: scrub input
-
-        $newpassword = $this->arg('newpassword');
-        $confirm     = $this->arg('confirm');
-
-        # Some validation
-
-        if (strlen($newpassword) < 6) {
-            $this->showForm(_('Password must be 6 or more characters.'));
-            return;
-        } else if (0 != strcmp($newpassword, $confirm)) {
-            $this->showForm(_('Passwords don\'t match.'));
-            return;
-        }
-
-        if ($user->password) {
-            $oldpassword = $this->arg('oldpassword');
-
-            if (!common_check_user($user->nickname, $oldpassword)) {
-                $this->showForm(_('Incorrect old password'));
-                return;
-            }
-        }
-
-        $original = clone($user);
-
-        $user->password = common_munge_password($newpassword, $user->id);
-
-        $val = $user->validate();
-        if ($val !== true) {
-            $this->showForm(_('Error saving user; invalid.'));
-            return;
-        }
-
-        if (!$user->update($original)) {
-            $this->serverError(_('Can\'t save new password.'));
-            return;
-        }
-
-        $this->showForm(_('Password saved.'), true);
-        */
+        // TODO: implement this
+        return;
     }
-
 
     /**
      * Add the Farbtastic stylesheet
