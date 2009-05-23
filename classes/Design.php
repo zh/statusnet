@@ -44,4 +44,14 @@ class Design extends Memcached_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+
+    function showCSS($out)
+    {
+        $out->element('stylesheet', array('type' => 'text/css'),
+                      'body { background-color: #' . dechex($this->backgroundcolor) . '} '."\n".
+                      '#content { background-color #' . dechex($this->contentcolor) . '} '."\n".
+                      '#aside_primary { background-color #'. dechex($this->sidebarcolor) .'} '."\n".
+                      'html body { color: #'. dechex($this->textcolor) .'} '."\n".
+                      'a { color: #' . dechex($this->linkcolor) . '} '."\n");
+    }
 }
