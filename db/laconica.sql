@@ -41,6 +41,7 @@ create table sms_carrier (
 /* local users */
 
 create table user (
+
     id integer primary key comment 'foreign key to profile table' references profile (id),
     nickname varchar(64) unique key comment 'nickname or username, duped in profile',
     password varchar(255) comment 'salted password, can be null for OpenID users',
@@ -71,6 +72,8 @@ create table user (
     inboxed tinyint default 0 comment 'has an inbox been created for this user?',
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified',
+    design_id integer comment 'id of a design' references design(id),
+    viewdesigns tinyint default 1 comment 'whether to view user-provided designs',
 
     index user_smsemail_idx (smsemail)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci;
