@@ -482,3 +482,13 @@ create table file_to_post (
 
     unique(file_id, post_id)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table design (
+    id integer primary key auto_increment comment 'design ID',
+    backgroundcolor integer comment 'main background color',
+    contentcolor integer comment 'content area background color',
+    sidebarcolor integer comment 'sidebar background color',
+    textcolor integer comment 'text color',
+    linkcolor integer comment 'link color',
+    backgroundimage varchar(255) comment 'background image, if any'
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
