@@ -23,7 +23,7 @@ if (!defined('LACONICA')) { exit(1); }
  * Table Definition for design
  */
 
-require_once 'classes/Memcached_DataObject';
+require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
 class Design extends Memcached_DataObject
 {
