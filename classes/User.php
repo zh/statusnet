@@ -684,4 +684,9 @@ class User extends Memcached_DataObject
 
         return ($cnt > 0);
     }
+
+    function getDesign()
+    {
+        return Design::staticGet('id', $this->design_id);
+    }
 }
