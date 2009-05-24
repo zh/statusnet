@@ -20,7 +20,7 @@ $(document).ready(function(){
 // attachments and attachment pages not used at the moment except for attachment_ajax version
 //    $('.attachments').click(function() {$().jOverlay({zIndex:999, success:function(html) {$('.attachment').click(function() {$().jOverlay({url:$(this).attr('href') + '/ajax'}); return false; });
 //        }, url:$(this).attr('href') + '/ajax'}); return false; });
-    $('.attachment').click(function() {$().jOverlay({url:'http://laptop.waglo.com/attachment/' + ($(this).attr('id').substring('attachment'.length + 1)) + '/ajax'}); return false; });
+    $('.attachment').click(function() {$().jOverlay({url:'../attachment/' + ($(this).attr('id').substring('attachment'.length + 1)) + '/ajax'}); return false; });
 
 	// count character on keyup
 	function counter(event){
