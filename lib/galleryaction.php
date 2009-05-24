@@ -27,10 +27,9 @@ require_once INSTALLDIR.'/lib/profilelist.php';
 
 define('AVATARS_PER_PAGE', 80);
 
-class GalleryAction extends Action
+class GalleryAction extends OwnerDesignAction
 {
     var $profile = null;
-    var $user = null;
     var $page = null;
     var $tag = null;
 

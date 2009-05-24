@@ -45,10 +45,8 @@ require_once INSTALLDIR.'/lib/feedlist.php';
  * @link     http://laconi.ca/
  */
 
-class ShowfavoritesAction extends Action
+class ShowfavoritesAction extends OwnerDesignAction
 {
-    /** User we're getting the faves of */
-    var $user = null;
     /** Page of the faves we're on */
     var $page = null;
 
@@ -160,7 +158,6 @@ class ShowfavoritesAction extends Action
         $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
                                      $this->page, 'showfavorites', array('nickname' => $this->user->nickname));
     }
-
 
     /**
      * show the personal group nav

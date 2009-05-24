@@ -47,9 +47,8 @@ require_once INSTALLDIR.'/lib/groupminilist.php';
  * @link     http://laconi.ca/
  */
 
-class ProfileAction extends Action
+class ProfileAction extends OwnerDesignAction
 {
-    var $user    = null;
     var $page    = null;
     var $profile = null;
     var $tag     = null;
