@@ -224,6 +224,16 @@ class Action extends HTMLOutputter // lawsuit
                                'href="'.theme_path('css/ie.css', null).'?version='.LACONICA_VERSION.'" /><![endif]');
                 Event::handle('EndShowUAStyles', array($this));
             }
+            if (Event::handle('StartShowDesign', array($this))) {
+                $design = $this->getDesign();
+                if (!empty($design)) {
+                    $cur = common_current_user();
+                    if (empty($cur) || $cur->viewdesigns) {
+                        $design->showCSS($this);
+                    }
+                }
+                Event::handle('EndShowDesign', array($this, $design));
+            }
             Event::handle('EndShowStyles', array($this));
         }
     }
@@ -247,7 +257,6 @@ class Action extends HTMLOutputter // lawsuit
                 $this->element('script', array('type' => 'text/javascript',
                                                'src' => common_path('js/jquery.joverlay.min.js')),
                                ' ');
-
 
                 Event::handle('EndShowJQueryScripts', array($this));
             }
@@ -1094,5 +1103,20 @@ class Action extends HTMLOutputter // lawsuit
                                          'href' => common_local_url($action, $args, $pargs),
                                          'title' => _('Previous')));
         }
+    }
+
+    /**
+     * A design for this action
+     *
+     * A design (colors and background) for the current page. May be
+     * the user's design, or a group's design, or a site design.
+     *
+     * @return array Feed object to show in head and links
+     */
+
+    function getDesign()
+    {
+        // XXX: return site design by default
+        return null;
     }
 }
