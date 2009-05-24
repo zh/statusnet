@@ -204,7 +204,6 @@ $(document).ready(function(){
                                                               $("#notices_primary .notices").prepend(document._importNode(li, true));
                                                               $("#notices_primary .notice:first").css({display:"none"});
                                                               $("#notices_primary .notice:first").fadeIn(2500);
-                                                              NoticeHover();
                                                               NoticeReply();
                                                          }
 													}
@@ -222,16 +221,15 @@ $(document).ready(function(){
     NoticeReply();
 });
 
+
 function NoticeHover() {
-    $("#content .notice").hover(
-        function () {
-            $(this).addClass('hover');
-        },
-        function () {
-            $(this).removeClass('hover');
-        }
-    );
+    function mouseHandler(e) {
+        $(e.target).closest('li.hentry')[(e.type === 'mouseover') ? 'addClass' : 'removeClass']('hover');
+    };
+    $('#content .notices').mouseover(mouseHandler);
+    $('#content .notices').mouseout(mouseHandler);
 }
+
 
 function NoticeReply() {
     if ($('#notice_data-text').length > 0) {
