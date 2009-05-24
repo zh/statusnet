@@ -47,11 +47,11 @@ define('MESSAGES_PER_PAGE', 20);
  * @see      OutboxAction
  */
 
-class MailboxAction extends PersonalAction
+class MailboxAction extends CurrentUserDesignAction
 {
     var $page = null;
 
-    function prepare($args) 
+    function prepare($args)
     {
         parent::prepare($args);
 
@@ -265,12 +265,12 @@ class MailboxAction extends PersonalAction
      * Returns either the name (and link) of the API client that posted the notice,
      * or one of other other channels.
      *
-     * @param string $source the source of the message 
+     * @param string $source the source of the message
      *
      * @return void
      */
 
-    function showSource($source) 
+    function showSource($source)
     {
         $source_name = _($source);
         switch ($source) {
