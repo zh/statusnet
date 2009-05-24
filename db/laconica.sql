@@ -70,10 +70,11 @@ create table user (
     autosubscribe tinyint default 0 comment 'automatically subscribe to users who subscribe to us',
     urlshorteningservice varchar(50) default 'ur1.ca' comment 'service to use for auto-shortening URLs',
     inboxed tinyint default 0 comment 'has an inbox been created for this user?',
-    created datetime not null comment 'date this record was created',
-    modified timestamp comment 'date this record was modified',
     design_id integer comment 'id of a design' references design(id),
     viewdesigns tinyint default 1 comment 'whether to view user-provided designs',
+
+    created datetime not null comment 'date this record was created',
+    modified timestamp comment 'date this record was modified',
 
     index user_smsemail_idx (smsemail)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci;
