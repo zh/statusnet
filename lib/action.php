@@ -1111,7 +1111,7 @@ class Action extends HTMLOutputter // lawsuit
      * A design (colors and background) for the current page. May be
      * the user's design, or a group's design, or a site design.
      *
-     * @return array Feed object to show in head and links
+     * @return Design a design object to use
      */
 
     function getDesign()
