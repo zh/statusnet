@@ -49,7 +49,6 @@ require_once INSTALLDIR.'/lib/disfavorform.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://laconi.ca/
  * @see      Notice
- * @see      StreamAction
  * @see      NoticeListItem
  * @see      ProfileNoticeList
  */
@@ -230,7 +229,6 @@ if(0)
 else
         $this->out->elementStart('p', array('class' => 'entry-attachments', 'style' => "float: right; width: $width_att; background: url($clip) no-repeat; text-align: right; height: $height;"));
         $this->out->element('a', array('class' => $att_class, 'style' => "text-decoration: none; padding-top: $top; display: block; height: $height;", 'href' => $href, 'title' => "# of attachments: $count"), $count === 1 ? '' : $count);
-
 
         $this->out->elementEnd('p');
     }
