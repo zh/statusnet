@@ -34,6 +34,7 @@ if (!defined('LACONICA')) {
 
 require_once INSTALLDIR.'/lib/favorform.php';
 require_once INSTALLDIR.'/lib/disfavorform.php';
+require_once INSTALLDIR.'/lib/attachmentlist.php';
 
 /**
  * widget for displaying a list of notices
@@ -179,9 +180,10 @@ class NoticeListItem extends Widget
     {
         $this->showStart();
         $this->showNotice();
-        $this->showNoticeAttachments();
+        $this->showNoticeAttachmentsIcon();
         $this->showNoticeInfo();
         $this->showNoticeOptions();
+        $this->showNoticeAttachments();
         $this->showEnd();
     }
 
@@ -193,45 +195,35 @@ class NoticeListItem extends Widget
         $this->out->elementEnd('div');
     }
 
-    function showNoticeAttachments()
+    function showNoticeAttachments() {
+        if ($this->isUsedInList()) {
+            return;
+        }
+        $al = new AttachmentList($this->notice, $this->out);
+        $al->show();
+    }
+
+    function isUsedInList() {
+        return 'shownotice' !== $this->out->args['action'];
+    }
+
+    function attachmentCount($discriminant = true) {
+        $file_oembed = new File_oembed;
+        $query = "select count(*) as c from file_oembed join file_to_post on file_oembed.file_id = file_to_post.file_id where post_id=" . $this->notice->id;
+        $file_oembed->query($query);
+        $file_oembed->fetch();
+        return intval($file_oembed->c);
+    }
+
+    function showNoticeAttachmentsIcon()
     {
-        $f2p = new File_to_post;
-        $f2p->post_id = $this->notice->id;
-        $file = new File;
-        $file->joinAdd($f2p);
-        $file->selectAdd();
-        $file->selectAdd('file.id as id');
-        $count = $file->find(true);
-        if (!$count) return;
-        if (1 === $count) {
-            $href = common_local_url('attachment', array('attachment' => $file->id));
-            $att_class = 'attachment';
-        } else {
-            $href = common_local_url('attachments', array('notice' => $this->notice->id));
-            $att_class = 'attachments';
+        if (!($this->isUsedInList() && ($count = $this->attachmentCount()))) {
+            return;
         }
 
-        $clip = theme_path('images/icons/clip', 'base');
-        if ('shownotice' === $this->out->args['action']) {
-            $height = '96px';
-            $width = '83%';
-            $width_att = '15%';
-            $clip .= '-big.png';
-            $top = '70px';
-        } else {
-            $height = '48px';
-            $width = '90%';
-            $width_att = '8%';
-            $clip .= '.png';
-            $top = '20px';
-        }
-if(0)
-        $this->out->elementStart('div', 'entry-attachments');
-else
-        $this->out->elementStart('p', array('class' => 'entry-attachments', 'style' => "float: right; width: $width_att; background: url($clip) no-repeat; text-align: right; height: $height;"));
-        $this->out->element('a', array('class' => $att_class, 'style' => "text-decoration: none; padding-top: $top; display: block; height: $height;", 'href' => $href, 'title' => "# of attachments: $count"), $count === 1 ? '' : $count);
-
-
+        $href = common_local_url('shownotice', array('notice' => $this->notice->id)) . '#attachments';
+        $this->out->elementStart('p', 'entry-attachments');
+        $this->out->element('a', array('href' => $href, 'title' => "# of attachments: $count"), $count === 1 ? '' : $count);
         $this->out->elementEnd('p');
     }
 

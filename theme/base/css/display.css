@@ -379,6 +379,12 @@ max-width:1003px;
 overflow:hidden;
 }
 
+#ajaxcore {
+width: 520px;
+height: 600px;
+background: #fff;
+}
+
 #core {
 position:relative;
 width:100%;
@@ -742,15 +748,10 @@ border-top-style:dotted;
 .notices li {
 list-style-type:none;
 }
-.notices li.hover {
-border-radius:4px;
--moz-border-radius:4px;
--webkit-border-radius:4px;
-}
 .notices .notices {
 margin-top:7px;
-margin-left:3%;
-width:97%;
+margin-left:5%;
+width:95%;
 float:left;
 }
 
@@ -827,7 +828,7 @@ clear:left;
 float:left;
 font-size:0.95em;
 margin-left:59px;
-width:65%;
+width:60%;
 }
 #showstream .notice div.entry-content,
 #shownotice .notice div.entry-content {
@@ -859,13 +860,11 @@ text-transform:lowercase;
 
 
 .notice-options {
-padding-left:2%;
-float:left;
-width:50%;
 position:relative;
 font-size:0.95em;
-width:12.5%;
+width:90px;
 float:right;
+margin-right:11px;
 }
 
 .notice-options a {
@@ -1048,8 +1047,20 @@ margin-bottom:18px;
 margin-left:18px;
 }
 
+p.entry-attachments {
+float: right;
+width: 8%;
+background: url(../images/icons/clip.png) no-repeat;
+text-align: right; 
+height: 48px;
+}
 
-
+p.entry-attachments a {
+text-decoration: none;
+padding-top: 20px;
+display: block;
+height: 48px;
+}
 
 /* TOP_POSTERS */
 .section tbody td {

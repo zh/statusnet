@@ -191,7 +191,7 @@ class AttachmentListItem extends Widget
     }
 
     function linkAttr() {
-        return array('class' => 'attachment', 'href' => common_local_url('attachment', array('attachment' => $this->attachment->id)));
+        return array('class' => 'attachment', 'href' => $this->attachment->url, 'id' => 'attachment-' . $this->attachment->id);
     }
 
     function showLink() {
@@ -199,10 +199,6 @@ class AttachmentListItem extends Widget
         $text = $this->linkTitle();
         $this->out->elementStart('h4');
         $this->out->element('a', $attr, $text);
-
-        if ($this->attachment->url !== $this->title())
-            $this->out->element('span', null, " ({$this->attachment->url})");
-
 
         $this->out->elementEnd('h4');
     }
