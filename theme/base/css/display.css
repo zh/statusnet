@@ -379,6 +379,12 @@ max-width:1003px;
 overflow:hidden;
 }
 
+#ajaxcore {
+width: 520px;
+height: 600px;
+background: #fff;
+}
+
 #core {
 position:relative;
 width:100%;
@@ -1048,8 +1054,20 @@ margin-bottom:18px;
 margin-left:18px;
 }
 
+p.entry-attachments {
+float: right;
+width: 8%;
+background: url(../images/icons/clip.png) no-repeat;
+text-align: right; 
+height: 48px;
+}
 
-
+p.entry-attachments a {
+text-decoration: none;
+padding-top: 20px;
+display: block;
+height: 48px;
+}
 
 /* TOP_POSTERS */
 .section tbody td {
