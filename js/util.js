@@ -203,7 +203,6 @@ $(document).ready(function(){
                                                               $("#notices_primary .notices").prepend(document._importNode(li, true));
                                                               $("#notices_primary .notice:first").css({display:"none"});
                                                               $("#notices_primary .notice:first").fadeIn(2500);
-                                                              NoticeHover();
                                                               NoticeReply();
                                                          }
 													}
@@ -221,24 +220,23 @@ $(document).ready(function(){
     NoticeReply();
 });
 
+
 function NoticeHover() {
-    $("#content .notice").hover(
-        function () {
-            $(this).addClass('hover');
-        },
-        function () {
-            $(this).removeClass('hover');
-        }
-    );
+    function mouseHandler(e) {
+        $(e.target).closest('li.hentry')[(e.type === 'mouseover') ? 'addClass' : 'removeClass']('hover');
+    };
+    $('#content .notices').mouseover(mouseHandler);
+    $('#content .notices').mouseout(mouseHandler);
 }
+
 
 function NoticeReply() {
     if ($('#notice_data-text').length > 0) {
         $('#content .notice').each(function() {
-            var notice = $(this);
-            $('.notice_reply', $(this)).click(function() {
-                var nickname = ($('.author .nickname', notice).length > 0) ? $('.author .nickname', notice) : $('.author .nickname');
-                NoticeReplySet(nickname.text(), $('.notice_id', notice).text());
+            var notice = $(this)[0];
+            $($('.notice_reply', notice)[0]).click(function() {
+                var nickname = ($('.author .nickname', notice).length > 0) ? $($('.author .nickname', notice)[0]) : $('.author .nickname');
+                NoticeReplySet(nickname.text(), $($('.notice_id', notice)[0]).text());
                 return false;
             });
         });
