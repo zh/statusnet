@@ -62,14 +62,13 @@ class User extends Memcached_DataObject
     public $autosubscribe;                   // tinyint(1)
     public $urlshorteningservice;            // varchar(50)   default_ur1.ca
     public $inboxed;                         // tinyint(1)
+    public $design_id;                       // int(4)
+    public $viewdesigns;                     // tinyint(1)   default_1
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
-    function staticGet($k,$v=NULL)
-    {
-        return Memcached_DataObject::staticGet('User',$k,$v);
-    }
+    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('User',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
