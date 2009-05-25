@@ -180,7 +180,6 @@ class NoticeListItem extends Widget
     {
         $this->showStart();
         $this->showNotice();
-        $this->showNoticeAttachmentsIcon();
         $this->showNoticeInfo();
         $this->showNoticeOptions();
         $this->showNoticeAttachments();

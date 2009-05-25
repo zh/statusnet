@@ -20,7 +20,11 @@ $(document).ready(function(){
 // attachments and attachment pages not used at the moment except for attachment_ajax version
 //    $('.attachments').click(function() {$().jOverlay({zIndex:999, success:function(html) {$('.attachment').click(function() {$().jOverlay({url:$(this).attr('href') + '/ajax'}); return false; });
 //        }, url:$(this).attr('href') + '/ajax'}); return false; });
-    $('.attachment').click(function() {$().jOverlay({url:'../attachment/' + ($(this).attr('id').substring('attachment'.length + 1)) + '/ajax'}); return false; });
+
+    //FIXME
+    //need to link to proper url depending on site config (path name and theme, for instance)
+    $('a.attachment').click(function() {$().jOverlay({url:'/attachment/' + ($(this).attr('id').substring('attachment'.length + 1)) + '/ajax'}); return false; });
+    $('.entry-title a.attachment').append('&nbsp;<img style="display: inline; vertical-align: middle" src="/theme/base/images/icons/clip-inline.png" alt="Attachment" />');
 
 	// count character on keyup
 	function counter(event){
