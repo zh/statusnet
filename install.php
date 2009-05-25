@@ -117,14 +117,14 @@ function showForm()
                 <p class="form_guide" id='fancy-form_guide'>Enable fancy (pretty) URLs. Auto-detection failed, it depends on Javascript.</p>
             </li>
             <li>
-                <label for="host">Hostname</label>
-                <input type="text" id="host" name="host" />
-                <p class="form_guide">Database hostname</p>
-            </li>
-            <li>
                 <label for="host">Site path</label>
                 <input type="text" id="path" name="path" value="$config_path" />
                 <p class="form_guide">Site path, following the "/" after the domain name in the URL. Empty is fine. Field should be filled automatically.</p>
+            </li>
+            <li>
+                <label for="host">Hostname</label>
+                <input type="text" id="host" name="host" />
+                <p class="form_guide">Database hostname</p>
             </li>
             <li>
                 <label for="host">Database</label>
