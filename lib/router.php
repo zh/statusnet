@@ -151,10 +151,6 @@ class Router
         $m->connect('search/notice/rss?q=:q', array('action' => 'noticesearchrss'),
                     array('q' => '.+'));
 
-/*
-        $m->connect('attachment/ajax_by_url/*url',
-                    array('action' => 'attachment_ajax'));
-*/
         $m->connect('attachment/:attachment/ajax',
                     array('action' => 'attachment_ajax'),
                     array('attachment' => '[0-9]+'));
@@ -163,27 +159,11 @@ class Router
                     array('action' => 'attachment_thumbnail'),
                     array('attachment' => '[0-9]+'));
 
-/*
-        TODO
-        not used right now, will revisit later
-        $m->connect('attachment/:attachment',
-                    array('action' => 'attachment'),
-                    array('attachment' => '[0-9]+'));
-*/
-        // notice
-
         $m->connect('notice/new', array('action' => 'newnotice'));
         $m->connect('notice/new?replyto=:replyto',
                     array('action' => 'newnotice'),
                     array('replyto' => '[A-Za-z0-9_-]+'));
-/*
-        $m->connect('notice/:notice/attachments/ajax',
-                    array('action' => 'attachments_ajax'),
-                    array('notice' => '[0-9]+'));
-        $m->connect('notice/:notice/attachments',
-                    array('action' => 'attachments'),
-                    array('notice' => '[0-9]+'));
-*/
+
         $m->connect('notice/:notice',
                     array('action' => 'shownotice'),
                     array('notice' => '[0-9]+'));
