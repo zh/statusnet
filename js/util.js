@@ -18,18 +18,26 @@
 
 $(document).ready(function(){
     $('a.attachment').click(function() {$().jOverlay({url: $('address .url')[0].href+'/attachment/' + ($(this).attr('id').substring('attachment'.length + 1)) + '/ajax'}); return false; });
-    $('a.thumbnail').hover(
+    $("a.thumbnail").hover(
         function() {
-            anchor = $(this);
-            $.get($('address .url')[0].href+'/attachment/' + ($(this).attr('id').substring('attachment'.length + 1)) + '/thumbnail', null, function(data) {
-                anchor.append(data);
-                $('#thumbnail').fadeIn('def');
-            });
+            var anchor = $(this);
+            $("a.thumbnail").children('img').remove();
+
+            setTimeout(function() {
+                anchor.closest(".entry-title").addClass('ov');
+                $.get($('address .url')[0].href+'/attachment/' + (anchor.attr('id').substring('attachment'.length + 1)) + '/thumbnail', null, function(data) {
+                    anchor.append(data);
+                });
+            }, 250);
+
+            setTimeout(function() {
+                anchor.children('img').remove();
+                anchor.closest(".entry-title").removeClass('ov');
+            }, 3000);
         },
         function() {
-            setTimeout(function() {
-                $('#thumbnail').fadeOut('slow', function() {$(this).remove();});
-            }, 500);
+            $(this).children('img').remove();
+            $(this).closest(".entry-title").removeClass('ov');
         }
     );
 

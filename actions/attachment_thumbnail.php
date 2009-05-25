@@ -71,16 +71,7 @@ class Attachment_thumbnailAction extends AttachmentAction
         if (empty($file_thumbnail->url)) {
             return;
         }
-        $url = $file_thumbnail->url;
-
-        $attr = array(
-              'id' => 'thumbnail'
-            , 'src' => $url
-            , 'alt' => 'Thumbnail'
-        );
-
-        $this->element('img', $attr);
-
+        $this->element('img', array('src' => $file_thumbnail->url, 'alt' => 'Thumbnail'));
     }
 
     /**
