@@ -503,8 +503,18 @@ function common_linkify($url) {
     $file = new File;
     $file->query($query);
     $file->fetch();
+
     if (!empty($file->file_id)) {
-        $attrs['class'] = 'attachment';
+        $query = "select file_thumbnail.file_id as file_id from file join file_thumbnail on file.id = file_thumbnail.file_id where file.url='$longurl'";
+        $file2 = new File;
+        $file2->query($query);
+        $file2->fetch();
+
+        if (empty($file2->file_id)) {
+            $attrs['class'] = 'attachment';
+        } else {
+            $attrs['class'] = 'attachment thumbnail';
+        }
         $attrs['id'] = "attachment-{$file->file_id}";
     }
     return XMLStringer::estring('a', $attrs, $display);
