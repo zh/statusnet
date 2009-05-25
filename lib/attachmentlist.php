@@ -198,23 +198,22 @@ class AttachmentListItem extends Widget
         $attr = $this->linkAttr();
         $text = $this->linkTitle();
         $this->out->elementStart('h4');
-        $this->out->element('a', $attr, $text);
-
+        $this->out->elementStart('a', $attr);
+        $this->out->element('span', null, $text);
+        $this->showRepresentation();
+        $this->out->elementEnd('a');
         $this->out->elementEnd('h4');
     }
 
     function showNoticeAttachment()
     {
         $this->showLink();
-        $this->showRepresentation();
     }
 
     function showRepresentation() {
         $thumbnail = File_thumbnail::staticGet('file_id', $this->attachment->id);
         if (!empty($thumbnail)) {
-            $this->out->elementStart('a', $this->linkAttr()/*'href' => $this->linkTo()*/);
             $this->out->element('img', array('alt' => 'nothing to say', 'src' => $thumbnail->url, 'width' => $thumbnail->width, 'height' => $thumbnail->height));
-            $this->out->elementEnd('a');
         }
     }
 
