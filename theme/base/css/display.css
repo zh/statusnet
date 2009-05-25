@@ -379,12 +379,6 @@ max-width:1003px;
 overflow:hidden;
 }
 
-#ajaxcore {
-width: 520px;
-height: 600px;
-background: #fff;
-}
-
 #core {
 position:relative;
 width:100%;
@@ -858,6 +852,16 @@ display:inline-block;
 text-transform:lowercase;
 }
 
+.notice .attachment {
+position:relative;
+}
+.notice .attachment img {
+position:absolute;
+top:11px;
+left:0;
+z-index:99;
+}
+
 
 .notice-options {
 position:relative;
@@ -1047,20 +1051,6 @@ margin-bottom:18px;
 margin-left:18px;
 }
 
-p.entry-attachments {
-float: right;
-width: 8%;
-background: url(../images/icons/clip.png) no-repeat;
-text-align: right; 
-height: 48px;
-}
-
-p.entry-attachments a {
-text-decoration: none;
-padding-top: 20px;
-display: block;
-height: 48px;
-}
 
 /* TOP_POSTERS */
 .section tbody td {
@@ -1205,11 +1195,3 @@ display:none;
 .guide {
 clear:both;
 }
-
-#thumbnail {
-position:absolute;
-z-index: 999;
-display: none;
-left: 100px;
-}
-
