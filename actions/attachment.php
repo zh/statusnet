@@ -176,10 +176,8 @@ class AttachmentAction extends Action
 
     function showContent()
     {
-        $this->elementStart('ul', array('class' => 'attachments'));
         $ali = new Attachment($this->attachment, $this);
         $cnt = $ali->show();
-        $this->elementEnd('ul');
     }
 
     /**

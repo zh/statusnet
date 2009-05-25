@@ -80,9 +80,9 @@ class AttachmentList extends Widget
 
     function show()
     {
-//        $this->out->elementStart('div', array('id' =>'attachments_primary'));
-        $this->out->elementStart('div', array('id' =>'content'));
-        $this->out->element('h2', null, _('Attachments'));
+        $this->out->elementStart('dl', array('id' =>'attachment'));
+        $this->out->element('dt', null, _('Attachments'));
+        $this->out->elementStart('dd');
         $this->out->elementStart('ul', array('class' => 'attachments'));
 
         $atts = new File;
@@ -92,8 +92,9 @@ class AttachmentList extends Widget
             $item->show();
         }
 
+        $this->out->elementEnd('dd');
         $this->out->elementEnd('ul');
-        $this->out->elementEnd('div');
+        $this->out->elementEnd('dl');
 
         return count($att);
     }
@@ -195,14 +196,10 @@ class AttachmentListItem extends Widget
     }
 
     function showLink() {
-        $attr = $this->linkAttr();
-        $text = $this->linkTitle();
-        $this->out->elementStart('h4');
-        $this->out->elementStart('a', $attr);
-        $this->out->element('span', null, $text);
+        $this->out->elementStart('a', $this->linkAttr());
+        $this->out->element('span', null, $this->linkTitle());
         $this->showRepresentation();
         $this->out->elementEnd('a');
-        $this->out->elementEnd('h4');
     }
 
     function showNoticeAttachment()

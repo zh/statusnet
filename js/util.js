@@ -17,12 +17,6 @@
  */
 
 $(document).ready(function(){
-// attachments and attachment pages not used at the moment except for attachment_ajax version
-//    $('.attachments').click(function() {$().jOverlay({zIndex:999, success:function(html) {$('.attachment').click(function() {$().jOverlay({url:$(this).attr('href') + '/ajax'}); return false; });
-//        }, url:$(this).attr('href') + '/ajax'}); return false; });
-
-    //FIXME
-    //need to link to proper url depending on site config (path name and theme, for instance)
     $('a.attachment').click(function() {$().jOverlay({url: $('address .url')[0].href+'/attachment/' + ($(this).attr('id').substring('attachment'.length + 1)) + '/ajax'}); return false; });
     $('a.thumbnail').hover(
         function() {

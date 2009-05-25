@@ -180,9 +180,9 @@ class NoticeListItem extends Widget
     {
         $this->showStart();
         $this->showNotice();
+        $this->showNoticeAttachments();
         $this->showNoticeInfo();
         $this->showNoticeOptions();
-        $this->showNoticeAttachments();
         $this->showEnd();
     }
 
@@ -212,18 +212,6 @@ class NoticeListItem extends Widget
         $file_oembed->query($query);
         $file_oembed->fetch();
         return intval($file_oembed->c);
-    }
-
-    function showNoticeAttachmentsIcon()
-    {
-        if (!($this->isUsedInList() && ($count = $this->attachmentCount()))) {
-            return;
-        }
-
-        $href = common_local_url('shownotice', array('notice' => $this->notice->id)) . '#attachments';
-        $this->out->elementStart('p', 'entry-attachments');
-        $this->out->element('a', array('href' => $href, 'title' => "# of attachments: $count"), $count === 1 ? '' : $count);
-        $this->out->elementEnd('p');
     }
 
     function showNoticeInfo()

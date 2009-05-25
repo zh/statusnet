@@ -67,7 +67,7 @@ class Attachment_ajaxAction extends AttachmentAction
      */
     function showCore()
     {
-        $this->elementStart('div', array('id' => 'ajaxcore'));
+        $this->elementStart('div', array('id' => 'core'));
         if (Event::handle('StartShowContentBlock', array($this))) {
             $this->showContentBlock();
             Event::handle('EndShowContentBlock', array($this));
