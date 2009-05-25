@@ -23,20 +23,20 @@ $(document).ready(function(){
 
     //FIXME
     //need to link to proper url depending on site config (path name and theme, for instance)
-    $('a.attachment').click(function() {$().jOverlay({url:'/attachment/' + ($(this).attr('id').substring('attachment'.length + 1)) + '/ajax'}); return false; });
-    $('.entry-title a.attachment').append('&nbsp;<img style="display: inline; vertical-align: middle" src="/theme/base/images/icons/clip-inline.png" alt="Attachment" />');
-    $('a.thumbnail').hover(function() {
-    anchor = $(this);
-    $.get('/attachment/' + ($(this).attr('id').substring('attachment'.length + 1)) + '/thumbnail', null, function(data) {
-        anchor.append(data);
-        $('#thumbnail').fadeIn('def');
-    });
-    },
-    function() {
-        setTimeout(function() {
-            $('#thumbnail').fadeOut('slow', function() {$(this).remove();});
-        }, 500);
-    }
+    $('a.attachment').click(function() {$().jOverlay({url: $('address .url')[0].href+'/attachment/' + ($(this).attr('id').substring('attachment'.length + 1)) + '/ajax'}); return false; });
+    $('a.thumbnail').hover(
+        function() {
+            anchor = $(this);
+            $.get($('address .url')[0].href+'/attachment/' + ($(this).attr('id').substring('attachment'.length + 1)) + '/thumbnail', null, function(data) {
+                anchor.append(data);
+                $('#thumbnail').fadeIn('def');
+            });
+        },
+        function() {
+            setTimeout(function() {
+                $('#thumbnail').fadeOut('slow', function() {$(this).remove();});
+            }, 500);
+        }
     );
 
 	// count character on keyup
