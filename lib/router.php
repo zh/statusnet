@@ -159,6 +159,10 @@ class Router
                     array('action' => 'attachment_ajax'),
                     array('attachment' => '[0-9]+'));
 
+        $m->connect('attachment/:attachment/thumbnail',
+                    array('action' => 'attachment_thumbnail'),
+                    array('attachment' => '[0-9]+'));
+
 /*
         TODO
         not used right now, will revisit later

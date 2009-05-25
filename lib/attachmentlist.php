@@ -171,7 +171,7 @@ class AttachmentListItem extends Widget
     }
 
     function linkTitle() {
-        return 'Our page for ' . $this->title();
+        return $this->title();
     }
 
     /**
@@ -256,7 +256,7 @@ class Attachment extends AttachmentListItem
     }
 
     function linkTitle() {
-        return 'Direct link to ' . $this->title();
+        return $this->attachment->url;
     }
 
     function showRepresentation() {
