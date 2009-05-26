@@ -34,6 +34,4 @@ define('LACONICA', true);
 
 require_once(INSTALLDIR . '/lib/common.php');
 
-// All that setup, just for this!
-
 Snapshot::check();
