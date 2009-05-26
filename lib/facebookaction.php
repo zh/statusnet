@@ -97,6 +97,10 @@ class FacebookAction extends Action
     {
         // Add a timestamp to the file so Facebook cache wont ignore our changes
         $ts = filemtime(INSTALLDIR.'/theme/base/css/display.css');
+
+	$this->element('link', array('rel' => 'stylesheet',
+		       'type' => 'text/css',
+		       'href' => theme_path('css/display.css', 'base') . '?ts=' . $ts));
         
         $theme = common_config('site', 'theme');
         
