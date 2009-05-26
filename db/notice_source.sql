@@ -28,6 +28,7 @@ VALUES
     ('pingvine','PingVine','http://pingvine.com/', now()),
     ('pocketwit','PockeTwit','http://code.google.com/p/pocketwit/', now()),
     ('posty','Posty','http://spreadingfunkyness.com/posty/', now()),
+    ('qtwitter','qTwitter','http://qtwitter.ayoy.net/', now()),
     ('royalewithcheese','Royale With Cheese','http://p.hellyeah.org/', now()),
     ('rssdent','rssdent','http://github.com/zcopley/rssdent/tree/master', now()),
     ('rygh.no','rygh.no','http://rygh.no/', now()),
