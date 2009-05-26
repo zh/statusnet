@@ -31,9 +31,7 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
-//require_once INSTALLDIR.'/lib/personalgroupnav.php';
-//require_once INSTALLDIR.'/lib/feedlist.php';
-require_once INSTALLDIR.'/actions/attachments.php';
+require_once INSTALLDIR.'/actions/attachment.php';
 
 /**
  * Show notice attachments
@@ -45,39 +43,8 @@ require_once INSTALLDIR.'/actions/attachments.php';
  * @link     http://laconi.ca/
  */
 
-class Attachments_ajaxAction extends AttachmentsAction
+class Attachment_thumbnailAction extends AttachmentAction
 {
-    function showContent()
-    {
-    }
-
-    /**
-     * Fill the content area of the page
-     *
-     * Shows a single notice list item.
-     *
-     * @return void
-     */
-
-    function showContentBlock()
-    {
-        $al = new AttachmentList($this->notice, $this);
-        $cnt = $al->show();
-    }
-
-    /**
-     * Extra <head> content
-     *
-     * We show the microid(s) for the author, if any.
-     *
-     * @return void
-     */
-
-    function extraHead()
-    {
-    }
-
-
     /**
      * Show page, a template method.
      *
@@ -100,16 +67,52 @@ class Attachments_ajaxAction extends AttachmentsAction
      */
     function showCore()
     {
-        $this->elementStart('div', array('id' => 'core'));
-        if (Event::handle('StartShowContentBlock', array($this))) {
-            $this->showContentBlock();
-            Event::handle('EndShowContentBlock', array($this));
+        $file_thumbnail = File_thumbnail::staticGet('file_id', $this->attachment->id);
+        if (empty($file_thumbnail->url)) {
+            return;
         }
-        $this->elementEnd('div');
+        $this->element('img', array('src' => $file_thumbnail->url, 'alt' => 'Thumbnail'));
     }
 
+    /**
+     * Last-modified date for page
+     *
+     * When was the content of this page last modified? Based on notice,
+     * profile, avatar.
+     *
+     * @return int last-modified date as unix timestamp
+     */
+/*
+    function lastModified()
+    {
+        return max(strtotime($this->notice->created),
+                   strtotime($this->profile->modified),
+                   ($this->avatar) ? strtotime($this->avatar->modified) : 0);
+    }
+*/
 
+    /**
+     * An entity tag for this page
+     *
+     * Shows the ETag for the page, based on the notice ID and timestamps
+     * for the notice, profile, and avatar. It's weak, since we change
+     * the date text "one hour ago", etc.
+     *
+     * @return string etag
+     */
+/*
+    function etag()
+    {
+        $avtime = ($this->avatar) ?
+          strtotime($this->avatar->modified) : 0;
 
-
+        return 'W/"' . implode(':', array($this->arg('action'),
+                                          common_language(),
+                                          $this->notice->id,
+                                          strtotime($this->notice->created),
+                                          strtotime($this->profile->modified),
+                                          $avtime)) . '"';
+    }
+*/
 }
 

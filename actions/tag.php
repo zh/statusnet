@@ -49,8 +49,6 @@ class TagAction extends Action
     {
         $pop = new PopularNoticeSection($this);
         $pop->show();
-        $freqatt = new FrequentAttachmentSection($this);
-        $freqatt->show();
     }
 
     function title()
