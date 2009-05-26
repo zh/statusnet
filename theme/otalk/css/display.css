@@ -1,0 +1,292 @@
+/** theme: otalk
+ *
+ * @package   Laconica
+ * @author Sarven Capadisli <csarven@controlyourself.ca>
+ * @copyright 2009 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
+ */
+
+@import url(base.css);
+
+html {
+}
+
+html,
+body,
+a:active {
+}
+body {
+font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+font-size:1em;
+background:#ddd url(../images/illustrations/illu_pattern-01.png) repeat 0 0;
+background-color:rgba(127, 127, 127, 0.1);
+}
+address {
+margin-right:7.18%;
+}
+
+input, textarea, select, option {
+font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+input, textarea, select,
+.entity_remote_subscribe {
+border-color:#aaa;
+}
+#filter_tags ul li {
+border-color:#ddd;
+}
+
+.form_settings input.form_action-primary {
+background:none;
+}
+
+input.submit,
+#form_notice.warning #notice_text-count,
+.form_settings .form_note,
+.entity_remote_subscribe {
+background-color:#9BB43E;
+}
+
+input:focus, textarea:focus, select:focus,
+#form_notice.warning #notice_data-text {
+border-color:#9BB43E;
+}
+input.submit,
+.entity_remote_subscribe {
+color:#fff;
+}
+
+a,
+div.notice-options input,
+.form_user_block input.submit,
+.form_user_unblock input.submit,
+.entity_send-a-message a,
+.form_user_nudge input.submit,
+.entity_nudge p,
+.form_settings input.form_action-primary {
+color:#8F0000;
+}
+
+.notice,
+.profile {
+border-color:#CEE1E9;
+}
+#content .notice .entry-title,
+input, textarea, select, option,
+.pagination .nav_prev a,
+.pagination .nav_next a {
+background-color:rgba(255,255,255,0.8);
+}
+
+#content .notices li.hover .entry-title {
+background-color:rgba(255,255,255,0.9);
+}
+
+#content .notice:nth-child(1) .entry-title {
+background-color:rgba(255,255,255,0.95);
+}
+#content .notice:nth-child(2) .entry-title {
+background-color:rgba(255,255,255,0.9);
+}
+#content .notice:nth-child(3) .entry-title {
+background-color:rgba(255,255,255,0.8);
+}
+#content .notice:nth-child(4) .entry-title {
+background-color:rgba(255,255,255,0.7);
+}
+#content .notice:nth-child(5) .entry-title {
+background-color:rgba(255,255,255,0.6);
+}
+#content .notice:nth-child(6) .entry-title {
+background-color:rgba(255,255,255,0.5);
+}
+#content .notice:nth-child(7) .entry-title {
+background-color:rgba(255,255,255,0.4);
+}
+#content .notice:nth-child(8) .entry-title {
+background-color:rgba(255,255,255,0.3);
+}
+#content .notice:nth-child(9) .entry-title {
+background-color:rgba(255,255,255,0.2);
+}
+#content .notice:nth-child(10) {
+background-color:rgba(255,255,255,0.1);
+}
+
+
+#content .notice .author .photo {
+background:url(../images/illustrations/illu_arrow-left-01.gif) no-repeat 100% 0;
+}
+
+.section .profile {
+border-top-color:#87B4C8;
+}
+
+#aside_primary {
+background-color:rgba(206, 225, 233,0.5);
+}
+
+#notice_text-count {
+color:#333;
+}
+#form_notice.warning #notice_text-count {
+color:#000;
+}
+#form_notice.processing #notice_action-submit {
+background:#fff url(../../base/images/icons/icon_processing.gif) no-repeat 47% 47%;
+cursor:wait;
+text-indent:-9999px;
+}
+
+#content,
+#site_nav_local_views .nav,
+#site_nav_local_views a,
+#aside_primary {
+border-color:#fff;
+}
+#content,
+#site_nav_local_views .current a {
+background-color:transparent;
+/*background-color:red;*/
+}
+
+#site_nav_local_views .current a {
+background-color:transparent;
+}
+
+#site_nav_local_views a {
+background-color:rgba(127, 127, 127, 0.2);
+}
+#site_nav_local_views a:hover {
+background-color:rgba(255, 255, 255, 0.8);
+}
+
+.error {
+background-color:#F7E8E8;
+}
+.success {
+background-color:#EFF3DC;
+}
+
+#anon_notice {
+background-color:rgba(206, 225, 233, 0.7);
+color:#fff;
+border-color:#fff;
+}
+
+#showstream #anon_notice {
+background-color:rgba(155, 180, 62, 0.7);
+}
+
+#export_data li a {
+background-repeat:no-repeat;
+background-position:0 45%;
+}
+#export_data li a.rss {
+background-image:url(../../base/images/icons/icon_rss.png);
+}
+#export_data li a.atom {
+background-image:url(../../base/images/icons/icon_atom.png);
+}
+#export_data li a.foaf {
+background-image:url(../../base/images/icons/icon_foaf.gif);
+}
+
+.entity_edit a,
+.entity_send-a-message a,
+.form_user_nudge input.submit,
+.form_user_block input.submit,
+.form_user_unblock input.submit,
+.entity_nudge p {
+background-position: 0 40%;
+background-repeat: no-repeat;
+background-color:transparent;
+}
+.form_group_join input.submit,
+.form_group_leave input.submit
+.form_user_subscribe input.submit,
+.form_user_unsubscribe input.submit {
+background-color:#9BB43E;
+color:#fff;
+}
+.form_user_unsubscribe input.submit,
+.form_group_leave input.submit,
+.form_user_authorization input.reject {
+background-color:#87B4C8;
+}
+
+.entity_edit a {
+background-image:url(../../base/images/icons/twotone/green/edit.gif);
+}
+.entity_send-a-message a {
+background-image:url(../../base/images/icons/twotone/green/quote.gif);
+}
+.entity_nudge p,
+.form_user_nudge input.submit {
+background-image:url(../../base/images/icons/twotone/green/mail.gif);
+}
+.form_user_block input.submit,
+.form_user_unblock input.submit {
+background-image:url(../../base/images/icons/twotone/green/shield.gif);
+}
+
+/* NOTICES */
+.notices li.over {
+background-color:#fcfcfc;
+}
+
+.notice-options .notice_reply a,
+.notice-options form input.submit {
+background-color:transparent;
+}
+.notice-options .notice_reply a {
+background:transparent url(../../base/images/icons/twotone/green/reply.gif) no-repeat 0 45%;
+}
+.notice-options form.form_favor input.submit {
+background:transparent url(../../base/images/icons/twotone/green/favourite.gif) no-repeat 0 45%;
+}
+.notice-options form.form_disfavor input.submit {
+background:transparent url(../../base/images/icons/twotone/green/disfavourite.gif) no-repeat 0 45%;
+}
+.notice-options .notice_delete a {
+background:transparent url(../../base/images/icons/twotone/green/trash.gif) no-repeat 0 45%;
+}
+
+.notices div.entry-content,
+.notices div.notice-options {
+opacity:0.4;
+}
+.notices li.hover div.entry-content,
+.notices li.hover div.notice-options {
+opacity:1;
+}
+div.entry-content {
+color:#333;
+}
+div.notice-options a,
+div.notice-options input {
+font-family:sans-serif;
+}
+.notices li.hover {
+/*background-color:#fcfcfc;*/
+}
+/*END: NOTICES */
+
+#new_group a {
+background:transparent url(../../base/images/icons/twotone/green/news.gif) no-repeat 0 45%;
+}
+
+.pagination .nav_prev a,
+.pagination .nav_next a {
+background-repeat:no-repeat;
+border-color:#CEE1E9;
+}
+.pagination .nav_prev a {
+background-image:url(../../base/images/icons/twotone/green/arrow-left.gif);
+background-position:10% 45%;
+}
+.pagination .nav_next a {
+background-image:url(../../base/images/icons/twotone/green/arrow-right.gif);
+background-position:90% 45%;
+}

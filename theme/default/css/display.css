@@ -12,7 +12,7 @@
 html,
 body,
 a:active {
-background-color:#97BFD1;
+background-color:#C3D6DF;
 }
 body {
 font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
@@ -30,10 +30,10 @@ input, textarea, select,
 border-color:#aaa;
 }
 #filter_tags ul li {
-border-color:#97BFD1;
+border-color:#C3D6DF;
 }
 
-.form_settings input.form_action-secondary {
+.form_settings input.form_action-primary {
 background:none;
 }
 
@@ -60,7 +60,7 @@ div.notice-options input,
 .entity_send-a-message a,
 .form_user_nudge input.submit,
 .entity_nudge p,
-.form_settings input.form_action-secondary {
+.form_settings input.form_action-primary {
 color:#002E6E;
 }
 
@@ -69,14 +69,7 @@ color:#002E6E;
 border-top-color:#D1D9E4;
 }
 .section .profile {
-border-top-color:#97BFD1;
-}
-
-#content .notice p.entry-content a:visited {
-background-color:#fcfcfc;
-}
-#content .notice p.entry-content .vcard a {
-background-color:#fcfffc;
+border-top-color:#C3D6DF;
 }
 
 #aside_primary {
@@ -120,7 +113,7 @@ background-color:#EFF3DC;
 }
 
 #anon_notice {
-background-color:#97BFD1;
+background-color:#C3D6DF;
 color:#fff;
 border-color:#fff;
 }
@@ -163,7 +156,7 @@ color:#fff;
 .form_user_unsubscribe input.submit,
 .form_group_leave input.submit,
 .form_user_authorization input.reject {
-background-color:#97BFD1;
+background-color:#C3D6DF;
 }
 
 .entity_edit a {
@@ -182,10 +175,6 @@ background-image:url(../../base/images/icons/twotone/green/shield.gif);
 }
 
 /* NOTICES */
-.notices li.over {
-background-color:#fcfcfc;
-}
-
 .notice-options .notice_reply a,
 .notice-options form input.submit {
 background-color:transparent;
@@ -220,6 +209,19 @@ font-family:sans-serif;
 }
 .notices li.hover {
 background-color:#fcfcfc;
+}
+
+.notices .notices {
+background-color:rgba(200, 200, 200, 0.025);
+}
+.notices .notices .notices {
+background-color:rgba(200, 200, 200, 0.050);
+}
+.notices .notices .notices .notices {
+background-color:rgba(200, 200, 200, 0.075);
+}
+.notices .notices .notices .notices .notices {
+background-color:rgba(200, 200, 200, 0.100);
 }
 /*END: NOTICES */
 

@@ -23,14 +23,16 @@ Only alter this file if you want to change the layout of the site. Please note t
 ./default/css/display.css contains only the background images and colour rules:
 This file is a good basis for creating your own theme.
 
+Let's create a theme:
 
-1. Copy over the default theme to start off (replace 'mytheme'):
-cp -r ./default ./mytheme
+1. To start off, copy over the default theme:
+cp -r default mytheme
 
 2. Edit your mytheme stylesheet:
-nano ./mytheme/css/display.css
+nano mytheme/css/display.css
 
-3. Search and replace a colour or a path to the background image of your choice.
+a) Search and replace your colours and background images, or
+b) Create your own layout either importing a separate stylesheet (e.g., change to @import url(base.css);) or simply place it before the rest of the rules.
 
 4. Set /config.php to load 'mytheme':
 $config['site']['theme'] = 'mytheme';

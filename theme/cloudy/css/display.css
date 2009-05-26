@@ -12,7 +12,7 @@ img { display:block; border:0; }
 a abbr { cursor: pointer; border-bottom:0; }
 table { border-collapse:collapse; }
 ol { list-style-position:inside; }
-html { font-size: 100%; background-color:#fff; height:100%; }
+html { font-size: 100%; background-color:#fff; }
 body {
 background-color:#fff;
 color:#000;
@@ -126,7 +126,7 @@ margin-left:0;
 
 .form_settings label {
 margin-top:2px;
-width:145px;
+width:143px;
 }
 
 .form_actions label {
@@ -199,9 +199,11 @@ padding:0 7px;
 }
 
 
+.form_settings input.form_action-primary {
+padding:0;
+}
 .form_settings input.form_action-secondary {
 margin-left:29px;
-padding:0;
 }
 
 #form_search .submit {
@@ -1267,7 +1269,7 @@ border-color:#aaa;
 border-color:#ddd;
 }
 
-.form_settings input.form_action-secondary {
+.form_settings input.form_action-primary {
 background:none;
 }
 
@@ -1296,7 +1298,7 @@ div.notice-options input,
 .entity_send-a-message a,
 .form_user_nudge input.submit,
 .entity_nudge p,
-.form_settings input.form_action-secondary {
+.form_settings input.form_action-primary {
 color:#0084B4;
 }
 

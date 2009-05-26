@@ -51,6 +51,26 @@ class TwitterapiAction extends Action
         parent::handle($args);
     }
 
+    /**
+     * Overrides XMLOutputter::element to write booleans as strings (true|false).
+     * See that method's documentation for more info.
+     * 
+     * @param string $tag     Element type or tagname
+     * @param array  $attrs   Array of element attributes, as
+     *                        key-value pairs
+     * @param string $content string content of the element
+     *
+     * @return void
+     */
+    function element($tag, $attrs=null, $content=null)
+    {
+        if (is_bool($content)) {
+            $content = ($content ? 'true' : 'false');
+        }
+
+        return parent::element($tag, $attrs, $content);
+    }
+    
     function twitter_user_array($profile, $get_notice=false)
     {
 
@@ -66,7 +86,7 @@ class TwitterapiAction extends Action
         $avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
 
         $twitter_user['profile_image_url'] = ($avatar) ? $avatar->displayUrl() : Avatar::defaultImage(AVATAR_STREAM_SIZE);
-        $twitter_user['protected'] = 'false'; # not supported by Laconica yet
+        $twitter_user['protected'] = false; # not supported by Laconica yet
         $twitter_user['url'] = ($profile->homepage) ? $profile->homepage : null;
 
         if ($get_notice) {
@@ -86,7 +106,7 @@ class TwitterapiAction extends Action
 
         $twitter_status = array();
         $twitter_status['text'] = $notice->content;
-        $twitter_status['truncated'] = 'false'; # Not possible on Laconica
+        $twitter_status['truncated'] = false; # Not possible on Laconica
         $twitter_status['created_at'] = $this->date_twitter($notice->created);
         $twitter_status['in_reply_to_status_id'] = ($notice->reply_to) ?
             intval($notice->reply_to) : null;
@@ -108,10 +128,9 @@ class TwitterapiAction extends Action
             ($replier_profile) ? $replier_profile->nickname : null;
 
         if (isset($this->auth_user)) {
-            $twitter_status['favorited'] =
-                ($this->auth_user->hasFave($notice)) ? 'true' : 'false';
+            $twitter_status['favorited'] = $this->auth_user->hasFave($notice);
         } else {
-            $twitter_status['favorited'] = 'false';
+            $twitter_status['favorited'] = false;
         }
 
         if ($include_user) {
@@ -418,7 +437,7 @@ class TwitterapiAction extends Action
     function date_twitter($dt)
     {
         $t = strtotime($dt);
-        return date("D M d G:i:s O Y", $t);
+        return date("D M d H:i:s O Y", $t);
     }
 
     // XXX: Candidate for a general utility method somewhere?

@@ -11,7 +11,7 @@
  * @link     http://laconi.ca/
  *
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -31,7 +31,7 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
-require_once(INSTALLDIR.'/lib/noticelist.php');
+require_once INSTALLDIR.'/lib/noticelist.php';
 
 /**
  * Conversation tree in the browser
@@ -42,9 +42,10 @@ require_once(INSTALLDIR.'/lib/noticelist.php');
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://laconi.ca/
  */
+
 class ConversationAction extends Action
 {
-    var $id = null;
+    var $id   = null;
     var $page = null;
 
     /**
@@ -69,16 +70,39 @@ class ConversationAction extends Action
         return true;
     }
 
+    /**
+     * Handle the action
+     *
+     * @param array $args Web and URL arguments
+     *
+     * @return void
+     */
+
     function handle($args)
     {
         parent::handle($args);
         $this->showPage();
     }
 
+    /**
+     * Returns the page title
+     *
+     * @return string page title
+     */
+
     function title()
     {
         return _("Conversation");
     }
+
+    /**
+     * Show content.
+     *
+     * Display a hierarchical unordered list in the content area.
+     * Uses ConversationTree to do most of the heavy lifting.
+     *
+     * @return void
+     */
 
     function showContent()
     {
@@ -86,7 +110,7 @@ class ConversationAction extends Action
 
         $qry = 'SELECT * FROM notice WHERE conversation = %s ';
 
-        $offset = ($this->page-1)*NOTICES_PER_PAGE;
+        $offset = ($this->page-1) * NOTICES_PER_PAGE;
         $limit  = NOTICES_PER_PAGE + 1;
 
         $txt = sprintf($qry, $this->id);
@@ -95,9 +119,9 @@ class ConversationAction extends Action
                                      'notice:conversation:'.$this->id,
                                      $offset, $limit);
 
-        $nl = new NoticeList($notices, $this);
+        $ct = new ConversationTree($notices, $this);
 
-        $cnt = $nl->show();
+        $cnt = $ct->show();
 
         $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
                           $this->page, 'conversation', array('id' => $this->id));
@@ -105,3 +129,170 @@ class ConversationAction extends Action
 
 }
 
+/**
+ * Conversation tree
+ *
+ * The widget class for displaying a hierarchical list of notices.
+ *
+ * @category Widget
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ */
+
+class ConversationTree extends NoticeList
+{
+    var $tree  = null;
+    var $table = null;
+
+    /**
+     * Show the tree of notices
+     *
+     * @return void
+     */
+
+    function show()
+    {
+        $cnt = 0;
+
+        $this->tree  = array();
+        $this->table = array();
+
+        while ($this->notice->fetch()) {
+
+            $cnt++;
+
+            $id     = $this->notice->id;
+            $notice = clone($this->notice);
+
+            $this->table[$id] = $notice;
+
+            if (is_null($notice->reply_to)) {
+                $this->tree['root'] = array($notice->id);
+            } else if (array_key_exists($notice->reply_to, $this->tree)) {
+                $this->tree[$notice->reply_to][] = $notice->id;
+            } else {
+                $this->tree[$notice->reply_to] = array($notice->id);
+            }
+        }
+
+        $this->out->elementStart('div', array('id' =>'notices_primary'));
+        $this->out->element('h2', null, _('Notices'));
+        $this->out->elementStart('ul', array('class' => 'notices'));
+
+        if (array_key_exists('root', $this->tree)) {
+            $rootid = $this->tree['root'][0];
+            $this->showNoticePlus($rootid);
+        }
+
+        $this->out->elementEnd('ul');
+        $this->out->elementEnd('div');
+
+        return $cnt;
+    }
+
+    /**
+     * Shows a notice plus its list of children.
+     *
+     * @param integer $id ID of the notice to show
+     *
+     * @return void
+     */
+
+    function showNoticePlus($id)
+    {
+        $notice = $this->table[$id];
+
+        // We take responsibility for doing the li
+
+        $this->out->elementStart('li', array('class' => 'hentry notice',
+                                             'id' => 'notice-' . $this->notice->id));
+
+        $item = $this->newListItem($notice);
+        $item->show();
+
+        if (array_key_exists($id, $this->tree)) {
+            $children = $this->tree[$id];
+
+            $this->out->elementStart('ul', array('class' => 'notices'));
+
+            foreach ($children as $child) {
+                $this->showNoticePlus($child);
+            }
+
+            $this->out->elementEnd('ul');
+        }
+
+        $this->out->elementEnd('li');
+    }
+
+    /**
+     * Override parent class to return our preferred item.
+     *
+     * @param Notice $notice Notice to display
+     *
+     * @return NoticeListItem a list item to show
+     */
+
+    function newListItem($notice)
+    {
+        return new ConversationTreeItem($notice, $this->out);
+    }
+}
+
+/**
+ * Conversation tree list item
+ *
+ * Special class of NoticeListItem for use inside conversation trees.
+ *
+ * @category Widget
+ * @package  Laconica
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
+ * @link     http://laconi.ca/
+ */
+
+class ConversationTreeItem extends NoticeListItem
+{
+    /**
+     * start a single notice.
+     *
+     * The default creates the <li>; we skip, since the ConversationTree
+     * takes care of that.
+     *
+     * @return void
+     */
+
+    function showStart()
+    {
+        return;
+    }
+
+    /**
+     * finish the notice
+     *
+     * The default closes the <li>; we skip, since the ConversationTree
+     * takes care of that.
+     *
+     * @return void
+     */
+
+    function showEnd()
+    {
+        return;
+    }
+
+    /**
+     * show link to notice conversation page
+     *
+     * Since we're only used on the conversation page, we skip this
+     *
+     * @return void
+     */
+
+    function showContext()
+    {
+        return;
+    }
+}

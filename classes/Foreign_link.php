@@ -17,6 +17,8 @@ class Foreign_link extends Memcached_DataObject
     public $noticesync;                      // tinyint(1)   not_null default_1
     public $friendsync;                      // tinyint(1)   not_null default_2
     public $profilesync;                     // tinyint(1)   not_null default_1
+    public $last_noticesync;                 // datetime()
+    public $last_friendsync;                 // datetime()
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
@@ -57,12 +59,18 @@ class Foreign_link extends Memcached_DataObject
         return null;
     }
 
-    function set_flags($noticesync, $replysync, $friendsync)
+    function set_flags($noticesend, $noticerecv, $replysync, $friendsync)
     {
-        if ($noticesync) {
+        if ($noticesend) {
             $this->noticesync |= FOREIGN_NOTICE_SEND;
         } else {
             $this->noticesync &= ~FOREIGN_NOTICE_SEND;
+        }
+        
+        if ($noticerecv) {
+            $this->noticesync |= FOREIGN_NOTICE_RECV;
+        } else {
+            $this->noticesync &= ~FOREIGN_NOTICE_RECV;
         }
 
         if ($replysync) {

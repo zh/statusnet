@@ -74,9 +74,9 @@ class ShowfavoritesAction extends Action
     function title()
     {
         if ($this->page == 1) {
-            return sprintf(_("%s favorite notices"), $this->user->nickname);
+            return sprintf(_("%s's favorite notices"), $this->user->nickname);
         } else {
-            return sprintf(_("%s favorite notices, page %d"),
+            return sprintf(_("%s's favorite notices, page %d"),
                            $this->user->nickname,
                            $this->page);
         }

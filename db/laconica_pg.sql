@@ -291,6 +291,8 @@ create table foreign_link (
      noticesync int not null default 1 /* comment 'notice synchronisation, bit 1 = sync outgoing, bit 2 = sync incoming, bit 3 = filter local replies' */,
      friendsync int not null default 2 /* comment 'friend synchronisation, bit 1 = sync outgoing, bit 2 = sync incoming */, 
      profilesync int not null default 1 /* comment 'profile synchronization, bit 1 = sync outgoing, bit 2 = sync incoming' */,
+     last_noticesync timestamp default null /* comment 'last time notices were imported' */,
+     last_friendsync timestamp default null /* comment 'last time friends were imported' */,
      created timestamp not null default CURRENT_TIMESTAMP /* comment 'date this record was created' */,
      modified timestamp /* comment 'date this record was modified' */,
 
@@ -424,6 +426,64 @@ create table group_inbox (
     primary key (group_id, notice_id)
 );
 create index group_inbox_created_idx on group_inbox using btree(created);
+
+
+/*attachments and URLs stuff */
+create sequence file_seq;
+create table file (
+    id bigint default nextval('file_seq') primary key /* comment 'unique identifier' */,
+    url varchar(255) unique, 
+    mimetype varchar(50), 
+    size integer, 
+    title varchar(255), 
+    date integer(11), 
+    protected integer(1)
+);
+
+create sequence file_oembed_seq;
+create table file_oembed (
+    id bigint default nextval('file_oembed_seq') primary key /* comment 'unique identifier' */,
+    file_id bigint unique,
+    version varchar(20),
+    type varchar(20),
+    provider varchar(50),
+    provider_url varchar(255),
+    width integer,
+    height integer,
+    html text,
+    title varchar(255),
+    author_name varchar(50), 
+    author_url varchar(255), 
+    url varchar(255), 
+);
+
+create sequence file_redirection_seq;
+create table file_redirection (
+    id bigint default nextval('file_redirection_seq') primary key /* comment 'unique identifier' */,
+    url varchar(255) unique, 
+    file_id bigint, 
+    redirections integer, 
+    httpcode integer
+);
+
+create sequence file_thumbnail_seq;
+create table file_thumbnail (
+    id bigint default nextval('file_thumbnail_seq') primary key /* comment 'unique identifier' */,
+    file_id bigint unique, 
+    url varchar(255) unique, 
+    width integer, 
+    height integer 
+);
+
+create sequence file_to_post_seq;
+create table file_to_post (
+    id bigint default nextval('file_to_post_seq') primary key /* comment 'unique identifier' */,
+    file_id bigint, 
+    post_id bigint, 
+
+    unique(file_id, post_id)
+);
+
 
 /* Textsearch stuff */
 

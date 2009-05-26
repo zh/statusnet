@@ -51,7 +51,7 @@ class PopularNoticeSection extends NoticeSection
         if (common_config('db', 'type') == 'pgsql') {
             $weightexpr='sum(exp(-extract(epoch from (now() - fave.modified)) / %s))';
             if (!empty($this->out->tag)) {
-                $tag = pg_escape_string($this->tag);
+                $tag = pg_escape_string($this->out->tag);
             }
         } else {
             $weightexpr='sum(exp(-(now() - fave.modified) / %s))';

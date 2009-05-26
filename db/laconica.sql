@@ -119,6 +119,7 @@ create table notice (
     index notice_profile_id_idx (profile_id),
     index notice_conversation_idx (conversation),
     index notice_created_idx (created),
+    index notice_replyto_idx (reply_to),
     FULLTEXT(content)
 ) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
@@ -290,6 +291,8 @@ create table foreign_link (
      noticesync tinyint not null default 1 comment 'notice synchronization, bit 1 = sync outgoing, bit 2 = sync incoming, bit 3 = filter local replies',
      friendsync tinyint not null default 2 comment 'friend synchronization, bit 1 = sync outgoing, bit 2 = sync incoming',
      profilesync tinyint not null default 1 comment 'profile synchronization, bit 1 = sync outgoing, bit 2 = sync incoming',
+     last_noticesync datetime default null comment 'last time notices were imported',
+     last_friendsync datetime default null comment 'last time friends were imported',
      created datetime not null comment 'date this record was created',
      modified timestamp comment 'date this record was modified',
 
@@ -422,3 +425,60 @@ create table group_inbox (
 
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
+create table file (
+    id integer primary key auto_increment,
+    url varchar(255), mimetype varchar(50),
+    size integer,
+    title varchar(255),
+    date integer(11),
+    protected integer(1),
+
+    unique(url)
+) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+create table file_oembed (
+    id integer primary key auto_increment,
+    file_id integer,
+    version varchar(20),
+    type varchar(20),
+    provider varchar(50),
+    provider_url varchar(255),
+    width integer,
+    height integer,
+    html text,
+    title varchar(255),
+    author_name varchar(50),
+    author_url varchar(255),
+    url varchar(255),
+
+    unique(file_id)
+) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+create table file_redirection (
+    id integer primary key auto_increment,
+    url varchar(255),
+    file_id integer,
+    redirections integer,
+    httpcode integer,
+
+    unique(url)
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table file_thumbnail (
+    id integer primary key auto_increment,
+    file_id integer,
+    url varchar(255),
+    width integer,
+    height integer,
+
+    unique(file_id),
+    unique(url)
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table file_to_post (
+    id integer primary key auto_increment,
+    file_id integer,
+    post_id integer,
+
+    unique(file_id, post_id)
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;

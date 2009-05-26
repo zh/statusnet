@@ -2357,6 +2357,8 @@ class DB_DataObject extends DB_DataObject_Overload
         $t= explode(' ',microtime());
         $_DB_DATAOBJECT['QUERYENDTIME'] = $time = $t[0]+$t[1];
          
+
+        do {
         
         if ($_DB_driver == 'DB') {
             $result = $DB->query($string);
@@ -2374,8 +2376,19 @@ class DB_DataObject extends DB_DataObject_Overload
                     break;
             }
         }
-        
-       
+
+          // try to reconnect, at most 3 times
+          $again = false;
+          if (is_a($result, 'PEAR_Error')
+          AND $result->getCode() == DB_ERROR_NODBSELECTED
+          AND $cpt++<3) {
+              $DB->disconnect();
+              sleep(1);
+              $DB->connect($DB->dsn);
+              $again = true;
+          }
+          
+        } while ($again);
 
         if (is_a($result,'PEAR_Error')) {
             if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) { 

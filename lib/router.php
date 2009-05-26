@@ -151,12 +151,26 @@ class Router
         $m->connect('search/notice/rss?q=:q', array('action' => 'noticesearchrss'),
                     array('q' => '.+'));
 
+        $m->connect('attachment/:attachment/ajax',
+                    array('action' => 'attachment_ajax'),
+                    array('notice' => '[0-9]+'));
+
+        $m->connect('attachment/:attachment',
+                    array('action' => 'attachment'),
+                    array('notice' => '[0-9]+'));
+
         // notice
 
         $m->connect('notice/new', array('action' => 'newnotice'));
         $m->connect('notice/new?replyto=:replyto',
                     array('action' => 'newnotice'),
                     array('replyto' => '[A-Za-z0-9_-]+'));
+        $m->connect('notice/:notice/attachments/ajax',
+                    array('action' => 'attachments_ajax'),
+                    array('notice' => '[0-9]+'));
+        $m->connect('notice/:notice/attachments',
+                    array('action' => 'attachments'),
+                    array('notice' => '[0-9]+'));
         $m->connect('notice/:notice',
                     array('action' => 'shownotice'),
                     array('notice' => '[0-9]+'));
@@ -237,12 +251,12 @@ class Router
         $m->connect('api/statuses/:method',
                     array('action' => 'api',
                           'apiaction' => 'statuses'),
-                    array('method' => '(public_timeline|friends_timeline|user_timeline|update|replies|friends|followers|featured)(\.(atom|rss|xml|json))?'));
+                    array('method' => '(public_timeline|friends_timeline|user_timeline|update|replies|mentions|friends|followers|featured)(\.(atom|rss|xml|json))?'));
 
         $m->connect('api/statuses/:method/:argument',
                     array('action' => 'api',
                           'apiaction' => 'statuses'),
-                    array('method' => '(user_timeline|friends_timeline|replies|show|destroy|friends|followers)'));
+                    array('method' => '(user_timeline|friends_timeline|replies|mentions|show|destroy|friends|followers)'));
 
         // users
 
@@ -411,6 +425,16 @@ class Router
                     array('action' => 'avatarbynickname'),
                     array('size' => '(original|96|48|24)',
                           'nickname' => '[a-zA-Z0-9]{1,64}'));
+
+        $m->connect(':nickname/tag/:tag/rss',
+            array('action' => 'userrss'),
+            array('nickname' => '[a-zA-Z0-9]{1,64}'),
+            array('tag' => '[a-zA-Z0-9]+'));
+
+        $m->connect(':nickname/tag/:tag',
+                    array('action' => 'showstream'),
+                    array('nickname' => '[a-zA-Z0-9]{1,64}'),
+                    array('tag' => '[a-zA-Z0-9]+'));
 
         $m->connect(':nickname',
                     array('action' => 'showstream'),
