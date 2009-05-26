@@ -426,12 +426,12 @@ create table group_inbox (
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table file (
-    id integer primary key auto_increment, 
-    url varchar(255), mimetype varchar(50), 
-    size integer, 
-    title varchar(255), 
-    date integer(11), 
-    protected integer(1), 
+    id integer primary key auto_increment,
+    url varchar(255), mimetype varchar(50),
+    size integer,
+    title varchar(255),
+    date integer(11),
+    protected integer(1),
 
     unique(url)
 ) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
@@ -447,40 +447,38 @@ create table file_oembed (
     height integer,
     html text,
     title varchar(255),
-    author_name varchar(50), 
-    author_url varchar(255), 
-    url varchar(255), 
+    author_name varchar(50),
+    author_url varchar(255),
+    url varchar(255),
 
     unique(file_id)
 ) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 create table file_redirection (
-    id integer primary key auto_increment, 
-    url varchar(255), 
-    file_id integer, 
-    redirections integer, 
-    httpcode integer, 
+    id integer primary key auto_increment,
+    url varchar(255),
+    file_id integer,
+    redirections integer,
+    httpcode integer,
 
     unique(url)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table file_thumbnail (
-    id integer primary key auto_increment, 
-    file_id integer, 
-    url varchar(255), 
-    width integer, 
-    height integer, 
+    id integer primary key auto_increment,
+    file_id integer,
+    url varchar(255),
+    width integer,
+    height integer,
 
-    unique(file_id), 
+    unique(file_id),
     unique(url)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table file_to_post (
-    id integer primary key auto_increment, 
-    file_id integer, 
-    post_id integer, 
+    id integer primary key auto_increment,
+    file_id integer,
+    post_id integer,
 
     unique(file_id, post_id)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
-
-

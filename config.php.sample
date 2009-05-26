@@ -206,3 +206,12 @@ $config['sphinx']['port'] = 3312;
 //        print "Error\n";
 //        exit(1);
 // }
+
+// How often to send snapshots; in # of web hits. Ideally,
+// try to do this once per month (that is, make this equal to number
+// of hits per month)
+// $config['snapshot']['frequency'] = 10000;
+// If you don't want to report statistics to the central server, uncomment.
+// $config['snapshot']['run'] = 'never';
+// If you want to report statistics in a cron job instead.
+// $config['snapshot']['run'] = 'cron';
