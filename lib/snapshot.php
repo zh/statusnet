@@ -84,9 +84,8 @@ class Snapshot
             // hits
             if (rand() % common_config('snapshot', 'frequency') == 0) {
                 $snapshot = new Snapshot();
-                if ($snapshot->take()) {
-                    $snapshot->report();
-                }
+                $snapshot->take();
+                $snapshot->report();
             }
             break;
         case 'cron':
@@ -94,11 +93,14 @@ class Snapshot
             if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
                 break;
             }
+            common_log(LOG_INFO, 'Running snapshot from cron job');
             // We're running from the command line; assume
+
             $snapshot = new Snapshot();
-            if ($snapshot->take()) {
-                $snapshot->report();
-            }
+            $snapshot->take();
+            common_log(LOG_INFO, count($snapshot->stats) . " statistics being uploaded.");
+            $snapshot->report();
+
             break;
         case 'never':
             break;
@@ -155,6 +157,7 @@ class Snapshot
         $this->stats['memcached'] = common_config('memcached', 'enabled');
         $this->stats['language']  = common_config('site', 'language');
         $this->stats['timezone']  = common_config('site', 'timezone');
+
     }
 
     /**
@@ -186,7 +189,9 @@ class Snapshot
 
         $reporturl = common_config('snapshot', 'reporturl');
 
-        $result = file_get_contents($reporturl, false, $context);
+        $result = @file_get_contents($reporturl, false, $context);
+
+        return $result;
     }
 
     /**
@@ -203,14 +208,14 @@ class Snapshot
 
     function tableStats($table)
     {
-        $inst = DB_DataObject::Factory($table);
+        $inst = DB_DataObject::factory($table);
 
-        $res = $inst->query('SELECT count(*) as cnt, '.
-                            'min(created) as first, '.
-                            'max(created) as last '.
-                            'from ' . $table);
+        $inst->selectAdd();
+        $inst->selectAdd('count(*) as cnt, '.
+                         'min(created) as first, '.
+                         'max(created) as last');
 
-        if ($res) {
+        if ($inst->find(true)) {
             $this->stats[$table.'count'] = $inst->cnt;
             $this->stats[$table.'first'] = $inst->first;
             $this->stats[$table.'last']  = $inst->last;
