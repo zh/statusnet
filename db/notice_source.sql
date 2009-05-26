@@ -7,6 +7,7 @@ VALUES
     ('cliqset', 'Cliqset', 'http://www.cliqset.com/', now()),
     ('deskbar','Deskbar-Applet','http://www.gnome.org/projects/deskbar-applet/', now()),
     ('Do','Gnome Do','http://do.davebsd.com/wiki/index.php?title=Microblog_Plugin', now()),
+    ('eventbox','EventBox','http://thecosmicmachine.com/eventbox/ ', now()),
     ('Facebook','Facebook','http://apps.facebook.com/identica/', now()),
     ('feed2omb','feed2omb','http://projects.ciarang.com/p/feed2omb/', now()),
     ('gravity', 'Gravity', 'http://mobileways.de/gravity', now()),
