@@ -138,9 +138,6 @@ class FacebookhomeAction extends FacebookAction
 
     function setDefaults()
     {
-        // A default prefix string for notices
-        $this->facebook->api_client->data_setUserPreference(
-            FACEBOOK_NOTICE_PREFIX, 'dented: ');
         $this->facebook->api_client->data_setUserPreference(
             FACEBOOK_PROMPTED_UPDATE_PREF, 'false');
     }
