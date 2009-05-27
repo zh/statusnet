@@ -69,6 +69,8 @@ function main()
     }
     global $user, $action, $config;
 
+    Snapshot::check();
+    
     if (!_have_config()) {
         $msg = sprintf(_("No configuration file found. Try running ".
                          "the installation program first."));

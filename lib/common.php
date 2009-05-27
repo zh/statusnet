@@ -159,6 +159,10 @@ $config =
         'newuser' =>
         array('subscribe' => null,
               'welcome' => null),
+        'snapshot' =>
+        array('run' => 'web',
+              'frequency' => 10000,
+              'reporturl' => 'http://laconi.ca/stats/report'),
         );
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');

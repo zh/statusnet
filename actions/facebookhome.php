@@ -115,7 +115,7 @@ class FacebookhomeAction extends FacebookAction
                 $flink->foreign_id = $this->fbuid;
                 $flink->service = FACEBOOK_SERVICE;
                 $flink->created = common_sql_now();
-                $flink->set_flags(true, false, false);
+                $flink->set_flags(true, false, false, false);
 
                 $flink_id = $flink->insert();
 
@@ -138,9 +138,6 @@ class FacebookhomeAction extends FacebookAction
 
     function setDefaults()
     {
-        // A default prefix string for notices
-        $this->facebook->api_client->data_setUserPreference(
-            FACEBOOK_NOTICE_PREFIX, 'dented: ');
         $this->facebook->api_client->data_setUserPreference(
             FACEBOOK_PROMPTED_UPDATE_PREF, 'false');
     }
