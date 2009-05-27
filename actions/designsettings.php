@@ -98,28 +98,18 @@ class DesignsettingsAction extends AccountSettingsAction
         $this->element('legend', null, _('Change colours'));
         $this->elementStart('ul', 'form_data');
 
-        //This is a JSON object in the DB field. Here for testing. Remove later.
-        $userSwatch = '{"body":{"background-color":"#F0F2F5"},'.
-          '"#content":{"background-color":"#FFFFFF"},'.
-          '"#aside_primary":{"background-color":"#CEE1E9"},'.
-          '"html body":{"color":"#000000"},'.
-          '"a":{"color":"#002E6E"}}';
+        $design = $user->getDesign();
 
-        //Default theme swatch -- Where should this be stored?
-        $defaultSwatch = array('body' => array('background-color' => '#F0F2F5'),
-                               '#content' => array('background-color' => '#FFFFFF'),
-                               '#aside_primary' => array('background-color' => '#CEE1E9'),
-                               'html body' => array('color' => '#000000'),
-                               'a' => array('color' => '#002E6E'));
+        if (empty($design)) {
+            $design = $this->defaultDesign();
+        }
 
-        $userSwatch = ($userSwatch) ? json_decode($userSwatch, true) : $defaultSwatch;
-
-        $s = 0;
         $labelSwatch = array('Background',
                              'Content',
                              'Sidebar',
                              'Text',
                              'Links');
+
         foreach($userSwatch as $propertyvalue => $value) {
             $foo = array_values($value);
             $this->elementStart('li');
@@ -150,6 +140,7 @@ class DesignsettingsAction extends AccountSettingsAction
          if submitted Swatch == DefaultSwatch, don't store in DB.
          else store in BD
          */
+
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }
