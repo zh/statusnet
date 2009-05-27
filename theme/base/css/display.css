@@ -855,20 +855,6 @@ display:inline-block;
 text-transform:lowercase;
 }
 
-.notice .attachment {
-position:relative;
-}
-.notice .attachment img {
-position:absolute;
-top:18px;
-left:0;
-z-index:99;
-}
-#shownotice .notice .attachment img {
-position:static;
-}
-
-
 .notice-options {
 position:relative;
 font-size:0.95em;
@@ -933,6 +919,59 @@ display:none;
 .notice-options .form_disfavor fieldset {
 border:0;
 padding:0;
+}
+
+
+.notice .attachment {
+position:relative;
+padding-left:16px;
+}
+#attachments .attachment {
+padding-left:0;
+}
+.notice .attachment img {
+position:absolute;
+top:18px;
+left:0;
+z-index:99;
+}
+#shownotice .notice .attachment img {
+position:static;
+}
+
+#attachments {
+clear:both;
+float:left;
+width:100%;
+margin-top:18px;
+}
+#attachments dt {
+font-weight:bold;
+font-size:1.3em;
+margin-bottom:4px;
+}
+
+#attachments li {
+margin-bottom:18px;
+list-style-type:decimal;
+float:left;
+clear:both;
+}
+
+#jOverlayContent,
+#jOverlayContent #content {
+width: auto !important;
+}
+#jOverlayContent .external span {
+display:block;
+margin-bottom:11px;
+}
+#jOverlayContent button {
+position:absolute;
+top:0;
+right:0;
+padding:3px 4px;
+font-weight:bold;
 }
 
 

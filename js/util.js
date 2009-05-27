@@ -17,30 +17,6 @@
  */
 
 $(document).ready(function(){
-    $('a.attachment').click(function() {$().jOverlay({url: $('address .url')[0].href+'/attachment/' + ($(this).attr('id').substring('attachment'.length + 1)) + '/ajax'}); return false; });
-    $("a.thumbnail").hover(
-        function() {
-            var anchor = $(this);
-            $("a.thumbnail").children('img').remove();
-
-            setTimeout(function() {
-                anchor.closest(".entry-title").addClass('ov');
-                $.get($('address .url')[0].href+'/attachment/' + (anchor.attr('id').substring('attachment'.length + 1)) + '/thumbnail', null, function(data) {
-                    anchor.append(data);
-                });
-            }, 250);
-
-            setTimeout(function() {
-                anchor.children('img').remove();
-                anchor.closest(".entry-title").removeClass('ov');
-            }, 3000);
-        },
-        function() {
-            $(this).children('img').remove();
-            $(this).closest(".entry-title").removeClass('ov');
-        }
-    );
-
 	// count character on keyup
 	function counter(event){
 		var maxLength = 140;
@@ -238,6 +214,7 @@ $(document).ready(function(){
 	$("#form_notice").each(addAjaxHidden);
     NoticeHover();
     NoticeReply();
+    NoticeAttachments();
 });
 
 
@@ -276,3 +253,50 @@ function NoticeReplySet(nick,id) {
 	}
 	return true;
 }
+
+function NoticeAttachments() {
+    $.fn.jOverlay.options = {
+        method : 'GET',
+        data : '',
+        url : '',
+        color : '#000',
+        opacity : '0.6',
+        zIndex : 9999,
+        center : true,
+        imgLoading : $('address .url')[0].href+'theme/base/images/illustrations/illu_progress_loading-01.gif',
+        bgClickToClose : true,
+        success : function() {
+            $('#jOverlayContent').append('<button>&#215;</button>');
+            $('#jOverlayContent button').click($.closeOverlay);
+        },
+        timeout : 0
+    };
+
+    $('a.attachment').click(function() {
+        $().jOverlay({url: $('address .url')[0].href+'/attachment/' + ($(this).attr('id').substring('attachment'.length + 1)) + '/ajax'});
+        return false;
+    });
+    $("body:not(#shownotice) a.thumbnail").hover(
+        function() {
+            var anchor = $(this);
+            $("a.thumbnail").children('img').remove();
+            anchor.closest(".entry-title").addClass('ov');
+
+            setTimeout(function() {
+                $.get($('address .url')[0].href+'/attachment/' + (anchor.attr('id').substring('attachment'.length + 1)) + '/thumbnail', null, function(data) {
+                    anchor.append(data);
+                });
+            }, 500);
+
+            setTimeout(function() {
+                anchor.children('img').remove();
+                anchor.closest(".entry-title").removeClass('ov');
+            }, 3000);
+        },
+        function() {
+            $("a.thumbnail").children('img').remove();
+            $(this).closest(".entry-title").removeClass('ov');
+        }
+    );
+}
+
