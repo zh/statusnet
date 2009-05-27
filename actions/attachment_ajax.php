@@ -46,26 +46,6 @@ require_once INSTALLDIR.'/actions/attachment.php';
 class Attachment_ajaxAction extends AttachmentAction
 {
     /**
-     * Load attributes based on database arguments
-     *
-     * Loads all the DB stuff
-     *
-     * @param array $args $_REQUEST array
-     *
-     * @return success flag
-     */
-
-    function prepare($args)
-    {
-        parent::prepare($args);
-        if (!$this->attachment) {
-            $this->clientError(_('No such attachment.'), 404);
-            return false;
-        }
-        return true;
-    }
-
-    /**
      * Show page, a template method.
      *
      * @return nothing
@@ -94,8 +74,6 @@ class Attachment_ajaxAction extends AttachmentAction
         }
         $this->elementEnd('div');
     }
-
-
 
     /**
      * Last-modified date for page

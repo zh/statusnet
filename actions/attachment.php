@@ -31,8 +31,6 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
-//require_once INSTALLDIR.'/lib/personalgroupnav.php';
-//require_once INSTALLDIR.'/lib/feedlist.php';
 require_once INSTALLDIR.'/lib/attachmentlist.php';
 
 /**
@@ -67,11 +65,11 @@ class AttachmentAction extends Action
     {
         parent::prepare($args);
 
-        $id = $this->arg('attachment');
+        if ($id = $this->trimmed('attachment')) {
+            $this->attachment = File::staticGet($id);
+        }
 
-        $this->attachment = File::staticGet($id);
-
-        if (!$this->attachment) {
+        if (empty($this->attachment)) {
             $this->clientError(_('No such attachment.'), 404);
             return false;
         }
@@ -178,10 +176,8 @@ class AttachmentAction extends Action
 
     function showContent()
     {
-        $this->elementStart('ul', array('class' => 'attachments'));
         $ali = new Attachment($this->attachment, $this);
         $cnt = $ali->show();
-        $this->elementEnd('ul');
     }
 
     /**

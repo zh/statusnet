@@ -64,11 +64,13 @@ function handleError($error)
 function main()
 {
     // quick check for fancy URL auto-detection support in installer.
-    if (isset($_SERVER['REDIRECT_URL']) && ('/check-fancy' === $_SERVER['REDIRECT_URL'])) {
+    if (isset($_SERVER['REDIRECT_URL']) && ((dirname($_SERVER['REQUEST_URI']) . '/check-fancy') === $_SERVER['REDIRECT_URL'])) {
         die("Fancy URL support detection succeeded. We suggest you enable this to get fancy (pretty) URLs.");
     }
     global $user, $action, $config;
 
+    Snapshot::check();
+    
     if (!_have_config()) {
         $msg = sprintf(_("No configuration file found. Try running ".
                          "the installation program first."));

@@ -742,15 +742,10 @@ border-top-style:dotted;
 .notices li {
 list-style-type:none;
 }
-.notices li.hover {
-border-radius:4px;
--moz-border-radius:4px;
--webkit-border-radius:4px;
-}
 .notices .notices {
 margin-top:7px;
-margin-left:3%;
-width:97%;
+margin-left:5%;
+width:95%;
 float:left;
 }
 
@@ -803,6 +798,9 @@ float:left;
 width:100%;
 overflow:hidden;
 }
+.notice .entry-title.ov {
+overflow:visible;
+}
 #shownotice .notice .entry-title {
 font-size:2.2em;
 }
@@ -827,7 +825,7 @@ clear:left;
 float:left;
 font-size:0.95em;
 margin-left:59px;
-width:65%;
+width:60%;
 }
 #showstream .notice div.entry-content,
 #shownotice .notice div.entry-content {
@@ -857,15 +855,26 @@ display:inline-block;
 text-transform:lowercase;
 }
 
+.notice .attachment {
+position:relative;
+}
+.notice .attachment img {
+position:absolute;
+top:18px;
+left:0;
+z-index:99;
+}
+#shownotice .notice .attachment img {
+position:static;
+}
+
 
 .notice-options {
-padding-left:2%;
-float:left;
-width:50%;
 position:relative;
 font-size:0.95em;
-width:12.5%;
+width:90px;
 float:right;
+margin-right:11px;
 }
 
 .notice-options a {
@@ -1047,8 +1056,6 @@ margin-bottom:18px;
 .hentry .entry-content li li {
 margin-left:18px;
 }
-
-
 
 
 /* TOP_POSTERS */
