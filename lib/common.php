@@ -167,6 +167,7 @@ $config['db'] =
         'require_prefix' => 'classes/',
         'class_prefix' => '',
         'mirror' => null,
+        'utf8' => true,
         'db_driver' => 'DB', # XXX: JanRain libs only work with DB
         'quote_identifiers' => false,
         'type' => 'mysql' );

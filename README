@@ -906,6 +906,10 @@ mirror: you can set this to an array of DSNs, like the above
 	and adding the slaves to this array. Note that if you want some
 	requests to go to the 'database' (master) server, you'll need
 	to include it in this array, too.
+utf8: whether to talk to the database in UTF-8 mode. This is the default
+      with new installations, but older sites may want to turn it off
+      until they get their databases fixed up. See "UTF-8 database"
+      above for details.
 
 syslog
 ------
