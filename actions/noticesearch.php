@@ -184,11 +184,13 @@ class SearchNoticeListItem extends NoticeListItem {
     function highlight($text, $terms)
     {
         /* Highligh search terms */
-        $pattern = '/('.implode('|', array_map('htmlspecialchars', $terms)).')/i';
+        $options = implode('|', array_map('preg_quote', array_map('htmlspecialchars', $terms),
+                                                            array_fill(0, sizeof($terms), '/')));
+        $pattern = "/($options)/i";
         $result  = preg_replace($pattern, '<strong>\\1</strong>', $text);
 
         /* Remove highlighting from inside links, loop incase multiple highlights in links */
-        $pattern = '/(href="[^"]*)<strong>('.implode('|', array_map('htmlspecialchars', $terms)).')<\/strong>([^"]*")/iU';
+        $pattern = '/(href="[^"]*)<strong>('.$options.')<\/strong>([^"]*")/iU';
         do {
             $result = preg_replace($pattern, '\\1\\2\\3', $result, -1, $count);
         } while ($count);

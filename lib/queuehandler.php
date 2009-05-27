@@ -36,7 +36,7 @@ class QueueHandler extends Daemon
             $this->set_id($id);
         }
     }
-    
+
     function class_name()
     {
         return ucfirst($this->transport()) . 'Handler';
@@ -46,7 +46,7 @@ class QueueHandler extends Daemon
     {
         return strtolower($this->class_name().'.'.$this->get_id());
     }
-    
+
     function get_id()
     {
         return $this->_id;
@@ -56,16 +56,16 @@ class QueueHandler extends Daemon
     {
         $this->_id = $id;
     }
-    
+
     function transport()
     {
         return null;
     }
-    
+
     function start()
     {
     }
-    
+
     function finish()
     {
     }
@@ -74,14 +74,14 @@ class QueueHandler extends Daemon
     {
         return true;
     }
-    
+
     function run()
     {
         if (!$this->start()) {
             return false;
         }
-        $this->log(LOG_INFO, 'checking for queued notices');
         $transport = $this->transport();
+        $this->log(LOG_INFO, 'checking for queued notices for "' . $transport . '"');
         do {
             $qi = Queue_item::top($transport);
             if ($qi) {
@@ -113,7 +113,7 @@ class QueueHandler extends Daemon
             } else {
                 $this->clear_old_claims();
                 $this->idle(5);
-            }    
+            }
         } while (true);
         if (!$this->finish()) {
             return false;
@@ -127,7 +127,7 @@ class QueueHandler extends Daemon
             sleep($timeout);
         }
     }
-    
+
     function clear_old_claims()
     {
         $qi = new Queue_item();
@@ -137,10 +137,9 @@ class QueueHandler extends Daemon
         $qi->free();
         unset($qi);
     }
-    
+
     function log($level, $msg)
     {
         common_log($level, $this->class_name() . ' ('. $this->get_id() .'): '.$msg);
     }
 }
-    

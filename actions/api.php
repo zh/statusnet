@@ -130,6 +130,7 @@ class ApiAction extends Action
                                  'statuses/friends_timeline',
                                  'statuses/friends',
                                  'statuses/replies',
+                                 'statuses/mentions',
                                  'statuses/followers',
                                  'favorites/favorites');
 

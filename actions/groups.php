@@ -129,4 +129,15 @@ class GroupsAction extends Action
         $gbm = new GroupsByMembersSection($this);
         $gbm->show();
     }
+
+    /**
+     * Output document relationship links
+     *
+     * @return void
+     */
+    function showRelationshipLinks()
+    {
+        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
+                                     $this->page, 'groups', array('nickname' => $this->group->nickname));
+    }
 }

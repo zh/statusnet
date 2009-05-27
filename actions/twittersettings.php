@@ -261,7 +261,7 @@ class TwittersettingsAction extends ConnectSettingsAction
                                             'alt' =>  ($other->fullname) ?
                                             $other->fullname :
                                             $other->nickname));
-                
+
                 $this->element('span', 'fn nickname', $other->nickname);
                 $this->elementEnd('a');
                 $this->elementEnd('li');
@@ -375,6 +375,8 @@ class TwittersettingsAction extends ConnectSettingsAction
 
         if ($friendsync) {
             save_twitter_friends($user, $twit_user->id, $screen_name, $password);
+            $flink->last_friendsync = common_sql_now();
+            $flink->update();
         }
 
         $this->showForm(_('Twitter settings saved.'), true);

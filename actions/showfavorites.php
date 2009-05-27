@@ -74,9 +74,9 @@ class ShowfavoritesAction extends Action
     function title()
     {
         if ($this->page == 1) {
-            return sprintf(_("%s favorite notices"), $this->user->nickname);
+            return sprintf(_("%s's favorite notices"), $this->user->nickname);
         } else {
-            return sprintf(_("%s favorite notices, page %d"),
+            return sprintf(_("%s's favorite notices, page %d"),
                            $this->user->nickname,
                            $this->page);
         }
@@ -149,6 +149,18 @@ class ShowfavoritesAction extends Action
 
         return array(new Feed(Feed::RSS1, $feedurl, $feedtitle));
     }
+
+    /**
+     * Output document relationship links
+     *
+     * @return void
+     */
+    function showRelationshipLinks()
+    {
+        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
+                                     $this->page, 'showfavorites', array('nickname' => $this->user->nickname));
+    }
+
 
     /**
      * show the personal group nav

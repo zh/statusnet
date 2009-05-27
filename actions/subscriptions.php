@@ -125,6 +125,16 @@ class SubscriptionsAction extends GalleryAction
         $this->raw(common_markup_to_html($message));
         $this->elementEnd('div');
     }
+
+    function showSections()
+    {
+        parent::showSections();
+        $cloud = new SubscriptionsPeopleTagCloudSection($this);
+        $cloud->show();
+
+        $cloud2 = new SubscriptionsPeopleSelfTagCloudSection($this);
+        $cloud2->show();
+    }
 }
 
 class SubscriptionsList extends ProfileList

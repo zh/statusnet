@@ -98,15 +98,15 @@ class Action extends HTMLOutputter // lawsuit
             Event::handle('EndShowHTML', array($this));
         }
         if (Event::handle('StartShowHead', array($this))) {
-        $this->showHead();
+            $this->showHead();
             Event::handle('EndShowHead', array($this));
         }
         if (Event::handle('StartShowBody', array($this))) {
-        $this->showBody();
+            $this->showBody();
             Event::handle('EndShowBody', array($this));
         }
         if (Event::handle('StartEndHTML', array($this))) {
-        $this->endHTML();
+            $this->endHTML();
             Event::handle('EndEndHTML', array($this));
         }
     }
@@ -124,6 +124,7 @@ class Action extends HTMLOutputter // lawsuit
         $this->showShortcutIcon();
         $this->showStylesheets();
         $this->showScripts();
+        $this->showRelationshipLinks();
         $this->showOpenSearch();
         $this->showFeeds();
         $this->showDescription();
@@ -194,10 +195,6 @@ class Action extends HTMLOutputter // lawsuit
             if (Event::handle('StartShowLaconicaStyles', array($this))) {
                 $this->element('link', array('rel' => 'stylesheet',
                                              'type' => 'text/css',
-                                             'href' => theme_path('css/display.css', 'base') . '?version=' . LACONICA_VERSION,
-                                             'media' => 'screen, projection, tv'));
-                $this->element('link', array('rel' => 'stylesheet',
-                                             'type' => 'text/css',
                                              'href' => theme_path('css/display.css', null) . '?version=' . LACONICA_VERSION,
                                              'media' => 'screen, projection, tv'));
                 if (common_config('site', 'mobile')) {
@@ -262,6 +259,19 @@ class Action extends HTMLOutputter // lawsuit
             }
             Event::handle('EndShowScripts', array($this));
         }
+    }
+
+    /**
+     * Show document relationship links
+     *
+     * SHOULD overload
+     *
+     * @return nothing
+     */
+    function showRelationshipLinks()
+    {
+        // output <link> elements with appropriate HTML4.01 link types:
+        // http://www.w3.org/TR/html401/types.html#type-links
     }
 
     /**
@@ -337,7 +347,7 @@ class Action extends HTMLOutputter // lawsuit
     {
         $this->elementStart('body', (common_current_user()) ? array('id' => $this->trimmed('action'),
                                                                     'class' => 'user_in')
-                                                            : array('id' => $this->trimmed('action')));
+                            : array('id' => $this->trimmed('action')));
         $this->elementStart('div', array('id' => 'wrap'));
         if (Event::handle('StartShowHeader', array($this))) {
             $this->showHeader();
@@ -421,10 +431,10 @@ class Action extends HTMLOutputter // lawsuit
                                     _('Connect'), _('Connect to SMS, Twitter'), false, 'nav_connect');
                 }
                 $this->menuItem(common_local_url('invite'),
-                                 _('Invite'),
-                                 sprintf(_('Invite friends and colleagues to join you on %s'),
-                                 common_config('site', 'name')),
-                                 false, 'nav_invitecontact');
+                                _('Invite'),
+                                sprintf(_('Invite friends and colleagues to join you on %s'),
+                                        common_config('site', 'name')),
+                                false, 'nav_invitecontact');
                 $this->menuItem(common_local_url('logout'),
                                 _('Logout'), _('Logout from the site'), false, 'nav_logout');
             }
@@ -581,7 +591,10 @@ class Action extends HTMLOutputter // lawsuit
                                         'class' => 'system_notice'));
         $this->element('dt', null, _('Page notice'));
         $this->elementStart('dd');
-        $this->showPageNotice();
+        if (Event::handle('StartShowPageNotice', array($this))) {
+            $this->showPageNotice();
+            Event::handle('EndShowPageNotice', array($this));
+        }
         $this->elementEnd('dd');
         $this->elementEnd('dl');
     }
@@ -619,7 +632,7 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementStart('div', array('id' => 'aside_primary',
                                          'class' => 'aside'));
         if (Event::handle('StartShowExportData', array($this))) {
-        $this->showExportData();
+            $this->showExportData();
             Event::handle('EndShowExportData', array($this));
         }
         if (Event::handle('StartShowSections', array($this))) {
@@ -1041,5 +1054,37 @@ class Action extends HTMLOutputter // lawsuit
     function getFeeds()
     {
         return null;
+    }
+
+    /**
+     * Generate document metadata for sequential navigation
+     *
+     * @param boolean $have_before is there something before?
+     * @param boolean $have_after  is there something after?
+     * @param integer $page        current page
+     * @param string  $action      current action
+     * @param array   $args        rest of query arguments
+     *
+     * @return nothing
+     */
+    function sequenceRelationships($have_next, $have_previous, $page, $action, $args=null)
+    {
+        // Outputs machine-readable pagination in <link> elements.
+        // Pattern taken from $this->pagination() method.
+
+        // "next" is equivalent to "after"
+        if ($have_next) {
+            $pargs   = array('page' => $page-1);
+            $this->element('link', array('rel' => 'next',
+                                         'href' => common_local_url($action, $args, $pargs),
+                                         'title' => _('Next')));
+        }
+        // "previous" is equivalent to "before"
+        if ($have_previous=true) { // FIXME
+            $pargs   = array('page' => $page+1);
+            $this->element('link', array('rel' => 'prev',
+                                         'href' => common_local_url($action, $args, $pargs),
+                                         'title' => _('Previous')));
+        }
     }
 }

@@ -17,7 +17,9 @@
  * along with this program.     If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
 require_once(INSTALLDIR.'/lib/facebookaction.php');
 
@@ -67,7 +69,7 @@ class FacebookinviteAction extends FacebookAction
     function showSuccessContent()
     {
 
-        $this->element('h2', null, sprintf(_('Thanks for inviting your friends to use %s'), 
+        $this->element('h2', null, sprintf(_('Thanks for inviting your friends to use %s'),
             common_config('site', 'name')));
         $this->element('p', null, _('Invitations have been sent to the following users:'));
 
@@ -89,16 +91,6 @@ class FacebookinviteAction extends FacebookAction
 
     function showFormContent()
     {
-
-        // Get a list of users who are already using the app for exclusion
-        $exclude_ids = $this->facebook->api_client->friends_getAppUsers();
-        $exclude_ids_csv = null;
-        
-        // fbml needs these as a csv string, not an array
-        if ($exclude_ids) {
-            $exclude_ids_csv = implode(',', $exclude_ids);
-        }
-
         $content = sprintf(_('You have been invited to %s'), common_config('site', 'name')) .
             htmlentities('<fb:req-choice url="' . $this->app_uri . '" label="Add"/>');
 
@@ -109,36 +101,43 @@ class FacebookinviteAction extends FacebookAction
                                                       'content' => $content));
         $this->hidden('invite', 'true');
         $actiontext = sprintf(_('Invite your friends to use %s'), common_config('site', 'name'));
-        
-        $multi_params = array('showborder' => 'false');    
+
+        $multi_params = array('showborder' => 'false');
         $multi_params['actiontext'] = $actiontext;
-        
-        if ($exclude_ids_csv) {
+        $multi_params['bypass'] = 'cancel';
+
+        // Get a list of users who are already using the app for exclusion
+        $exclude_ids = $this->facebook->api_client->friends_getAppUsers();
+        $exclude_ids_csv = null;
+
+        // fbml needs these as a csv string, not an array
+        if ($exclude_ids) {
+            $exclude_ids_csv = implode(',', $exclude_ids);
             $multi_params['exclude_ids'] = $exclude_ids_csv;
         }
 
-        $multi_params['bypass'] = 'cancel';
-                
         $this->element('fb:multi-friend-selector', $multi_params);
-
         $this->elementEnd('fb:request-form');
 
-        $this->element('h2', null, sprintf(_('Friends already using %s:'), 
-            common_config('site', 'name')));
-        $this->elementStart('ul', array('id' => 'facebook-friends'));
-        
-        foreach ($exclude_ids as $friend) {
-            $this->elementStart('li');
-            $this->element('fb:profile-pic', array('uid' => $friend, 'size' => 'square'));
-            $this->element('fb:name', array('uid' => $friend,
-                                            'capitalize' => 'true'));
-            $this->elementEnd('li');
-        }
+        if ($exclude_ids) {
 
-        $this->elementEnd("ul");
+            $this->element('h2', null, sprintf(_('Friends already using %s:'),
+                common_config('site', 'name')));
+            $this->elementStart('ul', array('id' => 'facebook-friends'));
+
+            foreach ($exclude_ids as $friend) {
+                $this->elementStart('li');
+                $this->element('fb:profile-pic', array('uid' => $friend, 'size' => 'square'));
+                $this->element('fb:name', array('uid' => $friend,
+                                                'capitalize' => 'true'));
+                $this->elementEnd('li');
+            }
+
+            $this->elementEnd("ul");
+        }
     }
-    
-    function title() 
+
+    function title()
     {
         return sprintf(_('Send invitations'));
     }
