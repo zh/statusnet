@@ -164,11 +164,9 @@ class Router
                     array('action' => 'newnotice'),
                     array('replyto' => '[A-Za-z0-9_-]+'));
 
-/*
         $m->connect('notice/:notice/file', 
             array('action' => 'file'), 
             array('notice' => '[0-9]+'));
-*/
         
         $m->connect('notice/:notice',
                     array('action' => 'shownotice'),
