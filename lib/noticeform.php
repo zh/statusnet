@@ -89,7 +89,8 @@ class NoticeForm extends Form
         } else {
             $this->user = common_current_user();
         }
-        
+
+        $this->enctype = 'multipart/form-data';
     }
 
     /**
@@ -136,18 +137,25 @@ class NoticeForm extends Form
     {
         $this->out->element('label', array('for' => 'notice_data-text'),
                             sprintf(_('What\'s up, %s?'), $this->user->nickname));
+        $this->out->elementStart('span', array('style' => 'float: right; margin-top: 2em;'));
+//        $this->out->element('a', array('href' => '#attach'), ' [ATTACH]');
+        $this->out->elementEnd('span');
         // XXX: vary by defined max size
         $this->out->element('textarea', array('id' => 'notice_data-text',
                                               'cols' => 35,
                                               'rows' => 4,
                                               'name' => 'status_textarea'),
                             ($this->content) ? $this->content : '');
-
         $this->out->elementStart('dl', 'form_note');
         $this->out->element('dt', null, _('Available characters'));
         $this->out->element('dd', array('id' => 'notice_text-count'),
                             '140');
         $this->out->elementEnd('dl');
+        $this->out->element('br', array('style' => 'clear:both'));
+//        $this->out->elementStart('a', array('href' => '#'));
+        $this->out->element('label', array('for' => 'notice_data-attach'), _('Upload: '));
+//        $this->out->elementEnd('a');
+        $this->out->element('input', array('id' => 'notice_data-attach', 'type' => 'file', 'name' => 'attach'));
 
         if ($this->action) {
             $this->out->hidden('notice_return-to', $this->action, 'returnto');

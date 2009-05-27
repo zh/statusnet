@@ -206,6 +206,7 @@ class NoticeListItem extends Widget
         return 'shownotice' !== $this->out->args['action'];
     }
 
+/*
     function attachmentCount($discriminant = true) {
         $file_oembed = new File_oembed;
         $query = "select count(*) as c from file_oembed join file_to_post on file_oembed.file_id = file_to_post.file_id where post_id=" . $this->notice->id;
@@ -213,11 +214,16 @@ class NoticeListItem extends Widget
         $file_oembed->fetch();
         return intval($file_oembed->c);
     }
+*/
+
+    function showWithAttachment() {
+    }
 
     function showNoticeInfo()
     {
         $this->out->elementStart('div', 'entry-content');
         $this->showNoticeLink();
+//        $this->showWithAttachment();
         $this->showNoticeSource();
         $this->showContext();
         $this->out->elementEnd('div');
@@ -388,6 +394,11 @@ class NoticeListItem extends Widget
         $this->out->element('abbr', array('class' => 'published',
                                           'title' => $dt),
                             common_date_string($this->notice->created));
+
+        $f2p = File_to_post::staticGet('post_id', $this->notice->id);
+        if (!empty($f2p)) {
+            $this->out->text(_(' (with attachments) '));
+        }
         $this->out->elementEnd('a');
         $this->out->elementEnd('dd');
         $this->out->elementEnd('dl');

@@ -17,6 +17,17 @@
  */
 
 $(document).ready(function(){
+    $('input#notice_data-attach').toggle();
+    $('label[for=notice_data-attach]').text('Upload a file as an attachment?');
+    $('label[for=notice_data-attach]').click(function () {
+        if ('Upload a file as an attachment?' == $(this).text()) {
+            $(this).text('Upload: ');
+            $('input#notice_data-attach').slideDown('fast');
+        } else {
+            $('input#notice_data-attach').slideUp('fast', function() {$('label[for=notice_data-attach]').text('Upload a file as an attachment?');});
+        }
+    });
+
     $('a.attachment').click(function() {$().jOverlay({url: $('address .url')[0].href+'/attachment/' + ($(this).attr('id').substring('attachment'.length + 1)) + '/ajax'}); return false; });
     $("a.thumbnail").hover(
         function() {
@@ -227,6 +238,7 @@ $(document).ready(function(){
                                                          }
 													}
 													$("#notice_data-text").val("");
+    												$("#notice_data-attach").val("");
                                                     counter();
 												}
 												$("#form_notice").removeClass("processing");

@@ -80,13 +80,15 @@ class AttachmentList extends Widget
 
     function show()
     {
+        $atts = new File;
+        $att = $atts->getAttachments($this->notice->id);
+        if (empty($att)) return 0;
+
         $this->out->elementStart('dl', array('id' =>'attachment'));
         $this->out->element('dt', null, _('Attachments'));
         $this->out->elementStart('dd');
         $this->out->elementStart('ul', array('class' => 'attachments'));
 
-        $atts = new File;
-        $att = $atts->getAttachments($this->notice->id);
         foreach ($att as $n=>$attachment) {
             $item = $this->newListItem($attachment);
             $item->show();
