@@ -35,7 +35,7 @@ define('LACONICA', true);
 require_once(INSTALLDIR . '/lib/common.php');
 require_once('DB.php');
 
-function main() {
+function fixup_utf8($id) {
 
     $dbl = doConnect('latin1');
 
@@ -58,8 +58,16 @@ function main() {
         return;
     }
 
-    $rn = $dbl->query('SELECT id, content, rendered FROM notice ' .
-                      'WHERE LENGTH(content) != CHAR_LENGTH(content)');
+    $sql = 'SELECT id, content, rendered FROM notice ' .
+      'WHERE LENGTH(content) != CHAR_LENGTH(content)';
+
+    if (!empty($id)) {
+        $sql .= ' AND id < ' . $id;
+    }
+
+    $sql .= ' ORDER BY id DESC';
+
+    $rn = $dbl->query($sql);
 
     if (PEAR::isError($rn)) {
         echo "ERROR: " . $rn->getMessage() . "\n";
@@ -128,4 +136,6 @@ function doConnect($charset)
     return $db;
 }
 
-main();
+$id = ($argc > 1) ? $argv[1] : null;
+
+fixup_utf8($id);
