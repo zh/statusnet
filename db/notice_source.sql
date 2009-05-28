@@ -3,6 +3,7 @@ INSERT INTO notice_source
 VALUES
     ('adium', 'Adium', 'http://www.adiumx.com/', now()),
     ('AgentSolo.com','AgentSolo.com','http://www.agentsolo.com/', now()),
+    ('anyio', 'Any.IO', 'http://any.io/', now()),
     ('betwittered','BeTwittered','http://www.32hours.com/betwitteredinfo/', now()),
     ('bti','bti','http://gregkh.github.com/bti/', now()),
     ('cliqset', 'Cliqset', 'http://www.cliqset.com/', now()),
