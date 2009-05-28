@@ -62,7 +62,28 @@ class FBConnectauthAction extends Action
         parent::handle($args);
 
         if (common_is_real_login()) {
-            $this->clientError(_('Already logged in.'));
+
+            // User is already logged in.  Does she already have a linked Facebook acct?
+            $flink = Foreign_link::getByForeignID($this->fbuid, FACEBOOK_CONNECT_SERVICE);
+
+            if ($flink) {
+
+                // User already has a linked Facebook account and shouldn't be here
+                common_debug('There is already a local user (' . $flink->user_id .
+                    ') linked with this Facebook (' . $this->fbuid . ').');
+
+                // We don't want these cookies
+                getFacebook()->clear_cookie_state();
+
+                $this->clientError(_('There is already a local user linked with this Facebook.'));
+
+            } else {
+
+                // User came from the Facebook connect settings tab, and
+                // probably just wants to link/relink their Facebook account
+                $this->connectUser();
+            }
+
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $token = $this->trimmed('token');
@@ -78,7 +99,7 @@ class FBConnectauthAction extends Action
                 }
                 $this->createNewUser();
             } else if ($this->arg('connect')) {
-                $this->connectUser();
+                $this->connectNewUser();
             } else {
                 common_debug(print_r($this->args, true), __FILE__);
                 $this->showForm(_('Something weird happened.'),
@@ -259,7 +280,7 @@ class FBConnectauthAction extends Action
                         303);
     }
 
-    function connectUser()
+    function connectNewUser()
     {
         $nickname = $this->trimmed('nickname');
         $password = $this->trimmed('password');
@@ -288,6 +309,23 @@ class FBConnectauthAction extends Action
         common_real_login(true);
 
         $this->goHome($user->nickname);
+    }
+
+    function connectUser()
+    {
+        $user = common_current_user();
+
+        $result = $this->flinkUser($user->id, $this->fbuid);
+
+        if (!$result) {
+            $this->serverError(_('Error connecting user to Facebook.'));
+            return;
+        }
+
+        common_debug("Connected Facebook user $this->fbuid to local user $user->id");
+
+        // Return to Facebook connection settings tab
+        common_redirect(common_local_url('FBConnectSettings'), 303);
     }
 
     function tryLogin()

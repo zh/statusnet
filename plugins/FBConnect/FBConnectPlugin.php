@@ -143,23 +143,6 @@ class FBConnectPlugin extends Plugin
 
         if ($user) {
 
-            $action->menuItem(common_local_url('all', array('nickname' => $user->nickname)),
-                _('Home'), _('Personal profile and friends timeline'), false, 'nav_home');
-            $action->menuItem(common_local_url('profilesettings'),
-                _('Account'), _('Change your email, avatar, password, profile'), false, 'nav_account');
-            if (common_config('xmpp', 'enabled')) {
-                $action->menuItem(common_local_url('imsettings'),
-                    _('Connect'), _('Connect to IM, SMS, Twitter'), false, 'nav_connect');
-            } else {
-             $action->menuItem(common_local_url('smssettings'),
-                 _('Connect'), _('Connect to SMS, Twitter'), false, 'nav_connect');
-            }
-            $action->menuItem(common_local_url('invite'),
-                _('Invite'),
-                sprintf(_('Invite friends and colleagues to join you on %s'),
-                common_config('site', 'name')),
-                false, 'nav_invitecontact');
-
             $flink = Foreign_link::getByUserId($user->id, FACEBOOK_CONNECT_SERVICE);
             $fbuid = 0;
 
@@ -195,9 +178,25 @@ class FBConnectPlugin extends Plugin
                 }
             }
 
-            // Need to override the Logout link to make it do FB stuff
+            $action->menuItem(common_local_url('all', array('nickname' => $user->nickname)),
+                _('Home'), _('Personal profile and friends timeline'), false, 'nav_home');
+            $action->menuItem(common_local_url('profilesettings'),
+                _('Account'), _('Change your email, avatar, password, profile'), false, 'nav_account');
+            if (common_config('xmpp', 'enabled')) {
+                $action->menuItem(common_local_url('imsettings'),
+                    _('Connect'), _('Connect to IM, SMS, Twitter'), false, 'nav_connect');
+            } else {
+             $action->menuItem(common_local_url('smssettings'),
+                 _('Connect'), _('Connect to SMS, Twitter'), false, 'nav_connect');
+            }
+            $action->menuItem(common_local_url('invite'),
+                _('Invite'),
+                sprintf(_('Invite friends and colleagues to join you on %s'),
+                common_config('site', 'name')),
+                false, 'nav_invitecontact');
 
-            if ($fbuid > 0) {
+            // Need to override the Logout link to make it do FB stuff
+            if ($flink && $fbuid > 0) {
 
                 $logout_url = common_local_url('logout');
                 $title =  _('Logout from the site');
@@ -258,21 +257,32 @@ class FBConnectPlugin extends Plugin
         return true;
     }
 
-    function onEndLogout($action)
+    function onStartLogout($action)
     {
-        try {
+        $user = common_current_user();
+
+        $flink = Foreign_link::getByUserId($user->id, FACEBOOK_CONNECT_SERVICE);
+
+        $action->logout();
+
+        if ($flink) {
 
             $facebook = getFacebook();
-            $fbuid = $facebook->get_loggedin_user();
 
-            if ($fbuid > 0) {
-                $facebook->logout(common_local_url('public'));
+            try {
+                $fbuid = $facebook->get_loggedin_user();
+
+                if ($fbuid > 0) {
+                    $facebook->logout(common_local_url('public'));
+                }
+
+            } catch (Exception $e) {
+                common_log(LOG_WARNING, 'Could\'t logout of Facebook: ' .
+                    $e->getMessage());
             }
-
-        } catch (Exception $e) {
-            common_log(LOG_WARNING, 'Could\'t logout of Facebook: ' .
-                $e->getMessage());
         }
+
+        return true;
     }
 
 }
