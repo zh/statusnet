@@ -41,7 +41,7 @@ class InboxQueueHandler extends QueueHandler
     }
 
 	function start() {
-		$this->log(LOG_INFO, "INITIALIZE");
+		$this->log(LOG_INFO, "Initialize inbox queue handler");
 		return true;
 	}
 
@@ -49,11 +49,19 @@ class InboxQueueHandler extends QueueHandler
     {
         $this->log(LOG_INFO, "Distributing notice to inboxes for $notice->id");
         $notice->addToInboxes();
+        $notice->saveGroups();
         $notice->blowSubsCache();
+        $transports = common_post_inbox_transports();
+
+        foreach ($transports as $transport) {
+            common_enqueue_notice_transport($notice, $transport);
+        }
+
         return true;
     }
 
 	function finish() {
+		$this->log(LOG_INFO, "Terminating inbox queue handler");
 	}
 }
 

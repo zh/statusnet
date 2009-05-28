@@ -879,7 +879,27 @@ function common_broadcast_notice($notice, $remote=false)
 
 function common_enqueue_notice($notice)
 {
-    $transports = array('omb', 'sms', 'twitter', 'facebook', 'ping');
+    $transports = array('twitter', 'facebook', 'ping');
+
+    // If inboxes are enabled, wait till inboxes are filled
+    // before doing inbox-dependent broadcasts
+
+    if (common_config('inboxes', 'enabled') === true ||
+        common_config('inboxes', 'enabled') === 'transitional') {
+        $transports[] = 'inbox';
+    } else {
+        $transports = array_merge($transports, common_post_inbox_transports());
+    }
+
+    foreach ($transports as $transport) {
+        common_enqueue_notice_transport($notice, $transport);
+    }
+    return $result;
+}
+
+function common_post_inbox_transports()
+{
+    $transports = array('omb', 'sms');
 
     if (common_config('xmpp', 'enabled')) {
         $transports = array_merge($transports, array('jabber', 'public'));
@@ -890,25 +910,23 @@ function common_enqueue_notice($notice)
         $transports[] = 'memcache';
     }
 
-    if (common_config('inboxes', 'enabled') === true ||
-        common_config('inboxes', 'enabled') === 'transitional') {
-        $transports[] = 'inbox';
-    }
+    return $transports;
+}
 
-    foreach ($transports as $transport) {
-        $qi = new Queue_item();
-        $qi->notice_id = $notice->id;
-        $qi->transport = $transport;
-        $qi->created = $notice->created;
-        $result = $qi->insert();
-        if (!$result) {
-            $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-            common_log(LOG_ERR, 'DB error inserting queue item: ' . $last_error->message);
-            return false;
-        }
-        common_log(LOG_DEBUG, 'complete queueing notice ID = ' . $notice->id . ' for ' . $transport);
+function common_enqueue_notice_transport($notice, $transport)
+{
+    $qi = new Queue_item();
+    $qi->notice_id = $notice->id;
+    $qi->transport = $transport;
+    $qi->created = $notice->created;
+    $result = $qi->insert();
+    if (!$result) {
+        $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
+        common_log(LOG_ERR, 'DB error inserting queue item: ' . $last_error->message);
+        throw new ServerException('DB error inserting queue item: ' . $last_error->message);
     }
-    return $result;
+    common_log(LOG_DEBUG, 'complete queueing notice ID = ' . $notice->id . ' for ' . $transport);
+    return true;
 }
 
 function common_real_broadcast($notice, $remote=false)

@@ -195,12 +195,12 @@ class Notice extends Memcached_DataObject
 
             $notice->saveReplies();
             $notice->saveTags();
-            $notice->saveGroups();
 
             if (common_config('queue', 'enabled')) {
                 $notice->addToAuthorInbox();
             } else {
                 $notice->addToInboxes();
+                $notice->saveGroups();
             }
 
             $notice->query('COMMIT');
