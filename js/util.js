@@ -276,6 +276,8 @@ function NoticeAttachments() {
         $().jOverlay({url: $('address .url')[0].href+'/attachment/' + ($(this).attr('id').substring('attachment'.length + 1)) + '/ajax'});
         return false;
     });
+    
+    var t;
     $("body:not(#shownotice) a.thumbnail").hover(
         function() {
             var anchor = $(this);
@@ -283,7 +285,7 @@ function NoticeAttachments() {
             anchor.closest(".entry-title").addClass('ov');
 
             if (anchor.children('img').length == 0) {
-                setTimeout(function() {
+                t = setTimeout(function() {
                     $.get($('address .url')[0].href+'/attachment/' + (anchor.attr('id').substring('attachment'.length + 1)) + '/thumbnail', null, function(data) {
                         anchor.append(data);
                     });
@@ -294,6 +296,7 @@ function NoticeAttachments() {
             }
         },
         function() {
+            clearTimeout(t);
             $("a.thumbnail").children('img').hide();
             $(this).closest(".entry-title").removeClass('ov');
         }
