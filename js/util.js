@@ -261,7 +261,7 @@ function NoticeAttachments() {
         url : '',
         color : '#000',
         opacity : '0.6',
-        zIndex : 9999,
+        zIndex : '9999',
         center : true,
         imgLoading : $('address .url')[0].href+'theme/base/images/illustrations/illu_progress_loading-01.gif',
         bgClickToClose : true,
@@ -279,22 +279,22 @@ function NoticeAttachments() {
     $("body:not(#shownotice) a.thumbnail").hover(
         function() {
             var anchor = $(this);
-            $("a.thumbnail").children('img').remove();
+            $("a.thumbnail").children('img').hide();
             anchor.closest(".entry-title").addClass('ov');
 
-            setTimeout(function() {
-                $.get($('address .url')[0].href+'/attachment/' + (anchor.attr('id').substring('attachment'.length + 1)) + '/thumbnail', null, function(data) {
-                    anchor.append(data);
-                });
-            }, 500);
-
-            setTimeout(function() {
-                anchor.children('img').remove();
-                anchor.closest(".entry-title").removeClass('ov');
-            }, 3000);
+            if (anchor.children('img').length == 0) {
+                setTimeout(function() {
+                    $.get($('address .url')[0].href+'/attachment/' + (anchor.attr('id').substring('attachment'.length + 1)) + '/thumbnail', null, function(data) {
+                        anchor.append(data);
+                    });
+                }, 500);
+            }
+            else {
+                anchor.children('img').show();
+            }
         },
         function() {
-            $("a.thumbnail").children('img').remove();
+            $("a.thumbnail").children('img').hide();
             $(this).closest(".entry-title").removeClass('ov');
         }
     );
