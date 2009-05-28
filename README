@@ -690,6 +690,13 @@ to users on a remote site. (Or not... it's not well tested.) The
 Upgrading
 =========
 
+IMPORTANT NOTE: Laconica 0.7.4 introduced a fix for some
+incorrectly-stored international characters ("UTF-8"). For new
+installations, it will now store non-ASCII characters correctly.
+However, older installations will have the incorrect storage, and will
+consequently show up "wrong" in browsers. See below for how to deal
+with this situation.
+
 If you've been using Laconica 0.6, 0.5 or lower, or if you've been
 tracking the "git" version of the software, you will probably want
 to upgrade and keep your existing data. There is no automated upgrade
@@ -778,6 +785,29 @@ problem.
    the memory limit high. You can re-run it without ill effect.
 3. When fixup_inboxes is finished, you can set the enabled flag to
    'true'.
+
+UTF-8 Database
+--------------
+
+Laconica 0.7.4 introduced a fix for some incorrectly-stored
+international characters ("UTF-8"). This fix is not
+backwards-compatible; installations from before 0.7.4 will show
+non-ASCII characters of old notices incorrectly. This section explains
+what to do.
+
+0. You can disable the new behaviour by setting the 'db''utf8' config
+   option to "false". You should only do this until you're ready to
+   convert your DB to the new format.
+1. When you're ready to convert, you can run the fixup_utf8.php script
+   in the scripts/ subdirectory. If you've had the "new behaviour"
+   enabled (probably a good idea), you can give the ID of the first
+   "new" notice as a parameter, and only notices before that one will
+   be converted. Notices are converted in reverse chronological order,
+   so the most recent (and visible) ones will be converted first. The
+   script should work whether or not you have the 'db''utf8' config
+   option enabled.
+2. When you're ready, set $config['db']['utf8'] to true, so that
+   new notices will be stored correctly.
 
 Configuration options
 =====================
