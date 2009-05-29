@@ -2,6 +2,7 @@ INSERT INTO notice_source
     (code, name, url, created)
 VALUES
     ('adium', 'Adium', 'http://www.adiumx.com/', now()),
+    ('Afficheur', 'Afficheur', 'http://afficheur.sourceforge.jp/', now()),
     ('AgentSolo.com','AgentSolo.com','http://www.agentsolo.com/', now()),
     ('anyio', 'Any.IO', 'http://any.io/', now()),
     ('betwittered','BeTwittered','http://www.32hours.com/betwitteredinfo/', now()),
