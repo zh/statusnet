@@ -43,15 +43,15 @@ class Notice_inbox extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    function stream($user_id, $offset, $limit, $since_id, $before_id, $since)
+    function stream($user_id, $offset, $limit, $since_id, $max_id, $since)
     {
         return Notice::stream(array('Notice_inbox', '_streamDirect'),
                               array($user_id),
                               'notice_inbox:by_user:'.$user_id,
-                              $offset, $limit, $since_id, $before_id, $since);
+                              $offset, $limit, $since_id, $max_id, $since);
     }
 
-    function _streamDirect($user_id, $offset, $limit, $since_id, $before_id, $since)
+    function _streamDirect($user_id, $offset, $limit, $since_id, $max_id, $since)
     {
         $inbox = new Notice_inbox();
 
@@ -61,8 +61,8 @@ class Notice_inbox extends Memcached_DataObject
             $inbox->whereAdd('notice_id > ' . $since_id);
         }
 
-        if ($before_id != 0) {
-            $inbox->whereAdd('notice_id < ' . $before_id);
+        if ($max_id != 0) {
+            $inbox->whereAdd('notice_id < ' . $max_id);
         }
 
         if (!is_null($since)) {

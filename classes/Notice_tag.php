@@ -46,7 +46,7 @@ class Notice_tag extends Memcached_DataObject
         return Notice::getStreamByIds($ids);
     }
 
-    function _streamDirect($tag, $offset, $limit, $since_id, $before_id, $since)
+    function _streamDirect($tag, $offset, $limit, $since_id, $max_id, $since)
     {
         $nt = new Notice_tag();
 
@@ -59,8 +59,8 @@ class Notice_tag extends Memcached_DataObject
             $nt->whereAdd('notice_id > ' . $since_id);
         }
 
-        if ($before_id != 0) {
-            $nt->whereAdd('notice_id < ' . $before_id);
+        if ($max_id != 0) {
+            $nt->whereAdd('notice_id < ' . $max_id);
         }
 
         if (!is_null($since)) {

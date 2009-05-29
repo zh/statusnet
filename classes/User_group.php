@@ -58,7 +58,7 @@ class User_group extends Memcached_DataObject
         return Notice::getStreamByIds($ids);
     }
 
-    function _streamDirect($offset, $limit, $since_id, $before_id, $since)
+    function _streamDirect($offset, $limit, $since_id, $max_id, $since)
     {
         $inbox = new Group_inbox();
 
@@ -71,8 +71,8 @@ class User_group extends Memcached_DataObject
             $inbox->whereAdd('notice_id > ' . $since_id);
         }
 
-        if ($before_id != 0) {
-            $inbox->whereAdd('notice_id < ' . $before_id);
+        if ($max_id != 0) {
+            $inbox->whereAdd('notice_id < ' . $max_id);
         }
 
         if (!is_null($since)) {
