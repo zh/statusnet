@@ -153,18 +153,18 @@ class Profile extends Memcached_DataObject
         return null;
     }
 
-    function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
+    function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
     {
         // XXX: I'm not sure this is going to be any faster. It probably isn't.
         $ids = Notice::stream(array($this, '_streamDirect'),
                               array(),
                               'profile:notice_ids:' . $this->id,
-                              $offset, $limit, $since_id, $before_id);
+                              $offset, $limit, $since_id, $max_id);
 
         return Notice::getStreamByIds($ids);
     }
 
-    function _streamDirect($offset, $limit, $since_id, $before_id, $since)
+    function _streamDirect($offset, $limit, $since_id, $max_id, $since)
     {
         $notice = new Notice();
 
@@ -177,8 +177,8 @@ class Profile extends Memcached_DataObject
             $notice->whereAdd('id > ' . $since_id);
         }
 
-        if ($before_id != 0) {
-            $notice->whereAdd('id < ' . $before_id);
+        if ($max_id != 0) {
+            $notice->whereAdd('id <= ' . $max_id);
         }
 
         if (!is_null($since)) {

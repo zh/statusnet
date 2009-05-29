@@ -426,22 +426,22 @@ class Notice extends Memcached_DataObject
     # XXX: too many args; we need to move to named params or even a separate
     # class for notice streams
 
-    static function getStream($qry, $cachekey, $offset=0, $limit=20, $since_id=0, $before_id=0, $order=null, $since=null) {
+    static function getStream($qry, $cachekey, $offset=0, $limit=20, $since_id=0, $max_id=0, $order=null, $since=null) {
 
         if (common_config('memcached', 'enabled')) {
 
-            # Skip the cache if this is a since, since_id or before_id qry
-            if ($since_id > 0 || $before_id > 0 || $since) {
-                return Notice::getStreamDirect($qry, $offset, $limit, $since_id, $before_id, $order, $since);
+            # Skip the cache if this is a since, since_id or max_id qry
+            if ($since_id > 0 || $max_id > 0 || $since) {
+                return Notice::getStreamDirect($qry, $offset, $limit, $since_id, $max_id, $order, $since);
             } else {
                 return Notice::getCachedStream($qry, $cachekey, $offset, $limit, $order);
             }
         }
 
-        return Notice::getStreamDirect($qry, $offset, $limit, $since_id, $before_id, $order, $since);
+        return Notice::getStreamDirect($qry, $offset, $limit, $since_id, $max_id, $order, $since);
     }
 
-    static function getStreamDirect($qry, $offset, $limit, $since_id, $before_id, $order, $since) {
+    static function getStreamDirect($qry, $offset, $limit, $since_id, $max_id, $order, $since) {
 
         $needAnd = false;
         $needWhere = true;
@@ -463,7 +463,7 @@ class Notice extends Memcached_DataObject
             $qry .= ' notice.id > ' . $since_id;
         }
 
-        if ($before_id > 0) {
+        if ($max_id > 0) {
 
             if ($needWhere) {
                 $qry .= ' WHERE ';
@@ -472,7 +472,7 @@ class Notice extends Memcached_DataObject
                 $qry .= ' AND ';
             }
 
-            $qry .= ' notice.id < ' . $before_id;
+            $qry .= ' notice.id <= ' . $max_id;
         }
 
         if ($since) {
@@ -630,17 +630,17 @@ class Notice extends Memcached_DataObject
         }
     }
 
-    function publicStream($offset=0, $limit=20, $since_id=0, $before_id=0, $since=null)
+    function publicStream($offset=0, $limit=20, $since_id=0, $max_id=0, $since=null)
     {
         $ids = Notice::stream(array('Notice', '_publicStreamDirect'),
                               array(),
                               'public',
-                              $offset, $limit, $since_id, $before_id, $since);
+                              $offset, $limit, $since_id, $max_id, $since);
 
         return Notice::getStreamByIds($ids);
     }
 
-    function _publicStreamDirect($offset=0, $limit=20, $since_id=0, $before_id=0, $since=null)
+    function _publicStreamDirect($offset=0, $limit=20, $since_id=0, $max_id=0, $since=null)
     {
         $notice = new Notice();
 
@@ -664,8 +664,8 @@ class Notice extends Memcached_DataObject
             $notice->whereAdd('id > ' . $since_id);
         }
 
-        if ($before_id != 0) {
-            $notice->whereAdd('id < ' . $before_id);
+        if ($max_id != 0) {
+            $notice->whereAdd('id <= ' . $max_id);
         }
 
         if (!is_null($since)) {
@@ -998,15 +998,15 @@ class Notice extends Memcached_DataObject
         }
     }
 
-    function stream($fn, $args, $cachekey, $offset=0, $limit=20, $since_id=0, $before_id=0, $since=null)
+    function stream($fn, $args, $cachekey, $offset=0, $limit=20, $since_id=0, $max_id=0, $since=null)
     {
         $cache = common_memcache();
 
         if (empty($cache) ||
-            $since_id != 0 || $before_id != 0 || !is_null($since) ||
+            $since_id != 0 || $max_id != 0 || !is_null($since) ||
             ($offset + $limit) > NOTICE_CACHE_WINDOW) {
             return call_user_func_array($fn, array_merge($args, array($offset, $limit, $since_id,
-                                                                      $before_id, $since)));
+                                                                      $max_id, $since)));
         }
 
         $idkey = common_cache_key($cachekey);

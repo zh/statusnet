@@ -62,7 +62,7 @@ class Notice_inbox extends Memcached_DataObject
         }
 
         if ($max_id != 0) {
-            $inbox->whereAdd('notice_id < ' . $max_id);
+            $inbox->whereAdd('notice_id <= ' . $max_id);
         }
 
         if (!is_null($since)) {

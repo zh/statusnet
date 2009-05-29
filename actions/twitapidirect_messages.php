@@ -75,7 +75,7 @@ class Twitapidirect_messagesAction extends TwitterapiAction
         }
 
         if ($max_id) {
-            $message->whereAdd("id < $max_id");
+            $message->whereAdd("id <= $max_id");
         }
 
         if ($since_id) {

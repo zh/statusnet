@@ -60,7 +60,7 @@ class Fave extends Memcached_DataObject
         }
 
         if ($max_id != 0) {
-            $fav->whereAdd('notice_id < ' . $max_id);
+            $fav->whereAdd('notice_id <= ' . $max_id);
         }
 
         if (!is_null($since)) {
