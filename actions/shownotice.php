@@ -208,10 +208,10 @@ class ShownoticeAction extends Action
 
     function showContent()
     {
-        $this->elementStart('ul', array('class' => 'notices'));
+        $this->elementStart('ol', array('class' => 'notices xoxo'));
         $nli = new NoticeListItem($this->notice, $this);
         $nli->show();
-        $this->elementEnd('ul');
+        $this->elementEnd('ol');
     }
 
     /**
