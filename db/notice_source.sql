@@ -2,6 +2,7 @@ INSERT INTO notice_source
     (code, name, url, created)
 VALUES
     ('adium', 'Adium', 'http://www.adiumx.com/', now()),
+    ('AgentSolo.com','AgentSolo.com','http://www.agentsolo.com/', now()),
     ('betwittered','BeTwittered','http://www.32hours.com/betwitteredinfo/', now()),
     ('bti','bti','http://gregkh.github.com/bti/', now()),
     ('cliqset', 'Cliqset', 'http://www.cliqset.com/', now()),
@@ -29,6 +30,7 @@ VALUES
     ('pingvine','PingVine','http://pingvine.com/', now()),
     ('pocketwit','PockeTwit','http://code.google.com/p/pocketwit/', now()),
     ('posty','Posty','http://spreadingfunkyness.com/posty/', now()),
+    ('qtwitter','qTwitter','http://qtwitter.ayoy.net/', now()),
     ('royalewithcheese','Royale With Cheese','http://p.hellyeah.org/', now()),
     ('rssdent','rssdent','http://github.com/zcopley/rssdent/tree/master', now()),
     ('rygh.no','rygh.no','http://rygh.no/', now()),
