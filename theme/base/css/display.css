@@ -959,7 +959,8 @@ clear:both;
 }
 
 #jOverlayContent,
-#jOverlayContent #content {
+#jOverlayContent #content,
+#jOverlayContent #content_inner {
 width: auto !important;
 }
 #jOverlayContent .external span {
@@ -973,7 +974,14 @@ right:0;
 padding:3px 4px;
 font-weight:bold;
 }
-
+#jOverlayContent h1 {
+max-width:475px;
+}
+#jOverlayContent #content {
+border-radius:7px;
+-moz-border-radius:7px;
+-webkit-border-radius:7px;
+}
 
 #usergroups #new_group {
 float: left;
