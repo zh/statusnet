@@ -13,6 +13,7 @@ VALUES
     ('eventbox','EventBox','http://thecosmicmachine.com/eventbox/ ', now()),
     ('Facebook','Facebook','http://apps.facebook.com/identica/', now()),
     ('feed2omb','feed2omb','http://projects.ciarang.com/p/feed2omb/', now()),
+    ('get2gnow', 'get2gnow', 'http://uberchicgeekchick.com/?projects=get2gnow', now()),
     ('gravity', 'Gravity', 'http://mobileways.de/gravity', now()),
     ('Gwibber','Gwibber','http://launchpad.net/gwibber', now()),
     ('HelloTxt','HelloTxt','http://hellotxt.com/', now()),
