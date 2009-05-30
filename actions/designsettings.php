@@ -70,7 +70,7 @@ class DesignsettingsAction extends AccountSettingsAction
     function showContent()
     {
         $user = common_current_user();
-        $this->elementStart('form', array('method' => 'POST',
+        $this->elementStart('form', array('method' => 'post',
                                           'id' => 'form_settings_design',
                                           'class' => 'form_settings',
                                           'action' =>
