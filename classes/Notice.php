@@ -196,12 +196,8 @@ class Notice extends Memcached_DataObject
             $notice->saveReplies();
             $notice->saveTags();
 
-            if (common_config('queue', 'enabled')) {
-                $notice->addToAuthorInbox();
-            } else {
-                $notice->addToInboxes();
-                $notice->saveGroups();
-            }
+            $notice->addToInboxes();
+            $notice->saveGroups();
 
             $notice->query('COMMIT');
 
@@ -211,13 +207,7 @@ class Notice extends Memcached_DataObject
         # Clear the cache for subscribed users, so they'll update at next request
         # XXX: someone clever could prepend instead of clearing the cache
 
-        if (common_config('memcached', 'enabled')) {
-            if (common_config('queue', 'enabled')) {
-                $notice->blowAuthorCaches();
-            } else {
-                $notice->blowCaches();
-            }
-        }
+        $notice->blowCaches();
 
         return $notice;
     }
@@ -278,17 +268,6 @@ class Notice extends Memcached_DataObject
         $this->blowPublicCache($blowLast);
         $this->blowTagCache($blowLast);
         $this->blowGroupCache($blowLast);
-    }
-
-    function blowAuthorCaches($blowLast=false)
-    {
-        // Clear the user's cache
-        $cache = common_memcache();
-        if (!empty($cache)) {
-            $cache->delete(common_cache_key('notice_inbox:by_user:'.$this->profile_id));
-        }
-        $this->blowNoticeCache($blowLast);
-        $this->blowPublicCache($blowLast);
     }
 
     function blowGroupCache($blowLast=false)
@@ -700,33 +679,6 @@ class Notice extends Memcached_DataObject
               'AND NOT EXISTS (SELECT user_id, notice_id ' .
               'FROM notice_inbox ' .
               "WHERE user_id = $UT.id " .
-              'AND notice_id = ' . $this->id . ' )';
-            if ($enabled === 'transitional') {
-                $qry .= " AND $UT.inboxed = 1";
-            }
-            $inbox->query($qry);
-        }
-        return;
-    }
-
-    function addToAuthorInbox()
-    {
-        $enabled = common_config('inboxes', 'enabled');
-
-        if ($enabled === true || $enabled === 'transitional') {
-            $user = User::staticGet('id', $this->profile_id);
-            if (empty($user)) {
-                return;
-            }
-            $inbox = new Notice_inbox();
-            $UT = common_config('db','type')=='pgsql'?'"user"':'user';
-            $qry = 'INSERT INTO notice_inbox (user_id, notice_id, created) ' .
-              "SELECT $UT.id, " . $this->id . ", '" . $this->created . "' " .
-              "FROM $UT " .
-              "WHERE $UT.id = " . $this->profile_id . ' ' .
-              'AND NOT EXISTS (SELECT user_id, notice_id ' .
-              'FROM notice_inbox ' .
-              "WHERE user_id = " . $this->profile_id . ' '.
               'AND notice_id = ' . $this->id . ' )';
             if ($enabled === 'transitional') {
                 $qry .= " AND $UT.inboxed = 1";

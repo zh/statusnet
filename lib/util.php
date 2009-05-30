@@ -884,16 +884,12 @@ function common_enqueue_notice($notice)
     // If inboxes are enabled, wait till inboxes are filled
     // before doing inbox-dependent broadcasts
 
-    if (common_config('inboxes', 'enabled') === true ||
-        common_config('inboxes', 'enabled') === 'transitional') {
-        $transports[] = 'inbox';
-    } else {
-        $transports = array_merge($transports, common_post_inbox_transports());
-    }
+    $transports = array_merge($transports, common_post_inbox_transports());
 
     foreach ($transports as $transport) {
         common_enqueue_notice_transport($notice, $transport);
     }
+
     return $result;
 }
 
@@ -903,11 +899,6 @@ function common_post_inbox_transports()
 
     if (common_config('xmpp', 'enabled')) {
         $transports = array_merge($transports, array('jabber', 'public'));
-    }
-
-    if (common_config('memcached', 'enabled')) {
-        // Note: limited to 8 chars
-        $transports[] = 'memcache';
     }
 
     return $transports;

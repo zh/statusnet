@@ -25,7 +25,6 @@
  * daemon names.
  */
 
-
 # Abort if called from a web server
 if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
     print "This script must be run from the command line\n";
@@ -41,12 +40,8 @@ if(common_config('xmpp','enabled')) {
     echo "xmppdaemon.php jabberqueuehandler.php publicqueuehandler.php ";
     echo "xmppconfirmhandler.php ";
 }
-if(common_config('memcached','enabled')) {
-    echo "memcachedqueuehandler.php ";
-}
 echo "ombqueuehandler.php ";
 echo "twitterqueuehandler.php ";
 echo "facebookqueuehandler.php ";
 echo "pingqueuehandler.php ";
-echo "inboxqueuehandler.php ";
 echo "smsqueuehandler.php ";
