@@ -951,7 +951,7 @@ font-size:1.3em;
 margin-bottom:4px;
 }
 
-#attachments li {
+#attachments ol li {
 margin-bottom:18px;
 list-style-type:decimal;
 float:left;
@@ -962,6 +962,11 @@ clear:both;
 #jOverlayContent #content,
 #jOverlayContent #content_inner {
 width: auto !important;
+margin-bottom:0;
+}
+#jOverlayContent #content {
+padding:11px;
+min-height:auto;
 }
 #jOverlayContent .external span {
 display:block;
@@ -971,8 +976,11 @@ margin-bottom:11px;
 position:absolute;
 top:0;
 right:0;
-padding:3px 4px;
+width:29px;
+height:29px;
+text-align:center;
 font-weight:bold;
+padding:0;
 }
 #jOverlayContent h1 {
 max-width:475px;

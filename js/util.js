@@ -261,7 +261,7 @@ function NoticeAttachments() {
         url : '',
         color : '#000',
         opacity : '0.6',
-        zIndex : '9999',
+        zIndex : 99,
         center : true,
         imgLoading : $('address .url')[0].href+'theme/base/images/illustrations/illu_progress_loading-01.gif',
         bgClickToClose : true,
