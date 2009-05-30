@@ -35,7 +35,7 @@ define('LACONICA', true);
 require_once(INSTALLDIR . '/lib/common.php');
 require_once('DB.php');
 
-function fixup_utf8($id) {
+function fixup_utf8($max_id, $min_id) {
 
     $dbl = doConnect('latin1');
 
@@ -61,8 +61,12 @@ function fixup_utf8($id) {
     $sql = 'SELECT id, content, rendered FROM notice ' .
       'WHERE LENGTH(content) != CHAR_LENGTH(content)';
 
-    if (!empty($id)) {
-        $sql .= ' AND id < ' . $id;
+    if (!empty($max_id)) {
+        $sql .= ' AND id <= ' . $max_id;
+    }
+
+    if (!empty($min_id)) {
+        $sql .= ' AND id >= ' . $min_id;
     }
 
     $sql .= ' ORDER BY id DESC';
@@ -136,6 +140,7 @@ function doConnect($charset)
     return $db;
 }
 
-$id = ($argc > 1) ? $argv[1] : null;
+$max_id = ($argc > 1) ? $argv[1] : null;
+$min_id = ($argc > 2) ? $argv[2] : null;
 
-fixup_utf8($id);
+fixup_utf8($max_id, $min_id);
