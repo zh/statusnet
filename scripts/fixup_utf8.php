@@ -121,10 +121,14 @@ function doConnect($charset)
         return NULL;
     }
 
-    $result = $db->query("SET NAMES $charset");
+//    $result = $db->query("SET NAMES $charset");
 
-    if (PEAR::isError($result)) {
-        echo "ERROR: " . $result->getMessage() . "\n";
+    $conn = $db->connection;
+
+    $succ = mysqli_set_charset($conn, $charset);
+
+    if (!$succ) {
+        echo "ERROR: couldn't set charset\n";
         $db->disconnect();
         return NULL;
     }
