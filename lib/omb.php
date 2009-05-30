@@ -159,13 +159,9 @@ function omb_post_notice($notice, $remote_profile, $subscription)
 
 function omb_post_notice_keys($notice, $postnoticeurl, $tk, $secret)
 {
-
-    common_debug('Posting notice ' . $notice->id . ' to ' . $postnoticeurl, __FILE__);
-
     $user = User::staticGet('id', $notice->profile_id);
 
     if (!$user) {
-        common_debug('Failed to get user for notice ' . $notice->id . ', profile = ' . $notice->profile_id, __FILE__);
         return false;
     }
 
@@ -207,8 +203,6 @@ function omb_post_notice_keys($notice, $postnoticeurl, $tk, $secret)
     $result = $fetcher->post($req->get_normalized_http_url(),
                              $req->to_postdata(),
                              array('User-Agent: Laconica/' . LACONICA_VERSION));
-
-    common_debug('Got HTTP result "'.print_r($result,true).'"', __FILE__);
 
     if ($result->status == 403) { # not authorized, don't send again
         common_debug('403 result, deleting subscription', __FILE__);
@@ -286,13 +280,9 @@ function omb_update_profile($profile, $remote_profile, $subscription)
 
     $fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
 
-    common_debug('request URL = '.$req->get_normalized_http_url(), __FILE__);
-    common_debug('postdata = '.$req->to_postdata(), __FILE__);
     $result = $fetcher->post($req->get_normalized_http_url(),
                              $req->to_postdata(),
                              array('User-Agent: Laconica/' . LACONICA_VERSION));
-
-    common_debug('Got HTTP result "'.print_r($result,true).'"', __FILE__);
 
     if (empty($result) || !$result) {
         common_debug("Unable to contact " . $req->get_normalized_http_url());
