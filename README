@@ -1204,11 +1204,27 @@ The software lets users upload files with their notices. You can configure
 the types of accepted files by mime types and a trio of quota options:
 per file, per user (total), per user per month.
 
+We suggest the use of the pecl file_info extension to handle mime type
+detection.
+
 supported: an array of mime types you accept to store and distribute,
-           like 'image/gif', 'video/mpeg', 'audio/mpeg', etc.
-file_quota: maximum size for a single file upload in bytes.
-user_quota: total size in bytes a user can store.
-monthly_quota: total size permitted in the current month.
+           like 'image/gif', 'video/mpeg', 'audio/mpeg', etc. Make sure you
+           setup your server to properly reckognize the types you want to
+           support.
+
+For quotas, be sure you've set the upload_max_filesize and post_max_size
+in php.ini to be large enough to handle your upload. In httpd.conf
+(if you're using apache), check that the LimitRequestBody directive isn't
+set too low (it's optional, so it may not be there at all).
+
+file_quota: maximum size for a single file upload in bytes. A user can send
+            any amount of notices with attachments as long as each attachment
+            is smaller than file_quota.
+user_quota: total size in bytes a user can store on this server. Each user
+            can store any number of files as long as their total size does
+            not exceed the user_quota.
+monthly_quota: total size permitted in the current month. This is the total
+            size in bytes that a user can upload each month.
 
 
 Troubleshooting

@@ -137,9 +137,6 @@ class NoticeForm extends Form
     {
         $this->out->element('label', array('for' => 'notice_data-text'),
                             sprintf(_('What\'s up, %s?'), $this->user->nickname));
-        $this->out->elementStart('span', array('style' => 'float: right; margin-top: 2em;'));
-//        $this->out->element('a', array('href' => '#attach'), ' [ATTACH]');
-        $this->out->elementEnd('span');
         // XXX: vary by defined max size
         $this->out->element('textarea', array('id' => 'notice_data-text',
                                               'cols' => 35,
@@ -152,15 +149,16 @@ class NoticeForm extends Form
                             '140');
         $this->out->elementEnd('dl');
         $this->out->element('br', array('style' => 'clear:both'));
-//        $this->out->elementStart('a', array('href' => '#'));
         $this->out->element('label', array('for' => 'notice_data-attach'), _('Upload: '));
-//        $this->out->elementEnd('a');
         $this->out->element('input', array('id' => 'notice_data-attach', 'type' => 'file', 'name' => 'attach'));
 
         if ($this->action) {
             $this->out->hidden('notice_return-to', $this->action, 'returnto');
         }
         $this->out->hidden('notice_in-reply-to', $this->action, 'inreplyto');
+
+        $this->out->hidden('MAX_FILE_SIZE', common_config('attachments', 'file_quota'));
+
     }
 
     /**
