@@ -84,20 +84,24 @@ class NewnoticeAction extends Action
 
     function handle($args)
     {
-        parent::handle($args);
-
         if (!common_logged_in()) {
             $this->clientError(_('Not logged in.'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // check for this before token since all POST and FILES data
+            // is losts when size is exceeded
+            if (empty($_POST) && $_SERVER['CONTENT_LENGTH']) {
+                $this->clientError(sprintf(_('The server was unable to handle ' .
+                    'that much POST data (%s bytes) due to its current configuration.'),
+                    $_SERVER['CONTENT_LENGTH']));
+            }
+            parent::handle($args);
 
             // CSRF protection
             $token = $this->trimmed('token');
             if (!$token || $token != common_session_token()) {
                 $this->clientError(_('There was a problem with your session token. '.
                                      'Try again, please.'));
-                return;
             }
-
             try {
                 $this->saveNewNotice();
             } catch (Exception $e) {
@@ -109,8 +113,55 @@ class NewnoticeAction extends Action
         }
     }
 
-    function isFileAttached() {
-        return isset($_FILES['attach']['error']) && ($_FILES['attach']['error'] === UPLOAD_ERR_OK);
+    function isSupportedFileType() {
+        require_once 'MIME/Type.php';
+
+        $filetype = MIME_Type::autoDetect($_FILES['attach']['tmp_name']);
+        if (in_array($filetype, common_config('attachments', 'supported'))) {
+            return true;
+        }
+        $media = MIME_Type::getMedia($filetype);
+        if ('application' !== $media) {
+            $hint = sprintf(_(' Try using another %s format.'), $media);
+        } else {
+            $hint = '';
+        }
+        $this->clientError(sprintf(
+            _('%s is not a supported filetype on this server.'), $filetype) . $hint);
+    }
+
+    function isRespectsQuota($user) {
+        if ($_FILES['attach']['size'] > common_config('attachments', 'file_quota')) {
+            $this->clientError(sprintf(_('No file may be larger than %d bytes ' .
+                'and the file you sent was %d bytes. Try to upload a smaller version.'),
+                common_config('attachments', 'file_quota'), $_FILES['attach']['size']));
+        }
+
+        $query = "select sum(size) as total from file join file_to_post on file_to_post.file_id = file.id join notice on file_to_post.post_id = notice.id where profile_id = {$user->id} and file.url like '%/notice/%/file'";
+        $file = new File;
+        $file->query($query);
+        $file->fetch();
+        $total = $file->total + $_FILES['attach']['size'];
+        if ($total > common_config('attachments', 'user_quota')) {
+            $this->clientError(sprintf(_('A file this large would exceed your user quota of %d bytes.'), common_config('attachments', 'user_quota')));
+        }
+
+        $query .= ' month(modified) = month(now()) and year(modified) = year(now())';
+        $file2 = new File;
+        $file2->query($query);
+        $file2->fetch();
+        $total2 = $file2->total + $_FILES['attach']['size'];
+        if ($total2 > common_config('attachments', 'monthly_quota')) {
+            $this->clientError(sprintf(_('A file this large would exceed your monthly quota of %d bytes.'), common_config('attachments', 'monthly_quota')));
+        }
+        return true;
+    }
+
+    function isValidFileAttached($user) {
+        return isset($_FILES['attach']['error'])
+            && ($_FILES['attach']['error'] === UPLOAD_ERR_OK)
+            && $this->isSupportedFileType()
+            && $this->isRespectsQuota($user);
     }
 
     /**
@@ -135,7 +186,6 @@ class NewnoticeAction extends Action
             $this->clientError(_('No content!'));
         } else {
             $content_shortened = common_shorten_links($content);
-
             if (mb_strlen($content_shortened) > 140) {
                 $this->clientError(_('That\'s too long. '.
                                      'Max notice size is 140 chars.'));
@@ -162,19 +212,54 @@ class NewnoticeAction extends Action
             $replyto = 'false';
         }
 
+        switch ($_FILES['attach']['error']) {
+            case UPLOAD_ERR_NO_FILE:
+                // no file uploaded
+                // nothing to do
+                break;
+
+             case UPLOAD_ERR_OK:
+                // file was uploaded alright
+                // lets check if we really support its format
+                // and it doesn't go over quotas
+
+
+                if (!$this->isValidFileAttached($user)) {
+                    die('clientError() should trigger an exception before reaching here.');
+                }
+                break;
+
+            case UPLOAD_ERR_INI_SIZE:
+                $this->clientError(_('The uploaded file exceeds the upload_max_filesize directive in php.ini.'));
+
+            case UPLOAD_ERR_FORM_SIZE:
+                $this->clientError(_('The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.'));
+
+            case UPLOAD_ERR_PARTIAL:
+                $this->clientError(_('The uploaded file was only partially uploaded.'));
+
+            case  UPLOAD_ERR_NO_TMP_DIR:
+                $this->clientError(_('Missing a temporary folder.'));
+
+            case UPLOAD_ERR_CANT_WRITE:
+                $this->clientError(_('Failed to write file to disk.'));
+
+            case UPLOAD_ERR_EXTENSION:
+                $this->clientError(_('File upload stopped by extension.'));
+
+            default:
+                die('Should never reach here.');
+        }
+
         $notice = Notice::saveNew($user->id, $content_shortened, 'web', 1,
                                   ($replyto == 'false') ? null : $replyto);
 
         if (is_string($notice)) {
             $this->clientError($notice);
-            return;
         }
 
-        if ($this->isFileAttached()) {
-            $this->storeFile($notice);
-        }
+        $this->storeFile($notice);
         $this->saveUrls($notice);
-
         common_broadcast_notice($notice);
 
         if ($this->boolean('ajax')) {
@@ -201,12 +286,12 @@ class NewnoticeAction extends Action
     }
 
     function storeFile($notice) {
+        if (UPLOAD_ERR_NO_FILE === $_FILES['attach']['error']) return;
         $filename = basename($_FILES['attach']['name']);
         $destination = "file/{$notice->id}-$filename";
         if (move_uploaded_file($_FILES['attach']['tmp_name'], INSTALLDIR . "/$destination")) {
             $file = new File;
             $file->url = common_local_url('file', array('notice' => $notice->id));
-//            $file->url = common_path($destination);
             $file->size = filesize(INSTALLDIR . "/$destination");
             $file->date = time();
             $file->mimetype = $_FILES['attach']['type'];
@@ -221,14 +306,9 @@ class NewnoticeAction extends Action
                 $f2p->post_id = $notice->id; 
                 $f2p->insert();
             } else {
-                die('inserting file, dying');
+                $this->clientError(_('There was a database error while saving your file. Please try again.'));
             }
         }
-/*
-        $url = common_local_url('file', array('notice' => $notice->id));
-        echo "$destination<br />";
-        die($url);
-*/
     }
 
 

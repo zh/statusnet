@@ -163,6 +163,40 @@ $config =
         array('run' => 'web',
               'frequency' => 10000,
               'reporturl' => 'http://laconi.ca/stats/report'),
+        'attachments' =>
+        array('supported' => array('image/png',
+            'image/jpeg',
+            'image/gif',
+            'image/svg+xml',
+            'audio/mpeg',
+            'application/ogg',
+            'application/pdf',
+            'application/vnd.oasis.opendocument.text',
+            'application/vnd.oasis.opendocument.text-template',
+            'application/vnd.oasis.opendocument.graphics',
+            'application/vnd.oasis.opendocument.graphics-template',
+            'application/vnd.oasis.opendocument.presentation',
+            'application/vnd.oasis.opendocument.presentation-template',
+            'application/vnd.oasis.opendocument.spreadsheet',
+            'application/vnd.oasis.opendocument.spreadsheet-template',
+            'application/vnd.oasis.opendocument.chart',
+            'application/vnd.oasis.opendocument.chart-template',
+            'application/vnd.oasis.opendocument.image',
+            'application/vnd.oasis.opendocument.image-template',
+            'application/vnd.oasis.opendocument.formula',
+            'application/vnd.oasis.opendocument.formula-template',
+            'application/vnd.oasis.opendocument.text-master',
+            'application/vnd.oasis.opendocument.text-web',
+            'application/zip',
+            'text/plain',
+            'video/mpeg',
+            'video/mp4',
+            'video/quicktime',
+            'video/mpeg'),
+        'file_quota' => 5000000,
+        'user_quota' => 50000000,
+        'monthly_quota' => 15000000,
+        ),
         );
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
@@ -223,19 +257,19 @@ if ($_db_name != 'laconica' && !array_key_exists('ini_'.$_db_name, $config['db']
 
 // XXX: how many of these could be auto-loaded on use?
 
-require_once('Validate.php');
-require_once('markdown.php');
+require_once 'Validate.php';
+require_once 'markdown.php';
 
-require_once(INSTALLDIR.'/lib/util.php');
-require_once(INSTALLDIR.'/lib/action.php');
-require_once(INSTALLDIR.'/lib/theme.php');
-require_once(INSTALLDIR.'/lib/mail.php');
-require_once(INSTALLDIR.'/lib/subs.php');
-require_once(INSTALLDIR.'/lib/Shorturl_api.php');
-require_once(INSTALLDIR.'/lib/twitter.php');
+require_once INSTALLDIR.'/lib/util.php';
+require_once INSTALLDIR.'/lib/action.php';
+require_once INSTALLDIR.'/lib/theme.php';
+require_once INSTALLDIR.'/lib/mail.php';
+require_once INSTALLDIR.'/lib/subs.php';
+require_once INSTALLDIR.'/lib/Shorturl_api.php';
+require_once INSTALLDIR.'/lib/twitter.php';
 
-require_once(INSTALLDIR.'/lib/clientexception.php');
-require_once(INSTALLDIR.'/lib/serverexception.php');
+require_once INSTALLDIR.'/lib/clientexception.php';
+require_once INSTALLDIR.'/lib/serverexception.php';
 
 // XXX: other formats here
 
