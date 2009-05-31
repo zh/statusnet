@@ -163,6 +163,7 @@ class UTF8FixerUpper
 
             $notice = Notice::staticGet('id', $id);
             $notice->decache();
+            $notice->free();
 
             echo "OK\n";
         }
@@ -226,6 +227,7 @@ class UTF8FixerUpper
 
             $profile = Profile::staticGet('id', $id);
             $profile->decache();
+            $profile->free();
 
             echo "OK\n";
         }
@@ -289,6 +291,7 @@ class UTF8FixerUpper
 
             $user_group = User_group::staticGet('id', $id);
             $user_group->decache();
+            $user_group->free();
 
             echo "OK\n";
         }
