@@ -83,11 +83,10 @@ class AttachmentList extends Widget
         $atts = new File;
         $att = $atts->getAttachments($this->notice->id);
         if (empty($att)) return 0;
-
-        $this->out->elementStart('dl', array('id' =>'attachment'));
+        $this->out->elementStart('dl', array('id' =>'attachments'));
         $this->out->element('dt', null, _('Attachments'));
         $this->out->elementStart('dd');
-        $this->out->elementStart('ul', array('class' => 'attachments'));
+        $this->out->elementStart('ol', array('class' => 'attachments'));
 
         foreach ($att as $n=>$attachment) {
             $item = $this->newListItem($attachment);
@@ -95,7 +94,7 @@ class AttachmentList extends Widget
         }
 
         $this->out->elementEnd('dd');
-        $this->out->elementEnd('ul');
+        $this->out->elementEnd('ol');
         $this->out->elementEnd('dl');
 
         return count($att);

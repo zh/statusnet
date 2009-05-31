@@ -855,20 +855,6 @@ display:inline-block;
 text-transform:lowercase;
 }
 
-.notice .attachment {
-position:relative;
-}
-.notice .attachment img {
-position:absolute;
-top:18px;
-left:0;
-z-index:99;
-}
-#shownotice .notice .attachment img {
-position:static;
-}
-
-
 .notice-options {
 position:relative;
 font-size:0.95em;
@@ -935,6 +921,75 @@ border:0;
 padding:0;
 }
 
+
+.notice .attachment {
+position:relative;
+padding-left:16px;
+}
+#attachments .attachment {
+padding-left:0;
+}
+.notice .attachment img {
+position:absolute;
+top:18px;
+left:0;
+z-index:99;
+}
+#shownotice .notice .attachment img {
+position:static;
+}
+
+#attachments {
+clear:both;
+float:left;
+width:100%;
+margin-top:18px;
+}
+#attachments dt {
+font-weight:bold;
+font-size:1.3em;
+margin-bottom:4px;
+}
+
+#attachments ol li {
+margin-bottom:18px;
+list-style-type:decimal;
+float:left;
+clear:both;
+}
+
+#jOverlayContent,
+#jOverlayContent #content,
+#jOverlayContent #content_inner {
+width: auto !important;
+margin-bottom:0;
+}
+#jOverlayContent #content {
+padding:11px;
+min-height:auto;
+}
+#jOverlayContent .external span {
+display:block;
+margin-bottom:11px;
+}
+#jOverlayContent button {
+position:absolute;
+top:0;
+right:0;
+width:29px;
+height:29px;
+text-align:center;
+font-weight:bold;
+padding:0;
+}
+#jOverlayContent h1 {
+max-width:475px;
+}
+#jOverlayContent #content {
+border-radius:7px;
+-moz-border-radius:7px;
+-webkit-border-radius:7px;
+}
 
 #usergroups #new_group {
 float: left;
@@ -1182,6 +1237,7 @@ width:33%;
 }
 #settings_design_color .form_data label {
 float:none;
+display:block;
 }
 #settings_design_color .form_data .swatch {
 padding:11px;

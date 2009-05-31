@@ -694,6 +694,13 @@ to users on a remote site. (Or not... it's not well tested.) The
 Upgrading
 =========
 
+IMPORTANT NOTE: Laconica 0.7.4 introduced a fix for some
+incorrectly-stored international characters ("UTF-8"). For new
+installations, it will now store non-ASCII characters correctly.
+However, older installations will have the incorrect storage, and will
+consequently show up "wrong" in browsers. See below for how to deal
+with this situation.
+
 If you've been using Laconica 0.6, 0.5 or lower, or if you've been
 tracking the "git" version of the software, you will probably want
 to upgrade and keep your existing data. There is no automated upgrade
@@ -782,6 +789,29 @@ problem.
    the memory limit high. You can re-run it without ill effect.
 3. When fixup_inboxes is finished, you can set the enabled flag to
    'true'.
+
+UTF-8 Database
+--------------
+
+Laconica 0.7.4 introduced a fix for some incorrectly-stored
+international characters ("UTF-8"). This fix is not
+backwards-compatible; installations from before 0.7.4 will show
+non-ASCII characters of old notices incorrectly. This section explains
+what to do.
+
+0. You can disable the new behaviour by setting the 'db''utf8' config
+   option to "false". You should only do this until you're ready to
+   convert your DB to the new format.
+1. When you're ready to convert, you can run the fixup_utf8.php script
+   in the scripts/ subdirectory. If you've had the "new behaviour"
+   enabled (probably a good idea), you can give the ID of the first
+   "new" notice as a parameter, and only notices before that one will
+   be converted. Notices are converted in reverse chronological order,
+   so the most recent (and visible) ones will be converted first. The
+   script should work whether or not you have the 'db''utf8' config
+   option enabled.
+2. When you're ready, set $config['db']['utf8'] to true, so that
+   new notices will be stored correctly.
 
 Configuration options
 =====================
@@ -910,6 +940,10 @@ mirror: you can set this to an array of DSNs, like the above
 	and adding the slaves to this array. Note that if you want some
 	requests to go to the 'database' (master) server, you'll need
 	to include it in this array, too.
+utf8: whether to talk to the database in UTF-8 mode. This is the default
+      with new installations, but older sites may want to turn it off
+      until they get their databases fixed up. See "UTF-8 database"
+      above for details.
 
 syslog
 ------
@@ -1161,6 +1195,21 @@ reporturl: URL to post statistics to. Defaults to Laconica developers'
            don't want to report stats, it's much better to
            set 'run' to 'never' than to set this value to something
            nonsensical.
+
+
+attachments
+-----------
+
+The software lets users upload files with their notices. You can configure
+the types of accepted files by mime types and a trio of quota options:
+per file, per user (total), per user per month.
+
+supported: an array of mime types you accept to store and distribute,
+           like 'image/gif', 'video/mpeg', 'audio/mpeg', etc.
+file_quota: maximum size for a single file upload in bytes.
+user_quota: total size in bytes a user can store.
+monthly_quota: total size permitted in the current month.
+
 
 Troubleshooting
 ===============

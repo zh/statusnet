@@ -78,34 +78,7 @@ class FBConnectSettingsAction extends ConnectSettingsAction
     function showContent()
     {
         $user = common_current_user();
-
         $flink = Foreign_link::getByUserID($user->id, FACEBOOK_CONNECT_SERVICE);
-
-        if (!$flink) {
-
-            $this->element('p', 'form_note',
-                _('There is no Facebook user connected to this account.'));
-
-            $this->element('fb:login-button', array('onlogin' => 'goto_login()',
-                'length' => 'long'));
-
-            return;
-        }
-
-        $this->element('p', 'form_note',
-                       _('Connected Facebook user:'));
-
-        $this->elementStart('p', array('class' => 'facebook-user-display'));
-        $this->elementStart('fb:profile-pic',
-            array('uid' => $flink->foreign_id,
-                  'size' => 'square',
-                  'linked' => 'true',
-                  'facebook-logo' => 'true'));
-        $this->elementEnd('fb:profile-pic');
-
-        $this->elementStart('fb:name', array('uid' => $flink->foreign_id));
-        $this->elementEnd('fb:name');
-        $this->elementEnd('p');
 
         $this->elementStart('form', array('method' => 'post',
                                           'id' => 'form_settings_facebook',
@@ -113,28 +86,65 @@ class FBConnectSettingsAction extends ConnectSettingsAction
                                           'action' =>
                                           common_local_url('FBConnectSettings')));
 
-        $this->hidden('token', common_session_token());
+        if (!$flink) {
 
-        $this->elementStart('fieldset');
+            $this->element('p', 'instructions',
+                _('There is no Facebook user connected to this account.'));
 
-        $this->element('legend', null, _('Disconnect my account from Facebook'));
+            $this->element('fb:login-button', array('onlogin' => 'goto_login()',
+                'length' => 'long'));
 
-        if (!$user->password) {
-
-            $this->elementStart('p', array('class' => 'form_guide'));
-            $this->text(_('Disconnecting your Faceboook ' .
-                          'would make it impossible to log in! Please '));
-            $this->element('a',
-                array('href' => common_local_url('passwordsettings')),
-                    _('set a password'));
-
-            $this->text(_(' first.'));
-            $this->elementEnd('p');
         } else {
-            $this->submit('disconnect', _('Disconnect'));
-         }
 
-        $this->elementEnd('fieldset');
+            $this->element('p', 'form_note',
+                           _('Connected Facebook user'));
+
+            $this->elementStart('p', array('class' => 'facebook-user-display'));
+            $this->elementStart('fb:profile-pic',
+                array('uid' => $flink->foreign_id,
+                      'size' => 'small',
+                      'linked' => 'true',
+                      'facebook-logo' => 'true'));
+            $this->elementEnd('fb:profile-pic');
+
+            $this->elementStart('fb:name', array('uid' => $flink->foreign_id,
+                                                 'useyou' => 'false'));
+            $this->elementEnd('fb:name');
+            $this->elementEnd('p');
+
+            $this->hidden('token', common_session_token());
+
+            $this->elementStart('fieldset');
+
+            $this->element('legend', null, _('Disconnect my account from Facebook'));
+
+            if (!$user->password) {
+
+                $this->elementStart('p', array('class' => 'form_guide'));
+                $this->text(_('Disconnecting your Faceboook ' .
+                              'would make it impossible to log in! Please '));
+                $this->element('a',
+                    array('href' => common_local_url('passwordsettings')),
+                        _('set a password'));
+
+                $this->text(_(' first.'));
+                $this->elementEnd('p');
+            } else {
+
+                $note = 'Keep your %s account but disconnect from Facebook. ' .
+                    'You\'ll use your %s password to log in.';
+
+                $site = common_config('site', 'name');
+
+                $this->element('p', 'instructions',
+                    sprintf($note, $site, $site));
+
+                $this->submit('disconnect', _('Disconnect'));
+            }
+
+            $this->elementEnd('fieldset');
+        }
+
         $this->elementEnd('form');
     }
 
@@ -171,8 +181,7 @@ class FBConnectSettingsAction extends ConnectSettingsAction
 
             try {
 
-                // XXX: not sure what exactly to do here
-
+                // Clear FB Connect cookies out
                 $facebook = getFacebook();
                 $facebook->clear_cookie_state();
 
@@ -182,7 +191,7 @@ class FBConnectSettingsAction extends ConnectSettingsAction
                         $e->getMessage());
             }
 
-            $this->showForm(_('Facebook user disconnected.'), true);
+            $this->showForm(_('You have disconnected from Facebook.'), true);
 
         } else {
             $this->showForm(_('Not sure what you\'re trying to do.'));
