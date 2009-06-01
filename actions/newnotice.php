@@ -279,6 +279,8 @@ class NewnoticeAction extends Action
             } else {
                 $this->clientError(_('There was a database error while saving your file. Please try again.'));
             }
+        } else {
+            $this->clientError(_('File could not be moved to destination directory.'));
         }
     }
 

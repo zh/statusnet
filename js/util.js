@@ -28,30 +28,6 @@ $(document).ready(function(){
         }
     });
 
-    $('a.attachment').click(function() {$().jOverlay({url: $('address .url')[0].href+'/attachment/' + ($(this).attr('id').substring('attachment'.length + 1)) + '/ajax'}); return false; });
-    $("a.thumbnail").hover(
-        function() {
-            var anchor = $(this);
-            $("a.thumbnail").children('img').remove();
-
-            setTimeout(function() {
-                anchor.closest(".entry-title").addClass('ov');
-                $.get($('address .url')[0].href+'/attachment/' + (anchor.attr('id').substring('attachment'.length + 1)) + '/thumbnail', null, function(data) {
-                    anchor.append(data);
-                });
-            }, 250);
-
-            setTimeout(function() {
-                anchor.children('img').remove();
-                anchor.closest(".entry-title").removeClass('ov');
-            }, 3000);
-        },
-        function() {
-            $(this).children('img').remove();
-            $(this).closest(".entry-title").removeClass('ov');
-        }
-    );
-
 	// count character on keyup
 	function counter(event){
 		var maxLength = 140;
