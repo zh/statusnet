@@ -98,9 +98,31 @@ class TwitapiaccountAction extends TwitterapiAction
         $this->serverError(_('API method under construction.'), $code=501);
     }
 
+    // We don't have a rate limit, but some clients check this method.
+    // It always returns the same thing: 100 hit left.
     function rate_limit_status($args, $apidata)
     {
         parent::handle($args);
-        $this->serverError(_('API method under construction.'), $code=501);
+
+        $type = $apidata['content-type'];
+        $this->init_document($type);
+
+        if ($apidata['content-type'] == 'xml') {
+            $this->elementStart('hash');
+            $this->element('remaining-hits', array('type' => 'integer'), 100);
+            $this->element('hourly-limit', array('type' => 'integer'), 100);
+            $this->element('reset-time', array('type' => 'datetime'), null);
+            $this->element('reset_time_in_seconds', array('type' => 'integer'), 0);
+            $this->elementEnd('hash');
+        } elseif ($apidata['content-type'] == 'json') {
+
+            $out = array('reset_time_in_seconds' => 0,
+                         'remaining_hits' => 100,
+                         'hourly_limit' => 100,
+                         'reset_time' => '');
+            print json_encode($out);
+        }
+
+        $this->end_document($type);
     }
 }

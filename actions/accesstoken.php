@@ -59,7 +59,7 @@ class AccesstokenAction extends Action
         try {
             common_debug('getting request from env variables', __FILE__);
             common_remove_magic_from_request();
-            $req = OAuthRequest::from_request();
+            $req = OAuthRequest::from_request('POST', common_local_url('accesstoken'));
             common_debug('getting a server', __FILE__);
             $server = omb_oauth_server();
             common_debug('fetching the access token', __FILE__);

@@ -45,22 +45,21 @@ class TwitapistatusesAction extends TwitterapiAction
 
         $page = $this->arg('page');
         $since_id = $this->arg('since_id');
-        $before_id = $this->arg('before_id');
+        $max_id = $this->arg('max_id');
 
-        // NOTE: page, since_id, and before_id are extensions to Twitter API -- TB
         if (!$page) {
             $page = 1;
         }
         if (!$since_id) {
             $since_id = 0;
         }
-        if (!$before_id) {
-            $before_id = 0;
+        if (!$max_id) {
+            $max_id = 0;
         }
 
         $since = strtotime($this->arg('since'));
 
-        $notice = Notice::publicStream((($page-1)*$MAX_PUBSTATUSES), $MAX_PUBSTATUSES, $since_id, $before_id, $since);
+        $notice = Notice::publicStream((($page-1)*$MAX_PUBSTATUSES), $MAX_PUBSTATUSES, $since_id, $max_id, $since);
 
         if ($notice) {
 
@@ -97,7 +96,7 @@ class TwitapistatusesAction extends TwitterapiAction
         $since_id = $this->arg('since_id');
         $count = $this->arg('count');
         $page = $this->arg('page');
-        $before_id = $this->arg('before_id');
+        $max_id = $this->arg('max_id');
 
         if (!$page) {
             $page = 1;
@@ -111,9 +110,8 @@ class TwitapistatusesAction extends TwitterapiAction
             $since_id = 0;
         }
 
-        // NOTE: before_id is an extension to Twitter API -- TB
-        if (!$before_id) {
-            $before_id = 0;
+        if (!$max_id) {
+            $max_id = 0;
         }
 
         $since = strtotime($this->arg('since'));
@@ -133,7 +131,7 @@ class TwitapistatusesAction extends TwitterapiAction
         $link = common_local_url('all', array('nickname' => $user->nickname));
         $subtitle = sprintf(_('Updates from %1$s and friends on %2$s!'), $user->nickname, $sitename);
 
-        $notice = $user->noticesWithFriends(($page-1)*20, $count, $since_id, $before_id, $since);
+        $notice = $user->noticesWithFriends(($page-1)*20, $count, $since_id, $max_id, $since);
 
         switch($apidata['content-type']) {
          case 'xml':
@@ -144,10 +142,10 @@ class TwitapistatusesAction extends TwitterapiAction
             break;
          case 'atom':
             if (isset($apidata['api_arg'])) {
-                $selfuri = $selfuri = common_root_url() .
+                $selfuri = common_root_url() .
                     'api/statuses/friends_timeline/' . $apidata['api_arg'] . '.atom';
             } else {
-                $selfuri = $selfuri = common_root_url() .
+                $selfuri = common_root_url() .
                     'api/statuses/friends_timeline.atom';
             }
             $this->show_atom_timeline($notice, $title, $id, $link, $subtitle, null, $selfuri);
@@ -184,7 +182,7 @@ class TwitapistatusesAction extends TwitterapiAction
         $since = $this->arg('since');
         $since_id = $this->arg('since_id');
         $page = $this->arg('page');
-        $before_id = $this->arg('before_id');
+        $max_id = $this->arg('max_id');
 
         if (!$page) {
             $page = 1;
@@ -198,9 +196,8 @@ class TwitapistatusesAction extends TwitterapiAction
             $since_id = 0;
         }
 
-        // NOTE: before_id is an extensions to Twitter API -- TB
-        if (!$before_id) {
-            $before_id = 0;
+        if (!$max_id) {
+            $max_id = 0;
         }
 
         $since = strtotime($this->arg('since'));
@@ -220,7 +217,7 @@ class TwitapistatusesAction extends TwitterapiAction
 
         # XXX: since
 
-        $notice = $user->getNotices((($page-1)*20), $count, $since_id, $before_id, $since);
+        $notice = $user->getNotices((($page-1)*20), $count, $since_id, $max_id, $since);
 
         switch($apidata['content-type']) {
          case 'xml':
@@ -231,10 +228,10 @@ class TwitapistatusesAction extends TwitterapiAction
             break;
          case 'atom':
             if (isset($apidata['api_arg'])) {
-                $selfuri = $selfuri = common_root_url() .
+                $selfuri = common_root_url() .
                     'api/statuses/user_timeline/' . $apidata['api_arg'] . '.atom';
             } else {
-                $selfuri = $selfuri = common_root_url() .
+                $selfuri = common_root_url() .
                  'api/statuses/user_timeline.atom';
             }
             $this->show_atom_timeline($notice, $title, $id, $link, $subtitle, $suplink, $selfuri);
@@ -344,7 +341,7 @@ class TwitapistatusesAction extends TwitterapiAction
         $this->show($args, $apidata);
     }
 
-    function replies($args, $apidata)
+    function mentions($args, $apidata)
     {
 
         parent::handle($args);
@@ -353,18 +350,20 @@ class TwitapistatusesAction extends TwitterapiAction
         $count = $this->arg('count');
         $page = $this->arg('page');
         $since_id = $this->arg('since_id');
-        $before_id = $this->arg('before_id');
+        $max_id = $this->arg('max_id');
 
         $user = $this->get_user($apidata['api_arg'], $apidata);
         $this->auth_user = $apidata['user'];
         $profile = $user->getProfile();
 
         $sitename = common_config('site', 'name');
-        $title = sprintf(_('%1$s / Updates replying to %2$s'), $sitename, $user->nickname);
+        $title = sprintf(_('%1$s / Updates mentioning %2$s'),
+            $sitename, $user->nickname);
         $taguribase = common_config('integration', 'taguri');
-        $id = "tag:$taguribase:Replies:".$user->id;
+        $id = "tag:$taguribase:Mentions:".$user->id;
         $link = common_local_url('replies', array('nickname' => $user->nickname));
-        $subtitle = sprintf(_('%1$s updates that reply to updates from %2$s / %3$s.'), $sitename, $user->nickname, $profile->getBestName());
+        $subtitle = sprintf(_('%1$s updates that reply to updates from %2$s / %3$s.'),
+            $sitename, $user->nickname, $profile->getBestName());
 
         if (!$page) {
             $page = 1;
@@ -378,14 +377,14 @@ class TwitapistatusesAction extends TwitterapiAction
             $since_id = 0;
         }
 
-        // NOTE: before_id is an extension to Twitter API -- TB
-        if (!$before_id) {
-            $before_id = 0;
+        if (!$max_id) {
+            $max_id = 0;
         }
 
         $since = strtotime($this->arg('since'));
 
-        $notice = $user->getReplies((($page-1)*20), $count, $since_id, $before_id, $since);
+        $notice = $user->getReplies((($page-1)*20),
+            $count, $since_id, $max_id, $since);
         $notices = array();
 
         while ($notice->fetch()) {
@@ -400,14 +399,10 @@ class TwitapistatusesAction extends TwitterapiAction
             $this->show_rss_timeline($notices, $title, $link, $subtitle);
             break;
          case 'atom':
-             if (isset($apidata['api_arg'])) {
-                 $selfuri = $selfuri = common_root_url() .
-                     'api/statuses/replies/' . $apidata['api_arg'] . '.atom';
-             } else {
-                 $selfuri = $selfuri = common_root_url() .
-                  'api/statuses/replies.atom';
-             }
-            $this->show_atom_timeline($notices, $title, $id, $link, $subtitle, null, $selfuri);
+            $selfuri = common_root_url() .
+                ltrim($_SERVER['QUERY_STRING'], 'p=');
+            $this->show_atom_timeline($notices, $title, $id, $link, $subtitle,
+                null, $selfuri);
             break;
          case 'json':
             $this->show_json_timeline($notices);
@@ -416,6 +411,11 @@ class TwitapistatusesAction extends TwitterapiAction
             $this->clientError(_('API method not found!'), $code = 404);
         }
 
+    }
+
+    function replies($args, $apidata)
+    {
+        call_user_func(array($this, 'mentions'), $args, $apidata);
     }
 
     function show($args, $apidata)

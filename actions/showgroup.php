@@ -35,7 +35,7 @@ if (!defined('LACONICA')) {
 require_once INSTALLDIR.'/lib/noticelist.php';
 require_once INSTALLDIR.'/lib/feedlist.php';
 
-define('MEMBERS_PER_SECTION', 81);
+define('MEMBERS_PER_SECTION', 27);
 
 /**
  * Group main page
@@ -312,6 +312,17 @@ class ShowgroupAction extends Action
     }
 
     /**
+     * Output document relationship links
+     *
+     * @return void
+     */
+    function showRelationshipLinks()
+    {
+        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
+                                     $this->page, 'showgroup', array('nickname' => $this->group->nickname));
+    }
+
+    /**
      * Fill in the sidebar.
      *
      * @return void
@@ -350,7 +361,7 @@ class ShowgroupAction extends Action
              $this->element('p', null, _('(None)'));
         }
 
-        if ($cnt == MEMBERS_PER_SECTION) {
+        if ($cnt > MEMBERS_PER_SECTION) {
             $this->element('a', array('href' => common_local_url('groupmembers',
                                                                  array('nickname' => $this->group->nickname))),
                            _('All members'));

@@ -54,31 +54,24 @@ class WikiHashtagsPlugin extends Plugin
 
     function onStartShowSections($action)
     {
-        common_debug('WikiHashtags: got called');
         $name = $action->trimmed('action');
 
         if ($name == 'tag') {
-            common_debug('WikiHashtags: called by tag');
 
             $taginput = $action->trimmed('tag');
             $tag = common_canonical_tag($taginput);
 
             if (!empty($tag)) {
-                common_debug('WikiHashtags: have a tag: ' . $tag);
 
                 $url = sprintf('http://hashtags.wikia.com/index.php?title=%s&action=render',
                                urlencode($tag));
                 $editurl = sprintf('http://hashtags.wikia.com/index.php?title=%s&action=edit',
                                    urlencode($tag));
 
-                common_debug('WikiHashtags: have an url: ' . $url);
-
                 $context = stream_context_create(array('http' => array('method' => "GET",
                                                                        'header' =>
                                                                        "User-Agent: " . $this->userAgent())));
                 $html = @file_get_contents($url, false, $context);
-
-                common_debug('WikiHashtags: results are: ' . $html);
 
                 $action->elementStart('div', array('id' => 'wikihashtags', 'class' => 'section'));
 

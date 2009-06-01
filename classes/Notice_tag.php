@@ -37,21 +37,62 @@ class Notice_tag extends Memcached_DataObject
     ###END_AUTOCODE
 
     static function getStream($tag, $offset=0, $limit=20) {
-        $qry =
-          'SELECT notice.* ' .
-          'FROM notice JOIN notice_tag ON notice.id = notice_tag.notice_id ' .
-          "WHERE notice_tag.tag = '%s' ";
 
-        return Notice::getStream(sprintf($qry, $tag),
-                                 'notice_tag:notice_stream:' . common_keyize($tag),
-                                 $offset, $limit);
+        $ids = Notice::stream(array('Notice_tag', '_streamDirect'),
+                              array($tag),
+                              'notice_tag:notice_ids:' . common_keyize($tag),
+                              $offset, $limit);
+
+        return Notice::getStreamByIds($ids);
     }
 
-    function blowCache()
+    function _streamDirect($tag, $offset, $limit, $since_id, $max_id, $since)
+    {
+        $nt = new Notice_tag();
+
+        $nt->tag = $tag;
+
+        $nt->selectAdd();
+        $nt->selectAdd('notice_id');
+
+        if ($since_id != 0) {
+            $nt->whereAdd('notice_id > ' . $since_id);
+        }
+
+        if ($max_id != 0) {
+            $nt->whereAdd('notice_id < ' . $max_id);
+        }
+
+        if (!is_null($since)) {
+            $nt->whereAdd('created > \'' . date('Y-m-d H:i:s', $since) . '\'');
+        }
+
+        $nt->orderBy('notice_id DESC');
+
+        if (!is_null($offset)) {
+            $nt->limit($offset, $limit);
+        }
+
+        $ids = array();
+
+        if ($nt->find()) {
+            while ($nt->fetch()) {
+                $ids[] = $nt->notice_id;
+            }
+        }
+
+        return $ids;
+    }
+
+    function blowCache($blowLast=false)
     {
         $cache = common_memcache();
         if ($cache) {
-            $cache->delete(common_cache_key('notice_tag:notice_stream:' . $this->tag));
+            $idkey = common_cache_key('notice_tag:notice_ids:' . common_keyize($this->tag));
+            $cache->delete($idkey);
+            if ($blowLast) {
+                $cache->delete($idkey.';last');
+            }
         }
     }
 

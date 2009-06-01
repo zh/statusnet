@@ -51,23 +51,104 @@ class TwitterapiAction extends Action
         parent::handle($args);
     }
 
+    /**
+     * Overrides XMLOutputter::element to write booleans as strings (true|false).
+     * See that method's documentation for more info.
+     *
+     * @param string $tag     Element type or tagname
+     * @param array  $attrs   Array of element attributes, as
+     *                        key-value pairs
+     * @param string $content string content of the element
+     *
+     * @return void
+     */
+    function element($tag, $attrs=null, $content=null)
+    {
+        if (is_bool($content)) {
+            $content = ($content ? 'true' : 'false');
+        }
+
+        return parent::element($tag, $attrs, $content);
+    }
+
     function twitter_user_array($profile, $get_notice=false)
     {
-
         $twitter_user = array();
 
-        $twitter_user['name'] = $profile->getBestName();
-        $twitter_user['followers_count'] = $this->count_subscriptions($profile);
-        $twitter_user['screen_name'] = $profile->nickname;
-        $twitter_user['description'] = ($profile->bio) ? $profile->bio : null;
-        $twitter_user['location'] = ($profile->location) ? $profile->location : null;
         $twitter_user['id'] = intval($profile->id);
+        $twitter_user['name'] = $profile->getBestName();
+        $twitter_user['screen_name'] = $profile->nickname;
+        $twitter_user['location'] = ($profile->location) ? $profile->location : null;
+        $twitter_user['description'] = ($profile->bio) ? $profile->bio : null;
 
         $avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
+        $twitter_user['profile_image_url'] = ($avatar) ? $avatar->displayUrl() :
+            Avatar::defaultImage(AVATAR_STREAM_SIZE);
 
-        $twitter_user['profile_image_url'] = ($avatar) ? $avatar->displayUrl() : Avatar::defaultImage(AVATAR_STREAM_SIZE);
-        $twitter_user['protected'] = 'false'; # not supported by Laconica yet
         $twitter_user['url'] = ($profile->homepage) ? $profile->homepage : null;
+        $twitter_user['protected'] = false; # not supported by Laconica yet
+        $twitter_user['followers_count'] = $this->count_subscriptions($profile);
+
+        // To be supported soon...
+        $twitter_user['profile_background_color'] = '';
+        $twitter_user['profile_text_color'] = '';
+        $twitter_user['profile_link_color'] = '';
+        $twitter_user['profile_sidebar_fill_color'] = '';
+        $twitter_user['profile_sidebar_border_color'] = '';
+
+        $subbed = DB_DataObject::factory('subscription');
+        $subbed->subscriber = $profile->id;
+        $subbed_count = (int) $subbed->count() - 1;
+        $twitter_user['friends_count'] = (is_int($subbed_count)) ? $subbed_count : 0;
+
+        $twitter_user['created_at'] = $this->date_twitter($profile->created);
+
+        $faves = DB_DataObject::factory('fave');
+        $faves->user_id = $user->id;
+        $faves_count = (int) $faves->count();
+        $twitter_user['favourites_count'] = $faves_count; // British spelling!
+
+        // Need to pull up the user for some of this
+        $user = User::staticGet($profile->id);
+
+        $timezone = 'UTC';
+
+        if ($user->timezone) {
+            $timezone = $user->timezone;
+        }
+
+        $t = new DateTime;
+        $t->setTimezone(new DateTimeZone($timezone));
+
+        $twitter_user['utc_offset'] = $t->format('Z');
+        $twitter_user['time_zone'] = $timezone;
+
+        // To be supported some day, perhaps
+        $twitter_user['profile_background_image_url'] = '';
+        $twitter_user['profile_background_tile'] = false;
+
+        $notices = DB_DataObject::factory('notice');
+        $notices->profile_id = $profile->id;
+        $notice_count = (int) $notices->count();
+
+        $twitter_user['statuses_count'] = (is_int($notice_count)) ? $notice_count : 0;
+
+        // Is the requesting user following this user?
+        $twitter_user['following'] = false;
+        $twitter_user['notifications'] = false;
+
+        if (isset($apidata['user'])) {
+
+            $twitter_user['following'] = $apidata['user']->isSubscribed($profile);
+
+            // Notifications on?
+            $sub = Subscription::pkeyGet(array('subscriber' =>
+                $apidata['user']->id, 'subscribed' => $profile->id));
+
+            if ($sub) {
+                $twitter_user['notifications'] = ($sub->jabber || $sub->sms);
+            }
+        }
 
         if ($get_notice) {
             $notice = $profile->getCurrentNotice();
@@ -86,7 +167,7 @@ class TwitterapiAction extends Action
 
         $twitter_status = array();
         $twitter_status['text'] = $notice->content;
-        $twitter_status['truncated'] = 'false'; # Not possible on Laconica
+        $twitter_status['truncated'] = false; # Not possible on Laconica
         $twitter_status['created_at'] = $this->date_twitter($notice->created);
         $twitter_status['in_reply_to_status_id'] = ($notice->reply_to) ?
             intval($notice->reply_to) : null;
@@ -108,10 +189,9 @@ class TwitterapiAction extends Action
             ($replier_profile) ? $replier_profile->nickname : null;
 
         if (isset($this->auth_user)) {
-            $twitter_status['favorited'] =
-                ($this->auth_user->hasFave($notice)) ? 'true' : 'false';
+            $twitter_status['favorited'] = $this->auth_user->hasFave($notice);
         } else {
-            $twitter_status['favorited'] = 'false';
+            $twitter_status['favorited'] = false;
         }
 
         if ($include_user) {
@@ -418,7 +498,7 @@ class TwitterapiAction extends Action
     function date_twitter($dt)
     {
         $t = strtotime($dt);
-        return date("D M d G:i:s O Y", $t);
+        return date("D M d H:i:s O Y", $t);
     }
 
     // XXX: Candidate for a general utility method somewhere?

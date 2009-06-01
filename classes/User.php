@@ -349,30 +349,31 @@ class User extends Memcached_DataObject
         $cache = common_memcache();
 
         // XXX: Kind of a hack.
+
         if ($cache) {
             // This is the stream of favorite notices, in rev chron
             // order. This forces it into cache.
-            $faves = $this->favoriteNotices(0, NOTICE_CACHE_WINDOW);
-            $cnt = 0;
-            while ($faves->fetch()) {
-                if ($faves->id < $notice->id) {
-                    // If we passed it, it's not a fave
-                    return false;
-                } else if ($faves->id == $notice->id) {
-                    // If it matches a cached notice, then it's a fave
-                    return true;
-                }
-                $cnt++;
+
+            $ids = Fave::stream($this->id, 0, NOTICE_CACHE_WINDOW);
+
+            // If it's in the list, then it's a fave
+
+            if (in_array($notice->id, $ids)) {
+                return true;
             }
+
             // If we're not past the end of the cache window,
             // then the cache has all available faves, so this one
             // is not a fave.
-            if ($cnt < NOTICE_CACHE_WINDOW) {
+
+            if (count($ids) < NOTICE_CACHE_WINDOW) {
                 return false;
             }
+
             // Otherwise, cache doesn't have all faves;
             // fall through to the default
         }
+
         $fave = Fave::pkeyGet(array('user_id' => $this->id,
                                     'notice_id' => $notice->id));
         return ((is_null($fave)) ? false : true);
@@ -401,13 +402,8 @@ class User extends Memcached_DataObject
 
     function getReplies($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
     {
-        $qry =
-          'SELECT notice.* ' .
-          'FROM notice JOIN reply ON notice.id = reply.notice_id ' .
-          'WHERE reply.profile_id = %d ';
-        return Notice::getStream(sprintf($qry, $this->id),
-                                 'user:replies:'.$this->id,
-                                 $offset, $limit, $since_id, $before_id, null, $since);
+        $ids = Reply::stream($this->id, $offset, $limit, $since_id, $before_id, $since);
+        return Notice::getStreamByIds($ids);
     }
 
     function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
@@ -422,13 +418,8 @@ class User extends Memcached_DataObject
 
     function favoriteNotices($offset=0, $limit=NOTICES_PER_PAGE)
     {
-        $qry =
-          'SELECT notice.* ' .
-          'FROM notice JOIN fave ON notice.id = fave.notice_id ' .
-          'WHERE fave.user_id = %d ';
-        return Notice::getStream(sprintf($qry, $this->id),
-                                 'user:faves:'.$this->id,
-                                 $offset, $limit);
+        $ids = Fave::stream($this->id, $offset, $limit);
+        return Notice::getStreamByIds($ids);
     }
 
     function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
@@ -444,21 +435,17 @@ class User extends Memcached_DataObject
               'SELECT notice.* ' .
               'FROM notice JOIN subscription ON notice.profile_id = subscription.subscribed ' .
               'WHERE subscription.subscriber = %d ';
-            $order = null;
+            return Notice::getStream(sprintf($qry, $this->id),
+                                     'user:notices_with_friends:' . $this->id,
+                                     $offset, $limit, $since_id, $before_id,
+                                     $order, $since);
         } else if ($enabled === true ||
                    ($enabled == 'transitional' && $this->inboxed == 1)) {
 
-            $qry =
-              'SELECT notice.* ' .
-              'FROM notice JOIN notice_inbox ON notice.id = notice_inbox.notice_id ' .
-              'WHERE notice_inbox.user_id = %d ';
-            // NOTE: we override ORDER
-            $order = null;
+            $ids = Notice_inbox::stream($this->id, $offset, $limit, $since_id, $before_id, $since);
+
+            return Notice::getStreamByIds($ids);
         }
-        return Notice::getStream(sprintf($qry, $this->id),
-                                 'user:notices_with_friends:' . $this->id,
-                                 $offset, $limit, $since_id, $before_id,
-                                 $order, $since);
     }
 
     function blowFavesCache()
@@ -467,8 +454,8 @@ class User extends Memcached_DataObject
         if ($cache) {
             // Faves don't happen chronologically, so we need to blow
             // ;last cache, too
-            $cache->delete(common_cache_key('user:faves:'.$this->id));
-            $cache->delete(common_cache_key('user:faves:'.$this->id).';last');
+            $cache->delete(common_cache_key('fave:ids_by_user:'.$this->id));
+            $cache->delete(common_cache_key('fave:ids_by_user:'.$this->id.';last'));
         }
     }
 

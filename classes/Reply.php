@@ -4,7 +4,7 @@
  */
 require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
-class Reply extends Memcached_DataObject 
+class Reply extends Memcached_DataObject
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -13,7 +13,7 @@ class Reply extends Memcached_DataObject
     public $notice_id;                       // int(4)  primary_key not_null
     public $profile_id;                      // int(4)  primary_key not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
-    public $replied_id;                      // int(4)  
+    public $replied_id;                      // int(4)
 
     /* Static get */
     function staticGet($k,$v=null)
@@ -21,4 +21,47 @@ class Reply extends Memcached_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+
+    function stream($user_id, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0, $since=null)
+    {
+        $ids = Notice::stream(array('Reply', '_streamDirect'),
+                              array($user_id),
+                              'reply:stream:' . $user_id,
+                              $offset, $limit, $since_id, $max_id, $since);
+        return $ids;
+    }
+
+    function _streamDirect($user_id, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0, $since=null)
+    {
+        $reply = new Reply();
+        $reply->profile_id = $user_id;
+
+        if ($since_id != 0) {
+            $reply->whereAdd('notice_id > ' . $since_id);
+        }
+
+        if ($max_id != 0) {
+            $reply->whereAdd('notice_id < ' . $max_id);
+        }
+
+        if (!is_null($since)) {
+            $reply->whereAdd('modified > \'' . date('Y-m-d H:i:s', $since) . '\'');
+        }
+
+        $reply->orderBy('notice_id DESC');
+
+        if (!is_null($offset)) {
+            $reply->limit($offset, $limit);
+        }
+
+        $ids = array();
+
+        if ($reply->find()) {
+            while ($reply->fetch()) {
+                $ids[] = $reply->notice_id;
+            }
+        }
+
+        return $ids;
+    }
 }

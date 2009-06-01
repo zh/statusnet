@@ -2,8 +2,8 @@
 README
 ------
 
-Laconica 0.7.3 ("You Are The Everything")
-7 April 2009
+Laconica 0.7.4 ("Can't Get There From Here")
+29 May 2009
 
 This is the README file for Laconica, the Open Source microblogging
 platform. It includes installation instructions, descriptions of
@@ -71,29 +71,29 @@ for additional terms.
 New this version
 ================
 
-This is a minor bug-fix and feature release since version 0.7.2.1,
-released Mar 11 2009. Notable changes this version:
+This is a minor bug-fix and feature release since version 0.7.3,
+released Apr 4 2009. Notable changes this version:
 
-- A plugin to allow a templating language for customization
-- A plugin for Piwik Analytics engine
-- A bookmarklet for posting a notice about a Web page you're reading
-- A welcome notice ('welcomebot') and default subscription for new users
-- Support for SSL for some or all pages on the site
-- Better handling of empty notice lists on many pages
-- Major improvements to the Twitter friend-sync offline processing
-- subscribers, subscriptions, groups are listed on the Personal page.
-- "Invite" link restored to main menu
-- Better memory handling in FOAF output
-- Fix for SUP support (FriendFeed)
-- Correct and intelligent redirect HTTP status codes
-- Fix DB collations for search and sort
-- Better H1s and Titles using user full names
-- Fixes to make the linkback plugin operational
-- Better indication that a notice is being published by Ajax (spinner)
-- Better and unified Atom output
-- Hiding "register" and "join now" messages when site is closed
-- ping, twitter and facebook queuehandlers working better
-- Updated RPM spec
+- Improved handling of UTF-8 characters. The new code is *not* backwards
+  compatible by default; see "Upgrading" below for instructions on
+  converting existing databases to the correct character set.
+- Unroll joins for large queries. This greatly enhanced database
+  performance -- up to 50x for some queries -- at the expense of making
+  an extra DB hit for some queries.
+- Added an optional plugin to use WikiHashtags
+  (http://hashtags.wikia.com/) for the sidebar on hashtag pages.
+- Optimized Twitter friend synchronization.
+- Better error handling for Ajax posting of notices, including
+  HTTP errors and timeouts.
+- Experimental Comet plugin -- supports the cometd and the Bayeux
+  protocol. Using this plugin, you can show "real time" updates on the
+  public and tag pages. However, server configuration is complex.
+- If queues are enabled, update inboxes and memcached off-line. Speeds
+  up posting considerably.
+- Correctly shorten links posted through XMPP.
+- <link> elements for pagination, supported by some browsers like Opera.
+- Corrected date format in search API.
+- Made the public XRDS file work correctly.
 
 Prerequisites
 =============
@@ -193,9 +193,9 @@ especially if you've previously installed PHP/MySQL packages.
 1. Unpack the tarball you downloaded on your Web server. Usually a
    command like this will work:
 
-   	   tar zxf laconica-0.7.3.tar.gz
+   	   tar zxf laconica-0.7.4.tar.gz
 
-   ...which will make a laconica-0.7.3 subdirectory in your current
+   ...which will make a laconica-0.7.4 subdirectory in your current
    directory. (If you don't have shell access on your Web server, you
    may have to unpack the tarball on your local computer and FTP the
    files to the server.)
@@ -203,7 +203,7 @@ especially if you've previously installed PHP/MySQL packages.
 2. Move the tarball to a directory of your choosing in your Web root
    directory. Usually something like this will work:
 
-   	   mv laconica-0.7.3 /var/www/mublog
+   	   mv laconica-0.7.4 /var/www/mublog
 
    This will make your Laconica instance available in the mublog path of
    your server, like "http://example.net/mublog". "microblog" or
@@ -690,10 +690,17 @@ to users on a remote site. (Or not... it's not well tested.) The
 Upgrading
 =========
 
+IMPORTANT NOTE: Laconica 0.7.4 introduced a fix for some
+incorrectly-stored international characters ("UTF-8"). For new
+installations, it will now store non-ASCII characters correctly.
+However, older installations will have the incorrect storage, and will
+consequently show up "wrong" in browsers. See below for how to deal
+with this situation.
+
 If you've been using Laconica 0.6, 0.5 or lower, or if you've been
 tracking the "git" version of the software, you will probably want
 to upgrade and keep your existing data. There is no automated upgrade
-procedure in Laconica 0.7.3. Try these step-by-step instructions; read
+procedure in Laconica 0.7.4. Try these step-by-step instructions; read
 to the end first before trying them.
 
 0. Download Laconica and set up all the prerequisites as if you were
@@ -778,6 +785,29 @@ problem.
    the memory limit high. You can re-run it without ill effect.
 3. When fixup_inboxes is finished, you can set the enabled flag to
    'true'.
+
+UTF-8 Database
+--------------
+
+Laconica 0.7.4 introduced a fix for some incorrectly-stored
+international characters ("UTF-8"). This fix is not
+backwards-compatible; installations from before 0.7.4 will show
+non-ASCII characters of old notices incorrectly. This section explains
+what to do.
+
+0. You can disable the new behaviour by setting the 'db''utf8' config
+   option to "false". You should only do this until you're ready to
+   convert your DB to the new format.
+1. When you're ready to convert, you can run the fixup_utf8.php script
+   in the scripts/ subdirectory. If you've had the "new behaviour"
+   enabled (probably a good idea), you can give the ID of the first
+   "new" notice as a parameter, and only notices before that one will
+   be converted. Notices are converted in reverse chronological order,
+   so the most recent (and visible) ones will be converted first. The
+   script should work whether or not you have the 'db''utf8' config
+   option enabled.
+2. When you're ready, set $config['db']['utf8'] to true, so that
+   new notices will be stored correctly.
 
 Configuration options
 =====================
@@ -906,6 +936,10 @@ mirror: you can set this to an array of DSNs, like the above
 	and adding the slaves to this array. Note that if you want some
 	requests to go to the 'database' (master) server, you'll need
 	to include it in this array, too.
+utf8: whether to talk to the database in UTF-8 mode. This is the default
+      with new installations, but older sites may want to turn it off
+      until they get their databases fixed up. See "UTF-8 database"
+      above for details.
 
 syslog
 ------
@@ -1129,6 +1163,9 @@ welcome: nickname of a user account that sends welcome messages to new
          busy servers it may be a good idea to keep that one just for
          'urgent' messages. Default is null; no message.
 
+If either of these special user accounts are specified, the users should
+be created before the configuration is updated.
+
 Troubleshooting
 ===============
 
@@ -1141,7 +1178,7 @@ repository (see below), and you get a compilation error ("unexpected
 T_STRING") in the browser, check to see that you don't have any
 conflicts in your code.
 
-If you upgraded to Laconica 0.7.3 without reading the "Notice inboxes"
+If you upgraded to Laconica 0.7.4 without reading the "Notice inboxes"
 section above, and all your users' 'Personal' tabs are empty, read the
 "Notice inboxes" section above.
 
@@ -1232,6 +1269,8 @@ if anyone's been overlooked in error.
 * Ken Sedgwick
 * Brian Hendrickson
 * Tobias Diekershoff
+* Dan Moore
+* Fil
 
 Thanks also to the developers of our upstream library code and to the
 thousands of people who have tried out Identi.ca, installed Laconi.ca,

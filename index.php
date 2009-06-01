@@ -101,6 +101,8 @@ function main()
 
     $args = array_merge($args, $_REQUEST);
 
+    Event::handle('ArgsInitialize', array(&$args));
+
     $action = $args['action'];
 
     if (!$action || !preg_match('/^[a-zA-Z0-9_-]*$/', $action)) {

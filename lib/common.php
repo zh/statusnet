@@ -19,7 +19,7 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-define('LACONICA_VERSION', '0.7.3');
+define('LACONICA_VERSION', '0.7.4');
 
 define('AVATAR_PROFILE_SIZE', 96);
 define('AVATAR_STREAM_SIZE', 48);
@@ -167,6 +167,7 @@ $config['db'] =
         'require_prefix' => 'classes/',
         'class_prefix' => '',
         'mirror' => null,
+        'utf8' => true,
         'db_driver' => 'DB', # XXX: JanRain libs only work with DB
         'quote_identifiers' => false,
         'type' => 'mysql' );
@@ -192,7 +193,7 @@ $_config_files[] = INSTALLDIR.'/config.php';
 $_have_a_config = false;
 
 foreach ($_config_files as $_config_file) {
-    if (file_exists($_config_file)) {
+    if (@file_exists($_config_file)) {
         include_once($_config_file);
         $_have_a_config = true;
     }

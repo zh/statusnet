@@ -50,13 +50,50 @@ class User_group extends Memcached_DataObject
 
     function getNotices($offset, $limit)
     {
-        $qry =
-          'SELECT notice.* ' .
-          'FROM notice JOIN group_inbox ON notice.id = group_inbox.notice_id ' .
-          'WHERE group_inbox.group_id = %d ';
-        return Notice::getStream(sprintf($qry, $this->id),
-                                 'group:notices:'.$this->id,
-                                 $offset, $limit);
+        $ids = Notice::stream(array($this, '_streamDirect'),
+                              array(),
+                              'user_group:notice_ids:' . $this->id,
+                              $offset, $limit);
+
+        return Notice::getStreamByIds($ids);
+    }
+
+    function _streamDirect($offset, $limit, $since_id, $max_id, $since)
+    {
+        $inbox = new Group_inbox();
+
+        $inbox->group_id = $this->id;
+
+        $inbox->selectAdd();
+        $inbox->selectAdd('notice_id');
+
+        if ($since_id != 0) {
+            $inbox->whereAdd('notice_id > ' . $since_id);
+        }
+
+        if ($max_id != 0) {
+            $inbox->whereAdd('notice_id <= ' . $max_id);
+        }
+
+        if (!is_null($since)) {
+            $inbox->whereAdd('created > \'' . date('Y-m-d H:i:s', $since) . '\'');
+        }
+
+        $inbox->orderBy('notice_id DESC');
+
+        if (!is_null($offset)) {
+            $inbox->limit($offset, $limit);
+        }
+
+        $ids = array();
+
+        if ($inbox->find()) {
+            while ($inbox->fetch()) {
+                $ids[] = $inbox->notice_id;
+            }
+        }
+
+        return $ids;
     }
 
     function allowedNickname($nickname)
@@ -91,7 +128,7 @@ class User_group extends Memcached_DataObject
     function setOriginal($filename)
     {
         $imagefile = new ImageFile($this->id, Avatar::path($filename));
-        
+
         $orig = clone($this);
         $this->original_logo = Avatar::url($filename);
         $this->homepage_logo = Avatar::url($imagefile->resize(AVATAR_PROFILE_SIZE));

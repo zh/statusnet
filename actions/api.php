@@ -67,6 +67,7 @@ class ApiAction extends Action
                     $this->process_command();
                 } else {
                     # basic authentication failed
+                    common_log(LOG_WARNING, "Failed API auth attempt, nickname: $nickname.");
                     $this->show_basic_auth_error();
                 }
             }
@@ -130,6 +131,7 @@ class ApiAction extends Action
                                  'statuses/friends_timeline',
                                  'statuses/friends',
                                  'statuses/replies',
+                                 'statuses/mentions',
                                  'statuses/followers',
                                  'favorites/favorites');
 

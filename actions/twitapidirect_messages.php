@@ -43,7 +43,7 @@ class Twitapidirect_messagesAction extends TwitterapiAction
         $count = $this->arg('count');
         $since = $this->arg('since');
         $since_id = $this->arg('since_id');
-        $before_id = $this->arg('before_id');
+        $max_id = $this->arg('max_id');
 
         $page = $this->arg('page');
 
@@ -74,8 +74,8 @@ class Twitapidirect_messagesAction extends TwitterapiAction
             $link = $server . $user->nickname . '/outbox';
         }
 
-        if ($before_id) {
-            $message->whereAdd("id < $before_id");
+        if ($max_id) {
+            $message->whereAdd("id <= $max_id");
         }
 
         if ($since_id) {

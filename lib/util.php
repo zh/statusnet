@@ -519,11 +519,16 @@ function common_shorten_links($text)
 
 function common_shorten_link($url, $reverse = false)
 {
+
     static $url_cache = array();
     if ($reverse) return isset($url_cache[$url]) ? $url_cache[$url] : $url;
 
     $user = common_current_user();
-
+    if (!isset($user)) {
+      // common current user does not find a user when called from the XMPP daemon
+      // therefore we'll set one here fix, so that XMPP given URLs may be shortened
+      $user->urlshorteningservice = 'ur1.ca';
+    }
     $curlh = curl_init();
     curl_setopt($curlh, CURLOPT_CONNECTTIMEOUT, 20); // # seconds to wait
     curl_setopt($curlh, CURLOPT_USERAGENT, 'Laconica');
@@ -874,20 +879,45 @@ function common_broadcast_notice($notice, $remote=false)
 
 function common_enqueue_notice($notice)
 {
-    foreach (array('jabber', 'omb', 'sms', 'public', 'twitter', 'facebook', 'ping') as $transport) {
-        $qi = new Queue_item();
-        $qi->notice_id = $notice->id;
-        $qi->transport = $transport;
-        $qi->created = $notice->created;
-        $result = $qi->insert();
-        if (!$result) {
-            $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-            common_log(LOG_ERR, 'DB error inserting queue item: ' . $last_error->message);
-            return false;
-        }
-        common_log(LOG_DEBUG, 'complete queueing notice ID = ' . $notice->id . ' for ' . $transport);
+    $transports = array('twitter', 'facebook', 'ping');
+
+    // If inboxes are enabled, wait till inboxes are filled
+    // before doing inbox-dependent broadcasts
+
+    $transports = array_merge($transports, common_post_inbox_transports());
+
+    foreach ($transports as $transport) {
+        common_enqueue_notice_transport($notice, $transport);
     }
+
     return $result;
+}
+
+function common_post_inbox_transports()
+{
+    $transports = array('omb', 'sms');
+
+    if (common_config('xmpp', 'enabled')) {
+        $transports = array_merge($transports, array('jabber', 'public'));
+    }
+
+    return $transports;
+}
+
+function common_enqueue_notice_transport($notice, $transport)
+{
+    $qi = new Queue_item();
+    $qi->notice_id = $notice->id;
+    $qi->transport = $transport;
+    $qi->created = $notice->created;
+    $result = $qi->insert();
+    if (!$result) {
+        $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
+        common_log(LOG_ERR, 'DB error inserting queue item: ' . $last_error->message);
+        throw new ServerException('DB error inserting queue item: ' . $last_error->message);
+    }
+    common_log(LOG_DEBUG, 'complete queueing notice ID = ' . $notice->id . ' for ' . $transport);
+    return true;
 }
 
 function common_real_broadcast($notice, $remote=false)
@@ -961,7 +991,7 @@ function common_root_url($ssl=false)
 function common_good_rand($bytes)
 {
     // XXX: use random.org...?
-    if (file_exists('/dev/urandom')) {
+    if (@file_exists('/dev/urandom')) {
         return common_urandom($bytes);
     } else { // FIXME: this is probably not good enough
         return common_mtrand($bytes);
@@ -1327,7 +1357,7 @@ function common_compatible_license($from, $to)
  */
 function common_database_tablename($tablename)
 {
-  
+
   if(common_config('db','quote_identifiers')) {
       $tablename = '"'. $tablename .'"';
   }

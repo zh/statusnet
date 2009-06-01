@@ -21,10 +21,9 @@
 # Note that the 'maildaemon' needs to run as a mail filter.
 
 DIR=`dirname $0`
+DAEMONS=`php $DIR/getvaliddaemons.php`
 
-for f in xmppdaemon.php jabberqueuehandler.php publicqueuehandler.php \
-         xmppconfirmhandler.php smsqueuehandler.php ombqueuehandler.php \
-         twitterqueuehandler.php facebookqueuehandler.php pingqueuehandler.php; do
+for f in $DAEMONS; do
 
          echo -n "Starting $f...";
 	 php $DIR/$f

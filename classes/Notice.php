@@ -195,9 +195,10 @@ class Notice extends Memcached_DataObject
 
             $notice->saveReplies();
             $notice->saveTags();
-            $notice->saveGroups();
 
             $notice->addToInboxes();
+            $notice->saveGroups();
+
             $notice->query('COMMIT');
 
             Event::handle('EndNoticeSave', array($notice));
@@ -206,9 +207,7 @@ class Notice extends Memcached_DataObject
         # Clear the cache for subscribed users, so they'll update at next request
         # XXX: someone clever could prepend instead of clearing the cache
 
-        if (common_config('memcached', 'enabled')) {
-            $notice->blowCaches();
-        }
+        $notice->blowCaches();
 
         return $notice;
     }
@@ -279,17 +278,17 @@ class Notice extends Memcached_DataObject
             $group_inbox->notice_id = $this->id;
             if ($group_inbox->find()) {
                 while ($group_inbox->fetch()) {
-                    $cache->delete(common_cache_key('group:notices:'.$group_inbox->group_id));
+                    $cache->delete(common_cache_key('user_group:notice_ids:' . $group_inbox->group_id));
                     if ($blowLast) {
-                        $cache->delete(common_cache_key('group:notices:'.$group_inbox->group_id.';last'));
+                        $cache->delete(common_cache_key('user_group:notice_ids:' . $group_inbox->group_id.';last'));
                     }
                     $member = new Group_member();
                     $member->group_id = $group_inbox->group_id;
                     if ($member->find()) {
                         while ($member->fetch()) {
-                            $cache->delete(common_cache_key('user:notices_with_friends:' . $member->profile_id));
+                            $cache->delete(common_cache_key('notice_inbox:by_user:' . $member->profile_id));
                             if ($blowLast) {
-                                $cache->delete(common_cache_key('user:notices_with_friends:' . $member->profile_id . ';last'));
+                                $cache->delete(common_cache_key('notice_inbox:by_user:' . $member->profile_id . ';last'));
                             }
                         }
                     }
@@ -308,10 +307,7 @@ class Notice extends Memcached_DataObject
             $tag->notice_id = $this->id;
             if ($tag->find()) {
                 while ($tag->fetch()) {
-                    $cache->delete(common_cache_key('notice_tag:notice_stream:' . $tag->tag));
-                    if ($blowLast) {
-                        $cache->delete(common_cache_key('notice_tag:notice_stream:' . $tag->tag . ';last'));
-                    }
+                    $tag->blowCache($blowLast);
                 }
             }
             $tag->free();
@@ -332,9 +328,9 @@ class Notice extends Memcached_DataObject
                          'WHERE subscription.subscribed = ' . $this->profile_id);
 
             while ($user->fetch()) {
-                $cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
+                $cache->delete(common_cache_key('notice_inbox:by_user:'.$user->id));
                 if ($blowLast) {
-                    $cache->delete(common_cache_key('user:notices_with_friends:' . $user->id . ';last'));
+                    $cache->delete(common_cache_key('notice_inbox:by_user:'.$user->id.';last'));
                 }
             }
             $user->free();
@@ -346,10 +342,10 @@ class Notice extends Memcached_DataObject
     {
         if ($this->is_local) {
             $cache = common_memcache();
-            if ($cache) {
-                $cache->delete(common_cache_key('profile:notices:'.$this->profile_id));
+            if (!empty($cache)) {
+                $cache->delete(common_cache_key('profile:notice_ids:'.$this->profile_id));
                 if ($blowLast) {
-                    $cache->delete(common_cache_key('profile:notices:'.$this->profile_id.';last'));
+                    $cache->delete(common_cache_key('profile:notice_ids:'.$this->profile_id.';last'));
                 }
             }
         }
@@ -363,9 +359,9 @@ class Notice extends Memcached_DataObject
             $reply->notice_id = $this->id;
             if ($reply->find()) {
                 while ($reply->fetch()) {
-                    $cache->delete(common_cache_key('user:replies:'.$reply->profile_id));
+                    $cache->delete(common_cache_key('reply:stream:'.$reply->profile_id));
                     if ($blowLast) {
-                        $cache->delete(common_cache_key('user:replies:'.$reply->profile_id.';last'));
+                        $cache->delete(common_cache_key('reply:stream:'.$reply->profile_id.';last'));
                     }
                 }
             }
@@ -395,9 +391,9 @@ class Notice extends Memcached_DataObject
             $fave->notice_id = $this->id;
             if ($fave->find()) {
                 while ($fave->fetch()) {
-                    $cache->delete(common_cache_key('user:faves:'.$fave->user_id));
+                    $cache->delete(common_cache_key('fave:ids_by_user:'.$fave->user_id));
                     if ($blowLast) {
-                        $cache->delete(common_cache_key('user:faves:'.$fave->user_id.';last'));
+                        $cache->delete(common_cache_key('fave:ids_by_user:'.$fave->user_id.';last'));
                     }
                 }
             }
@@ -409,22 +405,22 @@ class Notice extends Memcached_DataObject
     # XXX: too many args; we need to move to named params or even a separate
     # class for notice streams
 
-    static function getStream($qry, $cachekey, $offset=0, $limit=20, $since_id=0, $before_id=0, $order=null, $since=null) {
+    static function getStream($qry, $cachekey, $offset=0, $limit=20, $since_id=0, $max_id=0, $order=null, $since=null) {
 
         if (common_config('memcached', 'enabled')) {
 
-            # Skip the cache if this is a since, since_id or before_id qry
-            if ($since_id > 0 || $before_id > 0 || $since) {
-                return Notice::getStreamDirect($qry, $offset, $limit, $since_id, $before_id, $order, $since);
+            # Skip the cache if this is a since, since_id or max_id qry
+            if ($since_id > 0 || $max_id > 0 || $since) {
+                return Notice::getStreamDirect($qry, $offset, $limit, $since_id, $max_id, $order, $since);
             } else {
                 return Notice::getCachedStream($qry, $cachekey, $offset, $limit, $order);
             }
         }
 
-        return Notice::getStreamDirect($qry, $offset, $limit, $since_id, $before_id, $order, $since);
+        return Notice::getStreamDirect($qry, $offset, $limit, $since_id, $max_id, $order, $since);
     }
 
-    static function getStreamDirect($qry, $offset, $limit, $since_id, $before_id, $order, $since) {
+    static function getStreamDirect($qry, $offset, $limit, $since_id, $max_id, $order, $since) {
 
         $needAnd = false;
         $needWhere = true;
@@ -446,7 +442,7 @@ class Notice extends Memcached_DataObject
             $qry .= ' notice.id > ' . $since_id;
         }
 
-        if ($before_id > 0) {
+        if ($max_id > 0) {
 
             if ($needWhere) {
                 $qry .= ' WHERE ';
@@ -455,7 +451,7 @@ class Notice extends Memcached_DataObject
                 $qry .= ' AND ';
             }
 
-            $qry .= ' notice.id < ' . $before_id;
+            $qry .= ' notice.id <= ' . $max_id;
         }
 
         if ($since) {
@@ -593,27 +589,80 @@ class Notice extends Memcached_DataObject
         return $wrapper;
     }
 
-    function publicStream($offset=0, $limit=20, $since_id=0, $before_id=0, $since=null)
+    function getStreamByIds($ids)
     {
+        $cache = common_memcache();
 
-        $parts = array();
+        if (!empty($cache)) {
+            $notices = array();
+            foreach ($ids as $id) {
+                $notices[] = Notice::staticGet('id', $id);
+            }
+            return new ArrayWrapper($notices);
+        } else {
+            $notice = new Notice();
+            $notice->whereAdd('id in (' . implode(', ', $ids) . ')');
+            $notice->orderBy('id DESC');
 
-        $qry = 'SELECT * FROM notice ';
+            $notice->find();
+            return $notice;
+        }
+    }
+
+    function publicStream($offset=0, $limit=20, $since_id=0, $max_id=0, $since=null)
+    {
+        $ids = Notice::stream(array('Notice', '_publicStreamDirect'),
+                              array(),
+                              'public',
+                              $offset, $limit, $since_id, $max_id, $since);
+
+        return Notice::getStreamByIds($ids);
+    }
+
+    function _publicStreamDirect($offset=0, $limit=20, $since_id=0, $max_id=0, $since=null)
+    {
+        $notice = new Notice();
+
+        $notice->selectAdd(); // clears it
+        $notice->selectAdd('id');
+
+        $notice->orderBy('id DESC');
+
+        if (!is_null($offset)) {
+            $notice->limit($offset, $limit);
+        }
 
         if (common_config('public', 'localonly')) {
-            $parts[] = 'is_local = 1';
+            $notice->whereAdd('is_local = 1');
         } else {
             # -1 == blacklisted
-            $parts[] = 'is_local != -1';
+            $notice->whereAdd('is_local != -1');
         }
 
-        if ($parts) {
-            $qry .= ' WHERE ' . implode(' AND ', $parts);
+        if ($since_id != 0) {
+            $notice->whereAdd('id > ' . $since_id);
         }
 
-        return Notice::getStream($qry,
-                                 'public',
-                                 $offset, $limit, $since_id, $before_id, null, $since);
+        if ($max_id != 0) {
+            $notice->whereAdd('id <= ' . $max_id);
+        }
+
+        if (!is_null($since)) {
+            $notice->whereAdd('created > \'' . date('Y-m-d H:i:s', $since) . '\'');
+        }
+
+        $ids = array();
+
+        if ($notice->find()) {
+            while ($notice->fetch()) {
+                $ids[] = $notice->id;
+            }
+        }
+
+        $notice->free();
+        $notice = NULL;
+
+        return $ids;
     }
 
     function addToInboxes()
@@ -691,22 +740,27 @@ class Notice extends Memcached_DataObject
 
                 // FIXME: do this in an offline daemon
 
-                $inbox = new Notice_inbox();
-                $UT = common_config('db','type')=='pgsql'?'"user"':'user';
-                $qry = 'INSERT INTO notice_inbox (user_id, notice_id, created, source) ' .
-                  "SELECT $UT.id, " . $this->id . ", '" . $this->created . "', 2 " .
-                  "FROM $UT JOIN group_member ON $UT.id = group_member.profile_id " .
-                  'WHERE group_member.group_id = ' . $group->id . ' ' .
-                  'AND NOT EXISTS (SELECT user_id, notice_id ' .
-                  'FROM notice_inbox ' .
-                  "WHERE user_id = $UT.id " .
-                  'AND notice_id = ' . $this->id . ' )';
-                if ($enabled === 'transitional') {
-                    $qry .= " AND $UT.inboxed = 1";
-                }
-                $result = $inbox->query($qry);
+                $this->addToGroupInboxes($group);
             }
         }
+    }
+
+    function addToGroupInboxes($group)
+    {
+        $inbox = new Notice_inbox();
+        $UT = common_config('db','type')=='pgsql'?'"user"':'user';
+        $qry = 'INSERT INTO notice_inbox (user_id, notice_id, created, source) ' .
+          "SELECT $UT.id, " . $this->id . ", '" . $this->created . "', 2 " .
+          "FROM $UT JOIN group_member ON $UT.id = group_member.profile_id " .
+          'WHERE group_member.group_id = ' . $group->id . ' ' .
+          'AND NOT EXISTS (SELECT user_id, notice_id ' .
+          'FROM notice_inbox ' .
+          "WHERE user_id = $UT.id " .
+          'AND notice_id = ' . $this->id . ' )';
+        if ($enabled === 'transitional') {
+            $qry .= " AND $UT.inboxed = 1";
+        }
+        $result = $inbox->query($qry);
     }
 
     function saveReplies()
@@ -894,5 +948,60 @@ class Notice extends Memcached_DataObject
             return common_local_url('shownotice',
                                     array('notice' => $this->id));
         }
+    }
+
+    function stream($fn, $args, $cachekey, $offset=0, $limit=20, $since_id=0, $max_id=0, $since=null)
+    {
+        $cache = common_memcache();
+
+        if (empty($cache) ||
+            $since_id != 0 || $max_id != 0 || (!is_null($since) && $since > 0) ||
+            ($offset + $limit) > NOTICE_CACHE_WINDOW) {
+            return call_user_func_array($fn, array_merge($args, array($offset, $limit, $since_id,
+                                                                      $max_id, $since)));
+        }
+
+        $idkey = common_cache_key($cachekey);
+
+        $idstr = $cache->get($idkey);
+
+        if (!empty($idstr)) {
+            // Cache hit! Woohoo!
+            $window = explode(',', $idstr);
+            $ids = array_slice($window, $offset, $limit);
+            return $ids;
+        }
+
+        $laststr = $cache->get($idkey.';last');
+
+        if (!empty($laststr)) {
+            $window = explode(',', $laststr);
+            $last_id = $window[0];
+            $new_ids = call_user_func_array($fn, array_merge($args, array(0, NOTICE_CACHE_WINDOW,
+                                                                          $last_id, 0, null)));
+
+            $new_window = array_merge($new_ids, $window);
+
+            $new_windowstr = implode(',', $new_window);
+
+            $result = $cache->set($idkey, $new_windowstr);
+            $result = $cache->set($idkey . ';last', $new_windowstr);
+
+            $ids = array_slice($new_window, $offset, $limit);
+
+            return $ids;
+        }
+
+        $window = call_user_func_array($fn, array_merge($args, array(0, NOTICE_CACHE_WINDOW,
+                                                                     0, 0, null)));
+
+        $windowstr = implode(',', $window);
+
+        $result = $cache->set($idkey, $windowstr);
+        $result = $cache->set($idkey . ';last', $windowstr);
+
+        $ids = array_slice($window, $offset, $limit);
+
+        return $ids;
     }
 }

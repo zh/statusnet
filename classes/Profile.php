@@ -153,16 +153,53 @@ class Profile extends Memcached_DataObject
         return null;
     }
 
-    function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
+    function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
     {
-        $qry =
-          'SELECT * ' .
-          'FROM notice ' .
-          'WHERE profile_id = %d ';
+        // XXX: I'm not sure this is going to be any faster. It probably isn't.
+        $ids = Notice::stream(array($this, '_streamDirect'),
+                              array(),
+                              'profile:notice_ids:' . $this->id,
+                              $offset, $limit, $since_id, $max_id);
 
-        return Notice::getStream(sprintf($qry, $this->id),
-                                 'profile:notices:'.$this->id,
-                                 $offset, $limit, $since_id, $before_id);
+        return Notice::getStreamByIds($ids);
+    }
+
+    function _streamDirect($offset, $limit, $since_id, $max_id, $since)
+    {
+        $notice = new Notice();
+
+        $notice->profile_id = $this->id;
+
+        $notice->selectAdd();
+        $notice->selectAdd('id');
+
+        if ($since_id != 0) {
+            $notice->whereAdd('id > ' . $since_id);
+        }
+
+        if ($max_id != 0) {
+            $notice->whereAdd('id <= ' . $max_id);
+        }
+
+        if (!is_null($since)) {
+            $notice->whereAdd('created > \'' . date('Y-m-d H:i:s', $since) . '\'');
+        }
+
+        $notice->orderBy('id DESC');
+
+        if (!is_null($offset)) {
+            $notice->limit($offset, $limit);
+        }
+
+        $ids = array();
+
+        if ($notice->find()) {
+            while ($notice->fetch()) {
+                $ids[] = $notice->id;
+            }
+        }
+
+        return $ids;
     }
 
     function isMember($group)

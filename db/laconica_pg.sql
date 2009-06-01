@@ -291,6 +291,8 @@ create table foreign_link (
      noticesync int not null default 1 /* comment 'notice synchronisation, bit 1 = sync outgoing, bit 2 = sync incoming, bit 3 = filter local replies' */,
      friendsync int not null default 2 /* comment 'friend synchronisation, bit 1 = sync outgoing, bit 2 = sync incoming */, 
      profilesync int not null default 1 /* comment 'profile synchronization, bit 1 = sync outgoing, bit 2 = sync incoming' */,
+     last_noticesync timestamp default null /* comment 'last time notices were imported' */,
+     last_friendsync timestamp default null /* comment 'last time friends were imported' */,
      created timestamp not null default CURRENT_TIMESTAMP /* comment 'date this record was created' */,
      modified timestamp /* comment 'date this record was modified' */,
 

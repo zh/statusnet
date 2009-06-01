@@ -151,11 +151,11 @@ class RecoverpasswordAction extends Action
                 $this->element('p', null,
                                _('If you\'ve forgotten or lost your' .
                                  ' password, you can get a new one sent to' .
-                                 ' the email address you have stored ' .
+                                 ' the email address you have stored' .
                                  ' in your account.'));
             } else if ($this->mode == 'reset') {
                 $this->element('p', null,
-                               _('You\'ve been identified. Enter a ' .
+                               _('You\'ve been identified. Enter a' .
                                  ' new password below. '));
             }
             $this->elementEnd('div');

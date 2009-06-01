@@ -69,6 +69,17 @@ class AllAction extends ProfileAction
                               sprintf(_('Feed for friends of %s (Atom)'), $this->user->nickname)));
     }
 
+    /**
+     * Output document relationship links
+     *
+     * @return void
+     */
+    function showRelationshipLinks()
+    {
+        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
+                                     $this->page, 'all', array('nickname' => $this->user->nickname));
+    }
+
     function showLocalNav()
     {
         $nav = new PersonalGroupNav($this);
@@ -82,7 +93,7 @@ class AllAction extends ProfileAction
         if (common_logged_in()) {
             $current_user = common_current_user();
             if ($this->user->id === $current_user->id) {
-                $message .= _('Try subscribing to more people, [join a group](%%action.groups) or post something yourself.');
+                $message .= _('Try subscribing to more people, [join a group](%%action.groups%%) or post something yourself.');
             } else {
                 $message .= sprintf(_('You can try to [nudge %s](../%s) from his profile or [post something to his or her attention](%%%%action.newnotice%%%%?status_textarea=%s).'), $this->user->nickname, $this->user->nickname, '@' . $this->user->nickname);
             }
