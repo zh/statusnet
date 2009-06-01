@@ -113,12 +113,12 @@ class NewnoticeAction extends Action
         }
     }
 
-    function isSupportedFileType() {
+    function getUploadedFileType() {
         require_once 'MIME/Type.php';
 
         $filetype = MIME_Type::autoDetect($_FILES['attach']['tmp_name']);
         if (in_array($filetype, common_config('attachments', 'supported'))) {
-            return true;
+            return $filetype;
         }
         $media = MIME_Type::getMedia($filetype);
         if ('application' !== $media) {
@@ -186,43 +186,39 @@ class NewnoticeAction extends Action
         }
 
         if (isset($_FILES['attach']['error'])) {
-        switch ($_FILES['attach']['error']) {
-            case UPLOAD_ERR_NO_FILE:
-                // no file uploaded
-                // nothing to do
-                break;
+            switch ($_FILES['attach']['error']) {
+                case UPLOAD_ERR_NO_FILE:
+                    // no file uploaded, nothing to do
+                    break;
 
-             case UPLOAD_ERR_OK:
-                // file was uploaded alright
-                // lets check if we really support its format
-                // and it doesn't go over quotas
+                case UPLOAD_ERR_OK:
+                    $mimetype = $this->getUploadedFileType();
+                    if (!$this->isRespectsQuota($user)) {
+                        die('clientError() should trigger an exception before reaching here.');
+                    }
+                    break;
 
-                if (!$this->isSupportedFileType() || !$this->isRespectsQuota($user)) {
-                    die('clientError() should trigger an exception before reaching here.');
-                }
-                break;
+                case UPLOAD_ERR_INI_SIZE:
+                    $this->clientError(_('The uploaded file exceeds the upload_max_filesize directive in php.ini.'));
 
-            case UPLOAD_ERR_INI_SIZE:
-                $this->clientError(_('The uploaded file exceeds the upload_max_filesize directive in php.ini.'));
+                case UPLOAD_ERR_FORM_SIZE:
+                    $this->clientError(_('The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.'));
 
-            case UPLOAD_ERR_FORM_SIZE:
-                $this->clientError(_('The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.'));
+                case UPLOAD_ERR_PARTIAL:
+                    $this->clientError(_('The uploaded file was only partially uploaded.'));
 
-            case UPLOAD_ERR_PARTIAL:
-                $this->clientError(_('The uploaded file was only partially uploaded.'));
+                case  UPLOAD_ERR_NO_TMP_DIR:
+                    $this->clientError(_('Missing a temporary folder.'));
 
-            case  UPLOAD_ERR_NO_TMP_DIR:
-                $this->clientError(_('Missing a temporary folder.'));
+                case UPLOAD_ERR_CANT_WRITE:
+                    $this->clientError(_('Failed to write file to disk.'));
 
-            case UPLOAD_ERR_CANT_WRITE:
-                $this->clientError(_('Failed to write file to disk.'));
+                case UPLOAD_ERR_EXTENSION:
+                    $this->clientError(_('File upload stopped by extension.'));
 
-            case UPLOAD_ERR_EXTENSION:
-                $this->clientError(_('File upload stopped by extension.'));
-
-            default:
-                die('Should never reach here.');
-        }
+                default:
+                    die('Should never reach here.');
+            }
         }
 
         $notice = Notice::saveNew($user->id, $content_shortened, 'web', 1,
@@ -232,7 +228,9 @@ class NewnoticeAction extends Action
             $this->clientError($notice);
         }
 
-        $this->storeFile($notice);
+        if (isset($mimetype)) {
+            $this->storeFile($notice, $mimetype);
+        }
         $this->saveUrls($notice);
         common_broadcast_notice($notice);
 
@@ -259,8 +257,7 @@ class NewnoticeAction extends Action
         }
     }
 
-    function storeFile($notice) {
-        if (UPLOAD_ERR_NO_FILE === $_FILES['attach']['error']) return;
+    function storeFile($notice, $mimetype) {
         $filename = basename($_FILES['attach']['name']);
         $destination = "file/{$notice->id}-$filename";
         if (move_uploaded_file($_FILES['attach']['tmp_name'], INSTALLDIR . "/$destination")) {
@@ -268,7 +265,7 @@ class NewnoticeAction extends Action
             $file->url = common_local_url('file', array('notice' => $notice->id));
             $file->size = filesize(INSTALLDIR . "/$destination");
             $file->date = time();
-            $file->mimetype = $_FILES['attach']['type'];
+            $file->mimetype = $mimetype;
             if ($file_id = $file->insert()) {
                 $file_redir = new File_redirection;
                 $file_redir->url = common_path($destination);
@@ -284,7 +281,6 @@ class NewnoticeAction extends Action
             }
         }
     }
-
 
     /** save all urls in the notice to the db
      *
@@ -408,3 +404,4 @@ class NewnoticeAction extends Action
         $nli->show();
     }
 }
+

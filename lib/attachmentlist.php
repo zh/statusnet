@@ -268,6 +268,23 @@ class Attachment extends AttachmentListItem
                 case 'image/jpeg':
                     $this->out->element('img', array('src' => $this->attachment->url, 'alt' => 'alt'));
                     break;
+
+                case 'application/ogg':
+                case 'audio/x-speex':
+                case 'video/mpeg':
+                case 'audio/mpeg':
+                case 'video/mp4':
+                case 'video/quicktime':
+                    $arr  = array('type' => $this->attachment->mimetype,
+                        'data' => $this->attachment->url,
+                        'width' => 320,
+                        'height' => 240
+                    );
+                    $this->out->elementStart('object', $arr);
+                    $this->out->element('param', array('name' => 'src', 'value' => $this->attachment->url));
+                    $this->out->element('param', array('name' => 'autoStart', 'value' => 1));
+                    $this->out->elementEnd('object');
+                    break;
                 }
             }
         } else {

@@ -169,6 +169,7 @@ $config =
             'image/gif',
             'image/svg+xml',
             'audio/mpeg',
+            'audio/x-speex',
             'application/ogg',
             'application/pdf',
             'application/vnd.oasis.opendocument.text',
