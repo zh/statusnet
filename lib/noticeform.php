@@ -156,9 +156,7 @@ class NoticeForm extends Form
             $this->out->hidden('notice_return-to', $this->action, 'returnto');
         }
         $this->out->hidden('notice_in-reply-to', $this->action, 'inreplyto');
-
         $this->out->hidden('MAX_FILE_SIZE', common_config('attachments', 'file_quota'));
-
     }
 
     /**

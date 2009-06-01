@@ -131,37 +131,10 @@ class NewnoticeAction extends Action
     }
 
     function isRespectsQuota($user) {
-        if ($_FILES['attach']['size'] > common_config('attachments', 'file_quota')) {
-            $this->clientError(sprintf(_('No file may be larger than %d bytes ' .
-                'and the file you sent was %d bytes. Try to upload a smaller version.'),
-                common_config('attachments', 'file_quota'), $_FILES['attach']['size']));
-        }
-
-        $query = "select sum(size) as total from file join file_to_post on file_to_post.file_id = file.id join notice on file_to_post.post_id = notice.id where profile_id = {$user->id} and file.url like '%/notice/%/file'";
         $file = new File;
-        $file->query($query);
-        $file->fetch();
-        $total = $file->total + $_FILES['attach']['size'];
-        if ($total > common_config('attachments', 'user_quota')) {
-            $this->clientError(sprintf(_('A file this large would exceed your user quota of %d bytes.'), common_config('attachments', 'user_quota')));
-        }
-
-        $query .= ' month(modified) = month(now()) and year(modified) = year(now())';
-        $file2 = new File;
-        $file2->query($query);
-        $file2->fetch();
-        $total2 = $file2->total + $_FILES['attach']['size'];
-        if ($total2 > common_config('attachments', 'monthly_quota')) {
-            $this->clientError(sprintf(_('A file this large would exceed your monthly quota of %d bytes.'), common_config('attachments', 'monthly_quota')));
-        }
-        return true;
-    }
-
-    function isValidFileAttached($user) {
-        return isset($_FILES['attach']['error'])
-            && ($_FILES['attach']['error'] === UPLOAD_ERR_OK)
-            && $this->isSupportedFileType()
-            && $this->isRespectsQuota($user);
+        $ret = $file->isRespectsQuota($user);
+        if (true === $ret) return true;
+        $this->clientError($ret);
     }
 
     /**
@@ -212,6 +185,7 @@ class NewnoticeAction extends Action
             $replyto = 'false';
         }
 
+        if (isset($_FILES['attach']['error'])) {
         switch ($_FILES['attach']['error']) {
             case UPLOAD_ERR_NO_FILE:
                 // no file uploaded
@@ -223,8 +197,7 @@ class NewnoticeAction extends Action
                 // lets check if we really support its format
                 // and it doesn't go over quotas
 
-
-                if (!$this->isValidFileAttached($user)) {
+                if (!$this->isSupportedFileType() || !$this->isRespectsQuota($user)) {
                     die('clientError() should trigger an exception before reaching here.');
                 }
                 break;
@@ -249,6 +222,7 @@ class NewnoticeAction extends Action
 
             default:
                 die('Should never reach here.');
+        }
         }
 
         $notice = Notice::saveNew($user->id, $content_shortened, 'web', 1,
