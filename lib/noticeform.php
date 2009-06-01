@@ -148,6 +148,7 @@ class NoticeForm extends Form
         $this->out->element('dd', array('id' => 'notice_text-count'),
                             '140');
         $this->out->elementEnd('dl');
+        $this->out->element('br', array('style' => 'clear:both'));
         $this->out->element('label', array('for' => 'notice_data-attach'), _('Attach'));
         $this->out->element('input', array('id' => 'notice_data-attach',
                                            'type' => 'file',
