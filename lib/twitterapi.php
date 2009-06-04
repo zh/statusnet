@@ -673,7 +673,27 @@ class TwitterapiAction extends Action
     function get_user($id, $apidata=null)
     {
         if (!$id) {
-            return $apidata['user'];
+            
+            // Twitter supports these other ways of passing the user ID
+            if (is_numeric($this->arg('id'))) {
+                return User::staticGet($this->arg('id'));
+            } else if ($this->arg('id')) {
+                $nickname = common_canonical_nickname($this->arg('id'));
+                return User::staticGet('nickname', $nickname);
+            } else if ($this->arg('user_id')) {
+                // This is to ensure that a non-numeric user_id still 
+                // overrides screen_name even if it doesn't get used
+                if (is_numeric($this->arg('user_id'))) {
+                    return User::staticGet('id', $this->arg('user_id'));
+                }
+            } else if ($this->arg('screen_name')) {
+                $nickname = common_canonical_nickname($this->arg('screen_name'));
+                return User::staticGet('nickname', $nickname);
+            } else {
+                // Fall back to trying the currently authenticated user
+                return $apidata['user'];
+            }
+            
         } else if (is_numeric($id)) {
             return User::staticGet($id);
         } else {

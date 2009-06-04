@@ -144,8 +144,8 @@ class ApiAction extends Action
         }
 
         if (in_array($fullname, $bareauth)) {
-            # bareauth: only needs auth if without an argument
-            if ($this->api_arg) {
+            # bareauth: only needs auth if without an argument or query param specifying user
+            if ($this->api_arg || $this->arg('id') || is_numeric($this->arg('user_id')) || $this->arg('screen_name')) {
                 return false;
             } else {
                 return true;
