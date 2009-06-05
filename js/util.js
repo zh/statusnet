@@ -17,17 +17,6 @@
  */
 
 $(document).ready(function(){
-    $('input#notice_data-attach').toggle();
-    $('label[for=notice_data-attach]').text('Upload a file as an attachment?');
-    $('label[for=notice_data-attach]').click(function () {
-        if ('Upload a file as an attachment?' == $(this).text()) {
-            $(this).text('Upload: ');
-            $('input#notice_data-attach').slideDown('fast');
-        } else {
-            $('input#notice_data-attach').slideUp('fast', function() {$('label[for=notice_data-attach]').text('Upload a file as an attachment?');});
-        }
-    });
-
 	// count character on keyup
 	function counter(event){
 		var maxLength = 140;
