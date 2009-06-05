@@ -335,6 +335,7 @@ function mail_broadcast_notice_sms($notice)
                  "FROM $UT JOIN subscription " .
                  "ON $UT.id = subscription.subscriber " .
                  'WHERE subscription.subscribed = ' . $notice->profile_id . ' ' .
+                 'AND subscription.subscribed != subscription.subscriber ' .
                  "AND $UT.smsemail IS NOT null " .
                  "AND $UT.smsnotify = 1 " .
                  'AND subscription.sms = 1 ');
