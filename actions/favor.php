@@ -12,8 +12,6 @@
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://laconi.ca/
  *
-
-/*
  * Laconica - a distributed open-source microblogging tool
  * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
