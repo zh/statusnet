@@ -167,7 +167,6 @@ $(document).ready(function(){
 																		   return true;
 												 						 },
 					   timeout: '60000',
-					   url: 'http://dev.controlyourself.ca/csarven/asdfasdfasdfasdf',
 					   error: function (xhr, textStatus, errorThrown) {	$("#form_notice").removeClass("processing");
 																		$("#notice_action-submit").removeAttr("disabled");
 																		$("#notice_action-submit").removeClass("disabled");
@@ -179,13 +178,9 @@ $(document).ready(function(){
 																				$('#form_notice').append(document._importNode($(".error", xhr.responseXML).get(0), true));
 																			}
 																			else {
-																				var HTTP20x30x = [200, 404, 201, 202, 203, 204, 205, 206, 300, 301, 302, 303, 304, 305, 306, 307];
+																				var HTTP20x30x = new Array(200, 201, 202, 203, 204, 205, 206, 300, 301, 302, 303, 304, 305, 306, 307);
 																				if(jQuery.inArray(parseInt(xhr.status), HTTP20x30x) < 0) {
 																					alert("Sorry! We had trouble sending your notice ("+xhr.status+" "+xhr.statusText+"). Please report the problem to the site administrator if this happens again.");
-																				}
-																				else {
-																					$("#notice_data-text").val("");
-																					counter();
 																				}
 																			}
 																		}
