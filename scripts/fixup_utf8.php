@@ -101,6 +101,7 @@ class UTF8FixerUpper
                             $this->args['min_notice']);
         $this->fixupProfiles();
         $this->fixupGroups();
+        $this->fixupMessages();
     }
 
     function fixupNotices($max_id, $min_id) {
