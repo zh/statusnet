@@ -239,8 +239,14 @@ class Memcached_DataObject extends DB_DataObject
         $result = parent::_connect();
         if (!$exists) {
             $DB = &$_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
-            if (common_config('db', 'utf8')) {
-                $DB->query('SET NAMES "utf8"');
+            if (common_config('db', 'type') == 'mysql' &&
+                common_config('db', 'utf8')) {
+                $conn = $DB->connection;
+                if ($DB instanceof DB_mysqli) {
+                    mysqli_set_charset($conn, 'utf8');
+                } else if ($DB instanceof DB_mysql) {
+                    mysql_set_charset('utf8', $conn);
+                }
             }
         }
         return $result;
