@@ -101,6 +101,7 @@ class UTF8FixerUpper
                             $this->args['min_notice']);
         $this->fixupProfiles();
         $this->fixupGroups();
+        $this->fixupMessages();
     }
 
     function fixupNotices($max_id, $min_id) {
@@ -292,6 +293,63 @@ class UTF8FixerUpper
             $user_group = User_group::staticGet('id', $id);
             $user_group->decache();
             $user_group->free();
+
+            echo "OK\n";
+        }
+    }
+
+    function fixupMessages() {
+
+        // Do a separate DB connection
+
+        $sth = $this->dbu->prepare("UPDATE message SET content = UNHEX(?), rendered = UNHEX(?) WHERE id = ?");
+
+        if (PEAR::isError($sth)) {
+            echo "ERROR: " . $sth->getMessage() . "\n";
+            return;
+        }
+
+        $sql = 'SELECT id, content, rendered FROM message ' .
+          'WHERE LENGTH(content) != CHAR_LENGTH(content) '.
+          'AND modified < "'.$this->max_date.'" '.
+          'ORDER BY id DESC';
+
+        $rn = $this->dbl->query($sql);
+
+        if (PEAR::isError($rn)) {
+            echo "ERROR: " . $rn->getMessage() . "\n";
+            return;
+        }
+
+        echo "Number of rows: " . $rn->numRows() . "\n";
+
+        $message = array();
+
+        while (DB_OK == $rn->fetchInto($message)) {
+
+            $id = ($message[0])+0;
+            $content = bin2hex($message[1]);
+            $rendered = bin2hex($message[2]);
+
+            echo "$id...";
+
+            $result =& $this->dbu->execute($sth, array($content, $rendered, $id));
+
+            if (PEAR::isError($result)) {
+                echo "ERROR: " . $result->getMessage() . "\n";
+                continue;
+            }
+
+            $cnt = $this->dbu->affectedRows();
+
+            if ($cnt != 1) {
+                echo "ERROR: 0 rows affected\n";
+                continue;
+            }
+
+            $message = Message::staticGet('id', $id);
+            $message->decache();
+            $message->free();
 
             echo "OK\n";
         }
