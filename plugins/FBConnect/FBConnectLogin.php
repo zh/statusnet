@@ -58,8 +58,6 @@ class FBConnectLoginAction extends Action
     function showContent() {
 
         $this->elementStart('fieldset');
-
-
         $this->element('fb:login-button', array('onlogin' => 'goto_login()',
             'length' => 'long'));
 
