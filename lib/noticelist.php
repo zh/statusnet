@@ -364,6 +364,10 @@ class NoticeListItem extends Widget
             // versions (>> 0.4.x)
             $this->out->raw(common_render_content($this->notice->content, $this->notice));
         }
+        $uploaded = $this->notice->getUploadedAttachment();
+        if ($uploaded) {
+            $this->out->element('a', array('href' => $uploaded, 'class' => 'attachment'), $uploaded);
+        }
         $this->out->elementEnd('p');
     }
 
@@ -395,10 +399,6 @@ class NoticeListItem extends Widget
                                           'title' => $dt),
                             common_date_string($this->notice->created));
 
-        $f2p = File_to_post::staticGet('post_id', $this->notice->id);
-        if (!empty($f2p)) {
-            $this->out->text(_(' (with attachments) '));
-        }
         $this->out->elementEnd('a');
         $this->out->elementEnd('dd');
         $this->out->elementEnd('dl');
