@@ -151,7 +151,8 @@ class NoticeForm extends Form
         $this->out->element('label', array('for' => 'notice_data-attach'), _('Attach'));
         $this->out->element('input', array('id' => 'notice_data-attach',
                                            'type' => 'file',
-                                           'name' => 'attach'));
+                                           'name' => 'attach',
+                                           'title' => _('Attach a file')));
         if ($this->action) {
             $this->out->hidden('notice_return-to', $this->action, 'returnto');
         }
