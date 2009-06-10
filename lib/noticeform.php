@@ -148,6 +148,7 @@ class NoticeForm extends Form
         $this->out->element('dd', array('id' => 'notice_text-count'),
                             '140');
         $this->out->elementEnd('dl');
+        $this->out->hidden('MAX_FILE_SIZE', common_config('attachments', 'file_quota'));
         $this->out->element('label', array('for' => 'notice_data-attach'), _('Attach'));
         $this->out->element('input', array('id' => 'notice_data-attach',
                                            'type' => 'file',
@@ -157,7 +158,6 @@ class NoticeForm extends Form
             $this->out->hidden('notice_return-to', $this->action, 'returnto');
         }
         $this->out->hidden('notice_in-reply-to', $this->action, 'inreplyto');
-        $this->out->hidden('MAX_FILE_SIZE', common_config('attachments', 'file_quota'));
     }
 
     /**
