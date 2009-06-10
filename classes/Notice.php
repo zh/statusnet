@@ -269,6 +269,18 @@ class Notice extends Memcached_DataObject
         return true;
     }
 
+    function getUploadedAttachment() {
+        $post = clone $this;
+        $query = 'select file.url as uploaded from file join file_to_post on file.id = file_id where post_id=' . $post->escape($post->id) . ' and url like "%/notice/%/file"';
+        $post->query($query);
+        $post->fetch();
+        $ret = $post->uploaded;
+//        var_dump($post);
+        $post->free();
+//        die();
+        return $ret;
+    }
+
     function hasAttachments() {
         $post = clone $this;
         $query = "select count(file_id) as n_attachments from file join file_to_post on (file_id = file.id) join notice on (post_id = notice.id) where post_id = " . $post->escape($post->id);

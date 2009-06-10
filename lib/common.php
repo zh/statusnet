@@ -188,6 +188,7 @@ $config =
             'application/vnd.oasis.opendocument.formula-template',
             'application/vnd.oasis.opendocument.text-master',
             'application/vnd.oasis.opendocument.text-web',
+            'application/x-zip',
             'application/zip',
             'text/plain',
             'video/mpeg',
