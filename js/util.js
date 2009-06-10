@@ -17,10 +17,6 @@
  */
 
 $(document).ready(function(){
-    $('.attachments').click(function() {$().jOverlay({zIndex:999, success:function(html) {$('.attachment').click(function() {$().jOverlay({url:$(this).attr('href') + '/ajax'}); return false; });
-        }, url:$(this).attr('href') + '/ajax'}); return false; });
-    $('.attachment').click(function() {$().jOverlay({url:$(this).attr('href') + '/ajax'}); return false; });
-
 	// count character on keyup
 	function counter(event){
 		var maxLength = 140;
@@ -203,11 +199,11 @@ $(document).ready(function(){
                                                               $("#notices_primary .notices").prepend(document._importNode(li, true));
                                                               $("#notices_primary .notice:first").css({display:"none"});
                                                               $("#notices_primary .notice:first").fadeIn(2500);
-                                                              NoticeHover();
                                                               NoticeReply();
                                                          }
 													}
 													$("#notice_data-text").val("");
+    												$("#notice_data-attach").val("");
                                                     counter();
 												}
 												$("#form_notice").removeClass("processing");
@@ -219,26 +215,26 @@ $(document).ready(function(){
 	$("#form_notice").each(addAjaxHidden);
     NoticeHover();
     NoticeReply();
+    NoticeAttachments();
 });
 
+
 function NoticeHover() {
-    $("#content .notice").hover(
-        function () {
-            $(this).addClass('hover');
-        },
-        function () {
-            $(this).removeClass('hover');
-        }
-    );
+    function mouseHandler(e) {
+        $(e.target).closest('li.hentry')[(e.type === 'mouseover') ? 'addClass' : 'removeClass']('hover');
+    };
+    $('#content .notices').mouseover(mouseHandler);
+    $('#content .notices').mouseout(mouseHandler);
 }
+
 
 function NoticeReply() {
     if ($('#notice_data-text').length > 0) {
         $('#content .notice').each(function() {
-            var notice = $(this);
-            $('.notice_reply', $(this)).click(function() {
-                var nickname = ($('.author .nickname', notice).length > 0) ? $('.author .nickname', notice) : $('.author .nickname');
-                NoticeReplySet(nickname.text(), $('.notice_id', notice).text());
+            var notice = $(this)[0];
+            $($('.notice_reply', notice)[0]).click(function() {
+                var nickname = ($('.author .nickname', notice).length > 0) ? $($('.author .nickname', notice)[0]) : $('.author .nickname');
+                NoticeReplySet(nickname.text(), $($('.notice_id', notice)[0]).text());
                 return false;
             });
         });
@@ -258,3 +254,53 @@ function NoticeReplySet(nick,id) {
 	}
 	return true;
 }
+
+function NoticeAttachments() {
+    $.fn.jOverlay.options = {
+        method : 'GET',
+        data : '',
+        url : '',
+        color : '#000',
+        opacity : '0.6',
+        zIndex : 99,
+        center : true,
+        imgLoading : $('address .url')[0].href+'theme/base/images/illustrations/illu_progress_loading-01.gif',
+        bgClickToClose : true,
+        success : function() {
+            $('#jOverlayContent').append('<button>&#215;</button>');
+            $('#jOverlayContent button').click($.closeOverlay);
+        },
+        timeout : 0
+    };
+
+    $('a.attachment').click(function() {
+        $().jOverlay({url: $('address .url')[0].href+'/attachment/' + ($(this).attr('id').substring('attachment'.length + 1)) + '/ajax'});
+        return false;
+    });
+    
+    var t;
+    $("body:not(#shownotice) a.thumbnail").hover(
+        function() {
+            var anchor = $(this);
+            $("a.thumbnail").children('img').hide();
+            anchor.closest(".entry-title").addClass('ov');
+
+            if (anchor.children('img').length == 0) {
+                t = setTimeout(function() {
+                    $.get($('address .url')[0].href+'/attachment/' + (anchor.attr('id').substring('attachment'.length + 1)) + '/thumbnail', null, function(data) {
+                        anchor.append(data);
+                    });
+                }, 500);
+            }
+            else {
+                anchor.children('img').show();
+            }
+        },
+        function() {
+            clearTimeout(t);
+            $("a.thumbnail").children('img').hide();
+            $(this).closest(".entry-title").removeClass('ov');
+        }
+    );
+}
+

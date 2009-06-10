@@ -133,7 +133,7 @@ class File_redirection extends Memcached_DataObject
         $file->limit(1);
         $file->orderBy('len');
         $file->find(true);
-        if (!empty($file->id)) {
+        if (!empty($file->url) && (strlen($file->url) < strlen($long_url))) {
             return $file->url;
         }
 

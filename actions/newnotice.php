@@ -84,20 +84,24 @@ class NewnoticeAction extends Action
 
     function handle($args)
     {
-        parent::handle($args);
-
         if (!common_logged_in()) {
             $this->clientError(_('Not logged in.'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // check for this before token since all POST and FILES data
+            // is losts when size is exceeded
+            if (empty($_POST) && $_SERVER['CONTENT_LENGTH']) {
+                $this->clientError(sprintf(_('The server was unable to handle ' .
+                    'that much POST data (%s bytes) due to its current configuration.'),
+                    $_SERVER['CONTENT_LENGTH']));
+            }
+            parent::handle($args);
 
             // CSRF protection
             $token = $this->trimmed('token');
             if (!$token || $token != common_session_token()) {
                 $this->clientError(_('There was a problem with your session token. '.
                                      'Try again, please.'));
-                return;
             }
-
             try {
                 $this->saveNewNotice();
             } catch (Exception $e) {
@@ -107,6 +111,30 @@ class NewnoticeAction extends Action
         } else {
             $this->showForm();
         }
+    }
+
+    function getUploadedFileType() {
+        require_once 'MIME/Type.php';
+
+        $filetype = MIME_Type::autoDetect($_FILES['attach']['tmp_name']);
+        if (in_array($filetype, common_config('attachments', 'supported'))) {
+            return $filetype;
+        }
+        $media = MIME_Type::getMedia($filetype);
+        if ('application' !== $media) {
+            $hint = sprintf(_(' Try using another %s format.'), $media);
+        } else {
+            $hint = '';
+        }
+        $this->clientError(sprintf(
+            _('%s is not a supported filetype on this server.'), $filetype) . $hint);
+    }
+
+    function isRespectsQuota($user) {
+        $file = new File;
+        $ret = $file->isRespectsQuota($user);
+        if (true === $ret) return true;
+        $this->clientError($ret);
     }
 
     /**
@@ -131,7 +159,6 @@ class NewnoticeAction extends Action
             $this->clientError(_('No content!'));
         } else {
             $content_shortened = common_shorten_links($content);
-
             if (mb_strlen($content_shortened) > 140) {
                 $this->clientError(_('That\'s too long. '.
                                      'Max notice size is 140 chars.'));
@@ -158,17 +185,53 @@ class NewnoticeAction extends Action
             $replyto = 'false';
         }
 
-//        $notice = Notice::saveNew($user->id, $content_shortened, 'web', 1,
+        if (isset($_FILES['attach']['error'])) {
+            switch ($_FILES['attach']['error']) {
+                case UPLOAD_ERR_NO_FILE:
+                    // no file uploaded, nothing to do
+                    break;
+
+                case UPLOAD_ERR_OK:
+                    $mimetype = $this->getUploadedFileType();
+                    if (!$this->isRespectsQuota($user)) {
+                        die('clientError() should trigger an exception before reaching here.');
+                    }
+                    break;
+
+                case UPLOAD_ERR_INI_SIZE:
+                    $this->clientError(_('The uploaded file exceeds the upload_max_filesize directive in php.ini.'));
+
+                case UPLOAD_ERR_FORM_SIZE:
+                    $this->clientError(_('The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.'));
+
+                case UPLOAD_ERR_PARTIAL:
+                    $this->clientError(_('The uploaded file was only partially uploaded.'));
+
+                case  UPLOAD_ERR_NO_TMP_DIR:
+                    $this->clientError(_('Missing a temporary folder.'));
+
+                case UPLOAD_ERR_CANT_WRITE:
+                    $this->clientError(_('Failed to write file to disk.'));
+
+                case UPLOAD_ERR_EXTENSION:
+                    $this->clientError(_('File upload stopped by extension.'));
+
+                default:
+                    die('Should never reach here.');
+            }
+        }
+
         $notice = Notice::saveNew($user->id, $content_shortened, 'web', 1,
                                   ($replyto == 'false') ? null : $replyto);
 
         if (is_string($notice)) {
             $this->clientError($notice);
-            return;
         }
 
+        if (isset($mimetype)) {
+            $this->storeFile($notice, $mimetype);
+        }
         $this->saveUrls($notice);
-
         common_broadcast_notice($notice);
 
         if ($this->boolean('ajax')) {
@@ -194,6 +257,33 @@ class NewnoticeAction extends Action
         }
     }
 
+    function storeFile($notice, $mimetype) {
+        $filename = basename($_FILES['attach']['name']);
+        $destination = "file/{$notice->id}-$filename";
+        if (move_uploaded_file($_FILES['attach']['tmp_name'], INSTALLDIR . "/$destination")) {
+            $file = new File;
+            $file->url = common_local_url('file', array('notice' => $notice->id));
+            $file->size = filesize(INSTALLDIR . "/$destination");
+            $file->date = time();
+            $file->mimetype = $mimetype;
+            if ($file_id = $file->insert()) {
+                $file_redir = new File_redirection;
+                $file_redir->url = common_path($destination);
+                $file_redir->file_id = $file_id;
+                $file_redir->insert();
+
+                $f2p = new File_to_post;
+                $f2p->file_id = $file_id; 
+                $f2p->post_id = $notice->id; 
+                $f2p->insert();
+            } else {
+                $this->clientError(_('There was a database error while saving your file. Please try again.'));
+            }
+        } else {
+            $this->clientError(_('File could not be moved to destination directory.'));
+        }
+    }
+
     /** save all urls in the notice to the db
      *
      * follow redirects and save all available file information
@@ -203,7 +293,7 @@ class NewnoticeAction extends Action
      *
      * @return void
      */
-    function saveUrls($notice) {
+    function saveUrls($notice, $uploaded = null) {
         common_replace_urls_callback($notice->content, array($this, 'saveUrl'), $notice->id);
     }
 
@@ -316,3 +406,4 @@ class NewnoticeAction extends Action
         $nli->show();
     }
 }
+

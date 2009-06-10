@@ -1,39 +1,48 @@
-		$(function(){
-			var x = ($('#avatar_crop_x').val()) ? $('#avatar_crop_x').val() : 0;
-			var y = ($('#avatar_crop_y').val()) ? $('#avatar_crop_y').val() : 0;
-			var w = ($('#avatar_crop_w').val()) ? $('#avatar_crop_w').val() : $("#avatar_original img").attr("width");
-			var h = ($('#avatar_crop_h').val()) ? $('#avatar_crop_h').val() : $("#avatar_original img").attr("height");
+/** Init for Jcrop library and page setup
+ *
+ * @package   Laconica
+ * @author Sarven Capadisli <csarven@controlyourself.ca>
+ * @copyright 2009 Control Yourself, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link      http://laconi.ca/
+ */
 
-			jQuery("#avatar_original img").Jcrop({
-				onChange: showPreview,
-    			setSelect: [ x, y, w, h ],
-				onSelect: updateCoords,
-				aspectRatio: 1,
-				boxWidth: 480,
-				boxHeight: 480,
-				bgColor: '#000',
-				bgOpacity: .4
-			});
-		});
+$(function(){
+    var x = ($('#avatar_crop_x').val()) ? $('#avatar_crop_x').val() : 0;
+    var y = ($('#avatar_crop_y').val()) ? $('#avatar_crop_y').val() : 0;
+    var w = ($('#avatar_crop_w').val()) ? $('#avatar_crop_w').val() : $("#avatar_original img").attr("width");
+    var h = ($('#avatar_crop_h').val()) ? $('#avatar_crop_h').val() : $("#avatar_original img").attr("height");
 
-		function showPreview(coords) {
-			var rx = 96 / coords.w;
-			var ry = 96 / coords.h;
+    jQuery("#avatar_original img").Jcrop({
+        onChange: showPreview,
+        setSelect: [ x, y, w, h ],
+        onSelect: updateCoords,
+        aspectRatio: 1,
+        boxWidth: 480,
+        boxHeight: 480,
+        bgColor: '#000',
+        bgOpacity: .4
+    });
+});
 
-			var img_width = $("#avatar_original img").attr("width");
-			var img_height = $("#avatar_original img").attr("height");
+function showPreview(coords) {
+    var rx = 96 / coords.w;
+    var ry = 96 / coords.h;
 
-			$('#avatar_preview img').css({
-				width: Math.round(rx *img_width) + 'px',
-				height: Math.round(ry * img_height) + 'px',
-				marginLeft: '-' + Math.round(rx * coords.x) + 'px',
-				marginTop: '-' + Math.round(ry * coords.y) + 'px'
-			});
-		};
+    var img_width = $("#avatar_original img").attr("width");
+    var img_height = $("#avatar_original img").attr("height");
 
-		function updateCoords(c) {
-			$('#avatar_crop_x').val(c.x);
-			$('#avatar_crop_y').val(c.y);
-			$('#avatar_crop_w').val(c.w);
-			$('#avatar_crop_h').val(c.h);
-		};
+    $('#avatar_preview img').css({
+        width: Math.round(rx *img_width) + 'px',
+        height: Math.round(ry * img_height) + 'px',
+        marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+        marginTop: '-' + Math.round(ry * coords.y) + 'px'
+    });
+};
+
+function updateCoords(c) {
+    $('#avatar_crop_x').val(c.x);
+    $('#avatar_crop_y').val(c.y);
+    $('#avatar_crop_w').val(c.w);
+    $('#avatar_crop_h').val(c.h);
+};

@@ -55,7 +55,7 @@ class FacebooksettingsAction extends FacebookAction
         $prefix = $this->trimmed('prefix');
 
         $original = clone($this->flink);
-        $this->flink->set_flags($noticesync, $replysync, false);
+        $this->flink->set_flags($noticesync, $replysync, false, false);
         $result = $this->flink->update($original);
 
         $this->facebook->api_client->data_setUserPreference(FACEBOOK_NOTICE_PREFIX,

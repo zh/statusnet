@@ -34,6 +34,7 @@ if (!defined('LACONICA')) {
 
 require_once INSTALLDIR.'/lib/favorform.php';
 require_once INSTALLDIR.'/lib/disfavorform.php';
+require_once INSTALLDIR.'/lib/attachmentlist.php';
 
 /**
  * widget for displaying a list of notices
@@ -85,7 +86,7 @@ class NoticeList extends Widget
     {
         $this->out->elementStart('div', array('id' =>'notices_primary'));
         $this->out->element('h2', null, _('Notices'));
-        $this->out->elementStart('ul', array('class' => 'notices'));
+        $this->out->elementStart('ol', array('class' => 'notices xoxo'));
 
         $cnt = 0;
 
@@ -100,7 +101,7 @@ class NoticeList extends Widget
             $item->show();
         }
 
-        $this->out->elementEnd('ul');
+        $this->out->elementEnd('ol');
         $this->out->elementEnd('div');
 
         return $cnt;
@@ -180,86 +181,49 @@ class NoticeListItem extends Widget
         $this->showStart();
         $this->showNotice();
         $this->showNoticeAttachments();
-        $this->showNoticeOptions();
         $this->showNoticeInfo();
+        $this->showNoticeOptions();
         $this->showEnd();
     }
 
     function showNotice()
     {
-if(0)
-        $this->out->elementStart('entry-title');
-else
-
-        if ('shownotice' === $this->out->args['action']) {
-            $width = '85%';
-        } else {
-            $width = '90%';
-        }
-
-
-        $this->out->elementStart('div', array('class' => 'entry-title', 'style' => "float: left; width: $width;"));
+        $this->out->elementStart('div', 'entry-title');
         $this->showAuthor();
         $this->showContent();
         $this->out->elementEnd('div');
     }
 
-    function showNoticeAttachments()
-    {
-        $f2p = new File_to_post;
-        $f2p->post_id = $this->notice->id;
-        $file = new File;
-        $file->joinAdd($f2p);
-        $file->selectAdd();
-        $file->selectAdd('file.id as id');
-        $count = $file->find(true);
-        if (!$count) return;
-        if (1 === $count) {
-            $href = common_local_url('attachment', array('attachment' => $file->id));
-            $att_class = 'attachment';
-        } else {
-            $href = common_local_url('attachments', array('notice' => $this->notice->id));
-            $att_class = 'attachments';
+    function showNoticeAttachments() {
+        if ($this->isUsedInList()) {
+            return;
         }
+        $al = new AttachmentList($this->notice, $this->out);
+        $al->show();
+    }
 
-        $clip = theme_path('images/icons/clip', 'base');
-        if ('shownotice' === $this->out->args['action']) {
-            $height = '96px';
-            $width = '83%';
-            $width_att = '15%';
-            $clip .= '-big.png';
-            $top = '70px';
-        } else {
-            $height = '48px';
-            $width = '90%';
-            $width_att = '8%';
-            $clip .= '.png';
-            $top = '20px';
-        }
-if(0)
-        $this->out->elementStart('div', 'entry-attachments');
-else
-        $this->out->elementStart('p', array('class' => 'entry-attachments', 'style' => "float: right; width: $width_att; background: url($clip) no-repeat; text-align: right; height: $height;"));
-        $this->out->element('a', array('class' => $att_class, 'style' => "text-decoration: none; padding-top: $top; display: block; height: $height;", 'href' => $href, 'title' => "# of attachments: $count"), $count === 1 ? '' : $count);
+    function isUsedInList() {
+        return 'shownotice' !== $this->out->args['action'];
+    }
 
+/*
+    function attachmentCount($discriminant = true) {
+        $file_oembed = new File_oembed;
+        $query = "select count(*) as c from file_oembed join file_to_post on file_oembed.file_id = file_to_post.file_id where post_id=" . $this->notice->id;
+        $file_oembed->query($query);
+        $file_oembed->fetch();
+        return intval($file_oembed->c);
+    }
+*/
 
-        $this->out->elementEnd('p');
+    function showWithAttachment() {
     }
 
     function showNoticeInfo()
     {
-if(0)
         $this->out->elementStart('div', 'entry-content');
-else
-
-        if ('shownotice' === $this->out->args['action']) {
-            $width = '85%';
-        } else {
-            $width = '90%';
-        }
-
-        $this->out->elementStart('div', array('class' => 'entry-content', 'style' => "float: left; width: $width;"));
         $this->showNoticeLink();
+//        $this->showWithAttachment();
         $this->showNoticeSource();
         $this->showContext();
         $this->out->elementEnd('div');
@@ -269,10 +233,7 @@ else
     {
         $user = common_current_user();
         if ($user) {
-if(0)
             $this->out->elementStart('div', 'notice-options');
-else
-            $this->out->elementStart('div', array('class' => 'notice-options', 'style' => 'float: right; width: 16%;'));
             $this->showFaveForm();
             $this->showReplyLink();
             $this->showDeleteLink();
@@ -403,6 +364,10 @@ else
             // versions (>> 0.4.x)
             $this->out->raw(common_render_content($this->notice->content, $this->notice));
         }
+        $uploaded = $this->notice->getUploadedAttachment();
+        if ($uploaded) {
+            $this->out->element('a', array('href' => $uploaded, 'class' => 'attachment'), $uploaded);
+        }
         $this->out->elementEnd('p');
     }
 
@@ -433,6 +398,7 @@ else
         $this->out->element('abbr', array('class' => 'published',
                                           'title' => $dt),
                             common_date_string($this->notice->created));
+
         $this->out->elementEnd('a');
         $this->out->elementEnd('dd');
         $this->out->elementEnd('dl');

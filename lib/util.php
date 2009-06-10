@@ -496,6 +496,32 @@ function common_linkify($url) {
     }
 
     $attrs = array('href' => $longurl, 'rel' => 'external');
+
+// if this URL is an attachment, then we set class='attachment' and id='attahcment-ID'
+// where ID is the id of the attachment for the given URL.
+//
+// we need a better test telling what can be shown as an attachment
+// we're currently picking up oembeds only.
+// I think the best option is another file_view table in the db
+// and associated dbobject.
+    $query = "select file_oembed.file_id as file_id from file join file_oembed on file.id = file_oembed.file_id where file.url='$longurl'";
+    $file = new File;
+    $file->query($query);
+    $file->fetch();
+
+    if (!empty($file->file_id)) {
+        $query = "select file_thumbnail.file_id as file_id from file join file_thumbnail on file.id = file_thumbnail.file_id where file.url='$longurl'";
+        $file2 = new File;
+        $file2->query($query);
+        $file2->fetch();
+
+        if (empty($file2->file_id)) {
+            $attrs['class'] = 'attachment';
+        } else {
+            $attrs['class'] = 'attachment thumbnail';
+        }
+        $attrs['id'] = "attachment-{$file->file_id}";
+    }
     return XMLStringer::estring('a', $attrs, $display);
 }
 

@@ -33,7 +33,7 @@ border-color:#aaa;
 border-color:#ddd;
 }
 
-.form_settings input.form_action-secondary {
+.form_settings input.form_action-primary {
 background:none;
 }
 
@@ -60,7 +60,7 @@ div.notice-options input,
 .entity_send-a-message a,
 .form_user_nudge input.submit,
 .entity_nudge p,
-.form_settings input.form_action-secondary {
+.form_settings input.form_action-primary {
 color:#002E6E;
 }
 
@@ -82,6 +82,13 @@ color:#333;
 #form_notice.warning #notice_text-count {
 color:#000;
 }
+#form_notice label[for=notice_data-attach] {
+background:transparent url(../../base/images/icons/twotone/green/clip-01.gif) no-repeat 0 45%;
+}
+#form_notice #notice_data-attach {
+opacity:0;
+}
+
 #form_notice.processing #notice_action-submit {
 background:#fff url(../../base/images/icons/icon_processing.gif) no-repeat 47% 47%;
 cursor:wait;
@@ -175,10 +182,12 @@ background-image:url(../../base/images/icons/twotone/green/shield.gif);
 }
 
 /* NOTICES */
-.notices li.over {
-background-color:#fcfcfc;
+.notice .attachment {
+background:transparent url(../../base/images/icons/twotone/green/clip-02.gif) no-repeat 0 45%;
 }
-
+#attachments .attachment {
+background:none;
+}
 .notice-options .notice_reply a,
 .notice-options form input.submit {
 background-color:transparent;
@@ -197,7 +206,9 @@ background:transparent url(../../base/images/icons/twotone/green/trash.gif) no-r
 }
 
 .notices div.entry-content,
-.notices div.notice-options {
+.notices div.notice-options,
+.notices li.hover .notices div.entry-content,
+.notices li.hover .notices div.notice-options {
 opacity:0.4;
 }
 .notices li.hover div.entry-content,
@@ -213,6 +224,19 @@ font-family:sans-serif;
 }
 .notices li.hover {
 background-color:#fcfcfc;
+}
+
+.notices .notices {
+background-color:rgba(200, 200, 200, 0.050);
+}
+.notices .notices .notices {
+background-color:rgba(200, 200, 200, 0.100);
+}
+.notices .notices .notices .notices {
+background-color:rgba(200, 200, 200, 0.150);
+}
+.notices .notices .notices .notices .notices {
+background-color:rgba(200, 200, 200, 0.300);
 }
 /*END: NOTICES */
 

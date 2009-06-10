@@ -80,20 +80,22 @@ class AttachmentList extends Widget
 
     function show()
     {
-//        $this->out->elementStart('div', array('id' =>'attachments_primary'));
-        $this->out->elementStart('div', array('id' =>'content'));
-        $this->out->element('h2', null, _('Attachments'));
-        $this->out->elementStart('ul', array('class' => 'attachments'));
-
         $atts = new File;
         $att = $atts->getAttachments($this->notice->id);
+        if (empty($att)) return 0;
+        $this->out->elementStart('dl', array('id' =>'attachments'));
+        $this->out->element('dt', null, _('Attachments'));
+        $this->out->elementStart('dd');
+        $this->out->elementStart('ol', array('class' => 'attachments'));
+
         foreach ($att as $n=>$attachment) {
             $item = $this->newListItem($attachment);
             $item->show();
         }
 
-        $this->out->elementEnd('ul');
-        $this->out->elementEnd('div');
+        $this->out->elementEnd('dd');
+        $this->out->elementEnd('ol');
+        $this->out->elementEnd('dl');
 
         return count($att);
     }
@@ -171,7 +173,7 @@ class AttachmentListItem extends Widget
     }
 
     function linkTitle() {
-        return 'Our page for ' . $this->title();
+        return $this->title();
     }
 
     /**
@@ -191,34 +193,25 @@ class AttachmentListItem extends Widget
     }
 
     function linkAttr() {
-        return array('class' => 'attachment', 'href' => common_local_url('attachment', array('attachment' => $this->attachment->id)));
+        return array('class' => 'attachment', 'href' => $this->attachment->url, 'id' => 'attachment-' . $this->attachment->id);
     }
 
     function showLink() {
-        $attr = $this->linkAttr();
-        $text = $this->linkTitle();
-        $this->out->elementStart('h4');
-        $this->out->element('a', $attr, $text);
-
-        if ($this->attachment->url !== $this->title())
-            $this->out->element('span', null, " ({$this->attachment->url})");
-
-
-        $this->out->elementEnd('h4');
+        $this->out->elementStart('a', $this->linkAttr());
+        $this->out->element('span', null, $this->linkTitle());
+        $this->showRepresentation();
+        $this->out->elementEnd('a');
     }
 
     function showNoticeAttachment()
     {
         $this->showLink();
-        $this->showRepresentation();
     }
 
     function showRepresentation() {
         $thumbnail = File_thumbnail::staticGet('file_id', $this->attachment->id);
         if (!empty($thumbnail)) {
-            $this->out->elementStart('a', $this->linkAttr()/*'href' => $this->linkTo()*/);
             $this->out->element('img', array('alt' => 'nothing to say', 'src' => $thumbnail->url, 'width' => $thumbnail->width, 'height' => $thumbnail->height));
-            $this->out->elementEnd('a');
         }
     }
 
@@ -260,7 +253,7 @@ class Attachment extends AttachmentListItem
     }
 
     function linkTitle() {
-        return 'Direct link to ' . $this->title();
+        return $this->attachment->url;
     }
 
     function showRepresentation() {
@@ -274,6 +267,23 @@ class Attachment extends AttachmentListItem
                 case 'image/jpg':
                 case 'image/jpeg':
                     $this->out->element('img', array('src' => $this->attachment->url, 'alt' => 'alt'));
+                    break;
+
+                case 'application/ogg':
+                case 'audio/x-speex':
+                case 'video/mpeg':
+                case 'audio/mpeg':
+                case 'video/mp4':
+                case 'video/quicktime':
+                    $arr  = array('type' => $this->attachment->mimetype,
+                        'data' => $this->attachment->url,
+                        'width' => 320,
+                        'height' => 240
+                    );
+                    $this->out->elementStart('object', $arr);
+                    $this->out->element('param', array('name' => 'src', 'value' => $this->attachment->url));
+                    $this->out->element('param', array('name' => 'autoStart', 'value' => 1));
+                    $this->out->elementEnd('object');
                     break;
                 }
             }

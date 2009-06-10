@@ -157,7 +157,7 @@ $.fn.ajaxSubmit = function(options) {
     function fileUpload() {
         var form = $form[0];
         
-        if ($(':input[@name=submit]', form).length) {
+        if ($(':input[name=submit]', form).length) {
             alert('Error: Form elements must not be named "submit".');
             return;
         }
@@ -570,7 +570,7 @@ $.fn.clearForm = function() {
 $.fn.clearFields = $.fn.clearInputs = function() {
     return this.each(function() {
         var t = this.type, tag = this.tagName.toLowerCase();
-        if (t == 'text' || t == 'password' || tag == 'textarea')
+        if (t == 'file' || t == 'text' || t == 'password' || tag == 'textarea')
             this.value = '';
         else if (t == 'checkbox' || t == 'radio')
             this.checked = false;

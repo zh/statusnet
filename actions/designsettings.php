@@ -70,7 +70,7 @@ class DesignsettingsAction extends AccountSettingsAction
     function showContent()
     {
         $user = common_current_user();
-        $this->elementStart('form', array('method' => 'POST',
+        $this->elementStart('form', array('method' => 'post',
                                           'id' => 'form_settings_design',
                                           'class' => 'form_settings',
                                           'action' =>
@@ -82,7 +82,7 @@ class DesignsettingsAction extends AccountSettingsAction
         $this->element('legend', null, _('Change background image'));
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
-        $this->element('label', array('for' => 'design_ background-image_file'), 
+        $this->element('label', array('for' => 'design_background-image_file'), 
                                 _('Upload file'));
         $this->element('input', array('name' => 'design_background-image_file',
                                       'type' => 'file',
@@ -140,10 +140,12 @@ class DesignsettingsAction extends AccountSettingsAction
         $this->elementEnd('ul');
         $this->elementEnd('fieldset');
 
-        $this->submit('save', _('Save'));
-        $this->element('input', array('type' => 'reset',
+        $this->element('input', array('id' => 'settings_design_reset',
+                                      'type' => 'reset',
                                       'value' => 'Reset',
-                                      'class' => 'form_action-secondary'));
+                                      'class' => 'submit form_action-primary',
+                                      'title' => _('Reset back to default')));
+        $this->submit('save', _('Save'), 'submit form_action-secondary', 'save', _('Save design'));
 
 /*TODO: Check submitted form values: 
 json_encode(form values)
