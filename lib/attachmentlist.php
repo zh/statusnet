@@ -79,20 +79,21 @@ class AttachmentList extends Widget
 
     function show()
     {
-        $this->out->elementStart('dl', array('id' =>'attachment'));
-        $this->out->element('dt', null, _('Attachments'));
-        $this->out->elementStart('dd');
-        $this->out->elementStart('ul', array('class' => 'attachments'));
-
         $atts = new File;
         $att = $atts->getAttachments($this->notice->id);
+        if (empty($att)) return 0;
+        $this->out->elementStart('dl', array('id' =>'attachments'));
+        $this->out->element('dt', null, _('Attachments'));
+        $this->out->elementStart('dd');
+        $this->out->elementStart('ol', array('class' => 'attachments'));
+
         foreach ($att as $n=>$attachment) {
             $item = $this->newListItem($attachment);
             $item->show();
         }
 
         $this->out->elementEnd('dd');
-        $this->out->elementEnd('ul');
+        $this->out->elementEnd('ol');
         $this->out->elementEnd('dl');
 
         return count($att);
@@ -265,6 +266,23 @@ class Attachment extends AttachmentListItem
                 case 'image/jpg':
                 case 'image/jpeg':
                     $this->out->element('img', array('src' => $this->attachment->url, 'alt' => 'alt'));
+                    break;
+
+                case 'application/ogg':
+                case 'audio/x-speex':
+                case 'video/mpeg':
+                case 'audio/mpeg':
+                case 'video/mp4':
+                case 'video/quicktime':
+                    $arr  = array('type' => $this->attachment->mimetype,
+                        'data' => $this->attachment->url,
+                        'width' => 320,
+                        'height' => 240
+                    );
+                    $this->out->elementStart('object', $arr);
+                    $this->out->element('param', array('name' => 'src', 'value' => $this->attachment->url));
+                    $this->out->element('param', array('name' => 'autoStart', 'value' => 1));
+                    $this->out->elementEnd('object');
                     break;
                 }
             }

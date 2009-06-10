@@ -68,7 +68,7 @@ class DesignsettingsAction extends AccountSettingsAction
     function showContent()
     {
         $user = common_current_user();
-        $this->elementStart('form', array('method' => 'POST',
+        $this->elementStart('form', array('method' => 'post',
                                           'id' => 'form_settings_design',
                                           'class' => 'form_settings',
                                           'action' =>
@@ -80,8 +80,8 @@ class DesignsettingsAction extends AccountSettingsAction
         $this->element('legend', null, _('Change background image'));
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
-        $this->element('label', array('for' => 'design_ background-image_file'),
-                       _('Upload file'));
+        $this->element('label', array('for' => 'design_background-image_file'), 
+                                _('Upload file'));
         $this->element('input', array('name' => 'design_background-image_file',
                                       'type' => 'file',
                                       'id' => 'design_background-image_file'));

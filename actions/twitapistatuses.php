@@ -45,22 +45,21 @@ class TwitapistatusesAction extends TwitterapiAction
 
         $page = $this->arg('page');
         $since_id = $this->arg('since_id');
-        $before_id = $this->arg('before_id');
+        $max_id = $this->arg('max_id');
 
-        // NOTE: page, since_id, and before_id are extensions to Twitter API -- TB
         if (!$page) {
             $page = 1;
         }
         if (!$since_id) {
             $since_id = 0;
         }
-        if (!$before_id) {
-            $before_id = 0;
+        if (!$max_id) {
+            $max_id = 0;
         }
 
         $since = strtotime($this->arg('since'));
 
-        $notice = Notice::publicStream((($page-1)*$MAX_PUBSTATUSES), $MAX_PUBSTATUSES, $since_id, $before_id, $since);
+        $notice = Notice::publicStream((($page-1)*$MAX_PUBSTATUSES), $MAX_PUBSTATUSES, $since_id, $max_id, $since);
 
         if ($notice) {
 
@@ -97,7 +96,7 @@ class TwitapistatusesAction extends TwitterapiAction
         $since_id = $this->arg('since_id');
         $count = $this->arg('count');
         $page = $this->arg('page');
-        $before_id = $this->arg('before_id');
+        $max_id = $this->arg('max_id');
 
         if (!$page) {
             $page = 1;
@@ -111,9 +110,8 @@ class TwitapistatusesAction extends TwitterapiAction
             $since_id = 0;
         }
 
-        // NOTE: before_id is an extension to Twitter API -- TB
-        if (!$before_id) {
-            $before_id = 0;
+        if (!$max_id) {
+            $max_id = 0;
         }
 
         $since = strtotime($this->arg('since'));
@@ -133,7 +131,7 @@ class TwitapistatusesAction extends TwitterapiAction
         $link = common_local_url('all', array('nickname' => $user->nickname));
         $subtitle = sprintf(_('Updates from %1$s and friends on %2$s!'), $user->nickname, $sitename);
 
-        $notice = $user->noticesWithFriends(($page-1)*20, $count, $since_id, $before_id, $since);
+        $notice = $user->noticesWithFriends(($page-1)*20, $count, $since_id, $max_id, $since);
 
         switch($apidata['content-type']) {
          case 'xml':
@@ -184,7 +182,7 @@ class TwitapistatusesAction extends TwitterapiAction
         $since = $this->arg('since');
         $since_id = $this->arg('since_id');
         $page = $this->arg('page');
-        $before_id = $this->arg('before_id');
+        $max_id = $this->arg('max_id');
 
         if (!$page) {
             $page = 1;
@@ -198,9 +196,8 @@ class TwitapistatusesAction extends TwitterapiAction
             $since_id = 0;
         }
 
-        // NOTE: before_id is an extensions to Twitter API -- TB
-        if (!$before_id) {
-            $before_id = 0;
+        if (!$max_id) {
+            $max_id = 0;
         }
 
         $since = strtotime($this->arg('since'));
@@ -220,7 +217,7 @@ class TwitapistatusesAction extends TwitterapiAction
 
         # XXX: since
 
-        $notice = $user->getNotices((($page-1)*20), $count, $since_id, $before_id, $since);
+        $notice = $user->getNotices((($page-1)*20), $count, $since_id, $max_id, $since);
 
         switch($apidata['content-type']) {
          case 'xml':
@@ -353,7 +350,7 @@ class TwitapistatusesAction extends TwitterapiAction
         $count = $this->arg('count');
         $page = $this->arg('page');
         $since_id = $this->arg('since_id');
-        $before_id = $this->arg('before_id');
+        $max_id = $this->arg('max_id');
 
         $user = $this->get_user($apidata['api_arg'], $apidata);
         $this->auth_user = $apidata['user'];
@@ -380,15 +377,14 @@ class TwitapistatusesAction extends TwitterapiAction
             $since_id = 0;
         }
 
-        // NOTE: before_id is an extension to Twitter API -- TB
-        if (!$before_id) {
-            $before_id = 0;
+        if (!$max_id) {
+            $max_id = 0;
         }
 
         $since = strtotime($this->arg('since'));
 
         $notice = $user->getReplies((($page-1)*20),
-            $count, $since_id, $before_id, $since);
+            $count, $since_id, $max_id, $since);
         $notices = array();
 
         while ($notice->fetch()) {

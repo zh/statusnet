@@ -52,6 +52,8 @@ require_once INSTALLDIR.'/lib/widget.php';
 
 class Form extends Widget
 {
+    var $enctype = null;
+
     /**
      * Show the form
      *
@@ -63,11 +65,15 @@ class Form extends Widget
 
     function show()
     {
-        $this->out->elementStart('form',
-                                 array('id' => $this->id(),
-                                       'class' => $this->formClass(),
-                                       'method' => 'post',
-                                       'action' => $this->action()));
+        $attributes = array('id' => $this->id(),
+            'class' => $this->formClass(),
+            'method' => 'post',
+            'action' => $this->action());
+
+        if (!empty($this->enctype)) {
+            $attributes['enctype'] = $this->enctype;
+        }
+        $this->out->elementStart('form', $attributes);
         $this->out->elementStart('fieldset');
         $this->formLegend();
         $this->sessionToken();

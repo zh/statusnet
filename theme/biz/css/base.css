@@ -446,6 +446,27 @@ float:left;
 font-size:1.3em;
 margin-bottom:7px;
 }
+#form_notice label {
+display:block;
+float:left;
+font-size:1.3em;
+margin-bottom:7px;
+}
+#form_notice label[for=notice_data-attach] {
+text-indent:-9999px;
+}
+#form_notice label[for=notice_data-attach],
+#form_notice #notice_data-attach {
+position:absolute;
+top:25px;
+right:49px;
+width:16px;
+height:16px;
+cursor:pointer;
+}
+#form_notice #notice_data-attach {
+text-indent:-279px;
+}
 #form_notice #notice_submit label {
 display:none;
 }

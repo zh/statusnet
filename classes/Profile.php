@@ -170,7 +170,7 @@ class Profile extends Memcached_DataObject
         $ids = Notice::stream(array($this, '_streamDirect'),
                               array(),
                               'profile:notice_ids:' . $this->id,
-                              $offset, $limit, $since_id, $before_id, $since);
+                              $offset, $limit, $since_id, $max_id, $since);
 
         return Notice::getStreamByIds($ids);
     }
@@ -225,8 +225,8 @@ class Profile extends Memcached_DataObject
             $notice->whereAdd('id > ' . $since_id);
         }
 
-        if ($before_id != 0) {
-            $notice->whereAdd('id < ' . $before_id);
+        if ($max_id != 0) {
+            $notice->whereAdd('id <= ' . $max_id);
         }
 
         if (!is_null($since)) {

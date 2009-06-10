@@ -82,6 +82,13 @@ color:#333;
 #form_notice.warning #notice_text-count {
 color:#000;
 }
+#form_notice label[for=notice_data-attach] {
+background:transparent url(../../base/images/icons/twotone/green/clip-01.gif) no-repeat 0 45%;
+}
+#form_notice #notice_data-attach {
+opacity:0;
+}
+
 #form_notice.processing #notice_action-submit {
 background:#fff url(../../base/images/icons/icon_processing.gif) no-repeat 47% 47%;
 cursor:wait;
@@ -175,6 +182,12 @@ background-image:url(../../base/images/icons/twotone/green/shield.gif);
 }
 
 /* NOTICES */
+.notice .attachment {
+background:transparent url(../../base/images/icons/twotone/green/clip-02.gif) no-repeat 0 45%;
+}
+#attachments .attachment {
+background:none;
+}
 .notice-options .notice_reply a,
 .notice-options form input.submit {
 background-color:transparent;

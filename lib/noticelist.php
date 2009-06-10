@@ -85,7 +85,7 @@ class NoticeList extends Widget
     {
         $this->out->elementStart('div', array('id' =>'notices_primary'));
         $this->out->element('h2', null, _('Notices'));
-        $this->out->elementStart('ul', array('class' => 'notices'));
+        $this->out->elementStart('ol', array('class' => 'notices xoxo'));
 
         $cnt = 0;
 
@@ -100,7 +100,7 @@ class NoticeList extends Widget
             $item->show();
         }
 
-        $this->out->elementEnd('ul');
+        $this->out->elementEnd('ol');
         $this->out->elementEnd('div');
 
         return $cnt;
@@ -205,6 +205,7 @@ class NoticeListItem extends Widget
         return 'shownotice' !== $this->out->args['action'];
     }
 
+/*
     function attachmentCount($discriminant = true) {
         $file_oembed = new File_oembed;
         $query = "select count(*) as c from file_oembed join file_to_post on file_oembed.file_id = file_to_post.file_id where post_id=" . $this->notice->id;
@@ -212,11 +213,16 @@ class NoticeListItem extends Widget
         $file_oembed->fetch();
         return intval($file_oembed->c);
     }
+*/
+
+    function showWithAttachment() {
+    }
 
     function showNoticeInfo()
     {
         $this->out->elementStart('div', 'entry-content');
         $this->showNoticeLink();
+//        $this->showWithAttachment();
         $this->showNoticeSource();
         $this->showContext();
         $this->out->elementEnd('div');
@@ -357,6 +363,10 @@ class NoticeListItem extends Widget
             // versions (>> 0.4.x)
             $this->out->raw(common_render_content($this->notice->content, $this->notice));
         }
+        $uploaded = $this->notice->getUploadedAttachment();
+        if ($uploaded) {
+            $this->out->element('a', array('href' => $uploaded, 'class' => 'attachment'), $uploaded);
+        }
         $this->out->elementEnd('p');
     }
 
@@ -387,6 +397,7 @@ class NoticeListItem extends Widget
         $this->out->element('abbr', array('class' => 'published',
                                           'title' => $dt),
                             common_date_string($this->notice->created));
+
         $this->out->elementEnd('a');
         $this->out->elementEnd('dd');
         $this->out->elementEnd('dl');

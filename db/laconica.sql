@@ -289,7 +289,7 @@ create table foreign_user (
 
 create table foreign_link (
      user_id int comment 'link to user on this system, if exists' references user (id),
-     foreign_id int comment 'link ' references foreign_user(id),
+     foreign_id bigint unsigned comment 'link to user on foreign service, if exists' references foreign_user(id),
      service int not null comment 'foreign key to service' references foreign_service(id),
      credentials varchar(255) comment 'authc credentials, typically a password',
      noticesync tinyint not null default 1 comment 'notice synchronization, bit 1 = sync outgoing, bit 2 = sync incoming, bit 3 = filter local replies',

@@ -38,14 +38,14 @@ require_once INSTALLDIR.'/lib/noticeform.php';
 
 class FacebookAction extends Action
 {
-    
+
     var $facebook = null;
     var $fbuid    = null;
     var $flink    = null;
     var $action   = null;
     var $app_uri  = null;
     var $app_name = null;
-  
+
     /**
      * Constructor
      *
@@ -60,71 +60,71 @@ class FacebookAction extends Action
     function __construct($output='php://output', $indent=true, $facebook=null, $flink=null)
     {
         parent::__construct($output, $indent);
-        
+
         $this->facebook = $facebook;
         $this->flink = $flink;
-        
+
         if ($this->flink) {
-            $this->fbuid = $flink->foreign_id; 
+            $this->fbuid = $flink->foreign_id;
             $this->user = $flink->getUser();
         }
-        
+
         $this->args = array();
     }
-  
+
     function prepare($argarray)
-    {        
+    {
         parent::prepare($argarray);
-          
+
         $this->facebook = getFacebook();
         $this->fbuid = $this->facebook->require_login();
-        
+
         $this->action = $this->trimmed('action');
-        
+
         $app_props = $this->facebook->api_client->Admin_getAppProperties(
                 array('canvas_name', 'application_name'));
-        
+
         $this->app_uri = 'http://apps.facebook.com/' . $app_props['canvas_name'];
         $this->app_name = $app_props['application_name'];
 
         $this->flink = Foreign_link::getByForeignID($this->fbuid, FACEBOOK_SERVICE);
-        
+
         return true;
-        
+
     }
-  
+
     function showStylesheets()
     {
         // Add a timestamp to the file so Facebook cache wont ignore our changes
         $ts = filemtime(INSTALLDIR.'/theme/base/css/display.css');
 
-	$this->element('link', array('rel' => 'stylesheet',
-		       'type' => 'text/css',
-		       'href' => theme_path('css/display.css', 'base') . '?ts=' . $ts));
-        
+    $this->element('link', array('rel' => 'stylesheet',
+               'type' => 'text/css',
+               'href' => theme_path('css/display.css', 'base') . '?ts=' . $ts));
+
         $theme = common_config('site', 'theme');
-        
+
         $ts = filemtime(INSTALLDIR. '/theme/' . $theme .'/css/display.css');
-                                     
+
         $this->element('link', array('rel' => 'stylesheet',
                                      'type' => 'text/css',
                                      'href' => theme_path('css/display.css', null) . '?ts=' . $ts));
-                                     
+
         $ts = filemtime(INSTALLDIR.'/theme/base/css/facebookapp.css');
-        
+
         $this->element('link', array('rel' => 'stylesheet',
                                      'type' => 'text/css',
                                      'href' => theme_path('css/facebookapp.css', 'base') . '?ts=' . $ts));
     }
-  
+
     function showScripts()
     {
         // Add a timestamp to the file so Facebook cache wont ignore our changes
         $ts = filemtime(INSTALLDIR.'/js/facebookapp.js');
-        
+
         $this->element('script', array('src' => common_path('js/facebookapp.js') . '?ts=' . $ts));
     }
-    
+
     /**
      * Start an Facebook ready HTML document
      *
@@ -138,11 +138,11 @@ class FacebookAction extends Action
      * @return void
      */
 
-    function startHTML($type=null) 
-    {          
+    function startHTML($type=null)
+    {
         $this->showStylesheets();
         $this->showScripts();
-        
+
         $this->elementStart('div', array('class' => 'facebook-page'));
     }
 
@@ -177,18 +177,18 @@ class FacebookAction extends Action
         $this->showFooter();
         $this->elementEnd('div');
     }
-      
+
     function showAside()
     {
     }
 
     function showHead($error, $success)
     {
-        
+
         if ($error) {
             $this->element("h1", null, $error);
         }
-        
+
         if ($success) {
             $this->element("h1", null, $success);
         }
@@ -198,10 +198,10 @@ class FacebookAction extends Action
         $this->element('fb:add-section-button', array('section' => 'profile'));
         $this->elementEnd('span');
         $this->elementEnd('fb:if-section-not-added');
-        
+
     }
 
-    
+
     // Make this into a widget later
     function showLocalNav()
     {
@@ -229,8 +229,8 @@ class FacebookAction extends Action
         $this->elementEnd('li');
 
         $this->elementEnd('ul');
-    }     
-    
+    }
+
     /**
      * Show header of the page.
      *
@@ -245,7 +245,7 @@ class FacebookAction extends Action
         $this->showNoticeForm();
         $this->elementEnd('div');
     }
-    
+
     /**
      * Show page, a template method.
      *
@@ -258,7 +258,7 @@ class FacebookAction extends Action
         $this->showBody();
         $this->endHTML();
     }
-    
+
 
     function showInstructions()
     {
@@ -278,7 +278,7 @@ class FacebookAction extends Action
         $this->element('a',
             array('href' => common_local_url('register')), _('Register'));
         $this->text($loginmsg_part2);
-	$this->elementEnd('p');
+    $this->elementEnd('p');
         $this->elementEnd('dd');
 
         $this->elementEnd('dl');
@@ -317,7 +317,7 @@ class FacebookAction extends Action
         $this->elementEnd('ul');
 
         $this->submit('submit', _('Login'));
-	$this->elementEnd('fieldset');
+    $this->elementEnd('fieldset');
         $this->elementEnd('form');
 
         $this->elementStart('p');
@@ -329,73 +329,73 @@ class FacebookAction extends Action
         $this->elementEnd('div');
 
     }
-    
-    
+
+
     function updateProfileBox($notice)
     {
 
         // Need to include inline CSS for styling the Profile box
 
-	$app_props = $this->facebook->api_client->Admin_getAppProperties(array('icon_url'));
-	$icon_url = $app_props['icon_url'];
+    $app_props = $this->facebook->api_client->Admin_getAppProperties(array('icon_url'));
+    $icon_url = $app_props['icon_url'];
 
         $style = '<style>
-	 .entry-title *,
-	 .entry-content * {
-	 font-size:14px;
-	 font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
-	 }
-	 .entry-title a,
-	 .entry-content a {
-	 color:#002E6E;
-	 }
+     .entry-title *,
+     .entry-content * {
+     font-size:14px;
+     font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+     }
+     .entry-title a,
+     .entry-content a {
+     color:#002E6E;
+     }
 
          .entry-title .vcard .photo {
          float:left;
          display:inline;
-	 margin-right:11px;
-	 margin-bottom:11px
+     margin-right:11px;
+     margin-bottom:11px
          }
-	 .entry-title {
-	 margin-bottom:11px;
-	 }
+     .entry-title {
+     margin-bottom:11px;
+     }
          .entry-title p.entry-content {
          display:inline;
-	 margin-left:5px;
+     margin-left:5px;
          }
 
-	 div.entry-content {
-	 clear:both;
-	 }
+     div.entry-content {
+     clear:both;
+     }
          div.entry-content dl,
          div.entry-content dt,
          div.entry-content dd {
          display:inline;
-	 text-transform:lowercase;
+     text-transform:lowercase;
          }
 
          div.entry-content dd,
-	 div.entry-content .device dt {
-	 margin-left:0;
-	 margin-right:5px;
+     div.entry-content .device dt {
+     margin-left:0;
+     margin-right:5px;
          }
          div.entry-content dl.timestamp dt,
-	 div.entry-content dl.response dt {
+     div.entry-content dl.response dt {
          display:none;
          }
          div.entry-content dd a {
          display:inline-block;
          }
 
-	 #facebook_laconica_app {
-	 text-indent:-9999px;
-	 height:16px;
-	 width:16px;
-	 display:block;
-	 background:url('.$icon_url.') no-repeat 0 0;
-	 float:right;
-	 }
-         </style>';        
+     #facebook_laconica_app {
+     text-indent:-9999px;
+     height:16px;
+     width:16px;
+     display:block;
+     background:url('.$icon_url.') no-repeat 0 0;
+     float:right;
+     }
+         </style>';
 
         $this->xw->openMemory();
 
@@ -407,12 +407,12 @@ class FacebookAction extends Action
 
         $fbml_main = "<fb:narrow>$style " . $this->xw->outputMemory(false) . "</fb:narrow>";
 
-        $this->facebook->api_client->profile_setFBML(null, $this->fbuid, $fbml, null, null, $fbml_main);  
+        $this->facebook->api_client->profile_setFBML(null, $this->fbuid, $fbml, null, null, $fbml_main);
 
         $this->xw->openURI('php://output');
     }
-    
-    
+
+
     /**
      * Generate pagination links
      *
@@ -457,24 +457,24 @@ class FacebookAction extends Action
             $this->elementEnd('div');
         }
     }
-    
-    function updateFacebookStatus($notice) 
+
+    function updateFacebookStatus($notice)
     {
         $prefix = $this->facebook->api_client->data_getUserPreference(FACEBOOK_NOTICE_PREFIX, $this->fbuid);
         $content = "$prefix $notice->content";
-        
+
         if ($this->facebook->api_client->users_hasAppPermission('status_update', $this->fbuid)) {
             $this->facebook->api_client->users_setStatus($content, $this->fbuid, false, true);
         }
     }
-    
+
     function saveNewNotice()
     {
 
         $user = $this->flink->getUser();
 
         $content = $this->trimmed('status_textarea');
-        
+
         if (!$content) {
             $this->showPage(_('No notice content!'));
             return;
@@ -492,9 +492,9 @@ class FacebookAction extends Action
         $cmd = $inter->handle_command($user, $content_shortened);
 
         if ($cmd) {
-            
+
             // XXX fix this
-            
+
             $cmd->execute(new WebChannel());
             return;
         }
@@ -510,20 +510,20 @@ class FacebookAction extends Action
         }
 
         common_broadcast_notice($notice);
-        
+
         // Also update the user's Facebook status
         $this->updateFacebookStatus($notice);
         $this->updateProfileBox($notice);
-        
+
     }
 
 }
 
-class FacebookNoticeForm extends NoticeForm 
+class FacebookNoticeForm extends NoticeForm
 {
-    
+
     var $post_action = null;
-    
+
     /**
      * Constructor
      *
@@ -532,13 +532,13 @@ class FacebookNoticeForm extends NoticeForm
      * @param string        $content content to pre-fill
      */
 
-    function __construct($out=null, $action=null, $content=null, 
+    function __construct($out=null, $action=null, $content=null,
         $post_action=null, $user=null)
     {
         parent::__construct($out, $action, $content, $user);
         $this->post_action = $post_action;
     }
-    
+
     /**
      * Action of the form
      *
@@ -554,7 +554,7 @@ class FacebookNoticeForm extends NoticeForm
 
 class FacebookNoticeList extends NoticeList
 {
-    
+
     /**
      * constructor
      *
@@ -565,7 +565,7 @@ class FacebookNoticeList extends NoticeList
     {
         parent::__construct($notice, $out);
     }
-    
+
     /**
      * show the list of notices
      *
@@ -619,7 +619,7 @@ class FacebookNoticeList extends NoticeList
 }
 
 class FacebookNoticeListItem extends NoticeListItem
-{    
+{
 
     /**
      * constructor
@@ -646,51 +646,19 @@ class FacebookNoticeListItem extends NoticeListItem
     function show()
     {
         $this->showStart();
+        $this->showNotice();
+        $this->showNoticeInfo();
 
-        $this->out->elementStart('div', 'entry-title');
-        $this->showAuthor();
-        $this->showContent();
-        $this->out->elementEnd('div');
-
-        $this->out->elementStart('div', 'entry-content');
-        $this->showNoticeLink();
-        $this->showNoticeSource();
-        $this->showReplyTo();
-        $this->out->elementEnd('div');
+        // XXX: Need to update to show attachements and controls
 
         $this->showEnd();
     }
 
-    function showNoticeLink()
-    {
-        $noticeurl = common_local_url('shownotice',
-                                      array('notice' => $this->notice->id));
-        // XXX: we need to figure this out better. Is this right?
-        if (strcmp($this->notice->uri, $noticeurl) != 0 &&
-            preg_match('/^http/', $this->notice->uri)) {
-            $noticeurl = $this->notice->uri;
-        }
-
-        $this->out->elementStart('dl', 'timestamp');
-        $this->out->element('dt', null, _('Published'));
-        $this->out->elementStart('dd', null);
-        $this->out->elementStart('a', array('rel' => 'bookmark',
-                                        'href' => $noticeurl));
-        $dt = common_date_iso8601($this->notice->created);
-        $this->out->element('abbr', array('class' => 'published',
-                                     'title' => $dt),
-        common_date_string($this->notice->created));
-        $this->out->elementEnd('a');
-        $this->out->elementEnd('dd');
-        $this->out->elementEnd('dl');
-    }
-
 }
 
-
 class FacebookProfileBoxNotice extends FacebookNoticeListItem
-{    
-    
+{
+
     /**
      * constructor
      *
@@ -703,36 +671,24 @@ class FacebookProfileBoxNotice extends FacebookNoticeListItem
     {
         parent::__construct($notice, $out);
     }
-    
+
     /**
-     * Recipe function for displaying a single notice in the 
-     * Facebook App's Profile
+     * Recipe function for displaying a single notice in the
+     * Facebook App profile notice box
      *
      * @return void
      */
 
     function show()
     {
-
-        $this->out->elementStart('div', 'entry-title');
-        $this->showAuthor();
-        $this->showContent();
-        $this->out->elementEnd('div');
-
-        $this->out->elementStart('div', 'entry-content');
-
-        $this->showNoticeLink();
-        $this->showNoticeSource();
-        $this->showReplyTo();
-        $this->out->elementEnd('div');
-        
+        $this->showNotice();
+        $this->showNoticeInfo();
         $this->showAppLink();
-
     }
 
-    function showAppLink() 
+    function showAppLink()
     {
-        
+
         $this->facebook = getFacebook();
 
         $app_props = $this->facebook->api_client->Admin_getAppProperties(
@@ -740,7 +696,7 @@ class FacebookProfileBoxNotice extends FacebookNoticeListItem
 
         $this->app_uri = 'http://apps.facebook.com/' . $app_props['canvas_name'];
         $this->app_name = $app_props['application_name'];
-        
+
         $this->out->elementStart('a', array('id' => 'facebook_laconica_app',
                                             'href' => $this->app_uri));
         $this->out->text($this->app_name);

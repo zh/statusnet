@@ -52,12 +52,12 @@ class NoticeSection extends Section
     {
         $notices = $this->getNotices();
         $cnt = 0;
-        $this->out->elementStart('ul', 'notices');
+        $this->out->elementStart('ol', 'notices xoxo');
         while ($notices->fetch() && ++$cnt <= NOTICES_PER_SECTION) {
             $this->showNotice($notices);
         }
 
-        $this->out->elementEnd('ul');
+        $this->out->elementEnd('ol');
         return ($cnt > NOTICES_PER_SECTION);
     }
 

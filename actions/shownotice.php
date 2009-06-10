@@ -122,7 +122,7 @@ class ShownoticeAction extends Action
 
     function lastModified()
     {
-        return max(strtotime($this->notice->created),
+        return max(strtotime($this->notice->modified),
                    strtotime($this->profile->modified),
                    ($this->avatar) ? strtotime($this->avatar->modified) : 0);
     }
@@ -208,10 +208,10 @@ class ShownoticeAction extends Action
 
     function showContent()
     {
-        $this->elementStart('ul', array('class' => 'notices'));
+        $this->elementStart('ol', array('class' => 'notices xoxo'));
         $nli = new NoticeListItem($this->notice, $this);
         $nli->show();
-        $this->elementEnd('ul');
+        $this->elementEnd('ol');
     }
 
     /**

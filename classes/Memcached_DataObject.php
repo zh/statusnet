@@ -227,4 +227,28 @@ class Memcached_DataObject extends DB_DataObject
         $c->set($ckey, $cached, MEMCACHE_COMPRESSED, $expiry);
         return new ArrayWrapper($cached);
     }
+
+    // We overload so that 'SET NAMES "utf8"' is called for
+    // each connection
+
+    function _connect()
+    {
+        global $_DB_DATAOBJECT;
+        $exists = !empty($this->_database_dsn_md5) &&
+          isset($_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5]);
+        $result = parent::_connect();
+        if (!$exists) {
+            $DB = &$_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
+            if (common_config('db', 'type') == 'mysql' &&
+                common_config('db', 'utf8')) {
+                $conn = $DB->connection;
+                if ($DB instanceof DB_mysqli) {
+                    mysqli_set_charset($conn, 'utf8');
+                } else if ($DB instanceof DB_mysql) {
+                    mysql_set_charset('utf8', $conn);
+                }
+            }
+        }
+        return $result;
+    }
 }

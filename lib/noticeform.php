@@ -89,7 +89,8 @@ class NoticeForm extends Form
         } else {
             $this->user = common_current_user();
         }
-        
+
+        $this->enctype = 'multipart/form-data';
     }
 
     /**
@@ -142,17 +143,21 @@ class NoticeForm extends Form
                                               'rows' => 4,
                                               'name' => 'status_textarea'),
                             ($this->content) ? $this->content : '');
-
         $this->out->elementStart('dl', 'form_note');
         $this->out->element('dt', null, _('Available characters'));
         $this->out->element('dd', array('id' => 'notice_text-count'),
                             '140');
         $this->out->elementEnd('dl');
-
+        $this->out->element('label', array('for' => 'notice_data-attach'), _('Attach'));
+        $this->out->element('input', array('id' => 'notice_data-attach',
+                                           'type' => 'file',
+                                           'name' => 'attach',
+                                           'title' => _('Attach a file')));
         if ($this->action) {
             $this->out->hidden('notice_return-to', $this->action, 'returnto');
         }
         $this->out->hidden('notice_in-reply-to', $this->action, 'inreplyto');
+        $this->out->hidden('MAX_FILE_SIZE', common_config('attachments', 'file_quota'));
     }
 
     /**

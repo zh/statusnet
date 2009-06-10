@@ -179,14 +179,14 @@ class ConversationTree extends NoticeList
 
         $this->out->elementStart('div', array('id' =>'notices_primary'));
         $this->out->element('h2', null, _('Notices'));
-        $this->out->elementStart('ul', array('class' => 'notices'));
+        $this->out->elementStart('ol', array('class' => 'notices xoxo'));
 
         if (array_key_exists('root', $this->tree)) {
             $rootid = $this->tree['root'][0];
             $this->showNoticePlus($rootid);
         }
 
-        $this->out->elementEnd('ul');
+        $this->out->elementEnd('ol');
         $this->out->elementEnd('div');
 
         return $cnt;
@@ -215,13 +215,13 @@ class ConversationTree extends NoticeList
         if (array_key_exists($id, $this->tree)) {
             $children = $this->tree[$id];
 
-            $this->out->elementStart('ul', array('class' => 'notices'));
+            $this->out->elementStart('ol', array('class' => 'notices'));
 
             foreach ($children as $child) {
                 $this->showNoticePlus($child);
             }
 
-            $this->out->elementEnd('ul');
+            $this->out->elementEnd('ol');
         }
 
         $this->out->elementEnd('li');

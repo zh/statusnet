@@ -39,6 +39,7 @@ require_once INSTALLDIR . '/plugins/FBConnect/FBConnectLogin.php';
 require_once INSTALLDIR . '/plugins/FBConnect/FBConnectSettings.php';
 require_once INSTALLDIR . '/plugins/FBConnect/FBCLoginGroupNav.php';
 require_once INSTALLDIR . '/plugins/FBConnect/FBCSettingsNav.php';
+require_once INSTALLDIR . '/plugins/FBConnect/FBC_XDReceiver.php';
 
 /**
  * Plugin to enable Facebook Connect
@@ -62,27 +63,19 @@ class FBConnectPlugin extends Plugin
         $m->connect('main/facebookconnect', array('action' => 'FBConnectAuth'));
         $m->connect('main/facebooklogin', array('action' => 'FBConnectLogin'));
         $m->connect('settings/facebook', array('action' => 'FBConnectSettings'));
+        $m->connect('xd_receiver.html', array('action' => 'FBC_XDReceiver'));
      }
 
     // Add in xmlns:fb
     function onStartShowHTML($action)
     {
-        $httpaccept = isset($_SERVER['HTTP_ACCEPT']) ?
-        $_SERVER['HTTP_ACCEPT'] : null;
-
-        // XXX: allow content negotiation for RDF, RSS, or XRDS
-
-        $cp = common_accept_to_prefs($httpaccept);
-        $sp = common_accept_to_prefs(PAGE_TYPE_PREFS);
-
-        $type = common_negotiate_type($cp, $sp);
-
-        if (!$type) {
-            throw new ClientException(_('This page is not available in a '.
-                                         'media type you accept'), 406);
-        }
-
-        header('Content-Type: '.$type);
+        // XXX: Horrible hack to make Safari, FF2, and Chrome work with
+        // Facebook Connect. These browser cannot use Facebook's
+        // DOM parsing routines unless the mime type of the page is
+        // text/html even though Facebook Connect uses XHTML.  This is
+        // A bug in Facebook Connect, and this is a temporary solution
+        // until they fix their JavaScript libs.
+        header('Content-Type: text/html');
 
         $action->extraHeaders();
 
@@ -101,20 +94,27 @@ class FBConnectPlugin extends Plugin
         return false;
     }
 
-    function onEndShowLaconicaScripts($action)
-    {
-        $action->element('script',
-            array('type' => 'text/javascript',
-                  'src'  => 'http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php'),
-                  ' ');
+    // Note: this script needs to appear in the <body>
 
+    function onStartShowHeader($action)
+    {
         $apikey = common_config('facebook', 'apikey');
         $plugin_path = common_path('plugins/FBConnect');
 
         $login_url = common_local_url('FBConnectAuth');
         $logout_url = common_local_url('logout');
 
-        $html = sprintf('<script type="text/javascript">FB.init("%s", "%s/xd_receiver.htm");
+        // XXX: Facebook says we don't need this FB_RequireFeatures(),
+        // but we actually do, for IE and Safari. Gar.
+
+        $html = sprintf('<script type="text/javascript">
+                            window.onload = function () {
+                                FB_RequireFeatures(
+                                    ["XFBML"],
+                                        function() {
+                                            FB.Facebook.init("%s", "../xd_receiver.html");
+                                        }
+                                    ); }
 
                             function goto_login() {
                                 window.location = "%s";
@@ -123,11 +123,21 @@ class FBConnectPlugin extends Plugin
                             function goto_logout() {
                                 window.location = "%s";
                             }
-
-                         </script>', $apikey, $plugin_path, $login_url, $logout_url);
-
+                          </script>', $apikey,
+                              $login_url, $logout_url);
 
         $action->raw($html);
+    }
+
+    // Note: this script needs to appear as close as possible to </body>
+
+    function onEndShowFooter($action)
+    {
+
+        $action->element('script',
+            array('type' => 'text/javascript',
+                  'src'  => 'http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php'),
+                  '');
     }
 
     function onEndShowLaconicaStyles($action)
@@ -143,24 +153,8 @@ class FBConnectPlugin extends Plugin
 
         if ($user) {
 
-            $action->menuItem(common_local_url('all', array('nickname' => $user->nickname)),
-                _('Home'), _('Personal profile and friends timeline'), false, 'nav_home');
-            $action->menuItem(common_local_url('profilesettings'),
-                _('Account'), _('Change your email, avatar, password, profile'), false, 'nav_account');
-            if (common_config('xmpp', 'enabled')) {
-                $action->menuItem(common_local_url('imsettings'),
-                    _('Connect'), _('Connect to IM, SMS, Twitter'), false, 'nav_connect');
-            } else {
-             $action->menuItem(common_local_url('smssettings'),
-                 _('Connect'), _('Connect to SMS, Twitter'), false, 'nav_connect');
-            }
-            $action->menuItem(common_local_url('invite'),
-                _('Invite'),
-                sprintf(_('Invite friends and colleagues to join you on %s'),
-                common_config('site', 'name')),
-                false, 'nav_invitecontact');
-
-            $flink = Foreign_link::getByUserId($user->id, FACEBOOK_CONNECT_SERVICE);
+            $flink = Foreign_link::getByUserId($user->id,
+                FACEBOOK_CONNECT_SERVICE);
             $fbuid = 0;
 
             if ($flink) {
@@ -195,9 +189,25 @@ class FBConnectPlugin extends Plugin
                 }
             }
 
-            // Need to override the Logout link to make it do FB stuff
+            $action->menuItem(common_local_url('all', array('nickname' => $user->nickname)),
+                _('Home'), _('Personal profile and friends timeline'), false, 'nav_home');
+            $action->menuItem(common_local_url('profilesettings'),
+                _('Account'), _('Change your email, avatar, password, profile'), false, 'nav_account');
+            if (common_config('xmpp', 'enabled')) {
+                $action->menuItem(common_local_url('imsettings'),
+                    _('Connect'), _('Connect to IM, SMS, Twitter'), false, 'nav_connect');
+            } else {
+             $action->menuItem(common_local_url('smssettings'),
+                 _('Connect'), _('Connect to SMS, Twitter'), false, 'nav_connect');
+            }
+            $action->menuItem(common_local_url('invite'),
+                _('Invite'),
+                sprintf(_('Invite friends and colleagues to join you on %s'),
+                common_config('site', 'name')),
+                false, 'nav_invitecontact');
 
-            if ($fbuid > 0) {
+            // Need to override the Logout link to make it do FB stuff
+            if ($flink && $fbuid > 0) {
 
                 $logout_url = common_local_url('logout');
                 $title =  _('Logout from the site');
@@ -258,21 +268,32 @@ class FBConnectPlugin extends Plugin
         return true;
     }
 
-    function onEndLogout($action)
+    function onStartLogout($action)
     {
-        try {
+        $user = common_current_user();
+
+        $flink = Foreign_link::getByUserId($user->id, FACEBOOK_CONNECT_SERVICE);
+
+        $action->logout();
+
+        if ($flink) {
 
             $facebook = getFacebook();
-            $fbuid = $facebook->get_loggedin_user();
 
-            if ($fbuid > 0) {
-                $facebook->logout(common_local_url('public'));
+            try {
+                $fbuid = $facebook->get_loggedin_user();
+
+                if ($fbuid > 0) {
+                    $facebook->logout(common_local_url('public'));
+                }
+
+            } catch (Exception $e) {
+                common_log(LOG_WARNING, 'Could\'t logout of Facebook: ' .
+                    $e->getMessage());
             }
-
-        } catch (Exception $e) {
-            common_log(LOG_WARNING, 'Could\'t logout of Facebook: ' .
-                $e->getMessage());
         }
+
+        return true;
     }
 
 }

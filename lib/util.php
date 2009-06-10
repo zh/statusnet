@@ -499,6 +499,11 @@ function common_linkify($url) {
 
 // if this URL is an attachment, then we set class='attachment' and id='attahcment-ID'
 // where ID is the id of the attachment for the given URL.
+//
+// we need a better test telling what can be shown as an attachment
+// we're currently picking up oembeds only.
+// I think the best option is another file_view table in the db
+// and associated dbobject.
     $query = "select file_oembed.file_id as file_id from file join file_oembed on file.id = file_oembed.file_id where file.url='$longurl'";
     $file = new File;
     $file->query($query);
@@ -893,6 +898,34 @@ function common_enqueue_notice($notice)
         }
     }
     return $result;
+}
+
+function common_post_inbox_transports()
+{
+    $transports = array('omb', 'sms');
+
+    if (common_config('xmpp', 'enabled')) {
+        $transports = array_merge($transports, array('jabber', 'public'));
+    }
+
+    return $transports;
+}
+
+function common_enqueue_notice_transport($notice, $transport)
+{
+    $qi = new Queue_item();
+    $qi->notice_id = $notice->id;
+    $qi->transport = $transport;
+    $qi->created = $notice->created;
+    $result = $qi->insert();
+    if (!$result) {
+        $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
+        common_log(LOG_ERR, 'DB error inserting queue item: ' . $last_error->message);
+        throw new ServerException('DB error inserting queue item: ' . $last_error->message);
+>>>>>>> 0.7.x:lib/util.php
+    }
+    common_log(LOG_DEBUG, 'complete queueing notice ID = ' . $notice->id . ' for ' . $transport);
+    return true;
 }
 
 function common_real_broadcast($notice, $remote=false)
