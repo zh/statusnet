@@ -124,6 +124,8 @@ class Notice extends Memcached_DataObject
 
         $profile = Profile::staticGet($profile_id);
 
+        $final =  common_shorten_links($content);
+
         if (!$profile) {
             common_log(LOG_ERR, 'Problem saving notice. Unknown user.');
             return _('Problem saving notice. Unknown user.');
@@ -134,7 +136,7 @@ class Notice extends Memcached_DataObject
             return _('Too many notices too fast; take a breather and post again in a few minutes.');
         }
 
-        if (common_config('site', 'dupelimit') > 0 && !Notice::checkDupes($profile_id, $content)) {
+        if (common_config('site', 'dupelimit') > 0 && !Notice::checkDupes($profile_id, $final)) {
             common_log(LOG_WARNING, 'Dupe posting by profile #' . $profile_id . '; throttled.');
 			return _('Too many duplicate messages too quickly; take a breather and post again in a few minutes.');
         }
@@ -165,8 +167,8 @@ class Notice extends Memcached_DataObject
 
 		$notice->reply_to = $reply_to;
 		$notice->created = common_sql_now();
-		$notice->content = $content;
-		$notice->rendered = common_render_content($content, $notice);
+		$notice->content = $final;
+		$notice->rendered = common_render_content($final, $notice);
 		$notice->source = $source;
 		$notice->uri = $uri;
 
@@ -202,13 +204,9 @@ class Notice extends Memcached_DataObject
 
             $notice->saveReplies();
             $notice->saveTags();
-            $notice->saveGroups();
 
-            if (common_config('queue', 'enabled')) {
-                $notice->addToAuthorInbox();
-            } else {
-                $notice->addToInboxes();
-            }
+            $notice->addToInboxes();
+            $notice->saveGroups();
 
             $notice->query('COMMIT');
 
@@ -218,13 +216,7 @@ class Notice extends Memcached_DataObject
         # Clear the cache for subscribed users, so they'll update at next request
         # XXX: someone clever could prepend instead of clearing the cache
 
-        if (common_config('memcached', 'enabled')) {
-            if (common_config('queue', 'enabled')) {
-                $notice->blowAuthorCaches();
-            } else {
-                $notice->blowCaches();
-            }
-        }
+        $notice->blowCaches();
 
         return $notice;
     }
@@ -305,17 +297,6 @@ class Notice extends Memcached_DataObject
         $this->blowPublicCache($blowLast);
         $this->blowTagCache($blowLast);
         $this->blowGroupCache($blowLast);
-    }
-
-    function blowAuthorCaches($blowLast=false)
-    {
-        // Clear the user's cache
-        $cache = common_memcache();
-        if (!empty($cache)) {
-            $cache->delete(common_cache_key('notice_inbox:by_user:'.$this->profile_id));
-        }
-        $this->blowNoticeCache($blowLast);
-        $this->blowPublicCache($blowLast);
     }
 
     function blowGroupCache($blowLast=false)
@@ -453,22 +434,22 @@ class Notice extends Memcached_DataObject
     # XXX: too many args; we need to move to named params or even a separate
     # class for notice streams
 
-    static function getStream($qry, $cachekey, $offset=0, $limit=20, $since_id=0, $before_id=0, $order=null, $since=null) {
+    static function getStream($qry, $cachekey, $offset=0, $limit=20, $since_id=0, $max_id=0, $order=null, $since=null) {
 
         if (common_config('memcached', 'enabled')) {
 
-            # Skip the cache if this is a since, since_id or before_id qry
-            if ($since_id > 0 || $before_id > 0 || $since) {
-                return Notice::getStreamDirect($qry, $offset, $limit, $since_id, $before_id, $order, $since);
+            # Skip the cache if this is a since, since_id or max_id qry
+            if ($since_id > 0 || $max_id > 0 || $since) {
+                return Notice::getStreamDirect($qry, $offset, $limit, $since_id, $max_id, $order, $since);
             } else {
                 return Notice::getCachedStream($qry, $cachekey, $offset, $limit, $order);
             }
         }
 
-        return Notice::getStreamDirect($qry, $offset, $limit, $since_id, $before_id, $order, $since);
+        return Notice::getStreamDirect($qry, $offset, $limit, $since_id, $max_id, $order, $since);
     }
 
-    static function getStreamDirect($qry, $offset, $limit, $since_id, $before_id, $order, $since) {
+    static function getStreamDirect($qry, $offset, $limit, $since_id, $max_id, $order, $since) {
 
         $needAnd = false;
         $needWhere = true;
@@ -490,7 +471,7 @@ class Notice extends Memcached_DataObject
             $qry .= ' notice.id > ' . $since_id;
         }
 
-        if ($before_id > 0) {
+        if ($max_id > 0) {
 
             if ($needWhere) {
                 $qry .= ' WHERE ';
@@ -499,7 +480,7 @@ class Notice extends Memcached_DataObject
                 $qry .= ' AND ';
             }
 
-            $qry .= ' notice.id < ' . $before_id;
+            $qry .= ' notice.id <= ' . $max_id;
         }
 
         if ($since) {
@@ -657,17 +638,17 @@ class Notice extends Memcached_DataObject
         }
     }
 
-    function publicStream($offset=0, $limit=20, $since_id=0, $before_id=0, $since=null)
+    function publicStream($offset=0, $limit=20, $since_id=0, $max_id=0, $since=null)
     {
         $ids = Notice::stream(array('Notice', '_publicStreamDirect'),
                               array(),
                               'public',
-                              $offset, $limit, $since_id, $before_id, $since);
+                              $offset, $limit, $since_id, $max_id, $since);
 
         return Notice::getStreamByIds($ids);
     }
 
-    function _publicStreamDirect($offset=0, $limit=20, $since_id=0, $before_id=0, $since=null)
+    function _publicStreamDirect($offset=0, $limit=20, $since_id=0, $max_id=0, $since=null)
     {
         $notice = new Notice();
 
@@ -691,8 +672,8 @@ class Notice extends Memcached_DataObject
             $notice->whereAdd('id > ' . $since_id);
         }
 
-        if ($before_id != 0) {
-            $notice->whereAdd('id < ' . $before_id);
+        if ($max_id != 0) {
+            $notice->whereAdd('id <= ' . $max_id);
         }
 
         if (!is_null($since)) {
@@ -727,33 +708,6 @@ class Notice extends Memcached_DataObject
               'AND NOT EXISTS (SELECT user_id, notice_id ' .
               'FROM notice_inbox ' .
               "WHERE user_id = $UT.id " .
-              'AND notice_id = ' . $this->id . ' )';
-            if ($enabled === 'transitional') {
-                $qry .= " AND $UT.inboxed = 1";
-            }
-            $inbox->query($qry);
-        }
-        return;
-    }
-
-    function addToAuthorInbox()
-    {
-        $enabled = common_config('inboxes', 'enabled');
-
-        if ($enabled === true || $enabled === 'transitional') {
-            $user = User::staticGet('id', $this->profile_id);
-            if (empty($user)) {
-                return;
-            }
-            $inbox = new Notice_inbox();
-            $UT = common_config('db','type')=='pgsql'?'"user"':'user';
-            $qry = 'INSERT INTO notice_inbox (user_id, notice_id, created) ' .
-              "SELECT $UT.id, " . $this->id . ", '" . $this->created . "' " .
-              "FROM $UT " .
-              "WHERE $UT.id = " . $this->profile_id . ' ' .
-              'AND NOT EXISTS (SELECT user_id, notice_id ' .
-              'FROM notice_inbox ' .
-              "WHERE user_id = " . $this->profile_id . ' '.
               'AND notice_id = ' . $this->id . ' )';
             if ($enabled === 'transitional') {
                 $qry .= " AND $UT.inboxed = 1";
@@ -1034,15 +988,15 @@ class Notice extends Memcached_DataObject
         }
     }
 
-    function stream($fn, $args, $cachekey, $offset=0, $limit=20, $since_id=0, $before_id=0, $since=null, $tag=null)
+    function stream($fn, $args, $cachekey, $offset=0, $limit=20, $since_id=0, $max_id=0, $since=null)
     {
         $cache = common_memcache();
 
         if (empty($cache) ||
-            $since_id != 0 || $before_id != 0 || !is_null($since) ||
+            $since_id != 0 || $max_id != 0 || (!is_null($since) && $since > 0) ||
             ($offset + $limit) > NOTICE_CACHE_WINDOW) {
             return call_user_func_array($fn, array_merge($args, array($offset, $limit, $since_id,
-                                                                      $before_id, $since, $tag)));
+                                                                      $max_id, $since)));
         }
 
         $idkey = common_cache_key($cachekey);

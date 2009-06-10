@@ -46,7 +46,7 @@ class Fave extends Memcached_DataObject
         return $ids;
     }
 
-    function _streamDirect($user_id, $offset, $limit, $since_id, $before_id, $since)
+    function _streamDirect($user_id, $offset, $limit, $since_id, $max_id, $since)
     {
         $fav = new Fave();
 
@@ -59,8 +59,8 @@ class Fave extends Memcached_DataObject
             $fav->whereAdd('notice_id > ' . $since_id);
         }
 
-        if ($before_id != 0) {
-            $fav->whereAdd('notice_id < ' . $before_id);
+        if ($max_id != 0) {
+            $fav->whereAdd('notice_id <= ' . $max_id);
         }
 
         if (!is_null($since)) {

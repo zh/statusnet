@@ -900,6 +900,33 @@ function common_enqueue_notice($notice)
     return $result;
 }
 
+function common_post_inbox_transports()
+{
+    $transports = array('omb', 'sms');
+
+    if (common_config('xmpp', 'enabled')) {
+        $transports = array_merge($transports, array('jabber', 'public'));
+    }
+
+    return $transports;
+}
+
+function common_enqueue_notice_transport($notice, $transport)
+{
+    $qi = new Queue_item();
+    $qi->notice_id = $notice->id;
+    $qi->transport = $transport;
+    $qi->created = $notice->created;
+    $result = $qi->insert();
+    if (!$result) {
+        $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
+        common_log(LOG_ERR, 'DB error inserting queue item: ' . $last_error->message);
+        throw new ServerException('DB error inserting queue item: ' . $last_error->message);
+    }
+    common_log(LOG_DEBUG, 'complete queueing notice ID = ' . $notice->id . ' for ' . $transport);
+    return true;
+}
+
 function common_real_broadcast($notice, $remote=false)
 {
     $success = true;
