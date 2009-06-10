@@ -124,7 +124,6 @@ class Action extends HTMLOutputter // lawsuit
         $this->showShortcutIcon();
         $this->showStylesheets();
         $this->showScripts();
-        $this->showRelationshipLinks();
         $this->showOpenSearch();
         $this->showFeeds();
         $this->showDescription();
@@ -265,19 +264,6 @@ class Action extends HTMLOutputter // lawsuit
             }
             Event::handle('EndShowScripts', array($this));
         }
-    }
-
-    /**
-     * Show document relationship links
-     *
-     * SHOULD overload
-     *
-     * @return nothing
-     */
-    function showRelationshipLinks()
-    {
-        // output <link> elements with appropriate HTML4.01 link types:
-        // http://www.w3.org/TR/html401/types.html#type-links
     }
 
     /**
@@ -1062,37 +1048,5 @@ class Action extends HTMLOutputter // lawsuit
     function getFeeds()
     {
         return null;
-    }
-
-    /**
-     * Generate document metadata for sequential navigation
-     *
-     * @param boolean $have_before is there something before?
-     * @param boolean $have_after  is there something after?
-     * @param integer $page        current page
-     * @param string  $action      current action
-     * @param array   $args        rest of query arguments
-     *
-     * @return nothing
-     */
-    function sequenceRelationships($have_next, $have_previous, $page, $action, $args=null)
-    {
-        // Outputs machine-readable pagination in <link> elements.
-        // Pattern taken from $this->pagination() method.
-
-        // "next" is equivalent to "after"
-        if ($have_next) {
-            $pargs   = array('page' => $page-1);
-            $this->element('link', array('rel' => 'next',
-                                         'href' => common_local_url($action, $args, $pargs),
-                                         'title' => _('Next')));
-        }
-        // "previous" is equivalent to "before"
-        if ($have_previous=true) { // FIXME
-            $pargs   = array('page' => $page+1);
-            $this->element('link', array('rel' => 'prev',
-                                         'href' => common_local_url($action, $args, $pargs),
-                                         'title' => _('Previous')));
-        }
     }
 }

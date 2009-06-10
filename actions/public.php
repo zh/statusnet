@@ -136,17 +136,6 @@ class PublicAction extends Action
     }
 
     /**
-     * Output document relationship links
-     *
-     * @return void
-     */
-    function showRelationshipLinks()
-    {
-        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
-                                     $this->page, 'public');
-    }
-
-    /**
      * Extra head elements
      *
      * We include a <meta> element linking to the publicxrds page, for OpenID

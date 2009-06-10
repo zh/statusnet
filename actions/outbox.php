@@ -63,21 +63,10 @@ class OutboxAction extends MailboxAction
     }
 
     /**
-     * Output document relationship links
-     *
-     * @return void
-     */
-    function showRelationshipLinks()
-    {
-        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
-                                     $this->page, 'outbox', array('nickname' => $this->user->nickname));
-    }
-
-    /**
      * retrieve the messages for this user and this page
      *
      * Does a query for the right messages
-     *  
+     *
      * @return Message data object with stream for messages
      *
      * @see MailboxAction::getMessages()
