@@ -276,13 +276,15 @@ class Notice extends Memcached_DataObject
 
     function getUploadedAttachment() {
         $post = clone $this;
-        $query = 'select file.url as uploaded from file join file_to_post on file.id = file_id where post_id=' . $post->escape($post->id) . ' and url like "%/notice/%/file"';
+        $query = 'select file.url as up, file.id as i from file join file_to_post on file.id = file_id where post_id=' . $post->escape($post->id) . ' and url like "%/notice/%/file"';
         $post->query($query);
         $post->fetch();
-        $ret = $post->uploaded;
-//        var_dump($post);
+        if (empty($post->up) || empty($post->i)) {
+            $ret = false;
+        } else {
+            $ret = array($post->up, $post->i);
+        }
         $post->free();
-//        die();
         return $ret;
     }
 
