@@ -120,7 +120,8 @@ class Notice extends Memcached_DataObject
         }
     }
 
-    static function saveNew($profile_id, $content, $source=null, $is_local=1, $reply_to=null, $uri=null) {
+    static function saveNew($profile_id, $content, $source=null,
+                            $is_local=1, $reply_to=null, $uri=null, $created=null) {
 
         $profile = Profile::staticGet($profile_id);
 
@@ -166,7 +167,11 @@ class Notice extends Memcached_DataObject
 		$notice->query('BEGIN');
 
 		$notice->reply_to = $reply_to;
-		$notice->created = common_sql_now();
+        if (!empty($created)) {
+            $notice->created = $created;
+        } else {
+            $notice->created = common_sql_now();
+        }
 		$notice->content = $final;
 		$notice->rendered = common_render_content($final, $notice);
 		$notice->source = $source;

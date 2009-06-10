@@ -85,4 +85,9 @@ class Notice_inbox extends Memcached_DataObject
 
         return $ids;
     }
+
+    function &pkeyGet($kv)
+    {
+        return Memcached_DataObject::pkeyGet('Notice_inbox', $kv);
+    }
 }

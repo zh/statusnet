@@ -255,42 +255,11 @@ class TwitterStatusFetcher extends Daemon
         // check to see if we've already imported the status
         if (!$notice) {
 
-            $notice = new Notice();
-            $notice->profile_id = $id;
+            $created = strftime('%Y-%m-%d %H:%M:%S',
+                                strtotime($status->created_at));;
 
-            $notice->query('BEGIN');
-
-            // XXX: figure out reply_to
-            $notice->reply_to = null;
-
-            // XXX: Should this be common_sql_now() instead of status create date?
-
-            $notice->created = strftime('%Y-%m-%d %H:%M:%S',
-                strtotime($status->created_at));
-            $notice->content = $status->text;
-            $notice->rendered = common_render_content($status->text, $notice);
-            $notice->source = 'twitter';
-            $notice->is_local = 0;
-            $notice->uri = $uri;
-
-            $notice_id = $notice->insert();
-
-            if (!$notice_id) {
-                common_log_db_error($notice, 'INSERT', __FILE__);
-                if (defined('SCRIPT_DEBUG')) {
-                    common_debug('Could not save notice!');
-                }
-            }
-
-            // XXX: Figure out a better way to link Twitter replies?
-            $notice->saveReplies();
-
-            // XXX: Do we want to pollute our tag cloud with
-            // hashtags from Twitter?
-            $notice->saveTags();
-            $notice->saveGroups();
-
-            $notice->query('COMMIT');
+            $notice = Notice::saveNew($id, $status->text, 'twitter',
+                                      -2, null, $uri, $created);
 
             if (defined('SCRIPT_DEBUG')) {
                 common_debug("Saved status $status->id" .
@@ -298,13 +267,13 @@ class TwitterStatusFetcher extends Daemon
             }
         }
 
-        if (!Notice_inbox::staticGet('notice_id', $notice->id)) {
-
+        if (!Notice_inbox::pkeyGet(array('notice_id' => $notice->id,
+                                         'user_id' => $flink->user_id))) {
             // Add to inbox
             $inbox = new Notice_inbox();
             $inbox->user_id = $flink->user_id;
             $inbox->notice_id = $notice->id;
-            $inbox->created = common_sql_now();
+            $inbox->created = $notice->created;
 
             $inbox->insert();
         }
