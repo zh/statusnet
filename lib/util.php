@@ -922,7 +922,6 @@ function common_enqueue_notice_transport($notice, $transport)
         $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
         common_log(LOG_ERR, 'DB error inserting queue item: ' . $last_error->message);
         throw new ServerException('DB error inserting queue item: ' . $last_error->message);
->>>>>>> 0.7.x:lib/util.php
     }
     common_log(LOG_DEBUG, 'complete queueing notice ID = ' . $notice->id . ' for ' . $transport);
     return true;
