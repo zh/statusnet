@@ -51,7 +51,6 @@ class TagAction extends Action
         $pop->show();
     }
 
-
     function title()
     {
         if ($this->page == 1) {
@@ -75,17 +74,6 @@ class TagAction extends Action
         return array(new Feed(Feed::RSS1,
                               common_local_url('tagrss', array('tag' => $this->tag)),
                               sprintf(_('Feed for tag %s'), $this->tag)));
-    }
-
-    /**
-     * Output document relationship links
-     *
-     * @return void
-     */
-    function showRelationshipLinks()
-    {
-        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
-                                     $this->page, 'tag', array('tag' => $this->tag));
     }
 
     function showPageNotice()
