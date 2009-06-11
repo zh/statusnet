@@ -906,6 +906,9 @@ sslserver: use an alternate server name for SSL URLs, like
            parameters correctly so that both the SSL server and the
            "normal" server can access the session cookie and
            preferably other cookies as well.
+shorturllength: Length of URL at which URLs in a message exceeding 140
+                characters will be sent to the user's chosen
+                shortening service.
 
 db
 --

@@ -120,6 +120,7 @@ $config =
               'private' => false,
               'ssl' => 'never',
               'sslserver' => null,
+              'shorturllength' => 30,
               'dupelimit' => 60), # default for same person saying the same thing
         'syslog' =>
         array('appname' => 'laconica', # for syslog
