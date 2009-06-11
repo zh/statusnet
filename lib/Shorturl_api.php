@@ -39,7 +39,7 @@ class ShortUrlApi
     }
 
     private function is_long($url) {
-        return strlen($url) >= 30;
+        return strlen($url) >= common_config('site', 'shorturllength');
     }
 
     protected function http_post($data) {
