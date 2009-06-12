@@ -202,6 +202,9 @@ class Rss10Action extends Action
         $this->element('title', null, $title);
         $this->element('link', null, $nurl);
         $this->element('description', null, $profile->nickname."'s status on ".common_exact_date($notice->created));
+        if ($notice->rendered) {
+            $this->element('content:encoded', null, common_xml_safe_str($notice->rendered));
+        }
         $this->element('dc:date', null, common_date_w3dtf($notice->created));
         $this->element('dc:creator', null, ($profile->fullname) ? $profile->fullname : $profile->nickname);
         $this->element('sioc:has_creator', array('rdf:resource' => $creator_uri));
