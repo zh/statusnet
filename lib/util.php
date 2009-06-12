@@ -114,7 +114,7 @@ function common_check_user($nickname, $password)
         return false;
     }
     $user = User::staticGet('nickname', $nickname);
-    if (is_null($user)) {
+    if (is_null($user) || $user === false) {
         return false;
     } else {
         if (0 == strcmp(common_munge_password($password, $user->id),
