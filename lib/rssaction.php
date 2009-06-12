@@ -208,7 +208,8 @@ class Rss10Action extends Action
         }
         $this->element('dc:date', null, common_date_w3dtf($notice->created));
         $this->element('dc:creator', null, ($profile->fullname) ? $profile->fullname : $profile->nickname);
-        $this->element('sioc:has_creator', array('rdf:resource' => $creator_uri));
+        $this->element('foaf:maker', array('rdf:resource' => $creator_uri));
+        $this->element('sioc:has_creator', array('rdf:resource' => $creator_uri.'#acct'));
         $this->element('laconica:postIcon', array('rdf:resource' => $profile->avatarUrl()));
         $this->element('cc:licence', array('rdf:resource' => common_config('license', 'url')));
         $this->elementEnd('item');
@@ -220,15 +221,15 @@ class Rss10Action extends Action
         foreach ($this->creators as $uri => $profile) {
             $id = $profile->id;
             $nickname = $profile->nickname;
-            $this->elementStart('sioc:User', array('rdf:about' => $uri));
+            $this->elementStart('foaf:Agent', array('rdf:about' => $uri));
             $this->element('foaf:nick', null, $nickname);
             if ($profile->fullname) {
                 $this->element('foaf:name', null, $profile->fullname);
             }
-            $this->element('sioc:id', null, $id);
+            $this->element('foaf:holdsAccount', array('rdf:resource' => $uri.'#acct'));
             $avatar = $profile->avatarUrl();
-            $this->element('sioc:avatar', array('rdf:resource' => $avatar));
-            $this->elementEnd('sioc:User');
+            $this->element('foaf:depiction', array('rdf:resource' => $avatar));
+            $this->elementEnd('foaf:Agent');
         }
     }
 
