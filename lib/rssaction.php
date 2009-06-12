@@ -239,7 +239,7 @@ class Rss10Action extends Action
                                               'xmlns:dc' =>
                                               'http://purl.org/dc/elements/1.1/',
                                               'xmlns:cc' =>
-                                              'http://web.resource.org/cc/',
+                                              'http://creativecommons.org/ns#',
                                               'xmlns:content' =>
                                               'http://purl.org/rss/1.0/modules/content/',
                                               'xmlns:foaf' =>
