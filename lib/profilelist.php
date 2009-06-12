@@ -208,7 +208,7 @@ class ProfileList extends Widget
             }
             $this->out->elementEnd('li');
             $this->out->elementStart('li', 'entity_block');
-            if ($user->id == $this->owner->id) {
+            if ($this->owner && $user->id == $this->owner->id) {
                 $this->showBlockForm();
             }
             $this->out->elementEnd('li');

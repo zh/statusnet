@@ -56,7 +56,7 @@ class PeopleSearchResults extends ProfileList
 
     function __construct($profile, $terms, $action)
     {
-        parent::__construct($profile, $terms, $action);
+        parent::__construct($profile, null, $action);
         $this->terms = array_map('preg_quote',
                                  array_map('htmlspecialchars', $terms));
         $this->pattern = '/('.implode('|',$terms).')/i';
