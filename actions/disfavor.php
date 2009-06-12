@@ -75,7 +75,7 @@ class DisfavorAction extends Action
             return;
         }
         $fave            = new Fave();
-        $fave->user_id   = $this->id;
+        $fave->user_id   = $user->id;
         $fave->notice_id = $notice->id;
         if (!$fave->find(true)) {
             $this->clientError(_('This notice is not a favorite!'));
