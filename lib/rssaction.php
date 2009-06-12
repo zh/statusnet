@@ -170,7 +170,7 @@ class Rss10Action extends Action
         $this->elementStart('rdf:Seq');
 
         foreach ($this->notices as $notice) {
-            $this->element('sioct:MicroblogPost', array('rdf:resource' => $notice->uri));
+            $this->element('rdf:li', array('rdf:resource' => $notice->uri));
         }
 
         $this->elementEnd('rdf:Seq');
@@ -197,7 +197,8 @@ class Rss10Action extends Action
         $profile = Profile::staticGet($notice->profile_id);
         $nurl = common_local_url('shownotice', array('notice' => $notice->id));
         $creator_uri = common_profile_uri($profile);
-        $this->elementStart('item', array('rdf:about' => $notice->uri));
+        $this->elementStart('item', array('rdf:about' => $notice->uri,
+                            'rdf:type' => 'http://rdfs.org/sioc/types#MicroblogPost'));
         $title = $profile->nickname . ': ' . common_xml_safe_str(trim($notice->content));
         $this->element('title', null, $title);
         $this->element('link', null, $nurl);
