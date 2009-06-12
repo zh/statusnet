@@ -253,10 +253,10 @@ class Rss10Action extends Action
                                               'xmlns' => 'http://purl.org/rss/1.0/'));
         $this->elementStart('sioc:Site', array('rdf:about' => common_root_url()));
         $this->element('sioc:name', null, common_config('site', 'name'));
-        $this->elementStart('sioc:container_of');
+        $this->elementStart('sioc:space_of');
         $this->element('sioc:Container', array('rdf:about' =>
                                                $channel['url']));
-        $this->elementEnd('sioc:container_of');
+        $this->elementEnd('sioc:space_of');
         $this->elementEnd('sioc:Site');
     }
 
