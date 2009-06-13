@@ -575,20 +575,32 @@ class Action extends HTMLOutputter // lawsuit
     /**
      * Show page notice block.
      *
+     * Only show the block if a subclassed action has overrided
+     * Action::showPageNotice(), or an event handler is registered for
+     * the StartShowPageNotice event, in which case we assume the
+     * 'page_notice' definition list is desired.  This is to prevent
+     * empty 'page_notice' definition lists from being output everywhere.
+     *
      * @return nothing
      */
     function showPageNoticeBlock()
     {
-        $this->elementStart('dl', array('id' => 'page_notice',
-                                        'class' => 'system_notice'));
-        $this->element('dt', null, _('Page notice'));
-        $this->elementStart('dd');
-        if (Event::handle('StartShowPageNotice', array($this))) {
-            $this->showPageNotice();
-            Event::handle('EndShowPageNotice', array($this));
+        $rmethod = new ReflectionMethod($this, 'showPageNotice');
+        $dclass = $rmethod->getDeclaringClass()->getName();
+
+        if ($dclass != 'Action' || Event::hasHandler('StartShowPageNotice')) {
+
+            $this->elementStart('dl', array('id' => 'page_notice',
+                                            'class' => 'system_notice'));
+            $this->element('dt', null, _('Page notice'));
+            $this->elementStart('dd');
+            if (Event::handle('StartShowPageNotice', array($this))) {
+                $this->showPageNotice();
+                Event::handle('EndShowPageNotice', array($this));
+            }
+            $this->elementEnd('dd');
+            $this->elementEnd('dl');
         }
-        $this->elementEnd('dd');
-        $this->elementEnd('dl');
     }
 
     /**
