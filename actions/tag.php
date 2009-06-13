@@ -76,11 +76,6 @@ class TagAction extends Action
                               sprintf(_('Feed for tag %s'), $this->tag)));
     }
 
-    function showPageNotice()
-    {
-        return sprintf(_('Messages tagged "%s", most recent first'), $this->tag);
-    }
-
     function showContent()
     {
         $notice = Notice_tag::getStream($this->tag, (($this->page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE + 1);
