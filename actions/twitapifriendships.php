@@ -17,7 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
 require_once(INSTALLDIR.'/lib/twitterapi.php');
 
@@ -29,23 +31,25 @@ class TwitapifriendshipsAction extends TwitterapiAction
         parent::handle($args);
 
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            $this->clientError(_('This method requires a POST.'), 400, $apidata['content-type']);
+            $this->clientError(_('This method requires a POST.'),
+                400, $apidata['content-type']);
             return;
         }
 
-        $id = $apidata['api_arg'];
-
+        $id    = $apidata['api_arg'];
         $other = $this->get_user($id);
 
-        if (!$other) {
-            $this->clientError(_('Could not follow user: User not found.'), 403, $apidata['content-type']);
+        if (empty($other)) {
+            $this->clientError(_('Could not follow user: User not found.'),
+                403, $apidata['content-type']);
             return;
         }
 
         $user = $apidata['user'];
 
         if ($user->isSubscribed($other)) {
-            $errmsg = sprintf(_('Could not follow user: %s is already on your list.'), $other->nickname);
+            $errmsg = sprintf(_('Could not follow user: %s is already on your list.'),
+                $other->nickname);
             $this->clientError($errmsg, 403, $apidata['content-type']);
             return;
         }
@@ -60,8 +64,9 @@ class TwitapifriendshipsAction extends TwitterapiAction
 
         $result = $sub->insert();
 
-        if (!$result) {
-            $errmsg = sprintf(_('Could not follow user: %s is already on your list.'), $other->nickname);
+        if (empty($result)) {
+            $errmsg = sprintf(_('Could not follow user: %s is already on your list.'),
+                $other->nickname);
             $this->clientError($errmsg, 400, $apidata['content-type']);
             return;
         }
@@ -82,7 +87,8 @@ class TwitapifriendshipsAction extends TwitterapiAction
         parent::handle($args);
 
         if (!in_array($_SERVER['REQUEST_METHOD'], array('POST', 'DELETE'))) {
-            $this->clientError(_('This method requires a POST or DELETE.'), 400, $apidata['content-type']);
+            $this->clientError(_('This method requires a POST or DELETE.'),
+                400, $apidata['content-type']);
             return;
         }
 
@@ -91,7 +97,7 @@ class TwitapifriendshipsAction extends TwitterapiAction
         # We can't subscribe to a remote person, but we can unsub
 
         $other = $this->get_profile($id);
-        $user = $apidata['user'];
+        $user = $apidata['user']; // Alwyas the auth user
 
         $sub = new Subscription();
         $sub->subscriber = $user->id;
@@ -102,7 +108,8 @@ class TwitapifriendshipsAction extends TwitterapiAction
             $sub->delete();
             $sub->query('COMMIT');
         } else {
-            $this->clientError(_('You are not friends with the specified user.'), 403, $apidata['content-type']);
+            $this->clientError(_('You are not friends with the specified user.'),
+                403, $apidata['content-type']);
             return;
         }
 
@@ -128,8 +135,9 @@ class TwitapifriendshipsAction extends TwitterapiAction
         $user_a = $this->get_user($user_a_id);
         $user_b = $this->get_user($user_b_id);
 
-        if (!$user_a || !$user_b) {
-            $this->clientError(_('Two user ids or screen_names must be supplied.'), 400, $apidata['content-type']);
+        if (empty($user_a) || empty($user_b)) {
+            $this->clientError(_('Two user ids or screen_names must be supplied.'),
+                400, $apidata['content-type']);
             return;
         }
 
