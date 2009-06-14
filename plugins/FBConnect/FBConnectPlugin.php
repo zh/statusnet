@@ -200,11 +200,13 @@ class FBConnectPlugin extends Plugin
              $action->menuItem(common_local_url('smssettings'),
                  _('Connect'), _('Connect to SMS, Twitter'), false, 'nav_connect');
             }
-            $action->menuItem(common_local_url('invite'),
-                _('Invite'),
-                sprintf(_('Invite friends and colleagues to join you on %s'),
-                common_config('site', 'name')),
-                false, 'nav_invitecontact');
+            if (common_config('invite', 'enabled')) {
+                $action->menuItem(common_local_url('invite'),
+                    _('Invite'),
+                    sprintf(_('Invite friends and colleagues to join you on %s'),
+                    common_config('site', 'name')),
+                    false, 'nav_invitecontact');
+            }
 
             // Need to override the Logout link to make it do FB stuff
             if ($flink && $fbuid > 0) {

@@ -130,6 +130,8 @@ $config =
               'host' => null, # only set if != server
               'debug' => false, # print extra debug info
               'public' => array()), # JIDs of users who want to receive the public stream
+        'invite' =>
+        array('enabled' => true),
         'sphinx' =>
         array('enabled' => false,
               'server' => 'localhost',
