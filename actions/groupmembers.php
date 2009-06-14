@@ -137,15 +137,4 @@ class GroupmembersAction extends Action
                           $this->page, 'groupmembers',
                           array('nickname' => $this->group->nickname));
     }
-
-    /**
-     * Output document relationship links
-     *
-     * @return void
-     */
-    function showRelationshipLinks()
-    {
-        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
-                                     $this->page, 'groupmembers', array('nickname' => $this->group->nickname));
-    }
 }

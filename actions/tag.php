@@ -76,22 +76,6 @@ class TagAction extends Action
                               sprintf(_('Feed for tag %s'), $this->tag)));
     }
 
-    /**
-     * Output document relationship links
-     *
-     * @return void
-     */
-    function showRelationshipLinks()
-    {
-        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
-                                     $this->page, 'tag', array('tag' => $this->tag));
-    }
-
-    function showPageNotice()
-    {
-        return sprintf(_('Messages tagged "%s", most recent first'), $this->tag);
-    }
-
     function showContent()
     {
         $notice = Notice_tag::getStream($this->tag, (($this->page-1)*NOTICES_PER_PAGE), NOTICES_PER_PAGE + 1);

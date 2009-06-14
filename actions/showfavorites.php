@@ -45,8 +45,10 @@ require_once INSTALLDIR.'/lib/feedlist.php';
  * @link     http://laconi.ca/
  */
 
-class ShowfavoritesAction extends OwnerDesignAction
+class ShowfavoritesAction extends Action
 {
+    /** User we're getting the faves of */
+    var $user = null;
     /** Page of the faves we're on */
     var $page = null;
 
@@ -146,17 +148,6 @@ class ShowfavoritesAction extends OwnerDesignAction
                              $this->user->nickname);
 
         return array(new Feed(Feed::RSS1, $feedurl, $feedtitle));
-    }
-
-    /**
-     * Output document relationship links
-     *
-     * @return void
-     */
-    function showRelationshipLinks()
-    {
-        $this->sequenceRelationships($this->page > 1, $this->count > NOTICES_PER_PAGE, // FIXME
-                                     $this->page, 'showfavorites', array('nickname' => $this->user->nickname));
     }
 
     /**

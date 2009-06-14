@@ -124,7 +124,6 @@ class Action extends HTMLOutputter // lawsuit
         $this->showShortcutIcon();
         $this->showStylesheets();
         $this->showScripts();
-        $this->showRelationshipLinks();
         $this->showOpenSearch();
         $this->showFeeds();
         $this->showDescription();
@@ -224,16 +223,6 @@ class Action extends HTMLOutputter // lawsuit
                                'href="'.theme_path('css/ie.css', null).'?version='.LACONICA_VERSION.'" /><![endif]');
                 Event::handle('EndShowUAStyles', array($this));
             }
-            if (Event::handle('StartShowDesign', array($this))) {
-                $design = $this->getDesign();
-                if (!empty($design)) {
-                    $cur = common_current_user();
-                    if (empty($cur) || $cur->viewdesigns) {
-                        $design->showCSS($this);
-                    }
-                }
-                Event::handle('EndShowDesign', array($this, $design));
-            }
             Event::handle('EndShowStyles', array($this));
         }
     }
@@ -258,6 +247,7 @@ class Action extends HTMLOutputter // lawsuit
                                                'src' => common_path('js/jquery.joverlay.min.js')),
                                ' ');
 
+
                 Event::handle('EndShowJQueryScripts', array($this));
             }
             if (Event::handle('StartShowLaconicaScripts', array($this))) {
@@ -274,19 +264,6 @@ class Action extends HTMLOutputter // lawsuit
             }
             Event::handle('EndShowScripts', array($this));
         }
-    }
-
-    /**
-     * Show document relationship links
-     *
-     * SHOULD overload
-     *
-     * @return nothing
-     */
-    function showRelationshipLinks()
-    {
-        // output <link> elements with appropriate HTML4.01 link types:
-        // http://www.w3.org/TR/html401/types.html#type-links
     }
 
     /**
@@ -598,20 +575,32 @@ class Action extends HTMLOutputter // lawsuit
     /**
      * Show page notice block.
      *
+     * Only show the block if a subclassed action has overrided
+     * Action::showPageNotice(), or an event handler is registered for
+     * the StartShowPageNotice event, in which case we assume the
+     * 'page_notice' definition list is desired.  This is to prevent
+     * empty 'page_notice' definition lists from being output everywhere.
+     *
      * @return nothing
      */
     function showPageNoticeBlock()
     {
-        $this->elementStart('dl', array('id' => 'page_notice',
-                                        'class' => 'system_notice'));
-        $this->element('dt', null, _('Page notice'));
-        $this->elementStart('dd');
-        if (Event::handle('StartShowPageNotice', array($this))) {
-            $this->showPageNotice();
-            Event::handle('EndShowPageNotice', array($this));
+        $rmethod = new ReflectionMethod($this, 'showPageNotice');
+        $dclass = $rmethod->getDeclaringClass()->getName();
+
+        if ($dclass != 'Action' || Event::hasHandler('StartShowPageNotice')) {
+
+            $this->elementStart('dl', array('id' => 'page_notice',
+                                            'class' => 'system_notice'));
+            $this->element('dt', null, _('Page notice'));
+            $this->elementStart('dd');
+            if (Event::handle('StartShowPageNotice', array($this))) {
+                $this->showPageNotice();
+                Event::handle('EndShowPageNotice', array($this));
+            }
+            $this->elementEnd('dd');
+            $this->elementEnd('dl');
         }
-        $this->elementEnd('dd');
-        $this->elementEnd('dl');
     }
 
     /**
@@ -1070,53 +1059,6 @@ class Action extends HTMLOutputter // lawsuit
 
     function getFeeds()
     {
-        return null;
-    }
-
-    /**
-     * Generate document metadata for sequential navigation
-     *
-     * @param boolean $have_before is there something before?
-     * @param boolean $have_after  is there something after?
-     * @param integer $page        current page
-     * @param string  $action      current action
-     * @param array   $args        rest of query arguments
-     *
-     * @return nothing
-     */
-    function sequenceRelationships($have_next, $have_previous, $page, $action, $args=null)
-    {
-        // Outputs machine-readable pagination in <link> elements.
-        // Pattern taken from $this->pagination() method.
-
-        // "next" is equivalent to "after"
-        if ($have_next) {
-            $pargs   = array('page' => $page-1);
-            $this->element('link', array('rel' => 'next',
-                                         'href' => common_local_url($action, $args, $pargs),
-                                         'title' => _('Next')));
-        }
-        // "previous" is equivalent to "before"
-        if ($have_previous=true) { // FIXME
-            $pargs   = array('page' => $page+1);
-            $this->element('link', array('rel' => 'prev',
-                                         'href' => common_local_url($action, $args, $pargs),
-                                         'title' => _('Previous')));
-        }
-    }
-
-    /**
-     * A design for this action
-     *
-     * A design (colors and background) for the current page. May be
-     * the user's design, or a group's design, or a site design.
-     *
-     * @return Design a design object to use
-     */
-
-    function getDesign()
-    {
-        // XXX: return site design by default
         return null;
     }
 }

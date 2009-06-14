@@ -17,7 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
 class TwitterapiAction extends Action
 {
@@ -521,11 +523,11 @@ class TwitterapiAction extends Action
     function init_document($type='xml')
     {
         switch ($type) {
-         case 'xml':
+        case 'xml':
             header('Content-Type: application/xml; charset=utf-8');
             $this->startXML();
             break;
-         case 'json':
+        case 'json':
             header('Content-Type: application/json; charset=utf-8');
 
             // Check for JSONP callback
@@ -534,15 +536,15 @@ class TwitterapiAction extends Action
                 print $callback . '(';
             }
             break;
-         case 'rss':
+        case 'rss':
             header("Content-Type: application/rss+xml; charset=utf-8");
             $this->init_twitter_rss();
             break;
-         case 'atom':
+        case 'atom':
             header('Content-Type: application/atom+xml; charset=utf-8');
             $this->init_twitter_atom();
             break;
-         default:
+        default:
             $this->client_error(_('Not a supported data format.'));
             break;
         }
@@ -553,10 +555,10 @@ class TwitterapiAction extends Action
     function end_document($type='xml')
     {
         switch ($type) {
-         case 'xml':
+        case 'xml':
             $this->endXML();
             break;
-         case 'json':
+        case 'json':
 
             // Check for JSONP callback
             $callback = $this->arg('callback');
@@ -564,13 +566,13 @@ class TwitterapiAction extends Action
                 print ')';
             }
             break;
-         case 'rss':
+        case 'rss':
             $this->end_twitter_rss();
             break;
-         case 'atom':
+        case 'atom':
             $this->end_twitter_rss();
             break;
-         default:
+        default:
             $this->client_error(_('Not a supported data format.'));
             break;
         }
@@ -657,13 +659,13 @@ class TwitterapiAction extends Action
     {
         $profile_array = $this->twitter_user_array($profile, true);
         switch ($content_type) {
-         case 'xml':
+        case 'xml':
             $this->show_twitter_xml_user($profile_array);
             break;
-         case 'json':
+        case 'json':
             $this->show_json_objects($profile_array);
             break;
-         default:
+        default:
             $this->client_error(_('Not a supported data format.'));
             return;
         }
@@ -672,8 +674,8 @@ class TwitterapiAction extends Action
 
     function get_user($id, $apidata=null)
     {
-        if (!$id) {
-            
+        if (empty($id)) {
+
             // Twitter supports these other ways of passing the user ID
             if (is_numeric($this->arg('id'))) {
                 return User::staticGet($this->arg('id'));
@@ -681,7 +683,7 @@ class TwitterapiAction extends Action
                 $nickname = common_canonical_nickname($this->arg('id'));
                 return User::staticGet('nickname', $nickname);
             } else if ($this->arg('user_id')) {
-                // This is to ensure that a non-numeric user_id still 
+                // This is to ensure that a non-numeric user_id still
                 // overrides screen_name even if it doesn't get used
                 if (is_numeric($this->arg('user_id'))) {
                     return User::staticGet('id', $this->arg('user_id'));
@@ -693,7 +695,7 @@ class TwitterapiAction extends Action
                 // Fall back to trying the currently authenticated user
                 return $apidata['user'];
             }
-            
+
         } else if (is_numeric($id)) {
             return User::staticGet($id);
         } else {
@@ -720,13 +722,13 @@ class TwitterapiAction extends Action
     {
         $source_name = _($source);
         switch ($source) {
-         case 'web':
-         case 'xmpp':
-         case 'mail':
-         case 'omb':
-         case 'api':
+        case 'web':
+        case 'xmpp':
+        case 'mail':
+        case 'omb':
+        case 'api':
             break;
-         default:
+        default:
             $ns = Notice_source::staticGet($source);
             if ($ns) {
                 $source_name = '<a href="' . $ns->url . '">' . $ns->name . '</a>';
@@ -734,6 +736,51 @@ class TwitterapiAction extends Action
             break;
         }
         return $source_name;
+    }
+
+    /**
+     * Returns query argument or default value if not found. Certain
+     * parameters used throughout the API are lightly scrubbed and
+     * bounds checked.  This overrides Action::arg().
+     *
+     * @param string $key requested argument
+     * @param string $def default value to return if $key is not provided
+     *
+     * @return var $var
+     */
+    function arg($key, $def=null)
+    {
+
+        // XXX: Do even more input validation/scrubbing?
+
+        if (array_key_exists($key, $this->args)) {
+            switch($key) {
+            case 'page':
+                $page = (int)$this->args['page'];
+                return ($page < 1) ? 1 : $page;
+            case 'count':
+                $count = (int)$this->args['count'];
+                if ($count < 1) {
+                    return 20;
+                } elseif ($count > 200) {
+                    return 200;
+                } else {
+                    return $count;
+                }
+            case 'since_id':
+                $since_id = (int)$this->args['since_id'];
+                return ($since_id < 1) ? 0 : $since_id;
+            case 'max_id':
+                $max_id = (int)$this->args['max_id'];
+                return ($max_id < 1) ? 0 : $max_id;
+            case 'since':
+                return strtotime($this->args['since']);
+            default:
+                return parent::arg($key, $def);
+            }
+        } else {
+            return $def;
+        }
     }
 
 }

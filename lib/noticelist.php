@@ -365,7 +365,7 @@ class NoticeListItem extends Widget
         }
         $uploaded = $this->notice->getUploadedAttachment();
         if ($uploaded) {
-            $this->out->element('a', array('href' => $uploaded, 'class' => 'attachment'), $uploaded);
+            $this->out->element('a', array('href' => $uploaded[0], 'class' => 'attachment', 'id' => 'attachment-' . $uploaded[1]), $uploaded[0]);
         }
         $this->out->elementEnd('p');
     }

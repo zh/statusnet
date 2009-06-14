@@ -17,7 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
 require_once(INSTALLDIR.'/lib/twitterapi.php');
 
@@ -31,50 +33,39 @@ class TwitapifavoritesAction extends TwitterapiAction
         $this->auth_user = $apidata['user'];
         $user = $this->get_user($apidata['api_arg'], $apidata);
 
-        if (!$user) {
+        if (empty($user)) {
             $this->clientError('Not Found', 404, $apidata['content-type']);
             return;
         }
 
         $profile = $user->getProfile();
 
-        if (!$profile) {
-            $this->serverError(_('User has no profile.'));
-            return;
-        }
-
-        $page = $this->arg('page');
-
-        if (!$page) {
-            $page = 1;
-        }
-
-        if (!$count) {
-            $count = 20;
-        }
-
-        $notice = $user->favoriteNotices((($page-1)*20), $count);
-
-        if (!$notice) {
-            $this->serverError(_('Could not retrieve favorite notices.'));
-            return;
-        }
-
-        $sitename = common_config('site', 'name');
-        $title = sprintf(_('%s / Favorites from %s'), $sitename, $user->nickname);
+        $sitename   = common_config('site', 'name');
+        $title      = sprintf(_('%s / Favorites from %s'), $sitename,
+            $user->nickname);
         $taguribase = common_config('integration', 'taguri');
-        $id = "tag:$taguribase:Favorites:".$user->id;
-        $link = common_local_url('favorites', array('nickname' => $user->nickname));
-        $subtitle = sprintf(_('%s updates favorited by %s / %s.'), $sitename, $profile->getBestName(), $user->nickname);
+        $id         = "tag:$taguribase:Favorites:".$user->id;
+        $link       = common_local_url('favorites',
+            array('nickname' => $user->nickname));
+        $subtitle   = sprintf(_('%s updates favorited by %s / %s.'), $sitename,
+            $profile->getBestName(), $user->nickname);
+
+        $page     = (int)$this->arg('page', 1);
+        $count    = (int)$this->arg('count', 20);
+        $max_id   = (int)$this->arg('max_id', 0);
+        $since_id = (int)$this->arg('since_id', 0);
+        $since    = $this->arg('since');
+
+        $notice = $user->favoriteNotices(($page-1)*$count, $count);
 
         switch($apidata['content-type']) {
-         case 'xml':
+        case 'xml':
             $this->show_xml_timeline($notice);
             break;
-         case 'rss':
+        case 'rss':
             $this->show_rss_timeline($notice, $title, $link, $subtitle);
             break;
-         case 'atom':
+        case 'atom':
             if (isset($apidata['api_arg'])) {
                  $selfuri = $selfuri = common_root_url() .
                      'api/favorites/' . $apidata['api_arg'] . '.atom';
@@ -82,12 +73,13 @@ class TwitapifavoritesAction extends TwitterapiAction
                  $selfuri = $selfuri = common_root_url() .
                   'api/favorites.atom';
             }
-            $this->show_atom_timeline($notice, $title, $id, $link, $subtitle, null, $selfuri);
+            $this->show_atom_timeline($notice, $title, $id, $link,
+                $subtitle, null, $selfuri);
             break;
-         case 'json':
+        case 'json':
             $this->show_json_timeline($notice);
             break;
-         default:
+        default:
             $this->clientError(_('API method not found!'), $code = 404);
         }
 
@@ -100,7 +92,8 @@ class TwitapifavoritesAction extends TwitterapiAction
         // Check for RESTfulness
         if (!in_array($_SERVER['REQUEST_METHOD'], array('POST', 'DELETE'))) {
             // XXX: Twitter just prints the err msg, no XML / JSON.
-            $this->clientError(_('This method requires a POST or DELETE.'), 400, $apidata['content-type']);
+            $this->clientError(_('This method requires a POST or DELETE.'),
+                400, $apidata['content-type']);
             return;
         }
 
@@ -109,25 +102,27 @@ class TwitapifavoritesAction extends TwitterapiAction
             return;
         }
 
-        $this->auth_user = $apidata['user'];
-        $user = $this->auth_user;
+        $user = $apidata['user']; // Always the auth user
+
         $notice_id = $apidata['api_arg'];
         $notice = Notice::staticGet($notice_id);
 
-        if (!$notice) {
-            $this->clientError(_('No status found with that ID.'), 404, $apidata['content-type']);
+        if (empty($notice)) {
+            $this->clientError(_('No status found with that ID.'),
+                404, $apidata['content-type']);
             return;
         }
 
         // XXX: Twitter lets you fave things repeatedly via api.
         if ($user->hasFave($notice)) {
-            $this->clientError(_('This notice is already a favorite!'), 403, $apidata['content-type']);
+            $this->clientError(_('This notice is already a favorite!'),
+                403, $apidata['content-type']);
             return;
         }
 
         $fave = Fave::addNew($user, $notice);
 
-        if (!$fave) {
+        if (empty($fave)) {
             $this->serverError(_('Could not create favorite.'));
             return;
         }
@@ -149,7 +144,8 @@ class TwitapifavoritesAction extends TwitterapiAction
         $this->serverError(_('API method under construction.'), $code=501);
     }
 
-    // XXX: these two funcs swiped from faves.  Maybe put in util.php, or some common base class?
+    // XXX: these two funcs swiped from faves.
+    // Maybe put in util.php, or some common base class?
 
     function notify($fave, $notice, $user)
     {

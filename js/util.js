@@ -178,7 +178,14 @@ $(document).ready(function(){
 																				$('#form_notice').append(document._importNode($(".error", xhr.responseXML).get(0), true));
 																			}
 																			else {
-																				alert("Sorry! We had trouble sending your notice ("+xhr.status+" "+xhr.statusText+"). Please report the problem to the site administrator if this happens again.");
+																				var HTTP20x30x = [200, 201, 202, 203, 204, 205, 206, 300, 301, 302, 303, 304, 305, 306, 307];
+																				if(jQuery.inArray(parseInt(xhr.status), HTTP20x30x) < 0) {
+																					alert("Sorry! We had trouble sending your notice ("+xhr.status+" "+xhr.statusText+"). Please report the problem to the site administrator if this happens again.");
+																				}
+																				else {
+																					$("#notice_data-text").val("");
+																					counter();
+																				}
 																			}
 																		}
 																	  },
@@ -196,10 +203,20 @@ $(document).ready(function(){
                                                     else {
                                                          li = $("li", xml).get(0);
                                                          if ($("#"+li.id).length == 0) {
-                                                              $("#notices_primary .notices").prepend(document._importNode(li, true));
-                                                              $("#notices_primary .notice:first").css({display:"none"});
-                                                              $("#notices_primary .notice:first").fadeIn(2500);
-                                                              NoticeReply();
+                                                            var notice_irt_value = $('#notice_in-reply-to').val();
+                                                            var notice_irt = '#notices_primary #notice-'+notice_irt_value;
+                                                            if($('body')[0].id == 'conversation') {
+                                                                if(notice_irt_value.length > 0 && $(notice_irt+' .notices').length < 1) {
+                                                                    $(notice_irt).append('<ul class="notices"></ul>');
+                                                                }
+                                                                $($(notice_irt+' .notices')[0]).append(document._importNode(li, true));
+                                                            }
+                                                            else {
+                                                                $("#notices_primary .notices").prepend(document._importNode(li, true));
+                                                            }
+                                                            $('#'+li.id).css({display:'none'});
+                                                            $('#'+li.id).fadeIn(2500);
+                                                            NoticeReply();
                                                          }
 													}
 													$("#notice_data-text").val("");
@@ -303,4 +320,3 @@ function NoticeAttachments() {
         }
     );
 }
-

@@ -17,7 +17,9 @@
  * along with this program.     If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
 require_once(INSTALLDIR.'/lib/twitterapi.php');
 
@@ -51,15 +53,8 @@ class TwitapiusersAction extends TwitterapiAction
             $user = $apidata['user'];
         }
 
-        if (!$user) {
+        if (empty($user)) {
             $this->client_error(_('Not found.'), 404, $apidata['content-type']);
-            return;
-        }
-
-        $profile = $user->getProfile();
-
-        if (!$profile) {
-            common_server_error(_('User has no profile.'));
             return;
         }
 
