@@ -101,7 +101,7 @@ class Router
         $main = array('login', 'logout', 'register', 'subscribe',
                       'unsubscribe', 'confirmaddress', 'recoverpassword',
                       'invite', 'favor', 'disfavor', 'sup',
-                      'block', 'subedit', 'groupblock');
+                      'block', 'unblock', 'subedit', 'groupblock');
 
         foreach ($main as $a) {
             $m->connect('main/'.$a, array('action' => $a));
