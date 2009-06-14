@@ -22,6 +22,7 @@
  * @category  Settings
  * @package   Laconica
  * @author    Sarven Capadisli <csarven@controlyourself.ca>
+ * @author    Zach Copley <zach@controlyourself.ca>
  * @copyright 2008-2009 Control Yourself, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://laconi.ca/
@@ -104,42 +105,73 @@ class DesignsettingsAction extends AccountSettingsAction
             $design = $this->defaultDesign();
         }
 
-        $labelSwatch = array('Background',
-                             'Content',
-                             'Sidebar',
-                             'Text',
-                             'Links');
+        $this->elementStart('li');
+        $this->element('label', array('for' => 'swatch-5'), _('Background'));
+        $this->element('input', array('name' => 'design_background',
+                                      'type' => 'text',
+                                      'id' => 'swatch-5',
+                                      'class' => 'swatch',
+                                      'maxlength' => '7',
+                                      'size' => '7',
+                                      'value' => $design->backgroundcolor));
+        $this->elementEnd('li');
+        
+        $this->elementStart('li');
+        $this->element('label', array('for' => 'swatch-1'), _('Content'));
+        $this->element('input', array('name' => 'design_content',
+                                      'type' => 'text',
+                                      'id' => 'swatch-1',
+                                      'class' => 'swatch',
+                                      'maxlength' => '7',
+                                      'size' => '7',
+                                      'value' => $design->contentcolor));
+        $this->elementEnd('li');
+    
+        $this->elementStart('li');                          
+        $this->element('label', array('for' => 'swatch-2'), _('Sidebar'));
+        $this->element('input', array('name' => 'design_sidebar',
+                                    'type' => 'text',
+                                    'id' => 'swatch-2',
+                                    'class' => 'swatch',
+                                    'maxlength' => '7',
+                                    'size' => '7',
+                                    'value' => $design->sidebarcolor));
+        $this->elementEnd('li');
 
-        foreach($userSwatch as $propertyvalue => $value) {
-            $foo = array_values($value);
-            $this->elementStart('li');
-            $this->element('label', array('for' => 'swatch-'.$s), _($labelSwatch[$s]));
-            $this->element('input', array('name' => 'swatch-'.$s, //prefer swatch[$s] ?
-                                          'type' => 'text',
-                                          'id' => 'swatch-'.$s,
-                                          'class' => 'swatch',
-                                          'maxlength' => '7',
-                                          'size' => '7',
-                                          'value' => $foo[0]));
-            $this->elementEnd('li');
-            $s++;
-        }
+        $this->elementStart('li');                          
+        $this->element('label', array('for' => 'swatch-3'), _('Text'));
+        $this->element('input', array('name' => 'design_text',
+                                    'type' => 'text',
+                                    'id' => 'swatch-3',
+                                    'class' => 'swatch',
+                                    'maxlength' => '7',
+                                    'size' => '7',
+                                    'value' => $design->textcolor));         
+        $this->elementEnd('li');
 
-        $this->elementEnd('ul');
-        $this->elementEnd('fieldset');
+        $this->elementStart('li');
+        $this->element('label', array('for' => 'swatch-4'), _('Links'));
+        $this->element('input', array('name' => 'design_links',
+                                     'type' => 'text',
+                                     'id' => 'swatch-4',
+                                     'class' => 'swatch',
+                                     'maxlength' => '7',
+                                     'size' => '7',
+                                     'value' => $design->linkcolor));
 
-        $this->element('input', array('id' => 'settings_design_reset',
-                                      'type' => 'reset',
-                                      'value' => 'Reset',
-                                      'class' => 'submit form_action-primary',
-                                      'title' => _('Reset back to default')));
-        $this->submit('save', _('Save'), 'submit form_action-secondary', 'save', _('Save design'));
+       $this->elementEnd('li');
 
-        /*TODO: Check submitted form values:
-         json_encode(form values)
-         if submitted Swatch == DefaultSwatch, don't store in DB.
-         else store in BD
-         */
+       $this->elementEnd('ul');
+       $this->elementEnd('fieldset');
+
+       $this->element('input', array('id' => 'settings_design_reset',
+                                     'type' => 'reset',
+                                     'value' => 'Reset',
+                                     'class' => 'submit form_action-primary',
+                                     'title' => _('Reset back to default')));
+                                     
+        $this->submit('save', _('Save'), 'submit form_action-secondary',
+            'save', _('Save design'));
 
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
@@ -156,8 +188,21 @@ class DesignsettingsAction extends AccountSettingsAction
 
     function handlePost()
     {
-        // TODO: implement this
-        return;
+        // CSRF protection
+        $token = $this->trimmed('token');
+        if (!$token || $token != common_session_token()) {
+            $this->showForm(_('There was a problem with your session token. '.
+                              'Try again, please.'));
+            return;
+        }
+
+        if ($this->arg('save')) {
+            $this->saveDesign();
+        } else if ($this->arg('reset')) {
+            $this->resetDesign();
+        } else {
+            $this->showForm(_('Unexpected form submission.'));
+        }
     }
 
     /**
@@ -196,4 +241,53 @@ class DesignsettingsAction extends AccountSettingsAction
         $this->element('script', array('type' => 'text/javascript',
                                        'src' => $farbtasticGo));
     }
+        
+    /**
+     * Get a default user design
+     *
+     * @return Design design 
+     */
+     
+    function defaultDesign()
+    {
+        $defaults = common_config('site', 'design');
+
+        $design = new Design();
+        $design->backgroundcolor = $defaults['backgroundcolor'];
+        $design->contentcolor    = $defaults['contentcolor'];
+        $design->sidebarcolor    = $defaults['sidebarcolor'];
+        $design->textcolor       = $defaults['textcolor'];
+        $design->linkcolor       = $defaults['linkcolor'];
+        $design->backgroundimage = $defaults['backgroundimage'];
+
+        return $design;
+    }
+
+    /**
+     * Save the user's design settings
+     *
+     * @return void
+     */
+     
+    function saveDesign()
+    {
+        $user = common_current_user();
+        
+        
+        
+        $this->showForm(_('Design preferences saved.'), true);
+    }
+
+    /**
+     * Reset design settings to previous saved value if any, or
+     * the defaults
+     *
+     * @return void 
+     */
+     
+    function resetDesign()
+    {
+        $this->showForm(_('Design preferences reset.'), true);
+    }
+
 }
