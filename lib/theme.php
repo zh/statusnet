@@ -70,30 +70,3 @@ function theme_path($relative, $theme=null)
         return common_path('theme/'.$theme.'/'.$relative);
     }
 }
-
-/**
- * Gets the full URL of a file in a skin dir based on its relative name
- *
- * @param string $relative relative path within the theme, skin directory
- * @param string $theme    name of the theme; defaults to current theme
- * @param string $skin    name of the skin; defaults to current theme
- *
- * @return string URL of the file
- */
-
-function skin_path($relative, $theme=null, $skin=null)
-{
-    if (!$theme) {
-        $theme = common_config('site', 'theme');
-    }
-    if (!$skin) {
-        $skin = common_config('site', 'skin');
-    }
-    $server = common_config('theme', 'server');
-    if ($server) {
-        return 'http://'.$server.'/'.$theme.'/skin/'.$skin.'/'.$relative;
-    } else {
-        return common_path('theme/'.$theme.'/skin/'.$skin.'/'.$relative);
-    }
-}
-
