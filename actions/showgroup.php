@@ -344,7 +344,7 @@ class ShowgroupAction extends Action
 
         $this->element('h2', null, _('Members'));
 
-        $pml = new ProfileMiniList($member, null, $this);
+        $pml = new ProfileMiniList($member, $this);
         $cnt = $pml->show();
         if ($cnt == 0) {
              $this->element('p', null, _('(None)'));

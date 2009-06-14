@@ -427,49 +427,50 @@ create table group_inbox (
 
 create table file (
     id integer primary key auto_increment,
-    url varchar(255), mimetype varchar(50),
-    size integer,
-    title varchar(255),
-    date integer(11),
-    protected integer(1),
+    url varchar(255) comment 'destination URL after following redirections',
+    mimetype varchar(50) comment 'mime type of resource',
+    size integer comment 'size of resource when available',
+    title varchar(255) comment 'title of resource when available',
+    date integer(11) comment 'date of resource according to http query',
+    protected integer(1) comment 'true when URL is private (needs login)',
 
     unique(url)
 ) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 create table file_oembed (
     id integer primary key auto_increment,
-    file_id integer,
-    version varchar(20),
-    type varchar(20),
-    provider varchar(50),
-    provider_url varchar(255),
-    width integer,
-    height integer,
-    html text,
-    title varchar(255),
-    author_name varchar(50),
-    author_url varchar(255),
-    url varchar(255),
+    file_id integer comment 'oEmbed for that URL/file' references file (id),
+    version varchar(20) comment 'oEmbed spec. version',
+    type varchar(20) comment 'oEmbed type: photo, video, link, rich',
+    provider varchar(50) comment 'name of this oEmbed provider',
+    provider_url varchar(255) comment 'URL of this oEmbed provider',
+    width integer comment 'width of oEmbed resource when available',
+    height integer comment 'height of oEmbed resource when available',
+    html text comment 'html representation of this oEmbed resource when applicable',
+    title varchar(255) comment 'title of oEmbed resource when available',
+    author_name varchar(50) comment 'author name for this oEmbed resource',
+    author_url varchar(255) comment 'author URL for this oEmbed resource',
+    url varchar(255) comment 'URL for this oEmbed resource when applicable (photo, link)',
 
     unique(file_id)
 ) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 create table file_redirection (
     id integer primary key auto_increment,
-    url varchar(255),
-    file_id integer,
-    redirections integer,
-    httpcode integer,
+    url varchar(255) comment 'short URL (or any other kind of redirect) for file (id)',
+    file_id integer comment 'short URL for what URL/file' references file (id),
+    redirections integer comment 'redirect count',
+    httpcode integer comment 'HTTP status code (20x, 30x, etc.)',
 
     unique(url)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table file_thumbnail (
     id integer primary key auto_increment,
-    file_id integer,
-    url varchar(255),
-    width integer,
-    height integer,
+    file_id integer comment 'thumbnail for what URL/file' references file (id),
+    url varchar(255) comment 'URL of thumbnail',
+    width integer comment 'width of thumbnail',
+    height integer comment 'height of thumbnail',
 
     unique(file_id),
     unique(url)
@@ -477,8 +478,8 @@ create table file_thumbnail (
 
 create table file_to_post (
     id integer primary key auto_increment,
-    file_id integer,
-    post_id integer,
+    file_id integer comment 'id of URL/file' references file (id),
+    post_id integer comment 'id of the notice it belongs to' references notice (id),
 
     unique(file_id, post_id)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
