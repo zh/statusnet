@@ -482,3 +482,13 @@ create table file_to_post (
 
     unique(file_id, post_id)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table group_block (
+   group_id integer not null comment 'group profile is blocked from' references user_group (id),
+   blocked integer not null comment 'profile that is blocked' references profile (id),
+   blocker integer not null comment 'user making the block' references user (id),
+   modified timestamp comment 'date of blocking',
+
+   constraint primary key (group_id, blocked)
+
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
