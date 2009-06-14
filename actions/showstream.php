@@ -308,10 +308,14 @@ class ShowstreamAction extends ProfileAction
             $blocked = $cur->hasBlocked($this->profile);
             $this->elementStart('li', 'entity_block');
             if ($blocked) {
-                $ubf = new UnblockForm($this, $this->profile);
+                $ubf = new UnblockForm($this, $this->profile,
+                                       array('action' => 'showstream',
+                                             'nickname' => $this->profile->nickname));
                 $ubf->show();
             } else {
-                $bf = new BlockForm($this, $this->profile);
+                $bf = new BlockForm($this, $this->profile,
+                                    array('action' => 'showstream',
+                                          'nickname' => $this->profile->nickname));
                 $bf->show();
             }
             $this->elementEnd('li');
