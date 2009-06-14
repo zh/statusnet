@@ -110,7 +110,7 @@ class ProfileAction extends Action
         $this->element('h2', null, _('Subscriptions'));
 
         if ($profile) {
-            $pml = new ProfileMiniList($profile, $this->user, $this);
+            $pml = new ProfileMiniList($profile, $this);
             $cnt = $pml->show();
             if ($cnt == 0) {
                 $this->element('p', null, _('(None)'));
@@ -139,7 +139,7 @@ class ProfileAction extends Action
         $this->element('h2', null, _('Subscribers'));
 
         if ($profile) {
-            $pml = new ProfileMiniList($profile, $this->user, $this);
+            $pml = new ProfileMiniList($profile, $this);
             $cnt = $pml->show();
             if ($cnt == 0) {
                 $this->element('p', null, _('(None)'));

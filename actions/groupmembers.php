@@ -127,7 +127,7 @@ class GroupmembersAction extends Action
         $members = $this->group->getMembers($offset, $limit);
 
         if ($members) {
-            $member_list = new ProfileList($members, null, $this);
+            $member_list = new GroupMemberList($members, $this->group, $this);
             $cnt = $member_list->show();
         }
 
@@ -136,5 +136,17 @@ class GroupmembersAction extends Action
         $this->pagination($this->page > 1, $cnt > PROFILES_PER_PAGE,
                           $this->page, 'groupmembers',
                           array('nickname' => $this->group->nickname));
+    }
+}
+
+class GroupMemberList extends ProfileList {
+
+    var $group = null;
+
+    function __construct($profile, $group=null, $action=null)
+    {
+        parent::__construct($profile, $action);
+
+        $this->group = $group;
     }
 }
