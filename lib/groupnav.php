@@ -95,6 +95,12 @@ class GroupNav extends Widget
         $cur = common_current_user();
 
         if ($cur && $cur->isAdmin($this->group)) {
+            $this->out->menuItem(common_local_url('blockedfromgroup', array('nickname' =>
+                                                                            $nickname)),
+                                 _('Blocked'),
+                                 sprintf(_('%s blocked users'), $nickname),
+                                 $action_name == 'blockedfromgroup',
+                                 'nav_group_blocked');
             $this->out->menuItem(common_local_url('editgroup', array('nickname' =>
                                                                      $nickname)),
                                  _('Admin'),

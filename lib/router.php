@@ -101,7 +101,8 @@ class Router
         $main = array('login', 'logout', 'register', 'subscribe',
                       'unsubscribe', 'confirmaddress', 'recoverpassword',
                       'invite', 'favor', 'disfavor', 'sup',
-                      'block', 'unblock', 'subedit', 'groupblock');
+                      'block', 'unblock', 'subedit',
+                      'groupblock', 'groupunblock');
 
         foreach ($main as $a) {
             $m->connect('main/'.$a, array('action' => $a));
@@ -227,6 +228,10 @@ class Router
                         array('action' => 'group'.$n),
                         array('nickname' => '[a-zA-Z0-9]+'));
         }
+
+        $m->connect('group/:nickname/blocked',
+                    array('action' => 'blockedfromgroup'),
+                    array('nickname' => '[a-zA-Z0-9]+'));
 
         $m->connect('group/:id/id',
                     array('action' => 'groupbyid'),

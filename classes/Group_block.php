@@ -92,4 +92,24 @@ class Group_block extends Memcached_DataObject
 
         return $block;
     }
+
+    static function unblockProfile($group, $profile)
+    {
+        $block = Group_block::pkeyGet(array('group_id' => $group->id,
+                                            'blocked' => $profile->id));
+
+        if (empty($block)) {
+            return null;
+        }
+
+        $result = $block->delete();
+
+        if (!$result) {
+            common_log_db_error($block, 'DELETE', __FILE__);
+            return null;
+        }
+
+        return true;
+    }
+
 }
