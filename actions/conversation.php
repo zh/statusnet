@@ -207,7 +207,7 @@ class ConversationTree extends NoticeList
         // We take responsibility for doing the li
 
         $this->out->elementStart('li', array('class' => 'hentry notice',
-                                             'id' => 'notice-' . $this->notice->id));
+                                             'id' => 'notice-' . $id));
 
         $item = $this->newListItem($notice);
         $item->show();

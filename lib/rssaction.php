@@ -170,7 +170,7 @@ class Rss10Action extends Action
         $this->elementStart('rdf:Seq');
 
         foreach ($this->notices as $notice) {
-            $this->element('sioct:MicroblogPost', array('rdf:resource' => $notice->uri));
+            $this->element('rdf:li', array('rdf:resource' => $notice->uri));
         }
 
         $this->elementEnd('rdf:Seq');
@@ -197,14 +197,19 @@ class Rss10Action extends Action
         $profile = Profile::staticGet($notice->profile_id);
         $nurl = common_local_url('shownotice', array('notice' => $notice->id));
         $creator_uri = common_profile_uri($profile);
-        $this->elementStart('item', array('rdf:about' => $notice->uri));
+        $this->elementStart('item', array('rdf:about' => $notice->uri,
+                            'rdf:type' => 'http://rdfs.org/sioc/types#MicroblogPost'));
         $title = $profile->nickname . ': ' . common_xml_safe_str(trim($notice->content));
         $this->element('title', null, $title);
         $this->element('link', null, $nurl);
         $this->element('description', null, $profile->nickname."'s status on ".common_exact_date($notice->created));
+        if ($notice->rendered) {
+            $this->element('content:encoded', null, common_xml_safe_str($notice->rendered));
+        }
         $this->element('dc:date', null, common_date_w3dtf($notice->created));
         $this->element('dc:creator', null, ($profile->fullname) ? $profile->fullname : $profile->nickname);
-        $this->element('sioc:has_creator', array('rdf:resource' => $creator_uri));
+        $this->element('foaf:maker', array('rdf:resource' => $creator_uri));
+        $this->element('sioc:has_creator', array('rdf:resource' => $creator_uri.'#acct'));
         $this->element('laconica:postIcon', array('rdf:resource' => $profile->avatarUrl()));
         $this->element('cc:licence', array('rdf:resource' => common_config('license', 'url')));
         $this->elementEnd('item');
@@ -216,15 +221,15 @@ class Rss10Action extends Action
         foreach ($this->creators as $uri => $profile) {
             $id = $profile->id;
             $nickname = $profile->nickname;
-            $this->elementStart('sioc:User', array('rdf:about' => $uri));
+            $this->elementStart('foaf:Agent', array('rdf:about' => $uri));
             $this->element('foaf:nick', null, $nickname);
             if ($profile->fullname) {
                 $this->element('foaf:name', null, $profile->fullname);
             }
-            $this->element('sioc:id', null, $id);
+            $this->element('foaf:holdsAccount', array('rdf:resource' => $uri.'#acct'));
             $avatar = $profile->avatarUrl();
-            $this->element('sioc:avatar', array('rdf:resource' => $avatar));
-            $this->elementEnd('sioc:User');
+            $this->element('foaf:depiction', array('rdf:resource' => $avatar));
+            $this->elementEnd('foaf:Agent');
         }
     }
 
@@ -239,7 +244,7 @@ class Rss10Action extends Action
                                               'xmlns:dc' =>
                                               'http://purl.org/dc/elements/1.1/',
                                               'xmlns:cc' =>
-                                              'http://web.resource.org/cc/',
+                                              'http://creativecommons.org/ns#',
                                               'xmlns:content' =>
                                               'http://purl.org/rss/1.0/modules/content/',
                                               'xmlns:foaf' =>
@@ -253,10 +258,10 @@ class Rss10Action extends Action
                                               'xmlns' => 'http://purl.org/rss/1.0/'));
         $this->elementStart('sioc:Site', array('rdf:about' => common_root_url()));
         $this->element('sioc:name', null, common_config('site', 'name'));
-        $this->elementStart('sioc:container_of');
+        $this->elementStart('sioc:space_of');
         $this->element('sioc:Container', array('rdf:about' =>
                                                $channel['url']));
-        $this->elementEnd('sioc:container_of');
+        $this->elementEnd('sioc:space_of');
         $this->elementEnd('sioc:Site');
     }
 

@@ -110,4 +110,32 @@ class Event {
         }
         return ($result !== false);
     }
+
+    /**
+     * Check to see if an event handler exists
+     *
+     * Look to see if there's any handler for a given event, or narrow
+     * by providing the name of a specific plugin class.
+     *
+     * @param string $name Name of the event to look for
+     * @param string $plugin Optional name of the plugin class to look for
+     *
+     * @return boolean flag saying whether such a handler exists
+     *
+     */
+
+    public static function hasHandler($name, $plugin=null) {
+        if (array_key_exists($name, Event::$_handlers)) {
+            if (isset($plugin)) {
+                foreach (Event::$_handlers[$name] as $handler) {
+                    if (get_class($handler[0]) == $plugin) {
+                        return true;
+                    }
+                }
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
 }
