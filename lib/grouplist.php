@@ -166,7 +166,7 @@ class GroupList extends Widget
             if ($user->isMember($this->group)) {
                 $lf = new LeaveForm($this->out, $this->group);
                 $lf->show();
-            } else {
+            } else if (!Group_block::isBlocked($this->group, $user->getProfile())) {
                 $jf = new JoinForm($this->out, $this->group);
                 $jf->show();
             }

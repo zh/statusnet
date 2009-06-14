@@ -137,4 +137,9 @@ class User_group extends Memcached_DataObject
         common_debug(common_log_objstring($this));
         return $this->update($orig);
     }
+
+    function getBestName()
+    {
+        return ($this->fullname) ? $this->fullname : $this->nickname;
+    }
 }
