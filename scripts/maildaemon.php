@@ -66,7 +66,13 @@ class MailerDaemon
             return true;
         }
         $msg = $this->cleanup_msg($msg);
-        $this->add_notice($user, $msg);
+        $err = $this->add_notice($user, $msg);
+        if (is_string($err)) {
+            $this->error($from, $err);
+            return false;
+        } else {
+            return true;
+        }
     }
 
     function error($from, $msg)
@@ -130,17 +136,15 @@ class MailerDaemon
 
     function add_notice($user, $msg)
     {
-        // should test
-        // $msg_shortened = common_shorten_links($msg);
-        // if (mb_strlen($msg_shortened) > 140) ERROR and STOP
         $notice = Notice::saveNew($user->id, $msg, 'mail');
         if (is_string($notice)) {
             $this->log(LOG_ERR, $notice);
-            return;
+            return $notice;
         }
         common_broadcast_notice($notice);
         $this->log(LOG_INFO,
                    'Added notice ' . $notice->id . ' from user ' . $user->nickname);
+        return true;
     }
 
     function parse_message($fname)

@@ -12,11 +12,13 @@ class Status_network extends DB_DataObject
     public $nickname;                        // varchar(64)  primary_key not_null
     public $hostname;                        // varchar(255)  unique_key
     public $pathname;                        // varchar(255)  unique_key
-    public $sitename;                        // varchar(255)
     public $dbhost;                          // varchar(255)
     public $dbuser;                          // varchar(255)
     public $dbpass;                          // varchar(255)
     public $dbname;                          // varchar(255)
+    public $sitename;                        // varchar(255)
+    public $theme;                           // varchar(255)
+    public $logo;                            // varchar(255)
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
@@ -37,13 +39,19 @@ class Status_network extends DB_DataObject
         return true;
     }
 
-    static function setupSite($servername, $pathname)
+    static function setupSite($servername, $pathname, $wildcard)
     {
         global $config;
 
-        $parts = explode('.', $servername);
+        // XXX I18N, probably not crucial for hostnames
+        // XXX This probably needs a tune up
 
-        $sn = Status_network::staticGet('nickname', $parts[0]);
+        if (0 == strncasecmp(strrev($wildcard), strrev($servername), strlen($wildcard))) {
+            $parts = explode('.', $servername);
+            $sn = Status_network::staticGet('nickname', strtolower($parts[0]));
+        } else {
+            $sn = Status_network::staticGet('hostname', strtolower($servername));
+        }
 
         if (!empty($sn)) {
             $dbhost = (empty($sn->dbhost)) ? 'localhost' : $sn->dbhost;
@@ -52,7 +60,16 @@ class Status_network extends DB_DataObject
             $dbname = (empty($sn->dbname)) ? $sn->nickname : $sn->dbname;
 
             $config['db']['database'] = "mysqli://$dbuser:$dbpass@$dbhost/$dbname";
+
             $config['site']['name'] = $sn->sitename;
+
+            if (!empty($sn->theme)) {
+                $config['site']['theme'] = $sn->theme;
+            }
+            if (!empty($sn->logo)) {
+                $config['site']['logo'] = $sn->logo;
+            }
+
             return true;
         } else {
             return false;

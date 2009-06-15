@@ -48,13 +48,18 @@ function handleError($error)
         $logmsg .= " : ". $error->getDebugInfo();
     }
     common_log(LOG_ERR, $logmsg);
-    $msg = sprintf(_('The database for %s isn\'t responding correctly, '.
-                     'so the site won\'t work properly. '.
-                     'The site admins probably know about the problem, '.
-                     'but you can contact them at %s to make sure. '.
-                     'Otherwise, wait a few minutes and try again.'),
-                   common_config('site', 'name'),
-                   common_config('site', 'email'));
+    if ($error instanceof DB_DataObject_Error) {
+        $msg = sprintf(_('The database for %s isn\'t responding correctly, '.
+                         'so the site won\'t work properly. '.
+                         'The site admins probably know about the problem, '.
+                         'but you can contact them at %s to make sure. '.
+                         'Otherwise, wait a few minutes and try again.'),
+                       common_config('site', 'name'),
+                       common_config('site', 'email'));
+    } else {
+        $msg = _('An important error occured, probably related to email setup. '.
+                 'Check logfiles for more info..');
+    }
 
     $dac = new DBErrorAction($msg, 500);
     $dac->showPage();
@@ -70,7 +75,7 @@ function main()
     global $user, $action, $config;
 
     Snapshot::check();
-    
+
     if (!_have_config()) {
         $msg = sprintf(_("No configuration file found. Try running ".
                          "the installation program first."));

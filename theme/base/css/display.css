@@ -445,6 +445,8 @@ width:80.789%;
 height:67px;
 line-height:1.5;
 padding:7px 7px 16px 7px;
+position:relative;
+z-index:2;
 }
 #form_notice label {
 display:block;
@@ -452,23 +454,23 @@ float:left;
 font-size:1.3em;
 margin-bottom:7px;
 }
-#form_notice label[for=notice_data-attach] {
-text-indent:-9999px;
-}
 #form_notice label[for=notice_data-attach],
 #form_notice #notice_data-attach {
 position:absolute;
 top:25px;
-right:49px;
-width:16px;
-height:16px;
 cursor:pointer;
 }
-#form_notice #notice_data-attach {
-text-indent:-279px;
+#form_notice label[for=notice_data-attach] {
+text-indent:-9999px;
+left:394px;
+width:16px;
+height:16px;
 }
-#form_notice #notice_submit label {
-display:none;
+#form_notice #notice_data-attach {
+left:183px;
+padding:0;
+
+height:16px;
 }
 #form_notice .form_note {
 position:absolute;
@@ -616,6 +618,8 @@ display:block;
 
 .form_user_block input.submit,
 .form_user_unblock input.submit,
+.form_group_block input.submit,
+.form_group_unblock input.submit,
 .entity_send-a-message a,
 .entity_edit a,
 .form_user_nudge input.submit,

@@ -1,13 +1,12 @@
 <?php
 /**
- * Block a user action class.
+ * Block a user from a group action class.
  *
  * PHP version 5
  *
  * @category Action
  * @package  Laconica
  * @author   Evan Prodromou <evan@controlyourself.ca>
- * @author   Robin Millette <millette@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://laconi.ca/
  *
@@ -33,18 +32,20 @@ if (!defined('LACONICA')) {
 }
 
 /**
- * Block a user action class.
+ * Block a user from a group
  *
  * @category Action
  * @package  Laconica
  * @author   Evan Prodromou <evan@controlyourself.ca>
- * @author   Robin Millette <millette@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://laconi.ca/
  */
-class BlockAction extends Action
+
+class GroupblockAction extends Action
 {
     var $profile = null;
+    var $group = null;
+
     /**
      * Take arguments for running
      *
@@ -52,6 +53,7 @@ class BlockAction extends Action
      *
      * @return boolean success flag
      */
+
     function prepare($args)
     {
         parent::prepare($args);
@@ -60,18 +62,42 @@ class BlockAction extends Action
             return false;
         }
         $token = $this->trimmed('token');
-        if (!$token || $token != common_session_token()) {
+        if (empty($token) || $token != common_session_token()) {
             $this->clientError(_('There was a problem with your session token. Try again, please.'));
             return;
         }
         $id = $this->trimmed('blockto');
-        if (!$id) {
+        if (empty($id)) {
             $this->clientError(_('No profile specified.'));
             return false;
         }
         $this->profile = Profile::staticGet('id', $id);
-        if (!$this->profile) {
+        if (empty($this->profile)) {
             $this->clientError(_('No profile with that ID.'));
+            return false;
+        }
+        $group_id = $this->trimmed('blockgroup');
+        if (empty($group_id)) {
+            $this->clientError(_('No group specified.'));
+            return false;
+        }
+        $this->group = User_group::staticGet('id', $group_id);
+        if (empty($this->group)) {
+            $this->clientError(_('No such group.'));
+            return false;
+        }
+        $user = common_current_user();
+        if (!$user->isAdmin($this->group)) {
+            $this->clientError(_('Only an admin can block group members.'), 401);
+            return false;
+        }
+        if (Group_block::isBlocked($this->group, $this->profile)) {
+            $this->clientError(_('User is already blocked from group.'));
+            return false;
+        }
+        // XXX: could have proactive blocks, but we don't have UI for it.
+        if (!$this->profile->isMember($this->group)) {
+            $this->clientError(_('User is not a member of group.'));
             return false;
         }
         return true;
@@ -91,9 +117,8 @@ class BlockAction extends Action
         parent::handle($args);
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->arg('no')) {
-                $cur = common_current_user();
-                $other = Profile::staticGet('id', $this->arg('blockto'));
-                common_redirect(common_local_url('showstream', array('nickname' => $other->nickname)),
+                common_redirect(common_local_url('groupmembers',
+                                                 array('nickname' => $this->group->nickname)),
                                 303);
             } elseif ($this->arg('yes')) {
                 $this->blockProfile();
@@ -108,7 +133,7 @@ class BlockAction extends Action
     }
 
     function title() {
-        return _('Block user');
+        return _('Block user from group');
     }
 
     function showNoticeForm() {
@@ -122,23 +147,27 @@ class BlockAction extends Action
      *
      * @return void
      */
+
     function areYouSureForm()
     {
         $id = $this->profile->id;
         $this->element('p', null,
-                       _('Are you sure you want to block this user? '.
-                         'Afterwards, they will be unsubscribed from you, '.
-                         'unable to subscribe to you in the future, and '.
-                         'you will not be notified of any @-replies from them.'));
+                       sprintf(_('Are you sure you want to block user "%s" from the group "%s"? '.
+                                 'They will be removed from the group, unable to post, and '.
+                                 'unable to subscribe to the group in the future.'),
+                               $this->profile->getBestName(),
+                               $this->group->getBestName()));
         $this->elementStart('form', array('id' => 'block-' . $id,
                                            'method' => 'post',
                                            'class' => 'block',
-                                           'action' => common_local_url('block')));
+                                           'action' => common_local_url('groupblock')));
         $this->hidden('token', common_session_token());
-        $this->element('input', array('id' => 'blockto-' . $id,
-                                      'name' => 'blockto',
-                                      'type' => 'hidden',
-                                      'value' => $id));
+        $this->hidden('blockto-' . $this->profile->id,
+                      $this->profile->id,
+                      'blockto');
+        $this->hidden('blockgroup-' . $this->group->id,
+                      $this->group->id,
+                      'blockgroup');
         foreach ($this->args as $k => $v) {
             if (substr($k, 0, 9) == 'returnto-') {
                 $this->hidden($k, $v);
@@ -154,18 +183,15 @@ class BlockAction extends Action
      *
      * @return void
      */
+
     function blockProfile()
     {
-        $cur = common_current_user();
+        $block = Group_block::blockProfile($this->group, $this->profile,
+                                           common_current_user());
 
-        if ($cur->hasBlocked($this->profile)) {
-            $this->clientError(_('You have already blocked this user.'));
-            return;
-        }
-        $result = $cur->block($this->profile);
-        if (!$result) {
-            $this->serverError(_('Failed to save block information.'));
-            return;
+        if (empty($block)) {
+            $this->serverError(_("Database error blocking user from group."));
+            return false;
         }
 
         // Now, gotta figure where we go back to
@@ -180,8 +206,8 @@ class BlockAction extends Action
         if ($action) {
             common_redirect(common_local_url($action, $args), 303);
         } else {
-            common_redirect(common_local_url('subscribers',
-                                             array('nickname' => $cur->nickname)),
+            common_redirect(common_local_url('groupmembers',
+                                             array('nickname' => $this->group->nickname)),
                             303);
         }
     }

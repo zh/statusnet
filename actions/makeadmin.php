@@ -1,13 +1,12 @@
 <?php
 /**
- * Unblock a user action class.
+ * Make another user an admin of a group
  *
  * PHP version 5
  *
  * @category Action
  * @package  Laconica
  * @author   Evan Prodromou <evan@controlyourself.ca>
- * @author   Robin Millette <millette@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://laconi.ca/
  *
@@ -33,18 +32,19 @@ if (!defined('LACONICA')) {
 }
 
 /**
- * Unblock a user action class.
+ * Make another user an admin of a group
  *
  * @category Action
  * @package  Laconica
  * @author   Evan Prodromou <evan@controlyourself.ca>
- * @author   Robin Millette <millette@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://laconi.ca/
  */
-class UnblockAction extends Action
+
+class MakeadminAction extends Action
 {
     var $profile = null;
+    var $group = null;
 
     /**
      * Take arguments for running
@@ -53,6 +53,7 @@ class UnblockAction extends Action
      *
      * @return boolean success flag
      */
+
     function prepare($args)
     {
         parent::prepare($args);
@@ -61,18 +62,40 @@ class UnblockAction extends Action
             return false;
         }
         $token = $this->trimmed('token');
-        if (!$token || $token != common_session_token()) {
+        if (empty($token) || $token != common_session_token()) {
             $this->clientError(_('There was a problem with your session token. Try again, please.'));
             return;
         }
-        $id = $this->trimmed('unblockto');
-        if (!$id) {
+        $id = $this->trimmed('profileid');
+        if (empty($id)) {
             $this->clientError(_('No profile specified.'));
             return false;
         }
         $this->profile = Profile::staticGet('id', $id);
-        if (!$this->profile) {
+        if (empty($this->profile)) {
             $this->clientError(_('No profile with that ID.'));
+            return false;
+        }
+        $group_id = $this->trimmed('groupid');
+        if (empty($group_id)) {
+            $this->clientError(_('No group specified.'));
+            return false;
+        }
+        $this->group = User_group::staticGet('id', $group_id);
+        if (empty($this->group)) {
+            $this->clientError(_('No such group.'));
+            return false;
+        }
+        $user = common_current_user();
+        if (!$user->isAdmin($this->group)) {
+            $this->clientError(_('Only an admin can make another user an admin.'), 401);
+            return false;
+        }
+        if ($this->profile->isAdmin($this->group)) {
+            $this->clientError(sprintf(_('%s is already an admin for group "%s".'),
+                                       $this->profile->getBestName(),
+                                       $this->group->getBestName()),
+                               401);
             return false;
         }
         return true;
@@ -81,33 +104,49 @@ class UnblockAction extends Action
     /**
      * Handle request
      *
-     * Shows a page with list of favorite notices
-     *
      * @param array $args $_REQUEST args; handled in prepare()
      *
      * @return void
      */
+
     function handle($args)
     {
         parent::handle($args);
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->unblockProfile();
+            $this->makeAdmin();
         }
     }
 
     /**
-     * Unblock a user.
+     * Make user an admin
      *
      * @return void
      */
-    function unblockProfile()
+
+    function makeAdmin()
     {
-        $cur    = common_current_user();
-        $result = $cur->unblock($this->profile);
-        if (!$result) {
-            $this->serverError(_('Error removing the block.'));
-            return;
+        $member = Group_member::pkeyGet(array('group_id' => $this->group->id,
+                                              'profile_id' => $this->profile->id));
+
+        if (empty($member)) {
+            $this->serverError(_('Can\'t get membership record for %s in group %s'),
+                               $this->profile->getBestName(),
+                               $this->group->getBestName());
         }
+
+        $orig = clone($member);
+
+        $member->is_admin = 1;
+
+        $result = $member->update($orig);
+
+        if (!$result) {
+            common_log_db_error($member, 'UPDATE', __FILE__);
+            $this->serverError(_('Can\'t make %s an admin for group %s'),
+                               $this->profile->getBestName(),
+                               $this->group->getBestName());
+        }
+
         foreach ($this->args as $k => $v) {
             if ($k == 'returnto-action') {
                 $action = $v;
@@ -115,13 +154,13 @@ class UnblockAction extends Action
                 $args[substr($k, 9)] = $v;
             }
         }
+
         if ($action) {
             common_redirect(common_local_url($action, $args), 303);
         } else {
-            common_redirect(common_local_url('subscribers',
-                                             array('nickname' => $cur->nickname)),
+            common_redirect(common_local_url('groupmembers',
+                                             array('nickname' => $this->group->nickname)),
                             303);
         }
     }
 }
-
