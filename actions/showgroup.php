@@ -283,7 +283,7 @@ class ShowgroupAction extends Action
             if ($cur->isMember($this->group)) {
                 $lf = new LeaveForm($this, $this->group);
                 $lf->show();
-            } else {
+            } else if (!Group_block::isBlocked($this->group, $cur->getProfile())) {
                 $jf = new JoinForm($this, $this->group);
                 $jf->show();
             }

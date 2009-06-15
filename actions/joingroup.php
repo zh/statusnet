@@ -96,6 +96,11 @@ class JoingroupAction extends Action
             return false;
         }
 
+        if (Group_block::isBlocked($this->group, $cur->getProfile())) {
+            $this->clientError(_('You have been blocked from that group by the admin.'), 403);
+            return false;
+        }
+
         return true;
     }
 

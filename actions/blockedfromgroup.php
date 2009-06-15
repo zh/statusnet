@@ -31,11 +31,8 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
-require_once(INSTALLDIR.'/lib/profilelist.php');
-require_once INSTALLDIR.'/lib/publicgroupnav.php';
-
 /**
- * List of group members
+ * List of profiles blocked from this group
  *
  * @category Group
  * @package  Laconica
@@ -44,7 +41,7 @@ require_once INSTALLDIR.'/lib/publicgroupnav.php';
  * @link     http://laconi.ca/
  */
 
-class GroupmembersAction extends Action
+class BlockedfromgroupAction extends Action
 {
     var $page = null;
 
@@ -68,7 +65,7 @@ class GroupmembersAction extends Action
             if ($this->page != 1) {
                 $args['page'] = $this->page;
             }
-            common_redirect(common_local_url('groupmembers', $args), 301);
+            common_redirect(common_local_url('blockedfromgroup', $args), 301);
             return false;
         }
 
@@ -90,10 +87,10 @@ class GroupmembersAction extends Action
     function title()
     {
         if ($this->page == 1) {
-            return sprintf(_('%s group members'),
+            return sprintf(_('%s blocked profiles'),
                            $this->group->nickname);
         } else {
-            return sprintf(_('%s group members, page %d'),
+            return sprintf(_('%s blocked profiles, page %d'),
                            $this->group->nickname,
                            $this->page);
         }
@@ -108,7 +105,7 @@ class GroupmembersAction extends Action
     function showPageNotice()
     {
         $this->element('p', 'instructions',
-                       _('A list of the users in this group.'));
+                       _('A list of the users blocked from joining this group.'));
     }
 
     function showLocalNav()
@@ -124,22 +121,22 @@ class GroupmembersAction extends Action
 
         $cnt = 0;
 
-        $members = $this->group->getMembers($offset, $limit);
+        $blocked = $this->group->getBlocked($offset, $limit);
 
-        if ($members) {
-            $member_list = new GroupMemberList($members, $this->group, $this);
-            $cnt = $member_list->show();
+        if ($blocked) {
+            $blocked_list = new GroupBlockList($blocked, $this->group, $this);
+            $cnt = $blocked_list->show();
         }
 
-        $members->free();
+        $blocked->free();
 
         $this->pagination($this->page > 1, $cnt > PROFILES_PER_PAGE,
-                          $this->page, 'groupmembers',
+                          $this->page, 'blockedfromgroup',
                           array('nickname' => $this->group->nickname));
     }
 }
 
-class GroupMemberList extends ProfileList
+class GroupBlockList extends ProfileList
 {
     var $group = null;
 
@@ -152,11 +149,11 @@ class GroupMemberList extends ProfileList
 
     function newListItem($profile)
     {
-        return new GroupMemberListItem($profile, $this->group, $this->action);
+        return new GroupBlockListItem($profile, $this->group, $this->action);
     }
 }
 
-class GroupMemberListItem extends ProfileListItem
+class GroupBlockListItem extends ProfileListItem
 {
     var $group = null;
 
@@ -170,27 +167,25 @@ class GroupMemberListItem extends ProfileListItem
     function showActions()
     {
         $this->startActions();
-        $this->showSubscribeButton();
-        $this->showGroupBlockForm();
+        $this->showGroupUnblockForm();
         $this->endActions();
     }
 
-    function showGroupBlockForm()
+    function showGroupUnblockForm()
     {
         $user = common_current_user();
 
         if (!empty($user) && $user->id != $this->profile->id && $user->isAdmin($this->group)) {
-            $bf = new GroupBlockForm($this->out, $this->profile, $this->group,
-                                array('action' => 'groupmembers',
-                                      'nickname' => $this->group->nickname));
+            $bf = new GroupUnblockForm($this->out, $this->profile, $this->group,
+                                       array('action' => 'blockedfromgroup',
+                                             'nickname' => $this->group->nickname));
             $bf->show();
         }
-
     }
 }
 
 /**
- * Form for blocking a user from a group
+ * Form for unblocking a user from a group
  *
  * @category Form
  * @package  Laconica
@@ -199,10 +194,10 @@ class GroupMemberListItem extends ProfileListItem
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://laconi.ca/
  *
- * @see      BlockForm
+ * @see      UnblockForm
  */
 
-class GroupBlockForm extends Form
+class GroupUnblockForm extends Form
 {
     /**
      * Profile of user to block
@@ -249,7 +244,7 @@ class GroupBlockForm extends Form
     function id()
     {
         // This should be unique for the page.
-        return 'block-' . $this->profile->id;
+        return 'unblock-' . $this->profile->id;
     }
 
     /**
@@ -260,7 +255,7 @@ class GroupBlockForm extends Form
 
     function formClass()
     {
-        return 'form_group_block';
+        return 'form_group_unblock';
     }
 
     /**
@@ -271,7 +266,7 @@ class GroupBlockForm extends Form
 
     function action()
     {
-        return common_local_url('groupblock');
+        return common_local_url('groupunblock');
     }
 
     /**
@@ -281,7 +276,7 @@ class GroupBlockForm extends Form
      */
     function formLegend()
     {
-        $this->out->element('legend', null, _('Block user from group'));
+        $this->out->element('legend', null, _('Unblock user from group'));
     }
 
     /**
@@ -292,12 +287,12 @@ class GroupBlockForm extends Form
 
     function formData()
     {
-        $this->out->hidden('blockto-' . $this->profile->id,
+        $this->out->hidden('unblockto-' . $this->profile->id,
                            $this->profile->id,
-                           'blockto');
-        $this->out->hidden('blockgroup-' . $this->group->id,
+                           'unblockto');
+        $this->out->hidden('unblockgroup-' . $this->group->id,
                            $this->group->id,
-                           'blockgroup');
+                           'unblockgroup');
         if ($this->args) {
             foreach ($this->args as $k => $v) {
                 $this->out->hidden('returnto-' . $k, $v);
@@ -313,6 +308,6 @@ class GroupBlockForm extends Form
 
     function formActions()
     {
-        $this->out->submit('submit', _('Block'), 'submit', null, _('Block this user'));
+        $this->out->submit('submit', _('Unblock'), 'submit', null, _('Unblock this user'));
     }
 }

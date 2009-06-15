@@ -125,6 +125,29 @@ class User_group extends Memcached_DataObject
         return $members;
     }
 
+    function getBlocked($offset=0, $limit=null)
+    {
+        $qry =
+          'SELECT profile.* ' .
+          'FROM profile JOIN group_block '.
+          'ON profile.id = group_block.blocked ' .
+          'WHERE group_block.group_id = %d ' .
+          'ORDER BY group_block.modified DESC ';
+
+        if ($limit != null) {
+            if (common_config('db','type') == 'pgsql') {
+                $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+            } else {
+                $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+            }
+        }
+
+        $blocked = new Profile();
+
+        $blocked->query(sprintf($qry, $this->id));
+        return $blocked;
+    }
+
     function setOriginal($filename)
     {
         $imagefile = new ImageFile($this->id, Avatar::path($filename));
@@ -136,5 +159,10 @@ class User_group extends Memcached_DataObject
         $this->mini_logo = Avatar::url($imagefile->resize(AVATAR_MINI_SIZE));
         common_debug(common_log_objstring($this));
         return $this->update($orig);
+    }
+
+    function getBestName()
+    {
+        return ($this->fullname) ? $this->fullname : $this->nickname;
     }
 }
