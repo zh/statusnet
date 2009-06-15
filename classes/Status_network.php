@@ -107,7 +107,11 @@ class Status_network extends DB_DataObject
             return false;
         }
 
-        common_redirect($destination, 301);
-        // shouldn't get here
+        header('HTTP/1.1 301 Moved Permanently');
+        header("Location: $destination");
+
+        print "<a href='$destination'>$destination</a>\n";
+
+        exit;
     }
 }
