@@ -43,12 +43,19 @@ class Status_network extends DB_DataObject
     {
         global $config;
 
+        $sn = null;
+
         // XXX I18N, probably not crucial for hostnames
         // XXX This probably needs a tune up
 
         if (0 == strncasecmp(strrev($wildcard), strrev($servername), strlen($wildcard))) {
-            $parts = explode('.', $servername);
-            $sn = Status_network::staticGet('nickname', strtolower($parts[0]));
+            // special case for exact match
+            if (0 == strncmp($servername, $wildcard)) {
+                $sn = Status_network::staticGet('nickname', '');
+            } else {
+                $parts = explode('.', $servername);
+                $sn = Status_network::staticGet('nickname', strtolower($parts[0]));
+            }
         } else {
             $sn = Status_network::staticGet('hostname', strtolower($servername));
         }
@@ -70,9 +77,9 @@ class Status_network extends DB_DataObject
                 $config['site']['logo'] = $sn->logo;
             }
 
-            return true;
+            return $sn;
         } else {
-            return false;
+            return null;
         }
     }
 }
