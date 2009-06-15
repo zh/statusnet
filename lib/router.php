@@ -233,6 +233,10 @@ class Router
                     array('action' => 'blockedfromgroup'),
                     array('nickname' => '[a-zA-Z0-9]+'));
 
+        $m->connect('group/:nickname/makeadmin',
+                    array('action' => 'makeadmin'),
+                    array('nickname' => '[a-zA-Z0-9]+'));
+
         $m->connect('group/:id/id',
                     array('action' => 'groupbyid'),
                     array('id' => '[0-9]+'));
