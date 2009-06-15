@@ -180,10 +180,12 @@ class GroupMemberListItem extends ProfileListItem
         $user = common_current_user();
 
         if (!empty($user) && $user->id != $this->profile->id && $user->isAdmin($this->group)) {
+            $this->out->elementStart('li', 'entity_block');
             $bf = new GroupBlockForm($this->out, $this->profile, $this->group,
                                 array('action' => 'groupmembers',
                                       'nickname' => $this->group->nickname));
             $bf->show();
+            $this->out->elementEnd('li');
         }
 
     }
