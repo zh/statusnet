@@ -61,6 +61,9 @@ class Status_network extends DB_DataObject
         }
 
         if (!empty($sn)) {
+            if (!empty($sn->hostname) && 0 != strcasecmp($sn->hostname, $servername)) {
+                $sn->redirectToHostname();
+            }
             $dbhost = (empty($sn->dbhost)) ? 'localhost' : $sn->dbhost;
             $dbuser = (empty($sn->dbuser)) ? $sn->nickname : $sn->dbuser;
             $dbpass = $sn->dbpass;
@@ -81,5 +84,30 @@ class Status_network extends DB_DataObject
         } else {
             return null;
         }
+    }
+
+    // Code partially mooked from http://www.richler.de/en/php-redirect/
+    // (C) 2006 by Heiko Richler  http://www.richler.de/
+    // LGPL
+
+    function redirectToHostname()
+    {
+        $destination = 'http://'.$this->hostname;
+        $destination .= $_SERVER['REQUEST_URI'].
+          $_SERVER['QUERY_STRING'];
+
+        $old = 'http'.
+          (($_SERVER['HTTPS'] == 'on') ? 'S' : '').
+          '://'.
+          $_SERVER['HTTP_HOST'].
+          $_SERVER['REQUEST_URI'].
+          $_SERVER['QUERY_STRING'];
+        if ($old == $destination) { // this would be a loop!
+            // error_log(...) ?
+            return false;
+        }
+
+        common_redirect($destination, 301);
+        // shouldn't get here
     }
 }
