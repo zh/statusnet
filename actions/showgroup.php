@@ -272,6 +272,17 @@ class ShowgroupAction extends Action
             $this->elementEnd('dl');
         }
 
+        if (common_config('group', 'maxaliases') > 0) {
+            $aliases = $this->group->getAliases();
+
+            if (!empty($aliases)) {
+                $this->elementStart('dl', 'entity_aliases');
+                $this->element('dt', null, _('Aliases'));
+                $this->element('dd', 'aliases', implode(' ', $aliases));
+                $this->elementEnd('dl');
+            }
+        }
+
         $this->elementEnd('div');
 
         $this->elementStart('div', 'entity_actions');
