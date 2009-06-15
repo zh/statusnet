@@ -47,6 +47,11 @@ define('PROFILES_PER_MINILIST', 27);
 
 class ProfileMiniList extends ProfileList
 {
+    function startList()
+    {
+        $this->out->elementStart('ul', 'entity users xoxo');
+    }
+
     function newListItem($profile)
     {
         return new ProfileMiniListItem($profile, $this->action);

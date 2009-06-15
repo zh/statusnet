@@ -62,8 +62,23 @@ class ProfileList extends Widget
 
     function show()
     {
-        $this->out->elementStart('ul', 'profiles');
+        $this->startList();
+        $this->showProfiles();
+        $this->endList();
+    }
 
+    function startList()
+    {
+        $this->out->elementStart('ul', 'profiles');
+    }
+
+    function endList()
+    {
+        $this->out->elementEnd('ul');
+    }
+
+    function showProfiles()
+    {
         $cnt = 0;
 
         while ($this->profile->fetch()) {
@@ -74,8 +89,6 @@ class ProfileList extends Widget
             $pli = $this->newListItem($this->profile);
             $pli->show();
         }
-
-        $this->out->elementEnd('ul');
 
         return $cnt;
     }
