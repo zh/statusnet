@@ -93,8 +93,19 @@ class Status_network extends DB_DataObject
     function redirectToHostname()
     {
         $destination = 'http://'.$this->hostname;
-        $destination .= $_SERVER['REQUEST_URI'].
-          $_SERVER['QUERY_STRING'];
+        $destination .= $_SERVER['REQUEST_URI'];
+
+        $args = $_GET;
+
+        if (isset($args['p'])) {
+            unset($args['p']);
+        }
+
+        $query = http_build_query($args);
+
+        if (strlen($query) > 0) {
+            $destination .= '?' . $query;
+        }
 
         $old = 'http'.
           (($_SERVER['HTTPS'] == 'on') ? 'S' : '').
