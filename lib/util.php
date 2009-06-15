@@ -1322,7 +1322,13 @@ function common_session_token()
 
 function common_cache_key($extra)
 {
-    return 'laconica:' . common_keyize(common_config('site', 'name')) . ':' . $extra;
+    $base_key = common_config('memcached', 'base');
+
+    if (empty($base_key)) {
+        $base_key = common_keyize(common_config('site', 'name'));
+    }
+
+    return 'laconica:' . $base_key . ':' . $extra;
 }
 
 function common_keyize($str)

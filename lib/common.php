@@ -152,6 +152,7 @@ $config =
         'memcached' =>
         array('enabled' => false,
               'server' => 'localhost',
+              'base' => null,
               'port' => 11211),
  		'ping' =>
         array('notify' => array()),
