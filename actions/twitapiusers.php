@@ -58,7 +58,7 @@ class TwitapiusersAction extends TwitterapiAction
             return;
         }
 
-        $twitter_user = $this->twitter_user_array($profile, true);
+        $twitter_user = $this->twitter_user_array($user->getProfile(), true);
 
         if ($apidata['content-type'] == 'xml') {
             $this->init_document('xml');
