@@ -123,7 +123,12 @@ class Notice extends Memcached_DataObject
 
         $profile = Profile::staticGet($profile_id);
 
-        $final =  common_shorten_links($content);
+        $final = common_shorten_links($content);
+
+        if (mb_strlen($final) > 140) {
+            common_log(LOG_INFO, 'Rejecting notice that is too long.');
+            return _('Problem saving notice. Too long.');
+        }
 
         if (!$profile) {
             common_log(LOG_ERR, 'Problem saving notice. Unknown user.');

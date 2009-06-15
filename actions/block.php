@@ -180,7 +180,7 @@ class BlockAction extends Action
         if ($action) {
             common_redirect(common_local_url($action, $args), 303);
         } else {
-            common_redirect(common_local_url('subscriptions',
+            common_redirect(common_local_url('subscribers',
                                              array('nickname' => $cur->nickname)),
                             303);
         }
