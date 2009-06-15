@@ -106,10 +106,10 @@ class DesignsettingsAction extends AccountSettingsAction
         }
 
         $this->elementStart('li');
-        $this->element('label', array('for' => 'swatch-5'), _('Background'));
+        $this->element('label', array('for' => 'swatch-0'), _('Background'));
         $this->element('input', array('name' => 'design_background',
                                       'type' => 'text',
-                                      'id' => 'swatch-5',
+                                      'id' => 'swatch-0',
                                       'class' => 'swatch',
                                       'maxlength' => '7',
                                       'size' => '7',
