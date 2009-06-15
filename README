@@ -1196,7 +1196,6 @@ reporturl: URL to post statistics to. Defaults to Laconica developers'
            set 'run' to 'never' than to set this value to something
            nonsensical.
 
-
 attachments
 -----------
 
@@ -1226,6 +1225,13 @@ user_quota: total size in bytes a user can store on this server. Each user
 monthly_quota: total size permitted in the current month. This is the total
             size in bytes that a user can upload each month.
 
+group
+-----
+
+Options for group functionality.
+
+maxaliases: maximum number of aliases a group can have. Default 3. Set
+            to 0 or less to prevent aliases in a group.
 
 Troubleshooting
 ===============
