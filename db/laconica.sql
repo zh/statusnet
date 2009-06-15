@@ -493,3 +493,13 @@ create table group_block (
    constraint primary key (group_id, blocked)
 
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table group_alias (
+
+   alias varchar(64) primary key comment 'additional nickname for the group',
+   group_id integer not null comment 'group profile is blocked from' references user_group (id),
+   modified timestamp comment 'date alias was created',
+
+   index group_alias_group_id_idx (group_id)
+
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
