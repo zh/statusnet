@@ -225,4 +225,18 @@ class User_group extends Memcached_DataObject
 
         return true;
     }
+
+    static function getForNickname($nickname)
+    {
+        $nickname = common_canonical_nickname($nickname);
+        $group = User_group::staticGet('nickname', $nickname);
+        if (!empty($group)) {
+            return $group;
+        }
+        $alias = Group_alias::staticGet('alias', $nickname);
+        if (!empty($alias)) {
+            return User_group::staticGet('id', $alias->group_id);
+        }
+        return null;
+    }
 }
