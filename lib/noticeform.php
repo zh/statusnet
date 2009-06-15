@@ -148,12 +148,12 @@ class NoticeForm extends Form
         $this->out->element('dd', array('id' => 'notice_text-count'),
                             '140');
         $this->out->elementEnd('dl');
-        $this->out->hidden('MAX_FILE_SIZE', common_config('attachments', 'file_quota'));
-        $this->out->element('label', array('for' => 'notice_data-attach'), _('Attach'));
+        $this->out->element('label', array('for' => 'notice_data-attach'),_('Attach'));
         $this->out->element('input', array('id' => 'notice_data-attach',
                                            'type' => 'file',
                                            'name' => 'attach',
                                            'title' => _('Attach a file')));
+        $this->out->hidden('MAX_FILE_SIZE', common_config('attachments', 'file_quota'));
         if ($this->action) {
             $this->out->hidden('notice_return-to', $this->action, 'returnto');
         }
