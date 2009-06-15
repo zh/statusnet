@@ -63,8 +63,9 @@ class ProfileList extends Widget
     function show()
     {
         $this->startList();
-        $this->showProfiles();
+        $cnt = $this->showProfiles();
         $this->endList();
+        return $cnt;
     }
 
     function startList()
