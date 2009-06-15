@@ -50,7 +50,7 @@ class Status_network extends DB_DataObject
 
         if (0 == strncasecmp(strrev($wildcard), strrev($servername), strlen($wildcard))) {
             // special case for exact match
-            if (0 == strncmp($servername, $wildcard)) {
+            if (0 == strcasecmp($servername, $wildcard)) {
                 $sn = Status_network::staticGet('nickname', '');
             } else {
                 $parts = explode('.', $servername);
