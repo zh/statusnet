@@ -1008,6 +1008,12 @@ avatar
 
 For configuring avatar access.
 
+dir:    Directory to look for avatar files and to put them into.
+	Defaults to avatar subdirectory of install directory; if
+	you change it, make sure to change path, too.
+path:	Path to avatars. Defaults to path for avatar subdirectory,
+	but you can change it if you wish. Note that this will
+	be included with the avatar server, too.
 server: If set, defines another server where avatars are stored in the
 	root directory. Note that the 'avatar' subdir still has to be
 	writeable. You'd typically use this to split HTTP requests on
