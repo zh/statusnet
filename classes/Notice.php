@@ -752,16 +752,16 @@ class Notice extends Memcached_DataObject
 
         foreach (array_unique($match[1]) as $nickname) {
             /* XXX: remote groups. */
-            $group = User_group::staticGet('nickname', $nickname);
+            $group = User_group::getForNickname($nickname);
 
-            if (!$group) {
+            if (empty($group)) {
                 continue;
             }
 
             // we automatically add a tag for every group name, too
 
             $tag = Notice_tag::pkeyGet(array('tag' => common_canonical_tag($nickname),
-                                           'notice_id' => $this->id));
+                                             'notice_id' => $this->id));
 
             if (is_null($tag)) {
                 $this->saveTag($nickname);

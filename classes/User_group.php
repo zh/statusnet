@@ -165,4 +165,78 @@ class User_group extends Memcached_DataObject
     {
         return ($this->fullname) ? $this->fullname : $this->nickname;
     }
+
+    function getAliases()
+    {
+        $aliases = array();
+
+        // XXX: cache this
+
+        $alias = new Group_alias();
+
+        $alias->group_id = $this->id;
+
+        if ($alias->find()) {
+            while ($alias->fetch()) {
+                $aliases[] = $alias->alias;
+            }
+        }
+
+        $alias->free();
+
+        return $aliases;
+    }
+
+    function setAliases($newaliases) {
+
+        $newaliases = array_unique($newaliases);
+
+        $oldaliases = $this->getAliases();
+
+        # Delete stuff that's old that not in new
+
+        $to_delete = array_diff($oldaliases, $newaliases);
+
+        # Insert stuff that's in new and not in old
+
+        $to_insert = array_diff($newaliases, $oldaliases);
+
+        $alias = new Group_alias();
+
+        $alias->group_id = $this->id;
+
+        foreach ($to_delete as $delalias) {
+            $alias->alias = $delalias;
+            $result = $alias->delete();
+            if (!$result) {
+                common_log_db_error($alias, 'DELETE', __FILE__);
+                return false;
+            }
+        }
+
+        foreach ($to_insert as $insalias) {
+            $alias->alias = $insalias;
+            $result = $alias->insert();
+            if (!$result) {
+                common_log_db_error($alias, 'INSERT', __FILE__);
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    static function getForNickname($nickname)
+    {
+        $nickname = common_canonical_nickname($nickname);
+        $group = User_group::staticGet('nickname', $nickname);
+        if (!empty($group)) {
+            return $group;
+        }
+        $alias = Group_alias::staticGet('alias', $nickname);
+        if (!empty($alias)) {
+            return User_group::staticGet('id', $alias->group_id);
+        }
+        return null;
+    }
 }
