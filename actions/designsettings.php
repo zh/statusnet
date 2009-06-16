@@ -32,7 +32,8 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/accountsettingsaction.php';
+require_once INSTALLDIR . '/lib/accountsettingsaction.php';
+require_once INSTALLDIR . '/lib/WebColor.php';
 
 class DesignsettingsAction extends AccountSettingsAction
 {
@@ -81,7 +82,7 @@ class DesignsettingsAction extends AccountSettingsAction
         $this->element('legend', null, _('Change background image'));
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
-        $this->element('label', array('for' => 'design_background-image_file'), 
+        $this->element('label', array('for' => 'design_background-image_file'),
                                 _('Upload file'));
         $this->element('input', array('name' => 'design_background-image_file',
                                       'type' => 'file',
@@ -105,61 +106,79 @@ class DesignsettingsAction extends AccountSettingsAction
             $design = $this->defaultDesign();
         }
 
-        $this->elementStart('li');
-        $this->element('label', array('for' => 'swatch-0'), _('Background'));
-        $this->element('input', array('name' => 'design_background',
-                                      'type' => 'text',
-                                      'id' => 'swatch-0',
-                                      'class' => 'swatch',
-                                      'maxlength' => '7',
-                                      'size' => '7',
-                                      'value' => $design->backgroundcolor));
-        $this->elementEnd('li');
-        
-        $this->elementStart('li');
-        $this->element('label', array('for' => 'swatch-1'), _('Content'));
-        $this->element('input', array('name' => 'design_content',
-                                      'type' => 'text',
-                                      'id' => 'swatch-1',
-                                      'class' => 'swatch',
-                                      'maxlength' => '7',
-                                      'size' => '7',
-                                      'value' => $design->contentcolor));
-        $this->elementEnd('li');
-    
-        $this->elementStart('li');                          
-        $this->element('label', array('for' => 'swatch-2'), _('Sidebar'));
-        $this->element('input', array('name' => 'design_sidebar',
-                                    'type' => 'text',
-                                    'id' => 'swatch-2',
-                                    'class' => 'swatch',
-                                    'maxlength' => '7',
-                                    'size' => '7',
-                                    'value' => $design->sidebarcolor));
-        $this->elementEnd('li');
+        try {
 
-        $this->elementStart('li');                          
-        $this->element('label', array('for' => 'swatch-3'), _('Text'));
-        $this->element('input', array('name' => 'design_text',
-                                    'type' => 'text',
-                                    'id' => 'swatch-3',
-                                    'class' => 'swatch',
-                                    'maxlength' => '7',
-                                    'size' => '7',
-                                    'value' => $design->textcolor));         
-        $this->elementEnd('li');
+            $bgcolor = new WebColor($design->backgroundcolor);
 
-        $this->elementStart('li');
-        $this->element('label', array('for' => 'swatch-4'), _('Links'));
-        $this->element('input', array('name' => 'design_links',
-                                     'type' => 'text',
-                                     'id' => 'swatch-4',
-                                     'class' => 'swatch',
-                                     'maxlength' => '7',
-                                     'size' => '7',
-                                     'value' => $design->linkcolor));
+            $this->elementStart('li');
+            $this->element('label', array('for' => 'swatch-0'), _('Background'));
+            $this->element('input', array('name' => 'design_background',
+                                          'type' => 'text',
+                                          'id' => 'swatch-0',
+                                          'class' => 'swatch',
+                                          'maxlength' => '7',
+                                          'size' => '7',
+                                          'value' => '#' . $bgcolor->hexValue()));
+            $this->elementEnd('li');
 
-       $this->elementEnd('li');
+
+            $ccolor = new WebColor($design->contentcolor);
+
+            $this->elementStart('li');
+            $this->element('label', array('for' => 'swatch-1'), _('Content'));
+            $this->element('input', array('name' => 'design_content',
+                                          'type' => 'text',
+                                          'id' => 'swatch-1',
+                                          'class' => 'swatch',
+                                          'maxlength' => '7',
+                                          'size' => '7',
+                                          'value' => '#' . $ccolor->hexValue()));
+            $this->elementEnd('li');
+
+            $sbcolor = new WebColor($design->sidebarcolor);
+
+            $this->elementStart('li');
+            $this->element('label', array('for' => 'swatch-2'), _('Sidebar'));
+            $this->element('input', array('name' => 'design_sidebar',
+                                        'type' => 'text',
+                                        'id' => 'swatch-2',
+                                        'class' => 'swatch',
+                                        'maxlength' => '7',
+                                        'size' => '7',
+                                        'value' => '#' . $sbcolor->hexValue()));
+            $this->elementEnd('li');
+
+            $tcolor = new WebColor($design->textcolor);
+
+            $this->elementStart('li');
+            $this->element('label', array('for' => 'swatch-3'), _('Text'));
+            $this->element('input', array('name' => 'design_text',
+                                        'type' => 'text',
+                                        'id' => 'swatch-3',
+                                        'class' => 'swatch',
+                                        'maxlength' => '7',
+                                        'size' => '7',
+                                        'value' => '#' . $tcolor->hexValue()));
+            $this->elementEnd('li');
+
+            $lcolor = new WebColor($design->linkcolor);
+
+            $this->elementStart('li');
+            $this->element('label', array('for' => 'swatch-4'), _('Links'));
+            $this->element('input', array('name' => 'design_links',
+                                         'type' => 'text',
+                                         'id' => 'swatch-4',
+                                         'class' => 'swatch',
+                                         'maxlength' => '7',
+                                         'size' => '7',
+                                         'value' => '#' . $lcolor->hexValue()));
+
+           $this->elementEnd('li');
+
+       } catch (WebColorException $e) {
+           common_log(LOG_ERR, 'Bad color values in design ID: ' .
+               $design->id);
+       }
 
        $this->elementEnd('ul');
        $this->elementEnd('fieldset');
@@ -169,7 +188,7 @@ class DesignsettingsAction extends AccountSettingsAction
                                      'value' => 'Reset',
                                      'class' => 'submit form_action-primary',
                                      'title' => _('Reset back to default')));
-                                     
+
         $this->submit('save', _('Save'), 'submit form_action-secondary',
             'save', _('Save design'));
 
@@ -241,40 +260,129 @@ class DesignsettingsAction extends AccountSettingsAction
         $this->element('script', array('type' => 'text/javascript',
                                        'src' => $farbtasticGo));
     }
-        
+
     /**
      * Get a default user design
      *
-     * @return Design design 
+     * @return Design design
      */
-     
+
     function defaultDesign()
     {
         $defaults = common_config('site', 'design');
 
         $design = new Design();
-        $design->backgroundcolor = $defaults['backgroundcolor'];
-        $design->contentcolor    = $defaults['contentcolor'];
-        $design->sidebarcolor    = $defaults['sidebarcolor'];
-        $design->textcolor       = $defaults['textcolor'];
-        $design->linkcolor       = $defaults['linkcolor'];
-        $design->backgroundimage = $defaults['backgroundimage'];
+
+        try {
+
+            $color = new WebColor();
+
+            $color->parseColor($defaults['backgroundcolor']);
+            $design->backgroundcolor = $color->intValue();
+
+            $color->parseColor($defaults['contentcolor']);
+            $design->contentcolor = $color->intValue();
+
+            $color->parseColor($defaults['sidebarcolor']);
+            $design->sidebarcolor = $color->intValue();
+
+            $color->parseColor($defaults['textcolor']);
+            $design->sidebarcolor = $color->intValue();
+
+            $color->parseColor($defaults['linkcolor']);
+            $design->linkcolor = $color->intValue();
+
+            $design->backgroundimage = $defaults['backgroundimage'];
+
+        } catch (WebColorException $e) {
+            common_log(LOG_ERR, _('Bad default color settings: ' .
+                $e->getMessage()));
+        }
 
         return $design;
     }
 
     /**
-     * Save the user's design settings
+     * Save or update the user's design settings
      *
      * @return void
      */
-     
+
     function saveDesign()
     {
         $user = common_current_user();
-        
-        
-        
+
+        try {
+
+            $bgcolor = new WebColor($this->trimmed('design_background'));
+            $ccolor  = new WebColor($this->trimmed('design_content'));
+            $sbcolor = new WebColor($this->trimmed('design_sidebar'));
+            $tcolor  = new WebColor($this->trimmed('design_text'));
+            $lcolor  = new WebColor($this->trimmed('design_links'));
+
+        } catch (WebColorException $e) {
+            $this->showForm($e->getMessage());
+            return;
+        }
+
+        $design = User::getDesign();
+
+        if (!isset($design)) {
+
+            $original = clone($design);
+
+            $original->backgroundcolor = $bgcolor->intValue();
+            $original->contentcolor    = $ccolor->intValue();
+            $original->sidebarcolor    = $sbcolor->intValue();
+            $original->textcolor       = $tcolor->intValue();
+            $original->linkcolor       = $lcolor->intValue();
+
+            $result = $design->update($original);
+
+            if ($result === false) {
+                common_log_db_error($design, 'UPDATE', __FILE__);
+                $this->showForm(_('Couldn\'t update your design.'));
+                return;
+            }
+
+            // update design
+        } else {
+
+            $user->query('BEGIN');
+
+            // save new design
+            $design = new Design();
+
+            $design->backgroundcolor = $bgcolor->intValue();
+            $design->contentcolor    = $ccolor->intValue();
+            $design->sidebarcolor    = $sbcolor->intValue();
+            $design->textcolor       = $tcolor->intValue();
+            $design->linkcolor       = $lcolor->intValue();
+            $design->backgroundimage = $defaults['backgroundimage'];
+
+            $id = $design->insert();
+
+            if (empty($id)) {
+                common_log_db_error($id, 'INSERT', __FILE__);
+                $this->showForm(_('Unable to save your design settings!'));
+                return;
+            }
+
+            $original = clone($user);
+            $user->design_id = $id;
+            $result = $user->update($original);
+
+            if (empty($result)) {
+                common_log_db_error($original, 'UPDATE', __FILE__);
+                $this->showForm(_('Unable to save your design settings!'));
+                $user->query('ROLLBACK');
+                return;
+            }
+
+            $user->query('COMMIT');
+
+        }
+
         $this->showForm(_('Design preferences saved.'), true);
     }
 
@@ -282,9 +390,9 @@ class DesignsettingsAction extends AccountSettingsAction
      * Reset design settings to previous saved value if any, or
      * the defaults
      *
-     * @return void 
+     * @return void
      */
-     
+
     function resetDesign()
     {
         $this->showForm(_('Design preferences reset.'), true);
