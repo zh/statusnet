@@ -17,13 +17,16 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
 /**
  * Table Definition for design
  */
 
-require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
+require_once INSTALLDIR . '/classes/Memcached_DataObject.php';
+require_once INSTALLDIR . '/lib/webcolor.php';
 
 class Design extends Memcached_DataObject
 {
@@ -47,11 +50,25 @@ class Design extends Memcached_DataObject
 
     function showCSS($out)
     {
+        try {
+
+            $bgcolor = new WebColor($this->backgroundcolor);
+            $ccolor  = new WebColor($this->contentcolor);
+            $sbcolor = new WebColor($this->sidebarcolor);
+            $tcolor  = new WebColor($this->textcolor);
+            $lcolor  = new WebColor($this->linkcolor);
+
+        } catch (WebColorException $e) {
+            // This shouldn't happen
+            common_log(LOG_ERR, "Unable to create color for design $id.",
+                __FILE__);
+        }
+
         $out->element('style', array('type' => 'text/css'),
-                      'body { background-color: #' . dechex($this->backgroundcolor) . '} '."\n".
-                      '#content { background-color #' . dechex($this->contentcolor) . '} '."\n".
-                      '#aside_primary { background-color #'. dechex($this->sidebarcolor) .'} '."\n".
-                      'html body { color: #'. dechex($this->textcolor) .'} '."\n".
-                      'a { color: #' . dechex($this->linkcolor) . '} '."\n");
+                      'body { background-color: #' . $bgcolor->hexValue() . '} '."\n".
+                      '#content { background-color #' . $ccolor->hexValue() . '} '."\n".
+                      '#aside_primary { background-color #'. $sbcolor->hexValue() .'} '."\n".
+                      'html body { color: #'. $tcolor->hexValue() .'} '."\n".
+                      'a { color: #' . $lcolor->hexValue() . '} '."\n");
     }
 }
