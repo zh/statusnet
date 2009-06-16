@@ -120,7 +120,8 @@ class WebColor {
                                      $hexcolor[1].$hexcolor[1],
                                      $hexcolor[2].$hexcolor[2]);
         } else {
-            return false;
+            $errmsg = _('%s is not a valid color! Use 3 or 6 hex chars.');
+            throw new WebColorException(sprintf($errmsg, $hexcolor));
         }
 
         $this->red   = hexdec($r);
