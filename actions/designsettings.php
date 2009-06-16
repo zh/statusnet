@@ -325,17 +325,17 @@ class DesignsettingsAction extends AccountSettingsAction
             return;
         }
 
-        $design = User::getDesign();
+        $design = $user->getDesign();
 
-        if (!isset($design)) {
+        if (!empty($design)) {
 
             $original = clone($design);
 
-            $original->backgroundcolor = $bgcolor->intValue();
-            $original->contentcolor    = $ccolor->intValue();
-            $original->sidebarcolor    = $sbcolor->intValue();
-            $original->textcolor       = $tcolor->intValue();
-            $original->linkcolor       = $lcolor->intValue();
+            $design->backgroundcolor = $bgcolor->intValue();
+            $design->contentcolor    = $ccolor->intValue();
+            $design->sidebarcolor    = $sbcolor->intValue();
+            $design->textcolor       = $tcolor->intValue();
+            $design->linkcolor       = $lcolor->intValue();
 
             $result = $design->update($original);
 
