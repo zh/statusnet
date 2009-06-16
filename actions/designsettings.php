@@ -111,10 +111,10 @@ class DesignsettingsAction extends AccountSettingsAction
             $bgcolor = new WebColor($design->backgroundcolor);
 
             $this->elementStart('li');
-            $this->element('label', array('for' => 'swatch-0'), _('Background'));
+            $this->element('label', array('for' => 'swatch-1'), _('Background'));
             $this->element('input', array('name' => 'design_background',
                                           'type' => 'text',
-                                          'id' => 'swatch-0',
+                                          'id' => 'swatch-1',
                                           'class' => 'swatch',
                                           'maxlength' => '7',
                                           'size' => '7',
@@ -125,10 +125,10 @@ class DesignsettingsAction extends AccountSettingsAction
             $ccolor = new WebColor($design->contentcolor);
 
             $this->elementStart('li');
-            $this->element('label', array('for' => 'swatch-1'), _('Content'));
+            $this->element('label', array('for' => 'swatch-2'), _('Content'));
             $this->element('input', array('name' => 'design_content',
                                           'type' => 'text',
-                                          'id' => 'swatch-1',
+                                          'id' => 'swatch-2',
                                           'class' => 'swatch',
                                           'maxlength' => '7',
                                           'size' => '7',
@@ -138,10 +138,10 @@ class DesignsettingsAction extends AccountSettingsAction
             $sbcolor = new WebColor($design->sidebarcolor);
 
             $this->elementStart('li');
-            $this->element('label', array('for' => 'swatch-2'), _('Sidebar'));
+            $this->element('label', array('for' => 'swatch-3'), _('Sidebar'));
             $this->element('input', array('name' => 'design_sidebar',
                                         'type' => 'text',
-                                        'id' => 'swatch-2',
+                                        'id' => 'swatch-3',
                                         'class' => 'swatch',
                                         'maxlength' => '7',
                                         'size' => '7',
@@ -151,10 +151,10 @@ class DesignsettingsAction extends AccountSettingsAction
             $tcolor = new WebColor($design->textcolor);
 
             $this->elementStart('li');
-            $this->element('label', array('for' => 'swatch-3'), _('Text'));
+            $this->element('label', array('for' => 'swatch-4'), _('Text'));
             $this->element('input', array('name' => 'design_text',
                                         'type' => 'text',
-                                        'id' => 'swatch-3',
+                                        'id' => 'swatch-4',
                                         'class' => 'swatch',
                                         'maxlength' => '7',
                                         'size' => '7',
@@ -164,10 +164,10 @@ class DesignsettingsAction extends AccountSettingsAction
             $lcolor = new WebColor($design->linkcolor);
 
             $this->elementStart('li');
-            $this->element('label', array('for' => 'swatch-4'), _('Links'));
+            $this->element('label', array('for' => 'swatch-5'), _('Links'));
             $this->element('input', array('name' => 'design_links',
                                          'type' => 'text',
-                                         'id' => 'swatch-4',
+                                         'id' => 'swatch-5',
                                          'class' => 'swatch',
                                          'maxlength' => '7',
                                          'size' => '7',
