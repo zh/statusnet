@@ -53,6 +53,19 @@ class OwnerDesignAction extends Action {
     var $user = null;
 
     /**
+      * Show the owner's design stylesheet
+      *
+      * @return nothing
+      */
+     function showStylesheets()
+     {
+         parent::showStylesheets();
+
+         $design = $this->getDesign();
+         $design->showCSS($this);
+     }
+
+    /**
      * A design for this action
      *
      * if the user attribute has been set, returns that user's

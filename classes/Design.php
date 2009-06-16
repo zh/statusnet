@@ -47,7 +47,7 @@ class Design extends Memcached_DataObject
 
     function showCSS($out)
     {
-        $out->element('stylesheet', array('type' => 'text/css'),
+        $out->element('style', array('type' => 'text/css'),
                       'body { background-color: #' . dechex($this->backgroundcolor) . '} '."\n".
                       '#content { background-color #' . dechex($this->contentcolor) . '} '."\n".
                       '#aside_primary { background-color #'. dechex($this->sidebarcolor) .'} '."\n".

@@ -47,6 +47,20 @@ if (!defined('LACONICA')) {
 
 class CurrentUserDesignAction extends Action
 {
+
+    /**
+      * Show the user's design stylesheet
+      *
+      * @return nothing
+      */
+     function showStylesheets()
+     {
+         parent::showStylesheets();
+
+         $design = $this->getDesign();
+         $design->showCSS($this);
+     }
+
     /**
      * A design for this action
      *
@@ -66,4 +80,6 @@ class CurrentUserDesignAction extends Action
 
         return $cur->getDesign();
     }
+
+
 }
