@@ -62,7 +62,10 @@ class OwnerDesignAction extends Action {
          parent::showStylesheets();
 
          $design = $this->getDesign();
-         $design->showCSS($this);
+
+         if (!empty($design)) {
+             $design->showCSS($this);
+        }
      }
 
     /**
