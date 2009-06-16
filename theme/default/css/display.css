@@ -19,7 +19,7 @@ font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 font-size:1em;
 }
 address {
-margin-right:7.18%;
+margin-right:7.2%;
 }
 
 input, textarea, select, option {
@@ -27,7 +27,7 @@ font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 input, textarea, select,
 .entity_remote_subscribe {
-border-color:#aaa;
+border-color:#AAAAAA;
 }
 #filter_tags ul li {
 border-color:#C3D6DF;
@@ -47,10 +47,13 @@ background-color:#A9BF4F;
 input:focus, textarea:focus, select:focus,
 #form_notice.warning #notice_data-text {
 border-color:#A9BF4F;
+box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
+-moz-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
+-webkit-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 }
 input.submit,
 .entity_remote_subscribe {
-color:#fff;
+color:#FFFFFF;
 }
 
 a,
@@ -79,10 +82,10 @@ background-color:#CEE1E9;
 }
 
 #notice_text-count {
-color:#333;
+color:#333333;
 }
 #form_notice.warning #notice_text-count {
-color:#000;
+color:#000000;
 }
 #form_notice label[for=notice_data-attach] {
 background:transparent url(../../base/images/icons/twotone/green/clip-01.gif) no-repeat 0 45%;
@@ -92,26 +95,37 @@ opacity:0;
 }
 
 #form_notice.processing #notice_action-submit {
-background:#fff url(../../base/images/icons/icon_processing.gif) no-repeat 47% 47%;
+background:#FFFFFF url(../../base/images/icons/icon_processing.gif) no-repeat 47% 47%;
 cursor:wait;
 text-indent:-9999px;
 }
 
+#content {
+box-shadow:5px 7px 7px rgba(194, 194, 194, 0.3);
+-moz-box-shadow:5px 7px 7px rgba(194, 194, 194, 0.3);
+-webkit-box-shadow:5px 7px 7px rgba(194, 194, 194, 0.3);
+}
 #content,
 #site_nav_local_views a,
 #aside_primary {
-border-color:#fff;
+border-color:transparent;
 }
 #content,
 #site_nav_local_views .current a {
-background-color:#fff;
+background-color:#FFFFFF;
 }
 
 #site_nav_local_views a {
-background-color:rgba(255, 255, 255, 0.2);
+background-color:rgba(194, 194, 194, 0.5);
+box-shadow:3px 7px 5px rgba(194, 194, 194, 0.5);
+-moz-box-shadow:3px 7px 5px rgba(194, 194, 194, 0.5);
+-webkit-box-shadow:3px 7px 5px rgba(194, 194, 194, 0.5);
 }
 #site_nav_local_views a:hover {
 background-color:rgba(255, 255, 255, 0.7);
+}
+#site_nav_local_views .current a {
+text-shadow: rgba(194,194,194,0.5) 1px 1px 1px;
 }
 
 .error {
@@ -123,8 +137,8 @@ background-color:#EFF3DC;
 
 #anon_notice {
 background-color:#C3D6DF;
-color:#fff;
-border-color:#fff;
+color:#FFFFFF;
+border-color:#FFFFFF;
 }
 
 #showstream #anon_notice {
@@ -162,7 +176,7 @@ background-color:transparent;
 .form_user_subscribe input.submit,
 .form_user_unsubscribe input.submit {
 background-color:#A9BF4F;
-color:#fff;
+color:#FFFFFF;
 }
 .form_user_unsubscribe input.submit,
 .form_group_leave input.submit,
@@ -214,7 +228,7 @@ background:transparent url(../../base/images/icons/twotone/green/trash.gif) no-r
 .notices div.entry-content,
 .notices div.notice-options,
 .notices li.hover .notices div.entry-content,
-.notices li.hover .notices div.notice-options  {
+.notices li.hover .notices div.notice-options {
 opacity:0.4;
 }
 .notices li.hover div.entry-content,
@@ -222,14 +236,14 @@ opacity:0.4;
 opacity:1;
 }
 div.entry-content {
-color:#333;
+color:#333333;
 }
 div.notice-options a,
 div.notice-options input {
 font-family:sans-serif;
 }
 .notices li.hover {
-background-color:#fcfcfc;
+background-color:#FCFCFC;
 }
 
 .notices .notices {
