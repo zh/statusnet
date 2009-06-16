@@ -43,17 +43,27 @@ class Status_network extends DB_DataObject
     {
         global $config;
 
+        $sn = null;
+
         // XXX I18N, probably not crucial for hostnames
         // XXX This probably needs a tune up
 
         if (0 == strncasecmp(strrev($wildcard), strrev($servername), strlen($wildcard))) {
-            $parts = explode('.', $servername);
-            $sn = Status_network::staticGet('nickname', strtolower($parts[0]));
+            // special case for exact match
+            if (0 == strcasecmp($servername, $wildcard)) {
+                $sn = Status_network::staticGet('nickname', '');
+            } else {
+                $parts = explode('.', $servername);
+                $sn = Status_network::staticGet('nickname', strtolower($parts[0]));
+            }
         } else {
             $sn = Status_network::staticGet('hostname', strtolower($servername));
         }
 
         if (!empty($sn)) {
+            if (!empty($sn->hostname) && 0 != strcasecmp($sn->hostname, $servername)) {
+                $sn->redirectToHostname();
+            }
             $dbhost = (empty($sn->dbhost)) ? 'localhost' : $sn->dbhost;
             $dbuser = (empty($sn->dbuser)) ? $sn->nickname : $sn->dbuser;
             $dbpass = $sn->dbpass;
@@ -70,9 +80,37 @@ class Status_network extends DB_DataObject
                 $config['site']['logo'] = $sn->logo;
             }
 
-            return true;
+            return $sn;
         } else {
+            return null;
+        }
+    }
+
+    // Code partially mooked from http://www.richler.de/en/php-redirect/
+    // (C) 2006 by Heiko Richler  http://www.richler.de/
+    // LGPL
+
+    function redirectToHostname()
+    {
+        $destination = 'http://'.$this->hostname;
+        $destination .= $_SERVER['REQUEST_URI'];
+
+        $old = 'http'.
+          (($_SERVER['HTTPS'] == 'on') ? 'S' : '').
+          '://'.
+          $_SERVER['HTTP_HOST'].
+          $_SERVER['REQUEST_URI'].
+          $_SERVER['QUERY_STRING'];
+        if ($old == $destination) { // this would be a loop!
+            // error_log(...) ?
             return false;
         }
+
+        header('HTTP/1.1 301 Moved Permanently');
+        header("Location: $destination");
+
+        print "<a href='$destination'>$destination</a>\n";
+
+        exit;
     }
 }
