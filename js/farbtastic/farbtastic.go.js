@@ -59,7 +59,9 @@ $(document).ready(function() {
         swatches
             .each(SynchColors)
             .blur(function() {
-                $(this).val($(this).val().toUpperCase());
+                tv = $(this).val();
+                $(this).val(tv.toUpperCase());
+                (tv.length == 4) ? ((tv[0] == '#') ? $(this).val('#'+tv[1]+tv[1]+tv[2]+tv[2]+tv[3]+tv[3]) : '') : '';
              })
             .focus(function() {
                 $('#color-picker').show();
