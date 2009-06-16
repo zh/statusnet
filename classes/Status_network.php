@@ -1,9 +1,29 @@
 <?php
 /**
  * Table Definition for status_network
+ *
+ * Laconica - a distributed open-source microblogging tool
+ * Copyright (C) 2009, Control Yourself, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class Status_network extends DB_DataObject
+if (!defined('LACONICA')) { exit(1); }
+
+require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
+
+class Status_network extends Memcached_DataObject
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -28,7 +48,10 @@ class Status_network extends DB_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    static function setupDB($dbhost, $dbuser, $dbpass, $dbname)
+    static $cache = null;
+    static $base = null;
+
+    static function setupDB($dbhost, $dbuser, $dbpass, $dbname, $servers)
     {
         global $config;
 
@@ -36,7 +59,60 @@ class Status_network extends DB_DataObject
         $config['db']['ini_'.$dbname] = INSTALLDIR.'/classes/statusnet.ini';
         $config['db']['table_status_network'] = $dbname;
 
-        return true;
+        self::$cache = new Memcache();
+
+        if (is_array($servers)) {
+            foreach($servers as $server) {
+                self::$cache->addServer($server);
+            }
+        } else {
+            self::$cache->addServer($servers);
+        }
+
+        self::$base = $dbname;
+    }
+
+    static function cacheKey($k, $v) {
+        return 'laconica:' . self::$base . ':status_network:'.$k.':'.$v;
+    }
+
+    static function memGet($k, $v)
+    {
+        $ck = self::cacheKey($k, $v);
+
+        $sn = self::$cache->get($ck);
+
+        if (empty($sn)) {
+            $sn = self::staticGet($k, $v);
+            if (!empty($sn)) {
+                self::$cache->set($ck, $sn);
+            }
+        }
+
+        return $sn;
+    }
+
+    function decache()
+    {
+        $keys = array('nickname', 'hostname', 'pathname');
+        foreach ($keys as $k) {
+            $ck = self::cacheKey($k, $this->$k);
+            self::$cache->delete($ck);
+        }
+    }
+
+    function update($orig=null)
+    {
+        if (is_object($orig)) {
+            $orig->decache(); # might be different keys
+        }
+        return parent::update($orig);
+    }
+
+    function delete()
+    {
+        $this->decache(); # while we still have the values!
+        return parent::delete();
     }
 
     static function setupSite($servername, $pathname, $wildcard)
@@ -51,13 +127,13 @@ class Status_network extends DB_DataObject
         if (0 == strncasecmp(strrev($wildcard), strrev($servername), strlen($wildcard))) {
             // special case for exact match
             if (0 == strcasecmp($servername, $wildcard)) {
-                $sn = Status_network::staticGet('nickname', '');
+                $sn = self::memGet('nickname', '');
             } else {
                 $parts = explode('.', $servername);
-                $sn = Status_network::staticGet('nickname', strtolower($parts[0]));
+                $sn = self::memGet('nickname', strtolower($parts[0]));
             }
         } else {
-            $sn = Status_network::staticGet('hostname', strtolower($servername));
+            $sn = self::memGet('hostname', strtolower($servername));
         }
 
         if (!empty($sn)) {
