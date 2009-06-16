@@ -11,10 +11,10 @@ $(document).ready(function() {
         C = $(S).val();
         switch (parseInt(S.id.slice(-1))) {
             case 1: default:
-                $('body').css({'background-color':C});
+                $('html, body').css({'background-color':C});
                 break;
             case 2:
-                $('#content').css({'background-color':C});
+                $('#content, #site_nav_local_views .current a').css({'background-color':C});
                 break;
             case 3:
                 $('#aside_primary').css({'background-color':C});
