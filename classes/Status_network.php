@@ -21,9 +21,7 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
-
-class Status_network extends Memcached_DataObject
+class Status_network extends DB_DataObject
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
