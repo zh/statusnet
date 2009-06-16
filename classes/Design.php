@@ -66,7 +66,8 @@ class Design extends Memcached_DataObject
 
         $out->element('style', array('type' => 'text/css'),
                       'html, body { background-color: #' . $bgcolor->hexValue() . '} '."\n".
-                      '#content { background-color: #' . $ccolor->hexValue() . '} '."\n".
+                      '#content, #site_nav_local_views .current a { background-color: #' . 
+                           $ccolor->hexValue() . '} '."\n".
                       '#aside_primary { background-color: #'. $sbcolor->hexValue() .'} '."\n".
                       'html body { color: #'. $tcolor->hexValue() .'} '."\n".
                       'a { color: #' . $lcolor->hexValue() . '} '."\n");
