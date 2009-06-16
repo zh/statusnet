@@ -10,19 +10,19 @@ $(document).ready(function() {
     function UpdateColors(S) {
         C = $(S).val();
         switch (parseInt(S.id.slice(-1))) {
-            case 0: default:
+            case 1: default:
                 $('body').css({'background-color':C});
                 break;
-            case 1:
+            case 2:
                 $('#content').css({'background-color':C});
                 break;
-            case 2:
+            case 3:
                 $('#aside_primary').css({'background-color':C});
                 break;
-            case 3:
-                $('body').css({'color':C});
-                break;
             case 4:
+                $('html body').css({'color':C});
+                break;
+            case 5:
                 $('a').css({'color':C});
                 break;
         }
@@ -59,7 +59,9 @@ $(document).ready(function() {
         swatches
             .each(SynchColors)
             .blur(function() {
-                $(this).val($(this).val().toUpperCase());
+                tv = $(this).val();
+                $(this).val(tv.toUpperCase());
+                (tv.length == 4) ? ((tv[0] == '#') ? $(this).val('#'+tv[1]+tv[1]+tv[2]+tv[2]+tv[3]+tv[3]) : '') : '';
              })
             .focus(function() {
                 $('#color-picker').show();
