@@ -33,7 +33,7 @@ if (!defined('LACONICA')) {
 }
 
 require_once INSTALLDIR . '/lib/accountsettingsaction.php';
-require_once INSTALLDIR . '/lib/WebColor.php';
+require_once INSTALLDIR . '/lib/webcolor.php';
 
 class DesignsettingsAction extends AccountSettingsAction
 {
