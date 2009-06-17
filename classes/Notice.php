@@ -217,6 +217,7 @@ class Notice extends Memcached_DataObject
 
             $notice->addToInboxes();
             $notice->saveGroups();
+            $notice->saveUrls();
 
             $notice->query('COMMIT');
 
@@ -229,6 +230,24 @@ class Notice extends Memcached_DataObject
         $notice->blowCaches();
 
         return $notice;
+    }
+
+    /** save all urls in the notice to the db
+     *
+     * follow redirects and save all available file information
+     * (mimetype, date, size, oembed, etc.)
+     *
+     * @param class $notice Notice to pull URLs from
+     *
+     * @return void
+     */
+    function saveUrls() {
+        common_replace_urls_callback($this->content, array($this, 'saveUrl'), $this->id);
+    }
+
+    function saveUrl($data) {
+        list($url, $notice_id) = $data;
+        File::processNew($url, $notice_id);
     }
 
     static function checkDupes($profile_id, $content) {
