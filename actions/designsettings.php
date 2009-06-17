@@ -56,7 +56,8 @@ class DesignsettingsAction extends AccountSettingsAction
 
     function getInstructions()
     {
-        return _('Customize the way your profile looks with a background image and a colour palette of your choice.');
+        return _('Customize the way your profile looks ' .
+        'with a background image and a colour palette of your choice.');
     }
 
     /**
@@ -71,14 +72,16 @@ class DesignsettingsAction extends AccountSettingsAction
     {
         $user = common_current_user();
         $this->elementStart('form', array('method' => 'post',
+                                          'enctype' => 'multipart/form-data',
                                           'id' => 'form_settings_design',
                                           'class' => 'form_settings',
                                           'action' =>
-                                          common_local_url('designsettings')));
+                                              common_local_url('designsettings')));
         $this->elementStart('fieldset');
         $this->hidden('token', common_session_token());
 
-        $this->elementStart('fieldset', array('id' => 'settings_design_background-image'));
+        $this->elementStart('fieldset', array('id' =>
+            'settings_design_background-image'));
         $this->element('legend', null, _('Change background image'));
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
@@ -87,7 +90,8 @@ class DesignsettingsAction extends AccountSettingsAction
         $this->element('input', array('name' => 'design_background-image_file',
                                       'type' => 'file',
                                       'id' => 'design_background-image_file'));
-        $this->element('p', 'form_guide', _('You can upload your personal background image. The maximum file size is 2Mb.'));
+        $this->element('p', 'form_guide', _('You can upload your personal ' .
+            'background image. The maximum file size is 2Mb.'));
         $this->element('input', array('name' => 'MAX_FILE_SIZE',
                                       'type' => 'hidden',
                                       'id' => 'MAX_FILE_SIZE',
@@ -207,6 +211,20 @@ class DesignsettingsAction extends AccountSettingsAction
 
     function handlePost()
     {
+        // XXX: Robin's workaround for a bug in PHP where $_POST
+        // and $_FILE are empty in the case that the uploaded
+        // file is bigger than PHP is configured to handle.
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (empty($_POST) && $_SERVER['CONTENT_LENGTH']) {
+
+                $msg = _('The server was unable to handle that much POST ' .
+                    'data (%s bytes) due to its current configuration.');
+
+                $this->showForm(sprintf($msg, $_SERVER['CONTENT_LENGTH']));
+            }
+        }
+
         // CSRF protection
         $token = $this->trimmed('token');
         if (!$token || $token != common_session_token()) {
@@ -310,8 +328,6 @@ class DesignsettingsAction extends AccountSettingsAction
 
     function saveDesign()
     {
-        $user = common_current_user();
-
         try {
 
             $bgcolor = new WebColor($this->trimmed('design_background'));
@@ -325,6 +341,7 @@ class DesignsettingsAction extends AccountSettingsAction
             return;
         }
 
+        $user = common_current_user();
         $design = $user->getDesign();
 
         if (!empty($design)) {
@@ -336,6 +353,7 @@ class DesignsettingsAction extends AccountSettingsAction
             $design->sidebarcolor    = $sbcolor->intValue();
             $design->textcolor       = $tcolor->intValue();
             $design->linkcolor       = $lcolor->intValue();
+            $design->backgroundimage = $filepath;
 
             $result = $design->update($original);
 
@@ -358,7 +376,7 @@ class DesignsettingsAction extends AccountSettingsAction
             $design->sidebarcolor    = $sbcolor->intValue();
             $design->textcolor       = $tcolor->intValue();
             $design->linkcolor       = $lcolor->intValue();
-            $design->backgroundimage = $defaults['backgroundimage'];
+            $design->backgroundimage = $filepath;
 
             $id = $design->insert();
 
@@ -381,6 +399,43 @@ class DesignsettingsAction extends AccountSettingsAction
 
             $user->query('COMMIT');
 
+        }
+
+        // Now that we have a Design ID we can add a file to the design.
+        // XXX: This is an additional DB hit, but figured having the image
+        // associated with the Design rather than the User was worth
+        // it. -- Zach
+
+        if ($_FILES['design_background-image_file']['error'] ==
+            UPLOAD_ERR_OK) {
+
+            $filepath = null;
+
+            try {
+                    $imagefile =
+                        ImageFile::fromUpload('design_background-image_file');
+                } catch (Exception $e) {
+                    $this->showForm($e->getMessage());
+                    return;
+                }
+
+            $filename = Design::filename($design->id,
+                image_type_to_extension($imagefile->type),
+                    common_timestamp());
+
+            $filepath = Design::path($filename);
+
+            move_uploaded_file($imagefile->filepath, $filepath);
+
+            $original = clone($design);
+            $design->backgroundimage = $filename;
+            $result = $design->update($original);
+
+            if ($result === false) {
+                common_log_db_error($design, 'UPDATE', __FILE__);
+                $this->showForm(_('Couldn\'t update your design.'));
+                return;
+            }
         }
 
         $this->showForm(_('Design preferences saved.'), true);

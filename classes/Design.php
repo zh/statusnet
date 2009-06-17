@@ -64,12 +64,61 @@ class Design extends Memcached_DataObject
                 __FILE__);
         }
 
-        $out->element('style', array('type' => 'text/css'),
-                      'html, body { background-color: #' . $bgcolor->hexValue() . '} '."\n".
-                      '#content, #site_nav_local_views .current a { background-color: #' . 
-                           $ccolor->hexValue() . '} '."\n".
-                      '#aside_primary { background-color: #'. $sbcolor->hexValue() .'} '."\n".
-                      'html body { color: #'. $tcolor->hexValue() .'} '."\n".
-                      'a { color: #' . $lcolor->hexValue() . '} '."\n");
+        $css  = 'html, body { background-color: #' . $bgcolor->hexValue() . '} ' . "\n";
+        $css .= '#content, #site_nav_local_views .current a { background-color: #';
+        $css .= $ccolor->hexValue() . '} '."\n";
+        $css .= '#aside_primary { background-color: #'. $sbcolor->hexValue() . '} ' . "\n";
+        $css .= 'html body { color: #'. $tcolor->hexValue() . '} '. "\n";
+        $css .= 'a { color: #' . $lcolor->hexValue() . '} ' . "\n";
+
+        if (!empty($this->backgroundimage)) {
+
+            $css .= 'body { background-image:url(' .
+                Design::url($this->backgroundimage) .
+                '); background-repeat:no-repeat; }' . "\n";
+        }
+
+        $out->element('style', array('type' => 'text/css'), $css);
+
     }
+
+    static function filename($id, $extension, $extra=null)
+    {
+        return $id . (($extra) ? ('-' . $extra) : '') . $extension;
+    }
+
+    static function path($filename)
+    {
+        $dir = common_config('background', 'dir');
+
+        if ($dir[strlen($dir)-1] != '/') {
+            $dir .= '/';
+        }
+
+        return $dir . $filename;
+    }
+
+    static function url($filename)
+    {
+        $path = common_config('background', 'path');
+
+        if ($path[strlen($path)-1] != '/') {
+            $path .= '/';
+        }
+
+        if ($path[0] != '/') {
+            $path = '/'.$path;
+        }
+
+        $server = common_config('background', 'server');
+
+        if (empty($server)) {
+            $server = common_config('site', 'server');
+        }
+
+        // XXX: protocol
+
+        return 'http://'.$server.$path.$filename;
+    }
+
 }
