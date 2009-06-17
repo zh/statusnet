@@ -545,7 +545,7 @@ class TwitterapiAction extends Action
             $this->init_twitter_atom();
             break;
         default:
-            $this->client_error(_('Not a supported data format.'));
+            $this->clientError(_('Not a supported data format.'));
             break;
         }
 
@@ -573,13 +573,13 @@ class TwitterapiAction extends Action
             $this->end_twitter_rss();
             break;
         default:
-            $this->client_error(_('Not a supported data format.'));
+            $this->clientError(_('Not a supported data format.'));
             break;
         }
         return;
     }
 
-    function client_error($msg, $code = 400, $content_type = 'json')
+    function clientError($msg, $code = 400, $content_type = 'json')
     {
 
         static $status = array(400 => 'Bad Request',
@@ -666,7 +666,7 @@ class TwitterapiAction extends Action
             $this->show_json_objects($profile_array);
             break;
         default:
-            $this->client_error(_('Not a supported data format.'));
+            $this->clientError(_('Not a supported data format.'));
             return;
         }
         return;

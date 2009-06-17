@@ -230,20 +230,9 @@ $(document).ready(function(){
 					   };
 	$("#form_notice").ajaxForm(PostNotice);
 	$("#form_notice").each(addAjaxHidden);
-    NoticeHover();
     NoticeReply();
     NoticeAttachments();
 });
-
-
-function NoticeHover() {
-    function mouseHandler(e) {
-        $(e.target).closest('li.hentry')[(e.type === 'mouseover') ? 'addClass' : 'removeClass']('hover');
-    };
-    $('#content .notices').mouseover(mouseHandler);
-    $('#content .notices').mouseout(mouseHandler);
-}
-
 
 function NoticeReply() {
     if ($('#notice_data-text').length > 0) {

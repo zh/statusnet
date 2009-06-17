@@ -213,9 +213,11 @@ $config =
         'file_quota' => 5000000,
         'user_quota' => 50000000,
         'monthly_quota' => 15000000,
+        'uploads' => true,
         ),
         'group' =>
         array('maxaliases' => 3),
+        'oohembed' => array('endpoint' => 'http://oohembed.com/oohembed/')
         );
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');

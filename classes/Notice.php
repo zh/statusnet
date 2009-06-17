@@ -29,6 +29,11 @@ require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
 define('NOTICE_CACHE_WINDOW', 61);
 
+define('NOTICE_LOCAL_PUBLIC', 1);
+define('NOTICE_REMOTE_OMB', 0);
+define('NOTICE_LOCAL_NONPUBLIC', -1);
+define('NOTICE_GATEWAY', -2);
+
 class Notice extends Memcached_DataObject
 {
     ###START_AUTOCODE
@@ -218,6 +223,12 @@ class Notice extends Memcached_DataObject
             $notice->addToInboxes();
             $notice->saveGroups();
             $notice->saveUrls();
+            $orig2 = clone($notice);
+    		$notice->rendered = common_render_content($final, $notice);
+            if (!$notice->update($orig2)) {
+                common_log_db_error($notice, 'UPDATE', __FILE__);
+                return _('Problem saving notice.');
+            }
 
             $notice->query('COMMIT');
 
@@ -236,8 +247,6 @@ class Notice extends Memcached_DataObject
      *
      * follow redirects and save all available file information
      * (mimetype, date, size, oembed, etc.)
-     *
-     * @param class $notice Notice to pull URLs from
      *
      * @return void
      */
@@ -812,7 +821,7 @@ class Notice extends Memcached_DataObject
         $inbox = new Notice_inbox();
         $UT = common_config('db','type')=='pgsql'?'"user"':'user';
         $qry = 'INSERT INTO notice_inbox (user_id, notice_id, created, source) ' .
-          "SELECT $UT.id, " . $this->id . ", '" . $this->created . "', 2 " .
+          "SELECT $UT.id, " . $this->id . ", '" . $this->created . "', " . NOTICE_INBOX_SOURCE_GROUP . " " .
           "FROM $UT JOIN group_member ON $UT.id = group_member.profile_id " .
           'WHERE group_member.group_id = ' . $group->id . ' ' .
           'AND NOT EXISTS (SELECT user_id, notice_id ' .

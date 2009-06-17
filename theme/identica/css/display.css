@@ -65,7 +65,8 @@ div.notice-options input,
 .entity_send-a-message a,
 .form_user_nudge input.submit,
 .entity_nudge p,
-.form_settings input.form_action-primary {
+.form_settings input.form_action-primary,
+.form_make_admin input.submit {
 color:#002E6E;
 }
 
@@ -166,7 +167,8 @@ background-image:url(../../base/images/icons/icon_foaf.gif);
 .form_user_unblock input.submit,
 .form_group_block input.submit,
 .form_group_unblock input.submit,
-.entity_nudge p {
+.entity_nudge p,
+.form_make_admin input.submit {
 background-position: 0 40%;
 background-repeat: no-repeat;
 background-color:transparent;
@@ -200,6 +202,9 @@ background-image:url(../../base/images/icons/twotone/green/mail.gif);
 .form_group_unblock input.submit {
 background-image:url(../../base/images/icons/twotone/green/shield.gif);
 }
+.form_make_admin input.submit {
+background-image:url(../../base/images/icons/twotone/green/admin.gif);
+}
 
 /* NOTICES */
 .notice .attachment {
@@ -226,13 +231,11 @@ background:transparent url(../../base/images/icons/twotone/green/trash.gif) no-r
 }
 
 .notices div.entry-content,
-.notices div.notice-options,
-.notices li.hover .notices div.entry-content,
-.notices li.hover .notices div.notice-options {
+.notices div.notice-options {
 opacity:0.4;
 }
-.notices li.hover div.entry-content,
-.notices li.hover div.notice-options {
+.notices li:hover div.entry-content,
+.notices li:hover div.notice-options {
 opacity:1;
 }
 div.entry-content {
@@ -242,8 +245,11 @@ div.notice-options a,
 div.notice-options input {
 font-family:sans-serif;
 }
-.notices li.hover {
+.notices li:hover {
 background-color:#FCFCFC;
+}
+#conversation .notices li:hover {
+background-color:transparent;
 }
 
 .notices .notices {
