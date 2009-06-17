@@ -41,6 +41,7 @@ class Design extends Memcached_DataObject
     public $textcolor;                       // int(4)
     public $linkcolor;                       // int(4)
     public $backgroundimage;                 // varchar(255)
+    public $tile;                            // tinyint(1)  
 
     /* Static get */
     function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Design',$k,$v); }
@@ -63,23 +64,23 @@ class Design extends Memcached_DataObject
             common_log(LOG_ERR, "Unable to create color for design $id.",
                 __FILE__);
         }
-
+        
         $css  = 'html, body { background-color: #' . $bgcolor->hexValue() . '} ' . "\n";
         $css .= '#content, #site_nav_local_views .current a { background-color: #';
         $css .= $ccolor->hexValue() . '} '."\n";
         $css .= '#aside_primary { background-color: #'. $sbcolor->hexValue() . '} ' . "\n";
         $css .= 'html body { color: #'. $tcolor->hexValue() . '} '. "\n";
         $css .= 'a { color: #' . $lcolor->hexValue() . '} ' . "\n";
-
+        
         if (!empty($this->backgroundimage)) {
-
-            $css .= 'body { background-image:url(' .
-                Design::url($this->backgroundimage) .
+        
+            $css .= 'body { background-image:url(' . 
+                Design::url($this->backgroundimage) . 
                 '); background-repeat:no-repeat; }' . "\n";
         }
-
+        
         $out->element('style', array('type' => 'text/css'), $css);
-
+    
     }
 
     static function filename($id, $extension, $extra=null)
@@ -97,7 +98,7 @@ class Design extends Memcached_DataObject
 
         return $dir . $filename;
     }
-
+    
     static function url($filename)
     {
         $path = common_config('background', 'path');
@@ -120,5 +121,5 @@ class Design extends Memcached_DataObject
 
         return 'http://'.$server.$path.$filename;
     }
-
+    
 }
