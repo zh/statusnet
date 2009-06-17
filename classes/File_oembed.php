@@ -53,7 +53,7 @@ class File_oembed extends Memcached_DataObject
 
 
     function _getOembed($url, $maxwidth = 500, $maxheight = 400, $format = 'json') {
-        $cmd = 'http://oohembed.com/oohembed/?url=' . urlencode($url);
+        $cmd = common_config('oohembed', 'endpoint') . '?url=' . urlencode($url);
         if (is_int($maxwidth)) $cmd .= "&maxwidth=$maxwidth";
         if (is_int($maxheight)) $cmd .= "&maxheight=$maxheight";
         if (is_string($format)) $cmd .= "&format=$format";
