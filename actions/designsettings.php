@@ -501,6 +501,7 @@ class DesignsettingsAction extends AccountSettingsAction
 
             $original = clone($design);
             $design->backgroundimage = $filename;
+            $design->setDisposition(true, false, false);
             $result = $design->update($original);
 
             if ($result === false) {
