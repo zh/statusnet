@@ -21,6 +21,10 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
+define('BACKGROUND_ON', 1);
+define('BACKGROUND_OFF', 2);
+define('BACKGROUND_TILE', 4);
+
 /**
  * Table Definition for design
  */
@@ -41,7 +45,7 @@ class Design extends Memcached_DataObject
     public $textcolor;                       // int(4)
     public $linkcolor;                       // int(4)
     public $backgroundimage;                 // varchar(255)
-    public $tile;                            // tinyint(1)
+    public $disposition;                     // tinyint(1)   default_1
 
     /* Static get */
     function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Design',$k,$v); }
@@ -72,9 +76,11 @@ class Design extends Memcached_DataObject
         $css .= 'html body { color: #'. $tcolor->hexValue() . '} '. "\n";
         $css .= 'a { color: #' . $lcolor->hexValue() . '} ' . "\n";
 
-        if (!empty($this->backgroundimage)) {
+        if (!empty($this->backgroundimage) &&
+            $this->disposition & BACKGROUND_ON) {
 
-           $repeat = ($this->tile) ? 'background-repeat:repeat;' :
+           $repeat = ($this->disposition & BACKGROUND_TILE) ?
+               'background-repeat:repeat;' :
                'background-repeat:no-repeat;';
 
             $css .= 'body { background-image:url(' .
@@ -123,6 +129,27 @@ class Design extends Memcached_DataObject
         // XXX: protocol
 
         return 'http://'.$server.$path.$filename;
+    }
+
+    function setDisposition($on, $off, $tile)
+    {
+        if ($on) {
+            $this->disposition |= BACKGROUND_ON;
+        } else {
+            $this->disposition &= ~BACKGROUND_ON;
+        }
+
+        if ($off) {
+            $this->disposition |= BACKGROUND_OFF;
+        } else {
+            $this->disposition &= ~BACKGROUND_OFF;
+        }
+
+        if ($tile) {
+            $this->disposition |= BACKGROUND_TILE;
+        } else {
+            $this->disposition &= ~BACKGROUND_TILE;
+        }
     }
 
 }

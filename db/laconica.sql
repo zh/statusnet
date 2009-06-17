@@ -496,7 +496,7 @@ create table design (
     textcolor integer comment 'text color',
     linkcolor integer comment 'link color',
     backgroundimage varchar(255) comment 'background image, if any',
-    tile tinyint default 0 comment 'tile background image'
+    disposition tinyint default 1 comment 'bit 1 = hide background image, bit 2 = display background image, bit 4 = tile background image'
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table group_block (

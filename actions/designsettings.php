@@ -104,37 +104,52 @@ class DesignsettingsAction extends AccountSettingsAction
                                       'value' => ImageFile::maxFileSizeInt()));
         $this->elementEnd('li');
 
-        $this->elementStart('li', array('id' => 'design_background-image_onoff'));
-
         if (!empty($design->backgroundimage)) {
+
+            $this->elementStart('li', array('id' => 'design_background-image_onoff'));
+
             $this->element('img', array('src' =>
                 Design::url($design->backgroundimage)));
-        }
 
-        $this->element('input', array('name' => 'design_background-image_onoff',
-                                      'type' => 'radio',
-                                      'id' => 'design_background-image_on',
-                                      'class' => 'radio',
-                                      'value' => 'true',
-                                      'checked'=> 'checked'));
-        $this->element('label', array('for' => 'design_background-image_on',
-                                      'class' => 'radio'),
-                                      _('On'));
-        $this->element('input', array('name' => 'design_background-image_onoff',
-                                      'type' => 'radio',
-                                      'id' => 'design_background-image_off',
-                                      'class' => 'radio',
-                                      'value' => 'false'));
-        $this->element('label', array('for' => 'design_background-image_off',
-                                      'class' => 'radio'),
-                                      _('Off'));
-        $this->element('p', 'form_guide', _('Turn background image on or off.'));
-        $this->elementEnd('li');
+            $attrs = array('name' => 'design_background-image_onoff',
+                           'type' => 'radio',
+                           'id' => 'design_background-image_on',
+                           'class' => 'radio',
+                           'value' => 'on');
+
+            if ($design->disposition & BACKGROUND_ON) {
+                $attrs['checked'] = 'checked';
+            }
+
+            $this->element('input', $attrs);
+
+            $this->element('label', array('for' => 'design_background-image_on',
+                                          'class' => 'radio'),
+                                          _('On'));
+
+            $attrs = array('name' => 'design_background-image_onoff',
+                           'type' => 'radio',
+                           'id' => 'design_background-image_off',
+                           'class' => 'radio',
+                           'value' => 'off');
+
+            if ($design->disposition & BACKGROUND_OFF) {
+                $attrs['checked'] = 'checked';
+            }
+
+            $this->element('input', $attrs);
+
+            $this->element('label', array('for' => 'design_background-image_off',
+                                          'class' => 'radio'),
+                                          _('Off'));
+            $this->element('p', 'form_guide', _('Turn background image on or off.'));
+            $this->elementEnd('li');
+        }
 
         $this->elementStart('li');
         $this->checkbox('design_background-image_repeat',
                         _('Tile background image'),
-                        $design->tile);
+                        ($design->disposition & BACKGROUND_TILE) ? true : false );
         $this->elementEnd('li');
 
         $this->elementEnd('ul');
@@ -158,7 +173,6 @@ class DesignsettingsAction extends AccountSettingsAction
                                           'size' => '7',
                                           'value' => '#' . $bgcolor->hexValue()));
             $this->elementEnd('li');
-
 
             $ccolor = new WebColor($design->contentcolor);
 
@@ -346,7 +360,7 @@ class DesignsettingsAction extends AccountSettingsAction
 
             $design->backgroundimage = $defaults['backgroundimage'];
 
-            $deisng->tile = $defaults['tile'];
+            $deisng->disposition = $defaults['disposition'];
 
         } catch (WebColorException $e) {
             common_log(LOG_ERR, _('Bad default color settings: ' .
@@ -377,7 +391,23 @@ class DesignsettingsAction extends AccountSettingsAction
             return;
         }
 
-        $tile = $this->boolean('design_background-image_repeat');
+        $onoff = $this->arg('design_background-image_onoff');
+
+        $on   = false;
+        $off  = false;
+        $tile = false;
+
+        if ($onoff == 'on') {
+            $on = true;
+        } else {
+            $off = true;
+        }
+
+        $repeat = $this->boolean('design_background-image_repeat');
+
+        if ($repeat) {
+            $tile = true;
+        }
 
         $user = common_current_user();
         $design = $user->getDesign();
@@ -392,7 +422,8 @@ class DesignsettingsAction extends AccountSettingsAction
             $design->textcolor       = $tcolor->intValue();
             $design->linkcolor       = $lcolor->intValue();
             $design->backgroundimage = $filepath;
-            $design->tile            = $tile;
+
+            $design->setDisposition($on, $off, $tile);
 
             $result = $design->update($original);
 
@@ -416,7 +447,8 @@ class DesignsettingsAction extends AccountSettingsAction
             $design->textcolor       = $tcolor->intValue();
             $design->linkcolor       = $lcolor->intValue();
             $design->backgroundimage = $filepath;
-            $design->tile            = $tile;
+
+            $design->setDisposition($on, $off, $tile);
 
             $id = $design->insert();
 
@@ -479,18 +511,6 @@ class DesignsettingsAction extends AccountSettingsAction
         }
 
         $this->showForm(_('Design preferences saved.'), true);
-    }
-
-    /**
-     * Reset design settings to previous saved value if any, or
-     * the defaults
-     *
-     * @return void
-     */
-
-    function resetDesign()
-    {
-        $this->showForm(_('Design preferences reset.'), true);
     }
 
 }
