@@ -71,6 +71,12 @@ class DesignsettingsAction extends AccountSettingsAction
     function showContent()
     {
         $user = common_current_user();
+        $design = $user->getDesign();
+
+        if (empty($design)) {
+            $design = $this->defaultDesign();
+        }
+
         $this->elementStart('form', array('method' => 'post',
                                           'enctype' => 'multipart/form-data',
                                           'id' => 'form_settings_design',
@@ -122,7 +128,7 @@ class DesignsettingsAction extends AccountSettingsAction
         $this->elementStart('li');
         $this->checkbox('design_background-image_repeat',
                         _('Tile background image'),
-                        false, null, true, false);
+                        $design->tile);
         $this->elementEnd('li');
 
         $this->elementEnd('ul');
@@ -131,12 +137,6 @@ class DesignsettingsAction extends AccountSettingsAction
         $this->elementStart('fieldset', array('id' => 'settings_design_color'));
         $this->element('legend', null, _('Change colours'));
         $this->elementStart('ul', 'form_data');
-
-        $design = $user->getDesign();
-
-        if (empty($design)) {
-            $design = $this->defaultDesign();
-        }
 
         try {
 
@@ -340,6 +340,8 @@ class DesignsettingsAction extends AccountSettingsAction
 
             $design->backgroundimage = $defaults['backgroundimage'];
 
+            $deisng->tile = $defaults['tile'];
+
         } catch (WebColorException $e) {
             common_log(LOG_ERR, _('Bad default color settings: ' .
                 $e->getMessage()));
@@ -369,6 +371,8 @@ class DesignsettingsAction extends AccountSettingsAction
             return;
         }
 
+        $tile = $this->boolean('design_background-image_repeat');
+
         $user = common_current_user();
         $design = $user->getDesign();
 
@@ -382,6 +386,7 @@ class DesignsettingsAction extends AccountSettingsAction
             $design->textcolor       = $tcolor->intValue();
             $design->linkcolor       = $lcolor->intValue();
             $design->backgroundimage = $filepath;
+            $design->tile            = $tile;
 
             $result = $design->update($original);
 
@@ -405,6 +410,7 @@ class DesignsettingsAction extends AccountSettingsAction
             $design->textcolor       = $tcolor->intValue();
             $design->linkcolor       = $lcolor->intValue();
             $design->backgroundimage = $filepath;
+            $design->tile            = $tile;
 
             $id = $design->insert();
 
