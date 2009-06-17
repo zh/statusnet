@@ -203,6 +203,7 @@ $config =
         ),
         'group' =>
         array('maxaliases' => 3),
+        'oohembed' => array('endpoint' => 'http://oohembed.com/oohembed/')
         );
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
