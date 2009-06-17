@@ -353,14 +353,14 @@ class DesignsettingsAction extends AccountSettingsAction
             $design->sidebarcolor = $color->intValue();
 
             $color->parseColor($defaults['textcolor']);
-            $design->sidebarcolor = $color->intValue();
+            $design->textcolor = $color->intValue();
 
             $color->parseColor($defaults['linkcolor']);
             $design->linkcolor = $color->intValue();
 
             $design->backgroundimage = $defaults['backgroundimage'];
 
-            $deisng->disposition = $defaults['disposition'];
+            $design->disposition = $defaults['disposition'];
 
         } catch (WebColorException $e) {
             common_log(LOG_ERR, _('Bad default color settings: ' .
