@@ -218,6 +218,12 @@ class Notice extends Memcached_DataObject
             $notice->addToInboxes();
             $notice->saveGroups();
             $notice->saveUrls();
+            $orig2 = clone($notice);
+    		$notice->rendered = common_render_content($final, $notice);
+            if (!$notice->update($orig2)) {
+                common_log_db_error($notice, 'UPDATE', __FILE__);
+                return _('Problem saving notice.');
+            }
 
             $notice->query('COMMIT');
 
@@ -236,8 +242,6 @@ class Notice extends Memcached_DataObject
      *
      * follow redirects and save all available file information
      * (mimetype, date, size, oembed, etc.)
-     *
-     * @param class $notice Notice to pull URLs from
      *
      * @return void
      */
