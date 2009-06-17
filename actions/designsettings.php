@@ -105,6 +105,12 @@ class DesignsettingsAction extends AccountSettingsAction
         $this->elementEnd('li');
 
         $this->elementStart('li', array('id' => 'design_background-image_onoff'));
+
+        if (!empty($design->backgroundimage)) {
+            $this->element('img', array('src' =>
+                Design::url($design->backgroundimage)));
+        }
+
         $this->element('input', array('name' => 'design_background-image_onoff',
                                       'type' => 'radio',
                                       'id' => 'design_background-image_on',
