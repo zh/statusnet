@@ -1223,6 +1223,7 @@ supported: an array of mime types you accept to store and distribute,
            like 'image/gif', 'video/mpeg', 'audio/mpeg', etc. Make sure you
            setup your server to properly reckognize the types you want to
            support.
+uploads:   false to disable uploading files with notices (true by default).
 
 For quotas, be sure you've set the upload_max_filesize and post_max_size
 in php.ini to be large enough to handle your upload. In httpd.conf
