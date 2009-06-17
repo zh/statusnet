@@ -97,6 +97,34 @@ class DesignsettingsAction extends AccountSettingsAction
                                       'id' => 'MAX_FILE_SIZE',
                                       'value' => ImageFile::maxFileSizeInt()));
         $this->elementEnd('li');
+
+        $this->elementStart('li', array('id' => 'design_background-image_onoff'));
+        $this->element('input', array('name' => 'design_background-image_onoff',
+                                      'type' => 'radio',
+                                      'id' => 'design_background-image_on',
+                                      'class' => 'radio',
+                                      'value' => 'true',
+                                      'checked'=> 'checked'));
+        $this->element('label', array('for' => 'design_background-image_on',
+                                      'class' => 'radio'),
+                                      _('On'));
+        $this->element('input', array('name' => 'design_background-image_onoff',
+                                      'type' => 'radio',
+                                      'id' => 'design_background-image_off',
+                                      'class' => 'radio',
+                                      'value' => 'false'));
+        $this->element('label', array('for' => 'design_background-image_off',
+                                      'class' => 'radio'),
+                                      _('Off'));
+        $this->element('p', 'form_guide', _('Turn background image on or off.'));
+        $this->elementEnd('li');
+
+        $this->elementStart('li');
+        $this->checkbox('design_background-image_repeat',
+                        _('Tile background image'),
+                        false, null, true, false);
+        $this->elementEnd('li');
+
         $this->elementEnd('ul');
         $this->elementEnd('fieldset');
 
