@@ -1,6 +1,6 @@
 #!/usr/bin/env php
 <?php
-/*
+/**
  * Laconica - a distributed open-source microblogging tool
  * Copyright (C) 2008, Controlez-Vous, Inc.
  *
@@ -35,18 +35,43 @@ define('POLL_INTERVAL', 60); // in seconds
 // Uncomment this to get useful logging
 define('SCRIPT_DEBUG', true);
 
-require_once(INSTALLDIR . '/lib/common.php');
-require_once(INSTALLDIR . '/lib/daemon.php');
+require_once INSTALLDIR . '/lib/common.php';
+require_once INSTALLDIR . '/lib/daemon.php';
+
+/**
+ * Fetcher for statuses from Twitter
+ *
+ * Fetches statuses from Twitter and inserts them as notices in local
+ * system.
+ *
+ * @category Twitter
+ * @package  Laconica
+ * @author   Zach Copley <zach@controlyourself.ca>
+ * @author   Evan Prodromou <evan@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://laconi.ca/
+ */
 
 class TwitterStatusFetcher extends Daemon
 {
+    private $_children = array();
 
-    private $children = array();
+    /**
+     * Name of this daemon
+     *
+     * @return string Name of the daemon.
+     */
 
     function name()
     {
         return ('twitterstatusfetcher.generic');
     }
+
+    /**
+     * Run the daemon
+     *
+     * @return void
+     */
 
     function run()
     {
@@ -54,7 +79,7 @@ class TwitterStatusFetcher extends Daemon
 
             $flinks = $this->refreshFlinks();
 
-            foreach ($flinks as $f){
+            foreach ($flinks as $f) {
 
                 // We have to disconnect from the DB before forking so
                 // each sub-process will open its own connection and
@@ -73,10 +98,11 @@ class TwitterStatusFetcher extends Daemon
 
                     // Parent
                     if (defined('SCRIPT_DEBUG')) {
-                        common_debug("Parent: forked new status fetcher process " . $pid);
+                        common_debug("Parent: forked new status ".
+                                     " fetcher process " . $pid);
                     }
 
-                    $this->children[] = $pid;
+                    $this->_children[] = $pid;
 
                 } else {
 
@@ -86,41 +112,41 @@ class TwitterStatusFetcher extends Daemon
                 }
 
                 // Remove child from ps list as it finishes
-                while(($c = pcntl_wait($status, WNOHANG OR WUNTRACED)) > 0) {
+                while (($c = pcntl_wait($status, WNOHANG OR WUNTRACED)) > 0) {
 
                     if (defined('SCRIPT_DEBUG')) {
                         common_debug("Child $c finished.");
                     }
 
-                    $this->remove_ps($this->children, $c);
+                    $this->removePs($this->_children, $c);
                 }
 
                 // Wait! We have too many damn kids.
-                if (sizeof($this->children) > MAXCHILDREN) {
+                if (sizeof($this->_children) > MAXCHILDREN) {
 
                     if (defined('SCRIPT_DEBUG')) {
                         common_debug('Too many children. Waiting...');
                     }
 
-                    if (($c = pcntl_wait($status, WUNTRACED)) > 0){
+                    if (($c = pcntl_wait($status, WUNTRACED)) > 0) {
 
                         if (defined('SCRIPT_DEBUG')) {
                             common_debug("Finished waiting for $c");
                         }
 
-                        $this->remove_ps($this->children, $c);
+                        $this->removePs($this->_children, $c);
                     }
                 }
             }
 
             // Remove all children from the process list before restarting
-            while(($c = pcntl_wait($status, WUNTRACED)) > 0) {
+            while (($c = pcntl_wait($status, WUNTRACED)) > 0) {
 
                 if (defined('SCRIPT_DEBUG')) {
                     common_debug("Child $c finished.");
                 }
 
-                $this->remove_ps($this->children, $c);
+                $this->removePs($this->_children, $c);
             }
 
             // Rest for a bit before we fetch more statuses
@@ -137,10 +163,18 @@ class TwitterStatusFetcher extends Daemon
         } while (true);
     }
 
-    function refreshFlinks() {
+    /**
+     * Refresh the foreign links for this user
+     *
+     * @return void
+     */
 
+    function refreshFlinks()
+    {
         $flink = new Foreign_link();
+
         $flink->service = 1; // Twitter
+
         $flink->orderBy('last_noticesync');
 
         $cnt = $flink->find();
@@ -166,7 +200,18 @@ class TwitterStatusFetcher extends Daemon
         return $flinks;
     }
 
-    function remove_ps(&$plist, $ps){
+    /**
+     * Unknown
+     *
+     * @param array  &$plist unknown.
+     * @param string $ps     unknown.
+     *
+     * @return unknown
+     * @todo document
+     */
+
+    function removePs(&$plist, $ps)
+    {
         for ($i = 0; $i < sizeof($plist); $i++) {
             if ($plist[$i] == $ps) {
                 unset($plist[$i]);
@@ -178,7 +223,6 @@ class TwitterStatusFetcher extends Daemon
 
     function getTimeline($flink)
     {
-
         if (empty($flink)) {
             common_log(LOG_WARNING,
                 "Can't retrieve Foreign_link for foreign ID $fid");
@@ -247,23 +291,32 @@ class TwitterStatusFetcher extends Daemon
             return null;
         }
 
+        // XXX: change of screen name?
+
         $uri = 'http://twitter.com/' . $status->user->screen_name .
             '/status/' . $status->id;
 
         $notice = Notice::staticGet('uri', $uri);
 
         // check to see if we've already imported the status
+
         if (!$notice) {
 
-            $created = strftime('%Y-%m-%d %H:%M:%S',
-                                strtotime($status->created_at));;
+            $notice = new Notice();
 
-            $notice = Notice::saveNew($id, $status->text, 'twitter',
-                                      -2, null, $uri, $created);
+            $notice->profile_id = $id;
+            $notice->uri        = $uri;
+            $notice->created    = strftime('%Y-%m-%d %H:%M:%S',
+                                           strtotime($status->created_at));
+            $notice->content    = common_shorten_links($status->text); // XXX
+            $notice->rendered   = common_render_content($notice->content, $notice);
+            $notice->source     = 'twitter';
+            $notice->reply_to   = null; // XXX lookup reply
+            $notice->is_local   = NOTICE_GATEWAY;
 
-            if (defined('SCRIPT_DEBUG')) {
-                common_debug("Saved status $status->id" .
-                    " as notice $notice->id.");
+            if (Event::handle('StartNoticeSave', array(&$notice))) {
+                $id = $notice->insert();
+                Event::handle('EndNoticeSave', array($notice));
             }
         }
 
@@ -271,9 +324,11 @@ class TwitterStatusFetcher extends Daemon
                                          'user_id' => $flink->user_id))) {
             // Add to inbox
             $inbox = new Notice_inbox();
-            $inbox->user_id = $flink->user_id;
+
+            $inbox->user_id   = $flink->user_id;
             $inbox->notice_id = $notice->id;
-            $inbox->created = $notice->created;
+            $inbox->created   = $notice->created;
+            $inbox->source    = NOTICE_INBOX_SOURCE_GATEWAY; // From a private source
 
             $inbox->insert();
         }
