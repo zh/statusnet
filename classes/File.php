@@ -79,7 +79,6 @@ class File extends Memcached_DataObject
             && ('text/html' === substr($redir_data['type'], 0, 9))
             && ($oembed_data = File_oembed::_getOembed($given_url))
             && isset($oembed_data['json'])) {
-
             File_oembed::saveNew($oembed_data['json'], $file_id);
         }
         return $x;
@@ -98,7 +97,6 @@ class File extends Memcached_DataObject
                 if ($redir_url === $given_url) {
                     $x = File::saveNew($redir_data, $given_url);
                     $file_id = $x->id;
-
                 } else {
                     $x = File::processNew($redir_url, $notice_id);
                     $file_id = $x->id;
