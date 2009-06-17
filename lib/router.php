@@ -351,7 +351,8 @@ class Router
 
         $m->connect('api/favorites/:method/:argument',
                     array('action' => 'api',
-                          'apiaction' => 'favorites'));
+                          'apiaction' => 'favorites',
+                          array('method' => '(create|destroy)')));
 
         $m->connect('api/favorites/:argument',
                     array('action' => 'api',
