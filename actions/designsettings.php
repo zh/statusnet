@@ -305,12 +305,12 @@ class DesignsettingsAction extends AccountSettingsAction
         parent::showScripts();
 
         $farbtasticPack = common_path('js/farbtastic/farbtastic.js');
-        $farbtasticGo   = common_path('js/farbtastic/farbtastic.go.js');
+        $userDesignGo   = common_path('js/userdesign.go.js');
 
         $this->element('script', array('type' => 'text/javascript',
                                        'src' => $farbtasticPack));
         $this->element('script', array('type' => 'text/javascript',
-                                       'src' => $farbtasticGo));
+                                       'src' => $userDesignGo));
     }
 
     /**

@@ -49,7 +49,7 @@ $(document).ready(function() {
         }
     }
 
-    function Init() {
+    function InitFarbtastic() {
         $('#settings_design_color').append('<div id="color-picker"></div>');
         $('#color-picker').hide();
 
@@ -75,13 +75,25 @@ $(document).ready(function() {
     }
 
     var f, swatches;
-    Init();
+    InitFarbtastic();
     $('#form_settings_design').bind('reset', function(){
         setTimeout(function(){
             swatches.each(function(){UpdateColors(this);});
             $('#color-picker').remove();
             swatches.unbind();
-            Init();
+            InitFarbtastic();
         },10);
+    });
+
+    $('#design_background-image_off').focus(function() {
+        $('body').css({'background-image':'none'});
+    });
+    $('#design_background-image_on').focus(function() {
+        var bis = $('#design_background-image_onoff img')[0].src;
+        $('body').css({'background-image':'url('+bis+')'});
+    });
+
+    $('#design_background-image_repeat').click(function() {
+        ($(this)[0].checked) ? $('body').css({'background-repeat':'repeat'}) : $('body').css({'background-repeat':'no-repeat'});
     });
 });
