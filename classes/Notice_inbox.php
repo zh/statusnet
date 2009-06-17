@@ -25,6 +25,10 @@ require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
 define('INBOX_CACHE_WINDOW', 101);
 
+define('NOTICE_INBOX_SOURCE_SUB', 1);
+define('NOTICE_INBOX_SOURCE_GROUP', 2);
+define('NOTICE_INBOX_SOURCE_GATEWAY', -1);
+
 class Notice_inbox extends Memcached_DataObject
 {
     ###START_AUTOCODE
