@@ -164,7 +164,7 @@ class WebColor {
         $hexcolor .= (strlen(dechex($this->blue)) < 2 ? '0' : '') .
             dechex($this->blue);
 
-        return $hexcolor;
+        return strtoupper($hexcolor);
 
     }
 
