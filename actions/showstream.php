@@ -370,7 +370,7 @@ class ShowstreamAction extends ProfileAction
     {
         $notice = empty($this->tag)
             ? $this->user->getNotices(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1)
-            : $this->user->getTaggedNotices(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1, 0, 0, null, $this->tag);
+            : $this->user->getTaggedNotices($this->tag, ($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1, 0, 0, null);
 
         $pnl = new ProfileNoticeList($notice, $this);
         $cnt = $pnl->show();

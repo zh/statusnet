@@ -375,6 +375,12 @@ class Notice extends Memcached_DataObject
             if ($tag->find()) {
                 while ($tag->fetch()) {
                     $tag->blowCache($blowLast);
+                    $ck = 'profile:notice_ids_tagged:' . $this->profile_id . ':' . $tag->tag;
+
+                    $cache->delete($ck);
+                    if ($blowLast) {
+                        $cache->delete($ck . ';last');
+                    }
                 }
             }
             $tag->free();
