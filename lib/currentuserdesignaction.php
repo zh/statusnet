@@ -2,7 +2,7 @@
 /**
  * Laconica, the distributed open-source microblogging tool
  *
- * Show notice attachments
+ * Base class for actions that use the current user's design
  *
  * PHP version 5
  *
@@ -19,10 +19,10 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  Personal
+ * @category  Action
  * @package   Laconica
  * @author    Evan Prodromou <evan@controlyourself.ca>
- * @copyright 2008-2009 Control Yourself, Inc.
+ * @copyright 2009 Control Yourself, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://laconi.ca/
  */
@@ -31,48 +31,58 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/actions/attachment.php';
-
 /**
- * Show notice attachments
+ * Base class for actions that use the current user's design
  *
- * @category Personal
+ * Some pages (settings in particular) use the current user's chosen
+ * design. This superclass returns that design.
+ *
+ * @category Action
  * @package  Laconica
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://laconi.ca/
+ *
  */
 
-class Attachment_ajaxAction extends AttachmentAction
+class CurrentUserDesignAction extends Action
 {
-    /**
-     * Show page, a template method.
-     *
-     * @return nothing
-     */
-    function showPage()
-    {
-        if (Event::handle('StartShowBody', array($this))) {
-            $this->showCore();
-            Event::handle('EndShowBody', array($this));
-        }
-    }
 
     /**
-     * Show core.
+      * Show the user's design stylesheet
+      *
+      * @return nothing
+      */
+     function showStylesheets()
+     {
+         parent::showStylesheets();
+
+         $design = $this->getDesign();
+
+         if (!empty($design)) {
+             $design->showCSS($this);
+         }
+     }
+
+    /**
+     * A design for this action
      *
-     * Shows local navigation, content block and aside.
+     * if the user attribute has been set, returns that user's
+     * design.
      *
-     * @return nothing
+     * @return Design a design object to use
      */
-    function showCore()
+
+    function getDesign()
     {
-        $this->elementStart('div', array('id' => 'core'));
-        if (Event::handle('StartShowContentBlock', array($this))) {
-            $this->showContentBlock();
-            Event::handle('EndShowContentBlock', array($this));
+        $cur = common_current_user();
+
+        if (empty($cur)) {
+            return null;
         }
-        $this->elementEnd('div');
+
+        return $cur->getDesign();
     }
+
+
 }
-

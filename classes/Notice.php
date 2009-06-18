@@ -222,6 +222,13 @@ class Notice extends Memcached_DataObject
 
             $notice->addToInboxes();
             $notice->saveGroups();
+            $notice->saveUrls();
+            $orig2 = clone($notice);
+    		$notice->rendered = common_render_content($final, $notice);
+            if (!$notice->update($orig2)) {
+                common_log_db_error($notice, 'UPDATE', __FILE__);
+                return _('Problem saving notice.');
+            }
 
             $notice->query('COMMIT');
 
@@ -234,6 +241,22 @@ class Notice extends Memcached_DataObject
         $notice->blowCaches();
 
         return $notice;
+    }
+
+    /** save all urls in the notice to the db
+     *
+     * follow redirects and save all available file information
+     * (mimetype, date, size, oembed, etc.)
+     *
+     * @return void
+     */
+    function saveUrls() {
+        common_replace_urls_callback($this->content, array($this, 'saveUrl'), $this->id);
+    }
+
+    function saveUrl($data) {
+        list($url, $notice_id) = $data;
+        File::processNew($url, $notice_id);
     }
 
     static function checkDupes($profile_id, $content) {
@@ -356,6 +379,12 @@ class Notice extends Memcached_DataObject
             if ($tag->find()) {
                 while ($tag->fetch()) {
                     $tag->blowCache($blowLast);
+                    $ck = 'profile:notice_ids_tagged:' . $this->profile_id . ':' . $tag->tag;
+
+                    $cache->delete($ck);
+                    if ($blowLast) {
+                        $cache->delete($ck . ';last');
+                    }
                 }
             }
             $tag->free();

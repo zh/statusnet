@@ -11,13 +11,13 @@ export username=$nickname$USERBASE
 
 # Create the db
 
-mysqladmin -u $ADMIN --password=$ADMINPASS create $database
+mysqladmin -h $DBHOST -u $ADMIN --password=$ADMINPASS create $database
 
 for f in laconica.sql sms_carrier.sql foreign_services.sql notice_source.sql; do
-    mysql -u $ADMIN --password=$ADMINPASS $database < ../db/$f;
+    mysql -h $DBHOST -u $ADMIN --password=$ADMINPASS $database < ../db/$f;
 done
 
-mysql -u $ADMIN --password=$ADMINPASS $SITEDB << ENDOFCOMMANDS
+mysql -h $DBHOST -u $ADMIN --password=$ADMINPASS $SITEDB << ENDOFCOMMANDS
 
 GRANT INSERT,SELECT,UPDATE,DELETE ON $database.* TO '$username'@'localhost' IDENTIFIED BY '$password';
 GRANT INSERT,SELECT,UPDATE,DELETE ON $database.* TO '$username'@'%' IDENTIFIED BY '$password';

@@ -12,9 +12,9 @@ img { display:block; border:0; }
 a abbr { cursor: pointer; border-bottom:0; }
 table { border-collapse:collapse; }
 ol { list-style-position:inside; }
-html { font-size: 87.5%; background-color:#fff; height:100%; }
+html { font-size: 87.5%; }
 body {
-background-color:#fff;
+background-color:#FFFFFF;
 color:#000;
 font-family:sans-serif;
 font-size:1em;
@@ -77,7 +77,8 @@ margin:0 0 18px 0;
 form label {
 font-weight:bold;
 }
-input.checkbox {
+input.checkbox,
+input.radio {
 position:relative;
 top:2px;
 left:0;
@@ -154,7 +155,8 @@ font-weight:bold;
 #form_invite legend,
 #form_notice_delete legend,
 #form_password_recover legend,
-#form_password_change legend {
+#form_password_change legend,
+.form_entity_block legend {
 display:none;
 }
 
@@ -168,7 +170,8 @@ margin-bottom:0;
 margin-bottom:11px;
 }
 
-.form_settings input.checkbox {
+.form_settings input.checkbox,
+.form_settings input.radio {
 margin-top:3px;
 margin-left:0;
 }
@@ -180,13 +183,19 @@ margin-left:11px;
 float:left;
 width:90%;
 }
-
+.form_settings label.radio {
+margin-top:0;
+margin-right:47px;
+margin-left:11px;
+width:auto;
+}
 
 #form_login p.form_guide,
 #form_register #settings_rememberme p.form_guide,
 #form_openid_login #settings_rememberme p.form_guide,
 #settings_twitter_remove p.form_guide,
-#form_search ul.form_data #q {
+#form_search ul.form_data #q,
+#design_background-image_onoff p.form_guide {
 margin-left:0;
 }
 
@@ -306,7 +315,6 @@ padding:4px 11px;
 border-width:1px;
 border-style:solid;
 border-bottom:0;
-text-shadow: 2px 2px 2px #ddd;
 font-weight:bold;
 }
 #site_nav_local_views .nav {
@@ -396,8 +404,8 @@ border-radius:7px;
 -moz-border-radius-topleft:0;
 -webkit-border-radius:7px;
 -webkit-border-top-left-radius:0;
-border-style:solid;
 border-width:1px;
+border-style:solid;
 }
 #shownotice #content {
 min-height:0;
@@ -413,7 +421,7 @@ float:left;
 width:27.917%;
 min-height:259px;
 float:left;
-margin-left:0.385%;
+margin-left:0.5%;
 padding:1.795%;
 border-radius:7px;
 -moz-border-radius:7px;
@@ -469,7 +477,6 @@ height:16px;
 #form_notice #notice_data-attach {
 left:183px;
 padding:0;
-
 height:16px;
 }
 #form_notice .form_note {
@@ -623,7 +630,8 @@ display:block;
 .entity_send-a-message a,
 .entity_edit a,
 .form_user_nudge input.submit,
-.entity_nudge p {
+.entity_nudge p,
+.form_make_admin input.submit {
 border:0;
 padding-left:20px;
 }

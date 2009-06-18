@@ -231,7 +231,6 @@ class NewnoticeAction extends Action
         if (isset($mimetype)) {
             $this->storeFile($notice, $mimetype);
         }
-        $this->saveUrls($notice);
         common_broadcast_notice($notice);
 
         if ($this->boolean('ajax')) {
@@ -282,24 +281,6 @@ class NewnoticeAction extends Action
         } else {
             $this->clientError(_('File could not be moved to destination directory.'));
         }
-    }
-
-    /** save all urls in the notice to the db
-     *
-     * follow redirects and save all available file information
-     * (mimetype, date, size, oembed, etc.)
-     *
-     * @param class $notice Notice to pull URLs from
-     *
-     * @return void
-     */
-    function saveUrls($notice, $uploaded = null) {
-        common_replace_urls_callback($notice->content, array($this, 'saveUrl'), $notice->id);
-    }
-
-    function saveUrl($data) {
-        list($url, $notice_id) = $data;
-        $zzz = File::processNew($url, $notice_id);
     }
 
     /**
