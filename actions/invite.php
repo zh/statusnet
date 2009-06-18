@@ -19,7 +19,7 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-class InviteAction extends Action
+class InviteAction extends CurrentUserDesignAction
 {
     var $mode = null;
     var $error = null;

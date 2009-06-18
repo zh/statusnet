@@ -47,10 +47,9 @@ define('MEMBERS_PER_SECTION', 27);
  * @link     http://laconi.ca/
  */
 
-class ShowgroupAction extends Action
+class ShowgroupAction extends GroupDesignAction
 {
-    /** group we're viewing. */
-    var $group = null;
+
     /** page we're viewing. */
     var $page = null;
 

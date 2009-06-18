@@ -41,6 +41,7 @@ create table sms_carrier (
 /* local users */
 
 create table user (
+
     id integer primary key comment 'foreign key to profile table' references profile (id),
     nickname varchar(64) unique key comment 'nickname or username, duped in profile',
     password varchar(255) comment 'salted password, can be null for OpenID users',
@@ -69,6 +70,9 @@ create table user (
     autosubscribe tinyint default 0 comment 'automatically subscribe to users who subscribe to us',
     urlshorteningservice varchar(50) default 'ur1.ca' comment 'service to use for auto-shortening URLs',
     inboxed tinyint default 0 comment 'has an inbox been created for this user?',
+    design_id integer comment 'id of a design' references design(id),
+    viewdesigns tinyint default 1 comment 'whether to view user-provided designs',
+
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified',
 
@@ -383,6 +387,7 @@ create table user_group (
     homepage_logo varchar(255) comment 'homepage (profile) size logo',
     stream_logo varchar(255) comment 'stream-sized logo',
     mini_logo varchar(255) comment 'mini logo',
+    design_id integer comment 'id of a design' references design(id),
 
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified',
@@ -482,6 +487,17 @@ create table file_to_post (
     post_id integer comment 'id of the notice it belongs to' references notice (id),
 
     unique(file_id, post_id)
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table design (
+    id integer primary key auto_increment comment 'design ID',
+    backgroundcolor integer comment 'main background color',
+    contentcolor integer comment 'content area background color',
+    sidebarcolor integer comment 'sidebar background color',
+    textcolor integer comment 'text color',
+    linkcolor integer comment 'link color',
+    backgroundimage varchar(255) comment 'background image, if any',
+    disposition tinyint default 1 comment 'bit 1 = hide background image, bit 2 = display background image, bit 4 = tile background image'
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table group_block (
