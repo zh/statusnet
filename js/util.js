@@ -235,7 +235,7 @@ $(document).ready(function(){
 });
 
 function NoticeReply() {
-    if ($('#notice_data-text').length > 0) {
+    if ($('#notice_data-text').length > 0 && $('.notice_reply').length > 0) {
         $('#content .notice').each(function() {
             var notice = $(this)[0];
             $($('.notice_reply', notice)[0]).click(function() {
