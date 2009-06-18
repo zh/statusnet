@@ -242,13 +242,16 @@ class Memcached_DataObject extends DB_DataObject
             if (common_config('db', 'type') == 'mysql' &&
                 common_config('db', 'utf8')) {
                 $conn = $DB->connection;
-                if ($DB instanceof DB_mysqli) {
-                    mysqli_set_charset($conn, 'utf8');
-                } else if ($DB instanceof DB_mysql) {
-                    mysql_set_charset('utf8', $conn);
+                if (!empty($conn)) {
+                    if ($DB instanceof DB_mysqli) {
+                        mysqli_set_charset($conn, 'utf8');
+                    } else if ($DB instanceof DB_mysql) {
+                        mysql_set_charset('utf8', $conn);
+                    }
                 }
             }
         }
         return $result;
     }
+
 }
