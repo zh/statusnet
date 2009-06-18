@@ -253,7 +253,7 @@ class Attachment extends AttachmentListItem
         $this->out->elementEnd('a');
         $this->out->elementEnd('div');
 
-        if ($this->oembed->author_name || $this->oembed->provider) {
+        if (!empty($this->oembed->author_name) || !empty($this->oembed->provider)) {
             $this->out->elementStart('div', array('id' => 'oembed_info', 
                                                   'class' => 'entry-content'));
             if (!empty($this->oembed->author_name)) {
