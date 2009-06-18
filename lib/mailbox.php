@@ -31,8 +31,6 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/personal.php';
-
 define('MESSAGES_PER_PAGE', 20);
 
 /**
