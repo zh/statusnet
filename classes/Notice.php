@@ -406,8 +406,10 @@ class Notice extends Memcached_DataObject
 
             while ($user->fetch()) {
                 $cache->delete(common_cache_key('notice_inbox:by_user:'.$user->id));
+                $cache->delete(common_cache_key('notice_inbox:by_user_own:'.$user->id));
                 if ($blowLast) {
                     $cache->delete(common_cache_key('notice_inbox:by_user:'.$user->id.';last'));
+                    $cache->delete(common_cache_key('notice_inbox:by_user_own:'.$user->id.';last'));
                 }
             }
             $user->free();

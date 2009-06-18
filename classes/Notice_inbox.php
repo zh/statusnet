@@ -47,19 +47,24 @@ class Notice_inbox extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    function stream($user_id, $offset, $limit, $since_id, $max_id, $since)
+    function stream($user_id, $offset, $limit, $since_id, $max_id, $since, $own=false)
     {
         return Notice::stream(array('Notice_inbox', '_streamDirect'),
-                              array($user_id),
-                              'notice_inbox:by_user:'.$user_id,
+                              array($user_id, $own),
+                              ($own) ? 'notice_inbox:by_user:'.$user_id :
+                              'notice_inbox:by_user_own:'.$user_id,
                               $offset, $limit, $since_id, $max_id, $since);
     }
 
-    function _streamDirect($user_id, $offset, $limit, $since_id, $max_id, $since)
+    function _streamDirect($user_id, $own, $offset, $limit, $since_id, $max_id, $since)
     {
         $inbox = new Notice_inbox();
 
         $inbox->user_id = $user_id;
+
+        if (!$own) {
+            $inbox->whereAdd('source != ' . NOTICE_INBOX_SOURCE_GATEWAY);
+        }
 
         if ($since_id != 0) {
             $inbox->whereAdd('notice_id > ' . $since_id);

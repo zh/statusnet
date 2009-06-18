@@ -21,29 +21,28 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once INSTALLDIR.'/lib/facebookaction.php';
 
-
 class FacebookhomeAction extends FacebookAction
 {
 
     var $page = null;
-    
+
     function prepare($argarray)
-    {        
+    {
         parent::prepare($argarray);
-        
+
         $this->page = $this->trimmed('page');
-       
+
         if (!$this->page) {
             $this->page = 1;
         }
-        
+
         return true;
     }
 
     function handle($args)
     {
-        parent::handle($args);        
-                
+        parent::handle($args);
+
         // If the user has opted not to initially allow the app to have
         // Facebook status update permission, store that preference. Only
         // promt the user the first time she uses the app
@@ -73,7 +72,7 @@ class FacebookhomeAction extends FacebookAction
                  $this->updateProfileBox($notice);
              }
 
-             if ($this->arg('status_submit') == 'Send') {            
+             if ($this->arg('status_submit') == 'Send') {
                 $this->saveNewNotice();
              }
 
@@ -81,7 +80,7 @@ class FacebookhomeAction extends FacebookAction
             // Facebook status update permission? Then show the main page
             // of the app
             $this->showPage();
-            
+
         } else {
 
             // User hasn't authenticated yet, prompt for creds
@@ -89,12 +88,12 @@ class FacebookhomeAction extends FacebookAction
         }
 
     }
-    
+
     function login()
     {
-        
+
         $this->showStylesheets();
-        
+
         $nickname = common_canonical_nickname($this->trimmed('nickname'));
         $password = $this->arg('password');
 
@@ -141,13 +140,12 @@ class FacebookhomeAction extends FacebookAction
         $this->facebook->api_client->data_setUserPreference(
             FACEBOOK_PROMPTED_UPDATE_PREF, 'false');
     }
-    
 
     function showNoticeForm()
     {
         $post_action = "$this->app_uri/index.php";
-        
-        $notice_form = new FacebookNoticeForm($this, $post_action, null, 
+
+        $notice_form = new FacebookNoticeForm($this, $post_action, null,
             $post_action, $this->user);
         $notice_form->show();
     }
@@ -163,9 +161,8 @@ class FacebookhomeAction extends FacebookAction
 
     function showContent()
     {
-        $notice = $this->user->noticesWithFriends(($this->page-1) *
-            NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
-        
+        $notice = $this->user->noticeInbox(($this->page-1) * NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
+
         $nl = new NoticeList($notice, $this);
 
         $cnt = $nl->show();
@@ -176,7 +173,7 @@ class FacebookhomeAction extends FacebookAction
 
     function showNoticeList($notice)
     {
-                
+
         $nl = new NoticeList($notice, $this);
         return $nl->show();
     }
@@ -201,16 +198,16 @@ class FacebookhomeAction extends FacebookAction
 
         $this->elementStart('ul', array('id' => 'fb-permissions-list'));
         $this->elementStart('li', array('id' => 'fb-permissions-item'));
-        
+
         $next = urlencode("$this->app_uri/index.php");
         $api_key = common_config('facebook', 'apikey');
-        
+
         $auth_url = 'http://www.facebook.com/authorize.php?api_key=' .
-            $api_key . '&v=1.0&ext_perm=status_update&next=' . $next . 
+            $api_key . '&v=1.0&ext_perm=status_update&next=' . $next .
             '&next_cancel=' . $next . '&submit=skip';
-        
+
         $this->elementStart('span', array('class' => 'facebook-button'));
-        $this->element('a', array('href' => $auth_url), 
+        $this->element('a', array('href' => $auth_url),
             sprintf(_('Okay, do it!'), $this->app_name));
         $this->elementEnd('span');
 
@@ -225,7 +222,7 @@ class FacebookhomeAction extends FacebookAction
         $this->elementEnd('div');
 
     }
-    
+
     /**
      * Generate pagination links
      *
@@ -239,11 +236,11 @@ class FacebookhomeAction extends FacebookAction
      */
     function pagination($have_before, $have_after, $page, $action, $args=null)
     {
-                
+
         // Does a little before-after block for next/prev page
-     
+
         // XXX: Fix so this uses common_local_url() if possible.
-     
+
         if ($have_before || $have_after) {
             $this->elementStart('div', array('class' => 'pagination'));
             $this->elementStart('dl', null);
@@ -254,7 +251,7 @@ class FacebookhomeAction extends FacebookAction
         if ($have_before) {
             $pargs   = array('page' => $page-1);
             $newargs = $args ? array_merge($args, $pargs) : $pargs;
-            $this->elementStart('li', array('class' => 'nav_prev'));            
+            $this->elementStart('li', array('class' => 'nav_prev'));
             $this->element('a', array('href' => "$action?page=$newargs[page]", 'rel' => 'prev'),
                            _('After'));
             $this->elementEnd('li');
@@ -274,6 +271,5 @@ class FacebookhomeAction extends FacebookAction
             $this->elementEnd('div');
         }
     }
-    
 
 }

@@ -98,7 +98,13 @@ class AllAction extends ProfileAction
 
     function showContent()
     {
-        $notice = $this->user->noticesWithFriends(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
+        $cur = common_current_user();
+
+        if (!empty($cur) && $cur->id == $this->user->id) {
+            $notice = $this->user->noticeInbox(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
+        } else {
+            $notice = $this->user->noticesWithFriends(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
+        }
 
         $nl = new NoticeList($notice, $this);
 
