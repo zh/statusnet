@@ -44,7 +44,7 @@ require_once INSTALLDIR.'/lib/publicgroupnav.php';
  * @link     http://laconi.ca/
  */
 
-class GroupmembersAction extends Action
+class GroupmembersAction extends GroupDesignAction
 {
     var $page = null;
 

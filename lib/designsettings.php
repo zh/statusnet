@@ -35,8 +35,11 @@ if (!defined('LACONICA')) {
 require_once INSTALLDIR . '/lib/accountsettingsaction.php';
 require_once INSTALLDIR . '/lib/webcolor.php';
 
-class DesignsettingsAction extends AccountSettingsAction
+class DesignSettingsAction extends AccountSettingsAction
 {
+
+    var $submitaction = null;
+
     /**
      * Title of the page
      *
@@ -60,29 +63,14 @@ class DesignsettingsAction extends AccountSettingsAction
         'with a background image and a colour palette of your choice.');
     }
 
-    /**
-     * Content area of the page
-     *
-     * Shows a form for changing the password
-     *
-     * @return void
-     */
-
-    function showContent()
+    function showDesignForm($design)
     {
-        $user = common_current_user();
-        $design = $user->getDesign();
-
-        if (empty($design)) {
-            $design = $this->defaultDesign();
-        }
 
         $this->elementStart('form', array('method' => 'post',
                                           'enctype' => 'multipart/form-data',
                                           'id' => 'form_settings_design',
                                           'class' => 'form_settings',
-                                          'action' =>
-                                              common_local_url('designsettings')));
+                                          'action' => $this->submitaction));
         $this->elementStart('fieldset');
         $this->hidden('token', common_session_token());
 
@@ -370,108 +358,7 @@ class DesignsettingsAction extends AccountSettingsAction
         return $design;
     }
 
-    /**
-     * Save or update the user's design settings
-     *
-     * @return void
-     */
-
-    function saveDesign()
-    {
-        try {
-
-            $bgcolor = new WebColor($this->trimmed('design_background'));
-            $ccolor  = new WebColor($this->trimmed('design_content'));
-            $sbcolor = new WebColor($this->trimmed('design_sidebar'));
-            $tcolor  = new WebColor($this->trimmed('design_text'));
-            $lcolor  = new WebColor($this->trimmed('design_links'));
-
-        } catch (WebColorException $e) {
-            $this->showForm($e->getMessage());
-            return;
-        }
-
-        $onoff = $this->arg('design_background-image_onoff');
-
-        $on   = false;
-        $off  = false;
-        $tile = false;
-
-        if ($onoff == 'on') {
-            $on = true;
-        } else {
-            $off = true;
-        }
-
-        $repeat = $this->boolean('design_background-image_repeat');
-
-        if ($repeat) {
-            $tile = true;
-        }
-
-        $user = common_current_user();
-        $design = $user->getDesign();
-
-        if (!empty($design)) {
-
-            $original = clone($design);
-
-            $design->backgroundcolor = $bgcolor->intValue();
-            $design->contentcolor    = $ccolor->intValue();
-            $design->sidebarcolor    = $sbcolor->intValue();
-            $design->textcolor       = $tcolor->intValue();
-            $design->linkcolor       = $lcolor->intValue();
-            $design->backgroundimage = $filepath;
-
-            $design->setDisposition($on, $off, $tile);
-
-            $result = $design->update($original);
-
-            if ($result === false) {
-                common_log_db_error($design, 'UPDATE', __FILE__);
-                $this->showForm(_('Couldn\'t update your design.'));
-                return;
-            }
-
-            // update design
-        } else {
-
-            $user->query('BEGIN');
-
-            // save new design
-            $design = new Design();
-
-            $design->backgroundcolor = $bgcolor->intValue();
-            $design->contentcolor    = $ccolor->intValue();
-            $design->sidebarcolor    = $sbcolor->intValue();
-            $design->textcolor       = $tcolor->intValue();
-            $design->linkcolor       = $lcolor->intValue();
-            $design->backgroundimage = $filepath;
-
-            $design->setDisposition($on, $off, $tile);
-
-            $id = $design->insert();
-
-            if (empty($id)) {
-                common_log_db_error($id, 'INSERT', __FILE__);
-                $this->showForm(_('Unable to save your design settings!'));
-                return;
-            }
-
-            $original = clone($user);
-            $user->design_id = $id;
-            $result = $user->update($original);
-
-            if (empty($result)) {
-                common_log_db_error($original, 'UPDATE', __FILE__);
-                $this->showForm(_('Unable to save your design settings!'));
-                $user->query('ROLLBACK');
-                return;
-            }
-
-            $user->query('COMMIT');
-
-        }
+    function saveBackgroundImage($design) {
 
         // Now that we have a Design ID we can add a file to the design.
         // XXX: This is an additional DB hit, but figured having the image
@@ -510,8 +397,6 @@ class DesignsettingsAction extends AccountSettingsAction
                 return;
             }
         }
-
-        $this->showForm(_('Design preferences saved.'), true);
     }
 
 }

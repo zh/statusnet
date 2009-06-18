@@ -50,7 +50,7 @@ define('MAX_ORIGINAL', 480);
  * @link     http://laconi.ca/
  */
 
-class GrouplogoAction extends Action
+class GrouplogoAction extends GroupDesignAction
 {
     var $mode = null;
     var $imagefile = null;
