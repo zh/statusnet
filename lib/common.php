@@ -55,13 +55,25 @@ require_once(INSTALLDIR.'/lib/language.php');
 require_once(INSTALLDIR.'/lib/event.php');
 require_once(INSTALLDIR.'/lib/plugin.php');
 
+function _sn_to_path($sn)
+{
+    $past_root = substr($sn, 1);
+    $last_slash = strrpos($past_root, '/');
+    if ($last_slash > 0) {
+        $p = substr($past_root, 0, $last_slash);
+    } else {
+        $p = '';
+    }
+    return $p;
+}
+
 // try to figure out where we are
 
 $_server = array_key_exists('SERVER_NAME', $_SERVER) ?
   strtolower($_SERVER['SERVER_NAME']) :
   null;
 $_path = array_key_exists('SCRIPT_NAME', $_SERVER) ?
-  substr($_SERVER['SCRIPT_NAME'], 1, strrpos($_SERVER['SCRIPT_NAME'], '/') - 1) :
+  _sn_to_path($_SERVER['SCRIPT_NAME']) :
   null;
 
 // default configuration, overwritten in config.php
