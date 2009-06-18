@@ -36,7 +36,7 @@ function main()
 function checkPrereqs()
 {
 	$pass = true;
-	
+
     if (file_exists(INSTALLDIR.'/config.php')) {
          ?><p class="error">Config file &quot;config.php&quot; already exists.</p>
          <?php
@@ -88,7 +88,6 @@ function checkExtension($name)
 
 function showForm()
 {
-    $config_path = htmlentities(trim(dirname($_SERVER['REQUEST_URI']), '/'));
     echo<<<E_O_T
         </ul>
     </dd>
@@ -115,11 +114,6 @@ function showForm()
                 <input type="radio" name="fancy" id="fancy-enable" value="enable" checked='checked' /> enable<br />
                 <input type="radio" name="fancy" id="fancy-disable" value="" /> disable<br />
                 <p class="form_guide" id='fancy-form_guide'>Enable fancy (pretty) URLs. Auto-detection failed, it depends on Javascript.</p>
-            </li>
-            <li>
-                <label for="host">Site path</label>
-                <input type="text" id="path" name="path" value="$config_path" />
-                <p class="form_guide">Site path, following the "/" after the domain name in the URL. Empty is fine. Field should be filled automatically.</p>
             </li>
             <li>
                 <label for="host">Hostname</label>
@@ -167,7 +161,6 @@ function handlePost()
     $username = $_POST['username'];
     $password = $_POST['password'];
     $sitename = $_POST['sitename'];
-    $path     = $_POST['path'];
     $fancy    = !empty($_POST['fancy']);
 ?>
     <dl class="system_notice">
@@ -176,7 +169,7 @@ function handlePost()
             <ul>
 <?php
 	$fail = false;
-	
+
     if (empty($host)) {
         updateStatus("No hostname specified.", true);
 		$fail = true;
@@ -243,7 +236,7 @@ function handlePost()
     }
     updateStatus("Writing config file...");
     $sqlUrl = "mysqli://$username:$password@$host/$database";
-    $res = writeConf($sitename, $sqlUrl, $fancy, $path);
+    $res = writeConf($sitename, $sqlUrl, $fancy);
     if (!$res) {
         updateStatus("Can't write config file.", true);
         showForm();
@@ -257,14 +250,13 @@ function handlePost()
 <?php
 }
 
-function writeConf($sitename, $sqlUrl, $fancy, $path)
+function writeConf($sitename, $sqlUrl, $fancy)
 {
     $res = file_put_contents(INSTALLDIR.'/config.php',
                              "<?php\n".
                              "if (!defined('LACONICA')) { exit(1); }\n\n".
                              "\$config['site']['name'] = \"$sitename\";\n\n".
                              ($fancy ? "\$config['site']['fancy'] = true;\n\n":'').
-                             "\$config['site']['path'] = \"$path\";\n\n".
                              "\$config['db']['database'] = \"$sqlUrl\";\n\n".
                              "?>");
     return $res;
