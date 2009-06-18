@@ -210,7 +210,7 @@ class AttachmentListItem extends Widget
     function showRepresentation() {
         $thumbnail = File_thumbnail::staticGet('file_id', $this->attachment->id);
         if (!empty($thumbnail)) {
-            $this->out->element('img', array('alt' => 'nothing to say', 'src' => $thumbnail->url, 'width' => $thumbnail->width, 'height' => $thumbnail->height));
+            $this->out->element('img', array('alt' => '', 'src' => $thumbnail->url, 'width' => $thumbnail->width, 'height' => $thumbnail->height));
         }
     }
 
@@ -244,39 +244,47 @@ class AttachmentListItem extends Widget
 class Attachment extends AttachmentListItem
 {
     function showLink() {
+        $this->out->elementStart('div', array('id' => 'attachment_view',
+                                              'class' => 'hentry'));
+        $this->out->elementStart('div', 'entry-title');
         $this->out->elementStart('a', $this->linkAttr());
         $this->out->element('span', null, $this->linkTitle());
         $this->showRepresentation();
         $this->out->elementEnd('a');
+        $this->out->elementEnd('div');
 
-        if (empty($this->oembed->author_name) && empty($this->oembed->provider)) {
-            return;
-        }
-
-        $this->out->elementStart('dl', 'oembed_info');
-        
-        if (!empty($this->oembed->author_name)) {
-            $this->out->element('dt', null, _('Author:'));
-
-            $this->out->elementStart('dd');
-            if (empty($this->oembed->author_url)) {
-                $this->out->text($this->oembed->author_name);
-            } else {
-                $this->out->element('a', array('href' => $this->oembed->author_url), $this->oembed->author_name);
+        if ($this->oembed->author_name || $this->oembed->provider) {
+            $this->out->elementStart('div', array('id' => 'oembed_info', 
+                                                  'class' => 'entry-content'));
+            if (!empty($this->oembed->author_name)) {
+                $this->out->elementStart('dl', 'vcard author');
+                $this->out->element('dt', null, _('Author'));
+                $this->out->elementStart('dd', 'fn');
+                if (empty($this->oembed->author_url)) {
+                    $this->out->text($this->oembed->author_name);
+                } else {
+                    $this->out->element('a', array('href' => $this->oembed->author_url,
+                                                   'class' => 'url'), $this->oembed->author_name);
+                }
+                $this->out->elementEnd('dd');
+                $this->out->elementEnd('dl');
             }
-            $this->out->elementEnd('dd');
-        }
-        if (!empty($this->oembed->provider)) {
-            $this->out->element('dt', null, _('Provider:'));
-            $this->out->elementStart('dd');
-            if (empty($this->oembed->provider_url)) {
-                $this->out->text($this->oembed->provider);
-            } else {
-                $this->out->element('a', array('href' => $this->oembed->provider_url), $this->oembed->provider);
+            if (!empty($this->oembed->provider)) {
+                $this->out->elementStart('dl', 'vcard');
+                $this->out->element('dt', null, _('Provider'));
+                $this->out->elementStart('dd', 'fn');
+                if (empty($this->oembed->provider_url)) {
+                    $this->out->text($this->oembed->provider);
+                } else {
+                    $this->out->element('a', array('href' => $this->oembed->provider_url,
+                                                   'class' => 'url'), $this->oembed->provider);
+                }
+                $this->out->elementEnd('dd');
+                $this->out->elementEnd('dl');
             }
-            $this->out->elementEnd('dd');
+            $this->out->elementEnd('div');
         }
-        $this->out->elementEnd('dl');
+        $this->out->elementEnd('div');
     }
 
     function show() {

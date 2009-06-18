@@ -1018,6 +1018,22 @@ border-radius:7px;
 -webkit-border-radius:7px;
 }
 
+#attachment_view #oembed_info {
+margin-top:11px;
+}
+#attachment_view #oembed_info dt,
+#attachment_view #oembed_info dd {
+float:left;
+}
+#attachment_view #oembed_info dt {
+clear:left;
+margin-right:11px;
+font-weight:bold;
+}
+#attachment_view #oembed_info dt:after {
+content: ":";
+}
+
 #usergroups #new_group {
 float: left;
 margin-right: 2em;
@@ -1284,9 +1300,3 @@ display:none;
 .guide {
 clear:both;
 }
-
-dl.oembed_info dt,
-dl.oembed_info dd {
-display: inline;
-}
-
