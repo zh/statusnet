@@ -41,7 +41,7 @@ if (!defined('LACONICA')) {
  * @link     http://laconi.ca/
  */
 
-class BlockedfromgroupAction extends Action
+class BlockedfromgroupAction extends GroupDesignAction
 {
     var $page = null;
 

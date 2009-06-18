@@ -113,6 +113,12 @@ class GroupNav extends Widget
                                  sprintf(_('Add or edit %s logo'), $nickname),
                                  $action_name == 'grouplogo',
                                  'nav_group_logo');
+            $this->out->menuItem(common_local_url('groupdesignsettings', array('nickname' =>
+                                                                  $nickname)),
+                                 _('Design'),
+                                 sprintf(_('Add or edit %s design'), $nickname),
+                                 $action_name == 'groupdesignsettings',
+                                 'nav_group_design');
         }
         $this->out->elementEnd('ul');
     }

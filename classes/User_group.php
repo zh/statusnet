@@ -19,6 +19,7 @@ class User_group extends Memcached_DataObject
     public $homepage_logo;                   // varchar(255)
     public $stream_logo;                     // varchar(255)
     public $mini_logo;                       // varchar(255)
+    public $design_id;                       // int(4)
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
@@ -239,4 +240,10 @@ class User_group extends Memcached_DataObject
         }
         return null;
     }
+
+    function getDesign()
+    {
+        return Design::staticGet('id', $this->design_id);
+    }
+
 }
