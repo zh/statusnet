@@ -69,12 +69,12 @@ class Design extends Memcached_DataObject
                 __FILE__);
         }
 
-        $css  = 'html, body { background-color: #' . $bgcolor->hexValue() . '} ' . "\n";
+        $css  = 'body { background-color: #' . $bgcolor->hexValue() . ' }' . "\n";
         $css .= '#content, #site_nav_local_views .current a { background-color: #';
         $css .= $ccolor->hexValue() . '} '."\n";
-        $css .= '#aside_primary { background-color: #'. $sbcolor->hexValue() . '} ' . "\n";
-        $css .= 'html body { color: #'. $tcolor->hexValue() . '} '. "\n";
-        $css .= 'a { color: #' . $lcolor->hexValue() . '} ' . "\n";
+        $css .= '#aside_primary { background-color: #'. $sbcolor->hexValue() . ' }' . "\n";
+        $css .= 'html body { color: #'. $tcolor->hexValue() . ' }'. "\n";
+        $css .= 'a { color: #' . $lcolor->hexValue() . ' }' . "\n";
 
         if (!empty($this->backgroundimage) &&
             $this->disposition & BACKGROUND_ON) {
