@@ -38,6 +38,9 @@ define('SCRIPT_DEBUG', true);
 require_once(INSTALLDIR . '/lib/common.php');
 require_once(INSTALLDIR . '/lib/daemon.php');
 
+// NOTE: an Avatar path MUST be set in config.php for this
+// script to work: e.g.: $config['avatar']['path'] = '/laconica/avatar';
+
 class TwitterStatusFetcher extends Daemon
 {
 
@@ -358,11 +361,11 @@ class TwitterStatusFetcher extends Daemon
 
         $oldname = $profile->getAvatar(48)->filename;
 
-        if ($newname != $oldname) {
+        if ($newname != $oldname || $this->missingAvatarFile($profile)) {
 
             if (defined('SCRIPT_DEBUG')) {
                 common_debug('Avatar for Twitter user ' .
-                    "$profile->nickname has changed.");
+                    "$profile->nickname has changed, or was missing locally.");
                 common_debug("old: $oldname new: $newname");
             }
 
@@ -381,6 +384,21 @@ class TwitterStatusFetcher extends Daemon
                 }
             }
         }
+    }
+
+    function missingAvatarFile($profile) {
+
+        foreach (array(24, 48, 73) as $size) {
+
+            $filename = $profile->getAvatar($size)->filename;
+            $avatarpath = Avatar::path($filename);
+
+            if (file_exists($avatarpath) == FALSE) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     function getMediatype($ext)
@@ -447,7 +465,6 @@ class TwitterStatusFetcher extends Daemon
             if (defined('SCRIPT_DEBUG')) {
                 common_debug("Deleting $size avatar for $profile->nickname.");
             }
-            @unlink(INSTALLDIR . '/avatar/' . $avatar->filename);
             $avatar->delete();
         }
 

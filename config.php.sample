@@ -154,6 +154,9 @@ $config['sphinx']['port'] = 3312;
 // $config['integration']['source'] = 'Laconica';
 
 // Enable bidirectional Twitter bridge
+//
+// NOTE: if you enable this you must also set $config['avatar']['path']
+//
 // $config['twitterbridge']['enabled'] = true;
 
 // Edit throttling. Off by default. If turned on, you can only post 20 notices
