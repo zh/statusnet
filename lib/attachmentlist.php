@@ -243,6 +243,42 @@ class AttachmentListItem extends Widget
 
 class Attachment extends AttachmentListItem
 {
+    function showLink() {
+        $this->out->elementStart('a', $this->linkAttr());
+        $this->out->element('span', null, $this->linkTitle());
+        $this->showRepresentation();
+        $this->out->elementEnd('a');
+
+        if (empty($this->oembed->author_name) && empty($this->oembed->provider)) {
+            return;
+        }
+
+        $this->out->elementStart('dl', 'oembed_info');
+        
+        if (!empty($this->oembed->author_name)) {
+            $this->out->element('dt', null, _('Author:'));
+
+            $this->out->elementStart('dd');
+            if (empty($this->oembed->author_url)) {
+                $this->out->text($this->oembed->author_name);
+            } else {
+                $this->out->element('a', array('href' => $this->oembed->author_url), $this->oembed->author_name);
+            }
+            $this->out->elementEnd('dd');
+        }
+        if (!empty($this->oembed->provider)) {
+            $this->out->element('dt', null, _('Provider:'));
+            $this->out->elementStart('dd');
+            if (empty($this->oembed->provider_url)) {
+                $this->out->text($this->oembed->provider);
+            } else {
+                $this->out->element('a', array('href' => $this->oembed->provider_url), $this->oembed->provider);
+            }
+            $this->out->elementEnd('dd');
+        }
+        $this->out->elementEnd('dl');
+    }
+
     function show() {
         $this->showNoticeAttachment();
     }
