@@ -132,7 +132,7 @@ class Router
         // settings
 
         foreach (array('profile', 'avatar', 'password', 'openid', 'im',
-                       'email', 'sms', 'twitter', 'design', 'other') as $s) {
+                       'email', 'sms', 'twitter', 'userdesign', 'other') as $s) {
             $m->connect('settings/'.$s, array('action' => $s.'settings'));
         }
 
@@ -223,7 +223,7 @@ class Router
                         array('nickname' => '[a-zA-Z0-9]+'));
         }
 
-        foreach (array('members', 'logo', 'rss') as $n) {
+        foreach (array('members', 'logo', 'rss', 'designsettings') as $n) {
             $m->connect('group/:nickname/'.$n,
                         array('action' => 'group'.$n),
                         array('nickname' => '[a-zA-Z0-9]+'));

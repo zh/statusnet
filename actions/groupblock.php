@@ -151,19 +151,17 @@ class GroupblockAction extends Action
     function areYouSureForm()
     {
         $id = $this->profile->id;
-        $this->elementStart('form', array('id' => 'block-' . $id,
-                                           'method' => 'post',
-                                           'class' => 'form_settings form_entity_block',
-                                           'action' => common_local_url('groupblock')));
-        $this->elementStart('fieldset');
-        $this->hidden('token', common_session_token());
-        $this->element('legend', null, _('Block user'));
         $this->element('p', null,
                        sprintf(_('Are you sure you want to block user "%s" from the group "%s"? '.
                                  'They will be removed from the group, unable to post, and '.
                                  'unable to subscribe to the group in the future.'),
                                $this->profile->getBestName(),
                                $this->group->getBestName()));
+        $this->elementStart('form', array('id' => 'block-' . $id,
+                                           'method' => 'post',
+                                           'class' => 'block',
+                                           'action' => common_local_url('groupblock')));
+        $this->hidden('token', common_session_token());
         $this->hidden('blockto-' . $this->profile->id,
                       $this->profile->id,
                       'blockto');
@@ -175,9 +173,8 @@ class GroupblockAction extends Action
                 $this->hidden($k, $v);
             }
         }
-        $this->submit('form_action-no', _('No'), 'submit form_action-primary', 'no', _("Do not block this user from this group"));
-        $this->submit('form_action-yes', _('Yes'), 'submit form_action-secondary', 'yes', _('Block this user from this group'));
-        $this->elementEnd('fieldset');
+        $this->submit('no', _('No'));
+        $this->submit('yes', _('Yes'));
         $this->elementEnd('form');
     }
 
