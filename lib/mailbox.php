@@ -295,4 +295,17 @@ class MailboxAction extends CurrentUserDesignAction
         return;
     }
 
+    /**
+     * Mailbox actions are read only
+     *
+     * @param array $args other arguments
+     *
+     * @return boolean
+     */
+
+    function isReadOnly($args)
+    {
+         return true;
+    }
+
 }
