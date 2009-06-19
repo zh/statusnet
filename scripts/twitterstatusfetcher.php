@@ -52,6 +52,9 @@ require_once INSTALLDIR . '/lib/daemon.php';
  * @link     http://laconi.ca/
  */
 
+// NOTE: an Avatar path MUST be set in config.php for this
+// script to work: e.g.: $config['avatar']['path'] = '/laconica/avatar';
+
 class TwitterStatusFetcher extends Daemon
 {
     private $_children = array();
@@ -403,12 +406,13 @@ class TwitterStatusFetcher extends Daemon
         }
     }
 
-    function checkAvatar($user, $profile)
+    function checkAvatar($twitter_user, $profile)
     {
         global $config;
 
-        $path_parts = pathinfo($user->profile_image_url);
-        $newname = 'Twitter_' . $user->id . '_' .
+        $path_parts = pathinfo($twitter_user->profile_image_url);
+
+        $newname = 'Twitter_' . $twitter_user->id . '_' .
             $path_parts['basename'];
 
         $oldname = $profile->getAvatar(48)->filename;
@@ -421,21 +425,56 @@ class TwitterStatusFetcher extends Daemon
                 common_debug("old: $oldname new: $newname");
             }
 
-            $img_root = substr($path_parts['basename'], 0, -11);
-            $ext = $path_parts['extension'];
-            $mediatype = $this->getMediatype($ext);
+            $this->updateAvatars($twitter_user, $profile);
+        }
 
-            foreach (array('mini', 'normal', 'bigger') as $size) {
-                $url = $path_parts['dirname'] . '/' .
-                    $img_root . '_' . $size . ".$ext";
-                $filename = 'Twitter_' . $user->id . '_' .
-                    $img_root . "_$size.$ext";
+        if ($this->missingAvatarFile($profile)) {
 
-                if ($this->fetchAvatar($url, $filename)) {
-                    $this->updateAvatar($profile->id, $size, $mediatype, $filename);
-                }
+            if (defined('SCRIPT_DEBUG')) {
+                common_debug('Twitter user ' . $profile->nickname .
+                    ' is missing one or more local avatars.');
+                common_debug("old: $oldname new: $newname");
+            }
+
+            $this->updateAvatars($twitter_user, $profile);
+        }
+
+    }
+
+    function updateAvatars($twitter_user, $profile) {
+
+        global $config;
+
+        $path_parts = pathinfo($twitter_user->profile_image_url);
+
+        $img_root = substr($path_parts['basename'], 0, -11);
+        $ext = $path_parts['extension'];
+        $mediatype = $this->getMediatype($ext);
+
+        foreach (array('mini', 'normal', 'bigger') as $size) {
+            $url = $path_parts['dirname'] . '/' .
+                $img_root . '_' . $size . ".$ext";
+            $filename = 'Twitter_' . $twitter_user->id . '_' .
+                $img_root . "_$size.$ext";
+
+            $this->updateAvatar($profile->id, $size, $mediatype, $filename);
+            $this->fetchAvatar($url, $filename);
+        }
+    }
+
+    function missingAvatarFile($profile) {
+
+        foreach (array(24, 48, 73) as $size) {
+
+            $filename = $profile->getAvatar($size)->filename;
+            $avatarpath = Avatar::path($filename);
+
+            if (file_exists($avatarpath) == FALSE) {
+                return true;
             }
         }
+
+        return false;
     }
 
     function getMediatype($ext)
@@ -488,7 +527,7 @@ class TwitterStatusFetcher extends Daemon
 
         $profile = Profile::staticGet($profile_id);
 
-        if (!$profile) {
+        if (empty($profile)) {
             if (defined('SCRIPT_DEBUG')) {
                 common_debug("Couldn't get profile: $profile_id!");
             }
@@ -498,11 +537,8 @@ class TwitterStatusFetcher extends Daemon
         $sizes = array('mini' => 24, 'normal' => 48, 'bigger' => 73);
         $avatar = $profile->getAvatar($sizes[$size]);
 
+        // Delete the avatar, if present
         if ($avatar) {
-            if (defined('SCRIPT_DEBUG')) {
-                common_debug("Deleting $size avatar for $profile->nickname.");
-            }
-            @unlink(INSTALLDIR . '/avatar/' . $avatar->filename);
             $avatar->delete();
         }
 
@@ -547,7 +583,7 @@ class TwitterStatusFetcher extends Daemon
 
         $id = $avatar->insert();
 
-        if (!$id) {
+        if (empty($id)) {
             common_log_db_error($avatar, 'INSERT', __FILE__);
             return null;
         }
