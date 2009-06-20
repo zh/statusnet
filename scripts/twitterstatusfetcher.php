@@ -33,7 +33,12 @@ define('MAXCHILDREN', 2);
 define('POLL_INTERVAL', 60); // in seconds
 
 // Uncomment this to get useful logging
-define('SCRIPT_DEBUG', true);
+// define('SCRIPT_DEBUG', true);
+
+// Preset the server at the command line
+
+$server = ($argc > 2) ? $argv[2] : null;
+$path   = ($argc > 3) ? $argv[3] : null;
 
 require_once INSTALLDIR . '/lib/common.php';
 require_once INSTALLDIR . '/lib/daemon.php';

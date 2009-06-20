@@ -30,6 +30,11 @@ define('LACONICA', true);
 // Uncomment this to get useful console output
 //define('SCRIPT_DEBUG', true);
 
+// Preset the server at the command line
+
+$server = ($argc > 1) ? $argv[1] : null;
+$path   = ($argc > 2) ? $argv[2] : null;
+
 require_once(INSTALLDIR . '/lib/common.php');
 
 // Make a lockfile

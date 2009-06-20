@@ -32,6 +32,11 @@ mb_internal_encoding('UTF-8');
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 define('LACONICA', true);
 
+// Preset the server at the command line
+
+$server = ($argc > 2) ? $argv[2] : null;
+$path   = ($argc > 3) ? $argv[3] : null;
+
 require_once(INSTALLDIR . '/lib/common.php');
 
 $user = new User();
@@ -74,10 +79,10 @@ while ($user->fetch()) {
     $delay = 3.0 * ($finish - $start);
 
     print "Delaying $delay seconds...";
-    
+
     // Wait to let slaves catch up
 
     usleep($delay * 1000000);
-    
+
     print "DONE.\n";
 }

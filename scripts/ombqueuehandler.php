@@ -27,6 +27,11 @@ if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 define('LACONICA', true);
 
+// Preset the server at the command line
+
+$server = ($argc > 2) ? $argv[2] : null;
+$path   = ($argc > 3) ? $argv[3] : null;
+
 require_once(INSTALLDIR . '/lib/common.php');
 require_once(INSTALLDIR . '/lib/omb.php');
 require_once(INSTALLDIR . '/lib/queuehandler.php');
@@ -35,12 +40,12 @@ set_error_handler('common_error_handler');
 
 class OmbQueueHandler extends QueueHandler
 {
-    
+
     function transport()
     {
         return 'omb';
     }
-    
+
     function start()
     {
         $this->log(LOG_INFO, "INITIALIZE");
@@ -56,7 +61,7 @@ class OmbQueueHandler extends QueueHandler
             return omb_broadcast_remote_subscribers($notice);
         }
     }
-    
+
     function finish()
     {
     }

@@ -67,14 +67,25 @@ function _sn_to_path($sn)
     return $p;
 }
 
-// try to figure out where we are
+// try to figure out where we are. $server and $path
+// can be set by including module, else we guess based
+// on HTTP info.
 
-$_server = array_key_exists('SERVER_NAME', $_SERVER) ?
-  strtolower($_SERVER['SERVER_NAME']) :
-  null;
-$_path = array_key_exists('SCRIPT_NAME', $_SERVER) ?
-  _sn_to_path($_SERVER['SCRIPT_NAME']) :
-  null;
+if (isset($server)) {
+    $_server = $server;
+} else {
+    $_server = array_key_exists('SERVER_NAME', $_SERVER) ?
+      strtolower($_SERVER['SERVER_NAME']) :
+    null;
+}
+
+if (isset($path)) {
+    $_path = $path;
+} else {
+    $_path = array_key_exists('SCRIPT_NAME', $_SERVER) ?
+      _sn_to_path($_SERVER['SCRIPT_NAME']) :
+    null;
+}
 
 // default configuration, overwritten in config.php
 

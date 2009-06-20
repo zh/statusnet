@@ -27,6 +27,11 @@ if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 define('LACONICA', true);
 
+// Preset the server at the command line
+
+$server = ($argc > 2) ? $argv[2] : null;
+$path   = ($argc > 3) ? $argv[3] : null;
+
 require_once(INSTALLDIR . '/lib/common.php');
 require_once(INSTALLDIR . '/lib/jabber.php');
 require_once(INSTALLDIR . '/lib/xmppqueuehandler.php');

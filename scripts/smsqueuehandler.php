@@ -27,6 +27,11 @@ if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 define('LACONICA', true);
 
+// Preset the server at the command line
+
+$server = ($argc > 2) ? $argv[2] : null;
+$path   = ($argc > 3) ? $argv[3] : null;
+
 require_once(INSTALLDIR . '/lib/common.php');
 require_once(INSTALLDIR . '/lib/mail.php');
 require_once(INSTALLDIR . '/lib/queuehandler.php');
@@ -35,7 +40,7 @@ set_error_handler('common_error_handler');
 
 class SmsQueueHandler extends QueueHandler
 {
-    
+
     function transport()
     {
         return 'sms';
@@ -51,7 +56,7 @@ class SmsQueueHandler extends QueueHandler
     {
         return mail_broadcast_notice_sms($notice);
     }
-    
+
     function finish()
     {
     }
