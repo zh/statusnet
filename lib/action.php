@@ -247,7 +247,6 @@ class Action extends HTMLOutputter // lawsuit
                                                'src' => common_path('js/jquery.joverlay.min.js')),
                                ' ');
 
-
                 Event::handle('EndShowJQueryScripts', array($this));
             }
             if (Event::handle('StartShowLaconicaScripts', array($this))) {
@@ -704,6 +703,11 @@ class Action extends HTMLOutputter // lawsuit
                             _('About'));
             $this->menuItem(common_local_url('doc', array('title' => 'faq')),
                             _('FAQ'));
+            $bb = common_config('site', 'broughtby');
+            if (!empty($bb)) {
+                $this->menuItem(common_local_url('doc', array('title' => 'tos')),
+                                _('TOS'));
+            }
             $this->menuItem(common_local_url('doc', array('title' => 'privacy')),
                             _('Privacy'));
             $this->menuItem(common_local_url('doc', array('title' => 'source')),
