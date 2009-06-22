@@ -20,8 +20,8 @@
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 
-$shortoptions = 'i';
-$longoptions = array('id');
+$shortoptions = 'i::';
+$longoptions = array('id::');
 
 $helptext = <<<END_OF_ENJIT_HELP
 Daemon script for watching new notices and posting to enjit.
