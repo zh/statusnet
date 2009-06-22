@@ -83,7 +83,6 @@ $config =
         array('name' => 'Just another Laconica microblog',
               'server' => $_server,
               'theme' => 'default',
-              'skin' => 'default',
               'design' =>
               array('backgroundcolor' => '#F0F2F5',
                     'contentcolor' => '#FFFFFF',
