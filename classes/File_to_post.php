@@ -31,9 +31,9 @@ class File_to_post extends Memcached_DataObject
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'file_to_post';                    // table name
-    public $id;                              // int(11)  not_null primary_key group_by
-    public $file_id;                         // int(11)  multiple_key group_by
-    public $post_id;                         // int(11)  group_by
+    public $file_id;                         // int(4)  primary_key not_null
+    public $post_id;                         // int(4)  primary_key not_null
+    public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('File_to_post',$k,$v); }

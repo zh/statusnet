@@ -31,19 +31,19 @@ class File_oembed extends Memcached_DataObject
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'file_oembed';                     // table name
-    public $id;                              // int(11)  not_null primary_key group_by
-    public $file_id;                         // int(11)  unique_key group_by
+    public $file_id;                         // int(4)  primary_key not_null
     public $version;                         // varchar(20)  
     public $type;                            // varchar(20)  
     public $provider;                        // varchar(50)  
     public $provider_url;                    // varchar(255)  
-    public $width;                           // int(11)  group_by
-    public $height;                          // int(11)  group_by
-    public $html;                            // blob(65535)  blob
+    public $width;                           // int(4)  
+    public $height;                          // int(4)  
+    public $html;                            // text()  
     public $title;                           // varchar(255)  
     public $author_name;                     // varchar(50)  
     public $author_url;                      // varchar(255)  
     public $url;                             // varchar(255)  
+    public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('File_oembed',$k,$v); }
