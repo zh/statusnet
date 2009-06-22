@@ -18,23 +18,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-# Abort if called from a web server
-if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
-    print "This script must be run from the command line\n";
-    exit();
-}
-
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
-define('LACONICA', true);
 
-// Preset the server at the command line
+$shortoptions = 'i';
+$longoptions = array('id');
 
-$server = ($argc > 2) ? $argv[2] : null;
-$path   = ($argc > 3) ? $argv[3] : null;
+$helptext = <<<END_OF_ENJIT_HELP
+Daemon script for watching new notices and posting to enjit.
 
-require_once(INSTALLDIR . '/lib/common.php');
-require_once(INSTALLDIR . '/lib/mail.php');
-require_once(INSTALLDIR . '/lib/queuehandler.php');
+    -i --id           Identity (default none)
+
+END_OF_ENJIT_HELP;
+
+require_once INSTALLDIR.'/scripts/commandline.inc';
+
+require_once INSTALLDIR . '/lib/mail.php';
+require_once INSTALLDIR . '/lib/queuehandler.php';
 
 set_error_handler('common_error_handler');
 
@@ -123,7 +122,14 @@ class EnjitQueueHandler extends QueueHandler
 
 mb_internal_encoding('UTF-8');
 
-$id = ($argc > 1) ? $argv[1] : null;
+$id = NULL;
+
+foreach ($options as $option) {
+    if ($option[0] == '--id' || $option[0] == '-i') {
+        $id = $option[1];
+        break;
+    }
+}
 
 $handler = new EnjitQueueHandler($id);
 
