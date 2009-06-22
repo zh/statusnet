@@ -30,7 +30,7 @@ require_once INSTALLDIR.'/classes/File_to_post.php';
  * Table Definition for file
  */
 
-class File extends Memcached_DataObject 
+class File extends Memcached_DataObject
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -38,12 +38,12 @@ class File extends Memcached_DataObject
     public $__table = 'file';                            // table name
     public $id;                              // int(4)  primary_key not_null
     public $url;                             // varchar(255)  unique_key
-    public $mimetype;                        // varchar(50)  
-    public $size;                            // int(4)  
-    public $title;                           // varchar(255)  
-    public $date;                            // int(4)  
-    public $protected;                       // int(4)  
-    public $filename;                        // varchar(255)  
+    public $mimetype;                        // varchar(50)
+    public $size;                            // int(4)
+    public $title;                           // varchar(255)
+    public $date;                            // int(4)
+    public $protected;                       // int(4)
+    public $filename;                        // varchar(255)
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
@@ -116,7 +116,7 @@ class File extends Memcached_DataObject
             $x = File::staticGet($file_id);
             if (empty($x)) die('Impossible!');
         }
-       
+
         File_to_post::processNew($file_id, $notice_id);
         return $x;
     }
@@ -145,5 +145,47 @@ class File extends Memcached_DataObject
         }
         return true;
     }
+
+    // where should the file go?
+
+     static function filename($notice_id, $basename)
+     {
+         return $notice_id . '-' . $basename;
+     }
+
+     static function path($filename)
+     {
+         $dir = common_config('attachments', 'dir');
+
+         if ($dir[strlen($dir)-1] != '/') {
+             $dir .= '/';
+         }
+
+         return $dir . $filename;
+     }
+
+     static function url($filename)
+     {
+         $path = common_config('attachments', 'path');
+
+         if ($path[strlen($path)-1] != '/') {
+             $path .= '/';
+         }
+
+         if ($path[0] != '/') {
+             $path = '/'.$path;
+         }
+
+         $server = common_config('attachments', 'server');
+
+         if (empty($server)) {
+             $server = common_config('site', 'server');
+         }
+
+         // XXX: protocol
+
+         return 'http://'.$server.$path.$filename;
+     }
+
 }
 
