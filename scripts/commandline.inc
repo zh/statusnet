@@ -91,22 +91,22 @@ foreach ($options as $option) {
 
     switch ($option[0]) {
      case '--server':
-     case '-s':
+     case 's':
         $server = $option[1];
         break;
 
      case '--path':
-     case '-p':
+     case 'p':
         $path = $option[1];
         break;
 
      case '--conf':
-     case '-c':
+     case 'c':
         $conffile = $option[1];
         break;
 
      case '--help':
-     case '-h':
+     case 'h':
         show_help();
     }
 }
