@@ -1039,9 +1039,16 @@ theme
 -----
 
 server: Like avatars, you can speed up page loading by pointing the
-	theme file lookup to another server (virtual or real). The
-	theme server's root path should map to the Laconica "theme"
-	subdirectory. Defaults to NULL.
+	theme file lookup to another server (virtual or real).
+	Defaults to NULL, meaning to use the site server.
+dir:    Directory where theme files are stored. Used to determine
+	whether to show parts of a theme file. Defaults to the theme
+	subdirectory of the install directory.
+path:	Path part of theme URLs, before the theme name. Relative to the
+	theme server. It may make sense to change this path when upgrading,
+	(using version numbers as the path) to make sure that all files are
+	reloaded by caching clients or proxies. Defaults to null,
+	which means to use the site path + '/theme'.
 
 xmpp
 ----
