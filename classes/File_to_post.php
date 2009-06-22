@@ -36,7 +36,7 @@ class File_to_post extends Memcached_DataObject
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('File_to_post',$k,$v); }
+    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('File_to_post',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
