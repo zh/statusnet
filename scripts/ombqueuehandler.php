@@ -23,12 +23,12 @@ define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 $shortoptions = 'i';
 $longoptions = array('id');
 
-$helptext = <<<END_OF_FACEBOOK_HELP
-Daemon script for pushing new notices to Facebook.
+$helptext = <<<END_OF_OMB_HELP
+Daemon script for pushing new notices to OpenMicroBlogging subscribers.
 
     -i --id           Identity (default none)
 
-END_OF_FACEBOOK_HELP;
+END_OF_OMB_HELP;
 
 require_once INSTALLDIR.'/scripts/commandline.inc';
 
