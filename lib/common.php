@@ -269,14 +269,18 @@ if (function_exists('date_default_timezone_set')) {
 // server-wide, then vhost-wide, then for a path,
 // finally for a dir (usually only need one of the last two).
 
-$_config_files = array('/etc/laconica/laconica.php',
-                  '/etc/laconica/'.$_server.'.php');
+if (isset($conffile)) {
+    $_config_files = array($conffile);
+} else {
+    $_config_files = array('/etc/laconica/laconica.php',
+                           '/etc/laconica/'.$_server.'.php');
 
-if (strlen($_path) > 0) {
-    $_config_files[] = '/etc/laconica/'.$_server.'_'.$_path.'.php';
+    if (strlen($_path) > 0) {
+        $_config_files[] = '/etc/laconica/'.$_server.'_'.$_path.'.php';
+    }
+
+    $_config_files[] = INSTALLDIR.'/config.php';
 }
-
-$_config_files[] = INSTALLDIR.'/config.php';
 
 $_have_a_config = false;
 
