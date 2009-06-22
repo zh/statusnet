@@ -193,7 +193,14 @@ class Memcached_DataObject extends DB_DataObject
                 // unable to connect to sphinx' search daemon
                 if (!$connected) {
                     if ('mysql' === common_config('db', 'type')) {
-                        $search_engine = new MySQLSearch($this, $table);
+                        $type = common_config('search', 'type');
+                        if ($type == 'like') {
+                            $search_engine = new MySQLLikeSearch($this, $table);
+                        } else if ($type == 'fulltext') {
+                            $search_engine = new MySQLSearch($this, $table);
+                        } else {
+                            throw new ServerException('Unknown search type: ' . $type);
+                        }
                     } else {
                         $search_engine = new PGSearch($this, $table);
                     }

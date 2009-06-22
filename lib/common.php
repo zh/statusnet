@@ -228,7 +228,9 @@ $config =
         ),
         'group' =>
         array('maxaliases' => 3),
-        'oohembed' => array('endpoint' => 'http://oohembed.com/oohembed/')
+        'oohembed' => array('endpoint' => 'http://oohembed.com/oohembed/'),
+        'search' =>
+        array('type' => 'fulltext'),
         );
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');

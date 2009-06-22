@@ -131,6 +131,28 @@ class MySQLSearch extends SearchEngine
     }
 }
 
+class MySQLLikeSearch extends SearchEngine
+{
+    function query($q)
+    {
+        if ('identica_people' === $this->table) {
+            $qry = sprintf('(nickname LIKE "%%%1$s%%" OR '.
+                           ' fullname LIKE "%%%1$s%%" OR '.
+                           ' location LIKE "%%%1$s%%" OR '.
+                           ' bio      LIKE "%%%1$s%%" OR '.
+                           ' homepage LIKE "%%%1$s%%")', addslashes($q));
+        } else if ('identica_notices' === $this->table) {
+            $qry = sprintf('content LIKE "%%%1$s%%"', addslashes($q));
+        } else {
+            throw new ServerException('Unknown table: ' . $this->table);
+        }
+
+        $this->target->whereAdd($qry);
+
+        return true;
+    }
+}
+
 class PGSearch extends SearchEngine
 {
     function query($q)
