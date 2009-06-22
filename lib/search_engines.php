@@ -1,7 +1,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -136,6 +136,28 @@ class MySQLSearch extends SearchEngine
         } else {
             throw new ServerException('Unknown table: ' . $this->table);
         }
+    }
+}
+
+class MySQLLikeSearch extends SearchEngine
+{
+    function query($q)
+    {
+        if ('identica_people' === $this->table) {
+            $qry = sprintf('(nickname LIKE "%%%1$s%%" OR '.
+                           ' fullname LIKE "%%%1$s%%" OR '.
+                           ' location LIKE "%%%1$s%%" OR '.
+                           ' bio      LIKE "%%%1$s%%" OR '.
+                           ' homepage LIKE "%%%1$s%%")', addslashes($q));
+        } else if ('identica_notices' === $this->table) {
+            $qry = sprintf('content LIKE "%%%1$s%%"', addslashes($q));
+        } else {
+            throw new ServerException('Unknown table: ' . $this->table);
+        }
+
+        $this->target->whereAdd($qry);
+
+        return true;
     }
 }
 
