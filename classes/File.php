@@ -36,16 +36,18 @@ class File extends Memcached_DataObject
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'file';                            // table name
-    public $id;                              // int(11)  not_null primary_key group_by
+    public $id;                              // int(4)  primary_key not_null
     public $url;                             // varchar(255)  unique_key
     public $mimetype;                        // varchar(50)  
-    public $size;                            // int(11)  group_by
+    public $size;                            // int(4)  
     public $title;                           // varchar(255)  
-    public $date;                            // int(11)  group_by
-    public $protected;                       // int(1)  group_by
+    public $date;                            // int(4)  
+    public $protected;                       // int(4)  
+    public $filename;                        // varchar(255)  
+    public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('File',$k,$v); }
+    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('File',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
