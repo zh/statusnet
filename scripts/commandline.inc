@@ -65,6 +65,28 @@ $parser = new Console_Getopt();
 
 list($options, $args) = $parser->getopt($argv, $shortoptions, $longoptions);
 
+function show_help()
+{
+    global $helptext;
+
+    $_default_help_text = <<<END_OF_DEFAULT
+General options:
+
+    -q --quiet           Quiet (little output)
+    -v --verbose         Verbose (lots of output)
+    -c --conf=<filename> Use <filename> as config file
+    -s --server=<name>   Use <name> as server name
+    -p --path=<path>     Use <path> as path name
+    -h --help            Show this message and quit.
+
+END_OF_DEFAULT;
+        if (isset($helptext)) {
+            print $helptext;
+        }
+        print $_default_help_text;
+        exit(0);
+}
+
 foreach ($options as $option) {
 
     switch ($option[0]) {
@@ -85,22 +107,7 @@ foreach ($options as $option) {
 
      case '--help':
      case '-h':
-        $_default_help_text = <<<END_OF_DEFAULT
-General options:
-
-    -q --quiet           Quiet (little output)
-    -v --verbose         Verbose (lots of output)
-    -c --conf=<filename> Use <filename> as config file
-    -s --server=<name>   Use <name> as server name
-    -p --path=<path>     Use <path> as path name
-    -h --help            Show this message and quit.
-
-END_OF_DEFAULT;
-        if (isset($helptext)) {
-            print $helptext;
-        }
-        print $_default_help_text;
-        exit(0);
+        show_help();
     }
 }
 
