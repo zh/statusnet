@@ -27,50 +27,53 @@ if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 define('LACONICA', true);
 
-// Preset the server at the command line
-
-$server = ($argc > 2) ? $argv[2] : null;
-$path   = ($argc > 3) ? $argv[3] : null;
-
 require_once(INSTALLDIR . '/lib/common.php');
-require_once(INSTALLDIR . '/lib/jabber.php');
-require_once(INSTALLDIR . '/lib/xmppqueuehandler.php');
 
-set_error_handler('common_error_handler');
+common_log(LOG_INFO, 'Fixing up conversations.');
 
-class PublicQueueHandler extends XmppQueueHandler
-{
+$notice = new Notice();
+$notice->whereAdd('conversation is null');
+$notice->orderBy('id');
 
-    function transport()
-    {
-        return 'public';
-    }
+$cnt = $notice->find();
 
-    function handle_notice($notice)
-    {
-        try {
-            return jabber_public_notice($notice);
-        } catch (XMPPHP_Exception $e) {
-            $this->log(LOG_ERR, "Got an XMPPHP_Exception: " . $e->getMessage());
-            die($e->getMessage());
+print "Found $cnt notices.\n";
+
+while ($notice->fetch()) {
+
+    print "$notice->id =>";
+
+    $orig = clone($notice);
+
+    if (empty($notice->reply_to)) {
+        $notice->conversation = $notice->id;
+    } else {
+        $reply = Notice::staticGet('id', $notice->reply_to);
+
+        if (empty($reply)) {
+            common_log(LOG_WARNING, "Replied-to notice $notice->reply_to not found.");
+            $notice->conversation = $notice->id;
+        } else if (empty($reply->conversation)) {
+            common_log(LOG_WARNING, "Replied-to notice $reply->id has no conversation ID.");
+            $notice->conversation = $notice->id;
+        } else {
+            $notice->conversation = $reply->conversation;
         }
     }
-}
 
-// Abort immediately if xmpp is not enabled, otherwise the daemon chews up
-// lots of CPU trying to connect to unconfigured servers
-if (common_config('xmpp','enabled')==false) {
-    print "Aborting daemon - xmpp is disabled\n";
-    exit();
+    print "$notice->conversation";
+
+    $result = $notice->update($orig);
+
+    if (!$result) {
+        common_log_db_error($notice, 'UPDATE', __FILE__);
+        continue;
+    }
+
+    print ".\n";
 }
 
 ini_set("max_execution_time", "0");
 ini_set("max_input_time", "0");
 set_time_limit(0);
 mb_internal_encoding('UTF-8');
-
-$resource = ($argc > 1) ? $argv[1] : (common_config('xmpp','resource') . '-public');
-
-$handler = new PublicQueueHandler($resource);
-
-$handler->runOnce();

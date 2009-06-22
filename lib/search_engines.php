@@ -1,7 +1,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -118,16 +118,46 @@ class MySQLSearch extends SearchEngine
             }
             return true;
         } else if ('identica_notices' === $this->table) {
-             $this->target->whereAdd('MATCH(content) ' .
-                                     'AGAINST (\''.addslashes($q).'\' IN BOOLEAN MODE)');
+
+            // Don't show imported notices
+            $this->target->whereAdd('notice.is_local != ' . NOTICE_GATEWAY);
+
             if (strtolower($q) != $q) {
+                $this->target->whereAdd("( MATCH(content) AGAINST ('" . addslashes($q) .
+                    "' IN BOOLEAN MODE)) OR ( MATCH(content) " .
+                    "AGAINST ('"  . addslashes(strtolower($q)) .
+                    "' IN BOOLEAN MODE))");
+            } else {
                 $this->target->whereAdd('MATCH(content) ' .
-                                        'AGAINST (\''.addslashes(strtolower($q)).'\' IN BOOLEAN MODE)', 'OR');
+                                         'AGAINST (\''.addslashes($q).'\' IN BOOLEAN MODE)');
             }
+
             return true;
         } else {
             throw new ServerException('Unknown table: ' . $this->table);
         }
+    }
+}
+
+class MySQLLikeSearch extends SearchEngine
+{
+    function query($q)
+    {
+        if ('identica_people' === $this->table) {
+            $qry = sprintf('(nickname LIKE "%%%1$s%%" OR '.
+                           ' fullname LIKE "%%%1$s%%" OR '.
+                           ' location LIKE "%%%1$s%%" OR '.
+                           ' bio      LIKE "%%%1$s%%" OR '.
+                           ' homepage LIKE "%%%1$s%%")', addslashes($q));
+        } else if ('identica_notices' === $this->table) {
+            $qry = sprintf('content LIKE "%%%1$s%%"', addslashes($q));
+        } else {
+            throw new ServerException('Unknown table: ' . $this->table);
+        }
+
+        $this->target->whereAdd($qry);
+
+        return true;
     }
 }
 
@@ -138,6 +168,9 @@ class PGSearch extends SearchEngine
         if ('identica_people' === $this->table) {
             return $this->target->whereAdd('textsearch @@ plainto_tsquery(\''.addslashes($q).'\')');
         } else if ('identica_notices' === $this->table) {
+
+            // XXX: We need to filter out gateway notices (notice.is_local = -2) --Zach
+
             return $this->target->whereAdd('to_tsvector(\'english\', content) @@ plainto_tsquery(\''.addslashes($q).'\')');
         } else {
             throw new ServerException('Unknown table: ' . $this->table);

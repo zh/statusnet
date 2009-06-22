@@ -1,7 +1,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -94,7 +94,6 @@ $config =
         array('name' => 'Just another Laconica microblog',
               'server' => $_server,
               'theme' => 'default',
-              'skin' => 'default',
               'design' =>
               array('backgroundcolor' => '#F0F2F5',
                     'contentcolor' => '#FFFFFF',
@@ -152,7 +151,9 @@ $config =
               'blacklist' => array(),
               'autosource' => array()),
         'theme' =>
-        array('server' => null),
+        array('server' => null,
+              'dir' => null,
+              'path'=> null),
         'throttle' =>
         array('enabled' => false, // whether to throttle edits; false by default
               'count' => 20, // number of allowed messages in timespan
@@ -240,7 +241,9 @@ $config =
         ),
         'group' =>
         array('maxaliases' => 3),
-        'oohembed' => array('endpoint' => 'http://oohembed.com/oohembed/')
+        'oohembed' => array('endpoint' => 'http://oohembed.com/oohembed/'),
+        'search' =>
+        array('type' => 'fulltext'),
         );
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');

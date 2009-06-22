@@ -1,7 +1,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -36,14 +36,14 @@ class File_redirection extends Memcached_DataObject
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'file_redirection';                // table name
-    public $id;                              // int(11)  not_null primary_key group_by
-    public $url;                             // varchar(255)  unique_key
-    public $file_id;                         // int(11)  group_by
-    public $redirections;                    // int(11)  group_by
-    public $httpcode;                        // int(11)  group_by
+    public $url;                             // varchar(255)  primary_key not_null
+    public $file_id;                         // int(4)  
+    public $redirections;                    // int(4)  
+    public $httpcode;                        // int(4)  
+    public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('File_redirection',$k,$v); }
+    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('File_redirection',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
