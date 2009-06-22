@@ -105,3 +105,27 @@ END_OF_DEFAULT;
 }
 
 require_once INSTALLDIR . '/lib/common.php';
+
+set_error_handler('common_error_handler');
+
+function have_option($str)
+{
+   global $options;
+   foreach ($options as $option) {
+       if ($option[0] == $str) {
+          return true;
+       }
+   }
+   return false;
+}
+
+function get_option_value($str)
+{
+   global $options;
+   foreach ($options as $option) {
+       if ($option[0] == $str) {
+          return $option[1];
+       }
+   }
+   return null;
+}
