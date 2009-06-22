@@ -4,68 +4,68 @@
 
 source src1
 {
-	type					= mysql
-	sql_host				= localhost
-	sql_user				= USERNAME
-	sql_pass				= PASSWORD
-	sql_db					= identi_ca
-	sql_port				= 3306
-	sql_query				= SELECT id, UNIX_TIMESTAMP(created) as created_ts, nickname, fullname, location, bio, homepage FROM profile
-	sql_query_info			= SELECT * FROM profile where id = $id
-	sql_attr_timestamp		= created_ts
+    type                    = mysql
+    sql_host                = localhost
+    sql_user                = USERNAME
+    sql_pass                = PASSWORD
+    sql_db                  = identi_ca
+    sql_port                = 3306
+    sql_query               = SELECT id, UNIX_TIMESTAMP(created) as created_ts, nickname, fullname, location, bio, homepage FROM profile
+    sql_query_info          = SELECT * FROM profile where id = $id
+    sql_attr_timestamp      = created_ts
 }
 
 
 source src2
 {
-	type					= mysql
-	sql_host				= localhost
-	sql_user				= USERNAME
-	sql_pass				= PASSWORD
-	sql_db					= identi_ca
-	sql_port				= 3306
-	sql_query				= SELECT id, UNIX_TIMESTAMP(created) as created_ts, content FROM notice
-	sql_query_info			= SELECT * FROM notice where id = $id
-	sql_attr_timestamp		= created_ts
+    type                    = mysql
+    sql_host                = localhost
+    sql_user                = USERNAME
+    sql_pass                = PASSWORD
+    sql_db                  = identi_ca
+    sql_port                = 3306
+    sql_query               = SELECT id, UNIX_TIMESTAMP(created) as created_ts, content FROM notice
+    sql_query_info          = SELECT * FROM notice where notice.id = $id AND notice.is_local != -2
+    sql_attr_timestamp      = created_ts
 }
 
 index identica_notices
 {
-	source					= src2
-	path					= DIRECTORY/data/identica_notices
-	docinfo					= extern
-	charset_type			= utf-8
-	min_word_len			= 3
-	stopwords				= DIRECTORY/data/stopwords-en.txt
+    source                  = src2
+    path                    = DIRECTORY/data/identica_notices
+    docinfo                 = extern
+    charset_type            = utf-8
+    min_word_len            = 3
+    stopwords               = DIRECTORY/data/stopwords-en.txt
 }
 
 
 index identica_people
 {
-	source					= src1
-	path					= DIRECTORY/data/identica_people
-	docinfo					= extern
-	charset_type			= utf-8
-	min_word_len			= 3
-	stopwords				= DIRECTORY/data/stopwords-en.txt
+    source                  = src1
+    path                    = DIRECTORY/data/identica_people
+    docinfo                 = extern
+    charset_type            = utf-8
+    min_word_len            = 3
+    stopwords               = DIRECTORY/data/stopwords-en.txt
 }
 
 indexer
 {
-	mem_limit				= 32M
+    mem_limit               = 32M
 }
 
 searchd
 {
-	port					= 3312
-	log						= DIRECTORY/log/searchd.log
-	query_log				= DIRECTORY/log/query.log
-	read_timeout			= 5
-	max_children			= 30
-	pid_file				= DIRECTORY/log/searchd.pid
-	max_matches				= 1000
-	seamless_rotate			= 1
-	preopen_indexes			= 0
-	unlink_old				= 1
+    port                    = 3312
+    log                     = DIRECTORY/log/searchd.log
+    query_log               = DIRECTORY/log/query.log
+    read_timeout            = 5
+    max_children            = 30
+    pid_file                = DIRECTORY/log/searchd.pid
+    max_matches             = 1000
+    seamless_rotate         = 1
+    preopen_indexes         = 0
+    unlink_old              = 1
 }
 
