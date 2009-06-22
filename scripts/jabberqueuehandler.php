@@ -20,13 +20,13 @@
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 
-$shortoptions = 'r';
-$longoptions = array('resource');
+$shortoptions = 'r::';
+$longoptions = array('resource::');
 
 $helptext = <<<END_OF_JABBER_HELP
 Daemon script for pushing new notices to Jabber users.
 
-    -r --resource       Jabber Resource ID
+    -r --resource       Jabber Resource ID (default to config)
 
 END_OF_JABBER_HELP;
 
@@ -63,8 +63,8 @@ if (common_config('xmpp','enabled')==false) {
     exit();
 }
 
-if (have_option('-r')) {
-    $resource = get_option_value('-r');
+if (have_option('r')) {
+    $resource = get_option_value('r');
 } else if (have_option('--resource')) {
     $resource = get_option_value('--resource');
 } else if (count($args) > 0) {

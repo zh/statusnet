@@ -20,8 +20,8 @@
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 
-$shortoptions = 'i';
-$longoptions = array('id');
+$shortoptions = 'i::';
+$longoptions = array('id::');
 
 $helptext = <<<END_OF_FACEBOOK_HELP
 Daemon script for pushing new notices to Facebook.
@@ -59,8 +59,8 @@ class FacebookQueueHandler extends QueueHandler
 
 }
 
-if (have_option('-i')) {
-    $id = get_option_value('-i');
+if (have_option('i')) {
+    $id = get_option_value('i');
 } else if (have_option('--id')) {
     $id = get_option_value('--id');
 } else if (count($args) > 0) {

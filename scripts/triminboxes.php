@@ -35,8 +35,8 @@ require_once INSTALLDIR.'/scripts/commandline.inc';
 
 $id = null;
 
-if (have_option('-u')) {
-    $id = get_option_value('-u');
+if (have_option('u')) {
+    $id = get_option_value('u');
 } else if (have_option('--start-user-id')) {
     $id = get_option_value('--start-user-id');
 } else {
