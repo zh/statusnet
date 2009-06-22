@@ -120,15 +120,12 @@ class EnjitQueueHandler extends QueueHandler
 
 }
 
-mb_internal_encoding('UTF-8');
-
-$id = NULL;
-
-foreach ($options as $option) {
-    if ($option[0] == '--id' || $option[0] == '-i') {
-        $id = $option[1];
-        break;
-    }
+if (have_option('-i')) {
+    $id = get_option_value('-i');
+} else if (have_option('--id')) {
+    $id = get_option_value('--id');
+} else {
+    $id = null;
 }
 
 $handler = new EnjitQueueHandler($id);
