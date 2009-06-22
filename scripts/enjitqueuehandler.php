@@ -124,6 +124,8 @@ if (have_option('-i')) {
     $id = get_option_value('-i');
 } else if (have_option('--id')) {
     $id = get_option_value('--id');
+} else if (count($args) > 0) {
+    $id = $args[0];
 } else {
     $id = null;
 }
