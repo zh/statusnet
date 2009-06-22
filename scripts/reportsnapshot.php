@@ -18,20 +18,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-# Abort if called from a web server
-if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
-    print "This script must be run from the command line\n";
-    exit(1);
-}
-
-ini_set("max_execution_time", "0");
-ini_set("max_input_time", "0");
-set_time_limit(0);
-mb_internal_encoding('UTF-8');
-
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
-define('LACONICA', true);
 
-require_once(INSTALLDIR . '/lib/common.php');
+$helptext = <<<END_OF_SNAPSHOT_HELP
+Batch script for sending snapshot information about this installation to devs.
+
+END_OF_SNAPSHOT_HELP;
+
+require_once INSTALLDIR.'/scripts/commandline.inc';
 
 Snapshot::check();
