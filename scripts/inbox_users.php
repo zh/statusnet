@@ -20,59 +20,55 @@
 
 # Abort if called from a web server
 
-if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
-    print "This script must be run from the command line\n";
-    exit();
-}
-
-ini_set("max_execution_time", "0");
-ini_set("max_input_time", "0");
-set_time_limit(0);
-mb_internal_encoding('UTF-8');
-
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
-define('LACONICA', true);
 
-require_once(INSTALLDIR . '/lib/common.php');
+$helptext = <<<ENDOFHELP
+inbox_users.php <idfile>
 
-$id_file = ($argc > 1) ? $argv[1] : 'ids.txt';
+Update users to use inbox table. Listed in an ID file, default 'ids.txt'.
+
+ENDOFHELP;
+
+require_once INSTALLDIR.'/scripts/commandline.inc';
+
+$id_file = (count($args) > 1) ? $args[0] : 'ids.txt';
 
 common_log(LOG_INFO, 'Updating user inboxes.');
 
 $ids = file($id_file);
 
 foreach ($ids as $id) {
-	
+
 	$user = User::staticGet('id', $id);
 
 	if (!$user) {
 		common_log(LOG_WARNING, 'No such user: ' . $id);
 		continue;
 	}
-	
+
 	if ($user->inboxed) {
 		common_log(LOG_WARNING, 'Already inboxed: ' . $id);
 		continue;
 	}
-	
+
     common_log(LOG_INFO, 'Updating inbox for user ' . $user->id);
-	
+
 	$user->query('BEGIN');
-	
+
 	$old_inbox = new Notice_inbox();
 	$old_inbox->user_id = $user->id;
-	
+
 	$result = $old_inbox->delete();
-	
+
 	if (is_null($result) || $result === false) {
 		common_log_db_error($old_inbox, 'DELETE', __FILE__);
 		continue;
 	}
 
 	$old_inbox->free();
-	
+
 	$inbox = new Notice_inbox();
-	
+
 	$result = $inbox->query('INSERT INTO notice_inbox (user_id, notice_id, created) ' .
 							'SELECT ' . $user->id . ', notice.id, notice.created ' .
 							'FROM subscription JOIN notice ON subscription.subscribed = notice.profile_id ' .
@@ -80,30 +76,30 @@ foreach ($ids as $id) {
 							'AND notice.created >= subscription.created ' .
 							'AND NOT EXISTS (SELECT user_id, notice_id ' .
 							'FROM notice_inbox ' .
-							'WHERE user_id = ' . $user->id . ' ' . 
+							'WHERE user_id = ' . $user->id . ' ' .
 							'AND notice_id = notice.id) ' .
 				                        'ORDER BY notice.created DESC ' .
 							'LIMIT 0, 1000');
-	
+
 	if (is_null($result) || $result === false) {
 		common_log_db_error($inbox, 'INSERT', __FILE__);
 		continue;
 	}
-	
+
 	$orig = clone($user);
 	$user->inboxed = 1;
 	$result = $user->update($orig);
-	
+
 	if (!$result) {
 		common_log_db_error($user, 'UPDATE', __FILE__);
 		continue;
 	}
-	
+
 	$user->query('COMMIT');
-	
+
 	$inbox->free();
 	unset($inbox);
-	
+
 	if ($cache) {
 		$cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
 		$cache->delete(common_cache_key('user:notices_with_friends:' . $user->id . ';last'));
