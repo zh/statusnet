@@ -25,16 +25,14 @@
  * daemon names.
  */
 
-# Abort if called from a web server
-if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
-    print "This script must be run from the command line\n";
-    exit();
-}
-
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
-define('LACONICA', true);
 
-require_once(INSTALLDIR . '/lib/common.php');
+$helptext = <<<ENDOFHELP
+getvaliddaemons.php - print out the currently configured PID directory
+
+ENDOFHELP;
+
+require_once INSTALLDIR.'/scripts/commandline.inc';
 
 if(common_config('xmpp','enabled')) {
     echo "xmppdaemon.php jabberqueuehandler.php publicqueuehandler.php ";
