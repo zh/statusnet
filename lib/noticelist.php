@@ -50,7 +50,6 @@ require_once INSTALLDIR.'/lib/attachmentlist.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://laconi.ca/
  * @see      Notice
- * @see      StreamAction
  * @see      NoticeListItem
  * @see      ProfileNoticeList
  */
@@ -180,7 +179,6 @@ class NoticeListItem extends Widget
     {
         $this->showStart();
         $this->showNotice();
-        $this->showNoticeAttachments();
         $this->showNoticeInfo();
         $this->showNoticeOptions();
         $this->showEnd();
@@ -194,36 +192,10 @@ class NoticeListItem extends Widget
         $this->out->elementEnd('div');
     }
 
-    function showNoticeAttachments() {
-        if ($this->isUsedInList()) {
-            return;
-        }
-        $al = new AttachmentList($this->notice, $this->out);
-        $al->show();
-    }
-
-    function isUsedInList() {
-        return 'shownotice' !== $this->out->args['action'];
-    }
-
-/*
-    function attachmentCount($discriminant = true) {
-        $file_oembed = new File_oembed;
-        $query = "select count(*) as c from file_oembed join file_to_post on file_oembed.file_id = file_to_post.file_id where post_id=" . $this->notice->id;
-        $file_oembed->query($query);
-        $file_oembed->fetch();
-        return intval($file_oembed->c);
-    }
-*/
-
-    function showWithAttachment() {
-    }
-
     function showNoticeInfo()
     {
         $this->out->elementStart('div', 'entry-content');
         $this->showNoticeLink();
-//        $this->showWithAttachment();
         $this->showNoticeSource();
         $this->showContext();
         $this->out->elementEnd('div');
@@ -363,10 +335,6 @@ class NoticeListItem extends Widget
             // we cook them right now. This should probably disappear in future
             // versions (>> 0.4.x)
             $this->out->raw(common_render_content($this->notice->content, $this->notice));
-        }
-        $uploaded = $this->notice->getUploadedAttachment();
-        if ($uploaded) {
-            $this->out->element('a', array('href' => $uploaded[0], 'class' => 'attachment', 'id' => 'attachment-' . $uploaded[1]), $uploaded[0]);
         }
         $this->out->elementEnd('p');
     }

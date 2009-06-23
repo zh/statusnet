@@ -1,7 +1,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -55,14 +55,37 @@ require_once(INSTALLDIR.'/lib/language.php');
 require_once(INSTALLDIR.'/lib/event.php');
 require_once(INSTALLDIR.'/lib/plugin.php');
 
-// try to figure out where we are
+function _sn_to_path($sn)
+{
+    $past_root = substr($sn, 1);
+    $last_slash = strrpos($past_root, '/');
+    if ($last_slash > 0) {
+        $p = substr($past_root, 0, $last_slash);
+    } else {
+        $p = '';
+    }
+    return $p;
+}
 
-$_server = array_key_exists('SERVER_NAME', $_SERVER) ?
-  strtolower($_SERVER['SERVER_NAME']) :
-  null;
-$_path = array_key_exists('SCRIPT_NAME', $_SERVER) ?
-  substr($_SERVER['SCRIPT_NAME'], 1, strrpos($_SERVER['SCRIPT_NAME'], '/') - 1) :
-  null;
+// try to figure out where we are. $server and $path
+// can be set by including module, else we guess based
+// on HTTP info.
+
+if (isset($server)) {
+    $_server = $server;
+} else {
+    $_server = array_key_exists('SERVER_NAME', $_SERVER) ?
+      strtolower($_SERVER['SERVER_NAME']) :
+    null;
+}
+
+if (isset($path)) {
+    $_path = $path;
+} else {
+    $_path = array_key_exists('SCRIPT_NAME', $_SERVER) ?
+      _sn_to_path($_SERVER['SCRIPT_NAME']) :
+    null;
+}
 
 // default configuration, overwritten in config.php
 
@@ -71,6 +94,14 @@ $config =
         array('name' => 'Just another Laconica microblog',
               'server' => $_server,
               'theme' => 'default',
+              'design' =>
+              array('backgroundcolor' => '#F0F2F5',
+                    'contentcolor' => '#FFFFFF',
+                    'sidebarcolor' => '#CEE1E9',
+                    'textcolor' => '#000000',
+                    'linkcolor' => '#002E6E',
+                    'backgroundimage' => null,
+                    'disposition' => 1),
               'path' => $_path,
               'logfile' => null,
               'logo' => null,
@@ -108,13 +139,21 @@ $config =
         'profile' =>
         array('banned' => array()),
         'avatar' =>
-        array('server' => null),
+        array('server' => null,
+              'dir' => INSTALLDIR . '/avatar/',
+              'path' => $_path . '/avatar/'),
+        'background' =>
+        array('server' => null,
+              'dir' => INSTALLDIR . '/background/',
+              'path' => $_path . '/background/'),
         'public' =>
         array('localonly' => true,
               'blacklist' => array(),
               'autosource' => array()),
         'theme' =>
-        array('server' => null),
+        array('server' => null,
+              'dir' => null,
+              'path'=> null),
         'throttle' =>
         array('enabled' => false, // whether to throttle edits; false by default
               'count' => 20, // number of allowed messages in timespan
@@ -150,6 +189,7 @@ $config =
         'memcached' =>
         array('enabled' => false,
               'server' => 'localhost',
+              'base' => null,
               'port' => 11211),
  		'ping' =>
         array('notify' => array()),
@@ -163,41 +203,51 @@ $config =
               'frequency' => 10000,
               'reporturl' => 'http://laconi.ca/stats/report'),
         'attachments' =>
-        array('supported' => array('image/png',
-            'image/jpeg',
-            'image/gif',
-            'image/svg+xml',
-            'audio/mpeg',
-            'audio/x-speex',
-            'application/ogg',
-            'application/pdf',
-            'application/vnd.oasis.opendocument.text',
-            'application/vnd.oasis.opendocument.text-template',
-            'application/vnd.oasis.opendocument.graphics',
-            'application/vnd.oasis.opendocument.graphics-template',
-            'application/vnd.oasis.opendocument.presentation',
-            'application/vnd.oasis.opendocument.presentation-template',
-            'application/vnd.oasis.opendocument.spreadsheet',
-            'application/vnd.oasis.opendocument.spreadsheet-template',
-            'application/vnd.oasis.opendocument.chart',
-            'application/vnd.oasis.opendocument.chart-template',
-            'application/vnd.oasis.opendocument.image',
-            'application/vnd.oasis.opendocument.image-template',
-            'application/vnd.oasis.opendocument.formula',
-            'application/vnd.oasis.opendocument.formula-template',
-            'application/vnd.oasis.opendocument.text-master',
-            'application/vnd.oasis.opendocument.text-web',
-            'application/x-zip',
-            'application/zip',
-            'text/plain',
-            'video/mpeg',
-            'video/mp4',
-            'video/quicktime',
-            'video/mpeg'),
+        array('server' => null,
+              'dir' => INSTALLDIR . '/file/',
+              'path' => $_path . '/file/',
+              'supported' => array('image/png',
+                                   'image/jpeg',
+                                   'image/gif',
+                                   'image/svg+xml',
+                                   'audio/mpeg',
+                                   'audio/x-speex',
+                                   'application/ogg',
+                                   'application/pdf',
+                                   'application/vnd.oasis.opendocument.text',
+                                   'application/vnd.oasis.opendocument.text-template',
+                                   'application/vnd.oasis.opendocument.graphics',
+                                   'application/vnd.oasis.opendocument.graphics-template',
+                                   'application/vnd.oasis.opendocument.presentation',
+                                   'application/vnd.oasis.opendocument.presentation-template',
+                                   'application/vnd.oasis.opendocument.spreadsheet',
+                                   'application/vnd.oasis.opendocument.spreadsheet-template',
+                                   'application/vnd.oasis.opendocument.chart',
+                                   'application/vnd.oasis.opendocument.chart-template',
+                                   'application/vnd.oasis.opendocument.image',
+                                   'application/vnd.oasis.opendocument.image-template',
+                                   'application/vnd.oasis.opendocument.formula',
+                                   'application/vnd.oasis.opendocument.formula-template',
+                                   'application/vnd.oasis.opendocument.text-master',
+                                   'application/vnd.oasis.opendocument.text-web',
+                                   'application/x-zip',
+                                   'application/zip',
+                                   'text/plain',
+                                   'video/mpeg',
+                                   'video/mp4',
+                                   'video/quicktime',
+                                   'video/mpeg'),
         'file_quota' => 5000000,
         'user_quota' => 50000000,
         'monthly_quota' => 15000000,
+        'uploads' => true,
+        'filecommand' => '/usr/bin/file',
         ),
+        'group' =>
+        array('maxaliases' => 3),
+        'oohembed' => array('endpoint' => 'http://oohembed.com/oohembed/'),
+        'search' =>
+        array('type' => 'fulltext'),
         );
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
@@ -223,14 +273,18 @@ if (function_exists('date_default_timezone_set')) {
 // server-wide, then vhost-wide, then for a path,
 // finally for a dir (usually only need one of the last two).
 
-$_config_files = array('/etc/laconica/laconica.php',
-                  '/etc/laconica/'.$_server.'.php');
+if (isset($conffile)) {
+    $_config_files = array($conffile);
+} else {
+    $_config_files = array('/etc/laconica/laconica.php',
+                           '/etc/laconica/'.$_server.'.php');
 
-if (strlen($_path) > 0) {
-    $_config_files[] = '/etc/laconica/'.$_server.'_'.$_path.'.php';
+    if (strlen($_path) > 0) {
+        $_config_files[] = '/etc/laconica/'.$_server.'_'.$_path.'.php';
+    }
+
+    $_config_files[] = INSTALLDIR.'/config.php';
 }
-
-$_config_files[] = INSTALLDIR.'/config.php';
 
 $_have_a_config = false;
 

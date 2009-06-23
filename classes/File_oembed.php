@@ -1,7 +1,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -25,35 +25,39 @@ require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
  * Table Definition for file_oembed
  */
 
-class File_oembed extends Memcached_DataObject 
+class File_oembed extends Memcached_DataObject
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'file_oembed';                     // table name
-    public $id;                              // int(11)  not_null primary_key group_by
-    public $file_id;                         // int(11)  unique_key group_by
-    public $version;                         // varchar(20)  
-    public $type;                            // varchar(20)  
-    public $provider;                        // varchar(50)  
-    public $provider_url;                    // varchar(255)  
-    public $width;                           // int(11)  group_by
-    public $height;                          // int(11)  group_by
-    public $html;                            // blob(65535)  blob
-    public $title;                           // varchar(255)  
-    public $author_name;                     // varchar(50)  
-    public $author_url;                      // varchar(255)  
-    public $url;                             // varchar(255)  
+    public $file_id;                         // int(4)  primary_key not_null
+    public $version;                         // varchar(20)
+    public $type;                            // varchar(20)
+    public $provider;                        // varchar(50)
+    public $provider_url;                    // varchar(255)
+    public $width;                           // int(4)
+    public $height;                          // int(4)
+    public $html;                            // text()
+    public $title;                           // varchar(255)
+    public $author_name;                     // varchar(50)
+    public $author_url;                      // varchar(255)
+    public $url;                             // varchar(255)
+    public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('File_oembed',$k,$v); }
+    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('File_oembed',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
+    function sequenceKey()
+    {
+        return array(false, false, false);
+    }
 
     function _getOembed($url, $maxwidth = 500, $maxheight = 400, $format = 'json') {
-        $cmd = 'http://oohembed.com/oohembed/?url=' . urlencode($url);
+        $cmd = common_config('oohembed', 'endpoint') . '?url=' . urlencode($url);
         if (is_int($maxwidth)) $cmd .= "&maxwidth=$maxwidth";
         if (is_int($maxheight)) $cmd .= "&maxheight=$maxheight";
         if (is_string($format)) $cmd .= "&format=$format";
@@ -83,5 +87,4 @@ class File_oembed extends Memcached_DataObject
         }
     }
 }
-
 

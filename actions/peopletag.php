@@ -124,7 +124,7 @@ class PeopletagAction extends Action
 
         $profile->query(sprintf($qry, $this->tag, $lim));
 
-        $pl  = new ProfileList($profile, null, $this);
+        $pl  = new ProfileList($profile, $this);
         $cnt = $pl->show();
 
         $this->pagination($this->page > 1,
