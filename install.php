@@ -126,14 +126,20 @@ function showForm()
                 <p class="form_guide" id='fancy-form_guide'>Enable fancy (pretty) URLs. Auto-detection failed, it depends on Javascript.</p>
             </li>
             <li>
+                <label for="host">Hostname</label>
+                <input type="text" id="host" name="host" />
+                <p class="form_guide">Database hostname</p>
+            </li>
+            <li>
+            
                 <label for="dbtype">Type</label>
-                <input type="radio" name="dbtype" id="fancy-mysql" value="enable" checked='checked' /> MySQL<br />
-                <input type="radio" name="dbtype" id="dbtype-pgsql" value="" /> PostgreSQL<br />
+                <input type="radio" name="dbtype" id="fancy-mysql" value="mysql" checked='checked' /> MySQL<br />
+                <input type="radio" name="dbtype" id="dbtype-pgsql" value="pgsql" /> PostgreSQL<br />
                 <p class="form_guide">Database type</p>
             </li>
 
             <li>
-                <label for="host">Name</label>
+                <label for="database">Name</label>
                 <input type="text" id="database" name="database" />
                 <p class="form_guide">Database name</p>
             </li>
@@ -145,7 +151,7 @@ function showForm()
             <li>
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" />
-                <p class="form_guide">Database password</p>
+                <p class="form_guide">Database password (optional)</p>
             </li>
         </ul>
         <input type="submit" name="submit" class="submit" value="Submit" />
@@ -169,6 +175,7 @@ function handlePost()
 
 <?php
     $host     = $_POST['host'];
+    $dbtype   = $_POST['dbtype'];
     $database = $_POST['database'];
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -212,49 +219,13 @@ function handlePost()
 	    return;
 	}
 
-    updateStatus("Starting installation...");
-    updateStatus("Checking database...");
-    $conn = mysql_connect($host, $username, $password);
-    if (!$conn) {
-        updateStatus("Can't connect to server '$host' as '$username'.", true);
-        showForm();
-        return;
+    switch($dbtype) {
+      case 'mysql':    mysql_db_installer($host, $database, $username, $password, $sitename);
+      break;
+      case 'pgsql':    pgsql_db_installer($host, $database, $username, $password, $sitename);
+      break;
+      default:
     }
-    updateStatus("Changing to database...");
-    $res = mysql_select_db($database, $conn);
-    if (!$res) {
-        updateStatus("Can't change to database.", true);
-        showForm();
-        return;
-    }
-    updateStatus("Running database script...");
-    $res = runDbScript(INSTALLDIR.'/db/laconica.sql', $conn);
-    if ($res === false) {
-        updateStatus("Can't run database script.", true);
-        showForm();
-        return;
-    }
-    foreach (array('sms_carrier' => 'SMS carrier',
-                   'notice_source' => 'notice source',
-                   'foreign_services' => 'foreign service')
-             as $scr => $name) {
-        updateStatus(sprintf("Adding %s data to database...", $name));
-        $res = runDbScript(INSTALLDIR.'/db/'.$scr.'.sql', $conn);
-        if ($res === false) {
-            updateStatus(sprintf("Can't run %d script.", $name), true);
-            showForm();
-            return;
-        }
-    }
-    updateStatus("Writing config file...");
-    $sqlUrl = "mysqli://$username:$password@$host/$database";
-    $res = writeConf($sitename, $sqlUrl, $fancy);
-    if (!$res) {
-        updateStatus("Can't write config file.", true);
-        showForm();
-        return;
-    }
-    updateStatus("Done!");
     if ($path) $path .= '/';
     updateStatus("You can visit your <a href='/$path'>new Laconica site</a>.");
 ?>
@@ -262,6 +233,57 @@ function handlePost()
 <?php
 }
 
+    function pgsql_db_installer($host, $database, $username, $password, $sitename) {
+    echo 'TODO'; exit;
+    }
+
+    function mysql_db_installer($host, $database, $username, $password, $sitename) {
+      updateStatus("Starting installation...");
+      updateStatus("Checking database...");
+      
+      $conn = mysql_connect($host, $username, $password);
+      if (!$conn) {
+          updateStatus("Can't connect to server '$host' as '$username'.", true);
+          showForm();
+          return;
+      }
+      updateStatus("Changing to database...");
+      $res = mysql_select_db($database, $conn);
+      if (!$res) {
+          updateStatus("Can't change to database.", true);
+          showForm();
+          return;
+      }
+      updateStatus("Running database script...");
+      $res = runDbScript(INSTALLDIR.'/db/laconica.sql', $conn);
+      if ($res === false) {
+          updateStatus("Can't run database script.", true);
+          showForm();
+          return;
+      }
+      foreach (array('sms_carrier' => 'SMS carrier',
+                    'notice_source' => 'notice source',
+                    'foreign_services' => 'foreign service')
+              as $scr => $name) {
+          updateStatus(sprintf("Adding %s data to database...", $name));
+          $res = runDbScript(INSTALLDIR.'/db/'.$scr.'.sql', $conn);
+          if ($res === false) {
+              updateStatus(sprintf("Can't run %d script.", $name), true);
+              showForm();
+              return;
+          }
+      }
+      
+      updateStatus("Writing config file...");
+      $sqlUrl = "mysqli://$username:$password@$host/$database";
+      $res = writeConf($sitename, $sqlUrl, $fancy);
+      if (!$res) {
+          updateStatus("Can't write config file.", true);
+          showForm();
+          return;
+      }
+      updateStatus("Done!");
+    }
 function writeConf($sitename, $sqlUrl, $fancy)
 {
     $res = file_put_contents(INSTALLDIR.'/config.php',
