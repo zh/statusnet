@@ -22,7 +22,7 @@ mysql -h $DBHOST -u $ADMIN --password=$ADMINPASS $SITEDB << ENDOFCOMMANDS
 GRANT INSERT,SELECT,UPDATE,DELETE ON $database.* TO '$username'@'localhost' IDENTIFIED BY '$password';
 GRANT INSERT,SELECT,UPDATE,DELETE ON $database.* TO '$username'@'%' IDENTIFIED BY '$password';
 INSERT INTO status_network (nickname, dbhost, dbuser, dbpass, dbname, sitename, created)
-VALUES ('$nickname', '$DBHOST', '$username', '$password', '$database', '$sitename', now());
+VALUES ('$nickname', '$DBHOSTNAME', '$username', '$password', '$database', '$sitename', now());
 
 ENDOFCOMMANDS
 
