@@ -48,7 +48,7 @@ function checkPrereqs()
 		    $pass = false;
     }
 
-    $reqs = array('gd', 'mysql', 'curl',
+    $reqs = array('gd', 'curl',
                   'xmlwriter', 'mbstring',
                   'gettext');
 
@@ -57,6 +57,10 @@ function checkPrereqs()
             ?><p class="error">Cannot load required extension: <code><?php echo $req; ?></code></p><?php
 		    $pass = false;
         }
+    }
+    if (!checkExtension('pgsql') && !checkExtension('mysql')) {
+      ?><p class="error">Cannot mysql or pgsql extension. You need one or the other: <code><?php echo $req; ?></code></p><?php
+                    $pass = false;
     }
 
 	if (!is_writable(INSTALLDIR)) {
