@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./setup.cfg
+source /etc/laconica/setup.cfg
 
 export nickname=$1
 export sitename=$2
