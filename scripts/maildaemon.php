@@ -18,21 +18,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-# Abort if called from a web server
-if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
-    print "This script must be run from the command line\n";
-    exit();
-}
-
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
-define('LACONICA', true);
 
-// Preset the server at the command line
+$helptext = <<<END_OF_HELP
+Script for converting mail messages into notices. Takes message body
+as STDIN.
 
-$server = ($argc > 1) ? $argv[1] : null;
-$path   = ($argc > 2) ? $argv[2] : null;
+END_OF_HELP;
 
-require_once(INSTALLDIR . '/lib/common.php');
+require_once INSTALLDIR.'/scripts/commandline.inc';
+
 require_once(INSTALLDIR . '/lib/mail.php');
 require_once('Mail/mimeDecode.php');
 
