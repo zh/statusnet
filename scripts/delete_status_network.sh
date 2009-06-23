@@ -17,5 +17,5 @@ delete from status_network where nickname = '$nickname';
 ENDOFCOMMANDS
 
 for top in $AVATARBASE $FILEBASE $BACKGROUNDBASE; do
-    rmdir $top/$nickname
+    rm -Rf $top/$nickname
 done
