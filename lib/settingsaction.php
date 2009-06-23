@@ -43,7 +43,7 @@ if (!defined('LACONICA')) {
  * @see      Widget
  */
 
-class SettingsAction extends Action
+class SettingsAction extends CurrentUserDesignAction
 {
     /**
      * A message for the user.

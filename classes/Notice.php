@@ -1,7 +1,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -28,6 +28,11 @@ require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
  * in the memcached cache. */
 
 define('NOTICE_CACHE_WINDOW', 61);
+
+define('NOTICE_LOCAL_PUBLIC', 1);
+define('NOTICE_REMOTE_OMB', 0);
+define('NOTICE_LOCAL_NONPUBLIC', -1);
+define('NOTICE_GATEWAY', -2);
 
 class Notice extends Memcached_DataObject
 {
@@ -125,7 +130,12 @@ class Notice extends Memcached_DataObject
 
         $profile = Profile::staticGet($profile_id);
 
-        $final =  common_shorten_links($content);
+        $final = common_shorten_links($content);
+
+        if (mb_strlen($final) > 140) {
+            common_log(LOG_INFO, 'Rejecting notice that is too long.');
+            return _('Problem saving notice. Too long.');
+        }
 
         if (!$profile) {
             common_log(LOG_ERR, 'Problem saving notice. Unknown user.');
@@ -212,6 +222,13 @@ class Notice extends Memcached_DataObject
 
             $notice->addToInboxes();
             $notice->saveGroups();
+            $notice->saveUrls();
+            $orig2 = clone($notice);
+    		$notice->rendered = common_render_content($final, $notice);
+            if (!$notice->update($orig2)) {
+                common_log_db_error($notice, 'UPDATE', __FILE__);
+                return _('Problem saving notice.');
+            }
 
             $notice->query('COMMIT');
 
@@ -224,6 +241,22 @@ class Notice extends Memcached_DataObject
         $notice->blowCaches();
 
         return $notice;
+    }
+
+    /** save all urls in the notice to the db
+     *
+     * follow redirects and save all available file information
+     * (mimetype, date, size, oembed, etc.)
+     *
+     * @return void
+     */
+    function saveUrls() {
+        common_replace_urls_callback($this->content, array($this, 'saveUrl'), $this->id);
+    }
+
+    function saveUrl($data) {
+        list($url, $notice_id) = $data;
+        File::processNew($url, $notice_id);
     }
 
     static function checkDupes($profile_id, $content) {
@@ -346,6 +379,12 @@ class Notice extends Memcached_DataObject
             if ($tag->find()) {
                 while ($tag->fetch()) {
                     $tag->blowCache($blowLast);
+                    $ck = 'profile:notice_ids_tagged:' . $this->profile_id . ':' . $tag->tag;
+
+                    $cache->delete($ck);
+                    if ($blowLast) {
+                        $cache->delete($ck . ';last');
+                    }
                 }
             }
             $tag->free();
@@ -367,8 +406,10 @@ class Notice extends Memcached_DataObject
 
             while ($user->fetch()) {
                 $cache->delete(common_cache_key('notice_inbox:by_user:'.$user->id));
+                $cache->delete(common_cache_key('notice_inbox:by_user_own:'.$user->id));
                 if ($blowLast) {
                     $cache->delete(common_cache_key('notice_inbox:by_user:'.$user->id.';last'));
+                    $cache->delete(common_cache_key('notice_inbox:by_user_own:'.$user->id.';last'));
                 }
             }
             $user->free();
@@ -747,16 +788,16 @@ class Notice extends Memcached_DataObject
 
         foreach (array_unique($match[1]) as $nickname) {
             /* XXX: remote groups. */
-            $group = User_group::staticGet('nickname', $nickname);
+            $group = User_group::getForNickname($nickname);
 
-            if (!$group) {
+            if (empty($group)) {
                 continue;
             }
 
             // we automatically add a tag for every group name, too
 
             $tag = Notice_tag::pkeyGet(array('tag' => common_canonical_tag($nickname),
-                                           'notice_id' => $this->id));
+                                             'notice_id' => $this->id));
 
             if (is_null($tag)) {
                 $this->saveTag($nickname);
@@ -788,7 +829,7 @@ class Notice extends Memcached_DataObject
         $inbox = new Notice_inbox();
         $UT = common_config('db','type')=='pgsql'?'"user"':'user';
         $qry = 'INSERT INTO notice_inbox (user_id, notice_id, created, source) ' .
-          "SELECT $UT.id, " . $this->id . ", '" . $this->created . "', 2 " .
+          "SELECT $UT.id, " . $this->id . ", '" . $this->created . "', " . NOTICE_INBOX_SOURCE_GROUP . " " .
           "FROM $UT JOIN group_member ON $UT.id = group_member.profile_id " .
           'WHERE group_member.group_id = ' . $group->id . ' ' .
           'AND NOT EXISTS (SELECT user_id, notice_id ' .

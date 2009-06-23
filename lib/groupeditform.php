@@ -111,7 +111,6 @@ class GroupEditForm extends Form
         }
     }
 
-
     /**
      * Name of the form
      *
@@ -173,6 +172,16 @@ class GroupEditForm extends Form
                      ($this->out->arg('location')) ? $this->out->arg('location') : $location,
                      _('Location for the group, if any, like "City, State (or Region), Country"'));
         $this->out->elementEnd('li');
+        if (common_config('group', 'maxaliases') > 0) {
+            $aliases = (empty($this->group)) ? array() : $this->group->getAliases();
+            $this->out->elementStart('li');
+            $this->out->input('aliases', _('Aliases'),
+                              ($this->out->arg('aliases')) ? $this->out->arg('aliases') :
+                              (!empty($aliases)) ? implode(' ', $aliases) : '',
+                              sprintf(_('Extra nicknames for the group, comma- or space- separated, max %d'),
+                                      common_config('group', 'maxaliases')));;
+            $this->out->elementEnd('li');
+        }
         $this->out->elementEnd('ul');
     }
 

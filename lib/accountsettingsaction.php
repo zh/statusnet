@@ -115,7 +115,7 @@ class AccountSettingsNav extends Widget
                 'openidsettings' =>
                 array(_('OpenID'),
                       _('Add or remove OpenIDs')),
-                'designsettings' =>
+                'userdesignsettings' =>
                 array(_('Design'),
                       _('Design your profile')),
                 'othersettings' =>

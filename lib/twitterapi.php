@@ -1,7 +1,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -545,7 +545,7 @@ class TwitterapiAction extends Action
             $this->init_twitter_atom();
             break;
         default:
-            $this->client_error(_('Not a supported data format.'));
+            $this->clientError(_('Not a supported data format.'));
             break;
         }
 
@@ -573,13 +573,13 @@ class TwitterapiAction extends Action
             $this->end_twitter_rss();
             break;
         default:
-            $this->client_error(_('Not a supported data format.'));
+            $this->clientError(_('Not a supported data format.'));
             break;
         }
         return;
     }
 
-    function client_error($msg, $code = 400, $content_type = 'json')
+    function clientError($msg, $code = 400, $content_type = 'json')
     {
 
         static $status = array(400 => 'Bad Request',
@@ -666,7 +666,7 @@ class TwitterapiAction extends Action
             $this->show_json_objects($profile_array);
             break;
         default:
-            $this->client_error(_('Not a supported data format.'));
+            $this->clientError(_('Not a supported data format.'));
             return;
         }
         return;

@@ -47,10 +47,9 @@ define('MEMBERS_PER_SECTION', 27);
  * @link     http://laconi.ca/
  */
 
-class ShowgroupAction extends Action
+class ShowgroupAction extends GroupDesignAction
 {
-    /** group we're viewing. */
-    var $group = null;
+
     /** page we're viewing. */
     var $page = null;
 
@@ -272,6 +271,17 @@ class ShowgroupAction extends Action
             $this->elementEnd('dl');
         }
 
+        if (common_config('group', 'maxaliases') > 0) {
+            $aliases = $this->group->getAliases();
+
+            if (!empty($aliases)) {
+                $this->elementStart('dl', 'entity_aliases');
+                $this->element('dt', null, _('Aliases'));
+                $this->element('dd', 'aliases', implode(' ', $aliases));
+                $this->elementEnd('dl');
+            }
+        }
+
         $this->elementEnd('div');
 
         $this->elementStart('div', 'entity_actions');
@@ -283,7 +293,7 @@ class ShowgroupAction extends Action
             if ($cur->isMember($this->group)) {
                 $lf = new LeaveForm($this, $this->group);
                 $lf->show();
-            } else {
+            } else if (!Group_block::isBlocked($this->group, $cur->getProfile())) {
                 $jf = new JoinForm($this, $this->group);
                 $jf->show();
             }
@@ -344,7 +354,7 @@ class ShowgroupAction extends Action
 
         $this->element('h2', null, _('Members'));
 
-        $pml = new ProfileMiniList($member, null, $this);
+        $pml = new ProfileMiniList($member, $this);
         $cnt = $pml->show();
         if ($cnt == 0) {
              $this->element('p', null, _('(None)'));
