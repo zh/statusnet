@@ -20,9 +20,6 @@
 # This program tries to start the daemons for Laconica.
 # Note that the 'maildaemon' needs to run as a mail filter.
 
-DIR=`dirname $0`
-DAEMONS=`php $DIR/getvaliddaemons.php`
-
 ARGS=
 
 if [ $# -gt 0 ]; then
@@ -32,6 +29,9 @@ fi
 if [ $# -gt 1 ]; then
     ARGS="$ARGS -p$2"
 fi
+
+DIR=`dirname $0`
+DAEMONS=`php $DIR/getvaliddaemons.php $ARGS`
 
 for f in $DAEMONS; do
 
