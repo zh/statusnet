@@ -26,5 +26,7 @@ VALUES ('$nickname', '$DBHOST', '$username', '$password', '$database', '$sitenam
 
 ENDOFCOMMANDS
 
-mkdir $AVATARBASE/$nickname
-chmod a+w $AVATARBASE/$nickname
+for top in $AVATARBASE $FILEBASE $BACKGROUNDBASE; do
+    mkdir $top/$nickname
+    chmod a+w $top/$nickname
+done
