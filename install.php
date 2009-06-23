@@ -59,7 +59,7 @@ function checkPrereqs()
         }
     }
     if (!checkExtension('pgsql') && !checkExtension('mysql')) {
-      ?><p class="error">Cannot mysql or pgsql extension. You need one or the other: <code><?php echo $req; ?></code></p><?php
+      ?><p class="error">Cannot find mysql or pgsql extension. You need one or the other: <code><?php echo $req; ?></code></p><?php
                     $pass = false;
     }
 
