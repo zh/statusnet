@@ -5,7 +5,7 @@ source ./setup.cfg
 export nickname=$1
 export sitename=$2
 
-export password=`pwgen 20`
+export password=`$PWDGEN`
 export database=$nickname$DBBASE
 export username=$nickname$USERBASE
 
