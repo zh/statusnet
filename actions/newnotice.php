@@ -257,23 +257,43 @@ class NewnoticeAction extends Action
     }
 
     function storeFile($notice, $mimetype) {
-        $filename = basename($_FILES['attach']['name']);
-        $destination = "file/{$notice->id}-$filename";
-        if (move_uploaded_file($_FILES['attach']['tmp_name'], INSTALLDIR . "/$destination")) {
+
+        common_debug("NewnoticeAction::storeFile()");
+
+        $basename = basename($_FILES['attach']['name']);
+
+        common_debug("Basename: $basename");
+
+        $filename = File::filename($notice->id, $basename);
+
+        common_debug("filename: $filename");
+
+        $filepath = File::path($filename);
+
+        common_debug("filepath: $filepath");
+
+        if (move_uploaded_file($_FILES['attach']['tmp_name'], $filepath)) {
+
             $file = new File;
+            $file->filename = $filename;
+
             $file->url = common_local_url('file', array('notice' => $notice->id));
-            $file->size = filesize(INSTALLDIR . "/$destination");
+
+            common_debug("file->url =". $file->url);
+
+            $file->size = filesize($filepath);
             $file->date = time();
             $file->mimetype = $mimetype;
+
             if ($file_id = $file->insert()) {
                 $file_redir = new File_redirection;
-                $file_redir->url = common_path($destination);
+                $file_redir->url = File::url($filename);
                 $file_redir->file_id = $file_id;
                 $file_redir->insert();
 
                 $f2p = new File_to_post;
-                $f2p->file_id = $file_id; 
-                $f2p->post_id = $notice->id; 
+                $f2p->file_id = $file_id;
+                $f2p->post_id = $notice->id;
                 $f2p->insert();
             } else {
                 $this->clientError(_('There was a database error while saving your file. Please try again.'));
