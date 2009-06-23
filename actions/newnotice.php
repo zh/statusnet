@@ -116,6 +116,9 @@ class NewnoticeAction extends Action
     function getUploadedFileType() {
         require_once 'MIME/Type.php';
 
+        $cmd = &PEAR::getStaticProperty('MIME_Type', 'fileCmd');
+        $cmd = common_config('attachments', 'filecommand');
+
         $filetype = MIME_Type::autoDetect($_FILES['attach']['tmp_name']);
         if (in_array($filetype, common_config('attachments', 'supported'))) {
             return $filetype;

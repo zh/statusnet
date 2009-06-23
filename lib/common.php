@@ -202,7 +202,7 @@ $config =
         array('run' => 'web',
               'frequency' => 10000,
               'reporturl' => 'http://laconi.ca/stats/report'),
-        'attachments' => 
+        'attachments' =>
         array('server' => null,
               'dir' => INSTALLDIR . '/file/',
               'path' => $_path . '/file/',
@@ -241,6 +241,7 @@ $config =
         'user_quota' => 50000000,
         'monthly_quota' => 15000000,
         'uploads' => true,
+        'filecommand' => '/usr/bin/file',
         ),
         'group' =>
         array('maxaliases' => 3),
