@@ -23,9 +23,19 @@
 DIR=`dirname $0`
 DAEMONS=`php $DIR/getvaliddaemons.php`
 
+ARGS=
+
+if [ $# -gt 0 ]; then
+    ARGS="$ARGS -s$1"
+fi
+
+if [ $# -gt 1 ]; then
+    ARGS="$ARGS -p$2"
+fi
+
 for f in $DAEMONS; do
 
          echo -n "Starting $f...";
-	 php $DIR/$f
+	 php $DIR/$f $ARGS
 	 echo "DONE."
 done
