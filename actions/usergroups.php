@@ -46,9 +46,8 @@ require_once INSTALLDIR.'/lib/grouplist.php';
  * @link     http://laconi.ca/
  */
 
-class UsergroupsAction extends Action
+class UsergroupsAction extends OwnerDesignAction
 {
-    var $user = null;
     var $page = null;
     var $profile = null;
 

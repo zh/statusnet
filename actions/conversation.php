@@ -217,6 +217,8 @@ class ConversationTree extends NoticeList
 
             $this->out->elementStart('ol', array('class' => 'notices'));
 
+            sort($children);
+
             foreach ($children as $child) {
                 $this->showNoticePlus($child);
             }

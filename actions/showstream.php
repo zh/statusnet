@@ -320,10 +320,14 @@ class ShowstreamAction extends ProfileAction
             $blocked = $cur->hasBlocked($this->profile);
             $this->elementStart('li', 'entity_block');
             if ($blocked) {
-                $ubf = new UnblockForm($this, $this->profile);
+                $ubf = new UnblockForm($this, $this->profile,
+                                       array('action' => 'showstream',
+                                             'nickname' => $this->profile->nickname));
                 $ubf->show();
             } else {
-                $bf = new BlockForm($this, $this->profile);
+                $bf = new BlockForm($this, $this->profile,
+                                    array('action' => 'showstream',
+                                          'nickname' => $this->profile->nickname));
                 $bf->show();
             }
             $this->elementEnd('li');
@@ -366,7 +370,7 @@ class ShowstreamAction extends ProfileAction
     {
         $notice = empty($this->tag)
             ? $this->user->getNotices(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1)
-            : $this->user->getTaggedNotices(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1, 0, 0, null, $this->tag);
+            : $this->user->getTaggedNotices($this->tag, ($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1, 0, 0, null);
 
         $pnl = new ProfileNoticeList($notice, $this);
         $cnt = $pnl->show();

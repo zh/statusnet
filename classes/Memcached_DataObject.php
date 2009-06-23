@@ -1,7 +1,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -193,7 +193,14 @@ class Memcached_DataObject extends DB_DataObject
                 // unable to connect to sphinx' search daemon
                 if (!$connected) {
                     if ('mysql' === common_config('db', 'type')) {
-                        $search_engine = new MySQLSearch($this, $table);
+                        $type = common_config('search', 'type');
+                        if ($type == 'like') {
+                            $search_engine = new MySQLLikeSearch($this, $table);
+                        } else if ($type == 'fulltext') {
+                            $search_engine = new MySQLSearch($this, $table);
+                        } else {
+                            throw new ServerException('Unknown search type: ' . $type);
+                        }
                     } else {
                         $search_engine = new PGSearch($this, $table);
                     }
@@ -242,13 +249,16 @@ class Memcached_DataObject extends DB_DataObject
             if (common_config('db', 'type') == 'mysql' &&
                 common_config('db', 'utf8')) {
                 $conn = $DB->connection;
-                if ($DB instanceof DB_mysqli) {
-                    mysqli_set_charset($conn, 'utf8');
-                } else if ($DB instanceof DB_mysql) {
-                    mysql_set_charset('utf8', $conn);
+                if (!empty($conn)) {
+                    if ($DB instanceof DB_mysqli) {
+                        mysqli_set_charset($conn, 'utf8');
+                    } else if ($DB instanceof DB_mysql) {
+                        mysql_set_charset('utf8', $conn);
+                    }
                 }
             }
         }
         return $result;
     }
+
 }

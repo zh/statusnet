@@ -116,6 +116,9 @@ class NewnoticeAction extends Action
     function getUploadedFileType() {
         require_once 'MIME/Type.php';
 
+        $cmd = &PEAR::getStaticProperty('MIME_Type', 'fileCmd');
+        $cmd = common_config('attachments', 'filecommand');
+
         $filetype = MIME_Type::autoDetect($_FILES['attach']['tmp_name']);
         if (in_array($filetype, common_config('attachments', 'supported'))) {
             return $filetype;
@@ -221,17 +224,34 @@ class NewnoticeAction extends Action
             }
         }
 
+        if (isset($mimetype)) {
+            $filename = $this->saveFile($mimetype);
+            if (empty($filename)) {
+                $this->clientError(_('Couldn\'t save file.'));
+            }
+            $fileurl = File::url($filename);
+            $short_fileurl = common_shorten_url($fileurl);
+            $content_shortened .= ' ' . $short_fileurl;
+            if (mb_strlen($content_shortened) > 140) {
+                $this->deleteFile($filename);
+                $this->clientError(_('Max notice size is 140 chars, including attachment URL.'));
+            }
+        }
+
         $notice = Notice::saveNew($user->id, $content_shortened, 'web', 1,
                                   ($replyto == 'false') ? null : $replyto);
 
         if (is_string($notice)) {
+            if (isset($filename)) {
+                $this->deleteFile($filename);
+            }
             $this->clientError($notice);
         }
 
         if (isset($mimetype)) {
-            $this->storeFile($notice, $mimetype);
+            $this->attachFile($notice, $filename, $mimetype, $short_fileurl);
         }
-        $this->saveUrls($notice);
+
         common_broadcast_notice($notice);
 
         if ($this->boolean('ajax')) {
@@ -257,49 +277,73 @@ class NewnoticeAction extends Action
         }
     }
 
-    function storeFile($notice, $mimetype) {
-        $filename = basename($_FILES['attach']['name']);
-        $destination = "file/{$notice->id}-$filename";
-        if (move_uploaded_file($_FILES['attach']['tmp_name'], INSTALLDIR . "/$destination")) {
-            $file = new File;
-            $file->url = common_local_url('file', array('notice' => $notice->id));
-            $file->size = filesize(INSTALLDIR . "/$destination");
-            $file->date = time();
-            $file->mimetype = $mimetype;
-            if ($file_id = $file->insert()) {
-                $file_redir = new File_redirection;
-                $file_redir->url = common_path($destination);
-                $file_redir->file_id = $file_id;
-                $file_redir->insert();
+    function saveFile($mimetype) {
 
-                $f2p = new File_to_post;
-                $f2p->file_id = $file_id; 
-                $f2p->post_id = $notice->id; 
-                $f2p->insert();
-            } else {
-                $this->clientError(_('There was a database error while saving your file. Please try again.'));
-            }
+        $cur = common_current_user();
+
+        if (empty($cur)) {
+            $this->serverError(_('Somehow lost the login in saveFile'));
+        }
+
+        $basename = basename($_FILES['attach']['name']);
+
+        $filename = File::filename($cur->getProfile(), $basename, $mimetype);
+
+        $filepath = File::path($filename);
+
+        if (move_uploaded_file($_FILES['attach']['tmp_name'], $filepath)) {
+            return $filename;
         } else {
             $this->clientError(_('File could not be moved to destination directory.'));
         }
     }
 
-    /** save all urls in the notice to the db
-     *
-     * follow redirects and save all available file information
-     * (mimetype, date, size, oembed, etc.)
-     *
-     * @param class $notice Notice to pull URLs from
-     *
-     * @return void
-     */
-    function saveUrls($notice, $uploaded = null) {
-        common_replace_urls_callback($notice->content, array($this, 'saveUrl'), $notice->id);
+    function deleteFile($filename)
+    {
+        $filepath = File::path($filename);
+        @unlink($filepath);
     }
 
-    function saveUrl($data) {
-        list($url, $notice_id) = $data;
-        $zzz = File::processNew($url, $notice_id);
+    function attachFile($notice, $filename, $mimetype, $short)
+    {
+        $file = new File;
+        $file->filename = $filename;
+
+        $file->url = common_local_url('file', array('notice' => $notice->id));
+
+        $filepath = File::path($filename);
+
+        $file->size = filesize($filepath);
+        $file->date = time();
+        $file->mimetype = $mimetype;
+
+        $file_id = $file->insert();
+
+        if (!$file_id) {
+            common_log_db_error($file, "INSERT", __FILE__);
+            $this->clientError(_('There was a database error while saving your file. Please try again.'));
+        }
+
+        $file_redir = new File_redirection;
+        $file_redir->url = File::url($filename);
+        $file_redir->file_id = $file_id;
+
+        $result = $file_redir->insert();
+
+        if (!$result) {
+            common_log_db_error($file_redir, "INSERT", __FILE__);
+            $this->clientError(_('There was a database error while saving your file. Please try again.'));
+        }
+
+        $f2p = new File_to_post;
+        $f2p->file_id = $file_id;
+        $f2p->post_id = $notice->id;
+        $f2p->insert();
+
+        if (!$result) {
+            common_log_db_error($f2p, "INSERT", __FILE__);
+            $this->clientError(_('There was a database error while saving your file. Please try again.'));
+        }
     }
 
     /**

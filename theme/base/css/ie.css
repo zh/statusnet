@@ -1,12 +1,19 @@
 /* IE specific styles */
-legend {
-margin-left:-7px;
-}
-input.checkbox {
+input.checkbox,
+input.radio {
 top:0;
 }
 #form_notice textarea {
 width:78%;
+}
+#form_notice .form_note + label {
+position:absolute;
+top:25px;
+left:380px;
+text-indent:-9999px;
+height:16px;
+width:16px;
+display:block;
 }
 #form_notice #notice_action-submit {
 width:17%;
