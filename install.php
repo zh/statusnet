@@ -204,21 +204,21 @@ function handlePost()
 		$fail = true;
     }
 
-    if (empty($password)) {
-        updateStatus("No password specified.", true);
-		$fail = true;
-    }
+//     if (empty($password)) {
+//         updateStatus("No password specified.", true);
+// 		$fail = true;
+//     }
 
     if (empty($sitename)) {
         updateStatus("No sitename specified.", true);
 		$fail = true;
     }
 
-	if($fail){
-		showForm();
-	    return;
-	}
-
+    if($fail){
+            showForm();
+        return;
+    }
+    
     switch($dbtype) {
       case 'mysql':    mysql_db_installer($host, $database, $username, $password, $sitename);
       break;
@@ -233,46 +233,55 @@ function handlePost()
 <?php
 }
 
-    function pgsql_db_installer($host, $database, $username, $password, $sitename) {
-    echo 'TODO'; exit;
-    }
+function pgsql_db_installer($host, $database, $username, $password, $sitename) {
+  $connstring = "dbname=$database host=$host user=$username";
 
-    function mysql_db_installer($host, $database, $username, $password, $sitename) {
-      updateStatus("Starting installation...");
-      updateStatus("Checking database...");
-      
-      $conn = mysql_connect($host, $username, $password);
-      if (!$conn) {
-          updateStatus("Can't connect to server '$host' as '$username'.", true);
-          showForm();
-          return;
-      }
-      updateStatus("Changing to database...");
-      $res = mysql_select_db($database, $conn);
-      if (!$res) {
-          updateStatus("Can't change to database.", true);
-          showForm();
-          return;
-      }
-      updateStatus("Running database script...");
-      $res = runDbScript(INSTALLDIR.'/db/laconica.sql', $conn);
+  //No password would mean trust authentication used.
+  if (!empty($password)) {
+    $connstring .= " password=$password";
+  }
+  updateStatus("Starting installation...");
+  updateStatus("Checking database...");
+  $conn = pg_connect($connstring);
+
+}
+
+function mysql_db_installer($host, $database, $username, $password, $sitename) {
+  updateStatus("Starting installation...");
+  updateStatus("Checking database...");
+
+  $conn = mysql_connect($host, $username, $password);
+  if (!$conn) {
+      updateStatus("Can't connect to server '$host' as '$username'.", true);
+      showForm();
+      return;
+  }
+  updateStatus("Changing to database...");
+  $res = mysql_select_db($database, $conn);
+  if (!$res) {
+      updateStatus("Can't change to database.", true);
+      showForm();
+      return;
+  }
+  updateStatus("Running database script...");
+  $res = runDbScript(INSTALLDIR.'/db/laconica.sql', $conn);
+  if ($res === false) {
+      updateStatus("Can't run database script.", true);
+      showForm();
+      return;
+  }
+  foreach (array('sms_carrier' => 'SMS carrier',
+                'notice_source' => 'notice source',
+                'foreign_services' => 'foreign service')
+          as $scr => $name) {
+      updateStatus(sprintf("Adding %s data to database...", $name));
+      $res = runDbScript(INSTALLDIR.'/db/'.$scr.'.sql', $conn);
       if ($res === false) {
-          updateStatus("Can't run database script.", true);
+          updateStatus(sprintf("Can't run %d script.", $name), true);
           showForm();
           return;
       }
-      foreach (array('sms_carrier' => 'SMS carrier',
-                    'notice_source' => 'notice source',
-                    'foreign_services' => 'foreign service')
-              as $scr => $name) {
-          updateStatus(sprintf("Adding %s data to database...", $name));
-          $res = runDbScript(INSTALLDIR.'/db/'.$scr.'.sql', $conn);
-          if ($res === false) {
-              updateStatus(sprintf("Can't run %d script.", $name), true);
-              showForm();
-              return;
-          }
-      }
+  }
       
       updateStatus("Writing config file...");
       $sqlUrl = "mysqli://$username:$password@$host/$database";
