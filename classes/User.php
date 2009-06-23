@@ -424,9 +424,9 @@ class User extends Memcached_DataObject
         }
     }
 
-    function favoriteNotices($offset=0, $limit=NOTICES_PER_PAGE)
+    function favoriteNotices($offset=0, $limit=NOTICES_PER_PAGE, $own=false)
     {
-        $ids = Fave::stream($this->id, $offset, $limit);
+        $ids = Fave::stream($this->id, $offset, $limit, $own);
         return Notice::getStreamByIds($ids);
     }
 

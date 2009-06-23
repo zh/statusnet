@@ -471,8 +471,10 @@ class Notice extends Memcached_DataObject
             if ($fave->find()) {
                 while ($fave->fetch()) {
                     $cache->delete(common_cache_key('fave:ids_by_user:'.$fave->user_id));
+                    $cache->delete(common_cache_key('fave:by_user_own:'.$fave->user_id));
                     if ($blowLast) {
                         $cache->delete(common_cache_key('fave:ids_by_user:'.$fave->user_id.';last'));
+                        $cache->delete(common_cache_key('fave:by_user_own:'.$fave->user_id.';last'));
                     }
                 }
             }
