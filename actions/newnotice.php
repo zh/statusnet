@@ -238,12 +238,8 @@ class NewnoticeAction extends Action
             }
         }
 
-        common_debug("newnotice.php - before Notice::saveNew()");
-
         $notice = Notice::saveNew($user->id, $content_shortened, 'web', 1,
                                   ($replyto == 'false') ? null : $replyto);
-
-        common_debug("newnotice.php - after Notice::saveNew()");
 
         if (is_string($notice)) {
             if (isset($filename)) {
@@ -251,8 +247,6 @@ class NewnoticeAction extends Action
             }
             $this->clientError($notice);
         }
-
-        common_debug("newnotice.php - after Notice::saveNew()");
 
         if (isset($mimetype)) {
             $this->attachFile($notice, $filename, $mimetype, $short_fileurl);
@@ -291,19 +285,11 @@ class NewnoticeAction extends Action
             $this->serverError(_('Somehow lost the login in saveFile'));
         }
 
-        common_debug("NewnoticeAction::storeFile()");
-
         $basename = basename($_FILES['attach']['name']);
-
-        common_debug("Basename: $basename");
 
         $filename = File::filename($cur->getProfile(), $basename, $mimetype);
 
-        common_debug("filename: $filename");
-
         $filepath = File::path($filename);
-
-        common_debug("filepath: $filepath");
 
         if (move_uploaded_file($_FILES['attach']['tmp_name'], $filepath)) {
             return $filename;
@@ -324,8 +310,6 @@ class NewnoticeAction extends Action
         $file->filename = $filename;
 
         $file->url = common_local_url('file', array('notice' => $notice->id));
-
-        common_debug("file->url =". $file->url);
 
         $filepath = File::path($filename);
 
