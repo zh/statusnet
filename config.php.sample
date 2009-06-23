@@ -156,6 +156,12 @@ $config['sphinx']['port'] = 3312;
 // Twitter integration source attribute. Note: default is Laconica
 // $config['integration']['source'] = 'Laconica';
 
+// Enable bidirectional Twitter bridge
+//
+// NOTE: if you enable this you must also set $config['avatar']['path']
+//
+// $config['twitterbridge']['enabled'] = true;
+
 // Edit throttling. Off by default. If turned on, you can only post 20 notices
 // every 10 minutes. Admins may want to play with the settings to minimize inconvenience for
 // real users without getting uncontrollable floods from spammers or runaway bots.
@@ -225,4 +231,6 @@ $config['sphinx']['port'] = 3312;
 // $config['attachments']['file_quota'] = 5000000;
 // $config['attachments']['user_quota'] = 50000000;
 // $config['attachments']['monthly_quota'] = 15000000;
+// $config['attachments']['uploads'] = true;
 
+// $config['oohembed']['endpoint'] = 'http://oohembed.com/oohembed/';

@@ -1,10 +1,37 @@
+#!/usr/bin/env php
 <?php
+/*
+ * Laconica - a distributed open-source microblogging tool
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
-define('LACONICA', true);
 
-require_once(INSTALLDIR . '/lib/common.php');
-require_once(INSTALLDIR . '/lib/util.php');
+$shortoptions = 'f:d:u:';
+
+$helptext = <<<END_OF_SITEMAP_HELP
+Script for creating sitemaps files per http://sitemaps.org/
+
+    -f <indexfile>   Use <indexfile> as output file
+    -d <outputdir>   Use <outputdir> for new sitemaps
+    -u <outputurl>   Use <outputurl> as root for URLs
+
+END_OF_SITEMAP_HELP;
+
+require_once INSTALLDIR . '/scripts/commandline.inc';
 
 $output_paths = parse_args();
 
@@ -13,11 +40,11 @@ notices_map();
 user_map();
 index_map();
 
-# ------------------------------------------------------------------------------
-# Main functions: get data out and turn them into sitemaps
-# ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// Main functions: get data out and turn them into sitemaps
+// ------------------------------------------------------------------------------
 
-# Generate index sitemap of all other sitemaps.
+// Generate index sitemap of all other sitemaps.
 function index_map()
 {
     global $output_paths;
@@ -26,7 +53,7 @@ function index_map()
 
     foreach (glob("$output_dir*.xml") as $file_name) {
 
-        # Just the file name please.
+        // Just the file name please.
         $file_name = preg_replace("|$output_dir|", '', $file_name);
 
         $index_urls .= sitemap(
@@ -40,7 +67,7 @@ function index_map()
     write_file($output_paths['index_file'], sitemapindex($index_urls));
 }
 
-# Generate sitemap of standard site elements.
+// Generate sitemap of standard site elements.
 function standard_map()
 {
     global $output_paths;
@@ -61,7 +88,7 @@ function standard_map()
                                     )
                               );
 
-    $docs = array('about', 'faq', 'contact', 'im', 'openid', 'openmublog', 
+    $docs = array('about', 'faq', 'contact', 'im', 'openid', 'openmublog',
         'privacy', 'source', 'badge');
 
     foreach($docs as $title) {
@@ -79,7 +106,7 @@ function standard_map()
     write_file($urlset_path, urlset($standard_map_urls));
 }
 
-# Generate sitemaps of all notices.
+// Generate sitemaps of all notices.
 function notices_map()
 {
     global $output_paths;
@@ -93,14 +120,14 @@ function notices_map()
 
     while ($notices->fetch()) {
 
-        # Maximum 50,000 URLs per sitemap file.
+        // Maximum 50,000 URLs per sitemap file.
         if ($notice_count == 50000) {
             $notice_count = 0;
             $map_count++;
         }
 
-        # remote notices have an URL
-        
+        // remote notices have an URL
+
         if (!$notices->url && $notices->uri) {
             $notice = array(
                         'url'        => ($notices->uri) ? $notices->uri : common_local_url('shownotice', array('notice' => $notices->id)),
@@ -114,11 +141,11 @@ function notices_map()
         }
     }
 
-    # Make full sitemaps from the lists and save them.
+    // Make full sitemaps from the lists and save them.
     array_to_map($notice_list, 'notice');
 }
 
-# Generate sitemaps of all users.
+// Generate sitemaps of all users.
 function user_map()
 {
     global $output_paths;
@@ -132,7 +159,7 @@ function user_map()
 
     while ($users->fetch()) {
 
-        # Maximum 50,000 URLs per sitemap file.
+        // Maximum 50,000 URLs per sitemap file.
         if ($user_count == 50000) {
             $user_count = 0;
             $map_count++;
@@ -140,7 +167,7 @@ function user_map()
 
         $user_args = array('nickname' => $users->nickname);
 
-        # Define parameters for generating <url></url> elements.
+        // Define parameters for generating <url></url> elements.
         $user = array(
                       'url'        => common_local_url('showstream', $user_args),
                       'changefreq' => 'daily',
@@ -183,8 +210,8 @@ function user_map()
                       'priority'   => '0.5',
                       );
 
-        # Construct a <url></url> element for each user facet and add it
-        # to our existing list of those.
+        // Construct a <url></url> element for each user facet and add it
+        // to our existing list of those.
         $user_list[$map_count]        .= url($user);
         $user_rss_list[$map_count]    .= url($user_rss);
         $all_list[$map_count]         .= url($all);
@@ -196,9 +223,9 @@ function user_map()
         $user_count++;
     }
 
-    # Make full sitemaps from the lists and save them.
-    # Possible factoring: put all the lists into a master array, thus allowing
-    # calling with single argument (i.e., array_to_map('user')).
+    // Make full sitemaps from the lists and save them.
+    // Possible factoring: put all the lists into a master array, thus allowing
+    // calling with single argument (i.e., array_to_map('user')).
     array_to_map($user_list, 'user');
     array_to_map($user_rss_list, 'user_rss');
     array_to_map($all_list, 'all');
@@ -208,14 +235,14 @@ function user_map()
     array_to_map($foaf_list, 'foaf');
 }
 
-# ------------------------------------------------------------------------------
-# XML generation functions
-# ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// XML generation functions
+// ------------------------------------------------------------------------------
 
-# Generate a <url></url> element.
+// Generate a <url></url> element.
 function url($url_args)
 {
-    $url        = preg_replace('/&/', '&amp;', $url_args['url']); # escape ampersands for XML
+    $url        = preg_replace('/&/', '&amp;', $url_args['url']); // escape ampersands for XML
     $lastmod    = $url_args['lastmod'];
     $changefreq = $url_args['changefreq'];
     $priority   = $url_args['priority'];
@@ -246,7 +273,7 @@ function url($url_args)
 
 function sitemap($sitemap_args)
 {
-    $url        = preg_replace('/&/', '&amp;', $sitemap_args['url']); # escape ampersands for XML
+    $url        = preg_replace('/&/', '&amp;', $sitemap_args['url']); // escape ampersands for XML
     $lastmod    = $sitemap_args['lastmod'];
 
     if (is_null($url)) {
@@ -265,7 +292,7 @@ function sitemap($sitemap_args)
     return $sitemap_out;
 }
 
-# Generate a <urlset></urlset> element.
+// Generate a <urlset></urlset> element.
 function urlset($urlset_text)
 {
     $urlset = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" .
@@ -276,7 +303,7 @@ function urlset($urlset_text)
     return $urlset;
 }
 
-# Generate a <urlset></urlset> element.
+// Generate a <urlset></urlset> element.
 function sitemapindex($sitemapindex_text)
 {
     $sitemapindex = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" .
@@ -287,49 +314,31 @@ function sitemapindex($sitemapindex_text)
     return $sitemapindex;
 }
 
-# Generate a sitemap from an array containing <url></url> elements and write it to a file.
+// Generate a sitemap from an array containing <url></url> elements and write it to a file.
 function array_to_map($url_list, $filename_prefix)
 {
     global $output_paths;
 
     if ($url_list) {
-        # $map_urls is a long string containing concatenated <url></url> elements.
+        // $map_urls is a long string containing concatenated <url></url> elements.
         while (list($map_idx, $map_urls) = each($url_list)) {
             $urlset_path = $output_paths['output_dir'] . "$filename_prefix-$map_idx.xml";
-            
+
             write_file($urlset_path, urlset($map_urls));
         }
     }
 }
 
-# ------------------------------------------------------------------------------
-# Internal functions
-# ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// Internal functions
+// ------------------------------------------------------------------------------
 
-# Parse command line arguments.
+// Parse command line arguments.
 function parse_args()
 {
-    $args = getopt('f:d:u:');
-
-    if (is_null($args[f]) && is_null($args[d]) && is_null($args[u])) {
-        error('Mandatory arguments: -f <index file path> -d <output directory path> -u <URL of sitemaps directory>');
-    }
-
-    if (is_null($args[f])) {
-        error('You must specify an index file name with the -f option.');
-    }
-
-    if (is_null($args[d])) {
-        error('You must specify a directory for the output file with the -d option.');
-    }
-
-    if (is_null($args[u])) {
-        error('You must specify a URL for the directory where the sitemaps will be kept with the -u option.');
-    }
-
-    $index_file = $args[f];
-    $output_dir = $args[d];
-    $output_url = $args[u];
+    $index_file = get_option_value('f');
+    $output_dir = get_option_value('d');
+    $output_url = get_option_value('u');
 
     if (file_exists($output_dir)) {
         if (is_writable($output_dir) === false) {
@@ -348,7 +357,7 @@ function parse_args()
     return $paths;
 }
 
-# Ensure paths end with a "/".
+// Ensure paths end with a "/".
 function trailing_slash($path)
 {
     if (preg_match('/\/$/', $path) == 0) {
@@ -358,7 +367,7 @@ function trailing_slash($path)
     return $path;
 }
 
-# Write data to disk.
+// Write data to disk.
 function write_file($path, $data)
 {
     if (is_null($path)) {
@@ -376,7 +385,7 @@ function write_file($path, $data)
     }
 }
 
-# Display an error message and exit.
+// Display an error message and exit.
 function error ($error_msg)
 {
     if (is_null($error_msg)) {

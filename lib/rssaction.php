@@ -212,6 +212,10 @@ class Rss10Action extends Action
         $this->element('sioc:has_creator', array('rdf:resource' => $creator_uri.'#acct'));
         $this->element('laconica:postIcon', array('rdf:resource' => $profile->avatarUrl()));
         $this->element('cc:licence', array('rdf:resource' => common_config('license', 'url')));
+        if ($notice->reply_to) {
+            $replyurl = common_local_url('shownotice', array('notice' => $notice->reply_to));
+            $this->element('sioc:reply_to', array('rdf:resource' => $replyurl));
+        }
         $this->elementEnd('item');
         $this->creators[$creator_uri] = $profile;
     }

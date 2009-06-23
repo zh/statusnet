@@ -32,7 +32,7 @@ if (!defined('LACONICA')) {
 }
 
 /**
- * Personal tag cloud section
+ * Group tag cloud section
  *
  * @category Widget
  * @package  Laconica
@@ -64,12 +64,27 @@ class GroupTagCloudSection extends TagCloudSection
             $weightexpr='sum(exp(-(now() - notice_tag.created) / %s))';
         }
 
+        $names = $this->group->getAliases();
+
+        $names = array_merge(array($this->group->nickname), $names);
+
+        // XXX This is dumb.
+
+        $quoted = array();
+
+        foreach ($names as $name) {
+            $quoted[] = "\"$name\"";
+        }
+
+        $namestring = implode(',', $quoted);
+
         $qry = 'SELECT notice_tag.tag, '.
           $weightexpr . ' as weight ' .
           'FROM notice_tag JOIN notice ' .
           'ON notice_tag.notice_id = notice.id ' .
           'JOIN group_inbox on group_inbox.notice_id = notice.id ' .
           'WHERE group_inbox.group_id = %d ' .
+          'AND notice_tag.tag not in (%s) '.
           'GROUP BY notice_tag.tag ' .
           'ORDER BY weight DESC ';
 
@@ -85,9 +100,9 @@ class GroupTagCloudSection extends TagCloudSection
         $tag = Memcached_DataObject::cachedQuery('Notice_tag',
                                                  sprintf($qry,
                                                          common_config('tag', 'dropoff'),
-                                                         $this->group->id),
+                                                         $this->group->id,
+                                                         $namestring),
                                                  3600);
         return $tag;
     }
-
 }

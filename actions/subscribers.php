@@ -130,18 +130,34 @@ class SubscribersAction extends GalleryAction
     }
 }
 
-class SubscribersList extends ProfileList
+class SubscribersList extends SubscriptionList
 {
-    function showBlockForm()
+    function newListItem($profile)
     {
-        $bf = new BlockForm($this->out, $this->profile,
-                            array('action' => 'subscribers',
-                                  'nickname' => $this->owner->nickname));
-        $bf->show();
+        return new SubscribersListItem($profile, $this->owner, $this->action);
+    }
+}
+
+class SubscribersListItem extends SubscriptionListItem
+{
+    function showActions()
+    {
+        $this->startActions();
+        $this->showSubscribeButton();
+        // Relevant code!
+        $this->showBlockForm();
+        $this->endActions();
     }
 
-    function isReadOnly($args)
+    function showBlockForm()
     {
-        return true;
+        $user = common_current_user();
+
+        if (!empty($user) && $this->owner->id == $user->id) {
+            $bf = new BlockForm($this->out, $this->profile,
+                                array('action' => 'subscribers',
+                                      'nickname' => $this->owner->nickname));
+            $bf->show();
+        }
     }
 }

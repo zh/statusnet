@@ -12,7 +12,7 @@
  * @link     http://laconi.ca/
  *
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -148,10 +148,10 @@ You can also try your search on other engines:
 * [Tweet scan](http://www.tweetscan.com/indexi.php?s=%s)
 * [Google](http://www.google.com/search?q=site%%3A%%%%site.server%%%%+%s)
 * [Yahoo](http://search.yahoo.com/search?p=site%%3A%%%%site.server%%%%+%s)
-
+* [Collecta](http://collecta.com/#q=%s)
 
 E_O_T
-), $qe, $qe, $qe, $qe);
+), $qe, $qe, $qe, $qe, $qe);
         $this->elementStart('dl', array('id' => 'help_search', 'class' => 'help'));
         $this->element('dt', null, _('Search help'));
         $this->elementStart('dd', 'instructions');

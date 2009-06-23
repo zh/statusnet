@@ -12,7 +12,7 @@
  * @link     http://laconi.ca/
  *
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -118,7 +118,7 @@ class UnblockAction extends Action
         if ($action) {
             common_redirect(common_local_url($action, $args), 303);
         } else {
-            common_redirect(common_local_url('subscriptions',
+            common_redirect(common_local_url('subscribers',
                                              array('nickname' => $cur->nickname)),
                             303);
         }

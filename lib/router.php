@@ -101,7 +101,8 @@ class Router
         $main = array('login', 'logout', 'register', 'subscribe',
                       'unsubscribe', 'confirmaddress', 'recoverpassword',
                       'invite', 'favor', 'disfavor', 'sup',
-                      'block', 'subedit');
+                      'block', 'unblock', 'subedit',
+                      'groupblock', 'groupunblock');
 
         foreach ($main as $a) {
             $m->connect('main/'.$a, array('action' => $a));
@@ -131,7 +132,7 @@ class Router
         // settings
 
         foreach (array('profile', 'avatar', 'password', 'openid', 'im',
-                       'email', 'sms', 'twitter', 'design', 'other') as $s) {
+                       'email', 'sms', 'twitter', 'userdesign', 'other') as $s) {
             $m->connect('settings/'.$s, array('action' => $s.'settings'));
         }
 
@@ -164,10 +165,10 @@ class Router
                     array('action' => 'newnotice'),
                     array('replyto' => '[A-Za-z0-9_-]+'));
 
-        $m->connect('notice/:notice/file', 
-            array('action' => 'file'), 
+        $m->connect('notice/:notice/file',
+            array('action' => 'file'),
             array('notice' => '[0-9]+'));
-        
+
         $m->connect('notice/:notice',
                     array('action' => 'shownotice'),
                     array('notice' => '[0-9]+'));
@@ -222,11 +223,19 @@ class Router
                         array('nickname' => '[a-zA-Z0-9]+'));
         }
 
-        foreach (array('members', 'logo', 'rss') as $n) {
+        foreach (array('members', 'logo', 'rss', 'designsettings') as $n) {
             $m->connect('group/:nickname/'.$n,
                         array('action' => 'group'.$n),
                         array('nickname' => '[a-zA-Z0-9]+'));
         }
+
+        $m->connect('group/:nickname/blocked',
+                    array('action' => 'blockedfromgroup'),
+                    array('nickname' => '[a-zA-Z0-9]+'));
+
+        $m->connect('group/:nickname/makeadmin',
+                    array('action' => 'makeadmin'),
+                    array('nickname' => '[a-zA-Z0-9]+'));
 
         $m->connect('group/:id/id',
                     array('action' => 'groupbyid'),
@@ -342,7 +351,8 @@ class Router
 
         $m->connect('api/favorites/:method/:argument',
                     array('action' => 'api',
-                          'apiaction' => 'favorites'));
+                          'apiaction' => 'favorites',
+                          array('method' => '(create|destroy)')));
 
         $m->connect('api/favorites/:argument',
                     array('action' => 'api',

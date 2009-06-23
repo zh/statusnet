@@ -55,19 +55,43 @@ class Avatar extends Memcached_DataObject
 
     static function path($filename)
     {
-        return INSTALLDIR . '/avatar/' . $filename;
+        $dir = common_config('avatar', 'dir');
+
+        if ($dir[strlen($dir)-1] != '/') {
+            $dir .= '/';
+        }
+
+        return $dir . $filename;
     }
 
     static function url($filename)
     {
-        return common_path('avatar/'.$filename);
+        $path = common_config('avatar', 'path');
+
+        if ($path[strlen($path)-1] != '/') {
+            $path .= '/';
+        }
+
+        if ($path[0] != '/') {
+            $path = '/'.$path;
+        }
+
+        $server = common_config('avatar', 'server');
+
+        if (empty($server)) {
+            $server = common_config('site', 'server');
+        }
+
+        // XXX: protocol
+
+        return 'http://'.$server.$path.$filename;
     }
 
     function displayUrl()
     {
         $server = common_config('avatar', 'server');
         if ($server) {
-            return 'http://'.$server.'/'.$this->filename;
+            return Avatar::url($this->filename);
         } else {
             return $this->url;
         }
