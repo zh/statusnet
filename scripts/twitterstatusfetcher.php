@@ -18,22 +18,19 @@
  * along with this program.     If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Abort if called from a web server
-if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
-    print "This script must be run from the command line\n";
-    exit();
-}
-
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
-define('LACONICA', true);
 
 // Tune number of processes and how often to poll Twitter
 // XXX: Should these things be in config.php?
 define('MAXCHILDREN', 2);
 define('POLL_INTERVAL', 60); // in seconds
 
-// Uncomment this to get useful logging
-define('SCRIPT_DEBUG', true);
+$helptext = <<<END_OF_TRIM_HELP
+Batch script for retrieving Twitter messages from foreign service.
+
+END_OF_TRIM_HELP;
+
+require_once INSTALLDIR.'/scripts/commandline.inc';
 
 require_once INSTALLDIR . '/lib/common.php';
 require_once INSTALLDIR . '/lib/daemon.php';
@@ -626,10 +623,6 @@ class TwitterStatusFetcher extends Daemon
     }
 }
 
-ini_set("max_execution_time", "0");
-ini_set("max_input_time", "0");
-set_time_limit(0);
-mb_internal_encoding('UTF-8');
 declare(ticks = 1);
 
 $fetcher = new TwitterStatusFetcher();

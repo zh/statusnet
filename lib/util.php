@@ -1377,3 +1377,68 @@ function common_database_tablename($tablename)
   //table prefixes could be added here later
   return $tablename;
 }
+
+function common_shorten_url($long_url)
+{
+    $user = common_current_user();
+    if (empty($user)) {
+        // common current user does not find a user when called from the XMPP daemon
+        // therefore we'll set one here fix, so that XMPP given URLs may be shortened
+        $svc = 'ur1.ca';
+    } else {
+        $svc = $user->urlshorteningservice;
+    }
+
+    $curlh = curl_init();
+    curl_setopt($curlh, CURLOPT_CONNECTTIMEOUT, 20); // # seconds to wait
+    curl_setopt($curlh, CURLOPT_USERAGENT, 'Laconica');
+    curl_setopt($curlh, CURLOPT_RETURNTRANSFER, true);
+
+    switch($svc) {
+     case 'ur1.ca':
+        require_once INSTALLDIR.'/lib/Shorturl_api.php';
+        $short_url_service = new LilUrl;
+        $short_url = $short_url_service->shorten($long_url);
+        break;
+
+     case '2tu.us':
+        $short_url_service = new TightUrl;
+        require_once INSTALLDIR.'/lib/Shorturl_api.php';
+        $short_url = $short_url_service->shorten($long_url);
+        break;
+
+     case 'ptiturl.com':
+        require_once INSTALLDIR.'/lib/Shorturl_api.php';
+        $short_url_service = new PtitUrl;
+        $short_url = $short_url_service->shorten($long_url);
+        break;
+
+     case 'bit.ly':
+        curl_setopt($curlh, CURLOPT_URL, 'http://bit.ly/api?method=shorten&long_url='.urlencode($long_url));
+        $short_url = current(json_decode(curl_exec($curlh))->results)->hashUrl;
+        break;
+
+     case 'is.gd':
+        curl_setopt($curlh, CURLOPT_URL, 'http://is.gd/api.php?longurl='.urlencode($long_url));
+        $short_url = curl_exec($curlh);
+        break;
+     case 'snipr.com':
+        curl_setopt($curlh, CURLOPT_URL, 'http://snipr.com/site/snip?r=simple&link='.urlencode($long_url));
+        $short_url = curl_exec($curlh);
+        break;
+     case 'metamark.net':
+        curl_setopt($curlh, CURLOPT_URL, 'http://metamark.net/api/rest/simple?long_url='.urlencode($long_url));
+        $short_url = curl_exec($curlh);
+        break;
+     case 'tinyurl.com':
+        curl_setopt($curlh, CURLOPT_URL, 'http://tinyurl.com/api-create.php?url='.urlencode($long_url));
+        $short_url = curl_exec($curlh);
+        break;
+     default:
+        $short_url = false;
+    }
+
+    curl_close($curlh);
+
+    return $short_url;
+}

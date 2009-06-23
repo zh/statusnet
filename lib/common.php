@@ -67,14 +67,25 @@ function _sn_to_path($sn)
     return $p;
 }
 
-// try to figure out where we are
+// try to figure out where we are. $server and $path
+// can be set by including module, else we guess based
+// on HTTP info.
 
-$_server = array_key_exists('SERVER_NAME', $_SERVER) ?
-  strtolower($_SERVER['SERVER_NAME']) :
-  null;
-$_path = array_key_exists('SCRIPT_NAME', $_SERVER) ?
-  _sn_to_path($_SERVER['SCRIPT_NAME']) :
-  null;
+if (isset($server)) {
+    $_server = $server;
+} else {
+    $_server = array_key_exists('SERVER_NAME', $_SERVER) ?
+      strtolower($_SERVER['SERVER_NAME']) :
+    null;
+}
+
+if (isset($path)) {
+    $_path = $path;
+} else {
+    $_path = array_key_exists('SCRIPT_NAME', $_SERVER) ?
+      _sn_to_path($_SERVER['SCRIPT_NAME']) :
+    null;
+}
 
 // default configuration, overwritten in config.php
 
@@ -84,9 +95,9 @@ $config =
               'server' => $_server,
               'theme' => 'default',
               'design' =>
-              array('backgroundcolor' => '#F0F2F5',
+              array('backgroundcolor' => '#CEE1E9',
                     'contentcolor' => '#FFFFFF',
-                    'sidebarcolor' => '#CEE1E9',
+                    'sidebarcolor' => '#C8D1D5',
                     'textcolor' => '#000000',
                     'linkcolor' => '#002E6E',
                     'backgroundimage' => null,
@@ -191,7 +202,7 @@ $config =
         array('run' => 'web',
               'frequency' => 10000,
               'reporturl' => 'http://laconi.ca/stats/report'),
-        'attachments' => 
+        'attachments' =>
         array('server' => null,
               'dir' => INSTALLDIR . '/file/',
               'path' => $_path . '/file/',
@@ -230,6 +241,7 @@ $config =
         'user_quota' => 50000000,
         'monthly_quota' => 15000000,
         'uploads' => true,
+        'filecommand' => '/usr/bin/file',
         ),
         'group' =>
         array('maxaliases' => 3),
@@ -261,14 +273,18 @@ if (function_exists('date_default_timezone_set')) {
 // server-wide, then vhost-wide, then for a path,
 // finally for a dir (usually only need one of the last two).
 
-$_config_files = array('/etc/laconica/laconica.php',
-                  '/etc/laconica/'.$_server.'.php');
+if (isset($conffile)) {
+    $_config_files = array($conffile);
+} else {
+    $_config_files = array('/etc/laconica/laconica.php',
+                           '/etc/laconica/'.$_server.'.php');
 
-if (strlen($_path) > 0) {
-    $_config_files[] = '/etc/laconica/'.$_server.'_'.$_path.'.php';
+    if (strlen($_path) > 0) {
+        $_config_files[] = '/etc/laconica/'.$_server.'_'.$_path.'.php';
+    }
+
+    $_config_files[] = INSTALLDIR.'/config.php';
 }
-
-$_config_files[] = INSTALLDIR.'/config.php';
 
 $_have_a_config = false;
 

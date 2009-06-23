@@ -217,6 +217,7 @@ $(document).ready(function(){
                                                             $('#'+li.id).css({display:'none'});
                                                             $('#'+li.id).fadeIn(2500);
                                                             NoticeReply();
+                                                            NoticeAttachments();
                                                          }
 													}
 													$("#notice_data-text").val("");

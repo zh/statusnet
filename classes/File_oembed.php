@@ -25,24 +25,24 @@ require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
  * Table Definition for file_oembed
  */
 
-class File_oembed extends Memcached_DataObject 
+class File_oembed extends Memcached_DataObject
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'file_oembed';                     // table name
     public $file_id;                         // int(4)  primary_key not_null
-    public $version;                         // varchar(20)  
-    public $type;                            // varchar(20)  
-    public $provider;                        // varchar(50)  
-    public $provider_url;                    // varchar(255)  
-    public $width;                           // int(4)  
-    public $height;                          // int(4)  
-    public $html;                            // text()  
-    public $title;                           // varchar(255)  
-    public $author_name;                     // varchar(50)  
-    public $author_url;                      // varchar(255)  
-    public $url;                             // varchar(255)  
+    public $version;                         // varchar(20)
+    public $type;                            // varchar(20)
+    public $provider;                        // varchar(50)
+    public $provider_url;                    // varchar(255)
+    public $width;                           // int(4)
+    public $height;                          // int(4)
+    public $html;                            // text()
+    public $title;                           // varchar(255)
+    public $author_name;                     // varchar(50)
+    public $author_url;                      // varchar(255)
+    public $url;                             // varchar(255)
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
@@ -51,6 +51,10 @@ class File_oembed extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
+    function sequenceKey()
+    {
+        return array(false, false, false);
+    }
 
     function _getOembed($url, $maxwidth = 500, $maxheight = 400, $format = 'json') {
         $cmd = common_config('oohembed', 'endpoint') . '?url=' . urlencode($url);
@@ -83,5 +87,4 @@ class File_oembed extends Memcached_DataObject
         }
     }
 }
-
 

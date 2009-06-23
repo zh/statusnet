@@ -209,7 +209,7 @@ class ShownoticeAction extends Action
     function showContent()
     {
         $this->elementStart('ol', array('class' => 'notices xoxo'));
-        $nli = new NoticeListItem($this->notice, $this);
+        $nli = new SingleNoticeItem($this->notice, $this);
         $nli->show();
         $this->elementEnd('ol');
     }
@@ -262,5 +262,31 @@ class ShownoticeAction extends Action
             $this->element('meta', array('name' => 'microid',
                                          'content' => $id->toString()));
         }
+    }
+}
+
+class SingleNoticeItem extends NoticeListItem
+{
+    /**
+     * recipe function for displaying a single notice.
+     *
+     * We overload to show attachments.
+     *
+     * @return void
+     */
+
+    function show()
+    {
+        $this->showStart();
+        $this->showNotice();
+        $this->showNoticeAttachments();
+        $this->showNoticeInfo();
+        $this->showNoticeOptions();
+        $this->showEnd();
+    }
+
+    function showNoticeAttachments() {
+        $al = new AttachmentList($this->notice, $this->out);
+        $al->show();
     }
 }

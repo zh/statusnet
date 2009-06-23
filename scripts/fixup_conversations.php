@@ -18,16 +18,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-# Abort if called from a web server
-if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
-    print "This script must be run from the command line\n";
-    exit();
-}
-
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
-define('LACONICA', true);
 
-require_once(INSTALLDIR . '/lib/common.php');
+require_once INSTALLDIR.'/scripts/commandline.inc';
 
 common_log(LOG_INFO, 'Fixing up conversations.');
 
@@ -72,8 +65,3 @@ while ($notice->fetch()) {
 
     print ".\n";
 }
-
-ini_set("max_execution_time", "0");
-ini_set("max_input_time", "0");
-set_time_limit(0);
-mb_internal_encoding('UTF-8');

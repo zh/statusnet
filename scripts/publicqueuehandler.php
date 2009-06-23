@@ -18,29 +18,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-# Abort if called from a web server
-if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
-    print "This script must be run from the command line\n";
-    exit();
-}
-
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
-define('LACONICA', true);
 
-require_once(INSTALLDIR . '/lib/common.php');
-require_once(INSTALLDIR . '/lib/jabber.php');
-require_once(INSTALLDIR . '/lib/xmppqueuehandler.php');
+$shortoptions = 'r::';
+$longoptions = array('resource::');
 
-set_error_handler('common_error_handler');
+$helptext = <<<END_OF_PUBLIC_HELP
+Daemon script for pushing new notices to public XMPP subscribers.
+
+    -r --resource       Jabber Resource ID
+
+END_OF_PUBLIC_HELP;
+
+require_once INSTALLDIR.'/scripts/commandline.inc';
+
+require_once INSTALLDIR . '/lib/jabber.php';
+require_once INSTALLDIR . '/lib/xmppqueuehandler.php';
 
 class PublicQueueHandler extends XmppQueueHandler
 {
-    
+
     function transport()
     {
         return 'public';
     }
-    
+
     function handle_notice($notice)
     {
         try {
@@ -59,12 +61,15 @@ if (common_config('xmpp','enabled')==false) {
     exit();
 }
 
-ini_set("max_execution_time", "0");
-ini_set("max_input_time", "0");
-set_time_limit(0);
-mb_internal_encoding('UTF-8');
-
-$resource = ($argc > 1) ? $argv[1] : (common_config('xmpp','resource') . '-public');
+if (have_option('r')) {
+    $resource = get_option_value('r');
+} else if (have_option('--resource')) {
+    $resource = get_option_value('--resource');
+} else if (count($args) > 0) {
+    $resource = $args[0];
+} else {
+    $resource = null;
+}
 
 $handler = new PublicQueueHandler($resource);
 

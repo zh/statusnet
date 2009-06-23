@@ -18,35 +18,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-# Abort if called from a web server
-if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
-    print "This script must be run from the command line\n";
-    exit(1);
-}
-
-ini_set("max_execution_time", "0");
-ini_set("max_input_time", "0");
-set_time_limit(0);
-mb_internal_encoding('UTF-8');
-
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
-define('LACONICA', true);
 
-require_once(INSTALLDIR . '/lib/common.php');
+$helptext = <<<ENDOFHELP
+USAGE: decache.php <table> <id> [<column>]
+Clears the cache for the object in table <table> with id <id>
+If <column> is specified, use that instead of 'id'
+ENDOFHELP;
 
-if ($argc < 3 || $argc > 4) {
-    print "USAGE: decache.php <table> <id> [<column>]\n";
-    print "Clears the cache for the object in table <table> with id <id>.\n\n";
-    print "If <column> is specified, use that instead of 'id'\n";
-    exit(1);
+require_once INSTALLDIR.'/scripts/commandline.inc';
+
+if (count($args) < 2 || count($args) > 3) {
+    show_help();
 }
 
-$table = $argv[1];
-$id = $argv[2];
-if ($argc > 3) {
-    $column = $argv[3];
+$table = $args[0];
+$id = $args[1];
+if (count($args) > 2) {
+    $column = $args[2];
 } else {
-    $colum = 'id';
+    $column = 'id';
 }
 
 $object = Memcached_DataObject::staticGet($table, $column, $id);

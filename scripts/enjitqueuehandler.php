@@ -18,24 +18,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-# Abort if called from a web server
-if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
-    print "This script must be run from the command line\n";
-    exit();
-}
-
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
-define('LACONICA', true);
 
-require_once(INSTALLDIR . '/lib/common.php');
-require_once(INSTALLDIR . '/lib/mail.php');
-require_once(INSTALLDIR . '/lib/queuehandler.php');
+$shortoptions = 'i::';
+$longoptions = array('id::');
+
+$helptext = <<<END_OF_ENJIT_HELP
+Daemon script for watching new notices and posting to enjit.
+
+    -i --id           Identity (default none)
+
+END_OF_ENJIT_HELP;
+
+require_once INSTALLDIR.'/scripts/commandline.inc';
+
+require_once INSTALLDIR . '/lib/mail.php';
+require_once INSTALLDIR . '/lib/queuehandler.php';
 
 set_error_handler('common_error_handler');
 
 class EnjitQueueHandler extends QueueHandler
 {
-    
     function transport()
     {
         return 'enjit';
@@ -59,7 +62,6 @@ class EnjitQueueHandler extends QueueHandler
                     $this->log(LOG_INFO, "Skipping remote notice");
                     return "skipped";
                 }
-
 
                 #
                 # Build an Atom message from the notice
@@ -93,8 +95,8 @@ class EnjitQueueHandler extends QueueHandler
         $ch   = curl_init();
 
         curl_setopt($ch, CURLOPT_URL, $url);
- 
-                curl_setopt($ch, CURLOPT_HEADER, 1); 
+
+                curl_setopt($ch, CURLOPT_HEADER, 1);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, 1) ;
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
@@ -103,7 +105,7 @@ class EnjitQueueHandler extends QueueHandler
                 #
         # curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         # curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-                # curl_setopt($ch, CURLOPT_VERBOSE, 1); 
+                # curl_setopt($ch, CURLOPT_VERBOSE, 1);
 
         $result = curl_exec($ch);
 
@@ -115,13 +117,18 @@ class EnjitQueueHandler extends QueueHandler
 
                 return $code;
     }
-    
 
 }
 
-mb_internal_encoding('UTF-8');
-
-$id = ($argc > 1) ? $argv[1] : null;
+if (have_option('-i')) {
+    $id = get_option_value('-i');
+} else if (have_option('--id')) {
+    $id = get_option_value('--id');
+} else if (count($args) > 0) {
+    $id = $args[0];
+} else {
+    $id = null;
+}
 
 $handler = new EnjitQueueHandler($id);
 

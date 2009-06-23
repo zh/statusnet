@@ -179,7 +179,6 @@ class NoticeListItem extends Widget
     {
         $this->showStart();
         $this->showNotice();
-        $this->showNoticeAttachments();
         $this->showNoticeInfo();
         $this->showNoticeOptions();
         $this->showEnd();
@@ -191,18 +190,6 @@ class NoticeListItem extends Widget
         $this->showAuthor();
         $this->showContent();
         $this->out->elementEnd('div');
-    }
-
-    function showNoticeAttachments() {
-        if ($this->isUsedInList()) {
-            return;
-        }
-        $al = new AttachmentList($this->notice, $this->out);
-        $al->show();
-    }
-
-    function isUsedInList() {
-        return 'shownotice' !== $this->out->args['action'];
     }
 
     function showNoticeInfo()
@@ -348,10 +335,6 @@ class NoticeListItem extends Widget
             // we cook them right now. This should probably disappear in future
             // versions (>> 0.4.x)
             $this->out->raw(common_render_content($this->notice->content, $this->notice));
-        }
-        $uploaded = $this->notice->getUploadedAttachment();
-        if ($uploaded) {
-            $this->out->element('a', array('href' => $uploaded[0], 'class' => 'attachment', 'id' => 'attachment-' . $uploaded[1]), $uploaded[0]);
         }
         $this->out->elementEnd('p');
     }

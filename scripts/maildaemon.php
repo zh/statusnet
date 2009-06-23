@@ -18,16 +18,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-# Abort if called from a web server
-if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
-    print "This script must be run from the command line\n";
-    exit();
-}
-
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
-define('LACONICA', true);
 
-require_once(INSTALLDIR . '/lib/common.php');
+$helptext = <<<END_OF_HELP
+Script for converting mail messages into notices. Takes message body
+as STDIN.
+
+END_OF_HELP;
+
+require_once INSTALLDIR.'/scripts/commandline.inc';
+
 require_once(INSTALLDIR . '/lib/mail.php');
 require_once('Mail/mimeDecode.php');
 
@@ -36,7 +36,6 @@ require_once('Mail/mimeDecode.php');
 
 class MailerDaemon
 {
-
     function __construct()
     {
     }
