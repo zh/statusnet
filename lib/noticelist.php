@@ -179,7 +179,6 @@ class NoticeListItem extends Widget
     {
         $this->showStart();
         $this->showNotice();
-        $this->showNoticeAttachments();
         $this->showNoticeInfo();
         $this->showNoticeOptions();
         $this->showEnd();
@@ -191,18 +190,6 @@ class NoticeListItem extends Widget
         $this->showAuthor();
         $this->showContent();
         $this->out->elementEnd('div');
-    }
-
-    function showNoticeAttachments() {
-        if ($this->isUsedInList()) {
-            return;
-        }
-        $al = new AttachmentList($this->notice, $this->out);
-        $al->show();
-    }
-
-    function isUsedInList() {
-        return 'shownotice' !== $this->out->args['action'];
     }
 
     function showNoticeInfo()
