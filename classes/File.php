@@ -124,8 +124,8 @@ class File extends Memcached_DataObject
     function isRespectsQuota($user) {
         if ($_FILES['attach']['size'] > common_config('attachments', 'file_quota')) {
             return sprintf(_('No file may be larger than %d bytes ' .
-                'and the file you sent was %d bytes. Try to upload a smaller version.'),
-                common_config('attachments', 'file_quota'), $_FILES['attach']['size']);
+                             'and the file you sent was %d bytes. Try to upload a smaller version.'),
+                           common_config('attachments', 'file_quota'), $_FILES['attach']['size']);
         }
 
         $query = "select sum(size) as total from file join file_to_post on file_to_post.file_id = file.id join notice on file_to_post.post_id = notice.id where profile_id = {$user->id} and file.url like '%/notice/%/file'";
@@ -148,44 +148,49 @@ class File extends Memcached_DataObject
 
     // where should the file go?
 
-     static function filename($notice_id, $basename)
-     {
-         return $notice_id . '-' . $basename;
-     }
+    static function filename($profile, $basename, $mimetype)
+    {
+        require_once 'MIME/Type/Extension.php';
+        $mte = new MIME_Type_Extension();
+        $ext = $mte->getExtension($mimetype);
+        $nickname = $profile->nickname;
+        $datestamp = strftime('%Y%m%dT%H%M%S', time());
+        $random = strtolower(common_confirmation_code(32));
+        return "$nickname-$datestamp-$random.$ext";
+    }
 
-     static function path($filename)
-     {
-         $dir = common_config('attachments', 'dir');
+    static function path($filename)
+    {
+        $dir = common_config('attachments', 'dir');
 
-         if ($dir[strlen($dir)-1] != '/') {
-             $dir .= '/';
-         }
+        if ($dir[strlen($dir)-1] != '/') {
+            $dir .= '/';
+        }
 
-         return $dir . $filename;
-     }
+        return $dir . $filename;
+    }
 
-     static function url($filename)
-     {
-         $path = common_config('attachments', 'path');
+    static function url($filename)
+    {
+        $path = common_config('attachments', 'path');
 
-         if ($path[strlen($path)-1] != '/') {
-             $path .= '/';
-         }
+        if ($path[strlen($path)-1] != '/') {
+            $path .= '/';
+        }
 
-         if ($path[0] != '/') {
-             $path = '/'.$path;
-         }
+        if ($path[0] != '/') {
+            $path = '/'.$path;
+        }
 
-         $server = common_config('attachments', 'server');
+        $server = common_config('attachments', 'server');
 
-         if (empty($server)) {
-             $server = common_config('site', 'server');
-         }
+        if (empty($server)) {
+            $server = common_config('site', 'server');
+        }
 
-         // XXX: protocol
+        // XXX: protocol
 
-         return 'http://'.$server.$path.$filename;
-     }
-
+        return 'http://'.$server.$path.$filename;
+    }
 }
 

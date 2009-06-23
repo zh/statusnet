@@ -25,21 +25,20 @@ require_once INSTALLDIR.'/classes/File_oembed.php';
 
 define('USER_AGENT', 'Laconica user agent / file probe');
 
-
 /**
  * Table Definition for file_redirection
  */
 
-class File_redirection extends Memcached_DataObject 
+class File_redirection extends Memcached_DataObject
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'file_redirection';                // table name
     public $url;                             // varchar(255)  primary_key not_null
-    public $file_id;                         // int(4)  
-    public $redirections;                    // int(4)  
-    public $httpcode;                        // int(4)  
+    public $file_id;                         // int(4)
+    public $redirections;                    // int(4)
+    public $httpcode;                        // int(4)
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
@@ -47,8 +46,6 @@ class File_redirection extends Memcached_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
-
-
 
     function _commonCurl($url, $redirs) {
         $curlh = curl_init();
@@ -85,8 +82,6 @@ class File_redirection extends Memcached_DataObject
         if (isset($url)) {
             return $url;
         }
-
-
 
         $curlh = File_redirection::_commonCurl($short_url, $redirs);
         // Don't include body in output
@@ -143,62 +138,7 @@ class File_redirection extends Memcached_DataObject
     }
 
     function _userMakeShort($long_url, $user) {
-        if (empty($user)) {
-            // common current user does not find a user when called from the XMPP daemon
-            // therefore we'll set one here fix, so that XMPP given URLs may be shortened
-            $user->urlshorteningservice = 'ur1.ca';
-        }
-        $curlh = curl_init();
-        curl_setopt($curlh, CURLOPT_CONNECTTIMEOUT, 20); // # seconds to wait
-        curl_setopt($curlh, CURLOPT_USERAGENT, 'Laconica');
-        curl_setopt($curlh, CURLOPT_RETURNTRANSFER, true);
-
-        switch($user->urlshorteningservice) {
-            case 'ur1.ca':
-                require_once INSTALLDIR.'/lib/Shorturl_api.php';
-                $short_url_service = new LilUrl;
-                $short_url = $short_url_service->shorten($long_url);
-                break;
-
-            case '2tu.us':
-                $short_url_service = new TightUrl;
-                require_once INSTALLDIR.'/lib/Shorturl_api.php';
-                $short_url = $short_url_service->shorten($long_url);
-                break;
-
-            case 'ptiturl.com':
-                require_once INSTALLDIR.'/lib/Shorturl_api.php';
-                $short_url_service = new PtitUrl;
-                $short_url = $short_url_service->shorten($long_url);
-                break;
-
-            case 'bit.ly':
-                curl_setopt($curlh, CURLOPT_URL, 'http://bit.ly/api?method=shorten&long_url='.urlencode($long_url));
-                $short_url = current(json_decode(curl_exec($curlh))->results)->hashUrl;
-                break;
-
-            case 'is.gd':
-                curl_setopt($curlh, CURLOPT_URL, 'http://is.gd/api.php?longurl='.urlencode($long_url));
-                $short_url = curl_exec($curlh);
-                break;
-            case 'snipr.com':
-                curl_setopt($curlh, CURLOPT_URL, 'http://snipr.com/site/snip?r=simple&link='.urlencode($long_url));
-                $short_url = curl_exec($curlh);
-                break;
-            case 'metamark.net':
-                curl_setopt($curlh, CURLOPT_URL, 'http://metamark.net/api/rest/simple?long_url='.urlencode($long_url));
-                $short_url = curl_exec($curlh);
-                break;
-            case 'tinyurl.com':
-                curl_setopt($curlh, CURLOPT_URL, 'http://tinyurl.com/api-create.php?url='.urlencode($long_url));
-                $short_url = curl_exec($curlh);
-                break;
-            default:
-                $short_url = false;
-        }
-
-        curl_close($curlh);
-
+        $short_url = common_shorten_url($long_url);
         if ($short_url) {
             $short_url = (string)$short_url;
             // store it
