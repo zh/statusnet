@@ -132,13 +132,13 @@ class DesignSettingsAction extends AccountSettingsAction
                                           _('Off'));
             $this->element('p', 'form_guide', _('Turn background image on or off.'));
             $this->elementEnd('li');
-        }
 
-        $this->elementStart('li');
-        $this->checkbox('design_background-image_repeat',
-                        _('Tile background image'),
-                        ($design->disposition & BACKGROUND_TILE) ? true : false );
-        $this->elementEnd('li');
+            $this->elementStart('li');
+            $this->checkbox('design_background-image_repeat',
+                            _('Tile background image'),
+                            ($design->disposition & BACKGROUND_TILE) ? true : false );
+            $this->elementEnd('li');
+        }
 
         $this->elementEnd('ul');
         $this->elementEnd('fieldset');
@@ -388,7 +388,11 @@ class DesignSettingsAction extends AccountSettingsAction
 
             $original = clone($design);
             $design->backgroundimage = $filename;
+
+            // default to on, no tile
+
             $design->setDisposition(true, false, false);
+
             $result = $design->update($original);
 
             if ($result === false) {
