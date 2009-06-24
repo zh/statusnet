@@ -78,8 +78,6 @@ class TwitapistatusesAction extends TwitterapiAction
         $this->auth_user = $apidata['user'];
         $user = $this->get_user($apidata['api_arg'], $apidata);
 
-        common_debug("auth user = " . $this->auth_user->nickname);
-
         if (empty($user)) {
              $this->clientError(_('No such user!'), 404,
              $apidata['content-type']);
