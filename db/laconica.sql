@@ -277,7 +277,7 @@ create table foreign_service (
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table foreign_user (
-     id int not null comment 'unique numeric key on foreign service',
+     id bigint not null comment 'unique numeric key on foreign service',
      service int not null comment 'foreign key to service' references foreign_service(id),
      uri varchar(255) not null unique key comment 'identifying URI',
      nickname varchar(255) comment 'nickname on foreign service',
