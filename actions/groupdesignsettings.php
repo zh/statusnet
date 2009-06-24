@@ -238,7 +238,6 @@ class GroupDesignSettingsAction extends DesignSettingsAction
             $design->sidebarcolor    = $sbcolor->intValue();
             $design->textcolor       = $tcolor->intValue();
             $design->linkcolor       = $lcolor->intValue();
-            $design->backgroundimage = $filepath;
 
             $design->setDisposition($on, $off, $tile);
 
@@ -263,7 +262,6 @@ class GroupDesignSettingsAction extends DesignSettingsAction
             $design->sidebarcolor    = $sbcolor->intValue();
             $design->textcolor       = $tcolor->intValue();
             $design->linkcolor       = $lcolor->intValue();
-            $design->backgroundimage = $filepath;
 
             $design->setDisposition($on, $off, $tile);
 
