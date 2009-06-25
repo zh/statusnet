@@ -346,7 +346,7 @@ class Notice extends Memcached_DataObject
     {
         $cache = common_memcache();
         if ($cache) {
-            $ck = 'notice:conversation:'.$this->conversation;
+            $ck = 'notice:conversation_ids:'.$this->conversation;
             $cache->delete($ck);
             if ($blowLast) {
                 $cache->delete($ck.';last');
@@ -734,6 +734,57 @@ class Notice extends Memcached_DataObject
         } else {
             # -1 == blacklisted
             $notice->whereAdd('is_local != -1');
+        }
+
+        if ($since_id != 0) {
+            $notice->whereAdd('id > ' . $since_id);
+        }
+
+        if ($max_id != 0) {
+            $notice->whereAdd('id <= ' . $max_id);
+        }
+
+        if (!is_null($since)) {
+            $notice->whereAdd('created > \'' . date('Y-m-d H:i:s', $since) . '\'');
+        }
+
+        $ids = array();
+
+        if ($notice->find()) {
+            while ($notice->fetch()) {
+                $ids[] = $notice->id;
+            }
+        }
+
+        $notice->free();
+        $notice = NULL;
+
+        return $ids;
+    }
+
+    function conversationStream($id, $offset=0, $limit=20, $since_id=0, $max_id=0, $since=null)
+    {
+        $ids = Notice::stream(array('Notice', '_conversationStreamDirect'),
+                              array($id),
+                              'notice:conversation_ids:'.$id,
+                              $offset, $limit, $since_id, $max_id, $since);
+
+        return Notice::getStreamByIds($ids);
+    }
+
+    function _conversationStreamDirect($id, $offset=0, $limit=20, $since_id=0, $max_id=0, $since=null)
+    {
+        $notice = new Notice();
+
+        $notice->selectAdd(); // clears it
+        $notice->selectAdd('id');
+
+        $notice->whereAdd('conversation = '.$id);
+
+        $notice->orderBy('id DESC');
+
+        if (!is_null($offset)) {
+            $notice->limit($offset, $limit);
         }
 
         if ($since_id != 0) {
