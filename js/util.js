@@ -280,13 +280,13 @@ function NoticeAttachments() {
         timeout : 0
     };
 
-    $('a.attachment').click(function() {
+    $('#content .notice a.attachment').click(function() {
         $().jOverlay({url: $('address .url')[0].href+'/attachment/' + ($(this).attr('id').substring('attachment'.length + 1)) + '/ajax'});
         return false;
     });
     
     var t;
-    $("body:not(#shownotice) a.thumbnail").hover(
+    $("body:not(#shownotice) #content .notice a.thumbnail").hover(
         function() {
             var anchor = $(this);
             $("a.thumbnail").children('img').hide();
