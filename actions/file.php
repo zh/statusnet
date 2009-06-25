@@ -21,20 +21,40 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/actions/shownotice.php');
 
-class FileAction extends ShowNoticeAction
+class FileAction extends Action
 {
-    function showPage() {
-        $source_url = common_local_url('file', array('notice' => $this->notice->id));
-        $query = "select file_redirection.url as url from file join file_redirection on file.id = file_redirection.file_id where file.url = '$source_url'";
-        $file = new File_redirection;
-        $file->query($query);
-        $file->fetch();
-        if (empty($file->url)) {
-            die('nothing attached here');
-        } else {
-            header("Location: {$file->url}");
-            die();
+    var $id = null;
+    var $filerec = null;
+
+    function prepare($args)
+    {
+        parent::prepare($args);
+        $this->id = $this->trimmed('notice');
+        if (empty($this->id)) {
+            $this->clientError(_('No notice id'));
         }
+        $notice = Notice::staticGet('id', $this->id);
+        if (empty($notice)) {
+            $this->clientError(_('No notice'));
+        }
+        $atts = $notice->attachments();
+        if (empty($atts)) {
+            $this->clientError(_('No attachments'));
+        }
+        foreach ($atts as $att) {
+            if (!empty($att->filename)) {
+                $this->filerec = $att;
+                break;
+            }
+        }
+        if (empty($this->filerec)) {
+            $this->clientError(_('No uploaded attachments'));
+        }
+        return true;
+    }
+
+    function handle() {
+        common_redirect($this->filerec->url);
     }
 }
 
