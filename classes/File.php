@@ -91,9 +91,10 @@ class File extends Memcached_DataObject
         $given_url = File_redirection::_canonUrl($given_url);
         if (empty($given_url)) return -1;   // error, no url to process
         $file = File::staticGet('url', $given_url);
-        if (empty($file->id)) {
+        if (empty($file)) {
             $file_redir = File_redirection::staticGet('url', $given_url);
-            if (empty($file_redir->id)) {
+            if (empty($file_redir)) {
+                common_debug("processNew() '$given_url' not a known redirect.\n");
                 $redir_data = File_redirection::where($given_url);
                 $redir_url = $redir_data['url'];
                 if ($redir_url === $given_url) {

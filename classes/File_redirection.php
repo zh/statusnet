@@ -66,21 +66,17 @@ class File_redirection extends Memcached_DataObject
 
         // let's see if we know this...
         $a = File::staticGet('url', $short_url);
-        if (empty($a->id)) {
-            $b = File_redirection::staticGet('url', $short_url);
-            if (empty($b->id)) {
-                // we'll have to figure it out
-            } else {
-                // this is a redirect to $b->file_id
-                $a = File::staticGet($b->file_id);
-                $url = $a->url;
-            }
-        } else {
+
+        if (!empty($a)) {
             // this is a direct link to $a->url
-            $url = $a->url;
-        }
-        if (isset($url)) {
-            return $url;
+            return $a->url;
+        } else {
+            $b = File_redirection::staticGet('url', $short_url);
+            if (!empty($b)) {
+                // this is a redirect to $b->file_id
+                $a = File::staticGet('id', $b->file_id);
+                return $a->url;
+            }
         }
 
         $curlh = File_redirection::_commonCurl($short_url, $redirs);
@@ -118,28 +114,22 @@ class File_redirection extends Memcached_DataObject
     }
 
     function makeShort($long_url) {
-        $long_url = File_redirection::_canonUrl($long_url);
-        // do we already know this long_url and have a short redirection for it?
-        $file       = new File;
-        $file_redir = new File_redirection;
-        $file->url  = $long_url;
-        $file->joinAdd($file_redir);
-        $file->selectAdd('length(file_redirection.url) as len');
-        $file->limit(1);
-        $file->orderBy('len');
-        $file->find(true);
-        if (!empty($file->url) && (strlen($file->url) < strlen($long_url))) {
-            return $file->url;
-        }
 
-        // if yet unknown, we must find a short url according to user settings
-        $short_url = File_redirection::_userMakeShort($long_url, common_current_user());
-        return $short_url;
+        $canon = File_redirection::_canonUrl($long_url);
+
+        $short_url = File_redirection::_userMakeShort($canon);
+
+        // Did we get one? Is it shorter?
+        if (!empty($short_url) && mb_strlen($short_url) < mb_strlen($long_url)) {
+            return $short_url;
+        } else {
+            return $long_url;
+        }
     }
 
-    function _userMakeShort($long_url, $user) {
+    function _userMakeShort($long_url) {
         $short_url = common_shorten_url($long_url);
-        if ($short_url) {
+        if (!empty($short_url) && $short_url != $long_url) {
             $short_url = (string)$short_url;
             // store it
             $file = File::staticGet('url', $long_url);
@@ -162,7 +152,7 @@ class File_redirection extends Memcached_DataObject
             }
             return $short_url;
         }
-        return $long_url;
+        return null;
     }
 
     function _canonUrl($in_url, $default_scheme = 'http://') {

@@ -25,7 +25,7 @@ require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
  * Table Definition for file_to_post
  */
 
-class File_to_post extends Memcached_DataObject 
+class File_to_post extends Memcached_DataObject
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -44,17 +44,27 @@ class File_to_post extends Memcached_DataObject
     function processNew($file_id, $notice_id) {
         static $seen = array();
         if (empty($seen[$notice_id]) || !in_array($file_id, $seen[$notice_id])) {
-            $f2p = new File_to_post;
-            $f2p->file_id = $file_id;
-            $f2p->post_id = $notice_id;
-            $f2p->insert();
+
+            $f2p = File_to_post::pkeyGet(array('post_id' => $notice_id,
+                                               'file_id' => $file_id));
+            if (empty($f2p)) {
+                $f2p = new File_to_post;
+                $f2p->file_id = $file_id;
+                $f2p->post_id = $notice_id;
+                $f2p->insert();
+            }
+
             if (empty($seen[$notice_id])) {
                 $seen[$notice_id] = array($file_id);
             } else {
                 $seen[$notice_id][] = $file_id;
             }
         }
+    }
 
+    function &pkeyGet($kv)
+    {
+        return Memcached_DataObject::pkeyGet('File_to_post', $kv);
     }
 }
 

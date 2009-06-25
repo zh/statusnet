@@ -331,6 +331,20 @@ class Notice extends Memcached_DataObject
         return $n_attachments;
     }
 
+    function attachments() {
+        // XXX: cache this
+        $att = array();
+        $f2p = new File_to_post;
+        $f2p->post_id = $this->id;
+        if ($f2p->find()) {
+            while ($f2p->fetch()) {
+                $f = File::staticGet($f2p->file_id);
+                $att[] = clone($f);
+            }
+        }
+        return $att;
+    }
+
     function blowCaches($blowLast=false)
     {
         $this->blowSubsCache($blowLast);
@@ -346,7 +360,7 @@ class Notice extends Memcached_DataObject
     {
         $cache = common_memcache();
         if ($cache) {
-            $ck = 'notice:conversation_ids:'.$this->conversation;
+            $ck = common_cache_key('notice:conversation_ids:'.$this->conversation);
             $cache->delete($ck);
             if ($blowLast) {
                 $cache->delete($ck.';last');
