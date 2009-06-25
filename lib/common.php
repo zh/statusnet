@@ -125,7 +125,13 @@ $config =
         array('appname' => 'laconica', # for syslog
               'priority' => 'debug'), # XXX: currently ignored
         'queue' =>
-        array('enabled' => false),
+        array('enabled' => false,
+              'subsystem' => 'db', # default to database, or 'stomp'
+              'stomp_server' => null,
+              'queue_basename' => 'laconica',
+              'stomp_username' => null,
+              'stomp_password' => null,
+              ),
         'license' =>
         array('url' => 'http://creativecommons.org/licenses/by/3.0/',
               'title' => 'Creative Commons Attribution 3.0',

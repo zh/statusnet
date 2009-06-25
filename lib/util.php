@@ -826,89 +826,91 @@ function common_broadcast_notice($notice, $remote=false)
 
 function common_enqueue_notice($notice)
 {
+    $transports = array('omb', 'sms', 'public', 'twitter', 'facebook', 'ping');
+
+    if (common_config('xmpp', 'enabled'))
+    {
+        $transports[] = 'jabber';
+    }
+
     if (common_config('queue','subsystem') == 'stomp') {
-	// use an external message queue system via STOMP
-	require_once("Stomp.php");
-	$con = new Stomp(common_config('queue','stomp_server'));
-	if (!$con->connect()) {
-		common_log(LOG_ERR, 'Failed to connect to queue server');
-		return false;
-	}
-	$queue_basename = common_config('queue','queue_basename');
-    	foreach (array('jabber', 'omb', 'sms', 'public', 'twitter', 'facebook', 'ping') as $transport) {
-		if (!$con->send(
-			'/queue/'.$queue_basename.'-'.$transport, // QUEUE
-			$notice->id, 		// BODY of the message
-			array (			// HEADERS of the msg
-			'created' => $notice->created
-			))) {
-			common_log(LOG_ERR, 'Error sending to '.$transport.' queue');
-			return false;
-		}
-        common_log(LOG_DEBUG, 'complete remote queueing notice ID = ' . $notice->id . ' for ' . $transport);
-	}
-
-	//send tags as headers, so they can be used as JMS selectors
-        common_log(LOG_DEBUG, 'searching for tags ' . $notice->id);
-        $tags = array();
-	$tag = new Notice_tag();
-        $tag->notice_id = $notice->id;
-        if ($tag->find()) {
-            while ($tag->fetch()) {
-        	common_log(LOG_DEBUG, 'tag found = ' . $tag->tag);
-		array_push($tags,$tag->tag);
-            }
-        }
-        $tag->free();
-
-	$con->send('/topic/laconica.'.$notice->profile_id,
-			$notice->content,
-			array(
-				'profile_id' => $notice->profile_id,
-				'created' => $notice->created,
-				'tags' => implode($tags,' - ')
-				)
-			);
-        common_log(LOG_DEBUG, 'sent to personal topic ' . $notice->id);
-	$con->send('/topic/laconica.allusers',
-			$notice->content,
-			array(
-				'profile_id' => $notice->profile_id,
-				'created' => $notice->created,
-				'tags' => implode($tags,' - ')
-				)
-			);
-        common_log(LOG_DEBUG, 'sent to catch-all topic ' . $notice->id);
-	$result = true;
+        common_enqueue_notice_stomp($notice, $transports);
     }
     else {
-	// in any other case, 'internal'
-    	foreach (array('jabber', 'omb', 'sms', 'public', 'twitter', 'facebook', 'ping') as $transport) {
-	        $qi = new Queue_item();
-        	$qi->notice_id = $notice->id;
-	        $qi->transport = $transport;
-        	$qi->created = $notice->created;
-	        $result = $qi->insert();
-        	if (!$result) {
-	            $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-        	    common_log(LOG_ERR, 'DB error inserting queue item: ' . $last_error->message);
-            	    return false;
-        	}
-        	common_log(LOG_DEBUG, 'complete queueing notice ID = ' . $notice->id . ' for ' . $transport);
-        }
+        common_enqueue_notice_db($notice, $transports);
     }
     return $result;
 }
 
-function common_post_inbox_transports()
+function common_enqueue_notice_stomp($notice, $transports)
 {
-    $transports = array('omb', 'sms');
+    // use an external message queue system via STOMP
+    require_once("Stomp.php");
 
-    if (common_config('xmpp', 'enabled')) {
-        $transports = array_merge($transports, array('jabber', 'public'));
+    $server = common_config('queue','stomp_server');
+    $username = common_config('queue', 'stomp_username');
+    $password = common_config('queue', 'stomp_password');
+
+    $con = new Stomp($server);
+
+    if (!$con->connect($username, $password)) {
+        common_log(LOG_ERR, 'Failed to connect to queue server');
+        return false;
     }
 
-    return $transports;
+    $queue_basename = common_config('queue','queue_basename');
+
+    foreach ($transports as $transport) {
+        $result = $con->send('/queue/'.$queue_basename.'-'.$transport, // QUEUE
+                             $notice->id, 		// BODY of the message
+                             array ('created' => $notice->created));
+        if (!$result) {
+            common_log(LOG_ERR, 'Error sending to '.$transport.' queue');
+            return false;
+        }
+        common_log(LOG_DEBUG, 'complete remote queueing notice ID = ' . $notice->id . ' for ' . $transport);
+    }
+
+    //send tags as headers, so they can be used as JMS selectors
+    common_log(LOG_DEBUG, 'searching for tags ' . $notice->id);
+    $tags = array();
+    $tag = new Notice_tag();
+    $tag->notice_id = $notice->id;
+    if ($tag->find()) {
+        while ($tag->fetch()) {
+            common_log(LOG_DEBUG, 'tag found = ' . $tag->tag);
+            array_push($tags,$tag->tag);
+        }
+    }
+    $tag->free();
+
+    $con->send('/topic/laconica.'.$notice->profile_id,
+               $notice->content,
+               array(
+                     'profile_id' => $notice->profile_id,
+                     'created' => $notice->created,
+                     'tags' => implode($tags,' - ')
+                     )
+               );
+    common_log(LOG_DEBUG, 'sent to personal topic ' . $notice->id);
+    $con->send('/topic/laconica.allusers',
+               $notice->content,
+               array(
+                     'profile_id' => $notice->profile_id,
+                     'created' => $notice->created,
+                     'tags' => implode($tags,' - ')
+                     )
+               );
+    common_log(LOG_DEBUG, 'sent to catch-all topic ' . $notice->id);
+    $result = true;
+}
+
+function common_enqueue_notice_db($notice, $transports)
+{
+    // in any other case, 'internal'
+    foreach ($transports as $transport) {
+        common_enqueue_notice_transport($notice, $transport);
+    }
 }
 
 function common_enqueue_notice_transport($notice, $transport)
