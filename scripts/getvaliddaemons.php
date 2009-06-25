@@ -38,9 +38,6 @@ if(common_config('xmpp','enabled')) {
     echo "xmppdaemon.php jabberqueuehandler.php publicqueuehandler.php ";
     echo "xmppconfirmhandler.php ";
 }
-if(common_config('memcached','enabled')) {
-    echo "memcachedqueuehandler.php ";
-}
 if(common_config('twitterbridge','enabled')) {
     echo "twitterstatusfetcher.php ";
 }

@@ -20,23 +20,27 @@
 # This program tries to start the daemons for Laconica.
 # Note that the 'maildaemon' needs to run as a mail filter.
 
-ARGS=
+ARGSG=
+ARGSD=
 
 if [ $# -gt 0 ]; then
-    ARGS="$ARGS -s$1"
+    ARGSG="$ARGSG -s$1"
+    ID=`echo $1 | sed s/\\\\./_/g`
+    ARGSD="$ARGSD -s$1 -i$ID"
 fi
 
 if [ $# -gt 1 ]; then
-    ARGS="$ARGS -p$2"
+    ARGSD="$ARGSD -p$2"
+    ARGSG="$ARGSG -p$2"
 fi
 
 DIR=`dirname $0`
-DAEMONS=`php $DIR/getvaliddaemons.php $ARGS`
+DAEMONS=`php $DIR/getvaliddaemons.php $ARGSG`
 
 for f in $DAEMONS; do
 
          printf "Starting $f...";
-	 php $DIR/$f $ARGS
+	 php $DIR/$f $ARGSD
 	 printf "DONE.\n"
 
 done
