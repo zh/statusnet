@@ -23,7 +23,8 @@
 ARGS=
 
 if [ $# -gt 0 ]; then
-    ARGS="$ARGS -s$1"
+    ID=`echo $1 | sed s/\\\\./_/g`
+    ARGS="$ARGS -s$1 -i$ID"
 fi
 
 if [ $# -gt 1 ]; then
