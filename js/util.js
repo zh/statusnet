@@ -233,6 +233,7 @@ $(document).ready(function(){
 	$("#form_notice").each(addAjaxHidden);
     NoticeReply();
     NoticeAttachments();
+    NoticeDataAttachSelected();
 });
 
 function NoticeReply() {
@@ -309,4 +310,12 @@ function NoticeAttachments() {
             $(this).closest(".entry-title").removeClass('ov');
         }
     );
+}
+
+function NoticeDataAttachSelected() {
+    $('#notice_data-attach').change(function() {
+        S = '<div id="notice_data-attach_selected" class="success">'+$(this).val()+'</div>';
+        NDAS = $('#notice_data-attach_selected');
+        (NDAS.length > 0) ? NDAS.replaceWith(S) : $('#form_notice').append(S);
+    });
 }
