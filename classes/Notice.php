@@ -339,6 +339,19 @@ class Notice extends Memcached_DataObject
         $this->blowPublicCache($blowLast);
         $this->blowTagCache($blowLast);
         $this->blowGroupCache($blowLast);
+        $this->blowConversationCache($blowLast);
+    }
+
+    function blowConversationCache($blowLast=false)
+    {
+        $cache = common_memcache();
+        if ($cache) {
+            $ck = 'notice:conversation:'.$this->conversation;
+            $cache->delete($ck);
+            if ($blowLast) {
+                $cache->delete($ck.';last');
+            }
+        }
     }
 
     function blowGroupCache($blowLast=false)
