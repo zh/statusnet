@@ -82,7 +82,8 @@ class AttachmentList extends Widget
         $atts = new File;
         $att = $atts->getAttachments($this->notice->id);
         if (empty($att)) return 0;
-        $this->out->elementStart('dl', array('id' =>'attachments'));
+        $this->out->elementStart('dl', array('id' =>'attachments',
+                                             'class' => 'entry-content'));
         $this->out->element('dt', null, _('Attachments'));
         $this->out->elementStart('dd');
         $this->out->elementStart('ol', array('class' => 'attachments'));
