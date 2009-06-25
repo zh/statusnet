@@ -250,6 +250,9 @@ class Attachment extends AttachmentListItem
         $this->out->elementStart('a', $this->linkAttr());
         $this->out->element('span', null, $this->linkTitle());
         $this->out->elementEnd('a');
+        $this->out->elementEnd('div');
+
+        $this->out->elementStart('div', 'entry-content');
         $this->showRepresentation();
         $this->out->elementEnd('div');
 
