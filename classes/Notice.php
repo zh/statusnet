@@ -360,7 +360,7 @@ class Notice extends Memcached_DataObject
     {
         $cache = common_memcache();
         if ($cache) {
-            $ck = 'notice:conversation_ids:'.$this->conversation;
+            $ck = common_cache_key('notice:conversation_ids:'.$this->conversation);
             $cache->delete($ck);
             if ($blowLast) {
                 $cache->delete($ck.';last');
