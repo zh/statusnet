@@ -690,7 +690,10 @@ class Notice extends Memcached_DataObject
         if (!empty($cache)) {
             $notices = array();
             foreach ($ids as $id) {
-                $notices[] = Notice::staticGet('id', $id);
+                $n = Notice::staticGet('id', $id);
+                if (!empty($n)) {
+                    $notices[] = $n;
+                }
             }
             return new ArrayWrapper($notices);
         } else {
