@@ -111,7 +111,16 @@ class AttachmentAction extends Action
     function handle($args)
     {
         parent::handle($args);
-        $this->showPage();
+
+        if (empty($this->attachment->filename)) {
+
+            // if it's not a local file, gtfo
+
+            common_redirect($this->attachment->url, 303);
+
+        } else {
+            $this->showPage();
+        }
     }
 
     /**

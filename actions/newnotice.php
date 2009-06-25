@@ -229,14 +229,25 @@ class NewnoticeAction extends Action
             if (empty($filename)) {
                 $this->clientError(_('Couldn\'t save file.'));
             }
-            $fileurl = File::url($filename);
+
+            $fileRecord = $this->storeFile($filename, $mimetype);
+
+            $fileurl = common_local_url('attachment',
+                array('attachment' => $fileRecord->id));
+
+            // not sure this is necessary -- Zach
+            $this->maybeAddRedir($fileRecord->id, $fileurl);
+
             $short_fileurl = common_shorten_url($fileurl);
             $content_shortened .= ' ' . $short_fileurl;
+
             if (mb_strlen($content_shortened) > 140) {
                 $this->deleteFile($filename);
                 $this->clientError(_('Max notice size is 140 chars, including attachment URL.'));
             }
-            $fileRecord = $this->rememberFile($filename, $mimetype, $short_fileurl);
+
+            // Also, not sure this is necessary -- Zach
+            $this->maybeAddRedir($fileRecord->id, $short_fileurl);
         }
 
         $notice = Notice::saveNew($user->id, $content_shortened, 'web', 1,
@@ -305,8 +316,8 @@ class NewnoticeAction extends Action
         @unlink($filepath);
     }
 
-    function rememberFile($filename, $mimetype, $short)
-    {
+    function storeFile($filename, $mimetype) {
+
         $file = new File;
         $file->filename = $filename;
 
@@ -325,9 +336,12 @@ class NewnoticeAction extends Action
             $this->clientError(_('There was a database error while saving your file. Please try again.'));
         }
 
-        $this->maybeAddRedir($file_id, $short);
-
         return $file;
+    }
+
+    function rememberFile($file, $short)
+    {
+        $this->maybeAddRedir($file->id, $short);
     }
 
     function maybeAddRedir($file_id, $url)
