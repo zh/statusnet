@@ -249,8 +249,8 @@ class Attachment extends AttachmentListItem
         $this->out->elementStart('div', 'entry-title');
         $this->out->elementStart('a', $this->linkAttr());
         $this->out->element('span', null, $this->linkTitle());
-        $this->showRepresentation();
         $this->out->elementEnd('a');
+        $this->showRepresentation();
         $this->out->elementEnd('div');
 
         if (!empty($this->oembed->author_name) || !empty($this->oembed->provider)) {
