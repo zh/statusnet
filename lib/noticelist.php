@@ -432,7 +432,7 @@ class NoticeListItem extends Widget
             $this->out->elementStart('dl', 'response');
             $this->out->element('dt', null, _('To'));
             $this->out->elementStart('dd');
-            $this->out->element('a', array('href' => $convurl),
+            $this->out->element('a', array('href' => $convurl.'#notice-'.$this->notice->id),
                                 _('in context'));
             $this->out->elementEnd('dd');
             $this->out->elementEnd('dl');
