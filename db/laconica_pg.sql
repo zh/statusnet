@@ -486,6 +486,18 @@ create table file_to_post (
     unique(file_id, post_id)
 );
 
+create sequence design_seq;
+create table design (
+    id bigint default nextval('design_seq') /* comment 'design ID'*/,
+    backgroundcolor integer /* comment 'main background color'*/ ,
+    contentcolor integer /*comment 'content area background color'*/ ,
+    sidebarcolor integer /*comment 'sidebar background color'*/ ,
+    textcolor integer /*comment 'text color'*/ ,
+    linkcolor integer /*comment 'link color'*/,
+    backgroundimage varchar(255) /*comment 'background image, if any'*/,
+    disposition int default 1 /*comment 'bit 1 = hide background image, bit 2 = display background image, bit 4 = tile background image'*/,
+    primary key (id)
+);
 
 /* Textsearch stuff */
 
