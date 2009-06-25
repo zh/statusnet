@@ -22,7 +22,7 @@ if (!defined('LACONICA')) { exit(1); }
 require_once(INSTALLDIR.'/lib/queuehandler.php');
 
 /**
- * Common superclass for all XMPP-using queue handlers. They all need to 
+ * Common superclass for all XMPP-using queue handlers. They all need to
  * service their message queues on idle, and forward any incoming messages
  * to the XMPP listener connection. So, we abstract out common code to a
  * superclass.
@@ -30,12 +30,11 @@ require_once(INSTALLDIR.'/lib/queuehandler.php');
 
 class XmppQueueHandler extends QueueHandler
 {
-    
     function start()
     {
         # Low priority; we don't want to receive messages
         $this->log(LOG_INFO, "INITIALIZE");
-        $this->conn = jabber_connect($this->_id);
+        $this->conn = jabber_connect($this->_id.$this->transport());
         if ($this->conn) {
             $this->conn->addEventHandler('message', 'forward_message', $this);
             $this->conn->addEventHandler('reconnect', 'handle_reconnect', $this);
@@ -44,7 +43,7 @@ class XmppQueueHandler extends QueueHandler
         }
         return !is_null($this->conn);
     }
-    
+
     function handle_reconnect(&$pl)
     {
         $this->conn->processUntil('session_start');
@@ -63,7 +62,7 @@ class XmppQueueHandler extends QueueHandler
             die($e->getMessage());
         }
     }
-    
+
     function forward_message(&$pl)
     {
         if ($pl['type'] != 'chat') {

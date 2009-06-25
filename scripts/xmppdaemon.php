@@ -20,13 +20,13 @@
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 
-$shortoptions = 'r::';
-$longoptions = array('resource::');
+$shortoptions = 'i::';
+$longoptions = array('id::');
 
 $helptext = <<<END_OF_XMPP_HELP
 Daemon script for receiving new notices from Jabber users.
 
-    -r --resource       Jabber Resource ID (default to config)
+    -i --id           Identity (default none)
 
 END_OF_XMPP_HELP;
 
@@ -52,7 +52,7 @@ class XMPPDaemon extends Daemon
         }
 
         if ($resource) {
-            $this->resource = $resource;
+            $this->resource = $resource . 'daemon';
         } else {
             $this->resource = common_config('xmpp', 'resource') . 'daemon';
         }
@@ -323,16 +323,16 @@ if (common_config('xmpp','enabled')==false) {
     exit();
 }
 
-if (have_option('r')) {
-    $resource = get_option_value('r');
-} else if (have_option('--resource')) {
-    $resource = get_option_value('--resource');
+if (have_option('i')) {
+    $id = get_option_value('i');
+} else if (have_option('--id')) {
+    $id = get_option_value('--id');
 } else if (count($args) > 0) {
-    $resource = $args[0];
+    $id = $args[0];
 } else {
-    $resource = null;
+    $id = null;
 }
 
-$daemon = new XMPPDaemon($resource);
+$daemon = new XMPPDaemon($id);
 
 $daemon->runOnce();
