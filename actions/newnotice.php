@@ -326,6 +326,8 @@ class NewnoticeAction extends Action
         }
 
         $this->maybeAddRedir($file_id, $short);
+
+        return $file;
     }
 
     function maybeAddRedir($file_id, $url)
@@ -350,7 +352,8 @@ class NewnoticeAction extends Action
     {
         File_to_post::processNew($filerec->id, $notice->id);
 
-        $this->maybeAddRedir($filerec->id, common_local_url('file', array('notice' => $this->notice->id)));
+        $this->maybeAddRedir($filerec->id,
+            common_local_url('file', array('notice' => $notice->id)));
     }
 
     /**
