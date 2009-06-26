@@ -873,7 +873,7 @@ class Notice extends Memcached_DataObject
                 if ($cnt > 0) {
                     $qry .= ', ';
                 }
-                $qry .= '('.$id.', '.$this->id.', '.$source.', "'.$this->created.'") ';
+                $qry .= '('.$id.', '.$this->id.', '.$source.", '".$this->created. "') ";
                 $cnt++;
                 if ($cnt >= MAX_BOXCARS) {
                     $inbox = new Notice_inbox();
