@@ -1,3 +1,4 @@
+    design_id integer comment 'id of a design' references design(id),
 /* local and remote users have profiles */
 
 create sequence profile_seq;
@@ -390,6 +391,8 @@ create table user_group (
     homepage_logo varchar(255) /* comment 'homepage (profile) size logo' */,
     stream_logo varchar(255) /* comment 'stream-sized logo' */,
     mini_logo varchar(255) /* comment 'mini logo' */,
+    design_id integer /*comment 'id of a design' */ references design(id),
+
 
     created timestamp not null default CURRENT_TIMESTAMP /* comment 'date this record was created' */,
     modified timestamp /* comment 'date this record was modified' */
