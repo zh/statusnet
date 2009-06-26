@@ -12,7 +12,7 @@
  * @link     http://laconi.ca/
  *
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -56,20 +56,25 @@ class PeopleSearchResults extends ProfileList
 
     function __construct($profile, $terms, $action)
     {
-        parent::__construct($profile, $terms, $action);
+        parent::__construct($profile, $action);
+
         $this->terms = array_map('preg_quote',
                                  array_map('htmlspecialchars', $terms));
+
         $this->pattern = '/('.implode('|',$terms).')/i';
     }
 
+    function newProfileItem($profile)
+    {
+        return new PeopleSearchResultItem($profile, $this->action);
+    }
+}
+
+class PeopleSearchResultItem extends ProfileListItem
+{
     function highlight($text)
     {
         return preg_replace($this->pattern, '<strong>\\1</strong>', htmlspecialchars($text));
-    }
-
-    function isReadOnly($args)
-    {
-        return true;
     }
 }
 

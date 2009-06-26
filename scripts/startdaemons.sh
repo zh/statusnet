@@ -2,7 +2,7 @@
 
 # Laconica - a distributed open-source microblogging tool
 
-# Copyright (C) 2008, Controlez-Vous, Inc.
+# Copyright (C) 2008, 2009, Control Yourself, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -20,12 +20,27 @@
 # This program tries to start the daemons for Laconica.
 # Note that the 'maildaemon' needs to run as a mail filter.
 
+ARGSG=
+ARGSD=
+
+if [ $# -gt 0 ]; then
+    ARGSG="$ARGSG -s$1"
+    ID=`echo $1 | sed s/\\\\./_/g`
+    ARGSD="$ARGSD -s$1 -i$ID"
+fi
+
+if [ $# -gt 1 ]; then
+    ARGSD="$ARGSD -p$2"
+    ARGSG="$ARGSG -p$2"
+fi
+
 DIR=`dirname $0`
-DAEMONS=`php $DIR/getvaliddaemons.php`
+DAEMONS=`php $DIR/getvaliddaemons.php $ARGSG`
 
 for f in $DAEMONS; do
 
-         echo -n "Starting $f...";
-	 php $DIR/$f
-	 echo "DONE."
+         printf "Starting $f...";
+	 php $DIR/$f $ARGSD
+	 printf "DONE.\n"
+
 done

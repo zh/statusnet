@@ -1,7 +1,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -34,6 +34,11 @@ class TwitapifavoritesAction extends TwitterapiAction
         $user = $this->get_user($apidata['api_arg'], $apidata);
 
         if (empty($user)) {
+        if ($apidata['content-type'] == 'xml') {
+            $this->show_single_xml_status($notice);
+        } elseif ($apidata['content-type'] == 'json') {
+            $this->show_single_json_status($notice);
+        }
             $this->clientError('Not Found', 404, $apidata['content-type']);
             return;
         }
@@ -56,7 +61,11 @@ class TwitapifavoritesAction extends TwitterapiAction
         $since_id = (int)$this->arg('since_id', 0);
         $since    = $this->arg('since');
 
-        $notice = $user->favoriteNotices(($page-1)*$count, $count);
+        if (!empty($this->auth_user) && $this->auth_user->id == $user->id) {
+            $notice = $user->favoriteNotices(($page-1)*$count, $count, true);
+        } else {
+            $notice = $user->favoriteNotices(($page-1)*$count, $count, false);
+        }
 
         switch($apidata['content-type']) {
         case 'xml':
@@ -91,7 +100,6 @@ class TwitapifavoritesAction extends TwitterapiAction
 
         // Check for RESTfulness
         if (!in_array($_SERVER['REQUEST_METHOD'], array('POST', 'DELETE'))) {
-            // XXX: Twitter just prints the err msg, no XML / JSON.
             $this->clientError(_('This method requires a POST or DELETE.'),
                 400, $apidata['content-type']);
             return;
@@ -102,10 +110,9 @@ class TwitapifavoritesAction extends TwitterapiAction
             return;
         }
 
-        $user = $apidata['user']; // Always the auth user
-
+        $user      = $apidata['user']; // Always the auth user
         $notice_id = $apidata['api_arg'];
-        $notice = Notice::staticGet($notice_id);
+        $notice    = Notice::staticGet($notice_id);
 
         if (empty($notice)) {
             $this->clientError(_('No status found with that ID.'),
@@ -115,7 +122,7 @@ class TwitapifavoritesAction extends TwitterapiAction
 
         // XXX: Twitter lets you fave things repeatedly via api.
         if ($user->hasFave($notice)) {
-            $this->clientError(_('This notice is already a favorite!'),
+            $this->clientError(_('This status is already a favorite!'),
                 403, $apidata['content-type']);
             return;
         }
@@ -123,7 +130,7 @@ class TwitapifavoritesAction extends TwitterapiAction
         $fave = Fave::addNew($user, $notice);
 
         if (empty($fave)) {
-            $this->serverError(_('Could not create favorite.'));
+            $this->clientError(_('Could not create favorite.'));
             return;
         }
 
@@ -141,7 +148,55 @@ class TwitapifavoritesAction extends TwitterapiAction
     function destroy($args, $apidata)
     {
         parent::handle($args);
-        $this->serverError(_('API method under construction.'), $code=501);
+
+        // Check for RESTfulness
+        if (!in_array($_SERVER['REQUEST_METHOD'], array('POST', 'DELETE'))) {
+            $this->clientError(_('This method requires a POST or DELETE.'),
+                400, $apidata['content-type']);
+            return;
+        }
+
+        if (!in_array($apidata['content-type'], array('xml', 'json'))) {
+            $this->clientError(_('API method not found!'), $code = 404);
+            return;
+        }
+
+        $user      = $apidata['user']; // Always the auth user
+        $notice_id = $apidata['api_arg'];
+        $notice    = Notice::staticGet($notice_id);
+
+        if (empty($notice)) {
+            $this->clientError(_('No status found with that ID.'),
+                404, $apidata['content-type']);
+            return;
+        }
+
+        $fave            = new Fave();
+        $fave->user_id   = $this->id;
+        $fave->notice_id = $notice->id;
+
+        if (!$fave->find(true)) {
+            $this->clientError(_('That status is not a favorite!'),
+                403, $apidata['content-type']);
+            return;
+        }
+
+        $result = $fave->delete();
+
+        if (!$result) {
+            common_log_db_error($fave, 'DELETE', __FILE__);
+            $this->clientError(_('Could not delete favorite.'), 404);
+            return;
+        }
+
+        $user->blowFavesCache();
+
+        if ($apidata['content-type'] == 'xml') {
+            $this->show_single_xml_status($notice);
+        } elseif ($apidata['content-type'] == 'json') {
+            $this->show_single_json_status($notice);
+        }
+
     }
 
     // XXX: these two funcs swiped from faves.

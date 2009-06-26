@@ -10,19 +10,19 @@ $(document).ready(function() {
     function UpdateColors(S) {
         C = $(S).val();
         switch (parseInt(S.id.slice(-1))) {
-            case 0: default:
-                $('body').css({'background-color':C});
-                break;
-            case 1:
-                $('#content').css({'background-color':C});
+            case 1: default:
+                $('html, body').css({'background-color':C});
                 break;
             case 2:
-                $('#aside_primary').css({'background-color':C});
+                $('#content, #site_nav_local_views .current a').css({'background-color':C});
                 break;
             case 3:
-                $('body').css({'color':C});
+                $('#aside_primary').css({'background-color':C});
                 break;
             case 4:
+                $('html body').css({'color':C});
+                break;
+            case 5:
                 $('a').css({'color':C});
                 break;
         }
@@ -49,7 +49,7 @@ $(document).ready(function() {
         }
     }
 
-    function Init() {
+    function InitFarbtastic() {
         $('#settings_design_color').append('<div id="color-picker"></div>');
         $('#color-picker').hide();
 
@@ -59,7 +59,9 @@ $(document).ready(function() {
         swatches
             .each(SynchColors)
             .blur(function() {
-                $(this).val($(this).val().toUpperCase());
+                tv = $(this).val();
+                $(this).val(tv.toUpperCase());
+                (tv.length == 4) ? ((tv[0] == '#') ? $(this).val('#'+tv[1]+tv[1]+tv[2]+tv[2]+tv[3]+tv[3]) : '') : '';
              })
             .focus(function() {
                 $('#color-picker').show();
@@ -73,13 +75,24 @@ $(document).ready(function() {
     }
 
     var f, swatches;
-    Init();
+    InitFarbtastic();
     $('#form_settings_design').bind('reset', function(){
         setTimeout(function(){
             swatches.each(function(){UpdateColors(this);});
             $('#color-picker').remove();
             swatches.unbind();
-            Init();
+            InitFarbtastic();
         },10);
+    });
+
+    $('#design_background-image_off').focus(function() {
+        $('body').css({'background-image':'none'});
+    });
+    $('#design_background-image_on').focus(function() {
+        $('body').css({'background-image':'url('+$('#design_background-image_onoff img')[0].src+')'});
+    });
+
+    $('#design_background-image_repeat').click(function() {
+        ($(this)[0].checked) ? $('body').css({'background-repeat':'repeat'}) : $('body').css({'background-repeat':'no-repeat'});
     });
 });

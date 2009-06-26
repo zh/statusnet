@@ -1,7 +1,7 @@
 <?php
 /**
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -27,10 +27,9 @@ require_once INSTALLDIR.'/lib/profilelist.php';
 
 define('AVATARS_PER_PAGE', 80);
 
-class GalleryAction extends Action
+class GalleryAction extends OwnerDesignAction
 {
     var $profile = null;
-    var $user = null;
     var $page = null;
     var $tag = null;
 

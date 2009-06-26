@@ -178,8 +178,9 @@ and the URLs are listed here for your convenience.
 - Facebook library. Used for the Facebook application.
 - PEAR Services_oEmbed. Used for some multimedia integration.
 - PEAR HTTP_Request is an oEmbed dependency.
-- PEAR Validat is an oEmbed dependency.e
-- PEAR Net_URL is an oEmbed dependency.2
+- PEAR Validate is an oEmbed dependency.
+- PEAR Net_URL2 is an oEmbed dependency.
+- Console_GetOpt for parsing command-line options.
 
 A design goal of Laconica is that the basic Web functionality should
 work on even the most restrictive commercial hosting services.
@@ -1008,6 +1009,12 @@ avatar
 
 For configuring avatar access.
 
+dir:    Directory to look for avatar files and to put them into.
+	Defaults to avatar subdirectory of install directory; if
+	you change it, make sure to change path, too.
+path:	Path to avatars. Defaults to path for avatar subdirectory,
+	but you can change it if you wish. Note that this will
+	be included with the avatar server, too.
 server: If set, defines another server where avatars are stored in the
 	root directory. Note that the 'avatar' subdir still has to be
 	writeable. You'd typically use this to split HTTP requests on
@@ -1033,9 +1040,16 @@ theme
 -----
 
 server: Like avatars, you can speed up page loading by pointing the
-	theme file lookup to another server (virtual or real). The
-	theme server's root path should map to the Laconica "theme"
-	subdirectory. Defaults to NULL.
+	theme file lookup to another server (virtual or real).
+	Defaults to NULL, meaning to use the site server.
+dir:    Directory where theme files are stored. Used to determine
+	whether to show parts of a theme file. Defaults to the theme
+	subdirectory of the install directory.
+path:	Path part of theme URLs, before the theme name. Relative to the
+	theme server. It may make sense to change this path when upgrading,
+	(using version numbers as the path) to make sure that all files are
+	reloaded by caching clients or proxies. Defaults to null,
+	which means to use the site path + '/theme'.
 
 xmpp
 ----
@@ -1107,6 +1121,13 @@ database data in memcached <http://www.danga.com/memcached/>.
 enabled: Set to true to enable. Default false.
 server: a string with the hostname of the memcached server. Can also
 	be an array of hostnames, if you've got more than one server.
+base: memcached uses key-value pairs to store data. We build long,
+      funny-looking keys to make sure we don't have any conflicts. The
+      base of the key is usually a simplified version of the site name
+      (like "Identi.ca" => "identica"), but you can overwrite this if
+      you need to. You can safely ignore it if you only have one
+      Laconica site using your memcached server.
+port: Port to connect to; defaults to 11211.
 
 sphinx
 ------
@@ -1203,7 +1224,6 @@ reporturl: URL to post statistics to. Defaults to Laconica developers'
            set 'run' to 'never' than to set this value to something
            nonsensical.
 
-
 attachments
 -----------
 
@@ -1218,6 +1238,11 @@ supported: an array of mime types you accept to store and distribute,
            like 'image/gif', 'video/mpeg', 'audio/mpeg', etc. Make sure you
            setup your server to properly reckognize the types you want to
            support.
+uploads:   false to disable uploading files with notices (true by default).
+filecommand: The required MIME_Type library may need to use the 'file'
+	     command. It tries the one in the Web server's path, but if
+	     you're having problems with uploads, try setting this to the
+	     correct value. Note: 'file' must accept '-b' and '-i' options.
 
 For quotas, be sure you've set the upload_max_filesize and post_max_size
 in php.ini to be large enough to handle your upload. In httpd.conf
@@ -1233,6 +1258,32 @@ user_quota: total size in bytes a user can store on this server. Each user
 monthly_quota: total size permitted in the current month. This is the total
             size in bytes that a user can upload each month.
 
+group
+-----
+
+Options for group functionality.
+
+maxaliases: maximum number of aliases a group can have. Default 3. Set
+            to 0 or less to prevent aliases in a group.
+
+oohembed
+--------
+
+oEmbed endpoint for multimedia attachments (links in posts).
+
+endpoint: oohembed endpoint using http://oohembed.com/ software.
+
+search
+------
+
+Some stuff for search.
+
+type: type of search. Ignored if PostgreSQL or Sphinx are enabled. Can either
+      be 'fulltext' (default) or 'like'. The former is faster and more efficient
+      but requires the lame old MyISAM engine for MySQL. The latter
+      will work with InnoDB but could be miserably slow on large
+      systems. We'll probably add another type sometime in the future,
+      with our own indexing system (maybe like MediaWiki's).
 
 Troubleshooting
 ===============

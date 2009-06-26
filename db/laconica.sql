@@ -41,6 +41,7 @@ create table sms_carrier (
 /* local users */
 
 create table user (
+
     id integer primary key comment 'foreign key to profile table' references profile (id),
     nickname varchar(64) unique key comment 'nickname or username, duped in profile',
     password varchar(255) comment 'salted password, can be null for OpenID users',
@@ -69,6 +70,9 @@ create table user (
     autosubscribe tinyint default 0 comment 'automatically subscribe to users who subscribe to us',
     urlshorteningservice varchar(50) default 'ur1.ca' comment 'service to use for auto-shortening URLs',
     inboxed tinyint default 0 comment 'has an inbox been created for this user?',
+    design_id integer comment 'id of a design' references design(id),
+    viewdesigns tinyint default 1 comment 'whether to view user-provided designs',
+
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified',
 
@@ -273,7 +277,7 @@ create table foreign_service (
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table foreign_user (
-     id int not null comment 'unique numeric key on foreign service',
+     id bigint not null comment 'unique numeric key on foreign service',
      service int not null comment 'foreign key to service' references foreign_service(id),
      uri varchar(255) not null unique key comment 'identifying URI',
      nickname varchar(255) comment 'nickname on foreign service',
@@ -383,6 +387,7 @@ create table user_group (
     homepage_logo varchar(255) comment 'homepage (profile) size logo',
     stream_logo varchar(255) comment 'stream-sized logo',
     mini_logo varchar(255) comment 'mini logo',
+    design_id integer comment 'id of a design' references design(id),
 
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified',
@@ -426,59 +431,96 @@ create table group_inbox (
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table file (
+
     id integer primary key auto_increment,
-    url varchar(255), mimetype varchar(50),
-    size integer,
-    title varchar(255),
-    date integer(11),
-    protected integer(1),
+    url varchar(255) comment 'destination URL after following redirections',
+    mimetype varchar(50) comment 'mime type of resource',
+    size integer comment 'size of resource when available',
+    title varchar(255) comment 'title of resource when available',
+    date integer(11) comment 'date of resource according to http query',
+    protected integer(1) comment 'true when URL is private (needs login)',
+    filename varchar(255) comment 'if a local file, name of the file',
+
+    modified timestamp comment 'date this record was modified',
 
     unique(url)
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 create table file_oembed (
-    id integer primary key auto_increment,
-    file_id integer,
-    version varchar(20),
-    type varchar(20),
-    provider varchar(50),
-    provider_url varchar(255),
-    width integer,
-    height integer,
-    html text,
-    title varchar(255),
-    author_name varchar(50),
-    author_url varchar(255),
-    url varchar(255),
+    file_id integer primary key comment 'oEmbed for that URL/file' references file (id),
+    version varchar(20) comment 'oEmbed spec. version',
+    type varchar(20) comment 'oEmbed type: photo, video, link, rich',
+    provider varchar(50) comment 'name of this oEmbed provider',
+    provider_url varchar(255) comment 'URL of this oEmbed provider',
+    width integer comment 'width of oEmbed resource when available',
+    height integer comment 'height of oEmbed resource when available',
+    html text comment 'html representation of this oEmbed resource when applicable',
+    title varchar(255) comment 'title of oEmbed resource when available',
+    author_name varchar(50) comment 'author name for this oEmbed resource',
+    author_url varchar(255) comment 'author URL for this oEmbed resource',
+    url varchar(255) comment 'URL for this oEmbed resource when applicable (photo, link)',
+    modified timestamp comment 'date this record was modified'
 
-    unique(file_id)
-) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci;
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 create table file_redirection (
-    id integer primary key auto_increment,
-    url varchar(255),
-    file_id integer,
-    redirections integer,
-    httpcode integer,
 
-    unique(url)
+    url varchar(255) primary key comment 'short URL (or any other kind of redirect) for file (id)',
+    file_id integer comment 'short URL for what URL/file' references file (id),
+    redirections integer comment 'redirect count',
+    httpcode integer comment 'HTTP status code (20x, 30x, etc.)',
+    modified timestamp comment 'date this record was modified'
+
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table file_thumbnail (
-    id integer primary key auto_increment,
-    file_id integer,
-    url varchar(255),
-    width integer,
-    height integer,
 
-    unique(file_id),
+    file_id integer primary key comment 'thumbnail for what URL/file' references file (id),
+    url varchar(255) comment 'URL of thumbnail',
+    width integer comment 'width of thumbnail',
+    height integer comment 'height of thumbnail',
+    modified timestamp comment 'date this record was modified',
+
     unique(url)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table file_to_post (
-    id integer primary key auto_increment,
-    file_id integer,
-    post_id integer,
 
-    unique(file_id, post_id)
+    file_id integer comment 'id of URL/file' references file (id),
+    post_id integer comment 'id of the notice it belongs to' references notice (id),
+    modified timestamp comment 'date this record was modified',
+
+    constraint primary key (file_id, post_id)
+
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table design (
+    id integer primary key auto_increment comment 'design ID',
+    backgroundcolor integer comment 'main background color',
+    contentcolor integer comment 'content area background color',
+    sidebarcolor integer comment 'sidebar background color',
+    textcolor integer comment 'text color',
+    linkcolor integer comment 'link color',
+    backgroundimage varchar(255) comment 'background image, if any',
+    disposition tinyint default 1 comment 'bit 1 = hide background image, bit 2 = display background image, bit 4 = tile background image'
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table group_block (
+   group_id integer not null comment 'group profile is blocked from' references user_group (id),
+   blocked integer not null comment 'profile that is blocked' references profile (id),
+   blocker integer not null comment 'user making the block' references user (id),
+   modified timestamp comment 'date of blocking',
+
+   constraint primary key (group_id, blocked)
+
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table group_alias (
+
+   alias varchar(64) primary key comment 'additional nickname for the group',
+   group_id integer not null comment 'group profile is blocked from' references user_group (id),
+   modified timestamp comment 'date alias was created',
+
+   index group_alias_group_id_idx (group_id)
+
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
