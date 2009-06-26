@@ -72,7 +72,8 @@ class ImageFile
             break;
          case UPLOAD_ERR_INI_SIZE:
          case UPLOAD_ERR_FORM_SIZE:
-            throw new Exception(sprintf(_('That file is too big. The maximum file size is %d.'), $this->maxFileSize()));
+            throw new Exception(sprintf(_('That file is too big. The maximum file size is %d.'),
+                ImageFile::maxFileSize()));
             return;
          case UPLOAD_ERR_PARTIAL:
             @unlink($_FILES[$param]['tmp_name']);

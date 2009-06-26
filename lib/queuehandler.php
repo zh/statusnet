@@ -1,7 +1,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -112,12 +112,21 @@ class QueueHandler extends Daemon
     }
 
     function stomp_dispatch() {
-        require("Stomp.php");
-        $con = new Stomp(common_config('queue','stomp_server'));
-        if (!$con->connect()) {
+
+        // use an external message queue system via STOMP
+        require_once("Stomp.php");
+
+        $server = common_config('queue','stomp_server');
+        $username = common_config('queue', 'stomp_username');
+        $password = common_config('queue', 'stomp_password');
+
+        $con = new Stomp($server);
+
+        if (!$con->connect($username, $password)) {
             $this->log(LOG_ERR, 'Failed to connect to queue server');
             return false;
         }
+
         $queue_basename = common_config('queue','queue_basename');
         // subscribe to the relevant queue (format: basename-transport)
         $con->subscribe('/queue/'.$queue_basename.'-'.$this->transport());

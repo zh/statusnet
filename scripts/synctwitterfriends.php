@@ -2,7 +2,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -18,19 +18,16 @@
  * along with this program.     If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Abort if called from a web server
-if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
-    print "This script must be run from the command line\n";
-    exit();
-}
-
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
-define('LACONICA', true);
 
 // Uncomment this to get useful console output
-//define('SCRIPT_DEBUG', true);
 
-require_once(INSTALLDIR . '/lib/common.php');
+$helptext = <<<END_OF_TWITTER_HELP
+Batch script for synching local friends with Twitter friends.
+
+END_OF_TWITTER_HELP;
+
+require_once INSTALLDIR.'/scripts/commandline.inc';
 
 // Make a lockfile
 $lockfilename = lockFilename();

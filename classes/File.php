@@ -1,7 +1,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -30,22 +30,24 @@ require_once INSTALLDIR.'/classes/File_to_post.php';
  * Table Definition for file
  */
 
-class File extends Memcached_DataObject 
+class File extends Memcached_DataObject
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'file';                            // table name
-    public $id;                              // int(11)  not_null primary_key group_by
+    public $id;                              // int(4)  primary_key not_null
     public $url;                             // varchar(255)  unique_key
-    public $mimetype;                        // varchar(50)  
-    public $size;                            // int(11)  group_by
-    public $title;                           // varchar(255)  
-    public $date;                            // int(11)  group_by
-    public $protected;                       // int(1)  group_by
+    public $mimetype;                        // varchar(50)
+    public $size;                            // int(4)
+    public $title;                           // varchar(255)
+    public $date;                            // int(4)
+    public $protected;                       // int(4)
+    public $filename;                        // varchar(255)
+    public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('File',$k,$v); }
+    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('File',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
@@ -79,7 +81,6 @@ class File extends Memcached_DataObject
             && ('text/html' === substr($redir_data['type'], 0, 9))
             && ($oembed_data = File_oembed::_getOembed($given_url))
             && isset($oembed_data['json'])) {
-
             File_oembed::saveNew($oembed_data['json'], $file_id);
         }
         return $x;
@@ -90,15 +91,15 @@ class File extends Memcached_DataObject
         $given_url = File_redirection::_canonUrl($given_url);
         if (empty($given_url)) return -1;   // error, no url to process
         $file = File::staticGet('url', $given_url);
-        if (empty($file->id)) {
+        if (empty($file)) {
             $file_redir = File_redirection::staticGet('url', $given_url);
-            if (empty($file_redir->id)) {
+            if (empty($file_redir)) {
+                common_debug("processNew() '$given_url' not a known redirect.\n");
                 $redir_data = File_redirection::where($given_url);
                 $redir_url = $redir_data['url'];
                 if ($redir_url === $given_url) {
                     $x = File::saveNew($redir_data, $given_url);
                     $file_id = $x->id;
-
                 } else {
                     $x = File::processNew($redir_url, $notice_id);
                     $file_id = $x->id;
@@ -116,7 +117,7 @@ class File extends Memcached_DataObject
             $x = File::staticGet($file_id);
             if (empty($x)) die('Impossible!');
         }
-       
+
         File_to_post::processNew($file_id, $notice_id);
         return $x;
     }
@@ -124,8 +125,8 @@ class File extends Memcached_DataObject
     function isRespectsQuota($user) {
         if ($_FILES['attach']['size'] > common_config('attachments', 'file_quota')) {
             return sprintf(_('No file may be larger than %d bytes ' .
-                'and the file you sent was %d bytes. Try to upload a smaller version.'),
-                common_config('attachments', 'file_quota'), $_FILES['attach']['size']);
+                             'and the file you sent was %d bytes. Try to upload a smaller version.'),
+                           common_config('attachments', 'file_quota'), $_FILES['attach']['size']);
         }
 
         $query = "select sum(size) as total from file join file_to_post on file_to_post.file_id = file.id join notice on file_to_post.post_id = notice.id where profile_id = {$user->id} and file.url like '%/notice/%/file'";
@@ -144,6 +145,53 @@ class File extends Memcached_DataObject
             return sprintf(_('A file this large would exceed your monthly quota of %d bytes.'), common_config('attachments', 'monthly_quota'));
         }
         return true;
+    }
+
+    // where should the file go?
+
+    static function filename($profile, $basename, $mimetype)
+    {
+        require_once 'MIME/Type/Extension.php';
+        $mte = new MIME_Type_Extension();
+        $ext = $mte->getExtension($mimetype);
+        $nickname = $profile->nickname;
+        $datestamp = strftime('%Y%m%dT%H%M%S', time());
+        $random = strtolower(common_confirmation_code(32));
+        return "$nickname-$datestamp-$random.$ext";
+    }
+
+    static function path($filename)
+    {
+        $dir = common_config('attachments', 'dir');
+
+        if ($dir[strlen($dir)-1] != '/') {
+            $dir .= '/';
+        }
+
+        return $dir . $filename;
+    }
+
+    static function url($filename)
+    {
+        $path = common_config('attachments', 'path');
+
+        if ($path[strlen($path)-1] != '/') {
+            $path .= '/';
+        }
+
+        if ($path[0] != '/') {
+            $path = '/'.$path;
+        }
+
+        $server = common_config('attachments', 'server');
+
+        if (empty($server)) {
+            $server = common_config('site', 'server');
+        }
+
+        // XXX: protocol
+
+        return 'http://'.$server.$path.$filename;
     }
 }
 

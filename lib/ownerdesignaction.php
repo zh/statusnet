@@ -2,7 +2,7 @@
 /**
  * Laconica, the distributed open-source microblogging tool
  *
- * User profile page
+ * Base class for actions that use the page owner's design
  *
  * PHP version 5
  *
@@ -19,11 +19,10 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  Personal
+ * @category  Action
  * @package   Laconica
  * @author    Evan Prodromou <evan@controlyourself.ca>
- * @author    Sarven Capadisli <csarven@controlyourself.ca>
- * @copyright 2008-2009 Control Yourself, Inc.
+ * @copyright 2009 Control Yourself, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://laconi.ca/
  */
@@ -33,28 +32,57 @@ if (!defined('LACONICA')) {
 }
 
 /**
- * Base class for user profile page
+ * Base class for actions that use the page owner's design
  *
- * @category Personal
+ * Some pages have a clear "owner" -- like the profile page, subscriptions
+ * pages, etc. This superclass uses that owner's chosen design for the page
+ * design.
+ *
+ * @category Action
  * @package  Laconica
  * @author   Evan Prodromou <evan@controlyourself.ca>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://laconi.ca/
+ *
  */
 
-class PersonalAction extends Action
-{
+class OwnerDesignAction extends Action {
+
+    /** The user for this page. */
 
     var $user = null;
 
-    function isReadOnly($args)
-    {
-         return true;
-    }
+    /**
+      * Show the owner's design stylesheet
+      *
+      * @return nothing
+      */
+     function showStylesheets()
+     {
+         parent::showStylesheets();
 
-    function handle($args)
-    {
-        parent::handle($args);
-    }
+         $design = $this->getDesign();
 
+         if (!empty($design)) {
+             $design->showCSS($this);
+        }
+     }
+
+    /**
+     * A design for this action
+     *
+     * if the user attribute has been set, returns that user's
+     * design.
+     *
+     * @return Design a design object to use
+     */
+
+    function getDesign()
+    {
+        if (empty($this->user)) {
+            return null;
+        }
+
+        return $this->user->getDesign();
+    }
 }

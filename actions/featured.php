@@ -32,7 +32,7 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
-require_once(INSTALLDIR.'/lib/profilelist.php');
+require_once INSTALLDIR.'/lib/profilelist.php';
 require_once INSTALLDIR.'/lib/publicgroupnav.php';
 
 /**
@@ -107,7 +107,6 @@ class FeaturedAction extends Action
 
         $featured_nicks = common_config('nickname', 'featured');
 
-
         if (count($featured_nicks) > 0) {
 
             $quoted = array();
@@ -136,7 +135,7 @@ class FeaturedAction extends Action
             $cnt = $profile->find();
 
             if ($cnt > 0) {
-                $featured = new ProfileList($profile, null, $this);
+                $featured = new ProfileList($profile, $this);
                 $featured->show();
             }
 

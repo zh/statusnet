@@ -1,7 +1,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -25,30 +25,27 @@ require_once INSTALLDIR.'/classes/File_oembed.php';
 
 define('USER_AGENT', 'Laconica user agent / file probe');
 
-
 /**
  * Table Definition for file_redirection
  */
 
-class File_redirection extends Memcached_DataObject 
+class File_redirection extends Memcached_DataObject
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'file_redirection';                // table name
-    public $id;                              // int(11)  not_null primary_key group_by
-    public $url;                             // varchar(255)  unique_key
-    public $file_id;                         // int(11)  group_by
-    public $redirections;                    // int(11)  group_by
-    public $httpcode;                        // int(11)  group_by
+    public $url;                             // varchar(255)  primary_key not_null
+    public $file_id;                         // int(4)
+    public $redirections;                    // int(4)
+    public $httpcode;                        // int(4)
+    public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('File_redirection',$k,$v); }
+    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('File_redirection',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
-
-
 
     function _commonCurl($url, $redirs) {
         $curlh = curl_init();
@@ -69,24 +66,18 @@ class File_redirection extends Memcached_DataObject
 
         // let's see if we know this...
         $a = File::staticGet('url', $short_url);
-        if (empty($a->id)) {
-            $b = File_redirection::staticGet('url', $short_url);
-            if (empty($b->id)) {
-                // we'll have to figure it out
-            } else {
-                // this is a redirect to $b->file_id
-                $a = File::staticGet($b->file_id);
-                $url = $a->url;
-            }
-        } else {
+
+        if (!empty($a)) {
             // this is a direct link to $a->url
-            $url = $a->url;
+            return $a->url;
+        } else {
+            $b = File_redirection::staticGet('url', $short_url);
+            if (!empty($b)) {
+                // this is a redirect to $b->file_id
+                $a = File::staticGet('id', $b->file_id);
+                return $a->url;
+            }
         }
-        if (isset($url)) {
-            return $url;
-        }
-
-
 
         $curlh = File_redirection::_commonCurl($short_url, $redirs);
         // Don't include body in output
@@ -123,83 +114,22 @@ class File_redirection extends Memcached_DataObject
     }
 
     function makeShort($long_url) {
-        $long_url = File_redirection::_canonUrl($long_url);
-        // do we already know this long_url and have a short redirection for it?
-        $file       = new File;
-        $file_redir = new File_redirection;
-        $file->url  = $long_url;
-        $file->joinAdd($file_redir);
-        $file->selectAdd('length(file_redirection.url) as len');
-        $file->limit(1);
-        $file->orderBy('len');
-        $file->find(true);
-        if (!empty($file->url) && (strlen($file->url) < strlen($long_url))) {
-            return $file->url;
-        }
 
-        // if yet unknown, we must find a short url according to user settings
-        $short_url = File_redirection::_userMakeShort($long_url, common_current_user());
-        return $short_url;
+        $canon = File_redirection::_canonUrl($long_url);
+
+        $short_url = File_redirection::_userMakeShort($canon);
+
+        // Did we get one? Is it shorter?
+        if (!empty($short_url) && mb_strlen($short_url) < mb_strlen($long_url)) {
+            return $short_url;
+        } else {
+            return $long_url;
+        }
     }
 
-    function _userMakeShort($long_url, $user) {
-        if (empty($user)) {
-            // common current user does not find a user when called from the XMPP daemon
-            // therefore we'll set one here fix, so that XMPP given URLs may be shortened
-            $user->urlshorteningservice = 'ur1.ca';
-        }
-        $curlh = curl_init();
-        curl_setopt($curlh, CURLOPT_CONNECTTIMEOUT, 20); // # seconds to wait
-        curl_setopt($curlh, CURLOPT_USERAGENT, 'Laconica');
-        curl_setopt($curlh, CURLOPT_RETURNTRANSFER, true);
-
-        switch($user->urlshorteningservice) {
-            case 'ur1.ca':
-                require_once INSTALLDIR.'/lib/Shorturl_api.php';
-                $short_url_service = new LilUrl;
-                $short_url = $short_url_service->shorten($long_url);
-                break;
-
-            case '2tu.us':
-                $short_url_service = new TightUrl;
-                require_once INSTALLDIR.'/lib/Shorturl_api.php';
-                $short_url = $short_url_service->shorten($long_url);
-                break;
-
-            case 'ptiturl.com':
-                require_once INSTALLDIR.'/lib/Shorturl_api.php';
-                $short_url_service = new PtitUrl;
-                $short_url = $short_url_service->shorten($long_url);
-                break;
-
-            case 'bit.ly':
-                curl_setopt($curlh, CURLOPT_URL, 'http://bit.ly/api?method=shorten&long_url='.urlencode($long_url));
-                $short_url = current(json_decode(curl_exec($curlh))->results)->hashUrl;
-                break;
-
-            case 'is.gd':
-                curl_setopt($curlh, CURLOPT_URL, 'http://is.gd/api.php?longurl='.urlencode($long_url));
-                $short_url = curl_exec($curlh);
-                break;
-            case 'snipr.com':
-                curl_setopt($curlh, CURLOPT_URL, 'http://snipr.com/site/snip?r=simple&link='.urlencode($long_url));
-                $short_url = curl_exec($curlh);
-                break;
-            case 'metamark.net':
-                curl_setopt($curlh, CURLOPT_URL, 'http://metamark.net/api/rest/simple?long_url='.urlencode($long_url));
-                $short_url = curl_exec($curlh);
-                break;
-            case 'tinyurl.com':
-                curl_setopt($curlh, CURLOPT_URL, 'http://tinyurl.com/api-create.php?url='.urlencode($long_url));
-                $short_url = curl_exec($curlh);
-                break;
-            default:
-                $short_url = false;
-        }
-
-        curl_close($curlh);
-
-        if ($short_url) {
+    function _userMakeShort($long_url) {
+        $short_url = common_shorten_url($long_url);
+        if (!empty($short_url) && $short_url != $long_url) {
             $short_url = (string)$short_url;
             // store it
             $file = File::staticGet('url', $long_url);
@@ -222,7 +152,7 @@ class File_redirection extends Memcached_DataObject
             }
             return $short_url;
         }
-        return $long_url;
+        return null;
     }
 
     function _canonUrl($in_url, $default_scheme = 'http://') {

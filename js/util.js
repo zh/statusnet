@@ -217,10 +217,12 @@ $(document).ready(function(){
                                                             $('#'+li.id).css({display:'none'});
                                                             $('#'+li.id).fadeIn(2500);
                                                             NoticeReply();
+                                                            NoticeAttachments();
                                                          }
 													}
 													$("#notice_data-text").val("");
     												$("#notice_data-attach").val("");
+                                                    $('#notice_data-attach_selected').remove();
                                                     counter();
 												}
 												$("#form_notice").removeClass("processing");
@@ -230,23 +232,13 @@ $(document).ready(function(){
 					   };
 	$("#form_notice").ajaxForm(PostNotice);
 	$("#form_notice").each(addAjaxHidden);
-    NoticeHover();
     NoticeReply();
     NoticeAttachments();
+    NoticeDataAttach();
 });
 
-
-function NoticeHover() {
-    function mouseHandler(e) {
-        $(e.target).closest('li.hentry')[(e.type === 'mouseover') ? 'addClass' : 'removeClass']('hover');
-    };
-    $('#content .notices').mouseover(mouseHandler);
-    $('#content .notices').mouseout(mouseHandler);
-}
-
-
 function NoticeReply() {
-    if ($('#notice_data-text').length > 0) {
+    if ($('#notice_data-text').length > 0 && $('#content .notice_reply').length > 0) {
         $('#content .notice').each(function() {
             var notice = $(this)[0];
             $($('.notice_reply', notice)[0]).click(function() {
@@ -290,13 +282,13 @@ function NoticeAttachments() {
         timeout : 0
     };
 
-    $('a.attachment').click(function() {
+    $('#content .notice a.attachment').click(function() {
         $().jOverlay({url: $('address .url')[0].href+'/attachment/' + ($(this).attr('id').substring('attachment'.length + 1)) + '/ajax'});
         return false;
     });
     
     var t;
-    $("body:not(#shownotice) a.thumbnail").hover(
+    $("body:not(#shownotice) #content .notice a.thumbnail").hover(
         function() {
             var anchor = $(this);
             $("a.thumbnail").children('img').hide();
@@ -319,4 +311,17 @@ function NoticeAttachments() {
             $(this).closest(".entry-title").removeClass('ov');
         }
     );
+}
+
+function NoticeDataAttach() {
+    NDA = $('#notice_data-attach');
+    NDA.change(function() {
+        S = '<div id="notice_data-attach_selected" class="success"><code>'+$(this).val()+'</code> <button>&#215;</button></div>';
+        NDAS = $('#notice_data-attach_selected');
+        (NDAS.length > 0) ? NDAS.replaceWith(S) : $('#form_notice').append(S);
+        $('#notice_data-attach_selected button').click(function(){
+            $('#notice_data-attach_selected').remove();
+            NDA.val('');
+        });
+    });
 }

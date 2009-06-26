@@ -43,10 +43,14 @@ if (!defined('LACONICA')) {
 
 function theme_file($relative, $theme=null)
 {
-    if (!$theme) {
+    if (empty($theme)) {
         $theme = common_config('site', 'theme');
     }
-    return INSTALLDIR.'/theme/'.$theme.'/'.$relative;
+    $dir = common_config('theme', 'dir');
+    if (empty($dir)) {
+        $dir = INSTALLDIR.'/theme';
+    }
+    return $dir.'/'.$theme.'/'.$relative;
 }
 
 /**
@@ -60,13 +64,31 @@ function theme_file($relative, $theme=null)
 
 function theme_path($relative, $theme=null)
 {
-    if (!$theme) {
+    if (empty($theme)) {
         $theme = common_config('site', 'theme');
     }
-    $server = common_config('theme', 'server');
-    if ($server) {
-        return 'http://'.$server.'/'.$theme.'/'.$relative;
-    } else {
-        return common_path('theme/'.$theme.'/'.$relative);
+
+    $path = common_config('theme', 'path');
+
+    if (empty($path)) {
+        $path = common_config('site', 'path') . '/theme/';
     }
+
+    if ($path[strlen($path)-1] != '/') {
+        $path .= '/';
+    }
+
+    if ($path[0] != '/') {
+        $path = '/'.$path;
+    }
+
+    $server = common_config('theme', 'server');
+
+    if (empty($server)) {
+        $server = common_config('site', 'server');
+    }
+
+    // XXX: protocol
+
+    return 'http://'.$server.$path.$theme.'/'.$relative;
 }

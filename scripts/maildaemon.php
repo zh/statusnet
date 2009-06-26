@@ -2,7 +2,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -18,16 +18,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-# Abort if called from a web server
-if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
-    print "This script must be run from the command line\n";
-    exit();
-}
-
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
-define('LACONICA', true);
 
-require_once(INSTALLDIR . '/lib/common.php');
+$helptext = <<<END_OF_HELP
+Script for converting mail messages into notices. Takes message body
+as STDIN.
+
+END_OF_HELP;
+
+require_once INSTALLDIR.'/scripts/commandline.inc';
+
 require_once(INSTALLDIR . '/lib/mail.php');
 require_once('Mail/mimeDecode.php');
 
@@ -36,7 +36,6 @@ require_once('Mail/mimeDecode.php');
 
 class MailerDaemon
 {
-
     function __construct()
     {
     }
@@ -66,7 +65,13 @@ class MailerDaemon
             return true;
         }
         $msg = $this->cleanup_msg($msg);
-        $this->add_notice($user, $msg);
+        $err = $this->add_notice($user, $msg);
+        if (is_string($err)) {
+            $this->error($from, $err);
+            return false;
+        } else {
+            return true;
+        }
     }
 
     function error($from, $msg)
@@ -130,17 +135,15 @@ class MailerDaemon
 
     function add_notice($user, $msg)
     {
-        // should test
-        // $msg_shortened = common_shorten_links($msg);
-        // if (mb_strlen($msg_shortened) > 140) ERROR and STOP
         $notice = Notice::saveNew($user->id, $msg, 'mail');
         if (is_string($notice)) {
             $this->log(LOG_ERR, $notice);
-            return;
+            return $notice;
         }
         common_broadcast_notice($notice);
         $this->log(LOG_INFO,
                    'Added notice ' . $notice->id . ' from user ' . $user->nickname);
+        return true;
     }
 
     function parse_message($fname)

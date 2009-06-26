@@ -19,21 +19,18 @@
  */
 
 # Abort if called from a web server
-if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
-    print "This script must be run from the command line\n";
-    exit(1);
-}
-
-ini_set("max_execution_time", "0");
-ini_set("max_input_time", "0");
-set_time_limit(0);
-mb_internal_encoding('UTF-8');
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
-define('LACONICA', true);
 
-require_once(INSTALLDIR . '/lib/common.php');
-require_once('DB.php');
+$helptext = <<<ENDOFHELP
+fixup_utf8.php <maxdate> <maxid> <minid>
+
+Fixup records in a database that stored the data incorrectly (pre-0.7.4 for Laconica).
+
+ENDOFHELP;
+
+require_once INSTALLDIR.'/scripts/commandline.inc';
+require_once 'DB.php';
 
 class UTF8FixerUpper
 {
@@ -356,9 +353,9 @@ class UTF8FixerUpper
     }
 }
 
-$max_date = ($argc > 1) ? $argv[1] : null;
-$max_id = ($argc > 2) ? $argv[2] : null;
-$min_id = ($argc > 3) ? $argv[3] : null;
+$max_date = (count($args) > 0) ? $args[0] : null;
+$max_id = (count($args) > 1) ? $args[1] : null;
+$min_id = (count($args) > 2) ? $args[2] : null;
 
 $fixer = new UTF8FixerUpper(array('max_date' => $max_date,
                                   'max_notice' => $max_id,

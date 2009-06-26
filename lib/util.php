@@ -1,7 +1,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -497,6 +497,22 @@ function common_linkify($url) {
 
     $attrs = array('href' => $longurl, 'rel' => 'external');
 
+    $is_attachment = false;
+    $attachment_id = null;
+    $has_thumb = false;
+
+    // Check to see whether there's a filename associated with this URL.
+    // If there is, it's an upload and qualifies as an attachment
+
+    $localfile = File::staticGet('url', $longurl);
+
+    if (!empty($localfile)) {
+        if (isset($localfile->filename)) {
+            $is_attachment = true;
+            $attachment_id = $localfile->id;
+        }
+    }
+
 // if this URL is an attachment, then we set class='attachment' and id='attahcment-ID'
 // where ID is the id of the attachment for the given URL.
 //
@@ -504,24 +520,35 @@ function common_linkify($url) {
 // we're currently picking up oembeds only.
 // I think the best option is another file_view table in the db
 // and associated dbobject.
+
     $query = "select file_oembed.file_id as file_id from file join file_oembed on file.id = file_oembed.file_id where file.url='$longurl'";
     $file = new File;
     $file->query($query);
     $file->fetch();
 
     if (!empty($file->file_id)) {
+        $is_attachment = true;
+        $attachment_id = $file->file_id;
+
         $query = "select file_thumbnail.file_id as file_id from file join file_thumbnail on file.id = file_thumbnail.file_id where file.url='$longurl'";
         $file2 = new File;
         $file2->query($query);
         $file2->fetch();
 
-        if (empty($file2->file_id)) {
-            $attrs['class'] = 'attachment';
-        } else {
+        if (!empty($file2)) {
+            $has_thumb = true;
+        }
+    }
+
+    // Add clippy
+    if ($is_attachment) {
+        $attrs['class'] = 'attachment';
+        if ($has_thumb) {
             $attrs['class'] = 'attachment thumbnail';
         }
-        $attrs['id'] = "attachment-{$file->file_id}";
+        $attrs['id'] = "attachment-{$attachment_id}";
     }
+
     return XMLStringer::estring('a', $attrs, $display);
 }
 
@@ -591,7 +618,7 @@ function common_at_link($sender_id, $nickname)
 function common_group_link($sender_id, $nickname)
 {
     $sender = Profile::staticGet($sender_id);
-    $group = User_group::staticGet('nickname', common_canonical_nickname($nickname));
+    $group = User_group::getForNickname($nickname);
     if ($group && $sender->isMember($group)) {
         $attrs = array('href' => $group->permalink(),
                        'class' => 'url');
@@ -826,89 +853,91 @@ function common_broadcast_notice($notice, $remote=false)
 
 function common_enqueue_notice($notice)
 {
+    $transports = array('omb', 'sms', 'public', 'twitter', 'facebook', 'ping');
+
+    if (common_config('xmpp', 'enabled'))
+    {
+        $transports[] = 'jabber';
+    }
+
     if (common_config('queue','subsystem') == 'stomp') {
-	// use an external message queue system via STOMP
-	require_once("Stomp.php");
-	$con = new Stomp(common_config('queue','stomp_server'));
-	if (!$con->connect()) {
-		common_log(LOG_ERR, 'Failed to connect to queue server');
-		return false;
-	}
-	$queue_basename = common_config('queue','queue_basename');
-    	foreach (array('jabber', 'omb', 'sms', 'public', 'twitter', 'facebook', 'ping') as $transport) {
-		if (!$con->send(
-			'/queue/'.$queue_basename.'-'.$transport, // QUEUE
-			$notice->id, 		// BODY of the message
-			array (			// HEADERS of the msg
-			'created' => $notice->created
-			))) {
-			common_log(LOG_ERR, 'Error sending to '.$transport.' queue');
-			return false;
-		}
-        common_log(LOG_DEBUG, 'complete remote queueing notice ID = ' . $notice->id . ' for ' . $transport);
-	}
-
-	//send tags as headers, so they can be used as JMS selectors
-        common_log(LOG_DEBUG, 'searching for tags ' . $notice->id);
-        $tags = array();
-	$tag = new Notice_tag();
-        $tag->notice_id = $notice->id;
-        if ($tag->find()) {
-            while ($tag->fetch()) {
-        	common_log(LOG_DEBUG, 'tag found = ' . $tag->tag);
-		array_push($tags,$tag->tag);
-            }
-        }
-        $tag->free();
-
-	$con->send('/topic/laconica.'.$notice->profile_id,
-			$notice->content,
-			array(
-				'profile_id' => $notice->profile_id,
-				'created' => $notice->created,
-				'tags' => implode($tags,' - ')
-				)
-			);
-        common_log(LOG_DEBUG, 'sent to personal topic ' . $notice->id);
-	$con->send('/topic/laconica.allusers',
-			$notice->content,
-			array(
-				'profile_id' => $notice->profile_id,
-				'created' => $notice->created,
-				'tags' => implode($tags,' - ')
-				)
-			);
-        common_log(LOG_DEBUG, 'sent to catch-all topic ' . $notice->id);
-	$result = true;
+        common_enqueue_notice_stomp($notice, $transports);
     }
     else {
-	// in any other case, 'internal'
-    	foreach (array('jabber', 'omb', 'sms', 'public', 'twitter', 'facebook', 'ping') as $transport) {
-	        $qi = new Queue_item();
-        	$qi->notice_id = $notice->id;
-	        $qi->transport = $transport;
-        	$qi->created = $notice->created;
-	        $result = $qi->insert();
-        	if (!$result) {
-	            $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-        	    common_log(LOG_ERR, 'DB error inserting queue item: ' . $last_error->message);
-            	    return false;
-        	}
-        	common_log(LOG_DEBUG, 'complete queueing notice ID = ' . $notice->id . ' for ' . $transport);
-        }
+        common_enqueue_notice_db($notice, $transports);
     }
     return $result;
 }
 
-function common_post_inbox_transports()
+function common_enqueue_notice_stomp($notice, $transports)
 {
-    $transports = array('omb', 'sms');
+    // use an external message queue system via STOMP
+    require_once("Stomp.php");
 
-    if (common_config('xmpp', 'enabled')) {
-        $transports = array_merge($transports, array('jabber', 'public'));
+    $server = common_config('queue','stomp_server');
+    $username = common_config('queue', 'stomp_username');
+    $password = common_config('queue', 'stomp_password');
+
+    $con = new Stomp($server);
+
+    if (!$con->connect($username, $password)) {
+        common_log(LOG_ERR, 'Failed to connect to queue server');
+        return false;
     }
 
-    return $transports;
+    $queue_basename = common_config('queue','queue_basename');
+
+    foreach ($transports as $transport) {
+        $result = $con->send('/queue/'.$queue_basename.'-'.$transport, // QUEUE
+                             $notice->id, 		// BODY of the message
+                             array ('created' => $notice->created));
+        if (!$result) {
+            common_log(LOG_ERR, 'Error sending to '.$transport.' queue');
+            return false;
+        }
+        common_log(LOG_DEBUG, 'complete remote queueing notice ID = ' . $notice->id . ' for ' . $transport);
+    }
+
+    //send tags as headers, so they can be used as JMS selectors
+    common_log(LOG_DEBUG, 'searching for tags ' . $notice->id);
+    $tags = array();
+    $tag = new Notice_tag();
+    $tag->notice_id = $notice->id;
+    if ($tag->find()) {
+        while ($tag->fetch()) {
+            common_log(LOG_DEBUG, 'tag found = ' . $tag->tag);
+            array_push($tags,$tag->tag);
+        }
+    }
+    $tag->free();
+
+    $con->send('/topic/laconica.'.$notice->profile_id,
+               $notice->content,
+               array(
+                     'profile_id' => $notice->profile_id,
+                     'created' => $notice->created,
+                     'tags' => implode($tags,' - ')
+                     )
+               );
+    common_log(LOG_DEBUG, 'sent to personal topic ' . $notice->id);
+    $con->send('/topic/laconica.allusers',
+               $notice->content,
+               array(
+                     'profile_id' => $notice->profile_id,
+                     'created' => $notice->created,
+                     'tags' => implode($tags,' - ')
+                     )
+               );
+    common_log(LOG_DEBUG, 'sent to catch-all topic ' . $notice->id);
+    $result = true;
+}
+
+function common_enqueue_notice_db($notice, $transports)
+{
+    // in any other case, 'internal'
+    foreach ($transports as $transport) {
+        common_enqueue_notice_transport($notice, $transport);
+    }
 }
 
 function common_enqueue_notice_transport($notice, $transport)
@@ -1322,7 +1351,13 @@ function common_session_token()
 
 function common_cache_key($extra)
 {
-    return 'laconica:' . common_keyize(common_config('site', 'name')) . ':' . $extra;
+    $base_key = common_config('memcached', 'base');
+
+    if (empty($base_key)) {
+        $base_key = common_keyize(common_config('site', 'name'));
+    }
+
+    return 'laconica:' . $base_key . ':' . $extra;
 }
 
 function common_keyize($str)
@@ -1370,4 +1405,69 @@ function common_database_tablename($tablename)
   }
   //table prefixes could be added here later
   return $tablename;
+}
+
+function common_shorten_url($long_url)
+{
+    $user = common_current_user();
+    if (empty($user)) {
+        // common current user does not find a user when called from the XMPP daemon
+        // therefore we'll set one here fix, so that XMPP given URLs may be shortened
+        $svc = 'ur1.ca';
+    } else {
+        $svc = $user->urlshorteningservice;
+    }
+
+    $curlh = curl_init();
+    curl_setopt($curlh, CURLOPT_CONNECTTIMEOUT, 20); // # seconds to wait
+    curl_setopt($curlh, CURLOPT_USERAGENT, 'Laconica');
+    curl_setopt($curlh, CURLOPT_RETURNTRANSFER, true);
+
+    switch($svc) {
+     case 'ur1.ca':
+        require_once INSTALLDIR.'/lib/Shorturl_api.php';
+        $short_url_service = new LilUrl;
+        $short_url = $short_url_service->shorten($long_url);
+        break;
+
+     case '2tu.us':
+        $short_url_service = new TightUrl;
+        require_once INSTALLDIR.'/lib/Shorturl_api.php';
+        $short_url = $short_url_service->shorten($long_url);
+        break;
+
+     case 'ptiturl.com':
+        require_once INSTALLDIR.'/lib/Shorturl_api.php';
+        $short_url_service = new PtitUrl;
+        $short_url = $short_url_service->shorten($long_url);
+        break;
+
+     case 'bit.ly':
+        curl_setopt($curlh, CURLOPT_URL, 'http://bit.ly/api?method=shorten&long_url='.urlencode($long_url));
+        $short_url = current(json_decode(curl_exec($curlh))->results)->hashUrl;
+        break;
+
+     case 'is.gd':
+        curl_setopt($curlh, CURLOPT_URL, 'http://is.gd/api.php?longurl='.urlencode($long_url));
+        $short_url = curl_exec($curlh);
+        break;
+     case 'snipr.com':
+        curl_setopt($curlh, CURLOPT_URL, 'http://snipr.com/site/snip?r=simple&link='.urlencode($long_url));
+        $short_url = curl_exec($curlh);
+        break;
+     case 'metamark.net':
+        curl_setopt($curlh, CURLOPT_URL, 'http://metamark.net/api/rest/simple?long_url='.urlencode($long_url));
+        $short_url = curl_exec($curlh);
+        break;
+     case 'tinyurl.com':
+        curl_setopt($curlh, CURLOPT_URL, 'http://tinyurl.com/api-create.php?url='.urlencode($long_url));
+        $short_url = curl_exec($curlh);
+        break;
+     default:
+        $short_url = false;
+    }
+
+    curl_close($curlh);
+
+    return $short_url;
 }
