@@ -499,6 +499,26 @@ create table design (
     primary key (id)
 );
 
+create table group_block (
+   group_id integer not null /* comment 'group profile is blocked from' */ references user_group (id),
+   blocked integer not null /* comment 'profile that is blocked' */references profile (id),
+   blocker integer not null /* comment 'user making the block'*/ references "user" (id),
+   modified timestamp /* comment 'date of blocking'*/ ,
+
+   primary key (group_id, blocked)
+);
+
+create table group_alias (
+
+   alias varchar(64) /* comment 'additional nickname for the group'*/ ,
+   group_id integer not null /* comment 'group profile is blocked from'*/ references user_group (id),
+   modified timestamp /* comment 'date alias was created'*/,
+   primary key (alias)
+
+);
+create index group_alias_group_id_idx on group_alias (group_id);
+
+
 /* Textsearch stuff */
 
 create index textsearch_idx on profile using gist(textsearch);
