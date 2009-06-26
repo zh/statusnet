@@ -90,6 +90,7 @@ $(document).ready(function() {
     });
     $('#design_background-image_on').focus(function() {
         $('body').css({'background-image':'url('+$('#design_background-image_onoff img')[0].src+')'});
+        $('body').css({'background-attachment': 'fixed'});
     });
 
     $('#design_background-image_repeat').click(function() {

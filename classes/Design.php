@@ -85,7 +85,7 @@ class Design extends Memcached_DataObject
 
             $css .= 'body { background-image:url(' .
                 Design::url($this->backgroundimage) .
-                '); ' . $repeat . ' }' . "\n";
+                '); ' . $repeat . ' background-attachment:fixed; }' . "\n";
         }
 
         $out->element('style', array('type' => 'text/css'), $css);
