@@ -82,7 +82,8 @@ class AttachmentList extends Widget
         $atts = new File;
         $att = $atts->getAttachments($this->notice->id);
         if (empty($att)) return 0;
-        $this->out->elementStart('dl', array('id' =>'attachments'));
+        $this->out->elementStart('dl', array('id' =>'attachments',
+                                             'class' => 'entry-content'));
         $this->out->element('dt', null, _('Attachments'));
         $this->out->elementStart('dd');
         $this->out->elementStart('ol', array('class' => 'attachments'));
@@ -249,8 +250,11 @@ class Attachment extends AttachmentListItem
         $this->out->elementStart('div', 'entry-title');
         $this->out->elementStart('a', $this->linkAttr());
         $this->out->element('span', null, $this->linkTitle());
-        $this->showRepresentation();
         $this->out->elementEnd('a');
+        $this->out->elementEnd('div');
+
+        $this->out->elementStart('div', 'entry-content');
+        $this->showRepresentation();
         $this->out->elementEnd('div');
 
         if (!empty($this->oembed->author_name) || !empty($this->oembed->provider)) {

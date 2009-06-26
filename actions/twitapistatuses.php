@@ -75,8 +75,8 @@ class TwitapistatusesAction extends TwitterapiAction
     {
         parent::handle($args);
 
+        $this->auth_user = $apidata['user'];
         $user = $this->get_user($apidata['api_arg'], $apidata);
-        $this->auth_user = $user;
 
         if (empty($user)) {
              $this->clientError(_('No such user!'), 404,
@@ -100,8 +100,13 @@ class TwitapistatusesAction extends TwitterapiAction
         $since_id = (int)$this->arg('since_id', 0);
         $since    = $this->arg('since');
 
-        $notice = $user->noticesWithFriends(($page-1)*$count,
-            $count, $since_id, $max_id,$since);
+        if (!empty($this->auth_user) && $this->auth_user->id == $user->id) {
+            $notice = $user->noticeInbox(($page-1)*$count,
+                $count, $since_id, $max_id, $since);
+        } else {
+            $notice = $user->noticesWithFriends(($page-1)*$count,
+                $count, $since_id, $max_id, $since);
+        }
 
         switch($apidata['content-type']) {
         case 'xml':

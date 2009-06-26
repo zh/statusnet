@@ -289,4 +289,52 @@ class Profile extends Memcached_DataObject
             return Avatar::defaultImage($size);
         }
     }
+
+    function getSubscriptions($offset=0, $limit=null)
+    {
+        $qry =
+          'SELECT profile.* ' .
+          'FROM profile JOIN subscription ' .
+          'ON profile.id = subscription.subscribed ' .
+          'WHERE subscription.subscriber = %d ' .
+          'AND subscription.subscribed != subscription.subscriber ' .
+          'ORDER BY subscription.created DESC ';
+
+        if (common_config('db','type') == 'pgsql') {
+            $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+        } else {
+            $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+        }
+
+        $profile = new Profile();
+
+        $profile->query(sprintf($qry, $this->id));
+
+        return $profile;
+    }
+
+    function getSubscribers($offset=0, $limit=null)
+    {
+        $qry =
+          'SELECT profile.* ' .
+          'FROM profile JOIN subscription ' .
+          'ON profile.id = subscription.subscriber ' .
+          'WHERE subscription.subscribed = %d ' .
+          'AND subscription.subscribed != subscription.subscriber ' .
+          'ORDER BY subscription.created DESC ';
+
+        if ($offset) {
+            if (common_config('db','type') == 'pgsql') {
+                $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+            } else {
+                $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+            }
+        }
+
+        $profile = new Profile();
+
+        $cnt = $profile->query(sprintf($qry, $this->id));
+
+        return $profile;
+    }
 }

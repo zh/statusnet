@@ -61,7 +61,11 @@ class TwitapifavoritesAction extends TwitterapiAction
         $since_id = (int)$this->arg('since_id', 0);
         $since    = $this->arg('since');
 
-        $notice = $user->favoriteNotices(($page-1)*$count, $count);
+        if (!empty($this->auth_user) && $this->auth_user->id == $user->id) {
+            $notice = $user->favoriteNotices(($page-1)*$count, $count, true);
+        } else {
+            $notice = $user->favoriteNotices(($page-1)*$count, $count, false);
+        }
 
         switch($apidata['content-type']) {
         case 'xml':

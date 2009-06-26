@@ -331,6 +331,20 @@ class Notice extends Memcached_DataObject
         return $n_attachments;
     }
 
+    function attachments() {
+        // XXX: cache this
+        $att = array();
+        $f2p = new File_to_post;
+        $f2p->post_id = $this->id;
+        if ($f2p->find()) {
+            while ($f2p->fetch()) {
+                $f = File::staticGet($f2p->file_id);
+                $att[] = clone($f);
+            }
+        }
+        return $att;
+    }
+
     function blowCaches($blowLast=false)
     {
         $this->blowSubsCache($blowLast);
@@ -339,6 +353,19 @@ class Notice extends Memcached_DataObject
         $this->blowPublicCache($blowLast);
         $this->blowTagCache($blowLast);
         $this->blowGroupCache($blowLast);
+        $this->blowConversationCache($blowLast);
+    }
+
+    function blowConversationCache($blowLast=false)
+    {
+        $cache = common_memcache();
+        if ($cache) {
+            $ck = common_cache_key('notice:conversation_ids:'.$this->conversation);
+            $cache->delete($ck);
+            if ($blowLast) {
+                $cache->delete($ck.';last');
+            }
+        }
     }
 
     function blowGroupCache($blowLast=false)
@@ -471,8 +498,10 @@ class Notice extends Memcached_DataObject
             if ($fave->find()) {
                 while ($fave->fetch()) {
                     $cache->delete(common_cache_key('fave:ids_by_user:'.$fave->user_id));
+                    $cache->delete(common_cache_key('fave:by_user_own:'.$fave->user_id));
                     if ($blowLast) {
                         $cache->delete(common_cache_key('fave:ids_by_user:'.$fave->user_id.';last'));
+                        $cache->delete(common_cache_key('fave:by_user_own:'.$fave->user_id.';last'));
                     }
                 }
             }
@@ -675,7 +704,10 @@ class Notice extends Memcached_DataObject
         if (!empty($cache)) {
             $notices = array();
             foreach ($ids as $id) {
-                $notices[] = Notice::staticGet('id', $id);
+                $n = Notice::staticGet('id', $id);
+                if (!empty($n)) {
+                    $notices[] = $n;
+                }
             }
             return new ArrayWrapper($notices);
         } else {
@@ -744,27 +776,114 @@ class Notice extends Memcached_DataObject
         return $ids;
     }
 
+    function conversationStream($id, $offset=0, $limit=20, $since_id=0, $max_id=0, $since=null)
+    {
+        $ids = Notice::stream(array('Notice', '_conversationStreamDirect'),
+                              array($id),
+                              'notice:conversation_ids:'.$id,
+                              $offset, $limit, $since_id, $max_id, $since);
+
+        return Notice::getStreamByIds($ids);
+    }
+
+    function _conversationStreamDirect($id, $offset=0, $limit=20, $since_id=0, $max_id=0, $since=null)
+    {
+        $notice = new Notice();
+
+        $notice->selectAdd(); // clears it
+        $notice->selectAdd('id');
+
+        $notice->whereAdd('conversation = '.$id);
+
+        $notice->orderBy('id DESC');
+
+        if (!is_null($offset)) {
+            $notice->limit($offset, $limit);
+        }
+
+        if ($since_id != 0) {
+            $notice->whereAdd('id > ' . $since_id);
+        }
+
+        if ($max_id != 0) {
+            $notice->whereAdd('id <= ' . $max_id);
+        }
+
+        if (!is_null($since)) {
+            $notice->whereAdd('created > \'' . date('Y-m-d H:i:s', $since) . '\'');
+        }
+
+        $ids = array();
+
+        if ($notice->find()) {
+            while ($notice->fetch()) {
+                $ids[] = $notice->id;
+            }
+        }
+
+        $notice->free();
+        $notice = NULL;
+
+        return $ids;
+    }
+
     function addToInboxes()
     {
         $enabled = common_config('inboxes', 'enabled');
 
         if ($enabled === true || $enabled === 'transitional') {
-            $inbox = new Notice_inbox();
-            $UT = common_config('db','type')=='pgsql'?'"user"':'user';
-            $qry = 'INSERT INTO notice_inbox (user_id, notice_id, created) ' .
-              "SELECT $UT.id, " . $this->id . ", '" . $this->created . "' " .
-              "FROM $UT JOIN subscription ON $UT.id = subscription.subscriber " .
-              'WHERE subscription.subscribed = ' . $this->profile_id . ' ' .
-              'AND NOT EXISTS (SELECT user_id, notice_id ' .
-              'FROM notice_inbox ' .
-              "WHERE user_id = $UT.id " .
-              'AND notice_id = ' . $this->id . ' )';
-            if ($enabled === 'transitional') {
-                $qry .= " AND $UT.inboxed = 1";
+
+            $users = $this->getSubscribedUsers();
+
+            // FIXME: kind of ignoring 'transitional'...
+            // we'll probably stop supporting inboxless mode
+            // in 0.9.x
+
+            foreach ($users as $id) {
+                $this->addToUserInbox($id, NOTICE_INBOX_SOURCE_SUB);
             }
-            $inbox->query($qry);
         }
+
         return;
+    }
+
+    function getSubscribedUsers()
+    {
+        $user = new User();
+
+        $qry =
+          'SELECT id ' .
+          'FROM user JOIN subscription '.
+          'ON user.id = subscription.subscriber ' .
+          'WHERE subscription.subscribed = %d ';
+
+        $user->query(sprintf($qry, $this->profile_id));
+
+        $ids = array();
+
+        while ($user->fetch()) {
+            $ids[] = $user->id;
+        }
+
+        $user->free();
+
+        return $ids;
+    }
+
+    function addToUserInbox($user_id, $source)
+    {
+        $inbox = Notice_inbox::pkeyGet(array('user_id' => $user_id,
+                                             'notice_id' => $this->id));
+        if (empty($inbox)) {
+            $inbox = new Notice_inbox();
+            $inbox->user_id   = $user_id;
+            $inbox->notice_id = $this->id;
+            $inbox->source    = $source;
+            $inbox->created   = $this->created;
+            return $inbox->insert();
+        }
+
+        return true;
     }
 
     function saveGroups()
@@ -805,13 +924,7 @@ class Notice extends Memcached_DataObject
 
             if ($profile->isMember($group)) {
 
-                $gi = new Group_inbox();
-
-                $gi->group_id  = $group->id;
-                $gi->notice_id = $this->id;
-                $gi->created   = common_sql_now();
-
-                $result = $gi->insert();
+                $result = $this->addToGroupInbox($group);
 
                 if (!$result) {
                     common_log_db_error($gi, 'INSERT', __FILE__);
@@ -819,27 +932,37 @@ class Notice extends Memcached_DataObject
 
                 // FIXME: do this in an offline daemon
 
-                $this->addToGroupInboxes($group);
+                $this->addToGroupMemberInboxes($group);
             }
         }
     }
 
-    function addToGroupInboxes($group)
+    function addToGroupInbox($group)
     {
-        $inbox = new Notice_inbox();
-        $UT = common_config('db','type')=='pgsql'?'"user"':'user';
-        $qry = 'INSERT INTO notice_inbox (user_id, notice_id, created, source) ' .
-          "SELECT $UT.id, " . $this->id . ", '" . $this->created . "', " . NOTICE_INBOX_SOURCE_GROUP . " " .
-          "FROM $UT JOIN group_member ON $UT.id = group_member.profile_id " .
-          'WHERE group_member.group_id = ' . $group->id . ' ' .
-          'AND NOT EXISTS (SELECT user_id, notice_id ' .
-          'FROM notice_inbox ' .
-          "WHERE user_id = $UT.id " .
-          'AND notice_id = ' . $this->id . ' )';
-        if ($enabled === 'transitional') {
-            $qry .= " AND $UT.inboxed = 1";
+        $gi = Group_inbox::pkeyGet(array('group_id' => $group->id,
+                                         'notice_id' => $this->id));
+
+        if (empty($gi)) {
+
+            $gi = new Group_inbox();
+
+            $gi->group_id  = $group->id;
+            $gi->notice_id = $this->id;
+            $gi->created   = $this->created;
+
+            return $gi->insert();
         }
-        $result = $inbox->query($qry);
+
+        return true;
+    }
+
+    function addToGroupMemberInboxes($group)
+    {
+        $users = $group->getUserMembers();
+
+        foreach ($users as $id) {
+            $this->addToUserInbox($id, NOTICE_INBOX_SOURCE_GROUP);
+        }
     }
 
     function saveReplies()
