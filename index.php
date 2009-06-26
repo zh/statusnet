@@ -48,7 +48,14 @@ function handleError($error)
         $logmsg .= " : ". $error->getDebugInfo();
     }
     common_log(LOG_ERR, $logmsg);
-    if ($error instanceof DB_DataObject_Error) {
+    if(common_config('site', 'logdebug')) {
+        $bt = $error->getBacktrace();
+        foreach ($bt as $line) {
+            common_log(LOG_ERR, $line);
+        }
+    }
+    if ($error instanceof DB_DataObject_Error ||
+        $error instanceof DB_Error) {
         $msg = sprintf(_('The database for %s isn\'t responding correctly, '.
                          'so the site won\'t work properly. '.
                          'The site admins probably know about the problem, '.

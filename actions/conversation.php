@@ -63,6 +63,7 @@ class ConversationAction extends Action
         if (empty($this->id)) {
             return false;
         }
+        $this->id = $this->id+0;
         $this->page = $this->trimmed('page');
         if (empty($this->page)) {
             $this->page = 1;
@@ -106,18 +107,10 @@ class ConversationAction extends Action
 
     function showContent()
     {
-        // FIXME this needs to be a tree, not a list
-
-        $qry = 'SELECT * FROM notice WHERE conversation = %s ';
-
         $offset = ($this->page-1) * NOTICES_PER_PAGE;
         $limit  = NOTICES_PER_PAGE + 1;
 
-        $txt = sprintf($qry, $this->id);
-
-        $notices = Notice::getStream($txt,
-                                     'notice:conversation:'.$this->id,
-                                     $offset, $limit);
+        $notices = Notice::conversationStream($this->id, $offset, $limit);
 
         $ct = new ConversationTree($notices, $this);
 
@@ -126,7 +119,6 @@ class ConversationAction extends Action
         $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
                           $this->page, 'conversation', array('id' => $this->id));
     }
-
 }
 
 /**

@@ -246,4 +246,28 @@ class User_group extends Memcached_DataObject
         return Design::staticGet('id', $this->design_id);
     }
 
+    function getUserMembers()
+    {
+        // XXX: cache this
+
+        $user = new User();
+
+        $qry =
+          'SELECT id ' .
+          'FROM user JOIN group_member '.
+          'ON user.id = group_member.profile_id ' .
+          'WHERE group_member.group_id = %d ';
+
+        $user->query(sprintf($qry, $this->id));
+
+        $ids = array();
+
+        while ($user->fetch()) {
+            $ids[] = $user->id;
+        }
+
+        $user->free();
+
+        return $ids;
+    }
 }

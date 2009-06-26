@@ -89,8 +89,7 @@ $(document).ready(function() {
         $('body').css({'background-image':'none'});
     });
     $('#design_background-image_on').focus(function() {
-        var bis = $('#design_background-image_onoff img')[0].src;
-        $('body').css({'background-image':'url('+bis+')'});
+        $('body').css({'background-image':'url('+$('#design_background-image_onoff img')[0].src+')'});
     });
 
     $('#design_background-image_repeat').click(function() {

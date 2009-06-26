@@ -236,6 +236,7 @@ class NewnoticeAction extends Action
                 $this->deleteFile($filename);
                 $this->clientError(_('Max notice size is 140 chars, including attachment URL.'));
             }
+            $fileRecord = $this->rememberFile($filename, $mimetype, $short_fileurl);
         }
 
         $notice = Notice::saveNew($user->id, $content_shortened, 'web', 1,
@@ -249,7 +250,7 @@ class NewnoticeAction extends Action
         }
 
         if (isset($mimetype)) {
-            $this->attachFile($notice, $filename, $mimetype, $short_fileurl);
+            $this->attachFile($notice, $fileRecord);
         }
 
         common_broadcast_notice($notice);
@@ -304,12 +305,12 @@ class NewnoticeAction extends Action
         @unlink($filepath);
     }
 
-    function attachFile($notice, $filename, $mimetype, $short)
+    function rememberFile($filename, $mimetype, $short)
     {
         $file = new File;
         $file->filename = $filename;
 
-        $file->url = common_local_url('file', array('notice' => $notice->id));
+        $file->url = File::url($filename);
 
         $filepath = File::path($filename);
 
@@ -324,26 +325,35 @@ class NewnoticeAction extends Action
             $this->clientError(_('There was a database error while saving your file. Please try again.'));
         }
 
-        $file_redir = new File_redirection;
-        $file_redir->url = File::url($filename);
-        $file_redir->file_id = $file_id;
+        $this->maybeAddRedir($file_id, $short);
 
-        $result = $file_redir->insert();
+        return $file;
+    }
 
-        if (!$result) {
-            common_log_db_error($file_redir, "INSERT", __FILE__);
-            $this->clientError(_('There was a database error while saving your file. Please try again.'));
+    function maybeAddRedir($file_id, $url)
+    {
+        $file_redir = File_redirection::staticGet('url', $url);
+
+        if (empty($file_redir)) {
+            $file_redir = new File_redirection;
+            $file_redir->url = $url;
+            $file_redir->file_id = $file_id;
+
+            $result = $file_redir->insert();
+
+            if (!$result) {
+                common_log_db_error($file_redir, "INSERT", __FILE__);
+                $this->clientError(_('There was a database error while saving your file. Please try again.'));
+            }
         }
+    }
 
-        $f2p = new File_to_post;
-        $f2p->file_id = $file_id;
-        $f2p->post_id = $notice->id;
-        $f2p->insert();
+    function attachFile($notice, $filerec)
+    {
+        File_to_post::processNew($filerec->id, $notice->id);
 
-        if (!$result) {
-            common_log_db_error($f2p, "INSERT", __FILE__);
-            $this->clientError(_('There was a database error while saving your file. Please try again.'));
-        }
+        $this->maybeAddRedir($filerec->id,
+            common_local_url('file', array('notice' => $notice->id)));
     }
 
     /**

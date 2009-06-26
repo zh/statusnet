@@ -510,12 +510,25 @@ margin-bottom:7px;
 margin-left:18px;
 float:left;
 }
-#form_notice .error {
+#form_notice .error,
+#form_notice .success {
 float:left;
 clear:both;
-width:96.9%;
+width:81.5%;
 margin-bottom:0;
 line-height:1.618;
+}
+#form_notice #notice_data-attach_selected code {
+float:left;
+width:90%;
+display:block;
+font-size:1.1em;
+line-height:1.8;
+overflow:auto;
+}
+#form_notice #notice_data-attach_selected button {
+float:right;
+font-size:0.8em;
 }
 
 /* entity_profile */
@@ -548,7 +561,8 @@ margin-bottom:18px;
 .entity_profile .entity_location,
 .entity_profile .entity_url,
 .entity_profile .entity_note,
-.entity_profile .entity_tags {
+.entity_profile .entity_tags,
+.entity_profile .entity_aliases {
 margin-left:113px;
 margin-bottom:4px;
 }
