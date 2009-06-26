@@ -332,7 +332,7 @@ function mysql_db_installer($host, $database, $username, $password, $sitename) {
       }
       updateStatus("Done!");
     }
-function writeConf($sitename, $sqlUrl, $fancy)
+function writeConf($sitename, $sqlUrl, $fancy, $type='mysql')
 {
     $res = file_put_contents(INSTALLDIR.'/config.php',
                              "<?php\n".
@@ -340,6 +340,8 @@ function writeConf($sitename, $sqlUrl, $fancy)
                              "\$config['site']['name'] = \"$sitename\";\n\n".
                              ($fancy ? "\$config['site']['fancy'] = true;\n\n":'').
                              "\$config['db']['database'] = \"$sqlUrl\";\n\n".
+                             ($type == 'pgsql' ? "\$config['db']['quote_identifiers'] = true;\n\n" .
+                             "\$config['db']['dbtype'] = \"$type\";\n\n" : '').
                              "?>");
     return $res;
 }
