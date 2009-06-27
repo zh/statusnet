@@ -145,6 +145,7 @@ function common_ensure_session()
     }
     if (!common_have_session()) {
         if (common_config('sessions', 'handle')) {
+            common_log(LOG_INFO, "Using our own session handler");
             Session::setSaveHandler();
         }
         @session_start();

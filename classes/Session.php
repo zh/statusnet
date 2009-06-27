@@ -40,6 +40,11 @@ class Session extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
+    static function logdeb($msg)
+    {
+        common_debug("Session: " . $msg);
+    }
+
     static function open($save_path, $session_name)
     {
         return true;
@@ -52,6 +57,8 @@ class Session extends Memcached_DataObject
 
     static function read($id)
     {
+        self::logdeb("Fetching session '$id'");
+
         $session = Session::staticGet('id', $id);
 
         if (empty($session)) {
@@ -63,6 +70,8 @@ class Session extends Memcached_DataObject
 
     static function write($id, $session_data)
     {
+        self::logdeb("Writing session '$id'");
+
         $session = Session::staticGet('id', $id);
 
         if (empty($session)) {
@@ -82,6 +91,8 @@ class Session extends Memcached_DataObject
 
     static function destroy($id)
     {
+        self::logdeb("Deleting session $id");
+
         $session = Session::staticGet('id', $id);
 
         if (!empty($session)) {
@@ -91,6 +102,8 @@ class Session extends Memcached_DataObject
 
     static function gc($maxlifetime)
     {
+        self::logdeb("garbage collection (maxlifetime = $maxlifetime)");
+
         $epoch = time() - $maxlifetime;
 
         $qry = 'DELETE FROM session ' .
@@ -98,12 +111,17 @@ class Session extends Memcached_DataObject
 
         $session = new Session();
 
-        $session->query($qry);
+        $result = $session->query($qry);
+
+        self::logdeb("garbage collection result = $result");
     }
 
     static function setSaveHandler()
     {
-        session_set_save_handler('Session::open', 'Session::close', 'Session::read',
-                                 'Session::write', 'Session::destroy', 'Session::gc');
+        self::logdeb("setting save handlers");
+        $result = session_set_save_handler('Session::open', 'Session::close', 'Session::read',
+                                           'Session::write', 'Session::destroy', 'Session::gc');
+        self::logdeb("save handlers result = $result");
+        return $result;
     }
 }
