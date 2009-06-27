@@ -111,7 +111,7 @@ function main()
     if (isset($_SERVER['REDIRECT_URL']) && ((dirname($_SERVER['REQUEST_URI']) . '/check-fancy') === $_SERVER['REDIRECT_URL'])) {
         die("Fancy URL support detection succeeded. We suggest you enable this to get fancy (pretty) URLs.");
     }
-    global $user, $action, $config;
+    global $user, $action;
 
     Snapshot::check();
 
