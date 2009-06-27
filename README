@@ -1287,6 +1287,8 @@ handle: boolean. Whether we should register our own PHP session-handling
 	code (using the database and memcache if enabled). Defaults to false.
 	Setting this to true makes some sense on large or multi-server
 	sites, but it probably won't hurt for smaller ones, either.
+debug: whether to output debugging info for session storage. Can help
+       with weird session bugs, sometimes. Default false.
 
 Troubleshooting
 ===============

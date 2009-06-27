@@ -42,7 +42,9 @@ class Session extends Memcached_DataObject
 
     static function logdeb($msg)
     {
-        common_debug("Session: " . $msg);
+        if (common_config('sessions', 'debug')) {
+            common_debug("Session: " . $msg);
+        }
     }
 
     static function open($save_path, $session_name)
