@@ -152,6 +152,10 @@ class Router
         $m->connect('search/notice/rss?q=:q', array('action' => 'noticesearchrss'),
                     array('q' => '.+'));
 
+        $m->connect('attachment/:attachment',
+                    array('action' => 'attachment'),
+                    array('attachment' => '[0-9]+'));
+
         $m->connect('attachment/:attachment/ajax',
                     array('action' => 'attachment_ajax'),
                     array('attachment' => '[0-9]+'));

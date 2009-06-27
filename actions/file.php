@@ -56,5 +56,17 @@ class FileAction extends Action
     function handle() {
         common_redirect($this->filerec->url);
     }
+
+    /**
+     * Is this action read-only?
+     *
+     * @return boolean true
+     */
+
+    function isReadOnly($args)
+    {
+        return true;
+    }
+
 }
 
