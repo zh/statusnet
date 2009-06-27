@@ -144,6 +144,9 @@ function common_ensure_session()
         $c = $_COOKIE[session_name()];
     }
     if (!common_have_session()) {
+        if (common_config('sessions', 'handle')) {
+            Session::setSaveHandler();
+        }
         @session_start();
         if (!isset($_SESSION['started'])) {
             $_SESSION['started'] = time();

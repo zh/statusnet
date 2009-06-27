@@ -254,6 +254,8 @@ $config =
         'oohembed' => array('endpoint' => 'http://oohembed.com/oohembed/'),
         'search' =>
         array('type' => 'fulltext'),
+        'sessions' =>
+        array('handle' => false), // whether to handle sessions ourselves
         );
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');

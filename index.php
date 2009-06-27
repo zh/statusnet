@@ -73,6 +73,38 @@ function handleError($error)
     exit(-1);
 }
 
+function checkMirror($action_obj)
+{
+    global $config;
+
+    static $alwaysRW = array('session', 'remember_me');
+
+    if (common_config('db', 'mirror') && $action_obj->isReadOnly($args)) {
+        if (is_array(common_config('db', 'mirror'))) {
+            // "load balancing", ha ha
+            $arr = common_config('db', 'mirror');
+            $k = array_rand($arr);
+            $mirror = $arr[$k];
+        } else {
+            $mirror = common_config('db', 'mirror');
+        }
+
+        // We ensure that these tables always are used
+        // on the master DB
+
+        $config['db']['database_rw'] = $config['db']['database'];
+        $config['db']['ini_rw'] = INSTALLDIR.'/classes/laconica.ini';
+
+        foreach ($alwaysRW as $table) {
+            $config['db']['table_'.$table] = 'rw';
+        }
+
+        // everyone else uses the mirror
+
+        $config['db']['database'] = $mirror;
+    }
+}
+
 function main()
 {
     // quick check for fancy URL auto-detection support in installer.
@@ -146,19 +178,7 @@ function main()
     } else {
         $action_obj = new $action_class();
 
-        // XXX: find somewhere for this little block to live
-
-        if (common_config('db', 'mirror') && $action_obj->isReadOnly($args)) {
-            if (is_array(common_config('db', 'mirror'))) {
-                // "load balancing", ha ha
-                $arr = common_config('db', 'mirror');
-                $k = array_rand($arr);
-                $mirror = $arr[$k];
-            } else {
-                $mirror = common_config('db', 'mirror');
-            }
-            $config['db']['database'] = $mirror;
-        }
+        checkMirror($action_obj);
 
         try {
             if ($action_obj->prepare($args)) {
