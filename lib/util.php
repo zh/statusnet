@@ -1491,3 +1491,27 @@ function common_shorten_url($long_url)
 
     return $short_url;
 }
+
+function common_client_ip()
+{
+    if (!isset($_SERVER) || !array_key_exists('REQUEST_METHOD', $_SERVER)) {
+        return null;
+    }
+
+    if ($_SERVER['HTTP_X_FORWARDED_FOR']) {
+        if ($_SERVER['HTTP_CLIENT_IP']) {
+            $proxy = $_SERVER['HTTP_CLIENT_IP'];
+        } else {
+            $proxy = $_SERVER['REMOTE_ADDR'];
+        }
+        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    } else {
+        if ($_SERVER['HTTP_CLIENT_IP']) {
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        } else {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+    }
+
+    return array($ip, $proxy);
+}
