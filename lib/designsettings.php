@@ -212,18 +212,19 @@ class DesignSettingsAction extends AccountSettingsAction
                                          'maxlength' => '7',
                                          'size' => '7',
                                          'value' => '#' . $lcolor->hexValue()));
+            $this->elementEnd('li');
 
-           $this->elementEnd('li');
+        } catch (WebColorException $e) {
+            common_log(LOG_ERR, 'Bad color values in design ID: ' .$design->id);
+        }
 
-       } catch (WebColorException $e) {
-           common_log(LOG_ERR, 'Bad color values in design ID: ' .
-               $design->id);
-       }
+        $this->elementEnd('ul');
+        $this->elementEnd('fieldset');
 
-       $this->elementEnd('ul');
-       $this->elementEnd('fieldset');
+        $this->submit('defaults', _('Use defaults'), 'submit form_action-default',
+            'defaults', _('Restore default designs'));
 
-       $this->element('input', array('id' => 'settings_design_reset',
+        $this->element('input', array('id' => 'settings_design_reset',
                                      'type' => 'reset',
                                      'value' => 'Reset',
                                      'class' => 'submit form_action-primary',
