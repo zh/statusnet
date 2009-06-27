@@ -139,8 +139,19 @@ function common_have_session()
 
 function common_ensure_session()
 {
+    $c = null;
+    if (array_key_exists(session_name, $_COOKIE)) {
+        $c = $_COOKIE[session_name()];
+    }
     if (!common_have_session()) {
         @session_start();
+        if (!isset($_SESSION['started'])) {
+            $_SESSION['started'] = time();
+            if (!empty($c)) {
+                common_log(LOG_WARNING, 'Session cookie "' . $_COOKIE[session_name()] . '" ' .
+                           ' is set but started value is null');
+            }
+        }
     }
 }
 
