@@ -828,7 +828,12 @@ function common_date_iso8601($dt)
 
 function common_sql_now()
 {
-    return strftime('%Y-%m-%d %H:%M:%S', time());
+    return common_sql_date(time());
+}
+
+function common_sql_date($datetime)
+{
+    return strftime('%Y-%m-%d %H:%M:%S', $datetime);
 }
 
 function common_redirect($url, $code=307)

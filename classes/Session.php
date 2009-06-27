@@ -39,4 +39,71 @@ class Session extends Memcached_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+
+    static function open($save_path, $session_name)
+    {
+        return true;
+    }
+
+    static function close()
+    {
+        return true;
+    }
+
+    static function read($id)
+    {
+        $session = Session::staticGet('id', $id);
+
+        if (empty($session)) {
+            return '';
+        } else {
+            return (string)$session->session_data;
+        }
+    }
+
+    static function write($id, $session_data)
+    {
+        $session = Session::staticGet('id', $id);
+
+        if (empty($session)) {
+            $session = new Session();
+
+            $session->id           = $id;
+            $session->session_data = $session_data;
+            $session->created      = common_sql_now();
+
+            return $session->insert();
+        } else {
+            $session->session_data = $session_data;
+
+            return $session->update();
+        }
+    }
+
+    static function destroy($id)
+    {
+        $session = Session::staticGet('id', $id);
+
+        if (!empty($session)) {
+            return $session->delete();
+        }
+    }
+
+    static function gc($maxlifetime)
+    {
+        $epoch = time() - $maxlifetime;
+
+        $qry = 'DELETE FROM session ' .
+          'WHERE modified < "'.$epoch.'"';
+
+        $session = new Session();
+
+        $session->query($qry);
+    }
+
+    static function setSaveHandler()
+    {
+        session_set_save_handler('Session::open', 'Session::close', 'Session::read',
+                                 'Session::write', 'Session::destroy', 'Session::gc');
+    }
 }
