@@ -335,6 +335,6 @@ if (have_option('i', 'id')) {
 
 $foreground = have_option('f', 'foreground');
 
-$daemon = new XMPPDaemon($id, $foreground);
+$daemon = new XMPPDaemon($id, !$foreground);
 
 $daemon->runOnce();
