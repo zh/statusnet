@@ -122,10 +122,8 @@ require_once INSTALLDIR . '/lib/common.php';
 
 set_error_handler('common_error_handler');
 
-function have_option($opt, $alt=null)
+function _make_matches($opt, $alt)
 {
-    global $options;
-
     $matches = array();
 
     if (strlen($opt) > 1 && 0 != strncmp($opt, '--', 2)) {
@@ -141,6 +139,15 @@ function have_option($opt, $alt=null)
             $matches[] = $alt;
         }
     }
+
+    return $matches;
+}
+
+function have_option($opt, $alt=null)
+{
+    global $options;
+
+    $matches = _make_matches($opt, $alt);
 
     foreach ($options as $option) {
         if (in_array($option[0], $matches)) {
@@ -151,25 +158,11 @@ function have_option($opt, $alt=null)
     return false;
 }
 
-function get_option_value($str, $alt=null)
+function get_option_value($opt, $alt=null)
 {
     global $options;
 
-    $matches = array();
-
-    if (strlen($opt) > 1 && 0 != strncmp($opt, '--', 2)) {
-        $matches[] = '--'.$opt;
-    } else {
-        $matches[] = $opt;
-    }
-
-    if (!empty($alt)) {
-        if (strlen($alt) > 1 && 0 != strncmp($alt, '--', 2)) {
-            $matches[] = '--'.$alt;
-        } else {
-            $matches[] = $alt;
-        }
-    }
+    $matches = _make_matches($opt, $alt);
 
     foreach ($options as $option) {
         if (in_array($option[0], $matches)) {
