@@ -138,6 +138,7 @@ class Daemon
         }
 
         if ($this->daemonize) {
+            common_log('Backgrounding daemon "'.$this->name().'"');
             $this->background();
         }
 
