@@ -135,7 +135,7 @@ class Status_network extends DB_DataObject
 
             if (empty($sn)) {
                 // Try for a no-www address
-                if (strncasecmp($servername, 'www.', 4)) {
+                if (0 == strncasecmp($servername, 'www.', 4)) {
                     $sn = self::memGet('hostname', strtolower(substr($servername, 4)));
                 }
             }
