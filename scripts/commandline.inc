@@ -115,24 +115,60 @@ require_once INSTALLDIR . '/lib/common.php';
 
 set_error_handler('common_error_handler');
 
-function have_option($str)
+function have_option($opt, $alt=null)
 {
    global $options;
+
+   $matches = array($opt);
+
+   if (strlen($opt) > 1 && 0 != strncmp($opt, '--', 2)) {
+      $matches[] = '--'.$opt;
+   } else {
+      $matches[] = $opt;
+   }
+
+   if (!empty($alt)) {
+       if (strlen($alt) > 1 && 0 != strncmp($alt, '--', 2)) {
+           $matches[] = '--'.$alt;
+       } else {
+           $matches[] = $alt;
+       }
+   }
+
    foreach ($options as $option) {
-       if ($option[0] == $str) {
+       if (in_array($option[0], $matches)) {
           return true;
        }
    }
+
    return false;
 }
 
-function get_option_value($str)
+function get_option_value($str, $alt=null)
 {
    global $options;
+
+   $matches = array();
+
+   if (strlen($opt) > 1 && 0 != strncmp($opt, '--', 2)) {
+      $matches[] = '--'.$opt;
+   } else {
+      $matches[] = $opt;
+   }
+
+   if (!empty($alt)) {
+       if (strlen($alt) > 1 && 0 != strncmp($alt, '--', 2)) {
+           $matches[] = '--'.$alt;
+       } else {
+           $matches[] = $alt;
+       }
+   }
+
    foreach ($options as $option) {
-       if ($option[0] == $str) {
+       if (in_array($option[0], $matches)) {
           return $option[1];
        }
    }
+
    return null;
 }
