@@ -500,17 +500,19 @@ function common_linkify($url) {
     // It comes in special'd, so we unspecial it before passing to the stringifying
     // functions
     $url = htmlspecialchars_decode($url);
-    $display = File_redirection::_canonUrl($url);
+
+    $canon = File_redirection::_canonUrl($url);
+
     $longurl_data = File_redirection::where($url);
     if (is_array($longurl_data)) {
         $longurl = $longurl_data['url'];
     } elseif (is_string($longurl_data)) {
         $longurl = $longurl_data;
     } else {
-        die('impossible to linkify');
+        throw new ServerException("Can't linkify url '$url'");
     }
 
-    $attrs = array('href' => $longurl, 'rel' => 'external');
+    $attrs = array('href' => $canon, 'rel' => 'external');
 
     $is_attachment = false;
     $attachment_id = null;
@@ -528,13 +530,13 @@ function common_linkify($url) {
         }
     }
 
-// if this URL is an attachment, then we set class='attachment' and id='attahcment-ID'
-// where ID is the id of the attachment for the given URL.
-//
-// we need a better test telling what can be shown as an attachment
-// we're currently picking up oembeds only.
-// I think the best option is another file_view table in the db
-// and associated dbobject.
+    // if this URL is an attachment, then we set class='attachment' and id='attahcment-ID'
+    // where ID is the id of the attachment for the given URL.
+    //
+    // we need a better test telling what can be shown as an attachment
+    // we're currently picking up oembeds only.
+    // I think the best option is another file_view table in the db
+    // and associated dbobject.
 
     $query = "select file_oembed.file_id as file_id from file join file_oembed on file.id = file_oembed.file_id where file.url='$longurl'";
     $file = new File;
@@ -564,7 +566,7 @@ function common_linkify($url) {
         $attrs['id'] = "attachment-{$attachment_id}";
     }
 
-    return XMLStringer::estring('a', $attrs, $display);
+    return XMLStringer::estring('a', $attrs, $url);
 }
 
 function common_shorten_links($text)
