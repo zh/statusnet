@@ -43,7 +43,7 @@ require_once INSTALLDIR . '/lib/daemon.php';
 
 class XMPPDaemon extends Daemon
 {
-    function XMPPDaemon($resource=null, $daemonize=true)
+    function __construct($resource=null, $daemonize=true)
     {
         parent::__construct($daemonize);
 
