@@ -4,7 +4,7 @@
  */
 require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
-class Queue_item extends Memcached_DataObject 
+class Queue_item extends Memcached_DataObject
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -13,7 +13,7 @@ class Queue_item extends Memcached_DataObject
     public $notice_id;                       // int(4)  primary_key not_null
     public $transport;                       // varchar(8)  primary_key not_null
     public $created;                         // datetime()   not_null
-    public $claimed;                         // datetime()  
+    public $claimed;                         // datetime()
 
     /* Static get */
     function staticGet($k,$v=null)
@@ -24,7 +24,7 @@ class Queue_item extends Memcached_DataObject
 
     function sequenceKey()
     { return array(false, false); }
-    
+
     static function top($transport) {
 
         $qi = new Queue_item();
@@ -53,5 +53,10 @@ class Queue_item extends Memcached_DataObject
         }
         $qi = null;
         return null;
+    }
+
+    function &pkeyGet($kv)
+    {
+        return Memcached_DataObject::pkeyGet('Queue_item', $kv);
     }
 }
