@@ -75,10 +75,17 @@ class XMPPDaemon extends Daemon
             return false;
         }
 
+        $this->log(LOG_INFO, "Connected");
+
         $this->conn->setReconnectTimeout(600);
+
+        $this->log(LOG_INFO, "Sending initial presence.");
 
         jabber_send_presence("Send me a message to post a notice", 'available',
                              null, 'available', 100);
+
+        $this->log(LOG_INFO, "Done connecting.");
+
         return !$this->conn->isDisconnected();
     }
 
@@ -91,9 +98,13 @@ class XMPPDaemon extends Daemon
     {
         if ($this->connect()) {
 
+            $this->log(LOG_DEBUG, "Initializing stanza handlers.");
+
             $this->conn->addEventHandler('message', 'handle_message', $this);
             $this->conn->addEventHandler('presence', 'handle_presence', $this);
             $this->conn->addEventHandler('reconnect', 'handle_reconnect', $this);
+
+            $this->log(LOG_DEBUG, "Beginning processing loop.");
 
             $this->conn->process();
         }
@@ -101,7 +112,9 @@ class XMPPDaemon extends Daemon
 
     function handle_reconnect(&$pl)
     {
+        $this->log(LOG_DEBUG, "Got reconnection callback.");
         $this->conn->processUntil('session_start');
+        $this->log(LOG_DEBUG, "Sending reconnection presence.");
         $this->conn->presence('Send me a message to post a notice', 'available', null, 'available', 100);
     }
 
@@ -113,21 +126,27 @@ class XMPPDaemon extends Daemon
 
     function handle_message(&$pl)
     {
+        $from = jabber_normalize_jid($pl['from']);
+
         if ($pl['type'] != 'chat') {
-            return;
-        }
-        if (mb_strlen($pl['body']) == 0) {
+            $this->log(LOG_WARNING, "Ignoring message of type ".$pl['type']." from $from.");
             return;
         }
 
-        $from = jabber_normalize_jid($pl['from']);
+        if (mb_strlen($pl['body']) == 0) {
+            $this->log(LOG_WARNING, "Ignoring message with empty body from $from.");
+            return;
+        }
 
         # Forwarded from another daemon (probably a broadcaster) for
         # us to handle
 
         if ($this->is_self($from)) {
+            $this->log(LOG_INFO, "Got forwarded notice from self ($from).");
             $from = $this->get_ofrom($pl);
+            $this->log(LOG_INFO, "Originally sent by $from.");
             if (is_null($from) || $this->is_self($from)) {
+                $this->log(LOG_INFO, "Ignoring notice originally sent by $from.");
                 return;
             }
         }
@@ -142,6 +161,7 @@ class XMPPDaemon extends Daemon
             return;
         }
         if ($this->handle_command($user, $pl['body'])) {
+            $this->log(LOG_INFO, "Command messag by $from handled.");
             return;
         } else if ($this->is_autoreply($pl['body'])) {
             $this->log(LOG_INFO, 'Ignoring auto reply from ' . $from);
@@ -150,12 +170,20 @@ class XMPPDaemon extends Daemon
             $this->log(LOG_INFO, 'Ignoring OTR from ' . $from);
             return;
         } else if ($this->is_direct($pl['body'])) {
+            $this->log(LOG_INFO, 'Got a direct message ' . $from);
+
             preg_match_all('/d[\ ]*([a-z0-9]{1,64})/', $pl['body'], $to);
 
             $to = preg_replace('/^d([\ ])*/', '', $to[0][0]);
             $body = preg_replace('/d[\ ]*('. $to .')[\ ]*/', '', $pl['body']);
+
+            $this->log(LOG_INFO, 'Direct message from '. $user->nickname . ' to ' . $to);
+
             $this->add_direct($user, $body, $to, $from);
         } else {
+
+            $this->log(LOG_INFO, 'Posting a notice from ' . $user->nickname);
+
             $this->add_notice($user, $pl);
         }
 
@@ -263,6 +291,7 @@ class XMPPDaemon extends Daemon
         $notice = Notice::saveNew($user->id, $content_shortened, 'xmpp');
         if (is_string($notice)) {
             $this->log(LOG_ERR, $notice);
+            $this->from_site($user->jabber, $notice);
             return;
         }
         common_broadcast_notice($notice);
