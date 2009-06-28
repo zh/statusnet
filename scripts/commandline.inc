@@ -63,7 +63,14 @@ if (isset($longoptions)) {
 
 $parser = new Console_Getopt();
 
-list($options, $args) = $parser->getopt($argv, $shortoptions, $longoptions);
+$result = $parser->getopt($argv, $shortoptions, $longoptions);
+
+if (PEAR::isError($result)) {
+  print $result->getMessage()."\n";
+  exit(1);
+} else {
+  list($options, $args) = $result;
+}
 
 function show_help()
 {
