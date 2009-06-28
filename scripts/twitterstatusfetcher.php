@@ -25,9 +25,14 @@ define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 define('MAXCHILDREN', 2);
 define('POLL_INTERVAL', 60); // in seconds
 
+$shortoptions = 'i::';
+$longoptions = array('id::');
+
 $helptext = <<<END_OF_TRIM_HELP
 Batch script for retrieving Twitter messages from foreign service.
 
+  -i --id      Identity (default 'generic')
+    
 END_OF_TRIM_HELP;
 
 require_once INSTALLDIR.'/scripts/commandline.inc';
@@ -64,7 +69,7 @@ class TwitterStatusFetcher extends Daemon
 
     function name()
     {
-        return ('twitterstatusfetcher.generic');
+        return ('twitterstatusfetcher.'.$this->_id);
     }
 
     /**
@@ -625,6 +630,16 @@ class TwitterStatusFetcher extends Daemon
 
 declare(ticks = 1);
 
-$fetcher = new TwitterStatusFetcher();
+if (have_option('i')) {
+    $id = get_option_value('i');
+} else if (have_option('--id')) {
+    $id = get_option_value('--id');
+} else if (count($args) > 0) {
+    $id = $args[0];
+} else {
+    $id = null;
+}
+
+$fetcher = new TwitterStatusFetcher($id);
 $fetcher->runOnce();
 
