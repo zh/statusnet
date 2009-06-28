@@ -1348,17 +1348,38 @@ function common_canonical_sms($sms)
 function common_error_handler($errno, $errstr, $errfile, $errline, $errcontext)
 {
     switch ($errno) {
+
+     case E_ERROR:
+     case E_COMPILE_ERROR:
+     case E_CORE_ERROR:
      case E_USER_ERROR:
-        common_log(LOG_ERR, "[$errno] $errstr ($errfile:$errline)");
-        exit(1);
+     case E_PARSE:
+     case E_RECOVERABLE_ERROR:
+        common_log(LOG_ERR, "[$errno] $errstr ($errfile:$errline) [ABORT]");
+        die();
         break;
 
+     case E_WARNING:
+     case E_COMPILE_WARNING:
+     case E_CORE_WARNING:
      case E_USER_WARNING:
         common_log(LOG_WARNING, "[$errno] $errstr ($errfile:$errline)");
         break;
 
+     case E_NOTICE:
      case E_USER_NOTICE:
         common_log(LOG_NOTICE, "[$errno] $errstr ($errfile:$errline)");
+        break;
+
+     case E_STRICT:
+     case E_DEPRECATED:
+     case E_USER_DEPRECATED:
+        // XXX: config variable to log this stuff, too
+        break;
+
+     default:
+        common_log(LOG_ERR, "[$errno] $errstr ($errfile:$errline) [UNKNOWN LEVEL, die()'ing]");
+        die();
         break;
     }
 
