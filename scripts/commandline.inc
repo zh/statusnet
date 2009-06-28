@@ -66,10 +66,10 @@ $parser = new Console_Getopt();
 $result = $parser->getopt($argv, $shortoptions, $longoptions);
 
 if (PEAR::isError($result)) {
-  print $result->getMessage()."\n";
-  exit(1);
+    print $result->getMessage()."\n";
+    exit(1);
 } else {
-  list($options, $args) = $result;
+    list($options, $args) = $result;
 }
 
 function show_help()
@@ -77,7 +77,7 @@ function show_help()
     global $helptext;
 
     $_default_help_text = <<<END_OF_DEFAULT
-General options:
+      General options:
 
     -q --quiet           Quiet (little output)
     -v --verbose         Verbose (lots of output)
@@ -87,11 +87,11 @@ General options:
     -h --help            Show this message and quit.
 
 END_OF_DEFAULT;
-        if (isset($helptext)) {
-            print $helptext;
-        }
-        print $_default_help_text;
-        exit(0);
+    if (isset($helptext)) {
+        print $helptext;
+    }
+    print $_default_help_text;
+    exit(0);
 }
 
 foreach ($options as $option) {
@@ -124,58 +124,58 @@ set_error_handler('common_error_handler');
 
 function have_option($opt, $alt=null)
 {
-   global $options;
+    global $options;
 
-   $matches = array($opt);
+    $matches = array();
 
-   if (strlen($opt) > 1 && 0 != strncmp($opt, '--', 2)) {
-      $matches[] = '--'.$opt;
-   } else {
-      $matches[] = $opt;
-   }
+    if (strlen($opt) > 1 && 0 != strncmp($opt, '--', 2)) {
+        $matches[] = '--'.$opt;
+    } else {
+        $matches[] = $opt;
+    }
 
-   if (!empty($alt)) {
-       if (strlen($alt) > 1 && 0 != strncmp($alt, '--', 2)) {
-           $matches[] = '--'.$alt;
-       } else {
-           $matches[] = $alt;
-       }
-   }
+    if (!empty($alt)) {
+        if (strlen($alt) > 1 && 0 != strncmp($alt, '--', 2)) {
+            $matches[] = '--'.$alt;
+        } else {
+            $matches[] = $alt;
+        }
+    }
 
-   foreach ($options as $option) {
-       if (in_array($option[0], $matches)) {
-          return true;
-       }
-   }
+    foreach ($options as $option) {
+        if (in_array($option[0], $matches)) {
+            return true;
+        }
+    }
 
-   return false;
+    return false;
 }
 
 function get_option_value($str, $alt=null)
 {
-   global $options;
+    global $options;
 
-   $matches = array();
+    $matches = array();
 
-   if (strlen($opt) > 1 && 0 != strncmp($opt, '--', 2)) {
-      $matches[] = '--'.$opt;
-   } else {
-      $matches[] = $opt;
-   }
+    if (strlen($opt) > 1 && 0 != strncmp($opt, '--', 2)) {
+        $matches[] = '--'.$opt;
+    } else {
+        $matches[] = $opt;
+    }
 
-   if (!empty($alt)) {
-       if (strlen($alt) > 1 && 0 != strncmp($alt, '--', 2)) {
-           $matches[] = '--'.$alt;
-       } else {
-           $matches[] = $alt;
-       }
-   }
+    if (!empty($alt)) {
+        if (strlen($alt) > 1 && 0 != strncmp($alt, '--', 2)) {
+            $matches[] = '--'.$alt;
+        } else {
+            $matches[] = $alt;
+        }
+    }
 
-   foreach ($options as $option) {
-       if (in_array($option[0], $matches)) {
-          return $option[1];
-       }
-   }
+    foreach ($options as $option) {
+        if (in_array($option[0], $matches)) {
+            return $option[1];
+        }
+    }
 
-   return null;
+    return null;
 }
