@@ -20,13 +20,14 @@
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 
-$shortoptions = 'i::';
-$longoptions = array('id::');
+$shortoptions = 'fi::';
+$longoptions = array('id::', 'foreground');
 
 $helptext = <<<END_OF_XMPP_HELP
 Daemon script for receiving new notices from Jabber users.
 
     -i --id           Identity (default none)
+    -f --foreground   Stay in the foreground (default background)
 
 END_OF_XMPP_HELP;
 
@@ -42,8 +43,10 @@ require_once INSTALLDIR . '/lib/daemon.php';
 
 class XMPPDaemon extends Daemon
 {
-    function XMPPDaemon($resource=null)
+    function XMPPDaemon($resource=null, $daemonize=true)
     {
+        parent::__construct($daemonize);
+
         static $attrs = array('server', 'port', 'user', 'password', 'host');
 
         foreach ($attrs as $attr)
@@ -62,7 +65,6 @@ class XMPPDaemon extends Daemon
 
     function connect()
     {
-
         $connect_to = ($this->host) ? $this->host : $this->server;
 
         $this->log(LOG_INFO, "Connecting to $connect_to on port $this->port");
@@ -323,16 +325,16 @@ if (common_config('xmpp','enabled')==false) {
     exit();
 }
 
-if (have_option('i')) {
-    $id = get_option_value('i');
-} else if (have_option('--id')) {
-    $id = get_option_value('--id');
+if (have_option('i', 'id')) {
+    $id = get_option_value('i', 'id');
 } else if (count($args) > 0) {
     $id = $args[0];
 } else {
     $id = null;
 }
 
-$daemon = new XMPPDaemon($id);
+$foreground = have_option('f', 'foreground');
+
+$daemon = new XMPPDaemon($id, $foreground);
 
 $daemon->runOnce();
