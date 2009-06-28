@@ -309,7 +309,14 @@ class XMPPDaemon extends Daemon
 
     function log($level, $msg)
     {
-        common_log($level, 'XMPPDaemon('.$this->resource.'): '.$msg);
+        $text = 'XMPPDaemon('.$this->resource.'): '.$msg;
+        common_log($level, $text);
+        if (!$this->daemonize)
+        {
+            $line = common_log_line($level, $text);
+            echo $line;
+            echo "\n";
+        }
     }
 
     function subscribed($to)
