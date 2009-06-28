@@ -138,7 +138,7 @@ class Daemon
         }
 
         if ($this->daemonize) {
-            common_log('Backgrounding daemon "'.$this->name().'"');
+            common_log(LOG_INFO, 'Backgrounding daemon "'.$this->name().'"');
             $this->background();
         }
 
