@@ -172,7 +172,7 @@ class GroupMemberListItem extends ProfileListItem
         parent::showFullName();
         if ($this->profile->isAdmin($this->group)) {
             $this->out->text(' ');
-            $this->out->element('span', 'admin_indicator', _('Admin'));
+            $this->out->element('span', 'role', _('Admin'));
         }
     }
 

@@ -585,12 +585,13 @@ font-weight:normal;
 content: ")";
 font-weight:normal;
 }
-
-.entity_profile dt {
-display:none;
-}
+.entity_profile dt,
 .entity_profile h2 {
 display:none;
+}
+.entity_profile .role {
+margin-left:11px;
+font-style:italic;
 }
 /* entity_profile */
 
@@ -1298,7 +1299,4 @@ display:none;
 }
 .guide {
 clear:both;
-}
-.admin_indicator {
-font-style:italic;
 }
