@@ -589,12 +589,13 @@ font-weight:normal;
 content: ")";
 font-weight:normal;
 }
-
-.entity_profile dt {
-display:none;
-}
+.entity_profile dt,
 .entity_profile h2 {
 display:none;
+}
+.entity_profile .role {
+margin-left:11px;
+font-style:italic;
 }
 /* entity_profile */
 
@@ -1269,6 +1270,10 @@ clear:both;
 margin-bottom:0;
 }
 
+#form_settings_design #settings_design_background-image img {
+max-width:480px;
+}
+
 #form_settings_design #settings_design_color .form_data,
 #form_settings_design #color-picker {
 float:left;
@@ -1302,7 +1307,4 @@ display:none;
 }
 .guide {
 clear:both;
-}
-.admin_indicator {
-font-style:italic;
 }
