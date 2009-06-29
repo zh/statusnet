@@ -35,6 +35,20 @@ if (!defined('LACONICA')) {
 require_once INSTALLDIR . '/lib/accountsettingsaction.php';
 require_once INSTALLDIR . '/lib/webcolor.php';
 
+/**
+ * Base class for setting a user or group design
+ *
+ * Shows the design setting form and also handles some things like saving
+ * background images, and fetching a default design
+ *
+ * @category Settings
+ * @package  Laconica
+ * @author   Zach Copley <zach@controlyourself.ca>
+ * @author   Sarven Capadisli <csarven@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://laconi.ca/
+ */
+
 class DesignSettingsAction extends AccountSettingsAction
 {
 
@@ -62,6 +76,14 @@ class DesignSettingsAction extends AccountSettingsAction
         return _('Customize the way your profile looks ' .
         'with a background image and a colour palette of your choice.');
     }
+
+    /**
+     * Shows the design settings form
+     *
+     * @param Design $design a working design to show
+     *
+     * @return nothing
+     */
 
     function showDesignForm($design)
     {
@@ -94,7 +116,8 @@ class DesignSettingsAction extends AccountSettingsAction
 
         if (!empty($design->backgroundimage)) {
 
-            $this->elementStart('li', array('id' => 'design_background-image_onoff'));
+            $this->elementStart('li', array('id' =>
+                'design_background-image_onoff'));
 
             $this->element('img', array('src' =>
                 Design::url($design->backgroundimage)));
@@ -136,7 +159,7 @@ class DesignSettingsAction extends AccountSettingsAction
             $this->elementStart('li');
             $this->checkbox('design_background-image_repeat',
                             _('Tile background image'),
-                            ($design->disposition & BACKGROUND_TILE) ? true : false );
+                            ($design->disposition & BACKGROUND_TILE) ? true : false);
             $this->elementEnd('li');
         }
 
@@ -362,10 +385,13 @@ class DesignSettingsAction extends AccountSettingsAction
     /**
      * Save the background image, if any, and set its disposition
      *
+     * @param Design $design a working design to attach the img to
+     *
      * @return nothing
      */
 
-    function saveBackgroundImage($design) {
+    function saveBackgroundImage($design)
+    {
 
         // Now that we have a Design ID we can add a file to the design.
         // XXX: This is an additional DB hit, but figured having the image
@@ -378,12 +404,12 @@ class DesignSettingsAction extends AccountSettingsAction
             $filepath = null;
 
             try {
-                    $imagefile =
-                        ImageFile::fromUpload('design_background-image_file');
-                } catch (Exception $e) {
-                    $this->showForm($e->getMessage());
-                    return;
-                }
+                $imagefile =
+                    ImageFile::fromUpload('design_background-image_file');
+            } catch (Exception $e) {
+                $this->showForm($e->getMessage());
+                return;
+            }
 
             $filename = Design::filename($design->id,
                 image_type_to_extension($imagefile->type),
@@ -393,7 +419,14 @@ class DesignSettingsAction extends AccountSettingsAction
 
             move_uploaded_file($imagefile->filepath, $filepath);
 
+            // delete any old backround img laying around
+
+            if (isset($design->backgroundimage)) {
+                @unlink(Design::path($design->backgroundimage));
+            }
+
             $original = clone($design);
+
             $design->backgroundimage = $filename;
 
             // default to on, no tile

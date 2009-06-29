@@ -34,8 +34,29 @@ if (!defined('LACONICA')) {
 
 require_once INSTALLDIR . '/lib/designsettings.php';
 
+/**
+ * Setting a user's design
+ *
+ * Saves a design for a given user
+ *
+ * @category Settings
+ * @package  Laconica
+ * @author   Zach Copley <zach@controlyourself.ca>
+ * @author   Sarven Capadisli <csarven@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://laconi.ca/
+ */
+
 class UserDesignSettingsAction extends DesignSettingsAction
 {
+    /**
+     * Sets the right action for the form, and passes request args into
+     * the base action
+     *
+     * @param array $args misc. arguments
+     *
+     * @return boolean true
+     */
 
     function prepare($args)
     {
@@ -73,9 +94,10 @@ class UserDesignSettingsAction extends DesignSettingsAction
      * @return Design
      */
 
-    function getWorkingDesign() {
+    function getWorkingDesign()
+    {
 
-        $user = common_current_user();
+        $user   = common_current_user();
         $design = $user->getDesign();
 
         if (empty($design)) {
@@ -142,7 +164,7 @@ class UserDesignSettingsAction extends DesignSettingsAction
             $tile = true;
         }
 
-        $user = common_current_user();
+        $user   = common_current_user();
         $design = $user->getDesign();
 
         if (!empty($design)) {
@@ -189,9 +211,9 @@ class UserDesignSettingsAction extends DesignSettingsAction
                 return;
             }
 
-            $original = clone($user);
+            $original        = clone($user);
             $user->design_id = $id;
-            $result = $user->update($original);
+            $result          = $user->update($original);
 
             if (empty($result)) {
                 common_log_db_error($original, 'UPDATE', __FILE__);
@@ -215,9 +237,10 @@ class UserDesignSettingsAction extends DesignSettingsAction
      * @return nothing
      */
 
-    function sethd() {
+    function sethd()
+    {
 
-        $user = common_current_user();
+        $user   = common_current_user();
         $design = $user->getDesign();
 
         $user->query('BEGIN');
@@ -241,9 +264,9 @@ class UserDesignSettingsAction extends DesignSettingsAction
             return;
         }
 
-        $original = clone($user);
+        $original        = clone($user);
         $user->design_id = $id;
-        $result = $user->update($original);
+        $result          = $user->update($original);
 
         if (empty($result)) {
             common_log_db_error($original, 'UPDATE', __FILE__);
