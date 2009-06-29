@@ -27,13 +27,13 @@
  */
 
 /** XMPPHP_Exception */
-require_once 'Exception.php';
+require_once dirname(__FILE__) . '/Exception.php';
 
 /** XMPPHP_XMLObj */
-require_once 'XMLObj.php';
+require_once dirname(__FILE__) . '/XMLObj.php';
 
 /** XMPPHP_Log */
-require_once 'Log.php';
+require_once dirname(__FILE__) . '/Log.php';
 
 /**
  * XMPPHP XML Stream
@@ -375,7 +375,7 @@ class XMPPHP_XMLStream {
 	 * integer -> process for this amount of time 
 	 */
 	
-	private function __process($maximum=0) {
+	private function __process($maximum=5) {
 		
 		$remaining = $maximum;
 		

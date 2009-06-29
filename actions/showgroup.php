@@ -331,6 +331,7 @@ class ShowgroupAction extends GroupDesignAction
     {
         $this->showMembers();
         $this->showStatistics();
+        $this->showAdmins();
         $cloud = new GroupTagCloudSection($this, $this->group);
         $cloud->show();
     }
@@ -367,6 +368,18 @@ class ShowgroupAction extends GroupDesignAction
         }
 
         $this->elementEnd('div');
+    }
+
+    /**
+     * Show list of admins
+     *
+     * @return void
+     */
+
+    function showAdmins()
+    {
+        $adminSection = new GroupAdminSection($this, $this->group);
+        $adminSection->show();
     }
 
     /**
@@ -421,5 +434,36 @@ class ShowgroupAction extends GroupDesignAction
         $this->elementStart('div', array('id' => 'anon_notice'));
         $this->raw(common_markup_to_html($m));
         $this->elementEnd('div');
+    }
+}
+
+class GroupAdminSection extends ProfileSection
+{
+    var $group;
+
+    function __construct($out, $group)
+    {
+        parent::__construct($out);
+        $this->group = $group;
+    }
+
+    function getProfiles()
+    {
+        return $this->group->getAdmins();
+    }
+
+    function title()
+    {
+        return _('Admins');
+    }
+
+    function divId()
+    {
+        return 'group_admins';
+    }
+
+    function moreUrl()
+    {
+        return null;
     }
 }

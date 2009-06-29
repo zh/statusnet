@@ -139,8 +139,23 @@ function common_have_session()
 
 function common_ensure_session()
 {
+    $c = null;
+    if (array_key_exists(session_name, $_COOKIE)) {
+        $c = $_COOKIE[session_name()];
+    }
     if (!common_have_session()) {
+        if (common_config('sessions', 'handle')) {
+            common_log(LOG_INFO, "Using our own session handler");
+            Session::setSaveHandler();
+        }
         @session_start();
+        if (!isset($_SESSION['started'])) {
+            $_SESSION['started'] = time();
+            if (!empty($c)) {
+                common_log(LOG_WARNING, 'Session cookie "' . $_COOKIE[session_name()] . '" ' .
+                           ' is set but started value is null');
+            }
+        }
     }
 }
 
@@ -485,17 +500,19 @@ function common_linkify($url) {
     // It comes in special'd, so we unspecial it before passing to the stringifying
     // functions
     $url = htmlspecialchars_decode($url);
-    $display = File_redirection::_canonUrl($url);
+
+    $canon = File_redirection::_canonUrl($url);
+
     $longurl_data = File_redirection::where($url);
     if (is_array($longurl_data)) {
         $longurl = $longurl_data['url'];
     } elseif (is_string($longurl_data)) {
         $longurl = $longurl_data;
     } else {
-        die('impossible to linkify');
+        throw new ServerException("Can't linkify url '$url'");
     }
 
-    $attrs = array('href' => $longurl, 'rel' => 'external');
+    $attrs = array('href' => $canon, 'rel' => 'external');
 
     $is_attachment = false;
     $attachment_id = null;
@@ -513,13 +530,13 @@ function common_linkify($url) {
         }
     }
 
-// if this URL is an attachment, then we set class='attachment' and id='attahcment-ID'
-// where ID is the id of the attachment for the given URL.
-//
-// we need a better test telling what can be shown as an attachment
-// we're currently picking up oembeds only.
-// I think the best option is another file_view table in the db
-// and associated dbobject.
+    // if this URL is an attachment, then we set class='attachment' and id='attahcment-ID'
+    // where ID is the id of the attachment for the given URL.
+    //
+    // we need a better test telling what can be shown as an attachment
+    // we're currently picking up oembeds only.
+    // I think the best option is another file_view table in the db
+    // and associated dbobject.
 
     $query = "select file_oembed.file_id as file_id from file join file_oembed on file.id = file_oembed.file_id where file.url='$longurl'";
     $file = new File;
@@ -549,7 +566,7 @@ function common_linkify($url) {
         $attrs['id'] = "attachment-{$attachment_id}";
     }
 
-    return XMLStringer::estring('a', $attrs, $display);
+    return XMLStringer::estring('a', $attrs, $url);
 }
 
 function common_shorten_links($text)
@@ -817,7 +834,12 @@ function common_date_iso8601($dt)
 
 function common_sql_now()
 {
-    return strftime('%Y-%m-%d %H:%M:%S', time());
+    return common_sql_date(time());
+}
+
+function common_sql_date($datetime)
+{
+    return strftime('%Y-%m-%d %H:%M:%S', $datetime);
 }
 
 function common_redirect($url, $code=307)
@@ -1082,15 +1104,20 @@ function common_ensure_syslog()
     }
 }
 
+function common_log_line($priority, $msg)
+{
+    static $syslog_priorities = array('LOG_EMERG', 'LOG_ALERT', 'LOG_CRIT', 'LOG_ERR',
+                                      'LOG_WARNING', 'LOG_NOTICE', 'LOG_INFO', 'LOG_DEBUG');
+    return date('Y-m-d H:i:s') . ' ' . $syslog_priorities[$priority] . ': ' . $msg . "\n";
+}
+
 function common_log($priority, $msg, $filename=null)
 {
     $logfile = common_config('site', 'logfile');
     if ($logfile) {
         $log = fopen($logfile, "a");
         if ($log) {
-            static $syslog_priorities = array('LOG_EMERG', 'LOG_ALERT', 'LOG_CRIT', 'LOG_ERR',
-                                              'LOG_WARNING', 'LOG_NOTICE', 'LOG_INFO', 'LOG_DEBUG');
-            $output = date('Y-m-d H:i:s') . ' ' . $syslog_priorities[$priority] . ': ' . $msg . "\n";
+            $output = common_log_line($priority, $msg);
             fwrite($log, $output);
             fclose($log);
         }
@@ -1321,17 +1348,38 @@ function common_canonical_sms($sms)
 function common_error_handler($errno, $errstr, $errfile, $errline, $errcontext)
 {
     switch ($errno) {
+
+     case E_ERROR:
+     case E_COMPILE_ERROR:
+     case E_CORE_ERROR:
      case E_USER_ERROR:
-        common_log(LOG_ERR, "[$errno] $errstr ($errfile:$errline)");
-        exit(1);
+     case E_PARSE:
+     case E_RECOVERABLE_ERROR:
+        common_log(LOG_ERR, "[$errno] $errstr ($errfile:$errline) [ABORT]");
+        die();
         break;
 
+     case E_WARNING:
+     case E_COMPILE_WARNING:
+     case E_CORE_WARNING:
      case E_USER_WARNING:
         common_log(LOG_WARNING, "[$errno] $errstr ($errfile:$errline)");
         break;
 
+     case E_NOTICE:
      case E_USER_NOTICE:
         common_log(LOG_NOTICE, "[$errno] $errstr ($errfile:$errline)");
+        break;
+
+     case E_STRICT:
+     case E_DEPRECATED:
+     case E_USER_DEPRECATED:
+        // XXX: config variable to log this stuff, too
+        break;
+
+     default:
+        common_log(LOG_ERR, "[$errno] $errstr ($errfile:$errline) [UNKNOWN LEVEL, die()'ing]");
+        die();
         break;
     }
 
@@ -1470,4 +1518,28 @@ function common_shorten_url($long_url)
     curl_close($curlh);
 
     return $short_url;
+}
+
+function common_client_ip()
+{
+    if (!isset($_SERVER) || !array_key_exists('REQUEST_METHOD', $_SERVER)) {
+        return null;
+    }
+
+    if ($_SERVER['HTTP_X_FORWARDED_FOR']) {
+        if ($_SERVER['HTTP_CLIENT_IP']) {
+            $proxy = $_SERVER['HTTP_CLIENT_IP'];
+        } else {
+            $proxy = $_SERVER['REMOTE_ADDR'];
+        }
+        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    } else {
+        if ($_SERVER['HTTP_CLIENT_IP']) {
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        } else {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+    }
+
+    return array($ip, $proxy);
 }

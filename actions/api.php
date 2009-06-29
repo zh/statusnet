@@ -67,7 +67,9 @@ class ApiAction extends Action
                     $this->process_command();
                 } else {
                     # basic authentication failed
-                    common_log(LOG_WARNING, "Failed API auth attempt, nickname: $nickname.");
+                    list($proxy, $ip) = common_client_ip();
+
+                    common_log(LOG_WARNING, "Failed API auth attempt, nickname = $nickname, proxy = $proxy, ip = $ip.");
                     $this->show_basic_auth_error();
                 }
             }

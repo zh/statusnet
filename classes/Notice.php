@@ -874,7 +874,6 @@ class Notice extends Memcached_DataObject
                 $qry .= '('.$id.', '.$this->id.', '.$source.', "'.$this->created.'") ';
                 $cnt++;
                 if ($cnt >= MAX_BOXCARS) {
-                    common_debug($qry);
                     $inbox = new Notice_inbox();
                     $inbox->query($qry);
                     $qry = $qryhdr;
@@ -883,7 +882,6 @@ class Notice extends Memcached_DataObject
             }
 
             if ($cnt > 0) {
-                common_debug($qry);
                 $inbox = new Notice_inbox();
                 $inbox->query($qry);
             }
