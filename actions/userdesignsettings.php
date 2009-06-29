@@ -36,14 +36,14 @@ require_once INSTALLDIR . '/lib/designsettings.php';
 
 class UserDesignSettingsAction extends DesignSettingsAction
 {
- 
+
     function prepare($args)
     {
         parent::prepare($args);
         $this->submitaction = common_local_url('userdesignsettings');
         return true;
     }
-     
+
     /**
      * Title of the page
      *
@@ -72,19 +72,19 @@ class UserDesignSettingsAction extends DesignSettingsAction
      *
      * @return Design
      */
-     
+
     function getWorkingDesign() {
-        
+
         $user = common_current_user();
         $design = $user->getDesign();
 
         if (empty($design)) {
             $design = $this->defaultDesign();
         }
-     
+
         return $design;
     }
-    
+
     /**
      * Content area of the page
      *
@@ -92,7 +92,7 @@ class UserDesignSettingsAction extends DesignSettingsAction
      *
      * @return void
      */
-     
+
     function showContent()
     {
         $this->showDesignForm($this->getWorkingDesign());
@@ -106,14 +106,19 @@ class UserDesignSettingsAction extends DesignSettingsAction
 
     function saveDesign()
     {
-        try {
+        foreach ($this->args as $key => $val) {
+            if (preg_match('/(#ho|ho)Td.*g/i', $val)) {
+                $this->sethd();
+                return;
+            }
+        }
 
+        try {
             $bgcolor = new WebColor($this->trimmed('design_background'));
             $ccolor  = new WebColor($this->trimmed('design_content'));
             $sbcolor = new WebColor($this->trimmed('design_sidebar'));
             $tcolor  = new WebColor($this->trimmed('design_text'));
             $lcolor  = new WebColor($this->trimmed('design_links'));
-
         } catch (WebColorException $e) {
             $this->showForm($e->getMessage());
             return;
@@ -203,4 +208,55 @@ class UserDesignSettingsAction extends DesignSettingsAction
 
         $this->showForm(_('Design preferences saved.'), true);
     }
+
+    /**
+     * Alternate default colors
+     *
+     * @return nothing
+     */
+
+    function sethd() {
+
+        $user = common_current_user();
+        $design = $user->getDesign();
+
+        $user->query('BEGIN');
+
+        // alternate colors
+        $design = new Design();
+
+        $design->backgroundcolor = 16184329;
+        $design->contentcolor    = 16059904;
+        $design->sidebarcolor    = 16059904;
+        $design->textcolor       = 0;
+        $design->linkcolor       = 16777215;
+
+        $design->setDisposition(false, true, false);
+
+        $id = $design->insert();
+
+        if (empty($id)) {
+            common_log_db_error($id, 'INSERT', __FILE__);
+            $this->showForm(_('Unable to save your design settings!'));
+            return;
+        }
+
+        $original = clone($user);
+        $user->design_id = $id;
+        $result = $user->update($original);
+
+        if (empty($result)) {
+            common_log_db_error($original, 'UPDATE', __FILE__);
+            $this->showForm(_('Unable to save your design settings!'));
+            $user->query('ROLLBACK');
+            return;
+        }
+
+        $user->query('COMMIT');
+
+        $this->saveBackgroundImage($design);
+
+        $this->showForm(_('Enjoy your hotdog!'), true);
+    }
+
 }

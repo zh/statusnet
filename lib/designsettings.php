@@ -272,8 +272,8 @@ class DesignSettingsAction extends AccountSettingsAction
 
         if ($this->arg('save')) {
             $this->saveDesign();
-        } else if ($this->arg('reset')) {
-            $this->resetDesign();
+        } else if ($this->arg('defaults')) {
+            $this->restoreDefaults();
         } else {
             $this->showForm(_('Unexpected form submission.'));
         }
@@ -359,6 +359,12 @@ class DesignSettingsAction extends AccountSettingsAction
         return $design;
     }
 
+    /**
+     * Save the background image, if any, and set its disposition
+     *
+     * @return nothing
+     */
+
     function saveBackgroundImage($design) {
 
         // Now that we have a Design ID we can add a file to the design.
@@ -402,6 +408,37 @@ class DesignSettingsAction extends AccountSettingsAction
                 return;
             }
         }
+    }
+
+    /**
+     * Restore the user or group design to system defaults
+     *
+     * @return nothing
+     */
+
+    function restoreDefaults()
+    {
+        $design   = $this->getWorkingDesign();
+        $default  = $this->defaultDesign();
+        $original = clone($design);
+
+        $design->backgroundcolor = $default->backgroundcolor;
+        $design->contentcolor    = $default->contentcolor;
+        $design->sidebarcolor    = $default->sidebarcolor;
+        $design->textcolor       = $default->textcolor;
+        $design->linkcolor       = $default->linkcolor;
+
+        $design->setDisposition(false, true, false);
+
+        $result = $design->update($original);
+
+        if ($result === false) {
+            common_log_db_error($design, 'UPDATE', __FILE__);
+            $this->showForm(_('Couldn\'t update your design.'));
+            return;
+        }
+
+        $this->showForm(_('Design defaults restored.'), true);
     }
 
 }
