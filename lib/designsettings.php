@@ -317,7 +317,7 @@ class DesignSettingsAction extends AccountSettingsAction
     }
 
     /**
-     * Get a default user design
+     * Get a default design
      *
      * @return Design design
      */
