@@ -329,7 +329,7 @@ class FBConnectPlugin extends Plugin
             return false;
         }
 
-        $connect_actions = array('SmssettingsAction',
+        $connect_actions = array('SmssettingsAction', 'ImsettingsAction',
             'TwittersettingsAction', 'FBConnectSettingsAction');
 
         if (in_array($action_name, $connect_actions)) {
