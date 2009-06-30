@@ -35,7 +35,7 @@ if (!defined('LACONICA')) {
 require_once INSTALLDIR . '/lib/designsettings.php';
 
 /**
- * Setting a groups's design
+ * Set a group's design
  *
  * Saves a design for a given group
  *

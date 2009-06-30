@@ -35,7 +35,7 @@ if (!defined('LACONICA')) {
 require_once INSTALLDIR . '/lib/designsettings.php';
 
 /**
- * Setting a user's design
+ * Set a user's design
  *
  * Saves a design for a given user
  *
