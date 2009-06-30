@@ -67,11 +67,16 @@ class NoticesearchrssAction extends Rss10Action
 
         if (!$limit) $limit = 20;
         $search_engine->limit(0, $limit, true);
-        $search_engine->query($q);
-        $notice->find();
+        if (false === $search_engine->query($q)) {
+            $cnt = 0;
+        } else {
+            $cnt = $notice->find();
+        }
 
-        while ($notice->fetch()) {
-            $notices[] = clone($notice);
+        if ($cnt > 0) {
+            while ($notice->fetch()) {
+                $notices[] = clone($notice);
+            }
         }
 
         return $notices;
