@@ -279,7 +279,9 @@ function NoticeAttachments() {
             $('#jOverlayContent').append('<button>&#215;</button>');
             $('#jOverlayContent button').click($.closeOverlay);
         },
-        timeout : 0
+        timeout : 0,
+        autoHide : true,
+        css : {'max-width':'502px'}
     };
 
     $('#content .notice a.attachment').click(function() {
