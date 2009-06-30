@@ -287,23 +287,13 @@ class FBConnectPlugin extends Plugin
 
     function onStartLogout($action)
     {
-        $user = common_current_user();
-
-        $flink = Foreign_link::getByUserId($user->id, FACEBOOK_CONNECT_SERVICE);
-
         $action->logout();
+        $fbuid = $this->loggedIn();
 
-        if ($flink) {
-
-            $facebook = getFacebook();
-
+        if (!empty($fbuid)) {
             try {
-                $fbuid = $facebook->get_loggedin_user();
-
-                if ($fbuid > 0) {
-                    $facebook->logout(common_local_url('public'));
-                }
-
+                $facebook = getFacebook();
+                $facebook->expire_session();
             } catch (Exception $e) {
                 common_log(LOG_WARNING, 'Could\'t logout of Facebook: ' .
                     $e->getMessage());
