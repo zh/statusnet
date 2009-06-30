@@ -107,17 +107,11 @@ class ConversationAction extends Action
 
     function showContent()
     {
-        $offset = ($this->page-1) * NOTICES_PER_PAGE;
-        $limit  = NOTICES_PER_PAGE + 1;
-
-        $notices = Notice::conversationStream($this->id, $offset, $limit);
+        $notices = Notice::conversationStream($this->id);
 
         $ct = new ConversationTree($notices, $this);
 
         $cnt = $ct->show();
-
-        $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
-                          $this->page, 'conversation', array('id' => $this->id));
     }
 }
 
@@ -148,6 +142,25 @@ class ConversationTree extends NoticeList
     {
         $cnt = 0;
 
+        $this->_buildTree();
+
+        $this->out->elementStart('div', array('id' =>'notices_primary'));
+        $this->out->element('h2', null, _('Notices'));
+        $this->out->elementStart('ol', array('class' => 'notices xoxo'));
+
+        if (array_key_exists('root', $this->tree)) {
+            $rootid = $this->tree['root'][0];
+            $this->showNoticePlus($rootid);
+        }
+
+        $this->out->elementEnd('ol');
+        $this->out->elementEnd('div');
+
+        return $cnt;
+    }
+
+    function _buildTree()
+    {
         $this->tree  = array();
         $this->table = array();
 
@@ -168,20 +181,6 @@ class ConversationTree extends NoticeList
                 $this->tree[$notice->reply_to] = array($notice->id);
             }
         }
-
-        $this->out->elementStart('div', array('id' =>'notices_primary'));
-        $this->out->element('h2', null, _('Notices'));
-        $this->out->elementStart('ol', array('class' => 'notices xoxo'));
-
-        if (array_key_exists('root', $this->tree)) {
-            $rootid = $this->tree['root'][0];
-            $this->showNoticePlus($rootid);
-        }
-
-        $this->out->elementEnd('ol');
-        $this->out->elementEnd('div');
-
-        return $cnt;
     }
 
     /**
