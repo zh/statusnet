@@ -172,6 +172,7 @@ class TwitapisearchatomAction extends TwitterapiAction
         }
 
         $cnt = 0;
+        $this->max_id = 0;
 
         if ($this->cnt > 0) {
             while ($notice->fetch()) {

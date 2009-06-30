@@ -115,6 +115,7 @@ class GroupsAction extends Action
         $groups->orderBy('created DESC');
         $groups->limit($offset, $limit);
 
+        $cnt = 0;
         if ($groups->find()) {
             $gl = new GroupList($groups, null, $this);
             $cnt = $gl->show();
