@@ -72,6 +72,12 @@ function checkPrereqs()
          <?
 	     $pass = false;
 	}
+	if (!is_writable(INSTALLDIR.'/background/')) {
+         ?><p class="error">Cannot write background directory: <code><?php echo INSTALLDIR; ?>/background/</code></p>
+	       <p>On your server, try this command: <code>chmod a+w <?php echo INSTALLDIR; ?>/background/</code></p>
+         <?
+	     $pass = false;
+	}
 
 	return $pass;
 }
