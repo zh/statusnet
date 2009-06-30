@@ -69,83 +69,141 @@ class FBConnectPlugin extends Plugin
     // Add in xmlns:fb
     function onStartShowHTML($action)
     {
-        // XXX: Horrible hack to make Safari, FF2, and Chrome work with
-        // Facebook Connect. These browser cannot use Facebook's
-        // DOM parsing routines unless the mime type of the page is
-        // text/html even though Facebook Connect uses XHTML.  This is
-        // A bug in Facebook Connect, and this is a temporary solution
-        // until they fix their JavaScript libs.
-        header('Content-Type: text/html');
 
-        $action->extraHeaders();
+        if ($this->requiresFB($action)) {
 
-        $action->startXML('html',
-            '-//W3C//DTD XHTML 1.0 Strict//EN',
-            'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd');
+            // XXX: Horrible hack to make Safari, FF2, and Chrome work with
+            // Facebook Connect. These browser cannot use Facebook's
+            // DOM parsing routines unless the mime type of the page is
+            // text/html even though Facebook Connect uses XHTML.  This is
+            // A bug in Facebook Connect, and this is a temporary solution
+            // until they fix their JavaScript libs.
+            header('Content-Type: text/html');
 
-        $language = $action->getLanguage();
+            $action->extraHeaders();
 
-        $action->elementStart('html',
-            array('xmlns'  => 'http://www.w3.org/1999/xhtml',
-                  'xmlns:fb' => 'http://www.facebook.com/2008/fbml',
-                  'xml:lang' => $language,
-                  'lang'     => $language));
+            $action->startXML('html',
+                '-//W3C//DTD XHTML 1.0 Strict//EN',
+                'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd');
 
-        return false;
+            $language = $action->getLanguage();
+
+            $action->elementStart('html',
+                array('xmlns'  => 'http://www.w3.org/1999/xhtml',
+                      'xmlns:fb' => 'http://www.facebook.com/2008/fbml',
+                      'xml:lang' => $language,
+                      'lang'     => $language));
+
+            return false;
+
+        } else {
+
+            return true;
+        }
     }
 
     // Note: this script needs to appear in the <body>
 
     function onStartShowHeader($action)
     {
-        $apikey = common_config('facebook', 'apikey');
-        $plugin_path = common_path('plugins/FBConnect');
+        if ($this->requiresFB($action)) {
 
-        $login_url = common_local_url('FBConnectAuth');
-        $logout_url = common_local_url('logout');
+            $apikey = common_config('facebook', 'apikey');
+            $plugin_path = common_path('plugins/FBConnect');
 
-        // XXX: Facebook says we don't need this FB_RequireFeatures(),
-        // but we actually do, for IE and Safari. Gar.
+            $login_url = common_local_url('FBConnectAuth');
+            $logout_url = common_local_url('logout');
 
-        $html = sprintf('<script type="text/javascript">
-                            window.onload = function () {
-                                FB_RequireFeatures(
-                                    ["XFBML"],
-                                        function() {
-                                            FB.Facebook.init("%s", "../xd_receiver.html");
-                                        }
-                                    ); }
+            // XXX: Facebook says we don't need this FB_RequireFeatures(),
+            // but we actually do, for IE and Safari. Gar.
 
-                            function goto_login() {
-                                window.location = "%s";
-                            }
+            $html = sprintf('<script type="text/javascript">
+                                window.onload = function () {
+                                    FB_RequireFeatures(
+                                        ["XFBML"],
+                                            function() {
+                                                FB.Facebook.init("%s", "../xd_receiver.html");
+                                            }
+                                        ); }
 
-                            function goto_logout() {
-                                window.location = "%s";
-                            }
-                          </script>', $apikey,
-                              $login_url, $logout_url);
+                                function goto_login() {
+                                    window.location = "%s";
+                                }
 
-        $action->raw($html);
+                                function goto_logout() {
+                                    window.location = "%s";
+                                }
+                              </script>', $apikey,
+                                  $login_url, $logout_url);
+
+            $action->raw($html);
+        }
+
     }
 
     // Note: this script needs to appear as close as possible to </body>
 
     function onEndShowFooter($action)
     {
+        if ($this->requiresFB($action)) {
 
-        $action->element('script',
-            array('type' => 'text/javascript',
-                  'src'  => 'http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php'),
-                  '');
+            $action->element('script',
+                array('type' => 'text/javascript',
+                      'src'  => 'http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php'),
+                      '');
+        }
     }
 
     function onEndShowLaconicaStyles($action)
     {
-        $action->element('link', array('rel' => 'stylesheet',
-            'type' => 'text/css',
-            'href' => common_path('plugins/FBConnect/FBConnectPlugin.css')));
+
+        if ($this->requiresFB($action)) {
+
+            $action->element('link', array('rel' => 'stylesheet',
+                'type' => 'text/css',
+                'href' => common_path('plugins/FBConnect/FBConnectPlugin.css')));
+        }
     }
+
+    /**
+     * Does the Action we're plugged into require the FB Scripts?  We only
+     * want to output FB namespace, scripts, CSS, etc. on the pages that
+     * really need them.
+     *
+     * @param Action the action in question
+     *
+     * @return boolean true
+     */
+
+    function requiresFB($action) {
+
+        // If you're logged in w/FB Connect, you always need the FB stuff
+
+        $fbuid = $this->loggedIn();
+
+        if (!empty($fbuid)) {
+            return true;
+        }
+
+        // List of actions that require FB stuff
+
+        $needy = array('FBConnectLoginAction',
+                       'FBConnectauthAction',
+                       'FBConnectSettingsAction');
+
+        if (in_array(get_class($action), $needy)) {
+            return true;
+        }
+
+        return false;
+
+    }
+
+    /**
+     * Is the user currently logged in with FB Connect?
+     *
+     * @return mixed $fbuid the Facebook ID of the logged in user, or null
+     */
 
     function loggedIn()
     {
@@ -169,8 +227,6 @@ class FBConnectPlugin extends Plugin
                         'Problem getting Facebook client: ' .
                             $e->getMessage());
                 }
-
-                // Display Facebook Logged in indicator w/Facebook favicon
 
                 if ($fbuid > 0) {
                     return $fbuid;
