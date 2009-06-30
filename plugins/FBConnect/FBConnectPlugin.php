@@ -147,17 +147,17 @@ class FBConnectPlugin extends Plugin
             'href' => common_path('plugins/FBConnect/FBConnectPlugin.css')));
     }
 
-    function onStartPrimaryNav($action)
+    function loggedIn()
     {
         $user = common_current_user();
 
-        if ($user) {
+        if (!empty($user)) {
 
             $flink = Foreign_link::getByUserId($user->id,
                 FACEBOOK_CONNECT_SERVICE);
             $fbuid = 0;
 
-            if ($flink) {
+            if (!empty($flink)) {
 
                 try {
 
@@ -173,20 +173,37 @@ class FBConnectPlugin extends Plugin
                 // Display Facebook Logged in indicator w/Facebook favicon
 
                 if ($fbuid > 0) {
-
-                    $action->elementStart('li', array('id' => 'nav_fb'));
-                    $action->elementStart('fb:profile-pic', array('uid' => $flink->foreign_id,
-                        'linked' => 'false',
-                        'width' => 16,
-                        'height' => 16));
-                    $action->elementEnd('fb:profile-pic');
-
-                    $iconurl =  common_path('/plugins/FBConnect/fbfavicon.ico');
-                    $action->element('img', array('src' => $iconurl));
-
-                    $action->elementEnd('li');
-
+                    return $fbuid;
                 }
+            }
+        }
+
+        return null;
+    }
+
+    function onStartPrimaryNav($action)
+    {
+
+        $user = common_current_user();
+
+        if (!empty($user)) {
+
+            $fbuid = $this->loggedIn();
+
+            if (!empty($fbuid)) {
+
+                $action->elementStart('li', array('id' => 'nav_fb'));
+                $action->elementStart('fb:profile-pic', array('uid' => $fbuid,
+                    'linked' => 'false',
+                    'width' => 16,
+                    'height' => 16));
+                $action->elementEnd('fb:profile-pic');
+
+                $iconurl =  common_path('/plugins/FBConnect/fbfavicon.ico');
+                $action->element('img', array('src' => $iconurl));
+
+                $action->elementEnd('li');
+
             }
 
             $action->menuItem(common_local_url('all', array('nickname' => $user->nickname)),
@@ -207,7 +224,7 @@ class FBConnectPlugin extends Plugin
                 false, 'nav_invitecontact');
 
             // Need to override the Logout link to make it do FB stuff
-            if ($flink && $fbuid > 0) {
+            if (!empty($fbuid)) {
 
                 $logout_url = common_local_url('logout');
                 $title =  _('Logout from the site');
