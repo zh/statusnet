@@ -213,12 +213,14 @@ class FacebookAction extends Action
             array('href' => 'index.php', 'title' => _('Home')), _('Home'));
         $this->elementEnd('li');
 
-        $this->elementStart('li',
-            array('class' =>
-                ($this->action == 'facebookinvite') ? 'current' : 'facebook_invite'));
-        $this->element('a',
-            array('href' => 'invite.php', 'title' => _('Invite')), _('Invite'));
-        $this->elementEnd('li');
+        if (common_config('invite', 'enabled')) {
+            $this->elementStart('li',
+                array('class' =>
+                    ($this->action == 'facebookinvite') ? 'current' : 'facebook_invite'));
+            $this->element('a',
+                array('href' => 'invite.php', 'title' => _('Invite')), _('Invite'));
+            $this->elementEnd('li');
+        }
 
         $this->elementStart('li',
             array('class' =>

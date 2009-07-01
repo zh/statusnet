@@ -422,11 +422,13 @@ class Action extends HTMLOutputter // lawsuit
                     $this->menuItem(common_local_url('smssettings'),
                                     _('Connect'), _('Connect to SMS, Twitter'), false, 'nav_connect');
                 }
-                $this->menuItem(common_local_url('invite'),
-                                _('Invite'),
-                                sprintf(_('Invite friends and colleagues to join you on %s'),
-                                        common_config('site', 'name')),
-                                false, 'nav_invitecontact');
+                if (common_config('invite', 'enabled')) {
+                    $this->menuItem(common_local_url('invite'),
+                                    _('Invite'),
+                                    sprintf(_('Invite friends and colleagues to join you on %s'),
+                                            common_config('site', 'name')),
+                                    false, 'nav_invitecontact');
+                }
                 $this->menuItem(common_local_url('logout'),
                                 _('Logout'), _('Logout from the site'), false, 'nav_logout');
             }
