@@ -247,7 +247,6 @@ class Action extends HTMLOutputter // lawsuit
                                                'src' => common_path('js/jquery.joverlay.min.js')),
                                ' ');
 
-
                 Event::handle('EndShowJQueryScripts', array($this));
             }
             if (Event::handle('StartShowLaconicaScripts', array($this))) {
@@ -964,12 +963,16 @@ class Action extends HTMLOutputter // lawsuit
         $action = $this->trimmed('action');
         $args   = $this->args;
         unset($args['action']);
+        if (common_config('site', 'fancy')) {
+            unset($args['p']);
+        }
         if (array_key_exists('submit', $args)) {
             unset($args['submit']);
         }
         foreach (array_keys($_COOKIE) as $cookie) {
             unset($args[$cookie]);
         }
+
         return common_local_url($action, $args);
     }
 
