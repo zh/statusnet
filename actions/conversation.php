@@ -107,7 +107,7 @@ class ConversationAction extends Action
 
     function showContent()
     {
-        $notices = Notice::conversationStream($this->id);
+        $notices = Notice::conversationStream($this->id, 0, null);
 
         $ct = new ConversationTree($notices, $this);
 
