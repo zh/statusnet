@@ -66,7 +66,7 @@ class FBConnectauthAction extends Action
             // User is already logged in.  Does she already have a linked Facebook acct?
             $flink = Foreign_link::getByForeignID($this->fbuid, FACEBOOK_CONNECT_SERVICE);
 
-            if ($flink) {
+            if (!empty($flink)) {
 
                 // User already has a linked Facebook account and shouldn't be here
                 common_debug('There is already a local user (' . $flink->user_id .
@@ -337,7 +337,7 @@ class FBConnectauthAction extends Action
         if ($flink) {
             $user = $flink->getUser();
 
-            if ($user) {
+            if (!empty($user)) {
 
                 common_debug("Logged in Facebook user $flink->foreign_id as user $user->id ($user->nickname)");
 
