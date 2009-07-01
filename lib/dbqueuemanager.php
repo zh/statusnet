@@ -84,10 +84,10 @@ class DBQueueManager extends QueueManager
                                         'transport' => $queue));
 
         if (empty($qi)) {
-            $this->log(LOG_INFO, 'Cannot find queue item for notice '.$notice->id.', queue '.$queue);
+            $this->_log(LOG_INFO, 'Cannot find queue item for notice '.$notice->id.', queue '.$queue);
         } else {
             if (empty($qi->claimed)) {
-                $this->log(LOG_WARNING, 'Reluctantly releasing unclaimed queue item '.
+                $this->_log(LOG_WARNING, 'Reluctantly releasing unclaimed queue item '.
                            'for '.$notice->id.', queue '.$queue);
             }
             $qi->delete();
@@ -95,7 +95,36 @@ class DBQueueManager extends QueueManager
             $qi = null;
         }
 
-        $this->log(LOG_INFO, 'done with notice ID = ' . $notice->id);
+        $this->_log(LOG_INFO, 'done with notice ID = ' . $notice->id);
+
+        $notice->free();
+        $notice = null;
+    }
+
+    function fail($object, $queue)
+    {
+        // XXX: right now, we only handle notices
+
+        $notice = $object;
+
+        $qi = Queue_item::pkeyGet(array('notice_id' => $notice->id,
+                                        'transport' => $queue));
+
+        if (empty($qi)) {
+            $this->_log(LOG_INFO, 'Cannot find queue item for notice '.$notice->id.', queue '.$queue);
+        } else {
+            if (empty($qi->claimed)) {
+                $this->_log(LOG_WARNING, 'Ignoring failure for unclaimed queue item '.
+                           'for '.$notice->id.', queue '.$queue);
+            } else {
+                $orig = clone($qi);
+                $qi->claimed = null;
+                $qi->update($orig);
+                $qi = null;
+            }
+        }
+
+        $this->_log(LOG_INFO, 'done with notice ID = ' . $notice->id);
 
         $notice->free();
         $notice = null;
