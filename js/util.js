@@ -298,7 +298,7 @@ function NoticeAttachments() {
 
             if (anchor.children('img').length == 0) {
                 t = setTimeout(function() {
-                    $.get($('address .url')[0].href+'/attachment/' + (anchor.attr('id').substring('attachment'.length + 1)) + '/thumbnail', null, function(data) {
+                    $.get($('address .url')[0].href+'attachment/' + (anchor.attr('id').substring('attachment'.length + 1)) + '/thumbnail', null, function(data) {
                         anchor.append(data);
                     });
                 }, 500);
