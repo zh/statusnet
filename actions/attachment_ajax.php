@@ -58,6 +58,11 @@ class Attachment_ajaxAction extends AttachmentAction
         }
     }
 
+    function handle($args)
+    {
+        $this->showPage();
+    }
+
     /**
      * Show core.
      *
