@@ -869,17 +869,25 @@ function common_broadcast_notice($notice, $remote=false)
 function common_enqueue_notice($notice)
 {
     static $localTransports = array('omb',
-                                    'public',
                                     'twitter',
                                     'facebook',
                                     'ping');
-    static $allTransports = array('sms', 'jabber');
+    static $allTransports = array('sms');
 
     $transports = $allTransports;
+
+    $xmpp = common_config('xmpp', 'enabled');
+
+    if ($xmpp) {
+        $transports[] = 'jabber';
+    }
 
     if ($notice->is_local == NOTICE_LOCAL_PUBLIC ||
         $notice->is_local == NOTICE_LOCAL_NONPUBLIC) {
         $transports = array_merge($transports, $localTransports);
+        if ($xmpp) {
+            $transports[] = 'public';
+        }
     }
 
     $qm = QueueManager::get();
