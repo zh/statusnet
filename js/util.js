@@ -272,7 +272,7 @@ function NoticeAttachments() {
         color : '#000',
         opacity : '0.6',
         zIndex : 99,
-        center : true,
+        center : false,
         imgLoading : $('address .url')[0].href+'theme/base/images/illustrations/illu_progress_loading-01.gif',
         bgClickToClose : true,
         success : function() {
@@ -281,7 +281,7 @@ function NoticeAttachments() {
         },
         timeout : 0,
         autoHide : true,
-        css : {'max-width':'502px'}
+        css : {'max-width':'502px', 'top':'22.5%', 'left':'32.5%'}
     };
 
     $('#content .notice a.attachment').click(function() {
