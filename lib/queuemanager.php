@@ -39,22 +39,22 @@ class QueueManager
             if (Event::handle('StartNewQueueManager', array(&self::$qm))) {
 
                 $enabled = common_config('queue', 'enabled');
-                $type = common_config('queue', 'sub');
+                $type = common_config('queue', 'subsystem');
 
                 if (!$enabled) {
                     // does everything immediately
-                    return new UnQueueManager();
-                }
-
-                switch ($type) {
-                 case 'db':
-                    self::$qm = new DBQueueManager();
-                    break;
-                 case 'stomp':
-                    self::$qm = new StompQueueManager();
-                    break;
-                 default:
-                    throw new ServerException("No queue manager class for type '$type'");
+                    self::$qm = new UnQueueManager();
+                } else {
+                    switch ($type) {
+                     case 'db':
+                        self::$qm = new DBQueueManager();
+                        break;
+                     case 'stomp':
+                        self::$qm = new StompQueueManager();
+                        break;
+                     default:
+                        throw new ServerException("No queue manager class for type '$type'");
+                    }
                 }
             }
 
@@ -80,5 +80,10 @@ class QueueManager
     function done($object, $queue)
     {
         throw ServerException("Unimplemented function 'done' called");
+    }
+
+    function fail($object, $queue)
+    {
+        throw ServerException("Unimplemented function 'fail' called");
     }
 }
