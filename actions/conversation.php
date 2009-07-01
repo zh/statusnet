@@ -107,7 +107,7 @@ class ConversationAction extends Action
 
     function showContent()
     {
-        $notices = Notice::conversationStream($this->id);
+        $notices = Notice::conversationStream($this->id, 0, null);
 
         $ct = new ConversationTree($notices, $this);
 
@@ -140,9 +140,7 @@ class ConversationTree extends NoticeList
 
     function show()
     {
-        $cnt = 0;
-
-        $this->_buildTree();
+        $cnt = $this->_buildTree();
 
         $this->out->elementStart('div', array('id' =>'notices_primary'));
         $this->out->element('h2', null, _('Notices'));
@@ -181,6 +179,8 @@ class ConversationTree extends NoticeList
                 $this->tree[$notice->reply_to] = array($notice->id);
             }
         }
+
+        return $cnt;
     }
 
     /**
