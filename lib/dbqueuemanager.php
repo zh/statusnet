@@ -34,7 +34,7 @@ class DBQueueManager extends QueueManager
 
     function enqueue($object, $queue)
     {
-        $notice = (Notice)$object;
+        $notice = $object;
 
         $qi = new Queue_item();
 
@@ -76,7 +76,9 @@ class DBQueueManager extends QueueManager
 
     function done($object, $queue)
     {
-        $notice = (Notice)$object;
+        // XXX: right now, we only handle notices
+
+        $notice = $object;
 
         $qi = Queue_item::pkeyGet(array('notice_id' => $notice->id,
                                         'transport' => $queue));
