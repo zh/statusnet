@@ -126,6 +126,17 @@ class StompQueueManager
         }
     }
 
+    function fail($object, $queue)
+    {
+        $notice = $object;
+
+        // STOMP server will requeue it after a while anyways,
+        // so no need to notify. Just get it out of our little
+        // array
+
+        $this->_clearFrame($notice, $queue);
+    }
+
     function _frameKey($notice, $queue)
     {
         return ((string)$notice->id) . '-' . $queue;
