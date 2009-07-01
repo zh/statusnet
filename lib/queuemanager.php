@@ -36,9 +36,9 @@ class QueueManager
     {
         if (empty(self::$qm)) {
 
-            if (Event::handle('StartNewQueueManager', self::$qm)) {
+            $type = common_config('queue', 'sub');
 
-                $type = common_config('queue', 'sub');
+            if (Event::handle('StartNewQueueManager', array($type, &self::$qm))) {
 
                 switch ($type) {
                  case 'db':
