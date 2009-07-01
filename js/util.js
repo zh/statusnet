@@ -285,10 +285,10 @@ function NoticeAttachments() {
     };
 
     $('#content .notice a.attachment').click(function() {
-        $().jOverlay({url: $('address .url')[0].href+'/attachment/' + ($(this).attr('id').substring('attachment'.length + 1)) + '/ajax'});
+        $().jOverlay({url: $('address .url')[0].href+'attachment/' + ($(this).attr('id').substring('attachment'.length + 1)) + '/ajax'});
         return false;
     });
-    
+
     var t;
     $("body:not(#shownotice) #content .notice a.thumbnail").hover(
         function() {
