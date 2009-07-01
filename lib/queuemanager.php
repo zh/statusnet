@@ -36,9 +36,15 @@ class QueueManager
     {
         if (empty(self::$qm)) {
 
-            $type = common_config('queue', 'sub');
+            if (Event::handle('StartNewQueueManager', array(&self::$qm))) {
 
-            if (Event::handle('StartNewQueueManager', array($type, &self::$qm))) {
+                $enabled = common_config('queue', 'enabled');
+                $type = common_config('queue', 'sub');
+
+                if (!$enabled) {
+                    // does everything immediately
+                    return new UnQueueManager();
+                }
 
                 switch ($type) {
                  case 'db':

@@ -861,88 +861,35 @@ function common_redirect($url, $code=307)
 
 function common_broadcast_notice($notice, $remote=false)
 {
-    if (common_config('queue', 'enabled')) {
-        // Do it later!
-        return common_enqueue_notice($notice);
-    } else {
-        return common_real_broadcast($notice, $remote);
-    }
+    return common_enqueue_notice($notice);
 }
 
 // Stick the notice on the queue
 
 function common_enqueue_notice($notice)
 {
-    $transports = array('omb', 'sms', 'public', 'twitter', 'facebook', 'ping');
+    static $localTransports = array('omb',
+                                    'public',
+                                    'twitter',
+                                    'facebook',
+                                    'ping');
+    static $allTransports = array('sms', 'jabber');
 
-    if (common_config('xmpp', 'enabled'))
+    $transports = $allTransports;
+
+    if ($notice->is_local == NOTICE_LOCAL_PUBLIC ||
+        $notice->is_local == NOTICE_LOCAL_NONPUBLIC) {
+        $transports = array_merge($transports, $localTransports);
+    }
+
+    $qm = QueueManager::get();
+
+    foreach ($transports as $transport)
     {
-        $transports[] = 'jabber';
+        $qm->enqueue($notice, $transport);
     }
 
-    if (common_config('queue','subsystem') == 'stomp') {
-        common_enqueue_notice_stomp($notice, $transports);
-    }
-    else {
-        common_enqueue_notice_db($notice, $transports);
-    }
-    return $result;
-}
-
-function common_enqueue_notice_db($notice, $transports)
-{
-    // in any other case, 'internal'
-    foreach ($transports as $transport) {
-        common_enqueue_notice_transport($notice, $transport);
-    }
-}
-
-function common_enqueue_notice_transport($notice, $transport)
-{
-}
-
-function common_real_broadcast($notice, $remote=false)
-{
-    $success = true;
-    if (!$remote) {
-        // Make sure we have the OMB stuff
-        require_once(INSTALLDIR.'/lib/omb.php');
-        $success = omb_broadcast_remote_subscribers($notice);
-        if (!$success) {
-            common_log(LOG_ERR, 'Error in OMB broadcast for notice ' . $notice->id);
-        }
-    }
-    if ($success) {
-        require_once(INSTALLDIR.'/lib/jabber.php');
-        $success = jabber_broadcast_notice($notice);
-        if (!$success) {
-            common_log(LOG_ERR, 'Error in jabber broadcast for notice ' . $notice->id);
-        }
-    }
-    if ($success) {
-        require_once(INSTALLDIR.'/lib/mail.php');
-        $success = mail_broadcast_notice_sms($notice);
-        if (!$success) {
-            common_log(LOG_ERR, 'Error in sms broadcast for notice ' . $notice->id);
-        }
-    }
-    if ($success) {
-        $success = jabber_public_notice($notice);
-        if (!$success) {
-            common_log(LOG_ERR, 'Error in public broadcast for notice ' . $notice->id);
-        }
-    }
-    if ($success) {
-        $success = broadcast_twitter($notice);
-        if (!$success) {
-            common_log(LOG_ERR, 'Error in Twitter broadcast for notice ' . $notice->id);
-        }
-    }
-
-    // XXX: Do a real-time FB broadcast here?
-
-    // XXX: broadcast notices to other IM
-    return $success;
+    return true;
 }
 
 function common_broadcast_profile($profile)
