@@ -165,24 +165,30 @@ class TwitapisearchatomAction extends TwitterapiAction
         $search_engine->set_sort_mode('chron');
         $search_engine->limit(($this->page - 1) * $this->rpp,
             $this->rpp + 1, true);
-        $search_engine->query($q);
-        $this->cnt = $notice->find();
+        if (false === $search_engine->query($q)) {
+            $this->cnt = 0;
+        } else {
+            $this->cnt = $notice->find();
+        }
 
         $cnt = 0;
+        $this->max_id = 0;
 
-        while ($notice->fetch()) {
+        if ($this->cnt > 0) {
+            while ($notice->fetch()) {
 
-            ++$cnt;
+                ++$cnt;
 
-            if (!$this->max_id) {
-                $this->max_id = $notice->id;
+                if (!$this->max_id) {
+                    $this->max_id = $notice->id;
+                }
+
+                if ($cnt > $this->rpp) {
+                    break;
+                }
+
+                $notices[] = clone($notice);
             }
-
-            if ($cnt > $this->rpp) {
-                break;
-            }
-
-            $notices[] = clone($notice);
         }
 
         return $notices;

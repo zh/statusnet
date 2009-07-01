@@ -124,8 +124,11 @@ class TwitapisearchjsonAction extends TwitterapiAction
         $search_engine = $notice->getSearchEngine('identica_notices');
         $search_engine->set_sort_mode('chron');
         $search_engine->limit(($this->page - 1) * $this->rpp, $this->rpp + 1, true);
-        $search_engine->query($q);
-        $cnt = $notice->find();
+        if (false === $search_engine->query($q)) {
+            $cnt = 0;
+        } else {
+            $cnt = $notice->find();
+        }
 
         // TODO: since_id, lang, geocode
 

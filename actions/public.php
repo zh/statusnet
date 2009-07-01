@@ -182,8 +182,10 @@ class PublicAction extends Action
             $message .= _('Be the first to post!');
         }
         else {
-            $message .= _('Why not [register an account](%%action.register%%) and be the first to post!');
-        }
+            if (! (common_config('site','closed') || common_config('site','inviteonly'))) {
+                $message .= _('Why not [register an account](%%action.register%%) and be the first to post!');
+            }
+	}
 
         $this->elementStart('div', 'guide');
         $this->raw(common_markup_to_html($message));
