@@ -49,10 +49,14 @@ class StompQueueManager
 
     function _connect()
     {
+        $this->_log(LOG_DEBUG, "Connecting to $this->server...");
         if (empty($this->con)) {
+            $this->_log(LOG_INFO, "Connecting to '$this->server' as '$this->username'...");
             $this->con = new Stomp($this->server);
 
-            if (!$this->con->connect($this->username, $this->password)) {
+            if ($this->con->connect($this->username, $this->password)) {
+                $this->_log(LOG_INFO, "Connected.");
+            } else {
                 $this->_log(LOG_ERR, 'Failed to connect to queue server');
                 throw new ServerException('Failed to connect to queue server');
             }
@@ -159,5 +163,10 @@ class StompQueueManager
     {
         $k = $this->_frameKey($notice, $queue);
         unset($this->_frames[$k]);
+    }
+
+    function _log($level, $msg)
+    {
+        common_log($level, 'StompQueueManager: '.$msg);
     }
 }
