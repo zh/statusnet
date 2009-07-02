@@ -1098,7 +1098,8 @@ function common_ensure_syslog()
 {
     static $initialized = false;
     if (!$initialized) {
-        openlog(common_config('syslog', 'appname'), 0, LOG_USER);
+        openlog(common_config('syslog', 'appname'), 0,
+            common_config('syslog', 'facility'));
         $initialized = true;
     }
 }
