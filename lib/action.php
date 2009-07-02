@@ -383,15 +383,18 @@ class Action extends HTMLOutputter // lawsuit
     {
         $this->elementStart('address', array('id' => 'site_contact',
                                              'class' => 'vcard'));
-        $this->elementStart('a', array('class' => 'url home bookmark',
-                                       'href' => common_local_url('public')));
-        if (common_config('site', 'logo') || file_exists(theme_file('logo.png'))) {
-            $this->element('img', array('class' => 'logo photo',
-                                        'src' => (common_config('site', 'logo')) ? common_config('site', 'logo') : theme_path('logo.png'),
-                                        'alt' => common_config('site', 'name')));
+        if (Event::handle('StartAddressData', array($this))) {
+            $this->elementStart('a', array('class' => 'url home bookmark',
+                                           'href' => common_local_url('public')));
+            if (common_config('site', 'logo') || file_exists(theme_file('logo.png'))) {
+                $this->element('img', array('class' => 'logo photo',
+                                            'src' => (common_config('site', 'logo')) ? common_config('site', 'logo') : theme_path('logo.png'),
+                                            'alt' => common_config('site', 'name')));
+            }
+            $this->element('span', array('class' => 'fn org'), common_config('site', 'name'));
+            $this->elementEnd('a');
+            Event::handle('EndAddressData', array($this));
         }
-        $this->element('span', array('class' => 'fn org'), common_config('site', 'name'));
-        $this->elementEnd('a');
         $this->elementEnd('address');
     }
 
