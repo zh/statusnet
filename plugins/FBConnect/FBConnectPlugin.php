@@ -70,7 +70,7 @@ class FBConnectPlugin extends Plugin
     function onStartShowHTML($action)
     {
 
-        if ($this->requiresFB($action)) {
+        if ($this->reqFbScripts($action)) {
 
             // XXX: Horrible hack to make Safari, FF2, and Chrome work with
             // Facebook Connect. These browser cannot use Facebook's
@@ -106,7 +106,7 @@ class FBConnectPlugin extends Plugin
 
     function onStartShowHeader($action)
     {
-        if ($this->requiresFB($action)) {
+        if ($this->reqFbScripts($action)) {
 
             $apikey = common_config('facebook', 'apikey');
             $plugin_path = common_path('plugins/FBConnect');
@@ -145,7 +145,7 @@ class FBConnectPlugin extends Plugin
 
     function onEndShowFooter($action)
     {
-        if ($this->requiresFB($action)) {
+        if ($this->reqFbScripts($action)) {
 
             $action->element('script',
                 array('type' => 'text/javascript',
@@ -157,7 +157,7 @@ class FBConnectPlugin extends Plugin
     function onEndShowLaconicaStyles($action)
     {
 
-        if ($this->requiresFB($action)) {
+        if ($this->reqFbScripts($action)) {
 
             $action->element('link', array('rel' => 'stylesheet',
                 'type' => 'text/css',
@@ -175,7 +175,7 @@ class FBConnectPlugin extends Plugin
      * @return boolean true
      */
 
-    function requiresFB($action) {
+    function reqFbScripts($action) {
 
         // If you're logged in w/FB Connect, you always need the FB stuff
 
@@ -220,7 +220,7 @@ class FBConnectPlugin extends Plugin
                 try {
 
                     $facebook = getFacebook();
-                    $fbuid = getFacebook()->get_loggedin_user();
+                    $fbuid    = getFacebook()->get_loggedin_user();
 
                 } catch (Exception $e) {
                     common_log(LOG_WARNING,
@@ -248,15 +248,24 @@ class FBConnectPlugin extends Plugin
 
             if (!empty($fbuid)) {
 
-                $action->elementStart('li', array('id' => 'nav_fb'));
-                $action->elementStart('fb:profile-pic', array('uid' => $fbuid,
-                    'linked' => 'false',
-                    'width' => 16,
-                    'height' => 16));
-                $action->elementEnd('fb:profile-pic');
+                /* Default FB silhouette pic for FB users who haven't
+                   uploaded a profile pic yet. */
 
-                $iconurl =  common_path('/plugins/FBConnect/fbfavicon.ico');
-                $action->element('img', array('src' => $iconurl));
+                $silhouetteUrl =
+                    'http://static.ak.fbcdn.net/pics/q_silhouette.gif';
+
+                $url = $this->getProfilePicURL($fbuid);
+
+                $action->elementStart('li', array('id' => 'nav_fb'));
+
+                $action->element('img', array('id' => 'fbc_profile-pic',
+                    'src' => (!empty($url)) ? $url : $silhouetteUrl,
+                    'alt' => 'Facebook Connect User',
+                    'width' => '16'), '');
+
+                $iconurl =  common_path('plugins/FBConnect/fbfavicon.ico');
+                $action->element('img', array('id' => 'fb_favicon',
+                    'src' => $iconurl));
 
                 $action->elementEnd('li');
 
@@ -320,7 +329,7 @@ class FBConnectPlugin extends Plugin
 
     function onStartShowLocalNavBlock($action)
     {
-        $action_name = get_class($action);
+        $action_name   = get_class($action);
 
         $login_actions = array('LoginAction', 'RegisterAction',
             'OpenidloginAction', 'FBConnectLoginAction');
@@ -359,6 +368,30 @@ class FBConnectPlugin extends Plugin
         }
 
         return true;
+    }
+
+    function getProfilePicURL($fbuid)
+    {
+
+        $facebook = getFacebook();
+        $url      = null;
+
+        try {
+
+            $fqry = 'SELECT pic_square FROM user WHERE uid = %s';
+
+            $result = $facebook->api_client->fql_query(sprintf($fqry, $fbuid));
+
+            if (!empty($result)) {
+                $url = $result[0]['pic_square'];
+            }
+
+        } catch (Exception $e) {
+            common_log(LOG_WARNING, "Facebook client failure requesting profile pic!");
+        }
+
+       return $url;
+
     }
 
 }
