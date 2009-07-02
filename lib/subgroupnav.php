@@ -100,7 +100,7 @@ class SubGroupNav extends Widget
                                          $this->user->nickname),
                                  $action == 'usergroups',
                                  'nav_usergroups');
-            if (!is_null($cur) && $this->user->id === $cur->id) {
+            if (common_config('invite', 'enabled') && !is_null($cur) && $this->user->id === $cur->id) {
                 $this->out->menuItem(common_local_url('invite'),
                                      _('Invite'),
                                      sprintf(_('Invite friends and colleagues to join you on %s'),

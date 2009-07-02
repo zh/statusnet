@@ -108,7 +108,7 @@ function get_all_languages() {
 		'el'      => array('q' => 0.1, 'lang' => 'el',    'name' => 'Greek', 'direction' => 'ltr'),
 		'en-us'   => array('q' => 1, 'lang' => 'en_US', 'name' => 'English (US)', 'direction' => 'ltr'),
 		'en-gb'   => array('q' => 1, 'lang' => 'en_GB', 'name' => 'English (British)', 'direction' => 'ltr'),
-		'en'      => array('q' => 1, 'lang' => 'en',    'name' => 'English', 'direction' => 'ltr'),
+		'en'      => array('q' => 1, 'lang' => 'en_US',    'name' => 'English (US)', 'direction' => 'ltr'),
 		'es'      => array('q' => 1, 'lang' => 'es',    'name' => 'Spanish', 'direction' => 'ltr'),
 		'fi'      => array('q' => 1, 'lang' => 'fi', 'name' => 'Finnish', 'direction' => 'ltr'),
 		'fr-fr'   => array('q' => 1, 'lang' => 'fr_FR', 'name' => 'French', 'direction' => 'ltr'),

@@ -132,6 +132,13 @@ class Status_network extends DB_DataObject
             }
         } else {
             $sn = self::memGet('hostname', strtolower($servername));
+
+            if (empty($sn)) {
+                // Try for a no-www address
+                if (0 == strncasecmp($servername, 'www.', 4)) {
+                    $sn = self::memGet('hostname', strtolower(substr($servername, 4)));
+                }
+            }
         }
 
         if (!empty($sn)) {

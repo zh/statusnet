@@ -34,19 +34,37 @@ if (!defined('LACONICA')) {
 
 require_once INSTALLDIR . '/lib/designsettings.php';
 
+/**
+ * Set a group's design
+ *
+ * Saves a design for a given group
+ *
+ * @category Settings
+ * @package  Laconica
+ * @author   Zach Copley <zach@controlyourself.ca>
+ * @author   Sarven Capadisli <csarven@controlyourself.ca>
+ * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
+ * @link     http://laconi.ca/
+ */
+
 class GroupDesignSettingsAction extends DesignSettingsAction
 {
     var $group = null;
 
     /**
-     * Prepare to run
+     * Sets the right action for the form, and passes request args into
+     * the base action
+     *
+     * @param array $args misc. arguments
+     *
+     * @return boolean true
      */
 
     function prepare($args)
     {
         parent::prepare($args);
 
-        if (!common_config('inboxes','enabled')) {
+        if (!common_config('inboxes', 'enabled')) {
             $this->serverError(_('Inboxes must be enabled for groups to work'));
             return false;
         }
@@ -57,7 +75,7 @@ class GroupDesignSettingsAction extends DesignSettingsAction
         }
 
         $nickname_arg = $this->trimmed('nickname');
-        $nickname = common_canonical_nickname($nickname_arg);
+        $nickname     = common_canonical_nickname($nickname_arg);
 
         // Permanent redirect on non-canonical nickname
 
@@ -158,7 +176,8 @@ class GroupDesignSettingsAction extends DesignSettingsAction
      * @return Design
      */
 
-    function getWorkingDesign() {
+    function getWorkingDesign()
+    {
 
         $design = null;
 
@@ -273,9 +292,9 @@ class GroupDesignSettingsAction extends DesignSettingsAction
                 return;
             }
 
-            $original = clone($this->group);
+            $original               = clone($this->group);
             $this->group->design_id = $id;
-            $result = $this->group->update($original);
+            $result                 = $this->group->update($original);
 
             if (empty($result)) {
                 common_log_db_error($original, 'UPDATE', __FILE__);

@@ -206,7 +206,10 @@ border-radius:4px;
 padding:0 7px;
 }
 
-
+.form_settings input.form_action-default {
+margin-right:11px;
+}
+.form_settings input.form_action-default,
 .form_settings input.form_action-primary {
 padding:0;
 }
@@ -270,7 +273,6 @@ clear:both;
 margin-bottom:18px;
 }
 
-
 #anon_notice {
 float:left;
 width:43.2%;
@@ -284,7 +286,6 @@ line-height:1.5;
 font-size:1.1em;
 font-weight:bold;
 }
-
 
 #footer {
 float:left;
@@ -588,15 +589,15 @@ font-weight:normal;
 content: ")";
 font-weight:normal;
 }
-
-.entity_profile dt {
-display:none;
-}
+.entity_profile dt,
 .entity_profile h2 {
 display:none;
 }
+.entity_profile .role {
+margin-left:11px;
+font-style:italic;
+}
 /* entity_profile */
-
 
 /*entity_actions*/
 .entity_actions {
@@ -726,7 +727,6 @@ margin-bottom:0;
 min-height:60px;
 }
 
-
 .profile .form_group_join legend,
 .profile .form_group_leave legend,
 .profile .form_user_subscribe legend,
@@ -761,12 +761,10 @@ display:inline;
 margin-right:11px;
 }
 
-
 .profile .entity_profile .form_subscription_edit label {
 font-weight:normal;
 margin-right:11px;
 }
-
 
 /* NOTICE */
 .notice,
@@ -789,7 +787,6 @@ margin-left:5%;
 width:95%;
 float:left;
 }
-
 
 /* NOTICES */
 #notices_primary {
@@ -962,7 +959,6 @@ border:0;
 padding:0;
 }
 
-
 .notice .attachment {
 position:relative;
 padding-left:16px;
@@ -1031,7 +1027,13 @@ border-radius:7px;
 -moz-border-radius:7px;
 -webkit-border-radius:7px;
 }
-
+#jOverlayContent #content img {
+max-width:480px;
+}
+#jOverlayLoading {
+top:22.5%;
+left:40%;
+}
 #attachment_view #oembed_info {
 margin-top:11px;
 }
@@ -1058,7 +1060,6 @@ margin-bottom:18px;
 #new_group a {
 padding-left:20px;
 }
-
 
 #filter_tags {
 margin-bottom:11px;
@@ -1105,8 +1106,6 @@ top:3px;
 left:3px;
 }
 
-
-
 .pagination {
 float:left;
 clear:both;
@@ -1152,7 +1151,6 @@ padding-right:30px;
 }
 /* END: NOTICE */
 
-
 .hentry .entry-content p {
 margin-bottom:18px;
 }
@@ -1168,7 +1166,6 @@ margin-bottom:18px;
 .hentry .entry-content li li {
 margin-left:18px;
 }
-
 
 /* TOP_POSTERS */
 .section tbody td {
@@ -1196,7 +1193,6 @@ margin-right:0;
 .section .notice .author .fn {
 display:none;
 }
-
 
 /* tagcloud */
 .tag-cloud {
@@ -1278,6 +1274,10 @@ clear:both;
 
 #form_settings_avatar .form_actions {
 margin-bottom:0;
+}
+
+#form_settings_design #settings_design_background-image img {
+max-width:480px;
 }
 
 #form_settings_design #settings_design_color .form_data,

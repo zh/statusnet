@@ -906,6 +906,9 @@ sslserver: use an alternate server name for SSL URLs, like
            parameters correctly so that both the SSL server and the
            "normal" server can access the session cookie and
            preferably other cookies as well.
+shorturllength: Length of URL at which URLs in a message exceeding 140
+                characters will be sent to the user's chosen
+                shortening service.
 
 db
 --
@@ -1080,6 +1083,13 @@ debug: if turned on, this will make the XMPP library blurt out all of
        enabled, since it will spit out sensitive data to the browser.
 public: an array of JIDs to send _all_ notices to. This is useful for
 	participating in third-party search and archiving services.
+
+invite
+------
+
+For configuring invites.
+
+enabled: Whether to allow users to send invites. Default true.
 
 tag
 ---

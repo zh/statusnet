@@ -795,7 +795,7 @@ class Notice extends Memcached_DataObject
         $notice->selectAdd(); // clears it
         $notice->selectAdd('id');
 
-        $notice->whereAdd('conversation = '.$id);
+        $notice->conversation = $id;
 
         $notice->orderBy('id DESC');
 

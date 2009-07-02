@@ -35,7 +35,9 @@ class InviteAction extends CurrentUserDesignAction
     function handle($args)
     {
         parent::handle($args);
-        if (!common_logged_in()) {
+        if (!common_config('invite', 'enabled')) {
+            $this->clientError(_('Invites have been disabled.'));
+        } else if (!common_logged_in()) {
             $this->clientError(sprintf(_('You must be logged in to invite other users to use %s'),
                                         common_config('site', 'name')));
             return;

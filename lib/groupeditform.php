@@ -130,30 +130,46 @@ class GroupEditForm extends Form
 
     function formData()
     {
+        if ($this->group) {
+            $id = $this->group->id;
+            $nickname = $this->group->nickname;
+            $fullname = $this->group->fullname;
+            $homepage = $this->group->homepage;
+            $description = $this->group->description;
+            $location = $this->group->location;
+        } else {
+            $id = '';
+            $nickname = '';
+            $fullname = '';
+            $homepage = '';
+            $description = '';
+            $location = '';
+        }
+
         $this->out->elementStart('ul', 'form_data');
         $this->out->elementStart('li');
-        $this->out->hidden('groupid', $this->group->id);
+        $this->out->hidden('groupid', $id);
         $this->out->input('nickname', _('Nickname'),
-                     ($this->out->arg('nickname')) ? $this->out->arg('nickname') : $this->group->nickname,
+                     ($this->out->arg('nickname')) ? $this->out->arg('nickname') : $nickname,
                      _('1-64 lowercase letters or numbers, no punctuation or spaces'));
         $this->out->elementEnd('li');
         $this->out->elementStart('li');
         $this->out->input('fullname', _('Full name'),
-                     ($this->out->arg('fullname')) ? $this->out->arg('fullname') : $this->group->fullname);
+                     ($this->out->arg('fullname')) ? $this->out->arg('fullname') : $fullname);
         $this->out->elementEnd('li');
         $this->out->elementStart('li');
         $this->out->input('homepage', _('Homepage'),
-                     ($this->out->arg('homepage')) ? $this->out->arg('homepage') : $this->group->homepage,
+                     ($this->out->arg('homepage')) ? $this->out->arg('homepage') : $homepage,
                      _('URL of the homepage or blog of the group or topic'));
         $this->out->elementEnd('li');
         $this->out->elementStart('li');
         $this->out->textarea('description', _('Description'),
-                        ($this->out->arg('description')) ? $this->out->arg('description') : $this->group->description,
+                        ($this->out->arg('description')) ? $this->out->arg('description') : $description,
                         _('Describe the group or topic in 140 chars'));
         $this->out->elementEnd('li');
         $this->out->elementStart('li');
         $this->out->input('location', _('Location'),
-                     ($this->out->arg('location')) ? $this->out->arg('location') : $this->group->location,
+                     ($this->out->arg('location')) ? $this->out->arg('location') : $location,
                      _('Location for the group, if any, like "City, State (or Region), Country"'));
         $this->out->elementEnd('li');
         if (common_config('group', 'maxaliases') > 0) {

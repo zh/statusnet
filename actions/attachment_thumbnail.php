@@ -45,6 +45,12 @@ require_once INSTALLDIR.'/actions/attachment.php';
 
 class Attachment_thumbnailAction extends AttachmentAction
 {
+
+    function handle($args)
+    {
+        $this->showPage();
+    }
+
     /**
      * Show page, a template method.
      *
@@ -74,45 +80,5 @@ class Attachment_thumbnailAction extends AttachmentAction
         $this->element('img', array('src' => $file_thumbnail->url, 'alt' => 'Thumbnail'));
     }
 
-    /**
-     * Last-modified date for page
-     *
-     * When was the content of this page last modified? Based on notice,
-     * profile, avatar.
-     *
-     * @return int last-modified date as unix timestamp
-     */
-/*
-    function lastModified()
-    {
-        return max(strtotime($this->notice->created),
-                   strtotime($this->profile->modified),
-                   ($this->avatar) ? strtotime($this->avatar->modified) : 0);
-    }
-*/
-
-    /**
-     * An entity tag for this page
-     *
-     * Shows the ETag for the page, based on the notice ID and timestamps
-     * for the notice, profile, and avatar. It's weak, since we change
-     * the date text "one hour ago", etc.
-     *
-     * @return string etag
-     */
-/*
-    function etag()
-    {
-        $avtime = ($this->avatar) ?
-          strtotime($this->avatar->modified) : 0;
-
-        return 'W/"' . implode(':', array($this->arg('action'),
-                                          common_language(),
-                                          $this->notice->id,
-                                          strtotime($this->notice->created),
-                                          strtotime($this->profile->modified),
-                                          $avtime)) . '"';
-    }
-*/
 }
 

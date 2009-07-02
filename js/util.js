@@ -272,21 +272,23 @@ function NoticeAttachments() {
         color : '#000',
         opacity : '0.6',
         zIndex : 99,
-        center : true,
+        center : false,
         imgLoading : $('address .url')[0].href+'theme/base/images/illustrations/illu_progress_loading-01.gif',
         bgClickToClose : true,
         success : function() {
             $('#jOverlayContent').append('<button>&#215;</button>');
             $('#jOverlayContent button').click($.closeOverlay);
         },
-        timeout : 0
+        timeout : 0,
+        autoHide : true,
+        css : {'max-width':'502px', 'top':'22.5%', 'left':'32.5%'}
     };
 
     $('#content .notice a.attachment').click(function() {
-        $().jOverlay({url: $('address .url')[0].href+'/attachment/' + ($(this).attr('id').substring('attachment'.length + 1)) + '/ajax'});
+        $().jOverlay({url: $('address .url')[0].href+'attachment/' + ($(this).attr('id').substring('attachment'.length + 1)) + '/ajax'});
         return false;
     });
-    
+
     var t;
     $("body:not(#shownotice) #content .notice a.thumbnail").hover(
         function() {
@@ -296,7 +298,7 @@ function NoticeAttachments() {
 
             if (anchor.children('img').length == 0) {
                 t = setTimeout(function() {
-                    $.get($('address .url')[0].href+'/attachment/' + (anchor.attr('id').substring('attachment'.length + 1)) + '/thumbnail', null, function(data) {
+                    $.get($('address .url')[0].href+'attachment/' + (anchor.attr('id').substring('attachment'.length + 1)) + '/thumbnail', null, function(data) {
                         anchor.append(data);
                     });
                 }, 500);

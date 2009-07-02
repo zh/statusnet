@@ -167,6 +167,15 @@ class GroupMemberListItem extends ProfileListItem
         $this->group = $group;
     }
 
+    function showFullName()
+    {
+        parent::showFullName();
+        if ($this->profile->isAdmin($this->group)) {
+            $this->out->text(' ');
+            $this->out->element('span', 'role', _('Admin'));
+        }
+    }
+
     function showActions()
     {
         $this->startActions();

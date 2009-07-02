@@ -45,7 +45,7 @@ require_once INSTALLDIR.'/lib/feedlist.php';
  * @link     http://laconi.ca/
  */
 
-class ShowfavoritesAction extends CurrentUserDesignAction
+class ShowfavoritesAction extends OwnerDesignAction
 {
     /** User we're getting the faves of */
     var $user = null;

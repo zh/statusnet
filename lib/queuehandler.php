@@ -31,8 +31,10 @@ class QueueHandler extends Daemon
 {
     var $_id = 'generic';
 
-    function QueueHandler($id=null)
+    function __construct($id=null, $daemonize=true)
     {
+        parent::__construct($daemonize);
+
         if ($id) {
             $this->set_id($id);
         }

@@ -116,6 +116,7 @@ class groupRssAction extends Rss10Action
             return null;
         }
 
+        $notices = array();
         $notice = $group->getNotices(0, ($limit == 0) ? NOTICES_PER_PAGE : $limit);
 
         while ($notice->fetch()) {

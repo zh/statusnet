@@ -247,7 +247,6 @@ class Action extends HTMLOutputter // lawsuit
                                                'src' => common_path('js/jquery.joverlay.min.js')),
                                ' ');
 
-
                 Event::handle('EndShowJQueryScripts', array($this));
             }
             if (Event::handle('StartShowLaconicaScripts', array($this))) {
@@ -422,11 +421,13 @@ class Action extends HTMLOutputter // lawsuit
                     $this->menuItem(common_local_url('smssettings'),
                                     _('Connect'), _('Connect to SMS, Twitter'), false, 'nav_connect');
                 }
-                $this->menuItem(common_local_url('invite'),
-                                _('Invite'),
-                                sprintf(_('Invite friends and colleagues to join you on %s'),
-                                        common_config('site', 'name')),
-                                false, 'nav_invitecontact');
+                if (common_config('invite', 'enabled')) {
+                    $this->menuItem(common_local_url('invite'),
+                                    _('Invite'),
+                                    sprintf(_('Invite friends and colleagues to join you on %s'),
+                                            common_config('site', 'name')),
+                                    false, 'nav_invitecontact');
+                }
                 $this->menuItem(common_local_url('logout'),
                                 _('Logout'), _('Logout from the site'), false, 'nav_logout');
             }
@@ -964,12 +965,16 @@ class Action extends HTMLOutputter // lawsuit
         $action = $this->trimmed('action');
         $args   = $this->args;
         unset($args['action']);
+        if (common_config('site', 'fancy')) {
+            unset($args['p']);
+        }
         if (array_key_exists('submit', $args)) {
             unset($args['submit']);
         }
         foreach (array_keys($_COOKIE) as $cookie) {
             unset($args[$cookie]);
         }
+
         return common_local_url($action, $args);
     }
 

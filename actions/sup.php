@@ -63,11 +63,13 @@ class SupAction extends Action
         # XXX: cache this. Depends on how big this protocol becomes;
         # Re-doing this query every 15 seconds isn't the end of the world.
 
+        $divider = common_sql_date(time() - $seconds);
+
         $notice->query('SELECT profile_id, max(id) AS max_id ' .
                        'FROM notice ' .
                         ((common_config('db','type') == 'pgsql') ?
                        'WHERE extract(epoch from created) > (extract(epoch from now()) - ' . $seconds . ') ' :
-                       'WHERE created > (now() - ' . $seconds . ') ' ) .
+                       'WHERE created > "'.$divider.'" ' ) .
                        'GROUP BY profile_id');
 
         $updates = array();
