@@ -108,7 +108,9 @@ class ProfileAction extends OwnerDesignAction
 
         $this->element('h2', null, _('Subscriptions'));
 
-        if ($profile) {
+        $cnt = 0;
+
+        if (!empty($profile)) {
             $pml = new ProfileMiniList($profile, $this);
             $cnt = $pml->show();
             if ($cnt == 0) {
@@ -137,7 +139,9 @@ class ProfileAction extends OwnerDesignAction
 
         $this->element('h2', null, _('Subscribers'));
 
-        if ($profile) {
+        $cnt = 0;
+
+        if (!empty($profile)) {
             $pml = new ProfileMiniList($profile, $this);
             $cnt = $pml->show();
             if ($cnt == 0) {
