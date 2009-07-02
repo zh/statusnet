@@ -214,7 +214,7 @@ class Rss10Action extends Action
         $this->element('cc:licence', array('rdf:resource' => common_config('license', 'url')));
         if ($notice->reply_to) {
             $replyurl = common_local_url('shownotice', array('notice' => $notice->reply_to));
-            $this->element('sioc:reply_to', array('rdf:resource' => $replyurl));
+            $this->element('sioc:reply_of', array('rdf:resource' => $replyurl));
         }
         $this->elementEnd('item');
         $this->creators[$creator_uri] = $profile;
