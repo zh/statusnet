@@ -45,7 +45,7 @@ require_once INSTALLDIR.'/lib/feedlist.php';
  * @link     http://laconi.ca/
  */
 
-class ShownoticeAction extends Action
+class ShownoticeAction extends OwnerDesignAction
 {
     /**
      * Notice object to show
@@ -83,15 +83,22 @@ class ShownoticeAction extends Action
 
         $this->notice = Notice::staticGet($id);
 
-        if (!$this->notice) {
+        if (empty($this->notice)) {
             $this->clientError(_('No such notice.'), 404);
             return false;
         }
 
         $this->profile = $this->notice->getProfile();
 
-        if (!$this->profile) {
+        if (empty($this->profile)) {
             $this->serverError(_('Notice has no profile'), 500);
+            return false;
+        }
+
+        $this->user = User::staticGet('id', $this->profile->id);
+
+        if (empty($this->user)) {
+            $this->serverError(_('Not a local notice'), 500);
             return false;
         }
 
@@ -158,8 +165,14 @@ class ShownoticeAction extends Action
 
     function title()
     {
+        if (!empty($this->profile->fullname)) {
+            $base = $this->profile->fullname . ' (' . $this->user->nickname . ') ';
+        } else {
+            $base = $this->user->nickname;
+        }
+
         return sprintf(_('%1$s\'s status on %2$s'),
-                       $this->profile->nickname,
+                       $base,
                        common_exact_date($this->notice->created));
     }
 
