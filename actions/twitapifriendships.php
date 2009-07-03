@@ -160,4 +160,85 @@ class TwitapifriendshipsAction extends TwitterapiAction
 
     }
 
+    function show($args, $apidata)
+    {
+        parent::handle($args);
+
+        if (!in_array($apidata['content-type'], array('xml', 'json'))) {
+            $this->clientError(_('API method not found!'), $code = 404);
+            return;
+        }
+
+        $source_id          = (int)$this->trimmed('source_id');
+        $source_screen_name = $this->trimmed('source_screen_name');
+
+        // If the source is not specified for an unauthenticated request,
+        // the method will return an HTTP 403.
+
+        if (empty($source_id) && empty($source_screen_name)) {
+            if (empty($apidata['user'])) {
+                $this->clientError(_('Could not determine source user.'),
+                        $code = 403);
+                return;
+            }
+        }
+
+        $source = null;
+
+        if (!empty($source_id)) {
+            $source = User::staticGet($source_id);
+        } elseif (!empty($source_screen_name)) {
+            $source = User::staticGet('nickname', $source_screen_name);
+        } else {
+            $source = $apidata['user'];
+        }
+
+        // If a source or target is specified but does not exist,
+        // the method will return an HTTP 404.
+
+        if (empty($source)) {
+            $this->clientError(_('Could not determine source user.'),
+                $code = 404);
+            return;
+        }
+
+        $target_id          = (int)$this->trimmed('target_id');
+        $target_screen_name = $this->trimmed('target_screen_name');
+
+        $target = null;
+
+        if (!empty($target_id)) {
+            $target = User::staticGet($target_id);
+        } elseif (!empty($target_screen_name)) {
+            $target = User::staticGet('nickname', $target_screen_name);
+        } else {
+            $this->clientError(_('Target user not specified.'),
+                $code = 403);
+            return;
+        }
+
+        if (empty($target)) {
+            $this->clientError(_('Could not find target user.'),
+                $code = 404);
+            return;
+        }
+
+        $result = $this->twitter_relationship_array($source, $target);
+
+        switch ($apidata['content-type']) {
+        case 'xml':
+            $this->init_document('xml');
+            $this->show_twitter_xml_relationship($result[relationship]);
+            $this->end_document('xml');
+            break;
+        case 'json':
+            $this->init_document('json');
+            print json_encode($result);
+            $this->end_document('json');
+            break;
+        default:
+            break;
+        }
+    }
+
 }
