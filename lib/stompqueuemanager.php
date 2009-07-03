@@ -165,6 +165,11 @@ class StompQueueManager
         unset($this->_frames[$k]);
     }
 
+    function _queueName($queue)
+    {
+        return common_config('queue', 'queue_basename') . $queue;
+    }
+
     function _log($level, $msg)
     {
         common_log($level, 'StompQueueManager: '.$msg);
