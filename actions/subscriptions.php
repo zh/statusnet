@@ -159,7 +159,10 @@ class SubscriptionsListItem extends SubscriptionListItem
         $this->showBio();
         $this->showTags();
         // Relevant portion!
-        $this->showOwnerControls();
+        $cur = common_current_user();
+        if (!empty($cur) && $cur->id == $this->owner->id) {
+            $this->showOwnerControls();
+        }
         $this->endProfile();
     }
 
