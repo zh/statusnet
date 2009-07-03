@@ -31,6 +31,11 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
+// XXX: not sure how to do paging yet,
+// so set a 60-notice limit
+
+define('CONVERSATION_LIMIT', 60);
+
 require_once INSTALLDIR.'/lib/noticelist.php';
 
 /**
@@ -107,7 +112,7 @@ class ConversationAction extends Action
 
     function showContent()
     {
-        $notices = Notice::conversationStream($this->id, null);
+        $notices = Notice::conversationStream($this->id, null, CONVERSATION_LIMIT);
 
         $ct = new ConversationTree($notices, $this);
 
