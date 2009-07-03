@@ -49,8 +49,9 @@ $(document).ready(function(){
 		// run once in case there's something in there
 		counter();
 
-		// set the focus
-		$("#notice_data-text").focus();
+        if($('body')[0].id != 'conversation') {
+            $("#notice_data-text").focus();
+        }
 	}
 
 	// XXX: refactor this code
