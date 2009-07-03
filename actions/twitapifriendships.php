@@ -160,4 +160,18 @@ class TwitapifriendshipsAction extends TwitterapiAction
 
     }
 
+    function show($args, $apidata)
+    {
+
+        parent::handle($args);
+
+        if (!in_array($apidata['content-type'], array('xml', 'json'))) {
+            $this->clientError(_('API method not found!'), $code = 404);
+            return;
+        }
+
+        print "gar";
+
+    }
+
 }
