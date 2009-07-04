@@ -57,9 +57,9 @@ class QueueManager
                     }
                 }
             }
-
-            return self::$qm;
         }
+
+        return self::$qm;
     }
 
     function enqueue($object, $queue)
