@@ -91,7 +91,7 @@ class XmppQueueHandler extends QueueHandler
         if (common_config('xmpp', 'listener')) {
             return common_config('xmpp', 'listener');
         } else {
-            return jabber_daemon_address() . '/' . common_config('xmpp','resource') . '-listener';
+            return jabber_daemon_address() . '/' . common_config('xmpp','resource') . 'daemon';
         }
     }
 }
