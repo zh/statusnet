@@ -1210,7 +1210,7 @@ class Notice extends Memcached_DataObject
             $window = explode(',', $laststr);
             $last_id = $window[0];
             $new_ids = call_user_func_array($fn, array_merge($args, array(0, NOTICE_CACHE_WINDOW,
-                                                                          $last_id, 0, null, $tag)));
+                                                                          $last_id, 0, null)));
 
             $new_window = array_merge($new_ids, $window);
 
@@ -1225,7 +1225,7 @@ class Notice extends Memcached_DataObject
         }
 
         $window = call_user_func_array($fn, array_merge($args, array(0, NOTICE_CACHE_WINDOW,
-                                                                     0, 0, null, $tag)));
+                                                                     0, 0, null)));
 
         $windowstr = implode(',', $window);
 
