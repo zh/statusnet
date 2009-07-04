@@ -67,23 +67,8 @@ class QueueManager
         throw ServerException("Unimplemented function 'enqueue' called");
     }
 
-    function peek($queue)
+    function service($queue, $handler)
     {
-        throw ServerException("Unimplemented function 'peek' called");
-    }
-
-    function nextItem($queue, $timeout=null)
-    {
-        throw ServerException("Unimplemented function 'nextItem' called");
-    }
-
-    function done($object, $queue)
-    {
-        throw ServerException("Unimplemented function 'done' called");
-    }
-
-    function fail($object, $queue)
-    {
-        throw ServerException("Unimplemented function 'fail' called");
+        throw ServerException("Unimplemented function 'service' called");
     }
 }

@@ -25,7 +25,7 @@ require_once(INSTALLDIR.'/classes/Notice.php');
 
 define('CLAIM_TIMEOUT', 1200);
 define('QUEUE_HANDLER_MISS_IDLE', 10);
-define('QUEUE_HANDLER_HIT_IDLE', 10);
+define('QUEUE_HANDLER_HIT_IDLE', 0);
 
 class QueueHandler extends Daemon
 {
@@ -42,7 +42,7 @@ class QueueHandler extends Daemon
 
     function timeout()
     {
-        return null;
+        return 60;
     }
 
     function class_name()
@@ -96,31 +96,7 @@ class QueueHandler extends Daemon
 
         $qm = QueueManager::get();
 
-        while (true) {
-            $this->log(LOG_DEBUG, 'Checking for notices...');
-            $notice = $qm->nextItem($queue, $timeout);
-            if (empty($notice)) {
-                $this->log(LOG_DEBUG, 'No notices waiting; idling.');
-                // Nothing in the queue. Do you
-                // have other tasks, like servicing your
-                // XMPP connection, to do?
-                $this->idle(QUEUE_HANDLER_MISS_IDLE);
-            } else {
-                $this->log(LOG_INFO, 'Got notice '. $notice->id);
-                // Yay! Got one!
-                if ($this->handle_notice($notice)) {
-                    $this->log(LOG_INFO, 'Successfully handled notice '. $notice->id);
-                    $qm->done($notice, $queue);
-                } else {
-                    $this->log(LOG_INFO, 'Failed to handle notice '. $notice->id);
-                    $qm->fail($notice, $queue);
-                }
-                // Chance to e.g. service your XMPP connection
-                $this->log(LOG_DEBUG, 'Idling after success.');
-                $this->idle(QUEUE_HANDLER_HIT_IDLE);
-            }
-            // XXX: when do we give up?
-        }
+        $qm->service($queue, $this);
 
         if (!$this->finish()) {
             return false;

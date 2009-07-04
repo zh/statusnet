@@ -51,7 +51,36 @@ class DBQueueManager extends QueueManager
         return true;
     }
 
-    function nextItem($queue, $timeout=null)
+    function service($queue, $handler)
+    {
+        while (true) {
+            $this->_log(LOG_DEBUG, 'Checking for notices...');
+            $notice = $this->_nextItem($queue, null);
+            if (empty($notice)) {
+                $this->_log(LOG_DEBUG, 'No notices waiting; idling.');
+                // Nothing in the queue. Do you
+                // have other tasks, like servicing your
+                // XMPP connection, to do?
+                $handler->idle(QUEUE_HANDLER_MISS_IDLE);
+            } else {
+                $this->_log(LOG_INFO, 'Got notice '. $notice->id);
+                // Yay! Got one!
+                if ($handler->handle_notice($notice)) {
+                    $this->_log(LOG_INFO, 'Successfully handled notice '. $notice->id);
+                    $this->_done($notice, $queue);
+                } else {
+                    $this->_log(LOG_INFO, 'Failed to handle notice '. $notice->id);
+                    $this->_fail($notice, $queue);
+                }
+                // Chance to e.g. service your XMPP connection
+                $this->_log(LOG_DEBUG, 'Idling after success.');
+                $handler->idle(QUEUE_HANDLER_HIT_IDLE);
+            }
+            // XXX: when do we give up?
+        }
+    }
+
+    function _nextItem($queue, $timeout=null)
     {
         $start = time();
         $result = null;
@@ -74,7 +103,7 @@ class DBQueueManager extends QueueManager
         return $result;
     }
 
-    function done($object, $queue)
+    function _done($object, $queue)
     {
         // XXX: right now, we only handle notices
 
@@ -101,7 +130,7 @@ class DBQueueManager extends QueueManager
         $notice = null;
     }
 
-    function fail($object, $queue)
+    function _fail($object, $queue)
     {
         // XXX: right now, we only handle notices
 
