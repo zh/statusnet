@@ -49,7 +49,6 @@ class StompQueueManager
 
     function _connect()
     {
-        $this->_log(LOG_DEBUG, "Connecting to $this->server...");
         if (empty($this->con)) {
             $this->_log(LOG_INFO, "Connecting to '$this->server' as '$this->username'...");
             $this->con = new Stomp($this->server);
