@@ -1028,6 +1028,9 @@ function common_log_objstring(&$object)
     if (is_null($object)) {
         return "null";
     }
+    if (!($object instanceof DB_DataObject)) {
+        return "(unknown)";
+    }
     $arr = $object->toArray();
     $fields = array();
     foreach ($arr as $k => $v) {
