@@ -243,15 +243,20 @@ class ProfileListItem extends Widget
         $user = common_current_user();
 
         if (!empty($user) && $this->profile->id != $user->id) {
-            $this->out->elementStart('li', 'entity_subscribe');
-            if ($user->isSubscribed($this->profile)) {
-                $usf = new UnsubscribeForm($this->out, $this->profile);
-                $usf->show();
-            } else {
-                $sf = new SubscribeForm($this->out, $this->profile);
-                $sf->show();
+            // Is it a local user? can't remote sub from a list
+            // XXX: make that possible!
+            $other = User::staticGet('id', $this->profile->id);
+            if (!empty($other)) {
+                $this->out->elementStart('li', 'entity_subscribe');
+                if ($user->isSubscribed($this->profile)) {
+                    $usf = new UnsubscribeForm($this->out, $this->profile);
+                    $usf->show();
+                } else {
+                    $sf = new SubscribeForm($this->out, $this->profile);
+                    $sf->show();
+                }
+                $this->out->elementEnd('li');
             }
-            $this->out->elementEnd('li');
         }
     }
 

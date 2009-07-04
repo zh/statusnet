@@ -116,6 +116,11 @@ class XMPPDaemon extends Daemon
         $this->conn->processUntil('session_start');
         $this->log(LOG_DEBUG, "Sending reconnection presence.");
         $this->conn->presence('Send me a message to post a notice', 'available', null, 'available', 100);
+        unset($pl['xml']);
+        $pl['xml'] = null;
+
+        $pl = null;
+        unset($pl);
     }
 
     function get_user($from)
@@ -189,6 +194,12 @@ class XMPPDaemon extends Daemon
 
         $user->free();
         unset($user);
+
+        unset($pl['xml']);
+        $pl['xml'] = null;
+
+        $pl = null;
+        unset($pl);
     }
 
     function is_self($from)
@@ -334,6 +345,11 @@ class XMPPDaemon extends Daemon
             }
             break;
         }
+        unset($pl['xml']);
+        $pl['xml'] = null;
+
+        $pl = null;
+        unset($pl);
     }
 
     function log($level, $msg)

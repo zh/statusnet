@@ -1187,6 +1187,7 @@ class Notice extends Memcached_DataObject
 
         if (empty($cache) ||
             $since_id != 0 || $max_id != 0 || (!is_null($since) && $since > 0) ||
+            is_null($limit) ||
             ($offset + $limit) > NOTICE_CACHE_WINDOW) {
             return call_user_func_array($fn, array_merge($args, array($offset, $limit, $since_id,
                                                                       $max_id, $since)));
