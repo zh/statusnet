@@ -75,12 +75,12 @@ class StompQueueManager
                                    array ('created' => $notice->created));
 
         if (!$result) {
-            common_log(LOG_ERR, 'Error sending to '.$transport.' queue');
+            common_log(LOG_ERR, 'Error sending to '.$queue.' queue');
             return false;
         }
 
         common_log(LOG_DEBUG, 'complete remote queueing notice ID = '
-                   . $notice->id . ' for ' . $transport);
+                   . $notice->id . ' for ' . $queue);
     }
 
     function service($queue, $handler)
@@ -101,7 +101,7 @@ class StompQueueManager
                 $notice = Notice::staticGet($frame->body);
 
                 if ($handler->handle_notice($notice)) {
-                    $this->_log(LOG_INFO, 'Successfully handled notice '. $notice->id);
+                    $this->_log(LOG_INFO, 'Successfully handled notice '. $notice->id .' posted at ' . $frame->headers['created']);
                     $this->con->ack($frame);
                 }
             }
