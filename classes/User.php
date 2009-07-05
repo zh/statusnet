@@ -491,6 +491,8 @@ class User extends Memcached_DataObject
             // ;last cache, too
             $cache->delete(common_cache_key('fave:ids_by_user:'.$this->id));
             $cache->delete(common_cache_key('fave:ids_by_user:'.$this->id.';last'));
+            $cache->delete(common_cache_key('fave:ids_by_user_own:'.$this->id));
+            $cache->delete(common_cache_key('fave:ids_by_user_own:'.$this->id.';last'));
         }
     }
 

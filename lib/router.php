@@ -317,7 +317,7 @@ class Router
         $m->connect('api/friendships/:method',
                     array('action' => 'api',
                           'apiaction' => 'friendships'),
-                    array('method' => 'exists(\.(xml|json))'));
+                    array('method' => '(show|exists)(\.(xml|json))'));
 
         // Social graph
 
