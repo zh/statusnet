@@ -37,7 +37,6 @@ class StompQueueManager
     var $password = null;
     var $base = null;
     var $con = null;
-    var $frames = array();
 
     function __construct()
     {
@@ -97,13 +96,19 @@ class StompQueueManager
 
             $frame = $this->con->readFrame();
 
-            if ($frame) {
-                $notice = Notice::staticGet($frame->body);
+            if (!empty($frame)) {
+                $notice = Notice::staticGet('id', $frame->body);
 
-                if ($handler->handle_notice($notice)) {
+                if (empty($notice)) {
+                    $this->_log(LOG_WARNING, 'Got ID '. $frame->body .' for non-existent notice');
+                    $this->con->ack($frame);
+                } else if ($handler->handle_notice($notice)) {
                     $this->_log(LOG_INFO, 'Successfully handled notice '. $notice->id .' posted at ' . $frame->headers['created']);
                     $this->con->ack($frame);
+                    unset($notice);
                 }
+
+                unset($frame);
             }
 
             $handler->idle(0);
