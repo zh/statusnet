@@ -34,7 +34,7 @@ if (!defined('LACONICA')) {
 /**
  * Base class for actions that use a group's design
  *
- * Pages related to groups can be themed with a design. 
+ * Pages related to groups can be themed with a design.
  * This superclass returns that design.
  *
  * @category Action
@@ -48,7 +48,7 @@ class GroupDesignAction extends Action {
 
     /** The group in question */
     var $group = null;
-    
+
     /**
       * Show the groups's design stylesheet
       *
@@ -58,10 +58,14 @@ class GroupDesignAction extends Action {
      {
          parent::showStylesheets();
 
-         $design = $this->getDesign();
+         $user = common_current_user();
 
-         if (!empty($design)) {
-             $design->showCSS($this);
+         if (empty($user) || $user->viewdesigns) {
+             $design = $this->getDesign();
+
+             if (!empty($design)) {
+                 $design->showCSS($this);
+             }
          }
      }
 
@@ -76,12 +80,10 @@ class GroupDesignAction extends Action {
 
     function getDesign()
     {
-
         if (empty($this->group)) {
             return null;
         }
 
         return $this->group->getDesign();
     }
-
 }
