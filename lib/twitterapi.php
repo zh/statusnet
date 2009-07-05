@@ -278,6 +278,67 @@ class TwitterapiAction extends Action
         return $twitter_dm;
     }
 
+    function twitter_relationship_array($source, $target)
+    {
+        $relationship = array();
+
+        $relationship['source'] =
+            $this->relationship_details_array($source, $target);
+        $relationship['target'] =
+            $this->relationship_details_array($target, $source);
+
+        return array('relationship' => $relationship);
+    }
+
+    function relationship_details_array($source, $target)
+    {
+        $details = array();
+
+        $details['screen_name'] = $source->nickname;
+        $details['followed_by'] = $target->isSubscribed($source);
+        $details['following'] = $source->isSubscribed($target);
+
+        $notifications = false;
+
+        if ($source->isSubscribed($target)) {
+
+            $sub = Subscription::pkeyGet(array('subscriber' =>
+                $source->id, 'subscribed' => $target->id));
+
+            if (!empty($sub)) {
+                $notifications = ($sub->jabber || $sub->sms);
+            }
+        }
+
+        $details['notifications_enabled'] = $notifications;
+        $details['blocking'] = $source->hasBlocked($target);
+        $details['id'] = $source->id;
+
+        return $details;
+    }
+
+    function show_twitter_xml_relationship($relationship)
+    {
+        $this->elementStart('relationship');
+
+        foreach($relationship as $element => $value) {
+            if ($element == 'source' || $element == 'target') {
+                $this->elementStart($element);
+                $this->show_xml_relationship_details($value);
+                $this->elementEnd($element);
+            }
+        }
+
+        $this->elementEnd('relationship');
+    }
+
+    function show_xml_relationship_details($details)
+    {
+        foreach($details as $element => $value) {
+            $this->element($element, null, $value);
+        }
+    }
+
     function show_twitter_xml_status($twitter_status)
     {
         $this->elementStart('status');
