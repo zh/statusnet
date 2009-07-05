@@ -33,41 +33,21 @@ class Memcached_DataObject extends DB_DataObject
             $k = $keys[0];
             unset($i);
         }
-        $i = self::getcached($cls, $k, $v);
+        $i = Memcached_DataObject::getcached($cls, $k, $v);
         if ($i) {
             return $i;
         } else {
             $i = DB_DataObject::staticGet($cls, $k, $v);
             if ($i) {
                 $i->encache();
-            } else {
-                self::cachenull($cls, $k, $v);
             }
             return $i;
         }
     }
 
-    function cachenull($cls, $k, $v)
-    {
-        $c = self::memcache();
-        if (empty($c)) {
-            return;
-        }
-        $c->set(self::cacheKey($cls, $k, $v), null);
-    }
-
-    function multicachenull($cls, $kv)
-    {
-        $c = self::memcache();
-        if (empty($c)) {
-            return;
-        }
-        $c->set(self::multicachekey($cls, $kv), null);
-    }
-
     function &pkeyGet($cls, $kv)
     {
-        $i = self::multicache($cls, $kv);
+        $i = Memcached_DataObject::multicache($cls, $kv);
         if ($i) {
             return $i;
         } else {
@@ -78,7 +58,6 @@ class Memcached_DataObject extends DB_DataObject
             if ($i->find(true)) {
                 $i->encache();
             } else {
-                self::multicachenull($cls, $kv);
                 $i = null;
             }
             return $i;
@@ -88,9 +67,6 @@ class Memcached_DataObject extends DB_DataObject
     function insert()
     {
         $result = parent::insert();
-        if ($result) {
-            $this->encache();
-        }
         return $result;
     }
 
@@ -121,11 +97,11 @@ class Memcached_DataObject extends DB_DataObject
     }
 
     static function getcached($cls, $k, $v) {
-        $c = self::memcache();
+        $c = Memcached_DataObject::memcache();
         if (!$c) {
             return false;
         } else {
-            return $c->get(self::cacheKey($cls, $k, $v));
+            return $c->get(Memcached_DataObject::cacheKey($cls, $k, $v));
         }
     }
 
@@ -192,21 +168,15 @@ class Memcached_DataObject extends DB_DataObject
 
     function multicache($cls, $kv)
     {
-        $c = self::memcache();
+        ksort($kv);
+        $c = Memcached_DataObject::memcache();
         if (!$c) {
             return false;
         } else {
-            return $c->get(self::multicachekey($cls, $kv));
+            $pkeys = implode(',', array_keys($kv));
+            $pvals = implode(',', array_values($kv));
+            return $c->get(Memcached_DataObject::cacheKey($cls, $pkeys, $pvals));
         }
-    }
-
-    function multicachekey($cls, $kv)
-    {
-        ksort($kv);
-        $pkeys = implode(',', array_keys($kv));
-        $pvals = implode(',', array_values($kv));
-
-        return self::cacheKey($cls, $pkeys, $pvals);
     }
 
     function getSearchEngine($table)
@@ -241,7 +211,7 @@ class Memcached_DataObject extends DB_DataObject
 
     static function cachedQuery($cls, $qry, $expiry=3600)
     {
-        $c = self::memcache();
+        $c = Memcached_DataObject::memcache();
         if (!$c) {
             $inst = new $cls();
             $inst->query($qry);
