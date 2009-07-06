@@ -312,36 +312,4 @@ class GroupDesignSettingsAction extends DesignSettingsAction
         $this->showForm(_('Design preferences saved.'), true);
     }
 
-    /**
-     * Handle input and output a page (overrided)
-     *
-     * @param array $args $_REQUEST arguments
-     *
-     * @return void
-     */
-
-    function handle($args)
-    {
-        parent::handle($args);
-        if (!common_logged_in()) {
-            $this->clientError(_('Not logged in.'));
-            return;
-        } else if (!common_is_real_login()) {
-            // Cookie theft means that automatic logins can't
-            // change important settings or see private info, and
-            // _all_ our settings are important
-            common_set_returnto($this->selfUrl());
-            $user = common_current_user();
-            if ($user->hasOpenID()) {
-                common_redirect(common_local_url('openidlogin'), 303);
-            } else {
-                common_redirect(common_local_url('login'), 303);
-            }
-        } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->handlePost();
-        } else {
-            $this->showForm();
-        }
-    }
-
 }
