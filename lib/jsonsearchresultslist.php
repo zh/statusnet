@@ -89,6 +89,7 @@ class JSONSearchResultsList
     function show()
     {
         $cnt = 0;
+        $this->max_id = 0;
 
         $time_start = microtime(true);
 

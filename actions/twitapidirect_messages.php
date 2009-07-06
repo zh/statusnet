@@ -1,7 +1,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
 require_once(INSTALLDIR.'/lib/twitterapi.php');
 
@@ -38,41 +40,33 @@ class Twitapidirect_messagesAction extends TwitterapiAction
 
     function show_messages($args, $apidata, $type)
     {
-        $user = $apidata['user'];
+        $user = $apidata['user']; // Always the auth user
 
-        $count = $this->arg('count');
-        $since = $this->arg('since');
-        $since_id = $this->arg('since_id');
-        $max_id = $this->arg('max_id');
-
-        $page = $this->arg('page');
-
-        if (!$page) {
-            $page = 1;
-        }
-
-        if (!$count) {
-            $count = 20;
-        }
-
-        $message = new Message();
-
-        $title = null;
+        $message  = new Message();
+        $title    = null;
         $subtitle = null;
-        $link = null;
-        $server = common_root_url();
+        $link     = null;
+        $server   = common_root_url();
 
         if ($type == 'received') {
             $message->to_profile = $user->id;
             $title = sprintf(_("Direct messages to %s"), $user->nickname);
-            $subtitle = sprintf(_("All the direct messages sent to %s"), $user->nickname);
+            $subtitle = sprintf(_("All the direct messages sent to %s"),
+                $user->nickname);
             $link = $server . $user->nickname . '/inbox';
         } else {
             $message->from_profile = $user->id;
             $title = _('Direct Messages You\'ve Sent');
-            $subtitle = sprintf(_("All the direct messages sent from %s"), $user->nickname);
+            $subtitle = sprintf(_("All the direct messages sent from %s"),
+                $user->nickname);
             $link = $server . $user->nickname . '/outbox';
         }
+
+        $page     = (int)$this->arg('page', 1);
+        $count    = (int)$this->arg('count', 20);
+        $max_id   = (int)$this->arg('max_id', 0);
+        $since_id = (int)$this->arg('since_id', 0);
+        $since    = $this->arg('since');
 
         if ($max_id) {
             $message->whereAdd("id <= $max_id");
@@ -82,25 +76,23 @@ class Twitapidirect_messagesAction extends TwitterapiAction
             $message->whereAdd("id > $since_id");
         }
 
-        $since = strtotime($this->arg('since'));
-
         if ($since) {
             $d = date('Y-m-d H:i:s', $since);
             $message->whereAdd("created > '$d'");
         }
 
         $message->orderBy('created DESC, id DESC');
-        $message->limit((($page-1)*20), $count);
+        $message->limit((($page-1)*$count), $count);
         $message->find();
 
         switch($apidata['content-type']) {
-         case 'xml':
+        case 'xml':
             $this->show_xml_dmsgs($message);
             break;
-         case 'rss':
+        case 'rss':
             $this->show_rss_dmsgs($message, $title, $link, $subtitle);
             break;
-         case 'atom':
+        case 'atom':
             $selfuri = common_root_url() . 'api/direct_messages';
             $selfuri .= ($type == 'received') ? '.atom' : '/sent.atom';
             $taguribase = common_config('integration', 'taguri');
@@ -111,12 +103,13 @@ class Twitapidirect_messagesAction extends TwitterapiAction
                 $id = "tag:$taguribase:DirectMessages:" . $user->id;
             }
 
-            $this->show_atom_dmsgs($message, $title, $link, $subtitle, $selfuri, $id);
+            $this->show_atom_dmsgs($message, $title, $link, $subtitle,
+                $selfuri, $id);
             break;
-         case 'json':
+        case 'json':
             $this->show_json_dmsgs($message);
             break;
-         default:
+        default:
             $this->clientError(_('API method not found!'), $code = 404);
         }
 
@@ -128,22 +121,24 @@ class Twitapidirect_messagesAction extends TwitterapiAction
         parent::handle($args);
 
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            $this->clientError(_('This method requires a POST.'), 400, $apidata['content-type']);
+            $this->clientError(_('This method requires a POST.'),
+                400, $apidata['content-type']);
             return;
         }
 
         $user = $apidata['user'];
-        $source = $this->trimmed('source');     // Not supported by Twitter.
+        $source = $this->trimmed('source'); // Not supported by Twitter.
 
         $reserved_sources = array('web', 'omb', 'mail', 'xmpp', 'api');
-        if (!$source || in_array($source, $reserved_sources)) {
+        if (empty($source) || in_array($source, $reserved_sources)) {
             $source = 'api';
         }
 
         $content = $this->trimmed('text');
 
-        if (!$content) {
-            $this->clientError(_('No message text!'), $code = 406, $apidata['content-type']);
+        if (empty($content)) {
+            $this->clientError(_('No message text!'),
+                $code = 406, $apidata['content-type']);
         } else {
             $content_shortened = common_shorten_links($content);
             if (mb_strlen($content_shortened) > 140) {
@@ -155,8 +150,9 @@ class Twitapidirect_messagesAction extends TwitterapiAction
 
         $other = $this->get_user($this->trimmed('user'));
 
-        if (!$other) {
-            $this->clientError(_('Recipient user not found.'), $code = 403, $apidata['content-type']);
+        if (empty($other)) {
+            $this->clientError(_('Recipient user not found.'),
+                $code = 403, $apidata['content-type']);
             return;
         } else if (!$user->mutuallySubscribed($other)) {
             $this->clientError(_('Can\'t send direct messages to users who aren\'t your friend.'),

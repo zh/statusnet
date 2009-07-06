@@ -34,6 +34,7 @@ if (!defined('LACONICA')) {
 
 require_once INSTALLDIR.'/lib/favorform.php';
 require_once INSTALLDIR.'/lib/disfavorform.php';
+require_once INSTALLDIR.'/lib/attachmentlist.php';
 
 /**
  * widget for displaying a list of notices
@@ -49,7 +50,6 @@ require_once INSTALLDIR.'/lib/disfavorform.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://laconi.ca/
  * @see      Notice
- * @see      StreamAction
  * @see      NoticeListItem
  * @see      ProfileNoticeList
  */
@@ -85,7 +85,7 @@ class NoticeList extends Widget
     {
         $this->out->elementStart('div', array('id' =>'notices_primary'));
         $this->out->element('h2', null, _('Notices'));
-        $this->out->elementStart('ul', array('class' => 'notices'));
+        $this->out->elementStart('ol', array('class' => 'notices xoxo'));
 
         $cnt = 0;
 
@@ -100,7 +100,7 @@ class NoticeList extends Widget
             $item->show();
         }
 
-        $this->out->elementEnd('ul');
+        $this->out->elementEnd('ol');
         $this->out->elementEnd('div');
 
         return $cnt;
@@ -197,7 +197,7 @@ class NoticeListItem extends Widget
         $this->out->elementStart('div', 'entry-content');
         $this->showNoticeLink();
         $this->showNoticeSource();
-        $this->showReplyTo();
+        $this->showContext();
         $this->out->elementEnd('div');
     }
 
@@ -366,6 +366,7 @@ class NoticeListItem extends Widget
         $this->out->element('abbr', array('class' => 'published',
                                           'title' => $dt),
                             common_date_string($this->notice->created));
+
         $this->out->elementEnd('a');
         $this->out->elementEnd('dd');
         $this->out->elementEnd('dl');
@@ -421,17 +422,18 @@ class NoticeListItem extends Widget
      * @return void
      */
 
-    function showReplyTo()
+    function showContext()
     {
-        if ($this->notice->reply_to) {
-            $replyurl = common_local_url('shownotice',
-                                         array('notice' => $this->notice->reply_to));
+        // XXX: also show context if there are replies to this notice
+        if (!empty($this->notice->conversation)
+            && $this->notice->conversation != $this->notice->id) {
+            $convurl = common_local_url('conversation',
+                                         array('id' => $this->notice->conversation));
             $this->out->elementStart('dl', 'response');
             $this->out->element('dt', null, _('To'));
             $this->out->elementStart('dd');
-            $this->out->element('a', array('href' => $replyurl,
-                                           'rel' => 'in-reply-to'),
-                                _('in reply to'));
+            $this->out->element('a', array('href' => $convurl.'#notice-'.$this->notice->id),
+                                _('in context'));
             $this->out->elementEnd('dd');
             $this->out->elementEnd('dl');
         }

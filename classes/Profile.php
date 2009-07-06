@@ -1,7 +1,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -153,18 +153,67 @@ class Profile extends Memcached_DataObject
         return null;
     }
 
-    function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
+    function getTaggedNotices($tag, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0, $since=null)
+    {
+        $ids = Notice::stream(array($this, '_streamTaggedDirect'),
+                              array($tag),
+                              'profile:notice_ids_tagged:' . $this->id . ':' . $tag,
+                              $offset, $limit, $since_id, $max_id, $since);
+        return Notice::getStreamByIds($ids);
+    }
+
+    function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0, $since=null)
     {
         // XXX: I'm not sure this is going to be any faster. It probably isn't.
         $ids = Notice::stream(array($this, '_streamDirect'),
                               array(),
                               'profile:notice_ids:' . $this->id,
-                              $offset, $limit, $since_id, $max_id);
+                              $offset, $limit, $since_id, $max_id, $since);
 
         return Notice::getStreamByIds($ids);
     }
 
-    function _streamDirect($offset, $limit, $since_id, $max_id, $since)
+    function _streamTaggedDirect($tag, $offset, $limit, $since_id, $max_id, $since)
+    {
+        // XXX It would be nice to do this without a join
+
+        $notice = new Notice();
+
+        $query =
+          "select id from notice join notice_tag on id=notice_id where tag='".
+          $notice->escape($tag) .
+          "' and profile_id=" . $notice->escape($this->id);
+
+        if ($since_id != 0) {
+            $query .= " and id > $since_id";
+        }
+
+        if ($max_id != 0) {
+            $query .= " and id < $max_id";
+        }
+
+        if (!is_null($since)) {
+            $query .= " and created > '" . date('Y-m-d H:i:s', $since) . "'";
+        }
+
+        $query .= ' order by id DESC';
+
+        if (!is_null($offset)) {
+            $query .= " limit $offset, $limit";
+        }
+
+        $notice->query($query);
+
+        $ids = array();
+
+        while ($notice->fetch()) {
+            $ids[] = $notice->id;
+        }
+
+        return $ids;
+    }
+
+    function _streamDirect($offset, $limit, $since_id, $max_id, $since = null)
     {
         $notice = new Notice();
 
@@ -239,5 +288,53 @@ class Profile extends Memcached_DataObject
         } else {
             return Avatar::defaultImage($size);
         }
+    }
+
+    function getSubscriptions($offset=0, $limit=null)
+    {
+        $qry =
+          'SELECT profile.* ' .
+          'FROM profile JOIN subscription ' .
+          'ON profile.id = subscription.subscribed ' .
+          'WHERE subscription.subscriber = %d ' .
+          'AND subscription.subscribed != subscription.subscriber ' .
+          'ORDER BY subscription.created DESC ';
+
+        if (common_config('db','type') == 'pgsql') {
+            $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+        } else {
+            $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+        }
+
+        $profile = new Profile();
+
+        $profile->query(sprintf($qry, $this->id));
+
+        return $profile;
+    }
+
+    function getSubscribers($offset=0, $limit=null)
+    {
+        $qry =
+          'SELECT profile.* ' .
+          'FROM profile JOIN subscription ' .
+          'ON profile.id = subscription.subscriber ' .
+          'WHERE subscription.subscribed = %d ' .
+          'AND subscription.subscribed != subscription.subscriber ' .
+          'ORDER BY subscription.created DESC ';
+
+        if ($offset) {
+            if (common_config('db','type') == 'pgsql') {
+                $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+            } else {
+                $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+            }
+        }
+
+        $profile = new Profile();
+
+        $cnt = $profile->query(sprintf($qry, $this->id));
+
+        return $profile;
     }
 }

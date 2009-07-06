@@ -100,11 +100,13 @@ class GroupsAction extends Action
 
     function showContent()
     {
-        $this->elementStart('p', array('id' => 'new_group'));
-        $this->element('a', array('href' => common_local_url('newgroup'),
-                                  'class' => 'more'),
-                       _('Create a new group'));
-        $this->elementEnd('p');
+        if (common_logged_in()) {
+            $this->elementStart('p', array('id' => 'new_group'));
+            $this->element('a', array('href' => common_local_url('newgroup'),
+                                      'class' => 'more'),
+                           _('Create a new group'));
+            $this->elementEnd('p');
+        }
 
         $offset = ($this->page-1) * GROUPS_PER_PAGE;
         $limit =  GROUPS_PER_PAGE + 1;
@@ -113,6 +115,7 @@ class GroupsAction extends Action
         $groups->orderBy('created DESC');
         $groups->limit($offset, $limit);
 
+        $cnt = 0;
         if ($groups->find()) {
             $gl = new GroupList($groups, null, $this);
             $cnt = $gl->show();

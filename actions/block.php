@@ -12,7 +12,7 @@
  * @link     http://laconi.ca/
  *
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -125,16 +125,18 @@ class BlockAction extends Action
     function areYouSureForm()
     {
         $id = $this->profile->id;
+        $this->elementStart('form', array('id' => 'block-' . $id,
+                                           'method' => 'post',
+                                           'class' => 'form_settings form_entity_block',
+                                           'action' => common_local_url('block')));
+        $this->elementStart('fieldset');
+        $this->hidden('token', common_session_token());
+        $this->element('legend', _('Block user'));
         $this->element('p', null,
                        _('Are you sure you want to block this user? '.
                          'Afterwards, they will be unsubscribed from you, '.
                          'unable to subscribe to you in the future, and '.
                          'you will not be notified of any @-replies from them.'));
-        $this->elementStart('form', array('id' => 'block-' . $id,
-                                           'method' => 'post',
-                                           'class' => 'block',
-                                           'action' => common_local_url('block')));
-        $this->hidden('token', common_session_token());
         $this->element('input', array('id' => 'blockto-' . $id,
                                       'name' => 'blockto',
                                       'type' => 'hidden',
@@ -144,8 +146,9 @@ class BlockAction extends Action
                 $this->hidden($k, $v);
             }
         }
-        $this->submit('no', _('No'));
-        $this->submit('yes', _('Yes'));
+        $this->submit('form_action-no', _('No'), 'submit form_action-primary', 'no', _("Do not block this user from this group"));
+        $this->submit('form_action-yes', _('Yes'), 'submit form_action-secondary', 'yes', _('Block this user from this group'));
+        $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }
 

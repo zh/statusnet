@@ -18,26 +18,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-# Abort if called from a web server
-if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
-    print "This script must be run from the command line\n";
-    exit(1);
-}
-
-ini_set("max_execution_time", "0");
-ini_set("max_input_time", "0");
-set_time_limit(0);
-mb_internal_encoding('UTF-8');
-
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
-define('LACONICA', true);
 
-require_once(INSTALLDIR . '/lib/common.php');
+$shortoptions = 'u::';
+$longoptions = array('start-user-id::');
+
+$helptext = <<<END_OF_TRIM_HELP
+Batch script for trimming notice inboxes to a reasonable size.
+
+    -u <id>
+    --start-user-id=<id>   User ID to start after. Default is all.
+
+END_OF_TRIM_HELP;
+
+require_once INSTALLDIR.'/scripts/commandline.inc';
+
+$id = null;
+
+if (have_option('u')) {
+    $id = get_option_value('u');
+} else if (have_option('--start-user-id')) {
+    $id = get_option_value('--start-user-id');
+} else {
+    $id = null;
+}
 
 $user = new User();
-if ($argc > 1) {
-    $user->whereAdd('id > ' . $argv[1]);
+
+if (!empty($id)) {
+    $user->whereAdd('id > ' . $id);
 }
+
 $cnt = $user->find();
 
 while ($user->fetch()) {
@@ -74,10 +85,10 @@ while ($user->fetch()) {
     $delay = 3.0 * ($finish - $start);
 
     print "Delaying $delay seconds...";
-    
+
     // Wait to let slaves catch up
 
     usleep($delay * 1000000);
-    
+
     print "DONE.\n";
 }

@@ -51,6 +51,7 @@ VALUES
     ('twidge','Twidge','http://software.complete.org/twidge', now()),
     ('twidroid','twidroid','http://www.twidroid.com/', now()),
     ('twittelator','Twittelator','http://www.stone.com/iPhone/Twittelator/', now()),
+    ('twitter','Twitter','http://twitter.com/', now()),
     ('twitterfeed','twitterfeed','http://twitterfeed.com/', now()),
     ('twitterphoto','TwitterPhoto','http://richfish.org/twitterphoto/', now()),
     ('twitterpm','Net::Twitter','http://search.cpan.org/dist/Net-Twitter/', now()),

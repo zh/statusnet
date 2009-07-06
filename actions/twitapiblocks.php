@@ -1,7 +1,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
 require_once(INSTALLDIR.'/lib/twitterapi.php');
 
@@ -31,12 +33,12 @@ class TwitapiblocksAction extends TwitterapiAction
 
         $blockee = $this->get_user($apidata['api_arg'], $apidata);
 
-        if (!$blockee) {
+        if (empty($blockee)) {
             $this->clientError('Not Found', 404, $apidata['content-type']);
             return;
         }
 
-        $user = $apidata['user'];
+        $user = $apidata['user']; // Always the auth user
 
         if ($user->hasBlocked($blockee) || $user->block($blockee)) {
             $type = $apidata['content-type'];
@@ -53,7 +55,7 @@ class TwitapiblocksAction extends TwitterapiAction
         parent::handle($args);
         $blockee = $this->get_user($apidata['api_arg'], $apidata);
 
-        if (!$blockee) {
+        if (empty($blockee)) {
             $this->clientError('Not Found', 404, $apidata['content-type']);
             return;
         }

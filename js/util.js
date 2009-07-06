@@ -49,8 +49,9 @@ $(document).ready(function(){
 		// run once in case there's something in there
 		counter();
 
-		// set the focus
-		$("#notice_data-text").focus();
+        if($('body')[0].id != 'conversation') {
+            $("#notice_data-text").focus();
+        }
 	}
 
 	// XXX: refactor this code
@@ -203,14 +204,26 @@ $(document).ready(function(){
                                                     else {
                                                          li = $("li", xml).get(0);
                                                          if ($("#"+li.id).length == 0) {
-                                                              $("#notices_primary .notices").prepend(document._importNode(li, true));
-                                                              $("#notices_primary .notice:first").css({display:"none"});
-                                                              $("#notices_primary .notice:first").fadeIn(2500);
-                                                              NoticeHover();
-                                                              NoticeReply();
+                                                            var notice_irt_value = $('#notice_in-reply-to').val();
+                                                            var notice_irt = '#notices_primary #notice-'+notice_irt_value;
+                                                            if($('body')[0].id == 'conversation') {
+                                                                if(notice_irt_value.length > 0 && $(notice_irt+' .notices').length < 1) {
+                                                                    $(notice_irt).append('<ul class="notices"></ul>');
+                                                                }
+                                                                $($(notice_irt+' .notices')[0]).append(document._importNode(li, true));
+                                                            }
+                                                            else {
+                                                                $("#notices_primary .notices").prepend(document._importNode(li, true));
+                                                            }
+                                                            $('#'+li.id).css({display:'none'});
+                                                            $('#'+li.id).fadeIn(2500);
+                                                            NoticeReply();
+                                                            NoticeAttachments();
                                                          }
 													}
 													$("#notice_data-text").val("");
+    												$("#notice_data-attach").val("");
+                                                    $('#notice_data-attach_selected').remove();
                                                     counter();
 												}
 												$("#form_notice").removeClass("processing");
@@ -220,28 +233,18 @@ $(document).ready(function(){
 					   };
 	$("#form_notice").ajaxForm(PostNotice);
 	$("#form_notice").each(addAjaxHidden);
-    NoticeHover();
     NoticeReply();
+    NoticeAttachments();
+    NoticeDataAttach();
 });
 
-function NoticeHover() {
-    $("#content .notice").hover(
-        function () {
-            $(this).addClass('hover');
-        },
-        function () {
-            $(this).removeClass('hover');
-        }
-    );
-}
-
 function NoticeReply() {
-    if ($('#notice_data-text').length > 0) {
+    if ($('#notice_data-text').length > 0 && $('#content .notice_reply').length > 0) {
         $('#content .notice').each(function() {
-            var notice = $(this);
-            $('.notice_reply', $(this)).click(function() {
-                var nickname = ($('.author .nickname', notice).length > 0) ? $('.author .nickname', notice) : $('.author .nickname');
-                NoticeReplySet(nickname.text(), $('.notice_id', notice).text());
+            var notice = $(this)[0];
+            $($('.notice_reply', notice)[0]).click(function() {
+                var nickname = ($('.author .nickname', notice).length > 0) ? $($('.author .nickname', notice)[0]) : $('.author .nickname');
+                NoticeReplySet(nickname.text(), $($('.notice_id', notice)[0]).text());
                 return false;
             });
         });
@@ -260,4 +263,68 @@ function NoticeReplySet(nick,id) {
 		}
 	}
 	return true;
+}
+
+function NoticeAttachments() {
+    $.fn.jOverlay.options = {
+        method : 'GET',
+        data : '',
+        url : '',
+        color : '#000',
+        opacity : '0.6',
+        zIndex : 99,
+        center : false,
+        imgLoading : $('address .url')[0].href+'theme/base/images/illustrations/illu_progress_loading-01.gif',
+        bgClickToClose : true,
+        success : function() {
+            $('#jOverlayContent').append('<button>&#215;</button>');
+            $('#jOverlayContent button').click($.closeOverlay);
+        },
+        timeout : 0,
+        autoHide : true,
+        css : {'max-width':'502px', 'top':'22.5%', 'left':'32.5%'}
+    };
+
+    $('#content .notice a.attachment').click(function() {
+        $().jOverlay({url: $('address .url')[0].href+'attachment/' + ($(this).attr('id').substring('attachment'.length + 1)) + '/ajax'});
+        return false;
+    });
+
+    var t;
+    $("body:not(#shownotice) #content .notice a.thumbnail").hover(
+        function() {
+            var anchor = $(this);
+            $("a.thumbnail").children('img').hide();
+            anchor.closest(".entry-title").addClass('ov');
+
+            if (anchor.children('img').length == 0) {
+                t = setTimeout(function() {
+                    $.get($('address .url')[0].href+'attachment/' + (anchor.attr('id').substring('attachment'.length + 1)) + '/thumbnail', null, function(data) {
+                        anchor.append(data);
+                    });
+                }, 500);
+            }
+            else {
+                anchor.children('img').show();
+            }
+        },
+        function() {
+            clearTimeout(t);
+            $("a.thumbnail").children('img').hide();
+            $(this).closest(".entry-title").removeClass('ov');
+        }
+    );
+}
+
+function NoticeDataAttach() {
+    NDA = $('#notice_data-attach');
+    NDA.change(function() {
+        S = '<div id="notice_data-attach_selected" class="success"><code>'+$(this).val()+'</code> <button>&#215;</button></div>';
+        NDAS = $('#notice_data-attach_selected');
+        (NDAS.length > 0) ? NDAS.replaceWith(S) : $('#form_notice').append(S);
+        $('#notice_data-attach_selected button').click(function(){
+            $('#notice_data-attach_selected').remove();
+            NDA.val('');
+        });
+    });
 }

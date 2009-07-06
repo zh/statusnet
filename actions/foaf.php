@@ -1,7 +1,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -82,14 +82,18 @@ class FoafAction extends Action
                                               'http://www.w3.org/2000/01/rdf-schema#',
                                               'xmlns:geo' =>
                                               'http://www.w3.org/2003/01/geo/wgs84_pos#',
+                                              'xmlns:bio' =>
+                                              'http://purl.org/vocab/bio/0.1/',
+                                              'xmlns:sioc' =>
+                                              'http://rdfs.org/sioc/ns#',
                                               'xmlns' => 'http://xmlns.com/foaf/0.1/'));
 
         // This is the document about the user
 
         $this->showPpd('', $this->user->uri);
 
-        // XXX: might not be a person
-        $this->elementStart('Person', array('rdf:about' =>
+        // Would be nice to tell if they were a Person or not (e.g. a #person usertag?)
+        $this->elementStart('Agent', array('rdf:about' =>
                                              $this->user->uri));
         $this->element('mbox_sha1sum', null, sha1('mailto:' . $this->user->email));
         if ($this->profile->fullname) {
@@ -98,8 +102,11 @@ class FoafAction extends Action
         if ($this->profile->homepage) {
             $this->element('homepage', array('rdf:resource' => $this->profile->homepage));
         }
+        if ($this->profile->profileurl) {
+            $this->element('weblog', array('rdf:resource' => $this->profile->profileurl));
+        }
         if ($this->profile->bio) {
-            $this->element('rdfs:comment', null, $this->profile->bio);
+            $this->element('bio:olb', null, $this->profile->bio);
         }
         // XXX: more structured location data
         if ($this->profile->location) {
@@ -110,10 +117,7 @@ class FoafAction extends Action
             $this->elementEnd('based_near');
         }
 
-        $this->showMicrobloggingAccount($this->profile, common_root_url());
-
         $avatar = $this->profile->getOriginalAvatar();
-
         if ($avatar) {
             $this->elementStart('img');
             $this->elementStart('Image', array('rdf:about' => $avatar->url));
@@ -129,39 +133,8 @@ class FoafAction extends Action
             $this->elementEnd('img');
         }
 
-        // Get people user is subscribed to
-
-        $person = array();
-
-        $sub = new Subscription();
-        $sub->subscriber = $this->profile->id;
-        $sub->whereAdd('subscriber != subscribed');
-
-        if ($sub->find()) {
-            while ($sub->fetch()) {
-                if (!empty($sub->token)) {
-                    $other = Remote_profile::staticGet('id', $sub->subscribed);
-                } else {
-                    $other = User::staticGet('id', $sub->subscribed);
-                }
-                if (empty($other)) {
-                    common_debug('Got a bad subscription: '.print_r($sub,true));
-                    continue;
-                }
-                $this->element('knows', array('rdf:resource' => $other->uri));
-                $person[$other->uri] = array(LISTENEE,
-                                             $other->id,
-                                             $other->nickname,
-                                             (empty($sub->token)) ? 'User' : 'Remote_profile');
-                $other->free();
-                $other = null;
-                unset($other);
-            }
-        }
-
-        $sub->free();
-        $sub = null;
-        unset($sub);
+        $person = $this->showMicrobloggingAccount($this->profile,
+                                     common_root_url(), $this->user->uri, false);
 
         // Get people who subscribe to user
 
@@ -198,7 +171,15 @@ class FoafAction extends Action
         $sub = null;
         unset($sub);
 
-        $this->elementEnd('Person');
+        foreach ($person as $uri => $p) {
+            list($type, $id, $nickname, $cls) = $p;
+            if ($type == BOTH) {
+                $this->element('knows', array('rdf:resource' => $uri));
+            }
+        }
+        
+        $this->elementEnd('Agent');
+
 
         foreach ($person as $uri => $p) {
             $foaf_url = null;
@@ -207,16 +188,18 @@ class FoafAction extends Action
                 $foaf_url = common_local_url('foaf', array('nickname' => $nickname));
             }
             $profile = Profile::staticGet($id);
-            $this->elementStart('Person', array('rdf:about' => $uri));
-            if ($type == LISTENER || $type == BOTH) {
+            $this->elementStart('Agent', array('rdf:about' => $uri));
+            if ($type == BOTH) {
                 $this->element('knows', array('rdf:resource' => $this->user->uri));
             }
-            $this->showMicrobloggingAccount($profile, ($cls == 'User') ?
-                                            common_root_url() : null);
+            $this->showMicrobloggingAccount($profile,
+                                   ($cls == 'User') ? common_root_url() : null,
+                                   $uri,
+                                   true);
             if ($foaf_url) {
                 $this->element('rdfs:seeAlso', array('rdf:resource' => $foaf_url));
             }
-            $this->elementEnd('Person');
+            $this->elementEnd('Agent');
             if ($foaf_url) {
                 $this->showPpd($foaf_url, $uri);
             }
@@ -237,18 +220,66 @@ class FoafAction extends Action
         $this->elementEnd('PersonalProfileDocument');
     }
 
-    function showMicrobloggingAccount($profile, $service=null)
+    function showMicrobloggingAccount($profile, $service=null, $useruri=null, $isSubscriber=false)
     {
+        $attr = array();
+        if ($useruri) {
+            $attr['rdf:about'] = $useruri . '#acct';
+        }
+
         // Their account
         $this->elementStart('holdsAccount');
-        $this->elementStart('OnlineAccount');
+        $this->elementStart('OnlineAccount', $attr);
         if ($service) {
             $this->element('accountServiceHomepage', array('rdf:resource' =>
                                                            $service));
         }
         $this->element('accountName', null, $profile->nickname);
-        $this->element('homepage', array('rdf:resource' => $profile->profileurl));
+        $this->element('accountProfilePage', array('rdf:resource' => $profile->profileurl));
+        if ($useruri) {
+            $this->element('sioc:account_of', array('rdf:resource'=>$useruri));
+        }
+
+        $person = array();
+
+        if ($isSubscriber) {
+             $this->element('sioc:follows', array('rdf:resource'=>$this->user->uri . '#acct'));
+        } else {
+            // Get people user is subscribed to
+            $sub = new Subscription();
+            $sub->subscriber = $profile->id;
+            $sub->whereAdd('subscriber != subscribed');
+
+            if ($sub->find()) {
+                while ($sub->fetch()) {
+                    if (!empty($sub->token)) {
+                        $other = Remote_profile::staticGet('id', $sub->subscribed);
+                    } else {
+                        $other = User::staticGet('id', $sub->subscribed);
+                    }
+                    if (empty($other)) {
+                        common_debug('Got a bad subscription: '.print_r($sub,true));
+                        continue;
+                    }
+                    $this->element('sioc:follows', array('rdf:resource' => $other->uri.'#acct'));
+                    $person[$other->uri] = array(LISTENEE,
+                                                 $other->id,
+                                                 $other->nickname,
+                                                 (empty($sub->token)) ? 'User' : 'Remote_profile');
+                    $other->free();
+                    $other = null;
+                    unset($other);
+                }
+            }
+
+            $sub->free();
+            $sub = null;
+            unset($sub);
+        }
+
         $this->elementEnd('OnlineAccount');
         $this->elementEnd('holdsAccount');
+
+        return $person;
     }
 }

@@ -27,7 +27,7 @@
  */
 
 /** XMPPHP_XMLStream */
-require_once "XMPP.php";
+require_once dirname(__FILE__) . "/XMPP.php";
 
 /**
  * XMPPHP Main Class

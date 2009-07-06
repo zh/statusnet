@@ -13,7 +13,7 @@
  * @link     http://laconi.ca/
  *
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -75,7 +75,7 @@ class DisfavorAction extends Action
             return;
         }
         $fave            = new Fave();
-        $fave->user_id   = $this->id;
+        $fave->user_id   = $user->id;
         $fave->notice_id = $notice->id;
         if (!$fave->find(true)) {
             $this->clientError(_('This notice is not a favorite!'));

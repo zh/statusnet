@@ -47,18 +47,18 @@ require_once INSTALLDIR.'/lib/groupminilist.php';
  * @link     http://laconi.ca/
  */
 
-class ProfileAction extends Action
+class ProfileAction extends OwnerDesignAction
 {
-    var $user = null;
-    var $page = null;
+    var $page    = null;
     var $profile = null;
+    var $tag     = null;
 
     function prepare($args)
     {
         parent::prepare($args);
 
         $nickname_arg = $this->arg('nickname');
-        $nickname = common_canonical_nickname($nickname_arg);
+        $nickname     = common_canonical_nickname($nickname_arg);
 
         // Permanent redirect on non-canonical nickname
 
@@ -85,10 +85,9 @@ class ProfileAction extends Action
             return false;
         }
 
+        $this->tag = $this->trimmed('tag');
         $this->page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
-
         common_set_returnto($this->selfUrl());
-
         return true;
     }
 
@@ -109,8 +108,10 @@ class ProfileAction extends Action
 
         $this->element('h2', null, _('Subscriptions'));
 
-        if ($profile) {
-            $pml = new ProfileMiniList($profile, $this->user, $this);
+        $cnt = 0;
+
+        if (!empty($profile)) {
+            $pml = new ProfileMiniList($profile, $this);
             $cnt = $pml->show();
             if ($cnt == 0) {
                 $this->element('p', null, _('(None)'));
@@ -138,8 +139,10 @@ class ProfileAction extends Action
 
         $this->element('h2', null, _('Subscribers'));
 
-        if ($profile) {
-            $pml = new ProfileMiniList($profile, $this->user, $this);
+        $cnt = 0;
+
+        if (!empty($profile)) {
+            $pml = new ProfileMiniList($profile, $this);
             $cnt = $pml->show();
             if ($cnt == 0) {
                 $this->element('p', null, _('(None)'));
@@ -245,3 +248,4 @@ class ProfileAction extends Action
         $this->elementEnd('div');
     }
 }
+

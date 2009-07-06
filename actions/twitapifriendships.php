@@ -1,7 +1,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
 require_once(INSTALLDIR.'/lib/twitterapi.php');
 
@@ -29,23 +31,25 @@ class TwitapifriendshipsAction extends TwitterapiAction
         parent::handle($args);
 
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            $this->clientError(_('This method requires a POST.'), 400, $apidata['content-type']);
+            $this->clientError(_('This method requires a POST.'),
+                400, $apidata['content-type']);
             return;
         }
 
-        $id = $apidata['api_arg'];
-
+        $id    = $apidata['api_arg'];
         $other = $this->get_user($id);
 
-        if (!$other) {
-            $this->clientError(_('Could not follow user: User not found.'), 403, $apidata['content-type']);
+        if (empty($other)) {
+            $this->clientError(_('Could not follow user: User not found.'),
+                403, $apidata['content-type']);
             return;
         }
 
         $user = $apidata['user'];
 
         if ($user->isSubscribed($other)) {
-            $errmsg = sprintf(_('Could not follow user: %s is already on your list.'), $other->nickname);
+            $errmsg = sprintf(_('Could not follow user: %s is already on your list.'),
+                $other->nickname);
             $this->clientError($errmsg, 403, $apidata['content-type']);
             return;
         }
@@ -60,8 +64,9 @@ class TwitapifriendshipsAction extends TwitterapiAction
 
         $result = $sub->insert();
 
-        if (!$result) {
-            $errmsg = sprintf(_('Could not follow user: %s is already on your list.'), $other->nickname);
+        if (empty($result)) {
+            $errmsg = sprintf(_('Could not follow user: %s is already on your list.'),
+                $other->nickname);
             $this->clientError($errmsg, 400, $apidata['content-type']);
             return;
         }
@@ -82,7 +87,8 @@ class TwitapifriendshipsAction extends TwitterapiAction
         parent::handle($args);
 
         if (!in_array($_SERVER['REQUEST_METHOD'], array('POST', 'DELETE'))) {
-            $this->clientError(_('This method requires a POST or DELETE.'), 400, $apidata['content-type']);
+            $this->clientError(_('This method requires a POST or DELETE.'),
+                400, $apidata['content-type']);
             return;
         }
 
@@ -91,7 +97,7 @@ class TwitapifriendshipsAction extends TwitterapiAction
         # We can't subscribe to a remote person, but we can unsub
 
         $other = $this->get_profile($id);
-        $user = $apidata['user'];
+        $user = $apidata['user']; // Alwyas the auth user
 
         $sub = new Subscription();
         $sub->subscriber = $user->id;
@@ -102,7 +108,8 @@ class TwitapifriendshipsAction extends TwitterapiAction
             $sub->delete();
             $sub->query('COMMIT');
         } else {
-            $this->clientError(_('You are not friends with the specified user.'), 403, $apidata['content-type']);
+            $this->clientError(_('You are not friends with the specified user.'),
+                403, $apidata['content-type']);
             return;
         }
 
@@ -128,8 +135,9 @@ class TwitapifriendshipsAction extends TwitterapiAction
         $user_a = $this->get_user($user_a_id);
         $user_b = $this->get_user($user_b_id);
 
-        if (!$user_a || !$user_b) {
-            $this->clientError(_('Two user ids or screen_names must be supplied.'), 400, $apidata['content-type']);
+        if (empty($user_a) || empty($user_b)) {
+            $this->clientError(_('Two user ids or screen_names must be supplied.'),
+                400, $apidata['content-type']);
             return;
         }
 
@@ -150,6 +158,87 @@ class TwitapifriendshipsAction extends TwitterapiAction
             break;
         }
 
+    }
+
+    function show($args, $apidata)
+    {
+        parent::handle($args);
+
+        if (!in_array($apidata['content-type'], array('xml', 'json'))) {
+            $this->clientError(_('API method not found!'), $code = 404);
+            return;
+        }
+
+        $source_id          = (int)$this->trimmed('source_id');
+        $source_screen_name = $this->trimmed('source_screen_name');
+
+        // If the source is not specified for an unauthenticated request,
+        // the method will return an HTTP 403.
+
+        if (empty($source_id) && empty($source_screen_name)) {
+            if (empty($apidata['user'])) {
+                $this->clientError(_('Could not determine source user.'),
+                        $code = 403);
+                return;
+            }
+        }
+
+        $source = null;
+
+        if (!empty($source_id)) {
+            $source = User::staticGet($source_id);
+        } elseif (!empty($source_screen_name)) {
+            $source = User::staticGet('nickname', $source_screen_name);
+        } else {
+            $source = $apidata['user'];
+        }
+
+        // If a source or target is specified but does not exist,
+        // the method will return an HTTP 404.
+
+        if (empty($source)) {
+            $this->clientError(_('Could not determine source user.'),
+                $code = 404);
+            return;
+        }
+
+        $target_id          = (int)$this->trimmed('target_id');
+        $target_screen_name = $this->trimmed('target_screen_name');
+
+        $target = null;
+
+        if (!empty($target_id)) {
+            $target = User::staticGet($target_id);
+        } elseif (!empty($target_screen_name)) {
+            $target = User::staticGet('nickname', $target_screen_name);
+        } else {
+            $this->clientError(_('Target user not specified.'),
+                $code = 403);
+            return;
+        }
+
+        if (empty($target)) {
+            $this->clientError(_('Could not find target user.'),
+                $code = 404);
+            return;
+        }
+
+        $result = $this->twitter_relationship_array($source, $target);
+
+        switch ($apidata['content-type']) {
+        case 'xml':
+            $this->init_document('xml');
+            $this->show_twitter_xml_relationship($result[relationship]);
+            $this->end_document('xml');
+            break;
+        case 'json':
+            $this->init_document('json');
+            print json_encode($result);
+            $this->end_document('json');
+            break;
+        default:
+            break;
+        }
     }
 
 }

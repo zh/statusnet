@@ -1,7 +1,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-if (!defined('LACONICA')) { exit(1); }
+if (!defined('LACONICA')) {
+    exit(1);
+}
 
 require_once(INSTALLDIR.'/lib/twitterapi.php');
 
@@ -51,7 +53,8 @@ class TwitapiaccountAction extends TwitterapiAction
         parent::handle($args);
 
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            $this->clientError(_('This method requires a POST.'), 400, $apidata['content-type']);
+            $this->clientError(_('This method requires a POST.'),
+                400, $apidata['content-type']);
             return;
         }
 
@@ -60,24 +63,20 @@ class TwitapiaccountAction extends TwitterapiAction
         if (!is_null($location) && mb_strlen($location) > 255) {
 
             // XXX: But Twitter just truncates and runs with it. -- Zach
-            $this->clientError(_('That\'s too long. Max notice size is 255 chars.'), 406, $apidate['content-type']);
+            $this->clientError(_('That\'s too long. Max notice size is 255 chars.'),
+                406, $apidate['content-type']);
             return;
         }
 
-        $user = $apidata['user'];
+        $user = $apidata['user']; // Always the auth user
         $profile = $user->getProfile();
-
-        if (!$profile) {
-            $this->serverError(_('User has no profile.'));
-            return;
-        }
 
         $orig_profile = clone($profile);
         $profile->location = $location;
 
         $result = $profile->update($orig_profile);
 
-        if (!$result) {
+        if (empty($result)) {
             common_log_db_error($profile, 'UPDATE', __FILE__);
             $this->serverError(_('Couldn\'t save profile.'));
             return;

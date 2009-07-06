@@ -382,6 +382,19 @@ class RegisterAction extends Action
 
     function showFormContent()
     {
+        $code = $this->trimmed('code');
+
+        $invite = null;
+
+        if ($code) {
+            $invite = Invitation::staticGet($code);
+        }
+
+        if (common_config('site', 'inviteonly') && !($code && $invite)) {
+            $this->clientError(_('Sorry, only invited people can register.'));
+            return;
+        }
+
         $this->elementStart('form', array('method' => 'post',
                                           'id' => 'form_register',
                                           'class' => 'form_settings',

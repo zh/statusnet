@@ -137,22 +137,49 @@ class SubscriptionsAction extends GalleryAction
     }
 }
 
-class SubscriptionsList extends ProfileList
+// XXX SubscriptionsList and SubscriptionList are dangerously close
+
+class SubscriptionsList extends SubscriptionList
 {
-    function showOwnerControls($profile)
+    function newListItem($profile)
+    {
+        return new SubscriptionsListItem($profile, $this->owner, $this->action);
+    }
+}
+
+class SubscriptionsListItem extends SubscriptionListItem
+{
+    function showProfile()
+    {
+        $this->startProfile();
+        $this->showAvatar();
+        $this->showFullName();
+        $this->showLocation();
+        $this->showHomepage();
+        $this->showBio();
+        $this->showTags();
+        // Relevant portion!
+        $cur = common_current_user();
+        if (!empty($cur) && $cur->id == $this->owner->id) {
+            $this->showOwnerControls();
+        }
+        $this->endProfile();
+    }
+
+    function showOwnerControls()
     {
         $sub = Subscription::pkeyGet(array('subscriber' => $this->owner->id,
-                                           'subscribed' => $profile->id));
+                                           'subscribed' => $this->profile->id));
         if (!$sub) {
             return;
         }
 
-        $this->out->elementStart('form', array('id' => 'subedit-' . $profile->id,
+        $this->out->elementStart('form', array('id' => 'subedit-' . $this->profile->id,
                                           'method' => 'post',
                                           'class' => 'form_subscription_edit',
                                           'action' => common_local_url('subedit')));
         $this->out->hidden('token', common_session_token());
-        $this->out->hidden('profile', $profile->id);
+        $this->out->hidden('profile', $this->profile->id);
         $this->out->checkbox('jabber', _('Jabber'), $sub->jabber);
         $this->out->checkbox('sms', _('SMS'), $sub->sms);
         $this->out->submit('save', _('Save'));

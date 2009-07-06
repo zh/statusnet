@@ -1,7 +1,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -346,7 +346,7 @@ function save_twitter_friends($user, $twitter_id, $screen_name, $password)
 function is_twitter_bound($notice, $flink) {
 
     // Check to see if notice should go to Twitter
-    if ($flink->noticesync & FOREIGN_NOTICE_SEND) {
+    if (!empty($flink) && ($flink->noticesync & FOREIGN_NOTICE_SEND)) {
 
         // If it's not a Twitter-style reply, or if the user WANTS to send replies.
         if (!preg_match('/^@[a-zA-Z0-9_]{1,15}\b/u', $notice->content) ||

@@ -1,7 +1,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -19,7 +19,7 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-define('LACONICA_VERSION', '0.7.4');
+define('LACONICA_VERSION', '0.8.0dev');
 
 define('AVATAR_PROFILE_SIZE', 96);
 define('AVATAR_STREAM_SIZE', 48);
@@ -55,14 +55,37 @@ require_once(INSTALLDIR.'/lib/language.php');
 require_once(INSTALLDIR.'/lib/event.php');
 require_once(INSTALLDIR.'/lib/plugin.php');
 
-// try to figure out where we are
+function _sn_to_path($sn)
+{
+    $past_root = substr($sn, 1);
+    $last_slash = strrpos($past_root, '/');
+    if ($last_slash > 0) {
+        $p = substr($past_root, 0, $last_slash);
+    } else {
+        $p = '';
+    }
+    return $p;
+}
 
-$_server = array_key_exists('SERVER_NAME', $_SERVER) ?
-  strtolower($_SERVER['SERVER_NAME']) :
-  null;
-$_path = array_key_exists('SCRIPT_NAME', $_SERVER) ?
-  substr($_SERVER['SCRIPT_NAME'], 1, strrpos($_SERVER['SCRIPT_NAME'], '/') - 1) :
-  null;
+// try to figure out where we are. $server and $path
+// can be set by including module, else we guess based
+// on HTTP info.
+
+if (isset($server)) {
+    $_server = $server;
+} else {
+    $_server = array_key_exists('SERVER_NAME', $_SERVER) ?
+      strtolower($_SERVER['SERVER_NAME']) :
+    null;
+}
+
+if (isset($path)) {
+    $_path = $path;
+} else {
+    $_path = array_key_exists('SCRIPT_NAME', $_SERVER) ?
+      _sn_to_path($_SERVER['SCRIPT_NAME']) :
+    null;
+}
 
 // default configuration, overwritten in config.php
 
@@ -71,6 +94,14 @@ $config =
         array('name' => 'Just another Laconica microblog',
               'server' => $_server,
               'theme' => 'default',
+              'design' =>
+              array('backgroundcolor' => '#CEE1E9',
+                    'contentcolor' => '#FFFFFF',
+                    'sidebarcolor' => '#C8D1D5',
+                    'textcolor' => '#000000',
+                    'linkcolor' => '#002E6E',
+                    'backgroundimage' => null,
+                    'disposition' => 1),
               'path' => $_path,
               'logfile' => null,
               'logo' => null,
@@ -89,12 +120,20 @@ $config =
               'private' => false,
               'ssl' => 'never',
               'sslserver' => null,
+              'shorturllength' => 30,
               'dupelimit' => 60), # default for same person saying the same thing
         'syslog' =>
         array('appname' => 'laconica', # for syslog
-              'priority' => 'debug'), # XXX: currently ignored
+              'priority' => 'debug', # XXX: currently ignored
+              'facility' => LOG_USER),
         'queue' =>
-        array('enabled' => false),
+        array('enabled' => false,
+              'subsystem' => 'db', # default to database, or 'stomp'
+              'stomp_server' => null,
+              'queue_basename' => 'laconica',
+              'stomp_username' => null,
+              'stomp_password' => null,
+              ),
         'license' =>
         array('url' => 'http://creativecommons.org/licenses/by/3.0/',
               'title' => 'Creative Commons Attribution 3.0',
@@ -108,13 +147,21 @@ $config =
         'profile' =>
         array('banned' => array()),
         'avatar' =>
-        array('server' => null),
+        array('server' => null,
+              'dir' => INSTALLDIR . '/avatar/',
+              'path' => $_path . '/avatar/'),
+        'background' =>
+        array('server' => null,
+              'dir' => INSTALLDIR . '/background/',
+              'path' => $_path . '/background/'),
         'public' =>
         array('localonly' => true,
               'blacklist' => array(),
               'autosource' => array()),
         'theme' =>
-        array('server' => null),
+        array('server' => null,
+              'dir' => null,
+              'path'=> null),
         'throttle' =>
         array('enabled' => false, // whether to throttle edits; false by default
               'count' => 20, // number of allowed messages in timespan
@@ -130,6 +177,8 @@ $config =
               'host' => null, # only set if != server
               'debug' => false, # print extra debug info
               'public' => array()), # JIDs of users who want to receive the public stream
+        'invite' =>
+        array('enabled' => true),
         'sphinx' =>
         array('enabled' => false,
               'server' => 'localhost',
@@ -142,12 +191,15 @@ $config =
         array('piddir' => '/var/run',
               'user' => false,
               'group' => false),
+        'twitterbridge' =>
+        array('enabled' => false),
         'integration' =>
         array('source' => 'Laconica', # source attribute for Twitter
               'taguri' => $_server.',2009'), # base for tag URIs
         'memcached' =>
         array('enabled' => false,
               'server' => 'localhost',
+              'base' => null,
               'port' => 11211),
  		'ping' =>
         array('notify' => array()),
@@ -156,6 +208,59 @@ $config =
         'newuser' =>
         array('subscribe' => null,
               'welcome' => null),
+        'snapshot' =>
+        array('run' => 'web',
+              'frequency' => 10000,
+              'reporturl' => 'http://laconi.ca/stats/report'),
+        'attachments' =>
+        array('server' => null,
+              'dir' => INSTALLDIR . '/file/',
+              'path' => $_path . '/file/',
+              'supported' => array('image/png',
+                                   'image/jpeg',
+                                   'image/gif',
+                                   'image/svg+xml',
+                                   'audio/mpeg',
+                                   'audio/x-speex',
+                                   'application/ogg',
+                                   'application/pdf',
+                                   'application/vnd.oasis.opendocument.text',
+                                   'application/vnd.oasis.opendocument.text-template',
+                                   'application/vnd.oasis.opendocument.graphics',
+                                   'application/vnd.oasis.opendocument.graphics-template',
+                                   'application/vnd.oasis.opendocument.presentation',
+                                   'application/vnd.oasis.opendocument.presentation-template',
+                                   'application/vnd.oasis.opendocument.spreadsheet',
+                                   'application/vnd.oasis.opendocument.spreadsheet-template',
+                                   'application/vnd.oasis.opendocument.chart',
+                                   'application/vnd.oasis.opendocument.chart-template',
+                                   'application/vnd.oasis.opendocument.image',
+                                   'application/vnd.oasis.opendocument.image-template',
+                                   'application/vnd.oasis.opendocument.formula',
+                                   'application/vnd.oasis.opendocument.formula-template',
+                                   'application/vnd.oasis.opendocument.text-master',
+                                   'application/vnd.oasis.opendocument.text-web',
+                                   'application/x-zip',
+                                   'application/zip',
+                                   'text/plain',
+                                   'video/mpeg',
+                                   'video/mp4',
+                                   'video/quicktime',
+                                   'video/mpeg'),
+        'file_quota' => 5000000,
+        'user_quota' => 50000000,
+        'monthly_quota' => 15000000,
+        'uploads' => true,
+        'filecommand' => '/usr/bin/file',
+        ),
+        'group' =>
+        array('maxaliases' => 3),
+        'oohembed' => array('endpoint' => 'http://oohembed.com/oohembed/'),
+        'search' =>
+        array('type' => 'fulltext'),
+        'sessions' =>
+        array('handle' => false, // whether to handle sessions ourselves
+              'debug' => false), // debugging output for sessions
         );
 
 $config['db'] = &PEAR::getStaticProperty('DB_DataObject','options');
@@ -181,14 +286,18 @@ if (function_exists('date_default_timezone_set')) {
 // server-wide, then vhost-wide, then for a path,
 // finally for a dir (usually only need one of the last two).
 
-$_config_files = array('/etc/laconica/laconica.php',
-                  '/etc/laconica/'.$_server.'.php');
+if (isset($conffile)) {
+    $_config_files = array($conffile);
+} else {
+    $_config_files = array('/etc/laconica/laconica.php',
+                           '/etc/laconica/'.$_server.'.php');
 
-if (strlen($_path) > 0) {
-    $_config_files[] = '/etc/laconica/'.$_server.'_'.$_path.'.php';
+    if (strlen($_path) > 0) {
+        $_config_files[] = '/etc/laconica/'.$_server.'_'.$_path.'.php';
+    }
+
+    $_config_files[] = INSTALLDIR.'/config.php';
 }
-
-$_config_files[] = INSTALLDIR.'/config.php';
 
 $_have_a_config = false;
 
@@ -217,19 +326,19 @@ if ($_db_name != 'laconica' && !array_key_exists('ini_'.$_db_name, $config['db']
 
 // XXX: how many of these could be auto-loaded on use?
 
-require_once('Validate.php');
-require_once('markdown.php');
+require_once 'Validate.php';
+require_once 'markdown.php';
 
-require_once(INSTALLDIR.'/lib/util.php');
-require_once(INSTALLDIR.'/lib/action.php');
-require_once(INSTALLDIR.'/lib/theme.php');
-require_once(INSTALLDIR.'/lib/mail.php');
-require_once(INSTALLDIR.'/lib/subs.php');
-require_once(INSTALLDIR.'/lib/Shorturl_api.php');
-require_once(INSTALLDIR.'/lib/twitter.php');
+require_once INSTALLDIR.'/lib/util.php';
+require_once INSTALLDIR.'/lib/action.php';
+require_once INSTALLDIR.'/lib/theme.php';
+require_once INSTALLDIR.'/lib/mail.php';
+require_once INSTALLDIR.'/lib/subs.php';
+require_once INSTALLDIR.'/lib/Shorturl_api.php';
+require_once INSTALLDIR.'/lib/twitter.php';
 
-require_once(INSTALLDIR.'/lib/clientexception.php');
-require_once(INSTALLDIR.'/lib/serverexception.php');
+require_once INSTALLDIR.'/lib/clientexception.php';
+require_once INSTALLDIR.'/lib/serverexception.php';
 
 // XXX: other formats here
 

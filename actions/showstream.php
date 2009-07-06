@@ -68,6 +68,9 @@ class ShowstreamAction extends ProfileAction
         } else {
             $base = $this->user->nickname;
         }
+        if (!empty($this->tag)) {
+            $base .= sprintf(_(' tagged %s'), $this->tag);
+        }
 
         if ($this->page == 1) {
             return $base;
@@ -110,6 +113,15 @@ class ShowstreamAction extends ProfileAction
 
     function getFeeds()
     {
+        if (!empty($this->tag)) {
+            return array(new Feed(Feed::RSS1,
+                common_local_url('userrss',
+                    array('nickname' => $this->user->nickname,
+                        'tag' => $this->tag)),
+                sprintf(_('Notice feed for %s tagged %s (RSS 1.0)'),
+                    $this->user->nickname, $this->tag)));
+        }
+
         return array(new Feed(Feed::RSS1,
                               common_local_url('userrss',
                                                array('nickname' => $this->user->nickname)),
@@ -356,7 +368,9 @@ class ShowstreamAction extends ProfileAction
 
     function showNotices()
     {
-        $notice = $this->user->getNotices(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1);
+        $notice = empty($this->tag)
+            ? $this->user->getNotices(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1)
+            : $this->user->getTaggedNotices($this->tag, ($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1, 0, 0, null);
 
         $pnl = new ProfileNoticeList($notice, $this);
         $cnt = $pnl->show();

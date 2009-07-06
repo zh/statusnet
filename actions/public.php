@@ -35,6 +35,10 @@ require_once INSTALLDIR.'/lib/publicgroupnav.php';
 require_once INSTALLDIR.'/lib/noticelist.php';
 require_once INSTALLDIR.'/lib/feedlist.php';
 
+// Farther than any human will go
+
+define('MAX_PUBLIC_PAGE', 100);
+
 /**
  * Action for displaying the public stream
  *
@@ -73,6 +77,10 @@ class PublicAction extends Action
     {
         parent::prepare($args);
         $this->page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
+
+        if ($this->page > MAX_PUBLIC_PAGE) {
+            $this->clientError(sprintf(_("Beyond the page limit (%s)"), MAX_PUBLIC_PAGE));
+        }
 
         common_set_returnto($this->selfUrl());
 
@@ -174,8 +182,10 @@ class PublicAction extends Action
             $message .= _('Be the first to post!');
         }
         else {
-            $message .= _('Why not [register an account](%%action.register%%) and be the first to post!');
-        }
+            if (! (common_config('site','closed') || common_config('site','inviteonly'))) {
+                $message .= _('Why not [register an account](%%action.register%%) and be the first to post!');
+            }
+	}
 
         $this->elementStart('div', 'guide');
         $this->raw(common_markup_to_html($message));

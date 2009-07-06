@@ -45,7 +45,7 @@ require_once INSTALLDIR.'/lib/feedlist.php';
  * @link     http://laconi.ca/
  */
 
-class ShowfavoritesAction extends Action
+class ShowfavoritesAction extends OwnerDesignAction
 {
     /** User we're getting the faves of */
     var $user = null;
@@ -191,10 +191,21 @@ class ShowfavoritesAction extends Action
 
     function showContent()
     {
-        $notice = $this->user->favoriteNotices(($this->page-1)*NOTICES_PER_PAGE,
-                                               NOTICES_PER_PAGE + 1);
+        $cur = common_current_user();
 
-        if (!$notice) {
+        if (!empty($cur) && $cur->id == $this->user->id) {
+
+            // Show imported/gateway notices as well as local if
+            // the user is looking at his own favorites
+
+            $notice = $this->user->favoriteNotices(($this->page-1)*NOTICES_PER_PAGE,
+                                                   NOTICES_PER_PAGE + 1, true);
+        } else {
+            $notice = $this->user->favoriteNotices(($this->page-1)*NOTICES_PER_PAGE,
+                                                   NOTICES_PER_PAGE + 1, false);
+        }
+
+        if (empty($notice)) {
             $this->serverError(_('Could not retrieve favorite notices.'));
             return;
         }

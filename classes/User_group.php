@@ -19,6 +19,7 @@ class User_group extends Memcached_DataObject
     public $homepage_logo;                   // varchar(255)
     public $stream_logo;                     // varchar(255)
     public $mini_logo;                       // varchar(255)
+    public $design_id;                       // int(4)
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
@@ -125,6 +126,53 @@ class User_group extends Memcached_DataObject
         return $members;
     }
 
+    function getAdmins($offset=0, $limit=null)
+    {
+        $qry =
+          'SELECT profile.* ' .
+          'FROM profile JOIN group_member '.
+          'ON profile.id = group_member.profile_id ' .
+          'WHERE group_member.group_id = %d ' .
+          'AND group_member.is_admin = 1 ' .
+          'ORDER BY group_member.modified ASC ';
+
+        if ($limit != null) {
+            if (common_config('db','type') == 'pgsql') {
+                $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+            } else {
+                $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+            }
+        }
+
+        $admins = new Profile();
+
+        $admins->query(sprintf($qry, $this->id));
+        return $admins;
+    }
+
+    function getBlocked($offset=0, $limit=null)
+    {
+        $qry =
+          'SELECT profile.* ' .
+          'FROM profile JOIN group_block '.
+          'ON profile.id = group_block.blocked ' .
+          'WHERE group_block.group_id = %d ' .
+          'ORDER BY group_block.modified DESC ';
+
+        if ($limit != null) {
+            if (common_config('db','type') == 'pgsql') {
+                $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+            } else {
+                $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+            }
+        }
+
+        $blocked = new Profile();
+
+        $blocked->query(sprintf($qry, $this->id));
+        return $blocked;
+    }
+
     function setOriginal($filename)
     {
         $imagefile = new ImageFile($this->id, Avatar::path($filename));
@@ -136,5 +184,114 @@ class User_group extends Memcached_DataObject
         $this->mini_logo = Avatar::url($imagefile->resize(AVATAR_MINI_SIZE));
         common_debug(common_log_objstring($this));
         return $this->update($orig);
+    }
+
+    function getBestName()
+    {
+        return ($this->fullname) ? $this->fullname : $this->nickname;
+    }
+
+    function getAliases()
+    {
+        $aliases = array();
+
+        // XXX: cache this
+
+        $alias = new Group_alias();
+
+        $alias->group_id = $this->id;
+
+        if ($alias->find()) {
+            while ($alias->fetch()) {
+                $aliases[] = $alias->alias;
+            }
+        }
+
+        $alias->free();
+
+        return $aliases;
+    }
+
+    function setAliases($newaliases) {
+
+        $newaliases = array_unique($newaliases);
+
+        $oldaliases = $this->getAliases();
+
+        # Delete stuff that's old that not in new
+
+        $to_delete = array_diff($oldaliases, $newaliases);
+
+        # Insert stuff that's in new and not in old
+
+        $to_insert = array_diff($newaliases, $oldaliases);
+
+        $alias = new Group_alias();
+
+        $alias->group_id = $this->id;
+
+        foreach ($to_delete as $delalias) {
+            $alias->alias = $delalias;
+            $result = $alias->delete();
+            if (!$result) {
+                common_log_db_error($alias, 'DELETE', __FILE__);
+                return false;
+            }
+        }
+
+        foreach ($to_insert as $insalias) {
+            $alias->alias = $insalias;
+            $result = $alias->insert();
+            if (!$result) {
+                common_log_db_error($alias, 'INSERT', __FILE__);
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    static function getForNickname($nickname)
+    {
+        $nickname = common_canonical_nickname($nickname);
+        $group = User_group::staticGet('nickname', $nickname);
+        if (!empty($group)) {
+            return $group;
+        }
+        $alias = Group_alias::staticGet('alias', $nickname);
+        if (!empty($alias)) {
+            return User_group::staticGet('id', $alias->group_id);
+        }
+        return null;
+    }
+
+    function getDesign()
+    {
+        return Design::staticGet('id', $this->design_id);
+    }
+
+    function getUserMembers()
+    {
+        // XXX: cache this
+
+        $user = new User();
+
+        $qry =
+          'SELECT id ' .
+          'FROM user JOIN group_member '.
+          'ON user.id = group_member.profile_id ' .
+          'WHERE group_member.group_id = %d ';
+
+        $user->query(sprintf($qry, $this->id));
+
+        $ids = array();
+
+        while ($user->fetch()) {
+            $ids[] = $user->id;
+        }
+
+        $user->free();
+
+        return $ids;
     }
 }

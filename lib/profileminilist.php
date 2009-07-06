@@ -47,26 +47,38 @@ define('PROFILES_PER_MINILIST', 27);
 
 class ProfileMiniList extends ProfileList
 {
-    function show()
+
+    function startList()
     {
         $this->out->elementStart('ul', 'entities users xoxo');
+    }
 
+    function newListItem($profile)
+    {
+        return new ProfileMiniListItem($profile, $this->action);
+    }
+
+    function showProfiles()
+    {
         $cnt = 0;
 
         while ($this->profile->fetch()) {
             $cnt++;
-            if($cnt > PROFILES_PER_MINILIST) {
+            if ($cnt > PROFILES_PER_MINILIST) {
                 break;
             }
-            $this->showProfile();
+            $pli = $this->newListItem($this->profile);
+            $pli->show();
         }
-
-        $this->out->elementEnd('ul');
 
         return $cnt;
     }
 
-    function showProfile()
+}
+
+class ProfileMiniListItem extends ProfileListItem
+{
+    function show()
     {
         $this->out->elementStart('li', 'vcard');
         $this->out->elementStart('a', array('title' => $this->profile->getBestName(),

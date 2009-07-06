@@ -12,7 +12,7 @@
  * @link     http://laconi.ca/
  *
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -70,10 +70,20 @@ class LogoutAction extends Action
         if (!common_logged_in()) {
             $this->clientError(_('Not logged in.'));
         } else {
-            common_set_user(null);
-            common_real_login(false); // not logged in
-            common_forgetme(); // don't log back in!
+            if (Event::handle('StartLogout', array($this))) {
+                $this->logout();
+            }
+            Event::handle('EndLogout', array($this));
+
             common_redirect(common_local_url('public'), 303);
         }
     }
+
+    function logout()
+    {
+        common_set_user(null);
+        common_real_login(false); // not logged in
+        common_forgetme(); // don't log back in!
+    }
+
 }

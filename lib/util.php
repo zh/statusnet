@@ -1,7 +1,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -114,7 +114,7 @@ function common_check_user($nickname, $password)
         return false;
     }
     $user = User::staticGet('nickname', $nickname);
-    if (is_null($user)) {
+    if (is_null($user) || $user === false) {
         return false;
     } else {
         if (0 == strcmp(common_munge_password($password, $user->id),
@@ -139,8 +139,22 @@ function common_have_session()
 
 function common_ensure_session()
 {
+    $c = null;
+    if (array_key_exists(session_name, $_COOKIE)) {
+        $c = $_COOKIE[session_name()];
+    }
     if (!common_have_session()) {
+        if (common_config('sessions', 'handle')) {
+            Session::setSaveHandler();
+        }
         @session_start();
+        if (!isset($_SESSION['started'])) {
+            $_SESSION['started'] = time();
+            if (!empty($c)) {
+                common_log(LOG_WARNING, 'Session cookie "' . $_COOKIE[session_name()] . '" ' .
+                           ' is set but started value is null');
+            }
+        }
     }
 }
 
@@ -395,7 +409,7 @@ function common_render_text($text)
     return $r;
 }
 
-function common_replace_urls_callback($text, $callback) {
+function common_replace_urls_callback($text, $callback, $notice_id = null) {
     // Start off with a regex
     $regex = '#'.
     '(?:'.
@@ -466,7 +480,11 @@ function common_replace_urls_callback($text, $callback) {
         $url = (mb_strpos($orig_url, htmlspecialchars($url)) === FALSE) ? $url:htmlspecialchars($url);
 
         // Call user specified func
-        $modified_url = call_user_func($callback, $url);
+        if (empty($notice_id)) {
+            $modified_url = call_user_func($callback, $url);
+        } else {
+            $modified_url = call_user_func($callback, array($url, $notice_id));
+        }
 
         // Replace it!
         $start = mb_strpos($text, $url, $offset);
@@ -481,107 +499,79 @@ function common_linkify($url) {
     // It comes in special'd, so we unspecial it before passing to the stringifying
     // functions
     $url = htmlspecialchars_decode($url);
-    $display = $url;
-    $url = (!preg_match('#^([a-z]+://|(mailto|aim|tel):)#i', $url)) ? 'http://'.$url : $url;
 
-    $attrs = array('href' => $url, 'rel' => 'external');
+    $canon = File_redirection::_canonUrl($url);
 
-    if ($longurl = common_longurl($url)) {
-        $attrs['title'] = $longurl;
+    $longurl_data = File_redirection::where($url);
+    if (is_array($longurl_data)) {
+        $longurl = $longurl_data['url'];
+    } elseif (is_string($longurl_data)) {
+        $longurl = $longurl_data;
+    } else {
+        throw new ServerException("Can't linkify url '$url'");
     }
 
-    return XMLStringer::estring('a', $attrs, $display);
-}
+    $attrs = array('href' => $canon, 'rel' => 'external');
 
-function common_longurl($short_url)
-{
-    $long_url = common_shorten_link($short_url, true);
-    if ($long_url === $short_url) return false;
-    return $long_url;
-}
+    $is_attachment = false;
+    $attachment_id = null;
+    $has_thumb = false;
 
-function common_longurl2($uri)
-{
-    $uri_e = urlencode($uri);
-    $longurl = unserialize(file_get_contents("http://api.longurl.org/v1/expand?format=php&url=$uri_e"));
-    if (empty($longurl['long_url']) || $uri === $longurl['long_url']) return false;
-    return stripslashes($longurl['long_url']);
+    // Check to see whether there's a filename associated with this URL.
+    // If there is, it's an upload and qualifies as an attachment
+
+    $localfile = File::staticGet('url', $longurl);
+
+    if (!empty($localfile)) {
+        if (isset($localfile->filename)) {
+            $is_attachment = true;
+            $attachment_id = $localfile->id;
+        }
+    }
+
+    // if this URL is an attachment, then we set class='attachment' and id='attahcment-ID'
+    // where ID is the id of the attachment for the given URL.
+    //
+    // we need a better test telling what can be shown as an attachment
+    // we're currently picking up oembeds only.
+    // I think the best option is another file_view table in the db
+    // and associated dbobject.
+
+    $query = "select file_oembed.file_id as file_id from file join file_oembed on file.id = file_oembed.file_id where file.url='$longurl'";
+    $file = new File;
+    $file->query($query);
+    $file->fetch();
+
+    if (!empty($file->file_id)) {
+        $is_attachment = true;
+        $attachment_id = $file->file_id;
+
+        $query = "select file_thumbnail.file_id as file_id from file join file_thumbnail on file.id = file_thumbnail.file_id where file.url='$longurl'";
+        $file2 = new File;
+        $file2->query($query);
+        $file2->fetch();
+
+        if (!empty($file2)) {
+            $has_thumb = true;
+        }
+    }
+
+    // Add clippy
+    if ($is_attachment) {
+        $attrs['class'] = 'attachment';
+        if ($has_thumb) {
+            $attrs['class'] = 'attachment thumbnail';
+        }
+        $attrs['id'] = "attachment-{$attachment_id}";
+    }
+
+    return XMLStringer::estring('a', $attrs, $url);
 }
 
 function common_shorten_links($text)
 {
     if (mb_strlen($text) <= 140) return $text;
-    static $cache = array();
-    if (isset($cache[$text])) return $cache[$text];
-    // \s = not a horizontal whitespace character (since PHP 5.2.4)
-    return $cache[$text] = common_replace_urls_callback($text, 'common_shorten_link');;
-}
-
-function common_shorten_link($url, $reverse = false)
-{
-
-    static $url_cache = array();
-    if ($reverse) return isset($url_cache[$url]) ? $url_cache[$url] : $url;
-
-    $user = common_current_user();
-    if (!isset($user)) {
-      // common current user does not find a user when called from the XMPP daemon
-      // therefore we'll set one here fix, so that XMPP given URLs may be shortened
-      $user->urlshorteningservice = 'ur1.ca';
-    }
-    $curlh = curl_init();
-    curl_setopt($curlh, CURLOPT_CONNECTTIMEOUT, 20); // # seconds to wait
-    curl_setopt($curlh, CURLOPT_USERAGENT, 'Laconica');
-    curl_setopt($curlh, CURLOPT_RETURNTRANSFER, true);
-
-    switch($user->urlshorteningservice) {
-     case 'ur1.ca':
-        $short_url_service = new LilUrl;
-        $short_url = $short_url_service->shorten($url);
-        break;
-
-     case '2tu.us':
-        $short_url_service = new TightUrl;
-        $short_url = $short_url_service->shorten($url);
-        break;
-
-     case 'ptiturl.com':
-        $short_url_service = new PtitUrl;
-        $short_url = $short_url_service->shorten($url);
-        break;
-
-     case 'bit.ly':
-        curl_setopt($curlh, CURLOPT_URL, 'http://bit.ly/api?method=shorten&long_url='.urlencode($url));
-        $short_url = current(json_decode(curl_exec($curlh))->results)->hashUrl;
-        break;
-
-     case 'is.gd':
-        curl_setopt($curlh, CURLOPT_URL, 'http://is.gd/api.php?longurl='.urlencode($url));
-        $short_url = curl_exec($curlh);
-        break;
-     case 'snipr.com':
-        curl_setopt($curlh, CURLOPT_URL, 'http://snipr.com/site/snip?r=simple&link='.urlencode($url));
-        $short_url = curl_exec($curlh);
-        break;
-     case 'metamark.net':
-        curl_setopt($curlh, CURLOPT_URL, 'http://metamark.net/api/rest/simple?long_url='.urlencode($url));
-        $short_url = curl_exec($curlh);
-        break;
-     case 'tinyurl.com':
-        curl_setopt($curlh, CURLOPT_URL, 'http://tinyurl.com/api-create.php?url='.urlencode($url));
-        $short_url = curl_exec($curlh);
-        break;
-     default:
-        $short_url = false;
-    }
-
-    curl_close($curlh);
-
-    if ($short_url) {
-        $url_cache[(string)$short_url] = $url;
-        return (string)$short_url;
-    }
-    return $url;
+    return common_replace_urls_callback($text, array('File_redirection', 'makeShort'));
 }
 
 function common_xml_safe_str($str)
@@ -644,7 +634,7 @@ function common_at_link($sender_id, $nickname)
 function common_group_link($sender_id, $nickname)
 {
     $sender = Profile::staticGet($sender_id);
-    $group = User_group::staticGet('nickname', common_canonical_nickname($nickname));
+    $group = User_group::getForNickname($nickname);
     if ($group && $sender->isMember($group)) {
         $attrs = array('href' => $group->permalink(),
                        'class' => 'url');
@@ -843,7 +833,12 @@ function common_date_iso8601($dt)
 
 function common_sql_now()
 {
-    return strftime('%Y-%m-%d %H:%M:%S', time());
+    return common_sql_date(time());
+}
+
+function common_sql_date($datetime)
+{
+    return strftime('%Y-%m-%d %H:%M:%S', $datetime);
 }
 
 function common_redirect($url, $code=307)
@@ -879,29 +874,91 @@ function common_broadcast_notice($notice, $remote=false)
 
 function common_enqueue_notice($notice)
 {
-    $transports = array('twitter', 'facebook', 'ping');
+    $transports = array('omb', 'sms', 'public', 'twitter', 'facebook', 'ping');
 
-    // If inboxes are enabled, wait till inboxes are filled
-    // before doing inbox-dependent broadcasts
-
-    $transports = array_merge($transports, common_post_inbox_transports());
-
-    foreach ($transports as $transport) {
-        common_enqueue_notice_transport($notice, $transport);
+    if (common_config('xmpp', 'enabled'))
+    {
+        $transports[] = 'jabber';
     }
 
+    if (common_config('queue','subsystem') == 'stomp') {
+        common_enqueue_notice_stomp($notice, $transports);
+    }
+    else {
+        common_enqueue_notice_db($notice, $transports);
+    }
     return $result;
 }
 
-function common_post_inbox_transports()
+function common_enqueue_notice_stomp($notice, $transports)
 {
-    $transports = array('omb', 'sms');
+    // use an external message queue system via STOMP
+    require_once("Stomp.php");
 
-    if (common_config('xmpp', 'enabled')) {
-        $transports = array_merge($transports, array('jabber', 'public'));
+    $server = common_config('queue','stomp_server');
+    $username = common_config('queue', 'stomp_username');
+    $password = common_config('queue', 'stomp_password');
+
+    $con = new Stomp($server);
+
+    if (!$con->connect($username, $password)) {
+        common_log(LOG_ERR, 'Failed to connect to queue server');
+        return false;
     }
 
-    return $transports;
+    $queue_basename = common_config('queue','queue_basename');
+
+    foreach ($transports as $transport) {
+        $result = $con->send('/queue/'.$queue_basename.'-'.$transport, // QUEUE
+                             $notice->id, 		// BODY of the message
+                             array ('created' => $notice->created));
+        if (!$result) {
+            common_log(LOG_ERR, 'Error sending to '.$transport.' queue');
+            return false;
+        }
+        common_log(LOG_DEBUG, 'complete remote queueing notice ID = ' . $notice->id . ' for ' . $transport);
+    }
+
+    //send tags as headers, so they can be used as JMS selectors
+    common_log(LOG_DEBUG, 'searching for tags ' . $notice->id);
+    $tags = array();
+    $tag = new Notice_tag();
+    $tag->notice_id = $notice->id;
+    if ($tag->find()) {
+        while ($tag->fetch()) {
+            common_log(LOG_DEBUG, 'tag found = ' . $tag->tag);
+            array_push($tags,$tag->tag);
+        }
+    }
+    $tag->free();
+
+    $con->send('/topic/laconica.'.$notice->profile_id,
+               $notice->content,
+               array(
+                     'profile_id' => $notice->profile_id,
+                     'created' => $notice->created,
+                     'tags' => implode($tags,' - ')
+                     )
+               );
+    common_log(LOG_DEBUG, 'sent to personal topic ' . $notice->id);
+    $con->send('/topic/laconica.allusers',
+               $notice->content,
+               array(
+                     'profile_id' => $notice->profile_id,
+                     'created' => $notice->created,
+                     'tags' => implode($tags,' - ')
+                     )
+               );
+    common_log(LOG_DEBUG, 'sent to catch-all topic ' . $notice->id);
+    $result = true;
+}
+
+function common_enqueue_notice_db($notice, $transports)
+{
+    // in any other case, 'internal'
+    foreach ($transports as $transport) {
+        common_enqueue_notice_transport($notice, $transport);
+    }
 }
 
 function common_enqueue_notice_transport($notice, $transport)
@@ -1041,9 +1098,17 @@ function common_ensure_syslog()
 {
     static $initialized = false;
     if (!$initialized) {
-        openlog(common_config('syslog', 'appname'), 0, LOG_USER);
+        openlog(common_config('syslog', 'appname'), 0,
+            common_config('syslog', 'facility'));
         $initialized = true;
     }
+}
+
+function common_log_line($priority, $msg)
+{
+    static $syslog_priorities = array('LOG_EMERG', 'LOG_ALERT', 'LOG_CRIT', 'LOG_ERR',
+                                      'LOG_WARNING', 'LOG_NOTICE', 'LOG_INFO', 'LOG_DEBUG');
+    return date('Y-m-d H:i:s') . ' ' . $syslog_priorities[$priority] . ': ' . $msg . "\n";
 }
 
 function common_log($priority, $msg, $filename=null)
@@ -1052,9 +1117,7 @@ function common_log($priority, $msg, $filename=null)
     if ($logfile) {
         $log = fopen($logfile, "a");
         if ($log) {
-            static $syslog_priorities = array('LOG_EMERG', 'LOG_ALERT', 'LOG_CRIT', 'LOG_ERR',
-                                              'LOG_WARNING', 'LOG_NOTICE', 'LOG_INFO', 'LOG_DEBUG');
-            $output = date('Y-m-d H:i:s') . ' ' . $syslog_priorities[$priority] . ': ' . $msg . "\n";
+            $output = common_log_line($priority, $msg);
             fwrite($log, $output);
             fclose($log);
         }
@@ -1124,7 +1187,7 @@ function common_accept_to_prefs($accept, $def = '*/*')
 
     foreach($parts as $part) {
         // FIXME: doesn't deal with params like 'text/html; level=1'
-        @list($value, $qpart) = explode(';', $part);
+        @list($value, $qpart) = explode(';', trim($part));
         $match = array();
         if(!isset($qpart)) {
             $prefs[$value] = 1;
@@ -1285,17 +1348,38 @@ function common_canonical_sms($sms)
 function common_error_handler($errno, $errstr, $errfile, $errline, $errcontext)
 {
     switch ($errno) {
+
+     case E_ERROR:
+     case E_COMPILE_ERROR:
+     case E_CORE_ERROR:
      case E_USER_ERROR:
-        common_log(LOG_ERR, "[$errno] $errstr ($errfile:$errline)");
-        exit(1);
+     case E_PARSE:
+     case E_RECOVERABLE_ERROR:
+        common_log(LOG_ERR, "[$errno] $errstr ($errfile:$errline) [ABORT]");
+        die();
         break;
 
+     case E_WARNING:
+     case E_COMPILE_WARNING:
+     case E_CORE_WARNING:
      case E_USER_WARNING:
         common_log(LOG_WARNING, "[$errno] $errstr ($errfile:$errline)");
         break;
 
+     case E_NOTICE:
      case E_USER_NOTICE:
         common_log(LOG_NOTICE, "[$errno] $errstr ($errfile:$errline)");
+        break;
+
+     case E_STRICT:
+     case E_DEPRECATED:
+     case E_USER_DEPRECATED:
+        // XXX: config variable to log this stuff, too
+        break;
+
+     default:
+        common_log(LOG_ERR, "[$errno] $errstr ($errfile:$errline) [UNKNOWN LEVEL, die()'ing]");
+        die();
         break;
     }
 
@@ -1315,7 +1399,13 @@ function common_session_token()
 
 function common_cache_key($extra)
 {
-    return 'laconica:' . common_keyize(common_config('site', 'name')) . ':' . $extra;
+    $base_key = common_config('memcached', 'base');
+
+    if (empty($base_key)) {
+        $base_key = common_keyize(common_config('site', 'name'));
+    }
+
+    return 'laconica:' . $base_key . ':' . $extra;
 }
 
 function common_keyize($str)
@@ -1363,4 +1453,93 @@ function common_database_tablename($tablename)
   }
   //table prefixes could be added here later
   return $tablename;
+}
+
+function common_shorten_url($long_url)
+{
+    $user = common_current_user();
+    if (empty($user)) {
+        // common current user does not find a user when called from the XMPP daemon
+        // therefore we'll set one here fix, so that XMPP given URLs may be shortened
+        $svc = 'ur1.ca';
+    } else {
+        $svc = $user->urlshorteningservice;
+    }
+
+    $curlh = curl_init();
+    curl_setopt($curlh, CURLOPT_CONNECTTIMEOUT, 20); // # seconds to wait
+    curl_setopt($curlh, CURLOPT_USERAGENT, 'Laconica');
+    curl_setopt($curlh, CURLOPT_RETURNTRANSFER, true);
+
+    switch($svc) {
+     case 'ur1.ca':
+        require_once INSTALLDIR.'/lib/Shorturl_api.php';
+        $short_url_service = new LilUrl;
+        $short_url = $short_url_service->shorten($long_url);
+        break;
+
+     case '2tu.us':
+        $short_url_service = new TightUrl;
+        require_once INSTALLDIR.'/lib/Shorturl_api.php';
+        $short_url = $short_url_service->shorten($long_url);
+        break;
+
+     case 'ptiturl.com':
+        require_once INSTALLDIR.'/lib/Shorturl_api.php';
+        $short_url_service = new PtitUrl;
+        $short_url = $short_url_service->shorten($long_url);
+        break;
+
+     case 'bit.ly':
+        curl_setopt($curlh, CURLOPT_URL, 'http://bit.ly/api?method=shorten&long_url='.urlencode($long_url));
+        $short_url = current(json_decode(curl_exec($curlh))->results)->hashUrl;
+        break;
+
+     case 'is.gd':
+        curl_setopt($curlh, CURLOPT_URL, 'http://is.gd/api.php?longurl='.urlencode($long_url));
+        $short_url = curl_exec($curlh);
+        break;
+     case 'snipr.com':
+        curl_setopt($curlh, CURLOPT_URL, 'http://snipr.com/site/snip?r=simple&link='.urlencode($long_url));
+        $short_url = curl_exec($curlh);
+        break;
+     case 'metamark.net':
+        curl_setopt($curlh, CURLOPT_URL, 'http://metamark.net/api/rest/simple?long_url='.urlencode($long_url));
+        $short_url = curl_exec($curlh);
+        break;
+     case 'tinyurl.com':
+        curl_setopt($curlh, CURLOPT_URL, 'http://tinyurl.com/api-create.php?url='.urlencode($long_url));
+        $short_url = curl_exec($curlh);
+        break;
+     default:
+        $short_url = false;
+    }
+
+    curl_close($curlh);
+
+    return $short_url;
+}
+
+function common_client_ip()
+{
+    if (!isset($_SERVER) || !array_key_exists('REQUEST_METHOD', $_SERVER)) {
+        return null;
+    }
+
+    if ($_SERVER['HTTP_X_FORWARDED_FOR']) {
+        if ($_SERVER['HTTP_CLIENT_IP']) {
+            $proxy = $_SERVER['HTTP_CLIENT_IP'];
+        } else {
+            $proxy = $_SERVER['REMOTE_ADDR'];
+        }
+        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    } else {
+        if ($_SERVER['HTTP_CLIENT_IP']) {
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        } else {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+    }
+
+    return array($ip, $proxy);
 }

@@ -1,7 +1,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -22,6 +22,7 @@ if (!defined('LACONICA')) { exit(1); }
 class ShortUrlApi
 {
     protected $service_url;
+    protected $long_limit = 27;
 
     function __construct($service_url)
     {
@@ -39,7 +40,7 @@ class ShortUrlApi
     }
 
     private function is_long($url) {
-        return strlen($url) >= 30;
+        return strlen($url) >= common_config('site', 'shorturllength');
     }
 
     protected function http_post($data) {

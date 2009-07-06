@@ -1,7 +1,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -25,14 +25,15 @@ require_once(INSTALLDIR.'/lib/rssaction.php');
 
 class UserrssAction extends Rss10Action
 {
-
     var $user = null;
+    var $tag  = null;
 
     function prepare($args)
     {
         parent::prepare($args);
-        $nickname = $this->trimmed('nickname');
+        $nickname   = $this->trimmed('nickname');
         $this->user = User::staticGet('nickname', $nickname);
+        $this->tag  = $this->trimmed('tag');
 
         if (!$this->user) {
             $this->clientError(_('No such user.'));
@@ -41,6 +42,25 @@ class UserrssAction extends Rss10Action
             return true;
         }
     }
+
+    function getTaggedNotices($tag = null, $limit=0)
+    {
+        $user = $this->user;
+
+        if (is_null($user)) {
+            return null;
+        }
+
+        $notice = $user->getTaggedNotices(0, ($limit == 0) ? NOTICES_PER_PAGE : $limit, 0, 0, null, $tag);
+
+        $notices = array();
+        while ($notice->fetch()) {
+            $notices[] = clone($notice);
+        }
+
+        return $notices;
+    }
+
 
     function getNotices($limit=0)
     {

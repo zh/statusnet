@@ -1,7 +1,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -67,7 +67,9 @@ class ApiAction extends Action
                     $this->process_command();
                 } else {
                     # basic authentication failed
-                    common_log(LOG_WARNING, "Failed API auth attempt, nickname: $nickname.");
+                    list($proxy, $ip) = common_client_ip();
+
+                    common_log(LOG_WARNING, "Failed API auth attempt, nickname = $nickname, proxy = $proxy, ip = $ip.");
                     $this->show_basic_auth_error();
                 }
             }

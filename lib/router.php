@@ -101,7 +101,8 @@ class Router
         $main = array('login', 'logout', 'register', 'subscribe',
                       'unsubscribe', 'confirmaddress', 'recoverpassword',
                       'invite', 'favor', 'disfavor', 'sup',
-                      'block', 'unblock', 'subedit');
+                      'block', 'unblock', 'subedit',
+                      'groupblock', 'groupunblock');
 
         foreach ($main as $a) {
             $m->connect('main/'.$a, array('action' => $a));
@@ -131,7 +132,7 @@ class Router
         // settings
 
         foreach (array('profile', 'avatar', 'password', 'openid', 'im',
-                       'email', 'sms', 'twitter', 'other') as $s) {
+                       'email', 'sms', 'twitter', 'userdesign', 'other') as $s) {
             $m->connect('settings/'.$s, array('action' => $s.'settings'));
         }
 
@@ -151,12 +152,27 @@ class Router
         $m->connect('search/notice/rss?q=:q', array('action' => 'noticesearchrss'),
                     array('q' => '.+'));
 
-        // notice
+        $m->connect('attachment/:attachment',
+                    array('action' => 'attachment'),
+                    array('attachment' => '[0-9]+'));
+
+        $m->connect('attachment/:attachment/ajax',
+                    array('action' => 'attachment_ajax'),
+                    array('attachment' => '[0-9]+'));
+
+        $m->connect('attachment/:attachment/thumbnail',
+                    array('action' => 'attachment_thumbnail'),
+                    array('attachment' => '[0-9]+'));
 
         $m->connect('notice/new', array('action' => 'newnotice'));
         $m->connect('notice/new?replyto=:replyto',
                     array('action' => 'newnotice'),
                     array('replyto' => '[A-Za-z0-9_-]+'));
+
+        $m->connect('notice/:notice/file',
+            array('action' => 'file'),
+            array('notice' => '[0-9]+'));
+
         $m->connect('notice/:notice',
                     array('action' => 'shownotice'),
                     array('notice' => '[0-9]+'));
@@ -164,6 +180,12 @@ class Router
         $m->connect('notice/delete/:notice',
                     array('action' => 'deletenotice'),
                     array('notice' => '[0-9]+'));
+
+        // conversation
+
+        $m->connect('conversation/:id',
+                    array('action' => 'conversation'),
+                    array('id' => '[0-9]+'));
 
         $m->connect('message/new', array('action' => 'newmessage'));
         $m->connect('message/new?to=:to', array('action' => 'newmessage'), array('to' => '[A-Za-z0-9_-]+'));
@@ -205,11 +227,19 @@ class Router
                         array('nickname' => '[a-zA-Z0-9]+'));
         }
 
-        foreach (array('members', 'logo', 'rss') as $n) {
+        foreach (array('members', 'logo', 'rss', 'designsettings') as $n) {
             $m->connect('group/:nickname/'.$n,
                         array('action' => 'group'.$n),
                         array('nickname' => '[a-zA-Z0-9]+'));
         }
+
+        $m->connect('group/:nickname/blocked',
+                    array('action' => 'blockedfromgroup'),
+                    array('nickname' => '[a-zA-Z0-9]+'));
+
+        $m->connect('group/:nickname/makeadmin',
+                    array('action' => 'makeadmin'),
+                    array('nickname' => '[a-zA-Z0-9]+'));
 
         $m->connect('group/:id/id',
                     array('action' => 'groupbyid'),
@@ -287,7 +317,7 @@ class Router
         $m->connect('api/friendships/:method',
                     array('action' => 'api',
                           'apiaction' => 'friendships'),
-                    array('method' => 'exists(\.(xml|json))'));
+                    array('method' => '(show|exists)(\.(xml|json))'));
 
         // Social graph
 
@@ -325,7 +355,8 @@ class Router
 
         $m->connect('api/favorites/:method/:argument',
                     array('action' => 'api',
-                          'apiaction' => 'favorites'));
+                          'apiaction' => 'favorites',
+                          array('method' => '(create|destroy)')));
 
         $m->connect('api/favorites/:argument',
                     array('action' => 'api',
@@ -405,6 +436,16 @@ class Router
                     array('action' => 'avatarbynickname'),
                     array('size' => '(original|96|48|24)',
                           'nickname' => '[a-zA-Z0-9]{1,64}'));
+
+        $m->connect(':nickname/tag/:tag/rss',
+            array('action' => 'userrss'),
+            array('nickname' => '[a-zA-Z0-9]{1,64}'),
+            array('tag' => '[a-zA-Z0-9]+'));
+
+        $m->connect(':nickname/tag/:tag',
+                    array('action' => 'showstream'),
+                    array('nickname' => '[a-zA-Z0-9]{1,64}'),
+                    array('tag' => '[a-zA-Z0-9]+'));
 
         $m->connect(':nickname',
                     array('action' => 'showstream'),

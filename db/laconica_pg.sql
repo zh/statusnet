@@ -427,6 +427,64 @@ create table group_inbox (
 );
 create index group_inbox_created_idx on group_inbox using btree(created);
 
+
+/*attachments and URLs stuff */
+create sequence file_seq;
+create table file (
+    id bigint default nextval('file_seq') primary key /* comment 'unique identifier' */,
+    url varchar(255) unique, 
+    mimetype varchar(50), 
+    size integer, 
+    title varchar(255), 
+    date integer(11), 
+    protected integer(1)
+);
+
+create sequence file_oembed_seq;
+create table file_oembed (
+    id bigint default nextval('file_oembed_seq') primary key /* comment 'unique identifier' */,
+    file_id bigint unique,
+    version varchar(20),
+    type varchar(20),
+    provider varchar(50),
+    provider_url varchar(255),
+    width integer,
+    height integer,
+    html text,
+    title varchar(255),
+    author_name varchar(50), 
+    author_url varchar(255), 
+    url varchar(255), 
+);
+
+create sequence file_redirection_seq;
+create table file_redirection (
+    id bigint default nextval('file_redirection_seq') primary key /* comment 'unique identifier' */,
+    url varchar(255) unique, 
+    file_id bigint, 
+    redirections integer, 
+    httpcode integer
+);
+
+create sequence file_thumbnail_seq;
+create table file_thumbnail (
+    id bigint default nextval('file_thumbnail_seq') primary key /* comment 'unique identifier' */,
+    file_id bigint unique, 
+    url varchar(255) unique, 
+    width integer, 
+    height integer 
+);
+
+create sequence file_to_post_seq;
+create table file_to_post (
+    id bigint default nextval('file_to_post_seq') primary key /* comment 'unique identifier' */,
+    file_id bigint, 
+    post_id bigint, 
+
+    unique(file_id, post_id)
+);
+
+
 /* Textsearch stuff */
 
 create index textsearch_idx on profile using gist(textsearch);

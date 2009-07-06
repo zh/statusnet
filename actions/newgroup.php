@@ -123,6 +123,7 @@ class NewgroupAction extends Action
         $homepage    = $this->trimmed('homepage');
         $description = $this->trimmed('description');
         $location    = $this->trimmed('location');
+        $aliasstring = $this->trimmed('aliases');
 
         if (!Validate::string($nickname, array('min_length' => 1,
                                                'max_length' => 64,
@@ -153,6 +154,37 @@ class NewgroupAction extends Action
             return;
         }
 
+        if (!empty($aliasstring)) {
+            $aliases = array_map('common_canonical_nickname', array_unique(preg_split('/[\s,]+/', $aliasstring)));
+        } else {
+            $aliases = array();
+        }
+
+        if (count($aliases) > common_config('group', 'maxaliases')) {
+            $this->showForm(sprintf(_('Too many aliases! Maximum %d.'),
+                                    common_config('group', 'maxaliases')));
+            return;
+        }
+
+        foreach ($aliases as $alias) {
+            if (!Validate::string($alias, array('min_length' => 1,
+                                                'max_length' => 64,
+                                                'format' => NICKNAME_FMT))) {
+                $this->showForm(sprintf(_('Invalid alias: "%s"'), $alias));
+                return;
+            }
+            if ($this->nicknameExists($alias)) {
+                $this->showForm(sprintf(_('Alias "%s" already in use. Try another one.'),
+                                        $alias));
+                return;
+            }
+            // XXX assumes alphanum nicknames
+            if (strcmp($alias, $nickname) == 0) {
+                $this->showForm(_('Alias can\'t be the same as nickname.'));
+                return;
+            }
+        }
+
         $cur = common_current_user();
 
         // Checked in prepare() above
@@ -177,6 +209,12 @@ class NewgroupAction extends Action
             $this->serverError(_('Could not create group.'));
         }
 
+        $result = $group->setAliases($aliases);
+
+        if (!$result) {
+            $this->serverError(_('Could not create aliases.'));
+        }
+
         $member = new Group_member();
 
         $member->group_id   = $group->id;
@@ -199,7 +237,18 @@ class NewgroupAction extends Action
     function nicknameExists($nickname)
     {
         $group = User_group::staticGet('nickname', $nickname);
-        return (!is_null($group) && $group != false);
+
+        if (!empty($group)) {
+            return true;
+        }
+
+        $alias = Group_alias::staticGet('alias', $nickname);
+
+        if (!empty($alias)) {
+            return true;
+        }
+
+        return false;
     }
 }
 

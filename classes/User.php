@@ -62,14 +62,13 @@ class User extends Memcached_DataObject
     public $autosubscribe;                   // tinyint(1)
     public $urlshorteningservice;            // varchar(50)   default_ur1.ca
     public $inboxed;                         // tinyint(1)
+    public $design_id;                       // int(4)
+    public $viewdesigns;                     // tinyint(1)   default_1
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
-    function staticGet($k,$v=NULL)
-    {
-        return Memcached_DataObject::staticGet('User',$k,$v);
-    }
+    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('User',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
@@ -406,23 +405,59 @@ class User extends Memcached_DataObject
         return Notice::getStreamByIds($ids);
     }
 
+    function getTaggedNotices($tag, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null) {
+        $profile = $this->getProfile();
+        if (!$profile) {
+            return null;
+        } else {
+            return $profile->getTaggedNotices($tag, $offset, $limit, $since_id, $before_id, $since);
+        }
+    }
+
     function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
     {
         $profile = $this->getProfile();
         if (!$profile) {
             return null;
         } else {
-            return $profile->getNotices($offset, $limit, $since_id, $before_id);
+            return $profile->getNotices($offset, $limit, $since_id, $before_id, $since);
         }
     }
 
-    function favoriteNotices($offset=0, $limit=NOTICES_PER_PAGE)
+    function favoriteNotices($offset=0, $limit=NOTICES_PER_PAGE, $own=false)
     {
-        $ids = Fave::stream($this->id, $offset, $limit);
+        $ids = Fave::stream($this->id, $offset, $limit, $own);
         return Notice::getStreamByIds($ids);
     }
 
     function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
+    {
+        $enabled = common_config('inboxes', 'enabled');
+
+        // Complicated code, depending on whether we support inboxes yet
+        // XXX: make this go away when inboxes become mandatory
+
+        if ($enabled === false ||
+            ($enabled == 'transitional' && $this->inboxed == 0)) {
+            $qry =
+              'SELECT notice.* ' .
+              'FROM notice JOIN subscription ON notice.profile_id = subscription.subscribed ' .
+              'WHERE subscription.subscriber = %d ' .
+              'AND notice.is_local != ' . NOTICE_GATEWAY;
+            return Notice::getStream(sprintf($qry, $this->id),
+                                     'user:notices_with_friends:' . $this->id,
+                                     $offset, $limit, $since_id, $before_id,
+                                     $order, $since);
+        } else if ($enabled === true ||
+                   ($enabled == 'transitional' && $this->inboxed == 1)) {
+
+            $ids = Notice_inbox::stream($this->id, $offset, $limit, $since_id, $before_id, $since, false);
+
+            return Notice::getStreamByIds($ids);
+        }
+    }
+
+    function noticeInbox($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
     {
         $enabled = common_config('inboxes', 'enabled');
 
@@ -442,7 +477,7 @@ class User extends Memcached_DataObject
         } else if ($enabled === true ||
                    ($enabled == 'transitional' && $this->inboxed == 1)) {
 
-            $ids = Notice_inbox::stream($this->id, $offset, $limit, $since_id, $before_id, $since);
+            $ids = Notice_inbox::stream($this->id, $offset, $limit, $since_id, $before_id, $since, true);
 
             return Notice::getStreamByIds($ids);
         }
@@ -456,6 +491,8 @@ class User extends Memcached_DataObject
             // ;last cache, too
             $cache->delete(common_cache_key('fave:ids_by_user:'.$this->id));
             $cache->delete(common_cache_key('fave:ids_by_user:'.$this->id.';last'));
+            $cache->delete(common_cache_key('fave:ids_by_user_own:'.$this->id));
+            $cache->delete(common_cache_key('fave:ids_by_user_own:'.$this->id.';last'));
         }
     }
 
@@ -565,50 +602,16 @@ class User extends Memcached_DataObject
 
     function getSubscriptions($offset=0, $limit=null)
     {
-        $qry =
-          'SELECT profile.* ' .
-          'FROM profile JOIN subscription ' .
-          'ON profile.id = subscription.subscribed ' .
-          'WHERE subscription.subscriber = %d ' .
-          'AND subscription.subscribed != subscription.subscriber ' .
-          'ORDER BY subscription.created DESC ';
-
-        if (common_config('db','type') == 'pgsql') {
-            $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-        } else {
-            $qry .= ' LIMIT ' . $offset . ', ' . $limit;
-        }
-
-        $profile = new Profile();
-
-        $profile->query(sprintf($qry, $this->id));
-
-        return $profile;
+        $profile = $this->getProfile();
+        assert(!empty($profile));
+        return $profile->getSubscriptions($offset, $limit);
     }
 
     function getSubscribers($offset=0, $limit=null)
     {
-        $qry =
-          'SELECT profile.* ' .
-          'FROM profile JOIN subscription ' .
-          'ON profile.id = subscription.subscriber ' .
-          'WHERE subscription.subscribed = %d ' .
-          'AND subscription.subscribed != subscription.subscriber ' .
-          'ORDER BY subscription.created DESC ';
-
-        if ($offset) {
-            if (common_config('db','type') == 'pgsql') {
-                $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-            } else {
-                $qry .= ' LIMIT ' . $offset . ', ' . $limit;
-            }
-        }
-
-        $profile = new Profile();
-
-        $cnt = $profile->query(sprintf($qry, $this->id));
-
-        return $profile;
+        $profile = $this->getProfile();
+        assert(!empty($profile));
+        return $profile->getSubscribers($offset, $limit);
     }
 
     function getTaggedSubscribers($tag, $offset=0, $limit=null)
@@ -674,5 +677,10 @@ class User extends Memcached_DataObject
         $cnt = $oid->find();
 
         return ($cnt > 0);
+    }
+
+    function getDesign()
+    {
+        return Design::staticGet('id', $this->design_id);
     }
 }

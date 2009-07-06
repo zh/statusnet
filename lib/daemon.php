@@ -1,7 +1,7 @@
 <?php
 /**
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -23,6 +23,13 @@ if (!defined('LACONICA')) {
 
 class Daemon
 {
+    var $daemonize = true;
+
+    function __construct($daemonize = true)
+    {
+        $this->daemonize = $daemonize;
+    }
+
     function name()
     {
         return null;
@@ -129,12 +136,16 @@ class Daemon
             common_log(LOG_INFO, $this->name() . ' already running. Exiting.');
             exit(0);
         }
-        if ($this->background()) {
-            $this->writePidFile();
-            $this->changeUser();
-            $this->run();
-            $this->clearPidFile();
+
+        if ($this->daemonize) {
+            common_log(LOG_INFO, 'Backgrounding daemon "'.$this->name().'"');
+            $this->background();
         }
+
+        $this->writePidFile();
+        $this->changeUser();
+        $this->run();
+        $this->clearPidFile();
     }
 
     function run()

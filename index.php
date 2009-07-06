@@ -1,7 +1,7 @@
 <?php
 /**
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -48,22 +48,72 @@ function handleError($error)
         $logmsg .= " : ". $error->getDebugInfo();
     }
     common_log(LOG_ERR, $logmsg);
-    $msg = sprintf(_('The database for %s isn\'t responding correctly, '.
-                     'so the site won\'t work properly. '.
-                     'The site admins probably know about the problem, '.
-                     'but you can contact them at %s to make sure. '.
-                     'Otherwise, wait a few minutes and try again.'),
-                   common_config('site', 'name'),
-                   common_config('site', 'email'));
+    if(common_config('site', 'logdebug')) {
+        $bt = $error->getBacktrace();
+        foreach ($bt as $line) {
+            common_log(LOG_ERR, $line);
+        }
+    }
+    if ($error instanceof DB_DataObject_Error ||
+        $error instanceof DB_Error) {
+        $msg = sprintf(_('The database for %s isn\'t responding correctly, '.
+                         'so the site won\'t work properly. '.
+                         'The site admins probably know about the problem, '.
+                         'but you can contact them at %s to make sure. '.
+                         'Otherwise, wait a few minutes and try again.'),
+                       common_config('site', 'name'),
+                       common_config('site', 'email'));
+    } else {
+        $msg = _('An important error occured, probably related to email setup. '.
+                 'Check logfiles for more info..');
+    }
 
     $dac = new DBErrorAction($msg, 500);
     $dac->showPage();
     exit(-1);
 }
 
+function checkMirror($action_obj)
+{
+    global $config;
+
+    static $alwaysRW = array('session', 'remember_me');
+
+    if (common_config('db', 'mirror') && $action_obj->isReadOnly($args)) {
+        if (is_array(common_config('db', 'mirror'))) {
+            // "load balancing", ha ha
+            $arr = common_config('db', 'mirror');
+            $k = array_rand($arr);
+            $mirror = $arr[$k];
+        } else {
+            $mirror = common_config('db', 'mirror');
+        }
+
+        // We ensure that these tables always are used
+        // on the master DB
+
+        $config['db']['database_rw'] = $config['db']['database'];
+        $config['db']['ini_rw'] = INSTALLDIR.'/classes/laconica.ini';
+
+        foreach ($alwaysRW as $table) {
+            $config['db']['table_'.$table] = 'rw';
+        }
+
+        // everyone else uses the mirror
+
+        $config['db']['database'] = $mirror;
+    }
+}
+
 function main()
 {
-    global $user, $action, $config;
+    // quick check for fancy URL auto-detection support in installer.
+    if (isset($_SERVER['REDIRECT_URL']) && ((dirname($_SERVER['REQUEST_URI']) . '/check-fancy') === $_SERVER['REDIRECT_URL'])) {
+        die("Fancy URL support detection succeeded. We suggest you enable this to get fancy (pretty) URLs.");
+    }
+    global $user, $action;
+
+    Snapshot::check();
 
     if (!_have_config()) {
         $msg = sprintf(_("No configuration file found. Try running ".
@@ -128,19 +178,7 @@ function main()
     } else {
         $action_obj = new $action_class();
 
-        // XXX: find somewhere for this little block to live
-
-        if (common_config('db', 'mirror') && $action_obj->isReadOnly($args)) {
-            if (is_array(common_config('db', 'mirror'))) {
-                // "load balancing", ha ha
-                $arr = common_config('db', 'mirror');
-                $k = array_rand($arr);
-                $mirror = $arr[$k];
-            } else {
-                $mirror = common_config('db', 'mirror');
-            }
-            $config['db']['database'] = $mirror;
-        }
+        checkMirror($action_obj);
 
         try {
             if ($action_obj->prepare($args)) {

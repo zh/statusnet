@@ -11,7 +11,7 @@ class Foreign_link extends Memcached_DataObject
 
     public $__table = 'foreign_link';                    // table name
     public $user_id;                         // int(4)  primary_key not_null
-    public $foreign_id;                      // int(4)  primary_key not_null
+    public $foreign_id;                      // bigint(8)  primary_key not_null unsigned
     public $service;                         // int(4)  primary_key not_null
     public $credentials;                     // varchar(255)
     public $noticesync;                      // tinyint(1)   not_null default_1
@@ -59,12 +59,18 @@ class Foreign_link extends Memcached_DataObject
         return null;
     }
 
-    function set_flags($noticesync, $replysync, $friendsync)
+    function set_flags($noticesend, $noticerecv, $replysync, $friendsync)
     {
-        if ($noticesync) {
+        if ($noticesend) {
             $this->noticesync |= FOREIGN_NOTICE_SEND;
         } else {
             $this->noticesync &= ~FOREIGN_NOTICE_SEND;
+        }
+        
+        if ($noticerecv) {
+            $this->noticesync |= FOREIGN_NOTICE_RECV;
+        } else {
+            $this->noticesync &= ~FOREIGN_NOTICE_RECV;
         }
 
         if ($replysync) {

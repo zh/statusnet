@@ -49,25 +49,37 @@ class ProfileList extends Widget
 {
     /** Current profile, profile query. */
     var $profile = null;
-    /** Owner of this list */
-    var $owner = null;
     /** Action object using us. */
     var $action = null;
 
-    function __construct($profile, $owner=null, $action=null)
+    function __construct($profile, $action=null)
     {
         parent::__construct($action);
 
         $this->profile = $profile;
-        $this->owner = $owner;
         $this->action = $action;
     }
 
     function show()
     {
+        $this->startList();
+        $cnt = $this->showProfiles();
+        $this->endList();
+        return $cnt;
+    }
 
+    function startList()
+    {
         $this->out->elementStart('ul', 'profiles');
+    }
 
+    function endList()
+    {
+        $this->out->elementEnd('ul');
+    }
+
+    function showProfiles()
+    {
         $cnt = 0;
 
         while ($this->profile->fetch()) {
@@ -75,24 +87,66 @@ class ProfileList extends Widget
             if($cnt > PROFILES_PER_PAGE) {
                 break;
             }
-            $this->showProfile();
+            $pli = $this->newListItem($this->profile);
+            $pli->show();
         }
-
-        $this->out->elementEnd('ul');
 
         return $cnt;
     }
 
-    function showProfile()
+    function newListItem($profile)
+    {
+        return new ProfileListItem($this->profile, $this->action);
+    }
+}
+
+class ProfileListItem extends Widget
+{
+    /** Current profile. */
+    var $profile = null;
+    /** Action object using us. */
+    var $action = null;
+
+    function __construct($profile, $action)
+    {
+        parent::__construct($action);
+
+        $this->profile = $profile;
+        $this->action  = $action;
+    }
+
+    function show()
+    {
+        $this->startItem();
+        $this->showProfile();
+        $this->showActions();
+        $this->endItem();
+    }
+
+    function startItem()
     {
         $this->out->elementStart('li', array('class' => 'profile',
                                              'id' => 'profile-' . $this->profile->id));
+    }
 
-        $user = common_current_user();
-        $is_own = !is_null($user) && isset($this->owner) && ($user->id === $this->owner->id);
+    function showProfile()
+    {
+        $this->startProfile();
+        $this->showAvatar();
+        $this->showFullName();
+        $this->showLocation();
+        $this->showHomepage();
+        $this->showBio();
+        $this->endProfile();
+    }
 
+    function startProfile()
+    {
         $this->out->elementStart('div', 'entity_profile vcard');
+    }
 
+    function showAvatar()
+    {
         $avatar = $this->profile->getAvatar(AVATAR_STREAM_SIZE);
         $this->out->elementStart('a', array('href' => $this->profile->profileurl,
                                             'class' => 'url'));
@@ -108,7 +162,10 @@ class ProfileList extends Widget
         $this->out->raw($this->highlight($this->profile->nickname));
         $this->out->elementEnd('span');
         $this->out->elementEnd('a');
+    }
 
+    function showFullName()
+    {
         if (!empty($this->profile->fullname)) {
             $this->out->elementStart('dl', 'entity_fn');
             $this->out->element('dt', null, 'Full name');
@@ -119,6 +176,10 @@ class ProfileList extends Widget
             $this->out->elementEnd('dd');
             $this->out->elementEnd('dl');
         }
+    }
+
+    function showLocation()
+    {
         if (!empty($this->profile->location)) {
             $this->out->elementStart('dl', 'entity_location');
             $this->out->element('dt', null, _('Location'));
@@ -127,6 +188,10 @@ class ProfileList extends Widget
             $this->out->elementEnd('dd');
             $this->out->elementEnd('dl');
         }
+    }
+
+    function showHomepage()
+    {
         if (!empty($this->profile->homepage)) {
             $this->out->elementStart('dl', 'entity_url');
             $this->out->element('dt', null, _('URL'));
@@ -138,6 +203,10 @@ class ProfileList extends Widget
             $this->out->elementEnd('dd');
             $this->out->elementEnd('dl');
         }
+    }
+
+    function showBio()
+    {
         if (!empty($this->profile->bio)) {
             $this->out->elementStart('dl', 'entity_note');
             $this->out->element('dt', null, _('Note'));
@@ -146,56 +215,32 @@ class ProfileList extends Widget
             $this->out->elementEnd('dd');
             $this->out->elementEnd('dl');
         }
+    }
 
-        # If we're on a list with an owner (subscriptions or subscribers)...
-
-        if ($this->owner) {
-            # Get tags
-            $tags = Profile_tag::getTags($this->owner->id, $this->profile->id);
-
-            $this->out->elementStart('dl', 'entity_tags');
-            $this->out->elementStart('dt');
-            if ($is_own) {
-                $this->out->element('a', array('href' => common_local_url('tagother',
-                                                                          array('id' => $this->profile->id))),
-                                    _('Tags'));
-            } else {
-                $this->out->text(_('Tags'));
-            }
-            $this->out->elementEnd('dt');
-            $this->out->elementStart('dd');
-            if ($tags) {
-                $this->out->elementStart('ul', 'tags xoxo');
-                foreach ($tags as $tag) {
-                    $this->out->elementStart('li');
-                    $this->out->element('span', 'mark_hash', '#');
-                    $this->out->element('a', array('rel' => 'tag',
-                                                   'href' => common_local_url($this->action->trimmed('action'),
-                                                                              array('nickname' => $this->owner->nickname,
-                                                                                    'tag' => $tag))),
-                                        $tag);
-                    $this->out->elementEnd('li');
-                }
-                $this->out->elementEnd('ul');
-            } else {
-                $this->out->text(_('(none)'));
-            }
-            $this->out->elementEnd('dd');
-            $this->out->elementEnd('dl');
-        }
-
-        if ($is_own) {
-            $this->showOwnerControls($this->profile);
-        }
-
+    function endProfile()
+    {
         $this->out->elementEnd('div');
+    }
 
+    function showActions()
+    {
+        $this->startActions();
+        $this->showSubscribeButton();
+        $this->endActions();
+    }
+
+    function startActions()
+    {
         $this->out->elementStart('div', 'entity_actions');
-
         $this->out->elementStart('ul');
+    }
 
+    function showSubscribeButton()
+    {
         // Is this a logged-in user, looking at someone else's
         // profile?
+
+        $user = common_current_user();
 
         if (!empty($user) && $this->profile->id != $user->id) {
             $this->out->elementStart('li', 'entity_subscribe');
@@ -203,37 +248,31 @@ class ProfileList extends Widget
                 $usf = new UnsubscribeForm($this->out, $this->profile);
                 $usf->show();
             } else {
-                $sf = new SubscribeForm($this->out, $this->profile);
-                $sf->show();
-            }
-            $this->out->elementEnd('li');
-            $this->out->elementStart('li', 'entity_block');
-            if ($user->id == $this->owner->id) {
-                $this->showBlockForm();
+                // Is it a local user? can't remote sub from a list
+                // XXX: make that possible!
+                $other = User::staticGet('id', $this->profile->id);
+                if (!empty($other)) {
+                    $sf = new SubscribeForm($this->out, $this->profile);
+                    $sf->show();
+                }
             }
             $this->out->elementEnd('li');
         }
-
-        $this->out->elementEnd('ul');
-
-        $this->out->elementEnd('div');
-
-        $this->out->elementEnd('li');
     }
 
-    /* Override this in subclasses. */
-
-    function showOwnerControls($profile)
+    function endActions()
     {
-        return;
+        $this->out->elementEnd('ul');
+        $this->out->elementEnd('div');
+    }
+
+    function endItem()
+    {
+        $this->out->elementEnd('li');
     }
 
     function highlight($text)
     {
         return htmlspecialchars($text);
-    }
-
-    function showBlockForm()
-    {
     }
 }

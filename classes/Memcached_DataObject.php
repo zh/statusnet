@@ -1,7 +1,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -33,21 +33,41 @@ class Memcached_DataObject extends DB_DataObject
             $k = $keys[0];
             unset($i);
         }
-        $i = Memcached_DataObject::getcached($cls, $k, $v);
+        $i = self::getcached($cls, $k, $v);
         if ($i) {
             return $i;
         } else {
             $i = DB_DataObject::staticGet($cls, $k, $v);
             if ($i) {
                 $i->encache();
+            } else {
+                self::cachenull($cls, $k, $v);
             }
             return $i;
         }
     }
 
+    function cachenull($cls, $k, $v)
+    {
+        $c = self::memcache();
+        if (empty($c)) {
+            return;
+        }
+        $c->set(self::cacheKey($cls, $k, $v), null);
+    }
+
+    function multicachenull($cls, $kv)
+    {
+        $c = self::memcache();
+        if (empty($c)) {
+            return;
+        }
+        $c->set(self::multicachekey($cls, $kv), null);
+    }
+
     function &pkeyGet($cls, $kv)
     {
-        $i = Memcached_DataObject::multicache($cls, $kv);
+        $i = self::multicache($cls, $kv);
         if ($i) {
             return $i;
         } else {
@@ -58,6 +78,7 @@ class Memcached_DataObject extends DB_DataObject
             if ($i->find(true)) {
                 $i->encache();
             } else {
+                self::multicachenull($cls, $kv);
                 $i = null;
             }
             return $i;
@@ -67,6 +88,9 @@ class Memcached_DataObject extends DB_DataObject
     function insert()
     {
         $result = parent::insert();
+        if ($result) {
+            $this->encache();
+        }
         return $result;
     }
 
@@ -97,11 +121,11 @@ class Memcached_DataObject extends DB_DataObject
     }
 
     static function getcached($cls, $k, $v) {
-        $c = Memcached_DataObject::memcache();
+        $c = self::memcache();
         if (!$c) {
             return false;
         } else {
-            return $c->get(Memcached_DataObject::cacheKey($cls, $k, $v));
+            return $c->get(self::cacheKey($cls, $k, $v));
         }
     }
 
@@ -168,15 +192,21 @@ class Memcached_DataObject extends DB_DataObject
 
     function multicache($cls, $kv)
     {
-        ksort($kv);
-        $c = Memcached_DataObject::memcache();
+        $c = self::memcache();
         if (!$c) {
             return false;
         } else {
-            $pkeys = implode(',', array_keys($kv));
-            $pvals = implode(',', array_values($kv));
-            return $c->get(Memcached_DataObject::cacheKey($cls, $pkeys, $pvals));
+            return $c->get(self::multicachekey($cls, $kv));
         }
+    }
+
+    function multicachekey($cls, $kv)
+    {
+        ksort($kv);
+        $pkeys = implode(',', array_keys($kv));
+        $pvals = implode(',', array_values($kv));
+
+        return self::cacheKey($cls, $pkeys, $pvals);
     }
 
     function getSearchEngine($table)
@@ -193,7 +223,14 @@ class Memcached_DataObject extends DB_DataObject
                 // unable to connect to sphinx' search daemon
                 if (!$connected) {
                     if ('mysql' === common_config('db', 'type')) {
-                        $search_engine = new MySQLSearch($this, $table);
+                        $type = common_config('search', 'type');
+                        if ($type == 'like') {
+                            $search_engine = new MySQLLikeSearch($this, $table);
+                        } else if ($type == 'fulltext') {
+                            $search_engine = new MySQLSearch($this, $table);
+                        } else {
+                            throw new ServerException('Unknown search type: ' . $type);
+                        }
                     } else {
                         $search_engine = new PGSearch($this, $table);
                     }
@@ -204,7 +241,7 @@ class Memcached_DataObject extends DB_DataObject
 
     static function cachedQuery($cls, $qry, $expiry=3600)
     {
-        $c = Memcached_DataObject::memcache();
+        $c = self::memcache();
         if (!$c) {
             $inst = new $cls();
             $inst->query($qry);
@@ -242,13 +279,16 @@ class Memcached_DataObject extends DB_DataObject
             if (common_config('db', 'type') == 'mysql' &&
                 common_config('db', 'utf8')) {
                 $conn = $DB->connection;
-                if ($DB instanceof DB_mysqli) {
-                    mysqli_set_charset($conn, 'utf8');
-                } else if ($DB instanceof DB_mysql) {
-                    mysql_set_charset('utf8', $conn);
+                if (!empty($conn)) {
+                    if ($DB instanceof DB_mysqli) {
+                        mysqli_set_charset($conn, 'utf8');
+                    } else if ($DB instanceof DB_mysql) {
+                        mysql_set_charset('utf8', $conn);
+                    }
                 }
             }
         }
         return $result;
     }
+
 }

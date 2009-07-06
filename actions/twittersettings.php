@@ -138,7 +138,7 @@ class TwittersettingsAction extends ConnectSettingsAction
 
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
-        $this->checkbox('noticesync',
+        $this->checkbox('noticesend',
                         _('Automatically send my notices to Twitter.'),
                         ($flink) ?
                         ($flink->noticesync & FOREIGN_NOTICE_SEND) :
@@ -158,6 +158,22 @@ class TwittersettingsAction extends ConnectSettingsAction
                         ($flink->friendsync & FOREIGN_FRIEND_RECV) :
                         false);
         $this->elementEnd('li');
+
+        if (common_config('twitterbridge','enabled')) {
+            $this->elementStart('li');
+            $this->checkbox('noticerecv',
+                            _('Import my Friends Timeline.'),
+                            ($flink) ?
+                            ($flink->noticesync & FOREIGN_NOTICE_RECV) :
+                            false);
+            $this->elementEnd('li');
+        } else {
+            // preserve setting even if bidrection bridge toggled off
+            if ($flink && ($flink->noticesync & FOREIGN_NOTICE_RECV)) {
+                $this->hidden('noticerecv', true, 'noticerecv');
+            }
+        }
+
         $this->elementEnd('ul');
 
         if ($flink) {
@@ -320,7 +336,8 @@ class TwittersettingsAction extends ConnectSettingsAction
     {
         $screen_name = $this->trimmed('twitter_username');
         $password    = $this->trimmed('twitter_password');
-        $noticesync  = $this->boolean('noticesync');
+        $noticesend  = $this->boolean('noticesend');
+        $noticerecv  = $this->boolean('noticerecv');
         $replysync   = $this->boolean('replysync');
         $friendsync  = $this->boolean('friendsync');
 
@@ -363,7 +380,7 @@ class TwittersettingsAction extends ConnectSettingsAction
         $flink->credentials = $password;
         $flink->created     = common_sql_now();
 
-        $flink->set_flags($noticesync, $replysync, $friendsync);
+        $flink->set_flags($noticesend, $noticerecv, $replysync, $friendsync);
 
         $flink_id = $flink->insert();
 
@@ -421,7 +438,8 @@ class TwittersettingsAction extends ConnectSettingsAction
 
     function savePreferences()
     {
-        $noticesync = $this->boolean('noticesync');
+        $noticesend = $this->boolean('noticesend');
+        $noticerecv = $this->boolean('noticerecv');
         $friendsync = $this->boolean('friendsync');
         $replysync  = $this->boolean('replysync');
 
@@ -450,7 +468,7 @@ class TwittersettingsAction extends ConnectSettingsAction
 
         $original = clone($flink);
 
-        $flink->set_flags($noticesync, $replysync, $friendsync);
+        $flink->set_flags($noticesend, $noticerecv, $replysync, $friendsync);
 
         $result = $flink->update($original);
 

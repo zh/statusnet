@@ -25,6 +25,11 @@ require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
 define('INBOX_CACHE_WINDOW', 101);
 
+define('NOTICE_INBOX_SOURCE_SUB', 1);
+define('NOTICE_INBOX_SOURCE_GROUP', 2);
+define('NOTICE_INBOX_SOURCE_REPLY', 3);
+define('NOTICE_INBOX_SOURCE_GATEWAY', -1);
+
 class Notice_inbox extends Memcached_DataObject
 {
     ###START_AUTOCODE
@@ -43,19 +48,24 @@ class Notice_inbox extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    function stream($user_id, $offset, $limit, $since_id, $max_id, $since)
+    function stream($user_id, $offset, $limit, $since_id, $max_id, $since, $own=false)
     {
         return Notice::stream(array('Notice_inbox', '_streamDirect'),
-                              array($user_id),
-                              'notice_inbox:by_user:'.$user_id,
+                              array($user_id, $own),
+                              ($own) ? 'notice_inbox:by_user:'.$user_id :
+                              'notice_inbox:by_user_own:'.$user_id,
                               $offset, $limit, $since_id, $max_id, $since);
     }
 
-    function _streamDirect($user_id, $offset, $limit, $since_id, $max_id, $since)
+    function _streamDirect($user_id, $own, $offset, $limit, $since_id, $max_id, $since)
     {
         $inbox = new Notice_inbox();
 
         $inbox->user_id = $user_id;
+
+        if (!$own) {
+            $inbox->whereAdd('source != ' . NOTICE_INBOX_SOURCE_GATEWAY);
+        }
 
         if ($since_id != 0) {
             $inbox->whereAdd('notice_id > ' . $since_id);
@@ -84,5 +94,10 @@ class Notice_inbox extends Memcached_DataObject
         }
 
         return $ids;
+    }
+
+    function &pkeyGet($kv)
+    {
+        return Memcached_DataObject::pkeyGet('Notice_inbox', $kv);
     }
 }

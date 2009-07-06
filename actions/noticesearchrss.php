@@ -12,7 +12,7 @@
  * @link     http://laconi.ca/
  *
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -67,11 +67,16 @@ class NoticesearchrssAction extends Rss10Action
 
         if (!$limit) $limit = 20;
         $search_engine->limit(0, $limit, true);
-        $search_engine->query($q);
-        $notice->find();
+        if (false === $search_engine->query($q)) {
+            $cnt = 0;
+        } else {
+            $cnt = $notice->find();
+        }
 
-        while ($notice->fetch()) {
-            $notices[] = clone($notice);
+        if ($cnt > 0) {
+            while ($notice->fetch()) {
+                $notices[] = clone($notice);
+            }
         }
 
         return $notices;

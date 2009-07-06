@@ -242,6 +242,11 @@ class Action extends HTMLOutputter // lawsuit
                 $this->element('script', array('type' => 'text/javascript',
                                                'src' => common_path('js/jquery.form.js')),
                                ' ');
+
+                $this->element('script', array('type' => 'text/javascript',
+                                               'src' => common_path('js/jquery.joverlay.min.js')),
+                               ' ');
+
                 Event::handle('EndShowJQueryScripts', array($this));
             }
             if (Event::handle('StartShowLaconicaScripts', array($this))) {
@@ -378,15 +383,18 @@ class Action extends HTMLOutputter // lawsuit
     {
         $this->elementStart('address', array('id' => 'site_contact',
                                              'class' => 'vcard'));
-        $this->elementStart('a', array('class' => 'url home bookmark',
-                                       'href' => common_local_url('public')));
-        if (common_config('site', 'logo') || file_exists(theme_file('logo.png'))) {
-            $this->element('img', array('class' => 'logo photo',
-                                        'src' => (common_config('site', 'logo')) ? common_config('site', 'logo') : theme_path('logo.png'),
-                                        'alt' => common_config('site', 'name')));
+        if (Event::handle('StartAddressData', array($this))) {
+            $this->elementStart('a', array('class' => 'url home bookmark',
+                                           'href' => common_local_url('public')));
+            if (common_config('site', 'logo') || file_exists(theme_file('logo.png'))) {
+                $this->element('img', array('class' => 'logo photo',
+                                            'src' => (common_config('site', 'logo')) ? common_config('site', 'logo') : theme_path('logo.png'),
+                                            'alt' => common_config('site', 'name')));
+            }
+            $this->element('span', array('class' => 'fn org'), common_config('site', 'name'));
+            $this->elementEnd('a');
+            Event::handle('EndAddressData', array($this));
         }
-        $this->element('span', array('class' => 'fn org'), common_config('site', 'name'));
-        $this->elementEnd('a');
         $this->elementEnd('address');
     }
 
@@ -416,11 +424,13 @@ class Action extends HTMLOutputter // lawsuit
                     $this->menuItem(common_local_url('smssettings'),
                                     _('Connect'), _('Connect to SMS, Twitter'), false, 'nav_connect');
                 }
-                $this->menuItem(common_local_url('invite'),
-                                _('Invite'),
-                                sprintf(_('Invite friends and colleagues to join you on %s'),
-                                        common_config('site', 'name')),
-                                false, 'nav_invitecontact');
+                if (common_config('invite', 'enabled')) {
+                    $this->menuItem(common_local_url('invite'),
+                                    _('Invite'),
+                                    sprintf(_('Invite friends and colleagues to join you on %s'),
+                                            common_config('site', 'name')),
+                                    false, 'nav_invitecontact');
+                }
                 $this->menuItem(common_local_url('logout'),
                                 _('Logout'), _('Logout from the site'), false, 'nav_logout');
             }
@@ -569,20 +579,32 @@ class Action extends HTMLOutputter // lawsuit
     /**
      * Show page notice block.
      *
+     * Only show the block if a subclassed action has overrided
+     * Action::showPageNotice(), or an event handler is registered for
+     * the StartShowPageNotice event, in which case we assume the
+     * 'page_notice' definition list is desired.  This is to prevent
+     * empty 'page_notice' definition lists from being output everywhere.
+     *
      * @return nothing
      */
     function showPageNoticeBlock()
     {
-        $this->elementStart('dl', array('id' => 'page_notice',
-                                        'class' => 'system_notice'));
-        $this->element('dt', null, _('Page notice'));
-        $this->elementStart('dd');
-        if (Event::handle('StartShowPageNotice', array($this))) {
-            $this->showPageNotice();
-            Event::handle('EndShowPageNotice', array($this));
+        $rmethod = new ReflectionMethod($this, 'showPageNotice');
+        $dclass = $rmethod->getDeclaringClass()->getName();
+
+        if ($dclass != 'Action' || Event::hasHandler('StartShowPageNotice')) {
+
+            $this->elementStart('dl', array('id' => 'page_notice',
+                                            'class' => 'system_notice'));
+            $this->element('dt', null, _('Page notice'));
+            $this->elementStart('dd');
+            if (Event::handle('StartShowPageNotice', array($this))) {
+                $this->showPageNotice();
+                Event::handle('EndShowPageNotice', array($this));
+            }
+            $this->elementEnd('dd');
+            $this->elementEnd('dl');
         }
-        $this->elementEnd('dd');
-        $this->elementEnd('dl');
     }
 
     /**
@@ -847,10 +869,12 @@ class Action extends HTMLOutputter // lawsuit
         }
         if ($lm) {
             header('Last-Modified: ' . date(DATE_RFC1123, $lm));
-            if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
-                $ims = strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']);
+            if (array_key_exists('HTTP_IF_MODIFIED_SINCE', $_SERVER)) {
+                $if_modified_since = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
+                $ims = strtotime($if_modified_since);
                 if ($lm <= $ims) {
-                    $if_none_match = $_SERVER['HTTP_IF_NONE_MATCH'];
+                    $if_none_match = (array_key_exists('HTTP_IF_NONE_MATCH', $_SERVER)) ?
+                      $_SERVER['HTTP_IF_NONE_MATCH'] : null;
                     if (!$if_none_match ||
                         !$etag ||
                         $this->_hasEtag($etag, $if_none_match)) {
@@ -944,12 +968,16 @@ class Action extends HTMLOutputter // lawsuit
         $action = $this->trimmed('action');
         $args   = $this->args;
         unset($args['action']);
+        if (common_config('site', 'fancy')) {
+            unset($args['p']);
+        }
         if (array_key_exists('submit', $args)) {
             unset($args['submit']);
         }
         foreach (array_keys($_COOKIE) as $cookie) {
             unset($args[$cookie]);
         }
+
         return common_local_url($action, $args);
     }
 

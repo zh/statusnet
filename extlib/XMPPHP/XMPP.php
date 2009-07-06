@@ -27,8 +27,8 @@
  */
 
 /** XMPPHP_XMLStream */
-require_once "XMLStream.php";
-require_once "Roster.php";
+require_once dirname(__FILE__) . "/XMLStream.php";
+require_once dirname(__FILE__) . "/Roster.php";
 
 /**
  * XMPPHP Main Class
@@ -207,6 +207,15 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 		}
 		
 		$this->send($out);
+	}
+	/**
+	 * Send Auth request
+	 *
+	 * @param string $jid
+	 */
+	public function subscribe($jid) {
+		$this->send("<presence type='subscribe' to='{$jid}' from='{$this->fulljid}' />");
+		#$this->send("<presence type='subscribed' to='{$jid}' from='{$this->fulljid}' />");
 	}
 
 	/**

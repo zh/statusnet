@@ -1,16 +1,29 @@
 /* IE specific styles */
-legend {
-margin-left:-7px;
-}
-input.checkbox {
+input.checkbox,
+input.radio {
 top:0;
 }
 #form_notice textarea {
 width:78%;
 }
+#form_notice .form_note + label {
+position:absolute;
+top:25px;
+left:380px;
+text-indent:-9999px;
+height:16px;
+width:16px;
+display:block;
+}
 #form_notice #notice_action-submit {
 width:17%;
 max-width:17%;
+}
+#form_notice #notice_data-attach_selected {
+width:78.5%;
+}
+#form_notice #notice_data-attach_selected button {
+padding:0 4px;
 }
 #anon_notice {
 max-width:39%;
@@ -29,4 +42,13 @@ margin-right:4px;
 }
 .entity_profile {
 width:64%;
+}
+.notice {
+z-index:1;
+}
+.notice:hover {
+z-index:9999;
+}
+.notice .thumbnail img  {
+z-index:9999;
 }

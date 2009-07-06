@@ -2,7 +2,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -18,20 +18,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-# Abort if called from a web server
-if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
-    print "This script must be run from the command line\n";
-    exit();
-}
-
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
-define('LACONICA', true);
 
-require_once(INSTALLDIR . '/lib/common.php');
-require_once(INSTALLDIR . '/lib/jabber.php');
-require_once(INSTALLDIR . '/lib/daemon.php');
+$shortoptions = 'fi::';
+$longoptions = array('id::', 'foreground');
 
-set_error_handler('common_error_handler');
+$helptext = <<<END_OF_XMPP_HELP
+Daemon script for receiving new notices from Jabber users.
+
+    -i --id           Identity (default none)
+    -f --foreground   Stay in the foreground (default background)
+
+END_OF_XMPP_HELP;
+
+require_once INSTALLDIR.'/scripts/commandline.inc';
+
+require_once INSTALLDIR . '/lib/common.php';
+require_once INSTALLDIR . '/lib/jabber.php';
+require_once INSTALLDIR . '/lib/daemon.php';
 
 # This is kind of clunky; we create a class to call the global functions
 # in jabber.php, which create a new XMPP class. A more elegant (?) solution
@@ -39,9 +43,10 @@ set_error_handler('common_error_handler');
 
 class XMPPDaemon extends Daemon
 {
-
-    function XMPPDaemon($resource=null)
+    function __construct($resource=null, $daemonize=true)
     {
+        parent::__construct($daemonize);
+
         static $attrs = array('server', 'port', 'user', 'password', 'host');
 
         foreach ($attrs as $attr)
@@ -50,7 +55,7 @@ class XMPPDaemon extends Daemon
         }
 
         if ($resource) {
-            $this->resource = $resource;
+            $this->resource = $resource . 'daemon';
         } else {
             $this->resource = common_config('xmpp', 'resource') . 'daemon';
         }
@@ -60,7 +65,6 @@ class XMPPDaemon extends Daemon
 
     function connect()
     {
-
         $connect_to = ($this->host) ? $this->host : $this->server;
 
         $this->log(LOG_INFO, "Connecting to $connect_to on port $this->port");
@@ -71,10 +75,17 @@ class XMPPDaemon extends Daemon
             return false;
         }
 
+        $this->log(LOG_INFO, "Connected");
+
         $this->conn->setReconnectTimeout(600);
+
+        $this->log(LOG_INFO, "Sending initial presence.");
 
         jabber_send_presence("Send me a message to post a notice", 'available',
                              null, 'available', 100);
+
+        $this->log(LOG_INFO, "Done connecting.");
+
         return !$this->conn->isDisconnected();
     }
 
@@ -87,9 +98,13 @@ class XMPPDaemon extends Daemon
     {
         if ($this->connect()) {
 
+            $this->log(LOG_DEBUG, "Initializing stanza handlers.");
+
             $this->conn->addEventHandler('message', 'handle_message', $this);
             $this->conn->addEventHandler('presence', 'handle_presence', $this);
             $this->conn->addEventHandler('reconnect', 'handle_reconnect', $this);
+
+            $this->log(LOG_DEBUG, "Beginning processing loop.");
 
             $this->conn->process();
         }
@@ -97,8 +112,15 @@ class XMPPDaemon extends Daemon
 
     function handle_reconnect(&$pl)
     {
+        $this->log(LOG_DEBUG, "Got reconnection callback.");
         $this->conn->processUntil('session_start');
+        $this->log(LOG_DEBUG, "Sending reconnection presence.");
         $this->conn->presence('Send me a message to post a notice', 'available', null, 'available', 100);
+        unset($pl['xml']);
+        $pl['xml'] = null;
+
+        $pl = null;
+        unset($pl);
     }
 
     function get_user($from)
@@ -109,21 +131,27 @@ class XMPPDaemon extends Daemon
 
     function handle_message(&$pl)
     {
+        $from = jabber_normalize_jid($pl['from']);
+
         if ($pl['type'] != 'chat') {
-            return;
-        }
-        if (mb_strlen($pl['body']) == 0) {
+            $this->log(LOG_WARNING, "Ignoring message of type ".$pl['type']." from $from.");
             return;
         }
 
-        $from = jabber_normalize_jid($pl['from']);
+        if (mb_strlen($pl['body']) == 0) {
+            $this->log(LOG_WARNING, "Ignoring message with empty body from $from.");
+            return;
+        }
 
         # Forwarded from another daemon (probably a broadcaster) for
         # us to handle
 
         if ($this->is_self($from)) {
+            $this->log(LOG_INFO, "Got forwarded notice from self ($from).");
             $from = $this->get_ofrom($pl);
+            $this->log(LOG_INFO, "Originally sent by $from.");
             if (is_null($from) || $this->is_self($from)) {
+                $this->log(LOG_INFO, "Ignoring notice originally sent by $from.");
                 return;
             }
         }
@@ -138,6 +166,7 @@ class XMPPDaemon extends Daemon
             return;
         }
         if ($this->handle_command($user, $pl['body'])) {
+            $this->log(LOG_INFO, "Command messag by $from handled.");
             return;
         } else if ($this->is_autoreply($pl['body'])) {
             $this->log(LOG_INFO, 'Ignoring auto reply from ' . $from);
@@ -146,17 +175,31 @@ class XMPPDaemon extends Daemon
             $this->log(LOG_INFO, 'Ignoring OTR from ' . $from);
             return;
         } else if ($this->is_direct($pl['body'])) {
+            $this->log(LOG_INFO, 'Got a direct message ' . $from);
+
             preg_match_all('/d[\ ]*([a-z0-9]{1,64})/', $pl['body'], $to);
 
             $to = preg_replace('/^d([\ ])*/', '', $to[0][0]);
             $body = preg_replace('/d[\ ]*('. $to .')[\ ]*/', '', $pl['body']);
+
+            $this->log(LOG_INFO, 'Direct message from '. $user->nickname . ' to ' . $to);
+
             $this->add_direct($user, $body, $to, $from);
         } else {
+
+            $this->log(LOG_INFO, 'Posting a notice from ' . $user->nickname);
+
             $this->add_notice($user, $pl);
         }
 
         $user->free();
         unset($user);
+
+        unset($pl['xml']);
+        $pl['xml'] = null;
+
+        $pl = null;
+        unset($pl);
     }
 
     function is_self($from)
@@ -259,6 +302,7 @@ class XMPPDaemon extends Daemon
         $notice = Notice::saveNew($user->id, $content_shortened, 'xmpp');
         if (is_string($notice)) {
             $this->log(LOG_ERR, $notice);
+            $this->from_site($user->jabber, $notice);
             return;
         }
         common_broadcast_notice($notice);
@@ -301,11 +345,23 @@ class XMPPDaemon extends Daemon
             }
             break;
         }
+        unset($pl['xml']);
+        $pl['xml'] = null;
+
+        $pl = null;
+        unset($pl);
     }
 
     function log($level, $msg)
     {
-        common_log($level, 'XMPPDaemon('.$this->resource.'): '.$msg);
+        $text = 'XMPPDaemon('.$this->resource.'): '.$msg;
+        common_log($level, $text);
+        if (!$this->daemonize)
+        {
+            $line = common_log_line($level, $text);
+            echo $line;
+            echo "\n";
+        }
     }
 
     function subscribed($to)
@@ -321,13 +377,16 @@ if (common_config('xmpp','enabled')==false) {
     exit();
 }
 
-ini_set("max_execution_time", "0");
-ini_set("max_input_time", "0");
-set_time_limit(0);
-mb_internal_encoding('UTF-8');
+if (have_option('i', 'id')) {
+    $id = get_option_value('i', 'id');
+} else if (count($args) > 0) {
+    $id = $args[0];
+} else {
+    $id = null;
+}
 
-$resource = ($argc > 1) ? $argv[1] : (common_config('xmpp','resource') . '-listen');
+$foreground = have_option('f', 'foreground');
 
-$daemon = new XMPPDaemon($resource);
+$daemon = new XMPPDaemon($id, !$foreground);
 
 $daemon->runOnce();

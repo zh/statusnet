@@ -2,7 +2,7 @@
 <?php
 /*
  * Laconica - a distributed open-source microblogging tool
- * Copyright (C) 2008, Controlez-Vous, Inc.
+ * Copyright (C) 2008, 2009, Control Yourself, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -18,33 +18,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-# Abort if called from a web server
-if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
-    print "This script must be run from the command line\n";
-    exit();
-}
-
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
-define('LACONICA', true);
 
-require_once(INSTALLDIR . '/lib/common.php');
-require_once(INSTALLDIR . '/lib/jabber.php');
-require_once(INSTALLDIR . '/lib/xmppqueuehandler.php');
+$shortoptions = 'i::';
+$longoptions = array('id::');
 
-set_error_handler('common_error_handler');
+$helptext = <<<END_OF_JABBER_HELP
+Daemon script for pushing new confirmations to Jabber users.
+
+    -i --id           Identity (default none)
+
+END_OF_JABBER_HELP;
+
+require_once INSTALLDIR.'/scripts/commandline.inc';
+require_once INSTALLDIR . '/lib/jabber.php';
+require_once INSTALLDIR . '/lib/xmppqueuehandler.php';
 
 define('CLAIM_TIMEOUT', 1200);
 
 class XmppConfirmHandler extends XmppQueueHandler
 {
-
     var $_id = 'confirm';
-    
+
     function class_name()
     {
         return 'XmppConfirmHandler';
     }
-    
+
     function run()
     {
         if (!$this->start()) {
@@ -147,14 +147,17 @@ if (common_config('xmpp','enabled')==false) {
     exit();
 }
 
-ini_set("max_execution_time", "0");
-ini_set("max_input_time", "0");
-set_time_limit(0);
-mb_internal_encoding('UTF-8');
+if (have_option('i')) {
+    $id = get_option_value('i');
+} else if (have_option('--id')) {
+    $id = get_option_value('--id');
+} else if (count($args) > 0) {
+    $id = $args[0];
+} else {
+    $id = null;
+}
 
-$resource = ($argc > 1) ? $argv[1] : (common_config('xmpp', 'resource').'-confirm');
-
-$handler = new XmppConfirmHandler($resource);
+$handler = new XmppConfirmHandler($id);
 
 $handler->runOnce();
 
