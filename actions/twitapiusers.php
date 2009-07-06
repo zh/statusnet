@@ -47,7 +47,7 @@ class TwitapiusersAction extends TwitterapiAction
         }
 
         if (empty($user)) {
-            $this->client_error(_('Not found.'), 404, $apidata['content-type']);
+            $this->clientError(_('Not found.'), 404, $apidata['content-type']);
             return;
         }
 
