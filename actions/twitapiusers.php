@@ -37,24 +37,17 @@ class TwitapiusersAction extends TwitterapiAction
 
         $user = null;
         $email = $this->arg('email');
-        $user_id = $this->arg('user_id');
 
         // XXX: email field deprecated in Twitter's API
 
-        // XXX: Also: need to add screen_name param
-
         if ($email) {
             $user = User::staticGet('email', $email);
-        } elseif ($user_id) {
-            $user = $this->get_user($user_id);
-        } elseif (isset($apidata['api_arg'])) {
+        } else {
             $user = $this->get_user($apidata['api_arg']);
-        } elseif (isset($apidata['user'])) {
-            $user = $apidata['user'];
         }
 
         if (empty($user)) {
-            $this->client_error(_('Not found.'), 404, $apidata['content-type']);
+            $this->clientError(_('Not found.'), 404, $apidata['content-type']);
             return;
         }
 
