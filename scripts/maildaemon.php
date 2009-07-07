@@ -42,11 +42,11 @@ class MailerDaemon
 
     function handle_message($fname='php://stdin')
     {
-        list($from, $to, $msg) = $this->parse_message($fname);
+        list($from, $to, $msg, $attachments) = $this->parse_message($fname);
         if (!$from || !$to || !$msg) {
             $this->error(null, _('Could not parse message.'));
         }
-        common_log(LOG_INFO, "Mail from $from to $to: " .substr($msg, 0, 20));
+        common_log(LOG_INFO, "Mail from $from to $to with ".count($attachments) .' attachment(s): ' .substr($msg, 0, 20));
         $user = $this->user_from($from);
         if (!$user) {
             $this->error($from, _('Not a registered user.'));
@@ -65,13 +65,136 @@ class MailerDaemon
             return true;
         }
         $msg = $this->cleanup_msg($msg);
-        $err = $this->add_notice($user, $msg);
+        $msg = common_shorten_links($msg);
+        if (mb_strlen($msg) > 140) {
+            $this->error($from,_('That\'s too long. '.
+                'Max notice size is 140 chars.'));
+        }
+        $fileRecords = array();
+        foreach($attachments as $attachment){
+            $mimetype = $this->getUploadedFileType($attachment);
+            $stream  = stream_get_meta_data($attachment);
+            if (!$this->isRespectsQuota($user,filesize($stream['uri']))) {
+                die('error() should trigger an exception before reaching here.');
+            }
+            $filename = $this->saveFile($user, $attachment,$mimetype);
+            
+            fclose($attachment);
+            
+            if (empty($filename)) {
+                $this->error($from,_('Couldn\'t save file.'));
+            }
+
+            $fileRecord = $this->storeFile($filename, $mimetype);
+            $fileRecords[] = $fileRecord;
+            $fileurl = common_local_url('attachment',
+                array('attachment' => $fileRecord->id));
+
+            // not sure this is necessary -- Zach
+            $this->maybeAddRedir($fileRecord->id, $fileurl);
+
+            $short_fileurl = common_shorten_url($fileurl);
+            $msg .= ' ' . $short_fileurl;
+
+            if (mb_strlen($msg) > 140) {
+                $this->deleteFile($filename);
+                $this->error($from,_('Max notice size is 140 chars, including attachment URL.'));
+            }
+
+            // Also, not sure this is necessary -- Zach
+            $this->maybeAddRedir($fileRecord->id, $short_fileurl);
+        }
+
+        $err = $this->add_notice($user, $msg, $fileRecords);
         if (is_string($err)) {
             $this->error($from, $err);
             return false;
         } else {
             return true;
         }
+    }
+
+    function saveFile($user, $attachment, $mimetype) {
+
+        $filename = File::filename($user->getProfile(), "email", $mimetype);
+
+        $filepath = File::path($filename);
+
+        $stream  = stream_get_meta_data($attachment);
+        if (copy($stream['uri'], $filepath) && chmod($filepath,0664)) {
+            return $filename;
+        } else {   
+            $this->error(null,_('File could not be moved to destination directory.' . $stream['uri'] . ' ' . $filepath));
+        }
+    }
+
+    function storeFile($filename, $mimetype) {
+
+        $file = new File;
+        $file->filename = $filename;
+
+        $file->url = File::url($filename);
+
+        $filepath = File::path($filename);
+
+        $file->size = filesize($filepath);
+        $file->date = time();
+        $file->mimetype = $mimetype;
+
+        $file_id = $file->insert();
+
+        if (!$file_id) {
+            common_log_db_error($file, "INSERT", __FILE__);
+            $this->error(null,_('There was a database error while saving your file. Please try again.'));
+        }
+
+        return $file;
+    }
+
+    function maybeAddRedir($file_id, $url)
+    {   
+        $file_redir = File_redirection::staticGet('url', $url);
+
+        if (empty($file_redir)) {
+            $file_redir = new File_redirection;
+            $file_redir->url = $url;
+            $file_redir->file_id = $file_id;
+
+            $result = $file_redir->insert();
+
+            if (!$result) {
+                common_log_db_error($file_redir, "INSERT", __FILE__);
+                $this->error(null,_('There was a database error while saving your file. Please try again.'));
+            }
+        }
+    }
+
+    function getUploadedFileType($fileHandle) {
+        require_once 'MIME/Type.php';
+
+        $cmd = &PEAR::getStaticProperty('MIME_Type', 'fileCmd');
+        $cmd = common_config('attachments', 'filecommand');
+
+        $stream  = stream_get_meta_data($fileHandle);
+        $filetype = MIME_Type::autoDetect($stream['uri']);
+        if (in_array($filetype, common_config('attachments', 'supported'))) {
+            return $filetype;
+        }
+        $media = MIME_Type::getMedia($filetype);
+        if ('application' !== $media) {
+            $hint = sprintf(_(' Try using another %s format.'), $media);
+        } else {
+            $hint = '';
+        }
+        $this->error(null,sprintf(
+            _('%s is not a supported filetype on this server.'), $filetype) . $hint);
+    }
+
+    function isRespectsQuota($user,$fileSize) {
+        $file = new File;
+        $ret = $file->isRespectsQuota($user,$fileSize);
+        if (true === $ret) return true;
+        $this->error(null,$ret);
     }
 
     function error($from, $msg)
@@ -133,17 +256,28 @@ class MailerDaemon
         common_log($level, 'MailDaemon: '.$msg);
     }
 
-    function add_notice($user, $msg)
+    function add_notice($user, $msg, $fileRecords)
     {
         $notice = Notice::saveNew($user->id, $msg, 'mail');
         if (is_string($notice)) {
             $this->log(LOG_ERR, $notice);
             return $notice;
         }
+        foreach($fileRecords as $fileRecord){
+            $this->attachFile($notice, $fileRecord);
+        }
         common_broadcast_notice($notice);
         $this->log(LOG_INFO,
                    'Added notice ' . $notice->id . ' from user ' . $user->nickname);
         return true;
+    }
+
+    function attachFile($notice, $filerec)
+    {   
+        File_to_post::processNew($filerec->id, $notice->id);
+
+        $this->maybeAddRedir($filerec->id,
+            common_local_url('file', array('notice' => $notice->id)));
     }
 
     function parse_message($fname)
@@ -163,12 +297,19 @@ class MailerDaemon
 
         $type = $parsed->ctype_primary . '/' . $parsed->ctype_secondary;
 
+        $attachments = array();
+
         if ($parsed->ctype_primary == 'multipart') {
             foreach ($parsed->parts as $part) {
                 if ($part->ctype_primary == 'text' &&
                     $part->ctype_secondary == 'plain') {
                     $msg = $part->body;
-                    break;
+                }else{
+                    if ($part->body) {
+			$attachment = tmpfile();
+			fwrite($attachment, $part->body);
+                        $attachments[] = $attachment;
+                    }
                 }
             }
         } else if ($type == 'text/plain') {
@@ -176,8 +317,7 @@ class MailerDaemon
         } else {
             $this->unsupported_type($type);
         }
-
-        return array($from, $to, $msg);
+        return array($from, $to, $msg, $attachments);
     }
 
     function unsupported_type($type)
