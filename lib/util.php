@@ -862,163 +862,43 @@ function common_redirect($url, $code=307)
 
 function common_broadcast_notice($notice, $remote=false)
 {
-    if (common_config('queue', 'enabled')) {
-        // Do it later!
-        return common_enqueue_notice($notice);
-    } else {
-        return common_real_broadcast($notice, $remote);
-    }
+    return common_enqueue_notice($notice);
 }
 
 // Stick the notice on the queue
 
 function common_enqueue_notice($notice)
 {
-    $transports = array('omb', 'sms', 'public', 'twitter', 'facebook', 'ping');
+    static $localTransports = array('omb',
+                                    'twitter',
+                                    'facebook',
+                                    'ping');
+    static $allTransports = array('sms');
 
-    if (common_config('xmpp', 'enabled'))
-    {
+    $transports = $allTransports;
+
+    $xmpp = common_config('xmpp', 'enabled');
+
+    if ($xmpp) {
         $transports[] = 'jabber';
     }
 
-    if (common_config('queue','subsystem') == 'stomp') {
-        common_enqueue_notice_stomp($notice, $transports);
-    }
-    else {
-        common_enqueue_notice_db($notice, $transports);
-    }
-    return $result;
-}
-
-function common_enqueue_notice_stomp($notice, $transports)
-{
-    // use an external message queue system via STOMP
-    require_once("Stomp.php");
-
-    $server = common_config('queue','stomp_server');
-    $username = common_config('queue', 'stomp_username');
-    $password = common_config('queue', 'stomp_password');
-
-    $con = new Stomp($server);
-
-    if (!$con->connect($username, $password)) {
-        common_log(LOG_ERR, 'Failed to connect to queue server');
-        return false;
-    }
-
-    $queue_basename = common_config('queue','queue_basename');
-
-    foreach ($transports as $transport) {
-        $result = $con->send('/queue/'.$queue_basename.'-'.$transport, // QUEUE
-                             $notice->id, 		// BODY of the message
-                             array ('created' => $notice->created));
-        if (!$result) {
-            common_log(LOG_ERR, 'Error sending to '.$transport.' queue');
-            return false;
-        }
-        common_log(LOG_DEBUG, 'complete remote queueing notice ID = ' . $notice->id . ' for ' . $transport);
-    }
-
-    //send tags as headers, so they can be used as JMS selectors
-    common_log(LOG_DEBUG, 'searching for tags ' . $notice->id);
-    $tags = array();
-    $tag = new Notice_tag();
-    $tag->notice_id = $notice->id;
-    if ($tag->find()) {
-        while ($tag->fetch()) {
-            common_log(LOG_DEBUG, 'tag found = ' . $tag->tag);
-            array_push($tags,$tag->tag);
+    if ($notice->is_local == NOTICE_LOCAL_PUBLIC ||
+        $notice->is_local == NOTICE_LOCAL_NONPUBLIC) {
+        $transports = array_merge($transports, $localTransports);
+        if ($xmpp) {
+            $transports[] = 'public';
         }
     }
-    $tag->free();
 
-    $con->send('/topic/laconica.'.$notice->profile_id,
-               $notice->content,
-               array(
-                     'profile_id' => $notice->profile_id,
-                     'created' => $notice->created,
-                     'tags' => implode($tags,' - ')
-                     )
-               );
-    common_log(LOG_DEBUG, 'sent to personal topic ' . $notice->id);
-    $con->send('/topic/laconica.allusers',
-               $notice->content,
-               array(
-                     'profile_id' => $notice->profile_id,
-                     'created' => $notice->created,
-                     'tags' => implode($tags,' - ')
-                     )
-               );
-    common_log(LOG_DEBUG, 'sent to catch-all topic ' . $notice->id);
-    $result = true;
-}
+    $qm = QueueManager::get();
 
-function common_enqueue_notice_db($notice, $transports)
-{
-    // in any other case, 'internal'
-    foreach ($transports as $transport) {
-        common_enqueue_notice_transport($notice, $transport);
+    foreach ($transports as $transport)
+    {
+        $qm->enqueue($notice, $transport);
     }
-}
 
-function common_enqueue_notice_transport($notice, $transport)
-{
-    $qi = new Queue_item();
-    $qi->notice_id = $notice->id;
-    $qi->transport = $transport;
-    $qi->created = $notice->created;
-    $result = $qi->insert();
-    if (!$result) {
-        $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-        common_log(LOG_ERR, 'DB error inserting queue item: ' . $last_error->message);
-        throw new ServerException('DB error inserting queue item: ' . $last_error->message);
-    }
-    common_log(LOG_DEBUG, 'complete queueing notice ID = ' . $notice->id . ' for ' . $transport);
     return true;
-}
-
-function common_real_broadcast($notice, $remote=false)
-{
-    $success = true;
-    if (!$remote) {
-        // Make sure we have the OMB stuff
-        require_once(INSTALLDIR.'/lib/omb.php');
-        $success = omb_broadcast_remote_subscribers($notice);
-        if (!$success) {
-            common_log(LOG_ERR, 'Error in OMB broadcast for notice ' . $notice->id);
-        }
-    }
-    if ($success) {
-        require_once(INSTALLDIR.'/lib/jabber.php');
-        $success = jabber_broadcast_notice($notice);
-        if (!$success) {
-            common_log(LOG_ERR, 'Error in jabber broadcast for notice ' . $notice->id);
-        }
-    }
-    if ($success) {
-        require_once(INSTALLDIR.'/lib/mail.php');
-        $success = mail_broadcast_notice_sms($notice);
-        if (!$success) {
-            common_log(LOG_ERR, 'Error in sms broadcast for notice ' . $notice->id);
-        }
-    }
-    if ($success) {
-        $success = jabber_public_notice($notice);
-        if (!$success) {
-            common_log(LOG_ERR, 'Error in public broadcast for notice ' . $notice->id);
-        }
-    }
-    if ($success) {
-        $success = broadcast_twitter($notice);
-        if (!$success) {
-            common_log(LOG_ERR, 'Error in Twitter broadcast for notice ' . $notice->id);
-        }
-    }
-
-    // XXX: Do a real-time FB broadcast here?
-
-    // XXX: broadcast notices to other IM
-    return $success;
 }
 
 function common_broadcast_profile($profile)
@@ -1147,6 +1027,9 @@ function common_log_objstring(&$object)
 {
     if (is_null($object)) {
         return "null";
+    }
+    if (!($object instanceof DB_DataObject)) {
+        return "(unknown)";
     }
     $arr = $object->toArray();
     $fields = array();
