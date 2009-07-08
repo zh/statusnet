@@ -43,7 +43,7 @@ class TwitapiusersAction extends TwitterapiAction
         if ($email) {
             $user = User::staticGet('email', $email);
         } else {
-            $user = $this->get_user($apidata['api_arg']);
+            $user = $this->get_user($apidata['api_arg'], $apidata);
         }
 
         if (empty($user)) {
