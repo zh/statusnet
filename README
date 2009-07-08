@@ -2,8 +2,8 @@
 README
 ------
 
-Laconica 0.7.4 ("Can't Get There From Here")
-29 May 2009
+Laconica 0.8.0 ("Shiny Happy People")
+8 July 2009
 
 This is the README file for Laconica, the Open Source microblogging
 platform. It includes installation instructions, descriptions of
@@ -71,29 +71,52 @@ for additional terms.
 New this version
 ================
 
-This is a minor bug-fix and feature release since version 0.7.3,
-released Apr 4 2009. Notable changes this version:
+This is a major feature release since version 0.7.4, released May 31
+2009. Notable changes this version:
 
-- Improved handling of UTF-8 characters. The new code is *not* backwards
-  compatible by default; see "Upgrading" below for instructions on
-  converting existing databases to the correct character set.
-- Unroll joins for large queries. This greatly enhanced database
-  performance -- up to 50x for some queries -- at the expense of making
-  an extra DB hit for some queries.
-- Added an optional plugin to use WikiHashtags
-  (http://hashtags.wikia.com/) for the sidebar on hashtag pages.
-- Optimized Twitter friend synchronization.
-- Better error handling for Ajax posting of notices, including
-  HTTP errors and timeouts.
-- Experimental Comet plugin -- supports the cometd and the Bayeux
-  protocol. Using this plugin, you can show "real time" updates on the
-  public and tag pages. However, server configuration is complex.
-- If queues are enabled, update inboxes and memcached off-line. Speeds
-  up posting considerably.
-- Correctly shorten links posted through XMPP.
-- <link> elements for pagination, supported by some browsers like Opera.
-- Corrected date format in search API.
-- Made the public XRDS file work correctly.
+- Support for a hosted service (status network). Multiple sites can
+  share the same codebase but use different databases.
+- OEmbed. Links to pages that support OEmbed (http://www.oembed.com/)
+  become popup links, and the media are shown in a special lightbox.
+- File attachments. Users can attach files of the size and type approved
+  by an administrator, and a shortened link will be included in the
+  notice.
+- Related notices are organized into conversations, with each reply a
+  branch in a tree. Conversations have pages and are linked to from each
+  notice in the conversation.
+- User designs. Users can specify colours and backgrounds
+  for their profile pages and other "personal" pages.
+- Group designs. Group administrators can specify similar designs for
+  group profiles and related pages.
+- Site designs. Site authors can specify a design (background and
+  colors) for the site.
+- New themes. Five new themes are added to the base release; these show
+  off the flexibility of Laconica's theming system.
+- Statistics. Public sites will periodically send usage statistics,
+  configuration options, and dependency information to Laconica dev site.
+  This will help us understand how the software is used and plan future
+  versions of the software.
+- Additional hooks. The hooks and plugins system introduced in 0.7.x was
+  expanded with additional points of access.
+- Facebook Connect. A new plugin allows logging in with Facebook Connect
+  (http://developers.facebook.com/connect.php).
+- A session handler. A new optional session handler class to manage PHP
+  sessions reliably and quickly for large sites.
+- STOMP queuing. Queue management for offline daemons has been
+  abstracted with three concrete instances. A new interface that should
+  work with STOMP servers like ActiveMQ and RabbitMQ is available, which
+  should make things scale better.
+- Group block. Group admins can block users from joining or posting to
+  a group.
+- Group aliases. Groups can be referred to with aliases, additional
+  names. For example, "!yul" and "!montreal" can be the same group.
+- Bidirectional Twitter bridge. Users can read the tweets their Twitter
+  friends post on Twitter.
+- Adaptation of WordPress.com Terms of Service (http://en.wordpress.com/tos/)
+  as default TOS for Laconica sites.
+- Better command-line handling for scripts, including standard options
+  and ability to set hostname and path from the command line.
+- Many, many bug fixes.
 
 Prerequisites
 =============
@@ -198,9 +221,9 @@ especially if you've previously installed PHP/MySQL packages.
 1. Unpack the tarball you downloaded on your Web server. Usually a
    command like this will work:
 
-   	   tar zxf laconica-0.7.4.tar.gz
+   	   tar zxf laconica-0.8.0.tar.gz
 
-   ...which will make a laconica-0.7.4 subdirectory in your current
+   ...which will make a laconica-0.8.0 subdirectory in your current
    directory. (If you don't have shell access on your Web server, you
    may have to unpack the tarball on your local computer and FTP the
    files to the server.)
@@ -208,7 +231,7 @@ especially if you've previously installed PHP/MySQL packages.
 2. Move the tarball to a directory of your choosing in your Web root
    directory. Usually something like this will work:
 
-   	   mv laconica-0.7.4 /var/www/mublog
+   	   mv laconica-0.8.0 /var/www/mublog
 
    This will make your Laconica instance available in the mublog path of
    your server, like "http://example.net/mublog". "microblog" or
@@ -702,11 +725,11 @@ However, older installations will have the incorrect storage, and will
 consequently show up "wrong" in browsers. See below for how to deal
 with this situation.
 
-If you've been using Laconica 0.6, 0.5 or lower, or if you've been
-tracking the "git" version of the software, you will probably want
-to upgrade and keep your existing data. There is no automated upgrade
-procedure in Laconica 0.7.4. Try these step-by-step instructions; read
-to the end first before trying them.
+If you've been using Laconica 0.7, 0.6, 0.5 or lower, or if you've
+been tracking the "git" version of the software, you will probably
+want to upgrade and keep your existing data. There is no automated
+upgrade procedure in Laconica 0.8.0. Try these step-by-step
+instructions; read to the end first before trying them.
 
 0. Download Laconica and set up all the prerequisites as if you were
    doing a new install.
@@ -726,20 +749,31 @@ to the end first before trying them.
 5. Once all writing processes to your site are turned off, make a
    final backup of the Web directory and database.
 6. Move your Laconica directory to a backup spot, like "mublog.bak".
-7. Unpack your Laconica 0.6 tarball and move it to "mublog" or
+7. Unpack your Laconica 0.8.0 tarball and move it to "mublog" or
    wherever your code used to be.
 8. Copy the config.php file and avatar directory from your old
    directory to your new directory.
 9. Copy htaccess.sample to .htaccess in the new directory. Change the
    RewriteBase to use the correct path.
-10. Rebuild the database. For MySQL, go to your Laconica directory and
-    run the rebuilddb.sh script like this:
+10. Rebuild the database. NOTE: this step is destructive and cannot be
+    reversed. YOU CAN EASILY DESTROY YOUR SITE WITH THIS STEP. Don't
+    do it without a known-good backup!
+
+    If your database is at version 0.7.4, you can run a special upgrade
+    script:
+
+    mysql -u<rootuser> -p<rootpassword> <database> db/074to080.sql
+
+    Otherwise, go to your Laconica directory and AFTER YOU MAKE A
+    BACKUP run the rebuilddb.sh script like this:
 
     ./scripts/rebuilddb.sh rootuser rootpassword database db/laconica.sql
 
     Here, rootuser and rootpassword are the username and password for a
     user who can drop and create databases as well as tables; typically
-    that's _not_ the user Laconica runs as.
+    that's _not_ the user Laconica runs as. Note that rebuilddb.sh drops
+    your database and rebuilds it; if there is an error you have no
+    database. Make sure you have a backup.
     For PostgreSQL databases there is an equivalent, rebuilddb_psql.sh,
     which operates slightly differently. Read the documentation in that
     script before running it.
@@ -791,6 +825,9 @@ problem.
 3. When fixup_inboxes is finished, you can set the enabled flag to
    'true'.
 
+NOTE: we will drop support for non-inboxed sites in the 0.9.x version
+of Laconica. It's time to switch now!
+
 UTF-8 Database
 --------------
 
@@ -817,7 +854,7 @@ what to do.
 Configuration options
 =====================
 
-The sole configuration file for Laconica (excepting configurations for
+The main configuration file for Laconica (excepting configurations for
 dependency software) is config.php in your Laconica directory. If you
 edit any other file in the directory, like lib/common.php (where most
 of the defaults are defined), you will lose your configuration options
@@ -1396,7 +1433,7 @@ if anyone's been overlooked in error.
 * Ori Avtalion
 * Meitar Moscovitz
 * Ken Sheppardson (Trac server, man-about-town)
-* Tiago 'gouki' Faria (i18n managerx)
+* Tiago 'gouki' Faria (i18n manager)
 * Sean Murphy
 * Leslie Michael Orchard
 * Eric Helgeson
@@ -1405,6 +1442,10 @@ if anyone's been overlooked in error.
 * Tobias Diekershoff
 * Dan Moore
 * Fil
+* Jeff Mitchell
+* Brenda Wallace
+* Jeffery To
+* Federico Marani
 
 Thanks also to the developers of our upstream library code and to the
 thousands of people who have tried out Identi.ca, installed Laconi.ca,
