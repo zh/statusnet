@@ -100,11 +100,16 @@ class StompQueueManager
                 $notice = Notice::staticGet('id', $frame->body);
 
                 if (empty($notice)) {
-                    $this->_log(LOG_WARNING, 'Got ID '. $frame->body .' for non-existent notice');
+                    $this->_log(LOG_WARNING, 'Got ID '. $frame->body .' for non-existent notice in queue '. $queue);
                     $this->con->ack($frame);
-                } else if ($handler->handle_notice($notice)) {
-                    $this->_log(LOG_INFO, 'Successfully handled notice '. $notice->id .' posted at ' . $frame->headers['created']);
-                    $this->con->ack($frame);
+                } else {
+                    if ($handler->handle_notice($notice)) {
+                        $this->_log(LOG_INFO, 'Successfully handled notice '. $notice->id .' posted at ' . $frame->headers['created'] . ' in queue '. $queue);
+                        $this->con->ack($frame);
+                    } else {
+                        $this->_log(LOG_WARNING, 'Failed handling notice '. $notice->id .' posted at ' . $frame->headers['created']  . ' in queue '. $queue);
+                        // Don't ack; it'll get re-sent
+                    }
                     unset($notice);
                 }
 
