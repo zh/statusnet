@@ -223,6 +223,7 @@ $(document).ready(function(){
 													}
 													$("#notice_data-text").val("");
     												$("#notice_data-attach").val("");
+    												$("#notice_in-reply-to").val("");
                                                     $('#notice_data-attach_selected').remove();
                                                     counter();
 												}
