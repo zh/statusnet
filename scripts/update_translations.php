@@ -42,7 +42,7 @@ $languages = get_all_languages();
 foreach ($languages as $language) {
 
     $code = $language['lang'];
-    $file = 'http://laconi.ca/pootle/' . $code .
+    $file_url = 'http://laconi.ca/pootle/' . $code .
         '/laconica/LC_MESSAGES/laconica.po';
     $lcdir = INSTALLDIR . '/locale/' . $code;
     $msgdir = "$lcdir/LC_MESSAGES";
@@ -59,18 +59,18 @@ foreach ($languages as $language) {
     }
 
     /* Get the remote one */
-    $newFile = file_get_contents($file);
+    $new_file = curl_get_file($file_url);
 
-    if ($newfile === FALSE) {
-        echo "Couldn't retrieve .po file for $code: $file\n";
+    if ($new_file === FALSE) {
+        echo "Couldn't retrieve .po file for $code: $file_url\n";
         continue;
     }
 
     // Update if the local .po file is different to the one downloaded, or
     // if the .mo file is not present.
-    if (sha1($newFile) != $existingSHA1 || !file_exists($mofile)) {
+    if (sha1($new_file) != $existingSHA1 || !file_exists($mofile)) {
         echo "Updating ".$code."\n";
-        file_put_contents($pofile, $newFile);
+        file_put_contents($pofile, $new_file);
         system(sprintf('msgmerge -U %s %s', $pofile, $laconica_pot));
         system(sprintf('msgfmt -f -o %s %s', $mofile, $pofile));
     } else {
@@ -79,3 +79,19 @@ foreach ($languages as $language) {
 }
 
 echo "Finished\n";
+
+
+function curl_get_file($url)
+{
+    $c = curl_init();
+    curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($c, CURLOPT_URL, $url);
+    $contents = curl_exec($c);
+    curl_close($c);
+
+    if (!empty($contents)) {
+        return $contents;
+    }
+
+    return FALSE;
+}
