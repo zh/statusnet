@@ -108,7 +108,10 @@ class StompQueueManager
                         $this->con->ack($frame);
                     } else {
                         $this->_log(LOG_WARNING, 'Failed handling notice '. $notice->id .' posted at ' . $frame->headers['created']  . ' in queue '. $queue);
-                        // Don't ack; it'll get re-sent
+                        // FIXME we probably shouldn't have to do
+                        // this kind of queue management ourselves
+                        $this->con->ack($frame);
+                        $this->enqueue($notice, $queue);
                     }
                     unset($notice);
                 }
