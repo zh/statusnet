@@ -313,8 +313,6 @@ class FBConnectPlugin extends Plugin
                  $action->menuItem(common_local_url('register'),
                      _('Register'), _('Create an account'), false, 'nav_register');
              }
-             $action->menuItem(common_local_url('openidlogin'),
-                 _('OpenID'), _('Login with OpenID'), false, 'nav_openid');
              $action->menuItem(common_local_url('login'),
                  _('Login'), _('Login to the site'), false, 'nav_login');
          }
