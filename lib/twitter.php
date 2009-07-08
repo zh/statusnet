@@ -367,7 +367,7 @@ function broadcast_twitter($notice)
 
     // XXX: Not sure WHERE to check whether a notice should go to
     // Twitter. Should we even put in the queue if it shouldn't? --Zach
-    if (!is_null($flink) && is_twitter_bound($notice, $flink)) {
+    if (is_twitter_bound($notice, $flink)) {
 
         $fuser = $flink->getForeignUser();
         $twitter_user = $fuser->nickname;

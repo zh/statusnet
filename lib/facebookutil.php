@@ -108,11 +108,11 @@ function facebookBroadcastNotice($notice)
 {
     $facebook = getFacebook();
     $flink = Foreign_link::getByUserID($notice->profile_id, FACEBOOK_SERVICE);
-    $fbuid = $flink->foreign_id;
 
     if (isFacebookBound($notice, $flink)) {
 
         $status = null;
+        $fbuid = $flink->foreign_id;
 
         // Get the status 'verb' (prefix) the user has set
         try {
