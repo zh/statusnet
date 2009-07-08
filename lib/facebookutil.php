@@ -51,6 +51,10 @@ function updateProfileBox($facebook, $flink, $notice) {
 
 function isFacebookBound($notice, $flink) {
 
+    if (empty($flink)) {
+        return false;
+    }
+
     // If the user does not want to broadcast to Facebook, move along
     if (!($flink->noticesync & FOREIGN_NOTICE_SEND == FOREIGN_NOTICE_SEND)) {
         common_log(LOG_INFO, "Skipping notice $notice->id " .
