@@ -216,6 +216,13 @@ class Rss10Action extends Action
             $replyurl = common_local_url('shownotice', array('notice' => $notice->reply_to));
             $this->element('sioc:reply_of', array('rdf:resource' => $replyurl));
         }
+        $attachments = $notice->attachments();
+        if($attachments){
+            foreach($attachments as $attachment){
+                $this->element('enc:enclosure', array('rdf:resource'=>$attachment->url,'enc:type'=>$attachment->mimetype,'enc:length'=>$attachment->size), null);
+            }
+        }
+
         $this->elementEnd('item');
         $this->creators[$creator_uri] = $profile;
     }
@@ -251,6 +258,8 @@ class Rss10Action extends Action
                                               'http://creativecommons.org/ns#',
                                               'xmlns:content' =>
                                               'http://purl.org/rss/1.0/modules/content/',
+                                              'xmlns:enc' =>
+                                              'http://purl.oclc.org/net/rss_2.0/enc#',
                                               'xmlns:foaf' =>
                                               'http://xmlns.com/foaf/0.1/',
                                               'xmlns:sioc' =>

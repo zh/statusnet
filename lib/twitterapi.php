@@ -207,7 +207,6 @@ class TwitterapiAction extends Action
 
     function twitter_rss_entry_array($notice)
     {
-
         $profile = $notice->getProfile();
         $entry = array();
 
@@ -223,6 +222,19 @@ class TwitterapiAction extends Action
 
         $entry['updated'] = $entry['published'];
         $entry['author'] = $profile->getBestName();
+
+        # Enclosure
+        $attachments = $notice->attachments();
+        if($attachments){
+            $entry['enclosures']=array();
+            foreach($attachments as $attachment){
+                $enclosure=array();
+                $enclosure['url']=$attachment->url;
+                $enclosure['mimetype']=$attachment->mimetype;
+                $enclosure['size']=$attachment->size;
+                $entry['enclosures'][]=$enclosure;
+            }
+        }
 
         # RSS Item specific
         $entry['description'] = $entry['content'];
@@ -378,6 +390,13 @@ class TwitterapiAction extends Action
         $this->element('pubDate', null, $entry['pubDate']);
         $this->element('guid', null, $entry['guid']);
         $this->element('link', null, $entry['link']);
+
+        # RSS only supports 1 enclosure per item
+        if($entry['enclosures']){
+            $enclosure = $entry['enclosures'][0];
+            $this->element('enclosure', array('url'=>$enclosure['url'],'type'=>$enclosure['mimetype'],'length'=>$enclosure['size']), null);
+        }
+        
         $this->elementEnd('item');
     }
 

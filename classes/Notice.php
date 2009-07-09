@@ -1164,6 +1164,18 @@ class Notice extends Memcached_DataObject
         }
         $tag->free();
 
+        # Enclosures
+        $attachments = $this->attachments();
+        if($attachments){
+            foreach($attachments as $attachment){
+                $attributes = array('rel'=>'enclosure','href'=>$attachment->url,'type'=>$attachment->mimetype,'length'=>$attachment->size);
+                if($attachment->title){
+                    $attributes['title']=$attachment->title;
+                }
+                $xs->element('link', $attributes, null);
+            }
+        }
+
         $xs->elementEnd('entry');
 
         return $xs->getString();
