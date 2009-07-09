@@ -52,43 +52,5 @@ if (!empty($id)) {
 $cnt = $user->find();
 
 while ($user->fetch()) {
-
-    $inbox_entry = new Notice_inbox();
-    $inbox_entry->user_id = $user->id;
-    $inbox_entry->orderBy('created DESC');
-    $inbox_entry->limit(1000, 1);
-
-    $id = null;
-
-    if ($inbox_entry->find(true)) {
-        $id = $inbox_entry->notice_id;
-    }
-
-    $inbox_entry->free();
-    unset($inbox_entry);
-
-    if (is_null($id)) {
-        continue;
-    }
-
-    $start = microtime(true);
-
-    $old_inbox = new Notice_inbox();
-    $cnt = $old_inbox->query('DELETE from notice_inbox WHERE user_id = ' . $user->id . ' AND notice_id < ' . $id);
-    $old_inbox->free();
-    unset($old_inbox);
-
-    print "Deleted $cnt notices for $user->nickname ($user->id).\n";
-
-    $finish = microtime(true);
-
-    $delay = 3.0 * ($finish - $start);
-
-    print "Delaying $delay seconds...";
-
-    // Wait to let slaves catch up
-
-    usleep($delay * 1000000);
-
-    print "DONE.\n";
+    Notice_inbox::gc($user->id);
 }

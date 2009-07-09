@@ -24,6 +24,9 @@ require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 // We keep 5 pages of inbox notices in memcache, +1 for pagination check
 
 define('INBOX_CACHE_WINDOW', 101);
+define('NOTICE_INBOX_GC_BOXCAR', 128);
+define('NOTICE_INBOX_GC_MAX', 12800);
+define('NOTICE_INBOX_LIMIT', 1000);
 
 define('NOTICE_INBOX_SOURCE_SUB', 1);
 define('NOTICE_INBOX_SOURCE_GROUP', 2);
@@ -99,5 +102,42 @@ class Notice_inbox extends Memcached_DataObject
     function &pkeyGet($kv)
     {
         return Memcached_DataObject::pkeyGet('Notice_inbox', $kv);
+    }
+
+    static function gc($user_id)
+    {
+        $entry = new Notice_inbox();
+        $entry->user_id = $user_id;
+        $entry->orderBy('created DESC');
+        $entry->limit(NOTICE_INBOX_LIMIT - 1, NOTICE_INBOX_GC_MAX);
+
+        $total = $entry->find();
+
+        if ($total > 0) {
+            $notices = array();
+            $cnt = 0;
+            while ($entry->fetch()) {
+                $notices[] = $entry->notice_id;
+                $cnt++;
+                if ($cnt >= NOTICE_INBOX_GC_BOXCAR) {
+                    self::deleteMatching($user_id, $notices);
+                    $notices = array();
+                    $cnt = 0;
+                }
+            }
+
+            if ($cnt > 0) {
+                self::deleteMatching($user_id, $notices);
+                $notices = array();
+            }
+        }
+    }
+
+    static function deleteMatching($user_id, $notices)
+    {
+        $entry = new Notice_inbox();
+        return $entry->query('DELETE FROM notice_inbox '.
+                             'WHERE user_id = ' . $user_id . ' ' .
+                             'AND notice_id in ('.implode(',', $notices).')');
     }
 }
