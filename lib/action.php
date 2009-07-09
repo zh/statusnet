@@ -772,7 +772,9 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementStart('p');
         $this->element('img', array('id' => 'license_cc',
                                     'src' => common_config('license', 'image'),
-                                    'alt' => common_config('license', 'title')));
+                                    'alt' => common_config('license', 'title'),
+                                    'width' => '80',
+                                    'height' => '15'));
         //TODO: This is dirty: i18n
         $this->text(_('All '.common_config('site', 'name').' content and data are available under the '));
         $this->element('a', array('class' => 'license',
