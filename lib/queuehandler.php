@@ -115,5 +115,10 @@ class QueueHandler extends Daemon
     {
         common_log($level, $this->class_name() . ' ('. $this->get_id() .'): '.$msg);
     }
+
+    function getSockets()
+    {
+        return array();
+    }
 }
 

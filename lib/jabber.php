@@ -77,6 +77,14 @@ function jabber_daemon_address()
     return common_config('xmpp', 'user') . '@' . common_config('xmpp', 'server');
 }
 
+class Sharing_XMPP extends XMPPHP_XMPP
+{
+    function getSocket()
+    {
+        return $this->socket;
+    }
+}
+
 /**
  * connect the configured Jabber account to the configured server
  *
@@ -89,7 +97,7 @@ function jabber_connect($resource=null)
 {
     static $conn = null;
     if (!$conn) {
-        $conn = new XMPPHP_XMPP(common_config('xmpp', 'host') ?
+        $conn = new Sharing_XMPP(common_config('xmpp', 'host') ?
                                 common_config('xmpp', 'host') :
                                 common_config('xmpp', 'server'),
                                 common_config('xmpp', 'port'),

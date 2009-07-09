@@ -126,4 +126,9 @@ class XmppQueueHandler extends QueueHandler
             return jabber_daemon_address() . '/' . common_config('xmpp','resource') . 'daemon';
         }
     }
+
+    function getSockets()
+    {
+        return array($this->conn->getSocket());
+    }
 }
