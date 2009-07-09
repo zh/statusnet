@@ -108,55 +108,55 @@ class StompQueueManager
 
             $handsocks = $handler->getSockets();
 
-            $this->_log(LOG_DEBUG, "Got ".count($handsocks)." sockets from handler.");
-            $this->_log(LOG_DEBUG, print_r($handsocks, true));
-
             $socks = array_merge(array($stompsock), $handsocks);
 
             $read = $socks;
             $write = array();
             $except = array();
 
-            $this->_log(LOG_DEBUG, "Starting select");
             $ready = stream_select($read, $write, $except, $handler->timeout(), 0);
-            $this->_log(LOG_DEBUG, "Finished select with value '$ready'");
 
-            if (!$ready || $read[0] !== $stompsock) {
-                $handler->idle(QUEUE_HANDLER_MISS_IDLE);
-            } else {
-                $frame = $this->con->readFrame();
-
-                if (!empty($frame)) {
-                    $notice = Notice::staticGet('id', $frame->body);
-
-                    if (empty($notice)) {
-                        $this->_log(LOG_WARNING, 'Got ID '. $frame->body .' for non-existent notice in queue '. $queue);
-                        $this->con->ack($frame);
-                    } else {
-                        if ($handler->handle_notice($notice)) {
-                            $this->_log(LOG_INFO, 'Successfully handled notice '. $notice->id .' posted at ' . $frame->headers['created'] . ' in queue '. $queue);
-                            $this->con->ack($frame);
-                        } else {
-                            $this->_log(LOG_WARNING, 'Failed handling notice '. $notice->id .' posted at ' . $frame->headers['created']  . ' in queue '. $queue);
-                            // FIXME we probably shouldn't have to do
-                            // this kind of queue management ourselves
-                            $this->con->ack($frame);
-                            $this->enqueue($notice, $queue);
-                        }
-                        unset($notice);
-                    }
-
-                    unset($frame);
-
-                    $handler->idle(QUEUE_HANDLER_HIT_IDLE);
-
-                } else {
-                    $handler->idle(QUEUE_HANDLER_MISS_IDLE);
+            if ($ready === false) {
+                $this->_log(LOG_ERR, "Error selecting on sockets");
+            } else if ($ready > 0) {
+                if (in_array($stompsock, $read)) {
+                    $this->_handleNotice($queue, $handler);
                 }
+                $handler->idle(QUEUE_HANDLER_HIT_IDLE);
+            } else { // timeout
+                $handler->idle(QUEUE_HANDLER_MISS_IDLE);
             }
         }
 
         $this->con->unsubscribe($this->_queueName($queue));
+    }
+
+    function _handleNotice($queue, $handler)
+    {
+        $frame = $this->con->readFrame();
+
+        if (!empty($frame)) {
+            $notice = Notice::staticGet('id', $frame->body);
+
+            if (empty($notice)) {
+                $this->_log(LOG_WARNING, 'Got ID '. $frame->body .' for non-existent notice in queue '. $queue);
+                $this->con->ack($frame);
+            } else {
+                if ($handler->handle_notice($notice)) {
+                    $this->_log(LOG_INFO, 'Successfully handled notice '. $notice->id .' posted at ' . $frame->headers['created'] . ' in queue '. $queue);
+                    $this->con->ack($frame);
+                } else {
+                    $this->_log(LOG_WARNING, 'Failed handling notice '. $notice->id .' posted at ' . $frame->headers['created']  . ' in queue '. $queue);
+                    // FIXME we probably shouldn't have to do
+                    // this kind of queue management ourselves
+                    $this->con->ack($frame);
+                    $this->enqueue($notice, $queue);
+                }
+                unset($notice);
+            }
+
+            unset($frame);
+        }
     }
 
     function _queueName($queue)
