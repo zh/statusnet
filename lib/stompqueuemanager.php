@@ -124,7 +124,8 @@ class StompQueueManager
                 }
                 foreach ($handsocks as $sock) {
                     if (in_array($sock, $read)) {
-                        $handler->idle(QUEUE_HANDLER_HIT_IDLE);
+                        // let it really handle this stuff
+                        $handler->idle(QUEUE_HANDLER_MISS_IDLE);
                         break;
                     }
                 }
