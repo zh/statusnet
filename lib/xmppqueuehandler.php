@@ -30,6 +30,8 @@ require_once(INSTALLDIR.'/lib/queuehandler.php');
 
 class XmppQueueHandler extends QueueHandler
 {
+    var $pingid = 0;
+
     function start()
     {
         # Low priority; we don't want to receive messages
@@ -44,6 +46,11 @@ class XmppQueueHandler extends QueueHandler
         return !is_null($this->conn);
     }
 
+    function timeout()
+    {
+        return 10;
+    }
+
     function handle_reconnect(&$pl)
     {
         $this->conn->processUntil('session_start');
@@ -55,12 +62,30 @@ class XmppQueueHandler extends QueueHandler
         # Process the queue for as long as needed
         try {
             if ($this->conn) {
+                $this->log(LOG_DEBUG, "Servicing the XMPP queue.");
                 $this->conn->processTime($timeout);
+                $this->sendPing();
             }
         } catch (XMPPHP_Exception $e) {
             $this->log(LOG_ERR, "Got an XMPPHP_Exception: " . $e->getMessage());
             die($e->getMessage());
         }
+    }
+
+    function sendPing()
+    {
+        $jid = jabber_daemon_address().'/'.$this->_id.$this->transport();
+        $server = common_config('xmpp', 'server');
+
+        if (!isset($this->pingid)) {
+            $this->pingid = 0;
+        } else {
+            $this->pingid++;
+        }
+
+        $this->log(LOG_DEBUG, "Sending ping #{$this->pingid}");
+
+		$this->conn->send("<iq from='{$jid}' to='{$server}' id='ping_{$this->pingid}' type='get'><ping xmlns='urn:xmpp:ping'/></iq>");
     }
 
     function forward_message(&$pl)
