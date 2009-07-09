@@ -21,6 +21,8 @@ if (!defined('LACONICA')) { exit(1); }
 
 require_once(INSTALLDIR.'/lib/queuehandler.php');
 
+define('PING_INTERVAL', 120);
+
 /**
  * Common superclass for all XMPP-using queue handlers. They all need to
  * service their message queues on idle, and forward any incoming messages
@@ -31,6 +33,7 @@ require_once(INSTALLDIR.'/lib/queuehandler.php');
 class XmppQueueHandler extends QueueHandler
 {
     var $pingid = 0;
+    var $lastping = null;
 
     function start()
     {
@@ -64,7 +67,11 @@ class XmppQueueHandler extends QueueHandler
             if ($this->conn) {
                 $this->log(LOG_DEBUG, "Servicing the XMPP queue.");
                 $this->conn->processTime($timeout);
-                $this->sendPing();
+                $now = time();
+                if (empty($this->lastping) || $now - $this->lastping > PING_INTERVAL) {
+                    $this->sendPing();
+                    $this->lastping = $now;
+                }
             }
         } catch (XMPPHP_Exception $e) {
             $this->log(LOG_ERR, "Got an XMPPHP_Exception: " . $e->getMessage());

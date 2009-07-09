@@ -117,9 +117,12 @@ class StompQueueManager
                 }
 
                 unset($frame);
-            }
 
-            $handler->idle(0);
+                $handler->idle(QUEUE_HANDLER_HIT_IDLE);
+
+            } else {
+                $handler->idle(QUEUE_HANDLER_MISS_IDLE);
+            }
         }
 
         $this->con->unsubscribe($this->_queueName($queue));
