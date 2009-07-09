@@ -63,7 +63,7 @@ class XmppQueueHandler extends QueueHandler
         try {
             if ($this->conn) {
                 $this->log(LOG_DEBUG, "Servicing the XMPP queue.");
-                $this->conn->processTime(max($timeout, 1));
+                $this->conn->processTime($timeout);
                 $this->sendPing();
             }
         } catch (XMPPHP_Exception $e) {
