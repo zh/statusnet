@@ -122,9 +122,12 @@ class StompQueueManager
                 if (in_array($stompsock, $read)) {
                     $this->_handleNotice($queue, $handler);
                 }
-                $handler->idle(QUEUE_HANDLER_HIT_IDLE);
-            } else { // timeout
-                $handler->idle(QUEUE_HANDLER_MISS_IDLE);
+                foreach ($handsocks as $sock) {
+                    if (in_array($sock, $read)) {
+                        $handler->idle(QUEUE_HANDLER_HIT_IDLE);
+                        break;
+                    }
+                }
             }
         }
 
