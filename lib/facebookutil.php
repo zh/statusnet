@@ -90,10 +90,10 @@ function isFacebookBound($notice, $flink) {
 
             if ($result != 1) {
                 $user = $flink->getUser();
-                $msg = "Can't send notice $notice->id to Facebook " .
+                $msg = "Not sending notice $notice->id to Facebook " .
                     "because user $user->nickname hasn't given the " .
                     'Facebook app \'status_update\' permission.';
-                common_log(LOG_INFO, $msg);
+                common_debug($msg);
                 $success = false;
             }
 
@@ -118,7 +118,10 @@ function facebookBroadcastNotice($notice)
         $status = null;
         $fbuid = $flink->foreign_id;
 
+        $user = $flink->getUser();
+
         // Get the status 'verb' (prefix) the user has set
+
         try {
             $prefix = $facebook->api_client->
                 data_getUserPreference(FACEBOOK_NOTICE_PREFIX, $fbuid);
@@ -126,23 +129,79 @@ function facebookBroadcastNotice($notice)
             $status = "$prefix $notice->content";
 
         } catch(FacebookRestClientException $e) {
-            common_log(LOG_ERR, $e->getMessage());
-            return false;
+            common_log(LOG_WARNING, $e->getMessage());
+            common_log(LOG_WARNING,
+                'Unable to get the status verb setting from Facebook ' .
+                "for $user->nickname (user id: $user->id).");
         }
 
-        // Okay, we're good to go!
+        // Okay, we're good to go, update the FB status
 
         try {
             $facebook->api_client->users_setStatus($status, $fbuid, false, true);
-            updateProfileBox($facebook, $flink, $notice);
         } catch(FacebookRestClientException $e) {
             common_log(LOG_ERR, $e->getMessage());
-            return false;
+            common_log(LOG_ERR,
+                'Unable to update Facebook status for ' .
+                "$user->nickname (user id: $user->id)!");
 
-             // Should we remove flink if this fails?
+            $code = $e->getCode();
+
+            if ($code >= 200) {
+
+                // 200 The application does not have permission to operate on the passed in uid parameter.
+                // 250 Updating status requires the extended permission status_update.
+                // see: http://wiki.developers.facebook.com/index.php/Users.setStatus#Example_Return_XML
+
+                remove_facebook_app($flink);
+            }
+
+        }
+
+        // Now try to update the profile box
+
+        try {
+            updateProfileBox($facebook, $flink, $notice);
+        } catch(FacebookRestClientException $e) {
+            common_log(LOG_WARNING, $e->getMessage());
+            common_log(LOG_WARNING,
+                'Unable to update Facebook profile box for ' .
+                "$user->nickname (user id: $user->id).");
         }
 
     }
 
     return true;
+}
+
+function remove_facebook_app($flink)
+{
+
+    $user = $flink->getUser();
+
+    common_log(LOG_INFO, 'Removing Facebook App Foreign link for ' .
+        "user $user->nickname (user id: $user->id).");
+
+    $result = $flink->delete();
+
+    if (empty($result)) {
+        common_log(LOG_ERR, 'Could not remove Facebook App ' .
+            "Foreign_link for $user->nickname (user id: $user->id)!");
+        common_log_db_error($flink, 'DELETE', __FILE__);
+    }
+
+    // Notify the user that we are removing their FB app access
+
+    $result = mail_facebook_app_removed($user);
+
+    if (!$result) {
+
+        $msg = 'Unable to send email to notify ' .
+            "$user->nickname (user id: $user->id) " .
+            'that their Facebook app link was ' .
+            'removed!';
+
+        common_log(LOG_WARNING, $msg);
+    }
+
 }
