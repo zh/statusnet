@@ -535,6 +535,11 @@ All the daemons write their process IDs (pids) to /var/run/ by
 default. This can be useful for starting, stopping, and monitoring the
 daemons.
 
+With version 0.8.0, it's now possible to use a STOMP server instead of
+our kind of hacky home-grown DB-based queue solution. See the "queues"
+config section below for how to configure to use STOMP. As of this
+writing, the software has been tested with ActiveMQ (
+
 Twitter Friends Syncing
 -----------------------
 
@@ -892,6 +897,8 @@ fancy: whether or not your site uses fancy URLs (see Fancy URLs
 logfile: full path to a file for Laconica to save logging
 	 information to. You may want to use this if you don't have
 	 access to syslog.
+logdebug: whether to log additional debug info like backtraces on
+          hard errors. Default false.
 locale_path: full path to the directory for locale data. Unless you
 	     store all your locale data in one place, you probably
 	     don't need to use this.
@@ -946,6 +953,12 @@ sslserver: use an alternate server name for SSL URLs, like
 shorturllength: Length of URL at which URLs in a message exceeding 140
                 characters will be sent to the user's chosen
                 shortening service.
+design: a default design (colors and background) for the site.
+        Sub-items are: backgroundcolor, contentcolor, sidebarcolor,
+        textcolor, linkcolor, backgroundimage, disposition.
+dupelimit: minimum time allowed for one person to say the same thing
+           twice. Default 60s. Anything lower is considered a user
+           or UI error.
 
 db
 --
@@ -996,6 +1009,10 @@ appname: The name that Laconica uses to log messages. By default it's
 	 "laconica", but if you have more than one installation on the
 	 server, you may want to change the name for each instance so
 	 you can track log messages more easily.
+priority: level to log at. Currently ignored.
+facility: what syslog facility to used. Defaults to LOG_USER, only
+          reset if you know what syslog is and have a good reason
+          to change it.
 
 queue
 -----
@@ -1005,7 +1022,19 @@ sending out SMS email or XMPP messages, for off-line processing. See
 'Queues and daemons' above for how to set this up.
 
 enabled: Whether to uses queues. Defaults to false.
-
+subsystem: Which kind of queueserver to use. Values include "db" for
+           our hacked-together database queuing (no other server
+           required) and "stomp" for a stomp server.
+stomp_server: "broker URI" for stomp server. Something like
+              "tcp://hostname:61613". More complicated ones are
+              possible; see your stomp server's documentation for
+              details.
+queue_basename: a root name to use for queues (stomp only). Typically
+                something like '/queue/sitename/' makes sense.
+stomp_username: username for connecting to the stomp server; defaults
+                to null.
+stomp_password: password for connecting to the stomp server; defaults
+                to null.
 license
 -------
 
@@ -1075,6 +1104,8 @@ localonly: If set to true, only messages posted by users of this
 blacklist: An array of IDs of users to hide from the public stream.
 	   Useful if you have someone making excessive Twitterfeed posts
 	   to the site, other kinds of automated posts, testing bots, etc.
+autosource: Sources of notices that are from automatic posters, and thus
+            should be kept off the public timeline. Default empty.
 
 theme
 -----
@@ -1137,6 +1168,15 @@ dropoff: Decay factor for tag listing, in seconds.
 	 Defaults to exponential decay over ten days; you can twiddle
 	 with it to try and get better results for your site.
 
+popular
+-------
+
+Settings for the "popular" section of the site.
+
+dropoff: Decay factor for popularity listing, in seconds.
+	 Defaults to exponential decay over ten days; you can twiddle
+	 with it to try and get better results for your site.
+
 daemon
 ------
 
@@ -1190,6 +1230,7 @@ source: The name to use for the source of posts to Twitter. Defaults
 	Twitter <http://twitter.com/help/request_source>, you can use
 	that here instead. Status updates on Twitter will then have
 	links to your site.
+taguri: base for tag:// URIs. Defaults to site-server + ',2009'.
 
 inboxes
 -------
@@ -1276,7 +1317,7 @@ detection.
 
 supported: an array of mime types you accept to store and distribute,
            like 'image/gif', 'video/mpeg', 'audio/mpeg', etc. Make sure you
-           setup your server to properly reckognize the types you want to
+           setup your server to properly recognize the types you want to
            support.
 uploads:   false to disable uploading files with notices (true by default).
 filecommand: The required MIME_Type library may need to use the 'file'
@@ -1297,6 +1338,17 @@ user_quota: total size in bytes a user can store on this server. Each user
             not exceed the user_quota.
 monthly_quota: total size permitted in the current month. This is the total
             size in bytes that a user can upload each month.
+dir: directory accessible to the Web process where uploads should go.
+     Defaults to the 'file' subdirectory of the install directory, which
+     should be writeable by the Web user.
+server: server name to use when creating URLs for uploaded files.
+        Defaults to null, meaning to use the default Web server. Using
+        a virtual server here can speed up Web performance.
+path: URL path, relative to the server, to find files. Defaults to
+      main path + '/file/'.
+filecommand: command to use for determining the type of a file. May be
+             skipped if fileinfo extension is installed. Defaults to
+             '/usr/bin/file'.
 
 group
 -----
@@ -1336,6 +1388,38 @@ handle: boolean. Whether we should register our own PHP session-handling
 	sites, but it probably won't hurt for smaller ones, either.
 debug: whether to output debugging info for session storage. Can help
        with weird session bugs, sometimes. Default false.
+
+background
+----------
+
+Users can upload backgrounds for their pages; this section defines
+their use.
+
+server: the server to use for background. Using a separate (even
+        virtual) server for this can speed up load times. Default is
+        null; same as site server.
+dir: directory to write backgrounds too. Default is '/background/'
+     subdir of install dir.
+path: path to backgrounds. Default is sub-path of install path; note
+      that you may need to change this if you change site-path too.
+
+twitterbridge
+-------------
+
+A bi-direction bridge to Twitter (http://twitter.com/).
+
+enabled: default false. If true, will show user's Twitter friends'
+         notices in their inbox and faves pages, only to the user. You
+         must also run the twitterstatusfetcher.php script.
+
+ping
+----
+
+Using the "XML-RPC Ping" method initiated by weblogs.com, the site can
+notify third-party servers of updates.
+
+notify: an array of URLs for ping endpoints. Default is the empty
+        array (no notification).
 
 Troubleshooting
 ===============
