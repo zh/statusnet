@@ -282,6 +282,39 @@ if (function_exists('date_default_timezone_set')) {
     date_default_timezone_set('UTC');
 }
 
+function addPlugin($name, $attrs = null)
+{
+    $name = ucfirst($name);
+    $pluginclass = "{$name}Plugin";
+
+    if (!class_exists($pluginclass)) {
+
+        $files = array("local/plugins/{$pluginclass}.php",
+                       "local/plugins/{$name}/{$pluginclass}.php",
+                       "local/{$pluginclass}.php",
+                       "local/{$name}/{$pluginclass}.php",
+                       "plugins/{$pluginclass}.php",
+                       "plugins/{$name}/{$pluginclass}.php");
+
+        foreach ($files as $file) {
+            $fullpath = INSTALLDIR.'/'.$file;
+            if (@file_exists($fullpath)) {
+                include_once($fullpath);
+                break;
+            }
+        }
+    }
+
+    $inst = new $pluginclass();
+
+    if (!empty($attrs)) {
+        foreach ($attrs as $aname => $avalue) {
+            $inst->$aname = $avalue;
+        }
+    }
+    return $inst;
+}
+
 // From most general to most specific:
 // server-wide, then vhost-wide, then for a path,
 // finally for a dir (usually only need one of the last two).
