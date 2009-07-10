@@ -266,7 +266,7 @@ class Router
         $m->connect('api/statuses/:method/:argument',
                     array('action' => 'api',
                           'apiaction' => 'statuses'),
-                    array('method' => '(user_timeline|friends_timeline|replies|mentions|show|destroy|friends|followers)'));
+                    array('method' => '(group_timeline|user_timeline|friends_timeline|replies|mentions|show|destroy|friends|followers)'));
 
         // users
 
