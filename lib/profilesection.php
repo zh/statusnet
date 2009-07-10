@@ -94,8 +94,8 @@ class ProfileSection extends Section
                                     $profile->fullname :
                                     $profile->nickname));
         $this->out->element('span', 'fn nickname', $profile->nickname);
-        $this->out->elementEnd('span');
         $this->out->elementEnd('a');
+        $this->out->elementEnd('span');
         $this->out->elementEnd('td');
         if ($profile->value) {
             $this->out->element('td', 'value', $profile->value);

@@ -356,6 +356,8 @@ class Notice extends Memcached_DataObject
         $this->blowTagCache($blowLast);
         $this->blowGroupCache($blowLast);
         $this->blowConversationCache($blowLast);
+        $profile = Profile::staticGet($this->profile_id);
+        $profile->blowNoticeCount();
     }
 
     function blowConversationCache($blowLast=false)

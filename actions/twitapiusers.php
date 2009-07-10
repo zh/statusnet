@@ -51,6 +51,13 @@ class TwitapiusersAction extends TwitterapiAction
             return;
         }
 
+        $profile = $user->getProfile();
+
+        if (!$profile) {
+            common_server_error(_('User has no profile.'));
+            return;
+        }
+
         $twitter_user = $this->twitter_user_array($user->getProfile(), true);
 
         if ($apidata['content-type'] == 'xml') {
