@@ -337,4 +337,132 @@ class Profile extends Memcached_DataObject
 
         return $profile;
     }
+
+    function subscriptionCount()
+    {
+        $c = common_memcache();
+
+        if (!empty($c)) {
+            $cnt = $c->get(common_cache_key('profile:subscription_count:'.$this->id));
+            if (is_integer($cnt)) {
+                return (int) $cnt;
+            }
+        }
+
+        $sub = new Subscription();
+        $sub->subscriber = $this->id;
+
+        $cnt = (int) $sub->count('distinct subscribed');
+
+        $cnt = ($cnt > 0) ? $cnt - 1 : $cnt;
+
+        if (!empty($c)) {
+            $c->set(common_cache_key('profile:subscription_count:'.$this->id), $cnt);
+        }
+
+        common_debug("subscriptionCount == $cnt");
+        return $cnt;
+    }
+
+    function subscriberCount()
+    {
+        $c = common_memcache();
+        if (!empty($c)) {
+            $cnt = $c->get(common_cache_key('profile:subscriber_count:'.$this->id));
+            if (is_integer($cnt)) {
+                return (int) $cnt;
+            }
+        }
+
+        $sub = new Subscription();
+        $sub->subscribed = $this->id;
+
+        $cnt = (int) $sub->count('distinct subscriber');
+
+        $cnt = ($cnt > 0) ? $cnt - 1 : $cnt;
+
+        if (!empty($c)) {
+            $c->set(common_cache_key('profile:subscriber_count:'.$this->id), $cnt);
+        }
+
+        common_debug("subscriberCount == $cnt");
+        return $cnt;
+    }
+
+    function faveCount()
+    {
+        $c = common_memcache();
+        if (!empty($c)) {
+            $cnt = $c->get(common_cache_key('profile:fave_count:'.$this->id));
+            if (is_integer($cnt)) {
+                return (int) $cnt;
+            }
+        }
+
+        $faves = new Fave();
+        $faves->user_id = $this->id;
+        $cnt = (int) $faves->count('distinct notice_id');
+
+        if (!empty($c)) {
+            $c->set(common_cache_key('profile:fave_count:'.$this->id), $cnt);
+        }
+
+        common_debug("faveCount == $cnt");
+        return $cnt;
+    }
+
+    function noticeCount()
+    {
+        $c = common_memcache();
+
+        if (!empty($c)) {
+            $cnt = $c->get(common_cache_key('profile:notice_count:'.$this->id));
+            if (is_integer($cnt)) {
+                return (int) $cnt;
+            }
+        }
+
+        $notices = new Notice();
+        $notices->profile_id = $this->id;
+        $cnt = (int) $notices->count('distinct id');
+
+        if (!empty($c)) {
+            $c->set(common_cache_key('profile:notice_count:'.$this->id), $cnt);
+        }
+
+        common_debug("noticeCount == $cnt");
+        return $cnt;
+    }
+
+    function blowSubscriberCount()
+    {
+        $c = common_memcache();
+        if (!empty($c)) {
+            $c->delete(common_cache_key('profile:subscriber_count:'.$this->id));
+        }
+    }
+
+    function blowSubscriptionCount()
+    {
+        $c = common_memcache();
+        if (!empty($c)) {
+            $c->delete(common_cache_key('profile:subscription_count:'.$this->id));
+        }
+    }
+
+    function blowFaveCount()
+    {
+        $c = common_memcache();
+        if (!empty($c)) {
+            $c->delete(common_cache_key('profile:fave_count:'.$this->id));
+        }
+    }
+
+    function blowNoticeCount()
+    {
+        $c = common_memcache();
+        if (!empty($c)) {
+            $c->delete(common_cache_key('profile:notice_count:'.$this->id));
+        }
+    }
 }
