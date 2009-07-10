@@ -86,13 +86,17 @@ function isFacebookBound($notice, $flink) {
 
             // Check to see if the user has given the FB app status update perms
             $result = $facebook->api_client->
-                users_hasAppPermission('status_update', $fbuid);
+                users_hasAppPermission('publish_stream', $fbuid);
 
+            if ($result != 1) {
+                $result = $facebook->api_client->
+                    users_hasAppPermission('status_update', $fbuid);
+            }
             if ($result != 1) {
                 $user = $flink->getUser();
                 $msg = "Not sending notice $notice->id to Facebook " .
                     "because user $user->nickname hasn't given the " .
-                    'Facebook app \'status_update\' permission.';
+                    'Facebook app \'status_update\' or \'publish_stream\' permission.';
                 common_debug($msg);
                 $success = false;
             }
@@ -138,7 +142,56 @@ function facebookBroadcastNotice($notice)
         // Okay, we're good to go, update the FB status
 
         try {
-            $facebook->api_client->users_setStatus($status, $fbuid, false, true);
+            $result = $facebook->api_client->
+                users_hasAppPermission('publish_stream', $fbuid);
+            if($result == 1){
+                // authorized to use the stream api, so use it
+                $fbattachment = null;
+                $attachments = $notice->attachments();
+                if($attachments){
+                    $fbattachment=array();
+                    $fbattachment['media']=array();
+                    //facebook only supports one attachment per item
+                    $attachment = $attachments[0];
+                    $fbmedia=array();
+                    if(strncmp($attachment->mimetype,'image/',strlen('image/'))==0){
+                        $fbmedia['type']='image';
+                        $fbmedia['src']=$attachment->url;
+                        $fbmedia['href']=$attachment->url;
+                        $fbattachment['media'][]=$fbmedia;
+/* Video doesn't seem to work. The notice never makes it to facebook, and no error is reported.
+                    }else if(strncmp($attachment->mimetype,'video/',strlen('image/'))==0 || $attachment->mimetype="application/ogg"){
+                        $fbmedia['type']='video';
+                        $fbmedia['video_src']=$attachment->url;
+                        // http://wiki.developers.facebook.com/index.php/Attachment_%28Streams%29
+                        // says that preview_img is required... but we have no value to put in it
+                        // $fbmedia['preview_img']=$attachment->url;
+                        if($attachment->title){
+                            $fbmedia['video_title']=$attachment->title;
+                        }
+                        $fbmedia['video_type']=$attachment->mimetype;
+                        $fbattachment['media'][]=$fbmedia;
+*/
+                    }else if($attachment->mimetype=='audio/mpeg'){
+                        $fbmedia['type']='mp3';
+                        $fbmedia['src']=$attachment->url;
+                        $fbattachment['media'][]=$fbmedia;
+                    }else if($attachment->mimetype=='application/x-shockwave-flash'){
+                        $fbmedia['type']='flash';
+                        // http://wiki.developers.facebook.com/index.php/Attachment_%28Streams%29
+                        // says that imgsrc is required... but we have no value to put in it
+                        // $fbmedia['imgsrc']='';
+                        $fbmedia['swfsrc']=$attachment->url;
+                        $fbattachment['media'][]=$fbmedia;
+                    }else{
+                        $fbattachment['name']=($attachment->title?$attachment->title:$attachment->url);
+                        $fbattachment['href']=$attachment->url;
+                    }
+                }
+                $facebook->api_client->stream_publish($status, $fbattachment, null, null, $fbuid);
+            }else{
+                $facebook->api_client->users_setStatus($status, $fbuid, false, true);
+            }
         } catch(FacebookRestClientException $e) {
             common_log(LOG_ERR, $e->getMessage());
             common_log(LOG_ERR,
@@ -150,7 +203,7 @@ function facebookBroadcastNotice($notice)
             if ($code >= 200) {
 
                 // 200 The application does not have permission to operate on the passed in uid parameter.
-                // 250 Updating status requires the extended permission status_update.
+                // 250 Updating status requires the extended permission status_update or publish_stream.
                 // see: http://wiki.developers.facebook.com/index.php/Users.setStatus#Example_Return_XML
 
                 remove_facebook_app($flink);
