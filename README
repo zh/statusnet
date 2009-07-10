@@ -936,8 +936,6 @@ notice: A plain string that will appear on every page. A good place
 	to put introductory information about your service, or info about
 	upgrades and outages, or other community info. Any HTML will
         be escaped.
-dupelimit: Time in which it's not OK for the same person to post the
-           same notice; default = 60 seconds.
 logo: URL of an image file to use as the logo for the site. Overrides
       the logo in the theme, if any.
 ssl: Whether to use SSL and https:// URLs for some or all pages.
@@ -953,15 +951,12 @@ sslserver: use an alternate server name for SSL URLs, like
 shorturllength: Length of URL at which URLs in a message exceeding 140
                 characters will be sent to the user's chosen
                 shortening service.
-<<<<<<< HEAD:README
 design: a default design (colors and background) for the site.
         Sub-items are: backgroundcolor, contentcolor, sidebarcolor,
         textcolor, linkcolor, backgroundimage, disposition.
 dupelimit: minimum time allowed for one person to say the same thing
            twice. Default 60s. Anything lower is considered a user
            or UI error.
-=======
->>>>>>> 0.7.x:README
 
 db
 --
