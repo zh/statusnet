@@ -69,7 +69,7 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
          $title      = sprintf(_("%s timeline"), $group->nickname);
          $taguribase = common_config('integration', 'taguri');
          $id         = "tag:$taguribase:GroupTimeline:".$group->id;
-         $link       = common_local_url('showstream',
+         $link       = common_local_url('showgroup',
              array('nickname' => $group->nickname));
          $subtitle   = sprintf(_('Updates from %1$s on %2$s!'),
              $group->nickname, $sitename);
@@ -94,11 +94,11 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
           case 'atom':
              if (isset($apidata['api_arg'])) {
                  $selfuri = common_root_url() .
-                     'api/statuses/group_timeline/' .
+                     'api/statuses/groups/timeline/' .
                          $apidata['api_arg'] . '.atom';
              } else {
                  $selfuri = common_root_url() .
-                  'api/statuses/group_timeline.atom';
+                  'api/statuses/groups/timeline.atom';
              }
              $this->show_atom_timeline($notice, $title, $id, $link,
                  $subtitle, $suplink, $selfuri);
