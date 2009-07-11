@@ -136,64 +136,6 @@ class TwitapistatusesAction extends TwitterapiAction
 
     }
 
-    function group_timeline($args, $apidata)
-    {
-        parent::handle($args);
-
-        $this->auth_user = $apidata['user'];
-        $group = $this->get_group($apidata['api_arg'], $apidata);
-
-        if (empty($group)) {
-            $this->clientError('Not Found', 404, $apidata['content-type']);
-            return;
-        }
-
-        $sitename   = common_config('site', 'name');
-        $title      = sprintf(_("%s timeline"), $group->nickname);
-        $taguribase = common_config('integration', 'taguri');
-        $id         = "tag:$taguribase:GroupTimeline:".$group->id;
-        $link       = common_local_url('showstream',
-            array('nickname' => $group->nickname));
-        $subtitle   = sprintf(_('Updates from %1$s on %2$s!'),
-            $group->nickname, $sitename);
-
-        $page     = (int)$this->arg('page', 1);
-        $count    = (int)$this->arg('count', 20);
-        $max_id   = (int)$this->arg('max_id', 0);
-        $since_id = (int)$this->arg('since_id', 0);
-        $since    = $this->arg('since');
-
-        $notice = $group->getNotices(($page-1)*$count,
-            $count, $since_id, $max_id, $since);
-
-        switch($apidata['content-type']) {
-         case 'xml':
-            $this->show_xml_timeline($notice);
-            break;
-         case 'rss':
-            $this->show_rss_timeline($notice, $title, $link,
-                $subtitle, $suplink);
-            break;
-         case 'atom':
-            if (isset($apidata['api_arg'])) {
-                $selfuri = common_root_url() .
-                    'api/statuses/group_timeline/' .
-                        $apidata['api_arg'] . '.atom';
-            } else {
-                $selfuri = common_root_url() .
-                 'api/statuses/group_timeline.atom';
-            }
-            $this->show_atom_timeline($notice, $title, $id, $link,
-                $subtitle, $suplink, $selfuri);
-            break;
-         case 'json':
-            $this->show_json_timeline($notice);
-            break;
-         default:
-            $this->clientError(_('API method not found!'), $code = 404);
-        }
-    }
-
     function user_timeline($args, $apidata)
     {
         parent::handle($args);
