@@ -331,8 +331,8 @@ class ShowgroupAction extends GroupDesignAction
                                       $this->group->nickname)),
                      new Feed(Feed::ATOM,
                               common_local_url('api',
-                                               array('apiaction' => 'statuses',
-                                                     'method' => 'group_timeline',
+                                               array('apiaction' => 'groups',
+                                                     'method' => 'timeline',
                                                      'argument' => $this->group->nickname.'.atom')),
                               sprintf(_('Notice feed for %s group (Atom)'),
                                       $this->group->nickname)));
