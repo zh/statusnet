@@ -75,14 +75,14 @@ class ApiAction extends Action
             }
         } else {
 
-			# Caller might give us a username even if not required
-			if (isset($_SERVER['PHP_AUTH_USER'])) {
-				$user = User::staticGet('nickname', $_SERVER['PHP_AUTH_USER']);
-				if ($user) {
-					$this->user = $user;
-				}
-				# Twitter doesn't throw an error if the user isn't found
-			}
+            // Caller might give us a username even if not required
+            if (isset($_SERVER['PHP_AUTH_USER'])) {
+                $user = User::staticGet('nickname', $_SERVER['PHP_AUTH_USER']);
+                if ($user) {
+                    $this->user = $user;
+                }
+                # Twitter doesn't throw an error if the user isn't found
+            }
 
             $this->process_command();
         }
@@ -117,7 +117,7 @@ class ApiAction extends Action
         }
     }
 
-    # Whitelist of API methods that don't need authentication
+    // Whitelist of API methods that don't need authentication
     function requires_auth()
     {
         static $noauth = array( 'statuses/public_timeline',
@@ -127,7 +127,8 @@ class ApiAction extends Action
                                 'help/downtime_schedule',
                                 'laconica/version',
                                 'laconica/config',
-                                'laconica/wadl');
+                                'laconica/wadl',
+                                'groups/timeline');
 
         static $bareauth = array('statuses/user_timeline',
                                  'statuses/friends_timeline',
@@ -135,28 +136,61 @@ class ApiAction extends Action
                                  'statuses/replies',
                                  'statuses/mentions',
                                  'statuses/followers',
-                                 'favorites/favorites');
+                                 'favorites/favorites',
+                                 'friendships/show');
 
         $fullname = "$this->api_action/$this->api_method";
 
         // If the site is "private", all API methods except laconica/config
         // need authentication
+
         if (common_config('site', 'private')) {
             return $fullname != 'laconica/config' || false;
         }
 
+        // bareauth: only needs auth if without an argument or query param specifying user
+
         if (in_array($fullname, $bareauth)) {
-            # bareauth: only needs auth if without an argument or query param specifying user
-            if ($this->api_arg || $this->arg('id') || is_numeric($this->arg('user_id')) || $this->arg('screen_name')) {
+
+            // Special case: friendships/show only needs auth if source_id or
+            // source_screen_name is not specified as a param
+
+            if ($fullname == 'friendships/show') {
+
+                $source_id          = $this->arg('source_id');
+                $source_screen_name = $this->arg('source_screen_name');
+
+                if (empty($source_id) && empty($source_screen_name)) {
+                    return true;
+                }
+
                 return false;
-            } else {
-                return true;
             }
+
+            // if all of these are empty, auth is required
+
+            $id          = $this->arg('id');
+            $user_id     = $this->arg('user_id');
+            $screen_name = $this->arg('screen_name');
+
+            if (empty($this->api_arg) &&
+                empty($id)            &&
+                empty($user_id)       &&
+                empty($screen_name)) {
+                return true;
+            } else {
+                return false;
+            }
+
         } else if (in_array($fullname, $noauth)) {
-            # noauth: never needs auth
+
+            // noauth: never needs auth
+
             return false;
         } else {
-            # everybody else needs auth
+
+            // everybody else needs auth
+
             return true;
         }
     }

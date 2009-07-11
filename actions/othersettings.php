@@ -83,14 +83,12 @@ class OthersettingsAction extends AccountSettingsAction
     {
         $user = common_current_user();
 
-
         $this->elementStart('form', array('method' => 'post',
                                           'id' => 'form_settings_other',
                                           'class' => 'form_settings',
                                           'action' =>
                                           common_local_url('othersettings')));
         $this->elementStart('fieldset');
-        $this->element('legend', null, _('URL Auto-shortening'));
         $this->hidden('token', common_session_token());
 
         // I18N
@@ -109,9 +107,13 @@ class OthersettingsAction extends AccountSettingsAction
 
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
-        $this->dropdown('urlshorteningservice', _('Service'),
+        $this->dropdown('urlshorteningservice', _('Shorten URLs with'),
                         $services, _('Automatic shortening service to use.'),
                         false, $user->urlshorteningservice);
+        $this->elementEnd('li');
+        $this->elementStart('li');
+        $this->checkbox('viewdesigns', _('View profile designs'),
+                        $user->viewdesigns, _('Show or hide profile designs.'));
         $this->elementEnd('li');
         $this->elementEnd('ul');
         $this->submit('save', _('Save'));
@@ -145,6 +147,8 @@ class OthersettingsAction extends AccountSettingsAction
             return;
         }
 
+        $viewdesigns = $this->boolean('viewdesigns');
+
         $user = common_current_user();
 
         assert(!is_null($user)); // should already be checked
@@ -154,6 +158,7 @@ class OthersettingsAction extends AccountSettingsAction
         $original = clone($user);
 
         $user->urlshorteningservice = $urlshorteningservice;
+        $user->viewdesigns          = $viewdesigns;
 
         $result = $user->update($original);
 

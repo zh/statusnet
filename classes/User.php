@@ -494,6 +494,8 @@ class User extends Memcached_DataObject
             $cache->delete(common_cache_key('fave:ids_by_user_own:'.$this->id));
             $cache->delete(common_cache_key('fave:ids_by_user_own:'.$this->id.';last'));
         }
+        $profile = $this->getProfile();
+        $profile->blowFaveCount();
     }
 
     function getSelfTags()

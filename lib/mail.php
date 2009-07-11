@@ -625,3 +625,75 @@ function mail_notify_attn($user, $notice)
     common_init_locale();
     mail_to_user($user, $subject, $body);
 }
+
+/**
+ * Send a mail message to notify a user that her Twitter bridge link
+ * has stopped working, and therefore has been removed.  This can
+ * happen when the user changes her Twitter password, or otherwise
+ * revokes access.
+ *
+ * @param User $user   user whose Twitter bridge link has been removed
+ *
+ * @return boolean success flag
+ */
+
+function mail_twitter_bridge_removed($user)
+{
+    common_init_locale($user->language);
+
+    $profile = $user->getProfile();
+
+    $subject = sprintf(_('Your Twitter bridge has been disabled.'));
+
+    $body = sprintf(_("Hi, %1\$s. We're sorry to inform you that your " .
+        'link to Twitter has been disabled. Your Twitter credentials ' .
+        'have either changed (did you recently change your Twitter ' .
+        'password?) or you have otherwise revoked our access to your ' .
+        "Twitter account.\n\n" .
+        'You can re-enable your Twitter bridge by visiting your ' .
+        "Twitter settings page:\n\n\t%2\$s\n\n" .
+        "Regards,\n%3\$s\n"),
+        $profile->getBestName(),
+        common_local_url('twittersettings'),
+        common_config('site', 'name'));
+
+    common_init_locale();
+    return mail_to_user($user, $subject, $body);
+}
+
+/**
+ * Send a mail message to notify a user that her Facebook Application
+ * access has been removed.
+ *
+ * @param User $user   user whose Facebook app link has been removed
+ *
+ * @return boolean success flag
+ */
+
+function mail_facebook_app_removed($user)
+{
+    common_init_locale($user->language);
+
+    $profile = $user->getProfile();
+
+    $site_name = common_config('site', 'name');
+
+    $subject = sprintf(
+        _('Your %s Facebook application access has been disabled.',
+            $site_name));
+
+    $body = sprintf(_("Hi, %1\$s. We're sorry to inform you that we are " .
+        'unable to update your Facebook status from %s, and have disabled ' .
+        'the Facebook application for your account. This may be because ' .
+        'you have removed the Facebook application\'s authorization, or ' .
+        'have deleted your Facebook account.  You can re-enable the ' .
+        'Facebook application and automatic status updating by ' .
+        "re-installing the %1\$s Facebook application.\n\nRegards,\n\n%1\$s"),
+        $site_name);
+
+    common_init_locale();
+    return mail_to_user($user, $subject, $body);
+
+}
+
+

@@ -373,9 +373,19 @@ class TwitapistatusesAction extends TwitterapiAction
             return;
         }
 
+        // 'id' is an undocumented parameter in Twitter's API. Several
+        // clients make use of it, so we support it too.
+
+        // show.json?id=12345 takes precedence over /show/12345.json
+
         $this->auth_user = $apidata['user'];
-        $notice_id       = $apidata['api_arg'];
-        $notice          = Notice::staticGet($notice_id);
+        $notice_id       = $this->trimmed('id');
+
+        if (empty($notice_id)) {
+            $notice_id   = $apidata['api_arg'];
+        }
+
+        $notice          = Notice::staticGet((int)$notice_id);
 
         if ($notice) {
             if ($apidata['content-type'] == 'xml') {
@@ -389,7 +399,6 @@ class TwitapistatusesAction extends TwitterapiAction
             $this->clientError(_('No status with that ID found.'),
                 404, $apidata['content-type']);
         }
-
     }
 
     function destroy($args, $apidata)

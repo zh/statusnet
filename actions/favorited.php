@@ -194,7 +194,7 @@ class FavoritedAction extends Action
         $qry = 'SELECT notice.*, '.
           $weightexpr . ' as weight ' .
           'FROM notice JOIN fave ON notice.id = fave.notice_id ' .
-          'GROUP BY id,profile_id,uri,content,rendered,url,created,notice.modified,reply_to,is_local,source ' .
+          'GROUP BY id,profile_id,uri,content,rendered,url,created,notice.modified,reply_to,is_local,source,notice.conversation ' .
           'ORDER BY weight DESC';
 
         $offset = ($this->page - 1) * NOTICES_PER_PAGE;

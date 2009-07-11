@@ -31,7 +31,7 @@ class FacebookinviteAction extends FacebookAction
         $this->error = $error;
         
         if ($this->flink) {
-            if (!$this->facebook->api_client->users_hasAppPermission('status_update') &&
+            if (!$this->facebook->api_client->users_hasAppPermission('publish_stream') &&
                 $this->facebook->api_client->data_getUserPreference(
                      FACEBOOK_PROMPTED_UPDATE_PREF) == 'true') {
     
@@ -60,7 +60,7 @@ class FacebookinviteAction extends FacebookAction
 
             // If this is the first time the user has started the app
              // prompt for Facebook status update permission
-             if (!$this->facebook->api_client->users_hasAppPermission('status_update')) {
+             if (!$this->facebook->api_client->users_hasAppPermission('publish_stream')) {
 
                  if ($this->facebook->api_client->data_getUserPreference(
                          FACEBOOK_PROMPTED_UPDATE_PREF) != 'true') {

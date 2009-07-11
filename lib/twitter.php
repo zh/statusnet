@@ -360,14 +360,11 @@ function is_twitter_bound($notice, $flink) {
 
 function broadcast_twitter($notice)
 {
-    $success = true;
 
     $flink = Foreign_link::getByUserID($notice->profile_id,
         TWITTER_SERVICE);
 
-    // XXX: Not sure WHERE to check whether a notice should go to
-    // Twitter. Should we even put in the queue if it shouldn't? --Zach
-    if (!is_null($flink) && is_twitter_bound($notice, $flink)) {
+    if (is_twitter_bound($notice, $flink)) {
 
         $fuser = $flink->getForeignUser();
         $twitter_user = $fuser->nickname;
@@ -401,33 +398,99 @@ function broadcast_twitter($notice)
         curl_setopt_array($ch, $options);
         $data = curl_exec($ch);
         $errmsg = curl_error($ch);
+        $errno = curl_errno($ch);
 
-        if ($errmsg) {
-            common_debug("cURL error: $errmsg - " .
+        if (!empty($errmsg)) {
+            common_debug("cURL error ($errno): $errmsg - " .
                 "trying to send notice for $twitter_user.",
                          __FILE__);
-            $success = false;
+
+            $user = $flink->getUser();
+
+            if ($errmsg == 'The requested URL returned error: 401') {
+                common_debug(sprintf('User %s (user id: %s) ' .
+                    'has bad Twitter credentials!',
+                    $user->nickname, $user->id));
+
+                    // Bad credentials we need to delete the foreign_link
+                    // to Twitter and inform the user.
+
+                    remove_twitter_link($flink);
+
+                    return true;
+
+            } else {
+
+                // Some other error happened, so we should try to
+                // send again later
+
+                return false;
+            }
+
         }
 
         curl_close($ch);
 
-        if (!$data) {
+        if (empty($data)) {
             common_debug("No data returned by Twitter's " .
                 "API trying to send update for $twitter_user",
                          __FILE__);
-            $success = false;
-        }
 
-        // Twitter should return a status
-        $status = json_decode($data);
+            // XXX: Not sure this represents a failure to send, but it
+            // probably does
 
-        if (!$status->id) {
-            common_debug("Unexpected data returned by Twitter " .
-                " API trying to send update for $twitter_user",
-                         __FILE__);
-            $success = false;
+            return false;
+
+        } else {
+
+            // Twitter should return a status
+            $status = json_decode($data);
+
+            if (empty($status)) {
+                common_debug("Unexpected data returned by Twitter " .
+                    " API trying to send update for $twitter_user",
+                        __FILE__);
+
+                // XXX: Again, this could represent a failure posting
+                // or the Twitter API might just be behaving flakey.
+                // We're treating it as a failure to post.
+
+                return false;
+            }
         }
     }
 
-    return $success;
+    return true;
 }
+
+function remove_twitter_link($flink)
+{
+    $user = $flink->getUser();
+
+    common_log(LOG_INFO, 'Removing Twitter bridge Foreign link for ' .
+        "user $user->nickname (user id: $user->id).");
+
+    $result = $flink->delete();
+
+    if (empty($result)) {
+        common_log(LOG_ERR, 'Could not remove Twitter bridge ' .
+            "Foreign_link for $user->nickname (user id: $user->id)!");
+        common_log_db_error($flink, 'DELETE', __FILE__);
+    }
+
+    // Notify the user that her Twitter bridge is down
+
+    $result = mail_twitter_bridge_removed($user);
+
+    if (!$result) {
+
+        $msg = 'Unable to send email to notify ' .
+            "$user->nickname (user id: $user->id) " .
+            'that their Twitter bridge link was ' .
+            'removed!';
+
+        common_log(LOG_WARNING, $msg);
+    }
+
+}
+

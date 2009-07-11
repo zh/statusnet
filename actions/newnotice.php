@@ -135,7 +135,7 @@ class NewnoticeAction extends Action
 
     function isRespectsQuota($user) {
         $file = new File;
-        $ret = $file->isRespectsQuota($user);
+        $ret = $file->isRespectsQuota($user,$_FILES['attach']['size']);
         if (true === $ret) return true;
         $this->clientError($ret);
     }

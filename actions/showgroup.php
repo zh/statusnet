@@ -317,8 +317,25 @@ class ShowgroupAction extends GroupDesignAction
           common_local_url('grouprss',
                            array('nickname' => $this->group->nickname));
 
-        return array(new Feed(Feed::RSS1, $url, sprintf(_('Notice feed for %s group'),
-                                                        $this->group->nickname)));
+        return array(new Feed(Feed::RSS1,
+                              common_local_url('grouprss',
+                                               array('nickname' => $this->group->nickname)),
+                              sprintf(_('Notice feed for %s group (RSS 1.0)'),
+                                      $this->group->nickname)),
+                     new Feed(Feed::RSS2,
+                              common_local_url('api',
+                                               array('apiaction' => 'groups',
+                                                     'method' => 'timeline',
+                                                     'argument' => $this->group->nickname.'.rss')),
+                              sprintf(_('Notice feed for %s group (RSS 2.0)'),
+                                      $this->group->nickname)),
+                     new Feed(Feed::ATOM,
+                              common_local_url('api',
+                                               array('apiaction' => 'groups',
+                                                     'method' => 'timeline',
+                                                     'argument' => $this->group->nickname.'.atom')),
+                              sprintf(_('Notice feed for %s group (Atom)'),
+                                      $this->group->nickname)));
     }
 
     /**

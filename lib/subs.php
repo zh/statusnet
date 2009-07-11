@@ -44,7 +44,6 @@ function subs_subscribe_user($user, $other_nickname)
 
 function subs_subscribe_to($user, $other)
 {
-
     if ($user->isSubscribed($other)) {
         return _('Already subscribed!.');
     }
@@ -60,12 +59,16 @@ function subs_subscribe_to($user, $other)
 
     subs_notify($other, $user);
 
-        $cache = common_memcache();
+    $cache = common_memcache();
 
     if ($cache) {
         $cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
 	}
 
+    $profile = $user->getProfile();
+
+    $profile->blowSubscriptionsCount();
+    $other->blowSubscribersCount();
 
     if ($other->autosubscribe && !$other->isSubscribed($user) && !$user->hasBlocked($other)) {
         if (!$other->subscribeTo($user)) {
@@ -117,7 +120,6 @@ function subs_unsubscribe_user($user, $other_nickname)
 
 function subs_unsubscribe_to($user, $other)
 {
-
     if (!$user->isSubscribed($other))
         return _('Not subscribed!.');
 
@@ -138,6 +140,11 @@ function subs_unsubscribe_to($user, $other)
     if ($cache) {
         $cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
 	}
+
+    $profile = $user->getProfile();
+
+    $profile->blowSubscriptionsCount();
+    $other->blowSubscribersCount();
 
     return true;
 }
