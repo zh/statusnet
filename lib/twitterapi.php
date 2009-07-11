@@ -779,19 +779,19 @@ class TwitterapiAction extends Action
         if (empty($id)) {
 
             if (is_numeric($this->arg('id'))) {
-                return User::staticGet($this->arg('id'));
+                return User_group::staticGet($this->arg('id'));
             } else if ($this->arg('id')) {
                 $nickname = common_canonical_nickname($this->arg('id'));
                 return User_group::staticGet('nickname', $nickname);
-            } else if ($this->arg('user_id')) {
+            } else if ($this->arg('group_id')) {
                 // This is to ensure that a non-numeric user_id still
                 // overrides screen_name even if it doesn't get used
-                if (is_numeric($this->arg('user_id'))) {
-                    return User_group::staticGet('id', $this->arg('user_id'));
+                if (is_numeric($this->arg('group_id'))) {
+                    return User_group::staticGet('id', $this->arg('group_id'));
                 }
-            } else if ($this->arg('screen_name')) {
-                $nickname = common_canonical_nickname($this->arg('screen_name'));
-                return User::staticGet('nickname', $nickname);
+            } else if ($this->arg('group_name')) {
+                $nickname = common_canonical_nickname($this->arg('group_name'));
+                return User_group::staticGet('nickname', $nickname);
             }
 
         } else if (is_numeric($id)) {

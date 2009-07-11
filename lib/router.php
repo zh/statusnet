@@ -399,6 +399,10 @@ class Router
                     array('action' => 'api',
                           'apiaction' => 'groups'));
 
+        $m->connect('api/laconica/groups/:method',
+                    array('action' => 'api',
+                          'apiaction' => 'groups'));
+
         // search
         $m->connect('api/search.atom', array('action' => 'twitapisearchatom'));
         $m->connect('api/search.json', array('action' => 'twitapisearchjson'));
