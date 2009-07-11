@@ -43,12 +43,12 @@ if (!defined('LACONICA')) {
 
 class MeteorPlugin extends Plugin
 {
-    var $webserver     = null;
-    var $webport       = null;
-    var $controlport   = null;
-    var $controlserver = null;
-    var $channelbase   = null;
-    var $_socket       = null;
+    public $webserver     = null;
+    public $webport       = null;
+    public $controlport   = null;
+    public $controlserver = null;
+    public $channelbase   = null;
+    protected $_socket    = null;
 
     function __construct($webserver=null, $webport=4670, $controlport=4671, $controlserver=null, $channelbase='')
     {
@@ -67,16 +67,14 @@ class MeteorPlugin extends Plugin
     {
         $timeline = null;
 
-        $this->log(LOG_DEBUG, 'got action ' . $action->trimmed('action'));
-
         switch ($action->trimmed('action')) {
          case 'public':
-            $timeline = '/timelines/public';
+            $timeline = 'timelines-public';
             break;
          case 'tag':
             $tag = $action->trimmed('tag');
             if (!empty($tag)) {
-                $timeline = '/timelines/tag/'.$tag;
+                $timeline = 'timelines-tag-'.$tag;
             } else {
                 return true;
             }
@@ -110,7 +108,7 @@ class MeteorPlugin extends Plugin
                                       array('notice' => '0000000000'));
 
         $action->elementStart('script', array('type' => 'text/javascript'));
-        $action->raw("$(document).ready(function() { MeteorUpdater.init(\"$this->webserver\", $this->webport, \"{$this->channelbase}$timeline\", $user_id, \"$replyurl\", \"$favorurl\", \"$deleteurl\"); });");
+        $action->raw("$(document).ready(function() { MeteorUpdater.init(\"$this->webserver\", $this->webport, \"{$this->channelbase}{$timeline}\", $user_id, \"$replyurl\", \"$favorurl\", \"$deleteurl\"); });");
         $action->elementEnd('script');
 
         return true;
@@ -118,30 +116,26 @@ class MeteorPlugin extends Plugin
 
     function onEndNoticeSave($notice)
     {
-        $this->log(LOG_INFO, "Called for save notice.");
-
         $timelines = array();
 
         // XXX: Add other timelines; this is just for the public one
 
         if ($notice->is_local ||
             ($notice->is_local == 0 && !common_config('public', 'localonly'))) {
-            $timelines[] = '/timelines/public';
+            $timelines[] = 'timelines-public';
         }
 
         $tags = $this->getNoticeTags($notice);
 
         if (!empty($tags)) {
             foreach ($tags as $tag) {
-                $timelines[] = '/timelines/tag/' . $tag;
+                $timelines[] = 'timelines-tag-' . $tag;
             }
         }
 
         if (count($timelines) > 0) {
 
             $json = json_encode($this->noticeAsJson($notice));
-
-            $this->log(LOG_DEBUG, $json);
 
             $this->_connect();
 
@@ -155,28 +149,30 @@ class MeteorPlugin extends Plugin
         return true;
     }
 
-    function _connect()
+    protected function _connect()
     {
+        $controlserver = (empty($this->controlserver)) ? $this->webserver : $this->controlserver;
         // May throw an exception.
-        $this->_socket = @stream_socket_client("tcp://{$this->controlserver}:{$this->controlport}",
-                                               $errno, $errstr, $timeout, $conflag);
+        $this->_socket = stream_socket_client("tcp://{$controlserver}:{$this->controlport}");
         if (!$this->_socket) {
-            throw new Exception("Couldn't connect to {$this->controlserver} on {$this->controlport}");
+            throw new Exception("Couldn't connect to {$controlserver} on {$this->controlport}");
         }
     }
 
-    function _addMessage($channel, $message)
+    protected function _addMessage($channel, $message)
     {
-        $cmd = "ADDMESSAGE {$this->channelbase}$channel $message\n";
-        $this->log(LOG_DEBUG, $cmd);
-        @fwrite($this->_socket, "COMMAND: $cmd");
+        $cmd = "ADDMESSAGE {$this->channelbase}{$channel} $message\n";
+        $cnt = fwrite($this->_socket, $cmd);
         $result = fgets($this->_socket);
-        $this->log(LOG_DEBUG, "RESULT: $result");
+        if (preg_match('/^ERR (.*)$/', $result, $matches)) {
+            throw new Exception('Error adding meteor message "'.$matches[1].'"');
+        }
         // TODO: parse and deal with result
     }
 
-    function _disconnect()
+    protected function _disconnect()
     {
+        $cnt = fwrite($this->_socket, "QUIT\n");
         @fclose($this->_socket);
     }
 
