@@ -94,11 +94,11 @@ require_once INSTALLDIR.'/lib/twitterapi.php';
           case 'atom':
              if (isset($apidata['api_arg'])) {
                  $selfuri = common_root_url() .
-                     'api/statuses/groups/timeline/' .
+                     'api/laconica/groups/timeline/' .
                          $apidata['api_arg'] . '.atom';
              } else {
                  $selfuri = common_root_url() .
-                  'api/statuses/groups/timeline.atom';
+                  'api/laconica/groups/timeline.atom';
              }
              $this->show_atom_timeline($notice, $title, $id, $link,
                  $subtitle, $suplink, $selfuri);
