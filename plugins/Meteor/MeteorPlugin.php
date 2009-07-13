@@ -161,6 +161,7 @@ class MeteorPlugin extends Plugin
 
     protected function _addMessage($channel, $message)
     {
+        $message = addslashes($message);
         $cmd = "ADDMESSAGE {$this->channelbase}{$channel} $message\n";
         $cnt = fwrite($this->_socket, $cmd);
         $result = fgets($this->_socket);
