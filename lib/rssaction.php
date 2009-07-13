@@ -219,7 +219,30 @@ class Rss10Action extends Action
         $attachments = $notice->attachments();
         if($attachments){
             foreach($attachments as $attachment){
-                $this->element('enc:enclosure', array('rdf:resource'=>$attachment->url,'enc:type'=>$attachment->mimetype,'enc:length'=>$attachment->size), null);
+                if (isset($attachment->filename)) {
+                    // DO NOT move xmlns declaration to root element. Making it
+                    // the default namespace here improves compatibility with
+                    // real-world feed readers.
+                    $attribs = array(
+                        'rdf:resource' => $attachment->url,
+                        'url' => $attachment->url,
+                        'xmlns' => 'http://purl.oclc.org/net/rss_2.0/enc#'
+                        );
+                    if ($attachment->title) {
+                        $attribs['dc:title'] = $attachment->title;
+                    }
+                    if ($attachment->modified) {
+                        $attribs['dc:date'] = common_date_w3dtf($attachment->modified);
+                    }
+                    if ($attachment->size) {
+                        $attribs['length'] = $attachment->size;
+                    }
+                    if ($attachment->mimetype) {
+                        $attribs['type'] = $attachment->mimetype;
+                    }
+                    $this->element('enclosure', $attribs);
+                }
+                $this->element('sioc:links_to', array('rdf:resource'=>$attachment->url));
             }
         }
 
@@ -258,8 +281,6 @@ class Rss10Action extends Action
                                               'http://creativecommons.org/ns#',
                                               'xmlns:content' =>
                                               'http://purl.org/rss/1.0/modules/content/',
-                                              'xmlns:enc' =>
-                                              'http://purl.oclc.org/net/rss_2.0/enc#',
                                               'xmlns:foaf' =>
                                               'http://xmlns.com/foaf/0.1/',
                                               'xmlns:sioc' =>
