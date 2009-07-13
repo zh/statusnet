@@ -460,16 +460,6 @@ class FacebookAction extends Action
         }
     }
 
-    function updateFacebookStatus($notice)
-    {
-        $prefix = $this->facebook->api_client->data_getUserPreference(FACEBOOK_NOTICE_PREFIX, $this->fbuid);
-        $content = "$prefix $notice->content";
-
-        if ($this->facebook->api_client->users_hasAppPermission('status_update', $this->fbuid)) {
-            $this->facebook->api_client->users_setStatus($content, $this->fbuid, false, true);
-        }
-    }
-
     function saveNewNotice()
     {
 
@@ -504,7 +494,7 @@ class FacebookAction extends Action
         $replyto = $this->trimmed('inreplyto');
 
         $notice = Notice::saveNew($user->id, $content,
-            'Facebook', 1, ($replyto == 'false') ? null : $replyto);
+            'web', 1, ($replyto == 'false') ? null : $replyto);
 
         if (is_string($notice)) {
             $this->showPage($notice);
@@ -514,8 +504,7 @@ class FacebookAction extends Action
         common_broadcast_notice($notice);
 
         // Also update the user's Facebook status
-        $this->updateFacebookStatus($notice);
-        $this->updateProfileBox($notice);
+        facebookBroadcastNotice($notice);
 
     }
 

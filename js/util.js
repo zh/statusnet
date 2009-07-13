@@ -223,6 +223,7 @@ $(document).ready(function(){
 													}
 													$("#notice_data-text").val("");
     												$("#notice_data-attach").val("");
+    												$("#notice_in-reply-to").val("");
                                                     $('#notice_data-attach_selected').remove();
                                                     counter();
 												}
@@ -282,7 +283,7 @@ function NoticeAttachments() {
         },
         timeout : 0,
         autoHide : true,
-        css : {'max-width':'502px', 'top':'22.5%', 'left':'32.5%'}
+        css : {'max-width':'542px', 'top':'22.5%', 'left':'32.5%'}
     };
 
     $('#content .notice a.attachment').click(function() {

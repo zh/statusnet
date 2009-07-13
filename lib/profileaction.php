@@ -163,18 +163,9 @@ class ProfileAction extends OwnerDesignAction
 
     function showStatistics()
     {
-        // XXX: WORM cache this
-        $subs = new Subscription();
-        $subs->subscriber = $this->profile->id;
-        $subs_count = (int) $subs->count() - 1;
-
-        $subbed = new Subscription();
-        $subbed->subscribed = $this->profile->id;
-        $subbed_count = (int) $subbed->count() - 1;
-
-        $notices = new Notice();
-        $notices->profile_id = $this->profile->id;
-        $notice_count = (int) $notices->count();
+        $subs_count   = $this->profile->subscriptionCount();
+        $subbed_count = $this->profile->subscriberCount();
+        $notice_count = $this->profile->noticeCount();
 
         $this->elementStart('div', array('id' => 'entity_statistics',
                                          'class' => 'section'));
@@ -199,7 +190,7 @@ class ProfileAction extends OwnerDesignAction
                                                              array('nickname' => $this->profile->nickname))),
                        _('Subscriptions'));
         $this->elementEnd('dt');
-        $this->element('dd', null, (is_int($subs_count)) ? $subs_count : '0');
+        $this->element('dd', null, $subs_count);
         $this->elementEnd('dl');
 
         $this->elementStart('dl', 'entity_subscribers');
@@ -208,12 +199,12 @@ class ProfileAction extends OwnerDesignAction
                                                              array('nickname' => $this->profile->nickname))),
                        _('Subscribers'));
         $this->elementEnd('dt');
-        $this->element('dd', 'subscribers', (is_int($subbed_count)) ? $subbed_count : '0');
+        $this->element('dd', 'subscribers', $subbed_count);
         $this->elementEnd('dl');
 
         $this->elementStart('dl', 'entity_notices');
         $this->element('dt', null, _('Notices'));
-        $this->element('dd', null, (is_int($notice_count)) ? $notice_count : '0');
+        $this->element('dd', null, $notice_count);
         $this->elementEnd('dl');
 
         $this->elementEnd('div');

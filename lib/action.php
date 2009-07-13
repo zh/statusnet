@@ -439,8 +439,6 @@ class Action extends HTMLOutputter // lawsuit
                     $this->menuItem(common_local_url('register'),
                                     _('Register'), _('Create an account'), false, 'nav_register');
                 }
-                $this->menuItem(common_local_url('openidlogin'),
-                                _('OpenID'), _('Login with OpenID'), false, 'nav_openid');
                 $this->menuItem(common_local_url('login'),
                                 _('Login'), _('Login to the site'), false, 'nav_login');
             }
@@ -708,6 +706,11 @@ class Action extends HTMLOutputter // lawsuit
                             _('About'));
             $this->menuItem(common_local_url('doc', array('title' => 'faq')),
                             _('FAQ'));
+            $bb = common_config('site', 'broughtby');
+            if (!empty($bb)) {
+                $this->menuItem(common_local_url('doc', array('title' => 'tos')),
+                                _('TOS'));
+            }
             $this->menuItem(common_local_url('doc', array('title' => 'privacy')),
                             _('Privacy'));
             $this->menuItem(common_local_url('doc', array('title' => 'source')),
@@ -769,7 +772,9 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementStart('p');
         $this->element('img', array('id' => 'license_cc',
                                     'src' => common_config('license', 'image'),
-                                    'alt' => common_config('license', 'title')));
+                                    'alt' => common_config('license', 'title'),
+                                    'width' => '80',
+                                    'height' => '15'));
         //TODO: This is dirty: i18n
         $this->text(_('All '.common_config('site', 'name').' content and data are available under the '));
         $this->element('a', array('class' => 'license',

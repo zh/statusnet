@@ -19,7 +19,7 @@
 
 if (!defined('LACONICA')) { exit(1); }
 
-define('LACONICA_VERSION', '0.8.0dev');
+define('LACONICA_VERSION', '0.8.0');
 
 define('AVATAR_PROFILE_SIZE', 96);
 define('AVATAR_STREAM_SIZE', 48);
@@ -206,7 +206,7 @@ $config =
         'inboxes' =>
         array('enabled' => true), # on by default for new sites
         'newuser' =>
-        array('subscribe' => null,
+        array('default' => null,
               'welcome' => null),
         'snapshot' =>
         array('run' => 'web',
@@ -280,6 +280,39 @@ $config['db'] =
 if (function_exists('date_default_timezone_set')) {
     /* Work internally in UTC */
     date_default_timezone_set('UTC');
+}
+
+function addPlugin($name, $attrs = null)
+{
+    $name = ucfirst($name);
+    $pluginclass = "{$name}Plugin";
+
+    if (!class_exists($pluginclass)) {
+
+        $files = array("local/plugins/{$pluginclass}.php",
+                       "local/plugins/{$name}/{$pluginclass}.php",
+                       "local/{$pluginclass}.php",
+                       "local/{$name}/{$pluginclass}.php",
+                       "plugins/{$pluginclass}.php",
+                       "plugins/{$name}/{$pluginclass}.php");
+
+        foreach ($files as $file) {
+            $fullpath = INSTALLDIR.'/'.$file;
+            if (@file_exists($fullpath)) {
+                include_once($fullpath);
+                break;
+            }
+        }
+    }
+
+    $inst = new $pluginclass();
+
+    if (!empty($attrs)) {
+        foreach ($attrs as $aname => $avalue) {
+            $inst->$aname = $avalue;
+        }
+    }
+    return $inst;
 }
 
 // From most general to most specific:

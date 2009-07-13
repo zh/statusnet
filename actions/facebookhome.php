@@ -57,7 +57,7 @@ class FacebookhomeAction extends FacebookAction
 
             // If this is the first time the user has started the app
             // prompt for Facebook status update permission
-            if (!$this->facebook->api_client->users_hasAppPermission('status_update')) {
+            if (!$this->facebook->api_client->users_hasAppPermission('publish_stream')) {
 
                  if ($this->facebook->api_client->data_getUserPreference(
                     FACEBOOK_PROMPTED_UPDATE_PREF) != 'true') {
@@ -203,7 +203,7 @@ class FacebookhomeAction extends FacebookAction
         $api_key = common_config('facebook', 'apikey');
 
         $auth_url = 'http://www.facebook.com/authorize.php?api_key=' .
-            $api_key . '&v=1.0&ext_perm=status_update&next=' . $next .
+            $api_key . '&v=1.0&ext_perm=publish_stream&next=' . $next .
             '&next_cancel=' . $next . '&submit=skip';
 
         $this->elementStart('span', array('class' => 'facebook-button'));

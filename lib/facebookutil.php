@@ -51,6 +51,10 @@ function updateProfileBox($facebook, $flink, $notice) {
 
 function isFacebookBound($notice, $flink) {
 
+    if (empty($flink)) {
+        return false;
+    }
+
     // If the user does not want to broadcast to Facebook, move along
     if (!($flink->noticesync & FOREIGN_NOTICE_SEND == FOREIGN_NOTICE_SEND)) {
         common_log(LOG_INFO, "Skipping notice $notice->id " .
@@ -82,14 +86,18 @@ function isFacebookBound($notice, $flink) {
 
             // Check to see if the user has given the FB app status update perms
             $result = $facebook->api_client->
-                users_hasAppPermission('status_update', $fbuid);
+                users_hasAppPermission('publish_stream', $fbuid);
 
             if ($result != 1) {
+                $result = $facebook->api_client->
+                    users_hasAppPermission('status_update', $fbuid);
+            }
+            if ($result != 1) {
                 $user = $flink->getUser();
-                $msg = "Can't send notice $notice->id to Facebook " .
+                $msg = "Not sending notice $notice->id to Facebook " .
                     "because user $user->nickname hasn't given the " .
-                    'Facebook app \'status_update\' permission.';
-                common_log(LOG_INFO, $msg);
+                    'Facebook app \'status_update\' or \'publish_stream\' permission.';
+                common_debug($msg);
                 $success = false;
             }
 
@@ -108,13 +116,16 @@ function facebookBroadcastNotice($notice)
 {
     $facebook = getFacebook();
     $flink = Foreign_link::getByUserID($notice->profile_id, FACEBOOK_SERVICE);
-    $fbuid = $flink->foreign_id;
 
     if (isFacebookBound($notice, $flink)) {
 
         $status = null;
+        $fbuid = $flink->foreign_id;
+
+        $user = $flink->getUser();
 
         // Get the status 'verb' (prefix) the user has set
+
         try {
             $prefix = $facebook->api_client->
                 data_getUserPreference(FACEBOOK_NOTICE_PREFIX, $fbuid);
@@ -122,23 +133,128 @@ function facebookBroadcastNotice($notice)
             $status = "$prefix $notice->content";
 
         } catch(FacebookRestClientException $e) {
-            common_log(LOG_ERR, $e->getMessage());
-            return false;
+            common_log(LOG_WARNING, $e->getMessage());
+            common_log(LOG_WARNING,
+                'Unable to get the status verb setting from Facebook ' .
+                "for $user->nickname (user id: $user->id).");
         }
 
-        // Okay, we're good to go!
+        // Okay, we're good to go, update the FB status
 
         try {
-            $facebook->api_client->users_setStatus($status, $fbuid, false, true);
-            updateProfileBox($facebook, $flink, $notice);
+            $result = $facebook->api_client->
+                users_hasAppPermission('publish_stream', $fbuid);
+            if($result == 1){
+                // authorized to use the stream api, so use it
+                $fbattachment = null;
+                $attachments = $notice->attachments();
+                if($attachments){
+                    $fbattachment=array();
+                    $fbattachment['media']=array();
+                    //facebook only supports one attachment per item
+                    $attachment = $attachments[0];
+                    $fbmedia=array();
+                    if(strncmp($attachment->mimetype,'image/',strlen('image/'))==0){
+                        $fbmedia['type']='image';
+                        $fbmedia['src']=$attachment->url;
+                        $fbmedia['href']=$attachment->url;
+                        $fbattachment['media'][]=$fbmedia;
+/* Video doesn't seem to work. The notice never makes it to facebook, and no error is reported.
+                    }else if(strncmp($attachment->mimetype,'video/',strlen('image/'))==0 || $attachment->mimetype="application/ogg"){
+                        $fbmedia['type']='video';
+                        $fbmedia['video_src']=$attachment->url;
+                        // http://wiki.developers.facebook.com/index.php/Attachment_%28Streams%29
+                        // says that preview_img is required... but we have no value to put in it
+                        // $fbmedia['preview_img']=$attachment->url;
+                        if($attachment->title){
+                            $fbmedia['video_title']=$attachment->title;
+                        }
+                        $fbmedia['video_type']=$attachment->mimetype;
+                        $fbattachment['media'][]=$fbmedia;
+*/
+                    }else if($attachment->mimetype=='audio/mpeg'){
+                        $fbmedia['type']='mp3';
+                        $fbmedia['src']=$attachment->url;
+                        $fbattachment['media'][]=$fbmedia;
+                    }else if($attachment->mimetype=='application/x-shockwave-flash'){
+                        $fbmedia['type']='flash';
+                        // http://wiki.developers.facebook.com/index.php/Attachment_%28Streams%29
+                        // says that imgsrc is required... but we have no value to put in it
+                        // $fbmedia['imgsrc']='';
+                        $fbmedia['swfsrc']=$attachment->url;
+                        $fbattachment['media'][]=$fbmedia;
+                    }else{
+                        $fbattachment['name']=($attachment->title?$attachment->title:$attachment->url);
+                        $fbattachment['href']=$attachment->url;
+                    }
+                }
+                $facebook->api_client->stream_publish($status, $fbattachment, null, null, $fbuid);
+            }else{
+                $facebook->api_client->users_setStatus($status, $fbuid, false, true);
+            }
         } catch(FacebookRestClientException $e) {
             common_log(LOG_ERR, $e->getMessage());
-            return false;
+            common_log(LOG_ERR,
+                'Unable to update Facebook status for ' .
+                "$user->nickname (user id: $user->id)!");
 
-             // Should we remove flink if this fails?
+            $code = $e->getCode();
+
+            if ($code >= 200) {
+
+                // 200 The application does not have permission to operate on the passed in uid parameter.
+                // 250 Updating status requires the extended permission status_update or publish_stream.
+                // see: http://wiki.developers.facebook.com/index.php/Users.setStatus#Example_Return_XML
+
+                remove_facebook_app($flink);
+            }
+
+        }
+
+        // Now try to update the profile box
+
+        try {
+            updateProfileBox($facebook, $flink, $notice);
+        } catch(FacebookRestClientException $e) {
+            common_log(LOG_WARNING, $e->getMessage());
+            common_log(LOG_WARNING,
+                'Unable to update Facebook profile box for ' .
+                "$user->nickname (user id: $user->id).");
         }
 
     }
 
     return true;
+}
+
+function remove_facebook_app($flink)
+{
+
+    $user = $flink->getUser();
+
+    common_log(LOG_INFO, 'Removing Facebook App Foreign link for ' .
+        "user $user->nickname (user id: $user->id).");
+
+    $result = $flink->delete();
+
+    if (empty($result)) {
+        common_log(LOG_ERR, 'Could not remove Facebook App ' .
+            "Foreign_link for $user->nickname (user id: $user->id)!");
+        common_log_db_error($flink, 'DELETE', __FILE__);
+    }
+
+    // Notify the user that we are removing their FB app access
+
+    $result = mail_facebook_app_removed($user);
+
+    if (!$result) {
+
+        $msg = 'Unable to send email to notify ' .
+            "$user->nickname (user id: $user->id) " .
+            'that their Facebook app link was ' .
+            'removed!';
+
+        common_log(LOG_WARNING, $msg);
+    }
+
 }

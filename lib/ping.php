@@ -59,7 +59,7 @@ function ping_broadcast_notice($notice) {
 
             $response = xmlrpc_decode($file);
 
-            if (xmlrpc_is_fault($response)) {
+            if (is_array($response) && xmlrpc_is_fault($response)) {
                 common_log(LOG_WARNING,
                            "XML-RPC error for ping ($notify_url, $notice->id) ".
                            "$response[faultString] ($response[faultCode])");

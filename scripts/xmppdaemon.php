@@ -60,7 +60,9 @@ class XMPPDaemon extends Daemon
             $this->resource = common_config('xmpp', 'resource') . 'daemon';
         }
 
-        $this->log(LOG_INFO, "INITIALIZE XMPPDaemon {$this->user}@{$this->server}/{$this->resource}");
+        $this->jid = $this->user.'@'.$this->server.'/'.$this->resource;
+
+        $this->log(LOG_INFO, "INITIALIZE XMPPDaemon {$this->jid}");
     }
 
     function connect()
@@ -106,8 +108,23 @@ class XMPPDaemon extends Daemon
 
             $this->log(LOG_DEBUG, "Beginning processing loop.");
 
-            $this->conn->process();
+            while ($this->conn->processTime(60)) {
+                $this->sendPing();
+            }
         }
+    }
+
+    function sendPing()
+    {
+        if (!isset($this->pingid)) {
+            $this->pingid = 0;
+        } else {
+            $this->pingid++;
+        }
+
+        $this->log(LOG_DEBUG, "Sending ping #{$this->pingid}");
+
+		$this->conn->send("<iq from='{$this->jid}' to='{$this->server}' id='ping_{$this->pingid}' type='get'><ping xmlns='urn:xmpp:ping'/></iq>");
     }
 
     function handle_reconnect(&$pl)
