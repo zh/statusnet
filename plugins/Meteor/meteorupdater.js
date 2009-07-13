@@ -30,9 +30,9 @@ var MeteorUpdater = function()
           }
      }
 
-     function receive(message)
+     function receive(data)
      {
-          id = message.data.id;
+          id = data.id;
 
           // Don't add it if it already exists
           //
@@ -40,7 +40,7 @@ var MeteorUpdater = function()
                return;
           }
 
-          var noticeItem = makeNoticeItem(message.data);
+          var noticeItem = makeNoticeItem(data);
           $("#notices_primary .notices").prepend(noticeItem, true);
           $("#notices_primary .notice:first").css({display:"none"});
           $("#notices_primary .notice:first").fadeIn(1000);
