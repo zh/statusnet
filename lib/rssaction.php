@@ -237,7 +237,7 @@ class Rss10Action extends Action
         $attachments = $notice->attachments();
         if($attachments){
             foreach($attachments as $attachment){
-                if (isset($attachment->filename)) {
+                if ($attachment->isEnclosure()) {
                     // DO NOT move xmlns declaration to root element. Making it
                     // the default namespace here improves compatibility with
                     // real-world feed readers.

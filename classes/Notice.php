@@ -1170,7 +1170,7 @@ class Notice extends Memcached_DataObject
         $attachments = $this->attachments();
         if($attachments){
             foreach($attachments as $attachment){
-                if (isset($attachment->filename)) {
+                if ($attachment->isEnclosure()) {
                     $attributes = array('rel'=>'enclosure','href'=>$attachment->url,'type'=>$attachment->mimetype,'length'=>$attachment->size);
                     if($attachment->title){
                         $attributes['title']=$attachment->title;
