@@ -198,10 +198,11 @@ class RealtimePlugin extends Plugin
 
     function _getScripts()
     {
-        return array(common_local_path('plugins/Realtime/realtimeupdater.js'));
+        return array(common_local_path('plugins/Realtime/realtimeupdater.js'),
+                     common_local_path('plugins/Realtime/json2.js'));
     }
 
-    function _updateInitialize()
+    function _updateInitialize($timeline, $user_id)
     {
         return '; ';
     }
@@ -210,7 +211,7 @@ class RealtimePlugin extends Plugin
     {
     }
 
-    function _publish()
+    function _publish($timeline, $json)
     {
     }
 
