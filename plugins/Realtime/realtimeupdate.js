@@ -1,41 +1,11 @@
-// update the local timeline from a Comet server
+// add a notice encoded as JSON into the current timeline
 //
 
-var updater = function()
-{
-     var _server;
-     var _timeline;
-     var _userid;
-     var _replyurl;
-     var _favorurl;
-     var _deleteurl;
-     var _cometd;
+RealtimeUpdate = {
 
-     return {
-          init: function(server, timeline, userid, replyurl, favorurl, deleteurl)
-          {
-               _cometd = $.cometd; // Uses the default Comet object
-               _cometd.setLogLevel('debug');
-               _cometd.init(server);
-               _server = server;
-               _timeline = timeline;
-               _userid = userid;
-               _favorurl = favorurl;
-               _replyurl = replyurl;
-               _deleteurl = deleteurl;
-               _cometd.subscribe(timeline, receive);
-               $(window).unload(leave);
-          }
-     }
-
-     function leave()
+     receive: function(message)
      {
-          _cometd.disconnect();
-     }
-
-     function receive(message)
-     {
-          id = message.data.id;
+          id = data.id;
 
           // Don't add it if it already exists
 
@@ -43,7 +13,7 @@ var updater = function()
                return;
           }
 
-          var noticeItem = makeNoticeItem(message.data);
+          var noticeItem = RealtimeUpdate.makeNoticeItem(data);
           $("#notices_primary .notices").prepend(noticeItem, true);
           $("#notices_primary .notice:first").css({display:"none"});
           $("#notices_primary .notice:first").fadeIn(1000);
@@ -51,7 +21,7 @@ var updater = function()
           NoticeReply();
      }
 
-     function makeNoticeItem(data)
+     makeNoticeItem: function(data)
      {
           user = data['user'];
           html = data['html'].replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"');
@@ -96,10 +66,10 @@ var updater = function()
           if (_userid != 0) {
                var input = $("form#form_notice fieldset input#token");
                var session_key = input.val();
-               ni = ni+makeFavoriteForm(data['id'], session_key);
-               ni = ni+makeReplyLink(data['id'], data['user']['screen_name']);
+               ni = ni+RealtimeUpdate.makeFavoriteForm(data['id'], session_key);
+               ni = ni+RealtimeUpdate.makeReplyLink(data['id'], data['user']['screen_name']);
                if (_userid == data['user']['id']) {
-                    ni = ni+makeDeleteLink(data['id']);
+                    ni = ni+RealtimeUpdate.makeDeleteLink(data['id']);
                }
           }
 
@@ -108,7 +78,7 @@ var updater = function()
           return ni;
      }
 
-     function makeFavoriteForm(id, session_key)
+     makeFavoriteForm: function(id, session_key)
      {
           var ff;
 
@@ -123,7 +93,7 @@ var updater = function()
           return ff;
      }
 
-     function makeReplyLink(id, nickname)
+     makeReplyLink: function(id, nickname)
      {
           var rl;
           rl = "<dl class=\"notice_reply\">"+
@@ -136,7 +106,7 @@ var updater = function()
           return rl;
      }
 
-     function makeDeleteLink(id)
+     makeDeleteLink: function(id)
      {
           var dl, delurl;
           delurl = _deleteurl.replace("0000000000", id);
@@ -150,5 +120,5 @@ var updater = function()
 
           return dl;
      }
-}();
+};
 

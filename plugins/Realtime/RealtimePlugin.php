@@ -2,7 +2,7 @@
 /**
  * Laconica, the distributed open-source microblogging tool
  *
- * Plugin to do "real time" updates using Comet/Bayeux
+ * Superclass for plugins that do "real time" updates of timelines using Ajax
  *
  * PHP version 5
  *
@@ -32,7 +32,10 @@ if (!defined('LACONICA')) {
 }
 
 /**
- * Plugin to do realtime updates using Comet
+ * Superclass for plugin to do realtime updates
+ *
+ * Based on experience with the Comet and Meteor plugins,
+ * this superclass extracts out some of the common functionality
  *
  * @category Plugin
  * @package  Laconica
@@ -41,24 +44,24 @@ if (!defined('LACONICA')) {
  * @link     http://laconi.ca/
  */
 
-class CometPlugin extends Plugin
+class RealtimePlugin extends Plugin
 {
-    var $server = null;
+    protected $replyurl = null;
+    protected $favorurl = null;
+    protected $deleteurl = null;
 
-    function __construct($server=null, $username=null, $password=null)
+    function onInitializePlugin()
     {
-        $this->server   = $server;
-        $this->username = $username;
-        $this->password = $password;
-
-        parent::__construct();
+        $this->replyurl = common_local_url('newnotice');
+        $this->favorurl = common_local_url('favor');
+        // FIXME: need to find a better way to pass this pattern in
+        $this->deleteurl = common_local_url('deletenotice',
+                                            array('notice' => '0000000000'));
     }
 
     function onEndShowScripts($action)
     {
         $timeline = null;
-
-        $this->log(LOG_DEBUG, 'got action ' . $action->trimmed('action'));
 
         switch ($action->trimmed('action')) {
          case 'public':
@@ -76,11 +79,11 @@ class CometPlugin extends Plugin
             return true;
         }
 
-        $scripts = array('jquery.comet.js', 'json2.js', 'updatetimeline.js');
+        $scripts = $this->_getScripts();
 
         foreach ($scripts as $script) {
             $action->element('script', array('type' => 'text/javascript',
-                                             'src' => common_path('plugins/Comet/'.$script)),
+                                             'src' => $script),
                          ' ');
         }
 
@@ -92,14 +95,10 @@ class CometPlugin extends Plugin
             $user_id = 0;
         }
 
-        $replyurl = common_local_url('newnotice');
-        $favorurl = common_local_url('favor');
-        // FIXME: need to find a better way to pass this pattern in
-        $deleteurl = common_local_url('deletenotice',
-                                      array('notice' => '0000000000'));
-
         $action->elementStart('script', array('type' => 'text/javascript'));
-        $action->raw("$(document).ready(function() { updater.init(\"$this->server\", \"$timeline\", $user_id, \"$replyurl\", \"$favorurl\", \"$deleteurl\"); });");
+        $action->raw("$(document).ready(function() { ");
+        $action->raw($this->_updateInitialize($timeline, $user_id));
+        $action->raw(" });");
         $action->elementEnd('script');
 
         return true;
@@ -107,8 +106,6 @@ class CometPlugin extends Plugin
 
     function onEndNoticeSave($notice)
     {
-        $this->log(LOG_INFO, "Called for save notice.");
-
         $timelines = array();
 
         // XXX: Add other timelines; this is just for the public one
@@ -127,20 +124,16 @@ class CometPlugin extends Plugin
         }
 
         if (count($timelines) > 0) {
-            // Require this, since we need it
-            require_once(INSTALLDIR.'/plugins/Comet/bayeux.class.inc.php');
 
             $json = $this->noticeAsJson($notice);
 
-            // Bayeux? Comet? Huh? These terms confuse me
-            $bay = new Bayeux($this->server, $this->user, $this->password);
+            $this->_connect();
 
             foreach ($timelines as $timeline) {
-                $this->log(LOG_INFO, "Posting notice $notice->id to '$timeline'.");
-                $bay->publish($timeline, $json);
+                $this->_publish($timeline, $json);
             }
 
-            $bay = NULL;
+            $this->_disconnect();
         }
 
         return true;
@@ -201,5 +194,27 @@ class CometPlugin extends Plugin
     function log($level, $msg)
     {
         common_log($level, get_class($this) . ': '.$msg);
+    }
+
+    function _getScripts()
+    {
+        return array(common_local_path('plugins/Realtime/realtimeupdater.js'));
+    }
+
+    function _updateInitialize()
+    {
+        return '; ';
+    }
+
+    function _connect()
+    {
+    }
+
+    function _publish()
+    {
+    }
+
+    function _disconnect()
+    {
     }
 }
