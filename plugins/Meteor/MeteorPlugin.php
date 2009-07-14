@@ -31,8 +31,10 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
+require_once INSTALLDIR.'/plugins/Realtime/RealtimePlugin.php';
+
 /**
- * Plugin to do realtime updates using Comet
+ * Plugin to do realtime updates using Meteor
  *
  * @category Plugin
  * @package  Laconica
@@ -41,7 +43,7 @@ if (!defined('LACONICA')) {
  * @link     http://laconi.ca/
  */
 
-class MeteorPlugin extends Plugin
+class MeteorPlugin extends RealtimePlugin
 {
     public $webserver     = null;
     public $webport       = null;
@@ -63,93 +65,21 @@ class MeteorPlugin extends Plugin
         parent::__construct();
     }
 
-    function onEndShowScripts($action)
+    function _getScripts()
     {
-        $timeline = null;
-
-        switch ($action->trimmed('action')) {
-         case 'public':
-            $timeline = 'timelines-public';
-            break;
-         case 'tag':
-            $tag = $action->trimmed('tag');
-            if (!empty($tag)) {
-                $timeline = 'timelines-tag-'.$tag;
-            } else {
-                return true;
-            }
-            break;
-         default:
-            return true;
-        }
-
-        $action->element('script', array('type' => 'text/javascript',
-                                         'src' => 'http://'.$this->webserver.(($this->webport == 80) ? '':':'.$this->webport).'/meteor.js'),
-                         ' ');
-
-        foreach (array('meteorupdater.js', 'json2.js') as $script) {
-            $action->element('script', array('type' => 'text/javascript',
-                                             'src' => common_path('plugins/Meteor/'.$script)),
-                         ' ');
-        }
-
-        $user = common_current_user();
-
-        if (!empty($user->id)) {
-            $user_id = $user->id;
-        } else {
-            $user_id = 0;
-        }
-
-        $replyurl = common_local_url('newnotice');
-        $favorurl = common_local_url('favor');
-        // FIXME: need to find a better way to pass this pattern in
-        $deleteurl = common_local_url('deletenotice',
-                                      array('notice' => '0000000000'));
-
-        $action->elementStart('script', array('type' => 'text/javascript'));
-        $action->raw("$(document).ready(function() { MeteorUpdater.init(\"$this->webserver\", $this->webport, \"{$this->channelbase}{$timeline}\", $user_id, \"$replyurl\", \"$favorurl\", \"$deleteurl\"); });");
-        $action->elementEnd('script');
-
-        return true;
+        $scripts = parent::_getScripts();
+        $scripts[] = 'http://'.$this->webserver.(($this->webport == 80) ? '':':'.$this->webport).'/meteor.js';
+        $scripts[] = common_path('plugins/Meteor/meteorupdater.js');
+        return $scripts;
     }
 
-    function onEndNoticeSave($notice)
+    function _updateInitialize($timeline, $user_id)
     {
-        $timelines = array();
-
-        // XXX: Add other timelines; this is just for the public one
-
-        if ($notice->is_local ||
-            ($notice->is_local == 0 && !common_config('public', 'localonly'))) {
-            $timelines[] = 'timelines-public';
-        }
-
-        $tags = $this->getNoticeTags($notice);
-
-        if (!empty($tags)) {
-            foreach ($tags as $tag) {
-                $timelines[] = 'timelines-tag-' . $tag;
-            }
-        }
-
-        if (count($timelines) > 0) {
-
-            $json = json_encode($this->noticeAsJson($notice));
-
-            $this->_connect();
-
-            foreach ($timelines as $timeline) {
-                $this->_addMessage($timeline, $json);
-            }
-
-            $this->_disconnect();
-        }
-
-        return true;
+        $script = parent::_updateInitialize($timeline, $user_id);
+        return $script." MeteorUpdater.init(\"$this->webserver\", $this->webport, \"{$this->channelbase}{$timeline}\");";
     }
 
-    protected function _connect()
+    function _connect()
     {
         $controlserver = (empty($this->controlserver)) ? $this->webserver : $this->controlserver;
         // May throw an exception.
@@ -159,9 +89,11 @@ class MeteorPlugin extends Plugin
         }
     }
 
-    protected function _addMessage($channel, $message)
+    function _publish($channel, $message)
     {
+        $message = json_encode($message);
         $message = addslashes($message);
+        common_debug("Message = $message\n");
         $cmd = "ADDMESSAGE {$this->channelbase}{$channel} $message\n";
         $cnt = fwrite($this->_socket, $cmd);
         $result = fgets($this->_socket);
@@ -171,66 +103,9 @@ class MeteorPlugin extends Plugin
         // TODO: parse and deal with result
     }
 
-    protected function _disconnect()
+    function _disconnect()
     {
         $cnt = fwrite($this->_socket, "QUIT\n");
         @fclose($this->_socket);
-    }
-
-    function noticeAsJson($notice)
-    {
-        // FIXME: this code should be abstracted to a neutral third
-        // party, like Notice::asJson(). I'm not sure of the ethics
-        // of refactoring from within a plugin, so I'm just abusing
-        // the TwitterApiAction method. Don't do this unless you're me!
-
-        require_once(INSTALLDIR.'/lib/twitterapi.php');
-
-        $act = new TwitterApiAction('/dev/null');
-
-        $arr = $act->twitter_status_array($notice, true);
-        $arr['url'] = $notice->bestUrl();
-        $arr['html'] = htmlspecialchars($notice->rendered);
-        $arr['source'] = htmlspecialchars($arr['source']);
-
-        if (!empty($notice->reply_to)) {
-            $reply_to = Notice::staticGet('id', $notice->reply_to);
-            if (!empty($reply_to)) {
-                $arr['in_reply_to_status_url'] = $reply_to->bestUrl();
-            }
-            $reply_to = null;
-        }
-
-        $profile = $notice->getProfile();
-        $arr['user']['profile_url'] = $profile->profileurl;
-
-        return $arr;
-    }
-
-    function getNoticeTags($notice)
-    {
-        $tags = null;
-
-        $nt = new Notice_tag();
-        $nt->notice_id = $notice->id;
-
-        if ($nt->find()) {
-            $tags = array();
-            while ($nt->fetch()) {
-                $tags[] = $nt->tag;
-            }
-        }
-
-        $nt->free();
-        $nt = null;
-
-        return $tags;
-    }
-
-    // Push this up to Plugin
-
-    function log($level, $msg)
-    {
-        common_log($level, get_class($this) . ': '.$msg);
     }
 }

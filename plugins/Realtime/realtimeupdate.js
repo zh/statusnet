@@ -3,7 +3,20 @@
 
 RealtimeUpdate = {
 
-     receive: function(message)
+     _userid: 0,
+     _replyurl: '',
+     _favorurl: '',
+     _deleteurl: '',
+
+     init: function(userid, replyurl, favorurl, deleteurl)
+     {
+          RealtimeUpdate._userid = userid;
+          RealtimeUpdate._replyurl = replyurl;
+          RealtimeUpdate._favorurl = favorurl;
+          RealtimeUpdate._deleteurl = deleteurl;
+     },
+
+     receive: function(data)
      {
           id = data.id;
 
@@ -17,9 +30,8 @@ RealtimeUpdate = {
           $("#notices_primary .notices").prepend(noticeItem, true);
           $("#notices_primary .notice:first").css({display:"none"});
           $("#notices_primary .notice:first").fadeIn(1000);
-          NoticeHover();
           NoticeReply();
-     }
+     },
 
      makeNoticeItem: function(data)
      {
@@ -63,12 +75,12 @@ RealtimeUpdate = {
           ni = ni+"</div>"+
                "<div class=\"notice-options\">";
 
-          if (_userid != 0) {
+          if (RealtimeUpdate._userid != 0) {
                var input = $("form#form_notice fieldset input#token");
                var session_key = input.val();
                ni = ni+RealtimeUpdate.makeFavoriteForm(data['id'], session_key);
                ni = ni+RealtimeUpdate.makeReplyLink(data['id'], data['user']['screen_name']);
-               if (_userid == data['user']['id']) {
+               if (RealtimeUpdate._userid == data['user']['id']) {
                     ni = ni+RealtimeUpdate.makeDeleteLink(data['id']);
                }
           }
@@ -76,13 +88,13 @@ RealtimeUpdate = {
           ni = ni+"</div>"+
                "</li>";
           return ni;
-     }
+     },
 
      makeFavoriteForm: function(id, session_key)
      {
           var ff;
 
-          ff = "<form id=\"favor-"+id+"\" class=\"form_favor\" method=\"post\" action=\""+_favorurl+"\">"+
+          ff = "<form id=\"favor-"+id+"\" class=\"form_favor\" method=\"post\" action=\""+RealtimeUpdate._favorurl+"\">"+
                "<fieldset>"+
                "<legend>Favor this notice</legend>"+ // XXX: i18n
                "<input name=\"token-"+id+"\" type=\"hidden\" id=\"token-"+id+"\" value=\""+session_key+"\"/>"+
@@ -91,7 +103,7 @@ RealtimeUpdate = {
                "</fieldset>"+
                "</form>";
           return ff;
-     }
+     },
 
      makeReplyLink: function(id, nickname)
      {
@@ -99,17 +111,17 @@ RealtimeUpdate = {
           rl = "<dl class=\"notice_reply\">"+
                "<dt>Reply to this notice</dt>"+
                "<dd>"+
-               "<a href=\""+_replyurl+"?replyto="+nickname+"\" title=\"Reply to this notice\">Reply <span class=\"notice_id\">"+id+"</span>"+
+               "<a href=\""+RealtimeUpdate._replyurl+"?replyto="+nickname+"\" title=\"Reply to this notice\">Reply <span class=\"notice_id\">"+id+"</span>"+
                "</a>"+
                "</dd>"+
                "</dl>";
           return rl;
-     }
+     },
 
      makeDeleteLink: function(id)
      {
           var dl, delurl;
-          delurl = _deleteurl.replace("0000000000", id);
+          delurl = RealtimeUpdate._deleteurl.replace("0000000000", id);
 
           dl = "<dl class=\"notice_delete\">"+
                "<dt>Delete this notice</dt>"+
@@ -119,6 +131,5 @@ RealtimeUpdate = {
                "</dl>";
 
           return dl;
-     }
-};
-
+     },
+}

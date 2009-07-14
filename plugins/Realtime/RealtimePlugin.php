@@ -65,12 +65,12 @@ class RealtimePlugin extends Plugin
 
         switch ($action->trimmed('action')) {
          case 'public':
-            $timeline = '/timelines/public';
+            $timeline = 'timelines-public';
             break;
          case 'tag':
             $tag = $action->trimmed('tag');
             if (!empty($tag)) {
-                $timeline = '/timelines/tag/'.$tag;
+                $timeline = 'timelines-tag-'.$tag;
             } else {
                 return true;
             }
@@ -112,14 +112,14 @@ class RealtimePlugin extends Plugin
 
         if ($notice->is_local ||
             ($notice->is_local == 0 && !common_config('public', 'localonly'))) {
-            $timelines[] = '/timelines/public';
+            $timelines[] = 'timelines-public';
         }
 
         $tags = $this->getNoticeTags($notice);
 
         if (!empty($tags)) {
             foreach ($tags as $tag) {
-                $timelines[] = '/timelines/tag/' . $tag;
+                $timelines[] = 'timelines-tag-' . $tag;
             }
         }
 
@@ -198,13 +198,13 @@ class RealtimePlugin extends Plugin
 
     function _getScripts()
     {
-        return array(common_local_path('plugins/Realtime/realtimeupdater.js'),
-                     common_local_path('plugins/Realtime/json2.js'));
+        return array(common_path('plugins/Realtime/realtimeupdate.js'),
+                     common_path('plugins/Realtime/json2.js'));
     }
 
     function _updateInitialize($timeline, $user_id)
     {
-        return '; ';
+        return "RealtimeUpdate.init($user_id, \"$this->replyurl\", \"$this->favorurl\", \"$this->deleteurl\"); ";
     }
 
     function _connect()
