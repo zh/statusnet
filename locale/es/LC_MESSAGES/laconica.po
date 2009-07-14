@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-25 16:24+0000\n"
-"PO-Revision-Date: 2009-01-30 19:59+0000\n"
-"Last-Translator: Paula Salazar <psalazar@cmet.net>\n"
+"PO-Revision-Date: 2009-07-12 05:49+0000\n"
+"Last-Translator: Jorge <xchido@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -45,10 +45,11 @@ msgstr "%1$s / Actualizaciones en respuesta a %2$s"
 #: ../actions/invite.php:168 actions/invite.php:176 actions/invite.php:211
 #, php-format
 msgid "%1$s has invited you to join them on %2$s"
-msgstr "%1$s te ha invitado a unirte a ellos en %2$s"
+msgstr "%1$s te ha invitado a que te unas con el/ellos en %2$s"
 
 #: ../actions/invite.php:170
 #, php-format
+#, fuzzy
 msgid ""
 "%1$s has invited you to join them on %2$s (%3$s).\n"
 "\n"
@@ -94,12 +95,13 @@ msgstr ""
 "\n"
 "%5$s\n"
 "\n"
-"Si quieres probar el servicio, cliquea el enlace debajo para aceptar la "
-"invitación.\n"
+"Si quieres inscribirte y probar el servicio, haz click en enlace debajo para "
+"aceptar la invitación.\n"
 "\n"
 "%6$s\n"
 "\n"
-"Si no, puedes ignorar este mensaje. Gracias por tu paciencia y tiempo.\n"
+"Si no deseas inscribirte puedes ignorar este mensaje. Gracias por tu "
+"paciencia y tiempo.\n"
 "\n"
 "Sinceramente, %2$s\n"
 
@@ -147,7 +149,7 @@ msgstr "%s (%s)"
 #: actions/publicrss.php:90
 #, php-format
 msgid "%s Public Stream"
-msgstr "Corriente pública de %s"
+msgstr "Mensajes publicos de %s"
 
 #: ../actions/all.php:47 ../actions/allrss.php:60
 #: ../actions/twitapistatuses.php:238 ../lib/stream.php:51 actions/all.php:47
@@ -4348,19 +4350,19 @@ msgid "These are the people who listen to "
 msgstr "Estas son las personas que escuchan"
 
 #: actions/subscribers.php:67
-#, fuzzy, php-format
+#, php-format
 msgid "These are the people who "
 msgstr "Estas son las personas que "
 
 #: actions/subscriptions.php:52
-#, fuzzy, php-format
+#, php-format
 msgid "%s subscriptions"
 msgstr "Suscripciones %s"
 
 #: actions/subscriptions.php:54
 #, fuzzy, php-format
 msgid "%s subscriptions, page %d"
-msgstr "Suscripciones, página %d"
+msgstr "%s suscripciones, página %d"
 
 #: actions/subscriptions.php:65
 #, fuzzy
@@ -4393,9 +4395,8 @@ msgid "Not logged in"
 msgstr "No conectado."
 
 #: actions/tagother.php:39
-#, fuzzy
 msgid "No id argument."
-msgstr "No existe argumento de Id."
+msgstr "No existe argumento de ID."
 
 #: actions/tagother.php:65
 #, php-format
@@ -4435,12 +4436,11 @@ msgstr ""
 "Usar este formulario para agregar tags a tus suscriptores o suscripciones."
 
 #: actions/tagrss.php:35
-#, fuzzy
 msgid "No such tag."
 msgstr "No existe ese tag."
 
 #: actions/tagrss.php:66
-#, fuzzy, php-format
+#, php-format
 msgid "Microblog tagged with %s"
 msgstr "Microblog marcado con %s"
 
@@ -4466,7 +4466,6 @@ msgid "Twitter user name"
 msgstr "Nombre de usuario de Twitter"
 
 #: actions/twittersettings.php:126
-#, fuzzy
 msgid "Twitter password"
 msgstr "Contraseña de Twitter"
 
@@ -4494,9 +4493,8 @@ msgid "No profile id in request."
 msgstr "Ningún perfil de Id en solicitud."
 
 #: actions/unsubscribe.php:57
-#, fuzzy
 msgid "No profile with that id."
-msgstr "Ninfún perfil con ese Id."
+msgstr "Ningún perfil con ese ID."
 
 #: actions/unsubscribe.php:71
 #, fuzzy

@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-25 16:24+0000\n"
-"PO-Revision-Date: 2009-01-26 15:04+0000\n"
-"Last-Translator: JaeHo Choi <sayhi2choi@gmail.com>\n"
+"PO-Revision-Date: 2009-05-19 00:01+0000\n"
+"Last-Translator: Roberto A Tsuchiya <beto.tsuchiya@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,7 +39,7 @@ msgstr "個人情報を除く:パスワード、メールアドレス、IMアド
 #: ../actions/showstream.php:400 ../lib/stream.php:109
 #: actions/showstream.php:418 lib/mailbox.php:164 lib/stream.php:76
 msgid " from "
-msgstr ""
+msgstr "から"
 
 #: ../actions/twitapistatuses.php:478 actions/twitapistatuses.php:412
 #: actions/twitapistatuses.php:347
@@ -142,18 +142,18 @@ msgstr "%s & ともだち"
 #: actions/twitapistatuses.php:33
 #, php-format
 msgid "%s public timeline"
-msgstr ""
+msgstr "%s パブリックタイムライン"
 
 #: ../lib/mail.php:206 lib/mail.php:212 lib/mail.php:411
 #, php-format
 msgid "%s status"
-msgstr ""
+msgstr "%s ステータス"
 
 #: ../actions/twitapistatuses.php:338 actions/twitapistatuses.php:265
 #: actions/twitapistatuses.php:199
 #, php-format
 msgid "%s timeline"
-msgstr ""
+msgstr "%s タイムライン"
 
 #: ../actions/twitapistatuses.php:52 actions/twitapistatuses.php:52
 #: actions/twitapistatuses.php:36
@@ -194,7 +194,7 @@ msgstr "1～64字以内で、小文字アルファベット、数字、スペー
 
 #: ../actions/register.php:152 actions/register.php:166
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
-msgstr ""
+msgstr "1～64字以内で、小文字アルファベット、数字、スペース（句読点を除く）が必須です"
 
 #: ../actions/password.php:42 actions/profilesettings.php:181
 #: actions/passwordsettings.php:102
@@ -209,7 +209,7 @@ msgstr "6文字以上。お忘れなく！"
 #: ../actions/register.php:154 actions/register.php:168
 #: actions/register.php:373
 msgid "6 or more characters. Required."
-msgstr ""
+msgstr "6文字以上が必須です。"
 
 #: ../actions/imsettings.php:197 actions/imsettings.php:205
 #, php-format
@@ -304,7 +304,7 @@ msgstr "OpenIDを追加"
 #: ../lib/settingsaction.php:97 lib/settingsaction.php:91
 #: lib/accountsettingsaction.php:117
 msgid "Add or remove OpenIDs"
-msgstr ""
+msgstr "OpenIDを追加または削除"
 
 #: ../actions/emailsettings.php:38 ../actions/imsettings.php:39
 #: ../actions/smssettings.php:39 actions/emailsettings.php:39
@@ -420,7 +420,7 @@ msgstr "バイオグラフィが長すぎます。（最長140字）"
 
 #: ../lib/deleteaction.php:41 lib/deleteaction.php:41 lib/deleteaction.php:69
 msgid "Can't delete this notice."
-msgstr ""
+msgstr "この通知を削除できません。"
 
 #: ../actions/updateprofile.php:119 actions/updateprofile.php:120
 #: actions/updateprofile.php:123
@@ -454,7 +454,7 @@ msgstr "その Jabbar ID を正規化できません"
 #: ../actions/emailsettings.php:181 actions/emailsettings.php:199
 #: actions/emailsettings.php:311
 msgid "Cannot normalize that email address"
-msgstr ""
+msgstr "そのメールアドレスを正規化できません"
 
 #: ../actions/password.php:45 actions/profilesettings.php:184
 #: actions/passwordsettings.php:110
@@ -464,7 +464,7 @@ msgstr "変更"
 #: ../lib/settingsaction.php:88 lib/settingsaction.php:88
 #: lib/accountsettingsaction.php:114
 msgid "Change email handling"
-msgstr ""
+msgstr "メールの扱いを変更"
 
 #: ../actions/password.php:32 actions/profilesettings.php:36
 #: actions/passwordsettings.php:58
@@ -473,12 +473,12 @@ msgstr "パスワードの変更"
 
 #: ../lib/settingsaction.php:94 lib/accountsettingsaction.php:111
 msgid "Change your password"
-msgstr ""
+msgstr "パスワードの変更"
 
 #: ../lib/settingsaction.php:85 lib/settingsaction.php:85
 #: lib/accountsettingsaction.php:105
 msgid "Change your profile settings"
-msgstr ""
+msgstr "プロファイル設定の変更"
 
 #: ../actions/password.php:43 ../actions/recoverpassword.php:181
 #: ../actions/register.php:155 ../actions/smssettings.php:65
@@ -505,7 +505,7 @@ msgstr "確認作業がキャンセルされました。"
 #: ../actions/smssettings.php:63 actions/smssettings.php:63
 #: actions/smssettings.php:118
 msgid "Confirmation code"
-msgstr ""
+msgstr "確認コード"
 
 #: ../actions/confirmaddress.php:38 actions/confirmaddress.php:38
 #: actions/confirmaddress.php:80
@@ -739,7 +739,7 @@ msgstr ""
 #: ../actions/emailsettings.php:32 actions/emailsettings.php:32
 #: actions/emailsettings.php:60
 msgid "Email Settings"
-msgstr ""
+msgstr "メール設定"
 
 #: ../actions/register.php:73 actions/register.php:80 actions/register.php:163
 msgid "Email address already exists."
@@ -756,7 +756,7 @@ msgstr ""
 
 #: ../actions/invite.php:129 actions/invite.php:137 actions/invite.php:174
 msgid "Email addresses"
-msgstr ""
+msgstr "メールアドレス"
 
 #: ../actions/recoverpassword.php:191 actions/recoverpassword.php:197
 #: actions/recoverpassword.php:231
@@ -1011,7 +1011,7 @@ msgstr "不正なアバターURL '%s'"
 #: ../actions/invite.php:55 actions/invite.php:62 actions/invite.php:70
 #, php-format
 msgid "Invalid email address: %s"
-msgstr ""
+msgstr "不正なメールアドレス：%s'"
 
 #: ../actions/updateprofile.php:98 actions/updateprofile.php:99
 #: actions/updateprofile.php:102
@@ -4306,16 +4306,15 @@ msgstr "マイクロブログ by %s"
 
 #: actions/twitapiblocks.php:47
 msgid "Block user failed."
-msgstr ""
+msgstr "ユーザのブロックに失敗しました。"
 
 #: actions/twitapiblocks.php:69
 msgid "Unblock user failed."
-msgstr ""
+msgstr "ユーザのアンブロックに失敗しました。"
 
 #: actions/twitapiusers.php:48
-#, fuzzy
 msgid "Not found."
-msgstr "リクエストがありません！"
+msgstr "見つかりません。"
 
 #: actions/twittersettings.php:71
 msgid "Add your Twitter account to automatically send "
@@ -4326,52 +4325,47 @@ msgid "Twitter user name"
 msgstr ""
 
 #: actions/twittersettings.php:126
-#, fuzzy
 msgid "Twitter password"
-msgstr "新しいパスワード"
+msgstr "Twitterパスワード"
 
 #: actions/twittersettings.php:228
 msgid "Twitter Friends"
-msgstr ""
+msgstr "Twitterフレンド"
 
 #: actions/twittersettings.php:327
 msgid "Username must have only numbers, "
 msgstr ""
 
 #: actions/twittersettings.php:341
-#, fuzzy, php-format
+#, php-format
 msgid "Unable to retrieve account information "
-msgstr "メール承認を削除できません"
+msgstr "アカウント情報を取得できません"
 
 #: actions/unblock.php:108
-#, fuzzy
 msgid "Error removing the block."
-msgstr "ユーザ保存エラー"
+msgstr "ブロックの削除エラー"
 
 #: actions/unsubscribe.php:50
-#, fuzzy
 msgid "No profile id in request."
-msgstr "サーバから提供されるプロファイルURLはありません。"
+msgstr "リクエスト内にプロファイルIDがありません。"
 
 #: actions/unsubscribe.php:57
-#, fuzzy
 msgid "No profile with that id."
-msgstr "リモートプロファイルと一致するものがありません"
+msgstr "そのIDはプロファイルではありません。"
 
 #: actions/unsubscribe.php:71
-#, fuzzy
 msgid "Unsubscribed"
-msgstr "サブスクライブ中止"
+msgstr "サブスクライブ解除済み"
 
 #: actions/usergroups.php:63
 #, php-format
 msgid "%s groups"
-msgstr ""
+msgstr "%s グループ"
 
 #: actions/usergroups.php:65
 #, php-format
 msgid "%s groups, page %d"
-msgstr ""
+msgstr "%s グループ, %d ページ"
 
 #: classes/Notice.php:104
 #, fuzzy
@@ -4388,17 +4382,16 @@ msgid "You are banned from posting notices on this site."
 msgstr ""
 
 #: lib/accountsettingsaction.php:108
-#, fuzzy
 msgid "Upload an avatar"
-msgstr "アバターの更新に失敗しました。"
+msgstr "アバターのアップロード"
 
 #: lib/accountsettingsaction.php:119
 msgid "Other"
-msgstr ""
+msgstr "その他"
 
 #: lib/accountsettingsaction.php:120
 msgid "Other options"
-msgstr ""
+msgstr "その他のオプション"
 
 #: lib/action.php:130
 #, php-format
@@ -4407,7 +4400,7 @@ msgstr ""
 
 #: lib/action.php:145
 msgid "Untitled page"
-msgstr ""
+msgstr "名称未設定ページ"
 
 #: lib/action.php:316
 msgid "Primary site navigation"
@@ -4419,43 +4412,39 @@ msgstr ""
 
 #: lib/action.php:325
 msgid "Search for people or text"
-msgstr ""
+msgstr "人々かテキストを検索"
 
 #: lib/action.php:328
-#, fuzzy
 msgid "Account"
-msgstr "About"
+msgstr "アカウント"
 
 #: lib/action.php:328
 msgid "Change your email, avatar, password, profile"
-msgstr ""
+msgstr "メールアドレス、アバター、パスワード、プロパティの変更"
 
 #: lib/action.php:330
 msgid "Connect to IM, SMS, Twitter"
-msgstr ""
+msgstr "IM、SMS、Twitterに接続"
 
 #: lib/action.php:332
 msgid "Logout from the site"
-msgstr ""
+msgstr "サイトからログアウト"
 
 #: lib/action.php:335
 msgid "Login to the site"
-msgstr ""
+msgstr "サイトへログイン"
 
 #: lib/action.php:338
-#, fuzzy
 msgid "Create an account"
 msgstr "アカウントを作成"
 
 #: lib/action.php:341
-#, fuzzy
 msgid "Login with OpenID"
-msgstr "そのようなOpenIDはありません。"
+msgstr "OpenIDでログイン"
 
 #: lib/action.php:344
-#, fuzzy
 msgid "Help me!"
-msgstr "ヘルプ"
+msgstr "助けて！"
 
 #: lib/action.php:362
 #, fuzzy
@@ -4486,16 +4475,15 @@ msgstr ""
 
 #: lib/action.php:635
 msgid "license."
-msgstr ""
+msgstr "ライセンス。"
 
 #: lib/blockform.php:123 lib/blockform.php:153
-#, fuzzy
 msgid "Block this user"
-msgstr "そのようなユーザはいません。"
+msgstr "このユーザをブロックする"
 
 #: lib/blockform.php:153
 msgid "Block"
-msgstr ""
+msgstr "ブロック"
 
 #: lib/disfavorform.php:114 lib/disfavorform.php:140
 msgid "Disfavor this notice"
@@ -4507,27 +4495,24 @@ msgid "To use the %s Facebook Application you need to login "
 msgstr ""
 
 #: lib/facebookaction.php:271
-#, fuzzy
 msgid " a new account."
-msgstr "アカウントを作成"
+msgstr "新しいアカウント"
 
 #: lib/facebookaction.php:557 lib/mailbox.php:214 lib/noticelist.php:354
-#, fuzzy
 msgid "Published"
-msgstr "パブリック"
+msgstr "発行済"
 
 #: lib/favorform.php:114 lib/favorform.php:140
-#, fuzzy
 msgid "Favor this notice"
-msgstr "そのような通知はありません。"
+msgstr "この通知をお気に入りにする"
 
 #: lib/feedlist.php:64
 msgid "Export data"
-msgstr ""
+msgstr "データのエクスポート"
 
 #: lib/galleryaction.php:121
 msgid "Filter tags"
-msgstr ""
+msgstr "タグのフィルター"
 
 #: lib/galleryaction.php:131
 msgid "All"
@@ -4535,7 +4520,7 @@ msgstr ""
 
 #: lib/galleryaction.php:137
 msgid "Tag"
-msgstr ""
+msgstr "タグ"
 
 #: lib/galleryaction.php:138
 msgid "Choose a tag to narrow list"
@@ -4543,22 +4528,19 @@ msgstr ""
 
 #: lib/galleryaction.php:139
 msgid "Go"
-msgstr ""
+msgstr "移動"
 
 #: lib/groupeditform.php:148
-#, fuzzy
 msgid "URL of the homepage or blog of the group or topic"
-msgstr "ホームページ、ブログ、プロファイル、その他サイトの URL"
+msgstr "グループやトピックのホームページやブログの URL"
 
 #: lib/groupeditform.php:151
-#, fuzzy
 msgid "Description"
-msgstr "サブスクリプション"
+msgstr "概要"
 
 #: lib/groupeditform.php:153
-#, fuzzy
 msgid "Describe the group or topic in 140 chars"
-msgstr "140字以内で自己紹介"
+msgstr "グループやトピックを140字以内記述"
 
 #: lib/groupeditform.php:158
 #, fuzzy
@@ -4568,39 +4550,38 @@ msgstr "いる場所, 例えば \"City, State (or Region), Country\""
 
 #: lib/groupnav.php:84 lib/searchgroupnav.php:84
 msgid "Group"
-msgstr ""
+msgstr "グループ"
 
 #: lib/groupnav.php:100
 msgid "Admin"
-msgstr ""
+msgstr "管理者"
 
 #: lib/groupnav.php:101
 #, php-format
 msgid "Edit %s group properties"
-msgstr ""
+msgstr "%s グループプロパティを編集"
 
 #: lib/groupnav.php:106
-#, fuzzy
 msgid "Logo"
-msgstr "ログアウト"
+msgstr "ロゴ"
 
 #: lib/groupnav.php:107
 #, php-format
 msgid "Add or edit %s logo"
-msgstr ""
+msgstr "%s ロゴの追加や編集"
 
 #: lib/groupsbymemberssection.php:71
 msgid "Groups with most members"
-msgstr ""
+msgstr "メンバー数が多いグループ"
 
 #: lib/groupsbypostssection.php:71
 msgid "Groups with most posts"
-msgstr ""
+msgstr "投稿が多いグループ"
 
 #: lib/grouptagcloudsection.php:56
 #, php-format
 msgid "Tags in %s group's notices"
-msgstr ""
+msgstr "%s グループの通知にあるタグ"
 
 #: lib/htmloutputter.php:104
 #, fuzzy
@@ -4608,28 +4589,24 @@ msgid "This page is not available in a "
 msgstr "このページはあなたが承認したメディアタイプでは利用できません。"
 
 #: lib/joinform.php:114
-#, fuzzy
 msgid "Join"
-msgstr "ログイン"
+msgstr "参加"
 
 #: lib/leaveform.php:114
-#, fuzzy
 msgid "Leave"
-msgstr "保存"
+msgstr "離れる"
 
 #: lib/logingroupnav.php:76
-#, fuzzy
 msgid "Login with a username and password"
-msgstr "不正なユーザ名またはパスワード。"
+msgstr "ユーザ名とパスワードでログイン"
 
 #: lib/logingroupnav.php:79
-#, fuzzy
 msgid "Sign up for a new account"
-msgstr "アカウントを作成"
+msgstr "新しいアカウントでサインアップ"
 
 #: lib/logingroupnav.php:82
 msgid "Login or register with OpenID"
-msgstr ""
+msgstr "OpenIDでログインまたは登録"
 
 #: lib/mail.php:175
 #, php-format
@@ -4644,14 +4621,14 @@ msgid "%1$s is now listening to "
 msgstr "%1$s は %2$s であなたの通知を聞いています。"
 
 #: lib/mail.php:254
-#, fuzzy, php-format
+#, php-format
 msgid "Location: %s\n"
-msgstr "場所"
+msgstr "場所: %s\n"
 
 #: lib/mail.php:256
-#, fuzzy, php-format
+#, php-format
 msgid "Homepage: %s\n"
-msgstr "ホームページ"
+msgstr "ホームページ: %s\n"
 
 #: lib/mail.php:258
 #, php-format
@@ -4663,7 +4640,7 @@ msgstr ""
 #: lib/mail.php:461
 #, php-format
 msgid "You've been nudged by %s"
-msgstr ""
+msgstr "あなたは %s に突かれています"
 
 #: lib/mail.php:465
 #, php-format
@@ -4681,17 +4658,15 @@ msgstr ""
 
 #: lib/messageform.php:110
 msgid "Send a direct notice"
-msgstr ""
+msgstr "直接通知を送る"
 
 #: lib/noticeform.php:125
-#, fuzzy
 msgid "Send a notice"
-msgstr "新しい通知"
+msgstr "通知を送る"
 
 #: lib/noticeform.php:152
-#, fuzzy
 msgid "Available characters"
-msgstr "6文字以上"
+msgstr "利用可能な文字"
 
 #: lib/noticelist.php:426
 #, fuzzy
@@ -4700,32 +4675,31 @@ msgstr "...に対しての返信"
 
 #: lib/noticelist.php:447 lib/noticelist.php:450
 msgid "Reply to this notice"
-msgstr ""
+msgstr "この通知へ返信"
 
 #: lib/noticelist.php:451
-#, fuzzy
 msgid "Reply"
 msgstr "返信"
 
 #: lib/noticelist.php:471 lib/noticelist.php:474
 msgid "Delete this notice"
-msgstr ""
+msgstr "この通知を削除"
 
 #: lib/noticelist.php:474
 msgid "Delete"
-msgstr ""
+msgstr "削除"
 
 #: lib/nudgeform.php:116
 msgid "Nudge this user"
-msgstr ""
+msgstr "このユーザを突く"
 
 #: lib/nudgeform.php:128
 msgid "Nudge"
-msgstr ""
+msgstr "突く"
 
 #: lib/nudgeform.php:128
 msgid "Send a nudge to this user"
-msgstr ""
+msgstr "このユーザへ突きを送る"
 
 #: lib/personaltagcloudsection.php:56
 #, php-format
@@ -4734,7 +4708,7 @@ msgstr ""
 
 #: lib/profilelist.php:182
 msgid "(none)"
-msgstr ""
+msgstr "(なし)"
 
 #: lib/publicgroupnav.php:76
 msgid "Public"
@@ -4742,33 +4716,31 @@ msgstr "パブリック"
 
 #: lib/publicgroupnav.php:80
 msgid "User groups"
-msgstr ""
+msgstr "ユーザグループ"
 
 #: lib/publicgroupnav.php:82 lib/publicgroupnav.php:83
 msgid "Recent tags"
-msgstr ""
+msgstr "最近のタグ"
 
 #: lib/publicgroupnav.php:86
 msgid "Featured"
 msgstr ""
 
 #: lib/publicgroupnav.php:90
-#, fuzzy
 msgid "Popular"
-msgstr "ピープルサーチ"
+msgstr "人気"
 
 #: lib/searchgroupnav.php:82
-#, fuzzy
 msgid "Notice"
 msgstr "通知"
 
 #: lib/searchgroupnav.php:85
 msgid "Find groups on this site"
-msgstr ""
+msgstr "このサイト上のグループを検索する"
 
 #: lib/section.php:89
 msgid "Untitled section"
-msgstr ""
+msgstr "名称未設定のセクション"
 
 #: lib/subgroupnav.php:81
 #, fuzzy, php-format
@@ -4806,20 +4778,19 @@ msgstr ""
 
 #: lib/topposterssection.php:74
 msgid "Top posters"
-msgstr ""
+msgstr "上位投稿者"
 
 #: lib/unblockform.php:120 lib/unblockform.php:150
-#, fuzzy
 msgid "Unblock this user"
-msgstr "そのようなユーザはいません。"
+msgstr "このユーザをアンブロックする"
 
 #: lib/unblockform.php:150
 msgid "Unblock"
-msgstr ""
+msgstr "アンブロック"
 
 #: lib/unsubscribeform.php:113 lib/unsubscribeform.php:137
 msgid "Unsubscribe from this user"
-msgstr ""
+msgstr "このユーザからのサブスクライブを解除する"
 
 #, fuzzy
 #~ msgid "Delete my account"
