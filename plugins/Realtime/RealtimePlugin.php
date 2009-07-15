@@ -61,16 +61,16 @@ class RealtimePlugin extends Plugin
 
     function onEndShowScripts($action)
     {
-        $timeline = null;
+        $path = null;
 
         switch ($action->trimmed('action')) {
          case 'public':
-            $timeline = 'timelines-public';
+            $path = array('public');
             break;
          case 'tag':
             $tag = $action->trimmed('tag');
             if (!empty($tag)) {
-                $timeline = 'timelines-tag-'.$tag;
+                $path = array('tag', $tag);
             } else {
                 return true;
             }
@@ -78,6 +78,8 @@ class RealtimePlugin extends Plugin
          default:
             return true;
         }
+
+        $timeline = $this->_pathToChannel($path);
 
         $scripts = $this->_getScripts();
 
@@ -106,30 +108,31 @@ class RealtimePlugin extends Plugin
 
     function onEndNoticeSave($notice)
     {
-        $timelines = array();
+        $paths = array();
 
         // XXX: Add other timelines; this is just for the public one
 
         if ($notice->is_local ||
             ($notice->is_local == 0 && !common_config('public', 'localonly'))) {
-            $timelines[] = 'timelines-public';
+            $paths[] = array('public');
         }
 
         $tags = $this->getNoticeTags($notice);
 
         if (!empty($tags)) {
             foreach ($tags as $tag) {
-                $timelines[] = 'timelines-tag-' . $tag;
+                $paths[] = array('tag', $tag);
             }
         }
 
-        if (count($timelines) > 0) {
+        if (count($paths) > 0) {
 
             $json = $this->noticeAsJson($notice);
 
             $this->_connect();
 
-            foreach ($timelines as $timeline) {
+            foreach ($paths as $path) {
+                $timeline = $this->_pathToChannel($path);
                 $this->_publish($timeline, $json);
             }
 
@@ -217,5 +220,10 @@ class RealtimePlugin extends Plugin
 
     function _disconnect()
     {
+    }
+
+    function _pathToChannel($path)
+    {
+        return '';
     }
 }
