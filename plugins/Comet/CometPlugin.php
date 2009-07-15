@@ -31,6 +31,8 @@ if (!defined('LACONICA')) {
     exit(1);
 }
 
+require_once INSTALLDIR.'/plugins/Realtime/RealtimePlugin.php';
+
 /**
  * Plugin to do realtime updates using Comet
  *
@@ -41,165 +43,65 @@ if (!defined('LACONICA')) {
  * @link     http://laconi.ca/
  */
 
-class CometPlugin extends Plugin
+class CometPlugin extends RealtimePlugin
 {
-    var $server = null;
+    public $server   = null;
+    public $username = null;
+    public $password = null;
+    public $prefix   = null;
+    protected $bay   = null;
 
-    function __construct($server=null, $username=null, $password=null)
+    function __construct($server=null, $username=null, $password=null, $prefix=null)
     {
         $this->server   = $server;
         $this->username = $username;
         $this->password = $password;
+        $this->prefix   = $prefix;
 
         parent::__construct();
     }
 
-    function onEndShowScripts($action)
+    function _getScripts()
     {
-        $timeline = null;
+        $scripts = parent::_getScripts();
 
-        $this->log(LOG_DEBUG, 'got action ' . $action->trimmed('action'));
+        $ours = array('jquery.comet.js', 'cometupdate.js');
 
-        switch ($action->trimmed('action')) {
-         case 'public':
-            $timeline = '/timelines/public';
-            break;
-         case 'tag':
-            $tag = $action->trimmed('tag');
-            if (!empty($tag)) {
-                $timeline = '/timelines/tag/'.$tag;
-            } else {
-                return true;
-            }
-            break;
-         default:
-            return true;
+        foreach ($ours as $script) {
+            $scripts[] = common_path('plugins/Comet/'.$script);
         }
 
-        $scripts = array('jquery.comet.js', 'json2.js', 'updatetimeline.js');
-
-        foreach ($scripts as $script) {
-            $action->element('script', array('type' => 'text/javascript',
-                                             'src' => common_path('plugins/Comet/'.$script)),
-                         ' ');
-        }
-
-        $user = common_current_user();
-
-        if (!empty($user->id)) {
-            $user_id = $user->id;
-        } else {
-            $user_id = 0;
-        }
-
-        $replyurl = common_local_url('newnotice');
-        $favorurl = common_local_url('favor');
-        // FIXME: need to find a better way to pass this pattern in
-        $deleteurl = common_local_url('deletenotice',
-                                      array('notice' => '0000000000'));
-
-        $action->elementStart('script', array('type' => 'text/javascript'));
-        $action->raw("$(document).ready(function() { updater.init(\"$this->server\", \"$timeline\", $user_id, \"$replyurl\", \"$favorurl\", \"$deleteurl\"); });");
-        $action->elementEnd('script');
-
-        return true;
+        return $scripts;
     }
 
-    function onEndNoticeSave($notice)
+    function _updateInitialize($timeline, $user_id)
     {
-        $this->log(LOG_INFO, "Called for save notice.");
-
-        $timelines = array();
-
-        // XXX: Add other timelines; this is just for the public one
-
-        if ($notice->is_local ||
-            ($notice->is_local == 0 && !common_config('public', 'localonly'))) {
-            $timelines[] = '/timelines/public';
-        }
-
-        $tags = $this->getNoticeTags($notice);
-
-        if (!empty($tags)) {
-            foreach ($tags as $tag) {
-                $timelines[] = '/timelines/tag/' . $tag;
-            }
-        }
-
-        if (count($timelines) > 0) {
-            // Require this, since we need it
-            require_once(INSTALLDIR.'/plugins/Comet/bayeux.class.inc.php');
-
-            $json = $this->noticeAsJson($notice);
-
-            // Bayeux? Comet? Huh? These terms confuse me
-            $bay = new Bayeux($this->server, $this->user, $this->password);
-
-            foreach ($timelines as $timeline) {
-                $this->log(LOG_INFO, "Posting notice $notice->id to '$timeline'.");
-                $bay->publish($timeline, $json);
-            }
-
-            $bay = NULL;
-        }
-
-        return true;
+        $script = parent::_updateInitialize($timeline, $user_id);
+        return $script." CometUpdate.init(\"$this->server\", \"$timeline\", $user_id, \"$this->replyurl\", \"$this->favorurl\", \"$this->deleteurl\");";
     }
 
-    function noticeAsJson($notice)
+    function _connect()
     {
-        // FIXME: this code should be abstracted to a neutral third
-        // party, like Notice::asJson(). I'm not sure of the ethics
-        // of refactoring from within a plugin, so I'm just abusing
-        // the TwitterApiAction method. Don't do this unless you're me!
-
-        require_once(INSTALLDIR.'/lib/twitterapi.php');
-
-        $act = new TwitterApiAction('/dev/null');
-
-        $arr = $act->twitter_status_array($notice, true);
-        $arr['url'] = $notice->bestUrl();
-        $arr['html'] = htmlspecialchars($notice->rendered);
-        $arr['source'] = htmlspecialchars($arr['source']);
-
-        if (!empty($notice->reply_to)) {
-            $reply_to = Notice::staticGet('id', $notice->reply_to);
-            if (!empty($reply_to)) {
-                $arr['in_reply_to_status_url'] = $reply_to->bestUrl();
-            }
-            $reply_to = null;
-        }
-
-        $profile = $notice->getProfile();
-        $arr['user']['profile_url'] = $profile->profileurl;
-
-        return $arr;
+        require_once INSTALLDIR.'/plugins/Comet/bayeux.class.inc.php';
+        // Bayeux? Comet? Huh? These terms confuse me
+        $this->bay = new Bayeux($this->server, $this->user, $this->password);
     }
 
-    function getNoticeTags($notice)
+    function _publish($timeline, $json)
     {
-        $tags = null;
-
-        $nt = new Notice_tag();
-        $nt->notice_id = $notice->id;
-
-        if ($nt->find()) {
-            $tags = array();
-            while ($nt->fetch()) {
-                $tags[] = $nt->tag;
-            }
-        }
-
-        $nt->free();
-        $nt = null;
-
-        return $tags;
+        $this->bay->publish($timeline, $json);
     }
 
-    // Push this up to Plugin
-
-    function log($level, $msg)
+    function _disconnect()
     {
-        common_log($level, get_class($this) . ': '.$msg);
+        unset($this->bay);
+    }
+
+    function _pathToChannel($path)
+    {
+        if (!empty($this->prefix)) {
+            array_unshift($path, $this->prefix);
+        }
+        return '/' . implode('/', $path);
     }
 }

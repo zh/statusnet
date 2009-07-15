@@ -1,41 +1,24 @@
-// update the local timeline from a Comet server
+// add a notice encoded as JSON into the current timeline
 //
 
-var updater = function()
-{
-     var _server;
-     var _timeline;
-     var _userid;
-     var _replyurl;
-     var _favorurl;
-     var _deleteurl;
-     var _cometd;
+RealtimeUpdate = {
 
-     return {
-          init: function(server, timeline, userid, replyurl, favorurl, deleteurl)
-          {
-               _cometd = $.cometd; // Uses the default Comet object
-               _cometd.setLogLevel('debug');
-               _cometd.init(server);
-               _server = server;
-               _timeline = timeline;
-               _userid = userid;
-               _favorurl = favorurl;
-               _replyurl = replyurl;
-               _deleteurl = deleteurl;
-               _cometd.subscribe(timeline, receive);
-               $(window).unload(leave);
-          }
-     }
+     _userid: 0,
+     _replyurl: '',
+     _favorurl: '',
+     _deleteurl: '',
 
-     function leave()
+     init: function(userid, replyurl, favorurl, deleteurl)
      {
-          _cometd.disconnect();
-     }
+          RealtimeUpdate._userid = userid;
+          RealtimeUpdate._replyurl = replyurl;
+          RealtimeUpdate._favorurl = favorurl;
+          RealtimeUpdate._deleteurl = deleteurl;
+     },
 
-     function receive(message)
+     receive: function(data)
      {
-          id = message.data.id;
+          id = data.id;
 
           // Don't add it if it already exists
 
@@ -43,15 +26,14 @@ var updater = function()
                return;
           }
 
-          var noticeItem = makeNoticeItem(message.data);
+          var noticeItem = RealtimeUpdate.makeNoticeItem(data);
           $("#notices_primary .notices").prepend(noticeItem, true);
           $("#notices_primary .notice:first").css({display:"none"});
           $("#notices_primary .notice:first").fadeIn(1000);
-          NoticeHover();
           NoticeReply();
-     }
+     },
 
-     function makeNoticeItem(data)
+     makeNoticeItem: function(data)
      {
           user = data['user'];
           html = data['html'].replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"');
@@ -93,26 +75,26 @@ var updater = function()
           ni = ni+"</div>"+
                "<div class=\"notice-options\">";
 
-          if (_userid != 0) {
+          if (RealtimeUpdate._userid != 0) {
                var input = $("form#form_notice fieldset input#token");
                var session_key = input.val();
-               ni = ni+makeFavoriteForm(data['id'], session_key);
-               ni = ni+makeReplyLink(data['id'], data['user']['screen_name']);
-               if (_userid == data['user']['id']) {
-                    ni = ni+makeDeleteLink(data['id']);
+               ni = ni+RealtimeUpdate.makeFavoriteForm(data['id'], session_key);
+               ni = ni+RealtimeUpdate.makeReplyLink(data['id'], data['user']['screen_name']);
+               if (RealtimeUpdate._userid == data['user']['id']) {
+                    ni = ni+RealtimeUpdate.makeDeleteLink(data['id']);
                }
           }
 
           ni = ni+"</div>"+
                "</li>";
           return ni;
-     }
+     },
 
-     function makeFavoriteForm(id, session_key)
+     makeFavoriteForm: function(id, session_key)
      {
           var ff;
 
-          ff = "<form id=\"favor-"+id+"\" class=\"form_favor\" method=\"post\" action=\""+_favorurl+"\">"+
+          ff = "<form id=\"favor-"+id+"\" class=\"form_favor\" method=\"post\" action=\""+RealtimeUpdate._favorurl+"\">"+
                "<fieldset>"+
                "<legend>Favor this notice</legend>"+ // XXX: i18n
                "<input name=\"token-"+id+"\" type=\"hidden\" id=\"token-"+id+"\" value=\""+session_key+"\"/>"+
@@ -121,25 +103,25 @@ var updater = function()
                "</fieldset>"+
                "</form>";
           return ff;
-     }
+     },
 
-     function makeReplyLink(id, nickname)
+     makeReplyLink: function(id, nickname)
      {
           var rl;
           rl = "<dl class=\"notice_reply\">"+
                "<dt>Reply to this notice</dt>"+
                "<dd>"+
-               "<a href=\""+_replyurl+"?replyto="+nickname+"\" title=\"Reply to this notice\">Reply <span class=\"notice_id\">"+id+"</span>"+
+               "<a href=\""+RealtimeUpdate._replyurl+"?replyto="+nickname+"\" title=\"Reply to this notice\">Reply <span class=\"notice_id\">"+id+"</span>"+
                "</a>"+
                "</dd>"+
                "</dl>";
           return rl;
-     }
+     },
 
-     function makeDeleteLink(id)
+     makeDeleteLink: function(id)
      {
           var dl, delurl;
-          delurl = _deleteurl.replace("0000000000", id);
+          delurl = RealtimeUpdate._deleteurl.replace("0000000000", id);
 
           dl = "<dl class=\"notice_delete\">"+
                "<dt>Delete this notice</dt>"+
@@ -149,6 +131,5 @@ var updater = function()
                "</dl>";
 
           return dl;
-     }
-}();
-
+     },
+}
