@@ -22,8 +22,8 @@ var CometUpdate = function()
                _favorurl = favorurl;
                _replyurl = replyurl;
                _deleteurl = deleteurl;
-               _cometd.subscribe(timeline, RealtimeUpdater.receive);
-               $(window).unload(leave);
+               _cometd.subscribe(timeline, function(message) { RealtimeUpdate.receive(message.data) });
+               $(window).unload(function() { _cometd.disconnect(); } );
           }
      }
 }();
