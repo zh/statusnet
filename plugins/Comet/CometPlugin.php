@@ -48,13 +48,15 @@ class CometPlugin extends RealtimePlugin
     public $server   = null;
     public $username = null;
     public $password = null;
+    public $prefix   = null;
     protected $bay   = null;
 
-    function __construct($server=null, $username=null, $password=null)
+    function __construct($server=null, $username=null, $password=null, $prefix=null)
     {
         $this->server   = $server;
         $this->username = $username;
         $this->password = $password;
+        $this->prefix   = $prefix;
 
         parent::__construct();
     }
@@ -74,11 +76,13 @@ class CometPlugin extends RealtimePlugin
 
     function _updateInitialize($timeline, $user_id)
     {
-        return "CometUpdate.init(\"$this->server\", \"$timeline\", $user_id, \"$this->replyurl\", \"$this->favorurl\", \"$this->deleteurl\");";
+        $script = parent::_updateInitialize($timeline, $user_id);
+        return $script." CometUpdate.init(\"$this->server\", \"$timeline\", $user_id, \"$this->replyurl\", \"$this->favorurl\", \"$this->deleteurl\");";
     }
 
     function _connect()
     {
+        require_once INSTALLDIR.'/plugins/Comet/bayeux.class.inc.php';
         // Bayeux? Comet? Huh? These terms confuse me
         $this->bay = new Bayeux($this->server, $this->user, $this->password);
     }
@@ -91,5 +95,13 @@ class CometPlugin extends RealtimePlugin
     function _disconnect()
     {
         unset($this->bay);
+    }
+
+    function _pathToChannel($path)
+    {
+        if (!empty($this->prefix)) {
+            array_unshift($path, $this->prefix);
+        }
+        return '/' . implode('/', $path);
     }
 }
