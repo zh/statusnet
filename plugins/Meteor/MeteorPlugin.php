@@ -76,7 +76,7 @@ class MeteorPlugin extends RealtimePlugin
     function _updateInitialize($timeline, $user_id)
     {
         $script = parent::_updateInitialize($timeline, $user_id);
-        return $script." MeteorUpdater.init(\"$this->webserver\", $this->webport, \"{$this->channelbase}{$timeline}\");";
+        return $script." MeteorUpdater.init(\"$this->webserver\", $this->webport, \"{$timeline}\");";
     }
 
     function _connect()
@@ -93,8 +93,7 @@ class MeteorPlugin extends RealtimePlugin
     {
         $message = json_encode($message);
         $message = addslashes($message);
-        common_debug("Message = $message\n");
-        $cmd = "ADDMESSAGE {$this->channelbase}{$channel} $message\n";
+        $cmd = "ADDMESSAGE $channel $message\n";
         $cnt = fwrite($this->_socket, $cmd);
         $result = fgets($this->_socket);
         if (preg_match('/^ERR (.*)$/', $result, $matches)) {
@@ -107,5 +106,15 @@ class MeteorPlugin extends RealtimePlugin
     {
         $cnt = fwrite($this->_socket, "QUIT\n");
         @fclose($this->_socket);
+    }
+
+    // Meteord flips out with default '/' separator
+
+    function _pathToChannel($path)
+    {
+        if (!empty($this->channelbase)) {
+            array_unshift($path, $this->channelbase);
+        }
+        return implode('-', $path);
     }
 }
