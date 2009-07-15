@@ -120,7 +120,6 @@ create table notice (
     conversation integer /*id of root notice in this conversation' */ references notice (id)
 
 
-
 /*    FULLTEXT(content) */
 );
 create index notice_profile_id_idx on notice using btree(profile_id);
