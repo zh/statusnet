@@ -283,7 +283,7 @@ function NoticeAttachments() {
         },
         timeout : 0,
         autoHide : true,
-        css : {'max-width':'542px', 'top':'22.5%', 'left':'32.5%'}
+        css : {'max-width':'542px', 'top':'5%', 'left':'32.5%'}
     };
 
     $('#content .notice a.attachment').click(function() {
