@@ -171,4 +171,12 @@ class TwitapilaconicaAction extends TwitterapiAction
         parent::handle($args);
         $this->serverError(_('API method under construction.'), 501);
     }
+
+    function oembed($args, $apidata)
+    {
+        parent::handle($args);
+        $url = $args['url'];
+        print_r($apidata);
+        die("oembed!");
+    }
 }

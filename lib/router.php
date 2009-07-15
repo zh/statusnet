@@ -394,6 +394,10 @@ class Router
                     array('action' => 'api',
                           'apiaction' => 'laconica'));
 
+        $m->connect('api/laconica/:method',
+                    array('action' => 'api',
+                          'apiaction' => 'laconica'));
+
         // Groups
         $m->connect('api/laconica/groups/:method/:argument',
                     array('action' => 'api',
