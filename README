@@ -3,7 +3,7 @@ README
 ------
 
 Laconica 0.8.0 ("Shiny Happy People")
-8 July 2009
+15 July 2009
 
 This is the README file for Laconica, the Open Source microblogging
 platform. It includes installation instructions, descriptions of
@@ -116,6 +116,16 @@ This is a major feature release since version 0.7.4, released May 31
   as default TOS for Laconica sites.
 - Better command-line handling for scripts, including standard options
   and ability to set hostname and path from the command line.
+- An experimental plugin to use Meteor (http://www.meteorserver.org/)
+  for "real-time" updates.
+- A new framework for "real-time" updates, making it easier to develop
+  plugins for different browser-based update modes.
+- RSS 2.0 and Atom feeds for groups.
+- RSS 2.0 and Atom feeds for tags.
+- Attachments can be sent by email.
+- Attachments are encoded as enclosures in RSS 2.0 and Atom.
+- Notices with attachments display in Facebook as media inline.
+
 - Many, many bug fixes.
 
 Prerequisites
