@@ -140,6 +140,12 @@ class MessageForm extends Form
                                               'rows' => 4,
                                               'name' => 'content'),
                             ($this->content) ? $this->content : '');
+        $this->out->elementStart('dl', 'form_note');
+        $this->out->element('dt', null, _('Available characters'));
+        $this->out->element('dd', array('id' => 'notice_text-count'),
+                            '140');
+        $this->out->elementEnd('dl');
+
     }
 
     /**
