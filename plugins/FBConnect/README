@@ -1,0 +1,77 @@
+This plugin allows you to utilize Facebook Connect with Laconica.
+Supported Facebook Connect features:
+
+- Authenticate (register/login/logout -- works similar to OpenID)
+- Associate an existing Laconica account with a Facebook account
+- Disconnect a Facebook account from a Laconica account
+
+Future planned functionality:
+
+- Invite Facebook friends to use your Laconica installation
+- Auto-subscribe Facebook friends already using Laconica
+- Share Laconica favorite notices to your Facebook stream
+
+To use the plugin you will need to configure a Facebook application
+to point to your Laconica installation (see the Installation section
+below).
+
+Installation
+============
+
+If you don't already have the built-in Facebook application configured,
+you'll need to log into Facebook and create/configure a new application.
+Please follow the instructions in the section titled, "Setting Up Your
+Application and Getting an API Key," on the following page of the
+Facebook developer wiki:
+
+    http://wiki.developers.facebook.com/index.php/Connect/Setting_Up_Your_Site
+
+If you already are using the build-in Laconica Facebook application,
+you can modify your existing application's configuration using the
+Facebook Developer Application on Facebook.  Use it to edit your
+application settings, and under the 'Connect' tab, change the 'Connect
+URL' to be the main URL for your Laconica site.  E.g.:
+
+    http://SITE/PATH_TO_LACONICA/
+
+After you application is created and configured, you'll need to add its
+API key and secret to your Laconica config.php file:
+
+    $config['facebook']['apikey'] = 'APIKEY';
+    $config['facebook']['secret'] = 'SECRET';
+
+Finally, to enable the plugin, add the following stanza to your
+config.php:
+
+    require_once(INSTALLDIR.'/plugins/FBConnect/FBConnectPlugin.php');
+    $fbc = new FBConnectPlugin();
+
+To try out the plugin, fire up your browser and connect to:
+
+    http://SITE/PATH_TO_LACONICA/main/facebooklogin
+
+or, if you do not have fancy URLs turned on:
+
+    http://SITE/PATH_TO_LACONICA/index.php/main/facebooklogin
+
+You should see a page with a blue button that says: "Connect with
+Facebook".
+
+Connect/Disconnect existing account
+===================================
+
+If the Facebook Connect plugin is enabled, there will be a new Facebook
+Connect Settings tab under each user's Connect menu. Users can connect
+and disconnect to their Facebook accounts from it.  Note:  Before a user
+can disconnect from Facebook, she must set a normal Laconica password.
+Otherwise, she might not be able to login in to her account in the
+future.  This is usually only required for users who have used Facebook
+Connect to register their Laconica account, and therefore haven't
+already set a local password.
+
+Helpful links
+=============
+
+Facebook Connect Homepage:
+http://developers.facebook.com/connect.php
+

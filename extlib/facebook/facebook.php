@@ -107,13 +107,13 @@ class Facebook {
    * @param bool  resolve_auth_token  convert an auth token into a session
    */
   public function validate_fb_params($resolve_auth_token=true) {
-    $this->fb_params = $this->get_valid_fb_params($_POST, 48*3600, 'fb_sig');
+    $this->fb_params = $this->get_valid_fb_params($_POST, 48 * 3600, 'fb_sig');
 
     // note that with preload FQL, it's possible to receive POST params in
     // addition to GET, so use a different prefix to differentiate them
     if (!$this->fb_params) {
-      $fb_params = $this->get_valid_fb_params($_GET, 48*3600, 'fb_sig');
-      $fb_post_params = $this->get_valid_fb_params($_POST, 48*3600, 'fb_post_sig');
+      $fb_params = $this->get_valid_fb_params($_GET, 48 * 3600, 'fb_sig');
+      $fb_post_params = $this->get_valid_fb_params($_POST, 48 * 3600, 'fb_post_sig');
       $this->fb_params = array_merge($fb_params, $fb_post_params);
     }
 
